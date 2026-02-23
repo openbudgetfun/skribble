@@ -17,6 +17,7 @@ coverage/
 .packages
 .pub/
 pubspec.lock
+.flutter-plugins-dependencies
 
 # IDE
 *.iml
@@ -30,3 +31,6 @@ pubspec.lock
 
 # eget binaries (installed locally)
 .eget/bin/
+
+# Screenshots
+.screenshots/

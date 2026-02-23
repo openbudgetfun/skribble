@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:skribble_rough/skribble_rough.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
-class WiredCombo extends HookWidget {
-  final dynamic value;
-  final List<DropdownMenuItem<dynamic>> items;
-  final bool? Function(dynamic)? onChanged;
+class WiredCombo<T> extends HookWidget {
+  final T? value;
+  final List<DropdownMenuItem<T>> items;
+  final bool? Function(T?)? onChanged;
 
   const WiredCombo({
     super.key,
@@ -19,7 +19,7 @@ class WiredCombo extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final internalValue = useState(value);
+    final internalValue = useState<T?>(value);
     final height = useRef(60.0);
 
     useEffect(() {
@@ -48,7 +48,7 @@ class WiredCombo extends HookWidget {
             height: height.value,
             width: double.infinity,
             child: DropdownButtonHideUnderline(
-              child: DropdownButton(
+              child: DropdownButton<T>(
                 itemHeight: height.value,
                 isExpanded: true,
                 elevation: 0,
@@ -58,7 +58,7 @@ class WiredCombo extends HookWidget {
                 ),
                 value: internalValue.value,
                 items: items.map((item) {
-                  return DropdownMenuItem<dynamic>(
+                  return DropdownMenuItem<T>(
                     value: item.value,
                     child: Stack(
                       children: [
@@ -72,7 +72,7 @@ class WiredCombo extends HookWidget {
                     ),
                   );
                 }).toList(),
-                onChanged: (dynamic changedValue) {
+                onChanged: (changedValue) {
                   final isControlled = onChanged?.call(changedValue) ?? false;
 
                   if (isControlled) {

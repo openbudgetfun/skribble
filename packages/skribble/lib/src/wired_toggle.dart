@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:skribble_rough/skribble_rough.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'const.dart';
+import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
 class WiredToggle extends HookWidget {
@@ -31,7 +33,9 @@ class WiredToggle extends HookWidget {
       ).animate(CurvedAnimation(parent: controller, curve: Curves.easeIn)),
     );
     final toggle = useCallback(() {
-      isSwitched.value ? controller.forward() : controller.reverse();
+      unawaited(
+        isSwitched.value ? controller.forward() : controller.reverse(),
+      );
     });
 
     useEffect(() {

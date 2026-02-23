@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:skribble_rough/skribble_rough.dart';
+import '../rough/skribble_rough.dart';
 
 abstract class WiredPainterBase {
   void paintRough(

@@ -1,0 +1,197 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:skribble/skribble.dart';
+
+import 'package:skribble_storybook/components/component_showcase.dart';
+
+class NavigationPage extends HookWidget {
+  const NavigationPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final bottomNavIndex = useState(0);
+    final tabIndex = useState(0);
+    final navBarIndex = useState(0);
+    final railIndex = useState(0);
+
+    return Scaffold(
+      appBar: WiredAppBar(
+        leading: const BackButton(),
+        title: const Text('Navigation'),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          ShowcaseSection(
+            title: 'WiredAppBar',
+            children: [
+              ComponentShowcase(
+                title: 'App Bar',
+                description: 'Hand-drawn bottom border.',
+                child: SizedBox(
+                  height: 60,
+                  child: WiredAppBar(
+                    title: const Text('Sample Title'),
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.settings),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredBottomNavigationBar',
+            children: [
+              ComponentShowcase(
+                title: 'Bottom Nav',
+                description: 'Hand-drawn selection indicator.',
+                child: WiredBottomNavigationBar(
+                  currentIndex: bottomNavIndex.value,
+                  onTap: (i) => bottomNavIndex.value = i,
+                  items: const [
+                    WiredBottomNavItem(icon: Icons.home, label: 'Home'),
+                    WiredBottomNavItem(
+                      icon: Icons.search,
+                      label: 'Search',
+                    ),
+                    WiredBottomNavItem(
+                      icon: Icons.person,
+                      label: 'Profile',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredTabBar',
+            children: [
+              ComponentShowcase(
+                title: 'Tab Bar',
+                description: 'Hand-drawn underline indicator.',
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    WiredTabBar(
+                      tabs: const ['Tab 1', 'Tab 2', 'Tab 3'],
+                      selectedIndex: tabIndex.value,
+                      onTap: (i) => tabIndex.value = i,
+                    ),
+                    SizedBox(
+                      height: 60,
+                      child: Center(
+                        child: Text('Tab ${tabIndex.value + 1} content'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredNavigationBar',
+            children: [
+              ComponentShowcase(
+                title: 'Navigation Bar (M3)',
+                description: 'Material 3 style with rounded rect indicators.',
+                child: WiredNavigationBar(
+                  selectedIndex: navBarIndex.value,
+                  onDestinationSelected: (i) => navBarIndex.value = i,
+                  destinations: const [
+                    WiredNavigationDestination(
+                      icon: Icons.home,
+                      label: 'Home',
+                    ),
+                    WiredNavigationDestination(
+                      icon: Icons.explore,
+                      label: 'Explore',
+                    ),
+                    WiredNavigationDestination(
+                      icon: Icons.bookmark,
+                      label: 'Saved',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredNavigationRail',
+            children: [
+              ComponentShowcase(
+                title: 'Navigation Rail',
+                description: 'Vertical navigation.',
+                child: SizedBox(
+                  height: 200,
+                  child: WiredNavigationRail(
+                    selectedIndex: railIndex.value,
+                    onDestinationSelected: (i) => railIndex.value = i,
+                    destinations: const [
+                      WiredNavigationRailDestination(
+                        icon: Icons.inbox,
+                        label: 'Inbox',
+                      ),
+                      WiredNavigationRailDestination(
+                        icon: Icons.send,
+                        label: 'Sent',
+                      ),
+                      WiredNavigationRailDestination(
+                        icon: Icons.drafts,
+                        label: 'Drafts',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredDrawer',
+            children: [
+              ComponentShowcase(
+                title: 'Drawer',
+                description: 'Hand-drawn border drawer.',
+                child: WiredButton(
+                  onPressed: () {
+                    unawaited(showDialog<void>(
+                      context: context,
+                      builder: (ctx) => Dialog(
+                        child: SizedBox(
+                          width: 280,
+                          height: 400,
+                          child: WiredDrawer(
+                            child: ListView(
+                              children: [
+                                WiredListTile(
+                                  leading: const Icon(Icons.home),
+                                  title: const Text('Home'),
+                                  onTap: () => Navigator.pop(ctx),
+                                ),
+                                WiredListTile(
+                                  leading: const Icon(Icons.settings),
+                                  title: const Text('Settings'),
+                                  onTap: () => Navigator.pop(ctx),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ));
+                  },
+                  child: const Text('Open Drawer Preview'),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

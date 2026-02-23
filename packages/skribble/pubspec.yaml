@@ -11,10 +11,8 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.21.0
-  google_fonts: ^8.0.1
-  skribble_rough:
-    path: ../skribble_rough
+  flutter_hooks: ^0.21.3
+  google_fonts: ^8.0.2
 
 dev_dependencies:
   flutter_test:
