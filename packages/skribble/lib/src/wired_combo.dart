@@ -1,0 +1,91 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:skribble_rough/skribble_rough.dart';
+
+import 'canvas/wired_canvas.dart';
+import 'wired_base.dart';
+
+class WiredCombo extends HookWidget {
+  final dynamic value;
+  final List<DropdownMenuItem<dynamic>> items;
+  final bool? Function(dynamic)? onChanged;
+
+  const WiredCombo({
+    super.key,
+    required this.items,
+    this.value,
+    this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final internalValue = useState(value);
+    final height = useRef(60.0);
+
+    useEffect(() {
+      internalValue.value = value;
+      return null;
+    }, [value]);
+
+    return Container(
+      color: Colors.transparent,
+      padding: EdgeInsets.zero,
+      margin: EdgeInsets.zero,
+      height: height.value,
+      child: Stack(
+        children: [
+          Positioned(
+            right: 10.0,
+            top: 20.0,
+            child: WiredCanvas(
+              painter: WiredInvertedTriangleBase(),
+              fillerType: RoughFilter.hachureFiller,
+              fillerConfig: FillerConfig.build(hachureGap: 2),
+              size: Size(18.0, 18.0),
+            ),
+          ),
+          SizedBox(
+            height: height.value,
+            width: double.infinity,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                itemHeight: height.value,
+                isExpanded: true,
+                elevation: 0,
+                icon: Visibility(
+                  visible: false,
+                  child: Icon(Icons.arrow_downward),
+                ),
+                value: internalValue.value,
+                items: items.map((item) {
+                  return DropdownMenuItem<dynamic>(
+                    value: item.value,
+                    child: Stack(
+                      children: [
+                        WiredCanvas(
+                          painter: WiredRectangleBase(),
+                          fillerType: RoughFilter.noFiller,
+                          size: Size(double.infinity, height.value),
+                        ),
+                        Positioned(top: 20.0, child: item.child),
+                      ],
+                    ),
+                  );
+                }).toList(),
+                onChanged: (dynamic changedValue) {
+                  final isControlled = onChanged?.call(changedValue) ?? false;
+
+                  if (isControlled) {
+                    return;
+                  }
+
+                  internalValue.value = changedValue;
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -1,0 +1,11 @@
+name: skribble_lints
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+resolution: workspace
+
+dependencies:
+  very_good_analysis: ^7.0.0

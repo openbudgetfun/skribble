@@ -1,0 +1,32 @@
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+.pre-commit-config.yaml
+
+# direnv
+.direnv
+
+# FVM
+.fvm/
+
+# Dart
+.dart_tool/
+build/
+coverage/
+.packages
+.pub/
+pubspec.lock
+
+# IDE
+*.iml
+.idea/
+*.swp
+*.swo
+.vscode/
+
+# macOS
+.DS_Store
+
+# eget binaries (installed locally)
+.eget/bin/

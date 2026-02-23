@@ -1,0 +1,22 @@
+name: skribble_rough
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+  flutter: ^3.41.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  skribble_lints:
+    path: ../skribble_lints
+
+flutter:
+  uses-material-design: true
