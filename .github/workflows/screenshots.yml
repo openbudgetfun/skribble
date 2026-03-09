@@ -1,0 +1,45 @@
+name: Screenshots
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  capture:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: capture screenshots
+        run: |
+          set -e
+          mkdir -p .screenshots
+          cd apps/skribble_storybook
+          flutter test integration_test/screenshots_test.dart
+        shell: devenv shell -- bash -e {0}
+
+      - name: install b2 cli
+        run: pip install b2sdk b2
+        shell: bash
+
+      - name: upload screenshots to backblaze
+        env:
+          B2_APPLICATION_KEY_ID: ${{ secrets.B2_APPLICATION_KEY_ID }}
+          B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
+        run: |
+          set -e
+          b2 authorize-account "$B2_APPLICATION_KEY_ID" "$B2_APPLICATION_KEY"
+          b2 sync --replaceNewer .screenshots/ b2://skribble-screenshots/
+        shell: bash
+
+      - name: upload screenshots artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: .screenshots/
+          retention-days: 30

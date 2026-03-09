@@ -1,0 +1,84 @@
+name: PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: run analysis
+        id: analysis
+        run: |
+          set -e
+
+          echo "## Automated PR Review" > review.md
+          echo "" >> review.md
+
+          # Run dart analyze
+          echo "### Static Analysis" >> review.md
+          if dart analyze --fatal-infos . 2>&1; then
+            echo "All analysis checks passed." >> review.md
+          else
+            echo "Analysis issues found. See details above." >> review.md
+          fi
+          echo "" >> review.md
+
+          # Check formatting
+          echo "### Formatting" >> review.md
+          if dprint check 2>&1; then
+            echo "All formatting checks passed." >> review.md
+          else
+            echo "Formatting issues found. Run \`dprint fmt\` to fix." >> review.md
+          fi
+          echo "" >> review.md
+
+          # Run tests
+          echo "### Tests" >> review.md
+          if melos flutter-test 2>&1; then
+            echo "All tests passed." >> review.md
+          else
+            echo "Some tests failed. See CI logs for details." >> review.md
+          fi
+          echo "" >> review.md
+
+          # Check for missing tests
+          echo "### Coverage Check" >> review.md
+          changed_files=$(git diff --name-only origin/main...HEAD -- 'packages/skribble/lib/src/wired_*.dart' | sed 's|lib/src/|test/widgets/|' | sed 's|\.dart|_test.dart|')
+          missing_tests=""
+          for test_file in $changed_files; do
+            full_path="packages/skribble/$test_file"
+            if [ ! -f "$full_path" ]; then
+              missing_tests="$missing_tests\n- \`$full_path\`"
+            fi
+          done
+
+          if [ -n "$missing_tests" ]; then
+            echo "Missing test files for changed widgets:" >> review.md
+            echo -e "$missing_tests" >> review.md
+          else
+            echo "All changed widgets have corresponding test files." >> review.md
+          fi
+
+          echo "" >> review.md
+          echo "---" >> review.md
+          echo "*This review was generated automatically by the Skribble CI pipeline.*" >> review.md
+        shell: devenv shell -- bash -e {0}
+
+      - name: post review comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          path: review.md

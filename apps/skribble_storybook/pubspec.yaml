@@ -1,0 +1,28 @@
+name: skribble_storybook
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+  flutter: ^3.41.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_hooks: ^0.21.3
+  skribble:
+    path: ../../packages/skribble
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  patrol: ^4.1.1
+  patrol_finders: ^3.1.0
+  skribble_lints:
+    path: ../../packages/skribble_lints
+
+flutter:
+  uses-material-design: true

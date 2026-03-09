@@ -18,15 +18,6 @@ extra_changelog_sections = [
   { name = "Documentation", types = ["docs"] },
 ]
 
-[packages.skribble_rough]
-versioned_files = ["packages/skribble_rough/pubspec.yaml"]
-scopes = ["skribble_rough"]
-changelog = "packages/skribble_rough/CHANGELOG.md"
-extra_changelog_sections = [
-  { name = "Notes", types = ["note"] },
-  { name = "Documentation", types = ["docs"] },
-]
-
 [packages.skribble_lints]
 versioned_files = ["packages/skribble_lints/pubspec.yaml"]
 scopes = ["skribble_lints"]

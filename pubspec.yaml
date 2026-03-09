@@ -6,8 +6,8 @@ environment:
 
 workspace:
   - packages/skribble
-  - packages/skribble_rough
   - packages/skribble_lints
+  - apps/skribble_storybook
 
 dev_dependencies:
   melos: ^7.4.0
@@ -42,3 +42,7 @@ melos:
     upgrade:
       description: Upgrade dependencies in all packages.
       exec: dart pub upgrade
+
+    screenshot:
+      description: Capture component screenshots via integration tests.
+      run: cd apps/skribble_storybook && flutter test integration_test/screenshots_test.dart

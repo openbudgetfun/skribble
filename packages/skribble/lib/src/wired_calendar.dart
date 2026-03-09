@@ -70,13 +70,15 @@ class WiredCalendar extends HookWidget {
       firstOfMonthDate.value = DateTime(d.year, d.month, 1);
     }
 
-    void refresh() {
-      setInitialConditions();
-      computeCalendar();
-    }
-
+    // Navigate to the selected date's month when selection changes.
     useEffect(() {
-      refresh();
+      setInitialConditions();
+      return null;
+    }, [selectedDate.value]);
+
+    // Recompute the calendar grid when the month or selection changes.
+    useEffect(() {
+      computeCalendar();
       return null;
     }, [selectedDate.value, firstOfMonthDate.value]);
 
@@ -261,9 +263,9 @@ const _months = [
 ];
 
 const _cSecond = 1000;
-const _cMinute = _cSecond * 60;
-const _cHour = _cMinute * 60;
-const _cDay = _cHour * 24;
+const int _cMinute = _cSecond * 60;
+const int _cHour = _cMinute * 60;
+const int _cDay = _cHour * 24;
 
 class CalendarCell {
   final String value;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:skribble_rough/skribble_rough.dart';
 
 import 'const.dart';
+import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
 class WiredButton extends WiredBaseWidget {

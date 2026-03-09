@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skribble_rough/skribble_rough.dart';
+import '../rough/skribble_rough.dart';
 
 import 'wired_painter_base.dart';
 

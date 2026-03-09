@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:skribble_rough/skribble_rough.dart';
 
 import 'canvas/wired_painter_base.dart';
 import 'const.dart';
+import 'rough/skribble_rough.dart';
 
 /// Utility class with default Paint objects for wired widgets.
 class WiredBase {
@@ -167,6 +167,44 @@ class WiredLineBase extends WiredPainterBase {
       figure,
       WiredBase.pathPainter(strokeWidth),
       WiredBase.fillPaint,
+    );
+  }
+}
+
+/// Base wired rounded rectangle painter.
+class WiredRoundedRectangleBase extends WiredPainterBase {
+  final BorderRadius borderRadius;
+  final Color fillColor;
+  final double strokeWidth;
+
+  WiredRoundedRectangleBase({
+    this.borderRadius = const BorderRadius.all(Radius.circular(12)),
+    this.fillColor = filledColor,
+    this.strokeWidth = 2,
+  });
+
+  @override
+  void paintRough(
+    Canvas canvas,
+    Size size,
+    DrawConfig drawConfig,
+    Filler filler,
+  ) {
+    final Generator generator = Generator(drawConfig, filler);
+    final Drawable figure = generator.roundedRectangle(
+      0,
+      0,
+      size.width,
+      size.height,
+      borderRadius.topLeft.x,
+      borderRadius.topRight.x,
+      borderRadius.bottomRight.x,
+      borderRadius.bottomLeft.x,
+    );
+    canvas.drawRough(
+      figure,
+      WiredBase.pathPainter(strokeWidth),
+      WiredBase.fillPainter(fillColor),
     );
   }
 }

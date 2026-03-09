@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:skribble_rough/skribble_rough.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'const.dart';
+import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
 class WiredRadio<T> extends HookWidget {
