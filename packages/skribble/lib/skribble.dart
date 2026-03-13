@@ -29,6 +29,7 @@ export 'src/wired_elevated_button.dart';
 export 'src/wired_expansion_tile.dart';
 export 'src/wired_fab.dart';
 export 'src/wired_filter_chip.dart';
+export 'src/wired_form.dart';
 export 'src/wired_icon_button.dart';
 export 'src/wired_input.dart';
 export 'src/wired_list_tile.dart';
