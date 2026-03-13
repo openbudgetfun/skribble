@@ -288,6 +288,10 @@ const int _cMinute = _cSecond * 60;
 const int _cHour = _cMinute * 60;
 const int _cDay = _cHour * 24;
 
+/// A data object representing a single cell in a `WiredCalendar` grid.
+///
+/// Each cell has a display [text], a [value] for selection callbacks,
+/// and flags for [selected], [dimmed], and [disabled] states.
 class CalendarCell {
   final String value;
   final String text;
