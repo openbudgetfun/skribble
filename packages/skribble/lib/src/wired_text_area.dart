@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A multi-line text input with a hand-drawn border.
 class WiredTextArea extends HookWidget {
@@ -27,11 +28,12 @@ class WiredTextArea extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Stack(
       children: [
         Positioned.fill(
           child: WiredCanvas(
-            painter: WiredRectangleBase(),
+            painter: WiredRectangleBase(fillColor: theme.fillColor),
             fillerType: RoughFilter.noFiller,
           ),
         ),

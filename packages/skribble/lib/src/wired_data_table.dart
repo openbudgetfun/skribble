@@ -37,7 +37,7 @@ class WiredDataTable extends HookWidget {
           children: [
             Positioned.fill(
               child: WiredCanvas(
-                painter: WiredRectangleBase(),
+                painter: WiredRectangleBase(fillColor: theme.fillColor),
                 fillerType: RoughFilter.noFiller,
               ),
             ),

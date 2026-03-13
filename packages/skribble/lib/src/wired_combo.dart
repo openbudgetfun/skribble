@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 class WiredCombo<T> extends HookWidget {
   final T? value;
@@ -19,6 +20,7 @@ class WiredCombo<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final internalValue = useState<T?>(value);
     final height = useRef(60.0);
 
@@ -63,7 +65,9 @@ class WiredCombo<T> extends HookWidget {
                     child: Stack(
                       children: [
                         WiredCanvas(
-                          painter: WiredRectangleBase(),
+                          painter: WiredRectangleBase(
+                            fillColor: theme.fillColor,
+                          ),
                           fillerType: RoughFilter.noFiller,
                           size: Size(double.infinity, height.value),
                         ),

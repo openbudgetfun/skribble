@@ -84,7 +84,7 @@ class _WiredToggleButton extends HookWidget {
           children: [
             Positioned.fill(
               child: WiredCanvas(
-                painter: WiredRectangleBase(),
+                painter: WiredRectangleBase(fillColor: theme.fillColor),
                 fillerType: selected
                     ? RoughFilter.hachureFiller
                     : RoughFilter.noFiller,

@@ -61,7 +61,7 @@ class WiredCupertinoPicker extends HookWidget {
               child: SizedBox(
                 height: itemExtent,
                 child: WiredCanvas(
-                  painter: WiredRectangleBase(),
+                  painter: WiredRectangleBase(fillColor: theme.fillColor),
                   fillerType: RoughFilter.noFiller,
                 ),
               ),

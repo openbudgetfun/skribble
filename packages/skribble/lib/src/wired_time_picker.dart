@@ -105,7 +105,7 @@ class _TimeField extends HookWidget {
           alignment: Alignment.center,
           children: [
             WiredCanvas(
-              painter: WiredRectangleBase(),
+              painter: WiredRectangleBase(fillColor: theme.fillColor),
               fillerType: RoughFilter.noFiller,
             ),
             Text(
