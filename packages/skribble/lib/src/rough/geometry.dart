@@ -3,6 +3,7 @@ import 'dart:math';
 import 'core.dart';
 import 'entities.dart';
 
+/// Rotates a list of [points] around [center] by [degrees].
 List<PointD> rotatePoints(List<PointD>? points, PointD center, double degrees) {
   if (points != null && points.isNotEmpty) {
     return points.map((p) => rotatePoint(p, center, degrees)).toList();
@@ -11,6 +12,7 @@ List<PointD> rotatePoints(List<PointD>? points, PointD center, double degrees) {
   }
 }
 
+/// Rotates a single [point] around [center] by [degrees].
 PointD rotatePoint(PointD point, PointD center, double degrees) {
   final double angle = (pi / 180) * degrees;
   final double angleCos = cos(angle);
@@ -26,6 +28,7 @@ PointD rotatePoint(PointD point, PointD center, double degrees) {
   );
 }
 
+/// Rotates a list of [lines] around [center] by [degrees].
 List<Line> rotateLines(List<Line> lines, PointD center, double degrees) => lines
     .map(
       (line) => Line(
@@ -35,8 +38,10 @@ List<Line> rotateLines(List<Line> lines, PointD center, double degrees) => lines
     )
     .toList();
 
+/// The orientation of three ordered points — used for intersection tests.
 enum PointsOrientation { collinear, clockwise, counterclockwise }
 
+/// Returns the orientation of the ordered triplet (p, q, r).
 PointsOrientation getOrientation(PointD p, PointD q, PointD r) {
   final double val = (q.x - p.x) * (r.y - q.y) - (q.y - p.y) * (r.x - q.x);
   if (val == 0) {
@@ -47,6 +52,7 @@ PointsOrientation getOrientation(PointD p, PointD q, PointD r) {
       : PointsOrientation.counterclockwise;
 }
 
+/// Returns whether [point] lies on the segment from [source] to [target].
 bool onSegmentPoints(PointD source, PointD point, PointD target) =>
     Line(source, target).onSegment(point);
 
