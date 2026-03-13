@@ -196,6 +196,51 @@ class LayoutPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredPageScaffold',
+            children: [
+              ComponentShowcase(
+                title: 'Page Scaffold',
+                description: 'Hand-drawn page scaffold with nav bar.',
+                child: SizedBox(
+                  height: 200,
+                  child: WiredPageScaffold(
+                    navigationBar: WiredAppBar(
+                      title: const Text('Sketch Page'),
+                    ),
+                    child: const Center(child: Text('Page content')),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredTabScaffold',
+            children: [
+              ComponentShowcase(
+                title: 'Tab Scaffold',
+                description: 'Tabbed layout with hand-drawn tab bar.',
+                child: SizedBox(
+                  height: 240,
+                  child: WiredTabScaffold(
+                    tabs: const [
+                      WiredTabItem(icon: Icons.home, label: 'Home'),
+                      WiredTabItem(icon: Icons.search, label: 'Search'),
+                      WiredTabItem(icon: Icons.person, label: 'Profile'),
+                    ],
+                    tabBuilder: (_, i) {
+                      const labels = [
+                        'Home view',
+                        'Search view',
+                        'Profile view',
+                      ];
+                      return Center(child: Text(labels[i]));
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
