@@ -37,7 +37,7 @@ Status meanings:
 | Switch | `WiredSwitch` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
 | Slider | `WiredSlider` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
 | RangeSlider | `WiredRangeSlider` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
-| DropdownButton / DropdownMenu | `WiredCombo` | ✅ | ✅ | ✅ (`inputs_page.dart`) | partial | Equivalent control but non-standard naming/API |
+| DropdownButton / DropdownMenu | `WiredCombo` / `WiredDropdownMenu` | ✅ | ✅ | ✅ (`inputs_page.dart`, `navigation_page.dart`) | implemented | WiredCombo for M2, WiredDropdownMenu for M3 |
 | TextField | `WiredInput` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
 | SearchBar / SearchAnchor | `WiredSearchBar` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
 | Chip | `WiredChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
@@ -51,7 +51,7 @@ Status meanings:
 | BottomSheet | `showWiredBottomSheet` / `WiredBottomSheet` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
 | DatePicker | `showWiredDatePicker` / `WiredDatePicker` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
 | TimePicker | `WiredTimePicker` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
-| CalendarDatePicker | `WiredCalendar` | ✅ | ✅ | ✅ (`data_display_page.dart`) | partial | Adjacent API; not exact CalendarDatePicker drop-in |
+| CalendarDatePicker | `WiredCalendar` / `WiredCalendarDatePicker` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented | WiredCalendar (custom) + WiredCalendarDatePicker (full API parity) |
 | Card | `WiredCard` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
 | Divider | `WiredDivider` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
 | DataTable | `WiredDataTable` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
@@ -64,7 +64,7 @@ Status meanings:
 | Autocomplete | `WiredAutocomplete` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Filtering + hand-drawn field and overlay borders |
 | ReorderableListView | `WiredReorderableListView` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Drag-handle items with hand-drawn borders |
 | MenuBar / DropdownMenu (M3 menu system) | `WiredMenuBar` / `WiredDropdownMenu` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Full M3 menu bar + dropdown with hand-drawn borders |
-| NavigationDrawer (M3) | `WiredDrawer` | ✅ | ✅ | ✅ | partial | Material 2 drawer equivalent; M3 API parity unverified |
+| NavigationDrawer (M3) | `WiredDrawer` / `WiredNavigationDrawer` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | WiredDrawer (M2) + WiredNavigationDrawer (M3 destinations API) |
 
 ## Cupertino widgets
 
