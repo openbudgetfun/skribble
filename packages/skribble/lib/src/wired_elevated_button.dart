@@ -37,7 +37,7 @@ class WiredElevatedButton extends HookWidget {
             ),
           ),
           Container(
-            height: 42.0,
+            height: kWiredButtonHeight,
             decoration: RoughBoxDecoration(
               shape: RoughBoxShape.rectangle,
               borderStyle: RoughDrawingStyle(

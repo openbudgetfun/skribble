@@ -10,6 +10,9 @@ const Color _defaultBorderColor = Color(0xFF1A2B3C);
 /// Default fill color when no theme is provided.
 const Color _defaultFillColor = Color(0xFFFEFEFE);
 
+/// Standard height for Skribble button widgets (matches Material default).
+const double kWiredButtonHeight = 42.0;
+
 /// Utility class with default Paint objects for wired widgets.
 class WiredBase {
   static Paint fillPainter(Color color) {

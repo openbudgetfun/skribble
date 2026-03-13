@@ -17,7 +17,7 @@ class WiredOutlinedButton extends HookWidget {
     final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Container(
-        height: 42.0,
+        height: kWiredButtonHeight,
         decoration: RoughBoxDecoration(
           shape: RoughBoxShape.rectangle,
           borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),

@@ -39,7 +39,7 @@ class WiredSegmentedButton<T> extends HookWidget {
     final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: SizedBox(
-        height: 42.0,
+        height: kWiredButtonHeight,
         child: Stack(
           children: [
             Positioned.fill(
@@ -58,7 +58,7 @@ class WiredSegmentedButton<T> extends HookWidget {
                   if (i > 0)
                     SizedBox(
                       width: 2,
-                      height: 42.0,
+                      height: kWiredButtonHeight,
                       child: WiredCanvas(
                         painter: WiredLineBase(
                           x1: 0,
