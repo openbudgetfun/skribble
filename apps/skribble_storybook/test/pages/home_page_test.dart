@@ -54,5 +54,23 @@ void main() {
 
       expect(find.byType(HomePage), findsOneWidget);
     });
+
+    testWidgets('navigates to Buttons page on card tap', (tester) async {
+      await tester.pumpWidget(const SkribbleStorybookApp());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Buttons'));
+      await tester.pumpAndSettle();
+
+      // Should navigate away from home page
+      expect(find.byType(HomePage), findsNothing);
+    });
+
+    testWidgets('renders WiredCard widgets for categories', (tester) async {
+      await tester.pumpWidget(const SkribbleStorybookApp());
+      await tester.pumpAndSettle();
+
+      expect(find.byType(WiredCard), findsWidgets);
+    });
   });
 }

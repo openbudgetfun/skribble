@@ -55,5 +55,19 @@ void main() {
 
       expect(find.text('Selected: Settings'), findsOneWidget);
     });
+
+    testWidgets('contains ListView', (tester) async {
+      await navigateToNavigation(tester);
+      expect(find.byType(ListView), findsOneWidget);
+    });
+
+    testWidgets('navigates back to home', (tester) async {
+      await navigateToNavigation(tester);
+
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(NavigationPage), findsNothing);
+    });
   });
 }
