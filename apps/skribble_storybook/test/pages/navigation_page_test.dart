@@ -26,5 +26,29 @@ void main() {
       await navigateToNavigation(tester);
       expect(find.byType(BackButton), findsOneWidget);
     });
+
+    testWidgets('shows WiredPopupMenuButton section and interactions', (
+      tester,
+    ) async {
+      await navigateToNavigation(tester);
+
+      await tester.scrollUntilVisible(find.text('WiredPopupMenuButton'), 200);
+      await tester.pumpAndSettle();
+
+      expect(find.text('WiredPopupMenuButton'), findsOneWidget);
+      expect(find.text('Selected: None'), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.more_vert).last);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Profile'), findsWidgets);
+      expect(find.text('Settings'), findsOneWidget);
+      expect(find.text('Sign out'), findsOneWidget);
+
+      await tester.tap(find.text('Settings').last);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Selected: Settings'), findsOneWidget);
+    });
   });
 }
