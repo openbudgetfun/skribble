@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn calendar date picker that wraps Flutter's

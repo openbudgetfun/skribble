@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'wired_theme.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn M3-style navigation drawer with destination items.
 ///
@@ -37,7 +36,6 @@ class WiredNavigationDrawer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Drawer(
         width: width,
