@@ -164,7 +164,7 @@ All Skribble widgets follow familiar Flutter conventions:
 | Test files | 87 |
 | Widget tests | 826 |
 | Storybook pages | 8 |
-| Storybook tests | 42 (34 page + 8 golden) |
+| Storybook tests | 54 (46 page + 8 golden) |
 | `dart analyze` | 0 issues |
 
 ## Docs
