@@ -10,6 +10,7 @@ class ButtonsPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final segmentSelected = useState<Set<String>>({'day'});
+    final toggleSelected = useState([true, false, false]);
 
     return Scaffold(
       appBar: WiredAppBar(
@@ -45,9 +46,7 @@ class ButtonsPage extends HookWidget {
               ),
               ComponentShowcase(
                 title: 'Disabled',
-                child: const WiredElevatedButton(
-                  child: Text('Disabled'),
-                ),
+                child: const WiredElevatedButton(child: Text('Disabled')),
               ),
             ],
           ),
@@ -109,6 +108,49 @@ class ButtonsPage extends HookWidget {
             ],
           ),
           ShowcaseSection(
+            title: 'WiredFilledButton',
+            children: [
+              ComponentShowcase(
+                title: 'Filled',
+                description: 'Solid hachure-filled button.',
+                child: WiredFilledButton(
+                  onPressed: () {},
+                  child: const Text('Filled Button'),
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Custom Color',
+                child: WiredFilledButton(
+                  onPressed: () {},
+                  fillColor: Colors.indigo,
+                  child: const Text('Indigo Fill'),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredToggleButtons',
+            children: [
+              ComponentShowcase(
+                title: 'Toggle Buttons',
+                description: 'Multi-toggle with hand-drawn borders.',
+                child: WiredToggleButtons(
+                  isSelected: toggleSelected.value,
+                  onPressed: (i) {
+                    final next = [...toggleSelected.value];
+                    next[i] = !next[i];
+                    toggleSelected.value = next;
+                  },
+                  children: const [
+                    Icon(Icons.format_bold),
+                    Icon(Icons.format_italic),
+                    Icon(Icons.format_underline),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredSegmentedButton',
             children: [
               ComponentShowcase(
@@ -116,18 +158,9 @@ class ButtonsPage extends HookWidget {
                 description: 'Connected rounded rectangles.',
                 child: WiredSegmentedButton<String>(
                   segments: const [
-                    WiredButtonSegment(
-                      value: 'day',
-                      label: Text('Day'),
-                    ),
-                    WiredButtonSegment(
-                      value: 'week',
-                      label: Text('Week'),
-                    ),
-                    WiredButtonSegment(
-                      value: 'month',
-                      label: Text('Month'),
-                    ),
+                    WiredButtonSegment(value: 'day', label: Text('Day')),
+                    WiredButtonSegment(value: 'week', label: Text('Week')),
+                    WiredButtonSegment(value: 'month', label: Text('Month')),
                   ],
                   selected: segmentSelected.value,
                   onSelectionChanged: (s) => segmentSelected.value = s,
