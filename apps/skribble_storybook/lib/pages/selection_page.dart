@@ -13,6 +13,8 @@ class SelectionPage extends HookWidget {
     final choiceSelected = useState(false);
     final inputChipSelected = useState(false);
     final pickerIndex = useState(0);
+    final segmentedValue = useState(0);
+    final slidingValue = useState('a');
 
     return Scaffold(
       appBar: WiredAppBar(
@@ -151,6 +153,57 @@ class SelectionPage extends HookWidget {
                     const SizedBox(height: 8),
                     Text('Selected index: ${pickerIndex.value}'),
                   ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCupertinoSegmentedControl',
+            children: [
+              ComponentShowcase(
+                title: 'Segmented Control',
+                description:
+                    'iOS-style segmented control with sketchy borders.',
+                child: WiredCupertinoSegmentedControl<int>(
+                  children: const {
+                    0: Text('Day'),
+                    1: Text('Week'),
+                    2: Text('Month'),
+                  },
+                  groupValue: segmentedValue.value,
+                  onValueChanged: (v) => segmentedValue.value = v,
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Custom Color',
+                child: WiredCupertinoSegmentedControl<int>(
+                  children: const {
+                    0: Text('Small'),
+                    1: Text('Medium'),
+                    2: Text('Large'),
+                  },
+                  groupValue: 1,
+                  onValueChanged: (_) {},
+                  selectedColor: Colors.deepOrange,
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredSlidingSegmentedControl',
+            children: [
+              ComponentShowcase(
+                title: 'Sliding Segmented Control',
+                description:
+                    'iOS-style sliding control with sketchy thumb.',
+                child: WiredSlidingSegmentedControl<String>(
+                  children: const {
+                    'a': Text('All'),
+                    'b': Text('Favorites'),
+                    'c': Text('Recent'),
+                  },
+                  groupValue: slidingValue.value,
+                  onValueChanged: (v) => slidingValue.value = v,
                 ),
               ),
             ],
