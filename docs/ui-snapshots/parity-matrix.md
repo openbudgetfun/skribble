@@ -86,9 +86,25 @@ Status meanings:
 | CupertinoScrollbar | `WiredScrollbar` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Styled scrollbar with sketchy thumb |
 | CupertinoSegmentedControl / SlidingSegmentedControl | `WiredCupertinoSegmentedControl` / `WiredSlidingSegmentedControl` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Dedicated segmented + sliding controls with sketchy borders |
 
+## Extended widgets (beyond parity matrix)
+
+| Flutter widget | Skribble mapping | Lib | Test | Storybook | Status | Notes |
+|---|---|---:|---:|---:|---|---|
+| CircleAvatar | `WiredAvatar` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Hand-drawn circle with initials/icon/image |
+| MaterialBanner | `WiredMaterialBanner` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Persistent top banner with sketchy borders |
+| DrawerHeader | `WiredDrawerHeader` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Sketchy header with hachure background |
+| UserAccountsDrawerHeader | `WiredUserAccountsDrawerHeader` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Avatar + account info header |
+| BottomAppBar | `WiredBottomAppBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | M3 bottom bar with sketchy top border |
+| SliverAppBar | `WiredSliverAppBar` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Collapsible sliver bar with sketchy border |
+| Dismissible | `WiredDismissible` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Swipe-to-dismiss with sketchy delete background |
+| SelectableText | `WiredSelectableText` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented | Selectable text with Skribble styling |
+| AboutDialog | `WiredAboutDialog` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Hand-drawn about dialog with app info |
+
 ## Summary
 
-- **100% implemented** — every Material and Cupertino widget has a dedicated Wired equivalent with tests and storybook demos.
-- **63 implemented, 0 partial, 0 missing.**
+- **100% parity** — every Material and Cupertino widget has a dedicated Wired equivalent.
+- **63 parity widgets + 9 extended widgets = 72 total implementations.**
+- **80 widget source files, 79 test files, 861 widget tests, 34 storybook tests.**
 - All Material widgets have full hand-drawn implementations with matching tests and storybook showcases.
-- All Cupertino widgets now have dedicated `WiredCupertino*` implementations with API parity.
+- All Cupertino widgets have dedicated `WiredCupertino*` implementations with API parity.
+- Extended widgets cover common Flutter patterns: avatars, banners, drawer headers, bottom app bar, sliver app bar, dismissible, selectable text, about dialog.
