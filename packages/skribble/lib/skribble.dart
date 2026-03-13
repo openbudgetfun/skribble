@@ -30,6 +30,7 @@ export 'src/wired_cupertino_date_picker.dart';
 export 'src/wired_cupertino_navigation_bar.dart';
 export 'src/wired_cupertino_picker.dart';
 export 'src/wired_cupertino_slider.dart';
+export 'src/wired_cupertino_segmented_control.dart';
 export 'src/wired_cupertino_switch.dart';
 export 'src/wired_cupertino_tab_bar.dart';
 export 'src/wired_cupertino_text_field.dart';
