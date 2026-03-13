@@ -41,6 +41,7 @@ export 'src/wired_input_chip.dart';
 export 'src/wired_list_tile.dart';
 export 'src/wired_menu_bar.dart';
 export 'src/wired_navigation_bar.dart';
+export 'src/wired_navigation_drawer.dart';
 export 'src/wired_navigation_rail.dart';
 export 'src/wired_outlined_button.dart';
 export 'src/wired_popup_menu.dart';

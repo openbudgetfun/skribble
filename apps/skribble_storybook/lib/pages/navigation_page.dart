@@ -286,6 +286,64 @@ class NavigationPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredNavigationDrawer',
+            children: [
+              ComponentShowcase(
+                title: 'Navigation Drawer (M3)',
+                description: 'M3-style drawer with selectable destinations.',
+                child: WiredButton(
+                  onPressed: () {
+                    unawaited(
+                      showDialog<void>(
+                        context: context,
+                        builder: (ctx) => Dialog(
+                          child: SizedBox(
+                            width: 300,
+                            height: 420,
+                            child: WiredNavigationDrawer(
+                              selectedIndex: 0,
+                              header: const Text(
+                                'Skribble',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              destinations: const [
+                                WiredNavigationDrawerDestination(
+                                  icon: Icons.inbox_outlined,
+                                  selectedIcon: Icons.inbox,
+                                  label: 'Inbox',
+                                ),
+                                WiredNavigationDrawerDestination(
+                                  icon: Icons.send_outlined,
+                                  selectedIcon: Icons.send,
+                                  label: 'Sent',
+                                ),
+                                WiredNavigationDrawerDestination(
+                                  icon: Icons.drafts_outlined,
+                                  selectedIcon: Icons.drafts,
+                                  label: 'Drafts',
+                                ),
+                                WiredNavigationDrawerDestination(
+                                  icon: Icons.delete_outline,
+                                  selectedIcon: Icons.delete,
+                                  label: 'Trash',
+                                ),
+                              ],
+                              onDestinationSelected: (_) => Navigator.pop(ctx),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('Open Navigation Drawer'),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
