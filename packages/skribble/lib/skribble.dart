@@ -5,6 +5,8 @@
 library;
 
 export 'src/canvas/wired_canvas.dart';
+export 'src/canvas/wired_painter.dart';
+export 'src/canvas/wired_painter_base.dart';
 export 'src/rough/skribble_rough.dart';
 export 'src/wired_about_dialog.dart';
 export 'src/wired_animated_icon.dart';
