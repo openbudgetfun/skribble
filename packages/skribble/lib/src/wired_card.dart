@@ -3,7 +3,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
+/// A card with a hand-drawn rectangle border.
+///
+/// Reads fill color from the nearest [WiredTheme] ancestor.
 class WiredCard extends HookWidget {
   final Widget? child;
   final bool fill;
@@ -18,11 +22,12 @@ class WiredCard extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final stack = Stack(
       children: [
         Positioned.fill(
           child: WiredCanvas(
-            painter: WiredRectangleBase(),
+            painter: WiredRectangleBase(fillColor: theme.fillColor),
             fillerType: fill ? RoughFilter.hachureFiller : RoughFilter.noFiller,
           ),
         ),
