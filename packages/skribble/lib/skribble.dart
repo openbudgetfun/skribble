@@ -40,6 +40,7 @@ export 'src/wired_progress.dart';
 export 'src/wired_radio.dart';
 export 'src/wired_radio_list_tile.dart';
 export 'src/wired_range_slider.dart';
+export 'src/wired_reorderable_list_view.dart';
 export 'src/wired_search_bar.dart';
 export 'src/wired_segmented_button.dart';
 export 'src/wired_slider.dart';
