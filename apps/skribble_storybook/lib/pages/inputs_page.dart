@@ -15,6 +15,8 @@ class InputsPage extends HookWidget {
     final sliderValue = useState(0.5);
     final comboValue = useState<String?>(null);
     final switchValue = useState(false);
+    final formKey = useMemoized(GlobalKey<FormState>.new);
+    final formStatus = useState('Form not validated yet');
 
     return Scaffold(
       appBar: WiredAppBar(
@@ -30,10 +32,7 @@ class InputsPage extends HookWidget {
               ComponentShowcase(
                 title: 'Text Field',
                 description: 'Single-line text input with hand-drawn border.',
-                child: WiredInput(
-                  hintText: 'Enter text...',
-                  onChanged: (v) {},
-                ),
+                child: WiredInput(hintText: 'Enter text...', onChanged: (v) {}),
               ),
               ComponentShowcase(
                 title: 'With Label',
@@ -62,6 +61,74 @@ class InputsPage extends HookWidget {
                 child: WiredTextArea(
                   hintText: 'Write something...',
                   onChanged: (v) {},
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredForm',
+            children: [
+              ComponentShowcase(
+                title: 'Validated Form',
+                description: 'Hand-drawn form container with validation.',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      width: 320,
+                      child: WiredForm(
+                        formKey: formKey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                labelText: 'Email',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Email required';
+                                }
+                                if (!value.contains('@')) {
+                                  return 'Enter a valid email';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 12),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                labelText: 'Name',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Name required';
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        WiredButton(
+                          onPressed: () {
+                            final isValid =
+                                formKey.currentState?.validate() ?? false;
+                            formStatus.value = isValid
+                                ? 'Form valid'
+                                : 'Form invalid';
+                          },
+                          child: const Text('Validate Form'),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(child: Text(formStatus.value)),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -183,10 +250,7 @@ class InputsPage extends HookWidget {
               ComponentShowcase(
                 title: 'Search',
                 description: 'Rounded rect input with search icon.',
-                child: WiredSearchBar(
-                  hintText: 'Search...',
-                  onChanged: (v) {},
-                ),
+                child: WiredSearchBar(hintText: 'Search...', onChanged: (v) {}),
               ),
             ],
           ),
