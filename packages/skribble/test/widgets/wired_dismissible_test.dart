@@ -9,10 +9,10 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: ListView(
-              children: [
+              children: const [
                 WiredDismissible(
-                  dismissKey: const ValueKey('item1'),
-                  child: const ListTile(title: Text('Swipe me')),
+                  dismissKey: ValueKey('item1'),
+                  child: ListTile(title: Text('Swipe me')),
                 ),
               ],
             ),
@@ -98,7 +98,7 @@ void main() {
                 WiredDismissible(
                   dismissKey: const ValueKey('d4'),
                   onDismissed: (_) {},
-                  background: Container(
+                  background: ColoredBox(
                     color: Colors.green,
                     child: const Text('Archive'),
                   ),

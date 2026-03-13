@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
@@ -41,7 +40,7 @@ void main() {
     });
 
     testWidgets('does not call onPressed when disabled', (tester) async {
-      var tapped = false;
+      const tapped = false;
       await tester.pumpWidget(buildSubject(onPressed: null));
       await tester.tap(find.text('Tap'));
       expect(tapped, isFalse);
