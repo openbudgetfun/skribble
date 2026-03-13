@@ -38,7 +38,7 @@ through the entire widget tree — no hardcoded constants remain.
 
 ### Stats
 
-- 81 widget files, 88 test files, 839 widget tests, 54 storybook tests
+- 81 widget files, 88 test files, 848 widget tests, 58 storybook tests
 - 76 widget files resolve `WiredTheme.of(context)`
 - 66 widget files pass `borderColor` to painter constructors
 - 0 `StatelessWidget` — `HookWidget` exclusively
