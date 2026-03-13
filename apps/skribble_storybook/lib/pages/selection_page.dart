@@ -16,6 +16,7 @@ class SelectionPage extends HookWidget {
     final pickerIndex = useState(0);
     final segmentedValue = useState(0);
     final slidingValue = useState('a');
+    final pickedColor = useState(Colors.blue);
 
     return Scaffold(
       appBar: WiredAppBar(
@@ -163,8 +164,7 @@ class SelectionPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Date & Time Picker',
-                description:
-                    'iOS-style date/time picker with sketchy border.',
+                description: 'iOS-style date/time picker with sketchy border.',
                 child: SizedBox(
                   height: 216,
                   child: WiredCupertinoDatePicker(
@@ -232,8 +232,7 @@ class SelectionPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Sliding Segmented Control',
-                description:
-                    'iOS-style sliding control with sketchy thumb.',
+                description: 'iOS-style sliding control with sketchy thumb.',
                 child: WiredSlidingSegmentedControl<String>(
                   children: const {
                     'a': Text('All'),
@@ -242,6 +241,41 @@ class SelectionPage extends HookWidget {
                   },
                   groupValue: slidingValue.value,
                   onValueChanged: (v) => slidingValue.value = v,
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredColorPicker',
+            children: [
+              ComponentShowcase(
+                title: 'Color Picker',
+                description: 'Grid of sketchy circle swatches to pick a color.',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    WiredColorPicker(
+                      selectedColor: pickedColor.value,
+                      onColorChanged: (c) => pickedColor.value = c,
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(
+                            color: pickedColor.value,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          '#${pickedColor.value.value.toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],
