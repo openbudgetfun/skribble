@@ -100,11 +100,14 @@ Status meanings:
 | SelectableText | `WiredSelectableText` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented | Selectable text with Skribble styling |
 | AboutDialog | `WiredAboutDialog` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Hand-drawn about dialog with app info |
 
+| AnimatedIcon | `WiredAnimatedIcon` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Morphing icon with Skribble styling |
+| (Custom) Color Picker | `WiredColorPicker` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Grid of sketchy circle swatches with selection |
+
 ## Summary
 
 - **100% parity** — every Material and Cupertino widget has a dedicated Wired equivalent.
-- **63 parity widgets + 9 extended widgets = 72 total implementations.**
-- **80 widget source files, 79 test files, 861 widget tests, 34 storybook tests.**
+- **63 parity widgets + 11 extended widgets = 74 total implementations.**
+- **82 widget source files, 81 test files, 876 widget tests, 34 storybook tests.**
 - All Material widgets have full hand-drawn implementations with matching tests and storybook showcases.
 - All Cupertino widgets have dedicated `WiredCupertino*` implementations with API parity.
-- Extended widgets cover common Flutter patterns: avatars, banners, drawer headers, bottom app bar, sliver app bar, dismissible, selectable text, about dialog.
+- Extended widgets cover: avatars, banners, drawer headers, bottom/sliver app bars, dismissible, selectable text, about dialog, animated icons, color picker.
