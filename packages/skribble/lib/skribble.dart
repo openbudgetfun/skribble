@@ -7,6 +7,7 @@ library;
 export 'src/canvas/wired_canvas.dart';
 export 'src/rough/skribble_rough.dart';
 export 'src/wired_app_bar.dart';
+export 'src/wired_autocomplete.dart';
 export 'src/wired_badge.dart';
 export 'src/wired_base.dart';
 export 'src/wired_bottom_nav.dart';
