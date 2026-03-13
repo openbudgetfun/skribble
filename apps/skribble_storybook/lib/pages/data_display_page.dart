@@ -164,6 +164,31 @@ class DataDisplayPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredSelectableText',
+            children: [
+              ComponentShowcase(
+                title: 'Selectable Text',
+                description:
+                    'Text that can be selected and copied.',
+                child: const WiredSelectableText(
+                  'Long press to select this text. '
+                  'You can copy it to your clipboard.',
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Styled',
+                child: const WiredSelectableText(
+                  'Bold and blue selectable text',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigo,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
