@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -63,7 +63,8 @@ class WiredCupertinoNavigationBar extends HookWidget
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = backgroundColor ?? filledColor;
+    final theme = WiredTheme.of(context);
+    final bgColor = backgroundColor ?? theme.fillColor;
 
     return buildWiredElement(
       child: SizedBox(
@@ -118,17 +119,18 @@ class WiredCupertinoNavigationBar extends HookWidget
   }
 
   Widget? _buildBackButton(BuildContext context) {
+    final theme = WiredTheme.of(context);
     if (!Navigator.of(context).canPop()) return null;
     return GestureDetector(
       onTap: () => Navigator.of(context).maybePop(),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(CupertinoIcons.back, color: borderColor, size: 22),
+          Icon(CupertinoIcons.back, color: theme.borderColor, size: 22),
           if (previousPageTitle != null)
             Text(
               previousPageTitle!,
-              style: const TextStyle(color: borderColor, fontSize: 16),
+              style: TextStyle(color: theme.borderColor, fontSize: 16),
             ),
         ],
       ),
@@ -136,12 +138,13 @@ class WiredCupertinoNavigationBar extends HookWidget
   }
 
   Widget? _buildTitle(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final route = ModalRoute.of(context);
     if (route?.settings.name == null) return null;
     return Text(
       route!.settings.name!,
-      style: const TextStyle(
-        color: textColor,
+      style: TextStyle(
+        color: theme.textColor,
         fontSize: 18,
         fontWeight: FontWeight.w600,
       ),

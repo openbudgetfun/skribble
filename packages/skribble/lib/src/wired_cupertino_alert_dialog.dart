@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn alert dialog corresponding to [CupertinoAlertDialog].
@@ -37,6 +37,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Center(
         child: ConstrainedBox(
@@ -69,8 +70,8 @@ class WiredCupertinoAlertDialog extends HookWidget {
                         children: [
                           if (title != null)
                             DefaultTextStyle(
-                              style: const TextStyle(
-                                color: textColor,
+                              style: TextStyle(
+                                color: theme.textColor,
                                 fontSize: 17,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -82,7 +83,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
                           if (content != null)
                             DefaultTextStyle(
                               style: TextStyle(
-                                color: textColor.withValues(alpha: 0.7),
+                                color: theme.textColor.withValues(alpha: 0.7),
                                 fontSize: 13,
                               ),
                               textAlign: TextAlign.center,
@@ -166,6 +167,7 @@ class WiredCupertinoDialogAction extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return GestureDetector(
       onTap: onPressed,
       behavior: HitTestBehavior.opaque,

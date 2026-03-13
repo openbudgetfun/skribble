@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -30,9 +30,11 @@ class WiredPageScaffold extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Scaffold(
-        backgroundColor: backgroundColor ?? filledColor.withValues(alpha: 0.3),
+        backgroundColor:
+            backgroundColor ?? theme.fillColor.withValues(alpha: 0.3),
         body: Column(
           children: [
             if (navigationBar != null) navigationBar!,
@@ -67,11 +69,12 @@ class WiredTabScaffold extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final currentIndex = useState(initialIndex);
 
     return buildWiredElement(
       child: Scaffold(
-        backgroundColor: filledColor.withValues(alpha: 0.3),
+        backgroundColor: theme.fillColor.withValues(alpha: 0.3),
         body: IndexedStack(
           index: currentIndex.value,
           children: [
@@ -102,8 +105,8 @@ class WiredTabScaffold extends HookWidget {
                             Icon(
                               tabs[i].icon,
                               color: currentIndex.value == i
-                                  ? borderColor
-                                  : textColor.withValues(alpha: 0.5),
+                                  ? theme.borderColor
+                                  : theme.textColor.withValues(alpha: 0.5),
                               size: 22,
                             ),
                             const SizedBox(height: 2),
@@ -112,8 +115,8 @@ class WiredTabScaffold extends HookWidget {
                               style: TextStyle(
                                 fontSize: 11,
                                 color: currentIndex.value == i
-                                    ? borderColor
-                                    : textColor.withValues(alpha: 0.5),
+                                    ? theme.borderColor
+                                    : theme.textColor.withValues(alpha: 0.5),
                               ),
                             ),
                           ],

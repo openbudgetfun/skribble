@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn date picker corresponding to Flutter's [CupertinoDatePicker].
@@ -61,6 +61,7 @@ class WiredCupertinoDatePicker extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: SizedBox(
         height: height,
@@ -79,7 +80,7 @@ class WiredCupertinoDatePicker extends HookWidget {
                 height: itemExtent,
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
-                    fillColor: borderColor.withValues(alpha: 0.08),
+                    fillColor: theme.borderColor.withValues(alpha: 0.08),
                   ),
                   fillerType: RoughFilter.noFiller,
                 ),

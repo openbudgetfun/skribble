@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -41,6 +41,7 @@ class WiredReorderableListView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: ReorderableListView(
         onReorder: onReorder,
@@ -100,6 +101,7 @@ class _WiredReorderableItem extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return SizedBox(
       height: height,
       child: Stack(
@@ -117,9 +119,13 @@ class _WiredReorderableItem extends HookWidget {
               if (showDragHandle)
                 ReorderableDragStartListener(
                   index: index,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Icon(Icons.drag_handle, color: textColor, size: 20),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Icon(
+                      Icons.drag_handle,
+                      color: theme.textColor,
+                      size: 20,
+                    ),
                   ),
                 ),
               Expanded(child: child),

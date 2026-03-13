@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -37,6 +37,7 @@ class WiredDrawerHeader extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Container(
         margin: margin,
@@ -54,7 +55,7 @@ class WiredDrawerHeader extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
-                    fillColor: borderColor.withValues(alpha: 0.06),
+                    fillColor: theme.borderColor.withValues(alpha: 0.06),
                   ),
                   fillerType: RoughFilter.hachureFiller,
                   fillerConfig: FillerConfig.build(hachureGap: 4.0),
@@ -136,6 +137,7 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Container(
         margin: margin,
@@ -149,7 +151,7 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
-                    fillColor: borderColor.withValues(alpha: 0.08),
+                    fillColor: theme.borderColor.withValues(alpha: 0.08),
                   ),
                   fillerType: RoughFilter.hachureFiller,
                   fillerConfig: FillerConfig.build(hachureGap: 4.0),
@@ -182,8 +184,8 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
                     // Account info
                     if (accountName != null)
                       DefaultTextStyle(
-                        style: const TextStyle(
-                          color: textColor,
+                        style: TextStyle(
+                          color: theme.textColor,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -192,7 +194,7 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
                     if (accountEmail != null)
                       DefaultTextStyle(
                         style: TextStyle(
-                          color: textColor.withValues(alpha: 0.7),
+                          color: theme.textColor.withValues(alpha: 0.7),
                           fontSize: 12,
                         ),
                         child: accountEmail!,

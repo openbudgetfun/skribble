@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn selectable text corresponding to Flutter's [SelectableText].
@@ -66,15 +66,16 @@ class WiredSelectableText extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: SelectableText(
         data,
-        style: style ?? const TextStyle(color: textColor, fontSize: 16),
+        style: style ?? TextStyle(color: theme.textColor, fontSize: 16),
         textAlign: textAlign,
         textDirection: textDirection,
         maxLines: maxLines,
         showCursor: showCursor,
-        cursorColor: cursorColor ?? borderColor,
+        cursorColor: cursorColor ?? theme.borderColor,
         cursorWidth: cursorWidth,
         cursorRadius: cursorRadius,
         onSelectionChanged: onSelectionChanged,

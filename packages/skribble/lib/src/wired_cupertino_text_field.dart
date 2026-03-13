@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -98,6 +98,7 @@ class WiredCupertinoTextField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: AnimatedOpacity(
         opacity: enabled ? 1.0 : 0.4,
@@ -134,13 +135,13 @@ class WiredCupertinoTextField extends HookWidget {
                     onSubmitted: onSubmitted,
                     style:
                         style ??
-                        const TextStyle(color: textColor, fontSize: 16),
+                        TextStyle(color: theme.textColor, fontSize: 16),
                     decoration: InputDecoration(
                       hintText: placeholder,
                       hintStyle:
                           placeholderStyle ??
                           TextStyle(
-                            color: textColor.withValues(alpha: 0.4),
+                            color: theme.textColor.withValues(alpha: 0.4),
                             fontSize: 16,
                           ),
                       border: InputBorder.none,

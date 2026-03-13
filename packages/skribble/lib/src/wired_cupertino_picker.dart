@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -37,6 +37,7 @@ class WiredCupertinoPicker extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final controller = useMemoized(
       () => FixedExtentScrollController(initialItem: initialItem),
     );
@@ -76,7 +77,7 @@ class WiredCupertinoPicker extends HookWidget {
                 for (final child in children)
                   Center(
                     child: DefaultTextStyle(
-                      style: const TextStyle(color: textColor, fontSize: 16),
+                      style: TextStyle(color: theme.textColor, fontSize: 16),
                       child: child,
                     ),
                   ),
