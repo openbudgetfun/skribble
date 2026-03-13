@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -17,6 +17,7 @@ class WiredCheckbox extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final isChecked = useState(value ?? false);
 
     return buildWiredElement(
@@ -27,7 +28,7 @@ class WiredCheckbox extends HookWidget {
         width: 27.0,
         decoration: RoughBoxDecoration(
           shape: RoughBoxShape.rectangle,
-          borderStyle: RoughDrawingStyle(width: 1, color: borderColor),
+          borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
         ),
         child: SizedBox(
           height: double.infinity,
@@ -35,7 +36,7 @@ class WiredCheckbox extends HookWidget {
             scale: 1.5,
             child: Checkbox(
               fillColor: WidgetStateProperty.all(Colors.transparent),
-              checkColor: borderColor,
+              checkColor: theme.borderColor,
               onChanged: (newValue) {
                 isChecked.value = newValue ?? false;
                 onChanged(newValue);

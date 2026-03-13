@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -36,6 +36,7 @@ class WiredSegmentedButton<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: SizedBox(
         height: 42.0,
@@ -62,7 +63,7 @@ class WiredSegmentedButton<T> extends HookWidget {
                         fillerType: RoughFilter.noFiller,
                       ),
                     ),
-                  _buildSegment(segments[i]),
+                  _buildSegment(segments[i], theme),
                 ],
               ],
             ),
@@ -72,7 +73,7 @@ class WiredSegmentedButton<T> extends HookWidget {
     );
   }
 
-  Widget _buildSegment(WiredButtonSegment<T> segment) {
+  Widget _buildSegment(WiredButtonSegment<T> segment, WiredThemeData theme) {
     final isSelected = selected.contains(segment.value);
     return GestureDetector(
       onTap: () {
@@ -95,7 +96,10 @@ class WiredSegmentedButton<T> extends HookWidget {
         decoration: isSelected
             ? RoughBoxDecoration(
                 shape: RoughBoxShape.rectangle,
-                borderStyle: RoughDrawingStyle(width: 0.5, color: borderColor),
+                borderStyle: RoughDrawingStyle(
+                  width: 0.5,
+                  color: theme.borderColor,
+                ),
                 filler: HachureFiller(FillerConfig.build(hachureGap: 3)),
               )
             : null,
@@ -104,7 +108,7 @@ class WiredSegmentedButton<T> extends HookWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (segment.icon != null) ...[
-              Icon(segment.icon, size: 18, color: textColor),
+              Icon(segment.icon, size: 18, color: theme.textColor),
               const SizedBox(width: 8),
             ],
             segment.label,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 
 /// Shows a hand-drawn snack bar.
@@ -34,19 +34,20 @@ class WiredSnackBarContent extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: RoughBoxDecoration(
         shape: RoughBoxShape.rectangle,
-        borderStyle: RoughDrawingStyle(width: 1.5, color: borderColor),
-        fillStyle: RoughDrawingStyle(color: filledColor),
+        borderStyle: RoughDrawingStyle(width: 1.5, color: theme.borderColor),
+        fillStyle: RoughDrawingStyle(color: theme.fillColor),
         filler: SolidFiller(FillerConfig.build()),
       ),
       child: Row(
         children: [
           Expanded(
             child: DefaultTextStyle(
-              style: TextStyle(color: textColor, fontSize: 14),
+              style: TextStyle(color: theme.textColor, fontSize: 14),
               child: child,
             ),
           ),

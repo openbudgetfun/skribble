@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -41,6 +41,7 @@ class WiredToggleButtons extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -76,6 +77,7 @@ class _WiredToggleButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return GestureDetector(
       onTap: onPressed,
       child: SizedBox(
@@ -95,12 +97,12 @@ class _WiredToggleButton extends HookWidget {
               child: Center(
                 child: DefaultTextStyle(
                   style: TextStyle(
-                    color: selected ? Colors.white : textColor,
+                    color: selected ? Colors.white : theme.textColor,
                     fontSize: 14,
                   ),
                   child: IconTheme(
                     data: IconThemeData(
-                      color: selected ? Colors.white : textColor,
+                      color: selected ? Colors.white : theme.textColor,
                       size: 20,
                     ),
                     child: child,

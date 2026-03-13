@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -16,6 +16,7 @@ class WiredProgress extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final tween = useMemoized(() => Tween<double>(begin: 0, end: 1));
     final animation = useAnimation(
       tween.animate(CurvedAnimation(parent: controller, curve: Curves.easeIn)),
@@ -40,7 +41,7 @@ class WiredProgress extends HookWidget {
             height: _progressHeight,
             width: width.value * animation,
             child: WiredCanvas(
-              painter: WiredRectangleBase(fillColor: borderColor),
+              painter: WiredRectangleBase(fillColor: theme.borderColor),
               fillerType: RoughFilter.hachureFiller,
               fillerConfig: FillerConfig.build(hachureGap: 1.5),
             ),

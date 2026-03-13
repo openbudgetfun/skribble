@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A list tile with a hand-drawn separator line.
@@ -26,6 +26,7 @@ class WiredListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -43,14 +44,17 @@ class WiredListTile extends HookWidget {
                     children: [
                       if (title != null)
                         DefaultTextStyle(
-                          style: TextStyle(color: textColor, fontSize: 16),
+                          style: TextStyle(
+                            color: theme.textColor,
+                            fontSize: 16,
+                          ),
                           child: title!,
                         ),
                       if (subtitle != null) ...[
                         const SizedBox(height: 2),
                         DefaultTextStyle(
                           style: TextStyle(
-                            color: disabledTextColor,
+                            color: theme.disabledTextColor,
                             fontSize: 14,
                           ),
                           child: subtitle!,

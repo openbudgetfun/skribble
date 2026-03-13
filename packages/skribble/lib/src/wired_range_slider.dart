@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A dual-handle range slider with hand-drawn track and thumbs.
@@ -26,6 +26,7 @@ class WiredRangeSlider extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final currentValues = useRef(values);
 
     return Stack(
@@ -52,7 +53,7 @@ class WiredRangeSlider extends HookWidget {
             inactiveTrackColor: Colors.transparent,
             thumbColor: Colors.transparent,
             overlayColor: Colors.transparent,
-            rangeThumbShape: _WiredRangeThumbShape(),
+            rangeThumbShape: _WiredRangeThumbShape(theme),
           ),
           child: RangeSlider(
             values: currentValues.value,
@@ -74,6 +75,10 @@ class WiredRangeSlider extends HookWidget {
 }
 
 class _WiredRangeThumbShape extends RangeSliderThumbShape {
+  final WiredThemeData theme;
+
+  _WiredRangeThumbShape(this.theme);
+
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) => const Size(24, 24);
 
@@ -93,12 +98,12 @@ class _WiredRangeThumbShape extends RangeSliderThumbShape {
   }) {
     final canvas = context.canvas;
     final paint = Paint()
-      ..color = textColor
+      ..color = theme.textColor
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, 8, paint);
 
     final borderPaint = Paint()
-      ..color = borderColor
+      ..color = theme.borderColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
     canvas.drawCircle(center, 8, borderPaint);

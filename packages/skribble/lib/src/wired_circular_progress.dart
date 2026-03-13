@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A circular progress indicator with a hand-drawn arc.
@@ -23,6 +23,7 @@ class WiredCircularProgress extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final isIndeterminate = value == null;
     final controller = useAnimationController(
       duration: const Duration(seconds: 2),
@@ -60,6 +61,7 @@ class WiredCircularProgress extends HookWidget {
               progress: isIndeterminate ? 0.7 : value!.clamp(0, 1),
               rotation: isIndeterminate ? rotation : 0,
               strokeWidth: strokeWidth,
+              borderColor: theme.borderColor,
             ),
           ),
         ],
@@ -72,11 +74,13 @@ class _ArcPainter extends CustomPainter {
   final double progress;
   final double rotation;
   final double strokeWidth;
+  final Color borderColor;
 
   _ArcPainter({
     required this.progress,
     required this.rotation,
     required this.strokeWidth,
+    required this.borderColor,
   });
 
   @override

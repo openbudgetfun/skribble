@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -26,6 +26,7 @@ class WiredSlider extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final currentSliderValue = useRef(value);
     useFuture(Future<void>.delayed(Duration.zero));
 
@@ -52,7 +53,10 @@ class WiredSlider extends HookWidget {
             height: 24.0,
             width: 24.0,
             child: WiredCanvas(
-              painter: WiredCircleBase(diameterRatio: .7, fillColor: textColor),
+              painter: WiredCircleBase(
+                diameterRatio: .7,
+                fillColor: theme.textColor,
+              ),
               fillerType: RoughFilter.hachureFiller,
               fillerConfig: FillerConfig.build(hachureGap: 1.0),
             ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A search bar with a hand-drawn rounded rectangle border.
@@ -26,6 +26,7 @@ class WiredSearchBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return SizedBox(
       height: 48,
       child: Stack(
@@ -43,7 +44,7 @@ class WiredSearchBar extends HookWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
               children: [
-                leading ?? Icon(Icons.search, color: disabledTextColor),
+                leading ?? Icon(Icons.search, color: theme.disabledTextColor),
                 const SizedBox(width: 8),
                 Expanded(
                   child: TextField(
@@ -51,11 +52,11 @@ class WiredSearchBar extends HookWidget {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: hintText ?? 'Search...',
-                      hintStyle: TextStyle(color: disabledTextColor),
+                      hintStyle: TextStyle(color: theme.disabledTextColor),
                       isDense: true,
                       contentPadding: EdgeInsets.zero,
                     ),
-                    style: TextStyle(color: textColor),
+                    style: TextStyle(color: theme.textColor),
                     onChanged: onChanged,
                     onSubmitted: onSubmitted,
                   ),
