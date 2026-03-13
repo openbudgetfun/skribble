@@ -183,8 +183,7 @@ class NavigationPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Cupertino Navigation Bar',
-                description:
-                    'iOS-style nav bar with sketchy bottom border.',
+                description: 'iOS-style nav bar with sketchy bottom border.',
                 child: SizedBox(
                   height: 44,
                   child: WiredCupertinoNavigationBar(
@@ -262,7 +261,6 @@ class NavigationPage extends HookWidget {
                 child: WiredMenuBar(
                   children: [
                     WiredSubmenuButton(
-                      child: const Text('File'),
                       menuChildren: [
                         WiredMenuItemButton(
                           leadingIcon: const Icon(Icons.note_add, size: 18),
@@ -280,9 +278,9 @@ class NavigationPage extends HookWidget {
                           child: const Text('Save'),
                         ),
                       ],
+                      child: const Text('File'),
                     ),
                     WiredSubmenuButton(
-                      child: const Text('Edit'),
                       menuChildren: [
                         WiredMenuItemButton(
                           onPressed: () {},
@@ -297,6 +295,7 @@ class NavigationPage extends HookWidget {
                           child: const Text('Paste'),
                         ),
                       ],
+                      child: const Text('Edit'),
                     ),
                   ],
                 ),
@@ -411,7 +410,6 @@ class NavigationPage extends HookWidget {
                             width: 300,
                             height: 420,
                             child: WiredNavigationDrawer(
-                              selectedIndex: 0,
                               header: const Text(
                                 'Skribble',
                                 style: TextStyle(
