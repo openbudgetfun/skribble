@@ -226,6 +226,34 @@ class NavigationPage extends HookWidget {
             ],
           ),
           ShowcaseSection(
+            title: 'WiredBottomAppBar',
+            children: [
+              ComponentShowcase(
+                title: 'Bottom App Bar',
+                description: 'M3 bottom bar with sketchy top border.',
+                child: WiredBottomAppBar(
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.menu),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.search),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.more_vert),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredMenuBar',
             children: [
               ComponentShowcase(
