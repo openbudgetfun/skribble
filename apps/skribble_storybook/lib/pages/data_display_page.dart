@@ -37,6 +37,26 @@ class DataDisplayPage extends HookWidget {
             ],
           ),
           ShowcaseSection(
+            title: 'WiredCalendarDatePicker',
+            children: [
+              ComponentShowcase(
+                title: 'Calendar Date Picker (M3)',
+                description:
+                    'Flutter CalendarDatePicker with hand-drawn border.',
+                child: SizedBox(
+                  width: 340,
+                  height: 360,
+                  child: WiredCalendarDatePicker(
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2030),
+                    onDateChanged: (_) {},
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredDatePicker',
             children: [
               ComponentShowcase(
@@ -117,21 +137,15 @@ class DataDisplayPage extends HookWidget {
                     WiredDataColumn(label: Text('Score')),
                   ],
                   rows: const [
-                    WiredDataRow(cells: [
-                      Text('Alice'),
-                      Text('Engineer'),
-                      Text('95'),
-                    ]),
-                    WiredDataRow(cells: [
-                      Text('Bob'),
-                      Text('Designer'),
-                      Text('88'),
-                    ]),
-                    WiredDataRow(cells: [
-                      Text('Carol'),
-                      Text('Manager'),
-                      Text('92'),
-                    ]),
+                    WiredDataRow(
+                      cells: [Text('Alice'), Text('Engineer'), Text('95')],
+                    ),
+                    WiredDataRow(
+                      cells: [Text('Bob'), Text('Designer'), Text('88')],
+                    ),
+                    WiredDataRow(
+                      cells: [Text('Carol'), Text('Manager'), Text('92')],
+                    ),
                   ],
                 ),
               ),
