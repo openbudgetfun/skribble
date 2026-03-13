@@ -3,10 +3,24 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble_storybook/app.dart';
 
 /// Visual review test — renders each storybook page as a golden file PNG.
+///
 /// Run with: flutter test --update-goldens test/visual_review_test.dart
 /// Then inspect .screenshots/review/ for visual quality.
+///
+/// NOTE: Uses `pump()` with explicit durations instead of `pumpAndSettle()`
+/// because WiredSlider creates a repeating timer that prevents
+/// `pumpAndSettle` from ever completing.
 void main() {
+  /// Pumps the widget tree enough to render without waiting for all
+  /// animations to settle (avoids WiredSlider timer hang).
+  Future<void> pumpStable(WidgetTester tester) async {
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump(const Duration(milliseconds: 200));
+  }
+
   Future<void> navigateTo(WidgetTester tester, String category) async {
+    // Scroll category into view if needed
     final finder = find.text(category);
     if (finder.evaluate().isEmpty) {
       final listFinder = find.byType(ListView).first;
@@ -19,14 +33,13 @@ void main() {
       }
     }
     await tester.tap(finder.first);
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
+    await pumpStable(tester);
   }
 
   group('Visual Review', () {
     testWidgets('home page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pump(const Duration(milliseconds: 500));
+      await pumpStable(tester);
       await expectLater(
         find.byType(MaterialApp),
         matchesGoldenFile('../../.screenshots/review/01-home.png'),
@@ -35,7 +48,7 @@ void main() {
 
     testWidgets('buttons page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pump(const Duration(milliseconds: 300));
+      await pumpStable(tester);
       await navigateTo(tester, 'Buttons');
       await expectLater(
         find.byType(MaterialApp),
@@ -45,7 +58,7 @@ void main() {
 
     testWidgets('inputs page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pump(const Duration(milliseconds: 300));
+      await pumpStable(tester);
       await navigateTo(tester, 'Inputs');
       await expectLater(
         find.byType(MaterialApp),
@@ -55,7 +68,7 @@ void main() {
 
     testWidgets('navigation page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pump(const Duration(milliseconds: 300));
+      await pumpStable(tester);
       await navigateTo(tester, 'Navigation');
       await expectLater(
         find.byType(MaterialApp),
@@ -65,7 +78,7 @@ void main() {
 
     testWidgets('selection page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pump(const Duration(milliseconds: 300));
+      await pumpStable(tester);
       await navigateTo(tester, 'Selection');
       await expectLater(
         find.byType(MaterialApp),
@@ -75,7 +88,7 @@ void main() {
 
     testWidgets('feedback page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pump(const Duration(milliseconds: 300));
+      await pumpStable(tester);
       await navigateTo(tester, 'Feedback');
       await expectLater(
         find.byType(MaterialApp),
@@ -85,7 +98,7 @@ void main() {
 
     testWidgets('layout page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pump(const Duration(milliseconds: 300));
+      await pumpStable(tester);
       await navigateTo(tester, 'Layout');
       await expectLater(
         find.byType(MaterialApp),
@@ -95,7 +108,7 @@ void main() {
 
     testWidgets('data display page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pump(const Duration(milliseconds: 300));
+      await pumpStable(tester);
       await navigateTo(tester, 'Data Display');
       await expectLater(
         find.byType(MaterialApp),
