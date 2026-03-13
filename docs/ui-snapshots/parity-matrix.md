@@ -30,7 +30,7 @@ Status meanings:
 | TextButton | `WiredTextButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
 | IconButton | `WiredIconButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
 | FloatingActionButton | `WiredFloatingActionButton` (`wired_fab.dart`) | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
-| FilledButton | `WiredButton`/`WiredElevatedButton` | ✅ | ✅ (`wired_button_test.dart`) | ✅ (`buttons_page.dart`) | partial | No explicit `WiredFilledButton` class |
+| FilledButton | `WiredFilledButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented | Dedicated hachure-filled button class |
 | SegmentedButton | `WiredSegmentedButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
 | Checkbox | `WiredCheckbox` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
 | Radio | `WiredRadio` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
@@ -59,11 +59,11 @@ Status meanings:
 | CircularProgressIndicator | `WiredCircularProgress` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
 | Stepper | `WiredStepper` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
 | PopupMenuButton / MenuAnchor | `WiredPopupMenu` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Storybook example added under navigation page |
-| ToggleButtons | `WiredToggle` | ✅ | ✅ | ✅ (`inputs_page.dart`) | partial | Not a direct multi-button `ToggleButtons` equivalent |
-| Form | Uses individual wired inputs | ❌ | ❌ | ❌ | missing | No dedicated `WiredForm` wrapper |
-| Autocomplete | — | ❌ | ❌ | ❌ | missing |  |
-| ReorderableListView | — | ❌ | ❌ | ❌ | missing |  |
-| MenuBar / DropdownMenu (M3 menu system) | — / partial via `WiredPopupMenu` | ❌ | ❌ | ❌ | missing | No menu bar primitives |
+| ToggleButtons | `WiredToggleButtons` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented | Multi-toggle group with hand-drawn borders and selection fill |
+| Form | `WiredForm` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Hand-drawn border form container with validation |
+| Autocomplete | `WiredAutocomplete` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Filtering + hand-drawn field and overlay borders |
+| ReorderableListView | `WiredReorderableListView` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Drag-handle items with hand-drawn borders |
+| MenuBar / DropdownMenu (M3 menu system) | `WiredMenuBar` / `WiredDropdownMenu` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Full M3 menu bar + dropdown with hand-drawn borders |
 | NavigationDrawer (M3) | `WiredDrawer` | ✅ | ✅ | ✅ | partial | Material 2 drawer equivalent; M3 API parity unverified |
 
 ## Cupertino widgets
@@ -75,7 +75,7 @@ Status meanings:
 | CupertinoSwitch | `WiredSwitch` | ✅ | ✅ | ✅ | partial | Not Cupertino-specific implementation |
 | CupertinoSlider | `WiredSlider` | ✅ | ✅ | ✅ | partial |  |
 | CupertinoTextField | `WiredInput` / `WiredTextArea` | ✅ | ✅ | ✅ | partial |  |
-| CupertinoPicker | — | ❌ | ❌ | ❌ | missing |  |
+| CupertinoPicker | `WiredCupertinoPicker` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Scroll picker with sketchy border + selection highlight |
 | CupertinoDatePicker | `WiredDatePicker` / `WiredTimePicker` | ✅ | ✅ | ✅ | partial | API + iOS wheel UX not matched |
 | CupertinoAlertDialog | `WiredDialog` | ✅ | ✅ | ✅ | partial |  |
 | CupertinoActionSheet | `WiredBottomSheet` / `WiredPopupMenu` | ✅ | ✅ | ❌ (popup menu) | partial | Not dedicated Cupertino action sheet |
