@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
-import 'wired_theme.dart';
 import 'wired_calendar.dart';
+import 'wired_theme.dart';
 
 /// A date picker dialog with hand-drawn styling, extending the calendar pattern.
 class WiredDatePicker extends HookWidget {
