@@ -9,7 +9,6 @@ void main() {
     Future<void> navigateToFeedback(WidgetTester tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
-      // Feedback is offscreen; scroll it into view first.
       await tester.scrollUntilVisible(find.text('Feedback'), 200);
       await tester.pumpAndSettle();
       await tester.tap(find.text('Feedback'));
@@ -34,6 +33,21 @@ void main() {
     testWidgets('renders WiredAppBar', (tester) async {
       await navigateToFeedback(tester);
       expect(find.byType(WiredAppBar), findsOneWidget);
+    });
+
+    testWidgets('page contains multiple showcase sections', (tester) async {
+      await navigateToFeedback(tester);
+      // Feedback page has sections for Dialog, Badge, Progress, etc.
+      // Just verify the page rendered with a ListView containing content
+      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byType(RepaintBoundary), findsWidgets);
+    });
+
+    testWidgets('navigates back to home', (tester) async {
+      await navigateToFeedback(tester);
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      expect(find.text('Skribble Storybook'), findsOneWidget);
     });
   });
 }

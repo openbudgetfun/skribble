@@ -32,5 +32,18 @@ void main() {
       await navigateToSelection(tester);
       expect(find.byType(WiredAppBar), findsOneWidget);
     });
+
+    testWidgets('page contains ListView with content', (tester) async {
+      await navigateToSelection(tester);
+      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byType(RepaintBoundary), findsWidgets);
+    });
+
+    testWidgets('navigates back to home', (tester) async {
+      await navigateToSelection(tester);
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      expect(find.text('Skribble Storybook'), findsOneWidget);
+    });
   });
 }

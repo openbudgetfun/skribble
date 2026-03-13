@@ -9,7 +9,6 @@ void main() {
     Future<void> navigateToLayout(WidgetTester tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
-      // Layout is offscreen; scroll it into view first.
       await tester.scrollUntilVisible(find.text('Layout'), 200);
       await tester.pumpAndSettle();
       await tester.tap(find.text('Layout'));
@@ -34,6 +33,28 @@ void main() {
     testWidgets('renders WiredAppBar', (tester) async {
       await navigateToLayout(tester);
       expect(find.byType(WiredAppBar), findsOneWidget);
+    });
+
+    testWidgets('shows WiredDivider section on scroll', (tester) async {
+      await navigateToLayout(tester);
+      await tester.scrollUntilVisible(
+        find.text('WiredDivider'),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('WiredDivider'), findsOneWidget);
+    });
+
+    testWidgets('shows WiredExpansionTile section on scroll', (tester) async {
+      await navigateToLayout(tester);
+      await tester.scrollUntilVisible(
+        find.text('WiredExpansionTile'),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('WiredExpansionTile'), findsOneWidget);
     });
   });
 }
