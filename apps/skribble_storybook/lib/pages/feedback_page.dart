@@ -24,13 +24,26 @@ class FeedbackPage extends HookWidget {
         padding: const EdgeInsets.all(16),
         children: [
           ShowcaseSection(
+            title: 'WiredAnimatedIcon',
+            children: [
+              ComponentShowcase(
+                title: 'Animated Icon',
+                description: 'Morphing icon with hand-drawn styling.',
+                child: _AnimatedIconDemo(),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredMaterialBanner',
             children: [
               ComponentShowcase(
                 title: 'Banner',
                 description: 'Persistent top-of-screen message.',
                 child: WiredMaterialBanner(
-                  leading: const Icon(Icons.warning_amber, color: Colors.orange),
+                  leading: const Icon(
+                    Icons.warning_amber,
+                    color: Colors.orange,
+                  ),
                   content: const Text('Your account is about to expire.'),
                   actions: [
                     TextButton(
@@ -233,8 +246,7 @@ class FeedbackPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Cupertino Alert Dialog',
-                description:
-                    'iOS-style alert with sketchy borders.',
+                description: 'iOS-style alert with sketchy borders.',
                 child: WiredButton(
                   onPressed: () {
                     unawaited(
@@ -268,8 +280,7 @@ class FeedbackPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Cupertino Action Sheet',
-                description:
-                    'iOS-style action sheet with sketchy borders.',
+                description: 'iOS-style action sheet with sketchy borders.',
                 child: WiredButton(
                   onPressed: () {
                     unawaited(
@@ -361,8 +372,7 @@ class FeedbackPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'About Dialog',
-                description:
-                    'Hand-drawn about dialog with app info.',
+                description: 'Hand-drawn about dialog with app info.',
                 child: WiredButton(
                   onPressed: () {
                     unawaited(
@@ -382,6 +392,38 @@ class FeedbackPage extends HookWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _AnimatedIconDemo extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    final controller = useAnimationController(
+      duration: const Duration(milliseconds: 500),
+    );
+    final isForward = useState(false);
+
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            if (isForward.value) {
+              controller.reverse();
+            } else {
+              controller.forward();
+            }
+            isForward.value = !isForward.value;
+          },
+          child: WiredAnimatedIcon(
+            icon: AnimatedIcons.menu_arrow,
+            progress: controller,
+            size: 36,
+          ),
+        ),
+        const SizedBox(width: 16),
+        const Text('Tap to animate'),
+      ],
     );
   }
 }
