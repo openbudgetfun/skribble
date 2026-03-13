@@ -18,6 +18,8 @@ class WiredPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(WiredPainter oldDelegate) {
-    return oldDelegate.drawConfig != drawConfig;
+    return oldDelegate.drawConfig != drawConfig ||
+        oldDelegate.filler.runtimeType != filler.runtimeType ||
+        oldDelegate.painter.runtimeType != painter.runtimeType;
   }
 }
