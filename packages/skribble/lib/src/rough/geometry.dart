@@ -50,6 +50,8 @@ PointsOrientation getOrientation(PointD p, PointD q, PointD r) {
 bool onSegmentPoints(PointD source, PointD point, PointD target) =>
     Line(source, target).onSegment(point);
 
+/// Pre-computed points along an ellipse path, split into core and
+/// all (interpolated) points for rendering.
 class ComputedEllipsePoints {
   List<PointD>? corePoints;
   List<PointD>? allPoints;
@@ -57,6 +59,7 @@ class ComputedEllipsePoints {
   ComputedEllipsePoints({this.corePoints, this.allPoints});
 }
 
+/// Parameters for ellipse generation — radii and angular increment.
 class EllipseParams {
   final double? rx;
   final double? ry;
@@ -65,6 +68,8 @@ class EllipseParams {
   EllipseParams({this.rx, this.ry, this.increment});
 }
 
+/// The result of generating an ellipse — the `OpSet` for rendering
+/// and estimated boundary points.
 class EllipseResult {
   OpSet? opSet;
   List<PointD>? estimatedPoints;
@@ -72,6 +77,8 @@ class EllipseResult {
   EllipseResult({this.opSet, this.estimatedPoints});
 }
 
+/// A polygon edge used in scan-line fill algorithms, tracking
+/// y-range, x-intercept, and slope.
 class Edge {
   double? yMin;
   double? yMax;
@@ -93,6 +100,8 @@ class Edge {
   }
 }
 
+/// An active edge in the scan-line fill algorithm with its current
+/// x-intercept position [s].
 class ActiveEdge {
   double s;
   Edge edge;
