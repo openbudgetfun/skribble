@@ -5,6 +5,16 @@ import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
+/// A hand-drawn text field, corresponding to Flutter's `TextField`.
+///
+/// Wraps a `TextField` with a sketchy rectangle border drawn using
+/// `WiredRectangleBase`. Supports label, hint, prefix/suffix icons,
+/// and all standard text input callbacks.
+///
+/// See also:
+///  * `WiredTextArea`, for multiline text input.
+///  * `WiredSearchBar`, for a search-specific input.
+///  * `WiredCupertinoTextField`, for Cupertino styling.
 class WiredInput extends HookWidget {
   final TextEditingController? controller;
   final TextStyle? style;

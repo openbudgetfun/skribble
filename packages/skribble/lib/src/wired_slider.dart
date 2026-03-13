@@ -6,6 +6,14 @@ import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
+/// A hand-drawn slider, corresponding to Flutter's `Slider`.
+///
+/// Renders a sketchy track line with a hand-drawn circle thumb.
+/// Supports [divisions], [label], and custom [min]/[max] range.
+///
+/// See also:
+///  * `WiredRangeSlider`, for a dual-handle variant.
+///  * `WiredCupertinoSlider`, for Cupertino styling.
 class WiredSlider extends HookWidget {
   final double value;
   final int? divisions;

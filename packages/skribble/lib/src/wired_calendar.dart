@@ -6,6 +6,14 @@ import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
+/// A full month calendar with hand-drawn cell borders.
+///
+/// Each day cell is drawn with a sketchy `WiredRectangleBase` border.
+/// The currently [selected] date is highlighted with a hachure fill.
+///
+/// See also:
+///  * `WiredCalendarDatePicker`, which wraps Flutter's `CalendarDatePicker`.
+///  * `WiredDatePicker`, which shows a date picker dialog.
 class WiredCalendar extends HookWidget {
   final String? selected;
   final void Function(String selected)? onSelected;

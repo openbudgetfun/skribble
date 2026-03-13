@@ -8,6 +8,15 @@ import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
+/// A simple hand-drawn on/off toggle.
+///
+/// Draws a sketchy rounded rectangle track with a circle thumb that
+/// animates between on and off positions. Uses `WiredRoundedRectangleBase`
+/// for the track and `WiredCircleBase` for the thumb.
+///
+/// See also:
+///  * `WiredSwitch`, which wraps Flutter's `Switch`.
+///  * `WiredCupertinoSwitch`, for Cupertino styling.
 class WiredToggle extends HookWidget {
   const WiredToggle({
     super.key,

@@ -5,6 +5,13 @@ import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
+/// A hand-drawn checkbox, corresponding to Flutter's `Checkbox`.
+///
+/// Draws a sketchy circle border with a hachure-filled checkmark when
+/// [value] is `true`. Supports tristate (`null`) values.
+///
+/// See also:
+///  * `WiredCheckboxListTile`, which combines this with a label.
 class WiredCheckbox extends HookWidget {
   final bool? value;
   final void Function(bool?) onChanged;

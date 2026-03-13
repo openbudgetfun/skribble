@@ -6,6 +6,13 @@ import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
+/// A hand-drawn radio button, corresponding to Flutter's `Radio`.
+///
+/// Draws a sketchy circle border. When [value] equals [groupValue],
+/// the interior is filled with a hachure pattern.
+///
+/// See also:
+///  * `WiredRadioListTile`, which combines this with a label.
 class WiredRadio<T> extends HookWidget {
   final T value;
   final T? groupValue;
