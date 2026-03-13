@@ -15,6 +15,7 @@ class NavigationPage extends HookWidget {
     final tabIndex = useState(0);
     final navBarIndex = useState(0);
     final railIndex = useState(0);
+    final popupSelection = useState<String>('None');
 
     return Scaffold(
       appBar: WiredAppBar(
@@ -56,14 +57,8 @@ class NavigationPage extends HookWidget {
                   onTap: (i) => bottomNavIndex.value = i,
                   items: const [
                     WiredBottomNavItem(icon: Icons.home, label: 'Home'),
-                    WiredBottomNavItem(
-                      icon: Icons.search,
-                      label: 'Search',
-                    ),
-                    WiredBottomNavItem(
-                      icon: Icons.person,
-                      label: 'Profile',
-                    ),
+                    WiredBottomNavItem(icon: Icons.search, label: 'Search'),
+                    WiredBottomNavItem(icon: Icons.person, label: 'Profile'),
                   ],
                 ),
               ),
@@ -104,10 +99,7 @@ class NavigationPage extends HookWidget {
                   selectedIndex: navBarIndex.value,
                   onDestinationSelected: (i) => navBarIndex.value = i,
                   destinations: const [
-                    WiredNavigationDestination(
-                      icon: Icons.home,
-                      label: 'Home',
-                    ),
+                    WiredNavigationDestination(icon: Icons.home, label: 'Home'),
                     WiredNavigationDestination(
                       icon: Icons.explore,
                       label: 'Explore',
@@ -152,6 +144,39 @@ class NavigationPage extends HookWidget {
             ],
           ),
           ShowcaseSection(
+            title: 'WiredPopupMenuButton',
+            children: [
+              ComponentShowcase(
+                title: 'Popup Menu',
+                description: 'Anchored menu with hand-drawn container.',
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Selected: ${popupSelection.value}'),
+                    WiredPopupMenuButton<String>(
+                      icon: const Icon(Icons.more_vert),
+                      onSelected: (value) => popupSelection.value = value,
+                      items: const [
+                        WiredPopupMenuItem(
+                          value: 'Profile',
+                          child: Text('Profile'),
+                        ),
+                        WiredPopupMenuItem(
+                          value: 'Settings',
+                          child: Text('Settings'),
+                        ),
+                        WiredPopupMenuItem(
+                          value: 'Sign out',
+                          child: Text('Sign out'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredDrawer',
             children: [
               ComponentShowcase(
@@ -159,31 +184,33 @@ class NavigationPage extends HookWidget {
                 description: 'Hand-drawn border drawer.',
                 child: WiredButton(
                   onPressed: () {
-                    unawaited(showDialog<void>(
-                      context: context,
-                      builder: (ctx) => Dialog(
-                        child: SizedBox(
-                          width: 280,
-                          height: 400,
-                          child: WiredDrawer(
-                            child: ListView(
-                              children: [
-                                WiredListTile(
-                                  leading: const Icon(Icons.home),
-                                  title: const Text('Home'),
-                                  onTap: () => Navigator.pop(ctx),
-                                ),
-                                WiredListTile(
-                                  leading: const Icon(Icons.settings),
-                                  title: const Text('Settings'),
-                                  onTap: () => Navigator.pop(ctx),
-                                ),
-                              ],
+                    unawaited(
+                      showDialog<void>(
+                        context: context,
+                        builder: (ctx) => Dialog(
+                          child: SizedBox(
+                            width: 280,
+                            height: 400,
+                            child: WiredDrawer(
+                              child: ListView(
+                                children: [
+                                  WiredListTile(
+                                    leading: const Icon(Icons.home),
+                                    title: const Text('Home'),
+                                    onTap: () => Navigator.pop(ctx),
+                                  ),
+                                  WiredListTile(
+                                    leading: const Icon(Icons.settings),
+                                    title: const Text('Settings'),
+                                    onTap: () => Navigator.pop(ctx),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ));
+                    );
                   },
                   child: const Text('Open Drawer Preview'),
                 ),

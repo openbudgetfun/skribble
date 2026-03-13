@@ -1,0 +1,94 @@
+# Flutter Default Widget Parity Matrix vs Skribble
+
+This matrix inventories common Flutter **Material** and **Cupertino** default widgets and maps each to Skribble coverage across:
+
+- library implementation (`packages/skribble/lib/src`)
+- widget tests (`packages/skribble/test/widgets`)
+- storybook demos (`apps/skribble_storybook/lib/pages`)
+
+Status meanings:
+
+- **implemented**: matching Wired widget exists with test + storybook usage
+- **partial**: some coverage exists, but parity is incomplete (variant gaps / helper-only / no one-to-one equivalent)
+- **unverified**: implementation exists but test or storybook evidence is missing
+- **missing**: no Skribble equivalent found
+
+## Material widgets
+
+| Flutter widget | Skribble mapping | Lib | Test | Storybook | Status | Notes |
+|---|---|---:|---:|---:|---|---|
+| AppBar | `WiredAppBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
+| NavigationBar (M3) | `WiredNavigationBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
+| NavigationRail | `WiredNavigationRail` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
+| BottomNavigationBar | `WiredBottomNavigationBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
+| Drawer | `WiredDrawer` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
+| TabBar | `WiredTabBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
+| ListTile | `WiredListTile` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| ExpansionTile | `WiredExpansionTile` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| ElevatedButton | `WiredElevatedButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
+| OutlinedButton | `WiredOutlinedButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
+| TextButton | `WiredTextButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
+| IconButton | `WiredIconButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
+| FloatingActionButton | `WiredFloatingActionButton` (`wired_fab.dart`) | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
+| FilledButton | `WiredButton`/`WiredElevatedButton` | ✅ | ✅ (`wired_button_test.dart`) | ✅ (`buttons_page.dart`) | partial | No explicit `WiredFilledButton` class |
+| SegmentedButton | `WiredSegmentedButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
+| Checkbox | `WiredCheckbox` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| Radio | `WiredRadio` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| Switch | `WiredSwitch` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| Slider | `WiredSlider` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| RangeSlider | `WiredRangeSlider` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
+| DropdownButton / DropdownMenu | `WiredCombo` | ✅ | ✅ | ✅ (`inputs_page.dart`) | partial | Equivalent control but non-standard naming/API |
+| TextField | `WiredInput` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| SearchBar / SearchAnchor | `WiredSearchBar` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| Chip | `WiredChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
+| FilterChip | `WiredFilterChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
+| ChoiceChip | `WiredChoiceChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
+| InputChip / ActionChip | `WiredChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | partial | Specialized Input/ActionChip behaviors not explicit |
+| Badge | `WiredBadge` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| Tooltip | `WiredTooltip` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| SnackBar | `showWiredSnackBar` / `WiredSnackBar` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| Dialog / AlertDialog | `WiredDialog` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| BottomSheet | `showWiredBottomSheet` / `WiredBottomSheet` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| DatePicker | `showWiredDatePicker` / `WiredDatePicker` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
+| TimePicker | `WiredTimePicker` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
+| CalendarDatePicker | `WiredCalendar` | ✅ | ✅ | ✅ (`data_display_page.dart`) | partial | Adjacent API; not exact CalendarDatePicker drop-in |
+| Card | `WiredCard` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| Divider | `WiredDivider` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| DataTable | `WiredDataTable` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
+| LinearProgressIndicator | `WiredProgress` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| CircularProgressIndicator | `WiredCircularProgress` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| Stepper | `WiredStepper` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
+| PopupMenuButton / MenuAnchor | `WiredPopupMenu` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Storybook example added under navigation page |
+| ToggleButtons | `WiredToggle` | ✅ | ✅ | ✅ (`inputs_page.dart`) | partial | Not a direct multi-button `ToggleButtons` equivalent |
+| Form | Uses individual wired inputs | ❌ | ❌ | ❌ | missing | No dedicated `WiredForm` wrapper |
+| Autocomplete | — | ❌ | ❌ | ❌ | missing |  |
+| ReorderableListView | — | ❌ | ❌ | ❌ | missing |  |
+| MenuBar / DropdownMenu (M3 menu system) | — / partial via `WiredPopupMenu` | ❌ | ❌ | ❌ | missing | No menu bar primitives |
+| NavigationDrawer (M3) | `WiredDrawer` | ✅ | ✅ | ✅ | partial | Material 2 drawer equivalent; M3 API parity unverified |
+
+## Cupertino widgets
+
+| Flutter Cupertino widget | Skribble mapping | Lib | Test | Storybook | Status | Notes |
+|---|---|---:|---:|---:|---|---|
+| CupertinoNavigationBar | `WiredAppBar` (style-only alternative) | ✅ | ✅ | ✅ | partial | Not Cupertino API-compatible |
+| CupertinoButton | `WiredButton` / `WiredTextButton` | ✅ | ✅ | ✅ | partial | Visual alternative only |
+| CupertinoSwitch | `WiredSwitch` | ✅ | ✅ | ✅ | partial | Not Cupertino-specific implementation |
+| CupertinoSlider | `WiredSlider` | ✅ | ✅ | ✅ | partial |  |
+| CupertinoTextField | `WiredInput` / `WiredTextArea` | ✅ | ✅ | ✅ | partial |  |
+| CupertinoPicker | — | ❌ | ❌ | ❌ | missing |  |
+| CupertinoDatePicker | `WiredDatePicker` / `WiredTimePicker` | ✅ | ✅ | ✅ | partial | API + iOS wheel UX not matched |
+| CupertinoAlertDialog | `WiredDialog` | ✅ | ✅ | ✅ | partial |  |
+| CupertinoActionSheet | `WiredBottomSheet` / `WiredPopupMenu` | ✅ | ✅ | ❌ (popup menu) | partial | Not dedicated Cupertino action sheet |
+| CupertinoTabBar | `WiredBottomNavigationBar` | ✅ | ✅ | ✅ | partial |  |
+| CupertinoTabScaffold | — | ❌ | ❌ | ❌ | missing |  |
+| CupertinoPageScaffold | — | ❌ | ❌ | ❌ | missing |  |
+| CupertinoContextMenu | — | ❌ | ❌ | ❌ | missing |  |
+| CupertinoScrollbar | — | ❌ | ❌ | ❌ | missing |  |
+| CupertinoSegmentedControl / SlidingSegmentedControl | `WiredSegmentedButton` | ✅ | ✅ | ✅ | partial | Similar interaction; different API |
+
+## Summary
+
+- **Strongly covered Material surface:** navigation, core buttons, selection controls, dialogs/overlays, data display, progress, and many list/layout primitives.
+- **No currently unverified implemented Material widgets** in this matrix (lib + test + storybook evidence present for mapped items).
+- **Main gaps for “default Flutter parity”:** higher-level form wrappers, autocomplete/reorderable/menu-bar surfaces, and most Cupertino-specific scaffolds/pickers/context widgets.
+- **Cupertino parity is mostly “style-adjacent”, not API-level parity.**
