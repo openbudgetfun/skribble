@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -28,7 +28,8 @@ class WiredFilledButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fill = fillColor ?? borderColor;
+    final theme = WiredTheme.of(context);
+    final fill = fillColor ?? theme.borderColor;
     final fg = foregroundColor ?? Colors.white;
 
     return buildWiredElement(
@@ -36,7 +37,7 @@ class WiredFilledButton extends HookWidget {
         height: 42.0,
         decoration: RoughBoxDecoration(
           shape: RoughBoxShape.rectangle,
-          borderStyle: RoughDrawingStyle(width: 1, color: borderColor),
+          borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
           fillStyle: RoughDrawingStyle(color: fill),
           filler: HachureFiller(FillerConfig.build(hachureGap: 2)),
         ),

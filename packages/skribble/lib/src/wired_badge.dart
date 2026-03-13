@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -23,6 +23,7 @@ class WiredBadge extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -45,7 +46,7 @@ class WiredBadge extends HookWidget {
                         children: [
                           WiredCanvas(
                             painter: WiredCircleBase(
-                              fillColor: backgroundColor ?? borderColor,
+                              fillColor: backgroundColor ?? theme.borderColor,
                               diameterRatio: 0.9,
                             ),
                             fillerType: RoughFilter.hachureFiller,
@@ -64,7 +65,7 @@ class WiredBadge extends HookWidget {
                     )
                   : WiredCanvas(
                       painter: WiredCircleBase(
-                        fillColor: backgroundColor ?? borderColor,
+                        fillColor: backgroundColor ?? theme.borderColor,
                         diameterRatio: 0.9,
                       ),
                       fillerType: RoughFilter.hachureFiller,

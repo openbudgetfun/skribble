@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -20,6 +20,7 @@ class WiredRadio<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final isSelected = value == groupValue;
 
     return buildWiredElement(
@@ -41,7 +42,7 @@ class WiredRadio<T> extends HookWidget {
               child: WiredCanvas(
                 painter: WiredCircleBase(
                   diameterRatio: .7,
-                  fillColor: textColor,
+                  fillColor: theme.textColor,
                 ),
                 fillerType: RoughFilter.hachureFiller,
                 fillerConfig: FillerConfig.build(hachureGap: 1.0),

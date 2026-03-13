@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 
 /// A tooltip with a hand-drawn border.
@@ -21,16 +21,17 @@ class WiredTooltip extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Tooltip(
       message: message,
       waitDuration: waitDuration,
       showDuration: showDuration,
       decoration: RoughBoxDecoration(
         shape: RoughBoxShape.rectangle,
-        borderStyle: RoughDrawingStyle(width: 1, color: borderColor),
-        fillStyle: RoughDrawingStyle(color: filledColor),
+        borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
+        fillStyle: RoughDrawingStyle(color: theme.fillColor),
       ),
-      textStyle: TextStyle(color: textColor, fontSize: 12),
+      textStyle: TextStyle(color: theme.textColor, fontSize: 12),
       child: child,
     );
   }

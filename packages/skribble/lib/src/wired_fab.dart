@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -23,6 +23,7 @@ class WiredFloatingActionButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: GestureDetector(
         onTap: onPressed,
@@ -35,12 +36,16 @@ class WiredFloatingActionButton extends HookWidget {
               WiredCanvas(
                 painter: WiredCircleBase(
                   diameterRatio: 0.9,
-                  fillColor: borderColor,
+                  fillColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.hachureFiller,
                 fillerConfig: FillerConfig.build(hachureGap: 2.0),
               ),
-              Icon(icon, color: iconColor ?? filledColor, size: size * 0.43),
+              Icon(
+                icon,
+                color: iconColor ?? theme.fillColor,
+                size: size * 0.43,
+              ),
             ],
           ),
         ),

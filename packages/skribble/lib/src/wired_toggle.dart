@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -22,6 +22,7 @@ class WiredToggle extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final isSwitched = useRef(value);
     final controller = useAnimationController(
       duration: const Duration(milliseconds: 250),
@@ -64,7 +65,7 @@ class WiredToggle extends HookWidget {
                 child: WiredCanvas(
                   painter: WiredCircleBase(
                     diameterRatio: .7,
-                    fillColor: textColor,
+                    fillColor: theme.textColor,
                   ),
                   fillerType: RoughFilter.hachureFiller,
                   fillerConfig: FillerConfig.build(hachureGap: 1.0),

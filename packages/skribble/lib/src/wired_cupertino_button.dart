@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -67,6 +67,7 @@ class WiredCupertinoButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final isPressed = useState(false);
     final enabled = onPressed != null;
     final effectiveFill = enabled ? color : disabledColor;
@@ -95,7 +96,7 @@ class WiredCupertinoButton extends HookWidget {
                   child: WiredCanvas(
                     painter: WiredRoundedRectangleBase(
                       borderRadius: effectiveRadius,
-                      fillColor: hasFill ? effectiveFill : filledColor,
+                      fillColor: hasFill ? effectiveFill : theme.fillColor,
                     ),
                     fillerType: hasFill
                         ? RoughFilter.hachureFiller
@@ -109,7 +110,7 @@ class WiredCupertinoButton extends HookWidget {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   child: DefaultTextStyle(
                     style: TextStyle(
-                      color: hasFill ? Colors.white : borderColor,
+                      color: hasFill ? Colors.white : theme.borderColor,
                       fontSize: 16,
                     ),
                     child: child,

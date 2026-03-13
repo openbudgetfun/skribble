@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -29,6 +29,7 @@ class WiredSwitch extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final controller = useAnimationController(
       duration: const Duration(milliseconds: 200),
       initialValue: value ? 1.0 : 0.0,
@@ -45,8 +46,8 @@ class WiredSwitch extends HookWidget {
       return null;
     }, [value]);
 
-    final effectiveActiveColor = activeColor ?? borderColor;
-    final effectiveInactiveColor = inactiveColor ?? filledColor;
+    final effectiveActiveColor = activeColor ?? theme.borderColor;
+    final effectiveInactiveColor = inactiveColor ?? theme.fillColor;
 
     return GestureDetector(
       onTap: () => onChanged?.call(!value),
@@ -81,7 +82,7 @@ class WiredSwitch extends HookWidget {
                 child: WiredCanvas(
                   painter: WiredCircleBase(
                     diameterRatio: 0.8,
-                    fillColor: value ? filledColor : borderColor,
+                    fillColor: value ? theme.fillColor : theme.borderColor,
                   ),
                   fillerType: RoughFilter.hachureFiller,
                   fillerConfig: FillerConfig.build(hachureGap: 1.0),

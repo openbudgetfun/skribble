@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// An app bar with a hand-drawn bottom border.
@@ -27,6 +27,7 @@ class WiredAppBar extends HookWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return SafeArea(
       bottom: false,
       child: Column(
@@ -45,7 +46,7 @@ class WiredAppBar extends HookWidget implements PreferredSizeWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: DefaultTextStyle(
                         style: TextStyle(
-                          color: textColor,
+                          color: theme.textColor,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),

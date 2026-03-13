@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -14,6 +14,7 @@ class WiredElevatedButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Stack(
         children: [
@@ -26,8 +27,11 @@ class WiredElevatedButton extends HookWidget {
             child: Container(
               decoration: RoughBoxDecoration(
                 shape: RoughBoxShape.rectangle,
-                borderStyle: RoughDrawingStyle(width: 0.5, color: borderColor),
-                fillStyle: RoughDrawingStyle(color: borderColor),
+                borderStyle: RoughDrawingStyle(
+                  width: 0.5,
+                  color: theme.borderColor,
+                ),
+                fillStyle: RoughDrawingStyle(color: theme.borderColor),
                 filler: HachureFiller(FillerConfig.build(hachureGap: 2)),
               ),
             ),
@@ -36,14 +40,17 @@ class WiredElevatedButton extends HookWidget {
             height: 42.0,
             decoration: RoughBoxDecoration(
               shape: RoughBoxShape.rectangle,
-              borderStyle: RoughDrawingStyle(width: 1, color: borderColor),
-              fillStyle: RoughDrawingStyle(color: filledColor),
+              borderStyle: RoughDrawingStyle(
+                width: 1,
+                color: theme.borderColor,
+              ),
+              fillStyle: RoughDrawingStyle(color: theme.fillColor),
               filler: HachureFiller(FillerConfig.build(hachureGap: 3)),
             ),
             child: SizedBox(
               height: double.infinity,
               child: TextButton(
-                style: TextButton.styleFrom(foregroundColor: textColor),
+                style: TextButton.styleFrom(foregroundColor: theme.textColor),
                 onPressed: onPressed,
                 child: child,
               ),

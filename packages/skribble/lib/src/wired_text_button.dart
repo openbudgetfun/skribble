@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A text button with a hand-drawn underline.
@@ -14,13 +14,14 @@ class WiredTextButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: IntrinsicWidth(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextButton(
-              style: TextButton.styleFrom(foregroundColor: textColor),
+              style: TextButton.styleFrom(foregroundColor: theme.textColor),
               onPressed: onPressed,
               child: child,
             ),
