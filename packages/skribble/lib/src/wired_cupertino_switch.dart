@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn switch corresponding to Flutter's [CupertinoSwitch].
 ///
@@ -51,6 +52,7 @@ class WiredCupertinoSwitch extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final controller = useAnimationController(
       duration: const Duration(milliseconds: 200),
       initialValue: value ? 1.0 : 0.0,
@@ -99,6 +101,7 @@ class WiredCupertinoSwitch extends HookWidget {
                         fillColor: value
                             ? effectiveActiveColor
                             : effectiveInactiveColor,
+                        borderColor: theme.borderColor,
                       ),
                       fillerType: value
                           ? RoughFilter.hachureFiller
@@ -115,6 +118,7 @@ class WiredCupertinoSwitch extends HookWidget {
                       child: WiredCanvas(
                         painter: WiredCircleBase(
                           fillColor: effectiveThumbColor,
+                          borderColor: theme.borderColor,
                         ),
                         fillerType: RoughFilter.hachureFiller,
                         fillerConfig: FillerConfig.build(hachureGap: 1.5),

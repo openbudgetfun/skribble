@@ -31,7 +31,10 @@ class WiredRadio<T> extends HookWidget {
             height: 48.0,
             width: 48.0,
             child: WiredCanvas(
-              painter: WiredCircleBase(diameterRatio: .7),
+              painter: WiredCircleBase(
+                diameterRatio: .7,
+                borderColor: theme.borderColor,
+              ),
               fillerType: RoughFilter.noFiller,
             ),
           ),
@@ -43,6 +46,7 @@ class WiredRadio<T> extends HookWidget {
                 painter: WiredCircleBase(
                   diameterRatio: .7,
                   fillColor: theme.textColor,
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.hachureFiller,
                 fillerConfig: FillerConfig.build(hachureGap: 1.0),

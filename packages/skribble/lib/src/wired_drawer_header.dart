@@ -53,6 +53,7 @@ class WiredDrawerHeader extends HookWidget {
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
                     fillColor: theme.borderColor.withValues(alpha: 0.06),
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.hachureFiller,
                   fillerConfig: FillerConfig.build(hachureGap: 4.0),
@@ -83,6 +84,7 @@ class WiredDrawerHeader extends HookWidget {
                   y1: 1,
                   x2: double.maxFinite,
                   y2: 1,
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.noFiller,
               ),
@@ -149,6 +151,7 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
                     fillColor: theme.borderColor.withValues(alpha: 0.08),
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.hachureFiller,
                   fillerConfig: FillerConfig.build(hachureGap: 4.0),
@@ -212,6 +215,7 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
                   y1: 1,
                   x2: double.maxFinite,
                   y2: 1,
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.noFiller,
               ),

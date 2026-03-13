@@ -48,6 +48,7 @@ class WiredBadge extends HookWidget {
                             painter: WiredCircleBase(
                               fillColor: backgroundColor ?? theme.borderColor,
                               diameterRatio: 0.9,
+                              borderColor: theme.borderColor,
                             ),
                             fillerType: RoughFilter.hachureFiller,
                             fillerConfig: FillerConfig.build(hachureGap: 1.0),
@@ -67,6 +68,7 @@ class WiredBadge extends HookWidget {
                       painter: WiredCircleBase(
                         fillColor: backgroundColor ?? theme.borderColor,
                         diameterRatio: 0.9,
+                        borderColor: theme.borderColor,
                       ),
                       fillerType: RoughFilter.hachureFiller,
                       fillerConfig: FillerConfig.build(hachureGap: 1.0),

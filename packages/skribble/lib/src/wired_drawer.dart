@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A drawer with a hand-drawn border on the right edge.
 class WiredDrawer extends HookWidget {
@@ -13,6 +14,7 @@ class WiredDrawer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Drawer(
       width: width,
       child: Stack(
@@ -30,6 +32,7 @@ class WiredDrawer extends HookWidget {
                   x2: 0,
                   y2: double.infinity,
                   strokeWidth: 2,
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.noFiller,
               ),

@@ -43,7 +43,13 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
         SizedBox(
           height: 2,
           child: WiredCanvas(
-            painter: WiredLineBase(x1: 0, y1: 0, x2: double.infinity, y2: 0),
+            painter: WiredLineBase(
+              x1: 0,
+              y1: 0,
+              x2: double.infinity,
+              y2: 0,
+              borderColor: theme.borderColor,
+            ),
             fillerType: RoughFilter.noFiller,
           ),
         ),
@@ -85,6 +91,7 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
                   x2: double.infinity,
                   y2: 0,
                   strokeWidth: 3,
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.noFiller,
               ),

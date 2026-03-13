@@ -70,6 +70,7 @@ class WiredCupertinoTabBar extends HookWidget {
                   y1: 1,
                   x2: double.maxFinite,
                   y2: 1,
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.noFiller,
               ),

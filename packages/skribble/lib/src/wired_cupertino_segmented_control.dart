@@ -62,6 +62,7 @@ class WiredCupertinoSegmentedControl<T extends Object> extends HookWidget {
                 borderRadius: BorderRadius.circular(8),
                 fillColor: unselectedColor ?? theme.fillColor,
                 strokeWidth: 2,
+                borderColor: effectiveBorderColor,
               ),
               fillerType: RoughFilter.noFiller,
             ),
@@ -82,6 +83,7 @@ class WiredCupertinoSegmentedControl<T extends Object> extends HookWidget {
                           x2: 1,
                           y2: double.maxFinite,
                           strokeWidth: 2,
+                          borderColor: effectiveBorderColor,
                         ),
                         fillerType: RoughFilter.noFiller,
                       ),
@@ -138,7 +140,10 @@ class _SegmentTile<T> extends HookWidget {
           if (isSelected)
             Positioned.fill(
               child: WiredCanvas(
-                painter: WiredRectangleBase(fillColor: selectedColor),
+                painter: WiredRectangleBase(
+                  fillColor: selectedColor,
+                  borderColor: borderColor,
+                ),
                 fillerType: RoughFilter.hachureFiller,
                 fillerConfig: FillerConfig.build(hachureGap: 2.5),
               ),
@@ -214,6 +219,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
               painter: WiredRoundedRectangleBase(
                 borderRadius: BorderRadius.circular(8),
                 fillColor: effectiveBgColor,
+                borderColor: theme.borderColor,
               ),
               fillerType: RoughFilter.noFiller,
             ),
@@ -240,6 +246,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
                                   painter: WiredRoundedRectangleBase(
                                     borderRadius: BorderRadius.circular(6),
                                     fillColor: effectiveThumbColor,
+                                    borderColor: theme.borderColor,
                                   ),
                                   fillerType: RoughFilter.hachureFiller,
                                   fillerConfig: FillerConfig.build(

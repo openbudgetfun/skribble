@@ -47,6 +47,7 @@ class WiredAboutDialog extends HookWidget {
               child: WiredCanvas(
                 painter: WiredRoundedRectangleBase(
                   borderRadius: BorderRadius.circular(16),
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.noFiller,
               ),
@@ -109,6 +110,7 @@ class WiredAboutDialog extends HookWidget {
                         y1: 1,
                         x2: double.maxFinite,
                         y2: 1,
+                        borderColor: theme.borderColor,
                       ),
                       fillerType: RoughFilter.noFiller,
                     ),

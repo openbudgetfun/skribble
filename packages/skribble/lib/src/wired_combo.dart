@@ -40,7 +40,9 @@ class WiredCombo<T> extends HookWidget {
             right: 10.0,
             top: 20.0,
             child: WiredCanvas(
-              painter: WiredInvertedTriangleBase(),
+              painter: WiredInvertedTriangleBase(
+                borderColor: theme.borderColor,
+              ),
               fillerType: RoughFilter.hachureFiller,
               fillerConfig: FillerConfig.build(hachureGap: 2),
               size: Size(18.0, 18.0),
@@ -67,6 +69,7 @@ class WiredCombo<T> extends HookWidget {
                         WiredCanvas(
                           painter: WiredRectangleBase(
                             fillColor: theme.fillColor,
+                            borderColor: theme.borderColor,
                           ),
                           fillerType: RoughFilter.noFiller,
                           size: Size(double.infinity, height.value),

@@ -37,6 +37,7 @@ class WiredFloatingActionButton extends HookWidget {
                 painter: WiredCircleBase(
                   diameterRatio: 0.9,
                   fillColor: theme.borderColor,
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.hachureFiller,
                 fillerConfig: FillerConfig.build(hachureGap: 2.0),

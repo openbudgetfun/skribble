@@ -42,6 +42,7 @@ class WiredRangeSlider extends HookWidget {
               x2: double.infinity,
               y2: 0,
               strokeWidth: 2,
+              borderColor: theme.borderColor,
             ),
             fillerType: RoughFilter.noFiller,
           ),

@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A bottom sheet with a hand-drawn top border and rounded corners.
 class WiredBottomSheet extends HookWidget {
@@ -13,6 +14,7 @@ class WiredBottomSheet extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -25,6 +27,7 @@ class WiredBottomSheet extends HookWidget {
               x2: double.infinity,
               y2: 0,
               strokeWidth: 2,
+              borderColor: theme.borderColor,
             ),
             fillerType: RoughFilter.noFiller,
           ),
@@ -39,6 +42,7 @@ class WiredBottomSheet extends HookWidget {
               child: WiredCanvas(
                 painter: WiredRoundedRectangleBase(
                   borderRadius: BorderRadius.circular(2),
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.hachureFiller,
                 fillerConfig: FillerConfig.build(hachureGap: 1.0),

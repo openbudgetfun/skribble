@@ -66,7 +66,10 @@ class WiredMaterialBanner extends HookWidget {
           // Sketchy border
           Positioned.fill(
             child: WiredCanvas(
-              painter: WiredRectangleBase(fillColor: bgColor),
+              painter: WiredRectangleBase(
+                fillColor: bgColor,
+                borderColor: theme.borderColor,
+              ),
               fillerType: RoughFilter.noFiller,
             ),
           ),
@@ -84,7 +87,13 @@ class WiredMaterialBanner extends HookWidget {
             bottom: 0,
             height: 3,
             child: WiredCanvas(
-              painter: WiredLineBase(x1: 0, y1: 1, x2: double.maxFinite, y2: 1),
+              painter: WiredLineBase(
+                x1: 0,
+                y1: 1,
+                x2: double.maxFinite,
+                y2: 1,
+                borderColor: theme.borderColor,
+              ),
               fillerType: RoughFilter.noFiller,
             ),
           ),

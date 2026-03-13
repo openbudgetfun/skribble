@@ -36,6 +36,7 @@ class WiredNavigationDrawer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Drawer(
         width: width,
@@ -55,6 +56,7 @@ class WiredNavigationDrawer extends HookWidget {
                     x2: 0,
                     y2: double.infinity,
                     strokeWidth: 2,
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.noFiller,
                 ),
@@ -147,6 +149,7 @@ class _WiredDrawerItem extends HookWidget {
                 child: WiredCanvas(
                   painter: WiredRoundedRectangleBase(
                     borderRadius: BorderRadius.circular(24),
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.hachureFiller,
                 ),

@@ -70,7 +70,10 @@ class WiredCupertinoDatePicker extends HookWidget {
             // Sketchy outer border
             Positioned.fill(
               child: WiredCanvas(
-                painter: WiredRoundedRectangleBase(borderRadius: borderRadius),
+                painter: WiredRoundedRectangleBase(
+                  borderRadius: borderRadius,
+                  borderColor: theme.borderColor,
+                ),
                 fillerType: RoughFilter.noFiller,
               ),
             ),
@@ -81,6 +84,7 @@ class WiredCupertinoDatePicker extends HookWidget {
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
                     fillColor: theme.borderColor.withValues(alpha: 0.08),
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.noFiller,
                 ),

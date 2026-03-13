@@ -52,6 +52,7 @@ class WiredInputChip extends HookWidget {
                     child: WiredCanvas(
                       painter: WiredRoundedRectangleBase(
                         borderRadius: BorderRadius.circular(16),
+                        borderColor: theme.borderColor,
                       ),
                       fillerType: selected
                           ? RoughFilter.hachureFiller
@@ -129,6 +130,7 @@ class WiredActionChip extends HookWidget {
                   child: WiredCanvas(
                     painter: WiredRoundedRectangleBase(
                       borderRadius: BorderRadius.circular(16),
+                      borderColor: theme.borderColor,
                     ),
                     fillerType: RoughFilter.noFiller,
                   ),

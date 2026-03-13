@@ -76,6 +76,7 @@ class WiredNavigationRail extends HookWidget {
               x2: 0,
               y2: double.infinity,
               strokeWidth: 2,
+              borderColor: theme.borderColor,
             ),
             fillerType: RoughFilter.noFiller,
           ),
@@ -112,6 +113,7 @@ class WiredNavigationRail extends HookWidget {
                         painter: WiredRoundedRectangleBase(
                           borderRadius: BorderRadius.circular(14),
                           fillColor: theme.borderColor,
+                          borderColor: theme.borderColor,
                         ),
                         fillerType: RoughFilter.hachureFiller,
                         fillerConfig: FillerConfig.build(hachureGap: 2.0),

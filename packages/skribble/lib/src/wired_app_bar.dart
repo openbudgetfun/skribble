@@ -69,6 +69,7 @@ class WiredAppBar extends HookWidget implements PreferredSizeWidget {
                 x2: double.infinity,
                 y2: 0,
                 strokeWidth: 2,
+                borderColor: theme.borderColor,
               ),
               fillerType: RoughFilter.noFiller,
             ),

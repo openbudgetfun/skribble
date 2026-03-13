@@ -49,6 +49,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
                 child: WiredCanvas(
                   painter: WiredRoundedRectangleBase(
                     borderRadius: BorderRadius.circular(14),
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.noFiller,
                 ),
@@ -102,6 +103,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
                             y1: 1,
                             x2: double.maxFinite,
                             y2: 1,
+                            borderColor: theme.borderColor,
                           ),
                           fillerType: RoughFilter.noFiller,
                         ),
@@ -121,6 +123,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
                                       y1: 0,
                                       x2: 1,
                                       y2: double.maxFinite,
+                                      borderColor: theme.borderColor,
                                     ),
                                     fillerType: RoughFilter.noFiller,
                                   ),

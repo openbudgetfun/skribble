@@ -66,6 +66,7 @@ class WiredToggle extends HookWidget {
                   painter: WiredCircleBase(
                     diameterRatio: .7,
                     fillColor: theme.textColor,
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.hachureFiller,
                   fillerConfig: FillerConfig.build(hachureGap: 1.0),
@@ -76,7 +77,10 @@ class WiredToggle extends HookWidget {
               width: thumbRadius * 2.5,
               height: thumbRadius,
               child: WiredCanvas(
-                painter: WiredRectangleBase(fillColor: theme.fillColor),
+                painter: WiredRectangleBase(
+                  fillColor: theme.fillColor,
+                  borderColor: theme.borderColor,
+                ),
                 fillerType: RoughFilter.noFiller,
                 fillerConfig: FillerConfig.build(fillWeight: 3.0),
               ),

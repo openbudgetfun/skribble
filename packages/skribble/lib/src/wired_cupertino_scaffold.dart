@@ -86,7 +86,10 @@ class WiredTabScaffold extends HookWidget {
             children: [
               Positioned.fill(
                 child: WiredCanvas(
-                  painter: WiredRectangleBase(fillColor: theme.fillColor),
+                  painter: WiredRectangleBase(
+                    fillColor: theme.fillColor,
+                    borderColor: theme.borderColor,
+                  ),
                   fillerType: RoughFilter.noFiller,
                 ),
               ),

@@ -37,7 +37,10 @@ class WiredDataTable extends HookWidget {
           children: [
             Positioned.fill(
               child: WiredCanvas(
-                painter: WiredRectangleBase(fillColor: theme.fillColor),
+                painter: WiredRectangleBase(
+                  fillColor: theme.fillColor,
+                  borderColor: theme.borderColor,
+                ),
                 fillerType: RoughFilter.noFiller,
               ),
             ),
@@ -55,6 +58,7 @@ class WiredDataTable extends HookWidget {
                       x2: double.infinity,
                       y2: 0,
                       strokeWidth: 2,
+                      borderColor: theme.borderColor,
                     ),
                     fillerType: RoughFilter.noFiller,
                   ),
@@ -71,6 +75,7 @@ class WiredDataTable extends HookWidget {
                           y1: 0,
                           x2: double.infinity,
                           y2: 0,
+                          borderColor: theme.borderColor,
                         ),
                         fillerType: RoughFilter.noFiller,
                       ),

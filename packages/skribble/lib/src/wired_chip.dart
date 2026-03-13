@@ -32,6 +32,7 @@ class WiredChip extends HookWidget {
                 child: WiredCanvas(
                   painter: WiredRoundedRectangleBase(
                     borderRadius: BorderRadius.circular(16),
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.noFiller,
                 ),
