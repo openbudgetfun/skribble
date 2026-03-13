@@ -11,6 +11,7 @@ class SelectionPage extends HookWidget {
   Widget build(BuildContext context) {
     final filterSelected = useState(false);
     final choiceSelected = useState(false);
+    final pickerIndex = useState(0);
 
     return Scaffold(
       appBar: WiredAppBar(
@@ -32,10 +33,7 @@ class SelectionPage extends HookWidget {
                   children: [
                     const WiredChip(label: Text('Flutter')),
                     const WiredChip(label: Text('Dart')),
-                    WiredChip(
-                      label: const Text('Deletable'),
-                      onDeleted: () {},
-                    ),
+                    WiredChip(label: const Text('Deletable'), onDeleted: () {}),
                     const WiredChip(
                       avatar: Icon(Icons.person, size: 16),
                       label: Text('With Avatar'),
@@ -69,6 +67,37 @@ class SelectionPage extends HookWidget {
                   label: const Text('Selected'),
                   selected: choiceSelected.value,
                   onSelected: (v) => choiceSelected.value = v,
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCupertinoPicker',
+            children: [
+              ComponentShowcase(
+                title: 'Picker Wheel',
+                description:
+                    'Cupertino-style scroll picker with sketchy border.',
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: WiredCupertinoPicker(
+                        height: 160,
+                        onSelectedItemChanged: (i) => pickerIndex.value = i,
+                        children: const [
+                          Text('January'),
+                          Text('February'),
+                          Text('March'),
+                          Text('April'),
+                          Text('May'),
+                          Text('June'),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text('Selected index: ${pickerIndex.value}'),
+                  ],
                 ),
               ),
             ],
