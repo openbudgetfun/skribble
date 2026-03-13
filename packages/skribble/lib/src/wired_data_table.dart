@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A column definition for [WiredDataTable].
@@ -30,6 +30,7 @@ class WiredDataTable extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: IntrinsicHeight(
         child: Stack(
@@ -44,7 +45,7 @@ class WiredDataTable extends HookWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Header row
-                _buildHeaderRow(),
+                _buildHeaderRow(theme),
                 SizedBox(
                   height: 2,
                   child: WiredCanvas(
@@ -60,7 +61,7 @@ class WiredDataTable extends HookWidget {
                 ),
                 // Data rows
                 for (int i = 0; i < rows.length; i++) ...[
-                  _buildDataRow(rows[i]),
+                  _buildDataRow(rows[i], theme),
                   if (i < rows.length - 1)
                     SizedBox(
                       height: 1,
@@ -83,7 +84,7 @@ class WiredDataTable extends HookWidget {
     );
   }
 
-  Widget _buildHeaderRow() {
+  Widget _buildHeaderRow(WiredThemeData theme) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       child: Row(
@@ -92,7 +93,7 @@ class WiredDataTable extends HookWidget {
             Expanded(
               child: DefaultTextStyle(
                 style: TextStyle(
-                  color: textColor,
+                  color: theme.textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),
@@ -104,7 +105,7 @@ class WiredDataTable extends HookWidget {
     );
   }
 
-  Widget _buildDataRow(WiredDataRow row) {
+  Widget _buildDataRow(WiredDataRow row, WiredThemeData theme) {
     return InkWell(
       onTap: row.onTap,
       child: Padding(
@@ -114,7 +115,7 @@ class WiredDataTable extends HookWidget {
             for (int i = 0; i < row.cells.length && i < columns.length; i++)
               Expanded(
                 child: DefaultTextStyle(
-                  style: TextStyle(color: textColor, fontSize: 14),
+                  style: TextStyle(color: theme.textColor, fontSize: 14),
                   child: row.cells[i],
                 ),
               ),

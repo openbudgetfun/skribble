@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A chip with a hand-drawn rounded rectangle border.
@@ -20,6 +20,7 @@ class WiredChip extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: IntrinsicWidth(
         child: SizedBox(
@@ -42,14 +43,18 @@ class WiredChip extends HookWidget {
                   children: [
                     if (avatar != null) ...[avatar!, const SizedBox(width: 8)],
                     DefaultTextStyle(
-                      style: TextStyle(color: textColor, fontSize: 13),
+                      style: TextStyle(color: theme.textColor, fontSize: 13),
                       child: label,
                     ),
                     if (onDeleted != null) ...[
                       const SizedBox(width: 4),
                       GestureDetector(
                         onTap: onDeleted,
-                        child: Icon(Icons.close, size: 16, color: textColor),
+                        child: Icon(
+                          Icons.close,
+                          size: 16,
+                          color: theme.textColor,
+                        ),
                       ),
                     ],
                   ],

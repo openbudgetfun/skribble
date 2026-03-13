@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -28,13 +28,14 @@ class WiredPopupMenuButton<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: PopupMenuButton<T>(
-        icon: icon ?? Icon(Icons.more_vert, color: textColor),
+        icon: icon ?? Icon(Icons.more_vert, color: theme.textColor),
         onSelected: onSelected,
-        color: filledColor,
+        color: theme.fillColor,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: borderColor, width: 1.5),
+          side: BorderSide(color: theme.borderColor, width: 1.5),
         ),
         itemBuilder: (context) => items.map((item) {
           return PopupMenuItem<T>(
@@ -42,7 +43,10 @@ class WiredPopupMenuButton<T> extends HookWidget {
             child: Container(
               decoration: RoughBoxDecoration(
                 shape: RoughBoxShape.rectangle,
-                borderStyle: RoughDrawingStyle(width: 0.5, color: borderColor),
+                borderStyle: RoughDrawingStyle(
+                  width: 0.5,
+                  color: theme.borderColor,
+                ),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               child: item.child,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -25,6 +25,7 @@ class WiredMenuBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: SizedBox(
         height: 48,
@@ -72,8 +73,11 @@ class WiredSubmenuButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return SubmenuButton(
-      style: ButtonStyle(foregroundColor: WidgetStateProperty.all(textColor)),
+      style: ButtonStyle(
+        foregroundColor: WidgetStateProperty.all(theme.textColor),
+      ),
       menuChildren: menuChildren,
       child: child,
     );
@@ -95,10 +99,13 @@ class WiredMenuItemButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return MenuItemButton(
       onPressed: onPressed,
       leadingIcon: leadingIcon,
-      style: ButtonStyle(foregroundColor: WidgetStateProperty.all(textColor)),
+      style: ButtonStyle(
+        foregroundColor: WidgetStateProperty.all(theme.textColor),
+      ),
       child: child,
     );
   }
@@ -127,6 +134,7 @@ class WiredDropdownMenu<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Stack(
         children: [

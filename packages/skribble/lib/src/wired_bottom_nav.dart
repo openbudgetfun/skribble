@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A bottom navigation bar item.
 class WiredBottomNavItem {
@@ -28,6 +28,7 @@ class WiredBottomNavigationBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -50,7 +51,12 @@ class WiredBottomNavigationBar extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               for (int i = 0; i < items.length; i++)
-                _buildItem(items[i], i == currentIndex, () => onTap?.call(i)),
+                _buildItem(
+                  items[i],
+                  i == currentIndex,
+                  () => onTap?.call(i),
+                  theme,
+                ),
             ],
           ),
         ),
@@ -62,6 +68,7 @@ class WiredBottomNavigationBar extends HookWidget {
     WiredBottomNavItem item,
     bool selected,
     VoidCallback onTap,
+    WiredThemeData theme,
   ) {
     return GestureDetector(
       onTap: onTap,
@@ -85,7 +92,7 @@ class WiredBottomNavigationBar extends HookWidget {
                   ),
                 Icon(
                   item.icon,
-                  color: selected ? borderColor : disabledTextColor,
+                  color: selected ? theme.borderColor : theme.disabledTextColor,
                   size: 24,
                 ),
               ],
@@ -95,7 +102,7 @@ class WiredBottomNavigationBar extends HookWidget {
               item.label,
               style: TextStyle(
                 fontSize: 10,
-                color: selected ? textColor : disabledTextColor,
+                color: selected ? theme.textColor : theme.disabledTextColor,
               ),
               overflow: TextOverflow.ellipsis,
             ),

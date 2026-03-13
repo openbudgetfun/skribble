@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -31,6 +31,7 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Autocomplete<T>(
         initialValue: initialValue,
@@ -118,7 +119,7 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                             ),
                             child: Text(
                               label,
-                              style: const TextStyle(color: textColor),
+                              style: TextStyle(color: theme.textColor),
                             ),
                           ),
                         );

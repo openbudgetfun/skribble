@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -34,6 +34,7 @@ class WiredNavigationBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -54,6 +55,7 @@ class WiredNavigationBar extends HookWidget {
                   destinations[i],
                   i == selectedIndex,
                   () => onDestinationSelected?.call(i),
+                  theme,
                 ),
             ],
           ),
@@ -66,6 +68,7 @@ class WiredNavigationBar extends HookWidget {
     WiredNavigationDestination dest,
     bool selected,
     VoidCallback onTap,
+    WiredThemeData theme,
   ) {
     return GestureDetector(
       onTap: onTap,
@@ -85,7 +88,7 @@ class WiredNavigationBar extends HookWidget {
                     child: WiredCanvas(
                       painter: WiredRoundedRectangleBase(
                         borderRadius: BorderRadius.circular(14),
-                        fillColor: borderColor,
+                        fillColor: theme.borderColor,
                       ),
                       fillerType: RoughFilter.hachureFiller,
                       fillerConfig: FillerConfig.build(hachureGap: 2.0),
@@ -93,7 +96,7 @@ class WiredNavigationBar extends HookWidget {
                   ),
                 Icon(
                   selected ? (dest.selectedIcon ?? dest.icon) : dest.icon,
-                  color: selected ? filledColor : disabledTextColor,
+                  color: selected ? theme.fillColor : theme.disabledTextColor,
                   size: 24,
                 ),
               ],
@@ -103,7 +106,7 @@ class WiredNavigationBar extends HookWidget {
               dest.label,
               style: TextStyle(
                 fontSize: 12,
-                color: selected ? textColor : disabledTextColor,
+                color: selected ? theme.textColor : theme.disabledTextColor,
                 fontWeight: selected ? FontWeight.bold : FontWeight.normal,
               ),
               overflow: TextOverflow.ellipsis,

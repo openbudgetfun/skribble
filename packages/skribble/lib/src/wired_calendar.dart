@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 class WiredCalendar extends HookWidget {
@@ -14,6 +14,7 @@ class WiredCalendar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final selectedDate = useState<String?>(selected);
     final firstOfMonthDate = useState(DateTime.now());
     final weeks = useState<List<CalendarCell>>([]);
@@ -44,8 +45,8 @@ class WiredCalendar extends HookWidget {
               selected: sel != null && day == DateTime.parse(sel),
               dimmed: day.month != firstDayInMonth.month,
               color: day.month == firstDayInMonth.month
-                  ? textColor
-                  : disabledTextColor,
+                  ? theme.textColor
+                  : theme.disabledTextColor,
             ),
           );
 
@@ -181,7 +182,7 @@ Widget _buildCell(
   double height = 50.0,
   FontWeight fontWeight = FontWeight.w500,
   double fontSize = 20.0,
-  Color color = textColor,
+  Color? color,
 }) {
   return selected
       ? Stack(
@@ -229,7 +230,7 @@ Widget _wiredText(
   String text, {
   FontWeight fontWeight = FontWeight.w500,
   double fontSize = 18.0,
-  Color color = textColor,
+  Color? color,
 }) {
   return Text(
     text,
@@ -273,14 +274,14 @@ class CalendarCell {
   final bool selected;
   final bool dimmed;
   final bool disabled;
-  final Color color;
+  final Color? color;
 
   CalendarCell({
     required this.value,
     required this.text,
     required this.selected,
     required this.dimmed,
-    this.color = textColor,
+    this.color,
     this.disabled = false,
   });
 }

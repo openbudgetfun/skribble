@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A tab bar with hand-drawn underline indicators.
@@ -25,6 +25,7 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -33,7 +34,9 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
           child: Row(
             children: [
               for (int i = 0; i < tabs.length; i++)
-                Expanded(child: _buildTab(tabs[i], i == selectedIndex, i)),
+                Expanded(
+                  child: _buildTab(tabs[i], i == selectedIndex, i, theme),
+                ),
             ],
           ),
         ),
@@ -48,7 +51,12 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _buildTab(String label, bool selected, int index) {
+  Widget _buildTab(
+    String label,
+    bool selected,
+    int index,
+    WiredThemeData theme,
+  ) {
     return GestureDetector(
       onTap: () => onTap?.call(index),
       behavior: HitTestBehavior.opaque,
@@ -60,7 +68,7 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
               child: Text(
                 label,
                 style: TextStyle(
-                  color: selected ? textColor : disabledTextColor,
+                  color: selected ? theme.textColor : theme.disabledTextColor,
                   fontWeight: selected ? FontWeight.bold : FontWeight.normal,
                   fontSize: 14,
                 ),

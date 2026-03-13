@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// An expandable tile with a hand-drawn border.
@@ -24,6 +24,7 @@ class WiredExpansionTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final isExpanded = useState(initiallyExpanded);
 
     return Column(
@@ -43,14 +44,14 @@ class WiredExpansionTile extends HookWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       DefaultTextStyle(
-                        style: TextStyle(color: textColor, fontSize: 16),
+                        style: TextStyle(color: theme.textColor, fontSize: 16),
                         child: title,
                       ),
                       if (subtitle != null) ...[
                         const SizedBox(height: 2),
                         DefaultTextStyle(
                           style: TextStyle(
-                            color: disabledTextColor,
+                            color: theme.disabledTextColor,
                             fontSize: 14,
                           ),
                           child: subtitle!,
@@ -62,7 +63,7 @@ class WiredExpansionTile extends HookWidget {
                 AnimatedRotation(
                   turns: isExpanded.value ? 0.5 : 0,
                   duration: const Duration(milliseconds: 200),
-                  child: Icon(Icons.expand_more, color: textColor),
+                  child: Icon(Icons.expand_more, color: theme.textColor),
                 ),
               ],
             ),

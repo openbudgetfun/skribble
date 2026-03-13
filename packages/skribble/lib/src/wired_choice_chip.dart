@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -21,6 +21,7 @@ class WiredChoiceChip extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: GestureDetector(
         onTap: () => onSelected?.call(!selected),
@@ -34,7 +35,7 @@ class WiredChoiceChip extends HookWidget {
                   child: WiredCanvas(
                     painter: WiredRoundedRectangleBase(
                       borderRadius: BorderRadius.circular(16),
-                      fillColor: selected ? borderColor : filledColor,
+                      fillColor: selected ? theme.borderColor : theme.fillColor,
                     ),
                     fillerType: selected
                         ? RoughFilter.hachureFiller
@@ -46,7 +47,7 @@ class WiredChoiceChip extends HookWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: DefaultTextStyle(
                     style: TextStyle(
-                      color: selected ? filledColor : textColor,
+                      color: selected ? theme.fillColor : theme.textColor,
                       fontSize: 13,
                     ),
                     child: label,

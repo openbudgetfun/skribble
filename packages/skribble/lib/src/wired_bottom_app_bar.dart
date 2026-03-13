@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn bottom app bar corresponding to Flutter's [BottomAppBar].
@@ -45,7 +45,8 @@ class WiredBottomAppBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = color ?? filledColor;
+    final theme = WiredTheme.of(context);
+    final bgColor = color ?? theme.fillColor;
 
     return buildWiredElement(
       child: SizedBox(
