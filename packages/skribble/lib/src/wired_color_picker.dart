@@ -96,7 +96,7 @@ class WiredColorPicker extends HookWidget {
   }
 }
 
-class _ColorSwatch extends StatelessWidget {
+class _ColorSwatch extends HookWidget {
   final Color color;
   final bool isSelected;
   final double size;

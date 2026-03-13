@@ -143,7 +143,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
 /// A dialog action button corresponding to [CupertinoDialogAction].
 ///
 /// Provides a tappable action button within [WiredCupertinoAlertDialog].
-class WiredCupertinoDialogAction extends StatelessWidget {
+class WiredCupertinoDialogAction extends HookWidget {
   /// The label of the action.
   final Widget child;
 

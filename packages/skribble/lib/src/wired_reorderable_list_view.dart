@@ -82,7 +82,7 @@ class WiredReorderableListView extends HookWidget {
   static double _lerpDouble(double a, double b, double t) => a + (b - a) * t;
 }
 
-class _WiredReorderableItem extends StatelessWidget {
+class _WiredReorderableItem extends HookWidget {
   final Widget child;
   final int index;
   final double height;

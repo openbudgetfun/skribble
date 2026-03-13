@@ -171,7 +171,7 @@ class WiredCupertinoActionSheet extends HookWidget {
 
 /// An action button for [WiredCupertinoActionSheet],
 /// corresponding to [CupertinoActionSheetAction].
-class WiredCupertinoActionSheetAction extends StatelessWidget {
+class WiredCupertinoActionSheetAction extends HookWidget {
   /// The label of the action.
   final Widget child;
 

@@ -51,7 +51,7 @@ class WiredContextMenu extends HookWidget {
   }
 }
 
-class _WiredContextMenuOverlay extends StatelessWidget {
+class _WiredContextMenuOverlay extends HookWidget {
   final Offset position;
   final Size childSize;
   final List<WiredContextMenuAction> actions;
