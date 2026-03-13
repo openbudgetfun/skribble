@@ -71,30 +71,32 @@ class FeedbackPage extends HookWidget {
                 description: 'Hand-drawn rectangle dialog.',
                 child: WiredButton(
                   onPressed: () {
-                    unawaited(showDialog<void>(
-                      context: context,
-                      builder: (ctx) => WiredDialog(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Text(
-                              'Hello!',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                    unawaited(
+                      showDialog<void>(
+                        context: context,
+                        builder: (ctx) => WiredDialog(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text(
+                                'Hello!',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 12),
-                            const Text('This is a hand-drawn dialog.'),
-                            const SizedBox(height: 16),
-                            WiredButton(
-                              onPressed: () => Navigator.pop(ctx),
-                              child: const Text('Close'),
-                            ),
-                          ],
+                              const SizedBox(height: 12),
+                              const Text('This is a hand-drawn dialog.'),
+                              const SizedBox(height: 16),
+                              WiredButton(
+                                onPressed: () => Navigator.pop(ctx),
+                                child: const Text('Close'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ));
+                    );
                   },
                   child: const Text('Show Dialog'),
                 ),
@@ -127,31 +129,33 @@ class FeedbackPage extends HookWidget {
                 description: 'Hand-drawn top border bottom sheet.',
                 child: WiredButton(
                   onPressed: () {
-                    unawaited(showWiredBottomSheet<void>(
-                      context: context,
-                      builder: (ctx) => SizedBox(
-                        height: 200,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Bottom Sheet',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                    unawaited(
+                      showWiredBottomSheet<void>(
+                        context: context,
+                        builder: (ctx) => SizedBox(
+                          height: 200,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Bottom Sheet',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 12),
-                              WiredButton(
-                                onPressed: () => Navigator.pop(ctx),
-                                child: const Text('Close'),
-                              ),
-                            ],
+                                const SizedBox(height: 12),
+                                WiredButton(
+                                  onPressed: () => Navigator.pop(ctx),
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ));
+                    );
                   },
                   child: const Text('Show Bottom Sheet'),
                 ),
@@ -179,15 +183,61 @@ class FeedbackPage extends HookWidget {
                 description: 'Small circle overlay on child.',
                 child: const Row(
                   children: [
-                    WiredBadge(
-                      label: '3',
-                      child: Icon(Icons.mail, size: 32),
-                    ),
+                    WiredBadge(label: '3', child: Icon(Icons.mail, size: 32)),
                     SizedBox(width: 24),
-                    WiredBadge(
-                      child: Icon(Icons.notifications, size: 32),
+                    WiredBadge(child: Icon(Icons.notifications, size: 32)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredContextMenu',
+            children: [
+              ComponentShowcase(
+                title: 'Context Menu',
+                description: 'Long press to show hand-drawn menu overlay.',
+                child: WiredContextMenu(
+                  actions: const [
+                    WiredContextMenuAction(label: 'Copy', icon: Icons.copy),
+                    WiredContextMenuAction(label: 'Share', icon: Icons.share),
+                    WiredContextMenuAction(
+                      label: 'Delete',
+                      icon: Icons.delete,
+                      isDestructive: true,
                     ),
                   ],
+                  child: WiredCard(
+                    child: const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text('Long press this card'),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredScrollbar',
+            children: [
+              ComponentShowcase(
+                title: 'Scrollbar',
+                description: 'Styled scrollbar with sketchy thumb.',
+                child: SizedBox(
+                  height: 120,
+                  child: WiredScrollbar(
+                    thumbVisibility: true,
+                    child: ListView.builder(
+                      itemCount: 20,
+                      itemBuilder: (_, i) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 8,
+                        ),
+                        child: Text('Scrollbar item $i'),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
