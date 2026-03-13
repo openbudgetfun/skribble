@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn filled button, corresponding to Flutter's [FilledButton].
 ///

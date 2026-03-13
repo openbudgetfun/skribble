@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn drawer header corresponding to Flutter's [DrawerHeader].
 ///
@@ -46,10 +46,7 @@ class WiredDrawerHeader extends HookWidget {
             // Background
             if (decoration case final deco?)
               Positioned.fill(
-                child: AnimatedContainer(
-                  duration: duration,
-                  decoration: deco,
-                ),
+                child: AnimatedContainer(duration: duration, decoration: deco),
               )
             else
               Positioned.fill(

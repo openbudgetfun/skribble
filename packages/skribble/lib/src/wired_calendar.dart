@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'wired_theme.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 class WiredCalendar extends HookWidget {
   final String? selected;

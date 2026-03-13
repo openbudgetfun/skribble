@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'wired_theme.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn bottom app bar corresponding to Flutter's [BottomAppBar].
 ///

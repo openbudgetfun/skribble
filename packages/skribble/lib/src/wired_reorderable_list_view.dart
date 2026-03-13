@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'wired_theme.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn version of Flutter's [ReorderableListView].
 ///
@@ -41,7 +40,6 @@ class WiredReorderableListView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: ReorderableListView(
         onReorder: onReorder,
