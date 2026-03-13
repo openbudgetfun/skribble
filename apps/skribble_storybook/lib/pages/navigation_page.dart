@@ -177,6 +177,75 @@ class NavigationPage extends HookWidget {
             ],
           ),
           ShowcaseSection(
+            title: 'WiredMenuBar',
+            children: [
+              ComponentShowcase(
+                title: 'Menu Bar',
+                description: 'Hand-drawn menu bar with submenus.',
+                child: WiredMenuBar(
+                  children: [
+                    WiredSubmenuButton(
+                      child: const Text('File'),
+                      menuChildren: [
+                        WiredMenuItemButton(
+                          leadingIcon: const Icon(Icons.note_add, size: 18),
+                          onPressed: () {},
+                          child: const Text('New'),
+                        ),
+                        WiredMenuItemButton(
+                          leadingIcon: const Icon(Icons.folder_open, size: 18),
+                          onPressed: () {},
+                          child: const Text('Open'),
+                        ),
+                        WiredMenuItemButton(
+                          leadingIcon: const Icon(Icons.save, size: 18),
+                          onPressed: () {},
+                          child: const Text('Save'),
+                        ),
+                      ],
+                    ),
+                    WiredSubmenuButton(
+                      child: const Text('Edit'),
+                      menuChildren: [
+                        WiredMenuItemButton(
+                          onPressed: () {},
+                          child: const Text('Cut'),
+                        ),
+                        WiredMenuItemButton(
+                          onPressed: () {},
+                          child: const Text('Copy'),
+                        ),
+                        WiredMenuItemButton(
+                          onPressed: () {},
+                          child: const Text('Paste'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredDropdownMenu',
+            children: [
+              ComponentShowcase(
+                title: 'Dropdown Menu',
+                description: 'M3-style dropdown with hand-drawn border.',
+                child: WiredDropdownMenu<String>(
+                  width: 280,
+                  hintText: 'Choose a color',
+                  dropdownMenuEntries: const [
+                    DropdownMenuEntry(value: 'red', label: 'Red'),
+                    DropdownMenuEntry(value: 'green', label: 'Green'),
+                    DropdownMenuEntry(value: 'blue', label: 'Blue'),
+                  ],
+                  onSelected: (v) {},
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredDrawer',
             children: [
               ComponentShowcase(
