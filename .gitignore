@@ -34,3 +34,4 @@ pubspec.lock
 
 # Screenshots
 .screenshots/
+.ant-colony/

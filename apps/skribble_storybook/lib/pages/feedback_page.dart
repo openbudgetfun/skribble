@@ -356,6 +356,30 @@ class FeedbackPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredAboutDialog',
+            children: [
+              ComponentShowcase(
+                title: 'About Dialog',
+                description:
+                    'Hand-drawn about dialog with app info.',
+                child: WiredButton(
+                  onPressed: () {
+                    unawaited(
+                      showWiredAboutDialog(
+                        context: context,
+                        applicationName: 'Skribble',
+                        applicationVersion: '1.0.0',
+                        applicationIcon: const FlutterLogo(size: 48),
+                        applicationLegalese: '© 2026 OpenBudget',
+                      ),
+                    );
+                  },
+                  child: const Text('Show About'),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

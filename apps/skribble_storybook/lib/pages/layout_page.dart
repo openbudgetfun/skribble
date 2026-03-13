@@ -313,6 +313,28 @@ class LayoutPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredDismissible',
+            children: [
+              ComponentShowcase(
+                title: 'Swipe to Dismiss',
+                description:
+                    'Swipe items left or right to dismiss with sketchy background.',
+                child: Column(
+                  children: [
+                    for (final item in ['🍎 Apple', '🍌 Banana', '🍒 Cherry'])
+                      WiredDismissible(
+                        dismissKey: ValueKey(item),
+                        onDismissed: (_) {},
+                        child: WiredListTile(
+                          title: Text(item),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
