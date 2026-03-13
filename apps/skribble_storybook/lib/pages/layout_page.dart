@@ -23,6 +23,41 @@ class LayoutPage extends HookWidget {
         padding: const EdgeInsets.all(16),
         children: [
           ShowcaseSection(
+            title: 'WiredAvatar',
+            children: [
+              ComponentShowcase(
+                title: 'Initials',
+                description: 'Hand-drawn circle avatar with initials.',
+                child: Row(
+                  children: [
+                    const WiredAvatar(radius: 24, child: Text('AB')),
+                    const SizedBox(width: 12),
+                    WiredAvatar(
+                      radius: 24,
+                      backgroundColor: Colors.indigo,
+                      foregroundColor: Colors.white,
+                      child: const Text('JD'),
+                    ),
+                    const SizedBox(width: 12),
+                    const WiredAvatar(
+                      radius: 24,
+                      child: Icon(Icons.person),
+                    ),
+                  ],
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Large Avatar',
+                child: WiredAvatar(
+                  radius: 40,
+                  backgroundColor: Colors.teal,
+                  foregroundColor: Colors.white,
+                  child: const Text('SK'),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredCard',
             children: [
               ComponentShowcase(
