@@ -32,7 +32,11 @@ void main() {
     ) async {
       await navigateToNavigation(tester);
 
-      await tester.scrollUntilVisible(find.text('WiredPopupMenuButton'), 200);
+      await tester.scrollUntilVisible(
+        find.text('WiredPopupMenuButton'),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
       await tester.pumpAndSettle();
 
       expect(find.text('WiredPopupMenuButton'), findsOneWidget);

@@ -40,5 +40,28 @@ void main() {
       expect(find.byType(WiredAppBar), findsOneWidget);
       expect(find.text('Buttons'), findsAtLeast(1));
     });
+
+    testWidgets('shows WiredFilledButton section on scroll', (tester) async {
+      await navigateToButtons(tester);
+      await tester.scrollUntilVisible(
+        find.text('WiredFilledButton'),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('WiredFilledButton'), findsOneWidget);
+    });
+
+    testWidgets('shows WiredCupertinoButton section on scroll',
+        (tester) async {
+      await navigateToButtons(tester);
+      await tester.scrollUntilVisible(
+        find.text('WiredCupertinoButton'),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('WiredCupertinoButton'), findsOneWidget);
+    });
   });
 }

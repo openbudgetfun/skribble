@@ -9,7 +9,6 @@ void main() {
     Future<void> navigateToDataDisplay(WidgetTester tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
-      // Data Display is at the bottom; scroll it into view first.
       await tester.scrollUntilVisible(find.text('Data Display'), 200);
       await tester.pumpAndSettle();
       await tester.tap(find.text('Data Display'));
@@ -34,6 +33,19 @@ void main() {
     testWidgets('renders WiredAppBar', (tester) async {
       await navigateToDataDisplay(tester);
       expect(find.byType(WiredAppBar), findsOneWidget);
+    });
+
+    testWidgets('page contains ListView with content', (tester) async {
+      await navigateToDataDisplay(tester);
+      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byType(RepaintBoundary), findsWidgets);
+    });
+
+    testWidgets('navigates back to home', (tester) async {
+      await navigateToDataDisplay(tester);
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      expect(find.text('Skribble Storybook'), findsOneWidget);
     });
   });
 }

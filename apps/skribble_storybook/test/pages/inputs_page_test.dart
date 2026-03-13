@@ -32,5 +32,28 @@ void main() {
       await navigateToInputs(tester);
       expect(find.byType(WiredAppBar), findsOneWidget);
     });
+
+    testWidgets('shows WiredCheckbox section on scroll', (tester) async {
+      await navigateToInputs(tester);
+      await tester.scrollUntilVisible(
+        find.text('WiredCheckbox'),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('WiredCheckbox'), findsOneWidget);
+    });
+
+    testWidgets('shows WiredCupertinoTextField section on scroll',
+        (tester) async {
+      await navigateToInputs(tester);
+      await tester.scrollUntilVisible(
+        find.text('WiredCupertinoTextField'),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('WiredCupertinoTextField'), findsOneWidget);
+    });
   });
 }
