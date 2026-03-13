@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn sliver app bar corresponding to Flutter's [SliverAppBar].
@@ -69,8 +69,9 @@ class WiredSliverAppBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = backgroundColor ?? filledColor;
-    final fgColor = foregroundColor ?? textColor;
+    final theme = WiredTheme.of(context);
+    final bgColor = backgroundColor ?? theme.fillColor;
+    final fgColor = foregroundColor ?? theme.textColor;
 
     return SliverAppBar(
       title: title != null

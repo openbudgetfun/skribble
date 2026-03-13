@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -38,6 +38,7 @@ class WiredNavigationRail extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -56,6 +57,7 @@ class WiredNavigationRail extends HookWidget {
                   destinations[i],
                   i == selectedIndex,
                   () => onDestinationSelected?.call(i),
+                  theme,
                 ),
               if (trailing != null) ...[
                 const Spacer(),
@@ -86,6 +88,7 @@ class WiredNavigationRail extends HookWidget {
     WiredNavigationRailDestination dest,
     bool selected,
     VoidCallback onTap,
+    WiredThemeData theme,
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -108,7 +111,7 @@ class WiredNavigationRail extends HookWidget {
                       child: WiredCanvas(
                         painter: WiredRoundedRectangleBase(
                           borderRadius: BorderRadius.circular(14),
-                          fillColor: borderColor,
+                          fillColor: theme.borderColor,
                         ),
                         fillerType: RoughFilter.hachureFiller,
                         fillerConfig: FillerConfig.build(hachureGap: 2.0),
@@ -116,7 +119,7 @@ class WiredNavigationRail extends HookWidget {
                     ),
                   Icon(
                     selected ? (dest.selectedIcon ?? dest.icon) : dest.icon,
-                    color: selected ? filledColor : disabledTextColor,
+                    color: selected ? theme.fillColor : theme.disabledTextColor,
                     size: 24,
                   ),
                 ],
@@ -126,7 +129,7 @@ class WiredNavigationRail extends HookWidget {
                 dest.label,
                 style: TextStyle(
                   fontSize: 11,
-                  color: selected ? textColor : disabledTextColor,
+                  color: selected ? theme.textColor : theme.disabledTextColor,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),

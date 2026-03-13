@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -32,6 +32,7 @@ class WiredInputChip extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: GestureDetector(
         onTap: enabled
@@ -69,7 +70,7 @@ class WiredInputChip extends HookWidget {
                         ],
                         DefaultTextStyle(
                           style: TextStyle(
-                            color: selected ? Colors.white : textColor,
+                            color: selected ? Colors.white : theme.textColor,
                             fontSize: 13,
                           ),
                           child: label,
@@ -81,7 +82,7 @@ class WiredInputChip extends HookWidget {
                             child: Icon(
                               Icons.close,
                               size: 16,
-                              color: selected ? Colors.white : textColor,
+                              color: selected ? Colors.white : theme.textColor,
                             ),
                           ),
                         ],
@@ -115,6 +116,7 @@ class WiredActionChip extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: GestureDetector(
         onTap: onPressed,
@@ -142,7 +144,7 @@ class WiredActionChip extends HookWidget {
                         const SizedBox(width: 6),
                       ],
                       DefaultTextStyle(
-                        style: const TextStyle(color: textColor, fontSize: 13),
+                        style: TextStyle(color: theme.textColor, fontSize: 13),
                         child: label,
                       ),
                     ],

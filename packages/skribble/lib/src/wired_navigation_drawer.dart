@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -37,6 +37,7 @@ class WiredNavigationDrawer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Drawer(
         width: width,
@@ -136,6 +137,7 @@ class _WiredDrawerItem extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -158,7 +160,7 @@ class _WiredDrawerItem extends HookWidget {
                   Icon(
                     isSelected ? (selectedIcon ?? icon) : icon,
                     size: 22,
-                    color: isSelected ? Colors.white : textColor,
+                    color: isSelected ? Colors.white : theme.textColor,
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -169,7 +171,7 @@ class _WiredDrawerItem extends HookWidget {
                         fontWeight: isSelected
                             ? FontWeight.w600
                             : FontWeight.normal,
-                        color: isSelected ? Colors.white : textColor,
+                        color: isSelected ? Colors.white : theme.textColor,
                       ),
                     ),
                   ),

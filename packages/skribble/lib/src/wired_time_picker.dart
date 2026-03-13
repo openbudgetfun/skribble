@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -17,6 +17,7 @@ class WiredTimePicker extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final time = useState(initialTime ?? TimeOfDay.now());
 
     return buildWiredElement(
@@ -47,7 +48,7 @@ class WiredTimePicker extends HookWidget {
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: textColor,
+                      color: theme.textColor,
                     ),
                   ),
                   _TimeField(
@@ -88,6 +89,7 @@ class _TimeField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         if (details.delta.dy < -2) {
@@ -111,7 +113,7 @@ class _TimeField extends HookWidget {
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
-                color: textColor,
+                color: theme.textColor,
               ),
             ),
           ],
@@ -128,6 +130,7 @@ class _ClockFace extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return LayoutBuilder(
       builder: (context, constraints) {
         final size = min(constraints.maxWidth, constraints.maxHeight);
@@ -148,6 +151,7 @@ class _ClockFace extends HookWidget {
                   angle: (time.hour % 12 + time.minute / 60) * 30 * pi / 180,
                   length: size * 0.25,
                   strokeWidth: 3,
+                  color: theme.borderColor,
                 ),
               ),
               // Minute hand
@@ -157,6 +161,7 @@ class _ClockFace extends HookWidget {
                   angle: time.minute * 6 * pi / 180,
                   length: size * 0.35,
                   strokeWidth: 2,
+                  color: theme.borderColor,
                 ),
               ),
               // Center dot
@@ -165,7 +170,7 @@ class _ClockFace extends HookWidget {
                 height: 8,
                 child: WiredCanvas(
                   painter: WiredCircleBase(
-                    fillColor: borderColor,
+                    fillColor: theme.borderColor,
                     diameterRatio: 0.9,
                   ),
                   fillerType: RoughFilter.hachureFiller,
@@ -185,10 +190,13 @@ class _HandPainter extends CustomPainter {
   final double length;
   final double strokeWidth;
 
+  final Color color;
+
   _HandPainter({
     required this.angle,
     required this.length,
     required this.strokeWidth,
+    required this.color,
   });
 
   @override
@@ -201,7 +209,7 @@ class _HandPainter extends CustomPainter {
       center.dy + length * sin(adjustedAngle),
     );
     final paint = Paint()
-      ..color = borderColor
+      ..color = color
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;

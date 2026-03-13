@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -30,11 +30,12 @@ class WiredStepper extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         for (int i = 0; i < steps.length; i++) ...[
-          _buildStep(i, steps[i]),
+          _buildStep(i, steps[i], theme),
           if (i < steps.length - 1)
             Padding(
               padding: const EdgeInsets.only(left: 16),
@@ -52,7 +53,7 @@ class WiredStepper extends HookWidget {
     );
   }
 
-  Widget _buildStep(int index, WiredStep step) {
+  Widget _buildStep(int index, WiredStep step, WiredThemeData theme) {
     final isActive = index == currentStep;
     final isCompleted = index < currentStep;
 
@@ -72,8 +73,8 @@ class WiredStepper extends HookWidget {
                   painter: WiredCircleBase(
                     diameterRatio: 0.85,
                     fillColor: isCompleted || isActive
-                        ? borderColor
-                        : filledColor,
+                        ? theme.borderColor
+                        : theme.fillColor,
                   ),
                   fillerType: isCompleted || isActive
                       ? RoughFilter.hachureFiller
@@ -81,12 +82,12 @@ class WiredStepper extends HookWidget {
                   fillerConfig: FillerConfig.build(hachureGap: 2.0),
                 ),
                 if (isCompleted)
-                  Icon(Icons.check, size: 16, color: filledColor)
+                  Icon(Icons.check, size: 16, color: theme.fillColor)
                 else
                   Text(
                     '${index + 1}',
                     style: TextStyle(
-                      color: isActive ? filledColor : textColor,
+                      color: isActive ? theme.fillColor : theme.textColor,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
@@ -101,7 +102,7 @@ class WiredStepper extends HookWidget {
               children: [
                 DefaultTextStyle(
                   style: TextStyle(
-                    color: isActive ? textColor : disabledTextColor,
+                    color: isActive ? theme.textColor : theme.disabledTextColor,
                     fontSize: 16,
                     fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
                   ),
@@ -109,7 +110,10 @@ class WiredStepper extends HookWidget {
                 ),
                 if (step.subtitle != null)
                   DefaultTextStyle(
-                    style: TextStyle(color: disabledTextColor, fontSize: 12),
+                    style: TextStyle(
+                      color: theme.disabledTextColor,
+                      fontSize: 12,
+                    ),
                     child: step.subtitle!,
                   ),
                 if (isActive)
