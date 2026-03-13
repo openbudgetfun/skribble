@@ -21,6 +21,7 @@ export 'src/wired_chip.dart';
 export 'src/wired_choice_chip.dart';
 export 'src/wired_circular_progress.dart';
 export 'src/wired_combo.dart';
+export 'src/wired_cupertino_picker.dart';
 export 'src/wired_data_table.dart';
 export 'src/wired_date_picker.dart';
 export 'src/wired_dialog.dart';
