@@ -23,8 +23,8 @@ WiredTheme(
 );
 ```
 
-All 79 widgets read from the nearest `WiredTheme` ancestor and fall back to
-defaults when no theme is provided.
+All 79 widget files (90+ public widget classes) read from the nearest
+`WiredTheme` ancestor and fall back to defaults when no theme is provided.
 
 ## Widget Catalog
 
@@ -40,19 +40,22 @@ defaults when no theme is provided.
 | `WiredOutlinedButton` | Thick hand-drawn outlined button |
 | `WiredTextButton` | Text button with sketchy underline |
 | `WiredToggleButtons` | Multi-toggle button group |
-| `WiredSegmentedButton` | Segmented button group |
-| `WiredCupertinoButton` | Cupertino-style press-opacity button |
+| `WiredSegmentedButton` | Segmented button group with `WiredButtonSegment` |
+| `WiredCupertinoButton` | Cupertino-style press-opacity button (+ `.filled`) |
 
-### Inputs (14)
+### Inputs (17)
 
 | Widget | Description |
 |---|---|
 | `WiredInput` | Text field with sketchy rectangle border |
 | `WiredTextArea` | Multiline text input |
 | `WiredSearchBar` | Search input with sketchy border |
-| `WiredCheckbox` / `WiredCheckboxListTile` | Hand-drawn checkbox |
-| `WiredRadio` / `WiredRadioListTile` | Hand-drawn radio button |
-| `WiredSwitch` / `WiredSwitchListTile` | Hand-drawn toggle switch |
+| `WiredCheckbox` | Hand-drawn checkbox |
+| `WiredCheckboxListTile` | Checkbox with list tile layout |
+| `WiredRadio` | Hand-drawn radio button |
+| `WiredRadioListTile` | Radio with list tile layout |
+| `WiredSwitch` | Hand-drawn toggle switch |
+| `WiredSwitchListTile` | Switch with list tile layout |
 | `WiredSlider` | Slider with sketchy track and thumb |
 | `WiredRangeSlider` | Dual-handle range slider |
 | `WiredToggle` | Simple on/off toggle |
@@ -68,25 +71,28 @@ defaults when no theme is provided.
 |---|---|
 | `WiredAppBar` | App bar with sketchy bottom border |
 | `WiredBottomNavigationBar` | Bottom nav with sketchy top border |
-| `WiredNavigationBar` | M3 navigation bar |
-| `WiredNavigationRail` | Vertical navigation rail |
-| `WiredNavigationDrawer` | M3 navigation drawer |
+| `WiredNavigationBar` | M3 navigation bar with `WiredNavigationDestination` |
+| `WiredNavigationRail` | Vertical rail with `WiredNavigationRailDestination` |
+| `WiredNavigationDrawer` | M3 drawer with `WiredNavigationDrawerDestination` |
 | `WiredTabBar` | Tab bar with sketchy indicator |
 | `WiredDrawer` | Side drawer panel |
-| `WiredPopupMenuButton` | Popup menu with sketchy border |
-| `WiredMenuBar` / `WiredSubmenuButton` / `WiredMenuItemButton` | M3 menu bar |
-| `WiredDropdownMenu` | M3 dropdown menu |
+| `WiredPopupMenuButton` | Popup menu with `WiredPopupMenuItem` |
+| `WiredMenuBar` | M3 menu bar with `WiredSubmenuButton` / `WiredMenuItemButton` |
+| `WiredDropdownMenu` | M3 dropdown menu (in `wired_menu_bar.dart`) |
 | `WiredBottomAppBar` | M3 bottom bar with sketchy top border |
 | `WiredSliverAppBar` | Collapsible sliver app bar |
 | `WiredCupertinoNavigationBar` | Cupertino nav bar |
 | `WiredCupertinoTabBar` | Cupertino bottom tab bar |
 
-### Selection (14)
+### Selection (13)
 
 | Widget | Description |
 |---|---|
-| `WiredChip` / `WiredChoiceChip` / `WiredFilterChip` | Selection chips |
-| `WiredInputChip` / `WiredActionChip` | Interactive chips |
+| `WiredChip` | Basic chip with hand-drawn border |
+| `WiredChoiceChip` | Selectable chip |
+| `WiredFilterChip` | Filter chip with checkmark |
+| `WiredInputChip` | Deletable input chip |
+| `WiredActionChip` | Action chip (in `wired_input_chip.dart`) |
 | `WiredCombo` | Dropdown combo box |
 | `WiredDatePicker` / `WiredTimePicker` | Date and time pickers |
 | `WiredCalendarDatePicker` | Inline calendar picker |
@@ -96,7 +102,7 @@ defaults when no theme is provided.
 | `WiredCupertinoSegmentedControl` | Cupertino segmented control |
 | `WiredSlidingSegmentedControl` | Cupertino sliding segment control |
 
-### Feedback (12)
+### Feedback (13)
 
 | Widget | Description |
 |---|---|
@@ -108,12 +114,13 @@ defaults when no theme is provided.
 | `WiredBadge` | Notification badge with hand-drawn circle |
 | `WiredBottomSheet` | Bottom sheet with sketchy top border |
 | `WiredAboutDialog` / `showWiredAboutDialog` | Hand-drawn about dialog |
-| `WiredContextMenu` | Long-press context menu overlay |
+| `WiredContextMenu` | Long-press context menu with `WiredContextMenuAction` |
 | `WiredAnimatedIcon` | Animated icon with Skribble styling |
-| `WiredCupertinoAlertDialog` | Cupertino alert dialog |
-| `WiredCupertinoActionSheet` | Cupertino action sheet |
+| `WiredMaterialBanner` | Persistent banner with sketchy borders |
+| `WiredCupertinoAlertDialog` | Cupertino alert with `WiredCupertinoDialogAction` |
+| `WiredCupertinoActionSheet` | Cupertino action sheet with `WiredCupertinoActionSheetAction` |
 
-### Layout (15)
+### Layout (14)
 
 | Widget | Description |
 |---|---|
@@ -121,17 +128,16 @@ defaults when no theme is provided.
 | `WiredDivider` | Hand-drawn horizontal line |
 | `WiredListTile` | List tile with sketchy border |
 | `WiredExpansionTile` | Expandable tile with sketchy border |
-| `WiredDataTable` | Data table with hand-drawn borders |
-| `WiredStepper` | Step-by-step progress indicator |
+| `WiredDataTable` | Data table with `WiredDataColumn` / `WiredDataRow` |
+| `WiredStepper` | Step-by-step indicator with `WiredStep` |
 | `WiredCalendar` | Full calendar with sketchy cells |
 | `WiredScrollbar` | Styled scrollbar with sketchy colors |
 | `WiredReorderableListView` | Reorderable list with sketchy items |
 | `WiredDismissible` | Swipe-to-dismiss with sketchy background |
 | `WiredSelectableText` | Selectable text with Skribble styling |
-| `WiredMaterialBanner` | Persistent banner with sketchy borders |
 | `WiredDrawerHeader` / `WiredUserAccountsDrawerHeader` | Drawer headers |
 | `WiredAvatar` | Hand-drawn circle avatar |
-| `WiredCupertinoPageScaffold` / `WiredCupertinoTabScaffold` | Cupertino layouts |
+| `WiredPageScaffold` / `WiredTabScaffold` | Cupertino scaffold layouts |
 
 ### Theming
 
@@ -148,8 +154,21 @@ All Skribble widgets follow familiar Flutter conventions:
 - **Same constructor params**: `child`, `onPressed`, `onChanged`, `value`, `selectedIndex`
 - **`HookWidget` only** — no `StatefulWidget` or `StatelessWidget`
 - **`WiredTheme.of(context)`** for runtime color customization
+- **`RepaintBoundary`** wraps every widget for render isolation
+
+## Stats
+
+| Metric | Value |
+|---|---|
+| Widget files | 79 |
+| Test files | 87 |
+| Widget tests | 826 |
+| Storybook pages | 8 |
+| Storybook tests | 42 (34 page + 8 golden) |
+| `dart analyze` | 0 issues |
 
 ## Docs
 
-- [Parity Matrix](../../docs/ui-snapshots/parity-matrix.md) — coverage vs Flutter defaults
-- [Screenshot Manifest](../../docs/ui-snapshots/screenshot-manifest.txt) — all visual snapshots
+- [Parity Matrix](docs/ui-snapshots/parity-matrix.md) — coverage vs Flutter defaults
+- [Screenshot Manifest](docs/ui-snapshots/screenshot-manifest.txt) — all visual snapshots
+- [CHANGELOG](CHANGELOG.md) — release history
