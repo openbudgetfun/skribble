@@ -4,6 +4,8 @@ import 'package:skribble/skribble.dart';
 
 import 'package:skribble_storybook/components/component_showcase.dart';
 
+String _displayOption(String option) => option;
+
 class InputsPage extends HookWidget {
   const InputsPage({super.key});
 
@@ -14,6 +16,7 @@ class InputsPage extends HookWidget {
     final toggleValue = useState(false);
     final sliderValue = useState(0.5);
     final comboValue = useState<String?>(null);
+    final autocompleteValue = useState<String>('None');
     final switchValue = useState(false);
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final formStatus = useState('Form not validated yet');
@@ -240,6 +243,35 @@ class InputsPage extends HookWidget {
                     comboValue.value = v;
                     return true;
                   },
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredAutocomplete',
+            children: [
+              ComponentShowcase(
+                title: 'Autocomplete',
+                description: 'Suggests matching options in a wired overlay.',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    WiredAutocomplete<String>(
+                      options: const [
+                        'Apple',
+                        'Apricot',
+                        'Banana',
+                        'Blueberry',
+                        'Cherry',
+                      ],
+                      labelText: 'Fruit',
+                      hintText: 'Type to search fruit',
+                      displayStringForOption: _displayOption,
+                      onSelected: (value) => autocompleteValue.value = value,
+                    ),
+                    const SizedBox(height: 12),
+                    Text('Selected: ${autocompleteValue.value}'),
+                  ],
                 ),
               ),
             ],
