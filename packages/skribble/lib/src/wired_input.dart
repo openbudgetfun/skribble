@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 class WiredInput extends HookWidget {
   final TextEditingController? controller;
@@ -28,6 +29,7 @@ class WiredInput extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return Row(
       children: [
         if (labelText != null) Text('$labelText', style: labelStyle),
@@ -38,7 +40,7 @@ class WiredInput extends HookWidget {
               SizedBox(
                 height: 48.0,
                 child: WiredCanvas(
-                  painter: WiredRectangleBase(),
+                  painter: WiredRectangleBase(fillColor: theme.fillColor),
                   fillerType: RoughFilter.noFiller,
                 ),
               ),

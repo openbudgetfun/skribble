@@ -50,7 +50,7 @@ class WiredProgress extends HookWidget {
             height: _progressHeight,
             width: width.value,
             child: WiredCanvas(
-              painter: WiredRectangleBase(),
+              painter: WiredRectangleBase(fillColor: theme.fillColor),
               fillerType: RoughFilter.noFiller,
             ),
           ),

@@ -24,6 +24,7 @@ class WiredMenuBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: SizedBox(
         height: 48,
@@ -31,7 +32,7 @@ class WiredMenuBar extends HookWidget {
           children: [
             Positioned.fill(
               child: WiredCanvas(
-                painter: WiredRectangleBase(),
+                painter: WiredRectangleBase(fillColor: theme.fillColor),
                 fillerType: RoughFilter.noFiller,
               ),
             ),
@@ -132,12 +133,13 @@ class WiredDropdownMenu<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Stack(
         children: [
           Positioned.fill(
             child: WiredCanvas(
-              painter: WiredRectangleBase(),
+              painter: WiredRectangleBase(fillColor: theme.fillColor),
               fillerType: RoughFilter.noFiller,
             ),
           ),

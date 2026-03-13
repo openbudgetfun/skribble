@@ -76,7 +76,7 @@ class WiredToggle extends HookWidget {
               width: thumbRadius * 2.5,
               height: thumbRadius,
               child: WiredCanvas(
-                painter: WiredRectangleBase(),
+                painter: WiredRectangleBase(fillColor: theme.fillColor),
                 fillerType: RoughFilter.noFiller,
                 fillerConfig: FillerConfig.build(fillWeight: 3.0),
               ),
