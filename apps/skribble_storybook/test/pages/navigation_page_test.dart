@@ -42,9 +42,10 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Profile'), findsWidgets);
-      expect(find.text('Settings'), findsOneWidget);
       expect(find.text('Sign out'), findsOneWidget);
 
+      // Tap 'Settings' in the popup — use .last to target the popup entry
+      // (other 'Settings' texts exist in WiredCupertinoTabBar and nav bar)
       await tester.tap(find.text('Settings').last);
       await tester.pumpAndSettle();
 

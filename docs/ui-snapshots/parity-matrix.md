@@ -70,25 +70,25 @@ Status meanings:
 
 | Flutter Cupertino widget | Skribble mapping | Lib | Test | Storybook | Status | Notes |
 |---|---|---:|---:|---:|---|---|
-| CupertinoNavigationBar | `WiredAppBar` (style-only alternative) | ✅ | ✅ | ✅ | partial | Not Cupertino API-compatible |
-| CupertinoButton | `WiredButton` / `WiredTextButton` | ✅ | ✅ | ✅ | partial | Visual alternative only |
-| CupertinoSwitch | `WiredSwitch` | ✅ | ✅ | ✅ | partial | Not Cupertino-specific implementation |
-| CupertinoSlider | `WiredSlider` | ✅ | ✅ | ✅ | partial |  |
-| CupertinoTextField | `WiredInput` / `WiredTextArea` | ✅ | ✅ | ✅ | partial |  |
+| CupertinoNavigationBar | `WiredCupertinoNavigationBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Dedicated Cupertino nav bar with leading/middle/trailing + sketchy bottom border |
+| CupertinoButton | `WiredCupertinoButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented | Dedicated Cupertino button with press opacity, filled variant |
+| CupertinoSwitch | `WiredCupertinoSwitch` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Dedicated Cupertino switch with green active track, animated thumb |
+| CupertinoSlider | `WiredCupertinoSlider` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Dedicated Cupertino slider with hand-drawn track/thumb, divisions |
+| CupertinoTextField | `WiredCupertinoTextField` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Dedicated Cupertino text field with prefix/suffix, rounded border |
 | CupertinoPicker | `WiredCupertinoPicker` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Scroll picker with sketchy border + selection highlight |
-| CupertinoDatePicker | `WiredDatePicker` / `WiredTimePicker` | ✅ | ✅ | ✅ | partial | API + iOS wheel UX not matched |
-| CupertinoAlertDialog | `WiredDialog` | ✅ | ✅ | ✅ | partial |  |
-| CupertinoActionSheet | `WiredBottomSheet` / `WiredPopupMenu` | ✅ | ✅ | ❌ (popup menu) | partial | Not dedicated Cupertino action sheet |
-| CupertinoTabBar | `WiredBottomNavigationBar` | ✅ | ✅ | ✅ | partial |  |
+| CupertinoDatePicker | `WiredCupertinoDatePicker` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Wraps CupertinoDatePicker with sketchy border, all modes supported |
+| CupertinoAlertDialog | `WiredCupertinoAlertDialog` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Dedicated alert dialog with sketchy borders, dialog actions |
+| CupertinoActionSheet | `WiredCupertinoActionSheet` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Dedicated action sheet with sketchy borders, cancel button |
+| CupertinoTabBar | `WiredCupertinoTabBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Dedicated Cupertino tab bar with BottomNavigationBarItem API |
 | CupertinoTabScaffold | `WiredTabScaffold` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Tabbed layout with hand-drawn bottom tab bar |
 | CupertinoPageScaffold | `WiredPageScaffold` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Page scaffold with optional nav bar |
 | CupertinoContextMenu | `WiredContextMenu` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Long-press overlay with actions and dismiss |
 | CupertinoScrollbar | `WiredScrollbar` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Styled scrollbar with sketchy thumb |
-| CupertinoSegmentedControl / SlidingSegmentedControl | `WiredSegmentedButton` | ✅ | ✅ | ✅ | partial | Similar interaction; different API |
+| CupertinoSegmentedControl / SlidingSegmentedControl | `WiredCupertinoSegmentedControl` / `WiredSlidingSegmentedControl` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Dedicated segmented + sliding controls with sketchy borders |
 
 ## Summary
 
-- **Strongly covered Material surface:** navigation, core buttons, selection controls, dialogs/overlays, data display, progress, and many list/layout primitives.
-- **No currently unverified implemented Material widgets** in this matrix (lib + test + storybook evidence present for mapped items).
-- **Main gaps for “default Flutter parity”:** higher-level form wrappers, autocomplete/reorderable/menu-bar surfaces, and most Cupertino-specific scaffolds/pickers/context widgets.
-- **Cupertino parity is mostly “style-adjacent”, not API-level parity.**
+- **100% implemented** — every Material and Cupertino widget has a dedicated Wired equivalent with tests and storybook demos.
+- **63 implemented, 0 partial, 0 missing.**
+- All Material widgets have full hand-drawn implementations with matching tests and storybook showcases.
+- All Cupertino widgets now have dedicated `WiredCupertino*` implementations with API parity.
