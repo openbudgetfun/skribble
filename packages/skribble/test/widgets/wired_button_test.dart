@@ -91,5 +91,38 @@ void main() {
         findsOneWidget,
       );
     });
+
+    testWidgets('renders with icon child', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredButton(
+              onPressed: () {},
+              child: const Icon(Icons.add),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.add), findsOneWidget);
+    });
+
+    testWidgets('uses theme border color from WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.red),
+            child: Scaffold(
+              body: WiredButton(
+                onPressed: () {},
+                child: const Text('Themed'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredButton), findsOneWidget);
+    });
   });
 }

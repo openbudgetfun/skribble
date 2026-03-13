@@ -152,5 +152,26 @@ void main() {
 
       expect(selected, 'y');
     });
+
+    testWidgets('renders with initial selection', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              width: 300,
+              child: WiredDropdownMenu<String>(
+                initialSelection: 'b',
+                dropdownMenuEntries: const [
+                  DropdownMenuEntry(value: 'a', label: 'Alpha'),
+                  DropdownMenuEntry(value: 'b', label: 'Beta'),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredDropdownMenu<String>), findsOneWidget);
+    });
   });
 }

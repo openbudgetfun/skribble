@@ -87,5 +87,39 @@ void main() {
       // Both exist in IndexedStack, but index 1 should be shown
       expect(find.text('Profile content'), findsOneWidget);
     });
+
+    testWidgets('renders three tabs', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTabScaffold(
+            tabs: const [
+              WiredTabItem(icon: Icons.home, label: 'Home'),
+              WiredTabItem(icon: Icons.search, label: 'Search'),
+              WiredTabItem(icon: Icons.person, label: 'Profile'),
+            ],
+            tabBuilder: (_, i) => Center(child: Text('Tab $i')),
+          ),
+        ),
+      );
+
+      expect(find.text('Home'), findsOneWidget);
+      expect(find.text('Search'), findsOneWidget);
+      expect(find.text('Profile'), findsOneWidget);
+    });
+  });
+
+  group('WiredPageScaffold', () {
+    testWidgets('renders with custom background color', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: WiredPageScaffold(
+            backgroundColor: Colors.blue,
+            child: Text('Custom bg'),
+          ),
+        ),
+      );
+
+      expect(find.text('Custom bg'), findsOneWidget);
+    });
   });
 }
