@@ -276,6 +276,43 @@ class LayoutPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredSliverAppBar',
+            children: [
+              ComponentShowcase(
+                title: 'Sliver App Bar',
+                description:
+                    'Collapsible app bar with sketchy bottom border.',
+                child: SizedBox(
+                  height: 250,
+                  child: CustomScrollView(
+                    slivers: [
+                      WiredSliverAppBar(
+                        expandedHeight: 150,
+                        pinned: true,
+                        title: const Text('Collapsible'),
+                        flexibleSpace: Container(
+                          color: Colors.indigo.shade50,
+                        ),
+                      ),
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (_, i) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 4,
+                            ),
+                            child: Text('Scroll item $i'),
+                          ),
+                          childCount: 15,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
