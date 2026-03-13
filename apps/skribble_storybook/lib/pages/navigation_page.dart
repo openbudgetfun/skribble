@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
@@ -16,6 +17,7 @@ class NavigationPage extends HookWidget {
     final navBarIndex = useState(0);
     final railIndex = useState(0);
     final popupSelection = useState<String>('None');
+    final cupertinoTabIndex = useState(0);
 
     return Scaffold(
       appBar: WiredAppBar(
@@ -170,6 +172,53 @@ class NavigationPage extends HookWidget {
                           child: Text('Sign out'),
                         ),
                       ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCupertinoNavigationBar',
+            children: [
+              ComponentShowcase(
+                title: 'Cupertino Navigation Bar',
+                description:
+                    'iOS-style nav bar with sketchy bottom border.',
+                child: SizedBox(
+                  height: 44,
+                  child: WiredCupertinoNavigationBar(
+                    leading: const Icon(Icons.arrow_back_ios, size: 18),
+                    middle: const Text('Settings'),
+                    trailing: const Text('Done'),
+                    automaticallyImplyLeading: false,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCupertinoTabBar',
+            children: [
+              ComponentShowcase(
+                title: 'Cupertino Tab Bar',
+                description:
+                    'iOS-style bottom tab bar with sketchy top border.',
+                child: WiredCupertinoTabBar(
+                  currentIndex: cupertinoTabIndex.value,
+                  onTap: (i) => cupertinoTabIndex.value = i,
+                  items: const [
+                    BottomNavigationBarItem(
+                      icon: Icon(CupertinoIcons.home),
+                      label: 'Home',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(CupertinoIcons.search),
+                      label: 'Search',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(CupertinoIcons.settings),
+                      label: 'Settings',
                     ),
                   ],
                 ),
