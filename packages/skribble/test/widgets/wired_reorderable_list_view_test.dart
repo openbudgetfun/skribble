@@ -9,7 +9,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredReorderableListView(
-              onReorder: (_, __) {},
+              onReorder: (_, _) {},
               children: const [
                 Text('Item A', key: ValueKey('a')),
                 Text('Item B', key: ValueKey('b')),
@@ -31,7 +31,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredReorderableListView(
-              onReorder: (_, __) {},
+              onReorder: (_, _) {},
               children: const [
                 Text('One', key: ValueKey(1)),
                 Text('Two', key: ValueKey(2)),
@@ -51,7 +51,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredReorderableListView(
-              onReorder: (_, __) {},
+              onReorder: (_, _) {},
               showDragHandle: false,
               children: const [
                 Text('One', key: ValueKey(1)),
@@ -112,7 +112,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredReorderableListView(
-              onReorder: (_, __) {},
+              onReorder: (_, _) {},
               itemHeight: 80,
               children: const [Text('Tall item', key: ValueKey('tall'))],
             ),

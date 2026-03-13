@@ -11,7 +11,6 @@ void main() {
             body: WiredMenuBar(
               children: [
                 WiredSubmenuButton(
-                  child: const Text('File'),
                   menuChildren: [
                     WiredMenuItemButton(
                       onPressed: () {},
@@ -22,6 +21,7 @@ void main() {
                       child: const Text('Open'),
                     ),
                   ],
+                  child: const Text('File'),
                 ),
               ],
             ),
@@ -41,7 +41,6 @@ void main() {
             body: WiredMenuBar(
               children: [
                 WiredSubmenuButton(
-                  child: const Text('Edit'),
                   menuChildren: [
                     WiredMenuItemButton(
                       onPressed: () {},
@@ -52,6 +51,7 @@ void main() {
                       child: const Text('Copy'),
                     ),
                   ],
+                  child: const Text('Edit'),
                 ),
               ],
             ),
@@ -75,13 +75,13 @@ void main() {
             body: WiredMenuBar(
               children: [
                 WiredSubmenuButton(
-                  child: const Text('File'),
                   menuChildren: [
                     WiredMenuItemButton(
                       onPressed: () => pressed = true,
                       child: const Text('Save'),
                     ),
                   ],
+                  child: const Text('File'),
                 ),
               ],
             ),
