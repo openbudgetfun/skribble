@@ -5,6 +5,14 @@ import '../rough/skribble_rough.dart';
 import 'wired_painter.dart';
 import 'wired_painter_base.dart';
 
+/// A widget that paints a hand-drawn shape using a `WiredPainterBase`.
+///
+/// Combines a rough-drawing painter with a filler type and optional
+/// configuration to render sketchy graphics via `CustomPaint`.
+///
+/// See also:
+///  * `WiredPainter`, the `CustomPainter` that drives the rendering.
+///  * `WiredPainterBase`, the abstract class painters implement.
 class WiredCanvas extends HookWidget {
   final WiredPainterBase painter;
   final DrawConfig? drawConfig;

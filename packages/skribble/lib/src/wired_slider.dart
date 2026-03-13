@@ -111,6 +111,8 @@ class WiredSlider extends HookWidget {
   }
 }
 
+/// A slider track shape that removes the default horizontal padding,
+/// letting the track span the full width of the slider.
 class CustomTrackShape extends RoundedRectSliderTrackShape {
   @override
   Rect getPreferredRect({
