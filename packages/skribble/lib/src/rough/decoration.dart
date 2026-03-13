@@ -8,6 +8,10 @@ import 'filler.dart';
 import 'generator.dart';
 import 'rough.dart';
 
+/// Style configuration for rough-drawn strokes and fills.
+///
+/// Controls [width], [color], [gradient], and [blendMode] of
+/// border and fill paints in a `RoughBoxDecoration`.
 class RoughDrawingStyle {
   final double? width;
   final Color? color;
@@ -24,6 +28,10 @@ class RoughDrawingStyle {
 
 enum RoughBoxShape { rectangle, roundedRectangle, circle, ellipse }
 
+/// A `Decoration` that paints a hand-drawn box using the rough engine.
+///
+/// Supports rectangle, rounded rectangle, circle, and ellipse shapes
+/// with configurable border and fill styles.
 class RoughBoxDecoration extends Decoration {
   final RoughBoxShape shape;
   final RoughDrawingStyle? borderStyle;
@@ -52,6 +60,10 @@ class RoughBoxDecoration extends Decoration {
   }
 }
 
+/// The `BoxPainter` implementation for `RoughBoxDecoration`.
+///
+/// Generates rough shapes via `Generator` and paints them onto
+/// the canvas with the configured styles.
 class RoughDecorationPainter extends BoxPainter {
   final RoughBoxDecoration roughDecoration;
 

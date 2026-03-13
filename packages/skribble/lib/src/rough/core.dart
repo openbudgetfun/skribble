@@ -3,6 +3,7 @@ import 'dart:math';
 import 'entities.dart';
 import 'geometry.dart';
 
+/// A single drawing operation (move, lineTo, or curveTo) with point data.
 class Op {
   final OpType op;
   final List<PointD> data;
@@ -16,6 +17,8 @@ class Op {
       data = [control1, control2, destination];
 }
 
+/// A collection of [Op] drawing operations with a [type] indicating
+/// whether it represents a path outline, fill path, or fill sketch.
 class OpSet {
   OpSetType? type;
   List<Op>? ops;
@@ -27,6 +30,10 @@ enum OpType { move, curveTo, lineTo }
 
 enum OpSetType { path, fillPath, fillSketch }
 
+/// A line segment between [source] and [target] points.
+///
+/// Provides geometric helpers for [length], segment containment,
+/// and intersection testing used by the fill algorithms.
 class Line {
   PointD source;
   PointD target;

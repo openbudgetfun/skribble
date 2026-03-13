@@ -91,6 +91,8 @@ List<Op> _line(
   return ops;
 }
 
+/// Builds `OpSet` instances for rough shapes — lines, rectangles,
+/// ellipses, arcs, and curves.
 class OpSetBuilder {
   static OpSet buildLine(
     double x1,
@@ -274,6 +276,8 @@ class OpSetBuilder {
   }
 }
 
+/// Low-level generator of `Op` lists for individual line strokes
+/// with hand-drawn jitter applied via `DrawConfig`.
 class OpsGenerator {
   static List<Op> doubleLine(
     double x1,

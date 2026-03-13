@@ -7,6 +7,10 @@ import 'filler.dart';
 import 'geometry.dart';
 import 'renderer.dart';
 
+/// The main entry point for generating rough/sketchy `Drawable` shapes.
+///
+/// Combines a `DrawConfig` and `Filler` to produce rectangles, circles,
+/// arcs, lines, and polygons with hand-drawn imperfections.
 class Generator {
   final DrawConfig? drawConfig;
   final Filler? filler;

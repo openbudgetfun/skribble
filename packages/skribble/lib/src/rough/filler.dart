@@ -6,6 +6,8 @@ import 'entities.dart';
 import 'geometry.dart';
 import 'renderer.dart';
 
+/// Result of a line-segment intersection test, holding the
+/// intersection [point] and [distance] from the line start.
 class IntersectionInfo {
   PointD? point;
   double? distance;
@@ -15,6 +17,8 @@ class IntersectionInfo {
 
 enum FillStyle { fill, sketch }
 
+/// Configuration for polygon fill algorithms — controls hachure angle,
+/// gap, dash offsets, and other fill-specific parameters.
 class FillerConfig {
   final DrawConfig? _drawConfig;
   final double? fillWeight;
@@ -77,6 +81,10 @@ class FillerConfig {
   );
 }
 
+/// Base class for polygon fill strategies.
+///
+/// Subclasses implement [fill] to produce an `OpSet` of drawing
+/// operations that fill the given polygon points.
 abstract class Filler {
   FillerConfig? _config;
 
@@ -306,6 +314,7 @@ abstract class Filler {
   }
 }
 
+/// A no-op filler that produces no fill operations.
 class NoFiller extends Filler {
   NoFiller([super.config]);
 
@@ -315,6 +324,7 @@ class NoFiller extends Filler {
   }
 }
 
+/// Fills a polygon with parallel hachure lines at a configurable angle.
 class HachureFiller extends Filler {
   HachureFiller([super.config]);
 
@@ -324,6 +334,7 @@ class HachureFiller extends Filler {
   }
 }
 
+/// Fills a polygon with connected zig-zag lines.
 class ZigZagFiller extends Filler {
   ZigZagFiller([super.config]);
 
@@ -333,6 +344,7 @@ class ZigZagFiller extends Filler {
   }
 }
 
+/// Fills a polygon with cross-hatching (two perpendicular hachure passes).
 class HatchFiller extends Filler {
   HatchFiller([super.config]);
 
@@ -347,6 +359,7 @@ class HatchFiller extends Filler {
   }
 }
 
+/// Fills a polygon with dashed line segments.
 class DashedFiller extends Filler {
   DashedFiller([super.config]);
 
@@ -413,6 +426,7 @@ class DashedFiller extends Filler {
   }
 }
 
+/// Fills a polygon with scattered dots (small ellipses).
 class DotFiller extends Filler {
   DotFiller([super.config]);
 
@@ -459,6 +473,7 @@ class DotFiller extends Filler {
   }
 }
 
+/// Fills a polygon with a solid path (no hatching pattern).
 class SolidFiller extends Filler {
   SolidFiller([super.config]);
 

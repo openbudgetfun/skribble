@@ -4,6 +4,8 @@ import 'config.dart';
 import 'core.dart';
 import 'geometry.dart';
 
+/// The output of a rough drawing generation — a shape with its
+/// operation sets and configuration.
 class Drawable {
   String? shape;
   DrawConfig? options;
@@ -12,6 +14,10 @@ class Drawable {
   Drawable({this.shape, this.options, this.sets});
 }
 
+/// A 2D point with double-precision coordinates.
+///
+/// Extends `Point<double>` with polygon containment testing via
+/// [isInPolygon].
 class PointD extends Point<double> {
   PointD(super.x, super.y);
 

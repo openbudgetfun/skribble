@@ -114,6 +114,10 @@ class DrawConfig {
       randomizer.hashCode;
 }
 
+/// A seedable pseudo-random number generator for deterministic rough drawing.
+///
+/// Reset via [reset] to replay the same random sequence, ensuring
+/// consistent sketchy output across rebuilds.
 class Randomizer {
   late Random _random;
   late int _seed;
