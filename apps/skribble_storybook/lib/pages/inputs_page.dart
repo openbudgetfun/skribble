@@ -19,6 +19,7 @@ class InputsPage extends HookWidget {
     final autocompleteValue = useState<String>('None');
     final switchValue = useState(false);
     final cupertinoSwitchValue = useState(false);
+    final cupertinoSliderValue = useState(0.5);
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final formStatus = useState('Form not validated yet');
 
@@ -303,6 +304,75 @@ class InputsPage extends HookWidget {
                     const SizedBox(height: 12),
                     Text('Selected: ${autocompleteValue.value}'),
                   ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCupertinoTextField',
+            children: [
+              ComponentShowcase(
+                title: 'Cupertino Text Field',
+                description:
+                    'iOS-style text field with hand-drawn rounded border.',
+                child: WiredCupertinoTextField(
+                  placeholder: 'Enter your name',
+                  onChanged: (v) {},
+                ),
+              ),
+              ComponentShowcase(
+                title: 'With Prefix & Suffix',
+                child: WiredCupertinoTextField(
+                  placeholder: 'Search...',
+                  prefix: const Icon(Icons.search, size: 18),
+                  suffix: const Icon(Icons.clear, size: 18),
+                  onChanged: (v) {},
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Password Field',
+                child: WiredCupertinoTextField(
+                  placeholder: 'Password',
+                  obscureText: true,
+                  prefix: const Icon(Icons.lock, size: 18),
+                  onChanged: (v) {},
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Disabled',
+                child: const WiredCupertinoTextField(
+                  placeholder: 'Disabled',
+                  enabled: false,
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCupertinoSlider',
+            children: [
+              ComponentShowcase(
+                title: 'Cupertino Slider',
+                description:
+                    'iOS-style slider with hand-drawn track and thumb.',
+                child: WiredCupertinoSlider(
+                  value: cupertinoSliderValue.value,
+                  onChanged: (v) => cupertinoSliderValue.value = v,
+                ),
+              ),
+              ComponentShowcase(
+                title: 'With Divisions',
+                child: WiredCupertinoSlider(
+                  value: 0.5,
+                  onChanged: (_) {},
+                  divisions: 5,
+                  activeColor: Colors.orange,
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Disabled',
+                child: const WiredCupertinoSlider(
+                  value: 0.3,
+                  onChanged: null,
                 ),
               ),
             ],
