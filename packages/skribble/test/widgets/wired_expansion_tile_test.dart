@@ -8,9 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredExpansionTile(
-              title: const Text('Tile title'),
-            ),
+            body: WiredExpansionTile(title: const Text('Tile title')),
           ),
         ),
       );
@@ -22,9 +20,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredExpansionTile(
-              title: const Text('Expansion Title'),
-            ),
+            body: WiredExpansionTile(title: const Text('Expansion Title')),
           ),
         ),
       );
@@ -50,11 +46,7 @@ void main() {
     testWidgets('does not render subtitle when null', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredExpansionTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
         ),
       );
 
@@ -80,11 +72,7 @@ void main() {
     testWidgets('does not render leading widget when null', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredExpansionTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
         ),
       );
 
@@ -97,10 +85,7 @@ void main() {
           home: Scaffold(
             body: WiredExpansionTile(
               title: const Text('Title'),
-              children: const [
-                Text('Child 1'),
-                Text('Child 2'),
-              ],
+              children: const [Text('Child 1'), Text('Child 2')],
             ),
           ),
         ),
@@ -111,18 +96,16 @@ void main() {
       expect(find.text('Child 2'), findsNothing);
     });
 
-    testWidgets('children are visible when initiallyExpanded is true',
-        (tester) async {
+    testWidgets('children are visible when initiallyExpanded is true', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: WiredExpansionTile(
               title: const Text('Title'),
               initiallyExpanded: true,
-              children: const [
-                Text('Child 1'),
-                Text('Child 2'),
-              ],
+              children: const [Text('Child 1'), Text('Child 2')],
             ),
           ),
         ),
@@ -135,11 +118,7 @@ void main() {
     testWidgets('initiallyExpanded defaults to false', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredExpansionTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
         ),
       );
 
@@ -152,11 +131,7 @@ void main() {
     testWidgets('children default to empty list', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredExpansionTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
         ),
       );
 
@@ -172,9 +147,7 @@ void main() {
           home: Scaffold(
             body: WiredExpansionTile(
               title: const Text('Title'),
-              children: const [
-                Text('Expanded content'),
-              ],
+              children: const [Text('Expanded content')],
             ),
           ),
         ),
@@ -196,9 +169,7 @@ void main() {
           home: Scaffold(
             body: WiredExpansionTile(
               title: const Text('Title'),
-              children: const [
-                Text('Content'),
-              ],
+              children: const [Text('Content')],
             ),
           ),
         ),
@@ -218,11 +189,7 @@ void main() {
     testWidgets('contains expand_more icon', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredExpansionTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
         ),
       );
 
@@ -252,20 +219,14 @@ void main() {
       await tester.pumpAndSettle();
 
       // When expanded, AnimatedRotation turns = 0.5.
-      rotation = tester.widget<AnimatedRotation>(
-        find.byType(AnimatedRotation),
-      );
+      rotation = tester.widget<AnimatedRotation>(find.byType(AnimatedRotation));
       expect(rotation.turns, 0.5);
     });
 
     testWidgets('contains WiredCanvas separator line', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredExpansionTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
         ),
       );
 
@@ -281,11 +242,7 @@ void main() {
     testWidgets('uses InkWell for tap handling', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredExpansionTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
         ),
       );
 

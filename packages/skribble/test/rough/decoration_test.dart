@@ -221,7 +221,9 @@ void main() {
     });
 
     group('Container integration', () {
-      testWidgets('Container with RoughBoxDecoration renders without error', (tester) async {
+      testWidgets('Container with RoughBoxDecoration renders without error', (
+        tester,
+      ) async {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
@@ -235,15 +237,11 @@ void main() {
                       width: 3,
                       color: Colors.black,
                     ),
-                    fillStyle: const RoughDrawingStyle(
-                      color: Colors.yellow,
-                    ),
+                    fillStyle: const RoughDrawingStyle(color: Colors.yellow),
                     filler: HachureFiller(),
                     drawConfig: DrawConfig.build(seed: 42),
                   ),
-                  child: const Center(
-                    child: Text('Hello Rough'),
-                  ),
+                  child: const Center(child: Text('Hello Rough')),
                 ),
               ),
             ),
@@ -255,7 +253,9 @@ void main() {
         expect(find.byType(Container), findsOneWidget);
       });
 
-      testWidgets('Container with default drawConfig renders without error', (tester) async {
+      testWidgets('Container with default drawConfig renders without error', (
+        tester,
+      ) async {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
@@ -279,7 +279,9 @@ void main() {
         expect(tester.takeException(), isNull);
       });
 
-      testWidgets('Container with gradient style renders without error', (tester) async {
+      testWidgets('Container with gradient style renders without error', (
+        tester,
+      ) async {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(

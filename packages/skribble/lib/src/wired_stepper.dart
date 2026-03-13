@@ -12,11 +12,7 @@ class WiredStep {
   final Widget? subtitle;
   final Widget content;
 
-  const WiredStep({
-    required this.title,
-    this.subtitle,
-    required this.content,
-  });
+  const WiredStep({required this.title, this.subtitle, required this.content});
 }
 
 /// A stepper with hand-drawn connected circles and lines.
@@ -46,12 +42,7 @@ class WiredStepper extends HookWidget {
                 width: 2,
                 height: 24,
                 child: WiredCanvas(
-                  painter: WiredLineBase(
-                    x1: 0,
-                    y1: 0,
-                    x2: 0,
-                    y2: 24,
-                  ),
+                  painter: WiredLineBase(x1: 0, y1: 0, x2: 0, y2: 24),
                   fillerType: RoughFilter.noFiller,
                 ),
               ),
@@ -118,10 +109,7 @@ class WiredStepper extends HookWidget {
                 ),
                 if (step.subtitle != null)
                   DefaultTextStyle(
-                    style: TextStyle(
-                      color: disabledTextColor,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: disabledTextColor, fontSize: 12),
                     child: step.subtitle!,
                   ),
                 if (isActive)

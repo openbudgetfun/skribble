@@ -8,10 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFloatingActionButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
@@ -23,10 +20,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFloatingActionButton(
-              icon: Icons.edit,
-              onPressed: () {},
-            ),
+            body: WiredFloatingActionButton(icon: Icons.edit, onPressed: () {}),
           ),
         ),
       );
@@ -58,10 +52,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFloatingActionButton(
-              icon: Icons.add,
-              onPressed: null,
-            ),
+            body: WiredFloatingActionButton(icon: Icons.add, onPressed: null),
           ),
         ),
       );
@@ -69,17 +60,15 @@ void main() {
       expect(find.byType(WiredFloatingActionButton), findsOneWidget);
     });
 
-    testWidgets('does not call callback when onPressed is null',
-        (tester) async {
+    testWidgets('does not call callback when onPressed is null', (
+      tester,
+    ) async {
       const pressed = false;
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFloatingActionButton(
-              icon: Icons.add,
-              onPressed: null,
-            ),
+            body: WiredFloatingActionButton(icon: Icons.add, onPressed: null),
           ),
         ),
       );
@@ -106,16 +95,12 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFloatingActionButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
 
-      final fabSize =
-          tester.getSize(find.byType(WiredFloatingActionButton));
+      final fabSize = tester.getSize(find.byType(WiredFloatingActionButton));
 
       expect(fabSize.width, 56.0);
       expect(fabSize.height, 56.0);
@@ -134,8 +119,7 @@ void main() {
         ),
       );
 
-      final fabSize =
-          tester.getSize(find.byType(WiredFloatingActionButton));
+      final fabSize = tester.getSize(find.byType(WiredFloatingActionButton));
 
       expect(fabSize.width, 72.0);
       expect(fabSize.height, 72.0);
@@ -169,10 +153,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFloatingActionButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
@@ -190,10 +171,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFloatingActionButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
@@ -207,15 +185,11 @@ void main() {
       );
     });
 
-    testWidgets('contains Stack for layering circle and icon',
-        (tester) async {
+    testWidgets('contains Stack for layering circle and icon', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFloatingActionButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
@@ -233,10 +207,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFloatingActionButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );

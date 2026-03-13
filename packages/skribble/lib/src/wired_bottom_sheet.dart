@@ -9,10 +9,7 @@ import 'wired_base.dart';
 class WiredBottomSheet extends HookWidget {
   final Widget child;
 
-  const WiredBottomSheet({
-    super.key,
-    required this.child,
-  });
+  const WiredBottomSheet({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

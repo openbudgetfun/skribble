@@ -33,9 +33,7 @@ class WiredToggle extends HookWidget {
       ).animate(CurvedAnimation(parent: controller, curve: Curves.easeIn)),
     );
     final toggle = useCallback(() {
-      unawaited(
-        isSwitched.value ? controller.forward() : controller.reverse(),
-      );
+      unawaited(isSwitched.value ? controller.forward() : controller.reverse());
     });
 
     useEffect(() {

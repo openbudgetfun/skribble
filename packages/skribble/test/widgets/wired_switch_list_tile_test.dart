@@ -8,10 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSwitchListTile(
-              value: false,
-              onChanged: (_) {},
-            ),
+            body: WiredSwitchListTile(value: false, onChanged: (_) {}),
           ),
         ),
       );
@@ -74,10 +71,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSwitchListTile(
-              value: false,
-              onChanged: (_) {},
-            ),
+            body: WiredSwitchListTile(value: false, onChanged: (_) {}),
           ),
         ),
       );
@@ -95,10 +89,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSwitchListTile(
-              value: false,
-              onChanged: (_) {},
-            ),
+            body: WiredSwitchListTile(value: false, onChanged: (_) {}),
           ),
         ),
       );
@@ -135,8 +126,9 @@ void main() {
       expect(receivedValue, isTrue);
     });
 
-    testWidgets('calls onChanged with false when value is true and tapped',
-        (tester) async {
+    testWidgets('calls onChanged with false when value is true and tapped', (
+      tester,
+    ) async {
       bool? receivedValue;
 
       await tester.pumpWidget(
@@ -182,56 +174,44 @@ void main() {
       expect(receivedValue, isTrue);
     });
 
-    testWidgets('passes value to WiredSwitch correctly when false',
-        (tester) async {
+    testWidgets('passes value to WiredSwitch correctly when false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSwitchListTile(
-              value: false,
-              onChanged: (_) {},
-            ),
+            body: WiredSwitchListTile(value: false, onChanged: (_) {}),
           ),
         ),
       );
 
-      final wiredSwitch = tester.widget<WiredSwitch>(
-        find.byType(WiredSwitch),
-      );
+      final wiredSwitch = tester.widget<WiredSwitch>(find.byType(WiredSwitch));
       expect(wiredSwitch.value, isFalse);
     });
 
-    testWidgets('passes value to WiredSwitch correctly when true',
-        (tester) async {
+    testWidgets('passes value to WiredSwitch correctly when true', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSwitchListTile(
-              value: true,
-              onChanged: (_) {},
-            ),
+            body: WiredSwitchListTile(value: true, onChanged: (_) {}),
           ),
         ),
       );
 
-      final wiredSwitch = tester.widget<WiredSwitch>(
-        find.byType(WiredSwitch),
-      );
+      final wiredSwitch = tester.widget<WiredSwitch>(find.byType(WiredSwitch));
       expect(wiredSwitch.value, isTrue);
     });
 
     testWidgets('showDivider defaults to true', (tester) async {
-      const tile = WiredSwitchListTile(
-        value: false,
-      );
+      const tile = WiredSwitchListTile(value: false);
 
       expect(tile.showDivider, isTrue);
     });
 
     testWidgets('property defaults are correct', (tester) async {
-      const tile = WiredSwitchListTile(
-        value: false,
-      );
+      const tile = WiredSwitchListTile(value: false);
 
       expect(tile.title, isNull);
       expect(tile.subtitle, isNull);
@@ -267,8 +247,9 @@ void main() {
       expect(canvasCount, greaterThanOrEqualTo(3));
     });
 
-    testWidgets('does not render divider when showDivider is false',
-        (tester) async {
+    testWidgets('does not render divider when showDivider is false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

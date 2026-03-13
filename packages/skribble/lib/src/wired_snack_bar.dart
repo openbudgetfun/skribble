@@ -29,11 +29,7 @@ class WiredSnackBarContent extends StatelessWidget {
   final Widget child;
   final Widget? action;
 
-  const WiredSnackBarContent({
-    super.key,
-    required this.child,
-    this.action,
-  });
+  const WiredSnackBarContent({super.key, required this.child, this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +49,7 @@ class WiredSnackBarContent extends StatelessWidget {
               child: child,
             ),
           ),
-          if (action != null) ...[
-            const SizedBox(width: 8),
-            action!,
-          ],
+          if (action != null) ...[const SizedBox(width: 8), action!],
         ],
       ),
     );

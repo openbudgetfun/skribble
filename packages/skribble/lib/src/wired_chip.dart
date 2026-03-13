@@ -40,10 +40,7 @@ class WiredChip extends HookWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (avatar != null) ...[
-                      avatar!,
-                      const SizedBox(width: 8),
-                    ],
+                    if (avatar != null) ...[avatar!, const SizedBox(width: 8)],
                     DefaultTextStyle(
                       style: TextStyle(color: textColor, fontSize: 13),
                       child: label,
@@ -52,11 +49,7 @@ class WiredChip extends HookWidget {
                       const SizedBox(width: 4),
                       GestureDetector(
                         onTap: onDeleted,
-                        child: Icon(
-                          Icons.close,
-                          size: 16,
-                          color: textColor,
-                        ),
+                        child: Icon(Icons.close, size: 16, color: textColor),
                       ),
                     ],
                   ],

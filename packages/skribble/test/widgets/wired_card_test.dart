@@ -7,9 +7,7 @@ void main() {
     testWidgets('renders child widget', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredCard(child: const Text('Card content')),
-          ),
+          home: Scaffold(body: WiredCard(child: const Text('Card content'))),
         ),
       );
 
@@ -19,9 +17,7 @@ void main() {
     testWidgets('renders with default height (130.0)', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredCard(child: const Text('Default height')),
-          ),
+          home: Scaffold(body: WiredCard(child: const Text('Default height'))),
         ),
       );
 
@@ -35,10 +31,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCard(
-              height: 200.0,
-              child: const Text('Custom height'),
-            ),
+            body: WiredCard(height: 200.0, child: const Text('Custom height')),
           ),
         ),
       );
@@ -48,15 +41,13 @@ void main() {
       expect(cardSize.height, 200.0);
     });
 
-    testWidgets('renders with null height (uses IntrinsicHeight)',
-        (tester) async {
+    testWidgets('renders with null height (uses IntrinsicHeight)', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCard(
-              height: null,
-              child: const Text('Intrinsic'),
-            ),
+            body: WiredCard(height: null, child: const Text('Intrinsic')),
           ),
         ),
       );
@@ -71,15 +62,13 @@ void main() {
       );
     });
 
-    testWidgets('does not use IntrinsicHeight when height is provided',
-        (tester) async {
+    testWidgets('does not use IntrinsicHeight when height is provided', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCard(
-              height: 130.0,
-              child: const Text('No intrinsic'),
-            ),
+            body: WiredCard(height: 130.0, child: const Text('No intrinsic')),
           ),
         ),
       );
@@ -97,10 +86,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCard(
-              fill: true,
-              child: const Text('Filled'),
-            ),
+            body: WiredCard(fill: true, child: const Text('Filled')),
           ),
         ),
       );
@@ -115,9 +101,7 @@ void main() {
     testWidgets('fill defaults to false', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredCard(child: const Text('No fill')),
-          ),
+          home: Scaffold(body: WiredCard(child: const Text('No fill'))),
         ),
       );
 

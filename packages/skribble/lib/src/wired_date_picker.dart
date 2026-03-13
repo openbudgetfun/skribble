@@ -10,11 +10,7 @@ class WiredDatePicker extends HookWidget {
   final DateTime? initialDate;
   final void Function(DateTime)? onDateSelected;
 
-  const WiredDatePicker({
-    super.key,
-    this.initialDate,
-    this.onDateSelected,
-  });
+  const WiredDatePicker({super.key, this.initialDate, this.onDateSelected});
 
   @override
   Widget build(BuildContext context) {

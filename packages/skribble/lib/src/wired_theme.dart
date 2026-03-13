@@ -51,11 +51,7 @@ class WiredThemeData {
 class WiredTheme extends InheritedWidget {
   final WiredThemeData data;
 
-  const WiredTheme({
-    super.key,
-    required this.data,
-    required super.child,
-  });
+  const WiredTheme({super.key, required this.data, required super.child});
 
   static WiredThemeData of(BuildContext context) {
     final theme = context.dependOnInheritedWidgetOfExactType<WiredTheme>();

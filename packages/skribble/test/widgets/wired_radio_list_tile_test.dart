@@ -144,8 +144,7 @@ void main() {
       expect(receivedValue, 'a');
     });
 
-    testWidgets('calls onChanged when radio button is tapped',
-        (tester) async {
+    testWidgets('calls onChanged when radio button is tapped', (tester) async {
       String? receivedValue;
 
       await tester.pumpWidget(
@@ -170,8 +169,9 @@ void main() {
       expect(receivedValue, 'a');
     });
 
-    testWidgets('shows selected state when value equals groupValue',
-        (tester) async {
+    testWidgets('shows selected state when value equals groupValue', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -192,8 +192,9 @@ void main() {
       expect(canvasWidgets, findsAtLeast(2));
     });
 
-    testWidgets('shows unselected state when value differs from groupValue',
-        (tester) async {
+    testWidgets('shows unselected state when value differs from groupValue', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -266,8 +267,9 @@ void main() {
       expect(canvasCount, greaterThanOrEqualTo(2));
     });
 
-    testWidgets('does not render divider when showDivider is false',
-        (tester) async {
+    testWidgets('does not render divider when showDivider is false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

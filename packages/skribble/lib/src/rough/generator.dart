@@ -208,13 +208,7 @@ class Generator {
     // Left side: from (x, y + height - bl) to (x, y + tl)
     if (height - bl - tl > 0) {
       ops.addAll(
-        OpsGenerator.doubleLine(
-          x,
-          y + height - bl,
-          x,
-          y + tl,
-          drawConfig!,
-        ),
+        OpsGenerator.doubleLine(x, y + height - bl, x, y + tl, drawConfig!),
       );
     }
 
@@ -272,10 +266,7 @@ class Generator {
     for (int i = 0; i <= steps; i++) {
       final angle = -pi / 2 + (pi / 2) * (i / steps);
       points.add(
-        PointD(
-          x + w - tr + tr * cos(angle),
-          y + tr + tr * sin(angle),
-        ),
+        PointD(x + w - tr + tr * cos(angle), y + tr + tr * sin(angle)),
       );
     }
 
@@ -283,10 +274,7 @@ class Generator {
     for (int i = 0; i <= steps; i++) {
       final angle = (pi / 2) * (i / steps);
       points.add(
-        PointD(
-          x + w - br + br * cos(angle),
-          y + h - br + br * sin(angle),
-        ),
+        PointD(x + w - br + br * cos(angle), y + h - br + br * sin(angle)),
       );
     }
 
@@ -294,10 +282,7 @@ class Generator {
     for (int i = 0; i <= steps; i++) {
       final angle = pi / 2 + (pi / 2) * (i / steps);
       points.add(
-        PointD(
-          x + bl + bl * cos(angle),
-          y + h - bl + bl * sin(angle),
-        ),
+        PointD(x + bl + bl * cos(angle), y + h - bl + bl * sin(angle)),
       );
     }
 

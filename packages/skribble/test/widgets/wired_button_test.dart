@@ -8,10 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredButton(
-              onPressed: () {},
-              child: const Text('Press me'),
-            ),
+            body: WiredButton(onPressed: () {}, child: const Text('Press me')),
           ),
         ),
       );
@@ -62,10 +59,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredButton(
-              onPressed: () {},
-              child: const Text('Button'),
-            ),
+            body: WiredButton(onPressed: () {}, child: const Text('Button')),
           ),
         ),
       );
@@ -83,10 +77,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredButton(
-              onPressed: () {},
-              child: const Text('Repaint'),
-            ),
+            body: WiredButton(onPressed: () {}, child: const Text('Repaint')),
           ),
         ),
       );

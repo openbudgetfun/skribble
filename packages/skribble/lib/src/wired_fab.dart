@@ -40,11 +40,7 @@ class WiredFloatingActionButton extends HookWidget {
                 fillerType: RoughFilter.hachureFiller,
                 fillerConfig: FillerConfig.build(hachureGap: 2.0),
               ),
-              Icon(
-                icon,
-                color: iconColor ?? filledColor,
-                size: size * 0.43,
-              ),
+              Icon(icon, color: iconColor ?? filledColor, size: size * 0.43),
             ],
           ),
         ),

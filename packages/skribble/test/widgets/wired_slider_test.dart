@@ -11,13 +11,8 @@ void main() {
     // the pending timer with an extra pump before teardown to avoid the
     // "Timer still pending" assertion.
 
-    Future<void> pumpSlider(
-      WidgetTester tester,
-      WiredSlider slider,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: slider)),
-      );
+    Future<void> pumpSlider(WidgetTester tester, WiredSlider slider) async {
+      await tester.pumpWidget(MaterialApp(home: Scaffold(body: slider)));
     }
 
     testWidgets('renders Slider widget', (tester) async {
@@ -92,8 +87,9 @@ void main() {
       expect(receivedValue, greaterThan(0.0));
     });
 
-    testWidgets('does not update value when onChanged returns false',
-        (tester) async {
+    testWidgets('does not update value when onChanged returns false', (
+      tester,
+    ) async {
       await tester.runAsync(() async {
         await pumpSlider(
           tester,

@@ -8,10 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredBadge(
-              isVisible: false,
-              child: const Icon(Icons.mail),
-            ),
+            body: WiredBadge(isVisible: false, child: const Icon(Icons.mail)),
           ),
         ),
       );
@@ -23,10 +20,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredBadge(
-              isVisible: false,
-              child: const Icon(Icons.mail),
-            ),
+            body: WiredBadge(isVisible: false, child: const Icon(Icons.mail)),
           ),
         ),
       );
@@ -39,9 +33,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: WiredBadge(
-                child: const SizedBox(width: 48, height: 48),
-              ),
+              child: WiredBadge(child: const SizedBox(width: 48, height: 48)),
             ),
           ),
         ),
@@ -51,8 +43,9 @@ void main() {
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
-    testWidgets('hides badge indicator when isVisible is false',
-        (tester) async {
+    testWidgets('hides badge indicator when isVisible is false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -85,10 +78,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredBadge(
-              isVisible: false,
-              child: const Icon(Icons.mail),
-            ),
+            body: WiredBadge(isVisible: false, child: const Icon(Icons.mail)),
           ),
         ),
       );
@@ -130,10 +120,7 @@ void main() {
     });
 
     testWidgets('accepts label parameter', (tester) async {
-      final badge = WiredBadge(
-        label: '5',
-        child: const SizedBox(),
-      );
+      final badge = WiredBadge(label: '5', child: const SizedBox());
 
       expect(badge.label, '5');
     });
@@ -142,10 +129,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredBadge(
-              isVisible: false,
-              child: const Icon(Icons.mail),
-            ),
+            body: WiredBadge(isVisible: false, child: const Icon(Icons.mail)),
           ),
         ),
       );
@@ -164,9 +148,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: WiredBadge(
-                child: const SizedBox(width: 48, height: 48),
-              ),
+              child: WiredBadge(child: const SizedBox(width: 48, height: 48)),
             ),
           ),
         ),
@@ -186,9 +168,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: WiredBadge(
-                child: const SizedBox(width: 48, height: 48),
-              ),
+              child: WiredBadge(child: const SizedBox(width: 48, height: 48)),
             ),
           ),
         ),
@@ -204,15 +184,14 @@ void main() {
       expect(positioned.top, -6);
     });
 
-    testWidgets('dot badge uses SizedBox with 16x16 dimensions',
-        (tester) async {
+    testWidgets('dot badge uses SizedBox with 16x16 dimensions', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: WiredBadge(
-                child: const SizedBox(width: 48, height: 48),
-              ),
+              child: WiredBadge(child: const SizedBox(width: 48, height: 48)),
             ),
           ),
         ),
@@ -234,9 +213,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: WiredBadge(
-                child: const SizedBox(width: 48, height: 48),
-              ),
+              child: WiredBadge(child: const SizedBox(width: 48, height: 48)),
             ),
           ),
         ),

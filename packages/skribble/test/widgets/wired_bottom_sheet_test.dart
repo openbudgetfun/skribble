@@ -10,9 +10,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredBottomSheet(
-              child: const Text('Sheet content'),
-            ),
+            body: WiredBottomSheet(child: const Text('Sheet content')),
           ),
         ),
       );
@@ -24,9 +22,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredBottomSheet(
-              child: const Text('Sheet content'),
-            ),
+            body: WiredBottomSheet(child: const Text('Sheet content')),
           ),
         ),
       );
@@ -37,11 +33,7 @@ void main() {
     testWidgets('renders drag handle', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredBottomSheet(
-              child: const Text('Content'),
-            ),
-          ),
+          home: Scaffold(body: WiredBottomSheet(child: const Text('Content'))),
         ),
       );
 
@@ -60,11 +52,7 @@ void main() {
     testWidgets('renders top border line', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredBottomSheet(
-              child: const Text('Content'),
-            ),
-          ),
+          home: Scaffold(body: WiredBottomSheet(child: const Text('Content'))),
         ),
       );
 
@@ -85,11 +73,7 @@ void main() {
     testWidgets('uses Column with MainAxisSize.min', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredBottomSheet(
-              child: const Text('Content'),
-            ),
-          ),
+          home: Scaffold(body: WiredBottomSheet(child: const Text('Content'))),
         ),
       );
 
@@ -134,10 +118,12 @@ void main() {
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  unawaited(showWiredBottomSheet<void>(
-                    context: context,
-                    builder: (context) => const Text('Bottom sheet content'),
-                  ));
+                  unawaited(
+                    showWiredBottomSheet<void>(
+                      context: context,
+                      builder: (context) => const Text('Bottom sheet content'),
+                    ),
+                  );
                 },
                 child: const Text('Open'),
               ),
@@ -161,13 +147,15 @@ void main() {
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  unawaited(showWiredBottomSheet<void>(
-                    context: context,
-                    builder: (context) => const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text('Wrapped content'),
+                  unawaited(
+                    showWiredBottomSheet<void>(
+                      context: context,
+                      builder: (context) => const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text('Wrapped content'),
+                      ),
                     ),
-                  ));
+                  );
                 },
                 child: const Text('Show'),
               ),
@@ -196,10 +184,12 @@ void main() {
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  unawaited(showWiredBottomSheet<void>(
-                    context: context,
-                    builder: (context) => const Text('Dismissible'),
-                  ));
+                  unawaited(
+                    showWiredBottomSheet<void>(
+                      context: context,
+                      builder: (context) => const Text('Dismissible'),
+                    ),
+                  );
                 },
                 child: const Text('Open'),
               ),

@@ -15,8 +15,9 @@ void main() {
       );
 
       // Open the drawer.
-      final scaffoldState =
-          tester.firstState<ScaffoldState>(find.byType(Scaffold));
+      final scaffoldState = tester.firstState<ScaffoldState>(
+        find.byType(Scaffold),
+      );
       scaffoldState.openDrawer();
       await tester.pumpAndSettle();
 
@@ -33,8 +34,9 @@ void main() {
         ),
       );
 
-      final scaffoldState =
-          tester.firstState<ScaffoldState>(find.byType(Scaffold));
+      final scaffoldState = tester.firstState<ScaffoldState>(
+        find.byType(Scaffold),
+      );
       scaffoldState.openDrawer();
       await tester.pumpAndSettle();
 
@@ -61,8 +63,9 @@ void main() {
         ),
       );
 
-      final scaffoldState =
-          tester.firstState<ScaffoldState>(find.byType(Scaffold));
+      final scaffoldState = tester.firstState<ScaffoldState>(
+        find.byType(Scaffold),
+      );
       scaffoldState.openDrawer();
       await tester.pumpAndSettle();
 
@@ -75,8 +78,9 @@ void main() {
       );
     });
 
-    testWidgets('renders hand-drawn right edge via WiredCanvas',
-        (tester) async {
+    testWidgets('renders hand-drawn right edge via WiredCanvas', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -86,8 +90,9 @@ void main() {
         ),
       );
 
-      final scaffoldState =
-          tester.firstState<ScaffoldState>(find.byType(Scaffold));
+      final scaffoldState = tester.firstState<ScaffoldState>(
+        find.byType(Scaffold),
+      );
       scaffoldState.openDrawer();
       await tester.pumpAndSettle();
 
@@ -118,8 +123,9 @@ void main() {
         ),
       );
 
-      final scaffoldState =
-          tester.firstState<ScaffoldState>(find.byType(Scaffold));
+      final scaffoldState = tester.firstState<ScaffoldState>(
+        find.byType(Scaffold),
+      );
       scaffoldState.openDrawer();
       await tester.pumpAndSettle();
 
@@ -138,8 +144,9 @@ void main() {
         ),
       );
 
-      final scaffoldState =
-          tester.firstState<ScaffoldState>(find.byType(Scaffold));
+      final scaffoldState = tester.firstState<ScaffoldState>(
+        find.byType(Scaffold),
+      );
       scaffoldState.openDrawer();
       await tester.pumpAndSettle();
 
@@ -162,8 +169,9 @@ void main() {
         ),
       );
 
-      final scaffoldState =
-          tester.firstState<ScaffoldState>(find.byType(Scaffold));
+      final scaffoldState = tester.firstState<ScaffoldState>(
+        find.byType(Scaffold),
+      );
       scaffoldState.openDrawer();
       await tester.pumpAndSettle();
 
@@ -186,8 +194,9 @@ void main() {
         ),
       );
 
-      final scaffoldState =
-          tester.firstState<ScaffoldState>(find.byType(Scaffold));
+      final scaffoldState = tester.firstState<ScaffoldState>(
+        find.byType(Scaffold),
+      );
       scaffoldState.openDrawer();
       await tester.pumpAndSettle();
 

@@ -5,11 +5,7 @@ import 'package:skribble/skribble.dart';
 void main() {
   group('WiredInput', () {
     testWidgets('renders TextField', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredInput()),
-        ),
-      );
+      await tester.pumpWidget(MaterialApp(home: Scaffold(body: WiredInput())));
 
       expect(find.byType(TextField), findsOneWidget);
     });
@@ -19,9 +15,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredInput(controller: controller),
-          ),
+          home: Scaffold(body: WiredInput(controller: controller)),
         ),
       );
 
@@ -33,9 +27,7 @@ void main() {
     testWidgets('shows label text when provided', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredInput(labelText: 'Username'),
-          ),
+          home: Scaffold(body: WiredInput(labelText: 'Username')),
         ),
       );
 
@@ -43,11 +35,7 @@ void main() {
     });
 
     testWidgets('does not show label when labelText is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredInput()),
-        ),
-      );
+      await tester.pumpWidget(MaterialApp(home: Scaffold(body: WiredInput())));
 
       // With no labelText, Row should not contain a Text widget for the label.
       // Only the TextField and its internal hint text should be present.
@@ -63,9 +51,7 @@ void main() {
     testWidgets('shows hint text', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredInput(hintText: 'Enter email'),
-          ),
+          home: Scaffold(body: WiredInput(hintText: 'Enter email')),
         ),
       );
 
@@ -91,11 +77,7 @@ void main() {
 
     testWidgets('supports obscureText', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredInput(obscureText: true),
-          ),
-        ),
+        MaterialApp(home: Scaffold(body: WiredInput(obscureText: true))),
       );
 
       final textField = tester.widget<TextField>(find.byType(TextField));
@@ -104,11 +86,7 @@ void main() {
     });
 
     testWidgets('obscureText defaults to false', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredInput()),
-        ),
-      );
+      await tester.pumpWidget(MaterialApp(home: Scaffold(body: WiredInput())));
 
       final textField = tester.widget<TextField>(find.byType(TextField));
 
@@ -116,18 +94,12 @@ void main() {
     });
 
     testWidgets('applies custom label style', (tester) async {
-      const labelStyle = TextStyle(
-        fontSize: 20.0,
-        color: Colors.red,
-      );
+      const labelStyle = TextStyle(fontSize: 20.0, color: Colors.red);
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredInput(
-              labelText: 'Styled',
-              labelStyle: labelStyle,
-            ),
+            body: WiredInput(labelText: 'Styled', labelStyle: labelStyle),
           ),
         ),
       );

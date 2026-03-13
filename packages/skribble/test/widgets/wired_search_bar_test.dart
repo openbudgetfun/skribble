@@ -6,9 +6,7 @@ void main() {
   group('WiredSearchBar', () {
     testWidgets('renders without error', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredSearchBar())),
       );
 
       expect(find.byType(WiredSearchBar), findsOneWidget);
@@ -16,9 +14,7 @@ void main() {
 
     testWidgets('renders default search icon', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredSearchBar())),
       );
 
       expect(find.byIcon(Icons.search), findsOneWidget);
@@ -28,9 +24,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSearchBar(
-              leading: const Icon(Icons.filter_list),
-            ),
+            body: WiredSearchBar(leading: const Icon(Icons.filter_list)),
           ),
         ),
       );
@@ -45,9 +39,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSearchBar(
-              trailing: const Icon(Icons.close),
-            ),
+            body: WiredSearchBar(trailing: const Icon(Icons.close)),
           ),
         ),
       );
@@ -57,9 +49,7 @@ void main() {
 
     testWidgets('does not render trailing when null', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredSearchBar())),
       );
 
       // Only the search icon should be present, no trailing.
@@ -68,9 +58,7 @@ void main() {
 
     testWidgets('displays default hint text', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredSearchBar())),
       );
 
       expect(find.text('Search...'), findsOneWidget);
@@ -79,9 +67,7 @@ void main() {
     testWidgets('displays custom hint text', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredSearchBar(hintText: 'Find items...'),
-          ),
+          home: Scaffold(body: WiredSearchBar(hintText: 'Find items...')),
         ),
       );
 
@@ -91,9 +77,7 @@ void main() {
 
     testWidgets('contains TextField internally', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredSearchBar())),
       );
 
       expect(
@@ -107,9 +91,7 @@ void main() {
 
     testWidgets('accepts text input', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredSearchBar())),
       );
 
       await tester.enterText(find.byType(TextField), 'search query');
@@ -166,9 +148,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredSearchBar(controller: controller),
-          ),
+          home: Scaffold(body: WiredSearchBar(controller: controller)),
         ),
       );
 
@@ -179,9 +159,7 @@ void main() {
 
     testWidgets('has fixed height of 48', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredSearchBar())),
       );
 
       final size = tester.getSize(find.byType(WiredSearchBar));
@@ -190,9 +168,7 @@ void main() {
 
     testWidgets('contains WiredCanvas background', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredSearchBar())),
       );
 
       expect(
@@ -206,9 +182,7 @@ void main() {
 
     testWidgets('contains Stack for layered layout', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredSearchBar())),
       );
 
       expect(
@@ -222,9 +196,7 @@ void main() {
 
     testWidgets('contains Row for horizontal layout', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredSearchBar())),
       );
 
       expect(

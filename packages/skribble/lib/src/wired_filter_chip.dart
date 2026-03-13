@@ -48,11 +48,7 @@ class WiredFilterChip extends HookWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       if (selected) ...[
-                        Icon(
-                          Icons.check,
-                          size: 16,
-                          color: filledColor,
-                        ),
+                        Icon(Icons.check, size: 16, color: filledColor),
                         const SizedBox(width: 4),
                       ],
                       DefaultTextStyle(

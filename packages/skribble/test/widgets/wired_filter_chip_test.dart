@@ -7,9 +7,7 @@ void main() {
     testWidgets('renders without error', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredFilterChip(label: const Text('Filter')),
-          ),
+          home: Scaffold(body: WiredFilterChip(label: const Text('Filter'))),
         ),
       );
 
@@ -19,9 +17,7 @@ void main() {
     testWidgets('renders label text', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredFilterChip(label: const Text('My Filter')),
-          ),
+          home: Scaffold(body: WiredFilterChip(label: const Text('My Filter'))),
         ),
       );
 
@@ -32,10 +28,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFilterChip(
-              label: const Text('Filter'),
-              selected: true,
-            ),
+            body: WiredFilterChip(label: const Text('Filter'), selected: true),
           ),
         ),
       );
@@ -47,10 +40,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFilterChip(
-              label: const Text('Filter'),
-              selected: false,
-            ),
+            body: WiredFilterChip(label: const Text('Filter'), selected: false),
           ),
         ),
       );
@@ -58,8 +48,9 @@ void main() {
       expect(find.byIcon(Icons.check), findsNothing);
     });
 
-    testWidgets('calls onSelected with toggled value when tapped',
-        (tester) async {
+    testWidgets('calls onSelected with toggled value when tapped', (
+      tester,
+    ) async {
       bool? receivedValue;
 
       await tester.pumpWidget(
@@ -80,8 +71,9 @@ void main() {
       expect(receivedValue, isTrue);
     });
 
-    testWidgets('calls onSelected with false when already selected',
-        (tester) async {
+    testWidgets('calls onSelected with false when already selected', (
+      tester,
+    ) async {
       bool? receivedValue;
 
       await tester.pumpWidget(
@@ -105,11 +97,7 @@ void main() {
     testWidgets('does not crash when onSelected is null', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredFilterChip(
-              label: const Text('Filter'),
-            ),
-          ),
+          home: Scaffold(body: WiredFilterChip(label: const Text('Filter'))),
         ),
       );
 
@@ -120,13 +108,12 @@ void main() {
       expect(find.byType(WiredFilterChip), findsOneWidget);
     });
 
-    testWidgets('contains WiredCanvas for the rounded rectangle border',
-        (tester) async {
+    testWidgets('contains WiredCanvas for the rounded rectangle border', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredFilterChip(label: const Text('Filter')),
-          ),
+          home: Scaffold(body: WiredFilterChip(label: const Text('Filter'))),
         ),
       );
 
@@ -142,17 +129,17 @@ void main() {
     testWidgets('has correct height of 32', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredFilterChip(label: const Text('Filter')),
-          ),
+          home: Scaffold(body: WiredFilterChip(label: const Text('Filter'))),
         ),
       );
 
       final sizedBox = tester.widget<SizedBox>(
-        find.descendant(
-          of: find.byType(WiredFilterChip),
-          matching: find.byType(SizedBox),
-        ).first,
+        find
+            .descendant(
+              of: find.byType(WiredFilterChip),
+              matching: find.byType(SizedBox),
+            )
+            .first,
       );
 
       expect(sizedBox.height, 32);
@@ -182,9 +169,7 @@ void main() {
     testWidgets('contains RepaintBoundary wrapper', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredFilterChip(label: const Text('Filter')),
-          ),
+          home: Scaffold(body: WiredFilterChip(label: const Text('Filter'))),
         ),
       );
 
@@ -208,10 +193,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredFilterChip(
-              label: const Text('Active'),
-              selected: true,
-            ),
+            body: WiredFilterChip(label: const Text('Active'), selected: true),
           ),
         ),
       );

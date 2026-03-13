@@ -8,10 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredTextButton(
-              onPressed: () {},
-              child: const Text('Hello'),
-            ),
+            body: WiredTextButton(onPressed: () {}, child: const Text('Hello')),
           ),
         ),
       );
@@ -85,8 +82,9 @@ void main() {
       expect(find.text('Disabled'), findsOneWidget);
     });
 
-    testWidgets('does not call callback when onPressed is null',
-        (tester) async {
+    testWidgets('does not call callback when onPressed is null', (
+      tester,
+    ) async {
       const pressed = false;
 
       await tester.pumpWidget(
@@ -196,8 +194,7 @@ void main() {
       );
     });
 
-    testWidgets('uses Column layout with button and underline',
-        (tester) async {
+    testWidgets('uses Column layout with button and underline', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

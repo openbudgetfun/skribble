@@ -36,10 +36,7 @@ class WiredExpansionTile extends HookWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
               children: [
-                if (leading != null) ...[
-                  leading!,
-                  const SizedBox(width: 16),
-                ],
+                if (leading != null) ...[leading!, const SizedBox(width: 16)],
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,10 +62,7 @@ class WiredExpansionTile extends HookWidget {
                 AnimatedRotation(
                   turns: isExpanded.value ? 0.5 : 0,
                   duration: const Duration(milliseconds: 200),
-                  child: Icon(
-                    Icons.expand_more,
-                    color: textColor,
-                  ),
+                  child: Icon(Icons.expand_more, color: textColor),
                 ),
               ],
             ),
@@ -77,12 +71,7 @@ class WiredExpansionTile extends HookWidget {
         SizedBox(
           height: 1,
           child: WiredCanvas(
-            painter: WiredLineBase(
-              x1: 0,
-              y1: 0,
-              x2: double.infinity,
-              y2: 0,
-            ),
+            painter: WiredLineBase(x1: 0, y1: 0, x2: double.infinity, y2: 0),
             fillerType: RoughFilter.noFiller,
           ),
         ),

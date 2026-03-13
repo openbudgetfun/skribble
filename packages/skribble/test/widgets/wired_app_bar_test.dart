@@ -53,14 +53,8 @@ void main() {
             appBar: WiredAppBar(
               title: const Text('Title'),
               actions: [
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: const Icon(Icons.more_vert),
-                  onPressed: () {},
-                ),
+                IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+                IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
               ],
             ),
             body: const SizedBox(),
@@ -90,10 +84,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            appBar: WiredAppBar(
-              title: const Text('Custom'),
-              height: 80.0,
-            ),
+            appBar: WiredAppBar(title: const Text('Custom'), height: 80.0),
             body: const SizedBox(),
           ),
         ),
@@ -109,8 +100,9 @@ void main() {
       expect(appBar.preferredSize, const Size.fromHeight(56.0));
     });
 
-    testWidgets('renders hand-drawn bottom line via WiredCanvas',
-        (tester) async {
+    testWidgets('renders hand-drawn bottom line via WiredCanvas', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -175,10 +167,7 @@ void main() {
     testWidgets('renders Spacer when no title is provided', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(),
-            body: const SizedBox(),
-          ),
+          home: Scaffold(appBar: WiredAppBar(), body: const SizedBox()),
         ),
       );
 
