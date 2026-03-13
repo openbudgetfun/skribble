@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.3.0
+
+### Complete Theme Integration
+
+Every widget and every painter base class now reads colors from
+`WiredTheme.of(context)` at runtime. Setting a custom `WiredThemeData`
+propagates `borderColor`, `fillColor`, `textColor`, and `disabledTextColor`
+through the entire widget tree — no hardcoded constants remain.
+
+- **Painter base classes** (`WiredRectangleBase`, `WiredLineBase`,
+  `WiredRoundedRectangleBase`, `WiredCircleBase`, `WiredInvertedTriangleBase`)
+  accept `borderColor` and `fillColor` parameters
+- **108 painter constructor calls** across 65 widget files updated to pass
+  `borderColor: theme.borderColor`
+- **10 additional widgets** added `WiredTheme.of(context)`:
+  `WiredBottomSheet`, `WiredCalendarDatePicker`, `WiredColorPicker`,
+  `WiredCupertinoSlider`, `WiredCupertinoSwitch`, `WiredDismissible`,
+  `WiredDivider`, `WiredDrawer`, `WiredForm`, `WiredNavigationDrawer`
+- **Deleted `const.dart`** — defaults moved to private constants in
+  `wired_base.dart`
+- `WiredBase.pathPainter()` now accepts an optional `color` parameter
+- Removed unused `WiredBase.pathPaint` and `WiredBase.fillPaint` static fields
+
+### Lint Fixes
+
+- Resolved all `dart analyze --fatal-infos` issues across library and storybook
+- Fixed `comment_references`, `use_null_aware_elements`,
+  `unnecessary_import`, `directives_ordering`, `discarded_futures`,
+  `parameter_assignments`
+- 0 infos, 0 warnings in both `packages/skribble` and `apps/skribble_storybook`
+
+### Stats
+
+- 81 widget files, 81 test files, 795 widget tests, 42 storybook tests
+- 76 widget files resolve `WiredTheme.of(context)`
+- 66 widget files pass `borderColor` to painter constructors
+- 0 `StatelessWidget` — `HookWidget` exclusively
+- 0 `const.dart` references
+
 ## 0.2.0
 
 ### New Widgets
@@ -28,81 +67,72 @@
 - `WiredForm` — form container with hand-drawn border and validation
 - `WiredAutocomplete` — autocomplete with sketchy dropdown
 - `WiredCupertinoTextField` — Cupertino rounded border text field
-- `WiredCupertinoSlider` — Cupertino slider with hand-drawn track
-- `WiredCupertinoSwitch` — Cupertino toggle with animated thumb
+- `WiredCupertinoSlider` — Cupertino-style hand-drawn slider
+
+#### Selection
+- `WiredCombo` — dropdown selector with sketchy border
+- `WiredChip` / `WiredChoiceChip` / `WiredFilterChip` / `WiredInputChip` / `WiredActionChip`
+- `WiredSegmentedButton` — segmented toggle with hand-drawn dividers
+- `WiredDatePicker` / `WiredTimePicker` / `WiredCalendarDatePicker`
+- `WiredCupertinoPicker` / `WiredCupertinoDatePicker`
+- `WiredCupertinoSegmentedControl` / `WiredSlidingSegmentedControl`
+- `WiredColorPicker` — grid of hand-drawn circle swatches
 
 #### Navigation
 - `WiredAppBar` — app bar with sketchy bottom border
 - `WiredBottomNavigationBar` — bottom nav with sketchy top border
-- `WiredNavigationBar` — M3 navigation bar
-- `WiredNavigationRail` — vertical navigation rail
-- `WiredNavigationDrawer` — M3 navigation drawer
-- `WiredTabBar` — tab bar with sketchy indicator
-- `WiredDrawer` — side drawer panel
-- `WiredPopupMenuButton` — popup menu with sketchy border
+- `WiredNavigationBar` — M3 navigation bar with pill indicators
+- `WiredNavigationRail` — side rail with sketchy divider
+- `WiredNavigationDrawer` — M3 navigation drawer with destinations
+- `WiredDrawer` — material drawer with sketchy right border
+- `WiredTabBar` — tab bar with sketchy underline
+- `WiredPopupMenuButton` — popup menu with sketchy items
 - `WiredMenuBar` / `WiredSubmenuButton` / `WiredMenuItemButton` — M3 menu bar
-- `WiredDropdownMenu` — M3 dropdown menu
-- `WiredBottomAppBar` — M3 bottom bar with sketchy top border
-- `WiredSliverAppBar` — collapsible sliver app bar
-- `WiredCupertinoNavigationBar` — Cupertino nav bar
+- `WiredDropdownMenu` — dropdown menu with sketchy border
+- `WiredCupertinoNavigationBar` — Cupertino nav bar with sketchy border
 - `WiredCupertinoTabBar` — Cupertino bottom tab bar
-
-#### Selection
-- `WiredChip` / `WiredChoiceChip` / `WiredFilterChip` — selection chips
-- `WiredInputChip` / `WiredActionChip` — interactive chips
-- `WiredCombo` — dropdown combo box
-- `WiredSegmentedButton` — segmented button group
-- `WiredDatePicker` / `WiredTimePicker` — date and time pickers
-- `WiredCalendarDatePicker` — inline calendar picker
-- `WiredColorPicker` — grid of sketchy circle color swatches
-- `WiredCupertinoPicker` — Cupertino wheel picker
-- `WiredCupertinoDatePicker` — Cupertino date/time picker
-- `WiredCupertinoSegmentedControl` — Cupertino segmented control
-- `WiredSlidingSegmentedControl` — Cupertino sliding segment control
+- `WiredBottomAppBar` — M3 bottom app bar with sketchy border
+- `WiredDrawerHeader` / `WiredUserAccountsDrawerHeader`
 
 #### Feedback
-- `WiredDialog` — dialog with hand-drawn border
-- `WiredSnackBar` — snack bar with sketchy border
-- `WiredTooltip` — tooltip with hand-drawn background
-- `WiredProgress` — linear progress bar with hachure fill
-- `WiredCircularProgress` — circular progress with sketchy arc
-- `WiredBadge` — notification badge with hand-drawn circle
+- `WiredDialog` — dialog with hand-drawn rectangle border
+- `WiredSnackBarContent` — snack bar with sketchy styling
+- `WiredTooltip` — tooltip wrapper
 - `WiredBottomSheet` — bottom sheet with sketchy top border
-- `WiredAboutDialog` — about dialog with hand-drawn border
-- `WiredContextMenu` — long-press context menu overlay
+- `WiredProgress` — linear progress with sketchy track
+- `WiredCircularProgress` — circular progress with hand-drawn arcs
+- `WiredBadge` — notification badge with sketchy circle
+- `WiredMaterialBanner` — top banner with sketchy borders
+- `WiredCupertinoAlertDialog` / `WiredCupertinoActionSheet`
+- `WiredAboutDialog` — hand-drawn about dialog
 - `WiredAnimatedIcon` — animated icon with Skribble styling
-- `WiredCupertinoAlertDialog` — Cupertino alert dialog
-- `WiredCupertinoActionSheet` — Cupertino action sheet
 
 #### Layout
-- `WiredCard` — card with hand-drawn rectangle border
+- `WiredCard` — card with hand-drawn border
 - `WiredDivider` — hand-drawn horizontal line
-- `WiredListTile` — list tile with sketchy border
-- `WiredExpansionTile` — expandable tile with sketchy border
-- `WiredDataTable` — data table with hand-drawn borders
-- `WiredStepper` — step-by-step progress indicator
-- `WiredScrollbar` — styled scrollbar with sketchy colors
-- `WiredReorderableListView` — reorderable list with sketchy items
+- `WiredListTile` — list tile with sketchy bottom border
+- `WiredExpansionTile` — expandable tile with sketchy dividers
+- `WiredReorderableListView` — reorderable list with sketchy item borders
+- `WiredScrollbar` — styled scrollbar with sketchy thumb
+- `WiredSliverAppBar` — collapsible sliver bar
 - `WiredDismissible` — swipe-to-dismiss with sketchy background
 - `WiredSelectableText` — selectable text with Skribble styling
-- `WiredMaterialBanner` — persistent banner with sketchy borders
-- `WiredDrawerHeader` — drawer header with hachure background
-- `WiredUserAccountsDrawerHeader` — avatar and account info header
+- `WiredCupertinoPageScaffold` / `WiredCupertinoTabScaffold`
+
+#### Data Display
+- `WiredCalendar` — month calendar with hand-drawn cells
+- `WiredDataTable` — data table with sketchy borders
+- `WiredStepper` — step-by-step wizard with sketchy connectors
 - `WiredAvatar` — hand-drawn circle avatar
-- `WiredCupertinoPageScaffold` — Cupertino page layout
-- `WiredCupertinoTabScaffold` — Cupertino tab layout
 
 ### Theme System
 - `WiredTheme` — `InheritedWidget` providing `WiredThemeData` to all descendants
 - `WiredThemeData` — configurable `borderColor`, `textColor`, `fillColor`,
   `disabledTextColor`, `strokeWidth`, `roughness`, and `DrawConfig`
-- Core widgets (`WiredButton`, `WiredCard`, `WiredDialog`) read from
-  `WiredTheme.of(context)` with automatic fallback to defaults
 
 ### Infrastructure
-- 81 widget test files with 895+ tests
-- 8 storybook pages (Buttons, Inputs, Navigation, Selection, Feedback,
-  Layout, Data Display, Home) with 34 page tests
+- 81 widget test files with 795 tests
+- 8 storybook pages with 34 page tests and 8 golden visual review tests
 - Visual review golden file pipeline via `matchesGoldenFile`
 - CI screenshot workflow with manifest validation and baseline diff
 - `skribble_lints` shared lint rules package
