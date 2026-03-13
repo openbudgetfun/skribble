@@ -279,6 +279,49 @@ void main() {
       expect(find.byType(WiredTheme), findsOneWidget);
     });
 
+    testWidgets('WiredButton reads border color from theme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredTheme(
+              data: WiredThemeData(borderColor: Colors.red),
+              child: WiredButton(onPressed: () {}, child: const Text('Themed')),
+            ),
+          ),
+        ),
+      );
+      // Should render without error using the custom theme
+      expect(find.text('Themed'), findsOneWidget);
+    });
+
+    testWidgets('WiredDialog reads fill color from theme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredTheme(
+              data: WiredThemeData(fillColor: Colors.amber),
+              child: const WiredDialog(child: Text('Dialog')),
+            ),
+          ),
+        ),
+      );
+      expect(find.text('Dialog'), findsOneWidget);
+    });
+
+    testWidgets('WiredCard reads fill color from theme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredTheme(
+              data: WiredThemeData(fillColor: Colors.lime),
+              child: WiredCard(child: const Text('Card')),
+            ),
+          ),
+        ),
+      );
+      expect(find.text('Card'), findsOneWidget);
+    });
+
     testWidgets('is an InheritedWidget', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
