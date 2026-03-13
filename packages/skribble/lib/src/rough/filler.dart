@@ -15,6 +15,7 @@ class IntersectionInfo {
   IntersectionInfo({this.point, this.distance});
 }
 
+/// Whether a filler produces a solid fill path or a sketchy pattern.
 enum FillStyle { fill, sketch }
 
 /// Configuration for polygon fill algorithms — controls hachure angle,

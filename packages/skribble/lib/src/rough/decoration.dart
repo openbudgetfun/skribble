@@ -26,6 +26,7 @@ class RoughDrawingStyle {
   });
 }
 
+/// The shape painted by a [RoughBoxDecoration].
 enum RoughBoxShape { rectangle, roundedRectangle, circle, ellipse }
 
 /// A `Decoration` that paints a hand-drawn box using the rough engine.

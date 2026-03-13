@@ -26,8 +26,11 @@ class OpSet {
   OpSet({this.type, this.ops});
 }
 
+/// The type of a single drawing operation.
 enum OpType { move, curveTo, lineTo }
 
+/// Classifies an [OpSet] as an outline path, a fill path, or a
+/// sketchy fill pattern.
 enum OpSetType { path, fillPath, fillSketch }
 
 /// A line segment between [source] and [target] points.

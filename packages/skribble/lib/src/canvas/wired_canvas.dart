@@ -56,6 +56,9 @@ final Map<RoughFilter, Filler Function(FillerConfig)> _filters =
       RoughFilter.solidFiller: SolidFiller.new,
     };
 
+/// The fill pattern used by a [WiredCanvas].
+///
+/// Each value maps to a [Filler] subclass in the rough engine.
 enum RoughFilter {
   noFiller,
   hachureFiller,
