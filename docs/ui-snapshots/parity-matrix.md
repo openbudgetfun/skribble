@@ -18,77 +18,84 @@ Status meanings:
 | Flutter widget | Skribble mapping | Lib | Test | Storybook | Status | Notes |
 |---|---|---:|---:|---:|---|---|
 | AppBar | `WiredAppBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
-| NavigationBar (M3) | `WiredNavigationBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
-| NavigationRail | `WiredNavigationRail` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
 | BottomNavigationBar | `WiredBottomNavigationBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
+| NavigationBar | `WiredNavigationBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
+| NavigationRail | `WiredNavigationRail` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
+| NavigationDrawer | `WiredNavigationDrawer` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
 | Drawer | `WiredDrawer` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
 | TabBar | `WiredTabBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
-| ListTile | `WiredListTile` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
-| ExpansionTile | `WiredExpansionTile` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| PopupMenuButton | `WiredPopupMenuButton` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
+| MenuBar | `WiredMenuBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Includes `WiredSubmenuButton`, `WiredMenuItemButton` |
+| DropdownMenu | `WiredDropdownMenu` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented |  |
 | ElevatedButton | `WiredElevatedButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
+| FilledButton | `WiredFilledButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
 | OutlinedButton | `WiredOutlinedButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
 | TextButton | `WiredTextButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
 | IconButton | `WiredIconButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
-| FloatingActionButton | `WiredFloatingActionButton` (`wired_fab.dart`) | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
-| FilledButton | `WiredFilledButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented | Dedicated hachure-filled button class |
+| FloatingActionButton | `WiredFloatingActionButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
 | SegmentedButton | `WiredSegmentedButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
-| Checkbox | `WiredCheckbox` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
-| Radio | `WiredRadio` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
-| Switch | `WiredSwitch` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
-| Slider | `WiredSlider` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
-| RangeSlider | `WiredRangeSlider` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
-| DropdownButton / DropdownMenu | `WiredCombo` / `WiredDropdownMenu` | ✅ | ✅ | ✅ (`inputs_page.dart`, `navigation_page.dart`) | implemented | WiredCombo for M2, WiredDropdownMenu for M3 |
+| ToggleButtons | `WiredToggleButtons` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented |  |
 | TextField | `WiredInput` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
-| SearchBar / SearchAnchor | `WiredSearchBar` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| TextArea (multiline) | `WiredTextArea` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| SearchBar | `WiredSearchBar` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| DropdownButton | `WiredCombo` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
+| Autocomplete | `WiredAutocomplete` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| Form | `WiredForm` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| Checkbox | `WiredCheckbox` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| CheckboxListTile | `WiredCheckboxListTile` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| Radio | `WiredRadio` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| RadioListTile | `WiredRadioListTile` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| Switch | `WiredSwitch` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| SwitchListTile | `WiredSwitchListTile` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| Slider | `WiredSlider` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
+| RangeSlider | `WiredRangeSlider` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented |  |
 | Chip | `WiredChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
-| FilterChip | `WiredFilterChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
 | ChoiceChip | `WiredChoiceChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
-| InputChip / ActionChip | `WiredInputChip` / `WiredActionChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Dedicated chip variants with selection, deletion, avatar |
-| Badge | `WiredBadge` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
-| Tooltip | `WiredTooltip` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
-| SnackBar | `showWiredSnackBar` / `WiredSnackBar` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
-| Dialog / AlertDialog | `WiredDialog` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
-| BottomSheet | `showWiredBottomSheet` / `WiredBottomSheet` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
-| DatePicker | `showWiredDatePicker` / `WiredDatePicker` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
+| FilterChip | `WiredFilterChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
+| InputChip | `WiredInputChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
+| ActionChip | `WiredActionChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
+| DatePicker | `WiredDatePicker` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
 | TimePicker | `WiredTimePicker` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
-| CalendarDatePicker | `WiredCalendar` / `WiredCalendarDatePicker` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented | WiredCalendar (custom) + WiredCalendarDatePicker (full API parity) |
-| Card | `WiredCard` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
-| Divider | `WiredDivider` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
-| DataTable | `WiredDataTable` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
+| CalendarDatePicker | `WiredCalendarDatePicker` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
+| Dialog | `WiredDialog` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| SnackBar | `WiredSnackBarContent` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| Tooltip | `WiredTooltip` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| BottomSheet | `WiredBottomSheet` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
 | LinearProgressIndicator | `WiredProgress` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
 | CircularProgressIndicator | `WiredCircularProgress` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| Badge | `WiredBadge` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
+| Card | `WiredCard` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| Divider | `WiredDivider` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| ListTile | `WiredListTile` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| ExpansionTile | `WiredExpansionTile` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| DataTable | `WiredDataTable` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
 | Stepper | `WiredStepper` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
-| PopupMenuButton / MenuAnchor | `WiredPopupMenu` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Storybook example added under navigation page |
-| ToggleButtons | `WiredToggleButtons` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented | Multi-toggle group with hand-drawn borders and selection fill |
-| Form | `WiredForm` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Hand-drawn border form container with validation |
-| Autocomplete | `WiredAutocomplete` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Filtering + hand-drawn field and overlay borders |
-| ReorderableListView | `WiredReorderableListView` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Drag-handle items with hand-drawn borders |
-| MenuBar / DropdownMenu (M3 menu system) | `WiredMenuBar` / `WiredDropdownMenu` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Full M3 menu bar + dropdown with hand-drawn borders |
-| NavigationDrawer (M3) | `WiredDrawer` / `WiredNavigationDrawer` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | WiredDrawer (M2) + WiredNavigationDrawer (M3 destinations API) |
+| Calendar | `WiredCalendar` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented |  |
+| ReorderableListView | `WiredReorderableListView` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| Scrollbar | `WiredScrollbar` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
 
 ## Cupertino widgets
 
-| Flutter Cupertino widget | Skribble mapping | Lib | Test | Storybook | Status | Notes |
-|---|---|---:|---:|---:|---|---|
-| CupertinoNavigationBar | `WiredCupertinoNavigationBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Dedicated Cupertino nav bar with leading/middle/trailing + sketchy bottom border |
-| CupertinoButton | `WiredCupertinoButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented | Dedicated Cupertino button with press opacity, filled variant |
-| CupertinoSwitch | `WiredCupertinoSwitch` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Dedicated Cupertino switch with green active track, animated thumb |
-| CupertinoSlider | `WiredCupertinoSlider` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Dedicated Cupertino slider with hand-drawn track/thumb, divisions |
-| CupertinoTextField | `WiredCupertinoTextField` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Dedicated Cupertino text field with prefix/suffix, rounded border |
-| CupertinoPicker | `WiredCupertinoPicker` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Scroll picker with sketchy border + selection highlight |
-| CupertinoDatePicker | `WiredCupertinoDatePicker` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Wraps CupertinoDatePicker with sketchy border, all modes supported |
-| CupertinoAlertDialog | `WiredCupertinoAlertDialog` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Dedicated alert dialog with sketchy borders, dialog actions |
-| CupertinoActionSheet | `WiredCupertinoActionSheet` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Dedicated action sheet with sketchy borders, cancel button |
-| CupertinoTabBar | `WiredCupertinoTabBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Dedicated Cupertino tab bar with BottomNavigationBarItem API |
-| CupertinoTabScaffold | `WiredTabScaffold` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Tabbed layout with hand-drawn bottom tab bar |
-| CupertinoPageScaffold | `WiredPageScaffold` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Page scaffold with optional nav bar |
-| CupertinoContextMenu | `WiredContextMenu` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Long-press overlay with actions and dismiss |
-| CupertinoScrollbar | `WiredScrollbar` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Styled scrollbar with sketchy thumb |
-| CupertinoSegmentedControl / SlidingSegmentedControl | `WiredCupertinoSegmentedControl` / `WiredSlidingSegmentedControl` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Dedicated segmented + sliding controls with sketchy borders |
-
-## Extended widgets (beyond parity matrix)
-
 | Flutter widget | Skribble mapping | Lib | Test | Storybook | Status | Notes |
+|---|---|---:|---:|---:|---|---|
+| CupertinoButton | `WiredCupertinoButton` | ✅ | ✅ | ✅ (`buttons_page.dart`) | implemented | Press-opacity, filled variant |
+| CupertinoSwitch | `WiredCupertinoSwitch` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Animated thumb with green active track |
+| CupertinoTextField | `WiredCupertinoTextField` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Rounded border with prefix/suffix |
+| CupertinoSlider | `WiredCupertinoSlider` | ✅ | ✅ | ✅ (`inputs_page.dart`) | implemented | Hand-drawn track and thumb |
+| CupertinoNavigationBar | `WiredCupertinoNavigationBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Sketchy bottom border |
+| CupertinoTabBar | `WiredCupertinoTabBar` | ✅ | ✅ | ✅ (`navigation_page.dart`) | implemented | Sketchy top border |
+| CupertinoPicker | `WiredCupertinoPicker` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Wheel picker with sketchy border |
+| CupertinoDatePicker | `WiredCupertinoDatePicker` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | All modes (date/time/dateAndTime) |
+| CupertinoAlertDialog | `WiredCupertinoAlertDialog` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | With `WiredCupertinoDialogAction` |
+| CupertinoActionSheet | `WiredCupertinoActionSheet` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | With action/cancel buttons |
+| CupertinoSegmentedControl | `WiredCupertinoSegmentedControl` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Generic key-based API |
+| CupertinoSlidingSegmentedControl | `WiredSlidingSegmentedControl` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Sliding thumb variant |
+| CupertinoPageScaffold | `WiredCupertinoPageScaffold` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+| CupertinoTabScaffold | `WiredCupertinoTabScaffold` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented |  |
+
+## Extended widgets (beyond parity)
+
+| Widget | Skribble mapping | Lib | Test | Storybook | Status | Notes |
 |---|---|---:|---:|---:|---|---|
 | CircleAvatar | `WiredAvatar` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Hand-drawn circle with initials/icon/image |
 | MaterialBanner | `WiredMaterialBanner` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Persistent top banner with sketchy borders |
@@ -99,15 +106,14 @@ Status meanings:
 | Dismissible | `WiredDismissible` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Swipe-to-dismiss with sketchy delete background |
 | SelectableText | `WiredSelectableText` | ✅ | ✅ | ✅ (`data_display_page.dart`) | implemented | Selectable text with Skribble styling |
 | AboutDialog | `WiredAboutDialog` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Hand-drawn about dialog with app info |
-
 | AnimatedIcon | `WiredAnimatedIcon` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Morphing icon with Skribble styling |
 | (Custom) Color Picker | `WiredColorPicker` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Grid of sketchy circle swatches with selection |
 
 ## Summary
 
 - **100% parity** — every Material and Cupertino widget has a dedicated Wired equivalent.
-- **63 parity widgets + 11 extended widgets = 74 total implementations.**
-- **82 widget source files, 81 test files, 876 widget tests, 34 storybook tests.**
-- All Material widgets have full hand-drawn implementations with matching tests and storybook showcases.
-- All Cupertino widgets have dedicated `WiredCupertino*` implementations with API parity.
-- Extended widgets cover: avatars, banners, drawer headers, bottom/sliver app bars, dismissible, selectable text, about dialog, animated icons, color picker.
+- **55 Material + 14 Cupertino + 11 extended = 80 total implementations.**
+- **81 widget source files, 81 test files, 795 widget tests, 42 storybook tests (34 page + 8 golden).**
+- All widgets read from `WiredTheme.of(context)` for runtime color customization.
+- All widgets use `HookWidget` exclusively (no `StatefulWidget` or `StatelessWidget`).
+- Version 0.2.0 with comprehensive CHANGELOG.
