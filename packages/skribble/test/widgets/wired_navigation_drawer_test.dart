@@ -133,5 +133,64 @@ void main() {
       // WiredCanvas should be present for the selected item
       expect(find.byType(WiredCanvas), findsWidgets);
     });
+
+    testWidgets('respects custom width', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            drawer: WiredNavigationDrawer(
+              width: 250,
+              destinations: const [
+                WiredNavigationDrawerDestination(
+                  icon: Icons.home,
+                  label: 'Home',
+                ),
+              ],
+            ),
+            body: const SizedBox.expand(),
+          ),
+        ),
+      );
+
+      final scaffoldState = tester.firstState<ScaffoldState>(
+        find.byType(Scaffold),
+      );
+      scaffoldState.openDrawer();
+      await tester.pumpAndSettle();
+
+      final drawer = tester.widget<Drawer>(find.byType(Drawer));
+      expect(drawer.width, 250);
+    });
+
+    testWidgets('renders icons for destinations', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            drawer: WiredNavigationDrawer(
+              destinations: const [
+                WiredNavigationDrawerDestination(
+                  icon: Icons.star,
+                  label: 'Starred',
+                ),
+                WiredNavigationDrawerDestination(
+                  icon: Icons.archive,
+                  label: 'Archive',
+                ),
+              ],
+            ),
+            body: const SizedBox.expand(),
+          ),
+        ),
+      );
+
+      final scaffoldState = tester.firstState<ScaffoldState>(
+        find.byType(Scaffold),
+      );
+      scaffoldState.openDrawer();
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.star), findsOneWidget);
+      expect(find.byIcon(Icons.archive), findsOneWidget);
+    });
   });
 }

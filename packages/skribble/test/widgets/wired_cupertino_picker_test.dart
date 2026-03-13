@@ -93,5 +93,38 @@ void main() {
       );
       expect(sizedBox.height, 150);
     });
+
+    testWidgets('contains WiredCanvas for border', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredCupertinoPicker(
+              onSelectedItemChanged: (_) {},
+              children: const [Text('X')],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredCanvas), findsWidgets);
+    });
+
+    testWidgets('renders many items without error', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredCupertinoPicker(
+              onSelectedItemChanged: (_) {},
+              children: List.generate(
+                20,
+                (i) => Text('Item $i'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredCupertinoPicker), findsOneWidget);
+    });
   });
 }

@@ -82,5 +82,38 @@ void main() {
       expect(find.byIcon(Icons.grid_view), findsOneWidget);
       expect(find.byIcon(Icons.view_module), findsOneWidget);
     });
+
+    testWidgets('does not respond when onPressed is null', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredToggleButtons(
+              isSelected: const [true, false],
+              children: const [Text('X'), Text('Y')],
+            ),
+          ),
+        ),
+      );
+
+      // Should not throw when tapped without onPressed
+      await tester.tap(find.text('Y'));
+      await tester.pump();
+      expect(find.byType(WiredToggleButtons), findsOneWidget);
+    });
+
+    testWidgets('contains RepaintBoundary', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredToggleButtons(
+              isSelected: const [false, false],
+              children: const [Text('1'), Text('2')],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(RepaintBoundary), findsWidgets);
+    });
   });
 }

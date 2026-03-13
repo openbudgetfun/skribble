@@ -37,7 +37,7 @@ void main() {
 
       // Verify the child's padding is EdgeInsets.all(20.0).
       final childPadding = tester.widgetList<Padding>(paddingWidgets).last;
-      expect(childPadding.padding, EdgeInsets.all(20.0));
+      expect(childPadding.padding, const EdgeInsets.all(20.0));
     });
 
     testWidgets('applies custom padding', (tester) async {
@@ -66,6 +66,70 @@ void main() {
       // The last Padding wraps the child with the custom padding.
       final childPadding = tester.widgetList<Padding>(paddingWidgets).last;
       expect(childPadding.padding, customPadding);
+    });
+
+    testWidgets('contains a Dialog widget', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredDialog(child: const Text('Test')),
+          ),
+        ),
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(WiredDialog),
+          matching: find.byType(Dialog),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('contains WiredCanvas for border', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredDialog(child: const Text('Border check')),
+          ),
+        ),
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(WiredDialog),
+          matching: find.byType(WiredCanvas),
+        ),
+        findsWidgets,
+      );
+    });
+
+    testWidgets('renders complex child without error', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredDialog(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('Title'),
+                  const SizedBox(height: 16),
+                  const Text('Body content here'),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Title'), findsOneWidget);
+      expect(find.text('Body content here'), findsOneWidget);
+      expect(find.text('OK'), findsOneWidget);
     });
   });
 }
