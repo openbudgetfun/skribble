@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -11,7 +10,7 @@ import 'wired_theme.dart';
 /// Provides a page with a hand-drawn navigation bar at the top and
 /// content below.
 class WiredPageScaffold extends HookWidget {
-  /// The navigation bar at the top. Typically a [WiredAppBar] or similar.
+  /// The navigation bar at the top. Typically a `WiredAppBar` or similar.
   final Widget? navigationBar;
 
   /// The content of the page.
@@ -36,7 +35,7 @@ class WiredPageScaffold extends HookWidget {
             backgroundColor ?? theme.fillColor.withValues(alpha: 0.3),
         body: Column(
           children: [
-            if (navigationBar case final nb?) nb,
+            ?navigationBar,
             Expanded(child: child),
           ],
         ),

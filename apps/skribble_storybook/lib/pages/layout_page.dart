@@ -39,10 +39,7 @@ class LayoutPage extends HookWidget {
                       child: const Text('JD'),
                     ),
                     const SizedBox(width: 12),
-                    const WiredAvatar(
-                      radius: 24,
-                      child: Icon(Icons.person),
-                    ),
+                    const WiredAvatar(radius: 24, child: Icon(Icons.person)),
                   ],
                 ),
               ),
@@ -192,9 +189,11 @@ class LayoutPage extends HookWidget {
                   child: WiredReorderableListView(
                     onReorder: (oldIndex, newIndex) {
                       final items = [...reorderItems.value];
-                      if (newIndex > oldIndex) newIndex -= 1;
+                      final adjustedIndex = newIndex > oldIndex
+                          ? newIndex - 1
+                          : newIndex;
                       final item = items.removeAt(oldIndex);
-                      items.insert(newIndex, item);
+                      items.insert(adjustedIndex, item);
                       reorderItems.value = items;
                     },
                     children: [
@@ -281,8 +280,7 @@ class LayoutPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Sliver App Bar',
-                description:
-                    'Collapsible app bar with sketchy bottom border.',
+                description: 'Collapsible app bar with sketchy bottom border.',
                 child: SizedBox(
                   height: 250,
                   child: CustomScrollView(
@@ -291,9 +289,7 @@ class LayoutPage extends HookWidget {
                         expandedHeight: 150,
                         pinned: true,
                         title: const Text('Collapsible'),
-                        flexibleSpace: Container(
-                          color: Colors.indigo.shade50,
-                        ),
+                        flexibleSpace: Container(color: Colors.indigo.shade50),
                       ),
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
@@ -326,9 +322,7 @@ class LayoutPage extends HookWidget {
                       WiredDismissible(
                         dismissKey: ValueKey(item),
                         onDismissed: (_) {},
-                        child: WiredListTile(
-                          title: Text(item),
-                        ),
+                        child: WiredListTile(title: Text(item)),
                       ),
                   ],
                 ),

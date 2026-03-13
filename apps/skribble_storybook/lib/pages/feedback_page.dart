@@ -46,14 +46,8 @@ class FeedbackPage extends HookWidget {
                   ),
                   content: const Text('Your account is about to expire.'),
                   actions: [
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('DISMISS'),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('RENEW'),
-                    ),
+                    TextButton(onPressed: () {}, child: const Text('DISMISS')),
+                    TextButton(onPressed: () {}, child: const Text('RENEW')),
                   ],
                 ),
               ),
@@ -253,9 +247,7 @@ class FeedbackPage extends HookWidget {
                       showWiredCupertinoDialog<void>(
                         context: context,
                         title: const Text('Delete Photo'),
-                        content: const Text(
-                          'This action cannot be undone.',
-                        ),
+                        content: const Text('This action cannot be undone.'),
                         actions: [
                           WiredCupertinoDialogAction(
                             onPressed: () => Navigator.pop(context),
@@ -409,9 +401,9 @@ class _AnimatedIconDemo extends HookWidget {
         GestureDetector(
           onTap: () {
             if (isForward.value) {
-              controller.reverse();
+              unawaited(controller.reverse());
             } else {
-              controller.forward();
+              unawaited(controller.forward());
             }
             isForward.value = !isForward.value;
           },
