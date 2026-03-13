@@ -6,7 +6,7 @@ void main() {
   group('WiredDivider', () {
     testWidgets('renders without error', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredDivider())),
+        const MaterialApp(home: Scaffold(body: WiredDivider())),
       );
 
       expect(find.byType(WiredDivider), findsOneWidget);
@@ -14,7 +14,7 @@ void main() {
 
     testWidgets('contains Divider widget', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredDivider())),
+        const MaterialApp(home: Scaffold(body: WiredDivider())),
       );
 
       expect(
@@ -28,7 +28,7 @@ void main() {
 
     testWidgets('has transparent divider color', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredDivider())),
+        const MaterialApp(home: Scaffold(body: WiredDivider())),
       );
 
       final divider = tester.widget<Divider>(
@@ -39,6 +39,60 @@ void main() {
       );
 
       expect(divider.color, Colors.transparent);
+    });
+
+    testWidgets('contains WiredCanvas for line', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: Scaffold(body: WiredDivider())),
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(WiredDivider),
+          matching: find.byType(WiredCanvas),
+        ),
+        findsWidgets,
+      );
+    });
+
+    testWidgets('renders inside a Column with other widgets', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Column(
+              children: [
+                Text('Above'),
+                WiredDivider(),
+                Text('Below'),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Above'), findsOneWidget);
+      expect(find.byType(WiredDivider), findsOneWidget);
+      expect(find.text('Below'), findsOneWidget);
+    });
+
+    testWidgets('renders multiple dividers without error', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Column(
+              children: [
+                WiredDivider(),
+                SizedBox(height: 10),
+                WiredDivider(),
+                SizedBox(height: 10),
+                WiredDivider(),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredDivider), findsNWidgets(3));
     });
   });
 }

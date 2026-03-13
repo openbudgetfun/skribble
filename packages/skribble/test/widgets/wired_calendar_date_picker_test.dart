@@ -81,5 +81,50 @@ void main() {
 
       expect(find.byType(WiredCanvas), findsWidgets);
     });
+
+    testWidgets('accepts onDisplayedMonthChanged callback', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredCalendarDatePicker(
+              initialDate: DateTime(2025, 6, 15),
+              firstDate: DateTime(2020),
+              lastDate: DateTime(2030),
+              onDateChanged: (_) {},
+              onDisplayedMonthChanged: (_) {},
+            ),
+          ),
+        ),
+      );
+
+      // Tap the forward chevron to go to next month
+      final chevrons = find.byIcon(Icons.chevron_right);
+      expect(chevrons, findsWidgets);
+      await tester.tap(chevrons.first);
+      await tester.pumpAndSettle();
+
+      // Should have navigated without error
+      expect(find.byType(WiredCalendarDatePicker), findsOneWidget);
+    });
+
+    testWidgets('renders in year mode', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredCalendarDatePicker(
+              initialDate: DateTime(2025, 6, 15),
+              firstDate: DateTime(2020),
+              lastDate: DateTime(2030),
+              onDateChanged: (_) {},
+              initialCalendarMode: DatePickerMode.year,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredCalendarDatePicker), findsOneWidget);
+      // In year mode, year numbers should be visible
+      expect(find.text('2025'), findsOneWidget);
+    });
   });
 }

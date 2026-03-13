@@ -57,5 +57,56 @@ void main() {
       );
       expect(find.byType(WiredScrollbar), findsOneWidget);
     });
+
+    testWidgets('accepts custom scroll controller', (tester) async {
+      final scrollController = ScrollController();
+      addTearDown(scrollController.dispose);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredScrollbar(
+              controller: scrollController,
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: 100,
+                itemBuilder: (_, i) => Text('Row $i'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredScrollbar), findsOneWidget);
+      expect(find.byType(Scrollbar), findsOneWidget);
+    });
+
+    testWidgets('accepts custom radius', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredScrollbar(
+              radius: const Radius.circular(8),
+              child: ListView(children: const [Text('Content')]),
+            ),
+          ),
+        ),
+      );
+      expect(find.byType(WiredScrollbar), findsOneWidget);
+    });
+
+    testWidgets('contains RepaintBoundary', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredScrollbar(
+              child: ListView(children: const [Text('Test')]),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(RepaintBoundary), findsWidgets);
+    });
   });
 }

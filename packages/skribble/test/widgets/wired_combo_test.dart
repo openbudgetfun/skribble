@@ -80,5 +80,74 @@ void main() {
 
       expect(changedValue, 'b');
     });
+
+    testWidgets('renders with null value', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredCombo<String>(
+              items: const [
+                DropdownMenuItem(value: 'a', child: Text('Option A')),
+                DropdownMenuItem(value: 'b', child: Text('Option B')),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredCombo<String>), findsOneWidget);
+    });
+
+    testWidgets('contains WiredCanvas for border and triangle', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredCombo<String>(
+              value: 'a',
+              items: const [
+                DropdownMenuItem(value: 'a', child: Text('Option A')),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredCanvas), findsWidgets);
+    });
+
+    testWidgets('updates value when parent changes', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredCombo<String>(
+              value: 'a',
+              items: const [
+                DropdownMenuItem(value: 'a', child: Text('Option A')),
+                DropdownMenuItem(value: 'b', child: Text('Option B')),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Option A'), findsOneWidget);
+
+      // Rebuild with different value
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredCombo<String>(
+              value: 'b',
+              items: const [
+                DropdownMenuItem(value: 'a', child: Text('Option A')),
+                DropdownMenuItem(value: 'b', child: Text('Option B')),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Option B'), findsOneWidget);
+    });
   });
 }

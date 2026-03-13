@@ -115,5 +115,48 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Option'), findsNothing);
     });
+
+    testWidgets('shows icons when provided', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: WiredContextMenu(
+                actions: const [
+                  WiredContextMenuAction(label: 'Edit', icon: Icons.edit),
+                  WiredContextMenuAction(label: 'Share', icon: Icons.share),
+                ],
+                child: const SizedBox(
+                  width: 100,
+                  height: 50,
+                  child: Center(child: Text('Press me')),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.longPress(find.text('Press me'));
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.edit), findsOneWidget);
+      expect(find.byIcon(Icons.share), findsOneWidget);
+    });
+
+    testWidgets('contains RepaintBoundary', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredContextMenu(
+              actions: const [WiredContextMenuAction(label: 'Test')],
+              child: const Text('Content'),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(RepaintBoundary), findsWidgets);
+    });
   });
 }

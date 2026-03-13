@@ -97,6 +97,70 @@ void main() {
       expect(find.text('Fruit'), findsOneWidget);
       expect(find.text('Search fruit'), findsOneWidget);
     });
+
+    testWidgets('shows no options for empty query', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              width: 320,
+              child: WiredAutocomplete<String>(
+                options: options,
+                displayStringForOption: _display,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      // Empty text should show no suggestions
+      await tester.enterText(find.byType(TextField), '');
+      await tester.pumpAndSettle();
+
+      expect(find.text('Apple'), findsNothing);
+      expect(find.text('Banana'), findsNothing);
+    });
+
+    testWidgets('shows no options when query has no match', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              width: 320,
+              child: WiredAutocomplete<String>(
+                options: options,
+                displayStringForOption: _display,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.enterText(find.byType(TextField), 'xyz');
+      await tester.pumpAndSettle();
+
+      expect(find.text('Apple'), findsNothing);
+      expect(find.text('Apricot'), findsNothing);
+      expect(find.text('Banana'), findsNothing);
+    });
+
+    testWidgets('contains WiredCanvas for border', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              width: 320,
+              child: WiredAutocomplete<String>(
+                options: options,
+                displayStringForOption: _display,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredCanvas), findsWidgets);
+    });
   });
 }
 
