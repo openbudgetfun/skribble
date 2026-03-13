@@ -59,7 +59,7 @@ class WiredToggleButtons extends HookWidget {
   }
 }
 
-class _WiredToggleButton extends StatelessWidget {
+class _WiredToggleButton extends HookWidget {
   final Widget child;
   final bool selected;
   final double height;

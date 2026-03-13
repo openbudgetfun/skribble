@@ -108,7 +108,7 @@ class WiredCupertinoSegmentedControl<T extends Object> extends HookWidget {
   }
 }
 
-class _SegmentTile<T> extends StatelessWidget {
+class _SegmentTile<T> extends HookWidget {
   final T segmentKey;
   final bool isSelected;
   final Color selectedColor;

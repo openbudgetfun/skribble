@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'const.dart';
 import 'rough/skribble_rough.dart';
@@ -25,7 +26,7 @@ void showWiredSnackBar(
 }
 
 /// A snack bar content wrapper with a hand-drawn border.
-class WiredSnackBarContent extends StatelessWidget {
+class WiredSnackBarContent extends HookWidget {
   final Widget child;
   final Widget? action;
 

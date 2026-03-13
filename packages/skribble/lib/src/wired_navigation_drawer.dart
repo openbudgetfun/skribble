@@ -119,7 +119,7 @@ class WiredNavigationDrawerDestination {
   });
 }
 
-class _WiredDrawerItem extends StatelessWidget {
+class _WiredDrawerItem extends HookWidget {
   final IconData icon;
   final IconData? selectedIcon;
   final String label;
