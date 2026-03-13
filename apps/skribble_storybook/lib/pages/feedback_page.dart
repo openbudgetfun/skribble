@@ -24,6 +24,43 @@ class FeedbackPage extends HookWidget {
         padding: const EdgeInsets.all(16),
         children: [
           ShowcaseSection(
+            title: 'WiredMaterialBanner',
+            children: [
+              ComponentShowcase(
+                title: 'Banner',
+                description: 'Persistent top-of-screen message.',
+                child: WiredMaterialBanner(
+                  leading: const Icon(Icons.warning_amber, color: Colors.orange),
+                  content: const Text('Your account is about to expire.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('DISMISS'),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('RENEW'),
+                    ),
+                  ],
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Actions Below',
+                child: WiredMaterialBanner(
+                  forceActionsBelow: true,
+                  leading: const Icon(Icons.info_outline),
+                  content: const Text('A new update is available.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('UPDATE NOW'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredProgress',
             children: [
               ComponentShowcase(

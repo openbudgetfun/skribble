@@ -295,6 +295,38 @@ class NavigationPage extends HookWidget {
             ],
           ),
           ShowcaseSection(
+            title: 'WiredDrawerHeader',
+            children: [
+              ComponentShowcase(
+                title: 'Drawer Header',
+                description: 'Hand-drawn header for drawers.',
+                child: SizedBox(
+                  height: 120,
+                  child: WiredDrawerHeader(
+                    child: const Text(
+                      'Skribble App',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              ComponentShowcase(
+                title: 'User Accounts Header',
+                child: WiredUserAccountsDrawerHeader(
+                  currentAccountPicture: const WiredAvatar(
+                    radius: 30,
+                    child: Text('SK'),
+                  ),
+                  accountName: const Text('Skribble User'),
+                  accountEmail: const Text('user@skribble.dev'),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredDrawer',
             children: [
               ComponentShowcase(
