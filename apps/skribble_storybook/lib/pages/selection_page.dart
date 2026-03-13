@@ -11,6 +11,7 @@ class SelectionPage extends HookWidget {
   Widget build(BuildContext context) {
     final filterSelected = useState(false);
     final choiceSelected = useState(false);
+    final inputChipSelected = useState(false);
     final pickerIndex = useState(0);
 
     return Scaffold(
@@ -67,6 +68,58 @@ class SelectionPage extends HookWidget {
                   label: const Text('Selected'),
                   selected: choiceSelected.value,
                   onSelected: (v) => choiceSelected.value = v,
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredInputChip',
+            children: [
+              ComponentShowcase(
+                title: 'Input Chip',
+                description: 'Selectable chip with delete and avatar.',
+                child: Wrap(
+                  spacing: 8,
+                  children: [
+                    WiredInputChip(
+                      label: const Text('Flutter'),
+                      selected: inputChipSelected.value,
+                      onSelected: (v) => inputChipSelected.value = v,
+                      onDeleted: () => inputChipSelected.value = false,
+                      avatar: const CircleAvatar(
+                        radius: 10,
+                        child: Text('F', style: TextStyle(fontSize: 10)),
+                      ),
+                    ),
+                    WiredInputChip(
+                      label: const Text('Disabled'),
+                      enabled: false,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredActionChip',
+            children: [
+              ComponentShowcase(
+                title: 'Action Chip',
+                description: 'Tappable chip with optional icon.',
+                child: Wrap(
+                  spacing: 8,
+                  children: [
+                    WiredActionChip(
+                      label: const Text('Share'),
+                      avatar: const Icon(Icons.share, size: 16),
+                      onPressed: () {},
+                    ),
+                    WiredActionChip(
+                      label: const Text('Copy'),
+                      avatar: const Icon(Icons.copy, size: 16),
+                      onPressed: () {},
+                    ),
+                  ],
                 ),
               ),
             ],
