@@ -23,6 +23,8 @@ export 'src/wired_choice_chip.dart';
 export 'src/wired_circular_progress.dart';
 export 'src/wired_combo.dart';
 export 'src/wired_context_menu.dart';
+export 'src/wired_cupertino_action_sheet.dart';
+export 'src/wired_cupertino_alert_dialog.dart';
 export 'src/wired_cupertino_button.dart';
 export 'src/wired_cupertino_navigation_bar.dart';
 export 'src/wired_cupertino_picker.dart';
