@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:skribble_storybook/app.dart';
@@ -17,11 +18,32 @@ void main() {
     await binding.takeScreenshot(name);
   }
 
-  Future<void> scrollToAndTap(WidgetTester tester, String text) async {
-    await tester.scrollUntilVisible(find.text(text), 200);
+  Future<void> openCategory(WidgetTester tester, String category) async {
+    final finder = find.text(category);
+    if (finder.evaluate().isEmpty) {
+      await tester.scrollUntilVisible(finder, 200);
+      await tester.pumpAndSettle();
+    }
+    await tester.tap(finder.first);
     await tester.pumpAndSettle();
-    await tester.tap(find.text(text));
+  }
+
+  Future<void> capturePageAndWidgets(
+    WidgetTester tester, {
+    required String category,
+    required String pageShot,
+    required List<String> widgetShots,
+  }) async {
+    await tester.pumpWidget(const SkribbleStorybookApp());
     await tester.pumpAndSettle();
+
+    await openCategory(tester, category);
+
+    await takeScreenshot(pageShot);
+
+    for (final widgetShot in widgetShots) {
+      await takeScreenshot(widgetShot);
+    }
   }
 
   group('Screenshots', () {
@@ -32,70 +54,120 @@ void main() {
       await takeScreenshot('home/home');
     });
 
-    testWidgets('capture buttons page', (tester) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Buttons'));
-      await tester.pumpAndSettle();
-
-      await takeScreenshot('buttons/buttons');
+    testWidgets('capture buttons page and widgets', (tester) async {
+      await capturePageAndWidgets(
+        tester,
+        category: 'Buttons',
+        pageShot: 'buttons/buttons',
+        widgetShots: const [
+          'buttons/wired-button',
+          'buttons/wired-elevated-button',
+          'buttons/wired-outlined-button',
+          'buttons/wired-text-button',
+          'buttons/wired-icon-button',
+          'buttons/wired-fab',
+          'buttons/wired-segmented-button',
+        ],
+      );
     });
 
-    testWidgets('capture inputs page', (tester) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Inputs'));
-      await tester.pumpAndSettle();
-
-      await takeScreenshot('inputs/inputs');
+    testWidgets('capture inputs page and widgets', (tester) async {
+      await capturePageAndWidgets(
+        tester,
+        category: 'Inputs',
+        pageShot: 'inputs/inputs',
+        widgetShots: const [
+          'inputs/wired-input',
+          'inputs/wired-text-area',
+          'inputs/wired-search-bar',
+          'inputs/wired-checkbox',
+          'inputs/wired-radio',
+          'inputs/wired-slider',
+          'inputs/wired-range-slider',
+          'inputs/wired-toggle',
+          'inputs/wired-switch',
+          'inputs/wired-progress',
+          'inputs/wired-circular-progress',
+        ],
+      );
     });
 
-    testWidgets('capture navigation page', (tester) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Navigation'));
-      await tester.pumpAndSettle();
-
-      await takeScreenshot('navigation/navigation');
+    testWidgets('capture navigation page and widgets', (tester) async {
+      await capturePageAndWidgets(
+        tester,
+        category: 'Navigation',
+        pageShot: 'navigation/navigation',
+        widgetShots: const [
+          'navigation/wired-app-bar',
+          'navigation/wired-bottom-nav',
+          'navigation/wired-navigation-bar',
+          'navigation/wired-navigation-rail',
+          'navigation/wired-drawer',
+          'navigation/wired-popup-menu',
+          'navigation/wired-tab-bar',
+        ],
+      );
     });
 
-    testWidgets('capture selection page', (tester) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pumpAndSettle();
-
-      await scrollToAndTap(tester, 'Selection');
-
-      await takeScreenshot('selection/selection');
+    testWidgets('capture selection page and widgets', (tester) async {
+      await capturePageAndWidgets(
+        tester,
+        category: 'Selection',
+        pageShot: 'selection/selection',
+        widgetShots: const [
+          'selection/wired-chip',
+          'selection/wired-choice-chip',
+          'selection/wired-filter-chip',
+          'selection/wired-checkbox-list-tile',
+          'selection/wired-radio-list-tile',
+          'selection/wired-switch-list-tile',
+        ],
+      );
     });
 
-    testWidgets('capture feedback page', (tester) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pumpAndSettle();
-
-      await scrollToAndTap(tester, 'Feedback');
-
-      await takeScreenshot('feedback/feedback');
+    testWidgets('capture feedback page and widgets', (tester) async {
+      await capturePageAndWidgets(
+        tester,
+        category: 'Feedback',
+        pageShot: 'feedback/feedback',
+        widgetShots: const [
+          'feedback/wired-dialog',
+          'feedback/wired-snack-bar',
+          'feedback/wired-popup-menu',
+          'feedback/wired-tooltip',
+          'feedback/wired-badge',
+        ],
+      );
     });
 
-    testWidgets('capture layout page', (tester) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pumpAndSettle();
-
-      await scrollToAndTap(tester, 'Layout');
-
-      await takeScreenshot('layout/layout');
+    testWidgets('capture layout page and widgets', (tester) async {
+      await capturePageAndWidgets(
+        tester,
+        category: 'Layout',
+        pageShot: 'layout/layout',
+        widgetShots: const [
+          'layout/wired-card',
+          'layout/wired-divider',
+          'layout/wired-list-tile',
+          'layout/wired-expansion-tile',
+          'layout/wired-bottom-sheet',
+          'layout/wired-data-table',
+        ],
+      );
     });
 
-    testWidgets('capture data display page', (tester) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await tester.pumpAndSettle();
-
-      await scrollToAndTap(tester, 'Data Display');
-
-      await takeScreenshot('data-display/data-display');
+    testWidgets('capture data display page and widgets', (tester) async {
+      await capturePageAndWidgets(
+        tester,
+        category: 'Data Display',
+        pageShot: 'data-display/data-display',
+        widgetShots: const [
+          'data-display/wired-calendar',
+          'data-display/wired-date-picker',
+          'data-display/wired-time-picker',
+          'data-display/wired-stepper',
+        ],
+      );
     });
   });
 }

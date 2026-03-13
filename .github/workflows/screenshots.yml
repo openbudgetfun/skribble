@@ -15,17 +15,70 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: preflight check for connected flutter devices
+        run: |
+          set -e
+          devices_output="$(flutter devices)"
+          echo "$devices_output"
+
+          if echo "$devices_output" | grep -q "No supported devices connected"; then
+            echo "::error::No supported Flutter devices connected. Screenshot tests require an attached or booted Android/iOS device/emulator."
+            exit 1
+          fi
+        shell: devenv shell -- bash -e {0}
+
       - name: capture screenshots
         run: |
           set -e
-          mkdir -p .screenshots
+          mkdir -p .screenshots .artifacts
           cd apps/skribble_storybook
-          flutter test integration_test/screenshots_test.dart
+          flutter test integration_test/screenshots_test.dart 2>&1 | tee ../../.artifacts/screenshots-test.log
         shell: devenv shell -- bash -e {0}
+
+      - name: validate screenshot manifest
+        run: ./scripts/check_screenshot_manifest.sh docs/ui-snapshots/screenshot-manifest.txt .screenshots
+        shell: bash
+
+      - name: validate docs screenshot links
+        run: ./scripts/check_docs_screenshot_links.sh docs/ui-snapshots .screenshots
+        shell: bash
 
       - name: install b2 cli
         run: pip install b2sdk b2
         shell: bash
+
+      - name: download baseline screenshots
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          B2_APPLICATION_KEY_ID: ${{ secrets.B2_APPLICATION_KEY_ID }}
+          B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
+        run: |
+          set -e
+          mkdir -p .screenshots-baseline
+          b2 authorize-account "$B2_APPLICATION_KEY_ID" "$B2_APPLICATION_KEY"
+          b2 sync b2://skribble-screenshots/ .screenshots-baseline/
+        shell: bash
+
+      - name: compare screenshots against baseline
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          FAIL_ON_SCREENSHOT_DIFF: '1'
+        run: |
+          set -e
+          ./scripts/check_screenshot_baseline_diff.sh \
+            .screenshots-baseline \
+            .screenshots \
+            docs/ui-snapshots/screenshot-manifest.txt \
+            .artifacts/screenshot-diff
+        shell: bash
+
+      - name: upload screenshot diff artifact
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot-baseline-diff
+          path: .artifacts/screenshot-diff/
+          retention-days: 30
 
       - name: upload screenshots to backblaze
         env:
@@ -42,4 +95,11 @@ jobs:
         with:
           name: screenshots
           path: .screenshots/
+          retention-days: 30
+
+      - name: upload screenshot test logs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot-test-logs
+          path: .artifacts/screenshots-test.log
           retention-days: 30

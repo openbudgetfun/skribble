@@ -28,6 +28,14 @@ if [[ ! -d "$SCREENSHOTS_DIR" ]]; then
   exit 1
 fi
 
+MANIFEST_FILE="${DEVENV_ROOT:-.}/docs/ui-snapshots/screenshot-manifest.txt"
+if [[ -f "$MANIFEST_FILE" ]]; then
+  echo "Validating screenshot manifest before upload..."
+  "${DEVENV_ROOT:-.}/scripts/check_screenshot_manifest.sh" "$MANIFEST_FILE" "$SCREENSHOTS_DIR"
+else
+  echo "Warning: Screenshot manifest file not found at $MANIFEST_FILE (skipping manifest validation)."
+fi
+
 echo "Authorizing with Backblaze B2..."
 b2 authorize-account "$KEY_ID" "$APP_KEY"
 

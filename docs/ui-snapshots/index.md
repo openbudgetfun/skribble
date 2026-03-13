@@ -2,17 +2,17 @@
 
 Visual reference for all hand-drawn Flutter components in the Skribble design system.
 
-Each category page shows screenshots of widgets with their descriptions and key properties.
+Each category page documents the screenshot artifacts produced by the integration screenshot flow.
 
 ## Categories
 
-- [Buttons](./buttons.md) - Hand-drawn button variants (WiredButton, WiredElevatedButton, WiredOutlinedButton, WiredTextButton, WiredIconButton, WiredFAB, WiredSegmentedButton)
-- [Inputs](./inputs.md) - Text fields, checkboxes, sliders, toggles, and progress indicators (WiredInput, WiredTextArea, WiredSearchBar, WiredCheckbox, WiredRadio, WiredSlider, WiredRangeSlider, WiredToggle, WiredSwitch, WiredProgress, WiredCircularProgress)
-- [Navigation](./navigation.md) - App bars, tabs, drawers, and navigation rails (WiredAppBar, WiredBottomNavigationBar, WiredNavigationBar, WiredNavigationRail, WiredDrawer, WiredTabBar)
-- [Selection](./selection.md) - Chips, filters, and list tile composites (WiredChip, WiredChoiceChip, WiredFilterChip, WiredCheckboxListTile, WiredRadioListTile, WiredSwitchListTile)
-- [Feedback](./feedback.md) - Dialogs, snack bars, popups, tooltips, and badges (WiredDialog, WiredSnackBar, WiredPopupMenuButton, WiredTooltip, WiredBadge)
-- [Layout](./layout.md) - Cards, dividers, list tiles, expansion tiles, bottom sheets, and tables (WiredCard, WiredDivider, WiredListTile, WiredExpansionTile, WiredBottomSheet, WiredDataTable)
-- [Data Display](./data-display.md) - Calendar, date/time pickers, and steppers (WiredCalendar, WiredDatePicker, WiredTimePicker, WiredStepper)
+- [Buttons](./buttons.md) - `buttons/buttons` + widget snapshots
+- [Inputs](./inputs.md) - `inputs/inputs` + widget snapshots
+- [Navigation](./navigation.md) - `navigation/navigation` + widget snapshots
+- [Selection](./selection.md) - `selection/selection` + widget snapshots
+- [Feedback](./feedback.md) - `feedback/feedback` + widget snapshots
+- [Layout](./layout.md) - `layout/layout` + widget snapshots
+- [Data Display](./data-display.md) - `data-display/data-display` + widget snapshots
 
 ## Screenshot Hosting
 
@@ -22,19 +22,17 @@ Screenshots are captured via integration tests and uploaded to Backblaze B2 stor
 https://f005.backblazeb2.com/file/skribble-screenshots/
 ```
 
-Screenshots are organized by category:
+Example snapshot:
 
-```
-skribble-screenshots/
-  buttons/
-  inputs/
-  navigation/
-  selection/
-  feedback/
-  layout/
-  data-display/
-  home/
-```
+![Home Snapshot](https://f005.backblazeb2.com/file/skribble-screenshots/home/home.png)
+
+## Expected Artifact Set
+
+Canonical expected screenshots are defined in:
+
+- `docs/ui-snapshots/screenshot-manifest.txt`
+
+The manifest includes page-level and widget-level captures and is enforced in CI.
 
 ## Regenerating Screenshots
 
@@ -44,4 +42,4 @@ To capture screenshots locally:
 melos run screenshot
 ```
 
-This runs the integration tests that navigate through each storybook page and capture snapshots.
+This runs the integration tests that navigate through each storybook page and capture deterministic snapshots.
