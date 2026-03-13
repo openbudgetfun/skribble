@@ -35,6 +35,7 @@ export 'src/wired_filter_chip.dart';
 export 'src/wired_form.dart';
 export 'src/wired_icon_button.dart';
 export 'src/wired_input.dart';
+export 'src/wired_input_chip.dart';
 export 'src/wired_list_tile.dart';
 export 'src/wired_menu_bar.dart';
 export 'src/wired_navigation_bar.dart';
