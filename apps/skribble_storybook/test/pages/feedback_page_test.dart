@@ -21,9 +21,9 @@ void main() {
       expect(find.byType(FeedbackPage), findsOneWidget);
     });
 
-    testWidgets('shows WiredProgress section', (tester) async {
+    testWidgets('shows WiredAnimatedIcon section', (tester) async {
       await navigateToFeedback(tester);
-      expect(find.text('WiredProgress'), findsOneWidget);
+      expect(find.text('WiredAnimatedIcon'), findsOneWidget);
     });
 
     testWidgets('has back button', (tester) async {

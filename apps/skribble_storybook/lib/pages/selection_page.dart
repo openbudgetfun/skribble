@@ -16,7 +16,7 @@ class SelectionPage extends HookWidget {
     final pickerIndex = useState(0);
     final segmentedValue = useState(0);
     final slidingValue = useState('a');
-    final pickedColor = useState(Colors.blue);
+    final pickedColor = useState<Color>(Colors.blue);
 
     return Scaffold(
       appBar: WiredAppBar(
