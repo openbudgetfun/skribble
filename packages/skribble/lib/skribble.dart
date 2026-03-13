@@ -14,6 +14,7 @@ export 'src/wired_bottom_nav.dart';
 export 'src/wired_bottom_sheet.dart';
 export 'src/wired_button.dart';
 export 'src/wired_calendar.dart';
+export 'src/wired_calendar_date_picker.dart';
 export 'src/wired_card.dart';
 export 'src/wired_checkbox.dart';
 export 'src/wired_checkbox_list_tile.dart';
