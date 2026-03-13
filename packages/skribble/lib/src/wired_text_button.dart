@@ -33,6 +33,7 @@ class WiredTextButton extends HookWidget {
                   y1: 0,
                   x2: double.infinity,
                   y2: 0,
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.noFiller,
               ),

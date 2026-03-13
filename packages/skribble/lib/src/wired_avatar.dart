@@ -65,7 +65,10 @@ class WiredAvatar extends HookWidget {
             // Hand-drawn circle border
             Positioned.fill(
               child: WiredCanvas(
-                painter: WiredCircleBase(fillColor: bgColor),
+                painter: WiredCircleBase(
+                  fillColor: bgColor,
+                  borderColor: theme.borderColor,
+                ),
                 fillerType: backgroundImage != null
                     ? RoughFilter.noFiller
                     : RoughFilter.hachureFiller,

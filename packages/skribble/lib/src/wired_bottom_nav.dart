@@ -41,6 +41,7 @@ class WiredBottomNavigationBar extends HookWidget {
               x2: double.infinity,
               y2: 0,
               strokeWidth: 2,
+              borderColor: theme.borderColor,
             ),
             fillerType: RoughFilter.noFiller,
           ),
@@ -86,7 +87,10 @@ class WiredBottomNavigationBar extends HookWidget {
                     width: 32,
                     height: 32,
                     child: WiredCanvas(
-                      painter: WiredCircleBase(diameterRatio: 0.9),
+                      painter: WiredCircleBase(
+                        diameterRatio: 0.9,
+                        borderColor: theme.borderColor,
+                      ),
                       fillerType: RoughFilter.noFiller,
                     ),
                   ),

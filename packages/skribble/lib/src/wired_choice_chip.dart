@@ -36,6 +36,7 @@ class WiredChoiceChip extends HookWidget {
                     painter: WiredRoundedRectangleBase(
                       borderRadius: BorderRadius.circular(16),
                       fillColor: selected ? theme.borderColor : theme.fillColor,
+                      borderColor: theme.borderColor,
                     ),
                     fillerType: selected
                         ? RoughFilter.hachureFiller

@@ -4,23 +4,23 @@ import 'package:skribble/skribble.dart';
 
 void main() {
   group('WiredBase', () {
-    test('pathPaint has correct style properties', () {
-      expect(WiredBase.pathPaint.style, PaintingStyle.stroke);
-      expect(WiredBase.pathPaint.isAntiAlias, isTrue);
-      expect(WiredBase.pathPaint.strokeWidth, 2);
-      expect(WiredBase.pathPaint.strokeCap, StrokeCap.square);
+    test('pathPainter has correct style properties', () {
+      final paint = WiredBase.pathPainter(2);
+      expect(paint.style, PaintingStyle.stroke);
+      expect(paint.isAntiAlias, isTrue);
+      expect(paint.strokeWidth, 2);
     });
 
-    test('pathPaint color matches borderColor', () {
-      // Compare alpha values since Color equality can differ across spaces
-      expect(WiredBase.pathPaint.color.a, closeTo(1.0, 0.01));
-      expect(WiredBase.pathPaint.color.r, closeTo(0.102, 0.01));
+    test('pathPainter default color matches borderColor', () {
+      final paint = WiredBase.pathPainter(2);
+      expect(paint.color.a, closeTo(1.0, 0.01));
+      expect(paint.color.r, closeTo(0.102, 0.01));
     });
 
-    test('fillPaint has correct style properties', () {
-      expect(WiredBase.fillPaint.style, PaintingStyle.stroke);
-      expect(WiredBase.fillPaint.isAntiAlias, isTrue);
-      expect(WiredBase.fillPaint.strokeWidth, 2);
+    test('pathPainter accepts custom color', () {
+      const customColor = Color(0xFFFF0000);
+      final paint = WiredBase.pathPainter(2, color: customColor);
+      expect(paint.color, customColor);
     });
 
     test('fillPainter creates paint with given color', () {

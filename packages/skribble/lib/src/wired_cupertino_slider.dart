@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn slider corresponding to Flutter's [CupertinoSlider].
 ///
@@ -60,6 +61,7 @@ class WiredCupertinoSlider extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final enabled = onChanged != null;
     final effectiveActiveColor = activeColor ?? CupertinoColors.activeBlue;
     final effectiveInactiveColor = inactiveColor ?? CupertinoColors.systemGrey4;
@@ -121,6 +123,7 @@ class WiredCupertinoSlider extends HookWidget {
                           painter: WiredRoundedRectangleBase(
                             borderRadius: BorderRadius.circular(2),
                             fillColor: effectiveInactiveColor,
+                            borderColor: theme.borderColor,
                           ),
                           fillerType: RoughFilter.noFiller,
                         ),
@@ -136,6 +139,7 @@ class WiredCupertinoSlider extends HookWidget {
                           painter: WiredRoundedRectangleBase(
                             borderRadius: BorderRadius.circular(2),
                             fillColor: effectiveActiveColor,
+                            borderColor: theme.borderColor,
                           ),
                           fillerType: RoughFilter.hachureFiller,
                           fillerConfig: FillerConfig.build(hachureGap: 1.5),
@@ -149,7 +153,10 @@ class WiredCupertinoSlider extends HookWidget {
                         width: _thumbSize,
                         height: _thumbSize,
                         child: WiredCanvas(
-                          painter: WiredCircleBase(fillColor: thumbColor),
+                          painter: WiredCircleBase(
+                            fillColor: thumbColor,
+                            borderColor: theme.borderColor,
+                          ),
                           fillerType: RoughFilter.hachureFiller,
                           fillerConfig: FillerConfig.build(hachureGap: 1.5),
                         ),

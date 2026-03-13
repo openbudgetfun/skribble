@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn color picker with a grid of selectable color swatches.
 ///
@@ -60,6 +61,7 @@ class WiredColorPicker extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Stack(
         children: [
@@ -68,6 +70,7 @@ class WiredColorPicker extends HookWidget {
             child: WiredCanvas(
               painter: WiredRoundedRectangleBase(
                 borderRadius: BorderRadius.circular(12),
+                borderColor: theme.borderColor,
               ),
               fillerType: RoughFilter.noFiller,
             ),
@@ -111,6 +114,7 @@ class _ColorSwatch extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -124,6 +128,7 @@ class _ColorSwatch extends HookWidget {
               painter: WiredCircleBase(
                 fillColor: color,
                 strokeWidth: isSelected ? 3 : 1.5,
+                borderColor: theme.borderColor,
               ),
               fillerType: RoughFilter.hachureFiller,
               fillerConfig: FillerConfig.build(hachureGap: 2.0),

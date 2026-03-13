@@ -99,10 +99,11 @@ class WiredCalendar extends HookWidget {
             },
           ),
           SizedBox(height: 20.0),
-          _buildWeeksHeaderUI(),
+          _buildWeeksHeaderUI(borderColor: theme.borderColor),
           Expanded(
             child: _buildWeekdaysUI(
               weeks: weeks.value,
+              borderColor: theme.borderColor,
               onSelect: (cell) {
                 if (selectedDate.value == cell.value) return;
                 selectedDate.value = cell.value;
@@ -140,11 +141,16 @@ Widget _buildWeekdaysNav({
   );
 }
 
-Widget _buildWeeksHeaderUI() {
+Widget _buildWeeksHeaderUI({required Color borderColor}) {
   final headers = <Widget>[];
   for (final weekday in _weekdaysShort) {
     headers.add(
-      _buildCell(weekday, fontWeight: FontWeight.bold, fontSize: 18.0),
+      _buildCell(
+        weekday,
+        fontWeight: FontWeight.bold,
+        fontSize: 18.0,
+        borderColor: borderColor,
+      ),
     );
   }
 
@@ -157,6 +163,7 @@ Widget _buildWeeksHeaderUI() {
 Widget _buildWeekdaysUI({
   required List<CalendarCell> weeks,
   required void Function(CalendarCell) onSelect,
+  required Color borderColor,
 }) {
   final weekdays = <Widget>[];
   for (final week in weeks) {
@@ -167,6 +174,7 @@ Widget _buildWeekdaysUI({
           week.text,
           selected: week.selected,
           color: week.color,
+          borderColor: borderColor,
         ),
       ),
     );
@@ -183,6 +191,7 @@ Widget _buildCell(
   FontWeight fontWeight = FontWeight.w500,
   double fontSize = 20.0,
   Color? color,
+  required Color borderColor,
 }) {
   return selected
       ? Stack(
@@ -194,7 +203,10 @@ Widget _buildCell(
               width: width,
               height: height,
               child: WiredCanvas(
-                painter: WiredCircleBase(diameterRatio: .8),
+                painter: WiredCircleBase(
+                  diameterRatio: .8,
+                  borderColor: borderColor,
+                ),
                 fillerType: RoughFilter.noFiller,
               ),
             ),

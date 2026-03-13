@@ -2,24 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_painter_base.dart';
-import 'const.dart';
 import 'rough/skribble_rough.dart';
+
+/// Default border color when no theme is provided.
+const Color _defaultBorderColor = Color(0xFF1A2B3C);
+
+/// Default fill color when no theme is provided.
+const Color _defaultFillColor = Color(0xFFFEFEFE);
 
 /// Utility class with default Paint objects for wired widgets.
 class WiredBase {
-  static final Paint pathPaint = Paint()
-    ..color = borderColor
-    ..style = PaintingStyle.stroke
-    ..isAntiAlias = true
-    ..strokeCap = StrokeCap.square
-    ..strokeWidth = 2;
-
-  static final Paint fillPaint = Paint()
-    ..color = filledColor
-    ..style = PaintingStyle.stroke
-    ..isAntiAlias = true
-    ..strokeWidth = 2;
-
   static Paint fillPainter(Color color) {
     return Paint()
       ..color = color
@@ -28,9 +20,12 @@ class WiredBase {
       ..strokeWidth = 2;
   }
 
-  static Paint pathPainter(double strokeWidth) {
+  static Paint pathPainter(
+    double strokeWidth, {
+    Color color = _defaultBorderColor,
+  }) {
     return Paint()
-      ..color = borderColor
+      ..color = color
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true
       ..strokeWidth = strokeWidth;
@@ -65,12 +60,14 @@ class WiredRectangleBase extends WiredPainterBase {
   final double leftIndent;
   final double rightIndent;
   final Color fillColor;
+  final Color borderColor;
   final double strokeWidth;
 
   WiredRectangleBase({
     this.leftIndent = 0.0,
     this.rightIndent = 0.0,
-    this.fillColor = filledColor,
+    this.fillColor = _defaultFillColor,
+    this.borderColor = _defaultBorderColor,
     this.strokeWidth = 2,
   });
 
@@ -90,7 +87,7 @@ class WiredRectangleBase extends WiredPainterBase {
     );
     canvas.drawRough(
       figure,
-      WiredBase.pathPainter(strokeWidth),
+      WiredBase.pathPainter(strokeWidth, color: borderColor),
       WiredBase.fillPainter(fillColor),
     );
   }
@@ -98,9 +95,13 @@ class WiredRectangleBase extends WiredPainterBase {
 
 /// Base wired inverted triangle painter.
 class WiredInvertedTriangleBase extends WiredPainterBase {
+  final Color borderColor;
   final double strokeWidth;
 
-  WiredInvertedTriangleBase({this.strokeWidth = 2});
+  WiredInvertedTriangleBase({
+    this.borderColor = _defaultBorderColor,
+    this.strokeWidth = 2,
+  });
 
   @override
   void paintRough(
@@ -118,7 +119,7 @@ class WiredInvertedTriangleBase extends WiredPainterBase {
     final Drawable figure = generator.polygon(points);
     canvas.drawRough(
       figure,
-      WiredBase.pathPainter(strokeWidth),
+      WiredBase.pathPainter(strokeWidth, color: borderColor),
       WiredBase.fillPainter(borderColor),
     );
   }
@@ -130,6 +131,7 @@ class WiredLineBase extends WiredPainterBase {
   final double y1;
   final double x2;
   final double y2;
+  final Color borderColor;
   final double strokeWidth;
 
   WiredLineBase({
@@ -137,6 +139,7 @@ class WiredLineBase extends WiredPainterBase {
     required this.y1,
     required this.x2,
     required this.y2,
+    this.borderColor = _defaultBorderColor,
     this.strokeWidth = 1,
   });
 
@@ -165,8 +168,8 @@ class WiredLineBase extends WiredPainterBase {
     final Drawable figure = generator.line(lx1, ly1, lx2, ly2);
     canvas.drawRough(
       figure,
-      WiredBase.pathPainter(strokeWidth),
-      WiredBase.fillPaint,
+      WiredBase.pathPainter(strokeWidth, color: borderColor),
+      WiredBase.fillPainter(borderColor),
     );
   }
 }
@@ -175,11 +178,13 @@ class WiredLineBase extends WiredPainterBase {
 class WiredRoundedRectangleBase extends WiredPainterBase {
   final BorderRadius borderRadius;
   final Color fillColor;
+  final Color borderColor;
   final double strokeWidth;
 
   WiredRoundedRectangleBase({
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
-    this.fillColor = filledColor,
+    this.fillColor = _defaultFillColor,
+    this.borderColor = _defaultBorderColor,
     this.strokeWidth = 2,
   });
 
@@ -203,7 +208,7 @@ class WiredRoundedRectangleBase extends WiredPainterBase {
     );
     canvas.drawRough(
       figure,
-      WiredBase.pathPainter(strokeWidth),
+      WiredBase.pathPainter(strokeWidth, color: borderColor),
       WiredBase.fillPainter(fillColor),
     );
   }
@@ -213,11 +218,13 @@ class WiredRoundedRectangleBase extends WiredPainterBase {
 class WiredCircleBase extends WiredPainterBase {
   final double diameterRatio;
   final Color fillColor;
+  final Color borderColor;
   final double strokeWidth;
 
   WiredCircleBase({
     this.diameterRatio = 1,
-    this.fillColor = filledColor,
+    this.fillColor = _defaultFillColor,
+    this.borderColor = _defaultBorderColor,
     this.strokeWidth = 2,
   });
 
@@ -238,7 +245,7 @@ class WiredCircleBase extends WiredPainterBase {
     );
     canvas.drawRough(
       figure,
-      WiredBase.pathPainter(strokeWidth),
+      WiredBase.pathPainter(strokeWidth, color: borderColor),
       WiredBase.fillPainter(fillColor),
     );
   }

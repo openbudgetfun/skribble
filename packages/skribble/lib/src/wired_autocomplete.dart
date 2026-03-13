@@ -61,6 +61,7 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                             child: WiredCanvas(
                               painter: WiredRectangleBase(
                                 fillColor: theme.fillColor,
+                                borderColor: theme.borderColor,
                               ),
                               fillerType: RoughFilter.noFiller,
                             ),
@@ -102,6 +103,7 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                       child: WiredCanvas(
                         painter: WiredRoundedRectangleBase(
                           borderRadius: BorderRadius.circular(12),
+                          borderColor: theme.borderColor,
                         ),
                         fillerType: RoughFilter.noFiller,
                       ),

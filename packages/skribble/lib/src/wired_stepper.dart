@@ -43,7 +43,13 @@ class WiredStepper extends HookWidget {
                 width: 2,
                 height: 24,
                 child: WiredCanvas(
-                  painter: WiredLineBase(x1: 0, y1: 0, x2: 0, y2: 24),
+                  painter: WiredLineBase(
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 24,
+                    borderColor: theme.borderColor,
+                  ),
                   fillerType: RoughFilter.noFiller,
                 ),
               ),
@@ -75,6 +81,7 @@ class WiredStepper extends HookWidget {
                     fillColor: isCompleted || isActive
                         ? theme.borderColor
                         : theme.fillColor,
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: isCompleted || isActive
                       ? RoughFilter.hachureFiller

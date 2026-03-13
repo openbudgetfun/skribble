@@ -105,7 +105,10 @@ class _TimeField extends HookWidget {
           alignment: Alignment.center,
           children: [
             WiredCanvas(
-              painter: WiredRectangleBase(fillColor: theme.fillColor),
+              painter: WiredRectangleBase(
+                fillColor: theme.fillColor,
+                borderColor: theme.borderColor,
+              ),
               fillerType: RoughFilter.noFiller,
             ),
             Text(
@@ -141,7 +144,10 @@ class _ClockFace extends HookWidget {
             alignment: Alignment.center,
             children: [
               WiredCanvas(
-                painter: WiredCircleBase(diameterRatio: 0.95),
+                painter: WiredCircleBase(
+                  diameterRatio: 0.95,
+                  borderColor: theme.borderColor,
+                ),
                 fillerType: RoughFilter.noFiller,
               ),
               // Hour hand
@@ -172,6 +178,7 @@ class _ClockFace extends HookWidget {
                   painter: WiredCircleBase(
                     fillColor: theme.borderColor,
                     diameterRatio: 0.9,
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.hachureFiller,
                   fillerConfig: FillerConfig.build(hachureGap: 1.0),

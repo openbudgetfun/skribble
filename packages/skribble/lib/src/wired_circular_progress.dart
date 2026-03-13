@@ -51,6 +51,7 @@ class WiredCircularProgress extends HookWidget {
             painter: WiredCircleBase(
               diameterRatio: 0.9,
               strokeWidth: strokeWidth * 0.5,
+              borderColor: theme.borderColor,
             ),
             fillerType: RoughFilter.noFiller,
           ),

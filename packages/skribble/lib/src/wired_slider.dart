@@ -43,6 +43,7 @@ class WiredSlider extends HookWidget {
               x2: double.infinity,
               y2: 0,
               strokeWidth: 2,
+              borderColor: theme.borderColor,
             ),
             fillerType: RoughFilter.hatchFiller,
           ),
@@ -56,6 +57,7 @@ class WiredSlider extends HookWidget {
               painter: WiredCircleBase(
                 diameterRatio: .7,
                 fillColor: theme.textColor,
+                borderColor: theme.borderColor,
               ),
               fillerType: RoughFilter.hachureFiller,
               fillerConfig: FillerConfig.build(hachureGap: 1.0),

@@ -31,7 +31,10 @@ class WiredIconButton extends HookWidget {
           alignment: Alignment.center,
           children: [
             WiredCanvas(
-              painter: WiredCircleBase(diameterRatio: 0.85),
+              painter: WiredCircleBase(
+                diameterRatio: 0.85,
+                borderColor: theme.borderColor,
+              ),
               fillerType: RoughFilter.noFiller,
             ),
             IconButton(

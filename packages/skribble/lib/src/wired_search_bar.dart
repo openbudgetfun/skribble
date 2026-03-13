@@ -36,6 +36,7 @@ class WiredSearchBar extends HookWidget {
             child: WiredCanvas(
               painter: WiredRoundedRectangleBase(
                 borderRadius: BorderRadius.circular(24),
+                borderColor: theme.borderColor,
               ),
               fillerType: RoughFilter.noFiller,
             ),

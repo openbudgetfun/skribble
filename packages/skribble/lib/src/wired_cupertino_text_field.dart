@@ -106,7 +106,10 @@ class WiredCupertinoTextField extends HookWidget {
           children: [
             Positioned.fill(
               child: WiredCanvas(
-                painter: WiredRoundedRectangleBase(borderRadius: borderRadius),
+                painter: WiredRoundedRectangleBase(
+                  borderRadius: borderRadius,
+                  borderColor: theme.borderColor,
+                ),
                 fillerType: RoughFilter.noFiller,
               ),
             ),

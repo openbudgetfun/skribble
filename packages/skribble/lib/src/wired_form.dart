@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn wrapper around Flutter's [Form].
 class WiredForm extends HookWidget {
@@ -25,12 +26,16 @@ class WiredForm extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Stack(
         children: [
           Positioned.fill(
             child: WiredCanvas(
-              painter: WiredRoundedRectangleBase(borderRadius: borderRadius),
+              painter: WiredRoundedRectangleBase(
+                borderRadius: borderRadius,
+                borderColor: theme.borderColor,
+              ),
               fillerType: RoughFilter.noFiller,
             ),
           ),

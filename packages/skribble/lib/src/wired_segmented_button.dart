@@ -46,6 +46,7 @@ class WiredSegmentedButton<T> extends HookWidget {
               child: WiredCanvas(
                 painter: WiredRoundedRectangleBase(
                   borderRadius: BorderRadius.circular(8),
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.noFiller,
               ),
@@ -59,7 +60,13 @@ class WiredSegmentedButton<T> extends HookWidget {
                       width: 2,
                       height: 42.0,
                       child: WiredCanvas(
-                        painter: WiredLineBase(x1: 0, y1: 0, x2: 0, y2: 42.0),
+                        painter: WiredLineBase(
+                          x1: 0,
+                          y1: 0,
+                          x2: 0,
+                          y2: 42.0,
+                          borderColor: theme.borderColor,
+                        ),
                         fillerType: RoughFilter.noFiller,
                       ),
                     ),

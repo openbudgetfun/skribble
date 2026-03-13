@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn dismissible wrapper corresponding to Flutter's [Dismissible].
 ///
@@ -63,6 +64,7 @@ class WiredDismissible extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Dismissible(
         key: dismissKey,
@@ -72,20 +74,23 @@ class WiredDismissible extends HookWidget {
         resizeDuration: resizeDuration,
         movementDuration: movementDuration,
         dismissThresholds: dismissThresholds ?? const {},
-        background: background ?? _buildDefaultBackground(false),
+        background: background ?? _buildDefaultBackground(false, theme),
         secondaryBackground:
-            secondaryBackground ?? _buildDefaultBackground(true),
+            secondaryBackground ?? _buildDefaultBackground(true, theme),
         child: child,
       ),
     );
   }
 
-  Widget _buildDefaultBackground(bool isSecondary) {
+  Widget _buildDefaultBackground(bool isSecondary, WiredThemeData theme) {
     return Stack(
       children: [
         Positioned.fill(
           child: WiredCanvas(
-            painter: WiredRectangleBase(fillColor: deleteColor),
+            painter: WiredRectangleBase(
+              fillColor: deleteColor,
+              borderColor: theme.borderColor,
+            ),
             fillerType: RoughFilter.hachureFiller,
             fillerConfig: FillerConfig.build(hachureGap: 3.0),
           ),

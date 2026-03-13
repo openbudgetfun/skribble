@@ -97,6 +97,7 @@ class WiredCupertinoButton extends HookWidget {
                     painter: WiredRoundedRectangleBase(
                       borderRadius: effectiveRadius,
                       fillColor: hasFill ? effectiveFill : theme.fillColor,
+                      borderColor: theme.borderColor,
                     ),
                     fillerType: hasFill
                         ? RoughFilter.hachureFiller

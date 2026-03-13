@@ -67,6 +67,7 @@ class WiredSwitch extends HookWidget {
                   fillColor: value
                       ? effectiveActiveColor
                       : effectiveInactiveColor,
+                  borderColor: theme.borderColor,
                 ),
                 fillerType: value
                     ? RoughFilter.hachureFiller
@@ -83,6 +84,7 @@ class WiredSwitch extends HookWidget {
                   painter: WiredCircleBase(
                     diameterRatio: 0.8,
                     fillColor: value ? theme.fillColor : theme.borderColor,
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.hachureFiller,
                   fillerConfig: FillerConfig.build(hachureGap: 1.0),

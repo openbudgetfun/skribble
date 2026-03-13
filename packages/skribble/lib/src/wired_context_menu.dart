@@ -87,6 +87,7 @@ class _WiredContextMenuOverlay extends HookWidget {
                       child: WiredCanvas(
                         painter: WiredRoundedRectangleBase(
                           borderRadius: BorderRadius.circular(12),
+                          borderColor: theme.borderColor,
                         ),
                         fillerType: RoughFilter.noFiller,
                       ),
