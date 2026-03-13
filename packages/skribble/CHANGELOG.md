@@ -31,9 +31,14 @@ through the entire widget tree — no hardcoded constants remain.
   `parameter_assignments`
 - 0 infos, 0 warnings in both `packages/skribble` and `apps/skribble_storybook`
 
+### Test Coverage
+
+- Expanded 12 under-tested widget test files to ≥6 tests each
+- All 87 test files now have ≥5 `testWidgets`
+
 ### Stats
 
-- 81 widget files, 81 test files, 795 widget tests, 42 storybook tests
+- 81 widget files, 87 test files, 826 widget tests, 42 storybook tests
 - 76 widget files resolve `WiredTheme.of(context)`
 - 66 widget files pass `borderColor` to painter constructors
 - 0 `StatelessWidget` — `HookWidget` exclusively
