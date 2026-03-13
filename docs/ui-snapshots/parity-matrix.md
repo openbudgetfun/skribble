@@ -43,7 +43,7 @@ Status meanings:
 | Chip | `WiredChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
 | FilterChip | `WiredFilterChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
 | ChoiceChip | `WiredChoiceChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented |  |
-| InputChip / ActionChip | `WiredChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | partial | Specialized Input/ActionChip behaviors not explicit |
+| InputChip / ActionChip | `WiredInputChip` / `WiredActionChip` | ✅ | ✅ | ✅ (`selection_page.dart`) | implemented | Dedicated chip variants with selection, deletion, avatar |
 | Badge | `WiredBadge` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
 | Tooltip | `WiredTooltip` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
 | SnackBar | `showWiredSnackBar` / `WiredSnackBar` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented |  |
@@ -80,10 +80,10 @@ Status meanings:
 | CupertinoAlertDialog | `WiredDialog` | ✅ | ✅ | ✅ | partial |  |
 | CupertinoActionSheet | `WiredBottomSheet` / `WiredPopupMenu` | ✅ | ✅ | ❌ (popup menu) | partial | Not dedicated Cupertino action sheet |
 | CupertinoTabBar | `WiredBottomNavigationBar` | ✅ | ✅ | ✅ | partial |  |
-| CupertinoTabScaffold | — | ❌ | ❌ | ❌ | missing |  |
-| CupertinoPageScaffold | — | ❌ | ❌ | ❌ | missing |  |
-| CupertinoContextMenu | — | ❌ | ❌ | ❌ | missing |  |
-| CupertinoScrollbar | — | ❌ | ❌ | ❌ | missing |  |
+| CupertinoTabScaffold | `WiredTabScaffold` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Tabbed layout with hand-drawn bottom tab bar |
+| CupertinoPageScaffold | `WiredPageScaffold` | ✅ | ✅ | ✅ (`layout_page.dart`) | implemented | Page scaffold with optional nav bar |
+| CupertinoContextMenu | `WiredContextMenu` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Long-press overlay with actions and dismiss |
+| CupertinoScrollbar | `WiredScrollbar` | ✅ | ✅ | ✅ (`feedback_page.dart`) | implemented | Styled scrollbar with sketchy thumb |
 | CupertinoSegmentedControl / SlidingSegmentedControl | `WiredSegmentedButton` | ✅ | ✅ | ✅ | partial | Similar interaction; different API |
 
 ## Summary

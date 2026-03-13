@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "pc4mvudx",
+      "prompt": "continue with this implementation managing the worktrees for separate tasks and managing the pull requests and merging into the main branch.",
+      "kind": "recurring",
+      "enabled": true,
+      "createdAt": 1773399625935,
+      "nextRunAt": 1773425431999,
+      "intervalMs": 600000,
+      "expiresAt": 1773658825935,
+      "jitterMs": 6064,
+      "runCount": 13,
+      "pending": false,
+      "lastRunAt": 1773425249382,
+      "lastStatus": "success"
+    }
+  ]
+}
