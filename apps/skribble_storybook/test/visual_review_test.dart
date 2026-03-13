@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skribble_storybook/app.dart';
 
 /// Visual review test — renders each storybook page as a golden file PNG.
@@ -11,6 +12,11 @@ import 'package:skribble_storybook/app.dart';
 /// because WiredSlider creates a repeating timer that prevents
 /// `pumpAndSettle` from ever completing.
 void main() {
+  setUpAll(() {
+    // Use bundled ShortStack font instead of fetching over HTTP.
+    GoogleFonts.config.allowRuntimeFetching = false;
+  });
+
   /// Pumps the widget tree enough to render without waiting for all
   /// animations to settle (avoids WiredSlider timer hang).
   Future<void> pumpStable(WidgetTester tester) async {
@@ -106,19 +112,14 @@ void main() {
       );
     });
 
-    // Data display page uses WiredCalendar which loads GoogleFonts over
-    // the network. In the test environment HTTP is stubbed to return 400,
-    // causing an unrecoverable exception. Bundle the ShortStack font as an
-    // asset to re-enable this test.
-    //
-    // testWidgets('data display page', (tester) async {
-    //   await tester.pumpWidget(const SkribbleStorybookApp());
-    //   await pumpStable(tester);
-    //   await navigateTo(tester, 'Data Display');
-    //   await expectLater(
-    //     find.byType(MaterialApp),
-    //     matchesGoldenFile('../../.screenshots/review/08-data-display.png'),
-    //   );
-    // });
+    testWidgets('data display page', (tester) async {
+      await tester.pumpWidget(const SkribbleStorybookApp());
+      await pumpStable(tester);
+      await navigateTo(tester, 'Data Display');
+      await expectLater(
+        find.byType(MaterialApp),
+        matchesGoldenFile('../../.screenshots/review/08-data-display.png'),
+      );
+    });
   });
 }

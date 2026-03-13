@@ -17,6 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  google_fonts: ^8.0.2
   integration_test:
     sdk: flutter
   patrol: ^4.1.1
@@ -26,3 +27,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/fonts/
+  fonts:
+    - family: ShortStack
+      fonts:
+        - asset: assets/fonts/ShortStack-Regular.ttf
