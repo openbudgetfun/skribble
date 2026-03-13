@@ -6,7 +6,7 @@ import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
-/// A hand-drawn page scaffold, corresponding to [CupertinoPageScaffold].
+/// A hand-drawn page scaffold, corresponding to `CupertinoPageScaffold`.
 ///
 /// Provides a page with a hand-drawn navigation bar at the top and
 /// content below.
@@ -36,7 +36,7 @@ class WiredPageScaffold extends HookWidget {
             backgroundColor ?? theme.fillColor.withValues(alpha: 0.3),
         body: Column(
           children: [
-            if (navigationBar != null) navigationBar!,
+            if (navigationBar case final nb?) nb,
             Expanded(child: child),
           ],
         ),
@@ -45,7 +45,7 @@ class WiredPageScaffold extends HookWidget {
   }
 }
 
-/// A hand-drawn tab scaffold, corresponding to [CupertinoTabScaffold].
+/// A hand-drawn tab scaffold, corresponding to `CupertinoTabScaffold`.
 ///
 /// Provides a tabbed layout with a hand-drawn bottom tab bar and
 /// page content that switches based on the selected tab.

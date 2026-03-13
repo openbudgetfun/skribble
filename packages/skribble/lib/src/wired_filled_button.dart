@@ -12,7 +12,7 @@ class WiredFilledButton extends HookWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  /// Fill color for the hachure pattern. Defaults to [borderColor].
+  /// Fill color for the hachure pattern. Defaults to `borderColor`.
   final Color? fillColor;
 
   /// Text/icon color. Defaults to white when filled.

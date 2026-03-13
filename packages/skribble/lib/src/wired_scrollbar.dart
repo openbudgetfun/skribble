@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
-/// A hand-drawn scrollbar, corresponding to [CupertinoScrollbar].
+/// A hand-drawn scrollbar, corresponding to `CupertinoScrollbar`.
 ///
 /// Wraps Flutter's [Scrollbar] with a sketchy thumb style.
 class WiredScrollbar extends HookWidget {

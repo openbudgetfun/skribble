@@ -64,10 +64,10 @@ class WiredNavigationDrawer extends HookWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if (header != null) ...[
+                  if (header case final h?) ...[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                      child: header!,
+                      child: h,
                     ),
                     const SizedBox(height: 8),
                   ],

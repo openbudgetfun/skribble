@@ -5,7 +5,7 @@ import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
-/// A hand-drawn context menu, corresponding to [CupertinoContextMenu].
+/// A hand-drawn context menu, corresponding to `CupertinoContextMenu`.
 ///
 /// Shows a set of action items in a hand-drawn overlay when long-pressed.
 class WiredContextMenu extends HookWidget {
