@@ -12,6 +12,7 @@ class LayoutPage extends HookWidget {
     final checkboxTileValue = useState(false);
     final radioTileValue = useState<String>('a');
     final switchTileValue = useState(false);
+    final reorderItems = useState(['🍎 Apple', '🍌 Banana', '🍒 Cherry']);
 
     return Scaffold(
       appBar: WiredAppBar(
@@ -53,11 +54,7 @@ class LayoutPage extends HookWidget {
                 title: 'Divider',
                 description: 'Hand-drawn horizontal line.',
                 child: const Column(
-                  children: [
-                    Text('Above'),
-                    WiredDivider(),
-                    Text('Below'),
-                  ],
+                  children: [Text('Above'), WiredDivider(), Text('Below')],
                 ),
               ),
             ],
@@ -145,6 +142,38 @@ class LayoutPage extends HookWidget {
                   title: const Text('Dark Mode'),
                   value: switchTileValue.value,
                   onChanged: (v) => switchTileValue.value = v,
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredReorderableListView',
+            children: [
+              ComponentShowcase(
+                title: 'Reorderable List',
+                description: 'Drag handle items in a hand-drawn list.',
+                child: SizedBox(
+                  height: 200,
+                  child: WiredReorderableListView(
+                    onReorder: (oldIndex, newIndex) {
+                      final items = [...reorderItems.value];
+                      if (newIndex > oldIndex) newIndex -= 1;
+                      final item = items.removeAt(oldIndex);
+                      items.insert(newIndex, item);
+                      reorderItems.value = items;
+                    },
+                    children: [
+                      for (final item in reorderItems.value)
+                        Padding(
+                          key: ValueKey(item),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(item),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ],
