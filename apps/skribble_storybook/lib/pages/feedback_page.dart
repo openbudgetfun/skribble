@@ -192,6 +192,83 @@ class FeedbackPage extends HookWidget {
             ],
           ),
           ShowcaseSection(
+            title: 'WiredCupertinoAlertDialog',
+            children: [
+              ComponentShowcase(
+                title: 'Cupertino Alert Dialog',
+                description:
+                    'iOS-style alert with sketchy borders.',
+                child: WiredButton(
+                  onPressed: () {
+                    unawaited(
+                      showWiredCupertinoDialog<void>(
+                        context: context,
+                        title: const Text('Delete Photo'),
+                        content: const Text(
+                          'This action cannot be undone.',
+                        ),
+                        actions: [
+                          WiredCupertinoDialogAction(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Cancel'),
+                          ),
+                          WiredCupertinoDialogAction(
+                            onPressed: () => Navigator.pop(context),
+                            isDestructiveAction: true,
+                            child: const Text('Delete'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: const Text('Show Alert Dialog'),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCupertinoActionSheet',
+            children: [
+              ComponentShowcase(
+                title: 'Cupertino Action Sheet',
+                description:
+                    'iOS-style action sheet with sketchy borders.',
+                child: WiredButton(
+                  onPressed: () {
+                    unawaited(
+                      showWiredCupertinoActionSheet<void>(
+                        context: context,
+                        title: const Text('Share Photo'),
+                        message: const Text('Choose how to share'),
+                        actions: [
+                          WiredCupertinoActionSheetAction(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('AirDrop'),
+                          ),
+                          WiredCupertinoActionSheetAction(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Messages'),
+                          ),
+                          WiredCupertinoActionSheetAction(
+                            onPressed: () => Navigator.pop(context),
+                            isDestructiveAction: true,
+                            child: const Text('Delete'),
+                          ),
+                        ],
+                        cancelButton: WiredCupertinoActionSheetAction(
+                          onPressed: () => Navigator.pop(context),
+                          isDefaultAction: true,
+                          child: const Text('Cancel'),
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('Show Action Sheet'),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredContextMenu',
             children: [
               ComponentShowcase(
