@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn about dialog corresponding to Flutter's [AboutDialog].
@@ -36,6 +36,7 @@ class WiredAboutDialog extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final name = applicationName ?? _getApplicationName(context);
 
     return buildWiredElement(
@@ -67,8 +68,8 @@ class WiredAboutDialog extends HookWidget {
                   ],
                   Text(
                     name,
-                    style: const TextStyle(
-                      color: textColor,
+                    style: TextStyle(
+                      color: theme.textColor,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -78,7 +79,7 @@ class WiredAboutDialog extends HookWidget {
                     Text(
                       applicationVersion!,
                       style: TextStyle(
-                        color: textColor.withValues(alpha: 0.6),
+                        color: theme.textColor.withValues(alpha: 0.6),
                         fontSize: 14,
                       ),
                     ),
@@ -88,7 +89,7 @@ class WiredAboutDialog extends HookWidget {
                     Text(
                       applicationLegalese!,
                       style: TextStyle(
-                        color: textColor.withValues(alpha: 0.5),
+                        color: theme.textColor.withValues(alpha: 0.5),
                         fontSize: 12,
                       ),
                       textAlign: TextAlign.center,

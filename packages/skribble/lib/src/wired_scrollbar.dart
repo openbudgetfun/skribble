@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn scrollbar, corresponding to [CupertinoScrollbar].
@@ -34,15 +34,16 @@ class WiredScrollbar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Theme(
         data: Theme.of(context).copyWith(
           scrollbarTheme: ScrollbarThemeData(
             thumbColor: WidgetStateProperty.all(
-              borderColor.withValues(alpha: 0.6),
+              theme.borderColor.withValues(alpha: 0.6),
             ),
             trackColor: WidgetStateProperty.all(
-              borderColor.withValues(alpha: 0.1),
+              theme.borderColor.withValues(alpha: 0.1),
             ),
             thickness: WidgetStateProperty.all(thickness),
             radius: radius ?? const Radius.circular(3),

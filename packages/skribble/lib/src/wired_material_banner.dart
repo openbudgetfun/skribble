@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn banner corresponding to Flutter's [MaterialBanner].
@@ -52,12 +52,13 @@ class WiredMaterialBanner extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     useEffect(() {
       onVisible?.call();
       return null;
     }, const []);
 
-    final bgColor = backgroundColor ?? filledColor;
+    final bgColor = backgroundColor ?? theme.fillColor;
 
     return buildWiredElement(
       child: Stack(
@@ -74,7 +75,7 @@ class WiredMaterialBanner extends HookWidget {
             padding:
                 padding ??
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: _buildLayout(),
+            child: _buildLayout(theme),
           ),
           // Bottom border line
           Positioned(
@@ -92,7 +93,7 @@ class WiredMaterialBanner extends HookWidget {
     );
   }
 
-  Widget _buildLayout() {
+  Widget _buildLayout(WiredThemeData theme) {
     if (forceActionsBelow) {
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -109,7 +110,7 @@ class WiredMaterialBanner extends HookWidget {
                 child: DefaultTextStyle(
                   style:
                       contentTextStyle ??
-                      const TextStyle(color: textColor, fontSize: 14),
+                      TextStyle(color: theme.textColor, fontSize: 14),
                   child: content,
                 ),
               ),
@@ -138,7 +139,7 @@ class WiredMaterialBanner extends HookWidget {
           child: DefaultTextStyle(
             style:
                 contentTextStyle ??
-                const TextStyle(color: textColor, fontSize: 14),
+                TextStyle(color: theme.textColor, fontSize: 14),
             child: content,
           ),
         ),

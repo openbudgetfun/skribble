@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 
@@ -24,6 +24,7 @@ class WiredContextMenu extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: GestureDetector(
         onLongPress: () => _showMenu(context),
@@ -66,6 +67,7 @@ class _WiredContextMenuOverlay extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final menuTop = position.dy + childSize.height + 8;
     final menuLeft = position.dx;
 
@@ -118,7 +120,7 @@ class _WiredContextMenuOverlay extends HookWidget {
                                         size: 18,
                                         color: actions[i].isDestructive
                                             ? Colors.red
-                                            : textColor,
+                                            : theme.textColor,
                                       ),
                                       const SizedBox(width: 10),
                                     ],
@@ -128,7 +130,7 @@ class _WiredContextMenuOverlay extends HookWidget {
                                         style: TextStyle(
                                           color: actions[i].isDestructive
                                               ? Colors.red
-                                              : textColor,
+                                              : theme.textColor,
                                           fontSize: 14,
                                         ),
                                       ),

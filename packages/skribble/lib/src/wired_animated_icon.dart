@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn animated icon corresponding to Flutter's [AnimatedIcon].
@@ -39,11 +39,12 @@ class WiredAnimatedIcon extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: AnimatedIcon(
         icon: icon,
         progress: progress,
-        color: color ?? textColor,
+        color: color ?? theme.textColor,
         size: size,
         semanticLabel: semanticLabel,
         textDirection: textDirection,

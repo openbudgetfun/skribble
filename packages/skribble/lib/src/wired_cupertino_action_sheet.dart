@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
+import 'wired_theme.dart';
 import 'wired_base.dart';
 
 /// A hand-drawn action sheet corresponding to [CupertinoActionSheet].
@@ -42,6 +42,7 @@ class WiredCupertinoActionSheet extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: SafeArea(
         child: Padding(
@@ -79,7 +80,9 @@ class WiredCupertinoActionSheet extends HookWidget {
                                 if (title != null)
                                   DefaultTextStyle(
                                     style: TextStyle(
-                                      color: textColor.withValues(alpha: 0.6),
+                                      color: theme.textColor.withValues(
+                                        alpha: 0.6,
+                                      ),
                                       fontSize: 13,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -91,7 +94,9 @@ class WiredCupertinoActionSheet extends HookWidget {
                                 if (message != null)
                                   DefaultTextStyle(
                                     style: TextStyle(
-                                      color: textColor.withValues(alpha: 0.6),
+                                      color: theme.textColor.withValues(
+                                        alpha: 0.6,
+                                      ),
                                       fontSize: 13,
                                     ),
                                     textAlign: TextAlign.center,
@@ -194,6 +199,7 @@ class WiredCupertinoActionSheetAction extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return GestureDetector(
       onTap: onPressed,
       behavior: HitTestBehavior.opaque,

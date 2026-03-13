@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'const.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_theme.dart';
 
 /// A hand-drawn segmented control corresponding to
 /// [CupertinoSegmentedControl].
@@ -49,7 +49,8 @@ class WiredCupertinoSegmentedControl<T extends Object> extends HookWidget {
   Widget build(BuildContext context) {
     final keys = children.keys.toList();
     final effectiveSelectedColor = selectedColor ?? CupertinoColors.activeBlue;
-    final effectiveBorderColor = borderColor ?? const Color(0xFF1A2B3C);
+    final theme = WiredTheme.of(context);
+    final effectiveBorderColor = borderColor ?? theme.borderColor;
 
     return buildWiredElement(
       child: Stack(
@@ -59,7 +60,7 @@ class WiredCupertinoSegmentedControl<T extends Object> extends HookWidget {
             child: WiredCanvas(
               painter: WiredRoundedRectangleBase(
                 borderRadius: BorderRadius.circular(8),
-                fillColor: unselectedColor ?? filledColor,
+                fillColor: unselectedColor ?? theme.fillColor,
                 strokeWidth: 2,
               ),
               fillerType: RoughFilter.noFiller,
@@ -197,6 +198,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     final keys = children.keys.toList();
     final selectedIndex = groupValue != null ? keys.indexOf(groupValue!) : -1;
 
@@ -251,7 +253,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
                             child: Center(
                               child: DefaultTextStyle(
                                 style: TextStyle(
-                                  color: textColor,
+                                  color: theme.textColor,
                                   fontSize: 14,
                                   fontWeight: i == selectedIndex
                                       ? FontWeight.w600
