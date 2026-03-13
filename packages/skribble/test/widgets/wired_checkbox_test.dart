@@ -7,9 +7,7 @@ void main() {
     testWidgets('renders without error', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredCheckbox(value: false, onChanged: (_) {}),
-          ),
+          home: Scaffold(body: WiredCheckbox(value: false, onChanged: (_) {})),
         ),
       );
 
@@ -40,9 +38,7 @@ void main() {
     testWidgets('displays checked state when value is true', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredCheckbox(value: true, onChanged: (_) {}),
-          ),
+          home: Scaffold(body: WiredCheckbox(value: true, onChanged: (_) {})),
         ),
       );
 
@@ -58,10 +54,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCheckbox(
-              value: false,
-              onChanged: (v) => lastValue = v,
-            ),
+            body: WiredCheckbox(value: false, onChanged: (v) => lastValue = v),
           ),
         ),
       );
@@ -81,13 +74,10 @@ void main() {
       expect(checkbox.value, isTrue);
     });
 
-    testWidgets('displays unchecked state when value is false',
-        (tester) async {
+    testWidgets('displays unchecked state when value is false', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredCheckbox(value: false, onChanged: (_) {}),
-          ),
+          home: Scaffold(body: WiredCheckbox(value: false, onChanged: (_) {})),
         ),
       );
 
@@ -98,9 +88,7 @@ void main() {
     testWidgets('contains RepaintBoundary wrapper', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredCheckbox(value: false, onChanged: (_) {}),
-          ),
+          home: Scaffold(body: WiredCheckbox(value: false, onChanged: (_) {})),
         ),
       );
 

@@ -40,12 +40,7 @@ class WiredNavigationBar extends HookWidget {
         SizedBox(
           height: 2,
           child: WiredCanvas(
-            painter: WiredLineBase(
-              x1: 0,
-              y1: 0,
-              x2: double.infinity,
-              y2: 0,
-            ),
+            painter: WiredLineBase(x1: 0, y1: 0, x2: double.infinity, y2: 0),
             fillerType: RoughFilter.noFiller,
           ),
         ),
@@ -97,9 +92,7 @@ class WiredNavigationBar extends HookWidget {
                     ),
                   ),
                 Icon(
-                  selected
-                      ? (dest.selectedIcon ?? dest.icon)
-                      : dest.icon,
+                  selected ? (dest.selectedIcon ?? dest.icon) : dest.icon,
                   color: selected ? filledColor : disabledTextColor,
                   size: 24,
                 ),

@@ -26,11 +26,7 @@ class WiredDataTable extends HookWidget {
   final List<WiredDataColumn> columns;
   final List<WiredDataRow> rows;
 
-  const WiredDataTable({
-    super.key,
-    required this.columns,
-    required this.rows,
-  });
+  const WiredDataTable({super.key, required this.columns, required this.rows});
 
   @override
   Widget build(BuildContext context) {

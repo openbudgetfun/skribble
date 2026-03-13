@@ -6,9 +6,7 @@ void main() {
   group('WiredCircularProgress', () {
     testWidgets('renders without error (indeterminate)', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress())),
       );
 
       expect(find.byType(WiredCircularProgress), findsOneWidget);
@@ -16,9 +14,7 @@ void main() {
 
     testWidgets('renders without error (determinate)', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress(value: 0.5)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress(value: 0.5))),
       );
 
       expect(find.byType(WiredCircularProgress), findsOneWidget);
@@ -42,9 +38,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: Center(
-              child: WiredCircularProgress(value: 0.5, size: 100.0),
-            ),
+            body: Center(child: WiredCircularProgress(value: 0.5, size: 100.0)),
           ),
         ),
       );
@@ -56,9 +50,7 @@ void main() {
 
     testWidgets('accepts value parameter', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress(value: 0.75)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress(value: 0.75))),
       );
 
       final progress = tester.widget<WiredCircularProgress>(
@@ -69,9 +61,7 @@ void main() {
 
     testWidgets('value defaults to null (indeterminate)', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress())),
       );
 
       final progress = tester.widget<WiredCircularProgress>(
@@ -82,9 +72,7 @@ void main() {
 
     testWidgets('strokeWidth defaults to 3', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress(value: 0.5)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress(value: 0.5))),
       );
 
       final progress = tester.widget<WiredCircularProgress>(
@@ -110,9 +98,7 @@ void main() {
 
     testWidgets('contains SizedBox wrapper', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress(value: 0.5)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress(value: 0.5))),
       );
 
       expect(
@@ -126,9 +112,7 @@ void main() {
 
     testWidgets('contains Stack for layering', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress(value: 0.5)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress(value: 0.5))),
       );
 
       expect(
@@ -142,9 +126,7 @@ void main() {
 
     testWidgets('contains WiredCanvas for background circle', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress(value: 0.5)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress(value: 0.5))),
       );
 
       expect(
@@ -158,9 +140,7 @@ void main() {
 
     testWidgets('contains CustomPaint for arc', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress(value: 0.5)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress(value: 0.5))),
       );
 
       expect(
@@ -174,9 +154,7 @@ void main() {
 
     testWidgets('indeterminate mode animates', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress())),
       );
 
       // Pump a few frames to verify animation is running without errors.
@@ -188,9 +166,7 @@ void main() {
 
     testWidgets('value at 0 renders without error', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress(value: 0.0)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress(value: 0.0))),
       );
 
       expect(find.byType(WiredCircularProgress), findsOneWidget);
@@ -198,9 +174,7 @@ void main() {
 
     testWidgets('value at 1 renders without error', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCircularProgress(value: 1.0)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredCircularProgress(value: 1.0))),
       );
 
       expect(find.byType(WiredCircularProgress), findsOneWidget);

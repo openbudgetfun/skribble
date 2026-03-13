@@ -10,11 +10,7 @@ class WiredOutlinedButton extends HookWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  const WiredOutlinedButton({
-    super.key,
-    required this.child,
-    this.onPressed,
-  });
+  const WiredOutlinedButton({super.key, required this.child, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

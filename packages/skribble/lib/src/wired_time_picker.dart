@@ -13,11 +13,7 @@ class WiredTimePicker extends HookWidget {
   final TimeOfDay? initialTime;
   final ValueChanged<TimeOfDay>? onTimeSelected;
 
-  const WiredTimePicker({
-    super.key,
-    this.initialTime,
-    this.onTimeSelected,
-  });
+  const WiredTimePicker({super.key, this.initialTime, this.onTimeSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +34,16 @@ class WiredTimePicker extends HookWidget {
                   _TimeField(
                     value: time.value.hour,
                     onChanged: (h) {
-                      time.value = TimeOfDay(hour: h, minute: time.value.minute);
+                      time.value = TimeOfDay(
+                        hour: h,
+                        minute: time.value.minute,
+                      );
                       onTimeSelected?.call(time.value);
                     },
                     max: 23,
                   ),
-                  Text(' : ',
+                  Text(
+                    ' : ',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,

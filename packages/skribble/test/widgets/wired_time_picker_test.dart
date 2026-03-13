@@ -48,9 +48,7 @@ void main() {
 
     testWidgets('displays initial time', (tester) async {
       await tester.pumpWidget(
-        buildTimePicker(
-          initialTime: const TimeOfDay(hour: 14, minute: 30),
-        ),
+        buildTimePicker(initialTime: const TimeOfDay(hour: 14, minute: 30)),
       );
       await tester.pumpAndSettle();
 
@@ -59,12 +57,11 @@ void main() {
       expect(find.text('30'), findsOneWidget);
     });
 
-    testWidgets('displays colon separator between hour and minute',
-        (tester) async {
+    testWidgets('displays colon separator between hour and minute', (
+      tester,
+    ) async {
       await tester.pumpWidget(
-        buildTimePicker(
-          initialTime: const TimeOfDay(hour: 9, minute: 5),
-        ),
+        buildTimePicker(initialTime: const TimeOfDay(hour: 9, minute: 5)),
       );
       await tester.pumpAndSettle();
 
@@ -73,9 +70,7 @@ void main() {
 
     testWidgets('displays zero-padded hours and minutes', (tester) async {
       await tester.pumpWidget(
-        buildTimePicker(
-          initialTime: const TimeOfDay(hour: 3, minute: 7),
-        ),
+        buildTimePicker(initialTime: const TimeOfDay(hour: 3, minute: 7)),
       );
       await tester.pumpAndSettle();
 
@@ -84,8 +79,9 @@ void main() {
       expect(find.text('07'), findsOneWidget);
     });
 
-    testWidgets('property defaults: initialTime and onTimeSelected are null',
-        (tester) async {
+    testWidgets('property defaults: initialTime and onTimeSelected are null', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -101,8 +97,9 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      final widget =
-          tester.widget<WiredTimePicker>(find.byType(WiredTimePicker));
+      final widget = tester.widget<WiredTimePicker>(
+        find.byType(WiredTimePicker),
+      );
       expect(widget.initialTime, isNull);
       expect(widget.onTimeSelected, isNull);
     });
@@ -122,12 +119,11 @@ void main() {
       expect(sizedBoxFinder, findsOneWidget);
     });
 
-    testWidgets('contains WiredCanvas widgets for clock face and time fields',
-        (tester) async {
+    testWidgets('contains WiredCanvas widgets for clock face and time fields', (
+      tester,
+    ) async {
       await tester.pumpWidget(
-        buildTimePicker(
-          initialTime: const TimeOfDay(hour: 10, minute: 30),
-        ),
+        buildTimePicker(initialTime: const TimeOfDay(hour: 10, minute: 30)),
       );
       await tester.pumpAndSettle();
 
@@ -145,9 +141,7 @@ void main() {
 
     testWidgets('contains CustomPaint for clock hands', (tester) async {
       await tester.pumpWidget(
-        buildTimePicker(
-          initialTime: const TimeOfDay(hour: 10, minute: 30),
-        ),
+        buildTimePicker(initialTime: const TimeOfDay(hour: 10, minute: 30)),
       );
       await tester.pumpAndSettle();
 
@@ -162,12 +156,11 @@ void main() {
       );
     });
 
-    testWidgets('contains GestureDetector for time field interaction',
-        (tester) async {
+    testWidgets('contains GestureDetector for time field interaction', (
+      tester,
+    ) async {
       await tester.pumpWidget(
-        buildTimePicker(
-          initialTime: const TimeOfDay(hour: 10, minute: 30),
-        ),
+        buildTimePicker(initialTime: const TimeOfDay(hour: 10, minute: 30)),
       );
       await tester.pumpAndSettle();
 
@@ -184,9 +177,7 @@ void main() {
 
     testWidgets('renders with midnight time (00:00)', (tester) async {
       await tester.pumpWidget(
-        buildTimePicker(
-          initialTime: const TimeOfDay(hour: 0, minute: 0),
-        ),
+        buildTimePicker(initialTime: const TimeOfDay(hour: 0, minute: 0)),
       );
       await tester.pumpAndSettle();
 
@@ -195,9 +186,7 @@ void main() {
 
     testWidgets('renders with max time (23:59)', (tester) async {
       await tester.pumpWidget(
-        buildTimePicker(
-          initialTime: const TimeOfDay(hour: 23, minute: 59),
-        ),
+        buildTimePicker(initialTime: const TimeOfDay(hour: 23, minute: 59)),
       );
       await tester.pumpAndSettle();
 

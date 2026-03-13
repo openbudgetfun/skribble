@@ -70,8 +70,9 @@ void main() {
       expect(widget.currentIndex, 0);
     });
 
-    testWidgets('calls onTap with correct index when item is tapped',
-        (tester) async {
+    testWidgets('calls onTap with correct index when item is tapped', (
+      tester,
+    ) async {
       int? tappedIndex;
 
       await tester.pumpWidget(
@@ -193,8 +194,7 @@ void main() {
       expect(find.text('Settings'), findsOneWidget);
     });
 
-    testWidgets('switching currentIndex changes selected item',
-        (tester) async {
+    testWidgets('switching currentIndex changes selected item', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

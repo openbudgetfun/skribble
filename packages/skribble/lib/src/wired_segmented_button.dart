@@ -58,12 +58,7 @@ class WiredSegmentedButton<T> extends HookWidget {
                       width: 2,
                       height: 42.0,
                       child: WiredCanvas(
-                        painter: WiredLineBase(
-                          x1: 0,
-                          y1: 0,
-                          x2: 0,
-                          y2: 42.0,
-                        ),
+                        painter: WiredLineBase(x1: 0, y1: 0, x2: 0, y2: 42.0),
                         fillerType: RoughFilter.noFiller,
                       ),
                     ),
@@ -109,11 +104,7 @@ class WiredSegmentedButton<T> extends HookWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (segment.icon != null) ...[
-              Icon(
-                segment.icon,
-                size: 18,
-                color: textColor,
-              ),
+              Icon(segment.icon, size: 18, color: textColor),
               const SizedBox(width: 8),
             ],
             segment.label,

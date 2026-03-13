@@ -38,10 +38,7 @@ class WiredIconButton extends HookWidget {
               onPressed: onPressed,
               iconSize: size * 0.5,
               padding: EdgeInsets.zero,
-              constraints: BoxConstraints(
-                maxWidth: size,
-                maxHeight: size,
-              ),
+              constraints: BoxConstraints(maxWidth: size, maxHeight: size),
             ),
           ],
         ),

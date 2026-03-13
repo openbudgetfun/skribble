@@ -6,9 +6,7 @@ void main() {
   group('WiredTextArea', () {
     testWidgets('renders without error', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredTextArea())),
       );
 
       expect(find.byType(WiredTextArea), findsOneWidget);
@@ -16,9 +14,7 @@ void main() {
 
     testWidgets('contains TextField internally', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredTextArea())),
       );
 
       expect(
@@ -33,9 +29,7 @@ void main() {
     testWidgets('displays hint text', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredTextArea(hintText: 'Enter description...'),
-          ),
+          home: Scaffold(body: WiredTextArea(hintText: 'Enter description...')),
         ),
       );
 
@@ -44,9 +38,7 @@ void main() {
 
     testWidgets('accepts text input', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredTextArea())),
       );
 
       await tester.enterText(find.byType(TextField), 'Hello World');
@@ -81,9 +73,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredTextArea(controller: controller),
-          ),
+          home: Scaffold(body: WiredTextArea(controller: controller)),
         ),
       );
 
@@ -94,9 +84,7 @@ void main() {
 
     testWidgets('maxLines defaults to 5', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredTextArea())),
       );
 
       final textField = tester.widget<TextField>(find.byType(TextField));
@@ -105,9 +93,7 @@ void main() {
 
     testWidgets('minLines defaults to 3', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredTextArea())),
       );
 
       final textField = tester.widget<TextField>(find.byType(TextField));
@@ -116,9 +102,7 @@ void main() {
 
     testWidgets('accepts custom maxLines', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea(maxLines: 10)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredTextArea(maxLines: 10))),
       );
 
       final textField = tester.widget<TextField>(find.byType(TextField));
@@ -127,9 +111,7 @@ void main() {
 
     testWidgets('accepts custom minLines', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea(minLines: 1)),
-        ),
+        MaterialApp(home: Scaffold(body: WiredTextArea(minLines: 1))),
       );
 
       final textField = tester.widget<TextField>(find.byType(TextField));
@@ -138,9 +120,7 @@ void main() {
 
     testWidgets('has no input border decoration', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredTextArea())),
       );
 
       final textField = tester.widget<TextField>(find.byType(TextField));
@@ -149,9 +129,7 @@ void main() {
 
     testWidgets('contains Stack for layered layout', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredTextArea())),
       );
 
       expect(
@@ -165,9 +143,7 @@ void main() {
 
     testWidgets('contains WiredCanvas background', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea()),
-        ),
+        MaterialApp(home: Scaffold(body: WiredTextArea())),
       );
 
       expect(
@@ -184,9 +160,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredTextArea(style: customStyle),
-          ),
+          home: Scaffold(body: WiredTextArea(style: customStyle)),
         ),
       );
 

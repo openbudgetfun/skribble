@@ -7,11 +7,7 @@ void main() {
     testWidgets('renders without error', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredListTile(
-              title: const Text('List item'),
-            ),
-          ),
+          home: Scaffold(body: WiredListTile(title: const Text('List item'))),
         ),
       );
 
@@ -21,11 +17,7 @@ void main() {
     testWidgets('renders title', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredListTile(
-              title: const Text('Tile Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredListTile(title: const Text('Tile Title'))),
         ),
       );
 
@@ -50,11 +42,7 @@ void main() {
     testWidgets('does not render subtitle when null', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredListTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredListTile(title: const Text('Title'))),
         ),
       );
 
@@ -87,11 +75,7 @@ void main() {
     testWidgets('does not render leading widget when null', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredListTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredListTile(title: const Text('Title'))),
         ),
       );
 
@@ -116,11 +100,7 @@ void main() {
     testWidgets('does not render trailing widget when null', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredListTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredListTile(title: const Text('Title'))),
         ),
       );
 
@@ -150,11 +130,7 @@ void main() {
     testWidgets('does not crash when onTap is null', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredListTile(
-              title: const Text('No tap'),
-            ),
-          ),
+          home: Scaffold(body: WiredListTile(title: const Text('No tap'))),
         ),
       );
 
@@ -168,17 +144,11 @@ void main() {
     testWidgets('showDivider defaults to true', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredListTile(
-              title: const Text('Title'),
-            ),
-          ),
+          home: Scaffold(body: WiredListTile(title: const Text('Title'))),
         ),
       );
 
-      final tile = tester.widget<WiredListTile>(
-        find.byType(WiredListTile),
-      );
+      final tile = tester.widget<WiredListTile>(find.byType(WiredListTile));
       expect(tile.showDivider, isTrue);
     });
 
@@ -186,10 +156,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredListTile(
-              title: const Text('Title'),
-              showDivider: true,
-            ),
+            body: WiredListTile(title: const Text('Title'), showDivider: true),
           ),
         ),
       );
@@ -208,10 +175,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredListTile(
-              title: const Text('Title'),
-              showDivider: false,
-            ),
+            body: WiredListTile(title: const Text('Title'), showDivider: false),
           ),
         ),
       );
@@ -230,10 +194,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredListTile(
-              title: const Text('Title'),
-              onTap: () {},
-            ),
+            body: WiredListTile(title: const Text('Title'), onTap: () {}),
           ),
         ),
       );
@@ -270,11 +231,7 @@ void main() {
 
     testWidgets('renders with no title or subtitle', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredListTile(),
-          ),
-        ),
+        MaterialApp(home: Scaffold(body: WiredListTile())),
       );
 
       // Should render without error even with all optional fields null.

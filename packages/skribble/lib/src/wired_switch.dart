@@ -34,9 +34,10 @@ class WiredSwitch extends HookWidget {
       initialValue: value ? 1.0 : 0.0,
     );
     final animation = useAnimation(
-      Tween<double>(begin: 0, end: _trackWidth - _thumbSize).animate(
-        CurvedAnimation(parent: controller, curve: Curves.easeInOut),
-      ),
+      Tween<double>(
+        begin: 0,
+        end: _trackWidth - _thumbSize,
+      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut)),
     );
 
     useEffect(() {
@@ -62,13 +63,13 @@ class WiredSwitch extends HookWidget {
               child: WiredCanvas(
                 painter: WiredRoundedRectangleBase(
                   borderRadius: BorderRadius.circular(12),
-                  fillColor:
-                      value ? effectiveActiveColor : effectiveInactiveColor,
+                  fillColor: value
+                      ? effectiveActiveColor
+                      : effectiveInactiveColor,
                 ),
-                fillerType:
-                    value
-                        ? RoughFilter.hachureFiller
-                        : RoughFilter.noFiller,
+                fillerType: value
+                    ? RoughFilter.hachureFiller
+                    : RoughFilter.noFiller,
                 fillerConfig: FillerConfig.build(hachureGap: 2.0),
               ),
             ),
@@ -80,8 +81,7 @@ class WiredSwitch extends HookWidget {
                 child: WiredCanvas(
                   painter: WiredCircleBase(
                     diameterRatio: 0.8,
-                    fillColor:
-                        value ? filledColor : borderColor,
+                    fillColor: value ? filledColor : borderColor,
                   ),
                   fillerType: RoughFilter.hachureFiller,
                   fillerConfig: FillerConfig.build(hachureGap: 1.0),

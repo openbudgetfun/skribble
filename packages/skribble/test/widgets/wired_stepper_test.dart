@@ -68,8 +68,9 @@ void main() {
       expect(find.text('Content 3'), findsNothing);
     });
 
-    testWidgets('shows content for second step when currentStep is 1',
-        (tester) async {
+    testWidgets('shows content for second step when currentStep is 1', (
+      tester,
+    ) async {
       await tester.pumpWidget(buildStepper(currentStep: 1));
       await tester.pumpAndSettle();
 
@@ -113,13 +114,12 @@ void main() {
       expect(tappedIndex, 1);
     });
 
-    testWidgets('calls onStepTapped with correct index for each step',
-        (tester) async {
+    testWidgets('calls onStepTapped with correct index for each step', (
+      tester,
+    ) async {
       final tappedIndices = <int>[];
 
-      await tester.pumpWidget(
-        buildStepper(onStepTapped: tappedIndices.add),
-      );
+      await tester.pumpWidget(buildStepper(onStepTapped: tappedIndices.add));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Step 1'));
@@ -153,8 +153,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      final stepper =
-          tester.widget<WiredStepper>(find.byType(WiredStepper));
+      final stepper = tester.widget<WiredStepper>(find.byType(WiredStepper));
       expect(stepper.currentStep, 0);
       expect(stepper.onStepTapped, isNull);
     });
@@ -185,10 +184,7 @@ void main() {
       final connectors = find.descendant(
         of: find.byType(WiredStepper),
         matching: find.byWidgetPredicate(
-          (w) =>
-              w is SizedBox &&
-              w.width == 2 &&
-              w.height == 24,
+          (w) => w is SizedBox && w.width == 2 && w.height == 24,
         ),
       );
       expect(connectors, findsNWidgets(2));
@@ -229,10 +225,7 @@ void main() {
       final connectors = find.descendant(
         of: find.byType(WiredStepper),
         matching: find.byWidgetPredicate(
-          (w) =>
-              w is SizedBox &&
-              w.width == 2 &&
-              w.height == 24,
+          (w) => w is SizedBox && w.width == 2 && w.height == 24,
         ),
       );
       expect(connectors, findsNothing);

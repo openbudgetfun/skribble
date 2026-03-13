@@ -8,10 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredIconButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
@@ -23,10 +20,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredIconButton(
-              icon: Icons.favorite,
-              onPressed: () {},
-            ),
+            body: WiredIconButton(icon: Icons.favorite, onPressed: () {}),
           ),
         ),
       );
@@ -58,10 +52,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredIconButton(
-              icon: Icons.add,
-              onPressed: null,
-            ),
+            body: WiredIconButton(icon: Icons.add, onPressed: null),
           ),
         ),
       );
@@ -69,17 +60,15 @@ void main() {
       expect(find.byType(WiredIconButton), findsOneWidget);
     });
 
-    testWidgets('does not call callback when onPressed is null',
-        (tester) async {
+    testWidgets('does not call callback when onPressed is null', (
+      tester,
+    ) async {
       const pressed = false;
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredIconButton(
-              icon: Icons.add,
-              onPressed: null,
-            ),
+            body: WiredIconButton(icon: Icons.add, onPressed: null),
           ),
         ),
       );
@@ -106,10 +95,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredIconButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
@@ -167,10 +153,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredIconButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
@@ -188,10 +171,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredIconButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
@@ -205,15 +185,11 @@ void main() {
       );
     });
 
-    testWidgets('contains Stack for layering circle and icon',
-        (tester) async {
+    testWidgets('contains Stack for layering circle and icon', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredIconButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
@@ -231,10 +207,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredIconButton(
-              icon: Icons.add,
-              onPressed: () {},
-            ),
+            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
           ),
         ),
       );
@@ -254,10 +227,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredIconButton(
-              icon: Icons.add,
-              onPressed: () => tapCount++,
-            ),
+            body: WiredIconButton(icon: Icons.add, onPressed: () => tapCount++),
           ),
         ),
       );

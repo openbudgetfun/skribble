@@ -29,8 +29,7 @@ void main() {
       );
     });
 
-    testWidgets('creates correct filler from RoughFilter enum',
-        (tester) async {
+    testWidgets('creates correct filler from RoughFilter enum', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -75,13 +74,8 @@ void main() {
       }
     });
 
-    testWidgets('accepts optional drawConfig and fillerConfig',
-        (tester) async {
-      final drawConfig = DrawConfig.build(
-        roughness: 2,
-        bowing: 2,
-        seed: 42,
-      );
+    testWidgets('accepts optional drawConfig and fillerConfig', (tester) async {
+      final drawConfig = DrawConfig.build(roughness: 2, bowing: 2, seed: 42);
       final fillerConfig = FillerConfig.build(hachureGap: 5);
 
       await tester.pumpWidget(

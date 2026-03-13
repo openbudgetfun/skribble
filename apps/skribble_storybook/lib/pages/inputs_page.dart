@@ -18,6 +18,7 @@ class InputsPage extends HookWidget {
     final comboValue = useState<String?>(null);
     final autocompleteValue = useState<String>('None');
     final switchValue = useState(false);
+    final cupertinoSwitchValue = useState(false);
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final formStatus = useState('Form not validated yet');
 
@@ -206,6 +207,36 @@ class InputsPage extends HookWidget {
                 child: WiredSwitch(
                   value: switchValue.value,
                   onChanged: (v) => switchValue.value = v,
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCupertinoSwitch',
+            children: [
+              ComponentShowcase(
+                title: 'Cupertino Switch',
+                description:
+                    'iOS-style hand-drawn switch with green active track.',
+                child: WiredCupertinoSwitch(
+                  value: cupertinoSwitchValue.value,
+                  onChanged: (v) => cupertinoSwitchValue.value = v,
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Custom Colors',
+                child: WiredCupertinoSwitch(
+                  value: true,
+                  onChanged: (_) {},
+                  activeTrackColor: Colors.purple,
+                  thumbColor: Colors.yellow,
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Disabled',
+                child: const WiredCupertinoSwitch(
+                  value: false,
+                  onChanged: null,
                 ),
               ),
             ],

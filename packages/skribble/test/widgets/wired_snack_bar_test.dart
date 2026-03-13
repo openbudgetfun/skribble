@@ -8,9 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSnackBarContent(
-              child: const Text('Snack bar message'),
-            ),
+            body: WiredSnackBarContent(child: const Text('Snack bar message')),
           ),
         ),
       );
@@ -22,9 +20,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSnackBarContent(
-              child: const Text('Hello snack bar'),
-            ),
+            body: WiredSnackBarContent(child: const Text('Hello snack bar')),
           ),
         ),
       );
@@ -37,10 +33,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredSnackBarContent(
-              action: TextButton(
-                onPressed: () {},
-                child: const Text('UNDO'),
-              ),
+              action: TextButton(onPressed: () {}, child: const Text('UNDO')),
               child: const Text('Message'),
             ),
           ),
@@ -55,9 +48,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSnackBarContent(
-              child: const Text('No action'),
-            ),
+            body: WiredSnackBarContent(child: const Text('No action')),
           ),
         ),
       );
@@ -69,9 +60,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSnackBarContent(
-              child: const Text('Row test'),
-            ),
+            body: WiredSnackBarContent(child: const Text('Row test')),
           ),
         ),
       );
@@ -89,9 +78,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSnackBarContent(
-              child: const Text('Styled text'),
-            ),
+            body: WiredSnackBarContent(child: const Text('Styled text')),
           ),
         ),
       );
@@ -109,9 +96,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredSnackBarContent(
-              child: const Text('Expanded test'),
-            ),
+            body: WiredSnackBarContent(child: const Text('Expanded test')),
           ),
         ),
       );
@@ -163,10 +148,7 @@ void main() {
               builder: (context) {
                 return ElevatedButton(
                   onPressed: () {
-                    showWiredSnackBar(
-                      context,
-                      content: const Text('Floating'),
-                    );
+                    showWiredSnackBar(context, content: const Text('Floating'));
                   },
                   child: const Text('Show'),
                 );

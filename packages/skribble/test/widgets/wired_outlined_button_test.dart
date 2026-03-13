@@ -85,8 +85,9 @@ void main() {
       expect(find.text('Disabled'), findsOneWidget);
     });
 
-    testWidgets('does not call callback when onPressed is null',
-        (tester) async {
+    testWidgets('does not call callback when onPressed is null', (
+      tester,
+    ) async {
       const pressed = false;
 
       await tester.pumpWidget(

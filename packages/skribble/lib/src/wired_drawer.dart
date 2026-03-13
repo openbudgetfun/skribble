@@ -9,11 +9,7 @@ class WiredDrawer extends HookWidget {
   final Widget child;
   final double width;
 
-  const WiredDrawer({
-    super.key,
-    required this.child,
-    this.width = 304.0,
-  });
+  const WiredDrawer({super.key, required this.child, this.width = 304.0});
 
   @override
   Widget build(BuildContext context) {

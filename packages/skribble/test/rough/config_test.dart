@@ -88,18 +88,12 @@ void main() {
           roughness: 2,
           seed: 42,
         );
-        final DrawConfig copy = original.copyWith(
-          roughness: 5,
-          bowing: 10,
-        );
+        final DrawConfig copy = original.copyWith(roughness: 5, bowing: 10);
 
         expect(copy.roughness, equals(5));
         expect(copy.bowing, equals(10));
         // Unchanged values should remain the same.
-        expect(
-          copy.maxRandomnessOffset,
-          equals(original.maxRandomnessOffset),
-        );
+        expect(copy.maxRandomnessOffset, equals(original.maxRandomnessOffset));
         expect(copy.seed, equals(original.seed));
       });
 
@@ -114,10 +108,7 @@ void main() {
 
     group('offset()', () {
       test('returns value within expected range', () {
-        final DrawConfig config = DrawConfig.build(
-          roughness: 1,
-          seed: 42,
-        );
+        final DrawConfig config = DrawConfig.build(roughness: 1, seed: 42);
 
         // offset returns roughness * roughnessGain * (random * (max - min) + min)
         // With roughness=1 and roughnessGain=1, the result should be
@@ -173,35 +164,38 @@ void main() {
         expect(config, equals(config));
       });
 
-      test('two configs from build() with same values share same scalar fields', () {
-        final DrawConfig a = DrawConfig.build(
-          maxRandomnessOffset: 2,
-          roughness: 1,
-          bowing: 1,
-          curveFitting: 0.95,
-          curveTightness: 0,
-          curveStepCount: 9,
-          seed: 1,
-        );
-        final DrawConfig b = DrawConfig.build(
-          maxRandomnessOffset: 2,
-          roughness: 1,
-          bowing: 1,
-          curveFitting: 0.95,
-          curveTightness: 0,
-          curveStepCount: 9,
-          seed: 1,
-        );
+      test(
+        'two configs from build() with same values share same scalar fields',
+        () {
+          final DrawConfig a = DrawConfig.build(
+            maxRandomnessOffset: 2,
+            roughness: 1,
+            bowing: 1,
+            curveFitting: 0.95,
+            curveTightness: 0,
+            curveStepCount: 9,
+            seed: 1,
+          );
+          final DrawConfig b = DrawConfig.build(
+            maxRandomnessOffset: 2,
+            roughness: 1,
+            bowing: 1,
+            curveFitting: 0.95,
+            curveTightness: 0,
+            curveStepCount: 9,
+            seed: 1,
+          );
 
-        // Scalar fields match.
-        expect(a.maxRandomnessOffset, equals(b.maxRandomnessOffset));
-        expect(a.roughness, equals(b.roughness));
-        expect(a.bowing, equals(b.bowing));
-        expect(a.curveFitting, equals(b.curveFitting));
-        expect(a.curveTightness, equals(b.curveTightness));
-        expect(a.curveStepCount, equals(b.curveStepCount));
-        expect(a.seed, equals(b.seed));
-      });
+          // Scalar fields match.
+          expect(a.maxRandomnessOffset, equals(b.maxRandomnessOffset));
+          expect(a.roughness, equals(b.roughness));
+          expect(a.bowing, equals(b.bowing));
+          expect(a.curveFitting, equals(b.curveFitting));
+          expect(a.curveTightness, equals(b.curveTightness));
+          expect(a.curveStepCount, equals(b.curveStepCount));
+          expect(a.seed, equals(b.seed));
+        },
+      );
 
       test('copyWith produces config that shares randomizer seed', () {
         final DrawConfig original = DrawConfig.build(seed: 42);

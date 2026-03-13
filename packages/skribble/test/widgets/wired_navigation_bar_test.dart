@@ -81,8 +81,9 @@ void main() {
       expect(widget.selectedIndex, 0);
     });
 
-    testWidgets('calls onDestinationSelected with correct index',
-        (tester) async {
+    testWidgets('calls onDestinationSelected with correct index', (
+      tester,
+    ) async {
       int? selectedIndex;
 
       await tester.pumpWidget(
@@ -124,8 +125,9 @@ void main() {
       expect(selectedIndex, 2);
     });
 
-    testWidgets('does not crash when onDestinationSelected is null',
-        (tester) async {
+    testWidgets('does not crash when onDestinationSelected is null', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -188,8 +190,9 @@ void main() {
       );
     });
 
-    testWidgets('uses selectedIcon when provided and item is selected',
-        (tester) async {
+    testWidgets('uses selectedIcon when provided and item is selected', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -224,8 +227,9 @@ void main() {
       expect(find.byIcon(Icons.person_outline), findsOneWidget);
     });
 
-    testWidgets('each destination is wrapped in GestureDetector',
-        (tester) async {
+    testWidgets('each destination is wrapped in GestureDetector', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

@@ -77,10 +77,7 @@ void main() {
       });
 
       test('with HachureFiller produces non-empty fill ops', () {
-        final Generator filledGenerator = Generator(
-          config,
-          HachureFiller(),
-        );
+        final Generator filledGenerator = Generator(config, HachureFiller());
         final Drawable drawable = filledGenerator.rectangle(0, 0, 100, 100);
 
         expect(drawable.sets!.length, equals(2));
@@ -251,27 +248,30 @@ void main() {
         expect(drawable.sets!.length, equals(2));
       });
 
-      test('with zero radii matches rectangle behavior (same number of OpSets)', () {
-        final DrawConfig config1 = DrawConfig.build(seed: 7);
-        final DrawConfig config2 = DrawConfig.build(seed: 7);
+      test(
+        'with zero radii matches rectangle behavior (same number of OpSets)',
+        () {
+          final DrawConfig config1 = DrawConfig.build(seed: 7);
+          final DrawConfig config2 = DrawConfig.build(seed: 7);
 
-        final Generator gen1 = Generator(config1, NoFiller());
-        final Generator gen2 = Generator(config2, NoFiller());
+          final Generator gen1 = Generator(config1, NoFiller());
+          final Generator gen2 = Generator(config2, NoFiller());
 
-        final Drawable roundedRect = gen1.roundedRectangle(
-          10,
-          10,
-          200,
-          100,
-          0,
-          0,
-          0,
-          0,
-        );
-        final Drawable rect = gen2.rectangle(10, 10, 200, 100);
+          final Drawable roundedRect = gen1.roundedRectangle(
+            10,
+            10,
+            200,
+            100,
+            0,
+            0,
+            0,
+            0,
+          );
+          final Drawable rect = gen2.rectangle(10, 10, 200, 100);
 
-        expect(roundedRect.sets!.length, equals(rect.sets!.length));
-      });
+          expect(roundedRect.sets!.length, equals(rect.sets!.length));
+        },
+      );
 
       test('clamps radii to half-side-length', () {
         // Width=100, Height=50 => max radius = min(50, 25) = 25.

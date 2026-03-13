@@ -137,33 +137,41 @@ void main() {
 
       final now = DateTime.now();
       const months = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December',
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
       ];
       final expectedMonthYear = '${months[now.month - 1]} ${now.year}';
 
       expect(find.text(expectedMonthYear), findsOneWidget);
     });
 
-    testWidgets('property defaults: initialDate and onDateSelected are null',
-        (tester) async {
+    testWidgets('property defaults: initialDate and onDateSelected are null', (
+      tester,
+    ) async {
       useLargeViewport(tester);
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: SizedBox(
-              width: 800,
-              height: 800,
-              child: WiredDatePicker(),
-            ),
+            body: SizedBox(width: 800, height: 800, child: WiredDatePicker()),
           ),
         ),
       );
       await tester.pumpAndSettle();
 
-      final widget =
-          tester.widget<WiredDatePicker>(find.byType(WiredDatePicker));
+      final widget = tester.widget<WiredDatePicker>(
+        find.byType(WiredDatePicker),
+      );
       expect(widget.initialDate, isNull);
       expect(widget.onDateSelected, isNull);
     });
@@ -215,8 +223,7 @@ void main() {
       );
     });
 
-    testWidgets('calendar navigation works within date picker',
-        (tester) async {
+    testWidgets('calendar navigation works within date picker', (tester) async {
       useLargeViewport(tester);
 
       // Suppress overflow errors from the narrow 320px date picker.
@@ -285,8 +292,7 @@ void main() {
       expect(find.byType(Dialog), findsOneWidget);
     });
 
-    testWidgets('dialog closes and returns date on selection',
-        (tester) async {
+    testWidgets('dialog closes and returns date on selection', (tester) async {
       useLargeViewport(tester);
 
       // Suppress overflow errors from the date picker's constrained width.

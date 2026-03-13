@@ -10,11 +10,7 @@ class WiredElevatedButton extends HookWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  const WiredElevatedButton({
-    super.key,
-    required this.child,
-    this.onPressed,
-  });
+  const WiredElevatedButton({super.key, required this.child, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

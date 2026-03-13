@@ -13,10 +13,7 @@ void main() {
           body: SizedBox(
             height: 800,
             width: 800,
-            child: WiredCalendar(
-              selected: selected,
-              onSelected: onSelected,
-            ),
+            child: WiredCalendar(selected: selected, onSelected: onSelected),
           ),
         ),
       );

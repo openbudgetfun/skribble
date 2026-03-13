@@ -8,10 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCheckboxListTile(
-              value: false,
-              onChanged: (_) {},
-            ),
+            body: WiredCheckboxListTile(value: false, onChanged: (_) {}),
           ),
         ),
       );
@@ -74,10 +71,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCheckboxListTile(
-              value: false,
-              onChanged: (_) {},
-            ),
+            body: WiredCheckboxListTile(value: false, onChanged: (_) {}),
           ),
         ),
       );
@@ -95,10 +89,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCheckboxListTile(
-              value: false,
-              onChanged: (_) {},
-            ),
+            body: WiredCheckboxListTile(value: false, onChanged: (_) {}),
           ),
         ),
       );
@@ -160,10 +151,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCheckboxListTile(
-              value: true,
-              onChanged: (_) {},
-            ),
+            body: WiredCheckboxListTile(value: true, onChanged: (_) {}),
           ),
         ),
       );
@@ -172,15 +160,13 @@ void main() {
       expect(checkbox.value, isTrue);
     });
 
-    testWidgets('passes false value to WiredCheckbox correctly',
-        (tester) async {
+    testWidgets('passes false value to WiredCheckbox correctly', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCheckboxListTile(
-              value: false,
-              onChanged: (_) {},
-            ),
+            body: WiredCheckboxListTile(value: false, onChanged: (_) {}),
           ),
         ),
       );
@@ -190,19 +176,13 @@ void main() {
     });
 
     testWidgets('showDivider defaults to true', (tester) async {
-      const tile = WiredCheckboxListTile(
-        value: false,
-        onChanged: _noOp,
-      );
+      const tile = WiredCheckboxListTile(value: false, onChanged: _noOp);
 
       expect(tile.showDivider, isTrue);
     });
 
     testWidgets('property defaults are correct', (tester) async {
-      const tile = WiredCheckboxListTile(
-        value: false,
-        onChanged: _noOp,
-      );
+      const tile = WiredCheckboxListTile(value: false, onChanged: _noOp);
 
       expect(tile.title, isNull);
       expect(tile.subtitle, isNull);
@@ -233,8 +213,9 @@ void main() {
       );
     });
 
-    testWidgets('does not render divider when showDivider is false',
-        (tester) async {
+    testWidgets('does not render divider when showDivider is false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -262,10 +243,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredCheckboxListTile(
-              value: null,
-              onChanged: (_) {},
-            ),
+            body: WiredCheckboxListTile(value: null, onChanged: (_) {}),
           ),
         ),
       );

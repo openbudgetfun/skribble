@@ -8,9 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: Center(
-              child: WiredSwitch(value: false, onChanged: (_) {}),
-            ),
+            body: Center(child: WiredSwitch(value: false, onChanged: (_) {})),
           ),
         ),
       );
@@ -22,9 +20,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: Center(
-              child: WiredSwitch(value: false, onChanged: (_) {}),
-            ),
+            body: Center(child: WiredSwitch(value: false, onChanged: (_) {})),
           ),
         ),
       );
@@ -70,8 +66,9 @@ void main() {
       expect(receivedValue, isTrue);
     });
 
-    testWidgets('calls onChanged with false when value is true',
-        (tester) async {
+    testWidgets('calls onChanged with false when value is true', (
+      tester,
+    ) async {
       bool? receivedValue;
 
       await tester.pumpWidget(
@@ -103,11 +100,7 @@ void main() {
     testWidgets('does not throw when onChanged is null', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredSwitch(value: false),
-            ),
-          ),
+          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
         ),
       );
 
@@ -125,11 +118,7 @@ void main() {
     testWidgets('has correct default size (60x24)', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredSwitch(value: false),
-            ),
-          ),
+          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
         ),
       );
 
@@ -145,10 +134,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: WiredSwitch(
-                value: true,
-                activeColor: Colors.green,
-              ),
+              child: WiredSwitch(value: true, activeColor: Colors.green),
             ),
           ),
         ),
@@ -163,10 +149,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: Center(
-              child: WiredSwitch(
-                value: false,
-                inactiveColor: Colors.red,
-              ),
+              child: WiredSwitch(value: false, inactiveColor: Colors.red),
             ),
           ),
         ),
@@ -179,11 +162,7 @@ void main() {
     testWidgets('property defaults are null for colors', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredSwitch(value: false),
-            ),
-          ),
+          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
         ),
       );
 
@@ -193,15 +172,12 @@ void main() {
       expect(widget.onChanged, isNull);
     });
 
-    testWidgets('contains WiredCanvas widgets for track and thumb',
-        (tester) async {
+    testWidgets('contains WiredCanvas widgets for track and thumb', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredSwitch(value: false),
-            ),
-          ),
+          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
         ),
       );
 
@@ -220,11 +196,7 @@ void main() {
       // Render with value=true
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredSwitch(value: true),
-            ),
-          ),
+          home: Scaffold(body: Center(child: WiredSwitch(value: true))),
         ),
       );
 
@@ -233,11 +205,7 @@ void main() {
       // Render with value=false
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredSwitch(value: false),
-            ),
-          ),
+          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
         ),
       );
       await tester.pumpAndSettle();
@@ -248,22 +216,14 @@ void main() {
     testWidgets('animation completes when value changes', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredSwitch(value: false),
-            ),
-          ),
+          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
         ),
       );
 
       // Rebuild with value=true to trigger the forward animation.
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredSwitch(value: true),
-            ),
-          ),
+          home: Scaffold(body: Center(child: WiredSwitch(value: true))),
         ),
       );
       await tester.pumpAndSettle();

@@ -20,8 +20,9 @@ void main() {
       expect(find.byType(WiredRadio<String>), findsOneWidget);
     });
 
-    testWidgets('shows filled circle when selected (value == groupValue)',
-        (tester) async {
+    testWidgets('shows filled circle when selected (value == groupValue)', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

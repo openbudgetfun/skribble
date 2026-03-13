@@ -110,9 +110,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Name')),
-              ],
+              columns: const [WiredDataColumn(label: Text('Name'))],
               rows: [
                 WiredDataRow(
                   cells: const [Text('Tappable row')],
@@ -135,9 +133,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Name')),
-              ],
+              columns: const [WiredDataColumn(label: Text('Name'))],
               rows: const [
                 WiredDataRow(cells: [Text('No tap row')]),
               ],
@@ -157,9 +153,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Header')),
-              ],
+              columns: const [WiredDataColumn(label: Text('Header'))],
               rows: const [],
             ),
           ),
@@ -175,9 +169,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Col')),
-              ],
+              columns: const [WiredDataColumn(label: Text('Col'))],
               rows: const [
                 WiredDataRow(cells: [Text('Row 1')]),
                 WiredDataRow(cells: [Text('Row 2')]),
@@ -207,9 +199,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Header')),
-              ],
+              columns: const [WiredDataColumn(label: Text('Header'))],
               rows: const [
                 WiredDataRow(cells: [Text('Data')]),
               ],
@@ -234,9 +224,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Col')),
-              ],
+              columns: const [WiredDataColumn(label: Text('Col'))],
               rows: const [
                 WiredDataRow(cells: [Text('Cell')]),
               ],
@@ -260,14 +248,9 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Col')),
-              ],
+              columns: const [WiredDataColumn(label: Text('Col'))],
               rows: [
-                WiredDataRow(
-                  cells: const [Text('Row')],
-                  onTap: () {},
-                ),
+                WiredDataRow(cells: const [Text('Row')], onTap: () {}),
               ],
             ),
           ),
@@ -316,13 +299,9 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Only')),
-              ],
+              columns: const [WiredDataColumn(label: Text('Only'))],
               rows: const [
-                WiredDataRow(
-                  cells: [Text('Shown'), Text('Hidden')],
-                ),
+                WiredDataRow(cells: [Text('Shown'), Text('Hidden')]),
               ],
             ),
           ),
@@ -341,9 +320,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Name')),
-              ],
+              columns: const [WiredDataColumn(label: Text('Name'))],
               rows: [
                 WiredDataRow(
                   cells: const [Text('Row 1')],
@@ -376,9 +353,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Col')),
-              ],
+              columns: const [WiredDataColumn(label: Text('Col'))],
               rows: const [
                 WiredDataRow(cells: [Text('Cell')]),
               ],

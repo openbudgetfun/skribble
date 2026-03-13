@@ -58,7 +58,11 @@ class WiredBottomNavigationBar extends HookWidget {
     );
   }
 
-  Widget _buildItem(WiredBottomNavItem item, bool selected, VoidCallback onTap) {
+  Widget _buildItem(
+    WiredBottomNavItem item,
+    bool selected,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,

@@ -42,8 +42,9 @@ void main() {
       expect(find.text('Gamma'), findsOneWidget);
     });
 
-    testWidgets('calls onSelectionChanged with new selection on tap',
-        (tester) async {
+    testWidgets('calls onSelectionChanged with new selection on tap', (
+      tester,
+    ) async {
       Set<String>? receivedSelection;
 
       await tester.pumpWidget(
@@ -68,9 +69,9 @@ void main() {
       expect(receivedSelection!.length, 1);
     });
 
-    testWidgets(
-        'single selection mode clears previous selection on new tap',
-        (tester) async {
+    testWidgets('single selection mode clears previous selection on new tap', (
+      tester,
+    ) async {
       Set<String>? receivedSelection;
 
       await tester.pumpWidget(
@@ -116,8 +117,9 @@ void main() {
       expect(receivedSelection!.length, 2);
     });
 
-    testWidgets('multi-selection mode removes from selection on re-tap',
-        (tester) async {
+    testWidgets('multi-selection mode removes from selection on re-tap', (
+      tester,
+    ) async {
       Set<String>? receivedSelection;
 
       await tester.pumpWidget(
@@ -140,8 +142,9 @@ void main() {
       expect(receivedSelection, equals({'b'}));
     });
 
-    testWidgets('does not crash when onSelectionChanged is null',
-        (tester) async {
+    testWidgets('does not crash when onSelectionChanged is null', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -224,10 +227,12 @@ void main() {
       );
 
       final sizedBox = tester.widget<SizedBox>(
-        find.descendant(
-          of: find.byType(WiredSegmentedButton<String>),
-          matching: find.byType(SizedBox),
-        ).first,
+        find
+            .descendant(
+              of: find.byType(WiredSegmentedButton<String>),
+              matching: find.byType(SizedBox),
+            )
+            .first,
       );
 
       expect(sizedBox.height, 42.0);

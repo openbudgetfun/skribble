@@ -84,7 +84,10 @@ void main() {
       final OpSet hachureResult = hachure.fill(squarePolygon);
 
       // ZigZag connects line ends, so it should have at least as many ops.
-      expect(zigzagResult.ops!.length, greaterThanOrEqualTo(hachureResult.ops!.length));
+      expect(
+        zigzagResult.ops!.length,
+        greaterThanOrEqualTo(hachureResult.ops!.length),
+      );
     });
   });
 
@@ -106,10 +109,7 @@ void main() {
       final OpSet hachureResult = hachure.fill(squarePolygon);
 
       // Hatch fills in two directions, so should have roughly double the ops.
-      expect(
-        hatchResult.ops!.length,
-        greaterThan(hachureResult.ops!.length),
-      );
+      expect(hatchResult.ops!.length, greaterThan(hachureResult.ops!.length));
     });
   });
 
@@ -223,13 +223,8 @@ void main() {
       });
 
       test('accepts custom DrawConfig', () {
-        final DrawConfig customDraw = DrawConfig.build(
-          roughness: 3,
-          seed: 99,
-        );
-        final FillerConfig config = FillerConfig.build(
-          drawConfig: customDraw,
-        );
+        final DrawConfig customDraw = DrawConfig.build(roughness: 3, seed: 99);
+        final FillerConfig config = FillerConfig.build(drawConfig: customDraw);
 
         expect(config.drawConfig, equals(customDraw));
         expect(config.drawConfig!.roughness, equals(3));
@@ -270,10 +265,7 @@ void main() {
           fillWeight: 2,
           hachureAngle: 45,
         );
-        final FillerConfig copy = original.copyWith(
-          fillWeight: 5,
-          dashGap: 10,
-        );
+        final FillerConfig copy = original.copyWith(fillWeight: 5, dashGap: 10);
 
         expect(copy.fillWeight, equals(5));
         expect(copy.dashGap, equals(10));
@@ -288,9 +280,7 @@ void main() {
           roughness: 5,
           seed: 77,
         );
-        final FillerConfig copy = original.copyWith(
-          drawConfig: newDrawConfig,
-        );
+        final FillerConfig copy = original.copyWith(drawConfig: newDrawConfig);
 
         expect(copy.drawConfig, equals(newDrawConfig));
         expect(copy.drawConfig!.roughness, equals(5));

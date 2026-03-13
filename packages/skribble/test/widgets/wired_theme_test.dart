@@ -168,8 +168,9 @@ void main() {
       expect(capturedTheme.borderColor, Colors.red);
     });
 
-    testWidgets('of() returns defaultTheme when no WiredTheme ancestor',
-        (tester) async {
+    testWidgets('of() returns defaultTheme when no WiredTheme ancestor', (
+      tester,
+    ) async {
       late WiredThemeData capturedTheme;
 
       await tester.pumpWidget(
@@ -185,9 +186,15 @@ void main() {
         ),
       );
 
-      expect(capturedTheme.borderColor, WiredThemeData.defaultTheme.borderColor);
+      expect(
+        capturedTheme.borderColor,
+        WiredThemeData.defaultTheme.borderColor,
+      );
       expect(capturedTheme.textColor, WiredThemeData.defaultTheme.textColor);
-      expect(capturedTheme.strokeWidth, WiredThemeData.defaultTheme.strokeWidth);
+      expect(
+        capturedTheme.strokeWidth,
+        WiredThemeData.defaultTheme.strokeWidth,
+      );
     });
 
     testWidgets('nearest WiredTheme wins when nested', (tester) async {
@@ -216,8 +223,9 @@ void main() {
       expect(capturedTheme.borderColor, Colors.blue);
     });
 
-    testWidgets('updateShouldNotify returns true when data changes',
-        (tester) async {
+    testWidgets('updateShouldNotify returns true when data changes', (
+      tester,
+    ) async {
       var buildCount = 0;
       final themeData = ValueNotifier(WiredThemeData(borderColor: Colors.red));
 
@@ -275,10 +283,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredTheme(
-              data: WiredThemeData(),
-              child: const SizedBox(),
-            ),
+            body: WiredTheme(data: WiredThemeData(), child: const SizedBox()),
           ),
         ),
       );
@@ -287,8 +292,9 @@ void main() {
       expect(widget, isA<InheritedWidget>());
     });
 
-    testWidgets('provides all custom theme properties to descendants',
-        (tester) async {
+    testWidgets('provides all custom theme properties to descendants', (
+      tester,
+    ) async {
       late WiredThemeData capturedTheme;
 
       final customTheme = WiredThemeData(

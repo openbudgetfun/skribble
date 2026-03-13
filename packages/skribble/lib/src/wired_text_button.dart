@@ -10,11 +10,7 @@ class WiredTextButton extends HookWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  const WiredTextButton({
-    super.key,
-    required this.child,
-    this.onPressed,
-  });
+  const WiredTextButton({super.key, required this.child, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +27,12 @@ class WiredTextButton extends HookWidget {
             SizedBox(
               height: 2,
               child: WiredCanvas(
-                painter: WiredLineBase(x1: 0, y1: 0, x2: double.infinity, y2: 0),
+                painter: WiredLineBase(
+                  x1: 0,
+                  y1: 0,
+                  x2: double.infinity,
+                  y2: 0,
+                ),
                 fillerType: RoughFilter.noFiller,
               ),
             ),

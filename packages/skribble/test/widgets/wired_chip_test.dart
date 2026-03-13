@@ -7,9 +7,7 @@ void main() {
     testWidgets('renders without error', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredChip(label: const Text('Chip')),
-          ),
+          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
         ),
       );
 
@@ -19,9 +17,7 @@ void main() {
     testWidgets('renders label text', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredChip(label: const Text('My Label')),
-          ),
+          home: Scaffold(body: WiredChip(label: const Text('My Label'))),
         ),
       );
 
@@ -46,24 +42,20 @@ void main() {
     testWidgets('does not render avatar when not provided', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredChip(label: const Text('Chip')),
-          ),
+          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
         ),
       );
 
       expect(find.byIcon(Icons.person), findsNothing);
     });
 
-    testWidgets('renders delete icon when onDeleted is provided',
-        (tester) async {
+    testWidgets('renders delete icon when onDeleted is provided', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredChip(
-              label: const Text('Chip'),
-              onDeleted: () {},
-            ),
+            body: WiredChip(label: const Text('Chip'), onDeleted: () {}),
           ),
         ),
       );
@@ -71,13 +63,12 @@ void main() {
       expect(find.byIcon(Icons.close), findsOneWidget);
     });
 
-    testWidgets('does not render delete icon when onDeleted is null',
-        (tester) async {
+    testWidgets('does not render delete icon when onDeleted is null', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredChip(label: const Text('Chip')),
-          ),
+          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
         ),
       );
 
@@ -107,30 +98,29 @@ void main() {
     testWidgets('has correct height of 32', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredChip(label: const Text('Chip')),
-          ),
+          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
         ),
       );
 
       // The SizedBox inside WiredChip has a fixed height of 32.
       final sizedBox = tester.widget<SizedBox>(
-        find.descendant(
-          of: find.byType(WiredChip),
-          matching: find.byType(SizedBox),
-        ).first,
+        find
+            .descendant(
+              of: find.byType(WiredChip),
+              matching: find.byType(SizedBox),
+            )
+            .first,
       );
 
       expect(sizedBox.height, 32);
     });
 
-    testWidgets('contains WiredCanvas for the rounded rectangle border',
-        (tester) async {
+    testWidgets('contains WiredCanvas for the rounded rectangle border', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredChip(label: const Text('Chip')),
-          ),
+          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
         ),
       );
 
@@ -143,8 +133,9 @@ void main() {
       );
     });
 
-    testWidgets('renders avatar and label together with spacing',
-        (tester) async {
+    testWidgets('renders avatar and label together with spacing', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -163,9 +154,7 @@ void main() {
     testWidgets('contains RepaintBoundary wrapper', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredChip(label: const Text('Chip')),
-          ),
+          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
         ),
       );
 
