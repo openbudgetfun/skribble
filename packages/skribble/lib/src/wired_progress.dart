@@ -6,6 +6,14 @@ import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
+/// A hand-drawn linear progress bar, corresponding to Flutter's
+/// `LinearProgressIndicator`.
+///
+/// Renders a sketchy rectangle track with a hachure-filled progress
+/// region. Requires an [AnimationController] to drive the animation.
+///
+/// See also:
+///  * `WiredCircularProgress`, for a circular variant.
 class WiredProgress extends HookWidget {
   final double value;
   final AnimationController controller;

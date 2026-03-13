@@ -5,6 +5,11 @@ import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
+/// A hand-drawn horizontal divider line, corresponding to Flutter's
+/// [Divider].
+///
+/// Renders a sketchy line using `WiredLineBase` with the border color
+/// from the nearest `WiredTheme` ancestor.
 class WiredDivider extends HookWidget {
   const WiredDivider({super.key});
 

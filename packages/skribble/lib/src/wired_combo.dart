@@ -6,6 +6,14 @@ import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
+/// A hand-drawn dropdown selector, corresponding to Flutter's
+/// `DropdownButton`.
+///
+/// Wraps a `DropdownButton` with a sketchy rectangle border and an
+/// inverted triangle indicator drawn with `WiredInvertedTriangleBase`.
+///
+/// See also:
+///  * `WiredDropdownMenu`, for an M3-style dropdown menu.
 class WiredCombo<T> extends HookWidget {
   final T? value;
   final List<DropdownMenuItem<T>> items;
