@@ -112,11 +112,8 @@ class WiredCupertinoTextField extends HookWidget {
             ),
             Row(
               children: [
-                if (prefix != null)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: prefix!,
-                  ),
+                if (prefix case final p?)
+                  Padding(padding: const EdgeInsets.only(left: 8), child: p),
                 Expanded(
                   child: TextField(
                     controller: controller,
@@ -150,11 +147,8 @@ class WiredCupertinoTextField extends HookWidget {
                     ),
                   ),
                 ),
-                if (suffix != null)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: suffix!,
-                  ),
+                if (suffix case final s?)
+                  Padding(padding: const EdgeInsets.only(right: 8), child: s),
               ],
             ),
           ],
