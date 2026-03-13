@@ -131,5 +131,41 @@ void main() {
 
       expect(sizedBox.height, 80);
     });
+
+    testWidgets('renders with custom padding', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredReorderableListView(
+              onReorder: (_, _) {},
+              padding: const EdgeInsets.all(24),
+              children: const [
+                Text('Padded', key: ValueKey('p')),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Padded'), findsOneWidget);
+    });
+
+    testWidgets('renders single item without error', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WiredReorderableListView(
+              onReorder: (_, _) {},
+              children: const [
+                Text('Solo', key: ValueKey('solo')),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Solo'), findsOneWidget);
+      expect(find.byIcon(Icons.drag_handle), findsOneWidget);
+    });
   });
 }

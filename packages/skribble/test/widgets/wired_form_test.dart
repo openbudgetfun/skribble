@@ -116,5 +116,50 @@ void main() {
 
       expect(padding.padding, const EdgeInsets.all(16));
     });
+
+    testWidgets('applies custom padding', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              width: 320,
+              child: WiredForm(
+                padding: EdgeInsets.all(8),
+                child: Placeholder(),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      final padding = tester.widget<Padding>(
+        find
+            .descendant(
+              of: find.byType(WiredForm),
+              matching: find.byType(Padding),
+            )
+            .first,
+      );
+
+      expect(padding.padding, const EdgeInsets.all(8));
+    });
+
+    testWidgets('renders with custom border radius', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              width: 320,
+              child: WiredForm(
+                borderRadius: BorderRadius.zero,
+                child: Text('Custom radius'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Custom radius'), findsOneWidget);
+    });
   });
 }
