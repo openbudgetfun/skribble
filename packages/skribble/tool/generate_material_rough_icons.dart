@@ -1130,13 +1130,15 @@ String _renderFontCodePointsDart({
     ..writeln()
     ..writeln('''import 'package:flutter/widgets.dart';''')
     ..writeln()
-    ..writeln('const String $familyConstName = ${jsonEncode(fontName)};')
+    ..writeln(
+      'const String $familyConstName = ${_singleQuotedDartString(fontName)};',
+    )
     ..writeln()
     ..writeln('const Map<String, int> $codePointsConstName = <String, int>{');
 
   for (final glyph in sortedGlyphs) {
     buffer.writeln(
-      '  ${jsonEncode(glyph.identifier)}: '
+      '  ${_singleQuotedDartString(glyph.identifier)}: '
       '0x${glyph.codePoint.toRadixString(16)},',
     );
   }
@@ -1153,6 +1155,34 @@ String _renderFontCodePointsDart({
     ..writeln('}')
     ..writeln();
 
+  return buffer.toString();
+}
+
+String _singleQuotedDartString(String value) {
+  final buffer = StringBuffer("'");
+  for (final codeUnit in value.codeUnits) {
+    switch (codeUnit) {
+      case 0x27: // '
+        buffer.write(r"\'");
+      case 0x5c: // \
+        buffer.write(r'\\');
+      case 0x24: // $
+        buffer.write(r'\$');
+      case 0x0a:
+        buffer.write(r'\n');
+      case 0x0d:
+        buffer.write(r'\r');
+      case 0x09:
+        buffer.write(r'\t');
+      default:
+        if (codeUnit < 0x20) {
+          buffer.write('\\x${codeUnit.toRadixString(16).padLeft(2, '0')}');
+        } else {
+          buffer.writeCharCode(codeUnit);
+        }
+    }
+  }
+  buffer.write("'");
   return buffer.toString();
 }
 

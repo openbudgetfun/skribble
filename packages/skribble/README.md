@@ -208,6 +208,13 @@ Useful flags:
 - `--font-dart-output <path>` to emit Dart lookup helpers for generated font codepoints.
 - `CHROME_PATH=/path/to/chrome` if Chromium/Chrome is not in a standard location.
 
+Runtime helpers exposed by `wired_icon.dart`:
+
+- `lookupMaterialRoughIconByIdentifier('search')` → `WiredSvgIconData?`
+- `lookupMaterialRoughFontIcon('search')` → `IconData?` for generated font usage
+- `materialRoughIconIdentifiers` / `materialRoughFontCodePoints`
+- `materialRoughFontFamily`
+
 ## Contributing
 
 See [CONTRIBUTING.md](../../CONTRIBUTING.md) for development setup, widget

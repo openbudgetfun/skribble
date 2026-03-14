@@ -94,16 +94,16 @@ class Icons {
 
       expect(
         rendered,
-        contains('const String kMyRoughIconsFontFamily = "my-rough-icons";'),
+        contains("const String kMyRoughIconsFontFamily = 'my-rough-icons';"),
       );
       expect(
         rendered,
         contains('IconData? lookupMyRoughIconsIconData(String identifier) {'),
       );
 
-      final alphaIndex = rendered.indexOf('"alpha": 0xe100');
-      final betaIndex = rendered.indexOf('"beta": 0xe100');
-      final zetaIndex = rendered.indexOf('"zeta": 0xe200');
+      final alphaIndex = rendered.indexOf("'alpha': 0xe100");
+      final betaIndex = rendered.indexOf("'beta': 0xe100");
+      final zetaIndex = rendered.indexOf("'zeta': 0xe200");
 
       expect(alphaIndex, isNonNegative);
       expect(betaIndex, greaterThan(alphaIndex));
