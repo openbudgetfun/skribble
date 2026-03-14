@@ -80,6 +80,37 @@ class Icons {
     });
   });
 
+  test(
+    'renderFontCodePointsDartForTest renders stable helper names and order',
+    () {
+      final rendered = tool.renderFontCodePointsDartForTest(
+        fontName: 'my-rough-icons',
+        codePoints: <String, int>{
+          'zeta': 0xe200,
+          'beta': 0xe100,
+          'alpha': 0xe100,
+        },
+      );
+
+      expect(
+        rendered,
+        contains('const String kMyRoughIconsFontFamily = "my-rough-icons";'),
+      );
+      expect(
+        rendered,
+        contains('IconData? lookupMyRoughIconsIconData(String identifier) {'),
+      );
+
+      final alphaIndex = rendered.indexOf('"alpha": 0xe100');
+      final betaIndex = rendered.indexOf('"beta": 0xe100');
+      final zetaIndex = rendered.indexOf('"zeta": 0xe200');
+
+      expect(alphaIndex, isNonNegative);
+      expect(betaIndex, greaterThan(alphaIndex));
+      expect(zetaIndex, greaterThan(betaIndex));
+    },
+  );
+
   group('parseSvgManifestDeclarationsForTest', () {
     late Directory tempDirectory;
 

@@ -187,7 +187,8 @@ deno cache tool/deno/svg2roughjs_cli.ts
 dart run tool/generate_rough_icons.dart \
   --kit flutter-material \
   --rough-output-dir tool/icon_exports/rough-svg \
-  --font-output-dir tool/icon_exports/font
+  --font-output-dir tool/icon_exports/font \
+  --font-dart-output lib/src/generated/material_rough_icon_font.g.dart
 ```
 
 Workspace shortcuts:
@@ -204,6 +205,7 @@ Useful flags:
 - `--rough-only` to skip Dart map generation and emit rough SVGs only.
 - `--rough-normalize-viewbox 128` to upscale SVG geometry before roughing.
 - `--font-name skribble_rough_icons` to customize generated font family name.
+- `--font-dart-output <path>` to emit Dart lookup helpers for generated font codepoints.
 - `CHROME_PATH=/path/to/chrome` if Chromium/Chrome is not in a standard location.
 
 ## Contributing

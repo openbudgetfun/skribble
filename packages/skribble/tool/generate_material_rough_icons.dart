@@ -105,6 +105,24 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     );
   }
 
+  if (options.fontDartOutputPath case final outputPath?) {
+    final outputFile = File(outputPath)..createSync(recursive: true);
+    outputFile.writeAsStringSync(
+      _renderFontCodePointsDart(
+        fontName: options.fontName,
+        glyphs: roughTasks
+            .map(
+              (task) => _FontGlyph(
+                identifier: task.identifier,
+                codePoint: task.codePoint,
+              ),
+            )
+            .toList(growable: false),
+      ),
+    );
+    stdout.writeln('Generated icon font Dart helpers to ${outputFile.path}');
+  }
+
   if (!options.roughOnly) {
     final outputFile = File(
       options.outputPath ?? _defaultOutputPathForKit(options.kit),
@@ -158,6 +176,7 @@ Options:
   --rough-bulk                     Use one manifest-driven converter invocation.
   --rough-only                     Skip Dart map generation; only emit rough SVG files.
   --font-output-dir <path>         Build an icon font from rough SVGs into this directory.
+  --font-dart-output <path>        Emit Dart helpers (font family + codepoint lookup map).
   --font-name <name>               Name of generated icon font (default: material_rough_icons).
   --font-generator-executable <e>  Font generator executable (default: npx).
   --font-generator-package <name>  Package passed to generator executable (default: fantasticon).
@@ -202,6 +221,7 @@ final class _ScriptOptions {
     this.roughBulk = false,
     this.roughOnly = false,
     this.fontOutputDir,
+    this.fontDartOutputPath,
     this.fontName = _kDefaultFontName,
     this.fontGeneratorExecutable = _kDefaultFontGeneratorExecutable,
     this.fontGeneratorPackage = _kDefaultFontGeneratorPackage,
@@ -223,6 +243,7 @@ final class _ScriptOptions {
   final bool roughBulk;
   final bool roughOnly;
   final String? fontOutputDir;
+  final String? fontDartOutputPath;
   final String fontName;
   final String fontGeneratorExecutable;
   final String fontGeneratorPackage;
@@ -244,6 +265,7 @@ final class _ScriptOptions {
     var roughBulk = false;
     var roughOnly = false;
     String? fontOutputDir;
+    String? fontDartOutputPath;
     var fontName = _kDefaultFontName;
     var fontGeneratorExecutable = _kDefaultFontGeneratorExecutable;
     var fontGeneratorPackage = _kDefaultFontGeneratorPackage;
@@ -311,6 +333,8 @@ final class _ScriptOptions {
           roughNormalizeViewBox = double.parse(value);
         case '--font-output-dir':
           fontOutputDir = value;
+        case '--font-dart-output':
+          fontDartOutputPath = value;
         case '--font-name':
           fontName = value;
         case '--font-generator-executable':
@@ -337,6 +361,7 @@ final class _ScriptOptions {
       roughBulk: roughBulk,
       roughOnly: roughOnly,
       fontOutputDir: fontOutputDir,
+      fontDartOutputPath: fontDartOutputPath,
       fontName: fontName,
       fontGeneratorExecutable: fontGeneratorExecutable,
       fontGeneratorPackage: fontGeneratorPackage,
@@ -1039,6 +1064,87 @@ String _renderGeneratedFile(List<_GeneratedIcon> icons) {
   return buffer.toString();
 }
 
+String renderFontCodePointsDartForTest({
+  required String fontName,
+  required Map<String, int> codePoints,
+}) {
+  final glyphs = codePoints.entries
+      .map((entry) => _FontGlyph(identifier: entry.key, codePoint: entry.value))
+      .toList(growable: false);
+  return _renderFontCodePointsDart(fontName: fontName, glyphs: glyphs);
+}
+
+String _renderFontCodePointsDart({
+  required String fontName,
+  required List<_FontGlyph> glyphs,
+}) {
+  final sortedGlyphs = [...glyphs]
+    ..sort((a, b) {
+      final byCodePoint = a.codePoint.compareTo(b.codePoint);
+      if (byCodePoint != 0) {
+        return byCodePoint;
+      }
+      return a.identifier.compareTo(b.identifier);
+    });
+
+  final upperCamelName = _toUpperCamelIdentifier(fontName);
+  final familyConstName = 'k${upperCamelName}FontFamily';
+  final codePointsConstName = 'k${upperCamelName}CodePoints';
+  final lookupFunctionName = 'lookup${upperCamelName}IconData';
+
+  final buffer = StringBuffer()
+    ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND.')
+    ..writeln()
+    ..writeln('''import 'package:flutter/widgets.dart';''')
+    ..writeln()
+    ..writeln('const String $familyConstName = ${jsonEncode(fontName)};')
+    ..writeln()
+    ..writeln('const Map<String, int> $codePointsConstName = <String, int>{');
+
+  for (final glyph in sortedGlyphs) {
+    buffer.writeln(
+      '  ${jsonEncode(glyph.identifier)}: '
+      '0x${glyph.codePoint.toRadixString(16)},',
+    );
+  }
+
+  buffer
+    ..writeln('};')
+    ..writeln()
+    ..writeln('IconData? $lookupFunctionName(String identifier) {')
+    ..writeln('  final codePoint = $codePointsConstName[identifier];')
+    ..writeln('  if (codePoint == null) {')
+    ..writeln('    return null;')
+    ..writeln('  }')
+    ..writeln('  return IconData(codePoint, fontFamily: $familyConstName);')
+    ..writeln('}')
+    ..writeln();
+
+  return buffer.toString();
+}
+
+String _toUpperCamelIdentifier(String value) {
+  final words = value
+      .split(RegExp('[^a-zA-Z0-9]+'))
+      .where((word) => word.isNotEmpty)
+      .toList(growable: false);
+  if (words.isEmpty) {
+    return 'GeneratedRoughIcons';
+  }
+
+  final transformed = words
+      .map(
+        (word) =>
+            '${word.substring(0, 1).toUpperCase()}${word.substring(1).toLowerCase()}',
+      )
+      .join();
+
+  if (RegExp('^[0-9]').hasMatch(transformed)) {
+    return 'Font$transformed';
+  }
+  return transformed;
+}
+
 String _formatDouble(double value) {
   return value == value.roundToDouble()
       ? value.toStringAsFixed(1)
@@ -1410,6 +1516,13 @@ final class _ManifestIconEntry {
   final String identifier;
   final int codePoint;
   final File svgFile;
+}
+
+final class _FontGlyph {
+  const _FontGlyph({required this.identifier, required this.codePoint});
+
+  final String identifier;
+  final int codePoint;
 }
 
 final class _GeneratedIcon {
