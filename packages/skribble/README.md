@@ -167,7 +167,7 @@ All Skribble widgets follow familiar Flutter conventions:
 | Widget files | 79 |
 | Test files | 88 |
 | Widget tests | 848 |
-| Rough engine tests | 128 |
+| Rough engine tests | 138 |
 | Storybook pages | 8 |
 | Storybook tests | 58 (50 page + 8 golden) |
 | `dart analyze` | 0 issues |
