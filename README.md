@@ -10,15 +10,15 @@ with familiar Material and Cupertino APIs.
 
 ## Packages
 
-| Package | Description |
-|---|---|
-| [`skribble`](packages/skribble/) | Main UI library — 81 widget files, 85 exports |
-| [`skribble_lints`](packages/skribble_lints/) | Shared lint rules |
+| Package                                      | Description                                   |
+| -------------------------------------------- | --------------------------------------------- |
+| [`skribble`](packages/skribble/)             | Main UI library — 81 widget files, 85 exports |
+| [`skribble_lints`](packages/skribble_lints/) | Shared lint rules                             |
 
 ## Apps
 
-| App | Description |
-|---|---|
+| App                                              | Description                             |
+| ------------------------------------------------ | --------------------------------------- |
 | [`skribble_storybook`](apps/skribble_storybook/) | Interactive demo showcasing all widgets |
 
 ## Quick Start
@@ -51,15 +51,15 @@ test:coverage   # Generate lcov coverage
 
 ## Stats
 
-| Metric | Value |
-|---|---|
-| Widget tests | 872 |
-| Rough engine tests | 138 |
-| Smoke tests | 6 |
-| Storybook tests | 58 |
-| **Total tests** | **1,086** |
-| `dart analyze` | 0 issues |
-| `dart doc` | 0 warnings |
+| Metric             | Value      |
+| ------------------ | ---------- |
+| Widget tests       | 872        |
+| Rough engine tests | 144        |
+| Smoke tests        | 6          |
+| Storybook tests    | 64         |
+| **Total tests**    | **1,086**  |
+| `dart analyze`     | 0 issues   |
+| `dart doc`         | 0 warnings |
 
 ## Contributing
 

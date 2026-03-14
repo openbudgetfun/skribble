@@ -152,6 +152,7 @@ through the entire widget tree — no hardcoded constants remain.
 ### New Widgets
 
 #### Buttons
+
 - `WiredButton` — hand-drawn rectangle border button
 - `WiredElevatedButton` — elevated button with offset shadow
 - `WiredFilledButton` — solid hachure-filled button
@@ -163,6 +164,7 @@ through the entire widget tree — no hardcoded constants remain.
 - `WiredCupertinoButton` — Cupertino-style press-opacity button
 
 #### Inputs
+
 - `WiredInput` — text field with sketchy rectangle border
 - `WiredCheckbox` / `WiredCheckboxListTile` — hand-drawn checkbox
 - `WiredRadio` / `WiredRadioListTile` — hand-drawn radio button
@@ -178,6 +180,7 @@ through the entire widget tree — no hardcoded constants remain.
 - `WiredCupertinoSlider` — Cupertino-style hand-drawn slider
 
 #### Selection
+
 - `WiredCombo` — dropdown selector with sketchy border
 - `WiredChip` / `WiredChoiceChip` / `WiredFilterChip` / `WiredInputChip` / `WiredActionChip`
 - `WiredSegmentedButton` — segmented toggle with hand-drawn dividers
@@ -187,6 +190,7 @@ through the entire widget tree — no hardcoded constants remain.
 - `WiredColorPicker` — grid of hand-drawn circle swatches
 
 #### Navigation
+
 - `WiredAppBar` — app bar with sketchy bottom border
 - `WiredBottomNavigationBar` — bottom nav with sketchy top border
 - `WiredNavigationBar` — M3 navigation bar with pill indicators
@@ -203,6 +207,7 @@ through the entire widget tree — no hardcoded constants remain.
 - `WiredDrawerHeader` / `WiredUserAccountsDrawerHeader`
 
 #### Feedback
+
 - `WiredDialog` — dialog with hand-drawn rectangle border
 - `WiredSnackBarContent` — snack bar with sketchy styling
 - `WiredTooltip` — tooltip wrapper
@@ -216,6 +221,7 @@ through the entire widget tree — no hardcoded constants remain.
 - `WiredAnimatedIcon` — animated icon with Skribble styling
 
 #### Layout
+
 - `WiredCard` — card with hand-drawn border
 - `WiredDivider` — hand-drawn horizontal line
 - `WiredListTile` — list tile with sketchy bottom border
@@ -228,17 +234,20 @@ through the entire widget tree — no hardcoded constants remain.
 - `WiredCupertinoPageScaffold` / `WiredCupertinoTabScaffold`
 
 #### Data Display
+
 - `WiredCalendar` — month calendar with hand-drawn cells
 - `WiredDataTable` — data table with sketchy borders
 - `WiredStepper` — step-by-step wizard with sketchy connectors
 - `WiredAvatar` — hand-drawn circle avatar
 
 ### Theme System
+
 - `WiredTheme` — `InheritedWidget` providing `WiredThemeData` to all descendants
 - `WiredThemeData` — configurable `borderColor`, `textColor`, `fillColor`,
   `disabledTextColor`, `strokeWidth`, `roughness`, and `DrawConfig`
 
 ### Infrastructure
+
 - 81 widget test files with 795 tests
 - 8 storybook pages with 34 page tests and 8 golden visual review tests
 - Visual review golden file pipeline via `matchesGoldenFile`
