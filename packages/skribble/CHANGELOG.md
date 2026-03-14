@@ -25,9 +25,9 @@
 
 ### Stats
 
-- 1,001 library tests (857 widget + 138 rough + 6 smoke)
+- 1,016 library tests (872 widget + 138 rough + 6 smoke)
 - 58 storybook tests (50 page + 8 golden)
-- **1,059 total tests**
+- **1,074 total tests**
 - 0 `dart analyze` issues, 0 `dart doc` warnings
 
 ## 0.3.2
@@ -47,9 +47,9 @@
 
 ### Stats
 
-- 1,001 library tests (857 widget + 138 rough + 6 smoke)
+- 1,016 library tests (872 widget + 138 rough + 6 smoke)
 - 58 storybook tests (50 page + 8 golden)
-- **1,059 total tests**
+- **1,074 total tests**
 - 0 `dart analyze` issues, 0 `dart doc` warnings
 
 ## 0.3.1
