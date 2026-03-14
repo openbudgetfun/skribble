@@ -1,0 +1,33 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Dart sources
+*.dart text diff=dart
+
+# Config files
+*.yaml text
+*.yml text
+*.json text
+*.toml text
+*.md text
+*.txt text
+
+# Shell scripts
+*.sh text eol=lf
+
+# Lock files — treat as binary to avoid merge noise
+pubspec.lock -diff linguist-generated
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+
+# Fonts
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
