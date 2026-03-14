@@ -26,7 +26,7 @@ Compatibility alias (backward compatible):
    - emits Dart helpers for generated icon fonts (`--font-dart-output`)
    - emits unresolved icon reports as JSON (`--unresolved-output`)
    - emits supplemental manifest templates (`--supplemental-manifest-output`)
-   - can fail CI on unresolved icons (`--fail-on-unresolved`, `--max-unresolved`)
+   - can fail CI on unresolved icons (`--fail-on-unresolved`, `--max-unresolved`, `--fail-on-new-unresolved`)
 
 ## Extensibility seam
 
@@ -120,6 +120,7 @@ The JSON report includes:
 - `resolvedCount`
 - `unresolvedCount`
 - `unresolved[]` entries with `codePoint` and `identifiers`
+- optional `newUnresolvedCount` / `newUnresolved[]` when baseline comparison is enabled
 
 ## Supplemental manifest template output
 
@@ -137,6 +138,11 @@ To control failure behavior for unresolved icons:
 
 - `--fail-on-unresolved` (strict; equivalent to allowing 0 unresolved)
 - `--max-unresolved <int>` (bounded; fail only when unresolved count exceeds threshold)
+
+To detect only regressions relative to an existing unresolved baseline:
+
+- `--unresolved-baseline <path>`
+- `--fail-on-new-unresolved`
 
 This is useful in CI while tightening coverage incrementally.
 

@@ -684,6 +684,177 @@ class Icons {
     });
   });
 
+  group('runGenerateRoughIcons unresolved baseline regression checks', () {
+    late Directory tempDirectory;
+
+    setUp(() {
+      tempDirectory = Directory.systemTemp.createTempSync(
+        'rough-icon-unresolved-baseline-test-',
+      );
+    });
+
+    tearDown(() {
+      tempDirectory.deleteSync(recursive: true);
+    });
+
+    test(
+      'requires baseline path when fail-on-new-unresolved is enabled',
+      () async {
+        await expectLater(
+          tool.runGenerateRoughIcons(<String>['--fail-on-new-unresolved']),
+          throwsA(isA<ArgumentError>()),
+        );
+      },
+    );
+
+    test('does not throw when unresolved icons are all in baseline', () async {
+      final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+        ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "label outline".
+  static const IconData label_outline = IconData(0xe364, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "adobe".
+  static const IconData adobe = IconData(0xf04b9, fontFamily: 'MaterialIcons');
+}
+''');
+
+      final materialIconsRoot = Directory(
+        '${tempDirectory.path}/material-icons',
+      )..createSync(recursive: true);
+      final materialSymbolsRoot = Directory(
+        '${tempDirectory.path}/material-symbols',
+      )..createSync(recursive: true);
+      final brandIconsRoot = Directory('${tempDirectory.path}/simple-icons')
+        ..createSync(recursive: true);
+
+      File('${materialIconsRoot.path}/filled/label.svg')
+        ..createSync(recursive: true)
+        ..writeAsStringSync(
+          '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+        );
+
+      final baselineFile = File('${tempDirectory.path}/baseline.json')
+        ..writeAsStringSync('''
+{
+  "unresolved": [
+    {
+      "codePoint": "0xf04b9",
+      "identifiers": ["adobe"]
+    }
+  ]
+}
+''');
+      final unresolvedReportFile = File(
+        '${tempDirectory.path}/unresolved_report.json',
+      );
+      final outputFile = File(
+        '${tempDirectory.path}/material_rough_icons.g.dart',
+      );
+
+      await tool.runGenerateRoughIcons(<String>[
+        '--kit',
+        'flutter-material',
+        '--flutter-icons',
+        flutterIconsFile.path,
+        '--material-icons-source',
+        materialIconsRoot.path,
+        '--material-symbols-source',
+        materialSymbolsRoot.path,
+        '--brand-icons-source',
+        brandIconsRoot.path,
+        '--unresolved-baseline',
+        baselineFile.path,
+        '--fail-on-new-unresolved',
+        '--unresolved-output',
+        unresolvedReportFile.path,
+        '--output',
+        outputFile.path,
+      ]);
+
+      final decoded =
+          jsonDecode(unresolvedReportFile.readAsStringSync())
+              as Map<String, dynamic>;
+      expect(decoded['newUnresolvedCount'], 0);
+      expect(decoded['newUnresolved'], <dynamic>[]);
+    });
+
+    test('throws when unresolved icons regress against baseline', () async {
+      final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+        ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "label outline".
+  static const IconData label_outline = IconData(0xe364, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "adobe".
+  static const IconData adobe = IconData(0xf04b9, fontFamily: 'MaterialIcons');
+}
+''');
+
+      final materialIconsRoot = Directory(
+        '${tempDirectory.path}/material-icons',
+      )..createSync(recursive: true);
+      final materialSymbolsRoot = Directory(
+        '${tempDirectory.path}/material-symbols',
+      )..createSync(recursive: true);
+      final brandIconsRoot = Directory('${tempDirectory.path}/simple-icons')
+        ..createSync(recursive: true);
+
+      File('${materialIconsRoot.path}/filled/label.svg')
+        ..createSync(recursive: true)
+        ..writeAsStringSync(
+          '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+        );
+
+      final baselineFile = File('${tempDirectory.path}/baseline-empty.json')
+        ..writeAsStringSync('''
+{
+  "unresolved": []
+}
+''');
+      final unresolvedReportFile = File(
+        '${tempDirectory.path}/unresolved_report.json',
+      );
+      final outputFile = File(
+        '${tempDirectory.path}/material_rough_icons.g.dart',
+      );
+
+      await expectLater(
+        tool.runGenerateRoughIcons(<String>[
+          '--kit',
+          'flutter-material',
+          '--flutter-icons',
+          flutterIconsFile.path,
+          '--material-icons-source',
+          materialIconsRoot.path,
+          '--material-symbols-source',
+          materialSymbolsRoot.path,
+          '--brand-icons-source',
+          brandIconsRoot.path,
+          '--unresolved-baseline',
+          baselineFile.path,
+          '--fail-on-new-unresolved',
+          '--unresolved-output',
+          unresolvedReportFile.path,
+          '--output',
+          outputFile.path,
+        ]),
+        throwsA(isA<StateError>()),
+      );
+
+      final decoded =
+          jsonDecode(unresolvedReportFile.readAsStringSync())
+              as Map<String, dynamic>;
+      expect(decoded['newUnresolvedCount'], 1);
+
+      final newUnresolved = decoded['newUnresolved'] as List<dynamic>;
+      expect(newUnresolved, hasLength(1));
+      final first = newUnresolved.first as Map<String, dynamic>;
+      expect(first['codePoint'], '0xf04b9');
+      expect(first['identifiers'], <String>['adobe']);
+    });
+  });
+
   test(
     'renderFontCodePointsDartForTest renders stable helper names and order',
     () {
