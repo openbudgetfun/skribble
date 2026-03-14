@@ -22,11 +22,16 @@
   whose 5 tests were already covered in `test/widgets/wired_canvas_test.dart`.
 - **`codecov.yml`**: Added project/patch coverage thresholds.
 - **Root README rewrite**: Badges, stats table, package/app tables.
+- **SECURITY.md**: Vulnerability reporting policy.
+- **Storybook page tests**: +6 `ComponentShowcase` assertions (all pages ≥ 7).
+- **`pumpApp` migration**: 21 more raw `MaterialApp` wrappers converted.
+- **Example app**: Expanded to showcase 19 widget types.
+- **WiredTheme tests**: +15 tests verifying widgets render within theme.
 
 ### Stats
 
 - 1,016 library tests (872 widget + 138 rough + 6 smoke)
-- 58 storybook tests (50 page + 8 golden)
+- 64 storybook tests (56 page + 8 golden)
 - **1,080 total tests**
 - 0 `dart analyze` issues, 0 `dart doc` warnings
 
