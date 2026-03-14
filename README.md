@@ -30,7 +30,7 @@ dart pub get
 # Run analysis (zero issues required)
 melos analyze
 
-# Run all tests (1,050 total)
+# Run all tests (1,059 total)
 melos flutter-test
 
 # Format
@@ -53,11 +53,11 @@ test:coverage   # Generate lcov coverage
 
 | Metric | Value |
 |---|---|
-| Widget tests | 848 |
+| Widget tests | 857 |
 | Rough engine tests | 138 |
 | Smoke tests | 6 |
 | Storybook tests | 58 |
-| **Total tests** | **1,050** |
+| **Total tests** | **1,059** |
 | `dart analyze` | 0 issues |
 | `dart doc` | 0 warnings |
 
