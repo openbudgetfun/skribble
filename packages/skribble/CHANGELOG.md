@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.3.4
+
+### Quality & Tooling
+
+- **`.editorconfig`**: UTF-8, LF line endings, 2-space indent.
+- **SECURITY.md**: Vulnerability reporting policy.
+- **Rough engine tests**: +6 `RoughDrawingStyle` and `RoughBoxShape` tests.
+- **Storybook page tests**: All pages ≥ 7 tests (56 page + 8 golden = 64).
+- **pumpApp migration**: 21 more raw `MaterialApp` wrappers converted.
+- **WiredTheme tests**: +15 tests verifying widgets render within theme.
+- **Example app**: Expanded to showcase 19 widget types.
+
+### Stats
+
+- 1,022 library tests (872 widget + 144 rough + 6 smoke)
+- 64 storybook tests (56 page + 8 golden)
+- **1,086 total tests**
+- 0 `dart analyze` issues, 0 `dart doc` warnings
+
 ## 0.3.3
 
 ### Accessibility
