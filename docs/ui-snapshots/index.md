@@ -13,6 +13,7 @@ Each category page documents the screenshot artifacts produced by the integratio
 - [Feedback](./feedback.md) - `feedback/feedback` + widget snapshots
 - [Layout](./layout.md) - `layout/layout` + widget snapshots
 - [Data Display](./data-display.md) - `data-display/data-display` + widget snapshots
+- [Rough Icons](./rough-icons.md) - `rough-icons/rough-icons` generated icon catalog snapshot
 
 ## Screenshot Hosting
 
