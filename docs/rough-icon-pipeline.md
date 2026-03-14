@@ -14,6 +14,7 @@ Compatibility alias (backward compatible):
 2. Resolves source SVGs from:
    - `@material-design-icons/svg`
    - `@material-symbols/svg-400`
+   - optional brand fallback from `simple-icons` (for names missing in Material SVG packages)
 3. Normalizes source SVGs to a large viewBox (`--rough-normalize-viewbox`, default `128`).
 4. Runs `svg2roughjs` through a Deno TypeScript wrapper script:
    - `packages/skribble/tool/deno/svg2roughjs_cli.ts`
@@ -84,6 +85,14 @@ To add another icon kit, implement a provider that:
 - resolves a declaration to SVG source + parsed icon metadata (`resolveIcon`)
 
 The roughing and font stages remain unchanged.
+
+## Brand icon fallback source
+
+When a Flutter Material icon identifier does not exist in Material SVG packages
+(e.g. social/brand icons), the CLI can also resolve from `simple-icons`.
+
+- Auto mode (default): tries `npm pack simple-icons` best-effort.
+- Manual source override: `--brand-icons-source <path>`.
 
 ## Runtime prerequisites
 

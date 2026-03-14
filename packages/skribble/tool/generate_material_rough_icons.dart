@@ -14,6 +14,7 @@ const _kDefaultRoughCliPath = 'tool/deno/svg2roughjs_cli.ts';
 const _kDefaultRoughCliRunner = 'deno';
 const _kDefaultFontGeneratorExecutable = 'npx';
 const _kDefaultFontGeneratorPackage = 'fantasticon';
+const _kDefaultBrandIconsPackage = 'simple-icons';
 const _kDefaultFontName = 'material_rough_icons';
 const _kSupportedKitDescriptions = <String, String>{
   _kDefaultKit:
@@ -167,6 +168,7 @@ Options:
   --flutter-icons <path>           Path to Flutter material icons.dart.
   --material-icons-source <path>   Path to extracted @material-design-icons/svg package.
   --material-symbols-source <path> Path to extracted @material-symbols/svg-400 package.
+  --brand-icons-source <path>      Path to extracted simple-icons package (brand fallback).
   --output <path>                  Output Dart file.
   --rough-cli <path>               TypeScript script that converts SVG(s) (default: tool/deno/svg2roughjs_cli.ts).
   --rough-cli-runner <exe>         Runner executable for --rough-cli (default: deno).
@@ -212,6 +214,7 @@ final class _ScriptOptions {
     this.flutterIconsPath,
     this.materialIconsSourcePath,
     this.materialSymbolsSourcePath,
+    this.brandIconsSourcePath,
     this.outputPath,
     this.roughCliPath,
     this.roughCliRunner = _kDefaultRoughCliRunner,
@@ -234,6 +237,7 @@ final class _ScriptOptions {
   final String? flutterIconsPath;
   final String? materialIconsSourcePath;
   final String? materialSymbolsSourcePath;
+  final String? brandIconsSourcePath;
   final String? outputPath;
   final String? roughCliPath;
   final String roughCliRunner;
@@ -256,6 +260,7 @@ final class _ScriptOptions {
     String? flutterIconsPath;
     String? materialIconsSourcePath;
     String? materialSymbolsSourcePath;
+    String? brandIconsSourcePath;
     String? outputPath;
     String? roughCliPath;
     var roughCliRunner = _kDefaultRoughCliRunner;
@@ -319,6 +324,8 @@ final class _ScriptOptions {
           materialIconsSourcePath = value;
         case '--material-symbols-source':
           materialSymbolsSourcePath = value;
+        case '--brand-icons-source':
+          brandIconsSourcePath = value;
         case '--output':
           outputPath = value;
         case '--rough-cli':
@@ -352,6 +359,7 @@ final class _ScriptOptions {
       flutterIconsPath: flutterIconsPath,
       materialIconsSourcePath: materialIconsSourcePath,
       materialSymbolsSourcePath: materialSymbolsSourcePath,
+      brandIconsSourcePath: brandIconsSourcePath,
       outputPath: outputPath,
       roughCliPath: roughCliPath,
       roughCliRunner: roughCliRunner,
@@ -435,6 +443,31 @@ Future<Directory> _resolvePackageRoot({
   return Directory('${tempDirectory.path}/package');
 }
 
+Future<Directory?> _resolveOptionalPackageRoot({
+  required String packageName,
+  required String? suppliedPath,
+}) async {
+  if (suppliedPath != null) {
+    return _resolvePackageRoot(
+      packageName: packageName,
+      suppliedPath: suppliedPath,
+    );
+  }
+
+  try {
+    return await _resolvePackageRoot(
+      packageName: packageName,
+      suppliedPath: suppliedPath,
+    );
+  } on Object catch (error) {
+    stderr.writeln(
+      'Warning: Optional package "$packageName" could not be resolved. '
+      'Continuing without this fallback source.\n$error',
+    );
+    return null;
+  }
+}
+
 Future<
   IconKitProvider<
     _FlutterIconDeclaration,
@@ -460,11 +493,16 @@ _createProvider(_ScriptOptions options) async {
         packageName: '@material-symbols/svg-400',
         suppliedPath: options.materialSymbolsSourcePath,
       );
+      final brandIconsRoot = await _resolveOptionalPackageRoot(
+        packageName: _kDefaultBrandIconsPackage,
+        suppliedPath: options.brandIconsSourcePath,
+      );
 
       return _MaterialIconKitProvider(
         flutterIconsFile: flutterIconsFile,
         materialIconsRoot: materialIconsRoot,
         materialSymbolsRoot: materialSymbolsRoot,
+        brandIconsRoot: brandIconsRoot,
       );
     case _kManifestKit:
       final manifestPath = options.manifestPath;
@@ -717,11 +755,13 @@ final class _MaterialIconKitProvider
     required this.flutterIconsFile,
     required this.materialIconsRoot,
     required this.materialSymbolsRoot,
+    this.brandIconsRoot,
   });
 
   final File flutterIconsFile;
   final Directory materialIconsRoot;
   final Directory materialSymbolsRoot;
+  final Directory? brandIconsRoot;
 
   @override
   Future<List<_FlutterIconDeclaration>> loadDeclarations() async {
@@ -736,6 +776,7 @@ final class _MaterialIconKitProvider
       declaration,
       materialIconsRoot: materialIconsRoot,
       materialSymbolsRoot: materialSymbolsRoot,
+      brandIconsRoot: brandIconsRoot,
     );
   }
 }
@@ -833,6 +874,7 @@ ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
   _FlutterIconDeclaration declaration, {
   required Directory materialIconsRoot,
   required Directory materialSymbolsRoot,
+  required Directory? brandIconsRoot,
 }) {
   final candidates = <String>{
     declaration.svgName,
@@ -866,10 +908,39 @@ ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
         );
       }
     }
+
+    if (brandIconsRoot case final root?) {
+      final brandFile = _resolveBrandIconSvgFile(root, candidate);
+      if (brandFile != null && brandFile.existsSync()) {
+        return ResolvedSvgCandidate<_GeneratedIconData>(
+          data: _parseSvgIcon(brandFile),
+          sourcePath: brandFile.path,
+        );
+      }
+    }
   }
 
   return null;
 }
+
+File? _resolveBrandIconSvgFile(Directory brandIconsRoot, String identifier) {
+  final slug = _brandIconAliases[identifier] ?? identifier;
+  final iconDirectoryCandidate = File('${brandIconsRoot.path}/icons/$slug.svg');
+  if (iconDirectoryCandidate.existsSync()) {
+    return iconDirectoryCandidate;
+  }
+
+  final rootCandidate = File('${brandIconsRoot.path}/$slug.svg');
+  if (rootCandidate.existsSync()) {
+    return rootCandidate;
+  }
+
+  return null;
+}
+
+const Map<String, String> _brandIconAliases = <String, String>{
+  'woo_commerce': 'woocommerce',
+};
 
 const Map<String, List<String>> _svgAliases = <String, List<String>>{
   'airplanemode_off': <String>['airplanemode_inactive'],
