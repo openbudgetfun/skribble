@@ -196,7 +196,12 @@ Workspace shortcuts:
 ```bash
 melos run rough-icons
 melos run rough-icons-font
+melos run rough-icons-baseline
 ```
+
+`rough-icons` and `rough-icons-font` both enforce unresolved regression gating
+via `--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json`
+plus `--fail-on-new-unresolved`.
 
 Useful flags:
 
