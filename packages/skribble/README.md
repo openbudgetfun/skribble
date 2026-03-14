@@ -206,6 +206,7 @@ Useful flags:
 - `--rough-normalize-viewbox 128` to upscale SVG geometry before roughing.
 - `--brand-icons-source <path>` to provide a local `simple-icons` package as fallback for brand identifiers missing in Material SVG packages.
 - `--supplemental-manifest <path>` to provide custom SVGs for unresolved `flutter-material` identifiers/codepoints.
+- `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring.
 - `--font-name skribble_rough_icons` to customize generated font family name.
 - `--font-dart-output <path>` to emit Dart lookup helpers for generated font codepoints.
 - `CHROME_PATH=/path/to/chrome` if Chromium/Chrome is not in a standard location.

@@ -24,6 +24,7 @@ Compatibility alias (backward compatible):
    - emits rough SVG files (`--rough-output-dir`)
    - generates icon fonts with `fantasticon` (`--font-output-dir`)
    - emits Dart helpers for generated icon fonts (`--font-dart-output`)
+   - emits unresolved icon reports as JSON (`--unresolved-output`)
 
 ## Extensibility seam
 
@@ -104,6 +105,19 @@ packages and brand fallback packages, pass a custom manifest file:
 This uses the same JSON schema as `--kit svg-manifest` (`identifier`,
 `codePoint`, `svgPath`) and is applied as a fallback during
 `--kit flutter-material` resolution.
+
+## Unresolved report output
+
+To emit a machine-readable unresolved report for follow-up work, pass:
+
+- `--unresolved-output <path>`
+
+The JSON report includes:
+
+- `kit`
+- `resolvedCount`
+- `unresolvedCount`
+- `unresolved[]` entries with `codePoint` and `identifiers`
 
 ## Runtime prerequisites
 

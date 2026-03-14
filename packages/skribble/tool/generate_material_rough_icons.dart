@@ -135,6 +135,21 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     );
   }
 
+  if (options.unresolvedOutputPath case final unresolvedOutputPath?) {
+    final unresolvedOutputFile = File(unresolvedOutputPath)
+      ..createSync(recursive: true);
+    unresolvedOutputFile.writeAsStringSync(
+      _renderUnresolvedReportJson(
+        kit: options.kit,
+        resolvedCount: icons.length,
+        unresolved: unresolved,
+      ),
+    );
+    stdout.writeln(
+      'Generated unresolved icon report to ${unresolvedOutputFile.path}',
+    );
+  }
+
   if (unresolved.isEmpty) {
     return;
   }
@@ -170,6 +185,7 @@ Options:
   --material-symbols-source <path> Path to extracted @material-symbols/svg-400 package.
   --brand-icons-source <path>      Path to extracted simple-icons package (brand fallback).
   --supplemental-manifest <path>   JSON manifest for unresolved flutter-material icons.
+  --unresolved-output <path>       Emit unresolved icon codepoint report as JSON.
   --output <path>                  Output Dart file.
   --rough-cli <path>               TypeScript script that converts SVG(s) (default: tool/deno/svg2roughjs_cli.ts).
   --rough-cli-runner <exe>         Runner executable for --rough-cli (default: deno).
@@ -217,6 +233,7 @@ final class _ScriptOptions {
     this.materialSymbolsSourcePath,
     this.brandIconsSourcePath,
     this.supplementalManifestPath,
+    this.unresolvedOutputPath,
     this.outputPath,
     this.roughCliPath,
     this.roughCliRunner = _kDefaultRoughCliRunner,
@@ -241,6 +258,7 @@ final class _ScriptOptions {
   final String? materialSymbolsSourcePath;
   final String? brandIconsSourcePath;
   final String? supplementalManifestPath;
+  final String? unresolvedOutputPath;
   final String? outputPath;
   final String? roughCliPath;
   final String roughCliRunner;
@@ -265,6 +283,7 @@ final class _ScriptOptions {
     String? materialSymbolsSourcePath;
     String? brandIconsSourcePath;
     String? supplementalManifestPath;
+    String? unresolvedOutputPath;
     String? outputPath;
     String? roughCliPath;
     var roughCliRunner = _kDefaultRoughCliRunner;
@@ -332,6 +351,8 @@ final class _ScriptOptions {
           brandIconsSourcePath = value;
         case '--supplemental-manifest':
           supplementalManifestPath = value;
+        case '--unresolved-output':
+          unresolvedOutputPath = value;
         case '--output':
           outputPath = value;
         case '--rough-cli':
@@ -367,6 +388,7 @@ final class _ScriptOptions {
       materialSymbolsSourcePath: materialSymbolsSourcePath,
       brandIconsSourcePath: brandIconsSourcePath,
       supplementalManifestPath: supplementalManifestPath,
+      unresolvedOutputPath: unresolvedOutputPath,
       outputPath: outputPath,
       roughCliPath: roughCliPath,
       roughCliRunner: roughCliRunner,
@@ -1219,6 +1241,28 @@ String _renderGeneratedFile(List<_GeneratedIcon> icons) {
     ..writeln();
 
   return buffer.toString();
+}
+
+String _renderUnresolvedReportJson({
+  required String kit,
+  required int resolvedCount,
+  required List<_UnresolvedIcon> unresolved,
+}) {
+  final report = <String, Object>{
+    'kit': kit,
+    'resolvedCount': resolvedCount,
+    'unresolvedCount': unresolved.length,
+    'unresolved': unresolved
+        .map(
+          (item) => <String, Object>{
+            'codePoint': '0x${item.codePoint.toRadixString(16)}',
+            'identifiers': item.identifiers,
+          },
+        )
+        .toList(growable: false),
+  };
+
+  return const JsonEncoder.withIndent('  ').convert(report);
 }
 
 String renderFontCodePointsDartForTest({
