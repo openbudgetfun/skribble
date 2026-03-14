@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn M3-style navigation drawer with destination items.
@@ -158,10 +159,12 @@ class _WiredDrawerItem extends HookWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
-                  Icon(
-                    isSelected ? (selectedIcon ?? icon) : icon,
+                  WiredIcon(
+                    icon: isSelected ? (selectedIcon ?? icon) : icon,
                     size: 22,
                     color: isSelected ? Colors.white : theme.textColor,
+                    fillStyle: WiredIconFillStyle.solid,
+                    strokeWidth: 1.2,
                   ),
                   const SizedBox(width: 12),
                   Expanded(

@@ -4,6 +4,13 @@ import 'package:skribble/skribble.dart';
 
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   Widget buildSubject({
     Color selectedColor = Colors.blue,
@@ -60,7 +67,7 @@ void main() {
       await tester.pumpWidget(
         buildSubject(selectedColor: Colors.blue, onColorChanged: (_) {}),
       );
-      expect(find.byIcon(Icons.check), findsOneWidget);
+      expect(findWiredIcon(Icons.check), findsOneWidget);
     });
 
     testWidgets('does not call callback when disabled', (tester) async {
@@ -101,7 +108,7 @@ void main() {
           },
         ),
       );
-      expect(find.byIcon(Icons.check), findsOneWidget);
+      expect(findWiredIcon(Icons.check), findsOneWidget);
     });
   });
 }

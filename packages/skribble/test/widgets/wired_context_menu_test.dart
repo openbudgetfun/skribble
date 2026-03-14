@@ -4,6 +4,13 @@ import 'package:skribble/skribble.dart';
 
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredContextMenu', () {
     testWidgets('renders child', (tester) async {
@@ -127,8 +134,8 @@ void main() {
       await tester.longPress(find.text('Press me'));
       await tester.pumpAndSettle();
 
-      expect(find.byIcon(Icons.edit), findsOneWidget);
-      expect(find.byIcon(Icons.share), findsOneWidget);
+      expect(findWiredIcon(Icons.edit), findsOneWidget);
+      expect(findWiredIcon(Icons.share), findsOneWidget);
     });
 
     testWidgets('contains RepaintBoundary', (tester) async {
@@ -151,10 +158,7 @@ void main() {
             child: Scaffold(
               body: WiredContextMenu(
                 actions: [
-                  WiredContextMenuAction(
-                    label: 'Action',
-                    onPressed: () {},
-                  ),
+                  WiredContextMenuAction(label: 'Action', onPressed: () {}),
                 ],
                 child: const Text('Long press me'),
               ),

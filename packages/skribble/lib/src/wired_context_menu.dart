@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn context menu, corresponding to `CupertinoContextMenu`.
@@ -114,12 +115,14 @@ class _WiredContextMenuOverlay extends HookWidget {
                                 child: Row(
                                   children: [
                                     if (actions[i].icon != null) ...[
-                                      Icon(
-                                        actions[i].icon,
+                                      WiredIcon(
+                                        icon: actions[i].icon!,
                                         size: 18,
                                         color: actions[i].isDestructive
                                             ? Colors.red
                                             : theme.textColor,
+                                        fillStyle: WiredIconFillStyle.solid,
+                                        strokeWidth: 1.2,
                                       ),
                                       const SizedBox(width: 10),
                                     ],

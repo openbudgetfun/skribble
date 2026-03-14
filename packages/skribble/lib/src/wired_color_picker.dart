@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn color picker with a grid of selectable color swatches.
@@ -135,7 +136,13 @@ class _ColorSwatch extends HookWidget {
             ),
             // Check mark for selected
             if (isSelected)
-              Icon(Icons.check, color: _contrastColor(color), size: size * 0.5),
+              WiredIcon(
+                icon: Icons.check,
+                color: _contrastColor(color),
+                size: size * 0.5,
+                fillStyle: WiredIconFillStyle.solid,
+                strokeWidth: 1.2,
+              ),
           ],
         ),
       ),
