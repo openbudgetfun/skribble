@@ -207,6 +207,7 @@ Useful flags:
 - `--brand-icons-source <path>` to provide a local `simple-icons` package as fallback for brand identifiers missing in Material SVG packages.
 - `--supplemental-manifest <path>` to provide custom SVGs for unresolved `flutter-material` identifiers/codepoints.
 - `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring.
+- `--fail-on-unresolved` to make the command exit non-zero if unresolved icons remain.
 - `--font-name skribble_rough_icons` to customize generated font family name.
 - `--font-dart-output <path>` to emit Dart lookup helpers for generated font codepoints.
 - `CHROME_PATH=/path/to/chrome` if Chromium/Chrome is not in a standard location.
