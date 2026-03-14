@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../tool/generate_material_rough_icons.dart' as tool;
 
 void main() {
-  test('supportedIconKitsForTest includes flutter-material', () {
-    expect(tool.supportedIconKitsForTest(), contains('flutter-material'));
+  test('supportedIconKitsForTest includes built-in providers', () {
+    final kits = tool.supportedIconKitsForTest();
+    expect(kits, contains('flutter-material'));
+    expect(kits, contains('svg-manifest'));
   });
 
   group('parseFlutterIconDeclarationsForTest', () {
@@ -73,6 +77,68 @@ class Icons {
       expect(declarations[1].oldPackageFolder, 'sharp');
       expect(declarations[1].symbolPackageFolder, 'sharp');
       expect(declarations[1].useSymbolFillVariant, isTrue);
+    });
+  });
+
+  group('parseSvgManifestDeclarationsForTest', () {
+    late Directory tempDirectory;
+
+    setUp(() {
+      tempDirectory = Directory.systemTemp.createTempSync(
+        'rough-icon-manifest-test-',
+      );
+    });
+
+    tearDown(() {
+      tempDirectory.deleteSync(recursive: true);
+    });
+
+    test('parses object format and resolves relative svgPath', () {
+      final iconsDirectory = Directory('${tempDirectory.path}/icons')
+        ..createSync(recursive: true);
+      final heartSvgFile = File('${iconsDirectory.path}/heart.svg')
+        ..writeAsStringSync(
+          '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+        );
+
+      final parsed = tool.parseSvgManifestDeclarationsForTest('''
+{
+  "icons": [
+    {
+      "identifier": "heart",
+      "codePoint": "0xe001",
+      "svgPath": "icons/heart.svg"
+    }
+  ]
+}
+''', manifestDirectoryPath: tempDirectory.path);
+
+      expect(parsed, hasLength(1));
+      expect(parsed.single.identifier, 'heart');
+      expect(parsed.single.codePoint, 0xe001);
+      expect(parsed.single.svgPath, heartSvgFile.path);
+    });
+
+    test('parses list format and supports svg alias key', () {
+      final starSvgFile = File('${tempDirectory.path}/star.svg')
+        ..writeAsStringSync(
+          '<svg viewBox="0 0 24 24"><path d="M2 2h20v20H2z"/></svg>',
+        );
+
+      final parsed = tool.parseSvgManifestDeclarationsForTest('''
+[
+  {
+    "identifier": "star",
+    "codePoint": 57346,
+    "svg": "star.svg"
+  }
+]
+''', manifestDirectoryPath: tempDirectory.path);
+
+      expect(parsed, hasLength(1));
+      expect(parsed.single.identifier, 'star');
+      expect(parsed.single.codePoint, 57346);
+      expect(parsed.single.svgPath, starSvgFile.path);
     });
   });
 }
