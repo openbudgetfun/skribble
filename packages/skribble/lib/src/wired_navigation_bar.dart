@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A navigation bar destination.
@@ -101,10 +102,12 @@ class WiredNavigationBar extends HookWidget {
                       fillerConfig: FillerConfig.build(hachureGap: 2.0),
                     ),
                   ),
-                Icon(
-                  selected ? (dest.selectedIcon ?? dest.icon) : dest.icon,
+                WiredIcon(
+                  icon: selected ? (dest.selectedIcon ?? dest.icon) : dest.icon,
                   color: selected ? theme.fillColor : theme.disabledTextColor,
                   size: 24,
+                  fillStyle: WiredIconFillStyle.solid,
+                  strokeWidth: 1.2,
                 ),
               ],
             ),

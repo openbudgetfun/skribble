@@ -5,6 +5,13 @@ import 'package:skribble/skribble.dart';
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredNavigationRail', () {
     const testDestinations = [
@@ -58,8 +65,9 @@ void main() {
         ),
       );
 
-      expect(find.byIcon(Icons.home), findsOneWidget);
-      expect(find.byIcon(Icons.search), findsOneWidget);
+      expect(find.byType(WiredIcon), findsNWidgets(3));
+      expect(findWiredIcon(Icons.home), findsOneWidget);
+      expect(findWiredIcon(Icons.search), findsOneWidget);
     });
 
     testWidgets('default selectedIndex is 0', (tester) async {
@@ -209,7 +217,7 @@ void main() {
       );
 
       // Profile destination has selectedIcon: Icons.person.
-      expect(find.byIcon(Icons.person), findsOneWidget);
+      expect(findWiredIcon(Icons.person), findsOneWidget);
     });
 
     testWidgets('uses regular icon when item is not selected', (tester) async {
@@ -227,7 +235,7 @@ void main() {
       );
 
       // Profile (index 2) is not selected, so it uses person_outline.
-      expect(find.byIcon(Icons.person_outline), findsOneWidget);
+      expect(findWiredIcon(Icons.person_outline), findsOneWidget);
     });
 
     testWidgets('renders leading widget', (tester) async {
