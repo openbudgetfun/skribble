@@ -153,6 +153,20 @@ Baseline input supports either:
 
 This is useful in CI while tightening coverage incrementally.
 
+Workspace defaults:
+
+- `melos run rough-icons`
+- `melos run rough-icons-font`
+
+both enforce `--fail-on-new-unresolved` against
+`packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`.
+
+To refresh that baseline after intentional coverage changes:
+
+```bash
+melos run rough-icons-baseline
+```
+
 ## Runtime prerequisites
 
 - `deno` available on PATH
