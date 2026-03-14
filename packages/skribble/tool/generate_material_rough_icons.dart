@@ -577,9 +577,42 @@ List<_ManifestIconEntry> _parseSvgManifest(
     );
   }
 
-  return entries
+  final parsedEntries = entries
       .map((item) => _parseManifestIconEntry(item, manifestDirectory))
       .toList(growable: false);
+
+  _validateManifestEntries(parsedEntries);
+  return parsedEntries;
+}
+
+void _validateManifestEntries(List<_ManifestIconEntry> entries) {
+  final seenIdentifiers = <String>{};
+  final duplicateIdentifiers = <String>{};
+
+  final seenCodePoints = <int>{};
+  final duplicateCodePoints = <int>{};
+
+  for (final entry in entries) {
+    if (!seenIdentifiers.add(entry.identifier)) {
+      duplicateIdentifiers.add(entry.identifier);
+    }
+    if (!seenCodePoints.add(entry.codePoint)) {
+      duplicateCodePoints.add(entry.codePoint);
+    }
+  }
+
+  if (duplicateIdentifiers.isEmpty && duplicateCodePoints.isEmpty) {
+    return;
+  }
+
+  final details = <String>[
+    if (duplicateIdentifiers.isNotEmpty)
+      'duplicate identifiers: ${duplicateIdentifiers.join(', ')}',
+    if (duplicateCodePoints.isNotEmpty)
+      'duplicate codePoints: ${duplicateCodePoints.map((codePoint) => '0x${codePoint.toRadixString(16)}').join(', ')}',
+  ];
+
+  throw FormatException('Invalid manifest entries: ${details.join('; ')}');
 }
 
 _ManifestIconEntry _parseManifestIconEntry(

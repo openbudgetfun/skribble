@@ -171,5 +171,71 @@ class Icons {
       expect(parsed.single.codePoint, 57346);
       expect(parsed.single.svgPath, starSvgFile.path);
     });
+
+    test('throws when identifiers are duplicated', () {
+      File('${tempDirectory.path}/one.svg').writeAsStringSync(
+        '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+      );
+      File('${tempDirectory.path}/two.svg').writeAsStringSync(
+        '<svg viewBox="0 0 24 24"><path d="M2 2h20v20H2z"/></svg>',
+      );
+
+      expect(
+        () => tool.parseSvgManifestDeclarationsForTest('''
+[
+  {
+    "identifier": "dup",
+    "codePoint": "0xe001",
+    "svgPath": "one.svg"
+  },
+  {
+    "identifier": "dup",
+    "codePoint": "0xe002",
+    "svgPath": "two.svg"
+  }
+]
+''', manifestDirectoryPath: tempDirectory.path),
+        throwsA(
+          isA<FormatException>().having(
+            (error) => error.message,
+            'message',
+            contains('duplicate identifiers'),
+          ),
+        ),
+      );
+    });
+
+    test('throws when codePoints are duplicated', () {
+      File('${tempDirectory.path}/one.svg').writeAsStringSync(
+        '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+      );
+      File('${tempDirectory.path}/two.svg').writeAsStringSync(
+        '<svg viewBox="0 0 24 24"><path d="M2 2h20v20H2z"/></svg>',
+      );
+
+      expect(
+        () => tool.parseSvgManifestDeclarationsForTest('''
+[
+  {
+    "identifier": "alpha",
+    "codePoint": "0xe001",
+    "svgPath": "one.svg"
+  },
+  {
+    "identifier": "beta",
+    "codePoint": "0xe001",
+    "svgPath": "two.svg"
+  }
+]
+''', manifestDirectoryPath: tempDirectory.path),
+        throwsA(
+          isA<FormatException>().having(
+            (error) => error.message,
+            'message',
+            contains('duplicate codePoints'),
+          ),
+        ),
+      );
+    });
   });
 }
