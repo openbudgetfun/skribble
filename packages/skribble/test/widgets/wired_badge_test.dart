@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -31,7 +32,7 @@ void main() {
       );
 
       expect(find.byType(WiredBadge), findsOneWidget);
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('hides badge indicator when isVisible is false', (
@@ -45,10 +46,7 @@ void main() {
       expect(find.byIcon(Icons.mail), findsOneWidget);
       expect(find.text('3'), findsNothing);
       expect(
-        find.descendant(
-          of: find.byType(WiredBadge),
-          matching: find.byType(WiredCanvas),
-        ),
+        find.descendant(of: find.byType(WiredBadge), matching: findWiredCanvas),
         findsNothing,
       );
     });
@@ -167,10 +165,7 @@ void main() {
       );
 
       expect(
-        find.descendant(
-          of: find.byType(WiredBadge),
-          matching: find.byType(WiredCanvas),
-        ),
+        find.descendant(of: find.byType(WiredBadge), matching: findWiredCanvas),
         findsOneWidget,
       );
     });

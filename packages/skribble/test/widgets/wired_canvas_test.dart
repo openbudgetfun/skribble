@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -15,8 +16,8 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredCanvas), findsOneWidget);
-      expect(find.byType(CustomPaint), findsWidgets);
+      expect(findWiredCanvas, findsOneWidget);
+      expect(findCustomPaint, findsWidgets);
     });
 
     testWidgets('renders with hachure filler', (tester) async {
@@ -32,7 +33,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('accepts explicit size parameter', (tester) async {
@@ -45,7 +46,7 @@ void main() {
         ),
       );
 
-      final canvas = tester.widget<WiredCanvas>(find.byType(WiredCanvas));
+      final canvas = tester.widget<WiredCanvas>(findWiredCanvas);
       expect(canvas.size, const Size(200, 100));
     });
 
@@ -62,7 +63,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('renders with line painter', (tester) async {
@@ -78,7 +79,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('renders with rounded rectangle painter', (tester) async {
@@ -96,7 +97,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('renders with custom draw config', (tester) async {
@@ -113,7 +114,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('renders with custom filler config', (tester) async {
@@ -130,7 +131,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('each RoughFilter type renders without error', (tester) async {
@@ -147,11 +148,7 @@ void main() {
           ),
         );
 
-        expect(
-          find.byType(WiredCanvas),
-          findsOneWidget,
-          reason: 'Failed for $filter',
-        );
+        expect(findWiredCanvas, findsOneWidget, reason: 'Failed for $filter');
       }
     });
 
@@ -168,7 +165,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
   });
 

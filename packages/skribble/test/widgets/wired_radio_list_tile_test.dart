@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -162,7 +163,7 @@ void main() {
       // When selected, WiredRadio renders an additional filled inner circle.
       final canvasWidgets = find.descendant(
         of: find.byType(WiredRadio<String>),
-        matching: find.byType(WiredCanvas),
+        matching: findWiredCanvas,
       );
       expect(canvasWidgets, findsAtLeast(2));
     });
@@ -182,7 +183,7 @@ void main() {
       // When not selected, WiredRadio renders only the outer circle.
       final canvasWidgets = find.descendant(
         of: find.byType(WiredRadio<String>),
-        matching: find.byType(WiredCanvas),
+        matching: findWiredCanvas,
       );
       expect(canvasWidgets, findsOneWidget);
     });
@@ -224,10 +225,7 @@ void main() {
       // WiredCanvas widgets under WiredListTile. With showDivider=true
       // there should be more than with showDivider=false.
       final canvasCount = find
-          .descendant(
-            of: find.byType(WiredListTile),
-            matching: find.byType(WiredCanvas),
-          )
+          .descendant(of: find.byType(WiredListTile), matching: findWiredCanvas)
           .evaluate()
           .length;
 
@@ -252,10 +250,7 @@ void main() {
       // WiredRadio renders 1 WiredCanvas (outer circle, not selected).
       // With showDivider=false, no additional divider canvas is present.
       final canvasCount = find
-          .descendant(
-            of: find.byType(WiredListTile),
-            matching: find.byType(WiredCanvas),
-          )
+          .descendant(of: find.byType(WiredListTile), matching: findWiredCanvas)
           .evaluate()
           .length;
 
