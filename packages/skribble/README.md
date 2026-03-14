@@ -190,6 +190,13 @@ dart run tool/generate_material_rough_icons.dart \
   --font-output-dir tool/icon_exports/font
 ```
 
+Workspace shortcuts:
+
+```bash
+melos run rough-icons
+melos run rough-icons-font
+```
+
 Useful flags:
 
 - `--rough-only` to skip Dart map generation and emit rough SVGs only.
@@ -206,6 +213,7 @@ conventions, testing requirements, and quality gates.
 
 - [Parity Matrix](docs/ui-snapshots/parity-matrix.md) — coverage vs Flutter defaults
 - [Screenshot Manifest](docs/ui-snapshots/screenshot-manifest.txt) — all visual snapshots
+- [Rough Icon Pipeline](../../docs/rough-icon-pipeline.md) — icon generation and font tooling
 - [CHANGELOG](CHANGELOG.md) — release history
 
 ## License
