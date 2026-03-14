@@ -41,28 +41,34 @@ void main() {
 
   group('WiredDataTable', () {
     testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Name')),
-                WiredDataColumn(label: Text('Age')),
-              ],
-              rows: const [
-                WiredDataRow(cells: [Text('Alice'), Text('30')]),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [
+            WiredDataColumn(label: Text('Name')),
+            WiredDataColumn(label: Text('Age')),
+          ],
+          rows: const [
+            WiredDataRow(cells: [Text('Alice'), Text('30')]),
+          ],
+        ),
+      );
 
       expect(find.byType(WiredDataTable), findsOneWidget);
     });
 
     testWidgets('renders column headers', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Name')),
-                WiredDataColumn(label: Text('Email')),
-                WiredDataColumn(label: Text('Role')),
-              ],
-              rows: const [],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [
+            WiredDataColumn(label: Text('Name')),
+            WiredDataColumn(label: Text('Email')),
+            WiredDataColumn(label: Text('Role')),
+          ],
+          rows: const [],
+        ),
+      );
 
       expect(find.text('Name'), findsOneWidget);
       expect(find.text('Email'), findsOneWidget);
@@ -70,16 +76,19 @@ void main() {
     });
 
     testWidgets('renders row cell data', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('Name')),
-                WiredDataColumn(label: Text('Value')),
-              ],
-              rows: const [
-                WiredDataRow(cells: [Text('Item 1'), Text('100')]),
-                WiredDataRow(cells: [Text('Item 2'), Text('200')]),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [
+            WiredDataColumn(label: Text('Name')),
+            WiredDataColumn(label: Text('Value')),
+          ],
+          rows: const [
+            WiredDataRow(cells: [Text('Item 1'), Text('100')]),
+            WiredDataRow(cells: [Text('Item 2'), Text('200')]),
+          ],
+        ),
+      );
 
       expect(find.text('Item 1'), findsOneWidget);
       expect(find.text('100'), findsOneWidget);
@@ -90,15 +99,18 @@ void main() {
     testWidgets('calls row onTap callback when row is tapped', (tester) async {
       var tapped = false;
 
-      await pumpApp(tester, WiredDataTable(
-              columns: const [WiredDataColumn(label: Text('Name'))],
-              rows: [
-                WiredDataRow(
-                  cells: const [Text('Tappable row')],
-                  onTap: () => tapped = true,
-                ),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [WiredDataColumn(label: Text('Name'))],
+          rows: [
+            WiredDataRow(
+              cells: const [Text('Tappable row')],
+              onTap: () => tapped = true,
+            ),
+          ],
+        ),
+      );
 
       await tester.tap(find.text('Tappable row'));
       await tester.pump();
@@ -107,12 +119,15 @@ void main() {
     });
 
     testWidgets('does not crash when row onTap is null', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [WiredDataColumn(label: Text('Name'))],
-              rows: const [
-                WiredDataRow(cells: [Text('No tap row')]),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [WiredDataColumn(label: Text('Name'))],
+          rows: const [
+            WiredDataRow(cells: [Text('No tap row')]),
+          ],
+        ),
+      );
 
       await tester.tap(find.text('No tap row'));
       await tester.pump();
@@ -121,24 +136,30 @@ void main() {
     });
 
     testWidgets('renders with empty rows', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [WiredDataColumn(label: Text('Header'))],
-              rows: const [],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [WiredDataColumn(label: Text('Header'))],
+          rows: const [],
+        ),
+      );
 
       expect(find.text('Header'), findsOneWidget);
       expect(find.byType(WiredDataTable), findsOneWidget);
     });
 
     testWidgets('renders separator lines between rows', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [WiredDataColumn(label: Text('Col'))],
-              rows: const [
-                WiredDataRow(cells: [Text('Row 1')]),
-                WiredDataRow(cells: [Text('Row 2')]),
-                WiredDataRow(cells: [Text('Row 3')]),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [WiredDataColumn(label: Text('Col'))],
+          rows: const [
+            WiredDataRow(cells: [Text('Row 1')]),
+            WiredDataRow(cells: [Text('Row 2')]),
+            WiredDataRow(cells: [Text('Row 3')]),
+          ],
+        ),
+      );
 
       // WiredCanvas instances include:
       // - 1 for the outer rectangle border
@@ -155,12 +176,15 @@ void main() {
     });
 
     testWidgets('renders header separator line', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [WiredDataColumn(label: Text('Header'))],
-              rows: const [
-                WiredDataRow(cells: [Text('Data')]),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [WiredDataColumn(label: Text('Header'))],
+          rows: const [
+            WiredDataRow(cells: [Text('Data')]),
+          ],
+        ),
+      );
 
       // Should have the outer rectangle + header separator line + no row
       // separators (only 1 row).
@@ -174,12 +198,15 @@ void main() {
     });
 
     testWidgets('has RepaintBoundary wrapper', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [WiredDataColumn(label: Text('Col'))],
-              rows: const [
-                WiredDataRow(cells: [Text('Cell')]),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [WiredDataColumn(label: Text('Col'))],
+          rows: const [
+            WiredDataRow(cells: [Text('Cell')]),
+          ],
+        ),
+      );
 
       // WiredDataTable uses buildWiredElement which wraps in RepaintBoundary.
       expect(
@@ -192,12 +219,15 @@ void main() {
     });
 
     testWidgets('uses InkWell for row tap handling', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [WiredDataColumn(label: Text('Col'))],
-              rows: [
-                WiredDataRow(cells: const [Text('Row')], onTap: () {}),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [WiredDataColumn(label: Text('Col'))],
+          rows: [
+            WiredDataRow(cells: const [Text('Row')], onTap: () {}),
+          ],
+        ),
+      );
 
       expect(
         find.descendant(
@@ -209,16 +239,19 @@ void main() {
     });
 
     testWidgets('renders multiple columns in each row', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [
-                WiredDataColumn(label: Text('A')),
-                WiredDataColumn(label: Text('B')),
-                WiredDataColumn(label: Text('C')),
-              ],
-              rows: const [
-                WiredDataRow(cells: [Text('1'), Text('2'), Text('3')]),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [
+            WiredDataColumn(label: Text('A')),
+            WiredDataColumn(label: Text('B')),
+            WiredDataColumn(label: Text('C')),
+          ],
+          rows: const [
+            WiredDataRow(cells: [Text('1'), Text('2'), Text('3')]),
+          ],
+        ),
+      );
 
       expect(find.text('A'), findsOneWidget);
       expect(find.text('B'), findsOneWidget);
@@ -231,12 +264,15 @@ void main() {
     testWidgets('limits cells to column count', (tester) async {
       // When a row has more cells than columns, the extra cells should
       // not be rendered because the loop uses i < columns.length.
-      await pumpApp(tester, WiredDataTable(
-              columns: const [WiredDataColumn(label: Text('Only'))],
-              rows: const [
-                WiredDataRow(cells: [Text('Shown'), Text('Hidden')]),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [WiredDataColumn(label: Text('Only'))],
+          rows: const [
+            WiredDataRow(cells: [Text('Shown'), Text('Hidden')]),
+          ],
+        ),
+      );
 
       expect(find.text('Shown'), findsOneWidget);
       expect(find.text('Hidden'), findsNothing);
@@ -246,19 +282,22 @@ void main() {
       var row1Tapped = false;
       var row2Tapped = false;
 
-      await pumpApp(tester, WiredDataTable(
-              columns: const [WiredDataColumn(label: Text('Name'))],
-              rows: [
-                WiredDataRow(
-                  cells: const [Text('Row 1')],
-                  onTap: () => row1Tapped = true,
-                ),
-                WiredDataRow(
-                  cells: const [Text('Row 2')],
-                  onTap: () => row2Tapped = true,
-                ),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [WiredDataColumn(label: Text('Name'))],
+          rows: [
+            WiredDataRow(
+              cells: const [Text('Row 1')],
+              onTap: () => row1Tapped = true,
+            ),
+            WiredDataRow(
+              cells: const [Text('Row 2')],
+              onTap: () => row2Tapped = true,
+            ),
+          ],
+        ),
+      );
 
       await tester.tap(find.text('Row 1'));
       await tester.pump();
@@ -273,12 +312,15 @@ void main() {
     });
 
     testWidgets('uses IntrinsicHeight for sizing', (tester) async {
-      await pumpApp(tester, WiredDataTable(
-              columns: const [WiredDataColumn(label: Text('Col'))],
-              rows: const [
-                WiredDataRow(cells: [Text('Cell')]),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredDataTable(
+          columns: const [WiredDataColumn(label: Text('Col'))],
+          rows: const [
+            WiredDataRow(cells: [Text('Cell')]),
+          ],
+        ),
+      );
 
       expect(
         find.descendant(

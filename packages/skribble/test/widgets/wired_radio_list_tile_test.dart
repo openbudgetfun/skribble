@@ -7,57 +7,72 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredRadioListTile', () {
     testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: (_) => true,
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: (_) => true,
+        ),
+      );
 
       expect(find.byType(WiredRadioListTile<String>), findsOneWidget);
     });
 
     testWidgets('renders title text', (tester) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: (_) => true,
-              title: const Text('Option A'),
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: (_) => true,
+          title: const Text('Option A'),
+        ),
+      );
 
       expect(find.text('Option A'), findsOneWidget);
     });
 
     testWidgets('renders subtitle text', (tester) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: (_) => true,
-              title: const Text('Title'),
-              subtitle: const Text('Subtitle text'),
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: (_) => true,
+          title: const Text('Title'),
+          subtitle: const Text('Subtitle text'),
+        ),
+      );
 
       expect(find.text('Subtitle text'), findsOneWidget);
     });
 
     testWidgets('renders title and subtitle together', (tester) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: (_) => true,
-              title: const Text('Main title'),
-              subtitle: const Text('Supporting text'),
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: (_) => true,
+          title: const Text('Main title'),
+          subtitle: const Text('Supporting text'),
+        ),
+      );
 
       expect(find.text('Main title'), findsOneWidget);
       expect(find.text('Supporting text'), findsOneWidget);
     });
 
     testWidgets('contains WiredRadio as leading widget', (tester) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: (_) => true,
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: (_) => true,
+        ),
+      );
 
       expect(
         find.descendant(
@@ -69,11 +84,14 @@ void main() {
     });
 
     testWidgets('contains WiredListTile internally', (tester) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: (_) => true,
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: (_) => true,
+        ),
+      );
 
       expect(
         find.descendant(
@@ -87,15 +105,18 @@ void main() {
     testWidgets('calls onChanged when list tile is tapped', (tester) async {
       String? receivedValue;
 
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: (v) {
-                receivedValue = v;
-                return true;
-              },
-              title: const Text('Tap me'),
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: (v) {
+            receivedValue = v;
+            return true;
+          },
+          title: const Text('Tap me'),
+        ),
+      );
 
       // Tap the InkWell area (the list tile).
       await tester.tap(find.byType(InkWell));
@@ -107,14 +128,17 @@ void main() {
     testWidgets('calls onChanged when radio button is tapped', (tester) async {
       String? receivedValue;
 
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: 'b',
-              onChanged: (v) {
-                receivedValue = v;
-                return true;
-              },
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: 'b',
+          onChanged: (v) {
+            receivedValue = v;
+            return true;
+          },
+        ),
+      );
 
       // Tap the internal Radio widget.
       await tester.tap(find.byType(Radio<String>));
@@ -126,11 +150,14 @@ void main() {
     testWidgets('shows selected state when value equals groupValue', (
       tester,
     ) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: 'a',
-              onChanged: (_) => true,
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: 'a',
+          onChanged: (_) => true,
+        ),
+      );
 
       // When selected, WiredRadio renders an additional filled inner circle.
       final canvasWidgets = find.descendant(
@@ -143,11 +170,14 @@ void main() {
     testWidgets('shows unselected state when value differs from groupValue', (
       tester,
     ) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: 'b',
-              onChanged: (_) => true,
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: 'b',
+          onChanged: (_) => true,
+        ),
+      );
 
       // When not selected, WiredRadio renders only the outer circle.
       final canvasWidgets = find.descendant(
@@ -180,12 +210,15 @@ void main() {
     });
 
     testWidgets('renders divider when showDivider is true', (tester) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: (_) => true,
-              showDivider: true,
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: (_) => true,
+          showDivider: true,
+        ),
+      );
 
       // WiredRadio also uses WiredCanvas internally, so we count all
       // WiredCanvas widgets under WiredListTile. With showDivider=true
@@ -206,12 +239,15 @@ void main() {
     testWidgets('does not render divider when showDivider is false', (
       tester,
     ) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: (_) => true,
-              showDivider: false,
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: (_) => true,
+          showDivider: false,
+        ),
+      );
 
       // WiredRadio renders 1 WiredCanvas (outer circle, not selected).
       // With showDivider=false, no additional divider canvas is present.
@@ -227,12 +263,15 @@ void main() {
     });
 
     testWidgets('does not crash when onChanged is null', (tester) async {
-      await pumpApp(tester, WiredRadioListTile<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: null,
-              title: const Text('No callback'),
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: null,
+          title: const Text('No callback'),
+        ),
+      );
 
       // Tapping should not throw.
       await tester.tap(find.byType(InkWell));
@@ -244,15 +283,18 @@ void main() {
     testWidgets('works with int generic type', (tester) async {
       int? receivedValue;
 
-      await pumpApp(tester, WiredRadioListTile<int>(
-              value: 42,
-              groupValue: 1,
-              onChanged: (v) {
-                receivedValue = v;
-                return true;
-              },
-              title: const Text('Answer'),
-            ));
+      await pumpApp(
+        tester,
+        WiredRadioListTile<int>(
+          value: 42,
+          groupValue: 1,
+          onChanged: (v) {
+            receivedValue = v;
+            return true;
+          },
+          title: const Text('Answer'),
+        ),
+      );
 
       await tester.tap(find.byType(InkWell));
       await tester.pump();
@@ -261,22 +303,25 @@ void main() {
     });
 
     testWidgets('renders multiple tiles in a column', (tester) async {
-      await pumpApp(tester, Column(
-              children: [
-                WiredRadioListTile<String>(
-                  value: 'a',
-                  groupValue: 'a',
-                  onChanged: (_) => true,
-                  title: const Text('Option A'),
-                ),
-                WiredRadioListTile<String>(
-                  value: 'b',
-                  groupValue: 'a',
-                  onChanged: (_) => true,
-                  title: const Text('Option B'),
-                ),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        Column(
+          children: [
+            WiredRadioListTile<String>(
+              value: 'a',
+              groupValue: 'a',
+              onChanged: (_) => true,
+              title: const Text('Option A'),
+            ),
+            WiredRadioListTile<String>(
+              value: 'b',
+              groupValue: 'a',
+              onChanged: (_) => true,
+              title: const Text('Option B'),
+            ),
+          ],
+        ),
+      );
 
       expect(find.byType(WiredRadioListTile<String>), findsNWidgets(2));
       expect(find.text('Option A'), findsOneWidget);

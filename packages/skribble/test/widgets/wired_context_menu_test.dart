@@ -7,32 +7,38 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredContextMenu', () {
     testWidgets('renders child', (tester) async {
-      await pumpApp(tester, WiredContextMenu(
-              actions: const [WiredContextMenuAction(label: 'Copy')],
-              child: const Text('Long press me'),
-            ));
+      await pumpApp(
+        tester,
+        WiredContextMenu(
+          actions: const [WiredContextMenuAction(label: 'Copy')],
+          child: const Text('Long press me'),
+        ),
+      );
       expect(find.text('Long press me'), findsOneWidget);
     });
 
     testWidgets('shows menu on long press', (tester) async {
-      await pumpApp(tester, Center(
-              child: WiredContextMenu(
-                actions: const [
-                  WiredContextMenuAction(label: 'Cut', icon: Icons.cut),
-                  WiredContextMenuAction(label: 'Copy', icon: Icons.copy),
-                  WiredContextMenuAction(
-                    label: 'Delete',
-                    icon: Icons.delete,
-                    isDestructive: true,
-                  ),
-                ],
-                child: const SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: Center(child: Text('Target')),
-                ),
+      await pumpApp(
+        tester,
+        Center(
+          child: WiredContextMenu(
+            actions: const [
+              WiredContextMenuAction(label: 'Cut', icon: Icons.cut),
+              WiredContextMenuAction(label: 'Copy', icon: Icons.copy),
+              WiredContextMenuAction(
+                label: 'Delete',
+                icon: Icons.delete,
+                isDestructive: true,
               ),
-            ));
+            ],
+            child: const SizedBox(
+              width: 100,
+              height: 50,
+              child: Center(child: Text('Target')),
+            ),
+          ),
+        ),
+      );
 
       await tester.longPress(find.text('Target'));
       await tester.pumpAndSettle();
@@ -45,21 +51,24 @@ void main() {
     testWidgets('calls action onPressed and dismisses', (tester) async {
       var pressed = false;
 
-      await pumpApp(tester, Center(
-              child: WiredContextMenu(
-                actions: [
-                  WiredContextMenuAction(
-                    label: 'Action',
-                    onPressed: () => pressed = true,
-                  ),
-                ],
-                child: const SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: Center(child: Text('Item')),
-                ),
+      await pumpApp(
+        tester,
+        Center(
+          child: WiredContextMenu(
+            actions: [
+              WiredContextMenuAction(
+                label: 'Action',
+                onPressed: () => pressed = true,
               ),
-            ));
+            ],
+            child: const SizedBox(
+              width: 100,
+              height: 50,
+              child: Center(child: Text('Item')),
+            ),
+          ),
+        ),
+      );
 
       await tester.longPress(find.text('Item'));
       await tester.pumpAndSettle();
@@ -73,16 +82,19 @@ void main() {
     });
 
     testWidgets('dismisses when tapping outside', (tester) async {
-      await pumpApp(tester, Center(
-              child: WiredContextMenu(
-                actions: const [WiredContextMenuAction(label: 'Option')],
-                child: const SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: Center(child: Text('Box')),
-                ),
-              ),
-            ));
+      await pumpApp(
+        tester,
+        Center(
+          child: WiredContextMenu(
+            actions: const [WiredContextMenuAction(label: 'Option')],
+            child: const SizedBox(
+              width: 100,
+              height: 50,
+              child: Center(child: Text('Box')),
+            ),
+          ),
+        ),
+      );
 
       await tester.longPress(find.text('Box'));
       await tester.pumpAndSettle();
@@ -95,19 +107,22 @@ void main() {
     });
 
     testWidgets('shows icons when provided', (tester) async {
-      await pumpApp(tester, Center(
-              child: WiredContextMenu(
-                actions: const [
-                  WiredContextMenuAction(label: 'Edit', icon: Icons.edit),
-                  WiredContextMenuAction(label: 'Share', icon: Icons.share),
-                ],
-                child: const SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: Center(child: Text('Press me')),
-                ),
-              ),
-            ));
+      await pumpApp(
+        tester,
+        Center(
+          child: WiredContextMenu(
+            actions: const [
+              WiredContextMenuAction(label: 'Edit', icon: Icons.edit),
+              WiredContextMenuAction(label: 'Share', icon: Icons.share),
+            ],
+            child: const SizedBox(
+              width: 100,
+              height: 50,
+              child: Center(child: Text('Press me')),
+            ),
+          ),
+        ),
+      );
 
       await tester.longPress(find.text('Press me'));
       await tester.pumpAndSettle();
@@ -117,10 +132,13 @@ void main() {
     });
 
     testWidgets('contains RepaintBoundary', (tester) async {
-      await pumpApp(tester, WiredContextMenu(
-              actions: const [WiredContextMenuAction(label: 'Test')],
-              child: const Text('Content'),
-            ));
+      await pumpApp(
+        tester,
+        WiredContextMenu(
+          actions: const [WiredContextMenuAction(label: 'Test')],
+          child: const Text('Content'),
+        ),
+      );
 
       expect(find.byType(RepaintBoundary), findsWidgets);
     });

@@ -64,10 +64,7 @@ void main() {
     });
 
     testWidgets('fill parameter adds filler', (tester) async {
-      await pumpApp(
-        tester,
-        WiredCard(fill: true, child: const Text('Filled')),
-      );
+      await pumpApp(tester, WiredCard(fill: true, child: const Text('Filled')));
 
       expect(find.byType(WiredCanvas), findsOneWidget);
       expect(find.text('Filled'), findsOneWidget);

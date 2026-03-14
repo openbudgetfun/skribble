@@ -7,25 +7,31 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredCombo', () {
     testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, WiredCombo<String>(
-              value: 'a',
-              items: const [
-                DropdownMenuItem(value: 'a', child: Text('Option A')),
-                DropdownMenuItem(value: 'b', child: Text('Option B')),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredCombo<String>(
+          value: 'a',
+          items: const [
+            DropdownMenuItem(value: 'a', child: Text('Option A')),
+            DropdownMenuItem(value: 'b', child: Text('Option B')),
+          ],
+        ),
+      );
 
       expect(find.byType(WiredCombo<String>), findsOneWidget);
     });
 
     testWidgets('shows dropdown items', (tester) async {
-      await pumpApp(tester, WiredCombo<String>(
-              value: 'a',
-              items: const [
-                DropdownMenuItem(value: 'a', child: Text('Option A')),
-                DropdownMenuItem(value: 'b', child: Text('Option B')),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredCombo<String>(
+          value: 'a',
+          items: const [
+            DropdownMenuItem(value: 'a', child: Text('Option A')),
+            DropdownMenuItem(value: 'b', child: Text('Option B')),
+          ],
+        ),
+      );
 
       // The selected value should be visible.
       expect(find.text('Option A'), findsOneWidget);
@@ -42,17 +48,20 @@ void main() {
     testWidgets('calls onChanged when item selected', (tester) async {
       String? changedValue;
 
-      await pumpApp(tester, WiredCombo<String>(
-              value: 'a',
-              items: const [
-                DropdownMenuItem(value: 'a', child: Text('Option A')),
-                DropdownMenuItem(value: 'b', child: Text('Option B')),
-              ],
-              onChanged: (value) {
-                changedValue = value;
-                return false;
-              },
-            ));
+      await pumpApp(
+        tester,
+        WiredCombo<String>(
+          value: 'a',
+          items: const [
+            DropdownMenuItem(value: 'a', child: Text('Option A')),
+            DropdownMenuItem(value: 'b', child: Text('Option B')),
+          ],
+          onChanged: (value) {
+            changedValue = value;
+            return false;
+          },
+        ),
+      );
 
       // Open the dropdown.
       await tester.tap(find.byType(DropdownButton<String>));
@@ -66,46 +75,56 @@ void main() {
     });
 
     testWidgets('renders with null value', (tester) async {
-      await pumpApp(tester, WiredCombo<String>(
-              items: const [
-                DropdownMenuItem(value: 'a', child: Text('Option A')),
-                DropdownMenuItem(value: 'b', child: Text('Option B')),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredCombo<String>(
+          items: const [
+            DropdownMenuItem(value: 'a', child: Text('Option A')),
+            DropdownMenuItem(value: 'b', child: Text('Option B')),
+          ],
+        ),
+      );
 
       expect(find.byType(WiredCombo<String>), findsOneWidget);
     });
 
     testWidgets('contains WiredCanvas for border and triangle', (tester) async {
-      await pumpApp(tester, WiredCombo<String>(
-              value: 'a',
-              items: const [
-                DropdownMenuItem(value: 'a', child: Text('Option A')),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredCombo<String>(
+          value: 'a',
+          items: const [DropdownMenuItem(value: 'a', child: Text('Option A'))],
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsWidgets);
     });
 
     testWidgets('updates value when parent changes', (tester) async {
-      await pumpApp(tester, WiredCombo<String>(
-              value: 'a',
-              items: const [
-                DropdownMenuItem(value: 'a', child: Text('Option A')),
-                DropdownMenuItem(value: 'b', child: Text('Option B')),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredCombo<String>(
+          value: 'a',
+          items: const [
+            DropdownMenuItem(value: 'a', child: Text('Option A')),
+            DropdownMenuItem(value: 'b', child: Text('Option B')),
+          ],
+        ),
+      );
 
       expect(find.text('Option A'), findsOneWidget);
 
       // Rebuild with different value
-      await pumpApp(tester, WiredCombo<String>(
-              value: 'b',
-              items: const [
-                DropdownMenuItem(value: 'a', child: Text('Option A')),
-                DropdownMenuItem(value: 'b', child: Text('Option B')),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        WiredCombo<String>(
+          value: 'b',
+          items: const [
+            DropdownMenuItem(value: 'a', child: Text('Option A')),
+            DropdownMenuItem(value: 'b', child: Text('Option B')),
+          ],
+        ),
+      );
 
       expect(find.text('Option B'), findsOneWidget);
     });

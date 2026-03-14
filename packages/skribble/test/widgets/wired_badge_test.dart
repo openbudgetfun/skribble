@@ -24,14 +24,10 @@ void main() {
       expect(find.byIcon(Icons.mail), findsOneWidget);
     });
 
-    testWidgets('renders dot badge when visible without label', (
-      tester,
-    ) async {
+    testWidgets('renders dot badge when visible without label', (tester) async {
       await pumpApp(
         tester,
-        Center(
-          child: WiredBadge(child: const SizedBox(width: 48, height: 48)),
-        ),
+        Center(child: WiredBadge(child: const SizedBox(width: 48, height: 48))),
       );
 
       expect(find.byType(WiredBadge), findsOneWidget);
@@ -43,11 +39,7 @@ void main() {
     ) async {
       await pumpApp(
         tester,
-        WiredBadge(
-          isVisible: false,
-          label: '3',
-          child: const Icon(Icons.mail),
-        ),
+        WiredBadge(isVisible: false, label: '3', child: const Icon(Icons.mail)),
       );
 
       expect(find.byIcon(Icons.mail), findsOneWidget);
@@ -61,9 +53,7 @@ void main() {
       );
     });
 
-    testWidgets('no Positioned widget when isVisible is false', (
-      tester,
-    ) async {
+    testWidgets('no Positioned widget when isVisible is false', (tester) async {
       await pumpApp(
         tester,
         WiredBadge(isVisible: false, child: const Icon(Icons.mail)),
@@ -124,9 +114,7 @@ void main() {
     testWidgets('shows Positioned indicator when visible', (tester) async {
       await pumpApp(
         tester,
-        Center(
-          child: WiredBadge(child: const SizedBox(width: 48, height: 48)),
-        ),
+        Center(child: WiredBadge(child: const SizedBox(width: 48, height: 48))),
       );
 
       expect(
@@ -141,9 +129,7 @@ void main() {
     testWidgets('Positioned has right:-6 and top:-6 offsets', (tester) async {
       await pumpApp(
         tester,
-        Center(
-          child: WiredBadge(child: const SizedBox(width: 48, height: 48)),
-        ),
+        Center(child: WiredBadge(child: const SizedBox(width: 48, height: 48))),
       );
 
       final positioned = tester.widget<Positioned>(
@@ -161,9 +147,7 @@ void main() {
     ) async {
       await pumpApp(
         tester,
-        Center(
-          child: WiredBadge(child: const SizedBox(width: 48, height: 48)),
-        ),
+        Center(child: WiredBadge(child: const SizedBox(width: 48, height: 48))),
       );
 
       final sizedBox = tester.widget<SizedBox>(
@@ -179,9 +163,7 @@ void main() {
     testWidgets('dot badge contains WiredCanvas', (tester) async {
       await pumpApp(
         tester,
-        Center(
-          child: WiredBadge(child: const SizedBox(width: 48, height: 48)),
-        ),
+        Center(child: WiredBadge(child: const SizedBox(width: 48, height: 48))),
       );
 
       expect(

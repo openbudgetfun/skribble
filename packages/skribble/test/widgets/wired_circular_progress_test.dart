@@ -31,7 +31,10 @@ void main() {
     });
 
     testWidgets('renders with custom size', (tester) async {
-      await pumpApp(tester, Center(child: WiredCircularProgress(value: 0.5, size: 100.0)));
+      await pumpApp(
+        tester,
+        Center(child: WiredCircularProgress(value: 0.5, size: 100.0)),
+      );
 
       final size = tester.getSize(find.byType(WiredCircularProgress));
       expect(size.width, 100.0);
@@ -72,7 +75,10 @@ void main() {
     });
 
     testWidgets('accepts custom strokeWidth', (tester) async {
-      await pumpApp(tester, WiredCircularProgress(value: 0.5, strokeWidth: 5.0));
+      await pumpApp(
+        tester,
+        WiredCircularProgress(value: 0.5, strokeWidth: 5.0),
+      );
 
       final progress = tester.widget<WiredCircularProgress>(
         find.byType(WiredCircularProgress),

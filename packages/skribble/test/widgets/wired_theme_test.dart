@@ -134,10 +134,10 @@ void main() {
 
   group('WiredTheme', () {
     testWidgets('renders child widget', (tester) async {
-      await pumpApp(tester, WiredTheme(
-              data: WiredThemeData(),
-              child: const Text('Hello'),
-            ));
+      await pumpApp(
+        tester,
+        WiredTheme(data: WiredThemeData(), child: const Text('Hello')),
+      );
 
       expect(find.text('Hello'), findsOneWidget);
     });
@@ -145,15 +145,18 @@ void main() {
     testWidgets('provides theme data to descendants', (tester) async {
       late WiredThemeData capturedTheme;
 
-      await pumpApp(tester, WiredTheme(
-              data: WiredThemeData(borderColor: Colors.red),
-              child: Builder(
-                builder: (context) {
-                  capturedTheme = WiredTheme.of(context);
-                  return const SizedBox();
-                },
-              ),
-            ));
+      await pumpApp(
+        tester,
+        WiredTheme(
+          data: WiredThemeData(borderColor: Colors.red),
+          child: Builder(
+            builder: (context) {
+              capturedTheme = WiredTheme.of(context);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
 
       expect(capturedTheme.borderColor, Colors.red);
     });
@@ -163,12 +166,15 @@ void main() {
     ) async {
       late WiredThemeData capturedTheme;
 
-      await pumpApp(tester, Builder(
-              builder: (context) {
-                capturedTheme = WiredTheme.of(context);
-                return const SizedBox();
-              },
-            ));
+      await pumpApp(
+        tester,
+        Builder(
+          builder: (context) {
+            capturedTheme = WiredTheme.of(context);
+            return const SizedBox();
+          },
+        ),
+      );
 
       expect(
         capturedTheme.borderColor,
@@ -184,18 +190,21 @@ void main() {
     testWidgets('nearest WiredTheme wins when nested', (tester) async {
       late WiredThemeData capturedTheme;
 
-      await pumpApp(tester, WiredTheme(
-              data: WiredThemeData(borderColor: Colors.red),
-              child: WiredTheme(
-                data: WiredThemeData(borderColor: Colors.blue),
-                child: Builder(
-                  builder: (context) {
-                    capturedTheme = WiredTheme.of(context);
-                    return const SizedBox();
-                  },
-                ),
-              ),
-            ));
+      await pumpApp(
+        tester,
+        WiredTheme(
+          data: WiredThemeData(borderColor: Colors.red),
+          child: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.blue),
+            child: Builder(
+              builder: (context) {
+                capturedTheme = WiredTheme.of(context);
+                return const SizedBox();
+              },
+            ),
+          ),
+        ),
+      );
 
       // The nearest ancestor theme (blue) should be returned.
       expect(capturedTheme.borderColor, Colors.blue);
@@ -207,22 +216,25 @@ void main() {
       var buildCount = 0;
       final themeData = ValueNotifier(WiredThemeData(borderColor: Colors.red));
 
-      await pumpApp(tester, ValueListenableBuilder<WiredThemeData>(
-              valueListenable: themeData,
-              builder: (context, data, _) {
-                return WiredTheme(
-                  data: data,
-                  child: Builder(
-                    builder: (context) {
-                      // Access the theme to register dependency.
-                      WiredTheme.of(context);
-                      buildCount++;
-                      return const SizedBox();
-                    },
-                  ),
-                );
-              },
-            ));
+      await pumpApp(
+        tester,
+        ValueListenableBuilder<WiredThemeData>(
+          valueListenable: themeData,
+          builder: (context, data, _) {
+            return WiredTheme(
+              data: data,
+              child: Builder(
+                builder: (context) {
+                  // Access the theme to register dependency.
+                  WiredTheme.of(context);
+                  buildCount++;
+                  return const SizedBox();
+                },
+              ),
+            );
+          },
+        ),
+      );
 
       final initialBuildCount = buildCount;
 
@@ -236,42 +248,57 @@ void main() {
     });
 
     testWidgets('renders without error with default theme', (tester) async {
-      await pumpApp(tester, WiredTheme(
-              data: WiredThemeData.defaultTheme,
-              child: const Text('Default theme'),
-            ));
+      await pumpApp(
+        tester,
+        WiredTheme(
+          data: WiredThemeData.defaultTheme,
+          child: const Text('Default theme'),
+        ),
+      );
 
       expect(find.text('Default theme'), findsOneWidget);
       expect(find.byType(WiredTheme), findsOneWidget);
     });
 
     testWidgets('WiredButton reads border color from theme', (tester) async {
-      await pumpApp(tester, WiredTheme(
-              data: WiredThemeData(borderColor: Colors.red),
-              child: WiredButton(onPressed: () {}, child: const Text('Themed')),
-            ));
+      await pumpApp(
+        tester,
+        WiredTheme(
+          data: WiredThemeData(borderColor: Colors.red),
+          child: WiredButton(onPressed: () {}, child: const Text('Themed')),
+        ),
+      );
       // Should render without error using the custom theme
       expect(find.text('Themed'), findsOneWidget);
     });
 
     testWidgets('WiredDialog reads fill color from theme', (tester) async {
-      await pumpApp(tester, WiredTheme(
-              data: WiredThemeData(fillColor: Colors.amber),
-              child: const WiredDialog(child: Text('Dialog')),
-            ));
+      await pumpApp(
+        tester,
+        WiredTheme(
+          data: WiredThemeData(fillColor: Colors.amber),
+          child: const WiredDialog(child: Text('Dialog')),
+        ),
+      );
       expect(find.text('Dialog'), findsOneWidget);
     });
 
     testWidgets('WiredCard reads fill color from theme', (tester) async {
-      await pumpApp(tester, WiredTheme(
-              data: WiredThemeData(fillColor: Colors.lime),
-              child: WiredCard(child: const Text('Card')),
-            ));
+      await pumpApp(
+        tester,
+        WiredTheme(
+          data: WiredThemeData(fillColor: Colors.lime),
+          child: WiredCard(child: const Text('Card')),
+        ),
+      );
       expect(find.text('Card'), findsOneWidget);
     });
 
     testWidgets('is an InheritedWidget', (tester) async {
-      await pumpApp(tester, WiredTheme(data: WiredThemeData(), child: const SizedBox()));
+      await pumpApp(
+        tester,
+        WiredTheme(data: WiredThemeData(), child: const SizedBox()),
+      );
 
       final widget = tester.widget<WiredTheme>(find.byType(WiredTheme));
       expect(widget, isA<InheritedWidget>());
@@ -291,15 +318,18 @@ void main() {
         roughness: 3.0,
       );
 
-      await pumpApp(tester, WiredTheme(
-              data: customTheme,
-              child: Builder(
-                builder: (context) {
-                  capturedTheme = WiredTheme.of(context);
-                  return const SizedBox();
-                },
-              ),
-            ));
+      await pumpApp(
+        tester,
+        WiredTheme(
+          data: customTheme,
+          child: Builder(
+            builder: (context) {
+              capturedTheme = WiredTheme.of(context);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
 
       expect(capturedTheme.borderColor, Colors.purple);
       expect(capturedTheme.textColor, Colors.orange);

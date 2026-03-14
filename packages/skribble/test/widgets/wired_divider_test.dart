@@ -52,9 +52,7 @@ void main() {
     testWidgets('renders inside a Column with other widgets', (tester) async {
       await pumpApp(
         tester,
-        const Column(
-          children: [Text('Above'), WiredDivider(), Text('Below')],
-        ),
+        const Column(children: [Text('Above'), WiredDivider(), Text('Below')]),
       );
 
       expect(find.text('Above'), findsOneWidget);

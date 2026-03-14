@@ -91,10 +91,13 @@ void main() {
 
     testWidgets('calls onVisible on build', (tester) async {
       var visible = false;
-      await pumpApp(tester, WiredMaterialBanner(
-              content: const Text('test'),
-              onVisible: () => visible = true,
-            ));
+      await pumpApp(
+        tester,
+        WiredMaterialBanner(
+          content: const Text('test'),
+          onVisible: () => visible = true,
+        ),
+      );
       expect(visible, isTrue);
     });
   });

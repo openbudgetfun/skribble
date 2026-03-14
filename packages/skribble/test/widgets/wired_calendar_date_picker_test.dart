@@ -7,12 +7,15 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredCalendarDatePicker', () {
     testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, WiredCalendarDatePicker(
-              initialDate: DateTime(2025, 6, 15),
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2030),
-              onDateChanged: (_) {},
-            ));
+      await pumpApp(
+        tester,
+        WiredCalendarDatePicker(
+          initialDate: DateTime(2025, 6, 15),
+          firstDate: DateTime(2020),
+          lastDate: DateTime(2030),
+          onDateChanged: (_) {},
+        ),
+      );
 
       expect(find.byType(WiredCalendarDatePicker), findsOneWidget);
       expect(find.byType(CalendarDatePicker), findsOneWidget);
@@ -22,12 +25,15 @@ void main() {
     testWidgets('calls onDateChanged when day tapped', (tester) async {
       DateTime? selected;
 
-      await pumpApp(tester, WiredCalendarDatePicker(
-              initialDate: DateTime(2025, 6, 15),
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2030),
-              onDateChanged: (d) => selected = d,
-            ));
+      await pumpApp(
+        tester,
+        WiredCalendarDatePicker(
+          initialDate: DateTime(2025, 6, 15),
+          firstDate: DateTime(2020),
+          lastDate: DateTime(2030),
+          onDateChanged: (d) => selected = d,
+        ),
+      );
 
       // Tap a visible day number
       await tester.tap(find.text('20'));
@@ -38,36 +44,45 @@ void main() {
     });
 
     testWidgets('respects selectableDayPredicate', (tester) async {
-      await pumpApp(tester, WiredCalendarDatePicker(
-              initialDate: DateTime(2025, 6, 16),
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2030),
-              onDateChanged: (_) {},
-              selectableDayPredicate: (d) => d.weekday != DateTime.sunday,
-            ));
+      await pumpApp(
+        tester,
+        WiredCalendarDatePicker(
+          initialDate: DateTime(2025, 6, 16),
+          firstDate: DateTime(2020),
+          lastDate: DateTime(2030),
+          onDateChanged: (_) {},
+          selectableDayPredicate: (d) => d.weekday != DateTime.sunday,
+        ),
+      );
 
       expect(find.byType(CalendarDatePicker), findsOneWidget);
     });
 
     testWidgets('wraps picker in hand-drawn border', (tester) async {
-      await pumpApp(tester, WiredCalendarDatePicker(
-              initialDate: DateTime(2025, 3, 1),
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2030),
-              onDateChanged: (_) {},
-            ));
+      await pumpApp(
+        tester,
+        WiredCalendarDatePicker(
+          initialDate: DateTime(2025, 3, 1),
+          firstDate: DateTime(2020),
+          lastDate: DateTime(2030),
+          onDateChanged: (_) {},
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsWidgets);
     });
 
     testWidgets('accepts onDisplayedMonthChanged callback', (tester) async {
-      await pumpApp(tester, WiredCalendarDatePicker(
-              initialDate: DateTime(2025, 6, 15),
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2030),
-              onDateChanged: (_) {},
-              onDisplayedMonthChanged: (_) {},
-            ));
+      await pumpApp(
+        tester,
+        WiredCalendarDatePicker(
+          initialDate: DateTime(2025, 6, 15),
+          firstDate: DateTime(2020),
+          lastDate: DateTime(2030),
+          onDateChanged: (_) {},
+          onDisplayedMonthChanged: (_) {},
+        ),
+      );
 
       // Tap the forward chevron to go to next month
       final chevrons = find.byIcon(Icons.chevron_right);
@@ -80,13 +95,16 @@ void main() {
     });
 
     testWidgets('renders in year mode', (tester) async {
-      await pumpApp(tester, WiredCalendarDatePicker(
-              initialDate: DateTime(2025, 6, 15),
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2030),
-              onDateChanged: (_) {},
-              initialCalendarMode: DatePickerMode.year,
-            ));
+      await pumpApp(
+        tester,
+        WiredCalendarDatePicker(
+          initialDate: DateTime(2025, 6, 15),
+          firstDate: DateTime(2020),
+          lastDate: DateTime(2030),
+          onDateChanged: (_) {},
+          initialCalendarMode: DatePickerMode.year,
+        ),
+      );
 
       expect(find.byType(WiredCalendarDatePicker), findsOneWidget);
       // In year mode, year numbers should be visible

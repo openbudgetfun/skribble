@@ -105,21 +105,24 @@ void main() {
     });
 
     testWidgets('showWiredCupertinoDialog shows dialog', (tester) async {
-      await pumpApp(tester, Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () => showWiredCupertinoDialog<void>(
-                  context: context,
-                  title: const Text('Test'),
-                  actions: [
-                    WiredCupertinoDialogAction(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('Close'),
-                    ),
-                  ],
+      await pumpApp(
+        tester,
+        Builder(
+          builder: (context) => ElevatedButton(
+            onPressed: () => showWiredCupertinoDialog<void>(
+              context: context,
+              title: const Text('Test'),
+              actions: [
+                WiredCupertinoDialogAction(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Close'),
                 ),
-                child: const Text('Show'),
-              ),
-            ));
+              ],
+            ),
+            child: const Text('Show'),
+          ),
+        ),
+      );
       await tester.tap(find.text('Show'));
       await tester.pumpAndSettle();
       expect(find.text('Test'), findsOneWidget);

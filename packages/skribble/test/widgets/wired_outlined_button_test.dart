@@ -7,28 +7,28 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredOutlinedButton', () {
     testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, WiredOutlinedButton(
-              onPressed: () {},
-              child: const Text('Hello'),
-            ));
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(onPressed: () {}, child: const Text('Hello')),
+      );
 
       expect(find.byType(WiredOutlinedButton), findsOneWidget);
     });
 
     testWidgets('renders child text widget', (tester) async {
-      await pumpApp(tester, WiredOutlinedButton(
-              onPressed: () {},
-              child: const Text('Press me'),
-            ));
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(onPressed: () {}, child: const Text('Press me')),
+      );
 
       expect(find.text('Press me'), findsOneWidget);
     });
 
     testWidgets('renders child icon widget', (tester) async {
-      await pumpApp(tester, WiredOutlinedButton(
-              onPressed: () {},
-              child: const Icon(Icons.check),
-            ));
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(onPressed: () {}, child: const Icon(Icons.check)),
+      );
 
       expect(find.byIcon(Icons.check), findsOneWidget);
     });
@@ -36,10 +36,13 @@ void main() {
     testWidgets('calls onPressed callback when tapped', (tester) async {
       var pressed = false;
 
-      await pumpApp(tester, WiredOutlinedButton(
-              onPressed: () => pressed = true,
-              child: const Text('Tap'),
-            ));
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(
+          onPressed: () => pressed = true,
+          child: const Text('Tap'),
+        ),
+      );
 
       await tester.tap(find.text('Tap'));
       await tester.pump();
@@ -48,10 +51,10 @@ void main() {
     });
 
     testWidgets('does not crash when onPressed is null', (tester) async {
-      await pumpApp(tester, WiredOutlinedButton(
-              onPressed: null,
-              child: const Text('Disabled'),
-            ));
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(onPressed: null, child: const Text('Disabled')),
+      );
 
       expect(find.byType(WiredOutlinedButton), findsOneWidget);
       expect(find.text('Disabled'), findsOneWidget);
@@ -62,10 +65,10 @@ void main() {
     ) async {
       const pressed = false;
 
-      await pumpApp(tester, WiredOutlinedButton(
-              onPressed: null,
-              child: const Text('Disabled'),
-            ));
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(onPressed: null, child: const Text('Disabled')),
+      );
 
       await tester.tap(find.text('Disabled'));
       await tester.pump();
@@ -80,10 +83,10 @@ void main() {
     });
 
     testWidgets('renders with correct height (42.0)', (tester) async {
-      await pumpApp(tester, WiredOutlinedButton(
-              onPressed: () {},
-              child: const Text('Height test'),
-            ));
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(onPressed: () {}, child: const Text('Height test')),
+      );
 
       // The WiredOutlinedButton uses a Container with height 42.0.
       // Find the Container that has this height constraint.
@@ -102,10 +105,10 @@ void main() {
     });
 
     testWidgets('contains TextButton internally', (tester) async {
-      await pumpApp(tester, WiredOutlinedButton(
-              onPressed: () {},
-              child: const Text('Button'),
-            ));
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(onPressed: () {}, child: const Text('Button')),
+      );
 
       expect(
         find.descendant(
@@ -117,10 +120,10 @@ void main() {
     });
 
     testWidgets('has RepaintBoundary wrapper', (tester) async {
-      await pumpApp(tester, WiredOutlinedButton(
-              onPressed: () {},
-              child: const Text('Repaint'),
-            ));
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(onPressed: () {}, child: const Text('Repaint')),
+      );
 
       expect(
         find.descendant(
@@ -134,10 +137,13 @@ void main() {
     testWidgets('tracks multiple rapid taps', (tester) async {
       var tapCount = 0;
 
-      await pumpApp(tester, WiredOutlinedButton(
-              onPressed: () => tapCount++,
-              child: const Text('Multi'),
-            ));
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(
+          onPressed: () => tapCount++,
+          child: const Text('Multi'),
+        ),
+      );
 
       await tester.tap(find.text('Multi'));
       await tester.pump();

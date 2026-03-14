@@ -144,9 +144,10 @@ void main() {
     });
 
     testWidgets('property defaults: currentStep is 0', (tester) async {
-      await pumpApp(tester, SingleChildScrollView(
-              child: WiredStepper(steps: buildSteps()),
-            ));
+      await pumpApp(
+        tester,
+        SingleChildScrollView(child: WiredStepper(steps: buildSteps())),
+      );
       await tester.pumpAndSettle();
 
       final stepper = tester.widget<WiredStepper>(find.byType(WiredStepper));
@@ -194,9 +195,10 @@ void main() {
         ),
       ];
 
-      await pumpApp(tester, SingleChildScrollView(
-              child: WiredStepper(steps: stepsNoSubtitle),
-            ));
+      await pumpApp(
+        tester,
+        SingleChildScrollView(child: WiredStepper(steps: stepsNoSubtitle)),
+      );
       await tester.pumpAndSettle();
 
       expect(find.text('No subtitle step'), findsOneWidget);

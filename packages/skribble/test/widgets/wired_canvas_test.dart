@@ -7,121 +7,145 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredCanvas', () {
     testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, WiredCanvas(
-              painter: WiredRectangleBase(),
-              fillerType: RoughFilter.noFiller,
-            ));
+      await pumpApp(
+        tester,
+        WiredCanvas(
+          painter: WiredRectangleBase(),
+          fillerType: RoughFilter.noFiller,
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsOneWidget);
       expect(find.byType(CustomPaint), findsWidgets);
     });
 
     testWidgets('renders with hachure filler', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 100,
-              height: 50,
-              child: WiredCanvas(
-                painter: WiredRectangleBase(),
-                fillerType: RoughFilter.hachureFiller,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 100,
+          height: 50,
+          child: WiredCanvas(
+            painter: WiredRectangleBase(),
+            fillerType: RoughFilter.hachureFiller,
+          ),
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('accepts explicit size parameter', (tester) async {
-      await pumpApp(tester, WiredCanvas(
-              painter: WiredRectangleBase(),
-              fillerType: RoughFilter.noFiller,
-              size: const Size(200, 100),
-            ));
+      await pumpApp(
+        tester,
+        WiredCanvas(
+          painter: WiredRectangleBase(),
+          fillerType: RoughFilter.noFiller,
+          size: const Size(200, 100),
+        ),
+      );
 
       final canvas = tester.widget<WiredCanvas>(find.byType(WiredCanvas));
       expect(canvas.size, const Size(200, 100));
     });
 
     testWidgets('renders with circle painter', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 60,
-              height: 60,
-              child: WiredCanvas(
-                painter: WiredCircleBase(),
-                fillerType: RoughFilter.noFiller,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 60,
+          height: 60,
+          child: WiredCanvas(
+            painter: WiredCircleBase(),
+            fillerType: RoughFilter.noFiller,
+          ),
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('renders with line painter', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 200,
-              height: 2,
-              child: WiredCanvas(
-                painter: WiredLineBase(x1: 0, y1: 0, x2: 200, y2: 0),
-                fillerType: RoughFilter.noFiller,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 200,
+          height: 2,
+          child: WiredCanvas(
+            painter: WiredLineBase(x1: 0, y1: 0, x2: 200, y2: 0),
+            fillerType: RoughFilter.noFiller,
+          ),
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('renders with rounded rectangle painter', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 120,
-              height: 60,
-              child: WiredCanvas(
-                painter: WiredRoundedRectangleBase(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                fillerType: RoughFilter.noFiller,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 120,
+          height: 60,
+          child: WiredCanvas(
+            painter: WiredRoundedRectangleBase(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            fillerType: RoughFilter.noFiller,
+          ),
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('renders with custom draw config', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 100,
-              height: 50,
-              child: WiredCanvas(
-                painter: WiredRectangleBase(),
-                fillerType: RoughFilter.noFiller,
-                drawConfig: DrawConfig.build(
-                  roughness: 2,
-                  maxRandomnessOffset: 3,
-                ),
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 100,
+          height: 50,
+          child: WiredCanvas(
+            painter: WiredRectangleBase(),
+            fillerType: RoughFilter.noFiller,
+            drawConfig: DrawConfig.build(roughness: 2, maxRandomnessOffset: 3),
+          ),
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('renders with custom filler config', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 100,
-              height: 50,
-              child: WiredCanvas(
-                painter: WiredRectangleBase(),
-                fillerType: RoughFilter.hachureFiller,
-                fillerConfig: FillerConfig.build(hachureGap: 4),
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 100,
+          height: 50,
+          child: WiredCanvas(
+            painter: WiredRectangleBase(),
+            fillerType: RoughFilter.hachureFiller,
+            fillerConfig: FillerConfig.build(hachureGap: 4),
+          ),
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('each RoughFilter type renders without error', (tester) async {
       for (final filter in RoughFilter.values) {
-        await pumpApp(tester, SizedBox(
-                width: 80,
-                height: 40,
-                child: WiredCanvas(
-                  painter: WiredRectangleBase(),
-                  fillerType: filter,
-                ),
-              ));
+        await pumpApp(
+          tester,
+          SizedBox(
+            width: 80,
+            height: 40,
+            child: WiredCanvas(
+              painter: WiredRectangleBase(),
+              fillerType: filter,
+            ),
+          ),
+        );
 
         expect(
           find.byType(WiredCanvas),
@@ -132,14 +156,17 @@ void main() {
     });
 
     testWidgets('renders with custom border color', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 100,
-              height: 50,
-              child: WiredCanvas(
-                painter: WiredRectangleBase(borderColor: Colors.red),
-                fillerType: RoughFilter.noFiller,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 100,
+          height: 50,
+          child: WiredCanvas(
+            painter: WiredRectangleBase(borderColor: Colors.red),
+            fillerType: RoughFilter.noFiller,
+          ),
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });

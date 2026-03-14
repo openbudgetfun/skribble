@@ -13,19 +13,19 @@ void main() {
     ];
 
     testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(segments: segments, selected: const {'a'}),
+      );
 
       expect(find.byType(WiredSegmentedButton<String>), findsOneWidget);
     });
 
     testWidgets('renders all segment labels', (tester) async {
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(segments: segments, selected: const {'a'}),
+      );
 
       expect(find.text('Alpha'), findsOneWidget);
       expect(find.text('Beta'), findsOneWidget);
@@ -37,11 +37,14 @@ void main() {
     ) async {
       Set<String>? receivedSelection;
 
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-              onSelectionChanged: (s) => receivedSelection = s,
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(
+          segments: segments,
+          selected: const {'a'},
+          onSelectionChanged: (s) => receivedSelection = s,
+        ),
+      );
 
       // Tap the second segment ('Beta').
       await tester.tap(find.text('Beta'));
@@ -58,12 +61,15 @@ void main() {
     ) async {
       Set<String>? receivedSelection;
 
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-              multiSelectionEnabled: false,
-              onSelectionChanged: (s) => receivedSelection = s,
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(
+          segments: segments,
+          selected: const {'a'},
+          multiSelectionEnabled: false,
+          onSelectionChanged: (s) => receivedSelection = s,
+        ),
+      );
 
       await tester.tap(find.text('Gamma'));
       await tester.pump();
@@ -74,12 +80,15 @@ void main() {
     testWidgets('multi-selection mode adds to selection', (tester) async {
       Set<String>? receivedSelection;
 
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-              multiSelectionEnabled: true,
-              onSelectionChanged: (s) => receivedSelection = s,
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(
+          segments: segments,
+          selected: const {'a'},
+          multiSelectionEnabled: true,
+          onSelectionChanged: (s) => receivedSelection = s,
+        ),
+      );
 
       await tester.tap(find.text('Beta'));
       await tester.pump();
@@ -94,12 +103,15 @@ void main() {
     ) async {
       Set<String>? receivedSelection;
 
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a', 'b'},
-              multiSelectionEnabled: true,
-              onSelectionChanged: (s) => receivedSelection = s,
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(
+          segments: segments,
+          selected: const {'a', 'b'},
+          multiSelectionEnabled: true,
+          onSelectionChanged: (s) => receivedSelection = s,
+        ),
+      );
 
       // Tap 'Alpha' which is already selected, should remove it.
       await tester.tap(find.text('Alpha'));
@@ -111,10 +123,10 @@ void main() {
     testWidgets('does not crash when onSelectionChanged is null', (
       tester,
     ) async {
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(segments: segments, selected: const {'a'}),
+      );
 
       // Tapping should not throw.
       await tester.tap(find.text('Beta'));
@@ -137,20 +149,23 @@ void main() {
         ),
       ];
 
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segmentsWithIcons,
-              selected: const {'a'},
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(
+          segments: segmentsWithIcons,
+          selected: const {'a'},
+        ),
+      );
 
       expect(find.byIcon(Icons.home), findsOneWidget);
       expect(find.byIcon(Icons.work), findsOneWidget);
     });
 
     testWidgets('does not render icons when not provided', (tester) async {
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(segments: segments, selected: const {'a'}),
+      );
 
       // No icons should be present since segments don't define any.
       expect(
@@ -163,10 +178,10 @@ void main() {
     });
 
     testWidgets('has correct height of 42', (tester) async {
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(segments: segments, selected: const {'a'}),
+      );
 
       final sizedBox = tester.widget<SizedBox>(
         find
@@ -181,10 +196,10 @@ void main() {
     });
 
     testWidgets('contains WiredCanvas for the outer border', (tester) async {
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(segments: segments, selected: const {'a'}),
+      );
 
       // Should have WiredCanvas widgets for the outer border and dividers.
       expect(
@@ -197,10 +212,10 @@ void main() {
     });
 
     testWidgets('contains RepaintBoundary wrapper', (tester) async {
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(segments: segments, selected: const {'a'}),
+      );
 
       expect(
         find.descendant(
@@ -229,11 +244,14 @@ void main() {
         WiredButtonSegment<int>(value: 2, label: const Text('Two')),
       ];
 
-      await pumpApp(tester, WiredSegmentedButton<int>(
-              segments: intSegments,
-              selected: const {1},
-              onSelectionChanged: (s) => receivedSelection = s,
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<int>(
+          segments: intSegments,
+          selected: const {1},
+          onSelectionChanged: (s) => receivedSelection = s,
+        ),
+      );
 
       await tester.tap(find.text('Two'));
       await tester.pump();
@@ -242,10 +260,10 @@ void main() {
     });
 
     testWidgets('renders dividers between segments', (tester) async {
-      await pumpApp(tester, WiredSegmentedButton<String>(
-              segments: segments,
-              selected: const {'a'},
-            ));
+      await pumpApp(
+        tester,
+        WiredSegmentedButton<String>(segments: segments, selected: const {'a'}),
+      );
 
       // With 3 segments, there should be 2 dividers (WiredLineBase)
       // plus the outer rectangle, totaling at least 3 WiredCanvas widgets.
