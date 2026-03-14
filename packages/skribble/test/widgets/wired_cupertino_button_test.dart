@@ -5,72 +5,72 @@ import 'package:skribble/skribble.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
-  Widget buildSubject({
+  Future<void> pumpSubject(
+    WidgetTester tester, {
     VoidCallback? onPressed,
     Widget child = const Text('Tap'),
     Color? color,
     EdgeInsetsGeometry? padding,
     BorderRadius? borderRadius,
-  }) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: WiredCupertinoButton(
-            onPressed: onPressed,
-            color: color,
-            padding: padding,
-            borderRadius: borderRadius,
-            child: child,
-          ),
-        ),
+  }) async {
+    await pumpApp(
+      tester,
+      WiredCupertinoButton(
+        onPressed: onPressed,
+        color: color,
+        padding: padding,
+        borderRadius: borderRadius,
+        child: child,
       ),
     );
   }
 
   group('WiredCupertinoButton', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(buildSubject(onPressed: () {}));
+      await pumpSubject(tester, onPressed: () {});
       expect(find.byType(WiredCupertinoButton), findsOneWidget);
       expect(find.text('Tap'), findsOneWidget);
     });
 
     testWidgets('calls onPressed when tapped', (tester) async {
       var tapped = false;
-      await tester.pumpWidget(buildSubject(onPressed: () => tapped = true));
+      await pumpSubject(tester, onPressed: () => tapped = true);
       await tester.tap(find.text('Tap'));
       expect(tapped, isTrue);
     });
 
     testWidgets('does not call onPressed when disabled', (tester) async {
       const tapped = false;
-      await tester.pumpWidget(buildSubject(onPressed: null));
+      await pumpSubject(tester);
       await tester.tap(find.text('Tap'));
       expect(tapped, isFalse);
     });
 
     testWidgets('renders with fill color', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(onPressed: () {}, color: Colors.blue),
-      );
+      await pumpSubject(tester, onPressed: () {}, color: Colors.blue);
       expect(find.byType(WiredCupertinoButton), findsOneWidget);
     });
 
     testWidgets('respects custom padding', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(onPressed: () {}, padding: const EdgeInsets.all(32)),
+      await pumpSubject(
+        tester,
+        onPressed: () {},
+        padding: const EdgeInsets.all(32),
       );
       expect(find.byType(WiredCupertinoButton), findsOneWidget);
     });
 
     testWidgets('respects custom border radius', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(onPressed: () {}, borderRadius: BorderRadius.circular(20)),
+      await pumpSubject(
+        tester,
+        onPressed: () {},
+        borderRadius: BorderRadius.circular(20),
       );
       expect(find.byType(WiredCupertinoButton), findsOneWidget);
     });
 
     testWidgets('shows reduced opacity when pressed', (tester) async {
-      await tester.pumpWidget(buildSubject(onPressed: () {}));
+      await pumpSubject(tester, onPressed: () {});
       final gesture = await tester.startGesture(
         tester.getCenter(find.text('Tap')),
       );
@@ -87,7 +87,7 @@ void main() {
     });
 
     testWidgets('shows reduced opacity when disabled', (tester) async {
-      await tester.pumpWidget(buildSubject());
+      await pumpSubject(tester);
       final opacity = tester.widget<AnimatedOpacity>(
         find.byType(AnimatedOpacity),
       );

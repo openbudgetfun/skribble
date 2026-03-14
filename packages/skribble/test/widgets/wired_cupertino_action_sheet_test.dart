@@ -5,69 +5,63 @@ import 'package:skribble/skribble.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
-  Widget buildSubject({
+  Future<void> pumpSubject(
+    WidgetTester tester, {
     Widget? title,
     Widget? message,
     List<Widget> actions = const [],
     Widget? cancelButton,
-  }) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: WiredCupertinoActionSheet(
-            title: title,
-            message: message,
-            actions: actions,
-            cancelButton: cancelButton,
-          ),
-        ),
+  }) async {
+    await pumpApp(
+      tester,
+      WiredCupertinoActionSheet(
+        title: title,
+        message: message,
+        actions: actions,
+        cancelButton: cancelButton,
       ),
     );
   }
 
   group('WiredCupertinoActionSheet', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(buildSubject());
+      await pumpSubject(tester);
       expect(find.byType(WiredCupertinoActionSheet), findsOneWidget);
     });
 
     testWidgets('renders title', (tester) async {
-      await tester.pumpWidget(buildSubject(title: const Text('Choose')));
+      await pumpSubject(tester, title: const Text('Choose'));
       expect(find.text('Choose'), findsOneWidget);
     });
 
     testWidgets('renders message', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(message: const Text('Pick an option')),
-      );
+      await pumpSubject(tester, message: const Text('Pick an option'));
       expect(find.text('Pick an option'), findsOneWidget);
     });
 
     testWidgets('renders title and message together', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(
-          title: const Text('Share'),
-          message: const Text('Choose how to share this item.'),
-        ),
+      await pumpSubject(
+        tester,
+        title: const Text('Share'),
+        message: const Text('Choose how to share this item.'),
       );
       expect(find.text('Share'), findsOneWidget);
       expect(find.text('Choose how to share this item.'), findsOneWidget);
     });
 
     testWidgets('renders action buttons', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(
-          actions: [
-            WiredCupertinoActionSheetAction(
-              onPressed: () {},
-              child: const Text('Copy'),
-            ),
-            WiredCupertinoActionSheetAction(
-              onPressed: () {},
-              child: const Text('Move'),
-            ),
-          ],
-        ),
+      await pumpSubject(
+        tester,
+        actions: [
+          WiredCupertinoActionSheetAction(
+            onPressed: () {},
+            child: const Text('Copy'),
+          ),
+          WiredCupertinoActionSheetAction(
+            onPressed: () {},
+            child: const Text('Move'),
+          ),
+        ],
       );
       expect(find.text('Copy'), findsOneWidget);
       expect(find.text('Move'), findsOneWidget);
@@ -75,49 +69,46 @@ void main() {
 
     testWidgets('action calls onPressed', (tester) async {
       var tapped = false;
-      await tester.pumpWidget(
-        buildSubject(
-          actions: [
-            WiredCupertinoActionSheetAction(
-              onPressed: () => tapped = true,
-              child: const Text('Tap Me'),
-            ),
-          ],
-        ),
+      await pumpSubject(
+        tester,
+        actions: [
+          WiredCupertinoActionSheetAction(
+            onPressed: () => tapped = true,
+            child: const Text('Tap Me'),
+          ),
+        ],
       );
       await tester.tap(find.text('Tap Me'));
       expect(tapped, isTrue);
     });
 
     testWidgets('renders cancel button', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(
-          actions: [
-            WiredCupertinoActionSheetAction(
-              onPressed: () {},
-              child: const Text('Share'),
-            ),
-          ],
-          cancelButton: WiredCupertinoActionSheetAction(
+      await pumpSubject(
+        tester,
+        actions: [
+          WiredCupertinoActionSheetAction(
             onPressed: () {},
-            child: const Text('Cancel'),
+            child: const Text('Share'),
           ),
+        ],
+        cancelButton: WiredCupertinoActionSheetAction(
+          onPressed: () {},
+          child: const Text('Cancel'),
         ),
       );
       expect(find.text('Cancel'), findsOneWidget);
     });
 
     testWidgets('destructive action renders', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(
-          actions: [
-            WiredCupertinoActionSheetAction(
-              onPressed: () {},
-              isDestructiveAction: true,
-              child: const Text('Delete'),
-            ),
-          ],
-        ),
+      await pumpSubject(
+        tester,
+        actions: [
+          WiredCupertinoActionSheetAction(
+            onPressed: () {},
+            isDestructiveAction: true,
+            child: const Text('Delete'),
+          ),
+        ],
       );
       expect(find.text('Delete'), findsOneWidget);
     });
