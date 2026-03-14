@@ -61,3 +61,5 @@ data-display/wired-calendar.png
 data-display/wired-date-picker.png
 data-display/wired-time-picker.png
 data-display/wired-stepper.png
+
+rough-icons/rough-icons.png

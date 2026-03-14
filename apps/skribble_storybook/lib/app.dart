@@ -9,6 +9,7 @@ import 'package:skribble_storybook/pages/home_page.dart';
 import 'package:skribble_storybook/pages/inputs_page.dart';
 import 'package:skribble_storybook/pages/layout_page.dart';
 import 'package:skribble_storybook/pages/navigation_page.dart';
+import 'package:skribble_storybook/pages/rough_icons_page.dart';
 import 'package:skribble_storybook/pages/selection_page.dart';
 
 class SkribbleStorybookApp extends HookWidget {
@@ -32,6 +33,7 @@ class SkribbleStorybookApp extends HookWidget {
           '/feedback': (context) => const FeedbackPage(),
           '/layout': (context) => const LayoutPage(),
           '/data-display': (context) => const DataDisplayPage(),
+          '/rough-icons': (context) => const RoughIconsPage(),
         },
       ),
     );
