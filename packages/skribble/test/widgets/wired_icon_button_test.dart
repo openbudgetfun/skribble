@@ -2,28 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredIconButton', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
 
       expect(find.byType(WiredIconButton), findsOneWidget);
     });
 
     testWidgets('renders the provided icon', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(icon: Icons.favorite, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredIconButton(icon: Icons.favorite, onPressed: () {}));
 
       expect(find.byIcon(Icons.favorite), findsOneWidget);
     });
@@ -31,16 +21,10 @@ void main() {
     testWidgets('calls onPressed callback when tapped', (tester) async {
       var pressed = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(
+      await pumpApp(tester, WiredIconButton(
               icon: Icons.add,
               onPressed: () => pressed = true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.byType(IconButton));
       await tester.pump();
@@ -49,13 +33,7 @@ void main() {
     });
 
     testWidgets('does not crash when onPressed is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(icon: Icons.add, onPressed: null),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: null));
 
       expect(find.byType(WiredIconButton), findsOneWidget);
     });
@@ -65,13 +43,7 @@ void main() {
     ) async {
       const pressed = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(icon: Icons.add, onPressed: null),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: null));
 
       await tester.tap(find.byType(WiredIconButton));
       await tester.pump();
@@ -92,13 +64,7 @@ void main() {
     });
 
     testWidgets('renders with default size (48.0)', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
 
       final buttonSize = tester.getSize(find.byType(WiredIconButton));
 
@@ -107,17 +73,11 @@ void main() {
     });
 
     testWidgets('renders with custom size', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(
+      await pumpApp(tester, WiredIconButton(
               icon: Icons.add,
               onPressed: () {},
               size: 64.0,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final buttonSize = tester.getSize(find.byType(WiredIconButton));
 
@@ -132,17 +92,11 @@ void main() {
     });
 
     testWidgets('uses custom iconColor when provided', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(
+      await pumpApp(tester, WiredIconButton(
               icon: Icons.add,
               onPressed: () {},
               iconColor: Colors.red,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final icon = tester.widget<Icon>(find.byIcon(Icons.add));
 
@@ -150,13 +104,7 @@ void main() {
     });
 
     testWidgets('contains IconButton internally', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
 
       expect(
         find.descendant(
@@ -168,13 +116,7 @@ void main() {
     });
 
     testWidgets('contains WiredCanvas for circle border', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
 
       expect(
         find.descendant(
@@ -186,13 +128,7 @@ void main() {
     });
 
     testWidgets('contains Stack for layering circle and icon', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
 
       expect(
         find.descendant(
@@ -204,13 +140,7 @@ void main() {
     });
 
     testWidgets('has RepaintBoundary wrapper', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
 
       expect(
         find.descendant(
@@ -224,13 +154,7 @@ void main() {
     testWidgets('tracks multiple rapid taps', (tester) async {
       var tapCount = 0;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredIconButton(icon: Icons.add, onPressed: () => tapCount++),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () => tapCount++));
 
       await tester.tap(find.byType(IconButton));
       await tester.pump();

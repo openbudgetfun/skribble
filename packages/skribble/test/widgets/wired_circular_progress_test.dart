@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredCircularProgress', () {
     testWidgets('renders without error (indeterminate)', (tester) async {
@@ -21,13 +23,7 @@ void main() {
     });
 
     testWidgets('default size is 48x48', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(child: WiredCircularProgress(value: 0.5)),
-          ),
-        ),
-      );
+      await pumpApp(tester, Center(child: WiredCircularProgress(value: 0.5)));
 
       final size = tester.getSize(find.byType(WiredCircularProgress));
       expect(size.width, 48.0);
@@ -35,13 +31,7 @@ void main() {
     });
 
     testWidgets('renders with custom size', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(child: WiredCircularProgress(value: 0.5, size: 100.0)),
-          ),
-        ),
-      );
+      await pumpApp(tester, Center(child: WiredCircularProgress(value: 0.5, size: 100.0)));
 
       final size = tester.getSize(find.byType(WiredCircularProgress));
       expect(size.width, 100.0);
@@ -82,13 +72,7 @@ void main() {
     });
 
     testWidgets('accepts custom strokeWidth', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCircularProgress(value: 0.5, strokeWidth: 5.0),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredCircularProgress(value: 0.5, strokeWidth: 5.0));
 
       final progress = tester.widget<WiredCircularProgress>(
         find.byType(WiredCircularProgress),

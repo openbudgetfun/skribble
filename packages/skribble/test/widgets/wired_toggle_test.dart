@@ -2,40 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredToggle', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: SizedBox(
                 width: 100,
                 height: 100,
                 child: WiredToggle(value: false, onChange: (v) => true),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredToggle), findsOneWidget);
     });
 
     testWidgets('contains GestureDetector', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: SizedBox(
                 width: 100,
                 height: 100,
                 child: WiredToggle(value: false, onChange: (v) => true),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(
         find.descendant(
@@ -49,10 +39,7 @@ void main() {
     testWidgets('calls onChange on tap', (tester) async {
       bool? receivedValue;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: SizedBox(
                 width: 100,
                 height: 100,
@@ -64,10 +51,7 @@ void main() {
                   },
                 ),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       // The GestureDetector inside WiredToggle wraps a Stack sized to 60x24
       // (thumbRadius * 2.5 x thumbRadius). It sits at the top-left of the
@@ -89,19 +73,13 @@ void main() {
     });
 
     testWidgets('has correct default thumbRadius (24.0)', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: SizedBox(
                 width: 100,
                 height: 100,
                 child: WiredToggle(value: false),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       final toggle = tester.widget<WiredToggle>(find.byType(WiredToggle));
 
@@ -109,19 +87,13 @@ void main() {
     });
 
     testWidgets('accepts custom thumbRadius', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: SizedBox(
                 width: 100,
                 height: 100,
                 child: WiredToggle(value: false, thumbRadius: 16.0),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       final toggle = tester.widget<WiredToggle>(find.byType(WiredToggle));
 
@@ -131,10 +103,7 @@ void main() {
     testWidgets('does not toggle when onChange returns false', (tester) async {
       var callCount = 0;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: SizedBox(
                 width: 100,
                 height: 100,
@@ -146,10 +115,7 @@ void main() {
                   },
                 ),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Invoke onTap directly on the GestureDetector.
       final gestureDetector = tester.widget<GestureDetector>(
@@ -167,19 +133,13 @@ void main() {
     });
 
     testWidgets('contains RepaintBoundary wrapper', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: SizedBox(
                 width: 100,
                 height: 100,
                 child: WiredToggle(value: false),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       // WiredToggle uses buildWiredElement which wraps in RepaintBoundary.
       expect(

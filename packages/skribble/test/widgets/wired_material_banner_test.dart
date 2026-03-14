@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   Widget buildSubject({
     Widget content = const Text('Banner message'),
@@ -89,16 +91,10 @@ void main() {
 
     testWidgets('calls onVisible on build', (tester) async {
       var visible = false;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredMaterialBanner(
+      await pumpApp(tester, WiredMaterialBanner(
               content: const Text('test'),
               onVisible: () => visible = true,
-            ),
-          ),
-        ),
-      );
+            ));
       expect(visible, isTrue);
     });
   });

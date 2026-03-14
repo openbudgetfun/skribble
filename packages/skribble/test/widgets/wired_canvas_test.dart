@@ -2,103 +2,72 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredCanvas', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCanvas(
+      await pumpApp(tester, WiredCanvas(
               painter: WiredRectangleBase(),
               fillerType: RoughFilter.noFiller,
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredCanvas), findsOneWidget);
       expect(find.byType(CustomPaint), findsWidgets);
     });
 
     testWidgets('renders with hachure filler', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
+      await pumpApp(tester, SizedBox(
               width: 100,
               height: 50,
               child: WiredCanvas(
                 painter: WiredRectangleBase(),
                 fillerType: RoughFilter.hachureFiller,
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('accepts explicit size parameter', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCanvas(
+      await pumpApp(tester, WiredCanvas(
               painter: WiredRectangleBase(),
               fillerType: RoughFilter.noFiller,
               size: const Size(200, 100),
-            ),
-          ),
-        ),
-      );
+            ));
 
       final canvas = tester.widget<WiredCanvas>(find.byType(WiredCanvas));
       expect(canvas.size, const Size(200, 100));
     });
 
     testWidgets('renders with circle painter', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
+      await pumpApp(tester, SizedBox(
               width: 60,
               height: 60,
               child: WiredCanvas(
                 painter: WiredCircleBase(),
                 fillerType: RoughFilter.noFiller,
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('renders with line painter', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
+      await pumpApp(tester, SizedBox(
               width: 200,
               height: 2,
               child: WiredCanvas(
                 painter: WiredLineBase(x1: 0, y1: 0, x2: 200, y2: 0),
                 fillerType: RoughFilter.noFiller,
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('renders with rounded rectangle painter', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
+      await pumpApp(tester, SizedBox(
               width: 120,
               height: 60,
               child: WiredCanvas(
@@ -107,19 +76,13 @@ void main() {
                 ),
                 fillerType: RoughFilter.noFiller,
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('renders with custom draw config', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
+      await pumpApp(tester, SizedBox(
               width: 100,
               height: 50,
               child: WiredCanvas(
@@ -130,19 +93,13 @@ void main() {
                   maxRandomnessOffset: 3,
                 ),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('renders with custom filler config', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
+      await pumpApp(tester, SizedBox(
               width: 100,
               height: 50,
               child: WiredCanvas(
@@ -150,30 +107,21 @@ void main() {
                 fillerType: RoughFilter.hachureFiller,
                 fillerConfig: FillerConfig.build(hachureGap: 4),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });
 
     testWidgets('each RoughFilter type renders without error', (tester) async {
       for (final filter in RoughFilter.values) {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: SizedBox(
+        await pumpApp(tester, SizedBox(
                 width: 80,
                 height: 40,
                 child: WiredCanvas(
                   painter: WiredRectangleBase(),
                   fillerType: filter,
                 ),
-              ),
-            ),
-          ),
-        );
+              ));
 
         expect(
           find.byType(WiredCanvas),
@@ -184,20 +132,14 @@ void main() {
     });
 
     testWidgets('renders with custom border color', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
+      await pumpApp(tester, SizedBox(
               width: 100,
               height: 50,
               child: WiredCanvas(
                 painter: WiredRectangleBase(borderColor: Colors.red),
                 fillerType: RoughFilter.noFiller,
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredCanvas), findsOneWidget);
     });

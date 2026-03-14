@@ -2,28 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredFloatingActionButton', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredFloatingActionButton(icon: Icons.add, onPressed: () {}));
 
       expect(find.byType(WiredFloatingActionButton), findsOneWidget);
     });
 
     testWidgets('renders the provided icon', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(icon: Icons.edit, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredFloatingActionButton(icon: Icons.edit, onPressed: () {}));
 
       expect(find.byIcon(Icons.edit), findsOneWidget);
     });
@@ -31,16 +21,10 @@ void main() {
     testWidgets('calls onPressed callback when tapped', (tester) async {
       var pressed = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(
+      await pumpApp(tester, WiredFloatingActionButton(
               icon: Icons.add,
               onPressed: () => pressed = true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.byType(WiredFloatingActionButton));
       await tester.pump();
@@ -49,13 +33,7 @@ void main() {
     });
 
     testWidgets('does not crash when onPressed is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(icon: Icons.add, onPressed: null),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredFloatingActionButton(icon: Icons.add, onPressed: null));
 
       expect(find.byType(WiredFloatingActionButton), findsOneWidget);
     });
@@ -65,13 +43,7 @@ void main() {
     ) async {
       const pressed = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(icon: Icons.add, onPressed: null),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredFloatingActionButton(icon: Icons.add, onPressed: null));
 
       await tester.tap(find.byType(WiredFloatingActionButton));
       await tester.pump();
@@ -92,13 +64,7 @@ void main() {
     });
 
     testWidgets('renders with default size (56.0)', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredFloatingActionButton(icon: Icons.add, onPressed: () {}));
 
       final fabSize = tester.getSize(find.byType(WiredFloatingActionButton));
 
@@ -107,17 +73,11 @@ void main() {
     });
 
     testWidgets('renders with custom size', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(
+      await pumpApp(tester, WiredFloatingActionButton(
               icon: Icons.add,
               onPressed: () {},
               size: 72.0,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final fabSize = tester.getSize(find.byType(WiredFloatingActionButton));
 
@@ -132,17 +92,11 @@ void main() {
     });
 
     testWidgets('uses custom iconColor when provided', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(
+      await pumpApp(tester, WiredFloatingActionButton(
               icon: Icons.add,
               onPressed: () {},
               iconColor: Colors.white,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final icon = tester.widget<Icon>(find.byIcon(Icons.add));
 
@@ -150,13 +104,7 @@ void main() {
     });
 
     testWidgets('uses GestureDetector for tap handling', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredFloatingActionButton(icon: Icons.add, onPressed: () {}));
 
       expect(
         find.descendant(
@@ -168,13 +116,7 @@ void main() {
     });
 
     testWidgets('contains WiredCanvas for circle background', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredFloatingActionButton(icon: Icons.add, onPressed: () {}));
 
       expect(
         find.descendant(
@@ -186,13 +128,7 @@ void main() {
     });
 
     testWidgets('contains Stack for layering circle and icon', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredFloatingActionButton(icon: Icons.add, onPressed: () {}));
 
       expect(
         find.descendant(
@@ -204,13 +140,7 @@ void main() {
     });
 
     testWidgets('has RepaintBoundary wrapper', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredFloatingActionButton(icon: Icons.add, onPressed: () {}));
 
       expect(
         find.descendant(
@@ -222,17 +152,11 @@ void main() {
     });
 
     testWidgets('icon size scales with widget size', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(
+      await pumpApp(tester, WiredFloatingActionButton(
               icon: Icons.add,
               onPressed: () {},
               size: 100.0,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final icon = tester.widget<Icon>(find.byIcon(Icons.add));
 
@@ -243,16 +167,10 @@ void main() {
     testWidgets('tracks multiple rapid taps', (tester) async {
       var tapCount = 0;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredFloatingActionButton(
+      await pumpApp(tester, WiredFloatingActionButton(
               icon: Icons.add,
               onPressed: () => tapCount++,
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.byType(WiredFloatingActionButton));
       await tester.pump();

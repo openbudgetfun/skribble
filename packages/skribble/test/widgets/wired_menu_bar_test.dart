@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredMenuBar', () {
     testWidgets('renders menu bar with children', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredMenuBar(
+      await pumpApp(tester, WiredMenuBar(
               children: [
                 WiredSubmenuButton(
                   menuChildren: [
@@ -24,10 +23,7 @@ void main() {
                   child: const Text('File'),
                 ),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredMenuBar), findsOneWidget);
       expect(find.text('File'), findsOneWidget);
@@ -35,10 +31,7 @@ void main() {
     });
 
     testWidgets('opens submenu on tap', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredMenuBar(
+      await pumpApp(tester, WiredMenuBar(
               children: [
                 WiredSubmenuButton(
                   menuChildren: [
@@ -54,10 +47,7 @@ void main() {
                   child: const Text('Edit'),
                 ),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('Edit'));
       await tester.pumpAndSettle();
@@ -69,10 +59,7 @@ void main() {
     testWidgets('calls onPressed for menu item', (tester) async {
       var pressed = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredMenuBar(
+      await pumpApp(tester, WiredMenuBar(
               children: [
                 WiredSubmenuButton(
                   menuChildren: [
@@ -84,10 +71,7 @@ void main() {
                   child: const Text('File'),
                 ),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('File'));
       await tester.pumpAndSettle();
@@ -100,10 +84,7 @@ void main() {
 
   group('WiredDropdownMenu', () {
     testWidgets('renders with entries', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
+      await pumpApp(tester, SizedBox(
               width: 300,
               child: WiredDropdownMenu<String>(
                 dropdownMenuEntries: const [
@@ -112,10 +93,7 @@ void main() {
                 ],
                 hintText: 'Select',
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredDropdownMenu<String>), findsOneWidget);
       expect(find.byType(DropdownMenu<String>), findsOneWidget);
@@ -124,10 +102,7 @@ void main() {
     testWidgets('calls onSelected when item tapped', (tester) async {
       String? selected;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
+      await pumpApp(tester, SizedBox(
               width: 300,
               child: WiredDropdownMenu<String>(
                 width: 300,
@@ -137,10 +112,7 @@ void main() {
                 ],
                 onSelected: (v) => selected = v,
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Tap the dropdown to open it
       await tester.tap(find.byType(DropdownMenu<String>));
@@ -154,10 +126,7 @@ void main() {
     });
 
     testWidgets('renders with initial selection', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
+      await pumpApp(tester, SizedBox(
               width: 300,
               child: WiredDropdownMenu<String>(
                 initialSelection: 'b',
@@ -166,10 +135,7 @@ void main() {
                   DropdownMenuEntry(value: 'b', label: 'Beta'),
                 ],
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredDropdownMenu<String>), findsOneWidget);
     });

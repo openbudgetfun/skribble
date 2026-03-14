@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   Widget buildSubject({
     VoidCallback? onPressed,
@@ -93,18 +95,12 @@ void main() {
     });
 
     testWidgets('filled factory renders with active blue', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: WiredCupertinoButton.filled(
                 onPressed: () {},
                 child: const Text('Filled'),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
       expect(find.byType(WiredCupertinoButton), findsOneWidget);
       expect(find.text('Filled'), findsOneWidget);
     });

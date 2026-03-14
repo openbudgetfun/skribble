@@ -2,27 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredContextMenu', () {
     testWidgets('renders child', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredContextMenu(
+      await pumpApp(tester, WiredContextMenu(
               actions: const [WiredContextMenuAction(label: 'Copy')],
               child: const Text('Long press me'),
-            ),
-          ),
-        ),
-      );
+            ));
       expect(find.text('Long press me'), findsOneWidget);
     });
 
     testWidgets('shows menu on long press', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: WiredContextMenu(
                 actions: const [
                   WiredContextMenuAction(label: 'Cut', icon: Icons.cut),
@@ -39,10 +32,7 @@ void main() {
                   child: Center(child: Text('Target')),
                 ),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.longPress(find.text('Target'));
       await tester.pumpAndSettle();
@@ -55,10 +45,7 @@ void main() {
     testWidgets('calls action onPressed and dismisses', (tester) async {
       var pressed = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: WiredContextMenu(
                 actions: [
                   WiredContextMenuAction(
@@ -72,10 +59,7 @@ void main() {
                   child: Center(child: Text('Item')),
                 ),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.longPress(find.text('Item'));
       await tester.pumpAndSettle();
@@ -89,10 +73,7 @@ void main() {
     });
 
     testWidgets('dismisses when tapping outside', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: WiredContextMenu(
                 actions: const [WiredContextMenuAction(label: 'Option')],
                 child: const SizedBox(
@@ -101,10 +82,7 @@ void main() {
                   child: Center(child: Text('Box')),
                 ),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.longPress(find.text('Box'));
       await tester.pumpAndSettle();
@@ -117,10 +95,7 @@ void main() {
     });
 
     testWidgets('shows icons when provided', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
+      await pumpApp(tester, Center(
               child: WiredContextMenu(
                 actions: const [
                   WiredContextMenuAction(label: 'Edit', icon: Icons.edit),
@@ -132,10 +107,7 @@ void main() {
                   child: Center(child: Text('Press me')),
                 ),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.longPress(find.text('Press me'));
       await tester.pumpAndSettle();
@@ -145,16 +117,10 @@ void main() {
     });
 
     testWidgets('contains RepaintBoundary', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredContextMenu(
+      await pumpApp(tester, WiredContextMenu(
               actions: const [WiredContextMenuAction(label: 'Test')],
               child: const Text('Content'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(RepaintBoundary), findsWidgets);
     });

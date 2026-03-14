@@ -4,91 +4,57 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredAnimatedIcon', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredAnimatedIcon(
+      await pumpApp(tester, WiredAnimatedIcon(
               icon: AnimatedIcons.menu_arrow,
               progress: const AlwaysStoppedAnimation(0.0),
-            ),
-          ),
-        ),
-      );
+            ));
       expect(find.byType(WiredAnimatedIcon), findsOneWidget);
     });
 
     testWidgets('renders at progress 1.0', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredAnimatedIcon(
+      await pumpApp(tester, WiredAnimatedIcon(
               icon: AnimatedIcons.menu_arrow,
               progress: const AlwaysStoppedAnimation(1.0),
-            ),
-          ),
-        ),
-      );
+            ));
       expect(find.byType(WiredAnimatedIcon), findsOneWidget);
     });
 
     testWidgets('renders at mid progress', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredAnimatedIcon(
+      await pumpApp(tester, WiredAnimatedIcon(
               icon: AnimatedIcons.play_pause,
               progress: const AlwaysStoppedAnimation(0.5),
-            ),
-          ),
-        ),
-      );
+            ));
       expect(find.byType(AnimatedIcon), findsOneWidget);
     });
 
     testWidgets('respects custom color', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredAnimatedIcon(
+      await pumpApp(tester, WiredAnimatedIcon(
               icon: AnimatedIcons.menu_close,
               progress: const AlwaysStoppedAnimation(0.0),
               color: Colors.red,
-            ),
-          ),
-        ),
-      );
+            ));
       final animIcon = tester.widget<AnimatedIcon>(find.byType(AnimatedIcon));
       expect(animIcon.color, Colors.red);
     });
 
     testWidgets('respects custom size', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredAnimatedIcon(
+      await pumpApp(tester, WiredAnimatedIcon(
               icon: AnimatedIcons.menu_arrow,
               progress: const AlwaysStoppedAnimation(0.0),
               size: 48,
-            ),
-          ),
-        ),
-      );
+            ));
       final animIcon = tester.widget<AnimatedIcon>(find.byType(AnimatedIcon));
       expect(animIcon.size, 48);
     });
 
     testWidgets('animates with controller', (tester) async {
       late AnimationController controller;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: _AnimatedIconHost(onController: (c) => controller = c),
-          ),
-        ),
-      );
+      await pumpApp(tester, _AnimatedIconHost(onController: (c) => controller = c));
 
       expect(find.byType(WiredAnimatedIcon), findsOneWidget);
       unawaited(controller.forward());
@@ -98,17 +64,11 @@ void main() {
     });
 
     testWidgets('has semantic label when provided', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredAnimatedIcon(
+      await pumpApp(tester, WiredAnimatedIcon(
               icon: AnimatedIcons.menu_arrow,
               progress: const AlwaysStoppedAnimation(0.0),
               semanticLabel: 'Menu icon',
-            ),
-          ),
-        ),
-      );
+            ));
       final animIcon = tester.widget<AnimatedIcon>(find.byType(AnimatedIcon));
       expect(animIcon.semanticLabel, 'Menu icon');
     });
