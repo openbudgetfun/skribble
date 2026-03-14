@@ -4,8 +4,9 @@ description: >
   familiar Material and Cupertino APIs — buttons, inputs, navigation,
   dialogs, and more, all with a hand-drawn aesthetic.
 version: 0.3.1
-publish_to: none
+homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble
+documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble/README.md
 issue_tracker: https://github.com/openbudgetfun/skribble/issues
 
 topics:
