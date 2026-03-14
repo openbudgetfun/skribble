@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -107,7 +108,7 @@ void main() {
 
       expect(find.text('Inbox'), findsOneWidget);
       expect(find.text('Sent'), findsOneWidget);
-      expect(find.byType(WiredCanvas), findsWidgets);
+      expect(findWiredCanvas, findsWidgets);
     });
 
     testWidgets('respects custom width', (tester) async {

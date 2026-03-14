@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -66,7 +67,7 @@ void main() {
     testWidgets('fill parameter adds filler', (tester) async {
       await pumpApp(tester, WiredCard(fill: true, child: const Text('Filled')));
 
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
       expect(find.text('Filled'), findsOneWidget);
     });
 

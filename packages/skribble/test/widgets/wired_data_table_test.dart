@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -169,7 +170,7 @@ void main() {
       expect(
         find.descendant(
           of: find.byType(WiredDataTable),
-          matching: find.byType(WiredCanvas),
+          matching: findWiredCanvas,
         ),
         findsNWidgets(4),
       );
@@ -191,7 +192,7 @@ void main() {
       expect(
         find.descendant(
           of: find.byType(WiredDataTable),
-          matching: find.byType(WiredCanvas),
+          matching: findWiredCanvas,
         ),
         findsNWidgets(2),
       );
@@ -212,7 +213,7 @@ void main() {
       expect(
         find.descendant(
           of: find.byType(WiredDataTable),
-          matching: find.byType(RepaintBoundary),
+          matching: findRepaintBoundary,
         ),
         findsOneWidget,
       );
