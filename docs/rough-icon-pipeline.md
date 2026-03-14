@@ -48,8 +48,8 @@ writing Dart provider code.
 Manifest supports either a top-level list or `{ "icons": [...] }`, where each
 entry includes:
 
-- `identifier` (string)
-- `codePoint` (int or hex string like `"0xe001"`)
+- `identifier` (string, must be unique)
+- `codePoint` (int or hex string like `"0xe001"`, must be unique)
 - `svgPath` (preferred) or `svg`/`path` alias
 
 Example:
