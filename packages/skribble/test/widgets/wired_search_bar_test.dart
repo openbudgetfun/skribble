@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredSearchBar', () {
     testWidgets('renders without error', (tester) async {
@@ -65,11 +67,7 @@ void main() {
     });
 
     testWidgets('displays custom hint text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar(hintText: 'Find items...')),
-        ),
-      );
+      await pumpApp(tester, WiredSearchBar(hintText: 'Find items...'));
 
       expect(find.text('Find items...'), findsOneWidget);
       expect(find.text('Search...'), findsNothing);
@@ -146,11 +144,7 @@ void main() {
     testWidgets('uses provided TextEditingController', (tester) async {
       final controller = TextEditingController(text: 'preset');
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredSearchBar(controller: controller)),
-        ),
-      );
+      await pumpApp(tester, WiredSearchBar(controller: controller));
 
       expect(find.text('preset'), findsOneWidget);
 

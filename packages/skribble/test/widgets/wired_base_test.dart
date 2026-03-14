@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredBase', () {
     test('pathPainter has correct style properties', () {
@@ -233,11 +235,7 @@ void main() {
 
   group('buildWiredElement', () {
     testWidgets('wraps child in RepaintBoundary', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: buildWiredElement(child: const Text('Hello'))),
-        ),
-      );
+      await pumpApp(tester, buildWiredElement(child: const Text('Hello')));
       expect(find.byType(RepaintBoundary), findsWidgets);
       expect(find.text('Hello'), findsOneWidget);
     });

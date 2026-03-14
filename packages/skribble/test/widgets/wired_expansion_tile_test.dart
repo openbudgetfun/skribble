@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredExpansionTile', () {
     testWidgets('renders without error', (tester) async {
@@ -44,11 +46,7 @@ void main() {
     });
 
     testWidgets('does not render subtitle when null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredExpansionTile(title: const Text('Title')));
 
       // Only title text should be present, no subtitle.
       expect(find.text('Title'), findsOneWidget);
@@ -70,11 +68,7 @@ void main() {
     });
 
     testWidgets('does not render leading widget when null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredExpansionTile(title: const Text('Title')));
 
       expect(find.byIcon(Icons.folder), findsNothing);
     });
@@ -116,11 +110,7 @@ void main() {
     });
 
     testWidgets('initiallyExpanded defaults to false', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredExpansionTile(title: const Text('Title')));
 
       final tile = tester.widget<WiredExpansionTile>(
         find.byType(WiredExpansionTile),
@@ -129,11 +119,7 @@ void main() {
     });
 
     testWidgets('children default to empty list', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredExpansionTile(title: const Text('Title')));
 
       final tile = tester.widget<WiredExpansionTile>(
         find.byType(WiredExpansionTile),
@@ -187,11 +173,7 @@ void main() {
     });
 
     testWidgets('contains expand_more icon', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredExpansionTile(title: const Text('Title')));
 
       expect(find.byIcon(Icons.expand_more), findsOneWidget);
     });
@@ -224,11 +206,7 @@ void main() {
     });
 
     testWidgets('contains WiredCanvas separator line', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredExpansionTile(title: const Text('Title')));
 
       expect(
         find.descendant(
@@ -240,11 +218,7 @@ void main() {
     });
 
     testWidgets('uses InkWell for tap handling', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredExpansionTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredExpansionTile(title: const Text('Title')));
 
       expect(
         find.descendant(

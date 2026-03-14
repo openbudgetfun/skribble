@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredFilledButton', () {
     testWidgets('renders with child text', (tester) async {
@@ -56,11 +58,7 @@ void main() {
     });
 
     testWidgets('disabled when onPressed is null', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: WiredFilledButton(child: Text('Disabled'))),
-        ),
-      );
+      await pumpApp(tester, WiredFilledButton(child: Text('Disabled')));
 
       final button = tester.widget<TextButton>(find.byType(TextButton));
       expect(button.onPressed, isNull);
@@ -109,11 +107,7 @@ void main() {
     testWidgets('does not respond to tap when disabled', (tester) async {
       const tapped = false;
 
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: WiredFilledButton(child: Text('No tap'))),
-        ),
-      );
+      await pumpApp(tester, WiredFilledButton(child: Text('No tap')));
 
       await tester.tap(find.text('No tap'));
       expect(tapped, isFalse);

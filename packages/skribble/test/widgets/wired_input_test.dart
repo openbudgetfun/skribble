@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredInput', () {
     testWidgets('renders TextField', (tester) async {
@@ -13,11 +15,7 @@ void main() {
     testWidgets('accepts text input via controller', (tester) async {
       final controller = TextEditingController();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredInput(controller: controller)),
-        ),
-      );
+      await pumpApp(tester, WiredInput(controller: controller));
 
       await tester.enterText(find.byType(TextField), 'hello world');
 
@@ -25,11 +23,7 @@ void main() {
     });
 
     testWidgets('shows label text when provided', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredInput(labelText: 'Username')),
-        ),
-      );
+      await pumpApp(tester, WiredInput(labelText: 'Username'));
 
       expect(find.text('Username'), findsOneWidget);
     });
@@ -49,11 +43,7 @@ void main() {
     });
 
     testWidgets('shows hint text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredInput(hintText: 'Enter email')),
-        ),
-      );
+      await pumpApp(tester, WiredInput(hintText: 'Enter email'));
 
       // The hint text is rendered inside the TextField decoration.
       expect(find.text('Enter email'), findsOneWidget);

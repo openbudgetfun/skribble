@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredInputChip', () {
     testWidgets('renders label', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: WiredInputChip(label: Text('Tag'))),
-        ),
-      );
+      await pumpApp(tester, WiredInputChip(label: Text('Tag')));
       expect(find.text('Tag'), findsOneWidget);
       expect(find.byType(WiredInputChip), findsOneWidget);
     });
@@ -86,11 +84,7 @@ void main() {
 
   group('WiredActionChip', () {
     testWidgets('renders label', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: WiredActionChip(label: Text('Action'))),
-        ),
-      );
+      await pumpApp(tester, WiredActionChip(label: Text('Action')));
       expect(find.text('Action'), findsOneWidget);
     });
 
