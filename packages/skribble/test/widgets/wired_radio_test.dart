@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -31,7 +32,7 @@ void main() {
       // one for the outer circle and one for the filled inner circle.
       final canvasWidgets = find.descendant(
         of: find.byType(WiredRadio<String>),
-        matching: find.byType(WiredCanvas),
+        matching: findWiredCanvas,
       );
       expect(canvasWidgets, findsAtLeast(2));
     });
@@ -46,7 +47,7 @@ void main() {
       // (the inner filled one is conditionally hidden).
       final canvasWidgets = find.descendant(
         of: find.byType(WiredRadio<String>),
-        matching: find.byType(WiredCanvas),
+        matching: findWiredCanvas,
       );
       expect(canvasWidgets, findsOneWidget);
     });
@@ -103,7 +104,7 @@ void main() {
       final firstRadio = find.byType(WiredRadio<String>).first;
       final firstCanvases = find.descendant(
         of: firstRadio,
-        matching: find.byType(WiredCanvas),
+        matching: findWiredCanvas,
       );
       expect(firstCanvases, findsAtLeast(2));
 

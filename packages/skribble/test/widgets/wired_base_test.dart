@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -57,7 +58,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('renders with left/right indent', (tester) async {
@@ -75,7 +76,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('renders with custom fill color', (tester) async {
@@ -93,7 +94,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
   });
 
@@ -115,7 +116,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('renders with custom stroke width', (tester) async {
@@ -133,7 +134,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
   });
 
@@ -153,7 +154,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('renders with custom diameter ratio', (tester) async {
@@ -171,7 +172,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
   });
 
@@ -191,7 +192,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
 
     testWidgets('clamps out-of-bounds coordinates', (tester) async {
@@ -209,7 +210,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
   });
 
@@ -229,14 +230,14 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(WiredCanvas), findsOneWidget);
+      expect(findWiredCanvas, findsOneWidget);
     });
   });
 
   group('buildWiredElement', () {
     testWidgets('wraps child in RepaintBoundary', (tester) async {
       await pumpApp(tester, buildWiredElement(child: const Text('Hello')));
-      expect(find.byType(RepaintBoundary), findsWidgets);
+      expect(findRepaintBoundary, findsWidgets);
       expect(find.text('Hello'), findsOneWidget);
     });
   });

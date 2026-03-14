@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -195,10 +196,7 @@ void main() {
       // WiredCanvas widgets under WiredListTile. With showDivider=true
       // there should be more than with showDivider=false.
       final canvasCount = find
-          .descendant(
-            of: find.byType(WiredListTile),
-            matching: find.byType(WiredCanvas),
-          )
+          .descendant(of: find.byType(WiredListTile), matching: findWiredCanvas)
           .evaluate()
           .length;
 
@@ -221,10 +219,7 @@ void main() {
       // WiredSwitch renders 2 WiredCanvas widgets (track + thumb).
       // With showDivider=false, no additional divider canvas is present.
       final canvasCount = find
-          .descendant(
-            of: find.byType(WiredListTile),
-            matching: find.byType(WiredCanvas),
-          )
+          .descendant(of: find.byType(WiredListTile), matching: findWiredCanvas)
           .evaluate()
           .length;
 
