@@ -121,6 +121,27 @@ class _ExamplePage extends StatelessWidget {
             const WiredDivider(),
             const SizedBox(height: 24),
 
+            // Toggles
+            const Text(
+              'Toggles & Switch',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                SizedBox(
+                  width: 80,
+                  height: 40,
+                  child: WiredToggle(value: true, onChange: (_) => true),
+                ),
+                const SizedBox(width: 24),
+                WiredSwitch(value: true, onChanged: (_) {}),
+              ],
+            ),
+            const SizedBox(height: 24),
+            const WiredDivider(),
+            const SizedBox(height: 24),
+
             // Feedback
             const Text(
               'Feedback',
@@ -137,6 +158,27 @@ class _ExamplePage extends StatelessWidget {
             WiredBadge(
               label: '3',
               child: const Icon(Icons.mail_outline, size: 32),
+            ),
+            const SizedBox(height: 24),
+            const WiredDivider(),
+            const SizedBox(height: 24),
+
+            // Data display
+            const Text(
+              'Data Display',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            WiredListTile(
+              leading: const Icon(Icons.star),
+              title: const Text('Starred item'),
+              subtitle: const Text('With a hand-drawn border'),
+            ),
+            const SizedBox(height: 8),
+            WiredListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              trailing: const Icon(Icons.chevron_right),
             ),
           ],
         ),
