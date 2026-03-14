@@ -23,11 +23,15 @@ class WiredToggle extends HookWidget {
     required this.value,
     this.onChange,
     this.thumbRadius = 24.0,
+    this.semanticLabel,
   });
 
   final bool value;
   final bool Function(bool)? onChange;
   final double thumbRadius;
+
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -51,50 +55,54 @@ class WiredToggle extends HookWidget {
       return null;
     }, []);
 
-    return buildWiredElement(
-      child: GestureDetector(
-        onTap: () {
-          final nextValue = !isSwitched.value;
-          final result = onChange?.call(nextValue) ?? false;
+    return Semantics(
+      label: semanticLabel,
+      toggled: value,
+      child: buildWiredElement(
+        child: GestureDetector(
+          onTap: () {
+            final nextValue = !isSwitched.value;
+            final result = onChange?.call(nextValue) ?? false;
 
-          if (result) {
-            isSwitched.value = nextValue;
-            toggle();
-          }
-        },
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Positioned(
-              left: animation,
-              top: -thumbRadius / 2,
-              child: SizedBox(
-                height: thumbRadius * 2,
-                width: thumbRadius * 2,
+            if (result) {
+              isSwitched.value = nextValue;
+              toggle();
+            }
+          },
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Positioned(
+                left: animation,
+                top: -thumbRadius / 2,
+                child: SizedBox(
+                  height: thumbRadius * 2,
+                  width: thumbRadius * 2,
+                  child: WiredCanvas(
+                    painter: WiredCircleBase(
+                      diameterRatio: .7,
+                      fillColor: theme.textColor,
+                      borderColor: theme.borderColor,
+                    ),
+                    fillerType: RoughFilter.hachureFiller,
+                    fillerConfig: FillerConfig.build(hachureGap: 1.0),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: thumbRadius * 2.5,
+                height: thumbRadius,
                 child: WiredCanvas(
-                  painter: WiredCircleBase(
-                    diameterRatio: .7,
-                    fillColor: theme.textColor,
+                  painter: WiredRectangleBase(
+                    fillColor: theme.fillColor,
                     borderColor: theme.borderColor,
                   ),
-                  fillerType: RoughFilter.hachureFiller,
-                  fillerConfig: FillerConfig.build(hachureGap: 1.0),
+                  fillerType: RoughFilter.noFiller,
+                  fillerConfig: FillerConfig.build(fillWeight: 3.0),
                 ),
               ),
-            ),
-            SizedBox(
-              width: thumbRadius * 2.5,
-              height: thumbRadius,
-              child: WiredCanvas(
-                painter: WiredRectangleBase(
-                  fillColor: theme.fillColor,
-                  borderColor: theme.borderColor,
-                ),
-                fillerType: RoughFilter.noFiller,
-                fillerConfig: FillerConfig.build(fillWeight: 3.0),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

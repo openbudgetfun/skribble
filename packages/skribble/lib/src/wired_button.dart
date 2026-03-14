@@ -16,26 +16,38 @@ class WiredButton extends HookWidget {
   /// Called when the button is tapped.
   final void Function() onPressed;
 
-  const WiredButton({super.key, required this.child, required this.onPressed});
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
+
+  const WiredButton({
+    super.key,
+    required this.child,
+    required this.onPressed,
+    this.semanticLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
 
-    return buildWiredElement(
-      child: Container(
-        padding: EdgeInsets.zero,
-        height: kWiredButtonHeight,
-        decoration: RoughBoxDecoration(
-          shape: RoughBoxShape.rectangle,
-          borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
-        ),
-        child: SizedBox(
-          height: double.infinity,
-          child: TextButton(
-            style: TextButton.styleFrom(foregroundColor: theme.textColor),
-            onPressed: onPressed,
-            child: child,
+    return Semantics(
+      label: semanticLabel,
+      button: true,
+      child: buildWiredElement(
+        child: Container(
+          padding: EdgeInsets.zero,
+          height: kWiredButtonHeight,
+          decoration: RoughBoxDecoration(
+            shape: RoughBoxShape.rectangle,
+            borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
+          ),
+          child: SizedBox(
+            height: double.infinity,
+            child: TextButton(
+              style: TextButton.styleFrom(foregroundColor: theme.textColor),
+              onPressed: onPressed,
+              child: child,
+            ),
           ),
         ),
       ),

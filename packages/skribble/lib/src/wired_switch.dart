@@ -15,12 +15,16 @@ class WiredSwitch extends HookWidget {
   final Color? activeColor;
   final Color? inactiveColor;
 
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
+
   const WiredSwitch({
     super.key,
     required this.value,
     this.onChanged,
     this.activeColor,
     this.inactiveColor,
+    this.semanticLabel,
   });
 
   static const double _trackWidth = 60.0;
@@ -49,49 +53,53 @@ class WiredSwitch extends HookWidget {
     final effectiveActiveColor = activeColor ?? theme.borderColor;
     final effectiveInactiveColor = inactiveColor ?? theme.fillColor;
 
-    return GestureDetector(
-      onTap: () => onChanged?.call(!value),
-      child: SizedBox(
-        width: _trackWidth,
-        height: _thumbSize,
-        child: Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.centerLeft,
-          children: [
-            SizedBox(
-              width: _trackWidth,
-              height: _trackHeight,
-              child: WiredCanvas(
-                painter: WiredRoundedRectangleBase(
-                  borderRadius: BorderRadius.circular(12),
-                  fillColor: value
-                      ? effectiveActiveColor
-                      : effectiveInactiveColor,
-                  borderColor: theme.borderColor,
-                ),
-                fillerType: value
-                    ? RoughFilter.hachureFiller
-                    : RoughFilter.noFiller,
-                fillerConfig: FillerConfig.build(hachureGap: 2.0),
-              ),
-            ),
-            Positioned(
-              left: animation,
-              child: SizedBox(
-                width: _thumbSize,
-                height: _thumbSize,
+    return Semantics(
+      label: semanticLabel,
+      toggled: value,
+      child: GestureDetector(
+        onTap: () => onChanged?.call(!value),
+        child: SizedBox(
+          width: _trackWidth,
+          height: _thumbSize,
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.centerLeft,
+            children: [
+              SizedBox(
+                width: _trackWidth,
+                height: _trackHeight,
                 child: WiredCanvas(
-                  painter: WiredCircleBase(
-                    diameterRatio: 0.8,
-                    fillColor: value ? theme.fillColor : theme.borderColor,
+                  painter: WiredRoundedRectangleBase(
+                    borderRadius: BorderRadius.circular(12),
+                    fillColor: value
+                        ? effectiveActiveColor
+                        : effectiveInactiveColor,
                     borderColor: theme.borderColor,
                   ),
-                  fillerType: RoughFilter.hachureFiller,
-                  fillerConfig: FillerConfig.build(hachureGap: 1.0),
+                  fillerType: value
+                      ? RoughFilter.hachureFiller
+                      : RoughFilter.noFiller,
+                  fillerConfig: FillerConfig.build(hachureGap: 2.0),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                left: animation,
+                child: SizedBox(
+                  width: _thumbSize,
+                  height: _thumbSize,
+                  child: WiredCanvas(
+                    painter: WiredCircleBase(
+                      diameterRatio: 0.8,
+                      fillColor: value ? theme.fillColor : theme.borderColor,
+                      borderColor: theme.borderColor,
+                    ),
+                    fillerType: RoughFilter.hachureFiller,
+                    fillerConfig: FillerConfig.build(hachureGap: 1.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
