@@ -91,6 +91,17 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     );
   }
 
+  final baselineUnresolvedCodePoints = _loadUnresolvedBaselineCodePoints(
+    options.unresolvedBaselinePath,
+  );
+  final newUnresolved = baselineUnresolvedCodePoints == null
+      ? null
+      : unresolved
+            .where(
+              (item) => !baselineUnresolvedCodePoints.contains(item.codePoint),
+            )
+            .toList(growable: false);
+
   if (options.roughOutputDir != null) {
     await _generateRoughSvgs(options, roughTasks);
   }
@@ -143,6 +154,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
         kit: options.kit,
         resolvedCount: icons.length,
         unresolved: unresolved,
+        newUnresolved: newUnresolved,
       ),
     );
     stdout.writeln(
@@ -168,8 +180,11 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
   }
 
   final failureThreshold = options.failOnUnresolved ? 0 : options.maxUnresolved;
-  final shouldFail =
+  final thresholdFailure =
       failureThreshold != null && unresolved.length > failureThreshold;
+  final newUnresolvedFailure =
+      options.failOnNewUnresolved && (newUnresolved?.isNotEmpty ?? false);
+  final shouldFail = thresholdFailure || newUnresolvedFailure;
 
   final severityLabel = shouldFail ? 'Error' : 'Warning';
   stderr.writeln(
@@ -183,10 +198,31 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     );
   }
 
+  if (newUnresolved case final baselineDiff?) {
+    final baselineSeverity = newUnresolvedFailure
+        ? 'Error'
+        : (shouldFail ? 'Warning' : 'Info');
+    stderr.writeln(
+      '$baselineSeverity: ${baselineDiff.length} newly unresolved '
+      'codepoints compared to baseline.',
+    );
+    for (final item in baselineDiff) {
+      stderr.writeln(
+        '  + 0x${item.codePoint.toRadixString(16)}: '
+        '${item.identifiers.join(', ')}',
+      );
+    }
+  }
+
   if (shouldFail) {
+    final details = <String>[
+      if (thresholdFailure)
+        'found ${unresolved.length}, allowed $failureThreshold',
+      if (newUnresolvedFailure)
+        'new unresolved regression detected (${newUnresolved!.length})',
+    ].join('; ');
     throw StateError(
-      'Unresolved icon codepoints remain for kit "${options.kit}" '
-      '(found ${unresolved.length}, allowed $failureThreshold).',
+      'Unresolved icon codepoints remain for kit "${options.kit}" ($details).',
     );
   }
 }
@@ -213,8 +249,10 @@ Options:
   --unresolved-output <path>       Emit unresolved icon codepoint report as JSON.
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
+  --unresolved-baseline <path>     Baseline unresolved report JSON for diffing.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain.
+  --fail-on-new-unresolved         Exit with error on unresolved baseline regressions.
   --output <path>                  Output Dart file.
   --rough-cli <path>               TypeScript script that converts SVG(s) (default: tool/deno/svg2roughjs_cli.ts).
   --rough-cli-runner <exe>         Runner executable for --rough-cli (default: deno).
@@ -264,6 +302,7 @@ final class _ScriptOptions {
     this.supplementalManifestPath,
     this.unresolvedOutputPath,
     this.supplementalManifestOutputPath,
+    this.unresolvedBaselinePath,
     this.maxUnresolved,
     this.outputPath,
     this.roughCliPath,
@@ -274,6 +313,7 @@ final class _ScriptOptions {
     this.roughBulk = false,
     this.roughOnly = false,
     this.failOnUnresolved = false,
+    this.failOnNewUnresolved = false,
     this.fontOutputDir,
     this.fontDartOutputPath,
     this.fontName = _kDefaultFontName,
@@ -292,6 +332,7 @@ final class _ScriptOptions {
   final String? supplementalManifestPath;
   final String? unresolvedOutputPath;
   final String? supplementalManifestOutputPath;
+  final String? unresolvedBaselinePath;
   final int? maxUnresolved;
   final String? outputPath;
   final String? roughCliPath;
@@ -302,6 +343,7 @@ final class _ScriptOptions {
   final bool roughBulk;
   final bool roughOnly;
   final bool failOnUnresolved;
+  final bool failOnNewUnresolved;
   final String? fontOutputDir;
   final String? fontDartOutputPath;
   final String fontName;
@@ -320,6 +362,7 @@ final class _ScriptOptions {
     String? supplementalManifestPath;
     String? unresolvedOutputPath;
     String? supplementalManifestOutputPath;
+    String? unresolvedBaselinePath;
     int? maxUnresolved;
     String? outputPath;
     String? roughCliPath;
@@ -330,6 +373,7 @@ final class _ScriptOptions {
     var roughBulk = false;
     var roughOnly = false;
     var failOnUnresolved = false;
+    var failOnNewUnresolved = false;
     String? fontOutputDir;
     String? fontDartOutputPath;
     var fontName = _kDefaultFontName;
@@ -358,6 +402,10 @@ final class _ScriptOptions {
       }
       if (argument == '--fail-on-unresolved') {
         failOnUnresolved = true;
+        continue;
+      }
+      if (argument == '--fail-on-new-unresolved') {
+        failOnNewUnresolved = true;
         continue;
       }
 
@@ -397,6 +445,8 @@ final class _ScriptOptions {
           unresolvedOutputPath = value;
         case '--supplemental-manifest-output':
           supplementalManifestOutputPath = value;
+        case '--unresolved-baseline':
+          unresolvedBaselinePath = value;
         case '--max-unresolved':
           maxUnresolved = int.parse(value);
         case '--output':
@@ -429,6 +479,11 @@ final class _ScriptOptions {
     if (maxUnresolved != null && maxUnresolved < 0) {
       throw ArgumentError('--max-unresolved must be >= 0.');
     }
+    if (failOnNewUnresolved && unresolvedBaselinePath == null) {
+      throw ArgumentError(
+        '--fail-on-new-unresolved requires --unresolved-baseline.',
+      );
+    }
 
     return _ScriptOptions(
       kit: kit,
@@ -440,6 +495,7 @@ final class _ScriptOptions {
       supplementalManifestPath: supplementalManifestPath,
       unresolvedOutputPath: unresolvedOutputPath,
       supplementalManifestOutputPath: supplementalManifestOutputPath,
+      unresolvedBaselinePath: unresolvedBaselinePath,
       maxUnresolved: maxUnresolved,
       outputPath: outputPath,
       roughCliPath: roughCliPath,
@@ -450,6 +506,7 @@ final class _ScriptOptions {
       roughBulk: roughBulk,
       roughOnly: roughOnly,
       failOnUnresolved: failOnUnresolved,
+      failOnNewUnresolved: failOnNewUnresolved,
       fontOutputDir: fontOutputDir,
       fontDartOutputPath: fontDartOutputPath,
       fontName: fontName,
@@ -1296,10 +1353,76 @@ String _renderGeneratedFile(List<_GeneratedIcon> icons) {
   return buffer.toString();
 }
 
+Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
+  if (baselinePath == null) {
+    return null;
+  }
+
+  final baselineFile = File(baselinePath);
+  if (!baselineFile.existsSync()) {
+    throw StateError(
+      'Unresolved baseline file not found: ${baselineFile.path}',
+    );
+  }
+
+  final decoded = jsonDecode(baselineFile.readAsStringSync());
+  if (decoded is! Map<String, Object?>) {
+    throw FormatException(
+      'Expected unresolved baseline JSON object at ${baselineFile.path}.',
+    );
+  }
+
+  final unresolvedValue = decoded['unresolved'];
+  if (unresolvedValue is! List<Object?>) {
+    throw FormatException(
+      'Expected "unresolved" list in unresolved baseline report '
+      '${baselineFile.path}.',
+    );
+  }
+
+  final codePoints = <int>{};
+  for (final entry in unresolvedValue) {
+    if (entry is Map<Object?, Object?>) {
+      codePoints.add(
+        _parseCodePointValue(
+          entry['codePoint'],
+          context: 'unresolved baseline entry',
+        ),
+      );
+      continue;
+    }
+
+    codePoints.add(
+      _parseCodePointValue(entry, context: 'unresolved baseline entry'),
+    );
+  }
+
+  return codePoints;
+}
+
+int _parseCodePointValue(Object? value, {required String context}) {
+  if (value is int) {
+    return value;
+  }
+
+  if (value is String) {
+    final normalized = value.trim().toLowerCase();
+    if (normalized.startsWith('0x')) {
+      return int.parse(normalized.substring(2), radix: 16);
+    }
+    return int.parse(normalized);
+  }
+
+  throw FormatException(
+    'Invalid codePoint in $context. Expected int or string, got $value.',
+  );
+}
+
 String _renderUnresolvedReportJson({
   required String kit,
   required int resolvedCount,
   required List<_UnresolvedIcon> unresolved,
+  required List<_UnresolvedIcon>? newUnresolved,
 }) {
   final report = <String, Object>{
     'kit': kit,
@@ -1313,6 +1436,17 @@ String _renderUnresolvedReportJson({
           },
         )
         .toList(growable: false),
+    if (newUnresolved != null) ...<String, Object>{
+      'newUnresolvedCount': newUnresolved.length,
+      'newUnresolved': newUnresolved
+          .map(
+            (item) => <String, Object>{
+              'codePoint': '0x${item.codePoint.toRadixString(16)}',
+              'identifiers': item.identifiers,
+            },
+          )
+          .toList(growable: false),
+    },
   };
 
   return const JsonEncoder.withIndent('  ').convert(report);
