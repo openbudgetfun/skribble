@@ -70,9 +70,7 @@ void main() {
     });
 
     testWidgets('calls onDateTimeChanged when scrolled', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(mode: CupertinoDatePickerMode.time),
-      );
+      await tester.pumpWidget(buildSubject(mode: CupertinoDatePickerMode.time));
       // Scroll one of the picker wheels
       await tester.drag(find.byType(CupertinoDatePicker), const Offset(0, -50));
       await tester.pump();

@@ -26,10 +26,7 @@ void main() {
 
   group('OpSet', () {
     test('creates with type and ops', () {
-      final opSet = OpSet(
-        type: OpSetType.path,
-        ops: [Op.move(PointD(0, 0))],
-      );
+      final opSet = OpSet(type: OpSetType.path, ops: [Op.move(PointD(0, 0))]);
       expect(opSet.type, OpSetType.path);
       expect(opSet.ops!.length, 1);
     });

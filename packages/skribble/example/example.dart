@@ -52,10 +52,7 @@ class _ExamplePage extends StatelessWidget {
               spacing: 12,
               runSpacing: 12,
               children: [
-                WiredButton(
-                  onPressed: () {},
-                  child: const Text('Button'),
-                ),
+                WiredButton(onPressed: () {}, child: const Text('Button')),
                 WiredFilledButton(
                   onPressed: () {},
                   child: const Text('Filled'),
@@ -68,10 +65,7 @@ class _ExamplePage extends StatelessWidget {
                   onPressed: () {},
                   child: const Text('Outlined'),
                 ),
-                WiredIconButton(
-                  onPressed: () {},
-                  icon: Icons.favorite,
-                ),
+                WiredIconButton(onPressed: () {}, icon: Icons.favorite),
               ],
             ),
             const SizedBox(height: 24),

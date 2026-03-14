@@ -16,10 +16,7 @@ void main() {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
 
-      expect(
-        find.text('Hand-drawn UI components for Flutter'),
-        findsOneWidget,
-      );
+      expect(find.text('Hand-drawn UI components for Flutter'), findsOneWidget);
     });
 
     testWidgets('renders all seven category cards', (tester) async {

@@ -24,10 +24,7 @@ class ComponentShowcase extends HookWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           if (description != null) ...[
             const SizedBox(height: 4),
@@ -64,10 +61,7 @@ class ShowcaseSection extends HookWidget {
           padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
           child: Text(
             title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         const Divider(),

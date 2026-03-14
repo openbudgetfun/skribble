@@ -167,9 +167,7 @@ class SelectionPage extends HookWidget {
                 description: 'iOS-style date/time picker with sketchy border.',
                 child: SizedBox(
                   height: 216,
-                  child: WiredCupertinoDatePicker(
-                    onDateTimeChanged: (_) {},
-                  ),
+                  child: WiredCupertinoDatePicker(onDateTimeChanged: (_) {}),
                 ),
               ),
               ComponentShowcase(

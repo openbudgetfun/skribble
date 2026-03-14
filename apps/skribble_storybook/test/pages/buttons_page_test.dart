@@ -52,8 +52,7 @@ void main() {
       expect(find.text('WiredFilledButton'), findsOneWidget);
     });
 
-    testWidgets('shows WiredCupertinoButton section on scroll',
-        (tester) async {
+    testWidgets('shows WiredCupertinoButton section on scroll', (tester) async {
       await navigateToButtons(tester);
       await tester.scrollUntilVisible(
         find.text('WiredCupertinoButton'),
