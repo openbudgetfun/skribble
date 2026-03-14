@@ -86,5 +86,21 @@ void main() {
 
       expect(find.byType(RepaintBoundary), findsWidgets);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.deepOrange),
+            child: Scaffold(
+              body: WiredScrollbar(
+                child: ListView(children: const [Text('item')]),
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(find.text('item'), findsOneWidget);
+    });
   });
 }

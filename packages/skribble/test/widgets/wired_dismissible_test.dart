@@ -118,5 +118,26 @@ void main() {
       await tester.pump();
       expect(find.byIcon(Icons.archive), findsOneWidget);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.purple),
+            child: Scaffold(
+              body: ListView(
+                children: const [
+                  WiredDismissible(
+                    dismissKey: Key('item'),
+                    child: ListTile(title: Text('themed')),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(find.byType(WiredDismissible), findsOneWidget);
+    });
   });
 }

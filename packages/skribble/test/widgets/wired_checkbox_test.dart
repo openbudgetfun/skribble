@@ -87,5 +87,19 @@ void main() {
         findsOneWidget,
       );
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.red),
+            child: Scaffold(
+              body: WiredCheckbox(value: true, onChanged: (_) {}),
+            ),
+          ),
+        ),
+      );
+      expect(find.byType(WiredCheckbox), findsOneWidget);
+    });
   });
 }

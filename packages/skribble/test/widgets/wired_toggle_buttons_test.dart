@@ -96,5 +96,24 @@ void main() {
 
       expect(find.byType(RepaintBoundary), findsWidgets);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.deepPurple),
+            child: Scaffold(
+              body: WiredToggleButtons(
+                isSelected: const [true, false],
+                onPressed: (_) {},
+                children: const [Text('A'), Text('B')],
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(find.text('A'), findsOneWidget);
+      expect(find.text('B'), findsOneWidget);
+    });
   });
 }

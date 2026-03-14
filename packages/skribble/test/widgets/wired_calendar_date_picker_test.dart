@@ -111,5 +111,24 @@ void main() {
       // In year mode, year numbers should be visible
       expect(find.text('2025'), findsOneWidget);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.indigo),
+            child: Scaffold(
+              body: WiredCalendarDatePicker(
+                initialDate: DateTime(2025, 3, 15),
+                firstDate: DateTime(2020),
+                lastDate: DateTime(2030),
+                onDateChanged: (_) {},
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(find.byType(WiredCalendarDatePicker), findsOneWidget);
+    });
   });
 }

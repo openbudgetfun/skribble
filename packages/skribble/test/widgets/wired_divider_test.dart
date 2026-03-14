@@ -77,5 +77,17 @@ void main() {
 
       expect(find.byType(WiredDivider), findsNWidgets(3));
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.blue),
+            child: Scaffold(body: Column(children: const [WiredDivider()])),
+          ),
+        ),
+      );
+      expect(find.byType(WiredDivider), findsOneWidget);
+    });
   });
 }

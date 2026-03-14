@@ -152,5 +152,23 @@ void main() {
 
       expect(selectedValue, 2);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.green),
+            child: Scaffold(
+              body: WiredRadio<int>(
+                value: 1,
+                groupValue: 1,
+                onChanged: (_) => true,
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(find.byType(WiredRadio<int>), findsOneWidget);
+    });
   });
 }
