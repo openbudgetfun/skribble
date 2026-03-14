@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -146,7 +147,7 @@ void main() {
 
       final canvasWidgets = find.descendant(
         of: find.byType(WiredCalendar),
-        matching: find.byType(WiredCanvas),
+        matching: findWiredCanvas,
       );
       expect(canvasWidgets, findsAtLeast(1));
     });

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -17,7 +18,7 @@ void main() {
 
       expect(find.byType(WiredCupertinoPicker), findsOneWidget);
       expect(find.byType(CupertinoPicker), findsOneWidget);
-      expect(find.byType(RepaintBoundary), findsWidgets);
+      expect(findRepaintBoundary, findsWidgets);
     });
 
     testWidgets('calls onSelectedItemChanged when scrolled', (tester) async {
@@ -92,7 +93,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredCanvas), findsWidgets);
+      expect(findWiredCanvas, findsWidgets);
     });
 
     testWidgets('renders many items without error', (tester) async {

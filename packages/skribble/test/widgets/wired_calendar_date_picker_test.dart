@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -19,7 +20,7 @@ void main() {
 
       expect(find.byType(WiredCalendarDatePicker), findsOneWidget);
       expect(find.byType(CalendarDatePicker), findsOneWidget);
-      expect(find.byType(RepaintBoundary), findsWidgets);
+      expect(findRepaintBoundary, findsWidgets);
     });
 
     testWidgets('calls onDateChanged when day tapped', (tester) async {
@@ -69,7 +70,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredCanvas), findsWidgets);
+      expect(findWiredCanvas, findsWidgets);
     });
 
     testWidgets('accepts onDisplayedMonthChanged callback', (tester) async {

@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 class _TestVSync extends Fake implements TickerProvider {
@@ -62,7 +63,7 @@ void main() {
       expect(
         find.descendant(
           of: find.byType(WiredProgress),
-          matching: find.byType(WiredCanvas),
+          matching: findWiredCanvas,
         ),
         findsWidgets,
       );
@@ -71,7 +72,7 @@ void main() {
     testWidgets('contains RepaintBoundary', (tester) async {
       await pumpApp(tester, WiredProgress(controller: controller));
 
-      expect(find.byType(RepaintBoundary), findsWidgets);
+      expect(findRepaintBoundary, findsWidgets);
     });
 
     testWidgets('defaults value to 0.0', (tester) async {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
@@ -172,7 +173,7 @@ void main() {
       expect(
         find.descendant(
           of: find.byType(WiredSwitch),
-          matching: find.byType(WiredCanvas),
+          matching: findWiredCanvas,
         ),
         findsNWidgets(2),
       );
