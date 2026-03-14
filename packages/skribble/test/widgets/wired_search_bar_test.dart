@@ -8,17 +8,13 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredSearchBar', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredSearchBar())),
-      );
+      await pumpApp(tester, WiredSearchBar());
 
       expect(find.byType(WiredSearchBar), findsOneWidget);
     });
 
     testWidgets('renders default search icon', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredSearchBar())),
-      );
+      await pumpApp(tester, WiredSearchBar());
 
       expect(find.byIcon(Icons.search), findsOneWidget);
     });
@@ -51,18 +47,14 @@ void main() {
     });
 
     testWidgets('does not render trailing when null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredSearchBar())),
-      );
+      await pumpApp(tester, WiredSearchBar());
 
       // Only the search icon should be present, no trailing.
       expect(find.byIcon(Icons.close), findsNothing);
     });
 
     testWidgets('displays default hint text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredSearchBar())),
-      );
+      await pumpApp(tester, WiredSearchBar());
 
       expect(find.text('Search...'), findsOneWidget);
     });
@@ -75,9 +67,7 @@ void main() {
     });
 
     testWidgets('contains TextField internally', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredSearchBar())),
-      );
+      await pumpApp(tester, WiredSearchBar());
 
       expect(
         find.descendant(
@@ -89,9 +79,7 @@ void main() {
     });
 
     testWidgets('accepts text input', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredSearchBar())),
-      );
+      await pumpApp(tester, WiredSearchBar());
 
       await tester.enterText(find.byType(TextField), 'search query');
       await tester.pump();
@@ -153,18 +141,14 @@ void main() {
     });
 
     testWidgets('has fixed height of 48', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredSearchBar())),
-      );
+      await pumpApp(tester, WiredSearchBar());
 
       final size = tester.getSize(find.byType(WiredSearchBar));
       expect(size.height, 48.0);
     });
 
     testWidgets('contains WiredCanvas background', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredSearchBar())),
-      );
+      await pumpApp(tester, WiredSearchBar());
 
       expect(
         find.descendant(
@@ -176,9 +160,7 @@ void main() {
     });
 
     testWidgets('contains Stack for layered layout', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredSearchBar())),
-      );
+      await pumpApp(tester, WiredSearchBar());
 
       expect(
         find.descendant(
@@ -190,9 +172,7 @@ void main() {
     });
 
     testWidgets('contains Row for horizontal layout', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredSearchBar())),
-      );
+      await pumpApp(tester, WiredSearchBar());
 
       expect(
         find.descendant(
