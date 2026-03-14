@@ -2,79 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredCheckboxListTile', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(value: false, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredCheckboxListTile(value: false, onChanged: (_) {}));
 
       expect(find.byType(WiredCheckboxListTile), findsOneWidget);
     });
 
     testWidgets('renders title text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(
+      await pumpApp(tester, WiredCheckboxListTile(
               value: false,
               onChanged: (_) {},
               title: const Text('Enable notifications'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Enable notifications'), findsOneWidget);
     });
 
     testWidgets('renders subtitle text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(
+      await pumpApp(tester, WiredCheckboxListTile(
               value: false,
               onChanged: (_) {},
               title: const Text('Title'),
               subtitle: const Text('Subtitle text'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Subtitle text'), findsOneWidget);
     });
 
     testWidgets('renders title and subtitle together', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(
+      await pumpApp(tester, WiredCheckboxListTile(
               value: false,
               onChanged: (_) {},
               title: const Text('Main title'),
               subtitle: const Text('Supporting text'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Main title'), findsOneWidget);
       expect(find.text('Supporting text'), findsOneWidget);
     });
 
     testWidgets('contains WiredCheckbox as trailing widget', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(value: false, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredCheckboxListTile(value: false, onChanged: (_) {}));
 
       expect(
         find.descendant(
@@ -86,13 +58,7 @@ void main() {
     });
 
     testWidgets('contains WiredListTile internally', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(value: false, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredCheckboxListTile(value: false, onChanged: (_) {}));
 
       expect(
         find.descendant(
@@ -106,17 +72,11 @@ void main() {
     testWidgets('calls onChanged when list tile is tapped', (tester) async {
       bool? receivedValue;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(
+      await pumpApp(tester, WiredCheckboxListTile(
               value: false,
               onChanged: (v) => receivedValue = v,
               title: const Text('Tap me'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Tap the InkWell area (the list tile).
       await tester.tap(find.byType(InkWell));
@@ -129,16 +89,10 @@ void main() {
     testWidgets('calls onChanged when checkbox is tapped', (tester) async {
       bool? receivedValue;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(
+      await pumpApp(tester, WiredCheckboxListTile(
               value: false,
               onChanged: (v) => receivedValue = v,
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Tap the internal Checkbox widget.
       await tester.tap(find.byType(Checkbox));
@@ -148,13 +102,7 @@ void main() {
     });
 
     testWidgets('passes value to WiredCheckbox correctly', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(value: true, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredCheckboxListTile(value: true, onChanged: (_) {}));
 
       final checkbox = tester.widget<Checkbox>(find.byType(Checkbox));
       expect(checkbox.value, isTrue);
@@ -163,13 +111,7 @@ void main() {
     testWidgets('passes false value to WiredCheckbox correctly', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(value: false, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredCheckboxListTile(value: false, onChanged: (_) {}));
 
       final checkbox = tester.widget<Checkbox>(find.byType(Checkbox));
       expect(checkbox.value, isFalse);
@@ -190,17 +132,11 @@ void main() {
     });
 
     testWidgets('renders divider when showDivider is true', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(
+      await pumpApp(tester, WiredCheckboxListTile(
               value: false,
               onChanged: (_) {},
               showDivider: true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       // When showDivider is true, WiredListTile renders a WiredCanvas
       // for the divider line.
@@ -216,17 +152,11 @@ void main() {
     testWidgets('does not render divider when showDivider is false', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(
+      await pumpApp(tester, WiredCheckboxListTile(
               value: false,
               onChanged: (_) {},
               showDivider: false,
-            ),
-          ),
-        ),
-      );
+            ));
 
       // When showDivider is false, no WiredCanvas for the divider should
       // appear within the WiredListTile.
@@ -240,13 +170,7 @@ void main() {
     });
 
     testWidgets('handles null value for tristate checkbox', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckboxListTile(value: null, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredCheckboxListTile(value: null, onChanged: (_) {}));
 
       expect(find.byType(WiredCheckboxListTile), findsOneWidget);
     });

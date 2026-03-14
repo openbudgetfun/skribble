@@ -2,68 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredSnackBarContent', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSnackBarContent(child: const Text('Snack bar message')),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSnackBarContent(child: const Text('Snack bar message')));
 
       expect(find.byType(WiredSnackBarContent), findsOneWidget);
     });
 
     testWidgets('renders child content', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSnackBarContent(child: const Text('Hello snack bar')),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSnackBarContent(child: const Text('Hello snack bar')));
 
       expect(find.text('Hello snack bar'), findsOneWidget);
     });
 
     testWidgets('renders action widget when provided', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSnackBarContent(
+      await pumpApp(tester, WiredSnackBarContent(
               action: TextButton(onPressed: () {}, child: const Text('UNDO')),
               child: const Text('Message'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Message'), findsOneWidget);
       expect(find.text('UNDO'), findsOneWidget);
     });
 
     testWidgets('does not render action when null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSnackBarContent(child: const Text('No action')),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSnackBarContent(child: const Text('No action')));
 
       expect(find.byType(TextButton), findsNothing);
     });
 
     testWidgets('contains Row for layout', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSnackBarContent(child: const Text('Row test')),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSnackBarContent(child: const Text('Row test')));
 
       expect(
         find.descendant(
@@ -75,13 +47,7 @@ void main() {
     });
 
     testWidgets('wraps child with DefaultTextStyle', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSnackBarContent(child: const Text('Styled text')),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSnackBarContent(child: const Text('Styled text')));
 
       expect(
         find.descendant(
@@ -93,13 +59,7 @@ void main() {
     });
 
     testWidgets('child is wrapped in Expanded', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSnackBarContent(child: const Text('Expanded test')),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSnackBarContent(child: const Text('Expanded test')));
 
       expect(
         find.descendant(
@@ -113,10 +73,7 @@ void main() {
 
   group('showWiredSnackBar', () {
     testWidgets('shows a SnackBar', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
+      await pumpApp(tester, Builder(
               builder: (context) {
                 return ElevatedButton(
                   onPressed: () {
@@ -128,10 +85,7 @@ void main() {
                   child: const Text('Show'),
                 );
               },
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('Show'));
       await tester.pumpAndSettle();
@@ -141,10 +95,7 @@ void main() {
     });
 
     testWidgets('SnackBar has floating behavior', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
+      await pumpApp(tester, Builder(
               builder: (context) {
                 return ElevatedButton(
                   onPressed: () {
@@ -153,10 +104,7 @@ void main() {
                   child: const Text('Show'),
                 );
               },
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('Show'));
       await tester.pumpAndSettle();
@@ -166,10 +114,7 @@ void main() {
     });
 
     testWidgets('SnackBar has transparent background', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
+      await pumpApp(tester, Builder(
               builder: (context) {
                 return ElevatedButton(
                   onPressed: () {
@@ -181,10 +126,7 @@ void main() {
                   child: const Text('Show'),
                 );
               },
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('Show'));
       await tester.pumpAndSettle();
@@ -195,10 +137,7 @@ void main() {
     });
 
     testWidgets('SnackBar uses zero padding', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
+      await pumpApp(tester, Builder(
               builder: (context) {
                 return ElevatedButton(
                   onPressed: () {
@@ -210,10 +149,7 @@ void main() {
                   child: const Text('Show'),
                 );
               },
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('Show'));
       await tester.pumpAndSettle();

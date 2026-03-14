@@ -2,23 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredReorderableListView', () {
     testWidgets('renders all children', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredReorderableListView(
+      await pumpApp(tester, WiredReorderableListView(
               onReorder: (_, _) {},
               children: const [
                 Text('Item A', key: ValueKey('a')),
                 Text('Item B', key: ValueKey('b')),
                 Text('Item C', key: ValueKey('c')),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Item A'), findsOneWidget);
       expect(find.text('Item B'), findsOneWidget);
@@ -27,19 +23,13 @@ void main() {
     });
 
     testWidgets('shows drag handles by default', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredReorderableListView(
+      await pumpApp(tester, WiredReorderableListView(
               onReorder: (_, _) {},
               children: const [
                 Text('One', key: ValueKey(1)),
                 Text('Two', key: ValueKey(2)),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byIcon(Icons.drag_handle), findsNWidgets(2));
     });
@@ -47,20 +37,14 @@ void main() {
     testWidgets('hides drag handles when showDragHandle is false', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredReorderableListView(
+      await pumpApp(tester, WiredReorderableListView(
               onReorder: (_, _) {},
               showDragHandle: false,
               children: const [
                 Text('One', key: ValueKey(1)),
                 Text('Two', key: ValueKey(2)),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byIcon(Icons.drag_handle), findsNothing);
     });
@@ -71,10 +55,7 @@ void main() {
 
       final items = <String>['Alpha', 'Beta', 'Gamma'];
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredReorderableListView(
+      await pumpApp(tester, WiredReorderableListView(
               onReorder: (o, n) {
                 oldIdx = o;
                 newIdx = n;
@@ -82,10 +63,7 @@ void main() {
               children: [
                 for (final item in items) Text(item, key: ValueKey(item)),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Long-press the first drag handle to start reorder
       final firstHandle = find.byIcon(Icons.drag_handle).first;
@@ -108,17 +86,11 @@ void main() {
     });
 
     testWidgets('renders with custom item height', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredReorderableListView(
+      await pumpApp(tester, WiredReorderableListView(
               onReorder: (_, _) {},
               itemHeight: 80,
               children: const [Text('Tall item', key: ValueKey('tall'))],
-            ),
-          ),
-        ),
-      );
+            ));
 
       final sizedBox = tester.widget<SizedBox>(
         find
@@ -133,32 +105,20 @@ void main() {
     });
 
     testWidgets('renders with custom padding', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredReorderableListView(
+      await pumpApp(tester, WiredReorderableListView(
               onReorder: (_, _) {},
               padding: const EdgeInsets.all(24),
               children: const [Text('Padded', key: ValueKey('p'))],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Padded'), findsOneWidget);
     });
 
     testWidgets('renders single item without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredReorderableListView(
+      await pumpApp(tester, WiredReorderableListView(
               onReorder: (_, _) {},
               children: const [Text('Solo', key: ValueKey('solo'))],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Solo'), findsOneWidget);
       expect(find.byIcon(Icons.drag_handle), findsOneWidget);

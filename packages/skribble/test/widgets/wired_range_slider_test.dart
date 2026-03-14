@@ -2,34 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredRangeSlider', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredRangeSlider), findsOneWidget);
     });
 
     testWidgets('contains RangeSlider internally', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(
         find.descendant(
@@ -41,16 +31,10 @@ void main() {
     });
 
     testWidgets('has correct min/max defaults', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
       expect(slider.min, 0.0);
@@ -58,18 +42,12 @@ void main() {
     });
 
     testWidgets('uses custom min/max values', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(20, 80),
               min: 10,
               max: 100,
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
       expect(slider.min, 10.0);
@@ -77,34 +55,22 @@ void main() {
     });
 
     testWidgets('renders with divisions', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               divisions: 5,
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
       expect(slider.divisions, 5);
     });
 
     testWidgets('renders with labels', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               labels: const RangeLabels('Start', 'End'),
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
       expect(slider.labels?.start, 'Start');
@@ -114,19 +80,13 @@ void main() {
     testWidgets('calls onChanged when slider is dragged', (tester) async {
       RangeValues? receivedValues;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               onChanged: (v) {
                 receivedValues = v;
                 return true;
               },
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Drag the range slider to trigger onChanged.
       final sliderFinder = find.byType(RangeSlider);
@@ -137,32 +97,20 @@ void main() {
     });
 
     testWidgets('does not update when onChanged returns false', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.3, 0.7),
               onChanged: (v) => false,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
       expect(slider.values, const RangeValues(0.3, 0.7));
     });
 
     testWidgets('contains Stack for layered layout', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(
         find.descendant(
@@ -174,16 +122,10 @@ void main() {
     });
 
     testWidgets('contains WiredCanvas for track line', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(
         find.descendant(
@@ -195,16 +137,10 @@ void main() {
     });
 
     testWidgets('has transparent track colors via SliderTheme', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(
         find.descendant(
@@ -216,32 +152,20 @@ void main() {
     });
 
     testWidgets('divisions defaults to null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
       expect(slider.divisions, isNull);
     });
 
     testWidgets('labels defaults to null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredRangeSlider(
+      await pumpApp(tester, WiredRangeSlider(
               values: const RangeValues(0.2, 0.8),
               onChanged: (v) => true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
       expect(slider.labels, isNull);

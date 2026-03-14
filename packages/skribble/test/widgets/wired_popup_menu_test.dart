@@ -2,71 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredPopupMenuButton', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredPopupMenuButton<String>(
+      await pumpApp(tester, WiredPopupMenuButton<String>(
               items: const [
                 WiredPopupMenuItem(value: 'a', child: Text('Item A')),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredPopupMenuButton<String>), findsOneWidget);
     });
 
     testWidgets('renders default more_vert icon', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredPopupMenuButton<String>(
+      await pumpApp(tester, WiredPopupMenuButton<String>(
               items: const [
                 WiredPopupMenuItem(value: 'a', child: Text('Item A')),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byIcon(Icons.more_vert), findsOneWidget);
     });
 
     testWidgets('renders custom icon when provided', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredPopupMenuButton<String>(
+      await pumpApp(tester, WiredPopupMenuButton<String>(
               icon: const Icon(Icons.menu),
               items: const [
                 WiredPopupMenuItem(value: 'a', child: Text('Item A')),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byIcon(Icons.menu), findsOneWidget);
       expect(find.byIcon(Icons.more_vert), findsNothing);
     });
 
     testWidgets('shows popup menu items on tap', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredPopupMenuButton<String>(
+      await pumpApp(tester, WiredPopupMenuButton<String>(
               items: const [
                 WiredPopupMenuItem(value: 'a', child: Text('Item A')),
                 WiredPopupMenuItem(value: 'b', child: Text('Item B')),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Tap the popup menu button to open it.
       await tester.tap(find.byType(PopupMenuButton<String>));
@@ -79,10 +57,7 @@ void main() {
     testWidgets('calls onSelected when item is tapped', (tester) async {
       String? selectedValue;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredPopupMenuButton<String>(
+      await pumpApp(tester, WiredPopupMenuButton<String>(
               items: const [
                 WiredPopupMenuItem(value: 'a', child: Text('Item A')),
                 WiredPopupMenuItem(value: 'b', child: Text('Item B')),
@@ -90,10 +65,7 @@ void main() {
               onSelected: (value) {
                 selectedValue = value;
               },
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Open the popup menu.
       await tester.tap(find.byType(PopupMenuButton<String>));
@@ -107,17 +79,11 @@ void main() {
     });
 
     testWidgets('has RepaintBoundary wrapper', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredPopupMenuButton<String>(
+      await pumpApp(tester, WiredPopupMenuButton<String>(
               items: const [
                 WiredPopupMenuItem(value: 'a', child: Text('Item A')),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(
         find.descendant(
@@ -129,17 +95,11 @@ void main() {
     });
 
     testWidgets('contains PopupMenuButton internally', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredPopupMenuButton<String>(
+      await pumpApp(tester, WiredPopupMenuButton<String>(
               items: const [
                 WiredPopupMenuItem(value: 'a', child: Text('Item A')),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(
         find.descendant(
@@ -153,10 +113,7 @@ void main() {
     testWidgets('renders with integer value type', (tester) async {
       int? selectedValue;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredPopupMenuButton<int>(
+      await pumpApp(tester, WiredPopupMenuButton<int>(
               items: const [
                 WiredPopupMenuItem(value: 1, child: Text('One')),
                 WiredPopupMenuItem(value: 2, child: Text('Two')),
@@ -164,10 +121,7 @@ void main() {
               onSelected: (value) {
                 selectedValue = value;
               },
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Open the popup menu.
       await tester.tap(find.byType(PopupMenuButton<int>));
@@ -181,18 +135,12 @@ void main() {
     });
 
     testWidgets('does not call onSelected when null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredPopupMenuButton<String>(
+      await pumpApp(tester, WiredPopupMenuButton<String>(
               items: const [
                 WiredPopupMenuItem(value: 'a', child: Text('Item A')),
               ],
               onSelected: null,
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Open and select; should not throw.
       await tester.tap(find.byType(PopupMenuButton<String>));

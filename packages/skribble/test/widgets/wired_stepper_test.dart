@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredStepper', () {
     List<WiredStep> buildSteps({int count = 3}) {
@@ -142,15 +144,9 @@ void main() {
     });
 
     testWidgets('property defaults: currentStep is 0', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SingleChildScrollView(
+      await pumpApp(tester, SingleChildScrollView(
               child: WiredStepper(steps: buildSteps()),
-            ),
-          ),
-        ),
-      );
+            ));
       await tester.pumpAndSettle();
 
       final stepper = tester.widget<WiredStepper>(find.byType(WiredStepper));
@@ -198,15 +194,9 @@ void main() {
         ),
       ];
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SingleChildScrollView(
+      await pumpApp(tester, SingleChildScrollView(
               child: WiredStepper(steps: stepsNoSubtitle),
-            ),
-          ),
-        ),
-      );
+            ));
       await tester.pumpAndSettle();
 
       expect(find.text('No subtitle step'), findsOneWidget);

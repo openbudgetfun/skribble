@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   Widget buildSubject({
     Widget? title,
@@ -103,10 +105,7 @@ void main() {
     });
 
     testWidgets('showWiredCupertinoDialog shows dialog', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
+      await pumpApp(tester, Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () => showWiredCupertinoDialog<void>(
                   context: context,
@@ -120,10 +119,7 @@ void main() {
                 ),
                 child: const Text('Show'),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
       await tester.tap(find.text('Show'));
       await tester.pumpAndSettle();
       expect(find.text('Test'), findsOneWidget);

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredDatePicker', () {
     // Set a large viewport so GoogleFonts text in WiredCalendar does not
@@ -160,13 +162,7 @@ void main() {
     ) async {
       useLargeViewport(tester);
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(width: 800, height: 800, child: WiredDatePicker()),
-          ),
-        ),
-      );
+      await pumpApp(tester, SizedBox(width: 800, height: 800, child: WiredDatePicker()));
       await tester.pumpAndSettle();
 
       final widget = tester.widget<WiredDatePicker>(
@@ -270,20 +266,14 @@ void main() {
       };
       addTearDown(() => FlutterError.onError = origOnError);
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
+      await pumpApp(tester, Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
                   unawaited(showWiredDatePicker(context: context));
                 },
                 child: const Text('Open'),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('Open'));
       await tester.pumpAndSettle();
@@ -306,10 +296,7 @@ void main() {
 
       DateTime? result;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
+      await pumpApp(tester, Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () async {
                   result = await showWiredDatePicker(
@@ -319,10 +306,7 @@ void main() {
                 },
                 child: const Text('Open'),
               ),
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('Open'));
       await tester.pumpAndSettle();

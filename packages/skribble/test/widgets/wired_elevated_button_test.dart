@@ -2,49 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredElevatedButton', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredElevatedButton(
+      await pumpApp(tester, WiredElevatedButton(
               onPressed: () {},
               child: const Text('Hello'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredElevatedButton), findsOneWidget);
     });
 
     testWidgets('renders child text widget', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredElevatedButton(
+      await pumpApp(tester, WiredElevatedButton(
               onPressed: () {},
               child: const Text('Press me'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Press me'), findsOneWidget);
     });
 
     testWidgets('renders child icon widget', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredElevatedButton(
+      await pumpApp(tester, WiredElevatedButton(
               onPressed: () {},
               child: const Icon(Icons.add),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byIcon(Icons.add), findsOneWidget);
     });
@@ -52,16 +36,10 @@ void main() {
     testWidgets('calls onPressed callback when tapped', (tester) async {
       var pressed = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredElevatedButton(
+      await pumpApp(tester, WiredElevatedButton(
               onPressed: () => pressed = true,
               child: const Text('Tap'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('Tap'));
       await tester.pump();
@@ -70,16 +48,10 @@ void main() {
     });
 
     testWidgets('does not crash when onPressed is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredElevatedButton(
+      await pumpApp(tester, WiredElevatedButton(
               onPressed: null,
               child: const Text('Disabled'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredElevatedButton), findsOneWidget);
       expect(find.text('Disabled'), findsOneWidget);
@@ -90,16 +62,10 @@ void main() {
     ) async {
       const pressed = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredElevatedButton(
+      await pumpApp(tester, WiredElevatedButton(
               onPressed: null,
               child: const Text('Disabled'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('Disabled'));
       await tester.pump();
@@ -114,16 +80,10 @@ void main() {
     });
 
     testWidgets('contains TextButton internally', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredElevatedButton(
+      await pumpApp(tester, WiredElevatedButton(
               onPressed: () {},
               child: const Text('Button'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(
         find.descendant(
@@ -135,16 +95,10 @@ void main() {
     });
 
     testWidgets('contains Stack for shadow offset', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredElevatedButton(
+      await pumpApp(tester, WiredElevatedButton(
               onPressed: () {},
               child: const Text('Shadow'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(
         find.descendant(
@@ -156,16 +110,10 @@ void main() {
     });
 
     testWidgets('has RepaintBoundary wrapper', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredElevatedButton(
+      await pumpApp(tester, WiredElevatedButton(
               onPressed: () {},
               child: const Text('Repaint'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(
         find.descendant(
@@ -179,16 +127,10 @@ void main() {
     testWidgets('tracks multiple rapid taps', (tester) async {
       var tapCount = 0;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredElevatedButton(
+      await pumpApp(tester, WiredElevatedButton(
               onPressed: () => tapCount++,
               child: const Text('Multi'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.text('Multi'));
       await tester.pump();

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   Widget buildSubject({
     Color selectedColor = Colors.blue,
@@ -79,16 +81,10 @@ void main() {
     testWidgets('renders with default colors when not specified', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredColorPicker(
+      await pumpApp(tester, WiredColorPicker(
               selectedColor: Colors.red,
               onColorChanged: (_) {},
-            ),
-          ),
-        ),
-      );
+            ));
       // Default has 20 colors
       expect(find.byType(WiredColorPicker), findsOneWidget);
     });

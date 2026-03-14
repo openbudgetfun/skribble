@@ -2,79 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredSwitchListTile', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(value: false, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSwitchListTile(value: false, onChanged: (_) {}));
 
       expect(find.byType(WiredSwitchListTile), findsOneWidget);
     });
 
     testWidgets('renders title text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(
+      await pumpApp(tester, WiredSwitchListTile(
               value: false,
               onChanged: (_) {},
               title: const Text('Dark Mode'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Dark Mode'), findsOneWidget);
     });
 
     testWidgets('renders subtitle text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(
+      await pumpApp(tester, WiredSwitchListTile(
               value: false,
               onChanged: (_) {},
               title: const Text('Title'),
               subtitle: const Text('Description text'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Description text'), findsOneWidget);
     });
 
     testWidgets('renders title and subtitle together', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(
+      await pumpApp(tester, WiredSwitchListTile(
               value: false,
               onChanged: (_) {},
               title: const Text('Main title'),
               subtitle: const Text('Supporting text'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.text('Main title'), findsOneWidget);
       expect(find.text('Supporting text'), findsOneWidget);
     });
 
     testWidgets('contains WiredSwitch as trailing widget', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(value: false, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSwitchListTile(value: false, onChanged: (_) {}));
 
       expect(
         find.descendant(
@@ -86,13 +58,7 @@ void main() {
     });
 
     testWidgets('contains WiredListTile internally', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(value: false, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSwitchListTile(value: false, onChanged: (_) {}));
 
       expect(
         find.descendant(
@@ -106,17 +72,11 @@ void main() {
     testWidgets('calls onChanged when list tile is tapped', (tester) async {
       bool? receivedValue;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(
+      await pumpApp(tester, WiredSwitchListTile(
               value: false,
               onChanged: (v) => receivedValue = v,
               title: const Text('Tap me'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Tap the InkWell area (the list tile).
       await tester.tap(find.byType(InkWell));
@@ -131,17 +91,11 @@ void main() {
     ) async {
       bool? receivedValue;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(
+      await pumpApp(tester, WiredSwitchListTile(
               value: true,
               onChanged: (v) => receivedValue = v,
               title: const Text('Tap me'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       await tester.tap(find.byType(InkWell));
       await tester.pump();
@@ -152,16 +106,10 @@ void main() {
     testWidgets('calls onChanged when switch is tapped', (tester) async {
       bool? receivedValue;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(
+      await pumpApp(tester, WiredSwitchListTile(
               value: false,
               onChanged: (v) => receivedValue = v,
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Tap the GestureDetector inside WiredSwitch.
       final switchGesture = find.descendant(
@@ -177,13 +125,7 @@ void main() {
     testWidgets('passes value to WiredSwitch correctly when false', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(value: false, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSwitchListTile(value: false, onChanged: (_) {}));
 
       final wiredSwitch = tester.widget<WiredSwitch>(find.byType(WiredSwitch));
       expect(wiredSwitch.value, isFalse);
@@ -192,13 +134,7 @@ void main() {
     testWidgets('passes value to WiredSwitch correctly when true', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(value: true, onChanged: (_) {}),
-          ),
-        ),
-      );
+      await pumpApp(tester, WiredSwitchListTile(value: true, onChanged: (_) {}));
 
       final wiredSwitch = tester.widget<WiredSwitch>(find.byType(WiredSwitch));
       expect(wiredSwitch.value, isTrue);
@@ -220,17 +156,11 @@ void main() {
     });
 
     testWidgets('renders divider when showDivider is true', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(
+      await pumpApp(tester, WiredSwitchListTile(
               value: false,
               onChanged: (_) {},
               showDivider: true,
-            ),
-          ),
-        ),
-      );
+            ));
 
       // WiredSwitch also uses WiredCanvas internally, so we count all
       // WiredCanvas widgets under WiredListTile. With showDivider=true
@@ -250,17 +180,11 @@ void main() {
     testWidgets('does not render divider when showDivider is false', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(
+      await pumpApp(tester, WiredSwitchListTile(
               value: false,
               onChanged: (_) {},
               showDivider: false,
-            ),
-          ),
-        ),
-      );
+            ));
 
       // WiredSwitch renders 2 WiredCanvas widgets (track + thumb).
       // With showDivider=false, no additional divider canvas is present.
@@ -276,16 +200,10 @@ void main() {
     });
 
     testWidgets('does not crash when onChanged is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredSwitchListTile(
+      await pumpApp(tester, WiredSwitchListTile(
               value: false,
               title: const Text('No callback'),
-            ),
-          ),
-        ),
-      );
+            ));
 
       // Tapping should not throw even with null onChanged.
       await tester.tap(find.byType(InkWell));
@@ -295,10 +213,7 @@ void main() {
     });
 
     testWidgets('renders multiple tiles in a column', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
+      await pumpApp(tester, Column(
               children: [
                 WiredSwitchListTile(
                   value: true,
@@ -311,10 +226,7 @@ void main() {
                   title: const Text('Bluetooth'),
                 ),
               ],
-            ),
-          ),
-        ),
-      );
+            ));
 
       expect(find.byType(WiredSwitchListTile), findsNWidgets(2));
       expect(find.text('Wi-Fi'), findsOneWidget);
