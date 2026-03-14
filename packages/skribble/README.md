@@ -172,8 +172,17 @@ All Skribble widgets follow familiar Flutter conventions:
 | Storybook tests | 58 (50 page + 8 golden) |
 | `dart analyze` | 0 issues |
 
+## Contributing
+
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) for development setup, widget
+conventions, testing requirements, and quality gates.
+
 ## Docs
 
 - [Parity Matrix](docs/ui-snapshots/parity-matrix.md) — coverage vs Flutter defaults
 - [Screenshot Manifest](docs/ui-snapshots/screenshot-manifest.txt) — all visual snapshots
 - [CHANGELOG](CHANGELOG.md) — release history
+
+## License
+
+MIT — see [LICENSE](../../LICENSE) for details.
