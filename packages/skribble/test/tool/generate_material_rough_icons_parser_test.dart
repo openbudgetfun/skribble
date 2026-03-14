@@ -232,6 +232,96 @@ class Icons {
     );
   });
 
+  group('runGenerateRoughIcons supplemental manifest', () {
+    late Directory tempDirectory;
+
+    setUp(() {
+      tempDirectory = Directory.systemTemp.createTempSync(
+        'rough-icon-supplemental-manifest-test-',
+      );
+    });
+
+    tearDown(() {
+      tempDirectory.deleteSync(recursive: true);
+    });
+
+    test(
+      'resolves unresolved declarations from supplemental manifest',
+      () async {
+        final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+          ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "adobe".
+  static const IconData adobe = IconData(0xf04b9, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "face unlock" (sharp).
+  static const IconData face_unlock_sharp = IconData(0xe951, fontFamily: 'MaterialIcons');
+}
+''');
+
+        final materialIconsRoot = Directory(
+          '${tempDirectory.path}/material-icons',
+        )..createSync(recursive: true);
+        final materialSymbolsRoot = Directory(
+          '${tempDirectory.path}/material-symbols',
+        )..createSync(recursive: true);
+        final brandIconsRoot = Directory('${tempDirectory.path}/simple-icons')
+          ..createSync(recursive: true);
+
+        File('${tempDirectory.path}/adobe.svg').writeAsStringSync(
+          '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+        );
+        File('${tempDirectory.path}/face_unlock.svg').writeAsStringSync(
+          '<svg viewBox="0 0 24 24"><path d="M2 2h20v20H2z"/></svg>',
+        );
+        final supplementalManifestFile =
+            File('${tempDirectory.path}/extra.json')..writeAsStringSync('''
+{
+  "icons": [
+    {
+      "identifier": "adobe",
+      "codePoint": "0xf04b9",
+      "svgPath": "adobe.svg"
+    },
+    {
+      "identifier": "face_unlock",
+      "codePoint": "0xe951",
+      "svgPath": "face_unlock.svg"
+    }
+  ]
+}
+''');
+
+        final outputFile = File(
+          '${tempDirectory.path}/material_rough_icons.g.dart',
+        );
+
+        await tool.runGenerateRoughIcons(<String>[
+          '--kit',
+          'flutter-material',
+          '--flutter-icons',
+          flutterIconsFile.path,
+          '--material-icons-source',
+          materialIconsRoot.path,
+          '--material-symbols-source',
+          materialSymbolsRoot.path,
+          '--brand-icons-source',
+          brandIconsRoot.path,
+          '--supplemental-manifest',
+          supplementalManifestFile.path,
+          '--output',
+          outputFile.path,
+        ]);
+
+        final generated = outputFile.readAsStringSync();
+        expect(generated, contains('// adobe'));
+        expect(generated, contains('// face_unlock_sharp'));
+        expect(generated, contains('0xf04b9'));
+        expect(generated, contains('0xe951'));
+      },
+    );
+  });
+
   test(
     'renderFontCodePointsDartForTest renders stable helper names and order',
     () {

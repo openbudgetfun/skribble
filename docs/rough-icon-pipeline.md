@@ -94,6 +94,17 @@ When a Flutter Material icon identifier does not exist in Material SVG packages
 - Auto mode (default): tries `npm pack simple-icons` best-effort.
 - Manual source override: `--brand-icons-source <path>`.
 
+## Supplemental manifest source
+
+For unresolved Flutter Material icons that are absent from both Material SVG
+packages and brand fallback packages, pass a custom manifest file:
+
+- `--supplemental-manifest <path>`
+
+This uses the same JSON schema as `--kit svg-manifest` (`identifier`,
+`codePoint`, `svgPath`) and is applied as a fallback during
+`--kit flutter-material` resolution.
+
 ## Runtime prerequisites
 
 - `deno` available on PATH
