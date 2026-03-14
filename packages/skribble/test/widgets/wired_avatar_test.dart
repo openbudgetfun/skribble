@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
-  Widget buildSubject({
+  Future<void> pumpSubject(
+    WidgetTester tester, {
     Widget? child,
     double radius = 20,
     Color? backgroundColor,
     Color? foregroundColor,
   }) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: WiredAvatar(
-            radius: radius,
-            backgroundColor: backgroundColor,
-            foregroundColor: foregroundColor,
-            child: child,
-          ),
+    return pumpApp(
+      tester,
+      Center(
+        child: WiredAvatar(
+          radius: radius,
+          backgroundColor: backgroundColor,
+          foregroundColor: foregroundColor,
+          child: child,
         ),
       ),
     );
@@ -25,22 +27,22 @@ void main() {
 
   group('WiredAvatar', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(buildSubject());
+      await pumpSubject(tester);
       expect(find.byType(WiredAvatar), findsOneWidget);
     });
 
     testWidgets('renders with initials', (tester) async {
-      await tester.pumpWidget(buildSubject(child: const Text('JD')));
+      await pumpSubject(tester, child: const Text('JD'));
       expect(find.text('JD'), findsOneWidget);
     });
 
     testWidgets('renders with icon', (tester) async {
-      await tester.pumpWidget(buildSubject(child: const Icon(Icons.person)));
+      await pumpSubject(tester, child: const Icon(Icons.person));
       expect(find.byIcon(Icons.person), findsOneWidget);
     });
 
     testWidgets('respects custom radius', (tester) async {
-      await tester.pumpWidget(buildSubject(radius: 40));
+      await pumpSubject(tester, radius: 40);
       final sizedBox = tester.widget<SizedBox>(
         find.descendant(
           of: find.byType(WiredAvatar),
@@ -52,19 +54,21 @@ void main() {
     });
 
     testWidgets('renders with custom background color', (tester) async {
-      await tester.pumpWidget(buildSubject(backgroundColor: Colors.blue));
+      await pumpSubject(tester, backgroundColor: Colors.blue);
       expect(find.byType(WiredAvatar), findsOneWidget);
     });
 
     testWidgets('renders with custom foreground color', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(foregroundColor: Colors.white, child: const Text('AB')),
+      await pumpSubject(
+        tester,
+        foregroundColor: Colors.white,
+        child: const Text('AB'),
       );
       expect(find.text('AB'), findsOneWidget);
     });
 
     testWidgets('default size is 40x40', (tester) async {
-      await tester.pumpWidget(buildSubject());
+      await pumpSubject(tester);
       final sizedBox = tester.widget<SizedBox>(
         find.descendant(
           of: find.byType(WiredAvatar),

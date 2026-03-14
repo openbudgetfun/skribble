@@ -135,10 +135,7 @@ void main() {
     testWidgets('selected item shows rounded rect indicator', (tester) async {
       await pumpApp(
         tester,
-        WiredNavigationBar(
-          destinations: testDestinations,
-          selectedIndex: 1,
-        ),
+        WiredNavigationBar(destinations: testDestinations, selectedIndex: 1),
         asBottomNav: true,
       );
 
@@ -156,10 +153,7 @@ void main() {
     ) async {
       await pumpApp(
         tester,
-        WiredNavigationBar(
-          destinations: testDestinations,
-          selectedIndex: 2,
-        ),
+        WiredNavigationBar(destinations: testDestinations, selectedIndex: 2),
         asBottomNav: true,
       );
 
@@ -169,10 +163,7 @@ void main() {
     testWidgets('uses regular icon when item is not selected', (tester) async {
       await pumpApp(
         tester,
-        WiredNavigationBar(
-          destinations: testDestinations,
-          selectedIndex: 0,
-        ),
+        WiredNavigationBar(destinations: testDestinations, selectedIndex: 0),
         asBottomNav: true,
       );
 
@@ -200,19 +191,13 @@ void main() {
     testWidgets('rebuilds when selectedIndex changes', (tester) async {
       await pumpApp(
         tester,
-        WiredNavigationBar(
-          destinations: testDestinations,
-          selectedIndex: 0,
-        ),
+        WiredNavigationBar(destinations: testDestinations, selectedIndex: 0),
         asBottomNav: true,
       );
 
       await pumpApp(
         tester,
-        WiredNavigationBar(
-          destinations: testDestinations,
-          selectedIndex: 2,
-        ),
+        WiredNavigationBar(destinations: testDestinations, selectedIndex: 2),
         asBottomNav: true,
       );
 
