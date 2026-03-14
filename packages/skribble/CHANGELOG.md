@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.3.3
+
+### Accessibility
+
+- **Semantic labels**: Added `semanticLabel` parameter to 10 hand-drawn
+  widgets — `WiredButton`, `WiredElevatedButton`, `WiredOutlinedButton`,
+  `WiredTextButton`, `WiredFilledButton`, `WiredIconButton`,
+  `WiredFloatingActionButton`, `WiredToggle`, `WiredSwitch`,
+  and `WiredCupertinoSwitch` (pre-existing).
+  All wrap content in `Semantics(button: true)` or `Semantics(toggled: value)`.
+
+### Quality & Tooling
+
+- **`finders.dart` test helper**: Shared `findWiredCanvas`,
+  `findRepaintBoundary`, `findCustomPaint` getters and scoped descendant
+  finders — adopted across all 42 widget test files (100%).
+- **`buildSubject` cleanup**: Migrated last 4 files to `pumpSubject`
+  pattern. Only 1 file retains `buildSubject` (uses `StatefulBuilder`).
+- **Duplicate canvas tests removed**: Deleted `test/canvas/` directory
+  whose 5 tests were already covered in `test/widgets/wired_canvas_test.dart`.
+- **`codecov.yml`**: Added project/patch coverage thresholds.
+- **Root README rewrite**: Badges, stats table, package/app tables.
+
+### Stats
+
+- 1,001 library tests (857 widget + 138 rough + 6 smoke)
+- 58 storybook tests (50 page + 8 golden)
+- **1,059 total tests**
+- 0 `dart analyze` issues, 0 `dart doc` warnings
+
 ## 0.3.2
 
 ### Quality & Tooling
