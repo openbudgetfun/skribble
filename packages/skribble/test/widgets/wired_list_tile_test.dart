@@ -205,9 +205,7 @@ void main() {
     });
 
     testWidgets('renders with no title or subtitle', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredListTile())),
-      );
+      await pumpApp(tester, WiredListTile());
 
       // Should render without error even with all optional fields null.
       expect(find.byType(WiredListTile), findsOneWidget);

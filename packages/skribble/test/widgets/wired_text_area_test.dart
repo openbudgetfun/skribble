@@ -8,17 +8,13 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredTextArea', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredTextArea())),
-      );
+      await pumpApp(tester, WiredTextArea());
 
       expect(find.byType(WiredTextArea), findsOneWidget);
     });
 
     testWidgets('contains TextField internally', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredTextArea())),
-      );
+      await pumpApp(tester, WiredTextArea());
 
       expect(
         find.descendant(
@@ -36,9 +32,7 @@ void main() {
     });
 
     testWidgets('accepts text input', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredTextArea())),
-      );
+      await pumpApp(tester, WiredTextArea());
 
       await tester.enterText(find.byType(TextField), 'Hello World');
       await tester.pump();
@@ -78,54 +72,42 @@ void main() {
     });
 
     testWidgets('maxLines defaults to 5', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredTextArea())),
-      );
+      await pumpApp(tester, WiredTextArea());
 
       final textField = tester.widget<TextField>(find.byType(TextField));
       expect(textField.maxLines, 5);
     });
 
     testWidgets('minLines defaults to 3', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredTextArea())),
-      );
+      await pumpApp(tester, WiredTextArea());
 
       final textField = tester.widget<TextField>(find.byType(TextField));
       expect(textField.minLines, 3);
     });
 
     testWidgets('accepts custom maxLines', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredTextArea(maxLines: 10))),
-      );
+      await pumpApp(tester, WiredTextArea(maxLines: 10));
 
       final textField = tester.widget<TextField>(find.byType(TextField));
       expect(textField.maxLines, 10);
     });
 
     testWidgets('accepts custom minLines', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredTextArea(minLines: 1))),
-      );
+      await pumpApp(tester, WiredTextArea(minLines: 1));
 
       final textField = tester.widget<TextField>(find.byType(TextField));
       expect(textField.minLines, 1);
     });
 
     testWidgets('has no input border decoration', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredTextArea())),
-      );
+      await pumpApp(tester, WiredTextArea());
 
       final textField = tester.widget<TextField>(find.byType(TextField));
       expect(textField.decoration?.border, InputBorder.none);
     });
 
     testWidgets('contains Stack for layered layout', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredTextArea())),
-      );
+      await pumpApp(tester, WiredTextArea());
 
       expect(
         find.descendant(
@@ -137,9 +119,7 @@ void main() {
     });
 
     testWidgets('contains WiredCanvas background', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: Scaffold(body: WiredTextArea())),
-      );
+      await pumpApp(tester, WiredTextArea());
 
       expect(
         find.descendant(
