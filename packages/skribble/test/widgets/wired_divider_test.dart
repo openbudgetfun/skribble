@@ -60,11 +60,7 @@ void main() {
         const MaterialApp(
           home: Scaffold(
             body: Column(
-              children: [
-                Text('Above'),
-                WiredDivider(),
-                Text('Below'),
-              ],
+              children: [Text('Above'), WiredDivider(), Text('Below')],
             ),
           ),
         ),

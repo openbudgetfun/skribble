@@ -21,10 +21,7 @@ class SkribbleStorybookApp extends HookWidget {
       child: MaterialApp(
         title: 'Skribble Storybook',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          useMaterial3: true,
-          colorSchemeSeed: Colors.brown,
-        ),
+        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.brown),
         initialRoute: '/',
         routes: {
           '/': (context) => const HomePage(),

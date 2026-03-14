@@ -96,10 +96,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WiredButton(
-              onPressed: () {},
-              child: const Icon(Icons.add),
-            ),
+            body: WiredButton(onPressed: () {}, child: const Icon(Icons.add)),
           ),
         ),
       );
@@ -113,10 +110,7 @@ void main() {
           home: WiredTheme(
             data: WiredThemeData(borderColor: Colors.red),
             child: Scaffold(
-              body: WiredButton(
-                onPressed: () {},
-                child: const Text('Themed'),
-              ),
+              body: WiredButton(onPressed: () {}, child: const Text('Themed')),
             ),
           ),
         ),

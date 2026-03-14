@@ -139,9 +139,7 @@ void main() {
             body: WiredReorderableListView(
               onReorder: (_, _) {},
               padding: const EdgeInsets.all(24),
-              children: const [
-                Text('Padded', key: ValueKey('p')),
-              ],
+              children: const [Text('Padded', key: ValueKey('p'))],
             ),
           ),
         ),
@@ -156,9 +154,7 @@ void main() {
           home: Scaffold(
             body: WiredReorderableListView(
               onReorder: (_, _) {},
-              children: const [
-                Text('Solo', key: ValueKey('solo')),
-              ],
+              children: const [Text('Solo', key: ValueKey('solo'))],
             ),
           ),
         ),

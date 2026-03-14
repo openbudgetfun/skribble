@@ -71,9 +71,7 @@ void main() {
     testWidgets('contains a Dialog widget', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredDialog(child: const Text('Test')),
-          ),
+          home: Scaffold(body: WiredDialog(child: const Text('Test'))),
         ),
       );
 
@@ -89,9 +87,7 @@ void main() {
     testWidgets('contains WiredCanvas for border', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: WiredDialog(child: const Text('Border check')),
-          ),
+          home: Scaffold(body: WiredDialog(child: const Text('Border check'))),
         ),
       );
 
@@ -116,10 +112,7 @@ void main() {
                   const SizedBox(height: 16),
                   const Text('Body content here'),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('OK'),
-                  ),
+                  ElevatedButton(onPressed: () {}, child: const Text('OK')),
                 ],
               ),
             ),

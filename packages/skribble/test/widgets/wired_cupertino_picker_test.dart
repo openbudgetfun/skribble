@@ -115,10 +115,7 @@ void main() {
           home: Scaffold(
             body: WiredCupertinoPicker(
               onSelectedItemChanged: (_) {},
-              children: List.generate(
-                20,
-                (i) => Text('Item $i'),
-              ),
+              children: List.generate(20, (i) => Text('Item $i')),
             ),
           ),
         ),

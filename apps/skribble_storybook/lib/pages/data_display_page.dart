@@ -169,8 +169,7 @@ class DataDisplayPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Selectable Text',
-                description:
-                    'Text that can be selected and copied.',
+                description: 'Text that can be selected and copied.',
                 child: const WiredSelectableText(
                   'Long press to select this text. '
                   'You can copy it to your clipboard.',

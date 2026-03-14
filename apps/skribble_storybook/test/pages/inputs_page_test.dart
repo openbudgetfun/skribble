@@ -44,8 +44,9 @@ void main() {
       expect(find.text('WiredCheckbox'), findsOneWidget);
     });
 
-    testWidgets('shows WiredCupertinoTextField section on scroll',
-        (tester) async {
+    testWidgets('shows WiredCupertinoTextField section on scroll', (
+      tester,
+    ) async {
       await navigateToInputs(tester);
       await tester.scrollUntilVisible(
         find.text('WiredCupertinoTextField'),

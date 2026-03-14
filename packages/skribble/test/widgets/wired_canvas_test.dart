@@ -83,12 +83,7 @@ void main() {
               width: 200,
               height: 2,
               child: WiredCanvas(
-                painter: WiredLineBase(
-                  x1: 0,
-                  y1: 0,
-                  x2: 200,
-                  y2: 0,
-                ),
+                painter: WiredLineBase(x1: 0, y1: 0, x2: 200, y2: 0),
                 fillerType: RoughFilter.noFiller,
               ),
             ),
@@ -130,7 +125,10 @@ void main() {
               child: WiredCanvas(
                 painter: WiredRectangleBase(),
                 fillerType: RoughFilter.noFiller,
-                drawConfig: DrawConfig.build(roughness: 2, maxRandomnessOffset: 3),
+                drawConfig: DrawConfig.build(
+                  roughness: 2,
+                  maxRandomnessOffset: 3,
+                ),
               ),
             ),
           ),
@@ -206,8 +204,9 @@ void main() {
   });
 
   group('WiredPainter', () {
-    testWidgets('shouldRepaint returns true for different configs',
-        (tester) async {
+    testWidgets('shouldRepaint returns true for different configs', (
+      tester,
+    ) async {
       final config1 = DrawConfig.defaultValues;
       final config2 = DrawConfig.build(roughness: 5);
       final filler = NoFiller(FillerConfig.defaultConfig);
@@ -230,22 +229,15 @@ void main() {
       expect(p1.shouldRepaint(p2), isFalse);
     });
 
-    testWidgets('shouldRepaint returns true for different filler type',
-        (tester) async {
+    testWidgets('shouldRepaint returns true for different filler type', (
+      tester,
+    ) async {
       final config = DrawConfig.defaultValues;
       final fillerConfig = FillerConfig.defaultConfig;
       final painter = WiredRectangleBase();
 
-      final p1 = WiredPainter(
-        config,
-        NoFiller(fillerConfig),
-        painter,
-      );
-      final p2 = WiredPainter(
-        config,
-        HachureFiller(fillerConfig),
-        painter,
-      );
+      final p1 = WiredPainter(config, NoFiller(fillerConfig), painter);
+      final p2 = WiredPainter(config, HachureFiller(fillerConfig), painter);
 
       expect(p1.shouldRepaint(p2), isTrue);
     });

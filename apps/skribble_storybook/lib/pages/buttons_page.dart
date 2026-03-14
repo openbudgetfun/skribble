@@ -155,8 +155,7 @@ class ButtonsPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Cupertino Button',
-                description:
-                    'iOS-style hand-drawn button with press opacity.',
+                description: 'iOS-style hand-drawn button with press opacity.',
                 child: WiredCupertinoButton(
                   onPressed: () {},
                   child: const Text('Cupertino'),

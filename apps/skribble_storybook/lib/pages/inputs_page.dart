@@ -370,10 +370,7 @@ class InputsPage extends HookWidget {
               ),
               ComponentShowcase(
                 title: 'Disabled',
-                child: const WiredCupertinoSlider(
-                  value: 0.3,
-                  onChanged: null,
-                ),
+                child: const WiredCupertinoSlider(value: 0.3, onChanged: null),
               ),
             ],
           ),

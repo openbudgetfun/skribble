@@ -58,9 +58,7 @@ void main() {
         ),
       );
 
-      final progress = tester.widget<WiredProgress>(
-        find.byType(WiredProgress),
-      );
+      final progress = tester.widget<WiredProgress>(find.byType(WiredProgress));
       expect(progress.value, 0.5);
     });
 
@@ -97,9 +95,7 @@ void main() {
         ),
       );
 
-      final progress = tester.widget<WiredProgress>(
-        find.byType(WiredProgress),
-      );
+      final progress = tester.widget<WiredProgress>(find.byType(WiredProgress));
       expect(progress.value, 0.0);
     });
   });

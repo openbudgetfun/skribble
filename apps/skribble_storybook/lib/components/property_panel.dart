@@ -23,10 +23,9 @@ class PropertyPanel extends HookWidget {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
           ),
           const SizedBox(height: 8),
-          ...properties.map((p) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: p,
-              )),
+          ...properties.map(
+            (p) => Padding(padding: const EdgeInsets.only(bottom: 8), child: p),
+          ),
         ],
       ),
     );
