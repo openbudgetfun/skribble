@@ -23,7 +23,7 @@ dev_dependencies:
   google_fonts: ^8.0.2
   integration_test:
     sdk: flutter
-  patrol: ^4.1.1
+  patrol: ^4.3.0
   patrol_finders: ^3.1.0
   skribble_lints:
     path: ../../packages/skribble_lints
