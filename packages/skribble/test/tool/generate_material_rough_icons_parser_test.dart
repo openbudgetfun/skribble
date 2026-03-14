@@ -80,6 +80,79 @@ class Icons {
     });
   });
 
+  group('runGenerateRoughIcons alias resolution', () {
+    late Directory tempDirectory;
+
+    setUp(() {
+      tempDirectory = Directory.systemTemp.createTempSync(
+        'rough-icon-alias-resolution-test-',
+      );
+    });
+
+    tearDown(() {
+      tempDirectory.deleteSync(recursive: true);
+    });
+
+    test(
+      'resolves known Flutter alias names to available SVG sources',
+      () async {
+        final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+          ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "label outline".
+  static const IconData label_outline = IconData(0xe364, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "wifi tethering error rounded" (round).
+  static const IconData wifi_tethering_error_rounded_rounded = IconData(0xf02c0, fontFamily: 'MaterialIcons');
+}
+''');
+
+        final materialIconsRoot = Directory(
+          '${tempDirectory.path}/material-icons',
+        )..createSync(recursive: true);
+        final materialSymbolsRoot = Directory(
+          '${tempDirectory.path}/material-symbols',
+        )..createSync(recursive: true);
+
+        File('${materialIconsRoot.path}/filled/label.svg')
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+          );
+        File(
+            '${materialSymbolsRoot.path}/rounded/wifi_tethering_error-fill.svg',
+          )
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            '<svg viewBox="0 0 24 24"><path d="M2 2h20v20H2z"/></svg>',
+          );
+
+        final outputFile = File(
+          '${tempDirectory.path}/material_rough_icons.g.dart',
+        );
+
+        await tool.runGenerateRoughIcons(<String>[
+          '--kit',
+          'flutter-material',
+          '--flutter-icons',
+          flutterIconsFile.path,
+          '--material-icons-source',
+          materialIconsRoot.path,
+          '--material-symbols-source',
+          materialSymbolsRoot.path,
+          '--output',
+          outputFile.path,
+        ]);
+
+        final generated = outputFile.readAsStringSync();
+        expect(generated, contains('// label_outline'));
+        expect(generated, contains('0xe364'));
+        expect(generated, contains('// wifi_tethering_error_rounded_rounded'));
+        expect(generated, contains('0xf02c0'));
+      },
+    );
+  });
+
   test(
     'renderFontCodePointsDartForTest renders stable helper names and order',
     () {
