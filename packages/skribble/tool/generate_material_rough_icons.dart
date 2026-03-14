@@ -169,6 +169,7 @@ Options:
   --material-icons-source <path>   Path to extracted @material-design-icons/svg package.
   --material-symbols-source <path> Path to extracted @material-symbols/svg-400 package.
   --brand-icons-source <path>      Path to extracted simple-icons package (brand fallback).
+  --supplemental-manifest <path>   JSON manifest for unresolved flutter-material icons.
   --output <path>                  Output Dart file.
   --rough-cli <path>               TypeScript script that converts SVG(s) (default: tool/deno/svg2roughjs_cli.ts).
   --rough-cli-runner <exe>         Runner executable for --rough-cli (default: deno).
@@ -215,6 +216,7 @@ final class _ScriptOptions {
     this.materialIconsSourcePath,
     this.materialSymbolsSourcePath,
     this.brandIconsSourcePath,
+    this.supplementalManifestPath,
     this.outputPath,
     this.roughCliPath,
     this.roughCliRunner = _kDefaultRoughCliRunner,
@@ -238,6 +240,7 @@ final class _ScriptOptions {
   final String? materialIconsSourcePath;
   final String? materialSymbolsSourcePath;
   final String? brandIconsSourcePath;
+  final String? supplementalManifestPath;
   final String? outputPath;
   final String? roughCliPath;
   final String roughCliRunner;
@@ -261,6 +264,7 @@ final class _ScriptOptions {
     String? materialIconsSourcePath;
     String? materialSymbolsSourcePath;
     String? brandIconsSourcePath;
+    String? supplementalManifestPath;
     String? outputPath;
     String? roughCliPath;
     var roughCliRunner = _kDefaultRoughCliRunner;
@@ -326,6 +330,8 @@ final class _ScriptOptions {
           materialSymbolsSourcePath = value;
         case '--brand-icons-source':
           brandIconsSourcePath = value;
+        case '--supplemental-manifest':
+          supplementalManifestPath = value;
         case '--output':
           outputPath = value;
         case '--rough-cli':
@@ -360,6 +366,7 @@ final class _ScriptOptions {
       materialIconsSourcePath: materialIconsSourcePath,
       materialSymbolsSourcePath: materialSymbolsSourcePath,
       brandIconsSourcePath: brandIconsSourcePath,
+      supplementalManifestPath: supplementalManifestPath,
       outputPath: outputPath,
       roughCliPath: roughCliPath,
       roughCliRunner: roughCliRunner,
@@ -498,11 +505,34 @@ _createProvider(_ScriptOptions options) async {
         suppliedPath: options.brandIconsSourcePath,
       );
 
+      var supplementalEntriesByDeclarationKey = <String, _ManifestIconEntry>{};
+      if (options.supplementalManifestPath
+          case final supplementalManifestPath?) {
+        final supplementalManifestFile = File(supplementalManifestPath);
+        if (!supplementalManifestFile.existsSync()) {
+          throw StateError(
+            'Supplemental manifest file not found: '
+            '${supplementalManifestFile.path}',
+          );
+        }
+
+        final supplementalEntries = _parseSvgManifest(
+          supplementalManifestFile.readAsStringSync(),
+          manifestDirectory: supplementalManifestFile.parent,
+        );
+        supplementalEntriesByDeclarationKey = <String, _ManifestIconEntry>{
+          for (final entry in supplementalEntries)
+            _manifestDeclarationKey(entry.identifier, entry.codePoint): entry,
+        };
+      }
+
       return _MaterialIconKitProvider(
         flutterIconsFile: flutterIconsFile,
         materialIconsRoot: materialIconsRoot,
         materialSymbolsRoot: materialSymbolsRoot,
         brandIconsRoot: brandIconsRoot,
+        supplementalEntriesByDeclarationKey:
+            supplementalEntriesByDeclarationKey,
       );
     case _kManifestKit:
       final manifestPath = options.manifestPath;
@@ -756,12 +786,15 @@ final class _MaterialIconKitProvider
     required this.materialIconsRoot,
     required this.materialSymbolsRoot,
     this.brandIconsRoot,
+    this.supplementalEntriesByDeclarationKey =
+        const <String, _ManifestIconEntry>{},
   });
 
   final File flutterIconsFile;
   final Directory materialIconsRoot;
   final Directory materialSymbolsRoot;
   final Directory? brandIconsRoot;
+  final Map<String, _ManifestIconEntry> supplementalEntriesByDeclarationKey;
 
   @override
   Future<List<_FlutterIconDeclaration>> loadDeclarations() async {
@@ -777,6 +810,7 @@ final class _MaterialIconKitProvider
       materialIconsRoot: materialIconsRoot,
       materialSymbolsRoot: materialSymbolsRoot,
       brandIconsRoot: brandIconsRoot,
+      supplementalEntriesByDeclarationKey: supplementalEntriesByDeclarationKey,
     );
   }
 }
@@ -875,6 +909,7 @@ ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
   required Directory materialIconsRoot,
   required Directory materialSymbolsRoot,
   required Directory? brandIconsRoot,
+  required Map<String, _ManifestIconEntry> supplementalEntriesByDeclarationKey,
 }) {
   final candidates = <String>{
     declaration.svgName,
@@ -918,6 +953,22 @@ ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
         );
       }
     }
+  }
+
+  for (final candidate in candidates) {
+    final supplementalEntry =
+        supplementalEntriesByDeclarationKey[_manifestDeclarationKey(
+          candidate,
+          declaration.codePoint,
+        )];
+    if (supplementalEntry == null) {
+      continue;
+    }
+
+    return ResolvedSvgCandidate<_GeneratedIconData>(
+      data: _parseSvgIcon(supplementalEntry.svgFile),
+      sourcePath: supplementalEntry.svgFile.path,
+    );
   }
 
   return null;
