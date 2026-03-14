@@ -897,6 +897,7 @@ const Map<String, List<String>> _svgAliases = <String, List<String>>{
   'invert_colors_on': <String>['invert_colors'],
   'keyboard_control': <String>['keyboard_control_key'],
   'label_important_outline': <String>['label_important'],
+  'label_outline': <String>['label'],
   'leave_bags_at_home': <String>['no_luggage'],
   'lightbulb_outline': <String>['lightbulb'],
   'local_attraction': <String>['local_activity'],
@@ -934,6 +935,7 @@ const Map<String, List<String>> _svgAliases = <String, List<String>>{
   'wallet_membership': <String>['card_membership'],
   'wallet_travel': <String>['card_travel'],
   'wb_twighlight': <String>['wb_twilight'],
+  'wifi_tethering_error_rounded': <String>['wifi_tethering_error'],
   'workspaces_filled': <String>['workspaces'],
   'workspaces_outline': <String>['workspaces'],
 };
