@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn dropdown selector, corresponding to Flutter's
@@ -66,7 +67,11 @@ class WiredCombo<T> extends HookWidget {
                 elevation: 0,
                 icon: Visibility(
                   visible: false,
-                  child: Icon(Icons.arrow_downward),
+                  child: WiredIcon(
+                    icon: Icons.arrow_downward,
+                    fillStyle: WiredIconFillStyle.solid,
+                    strokeWidth: 1.2,
+                  ),
                 ),
                 value: internalValue.value,
                 items: items.map((item) {

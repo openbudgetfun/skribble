@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// An expandable tile with a hand-drawn border.
@@ -63,7 +64,12 @@ class WiredExpansionTile extends HookWidget {
                 AnimatedRotation(
                   turns: isExpanded.value ? 0.5 : 0,
                   duration: const Duration(milliseconds: 200),
-                  child: Icon(Icons.expand_more, color: theme.textColor),
+                  child: WiredIcon(
+                    icon: Icons.expand_more,
+                    color: theme.textColor,
+                    fillStyle: WiredIconFillStyle.solid,
+                    strokeWidth: 1.2,
+                  ),
                 ),
               ],
             ),

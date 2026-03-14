@@ -5,6 +5,13 @@ import 'package:skribble/skribble.dart';
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredExpansionTile', () {
     testWidgets('renders without error', (tester) async {
@@ -173,10 +180,10 @@ void main() {
       expect(find.text('Content'), findsNothing);
     });
 
-    testWidgets('contains expand_more icon', (tester) async {
+    testWidgets('contains rough expand_more icon', (tester) async {
       await pumpApp(tester, WiredExpansionTile(title: const Text('Title')));
 
-      expect(find.byIcon(Icons.expand_more), findsOneWidget);
+      expect(findWiredIcon(Icons.expand_more), findsOneWidget);
     });
 
     testWidgets('icon rotates when expanded', (tester) async {
