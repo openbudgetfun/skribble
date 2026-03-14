@@ -5,6 +5,7 @@ import 'dart:ui' show PathMetric;
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'generated/material_rough_icon_font.g.dart';
 import 'generated/material_rough_icons.g.dart';
 import 'rough/renderer.dart';
 import 'rough/skribble_rough.dart';
@@ -160,6 +161,25 @@ WiredSvgIconData? lookupMaterialRoughIcon(IconData icon) {
   }
   return kMaterialRoughIcons[icon.codePoint];
 }
+
+WiredSvgIconData? lookupMaterialRoughIconByIdentifier(String identifier) {
+  final codePoint = kMaterialRoughIconsCodePoints[identifier];
+  if (codePoint == null) {
+    return null;
+  }
+  return kMaterialRoughIcons[codePoint];
+}
+
+IconData? lookupMaterialRoughFontIcon(String identifier) =>
+    lookupMaterialRoughIconsIconData(identifier);
+
+String get materialRoughFontFamily => kMaterialRoughIconsFontFamily;
+
+Map<String, int> get materialRoughFontCodePoints =>
+    kMaterialRoughIconsCodePoints;
+
+List<String> get materialRoughIconIdentifiers =>
+    kMaterialRoughIconsCodePoints.keys.toList(growable: false);
 
 List<int> get materialRoughIconCodePoints =>
     kMaterialRoughIcons.keys.toList(growable: false);
