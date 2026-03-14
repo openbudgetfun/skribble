@@ -17,9 +17,9 @@
 
 ### Stats
 
-- 997 library tests (853 widget + 138 rough + 6 smoke)
+- 992 library tests (848 widget + 138 rough + 6 smoke)
 - 58 storybook tests (50 page + 8 golden)
-- **1,055 total tests**
+- **1,050 total tests**
 - 0 `dart analyze` issues, 0 `dart doc` warnings
 
 ## 0.3.1
@@ -45,9 +45,9 @@
 
 ### Stats
 
-- 81 widget source files, 88 widget test files, 853 widget tests,
-  138 rough engine tests, 6 smoke tests = 997 library tests +
-  58 storybook tests = **1,055 total**.
+- 81 widget source files, 88 widget test files, 848 widget tests,
+  138 rough engine tests, 6 smoke tests = 992 library tests +
+  58 storybook tests = **1,050 total**.
 
 ## 0.3.0
 
