@@ -184,7 +184,7 @@ Generate/refresh rough Material icons:
 cd packages/skribble
 deno cache tool/deno/svg2roughjs_cli.ts
 
-dart run tool/generate_material_rough_icons.dart \
+dart run tool/generate_rough_icons.dart \
   --kit flutter-material \
   --rough-output-dir tool/icon_exports/rough-svg \
   --font-output-dir tool/icon_exports/font
@@ -199,6 +199,7 @@ melos run rough-icons-font
 
 Useful flags:
 
+- `--list-kits` to print available icon-kit providers.
 - `--rough-only` to skip Dart map generation and emit rough SVGs only.
 - `--rough-normalize-viewbox 128` to upscale SVG geometry before roughing.
 - `--font-name skribble_rough_icons` to customize generated font family name.

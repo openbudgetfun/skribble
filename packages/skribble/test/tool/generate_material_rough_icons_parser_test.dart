@@ -3,6 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../tool/generate_material_rough_icons.dart' as tool;
 
 void main() {
+  test('supportedIconKitsForTest includes flutter-material', () {
+    expect(tool.supportedIconKitsForTest(), contains('flutter-material'));
+  });
+
   group('parseFlutterIconDeclarationsForTest', () {
     test('parses canonical docs metadata', () {
       final declarations = tool.parseFlutterIconDeclarationsForTest('''

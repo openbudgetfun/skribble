@@ -2,6 +2,10 @@
 
 This repository ships a Dart CLI at:
 
+- `packages/skribble/tool/generate_rough_icons.dart`
+
+Compatibility alias (backward compatible):
+
 - `packages/skribble/tool/generate_material_rough_icons.dart`
 
 ## What it does
@@ -26,6 +30,13 @@ The script uses `IconKitProvider` (`packages/skribble/tool/icon_kit_provider.dar
 Current provider:
 
 - `flutter-material`
+
+To inspect available providers from CLI:
+
+```bash
+cd packages/skribble
+dart run tool/generate_rough_icons.dart --list-kits
+```
 
 To add another icon kit, implement a provider that:
 
