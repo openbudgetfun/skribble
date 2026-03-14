@@ -204,6 +204,7 @@ Useful flags:
 - `--kit svg-manifest --manifest <path>` to rough non-Material icon sets from JSON manifests (unique `identifier`/`codePoint` required).
 - `--rough-only` to skip Dart map generation and emit rough SVGs only.
 - `--rough-normalize-viewbox 128` to upscale SVG geometry before roughing.
+- `--brand-icons-source <path>` to provide a local `simple-icons` package as fallback for brand identifiers missing in Material SVG packages.
 - `--font-name skribble_rough_icons` to customize generated font family name.
 - `--font-dart-output <path>` to emit Dart lookup helpers for generated font codepoints.
 - `CHROME_PATH=/path/to/chrome` if Chromium/Chrome is not in a standard location.

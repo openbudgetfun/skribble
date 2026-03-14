@@ -153,6 +153,85 @@ class Icons {
     );
   });
 
+  group('runGenerateRoughIcons brand fallback', () {
+    late Directory tempDirectory;
+
+    setUp(() {
+      tempDirectory = Directory.systemTemp.createTempSync(
+        'rough-icon-brand-fallback-test-',
+      );
+    });
+
+    tearDown(() {
+      tempDirectory.deleteSync(recursive: true);
+    });
+
+    test(
+      'resolves selected brand icons from simple-icons fallback source',
+      () async {
+        final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+          ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "facebook".
+  static const IconData facebook = IconData(0xe255, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "woo commerce" (outlined).
+  static const IconData woo_commerce_outlined = IconData(0xf069f, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "adobe".
+  static const IconData adobe = IconData(0xf04b9, fontFamily: 'MaterialIcons');
+}
+''');
+
+        final materialIconsRoot = Directory(
+          '${tempDirectory.path}/material-icons',
+        )..createSync(recursive: true);
+        final materialSymbolsRoot = Directory(
+          '${tempDirectory.path}/material-symbols',
+        )..createSync(recursive: true);
+        final brandIconsRoot = Directory('${tempDirectory.path}/simple-icons')
+          ..createSync(recursive: true);
+
+        File('${brandIconsRoot.path}/icons/facebook.svg')
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            '<svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg>',
+          );
+        File('${brandIconsRoot.path}/icons/woocommerce.svg')
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            '<svg viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>',
+          );
+
+        final outputFile = File(
+          '${tempDirectory.path}/material_rough_icons.g.dart',
+        );
+
+        await tool.runGenerateRoughIcons(<String>[
+          '--kit',
+          'flutter-material',
+          '--flutter-icons',
+          flutterIconsFile.path,
+          '--material-icons-source',
+          materialIconsRoot.path,
+          '--material-symbols-source',
+          materialSymbolsRoot.path,
+          '--brand-icons-source',
+          brandIconsRoot.path,
+          '--output',
+          outputFile.path,
+        ]);
+
+        final generated = outputFile.readAsStringSync();
+        expect(generated, contains('// facebook'));
+        expect(generated, contains('// woo_commerce_outlined'));
+        expect(generated, contains('0xe255'));
+        expect(generated, contains('0xf069f'));
+        expect(generated, isNot(contains('// adobe')));
+      },
+    );
+  });
+
   test(
     'renderFontCodePointsDartForTest renders stable helper names and order',
     () {
