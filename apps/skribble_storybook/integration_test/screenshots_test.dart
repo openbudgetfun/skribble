@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -167,6 +168,22 @@ void main() {
           'data-display/wired-stepper',
         ],
       );
+    });
+
+    testWidgets('capture rough icons gallery', (tester) async {
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      tester.view.devicePixelRatio = 1.0;
+      tester.view.physicalSize = const Size(2400, 4200);
+
+      await tester.pumpWidget(const SkribbleStorybookApp());
+      await tester.pumpAndSettle();
+
+      await openCategory(tester, 'Rough Icons');
+      await takeScreenshot('rough-icons/rough-icons');
     });
   });
 }

@@ -130,4 +130,10 @@ const _categories = [
     route: '/data-display',
     icon: Icons.calendar_today,
   ),
+  _Category(
+    title: 'Rough Icons',
+    description: 'Gallery of all generated rough Material icons',
+    route: '/rough-icons',
+    icon: Icons.draw_outlined,
+  ),
 ];

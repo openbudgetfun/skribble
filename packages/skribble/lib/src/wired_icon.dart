@@ -131,12 +131,7 @@ class WiredIcon extends HookWidget {
   Widget build(BuildContext context) {
     final data = lookupMaterialRoughIcon(icon);
     if (data == null) {
-      return Icon(
-        icon,
-        size: size,
-        color: color,
-        semanticLabel: semanticLabel,
-      );
+      return Icon(icon, size: size, color: color, semanticLabel: semanticLabel);
     }
 
     final shouldFlip =
@@ -165,6 +160,9 @@ WiredSvgIconData? lookupMaterialRoughIcon(IconData icon) {
   }
   return kMaterialRoughIcons[icon.codePoint];
 }
+
+List<int> get materialRoughIconCodePoints =>
+    kMaterialRoughIcons.keys.toList(growable: false);
 
 List<_PreparedPrimitive> _preparePrimitives({
   required WiredSvgIconData data,
