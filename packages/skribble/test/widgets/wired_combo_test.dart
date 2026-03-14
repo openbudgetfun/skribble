@@ -129,5 +129,26 @@ void main() {
 
       expect(find.text('Option B'), findsOneWidget);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.teal),
+            child: Scaffold(
+              body: WiredCombo<String>(
+                value: 'A',
+                items: const [
+                  DropdownMenuItem(value: 'A', child: Text('A')),
+                  DropdownMenuItem(value: 'B', child: Text('B')),
+                ],
+                onChanged: (_) => true,
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(find.byType(WiredCombo<String>), findsOneWidget);
+    });
   });
 }

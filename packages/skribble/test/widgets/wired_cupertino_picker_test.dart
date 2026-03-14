@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -105,6 +106,27 @@ void main() {
         ),
       );
 
+      expect(find.byType(WiredCupertinoPicker), findsOneWidget);
+    });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.cyan),
+            child: Scaffold(
+              body: SizedBox(
+                height: 200,
+                child: WiredCupertinoPicker(
+                  itemExtent: 32,
+                  onSelectedItemChanged: (_) {},
+                  children: const [Text('A'), Text('B')],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
       expect(find.byType(WiredCupertinoPicker), findsOneWidget);
     });
   });

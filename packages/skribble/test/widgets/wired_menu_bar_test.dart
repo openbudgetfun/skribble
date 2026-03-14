@@ -151,5 +151,31 @@ void main() {
 
       expect(find.byType(WiredDropdownMenu<String>), findsOneWidget);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.lime),
+            child: Scaffold(
+              body: WiredMenuBar(
+                children: [
+                  WiredSubmenuButton(
+                    menuChildren: [
+                      WiredMenuItemButton(
+                        onPressed: () {},
+                        child: const Text('Item'),
+                      ),
+                    ],
+                    child: const Text('Menu'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(find.text('Menu'), findsOneWidget);
+    });
   });
 }

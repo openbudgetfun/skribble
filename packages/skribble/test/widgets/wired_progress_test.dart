@@ -81,5 +81,24 @@ void main() {
       final progress = tester.widget<WiredProgress>(find.byType(WiredProgress));
       expect(progress.value, 0.0);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      final controller = AnimationController(
+        vsync: tester,
+        duration: const Duration(seconds: 1),
+      );
+      addTearDown(controller.dispose);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.orange),
+            child: Scaffold(
+              body: WiredProgress(controller: controller, value: 0.5),
+            ),
+          ),
+        ),
+      );
+      expect(find.byType(WiredProgress), findsOneWidget);
+    });
   });
 }

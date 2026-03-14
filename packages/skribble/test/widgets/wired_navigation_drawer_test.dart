@@ -160,5 +160,31 @@ void main() {
       expect(find.byIcon(Icons.star), findsOneWidget);
       expect(find.byIcon(Icons.archive), findsOneWidget);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.pink),
+            child: Scaffold(
+              drawer: WiredNavigationDrawer(
+                selectedIndex: 0,
+                onDestinationSelected: (_) {},
+                destinations: const [
+                  WiredNavigationDrawerDestination(
+                    icon: Icons.home,
+                    label: 'Home',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+      final scaffoldState = tester.state<ScaffoldState>(find.byType(Scaffold));
+      scaffoldState.openDrawer();
+      await tester.pumpAndSettle();
+      expect(find.text('Home'), findsOneWidget);
+    });
   });
 }

@@ -119,5 +119,17 @@ void main() {
       expect(find.text('Body content here'), findsOneWidget);
       expect(find.text('OK'), findsOneWidget);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.amber),
+            child: Scaffold(body: WiredDialog(child: Text('themed'))),
+          ),
+        ),
+      );
+      expect(find.text('themed'), findsOneWidget);
+    });
   });
 }

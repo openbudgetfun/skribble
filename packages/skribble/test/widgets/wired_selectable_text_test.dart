@@ -67,5 +67,17 @@ void main() {
       );
       expect(selectableText.showCursor, isTrue);
     });
+
+    testWidgets('renders within WiredTheme', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(borderColor: Colors.blueGrey),
+            child: Scaffold(body: WiredSelectableText('themed text')),
+          ),
+        ),
+      );
+      expect(find.text('themed text'), findsOneWidget);
+    });
   });
 }
