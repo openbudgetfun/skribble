@@ -18,12 +18,16 @@ class WiredFilledButton extends HookWidget {
   /// Text/icon color. Defaults to white when filled.
   final Color? foregroundColor;
 
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
+
   const WiredFilledButton({
     super.key,
     required this.child,
     this.onPressed,
     this.fillColor,
     this.foregroundColor,
+    this.semanticLabel,
   });
 
   @override
@@ -32,21 +36,25 @@ class WiredFilledButton extends HookWidget {
     final fill = fillColor ?? theme.borderColor;
     final fg = foregroundColor ?? Colors.white;
 
-    return buildWiredElement(
-      child: Container(
-        height: kWiredButtonHeight,
-        decoration: RoughBoxDecoration(
-          shape: RoughBoxShape.rectangle,
-          borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
-          fillStyle: RoughDrawingStyle(color: fill),
-          filler: HachureFiller(FillerConfig.build(hachureGap: 2)),
-        ),
-        child: SizedBox(
-          height: double.infinity,
-          child: TextButton(
-            style: TextButton.styleFrom(foregroundColor: fg),
-            onPressed: onPressed,
-            child: child,
+    return Semantics(
+      label: semanticLabel,
+      button: true,
+      child: buildWiredElement(
+        child: Container(
+          height: kWiredButtonHeight,
+          decoration: RoughBoxDecoration(
+            shape: RoughBoxShape.rectangle,
+            borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
+            fillStyle: RoughDrawingStyle(color: fill),
+            filler: HachureFiller(FillerConfig.build(hachureGap: 2)),
+          ),
+          child: SizedBox(
+            height: double.infinity,
+            child: TextButton(
+              style: TextButton.styleFrom(foregroundColor: fg),
+              onPressed: onPressed,
+              child: child,
+            ),
           ),
         ),
       ),

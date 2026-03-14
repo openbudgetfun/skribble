@@ -10,24 +10,36 @@ class WiredOutlinedButton extends HookWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  const WiredOutlinedButton({super.key, required this.child, this.onPressed});
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
+
+  const WiredOutlinedButton({
+    super.key,
+    required this.child,
+    this.onPressed,
+    this.semanticLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return buildWiredElement(
-      child: Container(
-        height: kWiredButtonHeight,
-        decoration: RoughBoxDecoration(
-          shape: RoughBoxShape.rectangle,
-          borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),
-        ),
-        child: SizedBox(
-          height: double.infinity,
-          child: TextButton(
-            style: TextButton.styleFrom(foregroundColor: theme.textColor),
-            onPressed: onPressed,
-            child: child,
+    return Semantics(
+      label: semanticLabel,
+      button: true,
+      child: buildWiredElement(
+        child: Container(
+          height: kWiredButtonHeight,
+          decoration: RoughBoxDecoration(
+            shape: RoughBoxShape.rectangle,
+            borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),
+          ),
+          child: SizedBox(
+            height: double.infinity,
+            child: TextButton(
+              style: TextButton.styleFrom(foregroundColor: theme.textColor),
+              onPressed: onPressed,
+              child: child,
+            ),
           ),
         ),
       ),

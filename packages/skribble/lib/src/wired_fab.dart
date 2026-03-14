@@ -13,41 +13,49 @@ class WiredFloatingActionButton extends HookWidget {
   final double size;
   final Color? iconColor;
 
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
+
   const WiredFloatingActionButton({
     super.key,
     required this.icon,
     this.onPressed,
     this.size = 56.0,
     this.iconColor,
+    this.semanticLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return buildWiredElement(
-      child: GestureDetector(
-        onTap: onPressed,
-        child: SizedBox(
-          width: size,
-          height: size,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              WiredCanvas(
-                painter: WiredCircleBase(
-                  diameterRatio: 0.9,
-                  fillColor: theme.borderColor,
-                  borderColor: theme.borderColor,
+    return Semantics(
+      label: semanticLabel,
+      button: true,
+      child: buildWiredElement(
+        child: GestureDetector(
+          onTap: onPressed,
+          child: SizedBox(
+            width: size,
+            height: size,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                WiredCanvas(
+                  painter: WiredCircleBase(
+                    diameterRatio: 0.9,
+                    fillColor: theme.borderColor,
+                    borderColor: theme.borderColor,
+                  ),
+                  fillerType: RoughFilter.hachureFiller,
+                  fillerConfig: FillerConfig.build(hachureGap: 2.0),
                 ),
-                fillerType: RoughFilter.hachureFiller,
-                fillerConfig: FillerConfig.build(hachureGap: 2.0),
-              ),
-              Icon(
-                icon,
-                color: iconColor ?? theme.fillColor,
-                size: size * 0.43,
-              ),
-            ],
+                Icon(
+                  icon,
+                  color: iconColor ?? theme.fillColor,
+                  size: size * 0.43,
+                ),
+              ],
+            ),
           ),
         ),
       ),
