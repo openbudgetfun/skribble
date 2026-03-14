@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredBottomNavigationBar', () {
     const testItems = [
@@ -11,26 +13,20 @@ void main() {
     ];
 
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(items: testItems),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: testItems),
+        asBottomNav: true,
       );
 
       expect(find.byType(WiredBottomNavigationBar), findsOneWidget);
     });
 
     testWidgets('renders all item labels', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(items: testItems),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: testItems),
+        asBottomNav: true,
       );
 
       expect(find.text('Home'), findsOneWidget);
@@ -39,13 +35,10 @@ void main() {
     });
 
     testWidgets('renders all item icons', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(items: testItems),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: testItems),
+        asBottomNav: true,
       );
 
       expect(find.byIcon(Icons.home), findsOneWidget);
@@ -54,13 +47,10 @@ void main() {
     });
 
     testWidgets('default currentIndex is 0', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(items: testItems),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: testItems),
+        asBottomNav: true,
       );
 
       final widget = tester.widget<WiredBottomNavigationBar>(
@@ -75,16 +65,13 @@ void main() {
     ) async {
       int? tappedIndex;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(
-              items: testItems,
-              onTap: (index) => tappedIndex = index,
-            ),
-          ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(
+          items: testItems,
+          onTap: (index) => tappedIndex = index,
         ),
+        asBottomNav: true,
       );
 
       await tester.tap(find.text('Search'));
@@ -96,16 +83,13 @@ void main() {
     testWidgets('calls onTap for the last item', (tester) async {
       int? tappedIndex;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(
-              items: testItems,
-              onTap: (index) => tappedIndex = index,
-            ),
-          ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(
+          items: testItems,
+          onTap: (index) => tappedIndex = index,
         ),
+        asBottomNav: true,
       );
 
       await tester.tap(find.text('Profile'));
@@ -115,13 +99,10 @@ void main() {
     });
 
     testWidgets('renders hand-drawn top line via WiredCanvas', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(items: testItems),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: testItems),
+        asBottomNav: true,
       );
 
       expect(
@@ -134,21 +115,12 @@ void main() {
     });
 
     testWidgets('selected item shows circle indicator', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(
-              items: testItems,
-              currentIndex: 1,
-            ),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: testItems, currentIndex: 1),
+        asBottomNav: true,
       );
 
-      // The selected item at index 1 should have a WiredCanvas for the circle
-      // indicator, plus the top line WiredCanvas. The unselected items do not
-      // have circle WiredCanvas widgets.
       expect(
         find.descendant(
           of: find.byType(WiredBottomNavigationBar),
@@ -159,16 +131,12 @@ void main() {
     });
 
     testWidgets('does not crash when onTap is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(items: testItems),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: testItems),
+        asBottomNav: true,
       );
 
-      // Tapping should not throw when onTap is null.
       await tester.tap(find.text('Home'));
       await tester.pump();
 
@@ -181,59 +149,42 @@ void main() {
         WiredBottomNavItem(icon: Icons.settings, label: 'Settings'),
       ];
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(items: twoItems),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: twoItems),
+        asBottomNav: true,
       );
 
       expect(find.text('Home'), findsOneWidget);
       expect(find.text('Settings'), findsOneWidget);
     });
 
-    testWidgets('switching currentIndex changes selected item', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(
-              items: testItems,
-              currentIndex: 0,
-            ),
-          ),
-        ),
+    testWidgets('switching currentIndex changes selected item', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: testItems, currentIndex: 0),
+        asBottomNav: true,
       );
 
       // Rebuild with a different currentIndex.
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(
-              items: testItems,
-              currentIndex: 2,
-            ),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: testItems, currentIndex: 2),
+        asBottomNav: true,
       );
 
       expect(find.byType(WiredBottomNavigationBar), findsOneWidget);
     });
 
     testWidgets('each item is wrapped in GestureDetector', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: const SizedBox(),
-            bottomNavigationBar: WiredBottomNavigationBar(items: testItems),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredBottomNavigationBar(items: testItems),
+        asBottomNav: true,
       );
 
-      // Each of the 3 items is wrapped in a GestureDetector.
       expect(
         find.descendant(
           of: find.byType(WiredBottomNavigationBar),
