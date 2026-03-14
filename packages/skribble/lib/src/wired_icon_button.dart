@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// An icon button with a hand-drawn circle border.
@@ -45,7 +46,13 @@ class WiredIconButton extends HookWidget {
                 fillerType: RoughFilter.noFiller,
               ),
               IconButton(
-                icon: Icon(icon, color: iconColor ?? theme.textColor),
+                icon: WiredIcon(
+                  icon: icon,
+                  color: iconColor ?? theme.textColor,
+                  size: size * 0.5,
+                  fillStyle: WiredIconFillStyle.solid,
+                  strokeWidth: 1.4,
+                ),
                 onPressed: onPressed,
                 iconSize: size * 0.5,
                 padding: EdgeInsets.zero,

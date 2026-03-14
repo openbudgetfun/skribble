@@ -16,13 +16,15 @@ void main() {
       expect(find.byType(WiredFloatingActionButton), findsOneWidget);
     });
 
-    testWidgets('renders the provided icon', (tester) async {
+    testWidgets('renders the provided rough icon', (tester) async {
       await pumpApp(
         tester,
         WiredFloatingActionButton(icon: Icons.edit, onPressed: () {}),
       );
 
-      expect(find.byIcon(Icons.edit), findsOneWidget);
+      expect(find.byType(WiredIcon), findsOneWidget);
+      final roughIcon = tester.widget<WiredIcon>(find.byType(WiredIcon));
+      expect(roughIcon.icon, Icons.edit);
     });
 
     testWidgets('calls onPressed callback when tapped', (tester) async {
@@ -123,9 +125,9 @@ void main() {
         ),
       );
 
-      final icon = tester.widget<Icon>(find.byIcon(Icons.add));
+      final roughIcon = tester.widget<WiredIcon>(find.byType(WiredIcon));
 
-      expect(icon.color, Colors.white);
+      expect(roughIcon.color, Colors.white);
     });
 
     testWidgets('uses GestureDetector for tap handling', (tester) async {
@@ -184,7 +186,7 @@ void main() {
           of: find.byType(WiredFloatingActionButton),
           matching: findRepaintBoundary,
         ),
-        findsOneWidget,
+        findsAtLeastNWidgets(1),
       );
     });
 
@@ -198,10 +200,10 @@ void main() {
         ),
       );
 
-      final icon = tester.widget<Icon>(find.byIcon(Icons.add));
+      final roughIcon = tester.widget<WiredIcon>(find.byType(WiredIcon));
 
       // Icon size is size * 0.43 = 100.0 * 0.43 = 43.0
-      expect(icon.size, 43.0);
+      expect(roughIcon.size, 43.0);
     });
 
     testWidgets('tracks multiple rapid taps', (tester) async {

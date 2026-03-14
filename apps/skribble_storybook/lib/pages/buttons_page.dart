@@ -77,6 +77,26 @@ class ButtonsPage extends HookWidget {
             ],
           ),
           ShowcaseSection(
+            title: 'WiredIcon',
+            children: [
+              ComponentShowcase(
+                title: 'Material Icons',
+                description: 'Standalone rough-rendered Material icons.',
+                child: Row(
+                  children: const [
+                    WiredIcon(icon: Icons.search, size: 28),
+                    SizedBox(width: 16),
+                    WiredIcon(icon: Icons.favorite, size: 28),
+                    SizedBox(width: 16),
+                    WiredIcon(icon: Icons.share, size: 28),
+                    SizedBox(width: 16),
+                    WiredIcon(icon: Icons.delete, size: 28),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
             title: 'WiredIconButton',
             children: [
               ComponentShowcase(

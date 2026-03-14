@@ -27,12 +27,14 @@ dependencies:
     sdk: flutter
   flutter_hooks: ^0.21.3
   google_fonts: ^8.0.2
+  path_parsing: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   skribble_lints:
     path: ../skribble_lints
+  xml: ^6.6.1
 
 flutter:
   uses-material-design: true

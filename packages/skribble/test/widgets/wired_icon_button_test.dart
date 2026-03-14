@@ -13,13 +13,15 @@ void main() {
       expect(find.byType(WiredIconButton), findsOneWidget);
     });
 
-    testWidgets('renders the provided icon', (tester) async {
+    testWidgets('renders the provided rough icon', (tester) async {
       await pumpApp(
         tester,
         WiredIconButton(icon: Icons.favorite, onPressed: () {}),
       );
 
-      expect(find.byIcon(Icons.favorite), findsOneWidget);
+      expect(find.byType(WiredIcon), findsOneWidget);
+      final roughIcon = tester.widget<WiredIcon>(find.byType(WiredIcon));
+      expect(roughIcon.icon, Icons.favorite);
     });
 
     testWidgets('calls onPressed callback when tapped', (tester) async {
@@ -104,9 +106,9 @@ void main() {
         ),
       );
 
-      final icon = tester.widget<Icon>(find.byIcon(Icons.add));
+      final roughIcon = tester.widget<WiredIcon>(find.byType(WiredIcon));
 
-      expect(icon.color, Colors.red);
+      expect(roughIcon.color, Colors.red);
     });
 
     testWidgets('contains IconButton internally', (tester) async {
@@ -153,7 +155,7 @@ void main() {
           of: find.byType(WiredIconButton),
           matching: findRepaintBoundary,
         ),
-        findsOneWidget,
+        findsAtLeastNWidgets(1),
       );
     });
 
