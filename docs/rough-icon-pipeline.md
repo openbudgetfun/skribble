@@ -25,6 +25,7 @@ Compatibility alias (backward compatible):
    - generates icon fonts with `fantasticon` (`--font-output-dir`)
    - emits Dart helpers for generated icon fonts (`--font-dart-output`)
    - emits unresolved icon reports as JSON (`--unresolved-output`)
+   - can fail CI on unresolved icons (`--fail-on-unresolved`)
 
 ## Extensibility seam
 
@@ -118,6 +119,15 @@ The JSON report includes:
 - `resolvedCount`
 - `unresolvedCount`
 - `unresolved[]` entries with `codePoint` and `identifiers`
+
+## Strict unresolved mode
+
+To make generation fail when unresolved icons remain, pass:
+
+- `--fail-on-unresolved`
+
+This is useful in CI once supplemental manifest coverage is expected to be
+complete.
 
 ## Runtime prerequisites
 

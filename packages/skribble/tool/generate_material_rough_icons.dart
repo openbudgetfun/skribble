@@ -154,14 +154,22 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     return;
   }
 
+  final severityLabel = options.failOnUnresolved ? 'Error' : 'Warning';
   stderr.writeln(
-    'Warning: ${unresolved.length} icon codepoints for kit "${options.kit}" '
-    'could not be resolved to SVGs. WiredIcon will fall back to Icon for '
-    'those values.',
+    '$severityLabel: ${unresolved.length} icon codepoints for kit '
+    '"${options.kit}" could not be resolved to SVGs. WiredIcon will '
+    'fall back to Icon for those values.',
   );
   for (final item in unresolved) {
     stderr.writeln(
       '  0x${item.codePoint.toRadixString(16)}: ${item.identifiers.join(', ')}',
+    );
+  }
+
+  if (options.failOnUnresolved) {
+    throw StateError(
+      'Unresolved icon codepoints remain for kit "${options.kit}". '
+      'Re-run without --fail-on-unresolved for warnings only.',
     );
   }
 }
@@ -186,6 +194,7 @@ Options:
   --brand-icons-source <path>      Path to extracted simple-icons package (brand fallback).
   --supplemental-manifest <path>   JSON manifest for unresolved flutter-material icons.
   --unresolved-output <path>       Emit unresolved icon codepoint report as JSON.
+  --fail-on-unresolved             Exit with error when unresolved icons remain.
   --output <path>                  Output Dart file.
   --rough-cli <path>               TypeScript script that converts SVG(s) (default: tool/deno/svg2roughjs_cli.ts).
   --rough-cli-runner <exe>         Runner executable for --rough-cli (default: deno).
@@ -242,6 +251,7 @@ final class _ScriptOptions {
     this.roughNormalizeViewBox = 128,
     this.roughBulk = false,
     this.roughOnly = false,
+    this.failOnUnresolved = false,
     this.fontOutputDir,
     this.fontDartOutputPath,
     this.fontName = _kDefaultFontName,
@@ -267,6 +277,7 @@ final class _ScriptOptions {
   final double roughNormalizeViewBox;
   final bool roughBulk;
   final bool roughOnly;
+  final bool failOnUnresolved;
   final String? fontOutputDir;
   final String? fontDartOutputPath;
   final String fontName;
@@ -292,6 +303,7 @@ final class _ScriptOptions {
     var roughNormalizeViewBox = 128.0;
     var roughBulk = false;
     var roughOnly = false;
+    var failOnUnresolved = false;
     String? fontOutputDir;
     String? fontDartOutputPath;
     var fontName = _kDefaultFontName;
@@ -316,6 +328,10 @@ final class _ScriptOptions {
       }
       if (argument == '--rough-only') {
         roughOnly = true;
+        continue;
+      }
+      if (argument == '--fail-on-unresolved') {
+        failOnUnresolved = true;
         continue;
       }
 
@@ -397,6 +413,7 @@ final class _ScriptOptions {
       roughNormalizeViewBox: roughNormalizeViewBox,
       roughBulk: roughBulk,
       roughOnly: roughOnly,
+      failOnUnresolved: failOnUnresolved,
       fontOutputDir: fontOutputDir,
       fontDartOutputPath: fontDartOutputPath,
       fontName: fontName,

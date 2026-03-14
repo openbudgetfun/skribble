@@ -409,6 +409,82 @@ class Icons {
     });
   });
 
+  group('runGenerateRoughIcons fail on unresolved', () {
+    late Directory tempDirectory;
+
+    setUp(() {
+      tempDirectory = Directory.systemTemp.createTempSync(
+        'rough-icon-fail-on-unresolved-test-',
+      );
+    });
+
+    tearDown(() {
+      tempDirectory.deleteSync(recursive: true);
+    });
+
+    test('throws StateError when unresolved icons remain', () async {
+      final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+        ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "label outline".
+  static const IconData label_outline = IconData(0xe364, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "adobe".
+  static const IconData adobe = IconData(0xf04b9, fontFamily: 'MaterialIcons');
+}
+''');
+
+      final materialIconsRoot = Directory(
+        '${tempDirectory.path}/material-icons',
+      )..createSync(recursive: true);
+      final materialSymbolsRoot = Directory(
+        '${tempDirectory.path}/material-symbols',
+      )..createSync(recursive: true);
+      final brandIconsRoot = Directory('${tempDirectory.path}/simple-icons')
+        ..createSync(recursive: true);
+
+      File('${materialIconsRoot.path}/filled/label.svg')
+        ..createSync(recursive: true)
+        ..writeAsStringSync(
+          '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+        );
+
+      final outputFile = File(
+        '${tempDirectory.path}/material_rough_icons.g.dart',
+      );
+      final unresolvedReportFile = File(
+        '${tempDirectory.path}/unresolved.json',
+      );
+
+      await expectLater(
+        tool.runGenerateRoughIcons(<String>[
+          '--kit',
+          'flutter-material',
+          '--flutter-icons',
+          flutterIconsFile.path,
+          '--material-icons-source',
+          materialIconsRoot.path,
+          '--material-symbols-source',
+          materialSymbolsRoot.path,
+          '--brand-icons-source',
+          brandIconsRoot.path,
+          '--unresolved-output',
+          unresolvedReportFile.path,
+          '--fail-on-unresolved',
+          '--output',
+          outputFile.path,
+        ]),
+        throwsA(isA<StateError>()),
+      );
+
+      expect(unresolvedReportFile.existsSync(), isTrue);
+      final decoded =
+          jsonDecode(unresolvedReportFile.readAsStringSync())
+              as Map<String, dynamic>;
+      expect(decoded['unresolvedCount'], 1);
+    });
+  });
+
   test(
     'renderFontCodePointsDartForTest renders stable helper names and order',
     () {
