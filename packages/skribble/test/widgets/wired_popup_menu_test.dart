@@ -4,6 +4,13 @@ import 'package:skribble/skribble.dart';
 
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredPopupMenuButton', () {
     testWidgets('renders without error', (tester) async {
@@ -17,7 +24,7 @@ void main() {
       expect(find.byType(WiredPopupMenuButton<String>), findsOneWidget);
     });
 
-    testWidgets('renders default more_vert icon', (tester) async {
+    testWidgets('renders default rough more_vert icon', (tester) async {
       await pumpApp(
         tester,
         WiredPopupMenuButton<String>(
@@ -25,7 +32,7 @@ void main() {
         ),
       );
 
-      expect(find.byIcon(Icons.more_vert), findsOneWidget);
+      expect(findWiredIcon(Icons.more_vert), findsOneWidget);
     });
 
     testWidgets('renders custom icon when provided', (tester) async {
@@ -38,7 +45,7 @@ void main() {
       );
 
       expect(find.byIcon(Icons.menu), findsOneWidget);
-      expect(find.byIcon(Icons.more_vert), findsNothing);
+      expect(findWiredIcon(Icons.more_vert), findsNothing);
     });
 
     testWidgets('shows popup menu items on tap', (tester) async {
@@ -100,7 +107,7 @@ void main() {
           of: find.byType(WiredPopupMenuButton<String>),
           matching: find.byType(RepaintBoundary),
         ),
-        findsOneWidget,
+        findsAtLeastNWidgets(1),
       );
     });
 

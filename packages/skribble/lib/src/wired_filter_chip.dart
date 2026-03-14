@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A filter chip with a hand-drawn border and optional checkmark.
@@ -50,7 +51,13 @@ class WiredFilterChip extends HookWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       if (selected) ...[
-                        Icon(Icons.check, size: 16, color: theme.fillColor),
+                        WiredIcon(
+                          icon: Icons.check,
+                          size: 16,
+                          color: theme.fillColor,
+                          fillStyle: WiredIconFillStyle.solid,
+                          strokeWidth: 1.1,
+                        ),
                         const SizedBox(width: 4),
                       ],
                       DefaultTextStyle(

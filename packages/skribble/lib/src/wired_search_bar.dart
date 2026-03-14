@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A search bar with a hand-drawn rounded rectangle border.
@@ -45,7 +46,14 @@ class WiredSearchBar extends HookWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
               children: [
-                leading ?? Icon(Icons.search, color: theme.disabledTextColor),
+                leading ??
+                    WiredIcon(
+                      icon: Icons.search,
+                      color: theme.disabledTextColor,
+                      size: 20,
+                      fillStyle: WiredIconFillStyle.solid,
+                      strokeWidth: 1.2,
+                    ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: TextField(

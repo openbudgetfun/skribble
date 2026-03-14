@@ -5,6 +5,13 @@ import 'package:skribble/skribble.dart';
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredStepper', () {
     List<WiredStep> buildSteps({int count = 3}) {
@@ -98,7 +105,7 @@ void main() {
 
       // Steps 0 and 1 are completed (index < currentStep), so they show
       // check icons. Step 3 (active) shows its number.
-      expect(find.byIcon(Icons.check), findsNWidgets(2));
+      expect(findWiredIcon(Icons.check), findsNWidgets(2));
       expect(find.text('3'), findsOneWidget);
     });
 

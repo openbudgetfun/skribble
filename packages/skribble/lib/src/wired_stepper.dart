@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A step in [WiredStepper].
@@ -89,7 +90,13 @@ class WiredStepper extends HookWidget {
                   fillerConfig: FillerConfig.build(hachureGap: 2.0),
                 ),
                 if (isCompleted)
-                  Icon(Icons.check, size: 16, color: theme.fillColor)
+                  WiredIcon(
+                    icon: Icons.check,
+                    size: 16,
+                    color: theme.fillColor,
+                    fillStyle: WiredIconFillStyle.solid,
+                    strokeWidth: 1.1,
+                  )
                 else
                   Text(
                     '${index + 1}',

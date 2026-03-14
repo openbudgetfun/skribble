@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A chip with a hand-drawn rounded rectangle border.
@@ -51,10 +52,12 @@ class WiredChip extends HookWidget {
                       const SizedBox(width: 4),
                       GestureDetector(
                         onTap: onDeleted,
-                        child: Icon(
-                          Icons.close,
+                        child: WiredIcon(
+                          icon: Icons.close,
                           size: 16,
                           color: theme.textColor,
+                          fillStyle: WiredIconFillStyle.solid,
+                          strokeWidth: 1.1,
                         ),
                       ),
                     ],
