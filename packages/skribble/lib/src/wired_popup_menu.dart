@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A popup menu item for [WiredPopupMenuButton].
@@ -31,7 +32,14 @@ class WiredPopupMenuButton<T> extends HookWidget {
     final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: PopupMenuButton<T>(
-        icon: icon ?? Icon(Icons.more_vert, color: theme.textColor),
+        icon:
+            icon ??
+            WiredIcon(
+              icon: Icons.more_vert,
+              color: theme.textColor,
+              fillStyle: WiredIconFillStyle.solid,
+              strokeWidth: 1.2,
+            ),
         onSelected: onSelected,
         color: theme.fillColor,
         shape: RoundedRectangleBorder(

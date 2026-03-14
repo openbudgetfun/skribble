@@ -5,6 +5,13 @@ import 'package:skribble/skribble.dart';
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredFilterChip', () {
     testWidgets('renders without error', (tester) async {
@@ -28,7 +35,7 @@ void main() {
         ),
       );
 
-      expect(find.byIcon(Icons.check), findsOneWidget);
+      expect(findWiredIcon(Icons.check), findsOneWidget);
     });
 
     testWidgets('does not show check icon when not selected', (tester) async {
@@ -40,7 +47,7 @@ void main() {
         ),
       );
 
-      expect(find.byIcon(Icons.check), findsNothing);
+      expect(findWiredIcon(Icons.check), findsNothing);
     });
 
     testWidgets('calls onSelected with toggled value when tapped', (
@@ -179,7 +186,7 @@ void main() {
 
       expect(find.byType(WiredFilterChip), findsOneWidget);
       expect(find.text('Active'), findsOneWidget);
-      expect(find.byIcon(Icons.check), findsOneWidget);
+      expect(findWiredIcon(Icons.check), findsOneWidget);
     });
 
     testWidgets('renders correctly when selected is false', (tester) async {
@@ -196,7 +203,7 @@ void main() {
 
       expect(find.byType(WiredFilterChip), findsOneWidget);
       expect(find.text('Inactive'), findsOneWidget);
-      expect(find.byIcon(Icons.check), findsNothing);
+      expect(findWiredIcon(Icons.check), findsNothing);
     });
   });
 }
