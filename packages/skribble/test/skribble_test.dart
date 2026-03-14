@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import 'helpers/pump_app.dart';
+
 void main() {
   group('WiredButton', () {
     testWidgets('renders child text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredButton(onPressed: () {}, child: const Text('Press me')),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredButton(onPressed: () {}, child: const Text('Press me')),
       );
 
       expect(find.text('Press me'), findsOneWidget);
@@ -18,14 +17,11 @@ void main() {
 
     testWidgets('calls onPressed when tapped', (tester) async {
       var pressed = false;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredButton(
-              onPressed: () => pressed = true,
-              child: const Text('Tap'),
-            ),
-          ),
+      await pumpApp(
+        tester,
+        WiredButton(
+          onPressed: () => pressed = true,
+          child: const Text('Tap'),
         ),
       );
 
@@ -37,12 +33,10 @@ void main() {
   group('WiredInput', () {
     testWidgets('accepts text input', (tester) async {
       final controller = TextEditingController();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredInput(controller: controller, hintText: 'Enter text'),
-          ),
-        ),
+      addTearDown(controller.dispose);
+      await pumpApp(
+        tester,
+        WiredInput(controller: controller, hintText: 'Enter text'),
       );
 
       await tester.enterText(find.byType(TextField), 'hello');
@@ -52,10 +46,9 @@ void main() {
 
   group('WiredCard', () {
     testWidgets('renders child widget', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredCard(child: const Text('Card content'))),
-        ),
+      await pumpApp(
+        tester,
+        WiredCard(child: const Text('Card content')),
       );
 
       expect(find.text('Card content'), findsOneWidget);
@@ -65,12 +58,9 @@ void main() {
   group('WiredCheckbox', () {
     testWidgets('toggles when tapped', (tester) async {
       bool? lastValue;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckbox(value: false, onChanged: (v) => lastValue = v),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredCheckbox(value: false, onChanged: (v) => lastValue = v),
       );
 
       await tester.tap(find.byType(Checkbox));
@@ -81,16 +71,13 @@ void main() {
 
   group('WiredToggle', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: SizedBox(
-                width: 100,
-                height: 100,
-                child: WiredToggle(value: false, onChange: (v) => true),
-              ),
-            ),
+      await pumpApp(
+        tester,
+        Center(
+          child: SizedBox(
+            width: 100,
+            height: 100,
+            child: WiredToggle(value: false, onChange: (v) => true),
           ),
         ),
       );
