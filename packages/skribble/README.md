@@ -1,5 +1,9 @@
 # skribble
 
+[![CI](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml/badge.svg)](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/openbudgetfun/skribble)](LICENSE)
+[![Flutter](https://img.shields.io/badge/Flutter-%E2%89%A53.41-blue?logo=flutter)](https://flutter.dev)
+
 Hand-drawn UI components for Flutter — every widget looks like it was sketched by hand, with drop-in familiar Material and Cupertino APIs.
 
 ## Getting Started
@@ -165,7 +169,7 @@ All Skribble widgets follow familiar Flutter conventions:
 | Widget tests | 848 |
 | Rough engine tests | 128 |
 | Storybook pages | 8 |
-| Storybook tests | 54 (46 page + 8 golden) |
+| Storybook tests | 58 (50 page + 8 golden) |
 | `dart analyze` | 0 issues |
 
 ## Docs
