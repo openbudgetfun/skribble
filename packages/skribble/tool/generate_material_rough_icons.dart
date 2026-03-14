@@ -9,6 +9,7 @@ import 'package:xml/xml.dart';
 import 'icon_kit_provider.dart';
 
 const _kDefaultKit = 'flutter-material';
+const _kManifestKit = 'svg-manifest';
 const _kDefaultRoughCliPath = 'tool/deno/svg2roughjs_cli.ts';
 const _kDefaultRoughCliRunner = 'deno';
 const _kDefaultFontGeneratorExecutable = 'npx';
@@ -17,6 +18,7 @@ const _kDefaultFontName = 'material_rough_icons';
 const _kSupportedKitDescriptions = <String, String>{
   _kDefaultKit:
       'Flutter Material Icons (from Flutter icons.dart + Material SVG packages)',
+  _kManifestKit: 'Custom SVG manifest file for non-Material icon kits',
 };
 
 Future<void> main(List<String> args) => runGenerateRoughIcons(args);
@@ -119,8 +121,9 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
   }
 
   stderr.writeln(
-    'Warning: ${unresolved.length} Flutter icon codepoints could not be '
-    'resolved to SVGs. WiredIcon will fall back to Icon for those values.',
+    'Warning: ${unresolved.length} icon codepoints for kit "${options.kit}" '
+    'could not be resolved to SVGs. WiredIcon will fall back to Icon for '
+    'those values.',
   );
   for (final item in unresolved) {
     stderr.writeln(
@@ -140,8 +143,9 @@ Compatibility alias:
   dart run tool/generate_material_rough_icons.dart [options]
 
 Options:
-  --kit <flutter-material>         Icon kit provider to use.
+  --kit <flutter-material|svg-manifest> Icon kit provider to use.
   --list-kits                      Print supported --kit values and exit.
+  --manifest <path>                JSON manifest for --kit svg-manifest.
   --flutter-icons <path>           Path to Flutter material icons.dart.
   --material-icons-source <path>   Path to extracted @material-design-icons/svg package.
   --material-symbols-source <path> Path to extracted @material-symbols/svg-400 package.
@@ -185,6 +189,7 @@ List<String> supportedIconKitsForTest() =>
 final class _ScriptOptions {
   const _ScriptOptions({
     this.kit = _kDefaultKit,
+    this.manifestPath,
     this.flutterIconsPath,
     this.materialIconsSourcePath,
     this.materialSymbolsSourcePath,
@@ -205,6 +210,7 @@ final class _ScriptOptions {
   });
 
   final String kit;
+  final String? manifestPath;
   final String? flutterIconsPath;
   final String? materialIconsSourcePath;
   final String? materialSymbolsSourcePath;
@@ -225,6 +231,7 @@ final class _ScriptOptions {
 
   static _ScriptOptions parse(List<String> args) {
     var kit = _kDefaultKit;
+    String? manifestPath;
     String? flutterIconsPath;
     String? materialIconsSourcePath;
     String? materialSymbolsSourcePath;
@@ -282,6 +289,8 @@ final class _ScriptOptions {
       switch (option) {
         case '--kit':
           kit = value;
+        case '--manifest':
+          manifestPath = value;
         case '--flutter-icons':
           flutterIconsPath = value;
         case '--material-icons-source':
@@ -315,6 +324,7 @@ final class _ScriptOptions {
 
     return _ScriptOptions(
       kit: kit,
+      manifestPath: manifestPath,
       flutterIconsPath: flutterIconsPath,
       materialIconsSourcePath: materialIconsSourcePath,
       materialSymbolsSourcePath: materialSymbolsSourcePath,
@@ -431,12 +441,212 @@ _createProvider(_ScriptOptions options) async {
         materialIconsRoot: materialIconsRoot,
         materialSymbolsRoot: materialSymbolsRoot,
       );
+    case _kManifestKit:
+      final manifestPath = options.manifestPath;
+      if (manifestPath == null) {
+        throw ArgumentError('--manifest is required when --kit=$_kManifestKit');
+      }
+      final manifestFile = File(manifestPath);
+      if (!manifestFile.existsSync()) {
+        throw StateError('Manifest file not found: ${manifestFile.path}');
+      }
+      return _SvgManifestIconKitProvider.fromManifest(manifestFile);
     default:
       throw ArgumentError(
         'Unknown --kit value: ${options.kit}. Supported: '
         '${_kSupportedKitDescriptions.keys.join(', ')}',
       );
   }
+}
+
+final class _SvgManifestIconKitProvider
+    implements
+        IconKitProvider<
+          _FlutterIconDeclaration,
+          ResolvedSvgCandidate<_GeneratedIconData>
+        > {
+  _SvgManifestIconKitProvider._({
+    required this.entriesByDeclarationKey,
+    required this.declarations,
+  });
+
+  factory _SvgManifestIconKitProvider.fromManifest(File manifestFile) {
+    final entries = _parseSvgManifest(
+      manifestFile.readAsStringSync(),
+      manifestDirectory: manifestFile.parent,
+    );
+    final entriesByDeclarationKey = <String, _ManifestIconEntry>{
+      for (final entry in entries)
+        _manifestDeclarationKey(entry.identifier, entry.codePoint): entry,
+    };
+    final declarations = entries
+        .map(
+          (entry) => _FlutterIconDeclaration(
+            identifier: entry.identifier,
+            baseIdentifier: entry.identifier,
+            codePoint: entry.codePoint,
+            svgName: entry.identifier,
+            oldPackageFolder: 'filled',
+            symbolPackageFolder: 'outlined',
+            useSymbolFillVariant: false,
+          ),
+        )
+        .toList(growable: false);
+
+    return _SvgManifestIconKitProvider._(
+      entriesByDeclarationKey: entriesByDeclarationKey,
+      declarations: declarations,
+    );
+  }
+
+  final Map<String, _ManifestIconEntry> entriesByDeclarationKey;
+  final List<_FlutterIconDeclaration> declarations;
+
+  @override
+  Future<List<_FlutterIconDeclaration>> loadDeclarations() async =>
+      declarations;
+
+  @override
+  ResolvedSvgCandidate<_GeneratedIconData>? resolveIcon(
+    _FlutterIconDeclaration declaration,
+  ) {
+    final entry =
+        entriesByDeclarationKey[_manifestDeclarationKey(
+          declaration.identifier,
+          declaration.codePoint,
+        )];
+    if (entry == null) {
+      return null;
+    }
+
+    return ResolvedSvgCandidate<_GeneratedIconData>(
+      data: _parseSvgIcon(entry.svgFile),
+      sourcePath: entry.svgFile.path,
+    );
+  }
+}
+
+String _manifestDeclarationKey(String identifier, int codePoint) =>
+    '$identifier|$codePoint';
+
+List<_ManifestIconEntry> _parseSvgManifest(
+  String source, {
+  required Directory manifestDirectory,
+}) {
+  final decoded = jsonDecode(source);
+
+  List<Object?> entries;
+  if (decoded is List<Object?>) {
+    entries = decoded;
+  } else if (decoded is Map<String, Object?>) {
+    final icons = decoded['icons'];
+    if (icons is! List<Object?>) {
+      throw FormatException(
+        'Expected top-level "icons" list in manifest JSON object.',
+      );
+    }
+    entries = icons;
+  } else {
+    throw FormatException(
+      'Expected manifest JSON to be either a list or an object with "icons".',
+    );
+  }
+
+  return entries
+      .map((item) => _parseManifestIconEntry(item, manifestDirectory))
+      .toList(growable: false);
+}
+
+_ManifestIconEntry _parseManifestIconEntry(
+  Object? item,
+  Directory manifestDirectory,
+) {
+  if (item is! Map<Object?, Object?>) {
+    throw FormatException('Manifest icon entry must be an object.');
+  }
+
+  final identifier = item['identifier'];
+  if (identifier is! String || identifier.isEmpty) {
+    throw FormatException('Manifest entry is missing string "identifier".');
+  }
+
+  final codePoint = _parseManifestCodePoint(item['codePoint'], identifier);
+
+  final svgPathValue = item['svgPath'] ?? item['svg'] ?? item['path'];
+  if (svgPathValue is! String || svgPathValue.isEmpty) {
+    throw FormatException(
+      'Manifest entry "$identifier" is missing "svgPath" (or "svg").',
+    );
+  }
+
+  final svgFile = _resolveManifestSvgFile(
+    svgPathValue,
+    manifestDirectory: manifestDirectory,
+  );
+  if (!svgFile.existsSync()) {
+    throw StateError(
+      'Manifest entry "$identifier" points to missing SVG: ${svgFile.path}',
+    );
+  }
+
+  return _ManifestIconEntry(
+    identifier: identifier,
+    codePoint: codePoint,
+    svgFile: svgFile,
+  );
+}
+
+int _parseManifestCodePoint(Object? value, String identifier) {
+  if (value is int) {
+    return value;
+  }
+
+  if (value is String) {
+    final normalized = value.trim().toLowerCase();
+    if (normalized.startsWith('0x')) {
+      return int.parse(normalized.substring(2), radix: 16);
+    }
+    return int.parse(normalized);
+  }
+
+  throw FormatException(
+    'Manifest entry "$identifier" must define codePoint as int or string.',
+  );
+}
+
+File _resolveManifestSvgFile(
+  String svgPath, {
+  required Directory manifestDirectory,
+}) {
+  final directFile = File(svgPath);
+  if (_isAbsolutePath(svgPath)) {
+    return directFile;
+  }
+  return File('${manifestDirectory.path}/$svgPath');
+}
+
+bool _isAbsolutePath(String path) {
+  return path.startsWith('/') ||
+      path.startsWith(r'\\') ||
+      RegExp(r'^[a-zA-Z]:[\\/]').hasMatch(path);
+}
+
+List<ParsedManifestIconDeclaration> parseSvgManifestDeclarationsForTest(
+  String source, {
+  required String manifestDirectoryPath,
+}) {
+  return _parseSvgManifest(
+        source,
+        manifestDirectory: Directory(manifestDirectoryPath),
+      )
+      .map(
+        (entry) => ParsedManifestIconDeclaration(
+          identifier: entry.identifier,
+          codePoint: entry.codePoint,
+          svgPath: entry.svgFile.path,
+        ),
+      )
+      .toList(growable: false);
 }
 
 final class _MaterialIconKitProvider
@@ -1190,6 +1400,18 @@ final class _FlutterIconDeclaration {
   final bool useSymbolFillVariant;
 }
 
+final class _ManifestIconEntry {
+  const _ManifestIconEntry({
+    required this.identifier,
+    required this.codePoint,
+    required this.svgFile,
+  });
+
+  final String identifier;
+  final int codePoint;
+  final File svgFile;
+}
+
 final class _GeneratedIcon {
   const _GeneratedIcon({
     required this.codePoint,
@@ -1239,6 +1461,18 @@ final class ParsedFlutterIconDeclaration {
   final String oldPackageFolder;
   final String symbolPackageFolder;
   final bool useSymbolFillVariant;
+}
+
+final class ParsedManifestIconDeclaration {
+  const ParsedManifestIconDeclaration({
+    required this.identifier,
+    required this.codePoint,
+    required this.svgPath,
+  });
+
+  final String identifier;
+  final int codePoint;
+  final String svgPath;
 }
 
 final class _ResolvedSvgSize {

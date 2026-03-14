@@ -27,15 +27,53 @@ Compatibility alias (backward compatible):
 
 The script uses `IconKitProvider` (`packages/skribble/tool/icon_kit_provider.dart`).
 
-Current provider:
+Current providers:
 
 - `flutter-material`
+- `svg-manifest`
 
 To inspect available providers from CLI:
 
 ```bash
 cd packages/skribble
 dart run tool/generate_rough_icons.dart --list-kits
+```
+
+### `svg-manifest` kit format
+
+Use `--kit svg-manifest --manifest <path>` to rough any icon set without
+writing Dart provider code.
+
+Manifest supports either a top-level list or `{ "icons": [...] }`, where each
+entry includes:
+
+- `identifier` (string)
+- `codePoint` (int or hex string like `"0xe001"`)
+- `svgPath` (preferred) or `svg`/`path` alias
+
+Example:
+
+```json
+{
+  "icons": [
+    {
+      "identifier": "my_star",
+      "codePoint": "0xe001",
+      "svgPath": "icons/my_star.svg"
+    }
+  ]
+}
+```
+
+Run:
+
+```bash
+cd packages/skribble
+dart run tool/generate_rough_icons.dart \
+  --kit svg-manifest \
+  --manifest tool/examples/custom_icons.manifest.json \
+  --output lib/src/generated/custom_rough_icons.g.dart \
+  --rough-output-dir tool/icon_exports/custom-rough-svg
 ```
 
 To add another icon kit, implement a provider that:

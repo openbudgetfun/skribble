@@ -1,0 +1,14 @@
+{
+  "icons": [
+    {
+      "identifier": "my_star",
+      "codePoint": "0xe001",
+      "svgPath": "icons/my_star.svg"
+    },
+    {
+      "identifier": "my_heart",
+      "codePoint": "0xe002",
+      "svgPath": "icons/my_heart.svg"
+    }
+  ]
+}

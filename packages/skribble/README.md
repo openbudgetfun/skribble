@@ -200,6 +200,7 @@ melos run rough-icons-font
 Useful flags:
 
 - `--list-kits` to print available icon-kit providers.
+- `--kit svg-manifest --manifest <path>` to rough non-Material icon sets from JSON manifests.
 - `--rough-only` to skip Dart map generation and emit rough SVGs only.
 - `--rough-normalize-viewbox 128` to upscale SVG geometry before roughing.
 - `--font-name skribble_rough_icons` to customize generated font family name.
