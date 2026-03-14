@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A bottom navigation bar item.
@@ -94,10 +95,12 @@ class WiredBottomNavigationBar extends HookWidget {
                       fillerType: RoughFilter.noFiller,
                     ),
                   ),
-                Icon(
-                  item.icon,
+                WiredIcon(
+                  icon: item.icon,
                   color: selected ? theme.borderColor : theme.disabledTextColor,
                   size: 24,
+                  fillStyle: WiredIconFillStyle.solid,
+                  strokeWidth: 1.2,
                 ),
               ],
             ),
