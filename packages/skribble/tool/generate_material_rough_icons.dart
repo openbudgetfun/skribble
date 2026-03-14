@@ -14,11 +14,22 @@ const _kDefaultRoughCliRunner = 'deno';
 const _kDefaultFontGeneratorExecutable = 'npx';
 const _kDefaultFontGeneratorPackage = 'fantasticon';
 const _kDefaultFontName = 'material_rough_icons';
+const _kSupportedKitDescriptions = <String, String>{
+  _kDefaultKit:
+      'Flutter Material Icons (from Flutter icons.dart + Material SVG packages)',
+};
 
-Future<void> main(List<String> args) async {
+Future<void> main(List<String> args) => runGenerateRoughIcons(args);
+
+Future<void> runGenerateRoughIcons(List<String> args) async {
   final options = _ScriptOptions.parse(args);
   if (options.showHelp) {
     _printUsage();
+    return;
+  }
+
+  if (options.listKits) {
+    _printSupportedKits();
     return;
   }
 
@@ -94,7 +105,7 @@ Future<void> main(List<String> args) async {
 
   if (!options.roughOnly) {
     final outputFile = File(
-      options.outputPath ?? 'lib/src/generated/material_rough_icons.g.dart',
+      options.outputPath ?? _defaultOutputPathForKit(options.kit),
     );
     outputFile.createSync(recursive: true);
     outputFile.writeAsStringSync(_renderGeneratedFile(icons));
@@ -123,10 +134,14 @@ void _printUsage() {
 Generate rough icon artifacts for WiredIcon.
 
 Usage:
+  dart run tool/generate_rough_icons.dart [options]
+
+Compatibility alias:
   dart run tool/generate_material_rough_icons.dart [options]
 
 Options:
   --kit <flutter-material>         Icon kit provider to use.
+  --list-kits                      Print supported --kit values and exit.
   --flutter-icons <path>           Path to Flutter material icons.dart.
   --material-icons-source <path>   Path to extracted @material-design-icons/svg package.
   --material-symbols-source <path> Path to extracted @material-symbols/svg-400 package.
@@ -149,6 +164,24 @@ a temporary directory.
 ''');
 }
 
+void _printSupportedKits() {
+  stdout.writeln('Supported icon kits:');
+  for (final entry in _kSupportedKitDescriptions.entries) {
+    stdout.writeln('  - ${entry.key}: ${entry.value}');
+  }
+}
+
+String _defaultOutputPathForKit(String kit) {
+  if (kit == _kDefaultKit) {
+    return 'lib/src/generated/material_rough_icons.g.dart';
+  }
+  final normalized = kit.toLowerCase().replaceAll(RegExp('[^a-z0-9_]+'), '_');
+  return 'lib/src/generated/${normalized}_rough_icons.g.dart';
+}
+
+List<String> supportedIconKitsForTest() =>
+    _kSupportedKitDescriptions.keys.toList(growable: false);
+
 final class _ScriptOptions {
   const _ScriptOptions({
     this.kit = _kDefaultKit,
@@ -168,6 +201,7 @@ final class _ScriptOptions {
     this.fontGeneratorExecutable = _kDefaultFontGeneratorExecutable,
     this.fontGeneratorPackage = _kDefaultFontGeneratorPackage,
     this.showHelp = false,
+    this.listKits = false,
   });
 
   final String kit;
@@ -187,6 +221,7 @@ final class _ScriptOptions {
   final String fontGeneratorExecutable;
   final String fontGeneratorPackage;
   final bool showHelp;
+  final bool listKits;
 
   static _ScriptOptions parse(List<String> args) {
     var kit = _kDefaultKit;
@@ -206,11 +241,16 @@ final class _ScriptOptions {
     var fontGeneratorExecutable = _kDefaultFontGeneratorExecutable;
     var fontGeneratorPackage = _kDefaultFontGeneratorPackage;
     var showHelp = false;
+    var listKits = false;
 
     for (var index = 0; index < args.length; index++) {
       final argument = args[index];
       if (argument == '--help' || argument == '-h') {
         showHelp = true;
+        continue;
+      }
+      if (argument == '--list-kits') {
+        listKits = true;
         continue;
       }
       if (argument == '--rough-bulk') {
@@ -291,6 +331,7 @@ final class _ScriptOptions {
       fontGeneratorExecutable: fontGeneratorExecutable,
       fontGeneratorPackage: fontGeneratorPackage,
       showHelp: showHelp,
+      listKits: listKits,
     );
   }
 }
@@ -392,7 +433,8 @@ _createProvider(_ScriptOptions options) async {
       );
     default:
       throw ArgumentError(
-        'Unknown --kit value: ${options.kit}. Supported: $_kDefaultKit',
+        'Unknown --kit value: ${options.kit}. Supported: '
+        '${_kSupportedKitDescriptions.keys.join(', ')}',
       );
   }
 }

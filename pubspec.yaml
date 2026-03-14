@@ -51,7 +51,7 @@ melos:
       description: Generate rough Material icon artifacts (Dart map + rough SVG files).
       run: >-
         cd packages/skribble &&
-        dart run tool/generate_material_rough_icons.dart
+        dart run tool/generate_rough_icons.dart
         --kit flutter-material
         --rough-output-dir tool/icon_exports/rough-svg
 
@@ -59,7 +59,7 @@ melos:
       description: Generate rough Material icon font artifacts (TTF) from rough SVGs.
       run: >-
         cd packages/skribble &&
-        dart run tool/generate_material_rough_icons.dart
+        dart run tool/generate_rough_icons.dart
         --kit flutter-material
         --rough-output-dir tool/icon_exports/rough-svg
         --font-output-dir tool/icon_exports/font
