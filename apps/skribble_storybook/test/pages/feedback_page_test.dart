@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/app.dart';
+import 'package:skribble_storybook/components/component_showcase.dart';
 import 'package:skribble_storybook/pages/feedback_page.dart';
 
 void main() {
@@ -48,6 +49,11 @@ void main() {
       await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
       expect(find.text('Skribble Storybook'), findsOneWidget);
+    });
+
+    testWidgets('renders multiple ComponentShowcase sections', (tester) async {
+      await navigateToFeedback(tester);
+      expect(find.byType(ComponentShowcase), findsWidgets);
     });
   });
 }

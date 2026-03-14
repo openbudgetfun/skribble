@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble_storybook/app.dart';
+import 'package:skribble_storybook/components/component_showcase.dart';
 import 'package:skribble_storybook/pages/navigation_page.dart';
 
 void main() {
@@ -68,6 +69,11 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(NavigationPage), findsNothing);
+    });
+
+    testWidgets('renders multiple ComponentShowcase sections', (tester) async {
+      await navigateToNavigation(tester);
+      expect(find.byType(ComponentShowcase), findsWidgets);
     });
   });
 }
