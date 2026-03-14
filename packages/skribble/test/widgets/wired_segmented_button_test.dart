@@ -5,6 +5,13 @@ import 'package:skribble/skribble.dart';
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredSegmentedButton', () {
     final segments = [
@@ -158,8 +165,8 @@ void main() {
         ),
       );
 
-      expect(find.byIcon(Icons.home), findsOneWidget);
-      expect(find.byIcon(Icons.work), findsOneWidget);
+      expect(findWiredIcon(Icons.home), findsOneWidget);
+      expect(findWiredIcon(Icons.work), findsOneWidget);
     });
 
     testWidgets('does not render icons when not provided', (tester) async {
@@ -172,7 +179,7 @@ void main() {
       expect(
         find.descendant(
           of: find.byType(WiredSegmentedButton<String>),
-          matching: find.byType(Icon),
+          matching: find.byType(WiredIcon),
         ),
         findsNothing,
       );

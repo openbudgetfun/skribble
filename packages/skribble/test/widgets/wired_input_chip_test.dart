@@ -4,6 +4,13 @@ import 'package:skribble/skribble.dart';
 
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredInputChip', () {
     testWidgets('renders label', (tester) async {
@@ -20,7 +27,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byIcon(Icons.close), findsOneWidget);
+      expect(findWiredIcon(Icons.close), findsOneWidget);
     });
 
     testWidgets('calls onDeleted', (tester) async {
@@ -35,7 +42,7 @@ void main() {
           ),
         ),
       );
-      await tester.tap(find.byIcon(Icons.close));
+      await tester.tap(findWiredIcon(Icons.close));
       expect(deleted, isTrue);
     });
 

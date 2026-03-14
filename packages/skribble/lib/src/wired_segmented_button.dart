@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A segment in a segmented button.
@@ -115,7 +116,13 @@ class WiredSegmentedButton<T> extends HookWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (segment.icon != null) ...[
-              Icon(segment.icon, size: 18, color: theme.textColor),
+              WiredIcon(
+                icon: segment.icon!,
+                size: 18,
+                color: theme.textColor,
+                fillStyle: WiredIconFillStyle.solid,
+                strokeWidth: 1.2,
+              ),
               const SizedBox(width: 8),
             ],
             segment.label,
