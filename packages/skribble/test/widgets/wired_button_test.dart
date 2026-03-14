@@ -96,5 +96,18 @@ void main() {
 
       expect(find.byType(WiredButton), findsOneWidget);
     });
+
+    testWidgets('applies semantic label when provided', (tester) async {
+      await pumpApp(
+        tester,
+        WiredButton(
+          onPressed: () {},
+          semanticLabel: 'Submit form',
+          child: const Text('Submit'),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('Submit form'), findsOneWidget);
+    });
   });
 }

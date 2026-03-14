@@ -202,5 +202,20 @@ void main() {
       // without error indicating the animation finished.
       expect(find.byType(WiredSwitch), findsOneWidget);
     });
+
+    testWidgets('applies semantic label when provided', (tester) async {
+      await pumpApp(
+        tester,
+        Center(
+          child: WiredSwitch(
+            value: false,
+            onChanged: (_) {},
+            semanticLabel: 'Enable notifications',
+          ),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('Enable notifications'), findsOneWidget);
+    });
   });
 }

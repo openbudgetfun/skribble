@@ -171,5 +171,24 @@ void main() {
         findsOneWidget,
       );
     });
+
+    testWidgets('applies semantic label when provided', (tester) async {
+      await pumpApp(
+        tester,
+        Center(
+          child: SizedBox(
+            width: 100,
+            height: 100,
+            child: WiredToggle(
+              value: true,
+              onChange: (v) => true,
+              semanticLabel: 'Dark mode',
+            ),
+          ),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('Dark mode'), findsOneWidget);
+    });
   });
 }
