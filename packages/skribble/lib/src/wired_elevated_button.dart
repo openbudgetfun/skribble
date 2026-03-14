@@ -10,53 +10,65 @@ class WiredElevatedButton extends HookWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  const WiredElevatedButton({super.key, required this.child, this.onPressed});
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
+
+  const WiredElevatedButton({
+    super.key,
+    required this.child,
+    this.onPressed,
+    this.semanticLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return buildWiredElement(
-      child: Stack(
-        children: [
-          // Shadow offset
-          Positioned(
-            left: 2,
-            top: 2,
-            right: -2,
-            bottom: -2,
-            child: Container(
+    return Semantics(
+      label: semanticLabel,
+      button: true,
+      child: buildWiredElement(
+        child: Stack(
+          children: [
+            // Shadow offset
+            Positioned(
+              left: 2,
+              top: 2,
+              right: -2,
+              bottom: -2,
+              child: Container(
+                decoration: RoughBoxDecoration(
+                  shape: RoughBoxShape.rectangle,
+                  borderStyle: RoughDrawingStyle(
+                    width: 0.5,
+                    color: theme.borderColor,
+                  ),
+                  fillStyle: RoughDrawingStyle(color: theme.borderColor),
+                  filler: HachureFiller(FillerConfig.build(hachureGap: 2)),
+                ),
+              ),
+            ),
+            Container(
+              height: kWiredButtonHeight,
               decoration: RoughBoxDecoration(
                 shape: RoughBoxShape.rectangle,
                 borderStyle: RoughDrawingStyle(
-                  width: 0.5,
+                  width: 1,
                   color: theme.borderColor,
                 ),
-                fillStyle: RoughDrawingStyle(color: theme.borderColor),
-                filler: HachureFiller(FillerConfig.build(hachureGap: 2)),
+                fillStyle: RoughDrawingStyle(color: theme.fillColor),
+                filler: HachureFiller(FillerConfig.build(hachureGap: 3)),
+              ),
+              child: SizedBox(
+                height: double.infinity,
+                child: TextButton(
+                  style: TextButton.styleFrom(foregroundColor: theme.textColor),
+                  onPressed: onPressed,
+                  child: child,
+                ),
               ),
             ),
-          ),
-          Container(
-            height: kWiredButtonHeight,
-            decoration: RoughBoxDecoration(
-              shape: RoughBoxShape.rectangle,
-              borderStyle: RoughDrawingStyle(
-                width: 1,
-                color: theme.borderColor,
-              ),
-              fillStyle: RoughDrawingStyle(color: theme.fillColor),
-              filler: HachureFiller(FillerConfig.build(hachureGap: 3)),
-            ),
-            child: SizedBox(
-              height: double.infinity,
-              child: TextButton(
-                style: TextButton.styleFrom(foregroundColor: theme.textColor),
-                onPressed: onPressed,
-                child: child,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

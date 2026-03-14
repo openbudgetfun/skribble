@@ -10,35 +10,47 @@ class WiredTextButton extends HookWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  const WiredTextButton({super.key, required this.child, this.onPressed});
+  /// Semantic label for accessibility.
+  final String? semanticLabel;
+
+  const WiredTextButton({
+    super.key,
+    required this.child,
+    this.onPressed,
+    this.semanticLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return buildWiredElement(
-      child: IntrinsicWidth(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextButton(
-              style: TextButton.styleFrom(foregroundColor: theme.textColor),
-              onPressed: onPressed,
-              child: child,
-            ),
-            SizedBox(
-              height: 2,
-              child: WiredCanvas(
-                painter: WiredLineBase(
-                  x1: 0,
-                  y1: 0,
-                  x2: double.infinity,
-                  y2: 0,
-                  borderColor: theme.borderColor,
-                ),
-                fillerType: RoughFilter.noFiller,
+    return Semantics(
+      label: semanticLabel,
+      button: true,
+      child: buildWiredElement(
+        child: IntrinsicWidth(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton(
+                style: TextButton.styleFrom(foregroundColor: theme.textColor),
+                onPressed: onPressed,
+                child: child,
               ),
-            ),
-          ],
+              SizedBox(
+                height: 2,
+                child: WiredCanvas(
+                  painter: WiredLineBase(
+                    x1: 0,
+                    y1: 0,
+                    x2: double.infinity,
+                    y2: 0,
+                    borderColor: theme.borderColor,
+                  ),
+                  fillerType: RoughFilter.noFiller,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

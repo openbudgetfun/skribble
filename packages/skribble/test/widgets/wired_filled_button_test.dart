@@ -112,5 +112,18 @@ void main() {
       await tester.tap(find.text('No tap'));
       expect(tapped, isFalse);
     });
+
+    testWidgets('applies semantic label when provided', (tester) async {
+      await pumpApp(
+        tester,
+        WiredFilledButton(
+          onPressed: () {},
+          semanticLabel: 'Confirm order',
+          child: const Text('Confirm'),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('Confirm order'), findsOneWidget);
+    });
   });
 }

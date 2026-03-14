@@ -154,5 +154,18 @@ void main() {
 
       expect(tapCount, 3);
     });
+
+    testWidgets('applies semantic label when provided', (tester) async {
+      await pumpApp(
+        tester,
+        WiredOutlinedButton(
+          onPressed: () {},
+          semanticLabel: 'Cancel action',
+          child: const Text('Cancel'),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('Cancel action'), findsOneWidget);
+    });
   });
 }

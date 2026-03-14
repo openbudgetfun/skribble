@@ -177,5 +177,18 @@ void main() {
 
       expect(tapCount, 3);
     });
+
+    testWidgets('applies semantic label when provided', (tester) async {
+      await pumpApp(
+        tester,
+        WiredTextButton(
+          onPressed: () {},
+          semanticLabel: 'Learn more',
+          child: const Text('Details'),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('Learn more'), findsOneWidget);
+    });
   });
 }

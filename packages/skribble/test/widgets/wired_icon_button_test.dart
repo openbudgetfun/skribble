@@ -173,5 +173,18 @@ void main() {
 
       expect(tapCount, 3);
     });
+
+    testWidgets('applies semantic label when provided', (tester) async {
+      await pumpApp(
+        tester,
+        WiredIconButton(
+          icon: Icons.settings,
+          onPressed: () {},
+          semanticLabel: 'Open settings',
+        ),
+      );
+
+      expect(find.bySemanticsLabel('Open settings'), findsOneWidget);
+    });
   });
 }

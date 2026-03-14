@@ -220,5 +220,18 @@ void main() {
 
       expect(tapCount, 3);
     });
+
+    testWidgets('applies semantic label when provided', (tester) async {
+      await pumpApp(
+        tester,
+        WiredFloatingActionButton(
+          icon: Icons.add,
+          onPressed: () {},
+          semanticLabel: 'Add new item',
+        ),
+      );
+
+      expect(find.bySemanticsLabel('Add new item'), findsOneWidget);
+    });
   });
 }
