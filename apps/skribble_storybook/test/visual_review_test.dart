@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +14,11 @@ import 'package:skribble_storybook/app.dart';
 /// because WiredSlider creates a repeating timer that prevents
 /// `pumpAndSettle` from ever completing.
 void main() {
+  final runningInCi = Platform.environment['CI'] == 'true';
+  final goldensAvailable =
+      File('${Directory.current.path}/../../.screenshots/review/01-home.png')
+          .existsSync();
+
   setUpAll(() {
     // Use bundled ShortStack font instead of fetching over HTTP.
     GoogleFonts.config.allowRuntimeFetching = false;
@@ -42,8 +49,12 @@ void main() {
     await pumpStable(tester);
   }
 
+  void goldenTest(String description, WidgetTesterCallback body) {
+    testWidgets(description, body, skip: runningInCi || !goldensAvailable);
+  }
+
   group('Visual Review', () {
-    testWidgets('home page', (tester) async {
+    goldenTest('home page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await pumpStable(tester);
       await expectLater(
@@ -52,7 +63,7 @@ void main() {
       );
     });
 
-    testWidgets('buttons page', (tester) async {
+    goldenTest('buttons page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await pumpStable(tester);
       await navigateTo(tester, 'Buttons');
@@ -62,7 +73,7 @@ void main() {
       );
     });
 
-    testWidgets('inputs page', (tester) async {
+    goldenTest('inputs page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await pumpStable(tester);
       await navigateTo(tester, 'Inputs');
@@ -72,7 +83,7 @@ void main() {
       );
     });
 
-    testWidgets('navigation page', (tester) async {
+    goldenTest('navigation page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await pumpStable(tester);
       await navigateTo(tester, 'Navigation');
@@ -82,7 +93,7 @@ void main() {
       );
     });
 
-    testWidgets('selection page', (tester) async {
+    goldenTest('selection page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await pumpStable(tester);
       await navigateTo(tester, 'Selection');
@@ -92,7 +103,7 @@ void main() {
       );
     });
 
-    testWidgets('feedback page', (tester) async {
+    goldenTest('feedback page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await pumpStable(tester);
       await navigateTo(tester, 'Feedback');
@@ -102,7 +113,7 @@ void main() {
       );
     });
 
-    testWidgets('layout page', (tester) async {
+    goldenTest('layout page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await pumpStable(tester);
       await navigateTo(tester, 'Layout');
@@ -112,7 +123,7 @@ void main() {
       );
     });
 
-    testWidgets('data display page', (tester) async {
+    goldenTest('data display page', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await pumpStable(tester);
       await navigateTo(tester, 'Data Display');

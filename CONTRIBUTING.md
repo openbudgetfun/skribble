@@ -60,14 +60,14 @@ melos run flutter-test
 
 Every widget test file must have **≥ 6 `testWidgets`** covering:
 
-| Category | Example |
-|---|---|
-| Rendering | Renders without error, renders child content |
-| Dimensions | Correct size, respects custom height/width |
-| Interaction | Responds to tap, calls `onChanged` |
-| State | Rebuilds on value change, animations complete |
-| Edge cases | Null values, rapid interactions |
-| Accessibility | Semantic labels where applicable |
+| Category      | Example                                       |
+| ------------- | --------------------------------------------- |
+| Rendering     | Renders without error, renders child content  |
+| Dimensions    | Correct size, respects custom height/width    |
+| Interaction   | Responds to tap, calls `onChanged`            |
+| State         | Rebuilds on value change, animations complete |
+| Edge cases    | Null values, rapid interactions               |
+| Accessibility | Semantic labels where applicable              |
 
 ### Test helpers
 
