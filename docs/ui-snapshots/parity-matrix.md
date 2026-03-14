@@ -113,7 +113,7 @@ Status meanings:
 
 - **100% parity** — every Material and Cupertino widget has a dedicated Wired equivalent.
 - **55 Material + 14 Cupertino + 11 extended = 80 total implementations.**
-- **81 widget source files, 88 test files, 853 widget tests, 138 rough engine tests, 6 smoke tests = 997 library + 58 storybook = 1,055 total.**
+- **81 widget source files, 88 test files, 848 widget tests, 138 rough engine tests, 6 smoke tests = 992 library + 58 storybook = 1,050 total.**
 - All widgets read from `WiredTheme.of(context)` for runtime color customization.
 - All widgets use `HookWidget` exclusively (no `StatefulWidget` or `StatelessWidget`).
 - Version 0.3.0 with comprehensive CHANGELOG.

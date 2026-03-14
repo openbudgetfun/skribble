@@ -166,12 +166,12 @@ All Skribble widgets follow familiar Flutter conventions:
 |---|---|
 | Widget source files | 81 |
 | Widget test files | 88 |
-| Widget tests | 853 |
+| Widget tests | 848 |
 | Rough engine tests | 138 |
 | Smoke tests | 6 |
-| Library total | 997 |
+| Library total | 992 |
 | Storybook tests | 58 (50 page + 8 golden) |
-| **Grand total** | **1,055** |
+| **Grand total** | **1,050** |
 | `dart analyze` | 0 issues |
 | `pumpApp` adoption | 100% (82/82 files) |
 
