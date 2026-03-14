@@ -167,7 +167,11 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     return;
   }
 
-  final severityLabel = options.failOnUnresolved ? 'Error' : 'Warning';
+  final failureThreshold = options.failOnUnresolved ? 0 : options.maxUnresolved;
+  final shouldFail =
+      failureThreshold != null && unresolved.length > failureThreshold;
+
+  final severityLabel = shouldFail ? 'Error' : 'Warning';
   stderr.writeln(
     '$severityLabel: ${unresolved.length} icon codepoints for kit '
     '"${options.kit}" could not be resolved to SVGs. WiredIcon will '
@@ -179,10 +183,10 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     );
   }
 
-  if (options.failOnUnresolved) {
+  if (shouldFail) {
     throw StateError(
-      'Unresolved icon codepoints remain for kit "${options.kit}". '
-      'Re-run without --fail-on-unresolved for warnings only.',
+      'Unresolved icon codepoints remain for kit "${options.kit}" '
+      '(found ${unresolved.length}, allowed $failureThreshold).',
     );
   }
 }
@@ -209,6 +213,7 @@ Options:
   --unresolved-output <path>       Emit unresolved icon codepoint report as JSON.
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
+  --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain.
   --output <path>                  Output Dart file.
   --rough-cli <path>               TypeScript script that converts SVG(s) (default: tool/deno/svg2roughjs_cli.ts).
@@ -259,6 +264,7 @@ final class _ScriptOptions {
     this.supplementalManifestPath,
     this.unresolvedOutputPath,
     this.supplementalManifestOutputPath,
+    this.maxUnresolved,
     this.outputPath,
     this.roughCliPath,
     this.roughCliRunner = _kDefaultRoughCliRunner,
@@ -286,6 +292,7 @@ final class _ScriptOptions {
   final String? supplementalManifestPath;
   final String? unresolvedOutputPath;
   final String? supplementalManifestOutputPath;
+  final int? maxUnresolved;
   final String? outputPath;
   final String? roughCliPath;
   final String roughCliRunner;
@@ -313,6 +320,7 @@ final class _ScriptOptions {
     String? supplementalManifestPath;
     String? unresolvedOutputPath;
     String? supplementalManifestOutputPath;
+    int? maxUnresolved;
     String? outputPath;
     String? roughCliPath;
     var roughCliRunner = _kDefaultRoughCliRunner;
@@ -389,6 +397,8 @@ final class _ScriptOptions {
           unresolvedOutputPath = value;
         case '--supplemental-manifest-output':
           supplementalManifestOutputPath = value;
+        case '--max-unresolved':
+          maxUnresolved = int.parse(value);
         case '--output':
           outputPath = value;
         case '--rough-cli':
@@ -416,6 +426,10 @@ final class _ScriptOptions {
       }
     }
 
+    if (maxUnresolved != null && maxUnresolved < 0) {
+      throw ArgumentError('--max-unresolved must be >= 0.');
+    }
+
     return _ScriptOptions(
       kit: kit,
       manifestPath: manifestPath,
@@ -426,6 +440,7 @@ final class _ScriptOptions {
       supplementalManifestPath: supplementalManifestPath,
       unresolvedOutputPath: unresolvedOutputPath,
       supplementalManifestOutputPath: supplementalManifestOutputPath,
+      maxUnresolved: maxUnresolved,
       outputPath: outputPath,
       roughCliPath: roughCliPath,
       roughCliRunner: roughCliRunner,

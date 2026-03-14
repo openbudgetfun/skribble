@@ -208,6 +208,7 @@ Useful flags:
 - `--supplemental-manifest <path>` to provide custom SVGs for unresolved `flutter-material` identifiers/codepoints.
 - `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring.
 - `--supplemental-manifest-output <path>` to emit a starter supplemental manifest template for unresolved icons.
+- `--max-unresolved <int>` to allow a bounded unresolved count before failing.
 - `--fail-on-unresolved` to make the command exit non-zero if unresolved icons remain.
 - `--font-name skribble_rough_icons` to customize generated font family name.
 - `--font-dart-output <path>` to emit Dart lookup helpers for generated font codepoints.

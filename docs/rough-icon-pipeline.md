@@ -26,7 +26,7 @@ Compatibility alias (backward compatible):
    - emits Dart helpers for generated icon fonts (`--font-dart-output`)
    - emits unresolved icon reports as JSON (`--unresolved-output`)
    - emits supplemental manifest templates (`--supplemental-manifest-output`)
-   - can fail CI on unresolved icons (`--fail-on-unresolved`)
+   - can fail CI on unresolved icons (`--fail-on-unresolved`, `--max-unresolved`)
 
 ## Extensibility seam
 
@@ -133,12 +133,12 @@ edited by replacing placeholder `svgPath` values before passing it back via
 
 ## Strict unresolved mode
 
-To make generation fail when unresolved icons remain, pass:
+To control failure behavior for unresolved icons:
 
-- `--fail-on-unresolved`
+- `--fail-on-unresolved` (strict; equivalent to allowing 0 unresolved)
+- `--max-unresolved <int>` (bounded; fail only when unresolved count exceeds threshold)
 
-This is useful in CI once supplemental manifest coverage is expected to be
-complete.
+This is useful in CI while tightening coverage incrementally.
 
 ## Runtime prerequisites
 
