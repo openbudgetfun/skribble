@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredSlider', () {
     // WiredSlider uses useFuture(Future.delayed(Duration.zero)) which creates
@@ -11,13 +13,13 @@ void main() {
     // the pending timer with an extra pump before teardown to avoid the
     // "Timer still pending" assertion.
 
-    Future<void> pumpSlider(WidgetTester tester, WiredSlider slider) async {
-      await tester.pumpWidget(MaterialApp(home: Scaffold(body: slider)));
+    Future<void> pumpSubject(WidgetTester tester, WiredSlider slider) {
+      return pumpApp(tester, slider);
     }
 
     testWidgets('renders Slider widget', (tester) async {
       await tester.runAsync(() async {
-        await pumpSlider(
+        await pumpSubject(
           tester,
           WiredSlider(value: 0.5, onChanged: (v) => true),
         );
@@ -28,7 +30,7 @@ void main() {
 
     testWidgets('has correct min/max defaults', (tester) async {
       await tester.runAsync(() async {
-        await pumpSlider(
+        await pumpSubject(
           tester,
           WiredSlider(value: 0.5, onChanged: (v) => true),
         );
@@ -42,7 +44,7 @@ void main() {
 
     testWidgets('uses custom min/max values', (tester) async {
       await tester.runAsync(() async {
-        await pumpSlider(
+        await pumpSubject(
           tester,
           WiredSlider(
             value: 50.0,
@@ -63,7 +65,7 @@ void main() {
       double? receivedValue;
 
       await tester.runAsync(() async {
-        await pumpSlider(
+        await pumpSubject(
           tester,
           WiredSlider(
             value: 0.0,
@@ -75,7 +77,6 @@ void main() {
         );
       });
 
-      // Drag the Slider to trigger onChanged.
       final sliderFinder = find.byType(Slider);
       await tester.drag(sliderFinder, const Offset(100.0, 0));
 
@@ -91,7 +92,7 @@ void main() {
       tester,
     ) async {
       await tester.runAsync(() async {
-        await pumpSlider(
+        await pumpSubject(
           tester,
           WiredSlider(value: 0.5, onChanged: (v) => false),
         );
@@ -103,7 +104,7 @@ void main() {
 
     testWidgets('renders with divisions and label', (tester) async {
       await tester.runAsync(() async {
-        await pumpSlider(
+        await pumpSubject(
           tester,
           WiredSlider(
             value: 0.5,
@@ -122,7 +123,7 @@ void main() {
 
     testWidgets('contains WiredSlider widget type', (tester) async {
       await tester.runAsync(() async {
-        await pumpSlider(
+        await pumpSubject(
           tester,
           WiredSlider(value: 0.0, onChanged: (v) => true),
         );
