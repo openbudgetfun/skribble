@@ -7,7 +7,10 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredButton', () {
     testWidgets('renders child text widget', (tester) async {
-      await pumpApp(tester, WiredButton(onPressed: () {}, child: const Text('Press me')));
+      await pumpApp(
+        tester,
+        WiredButton(onPressed: () {}, child: const Text('Press me')),
+      );
 
       expect(find.text('Press me'), findsOneWidget);
     });
@@ -15,10 +18,10 @@ void main() {
     testWidgets('calls onPressed callback when tapped', (tester) async {
       var pressed = false;
 
-      await pumpApp(tester, WiredButton(
-              onPressed: () => pressed = true,
-              child: const Text('Tap'),
-            ));
+      await pumpApp(
+        tester,
+        WiredButton(onPressed: () => pressed = true, child: const Text('Tap')),
+      );
 
       await tester.tap(find.text('Tap'));
       await tester.pump();
@@ -27,10 +30,10 @@ void main() {
     });
 
     testWidgets('renders with correct height (42.0)', (tester) async {
-      await pumpApp(tester, WiredButton(
-              onPressed: () {},
-              child: const Text('Height test'),
-            ));
+      await pumpApp(
+        tester,
+        WiredButton(onPressed: () {}, child: const Text('Height test')),
+      );
 
       // The WiredButton's buildWiredElement wraps content in a Container
       // with height 42.0. We verify the rendered size of the button.
@@ -40,7 +43,10 @@ void main() {
     });
 
     testWidgets('contains TextButton internally', (tester) async {
-      await pumpApp(tester, WiredButton(onPressed: () {}, child: const Text('Button')));
+      await pumpApp(
+        tester,
+        WiredButton(onPressed: () {}, child: const Text('Button')),
+      );
 
       expect(
         find.descendant(
@@ -52,7 +58,10 @@ void main() {
     });
 
     testWidgets('has RepaintBoundary wrapper', (tester) async {
-      await pumpApp(tester, WiredButton(onPressed: () {}, child: const Text('Repaint')));
+      await pumpApp(
+        tester,
+        WiredButton(onPressed: () {}, child: const Text('Repaint')),
+      );
 
       // WiredBaseWidget.build wraps buildWiredElement in RepaintBoundary.
       expect(
@@ -65,7 +74,10 @@ void main() {
     });
 
     testWidgets('renders with icon child', (tester) async {
-      await pumpApp(tester, WiredButton(onPressed: () {}, child: const Icon(Icons.add)));
+      await pumpApp(
+        tester,
+        WiredButton(onPressed: () {}, child: const Icon(Icons.add)),
+      );
 
       expect(find.byIcon(Icons.add), findsOneWidget);
     });

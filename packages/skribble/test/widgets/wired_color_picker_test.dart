@@ -81,10 +81,10 @@ void main() {
     testWidgets('renders with default colors when not specified', (
       tester,
     ) async {
-      await pumpApp(tester, WiredColorPicker(
-              selectedColor: Colors.red,
-              onColorChanged: (_) {},
-            ));
+      await pumpApp(
+        tester,
+        WiredColorPicker(selectedColor: Colors.red, onColorChanged: (_) {}),
+      );
       // Default has 20 colors
       expect(find.byType(WiredColorPicker), findsOneWidget);
     });

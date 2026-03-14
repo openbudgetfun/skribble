@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.3.1
+
+### Internal Improvements
+
+- **`pumpApp` test helper**: New `test/helpers/pump_app.dart` reduces
+  `MaterialApp(home: Scaffold(body: ...))` boilerplate across widget tests.
+  64 of 88 widget test files migrated, eliminating ~2,500 lines of
+  repetitive wrapping code.
+- **`dart format`**: Applied consistent formatting across all 213 source files.
+- **`.gitattributes`**: Added for consistent line endings, Dart diff driver,
+  and binary file handling.
+- **README badges**: CI status, license, and Flutter version badges.
+- **Rough engine tests**: +10 `Canvas.drawRough` extension tests.
+
+### Stats
+
+- 81 widget source files, 88 widget test files, 848 widget tests, 138 rough engine tests, 58 storybook tests (50 page + 8 golden).
+
 ## 0.3.0
 
 ### Complete Theme Integration

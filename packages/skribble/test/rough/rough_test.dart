@@ -121,10 +121,7 @@ void main() {
     });
 
     testWidgets('drawRough renders with HachureFiller', (tester) async {
-      final hGen = Generator(
-        config,
-        HachureFiller(FillerConfig.defaultConfig),
-      );
+      final hGen = Generator(config, HachureFiller(FillerConfig.defaultConfig));
       final drawable = hGen.rectangle(10, 10, 80, 40);
 
       await tester.pumpWidget(
@@ -142,10 +139,7 @@ void main() {
     });
 
     testWidgets('drawRough renders with SolidFiller', (tester) async {
-      final sGen = Generator(
-        config,
-        SolidFiller(FillerConfig.defaultConfig),
-      );
+      final sGen = Generator(config, SolidFiller(FillerConfig.defaultConfig));
       final drawable = sGen.rectangle(10, 10, 80, 40);
 
       await tester.pumpWidget(

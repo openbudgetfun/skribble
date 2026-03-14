@@ -123,25 +123,28 @@ void main() {
     });
 
     testWidgets('showWiredCupertinoActionSheet shows sheet', (tester) async {
-      await pumpApp(tester, Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () => showWiredCupertinoActionSheet<void>(
-                  context: context,
-                  title: const Text('Options'),
-                  actions: [
-                    WiredCupertinoActionSheetAction(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('Option 1'),
-                    ),
-                  ],
-                  cancelButton: WiredCupertinoActionSheetAction(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
-                  ),
+      await pumpApp(
+        tester,
+        Builder(
+          builder: (context) => ElevatedButton(
+            onPressed: () => showWiredCupertinoActionSheet<void>(
+              context: context,
+              title: const Text('Options'),
+              actions: [
+                WiredCupertinoActionSheetAction(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Option 1'),
                 ),
-                child: const Text('Show'),
+              ],
+              cancelButton: WiredCupertinoActionSheetAction(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
               ),
-            ));
+            ),
+            child: const Text('Show'),
+          ),
+        ),
+      );
       await tester.tap(find.text('Show'));
       await tester.pumpAndSettle();
       expect(find.text('Options'), findsOneWidget);

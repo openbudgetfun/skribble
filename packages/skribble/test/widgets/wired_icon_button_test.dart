@@ -13,7 +13,10 @@ void main() {
     });
 
     testWidgets('renders the provided icon', (tester) async {
-      await pumpApp(tester, WiredIconButton(icon: Icons.favorite, onPressed: () {}));
+      await pumpApp(
+        tester,
+        WiredIconButton(icon: Icons.favorite, onPressed: () {}),
+      );
 
       expect(find.byIcon(Icons.favorite), findsOneWidget);
     });
@@ -21,10 +24,10 @@ void main() {
     testWidgets('calls onPressed callback when tapped', (tester) async {
       var pressed = false;
 
-      await pumpApp(tester, WiredIconButton(
-              icon: Icons.add,
-              onPressed: () => pressed = true,
-            ));
+      await pumpApp(
+        tester,
+        WiredIconButton(icon: Icons.add, onPressed: () => pressed = true),
+      );
 
       await tester.tap(find.byType(IconButton));
       await tester.pump();
@@ -73,11 +76,10 @@ void main() {
     });
 
     testWidgets('renders with custom size', (tester) async {
-      await pumpApp(tester, WiredIconButton(
-              icon: Icons.add,
-              onPressed: () {},
-              size: 64.0,
-            ));
+      await pumpApp(
+        tester,
+        WiredIconButton(icon: Icons.add, onPressed: () {}, size: 64.0),
+      );
 
       final buttonSize = tester.getSize(find.byType(WiredIconButton));
 
@@ -92,11 +94,14 @@ void main() {
     });
 
     testWidgets('uses custom iconColor when provided', (tester) async {
-      await pumpApp(tester, WiredIconButton(
-              icon: Icons.add,
-              onPressed: () {},
-              iconColor: Colors.red,
-            ));
+      await pumpApp(
+        tester,
+        WiredIconButton(
+          icon: Icons.add,
+          onPressed: () {},
+          iconColor: Colors.red,
+        ),
+      );
 
       final icon = tester.widget<Icon>(find.byIcon(Icons.add));
 
@@ -154,7 +159,10 @@ void main() {
     testWidgets('tracks multiple rapid taps', (tester) async {
       var tapCount = 0;
 
-      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () => tapCount++));
+      await pumpApp(
+        tester,
+        WiredIconButton(icon: Icons.add, onPressed: () => tapCount++),
+      );
 
       await tester.tap(find.byType(IconButton));
       await tester.pump();

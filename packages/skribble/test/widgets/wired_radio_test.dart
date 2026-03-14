@@ -7,11 +7,14 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredRadio', () {
     testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, WiredRadio<String>(
-              value: 'a',
-              groupValue: null,
-              onChanged: (_) => true,
-            ));
+      await pumpApp(
+        tester,
+        WiredRadio<String>(
+          value: 'a',
+          groupValue: null,
+          onChanged: (_) => true,
+        ),
+      );
 
       expect(find.byType(WiredRadio<String>), findsOneWidget);
     });
@@ -19,11 +22,10 @@ void main() {
     testWidgets('shows filled circle when selected (value == groupValue)', (
       tester,
     ) async {
-      await pumpApp(tester, WiredRadio<String>(
-              value: 'a',
-              groupValue: 'a',
-              onChanged: (_) => true,
-            ));
+      await pumpApp(
+        tester,
+        WiredRadio<String>(value: 'a', groupValue: 'a', onChanged: (_) => true),
+      );
 
       // When selected, the widget renders two WiredCanvas widgets:
       // one for the outer circle and one for the filled inner circle.
@@ -35,11 +37,10 @@ void main() {
     });
 
     testWidgets('shows empty circle when not selected', (tester) async {
-      await pumpApp(tester, WiredRadio<String>(
-              value: 'a',
-              groupValue: 'b',
-              onChanged: (_) => true,
-            ));
+      await pumpApp(
+        tester,
+        WiredRadio<String>(value: 'a', groupValue: 'b', onChanged: (_) => true),
+      );
 
       // When not selected, there is only the outer circle WiredCanvas
       // (the inner filled one is conditionally hidden).
@@ -53,14 +54,17 @@ void main() {
     testWidgets('calls onChanged when tapped', (tester) async {
       String? changedValue;
 
-      await pumpApp(tester, WiredRadio<String>(
-              value: 'a',
-              groupValue: 'b',
-              onChanged: (value) {
-                changedValue = value;
-                return true;
-              },
-            ));
+      await pumpApp(
+        tester,
+        WiredRadio<String>(
+          value: 'a',
+          groupValue: 'b',
+          onChanged: (value) {
+            changedValue = value;
+            return true;
+          },
+        ),
+      );
 
       await tester.tap(find.byType(Radio<String>));
       await tester.pump();
@@ -71,26 +75,29 @@ void main() {
     testWidgets('works with String generic type', (tester) async {
       String? selectedValue;
 
-      await pumpApp(tester, Column(
-              children: [
-                WiredRadio<String>(
-                  value: 'option1',
-                  groupValue: 'option1',
-                  onChanged: (v) {
-                    selectedValue = v;
-                    return true;
-                  },
-                ),
-                WiredRadio<String>(
-                  value: 'option2',
-                  groupValue: 'option1',
-                  onChanged: (v) {
-                    selectedValue = v;
-                    return true;
-                  },
-                ),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        Column(
+          children: [
+            WiredRadio<String>(
+              value: 'option1',
+              groupValue: 'option1',
+              onChanged: (v) {
+                selectedValue = v;
+                return true;
+              },
+            ),
+            WiredRadio<String>(
+              value: 'option2',
+              groupValue: 'option1',
+              onChanged: (v) {
+                selectedValue = v;
+                return true;
+              },
+            ),
+          ],
+        ),
+      );
 
       // The first radio should be selected (has 2+ canvases).
       final firstRadio = find.byType(WiredRadio<String>).first;
@@ -111,26 +118,29 @@ void main() {
     testWidgets('works with int generic type', (tester) async {
       int? selectedValue;
 
-      await pumpApp(tester, Column(
-              children: [
-                WiredRadio<int>(
-                  value: 1,
-                  groupValue: 1,
-                  onChanged: (v) {
-                    selectedValue = v;
-                    return true;
-                  },
-                ),
-                WiredRadio<int>(
-                  value: 2,
-                  groupValue: 1,
-                  onChanged: (v) {
-                    selectedValue = v;
-                    return true;
-                  },
-                ),
-              ],
-            ));
+      await pumpApp(
+        tester,
+        Column(
+          children: [
+            WiredRadio<int>(
+              value: 1,
+              groupValue: 1,
+              onChanged: (v) {
+                selectedValue = v;
+                return true;
+              },
+            ),
+            WiredRadio<int>(
+              value: 2,
+              groupValue: 1,
+              onChanged: (v) {
+                selectedValue = v;
+                return true;
+              },
+            ),
+          ],
+        ),
+      );
 
       expect(find.byType(WiredRadio<int>), findsNWidgets(2));
 

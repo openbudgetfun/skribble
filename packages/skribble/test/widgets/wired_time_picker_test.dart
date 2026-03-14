@@ -84,13 +84,12 @@ void main() {
     testWidgets('property defaults: initialTime and onTimeSelected are null', (
       tester,
     ) async {
-      await pumpApp(tester, Center(
-              child: SizedBox(
-                width: 400,
-                height: 400,
-                child: WiredTimePicker(),
-              ),
-            ));
+      await pumpApp(
+        tester,
+        Center(
+          child: SizedBox(width: 400, height: 400, child: WiredTimePicker()),
+        ),
+      );
       await tester.pumpAndSettle();
 
       final widget = tester.widget<WiredTimePicker>(

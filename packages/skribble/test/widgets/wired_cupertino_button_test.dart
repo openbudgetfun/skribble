@@ -95,12 +95,15 @@ void main() {
     });
 
     testWidgets('filled factory renders with active blue', (tester) async {
-      await pumpApp(tester, Center(
-              child: WiredCupertinoButton.filled(
-                onPressed: () {},
-                child: const Text('Filled'),
-              ),
-            ));
+      await pumpApp(
+        tester,
+        Center(
+          child: WiredCupertinoButton.filled(
+            onPressed: () {},
+            child: const Text('Filled'),
+          ),
+        ),
+      );
       expect(find.byType(WiredCupertinoButton), findsOneWidget);
       expect(find.text('Filled'), findsOneWidget);
     });

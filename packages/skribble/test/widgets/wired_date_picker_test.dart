@@ -162,7 +162,10 @@ void main() {
     ) async {
       useLargeViewport(tester);
 
-      await pumpApp(tester, SizedBox(width: 800, height: 800, child: WiredDatePicker()));
+      await pumpApp(
+        tester,
+        SizedBox(width: 800, height: 800, child: WiredDatePicker()),
+      );
       await tester.pumpAndSettle();
 
       final widget = tester.widget<WiredDatePicker>(
@@ -266,14 +269,17 @@ void main() {
       };
       addTearDown(() => FlutterError.onError = origOnError);
 
-      await pumpApp(tester, Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () {
-                  unawaited(showWiredDatePicker(context: context));
-                },
-                child: const Text('Open'),
-              ),
-            ));
+      await pumpApp(
+        tester,
+        Builder(
+          builder: (context) => ElevatedButton(
+            onPressed: () {
+              unawaited(showWiredDatePicker(context: context));
+            },
+            child: const Text('Open'),
+          ),
+        ),
+      );
 
       await tester.tap(find.text('Open'));
       await tester.pumpAndSettle();
@@ -296,17 +302,20 @@ void main() {
 
       DateTime? result;
 
-      await pumpApp(tester, Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () async {
-                  result = await showWiredDatePicker(
-                    context: context,
-                    initialDate: DateTime(2025, 5, 1),
-                  );
-                },
-                child: const Text('Open'),
-              ),
-            ));
+      await pumpApp(
+        tester,
+        Builder(
+          builder: (context) => ElevatedButton(
+            onPressed: () async {
+              result = await showWiredDatePicker(
+                context: context,
+                initialDate: DateTime(2025, 5, 1),
+              );
+            },
+            child: const Text('Open'),
+          ),
+        ),
+      );
 
       await tester.tap(find.text('Open'));
       await tester.pumpAndSettle();

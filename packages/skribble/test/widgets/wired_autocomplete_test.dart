@@ -9,13 +9,16 @@ void main() {
     const options = ['Apple', 'Apricot', 'Banana'];
 
     testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 320,
-              child: WiredAutocomplete<String>(
-                options: options,
-                displayStringForOption: _display,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 320,
+          child: WiredAutocomplete<String>(
+            options: options,
+            displayStringForOption: _display,
+          ),
+        ),
+      );
 
       expect(find.byType(WiredAutocomplete<String>), findsOneWidget);
       expect(find.byType(TextField), findsOneWidget);
@@ -23,13 +26,16 @@ void main() {
     });
 
     testWidgets('shows filtered options when typing', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 320,
-              child: WiredAutocomplete<String>(
-                options: options,
-                displayStringForOption: _display,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 320,
+          child: WiredAutocomplete<String>(
+            options: options,
+            displayStringForOption: _display,
+          ),
+        ),
+      );
 
       await tester.enterText(find.byType(TextField), 'ap');
       await tester.pumpAndSettle();
@@ -42,14 +48,17 @@ void main() {
     testWidgets('calls onSelected and updates field text', (tester) async {
       String? selected;
 
-      await pumpApp(tester, SizedBox(
-              width: 320,
-              child: WiredAutocomplete<String>(
-                options: options,
-                displayStringForOption: _display,
-                onSelected: (value) => selected = value,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 320,
+          child: WiredAutocomplete<String>(
+            options: options,
+            displayStringForOption: _display,
+            onSelected: (value) => selected = value,
+          ),
+        ),
+      );
 
       await tester.enterText(find.byType(TextField), 'ban');
       await tester.pumpAndSettle();
@@ -62,28 +71,34 @@ void main() {
     });
 
     testWidgets('supports label and hint text', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 320,
-              child: WiredAutocomplete<String>(
-                options: options,
-                displayStringForOption: _display,
-                labelText: 'Fruit',
-                hintText: 'Search fruit',
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 320,
+          child: WiredAutocomplete<String>(
+            options: options,
+            displayStringForOption: _display,
+            labelText: 'Fruit',
+            hintText: 'Search fruit',
+          ),
+        ),
+      );
 
       expect(find.text('Fruit'), findsOneWidget);
       expect(find.text('Search fruit'), findsOneWidget);
     });
 
     testWidgets('shows no options for empty query', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 320,
-              child: WiredAutocomplete<String>(
-                options: options,
-                displayStringForOption: _display,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 320,
+          child: WiredAutocomplete<String>(
+            options: options,
+            displayStringForOption: _display,
+          ),
+        ),
+      );
 
       // Empty text should show no suggestions
       await tester.enterText(find.byType(TextField), '');
@@ -94,13 +109,16 @@ void main() {
     });
 
     testWidgets('shows no options when query has no match', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 320,
-              child: WiredAutocomplete<String>(
-                options: options,
-                displayStringForOption: _display,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 320,
+          child: WiredAutocomplete<String>(
+            options: options,
+            displayStringForOption: _display,
+          ),
+        ),
+      );
 
       await tester.enterText(find.byType(TextField), 'xyz');
       await tester.pumpAndSettle();
@@ -111,13 +129,16 @@ void main() {
     });
 
     testWidgets('contains WiredCanvas for border', (tester) async {
-      await pumpApp(tester, SizedBox(
-              width: 320,
-              child: WiredAutocomplete<String>(
-                options: options,
-                displayStringForOption: _display,
-              ),
-            ));
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 320,
+          child: WiredAutocomplete<String>(
+            options: options,
+            displayStringForOption: _display,
+          ),
+        ),
+      );
 
       expect(find.byType(WiredCanvas), findsWidgets);
     });
