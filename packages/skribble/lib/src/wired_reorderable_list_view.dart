@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn version of Flutter's [ReorderableListView].
@@ -120,10 +121,12 @@ class _WiredReorderableItem extends HookWidget {
                   index: index,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Icon(
-                      Icons.drag_handle,
+                    child: WiredIcon(
+                      icon: Icons.drag_handle,
                       color: theme.textColor,
                       size: 20,
+                      fillStyle: WiredIconFillStyle.solid,
+                      strokeWidth: 1.2,
                     ),
                   ),
                 ),

@@ -4,6 +4,13 @@ import 'package:skribble/skribble.dart';
 
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredDismissible', () {
     testWidgets('renders without error', (tester) async {
@@ -57,7 +64,7 @@ void main() {
       // Start a drag to partially reveal background
       await tester.drag(find.text('Swipe right'), const Offset(100, 0));
       await tester.pump();
-      expect(find.byIcon(Icons.delete), findsOneWidget);
+      expect(findWiredIcon(Icons.delete), findsOneWidget);
     });
 
     testWidgets('respects confirmDismiss', (tester) async {
@@ -116,7 +123,7 @@ void main() {
       );
       await tester.drag(find.text('Custom icon'), const Offset(100, 0));
       await tester.pump();
-      expect(find.byIcon(Icons.archive), findsOneWidget);
+      expect(findWiredIcon(Icons.archive), findsOneWidget);
     });
 
     testWidgets('renders within WiredTheme', (tester) async {

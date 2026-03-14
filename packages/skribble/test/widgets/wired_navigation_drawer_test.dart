@@ -5,6 +5,13 @@ import 'package:skribble/skribble.dart';
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredNavigationDrawer', () {
     testWidgets('renders destinations', (tester) async {
@@ -157,8 +164,8 @@ void main() {
       scaffoldState.openDrawer();
       await tester.pumpAndSettle();
 
-      expect(find.byIcon(Icons.star), findsOneWidget);
-      expect(find.byIcon(Icons.archive), findsOneWidget);
+      expect(findWiredIcon(Icons.star), findsOneWidget);
+      expect(findWiredIcon(Icons.archive), findsOneWidget);
     });
 
     testWidgets('renders within WiredTheme', (tester) async {

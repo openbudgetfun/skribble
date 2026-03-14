@@ -4,6 +4,13 @@ import 'package:skribble/skribble.dart';
 
 import '../helpers/pump_app.dart';
 
+Finder findWiredIcon(IconData icon) {
+  return find.byWidgetPredicate(
+    (widget) => widget is WiredIcon && widget.icon == icon,
+    description: 'WiredIcon($icon)',
+  );
+}
+
 void main() {
   group('WiredReorderableListView', () {
     testWidgets('renders all children', (tester) async {
@@ -37,7 +44,7 @@ void main() {
         ),
       );
 
-      expect(find.byIcon(Icons.drag_handle), findsNWidgets(2));
+      expect(findWiredIcon(Icons.drag_handle), findsNWidgets(2));
     });
 
     testWidgets('hides drag handles when showDragHandle is false', (
@@ -55,7 +62,7 @@ void main() {
         ),
       );
 
-      expect(find.byIcon(Icons.drag_handle), findsNothing);
+      expect(findWiredIcon(Icons.drag_handle), findsNothing);
     });
 
     testWidgets('calls onReorder callback', (tester) async {
@@ -76,7 +83,7 @@ void main() {
       );
 
       // Long-press the first drag handle to start reorder
-      final firstHandle = find.byIcon(Icons.drag_handle).first;
+      final firstHandle = findWiredIcon(Icons.drag_handle).first;
       final center = tester.getCenter(firstHandle);
 
       // Initiate long press
@@ -140,7 +147,7 @@ void main() {
       );
 
       expect(find.text('Solo'), findsOneWidget);
-      expect(find.byIcon(Icons.drag_handle), findsOneWidget);
+      expect(findWiredIcon(Icons.drag_handle), findsOneWidget);
     });
   });
 }
