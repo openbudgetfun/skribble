@@ -122,10 +122,7 @@ void main() {
     testWidgets('applies custom background color', (tester) async {
       await pumpApp(
         tester,
-        WiredAppBar(
-          title: const Text('Color'),
-          backgroundColor: Colors.blue,
-        ),
+        WiredAppBar(title: const Text('Color'), backgroundColor: Colors.blue),
         asAppBar: true,
       );
 

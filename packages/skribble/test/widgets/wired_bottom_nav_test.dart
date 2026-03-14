@@ -159,9 +159,7 @@ void main() {
       expect(find.text('Settings'), findsOneWidget);
     });
 
-    testWidgets('switching currentIndex changes selected item', (
-      tester,
-    ) async {
+    testWidgets('switching currentIndex changes selected item', (tester) async {
       await pumpApp(
         tester,
         WiredBottomNavigationBar(items: testItems, currentIndex: 0),

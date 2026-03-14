@@ -7,10 +7,7 @@ import '../helpers/pump_app.dart';
 void main() {
   group('WiredPageScaffold', () {
     testWidgets('renders child content', (tester) async {
-      await pumpApp(
-        tester,
-        const WiredPageScaffold(child: Text('Page body')),
-      );
+      await pumpApp(tester, const WiredPageScaffold(child: Text('Page body')));
       expect(find.text('Page body'), findsOneWidget);
       expect(find.byType(WiredPageScaffold), findsOneWidget);
     });
@@ -75,9 +72,8 @@ void main() {
             WiredTabItem(icon: Icons.home, label: 'Home'),
             WiredTabItem(icon: Icons.person, label: 'Profile'),
           ],
-          tabBuilder: (_, i) => Center(
-            child: Text(i == 0 ? 'Home content' : 'Profile content'),
-          ),
+          tabBuilder: (_, i) =>
+              Center(child: Text(i == 0 ? 'Home content' : 'Profile content')),
         ),
       );
       expect(find.text('Profile content'), findsOneWidget);

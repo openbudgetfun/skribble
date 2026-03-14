@@ -11,10 +11,7 @@ void main() {
         tester,
         WiredNavigationDrawer(
           destinations: const [
-            WiredNavigationDrawerDestination(
-              icon: Icons.home,
-              label: 'Home',
-            ),
+            WiredNavigationDrawerDestination(icon: Icons.home, label: 'Home'),
             WiredNavigationDrawerDestination(
               icon: Icons.settings,
               label: 'Settings',
@@ -41,10 +38,7 @@ void main() {
         tester,
         WiredNavigationDrawer(
           destinations: const [
-            WiredNavigationDrawerDestination(
-              icon: Icons.home,
-              label: 'Home',
-            ),
+            WiredNavigationDrawerDestination(icon: Icons.home, label: 'Home'),
             WiredNavigationDrawerDestination(
               icon: Icons.search,
               label: 'Search',
@@ -73,10 +67,7 @@ void main() {
         WiredNavigationDrawer(
           header: const Text('My App'),
           destinations: const [
-            WiredNavigationDrawerDestination(
-              icon: Icons.home,
-              label: 'Home',
-            ),
+            WiredNavigationDrawerDestination(icon: Icons.home, label: 'Home'),
           ],
         ),
         asDrawer: true,
@@ -102,10 +93,7 @@ void main() {
               selectedIcon: Icons.inbox_rounded,
               label: 'Inbox',
             ),
-            WiredNavigationDrawerDestination(
-              icon: Icons.send,
-              label: 'Sent',
-            ),
+            WiredNavigationDrawerDestination(icon: Icons.send, label: 'Sent'),
           ],
         ),
         asDrawer: true,
@@ -128,10 +116,7 @@ void main() {
         WiredNavigationDrawer(
           width: 250,
           destinations: const [
-            WiredNavigationDrawerDestination(
-              icon: Icons.home,
-              label: 'Home',
-            ),
+            WiredNavigationDrawerDestination(icon: Icons.home, label: 'Home'),
           ],
         ),
         asDrawer: true,
