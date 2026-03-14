@@ -3,6 +3,48 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
+  group('RoughDrawingStyle', () {
+    test('stores width and color', () {
+      const style = RoughDrawingStyle(width: 3, color: Colors.red);
+      expect(style.width, 3);
+      expect(style.color, Colors.red);
+      expect(style.gradient, isNull);
+      expect(style.blendMode, isNull);
+    });
+
+    test('stores gradient', () {
+      const gradient = LinearGradient(colors: [Colors.red, Colors.blue]);
+      const style = RoughDrawingStyle(gradient: gradient);
+      expect(style.gradient, isNotNull);
+    });
+
+    test('stores blendMode', () {
+      const style = RoughDrawingStyle(blendMode: BlendMode.multiply);
+      expect(style.blendMode, BlendMode.multiply);
+    });
+
+    test('defaults all properties to null', () {
+      const style = RoughDrawingStyle();
+      expect(style.width, isNull);
+      expect(style.color, isNull);
+      expect(style.gradient, isNull);
+      expect(style.blendMode, isNull);
+    });
+  });
+
+  group('RoughBoxShape', () {
+    test('has exactly 4 values', () {
+      expect(RoughBoxShape.values.length, 4);
+    });
+
+    test('contains all expected shapes', () {
+      expect(RoughBoxShape.values, contains(RoughBoxShape.rectangle));
+      expect(RoughBoxShape.values, contains(RoughBoxShape.roundedRectangle));
+      expect(RoughBoxShape.values, contains(RoughBoxShape.circle));
+      expect(RoughBoxShape.values, contains(RoughBoxShape.ellipse));
+    });
+  });
+
   group('RoughBoxDecoration', () {
     group('createBoxPainter()', () {
       test('creates RoughDecorationPainter', () {
