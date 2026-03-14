@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredDialog', () {
     testWidgets('renders child content', (tester) async {
@@ -69,11 +71,7 @@ void main() {
     });
 
     testWidgets('contains a Dialog widget', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredDialog(child: const Text('Test'))),
-        ),
-      );
+      await pumpApp(tester, WiredDialog(child: const Text('Test')));
 
       expect(
         find.descendant(
@@ -85,11 +83,7 @@ void main() {
     });
 
     testWidgets('contains WiredCanvas for border', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredDialog(child: const Text('Border check'))),
-        ),
-      );
+      await pumpApp(tester, WiredDialog(child: const Text('Border check')));
 
       expect(
         find.descendant(

@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredChoiceChip', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChoiceChip(label: const Text('Choice'))),
-        ),
-      );
+      await pumpApp(tester, WiredChoiceChip(label: const Text('Choice')));
 
       expect(find.byType(WiredChoiceChip), findsOneWidget);
     });
 
     testWidgets('renders label text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChoiceChip(label: const Text('My Choice'))),
-        ),
-      );
+      await pumpApp(tester, WiredChoiceChip(label: const Text('My Choice')));
 
       expect(find.text('My Choice'), findsOneWidget);
     });
@@ -71,11 +65,7 @@ void main() {
     });
 
     testWidgets('does not crash when onSelected is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChoiceChip(label: const Text('Choice'))),
-        ),
-      );
+      await pumpApp(tester, WiredChoiceChip(label: const Text('Choice')));
 
       // Tapping should not throw even with null onSelected.
       await tester.tap(find.byType(WiredChoiceChip));
@@ -87,11 +77,7 @@ void main() {
     testWidgets('contains WiredCanvas for the rounded rectangle border', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChoiceChip(label: const Text('Choice'))),
-        ),
-      );
+      await pumpApp(tester, WiredChoiceChip(label: const Text('Choice')));
 
       expect(
         find.descendant(
@@ -103,11 +89,7 @@ void main() {
     });
 
     testWidgets('has correct height of 32', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChoiceChip(label: const Text('Choice'))),
-        ),
-      );
+      await pumpApp(tester, WiredChoiceChip(label: const Text('Choice')));
 
       final sizedBox = tester.widget<SizedBox>(
         find
@@ -143,11 +125,7 @@ void main() {
     });
 
     testWidgets('contains RepaintBoundary wrapper', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChoiceChip(label: const Text('Choice'))),
-        ),
-      );
+      await pumpApp(tester, WiredChoiceChip(label: const Text('Choice')));
 
       expect(
         find.descendant(

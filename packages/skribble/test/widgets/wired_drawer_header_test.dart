@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredDrawerHeader', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: WiredDrawerHeader(child: Text('Header'))),
-        ),
-      );
+      await pumpApp(tester, WiredDrawerHeader(child: Text('Header')));
       expect(find.byType(WiredDrawerHeader), findsOneWidget);
       expect(find.text('Header'), findsOneWidget);
     });

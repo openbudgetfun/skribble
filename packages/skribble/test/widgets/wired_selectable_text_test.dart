@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredSelectableText', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: WiredSelectableText('Hello World')),
-        ),
-      );
+      await pumpApp(tester, WiredSelectableText('Hello World'));
       expect(find.byType(WiredSelectableText), findsOneWidget);
       expect(find.text('Hello World'), findsOneWidget);
     });
@@ -29,11 +27,7 @@ void main() {
     });
 
     testWidgets('is selectable', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: WiredSelectableText('Select me')),
-        ),
-      );
+      await pumpApp(tester, WiredSelectableText('Select me'));
       // SelectableText should be present
       expect(find.byType(SelectableText), findsOneWidget);
     });
@@ -67,11 +61,7 @@ void main() {
     });
 
     testWidgets('shows cursor when showCursor is true', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: WiredSelectableText('Cursor', showCursor: true)),
-        ),
-      );
+      await pumpApp(tester, WiredSelectableText('Cursor', showCursor: true));
       final selectableText = tester.widget<SelectableText>(
         find.byType(SelectableText),
       );

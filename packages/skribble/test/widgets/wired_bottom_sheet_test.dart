@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredBottomSheet', () {
     testWidgets('renders without error', (tester) async {
@@ -31,11 +33,7 @@ void main() {
     });
 
     testWidgets('renders drag handle', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredBottomSheet(child: const Text('Content'))),
-        ),
-      );
+      await pumpApp(tester, WiredBottomSheet(child: const Text('Content')));
 
       // The drag handle is a 40x4 SizedBox containing a WiredCanvas.
       // There should be at least two WiredCanvas widgets: the top line and
@@ -50,11 +48,7 @@ void main() {
     });
 
     testWidgets('renders top border line', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredBottomSheet(child: const Text('Content'))),
-        ),
-      );
+      await pumpApp(tester, WiredBottomSheet(child: const Text('Content')));
 
       // The top border is a 2px-tall SizedBox containing a WiredCanvas.
       final sizedBoxes = tester.widgetList<SizedBox>(
@@ -71,11 +65,7 @@ void main() {
     });
 
     testWidgets('uses Column with MainAxisSize.min', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredBottomSheet(child: const Text('Content'))),
-        ),
-      );
+      await pumpApp(tester, WiredBottomSheet(child: const Text('Content')));
 
       final column = tester.widget<Column>(
         find.descendant(

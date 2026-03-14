@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredSwitch', () {
     testWidgets('renders without error', (tester) async {
@@ -98,11 +100,7 @@ void main() {
     });
 
     testWidgets('does not throw when onChanged is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
-        ),
-      );
+      await pumpApp(tester, Center(child: WiredSwitch(value: false)));
 
       // Invoke onTap directly; it should not throw even when onChanged is null.
       final gestureDetector = tester.widget<GestureDetector>(
@@ -116,11 +114,7 @@ void main() {
     });
 
     testWidgets('has correct default size (60x24)', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
-        ),
-      );
+      await pumpApp(tester, Center(child: WiredSwitch(value: false)));
 
       final size = tester.getSize(find.byType(WiredSwitch));
 
@@ -160,11 +154,7 @@ void main() {
     });
 
     testWidgets('property defaults are null for colors', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
-        ),
-      );
+      await pumpApp(tester, Center(child: WiredSwitch(value: false)));
 
       final widget = tester.widget<WiredSwitch>(find.byType(WiredSwitch));
       expect(widget.activeColor, isNull);
@@ -175,11 +165,7 @@ void main() {
     testWidgets('contains WiredCanvas widgets for track and thumb', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
-        ),
-      );
+      await pumpApp(tester, Center(child: WiredSwitch(value: false)));
 
       // The switch renders two WiredCanvas: one for the track, one for the
       // thumb.
@@ -194,38 +180,22 @@ void main() {
 
     testWidgets('renders in both value states without error', (tester) async {
       // Render with value=true
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: Center(child: WiredSwitch(value: true))),
-        ),
-      );
+      await pumpApp(tester, Center(child: WiredSwitch(value: true)));
 
       expect(find.byType(WiredSwitch), findsOneWidget);
 
       // Render with value=false
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
-        ),
-      );
+      await pumpApp(tester, Center(child: WiredSwitch(value: false)));
       await tester.pumpAndSettle();
 
       expect(find.byType(WiredSwitch), findsOneWidget);
     });
 
     testWidgets('animation completes when value changes', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: Center(child: WiredSwitch(value: false))),
-        ),
-      );
+      await pumpApp(tester, Center(child: WiredSwitch(value: false)));
 
       // Rebuild with value=true to trigger the forward animation.
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: Center(child: WiredSwitch(value: true))),
-        ),
-      );
+      await pumpApp(tester, Center(child: WiredSwitch(value: true)));
       await tester.pumpAndSettle();
 
       // No assertions on exact position, but pumpAndSettle should complete

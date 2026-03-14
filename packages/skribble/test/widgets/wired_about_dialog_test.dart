@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredAboutDialog', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: WiredAboutDialog(applicationName: 'Test App')),
-        ),
-      );
+      await pumpApp(tester, WiredAboutDialog(applicationName: 'Test App'));
       expect(find.byType(WiredAboutDialog), findsOneWidget);
       expect(find.text('Test App'), findsOneWidget);
     });

@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredChip', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
-        ),
-      );
+      await pumpApp(tester, WiredChip(label: const Text('Chip')));
 
       expect(find.byType(WiredChip), findsOneWidget);
     });
 
     testWidgets('renders label text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChip(label: const Text('My Label'))),
-        ),
-      );
+      await pumpApp(tester, WiredChip(label: const Text('My Label')));
 
       expect(find.text('My Label'), findsOneWidget);
     });
@@ -40,11 +34,7 @@ void main() {
     });
 
     testWidgets('does not render avatar when not provided', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
-        ),
-      );
+      await pumpApp(tester, WiredChip(label: const Text('Chip')));
 
       expect(find.byIcon(Icons.person), findsNothing);
     });
@@ -66,11 +56,7 @@ void main() {
     testWidgets('does not render delete icon when onDeleted is null', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
-        ),
-      );
+      await pumpApp(tester, WiredChip(label: const Text('Chip')));
 
       expect(find.byIcon(Icons.close), findsNothing);
     });
@@ -96,11 +82,7 @@ void main() {
     });
 
     testWidgets('has correct height of 32', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
-        ),
-      );
+      await pumpApp(tester, WiredChip(label: const Text('Chip')));
 
       // The SizedBox inside WiredChip has a fixed height of 32.
       final sizedBox = tester.widget<SizedBox>(
@@ -118,11 +100,7 @@ void main() {
     testWidgets('contains WiredCanvas for the rounded rectangle border', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
-        ),
-      );
+      await pumpApp(tester, WiredChip(label: const Text('Chip')));
 
       expect(
         find.descendant(
@@ -152,11 +130,7 @@ void main() {
     });
 
     testWidgets('contains RepaintBoundary wrapper', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredChip(label: const Text('Chip'))),
-        ),
-      );
+      await pumpApp(tester, WiredChip(label: const Text('Chip')));
 
       // WiredChip uses buildWiredElement which wraps with RepaintBoundary.
       expect(

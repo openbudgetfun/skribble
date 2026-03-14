@@ -2,26 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredTabBar', () {
     const testTabs = ['Tab 1', 'Tab 2', 'Tab 3'];
 
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs));
 
       expect(find.byType(WiredTabBar), findsOneWidget);
     });
 
     testWidgets('renders all tab labels', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs));
 
       expect(find.text('Tab 1'), findsOneWidget);
       expect(find.text('Tab 2'), findsOneWidget);
@@ -29,11 +23,7 @@ void main() {
     });
 
     testWidgets('default selectedIndex is 0', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs));
 
       final widget = tester.widget<WiredTabBar>(find.byType(WiredTabBar));
 
@@ -119,11 +109,7 @@ void main() {
     });
 
     testWidgets('does not crash when onTap is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs));
 
       await tester.tap(find.text('Tab 1'));
       await tester.pump();
@@ -132,11 +118,7 @@ void main() {
     });
 
     testWidgets('renders bottom line via WiredCanvas', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs));
 
       expect(
         find.descendant(
@@ -150,11 +132,7 @@ void main() {
     testWidgets('selected tab has underline indicator WiredCanvas', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs, selectedIndex: 0)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs, selectedIndex: 0));
 
       // Selected tab at index 0 should have a WiredCanvas for the underline
       // indicator, plus the bottom line WiredCanvas. Total at least 2.
@@ -168,11 +146,7 @@ void main() {
     });
 
     testWidgets('each tab is wrapped in GestureDetector', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs));
 
       expect(
         find.descendant(
@@ -186,11 +160,7 @@ void main() {
     testWidgets('tabs use Expanded for equal width distribution', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs));
 
       // Each tab is wrapped in Expanded inside the Row.
       expect(
@@ -203,17 +173,9 @@ void main() {
     });
 
     testWidgets('rebuilds when selectedIndex changes', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs, selectedIndex: 0)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs, selectedIndex: 0));
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs, selectedIndex: 2)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs, selectedIndex: 2));
 
       final widget = tester.widget<WiredTabBar>(find.byType(WiredTabBar));
 
@@ -221,11 +183,7 @@ void main() {
     });
 
     testWidgets('renders with two tabs', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: const ['Alpha', 'Beta'])),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: const ['Alpha', 'Beta']));
 
       expect(find.text('Alpha'), findsOneWidget);
       expect(find.text('Beta'), findsOneWidget);
@@ -249,11 +207,7 @@ void main() {
     });
 
     testWidgets('selected tab has bold font weight', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs, selectedIndex: 1)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs, selectedIndex: 1));
 
       // Find the Text widget for 'Tab 2' which should be selected (bold).
       final selectedText = tester.widget<Text>(find.text('Tab 2'));
@@ -261,11 +215,7 @@ void main() {
     });
 
     testWidgets('unselected tab has normal font weight', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTabBar(tabs: testTabs, selectedIndex: 1)),
-        ),
-      );
+      await pumpApp(tester, WiredTabBar(tabs: testTabs, selectedIndex: 1));
 
       // 'Tab 1' is unselected (index 0), should have normal weight.
       final unselectedText = tester.widget<Text>(find.text('Tab 1'));

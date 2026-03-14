@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredFilterChip', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredFilterChip(label: const Text('Filter'))),
-        ),
-      );
+      await pumpApp(tester, WiredFilterChip(label: const Text('Filter')));
 
       expect(find.byType(WiredFilterChip), findsOneWidget);
     });
 
     testWidgets('renders label text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredFilterChip(label: const Text('My Filter'))),
-        ),
-      );
+      await pumpApp(tester, WiredFilterChip(label: const Text('My Filter')));
 
       expect(find.text('My Filter'), findsOneWidget);
     });
@@ -95,11 +89,7 @@ void main() {
     });
 
     testWidgets('does not crash when onSelected is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredFilterChip(label: const Text('Filter'))),
-        ),
-      );
+      await pumpApp(tester, WiredFilterChip(label: const Text('Filter')));
 
       // Tapping should not throw even with null onSelected.
       await tester.tap(find.byType(WiredFilterChip));
@@ -111,11 +101,7 @@ void main() {
     testWidgets('contains WiredCanvas for the rounded rectangle border', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredFilterChip(label: const Text('Filter'))),
-        ),
-      );
+      await pumpApp(tester, WiredFilterChip(label: const Text('Filter')));
 
       expect(
         find.descendant(
@@ -127,11 +113,7 @@ void main() {
     });
 
     testWidgets('has correct height of 32', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredFilterChip(label: const Text('Filter'))),
-        ),
-      );
+      await pumpApp(tester, WiredFilterChip(label: const Text('Filter')));
 
       final sizedBox = tester.widget<SizedBox>(
         find
@@ -167,11 +149,7 @@ void main() {
     });
 
     testWidgets('contains RepaintBoundary wrapper', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredFilterChip(label: const Text('Filter'))),
-        ),
-      );
+      await pumpApp(tester, WiredFilterChip(label: const Text('Filter')));
 
       expect(
         find.descendant(

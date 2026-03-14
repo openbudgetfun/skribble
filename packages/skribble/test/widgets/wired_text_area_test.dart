@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredTextArea', () {
     testWidgets('renders without error', (tester) async {
@@ -27,11 +29,7 @@ void main() {
     });
 
     testWidgets('displays hint text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea(hintText: 'Enter description...')),
-        ),
-      );
+      await pumpApp(tester, WiredTextArea(hintText: 'Enter description...'));
 
       expect(find.text('Enter description...'), findsOneWidget);
     });
@@ -71,11 +69,7 @@ void main() {
     testWidgets('uses provided TextEditingController', (tester) async {
       final controller = TextEditingController(text: 'Initial');
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea(controller: controller)),
-        ),
-      );
+      await pumpApp(tester, WiredTextArea(controller: controller));
 
       expect(find.text('Initial'), findsOneWidget);
 
@@ -158,11 +152,7 @@ void main() {
     testWidgets('applies custom style', (tester) async {
       const customStyle = TextStyle(fontSize: 20, color: Colors.red);
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredTextArea(style: customStyle)),
-        ),
-      );
+      await pumpApp(tester, WiredTextArea(style: customStyle));
 
       final textField = tester.widget<TextField>(find.byType(TextField));
       expect(textField.style?.fontSize, 20);

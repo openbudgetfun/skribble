@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredListTile', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredListTile(title: const Text('List item'))),
-        ),
-      );
+      await pumpApp(tester, WiredListTile(title: const Text('List item')));
 
       expect(find.byType(WiredListTile), findsOneWidget);
     });
 
     testWidgets('renders title', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredListTile(title: const Text('Tile Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredListTile(title: const Text('Tile Title')));
 
       expect(find.text('Tile Title'), findsOneWidget);
     });
@@ -40,11 +34,7 @@ void main() {
     });
 
     testWidgets('does not render subtitle when null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredListTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredListTile(title: const Text('Title')));
 
       expect(find.text('Title'), findsOneWidget);
       // No extra text widgets besides the title.
@@ -73,11 +63,7 @@ void main() {
     });
 
     testWidgets('does not render leading widget when null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredListTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredListTile(title: const Text('Title')));
 
       expect(find.byIcon(Icons.person), findsNothing);
     });
@@ -98,11 +84,7 @@ void main() {
     });
 
     testWidgets('does not render trailing widget when null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredListTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredListTile(title: const Text('Title')));
 
       expect(find.byIcon(Icons.arrow_forward), findsNothing);
     });
@@ -128,11 +110,7 @@ void main() {
     });
 
     testWidgets('does not crash when onTap is null', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredListTile(title: const Text('No tap'))),
-        ),
-      );
+      await pumpApp(tester, WiredListTile(title: const Text('No tap')));
 
       // Tapping should not throw when onTap is null.
       await tester.tap(find.text('No tap'));
@@ -142,11 +120,7 @@ void main() {
     });
 
     testWidgets('showDivider defaults to true', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(body: WiredListTile(title: const Text('Title'))),
-        ),
-      );
+      await pumpApp(tester, WiredListTile(title: const Text('Title')));
 
       final tile = tester.widget<WiredListTile>(find.byType(WiredListTile));
       expect(tile.showDivider, isTrue);
