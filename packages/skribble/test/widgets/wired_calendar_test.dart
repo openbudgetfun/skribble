@@ -124,10 +124,7 @@ void main() {
 
       String? selectedDate;
 
-      await pumpSubject(
-        tester,
-        onSelected: (value) => selectedDate = value,
-      );
+      await pumpSubject(tester, onSelected: (value) => selectedDate = value);
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('10').first);
