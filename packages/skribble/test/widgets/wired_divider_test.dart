@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredDivider', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: WiredDivider())),
-      );
+      await pumpApp(tester, const WiredDivider());
 
       expect(find.byType(WiredDivider), findsOneWidget);
     });
 
     testWidgets('contains Divider widget', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: WiredDivider())),
-      );
+      await pumpApp(tester, const WiredDivider());
 
       expect(
         find.descendant(
@@ -27,9 +25,7 @@ void main() {
     });
 
     testWidgets('has transparent divider color', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: WiredDivider())),
-      );
+      await pumpApp(tester, const WiredDivider());
 
       final divider = tester.widget<Divider>(
         find.descendant(
@@ -42,9 +38,7 @@ void main() {
     });
 
     testWidgets('contains WiredCanvas for line', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: WiredDivider())),
-      );
+      await pumpApp(tester, const WiredDivider());
 
       expect(
         find.descendant(
@@ -56,17 +50,10 @@ void main() {
     });
 
     testWidgets('renders inside a Column with other widgets', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                Text('Above'),
-                WiredDivider(),
-                Text('Below'),
-              ],
-            ),
-          ),
+      await pumpApp(
+        tester,
+        const Column(
+          children: [Text('Above'), WiredDivider(), Text('Below')],
         ),
       );
 
@@ -76,19 +63,16 @@ void main() {
     });
 
     testWidgets('renders multiple dividers without error', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                WiredDivider(),
-                SizedBox(height: 10),
-                WiredDivider(),
-                SizedBox(height: 10),
-                WiredDivider(),
-              ],
-            ),
-          ),
+      await pumpApp(
+        tester,
+        const Column(
+          children: [
+            WiredDivider(),
+            SizedBox(height: 10),
+            WiredDivider(),
+            SizedBox(height: 10),
+            WiredDivider(),
+          ],
         ),
       );
 
