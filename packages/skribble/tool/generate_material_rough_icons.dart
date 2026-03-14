@@ -150,6 +150,19 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     );
   }
 
+  if (options.supplementalManifestOutputPath
+      case final supplementalManifestOutputPath?) {
+    final supplementalManifestOutputFile = File(supplementalManifestOutputPath)
+      ..createSync(recursive: true);
+    supplementalManifestOutputFile.writeAsStringSync(
+      _renderSupplementalManifestTemplateJson(unresolved: unresolved),
+    );
+    stdout.writeln(
+      'Generated supplemental manifest template to '
+      '${supplementalManifestOutputFile.path}',
+    );
+  }
+
   if (unresolved.isEmpty) {
     return;
   }
@@ -194,6 +207,8 @@ Options:
   --brand-icons-source <path>      Path to extracted simple-icons package (brand fallback).
   --supplemental-manifest <path>   JSON manifest for unresolved flutter-material icons.
   --unresolved-output <path>       Emit unresolved icon codepoint report as JSON.
+  --supplemental-manifest-output <path>
+                                   Emit supplemental manifest template JSON.
   --fail-on-unresolved             Exit with error when unresolved icons remain.
   --output <path>                  Output Dart file.
   --rough-cli <path>               TypeScript script that converts SVG(s) (default: tool/deno/svg2roughjs_cli.ts).
@@ -243,6 +258,7 @@ final class _ScriptOptions {
     this.brandIconsSourcePath,
     this.supplementalManifestPath,
     this.unresolvedOutputPath,
+    this.supplementalManifestOutputPath,
     this.outputPath,
     this.roughCliPath,
     this.roughCliRunner = _kDefaultRoughCliRunner,
@@ -269,6 +285,7 @@ final class _ScriptOptions {
   final String? brandIconsSourcePath;
   final String? supplementalManifestPath;
   final String? unresolvedOutputPath;
+  final String? supplementalManifestOutputPath;
   final String? outputPath;
   final String? roughCliPath;
   final String roughCliRunner;
@@ -295,6 +312,7 @@ final class _ScriptOptions {
     String? brandIconsSourcePath;
     String? supplementalManifestPath;
     String? unresolvedOutputPath;
+    String? supplementalManifestOutputPath;
     String? outputPath;
     String? roughCliPath;
     var roughCliRunner = _kDefaultRoughCliRunner;
@@ -369,6 +387,8 @@ final class _ScriptOptions {
           supplementalManifestPath = value;
         case '--unresolved-output':
           unresolvedOutputPath = value;
+        case '--supplemental-manifest-output':
+          supplementalManifestOutputPath = value;
         case '--output':
           outputPath = value;
         case '--rough-cli':
@@ -405,6 +425,7 @@ final class _ScriptOptions {
       brandIconsSourcePath: brandIconsSourcePath,
       supplementalManifestPath: supplementalManifestPath,
       unresolvedOutputPath: unresolvedOutputPath,
+      supplementalManifestOutputPath: supplementalManifestOutputPath,
       outputPath: outputPath,
       roughCliPath: roughCliPath,
       roughCliRunner: roughCliRunner,
@@ -1280,6 +1301,26 @@ String _renderUnresolvedReportJson({
   };
 
   return const JsonEncoder.withIndent('  ').convert(report);
+}
+
+String _renderSupplementalManifestTemplateJson({
+  required List<_UnresolvedIcon> unresolved,
+}) {
+  final icons = unresolved
+      .map((item) {
+        final identifier = item.identifiers.isNotEmpty
+            ? item.identifiers.first
+            : 'icon_0x${item.codePoint.toRadixString(16)}';
+        return <String, Object>{
+          'identifier': identifier,
+          'codePoint': '0x${item.codePoint.toRadixString(16)}',
+          'svgPath': 'TODO/$identifier.svg',
+        };
+      })
+      .toList(growable: false);
+
+  final manifest = <String, Object>{'icons': icons};
+  return const JsonEncoder.withIndent('  ').convert(manifest);
 }
 
 String renderFontCodePointsDartForTest({
