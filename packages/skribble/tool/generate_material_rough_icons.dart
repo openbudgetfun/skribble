@@ -249,7 +249,7 @@ Options:
   --unresolved-output <path>       Emit unresolved icon codepoint report as JSON.
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
-  --unresolved-baseline <path>     Baseline unresolved report JSON for diffing.
+  --unresolved-baseline <path>     Baseline unresolved report or manifest JSON for diffing.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain.
   --fail-on-new-unresolved         Exit with error on unresolved baseline regressions.
@@ -1366,22 +1366,34 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
   }
 
   final decoded = jsonDecode(baselineFile.readAsStringSync());
-  if (decoded is! Map<String, Object?>) {
-    throw FormatException(
-      'Expected unresolved baseline JSON object at ${baselineFile.path}.',
-    );
-  }
 
-  final unresolvedValue = decoded['unresolved'];
-  if (unresolvedValue is! List<Object?>) {
+  List<Object?> entries;
+  if (decoded is List<Object?>) {
+    entries = decoded;
+  } else if (decoded is Map<String, Object?>) {
+    final unresolvedValue = decoded['unresolved'];
+    final iconsValue = decoded['icons'];
+
+    if (unresolvedValue is List<Object?>) {
+      entries = unresolvedValue;
+    } else if (iconsValue is List<Object?>) {
+      entries = iconsValue;
+    } else {
+      throw FormatException(
+        'Expected unresolved baseline JSON to contain either an '
+        '"unresolved" list (report format) or "icons" list '
+        '(manifest format) at ${baselineFile.path}.',
+      );
+    }
+  } else {
     throw FormatException(
-      'Expected "unresolved" list in unresolved baseline report '
+      'Expected unresolved baseline JSON to be a list or object at '
       '${baselineFile.path}.',
     );
   }
 
   final codePoints = <int>{};
-  for (final entry in unresolvedValue) {
+  for (final entry in entries) {
     if (entry is Map<Object?, Object?>) {
       codePoints.add(
         _parseCodePointValue(
