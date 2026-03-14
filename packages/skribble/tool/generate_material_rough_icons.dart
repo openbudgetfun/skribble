@@ -94,6 +94,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
   final baselineUnresolvedCodePoints = _loadUnresolvedBaselineCodePoints(
     options.unresolvedBaselinePath,
   );
+  final unresolvedCodePoints = unresolved.map((item) => item.codePoint).toSet();
   final newUnresolved = baselineUnresolvedCodePoints == null
       ? null
       : unresolved
@@ -101,6 +102,15 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
               (item) => !baselineUnresolvedCodePoints.contains(item.codePoint),
             )
             .toList(growable: false);
+  final resolvedSinceBaseline = baselineUnresolvedCodePoints == null
+      ? null
+      : (() {
+          final resolved = baselineUnresolvedCodePoints
+              .where((codePoint) => !unresolvedCodePoints.contains(codePoint))
+              .toList(growable: false);
+          resolved.sort();
+          return resolved;
+        })();
 
   if (options.roughOutputDir != null) {
     await _generateRoughSvgs(options, roughTasks);
@@ -154,7 +164,9 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
         kit: options.kit,
         resolvedCount: icons.length,
         unresolved: unresolved,
+        baselineUnresolvedCount: baselineUnresolvedCodePoints?.length,
         newUnresolved: newUnresolved,
+        resolvedSinceBaseline: resolvedSinceBaseline,
       ),
     );
     stdout.writeln(
@@ -211,6 +223,19 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
         '  + 0x${item.codePoint.toRadixString(16)}: '
         '${item.identifiers.join(', ')}',
       );
+    }
+  }
+
+  if (resolvedSinceBaseline case final resolvedDiff?) {
+    if (resolvedDiff.isNotEmpty) {
+      final baselineSeverity = shouldFail ? 'Warning' : 'Info';
+      stderr.writeln(
+        '$baselineSeverity: ${resolvedDiff.length} baseline unresolved '
+        'codepoints are now resolved.',
+      );
+      for (final codePoint in resolvedDiff) {
+        stderr.writeln('  - 0x${codePoint.toRadixString(16)}');
+      }
     }
   }
 
@@ -1434,7 +1459,9 @@ String _renderUnresolvedReportJson({
   required String kit,
   required int resolvedCount,
   required List<_UnresolvedIcon> unresolved,
+  required int? baselineUnresolvedCount,
   required List<_UnresolvedIcon>? newUnresolved,
+  required List<int>? resolvedSinceBaseline,
 }) {
   final report = <String, Object>{
     'kit': kit,
@@ -1448,6 +1475,9 @@ String _renderUnresolvedReportJson({
           },
         )
         .toList(growable: false),
+    if (baselineUnresolvedCount != null) ...<String, Object>{
+      'baselineUnresolvedCount': baselineUnresolvedCount,
+    },
     if (newUnresolved != null) ...<String, Object>{
       'newUnresolvedCount': newUnresolved.length,
       'newUnresolved': newUnresolved
@@ -1457,6 +1487,12 @@ String _renderUnresolvedReportJson({
               'identifiers': item.identifiers,
             },
           )
+          .toList(growable: false),
+    },
+    if (resolvedSinceBaseline != null) ...<String, Object>{
+      'resolvedSinceBaselineCount': resolvedSinceBaseline.length,
+      'resolvedSinceBaseline': resolvedSinceBaseline
+          .map((codePoint) => '0x${codePoint.toRadixString(16)}')
           .toList(growable: false),
     },
   };

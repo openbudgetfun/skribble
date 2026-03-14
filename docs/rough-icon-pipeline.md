@@ -120,7 +120,9 @@ The JSON report includes:
 - `resolvedCount`
 - `unresolvedCount`
 - `unresolved[]` entries with `codePoint` and `identifiers`
+- optional `baselineUnresolvedCount`
 - optional `newUnresolvedCount` / `newUnresolved[]` when baseline comparison is enabled
+- optional `resolvedSinceBaselineCount` / `resolvedSinceBaseline[]` (codepoint strings)
 
 ## Supplemental manifest template output
 

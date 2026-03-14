@@ -208,7 +208,7 @@ Useful flags:
 - `--supplemental-manifest <path>` to provide custom SVGs for unresolved `flutter-material` identifiers/codepoints.
 - `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring.
 - `--supplemental-manifest-output <path>` to emit a starter supplemental manifest template for unresolved icons.
-- `--unresolved-baseline <path>` to compare unresolved output against a baseline report (`unresolved[]`) or manifest (`icons[]`).
+- `--unresolved-baseline <path>` to compare unresolved output against a baseline report (`unresolved[]`) or manifest (`icons[]`), including `newUnresolved` and `resolvedSinceBaseline` report fields.
 - `--max-unresolved <int>` to allow a bounded unresolved count before failing.
 - `--fail-on-unresolved` to make the command exit non-zero if unresolved icons remain.
 - `--fail-on-new-unresolved` to fail only when unresolved entries regress versus baseline.
