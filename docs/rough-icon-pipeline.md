@@ -22,6 +22,7 @@ Compatibility alias (backward compatible):
    - emits Dart map (`material_rough_icons.g.dart`)
    - emits rough SVG files (`--rough-output-dir`)
    - generates icon fonts with `fantasticon` (`--font-output-dir`)
+   - emits Dart helpers for generated icon fonts (`--font-dart-output`)
 
 ## Extensibility seam
 
@@ -73,7 +74,8 @@ dart run tool/generate_rough_icons.dart \
   --kit svg-manifest \
   --manifest tool/examples/custom_icons.manifest.json \
   --output lib/src/generated/custom_rough_icons.g.dart \
-  --rough-output-dir tool/icon_exports/custom-rough-svg
+  --rough-output-dir tool/icon_exports/custom-rough-svg \
+  --font-dart-output lib/src/generated/custom_rough_icon_font.g.dart
 ```
 
 To add another icon kit, implement a provider that:
