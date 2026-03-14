@@ -409,6 +409,88 @@ class Icons {
     });
   });
 
+  group('runGenerateRoughIcons supplemental manifest template output', () {
+    late Directory tempDirectory;
+
+    setUp(() {
+      tempDirectory = Directory.systemTemp.createTempSync(
+        'rough-icon-supplemental-manifest-template-test-',
+      );
+    });
+
+    tearDown(() {
+      tempDirectory.deleteSync(recursive: true);
+    });
+
+    test(
+      'writes supplemental manifest template JSON for unresolved icons',
+      () async {
+        final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+          ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "label outline".
+  static const IconData label_outline = IconData(0xe364, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "adobe".
+  static const IconData adobe = IconData(0xf04b9, fontFamily: 'MaterialIcons');
+}
+''');
+
+        final materialIconsRoot = Directory(
+          '${tempDirectory.path}/material-icons',
+        )..createSync(recursive: true);
+        final materialSymbolsRoot = Directory(
+          '${tempDirectory.path}/material-symbols',
+        )..createSync(recursive: true);
+        final brandIconsRoot = Directory('${tempDirectory.path}/simple-icons')
+          ..createSync(recursive: true);
+
+        File('${materialIconsRoot.path}/filled/label.svg')
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+          );
+
+        final outputFile = File(
+          '${tempDirectory.path}/material_rough_icons.g.dart',
+        );
+        final supplementalTemplateFile = File(
+          '${tempDirectory.path}/supplemental_template.json',
+        );
+
+        await tool.runGenerateRoughIcons(<String>[
+          '--kit',
+          'flutter-material',
+          '--flutter-icons',
+          flutterIconsFile.path,
+          '--material-icons-source',
+          materialIconsRoot.path,
+          '--material-symbols-source',
+          materialSymbolsRoot.path,
+          '--brand-icons-source',
+          brandIconsRoot.path,
+          '--supplemental-manifest-output',
+          supplementalTemplateFile.path,
+          '--output',
+          outputFile.path,
+        ]);
+
+        expect(supplementalTemplateFile.existsSync(), isTrue);
+
+        final decoded =
+            jsonDecode(supplementalTemplateFile.readAsStringSync())
+                as Map<String, dynamic>;
+        final icons = decoded['icons'] as List<dynamic>;
+        expect(icons, hasLength(1));
+
+        final firstIcon = icons.first as Map<String, dynamic>;
+        expect(firstIcon['identifier'], 'adobe');
+        expect(firstIcon['codePoint'], '0xf04b9');
+        expect(firstIcon['svgPath'], 'TODO/adobe.svg');
+      },
+    );
+  });
+
   group('runGenerateRoughIcons fail on unresolved', () {
     late Directory tempDirectory;
 

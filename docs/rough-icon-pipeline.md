@@ -25,6 +25,7 @@ Compatibility alias (backward compatible):
    - generates icon fonts with `fantasticon` (`--font-output-dir`)
    - emits Dart helpers for generated icon fonts (`--font-dart-output`)
    - emits unresolved icon reports as JSON (`--unresolved-output`)
+   - emits supplemental manifest templates (`--supplemental-manifest-output`)
    - can fail CI on unresolved icons (`--fail-on-unresolved`)
 
 ## Extensibility seam
@@ -119,6 +120,16 @@ The JSON report includes:
 - `resolvedCount`
 - `unresolvedCount`
 - `unresolved[]` entries with `codePoint` and `identifiers`
+
+## Supplemental manifest template output
+
+To emit a starter supplemental manifest for unresolved icons, pass:
+
+- `--supplemental-manifest-output <path>`
+
+The output uses the same `icons[]` schema as `--kit svg-manifest` and can be
+edited by replacing placeholder `svgPath` values before passing it back via
+`--supplemental-manifest`.
 
 ## Strict unresolved mode
 
