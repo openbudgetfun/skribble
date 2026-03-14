@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.3.2
+
+### Quality & Tooling
+
+- **100% pumpApp adoption**: All 82 widget test files now use the shared
+  `pumpApp` / `pumpSubject` helper, with `asAppBar`, `asBottomNav`, and
+  `asDrawer` variants for Scaffold slot testing.
+- **MIT LICENSE**: Added project-wide MIT license file.
+- **pub.dev readiness**: Added `homepage` and `documentation` URLs,
+  removed `publish_to: none`.
+- **GitHub templates**: Bug report, feature request, and PR checklist.
+- **CONTRIBUTING.md**: Contributor guide covering setup, conventions,
+  testing requirements (≥ 6 tests), and quality gates.
+- **README**: Added Contributing and License sections with links.
+
+### Stats
+
+- 997 library tests (853 widget + 138 rough + 6 smoke)
+- 58 storybook tests (50 page + 8 golden)
+- **1,055 total tests**
+- 0 `dart analyze` issues, 0 `dart doc` warnings
+
 ## 0.3.1
 
 ### Internal Improvements
