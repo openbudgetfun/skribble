@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredCalendar', () {
-    Widget buildCalendar({
+    Future<void> pumpSubject(
+      WidgetTester tester, {
       String? selected,
       void Function(String)? onSelected,
     }) {
-      return MaterialApp(
-        home: Scaffold(
-          body: SizedBox(
-            height: 800,
-            width: 800,
-            child: WiredCalendar(selected: selected, onSelected: onSelected),
-          ),
+      return pumpApp(
+        tester,
+        SizedBox(
+          height: 800,
+          width: 800,
+          child: WiredCalendar(selected: selected, onSelected: onSelected),
         ),
       );
     }
@@ -44,7 +46,7 @@ void main() {
     testWidgets('renders without error', (tester) async {
       useLargeViewport(tester);
 
-      await tester.pumpWidget(buildCalendar());
+      await pumpSubject(tester);
       await tester.pumpAndSettle();
 
       expect(find.byType(WiredCalendar), findsOneWidget);
@@ -53,7 +55,7 @@ void main() {
     testWidgets('shows current month and year', (tester) async {
       useLargeViewport(tester);
 
-      await tester.pumpWidget(buildCalendar());
+      await pumpSubject(tester);
       await tester.pumpAndSettle();
 
       final now = DateTime.now();
@@ -65,7 +67,7 @@ void main() {
     testWidgets('shows weekday headers', (tester) async {
       useLargeViewport(tester);
 
-      await tester.pumpWidget(buildCalendar());
+      await pumpSubject(tester);
       await tester.pumpAndSettle();
 
       expect(find.text('Sun'), findsOneWidget);
@@ -80,18 +82,16 @@ void main() {
     testWidgets('navigate to previous month with << button', (tester) async {
       useLargeViewport(tester);
 
-      await tester.pumpWidget(buildCalendar());
+      await pumpSubject(tester);
       await tester.pumpAndSettle();
 
       final now = DateTime.now();
       final currentMonthYear = '${months[now.month - 1]} ${now.year}';
       expect(find.text(currentMonthYear), findsOneWidget);
 
-      // Tap the << button to navigate to the previous month.
       await tester.tap(find.text('<<'));
       await tester.pumpAndSettle();
 
-      // Compute the expected previous month.
       final prevMonth = now.month == 1 ? 12 : now.month - 1;
       final prevYear = now.month == 1 ? now.year - 1 : now.year;
       final expectedPrevMonthYear = '${months[prevMonth - 1]} $prevYear';
@@ -102,18 +102,16 @@ void main() {
     testWidgets('navigate to next month with >> button', (tester) async {
       useLargeViewport(tester);
 
-      await tester.pumpWidget(buildCalendar());
+      await pumpSubject(tester);
       await tester.pumpAndSettle();
 
       final now = DateTime.now();
       final currentMonthYear = '${months[now.month - 1]} ${now.year}';
       expect(find.text(currentMonthYear), findsOneWidget);
 
-      // Tap the >> button to navigate to the next month.
       await tester.tap(find.text('>>'));
       await tester.pumpAndSettle();
 
-      // Compute the expected next month.
       final nextMonth = now.month == 12 ? 1 : now.month + 1;
       final nextYear = now.month == 12 ? now.year + 1 : now.year;
       final expectedNextMonthYear = '${months[nextMonth - 1]} $nextYear';
@@ -126,13 +124,12 @@ void main() {
 
       String? selectedDate;
 
-      await tester.pumpWidget(
-        buildCalendar(onSelected: (value) => selectedDate = value),
+      await pumpSubject(
+        tester,
+        onSelected: (value) => selectedDate = value,
       );
       await tester.pumpAndSettle();
 
-      // Tap on a day number that is guaranteed to exist in any month.
-      // Day "10" is safe since every month has at least 10 days.
       await tester.tap(find.text('10').first);
       await tester.pumpAndSettle();
 
@@ -143,17 +140,13 @@ void main() {
     testWidgets('shows selected date with circle indicator', (tester) async {
       useLargeViewport(tester);
 
-      // Select a date to trigger the circle indicator.
       final now = DateTime.now();
       final selectedStr =
           '${now.year}${now.month.toString().padLeft(2, '0')}15';
 
-      await tester.pumpWidget(buildCalendar(selected: selectedStr));
+      await pumpSubject(tester, selected: selectedStr);
       await tester.pumpAndSettle();
 
-      // When a date is selected, the calendar renders a WiredCanvas with a
-      // WiredCircleBase around the selected cell. There should be at least
-      // one WiredCanvas in the calendar widget tree.
       final canvasWidgets = find.descendant(
         of: find.byType(WiredCalendar),
         matching: find.byType(WiredCanvas),
