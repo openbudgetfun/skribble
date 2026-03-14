@@ -1,8 +1,19 @@
+// ignore_for_file: unreachable_from_main
+
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:xml/xml.dart';
+
+import 'icon_kit_provider.dart';
+
+const _kDefaultKit = 'flutter-material';
+const _kDefaultRoughCliPath = 'tool/deno/svg2roughjs_cli.ts';
+const _kDefaultRoughCliRunner = 'deno';
+const _kDefaultFontGeneratorExecutable = 'npx';
+const _kDefaultFontGeneratorPackage = 'fantasticon';
+const _kDefaultFontName = 'material_rough_icons';
 
 Future<void> main(List<String> args) async {
   final options = _ScriptOptions.parse(args);
@@ -11,102 +22,126 @@ Future<void> main(List<String> args) async {
     return;
   }
 
-  final flutterIconsFile = File(
-    options.flutterIconsPath ?? await _discoverFlutterIconsPath(),
-  );
-  if (!flutterIconsFile.existsSync()) {
-    throw StateError(
-      'Flutter icons file not found: ${flutterIconsFile.path}',
-    );
+  if (options.fontOutputDir != null && options.roughOutputDir == null) {
+    throw ArgumentError('--font-output-dir requires --rough-output-dir.');
   }
 
-  final materialIconsRoot = await _resolvePackageRoot(
-    packageName: '@material-design-icons/svg',
-    suppliedPath: options.materialIconsSourcePath,
-  );
-  final materialSymbolsRoot = await _resolvePackageRoot(
-    packageName: '@material-symbols/svg-400',
-    suppliedPath: options.materialSymbolsSourcePath,
-  );
-  final outputFile = File(
-    options.outputPath ?? 'lib/src/generated/material_rough_icons.g.dart',
-  );
+  final provider = await _createProvider(options);
+  final declarations = await provider.loadDeclarations();
 
-  final declarations = _parseFlutterIconDeclarations(flutterIconsFile);
   final byCodePoint = SplayTreeMap<int, List<_FlutterIconDeclaration>>();
   for (final declaration in declarations) {
-    final declarationsForCodePoint = byCodePoint.putIfAbsent(
-      declaration.codePoint,
-      () => <_FlutterIconDeclaration>[],
-    );
-    declarationsForCodePoint.add(declaration);
+    byCodePoint
+        .putIfAbsent(declaration.codePoint, () => <_FlutterIconDeclaration>[])
+        .add(declaration);
   }
 
   final icons = <_GeneratedIcon>[];
+  final roughTasks = <_RoughTask>[];
   final unresolved = <_UnresolvedIcon>[];
 
   for (final entry in byCodePoint.entries) {
     _GeneratedIcon? resolvedIcon;
     for (final declaration in entry.value) {
-      final data = _resolveIconData(
-        declaration,
-        materialIconsRoot: materialIconsRoot,
-        materialSymbolsRoot: materialSymbolsRoot,
-      );
-      if (data != null) {
-        resolvedIcon = _GeneratedIcon(
-          codePoint: entry.key,
-          identifier: declaration.identifier,
-          data: data,
-        );
-        break;
+      final resolved = provider.resolveIcon(declaration);
+      if (resolved == null) {
+        continue;
       }
+      resolvedIcon = _GeneratedIcon(
+        codePoint: entry.key,
+        identifier: declaration.identifier,
+        data: resolved.data,
+      );
+      roughTasks.add(
+        _RoughTask(
+          identifier: declaration.identifier,
+          codePoint: entry.key,
+          inputSvgPath: resolved.sourcePath,
+        ),
+      );
+      break;
     }
 
     if (resolvedIcon != null) {
       icons.add(resolvedIcon);
-    } else {
-      unresolved.add(
-        _UnresolvedIcon(
-          codePoint: entry.key,
-          identifiers: entry.value
-              .map((item) => item.identifier)
-              .toList(growable: false),
-        ),
-      );
+      continue;
     }
+
+    unresolved.add(
+      _UnresolvedIcon(
+        codePoint: entry.key,
+        identifiers: entry.value
+            .map((item) => item.identifier)
+            .toList(growable: false),
+      ),
+    );
   }
 
-  outputFile.createSync(recursive: true);
-  outputFile.writeAsStringSync(_renderGeneratedFile(icons));
+  if (options.roughOutputDir != null) {
+    await _generateRoughSvgs(options, roughTasks);
+  }
 
-  stdout.writeln('Generated ${icons.length} rough icons to ${outputFile.path}');
-
-  if (unresolved.isNotEmpty) {
-    stderr.writeln(
-      'Warning: ${unresolved.length} Flutter icon codepoints could not be '
-      'resolved to SVGs. WiredIcon will fall back to Icon for those values.',
+  if (options.fontOutputDir case final fontOutputDir?) {
+    await _generateIconFont(
+      fontOutputDir: fontOutputDir,
+      roughOutputDir: options.roughOutputDir!,
+      tasks: roughTasks,
+      fontName: options.fontName,
+      generatorExecutable: options.fontGeneratorExecutable,
+      generatorPackage: options.fontGeneratorPackage,
     );
-    for (final item in unresolved) {
-      stderr.writeln(
-        '  0x${item.codePoint.toRadixString(16)}: ${item.identifiers.join(', ')}',
-      );
-    }
+  }
+
+  if (!options.roughOnly) {
+    final outputFile = File(
+      options.outputPath ?? 'lib/src/generated/material_rough_icons.g.dart',
+    );
+    outputFile.createSync(recursive: true);
+    outputFile.writeAsStringSync(_renderGeneratedFile(icons));
+    stdout.writeln(
+      'Generated ${icons.length} rough icons to ${outputFile.path}',
+    );
+  }
+
+  if (unresolved.isEmpty) {
+    return;
+  }
+
+  stderr.writeln(
+    'Warning: ${unresolved.length} Flutter icon codepoints could not be '
+    'resolved to SVGs. WiredIcon will fall back to Icon for those values.',
+  );
+  for (final item in unresolved) {
+    stderr.writeln(
+      '  0x${item.codePoint.toRadixString(16)}: ${item.identifiers.join(', ')}',
+    );
   }
 }
 
 void _printUsage() {
   stdout.writeln('''
-Generate the Material rough icon catalog used by WiredIcon.
+Generate rough icon artifacts for WiredIcon.
 
 Usage:
   dart run tool/generate_material_rough_icons.dart [options]
 
 Options:
+  --kit <flutter-material>         Icon kit provider to use.
   --flutter-icons <path>           Path to Flutter material icons.dart.
   --material-icons-source <path>   Path to extracted @material-design-icons/svg package.
   --material-symbols-source <path> Path to extracted @material-symbols/svg-400 package.
   --output <path>                  Output Dart file.
+  --rough-cli <path>               TypeScript script that converts SVG(s) (default: tool/deno/svg2roughjs_cli.ts).
+  --rough-cli-runner <exe>         Runner executable for --rough-cli (default: deno).
+  --rough-output-dir <path>        Directory where roughened SVG files are written.
+  --rough-seed <int>               Base deterministic seed for rough generation.
+  --rough-normalize-viewbox <size> Normalize SVGs to this square viewBox before roughing.
+  --rough-bulk                     Use one manifest-driven converter invocation.
+  --rough-only                     Skip Dart map generation; only emit rough SVG files.
+  --font-output-dir <path>         Build an icon font from rough SVGs into this directory.
+  --font-name <name>               Name of generated icon font (default: material_rough_icons).
+  --font-generator-executable <e>  Font generator executable (default: npx).
+  --font-generator-package <name>  Package passed to generator executable (default: fantasticon).
   --help                           Show this help text.
 
 If a source path is omitted, the script downloads the package with npm pack into
@@ -116,30 +151,74 @@ a temporary directory.
 
 final class _ScriptOptions {
   const _ScriptOptions({
+    this.kit = _kDefaultKit,
     this.flutterIconsPath,
     this.materialIconsSourcePath,
     this.materialSymbolsSourcePath,
     this.outputPath,
+    this.roughCliPath,
+    this.roughCliRunner = _kDefaultRoughCliRunner,
+    this.roughOutputDir,
+    this.roughSeed,
+    this.roughNormalizeViewBox = 128,
+    this.roughBulk = false,
+    this.roughOnly = false,
+    this.fontOutputDir,
+    this.fontName = _kDefaultFontName,
+    this.fontGeneratorExecutable = _kDefaultFontGeneratorExecutable,
+    this.fontGeneratorPackage = _kDefaultFontGeneratorPackage,
     this.showHelp = false,
   });
 
+  final String kit;
   final String? flutterIconsPath;
   final String? materialIconsSourcePath;
   final String? materialSymbolsSourcePath;
   final String? outputPath;
+  final String? roughCliPath;
+  final String roughCliRunner;
+  final String? roughOutputDir;
+  final int? roughSeed;
+  final double roughNormalizeViewBox;
+  final bool roughBulk;
+  final bool roughOnly;
+  final String? fontOutputDir;
+  final String fontName;
+  final String fontGeneratorExecutable;
+  final String fontGeneratorPackage;
   final bool showHelp;
 
   static _ScriptOptions parse(List<String> args) {
+    var kit = _kDefaultKit;
     String? flutterIconsPath;
     String? materialIconsSourcePath;
     String? materialSymbolsSourcePath;
     String? outputPath;
+    String? roughCliPath;
+    var roughCliRunner = _kDefaultRoughCliRunner;
+    String? roughOutputDir;
+    int? roughSeed;
+    var roughNormalizeViewBox = 128.0;
+    var roughBulk = false;
+    var roughOnly = false;
+    String? fontOutputDir;
+    var fontName = _kDefaultFontName;
+    var fontGeneratorExecutable = _kDefaultFontGeneratorExecutable;
+    var fontGeneratorPackage = _kDefaultFontGeneratorPackage;
     var showHelp = false;
 
     for (var index = 0; index < args.length; index++) {
       final argument = args[index];
       if (argument == '--help' || argument == '-h') {
         showHelp = true;
+        continue;
+      }
+      if (argument == '--rough-bulk') {
+        roughBulk = true;
+        continue;
+      }
+      if (argument == '--rough-only') {
+        roughOnly = true;
         continue;
       }
 
@@ -161,6 +240,8 @@ final class _ScriptOptions {
       }
 
       switch (option) {
+        case '--kit':
+          kit = value;
         case '--flutter-icons':
           flutterIconsPath = value;
         case '--material-icons-source':
@@ -169,16 +250,46 @@ final class _ScriptOptions {
           materialSymbolsSourcePath = value;
         case '--output':
           outputPath = value;
+        case '--rough-cli':
+          roughCliPath = value;
+        case '--rough-cli-runner':
+          roughCliRunner = value;
+        case '--rough-output-dir':
+          roughOutputDir = value;
+        case '--rough-seed':
+          roughSeed = int.parse(value);
+        case '--rough-normalize-viewbox':
+          roughNormalizeViewBox = double.parse(value);
+        case '--font-output-dir':
+          fontOutputDir = value;
+        case '--font-name':
+          fontName = value;
+        case '--font-generator-executable':
+          fontGeneratorExecutable = value;
+        case '--font-generator-package':
+          fontGeneratorPackage = value;
         default:
           throw ArgumentError('Unknown option: $option');
       }
     }
 
     return _ScriptOptions(
+      kit: kit,
       flutterIconsPath: flutterIconsPath,
       materialIconsSourcePath: materialIconsSourcePath,
       materialSymbolsSourcePath: materialSymbolsSourcePath,
       outputPath: outputPath,
+      roughCliPath: roughCliPath,
+      roughCliRunner: roughCliRunner,
+      roughOutputDir: roughOutputDir,
+      roughSeed: roughSeed,
+      roughNormalizeViewBox: roughNormalizeViewBox,
+      roughBulk: roughBulk,
+      roughOnly: roughOnly,
+      fontOutputDir: fontOutputDir,
+      fontName: fontName,
+      fontGeneratorExecutable: fontGeneratorExecutable,
+      fontGeneratorPackage: fontGeneratorPackage,
       showHelp: showHelp,
     );
   }
@@ -190,10 +301,10 @@ Future<String> _discoverFlutterIconsPath() async {
     return '$flutterRoot/packages/flutter/lib/src/material/icons.dart';
   }
 
-  final result = await Process.run(
-    'flutter',
-    const <String>['--version', '--machine'],
-  );
+  final result = await Process.run('flutter', const <String>[
+    '--version',
+    '--machine',
+  ]);
   if (result.exitCode != 0) {
     throw StateError(
       'Unable to resolve FLUTTER_ROOT. flutter --version --machine failed:\n'
@@ -225,22 +336,20 @@ Future<Directory> _resolvePackageRoot({
     packageName.replaceAll(RegExp('[^a-zA-Z0-9]+'), '_'),
   );
 
-  final packResult = await Process.run(
-    'npm',
-    <String>['pack', packageName],
-    workingDirectory: tempDirectory.path,
-  );
+  final packResult = await Process.run('npm', <String>[
+    'pack',
+    packageName,
+  ], workingDirectory: tempDirectory.path);
   if (packResult.exitCode != 0) {
     throw StateError('npm pack $packageName failed:\n${packResult.stderr}');
   }
 
   final archiveName = (packResult.stdout as String).trim().split('\n').last;
   final archivePath = '${tempDirectory.path}/$archiveName';
-  final extractResult = await Process.run(
-    'tar',
-    <String>['-xzf', archivePath],
-    workingDirectory: tempDirectory.path,
-  );
+  final extractResult = await Process.run('tar', <String>[
+    '-xzf',
+    archivePath,
+  ], workingDirectory: tempDirectory.path);
   if (extractResult.exitCode != 0) {
     throw StateError(
       'tar extraction for $packageName failed:\n${extractResult.stderr}',
@@ -250,10 +359,104 @@ Future<Directory> _resolvePackageRoot({
   return Directory('${tempDirectory.path}/package');
 }
 
+Future<
+  IconKitProvider<
+    _FlutterIconDeclaration,
+    ResolvedSvgCandidate<_GeneratedIconData>
+  >
+>
+_createProvider(_ScriptOptions options) async {
+  switch (options.kit) {
+    case _kDefaultKit:
+      final flutterIconsFile = File(
+        options.flutterIconsPath ?? await _discoverFlutterIconsPath(),
+      );
+      if (!flutterIconsFile.existsSync()) {
+        throw StateError(
+          'Flutter icons file not found: ${flutterIconsFile.path}',
+        );
+      }
+      final materialIconsRoot = await _resolvePackageRoot(
+        packageName: '@material-design-icons/svg',
+        suppliedPath: options.materialIconsSourcePath,
+      );
+      final materialSymbolsRoot = await _resolvePackageRoot(
+        packageName: '@material-symbols/svg-400',
+        suppliedPath: options.materialSymbolsSourcePath,
+      );
+
+      return _MaterialIconKitProvider(
+        flutterIconsFile: flutterIconsFile,
+        materialIconsRoot: materialIconsRoot,
+        materialSymbolsRoot: materialSymbolsRoot,
+      );
+    default:
+      throw ArgumentError(
+        'Unknown --kit value: ${options.kit}. Supported: $_kDefaultKit',
+      );
+  }
+}
+
+final class _MaterialIconKitProvider
+    implements
+        IconKitProvider<
+          _FlutterIconDeclaration,
+          ResolvedSvgCandidate<_GeneratedIconData>
+        > {
+  const _MaterialIconKitProvider({
+    required this.flutterIconsFile,
+    required this.materialIconsRoot,
+    required this.materialSymbolsRoot,
+  });
+
+  final File flutterIconsFile;
+  final Directory materialIconsRoot;
+  final Directory materialSymbolsRoot;
+
+  @override
+  Future<List<_FlutterIconDeclaration>> loadDeclarations() async {
+    return _parseFlutterIconDeclarations(flutterIconsFile);
+  }
+
+  @override
+  ResolvedSvgCandidate<_GeneratedIconData>? resolveIcon(
+    _FlutterIconDeclaration declaration,
+  ) {
+    return _resolveIconData(
+      declaration,
+      materialIconsRoot: materialIconsRoot,
+      materialSymbolsRoot: materialSymbolsRoot,
+    );
+  }
+}
+
 List<_FlutterIconDeclaration> _parseFlutterIconDeclarations(File file) {
-  final text = file.readAsStringSync();
+  return _parseFlutterIconDeclarationsFromSource(file.readAsStringSync());
+}
+
+List<ParsedFlutterIconDeclaration> parseFlutterIconDeclarationsForTest(
+  String source,
+) {
+  return _parseFlutterIconDeclarationsFromSource(source)
+      .map(
+        (declaration) => ParsedFlutterIconDeclaration(
+          identifier: declaration.identifier,
+          baseIdentifier: declaration.baseIdentifier,
+          codePoint: declaration.codePoint,
+          svgName: declaration.svgName,
+          oldPackageFolder: declaration.oldPackageFolder,
+          symbolPackageFolder: declaration.symbolPackageFolder,
+          useSymbolFillVariant: declaration.useSymbolFillVariant,
+        ),
+      )
+      .toList(growable: false);
+}
+
+List<_FlutterIconDeclaration> _parseFlutterIconDeclarationsFromSource(
+  String text,
+) {
   final declarationPattern = RegExp(
-    r'((?:^\s*///.*\n)+)\s*static const IconData (\w+) = IconData\((0x[0-9a-fA-F]+),',
+    r'((?:^\s*///.*\n)*)\s*static const IconData (\w+) = IconData\(\s*(0x[0-9a-fA-F]+)\s*,',
     multiLine: true,
   );
   final materialNamePattern = RegExp(
@@ -263,24 +466,19 @@ List<_FlutterIconDeclaration> _parseFlutterIconDeclarations(File file) {
   return declarationPattern
       .allMatches(text)
       .map((match) {
-        final docs = match.group(1)!;
+        final docs = match.group(1) ?? '';
         final identifier = match.group(2)!;
         final codePointText = match.group(3)!;
         final infoMatch = materialNamePattern.firstMatch(docs);
-        if (infoMatch == null) {
-          throw StateError(
-            'Unable to parse material icon metadata for $identifier',
-          );
-        }
-
-        final styleTag = infoMatch.group(2);
         final baseIdentifier = _stripStyleSuffix(identifier);
+        final styleTag =
+            infoMatch?.group(2) ?? _styleTagFromIdentifier(identifier);
 
         return _FlutterIconDeclaration(
           identifier: identifier,
           baseIdentifier: baseIdentifier,
           codePoint: int.parse(codePointText.substring(2), radix: 16),
-          svgName: infoMatch.group(1)!.replaceAll(' ', '_'),
+          svgName: infoMatch?.group(1)?.replaceAll(' ', '_') ?? baseIdentifier,
           oldPackageFolder: switch (styleTag) {
             'outlined' => 'outlined',
             'round' => 'round',
@@ -299,6 +497,19 @@ List<_FlutterIconDeclaration> _parseFlutterIconDeclarations(File file) {
       .toList(growable: false);
 }
 
+String? _styleTagFromIdentifier(String identifier) {
+  if (identifier.endsWith('_outlined')) {
+    return 'outlined';
+  }
+  if (identifier.endsWith('_rounded')) {
+    return 'round';
+  }
+  if (identifier.endsWith('_sharp')) {
+    return 'sharp';
+  }
+  return null;
+}
+
 String _stripStyleSuffix(String identifier) {
   for (final suffix in const <String>['_outlined', '_rounded', '_sharp']) {
     if (identifier.endsWith(suffix)) {
@@ -308,7 +519,7 @@ String _stripStyleSuffix(String identifier) {
   return identifier;
 }
 
-_GeneratedIconData? _resolveIconData(
+ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
   _FlutterIconDeclaration declaration, {
   required Directory materialIconsRoot,
   required Directory materialSymbolsRoot,
@@ -324,7 +535,10 @@ _GeneratedIconData? _resolveIconData(
       '${materialIconsRoot.path}/${declaration.oldPackageFolder}/$candidate.svg',
     );
     if (materialIconsFile.existsSync()) {
-      return _parseSvgIcon(materialIconsFile);
+      return ResolvedSvgCandidate<_GeneratedIconData>(
+        data: _parseSvgIcon(materialIconsFile),
+        sourcePath: materialIconsFile.path,
+      );
     }
 
     final symbolBase =
@@ -336,7 +550,10 @@ _GeneratedIconData? _resolveIconData(
     for (final path in symbolCandidates) {
       final file = File(path);
       if (file.existsSync()) {
-        return _parseSvgIcon(file);
+        return ResolvedSvgCandidate<_GeneratedIconData>(
+          data: _parseSvgIcon(file),
+          sourcePath: file.path,
+        );
       }
     }
   }
@@ -459,10 +676,7 @@ List<_PrimitiveData> _collectPrimitives(
       final primitives = <_PrimitiveData>[];
       for (final child in element.children.whereType<XmlElement>()) {
         primitives.addAll(
-          _collectPrimitives(
-            child,
-            inheritedFillRule: effectiveFillRule,
-          ),
+          _collectPrimitives(child, inheritedFillRule: effectiveFillRule),
         );
       }
       return primitives;
@@ -579,6 +793,339 @@ String _formatDouble(double value) {
       : value.toString();
 }
 
+String _resolveRoughCliScriptPath(String? providedPath) {
+  final candidates = <String>[
+    ?providedPath,
+    _kDefaultRoughCliPath,
+    'packages/skribble/$_kDefaultRoughCliPath',
+  ];
+
+  for (final candidate in candidates) {
+    if (File(candidate).existsSync()) {
+      return candidate;
+    }
+  }
+
+  throw StateError(
+    'Rough CLI script not found. Tried: ${candidates.join(', ')}\n'
+    'Use the Deno script at packages/skribble/tool/deno and/or pass '
+    '--rough-cli explicitly.',
+  );
+}
+
+List<String> _buildRoughCliArguments({
+  required String runnerExecutable,
+  required String scriptPath,
+  required List<String> scriptArguments,
+}) {
+  if (runnerExecutable == 'deno') {
+    return <String>['run', '-A', scriptPath, ...scriptArguments];
+  }
+
+  return <String>[scriptPath, ...scriptArguments];
+}
+
+Future<void> _generateRoughSvgs(
+  _ScriptOptions options,
+  List<_RoughTask> tasks,
+) async {
+  if (tasks.isEmpty) {
+    return;
+  }
+
+  final outputDir = Directory(options.roughOutputDir!);
+  outputDir.createSync(recursive: true);
+
+  final normalizedInputDir = await Directory.systemTemp.createTemp(
+    'material_rough_normalized_',
+  );
+  final normalizedOutputDir = await Directory.systemTemp.createTemp(
+    'material_rough_normalized_output_',
+  );
+
+  try {
+    final normalizedTasks = <_RoughTask>[];
+    for (final task in tasks) {
+      normalizedTasks.add(
+        _RoughTask(
+          identifier: task.identifier,
+          codePoint: task.codePoint,
+          inputSvgPath: _normalizeSvgForRough(
+            inputPath: task.inputSvgPath,
+            outputDirectory: normalizedInputDir,
+            normalizeViewBoxSize: options.roughNormalizeViewBox,
+          ),
+        ),
+      );
+    }
+
+    final cliScriptPath = _resolveRoughCliScriptPath(options.roughCliPath);
+
+    final cliRunner = options.roughCliRunner;
+    final seedBase = options.roughSeed ?? 1337;
+    final useManifestMode = options.roughBulk || cliRunner == 'deno';
+
+    if (useManifestMode) {
+      final manifestFile = File(
+        '${normalizedOutputDir.path}/rough_manifest.json',
+      );
+      final manifestTasks = normalizedTasks
+          .map(
+            (task) => <String, Object>{
+              'input': task.inputSvgPath,
+              'output': '${normalizedOutputDir.path}/${task.outputFileName}',
+              'seed': seedBase + task.codePoint,
+            },
+          )
+          .toList(growable: false);
+      manifestFile.writeAsStringSync(
+        const JsonEncoder.withIndent('  ').convert(manifestTasks),
+      );
+
+      final runnerArguments = _buildRoughCliArguments(
+        runnerExecutable: cliRunner,
+        scriptPath: cliScriptPath,
+        scriptArguments: <String>['--manifest', manifestFile.path],
+      );
+      await _runRoughCli(
+        executable: cliRunner,
+        arguments: runnerArguments,
+        context: 'rough generation for ${normalizedTasks.length} icon(s)',
+      );
+    } else {
+      for (final task in normalizedTasks) {
+        final outputPath = '${normalizedOutputDir.path}/${task.outputFileName}';
+        final seed = seedBase + task.codePoint;
+        final runnerArguments = _buildRoughCliArguments(
+          runnerExecutable: cliRunner,
+          scriptPath: cliScriptPath,
+          scriptArguments: <String>[
+            '--input',
+            task.inputSvgPath,
+            '--output',
+            outputPath,
+            '--seed',
+            '$seed',
+          ],
+        );
+        await _runRoughCli(
+          executable: cliRunner,
+          arguments: runnerArguments,
+          context: 'rough generation for ${task.identifier}',
+        );
+      }
+    }
+
+    for (var index = 0; index < tasks.length; index++) {
+      final originalTask = tasks[index];
+      final normalizedTask = normalizedTasks[index];
+      final roughOutputPath =
+          '${normalizedOutputDir.path}/${normalizedTask.outputFileName}';
+      final finalOutputPath =
+          '${outputDir.path}/${originalTask.outputFileName}';
+      _scaleRoughSvgBackToTarget(
+        originalInputPath: originalTask.inputSvgPath,
+        roughInputPath: roughOutputPath,
+        outputPath: finalOutputPath,
+        normalizeViewBoxSize: options.roughNormalizeViewBox,
+      );
+    }
+
+    stdout.writeln('Generated ${tasks.length} rough SVGs in ${outputDir.path}');
+  } finally {
+    if (normalizedInputDir.existsSync()) {
+      normalizedInputDir.deleteSync(recursive: true);
+    }
+    if (normalizedOutputDir.existsSync()) {
+      normalizedOutputDir.deleteSync(recursive: true);
+    }
+  }
+}
+
+Future<void> _generateIconFont({
+  required String fontOutputDir,
+  required String roughOutputDir,
+  required List<_RoughTask> tasks,
+  required String fontName,
+  required String generatorExecutable,
+  required String generatorPackage,
+}) async {
+  if (tasks.isEmpty) {
+    stdout.writeln('No rough icons to convert into a font.');
+    return;
+  }
+
+  final roughDir = Directory(roughOutputDir);
+  if (!roughDir.existsSync()) {
+    throw StateError('Rough SVG directory does not exist: $roughOutputDir');
+  }
+
+  final outputDir = Directory(fontOutputDir)..createSync(recursive: true);
+  final configFile = File('${outputDir.path}/fantasticon.config.json');
+  final config = <String, Object>{
+    'inputDir': roughDir.path,
+    'outputDir': outputDir.path,
+    'name': fontName,
+    'fontTypes': <String>['ttf'],
+    'assetTypes': <String>['json'],
+    'pathOptions': <String, Object>{'json': './${fontName}_codepoints.json'},
+    'formatOptions': <String, Object>{
+      'json': <String, Object>{'indent': 2},
+    },
+    'codepoints': <String, int>{
+      for (final task in tasks) task.glyphId: task.codePoint,
+    },
+  };
+  configFile.writeAsStringSync(
+    const JsonEncoder.withIndent('  ').convert(config),
+  );
+
+  final arguments = generatorExecutable == 'npx'
+      ? <String>['--yes', generatorPackage, '--config', configFile.path]
+      : <String>[generatorPackage, '--config', configFile.path];
+
+  final result = await Process.run(generatorExecutable, arguments);
+  if (result.exitCode != 0) {
+    final output = [
+      if ((result.stdout as String?)?.trim().isNotEmpty ?? false)
+        (result.stdout as String).trim(),
+      if ((result.stderr as String?)?.trim().isNotEmpty ?? false)
+        (result.stderr as String).trim(),
+    ].join('\n');
+    throw StateError(
+      'Icon font generation failed (exit ${result.exitCode}).\n$output',
+    );
+  }
+
+  stdout.writeln('Generated icon font "$fontName" in ${outputDir.path}');
+}
+
+String _normalizeSvgForRough({
+  required String inputPath,
+  required Directory outputDirectory,
+  required double normalizeViewBoxSize,
+}) {
+  final inputFile = File(inputPath);
+  final document = XmlDocument.parse(inputFile.readAsStringSync());
+  final root = document.rootElement;
+
+  final size = _resolveSvgSize(root);
+  final scaleX = normalizeViewBoxSize / size.width;
+  final scaleY = normalizeViewBoxSize / size.height;
+
+  root.setAttribute('width', _formatDouble(normalizeViewBoxSize));
+  root.setAttribute('height', _formatDouble(normalizeViewBoxSize));
+  root.setAttribute(
+    'viewBox',
+    '0 0 ${_formatDouble(normalizeViewBoxSize)} ${_formatDouble(normalizeViewBoxSize)}',
+  );
+
+  final wrappedChildren = root.children.toList(growable: false);
+  root.children.clear();
+  final group = XmlElement(XmlName('g'), <XmlAttribute>[
+    XmlAttribute(
+      XmlName('transform'),
+      'scale(${_formatDouble(scaleX)} ${_formatDouble(scaleY)})',
+    ),
+  ], wrappedChildren);
+  root.children.add(group);
+
+  final outputPath =
+      '${outputDirectory.path}/${inputFile.uri.pathSegments.last}';
+  File(outputPath)
+    ..createSync(recursive: true)
+    ..writeAsStringSync(document.toXmlString(pretty: false));
+  return outputPath;
+}
+
+void _scaleRoughSvgBackToTarget({
+  required String originalInputPath,
+  required String roughInputPath,
+  required String outputPath,
+  required double normalizeViewBoxSize,
+}) {
+  final originalDocument = XmlDocument.parse(
+    File(originalInputPath).readAsStringSync(),
+  );
+  final originalRoot = originalDocument.rootElement;
+  final targetSize = _resolveSvgSize(originalRoot);
+
+  final roughDocument = XmlDocument.parse(
+    File(roughInputPath).readAsStringSync(),
+  );
+  final roughRoot = roughDocument.rootElement;
+
+  final scaleX = targetSize.width / normalizeViewBoxSize;
+  final scaleY = targetSize.height / normalizeViewBoxSize;
+
+  roughRoot.setAttribute('width', _formatDouble(targetSize.width));
+  roughRoot.setAttribute('height', _formatDouble(targetSize.height));
+  roughRoot.setAttribute(
+    'viewBox',
+    '0 0 ${_formatDouble(targetSize.width)} ${_formatDouble(targetSize.height)}',
+  );
+
+  final wrappedChildren = roughRoot.children.toList(growable: false);
+  roughRoot.children.clear();
+  final group = XmlElement(XmlName('g'), <XmlAttribute>[
+    XmlAttribute(
+      XmlName('transform'),
+      'scale(${_formatDouble(scaleX)} ${_formatDouble(scaleY)})',
+    ),
+  ], wrappedChildren);
+  roughRoot.children.add(group);
+
+  File(outputPath)
+    ..createSync(recursive: true)
+    ..writeAsStringSync(roughDocument.toXmlString(pretty: false));
+}
+
+_ResolvedSvgSize _resolveSvgSize(XmlElement root) {
+  var width = _parseDouble(root.getAttribute('width')) ?? 24;
+  var height = _parseDouble(root.getAttribute('height')) ?? 24;
+
+  final viewBox = root.getAttribute('viewBox');
+  if (viewBox != null) {
+    final parts = viewBox
+        .split(RegExp(r'[\s,]+'))
+        .where((part) => part.isNotEmpty)
+        .toList(growable: false);
+    if (parts.length == 4) {
+      width = double.parse(parts[2]);
+      height = double.parse(parts[3]);
+    }
+  }
+
+  return _ResolvedSvgSize(width: width, height: height);
+}
+
+Future<void> _runRoughCli({
+  required String executable,
+  required List<String> arguments,
+  required String context,
+}) async {
+  ProcessResult result;
+  try {
+    result = await Process.run(executable, arguments);
+  } on ProcessException catch (error) {
+    throw StateError('Failed to execute $executable for $context: $error');
+  }
+
+  if (result.exitCode == 0) {
+    return;
+  }
+
+  final stderrOutput = (result.stderr as String?)?.trim() ?? '';
+  final stdoutOutput = (result.stdout as String?)?.trim() ?? '';
+  final output = [
+    if (stdoutOutput.isNotEmpty) stdoutOutput,
+    if (stderrOutput.isNotEmpty) stderrOutput,
+  ].join('\n');
+  throw StateError(
+    'svg2roughjs failed during $context (exit ${result.exitCode}).\n$output',
+  );
+}
+
 enum _SvgFillRule { nonZero, evenOdd }
 
 final class _FlutterIconDeclaration {
@@ -630,6 +1177,49 @@ final class _GeneratedIconData {
   final double width;
   final double height;
   final List<_PrimitiveData> primitives;
+}
+
+final class ParsedFlutterIconDeclaration {
+  const ParsedFlutterIconDeclaration({
+    required this.identifier,
+    required this.baseIdentifier,
+    required this.codePoint,
+    required this.svgName,
+    required this.oldPackageFolder,
+    required this.symbolPackageFolder,
+    required this.useSymbolFillVariant,
+  });
+
+  final String identifier;
+  final String baseIdentifier;
+  final int codePoint;
+  final String svgName;
+  final String oldPackageFolder;
+  final String symbolPackageFolder;
+  final bool useSymbolFillVariant;
+}
+
+final class _ResolvedSvgSize {
+  const _ResolvedSvgSize({required this.width, required this.height});
+
+  final double width;
+  final double height;
+}
+
+final class _RoughTask {
+  const _RoughTask({
+    required this.identifier,
+    required this.codePoint,
+    required this.inputSvgPath,
+  });
+
+  final String identifier;
+  final int codePoint;
+  final String inputSvgPath;
+
+  String get glyphId => '${identifier}_0x${codePoint.toRadixString(16)}';
+
+  String get outputFileName => '$glyphId.rough.svg';
 }
 
 sealed class _PrimitiveData {
