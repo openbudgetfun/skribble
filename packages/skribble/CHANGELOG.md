@@ -14,9 +14,18 @@
 - **README badges**: CI status, license, and Flutter version badges.
 - **Rough engine tests**: +10 `Canvas.drawRough` extension tests.
 
+- **100% pumpApp adoption**: All 82 widget test files now use the `pumpApp`
+  or `pumpSubject` helper (including `asAppBar`, `asBottomNav`, `asDrawer`
+  variants).
+- **GitHub templates**: Bug report, feature request, and PR checklist templates.
+- **pub.dev readiness**: Added MIT LICENSE, homepage, documentation URLs,
+  removed `publish_to: none`.
+
 ### Stats
 
-- 81 widget source files, 88 widget test files, 848 widget tests, 138 rough engine tests, 58 storybook tests (50 page + 8 golden).
+- 81 widget source files, 88 widget test files, 853 widget tests,
+  138 rough engine tests, 6 smoke tests = 997 library tests +
+  58 storybook tests = **1,055 total**.
 
 ## 0.3.0
 
