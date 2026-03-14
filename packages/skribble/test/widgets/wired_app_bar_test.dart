@@ -2,64 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredAppBar', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(title: const Text('Test')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredAppBar(title: const Text('Test')),
+        asAppBar: true,
       );
 
       expect(find.byType(WiredAppBar), findsOneWidget);
     });
 
     testWidgets('renders title text', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(title: const Text('My Title')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredAppBar(title: const Text('My Title')),
+        asAppBar: true,
       );
 
       expect(find.text('My Title'), findsOneWidget);
     });
 
     testWidgets('renders leading widget', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(
-              leading: const Icon(Icons.menu),
-              title: const Text('Title'),
-            ),
-            body: const SizedBox(),
-          ),
+      await pumpApp(
+        tester,
+        WiredAppBar(
+          leading: const Icon(Icons.menu),
+          title: const Text('Title'),
         ),
+        asAppBar: true,
       );
 
       expect(find.byIcon(Icons.menu), findsOneWidget);
     });
 
     testWidgets('renders action widgets', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(
-              title: const Text('Title'),
-              actions: [
-                IconButton(icon: const Icon(Icons.search), onPressed: () {}),
-                IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
-              ],
-            ),
-            body: const SizedBox(),
-          ),
+      await pumpApp(
+        tester,
+        WiredAppBar(
+          title: const Text('Title'),
+          actions: [
+            IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+            IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
+          ],
         ),
+        asAppBar: true,
       );
 
       expect(find.byIcon(Icons.search), findsOneWidget);
@@ -67,13 +57,10 @@ void main() {
     });
 
     testWidgets('default height is 56.0', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(title: const Text('Height')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredAppBar(title: const Text('Height')),
+        asAppBar: true,
       );
 
       final appBar = tester.widget<WiredAppBar>(find.byType(WiredAppBar));
@@ -81,13 +68,10 @@ void main() {
     });
 
     testWidgets('accepts custom height', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(title: const Text('Custom'), height: 80.0),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredAppBar(title: const Text('Custom'), height: 80.0),
+        asAppBar: true,
       );
 
       final appBar = tester.widget<WiredAppBar>(find.byType(WiredAppBar));
@@ -103,13 +87,10 @@ void main() {
     testWidgets('renders hand-drawn bottom line via WiredCanvas', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(title: const Text('Line')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredAppBar(title: const Text('Line')),
+        asAppBar: true,
       );
 
       expect(
@@ -122,13 +103,10 @@ void main() {
     });
 
     testWidgets('uses transparent background by default', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(title: const Text('Bg')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredAppBar(title: const Text('Bg')),
+        asAppBar: true,
       );
 
       final container = tester.widget<Container>(
@@ -142,16 +120,13 @@ void main() {
     });
 
     testWidgets('applies custom background color', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(
-              title: const Text('Color'),
-              backgroundColor: Colors.blue,
-            ),
-            body: const SizedBox(),
-          ),
+      await pumpApp(
+        tester,
+        WiredAppBar(
+          title: const Text('Color'),
+          backgroundColor: Colors.blue,
         ),
+        asAppBar: true,
       );
 
       final container = tester.widget<Container>(
@@ -165,11 +140,7 @@ void main() {
     });
 
     testWidgets('renders Spacer when no title is provided', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(appBar: WiredAppBar(), body: const SizedBox()),
-        ),
-      );
+      await pumpApp(tester, WiredAppBar(), asAppBar: true);
 
       expect(
         find.descendant(
@@ -181,13 +152,10 @@ void main() {
     });
 
     testWidgets('wraps title in DefaultTextStyle', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(title: const Text('Styled')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredAppBar(title: const Text('Styled')),
+        asAppBar: true,
       );
 
       expect(
@@ -202,21 +170,18 @@ void main() {
     testWidgets('action button is tappable', (tester) async {
       var tapped = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(
-              title: const Text('Action'),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.add),
-                  onPressed: () => tapped = true,
-                ),
-              ],
+      await pumpApp(
+        tester,
+        WiredAppBar(
+          title: const Text('Action'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () => tapped = true,
             ),
-            body: const SizedBox(),
-          ),
+          ],
         ),
+        asAppBar: true,
       );
 
       await tester.tap(find.byIcon(Icons.add));
@@ -226,13 +191,10 @@ void main() {
     });
 
     testWidgets('contains SafeArea', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            appBar: WiredAppBar(title: const Text('Safe')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredAppBar(title: const Text('Safe')),
+        asAppBar: true,
       );
 
       expect(

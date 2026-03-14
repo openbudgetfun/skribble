@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/pump_app.dart';
+
 void main() {
   group('WiredDrawer', () {
     testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            drawer: WiredDrawer(child: const Text('Drawer content')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredDrawer(child: const Text('Drawer content')),
+        asDrawer: true,
       );
 
-      // Open the drawer.
       final scaffoldState = tester.firstState<ScaffoldState>(
         find.byType(Scaffold),
       );
@@ -25,13 +23,10 @@ void main() {
     });
 
     testWidgets('renders child content', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            drawer: WiredDrawer(child: const Text('My Items')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredDrawer(child: const Text('My Items')),
+        asDrawer: true,
       );
 
       final scaffoldState = tester.firstState<ScaffoldState>(
@@ -54,13 +49,10 @@ void main() {
     });
 
     testWidgets('contains a Drawer widget', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            drawer: WiredDrawer(child: const Text('Content')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredDrawer(child: const Text('Content')),
+        asDrawer: true,
       );
 
       final scaffoldState = tester.firstState<ScaffoldState>(
@@ -81,13 +73,10 @@ void main() {
     testWidgets('renders hand-drawn right edge via WiredCanvas', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            drawer: WiredDrawer(child: const Text('Edge')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredDrawer(child: const Text('Edge')),
+        asDrawer: true,
       );
 
       final scaffoldState = tester.firstState<ScaffoldState>(
@@ -106,21 +95,18 @@ void main() {
     });
 
     testWidgets('renders complex child widget tree', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            drawer: WiredDrawer(
-              child: ListView(
-                children: const [
-                  ListTile(title: Text('Item 1')),
-                  ListTile(title: Text('Item 2')),
-                  ListTile(title: Text('Item 3')),
-                ],
-              ),
-            ),
-            body: const SizedBox(),
+      await pumpApp(
+        tester,
+        WiredDrawer(
+          child: ListView(
+            children: const [
+              ListTile(title: Text('Item 1')),
+              ListTile(title: Text('Item 2')),
+              ListTile(title: Text('Item 3')),
+            ],
           ),
         ),
+        asDrawer: true,
       );
 
       final scaffoldState = tester.firstState<ScaffoldState>(
@@ -135,13 +121,10 @@ void main() {
     });
 
     testWidgets('uses Stack to layer border and child', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            drawer: WiredDrawer(child: const Text('Stack')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredDrawer(child: const Text('Stack')),
+        asDrawer: true,
       );
 
       final scaffoldState = tester.firstState<ScaffoldState>(
@@ -160,13 +143,10 @@ void main() {
     });
 
     testWidgets('can be closed by dragging', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            drawer: WiredDrawer(child: const Text('Close me')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredDrawer(child: const Text('Close me')),
+        asDrawer: true,
       );
 
       final scaffoldState = tester.firstState<ScaffoldState>(
@@ -177,7 +157,6 @@ void main() {
 
       expect(find.byType(WiredDrawer), findsOneWidget);
 
-      // Drag from right to left to close the drawer.
       await tester.drag(find.byType(Drawer), const Offset(-300, 0));
       await tester.pumpAndSettle();
 
@@ -185,13 +164,10 @@ void main() {
     });
 
     testWidgets('drawer width is passed to underlying Drawer', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            drawer: WiredDrawer(width: 200.0, child: const Text('Narrow')),
-            body: const SizedBox(),
-          ),
-        ),
+      await pumpApp(
+        tester,
+        WiredDrawer(width: 200.0, child: const Text('Narrow')),
+        asDrawer: true,
       );
 
       final scaffoldState = tester.firstState<ScaffoldState>(
