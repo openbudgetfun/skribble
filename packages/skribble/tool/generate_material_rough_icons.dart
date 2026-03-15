@@ -129,6 +129,12 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
           resolved.sort();
           return resolved;
         })();
+  final unresolvedThreshold = options.failOnUnresolved
+      ? 0
+      : options.maxUnresolved;
+  final newUnresolvedThreshold = options.failOnNewUnresolved
+      ? 0
+      : options.maxNewUnresolved;
 
   if (options.roughOutputDir != null) {
     await _generateRoughSvgs(options, roughTasks);
@@ -175,6 +181,8 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
         baselineUnresolvedCount: baselineUnresolvedCodePoints?.length,
         newUnresolved: newUnresolved,
         resolvedSinceBaseline: resolvedSinceBaseline,
+        unresolvedThreshold: unresolvedThreshold,
+        newUnresolvedThreshold: newUnresolvedThreshold,
       ),
     );
     stdout.writeln(
@@ -221,12 +229,8 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     return;
   }
 
-  final failureThreshold = options.failOnUnresolved ? 0 : options.maxUnresolved;
   final thresholdFailure =
-      failureThreshold != null && unresolved.length > failureThreshold;
-  final newUnresolvedThreshold = options.failOnNewUnresolved
-      ? 0
-      : options.maxNewUnresolved;
+      unresolvedThreshold != null && unresolved.length > unresolvedThreshold;
   final newUnresolvedCount = newUnresolved?.length ?? 0;
   final newUnresolvedThresholdFailure =
       newUnresolvedThreshold != null &&
@@ -277,7 +281,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
   if (shouldFail) {
     final details = <String>[
       if (thresholdFailure)
-        'found ${unresolved.length}, allowed $failureThreshold',
+        'found ${unresolved.length}, allowed $unresolvedThreshold',
       if (newUnresolvedThresholdFailure)
         'new unresolved regression detected ($newUnresolvedCount, allowed $newUnresolvedThreshold)',
     ].join('; ');
@@ -1598,6 +1602,8 @@ String _renderUnresolvedReportJson({
   required int? baselineUnresolvedCount,
   required List<_UnresolvedIcon>? newUnresolved,
   required List<int>? resolvedSinceBaseline,
+  required int? unresolvedThreshold,
+  required int? newUnresolvedThreshold,
 }) {
   final report = <String, Object>{
     'kit': kit,
@@ -1605,6 +1611,10 @@ String _renderUnresolvedReportJson({
     'unresolvedCount': unresolved.length,
     'unresolved': unresolved.map(_unresolvedIconJson).toList(growable: false),
     'unresolvedCodePoints': _unresolvedCodePointsJson(unresolved),
+    if (unresolvedThreshold != null) ...<String, Object>{
+      'maxUnresolved': unresolvedThreshold,
+      'maxUnresolvedExceeded': unresolved.length > unresolvedThreshold,
+    },
     if (baselineUnresolvedCount != null) ...<String, Object>{
       'baselineUnresolvedCount': baselineUnresolvedCount,
     },
@@ -1614,6 +1624,11 @@ String _renderUnresolvedReportJson({
           .map(_unresolvedIconJson)
           .toList(growable: false),
       'newUnresolvedCodePoints': _unresolvedCodePointsJson(newUnresolved),
+    },
+    if (newUnresolvedThreshold != null) ...<String, Object>{
+      'maxNewUnresolved': newUnresolvedThreshold,
+      'maxNewUnresolvedExceeded':
+          (newUnresolved?.length ?? 0) > newUnresolvedThreshold,
     },
     if (resolvedSinceBaseline != null) ...<String, Object>{
       'resolvedSinceBaselineCount': resolvedSinceBaseline.length,

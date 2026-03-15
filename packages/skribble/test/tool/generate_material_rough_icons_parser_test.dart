@@ -472,6 +472,10 @@ class Icons {
       expect(decoded['resolvedCount'], 1);
       expect(decoded['unresolvedCount'], 1);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
+      expect(decoded.containsKey('maxUnresolved'), isFalse);
+      expect(decoded.containsKey('maxUnresolvedExceeded'), isFalse);
+      expect(decoded.containsKey('maxNewUnresolved'), isFalse);
+      expect(decoded.containsKey('maxNewUnresolvedExceeded'), isFalse);
 
       final unresolved = decoded['unresolved'] as List<dynamic>;
       expect(unresolved, hasLength(1));
@@ -817,6 +821,8 @@ class Icons {
           jsonDecode(unresolvedReportFile.readAsStringSync())
               as Map<String, dynamic>;
       expect(decoded['unresolvedCount'], 1);
+      expect(decoded['maxUnresolved'], 0);
+      expect(decoded['maxUnresolvedExceeded'], isTrue);
     });
   });
 
@@ -1447,6 +1453,8 @@ class Icons {
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 1);
         expect(decoded['newUnresolvedCodePoints'], <String>['0xf04b9']);
+        expect(decoded['maxNewUnresolved'], 1);
+        expect(decoded['maxNewUnresolvedExceeded'], isFalse);
       },
     );
 
@@ -1520,6 +1528,8 @@ class Icons {
       expect(decoded['baselineUnresolvedCount'], 0);
       expect(decoded['newUnresolvedCount'], 1);
       expect(decoded['newUnresolvedCodePoints'], <String>['0xf04b9']);
+      expect(decoded['maxNewUnresolved'], 0);
+      expect(decoded['maxNewUnresolvedExceeded'], isTrue);
     });
 
     test('throws when unresolved icons regress against baseline', () async {
@@ -1592,6 +1602,8 @@ class Icons {
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['newUnresolvedCount'], 1);
       expect(decoded['newUnresolvedCodePoints'], <String>['0xf04b9']);
+      expect(decoded['maxNewUnresolved'], 0);
+      expect(decoded['maxNewUnresolvedExceeded'], isTrue);
       expect(decoded['resolvedSinceBaselineCount'], 0);
       expect(decoded['resolvedSinceBaseline'], <dynamic>[]);
 
