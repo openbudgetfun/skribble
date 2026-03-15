@@ -174,6 +174,19 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     );
   }
 
+  if (options.unresolvedBaselineOutputPath
+      case final unresolvedBaselineOutputPath?) {
+    final unresolvedBaselineOutputFile = File(unresolvedBaselineOutputPath)
+      ..createSync(recursive: true);
+    unresolvedBaselineOutputFile.writeAsStringSync(
+      _renderUnresolvedBaselineJson(unresolved: unresolved),
+    );
+    stdout.writeln(
+      'Generated unresolved baseline JSON to '
+      '${unresolvedBaselineOutputFile.path}',
+    );
+  }
+
   if (options.supplementalManifestOutputPath
       case final supplementalManifestOutputPath?) {
     final supplementalManifestOutputFile = File(supplementalManifestOutputPath)
@@ -272,6 +285,8 @@ Options:
   --brand-icons-source <path>      Path to extracted simple-icons package (brand fallback).
   --supplemental-manifest <path>   JSON manifest for unresolved flutter-material icons.
   --unresolved-output <path>       Emit unresolved icon codepoint report as JSON.
+  --unresolved-baseline-output <path>
+                                   Emit normalized unresolved baseline JSON.
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
   --unresolved-baseline <path>     Baseline unresolved report or manifest JSON for diffing.
@@ -326,6 +341,7 @@ final class _ScriptOptions {
     this.brandIconsSourcePath,
     this.supplementalManifestPath,
     this.unresolvedOutputPath,
+    this.unresolvedBaselineOutputPath,
     this.supplementalManifestOutputPath,
     this.unresolvedBaselinePath,
     this.maxUnresolved,
@@ -356,6 +372,7 @@ final class _ScriptOptions {
   final String? brandIconsSourcePath;
   final String? supplementalManifestPath;
   final String? unresolvedOutputPath;
+  final String? unresolvedBaselineOutputPath;
   final String? supplementalManifestOutputPath;
   final String? unresolvedBaselinePath;
   final int? maxUnresolved;
@@ -386,6 +403,7 @@ final class _ScriptOptions {
     String? brandIconsSourcePath;
     String? supplementalManifestPath;
     String? unresolvedOutputPath;
+    String? unresolvedBaselineOutputPath;
     String? supplementalManifestOutputPath;
     String? unresolvedBaselinePath;
     int? maxUnresolved;
@@ -468,6 +486,8 @@ final class _ScriptOptions {
           supplementalManifestPath = value;
         case '--unresolved-output':
           unresolvedOutputPath = value;
+        case '--unresolved-baseline-output':
+          unresolvedBaselineOutputPath = value;
         case '--supplemental-manifest-output':
           supplementalManifestOutputPath = value;
         case '--unresolved-baseline':
@@ -519,6 +539,7 @@ final class _ScriptOptions {
       brandIconsSourcePath: brandIconsSourcePath,
       supplementalManifestPath: supplementalManifestPath,
       unresolvedOutputPath: unresolvedOutputPath,
+      unresolvedBaselineOutputPath: unresolvedBaselineOutputPath,
       supplementalManifestOutputPath: supplementalManifestOutputPath,
       unresolvedBaselinePath: unresolvedBaselinePath,
       maxUnresolved: maxUnresolved,
@@ -1467,26 +1488,14 @@ String _renderUnresolvedReportJson({
     'kit': kit,
     'resolvedCount': resolvedCount,
     'unresolvedCount': unresolved.length,
-    'unresolved': unresolved
-        .map(
-          (item) => <String, Object>{
-            'codePoint': '0x${item.codePoint.toRadixString(16)}',
-            'identifiers': item.identifiers,
-          },
-        )
-        .toList(growable: false),
+    'unresolved': unresolved.map(_unresolvedIconJson).toList(growable: false),
     if (baselineUnresolvedCount != null) ...<String, Object>{
       'baselineUnresolvedCount': baselineUnresolvedCount,
     },
     if (newUnresolved != null) ...<String, Object>{
       'newUnresolvedCount': newUnresolved.length,
       'newUnresolved': newUnresolved
-          .map(
-            (item) => <String, Object>{
-              'codePoint': '0x${item.codePoint.toRadixString(16)}',
-              'identifiers': item.identifiers,
-            },
-          )
+          .map(_unresolvedIconJson)
           .toList(growable: false),
     },
     if (resolvedSinceBaseline != null) ...<String, Object>{
@@ -1498,6 +1507,36 @@ String _renderUnresolvedReportJson({
   };
 
   return const JsonEncoder.withIndent('  ').convert(report);
+}
+
+Map<String, Object> _unresolvedIconJson(_UnresolvedIcon item) {
+  return <String, Object>{
+    'codePoint': '0x${item.codePoint.toRadixString(16)}',
+    'identifiers': item.identifiers,
+  };
+}
+
+String _renderUnresolvedBaselineJson({
+  required List<_UnresolvedIcon> unresolved,
+}) {
+  final sortedUnresolved = [...unresolved]
+    ..sort((a, b) {
+      final byCodePoint = a.codePoint.compareTo(b.codePoint);
+      if (byCodePoint != 0) {
+        return byCodePoint;
+      }
+      final aIdentifier = a.identifiers.isEmpty ? '' : a.identifiers.first;
+      final bIdentifier = b.identifiers.isEmpty ? '' : b.identifiers.first;
+      return aIdentifier.compareTo(bIdentifier);
+    });
+
+  final baseline = <String, Object>{
+    'unresolved': sortedUnresolved
+        .map(_unresolvedIconJson)
+        .toList(growable: false),
+  };
+
+  return const JsonEncoder.withIndent('  ').convert(baseline);
 }
 
 String _renderSupplementalManifestTemplateJson({

@@ -69,10 +69,10 @@ melos:
         --fail-on-new-unresolved
 
     rough-icons-baseline:
-      description: Refresh unresolved baseline JSON used for rough icon regression gating.
+      description: Refresh normalized unresolved baseline JSON used for rough icon regression gating.
       run: >-
         cd packages/skribble &&
         dart run tool/generate_rough_icons.dart
         --kit flutter-material
         --rough-only
-        --unresolved-output tool/examples/material_rough_icons.unresolved-baseline.json
+        --unresolved-baseline-output tool/examples/material_rough_icons.unresolved-baseline.json

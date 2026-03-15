@@ -409,6 +409,87 @@ class Icons {
     });
   });
 
+  group('runGenerateRoughIcons unresolved baseline output', () {
+    late Directory tempDirectory;
+
+    setUp(() {
+      tempDirectory = Directory.systemTemp.createTempSync(
+        'rough-icon-unresolved-baseline-output-test-',
+      );
+    });
+
+    tearDown(() {
+      tempDirectory.deleteSync(recursive: true);
+    });
+
+    test('writes normalized unresolved baseline JSON when requested', () async {
+      final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+        ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "adobe".
+  static const IconData adobe = IconData(0xf04b9, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "face unlock" (sharp).
+  static const IconData face_unlock_sharp = IconData(0xe951, fontFamily: 'MaterialIcons');
+}
+''');
+
+      final materialIconsRoot = Directory(
+        '${tempDirectory.path}/material-icons',
+      )..createSync(recursive: true);
+      final materialSymbolsRoot = Directory(
+        '${tempDirectory.path}/material-symbols',
+      )..createSync(recursive: true);
+      final brandIconsRoot = Directory('${tempDirectory.path}/simple-icons')
+        ..createSync(recursive: true);
+
+      final outputFile = File(
+        '${tempDirectory.path}/material_rough_icons.g.dart',
+      );
+      final unresolvedBaselineFile = File(
+        '${tempDirectory.path}/unresolved-baseline.json',
+      );
+
+      await tool.runGenerateRoughIcons(<String>[
+        '--kit',
+        'flutter-material',
+        '--flutter-icons',
+        flutterIconsFile.path,
+        '--material-icons-source',
+        materialIconsRoot.path,
+        '--material-symbols-source',
+        materialSymbolsRoot.path,
+        '--brand-icons-source',
+        brandIconsRoot.path,
+        '--unresolved-baseline-output',
+        unresolvedBaselineFile.path,
+        '--output',
+        outputFile.path,
+      ]);
+
+      expect(unresolvedBaselineFile.existsSync(), isTrue);
+
+      final decoded =
+          jsonDecode(unresolvedBaselineFile.readAsStringSync())
+              as Map<String, dynamic>;
+      expect(decoded.containsKey('unresolved'), isTrue);
+      expect(decoded.containsKey('kit'), isFalse);
+      expect(decoded.containsKey('resolvedCount'), isFalse);
+      expect(decoded.containsKey('unresolvedCount'), isFalse);
+
+      final unresolved = decoded['unresolved'] as List<dynamic>;
+      expect(unresolved, hasLength(2));
+
+      final firstUnresolved = unresolved.first as Map<String, dynamic>;
+      expect(firstUnresolved['codePoint'], '0xe951');
+      expect(firstUnresolved['identifiers'], <String>['face_unlock_sharp']);
+
+      final secondUnresolved = unresolved[1] as Map<String, dynamic>;
+      expect(secondUnresolved['codePoint'], '0xf04b9');
+      expect(secondUnresolved['identifiers'], <String>['adobe']);
+    });
+  });
+
   group('runGenerateRoughIcons supplemental manifest template output', () {
     late Directory tempDirectory;
 
