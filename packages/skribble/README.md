@@ -233,7 +233,7 @@ Runtime helpers exposed by `wired_icon.dart`:
 
 - `lookupMaterialRoughIconByIdentifier('search')` → `WiredSvgIconData?`
 - `lookupMaterialRoughFontIcon('search')` → `IconData?` for generated font usage
-- `materialRoughIconIdentifiers` / `materialRoughFontCodePoints`
+- `materialRoughIconIdentifiers` / `materialRoughFontCodePoints` (includes legacy alias identifiers that share codepoints)
 - `materialRoughFontFamily`
 
 ## Contributing

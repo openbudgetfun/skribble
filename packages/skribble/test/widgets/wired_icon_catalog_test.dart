@@ -61,6 +61,43 @@ void main() {
       expect(faceUnlockFontIcon!.codePoint, Icons.face_unlock_sharp.codePoint);
     });
 
+    test('resolves legacy alias identifiers that share codepoints', () {
+      final trendingNeutralByIdentifier = lookupMaterialRoughIconByIdentifier(
+        'trending_neutral',
+      );
+      final trendingFlatByIconData = lookupMaterialRoughIcon(
+        Icons.trending_flat,
+      );
+      final radioButtonOnByIdentifier = lookupMaterialRoughIconByIdentifier(
+        'radio_button_on',
+      );
+      final radioButtonCheckedByIconData = lookupMaterialRoughIcon(
+        Icons.radio_button_checked,
+      );
+
+      expect(trendingNeutralByIdentifier, isNotNull);
+      expect(trendingNeutralByIdentifier, same(trendingFlatByIconData));
+      expect(radioButtonOnByIdentifier, isNotNull);
+      expect(radioButtonOnByIdentifier, same(radioButtonCheckedByIconData));
+
+      final trendingNeutralFontIcon = lookupMaterialRoughFontIcon(
+        'trending_neutral',
+      );
+      final radioButtonOnFontIcon = lookupMaterialRoughFontIcon(
+        'radio_button_on',
+      );
+      expect(trendingNeutralFontIcon, isNotNull);
+      expect(radioButtonOnFontIcon, isNotNull);
+      expect(
+        trendingNeutralFontIcon!.codePoint,
+        Icons.trending_neutral.codePoint,
+      );
+      expect(
+        radioButtonOnFontIcon!.codePoint,
+        Icons.radio_button_on.codePoint,
+      );
+    });
+
     test('returns null for unknown identifiers', () {
       expect(lookupMaterialRoughIconByIdentifier('does_not_exist'), isNull);
       expect(lookupMaterialRoughFontIcon('does_not_exist'), isNull);

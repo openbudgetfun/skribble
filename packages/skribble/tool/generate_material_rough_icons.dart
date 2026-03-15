@@ -52,39 +52,51 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
 
   final icons = <_GeneratedIcon>[];
   final roughTasks = <_RoughTask>[];
+  final fontGlyphs = <_FontGlyph>[];
   final unresolved = <_UnresolvedIcon>[];
 
   for (final entry in byCodePoint.entries) {
-    _GeneratedIcon? resolvedIcon;
-    for (final declaration in entry.value) {
+    final declarationsForCodePoint = entry.value;
+    _FlutterIconDeclaration? resolvedDeclaration;
+    ResolvedSvgCandidate<_GeneratedIconData>? resolvedCandidate;
+
+    for (final declaration in declarationsForCodePoint) {
       final resolved = provider.resolveIcon(declaration);
       if (resolved == null) {
         continue;
       }
-      resolvedIcon = _GeneratedIcon(
-        codePoint: entry.key,
-        identifier: declaration.identifier,
-        data: resolved.data,
-      );
-      roughTasks.add(
-        _RoughTask(
-          identifier: declaration.identifier,
-          codePoint: entry.key,
-          inputSvgPath: resolved.sourcePath,
-        ),
-      );
+      resolvedDeclaration = declaration;
+      resolvedCandidate = resolved;
       break;
     }
 
-    if (resolvedIcon != null) {
-      icons.add(resolvedIcon);
+    if (resolvedDeclaration != null && resolvedCandidate != null) {
+      icons.add(
+        _GeneratedIcon(
+          codePoint: entry.key,
+          identifier: resolvedDeclaration.identifier,
+          data: resolvedCandidate.data,
+        ),
+      );
+      roughTasks.add(
+        _RoughTask(
+          identifier: resolvedDeclaration.identifier,
+          codePoint: entry.key,
+          inputSvgPath: resolvedCandidate.sourcePath,
+        ),
+      );
+      for (final declaration in declarationsForCodePoint) {
+        fontGlyphs.add(
+          _FontGlyph(identifier: declaration.identifier, codePoint: entry.key),
+        );
+      }
       continue;
     }
 
     unresolved.add(
       _UnresolvedIcon(
         codePoint: entry.key,
-        identifiers: entry.value
+        identifiers: declarationsForCodePoint
             .map((item) => item.identifier)
             .toList(growable: false),
       ),
@@ -132,14 +144,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     outputFile.writeAsStringSync(
       _renderFontCodePointsDart(
         fontName: options.fontName,
-        glyphs: roughTasks
-            .map(
-              (task) => _FontGlyph(
-                identifier: task.identifier,
-                codePoint: task.codePoint,
-              ),
-            )
-            .toList(growable: false),
+        glyphs: fontGlyphs,
       ),
     );
     stdout.writeln('Generated icon font Dart helpers to ${outputFile.path}');
