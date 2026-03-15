@@ -7,6 +7,8 @@
 # Optional env vars:
 #   ROUGH_ICONS_KEEP_UNRESOLVED_REPORT=1  Keep unresolved-report.json after
 #                                         successful local regression checks.
+#   ROUGH_ICONS_MAX_UNRESOLVED=<int>      Allow up to this many total unresolved
+#                                         icons before failing (default: disabled).
 #   ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>  Allow up to this many newly unresolved
 #                                         baseline regressions before failing
 #                                         (default: 0 / strict-equivalent threshold).
@@ -23,6 +25,8 @@ UNRESOLVED_REPORT_PATH="packages/skribble/unresolved-report.json"
 BASELINE_SYNC_DIFF_PATH="rough-icons-baseline-sync.diff"
 GENERATED_SYNC_DIFF_PATH="rough-icons-generated-sync.diff"
 
+UNRESOLVED_THRESHOLD_ARGS=()
+UNRESOLVED_THRESHOLD_MODE_DESCRIPTION=""
 BASELINE_REGRESSION_ARGS=()
 BASELINE_REGRESSION_MODE_DESCRIPTION=""
 
@@ -46,6 +50,25 @@ emit_sync_diff_if_needed() {
   return 1
 }
 
+build_unresolved_threshold_args() {
+  local max_unresolved="${ROUGH_ICONS_MAX_UNRESOLVED:-}"
+
+  if [[ -z "$max_unresolved" ]]; then
+    UNRESOLVED_THRESHOLD_ARGS=()
+    UNRESOLVED_THRESHOLD_MODE_DESCRIPTION="disabled"
+    return 0
+  fi
+
+  if [[ ! "$max_unresolved" =~ ^[0-9]+$ ]]; then
+    echo "ROUGH_ICONS_MAX_UNRESOLVED must be a non-negative integer." >&2
+    echo "Received: $max_unresolved" >&2
+    return 1
+  fi
+
+  UNRESOLVED_THRESHOLD_ARGS=(--max-unresolved "$max_unresolved")
+  UNRESOLVED_THRESHOLD_MODE_DESCRIPTION="threshold (--max-unresolved $max_unresolved)"
+}
+
 build_baseline_regression_args() {
   local max_new_unresolved="${ROUGH_ICONS_MAX_NEW_UNRESOLVED:-0}"
 
@@ -59,8 +82,14 @@ build_baseline_regression_args() {
   BASELINE_REGRESSION_MODE_DESCRIPTION="threshold (--max-new-unresolved $max_new_unresolved)"
 }
 
-run_regression_check() {
+build_rough_icon_gate_args() {
+  build_unresolved_threshold_args
   build_baseline_regression_args
+}
+
+run_regression_check() {
+  build_rough_icon_gate_args
+  echo "Using unresolved gate: $UNRESOLVED_THRESHOLD_MODE_DESCRIPTION"
   echo "Using unresolved baseline regression gate: $BASELINE_REGRESSION_MODE_DESCRIPTION"
 
   (
@@ -71,6 +100,7 @@ run_regression_check() {
       --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json \
       --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json \
       --unresolved-output unresolved-report.json \
+      "${UNRESOLVED_THRESHOLD_ARGS[@]}" \
       "${BASELINE_REGRESSION_ARGS[@]}"
   )
 
@@ -98,7 +128,8 @@ run_baseline_sync_check() {
 }
 
 run_generated_sync_check() {
-  build_baseline_regression_args
+  build_rough_icon_gate_args
+  echo "Using unresolved gate: $UNRESOLVED_THRESHOLD_MODE_DESCRIPTION"
   echo "Using unresolved baseline regression gate: $BASELINE_REGRESSION_MODE_DESCRIPTION"
 
   (
@@ -107,6 +138,7 @@ run_generated_sync_check() {
       --kit flutter-material \
       --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json \
       --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json \
+      "${UNRESOLVED_THRESHOLD_ARGS[@]}" \
       "${BASELINE_REGRESSION_ARGS[@]}" \
       --output lib/src/generated/material_rough_icons.g.dart \
       --font-dart-output lib/src/generated/material_rough_icon_font.g.dart

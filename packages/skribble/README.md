@@ -224,6 +224,8 @@ On sync-check failures, the script prints `git diff` output and writes:
 
 `regression` cleans up `packages/skribble/unresolved-report.json` after a
 successful local run. Set `ROUGH_ICONS_KEEP_UNRESOLVED_REPORT=1` to keep it.
+Set `ROUGH_ICONS_MAX_UNRESOLVED=<int>` to enable total unresolved gating via
+`--max-unresolved` (default: disabled).
 By default, regression/generated-sync checks use
 `--max-new-unresolved 0` (strict-mode equivalent). Set
 `ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>` to relax or tighten that threshold.
