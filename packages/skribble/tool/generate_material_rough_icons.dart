@@ -200,6 +200,8 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
         newUnresolvedThreshold: newUnresolvedThreshold,
         unresolvedThresholdMode: unresolvedThresholdMode,
         newUnresolvedThresholdMode: newUnresolvedThresholdMode,
+        unresolvedGateFailed: thresholdFailure,
+        newUnresolvedGateFailed: newUnresolvedThresholdFailure,
         wouldFail: shouldFail,
       ),
     );
@@ -1629,6 +1631,8 @@ String _renderUnresolvedReportJson({
   required int? newUnresolvedThreshold,
   required String unresolvedThresholdMode,
   required String newUnresolvedThresholdMode,
+  required bool unresolvedGateFailed,
+  required bool newUnresolvedGateFailed,
   required bool wouldFail,
 }) {
   final report = <String, Object>{
@@ -1636,6 +1640,8 @@ String _renderUnresolvedReportJson({
     'resolvedCount': resolvedCount,
     'unresolvedCount': unresolved.length,
     'wouldFail': wouldFail,
+    'unresolvedGateFailed': unresolvedGateFailed,
+    'newUnresolvedGateFailed': newUnresolvedGateFailed,
     'unresolved': unresolved.map(_unresolvedIconJson).toList(growable: false),
     'unresolvedCodePoints': _unresolvedCodePointsJson(unresolved),
     'unresolvedThresholdMode': unresolvedThresholdMode,
