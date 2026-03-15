@@ -124,6 +124,15 @@ The JSON report includes:
 - optional `newUnresolvedCount` / `newUnresolved[]` when baseline comparison is enabled
 - optional `resolvedSinceBaselineCount` / `resolvedSinceBaseline[]` (codepoint strings)
 
+## Normalized unresolved baseline output
+
+To emit a minimal baseline file dedicated to regression checks, pass:
+
+- `--unresolved-baseline-output <path>`
+
+This output intentionally contains only an `unresolved[]` list so baseline
+updates are smaller and avoid churn in unrelated report metadata.
+
 ## Supplemental manifest template output
 
 To emit a starter supplemental manifest for unresolved icons, pass:
@@ -161,7 +170,7 @@ Workspace defaults:
 both enforce `--fail-on-new-unresolved` against
 `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`.
 
-To refresh that baseline after intentional coverage changes:
+To refresh that normalized baseline after intentional coverage changes:
 
 ```bash
 melos run rough-icons-baseline

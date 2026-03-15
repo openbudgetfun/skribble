@@ -201,7 +201,8 @@ melos run rough-icons-baseline
 
 `rough-icons` and `rough-icons-font` both enforce unresolved regression gating
 via `--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json`
-plus `--fail-on-new-unresolved`.
+plus `--fail-on-new-unresolved`. Use `rough-icons-baseline` to refresh that
+normalized baseline file after intentional changes.
 
 Useful flags:
 
@@ -212,6 +213,7 @@ Useful flags:
 - `--brand-icons-source <path>` to provide a local `simple-icons` package as fallback for brand identifiers missing in Material SVG packages.
 - `--supplemental-manifest <path>` to provide custom SVGs for unresolved `flutter-material` identifiers/codepoints.
 - `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring.
+- `--unresolved-baseline-output <path>` to emit a normalized unresolved baseline (`unresolved[]` only) for regression gating.
 - `--supplemental-manifest-output <path>` to emit a starter supplemental manifest template for unresolved icons.
 - `--unresolved-baseline <path>` to compare unresolved output against a baseline report (`unresolved[]`) or manifest (`icons[]`), including `newUnresolved` and `resolvedSinceBaseline` report fields.
 - `--max-unresolved <int>` to allow a bounded unresolved count before failing.
