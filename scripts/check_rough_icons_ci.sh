@@ -7,6 +7,9 @@
 # Optional env vars:
 #   ROUGH_ICONS_KEEP_UNRESOLVED_REPORT=1  Keep unresolved-report.json after
 #                                         successful local regression checks.
+#   ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>  Allow up to this many newly unresolved
+#                                         baseline regressions before failing
+#                                         (default: strict fail-on-new-unresolved).
 
 set -euo pipefail
 
@@ -19,6 +22,9 @@ cd "$REPO_ROOT"
 UNRESOLVED_REPORT_PATH="packages/skribble/unresolved-report.json"
 BASELINE_SYNC_DIFF_PATH="rough-icons-baseline-sync.diff"
 GENERATED_SYNC_DIFF_PATH="rough-icons-generated-sync.diff"
+
+BASELINE_REGRESSION_ARGS=()
+BASELINE_REGRESSION_MODE_DESCRIPTION=""
 
 emit_sync_diff_if_needed() {
   local diff_output_path="$1"
@@ -40,7 +46,29 @@ emit_sync_diff_if_needed() {
   return 1
 }
 
+build_baseline_regression_args() {
+  local max_new_unresolved="${ROUGH_ICONS_MAX_NEW_UNRESOLVED:-}"
+
+  if [[ -z "$max_new_unresolved" ]]; then
+    BASELINE_REGRESSION_ARGS=(--fail-on-new-unresolved)
+    BASELINE_REGRESSION_MODE_DESCRIPTION="strict (--fail-on-new-unresolved)"
+    return 0
+  fi
+
+  if [[ ! "$max_new_unresolved" =~ ^[0-9]+$ ]]; then
+    echo "ROUGH_ICONS_MAX_NEW_UNRESOLVED must be a non-negative integer." >&2
+    echo "Received: $max_new_unresolved" >&2
+    return 1
+  fi
+
+  BASELINE_REGRESSION_ARGS=(--max-new-unresolved "$max_new_unresolved")
+  BASELINE_REGRESSION_MODE_DESCRIPTION="threshold (--max-new-unresolved $max_new_unresolved)"
+}
+
 run_regression_check() {
+  build_baseline_regression_args
+  echo "Using unresolved baseline regression gate: $BASELINE_REGRESSION_MODE_DESCRIPTION"
+
   (
     cd packages/skribble
     dart run tool/generate_rough_icons.dart \
@@ -49,7 +77,7 @@ run_regression_check() {
       --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json \
       --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json \
       --unresolved-output unresolved-report.json \
-      --fail-on-new-unresolved
+      "${BASELINE_REGRESSION_ARGS[@]}"
   )
 
   if [[ "${CI:-}" != "true" ]] && [[ "${ROUGH_ICONS_KEEP_UNRESOLVED_REPORT:-0}" != "1" ]]; then
@@ -76,13 +104,16 @@ run_baseline_sync_check() {
 }
 
 run_generated_sync_check() {
+  build_baseline_regression_args
+  echo "Using unresolved baseline regression gate: $BASELINE_REGRESSION_MODE_DESCRIPTION"
+
   (
     cd packages/skribble
     dart run tool/generate_rough_icons.dart \
       --kit flutter-material \
       --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json \
       --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json \
-      --fail-on-new-unresolved \
+      "${BASELINE_REGRESSION_ARGS[@]}" \
       --output lib/src/generated/material_rough_icons.g.dart \
       --font-dart-output lib/src/generated/material_rough_icon_font.g.dart
   )
