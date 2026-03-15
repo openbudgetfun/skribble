@@ -474,6 +474,7 @@ class Icons {
       expect(decoded['wouldFail'], isFalse);
       expect(decoded['unresolvedGateFailed'], isFalse);
       expect(decoded['newUnresolvedGateFailed'], isFalse);
+      expect(decoded['failedGates'], <String>[]);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['unresolvedThresholdMode'], 'disabled');
       expect(decoded['newUnresolvedThresholdMode'], 'disabled');
@@ -829,6 +830,7 @@ class Icons {
       expect(decoded['wouldFail'], isTrue);
       expect(decoded['unresolvedGateFailed'], isTrue);
       expect(decoded['newUnresolvedGateFailed'], isFalse);
+      expect(decoded['failedGates'], <String>['unresolved']);
       expect(decoded['unresolvedThresholdMode'], 'strict');
       expect(decoded['newUnresolvedThresholdMode'], 'disabled');
       expect(decoded['maxUnresolved'], 0);
@@ -911,6 +913,7 @@ class Icons {
       expect(decoded['wouldFail'], isFalse);
       expect(decoded['unresolvedGateFailed'], isFalse);
       expect(decoded['newUnresolvedGateFailed'], isFalse);
+      expect(decoded['failedGates'], <String>[]);
       expect(decoded['unresolvedThresholdMode'], 'threshold');
       expect(decoded['newUnresolvedThresholdMode'], 'disabled');
     });
@@ -1481,6 +1484,7 @@ class Icons {
         expect(decoded['wouldFail'], isFalse);
         expect(decoded['unresolvedGateFailed'], isFalse);
         expect(decoded['newUnresolvedGateFailed'], isFalse);
+        expect(decoded['failedGates'], <String>[]);
         expect(decoded['maxNewUnresolved'], 1);
         expect(decoded['maxNewUnresolvedExceeded'], isFalse);
         expect(decoded['unresolvedThresholdMode'], 'disabled');
@@ -1561,11 +1565,94 @@ class Icons {
       expect(decoded['wouldFail'], isTrue);
       expect(decoded['unresolvedGateFailed'], isFalse);
       expect(decoded['newUnresolvedGateFailed'], isTrue);
+      expect(decoded['failedGates'], <String>['newUnresolved']);
       expect(decoded['maxNewUnresolved'], 0);
       expect(decoded['maxNewUnresolvedExceeded'], isTrue);
       expect(decoded['unresolvedThresholdMode'], 'disabled');
       expect(decoded['newUnresolvedThresholdMode'], 'threshold');
     });
+
+    test(
+      'reports both failed gates when both thresholds are exceeded',
+      () async {
+        final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+          ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "label outline".
+  static const IconData label_outline = IconData(0xe364, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "adobe".
+  static const IconData adobe = IconData(0xf04b9, fontFamily: 'MaterialIcons');
+}
+''');
+
+        final materialIconsRoot = Directory(
+          '${tempDirectory.path}/material-icons',
+        )..createSync(recursive: true);
+        final materialSymbolsRoot = Directory(
+          '${tempDirectory.path}/material-symbols',
+        )..createSync(recursive: true);
+        final brandIconsRoot = Directory('${tempDirectory.path}/simple-icons')
+          ..createSync(recursive: true);
+
+        File('${materialIconsRoot.path}/filled/label.svg')
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+          );
+
+        final baselineFile = File('${tempDirectory.path}/baseline-empty.json')
+          ..writeAsStringSync('''
+{
+  "unresolved": []
+}
+''');
+        final unresolvedReportFile = File(
+          '${tempDirectory.path}/unresolved_report.json',
+        );
+        final outputFile = File(
+          '${tempDirectory.path}/material_rough_icons.g.dart',
+        );
+
+        await expectLater(
+          tool.runGenerateRoughIcons(<String>[
+            '--kit',
+            'flutter-material',
+            '--flutter-icons',
+            flutterIconsFile.path,
+            '--material-icons-source',
+            materialIconsRoot.path,
+            '--material-symbols-source',
+            materialSymbolsRoot.path,
+            '--brand-icons-source',
+            brandIconsRoot.path,
+            '--unresolved-baseline',
+            baselineFile.path,
+            '--max-unresolved',
+            '0',
+            '--max-new-unresolved',
+            '0',
+            '--unresolved-output',
+            unresolvedReportFile.path,
+            '--output',
+            outputFile.path,
+          ]),
+          throwsA(isA<StateError>()),
+        );
+
+        final decoded =
+            jsonDecode(unresolvedReportFile.readAsStringSync())
+                as Map<String, dynamic>;
+        expect(decoded['wouldFail'], isTrue);
+        expect(decoded['unresolvedGateFailed'], isTrue);
+        expect(decoded['newUnresolvedGateFailed'], isTrue);
+        expect(decoded['failedGates'], <String>['unresolved', 'newUnresolved']);
+        expect(decoded['maxUnresolvedExceeded'], isTrue);
+        expect(decoded['maxNewUnresolvedExceeded'], isTrue);
+        expect(decoded['unresolvedThresholdMode'], 'threshold');
+        expect(decoded['newUnresolvedThresholdMode'], 'threshold');
+      },
+    );
 
     test('throws when unresolved icons regress against baseline', () async {
       final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
@@ -1640,6 +1727,7 @@ class Icons {
       expect(decoded['wouldFail'], isTrue);
       expect(decoded['unresolvedGateFailed'], isFalse);
       expect(decoded['newUnresolvedGateFailed'], isTrue);
+      expect(decoded['failedGates'], <String>['newUnresolved']);
       expect(decoded['maxNewUnresolved'], 0);
       expect(decoded['maxNewUnresolvedExceeded'], isTrue);
       expect(decoded['unresolvedThresholdMode'], 'disabled');
