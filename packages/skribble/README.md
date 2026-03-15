@@ -207,8 +207,10 @@ plus `--fail-on-new-unresolved`. Use `rough-icons-baseline` to refresh that
 normalized baseline file after intentional changes. Pull-request CI also runs
 this gate in `--rough-only` mode, uploads a
 `rough-icons-unresolved-report` artifact for diagnostics, verifies the
-committed baseline file is up to date, and checks that generated rough icon
-catalog files are committed/synced.
+committed baseline file is up to date, checks that generated rough icon
+catalog files are committed/synced, and uploads diff artifacts
+(`rough-icons-baseline-sync-diff`, `rough-icons-generated-sync-diff`) when
+those sync checks fail.
 
 Useful flags:
 
