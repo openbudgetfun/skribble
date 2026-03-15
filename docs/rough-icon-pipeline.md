@@ -126,6 +126,7 @@ The JSON report includes:
 - `unresolvedCount`
 - `wouldFail` (whether configured unresolved gates would fail this run)
 - `unresolvedGateFailed` / `newUnresolvedGateFailed` (per-gate failure booleans)
+- `failedGates[]` summary list (`unresolved`, `newUnresolved`) for gates that failed
 - `unresolved[]` entries with `codePoint` and `identifiers`
 - `unresolvedCodePoints[]` summary list (hex strings)
 - optional `baselineUnresolvedCount`

@@ -1635,6 +1635,11 @@ String _renderUnresolvedReportJson({
   required bool newUnresolvedGateFailed,
   required bool wouldFail,
 }) {
+  final failedGates = <String>[
+    if (unresolvedGateFailed) 'unresolved',
+    if (newUnresolvedGateFailed) 'newUnresolved',
+  ];
+
   final report = <String, Object>{
     'kit': kit,
     'resolvedCount': resolvedCount,
@@ -1642,6 +1647,7 @@ String _renderUnresolvedReportJson({
     'wouldFail': wouldFail,
     'unresolvedGateFailed': unresolvedGateFailed,
     'newUnresolvedGateFailed': newUnresolvedGateFailed,
+    'failedGates': failedGates,
     'unresolved': unresolved.map(_unresolvedIconJson).toList(growable: false),
     'unresolvedCodePoints': _unresolvedCodePointsJson(unresolved),
     'unresolvedThresholdMode': unresolvedThresholdMode,
