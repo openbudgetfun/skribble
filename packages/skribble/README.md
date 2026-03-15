@@ -239,7 +239,7 @@ Useful flags:
 - `--rough-normalize-viewbox 128` to upscale SVG geometry before roughing.
 - `--brand-icons-source <path>` to provide a local `simple-icons` package as fallback for brand identifiers missing in Material SVG packages.
 - `--supplemental-manifest <path>` to provide custom SVGs for unresolved `flutter-material` identifiers/codepoints (workspace defaults use `tool/examples/material_rough_icons.supplemental.manifest.json`).
-- `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring.
+- `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring (includes `unresolved[]` plus `unresolvedCodePoints[]`, and baseline-diff summary arrays when enabled).
 - `--unresolved-baseline-output <path>` to emit a normalized unresolved baseline for regression gating (defaults to `unresolved[]`).
 - `--unresolved-baseline-output-format <unresolved|codepoints>` to choose unresolved baseline output shape (`unresolved[]` or `codePoints[]`; workspace defaults use `codepoints`).
 - `--supplemental-manifest-output <path>` to emit a starter supplemental manifest template for unresolved icons.
