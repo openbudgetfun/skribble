@@ -29,6 +29,23 @@ jobs:
         run: test:all
         shell: devenv shell -- bash -e {0}
 
+  rough-icons-regression:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: rough icons unresolved regression gate
+        run: >-
+          cd packages/skribble &&
+          dart run tool/generate_rough_icons.dart
+          --kit flutter-material
+          --rough-only
+          --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json
+          --fail-on-new-unresolved
+        shell: devenv shell -- bash -e {0}
+
   coverage:
     if: github.ref == 'refs/heads/main'
     runs-on: blacksmith-2vcpu-ubuntu-2404
