@@ -246,7 +246,8 @@ Useful flags:
 - `--unresolved-baseline <path>` to compare unresolved output against a baseline report (`unresolved[]`), manifest (`icons[]`), or minimal baseline (`codePoints[]`, also accepts `codepoints[]`), including `newUnresolved` and `resolvedSinceBaseline` report fields. String code points accept decimal, `0x` hex, bare hex, and `U+` hex forms.
 - `--max-unresolved <int>` to allow a bounded unresolved count before failing.
 - `--fail-on-unresolved` to make the command exit non-zero if unresolved icons remain (cannot be combined with `--max-unresolved`).
-- `--fail-on-new-unresolved` to fail only when unresolved entries regress versus baseline.
+- `--max-new-unresolved <int>` to allow a bounded number of newly unresolved entries versus baseline before failing (requires `--unresolved-baseline`).
+- `--fail-on-new-unresolved` to fail only when unresolved entries regress versus baseline (cannot be combined with `--max-new-unresolved`).
 - `--font-name skribble_rough_icons` to customize generated font family name.
 - `--font-dart-output <path>` to emit Dart lookup helpers for generated font codepoints.
 - `CHROME_PATH=/path/to/chrome` if Chromium/Chrome is not in a standard location.
