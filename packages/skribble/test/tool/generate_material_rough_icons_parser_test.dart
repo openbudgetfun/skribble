@@ -252,8 +252,8 @@ class Icons {
         final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
           ..writeAsStringSync('''
 class Icons {
-  /// The material icon named "adobe".
-  static const IconData adobe = IconData(0xf04b9, fontFamily: 'MaterialIcons');
+  /// The material icon named "adobe" (outlined).
+  static const IconData adobe_outlined = IconData(0xf05b4, fontFamily: 'MaterialIcons');
 
   /// The material icon named "face unlock" (sharp).
   static const IconData face_unlock_sharp = IconData(0xe951, fontFamily: 'MaterialIcons');
@@ -280,12 +280,12 @@ class Icons {
 {
   "icons": [
     {
-      "identifier": "adobe",
-      "codePoint": "0xf04b9",
+      "identifier": "adobe_outlined",
+      "codePoint": "0xf05b4",
       "svgPath": "adobe.svg"
     },
     {
-      "identifier": "face_unlock",
+      "identifier": "face_unlock_sharp",
       "codePoint": "0xe951",
       "svgPath": "face_unlock.svg"
     }
@@ -315,9 +315,9 @@ class Icons {
         ]);
 
         final generated = outputFile.readAsStringSync();
-        expect(generated, contains('// adobe'));
+        expect(generated, contains('// adobe_outlined'));
         expect(generated, contains('// face_unlock_sharp'));
-        expect(generated, contains('0xf04b9'));
+        expect(generated, contains('0xf05b4'));
         expect(generated, contains('0xe951'));
       },
     );

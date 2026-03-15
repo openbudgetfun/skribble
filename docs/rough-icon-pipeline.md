@@ -108,6 +108,10 @@ This uses the same JSON schema as `--kit svg-manifest` (`identifier`,
 `codePoint`, `svgPath`) and is applied as a fallback during
 `--kit flutter-material` resolution.
 
+This repo includes a committed supplemental manifest for known upstream gaps:
+
+- `packages/skribble/tool/examples/material_rough_icons.supplemental.manifest.json`
+
 ## Unresolved report output
 
 To emit a machine-readable unresolved report for follow-up work, pass:
@@ -167,13 +171,15 @@ Workspace defaults:
 - `melos run rough-icons`
 - `melos run rough-icons-font`
 
-both enforce `--fail-on-new-unresolved` against
+both apply the committed supplemental manifest
+`packages/skribble/tool/examples/material_rough_icons.supplemental.manifest.json`
+and enforce `--fail-on-new-unresolved` against
 `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`.
 
 CI also enforces the same unresolved regression gate on pull requests using
-`--rough-only` plus `--unresolved-baseline`, and uploads an
-`rough-icons-unresolved-report` artifact (from `--unresolved-output`) to aid
-regression diagnosis.
+`--rough-only`, `--supplemental-manifest`, and `--unresolved-baseline`, and
+uploads an `rough-icons-unresolved-report` artifact (from
+`--unresolved-output`) to aid regression diagnosis.
 
 To refresh that normalized baseline after intentional coverage changes:
 

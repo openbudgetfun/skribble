@@ -48,23 +48,25 @@ melos:
       run: cd apps/skribble_storybook && flutter test integration_test/screenshots_test.dart
 
     rough-icons:
-      description: Generate rough Material icon artifacts (Dart map + rough SVG files), failing on unresolved regressions.
+      description: Generate rough Material icon artifacts (Dart map + rough SVG files), applying supplemental sources and failing on unresolved regressions.
       run: >-
         cd packages/skribble &&
         dart run tool/generate_rough_icons.dart
         --kit flutter-material
         --rough-output-dir tool/icon_exports/rough-svg
+        --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
         --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json
         --fail-on-new-unresolved
 
     rough-icons-font:
-      description: Generate rough Material icon font artifacts (TTF) from rough SVGs, failing on unresolved regressions.
+      description: Generate rough Material icon font artifacts (TTF) from rough SVGs, applying supplemental sources and failing on unresolved regressions.
       run: >-
         cd packages/skribble &&
         dart run tool/generate_rough_icons.dart
         --kit flutter-material
         --rough-output-dir tool/icon_exports/rough-svg
         --font-output-dir tool/icon_exports/font
+        --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
         --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json
         --fail-on-new-unresolved
 
@@ -75,4 +77,5 @@ melos:
         dart run tool/generate_rough_icons.dart
         --kit flutter-material
         --rough-only
+        --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
         --unresolved-baseline-output tool/examples/material_rough_icons.unresolved-baseline.json
