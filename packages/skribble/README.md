@@ -202,7 +202,8 @@ melos run rough-icons-baseline
 `rough-icons` and `rough-icons-font` both enforce unresolved regression gating
 via `--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json`
 plus `--fail-on-new-unresolved`. Use `rough-icons-baseline` to refresh that
-normalized baseline file after intentional changes.
+normalized baseline file after intentional changes. Pull-request CI also runs
+this gate in `--rough-only` mode.
 
 Useful flags:
 

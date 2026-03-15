@@ -170,6 +170,9 @@ Workspace defaults:
 both enforce `--fail-on-new-unresolved` against
 `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`.
 
+CI also enforces the same unresolved regression gate on pull requests using
+`--rough-only` plus `--unresolved-baseline`.
+
 To refresh that normalized baseline after intentional coverage changes:
 
 ```bash
