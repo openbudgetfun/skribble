@@ -330,7 +330,7 @@ Options:
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
   --unresolved-baseline <path>     Baseline unresolved report/manifest/codePoints JSON for diffing.
-                                   Accepts unresolvedCodePoints/unresolvedCodepoints/codePoints/codepoints keys for minimal baseline objects.
+                                   Accepts unresolvedCodePoints/unresolvedCodepoints/unresolved_code_points/codePoints/codepoints/code_points keys for minimal baseline objects.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain (cannot be combined with --max-unresolved).
   --max-new-unresolved <int>       Max newly unresolved icons allowed before failing (requires --unresolved-baseline).
@@ -1497,8 +1497,11 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     final iconsValue = decoded['icons'];
     final unresolvedCodePointsValue = decoded['unresolvedCodePoints'];
     final unresolvedCodepointsValue = decoded['unresolvedCodepoints'];
+    final unresolvedCodePointsSnakeCaseValue =
+        decoded['unresolved_code_points'];
     final codePointsValue = decoded['codePoints'];
     final codepointsValue = decoded['codepoints'];
+    final codePointsSnakeCaseValue = decoded['code_points'];
 
     if (unresolvedValue is List<Object?>) {
       entries = unresolvedValue;
@@ -1508,16 +1511,21 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       entries = unresolvedCodePointsValue;
     } else if (unresolvedCodepointsValue is List<Object?>) {
       entries = unresolvedCodepointsValue;
+    } else if (unresolvedCodePointsSnakeCaseValue is List<Object?>) {
+      entries = unresolvedCodePointsSnakeCaseValue;
     } else if (codePointsValue is List<Object?>) {
       entries = codePointsValue;
     } else if (codepointsValue is List<Object?>) {
       entries = codepointsValue;
+    } else if (codePointsSnakeCaseValue is List<Object?>) {
+      entries = codePointsSnakeCaseValue;
     } else {
       throw FormatException(
         'Expected unresolved baseline JSON to contain either an "unresolved" '
         'list (report format), "icons" list (manifest format), or '
-        '"unresolvedCodePoints"/"unresolvedCodepoints"/"codePoints"/'
-        '"codepoints" list (minimal baseline format) '
+        '"unresolvedCodePoints"/"unresolvedCodepoints"/'
+        '"unresolved_code_points"/"codePoints"/"codepoints"/'
+        '"code_points" list (minimal baseline format) '
         'at ${baselineFile.path}.',
       );
     }
