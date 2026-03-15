@@ -1583,6 +1583,7 @@ String _renderUnresolvedReportJson({
     'resolvedCount': resolvedCount,
     'unresolvedCount': unresolved.length,
     'unresolved': unresolved.map(_unresolvedIconJson).toList(growable: false),
+    'unresolvedCodePoints': _unresolvedCodePointsJson(unresolved),
     if (baselineUnresolvedCount != null) ...<String, Object>{
       'baselineUnresolvedCount': baselineUnresolvedCount,
     },
@@ -1591,6 +1592,7 @@ String _renderUnresolvedReportJson({
       'newUnresolved': newUnresolved
           .map(_unresolvedIconJson)
           .toList(growable: false),
+      'newUnresolvedCodePoints': _unresolvedCodePointsJson(newUnresolved),
     },
     if (resolvedSinceBaseline != null) ...<String, Object>{
       'resolvedSinceBaselineCount': resolvedSinceBaseline.length,
@@ -1608,6 +1610,12 @@ Map<String, Object> _unresolvedIconJson(_UnresolvedIcon item) {
     'codePoint': '0x${item.codePoint.toRadixString(16)}',
     'identifiers': item.identifiers,
   };
+}
+
+List<String> _unresolvedCodePointsJson(List<_UnresolvedIcon> unresolved) {
+  return unresolved
+      .map((item) => '0x${item.codePoint.toRadixString(16)}')
+      .toList(growable: false);
 }
 
 String _renderUnresolvedBaselineJson({

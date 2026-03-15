@@ -125,8 +125,10 @@ The JSON report includes:
 - `resolvedCount`
 - `unresolvedCount`
 - `unresolved[]` entries with `codePoint` and `identifiers`
+- `unresolvedCodePoints[]` summary list (hex strings)
 - optional `baselineUnresolvedCount`
 - optional `newUnresolvedCount` / `newUnresolved[]` when baseline comparison is enabled
+- optional `newUnresolvedCodePoints[]` summary list (hex strings)
 - optional `resolvedSinceBaselineCount` / `resolvedSinceBaseline[]` (codepoint strings)
 
 ## Normalized unresolved baseline output
