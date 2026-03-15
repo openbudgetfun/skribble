@@ -331,7 +331,7 @@ Options:
                                    Emit supplemental manifest template JSON.
   --unresolved-baseline <path>     Baseline unresolved report/manifest/codePoints JSON for diffing.
                                    Accepts unresolvedCodePoints/unresolvedCodepoints/unresolved_code_points/unresolved_codepoints/codePoints/codepoints/code_points keys for minimal baseline objects.
-                                   For unresolved[]/icons[] entries, accepts codePoint/codepoint/code_point.
+                                   For unresolved[]/icons[] entries, accepts codePoint/codepoint/code_point/code-point.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain (cannot be combined with --max-unresolved).
   --max-new-unresolved <int>       Max newly unresolved icons allowed before failing (requires --unresolved-baseline).
@@ -1570,6 +1570,9 @@ Object _baselineEntryCodePointValue(Map<Object?, Object?> entry) {
   if (entry.containsKey('code_point')) {
     return entry['code_point']!;
   }
+  if (entry.containsKey('code-point')) {
+    return entry['code-point']!;
+  }
 
   final availableKeys = entry.keys.whereType<String>().toList(growable: false)
     ..sort();
@@ -1579,7 +1582,7 @@ Object _baselineEntryCodePointValue(Map<Object?, Object?> entry) {
 
   throw FormatException(
     'Invalid codePoint in unresolved baseline entry. Expected one of '
-    '"codePoint", "codepoint", or "code_point" keys; found: '
+    '"codePoint", "codepoint", "code_point", or "code-point" keys; found: '
     '$availableKeysText.',
   );
 }
