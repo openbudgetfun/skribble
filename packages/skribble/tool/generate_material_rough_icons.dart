@@ -315,7 +315,7 @@ Options:
   --unresolved-baseline <path>     Baseline unresolved report/manifest/codePoints JSON for diffing.
                                    Accepts codePoints/codepoints key for minimal baseline objects.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
-  --fail-on-unresolved             Exit with error when unresolved icons remain.
+  --fail-on-unresolved             Exit with error when unresolved icons remain (cannot be combined with --max-unresolved).
   --fail-on-new-unresolved         Exit with error on unresolved baseline regressions.
   --output <path>                  Output Dart file.
   --rough-cli <path>               TypeScript script that converts SVG(s) (default: tool/deno/svg2roughjs_cli.ts).
@@ -554,6 +554,11 @@ final class _ScriptOptions {
 
     if (maxUnresolved != null && maxUnresolved < 0) {
       throw ArgumentError('--max-unresolved must be >= 0.');
+    }
+    if (failOnUnresolved && maxUnresolved != null) {
+      throw ArgumentError(
+        '--fail-on-unresolved cannot be combined with --max-unresolved.',
+      );
     }
     if (!_kUnresolvedBaselineOutputFormats.contains(
       unresolvedBaselineOutputFormat,

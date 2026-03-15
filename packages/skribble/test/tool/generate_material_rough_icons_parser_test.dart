@@ -746,6 +746,17 @@ class Icons {
       tempDirectory.deleteSync(recursive: true);
     });
 
+    test('rejects combining fail-on-unresolved with max-unresolved', () async {
+      await expectLater(
+        tool.runGenerateRoughIcons(<String>[
+          '--fail-on-unresolved',
+          '--max-unresolved',
+          '1',
+        ]),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
     test('throws StateError when unresolved icons remain', () async {
       final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
         ..writeAsStringSync('''
