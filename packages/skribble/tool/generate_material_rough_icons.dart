@@ -906,20 +906,9 @@ _ManifestIconEntry _parseManifestIconEntry(
 }
 
 int _parseManifestCodePoint(Object? value, String identifier) {
-  if (value is int) {
-    return value;
-  }
-
-  if (value is String) {
-    final normalized = value.trim().toLowerCase();
-    if (normalized.startsWith('0x')) {
-      return int.parse(normalized.substring(2), radix: 16);
-    }
-    return int.parse(normalized);
-  }
-
-  throw FormatException(
-    'Manifest entry "$identifier" must define codePoint as int or string.',
+  return _parseCodePointValue(
+    value,
+    context: 'manifest entry "$identifier"',
   );
 }
 
@@ -1475,16 +1464,64 @@ int _parseCodePointValue(Object? value, {required String context}) {
   }
 
   if (value is String) {
-    final normalized = value.trim().toLowerCase();
-    if (normalized.startsWith('0x')) {
-      return int.parse(normalized.substring(2), radix: 16);
-    }
-    return int.parse(normalized);
+    return _parseCodePointString(value, context: context);
   }
 
   throw FormatException(
     'Invalid codePoint in $context. Expected int or string, got $value.',
   );
+}
+
+int _parseCodePointString(String value, {required String context}) {
+  final normalized = value.trim().toLowerCase();
+  if (normalized.isEmpty) {
+    throw FormatException(
+      'Invalid codePoint in $context. Expected decimal, 0x-prefixed hex, '
+      'U+-prefixed hex, or bare hex string, got "$value".',
+    );
+  }
+
+  final decimalPattern = RegExp(r'^\d+$');
+  final bareHexPattern = RegExp(r'^[0-9a-f]+$');
+
+  String digits;
+  var radix = 10;
+  if (normalized.startsWith('0x')) {
+    digits = normalized.substring(2);
+    radix = 16;
+  } else if (normalized.startsWith('u+')) {
+    digits = normalized.substring(2);
+    radix = 16;
+  } else if (normalized.startsWith(r'\u')) {
+    digits = normalized.substring(2);
+    radix = 16;
+  } else if (decimalPattern.hasMatch(normalized)) {
+    digits = normalized;
+  } else if (bareHexPattern.hasMatch(normalized)) {
+    digits = normalized;
+    radix = 16;
+  } else {
+    throw FormatException(
+      'Invalid codePoint in $context. Expected decimal, 0x-prefixed hex, '
+      'U+-prefixed hex, or bare hex string, got "$value".',
+    );
+  }
+
+  if (digits.isEmpty) {
+    throw FormatException(
+      'Invalid codePoint in $context. Expected decimal, 0x-prefixed hex, '
+      'U+-prefixed hex, or bare hex string, got "$value".',
+    );
+  }
+
+  try {
+    return int.parse(digits, radix: radix);
+  } on FormatException {
+    throw FormatException(
+      'Invalid codePoint in $context. Expected decimal, 0x-prefixed hex, '
+      'U+-prefixed hex, or bare hex string, got "$value".',
+    );
+  }
 }
 
 String _renderUnresolvedReportJson({

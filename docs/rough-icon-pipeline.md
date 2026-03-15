@@ -54,7 +54,7 @@ Manifest supports either a top-level list or `{ "icons": [...] }`, where each
 entry includes:
 
 - `identifier` (string, must be unique)
-- `codePoint` (int or hex string like `"0xe001"`, must be unique)
+- `codePoint` (int, decimal string, or hex string like `"0xe001"`, `"e001"`, `"U+E001"`; must be unique)
 - `svgPath` (preferred) or `svg`/`path` alias
 
 Example:
@@ -165,6 +165,9 @@ Baseline input supports:
 - unresolved report JSON (`unresolved[]`)
 - supplemental manifest JSON (`icons[]`)
 - minimal baseline JSON (`codePoints[]`)
+
+When code points are provided as strings, decimal, `0x`-prefixed hex, bare
+hex, and `U+`-prefixed hex forms are accepted.
 
 This is useful in CI while tightening coverage incrementally.
 
