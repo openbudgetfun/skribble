@@ -130,6 +130,8 @@ The JSON report includes:
 - optional `newUnresolvedCount` / `newUnresolved[]` when baseline comparison is enabled
 - optional `newUnresolvedCodePoints[]` summary list (hex strings)
 - optional `resolvedSinceBaselineCount` / `resolvedSinceBaseline[]` (codepoint strings)
+- `unresolvedThresholdMode` (`disabled`, `strict`, or `threshold`)
+- `newUnresolvedThresholdMode` (`disabled`, `strict`, or `threshold`)
 - optional `maxUnresolved` / `maxUnresolvedExceeded` when unresolved threshold gating is configured
 - optional `maxNewUnresolved` / `maxNewUnresolvedExceeded` when baseline-regression threshold gating is configured
 

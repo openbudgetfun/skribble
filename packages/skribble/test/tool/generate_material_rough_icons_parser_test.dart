@@ -472,6 +472,8 @@ class Icons {
       expect(decoded['resolvedCount'], 1);
       expect(decoded['unresolvedCount'], 1);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
+      expect(decoded['unresolvedThresholdMode'], 'disabled');
+      expect(decoded['newUnresolvedThresholdMode'], 'disabled');
       expect(decoded.containsKey('maxUnresolved'), isFalse);
       expect(decoded.containsKey('maxUnresolvedExceeded'), isFalse);
       expect(decoded.containsKey('maxNewUnresolved'), isFalse);
@@ -821,6 +823,8 @@ class Icons {
           jsonDecode(unresolvedReportFile.readAsStringSync())
               as Map<String, dynamic>;
       expect(decoded['unresolvedCount'], 1);
+      expect(decoded['unresolvedThresholdMode'], 'strict');
+      expect(decoded['newUnresolvedThresholdMode'], 'disabled');
       expect(decoded['maxUnresolved'], 0);
       expect(decoded['maxUnresolvedExceeded'], isTrue);
     });
@@ -869,6 +873,9 @@ class Icons {
       final outputFile = File(
         '${tempDirectory.path}/material_rough_icons.g.dart',
       );
+      final unresolvedReportFile = File(
+        '${tempDirectory.path}/unresolved_report.json',
+      );
 
       await tool.runGenerateRoughIcons(<String>[
         '--kit',
@@ -883,11 +890,20 @@ class Icons {
         brandIconsRoot.path,
         '--max-unresolved',
         '1',
+        '--unresolved-output',
+        unresolvedReportFile.path,
         '--output',
         outputFile.path,
       ]);
 
       expect(outputFile.existsSync(), isTrue);
+      final decoded =
+          jsonDecode(unresolvedReportFile.readAsStringSync())
+              as Map<String, dynamic>;
+      expect(decoded['maxUnresolved'], 1);
+      expect(decoded['maxUnresolvedExceeded'], isFalse);
+      expect(decoded['unresolvedThresholdMode'], 'threshold');
+      expect(decoded['newUnresolvedThresholdMode'], 'disabled');
     });
 
     test('throws when unresolved count exceeds threshold', () async {
@@ -1455,6 +1471,8 @@ class Icons {
         expect(decoded['newUnresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['maxNewUnresolved'], 1);
         expect(decoded['maxNewUnresolvedExceeded'], isFalse);
+        expect(decoded['unresolvedThresholdMode'], 'disabled');
+        expect(decoded['newUnresolvedThresholdMode'], 'threshold');
       },
     );
 
@@ -1530,6 +1548,8 @@ class Icons {
       expect(decoded['newUnresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['maxNewUnresolved'], 0);
       expect(decoded['maxNewUnresolvedExceeded'], isTrue);
+      expect(decoded['unresolvedThresholdMode'], 'disabled');
+      expect(decoded['newUnresolvedThresholdMode'], 'threshold');
     });
 
     test('throws when unresolved icons regress against baseline', () async {
@@ -1604,6 +1624,8 @@ class Icons {
       expect(decoded['newUnresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['maxNewUnresolved'], 0);
       expect(decoded['maxNewUnresolvedExceeded'], isTrue);
+      expect(decoded['unresolvedThresholdMode'], 'disabled');
+      expect(decoded['newUnresolvedThresholdMode'], 'strict');
       expect(decoded['resolvedSinceBaselineCount'], 0);
       expect(decoded['resolvedSinceBaseline'], <dynamic>[]);
 

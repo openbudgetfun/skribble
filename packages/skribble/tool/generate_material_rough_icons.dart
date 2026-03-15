@@ -135,6 +135,14 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
   final newUnresolvedThreshold = options.failOnNewUnresolved
       ? 0
       : options.maxNewUnresolved;
+  final unresolvedThresholdMode = _resolveThresholdMode(
+    strictModeEnabled: options.failOnUnresolved,
+    thresholdOption: options.maxUnresolved,
+  );
+  final newUnresolvedThresholdMode = _resolveThresholdMode(
+    strictModeEnabled: options.failOnNewUnresolved,
+    thresholdOption: options.maxNewUnresolved,
+  );
 
   if (options.roughOutputDir != null) {
     await _generateRoughSvgs(options, roughTasks);
@@ -183,6 +191,8 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
         resolvedSinceBaseline: resolvedSinceBaseline,
         unresolvedThreshold: unresolvedThreshold,
         newUnresolvedThreshold: newUnresolvedThreshold,
+        unresolvedThresholdMode: unresolvedThresholdMode,
+        newUnresolvedThresholdMode: newUnresolvedThresholdMode,
       ),
     );
     stdout.writeln(
@@ -1595,6 +1605,19 @@ int _parseCodePointString(String value, {required String context}) {
   }
 }
 
+String _resolveThresholdMode({
+  required bool strictModeEnabled,
+  required int? thresholdOption,
+}) {
+  if (strictModeEnabled) {
+    return 'strict';
+  }
+  if (thresholdOption != null) {
+    return 'threshold';
+  }
+  return 'disabled';
+}
+
 String _renderUnresolvedReportJson({
   required String kit,
   required int resolvedCount,
@@ -1604,6 +1627,8 @@ String _renderUnresolvedReportJson({
   required List<int>? resolvedSinceBaseline,
   required int? unresolvedThreshold,
   required int? newUnresolvedThreshold,
+  required String unresolvedThresholdMode,
+  required String newUnresolvedThresholdMode,
 }) {
   final report = <String, Object>{
     'kit': kit,
@@ -1611,6 +1636,8 @@ String _renderUnresolvedReportJson({
     'unresolvedCount': unresolved.length,
     'unresolved': unresolved.map(_unresolvedIconJson).toList(growable: false),
     'unresolvedCodePoints': _unresolvedCodePointsJson(unresolved),
+    'unresolvedThresholdMode': unresolvedThresholdMode,
+    'newUnresolvedThresholdMode': newUnresolvedThresholdMode,
     if (unresolvedThreshold != null) ...<String, Object>{
       'maxUnresolved': unresolvedThreshold,
       'maxUnresolvedExceeded': unresolved.length > unresolvedThreshold,
