@@ -224,13 +224,12 @@ On sync-check failures, the script prints `git diff` output and writes:
 
 `regression` cleans up `packages/skribble/unresolved-report.json` after a
 successful local run. Set `ROUGH_ICONS_KEEP_UNRESOLVED_REPORT=1` to keep it.
-Set `ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>` to run regression/generated-sync
-checks in threshold mode (`--max-new-unresolved`) instead of strict mode
-(`--fail-on-new-unresolved`).
+By default, regression/generated-sync checks use
+`--max-new-unresolved 0` (strict-mode equivalent). Set
+`ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>` to relax or tighten that threshold.
 
-Pull-request CI sets `ROUGH_ICONS_MAX_NEW_UNRESOLVED=0` for those checks,
-which is strict-mode equivalent and keeps one threshold control in workflow
-configuration.
+Pull-request CI explicitly sets `ROUGH_ICONS_MAX_NEW_UNRESOLVED=0` for those
+checks to keep workflow configuration aligned with local defaults.
 
 Pull-request CI also runs the unresolved gate in `--rough-only` mode, uploads a
 `rough-icons-unresolved-report` artifact for diagnostics, verifies the
