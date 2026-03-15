@@ -323,6 +323,82 @@ class Icons {
     );
   });
 
+  group('runGenerateRoughIcons font Dart aliases', () {
+    late Directory tempDirectory;
+
+    setUp(() {
+      tempDirectory = Directory.systemTemp.createTempSync(
+        'rough-icon-font-aliases-test-',
+      );
+    });
+
+    tearDown(() {
+      tempDirectory.deleteSync(recursive: true);
+    });
+
+    test(
+      'writes codepoint aliases for all declarations sharing a resolved codepoint',
+      () async {
+        final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+          ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "radio button on".
+  static const IconData radio_button_on = IconData(0xe503, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "radio button checked".
+  static const IconData radio_button_checked = IconData(0xe503, fontFamily: 'MaterialIcons');
+}
+''');
+
+        final materialIconsRoot = Directory(
+          '${tempDirectory.path}/material-icons',
+        )..createSync(recursive: true);
+        final materialSymbolsRoot = Directory(
+          '${tempDirectory.path}/material-symbols',
+        )..createSync(recursive: true);
+        final brandIconsRoot = Directory('${tempDirectory.path}/simple-icons')
+          ..createSync(recursive: true);
+
+        File('${materialIconsRoot.path}/filled/radio_button_checked.svg')
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            '<svg viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg>',
+          );
+
+        final outputFile = File(
+          '${tempDirectory.path}/material_rough_icons.g.dart',
+        );
+        final fontOutputFile = File(
+          '${tempDirectory.path}/material_rough_icon_font.g.dart',
+        );
+
+        await tool.runGenerateRoughIcons(<String>[
+          '--kit',
+          'flutter-material',
+          '--flutter-icons',
+          flutterIconsFile.path,
+          '--material-icons-source',
+          materialIconsRoot.path,
+          '--material-symbols-source',
+          materialSymbolsRoot.path,
+          '--brand-icons-source',
+          brandIconsRoot.path,
+          '--font-dart-output',
+          fontOutputFile.path,
+          '--output',
+          outputFile.path,
+        ]);
+
+        final generated = outputFile.readAsStringSync();
+        final fontDart = fontOutputFile.readAsStringSync();
+
+        expect(generated, contains('// radio_button_on'));
+        expect(fontDart, contains("'radio_button_on': 0xe503"));
+        expect(fontDart, contains("'radio_button_checked': 0xe503"));
+      },
+    );
+  });
+
   group('runGenerateRoughIcons unresolved report', () {
     late Directory tempDirectory;
 

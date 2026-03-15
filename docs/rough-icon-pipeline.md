@@ -24,6 +24,7 @@ Compatibility alias (backward compatible):
    - emits rough SVG files (`--rough-output-dir`)
    - generates icon fonts with `fantasticon` (`--font-output-dir`)
    - emits Dart helpers for generated icon fonts (`--font-dart-output`)
+     including legacy alias identifiers that share resolved codepoints
    - emits unresolved icon reports as JSON (`--unresolved-output`)
    - emits supplemental manifest templates (`--supplemental-manifest-output`)
    - can fail CI on unresolved icons (`--fail-on-unresolved`, `--max-unresolved`, `--fail-on-new-unresolved`)
