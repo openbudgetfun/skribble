@@ -330,7 +330,7 @@ Options:
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
   --unresolved-baseline <path>     Baseline unresolved report/manifest/codePoints JSON for diffing.
-                                   Accepts unresolvedCodePoints/unresolvedCodePoint/unresolvedCodepoint/unresolvedCodepoints/unresolved_code_points/unresolved_codepoints/unresolved-code-points/unresolved-codepoints/codePoints/codePoint/codepoints/codepoint/code_points/code-points keys for minimal baseline objects.
+                                   Accepts unresolvedCodePoints/unresolvedCodePoint/unresolvedCodepoint/unresolvedCodepoints/unresolved_code_points/unresolved_codepoint/unresolved_codepoints/unresolved-code-points/unresolved-codepoints/codePoints/codePoint/codepoints/codepoint/code_points/code-points keys for minimal baseline objects.
                                    For unresolved[]/icons[] entries, accepts codePoint/codepoint/code_point/code-point.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain (cannot be combined with --max-unresolved).
@@ -1502,6 +1502,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     final unresolvedCodepointsValue = decoded['unresolvedCodepoints'];
     final unresolvedCodePointsSnakeCaseValue =
         decoded['unresolved_code_points'];
+    final unresolvedCodepointSnakeCaseValue = decoded['unresolved_codepoint'];
     final unresolvedCodepointsSnakeCaseValue = decoded['unresolved_codepoints'];
     final unresolvedCodePointsKebabCaseValue =
         decoded['unresolved-code-points'];
@@ -1547,6 +1548,10 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       unresolvedCodePointsSnakeCaseValue,
     );
     addInvalidRecognizedListValue(
+      'unresolved_codepoint',
+      unresolvedCodepointSnakeCaseValue,
+    );
+    addInvalidRecognizedListValue(
       'unresolved_codepoints',
       unresolvedCodepointsSnakeCaseValue,
     );
@@ -1579,6 +1584,8 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       entries = unresolvedCodepointsValue;
     } else if (unresolvedCodePointsSnakeCaseValue is List<Object?>) {
       entries = unresolvedCodePointsSnakeCaseValue;
+    } else if (unresolvedCodepointSnakeCaseValue is List<Object?>) {
+      entries = unresolvedCodepointSnakeCaseValue;
     } else if (unresolvedCodepointsSnakeCaseValue is List<Object?>) {
       entries = unresolvedCodepointsSnakeCaseValue;
     } else if (unresolvedCodePointsKebabCaseValue is List<Object?>) {
@@ -1616,7 +1623,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
         'list (report format), "icons" list (manifest format), or '
         '"unresolvedCodePoints"/"unresolvedCodePoint"/'
         '"unresolvedCodepoint"/"unresolvedCodepoints"/'
-        '"unresolved_code_points"/'
+        '"unresolved_code_points"/"unresolved_codepoint"/'
         '"unresolved_codepoints"/'
         '"unresolved-code-points"/"unresolved-codepoints"/'
         '"codePoints"/"codePoint"/"codepoints"/"codepoint"/'
