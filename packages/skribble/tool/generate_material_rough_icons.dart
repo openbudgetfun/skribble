@@ -1534,6 +1534,11 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     } else if (codePointsKebabCaseValue is List<Object?>) {
       entries = codePointsKebabCaseValue;
     } else {
+      final availableKeys = decoded.keys.toList(growable: false)..sort();
+      final availableKeysText = availableKeys.isEmpty
+          ? '(none)'
+          : availableKeys.join(', ');
+
       throw FormatException(
         'Expected unresolved baseline JSON to contain either an "unresolved" '
         'list (report format), "icons" list (manifest format), or '
@@ -1541,7 +1546,8 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
         '"unresolved_code_points"/"unresolved_codepoints"/'
         '"unresolved-code-points"/"unresolved-codepoints"/'
         '"codePoints"/"codepoints"/"code_points"/"code-points" '
-        'list (minimal baseline format) at ${baselineFile.path}.',
+        'list (minimal baseline format) at ${baselineFile.path}. '
+        'Found keys: $availableKeysText.',
       );
     }
   } else {
