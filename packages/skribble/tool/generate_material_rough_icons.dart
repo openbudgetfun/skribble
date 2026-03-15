@@ -330,7 +330,7 @@ Options:
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
   --unresolved-baseline <path>     Baseline unresolved report/manifest/codePoints JSON for diffing.
-                                   Accepts unresolvedCodePoints/unresolvedCodepoints/unresolved_code_points/unresolved_codepoints/unresolved-code-points/unresolved-codepoints/codePoints/codepoints/codepoint/code_points/code-points keys for minimal baseline objects.
+                                   Accepts unresolvedCodePoints/unresolvedCodepoints/unresolved_code_points/unresolved_codepoints/unresolved-code-points/unresolved-codepoints/codePoints/codePoint/codepoints/codepoint/code_points/code-points keys for minimal baseline objects.
                                    For unresolved[]/icons[] entries, accepts codePoint/codepoint/code_point/code-point.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain (cannot be combined with --max-unresolved).
@@ -1505,6 +1505,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
         decoded['unresolved-code-points'];
     final unresolvedCodepointsKebabCaseValue = decoded['unresolved-codepoints'];
     final codePointsValue = decoded['codePoints'];
+    final codePointValue = decoded['codePoint'];
     final codepointsValue = decoded['codepoints'];
     final codepointValue = decoded['codepoint'];
     final codePointsSnakeCaseValue = decoded['code_points'];
@@ -1548,6 +1549,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       unresolvedCodepointsKebabCaseValue,
     );
     addInvalidRecognizedListValue('codePoints', codePointsValue);
+    addInvalidRecognizedListValue('codePoint', codePointValue);
     addInvalidRecognizedListValue('codepoints', codepointsValue);
     addInvalidRecognizedListValue('codepoint', codepointValue);
     addInvalidRecognizedListValue('code_points', codePointsSnakeCaseValue);
@@ -1571,6 +1573,8 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       entries = unresolvedCodepointsKebabCaseValue;
     } else if (codePointsValue is List<Object?>) {
       entries = codePointsValue;
+    } else if (codePointValue is List<Object?>) {
+      entries = codePointValue;
     } else if (codepointsValue is List<Object?>) {
       entries = codepointsValue;
     } else if (codepointValue is List<Object?>) {
@@ -1599,8 +1603,8 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
         '"unresolvedCodePoints"/"unresolvedCodepoints"/'
         '"unresolved_code_points"/"unresolved_codepoints"/'
         '"unresolved-code-points"/"unresolved-codepoints"/'
-        '"codePoints"/"codepoints"/"codepoint"/"code_points"/'
-        '"code-points" '
+        '"codePoints"/"codePoint"/"codepoints"/"codepoint"/'
+        '"code_points"/"code-points" '
         'list (minimal baseline format) at ${baselineFile.path}. '
         'Found keys: $availableKeysText.',
       );
