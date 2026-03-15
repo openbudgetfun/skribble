@@ -163,6 +163,8 @@ To control failure behavior for unresolved icons:
 - `--fail-on-unresolved` (strict; equivalent to allowing 0 unresolved)
 - `--max-unresolved <int>` (bounded; fail only when unresolved count exceeds threshold)
 
+Use either strict mode or threshold mode (these flags are mutually exclusive).
+
 To detect only regressions relative to an existing unresolved baseline:
 
 - `--unresolved-baseline <path>`
