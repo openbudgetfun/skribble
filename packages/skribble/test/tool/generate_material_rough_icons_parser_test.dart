@@ -472,6 +472,8 @@ class Icons {
       expect(decoded['resolvedCount'], 1);
       expect(decoded['unresolvedCount'], 1);
       expect(decoded['wouldFail'], isFalse);
+      expect(decoded['unresolvedGateFailed'], isFalse);
+      expect(decoded['newUnresolvedGateFailed'], isFalse);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['unresolvedThresholdMode'], 'disabled');
       expect(decoded['newUnresolvedThresholdMode'], 'disabled');
@@ -825,6 +827,8 @@ class Icons {
               as Map<String, dynamic>;
       expect(decoded['unresolvedCount'], 1);
       expect(decoded['wouldFail'], isTrue);
+      expect(decoded['unresolvedGateFailed'], isTrue);
+      expect(decoded['newUnresolvedGateFailed'], isFalse);
       expect(decoded['unresolvedThresholdMode'], 'strict');
       expect(decoded['newUnresolvedThresholdMode'], 'disabled');
       expect(decoded['maxUnresolved'], 0);
@@ -905,6 +909,8 @@ class Icons {
       expect(decoded['maxUnresolved'], 1);
       expect(decoded['maxUnresolvedExceeded'], isFalse);
       expect(decoded['wouldFail'], isFalse);
+      expect(decoded['unresolvedGateFailed'], isFalse);
+      expect(decoded['newUnresolvedGateFailed'], isFalse);
       expect(decoded['unresolvedThresholdMode'], 'threshold');
       expect(decoded['newUnresolvedThresholdMode'], 'disabled');
     });
@@ -1473,6 +1479,8 @@ class Icons {
         expect(decoded['newUnresolvedCount'], 1);
         expect(decoded['newUnresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['wouldFail'], isFalse);
+        expect(decoded['unresolvedGateFailed'], isFalse);
+        expect(decoded['newUnresolvedGateFailed'], isFalse);
         expect(decoded['maxNewUnresolved'], 1);
         expect(decoded['maxNewUnresolvedExceeded'], isFalse);
         expect(decoded['unresolvedThresholdMode'], 'disabled');
@@ -1551,6 +1559,8 @@ class Icons {
       expect(decoded['newUnresolvedCount'], 1);
       expect(decoded['newUnresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['wouldFail'], isTrue);
+      expect(decoded['unresolvedGateFailed'], isFalse);
+      expect(decoded['newUnresolvedGateFailed'], isTrue);
       expect(decoded['maxNewUnresolved'], 0);
       expect(decoded['maxNewUnresolvedExceeded'], isTrue);
       expect(decoded['unresolvedThresholdMode'], 'disabled');
@@ -1628,6 +1638,8 @@ class Icons {
       expect(decoded['newUnresolvedCount'], 1);
       expect(decoded['newUnresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['wouldFail'], isTrue);
+      expect(decoded['unresolvedGateFailed'], isFalse);
+      expect(decoded['newUnresolvedGateFailed'], isTrue);
       expect(decoded['maxNewUnresolved'], 0);
       expect(decoded['maxNewUnresolvedExceeded'], isTrue);
       expect(decoded['unresolvedThresholdMode'], 'disabled');
