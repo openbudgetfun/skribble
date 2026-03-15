@@ -80,3 +80,7 @@ melos:
         --rough-only
         --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
         --unresolved-baseline-output tool/examples/material_rough_icons.unresolved-baseline.json
+
+    rough-icons-ci-check:
+      description: Run the same rough icon regression/sync checks enforced by CI.
+      run: ./scripts/check_rough_icons_ci.sh all

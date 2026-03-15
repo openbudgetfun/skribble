@@ -37,15 +37,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: rough icons unresolved regression gate
-        run: >-
-          cd packages/skribble &&
-          dart run tool/generate_rough_icons.dart
-          --kit flutter-material
-          --rough-only
-          --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
-          --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json
-          --unresolved-output unresolved-report.json
-          --fail-on-new-unresolved
+        run: ./scripts/check_rough_icons_ci.sh regression
         shell: devenv shell -- bash -e {0}
       - name: upload rough icons unresolved report
         if: always()
@@ -62,22 +54,8 @@ jobs:
       - uses: ./.github/actions/devenv
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: regenerate unresolved baseline
-        run: >-
-          cd packages/skribble &&
-          dart run tool/generate_rough_icons.dart
-          --kit flutter-material
-          --rough-only
-          --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
-          --unresolved-baseline-output tool/examples/material_rough_icons.unresolved-baseline.json
-        shell: devenv shell -- bash -e {0}
-      - name: format regenerated unresolved baseline
-        run: dprint fmt packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json
-        shell: devenv shell -- bash -e {0}
-      - name: verify unresolved baseline is up to date
-        run: >-
-          git diff --exit-code --
-          packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json
+      - name: run unresolved baseline sync check
+        run: ./scripts/check_rough_icons_ci.sh baseline-sync
         shell: devenv shell -- bash -e {0}
       - name: show unresolved baseline diff on failure
         if: failure()
@@ -107,22 +85,8 @@ jobs:
       - uses: ./.github/actions/devenv
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: regenerate committed rough icon catalogs
-        run: >-
-          cd packages/skribble &&
-          dart run tool/generate_rough_icons.dart
-          --kit flutter-material
-          --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
-          --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json
-          --fail-on-new-unresolved
-          --output lib/src/generated/material_rough_icons.g.dart
-          --font-dart-output lib/src/generated/material_rough_icon_font.g.dart
-        shell: devenv shell -- bash -e {0}
-      - name: verify rough icon catalogs are up to date
-        run: >-
-          git diff --exit-code --
-          packages/skribble/lib/src/generated/material_rough_icons.g.dart
-          packages/skribble/lib/src/generated/material_rough_icon_font.g.dart
+      - name: run rough icon catalog sync check
+        run: ./scripts/check_rough_icons_ci.sh generated-sync
         shell: devenv shell -- bash -e {0}
       - name: show rough icon catalog diff on failure
         if: failure()
