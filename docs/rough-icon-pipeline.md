@@ -124,6 +124,7 @@ The JSON report includes:
 - `kit`
 - `resolvedCount`
 - `unresolvedCount`
+- `wouldFail` (whether configured unresolved gates would fail this run)
 - `unresolved[]` entries with `codePoint` and `identifiers`
 - `unresolvedCodePoints[]` summary list (hex strings)
 - optional `baselineUnresolvedCount`
