@@ -564,6 +564,90 @@ class Icons {
       expect(secondUnresolved['codePoint'], '0xf04b9');
       expect(secondUnresolved['identifiers'], <String>['adobe']);
     });
+
+    test('writes codePoints baseline JSON when requested', () async {
+      final flutterIconsFile = File('${tempDirectory.path}/icons.dart')
+        ..writeAsStringSync('''
+class Icons {
+  /// The material icon named "adobe".
+  static const IconData adobe = IconData(0xf04b9, fontFamily: 'MaterialIcons');
+
+  /// The material icon named "face unlock" (sharp).
+  static const IconData face_unlock_sharp = IconData(0xe951, fontFamily: 'MaterialIcons');
+}
+''');
+
+      final materialIconsRoot = Directory(
+        '${tempDirectory.path}/material-icons',
+      )..createSync(recursive: true);
+      final materialSymbolsRoot = Directory(
+        '${tempDirectory.path}/material-symbols',
+      )..createSync(recursive: true);
+      final brandIconsRoot = Directory('${tempDirectory.path}/simple-icons')
+        ..createSync(recursive: true);
+
+      final outputFile = File(
+        '${tempDirectory.path}/material_rough_icons.g.dart',
+      );
+      final unresolvedBaselineFile = File(
+        '${tempDirectory.path}/unresolved-baseline-codepoints.json',
+      );
+
+      await tool.runGenerateRoughIcons(<String>[
+        '--kit',
+        'flutter-material',
+        '--flutter-icons',
+        flutterIconsFile.path,
+        '--material-icons-source',
+        materialIconsRoot.path,
+        '--material-symbols-source',
+        materialSymbolsRoot.path,
+        '--brand-icons-source',
+        brandIconsRoot.path,
+        '--unresolved-baseline-output',
+        unresolvedBaselineFile.path,
+        '--unresolved-baseline-output-format',
+        'codepoints',
+        '--output',
+        outputFile.path,
+      ]);
+
+      expect(unresolvedBaselineFile.existsSync(), isTrue);
+
+      final decoded =
+          jsonDecode(unresolvedBaselineFile.readAsStringSync())
+              as Map<String, dynamic>;
+      expect(decoded.containsKey('codePoints'), isTrue);
+      expect(decoded.containsKey('unresolved'), isFalse);
+
+      final codePoints = decoded['codePoints'] as List<dynamic>;
+      expect(codePoints, <String>['0xe951', '0xf04b9']);
+    });
+
+    test(
+      'requires baseline output path when output format is customized',
+      () async {
+        await expectLater(
+          tool.runGenerateRoughIcons(<String>[
+            '--unresolved-baseline-output-format',
+            'codepoints',
+          ]),
+          throwsA(isA<ArgumentError>()),
+        );
+      },
+    );
+
+    test('rejects unknown unresolved baseline output format', () async {
+      await expectLater(
+        tool.runGenerateRoughIcons(<String>[
+          '--unresolved-baseline-output',
+          '${tempDirectory.path}/unresolved-baseline.json',
+          '--unresolved-baseline-output-format',
+          'invalid-format',
+        ]),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
   });
 
   group('runGenerateRoughIcons supplemental manifest template output', () {

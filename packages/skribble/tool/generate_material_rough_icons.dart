@@ -16,6 +16,12 @@ const _kDefaultFontGeneratorExecutable = 'npx';
 const _kDefaultFontGeneratorPackage = 'fantasticon';
 const _kDefaultBrandIconsPackage = 'simple-icons';
 const _kDefaultFontName = 'material_rough_icons';
+const _kUnresolvedBaselineOutputFormatUnresolved = 'unresolved';
+const _kUnresolvedBaselineOutputFormatCodePoints = 'codepoints';
+const _kUnresolvedBaselineOutputFormats = <String>{
+  _kUnresolvedBaselineOutputFormatUnresolved,
+  _kUnresolvedBaselineOutputFormatCodePoints,
+};
 const _kSupportedKitDescriptions = <String, String>{
   _kDefaultKit:
       'Flutter Material Icons (from Flutter icons.dart + Material SVG packages)',
@@ -183,9 +189,19 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
       case final unresolvedBaselineOutputPath?) {
     final unresolvedBaselineOutputFile = File(unresolvedBaselineOutputPath)
       ..createSync(recursive: true);
-    unresolvedBaselineOutputFile.writeAsStringSync(
-      _renderUnresolvedBaselineJson(unresolved: unresolved),
-    );
+    final unresolvedBaselineJson = switch (
+      options.unresolvedBaselineOutputFormat
+    ) {
+      _kUnresolvedBaselineOutputFormatUnresolved =>
+        _renderUnresolvedBaselineJson(unresolved: unresolved),
+      _kUnresolvedBaselineOutputFormatCodePoints =>
+        _renderUnresolvedBaselineCodePointsJson(unresolved: unresolved),
+      _ => throw StateError(
+        'Unsupported unresolved baseline output format: '
+        '${options.unresolvedBaselineOutputFormat}',
+      ),
+    };
+    unresolvedBaselineOutputFile.writeAsStringSync(unresolvedBaselineJson);
     stdout.writeln(
       'Generated unresolved baseline JSON to '
       '${unresolvedBaselineOutputFile.path}',
@@ -292,6 +308,8 @@ Options:
   --unresolved-output <path>       Emit unresolved icon codepoint report as JSON.
   --unresolved-baseline-output <path>
                                    Emit normalized unresolved baseline JSON.
+  --unresolved-baseline-output-format <unresolved|codepoints>
+                                   Baseline JSON shape for --unresolved-baseline-output (default: unresolved).
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
   --unresolved-baseline <path>     Baseline unresolved report/manifest/codePoints JSON for diffing.
@@ -347,6 +365,8 @@ final class _ScriptOptions {
     this.supplementalManifestPath,
     this.unresolvedOutputPath,
     this.unresolvedBaselineOutputPath,
+    this.unresolvedBaselineOutputFormat =
+        _kUnresolvedBaselineOutputFormatUnresolved,
     this.supplementalManifestOutputPath,
     this.unresolvedBaselinePath,
     this.maxUnresolved,
@@ -378,6 +398,7 @@ final class _ScriptOptions {
   final String? supplementalManifestPath;
   final String? unresolvedOutputPath;
   final String? unresolvedBaselineOutputPath;
+  final String unresolvedBaselineOutputFormat;
   final String? supplementalManifestOutputPath;
   final String? unresolvedBaselinePath;
   final int? maxUnresolved;
@@ -409,6 +430,8 @@ final class _ScriptOptions {
     String? supplementalManifestPath;
     String? unresolvedOutputPath;
     String? unresolvedBaselineOutputPath;
+    var unresolvedBaselineOutputFormat =
+        _kUnresolvedBaselineOutputFormatUnresolved;
     String? supplementalManifestOutputPath;
     String? unresolvedBaselinePath;
     int? maxUnresolved;
@@ -493,6 +516,8 @@ final class _ScriptOptions {
           unresolvedOutputPath = value;
         case '--unresolved-baseline-output':
           unresolvedBaselineOutputPath = value;
+        case '--unresolved-baseline-output-format':
+          unresolvedBaselineOutputFormat = value.toLowerCase();
         case '--supplemental-manifest-output':
           supplementalManifestOutputPath = value;
         case '--unresolved-baseline':
@@ -529,6 +554,22 @@ final class _ScriptOptions {
     if (maxUnresolved != null && maxUnresolved < 0) {
       throw ArgumentError('--max-unresolved must be >= 0.');
     }
+    if (!_kUnresolvedBaselineOutputFormats.contains(
+      unresolvedBaselineOutputFormat,
+    )) {
+      throw ArgumentError(
+        '--unresolved-baseline-output-format must be one of: '
+        '${_kUnresolvedBaselineOutputFormats.join(', ')}.',
+      );
+    }
+    if (unresolvedBaselineOutputPath == null &&
+        unresolvedBaselineOutputFormat !=
+            _kUnresolvedBaselineOutputFormatUnresolved) {
+      throw ArgumentError(
+        '--unresolved-baseline-output-format requires '
+        '--unresolved-baseline-output.',
+      );
+    }
     if (failOnNewUnresolved && unresolvedBaselinePath == null) {
       throw ArgumentError(
         '--fail-on-new-unresolved requires --unresolved-baseline.',
@@ -545,6 +586,7 @@ final class _ScriptOptions {
       supplementalManifestPath: supplementalManifestPath,
       unresolvedOutputPath: unresolvedOutputPath,
       unresolvedBaselineOutputPath: unresolvedBaselineOutputPath,
+      unresolvedBaselineOutputFormat: unresolvedBaselineOutputFormat,
       supplementalManifestOutputPath: supplementalManifestOutputPath,
       unresolvedBaselinePath: unresolvedBaselinePath,
       maxUnresolved: maxUnresolved,
@@ -1581,6 +1623,24 @@ String _renderUnresolvedBaselineJson({
   final baseline = <String, Object>{
     'unresolved': sortedUnresolved
         .map(_unresolvedIconJson)
+        .toList(growable: false),
+  };
+
+  return const JsonEncoder.withIndent('  ').convert(baseline);
+}
+
+String _renderUnresolvedBaselineCodePointsJson({
+  required List<_UnresolvedIcon> unresolved,
+}) {
+  final sortedCodePoints = unresolved
+      .map((item) => item.codePoint)
+      .toSet()
+      .toList(growable: false)
+    ..sort();
+
+  final baseline = <String, Object>{
+    'codePoints': sortedCodePoints
+        .map((codePoint) => '0x${codePoint.toRadixString(16)}')
         .toList(growable: false),
   };
 
