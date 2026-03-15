@@ -197,6 +197,7 @@ Workspace shortcuts:
 melos run rough-icons
 melos run rough-icons-font
 melos run rough-icons-baseline
+melos run rough-icons-ci-check
 ```
 
 `rough-icons` and `rough-icons-font` both apply the committed supplemental
@@ -204,8 +205,18 @@ manifest (`tool/examples/material_rough_icons.supplemental.manifest.json`) and
 enforce unresolved regression gating via
 `--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json`
 plus `--fail-on-new-unresolved`. Use `rough-icons-baseline` to refresh that
-normalized baseline file after intentional changes. Pull-request CI also runs
-this gate in `--rough-only` mode, uploads a
+normalized baseline file after intentional changes.
+
+`rough-icons-ci-check` runs the same rough icon regression/sync checks enforced
+by CI via `./scripts/check_rough_icons_ci.sh all`.
+
+For targeted local debugging, run an individual CI-equivalent check:
+
+- `./scripts/check_rough_icons_ci.sh regression`
+- `./scripts/check_rough_icons_ci.sh baseline-sync`
+- `./scripts/check_rough_icons_ci.sh generated-sync`
+
+Pull-request CI also runs the unresolved gate in `--rough-only` mode, uploads a
 `rough-icons-unresolved-report` artifact for diagnostics, verifies the
 committed baseline file is up to date, checks that generated rough icon
 catalog files are committed/synced, and uploads diff artifacts

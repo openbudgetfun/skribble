@@ -167,15 +167,26 @@ Baseline input supports either:
 
 This is useful in CI while tightening coverage incrementally.
 
-Workspace defaults:
+Workspace shortcuts:
 
 - `melos run rough-icons`
 - `melos run rough-icons-font`
+- `melos run rough-icons-baseline`
+- `melos run rough-icons-ci-check`
 
-both apply the committed supplemental manifest
-`packages/skribble/tool/examples/material_rough_icons.supplemental.manifest.json`
+`rough-icons` and `rough-icons-font` both apply the committed supplemental
+manifest `packages/skribble/tool/examples/material_rough_icons.supplemental.manifest.json`
 and enforce `--fail-on-new-unresolved` against
 `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`.
+
+`rough-icons-ci-check` runs the same rough icon regression/sync checks used by
+CI via `./scripts/check_rough_icons_ci.sh all`.
+
+For targeted local debugging, run an individual CI-equivalent check:
+
+- `./scripts/check_rough_icons_ci.sh regression`
+- `./scripts/check_rough_icons_ci.sh baseline-sync`
+- `./scripts/check_rough_icons_ci.sh generated-sync`
 
 CI also enforces the same unresolved regression gate on pull requests using
 `--rough-only`, `--supplemental-manifest`, and `--unresolved-baseline`, and
