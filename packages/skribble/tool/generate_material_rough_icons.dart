@@ -1616,8 +1616,7 @@ String _renderFontCodePointsDart({
     ..writeln('    return null;')
     ..writeln('  }')
     ..writeln('  return IconData(codePoint, fontFamily: $familyConstName);')
-    ..writeln('}')
-    ..writeln();
+    ..writeln('}');
 
   return buffer.toString();
 }

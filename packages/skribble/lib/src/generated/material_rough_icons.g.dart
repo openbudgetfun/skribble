@@ -834,6 +834,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m22.25 14.29-.69 1.89L9.2 11.71l2.08-5.66 8.56 3.09a4 4 0 0 1 2.41 5.15zM1.5 12.14 8 14.48V19h8v-1.63L20.52 19l.69-1.89-19.02-6.86-.69 1.89zm5.8-1.94a3.01 3.01 0 0 0 1.41-4A3.005 3.005 0 0 0 4.7 4.8a2.99 2.99 0 0 0-1.4 4 2.99 2.99 0 0 0 4 1.4z'),
     ],
   ),
+  // airline_seat_individual_suite
+  0xe067: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 13c1.65 0 3-1.35 3-3S8.65 7 7 7s-3 1.35-3 3 1.35 3 3 3zm12-6h-8v7H3V7H1v10h22v-6c0-2.21-1.79-4-4-4z'),
+    ],
+  ),
   // airline_seat_legroom_extra
   0xe068: WiredSvgIconData(
     width: 24.0,
@@ -848,6 +856,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5 12V3H3v9c0 2.76 2.24 5 5 5h6v-2H8c-1.66 0-3-1.34-3-3zm15.5 6H19v-7c0-1.1-.9-2-2-2h-5V3H6v8c0 1.65 1.35 3 3 3h7v7h4.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5z'),
+    ],
+  ),
+  // airline_seat_legroom_reduced
+  0xe06a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19.97 19.2c.18.96-.55 1.8-1.47 1.8H14v-3l1-4H9c-1.65 0-3-1.35-3-3V3h6v6h5c1.1 0 2 .9 2 2l-2 7h1.44c.73 0 1.39.49 1.53 1.2zM5 12V3H3v9c0 2.76 2.24 5 5 5h4v-2H8c-1.66 0-3-1.34-3-3z'),
     ],
   ),
   // airline_seat_recline_extra
@@ -1163,6 +1179,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m20.54 5.23-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5 6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z'),
     ],
   ),
+  // arrow_back
+  0xe092: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z'),
+    ],
+  ),
+  // arrow_back_ios
+  0xe093: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11.67 3.87 9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z'),
+    ],
+  ),
+  // arrow_back_ios_new
+  0xe094: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.77 3.77 16 2 6 12l10 10 1.77-1.77L9.54 12z'),
+    ],
+  ),
   // arrow_circle_down
   0xe095: WiredSvgIconData(
     width: 24.0,
@@ -1211,6 +1251,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m7 14 5-5 5 5z'),
     ],
   ),
+  // arrow_forward
+  0xe09b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z'),
+    ],
+  ),
+  // arrow_forward_ios
+  0xe09c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.23 20.23 8 22l10-10L8 2 6.23 3.77 14.46 12z'),
+    ],
+  ),
+  // arrow_left
+  0xe09d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14 7-5 5 5 5V7z'),
+    ],
+  ),
+  // arrow_right
+  0xe09e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m10 17 5-5-5-5v10z'),
+    ],
+  ),
+  // arrow_right_alt
+  0xe09f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.01 11H4v2h12.01v3L20 12l-3.99-4z'),
+    ],
+  ),
   // arrow_upward
   0xe0a0: WiredSvgIconData(
     width: 24.0,
@@ -1251,6 +1331,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z'),
     ],
   ),
+  // assignment
+  0xe0a5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z'),
+    ],
+  ),
   // assignment_ind
   0xe0a6: WiredSvgIconData(
     width: 24.0,
@@ -1265,6 +1353,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6 15h-2v-2h2v2zm0-4h-2V8h2v6zm-1-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
+    ],
+  ),
+  // assignment_return
+  0xe0a8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm4 12h-4v3l-5-5 5-5v3h4v4z'),
     ],
   ),
   // assignment_returned
@@ -1496,6 +1592,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 8v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V8c0-1.86 1.28-3.41 3-3.86V2h3v2h4V2h3v2.14c1.72.45 3 2 3 3.86zM6 12v2h10v2h2v-4H6z'),
     ],
   ),
+  // backspace
+  0xe0c5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 12.59L17.59 17 14 13.41 10.41 17 9 15.59 12.59 12 9 8.41 10.41 7 14 10.59 17.59 7 19 8.41 15.41 12 19 15.59z'),
+    ],
+  ),
   // backup
   0xe0c6: WiredSvgIconData(
     width: 24.0,
@@ -1616,6 +1720,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z'),
+    ],
+  ),
+  // battery_unknown
+  0xe0d5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zm-2.72 13.95h-1.9v-1.9h1.9v1.9zm1.35-5.26s-.38.42-.67.71c-.48.48-.83 1.15-.83 1.6h-1.6c0-.83.46-1.52.93-2l.93-.94A1.498 1.498 0 0 0 12 9.5c-.83 0-1.5.67-1.5 1.5H9c0-1.66 1.34-3 3-3s3 1.34 3 3c0 .66-.27 1.26-.7 1.69z'),
     ],
   ),
   // beach_access
@@ -2283,6 +2395,54 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08a.956.956 0 0 1-.29-.7c0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28a11.27 11.27 0 0 0-2.67-1.85.996.996 0 0 1-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z'),
     ],
   ),
+  // call_made
+  0xe128: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5z'),
+    ],
+  ),
+  // call_merge
+  0xe129: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 20.41 18.41 19 15 15.59 13.59 17 17 20.41zM7.5 8H11v5.59L5.59 19 7 20.41l6-6V8h3.5L12 3.5 7.5 8z'),
+    ],
+  ),
+  // call_missed
+  0xe12a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19.59 7 12 14.59 6.41 9H11V7H3v8h2v-4.59l7 7 9-9z'),
+    ],
+  ),
+  // call_missed_outgoing
+  0xe12b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m3 8.41 9 9 7-7V15h2V7h-8v2h4.59L12 14.59 4.41 7 3 8.41z'),
+    ],
+  ),
+  // call_received
+  0xe12c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 5.41 18.59 4 7 15.59V9H5v10h10v-2H8.41z'),
+    ],
+  ),
+  // call_split
+  0xe12d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14 4 2.29 2.29-2.88 2.88 1.42 1.42 2.88-2.88L20 10V4zm-4 0H4v6l2.29-2.29 4.71 4.7V20h2v-8.41l-5.29-5.3z'),
+    ],
+  ),
   // call_to_action
   0xe12e: WiredSvgIconData(
     width: 24.0,
@@ -2675,6 +2835,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21.6 18.2 13 11.75v-.91a3.496 3.496 0 0 0-.18-6.75A3.51 3.51 0 0 0 8.5 7.5h2c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5c0 .84-.69 1.52-1.53 1.5-.54-.01-.97.45-.97.99v1.76L2.4 18.2c-.77.58-.36 1.8.6 1.8h18c.96 0 1.37-1.22.6-1.8zM6 18l6-4.5 6 4.5H6z'),
     ],
   ),
+  // chevron_left
+  0xe15e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z'),
+    ],
+  ),
+  // chevron_right
+  0xe15f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'),
+    ],
+  ),
   // child_care
   0xe160: WiredSvgIconData(
     width: 24.0,
@@ -2691,6 +2867,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 2v8h8c0-4.42-3.58-8-8-8zm6.32 13.89A7.948 7.948 0 0 0 21 11H6.44l-.95-2H2v2h2.22s1.89 4.07 2.12 4.42c-1.1.59-1.84 1.75-1.84 3.08C4.5 20.43 6.07 22 8 22c1.76 0 3.22-1.3 3.46-3h2.08c.24 1.7 1.7 3 3.46 3 1.93 0 3.5-1.57 3.5-3.5 0-1.04-.46-1.97-1.18-2.61zM8 20c-.83 0-1.5-.67-1.5-1.5S7.17 17 8 17s1.5.67 1.5 1.5S8.83 20 8 20zm9 0c-.83 0-1.5-.67-1.5-1.5S16.17 17 17 17s1.5.67 1.5 1.5S17.83 20 17 20z'),
+    ],
+  ),
+  // chrome_reader_mode
+  0xe162: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M13 12h7v1.5h-7zm0-2.5h7V11h-7zm0 5h7V16h-7zM21 4H3c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 15h-9V6h9v13z'),
     ],
   ),
   // circle
@@ -3523,6 +3707,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15 13V5c0-1.66-1.34-3-3-3S9 3.34 9 5v8c-1.21.91-2 2.37-2 4 0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.63-.79-3.09-2-4zm-4-8c0-.55.45-1 1-1s1 .45 1 1h-1v1h1v2h-1v1h1v2h-2V5z'),
     ],
   ),
+  // device_unknown
+  0xe1ca: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14zM12 6.72c-1.96 0-3.5 1.52-3.5 3.47h1.75c0-.93.82-1.75 1.75-1.75s1.75.82 1.75 1.75c0 1.75-2.63 1.57-2.63 4.45h1.76c0-1.96 2.62-2.19 2.62-4.45 0-1.96-1.54-3.47-3.5-3.47zm-.88 8.8h1.76v1.76h-1.76z'),
+    ],
+  ),
   // devices
   0xe1cb: WiredSvgIconData(
     width: 24.0,
@@ -3803,6 +3995,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11H7v-2h10v2z'),
     ],
   ),
+  // do_not_disturb_on_total_silence
+  0xe1ee: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.6-6-6-6zm3 7H9v-2h6v2z'),
+    ],
+  ),
   // do_not_step
   0xe1ef: WiredSvgIconData(
     width: 24.0,
@@ -4067,6 +4267,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 2h-8C6.38 2 2 6.66 2 12.28 2 17.5 6.49 22 11.72 22 17.39 22 22 17.62 22 12V4c0-1.1-.9-2-2-2zm-3 13-3-2v2H7V9h7v2l3-2v6z'),
+    ],
+  ),
+  // dvr
+  0xe210: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zm-2-9H8v2h11V8zm0 4H8v2h11v-2zM7 8H5v2h2V8zm0 4H5v2h2v-2z'),
     ],
   ),
   // dynamic_feed
@@ -4464,6 +4672,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m9.31 17 2.44-2.44L14.19 17l1.06-1.06-2.44-2.44 2.44-2.44L14.19 10l-2.44 2.44L9.31 10l-1.06 1.06 2.44 2.44-2.44 2.44L9.31 17zM19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z'),
     ],
   ),
+  // event_note
+  0xe241: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 10H7v2h10v-2zm2-7h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-5-5H7v2h7v-2z'),
+    ],
+  ),
   // event_seat
   0xe242: WiredSvgIconData(
     width: 24.0,
@@ -4620,6 +4836,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17.5 10c.75 0 1.47-.09 2.17-.24.21.71.33 1.46.33 2.24 0 1.22-.28 2.37-.77 3.4l1.49 1.49A9.981 9.981 0 0 0 22 12c0-5.52-4.48-10-10-10-1.78 0-3.44.47-4.89 1.28l5.33 5.33c1.49.88 3.21 1.39 5.06 1.39zM1.89 3.72l2.19 2.19A9.958 9.958 0 0 0 2 12c0 5.52 4.48 10 10 10 2.29 0 4.4-.78 6.09-2.08l2.19 2.19 1.41-1.41L3.31 2.31 1.89 3.72zm14.77 14.77A7.91 7.91 0 0 1 12 20c-4.41 0-8-3.59-8-8 0-.05.01-.1 0-.14a9.946 9.946 0 0 0 3.64-2.39l9.02 9.02z'),
     ],
   ),
+  // facebook
+  0xe255: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z'),
+    ],
+  ),
   // fact_check
   0xe256: WiredSvgIconData(
     width: 24.0,
@@ -4674,6 +4898,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z'),
+    ],
+  ),
+  // featured_play_list
+  0xe25d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 8H3V9h9v2zm0-4H3V5h9v2z'),
+    ],
+  ),
+  // featured_video
+  0xe25e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 9H3V5h9v7z'),
     ],
   ),
   // feed
@@ -5029,6 +5269,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M2 2v20h20V2H2zm9.86 14.96c.76-.24 1.4-1.04 1.53-1.63.13-.56-.1-1.05-.2-1.6-.08-.46-.07-.85.08-1.28.54 1.21 2.15 1.64 1.98 3.18-.19 1.7-2.11 2.38-3.39 1.33zM20 20h-2v-2h-2.02A4.98 4.98 0 0 0 17 15c0-1.89-1.09-2.85-1.85-3.37C12.2 9.61 13 7 13 7c-6.73 3.57-6.02 7.47-6 8 .03.96.49 2.07 1.23 3H6v2H4V4h16v16z'),
     ],
   ),
+  // first_page
+  0xe28b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.41 16.59 13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z'),
+    ],
+  ),
   // fit_screen
   0xe28c: WiredSvgIconData(
     width: 24.0,
@@ -5123,6 +5371,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'),
+    ],
+  ),
+  // flight_land
+  0xe298: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2.5 19h19v2h-19v-2zm16.84-3.15c.8.21 1.62-.26 1.84-1.06.21-.8-.26-1.62-1.06-1.84l-5.31-1.42-2.76-9.02L10.12 2v8.28L5.15 8.95l-.93-2.32-1.45-.39v5.17l16.57 4.44z'),
+    ],
+  ),
+  // flight_takeoff
+  0xe299: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2.5 19h19v2h-19v-2zm19.57-9.36c-.21-.8-1.04-1.28-1.84-1.06L14.92 10l-6.9-6.43-1.93.51 4.14 7.17-4.97 1.33-1.97-1.54-1.45.39 2.59 4.49s7.12-1.9 16.57-4.43c.81-.23 1.28-1.05 1.07-1.85z'),
     ],
   ),
   // flip
@@ -5326,6 +5590,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M2 20h20v4H2v-4zm3.49-3h2.42l1.27-3.58h5.65L16.09 17h2.42L13.25 3h-2.5L5.49 17zm4.42-5.61 2.03-5.79h.12l2.03 5.79H9.91z'),
     ],
   ),
+  // format_indent_decrease
+  0xe2b4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 17h10v-2H11v2zm-8-5 4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z'),
+    ],
+  ),
+  // format_indent_increase
+  0xe2b5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z'),
+    ],
+  ),
   // format_italic
   0xe2b6: WiredSvgIconData(
     width: 24.0,
@@ -5340,6 +5620,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M6 7h2.5L5 3.5 1.5 7H4v10H1.5L5 20.5 8.5 17H6V7zm4-2v2h12V5H10zm0 14h12v-2H10v2zm0-6h12v-2H10v2z'),
+    ],
+  ),
+  // format_list_bulleted
+  0xe2b8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z'),
     ],
   ),
   // format_list_numbered
@@ -5430,6 +5718,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z'),
     ],
   ),
+  // forward
+  0xe2c4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 8V4l8 8-8 8v-4H4V8z'),
+    ],
+  ),
   // forward_10
   0xe2c5: WiredSvgIconData(
     width: 24.0,
@@ -5495,6 +5791,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z'),
+    ],
+  ),
+  // functions
+  0xe2cd: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 4H6v2l6.5 6L6 18v2h12v-3h-7l5-5-5-5h7z'),
     ],
   ),
   // g_mobiledata
@@ -5977,12 +6281,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M13 6.99h3L12 3 8 6.99h3v10.02H8L12 21l4-3.99h-3z'),
     ],
   ),
+  // help
+  0xe309: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z'),
+    ],
+  ),
   // help_center
   0xe30a: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6.99 15c-.7 0-1.26-.56-1.26-1.26 0-.71.56-1.25 1.26-1.25.71 0 1.25.54 1.25 1.25-.01.69-.54 1.26-1.25 1.26zm3.01-7.4c-.76 1.11-1.48 1.46-1.87 2.17-.16.29-.22.48-.22 1.41h-1.82c0-.49-.08-1.29.31-1.98.49-.87 1.42-1.39 1.96-2.16.57-.81.25-2.33-1.37-2.33-1.06 0-1.58.8-1.8 1.48l-1.65-.7C9.01 7.15 10.22 6 11.99 6c1.48 0 2.49.67 3.01 1.52.44.72.7 2.07.02 3.08z'),
+    ],
+  ),
+  // help_outline
+  0xe30b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z'),
     ],
   ),
   // hevc
@@ -6388,6 +6708,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'),
     ],
   ),
+  // input
+  0xe33e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3.01H3c-1.1 0-2 .9-2 2V9h2V4.99h18v14.03H3V15H1v4.01c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14a2 2 0 0 0-2-2zM11 16l4-4-4-4v3H1v2h10v3z'),
+    ],
+  ),
   // insert_chart
   0xe33f: WiredSvgIconData(
     width: 24.0,
@@ -6581,6 +6909,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z'),
     ],
   ),
+  // keyboard_backspace
+  0xe357: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z'),
+    ],
+  ),
   // keyboard_capslock
   0xe358: WiredSvgIconData(
     width: 24.0,
@@ -6603,6 +6939,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 7v4H5.83l3.58-3.59L8 6l-6 6 6 6 1.41-1.41L5.83 13H21V7z'),
+    ],
+  ),
+  // keyboard_tab
+  0xe35b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11.59 7.41 15.17 11H1v2h14.17l-3.59 3.59L13 18l6-6-6-6-1.41 1.41zM20 6v12h2V6h-2z'),
     ],
   ),
   // keyboard_voice
@@ -6637,12 +6981,44 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6 3c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm14.06-2h-2.12L15.5 3.44l1.06 1.06 3.5-3.5zM22 23v-2h-1c-1.04 0-2.08-.35-3-1-1.83 1.3-4.17 1.3-6 0-1.83 1.3-4.17 1.3-6 0-.91.65-1.96 1-3 1H2v2h1c1.03 0 2.05-.25 3-.75 1.89 1 4.11 1 6 0 1.89 1 4.11 1 6 0 .95.5 1.97.75 3 .75h1zm-1-9.72c0 1.44-2.19 3.62-5.04 5.58-.31.09-.63.14-.96.14-1.2 0-2.27-.66-3-1.5-.73.84-1.8 1.5-3 1.5-.94 0-1.81-.41-2.49-.99.46-.39.96-.78 1.49-1.17l-1.55-2.97A4.06 4.06 0 0 1 6 12V8c0-1.1.9-2 2-2h3c1.38 0 2.63-.56 3.54-1.46l1.41 1.41A7.018 7.018 0 0 1 11 8H9.6v3.5h2.8l1.69 1.88c1.95-.84 3.77-1.38 5.06-1.38.84 0 1.85.25 1.85 1.28zm-8.8.99-.7-.77-2.5.1.83 2.01c.59-.38 1.81-1.06 2.37-1.34z'),
     ],
   ),
+  // label
+  0xe360: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z'),
+    ],
+  ),
+  // label_important
+  0xe361: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m3.5 18.99 11 .01c.67 0 1.27-.33 1.63-.84L20.5 12l-4.37-6.16c-.36-.51-.96-.84-1.63-.84l-11 .01L8.34 12 3.5 18.99z'),
+    ],
+  ),
   // label_important_outline
   0xe362: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m3.5 18.99 11 .01c.67 0 1.27-.33 1.63-.84L20.5 12l-4.37-6.16c-.36-.51-.96-.84-1.63-.84l-11 .01L8.34 12 3.5 18.99z'),
+    ],
+  ),
+  // label_off
+  0xe363: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m3.25 2.75 17 17L19 21l-2-2H5c-1.1 0-2-.9-2-2V7c0-.55.23-1.05.59-1.41L2 4l1.25-1.25zM22 12l-4.37-6.16C17.27 5.33 16.67 5 16 5H8l11 11 3-4z'),
+    ],
+  ),
+  // label_outline
+  0xe364: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z'),
     ],
   ),
   // landscape
@@ -6691,6 +7067,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 18v-1c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2v1H0v2h24v-2h-4zM4 5h16v10H4V5z'),
+    ],
+  ),
+  // last_page
+  0xe36b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.59 7.41 10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z'),
+    ],
+  ),
+  // launch
+  0xe36c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'),
     ],
   ),
   // layers
@@ -6877,6 +7269,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M3 14c0 1.3.84 2.4 2 2.82V20H3v2h6v-2H7v-3.18C8.16 16.4 9 15.3 9 14V6H3v8zm2-6h2v3H5V8zm15.63.54-.95-.32a.991.991 0 0 1-.68-.94V3c0-.55-.45-1-1-1h-3c-.55 0-1 .45-1 1v4.28c0 .43-.28.81-.68.95l-.95.32c-.82.27-1.37 1.03-1.37 1.89V20c0 1.1.9 2 2 2h7c1.1 0 2-.9 2-2v-9.56c0-.86-.55-1.62-1.37-1.9zM16 4h1v1h-1V4zm-3 6.44.95-.32C15.18 9.72 16 8.57 16 7.28V7h1v.28a3 3 0 0 0 2.05 2.85l.95.31V12h-7v-1.56zM20 20h-7v-2h7v2z'),
+    ],
+  ),
+  // list
+  0xe384: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'),
+    ],
+  ),
+  // list_alt
+  0xe385: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 5v14H5V5h14m1.1-2H3.9c-.5 0-.9.4-.9.9v16.2c0 .4.4.9.9.9h16.2c.4 0 .9-.5.9-.9V3.9c0-.5-.5-.9-.9-.9zM11 7h6v2h-6V7zm0 4h6v2h-6v-2zm0 4h6v2h-6zM7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7z'),
+    ],
+  ),
+  // live_help
+  0xe386: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4l3 3 3-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-6 16h-2v-2h2v2zm2.07-7.75-.9.92C13.45 11.9 13 12.5 13 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z'),
     ],
   ),
   // live_tv
@@ -7710,6 +8126,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M2.76 2.49 1.49 3.76 5 7.27V21c0 1.1.9 2 2 2h10c1.02 0 1.85-.77 1.98-1.75l1.72 1.72 1.27-1.27L2.76 2.49zM7 19V9.27L16.73 19H7zM17 5v9.17l2 2V3c0-1.1-.9-2-2-2H7c-.85 0-1.58.54-1.87 1.3L7.83 5H17z'),
     ],
   ),
+  // mobile_screen_share
+  0xe3ee: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-1.99.9-1.99 2v18c0 1.1.89 2 1.99 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14zm-4.2-5.78v1.75l3.2-2.99L12.8 9v1.7c-3.11.43-4.35 2.56-4.8 4.7 1.11-1.5 2.58-2.18 4.8-2.18z'),
+    ],
+  ),
   // mobiledata_off
   0xe3ef: WiredSvgIconData(
     width: 24.0,
@@ -7995,6 +8419,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM6.5 9H11c.55 0 1 .45 1 1v5h-1.5v-4.5h-1v3H8v-3H7V15H5.5v-5c0-.55.45-1 1-1zm9 6H14V9h3.5c.55 0 1 .45 1 1v2.5c0 .55-.45 1-1 1h-2V15zm0-3H17v-1.5h-1.5V12z'),
     ],
   ),
+  // multiline_chart
+  0xe412: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22 6.92-1.41-1.41-2.85 3.21C15.68 6.4 12.83 5 9.61 5 6.72 5 4.07 6.16 2 8l1.42 1.42C5.12 7.93 7.27 7 9.61 7c2.74 0 5.09 1.26 6.77 3.24l-2.88 3.24-4-4L2 16.99l1.5 1.5 6-6.01 4 4 4.05-4.55c.75 1.35 1.25 2.9 1.44 4.55H21c-.22-2.3-.95-4.39-2.04-6.14L22 6.92z'),
+    ],
+  ),
   // multiple_stop
   0xe413: WiredSvgIconData(
     width: 24.0,
@@ -8066,6 +8498,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M22.17 9.17c0-3.87-3.13-7-7-7s-7 3.13-7 7A6.98 6.98 0 0 0 14 16.06V20H6v-3h1v-4c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v4h1v5h16v-2h-3v-3.88a7 7 0 0 0 6.17-6.95zM4.5 11c.83 0 1.5-.67 1.5-1.5S5.33 8 4.5 8 3 8.67 3 9.5 3.67 11 4.5 11z'),
+    ],
+  ),
+  // navigate_before
+  0xe41c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z'),
+    ],
+  ),
+  // navigate_next
+  0xe41d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'),
     ],
   ),
   // navigation
@@ -8162,6 +8610,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6 11.97h-5l2.26-2.26a4.94 4.94 0 0 0-3.76-1.74c-2.37 0-4.35 1.66-4.86 3.88l-.96-.32c.64-2.62 3-4.56 5.82-4.56 1.78 0 3.37.79 4.47 2.03L18 8.97v5z'),
+    ],
+  ),
+  // next_week
+  0xe42a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 7h-4V5c0-.55-.22-1.05-.59-1.41C15.05 3.22 14.55 3 14 3h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM10 5h4v2h-4V5zm1 13.5-1-1 3-3-3-3 1-1 4 4-4 4z'),
     ],
   ),
   // nfc
@@ -8406,12 +8862,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm1 0V8l5 4-5 4z'),
     ],
   ),
+  // note
+  0xe449: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22 10-6-6H4c-1.1 0-2 .9-2 2v12.01c0 1.1.9 1.99 2 1.99l16-.01c1.1 0 2-.89 2-1.99v-8zm-7-4.5 5.5 5.5H15V5.5z'),
+    ],
+  ),
   // note_add
   0xe44a: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z'),
+    ],
+  ),
+  // note_alt
+  0xe44b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM9.1 17H7v-2.14l5.96-5.96 2.12 2.12L9.1 17zm7.75-7.73-1.06 1.06-2.12-2.12 1.06-1.06c.2-.2.51-.2.71 0l1.41 1.41c.2.2.2.51 0 .71z'),
     ],
   ),
   // notes
@@ -8540,6 +9012,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21 11V3h-8l3.29 3.29-10 10L3 13v8h8l-3.29-3.29 10-10z'),
+    ],
+  ),
+  // open_in_new
+  0xe45c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'),
     ],
   ),
   // open_in_new_off
@@ -9491,6 +9971,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M18 13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm-1.25 7.5v-5l4 2.5-4 2.5z'),
     ],
   ),
+  // playlist_add
+  0xe4d2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 10H3v2h11v-2zm0-4H3v2h11V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM3 16h7v-2H3v2z'),
+    ],
+  ),
   // playlist_add_check
   0xe4d3: WiredSvgIconData(
     width: 24.0,
@@ -9826,6 +10314,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z'),
     ],
   ),
+  // queue_music
+  0xe4fc: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z'),
+    ],
+  ),
   // queue_play_next
   0xe4fd: WiredSvgIconData(
     width: 24.0,
@@ -9998,6 +10494,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z'),
     ],
   ),
+  // redo
+  0xe512: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16a8.002 8.002 0 0 1 7.6-5.5c1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z'),
+    ],
+  ),
   // reduce_capacity
   0xe513: WiredSvgIconData(
     width: 24.0,
@@ -10168,6 +10672,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6 10c0 3.31-2.69 6-6 6s-6-2.69-6-6h2c0 2.21 1.79 4 4 4s4-1.79 4-4-1.79-4-4-4v3L8 7l4-4v3c3.31 0 6 2.69 6 6z', fillRule: WiredSvgFillRule.evenOdd),
+    ],
+  ),
+  // reply
+  0xe528: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z'),
+    ],
+  ),
+  // reply_all
+  0xe529: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 8V5l-7 7 7 7v-3l-4-4 4-4zm6 1V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z'),
     ],
   ),
   // report
@@ -10615,6 +11135,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 18c1.1 0 1.99-.9 1.99-2L22 6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2h-4ZM4 16V6h16v10.01L4 16Zm5.097-6.047c0-1.027.836-1.864 1.864-1.864 1.027 0 1.864.837 1.864 1.864a1.867 1.867 0 0 1-1.864 1.864 1.867 1.867 0 0 1-1.864-1.864Zm7.032 4.236-2.482-2.482a3.19 3.19 0 0 0 .527-1.754A3.216 3.216 0 0 0 10.96 6.74a3.217 3.217 0 0 0-3.214 3.213 3.218 3.218 0 0 0 3.214 3.214 3.19 3.19 0 0 0 1.724-.51l2.489 2.487.955-.955Z'),
     ],
   ),
+  // screen_share
+  0xe561: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 18c1.1 0 1.99-.9 1.99-2L22 6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2h-4zm-7-3.53v-2.19c-2.78 0-4.61.85-6 2.72.56-2.67 2.11-5.33 6-5.87V7l4 3.73-4 3.74z'),
+    ],
+  ),
   // screenshot
   0xe562: WiredSvgIconData(
     width: 24.0,
@@ -10736,6 +11264,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m21.41 11.41-8.83-8.83c-.37-.37-.88-.58-1.41-.58H4c-1.1 0-2 .9-2 2v7.17c0 .53.21 1.04.59 1.41l8.83 8.83c.78.78 2.05.78 2.83 0l7.17-7.17c.78-.78.78-2.04-.01-2.83zM6.5 8C5.67 8 5 7.33 5 6.5S5.67 5 6.5 5 8 5.67 8 6.5 7.33 8 6.5 8z'),
+    ],
+  ),
+  // send
+  0xe571: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2.01 21 23 12 2.01 3 2 10l15 2-15 2z'),
     ],
   ),
   // send_and_archive
@@ -11099,12 +11635,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z'),
     ],
   ),
+  // short_text
+  0xe59d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 9h16v2H4V9zm0 4h10v2H4v-2z'),
+    ],
+  ),
   // shortcut
   0xe59e: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m21 11-6-6v5H8c-2.76 0-5 2.24-5 5v4h2v-4c0-1.65 1.35-3 3-3h7v5l6-6z'),
+    ],
+  ),
+  // show_chart
+  0xe59f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m3.5 18.49 6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z'),
     ],
   ),
   // shower
@@ -11177,6 +11729,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17 4h3v16h-3zM5 14h3v6H5zm6-5h3v11h-3z'),
     ],
   ),
+  // signal_cellular_connected_no_internet_0_bar
+  0xe5a8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 18h2v-8h-2v8zm0 4h2v-2h-2v2zm-2-2v2H2L22 2v6h-2V6.83L6.83 20H18z'),
+    ],
+  ),
+  // signal_cellular_connected_no_internet_4_bar
+  0xe5a9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 18h2v-8h-2v8zm0 4h2v-2h-2v2zM2 22h16V8h4V2L2 22z'),
+    ],
+  ),
   // signal_cellular_no_sim
   0xe5aa: WiredSvgIconData(
     width: 24.0,
@@ -11242,6 +11810,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M24 8.98A16.88 16.88 0 0 0 12 4C7.31 4 3.07 5.9 0 8.98L12 21v-9h8.99L24 8.98zM19.59 14l-2.09 2.09L15.41 14 14 15.41l2.09 2.09L14 19.59 15.41 21l2.09-2.08L19.59 21 21 19.59l-2.08-2.09L21 15.41 19.59 14z'),
     ],
   ),
+  // signal_wifi_connected_no_internet_4
+  0xe5b2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M24 8.98A16.88 16.88 0 0 0 12 4C7.31 4 3.07 5.9 0 8.98L12 21v-9h8.99L24 8.98zM19.59 14l-2.09 2.09L15.41 14 14 15.41l2.09 2.09L14 19.59 15.41 21l2.09-2.08L19.59 21 21 19.59l-2.08-2.09L21 15.41 19.59 14z'),
+    ],
+  ),
   // signal_wifi_off
   0xe5b3: WiredSvgIconData(
     width: 24.0,
@@ -11256,6 +11832,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4z'),
+    ],
+  ),
+  // signal_wifi_statusbar_connected_no_internet_4
+  0xe5b5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21l5-5.01V8h5.92C19.97 5.51 16.16 4 12 4zm7 14h2v2h-2z'),
+      WiredSvgPrimitive.path('M19 10h2v6h-2z'),
     ],
   ),
   // signal_wifi_statusbar_null
@@ -11482,6 +12067,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M4 5c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm4.78 3.58a6.95 6.95 0 0 0-5.56 0A2.01 2.01 0 0 0 2 10.43V11h8v-.57c0-.81-.48-1.53-1.22-1.85zM18 7c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm2.78 1.58a6.95 6.95 0 0 0-5.56 0A2.01 2.01 0 0 0 14 10.43V11h8v-.57c0-.81-.48-1.53-1.22-1.85zM22 17l-4-4v3H6v-3l-4 4 4 4v-3h12v3l4-4z'),
+    ],
+  ),
+  // sort
+  0xe5d2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z'),
     ],
   ),
   // sort_by_alpha
@@ -11825,6 +12418,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m12 8.89.94 3.11h2.82l-2.27 1.62.93 3.01L12 14.79l-2.42 1.84.93-3.01L8.24 12h2.82L12 8.89M12 2l-2.42 8H2l6.17 4.41L5.83 22 12 17.31 18.18 22l-2.35-7.59L22 10h-7.58L12 2z'),
     ],
   ),
+  // star_half
+  0xe5fc: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4V6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'),
+    ],
+  ),
   // star_outline
   0xe5fd: WiredSvgIconData(
     width: 24.0,
@@ -12031,6 +12632,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m19 15-6 6-1.42-1.42L15.17 16H4V4h2v10h9.17l-3.59-3.58L13 9l6 6z'),
+    ],
+  ),
+  // subject
+  0xe616: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z'),
     ],
   ),
   // subscript
@@ -12277,6 +12886,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 17H7V6h10v12zm-1-7.95-1.41-1.41-3.54 3.54-1.41-1.41-1.41 1.41L11.05 15 16 10.05z'),
+    ],
+  ),
+  // system_security_update_warning
+  0xe635: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 15h2v2h-2zm0-8h2v6h-2z'),
+      WiredSvgPrimitive.path('M17 1H7c-1.1 0-1.99.9-1.99 2v18c0 1.1.89 2 1.99 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 17H7V6h10v12z'),
     ],
   ),
   // system_update
@@ -12688,6 +13306,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M5 4v3h5.5v12h3V7H19V4z'),
     ],
   ),
+  // toc
+  0xe669: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z'),
+    ],
+  ),
   // today
   0xe66a: WiredSvgIconData(
     width: 24.0,
@@ -12840,12 +13466,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19.3 16.9c.4-.7.7-1.5.7-2.4 0-2.5-2-4.5-4.5-4.5S11 12 11 14.5s2 4.5 4.5 4.5c.9 0 1.7-.3 2.4-.7l3.2 3.2 1.4-1.4-3.2-3.2zm-3.8.1c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5zM12 20v2C6.48 22 2 17.52 2 12S6.48 2 12 2c4.84 0 8.87 3.44 9.8 8h-2.07A8 8 0 0 0 15 4.59V5c0 1.1-.9 2-2 2h-2v2c0 .55-.45 1-1 1H8v2h2v3H9l-4.79-4.79C4.08 10.79 4 11.38 4 12c0 4.41 3.59 8 8 8z'),
     ],
   ),
-  // trending_neutral
+  // trending_down
+  0xe67d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16 18 2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z'),
+    ],
+  ),
+  // trending_flat
   0xe67e: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m22 12-4-4v3H3v2h15v3z'),
+    ],
+  ),
+  // trending_up
+  0xe67f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16 6 2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z'),
     ],
   ),
   // trip_origin
@@ -12942,6 +13584,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m20.55 5.22-1.39-1.68A1.51 1.51 0 0 0 18 3H6c-.47 0-.88.21-1.15.55L3.46 5.22C3.17 5.57 3 6.01 3 6.5V19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6.5c0-.49-.17-.93-.45-1.28zM12 9.5l5.5 5.5H14v2h-4v-2H6.5L12 9.5zM5.12 5l.82-1h12l.93 1H5.12z'),
+    ],
+  ),
+  // undo
+  0xe68c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z'),
     ],
   ),
   // unfold_less
@@ -13265,12 +13915,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m18.25 7.6-5.5-3.18a1.49 1.49 0 0 0-1.5 0L5.75 7.6c-.46.27-.75.76-.75 1.3v6.35c0 .54.29 1.03.75 1.3l5.5 3.18c.46.27 1.04.27 1.5 0l5.5-3.18c.46-.27.75-.76.75-1.3V8.9c0-.54-.29-1.03-.75-1.3zM7 14.96v-4.62l4 2.32v4.61l-4-2.31zm5-4.03L8 8.61l4-2.31 4 2.31-4 2.32zm1 6.34v-4.61l4-2.32v4.62l-4 2.31zM7 2H3.5C2.67 2 2 2.67 2 3.5V7h2V4h3V2zm10 0h3.5c.83 0 1.5.67 1.5 1.5V7h-2V4h-3V2zM7 22H3.5c-.83 0-1.5-.67-1.5-1.5V17h2v3h3v2zm10 0h3.5c.83 0 1.5-.67 1.5-1.5V17h-2v3h-3v2z'),
     ],
   ),
+  // view_list
+  0xe6b5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 14h4v-4H3v4zm0 5h4v-4H3v4zM3 9h4V5H3v4zm5 5h13v-4H8v4zm0 5h13v-4H8v4zM8 5v4h13V5H8z'),
+    ],
+  ),
   // view_module
   0xe6b6: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M14.67 5v6.5H9.33V5h5.34zm1 6.5H21V5h-5.33v6.5zm-1 7.5v-6.5H9.33V19h5.34zm1-6.5V19H21v-6.5h-5.33zm-7.34 0H3V19h5.33v-6.5zm0-1V5H3v6.5h5.33z'),
+    ],
+  ),
+  // view_quilt
+  0xe6b7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 5v6.5H9.33V5H21zm-6.33 14v-6.5H9.33V19h5.34zm1-6.5V19H21v-6.5h-5.33zM8.33 19V5H3v14h5.33z'),
     ],
   ),
   // view_sidebar
@@ -13784,6 +14450,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6 13c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm6-10C9.8 3 8 4.8 8 7s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm6 10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z'),
     ],
   ),
+  // wrap_text
+  0xe6f8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 19h6v-2H4v2zM20 5H4v2h16V5zm-3 6H4v2h13.25c1.1 0 2 .9 2 2s-.9 2-2 2H15v-2l-3 3 3 3v-2h2c2.21 0 4-1.79 4-4s-1.79-4-4-4z'),
+    ],
+  ),
   // wrong_location
   0xe6f9: WiredSvgIconData(
     width: 24.0,
@@ -14118,6 +14792,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M9 7H7v5H5V7H3v7h4v3h2v-3h2v-2H9V7zm8 4v2h2v2h-5V9h7V7h-9v10h9v-6h-4z'),
     ],
   ),
+  // four_g_plus_mobiledata_sharp
+  0xe720: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M13 11v2h2v2h-4V9h6V7H9v10h8v-6h-4zm11 0h-2V9h-2v2h-2v2h2v2h2v-2h2v-2zM7 7H5v5H3V7H1v7h4v3h2v-3h1v-2H7V7z'),
+    ],
+  ),
   // four_k_plus_sharp
   0xe721: WiredSvgIconData(
     width: 24.0,
@@ -14383,6 +15065,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z'),
+    ],
+  ),
+  // account_balance_wallet_sharp
+  0xe741: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 18v3H3V3h18v3H10v12h11zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'),
     ],
   ),
   // account_box_sharp
@@ -14663,12 +15353,68 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M14.5 17c0 1.65-1.35 3-3 3s-3-1.35-3-3h2c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1H2v-2h9.5c1.65 0 3 1.35 3 3zM19 6.5C19 4.57 17.43 3 15.5 3S12 4.57 12 6.5h2c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S16.33 8 15.5 8H2v2h13.5c1.93 0 3.5-1.57 3.5-3.5zm-.5 4.5H2v2h16.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5v2c1.93 0 3.5-1.57 3.5-3.5S20.43 11 18.5 11z'),
     ],
   ),
+  // airline_seat_flat_angled_sharp
+  0xe764: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.56 16.18 9.2 11.71l2.08-5.66 12.35 4.47-2.07 5.66zM1.5 12.14 8 14.48V19h8v-1.63L20.52 19l.69-1.89-19.02-6.86-.69 1.89zm5.8-1.94a3.01 3.01 0 0 0 1.41-4A3.005 3.005 0 0 0 4.7 4.8a2.99 2.99 0 0 0-1.4 4 2.99 2.99 0 0 0 4 1.4z'),
+    ],
+  ),
   // airline_seat_flat_sharp
   0xe765: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M22 7v6H9V7h13zM2 14v2h6v2h8v-2h6v-2H2zm5.14-1.9a3 3 0 0 0-.04-4.24 3 3 0 0 0-4.24.04 3 3 0 0 0 .04 4.24 3 3 0 0 0 4.24-.04z'),
+    ],
+  ),
+  // airline_seat_individual_suite_sharp
+  0xe766: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 13c1.65 0 3-1.35 3-3S8.65 7 7 7s-3 1.35-3 3 1.35 3 3 3zm16-6H11v7H3V7H1v10h22V7z'),
+    ],
+  ),
+  // airline_seat_legroom_extra_sharp
+  0xe767: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 3H2v14h11v-2H4zm18.24 12.96-2.53 1.15-3.41-6.98A2.019 2.019 0 0 0 14.51 9H11V3H5v11h10l3.41 7 5.07-2.32-1.24-2.72z'),
+    ],
+  ),
+  // airline_seat_legroom_normal_sharp
+  0xe768: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 15V3H3v14h11v-2H5zm17 3h-3v-7c0-1.1-.9-2-2-2h-5V3H6v11h10v7h6v-3z'),
+    ],
+  ),
+  // airline_seat_legroom_reduced_sharp
+  0xe769: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19.97 21H14v-3l1-4H6V3h6v6h5c1.1 0 2 .9 2 2l-2 7h2.97v3zM5 15V3H3v14h9v-2H5z'),
+    ],
+  ),
+  // airline_seat_recline_extra_sharp
+  0xe76a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.35 5.64c-.9-.64-1.12-1.88-.49-2.79.63-.9 1.88-1.12 2.79-.49.9.64 1.12 1.88.49 2.79-.64.9-1.88 1.12-2.79.49zM16 19H6.5L4 7H2l2.85 14H16v-2zm.23-4h-4.88l-1.03-4.1c1.58.89 3.28 1.54 5.15 1.22V9.99c-1.63.31-3.44-.27-4.69-1.25L9.14 7.47c-.23-.18-.49-.3-.76-.38a2.21 2.21 0 0 0-.99-.06h-.02a2.268 2.268 0 0 0-1.84 2.61L7.44 18h9.24l3.82 3 1.5-1.5-5.77-4.5z'),
+    ],
+  ),
+  // airline_seat_recline_normal_sharp
+  0xe76b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.59 5.41c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0 .78 2.05 0 2.83c-.79.79-2.05.79-2.83 0zM6 19V7H4v14h11v-2H6zm14 1.07L14.93 15H11.5v-3.68c1.4 1.15 3.6 2.16 5.5 2.16v-2.16c-1.66.02-3.61-.87-4.67-2.04l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.29-.14-.62-.23-.96-.23h-.03C8.01 7 7 8.01 7 9.25V18h8.07l3.5 3.5L20 20.07z'),
     ],
   ),
   // airplane_ticket_sharp
@@ -14751,12 +15497,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z'),
     ],
   ),
+  // align_horizontal_center_sharp
+  0xe776: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 2h2v5h8v3h-8v4h5v3h-5v5h-2v-5H6v-3h5v-4H3V7h8z'),
+    ],
+  ),
   // align_horizontal_left_sharp
   0xe777: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M4 22H2V2h2v20zM22 7H6v3h16V7zm-6 7H6v3h10v-3z'),
+    ],
+  ),
+  // align_horizontal_right_sharp
+  0xe778: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 2h2v20h-2V2zM2 10h16V7H2v3zm6 7h10v-3H8v3z'),
     ],
   ),
   // align_vertical_bottom_sharp
@@ -14952,6 +15714,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M18.71 3H5.29L3 5.79V21h18V5.79L18.71 3zM12 17.5 6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z'),
     ],
   ),
+  // arrow_back_ios_new_sharp
+  0xe791: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.77 3.77 16 2 6 12l10 10 1.77-1.77L9.54 12z'),
+    ],
+  ),
+  // arrow_back_ios_sharp
+  0xe792: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.51 3.87 15.73 2.1 5.84 12l9.9 9.9 1.77-1.77L9.38 12l8.13-8.13z'),
+    ],
+  ),
+  // arrow_back_sharp
+  0xe793: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z'),
+    ],
+  ),
   // arrow_circle_down_sharp
   0xe794: WiredSvgIconData(
     width: 24.0,
@@ -14976,6 +15762,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m20 12-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z'),
     ],
   ),
+  // arrow_drop_down_circle_sharp
+  0xe797: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 13-4-4h8l-4 4z'),
+    ],
+  ),
   // arrow_drop_down_sharp
   0xe798: WiredSvgIconData(
     width: 24.0,
@@ -14990,6 +15784,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m7 14 5-5 5 5H7z'),
+    ],
+  ),
+  // arrow_forward_ios_sharp
+  0xe79a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.23 20.23 8 22l10-10L8 2 6.23 3.77 14.46 12z'),
+    ],
+  ),
+  // arrow_forward_sharp
+  0xe79b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z'),
+    ],
+  ),
+  // arrow_left_sharp
+  0xe79c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14 7-5 5 5 5V7z'),
+    ],
+  ),
+  // arrow_right_alt_sharp
+  0xe79d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z'),
+    ],
+  ),
+  // arrow_right_sharp
+  0xe79e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m10 17 5-5-5-5v10z'),
     ],
   ),
   // arrow_upward_sharp
@@ -15048,12 +15882,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 3h-6.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H3v18h18V3zm-8 15h-2v-2h2v2zm0-4h-2V8h2v6zm-1-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
     ],
   ),
+  // assignment_return_sharp
+  0xe7a6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3h-6.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H3v18h18V3zm-9 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm4 12h-4v3l-5-5 5-5v3h4v4z'),
+    ],
+  ),
   // assignment_returned_sharp
   0xe7a7: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21 3h-6.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H3v18h18V3zm-9 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 15-5-5h3V9h4v4h3l-5 5z'),
+    ],
+  ),
+  // assignment_sharp
+  0xe7a8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3h-6.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H3v18h18V3zm-9 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z'),
     ],
   ),
   // assignment_turned_in_sharp
@@ -15269,6 +16119,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 8v14H4V8c0-1.86 1.28-3.41 3-3.86V2h3v2h4V2h3v2.14c1.72.45 3 2 3 3.86zM6 12v2h10v2h2v-4H6z'),
     ],
   ),
+  // backspace_sharp
+  0xe7c3: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M24 3H6l-6 9 6 9h18V3zm-5 12.59L17.59 17 14 13.41 10.41 17 9 15.59 12.59 12 9 8.41 10.41 7 14 10.59 17.59 7 19 8.41 15.41 12 19 15.59z'),
+    ],
+  ),
   // backup_sharp
   0xe7c4: WiredSvgIconData(
     width: 24.0,
@@ -15389,6 +16247,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 4h-3V2h-4v2H7v18h10V4z'),
+    ],
+  ),
+  // battery_unknown_sharp
+  0xe7d3: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM13 18h-2v-2h2v2zm1.3-5.31s-.38.42-.67.71c-.48.48-.83 1.15-.83 1.6h-1.6c0-.83.46-1.52.93-2l.93-.94A1.498 1.498 0 0 0 12 9.5c-.83 0-1.5.67-1.5 1.5H9c0-1.66 1.34-3 3-3s3 1.34 3 3c0 .66-.27 1.26-.7 1.69z'),
     ],
   ),
   // beach_access_sharp
@@ -16053,12 +16919,60 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m3.68 16.07 3.92-3.11V9.59c2.85-.93 5.94-.93 8.8 0v3.38l3.91 3.1L24 12.39c-6.41-7.19-17.59-7.19-24 0l3.68 3.68z'),
     ],
   ),
+  // call_made_sharp
+  0xe824: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5H9z'),
+    ],
+  ),
+  // call_merge_sharp
+  0xe825: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 20.41 18.41 19 15 15.59 13.59 17 17 20.41zM7.5 8H11v5.59L5.59 19 7 20.41l6-6V8h3.5L12 3.5 7.5 8z'),
+    ],
+  ),
+  // call_missed_outgoing_sharp
+  0xe826: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m3 8.41 9 9 7-7V15h2V7h-8v2h4.59L12 14.59 4.41 7 3 8.41z'),
+    ],
+  ),
+  // call_missed_sharp
+  0xe827: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19.59 7 12 14.59 6.41 9H11V7H3v8h2v-4.59l7 7 9-9L19.59 7z'),
+    ],
+  ),
+  // call_received_sharp
+  0xe828: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 5.41 18.59 4 7 15.59V9H5v10h10v-2H8.41L20 5.41z'),
+    ],
+  ),
   // call_sharp
   0xe829: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m21 15.46-5.27-.61-2.52 2.52a15.045 15.045 0 0 1-6.59-6.59l2.53-2.53L8.54 3H3.03C2.45 13.18 10.82 21.55 21 20.97v-5.51z'),
+    ],
+  ),
+  // call_split_sharp
+  0xe82a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14 4 2.29 2.29-2.88 2.88 1.42 1.42 2.88-2.88L20 10V4h-6zm-4 0H4v6l2.29-2.29 4.71 4.7V20h2v-8.41l-5.29-5.3L10 4z'),
     ],
   ),
   // call_to_action_sharp
@@ -16388,6 +17302,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M22 2H2.01L2 22l4-4h16V2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z'),
     ],
   ),
+  // check_box_outline_blank_sharp
+  0xe853: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 5v14H5V5h14m2-2H3v18h18V3z'),
+    ],
+  ),
   // check_box_sharp
   0xe854: WiredSvgIconData(
     width: 24.0,
@@ -16444,6 +17366,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21.6 18.2 13 11.75v-.91a3.496 3.496 0 0 0-.18-6.75A3.51 3.51 0 0 0 8.5 7.5h2c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5c0 .84-.69 1.52-1.53 1.5H11v2.75L2.4 18.2c-.77.58-.36 1.8.6 1.8h18c.96 0 1.37-1.22.6-1.8zM6 18l6-4.5 6 4.5H6z'),
     ],
   ),
+  // chevron_left_sharp
+  0xe85b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z'),
+    ],
+  ),
+  // chevron_right_sharp
+  0xe85c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z'),
+    ],
+  ),
   // child_care_sharp
   0xe85d: WiredSvgIconData(
     width: 24.0,
@@ -16460,6 +17398,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 2v8h8c0-4.42-3.58-8-8-8zm6.32 13.89A7.948 7.948 0 0 0 21 11H6.44l-.95-2H2v2h2.22s1.89 4.07 2.12 4.42c-1.1.59-1.84 1.75-1.84 3.08C4.5 20.43 6.07 22 8 22c1.76 0 3.22-1.3 3.46-3h2.08c.24 1.7 1.7 3 3.46 3 1.93 0 3.5-1.57 3.5-3.5 0-1.04-.46-1.97-1.18-2.61zM8 20c-.83 0-1.5-.67-1.5-1.5S7.17 17 8 17s1.5.67 1.5 1.5S8.83 20 8 20zm9 0c-.83 0-1.5-.67-1.5-1.5S16.17 17 17 17s1.5.67 1.5 1.5S17.83 20 17 20z'),
+    ],
+  ),
+  // chrome_reader_mode_sharp
+  0xe85f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M13 12h7v1.5h-7V12zm0-2.5h7V11h-7V9.5zm0 5h7V16h-7v-1.5zM23 4H1v17h22V4zm-2 15h-9V6h9v13z'),
     ],
   ),
   // circle_notifications_sharp
@@ -16532,6 +17478,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z'),
+    ],
+  ),
+  // closed_caption_disabled_sharp
+  0xe869: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.83 4H21v14.17L17.83 15H18v-2h-1.5v.5h-.17l-1.83-1.83V10.5h2v.5H18V9h-5v1.17L6.83 4zm12.95 18.61L17.17 20H3V5.83L1.39 4.22 2.8 2.81l18.38 18.38-1.4 1.42zM11 13.83l-.83-.83H9.5v.5h-2v-3h.17L6.17 9H6v6h5v-1.17z'),
     ],
   ),
   // closed_caption_off_sharp
@@ -16744,6 +17698,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M22 10V4H2.01v6c1.1 0 1.99.9 1.99 2s-.89 2-2 2v6h20v-6c-1.1 0-2-.9-2-2s.9-2 2-2zm-9 7.5h-2v-2h2v2zm0-4.5h-2v-2h2v2zm0-4.5h-2v-2h2v2z'),
     ],
   ),
+  // connect_without_contact_sharp
+  0xe884: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 14H9a9 9 0 0 1 9-9v2c-3.87 0-7 3.13-7 7zm7-3V9c-2.76 0-5 2.24-5 5h2c0-1.66 1.34-3 3-3zM7 4c0-1.11-.89-2-2-2s-2 .89-2 2 .89 2 2 2 2-.89 2-2zm4.45.5h-2A2.99 2.99 0 0 1 6.5 7H2v4h6V8.74a4.97 4.97 0 0 0 3.45-4.24zM19 17c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm-1.5 1a2.99 2.99 0 0 1-2.95-2.5h-2A4.97 4.97 0 0 0 16 19.74V22h6v-4h-4.5z'),
+    ],
+  ),
   // connected_tv_sharp
   0xe885: WiredSvgIconData(
     width: 24.0,
@@ -16849,6 +17811,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5.54 8.46 2 12l3.54 3.54 1.76-1.77L5.54 12l1.76-1.77zm12.92 0-1.76 1.77L18.46 12l-1.76 1.77 1.76 1.77L22 12zm-6.46 10-1.77-1.76-1.77 1.76L12 22l3.54-3.54-1.77-1.76zM8.46 5.54l1.77 1.76L12 5.54l1.77 1.76 1.77-1.76L12 2z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 12.0, radius: 3.0),
+    ],
+  ),
+  // control_point_duplicate_sharp
+  0xe892: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16 8h-2v3h-3v2h3v3h2v-3h3v-2h-3V8zM2 12c0-2.79 1.64-5.2 4.01-6.32V3.52C2.52 4.76 0 8.09 0 12s2.52 7.24 6.01 8.48v-2.16A6.99 6.99 0 0 1 2 12zm13-9c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z'),
     ],
   ),
   // control_point_sharp
@@ -17197,6 +18167,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m21.79 17.06-5.55-5.55 1.57-1.57-3.75-3.75-1.57 1.57-5.55-5.55-4.73 4.73 5.55 5.55L3 17.25V21h3.75l4.76-4.76 5.55 5.55 4.73-4.73zM9.18 11.07 5.04 6.94l1.9-1.9 1.27 1.27L7.02 7.5l1.41 1.41 1.19-1.19 1.45 1.45-1.89 1.9zm3.75 3.75 1.9-1.9 1.45 1.45-1.19 1.19 1.41 1.41 1.19-1.19 1.27 1.27-1.9 1.9-4.13-4.13zm2.203-9.697 2.538-2.539 3.748 3.748-2.538 2.539z'),
     ],
   ),
+  // desktop_access_disabled_sharp
+  0xe8be: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M1.41 1.69 0 3.1l1 .99V18h9v2H8v2h8v-2h-2v-2h.9l6 6 1.41-1.41-20.9-20.9zM2.99 16V6.09L12.9 16H2.99zM4.55 2l2 2H21v12h-2.45l2 2h2.44V2z'),
+    ],
+  ),
   // desktop_mac_sharp
   0xe8bf: WiredSvgIconData(
     width: 24.0,
@@ -17261,6 +18239,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15 13V5c0-1.66-1.34-3-3-3S9 3.34 9 5v8c-1.21.91-2 2.37-2 4 0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.63-.79-3.09-2-4zm-4-2V5c0-.55.45-1 1-1s1 .45 1 1v1h-1v1h1v2h-1v1h1v1h-2z'),
     ],
   ),
+  // device_unknown_sharp
+  0xe8c7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 1H5v22h14V1zm-2 18H7V5h10v14zM12 6.72c-1.96 0-3.5 1.52-3.5 3.47h1.75c0-.93.82-1.75 1.75-1.75s1.75.82 1.75 1.75c0 1.75-2.63 1.57-2.63 4.45h1.76c0-1.96 2.62-2.19 2.62-4.45 0-1.96-1.54-3.47-3.5-3.47zM11 16h2v2h-2v-2z'),
+    ],
+  ),
   // devices_other_sharp
   0xe8c8: WiredSvgIconData(
     width: 24.0,
@@ -17317,6 +18303,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5zm5.8-10 2.4-2.4.8.8c1.3 1.3 3 2.1 5.1 2.1V9c-1.5 0-2.7-.6-3.6-1.5l-1.9-1.9c-.5-.4-1-.6-1.6-.6s-1.1.2-1.4.6L6.31 9.9 11 14v5h2v-6.2l-2.2-2.3zM19 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z'),
     ],
   ),
+  // directions_boat_filled_sharp
+  0xe8cf: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 21c-1.39 0-2.78-.47-4-1.32-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99a8.752 8.752 0 0 0 8 0c1.26.65 2.62.99 4 .99h2v-2h-2zM3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l2.18-7.65-2.23-.73V4h-5V1H9v3H4v6.62l-2.23.73L3.95 19zM6 6h12v3.97L12 8 6 9.97V6z'),
+    ],
+  ),
   // directions_boat_sharp
   0xe8d0: WiredSvgIconData(
     width: 24.0,
@@ -17365,6 +18359,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m13 7.5 3.5 3.5-1.33 1.34 3.45 3.45L22.41 12 12.01 1.58l-3.8 3.8L13 10.17zM1.39 4.22l3.99 3.99L1.59 12l10.42 10.4 3.79-3.79 3.99 3.99 1.41-1.41L2.81 2.81 1.39 4.22zm8.6 8.6V15h-2v-4.18l2 2z'),
     ],
   ),
+  // directions_railway_filled_sharp
+  0xe8d6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20v1h12v-1l-1.5-1c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zm0 14c-.83 0-1.5-.67-1.5-1.5S11.17 13 12 13s1.5.67 1.5 1.5S12.83 16 12 16zm6-6H6V7h12v3z'),
+    ],
+  ),
   // directions_railway_sharp
   0xe8d7: WiredSvgIconData(
     width: 24.0,
@@ -17389,12 +18391,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M22.41 12 12 1.59 1.59 11.99 12 22.41 22.41 12zM14 14.5V12h-4v3H8v-5h6V7.5l3.5 3.5-3.5 3.5z'),
     ],
   ),
+  // directions_subway_filled_sharp
+  0xe8da: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20v1h12v-1l-1.5-1c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM8.5 16c-.83 0-1.5-.67-1.5-1.5S7.67 13 8.5 13s1.5.67 1.5 1.5S9.33 16 8.5 16zm2.5-6H6V7h5v3zm4.5 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6h-5V7h5v3z'),
+    ],
+  ),
   // directions_subway_sharp
   0xe8db: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2c-4.42 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-6H6V6h5v5zm5.5 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6h-5V6h5v5z'),
+    ],
+  ),
+  // directions_transit_filled_sharp
+  0xe8dc: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20v1h12v-1l-1.5-1c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM8.5 16c-.83 0-1.5-.67-1.5-1.5S7.67 13 8.5 13s1.5.67 1.5 1.5S9.33 16 8.5 16zm2.5-6H6V7h5v3zm4.5 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6h-5V7h5v3z'),
     ],
   ),
   // directions_transit_sharp
@@ -17499,6 +18517,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11H7v-2h10v2z'),
+    ],
+  ),
+  // do_not_disturb_on_total_silence_sharp
+  0xe8ea: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.6-6-6-6zm3 7H9v-2h6v2z'),
     ],
   ),
   // do_not_disturb_sharp
@@ -17727,6 +18753,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M22 6H12l-2-2H2v16h20V6zM12 17v-3H8v-2h4V9l4 4-4 4z'),
     ],
   ),
+  // drive_file_rename_outline_sharp
+  0xe907: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m15 16-4 4h10v-4zm-2.94-8.81L3 16.25V20h3.75l9.06-9.06zm1.072-1.067 2.539-2.539 3.747 3.748L16.88 9.87z'),
+    ],
+  ),
   // drive_folder_upload_sharp
   0xe908: WiredSvgIconData(
     width: 24.0,
@@ -17757,6 +18791,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 2h-8C6.38 2 2 6.66 2 12.28 2 17.5 6.49 22 11.72 22 17.39 22 22 17.62 22 12V4c0-1.1-.9-2-2-2zm-3 13-3-2v2H7V9h7v2l3-2v6z'),
+    ],
+  ),
+  // dvr_sharp
+  0xe90c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M23 3H1v16h7v2h8v-2h7V3zm-2 14H3V5h18v12zm-2-9H8v2h11V8zm0 4H8v2h11v-2zM7 8H5v2h2V8zm0 4H5v2h2v-2z'),
     ],
   ),
   // dynamic_feed_sharp
@@ -18146,6 +19188,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m9.31 17 2.44-2.44L14.19 17l1.06-1.06-2.44-2.44 2.44-2.44L14.19 10l-2.44 2.44L9.31 10l-1.06 1.06 2.44 2.44-2.44 2.44L9.31 17zM21 3h-3V1h-2v2H8V1H6v2H3.01L3 21h18V3zm-2 16H5V8h14v11z'),
     ],
   ),
+  // event_note_sharp
+  0xe93c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 10H7v2h10v-2zm4-7h-3V1h-2v2H8V1H6v2H3v18h18V3zm-2 16H5V8h14v11zm-5-5H7v2h7v-2z'),
+    ],
+  ),
   // event_seat_sharp
   0xe93d: WiredSvgIconData(
     width: 24.0,
@@ -18282,6 +19332,17 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20.36 11H19V5h-6V3.64c0-1.31-.94-2.5-2.24-2.63A2.5 2.5 0 0 0 8 3.5V5H2.01v5.8H3.4c1.31 0 2.5.88 2.75 2.16.33 1.72-.98 3.24-2.65 3.24H2V22h5.8v-1.4c0-1.31.88-2.5 2.16-2.75 1.72-.33 3.24.98 3.24 2.65V22H19v-6h1.5a2.5 2.5 0 0 0 2.49-2.76c-.13-1.3-1.33-2.24-2.63-2.24z'),
     ],
   ),
+  // face_retouching_natural_sharp
+  0xe94e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 9.0, cy: 13.0, radius: 1.25),
+      WiredSvgPrimitive.path('M19.85 10.59C20.79 15.4 17.01 20 12 20c-4.41 0-8-3.59-8-8 0-.39 3.87-1.12 5.74-5.69 3.42 4.19 8.07 3.73 9.09 3.59l-1.48-3.25-4.72-2.15 3.5-1.59C9.51-.14 2 4.77 2 12c0 5.52 4.48 10 10 10 7.21 0 12.12-7.45 9.1-14.13l-1.25 2.72z'),
+      WiredSvgPrimitive.circle(cx: 15.0, cy: 13.0, radius: 1.25),
+      WiredSvgPrimitive.path('M20.6 5.6 19.5 8l-1.1-2.4L16 4.5l2.4-1.1L19.5 1l1.1 2.4L23 4.5l-2.4 1.1z'),
+    ],
+  ),
   // face_retouching_off_sharp
   0xe94f: WiredSvgIconData(
     width: 24.0,
@@ -18297,6 +19358,23 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M9 11.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zm6 0a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37a9.974 9.974 0 0 0 10.41 3.97c.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z'),
+    ],
+  ),
+  // face_unlock_sharp
+  0xe951: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 12.5a3 3 0 100-6 3 3 0 000 6Zm0 2c-3.9 0-7 1.9-7 4.5V21h10v-1H7c.3-1.7 2.5-3 5-3s4.7 1.3 5 3h-1v1h3v-2c0-2.6-3.1-4.5-7-4.5Z'),
+      WiredSvgPrimitive.path('M17 9V8a2 2 0 114 0v1h1v6h-6V9h1Zm1 0h2V8a1 1 0 10-2 0v1Z'),
+    ],
+  ),
+  // facebook_sharp
+  0xe952: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z'),
     ],
   ),
   // fact_check_sharp
@@ -18353,6 +19431,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m12 21.35-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'),
+    ],
+  ),
+  // featured_play_list_sharp
+  0xe95a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M23 3H1v18h22V3zm-11 8H3V9h9v2zm0-4H3V5h9v2z'),
+    ],
+  ),
+  // featured_video_sharp
+  0xe95b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M23 3H1v18h22V3zm-11 9H3V5h9v7z'),
     ],
   ),
   // feed_sharp
@@ -18692,6 +19786,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M2 2v20h20V2H2zm11.2 11.74c-.08-.46-.07-.85.08-1.28.54 1.21 2.15 1.64 1.98 3.18-.19 1.69-2.11 2.37-3.39 1.32.76-.24 1.4-1.04 1.53-1.63.12-.55-.11-1.04-.2-1.59zM20 20h-2v-2h-2.02A4.98 4.98 0 0 0 17 15c0-1.89-1.09-2.85-1.85-3.37C12.2 9.61 13 7 13 7c-6.73 3.57-6.02 7.47-6 8 .03.96.49 2.07 1.23 3H6v2H4V4h16v16z'),
     ],
   ),
+  // first_page_sharp
+  0xe986: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.41 16.59 13.82 12l4.59-4.59L17 6l-6 6 6 6 1.41-1.41zM6 6h2v12H6V6z'),
+    ],
+  ),
   // fit_screen_sharp
   0xe987: WiredSvgIconData(
     width: 24.0,
@@ -18780,12 +19882,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M16 7.08c0 1.77-.84 3.25-2 3.82V21h-2V10.9c-1.16-.57-2-2.05-2-3.82C10.01 4.83 11.35 3 13 3c1.66 0 3 1.83 3 4.08zM17 3v18h2v-8h2V7c0-1.76-1.24-4-4-4zM8.28 3h-.72v4h-.84V3H5.28v4h-.84V3H3v8h2v10h2V11h2V3h-.72z'),
     ],
   ),
+  // flight_land_sharp
+  0xe992: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2.5 19h19v2h-19v-2zm16.84-3.15c.8.21 1.62-.26 1.84-1.06.21-.8-.26-1.62-1.06-1.84l-5.31-1.42-2.76-9.02L10.12 2v8.28L5.15 8.95l-.93-2.32-1.45-.39v5.17l16.57 4.44z'),
+    ],
+  ),
   // flight_sharp
   0xe993: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'),
+    ],
+  ),
+  // flight_takeoff_sharp
+  0xe994: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2.5 19h19v2h-19v-2zm19.57-9.36c-.21-.8-1.04-1.28-1.84-1.06L14.92 10l-6.9-6.43-1.93.51 4.14 7.17-4.97 1.33-1.97-1.54-1.45.39 1.82 3.16.77 1.33L21 11.49c.81-.23 1.28-1.05 1.07-1.85z'),
     ],
   ),
   // flip_camera_android_sharp
@@ -18989,6 +20107,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M2 20h20v4H2v-4zm3.49-3h2.42l1.27-3.58h5.65L16.09 17h2.42L13.25 3h-2.5L5.49 17zm4.42-5.61 2.03-5.79h.12l2.03 5.79H9.91z'),
     ],
   ),
+  // format_indent_decrease_sharp
+  0xe9af: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 17h10v-2H11v2zm-8-5 4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z'),
+    ],
+  ),
+  // format_indent_increase_sharp
+  0xe9b0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z'),
+    ],
+  ),
   // format_italic_sharp
   0xe9b1: WiredSvgIconData(
     width: 24.0,
@@ -19003,6 +20137,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M6 7h2.5L5 3.5 1.5 7H4v10H1.5L5 20.5 8.5 17H6V7zm4-2v2h12V5H10zm0 14h12v-2H10v2zm0-6h12v-2H10v2z'),
+    ],
+  ),
+  // format_list_bulleted_sharp
+  0xe9b3: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z'),
+    ],
+  ),
+  // format_list_numbered_rtl_sharp
+  0xe9b4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 17h2v.5h-1v1h1v.5h-2v1h3v-4h-3v1zm1-9h1V4h-2v1h1v3zm-1 3h1.8L18 13.1v.9h3v-1h-1.8l1.8-2.1V10h-3v1zM2 5h14v2H2V5zm0 12h14v2H2v-2zm0-6h14v2H2v-2z'),
     ],
   ),
   // format_list_numbered_sharp
@@ -19053,6 +20203,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M10 19h4v-3h-4v3zM5 4v3h5v3h4V7h5V4H5zM3 14h18v-2H3v2z'),
     ],
   ),
+  // format_textdirection_l_to_r_sharp
+  0xe9bb: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 10v5h2V4h2v11h2V4h2V2H9C6.79 2 5 3.79 5 6s1.79 4 4 4zm12 8-4-4v3H5v2h12v3l4-4z'),
+    ],
+  ),
+  // format_textdirection_r_to_l_sharp
+  0xe9bc: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 10v5h2V4h2v11h2V4h2V2h-8C7.79 2 6 3.79 6 6s1.79 4 4 4zm-2 7v-3l-4 4 4 4v-3h12v-2H8z'),
+    ],
+  ),
   // format_underline_sharp
   0xe9bd: WiredSvgIconData(
     width: 24.0,
@@ -19094,6 +20260,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17.95 13c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6v4l5-5-5-5v4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8h-2zm-5.52 2.15c-.05.07-.11.13-.18.17s-.17.06-.27.06c-.17 0-.31-.05-.42-.15s-.17-.24-.19-.41h-.84c.01.2.05.37.13.53s.19.28.32.39.29.19.46.24.35.08.53.08c.24 0 .46-.04.64-.12s.33-.18.45-.31.21-.28.27-.45.09-.35.09-.54c0-.22-.03-.43-.09-.6s-.14-.33-.25-.45-.25-.22-.41-.28-.34-.1-.55-.1c-.07 0-.14.01-.2.02s-.13.02-.18.04-.1.03-.15.05-.08.04-.11.05l.11-.92h1.7v-.71H10.9l-.25 2.17.67.17c.03-.03.06-.06.1-.09s.07-.05.12-.07.1-.04.15-.05.13-.02.2-.02c.12 0 .22.02.3.05s.16.09.21.15.1.14.13.24.04.19.04.31-.01.22-.03.31-.06.17-.11.24z'),
     ],
   ),
+  // forward_sharp
+  0xe9c2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 8V4l8 8-8 8v-4H4V8h8z'),
+    ],
+  ),
   // forward_to_inbox_sharp
   0xe9c3: WiredSvgIconData(
     width: 24.0,
@@ -19132,6 +20306,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z'),
+    ],
+  ),
+  // functions_sharp
+  0xe9c8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 4H6v2l6.5 6L6 18v2h12v-3h-7l5-5-5-5h7V4z'),
     ],
   ),
   // g_mobiledata_sharp
@@ -19622,6 +20804,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 3H3v18h18V3zm-8.99 15c-.7 0-1.26-.56-1.26-1.26 0-.71.56-1.25 1.26-1.25.71 0 1.25.54 1.25 1.25-.01.69-.54 1.26-1.25 1.26zm3.01-7.4c-.76 1.11-1.48 1.46-1.87 2.17-.16.29-.22.48-.22 1.41h-1.82c0-.49-.08-1.29.31-1.98.49-.87 1.42-1.39 1.96-2.16.57-.81.25-2.33-1.37-2.33-1.06 0-1.58.8-1.8 1.48l-1.65-.7C9.01 7.15 10.22 6 11.99 6c1.48 0 2.49.67 3.01 1.52.44.72.7 2.07.02 3.08z'),
     ],
   ),
+  // help_outline_sharp
+  0xea05: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z'),
+    ],
+  ),
+  // help_sharp
+  0xea06: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z'),
+    ],
+  ),
   // hevc_sharp
   0xea07: WiredSvgIconData(
     width: 24.0,
@@ -19993,6 +21191,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 3H3.01v18H21V3zm-2 12h-4c0 1.66-1.35 3-3 3s-3-1.34-3-3H5V5h14v10z'),
     ],
   ),
+  // indeterminate_check_box_sharp
+  0xea35: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3v18h18V3zm-4 10H7v-2h10v2z'),
+    ],
+  ),
   // info_outline_sharp
   0xea36: WiredSvgIconData(
     width: 24.0,
@@ -20007,6 +21213,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'),
+    ],
+  ),
+  // input_sharp
+  0xea38: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3.01H3c-1.1 0-2 .9-2 2V9h2V4.99h18v14.03H3V15H1v4.01c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14a2 2 0 0 0-2-2zM11 16l4-4-4-4v3H1v2h10v3zM23 3.01H1V9h2V4.99h18v14.03H3V15H1v5.99h22V3.01zM11 16l4-4-4-4v3H1v2h10v3z'),
     ],
   ),
   // insert_chart_outlined_sharp
@@ -20080,6 +21294,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21 8c-1.45 0-2.26 1.44-1.93 2.51l-3.55 3.56c-.3-.09-.74-.09-1.04 0l-2.55-2.55C12.27 10.45 11.46 9 10 9c-1.45 0-2.27 1.44-1.93 2.52l-4.56 4.55C2.44 15.74 1 16.55 1 18c0 1.1.9 2 2 2 1.45 0 2.26-1.44 1.93-2.51l4.55-4.56c.3.09.74.09 1.04 0l2.55 2.55C12.73 16.55 13.54 18 15 18c1.45 0 2.27-1.44 1.93-2.52l3.56-3.55c1.07.33 2.51-.48 2.51-1.93 0-1.1-.9-2-2-2z'),
       WiredSvgPrimitive.path('m15 9 .94-2.07L18 6l-2.06-.93L15 3l-.92 2.07L12 6l2.08.93zM3.5 11 4 9l2-.5L4 8l-.5-2L3 8l-2 .5L3 9z'),
+    ],
+  ),
+  // integration_instructions_sharp
+  0xea42: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3h-6.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H3v18h18V3zM11 14.17l-1.41 1.42L6 12l3.59-3.59L11 9.83 8.83 12 11 14.17zm1-9.92c-.41 0-.75-.34-.75-.75s.34-.75.75-.75.75.34.75.75-.34.75-.75.75zm2.41 11.34L13 14.17 15.17 12 13 9.83l1.41-1.42L18 12l-3.59 3.59z'),
     ],
   ),
   // inventory_2_sharp
@@ -20188,6 +21410,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z'),
     ],
   ),
+  // keyboard_backspace_sharp
+  0xea50: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21v-2z'),
+    ],
+  ),
   // keyboard_capslock_sharp
   0xea51: WiredSvgIconData(
     width: 24.0,
@@ -20220,6 +21450,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M22 5H2.01L2 19h20V5zM11 8h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z'),
     ],
   ),
+  // keyboard_tab_sharp
+  0xea55: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11.59 7.41 15.17 11H1v2h14.17l-3.59 3.59L13 18l6-6-6-6-1.41 1.41zM20 6v12h2V6h-2z'),
+    ],
+  ),
   // keyboard_voice_sharp
   0xea56: WiredSvgIconData(
     width: 24.0,
@@ -20250,6 +21488,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M6 3c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm14.06-2h-2.12L15.5 3.44l1.06 1.06 3.5-3.5zM22 23v-2h-1c-1.04 0-2.08-.35-3-1-1.83 1.3-4.17 1.3-6 0-1.83 1.3-4.17 1.3-6 0-.91.65-1.96 1-3 1H2v2h1c1.03 0 2.05-.25 3-.75 1.89 1 4.11 1 6 0 1.89 1 4.11 1 6 0 .95.5 1.97.75 3 .75h1zm-1-9.72c0 1.44-2.19 3.62-5.04 5.58-.31.09-.63.14-.96.14-1.2 0-2.27-.66-3-1.5-.73.84-1.8 1.5-3 1.5-.94 0-1.81-.41-2.49-.99.46-.39.96-.78 1.49-1.17L6 13V8c0-1.1.9-2 2-2h3c1.38 0 2.63-.56 3.54-1.46l1.41 1.41A7.018 7.018 0 0 1 11 8H9.6v3.5h2.8l1.69 1.88c1.95-.84 3.77-1.38 5.06-1.38.84 0 1.85.25 1.85 1.28zm-8.8.99-.7-.77-2.5.1.83 2.01c.59-.38 1.81-1.06 2.37-1.34z'),
+    ],
+  ),
+  // label_important_outline_sharp
+  0xea5a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 18.99h12.04L21 12l-4.97-7H4l5 7-5 6.99z'),
+    ],
+  ),
+  // label_important_sharp
+  0xea5b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 18.99h12.04L21 12l-4.97-7H4l5 7-5 6.99z'),
+    ],
+  ),
+  // label_off_sharp
+  0xea5c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22 12-4.97-7H8.66l10.7 10.73zM2 4l1 1v14h14l2 2 1.41-1.41L3.44 2.62z'),
+    ],
+  ),
+  // label_outline_sharp
+  0xea5d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.03 5 3 5.01v13.98l14.03.01L22 12l-4.97-7z'),
+    ],
+  ),
+  // label_sharp
+  0xea5e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.03 5 3 5.01v13.98l14.03.01L22 12l-4.97-7z'),
     ],
   ),
   // landscape_sharp
@@ -20298,6 +21576,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 18v-1h1.99L22 3H2v14h2v1H0v2h24v-2h-4zM4 5h16v10H4V5z'),
+    ],
+  ),
+  // last_page_sharp
+  0xea65: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.59 7.41 10.18 12l-4.59 4.59L7 18l6-6-6-6-1.41 1.41zM16 6h2v12h-2V6z'),
+    ],
+  ),
+  // launch_sharp
+  0xea66: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 19H5V5h7V3H3v18h18v-9h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'),
     ],
   ),
   // layers_clear_sharp
@@ -20485,6 +21779,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M3 14c0 1.3.84 2.4 2 2.82V20H3v2h6v-2H7v-3.18C8.16 16.4 9 15.3 9 14V6H3v8zm2-6h2v3H5V8zm17 1-3-1.01V2h-5v6l-3 1.01V22h11V9zm-6-5h1v1h-1V4zm-3 6.44 3-.98V7h1v2.46l3 .98V12h-7v-1.56zM20 20h-7v-2h7v2z'),
     ],
   ),
+  // list_alt_sharp
+  0xea7e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 7h6v2h-6zm0 4h6v2h-6zm0 4h6v2h-6zM7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7zM3 3v18h18V3H3zm16 16H5V5h14v14z'),
+    ],
+  ),
+  // list_sharp
+  0xea7f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7zm-4 6h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'),
+    ],
+  ),
+  // live_help_sharp
+  0xea80: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 2H3v18h6l3 3 3-3h6V2zm-8 16h-2v-2h2v2zm2.07-7.75-.9.92C13.45 11.9 13 12.5 13 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z'),
+    ],
+  ),
   // live_tv_sharp
   0xea81: WiredSvgIconData(
     width: 24.0,
@@ -20549,6 +21867,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M18.58 7H5.43L3 14v9h3v-2h12v2h3v-9l-2.42-7zM6.5 18c-.83 0-1.5-.67-1.5-1.5S5.67 15 6.5 15s1.5.67 1.5 1.5S7.33 18 6.5 18zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 13l1.5-4.5h11L19 13H5zm12-8c.83 0 1.5-.67 1.5-1.5 0-1-1.5-2.7-1.5-2.7s-1.5 1.7-1.5 2.7c0 .83.67 1.5 1.5 1.5zm-5 0c.83 0 1.5-.67 1.5-1.5 0-1-1.5-2.7-1.5-2.7s-1.5 1.7-1.5 2.7c0 .83.67 1.5 1.5 1.5zM7 5c.83 0 1.5-.67 1.5-1.5C8.5 2.5 7 .8 7 .8S5.5 2.5 5.5 3.5C5.5 4.33 6.17 5 7 5z'),
+    ],
+  ),
+  // local_convenience_store_sharp
+  0xea89: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 7V4H5v3H2v13h8v-4h4v4h8V7h-3zm-8 3H9v1h2v1H8V9h2V8H8V7h3v3zm5 2h-1v-2h-2V7h1v2h1V7h1v5z'),
     ],
   ),
   // local_dining_sharp
@@ -21265,6 +22591,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6 19h12v2H6v-2z'),
     ],
   ),
+  // miscellaneous_services_sharp
+  0xeae2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14.02 13.97 1.7-2.94s-.09-.08-.23-.18l-1.47-1.16-.01.02c.03-.24.05-.47.05-.71s-.02-.47-.06-.69l.01.01 1.71-1.34-1.7-2.95-2.01.81v.01c-.37-.28-.77-.52-1.2-.7h.01L10.52 2H7.11L6.8 4.15h.01c-.43.18-.83.42-1.2.7v-.01L3.6 4.03 1.9 6.98l1.7 1.34.01-.01c-.03.22-.05.45-.05.69s.02.47.05.71l-.01-.02-1.47 1.16c-.13.1-.23.18-.23.18l1.7 2.94 2.02-.8-.02-.03c.37.29.77.53 1.21.71H6.8L7.11 16h3.4s.02-.13.04-.3l.27-1.85h-.01c.44-.18.84-.42 1.21-.71l-.02.03 2.02.8zM8.81 11c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm12.17 6.94-.01.01c.02-.15.03-.3.03-.45 0-.15-.01-.3-.04-.44l.01.01 1.1-.86-1.09-1.9-1.29.52v.01c-.24-.18-.49-.33-.77-.45h.01l-.2-1.39h-2.19l-.2 1.38h.01c-.28.12-.53.27-.77.45v-.01l-1.29-.52-1.09 1.9 1.09.86.01-.01c-.02.14-.03.29-.03.44 0 .15.01.3.03.46l-.01-.01-.94.75c-.08.06-.15.12-.15.12l1.09 1.89 1.3-.51-.01-.02c.24.19.5.34.78.46h-.01l.2 1.38h2.19s.01-.08.03-.19l.17-1.19h-.01c.28-.12.54-.27.78-.46l-.01.02 1.3.51 1.09-1.89s-.06-.05-.15-.12l-.96-.75zm-3.35.85c-.71 0-1.29-.58-1.29-1.29s.58-1.29 1.29-1.29 1.29.58 1.29 1.29-.58 1.29-1.29 1.29z'),
+    ],
+  ),
   // missed_video_call_sharp
   0xeae3: WiredSvgIconData(
     width: 24.0,
@@ -21295,6 +22629,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 5v8.61l2 2V1H5v.61L8.39 5zM2.9 2.35 1.49 3.76 5 7.27V23h14v-1.73l1.7 1.7 1.41-1.41L2.9 2.35zM7 19V9.27L16.73 19H7z'),
+    ],
+  ),
+  // mobile_screen_share_sharp
+  0xeae7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.01 1v22H19V1H5.01zM17 19H7V5h10v14zm-4.2-5.76v1.75L16 12l-3.2-2.98v1.7c-3.11.43-4.35 2.56-4.8 4.7 1.11-1.5 2.58-2.18 4.8-2.18z'),
     ],
   ),
   // mobiledata_off_sharp
@@ -21582,6 +22924,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 3H3v18h18V3zM6 9h6.5v6H11v-4.5h-1v3H8.5v-3h-1V15H6V9zm9 6h-1.5V9H18v4.5h-3V15zm0-3h1.5v-1.5H15V12z'),
     ],
   ),
+  // multiline_chart_sharp
+  0xeb0b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22 6.92-1.41-1.41-2.85 3.21C15.68 6.4 12.83 5 9.61 5 6.72 5 4.07 6.16 2 8l1.42 1.42C5.12 7.93 7.27 7 9.61 7c2.74 0 5.09 1.26 6.77 3.24l-2.88 3.24-4-4L2 16.99l1.5 1.5 6-6.01 4 4 4.05-4.55c.75 1.35 1.25 2.9 1.44 4.55H21c-.22-2.3-.95-4.39-2.04-6.14L22 6.92z'),
+    ],
+  ),
   // multiple_stop_sharp
   0xeb0c: WiredSvgIconData(
     width: 24.0,
@@ -21653,6 +23003,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 16.12a7 7 0 0 0 6.17-6.95c0-3.87-3.13-7-7-7s-7 3.13-7 7A6.98 6.98 0 0 0 11 16.06V20H5v2h14v-2h-6v-3.88z'),
+    ],
+  ),
+  // navigate_before_sharp
+  0xeb15: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.61 7.41 14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z'),
+    ],
+  ),
+  // navigate_next_sharp
+  0xeb16: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10.02 6 8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z'),
     ],
   ),
   // navigation_sharp
@@ -21751,6 +23117,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6 11.97h-5l2.26-2.26a4.94 4.94 0 0 0-3.76-1.74c-2.37 0-4.35 1.66-4.86 3.88l-.96-.32c.64-2.62 3-4.56 5.82-4.56 1.78 0 3.37.79 4.47 2.03L18 8.97v5z'),
     ],
   ),
+  // next_week_sharp
+  0xeb23: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 7h-6V5c0-.55-.22-1.05-.59-1.41C15.05 3.22 14.55 3 14 3h-4c-1.1 0-2 .9-2 2v2H2v15h20V7zM10 5h4v2h-4V5zm1 13.5-1-1 3-3-3-3 1-1 4 4-4 4z'),
+    ],
+  ),
   // nfc_sharp
   0xeb24: WiredSvgIconData(
     width: 24.0,
@@ -21831,6 +23205,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21.19 21.19 2.81 2.81 1.39 4.22l8.23 8.23L11 14v5H6v2h12v-.17l1.78 1.78 1.41-1.42zM13 19v-3.17L16.17 19H13zM7.83 5l-2-2H21v2l-6.2 6.97L9.83 7h6.74l1.78-2H7.83z'),
+    ],
+  ),
+  // no_encryption_gmailerrorred_sharp
+  0xeb2e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2h-4.66L20 17.56V8h-3V6.22c0-2.61-1.91-4.94-4.51-5.19-2.53-.25-4.72 1.41-5.32 3.7L8.9 6.46V6zM4.41 4.81 3 6.22 4.78 8H4v14h14.78l1 1 1.41-1.41z'),
     ],
   ),
   // no_encryption_sharp
@@ -21985,6 +23367,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M14 2H4v20h16V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z'),
     ],
   ),
+  // note_alt_sharp
+  0xeb42: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3h-6.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H3v18h18V3zm-9-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM9.1 17H7v-2.14l5.96-5.96 2.12 2.12L9.1 17zm8.1-8.09-1.41 1.41-2.13-2.12 1.41-1.41 2.13 2.12z'),
+    ],
+  ),
+  // note_sharp
+  0xeb43: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22 10-6-6H2v16h20V10zm-7-4.5 5.5 5.5H15V5.5z'),
+    ],
+  ),
   // notes_sharp
   0xeb44: WiredSvgIconData(
     width: 24.0,
@@ -21999,6 +23397,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M10 20h4c0 1.1-.9 2-2 2s-2-.9-2-2zm4-11c0 2.61 1.67 4.83 4 5.66V17h2v2H4v-2h2v-7c0-2.79 1.91-5.14 4.5-5.8V2h3v2.2c.71.18 1.36.49 1.95.9A5.902 5.902 0 0 0 14 9zm10-1h-3V5h-2v3h-3v2h3v3h2v-3h3V8z'),
+    ],
+  ),
+  // notification_important_sharp
+  0xeb46: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 23c1.1 0 1.99-.89 1.99-1.99h-3.98c0 1.1.89 1.99 1.99 1.99zm7-6v-6c0-3.35-2.36-6.15-5.5-6.83V1.5h-3v2.67C7.36 4.85 5 7.65 5 11v6l-2 2v1h18v-1l-2-2zm-6-1h-2v-2h2v2zm0-4h-2V8h2v4z'),
     ],
   ),
   // notifications_active_sharp
@@ -22113,6 +23519,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M16.79 5.8 14 3h7v7l-2.79-2.8-4.09 4.09-1.41-1.41 4.08-4.08zM19 12v4.17l2 2V12h-2zm.78 10.61L18.17 21H3V5.83L1.39 4.22 2.8 2.81l18.38 18.38-1.4 1.42zM16.17 19l-4.88-4.88-1.59 1.59-1.41-1.41 1.59-1.59L5 7.83V19h11.17zM7.83 5H12V3H5.83l2 2z'),
+    ],
+  ),
+  // open_in_new_sharp
+  0xeb55: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 19H5V5h7V3H3v18h18v-9h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'),
     ],
   ),
   // open_with_sharp
@@ -22236,12 +23650,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'),
     ],
   ),
+  // panorama_horizontal_select_sharp
+  0xeb65: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 5.5c-5.25 0-9.01-1.54-10-1.92V20.4c2.16-.76 5.21-1.9 10-1.9 4.78 0 7.91 1.17 10 1.9V3.6c-2.09.73-5.23 1.9-10 1.9z'),
+    ],
+  ),
   // panorama_horizontal_sharp
   0xeb66: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M4 6.55c2.6.77 5.28 1.16 8 1.16 2.72 0 5.41-.39 8-1.16v10.91c-2.6-.77-5.28-1.16-8-1.16-2.72 0-5.41.39-8 1.16V6.55M2 3.77v16.47s.77-.26.88-.3A26.24 26.24 0 0 1 12 18.3c3.09 0 6.18.55 9.12 1.64.11.04.88.3.88.3V3.77s-.77.26-.88.3C18.18 5.15 15.09 5.71 12 5.71s-6.18-.56-9.12-1.64c-.11-.05-.88-.3-.88-.3z'),
+    ],
+  ),
+  // panorama_photosphere_select_sharp
+  0xeb67: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M23 8.84c-.54-.43-1.23-.81-1.99-1.15C19.4 4.33 15.98 2 12 2 8.02 2 4.6 4.33 2.99 7.68c-.76.35-1.45.72-1.99 1.16v6.33c.54.43 1.23.81 1.99 1.15C4.6 19.67 8.02 22 12 22c3.98 0 7.4-2.33 9.01-5.68.76-.34 1.45-.72 1.99-1.15V8.84zM12 4c2.37 0 4.49 1.04 5.95 2.68C16.17 6.25 14.15 6 12 6c-2.15 0-4.17.25-5.95.68A7.943 7.943 0 0 1 12 4zm0 16c-2.37 0-4.49-1.04-5.95-2.68 1.78.43 3.8.68 5.95.68s4.17-.25 5.95-.68A7.943 7.943 0 0 1 12 20z'),
     ],
   ),
   // panorama_photosphere_sharp
@@ -22260,12 +23690,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M23 20V4H1v16h22zM8.5 12.5l2.5 3.01L14.5 11l4.5 6H5l3.5-4.5z'),
     ],
   ),
+  // panorama_vertical_select_sharp
+  0xeb6a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.49 11.99c0-5.25 1.54-9.01 1.92-10H3.59c.76 2.16 1.9 5.21 1.9 10 0 4.78-1.17 7.91-1.9 10H20.4c-.74-2.08-1.91-5.23-1.91-10z'),
+    ],
+  ),
   // panorama_vertical_sharp
   0xeb6b: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17.46 4c-.77 2.6-1.16 5.28-1.16 8 0 2.72.39 5.41 1.16 8H6.55c.77-2.6 1.16-5.28 1.16-8 0-2.72-.39-5.41-1.16-8h10.91m2.78-2H3.77s.26.77.3.88C5.16 5.82 5.71 8.91 5.71 12s-.55 6.18-1.64 9.12c-.04.11-.3.88-.3.88h16.47s-.26-.77-.3-.88c-1.09-2.94-1.64-6.03-1.64-9.12s.55-6.18 1.64-9.12c.04-.11.3-.88.3-.88z'),
+    ],
+  ),
+  // panorama_wide_angle_select_sharp
+  0xeb6c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4c-3.97 0-6.85.63-9 1-.55 1.97-1 3.92-1 7 0 3.03.45 5.05 1 7 2.15.37 4.98 1 9 1 3.97 0 6.85-.63 9-1 .57-2.02 1-3.99 1-7 0-3.03-.45-5.05-1-7-2.15-.37-4.98-1-9-1z'),
     ],
   ),
   // panorama_wide_angle_sharp
@@ -22635,6 +24081,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 1H5v22h14V1zm-5 20h-4v-1h4v1zm3-3H7V4h10v14z'),
     ],
   ),
+  // phone_bluetooth_speaker_sharp
+  0xeb9a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14.71 9.5 17 7.21V11h.5l2.85-2.85L18.21 6l2.15-2.15L17.5 1H17v3.79L14.71 2.5l-.71.71L16.79 6 14 8.79l.71.71zM18 2.91l.94.94-.94.94V2.91zm0 4.3.94.94-.94.94V7.21zm3 8.25-5.27-.61-2.52 2.52a15.045 15.045 0 0 1-6.59-6.59l2.53-2.53L8.54 3H3.03C2.45 13.18 10.82 21.55 21 20.97v-5.51z'),
+    ],
+  ),
   // phone_callback_sharp
   0xeb9b: WiredSvgIconData(
     width: 24.0,
@@ -22821,6 +24275,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 21V3H3v18h18zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z'),
     ],
   ),
+  // photo_size_select_actual_sharp
+  0xebb2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M23 3H1v18h22V3zM5 17l3.5-4.5 2.5 3.01L14.5 11l4.5 6H5z'),
+    ],
+  ),
+  // photo_size_select_large_sharp
+  0xebb3: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 15h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2v-2zm-8-8h2v2h-2V3zm8 4h2v2h-2V7zM1 7h2v2H1V7zm16-4h2v2h-2V3zm0 16h2v2h-2v-2zM3 3H1v2h2V3zm20 0h-2v2h2V3zM9 3h2v2H9V3zM5 3h2v2H5V3zm-4 8v10h14V11H1zm2 8 2.5-3.21 1.79 2.15 2.5-3.22L13 19H3z'),
+    ],
+  ),
+  // photo_size_select_small_sharp
+  0xebb4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M23 15h-2v2h2v-2zm0 4h-2v2h2v-2zm0-8h-2v2h2v-2zm-8-8h-2v2h2V3zm8 4h-2v2h2V7zM1 21h10v-6H1v6zM3 7H1v2h2V7zm12 12h-2v2h2v-2zm4-16h-2v2h2V3zm4 0h-2v2h2V3zm-4 16h-2v2h2v-2zM3 11H1v2h2v-2zm8-8H9v2h2V3zM7 3H5v2h2V3zM3 3H1v2h2V3z'),
+    ],
+  ),
   // piano_off_sharp
   0xebb5: WiredSvgIconData(
     width: 24.0,
@@ -22843,6 +24321,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M22 2H6v16h16V2zm-10.5 9H9v2H7.5V7h4v4zm5 .5c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5V11H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1zM4 6H2v16h16v-2H4V6zm10 5.5h1v-3h-1v3z'),
+    ],
+  ),
+  // picture_in_picture_alt_sharp
+  0xebb8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 11h-8v6h8v-6zm4 10V3H1v18h22zm-2-1.98H3V4.97h18v14.05z'),
     ],
   ),
   // picture_in_picture_sharp
@@ -22973,6 +24459,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M3 10h11v2H3zm0-4h11v2H3zm0 8h7v2H3zm17.59-2.07-4.25 4.24-2.12-2.12-1.41 1.41L16.34 19 22 13.34z'),
+    ],
+  ),
+  // playlist_add_sharp
+  0xebc9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 10H3v2h11v-2zm0-4H3v2h11V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM3 16h7v-2H3v2z'),
     ],
   ),
   // playlist_play_sharp
@@ -23107,6 +24601,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M16 7V3h-2v4h-4V3H8v4H6v7.5L9.5 18v3h5v-3l3.5-3.51V7h-2z'),
     ],
   ),
+  // precision_manufacturing_sharp
+  0xebda: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 10v-.18l2.01 2.01 5.23-2.44-.63-1.36-4.28 2L14 7.7V6.3l2.33-2.33 4.28 2 .63-1.36-5.23-2.44L14 4.18V4h-2v2H8.82C8.4 4.84 7.3 4 6 4 4.34 4 3 5.34 3 7c0 1.1.6 2.05 1.48 2.58L7.08 18H4v3h13v-3h-3.62L8.41 8.76c.17-.23.31-.48.41-.76H12v2h2zM6 8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
+    ],
+  ),
   // pregnant_woman_sharp
   0xebdb: WiredSvgIconData(
     width: 24.0,
@@ -23180,6 +24682,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z'),
     ],
   ),
+  // production_quantity_limits_sharp
+  0xebe4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M13 10h-2V8h2v2zm0-4h-2V1h2v5zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-8.9-5h7.45c.75 0 1.41-.41 1.75-1.03L21 4.96 19.25 4l-3.7 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2z'),
+    ],
+  ),
   // psychology_sharp
   0xebe5: WiredSvgIconData(
     width: 24.0,
@@ -23211,6 +24721,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5 4v2h14V4H5zm0 10h4v6h6v-6h4l-7-7-7 7z'),
+    ],
+  ),
+  // published_with_changes_sharp
+  0xebe9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m17.66 9.53-7.07 7.07-4.24-4.24 1.41-1.41 2.83 2.83 5.66-5.66 1.41 1.41zM4 12c0-2.33 1.02-4.42 2.62-5.88L9 8.5v-6H3l2.2 2.2C3.24 6.52 2 9.11 2 12c0 5.19 3.95 9.45 9 9.95v-2.02c-3.94-.49-7-3.86-7-7.93zm18 0c0-5.19-3.95-9.45-9-9.95v2.02c3.94.49 7 3.86 7 7.93 0 2.33-1.02 4.42-2.62 5.88L15 15.5v6h6l-2.2-2.2c1.96-1.82 3.2-4.41 3.2-7.3z'),
     ],
   ),
   // push_pin_sharp
@@ -23267,6 +24785,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M22 6h-3v9H6v3h12l4 4V6zm-5 7V2H2v15l4-4h11z'),
+    ],
+  ),
+  // queue_music_sharp
+  0xebf1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z'),
     ],
   ),
   // queue_play_next_sharp
@@ -23451,6 +24977,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M22 6h-4.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H2v15h20V6zm-7-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 12 7.4l3.38 4.6L17 10.83 14.92 8H20v6z'),
     ],
   ),
+  // redo_sharp
+  0xec08: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16a8.002 8.002 0 0 1 7.6-5.5c1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z'),
+    ],
+  ),
   // reduce_capacity_sharp
   0xec09: WiredSvgIconData(
     width: 24.0,
@@ -23618,6 +25152,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z'),
+    ],
+  ),
+  // reply_all_sharp
+  0xec1e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 8V5l-7 7 7 7v-3l-4-4 4-4zm6 1V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z'),
+    ],
+  ),
+  // reply_sharp
+  0xec1f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z'),
     ],
   ),
   // report_gmailerrorred_sharp
@@ -24068,6 +25618,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.circle(cx: 11.5, cy: 10.0, radius: 2.0),
     ],
   ),
+  // screen_share_sharp
+  0xec57: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m20 18 2-2V4H2v12l2 2H0v2h24v-2h-4zm-7-3.53v-2.19c-2.78 0-4.61.85-6 2.72.56-2.67 2.11-5.33 6-5.87V7l4 3.73-4 3.74z'),
+    ],
+  ),
   // screenshot_sharp
   0xec58: WiredSvgIconData(
     width: 24.0,
@@ -24149,6 +25707,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M5 1v22h14V1H5zm12 17H7V6h10v12zm-1-6h-3V8h-2v4H8l4 4 4-4z'),
     ],
   ),
+  // security_update_warning_sharp
+  0xec62: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 15h2v2h-2zm0-8h2v6h-2z'),
+      WiredSvgPrimitive.path('M5.01 1v22H19V1H5.01zM17 18H7V6h10v12z'),
+    ],
+  ),
   // segment_sharp
   0xec63: WiredSvgIconData(
     width: 24.0,
@@ -24189,6 +25756,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 10c.1 0 .19.01.28.01L3 4v6l8 2-8 2v6l7-2.95V17c0-3.87 3.13-7 7-7z'),
       WiredSvgPrimitive.path('M17 12c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8-3-3h2.5v-3h1v3H20l-3 3z'),
+    ],
+  ),
+  // send_sharp
+  0xec68: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2.01 21 23 12 2.01 3 2 10l15 2-15 2 .01 7z'),
     ],
   ),
   // send_to_mobile_sharp
@@ -24232,12 +25807,32 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M7.76 16.24C6.67 15.16 6 13.66 6 12s.67-3.16 1.76-4.24l1.42 1.42C8.45 9.9 8 10.9 8 12c0 1.1.45 2.1 1.17 2.83l-1.41 1.41zm8.48 0C17.33 15.16 18 13.66 18 12s-.67-3.16-1.76-4.24l-1.42 1.42C15.55 9.9 16 10.9 16 12c0 1.1-.45 2.1-1.17 2.83l1.41 1.41zM12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm8 2c0 2.21-.9 4.21-2.35 5.65l1.42 1.42C20.88 17.26 22 14.76 22 12s-1.12-5.26-2.93-7.07l-1.42 1.42A7.94 7.94 0 0 1 20 12zM6.35 6.35 4.93 4.93C3.12 6.74 2 9.24 2 12s1.12 5.26 2.93 7.07l1.42-1.42C4.9 16.21 4 14.21 4 12s.9-4.21 2.35-5.65z'),
     ],
   ),
+  // sentiment_dissatisfied_sharp
+  0xec6e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.path('M12 14c-2.33 0-4.32 1.45-5.12 3.5h1.67c.69-1.19 1.97-2 3.45-2s2.75.81 3.45 2h1.67c-.8-2.05-2.79-3.5-5.12-3.5zm-.01-12C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
+    ],
+  ),
   // sentiment_neutral_sharp
   0xec6f: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM7 9.5C7 8.67 7.67 8 8.5 8s1.5.67 1.5 1.5S9.33 11 8.5 11 7 10.33 7 9.5zm8 6H9V14h6v1.5zm.5-4.5c-.83 0-1.5-.67-1.5-1.5S14.67 8 15.5 8s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'),
+    ],
+  ),
+  // sentiment_satisfied_alt_sharp
+  0xec70: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-4c-1.48 0-2.75-.81-3.45-2H6.88a5.495 5.495 0 0 0 10.24 0h-1.67c-.69 1.19-1.97 2-3.45 2z'),
     ],
   ),
   // sentiment_satisfied_sharp
@@ -24250,12 +25845,36 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-4c-1.48 0-2.75-.81-3.45-2H6.88a5.495 5.495 0 0 0 10.24 0h-1.67c-.7 1.19-1.97 2-3.45 2z'),
     ],
   ),
+  // sentiment_very_dissatisfied_sharp
+  0xec72: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 13.5c-2.33 0-4.31 1.46-5.11 3.5h10.22c-.8-2.04-2.78-3.5-5.11-3.5zM7.82 12l1.06-1.06L9.94 12 11 10.94 9.94 9.88 11 8.82 9.94 7.76 8.88 8.82 7.82 7.76 6.76 8.82l1.06 1.06-1.06 1.06zm4.17-10C6.47 2 2 6.47 2 12s4.47 10 9.99 10S22 17.53 22 12 17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4.18-12.24-1.06 1.06-1.06-1.06L13 8.82l1.06 1.06L13 10.94 14.06 12l1.06-1.06L16.18 12l1.06-1.06-1.06-1.06 1.06-1.06z'),
+    ],
+  ),
+  // sentiment_very_satisfied_sharp
+  0xec73: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8.88 9.94 9.94 11 11 9.94 8.88 7.82 6.76 9.94 7.82 11zM12 17.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5zm1-7.56L14.06 11l1.06-1.06L16.18 11l1.06-1.06-2.12-2.12zM11.99 2C6.47 2 2 6.47 2 12s4.47 10 9.99 10S22 17.53 22 12 17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
+    ],
+  ),
   // set_meal_sharp
   0xec74: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m21.05 17.56-17.97.94L3 17l17.98-.94.07 1.5zM21 19.48H3v1.5h18v-1.5zM22 3v11H2V3h20zm-2 3c-1.68 0-3.04.98-3.21 2.23-.64-.73-2.73-2.73-6.54-2.73-4.67 0-6.75 3-6.75 3s2.08 3 6.75 3c3.81 0 5.9-2 6.54-2.73C16.96 10.02 18.32 11 20 11V6z'),
+    ],
+  ),
+  // settings_accessibility_sharp
+  0xec75: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.5 4c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 6c1.86.5 4 .83 6 1v12h2v-6h2v6h2V7c2-.17 4.14-.5 6-1l-.5-2zM12 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM7 24h2v-2H7v2zm4 0h2v-2h-2v2zm4 0h2v-2h-2v2z'),
     ],
   ),
   // settings_applications_sharp
@@ -24265,6 +25884,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-1.75 9c0 .24-.02.47-.05.71l.01-.02 1.47 1.16c.14.1.23.18.23.18l-1.7 2.94-2.02-.8.02-.03c-.37.29-.77.53-1.21.71h.01l-.27 1.85c-.02.17-.04.3-.04.3h-3.4l-.31-2.15H10a5.06 5.06 0 0 1-1.21-.71l.02.03-2.02.8-1.7-2.94s.1-.08.23-.18l1.47-1.16.01.02c-.03-.24-.05-.47-.05-.71s.02-.47.05-.69l-.01.01-1.7-1.34 1.7-2.95 2.01.81v.01c.37-.28.77-.52 1.2-.7h-.01L10.3 5h3.41l.3 2.15H14c.43.18.83.42 1.2.7v-.01l2.01-.81 1.7 2.95-1.71 1.34-.01-.01c.04.22.06.45.06.69z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 12.0, radius: 2.45),
+    ],
+  ),
+  // settings_backup_restore_sharp
+  0xec77: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 12c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm-2-9a9 9 0 0 0-9 9H0l4 4 4-4H5c0-3.87 3.13-7 7-7s7 3.13 7 7a6.995 6.995 0 0 1-11.06 5.7l-1.42 1.44A9 9 0 1 0 12 3z'),
     ],
   ),
   // settings_bluetooth_sharp
@@ -24297,6 +25924,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M7.77 6.76 6.23 5.48.82 12l5.41 6.52 1.54-1.28L3.42 12l4.35-5.24zM7 13h2v-2H7v2zm10-2h-2v2h2v-2zm-6 2h2v-2h-2v2zm6.77-7.52-1.54 1.28L20.58 12l-4.35 5.24 1.54 1.28L23.18 12l-5.41-6.52z'),
+    ],
+  ),
+  // settings_input_antenna_sharp
+  0xec7c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 5c-3.87 0-7 3.13-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.87-3.13-7-7-7zm1 9.29c.88-.39 1.5-1.26 1.5-2.29a2.5 2.5 0 0 0-5 0c0 1.02.62 1.9 1.5 2.29v3.3L7.59 21 9 22.41l3-3 3 3L16.41 21 13 17.59v-3.3zM12 1C5.93 1 1 5.93 1 12h2a9 9 0 0 1 18 0h2c0-6.07-4.93-11-11-11z'),
+    ],
+  ),
+  // settings_input_component_sharp
+  0xec7d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 2c0-.55-.45-1-1-1s-1 .45-1 1v4H1v6h6V6H5V2zm4 16.82h2V23h2v-4.18h2V14H9v4.82zm-8 0h2V23h2v-4.18h2V14H1v4.82zM21 6V2c0-.55-.45-1-1-1s-1 .45-1 1v4h-2v6h6V6h-2zm-8-4c0-.55-.45-1-1-1s-1 .45-1 1v4H9v6h6V6h-2V2zm4 16.82h2V23h2v-4.18h2V14h-6v4.82z'),
+    ],
+  ),
+  // settings_input_composite_sharp
+  0xec7e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 2c0-.55-.45-1-1-1s-1 .45-1 1v4H1v6h6V6H5V2zm4 16.82h2V23h2v-4.18h2V14H9v4.82zm-8 0h2V23h2v-4.18h2V14H1v4.82zM21 6V2c0-.55-.45-1-1-1s-1 .45-1 1v4h-2v6h6V6h-2zm-8-4c0-.55-.45-1-1-1s-1 .45-1 1v4H9v6h6V6h-2V2zm4 16.82h2V23h2v-4.18h2V14h-6v4.82z'),
     ],
   ),
   // settings_input_hdmi_sharp
@@ -24361,6 +26012,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17.41 6.59 15 5.5l2.41-1.09L18.5 2l1.09 2.41L22 5.5l-2.41 1.09L18.5 9l-1.09-2.41zm3.87 6.13L20.5 11l-.78 1.72-1.72.78 1.72.78.78 1.72.78-1.72L23 13.5l-1.72-.78zm-5.04 1.65 1.94 1.47-2.5 4.33-2.24-.94c-.2.13-.42.26-.64.37l-.3 2.4h-5l-.3-2.41c-.22-.11-.43-.23-.64-.37l-2.24.94-2.5-4.33 1.94-1.47c-.01-.11-.01-.24-.01-.36s0-.25.01-.37l-1.94-1.47 2.5-4.33 2.24.94c.2-.13.42-.26.64-.37L7.5 6h5l.3 2.41c.22.11.43.23.64.37l2.24-.94 2.5 4.33-1.94 1.47c.01.12.01.24.01.37s0 .24-.01.36zM13 14c0-1.66-1.34-3-3-3s-3 1.34-3 3 1.34 3 3 3 3-1.34 3-3z'),
+    ],
+  ),
+  // settings_system_daydream_sharp
+  0xec87: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 16h6.5a2.5 2.5 0 0 0 0-5h-.05c-.24-1.69-1.69-3-3.45-3-1.4 0-2.6.83-3.16 2.02h-.16A2.994 2.994 0 0 0 6 13c0 1.66 1.34 3 3 3zM23 3H1v18h22V3zm-2 16.01H3V4.99h18v14.02z'),
     ],
   ),
   // settings_voice_sharp
@@ -24453,12 +26112,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17 18c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm0-3 1.1-2h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1v2h2l3.6 7.59L3.62 17H19v-2H7z'),
     ],
   ),
+  // short_text_sharp
+  0xec93: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 9h16v2H4V9zm0 4h10v2H4v-2z'),
+    ],
+  ),
   // shortcut_sharp
   0xec94: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m21 11-6-6v5H8c-2.76 0-5 2.24-5 5v4h2v-4c0-1.65 1.35-3 3-3h7v5l6-6z'),
+    ],
+  ),
+  // show_chart_sharp
+  0xec95: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m3.5 18.49 6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99l1.5 1.5z'),
     ],
   ),
   // shower_sharp
@@ -24531,6 +26206,38 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17 4h3v16h-3V4zM5 14h3v6H5v-6zm6-5h3v11h-3V9z'),
     ],
   ),
+  // signal_cellular_connected_no_internet_0_bar_sharp
+  0xec9e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 18h2v-8h-2v8zm0 4h2v-2h-2v2zm-2-2v2H2L22 2v6h-2V6.83L6.83 20H18z'),
+    ],
+  ),
+  // signal_cellular_connected_no_internet_4_bar_sharp
+  0xec9f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 18h2v-8h-2v8zm0 4h2v-2h-2v2zM2 22h16V8h4V2L2 22z'),
+    ],
+  ),
+  // signal_cellular_no_sim_sharp
+  0xeca0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-9L7.95 5.06 19 16.11zm-15.21.74L2.38 5.15 5 7.77V21h13.23l1.62 1.62 1.41-1.41z'),
+    ],
+  ),
+  // signal_cellular_nodata_sharp
+  0xeca1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 13h-9v9H2L22 2v11zm-1 2.41L19.59 14l-2.09 2.09L15.41 14 14 15.41l2.09 2.09L14 19.59 15.41 21l2.09-2.08L19.59 21 21 19.59l-2.08-2.09L21 15.41z'),
+    ],
+  ),
   // signal_cellular_null_sharp
   0xeca2: WiredSvgIconData(
     width: 24.0,
@@ -24555,6 +26262,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07L12 18.17l-9.08-9.1z'),
     ],
   ),
+  // signal_wifi_4_bar_lock_sharp
+  0xeca5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.98 11 24 8.98A16.88 16.88 0 0 0 12 4C7.31 4 3.07 5.9 0 8.98l6.35 6.36L12 21l3.05-3.05V15c0-.45.09-.88.23-1.29.54-1.57 2.01-2.71 3.77-2.71h2.93z'),
+      WiredSvgPrimitive.path('M22 15.11c0-1-.68-1.92-1.66-2.08-.12-.02-.24-.02-.36-.02h-.01c-1.09.02-1.97.9-1.97 1.99v1h-1v5h6v-5h-1v-.89zM21 16h-2v-1c0-.55.45-1 1-1s1 .45 1 1v1z'),
+    ],
+  ),
   // signal_wifi_4_bar_sharp
   0xeca6: WiredSvgIconData(
     width: 24.0,
@@ -24571,12 +26287,45 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M24 8.98A16.88 16.88 0 0 0 12 4C7.31 4 3.07 5.9 0 8.98L12 21v-9h8.99L24 8.98zM19.59 14l-2.09 2.09-.3-.3L15.41 14 14 15.41l1.79 1.79.3.3L14 19.59 15.41 21l2.09-2.08L19.59 21 21 19.59l-2.08-2.09L21 15.41 19.59 14z'),
     ],
   ),
+  // signal_wifi_connected_no_internet_4_sharp
+  0xeca8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M24 8.98A16.88 16.88 0 0 0 12 4C7.31 4 3.07 5.9 0 8.98L12 21v-9h8.99L24 8.98zM19.59 14l-2.09 2.09-.3-.3L15.41 14 14 15.41l1.79 1.79.3.3L14 19.59 15.41 21l2.09-2.08L19.59 21 21 19.59l-2.08-2.09L21 15.41 19.59 14z'),
+    ],
+  ),
   // signal_wifi_off_sharp
   0xeca9: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M23.64 7c-.45-.34-4.93-4-11.64-4-1.32 0-2.55.14-3.69.38L18.43 13.5 23.64 7zM3.41 1.31 2 2.72l2.05 2.05C1.91 5.76.59 6.82.36 7L12 21.5l3.91-4.87 3.32 3.32 1.41-1.41L3.41 1.31z'),
+    ],
+  ),
+  // signal_wifi_statusbar_4_bar_sharp
+  0xecaa: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4z'),
+    ],
+  ),
+  // signal_wifi_statusbar_connected_no_internet_4_sharp
+  0xecab: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 18h2v2h-2zm0-8h2v6h-2z'),
+      WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21l5-5.01V8h5.92C19.97 5.51 16.16 4 12 4z'),
+    ],
+  ),
+  // signal_wifi_statusbar_null_sharp
+  0xecac: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07L12 18.17l-9.08-9.1z'),
     ],
   ),
   // sim_card_alert_sharp
@@ -24803,6 +26552,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M14.94 4.66h-4.72l2.36-2.36 2.36 2.36zm-4.69 14.71h4.66l-2.33 2.33-2.33-2.33zM6.1 6.27 1.6 17.73h1.84l.92-2.45h5.11l.92 2.45h1.84L7.74 6.27H6.1zm-1.13 7.37 1.94-5.18 1.94 5.18H4.97zm10.76 2.5h6.12v1.59h-8.53v-1.29l5.92-8.56h-5.88v-1.6h8.3v1.26l-5.93 8.6z'),
+    ],
+  ),
+  // sort_sharp
+  0xecc9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z'),
     ],
   ),
   // source_sharp
@@ -25131,6 +26888,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'),
     ],
   ),
+  // star_half_sharp
+  0xecf1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4V6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'),
+    ],
+  ),
   // star_outline_sharp
   0xecf2: WiredSvgIconData(
     width: 24.0,
@@ -25171,12 +26936,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z'),
     ],
   ),
+  // stay_current_landscape_sharp
+  0xecf7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M1 19h22V5H1v14zM19 7v10H5V7h14z'),
+    ],
+  ),
   // stay_current_portrait_sharp
   0xecf8: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 1.01 5.01 1v22H19V1.01zM17 19H7V5h10v14z'),
+    ],
+  ),
+  // stay_primary_landscape_sharp
+  0xecf9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M1 19h22V5H1v14zM19 7v10H5V7h14z'),
     ],
   ),
   // stay_primary_portrait_sharp
@@ -25313,6 +27094,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M3.87 20.21v-9.03l-3.19 7.7 3.19 1.33zm18.92-2.43L16.31 2.14 5.26 6.71l6.48 15.64 11.05-4.57zM7.88 8.75c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-2 13h3.45l-3.45-8.34v8.34z'),
     ],
   ),
+  // subdirectory_arrow_left_sharp
+  0xed0a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m11 9 1.42 1.42L8.83 14H18V4h2v12H8.83l3.59 3.58L11 21l-6-6 6-6z'),
+    ],
+  ),
+  // subdirectory_arrow_right_sharp
+  0xed0b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m19 15-6 6-1.42-1.42L15.17 16H4V4h2v10h9.17l-3.59-3.58L13 9l6 6z'),
+    ],
+  ),
+  // subject_sharp
+  0xed0c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z'),
+    ],
+  ),
   // subscript_sharp
   0xed0d: WiredSvgIconData(
     width: 24.0,
@@ -25369,6 +27174,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 7v1h3v1h-4V6h3V5h-3V4h4v3h-3zM5.88 20h2.66l3.4-5.42h.12l3.4 5.42h2.66l-4.65-7.27L17.81 6h-2.68l-3.07 4.99h-.12L8.85 6H6.19l4.32 6.73L5.88 20z'),
+    ],
+  ),
+  // supervised_user_circle_sharp
+  0xed14: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.61 6.34c1.07 0 1.93.86 1.93 1.93s-.86 1.93-1.93 1.93-1.93-.86-1.93-1.93c-.01-1.07.86-1.93 1.93-1.93zm-6-1.58c1.3 0 2.36 1.06 2.36 2.36s-1.06 2.36-2.36 2.36-2.36-1.06-2.36-2.36c0-1.31 1.05-2.36 2.36-2.36zm0 9.13v3.75c-2.4-.75-4.3-2.6-5.14-4.96 1.05-1.12 3.67-1.69 5.14-1.69.53 0 1.2.08 1.9.22-1.64.87-1.9 2.02-1.9 2.68zM12 20c-.27 0-.53-.01-.79-.04v-4.07c0-1.42 2.94-2.13 4.4-2.13 1.07 0 2.92.39 3.84 1.15C18.28 17.88 15.39 20 12 20z'),
     ],
   ),
   // supervisor_account_sharp
@@ -25428,6 +27241,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M6.99 11 3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z'),
+    ],
+  ),
+  // swap_horizontal_circle_sharp
+  0xed1c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12s4.48 10 10 10 10-4.48 10-10zm-7-5.5 3.5 3.5-3.5 3.5V11h-4V9h4V6.5zm-6 11L5.5 14 9 10.5V13h4v2H9v2.5z'),
     ],
   ),
   // swap_vert_sharp
@@ -25525,6 +27346,31 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z'),
+    ],
+  ),
+  // system_security_update_good_sharp
+  0xed29: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 1v22h14V1H5zm12 17H7V6h10v12zm-1-7.95-1.41-1.41-3.54 3.54-1.41-1.41-1.41 1.41L11.05 15 16 10.05z'),
+    ],
+  ),
+  // system_security_update_sharp
+  0xed2a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 1v22h14V1H5zm12 17H7V6h10v12zm-1-6h-3V8h-2v4H8l4 4 4-4z'),
+    ],
+  ),
+  // system_security_update_warning_sharp
+  0xed2b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 15h2v2h-2zm0-8h2v6h-2z'),
+      WiredSvgPrimitive.path('M5.01 1v22H19V1H5.01zM17 18H7V6h10v12z'),
     ],
   ),
   // system_update_alt_sharp
@@ -25710,6 +27556,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M15.75 5h-1.5L9.5 16h2.1l.9-2.2h5l.9 2.2h2.1L15.75 5zm-2.62 7L15 6.98 16.87 12h-3.74zM6 20l3-3H7V4H5v13H3l3 3z'),
+    ],
+  ),
+  // text_rotation_angledown_sharp
+  0xed43: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15 21v-4.24l-1.41 1.41-9.2-9.19-1.41 1.41 9.19 9.19L10.76 21H15zM11.25 8.48l3.54 3.54-.92 2.19 1.48 1.48 4.42-11.14-1.06-1.05L7.57 7.92 9.06 9.4l2.19-.92zm6.59-3.05-2.23 4.87-2.64-2.64 4.87-2.23z'),
     ],
   ),
   // text_rotation_angleup_sharp
@@ -25929,6 +27783,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M5 4v3h5.5v12h3V7H19V4H5z'),
     ],
   ),
+  // toc_sharp
+  0xed5f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2zM3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z'),
+    ],
+  ),
   // today_sharp
   0xed60: WiredSvgIconData(
     width: 24.0,
@@ -26033,6 +27895,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m13 5 .75-1.5H17V2H7v1.5h4.75L11 5c-3.13.09-6 .73-6 3.5V17c0 1.5 1.11 2.73 2.55 2.95L6 21.5v.5h2l2-2h4l2 2h2v-.5l-1.55-1.55C17.89 19.73 19 18.5 19 17V8.5c0-2.77-2.87-3.41-6-3.5zm-1 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm5-4.5H7V9h10v5z'),
     ],
   ),
+  // transfer_within_a_station_sharp
+  0xed6d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.49 15.5v-1.75L14 16.25l2.49 2.5V17H22v-1.5h-5.51zm3.02 4.25H14v1.5h5.51V23L22 20.5 19.51 18v1.75zM9.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5.75 8.9 3 23h2.1l1.75-8L9 17v6h2v-7.55L8.95 13.4l.6-3C10.85 12 12.8 13 15 13v-2c-1.85 0-3.45-1-4.35-2.45l-.95-1.6C9.35 6.35 8.7 6 8 6c-.25 0-.5.05-.75.15L2 8.3V13h2V9.65l1.75-.75'),
+    ],
+  ),
   // transform_sharp
   0xed6e: WiredSvgIconData(
     width: 24.0,
@@ -26073,12 +27943,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19.3 16.9c.4-.7.7-1.5.7-2.4 0-2.5-2-4.5-4.5-4.5S11 12 11 14.5s2 4.5 4.5 4.5c.9 0 1.7-.3 2.4-.7l3.2 3.2 1.4-1.4-3.2-3.2zm-3.8.1c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5zM12 20v2C6.48 22 2 17.52 2 12S6.48 2 12 2c4.84 0 8.87 3.44 9.8 8h-2.07A8 8 0 0 0 15 4.59V5c0 1.1-.9 2-2 2h-2v2c0 .55-.45 1-1 1H8v2h2v3H9l-4.79-4.79C4.08 10.79 4 11.38 4 12c0 4.41 3.59 8 8 8z'),
     ],
   ),
-  // trending_neutral_sharp
+  // trending_down_sharp
+  0xed73: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16 18 2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6h-6z'),
+    ],
+  ),
+  // trending_flat_sharp
   0xed74: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m22 12-4-4v3H3v2h15v3l4-4z'),
+    ],
+  ),
+  // trending_up_sharp
+  0xed75: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16 6 2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z'),
     ],
   ),
   // trip_origin_sharp
@@ -26175,6 +28061,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M18.71 3H5.29L3 5.79V21h18V5.79L18.71 3zM14 15v2h-4v-2H6.5L12 9.5l5.5 5.5H14zM5.12 5l.81-1h12l.94 1H5.12z'),
+    ],
+  ),
+  // undo_sharp
+  0xed82: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z'),
     ],
   ),
   // unfold_less_sharp
@@ -26498,12 +28392,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M18 1v2h3v3h2V1zm3 20h-3v2h5v-5h-2zM3 3h3V1H1v5h2zm0 15H1v5h5v-2H3zM19 7.97l-7-4.03-7 4.03v8.06l7 4.03 7-4.03V7.97zm-8 9.2-4-2.3v-4.63l4 2.33v4.6zm1-6.33L8.04 8.53 12 6.25l3.96 2.28L12 10.84zm5 4.03-4 2.3v-4.6l4-2.33v4.63z'),
     ],
   ),
+  // view_list_sharp
+  0xedab: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 14h4v-4H3v4zm0 5h4v-4H3v4zM3 9h4V5H3v4zm5 5h13v-4H8v4zm0 5h13v-4H8v4zM8 5v4h13V5H8z'),
+    ],
+  ),
   // view_module_sharp
   0xedac: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M14.67 5v6.5H9.33V5h5.34zm1 6.5H21V5h-5.33v6.5zm-1 7.5v-6.5H9.33V19h5.34zm1-6.5V19H21v-6.5h-5.33zm-7.34 0H3V19h5.33v-6.5zm0-1V5H3v6.5h5.33z'),
+    ],
+  ),
+  // view_quilt_sharp
+  0xedad: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 5v6.5H9.33V5H21zm-6.33 14v-6.5H9.33V19h5.34zm1-6.5V19H21v-6.5h-5.33zM8.33 19V5H3v14h5.33z'),
     ],
   ),
   // view_sidebar_sharp
@@ -26983,6 +28893,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6 13c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm6-10C9.8 3 8 4.8 8 7s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm6 10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z'),
     ],
   ),
+  // wrap_text_sharp
+  0xedea: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 19h6v-2H4v2zM20 5H4v2h16V5zm-3 6H4v2h13.25c1.1 0 2 .9 2 2s-.9 2-2 2H15v-2l-3 3 3 3v-2h2c2.21 0 4-1.79 4-4s-1.79-4-4-4z'),
+    ],
+  ),
   // wrong_location_sharp
   0xedeb: WiredSvgIconData(
     width: 24.0,
@@ -27335,6 +29253,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M9 7H7v5H5V7H3v7h4v3h2v-3h2v-2H9V7zm8 4v2h2v2h-5V9h7c0-1.1-.9-2-2-2h-5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2v-4h-4z'),
     ],
   ),
+  // four_g_plus_mobiledata_outlined
+  0xee12: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M13 11v2h2v2h-4V9h6c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-4h-4zm11 0h-2V9h-2v2h-2v2h2v2h2v-2h2v-2zM7 7H5v5H3V7H1v7h4v3h2v-3h1v-2H7V7z'),
+    ],
+  ),
   // four_k_outlined
   0xee13: WiredSvgIconData(
     width: 24.0,
@@ -27620,6 +29546,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zm-7-6.74L16.71 6H6.29l5.21-2.74m0-2.26L2 6v2h19V6l-9.5-5z'),
     ],
   ),
+  // account_balance_wallet_outlined
+  0xee33: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 7.28V5c0-1.1-.9-2-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-2.28A2 2 0 0 0 22 15V9a2 2 0 0 0-1-1.72zM20 9v6h-7V9h7zM5 19V5h14v2h-6c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h6v2H5z'),
+      WiredSvgPrimitive.circle(cx: 16.0, cy: 12.0, radius: 1.5),
+    ],
+  ),
   // account_box_outlined
   0xee34: WiredSvgIconData(
     width: 24.0,
@@ -27785,6 +29720,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'),
     ],
   ),
+  // add_photo_alternate_outlined
+  0xee48: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 20H4V6h9V4H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-9h-2v9zm-7.79-3.17-1.96-2.36L5.5 18h11l-3.54-4.71zM20 4V1h-2v3h-3c.01.01 0 2 0 2h3v2.99c.01.01 2 0 2 0V6h3V4h-3z'),
+    ],
+  ),
   // add_reaction_outlined
   0xee49: WiredSvgIconData(
     width: 24.0,
@@ -27865,6 +29808,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-8c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3z'),
     ],
   ),
+  // admin_panel_settings_outlined
+  0xee53: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 17.0, cy: 15.5, radius: 1.12, fillRule: WiredSvgFillRule.evenOdd),
+      WiredSvgPrimitive.path('M17 17.5c-.73 0-2.19.36-2.24 1.08.5.71 1.32 1.17 2.24 1.17s1.74-.46 2.24-1.17c-.05-.72-1.51-1.08-2.24-1.08z', fillRule: WiredSvgFillRule.evenOdd),
+      WiredSvgPrimitive.path('M18 11.09V6.27L10.5 3 3 6.27v4.91c0 4.54 3.2 8.79 7.5 9.82.55-.13 1.08-.32 1.6-.55A5.973 5.973 0 0 0 17 23c3.31 0 6-2.69 6-6 0-2.97-2.16-5.43-5-5.91zM11 17c0 .56.08 1.11.23 1.62-.24.11-.48.22-.73.3-3.17-1-5.5-4.24-5.5-7.74v-3.6l5.5-2.4 5.5 2.4v3.51c-2.84.48-5 2.94-5 5.91zm6 4c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z', fillRule: WiredSvgFillRule.evenOdd),
+    ],
+  ),
   // agriculture_outlined
   0xee54: WiredSvgIconData(
     width: 24.0,
@@ -27882,12 +29835,68 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M14.5 17c0 1.65-1.35 3-3 3s-3-1.35-3-3h2c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1H2v-2h9.5c1.65 0 3 1.35 3 3zM19 6.5C19 4.57 17.43 3 15.5 3S12 4.57 12 6.5h2c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S16.33 8 15.5 8H2v2h13.5c1.93 0 3.5-1.57 3.5-3.5zm-.5 4.5H2v2h16.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5v2c1.93 0 3.5-1.57 3.5-3.5S20.43 11 18.5 11z'),
     ],
   ),
+  // airline_seat_flat_angled_outlined
+  0xee56: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6 6.5c.31 0 .7.15.9.56.24.5.02 1.1-.47 1.34a.979.979 0 0 1-1.32-.46.986.986 0 0 1 .46-1.34c.14-.06.28-.1.43-.1m6.47 2.11 6.69 2.41c.52.19.93.56 1.15 1.05.22.48.25 1.03.06 1.53l-.01.02-8.59-3.11.7-1.9M10 15.19l4 1.44V17h-4v-1.81M6 4.5c-.44 0-.88.1-1.3.3a2.99 2.99 0 0 0-1.4 4 2.988 2.988 0 0 0 4 1.4 3.01 3.01 0 0 0 1.41-4A3.013 3.013 0 0 0 6 4.5zm5.28 1.55L9.2 11.71l12.36 4.47.69-1.89a4 4 0 0 0-2.41-5.15l-8.56-3.09zm-9.09 4.2-.69 1.89L8 14.48V19h8v-1.63L20.52 19l.69-1.89-19.02-6.86z'),
+    ],
+  ),
   // airline_seat_flat_outlined
   0xee57: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5 13a3 3 0 0 0 2.1-5.14C6.51 7.29 5.75 7 5 7a3 3 0 0 0-2.1 5.14c.59.57 1.35.86 2.1.86zm-.71-3.7a1 1 0 0 1 1.41-.02c.4.39.4 1.01.02 1.41-.2.2-.45.31-.72.31-.26 0-.51-.1-.7-.28-.4-.4-.4-1.02-.01-1.42zM18 7H9v6h13v-2c0-2.21-1.79-4-4-4zm-7 4V9h7c1.1 0 2 .9 2 2h-9zm-9 5h6v2h8v-2h6v-2H2z'),
+    ],
+  ),
+  // airline_seat_individual_suite_outlined
+  0xee58: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 14c1.66 0 3-1.34 3-3S8.66 8 7 8s-3 1.34-3 3 1.34 3 3 3zm0-4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm12-3h-8v8H3V7H1v10h22v-6c0-2.21-1.79-4-4-4zm2 8h-8V9h6c1.1 0 2 .9 2 2v4z'),
+    ],
+  ),
+  // airline_seat_legroom_extra_outlined
+  0xee59: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 12V3H2v9c0 2.76 2.24 5 5 5h6v-2H7c-1.66 0-3-1.34-3-3zm18.83 5.24c-.38-.72-1.29-.97-2.03-.63l-1.09.5-3.41-6.98A2.019 2.019 0 0 0 14.51 9H11V3H5v8c0 1.66 1.34 3 3 3h7l3.41 7 3.72-1.7c.77-.36 1.1-1.3.7-2.06z'),
+    ],
+  ),
+  // airline_seat_legroom_normal_outlined
+  0xee5a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 12V3H3v9c0 2.76 2.24 5 5 5h6v-2H8c-1.66 0-3-1.34-3-3zm15.5 6H19v-7c0-1.1-.9-2-2-2h-5V3H6v8c0 1.65 1.35 3 3 3h7v7h4.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5z'),
+    ],
+  ),
+  // airline_seat_legroom_reduced_outlined
+  0xee5b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19.97 19.2c.18.96-.55 1.8-1.47 1.8H14v-3l1-4H9c-1.65 0-3-1.35-3-3V3h6v6h5c1.1 0 2 .9 2 2l-2 7h1.44c.73 0 1.39.49 1.53 1.2zM5 12V3H3v9c0 2.76 2.24 5 5 5h4v-2H8c-1.66 0-3-1.34-3-3z'),
+    ],
+  ),
+  // airline_seat_recline_extra_outlined
+  0xee5c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.35 5.64c-.9-.64-1.12-1.88-.49-2.79.63-.9 1.88-1.12 2.79-.49.9.64 1.12 1.88.49 2.79-.64.9-1.88 1.12-2.79.49zM16 19H8.93c-1.48 0-2.74-1.08-2.96-2.54L4 7H2l1.99 9.76A5.01 5.01 0 0 0 8.94 21H16v-2zm.23-4h-4.88l-1.03-4.1c1.58.89 3.28 1.54 5.15 1.22V9.99c-1.63.31-3.44-.27-4.69-1.25L9.14 7.47c-.23-.18-.49-.3-.76-.38a2.21 2.21 0 0 0-.99-.06h-.02a2.268 2.268 0 0 0-1.84 2.61l1.35 5.92A3.008 3.008 0 0 0 9.83 18h6.85l3.82 3 1.5-1.5-5.77-4.5z'),
+    ],
+  ),
+  // airline_seat_recline_normal_outlined
+  0xee5d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.59 5.41c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0 .78 2.05 0 2.83c-.79.79-2.05.79-2.83 0zM6 16V7H4v9c0 2.76 2.24 5 5 5h6v-2H9c-1.66 0-3-1.34-3-3zm14 4.07L14.93 15H11.5v-3.68c1.4 1.15 3.6 2.16 5.5 2.16v-2.16c-1.66.02-3.61-.87-4.67-2.04l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.29-.14-.62-.23-.96-.23h-.03C8.01 7 7 8.01 7 9.25V15c0 1.66 1.34 3 3 3h5.07l3.5 3.5L20 20.07z'),
     ],
   ),
   // airplane_ticket_outlined
@@ -27898,7 +29907,7 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20.19 4H4c-1.1 0-1.99.9-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.81-2-1.81-2zM20 18H4v-2.54c1.19-.69 2-1.99 2-3.46 0-1.48-.8-2.77-1.99-3.46L4 6h16v12zM8.87 15.66l-1.66-2.88.93-.25 1.26.99 2.39-.64-2.4-4.16 1.4-.38 4.01 3.74 2.44-.65a.967.967 0 0 1 1.18.68.988.988 0 0 1-.69 1.19l-8.86 2.36z'),
     ],
   ),
-  // airplanemode_on_outlined
+  // airplanemode_active_outlined
   0xee5f: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
@@ -27906,7 +29915,7 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M22 16v-2l-8.5-5V3.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5V9L2 14v2l8.5-2.5V19L8 20.5V22l4-1 4 1v-1.5L13.5 19v-5.5L22 16z'),
     ],
   ),
-  // airplanemode_off_outlined
+  // airplanemode_inactive_outlined
   0xee60: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
@@ -27969,6 +29978,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 5.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
+    ],
+  ),
+  // align_horizontal_center_outlined
+  0xee68: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 2h2v5h8v3h-8v4h5v3h-5v5h-2v-5H6v-3h5v-4H3V7h8z'),
+    ],
+  ),
+  // align_horizontal_left_outlined
+  0xee69: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 22H2V2h2v20zM22 7H6v3h16V7zm-6 7H6v3h10v-3z'),
+    ],
+  ),
+  // align_horizontal_right_outlined
+  0xee6a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 2h2v20h-2V2zM2 10h16V7H2v3zm6 7h10v-3H8v3z'),
+    ],
+  ),
+  // align_vertical_bottom_outlined
+  0xee6b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 22H2v-2h20v2zM10 2H7v16h3V2zm7 6h-3v10h3V8z'),
+    ],
+  ),
+  // align_vertical_center_outlined
+  0xee6c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 11h-5V6h-3v5h-4V3H7v8H1.84v2H7v8h3v-8h4v5h3v-5h5z'),
     ],
   ),
   // align_vertical_top_outlined
@@ -28149,6 +30198,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m20.54 5.23-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM6.24 5h11.52l.81.97H5.44l.8-.97zM5 19V8h14v11H5zm8.45-9h-2.9v3H8l4 4 4-4h-2.55z'),
     ],
   ),
+  // arrow_back_ios_new_outlined
+  0xee83: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.77 3.77 16 2 6 12l10 10 1.77-1.77L9.54 12z'),
+    ],
+  ),
+  // arrow_back_ios_outlined
+  0xee84: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.51 3.87 15.73 2.1 5.84 12l9.9 9.9 1.77-1.77L9.38 12l8.13-8.13z'),
+    ],
+  ),
+  // arrow_back_outlined
+  0xee85: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z'),
+    ],
+  ),
   // arrow_circle_down_outlined
   0xee86: WiredSvgIconData(
     width: 24.0,
@@ -28173,6 +30246,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m20 12-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z'),
     ],
   ),
+  // arrow_drop_down_circle_outlined
+  0xee89: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 13-4-4h8z'),
+    ],
+  ),
   // arrow_drop_down_outlined
   0xee8a: WiredSvgIconData(
     width: 24.0,
@@ -28187,6 +30268,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m7 14 5-5 5 5H7z'),
+    ],
+  ),
+  // arrow_forward_ios_outlined
+  0xee8c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.23 20.23 8 22l10-10L8 2 6.23 3.77 14.46 12z'),
+    ],
+  ),
+  // arrow_forward_outlined
+  0xee8d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z'),
+    ],
+  ),
+  // arrow_left_outlined
+  0xee8e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14 7-5 5 5 5V7z'),
+    ],
+  ),
+  // arrow_right_alt_outlined
+  0xee8f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z'),
+    ],
+  ),
+  // arrow_right_outlined
+  0xee90: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m10 17 5-5-5-5v10z'),
     ],
   ),
   // arrow_upward_outlined
@@ -28244,6 +30365,47 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M11 15h2v2h-2zm0-8h2v6h-2zm8-4h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04a2.008 2.008 0 0 0-1.44 1.19c-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 19H5V5h14v14z'),
+    ],
+  ),
+  // assignment_outlined
+  0xee98: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 15h7v2H7zm0-4h10v2H7zm0-4h10v2H7zm12-4h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04a2.008 2.008 0 0 0-1.44 1.19c-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 19H5V5h14v14z'),
+    ],
+  ),
+  // assignment_return_outlined
+  0xee99: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 14h4v-4h-4V7l-5 5 5 5zm7-11h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04a2.008 2.008 0 0 0-1.44 1.19c-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 19H5V5h14v14z'),
+    ],
+  ),
+  // assignment_returned_outlined
+  0xee9a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 12h-3V8h-4v4H7l5 5zm2-9h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04a2.008 2.008 0 0 0-1.44 1.19c-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 19H5V5h14v14z'),
+    ],
+  ),
+  // assignment_turned_in_outlined
+  0xee9b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m18 9-1.41-1.42L10 14.17l-2.59-2.58L6 13l4 4zm1-6h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04a2.008 2.008 0 0 0-1.44 1.19c-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 19H5V5h14v14z'),
+    ],
+  ),
+  // assistant_direction_outlined
+  0xee9c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1zm0 20c-4.99 0-9-4.01-9-9s4.01-9 9-9 9 4.01 9 9-4.01 9-9 9z'),
+      WiredSvgPrimitive.path('M19.73 11.42 12.54 4.2c-.36-.27-.8-.27-1.15 0L4.2 11.42c-.27.36-.27.8 0 1.16l7.19 7.22c.36.27.8.27 1.15 0l7.19-7.22c.36-.36.36-.89 0-1.16zM13.5 14.5l-1.41-1.41L13.17 12H10v3H8v-4c0-.6.4-1 1-1h4.17l-1.09-1.09L13.5 7.5 17 11l-3.5 3.5z'),
     ],
   ),
   // assistant_outlined
@@ -28328,6 +30490,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6zm-2 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z'),
     ],
   ),
+  // auto_awesome_mosaic_outlined
+  0xeea7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 5v14a2 2 0 0 0 2 2h6V3H5a2 2 0 0 0-2 2zm6 14H5V5h4v14zM19 3h-6v8h8V5c0-1.1-.9-2-2-2zm0 6h-4V5h4v4zm-6 12h6c1.1 0 2-.9 2-2v-6h-8v8zm2-6h4v4h-4v-4z'),
+    ],
+  ),
+  // auto_awesome_motion_outlined
+  0xeea8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 2H4c-1.1 0-2 .9-2 2v10h2V4h10V2zm4 4H8c-1.1 0-2 .9-2 2v10h2V8h10V6zm2 4h-8c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm0 10h-8v-8h8v8z'),
+    ],
+  ),
   // auto_awesome_outlined
   0xeea9: WiredSvgIconData(
     width: 24.0,
@@ -28410,12 +30588,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11 17c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1zm0-14v4h2V5.08c3.39.49 6 3.39 6 6.92 0 3.87-3.13 7-7 7s-7-3.13-7-7c0-1.68.59-3.22 1.58-4.42L12 13l1.41-1.41-6.8-6.8v.02C4.42 6.45 3 9.05 3 12c0 4.97 4.02 9 9 9a9 9 0 0 0 0-18h-1zm7 9c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1zM6 12c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1z'),
     ],
   ),
+  // baby_changing_station_outlined
+  0xeeb3: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 8v2h-3L8.31 8.82 7 12.75V22H3V12l1.58-4.63A2.003 2.003 0 0 1 7.3 6.18l4.15 1.83L14 8zM8 1c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm1 18h12v-2H9v2zm10.5-3c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM13 12c0-.55-.45-1-1-1H9v2h2v1c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-3h-2v2h-2v-1z'),
+    ],
+  ),
   // backpack_outlined
   0xeeb4: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 4.14V2h-3v2h-4V2H7v2.14c-1.72.45-3 2-3 3.86v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.86-1.28-3.41-3-3.86zM18 20H6V8c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v12zm-1.5-8v4h-2v-2h-7v-2h9z'),
+    ],
+  ),
+  // backspace_outlined
+  0xeeb5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7.07L2.4 12l4.66-7H22v14zm-11.59-2L14 13.41 17.59 17 19 15.59 15.41 12 19 8.41 17.59 7 14 10.59 10.41 7 9 8.41 12.59 12 9 15.59z'),
     ],
   ),
   // backup_outlined
@@ -28511,6 +30705,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM13 18h-2v-2h2v2zm0-4h-2V9h2v5z'),
     ],
   ),
+  // battery_charging_full_outlined
+  0xeec1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z'),
+    ],
+  ),
   // battery_full_outlined
   0xeec2: WiredSvgIconData(
     width: 24.0,
@@ -28533,6 +30735,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z'),
+    ],
+  ),
+  // battery_unknown_outlined
+  0xeec5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM13 18h-2v-2h2v2zm1.3-5.31s-.38.42-.67.71c-.48.48-.83 1.15-.83 1.6h-1.6c0-.83.46-1.52.93-2l.93-.94A1.498 1.498 0 0 0 12 9.5c-.83 0-1.5.67-1.5 1.5H9c0-1.66 1.34-3 3-3s3 1.34 3 3c0 .66-.27 1.26-.7 1.69z'),
     ],
   ),
   // beach_access_outlined
@@ -28650,6 +30860,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m14.24 12.01 2.32 2.32c.28-.72.44-1.51.44-2.33s-.16-1.59-.43-2.31l-2.33 2.32zm5.29-5.3-1.26 1.26c.63 1.21.98 2.57.98 4.02s-.36 2.82-.98 4.02l1.2 1.2a9.936 9.936 0 0 0 1.54-5.31c-.01-1.89-.55-3.67-1.48-5.19zm-3.82 1L10 2H9v7.59L4.41 5 3 6.41 8.59 12 3 17.59 4.41 19 9 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM11 5.83l1.88 1.88L11 9.59V5.83zm1.88 10.46L11 18.17v-3.76l1.88 1.88z'),
     ],
   ),
+  // bluetooth_connected_outlined
+  0xeed4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m7 12-2-2-2 2 2 2 2-2zm10.71-4.29L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88zM19 10l-2 2 2 2 2-2-2-2z'),
+    ],
+  ),
   // bluetooth_disabled_outlined
   0xeed5: WiredSvgIconData(
     width: 24.0,
@@ -28675,6 +30893,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17.71 7.71 12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z'),
+    ],
+  ),
+  // bluetooth_searching_outlined
+  0xeed8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14.24 12.01 2.32 2.32c.28-.72.44-1.51.44-2.33s-.16-1.59-.43-2.31l-2.33 2.32zm5.29-5.3-1.26 1.26c.63 1.21.98 2.57.98 4.02s-.36 2.82-.98 4.02l1.2 1.2a9.936 9.936 0 0 0 1.54-5.31c-.01-1.89-.55-3.67-1.48-5.19zm-3.82 1L10 2H9v7.59L4.41 5 3 6.41 8.59 12 3 17.59 4.41 19 9 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM11 5.83l1.88 1.88L11 9.59V5.83zm1.88 10.46L11 18.17v-3.76l1.88 1.88z'),
     ],
   ),
   // blur_circular_outlined
@@ -29004,6 +31230,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5v-4.58l.99.99 4-4 4 4 4-3.99L19 12.43V19zm0-9.41-1.01-1.01-4 4.01-4-4-4 4-.99-1V5h14v4.59z'),
     ],
   ),
+  // browser_not_supported_outlined
+  0xef00: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 6v10.5l1.95 1.95c.03-.15.05-.3.05-.45V6c0-1.1-.9-2-2-2H6.5l2 2H19zM3.22 3.32 1.95 4.59 3 5.64V18c0 1.1.9 2 2 2h12.36l2.06 2.06 1.27-1.27L3.22 3.32zM15 18H5V7.64L15.36 18H15z'),
+    ],
+  ),
   // brunch_dining_outlined
   0xef01: WiredSvgIconData(
     width: 24.0,
@@ -29153,6 +31387,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M3 17h18v2H3zm16-5v1H5v-1h14m2-2H3v5h18v-5zM3 6h18v2H3z'),
     ],
   ),
+  // calendar_view_month_outlined
+  0xef13: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8 11H4V6h4v5zm6 0h-4V6h4v5zm6 0h-4V6h4v5zM8 18H4v-5h4v5zm6 0h-4v-5h4v5zm6 0h-4v-5h4v5z'),
+    ],
+  ),
   // calendar_view_week_outlined
   0xef14: WiredSvgIconData(
     width: 24.0,
@@ -29169,12 +31411,60 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M18.59 10.52c1.05.51 2.04 1.15 2.96 1.91l-1.07 1.07c-.58-.47-1.21-.89-1.88-1.27v-1.71m-13.2 0v1.7c-.65.37-1.28.79-1.87 1.27l-1.07-1.07c.91-.75 1.9-1.38 2.94-1.9M12 7C7.46 7 3.34 8.78.29 11.67c-.18.18-.29.43-.29.71s.11.53.29.7l2.48 2.48c.18.18.43.29.71.29.27 0 .52-.1.7-.28.79-.73 1.68-1.36 2.66-1.85.33-.16.56-.51.56-.9v-3.1C8.85 9.25 10.4 9 12 9s3.15.25 4.59.73v3.1c0 .4.23.74.56.9.98.49 1.88 1.11 2.67 1.85.18.17.43.28.7.28.28 0 .53-.11.71-.29l2.48-2.48c.18-.18.29-.43.29-.71s-.11-.53-.29-.71A16.971 16.971 0 0 0 12 7z'),
     ],
   ),
+  // call_made_outlined
+  0xef16: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5H9z'),
+    ],
+  ),
+  // call_merge_outlined
+  0xef17: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 20.41 18.41 19 15 15.59 13.59 17 17 20.41zM7.5 8H11v5.59L5.59 19 7 20.41l6-6V8h3.5L12 3.5 7.5 8z'),
+    ],
+  ),
+  // call_missed_outgoing_outlined
+  0xef18: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m3 8.41 9 9 7-7V15h2V7h-8v2h4.59L12 14.59 4.41 7 3 8.41z'),
+    ],
+  ),
+  // call_missed_outlined
+  0xef19: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19.59 7 12 14.59 6.41 9H11V7H3v8h2v-4.59l7 7 9-9L19.59 7z'),
+    ],
+  ),
   // call_outlined
   0xef1a: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M6.54 5c.06.89.21 1.76.45 2.59l-1.2 1.2c-.41-1.2-.67-2.47-.76-3.79h1.51m9.86 12.02c.85.24 1.72.39 2.6.45v1.49c-1.32-.09-2.59-.35-3.8-.75l1.2-1.19M7.5 3H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.49c0-.55-.45-1-1-1-1.24 0-2.45-.2-3.57-.57a.84.84 0 0 0-.31-.05c-.26 0-.51.1-.71.29l-2.2 2.2a15.149 15.149 0 0 1-6.59-6.59l2.2-2.2c.28-.28.36-.67.25-1.02A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1z'),
+    ],
+  ),
+  // call_received_outlined
+  0xef1b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 5.41 18.59 4 7 15.59V9H5v10h10v-2H8.41L20 5.41z'),
+    ],
+  ),
+  // call_split_outlined
+  0xef1c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14 4 2.29 2.29-2.88 2.88 1.42 1.42 2.88-2.88L20 10V4h-6zm-4 0H4v6l2.29-2.29 4.71 4.7V20h2v-8.41l-5.29-5.3L10 4z'),
     ],
   ),
   // call_to_action_outlined
@@ -29273,6 +31563,23 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.59-13L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z'),
+    ],
+  ),
+  // cancel_presentation_outlined
+  0xef29: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM9.41 15.95 12 13.36l2.59 2.59L16 14.54l-2.59-2.59L16 9.36l-1.41-1.41L12 10.54 9.41 7.95 8 9.36l2.59 2.59L8 14.54z'),
+    ],
+  ),
+  // cancel_schedule_send_outlined
+  0xef2a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.5 9c-.42 0-.83.04-1.24.11L1.01 3 1 10l10.06 1.34c-.42.44-.78.93-1.09 1.46L1 14l.01 7 8.07-3.46C9.59 21.19 12.71 24 16.5 24c4.14 0 7.5-3.36 7.5-7.5S20.64 9 16.5 9zM3 8.25l.01-2.22 7.51 3.22-7.52-1zm6.1 7.11L3 17.97v-2.22l6.17-.82c-.03.14-.05.28-.07.43zM16.5 22c-3.03 0-5.5-2.47-5.5-5.5s2.47-5.5 5.5-5.5 5.5 2.47 5.5 5.5-2.47 5.5-5.5 5.5z'),
+      WiredSvgPrimitive.path('m18.27 14.03-1.77 1.76-1.77-1.76-.7.7 1.76 1.77-1.76 1.77.7.7 1.77-1.76 1.77 1.76.7-.7-1.76-1.77 1.76-1.77z'),
     ],
   ),
   // car_rental_outlined
@@ -29405,6 +31712,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6 22h16V5.97L6 22zm14-2h-2v-7.22l2-2V20zM5.22 7.22 3.93 5.93c3.9-3.91 10.24-3.91 14.15 0l-1.29 1.29c-3.19-3.19-8.38-3.19-11.57 0zm7.71 3.85L11 13l-1.93-1.93a2.74 2.74 0 0 1 3.86 0zm1.29-1.28c-1.78-1.77-4.66-1.77-6.43 0L6.5 8.5a6.374 6.374 0 0 1 9 0l-1.28 1.29z'),
     ],
   ),
+  // center_focus_strong_outlined
+  0xef3a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 12c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5 5-2.24 5-5zm-5 3c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3zm-7 0H3v4c0 1.1.9 2 2 2h4v-2H5v-4zM5 5h4V3H5c-1.1 0-2 .9-2 2v4h2V5zm14-2h-4v2h4v4h2V5c0-1.1-.9-2-2-2zm0 16h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4z'),
+    ],
+  ),
   // center_focus_weak_outlined
   0xef3b: WiredSvgIconData(
     width: 24.0,
@@ -29461,6 +31776,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m14.5 11-3 6v-4h-2l3-6v4h2zM17 3H7v1h10V3m0 17H7v1h10v-1m0-19c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h10zM7 18h10V6H7v12z'),
     ],
   ),
+  // chat_bubble_outline_outlined
+  0xef42: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z'),
+    ],
+  ),
   // chat_bubble_outlined
   0xef43: WiredSvgIconData(
     width: 24.0,
@@ -29477,12 +31800,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M4 4h16v12H5.17L4 17.17V4m0-2c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H4zm2 10h8v2H6v-2zm0-3h12v2H6V9zm0-3h12v2H6V6z'),
     ],
   ),
+  // check_box_outline_blank_outlined
+  0xef45: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'),
+    ],
+  ),
   // check_box_outlined
   0xef46: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM17.99 9l-1.41-1.42-6.59 6.59-2.58-2.57-1.42 1.41 4 3.99z'),
+    ],
+  ),
+  // check_circle_outline_outlined
+  0xef47: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z'),
     ],
   ),
   // check_circle_outlined
@@ -29525,6 +31864,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21.6 18.2 13 11.75v-.91a3.496 3.496 0 0 0-.18-6.75A3.51 3.51 0 0 0 8.5 7.5h2c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5c0 .84-.69 1.52-1.53 1.5-.54-.01-.97.45-.97.99v1.76L2.4 18.2c-.77.58-.36 1.8.6 1.8h18c.96 0 1.37-1.22.6-1.8zM6 18l6-4.5 6 4.5H6z'),
     ],
   ),
+  // chevron_left_outlined
+  0xef4d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z'),
+    ],
+  ),
+  // chevron_right_outlined
+  0xef4e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z'),
+    ],
+  ),
   // child_care_outlined
   0xef4f: WiredSvgIconData(
     width: 24.0,
@@ -29541,6 +31896,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 2v8h8c0-4.42-3.58-8-8-8zm2 6V4.34c1.7.6 3.05 1.95 3.66 3.66H15zm-8.56 3-.95-2H2v2h2.22s1.89 4.07 2.12 4.42c-1.1.59-1.84 1.75-1.84 3.08C4.5 20.43 6.07 22 8 22c1.76 0 3.22-1.3 3.46-3h2.08c.24 1.7 1.7 3 3.46 3 1.93 0 3.5-1.57 3.5-3.5 0-1.04-.46-1.97-1.18-2.61A7.948 7.948 0 0 0 21 11H6.44zM8 20c-.83 0-1.5-.67-1.5-1.5S7.17 17 8 17s1.5.67 1.5 1.5S8.83 20 8 20zm9 0c-.83 0-1.5-.67-1.5-1.5S16.17 17 17 17s1.5.67 1.5 1.5S17.83 20 17 20zm.74-5.34-.29.37A3.505 3.505 0 0 0 13.84 17h-2.68c-.5-1.04-1.5-1.8-2.68-1.97l-.44-.67c-.1-.17-.34-.69-.67-1.36h11.29c-.21.59-.52 1.15-.92 1.66z'),
+    ],
+  ),
+  // chrome_reader_mode_outlined
+  0xef51: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 4H3c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM3 19V6h8v13H3zm18 0h-8V6h8v13zm-7-9.5h6V11h-6zm0 2.5h6v1.5h-6zm0 2.5h6V16h-6z'),
+    ],
+  ),
+  // circle_notifications_outlined
+  0xef52: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 18.5c.83 0 1.5-.67 1.5-1.5h-3c0 .83.67 1.5 1.5 1.5zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4-8.61c0-2.11-1.03-3.92-3-4.39v-.5c0-.57-.43-1-1-1s-1 .43-1 1V7c-1.97.47-3 2.27-3 4.39V14H7v2h10v-2h-1v-2.61zM14 14h-4v-3c0-1.1.9-2 2-2s2 .9 2 2v3z'),
     ],
   ),
   // circle_outlined
@@ -29605,6 +31976,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z'),
+    ],
+  ),
+  // closed_caption_disabled_outlined
+  0xef5b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M13 10c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1h-1.5v-.5h-2v1L13 10zm3.5 3.5 1.21 1.21c.18-.19.29-.44.29-.71v-1h-1.5v.5zM8.83 6H19v10.17l1.98 1.98c0-.05.02-.1.02-.16V6c0-1.1-.9-2-2-2H6.83l2 2zm10.95 16.61L17.17 20H5a2 2 0 0 1-2-2V6c0-.05.02-.1.02-.15L1.39 4.22 2.8 2.81l18.38 18.38-1.4 1.42zM7.5 13.5h2V13h.67l-2.5-2.5H7.5v3zm7.67 4.5L11 13.83V14c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-4c0-.32.16-.59.4-.78L5 7.83V18h10.17z'),
     ],
   ),
   // closed_caption_off_outlined
@@ -29713,6 +32092,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M18.5 3H6c-1.1 0-2 .9-2 2v5.71c0 3.83 2.95 7.18 6.78 7.29 3.96.12 7.22-3.06 7.22-7v-1h.5c1.93 0 3.5-1.57 3.5-3.5S20.43 3 18.5 3zM16 5v3H6V5h10zm0 5v1c0 2.76-2.24 5-5 5s-5-2.24-5-5v-1m12.5-2H18V5h.5c.83 0 1.5.67 1.5 1.5S19.33 8 18.5 8zM4 19h16v2H4v-2z'),
     ],
   ),
+  // collections_bookmark_outlined
+  0xef69: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-3 2v5l-1-.75L15 9V4h2zm3 12H8V4h5v9l3-2.25L19 13V4h1v12z'),
+    ],
+  ),
   // collections_outlined
   0xef6a: WiredSvgIconData(
     width: 24.0,
@@ -29782,6 +32169,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M10 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v2h2V1h-2v2zm0 15H5l5-6v6zm9-15h-5v2h5v13l-5-6v9h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'),
     ],
   ),
+  // compass_calibration_outlined
+  0xef72: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 12c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3zm0-17C8.1 3 4.56 4.59 2 7.15l5 5a7.06 7.06 0 0 1 10-.01l5-5C19.44 4.59 15.9 3 12 3zm4.84 6.47c-1.44-.91-3.1-1.4-4.84-1.4-1.74 0-3.41.49-4.85 1.41L4.94 7.26C6.99 5.79 9.44 5 12 5c2.56 0 5 .79 7.05 2.26l-2.21 2.21z'),
+    ],
+  ),
   // compress_outlined
   0xef73: WiredSvgIconData(
     width: 24.0,
@@ -29804,6 +32199,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M22 10V6a2 2 0 0 0-2-2H4c-1.1 0-1.99.89-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2s.9-2 2-2zm-2-1.46c-1.19.69-2 1.99-2 3.46s.81 2.77 2 3.46V18H4v-2.54c1.19-.69 2-1.99 2-3.46 0-1.48-.8-2.77-1.99-3.46L4 6h16v2.54zM11 15h2v2h-2zm0-4h2v2h-2zm0-4h2v2h-2z'),
+    ],
+  ),
+  // connect_without_contact_outlined
+  0xef76: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 14H9a9 9 0 0 1 9-9v2c-3.87 0-7 3.13-7 7zm7-3V9c-2.76 0-5 2.24-5 5h2c0-1.66 1.34-3 3-3zM7 4c0-1.11-.89-2-2-2s-2 .89-2 2 .89 2 2 2 2-.89 2-2zm4.45.5h-2A2.99 2.99 0 0 1 6.5 7h-3C2.67 7 2 7.67 2 8.5V11h6V8.74a4.97 4.97 0 0 0 3.45-4.24zM19 17c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm1.5 1h-3a2.99 2.99 0 0 1-2.95-2.5h-2A4.97 4.97 0 0 0 16 19.74V22h6v-2.5c0-.83-.67-1.5-1.5-1.5z'),
     ],
   ),
   // connected_tv_outlined
@@ -29910,6 +32313,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5.54 8.46 2 12l3.54 3.54 1.76-1.77L5.54 12l1.76-1.77zm6.46 10-1.77-1.76-1.77 1.76L12 22l3.54-3.54-1.77-1.76zm6.46-10-1.76 1.77L18.46 12l-1.76 1.77 1.76 1.77L22 12zm-10-2.92 1.77 1.76L12 5.54l1.77 1.76 1.77-1.76L12 2z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 12.0, radius: 3.0),
+    ],
+  ),
+  // control_point_duplicate_outlined
+  0xef84: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16 8h-2v3h-3v2h3v3h2v-3h3v-2h-3V8zM2 12c0-2.79 1.64-5.2 4.01-6.32V3.52C2.52 4.76 0 8.09 0 12s2.52 7.24 6.01 8.48v-2.16A6.99 6.99 0 0 1 2 12zm13-9c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z'),
     ],
   ),
   // control_point_outlined
@@ -30128,6 +32539,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M9.37 5.51A7.35 7.35 0 0 0 9.1 7.5c0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27A7.014 7.014 0 0 1 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49zM12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z'),
     ],
   ),
+  // dashboard_customize_outlined
+  0xefa0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3z'),
+    ],
+  ),
   // dashboard_outlined
   0xefa1: WiredSvgIconData(
     width: 24.0,
@@ -30252,6 +32671,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20.97 7.27a.996.996 0 0 0 0-1.41l-2.83-2.83a.996.996 0 0 0-1.41 0l-4.49 4.49-3.89-3.89c-.78-.78-2.05-.78-2.83 0l-1.9 1.9c-.78.78-.78 2.05 0 2.83l3.89 3.89L3 16.76V21h4.24l4.52-4.52 3.89 3.89c.95.95 2.23.6 2.83 0l1.9-1.9c.78-.78.78-2.05 0-2.83l-3.89-3.89 4.48-4.48zM5.04 6.94l1.89-1.9L8.2 6.31 7.02 7.5l1.41 1.41 1.19-1.19 1.2 1.2-1.9 1.9-3.88-3.88zm11.23 7.44-1.19 1.19 1.41 1.41 1.19-1.19 1.27 1.27-1.9 1.9-3.89-3.89 1.9-1.9 1.21 1.21zM6.41 19H5v-1.41l9.61-9.61 1.3 1.3.11.11L6.41 19zm9.61-12.44 1.41-1.41 1.41 1.41-1.41 1.41-1.41-1.41z'),
     ],
   ),
+  // desktop_access_disabled_outlined
+  0xefb0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M1.41 1.69 0 3.1l1 .99V16c0 1.1.89 2 1.99 2H10v2H8v2h8v-2h-2v-2h.9l6 6 1.41-1.41-20.9-20.9zM2.99 16V6.09L12.9 16H2.99zM4.55 2l2 2H21v12h-2.45l2 2h.44c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H4.55z'),
+    ],
+  ),
   // desktop_mac_outlined
   0xefb1: WiredSvgIconData(
     width: 24.0,
@@ -30274,6 +32701,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 3 2 21h20L12 3zm1 5.92L18.6 19H13V8.92zm-2 0V19H5.4L11 8.92z'),
+    ],
+  ),
+  // developer_board_off_outlined
+  0xefb4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.83 5H18v10.17L19.83 17H22v-2h-2v-2h2v-2h-2V9h2V7h-2V5c0-1.1-.9-2-2-2H5.83l2 2zM12 9.17V7h4v3h-3.17L12 9.17zM9.83 7H11v1.17L9.83 7zm4 4H16v2.17L13.83 11zM18 21c.06 0 .11 0 .16-.01l2.32 2.32 1.41-1.41L2.1 2.1.69 3.51l1.32 1.32C2 4.89 2 4.94 2 5v14c0 1.1.9 2 2 2h14zM4 19V6.83l2 2V12h3.17l1 1H6v4h5v-3.17l1 1V17h2.17l2 2H4z'),
     ],
   ),
   // developer_board_outlined
@@ -30306,6 +32741,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M15 13V5c0-1.66-1.34-3-3-3S9 3.34 9 5v8c-1.21.91-2 2.37-2 4 0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.63-.79-3.09-2-4zm-4-2V5c0-.55.45-1 1-1s1 .45 1 1v1h-1v1h1v2h-1v1h1v1h-2z'),
+    ],
+  ),
+  // device_unknown_outlined
+  0xefb9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14zM12 6.72c-1.96 0-3.5 1.52-3.5 3.47h1.75c0-.93.82-1.75 1.75-1.75s1.75.82 1.75 1.75c0 1.75-2.63 1.57-2.63 4.45h1.76c0-1.96 2.62-2.19 2.62-4.45 0-1.96-1.54-3.47-3.5-3.47zM11 16h2v2h-2v-2z'),
     ],
   ),
   // devices_other_outlined
@@ -30364,12 +32807,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5zm5.8-10 2.4-2.4.8.8c1.3 1.3 3 2.1 5.1 2.1V9c-1.5 0-2.7-.6-3.6-1.5l-1.9-1.9c-.5-.4-1-.6-1.6-.6s-1.1.2-1.4.6L7.8 8.4c-.4.4-.6.9-.6 1.4 0 .6.2 1.1.6 1.4L11 14v5h2v-6.2l-2.2-2.3zM19 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z'),
     ],
   ),
+  // directions_boat_filled_outlined
+  0xefc1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m19.77 12.66-1.12 3.97c-.78-.43-1.07-.86-2.65-2.67-1.6 1.82-2.43 3.04-4 3.04-1.53 0-2.34-1.15-4-3.04-1.6 1.82-1.87 2.21-2.65 2.65l-1.13-3.96L12 10.11l7.77 2.55zM15 1H9v3H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.63.19-.81.84-.66 1.28L3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l1.91-6.68c.11-.37.04-1.06-.66-1.28l-1.3-.42V6c0-1.1-.9-2-2-2h-3V1zM6 9.97V6h12v3.97L12 8 6 9.97zm10 9.71c-1.22.85-2.61 1.28-4 1.28s-2.78-.43-4-1.28C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 1.26.64 2.63.97 4 .97s2.74-.32 4-.97c1.26.65 2.62.99 4 .99h2v-2h-2c-1.39 0-2.78-.47-4-1.32z'),
+    ],
+  ),
   // directions_boat_outlined
   0xefc2: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 3v1h-2V3h2m-1 7.11 5.38 1.77 2.39.78-1.12 3.97c-.54-.3-.94-.71-1.14-.94L16 13.96l-1.51 1.72c-.34.4-1.28 1.32-2.49 1.32s-2.15-.92-2.49-1.32L8 13.96l-1.51 1.72c-.2.23-.6.63-1.14.93l-1.13-3.96 2.4-.79L12 10.11M15 1H9v3H6c-1.1 0-2 .9-2 2v4.62l-1.29.42a1.007 1.007 0 0 0-.66 1.28L3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l1.89-6.68c.08-.26.06-.54-.06-.78s-.34-.42-.6-.5L20 10.62V6c0-1.1-.9-2-2-2h-3V1zM6 9.97V6h12v3.97L12 8 6 9.97zm10 9.71c-1.22.85-2.61 1.28-4 1.28s-2.78-.43-4-1.28C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 1.26.64 2.63.97 4 .97s2.74-.32 4-.97c1.26.65 2.62.99 4 .99h2v-2h-2c-1.39 0-2.78-.47-4-1.32z'),
+    ],
+  ),
+  // directions_bus_filled_outlined
+  0xefc3: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5c0 .95.38 1.81 1 2.44V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-2.06c.62-.63 1-1.49 1-2.44V6c0-3.5-3.58-4-8-4zm0 2c3.71 0 5.13.46 5.67 1H6.43c.6-.52 2.05-1 5.57-1zm6 11c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2v-3h12v3zm0-5H6V7h12v3z'),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 14.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 14.5, radius: 1.5),
     ],
   ),
   // directions_bus_outlined
@@ -30380,6 +32841,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2c-4.42 0-8 .5-8 4v10c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4zm5.66 2.99H6.34C6.89 4.46 8.31 4 12 4s5.11.46 5.66.99zm.34 2V10H6V6.99h12zm-.34 9.74-.29.27H6.63l-.29-.27A.968.968 0 0 1 6 16v-4h12v4c0 .37-.21.62-.34.73z'),
       WiredSvgPrimitive.circle(cx: 8.5, cy: 14.5, radius: 1.5),
       WiredSvgPrimitive.circle(cx: 15.5, cy: 14.5, radius: 1.5),
+    ],
+  ),
+  // directions_car_filled_outlined
+  0xefc5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.04 3H5.81l1.04-3zM19 17H5v-5h14v5z'),
+      WiredSvgPrimitive.circle(cx: 7.5, cy: 14.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 16.5, cy: 14.5, radius: 1.5),
     ],
   ),
   // directions_car_outlined
@@ -30409,6 +32880,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m22.43 10.59-9.01-9.01c-.75-.75-2.07-.76-2.83 0l-9 9c-.78.78-.78 2.04 0 2.82l9 9c.39.39.9.58 1.41.58.51 0 1.02-.19 1.41-.58l8.99-8.99c.79-.76.8-2.02.03-2.82zm-10.42 10.4-9-9 9-9 9 9-9 9zM8 11v4h2v-3h4v2.5l3.5-3.5L14 7.5V10H9c-.55 0-1 .45-1 1z'),
     ],
   ),
+  // directions_railway_filled_outlined
+  0xefc9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20v1h12v-1l-1.5-1c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zm0 2c3.71 0 5.13.46 5.67 1H6.43c.6-.52 2.05-1 5.57-1zm6 11.5c0 .83-.67 1.5-1.5 1.5h-9c-.83 0-1.5-.67-1.5-1.5V12h12v3.5zm0-5.5H6V7h12v3z'),
+      WiredSvgPrimitive.circle(cx: 12.0, cy: 14.5, radius: 1.5),
+    ],
+  ),
   // directions_railway_outlined
   0xefca: WiredSvgIconData(
     width: 24.0,
@@ -30425,12 +32905,32 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9 1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z'),
     ],
   ),
+  // directions_subway_filled_outlined
+  0xefcc: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20v1h12v-1l-1.5-1c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zm0 2c3.71 0 5.13.46 5.67 1H6.43c.6-.52 2.05-1 5.57-1zM6 7h5v3H6V7zm12 8.5c0 .83-.67 1.5-1.5 1.5h-9c-.83 0-1.5-.67-1.5-1.5V12h12v3.5zm0-5.5h-5V7h5v3z'),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 14.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 14.5, radius: 1.5),
+    ],
+  ),
   // directions_subway_outlined
   0xefcd: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zm5.66 3H6.43c.61-.52 2.06-1 5.57-1 3.71 0 5.12.46 5.66 1zM11 7v3H6V7h5zm2 0h5v3h-5V7zm3.5 10h-9c-.83 0-1.5-.67-1.5-1.5V12h12v3.5c0 .83-.67 1.5-1.5 1.5z'),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 14.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 14.5, radius: 1.5),
+    ],
+  ),
+  // directions_transit_filled_outlined
+  0xefce: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20v1h12v-1l-1.5-1c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zm0 2c3.71 0 5.13.46 5.67 1H6.43c.6-.52 2.05-1 5.57-1zM6 7h5v3H6V7zm12 8.5c0 .83-.67 1.5-1.5 1.5h-9c-.83 0-1.5-.67-1.5-1.5V12h12v3.5zm0-5.5h-5V7h5v3z'),
       WiredSvgPrimitive.circle(cx: 8.5, cy: 14.5, radius: 1.5),
       WiredSvgPrimitive.circle(cx: 15.5, cy: 14.5, radius: 1.5),
     ],
@@ -30460,6 +32960,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 5h-3.17L15 3H9L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 14h-7.02c-.22-.84-.52-1.76-.13-2.33.81-1.12 2.67 1.77 3.81-.09.77-1.57-1.58-1.29-1.64-2.12-.05-.84 3.68.17 3.04-1.66-.61-1.73-2.42.48-2.76-.53-.58-1.74 4.7-1.68 2.85-4.01-1.76-2.22-2.47 2.85-4.41 2.33-1.34-.36-1.01-2.88-2.65-2.44-1.88.51 1.03 2.2 0 2.86-.96.63-1.72-.92-2.51-1.19-.2-.07-.69-.05-.91.19-.78.86.28 1.16.25 1.91-.02.75-1.59.49-1.51 1.49.12 1.6 2.18.45 2.4 1.24.55 1.98-1.89 2.15-.5 3.27 1.53.71 1.91-1.94 2.8-1.35.58.38.3 1.45.16 2.43H4V7h4.05l1.83-2h4.24l1.83 2H20v12z'),
       WiredSvgPrimitive.path('M17.28 17.15c0 .48.39.86.86.86.48 0 .86-.38.86-.86s-.39-.86-.86-.86c-.48 0-.86.38-.86.86z'),
+    ],
+  ),
+  // disabled_by_default_outlined
+  0xefd2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 19H5V5h14v14zM3 3v18h18V3H3zm14 12.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'),
     ],
   ),
   // disc_full_outlined
@@ -30535,6 +33043,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M7 11v2h10v-2H7zm5-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'),
     ],
   ),
+  // do_not_disturb_on_total_silence_outlined
+  0xefdc: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.6-6-6-6zm3 7H9v-2h6v2z'),
+    ],
+  ),
   // do_not_disturb_outlined
   0xefdd: WiredSvgIconData(
     width: 24.0,
@@ -30589,6 +33105,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z'),
+    ],
+  ),
+  // domain_verification_outlined
+  0xefe4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16.6 10.88-1.42-1.42-4.24 4.25-2.12-2.13L7.4 13l3.54 3.54z'),
+      WiredSvgPrimitive.path('M19 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6a2 2 0 0 0-2-2zm0 14H5V8h14v10z'),
     ],
   ),
   // done_all_outlined
@@ -30689,6 +33214,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M5 18h14v2H5v-2zm4.6-2.7L5 10.7l2-1.9 2.6 2.6L17 4l2 2-9.4 9.3z'),
     ],
   ),
+  // download_for_offline_outlined
+  0xeff1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm2.59-11.41L16 10l-4 4-4-4 1.41-1.41L11 10.17V6h2v4.17l1.59-1.58zM17 17H7v-2h10v2z'),
+    ],
+  ),
   // download_outlined
   0xeff2: WiredSvgIconData(
     width: 24.0,
@@ -30747,6 +33280,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l1.41 1.41.59.59H20v10zm-7.84-6H8v2h4.16l-1.59 1.59L11.99 17 16 13.01 11.99 9l-1.41 1.41L12.16 12z'),
     ],
   ),
+  // drive_file_rename_outline_outlined
+  0xeff9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m15 16-4 4h10v-4zm-2.94-8.81L3 16.25V20h3.75l9.06-9.06-3.75-3.75zM5.92 18H5v-.92l7.06-7.06.92.92L5.92 18zm12.79-9.96a.996.996 0 0 0 0-1.41l-2.34-2.34a1.001 1.001 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'),
+    ],
+  ),
+  // drive_folder_upload_outlined
+  0xeffa: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10zM9.41 14.42 11 12.84V17h2v-4.16l1.59 1.59L16 13.01 12.01 9 8 13.01l1.41 1.41z'),
+    ],
+  ),
   // dry_cleaning_outlined
   0xeffb: WiredSvgIconData(
     width: 24.0,
@@ -30769,6 +33318,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 2h-8C6.38 2 2 6.66 2 12.28 2 17.5 6.49 22 11.72 22 17.39 22 22 17.62 22 12V4c0-1.1-.9-2-2-2zm-3 13-3-2v2H7V9h7v2l3-2v6z'),
+    ],
+  ),
+  // dvr_outlined
+  0xeffe: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zm-2-9H8v2h11V8zm0 4H8v2h11v-2zM7 8H5v2h2V8zm0 4H5v2h2v-2z'),
     ],
   ),
   // dynamic_feed_outlined
@@ -30961,6 +33518,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 12c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm0 4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-8 4H7l6 3v-2h4l-6-3z'),
     ],
   ),
+  // electrical_services_outlined
+  0xf016: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 14c0-.55-.45-1-1-1h-2v2h2c.55 0 1-.45 1-1zm-1 3h-2v2h2c.55 0 1-.45 1-1s-.45-1-1-1zm-8-3h-2v4h2c0 1.1.9 2 2 2h3v-8h-3c-1.1 0-2 .9-2 2z'),
+      WiredSvgPrimitive.path('M5 13c0-1.1.9-2 2-2h1.5c1.93 0 3.5-1.57 3.5-3.5S10.43 4 8.5 4H5c-.55 0-1 .45-1 1s.45 1 1 1h3.5c.83 0 1.5.67 1.5 1.5S9.33 9 8.5 9H7c-2.21 0-4 1.79-4 4s1.79 4 4 4h2v-2H7c-1.1 0-2-.9-2-2z'),
+    ],
+  ),
   // elevator_outlined
   0xf017: WiredSvgIconData(
     width: 24.0,
@@ -31004,6 +33570,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m12.36 6 .4 2H18v6h-3.36l-.4-2H7V6h5.36M14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6L14 4z'),
     ],
   ),
+  // emoji_food_beverage_outlined
+  0xf01c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2 19h18v2H2zM20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm-4 10c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V5h3v1.4L7.19 7.85c-.12.09-.19.24-.19.39v4.26c0 .28.22.5.5.5h4c.28 0 .5-.22.5-.5V8.24c0-.15-.07-.3-.19-.39L10 6.4V5h6v8zM9.5 7.28l1.5 1.2V12H8V8.48l1.5-1.2zM20 8h-2V5h2v3z'),
+    ],
+  ),
   // emoji_nature_outlined
   0xf01d: WiredSvgIconData(
     width: 24.0,
@@ -31043,12 +33617,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15.5 11A2.5 2.5 0 0 0 18 8.5V4h3V2h-4v4.51c-.42-.32-.93-.51-1.5-.51a2.5 2.5 0 0 0 0 5zm-5.76 4.96-1.41 1.41-.71-.71.35-.35a2.499 2.499 0 0 0-1.77-4.27 2.499 2.499 0 0 0-1.77 4.27l.35.35-1.06 1.06c-.98.98-.98 2.56 0 3.54.5.5 1.14.74 1.78.74s1.28-.24 1.77-.73l1.06-1.06 1.41 1.41 1.41-1.41-1.41-1.41 1.41-1.41-1.41-1.43zM5.85 14.2c.12-.12.26-.15.35-.15s.23.03.35.15c.19.2.19.51 0 .71l-.35.35-.35-.36a.501.501 0 0 1 0-.7zm0 5.65c-.12.12-.26.15-.35.15s-.23-.03-.35-.15a.513.513 0 0 1 0-.71l1.06-1.06.71.71-1.07 1.06z'),
     ],
   ),
+  // emoji_transportation_outlined
+  0xf021: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.57 10.66c-.14-.4-.52-.66-.97-.66h-7.19c-.46 0-.83.26-.98.66L10 14.77l.01 5.51c0 .38.31.72.69.72h.62c.38 0 .68-.38.68-.76V19h8v1.24c0 .38.31.76.69.76h.61c.38 0 .69-.34.69-.72l.01-1.37v-4.14l-1.43-4.11zm-8.16.34h7.19l1.03 3h-9.25l1.03-3zM12 17c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm8 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
+      WiredSvgPrimitive.path('M14 9h1V3H7v5H2v13h1V9h5V4h6z'),
+      WiredSvgPrimitive.path('M5 11h2v2H5zm5-6h2v2h-2zM5 15h2v2H5zm0 4h2v2H5z'),
+    ],
+  ),
   // engineering_outlined
   0xf022: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M9 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm-6 4c.22-.72 3.31-2 6-2 2.7 0 5.8 1.29 6 2H3zM4.74 9H5c0 2.21 1.79 4 4 4s4-1.79 4-4h.26c.27 0 .49-.22.49-.49v-.02a.49.49 0 0 0-.49-.49H13c0-1.48-.81-2.75-2-3.45v.95c0 .28-.22.5-.5.5s-.5-.22-.5-.5V4.14C9.68 4.06 9.35 4 9 4s-.68.06-1 .14V5.5c0 .28-.22.5-.5.5S7 5.78 7 5.5v-.95C5.81 5.25 5 6.52 5 8h-.26a.49.49 0 0 0-.49.49v.03c0 .26.22.48.49.48zM11 9c0 1.1-.9 2-2 2s-2-.9-2-2h4zm10.98-2.77.93-.83-.75-1.3-1.19.39c-.14-.11-.3-.2-.47-.27L20.25 3h-1.5l-.25 1.22c-.17.07-.33.16-.48.27l-1.18-.39-.75 1.3.93.83c-.02.17-.02.35 0 .52l-.93.85.75 1.3 1.2-.38c.13.1.28.18.43.25l.28 1.23h1.5l.27-1.22c.16-.07.3-.15.44-.25l1.19.38.75-1.3-.93-.85c.03-.19.02-.36.01-.53zM19.5 7.75a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm-.1 3.04-.85.28c-.1-.08-.21-.14-.33-.19l-.18-.88h-1.07l-.18.87c-.12.05-.24.12-.34.19l-.84-.28-.54.93.66.59c-.01.13-.01.25 0 .37l-.66.61.54.93.86-.27c.1.07.2.13.31.18l.18.88h1.07l.19-.87c.11-.05.22-.11.32-.18l.85.27.54-.93-.66-.61c.01-.13.01-.25 0-.37l.66-.59-.53-.93zm-1.9 2.6c-.49 0-.89-.4-.89-.89s.4-.89.89-.89.89.4.89.89-.4.89-.89.89z'),
+    ],
+  ),
+  // enhanced_encryption_outlined
+  0xf023: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H8.9V6zM18 20H6V10h12v10zm-5-9h-2v3H8v2h3v3h2v-3h3v-2h-3z'),
     ],
   ),
   // equalizer_outlined
@@ -31129,6 +33721,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM5 7V5h14v2H5zm3.23 9.41 1.06 1.06 2.44-2.44 2.44 2.44 1.06-1.06-2.44-2.44 2.44-2.44-1.06-1.06-2.44 2.44-2.44-2.44-1.06 1.06 2.44 2.44z'),
+    ],
+  ),
+  // event_note_outlined
+  0xf02e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM5 7V5h14v2H5zm2 4h10v2H7zm0 4h7v2H7z'),
     ],
   ),
   // event_outlined
@@ -31275,6 +33875,43 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M10.25 13a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0zM15 11.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zm7 .25c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10zM10.66 4.12C12.06 6.44 14.6 8 17.5 8c.46 0 .91-.05 1.34-.12C17.44 5.56 14.9 4 12 4c-.46 0-.91.05-1.34.12zM4.42 9.47a8.046 8.046 0 0 0 3.66-4.44 8.046 8.046 0 0 0-3.66 4.44zM20 12c0-.78-.12-1.53-.33-2.24-.7.15-1.42.24-2.17.24a10 10 0 0 1-7.76-3.69A10.016 10.016 0 0 1 4 11.86c.01.04 0 .09 0 .14 0 4.41 3.59 8 8 8s8-3.59 8-8z'),
     ],
   ),
+  // face_retouching_natural_outlined
+  0xf041: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19.89 10.75c.07.41.11.82.11 1.25 0 4.41-3.59 8-8 8s-8-3.59-8-8c0-.05.01-.1 0-.14 2.6-.98 4.69-2.99 5.74-5.55 3.38 4.14 7.97 3.73 8.99 3.61l-.89-1.93c-.13.01-4.62.38-7.18-3.86 1.01-.16 1.71-.15 2.59-.01 2.52-1.15 1.93-.89 2.76-1.26A9.62 9.62 0 0 0 12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-1.43-.3-2.78-.84-4.01l-1.27 2.76zM8.08 5.03a8.046 8.046 0 0 1-3.66 4.44 8.046 8.046 0 0 1 3.66-4.44z'),
+      WiredSvgPrimitive.circle(cx: 15.0, cy: 13.0, radius: 1.25),
+      WiredSvgPrimitive.circle(cx: 9.0, cy: 13.0, radius: 1.25),
+      WiredSvgPrimitive.path('m23 4.5-2.4-1.1L19.5 1l-1.1 2.4L16 4.5l2.4 1.1L19.5 8l1.1-2.4z'),
+    ],
+  ),
+  // face_retouching_off_outlined
+  0xf042: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 9.0, cy: 13.0, radius: 1.25),
+      WiredSvgPrimitive.path('M17.5 10c.75 0 1.47-.09 2.17-.24.21.71.33 1.46.33 2.24 0 1.22-.28 2.37-.77 3.4l1.49 1.49A9.981 9.981 0 0 0 22 12c0-5.52-4.48-10-10-10-1.78 0-3.44.47-4.89 1.28l5.33 5.33c1.49.88 3.21 1.39 5.06 1.39zm-6.84-5.88c.43-.07.88-.12 1.34-.12 2.9 0 5.44 1.56 6.84 3.88-.43.07-.88.12-1.34.12-2.9 0-5.44-1.56-6.84-3.88zm-8.77-.4 2.19 2.19A9.958 9.958 0 0 0 2 12c0 5.52 4.48 10 10 10 2.29 0 4.4-.78 6.09-2.08l2.19 2.19 1.41-1.41L3.31 2.31 1.89 3.72zm14.77 14.77A7.91 7.91 0 0 1 12 20c-4.41 0-8-3.59-8-8 0-.05.01-.1 0-.14a9.946 9.946 0 0 0 3.64-2.39l9.02 9.02zM6.23 8.06c-.53.55-1.14 1.03-1.81 1.41.26-.77.63-1.48 1.09-2.13l.72.72z'),
+    ],
+  ),
+  // face_unlock_outlined
+  0xf043: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 12.5a3 3 0 100-6 3 3 0 000 6Zm0 2c-3.9 0-7 1.9-7 4.5V21h10v-1H7c.3-1.7 2.5-3 5-3s4.7 1.3 5 3h-1v1h3v-2c0-2.6-3.1-4.5-7-4.5Z'),
+      WiredSvgPrimitive.path('M17 9V8a2 2 0 114 0v1h1v6h-6V9h1Zm1 0h2V8a1 1 0 10-2 0v1Z'),
+    ],
+  ),
+  // facebook_outlined
+  0xf044: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z'),
+    ],
+  ),
   // fact_check_outlined
   0xf045: WiredSvgIconData(
     width: 24.0,
@@ -31332,6 +33969,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m12 21.35-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'),
     ],
   ),
+  // featured_play_list_outlined
+  0xf04c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 10h9v2H5zm0-3h9v2H5z'),
+    ],
+  ),
+  // featured_video_outlined
+  0xf04d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM4 6h9v7H4z'),
+    ],
+  ),
   // feed_outlined
   0xf04e: WiredSvgIconData(
     width: 24.0,
@@ -31378,6 +34031,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m11.87 12.43-1-3.43h-1.5l1.75 6h1.5l1.75-6h-1.5zM21 11.5v-1c0-.85-.65-1.5-1.5-1.5H16v6h1.5v-2h1.15l.85 2H21l-.9-2.1c.5-.25.9-.8.9-1.4zm-1.5 0h-2v-1h2v1zM6.5 9H3v6h3.5c.85 0 1.5-.65 1.5-1.5v-3C8 9.65 7.35 9 6.5 9zm0 4.5h-2v-3h2v3z'),
+    ],
+  ),
+  // fiber_manual_record_outlined
+  0xf054: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6m0-2c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z'),
     ],
   ),
   // fiber_new_outlined
@@ -31548,6 +34209,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16-7-8v8H5l7-8V5h7v14z'),
     ],
   ),
+  // filter_center_focus_outlined
+  0xf06a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 15H3v4c0 1.1.9 2 2 2h4v-2H5v-4zM5 5h4V3H5c-1.1 0-2 .9-2 2v4h2V5zm14-2h-4v2h4v4h2V5c0-1.1-.9-2-2-2zm0 16h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zM12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'),
+    ],
+  ),
   // filter_drama_outlined
   0xf06b: WiredSvgIconData(
     width: 24.0,
@@ -31653,6 +34322,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M2 2v20h20V2H2zm10 16c-1.58 0-2.97-1.88-3-3.06 0-.05-.01-.13-.01-.22-.13-1.73 1-3.2 2.47-4.37.47 1.01 1.27 2.03 2.57 2.92.58.42.97.86.97 1.73 0 1.65-1.35 3-3 3zm8 2h-2v-2h-2.02A4.98 4.98 0 0 0 17 15c0-1.89-1.09-2.85-1.85-3.37C12.2 9.61 13 7 13 7c-6.73 3.57-6.02 7.47-6 8 .03.96.49 2.07 1.23 3H6v2H4V4h16v16z'),
     ],
   ),
+  // first_page_outlined
+  0xf078: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.41 16.59 13.82 12l4.59-4.59L17 6l-6 6 6 6 1.41-1.41zM6 6h2v12H6V6z'),
+    ],
+  ),
   // fit_screen_outlined
   0xf079: WiredSvgIconData(
     width: 24.0,
@@ -31742,12 +34419,37 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M16 7.08c0 1.77-.84 3.25-2 3.82V21h-2V10.9c-1.16-.57-2-2.05-2-3.82C10.01 4.83 11.35 3 13 3c1.66 0 3 1.83 3 4.08zM17 3v18h2v-8h2V7c0-1.76-1.24-4-4-4zM8.28 3c-.4 0-.72.32-.72.72V7h-.84V3.72C6.72 3.32 6.4 3 6 3s-.72.32-.72.72V7h-.84V3.72c0-.4-.32-.72-.72-.72S3 3.32 3 3.72V9c0 1.1.9 2 2 2v10h2V11c1.1 0 2-.9 2-2V3.72c0-.4-.32-.72-.72-.72z'),
     ],
   ),
+  // flight_land_outlined
+  0xf084: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2.5 19h19v2h-19v-2zm16.84-3.15c.8.21 1.62-.26 1.84-1.06.21-.8-.26-1.62-1.06-1.84l-5.31-1.42-2.76-9.02L10.12 2v8.28L5.15 8.95l-.93-2.32-1.45-.39v5.17l16.57 4.44z'),
+    ],
+  ),
   // flight_outlined
   0xf085: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'),
+    ],
+  ),
+  // flight_takeoff_outlined
+  0xf086: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2.5 19h19v2h-19v-2zm19.57-9.36c-.21-.8-1.04-1.28-1.84-1.06L14.92 10l-6.9-6.43-1.93.51 4.14 7.17-4.97 1.33-1.97-1.54-1.45.39 2.59 4.49L21 11.49c.81-.23 1.28-1.05 1.07-1.85z'),
+    ],
+  ),
+  // flip_camera_android_outlined
+  0xf087: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 12c0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3-3 1.34-3 3zm4 0c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1z'),
+      WiredSvgPrimitive.path('M8 10V8H5.09C6.47 5.61 9.05 4 12 4c3.72 0 6.85 2.56 7.74 6h2.06c-.93-4.56-4.96-8-9.8-8-3.27 0-6.18 1.58-8 4.01V4H2v6h6zm8 4v2h2.91c-1.38 2.39-3.96 4-6.91 4-3.72 0-6.85-2.56-7.74-6H2.2c.93 4.56 4.96 8 9.8 8 3.27 0 6.18-1.58 8-4.01V20h2v-6h-6z'),
     ],
   ),
   // flip_camera_ios_outlined
@@ -31872,6 +34574,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m12 5.5 6 4.5v9H6v-9l6-4.5M12 3 4 9v12h16V9l-8-6zm-.5 6.5v3H11v-3h-1v3h-.5v-3h-1v3c0 .83.67 1.5 1.5 1.5v4h1v-4c.83 0 1.5-.67 1.5-1.5v-3h-1zm1.5 2v3h1V18h1V9.5c-1.1 0-2 .9-2 2z'),
     ],
   ),
+  // format_align_center_outlined
+  0xf098: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 15v2h10v-2H7zm-4 6h18v-2H3v2zm0-8h18v-2H3v2zm4-6v2h10V7H7zM3 3v2h18V3H3z'),
+    ],
+  ),
+  // format_align_justify_outlined
+  0xf099: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z'),
+    ],
+  ),
   // format_align_left_outlined
   0xf09a: WiredSvgIconData(
     width: 24.0,
@@ -31928,12 +34646,60 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M2 20h20v4H2v-4zm3.49-3h2.42l1.27-3.58h5.65L16.09 17h2.42L13.25 3h-2.5L5.49 17zm4.42-5.61 2.03-5.79h.12l2.03 5.79H9.91z'),
     ],
   ),
+  // format_indent_decrease_outlined
+  0xf0a1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 17h10v-2H11v2zm-8-5 4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z'),
+    ],
+  ),
+  // format_indent_increase_outlined
+  0xf0a2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z'),
+    ],
+  ),
   // format_italic_outlined
   0xf0a3: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M10 4v3h2.21l-3.42 8H6v3h8v-3h-2.21l3.42-8H18V4h-8z'),
+    ],
+  ),
+  // format_line_spacing_outlined
+  0xf0a4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6 7h2.5L5 3.5 1.5 7H4v10H1.5L5 20.5 8.5 17H6V7zm4-2v2h12V5H10zm0 14h12v-2H10v2zm0-6h12v-2H10v2z'),
+    ],
+  ),
+  // format_list_bulleted_outlined
+  0xf0a5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z'),
+    ],
+  ),
+  // format_list_numbered_outlined
+  0xf0a6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z'),
+    ],
+  ),
+  // format_list_numbered_rtl_outlined
+  0xf0a7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 17h2v.5h-1v1h1v.5h-2v1h3v-4h-3v1zm1-9h1V4h-2v1h1v3zm-1 3h1.8L18 13.1v.9h3v-1h-1.8l1.8-2.1V10h-3v1zM2 5h14v2H2V5zm0 12h14v2H2v-2zm0-6h14v2H2v-2z'),
     ],
   ),
   // format_paint_outlined
@@ -31966,6 +34732,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M9 4v3h5v12h3V7h5V4H9zm-6 8h3v7h3v-7h3V9H3v3z'),
+    ],
+  ),
+  // format_strikethrough_outlined
+  0xf0ac: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 19h4v-3h-4v3zM5 4v3h5v3h4V7h5V4H5zM3 14h18v-2H3v2z'),
+    ],
+  ),
+  // format_textdirection_l_to_r_outlined
+  0xf0ad: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 4v4c-1.1 0-2-.9-2-2s.9-2 2-2m8-2H9C6.79 2 5 3.79 5 6s1.79 4 4 4v5h2V4h2v11h2V4h2V2zm0 12v3H5v2h12v3l4-4-4-4z'),
+    ],
+  ),
+  // format_textdirection_r_to_l_outlined
+  0xf0ae: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 4v4c-1.1 0-2-.9-2-2s.9-2 2-2m8-2h-8C7.79 2 6 3.79 6 6s1.79 4 4 4v5h2V4h2v11h2V4h2V2zM8 14l-4 4 4 4v-3h12v-2H8v-3z'),
     ],
   ),
   // format_underline_outlined
@@ -32009,6 +34799,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17.95 13c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6v4l5-5-5-5v4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8h-2zm-5.52 2.15c-.05.07-.11.13-.18.17s-.17.06-.27.06c-.17 0-.31-.05-.42-.15s-.17-.24-.19-.41h-.84c.01.2.05.37.13.53s.19.28.32.39.29.19.46.24.35.08.53.08c.24 0 .46-.04.64-.12s.33-.18.45-.31.21-.28.27-.45.09-.35.09-.54c0-.22-.03-.43-.09-.6s-.14-.33-.25-.45-.25-.22-.41-.28-.34-.1-.55-.1c-.07 0-.14.01-.2.02s-.13.02-.18.04-.1.03-.15.05-.08.04-.11.05l.11-.92h1.7v-.71H10.9l-.25 2.17.67.17c.03-.03.06-.06.1-.09s.07-.05.12-.07.1-.04.15-.05.13-.02.2-.02c.12 0 .22.02.3.05s.16.09.21.15.1.14.13.24.04.19.04.31-.01.22-.03.31-.06.17-.11.24z'),
     ],
   ),
+  // forward_outlined
+  0xf0b4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 8.83 17.17 12 14 15.17V14H6v-4h8V8.83M12 4v4H4v8h8v4l8-8-8-8z'),
+    ],
+  ),
   // forward_to_inbox_outlined
   0xf0b5: WiredSvgIconData(
     width: 24.0,
@@ -32047,6 +34845,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z'),
+    ],
+  ),
+  // functions_outlined
+  0xf0ba: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 4H6v2l6.5 6L6 18v2h12v-3h-7l5-5-5-5h7V4z'),
     ],
   ),
   // g_mobiledata_outlined
@@ -32387,6 +35193,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C8.69 2 6 4.69 6 8s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm2.04 9-.63-1.79h-2.83L9.96 11H8.74l2.63-7h1.25l2.63 7h-1.21z'),
     ],
   ),
+  // hdr_enhanced_select_outlined
+  0xf0e4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6zm0 2C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm1 7h-2V9H9V7h2V5h2v2h2v2h-2v2zm11 9h-2v2h-1.5v-2h-2v-1.5h2v-2H22v2h2V20zm-6-1.5c0 .6-.4 1.1-.9 1.4L18 22h-1.5l-.9-2h-1.1v2H13v-6h3.5c.8 0 1.5.7 1.5 1.5v1zm-1.5 0v-1h-2v1h2zm-13-.5v-2H5v6H3.5v-2.5h-2V22H0v-6h1.5v2h2zm6.5-2c.8 0 1.5.7 1.5 1.5v3c0 .8-.7 1.5-1.5 1.5H6.5v-6H10zm0 4.5v-3H8v3h2z'),
+    ],
+  ),
   // hdr_off_outlined
   0xf0e5: WiredSvgIconData(
     width: 24.0,
@@ -32531,6 +35345,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M13.25 16.74c0 .69-.53 1.26-1.25 1.26-.7 0-1.26-.56-1.26-1.26 0-.71.56-1.25 1.26-1.25.71 0 1.25.55 1.25 1.25zM11.99 6c-1.77 0-2.98 1.15-3.43 2.49l1.64.69c.22-.67.74-1.48 1.8-1.48 1.62 0 1.94 1.52 1.37 2.33-.54.77-1.47 1.29-1.96 2.16-.39.69-.31 1.49-.31 1.98h1.82c0-.93.07-1.12.22-1.41.39-.72 1.11-1.06 1.87-2.17.68-1 .42-2.36-.02-3.08-.51-.84-1.52-1.51-3-1.51zM19 5H5v14h14V5m0-2c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h14z'),
     ],
   ),
+  // help_outline_outlined
+  0xf0f7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z'),
+    ],
+  ),
+  // help_outlined
+  0xf0f8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z'),
+    ],
+  ),
   // hevc_outlined
   0xf0f9: WiredSvgIconData(
     width: 24.0,
@@ -32651,6 +35481,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m12 5.69 5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3 2 12h3v8h6v-6h2v6h6v-8h3L12 3z'),
     ],
   ),
+  // home_repair_service_outlined
+  0xf108: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 8h-3V6c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v10h20V10c0-1.1-.9-2-2-2zM9 6h6v2H9V6zm11 12H4v-3h2v1h2v-1h8v1h2v-1h2v3zm-2-5v-1h-2v1H8v-1H6v1H4v-3h16v3h-2z'),
+    ],
+  ),
   // home_work_outlined
   0xf109: WiredSvgIconData(
     width: 24.0,
@@ -32658,6 +35496,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M1 11v10h6v-5h2v5h6V11L8 6l-7 5zm12 8h-2v-5H5v5H3v-6.97l5-3.57 5 3.57V19zm4-12h2v2h-2zm0 4h2v2h-2zm0 4h2v2h-2z'),
       WiredSvgPrimitive.path('M10 3v1.97l2 1.43V5h9v14h-4v2h6V3z'),
+    ],
+  ),
+  // horizontal_distribute_outlined
+  0xf10a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 22H2V2h2v20zM22 2h-2v20h2V2zm-8.5 5h-3v10h3V7z'),
     ],
   ),
   // horizontal_rule_outlined
@@ -32823,6 +35669,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M16 10h-2v2h2v-2zm0 4h-2v2h2v-2zm-8-4H6v2h2v-2zm4 0h-2v2h2v-2zm8-6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z'),
     ],
   ),
+  // image_not_supported_outlined
+  0xf11f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m21.9 21.9-6.1-6.1-2.69-2.69L5 5 3.59 3.59 2.1 2.1.69 3.51 3 5.83V19c0 1.1.9 2 2 2h13.17l2.31 2.31 1.42-1.41zM5 19V7.83l6.84 6.84-.84 1.05L9 13l-3 4h8.17l2 2H5zM7.83 5l-2-2H19c1.1 0 2 .9 2 2v13.17l-2-2V5H7.83z'),
+    ],
+  ),
   // image_outlined
   0xf120: WiredSvgIconData(
     width: 24.0,
@@ -32879,6 +35733,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5v-3h3.56c.69 1.19 1.97 2 3.45 2s2.75-.81 3.45-2H19v3zm0-5h-4.99c0 1.1-.9 2-2 2s-2-.9-2-2H5V5h14v9z'),
     ],
   ),
+  // indeterminate_check_box_outlined
+  0xf127: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 11h10v2H7z'),
+    ],
+  ),
   // info_outlined
   0xf128: WiredSvgIconData(
     width: 24.0,
@@ -32887,12 +35749,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'),
     ],
   ),
+  // input_outlined
+  0xf129: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3.01H3c-1.1 0-2 .9-2 2V9h2V4.99h18v14.03H3V15H1v4.01c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14a2 2 0 0 0-2-2zM11 16l4-4-4-4v3H1v2h10v3zM21 3.01H3c-1.1 0-2 .9-2 2V9h2V4.99h18v14.03H3V15H1v4.01c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14a2 2 0 0 0-2-2zM11 16l4-4-4-4v3H1v2h10v3z'),
+    ],
+  ),
   // insert_chart_outlined
   0xf12a: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
-      WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z'),
+      WiredSvgPrimitive.path('M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4zm2 2H5V5h14v14zm0-16H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'),
+    ],
+  ),
+  // insert_chart_outlined_outlined
+  0xf12b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4zm2 2H5V5h14v14zm0-16H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'),
     ],
   ),
   // insert_comment_outlined
@@ -32950,6 +35828,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21 8c-1.45 0-2.26 1.44-1.93 2.51l-3.55 3.56c-.3-.09-.74-.09-1.04 0l-2.55-2.55C12.27 10.45 11.46 9 10 9c-1.45 0-2.27 1.44-1.93 2.52l-4.56 4.55C2.44 15.74 1 16.55 1 18c0 1.1.9 2 2 2 1.45 0 2.26-1.44 1.93-2.51l4.55-4.56c.3.09.74.09 1.04 0l2.55 2.55C12.73 16.55 13.54 18 15 18c1.45 0 2.27-1.44 1.93-2.52l3.56-3.55c1.07.33 2.51-.48 2.51-1.93 0-1.1-.9-2-2-2z'),
       WiredSvgPrimitive.path('m15 9 .94-2.07L18 6l-2.06-.93L15 3l-.92 2.07L12 6l2.08.93zM3.5 11 4 9l2-.5L4 8l-.5-2L3 8l-2 .5L3 9z'),
+    ],
+  ),
+  // integration_instructions_outlined
+  0xf133: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 14.17 8.83 12 11 9.83 9.59 8.41 6 12l3.59 3.59zm3.41 1.42L18 12l-3.59-3.59L13 9.83 15.17 12 13 14.17z'),
+      WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04a2.008 2.008 0 0 0-1.44 1.19c-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 15v4H5V5h14v10z'),
     ],
   ),
   // inventory_2_outlined
@@ -33026,12 +35913,44 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 4H3c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 15H3V6h18v13zM9 8h2v2H9V8zM5 8h2v2H5V8zm3 8h8v1H8v-1zm5-8h2v2h-2V8zm-4 4h2v2H9v-2zm-4 0h2v2H5v-2zm8 0h2v2h-2v-2zm4-4h2v2h-2V8zm0 4h2v2h-2v-2z'),
     ],
   ),
+  // keyboard_arrow_down_outlined
+  0xf13d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z'),
+    ],
+  ),
+  // keyboard_arrow_left_outlined
+  0xf13e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.41 16.59 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z'),
+    ],
+  ),
+  // keyboard_arrow_right_outlined
+  0xf13f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z'),
+    ],
+  ),
   // keyboard_arrow_up_outlined
   0xf140: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z'),
+    ],
+  ),
+  // keyboard_backspace_outlined
+  0xf141: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21v-2z'),
     ],
   ),
   // keyboard_capslock_outlined
@@ -33066,6 +35985,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 7v4H5.83l3.58-3.59L8 6l-6 6 6 6 1.41-1.41L5.83 13H21V7h-2z'),
     ],
   ),
+  // keyboard_tab_outlined
+  0xf146: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11.59 7.41 15.17 11H1v2h14.17l-3.59 3.59L13 18l6-6-6-6-1.41 1.41zM20 6v12h2V6h-2z'),
+    ],
+  ),
   // keyboard_voice_outlined
   0xf147: WiredSvgIconData(
     width: 24.0,
@@ -33096,6 +36023,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M6 3c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm14.06-2h-2.12L15.5 3.44l1.06 1.06 3.5-3.5zM22 23v-2h-1c-1.04 0-2.08-.35-3-1-1.83 1.3-4.17 1.3-6 0-1.83 1.3-4.17 1.3-6 0-.91.65-1.96 1-3 1H2v2h1c1.03 0 2.05-.25 3-.75 1.89 1 4.11 1 6 0 1.89 1 4.11 1 6 0 .95.5 1.97.75 3 .75h1zm-1-9.72c0 1.44-2.19 3.62-5.04 5.58-.31.09-.63.14-.96.14-1.2 0-2.27-.66-3-1.5-.73.84-1.8 1.5-3 1.5-.94 0-1.81-.41-2.49-.99.46-.39.96-.78 1.49-1.17l-1.55-2.97A4.06 4.06 0 0 1 6 12V8c0-1.1.9-2 2-2h3c1.38 0 2.63-.56 3.54-1.46l1.41 1.41A7.018 7.018 0 0 1 11 8H9.6v3.5h2.8l1.69 1.88c1.95-.84 3.77-1.38 5.06-1.38.84 0 1.85.25 1.85 1.28zm-8.8.99-.7-.77-2.5.1.83 2.01c.59-.38 1.81-1.06 2.37-1.34z'),
+    ],
+  ),
+  // label_important_outlined
+  0xf14b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 18.99h11c.67 0 1.27-.32 1.63-.83L21 12l-4.37-6.16C16.27 5.33 15.67 5 15 5H4l5 7-5 6.99z'),
+    ],
+  ),
+  // label_off_outlined
+  0xf14c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16 7 3.55 5-1.63 2.29 1.43 1.43L22 12l-4.37-6.16C17.27 5.33 16.67 5 16 5l-7.37.01 2 1.99H16zM2 4.03l1.58 1.58C3.22 5.96 3 6.46 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.28 0 .55-.07.79-.18L18.97 21l1.41-1.41L3.41 2.62 2 4.03zM14.97 17H5V7.03L14.97 17z'),
+    ],
+  ),
+  // label_outlined
+  0xf14d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16zM16 17H5V7h11l3.55 5L16 17z'),
     ],
   ),
   // landscape_outlined
@@ -33144,6 +36095,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 18v-1c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2v1H0v2h24v-2h-4zM4 5h16v10H4V5z'),
+    ],
+  ),
+  // last_page_outlined
+  0xf154: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.59 7.41 10.18 12l-4.59 4.59L7 18l6-6-6-6-1.41 1.41zM16 6h2v12h-2V6z'),
+    ],
+  ),
+  // launch_outlined
+  0xf155: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'),
     ],
   ),
   // layers_clear_outlined
@@ -33322,6 +36289,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M3 14c0 1.3.84 2.4 2 2.82V20H3v2h6v-2H7v-3.18C8.16 16.4 9 15.3 9 14V6H3v8zm2-6h2v3H5V8zm0 5h2v1c0 .55-.45 1-1 1s-1-.45-1-1v-1zm15.64-4.46-.96-.32a1 1 0 0 1-.68-.95V3c0-.55-.45-1-1-1h-3c-.55 0-1 .45-1 1v4.28a1 1 0 0 1-.68.95l-.96.32c-.81.28-1.36 1.04-1.36 1.9V20c0 1.1.9 2 2 2h7c1.1 0 2-.9 2-2v-9.56c0-.86-.55-1.62-1.36-1.9zM16 4h1v1h-1V4zm4 16h-7v-2h7v2zm0-4h-7v-2h7v2zm0-4h-7v-1.56l.95-.32C15.18 9.72 16 8.57 16 7.28V7h1v.28a3 3 0 0 0 2.05 2.85l.95.31V12z'),
     ],
   ),
+  // list_alt_outlined
+  0xf16c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 7h6v2h-6zm0 4h6v2h-6zm0 4h6v2h-6zM7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7zM20.1 3H3.9c-.5 0-.9.4-.9.9v16.2c0 .4.4.9.9.9h16.2c.4 0 .9-.5.9-.9V3.9c0-.5-.5-.9-.9-.9zM19 19H5V5h14v14z'),
+    ],
+  ),
+  // list_outlined
+  0xf16d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7zm-4 6h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'),
+    ],
+  ),
+  // live_help_outlined
+  0xf16e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4l3 3 3-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 16h-4.83l-.59.59L12 20.17l-1.59-1.59-.58-.58H5V4h14v14zm-8-3h2v2h-2zm1-8c1.1 0 2 .9 2 2 0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2z'),
+    ],
+  ),
   // live_tv_outlined
   0xf16f: WiredSvgIconData(
     width: 24.0,
@@ -33388,6 +36379,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.circle(cx: 16.5, cy: 16.5, radius: 1.5),
     ],
   ),
+  // local_convenience_store_outlined
+  0xf177: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 7V4H5v3H2v13h8v-4h4v4h8V7h-3zm1 11h-4v-4H8v4H4V9h3V6h10v3h3v9zM8 8h2v1H8v3h3v-1H9v-1h2V7H8zm7 1h-1V7h-1v3h2v2h1V7h-1z'),
+    ],
+  ),
   // local_dining_outlined
   0xf178: WiredSvgIconData(
     width: 24.0,
@@ -33402,6 +36401,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m3 2 2.01 18.23C5.13 21.23 5.97 22 7 22h10c1.03 0 1.87-.77 1.99-1.77L21 2H3zm14 18-10 .01L5.89 10H18.1L17 20zm1.33-12H5.67l-.44-4h13.53l-.43 4zM12 19c1.66 0 3-1.34 3-3 0-2-3-5.4-3-5.4S9 14 9 16c0 1.66 1.34 3 3 3zm0-5.09c.59.91 1 1.73 1 2.09 0 .55-.45 1-1 1s-1-.45-1-1c0-.37.41-1.19 1-2.09z'),
+    ],
+  ),
+  // local_fire_department_outlined
+  0xf17a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16 6-.44.55c-.42.52-.98.75-1.54.75C13 7.3 12 6.52 12 5.3V2S4 6 4 13c0 4.42 3.58 8 8 8s8-3.58 8-8c0-2.96-1.61-5.62-4-7zm-4 13c-1.1 0-2-.87-2-1.94 0-.51.2-.99.58-1.36L12 14.3l1.43 1.4c.37.37.57.85.57 1.36 0 1.07-.9 1.94-2 1.94zm3.96-1.5c.04-.36.22-1.89-1.13-3.22L12 11.5l-2.83 2.78C7.81 15.62 8 17.16 8.04 17.5A5.982 5.982 0 0 1 6 13c0-3.16 2.13-5.65 4.03-7.25a4.024 4.024 0 0 0 3.99 3.55c.78 0 1.54-.23 2.18-.66A6.175 6.175 0 0 1 18 13c0 1.79-.79 3.4-2.04 4.5z'),
     ],
   ),
   // local_florist_outlined
@@ -33420,6 +36427,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m19.77 7.23.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33a2.5 2.5 0 0 0 2.5 2.5c.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5a2.5 2.5 0 0 0 5 0V9c0-.69-.28-1.32-.73-1.77zM12 13.5V19H6v-7h6v1.5zm0-3.5H6V5h6v5zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
     ],
   ),
+  // local_grocery_store_outlined
+  0xf17d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-1.45-5c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 20.01 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6z'),
+    ],
+  ),
   // local_hospital_outlined
   0xf17e: WiredSvgIconData(
     width: 24.0,
@@ -33434,6 +36449,17 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M7 14c1.66 0 3-1.34 3-3S8.66 8 7 8s-3 1.34-3 3 1.34 3 3 3zm0-4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm12-3h-8v8H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4zm2 8h-8V9h6c1.1 0 2 .9 2 2v4z'),
+    ],
+  ),
+  // local_laundry_service_outlined
+  0xf180: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 2.01 6 2c-1.11 0-2 .89-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V4c0-1.11-.89-1.99-2-1.99zM18 20H6L5.99 4H18v16z'),
+      WiredSvgPrimitive.circle(cx: 8.0, cy: 6.0, radius: 1.0),
+      WiredSvgPrimitive.circle(cx: 11.0, cy: 6.0, radius: 1.0),
+      WiredSvgPrimitive.path('M12 19c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm2.36-7.36c1.3 1.3 1.3 3.42 0 4.72-1.3 1.3-3.42 1.3-4.72 0l4.72-4.72z'),
     ],
   ),
   // local_library_outlined
@@ -33740,6 +36766,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6 14h3v2H4V8h2v6zm3-4h2v6h2v-6h2V8H9v2zm12 0V8h-5v8h5v-2h-3v-1h3v-2h-3v-1h3z'),
     ],
   ),
+  // lte_plus_mobiledata_outlined
+  0xf1a6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 14h3v2H1V8h2v6zm2-4h2v6h2v-6h2V8H5v2zm7 6h5v-2h-3v-1h3v-2h-3v-1h3V8h-5v8zm12-5h-2V9h-2v2h-2v2h2v2h2v-2h2v-2z'),
+    ],
+  ),
   // luggage_outlined
   0xf1a7: WiredSvgIconData(
     width: 24.0,
@@ -33903,6 +36937,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M3 3h18v2H3V3z'),
     ],
   ),
+  // media_bluetooth_off_outlined
+  0xf1bb: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 6.17V3h6v4h-4v1.17l-2-2zM19.42 15 22 17.57l-.8.8-6.78-6.78.8-.8 2.75 2.75V9h.6L22 12.43 19.42 15zm-.25-1.45 1.13-1.13-1.13-1.13v2.26zm2.02 7.64-1.41 1.41-3.98-3.98-.58.58-.85-.85.58-.58L11 13.83V17c0 2.21-1.78 4-3.99 4S3 19.21 3 17s1.79-4 4.01-4c.73 0 1.41.21 2 .55v-1.72L1.39 4.22 2.8 2.81l18.39 18.38z'),
+    ],
+  ),
   // media_bluetooth_on_outlined
   0xf1bc: WiredSvgIconData(
     width: 24.0,
@@ -34059,6 +37101,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6 19h12v2H6v-2z'),
     ],
   ),
+  // miscellaneous_services_outlined
+  0xf1cf: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14.17 13.71 1.4-2.42c.09-.15.05-.34-.08-.45l-1.48-1.16c.03-.22.05-.45.05-.68s-.02-.46-.05-.69l1.48-1.16c.13-.11.17-.3.08-.45l-1.4-2.42c-.09-.15-.27-.21-.43-.15l-1.74.7c-.36-.28-.75-.51-1.18-.69l-.26-1.85a.364.364 0 0 0-.35-.29h-2.8c-.17 0-.32.13-.35.3L6.8 4.15c-.42.18-.82.41-1.18.69l-1.74-.7c-.16-.06-.34 0-.43.15l-1.4 2.42c-.09.15-.05.34.08.45l1.48 1.16c-.03.22-.05.45-.05.68s.02.46.05.69l-1.48 1.16c-.13.11-.17.3-.08.45l1.4 2.42c.09.15.27.21.43.15l1.74-.7c.36.28.75.51 1.18.69l.26 1.85c.03.16.18.29.35.29h2.8c.17 0 .32-.13.35-.3l.26-1.85c.42-.18.82-.41 1.18-.69l1.74.7c.16.06.34 0 .43-.15zM8.81 11c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm13.11 7.67-.96-.74c.02-.14.04-.29.04-.44 0-.15-.01-.3-.04-.44l.95-.74c.08-.07.11-.19.05-.29l-.9-1.55c-.05-.1-.17-.13-.28-.1l-1.11.45c-.23-.18-.48-.33-.76-.44l-.17-1.18a.216.216 0 0 0-.21-.2h-1.79c-.11 0-.21.08-.22.19l-.17 1.18c-.27.12-.53.26-.76.44l-1.11-.45a.23.23 0 0 0-.28.1l-.9 1.55c-.05.1-.04.22.05.29l.95.74a3.145 3.145 0 0 0 0 .88l-.95.74c-.08.07-.11.19-.05.29l.9 1.55c.05.1.17.13.28.1l1.11-.45c.23.18.48.33.76.44l.17 1.18c.02.11.11.19.22.19h1.79c.11 0 .21-.08.22-.19l.17-1.18c.27-.12.53-.26.75-.44l1.12.45c.1.04.22 0 .28-.1l.9-1.55c.06-.09.03-.21-.05-.28zm-4.29.16a1.35 1.35 0 1 1 .001-2.701 1.35 1.35 0 0 1-.001 2.701z'),
+    ],
+  ),
   // missed_video_call_outlined
   0xf1d0: WiredSvgIconData(
     width: 24.0,
@@ -34089,6 +37139,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 5v8.61l2 2V3c0-1.1-.9-2-2-2H7c-.71 0-1.33.37-1.68.93L8.39 5H17zM1.49 3.76 5 7.27V21c0 1.1.9 2 2 2h10c1.02 0 1.85-.77 1.98-1.75l1.72 1.72 1.41-1.41L2.9 2.35 1.49 3.76zM7 9.27 16.73 19H7V9.27z'),
+    ],
+  ),
+  // mobile_screen_share_outlined
+  0xf1d4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1H7c-1.1 0-1.99.85-1.99 1.95v18C5.01 22.05 5.9 23 7 23h10c1.1 0 2-.95 2-2.05v-18C19 1.85 18.1 1 17 1zm0 18H7V5h10v14zm-4.2-5.76v1.75L16 12l-3.2-2.98v1.7c-3.11.43-4.35 2.56-4.8 4.7 1.11-1.5 2.58-2.18 4.8-2.18z'),
     ],
   ),
   // mobiledata_off_outlined
@@ -34297,6 +37355,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m2.88 7.88 1.54 1.54C4.15 10.23 4 11.1 4 12c0 4.41 3.59 8 8 8s8-3.59 8-8-3.59-8-8-8c-.9 0-1.77.15-2.58.42L7.89 2.89C9.15 2.32 10.54 2 12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12c0-1.47.32-2.86.88-4.12zM7 5.5C7 6.33 6.33 7 5.5 7S4 6.33 4 5.5 4.67 4 5.5 4 7 4.67 7 5.5z'),
     ],
   ),
+  // motion_photos_pause_outlined
+  0xf1ee: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m2.88 7.88 1.54 1.54C4.15 10.23 4 11.1 4 12c0 4.41 3.59 8 8 8s8-3.59 8-8-3.59-8-8-8c-.9 0-1.77.15-2.58.42L7.89 2.89C9.15 2.32 10.54 2 12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12c0-1.47.32-2.86.88-4.12zM7 5.5C7 6.33 6.33 7 5.5 7S4 6.33 4 5.5 4.67 4 5.5 4 7 4.67 7 5.5zm4 9.5H9V9h2v6zm4 0h-2V9h2v6z'),
+    ],
+  ),
+  // motion_photos_paused_outlined
+  0xf1ef: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12c0-1.19.22-2.32.6-3.38l1.88.68C4.17 10.14 4 11.05 4 12c0 4.41 3.59 8 8 8s8-3.59 8-8-3.59-8-8-8c-.95 0-1.85.17-2.69.48l-.68-1.89C9.69 2.22 10.82 2 12 2c5.52 0 10 4.48 10 10zM5.5 4C4.67 4 4 4.67 4 5.5S4.67 7 5.5 7 7 6.33 7 5.5 6.33 4 5.5 4zM11 16V8H9v8h2zm4 0V8h-2v8h2z'),
+    ],
+  ),
   // motorcycle_outlined
   0xf1f0: WiredSvgIconData(
     width: 960.0,
@@ -34360,6 +37434,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 9h-3.5v6H15v-1.5h2c.55 0 1-.45 1-1V10c0-.55-.45-1-1-1zm-.5 3H15v-1.5h1.5V12zm-5-3H7c-.55 0-1 .45-1 1v5h1.5v-4.5h1v3H10v-3h1V15h1.5v-5c0-.55-.45-1-1-1z'),
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 19V5h14v14H5z'),
+    ],
+  ),
+  // multiline_chart_outlined
+  0xf1f8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22 6.92-1.41-1.41-2.85 3.21C15.68 6.4 12.83 5 9.61 5 6.72 5 4.07 6.16 2 8l1.42 1.42C5.12 7.93 7.27 7 9.61 7c2.74 0 5.09 1.26 6.77 3.24l-2.88 3.24-4-4L2 16.99l1.5 1.5 6-6.01 4 4 4.05-4.55c.75 1.35 1.25 2.9 1.44 4.55H21c-.22-2.3-.95-4.39-2.04-6.14L22 6.92z'),
     ],
   ),
   // multiple_stop_outlined
@@ -34435,6 +37517,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.circle(cx: 4.5, cy: 9.5, radius: 1.5),
       WiredSvgPrimitive.path('M22.17 9.17c0-3.87-3.13-7-7-7s-7 3.13-7 7A6.98 6.98 0 0 0 14 16.06V20H6v-3h1v-4c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v4h1v5h16v-2h-3v-3.88a7 7 0 0 0 6.17-6.95zm-7 5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z'),
+    ],
+  ),
+  // navigate_before_outlined
+  0xf202: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.61 7.41 14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z'),
+    ],
+  ),
+  // navigate_next_outlined
+  0xf203: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10.02 6 8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z'),
     ],
   ),
   // navigation_outlined
@@ -34534,6 +37632,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15.97 11.03C14.87 9.79 13.28 9 11.5 9c-2.82 0-5.18 1.95-5.82 4.56l.96.32C7.15 11.66 9.13 10 11.5 10c1.51 0 2.85.68 3.76 1.74L13 14h5V9l-2.03 2.03z'),
     ],
   ),
+  // next_week_outlined
+  0xf210: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m11 18.5 4-4-4-4-1 1 3 3-3 3zM20 7h-4V5c0-.55-.22-1.05-.59-1.41C15.05 3.22 14.55 3 14 3h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM10 5h4v2h-4V5zm10 15H4V9h16v11z'),
+    ],
+  ),
   // nfc_outlined
   0xf211: WiredSvgIconData(
     width: 24.0,
@@ -34614,6 +37720,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21.19 21.19 2.81 2.81 1.39 4.22l8.23 8.23L11 14v5H6v2h12v-.17l1.78 1.78 1.41-1.42zM13 19v-3.17L16.17 19H13zM7.83 5l-2-2H21v2l-6.2 6.97-1.42-1.42L14.77 9h-2.94l-2-2h6.74l1.78-2H7.83z'),
+    ],
+  ),
+  // no_encryption_gmailerrorred_outlined
+  0xf21b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2h-4.66l2 2H18v5.56l2 2V10c0-1.1-.9-2-2-2h-1V6c0-2.76-2.24-5-5-5-2.32 0-4.26 1.59-4.82 3.74L8.9 6.46V6zM4.41 4.81 3 6.22l2.04 2.04C4.42 8.6 4 9.25 4 10v10c0 1.1.9 2 2 2h12.78l1 1 1.41-1.41L4.41 4.81zM6 20V10h.78l10 10H6z'),
     ],
   ),
   // no_encryption_outlined
@@ -34744,6 +37858,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31A7.902 7.902 0 0 1 12 20zm6.31-3.1L7.1 5.69A7.902 7.902 0 0 1 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z'),
     ],
   ),
+  // not_listed_location_outlined
+  0xf22c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.01 16a.99.99 0 0 1-.71-.29.95.95 0 0 1-.29-.71c-.01-.55.43-.99.98-1h.02c.28 0 .51.1.71.29.18.19.28.43.28.7s-.1.51-.29.71-.43.3-.7.3zm-.88-3.66c0-.45.1-.84.29-1.16.19-.33.53-.7 1-1.12.28-.25.48-.47.61-.66s.19-.4.19-.64c0-.29-.11-.53-.32-.74-.21-.2-.5-.3-.85-.3-.37 0-.74.1-.96.3-.21.2-.4.45-.4.98H9c0-1.01.46-1.73.97-2.21C10.53 6.28 11.25 6 12 6c.59 0 1.11.12 1.57.35s.79.55 1.05.96.38.86.38 1.35-.1.9-.31 1.25-.48.71-.89 1.09c-.32.3-.53.56-.65.77s-.18.49-.18.81V13h-1.85v-.66h.01zM18 10.2C18 6.57 15.35 4 12 4s-6 2.57-6 6.2c0 2.34 1.95 5.44 6 9.14 4.05-3.7 6-6.8 6-9.14zM12 2c4.2 0 8 3.22 8 8.2 0 3.32-2.67 7.25-8 11.8-5.33-4.55-8-8.48-8-11.8C4 5.22 7.8 2 12 2z'),
+    ],
+  ),
   // not_started_outlined
   0xf22d: WiredSvgIconData(
     width: 24.0,
@@ -34758,6 +37880,23 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 11h-2v3H8v2h3v3h2v-3h3v-2h-3zm1-9H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z'),
+    ],
+  ),
+  // note_alt_outlined
+  0xf22f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 19H5V5h14v14z'),
+      WiredSvgPrimitive.path('m15.08 11.03-2.12-2.12L7 14.86V17h2.1zm1.77-1.76c.2-.2.2-.51 0-.71l-1.41-1.41c-.2-.2-.51-.2-.71 0l-1.06 1.06 2.12 2.12 1.06-1.06z'),
+    ],
+  ),
+  // note_outlined
+  0xf230: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16 4H4c-1.1 0-2 .9-2 2v12.01c0 1.1.9 1.99 2 1.99h16c1.1 0 2-.9 2-2v-8l-6-6zM4 18.01V6h11v5h5v7.01H4z'),
     ],
   ),
   // notes_outlined
@@ -34776,7 +37915,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M16 14v3H8v-7c0-2.21 1.79-4 4-4 .85 0 1.64.26 2.28.72l1.43-1.43A5.87 5.87 0 0 0 13.5 4.2v-.7c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.7C7.91 4.86 6 7.21 6 10v7H4v2h16v-2h-2v-3h-2zm-4 8c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zM24 8h-3V5h-2v3h-3v2h3v3h2v-3h3V8z'),
     ],
   ),
-  // notifications_on_outlined
+  // notification_important_outlined
+  0xf233: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10.01 21.01c0 1.1.89 1.99 1.99 1.99s1.99-.89 1.99-1.99h-3.98zM12 6c2.76 0 5 2.24 5 5v7H7v-7c0-2.76 2.24-5 5-5zm0-4.5c-.83 0-1.5.67-1.5 1.5v1.17C7.36 4.85 5 7.65 5 11v6l-2 2v1h18v-1l-2-2v-6c0-3.35-2.36-6.15-5.5-6.83V3c0-.83-.67-1.5-1.5-1.5zM11 8h2v4h-2zm0 6h2v2h-2z'),
+    ],
+  ),
+  // notifications_active_outlined
   0xf234: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
@@ -34806,6 +37953,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z'),
+    ],
+  ),
+  // notifications_paused_outlined
+  0xf238: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9.5 9.8h2.8l-2.8 3.4V15h5v-1.8h-2.8l2.8-3.4V8h-5zM18 16v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6zm-4 5c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z'),
     ],
   ),
   // offline_bolt_outlined
@@ -34880,6 +38035,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M16.79 5.8 14 3h7v7l-2.79-2.8-4.09 4.09-1.41-1.41 4.08-4.08zM19 12v4.17l2 2V12h-2zm.78 10.61L18.17 21H5a2 2 0 0 1-2-2V5.83L1.39 4.22 2.8 2.81l18.38 18.38-1.4 1.42zM16.17 19l-4.88-4.88-1.59 1.59-1.41-1.41 1.59-1.59L5 7.83V19h11.17zM7.83 5H12V3H5.83l2 2z'),
+    ],
+  ),
+  // open_in_new_outlined
+  0xf242: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'),
     ],
   ),
   // open_with_outlined
@@ -35007,6 +38170,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'),
     ],
   ),
+  // panorama_horizontal_outlined
+  0xf252: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 6.54v10.91c-2.6-.77-5.28-1.16-8-1.16s-5.4.39-8 1.16V6.54c2.6.77 5.28 1.16 8 1.16 2.72.01 5.4-.38 8-1.16M21.43 4c-.1 0-.2.02-.31.06C18.18 5.16 15.09 5.7 12 5.7s-6.18-.55-9.12-1.64A.94.94 0 0 0 2.57 4c-.34 0-.57.23-.57.63v14.75c0 .39.23.62.57.62.1 0 .2-.02.31-.06 2.94-1.1 6.03-1.64 9.12-1.64s6.18.55 9.12 1.64c.11.04.21.06.31.06.33 0 .57-.23.57-.63V4.63c0-.4-.24-.63-.57-.63z'),
+    ],
+  ),
+  // panorama_horizontal_select_outlined
+  0xf253: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 5.5c-3.89 0-6.95-.84-8.69-1.43A.993.993 0 0 0 2 5.02V19c0 .68.66 1.17 1.31.95C5.36 19.26 8.1 18.5 12 18.5c3.87 0 6.66.76 8.69 1.45A.999.999 0 0 0 22 19V5c0-.68-.66-1.17-1.31-.95-2.03.68-4.83 1.45-8.69 1.45z'),
+    ],
+  ),
   // panorama_outlined
   0xf254: WiredSvgIconData(
     width: 24.0,
@@ -35015,12 +38194,52 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 4H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H3V6h18v12zm-6.5-7L11 15.51 8.5 12.5 5 17h14z'),
     ],
   ),
+  // panorama_photosphere_outlined
+  0xf255: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.95 8.15c-.29-.16-.61-.31-.93-.46C19.4 4.33 15.98 2 12 2 8.02 2 4.6 4.33 2.99 7.68c-.33.15-.64.3-.93.46C1.41 8.5 1 9.17 1 9.91v4.18c0 .74.41 1.41 1.05 1.77.29.16.61.31.93.46C4.6 19.67 8.02 22 12 22c3.98 0 7.4-2.33 9.01-5.68.33-.15.64-.3.93-.46.65-.36 1.06-1.03 1.06-1.77V9.91c0-.74-.41-1.41-1.05-1.76zM21 9.91v4.19c-2.19 1.21-5.47 1.9-9 1.9-3.53 0-6.81-.7-9-1.91V9.91C5.2 8.69 8.47 8 12 8c3.53 0 6.81.7 9 1.91zM12 4c2.37 0 4.49 1.04 5.95 2.68C16.17 6.25 14.15 6 12 6c-2.15 0-4.17.25-5.95.68A7.943 7.943 0 0 1 12 4zm0 16c-2.37 0-4.49-1.04-5.95-2.68 1.78.43 3.8.68 5.95.68s4.17-.25 5.95-.68A7.943 7.943 0 0 1 12 20z'),
+    ],
+  ),
+  // panorama_photosphere_select_outlined
+  0xf256: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.95 8.15c-.29-.16-.61-.31-.93-.46C19.4 4.33 15.98 2 12 2 8.02 2 4.6 4.33 2.99 7.68c-.33.15-.64.3-.93.46C1.41 8.5 1 9.17 1 9.91v4.18c0 .74.41 1.41 1.05 1.77.29.16.61.31.93.46C4.6 19.67 8.02 22 12 22c3.98 0 7.4-2.33 9.01-5.68.33-.15.64-.3.93-.46.65-.36 1.06-1.03 1.06-1.77V9.91c0-.74-.41-1.41-1.05-1.76zM12 4c2.37 0 4.49 1.04 5.95 2.68C16.17 6.25 14.15 6 12 6c-2.15 0-4.17.25-5.95.68A7.943 7.943 0 0 1 12 4zm0 16c-2.37 0-4.49-1.04-5.95-2.68 1.78.43 3.8.68 5.95.68s4.17-.25 5.95-.68A7.943 7.943 0 0 1 12 20z'),
+    ],
+  ),
   // panorama_vertical_outlined
   0xf257: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19.94 21.12c-1.1-2.94-1.64-6.03-1.64-9.12s.55-6.18 1.64-9.12a.94.94 0 0 0 .06-.31c0-.34-.23-.57-.63-.57H4.63c-.4 0-.63.23-.63.57 0 .1.02.2.06.31C5.16 5.82 5.71 8.91 5.71 12s-.55 6.18-1.64 9.12c-.05.11-.07.22-.07.31 0 .33.23.57.63.57h14.75c.39 0 .63-.24.63-.57-.01-.1-.03-.2-.07-.31zM6.54 20c.77-2.6 1.16-5.28 1.16-8s-.39-5.4-1.16-8h10.91c-.77 2.6-1.16 5.28-1.16 8s.39 5.4 1.16 8H6.54z'),
+    ],
+  ),
+  // panorama_vertical_select_outlined
+  0xf258: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.5 12c0-3.89.84-6.95 1.43-8.69A.993.993 0 0 0 18.98 2H5c-.68 0-1.16.66-.95 1.31C4.74 5.36 5.5 8.1 5.5 12c0 3.87-.76 6.66-1.45 8.69-.21.65.27 1.31.95 1.31h14c.68 0 1.17-.66.95-1.31-.68-2.03-1.45-4.83-1.45-8.69z'),
+    ],
+  ),
+  // panorama_wide_angle_outlined
+  0xf259: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 6c2.45 0 4.71.2 7.29.64.47 1.78.71 3.58.71 5.36s-.24 3.58-.71 5.36c-2.58.44-4.84.64-7.29.64s-4.71-.2-7.29-.64C4.24 15.58 4 13.78 4 12s.24-3.58.71-5.36C7.29 6.2 9.55 6 12 6m0-2c-2.73 0-5.22.24-7.95.72l-.93.16-.25.9C2.29 7.85 2 9.93 2 12s.29 4.15.87 6.22l.25.89.93.16c2.73.49 5.22.73 7.95.73s5.22-.24 7.95-.72l.93-.16.25-.89c.58-2.08.87-4.16.87-6.23s-.29-4.15-.87-6.22l-.25-.89-.93-.16C17.22 4.24 14.73 4 12 4z'),
+    ],
+  ),
+  // panorama_wide_angle_select_outlined
+  0xf25a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4c-3.97 0-6.85.63-9 1-.55 1.97-1 3.92-1 7 0 3.03.45 5.05 1 7 2.15.37 4.98 1 9 1 3.97 0 6.85-.63 9-1 .57-2.02 1-3.99 1-7 0-3.03-.45-5.05-1-7-2.15-.37-4.98-1-9-1z'),
     ],
   ),
   // paragliding_outlined
@@ -35061,6 +38280,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M4 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm2 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-.02 6c-.74 0-1.37.4-1.72 1h-2.54a1.98 1.98 0 0 0-3.44 0H8.41l3.07-3.07c.17.04.34.07.52.07 1.1 0 2-.9 2-2 0-.18-.03-.35-.07-.51l3.56-3.56c.16.04.33.07.51.07 1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2c0 .18.03.35.07.51l-3.56 3.56c-.16-.04-.33-.07-.51-.07-1.1 0-2 .9-2 2 0 .18.03.35.07.51l-3.56 3.56C6.35 16.03 6.18 16 6 16c-1.1 0-2 .9-2 2s.9 2 2 2c.74 0 1.37-.4 1.72-1h2.57a1.98 1.98 0 0 0 3.44 0h2.55c.34.6.98 1 1.72 1 1.1 0 2-.9 2-2-.02-1.1-.92-2-2.02-2z'),
+    ],
+  ),
+  // pause_circle_filled_outlined
+  0xf260: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z'),
+    ],
+  ),
+  // pause_circle_outline_outlined
+  0xf261: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 16h2V8H9v8zm3-14C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-4h2V8h-2v8z'),
     ],
   ),
   // pause_circle_outlined
@@ -35234,6 +38469,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 9V6h-2v3h-3v2h3v3h2v-3h3V9h-3zM9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm6.39 8.56C13.71 13.7 11.53 13 9 13s-4.71.7-6.39 1.56A2.97 2.97 0 0 0 1 17.22V20h16v-2.78c0-1.12-.61-2.15-1.61-2.66zM15 18H3v-.78c0-.38.2-.72.52-.88C4.71 15.73 6.63 15 9 15c2.37 0 4.29.73 5.48 1.34.32.16.52.5.52.88V18z'),
     ],
   ),
+  // person_add_disabled_outlined
+  0xf277: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15 6c1.1 0 2 .9 2 2a2 2 0 0 1-1.67 1.97l-2.31-2.31C13.19 6.72 14.01 6 15 6m0-2c-2.21 0-4 1.79-4 4 0 .18.03.35.05.52l3.43 3.43c.17.02.34.05.52.05 2.21 0 4-1.79 4-4s-1.79-4-4-4zm1.69 10.16L22.53 20H23v-2c0-2.14-3.56-3.5-6.31-3.84zm-3.68 1.97L14.88 18H9c.08-.24.88-1.01 2.91-1.57l1.1-.3M1.41 1.71 0 3.12l4 4V10H1v2h3v3h2v-3h2.88l2.51 2.51C9.19 15.11 7 16.3 7 18v2h9.88l4 4 1.41-1.41L1.41 1.71zM6 10v-.88l.88.88H6z'),
+    ],
+  ),
   // person_add_outlined
   0xf278: WiredSvgIconData(
     width: 24.0,
@@ -35282,6 +38525,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4l3 3 3-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 16h-4.83l-.59.59L12 20.17l-1.59-1.59-.58-.58H5V4h14v14zm-7-7c1.65 0 3-1.35 3-3s-1.35-3-3-3-3 1.35-3 3 1.35 3 3 3zm0-4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm6 8.58c0-2.5-3.97-3.58-6-3.58s-6 1.08-6 3.58V17h12v-1.42zM8.48 15c.74-.51 2.23-1 3.52-1s2.78.49 3.52 1H8.48z'),
     ],
   ),
+  // person_remove_alt_1_outlined
+  0xf27e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 8c0-2.21-1.79-4-4-4S6 5.79 6 8s1.79 4 4 4 4-1.79 4-4zm-2 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM2 18v2h16v-2c0-2.66-5.33-4-8-4s-8 1.34-8 4zm2 0c.2-.71 3.3-2 6-2 2.69 0 5.77 1.28 6 2H4zm13-8h6v2h-6z'),
+    ],
+  ),
   // person_remove_outlined
   0xf27f: WiredSvgIconData(
     width: 24.0,
@@ -35323,6 +38574,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11 11h2v6h-2z'),
     ],
   ),
+  // pest_control_rodent_outlined
+  0xf284: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 17.0, cy: 17.0, radius: 1.0),
+      WiredSvgPrimitive.path('m20.86 14.97-.93-.84c.48-3.45-2.87-6.04-6.05-4.82A5.79 5.79 0 0 0 12 9c-4.26 0-5.65 3.58-5.89 4.85A2.983 2.983 0 0 1 4 11c0-1.66 1.34-3 3-3h2.5a2.5 2.5 0 0 0 0-5H8c-.55 0-1 .45-1 1s.45 1 1 1h1.5c.28 0 .5.22.5.5s-.22.5-.5.5H7c-2.76 0-5 2.24-5 5 0 2.44 1.76 4.47 4.07 4.91A5.998 5.998 0 0 0 12 21h6.53c3.11 0 4.7-3.89 2.33-6.03zM18.53 19H12c-1.21 0-2.34-.54-3.11-1.48-.78-.95-1.06-2.16-.8-3.41a3.95 3.95 0 0 1 2.99-3.01c.22-.05.45-.06.67-.07-.47.71-.75 1.55-.75 2.47 0 1.24.5 2.37 1.32 3.18l1.41-1.41c-.45-.45-.73-1.08-.73-1.77 0-1.42 1.2-2.5 2.5-2.5a2.5 2.5 0 0 1 2.5 2.5c0 .46-.13.88-.35 1.25l1.87 1.7c.31.28.48.67.48 1.09 0 .8-.66 1.46-1.47 1.46z'),
+    ],
+  ),
   // pets_outlined
   0xf285: WiredSvgIconData(
     width: 24.0,
@@ -35341,6 +38601,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm1 17H7V4h10v14zm-3 3h-4v-1h4v1z'),
+    ],
+  ),
+  // phone_bluetooth_speaker_outlined
+  0xf287: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 15.5c-1.25 0-2.45-.2-3.57-.57-.1-.03-.21-.05-.31-.05-.26 0-.51.1-.71.29l-2.2 2.2a15.045 15.045 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM5.03 5h1.5c.07.88.22 1.75.45 2.58l-1.2 1.21c-.4-1.21-.66-2.47-.75-3.79zM19 18.97c-1.32-.09-2.6-.35-3.8-.76l1.2-1.2c.85.24 1.72.39 2.6.45v1.51zM14.71 9.5 17 7.21V11h.5l2.85-2.85L18.21 6l2.15-2.15L17.5 1H17v3.79L14.71 2.5l-.71.71L16.79 6 14 8.79l.71.71zM18 2.91l.94.94-.94.94V2.91zm0 4.3.94.94-.94.94V7.21z'),
     ],
   ),
   // phone_callback_outlined
@@ -35531,6 +38799,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4.86 8.86-3 3.87L9 13.14 6 17h12l-3.86-5.14z'),
     ],
   ),
+  // photo_size_select_actual_outlined
+  0xf29f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3C2 3 1 4 1 5v14c0 1.1.9 2 2 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2zm0 15.92c-.02.03-.06.06-.08.08H3V5.08L3.08 5h17.83c.03.02.06.06.08.08v13.84zm-10-3.41L8.5 12.5 5 17h14l-4.5-6z'),
+    ],
+  ),
+  // photo_size_select_large_outlined
+  0xf2a0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 15h2v2h-2v-2zm0-4h2v2h-2v-2zm2 8h-2v2c1 0 2-1 2-2zM13 3h2v2h-2V3zm8 4h2v2h-2V7zm0-4v2h2c0-1-1-2-2-2zM1 7h2v2H1V7zm16-4h2v2h-2V3zm0 16h2v2h-2v-2zM3 3C2 3 1 4 1 5h2V3zm6 0h2v2H9V3zM5 3h2v2H5V3zm-4 8v8c0 1.1.9 2 2 2h12V11H1zm2 8 2.5-3.21 1.79 2.15 2.5-3.22L13 19H3z'),
+    ],
+  ),
+  // photo_size_select_small_outlined
+  0xf2a1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M23 15h-2v2h2v-2zm0-4h-2v2h2v-2zm0 8h-2v2c1 0 2-1 2-2zM15 3h-2v2h2V3zm8 4h-2v2h2V7zm-2-4v2h2c0-1-1-2-2-2zM3 21h8v-6H1v4c0 1.1.9 2 2 2zM3 7H1v2h2V7zm12 12h-2v2h2v-2zm4-16h-2v2h2V3zm0 16h-2v2h2v-2zM3 3C2 3 1 4 1 5h2V3zm0 8H1v2h2v-2zm8-8H9v2h2V3zM7 3H5v2h2V3z'),
+    ],
+  ),
   // piano_off_outlined
   0xf2a2: WiredSvgIconData(
     width: 24.0,
@@ -35553,6 +38845,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm12 6V9c0-.55-.45-1-1-1h-2v5h2c.55 0 1-.45 1-1zm-2-3h1v3h-1V9zm4 2h1v-1h-1V9h1V8h-2v5h1zm-8 0h1c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1H9v5h1v-2zm0-2h1v1h-1V9z'),
+    ],
+  ),
+  // picture_in_picture_alt_outlined
+  0xf2a5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 11h-8v6h8v-6zm-2 4h-4v-2h4v2zm4-12H3c-1.1 0-2 .88-2 1.98V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V4.98C23 3.88 22.1 3 21 3zm0 16.02H3V4.97h18v14.05z'),
     ],
   ),
   // picture_in_picture_outlined
@@ -35630,6 +38930,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z'),
     ],
   ),
+  // play_circle_outline_outlined
+  0xf2b0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m10 16.5 6-4.5-6-4.5zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'),
+    ],
+  ),
   // play_circle_outlined
   0xf2b1: WiredSvgIconData(
     width: 24.0,
@@ -35668,6 +38976,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M3 10h11v2H3zm0-4h11v2H3zm0 8h7v2H3zm17.59-2.07-4.25 4.24-2.12-2.12-1.41 1.41L16.34 19 22 13.34z'),
+    ],
+  ),
+  // playlist_add_outlined
+  0xf2b6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 10H3v2h11v-2zm0-4H3v2h11V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM3 16h7v-2H3v2z'),
     ],
   ),
   // playlist_play_outlined
@@ -35801,6 +39117,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M13 3h-2v10h2V3zm4.83 2.17-1.42 1.42A6.92 6.92 0 0 1 19 12c0 3.87-3.13 7-7 7A6.995 6.995 0 0 1 7.58 6.58L6.17 5.17A8.932 8.932 0 0 0 3 12a9 9 0 0 0 18 0c0-2.74-1.23-5.18-3.17-6.83z'),
     ],
   ),
+  // precision_manufacturing_outlined
+  0xf2c7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m19.93 8.35-3.6 1.68L14 7.7V6.3l2.33-2.33 3.6 1.68c.38.18.82.01 1-.36.18-.38.01-.82-.36-1l-3.92-1.83a.993.993 0 0 0-1.13.2L13.78 4.4A.975.975 0 0 0 13 4c-.55 0-1 .45-1 1v1H8.82C8.4 4.84 7.3 4 6 4 4.34 4 3 5.34 3 7c0 1.1.6 2.05 1.48 2.58L7.08 18H6c-1.1 0-2 .9-2 2v1h13v-1c0-1.1-.9-2-2-2h-1.62L8.41 8.77c.17-.24.31-.49.41-.77H12v1c0 .55.45 1 1 1 .32 0 .6-.16.78-.4l1.74 1.74c.3.3.75.38 1.13.2l3.92-1.83c.38-.18.54-.62.36-1a.753.753 0 0 0-1-.36zM6 8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5.11 10H9.17l-2.46-8h.1l4.3 8z'),
+    ],
+  ),
   // pregnant_woman_outlined
   0xf2c8: WiredSvgIconData(
     width: 24.0,
@@ -35876,6 +39200,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m12 3.19 7 3.11V11c0 4.52-2.98 8.69-7 9.93-4.02-1.24-7-5.41-7-9.93V6.3l7-3.11M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z'),
     ],
   ),
+  // production_quantity_limits_outlined
+  0xf2d1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M13 10h-2V8h2v2zm0-4h-2V1h2v5zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-8.9-5h7.45c.75 0 1.41-.41 1.75-1.03L21 4.96 19.25 4l-3.7 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2z'),
+    ],
+  ),
   // psychology_outlined
   0xf2d2: WiredSvgIconData(
     width: 24.0,
@@ -35907,6 +39239,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5 4h14v2H5zm0 10h4v6h6v-6h4l-7-7-7 7zm8-2v6h-2v-6H9.83L12 9.83 14.17 12H13z'),
+    ],
+  ),
+  // published_with_changes_outlined
+  0xf2d6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.6 19.5H21v2h-6v-6h2v2.73c1.83-1.47 3-3.71 3-6.23 0-4.07-3.06-7.44-7-7.93V2.05c5.05.5 9 4.76 9 9.95 0 2.99-1.32 5.67-3.4 7.5zM4 12c0-2.52 1.17-4.77 3-6.23V8.5h2v-6H3v2h2.4A9.966 9.966 0 0 0 2 12c0 5.19 3.95 9.45 9 9.95v-2.02c-3.94-.49-7-3.86-7-7.93zm12.24-3.89-5.66 5.66-2.83-2.83-1.41 1.41 4.24 4.24 7.07-7.07-1.41-1.41z'),
     ],
   ),
   // push_pin_outlined
@@ -35965,6 +39305,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15 4v7H5.17l-.59.59-.58.58V4h11m1-2H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm5 4h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1z'),
     ],
   ),
+  // queue_music_outlined
+  0xf2de: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 6h-5v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6zm-7 0H3v2h12V6zm0 4H3v2h12v-2zm-4 4H3v2h8v-2z'),
+    ],
+  ),
   // queue_outlined
   0xf2df: WiredSvgIconData(
     width: 24.0,
@@ -36014,7 +39362,7 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19.74 18.33A9.984 9.984 0 0 0 22 12c0-5.52-4.48-10-10-10S2 6.48 2 12s4.48 10 10 10a9.984 9.984 0 0 0 7.11-2.97c.03-.03.05-.06.07-.08.2-.2.39-.41.56-.62zM12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8c0 1.85-.63 3.54-1.69 4.9l-1.43-1.43c.69-.98 1.1-2.17 1.1-3.46 0-3.31-2.69-6-6-6s-6 2.69-6 6 2.69 6 6 6c1.3 0 2.51-.42 3.49-1.13l1.42 1.42A7.822 7.822 0 0 1 12 20zm1.92-7.49c.17-.66.02-1.38-.49-1.9l-.02-.02c-.77-.77-2-.78-2.78-.04-.01.01-.03.02-.05.04-.78.78-.78 2.05 0 2.83l.02.02c.52.51 1.25.67 1.91.49l1.51 1.51c-.6.36-1.29.58-2.04.58-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4c0 .73-.21 1.41-.56 2l-1.5-1.51z'),
     ],
   ),
-  // radio_button_on_outlined
+  // radio_button_checked_outlined
   0xf2e5: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
@@ -36150,6 +39498,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z'),
     ],
   ),
+  // redo_outlined
+  0xf2f5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16a8.002 8.002 0 0 1 7.6-5.5c1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z'),
+    ],
+  ),
   // reduce_capacity_outlined
   0xf2f6: WiredSvgIconData(
     width: 24.0,
@@ -36173,6 +39529,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 20H7v-1h10v1zm0-3H7v-.48c1.47-.99 3.22-1.52 5-1.52s3.53.53 5 1.52V18zm0-2.79c-1.5-.77-3.2-1.21-5-1.21s-3.5.44-5 1.21V6h10v9.21zM17 4H7V3h10v1z'),
       WiredSvgPrimitive.path('M12 13c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm0-4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z'),
+    ],
+  ),
+  // remove_circle_outline_outlined
+  0xf2f9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 11v2h10v-2H7zm5-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'),
     ],
   ),
   // remove_circle_outlined
@@ -36221,6 +39585,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 6.5a9.77 9.77 0 0 1 8.82 5.5c-1.65 3.37-5.02 5.5-8.82 5.5S4.83 15.37 3.18 12A9.77 9.77 0 0 1 12 6.5m0-2C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 5a2.5 2.5 0 0 1 0 5 2.5 2.5 0 0 1 0-5m0-2c-2.48 0-4.5 2.02-4.5 4.5s2.02 4.5 4.5 4.5 4.5-2.02 4.5-4.5-2.02-4.5-4.5-4.5z'),
+    ],
+  ),
+  // remove_shopping_cart_outlined
+  0xf300: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M1.41 1.13 0 2.54l4.39 4.39 2.21 4.66-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h7.46l1.38 1.38A1.997 1.997 0 0 0 17 22c.67 0 1.26-.33 1.62-.84L21.46 24l1.41-1.41L1.41 1.13zM7 15l1.1-2h2.36l2 2H7zM20 4H7.12l2 2h9.19l-2.76 5h-1.44l1.94 1.94c.54-.14.99-.49 1.25-.97l3.58-6.49C21.25 4.82 20.76 4 20 4zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z'),
     ],
   ),
   // reorder_outlined
@@ -36287,12 +39659,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8zm-1.31 8.9.25-2.17h2.39v.71h-1.7l-.11.92c.03-.02.07-.03.11-.05s.09-.04.15-.05.12-.03.18-.04.13-.02.2-.02c.21 0 .39.03.55.1s.3.16.41.28.2.27.25.45.09.38.09.6c0 .19-.03.37-.09.54s-.15.32-.27.45-.27.24-.45.31-.39.12-.64.12c-.18 0-.36-.03-.53-.08s-.32-.14-.46-.24-.24-.24-.32-.39-.13-.33-.13-.53h.84c.02.18.08.32.19.41s.25.15.42.15a.49.49 0 0 0 .45-.23c.04-.07.08-.15.11-.25s.03-.2.03-.31-.01-.21-.04-.31-.07-.17-.13-.24-.13-.12-.21-.15-.19-.05-.3-.05c-.08 0-.15.01-.2.02s-.11.03-.15.05-.08.05-.12.07-.07.06-.1.09l-.67-.16z'),
     ],
   ),
+  // replay_circle_filled_outlined
+  0xf309: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16.5c-3.31 0-6-2.69-6-6h2c0 2.21 1.79 4 4 4s4-1.79 4-4c0-2.24-1.85-4.09-4.16-3.99l1.57 1.57L12 11.5l-4-4 4-4 1.41 1.41-1.6 1.6C15.28 6.4 18 9.18 18 12.5c0 3.31-2.69 6-6 6z'),
+    ],
+  ),
   // replay_outlined
   0xf30a: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z'),
+    ],
+  ),
+  // reply_all_outlined
+  0xf30b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 8V5l-7 7 7 7v-3l-4-4 4-4zm6 1V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z'),
+    ],
+  ),
+  // reply_outlined
+  0xf30c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z'),
+    ],
+  ),
+  // report_gmailerrorred_outlined
+  0xf30d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27L15.73 3zM19 14.9 14.9 19H9.1L5 14.9V9.1L9.1 5h5.8L19 9.1v5.8z'),
+      WiredSvgPrimitive.circle(cx: 12.0, cy: 16.0, radius: 1.0),
+      WiredSvgPrimitive.path('M11 7h2v7h-2z'),
     ],
   ),
   // report_off_outlined
@@ -36453,6 +39859,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M18.98 17H2v2h20v-2zM21 16c-.27-4.07-3.25-7.4-7.16-8.21A2.006 2.006 0 0 0 12 5a2.006 2.006 0 0 0-1.84 2.79C6.25 8.6 3.27 11.93 3 16h18zm-9-6.42c2.95 0 5.47 1.83 6.5 4.41h-13A7.002 7.002 0 0 1 12 9.58z'),
     ],
   ),
+  // rotate_90_degrees_ccw_outlined
+  0xf321: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.34 6.41.86 12.9l6.49 6.48 6.49-6.48-6.5-6.49zM3.69 12.9l3.66-3.66L11 12.9l-3.66 3.66-3.65-3.66zm15.67-6.26A8.95 8.95 0 0 0 13 4V.76L8.76 5 13 9.24V6c1.79 0 3.58.68 4.95 2.05a7.007 7.007 0 0 1 0 9.9 6.973 6.973 0 0 1-7.79 1.44l-1.49 1.49C10.02 21.62 11.51 22 13 22c2.3 0 4.61-.88 6.36-2.64a8.98 8.98 0 0 0 0-12.72z'),
+    ],
+  ),
   // rotate_left_outlined
   0xf322: WiredSvgIconData(
     width: 24.0,
@@ -36542,6 +39956,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
       WiredSvgPrimitive.path('M13.54 8.97c-.23-.47-.76-.71-1.26-.53L9 9.65V12h1v-1.65l1.54-.57-.96 4.89-2.78-.57-.2.98 3.76.77.52-2.64L13 14.42V18h1v-3.97l-1.32-1.44.41-2.35C13.99 11.46 15.3 12 16 12v-1c-.41 0-1.63-.33-2.46-2.03z'),
       WiredSvgPrimitive.circle(cx: 13.5, cy: 7.0, radius: 1.0),
+    ],
+  ),
+  // running_with_errors_outlined
+  0xf32d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 10v8h-2v-8h2zm-2 10v2h2v-2h-2zm-2-2.71A7.99 7.99 0 0 1 12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8v9l7.55-7.55A9.965 9.965 0 0 0 12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c2.25 0 4.33-.74 6-2v-2.71z'),
     ],
   ),
   // rv_hookup_outlined
@@ -36682,12 +40104,53 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5l4-4 4 4 6-6v6zm0-8.5-6 6-4-4-4 4V5h14v5.5zM13.5 9V6H12v6h1.5zm3.7 3-2-3 2-3h-1.7l-2 3 2 3zM11 10.5H8.5v-.75H11V6H7v1.5h2.5v.75H7V12h4z'),
     ],
   ),
+  // screen_lock_landscape_outlined
+  0xf33f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 5H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-2 12H5V7h14v10zm-9-1h4c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1v-1a2 2 0 1 0-4 0v1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1zm.8-6c0-.66.54-1.2 1.2-1.2s1.2.54 1.2 1.2v1h-2.4v-1z'),
+    ],
+  ),
+  // screen_lock_portrait_outlined
+  0xf340: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 16h4c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1v-1a2 2 0 1 0-4 0v1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1zm.8-6c0-.66.54-1.2 1.2-1.2s1.2.54 1.2 1.2v1h-2.4v-1zM17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14z'),
+    ],
+  ),
+  // screen_lock_rotation_outlined
+  0xf341: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22.3 13.77-2.57-2.57-1.41 1.41 2.22 2.22-5.66 5.66L3.56 9.17l5.66-5.66 2.1 2.1 1.41-1.41-2.45-2.45a1.49 1.49 0 0 0-2.12 0L1.8 8.11a1.49 1.49 0 0 0 0 2.12l12.02 12.02c.59.59 1.54.59 2.12 0l6.36-6.36c.59-.59.59-1.54 0-2.12zM7.52 21.48A10.487 10.487 0 0 1 1.55 13H.05C.56 19.16 5.71 24 12 24l.66-.03-3.81-3.82-1.33 1.33zM15.05 10h5c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1v-.5a2.5 2.5 0 0 0-5 0V4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1zm.8-6.5c0-.94.76-1.7 1.7-1.7s1.7.76 1.7 1.7V4h-3.4v-.5z'),
+    ],
+  ),
   // screen_rotation_outlined
   0xf342: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M16.48 2.52c3.27 1.55 5.61 4.72 5.97 8.48h1.5C23.44 4.84 18.29 0 12 0l-.66.03 3.81 3.81 1.33-1.32zm-6.25-.77a1.49 1.49 0 0 0-2.12 0L1.75 8.11a1.49 1.49 0 0 0 0 2.12l12.02 12.02c.59.59 1.54.59 2.12 0l6.36-6.36c.59-.59.59-1.54 0-2.12L10.23 1.75zm4.6 19.44L2.81 9.17l6.36-6.36 12.02 12.02-6.36 6.36zm-7.31.29A10.487 10.487 0 0 1 1.55 13H.05C.56 19.16 5.71 24 12 24l.66-.03-3.81-3.81-1.33 1.32z'),
+    ],
+  ),
+  // screen_search_desktop_outlined
+  0xf343: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 18h16c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2zM4 5h16v11H4V5zM1 19h22v2H1z'),
+      WiredSvgPrimitive.path('M13.97 7.53c-1.37-1.37-3.58-1.37-4.95 0s-1.37 3.58 0 4.95c1.18 1.18 3 1.34 4.36.47l2.09 2.09 1.06-1.06-2.09-2.09c.87-1.36.72-3.18-.47-4.36zm-1.06 3.88c-.78.78-2.05.78-2.83 0-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.78.79.78 2.05 0 2.83z'),
+    ],
+  ),
+  // screen_share_outlined
+  0xf344: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 18c1.1 0 1.99-.9 1.99-2L22 6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2h-4zM4 16V6h16v10.01L4 16zm9-6.87c-3.89.54-5.44 3.2-6 5.87 1.39-1.87 3.22-2.72 6-2.72v2.19l4-3.74L13 7v2.13z'),
     ],
   ),
   // screenshot_outlined
@@ -36756,12 +40219,29 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z'),
     ],
   ),
+  // security_update_good_outlined
+  0xf34d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 21H7v-1h10v1zm0-3H7V6h10v12zm0-14H7V3h10v1zm-1 6.05-1.41-1.41-3.54 3.54-1.41-1.41-1.41 1.41L11.05 15 16 10.05z'),
+    ],
+  ),
   // security_update_outlined
   0xf34e: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 21H7v-1h10v1zm0-3H7V6h10v12zM7 4V3h10v1H7zm9 8-4 4-4-4 1.41-1.41L11 12.17V8h2v4.17l1.59-1.59L16 12z'),
+    ],
+  ),
+  // security_update_warning_outlined
+  0xf34f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 15h2v2h-2zm0-8h2v6h-2z'),
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 21H7v-1h10v1zm0-3H7V6h10v12zm0-14H7V3h10v1z'),
     ],
   ),
   // segment_outlined
@@ -36807,6 +40287,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17 12c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8-3-3 .71-.71 1.79 1.79V14h1v4.09l1.79-1.79.71.7-3 3z'),
     ],
   ),
+  // send_outlined
+  0xf355: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m4.01 6.03 7.51 3.22-7.52-1 .01-2.22m7.5 8.72L4 17.97v-2.22l7.51-1M2.01 3 2 10l15 2-15 2 .01 7L23 12 2.01 3z'),
+    ],
+  ),
   // send_to_mobile_outlined
   0xf356: WiredSvgIconData(
     width: 24.0,
@@ -36847,6 +40335,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M7.76 16.24C6.67 15.16 6 13.66 6 12s.67-3.16 1.76-4.24l1.42 1.42C8.45 9.9 8 10.9 8 12c0 1.1.45 2.1 1.17 2.83l-1.41 1.41zm8.48 0C17.33 15.16 18 13.66 18 12s-.67-3.16-1.76-4.24l-1.42 1.42C15.55 9.9 16 10.9 16 12c0 1.1-.45 2.1-1.17 2.83l1.41 1.41zM12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm8 2c0 2.21-.9 4.21-2.35 5.65l1.42 1.42C20.88 17.26 22 14.76 22 12s-1.12-5.26-2.93-7.07l-1.42 1.42A7.94 7.94 0 0 1 20 12zM6.35 6.35 4.93 4.93C3.12 6.74 2 9.24 2 12s1.12 5.26 2.93 7.07l1.42-1.42C4.9 16.21 4 14.21 4 12s.9-4.21 2.35-5.65z'),
     ],
   ),
+  // sentiment_dissatisfied_outlined
+  0xf35b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.path('M12 14c-2.33 0-4.32 1.45-5.12 3.5h1.67c.69-1.19 1.97-2 3.45-2s2.75.81 3.45 2h1.67c-.8-2.05-2.79-3.5-5.12-3.5zm-.01-12C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
+    ],
+  ),
   // sentiment_neutral_outlined
   0xf35c: WiredSvgIconData(
     width: 24.0,
@@ -36858,12 +40356,72 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
     ],
   ),
+  // sentiment_satisfied_alt_outlined
+  0xf35d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.path('M12 16c-1.48 0-2.75-.81-3.45-2H6.88a5.495 5.495 0 0 0 10.24 0h-1.67c-.69 1.19-1.97 2-3.45 2zm-.01-14C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
+    ],
+  ),
+  // sentiment_satisfied_outlined
+  0xf35e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.path('M12 16c-1.48 0-2.75-.81-3.45-2H6.88a5.495 5.495 0 0 0 10.24 0h-1.67c-.7 1.19-1.97 2-3.45 2zm-.01-14C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
+    ],
+  ),
+  // sentiment_very_dissatisfied_outlined
+  0xf35f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 13.5c-2.33 0-4.31 1.46-5.11 3.5h10.22c-.8-2.04-2.78-3.5-5.11-3.5zM7.82 12l1.06-1.06L9.94 12 11 10.94 9.94 9.88 11 8.82 9.94 7.76 8.88 8.82 7.82 7.76 6.76 8.82l1.06 1.06-1.06 1.06zm4.17-10C6.47 2 2 6.47 2 12s4.47 10 9.99 10S22 17.53 22 12 17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4.18-12.24-1.06 1.06-1.06-1.06L13 8.82l1.06 1.06L13 10.94 14.06 12l1.06-1.06L16.18 12l1.06-1.06-1.06-1.06 1.06-1.06z'),
+    ],
+  ),
+  // sentiment_very_satisfied_outlined
+  0xf360: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.47 2 12s4.47 10 9.99 10S22 17.53 22 12 17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm1-10.06L14.06 11l1.06-1.06L16.18 11l1.06-1.06-2.12-2.12L13 9.94zm-4.12 0L9.94 11 11 9.94 8.88 7.82 6.76 9.94 7.82 11l1.06-1.06zM12 17.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z'),
+    ],
+  ),
   // set_meal_outlined
   0xf361: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m21.05 17.56-17.97.94L3 17l17.98-.94.07 1.5zM21 19.48H3v1.5h18v-1.5zM23 13V4c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-2 0H3V4h18v9zm-1-7c-1.68 0-3.04.98-3.21 2.23-.64-.73-2.73-2.73-6.54-2.73-4.67 0-6.75 3-6.75 3s2.08 3 6.75 3c3.81 0 5.9-2 6.54-2.73C16.96 10.02 18.32 11 20 11V6z'),
+    ],
+  ),
+  // settings_accessibility_outlined
+  0xf362: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.5 4c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 6c1.86.5 4 .83 6 1v12h2v-6h2v6h2V7c2-.17 4.14-.5 6-1l-.5-2zM12 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM7 24h2v-2H7v2zm4 0h2v-2h-2v2zm4 0h2v-2h-2v2z'),
+    ],
+  ),
+  // settings_applications_outlined
+  0xf363: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m6.21 13.97 1.2 2.07c.08.13.23.18.37.13l1.49-.6c.31.24.64.44 1.01.59l.22 1.59c.03.14.15.25.3.25h2.4c.15 0 .27-.11.3-.26l.22-1.59c.36-.15.7-.35 1.01-.59l1.49.6c.14.05.29 0 .37-.13l1.2-2.07c.08-.13.04-.29-.07-.39l-1.27-.99c.03-.19.04-.39.04-.58 0-.2-.02-.39-.04-.59l1.27-.99c.11-.09.15-.26.07-.39l-1.2-2.07a.306.306 0 0 0-.37-.13l-1.49.6c-.31-.24-.64-.44-1.01-.59l-.22-1.59a.31.31 0 0 0-.3-.25h-2.4a.31.31 0 0 0-.3.26l-.22 1.59c-.36.15-.71.34-1.01.58l-1.49-.6c-.14-.05-.29 0-.37.13l-1.2 2.07c-.08.13-.04.29.07.39l1.27.99c-.03.2-.05.39-.05.59 0 .2.02.39.04.59l-1.27.99c-.11.1-.14.26-.06.39zM12 10.29c.94 0 1.71.77 1.71 1.71s-.77 1.71-1.71 1.71-1.71-.77-1.71-1.71.77-1.71 1.71-1.71zM19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 16H5V5h14v14z'),
+    ],
+  ),
+  // settings_backup_restore_outlined
+  0xf364: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 12c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm-2-9a9 9 0 0 0-9 9H0l4 4 4-4H5c0-3.87 3.13-7 7-7s7 3.13 7 7a6.995 6.995 0 0 1-11.06 5.7l-1.42 1.44A9 9 0 1 0 12 3z'),
     ],
   ),
   // settings_bluetooth_outlined
@@ -36874,13 +40432,12 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11 24h2v-2h-2v2zm-4 0h2v-2H7v2zm8 0h2v-2h-2v2zm2.71-18.29L12 0h-1v7.59L6.41 3 5 4.41 10.59 10 5 15.59 6.41 17 11 12.41V20h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 3.83l1.88 1.88L13 7.59V3.83zm1.88 10.46L13 16.17v-3.76l1.88 1.88z'),
     ],
   ),
-  // settings_display_outlined
+  // settings_brightness_outlined
   0xf366: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
-      WiredSvgPrimitive.path('M20 3H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h4v2h8v-2h4c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2zm0 14H4V5h16v12z'),
-      WiredSvgPrimitive.path('M6 8.25h8v1.5H6zm10.5 1.5H18v-1.5h-1.5V7H15v4h1.5zm-6.5 2.5h8v1.5h-8zM7.5 15H9v-4H7.5v1.25H6v1.5h1.5z'),
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02zM8 16h2.5l1.5 1.5 1.5-1.5H16v-2.5l1.5-1.5-1.5-1.5V8h-2.5L12 6.5 10.5 8H8v2.5L6.5 12 8 13.5V16zm4-7c1.66 0 3 1.34 3 3s-1.34 3-3 3V9z'),
     ],
   ),
   // settings_cell_outlined
@@ -36897,6 +40454,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M7.77 6.76 6.23 5.48.82 12l5.41 6.52 1.54-1.28L3.42 12l4.35-5.24zM7 13h2v-2H7v2zm10-2h-2v2h2v-2zm-6 2h2v-2h-2v2zm6.77-7.52-1.54 1.28L20.58 12l-4.35 5.24 1.54 1.28L23.18 12l-5.41-6.52z'),
+    ],
+  ),
+  // settings_input_antenna_outlined
+  0xf369: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 5c-3.87 0-7 3.13-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.87-3.13-7-7-7zm1 9.29c.88-.39 1.5-1.26 1.5-2.29a2.5 2.5 0 0 0-5 0c0 1.02.62 1.9 1.5 2.29v3.3L7.59 21 9 22.41l3-3 3 3L16.41 21 13 17.59v-3.3zM12 1C5.93 1 1 5.93 1 12h2a9 9 0 0 1 18 0h2c0-6.07-4.93-11-11-11z'),
+    ],
+  ),
+  // settings_input_component_outlined
+  0xf36a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 2c0-.55-.45-1-1-1s-1 .45-1 1v4H1v10c0 1.3.84 2.4 2 2.82V23h2v-4.18C6.16 18.4 7 17.3 7 16V6H5V2zM4 17c-.55 0-1-.45-1-1v-2h2v2c0 .55-.45 1-1 1zm-1-5V8h2v4H3zM13 2c0-.55-.45-1-1-1s-1 .45-1 1v4H9v10c0 1.3.84 2.4 2 2.82V23h2v-4.18c1.16-.42 2-1.52 2-2.82V6h-2V2zm-1 15c-.55 0-1-.45-1-1v-2h2v2c0 .55-.45 1-1 1zm-1-5V8h2v4h-2zm10-6V2c0-.55-.45-1-1-1s-1 .45-1 1v4h-2v10c0 1.3.84 2.4 2 2.82V23h2v-4.18c1.16-.42 2-1.52 2-2.82V6h-2zm-1 11c-.55 0-1-.45-1-1v-2h2v2c0 .55-.45 1-1 1zm-1-5V8h2v4h-2z'),
+    ],
+  ),
+  // settings_input_composite_outlined
+  0xf36b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 2c0-.55-.45-1-1-1s-1 .45-1 1v4H1v10c0 1.3.84 2.4 2 2.82V23h2v-4.18C6.16 18.4 7 17.3 7 16V6H5V2zM4 17c-.55 0-1-.45-1-1v-2h2v2c0 .55-.45 1-1 1zm-1-5V8h2v4H3zM13 2c0-.55-.45-1-1-1s-1 .45-1 1v4H9v10c0 1.3.84 2.4 2 2.82V23h2v-4.18c1.16-.42 2-1.52 2-2.82V6h-2V2zm-1 15c-.55 0-1-.45-1-1v-2h2v2c0 .55-.45 1-1 1zm-1-5V8h2v4h-2zm10-6V2c0-.55-.45-1-1-1s-1 .45-1 1v4h-2v10c0 1.3.84 2.4 2 2.82V23h2v-4.18c1.16-.42 2-1.52 2-2.82V6h-2zm-1 11c-.55 0-1-.45-1-1v-2h2v2c0 .55-.45 1-1 1zm-1-5V8h2v4h-2z'),
+    ],
+  ),
+  // settings_input_hdmi_outlined
+  0xf36c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 7V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v3H5v6l3 6v3h8v-3l3-6V7h-1zM8 4h8v3h-2.01V5h-1v2H11V5h-1v2H8V4zm9 8.53-3 6V20h-4v-1.47l-3-6V9h10v3.53z'),
+    ],
+  ),
+  // settings_input_svideo_outlined
+  0xf36d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8 11.5c0-.83-.67-1.5-1.5-1.5S5 10.67 5 11.5 5.67 13 6.5 13 8 12.33 8 11.5zm7-5c0-.83-.67-1.5-1.5-1.5h-3C9.67 5 9 5.67 9 6.5S9.67 8 10.5 8h3c.83 0 1.5-.67 1.5-1.5zM8.5 15c-.83 0-1.5.67-1.5 1.5S7.67 18 8.5 18s1.5-.67 1.5-1.5S9.33 15 8.5 15zM12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9zm5.5-11c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-2 5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z'),
     ],
   ),
   // settings_outlined
@@ -36947,6 +40544,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M10 13c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1m0-2c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm8.5-2 1.09-2.41L22 5.5l-2.41-1.09L18.5 2l-1.09 2.41L15 5.5l2.41 1.09L18.5 9zm2.78 3.72L20.5 11l-.78 1.72-1.72.78 1.72.78.78 1.72.78-1.72L23 13.5l-1.72-.78zM16.25 14c0-.12 0-.25-.01-.37l1.94-1.47-2.5-4.33-2.24.94c-.2-.13-.42-.26-.64-.37L12.5 6h-5l-.3 2.41c-.22.11-.43.24-.64.37l-2.24-.95-2.5 4.33 1.94 1.47c-.01.12-.01.25-.01.37s0 .25.01.37l-1.94 1.47 2.5 4.33 2.24-.94c.2.13.42.26.64.37l.3 2.4h5l.3-2.41c.22-.11.43-.23.64-.37l2.24.94 2.5-4.33-1.94-1.47c.01-.11.01-.24.01-.36zm-1.42 3.64-1.73-.73c-.56.6-1.3 1.04-2.13 1.23L10.73 20H9.27l-.23-1.86c-.83-.19-1.57-.63-2.13-1.23l-1.73.73-.73-1.27 1.49-1.13c-.12-.39-.18-.8-.18-1.23 0-.43.06-.84.18-1.23l-1.49-1.13.73-1.27 1.73.73c.56-.6 1.3-1.04 2.13-1.23L9.27 8h1.47l.23 1.86c.83.19 1.57.63 2.13 1.23l1.73-.73.73 1.27-1.49 1.13c.12.39.18.8.18 1.23 0 .43-.06.84-.18 1.23l1.49 1.13-.73 1.29z'),
+    ],
+  ),
+  // settings_system_daydream_outlined
+  0xf374: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.5 17H9c-2.21 0-4-1.79-4-4a3.98 3.98 0 0 1 3.22-3.92A4.514 4.514 0 0 1 12 7c1.95 0 3.66 1.28 4.26 3.09 1.58.36 2.74 1.75 2.74 3.41 0 1.93-1.57 3.5-3.5 3.5zm-6.76-5.98C7.74 11.15 7 11.99 7 13c0 1.1.9 2 2 2h6.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-.87l-.17-.86A2.496 2.496 0 0 0 12 9c-.96 0-1.84.57-2.26 1.45l-.27.57h-.73zM21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02z'),
     ],
   ),
   // settings_voice_outlined
@@ -37040,12 +40645,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 20.01 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z'),
     ],
   ),
+  // short_text_outlined
+  0xf380: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 9h16v2H4V9zm0 4h10v2H4v-2z'),
+    ],
+  ),
   // shortcut_outlined
   0xf381: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m15 5-1.41 1.41L15 7.83 17.17 10H8c-2.76 0-5 2.24-5 5v4h2v-4c0-1.65 1.35-3 3-3h9.17L15 14.17l-1.41 1.41L15 17l6-6-6-6z'),
+    ],
+  ),
+  // show_chart_outlined
+  0xf382: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m3.5 18.49 6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99l1.5 1.5z'),
     ],
   ),
   // shower_outlined
@@ -37088,12 +40709,93 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M7.32 10.56 8.38 9.5 7.32 8.44l1.06-1.06L10.5 9.5l-2.12 2.12-1.06-1.06zM4.5 9c.03 0 .05.01.08.01A8.002 8.002 0 0 1 12 4c2.19 0 4.16.88 5.61 2.3.15-.6.45-1.29.81-1.96A9.965 9.965 0 0 0 11.99 2c-4.88 0-8.94 3.51-9.81 8.14C2.74 9.44 3.59 9 4.5 9zM21 10.5c-.42 0-.82-.09-1.19-.22.12.55.19 1.13.19 1.72 0 4.42-3.58 8-8 8-3.36 0-6.23-2.07-7.42-5.01-.03 0-.05.01-.08.01-.52 0-1.04-.14-1.5-.4-.32-.18-.59-.42-.82-.7.89 4.61 4.93 8.1 9.8 8.1C17.52 22 22 17.52 22 12c0-.55-.06-1.09-.14-1.62a3.5 3.5 0 0 1-.86.12zM21 3s-2 2.9-2 4 .9 2 2 2 2-.9 2-2-2-4-2-4zm-5.38 4.38L13.5 9.5l2.12 2.12 1.06-1.06-1.06-1.06 1.06-1.06-1.06-1.06zM8.56 17c.69-1.19 1.97-2 3.44-2s2.75.81 3.44 2h1.68c-.8-2.05-2.79-3.5-5.12-3.5-.87 0-1.7.2-2.43.57L5.99 12c0-.52-.26-1.02-.74-1.29-.72-.41-1.63-.17-2.05.55-.41.72-.17 1.63.55 2.05.48.28 1.05.25 1.49 0l2.97 1.72c-.57.53-1.03 1.21-1.33 1.97h1.68z'),
     ],
   ),
+  // signal_cellular_0_bar_outlined
+  0xf388: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2 22h20V2L2 22zm18-2H6.83L20 6.83V20z'),
+    ],
+  ),
+  // signal_cellular_4_bar_outlined
+  0xf389: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2 22h20V2L2 22z'),
+    ],
+  ),
+  // signal_cellular_alt_outlined
+  0xf38a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 4h3v16h-3V4zM5 14h3v6H5v-6zm6-5h3v11h-3V9z'),
+    ],
+  ),
+  // signal_cellular_connected_no_internet_0_bar_outlined
+  0xf38b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 18h2v-8h-2v8zm0 4h2v-2h-2v2zm-2-2v2H2L22 2v6h-2V6.83L6.83 20H18z'),
+    ],
+  ),
+  // signal_cellular_connected_no_internet_4_bar_outlined
+  0xf38c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 18h2v-8h-2v8zm0 4h2v-2h-2v2zM2 22h16V8h4V2L2 22z'),
+    ],
+  ),
+  // signal_cellular_no_sim_outlined
+  0xf38d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10.83 5H17v9.11l2 2V5c0-1.1-.9-2-2-2h-7L7.94 5.06l1.42 1.42L10.83 5zm10.43 16.21L3.79 3.74 2.38 5.15 5 7.77V19a2 2 0 0 0 2 2h11.23l1.62 1.62 1.41-1.41zM7 19V9.79L16.23 19H7z'),
+    ],
+  ),
+  // signal_cellular_nodata_outlined
+  0xf38e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 13h-9v9H2L22 2v11zm-1 2.41L19.59 14l-2.09 2.09L15.41 14 14 15.41l2.09 2.09L14 19.59 15.41 21l2.09-2.08L19.59 21 21 19.59l-2.08-2.09L21 15.41z'),
+    ],
+  ),
+  // signal_cellular_null_outlined
+  0xf38f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 6.83V20H6.83L20 6.83M22 2 2 22h20V2z'),
+    ],
+  ),
+  // signal_cellular_off_outlined
+  0xf390: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m21 1-8.31 8.31 8.31 8.3zM4.91 4.36 3.5 5.77l6.36 6.37L1 21h17.73l2 2 1.41-1.41z'),
+    ],
+  ),
   // signal_wifi_0_bar_outlined
   0xf391: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07L12 18.17l-9.08-9.1z'),
+    ],
+  ),
+  // signal_wifi_4_bar_lock_outlined
+  0xf392: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.98 11 24 8.98A16.88 16.88 0 0 0 12 4C7.31 4 3.07 5.9 0 8.98l6.35 6.36L12 21l3.05-3.05V15c0-.45.09-.88.23-1.29.54-1.57 2.01-2.71 3.77-2.71h2.93z'),
+      WiredSvgPrimitive.path('M22 16v-1c0-1.1-.9-2-2-2s-2 .9-2 2v1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1zm-1 0h-2v-1c0-.55.45-1 1-1s1 .45 1 1v1z'),
     ],
   ),
   // signal_wifi_4_bar_outlined
@@ -37112,12 +40814,45 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M24 8.98A16.88 16.88 0 0 0 12 4C7.31 4 3.07 5.9 0 8.98L12 21v-9h8.99L24 8.98zM19.59 14l-2.09 2.09-.3-.3L15.41 14 14 15.41l1.79 1.79.3.3L14 19.59 15.41 21l2.09-2.08L19.59 21 21 19.59l-2.08-2.09L21 15.41 19.59 14z'),
     ],
   ),
+  // signal_wifi_connected_no_internet_4_outlined
+  0xf395: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M24 8.98A16.88 16.88 0 0 0 12 4C7.31 4 3.07 5.9 0 8.98L12 21v-9h8.99L24 8.98zM19.59 14l-2.09 2.09-.3-.3L15.41 14 14 15.41l1.79 1.79.3.3L14 19.59 15.41 21l2.09-2.08L19.59 21 21 19.59l-2.08-2.09L21 15.41 19.59 14z'),
+    ],
+  ),
   // signal_wifi_off_outlined
   0xf396: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M23.64 7c-.45-.34-4.93-4-11.64-4-1.32 0-2.55.14-3.69.38L18.43 13.5 23.64 7zM3.41 1.31 2 2.72l2.05 2.05C1.91 5.76.59 6.82.36 7L12 21.5l3.91-4.87 3.32 3.32 1.41-1.41L3.41 1.31z'),
+    ],
+  ),
+  // signal_wifi_statusbar_4_bar_outlined
+  0xf397: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4z'),
+    ],
+  ),
+  // signal_wifi_statusbar_connected_no_internet_4_outlined
+  0xf398: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21l5-5.01V8h5.92C19.97 5.51 16.16 4 12 4zm7 14h2v2h-2z'),
+      WiredSvgPrimitive.path('M19 10h2v6h-2z'),
+    ],
+  ),
+  // signal_wifi_statusbar_null_outlined
+  0xf399: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07L12 18.17l-9.08-9.1z'),
     ],
   ),
   // sim_card_alert_outlined
@@ -37346,6 +41081,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M14.94 4.66h-4.72l2.36-2.36 2.36 2.36zm-4.69 14.71h4.66l-2.33 2.33-2.33-2.33zM6.1 6.27 1.6 17.73h1.84l.92-2.45h5.11l.92 2.45h1.84L7.74 6.27H6.1zm-1.13 7.37 1.94-5.18 1.94 5.18H4.97zm10.76 2.5h6.12v1.59h-8.53v-1.29l5.92-8.56h-5.88v-1.6h8.3v1.26l-5.93 8.6z'),
+    ],
+  ),
+  // sort_outlined
+  0xf3b6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z'),
     ],
   ),
   // source_outlined
@@ -37666,6 +41409,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'),
     ],
   ),
+  // star_border_purple500_outlined
+  0xf3dd: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'),
+    ],
+  ),
+  // star_half_outlined
+  0xf3de: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4V6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'),
+    ],
+  ),
   // star_outline_outlined
   0xf3df: WiredSvgIconData(
     width: 24.0,
@@ -37706,6 +41465,38 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm7.48 7.16-5.01-.43-2-4.71c3.21.19 5.91 2.27 7.01 5.14zm-5.07 6.26L12 13.98l-2.39 1.44.63-2.72-2.11-1.83 2.78-.24L12 8.06l1.09 2.56 2.78.24-2.11 1.83.64 2.73zm-2.86-11.4-2 4.72-5.02.43c1.1-2.88 3.8-4.97 7.02-5.15zM4 12c0-.64.08-1.26.23-1.86l3.79 3.28-1.11 4.75A7.982 7.982 0 0 1 4 12zm3.84 6.82L12 16.31l4.16 2.5A7.924 7.924 0 0 1 11.99 20c-1.52 0-2.94-.44-4.15-1.18zm9.25-.65-1.11-4.75 3.79-3.28c.14.59.23 1.22.23 1.86 0 2.48-1.14 4.7-2.91 6.17z'),
     ],
   ),
+  // stay_current_landscape_outlined
+  0xf3e4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M1.01 7 1 17c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2H3c-1.1 0-1.99.9-1.99 2zM19 7v10H5V7h14z'),
+    ],
+  ),
+  // stay_current_portrait_outlined
+  0xf3e5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-1.99.9-1.99 2v18c0 1.1.89 2 1.99 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z'),
+    ],
+  ),
+  // stay_primary_landscape_outlined
+  0xf3e6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M1.01 7 1 17c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2H3c-1.1 0-1.99.9-1.99 2zM19 7v10H5V7h14z'),
+    ],
+  ),
+  // stay_primary_portrait_outlined
+  0xf3e7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-1.99.9-1.99 2v18c0 1.1.89 2 1.99 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z'),
+    ],
+  ),
   // sticky_note_2_outlined
   0xf3e8: WiredSvgIconData(
     width: 24.0,
@@ -37744,6 +41535,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z'),
+    ],
+  ),
+  // store_mall_directory_outlined
+  0xf3ed: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m18.36 9 .6 3H5.04l.6-3h12.72M20 4H4v2h16V4zm0 3H4l-1 5v2h1v6h10v-6h4v6h2v-6h1v-2l-1-5zM6 18v-4h6v4H6z'),
     ],
   ),
   // store_outlined
@@ -37826,6 +41625,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M5.88 19.75c0 1.1.9 2 2 2h1.45l-3.45-8.34v6.34z'),
     ],
   ),
+  // subdirectory_arrow_left_outlined
+  0xf3f7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m11 9 1.42 1.42L8.83 14H18V4h2v12H8.83l3.59 3.58L11 21l-6-6 6-6z'),
+    ],
+  ),
+  // subdirectory_arrow_right_outlined
+  0xf3f8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m19 15-6 6-1.42-1.42L15.17 16H4V4h2v10h9.17l-3.59-3.58L13 9l6 6z'),
+    ],
+  ),
+  // subject_outlined
+  0xf3f9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z'),
+    ],
+  ),
   // subscript_outlined
   0xf3fa: WiredSvgIconData(
     width: 24.0,
@@ -37881,6 +41704,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M22 7h-2v1h3v1h-4V7c0-.55.45-1 1-1h2V5h-3V4h3c.55 0 1 .45 1 1v1c0 .55-.45 1-1 1zM5.88 20h2.66l3.4-5.42h.12l3.4 5.42h2.66l-4.65-7.27L17.81 6h-2.68l-3.07 4.99h-.12L8.85 6H6.19l4.32 6.73L5.88 20z'),
+    ],
+  ),
+  // supervised_user_circle_outlined
+  0xf401: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.5 10c0-1.65-1.35-3-3-3s-3 1.35-3 3 1.35 3 3 3 3-1.35 3-3zm-3 1c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6.5 2c1.11 0 2-.89 2-2 0-1.11-.89-2-2-2-1.11 0-2.01.89-2 2 0 1.11.89 2 2 2zM11.99 2.01c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zM5.84 17.12c.68-.54 2.27-1.11 3.66-1.11.07 0 .15.01.23.01.24-.64.67-1.29 1.3-1.86A9.05 9.05 0 0 0 9.5 14c-1.3 0-3.39.45-4.73 1.43-.5-1.04-.78-2.2-.78-3.43 0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.2-.27 2.34-.75 3.37-1-.59-2.36-.87-3.24-.87-1.52 0-4.5.81-4.5 2.7v2.78a7.935 7.935 0 0 1-5.66-2.86z'),
     ],
   ),
   // supervisor_account_outlined
@@ -37941,6 +41772,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M6.99 11 3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z'),
+    ],
+  ),
+  // swap_horizontal_circle_outlined
+  0xf409: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-13.5V9h-4v2h4v2.5l3.5-3.5zm-6 4L5.5 14 9 17.5V15h4v-2H9z'),
     ],
   ),
   // swap_vert_outlined
@@ -38039,6 +41878,31 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M3 12c0 2.21.91 4.2 2.36 5.64L3 20h6v-6l-2.24 2.24A6.003 6.003 0 0 1 5 12a5.99 5.99 0 0 1 4-5.65V4.26C5.55 5.15 3 8.27 3 12zm8 5h2v-2h-2v2zM21 4h-6v6l2.24-2.24A6.003 6.003 0 0 1 19 12a5.99 5.99 0 0 1-4 5.65v2.09c3.45-.89 6-4.01 6-7.74 0-2.21-.91-4.2-2.36-5.64L21 4zm-10 9h2V7h-2v6z'),
+    ],
+  ),
+  // system_security_update_good_outlined
+  0xf416: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 21H7v-1h10v1zm0-3H7V6h10v12zm0-14H7V3h10v1zm-1 6.05-1.41-1.41-3.54 3.54-1.41-1.41-1.41 1.41L11.05 15 16 10.05z'),
+    ],
+  ),
+  // system_security_update_outlined
+  0xf417: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 21H7v-1h10v1zm0-3H7V6h10v12zM7 4V3h10v1H7zm9 8-4 4-4-4 1.41-1.41L11 12.17V8h2v4.17l1.59-1.59L16 12z'),
+    ],
+  ),
+  // system_security_update_warning_outlined
+  0xf418: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 15h2v2h-2zm0-8h2v6h-2z'),
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 21H7v-1h10v1zm0-3H7V6h10v12zm0-14H7V3h10v1z'),
     ],
   ),
   // system_update_alt_outlined
@@ -38218,6 +42082,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m18 4-3 3h2v13h2V7h2l-3-3zm-6.2 11.5v-5l2.2-.9V7.5L3 12.25v1.5l11 4.75v-2.1l-2.2-.9zM4.98 13 10 11.13v3.74L4.98 13z'),
+    ],
+  ),
+  // text_rotate_vertical_outlined
+  0xf42f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.75 5h-1.5L9.5 16h2.1l.9-2.2h5l.9 2.2h2.1L15.75 5zm-2.62 7L15 6.98 16.87 12h-3.74zM6 20l3-3H7V4H5v13H3l3 3z'),
+    ],
+  ),
+  // text_rotation_angledown_outlined
+  0xf430: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15 21v-4.24l-1.41 1.41-9.2-9.19-1.41 1.41 9.19 9.19L10.76 21H15zM11.25 8.48l3.54 3.54-.92 2.19 1.48 1.48 4.42-11.14-1.06-1.05L7.57 7.92 9.06 9.4l2.19-.92zm6.59-3.05-2.23 4.87-2.64-2.64 4.87-2.23z'),
+    ],
+  ),
+  // text_rotation_angleup_outlined
+  0xf431: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16.76 9 1.41 1.41-9.19 9.19 1.41 1.41 9.19-9.19L21 13.24V9h-4.24zm-8.28 3.75 3.54-3.54 2.19.92 1.48-1.48L4.56 4.23 3.5 5.29l4.42 11.14 1.48-1.48-.92-2.2zm-.82-1.72L5.43 6.16l4.87 2.23-2.64 2.64z'),
     ],
   ),
   // text_rotation_down_outlined
@@ -38437,6 +42325,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M5 4v3h5.5v12h3V7H19V4H5z'),
     ],
   ),
+  // toc_outlined
+  0xf44c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z'),
+    ],
+  ),
   // today_outlined
   0xf44d: WiredSvgIconData(
     width: 24.0,
@@ -38543,6 +42439,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m13 5 .75-1.5H17V2H7v1.5h4.75L11 5c-3.13.09-6 .73-6 3.5V17c0 1.5 1.11 2.73 2.55 2.95L6 21.5v.5h2l2-2h4l2 2h2v-.5l-1.55-1.55h-.01.01C17.89 19.73 19 18.5 19 17V8.5c0-2.77-2.87-3.41-6-3.5zm-1.97 2h1.94c2.75.08 3.62.58 3.9 1H7.13c.28-.42 1.15-.92 3.9-1zm-.18 10.95H7.74A.974.974 0 0 1 7 17v-1h3.89c-.24.27-.39.61-.39 1 0 .36.13.69.35.95zM17 17c0 .45-.3.84-.74.95h-3.11c.22-.26.35-.59.35-.95 0-.39-.15-.73-.39-1H17v1zm0-3H7v-4h10v4z'),
     ],
   ),
+  // transfer_within_a_station_outlined
+  0xf45a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.49 15.5v-1.75L14 16.25l2.49 2.5V17H22v-1.5h-5.51zm3.02 4.25H14v1.5h5.51V23L22 20.5 19.51 18v1.75zM9.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5.75 8.9 3 23h2.1l1.75-8L9 17v6h2v-7.55L8.95 13.4l.6-3C10.85 12 12.8 13 15 13v-2c-1.85 0-3.45-1-4.35-2.45l-.95-1.6C9.35 6.35 8.7 6 8 6c-.25 0-.5.05-.75.15L2 8.3V13h2V9.65l1.75-.75'),
+    ],
+  ),
   // transform_outlined
   0xf45b: WiredSvgIconData(
     width: 24.0,
@@ -38583,12 +42487,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19.3 16.9c.4-.7.7-1.5.7-2.4 0-2.5-2-4.5-4.5-4.5S11 12 11 14.5s2 4.5 4.5 4.5c.9 0 1.7-.3 2.4-.7l3.2 3.2 1.4-1.4-3.2-3.2zm-3.8.1c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5zM12 20v2C6.48 22 2 17.52 2 12S6.48 2 12 2c4.84 0 8.87 3.44 9.8 8h-2.07A8 8 0 0 0 15 4.59V5c0 1.1-.9 2-2 2h-2v2c0 .55-.45 1-1 1H8v2h2v3H9l-4.79-4.79C4.08 10.79 4 11.38 4 12c0 4.41 3.59 8 8 8z'),
     ],
   ),
-  // trending_neutral_outlined
+  // trending_down_outlined
+  0xf460: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16 18 2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6h-6z'),
+    ],
+  ),
+  // trending_flat_outlined
   0xf461: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m22 12-4-4v3H3v2h15v3l4-4z'),
+    ],
+  ),
+  // trending_up_outlined
+  0xf462: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16 6 2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z'),
     ],
   ),
   // trip_origin_outlined
@@ -38686,6 +42606,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m20.54 5.23-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM6.24 5h11.52l.83 1H5.42l.82-1zM5 19V8h14v11H5zm3-5h2.55v3h2.9v-3H16l-4-4z'),
+    ],
+  ),
+  // undo_outlined
+  0xf46f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z'),
     ],
   ),
   // unfold_less_outlined
@@ -38801,12 +42729,36 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm7 10c0 4.52-2.98 8.69-7 9.93-4.02-1.24-7-5.41-7-9.93V6.3l7-3.11 7 3.11V11zm-11.59.59L6 13l4 4 8-8-1.41-1.42L10 14.17z'),
     ],
   ),
+  // vertical_align_bottom_outlined
+  0xf47e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16 13h-3V3h-2v10H8l4 4 4-4zM4 19v2h16v-2H4z'),
+    ],
+  ),
+  // vertical_align_center_outlined
+  0xf47f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8 19h3v4h2v-4h3l-4-4-4 4zm8-14h-3V1h-2v4H8l4 4 4-4zM4 11v2h16v-2H4z'),
+    ],
+  ),
   // vertical_align_top_outlined
   0xf480: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M8 11h3v10h2V11h3l-4-4-4 4zM4 3v2h16V3H4z'),
+    ],
+  ),
+  // vertical_distribute_outlined
+  0xf481: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 2v2H2V2h20zM7 10.5v3h10v-3H7zM2 20v2h20v-2H2z'),
     ],
   ),
   // vertical_split_outlined
@@ -38900,6 +42852,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15 8v8H5V8h10m1-2H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4V7c0-.55-.45-1-1-1z'),
     ],
   ),
+  // videogame_asset_off_outlined
+  0xf48d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.5 9c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zm-6.67-1H20v8h-1.17l1.87 1.87c.75-.29 1.3-1.02 1.3-1.87V8c0-1.1-.9-2-2-2H8.83l2 2zm8.95 14.61L15.17 18H4c-1.1 0-2-.9-2-2V8c0-.85.55-1.58 1.3-1.87L1.39 4.22 2.8 2.81l18.38 18.38-1.4 1.42zM13.17 16l-3-3H9v2H7v-2H5v-2h2V9.83L5.17 8H4v8h9.17z'),
+    ],
+  ),
   // videogame_asset_outlined
   0xf48e: WiredSvgIconData(
     width: 24.0,
@@ -38982,12 +42942,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M3 4c0-.55.45-1 1-1h2V1H4C2.34 1 1 2.34 1 4v2h2V4zm0 16v-2H1v2c0 1.66 1.34 3 3 3h2v-2H4c-.55 0-1-.45-1-1zM20 1h-2v2h2c.55 0 1 .45 1 1v2h2V4c0-1.66-1.34-3-3-3zm1 19c0 .55-.45 1-1 1h-2v2h2c1.66 0 3-1.34 3-3v-2h-2v2zm-2-5.13V9.13c0-.72-.38-1.38-1-1.73l-5-2.88c-.31-.18-.65-.27-1-.27s-.69.09-1 .27L6 7.39c-.62.36-1 1.02-1 1.74v5.74c0 .72.38 1.38 1 1.73l5 2.88c.31.18.65.27 1 .27s.69-.09 1-.27l5-2.88c.62-.35 1-1.01 1-1.73zm-8 2.3-4-2.3v-4.63l4 2.33v4.6zm1-6.33L8.04 8.53 12 6.25l3.96 2.28L12 10.84zm5 4.03-4 2.3v-4.6l4-2.33v4.63z'),
     ],
   ),
+  // view_list_outlined
+  0xf498: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 5v14h18V5H3zm4 2v2H5V7h2zm-2 6v-2h2v2H5zm0 2h2v2H5v-2zm14 2H9v-2h10v2zm0-4H9v-2h10v2zm0-4H9V7h10v2z'),
+    ],
+  ),
   // view_module_outlined
   0xf499: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M3 5v14h18V5H3zm16 6h-3.33V7H19v4zm-5.33 0h-3.33V7h3.33v4zM8.33 7v4H5V7h3.33zM5 17v-4h3.33v4H5zm5.33 0v-4h3.33v4h-3.33zm5.34 0v-4H19v4h-3.33z'),
+    ],
+  ),
+  // view_quilt_outlined
+  0xf49a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 5v14h18V5H3zm5.33 12H5V7h3.33v10zm5.34 0h-3.33v-4h3.33v4zM19 17h-3.33v-4H19v4zm0-6h-8.67V7H19v4z'),
     ],
   ),
   // view_sidebar_outlined
@@ -39395,6 +43371,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m1 9 2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8 3 3 3-3a4.237 4.237 0 0 0-6 0zm-4-4 2 2a7.074 7.074 0 0 1 10 0l2-2C15.14 9.14 8.87 9.14 5 13z'),
     ],
   ),
+  // wifi_protected_setup_outlined
+  0xf4cd: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.71 5.29 19 3h-8v8l2.3-2.3c1.97 1.46 3.25 3.78 3.25 6.42 0 1.31-.32 2.54-.88 3.63 2.33-1.52 3.88-4.14 3.88-7.13 0-2.52-1.11-4.77-2.84-6.33z'),
+      WiredSvgPrimitive.path('M7.46 8.88c0-1.31.32-2.54.88-3.63a8.479 8.479 0 0 0-3.88 7.13c0 2.52 1.1 4.77 2.84 6.33L5 21h8v-8l-2.3 2.3c-1.96-1.46-3.24-3.78-3.24-6.42z'),
+    ],
+  ),
   // wifi_tethering_off_outlined
   0xf4cf: WiredSvgIconData(
     width: 24.0,
@@ -39459,6 +43444,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6 15c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2m0-2c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm6-8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2m0-2C9.8 3 8 4.8 8 7s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm6 12c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2m0-2c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z'),
     ],
   ),
+  // wrap_text_outlined
+  0xf4d7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 19h6v-2H4v2zM20 5H4v2h16V5zm-3 6H4v2h13.25c1.1 0 2 .9 2 2s-.9 2-2 2H15v-2l-3 3 3 3v-2h2c2.21 0 4-1.79 4-4s-1.79-4-4-4z'),
+    ],
+  ),
   // wrong_location_outlined
   0xf4d8: WiredSvgIconData(
     width: 24.0,
@@ -39483,6 +43476,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M18 13c-3.31 0-6 2.69-6 6 3.31 0 6-2.69 6-6zM6 13c0 3.31 2.69 6 6 6 0-3.31-2.69-6-6-6zm2-1.97a1.562 1.562 0 0 0 2.45 1.28l-.01.12c0 .86.7 1.56 1.56 1.56s1.56-.7 1.56-1.56l-.01-.12c.25.17.56.28.89.28.86 0 1.56-.7 1.56-1.56 0-.62-.37-1.16-.89-1.41.52-.24.89-.78.89-1.4a1.562 1.562 0 0 0-2.45-1.28l.01-.12c0-.86-.7-1.56-1.56-1.56s-1.56.7-1.56 1.56l.01.12A1.562 1.562 0 0 0 8 8.22c0 .62.37 1.16.89 1.41-.52.24-.89.78-.89 1.4zm4-2.97c.86 0 1.56.7 1.56 1.56s-.7 1.56-1.56 1.56-1.56-.7-1.56-1.56.7-1.56 1.56-1.56zM20 4v16H4V4h16m0-2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z'),
+    ],
+  ),
+  // youtube_searched_for_outlined
+  0xf4db: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.01 14h-.8l-.27-.27a6.451 6.451 0 0 0 1.57-4.23c0-3.59-2.91-6.5-6.5-6.5s-6.5 3-6.5 6.5H2l3.84 4 4.16-4H6.51a4.5 4.5 0 0 1 9 0 4.507 4.507 0 0 1-6.32 4.12L7.71 15.1a6.474 6.474 0 0 0 7.52-.67l.27.27v.79l5.01 4.99L22 19l-4.99-5z'),
     ],
   ),
   // zoom_in_outlined
@@ -39783,6 +43784,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M8 7c-.55 0-1 .45-1 1v4H5V8c0-.55-.45-1-1-1s-1 .45-1 1v5c0 .55.45 1 1 1h3v2c0 .55.45 1 1 1s1-.45 1-1v-2h1c.55 0 1-.45 1-1s-.45-1-1-1H9V8c0-.55-.45-1-1-1zm9 5c0 .55.45 1 1 1h1v2h-5V9h6c.55 0 1-.45 1-1s-.45-1-1-1h-6c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2v-3c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1z'),
     ],
   ),
+  // four_g_plus_mobiledata_rounded
+  0xf4ff: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16 9c.55 0 1-.45 1-1s-.45-1-1-1h-5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-3c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1h1v2h-4V9h5zm7 2h-1v-1c0-.55-.45-1-1-1s-1 .45-1 1v1h-1c-.55 0-1 .45-1 1s.45 1 1 1h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c.55 0 1-.45 1-1s-.45-1-1-1zM7 12V8c0-.55-.45-1-1-1s-1 .45-1 1v4H3V8c0-.55-.45-1-1-1s-1 .45-1 1v5c0 .55.45 1 1 1h3v2c0 .55.45 1 1 1s1-.45 1-1v-2c.55 0 1-.45 1-1s-.45-1-1-1z'),
+    ],
+  ),
   // four_k_plus_rounded
   0xf500: WiredSvgIconData(
     width: 24.0,
@@ -40051,6 +44060,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M4 11.5v4c0 .83.67 1.5 1.5 1.5S7 16.33 7 15.5v-4c0-.83-.67-1.5-1.5-1.5S4 10.67 4 11.5zm6 0v4c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5zM3.5 22h16c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-16c-.83 0-1.5.67-1.5 1.5S2.67 22 3.5 22zM16 11.5v4c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5zM10.57 1.49l-7.9 4.16c-.41.21-.67.64-.67 1.1C2 7.44 2.56 8 3.25 8h16.51C20.44 8 21 7.44 21 6.75c0-.46-.26-.89-.67-1.1l-7.9-4.16c-.58-.31-1.28-.31-1.86 0z'),
     ],
   ),
+  // account_balance_wallet_rounded
+  0xf520: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 16V8a2 2 0 0 1 2-2h9V5c0-1.1-.9-2-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-1h-9a2 2 0 0 1-2-2zm3-8c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h9V8h-9zm3 5.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'),
+    ],
+  ),
   // account_box_rounded
   0xf521: WiredSvgIconData(
     width: 24.0,
@@ -40306,6 +44323,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-8c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3z'),
     ],
   ),
+  // admin_panel_settings_rounded
+  0xf540: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 11c.34 0 .67.04 1 .09V7.58c0-.8-.47-1.52-1.2-1.83l-5.5-2.4c-.51-.22-1.09-.22-1.6 0l-5.5 2.4C3.47 6.07 3 6.79 3 7.58v3.6c0 4.54 3.2 8.79 7.5 9.82.55-.13 1.08-.32 1.6-.55-.69-.98-1.1-2.17-1.1-3.45 0-3.31 2.69-6 6-6z'),
+      WiredSvgPrimitive.path('M17 13c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 1.38c.62 0 1.12.51 1.12 1.12s-.51 1.12-1.12 1.12-1.12-.51-1.12-1.12.5-1.12 1.12-1.12zm0 5.37c-.93 0-1.74-.46-2.24-1.17.05-.72 1.51-1.08 2.24-1.08s2.19.36 2.24 1.08c-.5.71-1.31 1.17-2.24 1.17z'),
+    ],
+  ),
   // agriculture_rounded
   0xf541: WiredSvgIconData(
     width: 24.0,
@@ -40323,12 +44349,68 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M14.35 17.95c-.28.89-1.01 1.62-1.9 1.9-1.51.48-2.94-.23-3.59-1.42-.35-.65.17-1.43.91-1.43h.01c.34 0 .68.16.84.46.17.32.5.54.89.54.55 0 1-.45 1-1s-.45-1-1-1H3c-.55 0-1-.45-1-1s.45-1 1-1h8.5c1.96 0 3.5 1.9 2.85 3.95zm4.56-12.28a3.492 3.492 0 0 0-2.58-2.58c-1.76-.4-3.37.53-4.02 1.98-.31.67.17 1.43.9 1.43.39 0 .75-.22.9-.57A1.5 1.5 0 0 1 15.5 5c.83 0 1.5.67 1.5 1.5S16.33 8 15.5 8H3c-.55 0-1 .45-1 1s.45 1 1 1h12.5c2.2 0 3.93-2.04 3.41-4.33zM18.4 11H3c-.55 0-1 .45-1 1s.45 1 1 1h15.5c.83 0 1.5.67 1.5 1.5a1.5 1.5 0 0 1-.93 1.39c-.36.15-.57.51-.57.9 0 .73.76 1.21 1.43.91a3.51 3.51 0 0 0 2-3.93C21.59 12.13 20.07 11 18.4 11z'),
     ],
   ),
+  // airline_seat_flat_angled_rounded
+  0xf543: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m22.25 14.29-.69 1.89L9.2 11.71l1.39-3.79a2.007 2.007 0 0 1 2.56-1.19l6.69 2.41a4 4 0 0 1 2.41 5.15zm-19.8-1.81 5.55 2V18c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-.63l3.58 1.29c.52.19 1.1-.08 1.29-.6.19-.52-.08-1.1-.6-1.29L3.13 10.59c-.52-.19-1.1.08-1.29.6-.18.52.09 1.1.61 1.29zM7.3 10.2a3.01 3.01 0 0 0 1.41-4A3.005 3.005 0 0 0 4.7 4.8a2.99 2.99 0 0 0-1.4 4 2.99 2.99 0 0 0 4 1.4z'),
+    ],
+  ),
   // airline_seat_flat_rounded
   0xf544: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M22 11v2H9V9c0-1.1.9-2 2-2h7c2.21 0 4 1.79 4 4zM2 15c0 .55.45 1 1 1h5v1c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-1h5c.55 0 1-.45 1-1s-.45-1-1-1H3c-.55 0-1 .45-1 1zm5.14-2.9a3 3 0 0 0-.04-4.24 3 3 0 0 0-4.24.04 3 3 0 0 0 .04 4.24 3 3 0 0 0 4.24-.04z'),
+    ],
+  ),
+  // airline_seat_individual_suite_rounded
+  0xf545: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 13c1.65 0 3-1.35 3-3S8.65 7 7 7s-3 1.35-3 3 1.35 3 3 3zm12-6h-6c-1.1 0-2 .9-2 2v5H3V8c0-.55-.45-1-1-1s-1 .45-1 1v7c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2v-4c0-2.21-1.79-4-4-4z'),
+    ],
+  ),
+  // airline_seat_legroom_extra_rounded
+  0xf546: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 12V4c0-.55-.45-1-1-1s-1 .45-1 1v8c0 2.76 2.24 5 5 5h5c.55 0 1-.45 1-1s-.45-1-1-1H7c-1.66 0-3-1.34-3-3zm18.83 5.24c-.38-.72-1.29-.97-2.03-.63l-1.09.5-3.41-6.98A2.019 2.019 0 0 0 14.51 9H11V3H5v8c0 1.66 1.34 3 3 3h7l2.56 5.25c.48.98 1.64 1.39 2.63.94l1.95-.89c.76-.36 1.09-1.3.69-2.06z'),
+    ],
+  ),
+  // airline_seat_legroom_normal_rounded
+  0xf547: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 12V4c0-.55-.45-1-1-1s-1 .45-1 1v8c0 2.76 2.24 5 5 5h5c.55 0 1-.45 1-1s-.45-1-1-1H8c-1.66 0-3-1.34-3-3zm15.5 6H19v-7c0-1.1-.9-2-2-2h-5V3H6v8c0 1.65 1.35 3 3 3h7v5c0 1.1.9 2 2 2h2.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5z'),
+    ],
+  ),
+  // airline_seat_legroom_reduced_rounded
+  0xf548: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19.97 19.2c.18.96-.55 1.8-1.47 1.8h-2.69a2 2 0 0 1-1.94-2.49L15 14H9c-1.65 0-3-1.35-3-3V3h6v6h5c1.1 0 2 .9 2 2l-2 7h1.44c.73 0 1.39.49 1.53 1.2zM5 12V4c0-.55-.45-1-1-1s-1 .45-1 1v8c0 2.76 2.24 5 5 5h3c.55 0 1-.45 1-1s-.45-1-1-1H8c-1.66 0-3-1.34-3-3z'),
+    ],
+  ),
+  // airline_seat_recline_extra_rounded
+  0xf549: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.35 5.64c-.9-.64-1.12-1.88-.49-2.79.63-.9 1.88-1.12 2.79-.49.9.64 1.12 1.88.49 2.79-.64.9-1.88 1.12-2.79.49zM16 20c0-.55-.45-1-1-1H8.93c-1.48 0-2.74-1.08-2.96-2.54L4.16 7.78A.976.976 0 0 0 3.2 7c-.62 0-1.08.57-.96 1.18l1.75 8.58A5.01 5.01 0 0 0 8.94 21H15c.55 0 1-.45 1-1zm-.46-5h-4.19l-1.03-4.1c1.28.72 2.63 1.28 4.1 1.3.58.01 1.05-.49 1.05-1.07 0-.59-.49-1.04-1.08-1.06-1.31-.04-2.63-.56-3.61-1.33L9.14 7.47c-.23-.18-.49-.3-.76-.38a2.21 2.21 0 0 0-.99-.06h-.02a2.268 2.268 0 0 0-1.84 2.61l1.35 5.92A3.008 3.008 0 0 0 9.83 18h6.85l3.09 2.42c.42.33 1.02.29 1.39-.08.45-.45.4-1.18-.1-1.57l-4.29-3.35a2.01 2.01 0 0 0-1.23-.42z'),
+    ],
+  ),
+  // airline_seat_recline_normal_rounded
+  0xf54a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.59 5.41c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0 .78 2.05 0 2.83c-.79.79-2.05.79-2.83 0zM6 16V8c0-.55-.45-1-1-1s-1 .45-1 1v8c0 2.76 2.24 5 5 5h5c.55 0 1-.45 1-1s-.45-1-1-1H9c-1.66 0-3-1.34-3-3zm13.28 3.35-3.77-3.77c-.37-.37-.88-.58-1.41-.58h-2.6v-3.68c1.09.89 2.66 1.7 4.2 2.02.67.14 1.3-.36 1.3-1.04 0-.53-.39-.96-.92-1.05-1.42-.24-2.88-1.01-3.75-1.97l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.29-.14-.62-.23-.96-.23h-.03C8.01 7 7 8.01 7 9.25V15c0 1.66 1.34 3 3 3h5.07l2.78 2.78c.39.39 1.04.39 1.43 0 .4-.39.4-1.03 0-1.43z'),
     ],
   ),
   // airplane_ticket_rounded
@@ -40347,7 +44429,7 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21.48 13.7 13.5 9V3.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5V9l-7.98 4.7c-.32.18-.52.53-.52.9 0 .7.67 1.2 1.34 1.01l7.16-2.1V19l-2.26 1.35c-.15.09-.24.26-.24.43v.58c0 .33.31.57.62.49l2.92-.73L12 21l.38.09.42.11 1.9.48.67.17c.32.08.62-.16.62-.49v-.58c0-.18-.09-.34-.24-.43L13.5 19v-5.5l7.16 2.1c.67.2 1.34-.3 1.34-1 0-.37-.2-.72-.52-.9z'),
     ],
   ),
-  // airplanemode_off_rounded
+  // airplanemode_inactive_rounded
   0xf54d: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
@@ -40409,6 +44491,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z'),
+    ],
+  ),
+  // align_horizontal_center_rounded
+  0xf555: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c.55 0 1 .45 1 1v4h6.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5H13v4h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5H13v4c0 .55-.45 1-1 1s-1-.45-1-1v-4H7.5c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14H11v-4H4.5C3.67 10 3 9.33 3 8.5S3.67 7 4.5 7H11V3c0-.55.45-1 1-1z'),
+    ],
+  ),
+  // align_horizontal_left_rounded
+  0xf556: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 22c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1s1 .45 1 1v18c0 .55-.45 1-1 1zM20.5 7h-13C6.67 7 6 7.67 6 8.5S6.67 10 7.5 10h13c.83 0 1.5-.67 1.5-1.5S21.33 7 20.5 7zm-6 7h-7c-.83 0-1.5.67-1.5 1.5S6.67 17 7.5 17h7c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5z'),
+    ],
+  ),
+  // align_horizontal_right_rounded
+  0xf557: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 2c.55 0 1 .45 1 1v18c0 .55-.45 1-1 1s-1-.45-1-1V3c0-.55.45-1 1-1zM3.5 10h13c.83 0 1.5-.67 1.5-1.5S17.33 7 16.5 7h-13C2.67 7 2 7.67 2 8.5S2.67 10 3.5 10zm6 7h7c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-7c-.83 0-1.5.67-1.5 1.5S8.67 17 9.5 17z'),
+    ],
+  ),
+  // align_vertical_bottom_rounded
+  0xf558: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 22H3c-.55 0-1-.45-1-1s.45-1 1-1h18c.55 0 1 .45 1 1s-.45 1-1 1zM8.5 2C7.67 2 7 2.67 7 3.5v13c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-13C10 2.67 9.33 2 8.5 2zm7 6c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5z'),
+    ],
+  ),
+  // align_vertical_center_rounded
+  0xf559: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 11h-4V7.5c0-.83-.67-1.5-1.5-1.5S14 6.67 14 7.5V11h-4V4.5C10 3.67 9.33 3 8.5 3S7 3.67 7 4.5V11H2.84c-.55 0-1 .45-1 1s.45 1 1 1H7v6.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V13h4v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V13h4c.55 0 1-.45 1-1s-.45-1-1-1z'),
     ],
   ),
   // align_vertical_top_rounded
@@ -40593,6 +44715,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m20.54 5.23-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zm-8.89 11.92L6.5 12H10v-2h4v2h3.5l-5.15 5.15c-.19.19-.51.19-.7 0zM5.12 5l.81-1h12l.94 1H5.12z'),
     ],
   ),
+  // arrow_back_ios_new_rounded
+  0xf570: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.88 2.88a1.25 1.25 0 0 0-1.77 0L6.7 11.29a.996.996 0 0 0 0 1.41l8.41 8.41c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.54 12l7.35-7.35c.48-.49.48-1.28-.01-1.77z'),
+    ],
+  ),
+  // arrow_back_ios_rounded
+  0xf571: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.62 2.99a1.25 1.25 0 0 0-1.77 0L6.54 11.3a.996.996 0 0 0 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z'),
+    ],
+  ),
+  // arrow_back_rounded
+  0xf572: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42a.996.996 0 0 0-1.41 0l-6.59 6.59a.996.996 0 0 0 0 1.41l6.59 6.59a.996.996 0 1 0 1.41-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z'),
+    ],
+  ),
   // arrow_circle_down_rounded
   0xf573: WiredSvgIconData(
     width: 24.0,
@@ -40617,6 +44763,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11 5v11.17l-4.88-4.88c-.39-.39-1.03-.39-1.42 0a.996.996 0 0 0 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0l6.59-6.59a.996.996 0 1 0-1.41-1.41L13 16.17V5c0-.55-.45-1-1-1s-1 .45-1 1z'),
     ],
   ),
+  // arrow_drop_down_circle_rounded
+  0xf576: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-.35 12.65-2.79-2.79c-.32-.32-.1-.86.35-.86h5.59c.45 0 .67.54.35.85l-2.79 2.79c-.2.2-.52.2-.71.01z'),
+    ],
+  ),
   // arrow_drop_down_rounded
   0xf577: WiredSvgIconData(
     width: 24.0,
@@ -40631,6 +44785,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M8.71 12.29 11.3 9.7a.996.996 0 0 1 1.41 0l2.59 2.59c.63.63.18 1.71-.71 1.71H9.41c-.89 0-1.33-1.08-.7-1.71z'),
+    ],
+  ),
+  // arrow_forward_ios_rounded
+  0xf579: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.38 21.01c.49.49 1.28.49 1.77 0l8.31-8.31a.996.996 0 0 0 0-1.41L9.15 2.98c-.49-.49-1.28-.49-1.77 0s-.49 1.28 0 1.77L14.62 12l-7.25 7.25c-.48.48-.48 1.28.01 1.76z'),
+    ],
+  ),
+  // arrow_forward_rounded
+  0xf57a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59a.996.996 0 0 0 0-1.41l-6.58-6.6a.996.996 0 1 0-1.41 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z'),
+    ],
+  ),
+  // arrow_left_rounded
+  0xf57b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.29 8.71 9.7 11.3a.996.996 0 0 0 0 1.41l2.59 2.59c.63.63 1.71.18 1.71-.71V9.41c0-.89-1.08-1.33-1.71-.7z'),
+    ],
+  ),
+  // arrow_right_alt_rounded
+  0xf57c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.01 11H5c-.55 0-1 .45-1 1s.45 1 1 1h11.01v1.79c0 .45.54.67.85.35l2.78-2.79c.19-.2.19-.51 0-.71l-2.78-2.79c-.31-.32-.85-.09-.85.35V11z'),
+    ],
+  ),
+  // arrow_right_rounded
+  0xf57d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m11.71 15.29 2.59-2.59a.996.996 0 0 0 0-1.41L11.71 8.7c-.63-.62-1.71-.18-1.71.71v5.17c0 .9 1.08 1.34 1.71.71z'),
     ],
   ),
   // arrow_upward_rounded
@@ -40689,12 +44883,36 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM12 13c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 3c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1z'),
     ],
   ),
+  // assignment_return_rounded
+  0xf585: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm4 12h-4v3l-4.65-4.65c-.2-.2-.2-.51 0-.71L12 8v3h4v4z'),
+    ],
+  ),
   // assignment_returned_rounded
   0xf586: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-.35 14.65L7 13h3V9h4v4h3l-4.65 4.65c-.19.19-.51.19-.7 0z'),
+    ],
+  ),
+  // assignment_rounded
+  0xf587: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm1 14H8c-.55 0-1-.45-1-1s.45-1 1-1h5c.55 0 1 .45 1 1s-.45 1-1 1zm3-4H8c-.55 0-1-.45-1-1s.45-1 1-1h8c.55 0 1 .45 1 1s-.45 1-1 1zm0-4H8c-.55 0-1-.45-1-1s.45-1 1-1h8c.55 0 1 .45 1 1s-.45 1-1 1z'),
+    ],
+  ),
+  // assignment_turned_in_rounded
+  0xf588: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9.29 16.29 6.7 13.7a.996.996 0 1 1 1.41-1.41L10 14.17l5.88-5.88a.996.996 0 1 1 1.41 1.41l-6.59 6.59a.996.996 0 0 1-1.41 0z'),
     ],
   ),
   // assistant_direction_rounded
@@ -40888,12 +45106,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 3c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1v-.92c3.31.48 5.87 3.25 6 6.66.14 3.85-3.03 7.2-6.88 7.26A6.996 6.996 0 0 1 5 12c0-1.68.59-3.22 1.58-4.42l4.71 4.72a.996.996 0 1 0 1.41-1.41L7.26 5.46c-.38-.38-1-.39-1.4-.02A8.904 8.904 0 0 0 3 12c0 5.04 4.14 9.12 9.21 9 4.7-.11 8.63-4.01 8.78-8.71C21.16 7.19 17.07 3 12 3z'),
     ],
   ),
+  // baby_changing_station_rounded
+  0xf5a0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 9c0 .55-.45 1-1 1h-1.58c-.28 0-.55-.06-.8-.17l-2.3-1.01L7 12.75V21c0 .55-.45 1-1 1H4c-.55 0-1-.45-1-1v-8.67c0-.22.04-.44.11-.65l1.48-4.32A1.992 1.992 0 0 1 7.3 6.18l4.15 1.83L13 8c.55 0 1 .45 1 1zM8 1c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm2 18h10c.55 0 1-.45 1-1s-.45-1-1-1H10c-.55 0-1 .45-1 1s.45 1 1 1zm9.5-3c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM13 12c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1h1v1c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-2c0-.55-.45-1-1-1s-1 .45-1 1v1h-2v-1z'),
+    ],
+  ),
   // backpack_rounded
   0xf5a1: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 8v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V8c0-1.86 1.28-3.41 3-3.86V3.5C7 2.67 7.67 2 8.5 2s1.5.67 1.5 1.5V4h4v-.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v.64c1.72.45 3 2 3 3.86zM6 13c0 .55.45 1 1 1h9v1c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1H7c-.55 0-1 .45-1 1z'),
+    ],
+  ),
+  // backspace_rounded
+  0xf5a2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 3H7c-.69 0-1.23.35-1.59.88L.37 11.45c-.22.34-.22.77 0 1.11l5.04 7.56c.36.52.9.88 1.59.88h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3.7 13.3a.996.996 0 0 1-1.41 0L14 13.41l-2.89 2.89a.996.996 0 1 1-1.41-1.41L12.59 12 9.7 9.11a.996.996 0 1 1 1.41-1.41L14 10.59l2.89-2.89a.996.996 0 1 1 1.41 1.41L15.41 12l2.89 2.89c.38.38.38 1.02 0 1.41z'),
     ],
   ),
   // backup_rounded
@@ -40986,6 +45220,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15.67 4H14V3c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1v1H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.34 22h7.32c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM13 18h-2v-2h2v2zm0-5c0 .55-.45 1-1 1s-1-.45-1-1v-3c0-.55.45-1 1-1s1 .45 1 1v3z'),
     ],
   ),
+  // battery_charging_full_rounded
+  0xf5ae: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.67 4H14V3c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1v1H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.34 22h7.32c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zm-1.06 9.24-2.67 5c-.24.45-.94.28-.94-.24v-3.5H9.83a.5.5 0 0 1-.44-.74l2.67-5c.24-.45.94-.28.94.24v3.5h1.17c.37 0 .62.4.44.74z'),
+    ],
+  ),
   // battery_full_rounded
   0xf5af: WiredSvgIconData(
     width: 24.0,
@@ -41008,6 +45250,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M15.67 4H14V3c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1v1H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.34 22h7.32c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z'),
+    ],
+  ),
+  // battery_unknown_rounded
+  0xf5b2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.67 4H14V3c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1v1H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.34 22h7.32c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM13 18h-2v-2h2v2zm1.3-5.31s-.38.42-.67.71c-.14.14-.27.31-.39.47l-.09.15c-.08.12-.14.25-.19.37-.09.22-.16.43-.16.61h-1.6c0-.42.12-.8.29-1.13.06-.11.13-.21.2-.31.03-.05.06-.11.1-.16.11-.14.23-.28.34-.4l.93-.94A1.498 1.498 0 0 0 12 9.5c-.65 0-1.21.41-1.41.99a.75.75 0 0 1-.71.51c-.52 0-.88-.52-.71-1.01A3.005 3.005 0 0 1 12 8c1.66 0 3 1.34 3 3 0 .66-.27 1.26-.7 1.69z'),
     ],
   ),
   // beach_access_rounded
@@ -41493,6 +45743,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 5v6.59l-2.29-2.3c-.39-.39-1.03-.39-1.42 0L14 12.59 10.71 9.3a.996.996 0 0 0-1.41 0L6 12.59 3 9.58V5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2zm-3 6.42 3 3.01V19c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2v-6.58l2.29 2.29c.39.39 1.02.39 1.41 0l3.3-3.3 3.29 3.29c.39.39 1.02.39 1.41 0l3.3-3.28z'),
     ],
   ),
+  // browser_not_supported_rounded
+  0xf5ed: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 6v10.5l1.95 1.95c.03-.15.05-.3.05-.45V6c0-1.1-.9-2-2-2H6.5l2 2H19zM3.86 3.95a.9.9 0 0 0-1.27 0 .9.9 0 0 0 0 1.27l.41.42V18c0 1.1.9 2 2 2h12.36l1.42 1.42a.9.9 0 0 0 1.27 0 .9.9 0 0 0 0-1.27L3.86 3.95zM5 18V7.64L15.36 18H5z'),
+    ],
+  ),
   // brunch_dining_rounded
   0xf5ee: WiredSvgIconData(
     width: 24.0,
@@ -41664,12 +45922,60 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m4.51 15.48 2-1.59c.48-.38.76-.96.76-1.57v-2.6c3.02-.98 6.29-.99 9.32 0v2.61c0 .61.28 1.19.76 1.57l1.99 1.58c.8.63 1.94.57 2.66-.15l1.22-1.22c.8-.8.8-2.13-.05-2.88-6.41-5.66-16.07-5.66-22.48 0-.85.75-.85 2.08-.05 2.88l1.22 1.22c.71.72 1.85.78 2.65.15z'),
     ],
   ),
+  // call_made_rounded
+  0xf603: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 6c0 .56.45 1 1 1h5.59L4.7 17.89a.996.996 0 1 0 1.41 1.41L17 8.41V14c0 .55.45 1 1 1s1-.45 1-1V6c0-.55-.45-1-1-1h-8c-.55 0-1 .45-1 1z'),
+    ],
+  ),
+  // call_merge_rounded
+  0xf604: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.7 19.7a.996.996 0 0 0 0-1.41l-2.7-2.7L13.59 17l2.7 2.7c.39.39 1.03.39 1.41 0zM8.71 8H11v5.59l-4.71 4.7A.996.996 0 1 0 7.7 19.7l5.3-5.3V8h2.29c.45 0 .67-.54.35-.85l-3.29-3.29c-.2-.2-.51-.2-.71 0L8.35 7.15a.5.5 0 0 0 .36.85z'),
+    ],
+  ),
+  // call_missed_outgoing_rounded
+  0xf605: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m3.7 9.11 7.59 7.59c.39.39 1.02.39 1.41 0l6.3-6.3V14c0 .55.45 1 1 1s1-.45 1-1V8c0-.55-.45-1-1-1h-6c-.55 0-1 .45-1 1s.45 1 1 1h3.59L12 14.59 5.11 7.7a.996.996 0 0 0-1.41 0c-.38.39-.38 1.03 0 1.41z'),
+    ],
+  ),
+  // call_missed_rounded
+  0xf606: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.89 7.7 12 14.59 6.41 9H10c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1s1-.45 1-1v-3.59l6.29 6.29c.39.39 1.02.39 1.41 0l7.59-7.59a.996.996 0 0 0 0-1.41c-.38-.38-1.02-.38-1.4 0z'),
+    ],
+  ),
+  // call_received_rounded
+  0xf607: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19.3 4.71a.996.996 0 0 0-1.41 0L7 15.59V10c0-.55-.45-1-1-1s-1 .45-1 1v8c0 .55.45 1 1 1h8c.55 0 1-.45 1-1s-.45-1-1-1H8.41L19.3 6.11c.38-.38.38-1.02 0-1.4z'),
+    ],
+  ),
   // call_rounded
   0xf608: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m19.23 15.26-2.54-.29a1.99 1.99 0 0 0-1.64.57l-1.84 1.84a15.045 15.045 0 0 1-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52a2.001 2.001 0 0 0-1.99-1.77H5.03c-1.13 0-2.07.94-2 2.07.53 8.54 7.36 15.36 15.89 15.89 1.13.07 2.07-.87 2.07-2v-1.73c.01-1.01-.75-1.86-1.76-1.98z'),
+    ],
+  ),
+  // call_split_rounded
+  0xf609: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14.85 4.85 1.44 1.44-2.88 2.88 1.42 1.42 2.88-2.88 1.44 1.44a.5.5 0 0 0 .85-.36V4.5c0-.28-.22-.5-.5-.5h-4.29a.5.5 0 0 0-.36.85zM8.79 4H4.5c-.28 0-.5.22-.5.5v4.29c0 .45.54.67.85.35L6.29 7.7 11 12.4V19c0 .55.45 1 1 1s1-.45 1-1v-7c0-.26-.11-.52-.29-.71l-5-5.01 1.44-1.44c.31-.3.09-.84-.36-.84z'),
     ],
   ),
   // call_to_action_rounded
@@ -41776,6 +46082,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm4.3 14.3a.996.996 0 0 1-1.41 0L12 13.41 9.11 16.3a.996.996 0 1 1-1.41-1.41L10.59 12 7.7 9.11A.996.996 0 1 1 9.11 7.7L12 10.59l2.89-2.89a.996.996 0 1 1 1.41 1.41L13.41 12l2.89 2.89c.38.38.38 1.02 0 1.41z'),
+    ],
+  ),
+  // cancel_schedule_send_rounded
+  0xf617: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.5 9c-.42 0-.83.04-1.24.11L2.4 3.6a.993.993 0 0 0-1.39.91L1 9.2c0 .47.33.88.78.98L10 12l-8.22 1.83c-.45.1-.78.5-.78.97l.01 4.68c0 .72.73 1.2 1.39.92l6.68-2.86C9.59 21.19 12.71 24 16.5 24c4.14 0 7.5-3.36 7.5-7.5S20.64 9 16.5 9zm0 13c-3.03 0-5.5-2.47-5.5-5.5s2.47-5.5 5.5-5.5 5.5 2.47 5.5 5.5-2.47 5.5-5.5 5.5z'),
+      WiredSvgPrimitive.path('M18.62 14.38c-.2-.2-.51-.2-.71 0l-1.41 1.41-1.41-1.41c-.2-.2-.51-.2-.71 0s-.2.51 0 .71l1.41 1.41-1.41 1.41c-.2.2-.2.51 0 .71.2.2.51.2.71 0l1.41-1.41 1.41 1.41c.2.2.51.2.71 0 .2-.2.2-.51 0-.71l-1.41-1.41 1.41-1.41c.2-.2.2-.52 0-.71z'),
     ],
   ),
   // car_rental_rounded
@@ -41990,12 +46305,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM7 9h10c.55 0 1 .45 1 1s-.45 1-1 1H7c-.55 0-1-.45-1-1s.45-1 1-1zm6 5H7c-.55 0-1-.45-1-1s.45-1 1-1h6c.55 0 1 .45 1 1s-.45 1-1 1zm4-6H7c-.55 0-1-.45-1-1s.45-1 1-1h10c.55 0 1 .45 1 1s-.45 1-1 1z'),
     ],
   ),
+  // check_box_outline_blank_rounded
+  0xf632: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 19H6c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1zm1-16H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'),
+    ],
+  ),
   // check_box_rounded
   0xf633: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8.29 13.29a.996.996 0 0 1-1.41 0L5.71 12.7a.996.996 0 1 1 1.41-1.41L10 14.17l6.88-6.88a.996.996 0 1 1 1.41 1.41l-7.58 7.59z'),
+    ],
+  ),
+  // check_circle_outline_rounded
+  0xf634: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.88-11.71L10 14.17l-1.88-1.88a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 0 0 0-1.41c-.39-.39-1.03-.39-1.42 0z'),
     ],
   ),
   // check_circle_rounded
@@ -42038,6 +46369,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21.6 18.2 13 11.75v-.91a3.496 3.496 0 0 0-.18-6.75c-1.76-.4-3.37.53-4.02 1.98-.3.67.18 1.43.91 1.43.39 0 .75-.22.9-.57A1.5 1.5 0 0 1 12 6c.83 0 1.5.67 1.5 1.5 0 .84-.69 1.52-1.53 1.5-.54-.01-.97.45-.97.99v1.76L2.4 18.2c-.77.58-.36 1.8.6 1.8h18c.96 0 1.37-1.22.6-1.8zM6 18l6-4.5 6 4.5H6z'),
     ],
   ),
+  // chevron_left_rounded
+  0xf63a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14.71 6.71a.996.996 0 0 0-1.41 0L8.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59a.996.996 0 1 0 1.41-1.41L10.83 12l3.88-3.88c.39-.39.38-1.03 0-1.41z'),
+    ],
+  ),
+  // chevron_right_rounded
+  0xf63b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z'),
+    ],
+  ),
   // child_care_rounded
   0xf63c: WiredSvgIconData(
     width: 24.0,
@@ -42054,6 +46401,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 3.08V10h8a8 8 0 0 0-6.86-7.92c-.6-.09-1.14.39-1.14 1zm6.32 12.81A7.948 7.948 0 0 0 21 11H6.44l-.68-1.43a.993.993 0 0 0-.9-.57H3c-.55 0-1 .45-1 1s.45 1 1 1h1.22s1.89 4.07 2.12 4.42a3.505 3.505 0 0 0-1.74 3.94c.3 1.26 1.34 2.27 2.6 2.55 2.1.46 3.98-.96 4.25-2.91h2.08a3.498 3.498 0 0 0 4.22 2.92 3.493 3.493 0 0 0 2.63-2.53c.35-1.39-.14-2.68-1.06-3.5zM8 20c-.83 0-1.5-.67-1.5-1.5S7.17 17 8 17s1.5.67 1.5 1.5S8.83 20 8 20zm9 0c-.83 0-1.5-.67-1.5-1.5S16.17 17 17 17s1.5.67 1.5 1.5S17.83 20 17 20z'),
+    ],
+  ),
+  // chrome_reader_mode_rounded
+  0xf63e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 4H3c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14c0 .55-.45 1-1 1h-8V6h8c.55 0 1 .45 1 1v11zm-1.75-8.5h-5.5c-.41 0-.75.34-.75.75s.34.75.75.75h5.5c.41 0 .75-.34.75-.75s-.34-.75-.75-.75zm0 2.5h-5.5c-.41 0-.75.34-.75.75s.34.75.75.75h5.5c.41 0 .75-.34.75-.75s-.34-.75-.75-.75zm0 2.5h-5.5c-.41 0-.75.34-.75.75s.34.75.75.75h5.5c.41 0 .75-.34.75-.75s-.34-.75-.75-.75z'),
+    ],
+  ),
+  // circle_notifications_rounded
+  0xf63f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16.5c-.83 0-1.5-.67-1.5-1.5h3c0 .83-.67 1.5-1.5 1.5zm4-2.5H8c-.55 0-1-.45-1-1s.45-1 1-1v-3c0-1.86 1.28-3.41 3-3.86V6.5c0-.55.45-1 1-1s1 .45 1 1v.64c1.72.45 3 2 3 3.86v3c.55 0 1 .45 1 1s-.45 1-1 1z'),
     ],
   ),
   // circle_rounded
@@ -42118,6 +46481,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59 7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12 5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z'),
+    ],
+  ),
+  // closed_caption_disabled_rounded
+  0xf648: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.83 4H19c1.1 0 2 .9 2 2v12c0 .05-.01.1-.02.16l-3.38-3.38c.24-.19.4-.46.4-.78v-.5c0-.28-.22-.5-.5-.5H17c-.28 0-.5.22-.5.5h-.17l-1.83-1.83V10.5h2c0 .28.22.5.5.5h.5c.28 0 .5-.22.5-.5V10c0-.55-.45-1-1-1h-3c-.55 0-1 .45-1 1v.17L6.83 4zm13.66 17.9a.996.996 0 0 1-1.41 0l-1.9-1.9H5a2 2 0 0 1-2-2V6c0-.05.02-.1.02-.15l-.92-.92a.996.996 0 1 1 1.41-1.41l16.97 16.97c.4.39.4 1.02.01 1.41zM11 13.83l-.83-.83H10c-.28 0-.5.22-.5.5h-2v-3h.17L6.4 9.22c-.24.19-.4.46-.4.78v4c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-.17z'),
     ],
   ),
   // closed_caption_off_rounded
@@ -42225,6 +46596,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M18.5 3H6c-1.1 0-2 .9-2 2v5.71c0 3.83 2.95 7.18 6.78 7.29 3.96.12 7.22-3.06 7.22-7v-1h.5c1.93 0 3.5-1.57 3.5-3.5S20.43 3 18.5 3zM16 5v3H6V5h10zm2.5 3H18V5h.5c.83 0 1.5.67 1.5 1.5S19.33 8 18.5 8zM5 19h14c.55 0 1 .45 1 1s-.45 1-1 1H5c-.55 0-1-.45-1-1s.45-1 1-1z'),
     ],
   ),
+  // collections_bookmark_rounded
+  0xf656: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 20H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1s-1 .45-1 1v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1zm3-18H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 10-2.5-1.5L15 12V4h5v8z'),
+    ],
+  ),
   // collections_rounded
   0xf657: WiredSvgIconData(
     width: 24.0,
@@ -42320,6 +46699,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M22 8.54V6c0-1.1-.9-2-2-2H4c-1.1 0-1.99.89-1.99 2v2.54c0 .69.33 1.37.94 1.69C3.58 10.58 4 11.24 4 12s-.43 1.43-1.06 1.76c-.6.33-.94 1.01-.94 1.7V18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-2.54c0-.69-.34-1.37-.94-1.7-.63-.34-1.06-1-1.06-1.76s.43-1.42 1.06-1.76c.6-.33.94-1.01.94-1.7zm-9 8.96h-2v-2h2v2zm0-4.5h-2v-2h2v2zm0-4.5h-2v-2h2v2z'),
+    ],
+  ),
+  // connect_without_contact_rounded
+  0xf663: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 4c0-1.11-.89-2-2-2s-2 .89-2 2 .89 2 2 2 2-.89 2-2zm3.19.5c-.41 0-.76.25-.92.63A2.973 2.973 0 0 1 6.5 7h-3C2.67 7 2 7.67 2 8.5V11h6V8.74a4.955 4.955 0 0 0 3.12-2.91c.26-.64-.24-1.33-.93-1.33zM19 17c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm1.5 1h-3c-1.26 0-2.33-.77-2.77-1.87a.986.986 0 0 0-.92-.63c-.69 0-1.19.69-.94 1.33a4.98 4.98 0 0 0 3.12 2.91V22h6v-2.5c.01-.83-.66-1.5-1.49-1.5zm-3.25-6.91s0-.01.01 0a3.02 3.02 0 0 0-2.17 2.17v-.01c-.11.43-.51.75-.98.75-.55 0-1-.45-1-1 0-.05.02-.14.02-.14a4.99 4.99 0 0 1 3.75-3.73c.04 0 .08-.01.12-.01.55 0 1 .45 1 1 0 .46-.32.86-.75.97zM18 6.06c0 .51-.37.92-.86.99-3.19.39-5.7 2.91-6.09 6.1A1.002 1.002 0 0 1 9.06 13v-.09c.5-4.12 3.79-7.38 7.92-7.85h.01c.56 0 1.01.45 1.01 1z'),
     ],
   ),
   // connected_tv_rounded
@@ -42425,6 +46812,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M4.65 9.35 2.7 11.3a.996.996 0 0 0 0 1.41l1.95 1.95c.49.49 1.28.49 1.77 0 .48-.49.48-1.27 0-1.76l-.88-.9.88-.89c.48-.49.48-1.27 0-1.76s-1.28-.49-1.77 0zm12.93 0c-.48.49-.48 1.27 0 1.76l.88.89-.88.89c-.48.49-.48 1.27 0 1.76.49.49 1.28.49 1.77 0l1.95-1.95a.996.996 0 0 0 0-1.41l-1.95-1.95c-.49-.48-1.29-.48-1.77.01zM12 18.46l-.89-.88c-.49-.48-1.27-.48-1.76 0a1.25 1.25 0 0 0 0 1.77l1.95 1.95c.39.39 1.02.39 1.41 0l1.95-1.95c.49-.49.49-1.28 0-1.77-.49-.48-1.27-.48-1.76 0l-.9.88zM9.35 6.42c.49.48 1.27.48 1.76 0l.89-.88.89.88c.49.48 1.27.48 1.76 0 .49-.49.49-1.28 0-1.77L12.7 2.7a.996.996 0 0 0-1.41 0L9.35 4.65a1.25 1.25 0 0 0 0 1.77z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 12.0, radius: 3.0),
+    ],
+  ),
+  // control_point_duplicate_rounded
+  0xf671: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15 8c-.55 0-1 .45-1 1v2h-2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1h-2V9c0-.55-.45-1-1-1zM2 12c0-2.58 1.4-4.83 3.48-6.04.32-.19.53-.51.53-.88 0-.77-.84-1.25-1.51-.86C1.82 5.78 0 8.68 0 12s1.82 6.22 4.5 7.78c.67.39 1.51-.09 1.51-.86 0-.37-.21-.69-.53-.88A6.98 6.98 0 0 1 2 12zm13-9c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z'),
     ],
   ),
   // control_point_rounded
@@ -42773,6 +47168,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m16.24 11.51 1.57-1.57-3.75-3.75-1.57 1.57-4.14-4.13c-.78-.78-2.05-.78-2.83 0l-1.9 1.9c-.78.78-.78 2.05 0 2.83l4.13 4.13-4.6 4.61c-.1.1-.15.22-.15.36v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15l4.62-4.62 4.13 4.13c1.32 1.32 2.76.07 2.83 0l1.9-1.9c.78-.78.78-2.05 0-2.83l-4.13-4.12zm-7.06-.44L5.04 6.94l1.89-1.9L8.2 6.31l-.47.49a.996.996 0 1 0 1.41 1.41l.48-.48 1.45 1.45-1.89 1.89zm7.88 7.89-4.13-4.13 1.9-1.9 1.45 1.45-.48.48a.996.996 0 1 0 1.41 1.41l.48-.48 1.27 1.27-1.9 1.9zm3.65-11.92a.996.996 0 0 0 0-1.41l-2.34-2.34c-.47-.47-1.12-.29-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'),
     ],
   ),
+  // desktop_access_disabled_rounded
+  0xf69d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M.31 2a.996.996 0 0 0 0 1.41l.69.68V16c0 1.1.9 2 2 2h7v2H9c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1h-1v-2h.9l5.29 5.29a.996.996 0 1 0 1.41-1.41L1.72 2A.996.996 0 0 0 .31 2zm2.68 13V6.09L12.9 16H3.99c-.55 0-1-.45-1-1zM4.55 2l2 2H20c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1h-1.45l2 2h.44c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H4.55z'),
+    ],
+  ),
   // desktop_mac_rounded
   0xf69e: WiredSvgIconData(
     width: 24.0,
@@ -42837,6 +47240,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15 13V5c0-1.66-1.34-3-3-3S9 3.34 9 5v8c-1.21.91-2 2.37-2 4 0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.63-.79-3.09-2-4zm-4-2V5c0-.55.45-1 1-1s1 .45 1 1v1h-1v1h1v2h-1v1h1v1h-2z'),
     ],
   ),
+  // device_unknown_rounded
+  0xf6a6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14zm-6-3h2v2h-2zm-1.48-5.81h.13c.33 0 .59-.23.7-.54.24-.69.91-1.21 1.66-1.21.93 0 1.75.82 1.75 1.75 0 1.32-1.49 1.55-2.23 2.82h-.01c-.08.14-.14.29-.2.45-.01.02-.02.03-.02.05-.01.02-.01.04-.01.05-.1.31-.16.66-.16 1.08h1.76c0-.25.04-.47.12-.67.54-1.47 2.77-1.86 2.48-4.18-.19-1.55-1.43-2.84-2.98-3.04-1.77-.23-3.29.78-3.81 2.3-.2.56.23 1.14.82 1.14z'),
+    ],
+  ),
   // devices_other_rounded
   0xf6a7: WiredSvgIconData(
     width: 24.0,
@@ -42893,6 +47304,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5zm5.8-10 2.4-2.4.8.8c1.06 1.06 2.38 1.78 3.96 2.02.6.09 1.14-.39 1.14-1 0-.49-.37-.91-.85-.99-1.11-.18-2.02-.71-2.75-1.43l-1.9-1.9c-.5-.4-1-.6-1.6-.6s-1.1.2-1.4.6L7.8 8.4c-.4.4-.6.9-.6 1.4 0 .6.2 1.1.6 1.4L11 14v4c0 .55.45 1 1 1s1-.45 1-1v-4.4c0-.52-.2-1.01-.55-1.38L10.8 10.5zM19 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z'),
     ],
   ),
+  // directions_boat_filled_rounded
+  0xf6ae: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 21c-1.19 0-2.38-.35-3.47-.98-.33-.19-.73-.19-1.07 0a6.825 6.825 0 0 1-6.93 0c-.33-.19-.73-.19-1.07 0-1.08.63-2.27.98-3.46.98H3c-.55 0-1 .45-1 1s.45 1 1 1h1c1.38 0 2.74-.35 4-.99a8.752 8.752 0 0 0 8 0c1.26.65 2.62.99 4 .99h1c.55 0 1-.45 1-1s-.45-1-1-1h-1zM3.95 19H4c1.27 0 2.42-.55 3.33-1.33.39-.34.95-.34 1.34 0C9.58 18.45 10.73 19 12 19s2.42-.55 3.33-1.33c.39-.34.95-.34 1.34 0 .91.78 2.06 1.33 3.33 1.33h.05l1.9-6.68c.11-.37.04-1.06-.66-1.28L20 10.62V6c0-1.1-.9-2-2-2h-3V2c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v2H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.63.19-.81.84-.66 1.28L3.95 19zM6 6h12v3.97L12.62 8.2c-.41-.13-.84-.13-1.25 0L6 9.97V6z'),
+    ],
+  ),
   // directions_boat_rounded
   0xf6af: WiredSvgIconData(
     width: 24.0,
@@ -42901,12 +47320,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 21c-1.19 0-2.38-.35-3.47-.98-.33-.19-.73-.19-1.07 0a6.825 6.825 0 0 1-6.93 0c-.33-.19-.73-.19-1.07 0-1.08.63-2.27.98-3.46.98H3c-.55 0-1 .45-1 1s.45 1 1 1h1c1.38 0 2.74-.35 4-.99a8.752 8.752 0 0 0 8 0c1.26.65 2.62.99 4 .99h1c.55 0 1-.45 1-1s-.45-1-1-1h-1zM3.95 19H4c1.27 0 2.42-.55 3.33-1.33.39-.34.95-.34 1.34 0C9.58 18.45 10.73 19 12 19s2.42-.55 3.33-1.33c.39-.34.95-.34 1.34 0 .91.78 2.06 1.33 3.33 1.33h.05l1.9-6.68c.11-.37.04-1.06-.66-1.28L20 10.62V6c0-1.1-.9-2-2-2h-3V2c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v2H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.63.19-.81.84-.66 1.28L3.95 19zM6 6h12v3.97L12.62 8.2c-.41-.13-.84-.13-1.25 0L6 9.97V6z'),
     ],
   ),
+  // directions_bus_filled_rounded
+  0xf6b0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5c0 .95.38 1.81 1 2.44v1.56c0 .83.67 1.5 1.5 1.5S8 20.33 8 19.5V19h8v.5c0 .82.67 1.5 1.5 1.5.82 0 1.5-.67 1.5-1.5v-1.56c.62-.63 1-1.49 1-2.44V6c0-3.5-3.58-4-8-4zM8.5 16c-.83 0-1.5-.67-1.5-1.5S7.67 13 8.5 13s1.5.67 1.5 1.5S9.33 16 8.5 16zm7 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6H6V7h12v3z'),
+    ],
+  ),
   // directions_bus_rounded
   0xf6b1: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M4 16c0 .88.39 1.67 1 2.22v1.28c0 .83.67 1.5 1.5 1.5S8 20.33 8 19.5V19h8v.5c0 .82.67 1.5 1.5 1.5.82 0 1.5-.67 1.5-1.5v-1.28c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z'),
+    ],
+  ),
+  // directions_car_filled_rounded
+  0xf6b2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v7.5c0 .83.67 1.5 1.5 1.5S6 20.33 6 19.5V19h12v.5c0 .82.67 1.5 1.5 1.5.82 0 1.5-.67 1.5-1.5V12l-2.08-5.99zM7.5 16c-.83 0-1.5-.67-1.5-1.5S6.67 13 7.5 13s1.5.67 1.5 1.5S8.33 16 7.5 16zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5.81 10l1.04-3h10.29l1.04 3H5.81z'),
     ],
   ),
   // directions_car_rounded
@@ -42923,6 +47358,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m21.71 11.29-9-9a.996.996 0 0 0-1.41 0L8.21 5.38 13 10.17V7.5l3.15 3.15c.2.2.2.51 0 .71l-.98.98 3.45 3.45 3.09-3.09c.38-.38.38-1.01 0-1.41zM6.79 6.79 3.51 3.51A.996.996 0 1 0 2.1 4.92L5.38 8.2l-3.09 3.09a.996.996 0 0 0 0 1.41l9 9c.39.39 1.02.39 1.41 0l3.09-3.09 3.28 3.28a.996.996 0 1 0 1.41-1.41L6.79 6.79zM9.99 14c0 .55-.45 1-1 1s-1-.45-1-1v-3c0-.05.02-.1.03-.15l1.97 1.97V14z'),
+    ],
+  ),
+  // directions_railway_filled_rounded
+  0xf6b5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19l-1.21.81A.649.649 0 0 0 6.65 21h10.7a.649.649 0 0 0 .36-1.19L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zm0 14c-.83 0-1.5-.67-1.5-1.5S11.17 13 12 13s1.5.67 1.5 1.5S12.83 16 12 16zm6-6H6V7h12v3z'),
     ],
   ),
   // directions_railway_rounded
@@ -42949,12 +47392,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.17 12 .57-2.5 2.1 2v5c0 .55.45 1 1 1s1-.45 1-1v-5.64c0-.55-.22-1.07-.62-1.45l-1.48-1.41.6-3a7.321 7.321 0 0 0 4.36 2.41c.6.09 1.14-.39 1.14-1 0-.49-.36-.9-.85-.98-1.52-.25-2.78-1.15-3.45-2.33l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L7.21 7.76a2.01 2.01 0 0 0-1.22 1.85v2.37c0 .55.45 1 1 1s1-.45 1-1v-2.4l1.8-.7-1.6 8.1-3.92-.8c-.54-.11-1.07.24-1.18.78V17c-.11.54.24 1.07.78 1.18l4.11.82a2 2 0 0 0 2.34-1.52z'),
     ],
   ),
+  // directions_subway_filled_rounded
+  0xf6b9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19l-1.21.81A.649.649 0 0 0 6.65 21h10.7a.649.649 0 0 0 .36-1.19L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM8.5 16c-.83 0-1.5-.67-1.5-1.5S7.67 13 8.5 13s1.5.67 1.5 1.5S9.33 16 8.5 16zm2.5-6H6V7h5v3zm4.5 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6h-5V7h5v3z'),
+    ],
+  ),
   // directions_subway_rounded
   0xf6ba: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2c-4.42 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19l-1.15 1.15a.5.5 0 0 0 .36.85H17.3c.45 0 .67-.54.35-.85L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-6H6V6h5v5zm5.5 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6h-5V6h5v5z'),
+    ],
+  ),
+  // directions_transit_filled_rounded
+  0xf6bb: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19l-1.21.81A.649.649 0 0 0 6.65 21h10.7a.649.649 0 0 0 .36-1.19L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM8.5 16c-.83 0-1.5-.67-1.5-1.5S7.67 13 8.5 13s1.5.67 1.5 1.5S9.33 16 8.5 16zm2.5-6H6V7h5v3zm4.5 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6h-5V7h5v3z'),
     ],
   ),
   // directions_transit_rounded
@@ -43059,6 +47518,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4 11H8c-.55 0-1-.45-1-1s.45-1 1-1h8c.55 0 1 .45 1 1s-.45 1-1 1z'),
+    ],
+  ),
+  // do_not_disturb_on_total_silence_rounded
+  0xf6c9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.6-6-6-6zm2 7h-4c-.55 0-1-.45-1-1s.45-1 1-1h4c.55 0 1 .45 1 1s-.45 1-1 1z'),
     ],
   ),
   // do_not_disturb_rounded
@@ -43223,6 +47690,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6 18h12c.55 0 1 .45 1 1s-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1zm5.01-4.1a2 2 0 0 1-2.82-.01L6 11.7c-.55-.55-.54-1.44.03-1.97.54-.52 1.4-.5 1.92.02L9.6 11.4l6.43-6.43c.54-.54 1.41-.54 1.95 0l.04.04c.54.54.54 1.42-.01 1.96l-7 6.93z'),
     ],
   ),
+  // download_for_offline_rounded
+  0xf6de: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm-1 8V7c0-.55.45-1 1-1s1 .45 1 1v3h1.79c.45 0 .67.54.35.85l-2.79 2.79c-.2.2-.51.2-.71 0l-2.79-2.79a.5.5 0 0 1 .36-.85H11zm5 7H8c-.55 0-1-.45-1-1s.45-1 1-1h8c.55 0 1 .45 1 1s-.45 1-1 1z'),
+    ],
+  ),
   // download_rounded
   0xf6df: WiredSvgIconData(
     width: 24.0,
@@ -43279,6 +47754,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 6h-8l-1.41-1.41C10.21 4.21 9.7 4 9.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-8 9.79V14H9c-.55 0-1-.45-1-1s.45-1 1-1h3v-1.79c0-.45.54-.67.85-.35l2.79 2.79c.2.2.2.51 0 .71l-2.79 2.79a.5.5 0 0 1-.85-.36z'),
     ],
   ),
+  // drive_file_rename_outline_rounded
+  0xf6e6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m15 16-4 4h8c1.1 0 2-.9 2-2s-.9-2-2-2h-4zm-2.94-8.81-8.77 8.77c-.18.18-.29.44-.29.7V19c0 .55.45 1 1 1h2.34c.27 0 .52-.11.71-.29l8.77-8.77-3.76-3.75zm6.65.85a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'),
+    ],
+  ),
   // drive_folder_upload_rounded
   0xf6e7: WiredSvgIconData(
     width: 24.0,
@@ -43309,6 +47792,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 2h-8C6.38 2 2 6.66 2 12.28 2 17.5 6.49 22 11.72 22 17.39 22 22 17.62 22 12V4c0-1.1-.9-2-2-2zm-3 13-3-2v2H7V9h7v2l3-2v6z'),
+    ],
+  ),
+  // dvr_rounded
+  0xf6eb: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v1c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-1h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 14H4c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h16c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1zm-2-9H9c-.55 0-1 .45-1 1s.45 1 1 1h9c.55 0 1-.45 1-1s-.45-1-1-1zm0 4H9c-.55 0-1 .45-1 1s.45 1 1 1h9c.55 0 1-.45 1-1s-.45-1-1-1zM7 8H5v2h2V8zm0 4H5v2h2v-2z'),
     ],
   ),
   // dynamic_feed_rounded
@@ -43591,6 +48082,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15.5 11A2.5 2.5 0 0 0 18 8.5V4h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1v3.51c-.42-.32-.93-.51-1.5-.51a2.5 2.5 0 0 0 0 5zm-5.05 7.09a.996.996 0 1 0-1.41-1.41l-.71.71-.71-.71.35-.35c.98-.98.98-2.56 0-3.54a2.49 2.49 0 0 0-1.77-.73 2.499 2.499 0 0 0-1.77 4.27l.35.35-1.06 1.06c-.98.98-.98 2.56 0 3.54.5.48 1.14.72 1.78.72.64 0 1.28-.24 1.77-.73l1.06-1.06.71.71a.996.996 0 1 0 1.41-1.41l-.71-.71.71-.71zm-4.6-3.89c.12-.12.26-.15.35-.15s.23.03.35.15c.19.2.19.51 0 .71l-.35.35-.35-.36c-.12-.12-.15-.26-.15-.35s.03-.23.15-.35zm0 5.65c-.12.12-.26.15-.35.15s-.23-.03-.35-.15c-.12-.12-.15-.26-.15-.35s.03-.23.15-.35l1.06-1.06.71.71-1.07 1.05z'),
     ],
   ),
+  // emoji_transportation_rounded
+  0xf70e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m21.99 14.77-1.43-4.11c-.14-.4-.52-.66-.97-.66H12.4c-.46 0-.83.26-.98.66L10 14.77v5.24c0 .55.45.99 1 .99s1-.45 1-1v-1h8v1a1 1 0 0 0 2 .01l-.01-5.24zm-10.38-1.43.69-2c.05-.2.24-.34.46-.34h6.48c.21 0 .4.14.47.34l.69 2a.5.5 0 0 1-.47.66h-7.85a.5.5 0 0 1-.47-.66zm.38 3.66c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm8 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
+      WiredSvgPrimitive.path('M14 4.5V9h1V4c0-.55-.45-1-1-1H8c-.55 0-1 .45-1 1v4H3c-.55 0-1 .45-1 1v12h1V9.5c0-.28.22-.5.5-.5h4c.28 0 .5-.22.5-.5v-4c0-.28.22-.5.5-.5h5c.28 0 .5.22.5.5z'),
+      WiredSvgPrimitive.path('M5 11h2v2H5zm5-6h2v2h-2zM5 15h2v2H5zm0 4h2v2H5z'),
+    ],
+  ),
   // engineering_rounded
   0xf70f: WiredSvgIconData(
     width: 24.0,
@@ -43685,6 +48186,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m9.84 16.47 1.91-1.91 1.91 1.91c.29.29.77.29 1.06 0 .29-.29.29-.77 0-1.06l-1.91-1.91 1.91-1.91c.29-.29.29-.77 0-1.06a.754.754 0 0 0-1.06 0l-1.91 1.91-1.91-1.91a.754.754 0 0 0-1.06 0c-.29.29-.29.77 0 1.06l1.91 1.91-1.91 1.91c-.29.29-.29.77 0 1.06.29.29.77.29 1.06 0zM19 3h-1V2c0-.55-.45-1-1-1s-1 .45-1 1v1H8V2c0-.55-.45-1-1-1s-1 .45-1 1v1H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6c-.55 0-1-.45-1-1V8h14v10c0 .55-.45 1-1 1z'),
+    ],
+  ),
+  // event_note_rounded
+  0xf71b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16 10H8c-.55 0-1 .45-1 1s.45 1 1 1h8c.55 0 1-.45 1-1s-.45-1-1-1zm3-7h-1V2c0-.55-.45-1-1-1s-1 .45-1 1v1H8V2c0-.55-.45-1-1-1s-1 .45-1 1v1H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6c-.55 0-1-.45-1-1V8h14v10c0 .55-.45 1-1 1zm-5-5H8c-.55 0-1 .45-1 1s.45 1 1 1h5c.55 0 1-.45 1-1s-.45-1-1-1z'),
     ],
   ),
   // event_rounded
@@ -43823,6 +48332,17 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5a2.5 2.5 0 0 0-5 0V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7s2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5a2.5 2.5 0 0 0 0-5z'),
     ],
   ),
+  // face_retouching_natural_rounded
+  0xf72d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22.01 4.05 20.6 3.4l-.65-1.41a.5.5 0 0 0-.91 0L18.4 3.4l-1.41.65a.5.5 0 0 0 0 .91l1.41.64.65 1.41a.5.5 0 0 0 .91 0l.64-1.41 1.41-.65c.39-.17.39-.73 0-.9z'),
+      WiredSvgPrimitive.circle(cx: 9.0, cy: 13.0, radius: 1.25),
+      WiredSvgPrimitive.circle(cx: 15.0, cy: 13.0, radius: 1.25),
+      WiredSvgPrimitive.path('M19.5 8.8c-.78 0-1.49-.46-1.82-1.17l-.41-.9-.9-.41A2.014 2.014 0 0 1 15.2 4.5c0-.66.34-1.26.87-1.63C14.83 2.32 13.45 2 12 2 6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-1.45-.32-2.83-.87-4.07-.37.53-.97.87-1.63.87zM12 20c-4.41 0-8-3.59-8-8 0-.05.01-.1 0-.14 2.6-.98 4.69-2.99 5.74-5.55A10 10 0 0 0 17.5 10c.75 0 1.47-.09 2.17-.24.21.71.33 1.46.33 2.24 0 4.41-3.59 8-8 8z'),
+    ],
+  ),
   // face_retouching_off_rounded
   0xf72e: WiredSvgIconData(
     width: 24.0,
@@ -43838,6 +48358,23 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M10.25 13a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0zM15 11.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zm7 .25c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10zm-2 0c0-.78-.12-1.53-.33-2.24-.7.15-1.42.24-2.17.24a10 10 0 0 1-7.76-3.69A10.016 10.016 0 0 1 4 11.86c.01.04 0 .09 0 .14 0 4.41 3.59 8 8 8s8-3.59 8-8z'),
+    ],
+  ),
+  // face_unlock_rounded
+  0xf730: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 12.5a3 3 0 100-6 3 3 0 000 6Zm0 2c-3.9 0-7 1.9-7 4.5V21h10v-1H7c.3-1.7 2.5-3 5-3s4.7 1.3 5 3h-1v1h3v-2c0-2.6-3.1-4.5-7-4.5Z'),
+      WiredSvgPrimitive.path('M17 9V8a2 2 0 114 0v1h1v6h-6V9h1Zm1 0h2V8a1 1 0 10-2 0v1Z'),
+    ],
+  ),
+  // facebook_rounded
+  0xf731: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z'),
     ],
   ),
   // fact_check_rounded
@@ -43894,6 +48431,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13.35 20.13c-.76.69-1.93.69-2.69-.01l-.11-.1C5.3 15.27 1.87 12.16 2 8.28c.06-1.7.93-3.33 2.34-4.29 2.64-1.8 5.9-.96 7.66 1.1 1.76-2.06 5.02-2.91 7.66-1.1 1.41.96 2.28 2.59 2.34 4.29.14 3.88-3.3 6.99-8.55 11.76l-.1.09z'),
+    ],
+  ),
+  // featured_play_list_rounded
+  0xf739: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-10 8H4c-.55 0-1-.45-1-1s.45-1 1-1h7c.55 0 1 .45 1 1s-.45 1-1 1zm0-4H4c-.55 0-1-.45-1-1s.45-1 1-1h7c.55 0 1 .45 1 1s-.45 1-1 1z'),
+    ],
+  ),
+  // featured_video_rounded
+  0xf73a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-10 9H4c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h7c.55 0 1 .45 1 1v5c0 .55-.45 1-1 1z'),
     ],
   ),
   // feed_rounded
@@ -44233,6 +48786,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 17c0 .55-.45 1-1 1h-1v-1c0-.55-.45-1-1-1h-1.15c.71-.85 1.15-1.89 1.15-3 0-1.89-1.09-2.84-1.85-3.36-1.86-1.27-2.23-2.78-2.25-3.72a.507.507 0 0 0-.77-.43c-5.8 3.43-5.15 7-5.13 7.51.03.96.49 2.07 1.24 3H7c-.55 0-1 .45-1 1v1H5c-.55 0-1-.45-1-1V5c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v14zm-6.8-5.26c-.08-.46-.07-.85.08-1.28.54 1.21 2.15 1.64 1.98 3.18-.19 1.69-2.11 2.37-3.39 1.32.76-.24 1.4-1.04 1.53-1.63.12-.55-.11-1.04-.2-1.59z'),
     ],
   ),
+  // first_page_rounded
+  0xf765: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.7 15.89 13.82 12l3.89-3.89A.996.996 0 1 0 16.3 6.7l-4.59 4.59a.996.996 0 0 0 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0a.993.993 0 0 0-.01-1.4zM7 6c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1s-1-.45-1-1V7c0-.55.45-1 1-1z'),
+    ],
+  ),
   // fit_screen_rounded
   0xf766: WiredSvgIconData(
     width: 24.0,
@@ -44321,12 +48882,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M16 7.08c0 1.77-.84 3.25-2 3.82V20c0 .55-.45 1-1 1s-1-.45-1-1v-9.1c-1.16-.57-2-2.05-2-3.82C10.01 4.83 11.35 3 13 3c1.66 0 3 1.83 3 4.08zm2.27-3.9c-.63-.19-1.27.31-1.27.97V20c0 .55.45 1 1 1s1-.45 1-1v-7h1c.55 0 1-.45 1-1V7c0-1.46-.86-3.26-2.73-3.82zM8.28 3c-.4 0-.72.32-.72.72V7h-.84V3.72C6.72 3.32 6.4 3 6 3s-.72.32-.72.72V7h-.84V3.72c0-.4-.32-.72-.72-.72S3 3.32 3 3.72V9c0 1.1.9 2 2 2v9c0 .55.45 1 1 1s1-.45 1-1v-9c1.1 0 2-.9 2-2V3.72c0-.4-.32-.72-.72-.72z'),
     ],
   ),
+  // flight_land_rounded
+  0xf771: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.5 19h-17c-.55 0-1 .45-1 1s.45 1 1 1h17c.55 0 1-.45 1-1s-.45-1-1-1zM3.51 11.61l15.83 4.24c.8.21 1.62-.26 1.84-1.06.21-.8-.26-1.62-1.06-1.84l-5.31-1.42-2.58-8.45a1.08 1.08 0 0 0-.75-.73c-.68-.18-1.35.33-1.35 1.04v6.88L5.15 8.95 4.4 7.09a.991.991 0 0 0-.67-.59l-.33-.09a.495.495 0 0 0-.63.48v3.75c0 .46.3.85.74.97z'),
+    ],
+  ),
   // flight_rounded
   0xf772: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21 14.58c0-.36-.19-.69-.49-.89L13 9V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-7.51 4.69a1.05 1.05 0 0 0 .87 1.89L10 13.5V19l-1.8 1.35a.48.48 0 0 0-.2.4v.59c0 .33.32.57.64.48L11.5 21l2.86.82c.32.09.64-.15.64-.48v-.59a.48.48 0 0 0-.2-.4L13 19v-5.5l6.64 2.08c.68.21 1.36-.3 1.36-1z'),
+    ],
+  ),
+  // flight_takeoff_rounded
+  0xf773: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.5 19h-17c-.55 0-1 .45-1 1s.45 1 1 1h17c.55 0 1-.45 1-1s-.45-1-1-1zm1.57-9.36c-.22-.8-1.04-1.27-1.84-1.06L14.92 10 8.46 3.98a1.06 1.06 0 0 0-1.02-.25c-.68.19-1 .97-.65 1.58l3.44 5.96-4.97 1.33-1.57-1.24c-.25-.19-.57-.26-.88-.18l-.33.09c-.32.08-.47.45-.3.73l1.88 3.25c.23.39.69.58 1.12.47L21 11.48c.8-.22 1.28-1.04 1.07-1.84z'),
     ],
   ),
   // flip_camera_android_rounded
@@ -44466,6 +49043,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M7 16c0 .55.45 1 1 1h8c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1zm-3 5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-8h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm3-5c0 .55.45 1 1 1h8c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1zM3 4c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z'),
     ],
   ),
+  // format_align_justify_rounded
+  0xf786: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 21h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-4h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-4h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-4h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 4c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z'),
+    ],
+  ),
   // format_align_left_rounded
   0xf787: WiredSvgIconData(
     width: 24.0,
@@ -44522,6 +49107,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 20H4c-1.1 0-2 .9-2 2s.9 2 2 2h16c1.1 0 2-.9 2-2s-.9-2-2-2zM7.11 17c.48 0 .91-.3 1.06-.75l1.01-2.83h5.65l.99 2.82c.16.46.59.76 1.07.76.79 0 1.33-.79 1.05-1.52L13.69 4.17C13.43 3.47 12.75 3 12 3s-1.43.47-1.69 1.17L6.06 15.48c-.28.73.27 1.52 1.05 1.52zm4.83-11.4h.12l2.03 5.79H9.91l2.03-5.79z'),
     ],
   ),
+  // format_indent_decrease_rounded
+  0xf78e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 17h8c.55 0 1-.45 1-1s-.45-1-1-1h-8c-.55 0-1 .45-1 1s.45 1 1 1zm-8.65-4.65 2.79 2.79c.32.32.86.1.86-.35V9.21c0-.45-.54-.67-.85-.35l-2.79 2.79c-.2.19-.2.51-.01.7zM4 21h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 4c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1zm9 5h8c.55 0 1-.45 1-1s-.45-1-1-1h-8c-.55 0-1 .45-1 1s.45 1 1 1zm0 4h8c.55 0 1-.45 1-1s-.45-1-1-1h-8c-.55 0-1 .45-1 1s.45 1 1 1z'),
+    ],
+  ),
+  // format_indent_increase_rounded
+  0xf78f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 21h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 9.21v5.59c0 .45.54.67.85.35l2.79-2.79c.2-.2.2-.51 0-.71l-2.79-2.8a.5.5 0 0 0-.85.36zM12 17h8c.55 0 1-.45 1-1s-.45-1-1-1h-8c-.55 0-1 .45-1 1s.45 1 1 1zM3 4c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1zm9 5h8c.55 0 1-.45 1-1s-.45-1-1-1h-8c-.55 0-1 .45-1 1s.45 1 1 1zm0 4h8c.55 0 1-.45 1-1s-.45-1-1-1h-8c-.55 0-1 .45-1 1s.45 1 1 1z'),
+    ],
+  ),
   // format_italic_rounded
   0xf790: WiredSvgIconData(
     width: 24.0,
@@ -44536,6 +49137,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M7.29 7c.45 0 .67-.54.35-.85l-2.29-2.3c-.2-.2-.51-.2-.71 0l-2.29 2.3a.5.5 0 0 0 .36.85H4v10H2.71c-.45 0-.67.54-.35.85l2.29 2.29c.2.2.51.2.71 0l2.29-2.29a.5.5 0 0 0-.36-.85H6V7h1.29zM11 7h10c.55 0 1-.45 1-1s-.45-1-1-1H11c-.55 0-1 .45-1 1s.45 1 1 1zm10 10H11c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1zm0-6H11c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z'),
+    ],
+  ),
+  // format_list_bulleted_rounded
+  0xf792: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM8 19h12c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1s.45 1 1 1zm0-6h12c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1s.45 1 1 1zM7 6c0 .55.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1z'),
+    ],
+  ),
+  // format_list_numbered_rounded
+  0xf793: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8 7h12c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1s.45 1 1 1zm12 10H8c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1zm0-6H8c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1zM4.5 16h-2c-.28 0-.5.22-.5.5s.22.5.5.5H4v.5h-.5c-.28 0-.5.22-.5.5s.22.5.5.5H4v.5H2.5c-.28 0-.5.22-.5.5s.22.5.5.5h2c.28 0 .5-.22.5-.5v-3c0-.28-.22-.5-.5-.5zm-2-11H3v2.5c0 .28.22.5.5.5s.5-.22.5-.5v-3c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5s.22.5.5.5zm2 5h-2c-.28 0-.5.22-.5.5s.22.5.5.5h1.3l-1.68 1.96a.49.49 0 0 0-.12.32v.22c0 .28.22.5.5.5h2c.28 0 .5-.22.5-.5s-.22-.5-.5-.5H3.2l1.68-1.96a.49.49 0 0 0 .12-.32v-.22c0-.28-.22-.5-.5-.5z'),
+    ],
+  ),
+  // format_list_numbered_rtl_rounded
+  0xf794: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.5 16h-2c-.28 0-.5.22-.5.5s.22.5.5.5H20v.5h-.5c-.28 0-.5.22-.5.5s.22.5.5.5h.5v.5h-1.5c-.28 0-.5.22-.5.5s.22.5.5.5h2c.28 0 .5-.22.5-.5v-3c0-.28-.22-.5-.5-.5zm-2-11h.5v2.5c0 .28.22.5.5.5s.5-.22.5-.5v-3c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5s.22.5.5.5zm2.5 5.72v-.22c0-.28-.22-.5-.5-.5h-2c-.28 0-.5.22-.5.5s.22.5.5.5h1.3l-1.68 1.96a.49.49 0 0 0-.12.32v.22c0 .28.22.5.5.5h2c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1.3l1.68-1.96a.49.49 0 0 0 .12-.32zM15 5H3c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1zm0 12H3c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1zm0-6H3c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z'),
     ],
   ),
   // format_paint_rounded
@@ -44568,6 +49193,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M9 5.5c0 .83.67 1.5 1.5 1.5H14v10.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V7h3.5c.83 0 1.5-.67 1.5-1.5S21.33 4 20.5 4h-10C9.67 4 9 4.67 9 5.5zM4.5 12H6v5.5c0 .83.67 1.5 1.5 1.5S9 18.33 9 17.5V12h1.5c.83 0 1.5-.67 1.5-1.5S11.33 9 10.5 9h-6C3.67 9 3 9.67 3 10.5S3.67 12 4.5 12z'),
+    ],
+  ),
+  // format_strikethrough_rounded
+  0xf799: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 19c1.1 0 2-.9 2-2v-1h-4v1c0 1.1.9 2 2 2zM5 5.5C5 6.33 5.67 7 6.5 7H10v3h4V7h3.5c.83 0 1.5-.67 1.5-1.5S18.33 4 17.5 4h-11C5.67 4 5 4.67 5 5.5zM4 14h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1z'),
+    ],
+  ),
+  // format_textdirection_l_to_r_rounded
+  0xf79a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 10v4c0 .55.45 1 1 1s1-.45 1-1V4h2v10c0 .55.45 1 1 1s1-.45 1-1V4h1c.55 0 1-.45 1-1s-.45-1-1-1H9.17C7.08 2 5.22 3.53 5.02 5.61A3.998 3.998 0 0 0 9 10zm11.65 7.65-2.79-2.79a.501.501 0 0 0-.86.35V17H6c-.55 0-1 .45-1 1s.45 1 1 1h11v1.79c0 .45.54.67.85.35l2.79-2.79c.2-.19.2-.51.01-.7z'),
+    ],
+  ),
+  // format_textdirection_r_to_l_rounded
+  0xf79b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 10v4c0 .55.45 1 1 1s1-.45 1-1V4h2v10c0 .55.45 1 1 1s1-.45 1-1V4h1c.55 0 1-.45 1-1s-.45-1-1-1h-6.83C8.08 2 6.22 3.53 6.02 5.61A3.998 3.998 0 0 0 10 10zm-2 7v-1.79c0-.45-.54-.67-.85-.35l-2.79 2.79c-.2.2-.2.51 0 .71l2.79 2.79a.5.5 0 0 0 .85-.36V19h11c.55 0 1-.45 1-1s-.45-1-1-1H8z'),
     ],
   ),
   // format_underline_rounded
@@ -44610,6 +49259,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M18.87 13c-.5 0-.91.37-.98.86a6.006 6.006 0 0 1-7.42 4.96c-2.25-.54-3.91-2.27-4.39-4.53A6.014 6.014 0 0 1 11.95 7v2.79c0 .45.54.67.85.35l3.79-3.79c.2-.2.2-.51 0-.71L12.8 1.85a.5.5 0 0 0-.85.35V5c-4.94 0-8.84 4.48-7.84 9.6.6 3.11 2.9 5.5 5.99 6.19 4.83 1.08 9.15-2.2 9.77-6.67.09-.59-.4-1.12-1-1.12zm-6.44 2.15c-.05.07-.11.13-.18.17s-.17.06-.27.06c-.17 0-.31-.05-.42-.15s-.17-.24-.19-.41h-.84c.01.2.05.37.13.53s.19.28.32.39.29.19.46.24.35.08.53.08c.24 0 .46-.04.64-.12s.33-.18.45-.31.21-.28.27-.45.09-.35.09-.54c0-.22-.03-.43-.09-.6s-.14-.33-.25-.45-.25-.22-.41-.28-.34-.1-.55-.1c-.07 0-.14.01-.2.02s-.13.02-.18.04-.1.03-.15.05-.08.04-.11.05l.11-.92h1.7v-.71H10.9l-.25 2.17.67.17c.03-.03.06-.06.1-.09s.07-.05.12-.07.1-.04.15-.05.13-.02.2-.02c.12 0 .22.02.3.05s.16.09.21.15.1.14.13.24.04.19.04.31-.01.22-.03.31-.06.17-.11.24z'),
     ],
   ),
+  // forward_rounded
+  0xf7a1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 8V6.41c0-.89 1.08-1.34 1.71-.71l5.59 5.59c.39.39.39 1.02 0 1.41l-5.59 5.59c-.63.63-1.71.19-1.71-.7V16H5c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1h7z'),
+    ],
+  ),
   // forward_to_inbox_rounded
   0xf7a2: WiredSvgIconData(
     width: 24.0,
@@ -44648,6 +49305,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M6 14c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h3c.55 0 1-.45 1-1s-.45-1-1-1H7v-2c0-.55-.45-1-1-1zm0-4c.55 0 1-.45 1-1V7h2c.55 0 1-.45 1-1s-.45-1-1-1H6c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1zm11 7h-2c-.55 0-1 .45-1 1s.45 1 1 1h3c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1s-1 .45-1 1v2zM14 6c0 .55.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V6c0-.55-.45-1-1-1h-3c-.55 0-1 .45-1 1z'),
+    ],
+  ),
+  // functions_rounded
+  0xf7a7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.5 4H7.56C6.7 4 6 4.7 6 5.56c0 .28.12.55.32.74L12.5 12l-6.18 5.7c-.2.19-.32.46-.32.74C6 19.3 6.7 20 7.56 20h8.94c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5H11l3.59-3.59c.78-.78.78-2.05 0-2.83L11 7h5.5c.83 0 1.5-.67 1.5-1.5S17.33 4 16.5 4z'),
     ],
   ),
   // g_mobiledata_rounded
@@ -45138,6 +49803,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6.99 15c-.7 0-1.26-.56-1.26-1.26 0-.71.56-1.25 1.26-1.25.71 0 1.25.54 1.25 1.25-.01.69-.54 1.26-1.25 1.26zm3.01-7.4c-.76 1.11-1.48 1.46-1.87 2.17-.1.18-.16.32-.19.63-.05.45-.45.78-.9.78H12c-.52 0-.93-.44-.88-.96.03-.34.11-.69.3-1.03.49-.87 1.42-1.39 1.96-2.16.57-.81.25-2.33-1.37-2.33-.71 0-1.18.36-1.47.79-.25.36-.69.53-1.1.36a.872.872 0 0 1-.4-1.31C9.65 6.65 10.67 6 11.99 6c1.48 0 2.49.67 3.01 1.52.44.72.7 2.07.02 3.08z'),
     ],
   ),
+  // help_outline_rounded
+  0xf7e4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2zm1.61-9.96c-2.06-.3-3.88.97-4.43 2.79-.18.58.26 1.17.87 1.17h.2c.41 0 .74-.29.88-.67.32-.89 1.27-1.5 2.3-1.28.95.2 1.65 1.13 1.57 2.1-.1 1.34-1.62 1.63-2.45 2.88 0 .01-.01.01-.01.02-.01.02-.02.03-.03.05-.09.15-.18.32-.25.5-.01.03-.03.05-.04.08-.01.02-.01.04-.02.07-.12.34-.2.75-.2 1.25h2c0-.42.11-.77.28-1.07.02-.03.03-.06.05-.09.08-.14.18-.27.28-.39.01-.01.02-.03.03-.04.1-.12.21-.23.33-.34.96-.91 2.26-1.65 1.99-3.56-.24-1.74-1.61-3.21-3.35-3.47z'),
+    ],
+  ),
+  // help_rounded
+  0xf7e5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75-.9.92c-.5.51-.86.97-1.04 1.69-.08.32-.13.68-.13 1.14h-2v-.5a3.997 3.997 0 0 1 1.17-2.83l1.24-1.26c.46-.44.68-1.1.55-1.8a1.99 1.99 0 0 0-1.39-1.53c-1.11-.31-2.14.32-2.47 1.27-.12.37-.43.65-.82.65h-.3C8.4 9 8 8.44 8.16 7.88a4.008 4.008 0 0 1 3.23-2.83c1.52-.24 2.97.55 3.87 1.8 1.18 1.63.83 3.38-.19 4.4z'),
+    ],
+  ),
   // hevc_rounded
   0xf7e6: WiredSvgIconData(
     width: 24.0,
@@ -45273,6 +49954,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m14.16 10.4-5-3.57c-.7-.5-1.63-.5-2.32 0l-5 3.57c-.53.38-.84.98-.84 1.63V20c0 .55.45 1 1 1h4v-6h4v6h4c.55 0 1-.45 1-1v-7.97c0-.65-.31-1.25-.84-1.63z'),
       WiredSvgPrimitive.path('M21.03 3h-9.06C10.88 3 10 3.88 10 4.97l.09.09c.08.05.16.09.24.14l5 3.57c.76.54 1.3 1.34 1.54 2.23H19v2h-2v2h2v2h-2v4h4.03c1.09 0 1.97-.88 1.97-1.97V4.97C23 3.88 22.12 3 21.03 3zM19 9h-2V7h2v2z'),
+    ],
+  ),
+  // horizontal_distribute_rounded
+  0xf7f7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3 22c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1s1 .45 1 1v18c0 .55-.45 1-1 1zM21 2c-.55 0-1 .45-1 1v18c0 .55.45 1 1 1s1-.45 1-1V3c0-.55-.45-1-1-1zm-9 5c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5z'),
     ],
   ),
   // horizontal_rule_rounded
@@ -45502,6 +50191,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 2v9h-3.56c-.36 0-.68.19-.86.5-.52.9-1.47 1.5-2.58 1.5s-2.06-.6-2.58-1.5a1 1 0 0 0-.86-.5H5V5h14z'),
     ],
   ),
+  // indeterminate_check_box_rounded
+  0xf814: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 10H8c-.55 0-1-.45-1-1s.45-1 1-1h8c.55 0 1 .45 1 1s-.45 1-1 1z'),
+    ],
+  ),
   // info_outline_rounded
   0xf815: WiredSvgIconData(
     width: 24.0,
@@ -45516,6 +50213,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1-8h-2V7h2v2z'),
+    ],
+  ),
+  // input_rounded
+  0xf817: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3.01H3c-1.1 0-2 .9-2 2V8c0 .55.45 1 1 1s1-.45 1-1V5.99c0-.55.45-1 1-1h16c.55 0 1 .45 1 1v12.03c0 .55-.45 1-1 1H4c-.55 0-1-.45-1-1V16c0-.55-.45-1-1-1s-1 .45-1 1v3.01c0 1.09.89 1.98 1.98 1.98H21c1.1 0 2-.9 2-2V5.01c0-1.1-.9-2-2-2zm-9.15 12.14 2.79-2.79c.2-.2.2-.51 0-.71l-2.79-2.79a.495.495 0 0 0-.85.35V11H2c-.55 0-1 .45-1 1s.45 1 1 1h9v1.79c0 .45.54.67.85.36z'),
+    ],
+  ),
+  // insert_chart_outlined_rounded
+  0xf818: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8 17c-.55 0-1-.45-1-1v-5c0-.55.45-1 1-1s1 .45 1 1v5c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v8c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1s1 .45 1 1v2c0 .55-.45 1-1 1zm2 2H6c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1zm1-16H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'),
     ],
   ),
   // insert_chart_rounded
@@ -45581,6 +50294,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21 8c-1.45 0-2.26 1.44-1.93 2.51l-3.55 3.56c-.3-.09-.74-.09-1.04 0l-2.55-2.55C12.27 10.45 11.46 9 10 9c-1.45 0-2.27 1.44-1.93 2.52l-4.56 4.55C2.44 15.74 1 16.55 1 18c0 1.1.9 2 2 2 1.45 0 2.26-1.44 1.93-2.51l4.55-4.56c.3.09.74.09 1.04 0l2.55 2.55C12.73 16.55 13.54 18 15 18c1.45 0 2.27-1.44 1.93-2.52l3.56-3.55c1.07.33 2.51-.48 2.51-1.93 0-1.1-.9-2-2-2z'),
       WiredSvgPrimitive.path('m15 9 .94-2.07L18 6l-2.06-.93L15 3l-.92 2.07L12 6l2.08.93zM3.5 11 4 9l2-.5L4 8l-.5-2L3 8l-2 .5L3 9z'),
+    ],
+  ),
+  // integration_instructions_rounded
+  0xf821: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04a2.008 2.008 0 0 0-1.44 1.19c-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8.7 11.88c-.39.39-1.03.39-1.42 0l-2.17-2.17a.996.996 0 0 1 0-1.41l2.17-2.17c.39-.39 1.03-.39 1.42 0 .39.39.39 1.02 0 1.41L8.83 12l1.46 1.46c.39.39.4 1.03.01 1.42zM12 4.25c-.41 0-.75-.34-.75-.75s.34-.75.75-.75.75.34.75.75-.34.75-.75.75zm1.7 10.63a.996.996 0 0 1 0-1.41L15.17 12l-1.47-1.47a.996.996 0 0 1 0-1.41c.39-.39 1.03-.39 1.42 0l2.17 2.17c.39.39.39 1.02 0 1.41l-2.17 2.17c-.39.4-1.03.4-1.42.01z'),
     ],
   ),
   // inventory_2_rounded
@@ -45673,12 +50394,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M14.71 15.88 10.83 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L8.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0 .38-.39.39-1.03 0-1.42z'),
     ],
   ),
+  // keyboard_arrow_right_rounded
+  0xf82d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9.29 15.88 13.17 12 9.29 8.12a.996.996 0 1 1 1.41-1.41l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3a.996.996 0 0 1-1.41 0c-.38-.39-.39-1.03 0-1.42z'),
+    ],
+  ),
   // keyboard_arrow_up_rounded
   0xf82e: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M8.12 14.71 12 10.83l3.88 3.88a.996.996 0 1 0 1.41-1.41L12.7 8.71a.996.996 0 0 0-1.41 0L6.7 13.3a.996.996 0 0 0 0 1.41c.39.38 1.03.39 1.42 0z'),
+    ],
+  ),
+  // keyboard_backspace_rounded
+  0xf82f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 11H6.83l2.88-2.88A.996.996 0 1 0 8.3 6.71L3.71 11.3a.996.996 0 0 0 0 1.41L8.3 17.3a.996.996 0 1 0 1.41-1.41L6.83 13H20c.55 0 1-.45 1-1s-.45-1-1-1z'),
     ],
   ),
   // keyboard_capslock_rounded
@@ -45713,6 +50450,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm8 7H9c-.55 0-1-.45-1-1s.45-1 1-1h6c.55 0 1 .45 1 1s-.45 1-1 1zm1-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z'),
     ],
   ),
+  // keyboard_tab_rounded
+  0xf834: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.29 8.12 15.17 11H2c-.55 0-1 .45-1 1s.45 1 1 1h13.17l-2.88 2.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L13.7 6.7a.996.996 0 0 0-1.41 0c-.38.39-.39 1.03 0 1.42zM20 7v10c0 .55.45 1 1 1s1-.45 1-1V7c0-.55-.45-1-1-1s-1 .45-1 1z'),
+    ],
+  ),
   // keyboard_voice_rounded
   0xf835: WiredSvgIconData(
     width: 24.0,
@@ -45743,6 +50488,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M6 3c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm10.03.97c.29.29.77.29 1.06 0L20.06 1h-2.12l-1.91 1.91c-.29.29-.29.77 0 1.06zM19.15 12c-1.29 0-3.11.53-5.06 1.38L13 12.16c-.38-.42-.92-.66-1.49-.66H9.6V8H11c1.52 0 2.94-.49 4.09-1.32.49-.35.52-1.07.09-1.5-.35-.35-.9-.38-1.3-.09-.82.57-1.81.91-2.88.91H8c-1.1 0-2 .9-2 2v4.04c0 .64.15 1.27.45 1.83L8 16.84c-.53.38-1.03.78-1.49 1.17.68.58 1.55.99 2.49.99 1.2 0 2.27-.66 3-1.5.73.84 1.8 1.5 3 1.5.33 0 .65-.05.96-.14C18.81 16.9 21 14.72 21 13.28c0-1.03-1.01-1.28-1.85-1.28zm-9.32 3.61L9 13.6l2.5-.1.7.77c-.56.28-1.78.96-2.37 1.34zM22 22c0-.55-.45-1-1-1-.87 0-1.73-.24-2.53-.7a.954.954 0 0 0-.94 0c-1.59.9-3.47.9-5.06 0a.98.98 0 0 0-.94 0c-1.59.9-3.47.9-5.06 0a.98.98 0 0 0-.94 0c-.8.46-1.66.7-2.53.7-.55 0-1 .45-1 1s.45 1 1 1c1.15 0 2.3-.31 3.33-.94 1.66 1.11 3.78 1.01 5.58.14a6.36 6.36 0 0 0 6.09.05c.95.5 1.97.75 3 .75.55 0 1-.45 1-1z'),
+    ],
+  ),
+  // label_important_outline_rounded
+  0xf839: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.94 18.99H15c.65 0 1.26-.31 1.63-.84l3.95-5.57a.99.99 0 0 0 0-1.16l-3.96-5.58A1.95 1.95 0 0 0 15 5H5.94c-.81 0-1.28.93-.81 1.59L9 12l-3.87 5.41c-.47.66 0 1.58.81 1.58z'),
+    ],
+  ),
+  // label_important_rounded
+  0xf83a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.94 18.99H15c.65 0 1.26-.31 1.63-.84l3.95-5.57a.99.99 0 0 0 0-1.16l-3.96-5.58A1.95 1.95 0 0 0 15 5H5.94c-.81 0-1.28.93-.81 1.59L9 12l-3.87 5.41c-.47.66 0 1.58.81 1.58z'),
+    ],
+  ),
+  // label_off_rounded
+  0xf83b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.59 12.58a.99.99 0 0 0 0-1.16l-3.96-5.58C17.27 5.33 16.67 5 16 5H8.66l10.7 10.73 2.23-3.15zM2.72 4.72l.87.87C3.23 5.95 3 6.45 3 7v10c0 1.1.9 2 2 2h12l1.29 1.29a.996.996 0 1 0 1.41-1.41L4.14 3.31c-.38-.38-1.01-.39-1.4-.01a.99.99 0 0 0-.02 1.42z'),
+    ],
+  ),
+  // label_outline_rounded
+  0xf83c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84l3.96-5.58a.99.99 0 0 0 0-1.16l-3.96-5.58z'),
+    ],
+  ),
+  // label_rounded
+  0xf83d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84l3.96-5.58a.99.99 0 0 0 0-1.16l-3.96-5.58z'),
     ],
   ),
   // landscape_rounded
@@ -45791,6 +50576,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 18v-1c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2v1H1c-.55 0-1 .45-1 1s.45 1 1 1h22c.55 0 1-.45 1-1s-.45-1-1-1h-3zM5 5h14c.55 0 1 .45 1 1v8c0 .55-.45 1-1 1H5c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1z'),
+    ],
+  ),
+  // last_page_rounded
+  0xf844: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.29 8.11 10.18 12l-3.89 3.89A.996.996 0 1 0 7.7 17.3l4.59-4.59a.996.996 0 0 0 0-1.41L7.7 6.7a.996.996 0 0 0-1.41 0c-.38.39-.38 1.03 0 1.41zM17 6c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1s-1-.45-1-1V7c0-.55.45-1 1-1z'),
+    ],
+  ),
+  // launch_rounded
+  0xf845: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 19H6c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h5c.55 0 1-.45 1-1s-.45-1-1-1H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6c0-.55-.45-1-1-1s-1 .45-1 1v5c0 .55-.45 1-1 1zM14 4c0 .55.45 1 1 1h2.59l-9.13 9.13a.996.996 0 1 0 1.41 1.41L19 6.41V9c0 .55.45 1 1 1s1-.45 1-1V3h-6c-.55 0-1 .45-1 1z'),
     ],
   ),
   // layers_clear_rounded
@@ -45979,6 +50780,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M3 14c0 1.3.84 2.4 2 2.82V20H4c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1s-.45-1-1-1H7v-3.18C8.16 16.4 9 15.3 9 14V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v7zm2-6h2v3H5V8zm15.64.54-.96-.32a1 1 0 0 1-.68-.95V3c0-.55-.45-1-1-1h-3c-.55 0-1 .45-1 1v4.28a1 1 0 0 1-.68.95l-.96.32c-.81.28-1.36 1.04-1.36 1.9V20c0 1.1.9 2 2 2h7c1.1 0 2-.9 2-2v-9.56c0-.86-.55-1.62-1.36-1.9zM16 4h1v1h-1V4zm-3 6.44.95-.32C15.18 9.72 16 8.57 16 7.28V7h1v.28a3 3 0 0 0 2.05 2.85l.95.31V12h-7v-1.56zM20 20h-7v-2h7v2z'),
     ],
   ),
+  // list_alt_rounded
+  0xf85d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 9h4c.55 0 1-.45 1-1s-.45-1-1-1h-4c-.55 0-1 .45-1 1s.45 1 1 1zm0 4h4c.55 0 1-.45 1-1s-.45-1-1-1h-4c-.55 0-1 .45-1 1s.45 1 1 1zm0 4h4c.55 0 1-.45 1-1s-.45-1-1-1h-4c-.55 0-1 .45-1 1s.45 1 1 1zM7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7zM20 3H4c-.55 0-1 .45-1 1v16c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 16H5V5h14v14z'),
+    ],
+  ),
+  // list_rounded
+  0xf85e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 13c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0 4c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0-8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm4 4h12c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1s.45 1 1 1zm0 4h12c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1s.45 1 1 1zM7 8c0 .55.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1zm-3 5c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0 4c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm0-8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm4 4h12c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1s.45 1 1 1zm0 4h12c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1s.45 1 1 1zM7 8c0 .55.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1z'),
+    ],
+  ),
+  // live_help_rounded
+  0xf85f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 2H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4l2.29 2.29c.39.39 1.02.39 1.41 0L15 20h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-6 16h-2v-2h2v2zm2.07-7.75-.9.92c-.58.59-.99 1.1-1.12 2.06-.06.43-.41.76-.85.76h-.31a.86.86 0 0 1-.85-.98c.11-.91.53-1.72 1.14-2.34l1.24-1.26c.36-.36.58-.86.58-1.41 0-1.1-.9-2-2-2-.87 0-1.62.57-1.89 1.35-.13.37-.44.64-.83.64h-.3c-.58 0-.98-.56-.82-1.12A4.002 4.002 0 0 1 16 8c0 .88-.36 1.68-.93 2.25z'),
+    ],
+  ),
   // live_tv_rounded
   0xf860: WiredSvgIconData(
     width: 24.0,
@@ -46045,6 +50870,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17 5c.83 0 1.5-.67 1.5-1.5 0-.66-.66-1.64-1.11-2.22a.498.498 0 0 0-.79 0c-.44.58-1.1 1.56-1.1 2.22 0 .83.67 1.5 1.5 1.5zm-5 0c.83 0 1.5-.67 1.5-1.5 0-.66-.66-1.64-1.11-2.22a.498.498 0 0 0-.79 0c-.44.58-1.1 1.56-1.1 2.22 0 .83.67 1.5 1.5 1.5zM7 5c.83 0 1.5-.67 1.5-1.5 0-.66-.66-1.64-1.11-2.22a.498.498 0 0 0-.79 0c-.44.58-1.1 1.56-1.1 2.22C5.5 4.33 6.17 5 7 5zm11.92 3.01C18.72 7.42 18.16 7 17.5 7h-11c-.66 0-1.21.42-1.42 1.01l-1.97 5.67c-.07.21-.11.43-.11.66v7.16c0 .83.67 1.5 1.5 1.5S6 22.33 6 21.5V21h12v.5c0 .82.67 1.5 1.5 1.5.82 0 1.5-.67 1.5-1.5v-7.16c0-.22-.04-.45-.11-.66l-1.97-5.67zM6.5 18c-.83 0-1.5-.67-1.5-1.5S5.67 15 6.5 15s1.5.67 1.5 1.5S7.33 18 6.5 18zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 13l1.27-3.82c.14-.4.52-.68.95-.68h9.56c.43 0 .81.28.95.68L19 13H5z'),
     ],
   ),
+  // local_convenience_store_rounded
+  0xf868: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m21.9 7.89-1.05-3.37c-.22-.9-1-1.52-1.91-1.52H5.05c-.9 0-1.69.63-1.9 1.52L2.1 7.89c-.46 1.97.85 3.11.9 3.17V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7.94c1.12-1.12 1.09-2.41.9-3.17zM13 5h1.96l.54 3.52c.09.71-.39 1.48-1.28 1.48-.67 0-1.22-.59-1.22-1.31V5zM6.44 8.86c-.08.65-.6 1.14-1.21 1.14-.93 0-1.35-.97-1.19-1.64L5.05 5h1.97l-.58 3.86zM10.5 16H9v1h1.5c.28 0 .5.22.5.5s-.22.5-.5.5h-2c-.28 0-.5-.22-.5-.5v-2c0-.28.22-.5.5-.5H10v-1H8.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5h2c.28 0 .5.22.5.5v2c0 .28-.22.5-.5.5zm.5-7.31c0 .72-.55 1.31-1.29 1.31-.75 0-1.3-.7-1.22-1.48L9.04 5H11v3.69zM15.5 18c-.28 0-.5-.22-.5-.5V16h-1.5c-.28 0-.5-.22-.5-.5v-2c0-.28.22-.5.5-.5s.5.22.5.5V15h1v-1.5c0-.28.22-.5.5-.5s.5.22.5.5v4c0 .28-.22.5-.5.5zm3.27-8c-.61 0-1.14-.49-1.21-1.14L16.98 5l1.93-.01 1.05 3.37c.16.67-.25 1.64-1.19 1.64z'),
+    ],
+  ),
   // local_dining_rounded
   0xf869: WiredSvgIconData(
     width: 24.0,
@@ -46059,6 +50892,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5.23 2C4.04 2 3.11 3.04 3.24 4.22l1.77 16.01C5.13 21.23 5.97 22 7 22h10c1.03 0 1.87-.77 1.99-1.77l1.77-16.01c.13-1.18-.8-2.22-1.99-2.22H5.23zM12 19c-1.66 0-3-1.34-3-3 0-1.55 1.81-3.95 2.62-4.94.2-.25.57-.25.77 0 .81 1 2.62 3.39 2.62 4.94A3.01 3.01 0 0 1 12 19zm6.33-11H5.67l-.32-2.89c-.06-.59.4-1.11 1-1.11h11.3c.59 0 1.06.52.99 1.11L18.33 8z'),
+    ],
+  ),
+  // local_fire_department_rounded
+  0xf86b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m12 12.9-2.03 2c-.46.46-.82 1.03-.93 1.67C8.74 18.41 10.18 20 12 20s3.26-1.59 2.96-3.42c-.11-.64-.46-1.22-.93-1.67L12 12.9z'),
+      WiredSvgPrimitive.path('M15.56 6.55C14.38 8.02 12 7.19 12 5.3V3.77c0-.8-.89-1.28-1.55-.84C8.12 4.49 4 7.97 4 13c0 2.92 1.56 5.47 3.89 6.86a4.86 4.86 0 0 1-.81-3.68c.19-1.04.75-1.98 1.51-2.72l2.71-2.67c.39-.38 1.01-.38 1.4 0l2.73 2.69c.74.73 1.3 1.65 1.48 2.68.25 1.36-.07 2.64-.77 3.66 1.89-1.15 3.29-3.06 3.71-5.3.61-3.27-.81-6.37-3.22-8.1-.33-.25-.8-.2-1.07.13z'),
     ],
   ),
   // local_florist_rounded
@@ -46099,6 +50941,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-6c-1.1 0-2 .9-2 2v5H3V6c0-.55-.45-1-1-1s-1 .45-1 1v13c0 .55.45 1 1 1s1-.45 1-1v-2h18v2c0 .55.45 1 1 1s1-.45 1-1v-8c0-2.21-1.79-4-4-4z'),
+    ],
+  ),
+  // local_laundry_service_rounded
+  0xf871: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9.64 16.36c1.3 1.3 3.42 1.3 4.72 0 1.3-1.3 1.3-3.42 0-4.72l-4.72 4.72zM18 2.01 6 2c-1.11 0-2 .89-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V4c0-1.11-.89-1.99-2-1.99zM11 5c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM8 5c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm4 14c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z'),
     ],
   ),
   // local_library_rounded
@@ -46743,6 +51593,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M7 19h10c.55 0 1 .45 1 1s-.45 1-1 1H7c-.55 0-1-.45-1-1s.45-1 1-1z'),
     ],
   ),
+  // miscellaneous_services_rounded
+  0xf8c1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m14.17 13.71 1.4-2.42c.09-.15.05-.34-.08-.45l-1.48-1.16c.03-.22.05-.45.05-.68s-.02-.46-.05-.69l1.48-1.16c.13-.11.17-.3.08-.45l-1.4-2.42c-.09-.15-.27-.21-.43-.15l-1.74.7c-.36-.28-.75-.51-1.18-.69l-.26-1.85a.364.364 0 0 0-.35-.29h-2.8c-.17 0-.32.13-.35.3L6.8 4.15c-.42.18-.82.41-1.18.69l-1.74-.7c-.16-.06-.34 0-.43.15l-1.4 2.42c-.09.15-.05.34.08.45l1.48 1.16c-.03.22-.05.45-.05.68s.02.46.05.69l-1.48 1.16c-.13.11-.17.3-.08.45l1.4 2.42c.09.15.27.21.43.15l1.74-.7c.36.28.75.51 1.18.69l.26 1.85c.03.16.18.29.35.29h2.8c.17 0 .32-.13.35-.3l.26-1.85c.42-.18.82-.41 1.18-.69l1.74.7c.16.06.34 0 .43-.15zM8.81 11c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm13.11 7.67-.96-.74c.02-.14.04-.29.04-.44 0-.15-.01-.3-.04-.44l.95-.74c.08-.07.11-.19.05-.29l-.9-1.55c-.05-.1-.17-.13-.28-.1l-1.11.45c-.23-.18-.48-.33-.76-.44l-.17-1.18a.216.216 0 0 0-.21-.2h-1.79c-.11 0-.21.08-.22.19l-.17 1.18c-.27.12-.53.26-.76.44l-1.11-.45a.23.23 0 0 0-.28.1l-.9 1.55c-.05.1-.04.22.05.29l.95.74a3.145 3.145 0 0 0 0 .88l-.95.74c-.08.07-.11.19-.05.29l.9 1.55c.05.1.17.13.28.1l1.11-.45c.23.18.48.33.76.44l.17 1.18c.02.11.11.19.22.19h1.79c.11 0 .21-.08.22-.19l.17-1.18c.27-.12.53-.26.75-.44l1.12.45c.1.04.22 0 .28-.1l.9-1.55c.06-.09.03-.21-.05-.28zm-4.29.16a1.35 1.35 0 1 1 .001-2.701 1.35 1.35 0 0 1-.001 2.701z'),
+    ],
+  ),
   // missed_video_call_rounded
   0xf8c2: WiredSvgIconData(
     width: 24.0,
@@ -46773,6 +51631,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 16.44 3.61 3.05A.996.996 0 1 0 2.2 4.46L5 7.27V21c0 1.1.9 2 2 2h10c1.02 0 1.85-.77 1.98-1.75L20 22.27a.996.996 0 1 0 1.41-1.41L19 18.44l-2-2zM7 19V9.27L16.73 19H7zM17 5v8.61l2 2V3c0-1.1-.9-2-2-2H7c-.71 0-1.33.37-1.68.93L8.39 5H17z'),
+    ],
+  ),
+  // mobile_screen_share_rounded
+  0xf8c6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1H7c-1.1 0-1.99.9-1.99 2v18c0 1.1.89 2 1.99 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14zm-4.2-5.78v1.75l2.81-2.62c.21-.2.21-.53 0-.73L12.8 9v1.7c-3.11.43-4.35 2.56-4.8 4.7 1.11-1.5 2.58-2.18 4.8-2.18z'),
     ],
   ),
   // mobiledata_off_rounded
@@ -46990,6 +51856,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M4 9c.26.26.34.63.25.98a8.08 8.08 0 0 0 .1 4.38c.88 2.91 3.44 5.1 6.44 5.55 5.52.81 10.19-4.06 9.03-9.62-.65-3.13-3.23-5.61-6.37-6.16a8.169 8.169 0 0 0-3.46.13c-.35.09-.73 0-.98-.25-.56-.56-.28-1.49.47-1.69 1.47-.38 3.06-.44 4.7-.09 3.98.86 7.09 4.18 7.7 8.2 1.04 6.81-4.82 12.58-11.64 11.42-4.01-.69-7.26-3.86-8.04-7.85-.31-1.59-.24-3.12.12-4.53C2.52 8.72 3.45 8.45 4 9zm3-3.5C7 6.33 6.33 7 5.5 7S4 6.33 4 5.5 4.67 4 5.5 4 7 4.67 7 5.5zm5 .5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-2 9c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1z'),
     ],
   ),
+  // motion_photos_paused_rounded
+  0xf8e1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 9c.26.26.34.63.25.98a8.08 8.08 0 0 0 .1 4.38c.88 2.91 3.44 5.1 6.44 5.55 5.52.81 10.19-4.06 9.03-9.62-.65-3.13-3.23-5.61-6.37-6.16a8.169 8.169 0 0 0-3.46.13c-.35.09-.73 0-.98-.25-.56-.56-.28-1.49.47-1.69 1.47-.38 3.06-.44 4.7-.09 3.98.86 7.09 4.18 7.7 8.2 1.04 6.81-4.82 12.58-11.64 11.42-4.01-.69-7.26-3.86-8.04-7.85-.31-1.59-.24-3.12.12-4.53C2.52 8.72 3.45 8.45 4 9zm3-3.5C7 6.33 6.33 7 5.5 7S4 6.33 4 5.5 4.67 4 5.5 4 7 4.67 7 5.5zm5 .5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-2 9c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1z'),
+    ],
+  ),
   // motorcycle_rounded
   0xf8e2: WiredSvgIconData(
     width: 960.0,
@@ -47052,6 +51926,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 9h4.5c.55 0 1 .45 1 1v4.25c0 .41-.34.75-.75.75s-.75-.34-.75-.75V10.5h-1v2.25c0 .41-.34.75-.75.75s-.75-.34-.75-.75V10.5h-1v3.75c0 .41-.34.75-.75.75S6 14.66 6 14.25V10c0-.55.45-1 1-1zm7.25 6c-.41 0-.75-.33-.75-.75V10c0-.55.45-1 1-1H17c.55 0 1 .45 1 1v2.5c0 .55-.45 1-1 1h-2v.75c0 .41-.34.75-.75.75zm.75-3h1.5v-1.5H15V12z'),
+    ],
+  ),
+  // multiline_chart_rounded
+  0xf8ea: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m21.36 6.28-.06-.06a.955.955 0 0 0-1.39.04l-2.18 2.45C15.68 6.4 12.83 5 9.61 5c-2.5 0-4.83.87-6.75 2.3a.965.965 0 0 0-.11 1.45l.06.06c.33.33.86.39 1.23.11C5.63 7.72 7.54 7 9.61 7c2.74 0 5.09 1.26 6.77 3.24l-2.88 3.24-3.29-3.29a.996.996 0 0 0-1.41 0l-6.12 6.13a.96.96 0 0 0 0 1.35l.15.15c.37.37.98.37 1.35 0l5.32-5.33 3.25 3.25c.41.41 1.07.39 1.45-.04l3.35-3.76c.62 1.12 1.08 2.39 1.32 3.73.08.47.47.82.95.82h.09c.6 0 1.05-.55.94-1.14a13.93 13.93 0 0 0-1.89-5L21.4 7.6c.34-.38.32-.96-.04-1.32z'),
     ],
   ),
   // multiple_stop_rounded
@@ -47127,6 +52009,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 16.12c3.37-.4 6.01-3.19 6.16-6.64.17-3.87-3.02-7.25-6.89-7.31-3.92-.05-7.1 3.1-7.1 7A6.98 6.98 0 0 0 11 16.06V20H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1h-5v-3.88z'),
+    ],
+  ),
+  // navigate_before_rounded
+  0xf8f4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14.91 6.71a.996.996 0 0 0-1.41 0L8.91 11.3a.996.996 0 0 0 0 1.41l4.59 4.59a.996.996 0 1 0 1.41-1.41L11.03 12l3.88-3.88c.38-.39.38-1.03 0-1.41z'),
+    ],
+  ),
+  // navigate_next_rounded
+  0xf8f5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9.31 6.71a.996.996 0 0 0 0 1.41L13.19 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.72 6.7c-.38-.38-1.02-.38-1.41.01z'),
     ],
   ),
   // navigation_rounded
@@ -47227,6 +52125,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6 11.97h-5l2.26-2.26a4.94 4.94 0 0 0-3.76-1.74c-2.37 0-4.35 1.66-4.86 3.88l-.96-.32c.64-2.62 3-4.56 5.82-4.56 1.78 0 3.37.79 4.47 2.03L18 8.97v5z'),
     ],
   ),
+  // next_week_rounded
+  0xf0002: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 7h-4V5c0-.55-.22-1.05-.59-1.41C15.05 3.22 14.55 3 14 3h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM10 5h4v2h-4V5zm.5 13a.7.7 0 0 1 0-1l2.5-2.5-2.5-2.5c-.28-.28-.28-.72 0-1s.72-.28 1 0l3.15 3.15c.2.2.2.51 0 .71L11.5 18a.7.7 0 0 1-1 0z'),
+    ],
+  ),
   // nfc_rounded
   0xf0003: WiredSvgIconData(
     width: 24.0,
@@ -47307,6 +52213,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20.49 20.49 3.51 3.51A.996.996 0 1 0 2.1 4.92l7.54 7.54L11 14v5H7c-.55 0-1 .45-1 1s.45 1 1 1h10c.32 0 .59-.16.78-.4l1.3 1.3a.996.996 0 1 0 1.41-1.41zM13 19v-3.17L16.17 19H13zM7.83 5l-2-2h13.72c.8 0 1.45.65 1.45 1.45 0 .35-.13.7-.37.96l-5.83 6.56L9.83 7h6.74l1.78-2H7.83z'),
+    ],
+  ),
+  // no_encryption_gmailerrorred_rounded
+  0xf000d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2h-4.66L20 17.56V10c0-1.1-.9-2-2-2h-1V6c0-2.76-2.24-5-5-5-2.32 0-4.26 1.59-4.82 3.74L8.9 6.46V6zm-3.78-.49a.996.996 0 1 0-1.41 1.41l1.33 1.33C4.42 8.6 4 9.25 4 10v10c0 1.1.9 2 2 2h12.78l.29.29a.996.996 0 1 0 1.41-1.41L5.12 5.51z'),
     ],
   ),
   // no_encryption_rounded
@@ -47437,6 +52351,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31A7.902 7.902 0 0 1 12 20zm6.31-3.1L7.1 5.69A7.902 7.902 0 0 1 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z'),
     ],
   ),
+  // not_listed_location_rounded
+  0xf001e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2c-4.2 0-8 3.22-8 8.2 0 3.18 2.45 6.92 7.34 11.22.38.33.95.33 1.33 0C17.55 17.12 20 13.38 20 10.2 20 5.22 16.2 2 12 2zm.01 14c-.59 0-1.05-.47-1.05-1.05 0-.59.47-1.04 1.05-1.04.59 0 1.04.45 1.04 1.04 0 .58-.44 1.05-1.04 1.05zm2.51-6.17c-.63.93-1.23 1.21-1.56 1.81-.08.14-.13.26-.16.49-.05.39-.36.68-.75.68h-.03c-.44 0-.79-.38-.75-.82.03-.27.09-.57.25-.84.41-.73 1.18-1.16 1.63-1.8.48-.68.21-1.94-1.14-1.94-.61 0-1.01.32-1.26.7-.19.29-.57.39-.89.25-.42-.18-.6-.7-.34-1.07C10.03 6.55 10.88 6 12 6c1.23 0 2.08.56 2.51 1.26.36.61.58 1.73.01 2.57z'),
+    ],
+  ),
   // not_started_rounded
   0xf001f: WiredSvgIconData(
     width: 24.0,
@@ -47451,6 +52373,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M14.59 2.59c-.38-.38-.89-.59-1.42-.59H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8.83c0-.53-.21-1.04-.59-1.41l-4.82-4.83zM15 16h-2v2c0 .55-.45 1-1 1s-1-.45-1-1v-2H9c-.55 0-1-.45-1-1s.45-1 1-1h2v-2c0-.55.45-1 1-1s1 .45 1 1v2h2c.55 0 1 .45 1 1s-.45 1-1 1zm-2-8V3.5L18.5 9H14c-.55 0-1-.45-1-1z'),
+    ],
+  ),
+  // note_alt_rounded
+  0xf0021: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM8.9 17H7.5c-.28 0-.5-.22-.5-.5v-1.43c0-.13.05-.26.15-.35l5.81-5.81 2.12 2.12-5.83 5.83a.5.5 0 0 1-.35.14zm7.95-7.73-1.06 1.06-2.12-2.12 1.06-1.06c.2-.2.51-.2.71 0l1.41 1.41c.2.2.2.51 0 .71z'),
+    ],
+  ),
+  // note_rounded
+  0xf0022: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m21.41 9.41-4.83-4.83c-.37-.37-.88-.58-1.41-.58H4c-1.1 0-2 .9-2 2v12.01c0 1.1.89 1.99 1.99 1.99H20c1.1 0 2-.9 2-2v-7.17c0-.53-.21-1.04-.59-1.42zM15 5.5l5.5 5.5H16c-.55 0-1-.45-1-1V5.5z'),
     ],
   ),
   // notes_rounded
@@ -47469,7 +52407,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M10 20h4c0 1.1-.9 2-2 2s-2-.9-2-2zm4-11c0 2.61 1.67 4.83 4 5.66V17h1c.55 0 1 .45 1 1s-.45 1-1 1H5c-.55 0-1-.45-1-1s.45-1 1-1h1v-7c0-2.79 1.91-5.14 4.5-5.8v-.7c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v.7c.71.18 1.36.49 1.95.9A5.902 5.902 0 0 0 14 9zm9-1h-2V6c0-.55-.45-1-1-1s-1 .45-1 1v2h-2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1z'),
     ],
   ),
-  // notifications_on_rounded
+  // notification_important_rounded
+  0xf0025: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 23c1.1 0 1.99-.89 1.99-1.99h-3.98c0 1.1.89 1.99 1.99 1.99zm8.29-4.71L19 17v-6c0-3.35-2.36-6.15-5.5-6.83V3c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v1.17C7.36 4.85 5 7.65 5 11v6l-1.29 1.29c-.63.63-.19 1.71.7 1.71h15.17c.9 0 1.34-1.08.71-1.71zM13 16h-2v-2h2v2zm0-5c0 .55-.45 1-1 1s-1-.45-1-1V9c0-.55.45-1 1-1s1 .45 1 1v2z'),
+    ],
+  ),
+  // notifications_active_rounded
   0xf0026: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
@@ -47491,6 +52437,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2zm6-11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68c-.24.06-.47.15-.69.23L18 13.1V11zM5.41 3.35 4 4.76l2.81 2.81C6.29 8.57 6 9.73 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h12.83l1.74 1.74 1.41-1.41L5.41 3.35z'),
+    ],
+  ),
+  // notifications_paused_rounded
+  0xf0029: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2zm7.29-4.71L18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.9 0 1.34-1.08.71-1.71zM14.5 9.33c0 .31-.11.6-.3.84l-2.5 3.03h1.9c.5 0 .9.4.9.9s-.4.9-.9.9h-2.78c-.73 0-1.32-.59-1.32-1.32v-.01c0-.31.11-.6.3-.84l2.5-3.03h-1.9c-.5 0-.9-.4-.9-.9s.4-.9.9-.9h2.78c.73 0 1.32.59 1.32 1.33z'),
     ],
   ),
   // notifications_rounded
@@ -47573,6 +52527,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m16.79 5.8-1.94-1.94a.506.506 0 0 1 .36-.86h5.29c.28 0 .5.22.5.5v5.29c0 .45-.54.67-.85.35L18.21 7.2l-4.09 4.09-1.41-1.41 4.08-4.08zM19 13v3.17l2 2V13c0-.55-.45-1-1-1s-1 .45-1 1zm.07 8.9-.9-.9H5a2 2 0 0 1-2-2V5.83l-.9-.9a.996.996 0 1 1 1.41-1.41l16.97 16.97a.996.996 0 1 1-1.41 1.41zm-2.9-2.9-4.88-4.88-.88.88A.996.996 0 1 1 9 13.59l.88-.88L5 7.83V19h11.17zM7.83 5H11c.55 0 1-.45 1-1s-.45-1-1-1H5.83l2 2z'),
+    ],
+  ),
+  // open_in_new_rounded
+  0xf0034: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 19H6c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h5c.55 0 1-.45 1-1s-.45-1-1-1H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6c0-.55-.45-1-1-1s-1 .45-1 1v5c0 .55-.45 1-1 1zM14 4c0 .55.45 1 1 1h2.59l-9.13 9.13a.996.996 0 1 0 1.41 1.41L19 6.41V9c0 .55.45 1 1 1s1-.45 1-1V4c0-.55-.45-1-1-1h-5c-.55 0-1 .45-1 1z'),
     ],
   ),
   // open_with_rounded
@@ -47696,6 +52658,38 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'),
     ],
   ),
+  // panorama_horizontal_rounded
+  0xf0044: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 6.54v10.91c-2.6-.77-5.28-1.16-8-1.16s-5.4.39-8 1.16V6.54c2.6.77 5.28 1.16 8 1.16 2.72.01 5.4-.38 8-1.16M21.43 4c-.1 0-.2.02-.31.06C18.18 5.16 15.09 5.7 12 5.7s-6.18-.55-9.12-1.64A.94.94 0 0 0 2.57 4c-.34 0-.57.23-.57.63v14.75c0 .39.23.62.57.62.1 0 .2-.02.31-.06 2.94-1.1 6.03-1.64 9.12-1.64s6.18.55 9.12 1.64c.11.04.21.06.31.06.33 0 .57-.23.57-.63V4.63c0-.4-.24-.63-.57-.63z'),
+    ],
+  ),
+  // panorama_horizontal_select_rounded
+  0xf0045: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 5.5c-3.89 0-6.95-.84-8.69-1.43A.993.993 0 0 0 2 5.02V19c0 .68.66 1.17 1.31.95C5.36 19.26 8.1 18.5 12 18.5c3.87 0 6.66.76 8.69 1.45A.999.999 0 0 0 22 19V5c0-.68-.66-1.17-1.31-.95-2.03.68-4.83 1.45-8.69 1.45z'),
+    ],
+  ),
+  // panorama_photosphere_rounded
+  0xf0046: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.95 8.15c-.29-.16-.61-.31-.93-.46C19.4 4.33 15.98 2 12 2 8.02 2 4.6 4.33 2.99 7.68c-.33.15-.64.3-.93.46C1.41 8.5 1 9.17 1 9.91v4.18c0 .74.41 1.41 1.05 1.77.29.16.61.31.93.46C4.6 19.67 8.02 22 12 22c3.98 0 7.4-2.33 9.01-5.68.33-.15.64-.3.93-.46.65-.36 1.06-1.03 1.06-1.77V9.91c0-.74-.41-1.41-1.05-1.76zM12 4c2.37 0 4.49 1.04 5.95 2.68C16.17 6.25 14.15 6 12 6c-2.15 0-4.17.25-5.95.68A7.943 7.943 0 0 1 12 4zm0 16c-2.37 0-4.49-1.04-5.95-2.68 1.78.43 3.8.68 5.95.68s4.17-.25 5.95-.68A7.943 7.943 0 0 1 12 20z'),
+    ],
+  ),
+  // panorama_photosphere_select_rounded
+  0xf0047: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.95 8.15c-.29-.16-.61-.31-.93-.46C19.4 4.33 15.98 2 12 2 8.02 2 4.6 4.33 2.99 7.68c-.33.15-.64.3-.93.46C1.41 8.5 1 9.17 1 9.91v4.18c0 .74.41 1.41 1.05 1.77.29.16.61.31.93.46C4.6 19.67 8.02 22 12 22c3.98 0 7.4-2.33 9.01-5.68.33-.15.64-.3.93-.46.65-.36 1.06-1.03 1.06-1.77V9.91c0-.74-.41-1.41-1.05-1.76zM12 4c2.37 0 4.49 1.04 5.95 2.68C16.17 6.25 14.15 6 12 6c-2.15 0-4.17.25-5.95.68A7.943 7.943 0 0 1 12 4zm0 16c-2.37 0-4.49-1.04-5.95-2.68 1.78.43 3.8.68 5.95.68s4.17-.25 5.95-.68A7.943 7.943 0 0 1 12 20z'),
+    ],
+  ),
   // panorama_rounded
   0xf0048: WiredSvgIconData(
     width: 24.0,
@@ -47710,6 +52704,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19.94 21.12c-1.1-2.94-1.64-6.03-1.64-9.12s.55-6.18 1.64-9.12a.94.94 0 0 0 .06-.31c0-.34-.23-.57-.63-.57H4.63c-.4 0-.63.23-.63.57 0 .1.02.2.06.31C5.16 5.82 5.71 8.91 5.71 12s-.55 6.18-1.64 9.12c-.05.11-.07.22-.07.31 0 .33.23.57.63.57h14.75c.39 0 .63-.24.63-.57-.01-.1-.03-.2-.07-.31zM6.54 20c.77-2.6 1.16-5.28 1.16-8s-.39-5.4-1.16-8h10.91c-.77 2.6-1.16 5.28-1.16 8s.39 5.4 1.16 8H6.54z'),
+    ],
+  ),
+  // panorama_vertical_select_rounded
+  0xf004a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.5 12c0-3.89.84-6.95 1.43-8.69A.993.993 0 0 0 18.98 2H5c-.68 0-1.16.66-.95 1.31C4.74 5.36 5.5 8.1 5.5 12c0 3.87-.76 6.66-1.45 8.69-.21.65.27 1.31.95 1.31h14c.68 0 1.17-.66.95-1.31-.68-2.03-1.45-4.83-1.45-8.69z'),
+    ],
+  ),
+  // panorama_wide_angle_rounded
+  0xf004b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 6c2.45 0 4.71.2 7.29.64.47 1.78.71 3.58.71 5.36s-.24 3.58-.71 5.36c-2.58.44-4.84.64-7.29.64s-4.71-.2-7.29-.64C4.24 15.58 4 13.78 4 12s.24-3.58.71-5.36C7.29 6.2 9.55 6 12 6m0-2c-2.73 0-5.22.24-7.95.72l-.93.16-.25.9C2.29 7.85 2 9.93 2 12s.29 4.15.87 6.22l.25.89.93.16c2.73.49 5.22.73 7.95.73s5.22-.24 7.95-.72l.93-.16.25-.89c.58-2.08.87-4.16.87-6.23s-.29-4.15-.87-6.22l-.25-.89-.93-.16C17.22 4.24 14.73 4 12 4z'),
+    ],
+  ),
+  // panorama_wide_angle_select_rounded
+  0xf004c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4c-3.97 0-6.85.63-9 1-.55 1.97-1 3.92-1 7 0 3.03.45 5.06 1 7 2.15.37 4.98 1 9 1 3.97 0 6.85-.63 9-1 .57-2.02 1-3.99 1-7 0-3.03-.45-5.06-1-7-2.15-.37-4.98-1-9-1z'),
     ],
   ),
   // paragliding_rounded
@@ -47750,6 +52768,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M4 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm2 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-.02 6c-.74 0-1.37.4-1.72 1h-2.54a1.98 1.98 0 0 0-3.44 0H8.41l3.07-3.07c.17.04.34.07.52.07 1.1 0 2-.9 2-2 0-.18-.03-.35-.07-.51l3.56-3.56c.16.04.33.07.51.07 1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2c0 .18.03.35.07.51l-3.56 3.56c-.16-.04-.33-.07-.51-.07-1.1 0-2 .9-2 2 0 .18.03.35.07.51l-3.56 3.56C6.35 16.03 6.18 16 6 16c-1.1 0-2 .9-2 2s.9 2 2 2c.74 0 1.37-.4 1.72-1h2.57a1.98 1.98 0 0 0 3.44 0h2.55c.34.6.98 1 1.72 1 1.1 0 2-.9 2-2-.02-1.1-.92-2-2.02-2z'),
+    ],
+  ),
+  // pause_circle_filled_rounded
+  0xf0052: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1V9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1z'),
+    ],
+  ),
+  // pause_circle_outline_rounded
+  0xf0053: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 16c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1s-1 .45-1 1v6c0 .55.45 1 1 1zm2-14C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm2-4c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1s-1 .45-1 1v6c0 .55.45 1 1 1z'),
     ],
   ),
   // pause_circle_rounded
@@ -47924,6 +52958,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M15.39 14.56C13.71 13.7 11.53 13 9 13s-4.71.7-6.39 1.56A2.97 2.97 0 0 0 1 17.22V20h16v-2.78c0-1.12-.61-2.15-1.61-2.66zM9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm11-3V7c0-.55-.45-1-1-1s-1 .45-1 1v2h-2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1h-2z'),
     ],
   ),
+  // person_add_disabled_rounded
+  0xf0069: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14.48 11.95c.17.02.34.05.52.05 2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4c0 .18.03.35.05.52l3.43 3.43zm2.21 2.21 5.74 5.74c.33-.17.57-.5.57-.9v-1c0-2.14-3.56-3.5-6.31-3.84zM2.12 2.42A.996.996 0 1 0 .71 3.83L4 7.12V10H2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2.88l2.51 2.51C9.19 15.11 7 16.3 7 18v1c0 .55.45 1 1 1h8.88l3.29 3.29a.996.996 0 1 0 1.41-1.41L2.12 2.42zM6 10v-.88l.88.88H6z'),
+    ],
+  ),
   // person_add_rounded
   0xf006a: WiredSvgIconData(
     width: 24.0,
@@ -47962,6 +53004,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M19 2H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4l2.29 2.29c.39.39 1.02.39 1.41 0L15 20h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 3.3c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7S9.3 9.49 9.3 8s1.21-2.7 2.7-2.7zM18 16H6v-.9c0-2 4-3.1 6-3.1s6 1.1 6 3.1v.9z'),
+    ],
+  ),
+  // person_remove_alt_1_rounded
+  0xf006f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 8c0-2.21-1.79-4-4-4S6 5.79 6 8s1.79 4 4 4 4-1.79 4-4zM2 18v1c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-1c0-2.66-5.33-4-8-4s-8 1.34-8 4zm16-8h4c.55 0 1 .45 1 1s-.45 1-1 1h-4c-.55 0-1-.45-1-1s.45-1 1-1z'),
     ],
   ),
   // person_remove_rounded
@@ -48005,6 +53055,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v1c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-1h5c1.1 0 1.99-.9 1.99-2L23 5a2 2 0 0 0-2-2zm-1 14H4c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h16c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1z'),
     ],
   ),
+  // pest_control_rodent_rounded
+  0xf0075: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m21.31 17.38-2.39-2.13c.52-2.36-1.36-4.25-3.42-4.25-1.16 0-3.5.9-3.5 3.5 0 .81.27 1.55.74 2.15.15.2.14.48-.04.66a.51.51 0 0 1-.75-.04c-.6-.77-.95-1.73-.95-2.77 0-1.7.96-3.17 2.35-3.93a5 5 0 0 0-2.28-.57c-2.38 0-4.37 1.65-4.91 3.87a2.993 2.993 0 0 1-2.15-3.14C4.15 9.16 5.54 8 7.11 8h2c1.58 0 2.75-.95 2.87-2.25A2.49 2.49 0 0 0 9.5 3H8.05c-.5 0-.96.34-1.04.83C6.91 4.46 7.39 5 8 5h1.5c.28 0 .5.22.5.5s-.22.5-.5.5H7.16c-2.67 0-4.99 2.03-5.15 4.7A4.995 4.995 0 0 0 6 15.9v.03C6 18.73 8.27 21 11.07 21h8.86c1.87 0 2.81-2.34 1.38-3.62zM18 19c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
+    ],
+  ),
   // pest_control_rounded
   0xf0076: WiredSvgIconData(
     width: 24.0,
@@ -48031,6 +53089,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2.5 20h-3c-.28 0-.5-.22-.5-.5s.22-.5.5-.5h3c.28 0 .5.22.5.5s-.22.5-.5.5zm3.5-3H7V4h10v14z'),
+    ],
+  ),
+  // phone_bluetooth_speaker_rounded
+  0xf0079: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m19.23 15.26-2.54-.29a1.99 1.99 0 0 0-1.64.57l-1.84 1.84a15.045 15.045 0 0 1-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52a2.001 2.001 0 0 0-1.99-1.77H5.03c-1.13 0-2.07.94-2 2.07.53 8.54 7.36 15.36 15.89 15.89 1.13.07 2.07-.87 2.07-2v-1.73c.01-1.01-.75-1.86-1.76-1.98zm-2.44-9.25-2.45 2.45c-.2.2-.2.52 0 .71.2.2.52.2.71 0L17 7.23v3.15a.512.512 0 0 0 .5.51c.13 0 .26-.05.36-.15l2.18-2.18c.2-.2.2-.52 0-.71l-1.83-1.83 1.83-1.83c.09-.09.15-.22.15-.36s-.05-.26-.15-.36l-2.18-2.18a.507.507 0 0 0-.55-.11c-.19.08-.31.26-.31.46v3.15l-1.95-1.95c-.2-.2-.52-.2-.71 0-.2.2-.2.52 0 .71l2.45 2.46zm1.22-3.15.96.96-.96.96V2.86zm0 4.37.96.96-.96.96V7.23z'),
     ],
   ),
   // phone_callback_rounded
@@ -48220,6 +53286,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.9 13.98l2.1 2.53 3.1-3.99c.2-.26.6-.26.8.01l3.51 4.68a.5.5 0 0 1-.4.8H6.02c-.42 0-.65-.48-.39-.81L8.12 14c.19-.26.57-.27.78-.02z'),
     ],
   ),
+  // photo_size_select_actual_rounded
+  0xf0091: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3H3C2 3 1 4 1 5v14c0 1.1.9 2 2 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2zM5.63 16.19l2.49-3.2a.5.5 0 0 1 .78-.01l2.1 2.53 3.1-3.99c.2-.26.6-.26.8.01l3.51 4.68a.5.5 0 0 1-.4.8H6.02c-.41-.01-.65-.49-.39-.82z'),
+    ],
+  ),
+  // photo_size_select_large_rounded
+  0xf0092: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 15h2v2h-2v-2zm0-4h2v2h-2v-2zm2 8h-2v2c1 0 2-1 2-2zM13 3h2v2h-2V3zm8 4h2v2h-2V7zm0-4v2h2c0-1-1-2-2-2zM1 7h2v2H1V7zm16-4h2v2h-2V3zm0 16h2v2h-2v-2zM3 3C2 3 1 4 1 5h2V3zm6 0h2v2H9V3zM5 3h2v2H5V3zm-4 8v8c0 1.1.9 2 2 2h12v-8c0-1.1-.9-2-2-2H1zm2.63 7.19 1.49-1.91a.5.5 0 0 1 .78-.01l1.39 1.67 2.1-2.7c.2-.26.6-.26.79.01l2.22 2.96a.5.5 0 0 1-.4.8H4.02c-.41-.01-.65-.49-.39-.82z'),
+    ],
+  ),
+  // photo_size_select_small_rounded
+  0xf0093: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M23 15h-2v2h2v-2zm0-4h-2v2h2v-2zm0 8h-2v2c1 0 2-1 2-2zM15 3h-2v2h2V3zm8 4h-2v2h2V7zm-2-4v2h2c0-1-1-2-2-2zM3 21h8v-4c0-1.1-.9-2-2-2H1v4c0 1.1.9 2 2 2zM3 7H1v2h2V7zm12 12h-2v2h2v-2zm4-16h-2v2h2V3zm0 16h-2v2h2v-2zM3 3C2 3 1 4 1 5h2V3zm0 8H1v2h2v-2zm8-8H9v2h2V3zM7 3H5v2h2V3z'),
+    ],
+  ),
   // piano_off_rounded
   0xf0094: WiredSvgIconData(
     width: 24.0,
@@ -48242,6 +53332,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v1.25c0 .41-.34.75-.75.75s-.75-.34-.75-.75V8c0-.55.45-1 1-1H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2c-.28 0-.5-.22-.5-.5v-5c0-.28.22-.5.5-.5h2c.83 0 1.5.67 1.5 1.5v3zm4-3.75c0 .41-.34.75-.75.75H19v1h.75c.41 0 .75.34.75.75s-.34.75-.75.75H19v1.25c0 .41-.34.75-.75.75s-.75-.34-.75-.75V8c0-.55.45-1 1-1h1.25c.41 0 .75.34.75.75zM9 9.5h1v-1H9v1zM3 6c-.55 0-1 .45-1 1v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1zm11 5.5h1v-3h-1v3z'),
+    ],
+  ),
+  // picture_in_picture_alt_rounded
+  0xf0097: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 11h-6c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1zm5 8V4.98C23 3.88 22.1 3 21 3H3c-1.1 0-2 .88-2 1.98V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-3 .02H4c-.55 0-1-.45-1-1V5.97c0-.55.45-1 1-1h16c.55 0 1 .45 1 1v12.05c0 .55-.45 1-1 1z'),
     ],
   ),
   // picture_in_picture_rounded
@@ -48325,6 +53423,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 13.5v-7a.5.5 0 0 1 .8-.4l4.67 3.5c.27.2.27.6 0 .8l-4.67 3.5a.5.5 0 0 1-.8-.4z'),
     ],
   ),
+  // play_circle_outline_rounded
+  0xf00a2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m10.8 15.9 4.67-3.5c.27-.2.27-.6 0-.8L10.8 8.1a.5.5 0 0 0-.8.4v7c0 .41.47.65.8.4zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'),
+    ],
+  ),
   // play_circle_rounded
   0xf00a3: WiredSvgIconData(
     width: 24.0,
@@ -48364,6 +53470,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 10H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1zm0-4H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1zM3 16h6c.55 0 1-.45 1-1s-.45-1-1-1H3c-.55 0-1 .45-1 1s.45 1 1 1zm19.21-3.79.09.09c.39.39.39 1.02 0 1.41l-5.58 5.59a.996.996 0 0 1-1.41 0l-3.09-3.09a.996.996 0 0 1 0-1.41l.09-.09a.996.996 0 0 1 1.41 0l2.3 2.3 4.78-4.79c.38-.4 1.02-.4 1.41-.01z'),
+    ],
+  ),
+  // playlist_add_rounded
+  0xf00a8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M13 10H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1zm0-4H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1zm5 8v-3c0-.55-.45-1-1-1s-1 .45-1 1v3h-3c-.55 0-1 .45-1 1s.45 1 1 1h3v3c0 .55.45 1 1 1s1-.45 1-1v-3h3c.55 0 1-.45 1-1s-.45-1-1-1h-3zM3 16h6c.55 0 1-.45 1-1s-.45-1-1-1H3c-.55 0-1 .45-1 1s.45 1 1 1z'),
     ],
   ),
   // playlist_play_rounded
@@ -48498,6 +53612,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 3c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1s1-.45 1-1V4c0-.55-.45-1-1-1zm5.14 2.86a.99.99 0 0 0-.01 1.39c1.13 1.2 1.83 2.8 1.87 4.57.09 3.83-3.08 7.13-6.91 7.17A6.981 6.981 0 0 1 5 12c0-1.84.71-3.51 1.87-4.76.37-.39.37-1-.01-1.38a.993.993 0 0 0-1.43.02A8.92 8.92 0 0 0 3 11.74c-.14 4.88 3.83 9.1 8.71 9.25 5.1.16 9.29-3.93 9.29-9 0-2.37-.92-4.51-2.42-6.11-.38-.41-1.04-.42-1.44-.02z'),
     ],
   ),
+  // precision_manufacturing_rounded
+  0xf00b9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m19.93 8.35-3.6 1.68L14 7.7V6.3l2.33-2.33 3.6 1.68c.38.18.82.01 1-.36.18-.38.01-.82-.36-1l-3.92-1.83a.993.993 0 0 0-1.13.2L13.78 4.4A.975.975 0 0 0 13 4c-.55 0-1 .45-1 1v1H8.82C8.34 4.66 6.96 3.75 5.4 4.06c-1.17.23-2.13 1.19-2.35 2.36-.25 1.34.4 2.54 1.43 3.16L7.08 18H5.5c-.83 0-1.5.67-1.5 1.5S4.67 21 5.5 21h10c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-2.12L8.41 8.77c.17-.24.31-.49.41-.77H12v1c0 .55.45 1 1 1 .32 0 .6-.16.78-.4l1.74 1.74c.3.3.75.38 1.13.2l3.92-1.83c.38-.18.54-.62.36-1a.753.753 0 0 0-1-.36zM6 8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
+    ],
+  ),
   // pregnant_woman_rounded
   0xf00ba: WiredSvgIconData(
     width: 24.0,
@@ -48571,6 +53693,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M4.19 4.47C3.47 4.79 3 5.51 3 6.3V11c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6.3c0-.79-.47-1.51-1.19-1.83l-7-3.11c-.52-.23-1.11-.23-1.62 0l-7 3.11zM12 7c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1s-1-.45-1-1v-4c0-.55.45-1 1-1z'),
     ],
   ),
+  // production_quantity_limits_rounded
+  0xf00c3: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 10c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm0-4c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1s1 .45 1 1v3c0 .55-.45 1-1 1zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-8.9-5h7.45c.75 0 1.41-.41 1.75-1.03l3.24-6.14a.998.998 0 0 0-.4-1.34.996.996 0 0 0-1.36.41L15.55 11H8.53L4.27 2H2c-.55 0-1 .45-1 1s.45 1 1 1h1l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h11c.55 0 1-.45 1-1s-.45-1-1-1H7l1.1-2z'),
+    ],
+  ),
   // psychology_rounded
   0xf00c4: WiredSvgIconData(
     width: 24.0,
@@ -48602,6 +53732,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5 5c0 .55.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1H6c-.55 0-1 .45-1 1zm2.41 9H9v5c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-5h1.59c.89 0 1.34-1.08.71-1.71L12.71 7.7a.996.996 0 0 0-1.41 0l-4.59 4.59c-.63.63-.19 1.71.7 1.71z'),
+    ],
+  ),
+  // published_with_changes_rounded
+  0xf00c8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16.95 10.23-5.66 5.66a.996.996 0 0 1-1.41 0l-2.83-2.83a.996.996 0 1 1 1.41-1.41l2.12 2.12 4.95-4.95a.996.996 0 0 1 1.41 0c.4.39.4 1.02.01 1.41zM4 12c0-2.33 1.02-4.42 2.62-5.88l1.53 1.53A.5.5 0 0 0 9 7.29V3c0-.28-.22-.5-.5-.5H4.21c-.45 0-.67.54-.35.85L5.2 4.7C3.24 6.52 2 9.11 2 12c0 4.75 3.32 8.73 7.76 9.75.63.14 1.24-.33 1.24-.98 0-.47-.33-.87-.79-.98C6.66 18.98 4 15.8 4 12zm18 0c0-4.75-3.32-8.73-7.76-9.75-.63-.14-1.24.33-1.24.98 0 .47.33.87.79.98C17.34 5.02 20 8.2 20 12c0 2.33-1.02 4.42-2.62 5.88l-1.53-1.53a.5.5 0 0 0-.85.36V21c0 .28.22.5.5.5h4.29c.45 0 .67-.54.35-.85L18.8 19.3c1.96-1.82 3.2-4.41 3.2-7.3z'),
     ],
   ),
   // push_pin_rounded
@@ -48660,6 +53798,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 6h-1v8c0 .55-.45 1-1 1H6v1c0 1.1.9 2 2 2h10l4 4V8c0-1.1-.9-2-2-2zm-3 5V4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v13l4-4h9c1.1 0 2-.9 2-2z'),
     ],
   ),
+  // queue_music_rounded
+  0xf00d0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14 6H4c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1zm0 4H4c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1zM4 16h6c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM19 6c-1.1 0-2 .9-2 2v6.18c-.31-.11-.65-.18-1-.18-1.84 0-3.28 1.64-2.95 3.54.21 1.21 1.2 2.2 2.41 2.41 1.9.33 3.54-1.11 3.54-2.95V8h2c.55 0 1-.45 1-1s-.45-1-1-1h-2z'),
+    ],
+  ),
   // queue_play_next_rounded
   0xf00d1: WiredSvgIconData(
     width: 24.0,
@@ -48710,7 +53856,7 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19.74 18.33A9.984 9.984 0 0 0 22 12c0-5.52-4.48-10-10-10S2 6.48 2 12s4.48 10 10 10a9.984 9.984 0 0 0 7.11-2.97c.03-.03.05-.06.07-.08.2-.2.39-.41.56-.62zM12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8c0 1.85-.63 3.54-1.69 4.9l-1.43-1.43c.69-.98 1.1-2.17 1.1-3.46 0-3.31-2.69-6-6-6s-6 2.69-6 6 2.69 6 6 6c1.3 0 2.51-.42 3.49-1.13l1.42 1.42A7.822 7.822 0 0 1 12 20zm1.92-7.49c.17-.66.02-1.38-.49-1.9l-.02-.02c-.77-.77-2-.78-2.78-.04-.01.01-.03.02-.05.04-.78.78-.78 2.05 0 2.83l.02.02c.52.51 1.25.67 1.91.49l1.51 1.51c-.6.36-1.29.58-2.04.58-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4c0 .73-.21 1.41-.56 2l-1.5-1.51z'),
     ],
   ),
-  // radio_button_on_rounded
+  // radio_button_checked_rounded
   0xf00d7: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
@@ -48844,6 +53990,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm10 15H5c-.55 0-1-.45-1-1v-1h16v1c0 .55-.45 1-1 1zm1-5H4V9c0-.55.45-1 1-1h4.08L7.6 10.02a.995.995 0 0 0 .22 1.4c.44.32 1.07.22 1.39-.22L12 7.4l2.79 3.8c.32.44.95.54 1.39.22.45-.32.55-.95.22-1.4L14.92 8H19c.55 0 1 .45 1 1v5z'),
     ],
   ),
+  // redo_rounded
+  0xf00e7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.16 0-7.74 2.42-9.44 5.93-.32.67.04 1.47.75 1.71.59.2 1.23-.08 1.5-.64 1.3-2.66 4.03-4.5 7.19-4.5 1.95 0 3.73.72 5.12 1.88l-1.91 1.91c-.63.63-.19 1.71.7 1.71H21c.55 0 1-.45 1-1V9.41c0-.89-1.08-1.34-1.71-.71l-1.89 1.9z'),
+    ],
+  ),
   // reduce_capacity_rounded
   0xf00e8: WiredSvgIconData(
     width: 24.0,
@@ -48867,6 +54021,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 14.21c-1.5-.77-3.2-1.21-5-1.21s-3.5.44-5 1.21V6h10v9.21z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 10.0, radius: 3.0),
+    ],
+  ),
+  // remove_circle_outline_rounded
+  0xf00eb: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 12c0 .55.45 1 1 1h8c.55 0 1-.45 1-1s-.45-1-1-1H8c-.55 0-1 .45-1 1zm5-10C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'),
     ],
   ),
   // remove_circle_rounded
@@ -48915,6 +54077,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M18 13H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1z'),
+    ],
+  ),
+  // remove_shopping_cart_rounded
+  0xf00f2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M.71 1.83a.996.996 0 0 0 0 1.41l3.68 3.68 2.21 4.66-1.35 2.45c-.19.33-.28.73-.24 1.15.1 1.06 1.06 1.82 2.12 1.82h7.33l1.38 1.38A1.997 1.997 0 0 0 17 22c.67 0 1.26-.33 1.62-.84l2.13 2.13a.996.996 0 1 0 1.41-1.41L2.12 1.83a.996.996 0 0 0-1.41 0zM7 15l1.1-2h2.36l2 2H7zm9.05-2.06c.54-.14.99-.49 1.25-.97l3.58-6.49C21.25 4.82 20.76 4 20 4H7.12l8.93 8.94zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2z'),
     ],
   ),
   // reorder_rounded
@@ -48981,12 +54151,46 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 5V2.21c0-.45-.54-.67-.85-.35l-3.8 3.79c-.2.2-.2.51 0 .71l3.79 3.79c.32.31.86.09.86-.36V7c3.73 0 6.68 3.42 5.86 7.29-.47 2.26-2.14 3.99-4.39 4.53a6.02 6.02 0 0 1-7.42-4.96.981.981 0 0 0-.97-.86c-.6 0-1.08.53-1 1.13.63 4.47 4.94 7.75 9.77 6.67 3.09-.69 5.39-3.08 5.99-6.19C20.84 9.48 16.94 5 12 5zm-1.31 8.9.25-2.17h2.39v.71h-1.7l-.11.92c.03-.02.07-.03.11-.05s.09-.04.15-.05.12-.03.18-.04.13-.02.2-.02c.21 0 .39.03.55.1s.3.16.41.28.2.27.25.45.09.38.09.6c0 .19-.03.37-.09.54s-.15.32-.27.45-.27.24-.45.31-.39.12-.64.12c-.18 0-.36-.03-.53-.08s-.32-.14-.46-.24-.24-.24-.32-.39-.13-.33-.13-.53h.84c.02.18.08.32.19.41s.25.15.42.15a.49.49 0 0 0 .45-.23c.04-.07.08-.15.11-.25s.03-.2.03-.31-.01-.21-.04-.31-.07-.17-.13-.24-.13-.12-.21-.15-.19-.05-.3-.05c-.08 0-.15.01-.2.02s-.11.03-.15.05-.08.05-.12.07-.07.06-.1.09l-.67-.16z'),
     ],
   ),
+  // replay_circle_filled_rounded
+  0xf00fb: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6 10.74c-.12 3.09-2.67 5.64-5.76 5.76a5.995 5.995 0 0 1-6.12-4.82c-.13-.61.36-1.18.98-1.18.47 0 .88.33.98.8a3.997 3.997 0 0 0 4.72 3.12c1.56-.3 2.82-1.56 3.12-3.12A4 4 0 0 0 12 8.5v1.79c0 .45-.54.67-.85.35l-2.8-2.79c-.2-.2-.2-.51 0-.71l2.79-2.79c.32-.31.86-.09.86.36V6.5a6.01 6.01 0 0 1 6 6.24z'),
+    ],
+  ),
   // replay_rounded
   0xf00fc: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 5V2.21c0-.45-.54-.67-.85-.35l-3.8 3.79c-.2.2-.2.51 0 .71l3.79 3.79c.32.31.86.09.86-.36V7c3.73 0 6.68 3.42 5.86 7.29-.47 2.27-2.31 4.1-4.57 4.57-3.57.75-6.75-1.7-7.23-5.01a1 1 0 0 0-.98-.85c-.6 0-1.08.53-1 1.13.62 4.39 4.8 7.64 9.53 6.72 3.12-.61 5.63-3.12 6.24-6.24C20.84 9.48 16.94 5 12 5z'),
+    ],
+  ),
+  // reply_all_rounded
+  0xf00fd: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 7.56c0-.94-1.14-1.42-1.81-.75L.71 11.29a.996.996 0 0 0 0 1.41l4.48 4.48c.67.68 1.81.2 1.81-.74 0-.28-.11-.55-.31-.75L3 12l3.69-3.69c.2-.2.31-.47.31-.75zM13 9V7.41c0-.89-1.08-1.34-1.71-.71L6.7 11.29a.996.996 0 0 0 0 1.41l4.59 4.59c.63.63 1.71.18 1.71-.71V14.9c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z'),
+    ],
+  ),
+  // reply_rounded
+  0xf00fe: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10 9V7.41c0-.89-1.08-1.34-1.71-.71L3.7 11.29a.996.996 0 0 0 0 1.41l4.59 4.59c.63.63 1.71.19 1.71-.7V14.9c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z'),
+    ],
+  ),
+  // report_gmailerrorred_rounded
+  0xf00ff: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.71 7.98 16.03 3.3c-.19-.19-.45-.3-.71-.3H8.68c-.26 0-.52.11-.7.29L3.29 7.98c-.18.18-.29.44-.29.7v6.63c0 .27.11.52.29.71l4.68 4.68c.19.19.45.3.71.3h6.63c.27 0 .52-.11.71-.29l4.68-4.68a.99.99 0 0 0 .29-.71V8.68c.01-.26-.1-.52-.28-.7zM19 14.9 14.9 19H9.1L5 14.9V9.1L9.1 5h5.8L19 9.1v5.8z'),
+      WiredSvgPrimitive.circle(cx: 12.0, cy: 16.0, radius: 1.0),
+      WiredSvgPrimitive.path('M12 7c-.55 0-1 .45-1 1v5c0 .55.45 1 1 1s1-.45 1-1V8c0-.55-.45-1-1-1z'),
     ],
   ),
   // report_off_rounded
@@ -49141,6 +54345,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M3 17h18c.55 0 1 .45 1 1s-.45 1-1 1H3c-.55 0-1-.45-1-1s.45-1 1-1zm10.84-9.21A2.006 2.006 0 0 0 12 5a2.006 2.006 0 0 0-1.84 2.79C6.25 8.6 3.27 11.93 3 16h18c-.27-4.07-3.25-7.4-7.16-8.21z'),
     ],
   ),
+  // rotate_90_degrees_ccw_rounded
+  0xf0113: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m5.93 7.83-3.65 3.66c-.78.78-.78 2.05 0 2.83l3.66 3.66c.78.78 2.05.78 2.83 0l3.66-3.65c.78-.78.78-2.05 0-2.83L8.76 7.82c-.79-.78-2.05-.78-2.83.01zM4.4 12.19l2.25-2.25c.39-.39 1.02-.39 1.42 0l2.24 2.24c.39.39.39 1.02 0 1.41l-2.25 2.25c-.39.39-1.02.39-1.42 0L4.4 13.61c-.39-.39-.39-1.03 0-1.42zm14.96-5.55A8.95 8.95 0 0 0 13 4v-.83c0-.89-1.08-1.34-1.71-.71L9.47 4.29a.996.996 0 0 0 0 1.41l1.83 1.83c.62.63 1.7.19 1.7-.7V6c2.02 0 4.03.86 5.45 2.61 2.05 2.52 2.05 6.27 0 8.79a6.985 6.985 0 0 1-7.74 2.21.998.998 0 0 0-1.02.26c-.5.5-.34 1.39.34 1.62a8.95 8.95 0 0 0 9.33-2.13 8.98 8.98 0 0 0 0-12.72z'),
+    ],
+  ),
   // rotate_left_rounded
   0xf0114: WiredSvgIconData(
     width: 24.0,
@@ -49228,6 +54440,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.5 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm1.91 5.91c-.71-.2-1.63-.74-2.32-1.66l-.41 2.35 1.19 1.3c.08.08.13.2.13.32v3.28c0 .28-.22.5-.5.5s-.5-.22-.5-.5v-3.08l-1.11-1.21-.43 2.15c-.05.27-.32.45-.59.39l-2.78-.57a.5.5 0 0 1-.39-.59c.06-.27.32-.44.59-.39l2.29.47.96-4.89-1.54.57v1.15c0 .28-.22.5-.5.5s-.5-.22-.5-.5V10c0-.21.13-.4.33-.47l2.95-1.09a1 1 0 0 1 1.25.51c.65 1.35 1.55 1.85 2.1 2 .22.05.37.23.37.45v.04c0 .31-.29.55-.59.47z'),
+    ],
+  ),
+  // running_with_errors_rounded
+  0xf011f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 18c-.55 0-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1zm0 2c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-3-2.71A7.99 7.99 0 0 1 12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8v9l7.55-7.55A9.965 9.965 0 0 0 12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c2.25 0 4.33-.74 6-2v-2.71z'),
     ],
   ),
   // rv_hookup_rounded
@@ -49370,12 +54590,55 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 2.75c0-.41.34-.75.75-.75s.75.34.75.75V8l1.79-2.69a.71.71 0 0 1 1.18.79L15.2 8l1.27 1.9c.31.47-.02 1.1-.59 1.1-.24 0-.46-.12-.59-.31L13.5 8v2.25c0 .41-.34.75-.75.75s-.75-.34-.75-.75v-4.5zm-5 2.5c0-.55.45-1 1-1h1.5V6.5H7.75c-.41 0-.75-.34-.75-.75S7.34 5 7.75 5H10c.55 0 1 .45 1 1v1.75c0 .55-.45 1-1 1H8.5v.75h1.75c.41 0 .75.34.75.75s-.34.75-.75.75H8c-.55 0-1-.45-1-1V8.25zm11.74 5.01-5.03 5.03a.996.996 0 0 1-1.41 0L9 15l-2.49 2.49c-.56.56-1.51.16-1.51-.62 0-.23.09-.46.26-.62l3.03-3.03a.996.996 0 0 1 1.41 0L13 16.5l4.49-4.49c.56-.56 1.51-.16 1.51.62 0 .24-.09.46-.26.63z'),
     ],
   ),
+  // screen_lock_landscape_rounded
+  0xf0131: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 5H3c-1.1 0-1.99.9-1.99 2L1 17c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-3 12H6V7h12v10zm-4-6v-1c0-1.1-.9-2-2-2s-2 .9-2 2v1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1zm-1 0h-2v-1c0-.55.45-1 1-1s1 .45 1 1v1z'),
+    ],
+  ),
+  // screen_lock_portrait_rounded
+  0xf0132: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 1.99 2 1.99L17 23c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 17H7V6h10v12z'),
+      WiredSvgPrimitive.path('M14 11v-1c0-1.1-.9-2-2-2s-2 .9-2 2v1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1zm-1 0h-2v-1c0-.55.45-1 1-1s1 .45 1 1v1z'),
+    ],
+  ),
+  // screen_lock_rotation_rounded
+  0xf0133: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m20.41 11.36-.35-.35a.996.996 0 1 0-1.41 1.41l.35.35-4.24 4.24-7.78-7.78 4.24-4.24.35.35a.996.996 0 1 0 1.41-1.41l-.35-.36c-.79-.79-2.03-.79-2.82 0L5.57 7.82c-.78.78-.78 2.05 0 2.83l7.78 7.78c.79.79 2.03.79 2.82 0l4.24-4.24c.79-.78.79-2.05 0-2.83zm-9.56 6.49a.5.5 0 0 0-.85.36v1.53c-3.17-.82-5.59-3.54-5.95-6.86a.995.995 0 0 0-.99-.88c-.6 0-1.07.53-1 1.12C2.62 18.11 6.87 22 12 22c.59 0 1.17-.06 1.73-.16.4-.07.55-.56.27-.85l-3.15-3.14z'),
+      WiredSvgPrimitive.path('M16 9h4c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1v-.89c0-1-.68-1.92-1.66-2.08A2 2 0 0 0 16 3v1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1zm1-6c0-.55.45-1 1-1s1 .45 1 1v1h-2V3z'),
+    ],
+  ),
   // screen_rotation_rounded
   0xf0134: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M10.23 1.75a1.49 1.49 0 0 0-2.12 0L1.75 8.11a1.49 1.49 0 0 0 0 2.12l12.02 12.02c.59.59 1.54.59 2.12 0l6.36-6.36c.59-.59.59-1.54 0-2.12L10.23 1.75zm3.89 18.73L3.52 9.88a.996.996 0 0 1 0-1.41l4.95-4.95a.996.996 0 0 1 1.41 0l10.61 10.61c.39.39.39 1.02 0 1.41l-4.95 4.95c-.39.38-1.03.38-1.42-.01zM17.61 1.4C16.04.57 14.06-.03 11.81.02c-.18 0-.26.22-.14.35l3.48 3.48 1.33-1.33c3.09 1.46 5.34 4.37 5.89 7.86.06.41.44.69.86.62.41-.06.69-.45.62-.86-.6-3.8-2.96-7-6.24-8.74zM8.85 20.16l-1.33 1.33a10.504 10.504 0 0 1-5.89-7.86.737.737 0 0 0-.86-.62c-.41.06-.69.45-.62.86.6 3.81 2.96 7.01 6.24 8.75 1.57.83 3.55 1.43 5.8 1.38.18 0 .26-.22.14-.35l-3.48-3.49z'),
+    ],
+  ),
+  // screen_search_desktop_rounded
+  0xf0135: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 19H2c-.55 0-1 .45-1 1s.45 1 1 1h20c.55 0 1-.45 1-1s-.45-1-1-1zM4 18h16c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2zm4.59-9.95a3.497 3.497 0 0 1 5.38-.52c1.18 1.18 1.34 3 .47 4.36L16 13.44c.29.29.29.77 0 1.06-.29.29-.77.29-1.06 0l-1.55-1.55c-1.57 1-3.76.64-4.87-1.11-.73-1.14-.69-2.67.07-3.79z'),
+      WiredSvgPrimitive.circle(cx: 11.5, cy: 10.0, radius: 2.0),
+    ],
+  ),
+  // screen_share_rounded
+  0xf0136: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10a2 2 0 0 0 2 2H1c-.55 0-1 .45-1 1s.45 1 1 1h22c.55 0 1-.45 1-1s-.45-1-1-1h-3zm-7-3.53v-2.19c-2.78 0-4.61.85-6 2.72.56-2.67 2.11-5.33 6-5.87V7l3.61 3.36c.21.2.21.53 0 .73L13 14.47z'),
     ],
   ),
   // screenshot_rounded
@@ -49443,12 +54706,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m11.19 1.36-7 3.11C3.47 4.79 3 5.51 3 6.3V11c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6.3c0-.79-.47-1.51-1.19-1.83l-7-3.11c-.51-.23-1.11-.23-1.62 0zM12 11.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z'),
     ],
   ),
+  // security_update_good_rounded
+  0xf013f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 18H7V6h10v12zm-6.66-3.71c.39.39 1.02.39 1.41 0l3.54-3.54a.996.996 0 1 0-1.41-1.41l-2.83 2.83-.71-.71a.996.996 0 1 0-1.41 1.41l1.41 1.42z'),
+    ],
+  ),
   // security_update_rounded
   0xf0140: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 18H7V6h10v12zm-2.21-5.79H13V9c0-.55-.45-1-1-1s-1 .45-1 1v3.21H9.21c-.45 0-.67.54-.35.85l2.79 2.79c.2.2.51.2.71 0l2.79-2.79a.5.5 0 0 0-.36-.85z'),
+    ],
+  ),
+  // security_update_warning_rounded
+  0xf0141: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 12.0, cy: 16.0, radius: 1.0),
+      WiredSvgPrimitive.path('M12 13c.55 0 1-.45 1-1V8c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .55.45 1 1 1z'),
+      WiredSvgPrimitive.path('M17 1H7c-1.1 0-1.99.9-1.99 2v18c0 1.1.89 2 1.99 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 17H7V6h10v12z'),
     ],
   ),
   // segment_rounded
@@ -49493,6 +54774,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17 10c.1 0 .19.01.28.01L3 4v6l8 2-8 2v6l7-2.95V17c0-3.87 3.13-7 7-7z'),
     ],
   ),
+  // send_rounded
+  0xf0147: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m3.4 20.4 17.45-7.48a1 1 0 0 0 0-1.84L3.4 3.6a.993.993 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z'),
+    ],
+  ),
   // send_to_mobile_rounded
   0xf0148: WiredSvgIconData(
     width: 24.0,
@@ -49534,6 +54823,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M8.54 8.54c.35.35.37.88.1 1.29a4.006 4.006 0 0 0 0 4.34c.27.41.24.95-.11 1.29-.43.43-1.17.4-1.51-.11A5.995 5.995 0 0 1 6 12c0-1.21.36-2.33.97-3.28.36-.54 1.11-.64 1.57-.18zm6.92 6.92c.43.43 1.17.4 1.51-.11a5.982 5.982 0 0 0 0-6.71c-.34-.5-1.08-.54-1.51-.11-.35.35-.37.88-.11 1.29a3.99 3.99 0 0 1 .01 4.35c-.27.41-.24.95.1 1.29zM12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6.32 8.32c.42.42 1.12.39 1.5-.08C21.18 16.53 22 14.36 22 12s-.82-4.53-2.18-6.24c-.37-.47-1.07-.5-1.5-.08-.36.36-.4.92-.08 1.32 1.1 1.37 1.76 3.11 1.76 5s-.66 3.63-1.76 5c-.32.39-.28.96.08 1.32zM5.68 5.68c-.42-.42-1.12-.39-1.5.08C2.82 7.47 2 9.64 2 12s.82 4.53 2.18 6.24c.37.47 1.07.5 1.5.08.36-.36.4-.92.08-1.32C4.66 15.63 4 13.89 4 12s.66-3.63 1.76-5c.32-.39.28-.96-.08-1.32z'),
     ],
   ),
+  // sentiment_dissatisfied_rounded
+  0xf014d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-6c-1.9 0-3.63.97-4.65 2.58a.747.747 0 1 0 1.27.79c.74-1.18 2-1.88 3.38-1.88s2.64.7 3.38 1.88c.14.23.39.35.64.35.14 0 .27-.04.4-.11.35-.22.46-.68.24-1.03C15.63 14.96 13.9 14 12 14z'),
+    ],
+  ),
   // sentiment_neutral_rounded
   0xf014e: WiredSvgIconData(
     width: 24.0,
@@ -49545,12 +54844,73 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
     ],
   ),
+  // sentiment_satisfied_alt_rounded
+  0xf014f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4.41-6.11a.745.745 0 0 0-1.03.24C14.64 15.3 13.38 16 12 16s-2.64-.7-3.38-1.88a.747.747 0 1 0-1.27.79C8.37 16.54 10.1 17.5 12 17.5s3.63-.97 4.65-2.58c.22-.35.11-.81-.24-1.03z'),
+    ],
+  ),
+  // sentiment_satisfied_rounded
+  0xf0150: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 15.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 8.5, cy: 9.5, radius: 1.5),
+      WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4.41-6.11a.745.745 0 0 0-1.03.24C14.64 15.3 13.38 16 12 16s-2.64-.7-3.38-1.88a.747.747 0 1 0-1.27.79C8.37 16.54 10.1 17.5 12 17.5s3.63-.97 4.65-2.58c.22-.35.11-.81-.24-1.03z'),
+    ],
+  ),
+  // sentiment_very_dissatisfied_rounded
+  0xf0151: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 13.5c-2.03 0-3.8 1.11-4.75 2.75-.19.33.06.75.44.75h8.62c.38 0 .63-.42.44-.75A5.489 5.489 0 0 0 12 13.5zm-3.65-2.03.53-.53.53.53c.29.29.77.29 1.06 0 .29-.29.29-.77 0-1.06l-.53-.53.53-.53c.29-.29.29-.77 0-1.06a.754.754 0 0 0-1.06 0l-.53.53-.53-.53a.754.754 0 0 0-1.06 0c-.29.29-.29.77 0 1.06l.53.53-.53.53c-.29.29-.29.77 0 1.06.29.29.77.29 1.06 0zM11.99 2C6.47 2 2 6.47 2 12s4.47 10 9.99 10S22 17.53 22 12 17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.65-11.71-.53.53-.53-.53a.754.754 0 0 0-1.06 0c-.29.29-.29.77 0 1.06l.53.53-.53.53c-.29.29-.29.77 0 1.06.29.29.77.29 1.06 0l.53-.53.53.53c.29.29.77.29 1.06 0 .29-.29.29-.77 0-1.06l-.53-.53.53-.53c.29-.29.29-.77 0-1.06a.754.754 0 0 0-1.06 0z'),
+    ],
+  ),
+  // sentiment_very_satisfied_rounded
+  0xf0152: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m8.88 9.94.53.53c.29.29.77.29 1.06 0 .29-.29.29-.77 0-1.06l-.88-.88a.996.996 0 0 0-1.41 0l-.89.88c-.29.29-.29.77 0 1.06.29.29.77.29 1.06 0l.53-.53zM12 17.5c2.03 0 3.8-1.11 4.75-2.75a.503.503 0 0 0-.44-.75H7.69c-.38 0-.63.42-.44.75A5.489 5.489 0 0 0 12 17.5zm1.53-7.03c.29.29.77.29 1.06 0l.53-.53.53.53c.29.29.77.29 1.06 0 .29-.29.29-.77 0-1.06l-.88-.88a.996.996 0 0 0-1.41 0l-.88.88c-.3.29-.3.77-.01 1.06zM11.99 2C6.47 2 2 6.47 2 12s4.47 10 9.99 10S22 17.53 22 12 17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
+    ],
+  ),
   // set_meal_rounded
   0xf0153: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m20.3 17.6-16.47.86c-.41.02-.77-.3-.79-.71-.02-.41.3-.77.71-.79l16.48-.86c.41-.02.77.3.79.71.02.41-.3.77-.72.79zm-.05 1.88H3.75c-.41 0-.75.34-.75.75s.34.75.75.75h16.5c.41 0 .75-.34.75-.75s-.34-.75-.75-.75zM22 5v7c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2zm-2.88 1.09c-1.25.27-2.19 1.11-2.33 2.14-.64-.73-2.73-2.73-6.54-2.73-3.44 0-5.48 1.63-6.31 2.49-.28.29-.28.74 0 1.03.83.86 2.87 2.49 6.31 2.49 3.81 0 5.9-2 6.54-2.73.14 1.02 1.08 1.86 2.33 2.14.46.1.88-.28.88-.74V6.84c0-.47-.43-.85-.88-.75z'),
+    ],
+  ),
+  // settings_accessibility_rounded
+  0xf0154: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.74 4.96c-.13-.53-.67-.85-1.2-.73-2.38.54-5.05.77-7.54.77s-5.16-.23-7.54-.76c-.54-.12-1.07.19-1.2.73l-.02.05c-.13.54.19 1.1.73 1.22 1.62.37 3.37.62 5.03.76v11c0 .55.45 1 1 1s1-.45 1-1v-5h2v5c0 .55.45 1 1 1s1-.45 1-1V7c1.66-.14 3.41-.39 5.03-.76.54-.12.86-.68.73-1.22l-.02-.06zM12 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM8 24c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm4 0c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm4 0c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z'),
+    ],
+  ),
+  // settings_applications_rounded
+  0xf0155: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 12.0, cy: 12.0, radius: 2.0),
+      WiredSvgPrimitive.path('M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-3.25 9c0 .22-.03.42-.06.63l.84.73c.18.16.22.42.1.63l-.59 1.02c-.12.21-.37.3-.59.22l-1.06-.36c-.32.27-.68.48-1.08.63l-.22 1.09c-.05.23-.25.4-.49.4h-1.18c-.24 0-.44-.17-.49-.4l-.22-1.09c-.4-.15-.76-.36-1.08-.63l-1.06.36a.496.496 0 0 1-.59-.22l-.59-1.02a.503.503 0 0 1 .1-.63l.84-.73c-.05-.21-.08-.41-.08-.63s.03-.42.06-.63l-.84-.73a.503.503 0 0 1-.1-.63l.59-1.02c.12-.21.37-.3.59-.22l1.06.36c.32-.27.68-.48 1.08-.63l.22-1.09c.06-.24.26-.41.5-.41h1.18c.24 0 .44.17.49.4l.22 1.09c.4.15.76.36 1.08.63l1.06-.36c.23-.08.47.02.59.22l.59 1.02c.12.21.08.47-.1.63l-.84.73c.04.22.07.42.07.64z'),
+    ],
+  ),
+  // settings_backup_restore_rounded
+  0xf0156: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11.77 3c-2.65.07-5 1.28-6.6 3.16L3.85 4.85a.5.5 0 0 0-.85.36V9.5c0 .28.22.5.5.5h4.29c.45 0 .67-.54.35-.85L6.59 7.59C7.88 6.02 9.82 5 12 5c4.32 0 7.74 3.94 6.86 8.41-.54 2.77-2.81 4.98-5.58 5.47-3.8.68-7.18-1.74-8.05-5.16-.12-.42-.52-.72-.96-.72-.65 0-1.14.61-.98 1.23C4.28 18.12 7.8 21 12 21c5.06 0 9.14-4.17 9-9.26-.14-4.88-4.35-8.86-9.23-8.74zM14 12c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2z'),
     ],
   ),
   // settings_bluetooth_rounded
@@ -49564,13 +54924,12 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M13.41 10 17 6.42c.39-.39.39-1.02 0-1.42L12.21.21a.705.705 0 0 0-.5-.21c-.39 0-.71.32-.71.71v6.88L7.11 3.71A.996.996 0 1 0 5.7 5.12L10.59 10 5.7 14.89a.996.996 0 1 0 1.41 1.41L11 12.41v6.88c0 .39.32.71.71.71.19 0 .37-.07.5-.21L17 15c.39-.39.39-1.02 0-1.42L13.41 10zM13 3.83l1.88 1.88L13 7.59V3.83zm0 12.34v-3.76l1.88 1.88L13 16.17z'),
     ],
   ),
-  // settings_display_rounded
+  // settings_brightness_rounded
   0xf0158: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
-      WiredSvgPrimitive.path('M20 3H4c-1.1 0-2 .9-2 2v12a2 2 0 0 0 2 2h4v1c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-1h4c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2zm0 14H4V5h16v12z'),
-      WiredSvgPrimitive.path('M6 8.25h8v1.5H6zm10.5 1.5H18v-1.5h-1.5V7H15v4h1.5zm-6.5 2.5h8v1.5h-8zM7.5 15H9v-4H7.5v1.25H6v1.5h1.5z'),
+      WiredSvgPrimitive.path('M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-2.85 8.35L16 13.5v2c0 .28-.22.5-.5.5h-2l-1.15 1.15c-.2.2-.51.2-.71 0L10.5 16h-2c-.28 0-.5-.22-.5-.5v-2l-1.15-1.15c-.2-.2-.2-.51 0-.71L8 10.5v-2c0-.28.22-.5.5-.5h2l1.15-1.15c.2-.2.51-.2.71 0L13.5 8h2c.28 0 .5.22.5.5v2l1.15 1.15c.19.19.19.51 0 .7zM12 9v6c1.66 0 3-1.34 3-3s-1.34-3-3-3z'),
     ],
   ),
   // settings_cell_rounded
@@ -49587,6 +54946,51 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M7.71 6.71a.996.996 0 0 0-1.41 0L1.71 11.3a.996.996 0 0 0 0 1.41L6.3 17.3a.996.996 0 1 0 1.41-1.41L3.83 12l3.88-3.88c.38-.39.38-1.03 0-1.41zm8.58 0a.996.996 0 0 0 0 1.41L20.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L17.7 6.7c-.38-.38-1.02-.38-1.41.01zM8 13c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm4 0c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm4-2c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z'),
+    ],
+  ),
+  // settings_input_antenna_rounded
+  0xf015b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 5c-3.48 0-6.37 2.54-6.91 5.87-.1.59.39 1.13 1 1.13.49 0 .9-.36.98-.85C7.48 8.79 9.53 7 12 7s4.52 1.79 4.93 4.15c.08.49.49.85.98.85.61 0 1.09-.54.99-1.13A6.984 6.984 0 0 0 12 5zm1 9.29a2.518 2.518 0 0 0 1.41-2.99c-.22-.81-.87-1.47-1.68-1.7-1.69-.48-3.23.78-3.23 2.4 0 1.02.62 1.9 1.5 2.29v3.3l-2.71 2.7A.996.996 0 1 0 9.7 21.7l2.3-2.3 2.3 2.3a.996.996 0 1 0 1.41-1.41L13 17.59v-3.3zM12 1C6.3 1 1.61 5.34 1.05 10.9c-.05.59.41 1.1 1 1.1.51 0 .94-.38.99-.88C3.48 6.56 7.33 3 12 3s8.52 3.56 8.96 8.12c.05.5.48.88.99.88.59 0 1.06-.51 1-1.1C22.39 5.34 17.7 1 12 1z'),
+    ],
+  ),
+  // settings_input_component_rounded
+  0xf015c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 2c0-.55-.45-1-1-1s-1 .45-1 1v4H2c-.55 0-1 .45-1 1v5h6V7c0-.55-.45-1-1-1H5V2zm4 14c0 1.3.84 2.4 2 2.82V22c0 .55.45 1 1 1s1-.45 1-1v-3.18c1.16-.41 2-1.51 2-2.82v-2H9v2zm-8 0c0 1.3.84 2.4 2 2.82V22c0 .55.45 1 1 1s1-.45 1-1v-3.18C6.16 18.4 7 17.3 7 16v-2H1v2zM21 6V2c0-.55-.45-1-1-1s-1 .45-1 1v4h-1c-.55 0-1 .45-1 1v5h6V7c0-.55-.45-1-1-1h-1zm-8-4c0-.55-.45-1-1-1s-1 .45-1 1v4h-1c-.55 0-1 .45-1 1v5h6V7c0-.55-.45-1-1-1h-1V2zm4 14c0 1.3.84 2.4 2 2.82V22c0 .55.45 1 1 1s1-.45 1-1v-3.18c1.16-.41 2-1.51 2-2.82v-2h-6v2z'),
+    ],
+  ),
+  // settings_input_composite_rounded
+  0xf015d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 2c0-.55-.45-1-1-1s-1 .45-1 1v4H2c-.55 0-1 .45-1 1v5h6V7c0-.55-.45-1-1-1H5V2zm4 14c0 1.3.84 2.4 2 2.82V22c0 .55.45 1 1 1s1-.45 1-1v-3.18c1.16-.41 2-1.51 2-2.82v-2H9v2zm-8 0c0 1.3.84 2.4 2 2.82V22c0 .55.45 1 1 1s1-.45 1-1v-3.18C6.16 18.4 7 17.3 7 16v-2H1v2zM21 6V2c0-.55-.45-1-1-1s-1 .45-1 1v4h-1c-.55 0-1 .45-1 1v5h6V7c0-.55-.45-1-1-1h-1zm-8-4c0-.55-.45-1-1-1s-1 .45-1 1v4h-1c-.55 0-1 .45-1 1v5h6V7c0-.55-.45-1-1-1h-1V2zm4 14c0 1.3.84 2.4 2 2.82V22c0 .55.45 1 1 1s1-.45 1-1v-3.18c1.16-.41 2-1.51 2-2.82v-2h-6v2z'),
+    ],
+  ),
+  // settings_input_hdmi_rounded
+  0xf015e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 7V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v3c-.55 0-1 .45-1 1v4.7c0 .2.06.39.17.55L8 19v2c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2l2.83-5.75a.99.99 0 0 0 .17-.55V8c0-.55-.45-1-1-1zm-2 0h-2V5.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5V7h-2V5.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5V7H8V4h8v3z'),
+    ],
+  ),
+  // settings_input_svideo_rounded
+  0xf015f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
+      WiredSvgPrimitive.circle(cx: 7.5, cy: 11.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 16.5, cy: 11.5, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 9.0, cy: 16.0, radius: 1.5),
+      WiredSvgPrimitive.circle(cx: 15.0, cy: 16.0, radius: 1.5),
+      WiredSvgPrimitive.path('M15 7.5c0-.83-.67-1.5-1.5-1.5h-3C9.67 6 9 6.67 9 7.5S9.67 9 10.5 9h3c.83 0 1.5-.67 1.5-1.5z'),
     ],
   ),
   // settings_overscan_rounded
@@ -49639,6 +55043,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m18.04 7.99-.63-1.4-1.4-.63a.5.5 0 0 1 0-.91l1.4-.63.63-1.4a.5.5 0 0 1 .91 0l.63 1.4 1.4.63a.5.5 0 0 1 0 .91l-1.4.63-.63 1.4c-.17.39-.73.39-.91 0zm3.24 4.73-.32-.72a.5.5 0 0 0-.91 0l-.32.72-.73.32a.5.5 0 0 0 0 .91l.72.32.32.73a.5.5 0 0 0 .91 0l.32-.72.73-.32a.5.5 0 0 0 0-.91l-.72-.33zm-5.04 1.65 1.23.93c.4.3.51.86.26 1.3l-1.62 2.8c-.25.44-.79.62-1.25.42l-1.43-.6c-.2.13-.42.26-.64.37l-.19 1.54c-.06.5-.49.88-.99.88H8.38c-.5 0-.93-.38-.99-.88l-.19-1.54c-.22-.11-.43-.23-.64-.37l-1.43.6c-.46.2-1 .02-1.25-.42l-1.62-2.8c-.25-.44-.14-.99.26-1.3l1.23-.93V14c0-.12 0-.25.01-.37l-1.23-.93c-.4-.3-.51-.86-.26-1.3l1.62-2.8c.25-.44.79-.62 1.25-.42l1.43.6c.2-.13.42-.26.64-.37l.19-1.54c.05-.49.48-.87.98-.87h3.23c.5 0 .93.38.99.88l.19 1.54c.22.11.43.23.64.37l1.43-.6c.46-.2 1-.02 1.25.42l1.62 2.8c.25.44.14.99-.26 1.3l-1.23.93c.01.12.01.24.01.37s0 .24-.01.36zM13 14c0-1.66-1.34-3-3-3s-3 1.34-3 3 1.34 3 3 3 3-1.34 3-3z'),
+    ],
+  ),
+  // settings_system_daydream_rounded
+  0xf0166: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9 16h6.5a2.5 2.5 0 0 0 0-5h-.05c-.24-1.69-1.69-3-3.45-3-1.4 0-2.6.83-3.16 2.02h-.16A2.994 2.994 0 0 0 6 13c0 1.66 1.34 3 3 3zM21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16.01H4c-.55 0-1-.45-1-1V5.99c0-.55.45-1 1-1h16c.55 0 1 .45 1 1v12.02c0 .55-.45 1-1 1z'),
     ],
   ),
   // settings_voice_rounded
@@ -49731,12 +55143,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 3c0 .55.45 1 1 1h1l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h11c.55 0 1-.45 1-1s-.45-1-1-1H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 20.01 4H5.21l-.67-1.43a.993.993 0 0 0-.9-.57H2c-.55 0-1 .45-1 1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z'),
     ],
   ),
+  // short_text_rounded
+  0xf0172: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 9h14c.55 0 1 .45 1 1s-.45 1-1 1H5c-.55 0-1-.45-1-1s.45-1 1-1zm0 4h8c.55 0 1 .45 1 1s-.45 1-1 1H5c-.55 0-1-.45-1-1s.45-1 1-1z'),
+    ],
+  ),
   // shortcut_rounded
   0xf0173: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20.29 10.29 16.7 6.7c-.62-.62-1.7-.18-1.7.71V10H8c-2.76 0-5 2.24-5 5v3c0 .55.45 1 1 1s1-.45 1-1v-3c0-1.65 1.35-3 3-3h7v2.59c0 .89 1.08 1.34 1.71.71l3.59-3.59c.38-.39.38-1.03-.01-1.42z'),
+    ],
+  ),
+  // show_chart_rounded
+  0xf0174: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m4.2 17.78 5.3-5.3 3.25 3.25c.41.41 1.07.39 1.45-.04l7.17-8.07c.35-.39.33-.99-.04-1.37a1 1 0 0 0-1.45.04l-6.39 7.18-3.29-3.29a.996.996 0 0 0-1.41 0l-6.09 6.1a.996.996 0 0 0 0 1.41l.09.09c.39.39 1.03.39 1.41 0z'),
     ],
   ),
   // shower_rounded
@@ -49785,12 +55213,93 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M23 7c0 1.1-.9 2-2 2s-2-.9-2-2c0-.78.99-2.44 1.58-3.36.2-.31.64-.31.84 0C22.01 4.56 23 6.22 23 7zm-1.14 3.38c.08.53.14 1.07.14 1.62 0 5.52-4.48 10-10.01 10C6.47 22 2 17.52 2 12S6.47 2 11.99 2c2.45 0 4.69.88 6.43 2.34-.51.95-.92 1.93-.92 2.66 0 1.93 1.57 3.5 3.5 3.5.3 0 .58-.05.86-.12zm-7.83-.35 1.06 1.06c.29.29.77.29 1.06 0 .29-.29.29-.77 0-1.06l-.53-.53.53-.53c.29-.29.29-.77 0-1.06s-.77-.29-1.06 0l-1.06 1.06c-.29.29-.29.77 0 1.06zM8.38 9.5l-.53.53c-.29.29-.29.77 0 1.06.29.29.77.29 1.06 0l1.06-1.06c.29-.29.29-.77 0-1.06L8.91 7.91c-.29-.29-.77-.29-1.06 0s-.29.77 0 1.06l.53.53zm8.09 6.3c-1-1.39-2.62-2.3-4.47-2.3-.87 0-1.69.2-2.43.56L5.99 12c0-.52-.26-1.02-.74-1.29a1.503 1.503 0 0 0-1.73 2.44c.52.44 1.2.45 1.72.16l2.97 1.72c-.25.24-.48.5-.68.78-.36.49 0 1.19.62 1.19.23 0 .46-.1.6-.3.72-1.02 1.9-1.7 3.25-1.7s2.53.68 3.25 1.7a.759.759 0 0 0 1.22-.9z'),
     ],
   ),
+  // signal_cellular_0_bar_rounded
+  0xf017a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4.41 22H21c.55 0 1-.45 1-1V4.41c0-.89-1.08-1.34-1.71-.71L3.71 20.29c-.63.63-.19 1.71.7 1.71zM20 20H6.83L20 6.83V20z'),
+    ],
+  ),
+  // signal_cellular_4_bar_rounded
+  0xf017b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4.41 22H20c1.1 0 2-.9 2-2V4.41c0-.89-1.08-1.34-1.71-.71L3.71 20.29c-.63.63-.19 1.71.7 1.71z'),
+    ],
+  ),
+  // signal_cellular_alt_rounded
+  0xf017c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.5 4c.83 0 1.5.67 1.5 1.5v13c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5v-13c0-.83.67-1.5 1.5-1.5zm-12 10c.83 0 1.5.67 1.5 1.5v3c0 .83-.67 1.5-1.5 1.5S5 19.33 5 18.5v-3c0-.83.67-1.5 1.5-1.5zm6-5c.83 0 1.5.67 1.5 1.5v8c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5v-8c0-.83.67-1.5 1.5-1.5z'),
+    ],
+  ),
+  // signal_cellular_connected_no_internet_0_bar_rounded
+  0xf017d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 18c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1s-1 .45-1 1v6c0 .55.45 1 1 1zm0 4c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm-3-2v2H2L22 2v6h-2V6.83L6.83 20H18z'),
+    ],
+  ),
+  // signal_cellular_connected_no_internet_4_bar_rounded
+  0xf017e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 18c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1s-1 .45-1 1v6c0 .55.45 1 1 1zm0 4c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM4.41 22H18V11c0-1.66 1.34-3 3-3h1V4.41c0-.89-1.08-1.34-1.71-.71L3.71 20.29c-.63.63-.19 1.71.7 1.71z'),
+    ],
+  ),
+  // signal_cellular_no_sim_rounded
+  0xf017f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19 5c0-1.1-.9-2-2-2h-6.17c-.53 0-1.04.21-1.42.59L7.95 5.06 19 16.11V5zM3.09 4.44a.996.996 0 0 0 0 1.41L5 7.78V19a2 2 0 0 0 2 2h11.23l.91.91a.996.996 0 1 0 1.41-1.41L4.5 4.44a.996.996 0 0 0-1.41 0z'),
+    ],
+  ),
+  // signal_cellular_nodata_rounded
+  0xf0180: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 13h-7c-1.1 0-2 .9-2 2v7H4.41c-.89 0-1.34-1.08-.71-1.71L20.29 3.71c.63-.63 1.71-.19 1.71.7V13zm-1.7 1.71a.996.996 0 0 0-1.41 0L17.5 16.1l-1.39-1.39a.996.996 0 1 0-1.41 1.41l1.39 1.39-1.39 1.39a.996.996 0 1 0 1.41 1.41l1.39-1.38 1.39 1.38a.996.996 0 1 0 1.41-1.41l-1.38-1.39 1.38-1.39a.996.996 0 0 0 0-1.41z'),
+    ],
+  ),
+  // signal_cellular_null_rounded
+  0xf0181: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 6.83V19c0 .55-.45 1-1 1H6.83L20 6.83m.29-3.12L3.71 20.29c-.63.63-.19 1.71.7 1.71H20c1.1 0 2-.9 2-2V4.41c0-.89-1.08-1.33-1.71-.7z'),
+    ],
+  ),
+  // signal_cellular_off_rounded
+  0xf0182: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 3.41c0-.89-1.08-1.34-1.71-.71l-6.6 6.6L21 17.61V3.41zm.44 17.47L5.62 5.06a.996.996 0 1 0-1.41 1.41l5.66 5.66-7.16 7.16c-.63.63-.19 1.71.7 1.71h15.32l1.29 1.29c.39.39 1.02.39 1.41 0 .4-.39.4-1.02.01-1.41z'),
+    ],
+  ),
   // signal_wifi_0_bar_rounded
   0xf0183: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 4C7.7 4 3.78 5.6.79 8.24.35 8.63.32 9.3.73 9.71l10.56 10.58c.39.39 1.02.39 1.42 0L23.27 9.71c.41-.41.38-1.08-.06-1.47A16.871 16.871 0 0 0 12 4zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07L12 18.17l-9.08-9.1z'),
+    ],
+  ),
+  // signal_wifi_4_bar_lock_rounded
+  0xf0184: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M23.21 8.24C20.22 5.6 16.3 4 12 4S3.78 5.6.79 8.24C.35 8.63.32 9.3.73 9.71l5.62 5.63 4.94 4.95c.39.39 1.02.39 1.42 0l2.34-2.34V15c0-.45.09-.88.23-1.29.54-1.57 2.01-2.71 3.77-2.71h2.94l1.29-1.29c.4-.41.37-1.08-.07-1.47z'),
+      WiredSvgPrimitive.path('M22 16v-1c0-1.1-.9-2-2-2s-2 .9-2 2v1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1zm-1 0h-2v-1c0-.55.45-1 1-1s1 .45 1 1v1z'),
     ],
   ),
   // signal_wifi_4_bar_rounded
@@ -49810,12 +55319,45 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20.3 14.71a.996.996 0 0 0-1.41 0l-1.39 1.38-1.39-1.38a.996.996 0 1 0-1.41 1.41l1.39 1.39-1.39 1.39a.996.996 0 1 0 1.41 1.41l1.39-1.38 1.39 1.38a.996.996 0 1 0 1.41-1.41l-1.38-1.39 1.38-1.39a.996.996 0 0 0 0-1.41z'),
     ],
   ),
+  // signal_wifi_connected_no_internet_4_rounded
+  0xf0187: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M23.21 8.24A16.871 16.871 0 0 0 12 4C7.7 4 3.78 5.6.79 8.24.35 8.63.32 9.3.73 9.71l10.56 10.58c.19.19.45.29.7.29V14c0-1.1.9-2 2-2h6.99l2.29-2.29c.41-.41.38-1.08-.06-1.47z'),
+      WiredSvgPrimitive.path('M20.3 14.71a.996.996 0 0 0-1.41 0l-1.39 1.38-1.39-1.38a.996.996 0 1 0-1.41 1.41l1.39 1.39-1.39 1.39a.996.996 0 1 0 1.41 1.41l1.39-1.38 1.39 1.38a.996.996 0 1 0 1.41-1.41l-1.38-1.39 1.38-1.39a.996.996 0 0 0 0-1.41z'),
+    ],
+  ),
   // signal_wifi_off_rounded
   0xf0188: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M23.64 7c-.45-.34-4.93-4-11.64-4-1.32 0-2.55.14-3.69.38L18.43 13.5 23.64 7zM4.12 2.01a.996.996 0 1 0-1.41 1.41l1.35 1.35C1.91 5.76.59 6.82.36 7l10.08 12.56c.8 1 2.32 1 3.12 0l2.35-2.93 2.61 2.61a.996.996 0 1 0 1.41-1.41L4.12 2.01z'),
+    ],
+  ),
+  // signal_wifi_statusbar_4_bar_rounded
+  0xf0189: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.7 4 3.78 5.6.79 8.24.35 8.63.32 9.3.73 9.71l10.56 10.58c.39.39 1.02.39 1.42 0L23.27 9.71c.41-.41.38-1.08-.06-1.47A16.871 16.871 0 0 0 12 4z'),
+    ],
+  ),
+  // signal_wifi_statusbar_connected_no_internet_4_rounded
+  0xf018a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22.92 8H17v7.99l-4.29 4.3c-.39.39-1.02.39-1.42 0L.73 9.71C.32 9.3.35 8.63.79 8.24 3.78 5.6 7.7 4 12 4c4.16 0 7.97 1.51 10.92 4zM20 18c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1z'),
+    ],
+  ),
+  // signal_wifi_statusbar_null_rounded
+  0xf018b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.7 4 3.78 5.6.79 8.24.35 8.63.32 9.3.73 9.71l10.56 10.58c.39.39 1.02.39 1.42 0L23.27 9.71c.41-.41.38-1.08-.06-1.47A16.871 16.871 0 0 0 12 4zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07L12 18.17l-9.08-9.1z'),
     ],
   ),
   // sim_card_alert_rounded
@@ -50041,6 +55583,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12.93 2.65c-.2-.2-.51-.2-.71 0l-2.01 2.01h4.72l-2-2.01zm-.7 18.7c.2.2.51.2.71 0l1.98-1.98h-4.66l1.97 1.98zm-1.25-3.62c.6 0 1.01-.6.79-1.16L8.04 7.03a1.205 1.205 0 0 0-2.24 0l-3.74 9.53c-.22.56.19 1.16.79 1.16.35 0 .67-.22.8-.55l.71-1.9h5.11l.71 1.9c.13.34.45.56.8.56zm-6.01-4.09 1.94-5.18 1.94 5.18H4.97zm16.08 2.5h-5.33l5.72-8.29c.46-.66-.02-1.57-.82-1.57h-6.48c-.44 0-.79.36-.79.8v.01c0 .44.36.8.79.8h5.09l-5.73 8.28c-.46.66.02 1.57.82 1.57h6.72c.44 0 .79-.36.79-.79a.776.776 0 0 0-.78-.81z'),
+    ],
+  ),
+  // sort_rounded
+  0xf01a8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 18h4c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1zm1 6h10c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1z'),
     ],
   ),
   // source_rounded
@@ -50354,12 +55904,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 5h-1.42v3.33H13v3.33h-2.58l.03 3.34H7c-.55 0-1-.45-1-1s.45-1 1-1h1.42v-3.33H11V9.33h2.58V6H17c.55 0 1 .45 1 1s-.45 1-1 1z'),
     ],
   ),
+  // star_border_purple500_rounded
+  0xf01ce: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m12 8.89.94 3.11h2.82l-2.27 1.62.93 3.01L12 14.79l-2.42 1.84.93-3.01L8.24 12h2.82L12 8.89M9.58 10H5.12c-.97 0-1.37 1.25-.58 1.81l3.64 2.6-1.43 4.61c-.29.93.79 1.68 1.56 1.09l3.69-2.8 3.69 2.81c.77.59 1.85-.16 1.56-1.09l-1.43-4.61 3.64-2.6c.79-.57.39-1.81-.58-1.81h-4.46l-1.47-4.84c-.29-.95-1.63-.95-1.91 0L9.58 10z'),
+    ],
+  ),
   // star_border_rounded
   0xf01cf: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m19.65 9.04-4.84-.42-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73 3.67-3.18c.67-.58.32-1.68-.56-1.75zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'),
+    ],
+  ),
+  // star_half_rounded
+  0xf01d0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m19.65 9.04-4.84-.42-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73 3.67-3.18c.67-.58.32-1.68-.56-1.75zM12 15.4V6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'),
     ],
   ),
   // star_outline_rounded
@@ -50402,6 +55968,38 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm3.23 15.39L12 15.45l-3.22 1.94a.502.502 0 0 1-.75-.54l.85-3.66-2.83-2.45a.505.505 0 0 1 .29-.88l3.74-.32 1.46-3.45c.17-.41.75-.41.92 0l1.46 3.44 3.74.32a.5.5 0 0 1 .28.88l-2.83 2.45.85 3.67c.1.43-.36.77-.74.54z'),
     ],
   ),
+  // stay_current_landscape_rounded
+  0xf01d6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M1.01 7 1 17c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2H3c-1.1 0-1.99.9-1.99 2zM19 7v10H5V7h14z'),
+    ],
+  ),
+  // stay_current_portrait_rounded
+  0xf01d7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-1.99.9-1.99 2v18c0 1.1.89 2 1.99 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z'),
+    ],
+  ),
+  // stay_primary_landscape_rounded
+  0xf01d8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M1.01 7 1 17c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2H3c-1.1 0-1.99.9-1.99 2zM19 7v10H5V7h14z'),
+    ],
+  ),
+  // stay_primary_portrait_rounded
+  0xf01d9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-1.99.9-1.99 2v18c0 1.1.89 2 1.99 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z'),
+    ],
+  ),
   // sticky_note_2_rounded
   0xf01da: WiredSvgIconData(
     width: 24.0,
@@ -50440,6 +56038,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M4 20h16c1.1 0 2-.9 2-2s-.9-2-2-2H4c-1.1 0-2 .9-2 2s.9 2 2 2zm0-3h2v2H4v-2zM2 6c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2s-.9-2-2-2H4c-1.1 0-2 .9-2 2zm4 1H4V5h2v2zm-2 7h16c1.1 0 2-.9 2-2s-.9-2-2-2H4c-1.1 0-2 .9-2 2s.9 2 2 2zm0-3h2v2H4v-2z'),
+    ],
+  ),
+  // store_mall_directory_rounded
+  0xf01df: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.16 7.8c-.09-.46-.5-.8-.98-.8H4.82c-.48 0-.89.34-.98.8L3 12v1c0 .55.45 1 1 1v5c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-5h4v5c0 .55.45 1 1 1s1-.45 1-1v-5c.55 0 1-.45 1-1v-1l-.84-4.2zM12 18H6v-4h6v4zM5 6h14c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1 .45-1 1s.45 1 1 1z'),
     ],
   ),
   // store_rounded
@@ -50520,6 +56126,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m2.53 19.65 1.34.56v-9.03l-2.43 5.86c-.41 1.02.08 2.19 1.09 2.61zm19.5-3.7L17.07 3.98a2.013 2.013 0 0 0-1.81-1.23c-.26 0-.53.04-.79.15L7.1 5.95a1.999 1.999 0 0 0-1.08 2.6l4.96 11.97a1.998 1.998 0 0 0 2.6 1.08l7.36-3.05a1.994 1.994 0 0 0 1.09-2.6zM7.88 8.75c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-2 11c0 1.1.9 2 2 2h1.45l-3.45-8.34v6.34z'),
     ],
   ),
+  // subdirectory_arrow_left_rounded
+  0xf01e9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m5.71 15.71 4.58 4.58c.39.39 1.03.39 1.42 0 .39-.39.39-1.03 0-1.42L8.83 16H19c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1s-1 .45-1 1v9H8.83l2.88-2.87c.39-.39.39-1.03 0-1.42-.39-.39-1.03-.39-1.42 0l-4.58 4.58c-.39.39-.39 1.03 0 1.42z'),
+    ],
+  ),
+  // subdirectory_arrow_right_rounded
+  0xf01ea: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m18.29 15.71-4.58 4.58c-.39.39-1.03.39-1.42 0-.39-.39-.39-1.03 0-1.42L15.17 16H5c-.55 0-1-.45-1-1V5c0-.55.45-1 1-1s1 .45 1 1v9h9.17l-2.88-2.87c-.39-.39-.39-1.03 0-1.42.39-.39 1.03-.39 1.42 0l4.58 4.58c.39.39.39 1.03 0 1.42z'),
+    ],
+  ),
+  // subject_rounded
+  0xf01eb: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M13 17H5c-.55 0-1 .45-1 1s.45 1 1 1h8c.55 0 1-.45 1-1s-.45-1-1-1zm6-8H5c-.55 0-1 .45-1 1s.45 1 1 1h14c.55 0 1-.45 1-1s-.45-1-1-1zM5 15h14c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1 .45-1 1s.45 1 1 1zM4 6c0 .55.45 1 1 1h14c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1 .45-1 1z'),
+    ],
+  ),
   // subscript_rounded
   0xf01ec: WiredSvgIconData(
     width: 24.0,
@@ -50576,6 +56206,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M10.51 12.73 7.3 7.72a1.112 1.112 0 1 1 1.88-1.19l2.76 4.46h.12l2.74-4.45c.2-.34.56-.54.95-.54.88 0 1.42.98.94 1.72l-3.23 5 3.55 5.55c.49.75-.05 1.73-.93 1.73-.38 0-.74-.2-.95-.52l-3.07-4.89h-.12l-3.07 4.89c-.21.32-.56.52-.95.52-.88 0-1.42-.97-.94-1.72l3.53-5.55zM23 8.5c0-.28-.22-.5-.5-.5H20V7h2c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1h-2.5c-.28 0-.5.22-.5.5s.22.5.5.5H22v1h-2c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1h2.5c.28 0 .5-.22.5-.5z'),
+    ],
+  ),
+  // supervised_user_circle_rounded
+  0xf01f3: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.61 6.34c1.07 0 1.93.86 1.93 1.93s-.86 1.93-1.93 1.93-1.93-.86-1.93-1.93c-.01-1.07.86-1.93 1.93-1.93zm-6-1.58c1.3 0 2.36 1.06 2.36 2.36s-1.06 2.36-2.36 2.36-2.36-1.06-2.36-2.36c0-1.31 1.05-2.36 2.36-2.36zm0 9.13v3.75c-2.4-.75-4.3-2.6-5.14-4.96 1.05-1.12 3.67-1.69 5.14-1.69.53 0 1.2.08 1.9.22-1.64.87-1.9 2.02-1.9 2.68zM12 20c-.27 0-.53-.01-.79-.04v-4.07c0-1.42 2.94-2.13 4.4-2.13 1.07 0 2.92.39 3.84 1.15C18.28 17.88 15.39 20 12 20z'),
     ],
   ),
   // supervisor_account_rounded
@@ -50635,6 +56273,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m6.14 11.86-2.78 2.79c-.19.2-.19.51 0 .71l2.78 2.79c.31.32.85.09.85-.35V16H13c.55 0 1-.45 1-1s-.45-1-1-1H6.99v-1.79c0-.45-.54-.67-.85-.35zm14.51-3.21-2.78-2.79c-.31-.32-.85-.09-.85.35V8H11c-.55 0-1 .45-1 1s.45 1 1 1h6.01v1.79c0 .45.54.67.85.35l2.78-2.79c.2-.19.2-.51.01-.7z'),
+    ],
+  ),
+  // swap_horizontal_circle_rounded
+  0xf01fb: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12s4.48 10 10 10 10-4.48 10-10zm-7-5.5 3.15 3.15c.2.2.2.51 0 .71L15 13.5V11h-4V9h4V6.5zm-6 11-3.15-3.15c-.2-.2-.2-.51 0-.71L9 10.5V13h4v2H9v2.5z'),
     ],
   ),
   // swap_vert_rounded
@@ -50732,6 +56378,32 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 4V2.21c0-.45-.54-.67-.85-.35l-2.8 2.79c-.2.2-.2.51 0 .71l2.79 2.79c.32.31.86.09.86-.36V6c3.31 0 6 2.69 6 6 0 .79-.15 1.56-.44 2.25-.15.36-.04.77.23 1.04.51.51 1.37.33 1.64-.34.37-.91.57-1.91.57-2.95 0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-.79.15-1.56.44-2.25.15-.36.04-.77-.23-1.04-.51-.51-1.37-.33-1.64.34C4.2 9.96 4 10.96 4 12c0 4.42 3.58 8 8 8v1.79c0 .45.54.67.85.35l2.79-2.79c.2-.2.2-.51 0-.71l-2.79-2.79a.5.5 0 0 0-.85.36V18z'),
+    ],
+  ),
+  // system_security_update_good_rounded
+  0xf0208: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 18H7V6h10v12zm-6.66-3.71c.39.39 1.02.39 1.41 0l3.54-3.54a.996.996 0 1 0-1.41-1.41l-2.83 2.83-.71-.71a.996.996 0 1 0-1.41 1.41l1.41 1.42z'),
+    ],
+  ),
+  // system_security_update_rounded
+  0xf0209: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 18H7V6h10v12zm-2.21-5.79H13V9c0-.55-.45-1-1-1s-1 .45-1 1v3.21H9.21c-.45 0-.67.54-.35.85l2.79 2.79c.2.2.51.2.71 0l2.79-2.79a.5.5 0 0 0-.36-.85z'),
+    ],
+  ),
+  // system_security_update_warning_rounded
+  0xf020a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 12.0, cy: 16.0, radius: 1.0),
+      WiredSvgPrimitive.path('M12 13c.55 0 1-.45 1-1V8c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .55.45 1 1 1z'),
+      WiredSvgPrimitive.path('M17 1H7c-1.1 0-1.99.9-1.99 2v18c0 1.1.89 2 1.99 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 17H7V6h10v12z'),
     ],
   ),
   // system_update_alt_rounded
@@ -50909,6 +56581,30 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M18.35 4.35c-.2-.2-.51-.2-.71 0l-1.79 1.79c-.31.32-.09.86.36.86H17v12c0 .55.45 1 1 1s1-.45 1-1V7h.79c.45 0 .67-.54.35-.85l-1.79-1.8zM11.8 15.5v-5l1.6-.66c.36-.14.6-.49.6-.88 0-.69-.71-1.15-1.34-.88l-8.97 3.88c-.42.17-.69.58-.69 1.04 0 .46.27.87.69 1.05l8.97 3.88c.63.27 1.34-.2 1.34-.89 0-.39-.24-.74-.6-.89l-1.6-.65zM4.98 13 10 11.13v3.74L4.98 13z'),
+    ],
+  ),
+  // text_rotate_vertical_rounded
+  0xf0221: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15 5c-.46 0-.87.27-1.05.69l-3.88 8.97c-.27.63.2 1.34.89 1.34.39 0 .74-.24.89-.6l.66-1.6h5l.66 1.6c.15.36.5.6.89.6.69 0 1.15-.71.88-1.34l-3.88-8.97C15.87 5.27 15.46 5 15 5zm-1.87 7L15 6.98 16.87 12h-3.74zm-6.78 7.64 1.79-1.79c.32-.31.1-.85-.35-.85H7V5c0-.55-.45-1-1-1s-1 .44-1 1v12h-.79c-.45 0-.67.54-.35.85l1.79 1.79c.19.2.51.2.7 0z'),
+    ],
+  ),
+  // text_rotation_angledown_rounded
+  0xf0222: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15 20.5v-2.54c0-.45-.54-.67-.85-.35l-.56.56L5.1 9.68a.996.996 0 1 0-1.41 1.41l8.49 8.49-.56.56c-.32.32-.1.86.34.86h2.54c.28 0 .5-.23.5-.5zM11.25 8.48l3.54 3.54-.67 1.6c-.15.36-.07.77.21 1.05.49.49 1.31.32 1.57-.32l3.61-9.09c.17-.42.07-.91-.25-1.23-.32-.32-.8-.42-1.23-.25l-9.1 3.6a.957.957 0 0 0-.32 1.57c.27.27.68.35 1.04.2l1.6-.67zm6.59-3.05-2.23 4.87-2.64-2.64 4.87-2.23z'),
+    ],
+  ),
+  // text_rotation_angleup_rounded
+  0xf0223: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m17.61 9.85.56.56-8.48 8.49a.996.996 0 1 0 1.41 1.41l8.49-8.49.56.56c.31.32.85.1.85-.34V9.5c0-.28-.22-.5-.5-.5h-2.54a.5.5 0 0 0-.35.85zm-9.13 2.9 3.54-3.54 1.6.67c.36.15.77.07 1.05-.21a.958.958 0 0 0-.32-1.57L5.26 4.5c-.43-.16-.91-.06-1.23.26-.32.32-.42.8-.25 1.23l3.61 9.09c.25.64 1.08.81 1.57.32.28-.28.36-.69.21-1.05l-.69-1.6zm-.82-1.72L5.43 6.16l4.87 2.23-2.64 2.64z'),
     ],
   ),
   // text_rotation_down_rounded
@@ -51120,6 +56816,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M5 5.5C5 6.33 5.67 7 6.5 7h4v10.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V7h4c.83 0 1.5-.67 1.5-1.5S18.33 4 17.5 4h-11C5.67 4 5 4.67 5 5.5z'),
     ],
   ),
+  // toc_rounded
+  0xf023e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 9h12c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0 4h12c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0 4h12c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm15 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z'),
+    ],
+  ),
   // today_rounded
   0xf023f: WiredSvgIconData(
     width: 24.0,
@@ -51224,6 +56928,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m13 5 .75-1.5H17V2H7v1.5h4.75L11 5c-3.13.09-6 .73-6 3.5V17c0 1.5 1.11 2.73 2.55 2.95l-1.19 1.19c-.32.32-.1.86.35.86H7.8c.13 0 .26-.05.35-.15L10 20h4l1.85 1.85c.09.09.22.15.35.15h1.09c.45 0 .67-.54.35-.85l-1.19-1.19C17.89 19.73 19 18.5 19 17V8.5c0-2.77-2.87-3.41-6-3.5zm-1 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm5-4.5H7V9h10v5z'),
     ],
   ),
+  // transfer_within_a_station_rounded
+  0xf024c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 15.5h-5.52v-.77c0-.36-.44-.54-.69-.29l-1.51 1.52c-.16.16-.16.41 0 .57l1.51 1.52c.26.26.69.08.69-.29V17H22v-1.5zm-.28 4.71-1.51-1.52a.402.402 0 0 0-.69.29v.77H14v1.5h5.52v.77c0 .36.44.54.69.29l1.51-1.52a.41.41 0 0 0 0-.58zM9.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5.75 8.9 3.23 21.81c-.12.62.35 1.19.98 1.19h.09c.47 0 .88-.33.98-.79L6.85 15 9 17v5c0 .55.45 1 1 1s1-.45 1-1v-5.72c0-.53-.21-1.04-.59-1.41L8.95 13.4l.6-3a6.967 6.967 0 0 0 4.31 2.51c.6.1 1.14-.39 1.14-1 0-.49-.36-.9-.84-.98a5.14 5.14 0 0 1-3.51-2.38l-.95-1.6C9.35 6.35 8.7 6 8 6c-.25 0-.5.05-.75.15L3.24 7.79C2.49 8.1 2 8.83 2 9.64V12c0 .55.45 1 1 1s1-.45 1-1V9.65l1.75-.75'),
+    ],
+  ),
   // transform_rounded
   0xf024d: WiredSvgIconData(
     width: 24.0,
@@ -51264,12 +56976,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19.3 16.9c.58-1.01.95-2.23.51-3.65-.53-1.72-2.04-3.05-3.84-3.22a4.498 4.498 0 0 0-4.95 4.95c.18 1.79 1.5 3.31 3.22 3.84 1.43.44 2.64.07 3.65-.51l2.5 2.5c.39.39 1.01.39 1.4 0a.984.984 0 0 0 0-1.4L19.3 16.9zm-3.8.1c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5zM12 20v2C6.48 22 2 17.52 2 12S6.48 2 12 2c4.84 0 8.87 3.44 9.8 8h-2.07A8 8 0 0 0 15 4.59V5c0 1.1-.9 2-2 2h-2v2c0 .55-.45 1-1 1H8v2h2v3H9l-4.79-4.79C4.08 10.79 4 11.38 4 12c0 4.41 3.59 8 8 8z'),
     ],
   ),
-  // trending_neutral_rounded
+  // trending_down_rounded
+  0xf0252: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16.85 17.15 1.44-1.44-4.88-4.88-3.29 3.29a.996.996 0 0 1-1.41 0l-6-6.01A.996.996 0 1 1 4.12 6.7L9.41 12l3.29-3.29a.996.996 0 0 1 1.41 0l5.59 5.58 1.44-1.44a.5.5 0 0 1 .85.35v4.29c0 .28-.22.5-.5.5H17.2c-.44.01-.66-.53-.35-.84z'),
+    ],
+  ),
+  // trending_flat_rounded
   0xf0253: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m21.65 11.65-2.79-2.79a.501.501 0 0 0-.86.35V11H4c-.55 0-1 .45-1 1s.45 1 1 1h14v1.79c0 .45.54.67.85.35l2.79-2.79c.2-.19.2-.51.01-.7z'),
+    ],
+  ),
+  // trending_up_rounded
+  0xf0254: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16.85 6.85 1.44 1.44-4.88 4.88-3.29-3.29a.996.996 0 0 0-1.41 0l-6 6.01a.996.996 0 1 0 1.41 1.41L9.41 12l3.29 3.29c.39.39 1.02.39 1.41 0l5.59-5.58 1.44 1.44a.5.5 0 0 0 .85-.35V6.5a.48.48 0 0 0-.49-.5h-4.29a.5.5 0 0 0-.36.85z'),
     ],
   ),
   // trip_origin_rounded
@@ -51366,6 +57094,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m20.55 5.22-1.39-1.68A1.51 1.51 0 0 0 18 3H6c-.47 0-.88.21-1.15.55L3.46 5.22C3.17 5.57 3 6.01 3 6.5V19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6.5c0-.49-.17-.93-.45-1.28zm-8.2 4.63L17.5 15H14v2h-4v-2H6.5l5.15-5.15c.19-.19.51-.19.7 0zM5.12 5l.82-1h12l.93 1H5.12z'),
+    ],
+  ),
+  // undo_rounded
+  0xf0261: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.5 8c-2.65 0-5.05.99-6.9 2.6L3.71 8.71C3.08 8.08 2 8.52 2 9.41V15c0 .55.45 1 1 1h5.59c.89 0 1.34-1.08.71-1.71l-1.91-1.91c1.39-1.16 3.16-1.88 5.12-1.88 3.16 0 5.89 1.84 7.19 4.5.27.56.91.84 1.5.64.71-.23 1.07-1.04.75-1.72C20.23 10.42 16.65 8 12.5 8z'),
     ],
   ),
   // unfold_less_rounded
@@ -51480,12 +57216,36 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m11.19 1.36-7 3.11C3.47 4.79 3 5.51 3 6.3V11c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6.3c0-.79-.47-1.51-1.19-1.83l-7-3.11c-.51-.23-1.11-.23-1.62 0zm-1.9 14.93L6.7 13.7a.996.996 0 1 1 1.41-1.41L10 14.17l5.88-5.88a.996.996 0 1 1 1.41 1.41l-6.59 6.59a.996.996 0 0 1-1.41 0z'),
     ],
   ),
+  // vertical_align_bottom_rounded
+  0xf0270: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M14.79 13H13V4c0-.55-.45-1-1-1s-1 .45-1 1v9H9.21c-.45 0-.67.54-.35.85l2.79 2.79c.2.2.51.2.71 0l2.79-2.79a.5.5 0 0 0-.36-.85zM4 20c0 .55.45 1 1 1h14c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1 .45-1 1z'),
+    ],
+  ),
+  // vertical_align_center_rounded
+  0xf0271: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M9.21 19H11v3c0 .55.45 1 1 1s1-.45 1-1v-3h1.79c.45 0 .67-.54.35-.85l-2.79-2.79c-.2-.2-.51-.2-.71 0l-2.79 2.79a.5.5 0 0 0 .36.85zm5.58-14H13V2c0-.55-.45-1-1-1s-1 .45-1 1v3H9.21a.5.5 0 0 0-.36.85l2.79 2.79c.2.2.51.2.71 0l2.79-2.79c.32-.31.1-.85-.35-.85zM4 12c0 .55.45 1 1 1h14c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1 .45-1 1z'),
+    ],
+  ),
   // vertical_align_top_rounded
   0xf0272: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M9.21 11H11v9c0 .55.45 1 1 1s1-.45 1-1v-9h1.79c.45 0 .67-.54.35-.85l-2.79-2.79c-.2-.2-.51-.2-.71 0l-2.79 2.79a.5.5 0 0 0 .36.85zM4 4c0 .55.45 1 1 1h14c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1 .45-1 1z'),
+    ],
+  ),
+  // vertical_distribute_rounded
+  0xf0273: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 3c0 .55-.45 1-1 1H3c-.55 0-1-.45-1-1s.45-1 1-1h18c.55 0 1 .45 1 1zM7 12c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-7c-.83 0-1.5.67-1.5 1.5zm-5 9c0 .55.45 1 1 1h18c.55 0 1-.45 1-1s-.45-1-1-1H3c-.55 0-1 .45-1 1z'),
     ],
   ),
   // vertical_split_rounded
@@ -51578,6 +57338,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l2.29 2.29c.63.63 1.71.18 1.71-.71V8.91c0-.89-1.08-1.34-1.71-.71L17 10.5z'),
     ],
   ),
+  // videogame_asset_off_rounded
+  0xf027f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.7 17.87c.76-.28 1.3-1.02 1.3-1.87V8c0-1.1-.9-2-2-2H8.83L20.7 17.87zM17.5 9c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zm2.99 11.49L3.51 3.51A.996.996 0 1 0 2.1 4.92l1.2 1.2C2.54 6.41 2 7.15 2 8v8c0 1.1.9 2 2 2h11.17l3.9 3.9c.39.39 1.02.39 1.41 0 .4-.39.4-1.02.01-1.41zM10 13H9v1c0 .55-.45 1-1 1s-1-.45-1-1v-1H6c-.55 0-1-.45-1-1s.45-1 1-1h1v-1c0-.05.01-.11.01-.16l3.14 3.14A.68.68 0 0 1 10 13z'),
+    ],
+  ),
   // videogame_asset_rounded
   0xf0280: WiredSvgIconData(
     width: 24.0,
@@ -51658,12 +57426,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M2 6c.55 0 1-.45 1-1V4c0-.55.45-1 1-1h1c.55 0 1-.45 1-1s-.45-1-1-1H4C2.34 1 1 2.34 1 4v1c0 .55.45 1 1 1zm3 15H4c-.55 0-1-.45-1-1v-1c0-.55-.45-1-1-1s-1 .45-1 1v1c0 1.66 1.34 3 3 3h1c.55 0 1-.45 1-1s-.45-1-1-1zM20 1h-1c-.55 0-1 .45-1 1s.45 1 1 1h1c.55 0 1 .45 1 1v1c0 .55.45 1 1 1s1-.45 1-1V4c0-1.66-1.34-3-3-3zm2 17c-.55 0-1 .45-1 1v1c0 .55-.45 1-1 1h-1c-.55 0-1 .45-1 1s.45 1 1 1h1c1.66 0 3-1.34 3-3v-1c0-.55-.45-1-1-1zm-3-3.13V9.13c0-.72-.38-1.38-1-1.73l-5-2.88c-.31-.18-.65-.27-1-.27s-.69.09-1 .27L6 7.39c-.62.36-1 1.02-1 1.74v5.74c0 .72.38 1.38 1 1.73l5 2.88c.31.18.65.27 1 .27s.69-.09 1-.27l5-2.88c.62-.35 1-1.01 1-1.73zm-8 2.3-4-2.3v-4.63l4 2.33v4.6zm1-6.33L8.04 8.53 12 6.25l3.96 2.28L12 10.84zm5 4.03-4 2.3v-4.6l4-2.33v4.63z'),
     ],
   ),
+  // view_list_rounded
+  0xf028a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 14h2c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1zm0 5h2c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1zM4 9h2c.55 0 1-.45 1-1V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1zm5 5h11c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1H9c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1zm0 5h11c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1H9c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1zM8 6v2c0 .55.45 1 1 1h11c.55 0 1-.45 1-1V6c0-.55-.45-1-1-1H9c-.55 0-1 .45-1 1z'),
+    ],
+  ),
   // view_module_rounded
   0xf028b: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M14.67 6v4.5c0 .55-.45 1-1 1h-3.33c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h3.33c.55 0 1 .45 1 1zm2 5.5H20c.55 0 1-.45 1-1V6c0-.55-.45-1-1-1h-3.33c-.55 0-1 .45-1 1v4.5c0 .55.44 1 1 1zm-2 6.5v-4.5c0-.55-.45-1-1-1h-3.33c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h3.33c.55 0 1-.45 1-1zm1-4.5V18c0 .55.45 1 1 1H20c.55 0 1-.45 1-1v-4.5c0-.55-.45-1-1-1h-3.33c-.56 0-1 .45-1 1zm-8.34-1H4c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h3.33c.55 0 1-.45 1-1v-4.5c0-.55-.44-1-1-1zm1-2V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v4.5c0 .55.45 1 1 1h3.33c.56 0 1-.45 1-1z'),
+    ],
+  ),
+  // view_quilt_rounded
+  0xf028c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 6v4.5c0 .55-.45 1-1 1h-9.67c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1H20c.55 0 1 .45 1 1zm-6.33 12v-4.5c0-.55-.45-1-1-1h-3.33c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h3.33c.55 0 1-.45 1-1zm1-4.5V18c0 .55.45 1 1 1H20c.55 0 1-.45 1-1v-4.5c0-.55-.45-1-1-1h-3.33c-.56 0-1 .45-1 1zM8.33 18V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h3.33c.56 0 1-.45 1-1z'),
     ],
   ),
   // view_sidebar_rounded
@@ -52062,12 +57846,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20.06 10.14c.56.46 1.38.42 1.89-.09.59-.59.55-1.57-.1-2.1-3.59-2.94-8.2-4.03-12.55-3.26l2.59 2.59c2.89-.03 5.8.92 8.17 2.86zm-2.27 1.83c-.78-.57-1.63-1-2.52-1.3l2.95 2.95c.24-.58.1-1.27-.43-1.65zm-3.84 4.26a4.28 4.28 0 0 0-3.91 0c-.59.31-.7 1.12-.23 1.59l1.47 1.47c.39.39 1.02.39 1.41 0l1.47-1.47c.49-.47.39-1.28-.21-1.59zm5.73 1.67L4.12 2.34a.996.996 0 1 0-1.41 1.41L5.05 6.1c-1.01.5-1.99 1.11-2.89 1.85a1.42 1.42 0 0 0-.1 2.1c.51.51 1.32.56 1.87.1 1-.82 2.1-1.46 3.25-1.93l2.23 2.23c-1.13.3-2.21.8-3.19 1.51-.69.5-.73 1.51-.13 2.11l.01.01c.49.49 1.26.54 1.83.13a7.135 7.135 0 0 1 3.97-1.29l6.37 6.37c.39.39 1.02.39 1.41 0 .39-.37.39-1 0-1.39z'),
     ],
   ),
+  // wifi_protected_setup_rounded
+  0xf02be: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m16.7 5.3 1.44-1.44c.32-.32.09-.85-.35-.85H11.5c-.28 0-.5.22-.5.5V9.8c0 .45.54.67.85.35L13.3 8.7c1.97 1.46 3.25 3.78 3.25 6.42 0 .66-.08 1.31-.24 1.92-.12.5.48.86.84.49a8.474 8.474 0 0 0 2.4-5.91c0-2.51-1.11-4.76-2.85-6.32zm-4.55 8.56L10.7 15.3c-1.97-1.46-3.25-3.78-3.25-6.42 0-.66.08-1.31.24-1.92.12-.5-.48-.86-.84-.49a8.474 8.474 0 0 0 .44 12.24l-1.44 1.44c-.32.32-.09.85.35.85h6.29c.28 0 .5-.22.5-.5v-6.29a.49.49 0 0 0-.84-.35z'),
+    ],
+  ),
   // wifi_rounded
   0xf02bf: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M2.06 10.06c.51.51 1.32.56 1.87.1 4.67-3.84 11.45-3.84 16.13-.01.56.46 1.38.42 1.89-.09.59-.59.55-1.57-.1-2.1-5.71-4.67-13.97-4.67-19.69 0-.65.52-.7 1.5-.1 2.1zm7.76 7.76 1.47 1.47c.39.39 1.02.39 1.41 0l1.47-1.47c.47-.47.37-1.28-.23-1.59a4.28 4.28 0 0 0-3.91 0c-.57.31-.68 1.12-.21 1.59zm-3.73-3.73c.49.49 1.26.54 1.83.13a7.064 7.064 0 0 1 8.16 0c.57.4 1.34.36 1.83-.13l.01-.01c.6-.6.56-1.62-.13-2.11-3.44-2.49-8.13-2.49-11.58 0-.69.5-.73 1.51-.12 2.12z'),
+    ],
+  ),
+  // wifi_tethering_error_rounded_rounded
+  0xf02c0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M10.66 7.14c-2.24.48-4.04 2.3-4.52 4.54-.37 1.75.02 3.38.89 4.66.34.51 1.08.55 1.51.11.35-.35.37-.88.1-1.28-.5-.76-.75-1.71-.61-2.73.23-1.74 1.67-3.17 3.41-3.4A4.003 4.003 0 0 1 16 13c0 .8-.24 1.54-.64 2.16-.27.41-.25.95.1 1.29.43.43 1.17.4 1.51-.11C17.62 15.4 18 14.25 18 13c0-3.75-3.45-6.7-7.34-5.86zm-.41-3.99c-4.05.69-7.19 3.69-8.03 7.72-.66 3.17.2 6.16 1.97 8.38.37.46 1.07.49 1.49.07.36-.36.39-.93.07-1.32a8.004 8.004 0 0 1-1.66-6.28c.55-3.47 3.42-6.24 6.92-6.65 2.76-.33 5.27.74 6.93 2.59.2.21.47.34.76.34.85 0 1.34-1.01.77-1.65-2.19-2.45-5.56-3.82-9.22-3.2zM12 11c-1.1 0-2 .9-2 2 0 .55.23 1.05.59 1.41.36.36.86.59 1.41.59s1.05-.23 1.41-.59c.36-.36.59-.86.59-1.41 0-1.1-.9-2-2-2zm9-1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1s-1-.45-1-1v-4c0-.55.45-1 1-1zm0 8c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z'),
     ],
   ),
   // wifi_tethering_off_rounded
@@ -52134,6 +57934,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6 13c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm6-10C9.8 3 8 4.8 8 7s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm6 10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z'),
     ],
   ),
+  // wrap_text_rounded
+  0xf02c9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 7h14c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1 .45-1 1s.45 1 1 1zm11.83 4H5c-.55 0-1 .45-1 1s.45 1 1 1h12.13c1 0 1.93.67 2.09 1.66.21 1.25-.76 2.34-1.97 2.34H15v-.79c0-.45-.54-.67-.85-.35l-1.79 1.79c-.2.2-.2.51 0 .71l1.79 1.79c.32.32.85.09.85-.35V19h2c2.34 0 4.21-2.01 3.98-4.39-.2-2.08-2.06-3.61-4.15-3.61zM9 17H5c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1s-.45-1-1-1z'),
+    ],
+  ),
   // wrong_location_rounded
   0xf02ca: WiredSvgIconData(
     width: 24.0,
@@ -52158,6 +57966,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 8.22a1.562 1.562 0 0 1 2.45-1.28l-.01-.12c0-.86.7-1.56 1.56-1.56s1.56.7 1.56 1.56l-.01.12A1.562 1.562 0 0 1 16 8.22c0 .62-.37 1.16-.89 1.4.52.25.89.79.89 1.41 0 .86-.7 1.56-1.56 1.56-.33 0-.64-.11-.89-.28l.01.12c0 .86-.7 1.56-1.56 1.56s-1.56-.7-1.56-1.56l.01-.12A1.562 1.562 0 0 1 8 11.03c0-.62.37-1.16.89-1.4C8.37 9.38 8 8.84 8 8.22zM12 19c-2.83 0-5.21-1.97-5.84-4.61-.18-.74.49-1.4 1.23-1.23C10.03 13.79 12 16.17 12 19c0-2.83 1.97-5.21 4.61-5.84.74-.18 1.4.49 1.23 1.23A6.015 6.015 0 0 1 12 19z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 9.62, radius: 1.56),
+    ],
+  ),
+  // youtube_searched_for_rounded
+  0xf02cd: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.01 14h-.8l-.27-.27a6.48 6.48 0 0 0 1.51-5.09C17.11 6 15.1 3.78 12.5 3.18 8.26 2.2 4.51 5.53 4.51 9.5h-2.1a.5.5 0 0 0-.31.89l3.4 2.75c.19.2.51.21.71.01l2.9-2.79c.32-.31.1-.86-.35-.86H6.51c0-2.49 2-4.48 4.46-4.5 2.44-.02 4.54 2.05 4.54 4.49 0 2.48-2.02 4.51-4.5 4.51-.45 0-.89-.07-1.3-.19-.34-.1-.71 0-.96.26-.53.53-.32 1.45.39 1.66.59.17 1.22.27 1.87.27 1.61 0 3.08-.59 4.22-1.57l.27.27v.79l4.27 4.25c.41.41 1.07.41 1.48 0 .41-.41.41-1.08 0-1.49L17.01 14z'),
     ],
   ),
   // zoom_in_rounded
@@ -52200,6 +58016,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 12h-1V6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v6H5c-1.66 0-3 1.34-3 3v3c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-3c0-1.66-1.34-3-3-3zm-3 0H8V6h8v6zm2 5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
     ],
   ),
+  // adobe_rounded
+  0xf02d3: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2 22L10.5 2h3L22 22h-4.5l-5-12-5 12H2Z'),
+    ],
+  ),
   // ads_click_rounded
   0xf02d4: WiredSvgIconData(
     width: 24.0,
@@ -52231,6 +58055,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 18H7V6h10v1h2V3c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-4h-2v1zm3.38-8.38.4.87c.09.2.37.2.46 0l.4-.87.87-.4c.2-.09.2-.37 0-.46l-.87-.4-.4-.87c-.09-.2-.37-.2-.46 0l-.4.87-.87.4c-.2.09-.2.37 0 .46l.87.4z'),
       WiredSvgPrimitive.path('m15.54 9-.79 1.75-1.75.79a.5.5 0 0 0 0 .91l1.75.79.79 1.76a.5.5 0 0 0 .91 0l.79-1.75 1.76-.79a.5.5 0 0 0 0-.91l-1.75-.79L16.46 9a.508.508 0 0 0-.92 0zm5.23 4.5-.4.87-.87.4c-.2.09-.2.37 0 .46l.87.4.4.87c.09.2.37.2.46 0l.4-.87.87-.4c.2-.09.2-.37 0-.46l-.87-.4-.4-.87a.257.257 0 0 0-.46 0z'),
+    ],
+  ),
+  // apple_rounded
+  0xf02d8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701'),
     ],
   ),
   // apps_outage_rounded
@@ -52404,6 +58236,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11.73 21.5c-4.95-.14-9.08-4.27-9.22-9.22C2.35 6.91 6.67 2.5 12 2.5V1.21c0-.45.54-.67.85-.35l2.79 2.79c.2.2.2.51 0 .71l-2.79 2.79a.5.5 0 0 1-.85-.36V5.5c-3.58 0-6.5 2.92-6.5 6.5 0 2.21 1.11 4.17 2.81 5.35.51-.92 1.63-1.62 2.98-1.8-.09-.69-.26-1.42-.49-2.03-.33.28-.75.46-1.22.48-1.14.05-2.08-.99-2.08-2.13v-.86c0-.29-.05-.57-.14-.83a.49.49 0 0 1 .5-.66c1.3.09 3.6.52 3.64 2.48 0 .29-.06.56-.17.8-.42-.32-.86-.6-1.33-.8.58.43 1.37 1.37 2 2.6.67-1.62 1.68-3.27 3-4.6-.76.52-1.47 1.12-2.13 1.81-.26-.42-.4-.93-.36-1.47C12.59 9 13.79 8 15.13 8H16c.56 0 .97-.14 1.28-.31a.5.5 0 0 1 .75.44C17.99 9.87 17.56 13 15 13c-.49 0-.94-.14-1.32-.38-.24.64-.59 1.76-.76 2.96 1.26.22 2.28.89 2.77 1.77a6.514 6.514 0 0 0 2.79-4.87c.02-.26.23-.48.5-.48h1.82c.47 0 .71.24.69.52-.28 5.09-4.58 9.12-9.76 8.98z'),
     ],
   ),
+  // connecting_airports_rounded
+  0xf02ee: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.93 10.6c.39 0 .66.37.55.74L15.4 15h2.85l.59-.78c.1-.14.26-.22.43-.22.36 0 .62.35.52.7L19.4 16l.39 1.3c.1.35-.16.7-.52.7-.17 0-.33-.08-.43-.22l-.59-.78H15.4l1.08 3.66c.11.37-.17.74-.55.74-.2 0-.39-.11-.5-.28L13 17h-2.97c-.53 0-1-.4-1.03-.93-.04-.59.43-1.07 1-1.07h3l2.43-4.12c.11-.17.3-.28.5-.28zm-7.86-8c-.39 0-.66.37-.55.74L8.6 7H5.75l-.59-.78A.526.526 0 0 0 4.73 6c-.36 0-.62.35-.52.7L4.6 8l-.39 1.3c-.1.35.16.7.52.7.17 0 .33-.08.43-.22L5.75 9H8.6l-1.08 3.66c-.11.37.17.74.55.74.2 0 .39-.11.5-.28L11 9h2.97c.53 0 1-.4 1.03-.93.04-.59-.43-1.07-1-1.07h-3L8.57 2.88a.605.605 0 0 0-.5-.28z'),
+    ],
+  ),
   // content_paste_go_rounded
   0xf02ef: WiredSvgIconData(
     width: 24.0,
@@ -52411,6 +58251,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5 5h2v1c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V5h2v6h2V5c0-1.1-.9-2-2-2h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v-2H5V5zm7-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z'),
       WiredSvgPrimitive.path('m21.29 16.29-2.58-2.58a.996.996 0 1 0-1.41 1.41l.87.88H13c-.55 0-1 .45-1 1s.45 1 1 1h5.17l-.87.88a.996.996 0 1 0 1.41 1.41l2.58-2.58c.39-.4.39-1.03 0-1.42z'),
+    ],
+  ),
+  // content_paste_search_rounded
+  0xf02f0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 5h2v1c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V5h2v5h2V5c0-1.1-.9-2-2-2h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v-2H5V5zm7-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z'),
+      WiredSvgPrimitive.path('m22.3 20.9-2-2c.58-1.01.95-2.23.51-3.65-.53-1.72-2.04-3.05-3.84-3.22a4.498 4.498 0 0 0-4.95 4.95c.18 1.79 1.5 3.31 3.22 3.84 1.43.44 2.64.07 3.65-.51l2 2c.39.39 1.01.39 1.4 0s.4-1.02.01-1.41zM16.5 19c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z'),
     ],
   ),
   // contrast_rounded
@@ -52617,6 +58466,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21.99 12.34c.01-.11.01-.23.01-.34 0-5.52-4.48-10-10-10S2 6.48 2 12c0 5.17 3.93 9.43 8.96 9.95a9.343 9.343 0 0 1-2.32-2.68A8.01 8.01 0 0 1 4 12c0-1.85.63-3.55 1.69-4.9l5.66 5.66c.56-.4 1.17-.73 1.82-1L7.1 5.69A7.902 7.902 0 0 1 12 4c4.24 0 7.7 3.29 7.98 7.45.71.22 1.39.52 2.01.89zM17 13c-3.18 0-5.9 1.87-7 4.5 1.1 2.63 3.82 4.5 7 4.5s5.9-1.87 7-4.5c-1.1-2.63-3.82-4.5-7-4.5zm0 7a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5zm1.5-2.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5.67-1.5 1.5-1.5 1.5.67 1.5 1.5z'),
     ],
   ),
+  // discord_rounded
+  0xf0309: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z'),
+    ],
+  ),
   // display_settings_rounded
   0xf030a: WiredSvgIconData(
     width: 24.0,
@@ -52640,6 +58497,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m18.85 10.39 1.06-1.06c.78-.78.78-2.05 0-2.83L18.5 5.09c-.78-.78-2.05-.78-2.83 0l-1.06 1.06 4.24 4.24zm-5.66-2.83-9.05 9.05a.5.5 0 0 0-.14.35v3.54c0 .28.22.5.5.5h3.54c.13 0 .26-.05.35-.15l9.05-9.05-4.25-4.24zM19 17.5c0 2.19-2.54 3.5-5 3.5-.55 0-1-.45-1-1s.45-1 1-1c1.54 0 3-.73 3-1.5 0-.47-.48-.87-1.23-1.2l1.48-1.48c1.07.63 1.75 1.47 1.75 2.68zM4.58 13.35C3.61 12.79 3 12.06 3 11c0-1.8 1.89-2.63 3.56-3.36C7.59 7.18 9 6.56 9 6c0-.41-.78-1-2-1-1.26 0-1.8.61-1.83.64-.35.41-.98.46-1.4.12a.992.992 0 0 1-.15-1.38C3.73 4.24 4.76 3 7 3s4 1.32 4 3c0 1.87-1.93 2.72-3.64 3.47C6.42 9.88 5 10.5 5 11c0 .31.43.6 1.07.86l-1.49 1.49z'),
+    ],
+  ),
+  // drive_file_move_rtl_rounded
+  0xf030d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 6h-8l-1.41-1.41C10.21 4.21 9.7 4 9.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-8.85 10.15-2.79-2.79c-.2-.2-.2-.51 0-.71l2.79-2.79c.31-.32.85-.1.85.35V12h3c.55 0 1 .45 1 1s-.45 1-1 1h-3v1.79a.5.5 0 0 1-.85.36z'),
     ],
   ),
   // edit_calendar_rounded
@@ -53082,6 +58947,66 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20.59 10h-7.94a6.004 6.004 0 0 0-6.88-3.88c-2.29.46-4.15 2.3-4.63 4.58A6.002 6.002 0 0 0 7 18a5.99 5.99 0 0 0 5.65-4H13l1.29 1.29c.39.39 1.02.39 1.41 0L17 14l1.29 1.29c.39.39 1.03.39 1.42 0l2.59-2.61a.999.999 0 0 0-.01-1.42l-.99-.97c-.2-.19-.45-.29-.71-.29zM7 15c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z'),
     ],
   ),
+  // keyboard_command_key_rounded
+  0xf0344: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.5 3C15.57 3 14 4.57 14 6.5V8h-4V6.5C10 4.57 8.43 3 6.5 3S3 4.57 3 6.5 4.57 10 6.5 10H8v4H6.5C4.57 14 3 15.57 3 17.5S4.57 21 6.5 21s3.5-1.57 3.5-3.5V16h4v1.5c0 1.93 1.57 3.5 3.5 3.5s3.5-1.57 3.5-3.5-1.57-3.5-3.5-3.5H16v-4h1.5c1.93 0 3.5-1.57 3.5-3.5S19.43 3 17.5 3zM16 8V6.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S18.33 8 17.5 8H16zM6.5 8C5.67 8 5 7.33 5 6.5S5.67 5 6.5 5 8 5.67 8 6.5V8H6.5zm3.5 6v-4h4v4h-4zm7.5 5c-.83 0-1.5-.67-1.5-1.5V16h1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zm-11 0c-.83 0-1.5-.67-1.5-1.5S5.67 16 6.5 16H8v1.5c0 .83-.67 1.5-1.5 1.5z'),
+    ],
+  ),
+  // keyboard_control_key_rounded
+  0xf0345: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.71 12.71c.39.39 1.02.39 1.41 0L12 7.83l4.88 4.88a.996.996 0 1 0 1.41-1.41L12.7 5.71a.996.996 0 0 0-1.41 0L5.7 11.3c-.38.38-.38 1.02.01 1.41z'),
+    ],
+  ),
+  // keyboard_double_arrow_down_rounded
+  0xf0346: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.29 5.71a.996.996 0 0 0-1.41 0L12 9.58 8.11 5.7A.996.996 0 1 0 6.7 7.11l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59a.984.984 0 0 0 0-1.4z'),
+      WiredSvgPrimitive.path('M17.29 12.3a.996.996 0 0 0-1.41 0L12 16.17l-3.88-3.88a.996.996 0 1 0-1.41 1.41l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59a.993.993 0 0 0-.01-1.4z'),
+    ],
+  ),
+  // keyboard_double_arrow_left_rounded
+  0xf0347: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.29 17.29a.996.996 0 0 0 0-1.41L14.42 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L12.3 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.38.38 1.01.38 1.4-.01z'),
+      WiredSvgPrimitive.path('M11.7 17.29a.996.996 0 0 0 0-1.41L7.83 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L5.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.38.38 1.01.38 1.4-.01z'),
+    ],
+  ),
+  // keyboard_double_arrow_right_rounded
+  0xf0348: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5.7 6.71a.996.996 0 0 0 0 1.41L9.58 12 5.7 15.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L7.12 6.71c-.39-.39-1.03-.39-1.42 0z'),
+      WiredSvgPrimitive.path('M12.29 6.71a.996.996 0 0 0 0 1.41L16.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L13.7 6.7c-.38-.38-1.02-.38-1.41.01z'),
+    ],
+  ),
+  // keyboard_double_arrow_up_rounded
+  0xf0349: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.7 18.29c.39.39 1.02.39 1.41 0L12 14.42l3.88 3.88a.996.996 0 1 0 1.41-1.41L12.7 12.3a.996.996 0 0 0-1.41 0L6.7 16.88a.996.996 0 0 0 0 1.41z'),
+      WiredSvgPrimitive.path('M6.7 11.7c.39.39 1.02.39 1.41 0L12 7.83l3.88 3.88a.996.996 0 1 0 1.41-1.41L12.7 5.71a.996.996 0 0 0-1.41 0L6.7 10.29a.996.996 0 0 0 0 1.41z'),
+    ],
+  ),
+  // keyboard_option_key_rounded
+  0xf034a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15 6c0 .55.45 1 1 1h4c.55 0 1-.45 1-1s-.45-1-1-1h-4c-.55 0-1 .45-1 1zM9.58 6c-.36-.62-1.02-1-1.73-1H4c-.55 0-1 .45-1 1s.45 1 1 1h3.85l6.35 11c.36.62 1.02 1 1.73 1H20c.55 0 1-.45 1-1s-.45-1-1-1h-4.07L9.58 6z'),
+    ],
+  ),
   // lan_rounded
   0xf034b: WiredSvgIconData(
     width: 24.0,
@@ -53122,6 +59047,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M14 7h-4c-1.1 0-2 .9-2 2v5c0 .55.45 1 1 1h1v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6h1c.55 0 1-.45 1-1V9c0-1.1-.9-2-2-2z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 4.0, radius: 2.0),
+    ],
+  ),
+  // mark_unread_chat_alt_rounded
+  0xf0350: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.circle(cx: 19.0, cy: 3.0, radius: 3.0),
+      WiredSvgPrimitive.path('M7 8c-.55 0-1-.45-1-1s.45-1 1-1h8.03a4.906 4.906 0 0 1-.92-4H4.01a2 2 0 0 0-2 2L2 19.58c0 .89 1.08 1.34 1.71.71L6 18h14c1.1 0 2-.9 2-2V6.97C21.16 7.61 20.13 8 19 8H7zm6 6H7c-.55 0-1-.45-1-1s.45-1 1-1h6c.55 0 1 .45 1 1s-.45 1-1 1zm4-3H7c-.55 0-1-.45-1-1s.45-1 1-1h10c.55 0 1 .45 1 1s-.45 1-1 1z'),
     ],
   ),
   // medication_liquid_rounded
@@ -53215,6 +59149,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M5.2 15.43c0-.65.6-1.13 1.24-.99l3.56.8V4.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v6h.91c.31 0 .62.07.89.21l4.09 2.04c.77.38 1.21 1.22 1.09 2.07l-.63 4.46c-.14.99-.99 1.72-1.98 1.72h-6.16c-.53 0-1.29-.21-1.66-.59l-4.07-4.29a.976.976 0 0 1-.28-.69z'),
     ],
   ),
+  // paypal_rounded
+  0xf035c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.607 4.653H8.941L6.645 19.251H1.82L4.862 0h7.995c3.754 0 6.375 2.294 6.473 5.513-.648-.478-2.105-.86-3.722-.86m6.57 5.546c0 3.41-3.01 6.853-6.958 6.853h-2.493L11.595 24H6.74l1.845-11.538h3.592c4.208 0 7.346-3.634 7.153-6.949a5.24 5.24 0 0 1 2.848 4.686M9.653 5.546h6.408c.907 0 1.942.222 2.363.541-.195 2.741-2.655 5.483-6.441 5.483H8.714Z'),
+    ],
+  ),
   // pentagon_rounded
   0xf035d: WiredSvgIconData(
     width: 24.0,
@@ -53280,6 +59222,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m21.11 9.85-2.25-2.26H17.6c-.54 0-1.08.22-1.45.61l-3 3c-.28.28-.65.42-1.02.42a1.5 1.5 0 0 1-1.02-.42L8.09 8.17c-.38-.38-.9-.6-1.45-.6H5.17l-2.29 2.3a3 3 0 0 0 0 4.24l2.29 2.3h1.48c.54 0 1.06-.22 1.45-.6l3.02-3.02c.28-.28.65-.42 1.02-.42s.74.14 1.02.42l3.01 3.01c.38.38.9.6 1.45.6h1.26l2.25-2.26a3.042 3.042 0 0 0-.02-4.29z'),
     ],
   ),
+  // playlist_add_check_circle_rounded
+  0xf0365: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7 8c0-.55.45-1 1-1h5c.55 0 1 .45 1 1s-.45 1-1 1H8c-.55 0-1-.45-1-1zm0 3c0-.55.45-1 1-1h5c.55 0 1 .45 1 1s-.45 1-1 1H8c-.55 0-1-.45-1-1zm3 3c0 .55-.45 1-1 1H8c-.55 0-1-.45-1-1s.45-1 1-1h1c.55 0 1 .45 1 1zm8.29.12-3.54 3.54a.996.996 0 0 1-1.41 0l-1.41-1.41a.996.996 0 1 1 1.41-1.41l.71.71 2.83-2.83a.996.996 0 0 1 1.41 0c.39.38.39 1.01 0 1.4z'),
+    ],
+  ),
+  // playlist_add_circle_rounded
+  0xf0366: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7 8c0-.55.45-1 1-1h5c.55 0 1 .45 1 1s-.45 1-1 1H8c-.55 0-1-.45-1-1zm3 6c0 .55-.45 1-1 1H8c-.55 0-1-.45-1-1s.45-1 1-1h1c.55 0 1 .45 1 1zm-2-2c-.55 0-1-.45-1-1s.45-1 1-1h5c.55 0 1 .45 1 1s-.45 1-1 1H8zm10 3h-1v1c0 .55-.45 1-1 1s-1-.45-1-1v-1h-1c-.55 0-1-.45-1-1s.45-1 1-1h1v-1c0-.55.45-1 1-1s1 .45 1 1v1h1c.55 0 1 .45 1 1s-.45 1-1 1z'),
+    ],
+  ),
   // playlist_remove_rounded
   0xf0367: WiredSvgIconData(
     width: 24.0,
@@ -53294,6 +59252,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M10.04 6.85 7.3 10H4.5c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.14 0 .27-.02.39-.05L15 19.5v1c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.75 0-1.37.55-1.48 1.27L9 14.26V11.5c0-.12-.01-.24-.04-.36L11.7 8h2.8c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .12.01.24.04.35z'),
+    ],
+  ),
+  // private_connectivity_rounded
+  0xf0369: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 12c0-.55-.45-1-1-1h-2.07c-.49-3.39-3.4-6-6.93-6s-6.44 2.61-6.93 6H3c-.55 0-1 .45-1 1s.45 1 1 1h2.07c.49 3.39 3.4 6 6.93 6s6.44-2.61 6.93-6H21c.55 0 1-.45 1-1zm-7 2.5c0 .55-.45 1-1 1h-4c-.55 0-1-.45-1-1v-3c0-.55.45-1 1-1v-1a2 2 0 0 1 2.34-1.97c.98.16 1.66 1.08 1.66 2.08v.89c.55 0 1 .45 1 1v3zM12.75 13c0 .41-.34.75-.75.75s-.75-.34-.75-.75.34-.75.75-.75.75.34.75.75zM13 9.5v1h-2v-1c0-.55.45-1 1-1s1 .45 1 1z'),
     ],
   ),
   // punch_clock_rounded
@@ -53311,6 +59277,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M7.92 7.54c-.8-.34-1.14-1.33-.66-2.05C8.23 4.05 9.85 3 11.99 3c2.35 0 3.96 1.07 4.78 2.41.7 1.15 1.11 3.3.03 4.9-1.2 1.77-2.35 2.31-2.97 3.45-.15.27-.24.49-.3.94-.09.73-.69 1.3-1.43 1.3-.87 0-1.58-.75-1.48-1.62.06-.51.18-1.04.46-1.54.77-1.39 2.25-2.21 3.11-3.44.91-1.29.4-3.7-2.18-3.7-1.17 0-1.93.61-2.4 1.34-.35.57-1.08.75-1.69.5zM14 20c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z'),
+    ],
+  ),
+  // quora_rounded
+  0xf036c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.3799.9483A11.9628 11.9628 0 0 1 21.248 19.5397l2.4096 2.4225c.7322.7362.21 1.9905-.8272 1.9905l-10.7105.01a12.52 12.52 0 0 1-.304 0h-.02A11.9628 11.9628 0 0 1 7.3818.9503Zm7.3217 4.428a7.1717 7.1717 0 1 0-5.4873 13.2512 7.1717 7.1717 0 0 0 5.4883-13.2511Z'),
     ],
   ),
   // ramp_left_rounded
@@ -53345,6 +59319,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M6.2 7.41a.501.501 0 0 1-.17-.68L7.2 4.78l1.03-1.71c.39-.65 1.33-.65 1.72 0l1.48 2.46-1.23 2.06-.72 1.2a.54.54 0 0 1-.71.17L6.2 7.41zm15.52 5.56-1.34-2.24a.512.512 0 0 0-.68-.18l-2.6 1.5c-.24.14-.32.45-.18.69L18.87 16h1.09c.61 0 1.2-.26 1.59-.73.3-.37.45-.82.45-1.27 0-.36-.1-.71-.28-1.03zM16 21h1.5a2 2 0 0 0 1.79-1.11L20.74 17H16v-.79c0-.45-.54-.67-.85-.35l-2.79 2.79c-.2.2-.2.51 0 .71l2.79 2.79a.5.5 0 0 0 .85-.35V21zm-6.5-4H5.7l-.84 1.41c-.3.5-.32 1.12-.06 1.65.28.57.87.94 1.52.94H9.5c.28 0 .5-.22.5-.5v-3c0-.28-.22-.5-.5-.5zm-3.38-2.65.7.42c.38.23.85-.12.74-.55l-.96-3.84a.49.49 0 0 0-.6-.36l-3.83.96c-.43.11-.52.68-.14.91l.66.4-.41.69c-.35.59-.38 1.31-.07 1.92l1.63 3.26 2.28-3.81zm10.9-9.21-1.3-2.17C15.35 2.37 14.7 2 14 2h-3.53l3.12 5.2-.69.41c-.38.23-.3.81.14.91l3.83.96c.27.07.54-.1.61-.36l.96-3.83a.499.499 0 0 0-.74-.55l-.68.4z'),
     ],
   ),
+  // reddit_rounded
+  0xf0371: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z'),
+    ],
+  ),
   // rocket_launch_rounded
   0xf0372: WiredSvgIconData(
     width: 24.0,
@@ -53359,6 +59341,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M11.41 2.87a.99.99 0 0 1 1.18 0c1.22.88 3.91 3.59 3.91 10.13 0 2.16-.78 4.76-1.36 6.35-.14.39-.51.65-.93.65H9.8c-.42 0-.8-.26-.94-.65C8.28 17.76 7.5 15.16 7.5 13c0-6.54 2.69-9.25 3.91-10.13zM14 11c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm-6.31 9.52c-.48-1.23-1.52-4.17-1.67-6.87l-1.13.75c-.56.38-.89 1-.89 1.67v4.45c0 .71.71 1.19 1.37.93l2.32-.93zm12.31 0v-4.45c0-.67-.33-1.29-.89-1.66l-1.13-.75c-.15 2.69-1.2 5.64-1.67 6.87l2.32.93c.66.25 1.37-.23 1.37-.94z'),
+    ],
+  ),
+  // rotate_90_degrees_cw_rounded
+  0xf0374: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M3.86 18.46c2.65 3.45 7.11 4.37 10.74 2.79.61-.27.74-1.09.27-1.56l-.05-.05c-.29-.29-.72-.35-1.1-.19-2.96 1.24-6.59.37-8.58-2.62-1.58-2.37-1.55-5.37.05-7.73C6.6 7.03 8.8 6.03 11 6.03v1.76c0 .45.54.67.86.36l2.79-2.79c.2-.2.2-.51 0-.71l-2.8-2.79a.495.495 0 0 0-.85.35v1.8c-2.76 0-5.52 1.25-7.34 3.78-2.28 3.17-2.2 7.58.2 10.67z'),
+      WiredSvgPrimitive.path('M17.7 7.71a.996.996 0 0 0-1.41 0l-4.59 4.58a.996.996 0 0 0 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59a.996.996 0 0 0 0-1.41L17.7 7.71z'),
     ],
   ),
   // roundabout_left_rounded
@@ -53409,6 +59400,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M16 21c0 .55.45 1 1 1h3.43c.87 0 1.58-.75 1.5-1.62-.59-6.2-4.53-8.7-7.93-9.38V8c3.31-.42 6.03-1.86 7.27-3.73.65-.97-.12-2.27-1.29-2.27H4.02C2.85 2 2.08 3.3 2.73 4.27 3.97 6.14 6.69 7.58 10 8v3c-3.4.68-7.34 3.18-7.93 9.38-.08.87.63 1.62 1.5 1.62H7c.55 0 1-.45 1-1s-.45-1-1-1H4.13c.93-6.83 6.65-7.2 7.87-7.2s6.94.37 7.87 7.2H17c-.55 0-1 .45-1 1zm-4.5.94c-.7-.17-1.27-.74-1.44-1.44-.18-.74.06-1.44.53-1.91.55-.55 2.91-1.57 4.33-2.15.41-.17.82.24.65.65-.58 1.42-1.6 3.78-2.15 4.33-.47.46-1.17.7-1.92.52z'),
     ],
   ),
+  // send_time_extension_rounded
+  0xf037b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 6c0-1.1-.9-2-2-2h-4a2.5 2.5 0 0 0-5 0H5.01c-1.1 0-2 .9-2 2v3.8C5.7 9.8 6 11.96 6 12.5s-.29 2.7-3 2.7V19c0 1.1.9 2 2 2h3.8c0-2.16 1.37-2.78 2.2-2.94v-9.3l9 4.5V6z'),
+      WiredSvgPrimitive.path('M13 12v4l4 1-4 1v4l10-5z'),
+    ],
+  ),
   // shield_moon_rounded
   0xf037c: WiredSvgIconData(
     width: 24.0,
@@ -53417,12 +59417,36 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m11.3 2.26-6 2.25C4.52 4.81 4 5.55 4 6.39v4.7c0 4.83 3.13 9.37 7.43 10.75.37.12.77.12 1.14 0 4.3-1.38 7.43-5.91 7.43-10.75v-4.7a2 2 0 0 0-1.3-1.87l-6-2.25c-.45-.18-.95-.18-1.4-.01zm4.67 12.15c-1.84 2.17-5.21 2.1-6.96-.07-2.19-2.72-.65-6.72 2.69-7.33.34-.06.63.27.51.6-.46 1.23-.39 2.64.32 3.86a4.51 4.51 0 0 0 3.18 2.2c.34.05.49.47.26.74z'),
     ],
   ),
+  // shopify_rounded
+  0xf037d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z'),
+    ],
+  ),
+  // shopping_cart_checkout_rounded
+  0xf037e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm2-2c0-.55-.45-1-1-1H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03l3.24-6.14a.998.998 0 0 0-.4-1.34.996.996 0 0 0-1.36.41L15.55 11H8.53L4.54 2.57a.993.993 0 0 0-.9-.57H2c-.55 0-1 .45-1 1s.45 1 1 1h1l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h11c.55 0 1-.45 1-1zM11.29 2.71a.996.996 0 0 1 1.41 0l2.59 2.59c.39.39.39 1.02 0 1.41L12.7 9.3a.996.996 0 1 1-1.41-1.41l.88-.89H9c-.55 0-1-.45-1-1s.45-1 1-1h3.17l-.88-.88a.996.996 0 0 1 0-1.41z'),
+    ],
+  ),
   // signpost_rounded
   0xf037f: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 10h5l3-3-3-3h-5V2h-2v2H4v6h7v2H6l-3 3 3 3h5v4h2v-4h7v-6h-7z'),
+    ],
+  ),
+  // snapchat_rounded
+  0xf0380: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z'),
     ],
   ),
   // soup_kitchen_rounded
@@ -53447,6 +59471,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M16 7c0 2.21-1.79 4-4 4S8 9.21 8 7s1.79-4 4-4 4 1.79 4 4zm-9 6c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm10 0c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z'),
+    ],
+  ),
+  // sports_martial_arts_rounded
+  0xf0384: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M19.06 2.6 11.6 8.7l-1.21-1.04 2.48-1.43a1 1 0 0 0 .21-1.57l-2.95-2.95a.996.996 0 1 0-1.41 1.41l2.03 2.03-5.4 3.11a.99.99 0 0 0-.46.6l-.96 3.49c-.07.26-.04.53.1.77l1.74 3.02c.28.48.89.64 1.37.37.48-.28.64-.89.37-1.37l-1.53-2.66.36-1.29L9.5 13l.44 8c.03.56.49 1 1.05 1s1.02-.44 1.05-1l.45-9 7.87-7.96a.972.972 0 0 0-1.3-1.44z'),
+      WiredSvgPrimitive.circle(cx: 5.0, cy: 5.0, radius: 2.0),
     ],
   ),
   // square_rounded
@@ -53561,6 +59594,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M0 12c0 3.22 1.13 6.18 3.02 8.5H1.75c-.41 0-.75.34-.75.75s.34.75.75.75H5c.55 0 1-.45 1-1v-3.25c0-.41-.34-.75-.75-.75s-.75.34-.75.75v2.16c-1.86-2.11-3-4.88-3-7.91s1.14-5.79 3-7.91v2.16c0 .41.34.75.75.75S6 6.66 6 6.25V3c0-.55-.45-1-1-1H1.75c-.41 0-.75.34-.75.75s.34.75.75.75h1.27A13.413 13.413 0 0 0 0 12zm8.83 7.1c-.26-.6.09-1.28.73-1.41l3.58-.71-4.35-9.81c-.34-.76 0-1.64.76-1.98.76-.34 1.64 0 1.98.76l2.43 5.49.84-.37c.28-.13.59-.18.9-.17l4.56.21a2 2 0 0 1 1.83 1.45l1.23 4.33c.27.96-.2 1.97-1.11 2.37l-5.63 2.49c-.48.21-1.26.33-1.76.14l-5.45-2.27a.952.952 0 0 1-.54-.52z'),
     ],
   ),
+  // switch_access_shortcut_add_rounded
+  0xf0393: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21 18c.55 0 1-.45 1-1v-1h1c.55 0 1-.45 1-1s-.45-1-1-1h-1v-1c0-.55-.45-1-1-1s-1 .45-1 1v1h-1c-.55 0-1 .45-1 1s.45 1 1 1h1v1c0 .55.45 1 1 1zM7.06 8.94 5 8l2.06-.94L8 5l.94 2.06L11 8l-2.06.94L8 11l-.94-2.06zM8 21l.94-2.06L11 18l-2.06-.94L8 15l-.94 2.06L5 18l2.06.94L8 21zm-3.63-8.63L3 13l1.37.63L5 15l.63-1.37L7 13l-1.37-.63L5 11l-.63 1.37zM19 20.41a1 1 0 0 1-1.51.86C14.21 19.36 12 15.79 12 12c0-2.73 1.08-5.27 2.75-7.25l-1.9-1.9a.5.5 0 0 1 .36-.85h5.29c.28 0 .5.22.5.5v5.29c0 .45-.54.67-.85.35l-1.97-1.97C14.84 7.82 14 9.88 14 12c0 3.13 1.86 6.01 4.51 7.55.3.18.49.51.49.86z'),
+    ],
+  ),
+  // switch_access_shortcut_rounded
+  0xf0394: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.06 8.94 5 8l2.06-.94L8 5l.94 2.06L11 8l-2.06.94L8 11l-.94-2.06zM8 21l.94-2.06L11 18l-2.06-.94L8 15l-.94 2.06L5 18l2.06.94L8 21zm-3.63-8.63L3 13l1.37.63L5 15l.63-1.37L7 13l-1.37-.63L5 11l-.63 1.37zM19 20.41a1 1 0 0 1-1.51.86C14.21 19.36 12 15.79 12 12c0-2.73 1.08-5.27 2.75-7.25l-1.9-1.9a.5.5 0 0 1 .36-.85h5.29c.28 0 .5.22.5.5v5.29c0 .45-.54.67-.85.35l-1.97-1.97C14.84 7.82 14 9.88 14 12c0 3.13 1.86 6.01 4.51 7.55.3.18.49.51.49.86z'),
+    ],
+  ),
   // synagogue_rounded
   0xf0395: WiredSvgIconData(
     width: 24.0,
@@ -53591,6 +59640,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m21.96 9.73-1.43-5a.996.996 0 0 0-.96-.73H4.43c-.45 0-.84.3-.96.73l-1.43 5c-.18.63.3 1.27.96 1.27h2.2l-1.05 7.88a.989.989 0 1 0 1.96.26L6.67 15h10.67l.55 4.14a1 1 0 0 0 .98.86c.6 0 1.06-.53.98-1.12L18.8 11H21c.66 0 1.14-.64.96-1.27zM6.93 13l.27-2h9.6l.27 2H6.93z'),
+    ],
+  ),
+  // telegram_rounded
+  0xf0399: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'),
     ],
   ),
   // temple_buddhist_rounded
@@ -53633,6 +59690,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M2.61 19c.48 0 .91-.3 1.06-.75l1.01-2.83h5.65l.99 2.82c.16.46.59.76 1.07.76.79 0 1.33-.79 1.05-1.52L9.19 6.17C8.93 5.47 8.25 5 7.5 5s-1.43.47-1.69 1.17L1.56 17.48c-.28.73.27 1.52 1.05 1.52zM7.44 7.6h.12l2.03 5.79H5.41L7.44 7.6zM15 12c0-.55.45-1 1-1h2V9c0-.55.45-1 1-1s1 .45 1 1v2h2c.55 0 1 .45 1 1s-.45 1-1 1h-2v2c0 .55-.45 1-1 1s-1-.45-1-1v-2h-2c-.55 0-1-.45-1-1z'),
+    ],
+  ),
+  // tiktok_rounded
+  0xf039f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z'),
     ],
   ),
   // tips_and_updates_rounded
@@ -53819,6 +59884,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M2 16c0-1.84 1-3.45 2.48-4.32.67-.39 1.52.08 1.52.86 0 .36-.19.68-.5.86-.9.52-1.5 1.49-1.5 2.6 0 1.85 1.68 3.31 3.6 2.94 1.42-.28 2.4-1.61 2.4-3.06 0-.49.39-.88.88-.88h5c.27-.31.67-.5 1.12-.5.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5c-.44 0-.84-.19-1.12-.5H11.9A5 5 0 0 1 2 16zm14.37-9c.65 0 1.14-.62.97-1.25A4.99 4.99 0 0 0 12.5 2a5.002 5.002 0 0 0-3.45 8.62l-2.35 3.9c-.68.14-1.2.75-1.2 1.48 0 .83.67 1.5 1.5 1.5a1.498 1.498 0 0 0 1.43-1.95l2.86-4.75c.25-.41.13-.95-.28-1.19-.9-.53-1.51-1.5-1.51-2.61 0-1.65 1.35-3 3-3 1.38 0 2.54.93 2.89 2.2.13.46.51.8.98.8zm.63 6c-.38 0-.75.07-1.09.2-.4.16-.86-.04-1.08-.41l-2.6-4.32C11.53 8.35 11 7.74 11 7c0-.83.67-1.5 1.5-1.5S14 6.17 14 7c0 .15-.02.29-.06.43l2.19 3.65c.28-.05.57-.08.87-.08 2.76 0 5 2.24 5 5s-2.24 5-5 5c-.86 0-1.68-.22-2.39-.61-.92-.5-.58-1.89.47-1.89.17 0 .34.05.49.14.42.23.91.36 1.43.36 1.65 0 3-1.35 3-3s-1.35-3-3-3z'),
     ],
   ),
+  // wechat_rounded
+  0xf03b7: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'),
+    ],
+  ),
   // wifi_channel_rounded
   0xf03b9: WiredSvgIconData(
     width: 24.0,
@@ -53860,6 +59933,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.circle(cx: 12.0, cy: 4.0, radius: 2.0),
       WiredSvgPrimitive.path('m16.45 14.63-2.52-6.32c-.32-.79-1.08-1.3-1.94-1.31-.85 0-1.62.51-1.94 1.31l-2.52 6.32c-.25.66.24 1.37.94 1.37H10v5c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-5h1.53c.7 0 1.19-.71.92-1.37z'),
+    ],
+  ),
+  // woo_commerce_rounded
+  0xf03be: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M.754 9.58a.754.754 0 00-.754.758v2.525c0 .42.339.758.758.758h3.135l1.431.799-.326-.799h2.373a.757.757 0 00.758-.758v-2.525a.757.757 0 00-.758-.758H.754zm2.709.445h.03c.065.001.124.023.179.067a.26.26 0 01.103.19.29.29 0 01-.033.16c-.13.239-.236.64-.322 1.199-.083.541-.114.965-.094 1.267a.392.392 0 01-.039.219.213.213 0 01-.176.12c-.086.006-.177-.034-.263-.124-.31-.316-.555-.788-.735-1.416-.216.425-.375.744-.478.957-.196.376-.363.568-.502.578-.09.007-.166-.069-.233-.228-.17-.436-.352-1.277-.548-2.524a.297.297 0 01.054-.222c.047-.064.116-.095.21-.102.169-.013.265.065.288.238.103.695.217 1.284.336 1.766l.727-1.387c.066-.126.15-.192.25-.199.146-.01.237.083.273.28.083.441.188.817.315 1.136.086-.844.233-1.453.44-1.828a.255.255 0 01.218-.147zm1.293.36c.056 0 .116.006.18.02.232.05.411.177.53.386.107.18.161.395.161.654 0 .343-.087.654-.26.94-.2.332-.459.5-.781.5a.88.88 0 01-.18-.022.763.763 0 01-.531-.384 1.287 1.287 0 01-.158-.659c0-.342.085-.655.258-.937.202-.333.462-.498.78-.498zm2.084 0c.056 0 .116.006.18.02.236.05.411.177.53.386.107.18.16.395.16.654 0 .343-.086.654-.259.94-.2.332-.459.5-.781.5a.88.88 0 01-.18-.022.763.763 0 01-.531-.384 1.287 1.287 0 01-.16-.659c0-.342.087-.655.26-.937.202-.333.462-.498.78-.498zm4.437.047c-.305 0-.546.102-.718.304-.173.203-.256.49-.256.856 0 .395.086.697.256.906.17.21.418.316.744.316.315 0 .559-.107.728-.316.17-.21.256-.504.256-.883s-.087-.673-.26-.879c-.176-.202-.424-.304-.75-.304zm-1.466.002a1.13 1.13 0 00-.84.326c-.223.22-.332.499-.332.838 0 .362.108.658.328.88.22.223.505.336.861.336.103 0 .22-.016.346-.052v-.54c-.117.034-.216.051-.303.051a.545.545 0 01-.422-.177c-.106-.12-.16-.278-.16-.48 0-.19.053-.348.156-.468a.498.498 0 01.397-.181c.103 0 .212.015.332.049v-.537a1.394 1.394 0 00-.363-.045zm12.414 0a1.135 1.135 0 00-.84.326c-.223.22-.332.499-.332.838 0 .362.108.658.328.88.22.223.506.336.861.336.103 0 .22-.016.346-.052v-.54c-.116.034-.216.051-.303.051a.545.545 0 01-.422-.177c-.106-.12-.16-.278-.16-.48 0-.19.053-.348.156-.468a.498.498 0 01.397-.181c.103 0 .212.015.332.049v-.537a1.394 1.394 0 00-.363-.045zm-9.598.06l-.29 2.264h.579l.156-1.559.395 1.559h.412l.379-1.555.164 1.555h.603l-.304-2.264h-.791l-.12.508c-.03.13-.06.264-.087.4l-.067.352a29.97 29.97 0 00-.258-1.26h-.771zm2.768 0l-.29 2.264h.579l.156-1.559.396 1.559h.412l.375-1.555.165 1.555h.603l-.305-2.264h-.789l-.119.508c-.03.13-.06.264-.086.4l-.066.352c-.063-.352-.15-.771-.26-1.26h-.771zm3.988 0v2.264h.611v-1.031h.012l.494 1.03h.645l-.489-1.019a.61.61 0 00.37-.552.598.598 0 00-.25-.506c-.167-.123-.394-.186-.68-.186h-.713zm3.377 0v2.264H24v-.483h-.63v-.414h.54v-.468h-.54v-.416h.626v-.483H22.76zm-4.793.004v2.264h1.24v-.483h-.627v-.416h.541v-.468h-.54v-.415h.622v-.482h-1.236zm2.025.432c.146.003.25.025.313.072.063.046.091.12.091.227 0 .156-.135.236-.404.24v-.54zm-15.22.011c-.104 0-.205.069-.301.211a1.078 1.078 0 00-.2.639c0 .096.02.2.06.303.049.13.117.198.196.215.083.016.173-.02.27-.106.123-.11.205-.273.252-.492.016-.077.023-.16.023-.246 0-.097-.02-.2-.06-.303-.05-.13-.116-.198-.196-.215a.246.246 0 00-.045-.006zm2.083 0c-.103 0-.204.069-.3.211a1.078 1.078 0 00-.2.639c0 .096.02.2.06.303.049.13.117.198.196.215.083.016.173-.02.27-.106.123-.11.205-.273.252-.492.013-.077.023-.16.023-.246 0-.097-.02-.2-.06-.303-.05-.13-.116-.198-.196-.215a.246.246 0 00-.045-.006zm4.428.006c.233 0 .354.218.354.66-.004.273-.038.46-.098.553a.293.293 0 01-.262.139.266.266 0 01-.242-.139c-.056-.093-.084-.28-.084-.562 0-.436.11-.65.332-.65Z'),
+    ],
+  ),
+  // wordpress_rounded
+  0xf03bf: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0'),
     ],
   ),
   // workspace_premium_rounded
@@ -53910,6 +59999,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M22 12h-4V4H6v8H2v8h20v-8zm-6 0H8V6h8v6zm2 5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
     ],
   ),
+  // adobe_sharp
+  0xf03c6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2 22L10.5 2h3L22 22h-4.5l-5-12-5 12H2Z'),
+    ],
+  ),
   // ads_click_sharp
   0xf03c7: WiredSvgIconData(
     width: 24.0,
@@ -53941,6 +60038,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 18H7V6h10v1h2V1H5v22h14v-6h-2zm3.38-8.38L21 11l.62-1.38L23 9l-1.38-.62L21 7l-.62 1.38L19 9z'),
       WiredSvgPrimitive.path('m16 8-1.25 2.75L12 12l2.75 1.25L16 16l1.25-2.75L20 12l-2.75-1.25zm5 5-.62 1.38L19 15l1.38.62L21 17l.62-1.38L23 15l-1.38-.62z'),
+    ],
+  ),
+  // apple_sharp
+  0xf03cb: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701'),
     ],
   ),
   // apps_outage_sharp
@@ -54342,6 +60447,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21.99 12.34c.01-.11.01-.23.01-.34 0-5.52-4.48-10-10-10S2 6.48 2 12c0 5.17 3.93 9.43 8.96 9.95a9.343 9.343 0 0 1-2.32-2.68A8.01 8.01 0 0 1 4 12c0-1.85.63-3.55 1.69-4.9l5.66 5.66c.56-.4 1.17-.73 1.82-1L7.1 5.69A7.902 7.902 0 0 1 12 4c4.24 0 7.7 3.29 7.98 7.45.71.22 1.39.52 2.01.89zM17 13c-3.18 0-5.9 1.87-7 4.5 1.1 2.63 3.82 4.5 7 4.5s5.9-1.87 7-4.5c-1.1-2.63-3.82-4.5-7-4.5zm0 7a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5zm1.5-2.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5.67-1.5 1.5-1.5 1.5.67 1.5 1.5z'),
+    ],
+  ),
+  // discord_sharp
+  0xf03fc: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z'),
     ],
   ),
   // display_settings_sharp
@@ -54833,6 +60946,42 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m5 12 1.41 1.41L12 7.83l5.59 5.58L19 12l-7-7z'),
     ],
   ),
+  // keyboard_double_arrow_down_sharp
+  0xf0439: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 6.41 16.59 5 12 9.58 7.41 5 6 6.41l6 6z'),
+      WiredSvgPrimitive.path('m18 13-1.41-1.41L12 16.17l-4.59-4.58L6 13l6 6z'),
+    ],
+  ),
+  // keyboard_double_arrow_left_sharp
+  0xf043a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.59 18 19 16.59 14.42 12 19 7.41 17.59 6l-6 6z'),
+      WiredSvgPrimitive.path('m11 18 1.41-1.41L7.83 12l4.58-4.59L11 6l-6 6z'),
+    ],
+  ),
+  // keyboard_double_arrow_right_sharp
+  0xf043b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.41 6 5 7.41 9.58 12 5 16.59 6.41 18l6-6z'),
+      WiredSvgPrimitive.path('m13 6-1.41 1.41L16.17 12l-4.58 4.59L13 18l6-6z'),
+    ],
+  ),
+  // keyboard_double_arrow_up_sharp
+  0xf043c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6 17.59 7.41 19 12 14.42 16.59 19 18 17.59l-6-6z'),
+      WiredSvgPrimitive.path('m6 11 1.41 1.41L12 7.83l4.59 4.58L18 11l-6-6z'),
+    ],
+  ),
   // keyboard_option_key_sharp
   0xf043d: WiredSvgIconData(
     width: 24.0,
@@ -54984,6 +61133,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20.18 13.4 19.1 21h-9L5 15.62l1.22-1.23 3.78.85V4.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v6h1.38l5.8 2.9z'),
     ],
   ),
+  // paypal_sharp
+  0xf044f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.607 4.653H8.941L6.645 19.251H1.82L4.862 0h7.995c3.754 0 6.375 2.294 6.473 5.513-.648-.478-2.105-.86-3.722-.86m6.57 5.546c0 3.41-3.01 6.853-6.958 6.853h-2.493L11.595 24H6.74l1.845-11.538h3.592c4.208 0 7.346-3.634 7.153-6.949a5.24 5.24 0 0 1 2.848 4.686M9.653 5.546h6.408c.907 0 1.942.222 2.363.541-.195 2.741-2.655 5.483-6.441 5.483H8.714Z'),
+    ],
+  ),
   // pentagon_sharp
   0xf0450: WiredSvgIconData(
     width: 24.0,
@@ -55049,6 +61206,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m21.11 9.85-2.25-2.26H17.6c-.54 0-1.08.22-1.45.61l-3 3c-.28.28-.65.42-1.02.42a1.5 1.5 0 0 1-1.02-.42L8.09 8.17c-.38-.38-.9-.6-1.45-.6H5.17l-2.29 2.3a3 3 0 0 0 0 4.24l2.29 2.3h1.48c.54 0 1.06-.22 1.45-.6l3.02-3.02c.28-.28.65-.42 1.02-.42s.74.14 1.02.42l3.01 3.01c.38.38.9.6 1.45.6h1.26l2.25-2.26a3.042 3.042 0 0 0-.02-4.29z'),
     ],
   ),
+  // playlist_add_check_circle_sharp
+  0xf0458: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7 7h7v2H7V7zm0 3h7v2H7v-2zm3 5H7v-2h3v2zm4.05 3.36-2.83-2.83 1.41-1.41 1.41 1.41L17.59 12 19 13.41l-4.95 4.95z'),
+    ],
+  ),
   // playlist_add_circle_sharp
   0xf0459: WiredSvgIconData(
     width: 24.0,
@@ -55098,6 +61263,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11.07 12.85c.77-1.39 2.25-2.21 3.11-3.44.91-1.29.4-3.7-2.18-3.7-1.69 0-2.52 1.28-2.87 2.34L6.54 6.96C7.25 4.83 9.18 3 11.99 3c2.35 0 3.96 1.07 4.78 2.41.7 1.15 1.11 3.3.03 4.9-1.2 1.77-2.35 2.31-2.97 3.45-.25.46-.35.76-.35 2.24h-2.89c-.01-.78-.13-2.05.48-3.15zM14 20c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z'),
     ],
   ),
+  // quora_sharp
+  0xf045f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.3799.9483A11.9628 11.9628 0 0 1 21.248 19.5397l2.4096 2.4225c.7322.7362.21 1.9905-.8272 1.9905l-10.7105.01a12.52 12.52 0 0 1-.304 0h-.02A11.9628 11.9628 0 0 1 7.3818.9503Zm7.3217 4.428a7.1717 7.1717 0 1 0-5.4873 13.2512 7.1717 7.1717 0 0 0 5.4883-13.2511Z'),
+    ],
+  ),
   // ramp_left_sharp
   0xf0460: WiredSvgIconData(
     width: 24.0,
@@ -55128,6 +61301,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5.77 7.15 7.2 4.78l1.03-1.71c.39-.65 1.33-.65 1.72 0l1.48 2.46-1.23 2.06-1 1.62-3.43-2.06zm15.95 5.82-1.6-2.66-3.46 2L18.87 16H20a2 2 0 0 0 2-2c0-.36-.1-.71-.28-1.03zM16 21h1.5a2 2 0 0 0 1.79-1.11L20.74 17H16v-2l-4 4 4 4v-2zm-6-4H5.7l-.84 1.41c-.3.5-.32 1.12-.06 1.65.28.57.87.94 1.52.94H10v-4zm-3.88-2.65 1.73 1.04L6.48 9.9 1 11.27l1.7 1.02-.41.69c-.35.59-.38 1.31-.07 1.92l1.63 3.26 2.27-3.81zm10.9-9.21-1.3-2.17C15.35 2.37 14.7 2 14 2h-3.53l3.12 5.2-1.72 1.03 5.49 1.37 1.37-5.49-1.71 1.03z'),
+    ],
+  ),
+  // reddit_sharp
+  0xf0464: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z'),
     ],
   ),
   // rocket_launch_sharp
@@ -55220,12 +61401,36 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2 4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm3.97 12.41c-1.84 2.17-5.21 2.1-6.96-.07-2.19-2.72-.65-6.72 2.69-7.33.34-.06.63.27.51.6-.46 1.23-.39 2.64.32 3.86a4.51 4.51 0 0 0 3.18 2.2c.34.05.49.47.26.74z'),
     ],
   ),
+  // shopify_sharp
+  0xf0470: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z'),
+    ],
+  ),
+  // shopping_cart_checkout_sharp
+  0xf0471: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-8.9-5h8.66L21 4.96 19.25 4l-3.7 7H8.53L4.27 2H1v2h2l3.6 7.59L3.61 17H19v-2H7l1.1-2zM12 2l4 4-4 4-1.41-1.41L12.17 7H8V5h4.17l-1.59-1.59L12 2z'),
+    ],
+  ),
   // signpost_sharp
   0xf0472: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2c-.55 0-1 .45-1 1v1H5.5C4.67 4 4 4.67 4 5.5v3c0 .83.67 1.5 1.5 1.5H11v2H6.62c-.4 0-.78.16-1.06.44l-1.5 1.5a1.49 1.49 0 0 0 0 2.12l1.5 1.5c.28.28.66.44 1.06.44H11v3c0 .55.45 1 1 1s1-.45 1-1v-3h5.5c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5H13v-2h4.38c.4 0 .78-.16 1.06-.44l1.5-1.5c.59-.59.59-1.54 0-2.12l-1.5-1.5c-.28-.28-.66-.44-1.06-.44H13V3c0-.55-.45-1-1-1z'),
+    ],
+  ),
+  // snapchat_sharp
+  0xf0473: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z'),
     ],
   ),
   // soup_kitchen_sharp
@@ -55373,6 +61578,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M1 3.5h2.02C1.13 5.82 0 8.78 0 12s1.13 6.18 3.02 8.5H1V22h5v-5H4.5v2.91c-1.86-2.11-3-4.88-3-7.91s1.14-5.79 3-7.91V7H6V2H1v1.5zm20.71 7.68 2.09 7.39-8.23 3.65-6.84-2.85.61-1.62 3.8-.75-4.35-9.83c-.34-.76 0-1.64.76-1.98.76-.34 1.64 0 1.98.76l2.43 5.49 1.26-.56 6.49.3z'),
     ],
   ),
+  // switch_access_shortcut_add_sharp
+  0xf0486: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M24 14h-2v-2h-2v2h-2v2h2v2h2v-2h2v-2zM7.06 8.94 5 8l2.06-.94L8 5l.94 2.06L11 8l-2.06.94L8 11l-.94-2.06zM8 21l.94-2.06L11 18l-2.06-.94L8 15l-.94 2.06L5 18l2.06.94L8 21zm-3.63-8.63L3 13l1.37.63L5 15l.63-1.37L7 13l-1.37-.63L5 11l-.63 1.37zM12 12c0-2.73 1.08-5.27 2.75-7.25L12 2h7v7l-2.82-2.82C14.84 7.82 14 9.88 14 12c0 3.32 2.1 6.36 5 7.82V22c-4.09-1.59-7-5.65-7-10z'),
+    ],
+  ),
+  // switch_access_shortcut_sharp
+  0xf0487: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.06 8.94 5 8l2.06-.94L8 5l.94 2.06L11 8l-2.06.94L8 11l-.94-2.06zM8 21l.94-2.06L11 18l-2.06-.94L8 15l-.94 2.06L5 18l2.06.94L8 21zm-3.63-8.63L3 13l1.37.63L5 15l.63-1.37L7 13l-1.37-.63L5 11l-.63 1.37zM12 12c0-2.73 1.08-5.27 2.75-7.25L12 2h7v7l-2.82-2.82C14.84 7.82 14 9.88 14 12c0 3.32 2.1 6.36 5 7.82V22c-4.09-1.59-7-5.65-7-10z'),
+    ],
+  ),
   // synagogue_sharp
   0xf0488: WiredSvgIconData(
     width: 24.0,
@@ -55403,6 +61624,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m22.33 11-2-7H3.67l-2 7H5.2L4 20h2l.67-5h10.67l.66 5h2l-1.2-9h3.53zm-15.4 2 .27-2h9.6l.27 2H6.93z'),
+    ],
+  ),
+  // telegram_sharp
+  0xf048c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'),
     ],
   ),
   // temple_buddhist_sharp
@@ -55445,6 +61674,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM20 11h3v2h-3v3h-2v-3h-3v-2h3V8h2v3z'),
+    ],
+  ),
+  // tiktok_sharp
+  0xf0492: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z'),
     ],
   ),
   // tips_and_updates_sharp
@@ -55631,6 +61868,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M10 15h5.88c.27-.31.67-.5 1.12-.5.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5c-.44 0-.84-.19-1.12-.5H11.9A5 5 0 1 1 6 11.1v2.07c-1.16.41-2 1.53-2 2.83 0 1.65 1.35 3 3 3s3-1.35 3-3v-1zm2.5-11c1.65 0 3 1.35 3 3h2c0-2.76-2.24-5-5-5a5.002 5.002 0 0 0-3.45 8.62l-2.35 3.9c-.68.14-1.2.75-1.2 1.48 0 .83.67 1.5 1.5 1.5a1.498 1.498 0 0 0 1.43-1.95l3.38-5.63A3.003 3.003 0 0 1 9.5 7c0-1.65 1.35-3 3-3zm4.5 9c-.64 0-1.23.2-1.72.54l-3.05-5.07C11.53 8.35 11 7.74 11 7c0-.83.67-1.5 1.5-1.5S14 6.17 14 7c0 .15-.02.29-.06.43l2.19 3.65c.28-.05.57-.08.87-.08 2.76 0 5 2.24 5 5s-2.24 5-5 5a5 5 0 0 1-4.33-2.5h2.67c.48.32 1.05.5 1.66.5 1.65 0 3-1.35 3-3s-1.35-3-3-3z'),
     ],
   ),
+  // wechat_sharp
+  0xf04aa: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'),
+    ],
+  ),
   // wifi_channel_sharp
   0xf04ac: WiredSvgIconData(
     width: 24.0,
@@ -55671,6 +61916,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13.41 7h-2.82L7 16h3v6h4v-6h3z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 4.0, radius: 2.0),
+    ],
+  ),
+  // woo_commerce_sharp
+  0xf04b1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M.754 9.58a.754.754 0 00-.754.758v2.525c0 .42.339.758.758.758h3.135l1.431.799-.326-.799h2.373a.757.757 0 00.758-.758v-2.525a.757.757 0 00-.758-.758H.754zm2.709.445h.03c.065.001.124.023.179.067a.26.26 0 01.103.19.29.29 0 01-.033.16c-.13.239-.236.64-.322 1.199-.083.541-.114.965-.094 1.267a.392.392 0 01-.039.219.213.213 0 01-.176.12c-.086.006-.177-.034-.263-.124-.31-.316-.555-.788-.735-1.416-.216.425-.375.744-.478.957-.196.376-.363.568-.502.578-.09.007-.166-.069-.233-.228-.17-.436-.352-1.277-.548-2.524a.297.297 0 01.054-.222c.047-.064.116-.095.21-.102.169-.013.265.065.288.238.103.695.217 1.284.336 1.766l.727-1.387c.066-.126.15-.192.25-.199.146-.01.237.083.273.28.083.441.188.817.315 1.136.086-.844.233-1.453.44-1.828a.255.255 0 01.218-.147zm1.293.36c.056 0 .116.006.18.02.232.05.411.177.53.386.107.18.161.395.161.654 0 .343-.087.654-.26.94-.2.332-.459.5-.781.5a.88.88 0 01-.18-.022.763.763 0 01-.531-.384 1.287 1.287 0 01-.158-.659c0-.342.085-.655.258-.937.202-.333.462-.498.78-.498zm2.084 0c.056 0 .116.006.18.02.236.05.411.177.53.386.107.18.16.395.16.654 0 .343-.086.654-.259.94-.2.332-.459.5-.781.5a.88.88 0 01-.18-.022.763.763 0 01-.531-.384 1.287 1.287 0 01-.16-.659c0-.342.087-.655.26-.937.202-.333.462-.498.78-.498zm4.437.047c-.305 0-.546.102-.718.304-.173.203-.256.49-.256.856 0 .395.086.697.256.906.17.21.418.316.744.316.315 0 .559-.107.728-.316.17-.21.256-.504.256-.883s-.087-.673-.26-.879c-.176-.202-.424-.304-.75-.304zm-1.466.002a1.13 1.13 0 00-.84.326c-.223.22-.332.499-.332.838 0 .362.108.658.328.88.22.223.505.336.861.336.103 0 .22-.016.346-.052v-.54c-.117.034-.216.051-.303.051a.545.545 0 01-.422-.177c-.106-.12-.16-.278-.16-.48 0-.19.053-.348.156-.468a.498.498 0 01.397-.181c.103 0 .212.015.332.049v-.537a1.394 1.394 0 00-.363-.045zm12.414 0a1.135 1.135 0 00-.84.326c-.223.22-.332.499-.332.838 0 .362.108.658.328.88.22.223.506.336.861.336.103 0 .22-.016.346-.052v-.54c-.116.034-.216.051-.303.051a.545.545 0 01-.422-.177c-.106-.12-.16-.278-.16-.48 0-.19.053-.348.156-.468a.498.498 0 01.397-.181c.103 0 .212.015.332.049v-.537a1.394 1.394 0 00-.363-.045zm-9.598.06l-.29 2.264h.579l.156-1.559.395 1.559h.412l.379-1.555.164 1.555h.603l-.304-2.264h-.791l-.12.508c-.03.13-.06.264-.087.4l-.067.352a29.97 29.97 0 00-.258-1.26h-.771zm2.768 0l-.29 2.264h.579l.156-1.559.396 1.559h.412l.375-1.555.165 1.555h.603l-.305-2.264h-.789l-.119.508c-.03.13-.06.264-.086.4l-.066.352c-.063-.352-.15-.771-.26-1.26h-.771zm3.988 0v2.264h.611v-1.031h.012l.494 1.03h.645l-.489-1.019a.61.61 0 00.37-.552.598.598 0 00-.25-.506c-.167-.123-.394-.186-.68-.186h-.713zm3.377 0v2.264H24v-.483h-.63v-.414h.54v-.468h-.54v-.416h.626v-.483H22.76zm-4.793.004v2.264h1.24v-.483h-.627v-.416h.541v-.468h-.54v-.415h.622v-.482h-1.236zm2.025.432c.146.003.25.025.313.072.063.046.091.12.091.227 0 .156-.135.236-.404.24v-.54zm-15.22.011c-.104 0-.205.069-.301.211a1.078 1.078 0 00-.2.639c0 .096.02.2.06.303.049.13.117.198.196.215.083.016.173-.02.27-.106.123-.11.205-.273.252-.492.016-.077.023-.16.023-.246 0-.097-.02-.2-.06-.303-.05-.13-.116-.198-.196-.215a.246.246 0 00-.045-.006zm2.083 0c-.103 0-.204.069-.3.211a1.078 1.078 0 00-.2.639c0 .096.02.2.06.303.049.13.117.198.196.215.083.016.173-.02.27-.106.123-.11.205-.273.252-.492.013-.077.023-.16.023-.246 0-.097-.02-.2-.06-.303-.05-.13-.116-.198-.196-.215a.246.246 0 00-.045-.006zm4.428.006c.233 0 .354.218.354.66-.004.273-.038.46-.098.553a.293.293 0 01-.262.139.266.266 0 01-.242-.139c-.056-.093-.084-.28-.084-.562 0-.436.11-.65.332-.65Z'),
+    ],
+  ),
+  // wordpress_sharp
+  0xf04b2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0'),
     ],
   ),
   // workspace_premium_sharp
@@ -55721,6 +61982,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 12h-1V4H6v8H5c-1.66 0-3 1.34-3 3v5h20v-5c0-1.66-1.34-3-3-3zm-3 0H8V6h8v6zm2 5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'),
     ],
   ),
+  // adobe
+  0xf04b9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2 22L10.5 2h3L22 22h-4.5l-5-12-5 12H2Z'),
+    ],
+  ),
   // ads_click
   0xf04ba: WiredSvgIconData(
     width: 24.0,
@@ -55752,6 +62021,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M17 18H7V6h10v1h2V3c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-4h-2v1zm3.38-8.38L21 11l.62-1.38L23 9l-1.38-.62L21 7l-.62 1.38L19 9z'),
       WiredSvgPrimitive.path('m16 8-1.25 2.75L12 12l2.75 1.25L16 16l1.25-2.75L20 12l-2.75-1.25zm5 5-.62 1.38L19 15l1.38.62L21 17l.62-1.38L23 15l-1.38-.62z'),
+    ],
+  ),
+  // apple
+  0xf04be: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701'),
     ],
   ),
   // apps_outage
@@ -56161,6 +62438,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21.99 12.34c.01-.11.01-.23.01-.34 0-5.52-4.48-10-10-10S2 6.48 2 12c0 5.17 3.93 9.43 8.96 9.95a9.343 9.343 0 0 1-2.32-2.68A8.01 8.01 0 0 1 4 12c0-1.85.63-3.55 1.69-4.9l5.66 5.66c.56-.4 1.17-.73 1.82-1L7.1 5.69A7.902 7.902 0 0 1 12 4c4.24 0 7.7 3.29 7.98 7.45.71.22 1.39.52 2.01.89zM17 13c-3.18 0-5.9 1.87-7 4.5 1.1 2.63 3.82 4.5 7 4.5s5.9-1.87 7-4.5c-1.1-2.63-3.82-4.5-7-4.5zm0 7a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5zm1.5-2.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5.67-1.5 1.5-1.5 1.5.67 1.5 1.5z'),
+    ],
+  ),
+  // discord
+  0xf04f0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z'),
     ],
   ),
   // display_settings
@@ -56686,6 +62971,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m11 18 1.41-1.41L7.83 12l4.58-4.59L11 6l-6 6z'),
     ],
   ),
+  // keyboard_double_arrow_right
+  0xf0531: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.41 6 5 7.41 9.58 12 5 16.59 6.41 18l6-6z'),
+      WiredSvgPrimitive.path('m13 6-1.41 1.41L16.17 12l-4.58 4.59L13 18l6-6z'),
+    ],
+  ),
   // keyboard_double_arrow_up
   0xf0532: WiredSvgIconData(
     width: 24.0,
@@ -56845,6 +63139,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m19.98 14.82-.63 4.46c-.14.99-.99 1.72-1.98 1.72h-6.16c-.53 0-1.29-.21-1.66-.59L5 15.62l.83-.84c.24-.24.58-.35.92-.28l3.25.74V4.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v6h.91c.31 0 .62.07.89.21l4.09 2.04c.77.39 1.21 1.22 1.09 2.07z'),
     ],
   ),
+  // paypal
+  0xf0545: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.607 4.653H8.941L6.645 19.251H1.82L4.862 0h7.995c3.754 0 6.375 2.294 6.473 5.513-.648-.478-2.105-.86-3.722-.86m6.57 5.546c0 3.41-3.01 6.853-6.958 6.853h-2.493L11.595 24H6.74l1.845-11.538h3.592c4.208 0 7.346-3.634 7.153-6.949a5.24 5.24 0 0 1 2.848 4.686M9.653 5.546h6.408c.907 0 1.942.222 2.363.541-.195 2.741-2.655 5.483-6.441 5.483H8.714Z'),
+    ],
+  ),
   // pentagon
   0xf0546: WiredSvgIconData(
     width: 24.0,
@@ -56975,6 +63277,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11.07 12.85c.77-1.39 2.25-2.21 3.11-3.44.91-1.29.4-3.7-2.18-3.7-1.69 0-2.52 1.28-2.87 2.34L6.54 6.96C7.25 4.83 9.18 3 11.99 3c2.35 0 3.96 1.07 4.78 2.41.7 1.15 1.11 3.3.03 4.9-1.2 1.77-2.35 2.31-2.97 3.45-.25.46-.35.76-.35 2.24h-2.89c-.01-.78-.13-2.05.48-3.15zM14 20c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z'),
     ],
   ),
+  // quora
+  0xf0556: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.3799.9483A11.9628 11.9628 0 0 1 21.248 19.5397l2.4096 2.4225c.7322.7362.21 1.9905-.8272 1.9905l-10.7105.01a12.52 12.52 0 0 1-.304 0h-.02A11.9628 11.9628 0 0 1 7.3818.9503Zm7.3217 4.428a7.1717 7.1717 0 1 0-5.4873 13.2512 7.1717 7.1717 0 0 0 5.4883-13.2511Z'),
+    ],
+  ),
   // ramp_left
   0xf0557: WiredSvgIconData(
     width: 24.0,
@@ -57005,6 +63315,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5.77 7.15 7.2 4.78l1.03-1.71c.39-.65 1.33-.65 1.72 0l1.48 2.46-1.23 2.06-1 1.62-3.43-2.06zm15.95 5.82-1.6-2.66-3.46 2L18.87 16H20a2 2 0 0 0 2-2c0-.36-.1-.71-.28-1.03zM16 21h1.5a2 2 0 0 0 1.79-1.11L20.74 17H16v-2l-4 4 4 4v-2zm-6-4H5.7l-.84 1.41c-.3.5-.32 1.12-.06 1.65.28.57.87.94 1.52.94H10v-4zm-3.88-2.65 1.73 1.04L6.48 9.9 1 11.27l1.7 1.02-.41.69c-.35.59-.38 1.31-.07 1.92l1.63 3.26 2.27-3.81zm10.9-9.21-1.3-2.17C15.35 2.37 14.7 2 14 2h-3.53l3.12 5.2-1.72 1.03 5.49 1.37 1.37-5.49-1.71 1.03z'),
+    ],
+  ),
+  // reddit
+  0xf055b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z'),
     ],
   ),
   // rocket
@@ -57096,6 +63414,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12 2 4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm3.97 12.41c-1.84 2.17-5.21 2.1-6.96-.07-2.19-2.72-.65-6.72 2.69-7.33.34-.06.63.27.51.6-.46 1.23-.39 2.64.32 3.86a4.51 4.51 0 0 0 3.18 2.2c.34.05.49.47.26.74z'),
     ],
   ),
+  // shopify
+  0xf0567: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z'),
+    ],
+  ),
   // shopping_cart_checkout
   0xf0568: WiredSvgIconData(
     width: 24.0,
@@ -57110,6 +63436,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 10h5l3-3-3-3h-5V2h-2v2H4v6h7v2H6l-3 3 3 3h5v4h2v-4h7v-6h-7z'),
+    ],
+  ),
+  // snapchat
+  0xf056a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z'),
     ],
   ),
   // snowing
@@ -57329,6 +63663,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m21.96 9.73-1.43-5a.996.996 0 0 0-.96-.73H4.43c-.45 0-.84.3-.96.73l-1.43 5c-.18.63.3 1.27.96 1.27h2.2L4 20h2l.67-5h10.67l.66 5h2l-1.2-9H21c.66 0 1.14-.64.96-1.27zM6.93 13l.27-2h9.6l.27 2H6.93z'),
     ],
   ),
+  // telegram
+  0xf0586: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'),
+    ],
+  ),
   // temple_buddhist
   0xf0587: WiredSvgIconData(
     width: 24.0,
@@ -57369,6 +63711,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM20 11h3v2h-3v3h-2v-3h-3v-2h3V8h2v3z'),
+    ],
+  ),
+  // tiktok
+  0xf058c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z'),
     ],
   ),
   // tips_and_updates
@@ -57563,6 +63913,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M10 15h5.88c.27-.31.67-.5 1.12-.5.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5c-.44 0-.84-.19-1.12-.5H11.9A5 5 0 1 1 6 11.1v2.07c-1.16.41-2 1.53-2 2.83 0 1.65 1.35 3 3 3s3-1.35 3-3v-1zm2.5-11c1.65 0 3 1.35 3 3h2c0-2.76-2.24-5-5-5a5.002 5.002 0 0 0-3.45 8.62l-2.35 3.9c-.68.14-1.2.75-1.2 1.48 0 .83.67 1.5 1.5 1.5a1.498 1.498 0 0 0 1.43-1.95l3.38-5.63A3.003 3.003 0 0 1 9.5 7c0-1.65 1.35-3 3-3zm4.5 9c-.64 0-1.23.2-1.72.54l-3.05-5.07C11.53 8.35 11 7.74 11 7c0-.83.67-1.5 1.5-1.5S14 6.17 14 7c0 .15-.02.29-.06.43l2.19 3.65c.28-.05.57-.08.87-.08 2.76 0 5 2.24 5 5s-2.24 5-5 5a5 5 0 0 1-4.33-2.5h2.67c.48.32 1.05.5 1.66.5 1.65 0 3-1.35 3-3s-1.35-3-3-3z'),
     ],
   ),
+  // wechat
+  0xf05a5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'),
+    ],
+  ),
   // wifi_channel
   0xf05a7: WiredSvgIconData(
     width: 24.0,
@@ -57603,6 +63961,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13.94 8.31C13.62 7.52 12.85 7 12 7s-1.62.52-1.94 1.31L7 16h3v6h4v-6h3l-3.06-7.69z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 4.0, radius: 2.0),
+    ],
+  ),
+  // woo_commerce
+  0xf05ac: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M.754 9.58a.754.754 0 00-.754.758v2.525c0 .42.339.758.758.758h3.135l1.431.799-.326-.799h2.373a.757.757 0 00.758-.758v-2.525a.757.757 0 00-.758-.758H.754zm2.709.445h.03c.065.001.124.023.179.067a.26.26 0 01.103.19.29.29 0 01-.033.16c-.13.239-.236.64-.322 1.199-.083.541-.114.965-.094 1.267a.392.392 0 01-.039.219.213.213 0 01-.176.12c-.086.006-.177-.034-.263-.124-.31-.316-.555-.788-.735-1.416-.216.425-.375.744-.478.957-.196.376-.363.568-.502.578-.09.007-.166-.069-.233-.228-.17-.436-.352-1.277-.548-2.524a.297.297 0 01.054-.222c.047-.064.116-.095.21-.102.169-.013.265.065.288.238.103.695.217 1.284.336 1.766l.727-1.387c.066-.126.15-.192.25-.199.146-.01.237.083.273.28.083.441.188.817.315 1.136.086-.844.233-1.453.44-1.828a.255.255 0 01.218-.147zm1.293.36c.056 0 .116.006.18.02.232.05.411.177.53.386.107.18.161.395.161.654 0 .343-.087.654-.26.94-.2.332-.459.5-.781.5a.88.88 0 01-.18-.022.763.763 0 01-.531-.384 1.287 1.287 0 01-.158-.659c0-.342.085-.655.258-.937.202-.333.462-.498.78-.498zm2.084 0c.056 0 .116.006.18.02.236.05.411.177.53.386.107.18.16.395.16.654 0 .343-.086.654-.259.94-.2.332-.459.5-.781.5a.88.88 0 01-.18-.022.763.763 0 01-.531-.384 1.287 1.287 0 01-.16-.659c0-.342.087-.655.26-.937.202-.333.462-.498.78-.498zm4.437.047c-.305 0-.546.102-.718.304-.173.203-.256.49-.256.856 0 .395.086.697.256.906.17.21.418.316.744.316.315 0 .559-.107.728-.316.17-.21.256-.504.256-.883s-.087-.673-.26-.879c-.176-.202-.424-.304-.75-.304zm-1.466.002a1.13 1.13 0 00-.84.326c-.223.22-.332.499-.332.838 0 .362.108.658.328.88.22.223.505.336.861.336.103 0 .22-.016.346-.052v-.54c-.117.034-.216.051-.303.051a.545.545 0 01-.422-.177c-.106-.12-.16-.278-.16-.48 0-.19.053-.348.156-.468a.498.498 0 01.397-.181c.103 0 .212.015.332.049v-.537a1.394 1.394 0 00-.363-.045zm12.414 0a1.135 1.135 0 00-.84.326c-.223.22-.332.499-.332.838 0 .362.108.658.328.88.22.223.506.336.861.336.103 0 .22-.016.346-.052v-.54c-.116.034-.216.051-.303.051a.545.545 0 01-.422-.177c-.106-.12-.16-.278-.16-.48 0-.19.053-.348.156-.468a.498.498 0 01.397-.181c.103 0 .212.015.332.049v-.537a1.394 1.394 0 00-.363-.045zm-9.598.06l-.29 2.264h.579l.156-1.559.395 1.559h.412l.379-1.555.164 1.555h.603l-.304-2.264h-.791l-.12.508c-.03.13-.06.264-.087.4l-.067.352a29.97 29.97 0 00-.258-1.26h-.771zm2.768 0l-.29 2.264h.579l.156-1.559.396 1.559h.412l.375-1.555.165 1.555h.603l-.305-2.264h-.789l-.119.508c-.03.13-.06.264-.086.4l-.066.352c-.063-.352-.15-.771-.26-1.26h-.771zm3.988 0v2.264h.611v-1.031h.012l.494 1.03h.645l-.489-1.019a.61.61 0 00.37-.552.598.598 0 00-.25-.506c-.167-.123-.394-.186-.68-.186h-.713zm3.377 0v2.264H24v-.483h-.63v-.414h.54v-.468h-.54v-.416h.626v-.483H22.76zm-4.793.004v2.264h1.24v-.483h-.627v-.416h.541v-.468h-.54v-.415h.622v-.482h-1.236zm2.025.432c.146.003.25.025.313.072.063.046.091.12.091.227 0 .156-.135.236-.404.24v-.54zm-15.22.011c-.104 0-.205.069-.301.211a1.078 1.078 0 00-.2.639c0 .096.02.2.06.303.049.13.117.198.196.215.083.016.173-.02.27-.106.123-.11.205-.273.252-.492.016-.077.023-.16.023-.246 0-.097-.02-.2-.06-.303-.05-.13-.116-.198-.196-.215a.246.246 0 00-.045-.006zm2.083 0c-.103 0-.204.069-.3.211a1.078 1.078 0 00-.2.639c0 .096.02.2.06.303.049.13.117.198.196.215.083.016.173-.02.27-.106.123-.11.205-.273.252-.492.013-.077.023-.16.023-.246 0-.097-.02-.2-.06-.303-.05-.13-.116-.198-.196-.215a.246.246 0 00-.045-.006zm4.428.006c.233 0 .354.218.354.66-.004.273-.038.46-.098.553a.293.293 0 01-.262.139.266.266 0 01-.242-.139c-.056-.093-.084-.28-.084-.562 0-.436.11-.65.332-.65Z'),
+    ],
+  ),
+  // wordpress
+  0xf05ad: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0'),
     ],
   ),
   // workspace_premium
@@ -57654,6 +64028,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.circle(cx: 18.0, cy: 16.0, radius: 1.0),
     ],
   ),
+  // adobe_outlined
+  0xf05b4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2 22L10.5 2h3L22 22h-4.5l-5-12-5 12H2Z'),
+    ],
+  ),
   // ads_click_outlined
   0xf05b5: WiredSvgIconData(
     width: 24.0,
@@ -57687,6 +64069,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m16 8-1.25 2.75L12 12l2.75 1.25L16 16l1.25-2.75L20 12l-2.75-1.25zm5 5-.62 1.38L19 15l1.38.62L21 17l.62-1.38L23 15l-1.38-.62z'),
     ],
   ),
+  // apple_outlined
+  0xf05b9: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701'),
+    ],
+  ),
   // apps_outage_outlined
   0xf05ba: WiredSvgIconData(
     width: 24.0,
@@ -57709,6 +64099,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M2 12c0 5.52 4.48 10 10 10s10-4.48 10-10S17.52 2 12 2 2 6.48 2 12zm18 0c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8 8 3.58 8 8zM8 12l4-4 1.41 1.41L11.83 11H16v2h-4.17l1.59 1.59L12 16l-4-4z'),
+    ],
+  ),
+  // arrow_circle_right_outlined
+  0xf05bd: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12s4.48 10 10 10 10-4.48 10-10zM4 12c0-4.42 3.58-8 8-8s8 3.58 8 8-3.58 8-8 8-8-3.58-8-8zm12 0-4 4-1.41-1.41L12.17 13H8v-2h4.17l-1.59-1.59L12 8l4 4z'),
     ],
   ),
   // assured_workload_outlined
@@ -57851,6 +64249,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M12.87 11.81A2.5 2.5 0 0 1 15 8h1c1.51 0 2-1 2-1s.55 6-3 6c-.49 0-.94-.14-1.32-.38-.24.64-.59 1.76-.76 2.96 1.26.22 2.28.89 2.77 1.77A6.505 6.505 0 0 0 18.5 12h3c0 5.24-4.26 9.5-9.5 9.5S2.5 17.24 2.5 12 6.76 2.5 12 2.5V0l4 4-4 4V5.5c-3.58 0-6.5 2.92-6.5 6.5 0 2.21 1.11 4.17 2.81 5.35.51-.92 1.63-1.62 2.98-1.8-.09-.69-.26-1.42-.49-2.03-.35.3-.8.48-1.3.48-1.1 0-2-.9-2-2v-.99c0-.56-.19-1.09-.5-1.51 0 0 4.45-.23 4.5 2.5 0 .29-.06.56-.17.8-.42-.32-.86-.6-1.33-.8.58.43 1.37 1.37 2 2.6.67-1.62 1.68-3.27 3-4.6-.76.52-1.47 1.12-2.13 1.81z'),
     ],
   ),
+  // connecting_airports_outlined
+  0xf05cf: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m15.4 17 1.3 4.4h-1.1L13 17h-3c-.55 0-1-.45-1-1s.45-1 1-1h3l2.6-4.4h1.1L15.4 15h2.85l.75-1h1l-.6 2 .6 2h-1l-.75-1H15.4zM5.75 7 5 6H4l.6 2-.6 2h1l.75-1H8.6l-1.3 4.4h1.1L11 9h3c.55 0 1-.45 1-1s-.45-1-1-1h-3L8.4 2.6H7.3L8.6 7H5.75z'),
+    ],
+  ),
   // content_paste_go_outlined
   0xf05d0: WiredSvgIconData(
     width: 24.0,
@@ -57858,6 +64264,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M5 5h2v3h10V5h2v6h2V5c0-1.1-.9-2-2-2h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v-2H5V5zm7-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z'),
       WiredSvgPrimitive.path('m18.01 13-1.42 1.41 1.58 1.58H12v2h6.17l-1.58 1.59 1.42 1.41 3.99-4z'),
+    ],
+  ),
+  // content_paste_search_outlined
+  0xf05d1: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 5h2v3h10V5h2v5h2V5c0-1.1-.9-2-2-2h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v-2H5V5zm7-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z'),
+      WiredSvgPrimitive.path('M20.3 18.9c.4-.7.7-1.5.7-2.4 0-2.5-2-4.5-4.5-4.5S12 14 12 16.5s2 4.5 4.5 4.5c.9 0 1.7-.3 2.4-.7l2.7 2.7 1.4-1.4-2.7-2.7zm-3.8.1c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z'),
     ],
   ),
   // contrast_outlined
@@ -58068,6 +64483,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17 15c1.95 0 3.76.98 4.75 2.5-.99 1.52-2.8 2.5-4.75 2.5s-3.76-.98-4.75-2.5c.99-1.52 2.8-2.5 4.75-2.5zm0-2c-3.18 0-5.9 1.87-7 4.5 1.1 2.63 3.82 4.5 7 4.5s5.9-1.87 7-4.5c-1.1-2.63-3.82-4.5-7-4.5zm0 6c-.83 0-1.5-.67-1.5-1.5S16.17 16 17 16s1.5.67 1.5 1.5S17.83 19 17 19zm4.99-6.66c.01-.11.01-.23.01-.34 0-5.52-4.48-10-10-10S2 6.48 2 12c0 5.17 3.93 9.43 8.96 9.95a9.343 9.343 0 0 1-2.32-2.68A8.01 8.01 0 0 1 4 12c0-1.85.63-3.55 1.69-4.9l5.66 5.66c.56-.4 1.17-.73 1.82-1L7.1 5.69A7.902 7.902 0 0 1 12 4c4.24 0 7.7 3.29 7.98 7.45.71.22 1.39.52 2.01.89z'),
     ],
   ),
+  // discord_outlined
+  0xf05ea: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z'),
+    ],
+  ),
   // display_settings_outlined
   0xf05eb: WiredSvgIconData(
     width: 24.0,
@@ -58091,6 +64514,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m18.85 10.39 1.06-1.06c.78-.78.78-2.05 0-2.83L18.5 5.09c-.78-.78-2.05-.78-2.83 0l-1.06 1.06 4.24 4.24zm-4.24 1.42L7.41 19H6v-1.41l7.19-7.19 1.42 1.41zm-1.42-4.25L4 16.76V21h4.24l9.19-9.19-4.24-4.25zM19 17.5c0 2.19-2.54 3.5-5 3.5-.55 0-1-.45-1-1s.45-1 1-1c1.54 0 3-.73 3-1.5 0-.47-.48-.87-1.23-1.2l1.48-1.48c1.07.63 1.75 1.47 1.75 2.68zM4.58 13.35C3.61 12.79 3 12.06 3 11c0-1.8 1.89-2.63 3.56-3.36C7.59 7.18 9 6.56 9 6c0-.41-.78-1-2-1-1.26 0-1.8.61-1.83.64-.35.41-.98.46-1.4.12a.992.992 0 0 1-.15-1.38C3.73 4.24 4.76 3 7 3s4 1.32 4 3c0 1.87-1.93 2.72-3.64 3.47C6.42 9.88 5 10.5 5 11c0 .31.43.6 1.07.86l-1.49 1.49z'),
+    ],
+  ),
+  // drive_file_move_rtl_outlined
+  0xf05ee: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10zm-6.59-2.41L12 17l-4-4 4-4 1.41 1.41L11.83 12H16v2h-4.17l1.58 1.59z'),
     ],
   ),
   // edit_calendar_outlined
@@ -58149,6 +64580,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M21 12V6c0-1.1-.9-2-2-2h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5V10h14v2h2zm-2-4H5V6h14v2zm-3.36 12a3.504 3.504 0 0 0 6.86-1c0-1.93-1.57-3.5-3.5-3.5-.95 0-1.82.38-2.45 1H18V18h-4v-4h1.5v1.43c.9-.88 2.14-1.43 3.5-1.43 2.76 0 5 2.24 5 5a5.002 5.002 0 0 1-9.9 1h1.54z'),
+    ],
+  ),
+  // expand_circle_down_outlined
+  0xf05f6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.08 9.59 12 12.67 8.92 9.59 7.5 11l4.5 4.5 4.5-4.5-1.42-1.41zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'),
     ],
   ),
   // factory_outlined
@@ -58531,6 +64970,66 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M21 10h-8.35A5.99 5.99 0 0 0 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.99 5.99 0 0 0 5.65-4H13l2 2 2-2 2 2 4-4.04L21 10zM7 15c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z'),
     ],
   ),
+  // keyboard_command_key_outlined
+  0xf0625: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.5 3C15.57 3 14 4.57 14 6.5V8h-4V6.5C10 4.57 8.43 3 6.5 3S3 4.57 3 6.5 4.57 10 6.5 10H8v4H6.5C4.57 14 3 15.57 3 17.5S4.57 21 6.5 21s3.5-1.57 3.5-3.5V16h4v1.5c0 1.93 1.57 3.5 3.5 3.5s3.5-1.57 3.5-3.5-1.57-3.5-3.5-3.5H16v-4h1.5c1.93 0 3.5-1.57 3.5-3.5S19.43 3 17.5 3zM16 8V6.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S18.33 8 17.5 8H16zM6.5 8C5.67 8 5 7.33 5 6.5S5.67 5 6.5 5 8 5.67 8 6.5V8H6.5zm3.5 6v-4h4v4h-4zm7.5 5c-.83 0-1.5-.67-1.5-1.5V16h1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zm-11 0c-.83 0-1.5-.67-1.5-1.5S5.67 16 6.5 16H8v1.5c0 .83-.67 1.5-1.5 1.5z'),
+    ],
+  ),
+  // keyboard_control_key_outlined
+  0xf0626: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m5 12 1.41 1.41L12 7.83l5.59 5.58L19 12l-7-7z'),
+    ],
+  ),
+  // keyboard_double_arrow_down_outlined
+  0xf0627: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 6.41 16.59 5 12 9.58 7.41 5 6 6.41l6 6z'),
+      WiredSvgPrimitive.path('m18 13-1.41-1.41L12 16.17l-4.59-4.58L6 13l6 6z'),
+    ],
+  ),
+  // keyboard_double_arrow_left_outlined
+  0xf0628: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17.59 18 19 16.59 14.42 12 19 7.41 17.59 6l-6 6z'),
+      WiredSvgPrimitive.path('m11 18 1.41-1.41L7.83 12l4.58-4.59L11 6l-6 6z'),
+    ],
+  ),
+  // keyboard_double_arrow_right_outlined
+  0xf0629: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.41 6 5 7.41 9.58 12 5 16.59 6.41 18l6-6z'),
+      WiredSvgPrimitive.path('m13 6-1.41 1.41L16.17 12l-4.58 4.59L13 18l6-6z'),
+    ],
+  ),
+  // keyboard_double_arrow_up_outlined
+  0xf062a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6 17.59 7.41 19 12 14.42 16.59 19 18 17.59l-6-6z'),
+      WiredSvgPrimitive.path('m6 11 1.41 1.41L12 7.83l4.59 4.58L18 11l-6-6z'),
+    ],
+  ),
+  // keyboard_option_key_outlined
+  0xf062b: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15 5h6v2h-6zM9 5H3v2h4.85l6.92 12H21v-2h-5.07z'),
+    ],
+  ),
   // lan_outlined
   0xf062c: WiredSvgIconData(
     width: 24.0,
@@ -58571,6 +65070,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M14 7h-4c-1.1 0-2 .9-2 2v6h2v7h4v-7h2V9c0-1.1-.9-2-2-2z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 4.0, radius: 2.0),
+    ],
+  ),
+  // mark_unread_chat_alt_outlined
+  0xf0631: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 16H4V4h10.1a5 5 0 0 1 0-2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V6.98c-.58.44-1.26.77-2 .92V16z'),
+      WiredSvgPrimitive.circle(cx: 19.0, cy: 3.0, radius: 3.0),
+      WiredSvgPrimitive.path('M6 12h8v2H6zm0-3h12v2H6zm0-1h12v-.1A5.013 5.013 0 0 1 15.03 6H6v2z'),
     ],
   ),
   // medication_liquid_outlined
@@ -58663,6 +65172,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m18.89 11.77-3.8-1.67c-.13-.06-.28-.1-.44-.1H14V5.5a2.5 2.5 0 0 0-5 0v8.15l-1.87-.4c-.19-.03-1.02-.15-1.73.56L4 15.22l5.12 5.19c.37.38.88.59 1.41.59h6.55c.98 0 1.81-.7 1.97-1.67l.92-5.44a2 2 0 0 0-1.08-2.12zM17.08 19h-6.55l-3.7-3.78 4.17.89V5.5c0-.28.22-.5.5-.5s.5.22.5.5v6.18h1.76L18 13.56 17.08 19z'),
     ],
   ),
+  // paypal_outlined
+  0xf063d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.607 4.653H8.941L6.645 19.251H1.82L4.862 0h7.995c3.754 0 6.375 2.294 6.473 5.513-.648-.478-2.105-.86-3.722-.86m6.57 5.546c0 3.41-3.01 6.853-6.958 6.853h-2.493L11.595 24H6.74l1.845-11.538h3.592c4.208 0 7.346-3.634 7.153-6.949a5.24 5.24 0 0 1 2.848 4.686M9.653 5.546h6.408c.907 0 1.942.222 2.363.541-.195 2.741-2.655 5.483-6.441 5.483H8.714Z'),
+    ],
+  ),
   // pentagon_outlined
   0xf063e: WiredSvgIconData(
     width: 24.0,
@@ -58728,6 +65245,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m21.11 9.85-2.25-2.26H17.6c-.54 0-1.08.22-1.45.61l-3 3c-.28.28-.65.42-1.02.42a1.5 1.5 0 0 1-1.02-.42L8.09 8.17c-.38-.38-.9-.6-1.45-.6H5.17l-2.29 2.3a3 3 0 0 0 0 4.24l2.29 2.3h1.48c.54 0 1.06-.22 1.45-.6l3.02-3.02c.28-.28.65-.42 1.02-.42s.74.14 1.02.42l3.01 3.01c.38.38.9.6 1.45.6h1.26l2.25-2.26a3.042 3.042 0 0 0-.02-4.29z'),
     ],
   ),
+  // playlist_add_check_circle_outlined
+  0xf0646: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8zm0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm2 8H7v2h7v-2zm0-3H7v2h7V7zm-7 8h3v-2H7v2zm12-1.59L17.59 12l-3.54 3.54-1.41-1.41-1.41 1.41 2.83 2.83L19 13.41z'),
+    ],
+  ),
+  // playlist_add_circle_outlined
+  0xf0647: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm2-10H7v2h7v-2zm0-3H7v2h7V7zm-7 8h3v-2H7v2zm12-2v2h-2v2h-2v-2h-2v-2h2v-2h2v2h2z'),
+    ],
+  ),
   // playlist_remove_outlined
   0xf0648: WiredSvgIconData(
     width: 24.0,
@@ -58742,6 +65275,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M15 16v1.26l-6-3v-3.17L11.7 8H16V2h-6v4.9L7.3 10H3v6h5l7 3.5V22h6v-6h-6zM12 4h2v2h-2V4zM7 14H5v-2h2v2zm12 6h-2v-2h2v2z'),
+    ],
+  ),
+  // private_connectivity_outlined
+  0xf064a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 7c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm-6.93 6c.49 3.39 3.4 6 6.93 6s6.44-2.61 6.93-6H22v-2h-3.07c-.49-3.39-3.4-6-6.93-6s-6.44 2.61-6.93 6H2v2h3.07zM14 10.5v-.89c0-1-.68-1.92-1.66-2.08A2 2 0 0 0 10 9.5v1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1zm-2 3.25c-.41 0-.75-.34-.75-.75s.34-.75.75-.75.75.34.75.75-.34.75-.75.75zm1-3.25h-2v-1c0-.55.45-1 1-1s1 .45 1 1v1z'),
     ],
   ),
   // punch_clock_outlined
@@ -58760,6 +65301,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M11.07 12.85c.77-1.39 2.25-2.21 3.11-3.44.91-1.29.4-3.7-2.18-3.7-1.69 0-2.52 1.28-2.87 2.34L6.54 6.96C7.25 4.83 9.18 3 11.99 3c2.35 0 3.96 1.07 4.78 2.41.7 1.15 1.11 3.3.03 4.9-1.2 1.77-2.35 2.31-2.97 3.45-.25.46-.35.76-.35 2.24h-2.89c-.01-.78-.13-2.05.48-3.15zM14 20c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z'),
+    ],
+  ),
+  // quora_outlined
+  0xf064d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.3799.9483A11.9628 11.9628 0 0 1 21.248 19.5397l2.4096 2.4225c.7322.7362.21 1.9905-.8272 1.9905l-10.7105.01a12.52 12.52 0 0 1-.304 0h-.02A11.9628 11.9628 0 0 1 7.3818.9503Zm7.3217 4.428a7.1717 7.1717 0 1 0-5.4873 13.2512 7.1717 7.1717 0 0 0 5.4883-13.2511Z'),
     ],
   ),
   // ramp_left_outlined
@@ -58794,6 +65343,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M5.77 7.15 7.2 4.78l1.03-1.71c.39-.65 1.33-.65 1.72 0l1.48 2.46-1.23 2.06-1 1.62-3.43-2.06zm15.95 5.82-1.6-2.66-3.46 2L18.87 16H20a2 2 0 0 0 2-2c0-.36-.1-.71-.28-1.03zM16 21h1.5a2 2 0 0 0 1.79-1.11L20.74 17H16v-2l-4 4 4 4v-2zm-6-4H5.7l-.84 1.41c-.3.5-.32 1.12-.06 1.65.28.57.87.94 1.52.94H10v-4zm-3.88-2.65 1.73 1.04L6.48 9.9 1 11.27l1.7 1.02-.41.69c-.35.59-.38 1.31-.07 1.92l1.63 3.26 2.27-3.81zm10.9-9.21-1.3-2.17C15.35 2.37 14.7 2 14 2h-3.53l3.12 5.2-1.72 1.03 5.49 1.37 1.37-5.49-1.71 1.03z'),
     ],
   ),
+  // reddit_outlined
+  0xf0652: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z'),
+    ],
+  ),
   // rocket_launch_outlined
   0xf0653: WiredSvgIconData(
     width: 24.0,
@@ -58808,6 +65365,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M14 11c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm-6.02 7.25c-.29-.9-.57-1.94-.76-3L6 16.07v2.98l1.98-.8zM12 2s5 2 5 11l2.11 1.41c.56.37.89 1 .89 1.66V22l-5-2H9l-5 2v-5.93c0-.67.33-1.29.89-1.66L7 13c0-9 5-11 5-11zm0 2.36S9 6.38 9 13c0 2.25 1 5 1 5h4s1-2.75 1-5c0-6.62-3-8.64-3-8.64zm6 14.69v-2.98l-1.22-.81c-.19 1.05-.47 2.1-.76 3l1.98.79z'),
+    ],
+  ),
+  // rotate_90_degrees_cw_outlined
+  0xf0655: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M2 13a9 9 0 0 0 13.79 7.62l-1.46-1.46c-.99.53-2.13.84-3.33.84-3.86 0-7-3.14-7-7s3.14-7 7-7h.17L9.59 7.59 11 9l4-4-4-4-1.42 1.41L11.17 4H11a9 9 0 0 0-9 9zm9 0 6 6 6-6-6-6-6 6zm6 3.17L13.83 13 17 9.83 20.17 13 17 16.17z'),
     ],
   ),
   // roundabout_left_outlined
@@ -58858,6 +65423,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M14 11V8c4.56-.58 8-3.1 8-6H2c0 2.9 3.44 5.42 8 6v3c-3.68.73-8 3.61-8 11h6v-2H4.13c.93-6.83 6.65-7.2 7.87-7.2s6.94.37 7.87 7.2H16v2h6c0-7.39-4.32-10.27-8-11zm4.87-7C17.5 5.19 15 6.12 12 6.12S6.5 5.19 5.13 4h13.74zM12 22c-1.1 0-2-.9-2-2 0-.55.22-1.05.59-1.41C11.39 17.79 16 16 16 16s-1.79 4.61-2.59 5.41c-.36.37-.86.59-1.41.59z'),
     ],
   ),
+  // send_time_extension_outlined
+  0xf065c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 6v6.26l2 1V6c0-1.1-.9-2-2-2h-4a2.5 2.5 0 0 0-5 0H5.01c-1.1 0-2 .9-2 2v3.8C5.7 9.8 6 11.96 6 12.5s-.29 2.7-3 2.7V19c0 1.1.9 2 2 2h3.8c0-2.16 1.37-2.78 2.2-2.94v-2.03c-1.43.17-3.15 1.04-3.87 2.97H5v-2.13c2.17-.8 3-2.87 3-4.37 0-1.49-.83-3.56-2.99-4.37V6H11V4c0-.28.22-.5.5-.5s.5.22.5.5v2h6z'),
+      WiredSvgPrimitive.path('M13 12v4l4 1-4 1v4l10-5z'),
+    ],
+  ),
   // shield_moon_outlined
   0xf065d: WiredSvgIconData(
     width: 24.0,
@@ -58867,12 +65441,36 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M9.01 14.33c1.75 2.17 5.12 2.24 6.96.07.23-.27.08-.68-.26-.74a4.491 4.491 0 0 1-3.18-2.2 4.503 4.503 0 0 1-.32-3.86.453.453 0 0 0-.51-.6c-3.34.62-4.89 4.61-2.69 7.33z'),
     ],
   ),
+  // shopify_outlined
+  0xf065e: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z'),
+    ],
+  ),
+  // shopping_cart_checkout_outlined
+  0xf065f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-8.9-5h7.45c.75 0 1.41-.41 1.75-1.03L21 4.96 19.25 4l-3.7 7H8.53L4.27 2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2zM12 2l4 4-4 4-1.41-1.41L12.17 7H8V5h4.17l-1.59-1.59L12 2z'),
+    ],
+  ),
   // signpost_outlined
   0xf0660: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13 10h5l3-3-3-3h-5V2h-2v2H4v6h7v2H6l-3 3 3 3h5v4h2v-4h7v-6h-7v-2zM6 6h11.17l1 1-1 1H6V6zm12 10H6.83l-1-1 1-1H18v2z'),
+    ],
+  ),
+  // snapchat_outlined
+  0xf0661: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z'),
     ],
   ),
   // soup_kitchen_outlined
@@ -58897,6 +65495,15 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M16 7c0-2.21-1.79-4-4-4S8 4.79 8 7s1.79 4 4 4 4-1.79 4-4zm-4 2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-5 4c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm10-6c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z'),
+    ],
+  ),
+  // sports_martial_arts_outlined
+  0xf0665: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m19.8 2-8.2 6.7-1.21-1.04 3.6-2.08L9.41 1 8 2.41l2.74 2.74L5 8.46l-1.19 4.29L6.27 17 8 16l-2.03-3.52.35-1.3L9.5 13l.5 9h2l.5-10L21 3.4z'),
+      WiredSvgPrimitive.circle(cx: 5.0, cy: 5.0, radius: 2.0),
     ],
   ),
   // square_outlined
@@ -59011,6 +65618,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M1 2h5v5H4.5V4.09c-1.86 2.11-3 4.88-3 7.91s1.14 5.79 3 7.91V17H6v5H1v-1.5h2.02C1.13 18.18 0 15.22 0 12s1.13-6.18 3.02-8.5H1V2zm19.22 8-4.15.01a.975.975 0 0 0-.45.08l-.59.26-1.83-4.1c-.56-1.26-2.04-1.83-3.3-1.27s-1.83 2.04-1.27 3.3l3.3 7.45-1.87.39c-.19.05-.99.27-1.36 1.21L8 19.19l6.78 2.67c.49.19 1.05.18 1.53-.04l5.99-2.65c.89-.4 1.37-1.38 1.13-2.32l-1.36-5.34c-.22-.86-.97-1.47-1.85-1.51zm1.27 7.34L15.5 20l-4.92-1.96 4.18-.88-4.3-9.7c-.11-.25 0-.55.25-.66.25-.11.55 0 .66.25l2.5 5.65 1.61-.71 4.65.01 1.36 5.34z'),
     ],
   ),
+  // switch_access_shortcut_add_outlined
+  0xf0674: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.06 8.94 5 8l2.06-.94L8 5l.94 2.06L11 8l-2.06.94L8 11l-.94-2.06zM8 21l.94-2.06L11 18l-2.06-.94L8 15l-.94 2.06L5 18l2.06.94L8 21zm-3.63-8.63L3 13l1.37.63L5 15l.63-1.37L7 13l-1.37-.63L5 11l-.63 1.37zM12 12c0-3.09 1.38-5.94 3.44-8H12V2h7v7h-2V5.28c-1.8 1.74-3 4.2-3 6.72 0 3.32 2.1 6.36 5 7.82V22c-4.09-1.59-7-5.65-7-10zm12 2h-2v-2h-2v2h-2v2h2v2h2v-2h2v-2z'),
+    ],
+  ),
+  // switch_access_shortcut_outlined
+  0xf0675: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M7.06 8.94 5 8l2.06-.94L8 5l.94 2.06L11 8l-2.06.94L8 11l-.94-2.06zM8 21l.94-2.06L11 18l-2.06-.94L8 15l-.94 2.06L5 18l2.06.94L8 21zm-3.63-8.63L3 13l1.37.63L5 15l.63-1.37L7 13l-1.37-.63L5 11l-.63 1.37zM12 12c0-3.09 1.38-5.94 3.44-8H12V2h7v7h-2V5.28c-1.8 1.74-3 4.2-3 6.72 0 3.32 2.1 6.36 5 7.82V22c-4.09-1.59-7-5.65-7-10z'),
+    ],
+  ),
   // synagogue_outlined
   0xf0676: WiredSvgIconData(
     width: 24.0,
@@ -59042,6 +65665,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m21.96 9.73-1.43-5a.996.996 0 0 0-.96-.73H4.43c-.45 0-.84.3-.96.73l-1.43 5c-.18.63.3 1.27.96 1.27h2.2L4 20h2l.67-5h10.67l.66 5h2l-1.2-9H21c.66 0 1.14-.64.96-1.27zM6.93 13l.27-2h9.6l.27 2H6.93zm-2.6-4 .86-3h13.63l.86 3H4.33z'),
+    ],
+  ),
+  // telegram_outlined
+  0xf067a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'),
     ],
   ),
   // temple_buddhist_outlined
@@ -59082,6 +65713,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M.99 19h2.42l1.27-3.58h5.65L11.59 19h2.42L8.75 5h-2.5L.99 19zm4.42-5.61L7.44 7.6h.12l2.03 5.79H5.41zM20 11h3v2h-3v3h-2v-3h-3v-2h3V8h2v3z'),
+    ],
+  ),
+  // tiktok_outlined
+  0xf0680: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z'),
     ],
   ),
   // tips_and_updates_outlined
@@ -59273,6 +65912,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M10 15h5.88c.27-.31.67-.5 1.12-.5.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5c-.44 0-.84-.19-1.12-.5H11.9A5 5 0 1 1 6 11.1v2.07c-1.16.41-2 1.53-2 2.83 0 1.65 1.35 3 3 3s3-1.35 3-3v-1zm2.5-11c1.65 0 3 1.35 3 3h2c0-2.76-2.24-5-5-5a5.002 5.002 0 0 0-3.45 8.62l-2.35 3.9c-.68.14-1.2.75-1.2 1.48 0 .83.67 1.5 1.5 1.5a1.498 1.498 0 0 0 1.43-1.95l3.38-5.63A3.003 3.003 0 0 1 9.5 7c0-1.65 1.35-3 3-3zm4.5 9c-.64 0-1.23.2-1.72.54l-3.05-5.07C11.53 8.35 11 7.74 11 7c0-.83.67-1.5 1.5-1.5S14 6.17 14 7c0 .15-.02.29-.06.43l2.19 3.65c.28-.05.57-.08.87-.08 2.76 0 5 2.24 5 5s-2.24 5-5 5a5 5 0 0 1-4.33-2.5h2.67c.48.32 1.05.5 1.66.5 1.65 0 3-1.35 3-3s-1.35-3-3-3z'),
     ],
   ),
+  // wechat_outlined
+  0xf0698: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'),
+    ],
+  ),
   // wifi_channel_outlined
   0xf069a: WiredSvgIconData(
     width: 24.0,
@@ -59298,6 +65945,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m24 8.98-2.12 2.13C19.35 8.57 15.85 7 12 7s-7.35 1.57-9.88 4.11L0 8.98C3.07 5.9 7.31 4 12 4s8.93 1.9 12 4.98zM4.24 13.22l2.12 2.12A7.967 7.967 0 0 1 12 13c2.2 0 4.2.9 5.64 2.35l2.12-2.12C17.78 11.23 15.03 10 12 10c-3.03 0-5.78 1.23-7.76 3.22zM24 20v3c0 .55-.45 1-1 1h-4c-.55 0-1-.45-1-1v-3c0-.55.45-1 1-1v-1c0-1.1.9-2 2-2s2 .9 2 2v1c.55 0 1 .45 1 1zm-2-2c0-.55-.45-1-1-1s-1 .45-1 1v1h2v-1zm-10-2c-1.38 0-2.63.56-3.53 1.46L12 21l3.53-3.54A4.98 4.98 0 0 0 12 16z'),
     ],
   ),
+  // wifi_tethering_error_outlined
+  0xf069d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 7c-3.31 0-6 2.69-6 6 0 1.66.68 3.15 1.76 4.24l1.42-1.42A3.934 3.934 0 0 1 8 13c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.11-.45 2.1-1.18 2.82l1.42 1.42A6.003 6.003 0 0 0 18 13c0-3.31-2.69-6-6-6zm0-4C6.48 3 2 7.48 2 13c0 2.76 1.12 5.26 2.93 7.07l1.42-1.42A7.94 7.94 0 0 1 4 13c0-4.42 3.58-8 8-8 2.53 0 4.78 1.17 6.24 3h2.42C18.93 5.01 15.7 3 12 3zm0 8c-1.1 0-2 .9-2 2 0 .55.23 1.05.59 1.41.36.36.86.59 1.41.59s1.05-.23 1.41-.59c.36-.36.59-.86.59-1.41 0-1.1-.9-2-2-2zm8-1h2v6h-2v-6zm0 8h2v2h-2v-2z'),
+    ],
+  ),
   // woman_outlined
   0xf069e: WiredSvgIconData(
     width: 24.0,
@@ -59305,6 +65960,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M13.94 8.31C13.62 7.52 12.85 7 12 7s-1.62.52-1.94 1.31L7 16h3v6h4v-6h3l-3.06-7.69z'),
       WiredSvgPrimitive.circle(cx: 12.0, cy: 4.0, radius: 2.0),
+    ],
+  ),
+  // woo_commerce_outlined
+  0xf069f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M.754 9.58a.754.754 0 00-.754.758v2.525c0 .42.339.758.758.758h3.135l1.431.799-.326-.799h2.373a.757.757 0 00.758-.758v-2.525a.757.757 0 00-.758-.758H.754zm2.709.445h.03c.065.001.124.023.179.067a.26.26 0 01.103.19.29.29 0 01-.033.16c-.13.239-.236.64-.322 1.199-.083.541-.114.965-.094 1.267a.392.392 0 01-.039.219.213.213 0 01-.176.12c-.086.006-.177-.034-.263-.124-.31-.316-.555-.788-.735-1.416-.216.425-.375.744-.478.957-.196.376-.363.568-.502.578-.09.007-.166-.069-.233-.228-.17-.436-.352-1.277-.548-2.524a.297.297 0 01.054-.222c.047-.064.116-.095.21-.102.169-.013.265.065.288.238.103.695.217 1.284.336 1.766l.727-1.387c.066-.126.15-.192.25-.199.146-.01.237.083.273.28.083.441.188.817.315 1.136.086-.844.233-1.453.44-1.828a.255.255 0 01.218-.147zm1.293.36c.056 0 .116.006.18.02.232.05.411.177.53.386.107.18.161.395.161.654 0 .343-.087.654-.26.94-.2.332-.459.5-.781.5a.88.88 0 01-.18-.022.763.763 0 01-.531-.384 1.287 1.287 0 01-.158-.659c0-.342.085-.655.258-.937.202-.333.462-.498.78-.498zm2.084 0c.056 0 .116.006.18.02.236.05.411.177.53.386.107.18.16.395.16.654 0 .343-.086.654-.259.94-.2.332-.459.5-.781.5a.88.88 0 01-.18-.022.763.763 0 01-.531-.384 1.287 1.287 0 01-.16-.659c0-.342.087-.655.26-.937.202-.333.462-.498.78-.498zm4.437.047c-.305 0-.546.102-.718.304-.173.203-.256.49-.256.856 0 .395.086.697.256.906.17.21.418.316.744.316.315 0 .559-.107.728-.316.17-.21.256-.504.256-.883s-.087-.673-.26-.879c-.176-.202-.424-.304-.75-.304zm-1.466.002a1.13 1.13 0 00-.84.326c-.223.22-.332.499-.332.838 0 .362.108.658.328.88.22.223.505.336.861.336.103 0 .22-.016.346-.052v-.54c-.117.034-.216.051-.303.051a.545.545 0 01-.422-.177c-.106-.12-.16-.278-.16-.48 0-.19.053-.348.156-.468a.498.498 0 01.397-.181c.103 0 .212.015.332.049v-.537a1.394 1.394 0 00-.363-.045zm12.414 0a1.135 1.135 0 00-.84.326c-.223.22-.332.499-.332.838 0 .362.108.658.328.88.22.223.506.336.861.336.103 0 .22-.016.346-.052v-.54c-.116.034-.216.051-.303.051a.545.545 0 01-.422-.177c-.106-.12-.16-.278-.16-.48 0-.19.053-.348.156-.468a.498.498 0 01.397-.181c.103 0 .212.015.332.049v-.537a1.394 1.394 0 00-.363-.045zm-9.598.06l-.29 2.264h.579l.156-1.559.395 1.559h.412l.379-1.555.164 1.555h.603l-.304-2.264h-.791l-.12.508c-.03.13-.06.264-.087.4l-.067.352a29.97 29.97 0 00-.258-1.26h-.771zm2.768 0l-.29 2.264h.579l.156-1.559.396 1.559h.412l.375-1.555.165 1.555h.603l-.305-2.264h-.789l-.119.508c-.03.13-.06.264-.086.4l-.066.352c-.063-.352-.15-.771-.26-1.26h-.771zm3.988 0v2.264h.611v-1.031h.012l.494 1.03h.645l-.489-1.019a.61.61 0 00.37-.552.598.598 0 00-.25-.506c-.167-.123-.394-.186-.68-.186h-.713zm3.377 0v2.264H24v-.483h-.63v-.414h.54v-.468h-.54v-.416h.626v-.483H22.76zm-4.793.004v2.264h1.24v-.483h-.627v-.416h.541v-.468h-.54v-.415h.622v-.482h-1.236zm2.025.432c.146.003.25.025.313.072.063.046.091.12.091.227 0 .156-.135.236-.404.24v-.54zm-15.22.011c-.104 0-.205.069-.301.211a1.078 1.078 0 00-.2.639c0 .096.02.2.06.303.049.13.117.198.196.215.083.016.173-.02.27-.106.123-.11.205-.273.252-.492.016-.077.023-.16.023-.246 0-.097-.02-.2-.06-.303-.05-.13-.116-.198-.196-.215a.246.246 0 00-.045-.006zm2.083 0c-.103 0-.204.069-.3.211a1.078 1.078 0 00-.2.639c0 .096.02.2.06.303.049.13.117.198.196.215.083.016.173-.02.27-.106.123-.11.205-.273.252-.492.013-.077.023-.16.023-.246 0-.097-.02-.2-.06-.303-.05-.13-.116-.198-.196-.215a.246.246 0 00-.045-.006zm4.428.006c.233 0 .354.218.354.66-.004.273-.038.46-.098.553a.293.293 0 01-.262.139.266.266 0 01-.242-.139c-.056-.093-.084-.28-.084-.562 0-.436.11-.65.332-.65Z'),
+    ],
+  ),
+  // wordpress_outlined
+  0xf06a0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0'),
     ],
   ),
   // workspace_premium_outlined
@@ -59726,6 +66397,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M22 17.5c0 .83-.67 1.5-1.5 1.5H8v-3h12.5c.83 0 1.5.67 1.5 1.5zM10.5 17c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zm8.35-9.27c.62-.61 1-1.45 1-2.38 0-1.51-1-2.79-2.38-3.21a.758.758 0 0 0-.97.72c0 .33.21.62.52.71.77.23 1.33.94 1.33 1.78 0 .82-.53 1.51-1.27 1.76-.33.11-.58.39-.58.74V8c0 .37.27.69.64.75 1.93.31 3.36 2 3.36 4.02v1.48c0 .41.34.75.75.75s.75-.34.75-.75v-1.49c0-2.22-1.28-4.14-3.15-5.03zM18.76 15c.41 0 .75-.33.75-.75v-.89c-.01-1.81-1.61-3.16-3.48-3.16h-1.3c-1.02 0-1.94-.73-2.07-1.75-.12-.95.46-1.7 1.3-1.93.32-.09.54-.38.54-.72 0-.49-.46-.86-.93-.72a3.35 3.35 0 0 0-2.42 3.28c.03 1.84 1.62 3.29 3.46 3.29h1.42c1.05 0 1.97.74 1.97 2.05v.55c0 .41.34.75.76.75zM3 18.5c1.33 0 2.71.18 4 .5v-3c-1.29.32-2.67.5-4 .5-.55 0-1 .45-1 1s.45 1 1 1z'),
     ],
   ),
+  // eighteen_up_rating_outlined
+  0xf06d4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M8.5 15H10V9H7v1.5h1.5z'),
+      WiredSvgPrimitive.path('M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z'),
+      WiredSvgPrimitive.path('M12.5 15H15c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1h-2.5c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1zm.5-5h1.5v1.5H13V10zm0 2.5h1.5V14H13v-1.5z'),
+    ],
+  ),
   // add_home_outlined
   0xf06d5: WiredSvgIconData(
     width: 24.0,
@@ -59835,6 +66516,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M17 9.5a6.5 6.5 0 0 0-6.5 6.5c0 1.79.73 3.42 1.9 4.6l1.06-1.06C12.56 18.63 12 17.38 12 16c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.37-.56 2.62-1.46 3.52l1.07 1.06A6.5 6.5 0 0 0 17 9.5z'),
     ],
   ),
+  // broadcast_on_personal_outlined
+  0xf06e2: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M4 19v-9l6-4.5 4.08 3.06c.81-.32 1.69-.51 2.61-.54L10 3 2 9v12h8.76c-.48-.6-.88-1.27-1.17-2H4zm13-4.25c-.69 0-1.25.56-1.25 1.25 0 .4.2.75.5.97V22h1.5v-5.03c.3-.23.5-.57.5-.97 0-.69-.56-1.25-1.25-1.25z'),
+      WiredSvgPrimitive.path('M17 12c-2.21 0-4 1.79-4 4 0 1.1.45 2.1 1.17 2.83l1.06-1.06A2.5 2.5 0 1 1 19.5 16c0 .69-.28 1.31-.73 1.76l1.06 1.06C20.55 18.1 21 17.1 21 16c0-2.21-1.79-4-4-4z'),
+      WiredSvgPrimitive.path('M17 9.5a6.5 6.5 0 0 0-6.5 6.5c0 1.79.73 3.42 1.9 4.6l1.06-1.06C12.56 18.63 12 17.38 12 16c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.37-.56 2.62-1.46 3.52l1.07 1.06A6.5 6.5 0 0 0 17 9.5z'),
+    ],
+  ),
   // car_crash_outlined
   0xf06e3: WiredSvgIconData(
     width: 24.0,
@@ -59930,12 +66621,29 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M8 7h8v2H8zm4.75 3-3 3L11 14.25 9.75 15.5l1.5 1.5 3-3L13 12.75l1.25-1.25z'),
     ],
   ),
+  // emergency_recording_outlined
+  0xf06ee: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 10.48V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4.48l4 3.98v-11l-4 3.98zM16 18H4V6h12v12zm-4-6 3 1.73-1 1.73-3-1.73V17H9v-3.27l-3 1.73-1-1.73L8 12l-3-1.73 1-1.73 3 1.73V7h2v3.27l3-1.73 1 1.73L12 12z'),
+    ],
+  ),
   // emergency_share_outlined
   0xf06ef: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 4c1.93 0 3.68.78 4.95 2.05l-1.41 1.41a5.022 5.022 0 0 0-7.08 0L7.05 6.05A6.976 6.976 0 0 1 12 4zm7.78-.77-1.41 1.41C16.74 3.01 14.49 2 12.01 2S7.27 3.01 5.64 4.63L4.22 3.22C6.22 1.23 8.97 0 12.01 0s5.78 1.23 7.77 3.23zM12 11c1.94 0 4 1.45 4 4.15 0 .94-.55 2.93-4 6.17-3.45-3.24-4-5.23-4-6.17 0-2.7 2.06-4.15 4-4.15zm0-2c-3.15 0-6 2.41-6 6.15 0 2.49 2 5.44 6 8.85 4-3.41 6-6.36 6-8.85C18 11.41 15.15 9 12 9zm1.5 6c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5.67 1.5 1.5 1.5 1.5-.67 1.5-1.5z'),
+    ],
+  ),
+  // energy_savings_leaf_outlined
+  0xf06f0: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 3c-4.8 0-9 3.86-9 9 0 2.12.74 4.07 1.97 5.61L3 19.59 4.41 21l1.97-1.97A9.012 9.012 0 0 0 12 21c2.3 0 4.61-.88 6.36-2.64A8.95 8.95 0 0 0 21 12V3h-9zm7 9c0 1.87-.73 3.63-2.05 4.95A6.96 6.96 0 0 1 12 19c-3.86 0-7-3.14-7-7 0-1.9.74-3.68 2.1-4.99A6.94 6.94 0 0 1 12 5h7v7z'),
+      WiredSvgPrimitive.path('m8.46 12.63 4.05.4-2.44 3.33c-.11.16-.1.38.04.52.15.15.4.16.56.01l5.16-4.63c.33-.3.15-.85-.3-.89l-4.05-.4 2.44-3.33c.11-.16.1-.38-.04-.52a.405.405 0 0 0-.56-.01l-5.16 4.63c-.32.3-.14.85.3.89z'),
     ],
   ),
   // fire_hydrant_alt_outlined
@@ -60035,6 +66743,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m22.69 18.37 1.14-1-1-1.73-1.45.49c-.32-.27-.68-.48-1.08-.63L20 14h-2l-.3 1.49c-.4.15-.76.36-1.08.63l-1.45-.49-1 1.73 1.14 1c-.08.5-.08.76 0 1.26l-1.14 1 1 1.73 1.45-.49c.32.27.68.48 1.08.63L18 24h2l.3-1.49c.4-.15.76-.36 1.08-.63l1.45.49 1-1.73-1.14-1c.08-.51.08-.77 0-1.27zM19 21c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM11 7v5.41l2.36 2.36 1.04-1.79-1.4-1.39V7h-2zm10 5a9 9 0 0 0-9-9C9.17 3 6.65 4.32 5 6.36V4H3v6h6V8H6.26A7.01 7.01 0 0 1 12 5c3.86 0 7 3.14 7 7h2zm-10.14 6.91c-2.99-.49-5.35-2.9-5.78-5.91H3.06c.5 4.5 4.31 8 8.94 8h.07l-1.21-2.09z'),
     ],
   ),
+  // medical_information_outlined
+  0xf06fc: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 7h-5V4c0-1.1-.9-2-2-2h-2c-1.1 0-2 .9-2 2v3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-9-3h2v5h-2V4zm9 16H4V9h5c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2h5v11zm-9-4H9v2H7v-2H5v-2h2v-2h2v2h2v2zm2-1.5V13h6v1.5h-6zm0 3V16h4v1.5h-4z'),
+    ],
+  ),
   // minor_crash_outlined
   0xf06fd: WiredSvgIconData(
     width: 24.0,
@@ -60049,6 +66765,38 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M18 8c-1.06 0-1.64.29-3.91 1.19-.19-.14-.4-.27-.62-.37.25-1.03.61-1.53 1.33-2.04.81-.57 1.2-1.34 1.2-2.28 0-1.22-.95-2.5-2.6-2.5-3.08 0-4.92 1.47-5.32 3.26l2.33 2.33C10.07 6.69 10 6.38 10 6c0-1.18 1.4-2 3.4-2 .57 0 .6.42.6.5 0 .27-.05.43-.35.65-1.27.9-1.83 1.91-2.16 3.39l-.02.1 7.25 7.25c.24.06.5.11.78.11 1.22 0 2.5-.95 2.5-2.6C22 9.91 20.11 8 18 8zm1.5 6c-.27 0-.43-.05-.65-.35-.9-1.27-1.91-1.83-3.39-2.16a3.12 3.12 0 0 0-.15-.62c1.8-.75 2.18-.87 2.69-.87 1.18 0 2 1.4 2 3.4 0 .57-.42.6-.5.6zM1.39 4.22l3.89 3.89C5.04 8.05 4.78 8 4.5 8 3.28 8 2 8.95 2 10.6 2 14.09 3.89 16 6 16c1.06 0 1.64-.29 3.91-1.19.19.14.4.27.62.37-.25 1.03-.61 1.53-1.33 2.04-.81.57-1.2 1.34-1.2 2.28 0 1.22.95 2.5 2.6 2.5 3.08 0 4.92-1.47 5.32-3.26l3.86 3.86 1.41-1.41L2.81 2.81 1.39 4.22zm11.13 11.24c.03 0 .06-.02.09-.02l.97.97c.35.9.42 1.21.42 1.59 0 1.18-1.4 2-3.4 2-.57 0-.6-.42-.6-.5 0-.27.05-.43.35-.65 1.28-.89 1.83-1.91 2.17-3.39zm-3.98-2.94c.03.22.08.42.15.62-1.8.74-2.18.86-2.69.86-1.18 0-2-1.4-2-3.4 0-.57.42-.6.5-.6.27 0 .43.05.65.35.89 1.28 1.91 1.83 3.39 2.17z'),
+    ],
+  ),
+  // nest_cam_wired_stand_outlined
+  0xf06ff: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16 1c-.15 0 .11-.02-4.28.42C8.47 1.75 6 4.48 6 7.75s2.47 6 5.72 6.33l1.9.19-.56.85c-.35-.08-.7-.12-1.06-.12-2.76 0-5 2.24-5 5v2c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-2c0-1.67-.83-3.15-2.09-4.06l.97-1.45c.04 0 .09.01.13.01 1.09 0 2-.89 2-2V3C18 1.89 17.09 1 16 1zm-1 20H9v-1c0-1.65 1.35-3 3-3s3 1.35 3 3v1zM8 7.75c0-2.25 1.69-4.11 3.92-4.34L16 3l.03 9.5-4.11-.42A4.336 4.336 0 0 1 8 7.75z'),
+    ],
+  ),
+  // network_wifi_1_bar_outlined
+  0xf0700: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zm3.32 10.84C14.34 14.3 13.2 14 12 14c-1.2 0-2.34.3-3.32.84L2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07l-5.76 5.77z'),
+    ],
+  ),
+  // network_wifi_2_bar_outlined
+  0xf0701: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zm4.78 9.38A8.853 8.853 0 0 0 12 12c-1.76 0-3.4.5-4.78 1.38l-4.3-4.3C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07l-4.3 4.31z'),
+    ],
+  ),
+  // network_wifi_3_bar_outlined
+  0xf0702: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zM2.92 9.07C5.51 7.08 8.67 6 12 6s6.49 1.08 9.08 3.07l-2.85 2.86A10.945 10.945 0 0 0 12 10c-2.31 0-4.46.71-6.23 1.93L2.92 9.07z'),
     ],
   ),
   // no_adult_content_outlined
@@ -60096,6 +66844,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M20 13c.55 0 1-.45 1-1s-.45-1-1-1h-1V5h1c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1h1v6H4c-.55 0-1 .45-1 1s.45 1 1 1h1v6H4c-.55 0-1 .45-1 1s.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1h-1v-6h1zm-3 6H7v-6c.55 0 1-.45 1-1s-.45-1-1-1V5h10v6c-.55 0-1 .45-1 1s.45 1 1 1v6z'),
     ],
   ),
+  // on_device_training_outlined
+  0xf0708: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M11 16h2v1h-2zm1-5c-1.1 0-2 .9-2 2 0 .74.4 1.38 1 1.72v.78h2v-.78c.6-.35 1-.98 1-1.72 0-1.1-.9-2-2-2z'),
+      WiredSvgPrimitive.path('M18 1.01 6 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM18 21H6v-1h12v1zm0-3H6V6h12v12zm0-14H6V3h12v1z'),
+      WiredSvgPrimitive.path('M16.01 15.95c.62-.83.99-1.84.99-2.95s-.37-2.12-.99-2.95l-1.07 1.07c.35.54.56 1.19.56 1.88s-.21 1.34-.56 1.88l1.07 1.07zm-6.95-1.07c-.35-.54-.56-1.19-.56-1.88 0-1.93 1.57-3.5 3.5-3.5v1.25l2.25-2-2.25-2V8c-2.76 0-5 2.24-5 5 0 1.11.37 2.12.99 2.95l1.07-1.07z'),
+    ],
+  ),
   // propane_outlined
   0xf0709: WiredSvgIconData(
     width: 24.0,
@@ -60120,6 +66878,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M18 4h2v9h-2zM4 4h2v16H4zm7 0h2v4h-2zm0 6h2v4h-2zm0 6h2v4h-2zm11.5.41L21.09 15 19 17.09 16.91 15l-1.41 1.41 2.09 2.09-2.09 2.09L16.91 22 19 19.91 21.09 22l1.41-1.41-2.09-2.09z'),
     ],
   ),
+  // roller_shades_closed_outlined
+  0xf070c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 19V3H4v16H2v2h8.25c0 .97.78 1.75 1.75 1.75s1.75-.78 1.75-1.75H22v-2h-2zM18 5v10H6V5h12zM6 19v-2h5v2H6zm7 0v-2h5v2h-5z'),
+    ],
+  ),
   // roller_shades_outlined
   0xf070d: WiredSvgIconData(
     width: 24.0,
@@ -60134,6 +66900,23 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 2 4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm6 9.09c0 4-2.55 7.7-6 8.83-3.45-1.13-6-4.82-6-8.83v-4.7l6-2.25 6 2.25v4.7zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm1.65 7.35L11.5 12.2V9h1v2.79l1.85 1.85-.7.71z'),
+    ],
+  ),
+  // screen_rotation_alt_outlined
+  0xf070f: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m4 7.59 5-5c.78-.78 2.05-.78 2.83 0L20.24 11h-2.83L10.4 4 5.41 9H8v2H2V5h2v2.59zM20 19h2v-6h-6v2h2.59l-4.99 5-7.01-7H3.76l8.41 8.41c.78.78 2.05.78 2.83 0l5-5V19z'),
+    ],
+  ),
+  // screenshot_monitor_outlined
+  0xf0710: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 3H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h4v2h8v-2h4c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2zm0 14H4V5h16v12z'),
+      WiredSvgPrimitive.path('M6.5 7.5H9V6H5v4h1.5zM19 12h-1.5v2.5H15V16h4z'),
     ],
   ),
   // sensor_occupied_outlined
@@ -60158,6 +66941,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m12.49 13-.93-1.86c-.37-.74-.07-1.64.67-2.01l.26-.13 5.73 5.46c.5.47.78 1.13.78 1.81v5.23a2.5 2.5 0 0 1-2.5 2.5h-11c-.55 0-1-.45-1-1s.45-1 1-1H10v-1H4c-.55 0-1-.45-1-1s.45-1 1-1h6v-1H3c-.55 0-1-.45-1-1s.45-1 1-1h7v-1H4.5c-.55 0-1-.45-1-1s.45-1 1-1h7.99zm1.51.2V15h-2v7h4c.55 0 1-.45 1-1v-4.53c0-.27-.11-.54-.31-.73L14 13.2zm-2.22-6.08c-.84.4-1.17.62-1.63 1.19l-2.7-2.85A.996.996 0 1 1 8.9 4.09l2.88 3.03zM9.64 9.21a3.46 3.46 0 0 0-.2 1.79h-.86L6.31 8.61a.987.987 0 0 1 .04-1.41.996.996 0 0 1 1.41.04l1.88 1.97zm10.69 4.7.88-.83c.5-.47.79-1.13.79-1.82V3.35l-.27-.1c-.78-.28-1.64.12-1.92.9l-.71 1.96-5.5-5.8a.996.996 0 1 0-1.45 1.37l3.79 3.99-.73.69-4.82-5.08a.996.996 0 1 0-1.45 1.37l3.78 3.98L15.38 9l1.93-1.87 1.38 1.45L20 7.34v3.7c0 .28-.11.54-.31.73l-.7.66.61.58c.29.27.53.57.73.9z'),
+    ],
+  ),
+  // signal_cellular_alt_1_bar_outlined
+  0xf0714: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 14h3v6H5v-6z'),
+    ],
+  ),
+  // signal_cellular_alt_2_bar_outlined
+  0xf0715: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 14h3v6H5v-6zm6-5h3v11h-3V9z'),
     ],
   ),
   // solar_power_outlined
@@ -60252,6 +67051,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z'),
       WiredSvgPrimitive.path('M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z'),
       WiredSvgPrimitive.path('M12.19 12.2h3.63l.8 2.3h1.56l-3.38-9h-1.6l-3.38 9h1.56l.81-2.3zm1.77-5.03h.08l1.31 3.72h-2.69l1.3-3.72z'),
+    ],
+  ),
+  // vertical_shades_closed_outlined
+  0xf0721: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 19V3H4v16H2v2h20v-2h-2zM13 5h1.5v14H13V5zm-2 14H9.5V5H11v14zM6 5h1.5v14H6V5zm10.5 14V5H18v14h-1.5z'),
     ],
   ),
   // vertical_shades_outlined
@@ -60451,6 +67258,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M22 9.76V4H4v2h16v2.59c.73.29 1.4.69 2 1.17zM9 9H2v11h7V9zm-2 9H4v-7h3v7zm10.75-1.03c.3-.23.5-.57.5-.97a1.25 1.25 0 0 0-2.5 0c0 .4.2.75.5.97V22h1.5v-5.03z'),
       WiredSvgPrimitive.path('M17 13.5a2.5 2.5 0 0 1 2.5 2.5c0 .69-.28 1.31-.73 1.76l1.06 1.06C20.55 18.1 21 17.1 21 16c0-2.21-1.79-4-4-4s-4 1.79-4 4c0 1.1.45 2.1 1.17 2.83l1.06-1.06A2.5 2.5 0 0 1 17 13.5z'),
+      WiredSvgPrimitive.path('M17 9.5a6.5 6.5 0 0 0-6.5 6.5c0 1.79.73 3.42 1.9 4.6l1.06-1.06C12.56 18.63 12 17.38 12 16c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.37-.56 2.62-1.46 3.52l1.07 1.06A6.5 6.5 0 0 0 17 9.5z'),
+    ],
+  ),
+  // broadcast_on_personal_sharp
+  0xf073a: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 8c.7 0 1.38.1 2.02.27L12 3 4 9v12h6.76A7.998 7.998 0 0 1 17 8zm0 6.75c-.69 0-1.25.56-1.25 1.25 0 .4.2.75.5.97V22h1.5v-5.03c.3-.23.5-.57.5-.97 0-.69-.56-1.25-1.25-1.25z'),
+      WiredSvgPrimitive.path('M17 12c-2.21 0-4 1.79-4 4 0 1.1.45 2.1 1.17 2.83l1.06-1.06A2.5 2.5 0 1 1 19.5 16c0 .69-.28 1.31-.73 1.76l1.06 1.06C20.55 18.1 21 17.1 21 16c0-2.21-1.79-4-4-4z'),
       WiredSvgPrimitive.path('M17 9.5a6.5 6.5 0 0 0-6.5 6.5c0 1.79.73 3.42 1.9 4.6l1.06-1.06C12.56 18.63 12 17.38 12 16c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.37-.56 2.62-1.46 3.52l1.07 1.06A6.5 6.5 0 0 0 17 9.5z'),
     ],
   ),
@@ -60861,6 +67678,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('m12.49 13-1.39-2.7L12.49 9 19 15.2V24H4.5v-2H10v-1H3v-2h7v-1H2v-2h8v-1H3.5v-2h8.99zm-.71-5.88c-.84.4-1.17.62-1.63 1.19L6.76 4.74l1.45-1.38 3.57 3.76zM9.64 9.21a3.46 3.46 0 0 0-.2 1.79h-.86L5.62 7.89l1.45-1.38 2.57 2.7zm12.34 3.13L22 3.35l-1.9-.1-1 2.86L13.3 0l-1.45 1.38 4.09 4.3-.73.69L9.74.64 8.3 2l3.36 3.53 1.06 1.11 2.65 2.33 5.08 4.83 1.53-1.46z'),
     ],
   ),
+  // signal_cellular_alt_1_bar_sharp
+  0xf076c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 14h3v6H5v-6z'),
+    ],
+  ),
+  // signal_cellular_alt_2_bar_sharp
+  0xf076d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M5 14h3v6H5v-6zm6-5h3v11h-3V9z'),
+    ],
+  ),
   // solar_power_sharp
   0xf076e: WiredSvgIconData(
     width: 24.0,
@@ -60956,6 +67789,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M4 6H2v16h16v-2H4z'),
       WiredSvgPrimitive.path('M22 2H6v16h16V2zm-5.37 12.5-.8-2.3H12.2l-.82 2.3H9.81l3.38-9h1.61l3.38 9h-1.55z'),
       WiredSvgPrimitive.path('m13.96 7.17-1.31 3.72h2.69l-1.3-3.72z'),
+    ],
+  ),
+  // vertical_shades_closed_sharp
+  0xf0779: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 19V3H4v16H2v2h20v-2h-2zM13 5h1.5v14H13V5zm-2 14H9.5V5H11v14zM6 5h1.5v14H6V5zm10.5 14V5H18v14h-1.5z'),
     ],
   ),
   // vertical_shades_sharp
@@ -61896,6 +68737,16 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M16.25 9.54c-2.94.33-5.32 2.68-5.69 5.61-.23 1.82.29 3.51 1.3 4.82.27.35.8.37 1.12.06.27-.27.28-.7.05-1a4.99 4.99 0 0 1-.95-3.89 4.993 4.993 0 0 1 3.98-4.05C19.22 10.5 22 12.93 22 16c0 1.13-.38 2.18-1.02 3.02-.23.3-.21.73.06 1 .31.31.84.3 1.11-.06A6.423 6.423 0 0 0 23.5 16c0-3.84-3.33-6.9-7.25-6.46z'),
     ],
   ),
+  // broadcast_on_personal_rounded
+  0xf07ea: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M17 8c.7 0 1.38.1 2.02.27L12 3 4 9v12h6.76A7.998 7.998 0 0 1 17 8zm0 6.75c-.69 0-1.25.56-1.25 1.25 0 .4.2.75.5.97V22h1.5v-5.03c.3-.23.5-.57.5-.97 0-.69-.56-1.25-1.25-1.25z'),
+      WiredSvgPrimitive.path('M17 12c-2.21 0-4 1.79-4 4 0 1.1.45 2.1 1.17 2.83l1.06-1.06A2.5 2.5 0 1 1 19.5 16c0 .69-.28 1.31-.73 1.76l1.06 1.06C20.55 18.1 21 17.1 21 16c0-2.21-1.79-4-4-4z'),
+      WiredSvgPrimitive.path('M17 9.5a6.5 6.5 0 0 0-6.5 6.5c0 1.79.73 3.42 1.9 4.6l1.06-1.06C12.56 18.63 12 17.38 12 16c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.37-.56 2.62-1.46 3.52l1.07 1.06A6.5 6.5 0 0 0 17 9.5z'),
+    ],
+  ),
   // car_crash_rounded
   0xf07eb: WiredSvgIconData(
     width: 24.0,
@@ -61987,12 +68838,28 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M11.73 2C7.05 2.14 3.15 6.03 3 10.71c-.13 4.04 2.42 7.5 6 8.77V21c0 .55.45 1 1 1s1-.45 1-1v-1.06a8.262 8.262 0 0 0 2 0V21c0 .55.45 1 1 1s1-.45 1-1v-1.53c3.49-1.24 6-4.57 6-8.47 0-5.05-4.18-9.15-9.27-9zm1.81 12.71L12 16.25c-.41.41-1.09.41-1.5 0-.41-.41-.41-1.09 0-1.5l.5-.5-.54-.54a.996.996 0 0 1 0-1.41L12 10.75c.41-.41 1.09-.41 1.5 0 .41.41.41 1.09 0 1.5l-.5.5.54.54c.39.39.39 1.03 0 1.42zM15 9H9c-.55 0-1-.45-1-1s.45-1 1-1h6c.55 0 1 .45 1 1s-.45 1-1 1z'),
     ],
   ),
+  // emergency_recording_rounded
+  0xf07f6: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18 10.48V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4.48l3.15 3.13c.31.32.85.09.85-.35V7.7c0-.44-.54-.67-.85-.35L18 10.48zm-3.5 4.12c-.28.48-.89.64-1.37.37L11 13.73V16c0 .55-.45 1-1 1s-1-.45-1-1v-2.27l-2.13 1.23c-.48.28-1.09.11-1.37-.37s-.11-1.09.37-1.37L8 12l-2.13-1.23c-.48-.28-.65-.89-.37-1.37.28-.48.89-.64 1.37-.37L9 10.27V8c0-.55.45-1 1-1s1 .45 1 1v2.27l2.13-1.23c.48-.28 1.09-.11 1.37.37s.11 1.09-.37 1.37L12 12l2.13 1.23c.48.28.65.89.37 1.37z'),
+    ],
+  ),
   // emergency_share_rounded
   0xf07f7: WiredSvgIconData(
     width: 24.0,
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M12 9c-3.15 0-6 2.41-6 6.15 0 2.35 1.78 5.11 5.34 8.27.37.33.95.33 1.33 0C16.22 20.25 18 17.5 18 15.15 18 11.41 15.15 9 12 9zm0 7.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.18-9.68c-.35.35-.89.38-1.3.09C14.07 6.34 13.07 6 12 6s-2.07.34-2.88.91c-.41.28-.95.26-1.3-.09-.43-.43-.39-1.15.09-1.5C9.06 4.49 10.48 4 12 4s2.94.49 4.09 1.32c.49.35.52 1.07.09 1.5zM4.97 3.97c-.42-.43-.38-1.12.08-1.5C6.95.93 9.37 0 12.01 0c2.64 0 5.06.93 6.95 2.48.46.38.5 1.07.08 1.49-.36.36-.93.39-1.32.07a9.027 9.027 0 0 0-11.43 0c-.39.32-.96.28-1.32-.07z'),
+    ],
+  ),
+  // energy_savings_leaf_rounded
+  0xf07f8: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 3c-4.8 0-9 3.86-9 9 0 2.12.74 4.07 1.97 5.61l-1.68 1.68A.996.996 0 1 0 4.7 20.7l1.68-1.68A8.962 8.962 0 0 0 12 21c2.3 0 4.61-.88 6.36-2.64A8.95 8.95 0 0 0 21 12V5c0-1.1-.9-2-2-2h-7zm3.83 9.26-5.16 4.63c-.16.15-.41.14-.56-.01a.397.397 0 0 1-.04-.52l2.44-3.33-4.05-.4a.514.514 0 0 1-.3-.89l5.16-4.63c.16-.15.41-.14.56.01.14.14.16.36.04.52l-2.44 3.33 4.05.4c.45.04.63.59.3.89z'),
     ],
   ),
   // fire_hydrant_alt_rounded
@@ -62088,6 +68955,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M22.75 19c0-.22-.03-.42-.06-.63l.84-.73c.18-.16.22-.42.1-.63l-.59-1.02a.488.488 0 0 0-.59-.22l-1.06.36c-.32-.27-.68-.48-1.08-.63l-.22-1.09a.503.503 0 0 0-.49-.4h-1.18c-.24 0-.44.17-.49.4l-.22 1.09c-.4.15-.76.36-1.08.63l-1.06-.36a.496.496 0 0 0-.59.22l-.59 1.02c-.12.21-.08.47.1.63l.84.73c-.03.21-.06.41-.06.63s.03.42.06.63l-.84.73c-.18.16-.22.42-.1.63l.59 1.02c.12.21.37.3.59.22l1.06-.36c.32.27.68.48 1.08.63l.22 1.09c.05.23.25.4.49.4h1.18c.24 0 .44-.17.49-.4l.22-1.09c.4-.15.76-.36 1.08-.63l1.06.36c.23.08.47-.02.59-.22l.59-1.02c.12-.21.08-.47-.1-.63l-.84-.73c.03-.21.06-.41.06-.63zM19 21c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM12 7c-.55 0-1 .45-1 1v4c0 .27.11.52.29.71l2.07 2.07 1.04-1.79-1.4-1.4V8c0-.55-.45-1-1-1zm-7.74 6c-.65 0-1.14.61-.98 1.24C4.28 18.13 7.8 21 12 21h.07l-1.21-2.09a7.01 7.01 0 0 1-5.64-5.18.976.976 0 0 0-.96-.73zM4 10c-.55 0-1-.45-1-1V5c0-.55.45-1 1-1s1 .45 1 1v1.36C6.65 4.32 9.17 3 12 3a9 9 0 0 1 9 9h-2c0-3.86-3.14-7-7-7a7.01 7.01 0 0 0-5.74 3H8c.55 0 1 .45 1 1s-.45 1-1 1H4z'),
     ],
   ),
+  // medical_information_rounded
+  0xf0804: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 7h-5V4c0-1.1-.9-2-2-2h-2c-1.1 0-2 .9-2 2v3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-9-3h2v5h-2V4zM7 16H6c-.55 0-1-.45-1-1s.45-1 1-1h1v-1c0-.55.45-1 1-1s1 .45 1 1v1h1c.55 0 1 .45 1 1s-.45 1-1 1H9v1c0 .55-.45 1-1 1s-1-.45-1-1v-1zm6.75-1.5c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h4.5c.41 0 .75.34.75.75s-.34.75-.75.75h-4.5zm0 3c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h2.5c.41 0 .75.34.75.75s-.34.75-.75.75h-2.5z'),
+    ],
+  ),
   // minor_crash_rounded
   0xf0805: WiredSvgIconData(
     width: 24.0,
@@ -62102,6 +68977,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m16.34 8.36-2.29.82c-.18-.13-.38-.25-.58-.34.17-.83.63-1.58 1.36-2.06C16.85 5.44 16.18 2 13.39 2c-3.08 0-4.9 1.47-5.3 3.26L18.73 15.9c1.5.39 3.27-.51 3.27-2.51 0-4.39-3.01-6.23-5.66-5.03zM2.1 3.51a.996.996 0 0 0 0 1.41L5.27 8.1C3.77 7.7 2 8.61 2 10.61c0 4.4 3.01 6.24 5.66 5.03l2.29-.82c.18.13.38.25.58.34-.17.83-.63 1.58-1.36 2.06C7.15 18.56 7.82 22 10.61 22c3.08 0 4.9-1.47 5.3-3.26l3.16 3.16a.996.996 0 1 0 1.41-1.41L3.51 3.51a.996.996 0 0 0-1.41 0z'),
+    ],
+  ),
+  // nest_cam_wired_stand_rounded
+  0xf0807: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('m15.83 1.01-4.11.42C8.47 1.75 6 4.48 6 7.75s2.47 6 5.72 6.33l1.9.19-.56.85c-.35-.08-.7-.12-1.06-.12-2.76 0-5 2.24-5 5v2c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-2c0-1.67-.83-3.15-2.09-4.06l.97-1.45c1.14.07 2.12-.83 2.12-1.99V3c0-1.17-1-2.09-2.17-1.99z'),
     ],
   ),
   // network_wifi_1_bar_rounded
@@ -62208,6 +69091,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M19 4c-.55 0-1 .45-1 1v7c0 .55.45 1 1 1s1-.45 1-1V5c0-.55-.45-1-1-1zM5 20c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1s-1 .45-1 1v14c0 .55.45 1 1 1zm7-12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1s-1 .45-1 1v2c0 .55.45 1 1 1zm0 6c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1v2c0 .55.45 1 1 1zm0 6c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1v2c0 .55.45 1 1 1zm9.79-4.29a.996.996 0 0 0-1.41 0L19 17.09l-1.38-1.38a.996.996 0 1 0-1.41 1.41l1.38 1.38-1.38 1.38a.996.996 0 1 0 1.41 1.41L19 19.91l1.38 1.38a.996.996 0 1 0 1.41-1.41l-1.38-1.38 1.38-1.38a.996.996 0 0 0 0-1.41z'),
     ],
   ),
+  // roller_shades_closed_rounded
+  0xf0814: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 19V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v14H3c-.55 0-1 .45-1 1s.45 1 1 1h7.25c0 .97.78 1.75 1.75 1.75s1.75-.78 1.75-1.75H21c.55 0 1-.45 1-1s-.45-1-1-1h-1zM6 19v-2h5v2H6zm7 0v-2h5v2h-5z'),
+    ],
+  ),
   // roller_shades_rounded
   0xf0815: WiredSvgIconData(
     width: 24.0,
@@ -62222,6 +69113,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m11.3 2.26-6 2.25C4.52 4.81 4 5.55 4 6.39v4.7c0 4.83 3.13 9.37 7.43 10.75.37.12.77.12 1.14 0 4.3-1.38 7.43-5.91 7.43-10.75v-4.7a2 2 0 0 0-1.3-1.87l-6-2.25c-.45-.18-.95-.18-1.4-.01zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm2-3c-.2.2-.51.2-.71 0l-1.65-1.65a.51.51 0 0 1-.15-.35V9.5c.01-.28.23-.5.51-.5s.5.22.5.5v2.29l1.5 1.5c.2.2.2.51 0 .71z'),
+    ],
+  ),
+  // screen_rotation_alt_rounded
+  0xf0817: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M18.53 9.29c.63.63.18 1.71-.71 1.71-.27 0-.52-.11-.71-.29L10.4 4 5.41 9H7c.55 0 1 .45 1 1s-.45 1-1 1H3c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1s1 .45 1 1v1.59l5-5c.78-.78 2.05-.78 2.83 0l6.7 6.7zM5.47 14.71c-.63-.63-.18-1.71.71-1.71.27 0 .52.11.71.29L13.6 20l4.99-5H17c-.55 0-1-.45-1-1s.45-1 1-1h4c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1s-1-.45-1-1v-1.59l-5 5c-.78.78-2.05.78-2.83 0l-6.7-6.7z'),
     ],
   ),
   // screenshot_monitor_rounded
@@ -62257,6 +69156,22 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     height: 24.0,
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('m12.49 13-.93-1.86c-.37-.74-.07-1.64.67-2.01a.41.41 0 0 1 .47.07l5.53 5.26c.5.47.78 1.13.78 1.81v5.23a2.5 2.5 0 0 1-2.5 2.5h-11c-.55 0-1-.45-1-1s.45-1 1-1H10v-1H4c-.55 0-1-.45-1-1s.45-1 1-1h6v-1H3c-.55 0-1-.45-1-1s.45-1 1-1h7v-1H4.5c-.55 0-1-.45-1-1s.45-1 1-1h7.99zm-.71-5.88c-.84.4-1.17.62-1.63 1.19l-2.7-2.85A.996.996 0 1 1 8.9 4.09l2.88 3.03zM9.64 9.21a3.46 3.46 0 0 0-.2 1.79h-.86L6.31 8.61a.987.987 0 0 1 .04-1.41.996.996 0 0 1 1.41.04l1.88 1.97zm10.69 4.7.88-.83c.5-.47.79-1.13.79-1.82V3.64c0-.17-.11-.33-.27-.39-.78-.28-1.64.12-1.92.9l-.71 1.96-5.5-5.8a.996.996 0 1 0-1.45 1.37l3.79 3.99-.73.69-4.82-5.08a.996.996 0 1 0-1.45 1.37l3.78 3.98L15.38 9l3.61 3.43.61.58c.29.27.53.57.73.9z'),
+    ],
+  ),
+  // signal_cellular_alt_1_bar_rounded
+  0xf081c: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.5 20c-.83 0-1.5-.67-1.5-1.5v-3c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v3c0 .83-.67 1.5-1.5 1.5z'),
+    ],
+  ),
+  // signal_cellular_alt_2_bar_rounded
+  0xf081d: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M6.5 20c-.83 0-1.5-.67-1.5-1.5v-3c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v3c0 .83-.67 1.5-1.5 1.5zm6 0c-.83 0-1.5-.67-1.5-1.5v-8c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v8c0 .83-.67 1.5-1.5 1.5z'),
     ],
   ),
   // solar_power_rounded
@@ -62352,6 +69267,14 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
       WiredSvgPrimitive.path('M3 6c-.55 0-1 .45-1 1v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H4V7c0-.55-.45-1-1-1z'),
       WiredSvgPrimitive.path('M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-3.54 12.01-.63-1.82H12.2l-.65 1.82a.725.725 0 1 1-1.36-.5l2.73-7.27c.16-.44.6-.74 1.08-.74.48 0 .92.3 1.09.75l2.73 7.27c.18.47-.17.98-.68.98-.31 0-.58-.19-.68-.49z'),
       WiredSvgPrimitive.path('m13.96 7.17-1.31 3.72h2.69l-1.3-3.72z'),
+    ],
+  ),
+  // vertical_shades_closed_rounded
+  0xf0829: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M20 19V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v14H3c-.55 0-1 .45-1 1s.45 1 1 1h18c.55 0 1-.45 1-1s-.45-1-1-1h-1zM13 5h1.5v14H13V5zm-2 14H9.5V5H11v14zM6 5h1.5v14H6V5zm10.5 14V5H18v14h-1.5z'),
     ],
   ),
   // vertical_shades_rounded
@@ -63644,6 +70567,24 @@ const Map<int, WiredSvgIconData> kMaterialRoughIcons = <int, WiredSvgIconData>{
     primitives: <WiredSvgPrimitive>[
       WiredSvgPrimitive.path('M6 11c2.76 0 5-2.24 5-5S8.76 1 6 1 1 3.24 1 6s2.24 5 5 5zm0-8c1.65 0 3 1.35 3 3S7.65 9 6 9 3 7.65 3 6s1.35-3 3-3zm15 11h-5c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2zm0 7h-5v-5h5v5z'),
       WiredSvgPrimitive.path('M17.71 7.7c.4.19.83.3 1.29.3 1.65 0 3-1.35 3-3s-1.35-3-3-3-3 1.35-3 3c0 .46.11.89.3 1.29L6.29 16.3c-.4-.19-.83-.3-1.29-.3-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3c0-.46-.11-.89-.3-1.29L17.71 7.7z'),
+    ],
+  ),
+  // unfold_less_double_outlined
+  0xf08b4: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M16.58 1.41 15.16 0l-3.17 3.17L8.82 0 7.41 1.41 11.99 6z'),
+      WiredSvgPrimitive.path('M16.58 6.41 15.16 5l-3.17 3.17L8.82 5 7.41 6.41 11.99 11zM7.42 17.59 8.84 19l3.17-3.17L15.18 19l1.41-1.41L12.01 13z'),
+      WiredSvgPrimitive.path('M7.42 22.59 8.84 24l3.17-3.17L15.18 24l1.41-1.41L12.01 18z'),
+    ],
+  ),
+  // unfold_more_double_outlined
+  0xf08b5: WiredSvgIconData(
+    width: 24.0,
+    height: 24.0,
+    primitives: <WiredSvgPrimitive>[
+      WiredSvgPrimitive.path('M12 7.83 15.17 11l1.41-1.41L12 5 7.41 9.59 8.83 11 12 7.83zm0-5L15.17 6l1.41-1.41L12 0 7.41 4.59 8.83 6 12 2.83zm0 18.34L8.83 18l-1.41 1.41L12 24l4.59-4.59L15.17 18 12 21.17zm0-5L8.83 13l-1.41 1.41L12 19l4.59-4.59L15.17 13 12 16.17z'),
     ],
   ),
   // video_chat_outlined

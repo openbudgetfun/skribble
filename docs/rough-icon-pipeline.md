@@ -185,6 +185,12 @@ CI also verifies the committed baseline file is up to date by regenerating
 `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`
 and failing if a diff remains.
 
+CI additionally verifies generated rough icon catalogs are committed and up to
+date by regenerating:
+
+- `packages/skribble/lib/src/generated/material_rough_icons.g.dart`
+- `packages/skribble/lib/src/generated/material_rough_icon_font.g.dart`
+
 To refresh that normalized baseline after intentional coverage changes:
 
 ```bash
