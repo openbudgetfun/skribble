@@ -181,6 +181,10 @@ CI also enforces the same unresolved regression gate on pull requests using
 uploads an `rough-icons-unresolved-report` artifact (from
 `--unresolved-output`) to aid regression diagnosis.
 
+CI also verifies the committed baseline file is up to date by regenerating
+`packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`
+and failing if a diff remains.
+
 To refresh that normalized baseline after intentional coverage changes:
 
 ```bash

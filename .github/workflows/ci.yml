@@ -55,6 +55,37 @@ jobs:
           path: packages/skribble/unresolved-report.json
           if-no-files-found: ignore
 
+  rough-icons-baseline-sync:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: regenerate unresolved baseline
+        run: >-
+          cd packages/skribble &&
+          dart run tool/generate_rough_icons.dart
+          --kit flutter-material
+          --rough-only
+          --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
+          --unresolved-baseline-output tool/examples/material_rough_icons.unresolved-baseline.json
+        shell: devenv shell -- bash -e {0}
+      - name: format regenerated unresolved baseline
+        run: dprint fmt packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json
+        shell: devenv shell -- bash -e {0}
+      - name: verify unresolved baseline is up to date
+        run: >-
+          git diff --exit-code --
+          packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json
+        shell: devenv shell -- bash -e {0}
+      - name: show unresolved baseline diff on failure
+        if: failure()
+        run: >-
+          git --no-pager diff --
+          packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json
+        shell: devenv shell -- bash -e {0}
+
   coverage:
     if: github.ref == 'refs/heads/main'
     runs-on: blacksmith-2vcpu-ubuntu-2404
