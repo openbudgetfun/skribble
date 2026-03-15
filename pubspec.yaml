@@ -56,7 +56,7 @@ melos:
         --rough-output-dir tool/icon_exports/rough-svg
         --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
         --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json
-        --fail-on-new-unresolved
+        --max-new-unresolved 0
 
     rough-icons-font:
       description: Generate rough Material icon font artifacts (TTF + Dart helpers), applying supplemental sources and failing on unresolved regressions.
@@ -69,7 +69,7 @@ melos:
         --font-dart-output lib/src/generated/material_rough_icon_font.g.dart
         --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
         --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json
-        --fail-on-new-unresolved
+        --max-new-unresolved 0
 
     rough-icons-baseline:
       description: Refresh normalized unresolved baseline JSON used for rough icon regression gating.

@@ -204,8 +204,9 @@ melos run rough-icons-ci-check
 manifest (`tool/examples/material_rough_icons.supplemental.manifest.json`) and
 enforce unresolved regression gating via
 `--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json`
-plus `--fail-on-new-unresolved`. Use `rough-icons-baseline` to refresh that
-committed `codePoints[]` baseline file after intentional changes.
+plus `--max-new-unresolved 0` (strict-mode equivalent). Use
+`rough-icons-baseline` to refresh that committed `codePoints[]` baseline file
+after intentional changes.
 
 `rough-icons-ci-check` runs the same rough icon regression/sync checks enforced
 by CI via `./scripts/check_rough_icons_ci.sh all`.
