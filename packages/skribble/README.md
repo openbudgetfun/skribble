@@ -242,7 +242,7 @@ Useful flags:
 - `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring.
 - `--unresolved-baseline-output <path>` to emit a normalized unresolved baseline (`unresolved[]` only) for regression gating.
 - `--supplemental-manifest-output <path>` to emit a starter supplemental manifest template for unresolved icons.
-- `--unresolved-baseline <path>` to compare unresolved output against a baseline report (`unresolved[]`) or manifest (`icons[]`), including `newUnresolved` and `resolvedSinceBaseline` report fields.
+- `--unresolved-baseline <path>` to compare unresolved output against a baseline report (`unresolved[]`), manifest (`icons[]`), or minimal baseline (`codePoints[]`), including `newUnresolved` and `resolvedSinceBaseline` report fields.
 - `--max-unresolved <int>` to allow a bounded unresolved count before failing.
 - `--fail-on-unresolved` to make the command exit non-zero if unresolved icons remain.
 - `--fail-on-new-unresolved` to fail only when unresolved entries regress versus baseline.
