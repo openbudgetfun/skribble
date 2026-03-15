@@ -474,6 +474,7 @@ class Icons {
       expect(decoded['wouldFail'], isFalse);
       expect(decoded['unresolvedGateFailed'], isFalse);
       expect(decoded['newUnresolvedGateFailed'], isFalse);
+      expect(decoded['activeGates'], <String>[]);
       expect(decoded['failedGates'], <String>[]);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['unresolvedThresholdMode'], 'disabled');
@@ -830,6 +831,7 @@ class Icons {
       expect(decoded['wouldFail'], isTrue);
       expect(decoded['unresolvedGateFailed'], isTrue);
       expect(decoded['newUnresolvedGateFailed'], isFalse);
+      expect(decoded['activeGates'], <String>['unresolved']);
       expect(decoded['failedGates'], <String>['unresolved']);
       expect(decoded['unresolvedThresholdMode'], 'strict');
       expect(decoded['newUnresolvedThresholdMode'], 'disabled');
@@ -913,6 +915,7 @@ class Icons {
       expect(decoded['wouldFail'], isFalse);
       expect(decoded['unresolvedGateFailed'], isFalse);
       expect(decoded['newUnresolvedGateFailed'], isFalse);
+      expect(decoded['activeGates'], <String>['unresolved']);
       expect(decoded['failedGates'], <String>[]);
       expect(decoded['unresolvedThresholdMode'], 'threshold');
       expect(decoded['newUnresolvedThresholdMode'], 'disabled');
@@ -1484,6 +1487,7 @@ class Icons {
         expect(decoded['wouldFail'], isFalse);
         expect(decoded['unresolvedGateFailed'], isFalse);
         expect(decoded['newUnresolvedGateFailed'], isFalse);
+        expect(decoded['activeGates'], <String>['newUnresolved']);
         expect(decoded['failedGates'], <String>[]);
         expect(decoded['maxNewUnresolved'], 1);
         expect(decoded['maxNewUnresolvedExceeded'], isFalse);
@@ -1565,6 +1569,7 @@ class Icons {
       expect(decoded['wouldFail'], isTrue);
       expect(decoded['unresolvedGateFailed'], isFalse);
       expect(decoded['newUnresolvedGateFailed'], isTrue);
+      expect(decoded['activeGates'], <String>['newUnresolved']);
       expect(decoded['failedGates'], <String>['newUnresolved']);
       expect(decoded['maxNewUnresolved'], 0);
       expect(decoded['maxNewUnresolvedExceeded'], isTrue);
@@ -1646,6 +1651,7 @@ class Icons {
         expect(decoded['wouldFail'], isTrue);
         expect(decoded['unresolvedGateFailed'], isTrue);
         expect(decoded['newUnresolvedGateFailed'], isTrue);
+        expect(decoded['activeGates'], <String>['unresolved', 'newUnresolved']);
         expect(decoded['failedGates'], <String>['unresolved', 'newUnresolved']);
         expect(decoded['maxUnresolvedExceeded'], isTrue);
         expect(decoded['maxNewUnresolvedExceeded'], isTrue);
@@ -1727,6 +1733,7 @@ class Icons {
       expect(decoded['wouldFail'], isTrue);
       expect(decoded['unresolvedGateFailed'], isFalse);
       expect(decoded['newUnresolvedGateFailed'], isTrue);
+      expect(decoded['activeGates'], <String>['newUnresolved']);
       expect(decoded['failedGates'], <String>['newUnresolved']);
       expect(decoded['maxNewUnresolved'], 0);
       expect(decoded['maxNewUnresolvedExceeded'], isTrue);
