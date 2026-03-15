@@ -57,19 +57,6 @@ jobs:
       - name: run unresolved baseline sync check
         run: ./scripts/check_rough_icons_ci.sh baseline-sync
         shell: devenv shell -- bash -e {0}
-      - name: show unresolved baseline diff on failure
-        if: failure()
-        run: >-
-          git --no-pager diff --
-          packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json
-        shell: devenv shell -- bash -e {0}
-      - name: save unresolved baseline diff artifact
-        if: failure()
-        run: >-
-          git --no-pager diff --
-          packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json
-          > rough-icons-baseline-sync.diff
-        shell: devenv shell -- bash -e {0}
       - name: upload unresolved baseline diff artifact
         if: failure()
         uses: actions/upload-artifact@v4
@@ -87,21 +74,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: run rough icon catalog sync check
         run: ./scripts/check_rough_icons_ci.sh generated-sync
-        shell: devenv shell -- bash -e {0}
-      - name: show rough icon catalog diff on failure
-        if: failure()
-        run: >-
-          git --no-pager diff --
-          packages/skribble/lib/src/generated/material_rough_icons.g.dart
-          packages/skribble/lib/src/generated/material_rough_icon_font.g.dart
-        shell: devenv shell -- bash -e {0}
-      - name: save rough icon catalog diff artifact
-        if: failure()
-        run: >-
-          git --no-pager diff --
-          packages/skribble/lib/src/generated/material_rough_icons.g.dart
-          packages/skribble/lib/src/generated/material_rough_icon_font.g.dart
-          > rough-icons-generated-sync.diff
         shell: devenv shell -- bash -e {0}
       - name: upload rough icon catalog diff artifact
         if: failure()

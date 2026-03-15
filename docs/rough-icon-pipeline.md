@@ -188,6 +188,14 @@ For targeted local debugging, run an individual CI-equivalent check:
 - `./scripts/check_rough_icons_ci.sh baseline-sync`
 - `./scripts/check_rough_icons_ci.sh generated-sync`
 
+On sync-check failures, the script prints `git diff` output and saves it to:
+
+- `rough-icons-baseline-sync.diff`
+- `rough-icons-generated-sync.diff`
+
+`regression` cleans up `packages/skribble/unresolved-report.json` after a
+successful local run. Set `ROUGH_ICONS_KEEP_UNRESOLVED_REPORT=1` to keep it.
+
 CI also enforces the same unresolved regression gate on pull requests using
 `--rough-only`, `--supplemental-manifest`, and `--unresolved-baseline`, and
 uploads an `rough-icons-unresolved-report` artifact (from
