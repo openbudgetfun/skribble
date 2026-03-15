@@ -59,13 +59,14 @@ melos:
         --fail-on-new-unresolved
 
     rough-icons-font:
-      description: Generate rough Material icon font artifacts (TTF) from rough SVGs, applying supplemental sources and failing on unresolved regressions.
+      description: Generate rough Material icon font artifacts (TTF + Dart helpers), applying supplemental sources and failing on unresolved regressions.
       run: >-
         cd packages/skribble &&
         dart run tool/generate_rough_icons.dart
         --kit flutter-material
         --rough-output-dir tool/icon_exports/rough-svg
         --font-output-dir tool/icon_exports/font
+        --font-dart-output lib/src/generated/material_rough_icon_font.g.dart
         --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
         --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json
         --fail-on-new-unresolved

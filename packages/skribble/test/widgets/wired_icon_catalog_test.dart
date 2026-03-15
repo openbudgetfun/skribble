@@ -36,6 +36,31 @@ void main() {
       expect(materialRoughFontFamily, 'material_rough_icons');
     });
 
+    test('resolves committed supplemental fallback icons', () {
+      final adobeByIdentifier = lookupMaterialRoughIconByIdentifier('adobe');
+      final adobeByIconData = lookupMaterialRoughIcon(Icons.adobe);
+      final faceUnlockByIdentifier = lookupMaterialRoughIconByIdentifier(
+        'face_unlock_sharp',
+      );
+      final faceUnlockByIconData = lookupMaterialRoughIcon(
+        Icons.face_unlock_sharp,
+      );
+
+      expect(adobeByIdentifier, isNotNull);
+      expect(adobeByIdentifier, same(adobeByIconData));
+      expect(faceUnlockByIdentifier, isNotNull);
+      expect(faceUnlockByIdentifier, same(faceUnlockByIconData));
+
+      final adobeFontIcon = lookupMaterialRoughFontIcon('adobe');
+      final faceUnlockFontIcon = lookupMaterialRoughFontIcon(
+        'face_unlock_sharp',
+      );
+      expect(adobeFontIcon, isNotNull);
+      expect(faceUnlockFontIcon, isNotNull);
+      expect(adobeFontIcon!.codePoint, Icons.adobe.codePoint);
+      expect(faceUnlockFontIcon!.codePoint, Icons.face_unlock_sharp.codePoint);
+    });
+
     test('returns null for unknown identifiers', () {
       expect(lookupMaterialRoughIconByIdentifier('does_not_exist'), isNull);
       expect(lookupMaterialRoughFontIcon('does_not_exist'), isNull);
