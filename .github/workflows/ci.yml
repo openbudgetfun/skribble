@@ -85,6 +85,20 @@ jobs:
           git --no-pager diff --
           packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json
         shell: devenv shell -- bash -e {0}
+      - name: save unresolved baseline diff artifact
+        if: failure()
+        run: >-
+          git --no-pager diff --
+          packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json
+          > rough-icons-baseline-sync.diff
+        shell: devenv shell -- bash -e {0}
+      - name: upload unresolved baseline diff artifact
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rough-icons-baseline-sync-diff
+          path: rough-icons-baseline-sync.diff
+          if-no-files-found: ignore
 
   rough-icons-generated-sync:
     runs-on: blacksmith-2vcpu-ubuntu-2404
@@ -117,6 +131,21 @@ jobs:
           packages/skribble/lib/src/generated/material_rough_icons.g.dart
           packages/skribble/lib/src/generated/material_rough_icon_font.g.dart
         shell: devenv shell -- bash -e {0}
+      - name: save rough icon catalog diff artifact
+        if: failure()
+        run: >-
+          git --no-pager diff --
+          packages/skribble/lib/src/generated/material_rough_icons.g.dart
+          packages/skribble/lib/src/generated/material_rough_icon_font.g.dart
+          > rough-icons-generated-sync.diff
+        shell: devenv shell -- bash -e {0}
+      - name: upload rough icon catalog diff artifact
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rough-icons-generated-sync-diff
+          path: rough-icons-generated-sync.diff
+          if-no-files-found: ignore
 
   coverage:
     if: github.ref == 'refs/heads/main'

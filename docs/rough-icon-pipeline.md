@@ -184,13 +184,17 @@ uploads an `rough-icons-unresolved-report` artifact (from
 
 CI also verifies the committed baseline file is up to date by regenerating
 `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`
-and failing if a diff remains.
+and failing if a diff remains. On failure, CI uploads a
+`rough-icons-baseline-sync-diff` artifact with the baseline diff.
 
 CI additionally verifies generated rough icon catalogs are committed and up to
 date by regenerating:
 
 - `packages/skribble/lib/src/generated/material_rough_icons.g.dart`
 - `packages/skribble/lib/src/generated/material_rough_icon_font.g.dart`
+
+On generated-sync failures, CI uploads a
+`rough-icons-generated-sync-diff` artifact with catalog diffs.
 
 To refresh that normalized baseline after intentional coverage changes:
 
