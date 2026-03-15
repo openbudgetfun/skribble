@@ -188,6 +188,9 @@ Baseline input supports:
 - supplemental manifest JSON (`icons[]`)
 - minimal baseline JSON (`unresolvedCodePoints[]`/`unresolvedCodepoints[]`/`unresolved_code_points[]`/`codePoints[]`, also accepts `codepoints[]`/`code_points[]`)
 
+For object entries inside `unresolved[]` or `icons[]`, the code point field
+may be `codePoint`, `codepoint`, or `code_point`.
+
 When code points are provided as strings, decimal, `0x`-prefixed hex, bare
 hex, and `U+`-prefixed hex forms are accepted.
 

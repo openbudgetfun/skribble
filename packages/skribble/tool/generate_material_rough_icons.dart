@@ -331,6 +331,7 @@ Options:
                                    Emit supplemental manifest template JSON.
   --unresolved-baseline <path>     Baseline unresolved report/manifest/codePoints JSON for diffing.
                                    Accepts unresolvedCodePoints/unresolvedCodepoints/unresolved_code_points/codePoints/codepoints/code_points keys for minimal baseline objects.
+                                   For unresolved[]/icons[] entries, accepts codePoint/codepoint/code_point.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain (cannot be combined with --max-unresolved).
   --max-new-unresolved <int>       Max newly unresolved icons allowed before failing (requires --unresolved-baseline).
@@ -1541,7 +1542,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     if (entry is Map<Object?, Object?>) {
       codePoints.add(
         _parseCodePointValue(
-          entry['codePoint'],
+          _baselineEntryCodePointValue(entry),
           context: 'unresolved baseline entry',
         ),
       );
@@ -1554,6 +1555,19 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
   }
 
   return codePoints;
+}
+
+Object? _baselineEntryCodePointValue(Map<Object?, Object?> entry) {
+  if (entry.containsKey('codePoint')) {
+    return entry['codePoint'];
+  }
+  if (entry.containsKey('codepoint')) {
+    return entry['codepoint'];
+  }
+  if (entry.containsKey('code_point')) {
+    return entry['code_point'];
+  }
+  return null;
 }
 
 int _parseCodePointValue(Object? value, {required String context}) {
