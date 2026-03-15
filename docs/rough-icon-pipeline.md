@@ -142,6 +142,8 @@ To emit an even smaller baseline with only codepoint strings, pass:
 
 - `--unresolved-baseline-output-format codepoints`
 
+This repo’s committed baseline uses this `codePoints[]` output format.
+
 ## Supplemental manifest template output
 
 To emit a starter supplemental manifest for unresolved icons, pass:
@@ -223,7 +225,8 @@ date by regenerating:
 On generated-sync failures, CI uploads a
 `rough-icons-generated-sync-diff` artifact with catalog diffs.
 
-To refresh that normalized baseline after intentional coverage changes:
+To refresh the committed `codePoints[]` baseline after intentional coverage
+changes:
 
 ```bash
 melos run rough-icons-baseline
