@@ -330,7 +330,7 @@ Options:
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
   --unresolved-baseline <path>     Baseline unresolved report/manifest/codePoints JSON for diffing.
-                                   Accepts unresolvedCodePoints/codePoints/codepoints keys for minimal baseline objects.
+                                   Accepts unresolvedCodePoints/unresolvedCodepoints/codePoints/codepoints keys for minimal baseline objects.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain (cannot be combined with --max-unresolved).
   --max-new-unresolved <int>       Max newly unresolved icons allowed before failing (requires --unresolved-baseline).
@@ -1496,6 +1496,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     final unresolvedValue = decoded['unresolved'];
     final iconsValue = decoded['icons'];
     final unresolvedCodePointsValue = decoded['unresolvedCodePoints'];
+    final unresolvedCodepointsValue = decoded['unresolvedCodepoints'];
     final codePointsValue = decoded['codePoints'];
     final codepointsValue = decoded['codepoints'];
 
@@ -1505,6 +1506,8 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       entries = iconsValue;
     } else if (unresolvedCodePointsValue is List<Object?>) {
       entries = unresolvedCodePointsValue;
+    } else if (unresolvedCodepointsValue is List<Object?>) {
+      entries = unresolvedCodepointsValue;
     } else if (codePointsValue is List<Object?>) {
       entries = codePointsValue;
     } else if (codepointsValue is List<Object?>) {
@@ -1513,8 +1516,9 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       throw FormatException(
         'Expected unresolved baseline JSON to contain either an "unresolved" '
         'list (report format), "icons" list (manifest format), or '
-        '"unresolvedCodePoints"/"codePoints"/"codepoints" list '
-        '(minimal baseline format) at ${baselineFile.path}.',
+        '"unresolvedCodePoints"/"unresolvedCodepoints"/"codePoints"/'
+        '"codepoints" list (minimal baseline format) '
+        'at ${baselineFile.path}.',
       );
     }
   } else {
