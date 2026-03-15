@@ -1557,17 +1557,28 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
   return codePoints;
 }
 
-Object? _baselineEntryCodePointValue(Map<Object?, Object?> entry) {
+Object _baselineEntryCodePointValue(Map<Object?, Object?> entry) {
   if (entry.containsKey('codePoint')) {
-    return entry['codePoint'];
+    return entry['codePoint']!;
   }
   if (entry.containsKey('codepoint')) {
-    return entry['codepoint'];
+    return entry['codepoint']!;
   }
   if (entry.containsKey('code_point')) {
-    return entry['code_point'];
+    return entry['code_point']!;
   }
-  return null;
+
+  final availableKeys = entry.keys.whereType<String>().toList(growable: false)
+    ..sort();
+  final availableKeysText = availableKeys.isEmpty
+      ? '(none)'
+      : availableKeys.join(', ');
+
+  throw FormatException(
+    'Invalid codePoint in unresolved baseline entry. Expected one of '
+    '"codePoint", "codepoint", or "code_point" keys; found: '
+    '$availableKeysText.',
+  );
 }
 
 int _parseCodePointValue(Object? value, {required String context}) {
