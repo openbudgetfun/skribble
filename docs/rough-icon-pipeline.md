@@ -131,12 +131,16 @@ The JSON report includes:
 
 ## Normalized unresolved baseline output
 
-To emit a minimal baseline file dedicated to regression checks, pass:
+To emit a baseline file dedicated to regression checks, pass:
 
 - `--unresolved-baseline-output <path>`
 
-This output intentionally contains only an `unresolved[]` list so baseline
+By default, this output contains only an `unresolved[]` list so baseline
 updates are smaller and avoid churn in unrelated report metadata.
+
+To emit an even smaller baseline with only codepoint strings, pass:
+
+- `--unresolved-baseline-output-format codepoints`
 
 ## Supplemental manifest template output
 
