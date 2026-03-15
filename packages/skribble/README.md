@@ -203,7 +203,8 @@ melos run rough-icons-baseline
 via `--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json`
 plus `--fail-on-new-unresolved`. Use `rough-icons-baseline` to refresh that
 normalized baseline file after intentional changes. Pull-request CI also runs
-this gate in `--rough-only` mode.
+this gate in `--rough-only` mode and uploads a
+`rough-icons-unresolved-report` artifact for diagnostics.
 
 Useful flags:
 
