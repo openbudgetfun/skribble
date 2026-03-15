@@ -9,7 +9,7 @@
 #                                         successful local regression checks.
 #   ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>  Allow up to this many newly unresolved
 #                                         baseline regressions before failing
-#                                         (default: strict fail-on-new-unresolved).
+#                                         (default: 0 / strict-equivalent threshold).
 
 set -euo pipefail
 
@@ -47,13 +47,7 @@ emit_sync_diff_if_needed() {
 }
 
 build_baseline_regression_args() {
-  local max_new_unresolved="${ROUGH_ICONS_MAX_NEW_UNRESOLVED:-}"
-
-  if [[ -z "$max_new_unresolved" ]]; then
-    BASELINE_REGRESSION_ARGS=(--fail-on-new-unresolved)
-    BASELINE_REGRESSION_MODE_DESCRIPTION="strict (--fail-on-new-unresolved)"
-    return 0
-  fi
+  local max_new_unresolved="${ROUGH_ICONS_MAX_NEW_UNRESOLVED:-0}"
 
   if [[ ! "$max_new_unresolved" =~ ^[0-9]+$ ]]; then
     echo "ROUGH_ICONS_MAX_NEW_UNRESOLVED must be a non-negative integer." >&2
