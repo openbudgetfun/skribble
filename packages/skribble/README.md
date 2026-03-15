@@ -205,7 +205,7 @@ manifest (`tool/examples/material_rough_icons.supplemental.manifest.json`) and
 enforce unresolved regression gating via
 `--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json`
 plus `--fail-on-new-unresolved`. Use `rough-icons-baseline` to refresh that
-normalized baseline file after intentional changes.
+committed `codePoints[]` baseline file after intentional changes.
 
 `rough-icons-ci-check` runs the same rough icon regression/sync checks enforced
 by CI via `./scripts/check_rough_icons_ci.sh all`.
@@ -241,7 +241,7 @@ Useful flags:
 - `--supplemental-manifest <path>` to provide custom SVGs for unresolved `flutter-material` identifiers/codepoints (workspace defaults use `tool/examples/material_rough_icons.supplemental.manifest.json`).
 - `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring.
 - `--unresolved-baseline-output <path>` to emit a normalized unresolved baseline for regression gating (defaults to `unresolved[]`).
-- `--unresolved-baseline-output-format <unresolved|codepoints>` to choose unresolved baseline output shape (`unresolved[]` or `codePoints[]`).
+- `--unresolved-baseline-output-format <unresolved|codepoints>` to choose unresolved baseline output shape (`unresolved[]` or `codePoints[]`; workspace defaults use `codepoints`).
 - `--supplemental-manifest-output <path>` to emit a starter supplemental manifest template for unresolved icons.
 - `--unresolved-baseline <path>` to compare unresolved output against a baseline report (`unresolved[]`), manifest (`icons[]`), or minimal baseline (`codePoints[]`), including `newUnresolved` and `resolvedSinceBaseline` report fields. String code points accept decimal, `0x` hex, bare hex, and `U+` hex forms.
 - `--max-unresolved <int>` to allow a bounded unresolved count before failing.

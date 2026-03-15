@@ -64,7 +64,8 @@ run_baseline_sync_check() {
       --kit flutter-material \
       --rough-only \
       --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json \
-      --unresolved-baseline-output tool/examples/material_rough_icons.unresolved-baseline.json
+      --unresolved-baseline-output tool/examples/material_rough_icons.unresolved-baseline.json \
+      --unresolved-baseline-output-format codepoints
   )
 
   dprint fmt packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json
