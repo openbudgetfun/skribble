@@ -1509,6 +1509,48 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     final codePointsSnakeCaseValue = decoded['code_points'];
     final codePointsKebabCaseValue = decoded['code-points'];
 
+    final invalidRecognizedListValues = <String>[];
+
+    void addInvalidRecognizedListValue(String key, Object? value) {
+      if (!decoded.containsKey(key) || value is List<Object?>) {
+        return;
+      }
+
+      final valueType = value == null ? 'null' : value.runtimeType.toString();
+      invalidRecognizedListValues.add('$key ($valueType)');
+    }
+
+    addInvalidRecognizedListValue('unresolved', unresolvedValue);
+    addInvalidRecognizedListValue('icons', iconsValue);
+    addInvalidRecognizedListValue(
+      'unresolvedCodePoints',
+      unresolvedCodePointsValue,
+    );
+    addInvalidRecognizedListValue(
+      'unresolvedCodepoints',
+      unresolvedCodepointsValue,
+    );
+    addInvalidRecognizedListValue(
+      'unresolved_code_points',
+      unresolvedCodePointsSnakeCaseValue,
+    );
+    addInvalidRecognizedListValue(
+      'unresolved_codepoints',
+      unresolvedCodepointsSnakeCaseValue,
+    );
+    addInvalidRecognizedListValue(
+      'unresolved-code-points',
+      unresolvedCodePointsKebabCaseValue,
+    );
+    addInvalidRecognizedListValue(
+      'unresolved-codepoints',
+      unresolvedCodepointsKebabCaseValue,
+    );
+    addInvalidRecognizedListValue('codePoints', codePointsValue);
+    addInvalidRecognizedListValue('codepoints', codepointsValue);
+    addInvalidRecognizedListValue('code_points', codePointsSnakeCaseValue);
+    addInvalidRecognizedListValue('code-points', codePointsKebabCaseValue);
+
     if (unresolvedValue is List<Object?>) {
       entries = unresolvedValue;
     } else if (iconsValue is List<Object?>) {
@@ -1534,6 +1576,14 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     } else if (codePointsKebabCaseValue is List<Object?>) {
       entries = codePointsKebabCaseValue;
     } else {
+      if (invalidRecognizedListValues.isNotEmpty) {
+        throw FormatException(
+          'Expected unresolved baseline recognized list keys to map to arrays '
+          'at ${baselineFile.path}. Found non-list values: '
+          '${invalidRecognizedListValues.join(', ')}.',
+        );
+      }
+
       final availableKeys = decoded.keys.toList(growable: false)..sort();
       final availableKeysText = availableKeys.isEmpty
           ? '(none)'
