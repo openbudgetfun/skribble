@@ -143,6 +143,13 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     strictModeEnabled: options.failOnNewUnresolved,
     thresholdOption: options.maxNewUnresolved,
   );
+  final thresholdFailure =
+      unresolvedThreshold != null && unresolved.length > unresolvedThreshold;
+  final newUnresolvedCount = newUnresolved?.length ?? 0;
+  final newUnresolvedThresholdFailure =
+      newUnresolvedThreshold != null &&
+      newUnresolvedCount > newUnresolvedThreshold;
+  final shouldFail = thresholdFailure || newUnresolvedThresholdFailure;
 
   if (options.roughOutputDir != null) {
     await _generateRoughSvgs(options, roughTasks);
@@ -193,6 +200,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
         newUnresolvedThreshold: newUnresolvedThreshold,
         unresolvedThresholdMode: unresolvedThresholdMode,
         newUnresolvedThresholdMode: newUnresolvedThresholdMode,
+        wouldFail: shouldFail,
       ),
     );
     stdout.writeln(
@@ -238,14 +246,6 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
   if (unresolved.isEmpty) {
     return;
   }
-
-  final thresholdFailure =
-      unresolvedThreshold != null && unresolved.length > unresolvedThreshold;
-  final newUnresolvedCount = newUnresolved?.length ?? 0;
-  final newUnresolvedThresholdFailure =
-      newUnresolvedThreshold != null &&
-      newUnresolvedCount > newUnresolvedThreshold;
-  final shouldFail = thresholdFailure || newUnresolvedThresholdFailure;
 
   final severityLabel = shouldFail ? 'Error' : 'Warning';
   stderr.writeln(
@@ -1629,11 +1629,13 @@ String _renderUnresolvedReportJson({
   required int? newUnresolvedThreshold,
   required String unresolvedThresholdMode,
   required String newUnresolvedThresholdMode,
+  required bool wouldFail,
 }) {
   final report = <String, Object>{
     'kit': kit,
     'resolvedCount': resolvedCount,
     'unresolvedCount': unresolved.length,
+    'wouldFail': wouldFail,
     'unresolved': unresolved.map(_unresolvedIconJson).toList(growable: false),
     'unresolvedCodePoints': _unresolvedCodePointsJson(unresolved),
     'unresolvedThresholdMode': unresolvedThresholdMode,
