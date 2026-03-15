@@ -27,7 +27,7 @@ Compatibility alias (backward compatible):
      including legacy alias identifiers that share resolved codepoints
    - emits unresolved icon reports as JSON (`--unresolved-output`)
    - emits supplemental manifest templates (`--supplemental-manifest-output`)
-   - can fail CI on unresolved icons (`--fail-on-unresolved`, `--max-unresolved`, `--fail-on-new-unresolved`)
+   - can fail CI on unresolved icons (`--fail-on-unresolved`, `--max-unresolved`, `--fail-on-new-unresolved`, `--max-new-unresolved`)
 
 ## Extensibility seam
 
@@ -168,7 +168,11 @@ Use either strict mode or threshold mode (these flags are mutually exclusive).
 To detect only regressions relative to an existing unresolved baseline:
 
 - `--unresolved-baseline <path>`
-- `--fail-on-new-unresolved`
+- `--fail-on-new-unresolved` (strict; equivalent to allowing 0 newly unresolved)
+- `--max-new-unresolved <int>` (bounded; fail only when newly unresolved count exceeds threshold)
+
+Use either strict baseline-regression mode or threshold baseline-regression mode
+(these flags are mutually exclusive).
 
 Baseline input supports:
 

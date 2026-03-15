@@ -148,10 +148,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
   if (options.fontDartOutputPath case final outputPath?) {
     final outputFile = File(outputPath)..createSync(recursive: true);
     outputFile.writeAsStringSync(
-      _renderFontCodePointsDart(
-        fontName: options.fontName,
-        glyphs: fontGlyphs,
-      ),
+      _renderFontCodePointsDart(fontName: options.fontName, glyphs: fontGlyphs),
     );
     stdout.writeln('Generated icon font Dart helpers to ${outputFile.path}');
   }
@@ -189,18 +186,17 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
       case final unresolvedBaselineOutputPath?) {
     final unresolvedBaselineOutputFile = File(unresolvedBaselineOutputPath)
       ..createSync(recursive: true);
-    final unresolvedBaselineJson = switch (
-      options.unresolvedBaselineOutputFormat
-    ) {
-      _kUnresolvedBaselineOutputFormatUnresolved =>
-        _renderUnresolvedBaselineJson(unresolved: unresolved),
-      _kUnresolvedBaselineOutputFormatCodePoints =>
-        _renderUnresolvedBaselineCodePointsJson(unresolved: unresolved),
-      _ => throw StateError(
-        'Unsupported unresolved baseline output format: '
-        '${options.unresolvedBaselineOutputFormat}',
-      ),
-    };
+    final unresolvedBaselineJson =
+        switch (options.unresolvedBaselineOutputFormat) {
+          _kUnresolvedBaselineOutputFormatUnresolved =>
+            _renderUnresolvedBaselineJson(unresolved: unresolved),
+          _kUnresolvedBaselineOutputFormatCodePoints =>
+            _renderUnresolvedBaselineCodePointsJson(unresolved: unresolved),
+          _ => throw StateError(
+            'Unsupported unresolved baseline output format: '
+            '${options.unresolvedBaselineOutputFormat}',
+          ),
+        };
     unresolvedBaselineOutputFile.writeAsStringSync(unresolvedBaselineJson);
     stdout.writeln(
       'Generated unresolved baseline JSON to '
@@ -228,9 +224,14 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
   final failureThreshold = options.failOnUnresolved ? 0 : options.maxUnresolved;
   final thresholdFailure =
       failureThreshold != null && unresolved.length > failureThreshold;
-  final newUnresolvedFailure =
-      options.failOnNewUnresolved && (newUnresolved?.isNotEmpty ?? false);
-  final shouldFail = thresholdFailure || newUnresolvedFailure;
+  final newUnresolvedThreshold = options.failOnNewUnresolved
+      ? 0
+      : options.maxNewUnresolved;
+  final newUnresolvedCount = newUnresolved?.length ?? 0;
+  final newUnresolvedThresholdFailure =
+      newUnresolvedThreshold != null &&
+      newUnresolvedCount > newUnresolvedThreshold;
+  final shouldFail = thresholdFailure || newUnresolvedThresholdFailure;
 
   final severityLabel = shouldFail ? 'Error' : 'Warning';
   stderr.writeln(
@@ -245,7 +246,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
   }
 
   if (newUnresolved case final baselineDiff?) {
-    final baselineSeverity = newUnresolvedFailure
+    final baselineSeverity = newUnresolvedThresholdFailure
         ? 'Error'
         : (shouldFail ? 'Warning' : 'Info');
     stderr.writeln(
@@ -277,8 +278,8 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     final details = <String>[
       if (thresholdFailure)
         'found ${unresolved.length}, allowed $failureThreshold',
-      if (newUnresolvedFailure)
-        'new unresolved regression detected (${newUnresolved!.length})',
+      if (newUnresolvedThresholdFailure)
+        'new unresolved regression detected ($newUnresolvedCount, allowed $newUnresolvedThreshold)',
     ].join('; ');
     throw StateError(
       'Unresolved icon codepoints remain for kit "${options.kit}" ($details).',
@@ -316,7 +317,8 @@ Options:
                                    Accepts codePoints/codepoints key for minimal baseline objects.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain (cannot be combined with --max-unresolved).
-  --fail-on-new-unresolved         Exit with error on unresolved baseline regressions.
+  --max-new-unresolved <int>       Max newly unresolved icons allowed before failing (requires --unresolved-baseline).
+  --fail-on-new-unresolved         Exit with error on unresolved baseline regressions (cannot be combined with --max-new-unresolved).
   --output <path>                  Output Dart file.
   --rough-cli <path>               TypeScript script that converts SVG(s) (default: tool/deno/svg2roughjs_cli.ts).
   --rough-cli-runner <exe>         Runner executable for --rough-cli (default: deno).
@@ -371,6 +373,7 @@ final class _ScriptOptions {
     this.supplementalManifestOutputPath,
     this.unresolvedBaselinePath,
     this.maxUnresolved,
+    this.maxNewUnresolved,
     this.outputPath,
     this.roughCliPath,
     this.roughCliRunner = _kDefaultRoughCliRunner,
@@ -403,6 +406,7 @@ final class _ScriptOptions {
   final String? supplementalManifestOutputPath;
   final String? unresolvedBaselinePath;
   final int? maxUnresolved;
+  final int? maxNewUnresolved;
   final String? outputPath;
   final String? roughCliPath;
   final String roughCliRunner;
@@ -436,6 +440,7 @@ final class _ScriptOptions {
     String? supplementalManifestOutputPath;
     String? unresolvedBaselinePath;
     int? maxUnresolved;
+    int? maxNewUnresolved;
     String? outputPath;
     String? roughCliPath;
     var roughCliRunner = _kDefaultRoughCliRunner;
@@ -525,6 +530,8 @@ final class _ScriptOptions {
           unresolvedBaselinePath = value;
         case '--max-unresolved':
           maxUnresolved = int.parse(value);
+        case '--max-new-unresolved':
+          maxNewUnresolved = int.parse(value);
         case '--output':
           outputPath = value;
         case '--rough-cli':
@@ -555,9 +562,18 @@ final class _ScriptOptions {
     if (maxUnresolved != null && maxUnresolved < 0) {
       throw ArgumentError('--max-unresolved must be >= 0.');
     }
+    if (maxNewUnresolved != null && maxNewUnresolved < 0) {
+      throw ArgumentError('--max-new-unresolved must be >= 0.');
+    }
     if (failOnUnresolved && maxUnresolved != null) {
       throw ArgumentError(
         '--fail-on-unresolved cannot be combined with --max-unresolved.',
+      );
+    }
+    if (failOnNewUnresolved && maxNewUnresolved != null) {
+      throw ArgumentError(
+        '--fail-on-new-unresolved cannot be combined with '
+        '--max-new-unresolved.',
       );
     }
     if (!_kUnresolvedBaselineOutputFormats.contains(
@@ -576,9 +592,11 @@ final class _ScriptOptions {
         '--unresolved-baseline-output.',
       );
     }
-    if (failOnNewUnresolved && unresolvedBaselinePath == null) {
+    if ((failOnNewUnresolved || maxNewUnresolved != null) &&
+        unresolvedBaselinePath == null) {
       throw ArgumentError(
-        '--fail-on-new-unresolved requires --unresolved-baseline.',
+        '--fail-on-new-unresolved and --max-new-unresolved require '
+        '--unresolved-baseline.',
       );
     }
 
@@ -596,6 +614,7 @@ final class _ScriptOptions {
       supplementalManifestOutputPath: supplementalManifestOutputPath,
       unresolvedBaselinePath: unresolvedBaselinePath,
       maxUnresolved: maxUnresolved,
+      maxNewUnresolved: maxNewUnresolved,
       outputPath: outputPath,
       roughCliPath: roughCliPath,
       roughCliRunner: roughCliRunner,
@@ -954,10 +973,7 @@ _ManifestIconEntry _parseManifestIconEntry(
 }
 
 int _parseManifestCodePoint(Object? value, String identifier) {
-  return _parseCodePointValue(
-    value,
-    context: 'manifest entry "$identifier"',
-  );
+  return _parseCodePointValue(value, context: 'manifest entry "$identifier"');
 }
 
 File _resolveManifestSvgFile(
@@ -1649,11 +1665,9 @@ String _renderUnresolvedBaselineJson({
 String _renderUnresolvedBaselineCodePointsJson({
   required List<_UnresolvedIcon> unresolved,
 }) {
-  final sortedCodePoints = unresolved
-      .map((item) => item.codePoint)
-      .toSet()
-      .toList(growable: false)
-    ..sort();
+  final sortedCodePoints =
+      unresolved.map((item) => item.codePoint).toSet().toList(growable: false)
+        ..sort();
 
   final baseline = <String, Object>{
     'codePoints': sortedCodePoints
