@@ -186,7 +186,7 @@ Baseline input supports:
 
 - unresolved report JSON (`unresolved[]`)
 - supplemental manifest JSON (`icons[]`)
-- minimal baseline JSON (`unresolvedCodePoints[]`/`unresolvedCodepoints[]`/`unresolved_code_points[]`/`codePoints[]`, also accepts `codepoints[]`/`code_points[]`)
+- minimal baseline JSON (`unresolvedCodePoints[]`/`unresolvedCodepoints[]`/`unresolved_code_points[]`/`unresolved_codepoints[]`/`codePoints[]`, also accepts `codepoints[]`/`code_points[]`)
 
 For object entries inside `unresolved[]` or `icons[]`, the code point field
 may be `codePoint`, `codepoint`, or `code_point`.
