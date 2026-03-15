@@ -194,7 +194,7 @@ Workspace shortcuts:
 
 `rough-icons` and `rough-icons-font` both apply the committed supplemental
 manifest `packages/skribble/tool/examples/material_rough_icons.supplemental.manifest.json`
-and enforce `--fail-on-new-unresolved` against
+and enforce `--max-new-unresolved 0` (strict-mode equivalent) against
 `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`.
 
 `rough-icons-ci-check` runs the same rough icon regression/sync checks used by
