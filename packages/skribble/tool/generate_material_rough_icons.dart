@@ -1090,8 +1090,10 @@ ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
   required Map<String, _ManifestIconEntry> supplementalEntriesByDeclarationKey,
 }) {
   final candidates = <String>{
+    declaration.identifier,
     declaration.svgName,
     declaration.baseIdentifier,
+    ...?_svgAliases[declaration.identifier],
     ...?_svgAliases[declaration.baseIdentifier],
   };
 

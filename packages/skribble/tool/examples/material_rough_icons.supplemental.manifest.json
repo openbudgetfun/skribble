@@ -1,0 +1,39 @@
+{
+  "icons": [
+    {
+      "identifier": "face_unlock_sharp",
+      "codePoint": "0xe951",
+      "svgPath": "supplemental/material/face_unlock.svg"
+    },
+    {
+      "identifier": "face_unlock_outlined",
+      "codePoint": "0xf043",
+      "svgPath": "supplemental/material/face_unlock.svg"
+    },
+    {
+      "identifier": "face_unlock_rounded",
+      "codePoint": "0xf730",
+      "svgPath": "supplemental/material/face_unlock.svg"
+    },
+    {
+      "identifier": "adobe_rounded",
+      "codePoint": "0xf02d3",
+      "svgPath": "supplemental/material/adobe.svg"
+    },
+    {
+      "identifier": "adobe_sharp",
+      "codePoint": "0xf03c6",
+      "svgPath": "supplemental/material/adobe.svg"
+    },
+    {
+      "identifier": "adobe",
+      "codePoint": "0xf04b9",
+      "svgPath": "supplemental/material/adobe.svg"
+    },
+    {
+      "identifier": "adobe_outlined",
+      "codePoint": "0xf05b4",
+      "svgPath": "supplemental/material/adobe.svg"
+    }
+  ]
+}

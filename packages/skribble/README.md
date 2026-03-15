@@ -199,8 +199,10 @@ melos run rough-icons-font
 melos run rough-icons-baseline
 ```
 
-`rough-icons` and `rough-icons-font` both enforce unresolved regression gating
-via `--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json`
+`rough-icons` and `rough-icons-font` both apply the committed supplemental
+manifest (`tool/examples/material_rough_icons.supplemental.manifest.json`) and
+enforce unresolved regression gating via
+`--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json`
 plus `--fail-on-new-unresolved`. Use `rough-icons-baseline` to refresh that
 normalized baseline file after intentional changes. Pull-request CI also runs
 this gate in `--rough-only` mode and uploads a
@@ -213,7 +215,7 @@ Useful flags:
 - `--rough-only` to skip Dart map generation and emit rough SVGs only.
 - `--rough-normalize-viewbox 128` to upscale SVG geometry before roughing.
 - `--brand-icons-source <path>` to provide a local `simple-icons` package as fallback for brand identifiers missing in Material SVG packages.
-- `--supplemental-manifest <path>` to provide custom SVGs for unresolved `flutter-material` identifiers/codepoints.
+- `--supplemental-manifest <path>` to provide custom SVGs for unresolved `flutter-material` identifiers/codepoints (workspace defaults use `tool/examples/material_rough_icons.supplemental.manifest.json`).
 - `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring.
 - `--unresolved-baseline-output <path>` to emit a normalized unresolved baseline (`unresolved[]` only) for regression gating.
 - `--supplemental-manifest-output <path>` to emit a starter supplemental manifest template for unresolved icons.
