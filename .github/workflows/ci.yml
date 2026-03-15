@@ -31,6 +31,8 @@ jobs:
 
   rough-icons-regression:
     runs-on: blacksmith-2vcpu-ubuntu-2404
+    env:
+      ROUGH_ICONS_UNRESOLVED_REPORT: ${{ runner.temp }}/rough-icons-unresolved-report.json
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/devenv
@@ -43,8 +45,16 @@ jobs:
           --kit flutter-material
           --rough-only
           --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json
+          --unresolved-output "$ROUGH_ICONS_UNRESOLVED_REPORT"
           --fail-on-new-unresolved
         shell: devenv shell -- bash -e {0}
+      - name: upload rough icons unresolved report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rough-icons-unresolved-report
+          path: ${{ env.ROUGH_ICONS_UNRESOLVED_REPORT }}
+          if-no-files-found: ignore
 
   coverage:
     if: github.ref == 'refs/heads/main'

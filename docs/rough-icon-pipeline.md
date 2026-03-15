@@ -171,7 +171,9 @@ both enforce `--fail-on-new-unresolved` against
 `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`.
 
 CI also enforces the same unresolved regression gate on pull requests using
-`--rough-only` plus `--unresolved-baseline`.
+`--rough-only` plus `--unresolved-baseline`, and uploads an
+`rough-icons-unresolved-report` artifact (from `--unresolved-output`) to aid
+regression diagnosis.
 
 To refresh that normalized baseline after intentional coverage changes:
 
