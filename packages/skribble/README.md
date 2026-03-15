@@ -234,7 +234,7 @@ those sync checks fail.
 Useful flags:
 
 - `--list-kits` to print available icon-kit providers.
-- `--kit svg-manifest --manifest <path>` to rough non-Material icon sets from JSON manifests (unique `identifier`/`codePoint` required).
+- `--kit svg-manifest --manifest <path>` to rough non-Material icon sets from JSON manifests (unique `identifier`/`codePoint` required; `codePoint` supports int, decimal string, `0x` hex, bare hex, and `U+` hex forms).
 - `--rough-only` to skip Dart map generation and emit rough SVGs only.
 - `--rough-normalize-viewbox 128` to upscale SVG geometry before roughing.
 - `--brand-icons-source <path>` to provide a local `simple-icons` package as fallback for brand identifiers missing in Material SVG packages.
@@ -242,7 +242,7 @@ Useful flags:
 - `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring.
 - `--unresolved-baseline-output <path>` to emit a normalized unresolved baseline (`unresolved[]` only) for regression gating.
 - `--supplemental-manifest-output <path>` to emit a starter supplemental manifest template for unresolved icons.
-- `--unresolved-baseline <path>` to compare unresolved output against a baseline report (`unresolved[]`), manifest (`icons[]`), or minimal baseline (`codePoints[]`), including `newUnresolved` and `resolvedSinceBaseline` report fields.
+- `--unresolved-baseline <path>` to compare unresolved output against a baseline report (`unresolved[]`), manifest (`icons[]`), or minimal baseline (`codePoints[]`), including `newUnresolved` and `resolvedSinceBaseline` report fields. String code points accept decimal, `0x` hex, bare hex, and `U+` hex forms.
 - `--max-unresolved <int>` to allow a bounded unresolved count before failing.
 - `--fail-on-unresolved` to make the command exit non-zero if unresolved icons remain.
 - `--fail-on-new-unresolved` to fail only when unresolved entries regress versus baseline.

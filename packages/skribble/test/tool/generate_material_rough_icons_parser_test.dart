@@ -1048,7 +1048,7 @@ class Icons {
         ..writeAsStringSync('''
 {
   "codePoints": [
-    "0xf04b9"
+    "f04b9"
   ]
 }
 ''');
@@ -1317,6 +1317,42 @@ class Icons {
       expect(parsed.single.identifier, 'heart');
       expect(parsed.single.codePoint, 0xe001);
       expect(parsed.single.svgPath, heartSvgFile.path);
+    });
+
+    test('parses bare-hex and U+ codePoint string formats', () {
+      final alphaSvgFile = File('${tempDirectory.path}/alpha.svg')
+        ..writeAsStringSync(
+          '<svg viewBox="0 0 24 24"><path d="M2 2h20v20H2z"/></svg>',
+        );
+      final betaSvgFile = File('${tempDirectory.path}/beta.svg')
+        ..writeAsStringSync(
+          '<svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/></svg>',
+        );
+
+      final parsed = tool.parseSvgManifestDeclarationsForTest('''
+{
+  "icons": [
+    {
+      "identifier": "alpha",
+      "codePoint": "e001",
+      "svgPath": "alpha.svg"
+    },
+    {
+      "identifier": "beta",
+      "codePoint": "U+E002",
+      "svgPath": "beta.svg"
+    }
+  ]
+}
+''', manifestDirectoryPath: tempDirectory.path);
+
+      expect(parsed, hasLength(2));
+      expect(parsed[0].identifier, 'alpha');
+      expect(parsed[0].codePoint, 0xe001);
+      expect(parsed[0].svgPath, alphaSvgFile.path);
+      expect(parsed[1].identifier, 'beta');
+      expect(parsed[1].codePoint, 0xe002);
+      expect(parsed[1].svgPath, betaSvgFile.path);
     });
 
     test('parses list format and supports svg alias key', () {
