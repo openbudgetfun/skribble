@@ -227,6 +227,10 @@ Set `ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>` to run regression/generated-sync
 checks in threshold mode (`--max-new-unresolved`) instead of strict mode
 (`--fail-on-new-unresolved`).
 
+Pull-request CI sets `ROUGH_ICONS_MAX_NEW_UNRESOLVED=0` for those checks,
+which is strict-mode equivalent and keeps one threshold control in workflow
+configuration.
+
 Pull-request CI also runs the unresolved gate in `--rough-only` mode, uploads a
 `rough-icons-unresolved-report` artifact for diagnostics, verifies the
 committed baseline file is up to date, checks that generated rough icon

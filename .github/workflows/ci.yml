@@ -31,6 +31,8 @@ jobs:
 
   rough-icons-regression:
     runs-on: blacksmith-2vcpu-ubuntu-2404
+    env:
+      ROUGH_ICONS_MAX_NEW_UNRESOLVED: 0
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/devenv
@@ -67,6 +69,8 @@ jobs:
 
   rough-icons-generated-sync:
     runs-on: blacksmith-2vcpu-ubuntu-2404
+    env:
+      ROUGH_ICONS_MAX_NEW_UNRESOLVED: 0
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/devenv
