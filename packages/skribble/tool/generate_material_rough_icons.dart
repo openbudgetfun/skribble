@@ -294,7 +294,7 @@ Options:
                                    Emit normalized unresolved baseline JSON.
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
-  --unresolved-baseline <path>     Baseline unresolved report or manifest JSON for diffing.
+  --unresolved-baseline <path>     Baseline unresolved report/manifest/codePoints JSON for diffing.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain.
   --fail-on-new-unresolved         Exit with error on unresolved baseline regressions.
@@ -1426,16 +1426,20 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
   } else if (decoded is Map<String, Object?>) {
     final unresolvedValue = decoded['unresolved'];
     final iconsValue = decoded['icons'];
+    final codePointsValue = decoded['codePoints'];
 
     if (unresolvedValue is List<Object?>) {
       entries = unresolvedValue;
     } else if (iconsValue is List<Object?>) {
       entries = iconsValue;
+    } else if (codePointsValue is List<Object?>) {
+      entries = codePointsValue;
     } else {
       throw FormatException(
         'Expected unresolved baseline JSON to contain either an '
-        '"unresolved" list (report format) or "icons" list '
-        '(manifest format) at ${baselineFile.path}.',
+        '"unresolved" list (report format), "icons" list '
+        '(manifest format), or "codePoints" list '
+        '(minimal baseline format) at ${baselineFile.path}.',
       );
     }
   } else {

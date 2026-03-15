@@ -160,10 +160,11 @@ To detect only regressions relative to an existing unresolved baseline:
 - `--unresolved-baseline <path>`
 - `--fail-on-new-unresolved`
 
-Baseline input supports either:
+Baseline input supports:
 
 - unresolved report JSON (`unresolved[]`)
 - supplemental manifest JSON (`icons[]`)
+- minimal baseline JSON (`codePoints[]`)
 
 This is useful in CI while tightening coverage incrementally.
 
