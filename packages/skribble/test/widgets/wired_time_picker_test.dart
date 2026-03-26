@@ -27,6 +27,21 @@ void main() {
       );
     }
 
+    Finder timeFieldGestures() => find.descendant(
+      of: find.byType(WiredTimePicker),
+      matching: find.byType(GestureDetector),
+    );
+
+    Finder handCustomPaints() => find.descendant(
+      of: find.byType(WiredTimePicker),
+      matching: find.byWidgetPredicate(
+        (widget) =>
+            widget is CustomPaint &&
+            widget.painter != null &&
+            widget.painter.runtimeType.toString().contains('HandPainter'),
+      ),
+    );
+
     testWidgets('renders without error', (tester) async {
       await tester.pumpWidget(buildTimePicker());
       await tester.pumpAndSettle();
@@ -162,13 +177,115 @@ void main() {
 
       // There should be at least 2 GestureDetectors for the hour and minute
       // fields.
-      expect(
-        find.descendant(
-          of: find.byType(WiredTimePicker),
-          matching: find.byType(GestureDetector),
+      expect(timeFieldGestures(), findsAtLeast(2));
+    });
+
+    testWidgets('dragging hour field upward increments hour and notifies', (
+      tester,
+    ) async {
+      TimeOfDay? selected;
+      await tester.pumpWidget(
+        buildTimePicker(
+          initialTime: const TimeOfDay(hour: 10, minute: 30),
+          onTimeSelected: (value) => selected = value,
         ),
-        findsAtLeast(2),
       );
+      await tester.pumpAndSettle();
+
+      await tester.drag(timeFieldGestures().at(0), const Offset(0, -24));
+      await tester.pumpAndSettle();
+
+      expect(find.text('11'), findsOneWidget);
+      expect(find.text('30'), findsOneWidget);
+      expect(selected, const TimeOfDay(hour: 11, minute: 30));
+    });
+
+    testWidgets(
+      'dragging minute field downward decrements minute and notifies',
+      (
+        tester,
+      ) async {
+        TimeOfDay? selected;
+        await tester.pumpWidget(
+          buildTimePicker(
+            initialTime: const TimeOfDay(hour: 10, minute: 30),
+            onTimeSelected: (value) => selected = value,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.drag(timeFieldGestures().at(1), const Offset(0, 24));
+        await tester.pumpAndSettle();
+
+        expect(find.text('10'), findsOneWidget);
+        expect(find.text('29'), findsOneWidget);
+        expect(selected, const TimeOfDay(hour: 10, minute: 29));
+      },
+    );
+
+    testWidgets('hour wraps from 23 to 00 when incremented', (tester) async {
+      await tester.pumpWidget(
+        buildTimePicker(initialTime: const TimeOfDay(hour: 23, minute: 15)),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.drag(timeFieldGestures().at(0), const Offset(0, -24));
+      await tester.pumpAndSettle();
+
+      expect(find.text('00'), findsOneWidget);
+      expect(find.text('15'), findsOneWidget);
+    });
+
+    testWidgets('minute wraps from 00 to 59 when decremented', (tester) async {
+      await tester.pumpWidget(
+        buildTimePicker(initialTime: const TimeOfDay(hour: 9, minute: 0)),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.drag(timeFieldGestures().at(1), const Offset(0, 24));
+      await tester.pumpAndSettle();
+
+      expect(find.text('09'), findsOneWidget);
+      expect(find.text('59'), findsOneWidget);
+    });
+
+    testWidgets('small drag delta does not change values', (tester) async {
+      TimeOfDay? selected;
+      await tester.pumpWidget(
+        buildTimePicker(
+          initialTime: const TimeOfDay(hour: 10, minute: 30),
+          onTimeSelected: (value) => selected = value,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.drag(timeFieldGestures().at(0), const Offset(0, -1));
+      await tester.pumpAndSettle();
+
+      expect(find.text('10'), findsOneWidget);
+      expect(find.text('30'), findsOneWidget);
+      expect(selected, isNull);
+    });
+
+    testWidgets('clock hand painter repaints only when hand geometry changes', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        buildTimePicker(initialTime: const TimeOfDay(hour: 10, minute: 30)),
+      );
+      await tester.pumpAndSettle();
+
+      final firstPaint = tester.widget<CustomPaint>(handCustomPaints().first);
+      final firstPainter = firstPaint.painter!;
+
+      await tester.drag(timeFieldGestures().at(1), const Offset(0, 24));
+      await tester.pumpAndSettle();
+
+      final secondPaint = tester.widget<CustomPaint>(handCustomPaints().first);
+      final secondPainter = secondPaint.painter!;
+
+      expect((secondPainter as dynamic).shouldRepaint(firstPainter), isTrue);
+      expect((secondPainter as dynamic).shouldRepaint(secondPainter), isFalse);
     });
 
     testWidgets('renders with midnight time (00:00)', (tester) async {

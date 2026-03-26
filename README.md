@@ -4,16 +4,16 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Flutter](https://img.shields.io/badge/Flutter-%E2%89%A53.41-blue?logo=flutter)](https://flutter.dev)
 
-A hand-drawn design system for Flutter. Skribble provides 80+ sketchy,
+A hand-drawn design system for Flutter. Skribble provides sketchy,
 hand-drawn UI components that give your app a unique, informal aesthetic —
 with familiar Material and Cupertino APIs.
 
 ## Packages
 
-| Package                                      | Description                                   |
-| -------------------------------------------- | --------------------------------------------- |
-| [`skribble`](packages/skribble/)             | Main UI library — 81 widget files, 85 exports |
-| [`skribble_lints`](packages/skribble_lints/) | Shared lint rules                             |
+| Package                                      | Description                                                |
+| -------------------------------------------- | ---------------------------------------------------------- |
+| [`skribble`](packages/skribble/)             | Main UI library (Wired widgets, rough engine, and exports) |
+| [`skribble_lints`](packages/skribble_lints/) | Shared lint rules                                          |
 
 ## Apps
 
@@ -30,7 +30,7 @@ dart pub get
 # Run analysis (zero issues required)
 melos analyze
 
-# Run all tests (1,086 total)
+# Run all tests
 melos flutter-test
 
 # Format
@@ -49,17 +49,11 @@ test:all        # Run all tests
 test:coverage   # Generate lcov coverage
 ```
 
-## Stats
+## Quality
 
-| Metric             | Value      |
-| ------------------ | ---------- |
-| Widget tests       | 872        |
-| Rough engine tests | 144        |
-| Smoke tests        | 6          |
-| Storybook tests    | 64         |
-| **Total tests**    | **1,086**  |
-| `dart analyze`     | 0 issues   |
-| `dart doc`         | 0 warnings |
+- `dart analyze --fatal-infos .` passes with zero issues.
+- Library and storybook test suites are exercised in CI.
+- Screenshot artifacts are validated against `docs/ui-snapshots/screenshot-manifest.txt`.
 
 ## Contributing
 

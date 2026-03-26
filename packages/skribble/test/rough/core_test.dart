@@ -94,6 +94,48 @@ void main() {
       expect(line1.intersects(line2), isFalse);
     });
 
+    test('intersects returns true for collinear overlapping segments', () {
+      final line1 = Line(PointD(0, 0), PointD(10, 0));
+      final line2 = Line(PointD(5, 0), PointD(15, 0));
+      expect(line1.intersects(line2), isTrue);
+    });
+
+    test(
+      'intersects returns true when only second line endpoint overlaps first segment',
+      () {
+        final line1 = Line(PointD(0, 0), PointD(10, 0));
+        final line2 = Line(PointD(-5, 0), PointD(5, 0));
+        expect(line1.intersects(line2), isTrue);
+      },
+    );
+
+    test(
+      'intersects returns true when first line source lies on second segment',
+      () {
+        final line1 = Line(PointD(0, 0), PointD(1, 0));
+        final line2 = Line(PointD(-1, 0), PointD(2, 0));
+        expect(line1.intersects(line2), isTrue);
+      },
+    );
+
+    test('intersectionWith returns point for crossing lines', () {
+      final line1 = Line(PointD(0, 0), PointD(10, 10));
+      final line2 = Line(PointD(0, 10), PointD(10, 0));
+
+      final intersection = line1.intersectionWith(line2);
+
+      expect(intersection, isNotNull);
+      expect(intersection!.x, closeTo(5, 1e-9));
+      expect(intersection.y, closeTo(5, 1e-9));
+    });
+
+    test('intersectionWith returns null for parallel lines', () {
+      final line1 = Line(PointD(0, 0), PointD(10, 0));
+      final line2 = Line(PointD(0, 2), PointD(10, 2));
+
+      expect(line1.intersectionWith(line2), isNull);
+    });
+
     test('isMidPointInPolygon returns true for enclosed segment', () {
       final polygon = [
         PointD(0, 0),

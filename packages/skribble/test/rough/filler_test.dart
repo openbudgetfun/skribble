@@ -192,6 +192,107 @@ void main() {
     });
   });
 
+  group('Filler internals', () {
+    test('IntersectionInfo stores values', () {
+      final info = IntersectionInfo(point: PointD(2, 3), distance: 4.5);
+
+      expect(info.point, isNotNull);
+      expect(info.point!.x, 2);
+      expect(info.point!.y, 3);
+      expect(info.distance, 4.5);
+    });
+
+    test('buildFillLines falls back to default config when null is passed', () {
+      final filler = HachureFiller(
+        FillerConfig.build(hachureGap: 12, hachureAngle: -90),
+      );
+
+      final lines = filler.buildFillLines(
+        List<PointD>.from(squarePolygon),
+        null,
+      );
+
+      expect(lines, isNotEmpty);
+    });
+
+    test('edgeSorter compares x when yMin is equal', () {
+      final filler = HachureFiller();
+      final left = Edge(yMin: 10, yMax: 30, x: 5, slope: 1);
+      final right = Edge(yMin: 10, yMax: 20, x: 9, slope: 1);
+
+      expect(filler.edgeSorter(left, right), lessThan(0));
+      expect(filler.edgeSorter(right, left), greaterThan(0));
+    });
+
+    test(
+      'splitOnIntersections returns inside subsegments for complex polygon',
+      () {
+        final filler = HachureFiller();
+        final polygon = <PointD>[
+          PointD(0, 0),
+          PointD(200, 0),
+          PointD(200, 200),
+          PointD(120, 200),
+          PointD(120, 80),
+          PointD(80, 80),
+          PointD(80, 200),
+          PointD(0, 200),
+        ];
+
+        final segment = Line(PointD(10, 100), PointD(240, 100));
+        final splits = filler.splitOnIntersections(polygon, segment);
+
+        expect(splits, isNotEmpty);
+        expect(splits.first.source.x, closeTo(10, 1e-9));
+        expect(splits.first.target.x, closeTo(120, 1e-9));
+      },
+    );
+
+    test('splitOnIntersections returns empty when midpoint is outside', () {
+      final filler = HachureFiller();
+      final polygon = <PointD>[
+        PointD(0, 0),
+        PointD(200, 0),
+        PointD(200, 200),
+        PointD(120, 200),
+        PointD(120, 80),
+        PointD(80, 80),
+        PointD(80, 200),
+        PointD(0, 200),
+      ];
+
+      final segment = Line(PointD(10, 100), PointD(190, 100));
+
+      expect(filler.splitOnIntersections(polygon, segment), isEmpty);
+    });
+
+    test(
+      'splitOnIntersections returns empty for non-intersecting outside segment',
+      () {
+        final filler = HachureFiller();
+
+        final result = filler.splitOnIntersections(
+          squarePolygon,
+          Line(PointD(-50, -50), PointD(-10, -10)),
+        );
+
+        expect(result, isEmpty);
+      },
+    );
+
+    test('dashedLines supports reversed line direction', () {
+      final config = FillerConfig.build(dashOffset: 2, dashGap: 1);
+      final filler = DashedFiller(config);
+
+      final ops = filler.dashedLines(
+        <Line>[Line(PointD(20, 0), PointD(0, 0))],
+        config,
+      );
+
+      expect(ops, isNotEmpty);
+    });
+  });
+
   group('FillerConfig', () {
     group('build()', () {
       test('has correct defaults', () {

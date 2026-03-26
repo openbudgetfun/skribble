@@ -31,6 +31,7 @@
 ### Code Style
 
 - Follow existing lint rules from `skribble_lints`
+- When lint issues are reported, run `fix:all` before making manual lint-only edits
 - Use `dart format` for formatting
 - Run `dart analyze --fatal-infos .` before committing
 

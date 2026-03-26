@@ -6,35 +6,18 @@ Hand-drawn layout primitives for structuring content with sketchy borders and se
 
 - Category snapshot: `layout/layout`
 - Widget snapshots:
+  - `layout/wired-avatar`
   - `layout/wired-card`
   - `layout/wired-divider`
   - `layout/wired-list-tile`
+  - `layout/wired-checkbox-list-tile`
+  - `layout/wired-radio-list-tile`
+  - `layout/wired-switch-list-tile`
+  - `layout/wired-reorderable-list-view`
   - `layout/wired-expansion-tile`
-  - `layout/wired-bottom-sheet`
-  - `layout/wired-data-table`
+  - `layout/wired-page-scaffold`
+  - `layout/wired-tab-scaffold`
+  - `layout/wired-sliver-app-bar`
+  - `layout/wired-dismissible`
 
 ![Layout Snapshot](https://f005.backblazeb2.com/file/skribble-screenshots/layout/layout.png)
-
-## WiredCard
-
-A container card with an optional hachure fill pattern.
-
-## WiredDivider
-
-A hand-drawn horizontal line divider.
-
-## WiredListTile
-
-A list item with optional leading, trailing, title, and subtitle.
-
-## WiredExpansionTile
-
-An expandable tile with animated content reveal.
-
-## WiredBottomSheet
-
-A modal bottom sheet with a hand-drawn drag handle.
-
-## WiredDataTable
-
-A data table with hand-drawn grid lines.

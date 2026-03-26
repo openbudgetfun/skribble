@@ -87,6 +87,25 @@ void main() {
       expect(find.text('Banner message'), findsOneWidget);
     });
 
+    testWidgets('forceActionsBelow applies default leading padding', (
+      tester,
+    ) async {
+      await pumpSubject(
+        tester,
+        forceActionsBelow: true,
+        leading: const Icon(Icons.info, key: Key('below-leading')),
+      );
+
+      final padding = tester.widget<Padding>(
+        find.ancestor(
+          of: find.byKey(const Key('below-leading')),
+          matching: find.byType(Padding),
+        ),
+      );
+
+      expect(padding.padding, const EdgeInsets.only(right: 16));
+    });
+
     testWidgets('calls onVisible on build', (tester) async {
       var visible = false;
       await pumpApp(
@@ -97,6 +116,37 @@ void main() {
         ),
       );
       expect(visible, isTrue);
+    });
+
+    testWidgets('showWiredMaterialBanner shows a MaterialBanner', (
+      tester,
+    ) async {
+      ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>?
+      controller;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () {
+                  controller = showWiredMaterialBanner(
+                    context,
+                    content: const Text('ignored by helper placeholder'),
+                  );
+                },
+                child: const Text('Show Banner'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Show Banner'));
+      await tester.pump();
+
+      expect(controller, isNotNull);
+      expect(find.byType(MaterialBanner), findsOneWidget);
     });
   });
 }
