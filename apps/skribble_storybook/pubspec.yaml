@@ -1,7 +1,7 @@
 name: skribble_storybook
 description: >
   Interactive showcase app for the Skribble hand-drawn UI component library.
-  Demonstrates all 80+ widgets across 8 category pages.
+  Demonstrates all 80+ widgets across component category pages and a rough-icons gallery.
 publish_to: none
 
 environment:

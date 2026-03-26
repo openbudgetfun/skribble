@@ -45,12 +45,17 @@ class WiredAvatar extends HookWidget {
     this.child,
     this.minRadius,
     this.maxRadius,
-  });
+  }) : assert(radius >= 0),
+       assert(minRadius == null || minRadius >= 0),
+       assert(maxRadius == null || maxRadius >= 0),
+       assert(minRadius == null || maxRadius == null || minRadius <= maxRadius);
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final effectiveRadius = radius;
+    final resolvedMinRadius = minRadius ?? 0;
+    final resolvedMaxRadius = maxRadius ?? double.infinity;
+    final effectiveRadius = radius.clamp(resolvedMinRadius, resolvedMaxRadius);
     final size = effectiveRadius * 2;
     final bgColor =
         backgroundColor ?? theme.borderColor.withValues(alpha: 0.15);

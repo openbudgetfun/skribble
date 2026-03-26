@@ -27,12 +27,12 @@ WiredTheme(
 );
 ```
 
-All 79 widget files (90+ public widget classes) read from the nearest
-`WiredTheme` ancestor and fall back to defaults when no theme is provided.
+All wired widget implementations read from the nearest `WiredTheme` ancestor
+and fall back to defaults when no theme is provided.
 
 ## Widget Catalog
 
-### Buttons (10)
+### Buttons
 
 | Widget                      | Description                                        |
 | --------------------------- | -------------------------------------------------- |
@@ -47,7 +47,7 @@ All 79 widget files (90+ public widget classes) read from the nearest
 | `WiredSegmentedButton`      | Segmented button group with `WiredButtonSegment`   |
 | `WiredCupertinoButton`      | Cupertino-style press-opacity button (+ `.filled`) |
 
-### Inputs (17)
+### Inputs
 
 | Widget                    | Description                              |
 | ------------------------- | ---------------------------------------- |
@@ -69,7 +69,7 @@ All 79 widget files (90+ public widget classes) read from the nearest
 | `WiredCupertinoSlider`    | Cupertino slider with hand-drawn track   |
 | `WiredCupertinoSwitch`    | Cupertino toggle with animated thumb     |
 
-### Navigation (14)
+### Navigation
 
 | Widget                        | Description                                                   |
 | ----------------------------- | ------------------------------------------------------------- |
@@ -88,7 +88,7 @@ All 79 widget files (90+ public widget classes) read from the nearest
 | `WiredCupertinoNavigationBar` | Cupertino nav bar                                             |
 | `WiredCupertinoTabBar`        | Cupertino bottom tab bar                                      |
 
-### Selection (13)
+### Selection
 
 | Widget                                | Description                              |
 | ------------------------------------- | ---------------------------------------- |
@@ -106,7 +106,7 @@ All 79 widget files (90+ public widget classes) read from the nearest
 | `WiredCupertinoSegmentedControl`      | Cupertino segmented control              |
 | `WiredSlidingSegmentedControl`        | Cupertino sliding segment control        |
 
-### Feedback (13)
+### Feedback
 
 | Widget                                       | Description                                                   |
 | -------------------------------------------- | ------------------------------------------------------------- |
@@ -124,7 +124,7 @@ All 79 widget files (90+ public widget classes) read from the nearest
 | `WiredCupertinoAlertDialog`                  | Cupertino alert with `WiredCupertinoDialogAction`             |
 | `WiredCupertinoActionSheet`                  | Cupertino action sheet with `WiredCupertinoActionSheetAction` |
 
-### Layout (14)
+### Layout
 
 | Widget                                                | Description                                        |
 | ----------------------------------------------------- | -------------------------------------------------- |
@@ -160,20 +160,11 @@ All Skribble widgets follow familiar Flutter conventions:
 - **`WiredTheme.of(context)`** for runtime color customization
 - **`RepaintBoundary`** wraps every widget for render isolation
 
-## Stats
+## Quality
 
-| Metric              | Value                   |
-| ------------------- | ----------------------- |
-| Widget source files | 81                      |
-| Widget test files   | 88                      |
-| Widget tests        | 872                     |
-| Rough engine tests  | 144                     |
-| Smoke tests         | 6                       |
-| Library total       | 1,022                   |
-| Storybook tests     | 64 (56 page + 8 golden) |
-| **Grand total**     | **1,086**               |
-| `dart analyze`      | 0 issues                |
-| `pumpApp` adoption  | 100% (82/82 files)      |
+- `dart analyze --fatal-infos .` passes with zero issues.
+- Widget, rough-engine, tool, and storybook suites are validated in CI.
+- Screenshot artifacts are tracked in `docs/ui-snapshots/screenshot-manifest.txt`.
 
 ## Rough Icon Generation Pipeline
 

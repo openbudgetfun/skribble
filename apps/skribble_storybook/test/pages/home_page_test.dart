@@ -19,7 +19,7 @@ void main() {
       expect(find.text('Hand-drawn UI components for Flutter'), findsOneWidget);
     });
 
-    testWidgets('renders all seven category cards', (tester) async {
+    testWidgets('renders all eight category cards', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
 
@@ -29,13 +29,14 @@ void main() {
       expect(find.text('Navigation'), findsOneWidget);
 
       // Scroll down to find remaining categories.
-      await tester.scrollUntilVisible(find.text('Data Display'), 200);
+      await tester.scrollUntilVisible(find.text('Rough Icons'), 200);
       await tester.pumpAndSettle();
 
       expect(find.text('Selection'), findsOneWidget);
       expect(find.text('Feedback'), findsOneWidget);
       expect(find.text('Layout'), findsOneWidget);
       expect(find.text('Data Display'), findsOneWidget);
+      expect(find.text('Rough Icons'), findsOneWidget);
     });
 
     testWidgets('uses WiredAppBar', (tester) async {
@@ -61,6 +62,22 @@ void main() {
 
       // Should navigate away from home page
       expect(find.byType(HomePage), findsNothing);
+    });
+
+    testWidgets('navigates to Rough Icons page on card tap', (tester) async {
+      await tester.pumpWidget(const SkribbleStorybookApp());
+      await tester.pumpAndSettle();
+
+      await tester.scrollUntilVisible(find.text('Rough Icons'), 200);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Rough Icons'));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.text('Generated rough Material icon catalog'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('renders WiredCard widgets for categories', (tester) async {

@@ -13,33 +13,13 @@ Hand-drawn navigation elements for app structure and wayfinding.
   - `navigation/wired-drawer`
   - `navigation/wired-popup-menu`
   - `navigation/wired-tab-bar`
+  - `navigation/wired-bottom-app-bar`
+  - `navigation/wired-menu-bar`
+  - `navigation/wired-dropdown-menu`
+  - `navigation/wired-drawer-header`
+  - `navigation/wired-user-accounts-drawer-header`
+  - `navigation/wired-navigation-drawer`
+  - `navigation/wired-cupertino-navigation-bar`
+  - `navigation/wired-cupertino-tab-bar`
 
 ![Navigation Snapshot](https://f005.backblazeb2.com/file/skribble-screenshots/navigation/navigation.png)
-
-## WiredAppBar
-
-A top app bar with a hand-drawn bottom border line.
-
-## WiredBottomNavigationBar
-
-A bottom navigation bar with circular selection indicators.
-
-## WiredNavigationBar
-
-A Material 3 style navigation bar with hand-drawn indicators.
-
-## WiredNavigationRail
-
-A vertical navigation rail with hand-drawn elements.
-
-## WiredDrawer
-
-A navigation drawer panel with a hand-drawn right-edge border.
-
-## WiredPopupMenuButton
-
-An anchored popup menu button for contextual navigation actions.
-
-## WiredTabBar
-
-A horizontal tab bar with hand-drawn underline indicator.
