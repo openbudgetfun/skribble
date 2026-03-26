@@ -96,14 +96,15 @@ void main() {
         leading: const Icon(Icons.info, key: Key('below-leading')),
       );
 
-      final padding = tester.widget<Padding>(
-        find.ancestor(
-          of: find.byKey(const Key('below-leading')),
-          matching: find.byType(Padding),
-        ),
+      final paddingFinder = find.byWidgetPredicate(
+        (widget) =>
+            widget is Padding &&
+            widget.padding == const EdgeInsets.only(right: 16) &&
+            widget.child is Icon &&
+            widget.child!.key == const Key('below-leading'),
       );
 
-      expect(padding.padding, const EdgeInsets.only(right: 16));
+      expect(paddingFinder, findsOneWidget);
     });
 
     testWidgets('calls onVisible on build', (tester) async {
