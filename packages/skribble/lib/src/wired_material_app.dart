@@ -11,9 +11,12 @@ class WiredMaterialApp extends HookWidget {
     super.key,
     required this.wiredTheme,
     this.darkWiredTheme,
+    this.highContrastWiredTheme,
+    this.highContrastDarkWiredTheme,
     this.themeMode = ThemeMode.system,
     this.title = '',
     this.onGenerateTitle,
+    this.onNavigationNotification,
     this.color,
     this.home,
     this.routes = const <String, WidgetBuilder>{},
@@ -36,7 +39,19 @@ class WiredMaterialApp extends HookWidget {
     this.actions,
     this.themeAnimationDuration = kThemeAnimationDuration,
     this.themeAnimationCurve = Curves.linear,
+    this.themeAnimationStyle,
+    this.debugShowMaterialGrid = false,
+    this.showPerformanceOverlay = false,
+    this.checkerboardRasterCacheImages = false,
+    this.checkerboardOffscreenLayers = false,
+    this.showSemanticsDebugger = false,
     this.debugShowCheckedModeBanner = false,
+    @Deprecated(
+      'Remove this parameter as it is now ignored. '
+      'MaterialApp never introduces its own MediaQuery; the View widget takes '
+      'care of that. This feature was deprecated after v3.7.0-29.0.pre.',
+    )
+    this.useInheritedMediaQuery = false,
   }) : routeInformationProvider = null,
        routeInformationParser = null,
        routerDelegate = null,
@@ -48,9 +63,12 @@ class WiredMaterialApp extends HookWidget {
     super.key,
     required this.wiredTheme,
     this.darkWiredTheme,
+    this.highContrastWiredTheme,
+    this.highContrastDarkWiredTheme,
     this.themeMode = ThemeMode.system,
     this.title = '',
     this.onGenerateTitle,
+    this.onNavigationNotification,
     this.color,
     this.builder,
     this.locale,
@@ -65,7 +83,19 @@ class WiredMaterialApp extends HookWidget {
     this.actions,
     this.themeAnimationDuration = kThemeAnimationDuration,
     this.themeAnimationCurve = Curves.linear,
+    this.themeAnimationStyle,
+    this.debugShowMaterialGrid = false,
+    this.showPerformanceOverlay = false,
+    this.checkerboardRasterCacheImages = false,
+    this.checkerboardOffscreenLayers = false,
+    this.showSemanticsDebugger = false,
     this.debugShowCheckedModeBanner = false,
+    @Deprecated(
+      'Remove this parameter as it is now ignored. '
+      'MaterialApp never introduces its own MediaQuery; the View widget takes '
+      'care of that. This feature was deprecated after v3.7.0-29.0.pre.',
+    )
+    this.useInheritedMediaQuery = false,
     this.routeInformationProvider,
     this.routeInformationParser,
     this.routerDelegate,
@@ -87,9 +117,13 @@ class WiredMaterialApp extends HookWidget {
 
   final WiredThemeData wiredTheme;
   final WiredThemeData? darkWiredTheme;
+  final WiredThemeData? highContrastWiredTheme;
+  final WiredThemeData? highContrastDarkWiredTheme;
   final ThemeMode themeMode;
   final String title;
   final GenerateAppTitle? onGenerateTitle;
+  final NotificationListenerCallback<NavigationNotification>?
+  onNavigationNotification;
   final Color? color;
   final Widget? home;
   final Map<String, WidgetBuilder> routes;
@@ -112,7 +146,21 @@ class WiredMaterialApp extends HookWidget {
   final Map<Type, Action<Intent>>? actions;
   final Duration themeAnimationDuration;
   final Curve themeAnimationCurve;
+  final AnimationStyle? themeAnimationStyle;
+  final bool debugShowMaterialGrid;
+  final bool showPerformanceOverlay;
+  final bool checkerboardRasterCacheImages;
+  final bool checkerboardOffscreenLayers;
+  final bool showSemanticsDebugger;
   final bool debugShowCheckedModeBanner;
+
+  @Deprecated(
+    'Remove this parameter as it is now ignored. '
+    'MaterialApp never introduces its own MediaQuery; the View widget takes '
+    'care of that. This feature was deprecated after v3.7.0-29.0.pre.',
+  )
+  final bool useInheritedMediaQuery;
+
   final RouteInformationProvider? routeInformationProvider;
   final RouteInformationParser<Object>? routeInformationParser;
   final RouterDelegate<Object>? routerDelegate;
@@ -123,9 +171,21 @@ class WiredMaterialApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final effectiveDarkTheme = darkWiredTheme ?? wiredTheme;
-    final effectiveWiredTheme = _resolveWiredTheme(effectiveDarkTheme);
+    final effectiveHighContrastTheme = highContrastWiredTheme ?? wiredTheme;
+    final effectiveHighContrastDarkTheme =
+        highContrastDarkWiredTheme ?? darkWiredTheme ?? wiredTheme;
+    final effectiveWiredTheme = _resolveWiredTheme(
+      context: context,
+      effectiveDarkTheme: effectiveDarkTheme,
+      effectiveHighContrastTheme: effectiveHighContrastTheme,
+      effectiveHighContrastDarkTheme: effectiveHighContrastDarkTheme,
+    );
     final theme = wiredTheme.toThemeData();
     final darkTheme = effectiveDarkTheme.toThemeData(
+      brightness: Brightness.dark,
+    );
+    final highContrastTheme = effectiveHighContrastTheme.toThemeData();
+    final highContrastDarkTheme = effectiveHighContrastDarkTheme.toThemeData(
       brightness: Brightness.dark,
     );
 
@@ -135,12 +195,16 @@ class WiredMaterialApp extends HookWidget {
           ? MaterialApp.router(
               title: title,
               onGenerateTitle: onGenerateTitle,
+              onNavigationNotification: onNavigationNotification,
               color: color,
               theme: theme,
               darkTheme: darkTheme,
+              highContrastTheme: highContrastTheme,
+              highContrastDarkTheme: highContrastDarkTheme,
               themeMode: themeMode,
               themeAnimationDuration: themeAnimationDuration,
               themeAnimationCurve: themeAnimationCurve,
+              themeAnimationStyle: themeAnimationStyle,
               routeInformationProvider: routeInformationProvider,
               routeInformationParser: routeInformationParser,
               routerDelegate: routerDelegate,
@@ -157,17 +221,28 @@ class WiredMaterialApp extends HookWidget {
               restorationScopeId: restorationScopeId,
               shortcuts: shortcuts,
               actions: actions,
+              debugShowMaterialGrid: debugShowMaterialGrid,
+              showPerformanceOverlay: showPerformanceOverlay,
+              checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+              checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+              showSemanticsDebugger: showSemanticsDebugger,
               debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+              // ignore: deprecated_member_use_from_same_package
+              useInheritedMediaQuery: useInheritedMediaQuery,
             )
           : MaterialApp(
               title: title,
               onGenerateTitle: onGenerateTitle,
+              onNavigationNotification: onNavigationNotification,
               color: color,
               theme: theme,
               darkTheme: darkTheme,
+              highContrastTheme: highContrastTheme,
+              highContrastDarkTheme: highContrastDarkTheme,
               themeMode: themeMode,
               themeAnimationDuration: themeAnimationDuration,
               themeAnimationCurve: themeAnimationCurve,
+              themeAnimationStyle: themeAnimationStyle,
               home: home,
               routes: routes,
               initialRoute: initialRoute,
@@ -187,21 +262,43 @@ class WiredMaterialApp extends HookWidget {
               restorationScopeId: restorationScopeId,
               shortcuts: shortcuts,
               actions: actions,
+              debugShowMaterialGrid: debugShowMaterialGrid,
+              showPerformanceOverlay: showPerformanceOverlay,
+              checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+              checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+              showSemanticsDebugger: showSemanticsDebugger,
               debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+              // ignore: deprecated_member_use_from_same_package
+              useInheritedMediaQuery: useInheritedMediaQuery,
             ),
     );
   }
 
-  WiredThemeData _resolveWiredTheme(WiredThemeData effectiveDarkTheme) {
+  WiredThemeData _resolveWiredTheme({
+    required BuildContext context,
+    required WiredThemeData effectiveDarkTheme,
+    required WiredThemeData effectiveHighContrastTheme,
+    required WiredThemeData effectiveHighContrastDarkTheme,
+  }) {
+    final platformDispatcher =
+        View.maybeOf(context)?.platformDispatcher ?? PlatformDispatcher.instance;
+    final isHighContrast = platformDispatcher.accessibilityFeatures.highContrast;
+
     switch (themeMode) {
       case ThemeMode.light:
-        return wiredTheme;
+        return isHighContrast ? effectiveHighContrastTheme : wiredTheme;
       case ThemeMode.dark:
-        return effectiveDarkTheme;
+        return isHighContrast
+            ? effectiveHighContrastDarkTheme
+            : effectiveDarkTheme;
       case ThemeMode.system:
-        return PlatformDispatcher.instance.platformBrightness == Brightness.dark
-            ? effectiveDarkTheme
-            : wiredTheme;
+        final isDark = platformDispatcher.platformBrightness == Brightness.dark;
+        if (isDark) {
+          return isHighContrast
+              ? effectiveHighContrastDarkTheme
+              : effectiveDarkTheme;
+        }
+        return isHighContrast ? effectiveHighContrastTheme : wiredTheme;
     }
   }
 }
