@@ -33,7 +33,8 @@ For router-based apps, use `WiredMaterialApp.router(...)` with your
 `RouterConfig`, `routerDelegate`, or `routeInformationParser` setup.
 Both constructors also expose high-value `MaterialApp` bootstrapping options
 like locale resolution callbacks, restoration, scroll behavior, shortcuts /
-actions, generated titles, and theme animation controls.
+actions, generated titles, theme animation controls, high-contrast theme
+variants, and common debug / diagnostics flags.
 
 All wired widget implementations read from the nearest `WiredTheme` ancestor
 and fall back to defaults when no theme is provided. `WiredThemeData`
@@ -165,6 +166,7 @@ text, and Material fallbacks stay aligned with the Skribble palette, while
 | `WiredThemeData.toThemeData()` | Material `ThemeData` bridge for app-level theming    |
 | `WiredMaterialApp`             | Material app wrapper that syncs `WiredTheme` + theme |
 | `WiredMaterialApp.router`      | Router-based app wrapper with the same theme syncing |
+| High-contrast wired themes     | Optional high-contrast light/dark app theme variants |
 
 ## API Patterns
 
