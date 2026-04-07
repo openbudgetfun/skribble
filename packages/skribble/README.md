@@ -29,11 +29,21 @@ WiredMaterialApp(
 );
 ```
 
+Router-based apps are supported too:
+
+```dart
+WiredMaterialApp.router(
+  wiredTheme: wiredTheme,
+  routerConfig: appRouter,
+);
+```
+
 All wired widget implementations read from the nearest `WiredTheme` ancestor
 and fall back to defaults when no theme is provided. `WiredThemeData`
 also exposes `toColorScheme()` and `toThemeData()` helpers so your app shell,
 text, and Material fallbacks stay aligned with the Skribble palette, while
-`WiredMaterialApp` keeps `MaterialApp` and `WiredTheme` synchronized.
+`WiredMaterialApp` keeps `MaterialApp` and `WiredTheme` synchronized for both
+classic and router-based bootstrapping.
 
 ## Widget Catalog
 
