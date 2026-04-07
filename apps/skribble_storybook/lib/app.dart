@@ -17,25 +17,29 @@ class SkribbleStorybookApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WiredTheme(
-      data: WiredThemeData(),
-      child: MaterialApp(
-        title: 'Skribble Storybook',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.brown),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => const HomePage(),
-          '/buttons': (context) => const ButtonsPage(),
-          '/inputs': (context) => const InputsPage(),
-          '/navigation': (context) => const NavigationPage(),
-          '/selection': (context) => const SelectionPage(),
-          '/feedback': (context) => const FeedbackPage(),
-          '/layout': (context) => const LayoutPage(),
-          '/data-display': (context) => const DataDisplayPage(),
-          '/rough-icons': (context) => const RoughIconsPage(),
-        },
-      ),
+    final wiredTheme = WiredThemeData(
+      borderColor: const Color(0xFF4A3470),
+      textColor: const Color(0xFF2A2238),
+      disabledTextColor: const Color(0xFFA39AAD),
+      fillColor: const Color(0xFFFFFCF1),
+      roughness: 1.15,
+    );
+
+    return WiredMaterialApp(
+      wiredTheme: wiredTheme,
+      title: 'Skribble Storybook',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/buttons': (context) => const ButtonsPage(),
+        '/inputs': (context) => const InputsPage(),
+        '/navigation': (context) => const NavigationPage(),
+        '/selection': (context) => const SelectionPage(),
+        '/feedback': (context) => const FeedbackPage(),
+        '/layout': (context) => const LayoutPage(),
+        '/data-display': (context) => const DataDisplayPage(),
+        '/rough-icons': (context) => const RoughIconsPage(),
+      },
     );
   }
 }

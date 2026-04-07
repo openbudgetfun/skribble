@@ -18,7 +18,7 @@ class SelectionPage extends HookWidget {
     final slidingValue = useState('a');
     final pickedColor = useState<Color>(Colors.blue);
 
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(
         leading: const BackButton(),
         title: const Text('Selection'),

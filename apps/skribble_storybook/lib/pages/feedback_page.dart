@@ -16,7 +16,7 @@ class FeedbackPage extends HookWidget {
     );
     final scrollbarController = useScrollController();
 
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(
         leading: const BackButton(),
         title: const Text('Feedback'),

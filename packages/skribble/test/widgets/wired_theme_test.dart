@@ -56,6 +56,55 @@ void main() {
       expect(theme.roughness, 2.5);
     });
 
+    test('paperBackgroundColor softly lifts fillColor', () {
+      final theme = WiredThemeData(fillColor: const Color(0xFFFFF8E1));
+
+      expect(theme.paperBackgroundColor, isNot(theme.fillColor));
+      expect(theme.paperBackgroundColor.alpha, 0xFF);
+    });
+
+    test('toColorScheme maps Skribble palette to Material colors', () {
+      final theme = WiredThemeData(
+        borderColor: const Color(0xFF4A3470),
+        textColor: const Color(0xFF2A2238),
+        fillColor: const Color(0xFFFFFCF1),
+      );
+
+      final scheme = theme.toColorScheme();
+
+      expect(scheme.primary, theme.borderColor);
+      expect(scheme.secondary, theme.textColor);
+      expect(scheme.surface, theme.fillColor);
+      expect(scheme.onSurface, theme.textColor);
+    });
+
+    test(
+      'toThemeData builds a Material theme aligned with Skribble colors',
+      () {
+        final theme = WiredThemeData(
+          borderColor: const Color(0xFF4A3470),
+          textColor: const Color(0xFF2A2238),
+          fillColor: const Color(0xFFFFFCF1),
+          strokeWidth: 3,
+        );
+
+        final materialTheme = theme.toThemeData();
+
+        expect(materialTheme.useMaterial3, isTrue);
+        expect(
+          materialTheme.scaffoldBackgroundColor,
+          theme.paperBackgroundColor,
+        );
+        expect(materialTheme.colorScheme.primary, theme.borderColor);
+        expect(materialTheme.colorScheme.surface, theme.fillColor);
+        expect(materialTheme.cardTheme.color, theme.fillColor);
+        expect(
+          materialTheme.inputDecorationTheme.enabledBorder,
+          isA<OutlineInputBorder>(),
+        );
+      },
+    );
+
     group('copyWith', () {
       test('returns new instance with updated borderColor', () {
         final original = WiredThemeData();

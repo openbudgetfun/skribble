@@ -12,7 +12,7 @@ class RoughIconsPage extends HookWidget {
       return sorted;
     });
 
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(
         leading: const BackButton(),
         title: const Text('Rough Icons'),

@@ -15,20 +15,25 @@ import 'package:skribble/skribble.dart';
 Wrap your app in a `WiredTheme` to customize colors across all Skribble widgets:
 
 ```dart
-WiredTheme(
-  data: WiredThemeData(
-    borderColor: Color(0xFF2D1B69),  // Sketchy border color
-    textColor: Colors.black87,
-    fillColor: Color(0xFFFFF8E1),    // Warm paper background
-    strokeWidth: 2,
-    roughness: 1,
-  ),
-  child: MaterialApp(/* ... */),
+final wiredTheme = WiredThemeData(
+  borderColor: Color(0xFF2D1B69),  // Sketchy border color
+  textColor: Colors.black87,
+  fillColor: Color(0xFFFFF8E1),    // Warm paper background
+  strokeWidth: 2,
+  roughness: 1,
+);
+
+WiredMaterialApp(
+  wiredTheme: wiredTheme,
+  home: const WiredScaffold(/* ... */),
 );
 ```
 
 All wired widget implementations read from the nearest `WiredTheme` ancestor
-and fall back to defaults when no theme is provided.
+and fall back to defaults when no theme is provided. `WiredThemeData`
+also exposes `toColorScheme()` and `toThemeData()` helpers so your app shell,
+text, and Material fallbacks stay aligned with the Skribble palette, while
+`WiredMaterialApp` keeps `MaterialApp` and `WiredTheme` synchronized.
 
 ## Widget Catalog
 
@@ -136,6 +141,7 @@ and fall back to defaults when no theme is provided.
 | `WiredStepper`                                        | Step-by-step indicator with `WiredStep`            |
 | `WiredCalendar`                                       | Full calendar with sketchy cells                   |
 | `WiredScrollbar`                                      | Styled scrollbar with sketchy colors               |
+| `WiredScaffold`                                       | Material page shell with paper-like background     |
 | `WiredReorderableListView`                            | Reorderable list with sketchy items                |
 | `WiredDismissible`                                    | Swipe-to-dismiss with sketchy background           |
 | `WiredSelectableText`                                 | Selectable text with Skribble styling              |
@@ -147,8 +153,10 @@ and fall back to defaults when no theme is provided.
 
 | Widget           | Description                                         |
 | ---------------- | --------------------------------------------------- |
-| `WiredTheme`     | `InheritedWidget` providing theme to descendants    |
-| `WiredThemeData` | Border, text, fill colors + stroke width, roughness |
+| `WiredTheme`               | `InheritedWidget` providing theme to descendants       |
+| `WiredThemeData`           | Border, text, fill colors + stroke width, roughness    |
+| `WiredThemeData.toThemeData()` | Material `ThemeData` bridge for app-level theming  |
+| `WiredMaterialApp`         | Material app wrapper that syncs `WiredTheme` + theme   |
 
 ## API Patterns
 

@@ -19,7 +19,7 @@ class NavigationPage extends HookWidget {
     final popupSelection = useState<String>('None');
     final cupertinoTabIndex = useState(0);
 
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(
         leading: const BackButton(),
         title: const Text('Navigation'),
