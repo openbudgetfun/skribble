@@ -1,0 +1,29 @@
+{
+  "icons": [
+    {
+      "identifier": "home",
+      "codePoint": "0xe901",
+      "svgPath": "../icons/home.svg"
+    },
+    {
+      "identifier": "search",
+      "codePoint": "0xe902",
+      "svgPath": "../icons/search.svg"
+    },
+    {
+      "identifier": "settings",
+      "codePoint": "0xe903",
+      "svgPath": "../icons/settings.svg"
+    },
+    {
+      "identifier": "star",
+      "codePoint": "0xe904",
+      "svgPath": "../icons/star.svg"
+    },
+    {
+      "identifier": "favorite",
+      "codePoint": "0xe905",
+      "svgPath": "../icons/favorite.svg"
+    }
+  ]
+}

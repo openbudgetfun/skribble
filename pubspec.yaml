@@ -6,6 +6,7 @@ environment:
 
 workspace:
   - packages/skribble
+  - packages/skribble_icons_custom
   - packages/skribble_lints
   - apps/skribble_storybook
 
@@ -81,6 +82,16 @@ melos:
         --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
         --unresolved-baseline-output tool/examples/material_rough_icons.unresolved-baseline.json
         --unresolved-baseline-output-format codepoints
+
+    rough-icons-custom:
+      description: Generate rough custom icon artifacts (Dart map) from the SVG manifest.
+      run: >-
+        cd packages/skribble &&
+        dart run tool/generate_rough_icons.dart
+        --kit svg-manifest
+        --manifest ../skribble_icons_custom/tool/custom_icons.manifest.json
+        --output ../skribble_icons_custom/lib/src/generated/custom_rough_icons.g.dart
+        --map-name kCustomRoughIcons
 
     rough-icons-ci-check:
       description: Run the same rough icon regression/sync checks enforced by CI.

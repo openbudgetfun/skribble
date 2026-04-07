@@ -16,6 +16,7 @@ const _kDefaultFontGeneratorExecutable = 'npx';
 const _kDefaultFontGeneratorPackage = 'fantasticon';
 const _kDefaultBrandIconsPackage = 'simple-icons';
 const _kDefaultFontName = 'material_rough_icons';
+const _kDefaultMapName = 'kMaterialRoughIcons';
 const _kUnresolvedBaselineOutputFormatUnresolved = 'unresolved';
 const _kUnresolvedBaselineOutputFormatCodePoints = 'codepoints';
 const _kUnresolvedBaselineOutputFormats = <String>{
@@ -179,7 +180,9 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
       options.outputPath ?? _defaultOutputPathForKit(options.kit),
     );
     outputFile.createSync(recursive: true);
-    outputFile.writeAsStringSync(_renderGeneratedFile(icons));
+    outputFile.writeAsStringSync(
+      _renderGeneratedFile(icons, mapName: options.mapName),
+    );
     stdout.writeln(
       'Generated ${icons.length} rough icons to ${outputFile.path}',
     );
@@ -347,6 +350,7 @@ Options:
   --font-output-dir <path>         Build an icon font from rough SVGs into this directory.
   --font-dart-output <path>        Emit Dart helpers (font family + codepoint lookup map).
   --font-name <name>               Name of generated icon font (default: material_rough_icons).
+  --map-name <name>                Name of generated Dart map constant (default: kMaterialRoughIcons).
   --font-generator-executable <e>  Font generator executable (default: npx).
   --font-generator-package <name>  Package passed to generator executable (default: fantasticon).
   --help                           Show this help text.
@@ -403,6 +407,7 @@ final class _ScriptOptions {
     this.failOnNewUnresolved = false,
     this.fontOutputDir,
     this.fontDartOutputPath,
+    this.mapName = _kDefaultMapName,
     this.fontName = _kDefaultFontName,
     this.fontGeneratorExecutable = _kDefaultFontGeneratorExecutable,
     this.fontGeneratorPackage = _kDefaultFontGeneratorPackage,
@@ -436,6 +441,7 @@ final class _ScriptOptions {
   final bool failOnNewUnresolved;
   final String? fontOutputDir;
   final String? fontDartOutputPath;
+  final String mapName;
   final String fontName;
   final String fontGeneratorExecutable;
   final String fontGeneratorPackage;
@@ -470,6 +476,7 @@ final class _ScriptOptions {
     var failOnNewUnresolved = false;
     String? fontOutputDir;
     String? fontDartOutputPath;
+    var mapName = _kDefaultMapName;
     var fontName = _kDefaultFontName;
     var fontGeneratorExecutable = _kDefaultFontGeneratorExecutable;
     var fontGeneratorPackage = _kDefaultFontGeneratorPackage;
@@ -565,6 +572,8 @@ final class _ScriptOptions {
           fontOutputDir = value;
         case '--font-dart-output':
           fontDartOutputPath = value;
+        case '--map-name':
+          mapName = value;
         case '--font-name':
           fontName = value;
         case '--font-generator-executable':
@@ -644,6 +653,7 @@ final class _ScriptOptions {
       failOnNewUnresolved: failOnNewUnresolved,
       fontOutputDir: fontOutputDir,
       fontDartOutputPath: fontDartOutputPath,
+      mapName: mapName,
       fontName: fontName,
       fontGeneratorExecutable: fontGeneratorExecutable,
       fontGeneratorPackage: fontGeneratorPackage,
@@ -1440,7 +1450,10 @@ _SvgFillRule? _parseFillRule(String? value) {
   };
 }
 
-String _renderGeneratedFile(List<_GeneratedIcon> icons) {
+String _renderGeneratedFile(
+  List<_GeneratedIcon> icons, {
+  String mapName = _kDefaultMapName,
+}) {
   final buffer = StringBuffer()
     ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND.')
     ..writeln('// ignore_for_file: lines_longer_than_80_chars')
@@ -1448,7 +1461,7 @@ String _renderGeneratedFile(List<_GeneratedIcon> icons) {
     ..writeln("import '../wired_svg_icon_data.dart';")
     ..writeln()
     ..writeln(
-      'const Map<int, WiredSvgIconData> kMaterialRoughIcons = '
+      'const Map<int, WiredSvgIconData> $mapName = '
       '<int, WiredSvgIconData>{',
     );
 
