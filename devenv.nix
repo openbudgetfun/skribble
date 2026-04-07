@@ -28,6 +28,9 @@
 
   env = {
     EGET_CONFIG = "${config.env.DEVENV_ROOT}/.eget/.eget.toml";
+    # Prefer the active shell SDK inside devenv so Melos does not depend on the
+    # gitignored `.fvm/flutter_sdk` symlink being present.
+    MELOS_SDK_PATH = "auto";
   };
 
   git-hooks = {

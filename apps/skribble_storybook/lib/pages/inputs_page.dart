@@ -23,7 +23,7 @@ class InputsPage extends HookWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final formStatus = useState('Form not validated yet');
 
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(
         leading: const BackButton(),
         title: const Text('Inputs'),

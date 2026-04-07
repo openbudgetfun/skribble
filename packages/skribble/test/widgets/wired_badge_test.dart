@@ -169,5 +169,54 @@ void main() {
         findsOneWidget,
       );
     });
+
+    testWidgets('renders label text when provided', (tester) async {
+      await pumpApp(
+        tester,
+        Center(
+          child: WiredBadge(
+            label: '12',
+            child: const SizedBox(width: 48, height: 48),
+          ),
+        ),
+      );
+
+      expect(find.text('12'), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byType(WiredBadge),
+          matching: find.byType(Text),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('label badge lays out correctly in unconstrained row', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                WiredBadge(label: '3', child: Icon(Icons.mail, size: 32)),
+                SizedBox(width: 24),
+                WiredBadge(
+                  label: '99+',
+                  child: Icon(Icons.notifications, size: 32),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+
+      expect(find.text('3'), findsOneWidget);
+      expect(find.text('99+'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
   });
 }

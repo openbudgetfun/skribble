@@ -14,8 +14,9 @@ class FeedbackPage extends HookWidget {
     final progressController = useAnimationController(
       duration: const Duration(seconds: 3),
     );
+    final scrollbarController = useScrollController();
 
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(
         leading: const BackButton(),
         title: const Text('Feedback'),
@@ -343,8 +344,10 @@ class FeedbackPage extends HookWidget {
                 child: SizedBox(
                   height: 120,
                   child: WiredScrollbar(
+                    controller: scrollbarController,
                     thumbVisibility: true,
                     child: ListView.builder(
+                      controller: scrollbarController,
                       itemCount: 20,
                       itemBuilder: (_, i) => Padding(
                         padding: const EdgeInsets.symmetric(

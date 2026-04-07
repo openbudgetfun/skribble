@@ -45,6 +45,112 @@ class WiredThemeData {
       roughness: roughness ?? this.roughness,
     );
   }
+
+  /// A softly lifted paper tone for Material page backgrounds.
+  Color get paperBackgroundColor =>
+      Color.alphaBlend(fillColor.withValues(alpha: 0.92), Colors.white);
+
+  /// Builds a Material [ColorScheme] from Skribble theme colors.
+  ColorScheme toColorScheme({Brightness brightness = Brightness.light}) {
+    final base = ColorScheme.fromSeed(
+      seedColor: borderColor,
+      brightness: brightness,
+      surface: fillColor,
+    );
+
+    return base.copyWith(
+      primary: borderColor,
+      onPrimary: _bestContrastingColor(borderColor),
+      secondary: textColor,
+      onSecondary: _bestContrastingColor(textColor),
+      surface: fillColor,
+      onSurface: textColor,
+      outline: borderColor.withValues(alpha: 0.7),
+      surfaceTint: borderColor,
+      shadow: borderColor.withValues(alpha: 0.12),
+    );
+  }
+
+  /// Builds a Material [ThemeData] aligned with the active Skribble palette.
+  ThemeData toThemeData({
+    Brightness brightness = Brightness.light,
+    bool useMaterial3 = true,
+    TextTheme? textTheme,
+  }) {
+    final colorScheme = toColorScheme(brightness: brightness);
+    final baseTextTheme =
+        textTheme ??
+        ThemeData(brightness: brightness, useMaterial3: useMaterial3).textTheme;
+
+    return ThemeData(
+      brightness: brightness,
+      useMaterial3: useMaterial3,
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: paperBackgroundColor,
+      canvasColor: fillColor,
+      dividerColor: borderColor.withValues(alpha: 0.35),
+      textTheme: baseTextTheme.apply(
+        bodyColor: textColor,
+        displayColor: textColor,
+      ),
+      iconTheme: IconThemeData(color: textColor),
+      primaryIconTheme: IconThemeData(color: colorScheme.onPrimary),
+      appBarTheme: AppBarTheme(
+        backgroundColor: paperBackgroundColor,
+        foregroundColor: textColor,
+        elevation: 0,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+      ),
+      cardTheme: CardThemeData(
+        color: fillColor,
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
+        margin: EdgeInsets.zero,
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: fillColor,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: fillColor,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+      ),
+      dividerTheme: DividerThemeData(
+        color: borderColor.withValues(alpha: 0.35),
+        thickness: 1,
+      ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: fillColor,
+        contentTextStyle: TextStyle(color: textColor),
+        actionTextColor: borderColor,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: fillColor,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: borderColor, width: strokeWidth),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: borderColor, width: strokeWidth),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: borderColor, width: strokeWidth + 0.5),
+        ),
+      ),
+    );
+  }
+}
+
+Color _bestContrastingColor(Color color) {
+  return ThemeData.estimateBrightnessForColor(color) == Brightness.dark
+      ? Colors.white
+      : Colors.black;
 }
 
 /// Provides [WiredThemeData] to descendant Wired widgets.

@@ -14,7 +14,7 @@ class LayoutPage extends HookWidget {
     final switchTileValue = useState(false);
     final reorderItems = useState(['🍎 Apple', '🍌 Banana', '🍒 Cherry']);
 
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(
         leading: const BackButton(),
         title: const Text('Layout'),
@@ -226,6 +226,38 @@ class LayoutPage extends HookWidget {
                       child: Text('Hidden content revealed!'),
                     ),
                   ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredScaffold',
+            children: [
+              ComponentShowcase(
+                title: 'Material Shell',
+                description:
+                    'Paper-like Scaffold wrapper for app bars, drawers, and body content.',
+                child: SizedBox(
+                  height: 260,
+                  child: WiredScaffold(
+                    appBar: WiredAppBar(title: const Text('Sketch Shell')),
+                    bodyPadding: const EdgeInsets.all(16),
+                    body: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('Use this as the default Material page shell.'),
+                        SizedBox(height: 12),
+                        WiredCard(
+                          child: Padding(
+                            padding: EdgeInsets.all(12),
+                            child: Text(
+                              'Body content keeps the light paper tone.',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],

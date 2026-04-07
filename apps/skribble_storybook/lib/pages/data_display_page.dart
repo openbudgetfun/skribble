@@ -12,7 +12,7 @@ class DataDisplayPage extends HookWidget {
     final stepperIndex = useState(0);
     final calendarSelected = useState<String?>(null);
 
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(
         leading: const BackButton(),
         title: const Text('Data Display'),

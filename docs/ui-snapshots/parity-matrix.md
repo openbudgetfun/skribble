@@ -72,7 +72,7 @@ Status meanings:
 | Stepper                   | `WiredStepper`              |  ✅ |   ✅ | ✅ (`data_display_page.dart`) | implemented |                                                      |
 | Calendar                  | `WiredCalendar`             |  ✅ |   ✅ | ✅ (`data_display_page.dart`) | implemented |                                                      |
 | ReorderableListView       | `WiredReorderableListView`  |  ✅ |   ✅ |       ✅ (`layout_page.dart`) | implemented |                                                      |
-| Scrollbar                 | `WiredScrollbar`            |  ✅ |   ✅ |       ✅ (`layout_page.dart`) | implemented |                                                      |
+| Scrollbar                 | `WiredScrollbar`            |  ✅ |   ✅ |     ✅ (`feedback_page.dart`) | implemented |                                                      |
 
 ## Cupertino widgets
 
@@ -104,16 +104,24 @@ Status meanings:
 | BottomAppBar             | `WiredBottomAppBar`             |  ✅ |   ✅ |   ✅ (`navigation_page.dart`) | implemented | M3 bottom bar with sketchy top border           |
 | SliverAppBar             | `WiredSliverAppBar`             |  ✅ |   ✅ |       ✅ (`layout_page.dart`) | implemented | Collapsible sliver bar with sketchy border      |
 | Dismissible              | `WiredDismissible`              |  ✅ |   ✅ |       ✅ (`layout_page.dart`) | implemented | Swipe-to-dismiss with sketchy delete background |
+| Scaffold                 | `WiredScaffold`                 |  ✅ |   ✅ |       ✅ (`layout_page.dart`) | implemented | Material shell with paper-like background       |
 | SelectableText           | `WiredSelectableText`           |  ✅ |   ✅ | ✅ (`data_display_page.dart`) | implemented | Selectable text with Skribble styling           |
 | AboutDialog              | `WiredAboutDialog`              |  ✅ |   ✅ |     ✅ (`feedback_page.dart`) | implemented | Hand-drawn about dialog with app info           |
 | AnimatedIcon             | `WiredAnimatedIcon`             |  ✅ |   ✅ |     ✅ (`feedback_page.dart`) | implemented | Morphing icon with Skribble styling             |
+| ContextMenu              | `WiredContextMenu`              |  ✅ |   ✅ |     ✅ (`feedback_page.dart`) | implemented | Long-press context actions with sketchy overlay |
 | (Custom) Color Picker    | `WiredColorPicker`              |  ✅ |   ✅ |    ✅ (`selection_page.dart`) | implemented | Grid of sketchy circle swatches with selection  |
+
+## App architecture bridges
+
+| Flutter construct       | Skribble mapping                                  | Lib | Test |               Storybook | Status      | Notes                                                |
+| ----------------------- | ------------------------------------------------- | --: | ---: | ----------------------: | ----------- | ---------------------------------------------------- |
+| MaterialApp + ThemeData | `WiredMaterialApp` + `WiredThemeData.toThemeData()` |  ✅ |   ✅ | ✅ (`app.dart`)         | implemented | Keeps Material theming and `WiredTheme` synchronized |
 
 ## Summary
 
 - **100% parity** — every Material and Cupertino widget has a dedicated Wired equivalent.
-- **55 Material + 14 Cupertino + 11 extended = 80 total implementations.**
-- **81 widget source files, 88 test files, 872 widget tests, 144 rough engine tests, 6 smoke tests = 1,022 library + 64 storybook = 1,086 total.**
+- **55 Material + 14 Cupertino + 13 extended implementations**, plus app-level Material architecture bridging via `WiredMaterialApp`.
+- Coverage is verified in library source, widget tests, and storybook pages; see root README for current repository-wide test counts.
 - All widgets read from `WiredTheme.of(context)` for runtime color customization.
 - All widgets use `HookWidget` exclusively (no `StatefulWidget` or `StatelessWidget`).
-- Version 0.3.0 with comprehensive CHANGELOG.
+- See `packages/skribble/CHANGELOG.md` for release-by-release details.

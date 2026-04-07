@@ -7,7 +7,9 @@ class HomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final theme = WiredTheme.of(context);
+
+    return WiredScaffold(
       appBar: WiredAppBar(title: const Text('Skribble Storybook')),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -21,7 +23,10 @@ class HomePage extends HookWidget {
           const SizedBox(height: 8),
           Text(
             'Tap a category to explore components',
-            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+            style: TextStyle(
+              fontSize: 16,
+              color: theme.textColor.withValues(alpha: 0.7),
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 32),
@@ -36,7 +41,7 @@ class HomePage extends HookWidget {
                     padding: const EdgeInsets.all(16),
                     child: Row(
                       children: [
-                        Icon(cat.icon, size: 28),
+                        WiredIcon(icon: cat.icon, size: 28),
                         const SizedBox(width: 16),
                         Expanded(
                           child: Column(
@@ -54,13 +59,15 @@ class HomePage extends HookWidget {
                                 cat.description,
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.grey[600],
+                                  color: theme.textColor.withValues(
+                                    alpha: 0.65,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        const Icon(Icons.chevron_right),
+                        const WiredIcon(icon: Icons.chevron_right),
                       ],
                     ),
                   ),

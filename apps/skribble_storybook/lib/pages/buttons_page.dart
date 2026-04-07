@@ -12,7 +12,7 @@ class ButtonsPage extends HookWidget {
     final segmentSelected = useState<Set<String>>({'day'});
     final toggleSelected = useState([true, false, false]);
 
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(
         leading: const BackButton(),
         title: const Text('Buttons'),
