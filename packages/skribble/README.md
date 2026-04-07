@@ -31,6 +31,9 @@ WiredMaterialApp(
 
 For router-based apps, use `WiredMaterialApp.router(...)` with your
 `RouterConfig`, `routerDelegate`, or `routeInformationParser` setup.
+Both constructors also expose high-value `MaterialApp` bootstrapping options
+like locale resolution callbacks, restoration, scroll behavior, shortcuts /
+actions, generated titles, and theme animation controls.
 
 All wired widget implementations read from the nearest `WiredTheme` ancestor
 and fall back to defaults when no theme is provided. `WiredThemeData`

@@ -113,10 +113,11 @@ Status meanings:
 
 ## App architecture bridges
 
-| Flutter construct       | Skribble mapping                                    | Lib | Test |       Storybook | Status      | Notes                                                |
-| ----------------------- | --------------------------------------------------- | --: | ---: | --------------: | ----------- | ---------------------------------------------------- |
-| MaterialApp + ThemeData | `WiredMaterialApp` + `WiredThemeData.toThemeData()` |  ✅ |   ✅ | ✅ (`app.dart`) | implemented | Keeps Material theming and `WiredTheme` synchronized |
-| MaterialApp.router      | `WiredMaterialApp.router`                           |  ✅ |   ✅ |             n/a | implemented | Router-based app bootstrapping with synced theming   |
+| Flutter construct       | Skribble mapping                                    | Lib | Test |       Storybook | Status      | Notes                                                                                                                       |
+| ----------------------- | --------------------------------------------------- | --: | ---: | --------------: | ----------- | --------------------------------------------------------------------------------------------------------------------------- |
+| MaterialApp + ThemeData | `WiredMaterialApp` + `WiredThemeData.toThemeData()` |  ✅ |   ✅ | ✅ (`app.dart`) | implemented | Keeps Material theming and `WiredTheme` synchronized                                                                        |
+| MaterialApp.router      | `WiredMaterialApp.router`                           |  ✅ |   ✅ |             n/a | implemented | Router-based app bootstrapping with synced theming                                                                          |
+| MaterialApp config      | shared high-value `MaterialApp` options             |  ✅ |   ✅ |             n/a | implemented | Includes restoration, scroll behavior, locale resolution, shortcuts/actions, generated titles, and theme animation controls |
 
 ## Summary
 
