@@ -12,7 +12,7 @@ Hand-drawn UI components for Flutter — every widget looks like it was sketched
 import 'package:skribble/skribble.dart';
 ```
 
-Wrap your app in a `WiredTheme` to customize colors across all Skribble widgets:
+Use `WiredMaterialApp` to customize colors across all Skribble widgets while keeping Material theming aligned:
 
 ```dart
 final wiredTheme = WiredThemeData(
@@ -29,11 +29,15 @@ WiredMaterialApp(
 );
 ```
 
+For router-based apps, use `WiredMaterialApp.router(...)` with your
+`RouterConfig`, `routerDelegate`, or `routeInformationParser` setup.
+
 All wired widget implementations read from the nearest `WiredTheme` ancestor
 and fall back to defaults when no theme is provided. `WiredThemeData`
 also exposes `toColorScheme()` and `toThemeData()` helpers so your app shell,
 text, and Material fallbacks stay aligned with the Skribble palette, while
-`WiredMaterialApp` keeps `MaterialApp` and `WiredTheme` synchronized.
+`WiredMaterialApp` and `WiredMaterialApp.router` keep `MaterialApp` and
+`WiredTheme` synchronized.
 
 ## Widget Catalog
 
@@ -151,12 +155,13 @@ text, and Material fallbacks stay aligned with the Skribble palette, while
 
 ### Theming
 
-| Widget           | Description                                         |
-| ---------------- | --------------------------------------------------- |
-| `WiredTheme`               | `InheritedWidget` providing theme to descendants       |
-| `WiredThemeData`           | Border, text, fill colors + stroke width, roughness    |
-| `WiredThemeData.toThemeData()` | Material `ThemeData` bridge for app-level theming  |
-| `WiredMaterialApp`         | Material app wrapper that syncs `WiredTheme` + theme   |
+| Widget                         | Description                                          |
+| ------------------------------ | ---------------------------------------------------- |
+| `WiredTheme`                   | `InheritedWidget` providing theme to descendants     |
+| `WiredThemeData`               | Border, text, fill colors + stroke width, roughness  |
+| `WiredThemeData.toThemeData()` | Material `ThemeData` bridge for app-level theming    |
+| `WiredMaterialApp`             | Material app wrapper that syncs `WiredTheme` + theme |
+| `WiredMaterialApp.router`      | Router-based app wrapper with the same theme syncing |
 
 ## API Patterns
 

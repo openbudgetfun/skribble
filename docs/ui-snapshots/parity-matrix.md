@@ -113,14 +113,15 @@ Status meanings:
 
 ## App architecture bridges
 
-| Flutter construct       | Skribble mapping                                  | Lib | Test |               Storybook | Status      | Notes                                                |
-| ----------------------- | ------------------------------------------------- | --: | ---: | ----------------------: | ----------- | ---------------------------------------------------- |
-| MaterialApp + ThemeData | `WiredMaterialApp` + `WiredThemeData.toThemeData()` |  ✅ |   ✅ | ✅ (`app.dart`)         | implemented | Keeps Material theming and `WiredTheme` synchronized |
+| Flutter construct       | Skribble mapping                                    | Lib | Test |       Storybook | Status      | Notes                                                |
+| ----------------------- | --------------------------------------------------- | --: | ---: | --------------: | ----------- | ---------------------------------------------------- |
+| MaterialApp + ThemeData | `WiredMaterialApp` + `WiredThemeData.toThemeData()` |  ✅ |   ✅ | ✅ (`app.dart`) | implemented | Keeps Material theming and `WiredTheme` synchronized |
+| MaterialApp.router      | `WiredMaterialApp.router`                           |  ✅ |   ✅ |             n/a | implemented | Router-based app bootstrapping with synced theming   |
 
 ## Summary
 
 - **100% parity** — every Material and Cupertino widget has a dedicated Wired equivalent.
-- **55 Material + 14 Cupertino + 13 extended implementations**, plus app-level Material architecture bridging via `WiredMaterialApp`.
+- **55 Material + 14 Cupertino + 13 extended implementations**, plus app-level Material architecture bridging via `WiredMaterialApp` and `WiredMaterialApp.router`.
 - Coverage is verified in library source, widget tests, and storybook pages; see root README for current repository-wide test counts.
 - All widgets read from `WiredTheme.of(context)` for runtime color customization.
 - All widgets use `HookWidget` exclusively (no `StatefulWidget` or `StatelessWidget`).

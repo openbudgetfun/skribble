@@ -26,7 +26,42 @@ class WiredMaterialApp extends HookWidget {
     this.supportedLocales = const <Locale>[Locale('en', 'US')],
     this.scaffoldMessengerKey,
     this.debugShowCheckedModeBanner = false,
-  });
+  }) : routeInformationProvider = null,
+       routeInformationParser = null,
+       routerDelegate = null,
+       routerConfig = null,
+       backButtonDispatcher = null,
+       _useRouter = false;
+
+  const WiredMaterialApp.router({
+    super.key,
+    required this.wiredTheme,
+    this.darkWiredTheme,
+    this.themeMode = ThemeMode.system,
+    this.title = '',
+    this.builder,
+    this.locale,
+    this.localizationsDelegates,
+    this.supportedLocales = const <Locale>[Locale('en', 'US')],
+    this.scaffoldMessengerKey,
+    this.debugShowCheckedModeBanner = false,
+    this.routeInformationProvider,
+    this.routeInformationParser,
+    this.routerDelegate,
+    this.routerConfig,
+    this.backButtonDispatcher,
+  }) : home = null,
+       routes = const <String, WidgetBuilder>{},
+       initialRoute = null,
+       onGenerateRoute = null,
+       onUnknownRoute = null,
+       navigatorKey = null,
+       navigatorObservers = const <NavigatorObserver>[],
+       _useRouter = true,
+       assert(
+         routerDelegate != null || routerConfig != null,
+         'Either routerDelegate or routerConfig must be provided.',
+       );
 
   final WiredThemeData wiredTheme;
   final WiredThemeData? darkWiredTheme;
@@ -45,33 +80,61 @@ class WiredMaterialApp extends HookWidget {
   final Iterable<Locale> supportedLocales;
   final GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey;
   final bool debugShowCheckedModeBanner;
+  final RouteInformationProvider? routeInformationProvider;
+  final RouteInformationParser<Object>? routeInformationParser;
+  final RouterDelegate<Object>? routerDelegate;
+  final RouterConfig<Object>? routerConfig;
+  final BackButtonDispatcher? backButtonDispatcher;
+  final bool _useRouter;
 
   @override
   Widget build(BuildContext context) {
     final effectiveDarkTheme = darkWiredTheme ?? wiredTheme;
     final effectiveWiredTheme = _resolveWiredTheme(effectiveDarkTheme);
+    final theme = wiredTheme.toThemeData();
+    final darkTheme = effectiveDarkTheme.toThemeData(
+      brightness: Brightness.dark,
+    );
 
     return WiredTheme(
       data: effectiveWiredTheme,
-      child: MaterialApp(
-        title: title,
-        theme: wiredTheme.toThemeData(),
-        darkTheme: effectiveDarkTheme.toThemeData(brightness: Brightness.dark),
-        themeMode: themeMode,
-        home: home,
-        routes: routes,
-        initialRoute: initialRoute,
-        onGenerateRoute: onGenerateRoute,
-        onUnknownRoute: onUnknownRoute,
-        navigatorKey: navigatorKey,
-        navigatorObservers: navigatorObservers,
-        builder: builder,
-        locale: locale,
-        localizationsDelegates: localizationsDelegates,
-        supportedLocales: supportedLocales,
-        scaffoldMessengerKey: scaffoldMessengerKey,
-        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-      ),
+      child: _useRouter
+          ? MaterialApp.router(
+              title: title,
+              theme: theme,
+              darkTheme: darkTheme,
+              themeMode: themeMode,
+              routeInformationProvider: routeInformationProvider,
+              routeInformationParser: routeInformationParser,
+              routerDelegate: routerDelegate,
+              routerConfig: routerConfig,
+              backButtonDispatcher: backButtonDispatcher,
+              builder: builder,
+              locale: locale,
+              localizationsDelegates: localizationsDelegates,
+              supportedLocales: supportedLocales,
+              scaffoldMessengerKey: scaffoldMessengerKey,
+              debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+            )
+          : MaterialApp(
+              title: title,
+              theme: theme,
+              darkTheme: darkTheme,
+              themeMode: themeMode,
+              home: home,
+              routes: routes,
+              initialRoute: initialRoute,
+              onGenerateRoute: onGenerateRoute,
+              onUnknownRoute: onUnknownRoute,
+              navigatorKey: navigatorKey,
+              navigatorObservers: navigatorObservers,
+              builder: builder,
+              locale: locale,
+              localizationsDelegates: localizationsDelegates,
+              supportedLocales: supportedLocales,
+              scaffoldMessengerKey: scaffoldMessengerKey,
+              debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+            ),
     );
   }
 
