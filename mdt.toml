@@ -1,0 +1,15 @@
+[padding]
+before = 0
+after = 0
+
+[exclude]
+patterns = [
+  "AGENTS.md",
+  "docs/agents/**",
+  "**/.dart_tool/**",
+  "**/build/**",
+  "**/coverage/**",
+  "**/.git/**",
+  "**/.claude/**",
+]
+markdown_codeblocks = true

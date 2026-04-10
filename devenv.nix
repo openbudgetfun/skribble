@@ -255,5 +255,25 @@
       description = "Update devenv and pub dependencies.";
       binary = "bash";
     };
+    "docs:site:serve" = {
+      exec = ''
+        set -e
+        cd "$DEVENV_ROOT/docs/site"
+        dart pub get
+        dart run jaspr_cli:jaspr serve $@
+      '';
+      description = "Serve the docs site locally.";
+      binary = "bash";
+    };
+    "docs:site:build" = {
+      exec = ''
+        set -e
+        cd "$DEVENV_ROOT/docs/site"
+        dart pub get
+        dart run jaspr_cli:jaspr build $@
+      '';
+      description = "Build static docs output for GitHub Pages.";
+      binary = "bash";
+    };
   };
 }

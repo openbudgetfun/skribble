@@ -1,0 +1,7 @@
+repo: https://github.com/openbudgetfun/skribble
+issue_tracker: https://github.com/openbudgetfun/skribble/issues
+package: https://pub.dev/packages/skribble
+api_docs: https://pub.dev/documentation/skribble/latest/
+storybook: https://github.com/openbudgetfun/skribble/tree/main/apps/skribble_storybook
+jaspr_docs: https://docs.jaspr.site/content
+contributing: https://github.com/openbudgetfun/skribble/blob/main/CONTRIBUTING.md

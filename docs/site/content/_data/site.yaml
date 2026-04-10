@@ -1,0 +1,10 @@
+# Site Configuration
+titleBase: Skribble Docs
+favicon: favicon.svg
+
+# Social media links
+social:
+  - name: GitHub
+    url: https://github.com/openbudgetfun/skribble
+  - name: pub.dev
+    url: https://pub.dev/packages/skribble
