@@ -222,8 +222,39 @@ The main library depends on:
 
 | Package                 | Purpose                                            |
 | ----------------------- | -------------------------------------------------- |
+| `skribble_icons`        | 30 curated hand-drawn custom icons + unified API   |
+| `skribble_emoji`        | Hand-drawn emoji from OpenMoji + WiredEmoji widget |
 | `skribble_lints`        | Shared lint rules (extends `very_good_analysis`)   |
 | `skribble_icons_custom` | Example custom icon set with SVG-manifest pipeline |
+
+### skribble_icons
+
+```dart
+import 'package:skribble_icons/skribble_icons.dart';
+```
+
+| Export                             | Type                         | Purpose                                           |
+| ---------------------------------- | ---------------------------- | ------------------------------------------------- |
+| `kSkribbleIcons`                   | `Map<int, WiredSvgIconData>` | All custom icons keyed by codepoint               |
+| `kSkribbleIconsCodePoints`         | `Map<String, int>`           | Icon identifier to codepoint mapping              |
+| `lookupSkribbleIconByIdentifier()` | function                     | Look up custom icon data by name                  |
+| `WiredSvgIconData`                 | class                        | SVG icon data (re-exported from `skribble`)       |
+| `WiredSvgPrimitive`                | class                        | SVG primitive types (re-exported from `skribble`) |
+
+### skribble_emoji
+
+```dart
+import 'package:skribble_emoji/skribble_emoji.dart';
+```
+
+| Export                           | Type                         | Purpose                                     |
+| -------------------------------- | ---------------------------- | ------------------------------------------- |
+| `kSkribbleEmoji`                 | `Map<int, WiredSvgIconData>` | All emoji keyed by Unicode codepoint        |
+| `kSkribbleEmojiCodePoints`       | `Map<String, int>`           | Emoji name to Unicode codepoint mapping     |
+| `lookupSkribbleEmojiByName()`    | function                     | Look up emoji data by name                  |
+| `lookupSkribbleEmojiByUnicode()` | function                     | Look up emoji data by Unicode codepoint     |
+| `WiredEmoji`                     | widget                       | HookWidget for rendering hand-drawn emoji   |
+| `WiredSvgIconData`               | class                        | SVG icon data (re-exported from `skribble`) |
 
 ## API documentation
 
