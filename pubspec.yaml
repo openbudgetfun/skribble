@@ -10,6 +10,7 @@ workspace:
   - packages/skribble_icons_custom
   - packages/skribble_lints
   - apps/skribble_storybook
+  - apps/skribble_example
 
 dev_dependencies:
   melos: ^7.4.0
