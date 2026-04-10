@@ -38,6 +38,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
+    - family: Skribble
+      fonts:
+        - asset: assets/fonts/Skribble-Regular.ttf
     - family: ArchitectsDaughter
       fonts:
         - asset: assets/fonts/ArchitectsDaughter-Regular.ttf

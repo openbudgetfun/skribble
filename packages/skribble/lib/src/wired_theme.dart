@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'rough/skribble_rough.dart';
 
 /// The default hand-drawn font family bundled with Skribble.
-const skribbleFontFamily = 'ArchitectsDaughter';
+///
+/// Based on Recursive (Casual axis) with hand-drawn roughening applied via
+/// FontForge. See `tool/font/roughen_font.py` for the generation script.
+const skribbleFontFamily = 'Skribble';
 
 /// Theme data for Wired widgets.
 class WiredThemeData {
