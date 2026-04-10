@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -45,6 +46,31 @@ void main() {
       expect(find.text('Root'), findsNothing);
     });
 
+    testWidgets('forwards onGenerateInitialRoutes when provided', (
+      tester,
+    ) async {
+      List<Route<dynamic>> onGenerateInitialRoutes(String initialRoute) =>
+          <Route<dynamic>>[
+            MaterialPageRoute<void>(
+              builder: (_) => Text('Generated $initialRoute'),
+            ),
+          ];
+
+      await tester.pumpWidget(
+        WiredMaterialApp(
+          wiredTheme: WiredThemeData(),
+          onGenerateInitialRoutes: onGenerateInitialRoutes,
+          builder: (context, child) => child ?? const SizedBox.shrink(),
+        ),
+      );
+
+      final materialApp = tester.widget<MaterialApp>(find.byType(MaterialApp));
+      expect(
+        materialApp.onGenerateInitialRoutes,
+        same(onGenerateInitialRoutes),
+      );
+    });
+
     testWidgets('applies dark wired theme when themeMode is dark', (
       tester,
     ) async {
@@ -75,6 +101,52 @@ void main() {
       expect(capturedTheme.borderColor, darkTheme.borderColor);
     });
 
+    testWidgets('forwards shared MaterialApp configuration', (tester) async {
+      Locale localeListCallback(
+        List<Locale>? locales,
+        Iterable<Locale> supportedLocales,
+      ) => const Locale('en', 'US');
+      Locale localeCallback(
+        Locale? locale,
+        Iterable<Locale> supportedLocales,
+      ) => const Locale('en', 'US');
+      const scrollBehavior = _TestScrollBehavior();
+      final action = _TestIntentAction();
+      String titleBuilder(BuildContext context) => 'Generated Title';
+
+      await tester.pumpWidget(
+        WiredMaterialApp(
+          wiredTheme: WiredThemeData(),
+          onGenerateTitle: titleBuilder,
+          color: const Color(0xFF112233),
+          localeListResolutionCallback: localeListCallback,
+          localeResolutionCallback: localeCallback,
+          scrollBehavior: scrollBehavior,
+          restorationScopeId: 'wired-app',
+          shortcuts: const <ShortcutActivator, Intent>{
+            SingleActivator(LogicalKeyboardKey.keyK): _TestIntent(),
+          },
+          actions: <Type, Action<Intent>>{_TestIntent: action},
+          themeAnimationDuration: const Duration(milliseconds: 420),
+          themeAnimationCurve: Curves.easeInOutCubic,
+          home: const Text('Config Home'),
+        ),
+      );
+
+      final materialApp = tester.widget<MaterialApp>(find.byType(MaterialApp));
+      expect(materialApp.onGenerateTitle, same(titleBuilder));
+      expect(materialApp.color, const Color(0xFF112233));
+      expect(materialApp.localeListResolutionCallback, same(localeListCallback));
+      expect(materialApp.localeResolutionCallback, same(localeCallback));
+      expect(materialApp.scrollBehavior, same(scrollBehavior));
+      expect(materialApp.restorationScopeId, 'wired-app');
+      expect(materialApp.themeAnimationDuration, const Duration(milliseconds: 420));
+      expect(materialApp.themeAnimationCurve, Curves.easeInOutCubic);
+      expect(materialApp.shortcuts, isNotNull);
+      expect(materialApp.actions, isNotNull);
+      expect(materialApp.actions![_TestIntent], same(action));
+    });
+
     testWidgets('router constructor renders routerConfig child', (
       tester,
     ) async {
@@ -89,9 +161,7 @@ void main() {
           wiredTheme: wiredTheme,
           routerConfig: RouterConfig<Object>(
             routeInformationProvider: PlatformRouteInformationProvider(
-              initialRouteInformation: RouteInformation(
-                uri: Uri(path: '/'),
-              ),
+              initialRouteInformation: RouteInformation(uri: Uri(path: '/')),
             ),
             routeInformationParser: const _TestRouteInformationParser(),
             routerDelegate: _TestRouterDelegate((context) {
@@ -151,6 +221,57 @@ void main() {
       expect(capturedTheme.fillColor, darkTheme.fillColor);
       expect(capturedTheme.borderColor, darkTheme.borderColor);
     });
+
+    testWidgets('router constructor forwards shared MaterialApp configuration', (
+      tester,
+    ) async {
+      Locale localeListCallback(
+        List<Locale>? locales,
+        Iterable<Locale> supportedLocales,
+      ) => const Locale('en', 'US');
+      Locale localeCallback(
+        Locale? locale,
+        Iterable<Locale> supportedLocales,
+      ) => const Locale('en', 'US');
+      const scrollBehavior = _TestScrollBehavior();
+      final action = _TestIntentAction();
+      String titleBuilder(BuildContext context) => 'Router Title';
+
+      await tester.pumpWidget(
+        WiredMaterialApp.router(
+          wiredTheme: WiredThemeData(),
+          onGenerateTitle: titleBuilder,
+          color: const Color(0xFF332211),
+          localeListResolutionCallback: localeListCallback,
+          localeResolutionCallback: localeCallback,
+          scrollBehavior: scrollBehavior,
+          restorationScopeId: 'wired-router-app',
+          shortcuts: const <ShortcutActivator, Intent>{
+            SingleActivator(LogicalKeyboardKey.keyR): _TestIntent(),
+          },
+          actions: <Type, Action<Intent>>{_TestIntent: action},
+          themeAnimationDuration: const Duration(milliseconds: 360),
+          themeAnimationCurve: Curves.easeOutQuart,
+          routeInformationParser: const _TestRouteInformationParser(),
+          routerDelegate: _TestRouterDelegate(
+            (_) => const Text('Router Config Home'),
+          ),
+        ),
+      );
+
+      final materialApp = tester.widget<MaterialApp>(find.byType(MaterialApp));
+      expect(materialApp.onGenerateTitle, same(titleBuilder));
+      expect(materialApp.color, const Color(0xFF332211));
+      expect(materialApp.localeListResolutionCallback, same(localeListCallback));
+      expect(materialApp.localeResolutionCallback, same(localeCallback));
+      expect(materialApp.scrollBehavior, same(scrollBehavior));
+      expect(materialApp.restorationScopeId, 'wired-router-app');
+      expect(materialApp.themeAnimationDuration, const Duration(milliseconds: 360));
+      expect(materialApp.themeAnimationCurve, Curves.easeOutQuart);
+      expect(materialApp.shortcuts, isNotNull);
+      expect(materialApp.actions, isNotNull);
+      expect(materialApp.actions![_TestIntent], same(action));
+    });
   });
 }
 
@@ -179,4 +300,17 @@ class _TestRouterDelegate extends RouterDelegate<Object> with ChangeNotifier {
 
   @override
   Future<void> setNewRoutePath(Object configuration) async {}
+}
+
+class _TestScrollBehavior extends MaterialScrollBehavior {
+  const _TestScrollBehavior();
+}
+
+class _TestIntent extends Intent {
+  const _TestIntent();
+}
+
+class _TestIntentAction extends Action<_TestIntent> {
+  @override
+  Object? invoke(_TestIntent intent) => null;
 }
