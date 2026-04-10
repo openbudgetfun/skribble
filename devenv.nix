@@ -10,6 +10,7 @@
     with pkgs;
     [
       dprint
+      fontforge
       eget
       fvm
       gitleaks
