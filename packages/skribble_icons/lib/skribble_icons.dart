@@ -1,31 +1,51 @@
-/// Hand-drawn icon set for Skribble.
+/// Comprehensive hand-drawn icon library for Skribble.
 ///
-/// Provides [kSkribbleIcons], a compile-time map from codepoint to
-/// [WiredSvgIconData], and [lookupSkribbleIconByIdentifier] for
-/// name-based access.
+/// Provides unified access to **all** roughened Flutter Material icons (8,600+)
+/// plus 30 curated custom icons through a single API.
 ///
+/// ## Quick start
+///
+/// ```dart
+/// import 'package:skribble_icons/skribble_icons.dart';
+///
+/// // Look up any Material icon by its Flutter identifier:
+/// final searchIcon = lookupSkribbleIconByIdentifier('search');
+///
+/// // Or use the curated custom icons:
+/// final homeIcon = lookupSkribbleCustomIconByIdentifier('home');
+/// ```
 library;
 
+import 'package:skribble/skribble.dart';
 import 'package:skribble_icons/src/generated/skribble_icons.g.dart';
-import 'package:skribble_icons/src/wired_svg_icon_data.dart';
 
-export 'package:skribble_icons/src/generated/skribble_icons.g.dart'
-    show kSkribbleIcons;
-export 'package:skribble_icons/src/wired_svg_icon_data.dart'
+// Re-export core icon types and Material rough icon accessors from skribble.
+export 'package:skribble/skribble.dart'
     show
         WiredSvgCirclePrimitive,
         WiredSvgEllipsePrimitive,
         WiredSvgFillRule,
         WiredSvgIconData,
         WiredSvgPathPrimitive,
-        WiredSvgPrimitive;
+        WiredSvgPrimitive,
+        lookupMaterialRoughIcon,
+        lookupMaterialRoughIconByIdentifier,
+        materialRoughFontCodePoints,
+        materialRoughFontFamily,
+        materialRoughIconCodePoints,
+        materialRoughIconIdentifiers;
+
+// Export the curated custom icon set.
+export 'package:skribble_icons/src/generated/skribble_icons.g.dart'
+    show kSkribbleCustomIcons;
 
 // ---------------------------------------------------------------------------
-// Lookup helpers
+// Custom icon codepoint map
 // ---------------------------------------------------------------------------
 
-/// Maps each icon identifier string to its codepoint in [kSkribbleIcons].
-const Map<String, int> kSkribbleIconsCodePoints = <String, int>{
+/// Maps each curated custom icon identifier to its codepoint in
+/// [kSkribbleCustomIcons].
+const Map<String, int> kSkribbleCustomIconsCodePoints = <String, int>{
   'home': 0xf001,
   'search': 0xf002,
   'settings': 0xf003,
@@ -58,13 +78,44 @@ const Map<String, int> kSkribbleIconsCodePoints = <String, int>{
   'notification': 0xf01e,
 };
 
-/// Returns the [WiredSvgIconData] for [identifier], or `null` if not found.
+// ---------------------------------------------------------------------------
+// Unified lookup helpers
+// ---------------------------------------------------------------------------
+
+/// Returns [WiredSvgIconData] for [identifier], searching custom icons first,
+/// then falling back to the full Material rough icon set.
+///
+/// This is the primary lookup function — it covers all 8,600+ Material icons
+/// plus the 30 curated custom icons.
 ///
 /// ```dart
-/// final data = lookupSkribbleIconByIdentifier('star');
+/// // Custom icon:
+/// lookupSkribbleIconByIdentifier('heart'); // curated custom icon
+///
+/// // Material icon (any Flutter Icons identifier):
+/// lookupSkribbleIconByIdentifier('access_alarm'); // Material rough icon
 /// ```
 WiredSvgIconData? lookupSkribbleIconByIdentifier(String identifier) {
-  final codePoint = kSkribbleIconsCodePoints[identifier];
-  if (codePoint == null) return null;
-  return kSkribbleIcons[codePoint];
+  // Try custom icons first (they take precedence for shared identifiers).
+  final customCodePoint = kSkribbleCustomIconsCodePoints[identifier];
+  if (customCodePoint != null) {
+    final data = kSkribbleCustomIcons[customCodePoint];
+    if (data != null) return data;
+  }
+  // Fall back to the full Material rough icon set.
+  return lookupMaterialRoughIconByIdentifier(identifier);
 }
+
+/// Returns [WiredSvgIconData] for [identifier] from the curated custom set
+/// only. Returns `null` if not found.
+WiredSvgIconData? lookupSkribbleCustomIconByIdentifier(String identifier) {
+  final codePoint = kSkribbleCustomIconsCodePoints[identifier];
+  if (codePoint == null) return null;
+  return kSkribbleCustomIcons[codePoint];
+}
+
+/// Total number of curated custom icons.
+int get skribbleCustomIconCount => kSkribbleCustomIcons.length;
+
+/// Total number of Material rough icons available.
+int get skribbleMaterialIconCount => materialRoughIconCodePoints.length;
