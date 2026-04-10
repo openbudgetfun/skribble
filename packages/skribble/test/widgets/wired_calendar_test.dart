@@ -37,7 +37,7 @@ void main() {
       'December',
     ];
 
-    // Set a large viewport so GoogleFonts text doesn't overflow.
+    // Set a large viewport so hand-drawn font text doesn't overflow.
     void useLargeViewport(WidgetTester tester) {
       tester.view.physicalSize = const Size(1200, 1200);
       tester.view.devicePixelRatio = 1.0;
