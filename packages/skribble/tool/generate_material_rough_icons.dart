@@ -16,6 +16,7 @@ const _kDefaultFontGeneratorExecutable = 'npx';
 const _kDefaultFontGeneratorPackage = 'fantasticon';
 const _kDefaultBrandIconsPackage = 'simple-icons';
 const _kDefaultFontName = 'material_rough_icons';
+const _kDefaultMapName = 'kMaterialRoughIcons';
 const _kUnresolvedBaselineOutputFormatUnresolved = 'unresolved';
 const _kUnresolvedBaselineOutputFormatCodePoints = 'codepoints';
 const _kUnresolvedBaselineOutputFormats = <String>{
@@ -179,7 +180,9 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
       options.outputPath ?? _defaultOutputPathForKit(options.kit),
     );
     outputFile.createSync(recursive: true);
-    outputFile.writeAsStringSync(_renderGeneratedFile(icons));
+    outputFile.writeAsStringSync(
+      _renderGeneratedFile(icons, mapName: options.mapName),
+    );
     stdout.writeln(
       'Generated ${icons.length} rough icons to ${outputFile.path}',
     );
@@ -330,7 +333,7 @@ Options:
   --supplemental-manifest-output <path>
                                    Emit supplemental manifest template JSON.
   --unresolved-baseline <path>     Baseline unresolved report/manifest/codePoints JSON for diffing.
-                                   Accepts unresolvedCodePoints/unresolvedCodePoint/unresolvedCodepoint/unresolvedCodepoints/unresolved_code_points/unresolved_codepoints/unresolved-code-points/unresolved-codepoints/codePoints/codePoint/codepoints/codepoint/code_points/code-points keys for minimal baseline objects.
+                                   Accepts unresolvedCodePoints/unresolvedCodePoint/unresolvedCodepoint/unresolvedCodepoints/unresolved_code_points/unresolved_codepoint/unresolved_codepoints/unresolved-code-points/unresolved-codepoints/codePoints/codePoint/codepoints/codepoint/code_points/code-points keys for minimal baseline objects.
                                    For unresolved[]/icons[] entries, accepts codePoint/codepoint/code_point/code-point.
   --max-unresolved <int>           Max unresolved icons allowed before failing.
   --fail-on-unresolved             Exit with error when unresolved icons remain (cannot be combined with --max-unresolved).
@@ -347,6 +350,7 @@ Options:
   --font-output-dir <path>         Build an icon font from rough SVGs into this directory.
   --font-dart-output <path>        Emit Dart helpers (font family + codepoint lookup map).
   --font-name <name>               Name of generated icon font (default: material_rough_icons).
+  --map-name <name>                Name of generated Dart map constant (default: kMaterialRoughIcons).
   --font-generator-executable <e>  Font generator executable (default: npx).
   --font-generator-package <name>  Package passed to generator executable (default: fantasticon).
   --help                           Show this help text.
@@ -403,6 +407,7 @@ final class _ScriptOptions {
     this.failOnNewUnresolved = false,
     this.fontOutputDir,
     this.fontDartOutputPath,
+    this.mapName = _kDefaultMapName,
     this.fontName = _kDefaultFontName,
     this.fontGeneratorExecutable = _kDefaultFontGeneratorExecutable,
     this.fontGeneratorPackage = _kDefaultFontGeneratorPackage,
@@ -436,6 +441,7 @@ final class _ScriptOptions {
   final bool failOnNewUnresolved;
   final String? fontOutputDir;
   final String? fontDartOutputPath;
+  final String mapName;
   final String fontName;
   final String fontGeneratorExecutable;
   final String fontGeneratorPackage;
@@ -470,6 +476,7 @@ final class _ScriptOptions {
     var failOnNewUnresolved = false;
     String? fontOutputDir;
     String? fontDartOutputPath;
+    var mapName = _kDefaultMapName;
     var fontName = _kDefaultFontName;
     var fontGeneratorExecutable = _kDefaultFontGeneratorExecutable;
     var fontGeneratorPackage = _kDefaultFontGeneratorPackage;
@@ -565,6 +572,8 @@ final class _ScriptOptions {
           fontOutputDir = value;
         case '--font-dart-output':
           fontDartOutputPath = value;
+        case '--map-name':
+          mapName = value;
         case '--font-name':
           fontName = value;
         case '--font-generator-executable':
@@ -644,6 +653,7 @@ final class _ScriptOptions {
       failOnNewUnresolved: failOnNewUnresolved,
       fontOutputDir: fontOutputDir,
       fontDartOutputPath: fontDartOutputPath,
+      mapName: mapName,
       fontName: fontName,
       fontGeneratorExecutable: fontGeneratorExecutable,
       fontGeneratorPackage: fontGeneratorPackage,
@@ -1440,7 +1450,10 @@ _SvgFillRule? _parseFillRule(String? value) {
   };
 }
 
-String _renderGeneratedFile(List<_GeneratedIcon> icons) {
+String _renderGeneratedFile(
+  List<_GeneratedIcon> icons, {
+  String mapName = _kDefaultMapName,
+}) {
   final buffer = StringBuffer()
     ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND.')
     ..writeln('// ignore_for_file: lines_longer_than_80_chars')
@@ -1448,7 +1461,7 @@ String _renderGeneratedFile(List<_GeneratedIcon> icons) {
     ..writeln("import '../wired_svg_icon_data.dart';")
     ..writeln()
     ..writeln(
-      'const Map<int, WiredSvgIconData> kMaterialRoughIcons = '
+      'const Map<int, WiredSvgIconData> $mapName = '
       '<int, WiredSvgIconData>{',
     );
 
@@ -1502,6 +1515,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     final unresolvedCodepointsValue = decoded['unresolvedCodepoints'];
     final unresolvedCodePointsSnakeCaseValue =
         decoded['unresolved_code_points'];
+    final unresolvedCodepointSnakeCaseValue = decoded['unresolved_codepoint'];
     final unresolvedCodepointsSnakeCaseValue = decoded['unresolved_codepoints'];
     final unresolvedCodePointsKebabCaseValue =
         decoded['unresolved-code-points'];
@@ -1547,6 +1561,10 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       unresolvedCodePointsSnakeCaseValue,
     );
     addInvalidRecognizedListValue(
+      'unresolved_codepoint',
+      unresolvedCodepointSnakeCaseValue,
+    );
+    addInvalidRecognizedListValue(
       'unresolved_codepoints',
       unresolvedCodepointsSnakeCaseValue,
     );
@@ -1579,6 +1597,8 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       entries = unresolvedCodepointsValue;
     } else if (unresolvedCodePointsSnakeCaseValue is List<Object?>) {
       entries = unresolvedCodePointsSnakeCaseValue;
+    } else if (unresolvedCodepointSnakeCaseValue is List<Object?>) {
+      entries = unresolvedCodepointSnakeCaseValue;
     } else if (unresolvedCodepointsSnakeCaseValue is List<Object?>) {
       entries = unresolvedCodepointsSnakeCaseValue;
     } else if (unresolvedCodePointsKebabCaseValue is List<Object?>) {
@@ -1616,7 +1636,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
         'list (report format), "icons" list (manifest format), or '
         '"unresolvedCodePoints"/"unresolvedCodePoint"/'
         '"unresolvedCodepoint"/"unresolvedCodepoints"/'
-        '"unresolved_code_points"/'
+        '"unresolved_code_points"/"unresolved_codepoint"/'
         '"unresolved_codepoints"/'
         '"unresolved-code-points"/"unresolved-codepoints"/'
         '"codePoints"/"codePoint"/"codepoints"/"codepoint"/'

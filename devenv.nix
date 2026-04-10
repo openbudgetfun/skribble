@@ -10,11 +10,13 @@
     with pkgs;
     [
       dprint
+      fontforge
       eget
       fvm
       gitleaks
       libiconv
       nixfmt
+      ripgrep
       shfmt
     ]
     ++ lib.optionals stdenv.isDarwin [
@@ -52,21 +54,23 @@
         pass_filenames = false;
         stages = [ "pre-push" ];
       };
-      format = {
+      ci-parity-commit = {
         enable = true;
-        name = "format";
-        description = "Format files with dprint before commit.";
-        entry = "${pkgs.dprint}/bin/dprint fmt --allow-no-files";
+        name = "ci-parity:commit";
+        description = "Format staged files, apply Dart fixes in changed packages, and analyze staged Dart files.";
+        entry = "bash ${config.env.DEVENV_ROOT}/scripts/git_hooks/pre_commit.sh";
+        language = "system";
+        pass_filenames = true;
         stages = [ "pre-commit" ];
       };
-      lint = {
+      ci-parity-push = {
         enable = true;
-        name = "lint";
-        description = "Run linting and formatting checks on every commit.";
-        entry = "${config.env.DEVENV_PROFILE}/bin/dart analyze --fatal-infos";
-        pass_filenames = true;
-        always_run = true;
-        stages = [ "pre-commit" ];
+        name = "ci-parity:push";
+        description = "Run CI-parity formatting, analysis, and unit/widget tests before push.";
+        entry = "bash ${config.env.DEVENV_ROOT}/scripts/git_hooks/pre_push_ci.sh";
+        language = "system";
+        pass_filenames = false;
+        stages = [ "pre-push" ];
       };
     };
   };
@@ -206,9 +210,9 @@
     "test:all" = {
       exec = ''
         set -e
-        melos flutter-test
+        melos exec --dir-exists=test --depends-on=flutter -- flutter test
       '';
-      description = "Run all tests via melos.";
+      description = "Run all unit and widget tests in Flutter packages.";
       binary = "bash";
     };
     "test:coverage" = {
