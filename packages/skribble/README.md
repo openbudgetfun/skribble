@@ -29,8 +29,15 @@ WiredMaterialApp(
 );
 ```
 
-For router-based apps, use `WiredMaterialApp.router(...)` with your
-`RouterConfig`, `routerDelegate`, or `routeInformationParser` setup.
+Router-based apps are supported too:
+
+```dart
+WiredMaterialApp.router(
+  wiredTheme: wiredTheme,
+  routerConfig: appRouter,
+);
+```
+
 Both constructors also expose high-value `MaterialApp` bootstrapping options
 like locale resolution callbacks, restoration, scroll behavior, shortcuts /
 actions, generated titles, theme animation controls, high-contrast theme

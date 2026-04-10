@@ -297,6 +297,33 @@ void main() {
       expect(find.text('Direct Router'), findsOneWidget);
     });
 
+    testWidgets('router constructor renders configured route content', (
+      tester,
+    ) async {
+      final routerDelegate = _PathTestRouterDelegate();
+      final routeInformationProvider = PlatformRouteInformationProvider(
+        initialRouteInformation: RouteInformation(
+          uri: Uri(path: '/details'),
+        ),
+      );
+
+      await tester.pumpWidget(
+        WiredMaterialApp.router(
+          wiredTheme: WiredThemeData(),
+          routerConfig: RouterConfig<Object>(
+            routeInformationProvider: routeInformationProvider,
+            routeInformationParser: const _PathTestRouteInformationParser(),
+            routerDelegate: routerDelegate,
+            backButtonDispatcher: RootBackButtonDispatcher(),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      expect(find.text('Details Route'), findsOneWidget);
+      expect(find.text('Home Route'), findsNothing);
+    });
+
     testWidgets('router constructor applies dark wired theme', (
       tester,
     ) async {
@@ -401,6 +428,13 @@ void main() {
       expect(materialApp.actions, isNotNull);
       expect(materialApp.actions![_TestIntent], same(action));
     });
+
+    test('router constructor requires routerDelegate or routerConfig', () {
+      expect(
+        () => WiredMaterialApp.router(wiredTheme: WiredThemeData()),
+        throwsA(isA<AssertionError>()),
+      );
+    });
   });
 }
 
@@ -429,6 +463,52 @@ class _TestRouterDelegate extends RouterDelegate<Object> with ChangeNotifier {
 
   @override
   Future<void> setNewRoutePath(Object configuration) async {}
+}
+
+class _PathTestRouteInformationParser extends RouteInformationParser<Object> {
+  const _PathTestRouteInformationParser();
+
+  @override
+  Future<Object> parseRouteInformation(RouteInformation routeInformation) =>
+      SynchronousFuture<Object>(routeInformation.uri.path);
+
+  @override
+  RouteInformation restoreRouteInformation(Object configuration) {
+    return RouteInformation(uri: Uri(path: configuration as String));
+  }
+}
+
+class _PathTestRouterDelegate extends RouterDelegate<Object>
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<Object> {
+  _PathTestRouterDelegate();
+
+  @override
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  String _currentPath = '/';
+
+  @override
+  Widget build(BuildContext context) {
+    final child = Text(
+      _currentPath == '/details' ? 'Details Route' : 'Home Route',
+    );
+
+    return Navigator(
+      key: navigatorKey,
+      pages: <Page<void>>[MaterialPage<void>(child: child)],
+      onDidRemovePage: (_) {},
+    );
+  }
+
+  @override
+  Future<void> setNewRoutePath(Object configuration) {
+    _currentPath = configuration as String;
+    notifyListeners();
+    return SynchronousFuture<void>(null);
+  }
+
+  @override
+  Object? get currentConfiguration => _currentPath;
 }
 
 class _TestScrollBehavior extends MaterialScrollBehavior {
