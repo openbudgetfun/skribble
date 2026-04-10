@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:skribble_storybook/app.dart';
 
 /// Visual review test — renders each storybook page as a golden file PNG.
@@ -15,11 +14,6 @@ import 'package:skribble_storybook/app.dart';
 /// `pumpAndSettle` from ever completing.
 void main() {
   final runningInCi = Platform.environment['CI'] == 'true';
-
-  setUpAll(() {
-    // Use bundled ShortStack font instead of fetching over HTTP.
-    GoogleFonts.config.allowRuntimeFetching = false;
-  });
 
   bool hasGolden(String relativePath) {
     return File('${Directory.current.path}/$relativePath').existsSync();
