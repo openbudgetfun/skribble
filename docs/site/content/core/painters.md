@@ -24,12 +24,12 @@ abstract class WiredPainterBase {
 
 Parameters:
 
-| Parameter | Purpose |
-|---|---|
-| `canvas` | The Flutter `Canvas` to draw on |
-| `size` | The available area for the shape |
+| Parameter    | Purpose                                                       |
+| ------------ | ------------------------------------------------------------- |
+| `canvas`     | The Flutter `Canvas` to draw on                               |
+| `size`       | The available area for the shape                              |
 | `drawConfig` | Controls roughness, bowing, seed, and other engine parameters |
-| `filler` | The fill algorithm (hachure, dots, solid, etc.) |
+| `filler`     | The fill algorithm (hachure, dots, solid, etc.)               |
 
 Every concrete painter follows the same three-step pattern inside `paintRough`:
 
@@ -371,13 +371,13 @@ class WiredCanvas extends HookWidget {
 
 ### Parameters
 
-| Parameter | Required | Default | Description |
-|---|---|---|---|
-| `painter` | yes | -- | The shape painter to render |
-| `fillerType` | yes | -- | Which fill algorithm to use (`RoughFilter` enum) |
-| `drawConfig` | no | `DrawConfig.defaultValues` | Drawing configuration override |
-| `fillerConfig` | no | `FillerConfig.defaultConfig` | Fill configuration override |
-| `size` | no | `Size.infinite` | Custom canvas size |
+| Parameter      | Required | Default                      | Description                                      |
+| -------------- | -------- | ---------------------------- | ------------------------------------------------ |
+| `painter`      | yes      | --                           | The shape painter to render                      |
+| `fillerType`   | yes      | --                           | Which fill algorithm to use (`RoughFilter` enum) |
+| `drawConfig`   | no       | `DrawConfig.defaultValues`   | Drawing configuration override                   |
+| `fillerConfig` | no       | `FillerConfig.defaultConfig` | Fill configuration override                      |
+| `size`         | no       | `Size.infinite`              | Custom canvas size                               |
 
 ### Minimal Example
 

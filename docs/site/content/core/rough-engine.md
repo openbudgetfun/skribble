@@ -11,12 +11,12 @@ Skribble's hand-drawn aesthetic comes from a Dart port of [rough.js](https://rou
 
 The engine has four core pieces:
 
-| Concept | Purpose |
-|---|---|
-| `DrawConfig` | Controls randomness, roughness, bowing, and curve parameters |
-| `Generator` | Produces `Drawable` shapes (rectangles, circles, polygons, etc.) |
-| `Filler` | Fills polygon interiors with patterns (hachure, dots, zigzag, etc.) |
-| `Drawable` / `OpSet` | Data structures holding drawing operations for the canvas |
+| Concept              | Purpose                                                             |
+| -------------------- | ------------------------------------------------------------------- |
+| `DrawConfig`         | Controls randomness, roughness, bowing, and curve parameters        |
+| `Generator`          | Produces `Drawable` shapes (rectangles, circles, polygons, etc.)    |
+| `Filler`             | Fills polygon interiors with patterns (hachure, dots, zigzag, etc.) |
+| `Drawable` / `OpSet` | Data structures holding drawing operations for the canvas           |
 
 The typical flow is:
 
@@ -34,16 +34,16 @@ canvas.drawRough(drawable, pathPaint, fillPaint);
 
 ### Fields
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `maxRandomnessOffset` | `double` | `2` | Maximum pixel offset for random jitter |
-| `roughness` | `double` | `1` | Overall roughness multiplier -- higher values produce wobblier lines |
-| `bowing` | `double` | `1` | How much lines bow outward at the midpoint |
-| `curveFitting` | `double` | `0.95` | How closely curves follow the intended path (0 = loose, 1 = tight) |
-| `curveTightness` | `double` | `0` | Tension of Catmull-Rom splines |
-| `curveStepCount` | `double` | `9` | Number of steps when generating curved segments |
-| `seed` | `int` | `1` | Random seed for deterministic output |
-| `randomizer` | `Randomizer` | seeded | Pseudo-random number generator |
+| Field                 | Type         | Default | Description                                                          |
+| --------------------- | ------------ | ------- | -------------------------------------------------------------------- |
+| `maxRandomnessOffset` | `double`     | `2`     | Maximum pixel offset for random jitter                               |
+| `roughness`           | `double`     | `1`     | Overall roughness multiplier -- higher values produce wobblier lines |
+| `bowing`              | `double`     | `1`     | How much lines bow outward at the midpoint                           |
+| `curveFitting`        | `double`     | `0.95`  | How closely curves follow the intended path (0 = loose, 1 = tight)   |
+| `curveTightness`      | `double`     | `0`     | Tension of Catmull-Rom splines                                       |
+| `curveStepCount`      | `double`     | `9`     | Number of steps when generating curved segments                      |
+| `seed`                | `int`        | `1`     | Random seed for deterministic output                                 |
+| `randomizer`          | `Randomizer` | seeded  | Pseudo-random number generator                                       |
 
 ### Creating a DrawConfig
 
@@ -219,15 +219,15 @@ Fillers control how the interior of a closed shape is painted. Every `Filler` su
 
 `FillerConfig` holds parameters shared across all filler types:
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `drawConfig` | `DrawConfig` | `DrawConfig.defaultValues` | Base drawing config for fill strokes |
-| `fillWeight` | `double` | `1` | Weight / thickness of fill strokes |
-| `hachureAngle` | `double` | `320` | Angle of hachure lines in degrees |
-| `hachureGap` | `double` | `15` | Spacing between hachure lines |
-| `dashOffset` | `double` | `15` | Length of each dash in dashed fills |
-| `dashGap` | `double` | `2` | Gap between dashes |
-| `zigzagOffset` | `double` | `5` | Amplitude of zigzag lines |
+| Field          | Type         | Default                    | Description                          |
+| -------------- | ------------ | -------------------------- | ------------------------------------ |
+| `drawConfig`   | `DrawConfig` | `DrawConfig.defaultValues` | Base drawing config for fill strokes |
+| `fillWeight`   | `double`     | `1`                        | Weight / thickness of fill strokes   |
+| `hachureAngle` | `double`     | `320`                      | Angle of hachure lines in degrees    |
+| `hachureGap`   | `double`     | `15`                       | Spacing between hachure lines        |
+| `dashOffset`   | `double`     | `15`                       | Length of each dash in dashed fills  |
+| `dashGap`      | `double`     | `2`                        | Gap between dashes                   |
+| `zigzagOffset` | `double`     | `5`                        | Amplitude of zigzag lines            |
 
 ```dart
 final fillerConfig = FillerConfig.build(
@@ -495,12 +495,12 @@ RoughBoxDecoration(
 
 Controls the paint properties for borders and fills:
 
-| Field | Type | Description |
-|---|---|---|
-| `width` | `double?` | Stroke width in pixels |
-| `color` | `Color?` | Solid color |
-| `gradient` | `Gradient?` | Gradient shader (overrides color) |
-| `blendMode` | `BlendMode?` | Blend mode for the paint |
+| Field       | Type         | Description                       |
+| ----------- | ------------ | --------------------------------- |
+| `width`     | `double?`    | Stroke width in pixels            |
+| `color`     | `Color?`     | Solid color                       |
+| `gradient`  | `Gradient?`  | Gradient shader (overrides color) |
+| `blendMode` | `BlendMode?` | Blend mode for the paint          |
 
 ## Low-Level Internals
 

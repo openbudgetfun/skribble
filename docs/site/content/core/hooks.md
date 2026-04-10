@@ -277,10 +277,12 @@ The rule is simple: if you need `WidgetRef`, use `HookConsumerWidget`. Otherwise
 Every Wired widget reads the theme at the top of its `build` method:
 
 <!-- {=docsThemeReadPattern} -->
+
 ```dart
 final theme = WiredTheme.of(context);
 // Use theme.borderColor, theme.fillColor, theme.textColor, etc.
 ```
+
 <!-- {/docsThemeReadPattern} -->
 
 This establishes a dependency on the `WiredTheme` `InheritedWidget`, so the widget rebuilds automatically when the theme changes.

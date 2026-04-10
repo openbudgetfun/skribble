@@ -46,70 +46,70 @@ The `.router()` constructor requires either `routerDelegate` or `routerConfig` -
 
 ### Wired Theme Parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `wiredTheme` | `WiredThemeData` | required | Primary (light) Wired theme |
-| `darkWiredTheme` | `WiredThemeData?` | `null` | Dark mode Wired theme; falls back to `wiredTheme` |
-| `highContrastWiredTheme` | `WiredThemeData?` | `null` | High-contrast light theme; falls back to `wiredTheme` |
-| `highContrastDarkWiredTheme` | `WiredThemeData?` | `null` | High-contrast dark theme; falls back to `darkWiredTheme`, then `wiredTheme` |
-| `themeMode` | `ThemeMode` | `ThemeMode.system` | Which theme variant to use |
+| Parameter                    | Type              | Default            | Description                                                                 |
+| ---------------------------- | ----------------- | ------------------ | --------------------------------------------------------------------------- |
+| `wiredTheme`                 | `WiredThemeData`  | required           | Primary (light) Wired theme                                                 |
+| `darkWiredTheme`             | `WiredThemeData?` | `null`             | Dark mode Wired theme; falls back to `wiredTheme`                           |
+| `highContrastWiredTheme`     | `WiredThemeData?` | `null`             | High-contrast light theme; falls back to `wiredTheme`                       |
+| `highContrastDarkWiredTheme` | `WiredThemeData?` | `null`             | High-contrast dark theme; falls back to `darkWiredTheme`, then `wiredTheme` |
+| `themeMode`                  | `ThemeMode`       | `ThemeMode.system` | Which theme variant to use                                                  |
 
 ### Navigation Parameters (Standard Constructor Only)
 
-| Parameter | Type | Default |
-|---|---|---|
-| `home` | `Widget?` | `null` |
-| `routes` | `Map<String, WidgetBuilder>` | `{}` |
-| `initialRoute` | `String?` | `null` |
-| `onGenerateRoute` | `RouteFactory?` | `null` |
-| `onGenerateInitialRoutes` | `InitialRouteListFactory?` | `null` |
-| `onUnknownRoute` | `RouteFactory?` | `null` |
-| `navigatorKey` | `GlobalKey<NavigatorState>?` | `null` |
-| `navigatorObservers` | `List<NavigatorObserver>` | `[]` |
+| Parameter                 | Type                         | Default |
+| ------------------------- | ---------------------------- | ------- |
+| `home`                    | `Widget?`                    | `null`  |
+| `routes`                  | `Map<String, WidgetBuilder>` | `{}`    |
+| `initialRoute`            | `String?`                    | `null`  |
+| `onGenerateRoute`         | `RouteFactory?`              | `null`  |
+| `onGenerateInitialRoutes` | `InitialRouteListFactory?`   | `null`  |
+| `onUnknownRoute`          | `RouteFactory?`              | `null`  |
+| `navigatorKey`            | `GlobalKey<NavigatorState>?` | `null`  |
+| `navigatorObservers`      | `List<NavigatorObserver>`    | `[]`    |
 
 ### Navigation Parameters (Router Constructor Only)
 
-| Parameter | Type | Default |
-|---|---|---|
-| `routeInformationProvider` | `RouteInformationProvider?` | `null` |
-| `routeInformationParser` | `RouteInformationParser<Object>?` | `null` |
-| `routerDelegate` | `RouterDelegate<Object>?` | `null` |
-| `routerConfig` | `RouterConfig<Object>?` | `null` |
-| `backButtonDispatcher` | `BackButtonDispatcher?` | `null` |
+| Parameter                  | Type                              | Default |
+| -------------------------- | --------------------------------- | ------- |
+| `routeInformationProvider` | `RouteInformationProvider?`       | `null`  |
+| `routeInformationParser`   | `RouteInformationParser<Object>?` | `null`  |
+| `routerDelegate`           | `RouterDelegate<Object>?`         | `null`  |
+| `routerConfig`             | `RouterConfig<Object>?`           | `null`  |
+| `backButtonDispatcher`     | `BackButtonDispatcher?`           | `null`  |
 
 ### App-Level Parameters (Both Constructors)
 
-| Parameter | Type | Default |
-|---|---|---|
-| `title` | `String` | `''` |
-| `onGenerateTitle` | `GenerateAppTitle?` | `null` |
-| `onNavigationNotification` | `NotificationListenerCallback<NavigationNotification>?` | `null` |
-| `color` | `Color?` | `null` |
-| `builder` | `TransitionBuilder?` | `null` |
-| `locale` | `Locale?` | `null` |
-| `localizationsDelegates` | `Iterable<LocalizationsDelegate>?` | `null` |
-| `localeListResolutionCallback` | `LocaleListResolutionCallback?` | `null` |
-| `localeResolutionCallback` | `LocaleResolutionCallback?` | `null` |
-| `supportedLocales` | `Iterable<Locale>` | `[Locale('en', 'US')]` |
-| `scaffoldMessengerKey` | `GlobalKey<ScaffoldMessengerState>?` | `null` |
-| `scrollBehavior` | `ScrollBehavior?` | `null` |
-| `restorationScopeId` | `String?` | `null` |
-| `shortcuts` | `Map<ShortcutActivator, Intent>?` | `null` |
-| `actions` | `Map<Type, Action<Intent>>?` | `null` |
-| `themeAnimationDuration` | `Duration` | `kThemeAnimationDuration` |
-| `themeAnimationCurve` | `Curve` | `Curves.linear` |
-| `themeAnimationStyle` | `AnimationStyle?` | `null` |
+| Parameter                      | Type                                                    | Default                   |
+| ------------------------------ | ------------------------------------------------------- | ------------------------- |
+| `title`                        | `String`                                                | `''`                      |
+| `onGenerateTitle`              | `GenerateAppTitle?`                                     | `null`                    |
+| `onNavigationNotification`     | `NotificationListenerCallback<NavigationNotification>?` | `null`                    |
+| `color`                        | `Color?`                                                | `null`                    |
+| `builder`                      | `TransitionBuilder?`                                    | `null`                    |
+| `locale`                       | `Locale?`                                               | `null`                    |
+| `localizationsDelegates`       | `Iterable<LocalizationsDelegate>?`                      | `null`                    |
+| `localeListResolutionCallback` | `LocaleListResolutionCallback?`                         | `null`                    |
+| `localeResolutionCallback`     | `LocaleResolutionCallback?`                             | `null`                    |
+| `supportedLocales`             | `Iterable<Locale>`                                      | `[Locale('en', 'US')]`    |
+| `scaffoldMessengerKey`         | `GlobalKey<ScaffoldMessengerState>?`                    | `null`                    |
+| `scrollBehavior`               | `ScrollBehavior?`                                       | `null`                    |
+| `restorationScopeId`           | `String?`                                               | `null`                    |
+| `shortcuts`                    | `Map<ShortcutActivator, Intent>?`                       | `null`                    |
+| `actions`                      | `Map<Type, Action<Intent>>?`                            | `null`                    |
+| `themeAnimationDuration`       | `Duration`                                              | `kThemeAnimationDuration` |
+| `themeAnimationCurve`          | `Curve`                                                 | `Curves.linear`           |
+| `themeAnimationStyle`          | `AnimationStyle?`                                       | `null`                    |
 
 ### Debug Parameters (Both Constructors)
 
-| Parameter | Type | Default |
-|---|---|---|
-| `debugShowMaterialGrid` | `bool` | `false` |
-| `showPerformanceOverlay` | `bool` | `false` |
+| Parameter                       | Type   | Default |
+| ------------------------------- | ------ | ------- |
+| `debugShowMaterialGrid`         | `bool` | `false` |
+| `showPerformanceOverlay`        | `bool` | `false` |
 | `checkerboardRasterCacheImages` | `bool` | `false` |
-| `checkerboardOffscreenLayers` | `bool` | `false` |
-| `showSemanticsDebugger` | `bool` | `false` |
-| `debugShowCheckedModeBanner` | `bool` | `false` |
+| `checkerboardOffscreenLayers`   | `bool` | `false` |
+| `showSemanticsDebugger`         | `bool` | `false` |
+| `debugShowCheckedModeBanner`    | `bool` | `false` |
 
 ## How WiredThemeData Converts to Material ThemeData
 
@@ -291,6 +291,7 @@ WiredThemeData _resolveWiredTheme({...}) {
 ```
 
 Fallback chain:
+
 - `darkWiredTheme` defaults to `wiredTheme`
 - `highContrastWiredTheme` defaults to `wiredTheme`
 - `highContrastDarkWiredTheme` defaults to `darkWiredTheme`, then `wiredTheme`
@@ -404,30 +405,32 @@ Skribble provides Cupertino-style widgets that render with the hand-drawn aesthe
 
 ### Available Cupertino Widgets
 
-| Widget | Material Equivalent |
-|---|---|
-| `WiredCupertinoButton` | `CupertinoButton` |
-| `WiredCupertinoNavigationBar` | `CupertinoNavigationBar` |
-| `WiredCupertinoTextField` | `CupertinoTextField` |
-| `WiredCupertinoSwitch` | `CupertinoSwitch` |
-| `WiredCupertinoSlider` | `CupertinoSlider` |
-| `WiredCupertinoTabBar` | `CupertinoTabBar` |
-| `WiredCupertinoDatePicker` | `CupertinoDatePicker` |
-| `WiredCupertinoPicker` | `CupertinoPicker` |
-| `WiredCupertinoActionSheet` | `CupertinoActionSheet` |
-| `WiredCupertinoAlertDialog` | `CupertinoAlertDialog` |
+| Widget                           | Material Equivalent         |
+| -------------------------------- | --------------------------- |
+| `WiredCupertinoButton`           | `CupertinoButton`           |
+| `WiredCupertinoNavigationBar`    | `CupertinoNavigationBar`    |
+| `WiredCupertinoTextField`        | `CupertinoTextField`        |
+| `WiredCupertinoSwitch`           | `CupertinoSwitch`           |
+| `WiredCupertinoSlider`           | `CupertinoSlider`           |
+| `WiredCupertinoTabBar`           | `CupertinoTabBar`           |
+| `WiredCupertinoDatePicker`       | `CupertinoDatePicker`       |
+| `WiredCupertinoPicker`           | `CupertinoPicker`           |
+| `WiredCupertinoActionSheet`      | `CupertinoActionSheet`      |
+| `WiredCupertinoAlertDialog`      | `CupertinoAlertDialog`      |
 | `WiredCupertinoSegmentedControl` | `CupertinoSegmentedControl` |
-| `WiredCupertinoScaffold` | `CupertinoPageScaffold` |
+| `WiredCupertinoScaffold`         | `CupertinoPageScaffold`     |
 
 ### Usage
 
 Cupertino widgets read from `WiredTheme.of(context)` just like their Material counterparts:
 
 <!-- {=docsThemeReadPattern} -->
+
 ```dart
 final theme = WiredTheme.of(context);
 // Use theme.borderColor, theme.fillColor, theme.textColor, etc.
 ```
+
 <!-- {/docsThemeReadPattern} -->
 
 Example:

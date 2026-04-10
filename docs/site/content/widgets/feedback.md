@@ -14,6 +14,7 @@ Skribble provides feedback widgets that communicate status, confirmations, and p
 A dialog with a hand-drawn rectangle border drawn behind the content. Uses Flutter's `Dialog` widget internally.
 
 <!-- {=docsDialogUsage} -->
+
 ```dart
 showDialog(
   context: context,
@@ -45,10 +46,10 @@ showDialog(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `child` | `Widget` | **required** | The dialog content. |
-| `padding` | `EdgeInsetsGeometry?` | `null` | Padding around the content. Defaults to 20px on all sides. |
+| Parameter | Type                  | Default      | Description                                                |
+| --------- | --------------------- | ------------ | ---------------------------------------------------------- |
+| `child`   | `Widget`              | **required** | The dialog content.                                        |
+| `padding` | `EdgeInsetsGeometry?` | `null`       | Padding around the content. Defaults to 20px on all sides. |
 
 ### Notes
 
@@ -63,6 +64,7 @@ showDialog(
 A snack bar content wrapper with a hand-drawn border and solid fill. The `showWiredSnackBar` helper function displays it via `ScaffoldMessenger`.
 
 <!-- {=docsSnackBarUsage} -->
+
 ```dart
 // Using the helper function
 showWiredSnackBar(
@@ -86,18 +88,18 @@ showWiredSnackBar(
 
 ### showWiredSnackBar parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `content` | `Widget` | **required** | The snack bar content. |
-| `duration` | `Duration` | `4 seconds` | How long the snack bar is displayed. |
-| `action` | `SnackBarAction?` | `null` | Optional action button. |
+| Parameter  | Type              | Default      | Description                          |
+| ---------- | ----------------- | ------------ | ------------------------------------ |
+| `content`  | `Widget`          | **required** | The snack bar content.               |
+| `duration` | `Duration`        | `4 seconds`  | How long the snack bar is displayed. |
+| `action`   | `SnackBarAction?` | `null`       | Optional action button.              |
 
 ### WiredSnackBarContent parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `child` | `Widget` | **required** | The message content. |
-| `action` | `Widget?` | `null` | Optional trailing action widget. |
+| Parameter | Type      | Default      | Description                      |
+| --------- | --------- | ------------ | -------------------------------- |
+| `child`   | `Widget`  | **required** | The message content.             |
+| `action`  | `Widget?` | `null`       | Optional trailing action widget. |
 
 ### Notes
 
@@ -112,6 +114,7 @@ showWiredSnackBar(
 A tooltip with a hand-drawn rectangle border. Wraps Flutter's `Tooltip` widget with sketchy decoration.
 
 <!-- {=docsTooltipUsage} -->
+
 ```dart
 WiredTooltip(
   message: 'Add to favorites',
@@ -124,12 +127,12 @@ WiredTooltip(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `child` | `Widget` | **required** | The widget that triggers the tooltip. |
-| `message` | `String` | **required** | The tooltip message. |
-| `waitDuration` | `Duration?` | `null` | Delay before showing the tooltip on hover. |
-| `showDuration` | `Duration?` | `null` | How long the tooltip stays visible. |
+| Parameter      | Type        | Default      | Description                                |
+| -------------- | ----------- | ------------ | ------------------------------------------ |
+| `child`        | `Widget`    | **required** | The widget that triggers the tooltip.      |
+| `message`      | `String`    | **required** | The tooltip message.                       |
+| `waitDuration` | `Duration?` | `null`       | Delay before showing the tooltip on hover. |
+| `showDuration` | `Duration?` | `null`       | How long the tooltip stays visible.        |
 
 ### Notes
 
@@ -143,6 +146,7 @@ WiredTooltip(
 A hand-drawn linear progress bar. Renders a sketchy rectangle track with a hachure-filled progress region that animates via an `AnimationController`.
 
 <!-- {=docsProgressUsage} -->
+
 ```dart
 // In a HookWidget:
 final controller = useAnimationController(
@@ -160,10 +164,10 @@ WiredProgress(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `controller` | `AnimationController` | **required** | Drives the progress animation. |
-| `value` | `double` | `0.0` | Initial progress value (0.0 to 1.0). |
+| Parameter    | Type                  | Default      | Description                          |
+| ------------ | --------------------- | ------------ | ------------------------------------ |
+| `controller` | `AnimationController` | **required** | Drives the progress animation.       |
+| `value`      | `double`              | `0.0`        | Initial progress value (0.0 to 1.0). |
 
 ### Notes
 
@@ -179,6 +183,7 @@ WiredProgress(
 A circular progress indicator with a hand-drawn arc and background circle. Supports both determinate and indeterminate modes.
 
 <!-- {=docsCircularProgressUsage} -->
+
 ```dart
 // Indeterminate (spinner)
 WiredCircularProgress()
@@ -193,11 +198,11 @@ WiredCircularProgress(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `value` | `double?` | `null` | Progress from 0.0 to 1.0. `null` for indeterminate mode. |
-| `size` | `double` | `48.0` | Diameter of the indicator. |
-| `strokeWidth` | `double` | `3` | Width of the progress arc. |
+| Parameter     | Type      | Default | Description                                              |
+| ------------- | --------- | ------- | -------------------------------------------------------- |
+| `value`       | `double?` | `null`  | Progress from 0.0 to 1.0. `null` for indeterminate mode. |
+| `size`        | `double`  | `48.0`  | Diameter of the indicator.                               |
+| `strokeWidth` | `double`  | `3`     | Width of the progress arc.                               |
 
 ### Notes
 
@@ -212,6 +217,7 @@ WiredCircularProgress(
 A badge overlay that positions a hand-drawn circle indicator at the top-right corner of its child. Supports optional text labels.
 
 <!-- {=docsBadgeUsage} -->
+
 ```dart
 WiredBadge(
   label: '3',
@@ -229,12 +235,12 @@ WiredBadge(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `child` | `Widget` | **required** | The widget to badge. |
-| `label` | `String?` | `null` | Text inside the badge. When `null`, shows a dot. |
-| `isVisible` | `bool` | `true` | Whether the badge is shown. |
-| `backgroundColor` | `Color?` | `null` | Badge color. Defaults to `theme.borderColor`. |
+| Parameter         | Type      | Default      | Description                                      |
+| ----------------- | --------- | ------------ | ------------------------------------------------ |
+| `child`           | `Widget`  | **required** | The widget to badge.                             |
+| `label`           | `String?` | `null`       | Text inside the badge. When `null`, shows a dot. |
+| `isVisible`       | `bool`    | `true`       | Whether the badge is shown.                      |
+| `backgroundColor` | `Color?`  | `null`       | Badge color. Defaults to `theme.borderColor`.    |
 
 ### Notes
 
@@ -249,6 +255,7 @@ WiredBadge(
 A bottom sheet with a hand-drawn top border. Can be shown as a modal or persistent sheet.
 
 <!-- {=docsBottomSheetUsage} -->
+
 ```dart
 showModalBottomSheet(
   context: context,
@@ -271,6 +278,7 @@ showModalBottomSheet(
 An about dialog with a hand-drawn border, application icon, and version info. The `showWiredAboutDialog` helper function displays it.
 
 <!-- {=docsAboutDialogUsage} -->
+
 ```dart
 showWiredAboutDialog(
   context: context,
@@ -290,6 +298,7 @@ showWiredAboutDialog(
 A context menu with hand-drawn borders, triggered by long-press or right-click. Menu items appear in a sketchy bordered overlay.
 
 <!-- {=docsContextMenuUsage} -->
+
 ```dart
 WiredContextMenu(
   items: [
@@ -308,6 +317,7 @@ WiredContextMenu(
 A hand-drawn wrapper around Flutter's `AnimatedIcon`. Applies Skribble theming to animated icon transitions.
 
 <!-- {=docsAnimatedIconUsage} -->
+
 ```dart
 // In a HookWidget:
 final controller = useAnimationController(
@@ -323,14 +333,14 @@ WiredAnimatedIcon(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `icon` | `AnimatedIconData` | **required** | The animated icon data (e.g., `AnimatedIcons.menu_arrow`). |
-| `progress` | `Animation<double>` | **required** | Animation progress from 0.0 to 1.0. |
-| `color` | `Color?` | `null` | Icon color. Defaults to `theme.textColor`. |
-| `size` | `double?` | `null` | Icon size. |
-| `semanticLabel` | `String?` | `null` | Accessibility label. |
-| `textDirection` | `TextDirection?` | `null` | Text direction for the icon. |
+| Parameter       | Type                | Default      | Description                                                |
+| --------------- | ------------------- | ------------ | ---------------------------------------------------------- |
+| `icon`          | `AnimatedIconData`  | **required** | The animated icon data (e.g., `AnimatedIcons.menu_arrow`). |
+| `progress`      | `Animation<double>` | **required** | Animation progress from 0.0 to 1.0.                        |
+| `color`         | `Color?`            | `null`       | Icon color. Defaults to `theme.textColor`.                 |
+| `size`          | `double?`           | `null`       | Icon size.                                                 |
+| `semanticLabel` | `String?`           | `null`       | Accessibility label.                                       |
+| `textDirection` | `TextDirection?`    | `null`       | Text direction for the icon.                               |
 
 ---
 
@@ -339,6 +349,7 @@ WiredAnimatedIcon(
 A banner with a hand-drawn border displayed at the top of the scaffold. Contains a message and action buttons.
 
 <!-- {=docsMaterialBannerUsage} -->
+
 ```dart
 ScaffoldMessenger.of(context).showMaterialBanner(
   WiredMaterialBanner(
@@ -364,6 +375,7 @@ ScaffoldMessenger.of(context).showMaterialBanner(
 A Cupertino-style alert dialog with hand-drawn borders. Mirrors the `CupertinoAlertDialog` API with sketchy styling.
 
 <!-- {=docsCupertinoAlertDialogUsage} -->
+
 ```dart
 showCupertinoDialog(
   context: context,
@@ -394,6 +406,7 @@ showCupertinoDialog(
 A Cupertino-style action sheet with hand-drawn borders. Slides up from the bottom of the screen.
 
 <!-- {=docsCupertinoActionSheetUsage} -->
+
 ```dart
 showCupertinoModalPopup(
   context: context,

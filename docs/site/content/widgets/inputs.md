@@ -14,6 +14,7 @@ Skribble replaces standard form controls with sketchy, hand-drawn equivalents. A
 A single-line text field wrapped in a hand-drawn rectangle border. Supports labels, hints, and password masking.
 
 <!-- {=docsInputUsage} -->
+
 ```dart
 WiredInput(
   labelText: 'Name',
@@ -24,16 +25,16 @@ WiredInput(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `controller` | `TextEditingController?` | `null` | External text controller. |
-| `style` | `TextStyle?` | `null` | Text style for the input value. |
-| `labelText` | `String?` | `null` | Label displayed to the left of the field. |
-| `labelStyle` | `TextStyle?` | `null` | Style for the label text. |
-| `hintText` | `String?` | `null` | Placeholder text inside the field. |
-| `hintStyle` | `TextStyle?` | `null` | Style for the hint text. |
-| `onChanged` | `void Function(String)?` | `null` | Called on every text change. |
-| `obscureText` | `bool` | `false` | Hides input for passwords. |
+| Parameter     | Type                     | Default | Description                               |
+| ------------- | ------------------------ | ------- | ----------------------------------------- |
+| `controller`  | `TextEditingController?` | `null`  | External text controller.                 |
+| `style`       | `TextStyle?`             | `null`  | Text style for the input value.           |
+| `labelText`   | `String?`                | `null`  | Label displayed to the left of the field. |
+| `labelStyle`  | `TextStyle?`             | `null`  | Style for the label text.                 |
+| `hintText`    | `String?`                | `null`  | Placeholder text inside the field.        |
+| `hintStyle`   | `TextStyle?`             | `null`  | Style for the hint text.                  |
+| `onChanged`   | `void Function(String)?` | `null`  | Called on every text change.              |
+| `obscureText` | `bool`                   | `false` | Hides input for passwords.                |
 
 ### Notes
 
@@ -48,6 +49,7 @@ WiredInput(
 A multi-line text input with a hand-drawn rectangle border. The border fills behind the text area using `Positioned.fill`.
 
 <!-- {=docsTextAreaUsage} -->
+
 ```dart
 WiredTextArea(
   hintText: 'Write something...',
@@ -59,15 +61,15 @@ WiredTextArea(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `controller` | `TextEditingController?` | `null` | External text controller. |
-| `style` | `TextStyle?` | `null` | Text style. |
-| `hintText` | `String?` | `null` | Placeholder text. |
-| `hintStyle` | `TextStyle?` | `null` | Hint text style. |
-| `onChanged` | `void Function(String)?` | `null` | Called on text changes. |
-| `maxLines` | `int` | `5` | Maximum visible lines. |
-| `minLines` | `int` | `3` | Minimum visible lines. |
+| Parameter    | Type                     | Default | Description               |
+| ------------ | ------------------------ | ------- | ------------------------- |
+| `controller` | `TextEditingController?` | `null`  | External text controller. |
+| `style`      | `TextStyle?`             | `null`  | Text style.               |
+| `hintText`   | `String?`                | `null`  | Placeholder text.         |
+| `hintStyle`  | `TextStyle?`             | `null`  | Hint text style.          |
+| `onChanged`  | `void Function(String)?` | `null`  | Called on text changes.   |
+| `maxLines`   | `int`                    | `5`     | Maximum visible lines.    |
+| `minLines`   | `int`                    | `3`     | Minimum visible lines.    |
 
 ### Notes
 
@@ -81,6 +83,7 @@ WiredTextArea(
 A search input with a pill-shaped hand-drawn border (24px border radius). Includes a leading search icon and optional trailing widget.
 
 <!-- {=docsSearchBarUsage} -->
+
 ```dart
 WiredSearchBar(
   hintText: 'Search widgets...',
@@ -91,14 +94,14 @@ WiredSearchBar(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `controller` | `TextEditingController?` | `null` | Text controller. |
-| `hintText` | `String?` | `null` | Placeholder text. Defaults to `'Search...'`. |
-| `onChanged` | `ValueChanged<String>?` | `null` | Called on every keystroke. |
-| `onSubmitted` | `ValueChanged<String>?` | `null` | Called when the user submits. |
-| `leading` | `Widget?` | `null` | Custom leading widget. Defaults to a `WiredIcon` search icon. |
-| `trailing` | `Widget?` | `null` | Optional trailing widget (e.g., a clear button). |
+| Parameter     | Type                     | Default | Description                                                   |
+| ------------- | ------------------------ | ------- | ------------------------------------------------------------- |
+| `controller`  | `TextEditingController?` | `null`  | Text controller.                                              |
+| `hintText`    | `String?`                | `null`  | Placeholder text. Defaults to `'Search...'`.                  |
+| `onChanged`   | `ValueChanged<String>?`  | `null`  | Called on every keystroke.                                    |
+| `onSubmitted` | `ValueChanged<String>?`  | `null`  | Called when the user submits.                                 |
+| `leading`     | `Widget?`                | `null`  | Custom leading widget. Defaults to a `WiredIcon` search icon. |
+| `trailing`    | `Widget?`                | `null`  | Optional trailing widget (e.g., a clear button).              |
 
 ### Notes
 
@@ -113,6 +116,7 @@ WiredSearchBar(
 A hand-drawn checkbox with a sketchy rectangle border. The checkmark is rendered by an underlying transparent `Checkbox` widget, scaled up for visual presence.
 
 <!-- {=docsCheckboxUsage} -->
+
 ```dart
 WiredCheckbox(
   value: isChecked,
@@ -124,10 +128,10 @@ WiredCheckbox(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `value` | `bool?` | **required** | Current checked state. Supports tristate (`null`). |
-| `onChanged` | `void Function(bool?)` | **required** | Called when the user taps the checkbox. |
+| Parameter   | Type                   | Default      | Description                                        |
+| ----------- | ---------------------- | ------------ | -------------------------------------------------- |
+| `value`     | `bool?`                | **required** | Current checked state. Supports tristate (`null`). |
+| `onChanged` | `void Function(bool?)` | **required** | Called when the user taps the checkbox.            |
 
 ### Notes
 
@@ -142,6 +146,7 @@ WiredCheckbox(
 Combines `WiredCheckbox` with a `WiredListTile`-style layout including title, subtitle, and optional secondary widget. Follows the same API pattern as Material's `CheckboxListTile`.
 
 <!-- {=docsCheckboxListTileUsage} -->
+
 ```dart
 WiredCheckboxListTile(
   title: Text('Accept terms'),
@@ -157,6 +162,7 @@ WiredCheckboxListTile(
 A hand-drawn radio button with a sketchy circle border. When selected, the inner circle fills with a hachure pattern.
 
 <!-- {=docsRadioUsage} -->
+
 ```dart
 WiredRadio<String>(
   value: 'option1',
@@ -169,11 +175,11 @@ WiredRadio<String>(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `value` | `T` | **required** | The value this radio represents. |
-| `groupValue` | `T?` | **required** | The currently selected value in the group. |
-| `onChanged` | `bool Function(T?)?` | **required** | Called when this radio is selected. |
+| Parameter    | Type                 | Default      | Description                                |
+| ------------ | -------------------- | ------------ | ------------------------------------------ |
+| `value`      | `T`                  | **required** | The value this radio represents.           |
+| `groupValue` | `T?`                 | **required** | The currently selected value in the group. |
+| `onChanged`  | `bool Function(T?)?` | **required** | Called when this radio is selected.        |
 
 ### Notes
 
@@ -188,6 +194,7 @@ WiredRadio<String>(
 Combines `WiredRadio` with a list tile layout. Follows the `RadioListTile` API pattern.
 
 <!-- {=docsRadioListTileUsage} -->
+
 ```dart
 WiredRadioListTile<String>(
   title: Text('Option A'),
@@ -204,6 +211,7 @@ WiredRadioListTile<String>(
 A toggle switch with a hand-drawn rounded rectangle track and a circle thumb that animates between on and off positions.
 
 <!-- {=docsSwitchUsage} -->
+
 ```dart
 WiredSwitch(
   value: isEnabled,
@@ -215,13 +223,13 @@ WiredSwitch(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `value` | `bool` | **required** | Current on/off state. |
-| `onChanged` | `ValueChanged<bool>?` | `null` | Called when toggled. |
-| `activeColor` | `Color?` | `null` | Track color when on. Defaults to `theme.borderColor`. |
-| `inactiveColor` | `Color?` | `null` | Track color when off. Defaults to `theme.fillColor`. |
-| `semanticLabel` | `String?` | `null` | Accessibility label. |
+| Parameter       | Type                  | Default      | Description                                           |
+| --------------- | --------------------- | ------------ | ----------------------------------------------------- |
+| `value`         | `bool`                | **required** | Current on/off state.                                 |
+| `onChanged`     | `ValueChanged<bool>?` | `null`       | Called when toggled.                                  |
+| `activeColor`   | `Color?`              | `null`       | Track color when on. Defaults to `theme.borderColor`. |
+| `inactiveColor` | `Color?`              | `null`       | Track color when off. Defaults to `theme.fillColor`.  |
+| `semanticLabel` | `String?`             | `null`       | Accessibility label.                                  |
 
 ### Notes
 
@@ -237,6 +245,7 @@ WiredSwitch(
 Combines `WiredSwitch` with a list tile layout. Follows the `SwitchListTile` API pattern.
 
 <!-- {=docsSwitchListTileUsage} -->
+
 ```dart
 WiredSwitchListTile(
   title: Text('Dark mode'),
@@ -252,6 +261,7 @@ WiredSwitchListTile(
 A slider with a sketchy track line and a hand-drawn circle thumb. Supports divisions and labels.
 
 <!-- {=docsSliderUsage} -->
+
 ```dart
 WiredSlider(
   value: volume,
@@ -268,13 +278,13 @@ WiredSlider(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `value` | `double` | **required** | Current slider value. |
-| `divisions` | `int?` | `null` | Number of discrete steps. |
-| `label` | `String?` | `null` | Label displayed above the thumb. |
-| `min` | `double` | `0.0` | Minimum value. |
-| `max` | `double` | `1.0` | Maximum value. |
+| Parameter   | Type                     | Default      | Description                                            |
+| ----------- | ------------------------ | ------------ | ------------------------------------------------------ |
+| `value`     | `double`                 | **required** | Current slider value.                                  |
+| `divisions` | `int?`                   | `null`       | Number of discrete steps.                              |
+| `label`     | `String?`                | `null`       | Label displayed above the thumb.                       |
+| `min`       | `double`                 | `0.0`        | Minimum value.                                         |
+| `max`       | `double`                 | `1.0`        | Maximum value.                                         |
 | `onChanged` | `bool Function(double)?` | **required** | Called on drag. Return `true` to accept the new value. |
 
 ### Notes
@@ -290,6 +300,7 @@ WiredSlider(
 A dual-handle variant of `WiredSlider` for selecting a range of values. Follows the `RangeSlider` API.
 
 <!-- {=docsRangeSliderUsage} -->
+
 ```dart
 WiredRangeSlider(
   values: RangeValues(20, 80),
@@ -306,6 +317,7 @@ WiredRangeSlider(
 A simple on/off toggle with a hand-drawn rectangle track and an animated circle thumb. More minimal than `WiredSwitch`.
 
 <!-- {=docsToggleUsage} -->
+
 ```dart
 WiredToggle(
   value: isOn,
@@ -318,12 +330,12 @@ WiredToggle(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `value` | `bool` | **required** | Current toggle state. |
-| `onChange` | `bool Function(bool)?` | `null` | Called on tap. Return `true` to accept. |
-| `thumbRadius` | `double` | `24.0` | Radius of the thumb circle. |
-| `semanticLabel` | `String?` | `null` | Accessibility label. |
+| Parameter       | Type                   | Default      | Description                             |
+| --------------- | ---------------------- | ------------ | --------------------------------------- |
+| `value`         | `bool`                 | **required** | Current toggle state.                   |
+| `onChange`      | `bool Function(bool)?` | `null`       | Called on tap. Return `true` to accept. |
+| `thumbRadius`   | `double`               | `24.0`       | Radius of the thumb circle.             |
+| `semanticLabel` | `String?`              | `null`       | Accessibility label.                    |
 
 ### Notes
 
@@ -338,6 +350,7 @@ WiredToggle(
 A hand-drawn wrapper around Flutter's `Form` widget. Draws a sketchy rounded rectangle border around form content.
 
 <!-- {=docsFormUsage} -->
+
 ```dart
 final formKey = GlobalKey<FormState>();
 
@@ -359,14 +372,14 @@ WiredForm(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `child` | `Widget` | **required** | Form content. |
-| `formKey` | `GlobalKey<FormState>?` | `null` | Key for the underlying `Form`. |
-| `autovalidateMode` | `AutovalidateMode` | `AutovalidateMode.disabled` | When to auto-validate. |
-| `onChanged` | `VoidCallback?` | `null` | Called when any form field changes. |
-| `padding` | `EdgeInsetsGeometry` | `EdgeInsets.all(16)` | Padding around the form content. |
-| `borderRadius` | `BorderRadius` | `BorderRadius.circular(16)` | Corner radius of the border. |
+| Parameter          | Type                    | Default                     | Description                         |
+| ------------------ | ----------------------- | --------------------------- | ----------------------------------- |
+| `child`            | `Widget`                | **required**                | Form content.                       |
+| `formKey`          | `GlobalKey<FormState>?` | `null`                      | Key for the underlying `Form`.      |
+| `autovalidateMode` | `AutovalidateMode`      | `AutovalidateMode.disabled` | When to auto-validate.              |
+| `onChanged`        | `VoidCallback?`         | `null`                      | Called when any form field changes. |
+| `padding`          | `EdgeInsetsGeometry`    | `EdgeInsets.all(16)`        | Padding around the form content.    |
+| `borderRadius`     | `BorderRadius`          | `BorderRadius.circular(16)` | Corner radius of the border.        |
 
 ### Notes
 
@@ -380,6 +393,7 @@ WiredForm(
 A hand-drawn autocomplete field that displays suggestions in a sketchy dropdown as the user types. Wraps Flutter's `Autocomplete` widget.
 
 <!-- {=docsAutocompleteUsage} -->
+
 ```dart
 WiredAutocomplete<String>(
   optionsBuilder: (textEditingValue) {
@@ -398,6 +412,7 @@ WiredAutocomplete<String>(
 A Cupertino-styled text field with a hand-drawn rounded rectangle border. Mirrors the `CupertinoTextField` API.
 
 <!-- {=docsCupertinoTextFieldUsage} -->
+
 ```dart
 WiredCupertinoTextField(
   placeholder: 'Enter text',
@@ -412,6 +427,7 @@ WiredCupertinoTextField(
 A Cupertino-styled slider with a sketchy track and thumb. Mirrors the `CupertinoSlider` API.
 
 <!-- {=docsCupertinoSliderUsage} -->
+
 ```dart
 WiredCupertinoSlider(
   value: brightness,
@@ -428,6 +444,7 @@ WiredCupertinoSlider(
 A Cupertino-styled toggle switch with hand-drawn track and thumb. Mirrors the `CupertinoSwitch` API.
 
 <!-- {=docsCupertinoSwitchUsage} -->
+
 ```dart
 WiredCupertinoSwitch(
   value: isActive,

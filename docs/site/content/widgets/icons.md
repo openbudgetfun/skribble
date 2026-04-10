@@ -14,6 +14,7 @@ Skribble renders Material icons with rough, hand-drawn outlines and optional hac
 The primary icon widget. Looks up the given `IconData` in the pre-generated rough icon catalog and renders it with hand-drawn strokes. Falls back to Flutter's standard `Icon` for unsupported icon families.
 
 <!-- {=docsIconUsage} -->
+
 ```dart
 // Basic usage
 WiredIcon(icon: Icons.home)
@@ -30,28 +31,28 @@ WiredIcon(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `icon` | `IconData` | **required** | The icon to render. |
-| `size` | `double?` | `null` | Icon size. Defaults to `IconTheme.of(context).size` or 24. |
-| `color` | `Color?` | `null` | Icon color. Defaults to `IconTheme.of(context).color` or `theme.textColor`. |
-| `semanticLabel` | `String?` | `null` | Accessibility label. |
-| `fillStyle` | `WiredIconFillStyle` | `.solid` | Fill strategy for the icon shapes. |
-| `strokeWidth` | `double` | `1.6` | Width of the outline strokes. |
-| `drawConfig` | `DrawConfig?` | `null` | Custom rough drawing configuration. |
-| `sampleDistance` | `double` | `1.2` | Sampling distance along path contours. |
-| `hachureGap` | `double` | `2.25` | Gap between hachure fill lines. |
-| `hachureAngle` | `double` | `320` | Angle of hachure fill lines in degrees. |
+| Parameter        | Type                 | Default      | Description                                                                 |
+| ---------------- | -------------------- | ------------ | --------------------------------------------------------------------------- |
+| `icon`           | `IconData`           | **required** | The icon to render.                                                         |
+| `size`           | `double?`            | `null`       | Icon size. Defaults to `IconTheme.of(context).size` or 24.                  |
+| `color`          | `Color?`             | `null`       | Icon color. Defaults to `IconTheme.of(context).color` or `theme.textColor`. |
+| `semanticLabel`  | `String?`            | `null`       | Accessibility label.                                                        |
+| `fillStyle`      | `WiredIconFillStyle` | `.solid`     | Fill strategy for the icon shapes.                                          |
+| `strokeWidth`    | `double`             | `1.6`        | Width of the outline strokes.                                               |
+| `drawConfig`     | `DrawConfig?`        | `null`       | Custom rough drawing configuration.                                         |
+| `sampleDistance` | `double`             | `1.2`        | Sampling distance along path contours.                                      |
+| `hachureGap`     | `double`             | `2.25`       | Gap between hachure fill lines.                                             |
+| `hachureAngle`   | `double`             | `320`        | Angle of hachure fill lines in degrees.                                     |
 
 ### Fill styles
 
 The `WiredIconFillStyle` enum controls how icon shapes are filled:
 
-| Style | Description |
-|---|---|
-| `none` | Outline only, no fill. |
-| `solid` | Solid color fill (default). Clean and readable. |
-| `hachure` | Diagonal hatching lines at the configured angle and gap. |
+| Style        | Description                                              |
+| ------------ | -------------------------------------------------------- |
+| `none`       | Outline only, no fill.                                   |
+| `solid`      | Solid color fill (default). Clean and readable.          |
+| `hachure`    | Diagonal hatching lines at the configured angle and gap. |
 | `crossHatch` | Two layers of hachure lines at 90 degrees to each other. |
 
 ### Notes
@@ -68,6 +69,7 @@ The `WiredIconFillStyle` enum controls how icon shapes are filled:
 Renders a pre-parsed `WiredSvgIconData` with rough hand-drawn strokes. This is the lower-level rendering widget used by `WiredIcon` internally.
 
 <!-- {=docsSvgIconUsage} -->
+
 ```dart
 WiredSvgIcon(
   data: myCustomSvgIconData,
@@ -80,19 +82,19 @@ WiredSvgIcon(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `data` | `WiredSvgIconData` | **required** | Pre-parsed SVG icon data. |
-| `size` | `double?` | `null` | Icon size. |
-| `color` | `Color?` | `null` | Icon color. |
-| `semanticLabel` | `String?` | `null` | Accessibility label. |
-| `fillStyle` | `WiredIconFillStyle` | `.solid` | Fill strategy. |
-| `strokeWidth` | `double` | `1.6` | Outline stroke width. |
-| `drawConfig` | `DrawConfig?` | `null` | Custom rough drawing configuration. |
-| `flipHorizontally` | `bool` | `false` | Mirror the icon horizontally. |
-| `sampleDistance` | `double` | `1.2` | Path sampling distance. |
-| `hachureGap` | `double` | `2.25` | Hachure line gap. |
-| `hachureAngle` | `double` | `320` | Hachure angle in degrees. |
+| Parameter          | Type                 | Default      | Description                         |
+| ------------------ | -------------------- | ------------ | ----------------------------------- |
+| `data`             | `WiredSvgIconData`   | **required** | Pre-parsed SVG icon data.           |
+| `size`             | `double?`            | `null`       | Icon size.                          |
+| `color`            | `Color?`             | `null`       | Icon color.                         |
+| `semanticLabel`    | `String?`            | `null`       | Accessibility label.                |
+| `fillStyle`        | `WiredIconFillStyle` | `.solid`     | Fill strategy.                      |
+| `strokeWidth`      | `double`             | `1.6`        | Outline stroke width.               |
+| `drawConfig`       | `DrawConfig?`        | `null`       | Custom rough drawing configuration. |
+| `flipHorizontally` | `bool`               | `false`      | Mirror the icon horizontally.       |
+| `sampleDistance`   | `double`             | `1.2`        | Path sampling distance.             |
+| `hachureGap`       | `double`             | `2.25`       | Hachure line gap.                   |
+| `hachureAngle`     | `double`             | `320`        | Hachure angle in degrees.           |
 
 ### Notes
 
@@ -107,6 +109,7 @@ WiredSvgIcon(
 The data type that represents a pre-parsed SVG icon. Contains the viewport dimensions and a list of drawable primitives.
 
 <!-- {=docsSvgIconDataUsage} -->
+
 ```dart
 const myIcon = WiredSvgIconData(
   width: 24,
@@ -130,11 +133,11 @@ final class WiredSvgIconData {
 
 ### Primitive types
 
-| Type | Factory | Description |
-|---|---|---|
-| `WiredSvgPathPrimitive` | `.path(data)` | An SVG path string (e.g., `'M0 0L10 10'`). |
-| `WiredSvgCirclePrimitive` | `.circle(cx, cy, radius)` | A circle primitive. |
-| `WiredSvgEllipsePrimitive` | `.ellipse(cx, cy, radiusX, radiusY)` | An ellipse primitive. |
+| Type                       | Factory                              | Description                                |
+| -------------------------- | ------------------------------------ | ------------------------------------------ |
+| `WiredSvgPathPrimitive`    | `.path(data)`                        | An SVG path string (e.g., `'M0 0L10 10'`). |
+| `WiredSvgCirclePrimitive`  | `.circle(cx, cy, radius)`            | A circle primitive.                        |
+| `WiredSvgEllipsePrimitive` | `.ellipse(cx, cy, radiusX, radiusY)` | An ellipse primitive.                      |
 
 Each primitive supports an optional `fillRule` parameter (`WiredSvgFillRule.nonZero` or `.evenOdd`).
 
@@ -145,6 +148,7 @@ Each primitive supports an optional `fillRule` parameter (`WiredSvgFillRule.nonZ
 A hand-drawn wrapper around Flutter's `AnimatedIcon`. Applies Skribble theme colors while preserving the standard animation behavior.
 
 <!-- {=docsAnimatedIconUsage} -->
+
 ```dart
 final controller = useAnimationController(
   duration: Duration(milliseconds: 300),
@@ -159,14 +163,14 @@ WiredAnimatedIcon(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `icon` | `AnimatedIconData` | **required** | The animated icon data. |
-| `progress` | `Animation<double>` | **required** | Animation progress (0.0 to 1.0). |
-| `color` | `Color?` | `null` | Icon color. Defaults to `theme.textColor`. |
-| `size` | `double?` | `null` | Icon size. |
-| `semanticLabel` | `String?` | `null` | Accessibility label. |
-| `textDirection` | `TextDirection?` | `null` | Text direction for the icon. |
+| Parameter       | Type                | Default      | Description                                |
+| --------------- | ------------------- | ------------ | ------------------------------------------ |
+| `icon`          | `AnimatedIconData`  | **required** | The animated icon data.                    |
+| `progress`      | `Animation<double>` | **required** | Animation progress (0.0 to 1.0).           |
+| `color`         | `Color?`            | `null`       | Icon color. Defaults to `theme.textColor`. |
+| `size`          | `double?`           | `null`       | Icon size.                                 |
+| `semanticLabel` | `String?`           | `null`       | Accessibility label.                       |
+| `textDirection` | `TextDirection?`    | `null`       | Text direction for the icon.               |
 
 ### Notes
 
@@ -221,15 +225,15 @@ final codePoints = materialRoughIconCodePoints;
 
 ### Icon lookup helpers
 
-| Function | Description |
-|---|---|
-| `lookupMaterialRoughIcon(IconData)` | Returns `WiredSvgIconData?` for a Material icon. |
+| Function                                      | Description                                      |
+| --------------------------------------------- | ------------------------------------------------ |
+| `lookupMaterialRoughIcon(IconData)`           | Returns `WiredSvgIconData?` for a Material icon. |
 | `lookupMaterialRoughIconByIdentifier(String)` | Returns `WiredSvgIconData?` by icon name string. |
-| `lookupMaterialRoughFontIcon(String)` | Returns `IconData?` for the rough icon font. |
-| `materialRoughFontFamily` | The font family string for the rough icon font. |
-| `materialRoughFontCodePoints` | `Map<String, int>` of icon name to code point. |
-| `materialRoughIconIdentifiers` | `List<String>` of all available icon names. |
-| `materialRoughIconCodePoints` | `List<int>` of all available code points. |
+| `lookupMaterialRoughFontIcon(String)`         | Returns `IconData?` for the rough icon font.     |
+| `materialRoughFontFamily`                     | The font family string for the rough icon font.  |
+| `materialRoughFontCodePoints`                 | `Map<String, int>` of icon name to code point.   |
+| `materialRoughIconIdentifiers`                | `List<String>` of all available icon names.      |
+| `materialRoughIconCodePoints`                 | `List<int>` of all available code points.        |
 
 ---
 
@@ -245,6 +249,7 @@ The `skribble_icons_custom` package provides tooling for generating rough icon c
 4. Use the generated constants with `WiredSvgIcon`.
 
 <!-- {=docsCustomIconsUsage} -->
+
 ```dart
 // After generating from your SVG set:
 import 'package:my_app/generated/custom_icons.g.dart';

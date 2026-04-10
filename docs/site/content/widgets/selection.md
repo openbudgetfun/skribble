@@ -14,6 +14,7 @@ Skribble provides selection widgets for choices, filtering, date/time picking, a
 A chip with a hand-drawn pill-shaped border (16px radius). Supports an optional avatar and delete action.
 
 <!-- {=docsChipUsage} -->
+
 ```dart
 WiredChip(
   label: Text('Flutter'),
@@ -24,11 +25,11 @@ WiredChip(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `label` | `Widget` | **required** | The chip label. |
-| `avatar` | `Widget?` | `null` | Widget displayed before the label. |
-| `onDeleted` | `VoidCallback?` | `null` | Called when the delete icon is tapped. Adds a close icon when set. |
+| Parameter   | Type            | Default      | Description                                                        |
+| ----------- | --------------- | ------------ | ------------------------------------------------------------------ |
+| `label`     | `Widget`        | **required** | The chip label.                                                    |
+| `avatar`    | `Widget?`       | `null`       | Widget displayed before the label.                                 |
+| `onDeleted` | `VoidCallback?` | `null`       | Called when the delete icon is tapped. Adds a close icon when set. |
 
 ### Notes
 
@@ -44,6 +45,7 @@ WiredChip(
 A selectable chip that toggles between selected and unselected states. When selected, it receives a hachure fill.
 
 <!-- {=docsChoiceChipUsage} -->
+
 ```dart
 WiredChoiceChip(
   label: Text('Small'),
@@ -66,6 +68,7 @@ WiredChoiceChip(
 A chip with a checkmark indicator that can be toggled on and off for filtering. Shows a hand-drawn checkmark when selected.
 
 <!-- {=docsFilterChipUsage} -->
+
 ```dart
 WiredFilterChip(
   label: Text('Vegetarian'),
@@ -85,6 +88,7 @@ WiredFilterChip(
 A chip representing a piece of user input (e.g., a tag or email address). Supports avatar, delete, and tap actions.
 
 <!-- {=docsInputChipUsage} -->
+
 ```dart
 WiredInputChip(
   label: Text('user@example.com'),
@@ -101,6 +105,7 @@ WiredInputChip(
 A chip that triggers an action when tapped. Has a hand-drawn border but no selected state.
 
 <!-- {=docsActionChipUsage} -->
+
 ```dart
 WiredActionChip(
   label: Text('Share'),
@@ -116,6 +121,7 @@ WiredActionChip(
 A hand-drawn dropdown selector wrapping Flutter's `DropdownButton`. Displays a sketchy inverted triangle indicator and draws a hand-drawn rectangle around each dropdown item.
 
 <!-- {=docsComboUsage} -->
+
 ```dart
 WiredCombo<String>(
   value: selectedFruit,
@@ -133,11 +139,11 @@ WiredCombo<String>(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `value` | `T?` | `null` | Currently selected value. |
-| `items` | `List<DropdownMenuItem<T>>` | **required** | Dropdown items. |
-| `onChanged` | `bool? Function(T?)?` | `null` | Called on selection. Return `true` to indicate external state management. |
+| Parameter   | Type                        | Default      | Description                                                               |
+| ----------- | --------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `value`     | `T?`                        | `null`       | Currently selected value.                                                 |
+| `items`     | `List<DropdownMenuItem<T>>` | **required** | Dropdown items.                                                           |
+| `onChanged` | `bool? Function(T?)?`       | `null`       | Called on selection. Return `true` to indicate external state management. |
 
 ### Notes
 
@@ -153,6 +159,7 @@ WiredCombo<String>(
 A date picker dialog with hand-drawn calendar grid and navigation. Renders month headers and day cells with sketchy borders.
 
 <!-- {=docsDatePickerUsage} -->
+
 ```dart
 final date = await showDatePicker(
   context: context,
@@ -170,6 +177,7 @@ final date = await showDatePicker(
 A time picker with hand-drawn clock face and input mode. Replaces the standard Material time picker overlay.
 
 <!-- {=docsTimePickerUsage} -->
+
 ```dart
 final time = await showTimePicker(
   context: context,
@@ -185,6 +193,7 @@ final time = await showTimePicker(
 An inline calendar date picker widget (not a dialog) with hand-drawn day cells and month navigation arrows.
 
 <!-- {=docsCalendarDatePickerUsage} -->
+
 ```dart
 WiredCalendarDatePicker(
   initialDate: DateTime.now(),
@@ -201,6 +210,7 @@ WiredCalendarDatePicker(
 A color picker with a hand-drawn grid of color swatches. Each swatch is a sketchy circle that fills with hachure when selected.
 
 <!-- {=docsColorPickerUsage} -->
+
 ```dart
 WiredColorPicker(
   selectedColor: currentColor,
@@ -215,6 +225,7 @@ WiredColorPicker(
 A Cupertino-style scrolling picker wheel with hand-drawn selection highlight. Mirrors the `CupertinoPicker` API.
 
 <!-- {=docsCupertinoPickerUsage} -->
+
 ```dart
 WiredCupertinoPicker(
   itemExtent: 32,
@@ -234,6 +245,7 @@ WiredCupertinoPicker(
 A Cupertino-style date picker with hand-drawn wheel columns. Mirrors the `CupertinoDatePicker` API.
 
 <!-- {=docsCupertinoDatePickerUsage} -->
+
 ```dart
 WiredCupertinoDatePicker(
   mode: CupertinoDatePickerMode.date,
@@ -249,6 +261,7 @@ WiredCupertinoDatePicker(
 A Cupertino-style segmented control with hand-drawn segment borders and hachure selection fill.
 
 <!-- {=docsCupertinoSegmentedControlUsage} -->
+
 ```dart
 WiredCupertinoSegmentedControl<int>(
   groupValue: selectedSegment,

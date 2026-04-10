@@ -14,6 +14,7 @@ Make sure you have [installed Skribble](/getting-started/installation) in your F
 ## Minimal app
 
 <!-- {=docsMinimalAppSection} -->
+
 Replace your `main.dart` with the following:
 
 ```dart
@@ -45,6 +46,7 @@ flutter run
 ```
 
 You should see a full-screen app with a wobbly-bordered app bar and a hand-drawn button in the center.
+
 <!-- {/docsMinimalAppSection} -->
 
 ## How WiredMaterialApp works
