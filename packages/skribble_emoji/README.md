@@ -64,10 +64,10 @@ WiredEmoji.fromUnicode(0x1f600, size: 32);
 
 ## API
 
-| Symbol                         | Description                                                           |
-| ------------------------------ | --------------------------------------------------------------------- |
+| Symbol                         | Description                                                            |
+| ------------------------------ | ---------------------------------------------------------------------- |
 | `kSkribbleEmoji`               | `Map<int, WiredSvgIconData>` -- all generated emoji keyed by codepoint |
-| `kSkribbleEmojiCodePoints`     | `Map<String, int>` -- identifier to codepoint lookup                  |
-| `lookupSkribbleEmojiByName`    | Look up emoji data by string identifier                               |
-| `lookupSkribbleEmojiByUnicode` | Look up emoji data by Unicode codepoint                               |
-| `WiredEmoji`                   | Widget that renders a hand-drawn emoji                                |
+| `kSkribbleEmojiCodePoints`     | `Map<String, int>` -- identifier to codepoint lookup                   |
+| `lookupSkribbleEmojiByName`    | Look up emoji data by string identifier                                |
+| `lookupSkribbleEmojiByUnicode` | Look up emoji data by Unicode codepoint                                |
+| `WiredEmoji`                   | Widget that renders a hand-drawn emoji                                 |
