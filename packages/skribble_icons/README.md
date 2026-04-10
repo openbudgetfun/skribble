@@ -1,8 +1,71 @@
 # skribble_icons
 
-Hand-drawn icon set for the Skribble design system. This package provides 30 curated SVG icons that are processed through the Skribble rough icon pipeline to produce hand-drawn variants.
+Comprehensive hand-drawn icon library for the [Skribble](https://github.com/openbudgetfun/skribble) design system.
 
-## Icons
+Provides unified access to **all 8,600+ roughened Flutter Material icons** plus 30 curated custom icons through a single API. Every icon is rendered with the Skribble hand-drawn aesthetic.
+
+## Installation
+
+```yaml
+dependencies:
+  skribble: ^0.3.4
+  skribble_icons: ^0.1.0
+```
+
+## Usage
+
+### Unified lookup (recommended)
+
+Search custom icons first, then fall back to the full Material set:
+
+```dart
+import 'package:skribble/skribble.dart';
+import 'package:skribble_icons/skribble_icons.dart';
+
+// Any Material icon identifier works:
+final alarm = lookupSkribbleIconByIdentifier('access_alarm');
+final home = lookupSkribbleIconByIdentifier('home');
+
+// Render it:
+if (alarm != null) {
+  WiredIcon.custom(data: alarm);
+}
+```
+
+### Custom icons only
+
+Access just the 30 curated custom icons:
+
+```dart
+final star = lookupSkribbleCustomIconByIdentifier('star');
+```
+
+### Material icons directly
+
+Access the full Material rough icon set:
+
+```dart
+// By identifier
+final icon = lookupMaterialRoughIconByIdentifier('favorite');
+
+// By codepoint
+final icon = kMaterialRoughIcons[0xe87d];
+
+// All available identifiers
+final names = materialRoughIconIdentifiers; // 8,600+ names
+```
+
+### Icon count
+
+```dart
+print(skribbleIconCount); // custom + Material total
+print(kSkribbleCustomIcons.length); // 30 curated icons
+print(kMaterialRoughIcons.length); // 8,600+ Material icons
+```
+
+## Custom icons
+
+The 30 curated custom icons cover common app patterns:
 
 | Identifier     | Codepoint | Description                    |
 | -------------- | --------- | ------------------------------ |
@@ -37,48 +100,37 @@ Hand-drawn icon set for the Skribble design system. This package provides 30 cur
 | `eye_off`      | `0xf01d`  | Eye with line through          |
 | `notification` | `0xf01e`  | Bell                           |
 
-## Usage
+## Regenerating custom icons
 
-Add the dependency to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  skribble_icons: ^0.1.0
-```
-
-Import and use the icons:
-
-```dart
-import 'package:skribble_icons/skribble_icons.dart';
-
-// Access the full icon map by codepoint.
-final homeIcon = kSkribbleIcons[0xf001];
-
-// Look up an icon by its string identifier.
-final starIcon = lookupSkribbleIconByIdentifier('star');
-
-// Iterate over all available codepoints.
-for (final entry in kSkribbleIconsCodePoints.entries) {
-  print('${entry.key}: 0x${entry.value.toRadixString(16)}');
-}
-```
-
-## Regeneration
-
-The generated Dart file at `lib/src/generated/skribble_icons.g.dart` is produced by the Skribble rough icon pipeline. To regenerate it, run from the workspace root:
+The curated icons are generated from SVG sources via the rough icon pipeline:
 
 ```bash
-cd packages/skribble && dart run tool/generate_rough_icons.dart \
+# From the workspace root:
+melos run rough-icons-skribble
+
+# Or directly:
+cd packages/skribble
+dart run tool/generate_rough_icons.dart \
   --kit svg-manifest \
   --manifest ../skribble_icons/tool/skribble_icons.manifest.json \
   --output ../skribble_icons/lib/src/generated/skribble_icons.g.dart \
-  --map-name kSkribbleIcons
+  --map-name kSkribbleCustomIcons
 ```
 
-## Adding new icons
+## Adding custom icons
 
-1. Create a 24x24 SVG file in the `icons/` directory.
-2. Add an entry to `tool/skribble_icons.manifest.json` with a unique `identifier`, the next available `codePoint`, and the relative `svgPath`.
-3. Add the identifier and codepoint to `kSkribbleIconsCodePoints` in `lib/skribble_icons.dart`.
-4. Run the regeneration command above.
-5. Update the test expectations in `test/skribble_icon_catalog_test.dart`.
+1. Add a 24x24 SVG file to `icons/`.
+2. Add an entry to `tool/skribble_icons.manifest.json`:
+   ```json
+   {
+     "identifier": "my_icon",
+     "codePoint": "0xf01f",
+     "svgPath": "../icons/my_icon.svg"
+   }
+   ```
+3. Run `melos run rough-icons-skribble`.
+4. Update the `kSkribbleCustomIconsCodePoints` map in `lib/skribble_icons.dart`.
+
+## License
+
+Same as the root Skribble repository — see [LICENSE](../../LICENSE) for details.

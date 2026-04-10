@@ -3,7 +3,7 @@
 
 import '../wired_svg_icon_data.dart';
 
-const Map<int, WiredSvgIconData> kSkribbleIcons = <int, WiredSvgIconData>{
+const Map<int, WiredSvgIconData> kSkribbleCustomIcons = <int, WiredSvgIconData>{
   // home
   0xf001: WiredSvgIconData(
     width: 24.0,

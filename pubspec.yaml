@@ -96,6 +96,16 @@ melos:
         --output ../skribble_icons_custom/lib/src/generated/custom_rough_icons.g.dart
         --map-name kCustomRoughIcons
 
+    rough-icons-skribble:
+      description: Generate rough custom icon artifacts for the skribble_icons package.
+      run: >-
+        cd packages/skribble &&
+        dart run tool/generate_rough_icons.dart
+        --kit svg-manifest
+        --manifest ../skribble_icons/tool/skribble_icons.manifest.json
+        --output ../skribble_icons/lib/src/generated/skribble_icons.g.dart
+        --map-name kSkribbleCustomIcons
+
     rough-icons-ci-check:
       description: Run the same rough icon regression/sync checks enforced by CI.
       run: ./scripts/check_rough_icons_ci.sh all
