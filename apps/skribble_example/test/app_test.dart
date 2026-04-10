@@ -1,14 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
 import 'package:skribble_example/app.dart';
 import 'package:skribble_example/models/note.dart';
 import 'package:skribble_example/pages/edit_page.dart';
-import 'package:skribble_example/pages/settings_page.dart';
 import 'package:skribble_example/widgets/drawer_menu.dart';
 import 'package:skribble_example/widgets/note_card.dart';
 
@@ -23,24 +21,6 @@ Widget _wrapInApp(Widget child) {
       roughness: 1.2,
     ),
     home: child,
-  );
-}
-
-/// Helper to wrap a widget in a [WiredMaterialApp] with routes.
-Widget _wrapInAppWithRoutes({
-  required Widget home,
-  Map<String, WidgetBuilder> routes = const {},
-}) {
-  return WiredMaterialApp(
-    wiredTheme: WiredThemeData(
-      borderColor: const Color(0xFF5C3D2E),
-      textColor: const Color(0xFF2E2E2E),
-      disabledTextColor: const Color(0xFFA89888),
-      fillColor: const Color(0xFFF5ECD7),
-      roughness: 1.2,
-    ),
-    home: home,
-    routes: routes,
   );
 }
 
@@ -306,11 +286,11 @@ void main() {
                   builder: (context) {
                     // Navigate immediately.
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.pushNamed(
+                      unawaited(Navigator.pushNamed(
                         context,
                         '/edit',
                         arguments: existingNote,
-                      );
+                      ));
                     });
                     return const SizedBox.shrink();
                   },
@@ -353,7 +333,7 @@ void main() {
   group('Settings page', () {
     // Helper: navigate to settings page and return the NavigatorState so
     // the caller can pop back (required to dispose WiredSlider's timer).
-    Future<NavigatorState> _pumpSettings(WidgetTester tester) async {
+    Future<NavigatorState> pumpSettings(WidgetTester tester) async {
       await tester.pumpWidget(const SketchNotesApp());
       await tester.pumpAndSettle();
 
@@ -368,7 +348,7 @@ void main() {
     }
 
     /// Pop the settings page so WiredSlider's pending timer is disposed.
-    Future<void> _popSettings(
+    Future<void> popSettings(
       WidgetTester tester,
       NavigatorState navigator,
     ) async {
@@ -377,16 +357,16 @@ void main() {
     }
 
     testWidgets('dark mode switch is present', (tester) async {
-      final nav = await _pumpSettings(tester);
+      final nav = await pumpSettings(tester);
 
       expect(find.text('Dark Mode'), findsOneWidget);
       expect(find.text('Toggle dark theme'), findsOneWidget);
 
-      await _popSettings(tester, nav);
+      await popSettings(tester, nav);
     });
 
     testWidgets('roughness slider renders with initial value', (tester) async {
-      final nav = await _pumpSettings(tester);
+      final nav = await pumpSettings(tester);
 
       expect(find.text('Roughness: 1.2'), findsOneWidget);
       expect(
@@ -395,11 +375,11 @@ void main() {
       );
       expect(find.byType(WiredSlider), findsOneWidget);
 
-      await _popSettings(tester, nav);
+      await popSettings(tester, nav);
     });
 
     testWidgets('about list tile triggers about dialog', (tester) async {
-      final nav = await _pumpSettings(tester);
+      final nav = await pumpSettings(tester);
 
       expect(find.text('About'), findsOneWidget);
       expect(find.text('Version 1.0.0'), findsOneWidget);
@@ -424,28 +404,28 @@ void main() {
         await tester.pump(const Duration(milliseconds: 50));
       }
 
-      await _popSettings(tester, nav);
+      await popSettings(tester, nav);
     });
 
     testWidgets('renders section headers', (tester) async {
-      final nav = await _pumpSettings(tester);
+      final nav = await pumpSettings(tester);
 
       expect(find.text('Appearance'), findsOneWidget);
       expect(find.text('General'), findsOneWidget);
       expect(find.text('Information'), findsOneWidget);
 
-      await _popSettings(tester, nav);
+      await popSettings(tester, nav);
     });
 
     testWidgets('theme and font size tiles are rendered', (tester) async {
-      final nav = await _pumpSettings(tester);
+      final nav = await pumpSettings(tester);
 
       expect(find.text('Theme'), findsOneWidget);
       expect(find.text('Warm parchment'), findsOneWidget);
       expect(find.text('Font Size'), findsOneWidget);
       expect(find.text('Medium'), findsOneWidget);
 
-      await _popSettings(tester, nav);
+      await popSettings(tester, nav);
     });
   });
 
@@ -518,7 +498,7 @@ void main() {
 
     testWidgets('does not show badge when updated in the past', (tester) async {
       final note = _sampleNote(
-        updatedAt: DateTime(2020, 1, 1), // Far in the past.
+        updatedAt: DateTime(2020), // Far in the past.
       );
       await tester.pumpWidget(_wrapInApp(NoteCard(note: note)));
       await tester.pumpAndSettle();
