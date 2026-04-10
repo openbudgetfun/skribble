@@ -1,0 +1,154 @@
+{
+  "icons": [
+    {
+      "identifier": "home",
+      "codePoint": "0xf001",
+      "svgPath": "../icons/home.svg"
+    },
+    {
+      "identifier": "search",
+      "codePoint": "0xf002",
+      "svgPath": "../icons/search.svg"
+    },
+    {
+      "identifier": "settings",
+      "codePoint": "0xf003",
+      "svgPath": "../icons/settings.svg"
+    },
+    {
+      "identifier": "star",
+      "codePoint": "0xf004",
+      "svgPath": "../icons/star.svg"
+    },
+    {
+      "identifier": "heart",
+      "codePoint": "0xf005",
+      "svgPath": "../icons/heart.svg"
+    },
+    {
+      "identifier": "user",
+      "codePoint": "0xf006",
+      "svgPath": "../icons/user.svg"
+    },
+    {
+      "identifier": "menu",
+      "codePoint": "0xf007",
+      "svgPath": "../icons/menu.svg"
+    },
+    {
+      "identifier": "close",
+      "codePoint": "0xf008",
+      "svgPath": "../icons/close.svg"
+    },
+    {
+      "identifier": "check",
+      "codePoint": "0xf009",
+      "svgPath": "../icons/check.svg"
+    },
+    {
+      "identifier": "plus",
+      "codePoint": "0xf00a",
+      "svgPath": "../icons/plus.svg"
+    },
+    {
+      "identifier": "minus",
+      "codePoint": "0xf00b",
+      "svgPath": "../icons/minus.svg"
+    },
+    {
+      "identifier": "arrow_left",
+      "codePoint": "0xf00c",
+      "svgPath": "../icons/arrow_left.svg"
+    },
+    {
+      "identifier": "arrow_right",
+      "codePoint": "0xf00d",
+      "svgPath": "../icons/arrow_right.svg"
+    },
+    {
+      "identifier": "arrow_up",
+      "codePoint": "0xf00e",
+      "svgPath": "../icons/arrow_up.svg"
+    },
+    {
+      "identifier": "arrow_down",
+      "codePoint": "0xf00f",
+      "svgPath": "../icons/arrow_down.svg"
+    },
+    {
+      "identifier": "edit",
+      "codePoint": "0xf010",
+      "svgPath": "../icons/edit.svg"
+    },
+    {
+      "identifier": "delete",
+      "codePoint": "0xf011",
+      "svgPath": "../icons/delete.svg"
+    },
+    {
+      "identifier": "share",
+      "codePoint": "0xf012",
+      "svgPath": "../icons/share.svg"
+    },
+    {
+      "identifier": "copy",
+      "codePoint": "0xf013",
+      "svgPath": "../icons/copy.svg"
+    },
+    {
+      "identifier": "mail",
+      "codePoint": "0xf014",
+      "svgPath": "../icons/mail.svg"
+    },
+    {
+      "identifier": "phone",
+      "codePoint": "0xf015",
+      "svgPath": "../icons/phone.svg"
+    },
+    {
+      "identifier": "camera",
+      "codePoint": "0xf016",
+      "svgPath": "../icons/camera.svg"
+    },
+    {
+      "identifier": "image",
+      "codePoint": "0xf017",
+      "svgPath": "../icons/image.svg"
+    },
+    {
+      "identifier": "calendar",
+      "codePoint": "0xf018",
+      "svgPath": "../icons/calendar.svg"
+    },
+    {
+      "identifier": "clock",
+      "codePoint": "0xf019",
+      "svgPath": "../icons/clock.svg"
+    },
+    {
+      "identifier": "lock",
+      "codePoint": "0xf01a",
+      "svgPath": "../icons/lock.svg"
+    },
+    {
+      "identifier": "unlock",
+      "codePoint": "0xf01b",
+      "svgPath": "../icons/unlock.svg"
+    },
+    {
+      "identifier": "eye",
+      "codePoint": "0xf01c",
+      "svgPath": "../icons/eye.svg"
+    },
+    {
+      "identifier": "eye_off",
+      "codePoint": "0xf01d",
+      "svgPath": "../icons/eye_off.svg"
+    },
+    {
+      "identifier": "notification",
+      "codePoint": "0xf01e",
+      "svgPath": "../icons/notification.svg"
+    }
+  ]
+}
