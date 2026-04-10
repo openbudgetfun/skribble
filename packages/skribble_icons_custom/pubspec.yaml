@@ -1,0 +1,36 @@
+name: skribble_icons_custom
+description: >
+  Hand-drawn custom icon set for Skribble. A small SVG-manifest-based icon
+  package generated with the Skribble rough icon pipeline.
+version: 0.1.0
+homepage: https://github.com/openbudgetfun/skribble
+repository: https://github.com/openbudgetfun/skribble
+documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble_icons_custom/README.md
+issue_tracker: https://github.com/openbudgetfun/skribble/issues
+
+topics:
+  - ui
+  - icons
+  - hand-drawn
+  - design-system
+  - sketch
+
+environment:
+  sdk: ^3.11.0
+  flutter: ^3.41.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  skribble: ^0.3.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  skribble_lints:
+    path: ../skribble_lints
+
+flutter:
+  uses-material-design: true
