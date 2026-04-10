@@ -1,0 +1,18 @@
+include: package:skribble_lints/analysis_options.yaml
+
+linter:
+  rules:
+    # Demo app uses many widget literals
+    prefer_const_constructors: false
+    prefer_const_literals_to_create_immutables: false
+    # Demo code uses relative imports for internal files
+    always_use_package_imports: false
+    # Demo code keeps fields before constructors for readability
+    sort_constructors_first: false
+    # Cascade invocations sometimes read worse in demo code
+    cascade_invocations: false
+
+analyzer:
+  errors:
+    # Deprecated API usage until migration
+    deprecated_member_use: ignore
