@@ -15,6 +15,11 @@ void main() {
       expect(theme.fillColor, const Color(0xFFFEFEFE));
       expect(theme.strokeWidth, 2);
       expect(theme.roughness, 1);
+      expect(theme.fontFamily, skribbleFontFamily);
+    });
+
+    test('skribbleFontFamily constant is ArchitectsDaughter', () {
+      expect(skribbleFontFamily, 'ArchitectsDaughter');
     });
 
     test('drawConfig returns defaultValues when not provided', () {
@@ -46,6 +51,7 @@ void main() {
         fillColor: Colors.yellow,
         strokeWidth: 4,
         roughness: 2.5,
+        fontFamily: 'Comic Sans',
       );
 
       expect(theme.borderColor, Colors.red);
@@ -54,6 +60,7 @@ void main() {
       expect(theme.fillColor, Colors.yellow);
       expect(theme.strokeWidth, 4);
       expect(theme.roughness, 2.5);
+      expect(theme.fontFamily, 'Comic Sans');
     });
 
     test('paperBackgroundColor softly lifts fillColor', () {
@@ -104,6 +111,36 @@ void main() {
         );
       },
     );
+
+    test('toThemeData applies the Skribble font family to text theme', () {
+      final theme = WiredThemeData();
+      final materialTheme = theme.toThemeData();
+
+      expect(
+        materialTheme.textTheme.bodyLarge?.fontFamily,
+        skribbleFontFamily,
+      );
+      expect(
+        materialTheme.textTheme.bodyMedium?.fontFamily,
+        skribbleFontFamily,
+      );
+      expect(
+        materialTheme.textTheme.headlineMedium?.fontFamily,
+        skribbleFontFamily,
+      );
+      expect(
+        materialTheme.textTheme.titleLarge?.fontFamily,
+        skribbleFontFamily,
+      );
+    });
+
+    test('toThemeData applies a custom font family to text theme', () {
+      final theme = WiredThemeData(fontFamily: 'CustomFont');
+      final materialTheme = theme.toThemeData();
+
+      expect(materialTheme.textTheme.bodyLarge?.fontFamily, 'CustomFont');
+      expect(materialTheme.textTheme.displayLarge?.fontFamily, 'CustomFont');
+    });
 
     group('copyWith', () {
       test('returns new instance with updated borderColor', () {
@@ -160,6 +197,14 @@ void main() {
         expect(copied.drawConfig, newConfig);
       });
 
+      test('returns new instance with updated fontFamily', () {
+        final original = WiredThemeData();
+        final copied = original.copyWith(fontFamily: 'Roboto');
+
+        expect(copied.fontFamily, 'Roboto');
+        expect(copied.borderColor, original.borderColor);
+      });
+
       test('preserves all values when no arguments provided', () {
         final original = WiredThemeData(
           borderColor: Colors.red,
@@ -168,6 +213,7 @@ void main() {
           fillColor: Colors.yellow,
           strokeWidth: 4,
           roughness: 2.5,
+          fontFamily: 'TestFont',
         );
         final copied = original.copyWith();
 
@@ -177,6 +223,7 @@ void main() {
         expect(copied.fillColor, original.fillColor);
         expect(copied.strokeWidth, original.strokeWidth);
         expect(copied.roughness, original.roughness);
+        expect(copied.fontFamily, original.fontFamily);
       });
     });
   });
@@ -386,6 +433,44 @@ void main() {
       expect(capturedTheme.fillColor, Colors.teal);
       expect(capturedTheme.strokeWidth, 5);
       expect(capturedTheme.roughness, 3.0);
+    });
+
+    testWidgets('provides fontFamily to descendants', (tester) async {
+      late WiredThemeData capturedTheme;
+
+      await pumpApp(
+        tester,
+        WiredTheme(
+          data: WiredThemeData(fontFamily: 'TestHandwritten'),
+          child: Builder(
+            builder: (context) {
+              capturedTheme = WiredTheme.of(context);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+
+      expect(capturedTheme.fontFamily, 'TestHandwritten');
+    });
+
+    testWidgets('default fontFamily is skribbleFontFamily', (tester) async {
+      late WiredThemeData capturedTheme;
+
+      await pumpApp(
+        tester,
+        WiredTheme(
+          data: WiredThemeData(),
+          child: Builder(
+            builder: (context) {
+              capturedTheme = WiredTheme.of(context);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+
+      expect(capturedTheme.fontFamily, skribbleFontFamily);
     });
   });
 }

@@ -9,7 +9,7 @@ import '../helpers/pump_app.dart';
 
 void main() {
   group('WiredDatePicker', () {
-    // Set a large viewport so GoogleFonts text in WiredCalendar does not
+    // Set a large viewport so hand-drawn font text in WiredCalendar does not
     // overflow.
     void useLargeViewport(WidgetTester tester) {
       tester.view.physicalSize = const Size(1200, 1200);
@@ -100,7 +100,7 @@ void main() {
 
       // Suppress overflow errors since the date picker's internal 320px
       // width may cause the calendar navigation bar to overflow with
-      // GoogleFonts text.
+      // hand-drawn font text.
       final origOnError = FlutterError.onError;
       final errors = <FlutterErrorDetails>[];
       FlutterError.onError = (details) {
@@ -251,7 +251,7 @@ void main() {
   });
 
   group('showWiredDatePicker', () {
-    // Set a large viewport so GoogleFonts text does not overflow.
+    // Set a large viewport so hand-drawn font text does not overflow.
     void useLargeViewport(WidgetTester tester) {
       tester.view.physicalSize = const Size(1200, 1200);
       tester.view.devicePixelRatio = 1.0;

@@ -26,7 +26,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.21.3
-  google_fonts: ^8.0.2
   path_parsing: ^1.1.0
 
 dev_dependencies:
@@ -38,3 +37,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: ArchitectsDaughter
+      fonts:
+        - asset: assets/fonts/ArchitectsDaughter-Regular.ttf
+  assets:
+    - assets/fonts/

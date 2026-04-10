@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'rough/skribble_rough.dart';
 
+/// The default hand-drawn font family bundled with Skribble.
+const skribbleFontFamily = 'ArchitectsDaughter';
+
 /// Theme data for Wired widgets.
 class WiredThemeData {
   final Color borderColor;
@@ -11,6 +14,7 @@ class WiredThemeData {
   final double strokeWidth;
   final DrawConfig? _drawConfig;
   final double roughness;
+  final String fontFamily;
 
   WiredThemeData({
     this.borderColor = const Color(0xFF1A2B3C),
@@ -19,6 +23,7 @@ class WiredThemeData {
     this.fillColor = const Color(0xFFFEFEFE),
     this.strokeWidth = 2,
     this.roughness = 1,
+    this.fontFamily = skribbleFontFamily,
     DrawConfig? drawConfig,
   }) : _drawConfig = drawConfig;
 
@@ -34,6 +39,7 @@ class WiredThemeData {
     double? strokeWidth,
     DrawConfig? drawConfig,
     double? roughness,
+    String? fontFamily,
   }) {
     return WiredThemeData(
       borderColor: borderColor ?? this.borderColor,
@@ -43,6 +49,7 @@ class WiredThemeData {
       strokeWidth: strokeWidth ?? this.strokeWidth,
       drawConfig: drawConfig ?? _drawConfig,
       roughness: roughness ?? this.roughness,
+      fontFamily: fontFamily ?? this.fontFamily,
     );
   }
 
@@ -81,18 +88,19 @@ class WiredThemeData {
     final baseTextTheme =
         textTheme ??
         ThemeData(brightness: brightness, useMaterial3: useMaterial3).textTheme;
+    final themedTextTheme = baseTextTheme
+        .apply(fontFamily: fontFamily)
+        .apply(bodyColor: textColor, displayColor: textColor);
 
     return ThemeData(
       brightness: brightness,
       useMaterial3: useMaterial3,
       colorScheme: colorScheme,
+      fontFamily: fontFamily,
       scaffoldBackgroundColor: paperBackgroundColor,
       canvasColor: fillColor,
       dividerColor: borderColor.withValues(alpha: 0.35),
-      textTheme: baseTextTheme.apply(
-        bodyColor: textColor,
-        displayColor: textColor,
-      ),
+      textTheme: themedTextTheme,
       iconTheme: IconThemeData(color: textColor),
       primaryIconTheme: IconThemeData(color: colorScheme.onPrimary),
       appBarTheme: AppBarTheme(
