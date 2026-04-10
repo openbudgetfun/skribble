@@ -10,7 +10,7 @@ dependency required.
 ## Icons
 
 | Identifier | Codepoint |
-|------------|-----------|
+| ---------- | --------- |
 | `home`     | `0xe901`  |
 | `search`   | `0xe902`  |
 | `settings` | `0xe903`  |
@@ -89,7 +89,11 @@ dart run tool/generate_rough_icons.dart \
 1. Add a 24×24 SVG file to `icons/`.
 2. Add an entry to `tool/custom_icons.manifest.json`:
    ```json
-   { "identifier": "my_icon", "codePoint": "0xe906", "svgPath": "../icons/my_icon.svg" }
+   {
+     "identifier": "my_icon",
+     "codePoint": "0xe906",
+     "svgPath": "../icons/my_icon.svg"
+   }
    ```
 3. Add the identifier → codepoint entry to `kCustomRoughIconsCodePoints` in
    `lib/skribble_icons_custom.dart`.
