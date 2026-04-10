@@ -12,17 +12,17 @@ Skribble is organized as a layered system where each layer builds on the one bel
 The rendering pipeline flows bottom-up through six layers:
 
 ```
-  WiredMaterialApp / WiredCupertinoScaffold   (app shell)
-                    |
-               WiredTheme                      (theme)
-                    |
-          Wired* widgets                       (widgets)
-                    |
-         WiredCanvas / WiredBaseWidget         (canvas)
-                    |
-        WiredPainterBase subclasses            (painters)
-                    |
-    Rough Engine (Generator, Filler, Drawable) (engine)
+WiredMaterialApp / WiredCupertinoScaffold   (app shell)
+                  |
+             WiredTheme                      (theme)
+                  |
+        Wired* widgets                       (widgets)
+                  |
+       WiredCanvas / WiredBaseWidget         (canvas)
+                  |
+      WiredPainterBase subclasses            (painters)
+                  |
+  Rough Engine (Generator, Filler, Drawable) (engine)
 ```
 
 ### 1. Rough Engine
@@ -186,10 +186,12 @@ return buildWiredElement(child: paintedContent);
 Widgets never hardcode colors. They read from `WiredTheme.of(context)` at build time. This makes global rebranding a single `WiredThemeData` change.
 
 <!-- {=docsThemeReadPattern} -->
+
 ```dart
 final theme = WiredTheme.of(context);
 // Use theme.borderColor, theme.fillColor, theme.textColor, etc.
 ```
+
 <!-- {/docsThemeReadPattern} -->
 
 ### Familiar APIs

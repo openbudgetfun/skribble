@@ -290,6 +290,7 @@ Container(
 ```
 
 Available `RoughBoxShape` values:
+
 - `rectangle` — sharp-corner rectangle
 - `roundedRectangle` — rounded corners (requires `borderRadius`)
 - `circle` — perfect circle
@@ -341,6 +342,7 @@ class WiredCounter extends HookWidget {
 ```
 
 Common hooks:
+
 - `useState<T>(initialValue)` — reactive local state
 - `useAnimationController(duration:)` — auto-disposed animation controller
 - `useAnimation(controller)` — reactive animation value
@@ -394,15 +396,15 @@ WiredCanvas(
 
 The `RoughFilter` enum controls fill patterns:
 
-| Filter | Effect |
-|--------|--------|
-| `noFiller` | Stroke only, no interior fill |
-| `hachureFiller` | Diagonal parallel lines |
-| `zigZagFiller` | Zigzag pattern |
-| `hatchFiller` | Cross-hatched grid |
-| `dotFiller` | Scattered dots |
-| `dashedFiller` | Dashed lines |
-| `solidFiller` | Solid color fill |
+| Filter          | Effect                        |
+| --------------- | ----------------------------- |
+| `noFiller`      | Stroke only, no interior fill |
+| `hachureFiller` | Diagonal parallel lines       |
+| `zigZagFiller`  | Zigzag pattern                |
+| `hatchFiller`   | Cross-hatched grid            |
+| `dotFiller`     | Scattered dots                |
+| `dashedFiller`  | Dashed lines                  |
+| `solidFiller`   | Solid color fill              |
 
 ### Accessibility
 
@@ -506,15 +508,15 @@ Container(color: theme.borderColor)
 
 ### WiredThemeData defaults (reference)
 
-| Field | Default Value | Description |
-|-------|--------------|-------------|
-| `borderColor` | `Color(0xFF1A2B3C)` | Sketchy stroke/border color |
-| `textColor` | `Colors.black` | Primary text color |
-| `disabledTextColor` | `Colors.grey` | Disabled state text color |
-| `fillColor` | `Color(0xFFFEFEFE)` | Paper-like background fill |
-| `strokeWidth` | `2.0` | Default stroke thickness |
-| `roughness` | `1.0` | Sketch randomness (0 = smooth, 2+ = very rough) |
-| `drawConfig` | `DrawConfig.defaultValues` | Advanced rough engine config |
+| Field               | Default Value              | Description                                     |
+| ------------------- | -------------------------- | ----------------------------------------------- |
+| `borderColor`       | `Color(0xFF1A2B3C)`        | Sketchy stroke/border color                     |
+| `textColor`         | `Colors.black`             | Primary text color                              |
+| `disabledTextColor` | `Colors.grey`              | Disabled state text color                       |
+| `fillColor`         | `Color(0xFFFEFEFE)`        | Paper-like background fill                      |
+| `strokeWidth`       | `2.0`                      | Default stroke thickness                        |
+| `roughness`         | `1.0`                      | Sketch randomness (0 = smooth, 2+ = very rough) |
+| `drawConfig`        | `DrawConfig.defaultValues` | Advanced rough engine config                    |
 
 ### WiredMaterialApp theme setup
 
@@ -552,6 +554,7 @@ WiredMaterialApp(
 ```
 
 Theme resolution follows this fallback chain:
+
 - Light mode: `wiredTheme`
 - Dark mode: `darkWiredTheme` -> `wiredTheme`
 - High contrast light: `highContrastWiredTheme` -> `wiredTheme`
@@ -727,18 +730,18 @@ WiredDataTable(
 
 Skribble provides both Material and Cupertino variants for common patterns. Use the Cupertino variants when building iOS-native experiences:
 
-| Material | Cupertino | When to use Cupertino |
-|----------|-----------|----------------------|
-| `WiredButton` | `WiredCupertinoButton` | iOS press-opacity effect |
-| `WiredAppBar` | `WiredCupertinoNavigationBar` | iOS-style navigation bar |
-| `WiredBottomNavigationBar` | `WiredCupertinoTabBar` | iOS tab bar look |
-| `WiredSwitch` | `WiredCupertinoSwitch` | iOS-style animated toggle |
-| `WiredSlider` | `WiredCupertinoSlider` | iOS slider feel |
-| `WiredInput` | `WiredCupertinoTextField` | iOS rounded text field |
-| `WiredDialog` | `WiredCupertinoAlertDialog` | iOS alert style |
-| `WiredDatePicker` | `WiredCupertinoDatePicker` | iOS wheel picker |
-| `WiredSegmentedButton` | `WiredCupertinoSegmentedControl` | iOS segmented control |
-| `WiredScaffold` | `WiredPageScaffold` | iOS page scaffold |
+| Material                   | Cupertino                        | When to use Cupertino     |
+| -------------------------- | -------------------------------- | ------------------------- |
+| `WiredButton`              | `WiredCupertinoButton`           | iOS press-opacity effect  |
+| `WiredAppBar`              | `WiredCupertinoNavigationBar`    | iOS-style navigation bar  |
+| `WiredBottomNavigationBar` | `WiredCupertinoTabBar`           | iOS tab bar look          |
+| `WiredSwitch`              | `WiredCupertinoSwitch`           | iOS-style animated toggle |
+| `WiredSlider`              | `WiredCupertinoSlider`           | iOS slider feel           |
+| `WiredInput`               | `WiredCupertinoTextField`        | iOS rounded text field    |
+| `WiredDialog`              | `WiredCupertinoAlertDialog`      | iOS alert style           |
+| `WiredDatePicker`          | `WiredCupertinoDatePicker`       | iOS wheel picker          |
+| `WiredSegmentedButton`     | `WiredCupertinoSegmentedControl` | iOS segmented control     |
+| `WiredScaffold`            | `WiredPageScaffold`              | iOS page scaffold         |
 
 For platform-adaptive apps, check `Theme.of(context).platform` and choose accordingly.
 
@@ -746,16 +749,16 @@ For platform-adaptive apps, check `Theme.of(context).platform` and choose accord
 
 When implementing selection UI, choose the right widget:
 
-| Pattern | Widget | Use when |
-|---------|--------|----------|
-| Single exclusive choice | `WiredRadio` / `WiredRadioListTile` | User picks exactly one option from a small set |
-| Multiple independent choices | `WiredCheckbox` / `WiredCheckboxListTile` | User can toggle multiple options on/off |
-| Tag-like selection | `WiredChoiceChip` / `WiredFilterChip` | Compact chip-based selection |
-| Single exclusive (compact) | `WiredSegmentedButton` | 2-5 mutually exclusive options |
-| Dropdown single choice | `WiredCombo` | Long list, pick one |
-| Color selection | `WiredColorPicker` | Color swatch grid |
-| Date selection | `WiredDatePicker` / `WiredCalendarDatePicker` | Date input |
-| Time selection | `WiredTimePicker` | Time input |
+| Pattern                      | Widget                                        | Use when                                       |
+| ---------------------------- | --------------------------------------------- | ---------------------------------------------- |
+| Single exclusive choice      | `WiredRadio` / `WiredRadioListTile`           | User picks exactly one option from a small set |
+| Multiple independent choices | `WiredCheckbox` / `WiredCheckboxListTile`     | User can toggle multiple options on/off        |
+| Tag-like selection           | `WiredChoiceChip` / `WiredFilterChip`         | Compact chip-based selection                   |
+| Single exclusive (compact)   | `WiredSegmentedButton`                        | 2-5 mutually exclusive options                 |
+| Dropdown single choice       | `WiredCombo`                                  | Long list, pick one                            |
+| Color selection              | `WiredColorPicker`                            | Color swatch grid                              |
+| Date selection               | `WiredDatePicker` / `WiredCalendarDatePicker` | Date input                                     |
+| Time selection               | `WiredTimePicker`                             | Time input                                     |
 
 ## Rough engine reference for agents
 
@@ -814,13 +817,13 @@ canvas.drawRough(
 
 These are the built-in painters agents should reuse where possible:
 
-| Painter | Shape | Key Parameters |
-|---------|-------|---------------|
-| `WiredRectangleBase` | Rectangle | `leftIndent`, `rightIndent`, `fillColor`, `borderColor`, `strokeWidth` |
-| `WiredCircleBase` | Circle | `diameterRatio`, `fillColor`, `borderColor`, `strokeWidth` |
-| `WiredLineBase` | Line | `x1`, `y1`, `x2`, `y2`, `borderColor`, `strokeWidth` |
-| `WiredRoundedRectangleBase` | Rounded rect | `borderRadius`, `fillColor`, `borderColor`, `strokeWidth` |
-| `WiredInvertedTriangleBase` | Inverted triangle | `borderColor`, `strokeWidth` |
+| Painter                     | Shape             | Key Parameters                                                         |
+| --------------------------- | ----------------- | ---------------------------------------------------------------------- |
+| `WiredRectangleBase`        | Rectangle         | `leftIndent`, `rightIndent`, `fillColor`, `borderColor`, `strokeWidth` |
+| `WiredCircleBase`           | Circle            | `diameterRatio`, `fillColor`, `borderColor`, `strokeWidth`             |
+| `WiredLineBase`             | Line              | `x1`, `y1`, `x2`, `y2`, `borderColor`, `strokeWidth`                   |
+| `WiredRoundedRectangleBase` | Rounded rect      | `borderRadius`, `fillColor`, `borderColor`, `strokeWidth`              |
+| `WiredInvertedTriangleBase` | Inverted triangle | `borderColor`, `strokeWidth`                                           |
 
 ## Constants reference
 
@@ -886,13 +889,13 @@ chore: bump version to 0.3.5
 
 ## File naming conventions
 
-| Type | Location | Naming |
-|------|----------|--------|
-| Widget | `packages/skribble/lib/src/` | `wired_<name>.dart` (snake_case) |
-| Export | `packages/skribble/lib/skribble.dart` | `export 'src/wired_<name>.dart';` |
-| Test | `packages/skribble/test/widgets/` | `wired_<name>_test.dart` |
-| Storybook page | `apps/skribble_storybook/lib/pages/` | `<category>_page.dart` |
-| Docs page | `docs/site/content/widgets/` | `<category>.md` |
+| Type           | Location                              | Naming                            |
+| -------------- | ------------------------------------- | --------------------------------- |
+| Widget         | `packages/skribble/lib/src/`          | `wired_<name>.dart` (snake_case)  |
+| Export         | `packages/skribble/lib/skribble.dart` | `export 'src/wired_<name>.dart';` |
+| Test           | `packages/skribble/test/widgets/`     | `wired_<name>_test.dart`          |
+| Storybook page | `apps/skribble_storybook/lib/pages/`  | `<category>_page.dart`            |
+| Docs page      | `docs/site/content/widgets/`          | `<category>.md`                   |
 
 ## Checklist for agents
 
@@ -933,11 +936,13 @@ Before marking any widget task as complete, verify:
 ### When to use RoughBoxDecoration vs custom painters
 
 Use `RoughBoxDecoration` when:
+
 - You need a standard shape (rectangle, rounded rect, circle, ellipse)
 - You want drop-in replacement for `BoxDecoration`
 - The widget uses `Container` or `DecoratedBox`
 
 Use a custom `WiredPainterBase` when:
+
 - You need a non-standard shape (star, wave, arrow, etc.)
 - You need to draw multiple shapes in a single painter
 - You need fine-grained control over the drawing sequence
@@ -958,6 +963,7 @@ Without a fixed seed, rough drawings will vary between renders, which can cause 
 **Every change to the codebase must have corresponding documentation updates.** This is a hard rule, not a suggestion. No PR should be merged without documentation for what changed.
 
 **When you add a widget:**
+
 1. Add it to the appropriate widget catalog page in `docs/site/content/widgets/`
 2. Include a code example, parameter table, and behavioral notes
 3. Export it from `packages/skribble/lib/skribble.dart`
@@ -965,37 +971,44 @@ Without a fixed seed, rough drawings will vary between renders, which can cause 
 5. Add the widget to the API overview at `docs/site/content/reference/api-overview.md`
 
 **When you modify a widget API:**
+
 1. Update the widget's entry in the widget catalog
 2. Update any code examples that reference the changed API
 3. Update MDT template blocks if the change affects reusable patterns
 4. Update the agents.md reference if it lists the widget's parameters
 
 **When you add a feature:**
+
 1. Add or update the relevant guide in `docs/site/content/guides/`
 2. Update the getting-started pages if the feature is fundamental
 3. Update this agents.md if the feature changes agent workflows
 4. Update the API overview if new public types are introduced
 
 **When you modify the theme system:**
+
 1. Update `docs/site/content/core/theme-system.md`
 2. Update the theming getting-started page
 3. Update the WiredThemeData defaults table in this document
 4. Update the theming MDT template block in `template.t.md`
 
 **When you modify tests or testing infrastructure:**
+
 1. Update `docs/site/content/guides/testing.md`
 2. Update the test template in this agents.md
 
 **When you modify the rough engine:**
+
 1. Update `docs/site/content/core/rough-engine.md`
 2. Update `docs/site/content/core/painters.md` if painters are affected
 3. Update the rough engine reference section in this agents.md
 
 **When you add or modify devenv scripts:**
+
 1. Update the commands section in AGENTS.md (root)
 2. Update the workspace commands table at the bottom of this agents.md
 
 **When you modify the docs site itself:**
+
 1. Update the sidebar if pages were added/removed (`docs/site/lib/components/site_sidebar.dart`)
 2. Update internal cross-links between pages
 
@@ -1011,6 +1024,7 @@ melos run rough-icons-font     # SVG + TTF font + Dart helpers
 ### Generating custom icon sets
 
 1. Create a manifest JSON:
+
 ```json
 [
   {
@@ -1022,6 +1036,7 @@ melos run rough-icons-font     # SVG + TTF font + Dart helpers
 ```
 
 2. Run the generator:
+
 ```bash
 dart run tool/generate_rough_icons.dart \
   --kit svg-manifest \
@@ -1042,18 +1057,18 @@ WiredIcon.svg(iconData: myCustomIconData)
 
 ## Workspace commands quick reference
 
-| Command | What it does |
-|---------|-------------|
-| `melos run analyze` | Dart analyze across all packages |
-| `melos run flutter-test` | Run Flutter widget tests |
-| `melos run format` | Format all Dart code |
-| `melos run screenshot` | Capture component screenshots |
-| `melos run rough-icons` | Generate rough Material icon SVGs |
-| `melos run rough-icons-font` | Generate icon font + Dart helpers |
-| `melos run rough-icons-custom` | Generate custom icon artifacts |
-| `melos run rough-icons-ci-check` | CI-equivalent icon checks |
-| `lint:all` | All lint checks (format + analyze) |
-| `test:all` | All unit and widget tests |
-| `fix:all` | Auto-fix format + lint issues |
-| `docs:site:serve` | Serve docs site locally |
-| `docs:site:build` | Build static docs for deployment |
+| Command                          | What it does                       |
+| -------------------------------- | ---------------------------------- |
+| `melos run analyze`              | Dart analyze across all packages   |
+| `melos run flutter-test`         | Run Flutter widget tests           |
+| `melos run format`               | Format all Dart code               |
+| `melos run screenshot`           | Capture component screenshots      |
+| `melos run rough-icons`          | Generate rough Material icon SVGs  |
+| `melos run rough-icons-font`     | Generate icon font + Dart helpers  |
+| `melos run rough-icons-custom`   | Generate custom icon artifacts     |
+| `melos run rough-icons-ci-check` | CI-equivalent icon checks          |
+| `lint:all`                       | All lint checks (format + analyze) |
+| `test:all`                       | All unit and widget tests          |
+| `fix:all`                        | Auto-fix format + lint issues      |
+| `docs:site:serve`                | Serve docs site locally            |
+| `docs:site:build`                | Build static docs for deployment   |

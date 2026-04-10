@@ -27,15 +27,15 @@ WiredThemeData({
 
 ### Parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `borderColor` | `Color` | `Color(0xFF1A2B3C)` | The color used for all hand-drawn borders, outlines, and strokes. A dark blue-gray by default. |
-| `textColor` | `Color` | `Colors.black` | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`. |
-| `disabledTextColor` | `Color` | `Colors.grey` | Text color for disabled widgets. |
-| `fillColor` | `Color` | `Color(0xFFFEFEFE)` | Background fill for cards, inputs, dialogs, and other surfaces. Near-white by default. |
-| `strokeWidth` | `double` | `2` | Width in logical pixels of the rough-drawn border strokes. |
-| `roughness` | `double` | `1` | Controls how wobbly and imperfect the hand-drawn lines are. `0` produces perfectly straight lines. Higher values increase the sketch effect. |
-| `drawConfig` | `DrawConfig?` | `null` | Advanced drawing configuration. When `null`, uses `DrawConfig.defaultValues`. Controls `maxRandomnessOffset`, `bowing`, `curveFitting`, `curveTightness`, `curveStepCount`, and the random `seed`. |
+| Parameter           | Type          | Default             | Description                                                                                                                                                                                        |
+| ------------------- | ------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderColor`       | `Color`       | `Color(0xFF1A2B3C)` | The color used for all hand-drawn borders, outlines, and strokes. A dark blue-gray by default.                                                                                                     |
+| `textColor`         | `Color`       | `Colors.black`      | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`.                                                                                                          |
+| `disabledTextColor` | `Color`       | `Colors.grey`       | Text color for disabled widgets.                                                                                                                                                                   |
+| `fillColor`         | `Color`       | `Color(0xFFFEFEFE)` | Background fill for cards, inputs, dialogs, and other surfaces. Near-white by default.                                                                                                             |
+| `strokeWidth`       | `double`      | `2`                 | Width in logical pixels of the rough-drawn border strokes.                                                                                                                                         |
+| `roughness`         | `double`      | `1`                 | Controls how wobbly and imperfect the hand-drawn lines are. `0` produces perfectly straight lines. Higher values increase the sketch effect.                                                       |
+| `drawConfig`        | `DrawConfig?` | `null`              | Advanced drawing configuration. When `null`, uses `DrawConfig.defaultValues`. Controls `maxRandomnessOffset`, `bowing`, `curveFitting`, `curveTightness`, `curveStepCount`, and the random `seed`. |
 
 ### copyWith
 
@@ -95,6 +95,7 @@ If no `WiredTheme` ancestor exists, `WiredTheme.of(context)` returns `WiredTheme
 ## WiredMaterialApp integration
 
 <!-- {=docsThemeSetupSection} -->
+
 `WiredMaterialApp` is the recommended way to set up theming. It handles both the `WiredTheme` injection and Material `ThemeData` synchronization in one widget.
 
 ### Basic setup
@@ -156,13 +157,14 @@ WiredMaterialApp(
 
 `WiredMaterialApp` resolves the active `WiredThemeData` based on `themeMode` and the platform's accessibility settings:
 
-| `themeMode` | High contrast off | High contrast on |
-|---|---|---|
-| `ThemeMode.light` | `wiredTheme` | `highContrastWiredTheme` |
-| `ThemeMode.dark` | `darkWiredTheme` | `highContrastDarkWiredTheme` |
+| `themeMode`        | High contrast off                          | High contrast on                           |
+| ------------------ | ------------------------------------------ | ------------------------------------------ |
+| `ThemeMode.light`  | `wiredTheme`                               | `highContrastWiredTheme`                   |
+| `ThemeMode.dark`   | `darkWiredTheme`                           | `highContrastDarkWiredTheme`               |
 | `ThemeMode.system` | Light or dark based on platform brightness | High-contrast variant of the resolved mode |
 
 If an optional variant is not provided, the fallback chain is: `highContrastDarkWiredTheme` -> `darkWiredTheme` -> `wiredTheme`.
+
 <!-- {/docsThemeSetupSection} -->
 
 ## Material ThemeData synchronization
