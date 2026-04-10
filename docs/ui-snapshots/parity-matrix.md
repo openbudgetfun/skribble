@@ -118,6 +118,8 @@ Status meanings:
 | MaterialApp + ThemeData | `WiredMaterialApp` + `WiredThemeData.toThemeData()` |  ✅ |   ✅ | ✅ (`app.dart`) | implemented | Keeps Material theming and `WiredTheme` synchronized                                                                        |
 | MaterialApp.router      | `WiredMaterialApp.router`                           |  ✅ |   ✅ |             n/a | implemented | Router-based app bootstrapping with synced theming                                                                          |
 | MaterialApp config      | shared high-value `MaterialApp` options             |  ✅ |   ✅ |             n/a | implemented | Includes restoration, scroll behavior, locale resolution, shortcuts/actions, generated titles, and theme animation controls |
+| MaterialApp diagnostics | debug and performance overlays / semantics flags    |  ✅ |   ✅ |             n/a | implemented | Covers material grid, semantics debugger, performance overlay, and checkerboard diagnostics                                 |
+| High-contrast themes    | high-contrast wired light/dark app variants         |  ✅ |   ✅ |             n/a | implemented | Keeps `WiredTheme` and Material high-contrast themes aligned                                                                |
 
 ## Summary
 
