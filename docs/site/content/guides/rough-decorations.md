@@ -36,14 +36,14 @@ Container(
 
 The constructor parameters control different aspects:
 
-| Parameter | Type | Purpose |
-|---|---|---|
-| `shape` | `RoughBoxShape` | The geometric shape to draw |
-| `borderStyle` | `RoughDrawingStyle?` | Stroke color, width, gradient, blendMode for the border |
-| `fillStyle` | `RoughDrawingStyle?` | Stroke color, width, gradient, blendMode for the fill |
-| `drawConfig` | `DrawConfig?` | Roughness, bowing, seed, and other drawing parameters |
-| `filler` | `Filler?` | Fill pattern algorithm instance |
-| `borderRadius` | `BorderRadius?` | Corner radii (only used with `roundedRectangle`) |
+| Parameter      | Type                 | Purpose                                                 |
+| -------------- | -------------------- | ------------------------------------------------------- |
+| `shape`        | `RoughBoxShape`      | The geometric shape to draw                             |
+| `borderStyle`  | `RoughDrawingStyle?` | Stroke color, width, gradient, blendMode for the border |
+| `fillStyle`    | `RoughDrawingStyle?` | Stroke color, width, gradient, blendMode for the fill   |
+| `drawConfig`   | `DrawConfig?`        | Roughness, bowing, seed, and other drawing parameters   |
+| `filler`       | `Filler?`            | Fill pattern algorithm instance                         |
+| `borderRadius` | `BorderRadius?`      | Corner radii (only used with `roundedRectangle`)        |
 
 ## RoughBoxShape options
 
@@ -181,13 +181,13 @@ RoughBoxDecoration(
 
 ### Roughness levels
 
-| roughness | Effect |
-|---|---|
-| `0` | Perfectly straight lines (no hand-drawn effect) |
-| `0.5` | Subtle wobble |
-| `1` | Default hand-drawn look |
-| `2` | Noticeably rough |
-| `3+` | Very exaggerated sketchy style |
+| roughness | Effect                                          |
+| --------- | ----------------------------------------------- |
+| `0`       | Perfectly straight lines (no hand-drawn effect) |
+| `0.5`     | Subtle wobble                                   |
+| `1`       | Default hand-drawn look                         |
+| `2`       | Noticeably rough                                |
+| `3+`      | Very exaggerated sketchy style                  |
 
 ### Deterministic rendering
 

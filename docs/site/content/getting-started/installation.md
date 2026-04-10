@@ -10,6 +10,7 @@ There are two ways to get started with Skribble: add it to an existing app as a 
 ## App usage
 
 <!-- {=docsInstallSection} -->
+
 Add the Skribble package to your Flutter project:
 
 ```bash
@@ -36,11 +37,13 @@ import 'package:skribble/skribble.dart';
 ```
 
 That single import gives you access to every Wired widget, the theming system, the rough-drawing engine, and the icon set. No additional setup is required -- just start using Wired widgets in your widget tree.
+
 <!-- {/docsInstallSection} -->
 
 ## Workspace contribution setup
 
 <!-- {=docsWorkspaceSetupSection} -->
+
 To contribute to Skribble or run the storybook app locally, clone the repository and set up the development environment.
 
 ### Prerequisites
@@ -78,11 +81,13 @@ skribble/
 ```
 
 The `packages/skribble/` directory contains all Wired widgets, the rough-drawing engine, the theme system, and the generated icon font. `apps/skribble_storybook/` is a Flutter app that showcases every widget with live examples.
+
 <!-- {/docsWorkspaceSetupSection} -->
 
 ## Development commands
 
 <!-- {=docsWorkspaceDevCommandsSection} -->
+
 All commands are run from the repository root via Melos:
 
 ```bash
@@ -122,6 +127,7 @@ flutter test
 cd packages/skribble
 dart analyze --fatal-infos .
 ```
+
 <!-- {/docsWorkspaceDevCommandsSection} -->
 
 ## Next steps

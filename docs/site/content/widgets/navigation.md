@@ -14,6 +14,7 @@ Skribble provides navigation chrome that replaces Material and Cupertino navigat
 An app bar with a hand-drawn bottom border line. Implements `PreferredSizeWidget` so it can be used directly in `WiredScaffold.appBar`.
 
 <!-- {=docsAppBarUsage} -->
+
 ```dart
 WiredAppBar(
   title: Text('My App'),
@@ -29,13 +30,13 @@ WiredAppBar(
 
 ### Constructor parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `title` | `Widget?` | `null` | Title widget, rendered with bold 20px text. |
-| `leading` | `Widget?` | `null` | Widget before the title (e.g., menu button). |
-| `actions` | `List<Widget>?` | `null` | Action widgets at the trailing edge. |
-| `height` | `double` | `56.0` | App bar height. |
-| `backgroundColor` | `Color?` | `null` | Background color. Defaults to transparent. |
+| Parameter         | Type            | Default | Description                                  |
+| ----------------- | --------------- | ------- | -------------------------------------------- |
+| `title`           | `Widget?`       | `null`  | Title widget, rendered with bold 20px text.  |
+| `leading`         | `Widget?`       | `null`  | Widget before the title (e.g., menu button). |
+| `actions`         | `List<Widget>?` | `null`  | Action widgets at the trailing edge.         |
+| `height`          | `double`        | `56.0`  | App bar height.                              |
+| `backgroundColor` | `Color?`        | `null`  | Background color. Defaults to transparent.   |
 
 ### Notes
 
@@ -50,6 +51,7 @@ WiredAppBar(
 A bottom navigation bar with hand-drawn circle selection indicators around active icons.
 
 <!-- {=docsBottomNavUsage} -->
+
 ```dart
 WiredBottomNavigationBar(
   currentIndex: selectedTab,
@@ -64,18 +66,18 @@ WiredBottomNavigationBar(
 
 ### WiredBottomNavItem parameters
 
-| Parameter | Type | Description |
-|---|---|---|
-| `icon` | `IconData` | The icon for this tab. |
-| `label` | `String` | Text label below the icon. |
+| Parameter | Type       | Description                |
+| --------- | ---------- | -------------------------- |
+| `icon`    | `IconData` | The icon for this tab.     |
+| `label`   | `String`   | Text label below the icon. |
 
 ### WiredBottomNavigationBar parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `items` | `List<WiredBottomNavItem>` | **required** | Tab items. |
-| `currentIndex` | `int` | `0` | Currently selected index. |
-| `onTap` | `ValueChanged<int>?` | `null` | Called when a tab is tapped. |
+| Parameter      | Type                       | Default      | Description                  |
+| -------------- | -------------------------- | ------------ | ---------------------------- |
+| `items`        | `List<WiredBottomNavItem>` | **required** | Tab items.                   |
+| `currentIndex` | `int`                      | `0`          | Currently selected index.    |
+| `onTap`        | `ValueChanged<int>?`       | `null`       | Called when a tab is tapped. |
 
 ### Notes
 
@@ -90,6 +92,7 @@ WiredBottomNavigationBar(
 A Material 3 style navigation bar with hand-drawn rounded rectangle selection indicators and support for `selectedIcon`.
 
 <!-- {=docsNavigationBarUsage} -->
+
 ```dart
 WiredNavigationBar(
   selectedIndex: currentIndex,
@@ -104,19 +107,19 @@ WiredNavigationBar(
 
 ### WiredNavigationDestination parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `icon` | `IconData` | **required** | Default icon. |
-| `selectedIcon` | `IconData?` | `null` | Icon shown when selected. Falls back to `icon`. |
-| `label` | `String` | **required** | Text label below the icon. |
+| Parameter      | Type        | Default      | Description                                     |
+| -------------- | ----------- | ------------ | ----------------------------------------------- |
+| `icon`         | `IconData`  | **required** | Default icon.                                   |
+| `selectedIcon` | `IconData?` | `null`       | Icon shown when selected. Falls back to `icon`. |
+| `label`        | `String`    | **required** | Text label below the icon.                      |
 
 ### WiredNavigationBar parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `destinations` | `List<WiredNavigationDestination>` | **required** | Navigation destinations. |
-| `selectedIndex` | `int` | `0` | Currently selected destination index. |
-| `onDestinationSelected` | `ValueChanged<int>?` | `null` | Called when a destination is tapped. |
+| Parameter               | Type                               | Default      | Description                           |
+| ----------------------- | ---------------------------------- | ------------ | ------------------------------------- |
+| `destinations`          | `List<WiredNavigationDestination>` | **required** | Navigation destinations.              |
+| `selectedIndex`         | `int`                              | `0`          | Currently selected destination index. |
+| `onDestinationSelected` | `ValueChanged<int>?`               | `null`       | Called when a destination is tapped.  |
 
 ### Notes
 
@@ -131,6 +134,7 @@ WiredNavigationBar(
 A vertical navigation rail with hand-drawn rounded rectangle selection indicators. Best for desktop and tablet layouts.
 
 <!-- {=docsNavigationRailUsage} -->
+
 ```dart
 WiredNavigationRail(
   selectedIndex: currentIndex,
@@ -146,21 +150,21 @@ WiredNavigationRail(
 
 ### WiredNavigationRailDestination parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `icon` | `IconData` | **required** | Default icon. |
-| `selectedIcon` | `IconData?` | `null` | Icon when selected. Falls back to `icon`. |
-| `label` | `String` | **required** | Text label below the icon. |
+| Parameter      | Type        | Default      | Description                               |
+| -------------- | ----------- | ------------ | ----------------------------------------- |
+| `icon`         | `IconData`  | **required** | Default icon.                             |
+| `selectedIcon` | `IconData?` | `null`       | Icon when selected. Falls back to `icon`. |
+| `label`        | `String`    | **required** | Text label below the icon.                |
 
 ### WiredNavigationRail parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `destinations` | `List<WiredNavigationRailDestination>` | **required** | Rail destinations. |
-| `selectedIndex` | `int` | `0` | Currently selected destination index. |
-| `onDestinationSelected` | `ValueChanged<int>?` | `null` | Called when a destination is tapped. |
-| `leading` | `Widget?` | `null` | Widget above the destinations (e.g., FAB). |
-| `trailing` | `Widget?` | `null` | Widget below the destinations, pushed to the bottom. |
+| Parameter               | Type                                   | Default      | Description                                          |
+| ----------------------- | -------------------------------------- | ------------ | ---------------------------------------------------- |
+| `destinations`          | `List<WiredNavigationRailDestination>` | **required** | Rail destinations.                                   |
+| `selectedIndex`         | `int`                                  | `0`          | Currently selected destination index.                |
+| `onDestinationSelected` | `ValueChanged<int>?`                   | `null`       | Called when a destination is tapped.                 |
+| `leading`               | `Widget?`                              | `null`       | Widget above the destinations (e.g., FAB).           |
+| `trailing`              | `Widget?`                              | `null`       | Widget below the destinations, pushed to the bottom. |
 
 ### Notes
 
@@ -175,6 +179,7 @@ WiredNavigationRail(
 A side navigation drawer with a hand-drawn border. Displays a list of navigation destinations with sketchy selection indicators.
 
 <!-- {=docsNavigationDrawerUsage} -->
+
 ```dart
 WiredNavigationDrawer(
   selectedIndex: currentIndex,
@@ -198,6 +203,7 @@ WiredNavigationDrawer(
 A tab bar with hand-drawn underline indicators. Each tab label gets a sketchy line beneath it when selected.
 
 <!-- {=docsTabBarUsage} -->
+
 ```dart
 WiredTabBar(
   controller: tabController,
@@ -222,6 +228,7 @@ WiredTabBar(
 A hand-drawn drawer panel with a sketchy border, suitable for side menus.
 
 <!-- {=docsDrawerUsage} -->
+
 ```dart
 WiredScaffold(
   drawer: WiredDrawer(
@@ -244,6 +251,7 @@ WiredScaffold(
 A popup menu triggered by a button press. Menu items appear in a hand-drawn bordered overlay.
 
 <!-- {=docsPopupMenuUsage} -->
+
 ```dart
 WiredPopupMenuButton<String>(
   onSelected: (value) => print(value),
@@ -261,6 +269,7 @@ WiredPopupMenuButton<String>(
 A horizontal menu bar with hand-drawn borders, suitable for desktop-style navigation.
 
 <!-- {=docsMenuBarUsage} -->
+
 ```dart
 WiredMenuBar(
   children: [
@@ -283,6 +292,7 @@ WiredMenuBar(
 A bottom app bar with a hand-drawn top border. Can contain actions and an optional notch for a FAB.
 
 <!-- {=docsBottomAppBarUsage} -->
+
 ```dart
 WiredScaffold(
   bottomNavigationBar: WiredBottomAppBar(
@@ -306,6 +316,7 @@ WiredScaffold(
 A sliver app bar with hand-drawn borders for use in `CustomScrollView`. Supports expanding/collapsing behavior.
 
 <!-- {=docsSliverAppBarUsage} -->
+
 ```dart
 CustomScrollView(
   slivers: [
@@ -326,6 +337,7 @@ CustomScrollView(
 A Cupertino-style navigation bar with hand-drawn borders. Mirrors the `CupertinoNavigationBar` API with sketchy styling.
 
 <!-- {=docsCupertinoNavBarUsage} -->
+
 ```dart
 WiredCupertinoNavigationBar(
   middle: Text('Page Title'),
@@ -343,6 +355,7 @@ WiredCupertinoNavigationBar(
 A Cupertino-style tab bar with hand-drawn selection indicators. Mirrors the `CupertinoTabBar` API.
 
 <!-- {=docsCupertinoTabBarUsage} -->
+
 ```dart
 WiredCupertinoTabBar(
   currentIndex: selectedTab,

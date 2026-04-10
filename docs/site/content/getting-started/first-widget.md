@@ -31,6 +31,7 @@ void main() {
 ## Step 1: WiredButton
 
 <!-- {=docsFirstWidgetButton} -->
+
 `WiredButton` is the simplest Wired widget. It draws a hand-sketched rectangle border around a child widget and fires `onPressed` when tapped.
 
 ```dart
@@ -77,11 +78,13 @@ WiredButton(
   child: Icon(Icons.save),
 )
 ```
+
 <!-- {/docsFirstWidgetButton} -->
 
 ## Step 2: WiredInput
 
 <!-- {=docsFirstWidgetInput} -->
+
 `WiredInput` is a text field with a hand-drawn rectangle border. It wraps Flutter's `TextField` internally, so all standard text input behavior (focus, selection, IME) works automatically.
 
 ```dart
@@ -122,16 +125,16 @@ class ExamplePage extends HookWidget {
 
 ### WiredInput parameters
 
-| Parameter | Type | Description |
-|---|---|---|
-| `controller` | `TextEditingController?` | Controls the text being edited. Use `useTextEditingController()` from flutter_hooks. |
-| `labelText` | `String?` | Label displayed to the left of the input. |
-| `hintText` | `String?` | Placeholder text inside the field. |
-| `onChanged` | `void Function(String)?` | Called every time the text changes. |
-| `obscureText` | `bool` | Hides the input text (for passwords). Defaults to `false`. |
-| `style` | `TextStyle?` | Custom text style for the input content. |
-| `labelStyle` | `TextStyle?` | Custom text style for the label. |
-| `hintStyle` | `TextStyle?` | Custom text style for the hint text. |
+| Parameter     | Type                     | Description                                                                          |
+| ------------- | ------------------------ | ------------------------------------------------------------------------------------ |
+| `controller`  | `TextEditingController?` | Controls the text being edited. Use `useTextEditingController()` from flutter_hooks. |
+| `labelText`   | `String?`                | Label displayed to the left of the input.                                            |
+| `hintText`    | `String?`                | Placeholder text inside the field.                                                   |
+| `onChanged`   | `void Function(String)?` | Called every time the text changes.                                                  |
+| `obscureText` | `bool`                   | Hides the input text (for passwords). Defaults to `false`.                           |
+| `style`       | `TextStyle?`             | Custom text style for the input content.                                             |
+| `labelStyle`  | `TextStyle?`             | Custom text style for the label.                                                     |
+| `hintStyle`   | `TextStyle?`             | Custom text style for the hint text.                                                 |
 
 ### How WiredInput reads the theme
 
@@ -141,11 +144,13 @@ class ExamplePage extends HookWidget {
 - `theme.borderColor` for the sketchy rectangle stroke
 
 The underlying `TextField` uses Flutter's default text styling, which `WiredMaterialApp` has already synced with the Wired theme's text color.
+
 <!-- {/docsFirstWidgetInput} -->
 
 ## Step 3: WiredCard
 
 <!-- {=docsFirstWidgetCard} -->
+
 `WiredCard` draws a hand-sketched rectangle container. Use it to group related content.
 
 ```dart
@@ -195,20 +200,22 @@ class ExamplePage extends HookWidget {
 
 ### WiredCard parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `child` | `Widget?` | `null` | The content inside the card. |
-| `height` | `double?` | `130.0` | Fixed height. Pass `null` to auto-size. |
-| `fill` | `bool` | `false` | When `true`, the card background is drawn with a hachure fill pattern. |
+| Parameter | Type      | Default | Description                                                            |
+| --------- | --------- | ------- | ---------------------------------------------------------------------- |
+| `child`   | `Widget?` | `null`  | The content inside the card.                                           |
+| `height`  | `double?` | `130.0` | Fixed height. Pass `null` to auto-size.                                |
+| `fill`    | `bool`    | `false` | When `true`, the card background is drawn with a hachure fill pattern. |
 
 ### How WiredCard reads the theme
 
 `WiredCard` calls `WiredTheme.of(context)` and passes `theme.fillColor` and `theme.borderColor` to its internal `WiredRectangleBase` painter.
+
 <!-- {/docsFirstWidgetCard} -->
 
 ## Step 4: WiredCheckbox
 
 <!-- {=docsFirstWidgetCheckbox} -->
+
 `WiredCheckbox` draws a hand-sketched square with a checkmark inside when checked.
 
 ```dart
@@ -242,11 +249,13 @@ class ExamplePage extends HookWidget {
 ```
 
 `WiredCheckbox` supports tristate values. Pass `null` for the indeterminate state.
+
 <!-- {/docsFirstWidgetCheckbox} -->
 
 ## Combining widgets: a complete form
 
 <!-- {=docsFirstWidgetForm} -->
+
 Here is a complete example that combines all four widgets into a sign-up form:
 
 ```dart
@@ -381,6 +390,7 @@ class SignUpForm extends HookWidget {
 ```
 
 Every widget in this form reads colors and stroke styles from `WiredTheme.of(context)`. Change the theme once and the entire form updates -- no per-widget color props needed.
+
 <!-- {/docsFirstWidgetForm} -->
 
 ## The pattern behind every Wired widget

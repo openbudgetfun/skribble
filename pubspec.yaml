@@ -6,6 +6,7 @@ environment:
 
 workspace:
   - packages/skribble
+  - packages/skribble_emoji
   - packages/skribble_icons
   - packages/skribble_icons_custom
   - packages/skribble_lints

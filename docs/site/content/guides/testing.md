@@ -31,6 +31,7 @@ Every `wired_*.dart` source file must have a corresponding `wired_*_test.dart` t
 ## The pumpApp() helper
 
 <!-- {=docsPumpAppHelper} -->
+
 All widget tests use the `pumpApp()` helper from `test/helpers/pump_app.dart`. It wraps your widget in a `MaterialApp` and `Scaffold`, which is the minimum tree required for Material widgets to function.
 
 ### Signature
@@ -105,6 +106,7 @@ await pumpApp(
   theme: ThemeData.dark(),
 );
 ```
+
 <!-- {/docsPumpAppHelper} -->
 
 ### Testing with WiredTheme

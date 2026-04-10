@@ -47,15 +47,15 @@ final generator = Generator(drawConfig, filler);
 
 The generator provides these shape constructors:
 
-| Method | Parameters |
-|---|---|
-| `generator.rectangle(x, y, width, height)` | Top-left origin and dimensions |
-| `generator.circle(cx, cy, diameter)` | Center point and diameter |
-| `generator.ellipse(cx, cy, width, height)` | Center point and radii |
-| `generator.line(x1, y1, x2, y2)` | Start and end points |
-| `generator.polygon(List<PointD>)` | Closed polygon from vertex list |
-| `generator.arc(x, y, w, h, start, stop, closed)` | Arc segment |
-| `generator.roundedRectangle(x, y, w, h, tl, tr, br, bl)` | Rounded corners |
+| Method                                                   | Parameters                      |
+| -------------------------------------------------------- | ------------------------------- |
+| `generator.rectangle(x, y, width, height)`               | Top-left origin and dimensions  |
+| `generator.circle(cx, cy, diameter)`                     | Center point and diameter       |
+| `generator.ellipse(cx, cy, width, height)`               | Center point and radii          |
+| `generator.line(x1, y1, x2, y2)`                         | Start and end points            |
+| `generator.polygon(List<PointD>)`                        | Closed polygon from vertex list |
+| `generator.arc(x, y, w, h, start, stop, closed)`         | Arc segment                     |
+| `generator.roundedRectangle(x, y, w, h, tl, tr, br, bl)` | Rounded corners                 |
 
 Each returns a `Drawable` that holds the rough path data.
 
@@ -327,15 +327,15 @@ WiredCanvas(
 
 Available `RoughFilter` values:
 
-| Filter | Description |
-|---|---|
-| `noFiller` | No fill, border only |
+| Filter          | Description               |
+| --------------- | ------------------------- |
+| `noFiller`      | No fill, border only      |
 | `hachureFiller` | Parallel diagonal strokes |
-| `zigZagFiller` | Zigzag strokes |
-| `hatchFiller` | Cross-hatched strokes |
-| `dotFiller` | Dot pattern |
-| `dashedFiller` | Dashed strokes |
-| `solidFiller` | Solid fill |
+| `zigZagFiller`  | Zigzag strokes            |
+| `hatchFiller`   | Cross-hatched strokes     |
+| `dotFiller`     | Dot pattern               |
+| `dashedFiller`  | Dashed strokes            |
+| `solidFiller`   | Solid fill                |
 
 ## Using a custom painter in a widget
 

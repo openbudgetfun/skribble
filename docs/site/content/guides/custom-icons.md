@@ -112,11 +112,11 @@ The manifest file defines icons for the `svg-manifest` kit. It can use either a 
 
 ### Field reference
 
-| Field | Required | Description |
-|---|---|---|
-| `identifier` | Yes | Unique string identifier for the icon (used as the Dart field name) |
-| `codePoint` | Yes | Unique code point -- accepts decimal (`57345`), hex string (`"0xe001"`), bare hex (`"e001"`), or Unicode format (`"U+E001"`) |
-| `svgPath` | Yes | Path to the source SVG file (relative to the manifest file location) |
+| Field        | Required | Description                                                                                                                  |
+| ------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `identifier` | Yes      | Unique string identifier for the icon (used as the Dart field name)                                                          |
+| `codePoint`  | Yes      | Unique code point -- accepts decimal (`57345`), hex string (`"0xe001"`), bare hex (`"e001"`), or Unicode format (`"U+E001"`) |
+| `svgPath`    | Yes      | Path to the source SVG file (relative to the manifest file location)                                                         |
 
 The `svgPath` field also accepts the aliases `svg` and `path`.
 

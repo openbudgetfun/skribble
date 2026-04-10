@@ -20,6 +20,7 @@ The library ships 80+ production-ready widgets, each built on `HookWidget` and p
 ## Quick install
 
 <!-- {=docsQuickInstallSection} -->
+
 Add Skribble to your Flutter project:
 
 ```bash
@@ -31,6 +32,7 @@ Then import and use any Wired widget:
 ```dart
 import 'package:skribble/skribble.dart';
 ```
+
 <!-- {/docsQuickInstallSection} -->
 
 ## Start here
@@ -64,19 +66,19 @@ Skribble includes a generated rough icon font based on Material Icons. Use `Wire
 
 Skribble organizes its 80+ widgets into categories:
 
-| Category | Widgets |
-|---|---|
-| **Buttons** | `WiredButton`, `WiredElevatedButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredTextButton`, `WiredIconButton`, `WiredFab` |
-| **Inputs** | `WiredInput`, `WiredTextArea`, `WiredSearchBar`, `WiredAutocomplete`, `WiredCombo` |
-| **Selection** | `WiredCheckbox`, `WiredRadio`, `WiredSwitch`, `WiredToggle`, `WiredToggleButtons`, `WiredSlider`, `WiredRangeSlider` |
-| **Layout** | `WiredCard`, `WiredDivider`, `WiredListTile`, `WiredExpansionTile`, `WiredStepper`, `WiredReorderableListView` |
-| **Navigation** | `WiredAppBar`, `WiredSliverAppBar`, `WiredBottomNav`, `WiredBottomAppBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredNavigationDrawer`, `WiredDrawer`, `WiredTabBar` |
-| **Feedback** | `WiredDialog`, `WiredSnackBar`, `WiredTooltip`, `WiredProgress`, `WiredCircularProgress`, `WiredBadge`, `WiredMaterialBanner` |
-| **Surfaces** | `WiredScaffold`, `WiredBottomSheet`, `WiredPopupMenu`, `WiredContextMenu`, `WiredMenuBar` |
-| **Date & Time** | `WiredDatePicker`, `WiredCalendar`, `WiredCalendarDatePicker`, `WiredTimePicker` |
-| **Chips** | `WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip` |
-| **Data** | `WiredDataTable` |
-| **Cupertino** | `WiredCupertinoButton`, `WiredCupertinoTextField`, `WiredCupertinoSwitch`, `WiredCupertinoSlider`, `WiredCupertinoNavigationBar`, `WiredCupertinoTabBar`, `WiredCupertinoDatePicker`, `WiredCupertinoPicker`, `WiredCupertinoActionSheet`, `WiredCupertinoAlertDialog`, `WiredCupertinoSegmentedControl`, `WiredCupertinoScaffold` |
+| Category        | Widgets                                                                                                                                                                                                                                                                                                                            |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Buttons**     | `WiredButton`, `WiredElevatedButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredTextButton`, `WiredIconButton`, `WiredFab`                                                                                                                                                                                                 |
+| **Inputs**      | `WiredInput`, `WiredTextArea`, `WiredSearchBar`, `WiredAutocomplete`, `WiredCombo`                                                                                                                                                                                                                                                 |
+| **Selection**   | `WiredCheckbox`, `WiredRadio`, `WiredSwitch`, `WiredToggle`, `WiredToggleButtons`, `WiredSlider`, `WiredRangeSlider`                                                                                                                                                                                                               |
+| **Layout**      | `WiredCard`, `WiredDivider`, `WiredListTile`, `WiredExpansionTile`, `WiredStepper`, `WiredReorderableListView`                                                                                                                                                                                                                     |
+| **Navigation**  | `WiredAppBar`, `WiredSliverAppBar`, `WiredBottomNav`, `WiredBottomAppBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredNavigationDrawer`, `WiredDrawer`, `WiredTabBar`                                                                                                                                                      |
+| **Feedback**    | `WiredDialog`, `WiredSnackBar`, `WiredTooltip`, `WiredProgress`, `WiredCircularProgress`, `WiredBadge`, `WiredMaterialBanner`                                                                                                                                                                                                      |
+| **Surfaces**    | `WiredScaffold`, `WiredBottomSheet`, `WiredPopupMenu`, `WiredContextMenu`, `WiredMenuBar`                                                                                                                                                                                                                                          |
+| **Date & Time** | `WiredDatePicker`, `WiredCalendar`, `WiredCalendarDatePicker`, `WiredTimePicker`                                                                                                                                                                                                                                                   |
+| **Chips**       | `WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`                                                                                                                                                                                                                                                                |
+| **Data**        | `WiredDataTable`                                                                                                                                                                                                                                                                                                                   |
+| **Cupertino**   | `WiredCupertinoButton`, `WiredCupertinoTextField`, `WiredCupertinoSwitch`, `WiredCupertinoSlider`, `WiredCupertinoNavigationBar`, `WiredCupertinoTabBar`, `WiredCupertinoDatePicker`, `WiredCupertinoPicker`, `WiredCupertinoActionSheet`, `WiredCupertinoAlertDialog`, `WiredCupertinoSegmentedControl`, `WiredCupertinoScaffold` |
 
 Browse the full [widget reference](/widgets) for API details and live examples.
 

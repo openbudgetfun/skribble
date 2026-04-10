@@ -13,15 +13,15 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 
 ### Fields
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `borderColor` | `Color` | `Color(0xFF1A2B3C)` | Border stroke color for all shapes |
-| `textColor` | `Color` | `Colors.black` | Primary text color |
-| `disabledTextColor` | `Color` | `Colors.grey` | Text color for disabled states |
-| `fillColor` | `Color` | `Color(0xFFFEFEFE)` | Interior fill color for shapes |
-| `strokeWidth` | `double` | `2` | Default border stroke width |
-| `roughness` | `double` | `1` | Roughness multiplier passed to the engine |
-| `drawConfig` | `DrawConfig?` | `null` (uses `DrawConfig.defaultValues`) | Optional custom draw configuration |
+| Field               | Type          | Default                                  | Description                               |
+| ------------------- | ------------- | ---------------------------------------- | ----------------------------------------- |
+| `borderColor`       | `Color`       | `Color(0xFF1A2B3C)`                      | Border stroke color for all shapes        |
+| `textColor`         | `Color`       | `Colors.black`                           | Primary text color                        |
+| `disabledTextColor` | `Color`       | `Colors.grey`                            | Text color for disabled states            |
+| `fillColor`         | `Color`       | `Color(0xFFFEFEFE)`                      | Interior fill color for shapes            |
+| `strokeWidth`       | `double`      | `2`                                      | Default border stroke width               |
+| `roughness`         | `double`      | `1`                                      | Roughness multiplier passed to the engine |
+| `drawConfig`        | `DrawConfig?` | `null` (uses `DrawConfig.defaultValues`) | Optional custom draw configuration        |
 
 ### Creating a Theme
 
@@ -81,10 +81,12 @@ This is the value returned by `WiredTheme.of(context)` when no ancestor `WiredTh
 The standard lookup method:
 
 <!-- {=docsThemeReadPattern} -->
+
 ```dart
 final theme = WiredTheme.of(context);
 // Use theme.borderColor, theme.fillColor, theme.textColor, etc.
 ```
+
 <!-- {/docsThemeReadPattern} -->
 
 If no `WiredTheme` ancestor exists, `of` returns `WiredThemeData.defaultTheme` rather than throwing. This means Wired widgets work without any explicit theme setup -- they just use default colors.
@@ -129,17 +131,17 @@ ColorScheme toColorScheme({Brightness brightness = Brightness.light})
 
 The method uses `ColorScheme.fromSeed` with `borderColor` as the seed, then overrides key slots:
 
-| ColorScheme slot | Mapped from |
-|---|---|
-| `primary` | `borderColor` |
-| `onPrimary` | Best contrast against `borderColor` (white or black) |
-| `secondary` | `textColor` |
-| `onSecondary` | Best contrast against `textColor` |
-| `surface` | `fillColor` |
-| `onSurface` | `textColor` |
-| `outline` | `borderColor` at 70% opacity |
-| `surfaceTint` | `borderColor` |
-| `shadow` | `borderColor` at 12% opacity |
+| ColorScheme slot | Mapped from                                          |
+| ---------------- | ---------------------------------------------------- |
+| `primary`        | `borderColor`                                        |
+| `onPrimary`      | Best contrast against `borderColor` (white or black) |
+| `secondary`      | `textColor`                                          |
+| `onSecondary`    | Best contrast against `textColor`                    |
+| `surface`        | `fillColor`                                          |
+| `onSurface`      | `textColor`                                          |
+| `outline`        | `borderColor` at 70% opacity                         |
+| `surfaceTint`    | `borderColor`                                        |
+| `shadow`         | `borderColor` at 12% opacity                         |
 
 ```dart
 final scheme = theme.toColorScheme();
@@ -168,14 +170,14 @@ This method sets up Material component themes so that standard Material widgets 
 
 ### Component Theme Mapping
 
-| Material Component | Wired Theme Mapping |
-|---|---|
-| `scaffoldBackgroundColor` | `paperBackgroundColor` |
-| `canvasColor` | `fillColor` |
-| `dividerColor` | `borderColor` at 35% opacity |
-| `textTheme` | Body and display colors set to `textColor` |
-| `iconTheme` | Color set to `textColor` |
-| `primaryIconTheme` | Color set to `colorScheme.onPrimary` |
+| Material Component        | Wired Theme Mapping                        |
+| ------------------------- | ------------------------------------------ |
+| `scaffoldBackgroundColor` | `paperBackgroundColor`                     |
+| `canvasColor`             | `fillColor`                                |
+| `dividerColor`            | `borderColor` at 35% opacity               |
+| `textTheme`               | Body and display colors set to `textColor` |
+| `iconTheme`               | Color set to `textColor`                   |
+| `primaryIconTheme`        | Color set to `colorScheme.onPrimary`       |
 
 ### AppBarTheme
 
@@ -337,11 +339,11 @@ WiredMaterialApp(
 
 The app resolves which `WiredThemeData` to use based on `ThemeMode` and the platform's accessibility settings:
 
-| ThemeMode | High Contrast Off | High Contrast On |
-|---|---|---|
-| `light` | `wiredTheme` | `highContrastWiredTheme` |
-| `dark` | `darkWiredTheme` | `highContrastDarkWiredTheme` |
-| `system` | Platform brightness selects light or dark, then high-contrast is checked |
+| ThemeMode | High Contrast Off                                                        | High Contrast On             |
+| --------- | ------------------------------------------------------------------------ | ---------------------------- |
+| `light`   | `wiredTheme`                                                             | `highContrastWiredTheme`     |
+| `dark`    | `darkWiredTheme`                                                         | `highContrastDarkWiredTheme` |
+| `system`  | Platform brightness selects light or dark, then high-contrast is checked |                              |
 
 Fallback behavior: if `darkWiredTheme` is not provided, `wiredTheme` is used for dark mode. Similarly, the high-contrast variants fall back to their non-high-contrast equivalents.
 
