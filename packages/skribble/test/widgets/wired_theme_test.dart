@@ -18,8 +18,8 @@ void main() {
       expect(theme.fontFamily, skribbleFontFamily);
     });
 
-    test('skribbleFontFamily constant is ArchitectsDaughter', () {
-      expect(skribbleFontFamily, 'ArchitectsDaughter');
+    test('skribbleFontFamily constant is Skribble', () {
+      expect(skribbleFontFamily, 'Skribble');
     });
 
     test('drawConfig returns defaultValues when not provided', () {
