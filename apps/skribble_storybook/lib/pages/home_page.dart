@@ -143,4 +143,16 @@ const _categories = [
     route: '/rough-icons',
     icon: Icons.draw_outlined,
   ),
+  _Category(
+    title: 'Skribble Icons',
+    description: 'Curated hand-drawn custom icon set with unified lookup',
+    route: '/skribble-icons',
+    icon: Icons.auto_awesome_outlined,
+  ),
+  _Category(
+    title: 'Emoji',
+    description: 'Hand-drawn emoji from OpenMoji rendered as SVG icons',
+    route: '/emoji',
+    icon: Icons.emoji_emotions_outlined,
+  ),
 ];

@@ -19,7 +19,7 @@ void main() {
       expect(find.text('Hand-drawn UI components for Flutter'), findsOneWidget);
     });
 
-    testWidgets('renders all eight category cards', (tester) async {
+    testWidgets('renders all ten category cards', (tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
 
@@ -28,15 +28,35 @@ void main() {
       expect(find.text('Inputs'), findsOneWidget);
       expect(find.text('Navigation'), findsOneWidget);
 
-      // Scroll down to find remaining categories.
+      // Scroll down to find middle categories.
+      await tester.scrollUntilVisible(find.text('Selection'), 200);
+      await tester.pumpAndSettle();
+      expect(find.text('Selection'), findsOneWidget);
+
+      await tester.scrollUntilVisible(find.text('Feedback'), 200);
+      await tester.pumpAndSettle();
+      expect(find.text('Feedback'), findsOneWidget);
+
+      await tester.scrollUntilVisible(find.text('Layout'), 200);
+      await tester.pumpAndSettle();
+      expect(find.text('Layout'), findsOneWidget);
+
+      await tester.scrollUntilVisible(find.text('Data Display'), 200);
+      await tester.pumpAndSettle();
+      expect(find.text('Data Display'), findsOneWidget);
+
       await tester.scrollUntilVisible(find.text('Rough Icons'), 200);
       await tester.pumpAndSettle();
-
-      expect(find.text('Selection'), findsOneWidget);
-      expect(find.text('Feedback'), findsOneWidget);
-      expect(find.text('Layout'), findsOneWidget);
-      expect(find.text('Data Display'), findsOneWidget);
       expect(find.text('Rough Icons'), findsOneWidget);
+
+      // Scroll down to find the new categories.
+      await tester.scrollUntilVisible(find.text('Skribble Icons'), 200);
+      await tester.pumpAndSettle();
+      expect(find.text('Skribble Icons'), findsOneWidget);
+
+      await tester.scrollUntilVisible(find.text('Emoji'), 200);
+      await tester.pumpAndSettle();
+      expect(find.text('Emoji'), findsOneWidget);
     });
 
     testWidgets('uses WiredAppBar', (tester) async {

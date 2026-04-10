@@ -38,6 +38,33 @@ import 'package:skribble/skribble.dart';
 
 That single import gives you access to every Wired widget, the theming system, the rough-drawing engine, and the icon set. No additional setup is required -- just start using Wired widgets in your widget tree.
 
+### Optional companion packages
+
+For curated custom icons and hand-drawn emoji, add the companion packages:
+
+```bash
+dart pub add skribble_icons
+dart pub add skribble_emoji
+```
+
+Or add them manually to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  skribble: ^0.1.0
+  skribble_icons: ^0.1.0
+  skribble_emoji: ^0.1.0
+```
+
+Import them separately:
+
+```dart
+import 'package:skribble_icons/skribble_icons.dart';
+import 'package:skribble_emoji/skribble_emoji.dart';
+```
+
+`skribble_icons` provides 30 curated hand-drawn custom icons with a unified lookup API. `skribble_emoji` provides hand-drawn emoji from OpenMoji with the `WiredEmoji` widget.
+
 <!-- {/docsInstallSection} -->
 
 ## Workspace contribution setup

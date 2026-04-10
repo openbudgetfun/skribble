@@ -16,6 +16,10 @@ dependencies:
   flutter_hooks: ^0.21.3
   skribble:
     path: ../../packages/skribble
+  skribble_emoji:
+    path: ../../packages/skribble_emoji
+  skribble_icons:
+    path: ../../packages/skribble_icons
 
 dev_dependencies:
   flutter_test:

@@ -237,6 +237,58 @@ final codePoints = materialRoughIconCodePoints;
 
 ---
 
+## skribble_icons package
+
+The `skribble_icons` package provides a curated set of 30 hand-drawn custom icons with a unified lookup API. It re-exports all Material rough icons from the main `skribble` package, giving you a single import for both custom and Material icons.
+
+### Installation
+
+```bash
+dart pub add skribble_icons
+```
+
+### Import
+
+```dart
+import 'package:skribble_icons/skribble_icons.dart';
+```
+
+### Curated custom icons
+
+The package includes 30 custom icons covering common UI actions:
+
+`home`, `search`, `settings`, `star`, `heart`, `user`, `menu`, `close`, `check`, `plus`, `minus`, `arrow_left`, `arrow_right`, `arrow_up`, `arrow_down`, `edit`, `delete`, `share`, `copy`, `mail`, `phone`, `camera`, `image`, `calendar`, `clock`, `lock`, `unlock`, `eye`, `eye_off`, `notification`.
+
+### Unified lookup API
+
+Look up any custom icon by its string identifier:
+
+```dart
+import 'package:skribble_icons/skribble_icons.dart';
+
+// Look up a custom icon by name
+final data = lookupSkribbleIconByIdentifier('star');
+if (data != null) {
+  WiredSvgIcon(data: data, size: 32);
+}
+```
+
+### Available exports
+
+| Export                           | Type                         | Description                                           |
+| -------------------------------- | ---------------------------- | ----------------------------------------------------- |
+| `kSkribbleIcons`                 | `Map<int, WiredSvgIconData>` | All custom icons keyed by codepoint.                  |
+| `kSkribbleIconsCodePoints`       | `Map<String, int>`           | Maps icon identifier strings to codepoints.           |
+| `lookupSkribbleIconByIdentifier` | `WiredSvgIconData? Function` | Returns icon data for a given identifier, or `null`.  |
+| `WiredSvgIconData`               | class                        | The SVG icon data type (re-exported from `skribble`). |
+| `WiredSvgPrimitive`              | class                        | SVG primitive types (re-exported from `skribble`).    |
+
+### Material icons
+
+All Material rough icons remain available through the main `skribble` package. The `skribble_icons` package focuses on the curated custom icon set. Use `WiredIcon(icon: Icons.home)` for Material icons and `WiredSvgIcon(data: ...)` for custom icons from `skribble_icons`.
+
+---
+
 ## Custom icon sets
 
 The `skribble_icons_custom` package provides tooling for generating rough icon catalogs from your own SVG icon sets.
