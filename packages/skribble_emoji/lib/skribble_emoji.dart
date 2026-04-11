@@ -17,6 +17,8 @@ export 'package:skribble_emoji/src/generated/skribble_emoji.g.dart'
     show kSkribbleEmoji;
 export 'package:skribble_emoji/src/generated/skribble_emoji_codepoints.g.dart'
     show kSkribbleEmojiCodePoints;
+export 'package:skribble_emoji/src/precomputed_emoji.dart'
+    show PrecomputedEmoji;
 export 'package:skribble_emoji/src/wired_emoji.dart' show WiredEmoji;
 export 'package:skribble_emoji/src/wired_svg_icon_data.dart'
     show
