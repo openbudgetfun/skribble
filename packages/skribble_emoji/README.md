@@ -13,17 +13,17 @@ under **CC-BY-SA 4.0**.
 
 ### Categories covered
 
-| Category | Examples |
-|---|---|
+| Category          | Examples                                             |
+| ----------------- | ---------------------------------------------------- |
 | Smileys & Emotion | grinning face, face with tears of joy, thinking face |
-| People & Body | thumbs up, waving hand, folded hands |
-| Animals & Nature | dog face, cat face, sun, rainbow |
-| Food & Drink | pizza, hamburger, hot beverage |
-| Travel & Places | rocket, house, world map |
-| Activities | trophy, direct hit, party popper |
-| Objects | laptop, key, memo, camera |
-| Symbols | red heart, star, check mark, fire |
-| Flags | regional indicator symbols |
+| People & Body     | thumbs up, waving hand, folded hands                 |
+| Animals & Nature  | dog face, cat face, sun, rainbow                     |
+| Food & Drink      | pizza, hamburger, hot beverage                       |
+| Travel & Places   | rocket, house, world map                             |
+| Activities        | trophy, direct hit, party popper                     |
+| Objects           | laptop, key, memo, camera                            |
+| Symbols           | red heart, star, check mark, fire                    |
+| Flags             | regional indicator symbols                           |
 
 ## Usage
 
@@ -45,13 +45,13 @@ if (data != null) {
 
 ## API
 
-| Symbol | Description |
-|---|---|
-| `kSkribbleEmoji` | `Map<int, WiredSvgIconData>` -- all emoji keyed by codepoint |
-| `kSkribbleEmojiCodePoints` | `Map<String, int>` -- name to codepoint lookup |
-| `lookupSkribbleEmojiByName` | Look up emoji data by string identifier |
-| `lookupSkribbleEmojiByUnicode` | Look up emoji data by Unicode codepoint |
-| `WiredEmoji` | Widget that renders a hand-drawn emoji |
+| Symbol                         | Description                                                  |
+| ------------------------------ | ------------------------------------------------------------ |
+| `kSkribbleEmoji`               | `Map<int, WiredSvgIconData>` -- all emoji keyed by codepoint |
+| `kSkribbleEmojiCodePoints`     | `Map<String, int>` -- name to codepoint lookup               |
+| `lookupSkribbleEmojiByName`    | Look up emoji data by string identifier                      |
+| `lookupSkribbleEmojiByUnicode` | Look up emoji data by Unicode codepoint                      |
+| `WiredEmoji`                   | Widget that renders a hand-drawn emoji                       |
 
 ## Regeneration
 
