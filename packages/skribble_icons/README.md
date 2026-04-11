@@ -4,6 +4,13 @@ Comprehensive hand-drawn icon library for the [Skribble](https://github.com/open
 
 Provides unified access to **all 8,600+ roughened Flutter Material icons** plus 30 curated custom icons through a single API. Every icon is rendered with the Skribble hand-drawn aesthetic.
 
+**This is the pre-computed (fast) version.** Icons use roughened SVG paths baked in at build time — rendering is a simple `canvas.drawPath()` with no runtime computation. For runtime roughening with per-icon control over roughness, fill style, and draw config, see [`skribble_icons_dynamic`](../skribble_icons_dynamic/).
+
+| Package                  | Rendering    | Performance | Flexibility             |
+| ------------------------ | ------------ | ----------- | ----------------------- |
+| `skribble_icons`         | Pre-computed | 10-18x fast | Fixed roughness         |
+| `skribble_icons_dynamic` | Runtime      | Baseline    | Per-icon roughness/fill |
+
 ## Installation
 
 ```yaml
