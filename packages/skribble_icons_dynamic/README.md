@@ -4,14 +4,14 @@ Dynamic hand-drawn icon rendering for Skribble. This package applies the rough e
 
 ## When to use this vs `skribble_icons`
 
-| Feature | `skribble_icons` | `skribble_icons_dynamic` |
-| --- | --- | --- |
-| Rendering | Pre-computed rough paths | Runtime roughening |
-| Performance | Faster (no computation) | Slower (rough engine runs per paint) |
-| Customization | Fixed rough appearance | Full control over roughness, fill style |
-| Fill styles | Solid only | Solid, hachure, crossHatch, none |
-| DrawConfig | Not applicable | Fully configurable |
-| Bundle size | Larger (stores rough paths) | Smaller (stores clean paths) |
+| Feature       | `skribble_icons`            | `skribble_icons_dynamic`                |
+| ------------- | --------------------------- | --------------------------------------- |
+| Rendering     | Pre-computed rough paths    | Runtime roughening                      |
+| Performance   | Faster (no computation)     | Slower (rough engine runs per paint)    |
+| Customization | Fixed rough appearance      | Full control over roughness, fill style |
+| Fill styles   | Solid only                  | Solid, hachure, crossHatch, none        |
+| DrawConfig    | Not applicable              | Fully configurable                      |
+| Bundle size   | Larger (stores rough paths) | Smaller (stores clean paths)            |
 
 ## Usage
 
