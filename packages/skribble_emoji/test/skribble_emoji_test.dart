@@ -5,8 +5,8 @@ import 'package:skribble_emoji/skribble_emoji.dart';
 
 void main() {
   group('kSkribbleEmoji map', () {
-    test('contains 50 emoji entries', () {
-      expect(kSkribbleEmoji, hasLength(50));
+    test('contains more than 1000 emoji entries', () {
+      expect(kSkribbleEmoji.length, greaterThan(1000));
     });
 
     test('all entries have valid dimensions', () {
@@ -45,11 +45,30 @@ void main() {
         }
       }
     });
+
+    test('contains well-known emoji by codepoint', () {
+      // grinning face
+      expect(kSkribbleEmoji.containsKey(0x1f600), isTrue);
+      // thumbs up
+      expect(kSkribbleEmoji.containsKey(0x1f44d), isTrue);
+      // red heart
+      expect(kSkribbleEmoji.containsKey(0x2764), isTrue);
+      // fire
+      expect(kSkribbleEmoji.containsKey(0x1f525), isTrue);
+      // rocket
+      expect(kSkribbleEmoji.containsKey(0x1f680), isTrue);
+      // star
+      expect(kSkribbleEmoji.containsKey(0x2b50), isTrue);
+    });
   });
 
   group('kSkribbleEmojiCodePoints map', () {
-    test('contains 50 entries', () {
-      expect(kSkribbleEmojiCodePoints, hasLength(50));
+    test('contains more than 1000 entries', () {
+      expect(kSkribbleEmojiCodePoints.length, greaterThan(1000));
+    });
+
+    test('has same length as kSkribbleEmoji', () {
+      expect(kSkribbleEmojiCodePoints.length, kSkribbleEmoji.length);
     });
 
     test('maps known emoji names to correct codepoints', () {
