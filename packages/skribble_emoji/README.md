@@ -3,71 +3,82 @@
 Hand-drawn emoji for the [Skribble](https://github.com/openbudgetfun/skribble)
 design system.
 
-> **Scaffold package** -- this package provides the infrastructure for
-> hand-drawn emoji but does not yet contain any emoji SVG sources. Emoji will be
-> added in a future update.
-
 ## Overview
 
-`skribble_emoji` follows the same SVG-manifest pipeline used by
-`skribble_icons_custom`. Once emoji SVG sources are added to the `emoji/`
-directory and registered in the manifest, the rough icon generator produces a
-Dart map of `WiredSvgIconData` entries that the `WiredEmoji` widget can render.
+`skribble_emoji` provides **1,800+** hand-drawn emoji rendered as SVG path data
+using the `WiredSvgIcon` pipeline from the `skribble` package.
 
-## Adding emoji
+Emoji artwork is sourced from [OpenMoji](https://openmoji.org/) and licensed
+under **CC-BY-SA 4.0**.
 
-1. Place clean SVG source files in the `emoji/` directory.
-2. Register each emoji in `tool/skribble_emoji.manifest.json`:
+### Categories covered
 
-```json
-{
-  "icons": [
-    {
-      "identifier": "grinning_face",
-      "codePoint": "0x1f600",
-      "svgPath": "../emoji/grinning_face.svg"
-    }
-  ]
-}
-```
-
-3. Run the rough icon generator from the workspace root:
-
-```bash
-cd packages/skribble && dart run tool/generate_rough_icons.dart \
-  --kit svg-manifest \
-  --manifest ../skribble_emoji/tool/skribble_emoji.manifest.json \
-  --output ../skribble_emoji/lib/src/generated/skribble_emoji.g.dart \
-  --map-name kSkribbleEmoji
-```
-
-4. Update the `kSkribbleEmojiCodePoints` map in `lib/skribble_emoji.dart` with
-   the new identifier-to-codepoint mappings.
+| Category          | Examples                                             |
+| ----------------- | ---------------------------------------------------- |
+| Smileys & Emotion | grinning face, face with tears of joy, thinking face |
+| People & Body     | thumbs up, waving hand, folded hands                 |
+| Animals & Nature  | dog face, cat face, sun, rainbow                     |
+| Food & Drink      | pizza, hamburger, hot beverage                       |
+| Travel & Places   | rocket, house, world map                             |
+| Activities        | trophy, direct hit, party popper                     |
+| Objects           | laptop, key, memo, camera                            |
+| Symbols           | red heart, star, check mark, fire                    |
+| Flags             | regional indicator symbols                           |
 
 ## Usage
 
 ```dart
 import 'package:skribble_emoji/skribble_emoji.dart';
 
-// Render an emoji by data (once emoji are generated)
-final data = lookupSkribbleEmojiByName('grinning_face');
-if (data != null) {
-  WiredEmoji(data: data, size: 32);
-}
-
-// Render by name (shows placeholder if not found)
+// Render an emoji by name
 WiredEmoji.fromName('grinning_face', size: 32);
 
 // Render by Unicode codepoint
 WiredEmoji.fromUnicode(0x1f600, size: 32);
+
+// Look up data and render manually
+final data = lookupSkribbleEmojiByName('fire');
+if (data != null) {
+  WiredEmoji(data: data, size: 48);
+}
 ```
 
 ## API
 
-| Symbol                         | Description                                                            |
-| ------------------------------ | ---------------------------------------------------------------------- |
-| `kSkribbleEmoji`               | `Map<int, WiredSvgIconData>` -- all generated emoji keyed by codepoint |
-| `kSkribbleEmojiCodePoints`     | `Map<String, int>` -- identifier to codepoint lookup                   |
-| `lookupSkribbleEmojiByName`    | Look up emoji data by string identifier                                |
-| `lookupSkribbleEmojiByUnicode` | Look up emoji data by Unicode codepoint                                |
-| `WiredEmoji`                   | Widget that renders a hand-drawn emoji                                 |
+| Symbol                         | Description                                                  |
+| ------------------------------ | ------------------------------------------------------------ |
+| `kSkribbleEmoji`               | `Map<int, WiredSvgIconData>` -- all emoji keyed by codepoint |
+| `kSkribbleEmojiCodePoints`     | `Map<String, int>` -- name to codepoint lookup               |
+| `lookupSkribbleEmojiByName`    | Look up emoji data by string identifier                      |
+| `lookupSkribbleEmojiByUnicode` | Look up emoji data by Unicode codepoint                      |
+| `WiredEmoji`                   | Widget that renders a hand-drawn emoji                       |
+
+## Regeneration
+
+The generated Dart files are committed to the repository. To regenerate from
+scratch (e.g. after an OpenMoji update):
+
+1. Download OpenMoji SVGs:
+
+```bash
+bash tool/download_openmoji.sh /tmp/openmoji-svgs
+```
+
+2. Run the generation script:
+
+```bash
+python3 tool/generate_emoji.py \
+    --svg-dir /tmp/openmoji-svgs \
+    --output-dir lib/src/generated/
+```
+
+The script downloads the OpenMoji CSV catalog automatically, filters out
+skin-tone variants and complex ZWJ sequences, parses each SVG, and produces:
+
+- `lib/src/generated/skribble_emoji.g.dart` -- the codepoint-to-icon-data map
+- `lib/src/generated/skribble_emoji_codepoints.g.dart` -- the name-to-codepoint map
+
+## Attribution
+
+Emoji artwork: [OpenMoji](https://openmoji.org/) -- the open-source emoji and
+icon project. License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
