@@ -1,31 +1,37 @@
-/// Comprehensive hand-drawn icon library for Skribble.
+/// Dynamic hand-drawn icon library for Skribble.
 ///
 /// Provides unified access to **all** roughened Flutter Material icons (8,600+)
-/// plus 30 curated custom icons through a single API.
+/// plus 30 curated custom icons through a single API. Icons are roughened at
+/// runtime for maximum flexibility.
 ///
 /// ## Quick start
 ///
 /// ```dart
-/// import 'package:skribble_icons/skribble_icons.dart';
+/// import 'package:skribble_icons_dynamic/skribble_icons_dynamic.dart';
 ///
-/// // Look up any Material icon by its Flutter identifier:
-/// final searchIcon = lookupSkribbleIconByIdentifier('search');
+/// // Look up any icon by its identifier:
+/// final searchIcon = lookupSkribbleDynamicIconByIdentifier('search');
 ///
-/// // Or use the curated custom icons:
-/// final homeIcon = lookupSkribbleCustomIconByIdentifier('home');
+/// // Or use the dynamic icon widget with custom fill styles:
+/// SkribbleDynamicIcon(
+///   data: kSkribbleDynamicIcons[0xf001]!,
+///   fillStyle: WiredIconFillStyle.hachure,
+/// )
 /// ```
 library;
 
 import 'package:skribble/skribble.dart';
-import 'package:skribble_icons/src/generated/skribble_icons.g.dart';
-import 'package:skribble_icons/src/generated/skribble_icons_rough.g.dart';
+import 'package:skribble_icons_dynamic/src/generated/skribble_icons_dynamic.g.dart';
 
 // Re-export core icon types and Material rough icon accessors from skribble.
 export 'package:skribble/skribble.dart'
     show
+        DrawConfig,
+        WiredIconFillStyle,
         WiredSvgCirclePrimitive,
         WiredSvgEllipsePrimitive,
         WiredSvgFillRule,
+        WiredSvgIcon,
         WiredSvgIconData,
         WiredSvgPathPrimitive,
         WiredSvgPrimitive,
@@ -36,22 +42,21 @@ export 'package:skribble/skribble.dart'
         materialRoughIconCodePoints,
         materialRoughIconIdentifiers;
 
-// Export the curated custom icon sets.
-export 'package:skribble_icons/src/generated/skribble_icons.g.dart'
-    show kSkribbleCustomIcons;
-export 'package:skribble_icons/src/generated/skribble_icons_rough.g.dart'
-    show kSkribbleCustomIconsRough;
+// Export the clean custom icon set for runtime roughening.
+export 'package:skribble_icons_dynamic/src/generated/skribble_icons_dynamic.g.dart'
+    show kSkribbleDynamicIcons;
 
-// Export the pre-computed icon widget.
-export 'package:skribble_icons/src/skribble_icon.dart' show SkribbleIcon;
+// Export the dynamic icon widget.
+export 'package:skribble_icons_dynamic/src/skribble_dynamic_icon.dart'
+    show SkribbleDynamicIcon;
 
 // ---------------------------------------------------------------------------
 // Custom icon codepoint map
 // ---------------------------------------------------------------------------
 
 /// Maps each curated custom icon identifier to its codepoint in
-/// [kSkribbleCustomIcons].
-const Map<String, int> kSkribbleCustomIconsCodePoints = <String, int>{
+/// [kSkribbleDynamicIcons].
+const Map<String, int> kSkribbleDynamicIconsCodePoints = <String, int>{
   'home': 0xf001,
   'search': 0xf002,
   'settings': 0xf003,
@@ -88,41 +93,42 @@ const Map<String, int> kSkribbleCustomIconsCodePoints = <String, int>{
 // Unified lookup helpers
 // ---------------------------------------------------------------------------
 
-/// Returns [WiredSvgIconData] for [identifier], searching custom icons first,
-/// then falling back to the full Material rough icon set.
+/// Returns [WiredSvgIconData] for [identifier], searching dynamic custom icons
+/// first, then falling back to the full Material rough icon set.
 ///
 /// This is the primary lookup function — it covers all 8,600+ Material icons
 /// plus the 30 curated custom icons.
 ///
 /// ```dart
 /// // Custom icon:
-/// lookupSkribbleIconByIdentifier('heart'); // curated custom icon
+/// lookupSkribbleDynamicIconByIdentifier('heart');
 ///
 /// // Material icon (any Flutter Icons identifier):
-/// lookupSkribbleIconByIdentifier('access_alarm'); // Material rough icon
+/// lookupSkribbleDynamicIconByIdentifier('access_alarm');
 /// ```
-WiredSvgIconData? lookupSkribbleIconByIdentifier(String identifier) {
-  // Try pre-computed rough custom icons first (they take precedence for shared
-  // identifiers).
-  final customCodePoint = kSkribbleCustomIconsCodePoints[identifier];
+WiredSvgIconData? lookupSkribbleDynamicIconByIdentifier(String identifier) {
+  // Try custom icons first (they take precedence for shared identifiers).
+  final customCodePoint = kSkribbleDynamicIconsCodePoints[identifier];
   if (customCodePoint != null) {
-    final data = kSkribbleCustomIconsRough[customCodePoint];
+    final data = kSkribbleDynamicIcons[customCodePoint];
     if (data != null) return data;
   }
   // Fall back to the full Material rough icon set.
   return lookupMaterialRoughIconByIdentifier(identifier);
 }
 
-/// Returns [WiredSvgIconData] for [identifier] from the curated custom set
-/// (pre-computed rough version). Returns `null` if not found.
-WiredSvgIconData? lookupSkribbleCustomIconByIdentifier(String identifier) {
-  final codePoint = kSkribbleCustomIconsCodePoints[identifier];
+/// Returns [WiredSvgIconData] for [identifier] from the curated dynamic custom
+/// set only. Returns `null` if not found.
+WiredSvgIconData? lookupSkribbleDynamicCustomIconByIdentifier(
+  String identifier,
+) {
+  final codePoint = kSkribbleDynamicIconsCodePoints[identifier];
   if (codePoint == null) return null;
-  return kSkribbleCustomIconsRough[codePoint];
+  return kSkribbleDynamicIcons[codePoint];
 }
 
-/// Total number of curated custom icons.
-int get skribbleCustomIconCount => kSkribbleCustomIcons.length;
+/// Total number of curated dynamic custom icons.
+int get skribbleDynamicCustomIconCount => kSkribbleDynamicIcons.length;
 
 /// Total number of Material rough icons available.
-int get skribbleMaterialIconCount => materialRoughIconCodePoints.length;
+int get skribbleDynamicMaterialIconCount => materialRoughIconCodePoints.length;

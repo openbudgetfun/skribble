@@ -1,0 +1,19 @@
+name: skribble_benchmark
+publish_to: none
+environment:
+  sdk: ^3.11.0
+  flutter: ^3.41.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_hooks: ^0.21.3
+  skribble:
+    path: ../../packages/skribble
+  skribble_icons:
+    path: ../../packages/skribble_icons
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true

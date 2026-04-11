@@ -9,8 +9,10 @@ workspace:
   - packages/skribble_emoji
   - packages/skribble_icons
   - packages/skribble_icons_custom
+  - packages/skribble_icons_dynamic
   - packages/skribble_lints
   - apps/skribble_storybook
+  - apps/skribble_benchmark
   - apps/skribble_example
 
 dev_dependencies:

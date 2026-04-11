@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble/skribble.dart';
 import 'package:skribble_icons/skribble_icons.dart';
 
 void main() {
-  group('kSkribbleCustomIcons (curated 30)', () {
+  group('kSkribbleCustomIcons (curated 30 — clean paths)', () {
     test('is non-empty', () {
       expect(kSkribbleCustomIcons, isNotEmpty);
     });
@@ -32,6 +34,56 @@ void main() {
           entry.value.height,
           greaterThan(0),
           reason: '0x${entry.key.toRadixString(16)} height must be > 0',
+        );
+      }
+    });
+  });
+
+  group('kSkribbleCustomIconsRough (curated 30 — pre-computed rough)', () {
+    test('is non-empty', () {
+      expect(kSkribbleCustomIconsRough, isNotEmpty);
+    });
+
+    test('contains exactly 30 icons', () {
+      expect(kSkribbleCustomIconsRough.length, 30);
+    });
+
+    test('every entry has a non-empty primitives list', () {
+      for (final entry in kSkribbleCustomIconsRough.entries) {
+        expect(
+          entry.value.primitives,
+          isNotEmpty,
+          reason:
+              'Rough icon 0x${entry.key.toRadixString(16)} has no primitives',
+        );
+      }
+    });
+
+    test('every entry has positive dimensions', () {
+      for (final entry in kSkribbleCustomIconsRough.entries) {
+        expect(
+          entry.value.width,
+          greaterThan(0),
+          reason: '0x${entry.key.toRadixString(16)} width must be > 0',
+        );
+        expect(
+          entry.value.height,
+          greaterThan(0),
+          reason: '0x${entry.key.toRadixString(16)} height must be > 0',
+        );
+      }
+    });
+
+    test('rough icons have more primitives than clean icons', () {
+      for (final codePoint in kSkribbleCustomIcons.keys) {
+        final clean = kSkribbleCustomIcons[codePoint]!;
+        final rough = kSkribbleCustomIconsRough[codePoint]!;
+        expect(
+          rough.primitives.length,
+          greaterThanOrEqualTo(clean.primitives.length),
+          reason:
+              '0x${codePoint.toRadixString(16)}: rough should have >= '
+              'primitives than clean',
         );
       }
     });
@@ -115,20 +167,20 @@ void main() {
       );
     });
 
-    test('every identifier resolves to a codepoint in the custom map', () {
+    test('every identifier resolves to a codepoint in the rough map', () {
       for (final entry in kSkribbleCustomIconsCodePoints.entries) {
         expect(
-          kSkribbleCustomIcons,
+          kSkribbleCustomIconsRough,
           contains(entry.value),
           reason: '"${entry.key}" codepoint '
-              '0x${entry.value.toRadixString(16)} missing from map',
+              '0x${entry.value.toRadixString(16)} missing from rough map',
         );
       }
     });
   });
 
   group('lookupSkribbleIconByIdentifier (unified)', () {
-    test('returns custom icon for custom identifier', () {
+    test('returns rough custom icon for custom identifier', () {
       final result = lookupSkribbleIconByIdentifier('heart');
       expect(result, isA<WiredSvgIconData>());
     });
@@ -175,7 +227,7 @@ void main() {
   });
 
   group('WiredSvgIconData structure', () {
-    test('custom home icon has a path primitive', () {
+    test('custom home rough icon has path primitives', () {
       final home = lookupSkribbleCustomIconByIdentifier('home')!;
       expect(home.primitives.first, isA<WiredSvgPathPrimitive>());
     });
@@ -185,6 +237,46 @@ void main() {
       expect(search.primitives, isNotEmpty);
       expect(search.width, greaterThan(0));
       expect(search.height, greaterThan(0));
+    });
+  });
+
+  group('SkribbleIcon widget', () {
+    testWidgets('renders without error', (tester) async {
+      final iconData = kSkribbleCustomIconsRough.values.first;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(data: WiredThemeData(), child: SkribbleIcon(data: iconData)),
+        ),
+      );
+      expect(find.byType(SkribbleIcon), findsOneWidget);
+      expect(find.byType(RepaintBoundary), findsWidgets);
+    });
+
+    testWidgets('respects custom size', (tester) async {
+      final iconData = kSkribbleCustomIconsRough.values.first;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(data: WiredThemeData(), child: SkribbleIcon(data: iconData, size: 48)),
+        ),
+      );
+
+      final sizedBox = tester.widget<SizedBox>(find.byType(SizedBox));
+      expect(sizedBox.width, 48);
+      expect(sizedBox.height, 48);
+    });
+
+    testWidgets('adds semantics label when provided', (tester) async {
+      final iconData = kSkribbleCustomIconsRough.values.first;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(),
+            child: SkribbleIcon(data: iconData, semanticLabel: 'Test icon'),
+          ),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('Test icon'), findsOneWidget);
     });
   });
 }

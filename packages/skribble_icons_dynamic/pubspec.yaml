@@ -1,0 +1,27 @@
+name: skribble_icons_dynamic
+description: >
+  Dynamic hand-drawn icon set for Skribble. Uses runtime roughening of
+  clean SVG paths for maximum flexibility and customization.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+  flutter: ^3.41.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_hooks: ^0.21.3
+  skribble: ^0.3.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  skribble_lints:
+    path: ../skribble_lints
+
+flutter:
+  uses-material-design: true
