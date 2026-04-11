@@ -267,4 +267,118 @@ void main() {
       expect(find.byType(WiredSvgIcon), findsOneWidget);
     });
   });
+
+  group('PrecomputedEmoji widget', () {
+    testWidgets('renders without error with valid data', (tester) async {
+      final data = lookupSkribbleEmojiByName('grinning_face');
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(child: PrecomputedEmoji(data: data)),
+          ),
+        ),
+      );
+
+      expect(find.byType(PrecomputedEmoji), findsOneWidget);
+      expect(find.byType(CustomPaint), findsWidgets);
+      expect(find.text('?'), findsNothing);
+    });
+
+    testWidgets('fromName renders known emoji', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: PrecomputedEmoji.fromName('thumbs_up', size: 48),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(PrecomputedEmoji), findsOneWidget);
+      expect(find.text('?'), findsNothing);
+    });
+
+    testWidgets('fromName shows placeholder for unknown name', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: PrecomputedEmoji.fromName('nonexistent_xyz'),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(PrecomputedEmoji), findsOneWidget);
+      expect(find.text('?'), findsOneWidget);
+    });
+
+    testWidgets('fromUnicode renders known emoji', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: PrecomputedEmoji.fromUnicode(0x1f525, size: 36),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(PrecomputedEmoji), findsOneWidget);
+      expect(find.text('?'), findsNothing);
+    });
+
+    testWidgets('respects custom size', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: PrecomputedEmoji.fromName('fire', size: 64),
+            ),
+          ),
+        ),
+      );
+
+      final sizedBox = tester.widget<SizedBox>(
+        find.descendant(
+          of: find.byType(PrecomputedEmoji),
+          matching: find.byType(SizedBox),
+        ),
+      );
+      expect(sizedBox.width, 64);
+      expect(sizedBox.height, 64);
+    });
+
+    testWidgets('does not use WiredSvgIcon (no rough engine)', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: PrecomputedEmoji.fromName('grinning_face'),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredSvgIcon), findsNothing);
+    });
+
+    testWidgets('adds semantics label when provided', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: PrecomputedEmoji(
+                data: lookupSkribbleEmojiByName('star'),
+                semanticLabel: 'star emoji',
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.bySemanticsLabel('star emoji'), findsOneWidget);
+    });
+  });
 }
