@@ -59,7 +59,7 @@ class SkribbleIconsPage extends HookWidget {
                     width: 72,
                     child: Column(
                       children: [
-                        WiredSvgIcon(
+                        SkribbleIcon(
                           data: lookupSkribbleIconByIdentifier(identifier)!,
                           size: 32,
                         ),
