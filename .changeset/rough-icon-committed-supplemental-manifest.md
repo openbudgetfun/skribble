@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Ship a committed supplemental manifest and SVG assets to resolve remaining
+# Ship a committed supplemental manifest and SVG assets to resolve remaining
 Material rough icon gaps (`face_unlock*`, `adobe*`) in default workflows.
 
 - Add committed supplemental manifest + assets under:

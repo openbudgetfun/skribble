@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add configurable unresolved baseline output format for rough icon tooling.
+# Add configurable unresolved baseline output format for rough icon tooling.
 
 - New flag: `--unresolved-baseline-output-format <unresolved|codepoints>`.
 - `--unresolved-baseline-output` defaults to existing `unresolved[]` shape.

@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Improve rough icon CI regression diagnostics by publishing unresolved reports.
+# Improve rough icon CI regression diagnostics by publishing unresolved reports.
 
 - Update `rough-icons-regression` CI job to also pass
   `--unresolved-output` while running `--fail-on-new-unresolved` gating.

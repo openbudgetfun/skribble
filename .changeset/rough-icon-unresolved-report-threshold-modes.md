@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add unresolved gate mode metadata to unresolved report JSON output.
+# Add unresolved gate mode metadata to unresolved report JSON output.
 
 - `--unresolved-output` now includes:
   - `unresolvedThresholdMode` (`disabled|strict|threshold`)
