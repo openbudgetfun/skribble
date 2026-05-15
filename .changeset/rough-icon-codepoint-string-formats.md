@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Improve rough icon codepoint parsing ergonomics for manifests and baselines.
+# Improve rough icon codepoint parsing ergonomics for manifests and baselines.
 
 - `codePoint` parsing now accepts additional string forms:
   - bare hex (for example `"e001"`)

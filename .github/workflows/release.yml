@@ -1,0 +1,23 @@
+name: Release PR
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ./.github/actions/setup-mc
+
+      - name: prepare release pull request
+        run: mc release-pr
+        shell: devenv shell -- bash -e {0}

@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add strict unresolved failure mode to rough icon generation.
+# Add strict unresolved failure mode to rough icon generation.
 
 - New CLI option: `--fail-on-unresolved`
 - When unresolved icons remain, the generator now exits with `StateError`

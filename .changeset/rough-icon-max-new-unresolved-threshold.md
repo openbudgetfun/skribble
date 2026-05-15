@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add threshold-based unresolved baseline regression gating.
+# Add threshold-based unresolved baseline regression gating.
 
 - Add `--max-new-unresolved <int>` to allow bounded unresolved baseline regressions.
 - Treat `--fail-on-new-unresolved` as strict mode (equivalent to `--max-new-unresolved 0`).

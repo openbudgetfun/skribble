@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Improve unresolved baseline comparison reporting for rough icon generation.
+# Improve unresolved baseline comparison reporting for rough icon generation.
 
 - `--unresolved-baseline` now records both regression and recovery context in
   unresolved JSON output

@@ -1,0 +1,78 @@
+[defaults]
+package_type = "dart"
+parent_bump = "patch"
+
+[defaults.changelog]
+path = "{{ path }}/CHANGELOG.md"
+format = "keep_a_changelog"
+
+[source]
+provider = "github"
+owner = "openbudgetfun"
+repo = "skribble"
+
+[package.skribble]
+path = "packages/skribble"
+type = "flutter"
+
+[package.skribble_emoji]
+path = "packages/skribble_emoji"
+type = "flutter"
+
+[package.skribble_icons]
+path = "packages/skribble_icons"
+type = "flutter"
+
+[package.skribble_icons_custom]
+path = "packages/skribble_icons_custom"
+type = "flutter"
+
+[package.skribble_icons_dynamic]
+path = "packages/skribble_icons_dynamic"
+type = "flutter"
+
+[package.skribble_lints]
+path = "packages/skribble_lints"
+type = "dart"
+publish = { enabled = false }
+
+[group.all]
+packages = ["skribble", "skribble_emoji", "skribble_icons", "skribble_icons_custom", "skribble_icons_dynamic", "skribble_lints"]
+release = true
+tag = true
+
+[ecosystems.dart]
+enabled = true
+
+[cli.change]
+help_text = "Create a changeset"
+inputs = [
+  { name = "package", type = "string_list", required = true },
+  { name = "bump", type = "choice", choices = ["none", "patch", "minor", "major"], default = "patch" },
+  { name = "reason", type = "string", required = true },
+  { name = "type", type = "string" },
+  { name = "caused_by", type = "string_list" },
+]
+steps = [{ name = "create change file", type = "CreateChangeFile" }]
+
+[cli.release-pr]
+help_text = "Prepare a release pull request"
+inputs = [
+  { name = "format", type = "choice", choices = ["markdown", "json"], default = "markdown" },
+]
+steps = [
+  { name = "plan release", type = "PrepareRelease", allow_empty_changesets = true },
+  { name = "format files", type = "Command", command = "dprint fmt --config dprint.json", when = "{{ number_of_changesets > 0 }}" },
+  { name = "create release commit", type = "CommitRelease", when = "{{ number_of_changesets > 0 }}" },
+  { name = "open release request", type = "OpenReleaseRequest", when = "{{ number_of_changesets > 0 }}" },
+]
+
+[cli.release]
+help_text = "Prepare versioned package files"
+inputs = [
+  { name = "format", type = "choice", choices = ["text", "markdown", "json"], default = "markdown" },
+]
+steps = [
+  { name = "plan release", type = "PrepareRelease" },
+  { name = "format files", type = "Command", command = "dprint fmt --config dprint.json" },
+]

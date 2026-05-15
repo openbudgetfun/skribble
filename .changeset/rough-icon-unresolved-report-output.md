@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add unresolved report output support to rough icon generation.
+# Add unresolved report output support to rough icon generation.
 
 - New CLI option: `--unresolved-output <path>`
 - Emits a JSON report with `resolvedCount`, `unresolvedCount`, and unresolved

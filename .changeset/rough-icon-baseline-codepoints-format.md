@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Extend unresolved baseline parsing to accept a minimal `codePoints[]` format.
+# Extend unresolved baseline parsing to accept a minimal `codePoints[]` format.
 
 - `--unresolved-baseline` now accepts JSON objects with a top-level
   `codePoints` list (int or hex-string entries), in addition to existing

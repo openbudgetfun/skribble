@@ -1,0 +1,14 @@
+name: setup-mc
+description: "Install and configure monochange CLI"
+
+runs:
+  using: composite
+  steps:
+    - name: install monochange
+      run: |
+        curl -fsSL https://github.com/monochange/monochange/releases/latest/download/mc-install.sh | sh
+      shell: bash
+
+    - name: validate monochange config
+      run: mc step:validate
+      shell: bash
