@@ -1,9 +1,9 @@
 ---
-"skribble_icons_custom": minor
-"skribble": patch
+skribble_icons_custom: minor
+skribble: patch
 ---
 
-feat: add `skribble_icons_custom` standalone icon package and `--map-name` generator flag
+# Feat: add `skribble_icons_custom` standalone icon package and `--map-name` generator flag
 
 Introduces `packages/skribble_icons_custom` — the first standalone Skribble
 icon set package, demonstrating the `svg-manifest` kit workflow for

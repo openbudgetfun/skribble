@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add unresolved gating threshold metadata to unresolved report JSON output.
+# Add unresolved gating threshold metadata to unresolved report JSON output.
 
 - `--unresolved-output` reports now include threshold fields when configured:
   - `maxUnresolved`, `maxUnresolvedExceeded`

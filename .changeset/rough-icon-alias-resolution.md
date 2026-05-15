@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Improve Flutter Material rough icon SVG alias resolution in the generator:
+# Improve Flutter Material rough icon SVG alias resolution in the generator:
 
 - map `label_outline` variants to `label`
 - map `wifi_tethering_error_rounded` variants to `wifi_tethering_error`

@@ -111,12 +111,12 @@
       '';
       description = "Run the melos cli.";
     };
-    "knope" = {
+    "mc" = {
       exec = ''
         set -e
-        $DEVENV_ROOT/.eget/bin/knope $@
+        mc $@
       '';
-      description = "The knope executable for changeset and release management.";
+      description = "The monochange CLI for changeset and release management.";
       binary = "bash";
     };
     "dartfmt" = {

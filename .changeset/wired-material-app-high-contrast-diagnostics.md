@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Expand `WiredMaterialApp` and `WiredMaterialApp.router` with high-contrast
+# Expand `WiredMaterialApp` and `WiredMaterialApp.router` with high-contrast
 wired theme variants plus more of Flutter's `MaterialApp` diagnostics and
 configuration surface, including navigation notifications, theme animation
 style, performance / semantics debug flags, checkerboard overlays, and the

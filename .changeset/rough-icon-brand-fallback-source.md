@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Improve rough Material icon SVG resolution for brand/social glyphs by adding a
+# Improve rough Material icon SVG resolution for brand/social glyphs by adding a
 `simple-icons` fallback source to the generator.
 
 - New CLI option: `--brand-icons-source <path>`

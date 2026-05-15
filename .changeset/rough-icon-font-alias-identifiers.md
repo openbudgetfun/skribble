@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Expand generated rough icon font identifier coverage to include alias names.
+# Expand generated rough icon font identifier coverage to include alias names.
 
 - Update rough icon generator so `--font-dart-output` includes **all** resolved
   Flutter icon identifiers that share a codepoint, not just the first resolved

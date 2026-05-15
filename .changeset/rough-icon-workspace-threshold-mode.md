@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Switch rough icon workspace shortcuts to explicit threshold-mode regression gating.
+# Switch rough icon workspace shortcuts to explicit threshold-mode regression gating.
 
 - Update `melos run rough-icons` and `melos run rough-icons-font` to use
   `--max-new-unresolved 0` instead of `--fail-on-new-unresolved`.

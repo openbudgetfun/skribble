@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Enhance unresolved rough icon report JSON with codepoint summary arrays.
+# Enhance unresolved rough icon report JSON with codepoint summary arrays.
 
 - `--unresolved-output` now includes `unresolvedCodePoints[]` (hex strings)
   alongside existing `unresolved[]` entries.
