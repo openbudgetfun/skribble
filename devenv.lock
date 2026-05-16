@@ -94,7 +94,24 @@
         "nixpkgs": "nixpkgs",
         "pre-commit-hooks": [
           "git-hooks"
-        ]
+        ],
+        "ifiokjr-nixpkgs": "ifiokjr-nixpkgs"
+      }
+    },
+    "ifiokjr-nixpkgs": {
+      "inputs": {},
+      "locked": {
+        "lastModified": 1778911596,
+        "narHash": "sha256-8KgVkhw0Ymi+TjnBWjqGCk0yKZKVnn7Ll6rY2V5gx+0=",
+        "owner": "ifiokjr",
+        "repo": "nixpkgs",
+        "rev": "001bb4c51acc96bfdada4522a3e0709c02e00932",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ifiokjr",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     }
   },
