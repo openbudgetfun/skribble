@@ -19,8 +19,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: ./.github/actions/setup-mc
-
       - name: verify publish readiness
         run: mc step:publish-readiness --from HEAD
         shell: devenv shell -- bash -e {0}
