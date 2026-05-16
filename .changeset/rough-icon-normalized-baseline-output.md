@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add normalized unresolved baseline output for rough icon regression workflows.
+# Add normalized unresolved baseline output for rough icon regression workflows.
 
 - New CLI option: `--unresolved-baseline-output <path>`
   - emits a minimal JSON file containing only `unresolved[]` entries

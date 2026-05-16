@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Expose Material rough icon font catalog helpers from `wired_icon.dart`,
+# Expose Material rough icon font catalog helpers from `wired_icon.dart`,
 including identifier-based lookup for rough SVG data and generated font
 `IconData`, along with public font family and codepoint catalog accessors.
 

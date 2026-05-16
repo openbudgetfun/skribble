@@ -1,0 +1,25 @@
+name: Changeset policy
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  changeset-policy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: validate monochange config and changesets
+        run: mc step:validate
+        shell: devenv shell -- bash -e {0}
+
+      - name: check changeset and manifest policy
+        run: mc check
+        shell: devenv shell -- bash -e {0}

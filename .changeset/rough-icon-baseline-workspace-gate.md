@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add workspace-level unresolved baseline gating for rough icon generation.
+# Add workspace-level unresolved baseline gating for rough icon generation.
 
 - Add committed baseline report:
   - `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`

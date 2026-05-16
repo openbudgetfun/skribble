@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Improve rough icon CI/local check ergonomics by extending the shared check script.
+# Improve rough icon CI/local check ergonomics by extending the shared check script.
 
 - `scripts/check_rough_icons_ci.sh` now prints and writes sync diffs
   (`rough-icons-baseline-sync.diff`, `rough-icons-generated-sync.diff`) when
