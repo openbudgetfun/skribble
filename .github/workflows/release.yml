@@ -16,8 +16,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: ./.github/actions/setup-mc
-
       - name: prepare release pull request
         run: mc release-pr
         shell: devenv shell -- bash -e {0}
