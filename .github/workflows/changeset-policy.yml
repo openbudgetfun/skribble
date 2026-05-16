@@ -16,8 +16,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: ./.github/actions/setup-mc
-
       - name: validate monochange config and changesets
         run: mc step:validate
         shell: devenv shell -- bash -e {0}
