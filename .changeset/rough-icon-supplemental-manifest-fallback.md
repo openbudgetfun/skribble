@@ -3,6 +3,7 @@ skribble: patch
 ---
 
 # Add a supplemental manifest fallback for `flutter-material` rough icon
+
 generation.
 
 - New CLI option: `--supplemental-manifest <path>`

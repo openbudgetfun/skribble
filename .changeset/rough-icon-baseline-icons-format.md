@@ -3,6 +3,7 @@ skribble: patch
 ---
 
 # Allow unresolved baseline regression checks to accept both report and manifest
+
 JSON formats.
 
 - `--unresolved-baseline` now supports:

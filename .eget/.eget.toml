@@ -3,4 +3,3 @@ show_hash = true
 upgrade_only = true
 target = ".eget/bin"
 all = true
-
