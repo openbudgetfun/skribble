@@ -2,19 +2,17 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 
 let
-  extra = inputs.ifiokjr-nixpkgs.packages.${pkgs.stdenv.system};
 in
 
 {
   packages =
     with pkgs;
     [
-      extra.monochange
+      monochange
       dprint
       fontforge
       eget
