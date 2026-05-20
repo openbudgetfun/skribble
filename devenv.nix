@@ -7,7 +7,7 @@
 }:
 
 let
-  extra = inputs.ifiokjr-nixpkgs.packages.\${pkgs.stdenv.system};
+  extra = inputs.ifiokjr-nixpkgs.packages.${pkgs.stdenv.system};
 in
 
 {
