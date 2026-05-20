@@ -14,7 +14,7 @@ in
   packages =
     with pkgs;
     [
-      monochangePkgs.monochange
+      (monochangePkgs.monochange)
       dprint
       fontforge
       eget
