@@ -7,23 +7,34 @@ import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A chip with a hand-drawn rounded rectangle border.
+///
+/// The chip is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the label and delete action when applicable.
 class WiredChip extends HookWidget {
   final Widget label;
   final Widget? avatar;
   final VoidCallback? onDeleted;
+
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
 
   const WiredChip({
     super.key,
     required this.label,
     this.avatar,
     this.onDeleted,
+    this.semanticLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return buildWiredElement(
-      child: IntrinsicWidth(
+    return Semantics(
+      label: semanticLabel,
+      button: true,
+      onTap: onDeleted,
+      child: buildWiredElement(
+        child: IntrinsicWidth(
         child: SizedBox(
           height: 32,
           child: Stack(
@@ -67,6 +78,7 @@ class WiredChip extends HookWidget {
             ],
           ),
         ),
+      ),
       ),
     );
   }
