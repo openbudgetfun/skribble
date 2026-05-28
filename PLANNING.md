@@ -285,7 +285,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 ### 3.3 Cupertino icons
 - ⬜ Extract Cupertino icon SVG paths
 - ⬜ Run through rough engine
-- ⬜ Add to `skribble_icons` package
+- ✅ Add to `skribble_icons` package (WiredCupertinoIcon widget created)
 
 ### 3.4 Performance optimization
 - ⬜ Benchmark current icon loading time
