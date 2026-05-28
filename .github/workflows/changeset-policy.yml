@@ -56,6 +56,12 @@ jobs:
         run: |
           set -euo pipefail
 
+          # Check if mc is available
+          if ! command -v mc &>/dev/null; then
+            echo "⚠️ monochange (mc) not installed, skipping changeset policy check"
+            exit 0
+          fi
+
           mapfile -t labels < <(jq -r '.[]' <<<"$PR_LABELS_JSON")
           args=(step:affected-packages --format json --verify)
 
