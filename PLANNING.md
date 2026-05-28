@@ -230,6 +230,8 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - ⬜ Poppins (Regular, Bold, Italic, BoldItalic)
 - ⬜ Source Sans Pro (Regular, Bold, Italic, BoldItalic)
 
+**Note:** Script created (`roughen_fonts.dart`) to automate font roughening. Implementation is placeholder - needs actual font downloading and processing.
+
 ### 2.4 Visual regression testing
 - ⬜ Define golden test approach for font rendering
 - ⬜ Create test fonts with known inputs
