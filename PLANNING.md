@@ -298,7 +298,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 ### 4.1 pub.dev publishing
 - ✅ Check pubspec.yaml files for pub.dev requirements
-- ⬜ Set up monochange versioning
+- ✅ Set up monochange versioning (knope.toml already configured)
 - ⬜ Verify all packages meet pub.dev requirements
 - ⬜ Publish initial versions
 
