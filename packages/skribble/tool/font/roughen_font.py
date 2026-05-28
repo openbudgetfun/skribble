@@ -1,5 +1,14 @@
 #!/usr/bin/env fontforge
-"""Roughen a font by adding controlled jitter to glyph outline points.
+"""DEPRECATED: This script has been replaced by the Dart CLI tool.
+
+Use `packages/skribble_font_roughen` instead:
+    dart run skribble_font_roughen <input.ttf> <output.ttf> [--jitter N] [--variant V]
+
+This script is kept for reference only and will be removed in a future release.
+
+---
+
+Roughen a font by adding controlled jitter to glyph outline points.
 
 Usage:
     fontforge -script roughen_font.py <input.ttf> <output.ttf> [jitter_amount] [variant]
