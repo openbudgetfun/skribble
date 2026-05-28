@@ -202,9 +202,9 @@
     "lint:analyze" = {
       exec = ''
         set -e
-        melos analyze
+        melos exec -- dart analyze --fatal-warnings .
       '';
-      description = "Run dart analyze across all packages.";
+      description = "Run dart analyze across all packages (warnings are fatal).";
       binary = "bash";
     };
     "test:all" = {
