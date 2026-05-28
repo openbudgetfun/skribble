@@ -55,11 +55,12 @@ class WiredInkSplash extends InteractiveInkFeature {
   WiredInkSplash({
     required super.controller,
     required super.referenceBox,
-    required super.position,
+    required Offset position,
     required super.color,
     super.onRemoved,
     double? radius,
-  })  : _radius = radius {
+  })  : _position = position,
+        _radius = radius {
     _controller = AnimationController(
       duration: const Duration(milliseconds: 400),
       vsync: controller.vsync,
@@ -82,6 +83,9 @@ class WiredInkSplash extends InteractiveInkFeature {
   late final AnimationController _controller;
   late final AnimationController _radiusController;
   late final AnimationController _alphaController;
+
+  /// The stored position of the splash.
+  final Offset _position;
 
   /// The optional radius configuration.
   final double? _radius;
@@ -129,7 +133,7 @@ class WiredInkSplash extends InteractiveInkFeature {
     paint.color = color.withValues(alpha: alpha / 255.0);
 
     // Draw rough circles for hand-drawn effect
-    final Offset center = position;
+    final Offset center = _position;
     final int segments = 8;
     final double segmentAngle = 2 * math.pi / segments;
 

@@ -77,21 +77,18 @@ class IconOptimizer {
   }
 
   WiredSvgPrimitive _optimizePrimitive(WiredSvgPrimitive primitive) {
-    switch (primitive.type) {
-      case WiredSvgPrimitiveType.path:
-        return _optimizePath(primitive);
-      case WiredSvgPrimitiveType.circle:
-        return _optimizeCircle(primitive);
-      case WiredSvgPrimitiveType.ellipse:
-        return _optimizeEllipse(primitive);
-    }
+    return switch (primitive) {
+      WiredSvgPathPrimitive() => _optimizePath(primitive),
+      WiredSvgCirclePrimitive() => _optimizeCircle(primitive),
+      WiredSvgEllipsePrimitive() => _optimizeEllipse(primitive),
+    };
   }
 
   WiredSvgPrimitive _optimizePath(WiredSvgPrimitive primitive) {
-    if (primitive.pathData == null) return primitive;
+    if (primitive is! WiredSvgPathPrimitive) return primitive;
 
     // Simplify path by reducing coordinate precision
-    final simplified = _simplifyPathData(primitive.pathData!);
+    final simplified = _simplifyPathData(primitive.data);
 
     return WiredSvgPrimitive.path(simplified);
   }
@@ -192,14 +189,11 @@ class IconOptimizer {
   }
 
   int _estimatePrimitiveSize(WiredSvgPrimitive primitive) {
-    switch (primitive.type) {
-      case WiredSvgPrimitiveType.path:
-        return (primitive.pathData?.length ?? 0) + 8;
-      case WiredSvgPrimitiveType.circle:
-        return 24; // cx, cy, r (8 bytes each)
-      case WiredSvgPrimitiveType.ellipse:
-        return 32; // cx, cy, rx, ry (8 bytes each)
-    }
+    return switch (primitive) {
+      WiredSvgPathPrimitive(:final data) => data.length + 8,
+      WiredSvgCirclePrimitive() => 24, // cx, cy, r (8 bytes each)
+      WiredSvgEllipsePrimitive() => 32, // cx, cy, rx, ry (8 bytes each)
+    };
   }
 }
 
