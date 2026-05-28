@@ -26,17 +26,26 @@ void showWiredSnackBar(
 }
 
 /// A snack bar content wrapper with a hand-drawn border.
+///
+/// The snack bar content is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the content and action information.
 class WiredSnackBarContent extends HookWidget {
   final Widget child;
   final Widget? action;
 
-  const WiredSnackBarContent({super.key, required this.child, this.action});
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
+
+  const WiredSnackBarContent({super.key, required this.child, this.action, this.semanticLabel});
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    return Semantics(
+      label: semanticLabel,
+      liveRegion: true,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: RoughBoxDecoration(
         shape: RoughBoxShape.rectangle,
         borderStyle: RoughDrawingStyle(width: 1.5, color: theme.borderColor),
@@ -53,6 +62,7 @@ class WiredSnackBarContent extends HookWidget {
           ),
           if (action != null) ...[const SizedBox(width: 8), action!],
         ],
+      ),
       ),
     );
   }
