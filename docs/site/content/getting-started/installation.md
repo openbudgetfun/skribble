@@ -40,7 +40,7 @@ That single import gives you access to every Wired widget, the theming system, t
 
 ### Optional companion packages
 
-For curated custom icons and hand-drawn emoji, add the companion packages:
+For curated custom icons, hand-drawn emoji, and font roughening, add the companion packages:
 
 ```bash
 dart pub add skribble_icons
@@ -63,7 +63,7 @@ import 'package:skribble_icons/skribble_icons.dart';
 import 'package:skribble_emoji/skribble_emoji.dart';
 ```
 
-`skribble_icons` provides 30 curated hand-drawn custom icons with a unified lookup API. `skribble_emoji` provides hand-drawn emoji from OpenMoji with the `WiredEmoji` widget.
+`skribble_icons` provides 8,600+ hand-drawn Material icons with a unified lookup API. `skribble_emoji` provides 1,827 hand-drawn emoji from OpenMoji with the `WiredEmoji` widget and `EmojiSearch` utility for searching and filtering.
 
 <!-- {/docsInstallSection} -->
 
@@ -108,6 +108,16 @@ skribble/
 ```
 
 The `packages/skribble/` directory contains all Wired widgets, the rough-drawing engine, the theme system, and the generated icon font. `apps/skribble_storybook/` is a Flutter app that showcases every widget with live examples.
+
+### Additional packages
+
+The workspace also includes:
+
+- `packages/skribble_icons/` -- Pre-computed rough Material icons (8,600+)
+- `packages/skribble_icons_custom/` -- Custom SVG icon roughening
+- `packages/skribble_emoji/` -- Hand-drawn emoji from OpenMoji (1,827 emoji)
+- `packages/skribble_font_roughen/` -- Dart CLI tool for roughening fonts
+- `packages/skribble_lints/` -- Shared lint rules
 
 <!-- {/docsWorkspaceSetupSection} -->
 
