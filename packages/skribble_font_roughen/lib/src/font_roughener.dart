@@ -90,7 +90,7 @@ class FontRoughener {
       final dynamic glyphs = font.glyphs;
 
       if (glyphs != null) {
-        for (int i = 0; i < glyphs.length; i++) {
+        for (int i = 0; i < (glyphs.length as int); i++) {
           final glyph = glyphs.get(i);
           if (glyph != null) {
             try {
