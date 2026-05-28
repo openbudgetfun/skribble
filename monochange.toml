@@ -1,0 +1,153 @@
+# =============================================================================
+# monochange.toml — repository configuration for monochange
+# =============================================================================
+
+[defaults]
+parent_bump = "patch"
+include_private = false
+warn_on_group_mismatch = true
+package_type = "dart"
+
+[defaults.changelog]
+path = "{{ path }}/CHANGELOG.md"
+format = "keep_a_changelog"
+initial_header = """
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+This changelog is managed by [monochange](https://github.com/monochange/monochange).
+"""
+
+# =============================================================================
+# [package.*] — declare each release-managed package explicitly
+# =============================================================================
+
+[package.skribble]
+path = "packages/skribble"
+tag = true
+release = true
+
+[package.skribble_icons]
+path = "packages/skribble_icons"
+
+[package.skribble_icons_custom]
+path = "packages/skribble_icons_custom"
+
+[package.skribble_emoji]
+path = "packages/skribble_emoji"
+
+[package.skribble_font_roughen]
+path = "packages/skribble_font_roughen"
+
+[package.skribble_lints]
+path = "packages/skribble_lints"
+
+# =============================================================================
+# [group.*] — version groups that share a single release identity
+# =============================================================================
+
+[group.main]
+packages = [
+  "skribble",
+  "skribble_icons",
+  "skribble_icons_custom",
+  "skribble_emoji",
+  "skribble_font_roughen",
+  "skribble_lints",
+]
+tag = true
+release = true
+version_format = "primary"
+changelog = { path = "CHANGELOG.md" }
+
+# =============================================================================
+# [ecosystems.*] — per-ecosystem discovery and publishing settings
+# =============================================================================
+
+[ecosystems.dart]
+enabled = true
+publish.enabled = true
+publish.mode = "external"
+publish.registry = "pub_dev"
+
+# =============================================================================
+# [source] — repository host for release automation
+# =============================================================================
+
+[source]
+provider = "github"
+owner = "openbudgetfun"
+repo = "skribble"
+
+[source.releases]
+enabled = true
+source = "monochange"
+branches = ["main"]
+enforce_for_tags = true
+enforce_for_publish = true
+enforce_for_commit = false
+
+[source.pull_requests]
+enabled = true
+branch_prefix = "monochange/release"
+base = "main"
+title = "chore(release): prepare release"
+labels = ["release", "automated"]
+auto_merge = false
+
+# =============================================================================
+# [changesets.affected] — changeset verification settings
+# =============================================================================
+
+[changesets.affected]
+enabled = true
+required = true
+skip_labels = []
+comment_on_failure = true
+changed_paths = []
+ignored_paths = []
+
+# =============================================================================
+# [lints] — manifest lint configuration
+# =============================================================================
+
+[lints.rules]
+"dart/internal-path-dependency-policy" = "off"
+
+# =============================================================================
+# [cli.*] — user-defined CLI commands
+# =============================================================================
+
+[cli.document]
+help_text = "Create a changeset file and format workspace files"
+steps = [
+  { type = "CreateChangeFile", name = "create changeset" },
+  { type = "Command", name = "format with dart format", command = "dart format ." },
+]
+
+[cli.release]
+help_text = "Prepare a local release: plan bumps, sync files, format, optionally commit, tag, and publish the GitHub release"
+inputs = [
+  { name = "format", type = "choice", choices = ["text", "json", "markdown"], default = "markdown" },
+  { name = "no_verify", type = "boolean", default = true },
+  { name = "commit", help_text = "Whether to commit the release changes", type = "boolean", default = false },
+  { name = "push", help_text = "Whether to push the release after the commit", type = "boolean", default = false },
+  { name = "tag", help_text = "Whether to create and push release tags from the release commit", type = "boolean", default = false },
+  { name = "publish_release", help_text = "Whether to publish the GitHub release object for the release tag", type = "boolean", default = false },
+]
+steps = [
+  { type = "PrepareRelease", name = "plan release", allow_empty_changesets = true },
+  { type = "Command", name = "format with dart", when = "{{ number_of_changesets > 0 }}", command = "dart format ." },
+  { type = "CommitRelease", name = "create release commit", when = "{{ number_of_changesets > 0 && inputs.commit }}", inputs = { no_verify = "{{ inputs.no_verify }}", stage_all = true } },
+  { type = "Command", name = "push release commit", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.push }}", command = "git push" },
+  { type = "TagRelease", name = "create and push release tags", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag }}", inputs = { from = "HEAD", push = true, format = "json" } },
+  { type = "PublishRelease", name = "publish GitHub release", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag && inputs.publish_release }}", inputs = { from-ref = "HEAD", draft = false, format = "json" } },
+]
+
+[cli.publish]
+help_text = "Publish packages to pub.dev via melos. Must be run from a tagged release commit."
+dry_run = false
+steps = [
+  { type = "Command", name = "publish Dart packages", command = "melos publish --no-dry-run" },
+]
