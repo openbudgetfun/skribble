@@ -98,7 +98,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: run font roughener tests
-        run: ./scripts/check_font_roughener_ci.sh all
+        run: |
+          cd packages/skribble_font_roughen
+          dart test
         shell: devenv shell -- bash -e {0}
 
   coverage:
