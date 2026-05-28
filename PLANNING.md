@@ -118,7 +118,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 ### 1.5 Accessibility audit
 - ✅ Review all Wired widgets for semantic labels
-- 🔄 Add missing `Semantics` wrappers (12/24 done)
+- 🔄 Add missing `Semantics` wrappers (13/24 done)
 - ⬜ Test with screen reader (TalkBack/VoiceOver)
 - ⬜ Document accessibility patterns
 
@@ -144,6 +144,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - ✅ wired_bottom_sheet — added sheet semantics with semanticLabel
 - ✅ wired_navigation_bar — added navigation bar semantics with semanticLabel
 - ✅ wired_tab_bar — added tab bar semantics with semanticLabel
+- ✅ wired_stepper — added stepper semantics with current step information
 - wired_range_slider — needs range slider semantics
 - wired_input / wired_text_area — needs text field semantics
 - wired_chip / wired_choice_chip / wired_filter_chip / wired_input_chip — needs chip semantics
