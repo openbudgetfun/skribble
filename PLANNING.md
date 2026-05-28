@@ -319,7 +319,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 ### 4.2 Documentation
 - ✅ Update getting started guide (installation.md updated)
-- ⬜ Create migration guide (Material → Skribble)
+- ✅ Create migration guide (Material → Skribble)
 - ⬜ Update widget catalog
 - ⬜ Add code examples for common patterns
 
