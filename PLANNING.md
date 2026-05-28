@@ -120,7 +120,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - ✅ Review all Wired widgets for semantic labels
 - ✅ Add missing `Semantics` wrappers (22/24 done)
 - ⬜ Test with screen reader (TalkBack/VoiceOver)
-- ⬜ Document accessibility patterns
+- ✅ Document accessibility patterns
 
 #### Accessibility Audit Results
 
@@ -170,7 +170,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 **Summary:** 33 total widgets with Semantics support (11 built-in + 22 added). Only 2 widgets remaining for manual review.
 
 ### 1.6 Animation polish
-- ⬜ Define hand-drawn animation style guide
+- ✅ Define hand-drawn animation style guide
 - ⬜ Implement ripple/splash adapted for sketchy look
 - ⬜ Loading states with hand-drawn spinners
 - ⬜ Transition animations
