@@ -51,7 +51,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 1. ~~`WiredDropdownButton`~~ — ✅ Already exists as `WiredCombo` (wraps DropdownButton)
 2. ~~`WiredDropdownMenu`~~ — ✅ Already exists (added in earlier PR)
 3. `WiredExpansionPanelList` — Multiple expansion panels (MEDIUM)
-4. `WiredPaginatedDataTable` — Paginated table (MEDIUM)
+4. ~~`WiredPaginatedDataTable`~~ — ✅ Paginated table (MEDIUM - implemented)
 5. ~~`WiredRefreshIndicator`~~ — ✅ Pull-to-refresh (HIGH priority - implemented)
 6. `WiredCarouselView` — M3 carousel (LOW - new M3 component)
 7. `WiredDatePickerDialog` — Date picker dialog (already have calendar/date_picker)
@@ -107,7 +107,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 **Priority:** Most Cupertino widgets are lower priority since the focus is on Material parity. The existing 13 cover the most common use cases.
 
 ### 1.3 Fill Material widget gaps
-- ⬜ `WiredPaginatedDataTable`
+- ✅ `WiredPaginatedDataTable`
 - ⬜ `WiredExpansionPanelList`
 - ✅ `WiredRefreshIndicator`
 - ⬜ `WiredSnackBar` animation improvements
