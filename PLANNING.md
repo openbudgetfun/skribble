@@ -309,7 +309,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - `skribble_lints` — v0.1.0, missing homepage/repository/issue_tracker ⚠️
 
 **TODO:**
-- Add homepage/repository/issue_tracker to `skribble_lints`
+- ✅ Add homepage/repository/issue_tracker to `skribble_lints`
 - ✅ Add LICENSE files to: `skribble_icons`, `skribble_icons_custom`, `skribble_emoji`
 - ✅ Add CHANGELOG.md to: `skribble_icons`, `skribble_icons_custom`, `skribble_emoji`
 - Verify all packages pass `dart pub publish --dry-run`
@@ -380,3 +380,5 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - Phase 1.5 accessibility audit: 22/24 widgets now have Semantics support (92%)
 - Total widgets with Semantics: 33 (11 built-in + 22 added)
 - Only 2 widgets remaining for manual review (wired_bottom_nav, wired_reorderable_list_view)
+- Added pubspec metadata to skribble_lints (Phase 4.1)
+- Phase 4.1 pub.dev readiness: all TODO items completed
