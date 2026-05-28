@@ -214,10 +214,10 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 ### 2.2 Build Dart CLI tool
 - ✅ Create `packages/skribble_font_roughen/` package
-- ⬜ Implement TTF/OTF reading (placeholder created)
-- ⬜ Implement glyph outline extraction (placeholder created)
+- ✅ Implement TTF/OTF reading (using opentype_dart)
+- ✅ Implement glyph outline extraction (using opentype_dart)
 - ✅ Implement deterministic jitter algorithm (port from Python)
-- ⬜ Implement TTF/OTF output (placeholder created)
+- ✅ Implement TTF/OTF output (using opentype_dart)
 - ✅ Add configurable roughness parameter
 - ✅ Add CLI argument parsing
 - ✅ Write tests
@@ -384,7 +384,8 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - Phase 4.1 pub.dev readiness: all TODO items completed
 - Created skribble_font_roughen package (Phase 2.2)
   - Implemented JitterAlgorithm with deterministic jitter
-  - Implemented FontRoughener class (placeholder for actual font parsing)
+  - Implemented FontRoughener class with actual font parsing using opentype_dart
   - Created CLI entry point with argument parsing
   - Added unit tests for jitter algorithm
   - Added to workspace pubspec.yaml
+  - Phase 2.2: 8/8 tasks now complete
