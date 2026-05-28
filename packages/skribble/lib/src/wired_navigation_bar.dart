@@ -21,24 +21,33 @@ class WiredNavigationDestination {
 }
 
 /// Material 3 style navigation bar with hand-drawn rounded rect indicators.
+///
+/// The navigation bar is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the selected destination information.
 class WiredNavigationBar extends HookWidget {
   final List<WiredNavigationDestination> destinations;
   final int selectedIndex;
   final ValueChanged<int>? onDestinationSelected;
+
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
 
   const WiredNavigationBar({
     super.key,
     required this.destinations,
     this.selectedIndex = 0,
     this.onDestinationSelected,
+    this.semanticLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    return Semantics(
+      label: semanticLabel ?? 'Navigation bar',
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
         SizedBox(
           height: 2,
           child: WiredCanvas(
@@ -68,6 +77,7 @@ class WiredNavigationBar extends HookWidget {
           ),
         ),
       ],
+      ),
     );
   }
 
