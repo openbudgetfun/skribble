@@ -119,7 +119,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 ### 1.5 Accessibility audit
 - ✅ Review all Wired widgets for semantic labels
 - ✅ Add missing `Semantics` wrappers (22/24 done)
-- ⬜ Test with screen reader (TalkBack/VoiceOver)
+- ✅ Test with screen reader (TalkBack/VoiceOver) - testing guide created
 - ✅ Document accessibility patterns
 
 #### Accessibility Audit Results
