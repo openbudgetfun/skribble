@@ -239,7 +239,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 ### 2.5 Remove Python dependency
 - ⬜ Delete `roughen_font.py` after Dart replacement is verified
-- ⬜ Update documentation
+- ✅ Update documentation (README.md created for skribble_font_roughen)
 - ⬜ Update CI scripts
 
 ---
