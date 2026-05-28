@@ -18,6 +18,11 @@ Last updated: 2026-05-27
 - ✅ Cross-reference with existing `Wired*` widgets
 - ✅ Identify gaps (missing widgets)
 - ✅ Prioritize gaps by usage frequency
+- ✅ Check test coverage for widgets missing Semantics
+
+#### Test Coverage Status
+
+All 24 widgets identified as missing Semantics support DO have existing test files (86 total widget tests). This means accessibility tests can be added to existing test suites.
 
 #### Material 3 Widget Audit Results
 
