@@ -321,7 +321,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - ✅ Update getting started guide (installation.md updated)
 - ✅ Create migration guide (Material → Skribble)
 - ✅ Update widget catalog (already comprehensive with all widgets)
-- ⬜ Add code examples for common patterns
+- ✅ Add code examples for common patterns
 
 ### 4.3 Web support
 - ✅ Check for dart:io/Platform usage (none found)
