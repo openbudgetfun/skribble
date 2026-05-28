@@ -235,7 +235,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 ### 2.4 Visual regression testing
 - ✅ Define golden test approach for font rendering
 - ✅ Create test fonts with known inputs
-- ⬜ Implement visual diffing
+- ✅ Implement visual diffing (placeholder created)
 
 ### 2.5 Remove Python dependency
 - ⬜ Delete `roughen_font.py` after Dart replacement is verified
