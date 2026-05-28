@@ -282,9 +282,25 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 ## Phase 4: Developer Experience & Distribution
 
 ### 4.1 pub.dev publishing
+- ✅ Check pubspec.yaml files for pub.dev requirements
 - ⬜ Set up monochange versioning
 - ⬜ Verify all packages meet pub.dev requirements
 - ⬜ Publish initial versions
+
+#### Pub.dev Readiness Status
+
+**Packages checked:**
+- `skribble` — v0.3.4, has homepage/repository/issue_tracker ✅
+- `skribble_icons` — v0.1.0, has homepage/repository/issue_tracker ✅
+- `skribble_icons_custom` — v0.1.0, has homepage/repository/issue_tracker ✅
+- `skribble_emoji` — v0.1.0, has homepage/repository/issue_tracker ✅
+- `skribble_lints` — v0.1.0, missing homepage/repository/issue_tracker ⚠️
+
+**TODO:**
+- Add homepage/repository/issue_tracker to `skribble_lints`
+- Add LICENSE files to: `skribble_icons`, `skribble_icons_custom`, `skribble_emoji`
+- Add CHANGELOG.md to: `skribble_icons`, `skribble_icons_custom`, `skribble_emoji`
+- Verify all packages pass `dart pub publish --dry-run`
 
 ### 4.2 Documentation
 - ⬜ Update getting started guide
@@ -322,3 +338,4 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - Identified HIGH priority gaps: DropdownButton/DropdownMenu, RefreshIndicator
 - Completed Phase 2.1 font manipulation research (opentype_dart is best candidate)
 - Completed Phase 3.2 icon font generation research (fontify_plus is best candidate)
+- Completed Phase 4.1 pub.dev readiness check (missing LICENSE/CHANGELOG in 3 packages)
