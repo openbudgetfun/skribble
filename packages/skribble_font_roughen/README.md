@@ -80,6 +80,7 @@ double jitterValue(int seed, int index, {int offset = 0}) {
 ```
 
 This ensures:
+
 - Same glyph always gets the same jitter
 - Different glyphs get different jitter patterns
 - Off-curve control points are preserved

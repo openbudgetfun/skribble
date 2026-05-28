@@ -9,16 +9,19 @@ Skribble animations should feel **organic and hand-drawn**, not mechanical. The 
 ## Core Principles
 
 ### 1. Organic Motion
+
 - Use **ease-in-out curves** instead of linear animations
 - Add slight **overshoot and bounce** for playful feel
 - Keep durations **moderate** (200-400ms) - not too fast, not too slow
 
 ### 2. Hand-Drawn Aesthetic
+
 - Animations should feel like **pen strokes** - fluid and slightly imperfect
 - Use **irregular timing** where appropriate (e.g., staggered animations)
 - Avoid perfectly smooth, mechanical movements
 
 ### 3. Purposeful Motion
+
 - Every animation should have a **clear purpose** (feedback, transition, emphasis)
 - Don't animate just for decoration
 - Ensure animations **don't hinder usability**
@@ -28,6 +31,7 @@ Skribble animations should feel **organic and hand-drawn**, not mechanical. The 
 ### Transitions
 
 #### Page Transitions
+
 ```dart
 // Recommended: Slide with slight fade
 PageRouteBuilder(
@@ -51,6 +55,7 @@ PageRouteBuilder(
 ```
 
 #### Element Transitions
+
 - **Expand/Collapse:** Use `AnimatedSize` with `Curves.easeOutCubic`
 - **Fade In/Out:** Use `AnimatedOpacity` with 200-300ms duration
 - **Slide:** Use `AnimatedSlide` with slight overshoot
@@ -58,6 +63,7 @@ PageRouteBuilder(
 ### Micro-interactions
 
 #### Button Press
+
 ```dart
 // Slight scale down on press, bounce back on release
 AnimatedScale(
@@ -69,6 +75,7 @@ AnimatedScale(
 ```
 
 #### Toggle State
+
 ```dart
 // Smooth color transition with slight bounce
 AnimatedContainer(
@@ -81,6 +88,7 @@ AnimatedContainer(
 ```
 
 #### Loading States
+
 ```dart
 // Organic pulsing animation
 AnimatedOpacity(
@@ -137,23 +145,25 @@ AnimatedSwitcher(
 
 ## Durations
 
-| Animation Type | Duration | Curve |
-|---------------|----------|-------|
-| Micro-interactions | 100-200ms | easeOutCubic |
-| State changes | 200-300ms | easeOutBack |
-| Page transitions | 300-400ms | easeOutCubic |
-| Loading indicators | 800-1200ms | easeInOut |
-| Staggered reveals | 100-200ms per item | easeOutCubic |
+| Animation Type     | Duration           | Curve        |
+| ------------------ | ------------------ | ------------ |
+| Micro-interactions | 100-200ms          | easeOutCubic |
+| State changes      | 200-300ms          | easeOutBack  |
+| Page transitions   | 300-400ms          | easeOutCubic |
+| Loading indicators | 800-1200ms         | easeInOut    |
+| Staggered reveals  | 100-200ms per item | easeOutCubic |
 
 ## Curves
 
 ### Recommended Curves
+
 - `Curves.easeOutCubic` - Smooth deceleration, organic feel
 - `Curves.easeOutBack` - Slight overshoot for playful bounce
 - `Curves.easeInOut` - Smooth acceleration/deceleration
 - `Curves.easeOutQuart` - Stronger deceleration for emphasis
 
 ### Avoid
+
 - `Curves.linear` - Too mechanical
 - `Curves.bounceIn/Out` - Too playful for most cases
 - `Curves.elasticIn/Out` - Too exaggerated

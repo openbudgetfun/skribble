@@ -52,49 +52,59 @@ WiredSnackBarContent(
 ## Widget-Specific Patterns
 
 ### Buttons (WiredButton, WiredElevatedButton, etc.)
+
 - Use `button: true` in Semantics
 - Include `onTap` for tap action
 - Support `semanticLabel` for custom labels
 
 ### Checkboxes and Radios (WiredCheckbox, WiredRadio)
+
 - Use `checked` or `toggled` for state
 - Use `inGroup: true` for radio buttons
 - Include `onTap` for toggle action
 
 ### Sliders (WiredSlider, WiredRangeSlider)
+
 - Use `slider: true` in Semantics
 - Include `value` for current value
 - Include `increasedValue` and `decreasedValue` for step actions
 - Include `onIncrease` and `onDecrease` for keyboard navigation
 
 ### Text Fields (WiredInput, WiredTextArea)
+
 - Use `textField: true` in Semantics
 - Include `label` for field description
 - Support `semanticLabel` override
 
 ### Chips (WiredChip, WiredChoiceChip, etc.)
+
 - Use `button: true` for tappable chips
 - Use `selected: true` for selection state
 - Include `onTap` for interaction
 
 ### List Tiles (WiredListTile, WiredCheckboxListTile, etc.)
+
 - Use `button: true` when tappable
 - Include `onTap` for tap action
 - Composite widgets pass `semanticLabel` to child components
 
 ### Navigation (WiredNavigationBar, WiredTabBar)
+
 - Use descriptive labels for navigation context
 - Include selected state for current destination/tab
 
 ### Expansion Tiles (WiredExpansionTile)
+
 - Use `expanded: true/false` for collapse state
 - Include `onTap` for toggle action
 
 ### Pickers (WiredDatePicker, WiredTimePicker)
+
 - Use `button: true` for interaction
 - Include descriptive labels for picker type
 
 ### Sheets and Dialogs (WiredBottomSheet, WiredSnackBarContent)
+
 - Use descriptive labels for context
 - Use `liveRegion: true` for notifications
 

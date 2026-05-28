@@ -28,16 +28,19 @@ flutter run --debug
 ### 2. Screen Readers
 
 #### iOS (VoiceOver)
+
 - **Enable**: Settings → Accessibility → VoiceOver
 - **Test**: Swipe left/right to navigate, double-tap to activate
 - **Verify**: Widget labels, states, and actions are announced correctly
 
 #### Android (TalkBack)
+
 - **Enable**: Settings → Accessibility → TalkBack
 - **Test**: Swipe left/right to navigate, double-tap to activate
 - **Verify**: Widget labels, states, and actions are announced correctly
 
 #### Web (Screen Readers)
+
 - **macOS**: VoiceOver (Cmd + F5)
 - **Windows**: NVDA or JAWS
 - **Linux**: Orca
@@ -75,6 +78,7 @@ For each interactive widget, verify:
 ### Example Test Cases
 
 #### WiredCheckbox
+
 ```dart
 testWidgets('checkbox has correct semantics', (tester) async {
   await tester.pumpWidget(
@@ -96,6 +100,7 @@ testWidgets('checkbox has correct semantics', (tester) async {
 ```
 
 #### WiredSlider
+
 ```dart
 testWidgets('slider has correct semantics', (tester) async {
   await tester.pumpWidget(
@@ -117,6 +122,7 @@ testWidgets('slider has correct semantics', (tester) async {
 ```
 
 #### WiredInput
+
 ```dart
 testWidgets('input has correct semantics', (tester) async {
   await tester.pumpWidget(

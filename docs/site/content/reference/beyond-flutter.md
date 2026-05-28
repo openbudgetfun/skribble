@@ -136,6 +136,7 @@ When applying Skribble's hand-drawn aesthetic to other platforms, follow these p
 ### 3. Colors
 
 Skribble uses a simple palette:
+
 - **Border color:** The primary color for outlines and strokes
 - **Fill color:** Background color for shapes
 - **Text color:** Color for text content
@@ -143,6 +144,7 @@ Skribble uses a simple palette:
 ### 4. Imperfection
 
 The key to hand-drawn aesthetics is controlled imperfection:
+
 - Lines aren't perfectly straight
 - Circles aren't perfectly round
 - Corners aren't perfectly square
@@ -199,6 +201,7 @@ dart run skribble_font_roughen \
 ### React Native Package
 
 A React Native package for Skribble is planned:
+
 - `skribble-react-native` - Native bridge to Skribble's rough engine
 - Pre-computed icons for React Native
 - Hand-drawn font support
@@ -206,6 +209,7 @@ A React Native package for Skribble is planned:
 ### SwiftUI Package
 
 A SwiftUI package for Skribble is planned:
+
 - `SkribbleUI` - SwiftUI views with hand-drawn aesthetics
 - Custom shapes and paths
 - Integration with SF Symbols
@@ -213,6 +217,7 @@ A SwiftUI package for Skribble is planned:
 ### Jetpack Compose Package
 
 A Jetpack Compose package for Skribble is planned:
+
 - `skribble-compose` - Compose components with hand-drawn aesthetics
 - Custom painters and shapes
 - Material Design integration
@@ -220,6 +225,7 @@ A Jetpack Compose package for Skribble is planned:
 ### Web Component Library
 
 A web component library is planned:
+
 - `<skribble-button>` - Hand-drawn button
 - `<skribble-card>` - Hand-drawn card
 - `<skribble-input>` - Hand-drawn input

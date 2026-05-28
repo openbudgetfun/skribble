@@ -24,8 +24,8 @@ Add the Skribble package to your `pubspec.yaml`:
 ```yaml
 dependencies:
   skribble: ^0.1.0
-  skribble_icons: ^0.1.0  # Optional: for hand-drawn icons
-  skribble_emoji: ^0.1.0  # Optional: for hand-drawn emoji
+  skribble_icons: ^0.1.0 # Optional: for hand-drawn icons
+  skribble_emoji: ^0.1.0 # Optional: for hand-drawn emoji
 ```
 
 Run `dart pub get` to install the packages.
@@ -35,6 +35,7 @@ Run `dart pub get` to install the packages.
 Replace your `MaterialApp` with `WiredMaterialApp`:
 
 **Before:**
+
 ```dart
 MaterialApp(
   title: 'My App',
@@ -47,6 +48,7 @@ MaterialApp(
 ```
 
 **After:**
+
 ```dart
 WiredMaterialApp(
   title: 'My App',
@@ -63,15 +65,16 @@ WiredMaterialApp(
 
 ### Buttons
 
-| Material | Skribble |
-|----------|----------|
-| `ElevatedButton` | `WiredElevatedButton` |
-| `TextButton` | `WiredTextButton` |
-| `OutlinedButton` | `WiredOutlinedButton` |
-| `IconButton` | `WiredIconButton` |
-| `FloatingActionButton` | `WiredFab` |
+| Material               | Skribble              |
+| ---------------------- | --------------------- |
+| `ElevatedButton`       | `WiredElevatedButton` |
+| `TextButton`           | `WiredTextButton`     |
+| `OutlinedButton`       | `WiredOutlinedButton` |
+| `IconButton`           | `WiredIconButton`     |
+| `FloatingActionButton` | `WiredFab`            |
 
 **Before:**
+
 ```dart
 ElevatedButton(
   onPressed: () {},
@@ -80,6 +83,7 @@ ElevatedButton(
 ```
 
 **After:**
+
 ```dart
 WiredElevatedButton(
   onPressed: () {},
@@ -89,16 +93,17 @@ WiredElevatedButton(
 
 ### Inputs
 
-| Material | Skribble |
-|----------|----------|
-| `TextField` | `WiredInput` |
+| Material        | Skribble                          |
+| --------------- | --------------------------------- |
+| `TextField`     | `WiredInput`                      |
 | `TextFormField` | `WiredInput` (with form handling) |
-| `Checkbox` | `WiredCheckbox` |
-| `Radio` | `WiredRadio` |
-| `Switch` | `WiredSwitch` |
-| `Slider` | `WiredSlider` |
+| `Checkbox`      | `WiredCheckbox`                   |
+| `Radio`         | `WiredRadio`                      |
+| `Switch`        | `WiredSwitch`                     |
+| `Slider`        | `WiredSlider`                     |
 
 **Before:**
+
 ```dart
 TextField(
   decoration: InputDecoration(
@@ -109,6 +114,7 @@ TextField(
 ```
 
 **After:**
+
 ```dart
 WiredInput(
   labelText: 'Email',
@@ -118,16 +124,17 @@ WiredInput(
 
 ### Navigation
 
-| Material | Skribble |
-|----------|----------|
-| `AppBar` | `WiredAppBar` |
-| `NavigationBar` | `WiredNavigationBar` |
-| `NavigationRail` | `WiredNavigationRail` |
-| `Drawer` | `WiredDrawer` |
-| `BottomNavigationBar` | `WiredBottomNav` |
-| `TabBar` | `WiredTabBar` |
+| Material              | Skribble              |
+| --------------------- | --------------------- |
+| `AppBar`              | `WiredAppBar`         |
+| `NavigationBar`       | `WiredNavigationBar`  |
+| `NavigationRail`      | `WiredNavigationRail` |
+| `Drawer`              | `WiredDrawer`         |
+| `BottomNavigationBar` | `WiredBottomNav`      |
+| `TabBar`              | `WiredTabBar`         |
 
 **Before:**
+
 ```dart
 Scaffold(
   appBar: AppBar(title: Text('My App')),
@@ -139,6 +146,7 @@ Scaffold(
 ```
 
 **After:**
+
 ```dart
 WiredScaffold(
   appBar: WiredAppBar(title: Text('My App')),
@@ -151,14 +159,15 @@ WiredScaffold(
 
 ### Cards and Containers
 
-| Material | Skribble |
-|----------|----------|
-| `Card` | `WiredCard` |
-| `Dialog` | `WiredDialog` |
+| Material      | Skribble           |
+| ------------- | ------------------ |
+| `Card`        | `WiredCard`        |
+| `Dialog`      | `WiredDialog`      |
 | `BottomSheet` | `WiredBottomSheet` |
-| `SnackBar` | `WiredSnackBar` |
+| `SnackBar`    | `WiredSnackBar`    |
 
 **Before:**
+
 ```dart
 Card(
   child: Padding(
@@ -169,6 +178,7 @@ Card(
 ```
 
 **After:**
+
 ```dart
 WiredCard(
   child: Padding(
@@ -180,15 +190,16 @@ WiredCard(
 
 ### Lists
 
-| Material | Skribble |
-|----------|----------|
-| `ListTile` | `WiredListTile` |
+| Material           | Skribble                |
+| ------------------ | ----------------------- |
+| `ListTile`         | `WiredListTile`         |
 | `CheckboxListTile` | `WiredCheckboxListTile` |
-| `RadioListTile` | `WiredRadioListTile` |
-| `SwitchListTile` | `WiredSwitchListTile` |
-| `ExpansionTile` | `WiredExpansionTile` |
+| `RadioListTile`    | `WiredRadioListTile`    |
+| `SwitchListTile`   | `WiredSwitchListTile`   |
+| `ExpansionTile`    | `WiredExpansionTile`    |
 
 **Before:**
+
 ```dart
 ListTile(
   leading: Icon(Icons.person),
@@ -200,6 +211,7 @@ ListTile(
 ```
 
 **After:**
+
 ```dart
 WiredListTile(
   leading: Icon(Icons.person),
@@ -212,16 +224,17 @@ WiredListTile(
 
 ### Selections
 
-| Material | Skribble |
-|----------|----------|
-| `DropdownButton` | `WiredCombo` |
-| `DropdownMenu` | `WiredDropdownMenu` |
-| `Chip` | `WiredChip` |
-| `ChoiceChip` | `WiredChoiceChip` |
-| `FilterChip` | `WiredFilterChip` |
+| Material          | Skribble               |
+| ----------------- | ---------------------- |
+| `DropdownButton`  | `WiredCombo`           |
+| `DropdownMenu`    | `WiredDropdownMenu`    |
+| `Chip`            | `WiredChip`            |
+| `ChoiceChip`      | `WiredChoiceChip`      |
+| `FilterChip`      | `WiredFilterChip`      |
 | `SegmentedButton` | `WiredSegmentedButton` |
 
 **Before:**
+
 ```dart
 DropdownButton<String>(
   value: selectedValue,
@@ -231,6 +244,7 @@ DropdownButton<String>(
 ```
 
 **After:**
+
 ```dart
 WiredCombo<String>(
   value: selectedValue,
@@ -241,21 +255,23 @@ WiredCombo<String>(
 
 ### Data Display
 
-| Material | Skribble |
-|----------|----------|
-| `DataTable` | `WiredDataTable` |
-| `PaginatedDataTable` | `WiredPaginatedDataTable` |
-| `CircularProgressIndicator` | `WiredCircularProgress` |
-| `LinearProgressIndicator` | `WiredProgress` |
-| `Divider` | `WiredDivider` |
-| `Tooltip` | `WiredTooltip` |
+| Material                    | Skribble                  |
+| --------------------------- | ------------------------- |
+| `DataTable`                 | `WiredDataTable`          |
+| `PaginatedDataTable`        | `WiredPaginatedDataTable` |
+| `CircularProgressIndicator` | `WiredCircularProgress`   |
+| `LinearProgressIndicator`   | `WiredProgress`           |
+| `Divider`                   | `WiredDivider`            |
+| `Tooltip`                   | `WiredTooltip`            |
 
 **Before:**
+
 ```dart
 CircularProgressIndicator()
 ```
 
 **After:**
+
 ```dart
 WiredCircularProgress()
 ```
@@ -265,11 +281,13 @@ WiredCircularProgress()
 Replace Material icons with hand-drawn versions:
 
 **Before:**
+
 ```dart
 Icon(Icons.home)
 ```
 
 **After:**
+
 ```dart
 // Using pre-computed hand-drawn icons
 SkribbleIcon(data: kSkribbleIcons[Icons.home.codePoint])
@@ -283,6 +301,7 @@ WiredIcon(icon: Icons.home)
 Use the Skribble font for a fully hand-drawn text experience:
 
 **Before:**
+
 ```dart
 Text(
   'Hello World',
@@ -291,6 +310,7 @@ Text(
 ```
 
 **After:**
+
 ```dart
 Text(
   'Hello World',
@@ -400,6 +420,7 @@ WiredForm(
 ### Widget not found
 
 If you can't find a Wired equivalent for a Material widget, check:
+
 1. The widget catalog in the documentation
 2. Use the Material widget directly - it will still work within Skribble apps
 3. Consider wrapping it with `WiredCanvas` for a hand-drawn border
@@ -407,6 +428,7 @@ If you can't find a Wired equivalent for a Material widget, check:
 ### Styling differences
 
 Wired widgets may have slightly different default styling than Material widgets. Adjust using:
+
 - `WiredThemeData` for global styling
 - Widget-specific properties for individual customization
 - The `WiredCanvas` widget for custom hand-drawn shapes
@@ -414,6 +436,7 @@ Wired widgets may have slightly different default styling than Material widgets.
 ### Performance
 
 If you experience performance issues:
+
 1. Use `RepaintBoundary` around complex widget subtrees
 2. Consider using pre-computed icons (`SkribbleIcon`) instead of runtime roughening
 3. Test on target devices early and often
