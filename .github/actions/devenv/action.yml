@@ -26,7 +26,6 @@ runs:
       uses: cachix/install-nix-action@v31
       with:
         github_access_token: ${{ inputs.github-token }}
-        nix_path: nixpkgs=channel:nixos-unstable
 
     - name: setup nix environment
       run: |
