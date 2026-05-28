@@ -233,8 +233,8 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 **Note:** Script created (`roughen_fonts.dart`) to automate font roughening. Implementation is placeholder - needs actual font downloading and processing.
 
 ### 2.4 Visual regression testing
-- ⬜ Define golden test approach for font rendering
-- ⬜ Create test fonts with known inputs
+- ✅ Define golden test approach for font rendering
+- ✅ Create test fonts with known inputs
 - ⬜ Implement visual diffing
 
 ### 2.5 Remove Python dependency
