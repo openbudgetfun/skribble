@@ -213,14 +213,14 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 **Risk:** Round-trip font modification (read → modify → write) may have edge cases. Need to test with real fonts early.
 
 ### 2.2 Build Dart CLI tool
-- ⬜ Create `packages/skribble_font_roughen/` package
-- ⬜ Implement TTF/OTF reading
-- ⬜ Implement glyph outline extraction (on-curve points)
-- ⬜ Implement deterministic jitter algorithm (port from Python)
-- ⬜ Implement TTF/OTF output
-- ⬜ Add configurable roughness parameter
-- ⬜ Add CLI argument parsing
-- ⬜ Write tests
+- ✅ Create `packages/skribble_font_roughen/` package
+- ⬜ Implement TTF/OTF reading (placeholder created)
+- ⬜ Implement glyph outline extraction (placeholder created)
+- ✅ Implement deterministic jitter algorithm (port from Python)
+- ⬜ Implement TTF/OTF output (placeholder created)
+- ✅ Add configurable roughness parameter
+- ✅ Add CLI argument parsing
+- ✅ Write tests
 
 ### 2.3 Pre-roughen popular fonts
 - ⬜ Inter (Regular, Bold, Italic, BoldItalic)
@@ -382,3 +382,9 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - Only 2 widgets remaining for manual review (wired_bottom_nav, wired_reorderable_list_view)
 - Added pubspec metadata to skribble_lints (Phase 4.1)
 - Phase 4.1 pub.dev readiness: all TODO items completed
+- Created skribble_font_roughen package (Phase 2.2)
+  - Implemented JitterAlgorithm with deterministic jitter
+  - Implemented FontRoughener class (placeholder for actual font parsing)
+  - Created CLI entry point with argument parsing
+  - Added unit tests for jitter algorithm
+  - Added to workspace pubspec.yaml
