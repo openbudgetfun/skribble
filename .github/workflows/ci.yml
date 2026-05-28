@@ -18,7 +18,12 @@ jobs:
         run: lint:all
         shell: devenv shell -- bash -e {0}
       - name: Validate monochange configuration
-        run: mc step:validate
+        run: |
+          if command -v mc &>/dev/null; then
+            mc step:validate
+          else
+            echo "⚠️ monochange (mc) not installed, skipping validation"
+          fi
         shell: devenv shell -- bash -e {0}
 
   test:

@@ -12,18 +12,21 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: cache eget
-      uses: actions/cache@v4
+    - name: cache flutter sdk
+      uses: actions/cache@v5
       with:
-        path: ./.eget/bin
-        key: ${{ runner.os }}-eget-${{ inputs.cache-version }}-${{ github.job }}-${{ hashFiles('.eget/.eget.toml') }}
+        path: |
+          ~/.pub-cache
+          .fvm/flutter_sdk
+        key: ${{ runner.os }}-flutter-${{ inputs.cache-version }}-${{ hashFiles('.fvmrc', 'pubspec.lock') }}
         restore-keys: |
-          ${{ runner.os }}-eget-${{ inputs.cache-version }}-${{ github.job }}-
+          ${{ runner.os }}-flutter-${{ inputs.cache-version }}-
 
     - name: install nix
       uses: cachix/install-nix-action@v31
       with:
         github_access_token: ${{ inputs.github-token }}
+        nix_path: nixpkgs=channel:nixos-unstable
 
     - name: setup nix environment
       run: |
