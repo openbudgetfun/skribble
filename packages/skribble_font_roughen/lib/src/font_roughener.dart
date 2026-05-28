@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:opentype_dart/opentype.dart' as opentype;
 
 import 'font_variant.dart';
 import 'jitter_algorithm.dart';
@@ -61,28 +64,92 @@ class FontRoughener {
       throw FileSystemException('Input font file not found', inputPath);
     }
 
-    // TODO: Implement actual font parsing and roughening
-    // This is a placeholder that will be replaced with actual OpenType
-    // manipulation using the opentype_dart package.
-
     print('Opening font: $inputPath');
     print('Variant: ${variant.name} (weight=${variant.weight}, '
         'fullname="${variant.fullName}")');
     print('Jitter amount: $jitterAmount');
 
-    // For now, just copy the file as a placeholder
-    await inputFile.copy(outputPath);
+    try {
+      // Read the font file
+      final bytes = await inputFile.readAsBytes();
+      final buffer = bytes.buffer;
 
-    print('Saving to: $outputPath');
-    print('Done!');
+      // Parse the font using opentype_dart
+      final font = opentype.parseBuffer(buffer, opt: {});
 
-    return RoughenResult(
-      inputPath: inputPath,
-      outputPath: outputPath,
-      variant: variant,
-      jitterAmount: jitterAmount,
-      glyphCount: 0, // TODO: Replace with actual count
-    );
+      if (font == null) {
+        throw const FontParseException('Failed to parse font file');
+      }
+
+      print('Font loaded: ${font.numGlyphs} glyphs');
+
+      // Apply jitter to all glyphs
+      int processedCount = 0;
+      final glyphs = font.glyphs;
+
+      if (glyphs != null) {
+        for (int i = 0; i < glyphs.length; i++) {
+          final glyph = glyphs.get(i);
+          if (glyph != null && glyph.points != null) {
+            // Apply jitter to the glyph points
+            final points = glyph.points!;
+            final jitteredPoints = <opentype.Point>[];
+
+            for (int j = 0; j < points.length; j++) {
+              final point = points[j];
+              if (point.onCurve) {
+                // Apply jitter to on-curve points
+                final dx = _jitter.jitterValue(i, j);
+                final dy = _jitter.jitterValue(i, j, offset: 7919);
+                jitteredPoints.add(opentype.Point(
+                  x: point.x + dx,
+                  y: point.y + dy,
+                  onCurve: true,
+                ));
+              } else {
+                // Keep control points unchanged
+                jitteredPoints.add(point);
+              }
+            }
+
+            // Update the glyph points
+            glyph.points = jitteredPoints;
+            processedCount++;
+          }
+        }
+      }
+
+      // Update font metadata for the variant
+      font.familyName = 'Skribble';
+      font.fontName = 'Skribble-${variant.name}';
+      font.fullName = variant.fullName;
+      font.weight = variant.weight;
+
+      if (variant.italicAngle != 0) {
+        font.italicAngle = variant.italicAngle;
+      }
+
+      // Write the roughened font
+      print('Saving to: $outputPath');
+      final outputFile = File(outputPath);
+      final outputBytes = font.download();
+      await outputFile.writeAsBytes(outputBytes);
+
+      print('Done!');
+
+      return RoughenResult(
+        inputPath: inputPath,
+        outputPath: outputPath,
+        variant: variant,
+        jitterAmount: jitterAmount,
+        glyphCount: processedCount,
+      );
+    } catch (e) {
+      if (e is FontParseException) {
+        rethrow;
+      }
+      throw FontParseException('Failed to process font: $e');
+    }
   }
 }
 
