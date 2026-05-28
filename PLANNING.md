@@ -48,8 +48,8 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - Plus: wired_base, wired_cupertino_* (13 widgets)
 
 **Missing Material widgets (gaps):**
-1. `WiredDropdownButton` — Dropdown selection (HIGH priority - very common)
-2. `WiredDropdownMenu` — Searchable dropdown (HIGH priority - M3 replacement for DropdownButton)
+1. ~~`WiredDropdownButton`~~ — ✅ Already exists as `WiredCombo` (wraps DropdownButton)
+2. ~~`WiredDropdownMenu`~~ — ✅ Already exists (added in earlier PR)
 3. `WiredExpansionPanelList` — Multiple expansion panels (MEDIUM)
 4. `WiredPaginatedDataTable` — Paginated table (MEDIUM)
 5. `WiredRefreshIndicator` — Pull-to-refresh (HIGH priority - very common)
@@ -66,7 +66,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 16. `WiredMergeableMaterial` — Mergeable material slices (LOW)
 
 **Priority ranking:**
-- HIGH: DropdownButton/DropdownMenu, RefreshIndicator
+- HIGH: RefreshIndicator (DropdownButton/DropdownMenu already exist as WiredCombo/WiredDropdownMenu)
 - MEDIUM: ExpansionPanelList, PaginatedDataTable, SearchAnchor
 - LOW: Everything else
 
@@ -118,7 +118,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 ### 1.5 Accessibility audit
 - ✅ Review all Wired widgets for semantic labels
-- ⬜ Add missing `Semantics` wrappers
+- 🔄 Add missing `Semantics` wrappers (3/24 done)
 - ⬜ Test with screen reader (TalkBack/VoiceOver)
 - ⬜ Document accessibility patterns
 
@@ -132,9 +132,9 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - wired_toggle
 
 **Widgets MISSING Semantics support (need to add):**
-- wired_checkbox — needs checkbox semantics
-- wired_radio — needs radio button semantics
-- wired_slider — needs slider semantics (value, min, max)
+- ✅ wired_checkbox — added checkbox semantics with semanticLabel
+- ✅ wired_radio — added radio button semantics with semanticLabel
+- ✅ wired_slider — added slider semantics with value/range
 - wired_range_slider — needs range slider semantics
 - wired_input / wired_text_area — needs text field semantics
 - wired_chip / wired_choice_chip / wired_filter_chip / wired_input_chip — needs chip semantics
@@ -353,3 +353,5 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - Completed Phase 3.2 icon font generation research (fontify_plus is best candidate)
 - Completed Phase 4.1 pub.dev readiness check (missing LICENSE/CHANGELOG in 3 packages)
 - Completed Phase 4.3 web compatibility assessment (no dart:io usage, web-ready)
+- Updated PLANNING.md: WiredCombo and WiredDropdownMenu already exist
+- Added Semantics to WiredCheckbox, WiredRadio, WiredSlider (Phase 1.5)
