@@ -40,13 +40,8 @@ class WiredInkSplashFactory extends InteractiveInkFeatureFactory {
       referenceBox: referenceBox,
       position: position,
       color: color,
-      textDirection: textDirection,
-      containedInkWell: containedInkWell,
-      rectCallback: rectCallback,
-      borderRadius: borderRadius,
-      customBorder: customBorder,
-      radius: radius,
       onRemoved: onRemoved,
+      radius: radius,
     );
   }
 }
@@ -62,14 +57,9 @@ class WiredInkSplash extends InteractiveInkFeature {
     required super.referenceBox,
     required super.position,
     required super.color,
-    required super.textDirection,
-    super.containedInkWell,
-    super.rectCallback,
-    super.borderRadius,
-    super.customBorder,
-    super.radius,
     super.onRemoved,
-  }) {
+    double? radius,
+  })  : _radius = radius {
     _controller = AnimationController(
       duration: const Duration(milliseconds: 400),
       vsync: controller.vsync,
@@ -93,10 +83,13 @@ class WiredInkSplash extends InteractiveInkFeature {
   late final AnimationController _radiusController;
   late final AnimationController _alphaController;
 
+  /// The optional radius configuration.
+  final double? _radius;
+
   /// The maximum radius of the splash.
   double get _targetRadius {
-    if (radius != null) {
-      return radius!;
+    if (_radius != null) {
+      return _radius!;
     }
 
     final Size size = referenceBox.size;
@@ -126,7 +119,7 @@ class WiredInkSplash extends InteractiveInkFeature {
   }
 
   @override
-  void paintFeature(Canvas canvas, Matrix4 transform, TextDirection textDirection) {
+  void paintFeature(Canvas canvas, Matrix4 transform) {
     final Paint paint = Paint()..color = color.withValues(alpha: 0.2);
 
     final double progress = _controller.value;
