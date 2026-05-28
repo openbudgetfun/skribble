@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'rough/skribble_rough.dart';
-import 'wired_expansion_tile.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn paginated data table, corresponding to Flutter's `PaginatedDataTable`.
@@ -94,8 +93,6 @@ class WiredPaginatedDataTable extends HookWidget {
           onPageChanged: onPageChanged,
           header: header,
           actions: actions,
-          dataRowColor: WidgetStateProperty.all(theme.fillColor),
-          headingRowColor: WidgetStateProperty.all(theme.fillColor),
         ),
       ),
     );
