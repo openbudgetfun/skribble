@@ -7,17 +7,25 @@ import 'wired_base.dart';
 import 'wired_theme.dart';
 
 /// A bottom sheet with a hand-drawn top border and rounded corners.
+///
+/// The bottom sheet is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the sheet label and content.
 class WiredBottomSheet extends HookWidget {
   final Widget child;
 
-  const WiredBottomSheet({super.key, required this.child});
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
+
+  const WiredBottomSheet({super.key, required this.child, this.semanticLabel});
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    return Semantics(
+      label: semanticLabel ?? 'Bottom sheet',
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
         SizedBox(
           height: 2,
           child: WiredCanvas(
@@ -52,6 +60,7 @@ class WiredBottomSheet extends HookWidget {
         ),
         child,
       ],
+      ),
     );
   }
 }
