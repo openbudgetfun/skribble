@@ -37,7 +37,6 @@ class WiredCheckbox extends HookWidget {
     return Semantics(
       label: semanticLabel,
       checked: isChecked.value,
-      toggled: isChecked.value,
       onTap: () {
         final newValue = !isChecked.value;
         isChecked.value = newValue;
