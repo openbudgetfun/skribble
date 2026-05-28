@@ -105,7 +105,7 @@ jobs:
       - name: run font roughener tests
         run: |
           cd packages/skribble_font_roughen
-          dart test
+          flutter test
         shell: devenv shell -- bash -e {0}
 
   coverage:
