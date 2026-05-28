@@ -21,29 +21,30 @@ void main() {
     test('WiredSvgPathPrimitive stores path data', () {
       final primitive = WiredSvgPrimitive.path('M12 2L2 22h20L12 2z');
 
-      expect(primitive.type, equals(WiredSvgPrimitiveType.path));
-      expect(primitive.pathData, equals('M12 2L2 22h20L12 2z'));
+      expect(primitive, isA<WiredSvgPathPrimitive>());
+      expect((primitive as WiredSvgPathPrimitive).data,
+          equals('M12 2L2 22h20L12 2z'));
     });
 
     test('WiredSvgCirclePrimitive stores circle data', () {
       final primitive = WiredSvgPrimitive.circle(
         cx: 12,
         cy: 12,
-        r: 10,
+        radius: 10,
       );
 
-      expect(primitive.type, equals(WiredSvgPrimitiveType.circle));
+      expect(primitive, isA<WiredSvgCirclePrimitive>());
     });
 
     test('WiredSvgEllipsePrimitive stores ellipse data', () {
       final primitive = WiredSvgPrimitive.ellipse(
         cx: 12,
         cy: 12,
-        rx: 10,
-        ry: 8,
+        radiusX: 10,
+        radiusY: 8,
       );
 
-      expect(primitive.type, equals(WiredSvgPrimitiveType.ellipse));
+      expect(primitive, isA<WiredSvgEllipsePrimitive>());
     });
 
     test('WiredSvgIconData can be scaled', () {

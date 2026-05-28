@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:path/path.dart' as path;
-import 'package:skribble_font_roughen/skribble_font_roughen.dart';
 
 /// Script to pre-roughen popular fonts for the Skribble design system.
 ///

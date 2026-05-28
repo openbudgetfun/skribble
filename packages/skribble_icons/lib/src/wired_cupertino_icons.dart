@@ -243,7 +243,7 @@ class SkribbleCupertinoIcons {
     String? semanticLabel,
   }) {
     return WiredCupertinoIcon(
-      icon: CupertinoIcons.home_fill,
+      icon: CupertinoIcons.house_fill,
       size: size,
       color: color,
       semanticLabel: semanticLabel ?? 'Home filled',

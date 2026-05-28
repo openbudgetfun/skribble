@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 /// A tool for visual diffing of font renderings.
 ///

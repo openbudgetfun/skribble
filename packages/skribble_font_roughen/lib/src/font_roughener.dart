@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:opentype_dart/opentype.dart' as opentype;
 
@@ -96,35 +95,54 @@ class FontRoughener {
           if (glyph != null) {
             try {
               // Get the glyph path and jitter its commands
-              final path = glyph.getPath(0, 0, 72, {}, font);
+              final pathRaw = glyph.getPath(0, 0, 72, {}, font);
+              final path = pathRaw as opentype.Path?;
               if (path != null && path.commands.isNotEmpty) {
                 for (int j = 0; j < path.commands.length; j++) {
-                  final cmd = path.commands[j];
+                  final cmd = path.commands[j] as Map<String, Object?>;
 
                   // Apply jitter to coordinate values in commands
                   if (cmd.containsKey('x')) {
                     final dx = _jitter.jitterValue(i, j);
-                    cmd['x'] = (cmd['x'] as num) + dx;
+                    final val = cmd['x'];
+                    if (val is num) {
+                      cmd['x'] = val + dx;
+                    }
                   }
                   if (cmd.containsKey('y')) {
                     final dy = _jitter.jitterValue(i, j, offset: 7919);
-                    cmd['y'] = (cmd['y'] as num) + dy;
+                    final val = cmd['y'];
+                    if (val is num) {
+                      cmd['y'] = val + dy;
+                    }
                   }
                   if (cmd.containsKey('x1')) {
                     final dx1 = _jitter.jitterValue(i, j, offset: 3823);
-                    cmd['x1'] = (cmd['x1'] as num) + dx1;
+                    final val = cmd['x1'];
+                    if (val is num) {
+                      cmd['x1'] = val + dx1;
+                    }
                   }
                   if (cmd.containsKey('y1')) {
                     final dy1 = _jitter.jitterValue(i, j, offset: 5413);
-                    cmd['y1'] = (cmd['y1'] as num) + dy1;
+                    final val = cmd['y1'];
+                    if (val is num) {
+                      cmd['y1'] = val + dy1;
+                    }
                   }
                   if (cmd.containsKey('x2')) {
                     final dx2 = _jitter.jitterValue(i, j, offset: 6701);
-                    cmd['x2'] = (cmd['x2'] as num) + dx2;
+                    final val = cmd['x2'];
+                    if (val is num) {
+                      cmd['x2'] = val + dx2;
+                    }
                   }
                   if (cmd.containsKey('y2')) {
                     final dy2 = _jitter.jitterValue(i, j, offset: 8237);
-                    cmd['y2'] = (cmd['y2'] as num) + dy2;
+                    final val = cmd['y2'];
+                    if (val is num) {
+                      cmd['y2'] = val + dy2;
+                    }
                   }
                 }
                 processedCount++;
@@ -148,7 +166,8 @@ class FontRoughener {
 
       // Write the roughened font
       print('Saving to: $outputPath');
-      final outputBytes = font.download();
+      final outputRaw = font.download();
+      final outputBytes = outputRaw as List<int>;
       await File(outputPath).writeAsBytes(outputBytes);
 
       print('Done!');

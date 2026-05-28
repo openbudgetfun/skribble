@@ -3,8 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'canvas/wired_canvas.dart';
-import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn loading indicator with organic animation.

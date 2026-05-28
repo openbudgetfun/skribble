@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'rough/skribble_rough.dart';
 import 'wired_loading_indicator.dart';
 import 'wired_theme.dart';
 
