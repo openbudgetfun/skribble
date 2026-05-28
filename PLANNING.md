@@ -128,10 +128,37 @@ Last updated: 2026-05-27
 ## Phase 2: Font Roughening Pipeline
 
 ### 2.1 Research Dart font manipulation
-- ⬜ Evaluate `font` package on pub.dev for OpenType manipulation
-- ⬜ Evaluate `font_parser` package
-- ⬜ Determine if FontForge FFI is needed
-- ⬜ Document findings and chosen approach
+- ✅ Evaluate `font` package on pub.dev for OpenType manipulation
+- ✅ Evaluate `font_parser` package
+- ✅ Determine if FontForge FFI is needed
+- ✅ Document findings and chosen approach
+
+#### Research Findings
+
+**Available Dart packages for font manipulation:**
+
+1. **`opentype_dart`** — OpenType.js rewrite in Dart
+   - Read and write OpenType fonts
+   - Table-level API (cmap, glyf, hmtx, kern, etc.)
+   - Glyph outline access via BoundingBox
+   - **Best candidate for our use case**
+
+2. **`fontify_plus`** — SVG → OpenType font generation
+   - Focused on icon font generation
+   - Has font/glyph model classes
+   - Less suitable for general font manipulation
+
+3. **`pure_ui` / `TtfParser`** — Low-level TTF parser
+   - Access to glyf table, glyph outlines
+   - Read-only, no write support documented
+   - TrueType only (not CFF/OTF)
+
+**Chosen approach:**
+- Use `opentype_dart` as primary library for reading/writing fonts
+- If glyph outline manipulation is insufficient, fall back to FontForge FFI
+- Build Dart CLI tool that reads font, applies jitter to on-curve points, writes output
+
+**Risk:** Round-trip font modification (read → modify → write) may have edge cases. Need to test with real fonts early.
 
 ### 2.2 Build Dart CLI tool
 - ⬜ Create `packages/skribble_font_roughen/` package
@@ -172,11 +199,33 @@ Last updated: 2026-05-27
 - ⬜ Add emoji categories
 
 ### 3.2 Icon font generation (TTF)
-- ⬜ Research approach: SVG paths → FontForge → TTF
+- ✅ Research approach: SVG paths → FontForge → TTF
 - ⬜ Generate test icon font with subset of icons
 - ⬜ Evaluate visual quality
 - ⬜ If quality is good: generate full icon font
 - ⬜ Create `SkribbleIconFont` widget for font-based icon rendering
+
+#### Research Findings
+
+**Dart-native options for SVG → TTF:**
+1. **`fontify_plus`** — SVG → OpenType font generation
+   - Pure Dart, no external dependencies
+   - Generates Flutter icon class
+   - API and CLI support
+   - **Best candidate for icon font generation**
+
+2. **`svg_to_font_convertor`** — Similar to fontify_plus
+   - Pure Dart, self-contained
+   - Generates .otf files
+
+3. **FontForge CLI** — Current approach for font roughening
+   - Can also generate icon fonts from SVGs
+   - Requires external dependency
+
+**Chosen approach:**
+- Use `fontify_plus` for SVG → TTF icon font generation
+- Test with subset of roughened Material icons first
+- If quality is insufficient, fall back to FontForge CLI
 
 ### 3.3 Cupertino icons
 - ⬜ Extract Cupertino icon SVG paths
@@ -231,3 +280,5 @@ Last updated: 2026-05-27
 - Completed Phase 1.1 Material 3 widget audit (82 existing, 16 gaps identified)
 - Completed Phase 1.2 Cupertino widget audit (13 existing, ~8 gaps identified)
 - Identified HIGH priority gaps: DropdownButton/DropdownMenu, RefreshIndicator
+- Completed Phase 2.1 font manipulation research (opentype_dart is best candidate)
+- Completed Phase 3.2 icon font generation research (fontify_plus is best candidate)
