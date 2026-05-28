@@ -299,8 +299,8 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 **TODO:**
 - Add homepage/repository/issue_tracker to `skribble_lints`
-- Add LICENSE files to: `skribble_icons`, `skribble_icons_custom`, `skribble_emoji`
-- Add CHANGELOG.md to: `skribble_icons`, `skribble_icons_custom`, `skribble_emoji`
+- ✅ Add LICENSE files to: `skribble_icons`, `skribble_icons_custom`, `skribble_emoji`
+- ✅ Add CHANGELOG.md to: `skribble_icons`, `skribble_icons_custom`, `skribble_emoji`
 - Verify all packages pass `dart pub publish --dry-run`
 
 ### 4.2 Documentation
@@ -356,3 +356,5 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - Completed Phase 4.3 web compatibility assessment (no dart:io usage, web-ready)
 - Updated PLANNING.md: WiredCombo and WiredDropdownMenu already exist
 - Added Semantics to WiredCheckbox, WiredRadio, WiredSlider (Phase 1.5)
+- Added Semantics to WiredChip (Phase 1.5)
+- Added LICENSE and CHANGELOG to skribble_icons, skribble_icons_custom, skribble_emoji (Phase 4.1)
