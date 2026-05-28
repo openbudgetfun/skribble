@@ -9,21 +9,30 @@ import 'wired_base.dart';
 import 'wired_theme.dart';
 
 /// A time picker with a hand-drawn clock face.
+///
+/// The time picker is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the selected time information.
 class WiredTimePicker extends HookWidget {
   final TimeOfDay? initialTime;
   final ValueChanged<TimeOfDay>? onTimeSelected;
 
-  const WiredTimePicker({super.key, this.initialTime, this.onTimeSelected});
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
+
+  const WiredTimePicker({super.key, this.initialTime, this.onTimeSelected, this.semanticLabel});
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final time = useState(initialTime ?? TimeOfDay.now());
 
-    return buildWiredElement(
-      child: SizedBox(
-        width: 280,
-        height: 340,
+    return Semantics(
+      label: semanticLabel ?? 'Time picker',
+      button: true,
+      child: buildWiredElement(
+        child: SizedBox(
+          width: 280,
+          height: 340,
         child: Column(
           children: [
             // Time display
@@ -71,6 +80,7 @@ class WiredTimePicker extends HookWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }
