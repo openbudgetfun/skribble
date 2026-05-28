@@ -1,0 +1,233 @@
+# Skribble — Detailed Planning & Progress Tracker
+
+Last updated: 2026-05-27
+
+## Status Legend
+- ⬜ Not started
+- 🔄 In progress
+- ✅ Done
+- ⏸️ Blocked/deprioritized
+- 🔀 Changed from original plan
+
+---
+
+## Phase 1: Core Widget Parity
+
+### 1.1 Audit existing widgets against Material 3 catalog
+- ✅ List all Material 3 widgets from Flutter docs
+- ✅ Cross-reference with existing `Wired*` widgets
+- ✅ Identify gaps (missing widgets)
+- ✅ Prioritize gaps by usage frequency
+
+#### Material 3 Widget Audit Results
+
+**Existing Wired widgets (82 total):**
+- wired_about_dialog, wired_animated_icon, wired_app_bar, wired_autocomplete
+- wired_avatar, wired_badge, wired_bottom_app_bar, wired_bottom_nav
+- wired_bottom_sheet, wired_button, wired_calendar, wired_calendar_date_picker
+- wired_card, wired_checkbox, wired_checkbox_list_tile, wired_chip
+- wired_choice_chip, wired_circular_progress, wired_color_picker, wired_combo
+- wired_context_menu, wired_data_table, wired_date_picker, wired_dialog
+- wired_dismissible, wired_divider, wired_drawer, wired_drawer_header
+- wired_elevated_button, wired_expansion_tile, wired_fab, wired_filled_button
+- wired_filter_chip, wired_form, wired_icon, wired_icon_button
+- wired_input, wired_input_chip, wired_list_tile, wired_material_app
+- wired_material_banner, wired_menu_bar, wired_navigation_bar, wired_navigation_drawer
+- wired_navigation_rail, wired_outlined_button, wired_popup_menu, wired_progress
+- wired_radio, wired_radio_list_tile, wired_range_slider, wired_reorderable_list_view
+- wired_scaffold, wired_scrollbar, wired_search_bar, wired_segmented_button
+- wired_selectable_text, wired_slider, wired_sliver_app_bar, wired_snack_bar
+- wired_stepper, wired_switch, wired_switch_list_tile, wired_tab_bar
+- wired_text_area, wired_text_button, wired_theme, wired_time_picker
+- wired_toggle, wired_toggle_buttons, wired_tooltip
+- Plus: wired_base, wired_cupertino_* (13 widgets)
+
+**Missing Material widgets (gaps):**
+1. `WiredDropdownButton` — Dropdown selection (HIGH priority - very common)
+2. `WiredDropdownMenu` — Searchable dropdown (HIGH priority - M3 replacement for DropdownButton)
+3. `WiredExpansionPanelList` — Multiple expansion panels (MEDIUM)
+4. `WiredPaginatedDataTable` — Paginated table (MEDIUM)
+5. `WiredRefreshIndicator` — Pull-to-refresh (HIGH priority - very common)
+6. `WiredCarouselView` — M3 carousel (LOW - new M3 component)
+7. `WiredDatePickerDialog` — Date picker dialog (already have calendar/date_picker)
+8. `WiredDateRangePickerDialog` — Date range picker (LOW)
+9. `WiredSearchAnchor` — M3 search with suggestions (MEDIUM)
+10. `WiredLicensePage` — License display (LOW)
+11. `WiredAboutListTile` — About dialog tile (LOW - have AboutDialog)
+12. `WiredCheckboxMenuButton` — Checkbox in menu (LOW)
+13. `WiredRadioMenuButton` — Radio in menu (LOW)
+14. `WiredCircleAvatar` — User avatar circle (have wired_avatar)
+15. `WiredGridTile` / `WiredGridTileBar` — Grid tiles (LOW)
+16. `WiredMergeableMaterial` — Mergeable material slices (LOW)
+
+**Priority ranking:**
+- HIGH: DropdownButton/DropdownMenu, RefreshIndicator
+- MEDIUM: ExpansionPanelList, PaginatedDataTable, SearchAnchor
+- LOW: Everything else
+
+### 1.2 Audit existing widgets against Cupertino catalog
+- ✅ List all Cupertino widgets from Flutter docs
+- ✅ Cross-reference with existing `WiredCupertino*` widgets
+- ✅ Identify gaps
+- ⬜ Prioritize gaps
+
+#### Cupertino Widget Audit Results
+
+**Existing WiredCupertino widgets (13 total):**
+- wired_cupertino_action_sheet
+- wired_cupertino_alert_dialog
+- wired_cupertino_button
+- wired_cupertino_date_picker
+- wired_cupertino_navigation_bar
+- wired_cupertino_picker
+- wired_cupertino_scaffold
+- wired_cupertino_segmented_control
+- wired_cupertino_slider
+- wired_cupertino_switch
+- wired_cupertino_tab_bar
+- wired_cupertino_text_field
+
+**Missing Cupertino widgets (gaps):**
+1. `WiredCupertinoActivityIndicator` — iOS-style spinner (MEDIUM)
+2. `WiredCupertinoListSection` — iOS-style list section (MEDIUM)
+3. `WiredCupertinoListTile` — iOS-style list tile (MEDIUM)
+4. `WiredCupertinoNavigationBar` — already have this
+5. `WiredCupertinoPageScaffold` — already have this
+6. `WiredCupertinoScrollbar` — iOS scrollbar (LOW - can use WiredScrollbar)
+7. `WiredCupertinoSearchTextField` — iOS search field (MEDIUM)
+8. `WiredCupertinoSlidingSegmentedControl` — M3-style segmented control (LOW)
+9. `WiredCupertinoTimerPicker` — Timer picker (LOW)
+10. `WiredCupertinoFormSection` — Form section (LOW)
+
+**Priority:** Most Cupertino widgets are lower priority since the focus is on Material parity. The existing 13 cover the most common use cases.
+
+### 1.3 Fill Material widget gaps
+- ⬜ `WiredPaginatedDataTable`
+- ⬜ `WiredExpansionPanelList`
+- ⬜ `WiredRefreshIndicator`
+- ⬜ `WiredSnackBar` animation improvements
+- ⬜ Other gaps TBD from audit
+
+### 1.4 Fill Cupertino widget gaps
+- ⬜ TBD from audit
+
+### 1.5 Accessibility audit
+- ⬜ Review all Wired widgets for semantic labels
+- ⬜ Add missing `Semantics` wrappers
+- ⬜ Test with screen reader (TalkBack/VoiceOver)
+- ⬜ Document accessibility patterns
+
+### 1.6 Animation polish
+- ⬜ Define hand-drawn animation style guide
+- ⬜ Implement ripple/splash adapted for sketchy look
+- ⬜ Loading states with hand-drawn spinners
+- ⬜ Transition animations
+
+---
+
+## Phase 2: Font Roughening Pipeline
+
+### 2.1 Research Dart font manipulation
+- ⬜ Evaluate `font` package on pub.dev for OpenType manipulation
+- ⬜ Evaluate `font_parser` package
+- ⬜ Determine if FontForge FFI is needed
+- ⬜ Document findings and chosen approach
+
+### 2.2 Build Dart CLI tool
+- ⬜ Create `packages/skribble_font_roughen/` package
+- ⬜ Implement TTF/OTF reading
+- ⬜ Implement glyph outline extraction (on-curve points)
+- ⬜ Implement deterministic jitter algorithm (port from Python)
+- ⬜ Implement TTF/OTF output
+- ⬜ Add configurable roughness parameter
+- ⬜ Add CLI argument parsing
+- ⬜ Write tests
+
+### 2.3 Pre-roughen popular fonts
+- ⬜ Inter (Regular, Bold, Italic, BoldItalic)
+- ⬜ Roboto (Regular, Bold, Italic, BoldItalic)
+- ⬜ Open Sans (Regular, Bold, Italic, BoldItalic)
+- ⬜ Lato (Regular, Bold, Italic, BoldItalic)
+- ⬜ Poppins (Regular, Bold, Italic, BoldItalic)
+- ⬜ Source Sans Pro (Regular, Bold, Italic, BoldItalic)
+
+### 2.4 Visual regression testing
+- ⬜ Define golden test approach for font rendering
+- ⬜ Create test fonts with known inputs
+- ⬜ Implement visual diffing
+
+### 2.5 Remove Python dependency
+- ⬜ Delete `roughen_font.py` after Dart replacement is verified
+- ⬜ Update documentation
+- ⬜ Update CI scripts
+
+---
+
+## Phase 3: Icon Ecosystem
+
+### 3.1 Expand skribble_emoji
+- ⬜ Verify full OpenMoji set generation (1,800+ emoji)
+- ⬜ Test emoji rendering performance
+- ⬜ Add emoji search/lookup by name
+- ⬜ Add emoji categories
+
+### 3.2 Icon font generation (TTF)
+- ⬜ Research approach: SVG paths → FontForge → TTF
+- ⬜ Generate test icon font with subset of icons
+- ⬜ Evaluate visual quality
+- ⬜ If quality is good: generate full icon font
+- ⬜ Create `SkribbleIconFont` widget for font-based icon rendering
+
+### 3.3 Cupertino icons
+- ⬜ Extract Cupertino icon SVG paths
+- ⬜ Run through rough engine
+- ⬜ Add to `skribble_icons` package
+
+### 3.4 Performance optimization
+- ⬜ Benchmark current icon loading time
+- ⬜ Optimize pre-computed icon map size
+- ⬜ Consider lazy loading for large icon sets
+
+---
+
+## Phase 4: Developer Experience & Distribution
+
+### 4.1 pub.dev publishing
+- ⬜ Set up monochange versioning
+- ⬜ Verify all packages meet pub.dev requirements
+- ⬜ Publish initial versions
+
+### 4.2 Documentation
+- ⬜ Update getting started guide
+- ⬜ Create migration guide (Material → Skribble)
+- ⬜ Update widget catalog
+- ⬜ Add code examples for common patterns
+
+### 4.3 Web support
+- ⬜ Test all widgets on Flutter web
+- ⬜ Fix any web-specific rendering issues
+- ⬜ Document web support status
+
+### 4.4 Example apps
+- ⬜ Update `skribble_example` app
+- ⬜ Create showcase app demonstrating all widgets
+
+---
+
+## Phase 5: Beyond Flutter (Future)
+
+- ⬜ Standalone font package
+- ⬜ SVG library for web
+- ⬜ Research React Native / SwiftUI / Jetpack Compose feasibility
+
+---
+
+## Change Log
+
+### 2026-05-27
+- Created planning document
+- Set up 10-minute recurring reminder for 18 hours
+- Started Phase 1.1 audit
+- Completed Phase 1.1 Material 3 widget audit (82 existing, 16 gaps identified)
+- Completed Phase 1.2 Cupertino widget audit (13 existing, ~8 gaps identified)
+- Identified HIGH priority gaps: DropdownButton/DropdownMenu, RefreshIndicator
