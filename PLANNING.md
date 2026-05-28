@@ -52,7 +52,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 2. ~~`WiredDropdownMenu`~~ — ✅ Already exists (added in earlier PR)
 3. `WiredExpansionPanelList` — Multiple expansion panels (MEDIUM)
 4. `WiredPaginatedDataTable` — Paginated table (MEDIUM)
-5. `WiredRefreshIndicator` — Pull-to-refresh (HIGH priority - very common)
+5. ~~`WiredRefreshIndicator`~~ — ✅ Pull-to-refresh (HIGH priority - implemented)
 6. `WiredCarouselView` — M3 carousel (LOW - new M3 component)
 7. `WiredDatePickerDialog` — Date picker dialog (already have calendar/date_picker)
 8. `WiredDateRangePickerDialog` — Date range picker (LOW)
@@ -66,7 +66,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 16. `WiredMergeableMaterial` — Mergeable material slices (LOW)
 
 **Priority ranking:**
-- HIGH: RefreshIndicator (DropdownButton/DropdownMenu already exist as WiredCombo/WiredDropdownMenu)
+- HIGH: ~~RefreshIndicator~~ ✅ (DropdownButton/DropdownMenu already exist as WiredCombo/WiredDropdownMenu)
 - MEDIUM: ExpansionPanelList, PaginatedDataTable, SearchAnchor
 - LOW: Everything else
 
@@ -109,7 +109,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 ### 1.3 Fill Material widget gaps
 - ⬜ `WiredPaginatedDataTable`
 - ⬜ `WiredExpansionPanelList`
-- ⬜ `WiredRefreshIndicator`
+- ✅ `WiredRefreshIndicator`
 - ⬜ `WiredSnackBar` animation improvements
 - ⬜ Other gaps TBD from audit
 
