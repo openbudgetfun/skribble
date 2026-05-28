@@ -87,8 +87,7 @@ class FontRoughener {
 
       // Apply jitter to all glyphs via path commands
       int processedCount = 0;
-      final glyphsRaw = font.glyphs;
-      final glyphs = glyphsRaw as opentype.GlyphSet?
+      final dynamic glyphs = font.glyphs;
 
       if (glyphs != null) {
         for (int i = 0; i < glyphs.length; i++) {

@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
-import 'wired_expansion_tile.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn expansion panel list, corresponding to Flutter's `ExpansionPanelList`.
