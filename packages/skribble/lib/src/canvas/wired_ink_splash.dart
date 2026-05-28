@@ -90,7 +90,7 @@ class WiredInkSplash extends InteractiveInkFeature {
   /// The maximum radius of the splash.
   double get _targetRadius {
     if (_radius != null) {
-      return _radius!;
+      return _radius;
     }
 
     final Size size = referenceBox.size;

@@ -77,7 +77,7 @@ class FontRoughener {
       final buffer = bytes.buffer;
 
       // Parse the font using opentype_dart
-      final font = opentype.parseBuffer(buffer, opt: {});
+      final font = opentype.parseBuffer(buffer, opt: <String, dynamic>{});
 
       if (font == null) {
         throw const FontParseException('Failed to parse font file');
@@ -95,7 +95,7 @@ class FontRoughener {
           if (glyph != null) {
             try {
               // Get the glyph path and jitter its commands
-              final pathRaw = glyph.getPath(0, 0, 72, {}, font);
+              final pathRaw = glyph.getPath(0, 0, 72, <String, dynamic>{}, font);
               final path = pathRaw as opentype.Path?;
               if (path != null && path.commands.isNotEmpty) {
                 for (int j = 0; j < path.commands.length; j++) {
