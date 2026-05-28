@@ -112,10 +112,45 @@ Last updated: 2026-05-27
 - ⬜ TBD from audit
 
 ### 1.5 Accessibility audit
-- ⬜ Review all Wired widgets for semantic labels
+- ✅ Review all Wired widgets for semantic labels
 - ⬜ Add missing `Semantics` wrappers
 - ⬜ Test with screen reader (TalkBack/VoiceOver)
 - ⬜ Document accessibility patterns
+
+#### Accessibility Audit Results
+
+**Widgets WITH Semantics support:**
+- wired_button, wired_elevated_button, wired_filled_button
+- wired_outlined_button, wired_text_button, wired_fab
+- wired_icon_button, wired_icon
+- wired_switch, wired_cupertino_switch
+- wired_toggle
+
+**Widgets MISSING Semantics support (need to add):**
+- wired_checkbox — needs checkbox semantics
+- wired_radio — needs radio button semantics
+- wired_slider — needs slider semantics (value, min, max)
+- wired_range_slider — needs range slider semantics
+- wired_input / wired_text_area — needs text field semantics
+- wired_chip / wired_choice_chip / wired_filter_chip / wired_input_chip — needs chip semantics
+- wired_dialog — needs dialog semantics (label, barrier)
+- wired_tooltip — needs tooltip semantics
+- wired_snack_bar — needs snackbar semantics
+- wired_date_picker — needs date picker semantics
+- wired_time_picker — needs time picker semantics
+- wired_bottom_sheet — needs bottom sheet semantics
+- wired_drawer — needs drawer semantics
+- wired_list_tile — needs list tile semantics
+- wired_checkbox_list_tile — needs combined semantics
+- wired_radio_list_tile — needs combined semantics
+- wired_switch_list_tile — needs combined semantics
+- wired_expansion_tile — needs expansion tile semantics
+- wired_navigation_bar — needs navigation semantics
+- wired_bottom_nav — needs navigation semantics
+- wired_tab_bar — needs tab semantics
+- wired_stepper — needs stepper semantics
+
+**Priority:** HIGH — Accessibility is critical for production apps. Should be addressed alongside widget implementation.
 
 ### 1.6 Animation polish
 - ⬜ Define hand-drawn animation style guide
