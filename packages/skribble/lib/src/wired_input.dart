@@ -11,6 +11,9 @@ import 'wired_theme.dart';
 /// `WiredRectangleBase`. Supports label, hint, prefix/suffix icons,
 /// and all standard text input callbacks.
 ///
+/// The text field is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the field label and current value.
+///
 /// See also:
 ///  * `WiredTextArea`, for multiline text input.
 ///  * `WiredSearchBar`, for a search-specific input.
@@ -25,6 +28,9 @@ class WiredInput extends HookWidget {
   final void Function(String)? onChanged;
   final bool obscureText;
 
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
+
   const WiredInput({
     super.key,
     this.controller,
@@ -35,13 +41,17 @@ class WiredInput extends HookWidget {
     this.hintStyle,
     this.onChanged,
     this.obscureText = false,
+    this.semanticLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Row(
-      children: [
+    return Semantics(
+      label: semanticLabel ?? labelText,
+      textField: true,
+      child: Row(
+        children: [
         if (labelText != null) Text('$labelText', style: labelStyle),
         if (labelText != null) SizedBox(width: 10.0),
         Expanded(
@@ -73,6 +83,7 @@ class WiredInput extends HookWidget {
           ),
         ),
       ],
+      ),
     );
   }
 }
