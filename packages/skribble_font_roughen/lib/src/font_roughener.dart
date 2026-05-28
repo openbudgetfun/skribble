@@ -10,8 +10,8 @@ import 'jitter_algorithm.dart';
 ///
 /// This class orchestrates the process of:
 /// 1. Reading a source font file (TTF or OTF)
-/// 2. Extracting glyph outlines
-/// 3. Applying deterministic jitter to on-curve points
+/// 2. Extracting glyph outlines via the path API
+/// 3. Applying deterministic jitter to path command coordinates
 /// 4. Writing the roughened font to a new file
 ///
 /// ## Example
@@ -65,8 +65,11 @@ class FontRoughener {
     }
 
     print('Opening font: $inputPath');
-    print('Variant: ${variant.name} (weight=${variant.weight}, '
-        'fullname="${variant.fullName}")');
+    print(
+      'Variant: ${variant.name} '
+      '(weight=${variant.weight}, '
+      'fullname="${variant.fullName}")',
+    );
     print('Jitter amount: $jitterAmount');
 
     try {
@@ -83,38 +86,52 @@ class FontRoughener {
 
       print('Font loaded: ${font.numGlyphs} glyphs');
 
-      // Apply jitter to all glyphs
+      // Apply jitter to all glyphs via path commands
       int processedCount = 0;
       final glyphs = font.glyphs;
 
       if (glyphs != null) {
         for (int i = 0; i < glyphs.length; i++) {
           final glyph = glyphs.get(i);
-          if (glyph != null && glyph.points != null) {
-            // Apply jitter to the glyph points
-            final points = glyph.points!;
-            final jitteredPoints = <opentype.Point>[];
+          if (glyph != null) {
+            try {
+              // Get the glyph path and jitter its commands
+              final path = glyph.getPath(0, 0, 72, {}, font);
+              if (path != null && path.commands.isNotEmpty) {
+                for (int j = 0; j < path.commands.length; j++) {
+                  final cmd = path.commands[j];
 
-            for (int j = 0; j < points.length; j++) {
-              final point = points[j];
-              if (point.onCurve) {
-                // Apply jitter to on-curve points
-                final dx = _jitter.jitterValue(i, j);
-                final dy = _jitter.jitterValue(i, j, offset: 7919);
-                jitteredPoints.add(opentype.Point(
-                  x: point.x + dx,
-                  y: point.y + dy,
-                  onCurve: true,
-                ));
-              } else {
-                // Keep control points unchanged
-                jitteredPoints.add(point);
+                  // Apply jitter to coordinate values in commands
+                  if (cmd.containsKey('x')) {
+                    final dx = _jitter.jitterValue(i, j);
+                    cmd['x'] = (cmd['x'] as num) + dx;
+                  }
+                  if (cmd.containsKey('y')) {
+                    final dy = _jitter.jitterValue(i, j, offset: 7919);
+                    cmd['y'] = (cmd['y'] as num) + dy;
+                  }
+                  if (cmd.containsKey('x1')) {
+                    final dx1 = _jitter.jitterValue(i, j, offset: 3823);
+                    cmd['x1'] = (cmd['x1'] as num) + dx1;
+                  }
+                  if (cmd.containsKey('y1')) {
+                    final dy1 = _jitter.jitterValue(i, j, offset: 5413);
+                    cmd['y1'] = (cmd['y1'] as num) + dy1;
+                  }
+                  if (cmd.containsKey('x2')) {
+                    final dx2 = _jitter.jitterValue(i, j, offset: 6701);
+                    cmd['x2'] = (cmd['x2'] as num) + dx2;
+                  }
+                  if (cmd.containsKey('y2')) {
+                    final dy2 = _jitter.jitterValue(i, j, offset: 8237);
+                    cmd['y2'] = (cmd['y2'] as num) + dy2;
+                  }
+                }
+                processedCount++;
               }
+            } catch (_) {
+              // Skip glyphs that can't be pathed
             }
-
-            // Update the glyph points
-            glyph.points = jitteredPoints;
-            processedCount++;
           }
         }
       }
@@ -131,9 +148,8 @@ class FontRoughener {
 
       // Write the roughened font
       print('Saving to: $outputPath');
-      final outputFile = File(outputPath);
       final outputBytes = font.download();
-      await outputFile.writeAsBytes(outputBytes);
+      await File(outputPath).writeAsBytes(outputBytes);
 
       print('Done!');
 
