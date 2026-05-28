@@ -6,11 +6,17 @@ import 'wired_base.dart';
 import 'wired_theme.dart';
 
 /// A tab bar with hand-drawn underline indicators.
+///
+/// The tab bar is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the selected tab information.
 class WiredTabBar extends HookWidget implements PreferredSizeWidget {
   final List<String> tabs;
   final int selectedIndex;
   final ValueChanged<int>? onTap;
   final double height;
+
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
 
   const WiredTabBar({
     super.key,
@@ -18,6 +24,7 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
     this.selectedIndex = 0,
     this.onTap,
     this.height = 48.0,
+    this.semanticLabel,
   });
 
   @override
@@ -26,9 +33,11 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    return Semantics(
+      label: semanticLabel ?? 'Tab bar',
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
         SizedBox(
           height: height - 2,
           child: Row(
@@ -54,6 +63,7 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
           ),
         ),
       ],
+      ),
     );
   }
 
