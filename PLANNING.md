@@ -173,7 +173,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - ✅ Define hand-drawn animation style guide
 - ✅ Implement ripple/splash adapted for sketchy look
 - ✅ Loading states with hand-drawn spinners
-- ⬜ Transition animations
+- ✅ Transition animations
 
 ---
 
