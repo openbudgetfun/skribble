@@ -50,7 +50,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 **Missing Material widgets (gaps):**
 1. ~~`WiredDropdownButton`~~ — ✅ Already exists as `WiredCombo` (wraps DropdownButton)
 2. ~~`WiredDropdownMenu`~~ — ✅ Already exists (added in earlier PR)
-3. `WiredExpansionPanelList` — Multiple expansion panels (MEDIUM)
+3. ~~`WiredExpansionPanelList`~~ — ✅ Multiple expansion panels (MEDIUM - implemented)
 4. ~~`WiredPaginatedDataTable`~~ — ✅ Paginated table (MEDIUM - implemented)
 5. ~~`WiredRefreshIndicator`~~ — ✅ Pull-to-refresh (HIGH priority - implemented)
 6. `WiredCarouselView` — M3 carousel (LOW - new M3 component)
@@ -108,7 +108,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 ### 1.3 Fill Material widget gaps
 - ✅ `WiredPaginatedDataTable`
-- ⬜ `WiredExpansionPanelList`
+- ✅ `WiredExpansionPanelList`
 - ✅ `WiredRefreshIndicator`
 - ⬜ `WiredSnackBar` animation improvements
 - ⬜ Other gaps TBD from audit
