@@ -1,0 +1,7 @@
+analyzer:
+  errors:
+    avoid_print: ignore
+    document_ignores: ignore
+    parameter_assignments: ignore
+    cascade_invocations: ignore
+    prefer_single_quotes: ignore

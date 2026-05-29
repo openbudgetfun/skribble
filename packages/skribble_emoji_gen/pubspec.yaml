@@ -1,0 +1,12 @@
+name: skribble_emoji_gen
+description: Dart CLI tool to generate emoji maps from OpenMoji SVGs.
+version: 1.0.0
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  args: ^2.7.0
+  http: ^1.4.0
+  xml: ^6.6.0
+  path: ^1.9.1
