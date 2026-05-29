@@ -7,12 +7,18 @@ import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// An expandable tile with a hand-drawn border.
+///
+/// The expansion tile is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the expanded state information.
 class WiredExpansionTile extends HookWidget {
   final Widget title;
   final Widget? subtitle;
   final Widget? leading;
   final List<Widget> children;
   final bool initiallyExpanded;
+
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
 
   const WiredExpansionTile({
     super.key,
@@ -21,6 +27,7 @@ class WiredExpansionTile extends HookWidget {
     this.leading,
     this.children = const [],
     this.initiallyExpanded = false,
+    this.semanticLabel,
   });
 
   @override
@@ -28,10 +35,14 @@ class WiredExpansionTile extends HookWidget {
     final theme = WiredTheme.of(context);
     final isExpanded = useState(initiallyExpanded);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
+    return Semantics(
+      label: semanticLabel,
+      expanded: isExpanded.value,
+      onTap: () => isExpanded.value = !isExpanded.value,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
         InkWell(
           onTap: () => isExpanded.value = !isExpanded.value,
           child: Padding(
@@ -97,6 +108,7 @@ class WiredExpansionTile extends HookWidget {
             ),
           ),
       ],
+      ),
     );
   }
 }

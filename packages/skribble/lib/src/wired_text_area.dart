@@ -6,6 +6,9 @@ import 'wired_base.dart';
 import 'wired_theme.dart';
 
 /// A multi-line text input with a hand-drawn border.
+///
+/// The text area is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the field label and current value.
 class WiredTextArea extends HookWidget {
   final TextEditingController? controller;
   final TextStyle? style;
@@ -14,6 +17,9 @@ class WiredTextArea extends HookWidget {
   final void Function(String)? onChanged;
   final int maxLines;
   final int minLines;
+
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
 
   const WiredTextArea({
     super.key,
@@ -24,13 +30,17 @@ class WiredTextArea extends HookWidget {
     this.onChanged,
     this.maxLines = 5,
     this.minLines = 3,
+    this.semanticLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Stack(
-      children: [
+    return Semantics(
+      label: semanticLabel,
+      textField: true,
+      child: Stack(
+        children: [
         Positioned.fill(
           child: WiredCanvas(
             painter: WiredRectangleBase(
@@ -54,6 +64,7 @@ class WiredTextArea extends HookWidget {
           onChanged: onChanged,
         ),
       ],
+      ),
     );
   }
 }

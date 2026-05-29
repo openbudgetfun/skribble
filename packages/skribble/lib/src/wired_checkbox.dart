@@ -10,16 +10,23 @@ import 'wired_theme.dart';
 /// Draws a sketchy circle border with a hachure-filled checkmark when
 /// [value] is `true`. Supports tristate (`null`) values.
 ///
+/// The checkbox is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the current checked state.
+///
 /// See also:
 ///  * `WiredCheckboxListTile`, which combines this with a label.
 class WiredCheckbox extends HookWidget {
   final bool? value;
   final void Function(bool?) onChanged;
 
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
+
   const WiredCheckbox({
     super.key,
     required this.value,
     required this.onChanged,
+    this.semanticLabel,
   });
 
   @override
@@ -27,9 +34,17 @@ class WiredCheckbox extends HookWidget {
     final theme = WiredTheme.of(context);
     final isChecked = useState(value ?? false);
 
-    return buildWiredElement(
-      key: key,
-      child: Container(
+    return Semantics(
+      label: semanticLabel,
+      checked: isChecked.value,
+      onTap: () {
+        final newValue = !isChecked.value;
+        isChecked.value = newValue;
+        onChanged(newValue);
+      },
+      child: buildWiredElement(
+        key: key,
+        child: Container(
         padding: EdgeInsets.zero,
         height: 27.0,
         width: 27.0,
@@ -52,6 +67,7 @@ class WiredCheckbox extends HookWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }

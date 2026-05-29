@@ -6,6 +6,9 @@ import 'wired_base.dart';
 import 'wired_theme.dart';
 
 /// A list tile with a hand-drawn separator line.
+///
+/// The list tile is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the title and tap action when applicable.
 class WiredListTile extends HookWidget {
   final Widget? leading;
   final Widget? title;
@@ -13,6 +16,9 @@ class WiredListTile extends HookWidget {
   final Widget? trailing;
   final VoidCallback? onTap;
   final bool showDivider;
+
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
 
   const WiredListTile({
     super.key,
@@ -22,14 +28,19 @@ class WiredListTile extends HookWidget {
     this.trailing,
     this.onTap,
     this.showDivider = true,
+    this.semanticLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    return Semantics(
+      label: semanticLabel,
+      button: onTap != null,
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
         InkWell(
           onTap: onTap,
           child: Padding(
@@ -83,6 +94,7 @@ class WiredListTile extends HookWidget {
             ),
           ),
       ],
+      ),
     );
   }
 }

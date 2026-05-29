@@ -11,6 +11,9 @@ import 'wired_theme.dart';
 /// Renders a sketchy track line with a hand-drawn circle thumb.
 /// Supports [divisions], [label], and custom [min]/[max] range.
 ///
+/// The slider is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the current value and range information.
+///
 /// See also:
 ///  * `WiredRangeSlider`, for a dual-handle variant.
 ///  * `WiredCupertinoSlider`, for Cupertino styling.
@@ -22,6 +25,9 @@ class WiredSlider extends HookWidget {
   final double max;
   final bool Function(double)? onChanged;
 
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
+
   const WiredSlider({
     super.key,
     required this.value,
@@ -30,6 +36,7 @@ class WiredSlider extends HookWidget {
     this.min = 0.0,
     this.max = 1.0,
     required this.onChanged,
+    this.semanticLabel,
   });
 
   @override
@@ -38,9 +45,29 @@ class WiredSlider extends HookWidget {
     final currentSliderValue = useRef(value);
     useFuture(Future<void>.delayed(Duration.zero));
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
+    return Semantics(
+      label: semanticLabel,
+      slider: true,
+      value: currentSliderValue.value.toStringAsFixed(1),
+      increasedValue: (currentSliderValue.value + (max - min) / (divisions ?? 10)).clamp(min, max).toStringAsFixed(1),
+      decreasedValue: (currentSliderValue.value - (max - min) / (divisions ?? 10)).clamp(min, max).toStringAsFixed(1),
+      onIncrease: () {
+        final step = (max - min) / (divisions ?? 10);
+        final newValue = (currentSliderValue.value + step).clamp(min, max);
+        if (onChanged?.call(newValue) ?? false) {
+          currentSliderValue.value = newValue;
+        }
+      },
+      onDecrease: () {
+        final step = (max - min) / (divisions ?? 10);
+        final newValue = (currentSliderValue.value - step).clamp(min, max);
+        if (onChanged?.call(newValue) ?? false) {
+          currentSliderValue.value = newValue;
+        }
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
         SizedBox(
           height: 1,
           width: double.infinity,
@@ -94,7 +121,8 @@ class WiredSlider extends HookWidget {
             },
           ),
         ),
-      ],
+        ],
+      ),
     );
   }
 

@@ -17,24 +17,33 @@ class WiredStep {
 }
 
 /// A stepper with hand-drawn connected circles and lines.
+///
+/// The stepper is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the current step information.
 class WiredStepper extends HookWidget {
   final List<WiredStep> steps;
   final int currentStep;
   final ValueChanged<int>? onStepTapped;
+
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
 
   const WiredStepper({
     super.key,
     required this.steps,
     this.currentStep = 0,
     this.onStepTapped,
+    this.semanticLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    return Semantics(
+      label: semanticLabel ?? 'Stepper, step ${currentStep + 1} of ${steps.length}',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
         for (int i = 0; i < steps.length; i++) ...[
           _buildStep(i, steps[i], theme),
           if (i < steps.length - 1)
@@ -57,6 +66,7 @@ class WiredStepper extends HookWidget {
             ),
         ],
       ],
+      ),
     );
   }
 

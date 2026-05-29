@@ -11,6 +11,9 @@ import 'wired_theme.dart';
 /// Draws a sketchy circle border. When [value] equals [groupValue],
 /// the interior is filled with a hachure pattern.
 ///
+/// The radio button is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the selected state.
+///
 /// See also:
 ///  * `WiredRadioListTile`, which combines this with a label.
 class WiredRadio<T> extends HookWidget {
@@ -18,11 +21,15 @@ class WiredRadio<T> extends HookWidget {
   final T? groupValue;
   final bool Function(T? value)? onChanged;
 
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
+
   const WiredRadio({
     super.key,
     required this.value,
     required this.groupValue,
     required this.onChanged,
+    this.semanticLabel,
   });
 
   @override
@@ -30,8 +37,12 @@ class WiredRadio<T> extends HookWidget {
     final theme = WiredTheme.of(context);
     final isSelected = value == groupValue;
 
-    return buildWiredElement(
-      child: Stack(
+    return Semantics(
+      label: semanticLabel,
+      checked: isSelected,
+      onTap: () => onChanged?.call(value),
+      child: buildWiredElement(
+        child: Stack(
         alignment: Alignment.center,
         children: [
           SizedBox(
@@ -72,6 +83,7 @@ class WiredRadio<T> extends HookWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }

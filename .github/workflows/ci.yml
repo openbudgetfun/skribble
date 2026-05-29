@@ -17,6 +17,14 @@ jobs:
       - name: lint all
         run: lint:all
         shell: devenv shell -- bash -e {0}
+      - name: Validate monochange configuration
+        run: |
+          if command -v mc &>/dev/null; then
+            mc step:validate
+          else
+            echo "⚠️ monochange (mc) not installed, skipping validation"
+          fi
+        shell: devenv shell -- bash -e {0}
 
   test:
     runs-on: blacksmith-2vcpu-ubuntu-2404
@@ -86,6 +94,19 @@ jobs:
           name: rough-icons-generated-sync-diff
           path: rough-icons-generated-sync.diff
           if-no-files-found: ignore
+
+  font-roughener:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: run font roughener tests
+        run: |
+          cd packages/skribble_font_roughen
+          flutter test
+        shell: devenv shell -- bash -e {0}
 
   coverage:
     if: github.ref == 'refs/heads/main'

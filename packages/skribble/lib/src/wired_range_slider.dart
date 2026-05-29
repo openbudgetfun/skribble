@@ -6,6 +6,9 @@ import 'wired_base.dart';
 import 'wired_theme.dart';
 
 /// A dual-handle range slider with hand-drawn track and thumbs.
+///
+/// The range slider is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the current range values.
 class WiredRangeSlider extends HookWidget {
   final RangeValues values;
   final double min;
@@ -13,6 +16,9 @@ class WiredRangeSlider extends HookWidget {
   final int? divisions;
   final RangeLabels? labels;
   final bool Function(RangeValues)? onChanged;
+
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
 
   const WiredRangeSlider({
     super.key,
@@ -22,6 +28,7 @@ class WiredRangeSlider extends HookWidget {
     this.divisions,
     this.labels,
     required this.onChanged,
+    this.semanticLabel,
   });
 
   @override
@@ -29,9 +36,13 @@ class WiredRangeSlider extends HookWidget {
     final theme = WiredTheme.of(context);
     final currentValues = useRef(values);
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
+    return Semantics(
+      label: semanticLabel,
+      slider: true,
+      value: '${currentValues.value.start.toStringAsFixed(1)} to ${currentValues.value.end.toStringAsFixed(1)}',
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
         SizedBox(
           height: 1,
           width: double.infinity,
@@ -71,6 +82,7 @@ class WiredRangeSlider extends HookWidget {
           ),
         ),
       ],
+      ),
     );
   }
 }

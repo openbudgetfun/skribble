@@ -8,23 +8,35 @@ import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A filter chip with a hand-drawn border and optional checkmark.
+///
+/// The filter chip is wrapped in [Semantics] for accessibility, providing
+/// screen readers with the selected state information.
 class WiredFilterChip extends HookWidget {
   final Widget label;
   final bool selected;
   final ValueChanged<bool>? onSelected;
+
+  /// Optional semantic label for accessibility.
+  final String? semanticLabel;
 
   const WiredFilterChip({
     super.key,
     required this.label,
     this.selected = false,
     this.onSelected,
+    this.semanticLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return buildWiredElement(
-      child: GestureDetector(
+    return Semantics(
+      label: semanticLabel,
+      selected: selected,
+      button: true,
+      onTap: () => onSelected?.call(!selected),
+      child: buildWiredElement(
+        child: GestureDetector(
         onTap: () => onSelected?.call(!selected),
         child: IntrinsicWidth(
           child: SizedBox(
@@ -74,6 +86,7 @@ class WiredFilterChip extends HookWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }
