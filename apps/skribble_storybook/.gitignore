@@ -43,3 +43,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Gradle files
+/android/.gradle/
+/android/local.properties
+/android/key.properties
+
+# CocoaPods / iOS build artifacts
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/ephemeral/
+/ios/Flutter/generated.xcconfig
+/ios/Flutter/flutter_export_environment.sh

@@ -9,7 +9,9 @@ Skribble uses integration tests to capture screenshots of every widget in the st
 
 ## Where screenshots are saved
 
-Screenshots are saved to the `.screenshots/` directory at the repository root. This directory is gitignored -- screenshots are generated locally and in CI, never committed to the repository.
+By default, screenshots are saved to `.screenshots/` inside the storybook app directory (`apps/skribble_storybook/.screenshots/`). This directory is gitignored -- screenshots are generated locally and in CI, never committed to the repository.
+
+When capturing screenshots on a mobile emulator or physical device, use the host-side driver script (`test_driver/screenshots_driver.dart`) so the PNGs are written to the host filesystem rather than the app sandbox (which is removed when the app is uninstalled).
 
 ```
 .screenshots/
@@ -83,18 +85,37 @@ Future<void> pumpStorybook(WidgetTester tester) async {
 }
 ```
 
-**`takeScreenshot()`** -- captures the current screen to a PNG file. It first tries the `IntegrationTestWidgetsFlutterBinding.takeScreenshot()` method, then falls back to rendering the `RepaintBoundary` directly:
+**`takeScreenshot()`** -- captures the current screen to a PNG file. It uses the platform screenshot channel where available, writes the bytes to a writable directory, and falls back to rendering the `RepaintBoundary` directly on web:
 
 ```dart
 Future<void> takeScreenshot(WidgetTester tester, String name) async {
-  final dir = Directory('$screenshotsDir/${name.split('/').first}');
-  if (!dir.existsSync()) {
-    dir.createSync(recursive: true);
+  final screenshotsDir = await screenshotsDirectory();
+  final categoryDir = Directory('${screenshotsDir.path}/${name.split('/').first}');
+  if (!categoryDir.existsSync()) {
+    categoryDir.createSync(recursive: true);
   }
 
-  // Try platform screenshot first, fall back to boundary capture
-  final screenshotFile = File('$screenshotsDir/$name.png');
-  // ...
+  final screenshotFile = File('${screenshotsDir.path}/$name.png');
+
+  if (kIsWeb) {
+    // Render the wrapped RepaintBoundary directly when the screenshot channel
+    // is unavailable.
+    final boundary = captureBoundaryKey.currentContext?.findRenderObject()
+        as RenderRepaintBoundary?;
+    // ... encode to PNG and write bytes
+    return;
+  }
+
+  // On Android the Flutter surface must be converted to an image before the
+  // integration_test screenshot channel can capture it.
+  if (Platform.isAndroid && !androidSurfaceConverted) {
+    await binding.convertFlutterSurfaceToImage();
+    await tester.pump();
+    androidSurfaceConverted = true;
+  }
+
+  final bytes = await binding.takeScreenshot(name);
+  await screenshotFile.writeAsBytes(bytes);
 }
 ```
 
@@ -194,6 +215,20 @@ flutter test integration_test/screenshots_test.dart -d macos
 flutter test integration_test/screenshots_test.dart -d chrome
 flutter test integration_test/screenshots_test.dart -d linux
 ```
+
+### On a mobile emulator or physical device
+
+When running on Android or iOS, `flutter test` stores screenshots in the app's sandbox, which is removed when Flutter uninstalls the app after the test run. Use the host-side driver script to persist the screenshots on your development machine:
+
+```bash
+cd apps/skribble_storybook
+flutter drive \
+  --driver=test_driver/screenshots_driver.dart \
+  --target=integration_test/screenshots_test.dart \
+  -d emulator-5554
+```
+
+The driver receives the screenshot bytes via `IntegrationTestWidgetsFlutterBinding.reportData` and writes them to `apps/skribble_storybook/.screenshots/` on the host.
 
 The screenshot fallback mechanism (rendering the `RepaintBoundary` to an image) works on all platforms, even when the platform-specific screenshot plugin is unavailable.
 

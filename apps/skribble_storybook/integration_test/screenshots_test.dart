@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:skribble_storybook/app.dart';
 
 class WidgetShot {
@@ -23,10 +24,11 @@ void main() {
     // fetching needed.
   });
 
-  final screenshotsDir = '${Directory.current.path}/.screenshots';
   final captureBoundaryKey = GlobalKey();
+  var androidSurfaceConverted = false;
 
   Future<void> pumpStorybook(WidgetTester tester) async {
+    androidSurfaceConverted = false;
     await tester.pumpWidget(
       RepaintBoundary(
         key: captureBoundaryKey,
@@ -36,44 +38,70 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  /// Resolves a writable directory for screenshots.
+  ///
+  /// On mobile integration tests the device's current working directory is the
+  /// app sandbox root (often `/`) and is not writable, so we store screenshots
+  /// in the app's documents directory and pull them to the host afterwards.
+  /// On desktop/web tests we write directly to the project's `.screenshots`
+  /// folder.
+  Future<Directory> screenshotsDirectory() async {
+    if (kIsWeb) {
+      return Directory('${Directory.current.path}/.screenshots');
+    }
+    if (Platform.isAndroid || Platform.isIOS) {
+      final appDir = await getApplicationDocumentsDirectory();
+      return Directory('${appDir.path}/.screenshots');
+    }
+    return Directory('${Directory.current.path}/.screenshots');
+  }
+
   Future<void> takeScreenshot(WidgetTester tester, String name) async {
-    final dir = Directory('$screenshotsDir/${name.split('/').first}');
-    if (!dir.existsSync()) {
-      dir.createSync(recursive: true);
+    final screenshotsDir = await screenshotsDirectory();
+    final categoryDir = Directory(
+      '${screenshotsDir.path}/${name.split('/').first}',
+    );
+    if (!categoryDir.existsSync()) {
+      categoryDir.createSync(recursive: true);
     }
 
-    final screenshotFile = File('$screenshotsDir/$name.png');
-    var useFallbackCapture = false;
+    final screenshotFile = File('${screenshotsDir.path}/$name.png');
 
-    try {
-      await binding.takeScreenshot(name);
-      useFallbackCapture = !screenshotFile.existsSync();
-    } on MissingPluginException {
-      useFallbackCapture = true;
-    }
+    if (kIsWeb) {
+      // The integration_test screenshot channel is not available on web, so
+      // capture the wrapped RepaintBoundary directly.
+      final boundary =
+          captureBoundaryKey.currentContext?.findRenderObject()
+              as RenderRepaintBoundary?;
+      if (boundary == null) {
+        fail('Unable to locate RepaintBoundary for screenshot fallback: $name');
+      }
 
-    if (!useFallbackCapture) {
+      final image = await boundary.toImage(
+        pixelRatio: tester.view.devicePixelRatio,
+      );
+      final byteData = await image.toByteData(format: ImageByteFormat.png);
+      image.dispose();
+
+      if (byteData == null) {
+        fail('Failed to encode screenshot bytes for: $name');
+      }
+
+      await screenshotFile.writeAsBytes(byteData.buffer.asUint8List());
       return;
     }
 
-    final boundary =
-        captureBoundaryKey.currentContext?.findRenderObject()
-            as RenderRepaintBoundary?;
-    if (boundary == null) {
-      fail('Unable to locate RepaintBoundary for screenshot fallback: $name');
+    // On Android the Flutter surface must be converted to an image before the
+    // integration_test screenshot channel can capture it. We only convert once
+    // per test; the integration_test binding reverts the surface in tear-down.
+    if (!kIsWeb && Platform.isAndroid && !androidSurfaceConverted) {
+      await binding.convertFlutterSurfaceToImage();
+      await tester.pump();
+      androidSurfaceConverted = true;
     }
 
-    final image = await boundary.toImage(
-      pixelRatio: tester.view.devicePixelRatio,
-    );
-    final byteData = await image.toByteData(format: ImageByteFormat.png);
-    image.dispose();
-
-    if (byteData == null) {
-      fail('Failed to encode screenshot bytes for: $name');
-    }
-
-    await screenshotFile.writeAsBytes(byteData.buffer.asUint8List());
+    final bytes = await binding.takeScreenshot(name);
+    await screenshotFile.writeAsBytes(bytes);
   }
 
   Future<void> focusOnText(WidgetTester tester, String text) async {
@@ -493,14 +521,6 @@ void main() {
     });
 
     testWidgets('capture rough icons gallery', (tester) async {
-      addTearDown(() {
-        tester.view.resetPhysicalSize();
-        tester.view.resetDevicePixelRatio();
-      });
-
-      tester.view.devicePixelRatio = 1.0;
-      tester.view.physicalSize = const Size(2400, 4200);
-
       await pumpStorybook(tester);
 
       await openCategory(tester, 'Rough Icons');
