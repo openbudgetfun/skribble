@@ -35,50 +35,53 @@ class WiredChip extends HookWidget {
       onTap: onDeleted,
       child: buildWiredElement(
         child: IntrinsicWidth(
-        child: SizedBox(
-          height: 32,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Positioned.fill(
-                child: WiredCanvas(
-                  painter: WiredRoundedRectangleBase(
-                    borderRadius: BorderRadius.circular(16),
-                    borderColor: theme.borderColor,
-                  ),
-                  fillerType: RoughFilter.noFiller,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (avatar != null) ...[avatar!, const SizedBox(width: 8)],
-                    DefaultTextStyle(
-                      style: TextStyle(color: theme.textColor, fontSize: 13),
-                      child: label,
+          child: SizedBox(
+            height: 32,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned.fill(
+                  child: WiredCanvas(
+                    painter: WiredRoundedRectangleBase(
+                      borderRadius: BorderRadius.circular(16),
+                      borderColor: theme.borderColor,
                     ),
-                    if (onDeleted != null) ...[
-                      const SizedBox(width: 4),
-                      GestureDetector(
-                        onTap: onDeleted,
-                        child: WiredIcon(
-                          icon: Icons.close,
-                          size: 16,
-                          color: theme.textColor,
-                          fillStyle: WiredIconFillStyle.solid,
-                          strokeWidth: 1.1,
-                        ),
-                      ),
-                    ],
-                  ],
+                    fillerType: RoughFilter.noFiller,
+                  ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (avatar != null) ...[
+                        avatar!,
+                        const SizedBox(width: 8),
+                      ],
+                      DefaultTextStyle(
+                        style: TextStyle(color: theme.textColor, fontSize: 13),
+                        child: label,
+                      ),
+                      if (onDeleted != null) ...[
+                        const SizedBox(width: 4),
+                        GestureDetector(
+                          onTap: onDeleted,
+                          child: WiredIcon(
+                            icon: Icons.close,
+                            size: 16,
+                            color: theme.textColor,
+                            fillStyle: WiredIconFillStyle.solid,
+                            strokeWidth: 1.1,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
       ),
     );
   }

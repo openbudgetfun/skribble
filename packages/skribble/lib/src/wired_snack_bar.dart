@@ -36,7 +36,12 @@ class WiredSnackBarContent extends HookWidget {
   /// Optional semantic label for accessibility.
   final String? semanticLabel;
 
-  const WiredSnackBarContent({super.key, required this.child, this.action, this.semanticLabel});
+  const WiredSnackBarContent({
+    super.key,
+    required this.child,
+    this.action,
+    this.semanticLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,23 +51,23 @@ class WiredSnackBarContent extends HookWidget {
       liveRegion: true,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: RoughBoxDecoration(
-        shape: RoughBoxShape.rectangle,
-        borderStyle: RoughDrawingStyle(width: 1.5, color: theme.borderColor),
-        fillStyle: RoughDrawingStyle(color: theme.fillColor),
-        filler: SolidFiller(FillerConfig.build()),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: DefaultTextStyle(
-              style: TextStyle(color: theme.textColor, fontSize: 14),
-              child: child,
+        decoration: RoughBoxDecoration(
+          shape: RoughBoxShape.rectangle,
+          borderStyle: RoughDrawingStyle(width: 1.5, color: theme.borderColor),
+          fillStyle: RoughDrawingStyle(color: theme.fillColor),
+          filler: SolidFiller(FillerConfig.build()),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: DefaultTextStyle(
+                style: TextStyle(color: theme.textColor, fontSize: 14),
+                child: child,
+              ),
             ),
-          ),
-          if (action != null) ...[const SizedBox(width: 8), action!],
-        ],
-      ),
+            if (action != null) ...[const SizedBox(width: 8), action!],
+          ],
+        ),
       ),
     );
   }

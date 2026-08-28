@@ -31,8 +31,7 @@ class SingleIconBenchPage extends HookWidget {
         if (runtimeTimer.isCollecting || precomputedTimer.isCollecting) {
           void scheduleRebuild() {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (runtimeTimer.isCollecting ||
-                  precomputedTimer.isCollecting) {
+              if (runtimeTimer.isCollecting || precomputedTimer.isCollecting) {
                 rebuildTicker.value++;
                 scheduleRebuild();
               }
@@ -95,21 +94,21 @@ class SingleIconBenchPage extends HookWidget {
                 FilledButton(
                   onPressed: activeTab.value == 0
                       ? (runtimeTimer.isCollecting
-                          ? null
-                          : runtimeTimer.startCollecting)
+                            ? null
+                            : runtimeTimer.startCollecting)
                       : (precomputedTimer.isCollecting
-                          ? null
-                          : precomputedTimer.startCollecting),
+                            ? null
+                            : precomputedTimer.startCollecting),
                   child: Text(
                     activeTab.value == 0
                         ? (runtimeTimer.isCollecting
-                            ? 'Collecting... '
-                                '(${runtimeTimer.timings.length}/100)'
-                            : 'Measure Runtime')
+                              ? 'Collecting... '
+                                    '(${runtimeTimer.timings.length}/100)'
+                              : 'Measure Runtime')
                         : (precomputedTimer.isCollecting
-                            ? 'Collecting... '
-                                '(${precomputedTimer.timings.length}/100)'
-                            : 'Measure Pre-computed'),
+                              ? 'Collecting... '
+                                    '(${precomputedTimer.timings.length}/100)'
+                              : 'Measure Pre-computed'),
                   ),
                 ),
                 const SizedBox(width: 8),

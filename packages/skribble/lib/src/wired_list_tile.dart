@@ -41,59 +41,62 @@ class WiredListTile extends HookWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-        InkWell(
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Row(
-              children: [
-                if (leading != null) ...[leading!, const SizedBox(width: 16)],
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (title != null)
-                        DefaultTextStyle(
-                          style: TextStyle(
-                            color: theme.textColor,
-                            fontSize: 16,
+          InkWell(
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                children: [
+                  if (leading != null) ...[leading!, const SizedBox(width: 16)],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (title != null)
+                          DefaultTextStyle(
+                            style: TextStyle(
+                              color: theme.textColor,
+                              fontSize: 16,
+                            ),
+                            child: title!,
                           ),
-                          child: title!,
-                        ),
-                      if (subtitle != null) ...[
-                        const SizedBox(height: 2),
-                        DefaultTextStyle(
-                          style: TextStyle(
-                            color: theme.disabledTextColor,
-                            fontSize: 14,
+                        if (subtitle != null) ...[
+                          const SizedBox(height: 2),
+                          DefaultTextStyle(
+                            style: TextStyle(
+                              color: theme.disabledTextColor,
+                              fontSize: 14,
+                            ),
+                            child: subtitle!,
                           ),
-                          child: subtitle!,
-                        ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
-                ),
-                if (trailing != null) ...[const SizedBox(width: 16), trailing!],
-              ],
-            ),
-          ),
-        ),
-        if (showDivider)
-          SizedBox(
-            height: 1,
-            child: WiredCanvas(
-              painter: WiredLineBase(
-                x1: 0,
-                y1: 0,
-                x2: double.infinity,
-                y2: 0,
-                borderColor: theme.borderColor,
+                  if (trailing != null) ...[
+                    const SizedBox(width: 16),
+                    trailing!,
+                  ],
+                ],
               ),
-              fillerType: RoughFilter.noFiller,
             ),
           ),
-      ],
+          if (showDivider)
+            SizedBox(
+              height: 1,
+              child: WiredCanvas(
+                painter: WiredLineBase(
+                  x1: 0,
+                  y1: 0,
+                  x2: double.infinity,
+                  y2: 0,
+                  borderColor: theme.borderColor,
+                ),
+                fillerType: RoughFilter.noFiller,
+              ),
+            ),
+        ],
       ),
     );
   }

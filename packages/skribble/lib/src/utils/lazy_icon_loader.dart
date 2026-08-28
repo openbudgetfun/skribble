@@ -36,8 +36,8 @@ class LazyIconLoader {
   LazyIconLoader({
     required Map<int, WiredSvgIconData> iconMap,
     this.maxCacheSize = 100,
-  })  : _iconMap = iconMap,
-        _cache = LinkedHashMap<int, WiredSvgIconData>();
+  }) : _iconMap = iconMap,
+       _cache = LinkedHashMap<int, WiredSvgIconData>();
 
   /// Gets an icon by its codepoint.
   ///
@@ -103,9 +103,7 @@ class LazyIconLoader {
   ///
   /// [codePoints] - The codepoints to preload.
   void preload(List<int> codePoints) {
-    for (final codePoint in codePoints) {
-      getIcon(codePoint);
-    }
+    codePoints.forEach(getIcon);
   }
 
   /// Gets cache statistics.
@@ -155,8 +153,8 @@ class PaginatedIconLoader {
   PaginatedIconLoader({
     required Map<int, WiredSvgIconData> iconMap,
     this.pageSize = 50,
-  })  : _iconMap = iconMap,
-        _codePoints = iconMap.keys.toList()..sort();
+  }) : _iconMap = iconMap,
+       _codePoints = iconMap.keys.toList()..sort();
 
   /// Gets the total number of pages.
   int get totalPages => (_codePoints.length / pageSize).ceil();

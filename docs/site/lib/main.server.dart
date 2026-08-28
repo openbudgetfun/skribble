@@ -18,29 +18,22 @@ import 'components/site_sidebar.dart';
 // This file is generated automatically by Jaspr, do not remove or edit.
 import 'main.server.options.dart';
 
-const _rawDocsBasePath = String.fromEnvironment('DOCS_BASE_PATH', defaultValue: '/');
+const _rawDocsBasePath = String.fromEnvironment(
+  'DOCS_BASE_PATH',
+  defaultValue: '/',
+);
 
 void main() {
   final docsBasePath = normalizeBasePath(_rawDocsBasePath);
 
-  Jaspr.initializeApp(
-    options: defaultServerOptions,
-  );
+  Jaspr.initializeApp(options: defaultServerOptions);
 
   runApp(
     ContentApp(
       templateEngine: MustacheTemplateEngine(),
-      parsers: [
-        MarkdownParser(),
-      ],
-      extensions: [
-        HeadingAnchorsExtension(),
-        TableOfContentsExtension(),
-      ],
-      components: [
-        Callout(),
-        Image(zoom: true),
-      ],
+      parsers: [MarkdownParser()],
+      extensions: [HeadingAnchorsExtension(), TableOfContentsExtension()],
+      components: [Callout(), Image(zoom: true)],
       layouts: [
         SiteDocsLayout(
           basePath: docsBasePath,
@@ -56,11 +49,15 @@ void main() {
         ),
       ],
       theme: ContentTheme(
-        primary: ThemeColor(ThemeColors.violet.$600, dark: ThemeColors.violet.$300),
-        background: ThemeColor(ThemeColors.stone.$50, dark: ThemeColors.stone.$950),
-        colors: [
-          ContentColors.quoteBorders.apply(ThemeColors.violet.$500),
-        ],
+        primary: ThemeColor(
+          ThemeColors.violet.$600,
+          dark: ThemeColors.violet.$300,
+        ),
+        background: ThemeColor(
+          ThemeColors.stone.$50,
+          dark: ThemeColors.stone.$950,
+        ),
+        colors: [ContentColors.quoteBorders.apply(ThemeColors.violet.$500)],
       ),
     ),
   );

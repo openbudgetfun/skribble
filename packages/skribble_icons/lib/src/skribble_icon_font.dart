@@ -17,6 +17,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 /// )
 /// ```
 class SkribbleIconFont extends HookWidget {
+  /// Creates a font-based Skribble icon.
+  const SkribbleIconFont({
+    required this.icon,
+    super.key,
+    this.size,
+    this.color,
+    this.semanticLabel,
+  });
+
   /// The icon data containing the codepoint and font information.
   final SkribbleIconFontData icon;
 
@@ -28,15 +37,6 @@ class SkribbleIconFont extends HookWidget {
 
   /// Semantic label for accessibility.
   final String? semanticLabel;
-
-  /// Creates a font-based Skribble icon.
-  const SkribbleIconFont({
-    super.key,
-    required this.icon,
-    this.size,
-    this.color,
-    this.semanticLabel,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class SkribbleIconFont extends HookWidget {
               fontFamily: icon.fontFamily,
               fontSize: effectiveSize,
               color: effectiveColor,
-              height: 1.0,
+              height: 1,
             ),
           ),
         ),
@@ -70,7 +70,15 @@ class SkribbleIconFont extends HookWidget {
 ///
 /// Contains the codepoint and font family information needed
 /// to render an icon from a TTF icon font.
+@immutable
 class SkribbleIconFontData {
+  /// Creates icon font data.
+  const SkribbleIconFontData(
+    this.codePoint, {
+    this.fontFamily = 'SkribbleIcons',
+    this.fontPackage,
+  });
+
   /// The Unicode codepoint for the icon glyph.
   final int codePoint;
 
@@ -79,13 +87,6 @@ class SkribbleIconFontData {
 
   /// The font package containing the icon font file.
   final String? fontPackage;
-
-  /// Creates icon font data.
-  const SkribbleIconFontData(
-    this.codePoint, {
-    this.fontFamily = 'SkribbleIcons',
-    this.fontPackage,
-  });
 
   @override
   bool operator ==(Object other) =>

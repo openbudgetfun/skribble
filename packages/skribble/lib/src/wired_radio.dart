@@ -43,47 +43,47 @@ class WiredRadio<T> extends HookWidget {
       onTap: () => onChanged?.call(value),
       child: buildWiredElement(
         child: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-            height: 48.0,
-            width: 48.0,
-            child: WiredCanvas(
-              painter: WiredCircleBase(
-                diameterRatio: .7,
-                borderColor: theme.borderColor,
-              ),
-              fillerType: RoughFilter.noFiller,
-            ),
-          ),
-          if (isSelected)
+          alignment: Alignment.center,
+          children: [
             SizedBox(
-              height: 24.0,
-              width: 24.0,
+              height: 48.0,
+              width: 48.0,
               child: WiredCanvas(
                 painter: WiredCircleBase(
                   diameterRatio: .7,
-                  fillColor: theme.textColor,
                   borderColor: theme.borderColor,
                 ),
-                fillerType: RoughFilter.hachureFiller,
-                fillerConfig: FillerConfig.build(hachureGap: 1.0),
+                fillerType: RoughFilter.noFiller,
               ),
             ),
-          SizedBox(
-            height: 48.0,
-            width: 48.0,
-            child: Radio<T>(
-              value: value,
-              groupValue: groupValue,
-              fillColor: WidgetStateProperty.all(Colors.transparent),
-              onChanged: (newValue) {
-                onChanged?.call(newValue);
-              },
+            if (isSelected)
+              SizedBox(
+                height: 24.0,
+                width: 24.0,
+                child: WiredCanvas(
+                  painter: WiredCircleBase(
+                    diameterRatio: .7,
+                    fillColor: theme.textColor,
+                    borderColor: theme.borderColor,
+                  ),
+                  fillerType: RoughFilter.hachureFiller,
+                  fillerConfig: FillerConfig.build(hachureGap: 1.0),
+                ),
+              ),
+            SizedBox(
+              height: 48.0,
+              width: 48.0,
+              child: Radio<T>(
+                value: value,
+                groupValue: groupValue,
+                fillColor: WidgetStateProperty.all(Colors.transparent),
+                onChanged: (newValue) {
+                  onChanged?.call(newValue);
+                },
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }

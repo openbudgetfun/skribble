@@ -35,9 +35,9 @@ void main() {
     final sw = Stopwatch()..start();
     for (var i = 0; i < cycles; i++) {
       // Mark the render object as needing repaint
-      tester.allRenderObjects
-          .whereType<RenderCustomPaint>()
-          .forEach((r) => r.markNeedsPaint());
+      tester.allRenderObjects.whereType<RenderCustomPaint>().forEach(
+        (r) => r.markNeedsPaint(),
+      );
       await tester.pump(const Duration(milliseconds: 16));
     }
     sw.stop();
@@ -256,7 +256,9 @@ class _PrecomputedIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox.square(
       dimension: size,
-      child: CustomPaint(painter: _PrecomputedPainter(data: data, size: size)),
+      child: CustomPaint(
+        painter: _PrecomputedPainter(data: data, size: size),
+      ),
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('JitterAlgorithm', () {
     test('produces deterministic values for same inputs', () {
-      final jitter = JitterAlgorithm(jitterAmount: 12.0);
+      const jitter = JitterAlgorithm();
 
       final value1 = jitter.jitterValue(65, 0); // seed=65 (letter 'A')
       final value2 = jitter.jitterValue(65, 0);
@@ -13,7 +13,7 @@ void main() {
     });
 
     test('produces different values for different seeds', () {
-      final jitter = JitterAlgorithm(jitterAmount: 12.0);
+      const jitter = JitterAlgorithm();
 
       final value1 = jitter.jitterValue(65, 0); // 'A'
       final value2 = jitter.jitterValue(66, 0); // 'B'
@@ -22,7 +22,7 @@ void main() {
     });
 
     test('produces different values for different indices', () {
-      final jitter = JitterAlgorithm(jitterAmount: 12.0);
+      const jitter = JitterAlgorithm();
 
       final value1 = jitter.jitterValue(65, 0);
       final value2 = jitter.jitterValue(65, 1);
@@ -31,7 +31,7 @@ void main() {
     });
 
     test('respects jitter amount bounds', () {
-      final jitter = JitterAlgorithm(jitterAmount: 10.0);
+      const jitter = JitterAlgorithm(jitterAmount: 10);
 
       // Test multiple values to ensure they're within bounds
       for (var seed = 0; seed < 100; seed++) {
@@ -44,12 +44,12 @@ void main() {
     });
 
     test('applies jitter only to on-curve points', () {
-      final jitter = JitterAlgorithm(jitterAmount: 12.0);
+      const jitter = JitterAlgorithm();
 
       final points = [
-        Point(x: 100, y: 100, isOnCurve: true),
-        Point(x: 150, y: 150, isOnCurve: false), // Control point
-        Point(x: 200, y: 200, isOnCurve: true),
+        const Point(x: 100, y: 100, isOnCurve: true),
+        const Point(x: 150, y: 150, isOnCurve: false), // Control point
+        const Point(x: 200, y: 200, isOnCurve: true),
       ];
 
       final result = jitter.applyJitter(points, 65);
@@ -73,14 +73,14 @@ void main() {
     });
 
     test('preserves point count after jitter', () {
-      final jitter = JitterAlgorithm(jitterAmount: 12.0);
+      const jitter = JitterAlgorithm();
 
       final points = [
-        Point(x: 0, y: 0, isOnCurve: true),
-        Point(x: 50, y: 50, isOnCurve: false),
-        Point(x: 100, y: 0, isOnCurve: true),
-        Point(x: 150, y: -50, isOnCurve: false),
-        Point(x: 200, y: 0, isOnCurve: true),
+        const Point(x: 0, y: 0, isOnCurve: true),
+        const Point(x: 50, y: 50, isOnCurve: false),
+        const Point(x: 100, y: 0, isOnCurve: true),
+        const Point(x: 150, y: -50, isOnCurve: false),
+        const Point(x: 200, y: 0, isOnCurve: true),
       ];
 
       final result = jitter.applyJitter(points, 42);
@@ -91,7 +91,7 @@ void main() {
 
   group('Point', () {
     test('stores coordinates and curve status', () {
-      final point = Point(x: 123.45, y: 678.90, isOnCurve: true);
+      const point = Point(x: 123.45, y: 678.90, isOnCurve: true);
 
       expect(point.x, equals(123.45));
       expect(point.y, equals(678.90));
@@ -99,7 +99,7 @@ void main() {
     });
 
     test('toString returns readable format', () {
-      final point = Point(x: 100, y: 200, isOnCurve: false);
+      const point = Point(x: 100, y: 200, isOnCurve: false);
 
       expect(point.toString(), equals('Point(100.0, 200.0, onCurve: false)'));
     });

@@ -28,7 +28,9 @@ class IconOptimizer {
   ///
   /// Returns a new [WiredSvgIconData] with optimized primitives.
   WiredSvgIconData optimize(WiredSvgIconData iconData) {
-    final optimizedPrimitives = iconData.primitives.map(_optimizePrimitive).toList();
+    final optimizedPrimitives = iconData.primitives
+        .map(_optimizePrimitive)
+        .toList();
 
     return WiredSvgIconData(
       width: iconData.width,
@@ -135,8 +137,7 @@ class IconOptimizer {
       else if (char == ' ' || char == ',') {
         buffer.write(' ');
         i++;
-      }
-      else {
+      } else {
         buffer.write(char);
         i++;
       }

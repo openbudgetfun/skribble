@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -132,9 +134,11 @@ class WiredCustomRefreshIndicator extends HookWidget {
             notification.overscroll < -50 &&
             !isRefreshing.value) {
           isRefreshing.value = true;
-          onRefresh().then((_) {
-            isRefreshing.value = false;
-          });
+          unawaited(
+            onRefresh().then((_) {
+              isRefreshing.value = false;
+            }),
+          );
           return true;
         }
         return false;

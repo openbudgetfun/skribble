@@ -172,7 +172,8 @@ void main() {
         expect(
           kSkribbleCustomIconsRough,
           contains(entry.value),
-          reason: '"${entry.key}" codepoint '
+          reason:
+              '"${entry.key}" codepoint '
               '0x${entry.value.toRadixString(16)} missing from rough map',
         );
       }
@@ -245,7 +246,10 @@ void main() {
       final iconData = kSkribbleCustomIconsRough.values.first;
       await tester.pumpWidget(
         MaterialApp(
-          home: WiredTheme(data: WiredThemeData(), child: SkribbleIcon(data: iconData)),
+          home: WiredTheme(
+            data: WiredThemeData(),
+            child: SkribbleIcon(data: iconData),
+          ),
         ),
       );
       expect(find.byType(SkribbleIcon), findsOneWidget);
@@ -256,7 +260,10 @@ void main() {
       final iconData = kSkribbleCustomIconsRough.values.first;
       await tester.pumpWidget(
         MaterialApp(
-          home: WiredTheme(data: WiredThemeData(), child: SkribbleIcon(data: iconData, size: 48)),
+          home: WiredTheme(
+            data: WiredThemeData(),
+            child: SkribbleIcon(data: iconData, size: 48),
+          ),
         ),
       );
 

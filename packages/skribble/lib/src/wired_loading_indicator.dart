@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class WiredLoadingIndicator extends HookWidget {
     );
 
     useEffect(() {
-      controller.repeat();
+      unawaited(controller.repeat());
       return null;
     }, []);
 
@@ -94,10 +95,10 @@ class _WiredSpinnerPainter extends CustomPainter {
 
     // Draw incomplete circle with hand-drawn effect
     final path = Path();
-    final segments = 12;
-    final segmentAngle = 2 * math.pi / segments;
+    const segments = 12;
+    const segmentAngle = 2 * math.pi / segments;
     final startAngle = progress * 2 * math.pi;
-    final sweepAngle = math.pi * 1.5; // 270 degrees
+    const sweepAngle = math.pi * 1.5; // 270 degrees
 
     for (int i = 0; i <= segments; i++) {
       final angle = startAngle + (i * segmentAngle);
@@ -190,7 +191,7 @@ class WiredCircularProgressIndicator extends HookWidget {
 
     useEffect(() {
       if (value == null) {
-        controller.repeat();
+        unawaited(controller.repeat());
       }
       return null;
     }, [value]);
@@ -253,8 +254,8 @@ class _WiredCircularProgressPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     final path = Path();
-    final segments = 24;
-    final segmentAngle = 2 * math.pi / segments;
+    const segments = 24;
+    const segmentAngle = 2 * math.pi / segments;
     final sweepAngle = isIndeterminate ? math.pi * 1.5 : 2 * math.pi * value;
     final startAngle = isIndeterminate ? value * 2 * math.pi : -math.pi / 2;
 

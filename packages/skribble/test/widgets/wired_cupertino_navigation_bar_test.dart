@@ -87,7 +87,9 @@ void main() {
       );
     });
 
-    testWidgets('supports custom padding and border parameters', (tester) async {
+    testWidgets('supports custom padding and border parameters', (
+      tester,
+    ) async {
       const customPadding = EdgeInsetsDirectional.only(start: 20, end: 12);
       await pumpSubject(
         tester,
@@ -111,7 +113,9 @@ void main() {
       expect(find.text('/'), findsOneWidget);
     });
 
-    testWidgets('does not auto-imply middle title when disabled', (tester) async {
+    testWidgets('does not auto-imply middle title when disabled', (
+      tester,
+    ) async {
       await pumpSubject(tester, automaticallyImplyMiddle: false);
       expect(find.text('/'), findsNothing);
     });
@@ -128,7 +132,9 @@ void main() {
       expect(find.text('Done'), findsOneWidget);
     });
 
-    testWidgets('auto-implied back button pops when route can pop', (tester) async {
+    testWidgets('auto-implied back button pops when route can pop', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Builder(
@@ -171,7 +177,9 @@ void main() {
       expect(find.text('Details page'), findsNothing);
     });
 
-    testWidgets('does not auto-imply back button when disabled', (tester) async {
+    testWidgets('does not auto-imply back button when disabled', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Builder(

@@ -38,8 +38,7 @@ class GridBenchPage extends HookWidget {
         if (runtimeTimer.isCollecting || precomputedTimer.isCollecting) {
           void scheduleRebuild() {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (runtimeTimer.isCollecting ||
-                  precomputedTimer.isCollecting) {
+              if (runtimeTimer.isCollecting || precomputedTimer.isCollecting) {
                 rebuildTicker.value++;
                 scheduleRebuild();
               }
@@ -173,7 +172,8 @@ class GridBenchPage extends HookWidget {
       bool isCollecting,
       VoidCallback startCollecting,
       VoidCallback stopCollecting,
-    }) timer,
+    })
+    timer,
     String label,
   ) {
     if (timer.isCollecting) {

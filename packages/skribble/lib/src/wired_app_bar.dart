@@ -56,7 +56,7 @@ class WiredAppBar extends HookWidget implements PreferredSizeWidget {
                   )
                 else
                   const Spacer(),
-                if (actions != null) ...actions!,
+                ...?actions,
               ],
             ),
           ),

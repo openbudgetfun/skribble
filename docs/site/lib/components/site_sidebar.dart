@@ -18,17 +18,27 @@ class SiteSidebar extends StatelessComponent {
       currentRoute: link(context.page.url),
       groups: [
         SidebarGroup(
-          links: [
-            SidebarLink(text: 'Overview', href: link('/')),
-          ],
+          links: [SidebarLink(text: 'Overview', href: link('/'))],
         ),
         SidebarGroup(
           title: 'Getting Started',
           links: [
-            SidebarLink(text: 'Installation', href: link('/getting-started/installation')),
-            SidebarLink(text: 'Quick Start', href: link('/getting-started/quick-start')),
-            SidebarLink(text: 'Your First Widget', href: link('/getting-started/first-widget')),
-            SidebarLink(text: 'Theming', href: link('/getting-started/theming')),
+            SidebarLink(
+              text: 'Installation',
+              href: link('/getting-started/installation'),
+            ),
+            SidebarLink(
+              text: 'Quick Start',
+              href: link('/getting-started/quick-start'),
+            ),
+            SidebarLink(
+              text: 'Your First Widget',
+              href: link('/getting-started/first-widget'),
+            ),
+            SidebarLink(
+              text: 'Theming',
+              href: link('/getting-started/theming'),
+            ),
           ],
         ),
         SidebarGroup(
@@ -39,7 +49,10 @@ class SiteSidebar extends StatelessComponent {
             SidebarLink(text: 'Theme System', href: link('/core/theme-system')),
             SidebarLink(text: 'Hooks & State', href: link('/core/hooks')),
             SidebarLink(text: 'Painters', href: link('/core/painters')),
-            SidebarLink(text: 'Material Bridge', href: link('/core/material-bridge')),
+            SidebarLink(
+              text: 'Material Bridge',
+              href: link('/core/material-bridge'),
+            ),
           ],
         ),
         SidebarGroup(
@@ -57,10 +70,22 @@ class SiteSidebar extends StatelessComponent {
         SidebarGroup(
           title: 'Guides',
           links: [
-            SidebarLink(text: 'Build a Custom Widget', href: link('/guides/custom-widgets')),
-            SidebarLink(text: 'Custom Painters', href: link('/guides/custom-painters')),
-            SidebarLink(text: 'Rough Decorations', href: link('/guides/rough-decorations')),
-            SidebarLink(text: 'Custom Icon Sets', href: link('/guides/custom-icons')),
+            SidebarLink(
+              text: 'Build a Custom Widget',
+              href: link('/guides/custom-widgets'),
+            ),
+            SidebarLink(
+              text: 'Custom Painters',
+              href: link('/guides/custom-painters'),
+            ),
+            SidebarLink(
+              text: 'Rough Decorations',
+              href: link('/guides/rough-decorations'),
+            ),
+            SidebarLink(
+              text: 'Custom Icon Sets',
+              href: link('/guides/custom-icons'),
+            ),
             SidebarLink(text: 'Testing Widgets', href: link('/guides/testing')),
             SidebarLink(text: 'Screenshots', href: link('/guides/screenshots')),
           ],
@@ -68,9 +93,15 @@ class SiteSidebar extends StatelessComponent {
         SidebarGroup(
           title: 'Reference',
           links: [
-            SidebarLink(text: 'API Overview', href: link('/reference/api-overview')),
+            SidebarLink(
+              text: 'API Overview',
+              href: link('/reference/api-overview'),
+            ),
             SidebarLink(text: 'Agents', href: link('/reference/agents')),
-            SidebarLink(text: 'Contributing', href: link('/reference/contributing')),
+            SidebarLink(
+              text: 'Contributing',
+              href: link('/reference/contributing'),
+            ),
           ],
         ),
       ],

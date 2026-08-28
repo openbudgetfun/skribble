@@ -218,7 +218,9 @@ void main() {
       expect(find.byType(ClipOval), findsOneWidget);
     });
 
-    testWidgets('falls back to child when background image fails', (tester) async {
+    testWidgets('falls back to child when background image fails', (
+      tester,
+    ) async {
       await pumpSubject(
         tester,
         backgroundImage: const _FailingImageProvider(),

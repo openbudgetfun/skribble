@@ -122,7 +122,8 @@ void main() {
         expect(
           kSkribbleDynamicIcons,
           contains(entry.value),
-          reason: '"${entry.key}" codepoint '
+          reason:
+              '"${entry.key}" codepoint '
               '0x${entry.value.toRadixString(16)} missing from dynamic map',
         );
       }
@@ -187,7 +188,10 @@ void main() {
       final iconData = kSkribbleDynamicIcons.values.first;
       await tester.pumpWidget(
         MaterialApp(
-          home: WiredTheme(data: WiredThemeData(), child: SkribbleDynamicIcon(data: iconData)),
+          home: WiredTheme(
+            data: WiredThemeData(),
+            child: SkribbleDynamicIcon(data: iconData),
+          ),
         ),
       );
       expect(find.byType(SkribbleDynamicIcon), findsOneWidget);

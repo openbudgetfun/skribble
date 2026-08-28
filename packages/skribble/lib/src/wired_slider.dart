@@ -49,8 +49,14 @@ class WiredSlider extends HookWidget {
       label: semanticLabel,
       slider: true,
       value: currentSliderValue.value.toStringAsFixed(1),
-      increasedValue: (currentSliderValue.value + (max - min) / (divisions ?? 10)).clamp(min, max).toStringAsFixed(1),
-      decreasedValue: (currentSliderValue.value - (max - min) / (divisions ?? 10)).clamp(min, max).toStringAsFixed(1),
+      increasedValue:
+          (currentSliderValue.value + (max - min) / (divisions ?? 10))
+              .clamp(min, max)
+              .toStringAsFixed(1),
+      decreasedValue:
+          (currentSliderValue.value - (max - min) / (divisions ?? 10))
+              .clamp(min, max)
+              .toStringAsFixed(1),
       onIncrease: () {
         final step = (max - min) / (divisions ?? 10);
         final newValue = (currentSliderValue.value + step).clamp(min, max);
@@ -68,59 +74,59 @@ class WiredSlider extends HookWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-        SizedBox(
-          height: 1,
-          width: double.infinity,
-          child: WiredCanvas(
-            painter: WiredLineBase(
-              x1: 0,
-              y1: 0,
-              x2: double.infinity,
-              y2: 0,
-              strokeWidth: 2,
-              borderColor: theme.borderColor,
-            ),
-            fillerType: RoughFilter.hatchFiller,
-          ),
-        ),
-        Positioned(
-          left: _getWidth(context) * currentSliderValue.value / max - 12,
-          child: SizedBox(
-            height: 24.0,
-            width: 24.0,
+          SizedBox(
+            height: 1,
+            width: double.infinity,
             child: WiredCanvas(
-              painter: WiredCircleBase(
-                diameterRatio: .7,
-                fillColor: theme.textColor,
+              painter: WiredLineBase(
+                x1: 0,
+                y1: 0,
+                x2: double.infinity,
+                y2: 0,
+                strokeWidth: 2,
                 borderColor: theme.borderColor,
               ),
-              fillerType: RoughFilter.hachureFiller,
-              fillerConfig: FillerConfig.build(hachureGap: 1.0),
+              fillerType: RoughFilter.hatchFiller,
             ),
           ),
-        ),
-        SliderTheme(
-          data: SliderThemeData(trackShape: CustomTrackShape()),
-          child: Slider(
-            value: currentSliderValue.value,
-            min: min,
-            max: max,
-            activeColor: Colors.transparent,
-            inactiveColor: Colors.transparent,
-            divisions: divisions,
-            label: label,
-            onChanged: (value) {
-              bool result = false;
-              if (onChanged != null) {
-                result = onChanged!(value);
-              }
-
-              if (result) {
-                currentSliderValue.value = value;
-              }
-            },
+          Positioned(
+            left: _getWidth(context) * currentSliderValue.value / max - 12,
+            child: SizedBox(
+              height: 24.0,
+              width: 24.0,
+              child: WiredCanvas(
+                painter: WiredCircleBase(
+                  diameterRatio: .7,
+                  fillColor: theme.textColor,
+                  borderColor: theme.borderColor,
+                ),
+                fillerType: RoughFilter.hachureFiller,
+                fillerConfig: FillerConfig.build(hachureGap: 1.0),
+              ),
+            ),
           ),
-        ),
+          SliderTheme(
+            data: SliderThemeData(trackShape: CustomTrackShape()),
+            child: Slider(
+              value: currentSliderValue.value,
+              min: min,
+              max: max,
+              activeColor: Colors.transparent,
+              inactiveColor: Colors.transparent,
+              divisions: divisions,
+              label: label,
+              onChanged: (value) {
+                bool result = false;
+                if (onChanged != null) {
+                  result = onChanged!(value);
+                }
+
+                if (result) {
+                  currentSliderValue.value = value;
+                }
+              },
+            ),
+          ),
         ],
       ),
     );

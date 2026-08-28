@@ -19,7 +19,12 @@ class WiredTimePicker extends HookWidget {
   /// Optional semantic label for accessibility.
   final String? semanticLabel;
 
-  const WiredTimePicker({super.key, this.initialTime, this.onTimeSelected, this.semanticLabel});
+  const WiredTimePicker({
+    super.key,
+    this.initialTime,
+    this.onTimeSelected,
+    this.semanticLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,54 +38,57 @@ class WiredTimePicker extends HookWidget {
         child: SizedBox(
           width: 280,
           height: 340,
-        child: Column(
-          children: [
-            // Time display
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _TimeField(
-                    value: time.value.hour,
-                    onChanged: (h) {
-                      time.value = TimeOfDay(
-                        hour: h,
-                        minute: time.value.minute,
-                      );
-                      onTimeSelected?.call(time.value);
-                    },
-                    max: 23,
-                  ),
-                  Text(
-                    ' : ',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: theme.textColor,
-                    ),
-                  ),
-                  _TimeField(
-                    value: time.value.minute,
-                    onChanged: (m) {
-                      time.value = TimeOfDay(hour: time.value.hour, minute: m);
-                      onTimeSelected?.call(time.value);
-                    },
-                    max: 59,
-                  ),
-                ],
-              ),
-            ),
-            // Clock face
-            Expanded(
-              child: Padding(
+          child: Column(
+            children: [
+              // Time display
+              Padding(
                 padding: const EdgeInsets.all(16),
-                child: _ClockFace(time: time.value),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _TimeField(
+                      value: time.value.hour,
+                      onChanged: (h) {
+                        time.value = TimeOfDay(
+                          hour: h,
+                          minute: time.value.minute,
+                        );
+                        onTimeSelected?.call(time.value);
+                      },
+                      max: 23,
+                    ),
+                    Text(
+                      ' : ',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: theme.textColor,
+                      ),
+                    ),
+                    _TimeField(
+                      value: time.value.minute,
+                      onChanged: (m) {
+                        time.value = TimeOfDay(
+                          hour: time.value.hour,
+                          minute: m,
+                        );
+                        onTimeSelected?.call(time.value);
+                      },
+                      max: 59,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              // Clock face
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: _ClockFace(time: time.value),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

@@ -1,0 +1,13 @@
+name: opentype_dart
+description: >-
+  Read and write OpenType fonts using Dart. Vendored copy of
+  opentype_dart 0.0.1 (https://github.com/wasabia/opentype) with the
+  unused `package:flutter/services.dart` import and Flutter SDK
+  dependencies removed so it runs as pure Dart on the VM.
+version: 0.0.1+skribble.1
+
+environment:
+  sdk: ^3.0.0
+
+# The original package ships no tests that run without Flutter; the vendored
+# `test/` directory is kept for reference but is not exercised here.

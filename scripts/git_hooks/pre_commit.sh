@@ -22,9 +22,9 @@ if [[ ${#staged_files[@]} -eq 0 ]]; then
   exit 0
 fi
 
-mapfile -t dart_files < <(printf '%s\n' "${staged_files[@]}" | rg '\.dart$' || true)
+mapfile -t dart_files < <(printf '%s\n' "${staged_files[@]}" | rg '\.dart$' | rg -v '(^third_party/|/generated/|\.g\.dart$)' || true)
 mapfile -t format_files < <(
-  printf '%s\n' "${staged_files[@]}" | rg '\.(dart|json|jsonc|md|markdown|toml|ya?ml|nix|sh|bash)$' || true
+  printf '%s\n' "${staged_files[@]}" | rg '\.(dart|json|jsonc|md|markdown|toml|ya?ml|nix|sh|bash)$' | rg -v '(^third_party/|/generated/|\.g\.dart$)' || true
 )
 
 if [[ ${#format_files[@]} -gt 0 ]]; then
@@ -50,6 +50,11 @@ if [[ ${#dart_files[@]} -gt 0 ]]; then
   )
 
   for package_dir in "${package_dirs[@]}"; do
+    # Vendored third-party code must not be auto-fixed by dart fix; the
+    # analysis server's rewrites corrupt unported/upstream code.
+    if [[ "$package_dir" == third_party/* ]]; then
+      continue
+    fi
     echo "pre-commit: applying dart fixes in $package_dir"
     (
       cd "$REPO_ROOT/$package_dir"

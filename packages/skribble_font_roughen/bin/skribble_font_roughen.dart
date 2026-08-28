@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:skribble_font_roughen/skribble_font_roughen.dart';
 
+// This is a CLI entry point, so prints are part of the user interface.
+// ignore_for_file: avoid_print
+
 /// CLI entry point for the Skribble font roughening tool.
 ///
 /// Usage:
-///   dart run skribble_font_roughen <input.ttf> <output.ttf> [options]
+///   dart run skribble_font_roughen `<input.ttf> <output.ttf>` `[options]`
 ///
 /// Options:
 ///   --jitter, -j    Maximum jitter amount in font units (default: 12)
@@ -72,7 +75,10 @@ void main(List<String> arguments) async {
     print('  Variant: ${result.variant.name}');
     print('  Jitter: ${result.jitterAmount}');
     print('  Glyphs processed: ${result.glyphCount}');
-  } catch (e) {
+  }
+  // Top-level CLI handler: any failure exits non-zero with a message.
+  // ignore: avoid_catches_without_on_clauses
+  catch (e) {
     stderr.writeln('Error: $e');
     exit(1);
   }

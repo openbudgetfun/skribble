@@ -30,8 +30,7 @@ class EditPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final existingNote =
-        ModalRoute.of(context)?.settings.arguments as Note?;
+    final existingNote = ModalRoute.of(context)?.settings.arguments as Note?;
     final isNew = existingNote == null;
 
     final titleController = useTextEditingController(
@@ -104,8 +103,9 @@ class EditPage extends HookWidget {
                     label: Text(
                       _colorLabels[index],
                       style: TextStyle(
-                        fontWeight:
-                            isSelected ? FontWeight.bold : FontWeight.normal,
+                        fontWeight: isSelected
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                       ),
                     ),
                   ),

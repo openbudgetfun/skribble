@@ -7,7 +7,7 @@ void main() {
       final stopwatch = Stopwatch()..start();
 
       // Test looking up 1000 emoji by unicode
-      for (int i = 0; i < 1000; i++) {
+      for (var i = 0; i < 1000; i++) {
         final codePoint = 0x1F600 + (i % 100); // Smileys range
         lookupSkribbleEmojiByUnicode(codePoint);
       }
@@ -30,7 +30,7 @@ void main() {
         'fire',
       ];
 
-      for (int i = 0; i < 1000; i++) {
+      for (var i = 0; i < 1000; i++) {
         lookupSkribbleEmojiByName(names[i % names.length]);
       }
 
@@ -49,8 +49,11 @@ void main() {
       // Verify codepoints map matches main map
       for (final entry in kSkribbleEmojiCodePoints.entries) {
         final emoji = kSkribbleEmoji[entry.value];
-        expect(emoji, isNotNull,
-            reason: 'Codepoint ${entry.key} points to missing emoji');
+        expect(
+          emoji,
+          isNotNull,
+          reason: 'Codepoint ${entry.key} points to missing emoji',
+        );
       }
     });
   });
