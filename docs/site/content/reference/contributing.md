@@ -7,7 +7,7 @@ Thanks for your interest in contributing to Skribble! This guide covers the work
 
 ## Prerequisites
 
-- [Flutter SDK](https://flutter.dev/docs/get-started/install) >= 3.41
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) >= 3.47
 - [FVM](https://fvm.app/) for Flutter version management
 - (Optional) [devenv](https://devenv.sh/) — the CI uses it; you can use plain Flutter locally
 

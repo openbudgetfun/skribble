@@ -31,13 +31,12 @@ class LazyIconLoader {
 
   /// Creates a lazy icon loader.
   ///
-  /// [iconMap] - The full icon map to load from.
+  /// [_iconMap] - The full icon map to load from.
   /// [maxCacheSize] - Maximum number of icons to cache (default: 100).
   LazyIconLoader({
-    required Map<int, WiredSvgIconData> iconMap,
+    required this._iconMap,
     this.maxCacheSize = 100,
-  }) : _iconMap = iconMap,
-       _cache = LinkedHashMap<int, WiredSvgIconData>();
+  }) : _cache = LinkedHashMap<int, WiredSvgIconData>();
 
   /// Gets an icon by its codepoint.
   ///

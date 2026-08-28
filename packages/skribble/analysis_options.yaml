@@ -29,8 +29,6 @@ linter:
     cascade_invocations: false
     # Ported code has specific return type conventions
     always_declare_return_types: false
-    # One-member abstract classes are intentional for the painter pattern
-    one_member_abstracts: false
     # Redundant argument values kept for readability in ported code
     avoid_redundant_argument_values: false
     # Ported library uses assert for null checks
@@ -45,3 +43,11 @@ analyzer:
   errors:
     # Deprecated Radio API usage until migration to RadioGroup
     deprecated_member_use: ignore
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**

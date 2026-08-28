@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -31,7 +30,7 @@ class WiredCircularProgress extends HookWidget {
 
     useEffect(() {
       if (isIndeterminate) {
-        unawaited(controller.repeat());
+        controller.repeat();
       }
       return null;
     }, [isIndeterminate]);

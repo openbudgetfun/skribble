@@ -5,6 +5,12 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/../.." && pwd)"
 cd "$REPO_ROOT"
 
+# Ensure the pinned Flutter SDK is discoverable when the hook runs outside
+# the devenv shell (plain git callers without direnv).
+if [[ -x "$REPO_ROOT/.fvm/flutter_sdk/bin/dart" ]]; then
+  export PATH="$REPO_ROOT/.fvm/flutter_sdk/bin:$PATH"
+fi
+
 if [[ $# -eq 0 ]]; then
   echo "pre-commit: no staged files to check"
   exit 0

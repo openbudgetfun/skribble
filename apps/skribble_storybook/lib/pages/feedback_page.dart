@@ -81,7 +81,7 @@ class FeedbackPage extends HookWidget {
                     WiredButton(
                       onPressed: () {
                         progressController.reset();
-                        unawaited(progressController.forward());
+                        progressController.forward();
                       },
                       child: const Text('Animate'),
                     ),
@@ -404,9 +404,9 @@ class _AnimatedIconDemo extends HookWidget {
         GestureDetector(
           onTap: () {
             if (isForward.value) {
-              unawaited(controller.reverse());
+              controller.reverse();
             } else {
-              unawaited(controller.forward());
+              controller.forward();
             }
             isForward.value = !isForward.value;
           },

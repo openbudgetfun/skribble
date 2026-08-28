@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
@@ -75,7 +73,7 @@ void main() {
       );
 
       expect(find.byType(WiredAnimatedIcon), findsOneWidget);
-      unawaited(controller.forward());
+      controller.forward();
       await tester.pump(const Duration(milliseconds: 150));
       expect(find.byType(WiredAnimatedIcon), findsOneWidget);
       await tester.pumpAndSettle();

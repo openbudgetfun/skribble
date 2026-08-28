@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -53,12 +52,11 @@ class WiredInkSplash extends InteractiveInkFeature {
   WiredInkSplash({
     required super.controller,
     required super.referenceBox,
-    required Offset position,
+    required this._position,
     required super.color,
     super.onRemoved,
-    double? radius,
-  }) : _position = position,
-       _radius = radius {
+    this._radius,
+  }) {
     _controller =
         AnimationController(
             duration: const Duration(milliseconds: 400),
@@ -72,14 +70,14 @@ class WiredInkSplash extends InteractiveInkFeature {
       vsync: controller.vsync,
     );
 
-    unawaited(_controller.forward());
-    unawaited(_radiusController.forward());
+    _controller.forward();
+    _radiusController.forward();
 
     _alphaController = AnimationController(
       duration: const Duration(milliseconds: 400),
       vsync: controller.vsync,
     );
-    unawaited(_alphaController.forward());
+    _alphaController.forward();
   }
 
   late final AnimationController _controller;

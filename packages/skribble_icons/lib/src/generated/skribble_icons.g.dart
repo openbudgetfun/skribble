@@ -245,3 +245,4 @@ const Map<int, WiredSvgIconData> kSkribbleCustomIcons = <int, WiredSvgIconData>{
     ],
   ),
 };
+

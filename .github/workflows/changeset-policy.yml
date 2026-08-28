@@ -47,7 +47,7 @@ jobs:
           else
             echo "No changed changeset files to validate."
           fi
-        shell: devenv shell -- bash -e {0}
+        shell: bash
 
       - name: check changeset policy
         env:

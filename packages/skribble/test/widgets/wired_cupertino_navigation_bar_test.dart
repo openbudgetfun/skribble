@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -142,16 +140,14 @@ void main() {
               body: Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    unawaited(
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => Scaffold(
-                            appBar: const WiredCupertinoNavigationBar(
-                              automaticallyImplyLeading: true,
-                              previousPageTitle: 'Home',
-                            ),
-                            body: const Text('Details page'),
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => Scaffold(
+                          appBar: const WiredCupertinoNavigationBar(
+                            automaticallyImplyLeading: true,
+                            previousPageTitle: 'Home',
                           ),
+                          body: const Text('Details page'),
                         ),
                       ),
                     );
@@ -187,15 +183,13 @@ void main() {
               body: Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    unawaited(
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => const Scaffold(
-                            appBar: WiredCupertinoNavigationBar(
-                              automaticallyImplyLeading: false,
-                            ),
-                            body: Text('Details page'),
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const Scaffold(
+                          appBar: WiredCupertinoNavigationBar(
+                            automaticallyImplyLeading: false,
                           ),
+                          body: Text('Details page'),
                         ),
                       ),
                     );

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -47,7 +46,7 @@ class WiredLoadingIndicator extends HookWidget {
     );
 
     useEffect(() {
-      unawaited(controller.repeat());
+      controller.repeat();
       return null;
     }, []);
 
@@ -191,7 +190,7 @@ class WiredCircularProgressIndicator extends HookWidget {
 
     useEffect(() {
       if (value == null) {
-        unawaited(controller.repeat());
+        controller.repeat();
       }
       return null;
     }, [value]);
