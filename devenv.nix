@@ -155,9 +155,10 @@ in
       exec = ''
         HASH=$(nix hash path --base32 ./.eget/.eget.toml)
         echo "HASH: $HASH"
+        mkdir -p ./.eget/bin
         if [ ! -f ./.eget/bin/hash ] || [ "$HASH" != "$(cat ./.eget/bin/hash)" ]; then
           echo "Updating eget binaries"
-          eget -D --to "$DEVENV_ROOT/.eget/bin"
+          eget -D --to "$DEVENV_ROOT/.eget/bin" || echo "eget download skipped"
           echo "$HASH" > ./.eget/bin/hash
         else
           echo "eget binaries are up to date"
