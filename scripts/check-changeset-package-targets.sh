@@ -13,14 +13,14 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 CONFIG="$REPO_ROOT/monochange.toml"
 
-if ! command -v rg >/dev/null 2>&1; then
-  echo "error: ripgrep (rg) is required" >&2
+if ! command -v grep >/dev/null 2>&1; then
+  echo "error: grep is required" >&2
   exit 1
 fi
 
 # Collect declared package ids and group ids from monochange.toml.
-package_ids="$(rg -o '^\[package\.([A-Za-z0-9_-]+)\]' -r '$1' "$CONFIG" || true)"
-group_ids="$(rg -o '^\[group\.([A-Za-z0-9_-]+)\]' -r '$1' "$CONFIG" || true)"
+package_ids="$(grep -oE '^\[package\.[A-Za-z0-9_-]+\]' "$CONFIG" | sed -E 's/^\[package\.(.*)\]$/\1/' || true)"
+group_ids="$(grep -oE '^\[group\.[A-Za-z0-9_-]+\]' "$CONFIG" | sed -E 's/^\[group\.(.*)\]$/\1/' || true)"
 
 if [[ -z "$package_ids" ]]; then
   echo "error: no [package.*] entries found in monochange.toml" >&2
