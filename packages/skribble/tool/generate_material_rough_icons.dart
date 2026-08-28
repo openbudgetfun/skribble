@@ -24,8 +24,7 @@ const _kUnresolvedBaselineOutputFormats = <String>{
   _kUnresolvedBaselineOutputFormatCodePoints,
 };
 const _kSupportedKitDescriptions = <String, String>{
-  _kDefaultKit:
-      'Flutter Material Icons (from Flutter icons.dart + Material SVG packages)',
+  _kDefaultKit: 'Flutter Material Icons (from Flutter icons.dart + Material SVG packages)',
   _kManifestKit: 'Custom SVG manifest file for non-Material icon kits',
 };
 

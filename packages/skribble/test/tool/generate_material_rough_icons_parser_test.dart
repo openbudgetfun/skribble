@@ -465,11 +465,9 @@ class Icons {
 
       expect(unresolvedReportFile.existsSync(), isTrue);
 
-      final decoded =
-          jsonDecode(
-                unresolvedReportFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedReportFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded['kit'], 'flutter-material');
       expect(decoded['resolvedCount'], 1);
       expect(decoded['unresolvedCount'], 1);
@@ -559,11 +557,9 @@ class Icons {
 
       expect(unresolvedBaselineFile.existsSync(), isTrue);
 
-      final decoded =
-          jsonDecode(
-                unresolvedBaselineFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedBaselineFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded.containsKey('unresolved'), isTrue);
       expect(decoded.containsKey('kit'), isFalse);
       expect(decoded.containsKey('resolvedCount'), isFalse);
@@ -630,11 +626,9 @@ class Icons {
 
       expect(unresolvedBaselineFile.existsSync(), isTrue);
 
-      final decoded =
-          jsonDecode(
-                unresolvedBaselineFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedBaselineFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded.containsKey('codePoints'), isTrue);
       expect(decoded.containsKey('unresolved'), isFalse);
 
@@ -736,11 +730,9 @@ class Icons {
 
         expect(supplementalTemplateFile.existsSync(), isTrue);
 
-        final decoded =
-            jsonDecode(
-                  supplementalTemplateFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          supplementalTemplateFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         final icons = decoded['icons'] as List<dynamic>;
         expect(icons, hasLength(1));
 
@@ -832,11 +824,9 @@ class Icons {
       );
 
       expect(unresolvedReportFile.existsSync(), isTrue);
-      final decoded =
-          jsonDecode(
-                unresolvedReportFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedReportFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded['unresolvedCount'], 1);
       expect(decoded['wouldFail'], isTrue);
       expect(decoded['unresolvedGateFailed'], isTrue);
@@ -917,11 +907,9 @@ class Icons {
       ]);
 
       expect(outputFile.existsSync(), isTrue);
-      final decoded =
-          jsonDecode(
-                unresolvedReportFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedReportFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded['maxUnresolved'], 1);
       expect(decoded['maxUnresolvedExceeded'], isFalse);
       expect(decoded['wouldFail'], isFalse);
@@ -1099,11 +1087,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -1181,11 +1167,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -1264,11 +1248,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -1580,11 +1562,9 @@ class Icons {
         outputFile.path,
       ]);
 
-      final decoded =
-          jsonDecode(
-                unresolvedReportFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedReportFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded['baselineUnresolvedCount'], 1);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['newUnresolvedCount'], 0);
@@ -1657,11 +1637,9 @@ class Icons {
         outputFile.path,
       ]);
 
-      final decoded =
-          jsonDecode(
-                unresolvedReportFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedReportFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded['baselineUnresolvedCount'], 1);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['newUnresolvedCount'], 0);
@@ -1736,11 +1714,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -1816,11 +1792,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -1896,11 +1870,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -1977,11 +1949,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -2058,11 +2028,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -2139,11 +2107,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -2220,11 +2186,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -2301,11 +2265,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -2382,11 +2344,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -2460,11 +2420,9 @@ class Icons {
         outputFile.path,
       ]);
 
-      final decoded =
-          jsonDecode(
-                unresolvedReportFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedReportFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded['baselineUnresolvedCount'], 1);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['newUnresolvedCount'], 0);
@@ -2537,11 +2495,9 @@ class Icons {
         outputFile.path,
       ]);
 
-      final decoded =
-          jsonDecode(
-                unresolvedReportFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedReportFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded['baselineUnresolvedCount'], 1);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['newUnresolvedCount'], 0);
@@ -2614,11 +2570,9 @@ class Icons {
         outputFile.path,
       ]);
 
-      final decoded =
-          jsonDecode(
-                unresolvedReportFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedReportFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded['baselineUnresolvedCount'], 1);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['newUnresolvedCount'], 0);
@@ -2693,11 +2647,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 1);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -2779,11 +2731,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 2);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 0);
@@ -2856,11 +2806,9 @@ class Icons {
           outputFile.path,
         ]);
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['baselineUnresolvedCount'], 0);
         expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
         expect(decoded['newUnresolvedCount'], 1);
@@ -2941,11 +2889,9 @@ class Icons {
         throwsA(isA<StateError>()),
       );
 
-      final decoded =
-          jsonDecode(
-                unresolvedReportFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedReportFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded['baselineUnresolvedCount'], 0);
       expect(decoded['newUnresolvedCount'], 1);
       expect(decoded['newUnresolvedCodePoints'], <String>['0xf04b9']);
@@ -3028,11 +2974,9 @@ class Icons {
           throwsA(isA<StateError>()),
         );
 
-        final decoded =
-            jsonDecode(
-                  unresolvedReportFile.readAsStringSync(),
-                )
-                as Map<String, dynamic>;
+        final decoded = jsonDecode(
+          unresolvedReportFile.readAsStringSync(),
+        ) as Map<String, dynamic>;
         expect(decoded['wouldFail'], isTrue);
         expect(decoded['unresolvedGateFailed'], isTrue);
         expect(decoded['newUnresolvedGateFailed'], isTrue);
@@ -3108,11 +3052,9 @@ class Icons {
         throwsA(isA<StateError>()),
       );
 
-      final decoded =
-          jsonDecode(
-                unresolvedReportFile.readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        unresolvedReportFile.readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(decoded['baselineUnresolvedCount'], 0);
       expect(decoded['unresolvedCodePoints'], <String>['0xf04b9']);
       expect(decoded['newUnresolvedCount'], 1);
