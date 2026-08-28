@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Add `WiredScaffold` as a Material shell with Skribble's paper-like background,
+# Add `WiredScaffold` as a Material shell with ...
 
 introduce `WiredMaterialApp` for syncing `MaterialApp` with `WiredTheme`, and
 extend `WiredThemeData` with `paperBackgroundColor`, `toColorScheme()`, and

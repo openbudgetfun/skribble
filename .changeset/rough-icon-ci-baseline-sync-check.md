@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Add CI verification that the committed rough icon unresolved baseline file is
+# Add CI verification that the committed rough icon ...
 
 kept in sync.
 

@@ -2,7 +2,7 @@
 skribble: minor
 ---
 
-# Bundle the Architects Daughter hand-drawn font and integrate it into the theming
+# Bundle the Architects Daughter hand-drawn font and ...
 
 system. Add `fontFamily` property to `WiredThemeData` (default:
 `skribbleFontFamily`) so all Wired widgets and Material text styles

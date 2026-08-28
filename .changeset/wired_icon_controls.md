@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Adopt rough icons in combo/expansion/segmented/input chip widgets
+# Adopt rough icons in combo/expansion/segmented/input ...
 
 Updates icon rendering in `WiredCombo`, `WiredExpansionTile`,
 `WiredSegmentedButton`, and `WiredInputChip` to use `WiredIcon`
