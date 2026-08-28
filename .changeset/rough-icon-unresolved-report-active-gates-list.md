@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add `activeGates` to rough icon unresolved report JSON.
+# Add `activeGates` to rough icon unresolved report JSON.
 
 - `--unresolved-output` now includes `activeGates[]`, listing which unresolved gates are configured (`unresolved`, `newUnresolved`).
 - `failedGates[]` continues to report only gates that actually failed.

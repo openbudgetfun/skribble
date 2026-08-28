@@ -15,18 +15,7 @@ class WiredDialog extends HookWidget {
   /// Padding around the content.
   final EdgeInsetsGeometry? padding;
 
-  /// The border radius for the hand-drawn dialog shape.
-  ///
-  /// When provided, the dialog draws with rounded corners
-  /// instead of sharp corners. Defaults to null (sharp corners).
-  final BorderRadius? borderRadius;
-
-  const WiredDialog({
-    super.key,
-    required this.child,
-    this.padding,
-    this.borderRadius,
-  });
+  const WiredDialog({super.key, required this.child, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +27,10 @@ class WiredDialog extends HookWidget {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: WiredCanvas(
-              painter: borderRadius != null
-                  ? WiredRoundedRectangleBase(
-                      borderRadius: borderRadius!,
-                      fillColor: theme.fillColor,
-                      borderColor: theme.borderColor,
-                    )
-                  : WiredRectangleBase(
-                      fillColor: theme.fillColor,
-                      borderColor: theme.borderColor,
-                    ),
+              painter: WiredRectangleBase(
+                fillColor: theme.fillColor,
+                borderColor: theme.borderColor,
+              ),
               fillerType: RoughFilter.noFiller,
             ),
           ),

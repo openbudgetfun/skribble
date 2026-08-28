@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Improve rough icon CI/local parity ergonomics with reusable check scripts.
+# Improve rough icon CI/local parity ergonomics with reusable check scripts.
 
 - Add `scripts/check_rough_icons_ci.sh` with `regression`, `baseline-sync`,
   `generated-sync`, and `all` modes.

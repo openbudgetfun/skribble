@@ -33,17 +33,15 @@ WiredCard(
 
 ### Constructor parameters
 
-| Parameter      | Type            | Default | Description                                           |
-| -------------- | --------------- | ------- | ----------------------------------------------------- |
-| `child`        | `Widget?`       | `null`  | The card content.                                     |
-| `fill`         | `bool`          | `false` | Whether to apply hachure fill to the card background. |
-| `height`       | `double?`       | `130.0` | Card height. Set to `null` for intrinsic sizing.      |
-| `borderRadius` | `BorderRadius?` | `null`  | Rounded corner radii. `null` draws sharp corners.     |
+| Parameter | Type      | Default | Description                                           |
+| --------- | --------- | ------- | ----------------------------------------------------- |
+| `child`   | `Widget?` | `null`  | The card content.                                     |
+| `fill`    | `bool`    | `false` | Whether to apply hachure fill to the card background. |
+| `height`  | `double?` | `130.0` | Card height. Set to `null` for intrinsic sizing.      |
 
 ### Notes
 
-- The border uses `WiredRectangleBase` with `theme.fillColor` and `theme.borderColor` by default.
-- When `borderRadius` is provided, the border switches to `WiredRoundedRectangleBase`, which draws the rounded corners with the same hand-drawn jitter.
+- The border uses `WiredRectangleBase` with `theme.fillColor` and `theme.borderColor`.
 - When `fill` is `true`, the card gets a `RoughFilter.hachureFiller` background.
 - When `height` is `null`, the card uses `IntrinsicHeight` to size itself to its content.
 - The internal `Card` has transparent color and shadow so the hand-drawn border is the only visible chrome.

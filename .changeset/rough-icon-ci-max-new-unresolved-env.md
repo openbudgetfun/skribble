@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add threshold-mode baseline regression gating to the rough icon CI check script.
+# Add threshold-mode baseline regression gating to the rough icon CI check script.
 
 - `scripts/check_rough_icons_ci.sh` now supports optional env var
   `ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>`.

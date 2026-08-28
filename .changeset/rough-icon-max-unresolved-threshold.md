@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add unresolved threshold control to rough icon generation.
+# Add unresolved threshold control to rough icon generation.
 
 - New CLI option: `--max-unresolved <int>`
 - Generator fails only when unresolved icon count exceeds the configured

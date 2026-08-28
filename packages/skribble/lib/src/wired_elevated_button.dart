@@ -13,18 +13,11 @@ class WiredElevatedButton extends HookWidget {
   /// Semantic label for accessibility.
   final String? semanticLabel;
 
-  /// The border radius for the hand-drawn shape.
-  ///
-  /// When provided, the button draws with rounded corners
-  /// instead of sharp corners. Defaults to null (sharp corners).
-  final BorderRadius? borderRadius;
-
   const WiredElevatedButton({
     super.key,
     required this.child,
     this.onPressed,
     this.semanticLabel,
-    this.borderRadius,
   });
 
   @override
@@ -44,32 +37,26 @@ class WiredElevatedButton extends HookWidget {
               bottom: -2,
               child: Container(
                 decoration: RoughBoxDecoration(
-                  shape: borderRadius != null
-                      ? RoughBoxShape.roundedRectangle
-                      : RoughBoxShape.rectangle,
+                  shape: RoughBoxShape.rectangle,
                   borderStyle: RoughDrawingStyle(
                     width: 0.5,
                     color: theme.borderColor,
                   ),
                   fillStyle: RoughDrawingStyle(color: theme.borderColor),
                   filler: HachureFiller(FillerConfig.build(hachureGap: 2)),
-                  borderRadius: borderRadius,
                 ),
               ),
             ),
             Container(
               height: kWiredButtonHeight,
               decoration: RoughBoxDecoration(
-                shape: borderRadius != null
-                    ? RoughBoxShape.roundedRectangle
-                    : RoughBoxShape.rectangle,
+                shape: RoughBoxShape.rectangle,
                 borderStyle: RoughDrawingStyle(
                   width: 1,
                   color: theme.borderColor,
                 ),
                 fillStyle: RoughDrawingStyle(color: theme.fillColor),
                 filler: HachureFiller(FillerConfig.build(hachureGap: 3)),
-                borderRadius: borderRadius,
               ),
               child: SizedBox(
                 height: double.infinity,

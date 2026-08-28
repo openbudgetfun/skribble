@@ -13,18 +13,11 @@ class WiredCard extends HookWidget {
   final bool fill;
   final double? height;
 
-  /// The border radius for the hand-drawn card shape.
-  ///
-  /// When provided, the card draws with rounded corners
-  /// instead of sharp corners. Defaults to null (sharp corners).
-  final BorderRadius? borderRadius;
-
   const WiredCard({
     super.key,
     this.child,
     this.fill = false,
     this.height = 130.0,
-    this.borderRadius,
   });
 
   @override
@@ -34,16 +27,10 @@ class WiredCard extends HookWidget {
       children: [
         Positioned.fill(
           child: WiredCanvas(
-            painter: borderRadius != null
-                ? WiredRoundedRectangleBase(
-                    borderRadius: borderRadius!,
-                    fillColor: theme.fillColor,
-                    borderColor: theme.borderColor,
-                  )
-                : WiredRectangleBase(
-                    fillColor: theme.fillColor,
-                    borderColor: theme.borderColor,
-                  ),
+            painter: WiredRectangleBase(
+              fillColor: theme.fillColor,
+              borderColor: theme.borderColor,
+            ),
             fillerType: fill ? RoughFilter.hachureFiller : RoughFilter.noFiller,
           ),
         ),
