@@ -15,7 +15,7 @@ echo "pre-push: running CI parity formatting checks"
 dprint check
 
 echo "pre-push: running CI parity analysis checks"
-melos exec -- dart analyze --fatal-infos .
+melos exec --concurrency=2 -- dart analyze --fatal-infos .
 
 echo "pre-push: running unit and widget tests"
 melos exec --concurrency=1 --dir-exists=test --depends-on=flutter -- flutter test
