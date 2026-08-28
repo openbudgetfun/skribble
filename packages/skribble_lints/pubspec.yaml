@@ -1,16 +1,13 @@
 name: skribble_lints
-description: >
+description: |
   Shared lint rules for the Skribble hand-drawn Flutter design system.
 version: 0.1.0
 homepage: https://github.com/openbudgetfun/skribble
-repository: https://github.com/openbudgetfun/skribble
+repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_lints
 issue_tracker: https://github.com/openbudgetfun/skribble/issues
 publish_to: none
-
 environment:
   sdk: ^3.13.0
-
 resolution: workspace
-
 dependencies:
   very_good_analysis: ^10.2.0

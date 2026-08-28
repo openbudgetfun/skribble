@@ -139,7 +139,7 @@ inputs = [
 steps = [
   { type = "PrepareRelease", name = "plan release", allow_empty_changesets = true },
   { type = "Command", name = "format with dart", when = "{{ number_of_changesets > 0 }}", command = "dart format ." },
-  { type = "CommitRelease", name = "create release commit", when = "{{ number_of_changesets > 0 && inputs.commit }}", inputs = { no_verify = "{{ inputs.no_verify }}", stage_all = true } },
+  { type = "CommitRelease", name = "create release commit", when = "{{ number_of_changesets > 0 && inputs.commit }}", inputs = { no_verify = "{{ inputs.no_verify }}" } },
   { type = "Command", name = "push release commit", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.push }}", command = "git push" },
   { type = "TagRelease", name = "create and push release tags", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag }}", inputs = { from = "HEAD", push = true, format = "json" } },
   { type = "PublishRelease", name = "publish GitHub release", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag && inputs.publish_release }}", inputs = { from-ref = "HEAD", draft = false, format = "json" } },
