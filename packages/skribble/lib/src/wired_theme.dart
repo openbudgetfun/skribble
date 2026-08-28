@@ -28,8 +28,8 @@ class WiredThemeData {
     this.strokeWidth = 2,
     this.roughness = 1,
     this.fontFamily = skribbleFontFamily,
-    DrawConfig? drawConfig,
-  }) : _drawConfig = drawConfig;
+    this._drawConfig,
+  });
 
   DrawConfig get drawConfig => _drawConfig ?? DrawConfig.defaultValues;
 

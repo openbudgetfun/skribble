@@ -547,3 +547,18 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - SVG icon export and usage guidelines
 - Design principles for hand-drawn aesthetics
 - Future directions for React Native, SwiftUI, Jetpack Compose
+
+### 2026-08-28 (Platform Upgrade)
+
+**Flutter 3.47.0 / Dart 3.13.0 upgrade (Phase 2):**
+
+- Bumped `.fvmrc` to Flutter 3.47.0 (from 3.41.1); Dart SDK constraints to `^3.13.0`
+- Applied 3.47 analyzer updates across the workspace (3,294 mechanical fixes via `dart fix`,
+  including the new `unnecessary_unawaited` lint and `strict_top_level_inference` batch)
+- Removed deprecated `one_member_abstracts` lint override; documented intentional
+  single-member abstract painter protocol with a local ignore
+- Fixed `wired_cupertino_navigation_bar_test.dart` (multiline `Navigator.push` restructured)
+- Updated README + contributing docs to Flutter >= 3.47
+- CI composite action picks up the new SDK automatically via `.fvmrc` cache keying
+- All suites green on 3.47: skribble 1194, emoji 34, icons 27, icons_custom 27,
+  icons_dynamic 21, storybook 64, example 41, benchmark 8, font_roughen (dart test) 20

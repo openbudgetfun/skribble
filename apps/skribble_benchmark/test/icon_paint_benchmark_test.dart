@@ -316,9 +316,10 @@ class _IconGrid extends StatelessWidget {
       runSpacing: 8,
       children: [
         for (final icon in icons)
-          useRuntime
-              ? WiredSvgIcon(data: icon, size: 32)
-              : _PrecomputedIcon(data: icon, size: 32),
+          if (useRuntime)
+            WiredSvgIcon(data: icon, size: 32)
+          else
+            _PrecomputedIcon(data: icon, size: 32),
       ],
     );
   }

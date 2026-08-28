@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
@@ -93,7 +91,7 @@ void main() {
       final navigator = tester.state<NavigatorState>(
         find.byType(Navigator),
       );
-      unawaited(navigator.pushNamed('/settings'));
+      navigator.pushNamed('/settings');
       // WiredSlider schedules a zero-duration Future on each build,
       // so we pump enough frames for the route transition to complete.
       for (var i = 0; i < 10; i++) {
@@ -300,12 +298,10 @@ void main() {
                     builder: (context) {
                       // Navigate immediately.
                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                        unawaited(
-                          Navigator.pushNamed(
-                            context,
-                            '/edit',
-                            arguments: existingNote,
-                          ),
+                        Navigator.pushNamed(
+                          context,
+                          '/edit',
+                          arguments: existingNote,
                         );
                       });
                       return const SizedBox.shrink();
@@ -357,7 +353,7 @@ void main() {
       final navigator = tester.state<NavigatorState>(
         find.byType(Navigator),
       );
-      unawaited(navigator.pushNamed('/settings'));
+      navigator.pushNamed('/settings');
       for (var i = 0; i < 10; i++) {
         await tester.pump(const Duration(milliseconds: 50));
       }

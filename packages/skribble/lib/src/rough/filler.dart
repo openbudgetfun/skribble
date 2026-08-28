@@ -30,14 +30,14 @@ class FillerConfig {
   final double? zigzagOffset;
 
   const FillerConfig._({
-    DrawConfig? drawConfig,
+    this._drawConfig,
     this.fillWeight,
     this.hachureAngle,
     this.hachureGap,
     this.dashOffset,
     this.dashGap,
     this.zigzagOffset,
-  }) : _drawConfig = drawConfig;
+  });
 
   static FillerConfig build({
     DrawConfig? drawConfig,
