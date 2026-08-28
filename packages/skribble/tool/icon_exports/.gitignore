@@ -1,0 +1,5 @@
+# Regenerated icon export artifacts (rough SVGs, icon fonts, reports).
+# Reproduce with `melos run rough-icons` / `melos run rough-icons-font`.
+tool/icon_exports/rough-svg/
+tool/icon_exports/font/
+tool/icon_exports/*.json
