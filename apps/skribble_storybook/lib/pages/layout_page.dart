@@ -235,8 +235,7 @@ class LayoutPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Material Shell',
-                description:
-                    'Paper-like Scaffold wrapper for app bars, drawers, and body content.',
+                description: 'Paper-like Scaffold wrapper for app bars, drawers, and body content.',
                 child: SizedBox(
                   height: 260,
                   child: WiredScaffold(
@@ -346,8 +345,7 @@ class LayoutPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Swipe to Dismiss',
-                description:
-                    'Swipe items left or right to dismiss with sketchy background.',
+                description: 'Swipe items left or right to dismiss with sketchy background.',
                 child: Column(
                   children: [
                     for (final item in ['🍎 Apple', '🍌 Banana', '🍒 Cherry'])

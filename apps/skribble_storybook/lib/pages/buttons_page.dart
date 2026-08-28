@@ -11,6 +11,7 @@ class ButtonsPage extends HookWidget {
   Widget build(BuildContext context) {
     final segmentSelected = useState<Set<String>>({'day'});
     final toggleSelected = useState([true, false, false]);
+    final roundness = useState<double>(0);
 
     return WiredScaffold(
       appBar: WiredAppBar(
@@ -211,6 +212,57 @@ class ButtonsPage extends HookWidget {
                   ],
                   selected: segmentSelected.value,
                   onSelectionChanged: (s) => segmentSelected.value = s,
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'Roundness',
+            children: [
+              ComponentShowcase(
+                title: 'Border radius',
+                description: 'Pick a corner radius to round the hand-drawn corners of every button.',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    WiredSegmentedButton<double>(
+                      segments: const [
+                        WiredButtonSegment(value: 0, label: Text('0')),
+                        WiredButtonSegment(value: 4, label: Text('4')),
+                        WiredButtonSegment(value: 8, label: Text('8')),
+                        WiredButtonSegment(value: 12, label: Text('12')),
+                        WiredButtonSegment(value: 16, label: Text('16')),
+                        WiredButtonSegment(value: 20, label: Text('20')),
+                        WiredButtonSegment(value: 24, label: Text('24')),
+                      ],
+                      selected: {roundness.value},
+                      onSelectionChanged: (s) => roundness.value = s.first,
+                    ),
+                    const SizedBox(height: 16),
+                    WiredButton(
+                      onPressed: () {},
+                      borderRadius: BorderRadius.circular(roundness.value),
+                      child: const Text('Rounded'),
+                    ),
+                    const SizedBox(height: 12),
+                    WiredElevatedButton(
+                      onPressed: () {},
+                      borderRadius: BorderRadius.circular(roundness.value),
+                      child: const Text('Elevated'),
+                    ),
+                    const SizedBox(height: 12),
+                    WiredFilledButton(
+                      onPressed: () {},
+                      borderRadius: BorderRadius.circular(roundness.value),
+                      child: const Text('Filled'),
+                    ),
+                    const SizedBox(height: 12),
+                    WiredOutlinedButton(
+                      onPressed: () {},
+                      borderRadius: BorderRadius.circular(roundness.value),
+                      child: const Text('Outlined'),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -77,5 +77,151 @@ void main() {
       expect(find.byType(WiredCard), findsOneWidget);
       expect(find.text('No fill'), findsOneWidget);
     });
+
+    group('borderRadius', () {
+      /// Returns the painter used by the card's [WiredCanvas].
+      WiredPainterBase painterOf(WidgetTester tester) {
+        final canvases = tester.widgetList<WiredCanvas>(
+          find.descendant(
+            of: find.byType(WiredCard),
+            matching: find.byType(WiredCanvas),
+          ),
+        );
+
+        expect(canvases, isNotEmpty);
+        return canvases.first.painter;
+      }
+
+      testWidgets(
+        'defaults to sharp rectangle painter when borderRadius is null',
+        (tester) async {
+          await pumpApp(tester, WiredCard(child: const Text('Sharp')));
+
+          expect(painterOf(tester), isA<WiredRectangleBase>());
+        },
+      );
+
+      testWidgets(
+        'uses rounded rectangle painter with BorderRadius.circular(0)',
+        (tester) async {
+          await pumpApp(
+            tester,
+            WiredCard(
+              borderRadius: BorderRadius.circular(0),
+              child: const Text('Zero radius'),
+            ),
+          );
+
+          final painter = painterOf(tester);
+          expect(painter, isA<WiredRoundedRectangleBase>());
+          expect(
+            (painter as WiredRoundedRectangleBase).borderRadius,
+            BorderRadius.circular(0),
+          );
+          expect(find.text('Zero radius'), findsOneWidget);
+        },
+      );
+
+      testWidgets('uses rounded rectangle painter with a small radius (4)', (
+        tester,
+      ) async {
+        await pumpApp(
+          tester,
+          WiredCard(
+            borderRadius: BorderRadius.circular(4),
+            child: const Text('Small radius'),
+          ),
+        );
+
+        final painter = painterOf(tester);
+        expect(painter, isA<WiredRoundedRectangleBase>());
+        expect(
+          (painter as WiredRoundedRectangleBase).borderRadius,
+          BorderRadius.circular(4),
+        );
+      });
+
+      testWidgets('uses rounded rectangle painter with a large radius (20)', (
+        tester,
+      ) async {
+        await pumpApp(
+          tester,
+          WiredCard(
+            borderRadius: BorderRadius.circular(20),
+            child: const Text('Large radius'),
+          ),
+        );
+
+        final painter = painterOf(tester);
+        expect(painter, isA<WiredRoundedRectangleBase>());
+        expect(
+          (painter as WiredRoundedRectangleBase).borderRadius,
+          BorderRadius.circular(20),
+        );
+      });
+
+      testWidgets('plumbs per-corner BorderRadius.only through', (
+        tester,
+      ) async {
+        const perCorner = BorderRadius.only(
+          topLeft: Radius.circular(2),
+          topRight: Radius.circular(6),
+          bottomRight: Radius.circular(10),
+          bottomLeft: Radius.circular(14),
+        );
+
+        await pumpApp(
+          tester,
+          WiredCard(borderRadius: perCorner, child: const Text('Per corner')),
+        );
+
+        final painter = painterOf(tester);
+        expect(painter, isA<WiredRoundedRectangleBase>());
+        expect(
+          (painter as WiredRoundedRectangleBase).borderRadius,
+          perCorner,
+        );
+      });
+
+      testWidgets('renders child content with a border radius', (tester) async {
+        await pumpApp(
+          tester,
+          WiredCard(
+            fill: true,
+            borderRadius: BorderRadius.circular(12),
+            child: const Text('Filled and rounded'),
+          ),
+        );
+
+        expect(find.text('Filled and rounded'), findsOneWidget);
+        expect(findWiredCanvas, findsOneWidget);
+      });
+
+      testWidgets('rebuilds when the border radius changes', (tester) async {
+        await pumpApp(
+          tester,
+          WiredCard(
+            borderRadius: BorderRadius.circular(4),
+            child: const Text('Rebuild'),
+          ),
+        );
+        expect(
+          (painterOf(tester) as WiredRoundedRectangleBase).borderRadius,
+          BorderRadius.circular(4),
+        );
+
+        await pumpApp(
+          tester,
+          WiredCard(
+            borderRadius: BorderRadius.circular(20),
+            child: const Text('Rebuild'),
+          ),
+        );
+        expect(
+          (painterOf(tester) as WiredRoundedRectangleBase).borderRadius,
+          BorderRadius.circular(20),
+        );
+      });
+    });
   });
 }

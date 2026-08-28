@@ -9,6 +9,30 @@ Skribble provides a full set of button widgets that replace their Material and C
 
 ---
 
+## Rounded corners
+
+The rectangular button widgets (`WiredButton`, `WiredElevatedButton`, `WiredFilledButton`, and `WiredOutlinedButton`) accept an optional `borderRadius` parameter. When omitted, buttons draw with sharp hand-drawn corners. When a `BorderRadius` is provided, the rough engine switches to its rounded-rectangle generator, decomposing the shape into straight edges plus four corner arcs drawn with the same hand-drawn jitter.
+
+```dart
+WiredButton(
+  onPressed: () => print('tapped'),
+  borderRadius: BorderRadius.circular(12),
+  child: Text('Pill-ish'),
+)
+
+// Per-corner radii are supported too.
+WiredOutlinedButton(
+  onPressed: () {},
+  borderRadius: const BorderRadius.only(
+    topLeft: Radius.circular(16),
+    bottomRight: Radius.circular(16),
+  ),
+  child: Text('Asymmetric'),
+)
+```
+
+---
+
 ## WiredButton
 
 A basic button with a hand-drawn rectangle border. The simplest entry point for actions.
@@ -24,11 +48,12 @@ WiredButton(
 
 ### Constructor parameters
 
-| Parameter       | Type              | Default      | Description                                    |
-| --------------- | ----------------- | ------------ | ---------------------------------------------- |
-| `child`         | `Widget`          | **required** | The button label.                              |
-| `onPressed`     | `void Function()` | **required** | Callback when the button is tapped.            |
-| `semanticLabel` | `String?`         | `null`       | Accessibility label exposed to screen readers. |
+| Parameter       | Type              | Default      | Description                                       |
+| --------------- | ----------------- | ------------ | ------------------------------------------------- |
+| `child`         | `Widget`          | **required** | The button label.                                 |
+| `onPressed`     | `void Function()` | **required** | Callback when the button is tapped.               |
+| `semanticLabel` | `String?`         | `null`       | Accessibility label exposed to screen readers.    |
+| `borderRadius`  | `BorderRadius?`   | `null`       | Rounded corner radii. `null` draws sharp corners. |
 
 ### Notes
 
@@ -53,11 +78,12 @@ WiredElevatedButton(
 
 ### Constructor parameters
 
-| Parameter       | Type            | Default      | Description                                       |
-| --------------- | --------------- | ------------ | ------------------------------------------------- |
-| `child`         | `Widget`        | **required** | The button label.                                 |
-| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped. `null` disables the button. |
-| `semanticLabel` | `String?`       | `null`       | Accessibility label.                              |
+| Parameter       | Type            | Default      | Description                                                                                      |
+| --------------- | --------------- | ------------ | ------------------------------------------------------------------------------------------------ |
+| `child`         | `Widget`        | **required** | The button label.                                                                                |
+| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped. `null` disables the button.                                                |
+| `semanticLabel` | `String?`       | `null`       | Accessibility label.                                                                             |
+| `borderRadius`  | `BorderRadius?` | `null`       | Rounded corner radii applied to both the face and the offset shadow. `null` draws sharp corners. |
 
 ### Notes
 
@@ -88,6 +114,7 @@ WiredFilledButton(
 | `fillColor`       | `Color?`        | `null`       | Custom fill color. Defaults to `theme.borderColor`. |
 | `foregroundColor` | `Color?`        | `null`       | Text/icon color. Defaults to white.                 |
 | `semanticLabel`   | `String?`       | `null`       | Accessibility label.                                |
+| `borderRadius`    | `BorderRadius?` | `null`       | Rounded corner radii. `null` draws sharp corners.   |
 
 ### Notes
 
@@ -172,11 +199,12 @@ WiredOutlinedButton(
 
 ### Constructor parameters
 
-| Parameter       | Type            | Default      | Description           |
-| --------------- | --------------- | ------------ | --------------------- |
-| `child`         | `Widget`        | **required** | The button label.     |
-| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped. |
-| `semanticLabel` | `String?`       | `null`       | Accessibility label.  |
+| Parameter       | Type            | Default      | Description                                       |
+| --------------- | --------------- | ------------ | ------------------------------------------------- |
+| `child`         | `Widget`        | **required** | The button label.                                 |
+| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped.                             |
+| `semanticLabel` | `String?`       | `null`       | Accessibility label.                              |
+| `borderRadius`  | `BorderRadius?` | `null`       | Rounded corner radii. `null` draws sharp corners. |
 
 ### Notes
 

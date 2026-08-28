@@ -109,5 +109,149 @@ void main() {
 
       expect(find.bySemanticsLabel('Submit form'), findsOneWidget);
     });
+
+    group('borderRadius', () {
+      /// Returns the [RoughBoxDecoration] painted by the [WiredButton].
+      RoughBoxDecoration decorationOf(WidgetTester tester) {
+        final decorations = tester
+            .widgetList<Container>(
+              find.descendant(
+                of: find.byType(WiredButton),
+                matching: find.byType(Container),
+              ),
+            )
+            .map((container) => container.decoration)
+            .whereType<RoughBoxDecoration>()
+            .toList();
+
+        expect(decorations, isNotEmpty);
+        return decorations.first;
+      }
+
+      testWidgets('defaults to sharp corners when borderRadius is null', (
+        tester,
+      ) async {
+        await pumpApp(
+          tester,
+          WiredButton(onPressed: () {}, child: const Text('Sharp')),
+        );
+
+        final decoration = decorationOf(tester);
+        expect(decoration.shape, RoughBoxShape.rectangle);
+        expect(decoration.borderRadius, isNull);
+      });
+
+      testWidgets('renders with BorderRadius.circular(0)', (tester) async {
+        await pumpApp(
+          tester,
+          WiredButton(
+            onPressed: () {},
+            borderRadius: BorderRadius.circular(0),
+            child: const Text('Zero radius'),
+          ),
+        );
+
+        final decoration = decorationOf(tester);
+        expect(decoration.shape, RoughBoxShape.roundedRectangle);
+        expect(decoration.borderRadius, BorderRadius.circular(0));
+        expect(find.text('Zero radius'), findsOneWidget);
+      });
+
+      testWidgets('renders with a small radius (4)', (tester) async {
+        await pumpApp(
+          tester,
+          WiredButton(
+            onPressed: () {},
+            borderRadius: BorderRadius.circular(4),
+            child: const Text('Small radius'),
+          ),
+        );
+
+        final decoration = decorationOf(tester);
+        expect(decoration.shape, RoughBoxShape.roundedRectangle);
+        expect(decoration.borderRadius, BorderRadius.circular(4));
+      });
+
+      testWidgets('renders with a large radius (20)', (tester) async {
+        await pumpApp(
+          tester,
+          WiredButton(
+            onPressed: () {},
+            borderRadius: BorderRadius.circular(20),
+            child: const Text('Large radius'),
+          ),
+        );
+
+        final decoration = decorationOf(tester);
+        expect(decoration.shape, RoughBoxShape.roundedRectangle);
+        expect(decoration.borderRadius, BorderRadius.circular(20));
+      });
+
+      testWidgets('plumbs per-corner BorderRadius.only through', (
+        tester,
+      ) async {
+        const perCorner = BorderRadius.only(
+          topLeft: Radius.circular(2),
+          topRight: Radius.circular(6),
+          bottomRight: Radius.circular(10),
+          bottomLeft: Radius.circular(14),
+        );
+
+        await pumpApp(
+          tester,
+          WiredButton(
+            onPressed: () {},
+            borderRadius: perCorner,
+            child: const Text('Per corner'),
+          ),
+        );
+
+        final decoration = decorationOf(tester);
+        expect(decoration.shape, RoughBoxShape.roundedRectangle);
+        expect(decoration.borderRadius, perCorner);
+      });
+
+      testWidgets('child remains tappable with a border radius', (
+        tester,
+      ) async {
+        var pressed = false;
+
+        await pumpApp(
+          tester,
+          WiredButton(
+            onPressed: () => pressed = true,
+            borderRadius: BorderRadius.circular(12),
+            child: const Text('Rounded tap'),
+          ),
+        );
+
+        await tester.tap(find.text('Rounded tap'));
+        await tester.pump();
+
+        expect(pressed, isTrue);
+      });
+
+      testWidgets('rebuilds when the border radius changes', (tester) async {
+        await pumpApp(
+          tester,
+          WiredButton(
+            onPressed: () {},
+            borderRadius: BorderRadius.circular(4),
+            child: const Text('Rebuild'),
+          ),
+        );
+        expect(decorationOf(tester).borderRadius, BorderRadius.circular(4));
+
+        await pumpApp(
+          tester,
+          WiredButton(
+            onPressed: () {},
+            borderRadius: BorderRadius.circular(20),
+            child: const Text('Rebuild'),
+          ),
+        );
+        expect(decorationOf(tester).borderRadius, BorderRadius.circular(20));
+      });
+    });
   });
 }
