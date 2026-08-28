@@ -117,14 +117,9 @@ in
       '';
       description = "Run the melos cli.";
     };
-    "mc" = {
-      exec = ''
-        set -e
-        mc $@
-      '';
-      description = "The monochange CLI for changeset and release management.";
-      binary = "bash";
-    };
+    # NOTE: no devenv script for `mc` — the monochange nix package already
+    # provides the real binary; a same-named script here would shadow it and
+    # recurse into itself (fork bomb) inside devenv shells.
     "dartfmt" = {
       exec = ''
         set -e
