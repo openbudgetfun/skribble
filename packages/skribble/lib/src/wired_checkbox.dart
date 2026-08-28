@@ -45,29 +45,29 @@ class WiredCheckbox extends HookWidget {
       child: buildWiredElement(
         key: key,
         child: Container(
-        padding: EdgeInsets.zero,
-        height: 27.0,
-        width: 27.0,
-        decoration: RoughBoxDecoration(
-          shape: RoughBoxShape.rectangle,
-          borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
-        ),
-        child: SizedBox(
-          height: double.infinity,
-          child: Transform.scale(
-            scale: 1.5,
-            child: Checkbox(
-              fillColor: WidgetStateProperty.all(Colors.transparent),
-              checkColor: theme.borderColor,
-              onChanged: (newValue) {
-                isChecked.value = newValue ?? false;
-                onChanged(newValue);
-              },
-              value: isChecked.value,
+          padding: EdgeInsets.zero,
+          height: 27.0,
+          width: 27.0,
+          decoration: RoughBoxDecoration(
+            shape: RoughBoxShape.rectangle,
+            borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
+          ),
+          child: SizedBox(
+            height: double.infinity,
+            child: Transform.scale(
+              scale: 1.5,
+              child: Checkbox(
+                fillColor: WidgetStateProperty.all(Colors.transparent),
+                checkColor: theme.borderColor,
+                onChanged: (newValue) {
+                  isChecked.value = newValue ?? false;
+                  onChanged(newValue);
+                },
+                value: isChecked.value,
+              ),
             ),
           ),
         ),
-      ),
       ),
     );
   }

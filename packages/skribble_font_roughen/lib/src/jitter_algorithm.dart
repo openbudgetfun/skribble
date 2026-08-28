@@ -8,14 +8,14 @@
 /// displacement value is produced. This ensures that the same font with
 /// the same configuration always produces the same output.
 class JitterAlgorithm {
+  /// Creates a jitter algorithm with the specified amount.
+  const JitterAlgorithm({this.jitterAmount = 12.0});
+
   /// The maximum displacement in font units.
   ///
   /// Higher values create more sketchy/rough appearance.
   /// Recommended range: 5-25 font units.
   final double jitterAmount;
-
-  /// Creates a jitter algorithm with the specified amount.
-  const JitterAlgorithm({this.jitterAmount = 12.0});
 
   /// Generates a deterministic jitter value for a given seed and index.
   ///
@@ -30,7 +30,7 @@ class JitterAlgorithm {
     const hashA = 2654435761;
     const hashB = 40503;
 
-    final h = ((seed * hashA + (index + offset) * hashB) & 0xFFFFFFFF);
+    final h = (seed * hashA + (index + offset) * hashB) & 0xFFFFFFFF;
     return ((h % 1000) / 500.0 - 1.0) * jitterAmount;
   }
 
@@ -49,11 +49,13 @@ class JitterAlgorithm {
       if (point.isOnCurve) {
         final dx = jitterValue(seed, index);
         final dy = jitterValue(seed, index, offset: 7919);
-        result.add(Point(
-          x: point.x + dx,
-          y: point.y + dy,
-          isOnCurve: true,
-        ));
+        result.add(
+          Point(
+            x: point.x + dx,
+            y: point.y + dy,
+            isOnCurve: true,
+          ),
+        );
       } else {
         result.add(point);
       }
@@ -66,6 +68,13 @@ class JitterAlgorithm {
 
 /// Represents a point in a glyph outline.
 class Point {
+  /// Creates a point with the specified coordinates and curve status.
+  const Point({
+    required this.x,
+    required this.y,
+    required this.isOnCurve,
+  });
+
   /// The x-coordinate in font units.
   final double x;
 
@@ -74,13 +83,6 @@ class Point {
 
   /// Whether this is an on-curve point (true) or off-curve control point (false).
   final bool isOnCurve;
-
-  /// Creates a point with the specified coordinates and curve status.
-  const Point({
-    required this.x,
-    required this.y,
-    required this.isOnCurve,
-  });
 
   @override
   String toString() => 'Point($x, $y, onCurve: $isOnCurve)';

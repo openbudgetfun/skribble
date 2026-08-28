@@ -52,37 +52,37 @@ class WiredInput extends HookWidget {
       textField: true,
       child: Row(
         children: [
-        if (labelText != null) Text('$labelText', style: labelStyle),
-        if (labelText != null) SizedBox(width: 10.0),
-        Expanded(
-          child: Stack(
-            children: [
-              SizedBox(
-                height: 48.0,
-                child: WiredCanvas(
-                  painter: WiredRectangleBase(
-                    fillColor: theme.fillColor,
-                    borderColor: theme.borderColor,
+          if (labelText != null) Text('$labelText', style: labelStyle),
+          if (labelText != null) SizedBox(width: 10.0),
+          Expanded(
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: 48.0,
+                  child: WiredCanvas(
+                    painter: WiredRectangleBase(
+                      fillColor: theme.fillColor,
+                      borderColor: theme.borderColor,
+                    ),
+                    fillerType: RoughFilter.noFiller,
                   ),
-                  fillerType: RoughFilter.noFiller,
                 ),
-              ),
-              TextField(
-                controller: controller,
-                style: style,
-                obscureText: obscureText,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: hintText,
-                  hintStyle: hintStyle,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
+                TextField(
+                  controller: controller,
+                  style: style,
+                  obscureText: obscureText,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: hintText,
+                    hintStyle: hintStyle,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  ),
+                  onChanged: onChanged,
                 ),
-                onChanged: onChanged,
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
       ),
     );
   }

@@ -17,7 +17,12 @@ class WiredDatePicker extends HookWidget {
   /// Optional semantic label for accessibility.
   final String? semanticLabel;
 
-  const WiredDatePicker({super.key, this.initialDate, this.onDateSelected, this.semanticLabel});
+  const WiredDatePicker({
+    super.key,
+    this.initialDate,
+    this.onDateSelected,
+    this.semanticLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,32 +36,32 @@ class WiredDatePicker extends HookWidget {
       button: true,
       child: buildWiredElement(
         child: SizedBox(
-        width: 320,
-        height: 400,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: WiredCanvas(
-                painter: WiredRectangleBase(
-                  fillColor: theme.fillColor,
-                  borderColor: theme.borderColor,
+          width: 320,
+          height: 400,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: WiredCanvas(
+                  painter: WiredRectangleBase(
+                    fillColor: theme.fillColor,
+                    borderColor: theme.borderColor,
+                  ),
+                  fillerType: RoughFilter.noFiller,
                 ),
-                fillerType: RoughFilter.noFiller,
               ),
-            ),
-            WiredCalendar(
-              selected: selectedDateStr.value,
-              onSelected: (selected) {
-                selectedDateStr.value = selected;
-                final dt = DateTime.tryParse(selected);
-                if (dt != null) {
-                  onDateSelected?.call(dt);
-                }
-              },
-            ),
-          ],
+              WiredCalendar(
+                selected: selectedDateStr.value,
+                onSelected: (selected) {
+                  selectedDateStr.value = selected;
+                  final dt = DateTime.tryParse(selected);
+                  if (dt != null) {
+                    onDateSelected?.call(dt);
+                  }
+                },
+              ),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

@@ -143,8 +143,7 @@ useFrameTimer({int maxFrames = 120}) {
     isCollecting.value = true;
 
     void callback(List<FrameTiming> newTimings) {
-      final current = List<FrameTiming>.of(timings.value)
-        ..addAll(newTimings);
+      final current = List<FrameTiming>.of(timings.value)..addAll(newTimings);
       if (current.length >= maxFrames) {
         timings.value = current.take(maxFrames).toList();
         stopCollecting();

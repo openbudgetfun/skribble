@@ -26,40 +26,40 @@ class WiredBottomSheet extends HookWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-        SizedBox(
-          height: 2,
-          child: WiredCanvas(
-            painter: WiredLineBase(
-              x1: 0,
-              y1: 0,
-              x2: double.infinity,
-              y2: 0,
-              strokeWidth: 2,
-              borderColor: theme.borderColor,
+          SizedBox(
+            height: 2,
+            child: WiredCanvas(
+              painter: WiredLineBase(
+                x1: 0,
+                y1: 0,
+                x2: double.infinity,
+                y2: 0,
+                strokeWidth: 2,
+                borderColor: theme.borderColor,
+              ),
+              fillerType: RoughFilter.noFiller,
             ),
-            fillerType: RoughFilter.noFiller,
           ),
-        ),
-        // Drag handle
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Center(
-            child: SizedBox(
-              width: 40,
-              height: 4,
-              child: WiredCanvas(
-                painter: WiredRoundedRectangleBase(
-                  borderRadius: BorderRadius.circular(2),
-                  borderColor: theme.borderColor,
+          // Drag handle
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Center(
+              child: SizedBox(
+                width: 40,
+                height: 4,
+                child: WiredCanvas(
+                  painter: WiredRoundedRectangleBase(
+                    borderRadius: BorderRadius.circular(2),
+                    borderColor: theme.borderColor,
+                  ),
+                  fillerType: RoughFilter.hachureFiller,
+                  fillerConfig: FillerConfig.build(hachureGap: 1.0),
                 ),
-                fillerType: RoughFilter.hachureFiller,
-                fillerConfig: FillerConfig.build(hachureGap: 1.0),
               ),
             ),
           ),
-        ),
-        child,
-      ],
+          child,
+        ],
       ),
     );
   }

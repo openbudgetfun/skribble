@@ -21,7 +21,8 @@ class NoteCard extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
-    final isUpdatedToday = note.updatedAt.year == now.year &&
+    final isUpdatedToday =
+        note.updatedAt.year == now.year &&
         note.updatedAt.month == now.month &&
         note.updatedAt.day == now.day;
 

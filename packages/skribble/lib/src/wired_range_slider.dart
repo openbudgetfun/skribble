@@ -39,49 +39,50 @@ class WiredRangeSlider extends HookWidget {
     return Semantics(
       label: semanticLabel,
       slider: true,
-      value: '${currentValues.value.start.toStringAsFixed(1)} to ${currentValues.value.end.toStringAsFixed(1)}',
+      value:
+          '${currentValues.value.start.toStringAsFixed(1)} to ${currentValues.value.end.toStringAsFixed(1)}',
       child: Stack(
         alignment: Alignment.center,
         children: [
-        SizedBox(
-          height: 1,
-          width: double.infinity,
-          child: WiredCanvas(
-            painter: WiredLineBase(
-              x1: 0,
-              y1: 0,
-              x2: double.infinity,
-              y2: 0,
-              strokeWidth: 2,
-              borderColor: theme.borderColor,
+          SizedBox(
+            height: 1,
+            width: double.infinity,
+            child: WiredCanvas(
+              painter: WiredLineBase(
+                x1: 0,
+                y1: 0,
+                x2: double.infinity,
+                y2: 0,
+                strokeWidth: 2,
+                borderColor: theme.borderColor,
+              ),
+              fillerType: RoughFilter.noFiller,
             ),
-            fillerType: RoughFilter.noFiller,
           ),
-        ),
-        SliderTheme(
-          data: SliderThemeData(
-            rangeTrackShape: RoundedRectRangeSliderTrackShape(),
-            activeTrackColor: Colors.transparent,
-            inactiveTrackColor: Colors.transparent,
-            thumbColor: Colors.transparent,
-            overlayColor: Colors.transparent,
-            rangeThumbShape: _WiredRangeThumbShape(theme),
+          SliderTheme(
+            data: SliderThemeData(
+              rangeTrackShape: RoundedRectRangeSliderTrackShape(),
+              activeTrackColor: Colors.transparent,
+              inactiveTrackColor: Colors.transparent,
+              thumbColor: Colors.transparent,
+              overlayColor: Colors.transparent,
+              rangeThumbShape: _WiredRangeThumbShape(theme),
+            ),
+            child: RangeSlider(
+              values: currentValues.value,
+              min: min,
+              max: max,
+              divisions: divisions,
+              labels: labels,
+              onChanged: (newValues) {
+                final result = onChanged?.call(newValues) ?? false;
+                if (result) {
+                  currentValues.value = newValues;
+                }
+              },
+            ),
           ),
-          child: RangeSlider(
-            values: currentValues.value,
-            min: min,
-            max: max,
-            divisions: divisions,
-            labels: labels,
-            onChanged: (newValues) {
-              final result = onChanged?.call(newValues) ?? false;
-              if (result) {
-                currentValues.value = newValues;
-              }
-            },
-          ),
-        ),
-      ],
+        ],
       ),
     );
   }

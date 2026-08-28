@@ -22,8 +22,10 @@ void main() {
       final primitive = WiredSvgPrimitive.path('M12 2L2 22h20L12 2z');
 
       expect(primitive, isA<WiredSvgPathPrimitive>());
-      expect((primitive as WiredSvgPathPrimitive).data,
-          equals('M12 2L2 22h20L12 2z'));
+      expect(
+        (primitive as WiredSvgPathPrimitive).data,
+        equals('M12 2L2 22h20L12 2z'),
+      );
     });
 
     test('WiredSvgCirclePrimitive stores circle data', () {

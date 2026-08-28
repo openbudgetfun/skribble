@@ -40,32 +40,34 @@ class WiredStepper extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     return Semantics(
-      label: semanticLabel ?? 'Stepper, step ${currentStep + 1} of ${steps.length}',
+      label:
+          semanticLabel ??
+          'Stepper, step ${currentStep + 1} of ${steps.length}',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-        for (int i = 0; i < steps.length; i++) ...[
-          _buildStep(i, steps[i], theme),
-          if (i < steps.length - 1)
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: SizedBox(
-                width: 2,
-                height: 24,
-                child: WiredCanvas(
-                  painter: WiredLineBase(
-                    x1: 0,
-                    y1: 0,
-                    x2: 0,
-                    y2: 24,
-                    borderColor: theme.borderColor,
+          for (int i = 0; i < steps.length; i++) ...[
+            _buildStep(i, steps[i], theme),
+            if (i < steps.length - 1)
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: SizedBox(
+                  width: 2,
+                  height: 24,
+                  child: WiredCanvas(
+                    painter: WiredLineBase(
+                      x1: 0,
+                      y1: 0,
+                      x2: 0,
+                      y2: 24,
+                      borderColor: theme.borderColor,
+                    ),
+                    fillerType: RoughFilter.noFiller,
                   ),
-                  fillerType: RoughFilter.noFiller,
                 ),
               ),
-            ),
+          ],
         ],
-      ],
       ),
     );
   }

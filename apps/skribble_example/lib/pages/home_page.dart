@@ -92,8 +92,9 @@ class HomePage extends HookWidget {
                         direction: DismissDirection.endToStart,
                         onDismissed: (_) {
                           final removedNote = note;
-                          final removedIndex =
-                              notes.value.indexWhere((n) => n.id == note.id);
+                          final removedIndex = notes.value.indexWhere(
+                            (n) => n.id == note.id,
+                          );
                           notes.value = notes.value
                               .where((n) => n.id != note.id)
                               .toList();
@@ -103,8 +104,7 @@ class HomePage extends HookWidget {
                             content: WiredSnackBarContent(
                               action: GestureDetector(
                                 onTap: () {
-                                  final restored =
-                                      List<Note>.from(notes.value);
+                                  final restored = List<Note>.from(notes.value);
                                   if (removedIndex >= 0 &&
                                       removedIndex <= restored.length) {
                                     restored.insert(removedIndex, removedNote);
@@ -112,8 +112,9 @@ class HomePage extends HookWidget {
                                     restored.add(removedNote);
                                   }
                                   notes.value = restored;
-                                  ScaffoldMessenger.of(context)
-                                      .hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(
+                                    context,
+                                  ).hideCurrentSnackBar();
                                 },
                                 child: Text(
                                   'UNDO',

@@ -101,8 +101,9 @@ List<_PreparedPrimitive> _preparePrimitives({
 
   return data.primitives
       .map(
-        (primitive) =>
-            _PreparedPrimitive(path: primitive.buildPath().transform(transform)),
+        (primitive) => _PreparedPrimitive(
+          path: primitive.buildPath().transform(transform),
+        ),
       )
       .toList(growable: false);
 }

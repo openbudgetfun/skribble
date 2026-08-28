@@ -12,7 +12,7 @@ void main() {
       );
 
       expect(
-        () => roughener.roughen(),
+        roughener.roughen,
         throwsA(isA<FileSystemException>()),
       );
     });
@@ -30,14 +30,13 @@ void main() {
         final roughener = FontRoughener(
           inputPath: inputFile.path,
           outputPath: outputFile.path,
-          jitterAmount: 10.0,
-          variant: FontVariant.regular,
+          jitterAmount: 10,
         );
 
         // This will throw a FontParseException because the file isn't a real font
         // but it tests that the file existence check works
         expect(
-          () => roughener.roughen(),
+          roughener.roughen,
           throwsA(isA<FontParseException>()),
         );
       } finally {
@@ -47,11 +46,11 @@ void main() {
     });
 
     test('RoughenResult contains correct values', () {
-      final result = RoughenResult(
+      const result = RoughenResult(
         inputPath: '/input.ttf',
         outputPath: '/output.ttf',
         variant: FontVariant.bold,
-        jitterAmount: 15.0,
+        jitterAmount: 15,
         glyphCount: 100,
       );
 
@@ -63,11 +62,11 @@ void main() {
     });
 
     test('RoughenResult toString returns readable format', () {
-      final result = RoughenResult(
+      const result = RoughenResult(
         inputPath: '/input.ttf',
         outputPath: '/output.ttf',
         variant: FontVariant.italic,
-        jitterAmount: 12.0,
+        jitterAmount: 12,
         glyphCount: 50,
       );
 
@@ -82,13 +81,16 @@ void main() {
 
   group('FontParseException', () {
     test('stores message correctly', () {
-      final exception = FontParseException('Test error message');
+      const exception = FontParseException('Test error message');
       expect(exception.message, equals('Test error message'));
     });
 
     test('toString returns readable format', () {
-      final exception = FontParseException('Test error message');
-      expect(exception.toString(), equals('FontParseException: Test error message'));
+      const exception = FontParseException('Test error message');
+      expect(
+        exception.toString(),
+        equals('FontParseException: Test error message'),
+      );
     });
   });
 

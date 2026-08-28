@@ -15,6 +15,8 @@ enum FontVariant {
   /// Bold weight, italic style.
   boldItalic('Bold', 'Bold Italic', -12);
 
+  const FontVariant(this.weight, this.fullNameSuffix, this.italicAngle);
+
   /// The weight name (Regular or Bold).
   final String weight;
 
@@ -23,8 +25,6 @@ enum FontVariant {
 
   /// The italic angle in degrees (0 for upright).
   final int italicAngle;
-
-  const FontVariant(this.weight, this.fullNameSuffix, this.italicAngle);
 
   /// Returns the font name for this variant.
   String get fontName => 'Skribble-$name';

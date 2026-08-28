@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 /// This creates a sketchy, organic splash animation that fits the
 /// hand-drawn aesthetic of the Skribble design system.
 ///
-/// Use with [InkWell] or [InkResponse] by setting the [splashFactory]:
+/// Use with `InkWell` or `InkResponse` by setting the `splashFactory`:
 ///
 /// ```dart
 /// ThemeData(
@@ -56,25 +57,29 @@ class WiredInkSplash extends InteractiveInkFeature {
     required super.color,
     super.onRemoved,
     double? radius,
-  })  : _position = position,
-        _radius = radius {
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 400),
-      vsync: controller.vsync,
-    )
-      ..addListener(_handleAnimationUpdate)
-      ..addStatusListener(_handleAnimationStatus)
-      ..forward();
+  }) : _position = position,
+       _radius = radius {
+    _controller =
+        AnimationController(
+            duration: const Duration(milliseconds: 400),
+            vsync: controller.vsync,
+          )
+          ..addListener(_handleAnimationUpdate)
+          ..addStatusListener(_handleAnimationStatus);
 
     _radiusController = AnimationController(
       duration: const Duration(milliseconds: 400),
       vsync: controller.vsync,
-    )..forward();
+    );
+
+    unawaited(_controller.forward());
+    unawaited(_radiusController.forward());
 
     _alphaController = AnimationController(
       duration: const Duration(milliseconds: 400),
       vsync: controller.vsync,
-    )..forward();
+    );
+    unawaited(_alphaController.forward());
   }
 
   late final AnimationController _controller;
@@ -131,8 +136,8 @@ class WiredInkSplash extends InteractiveInkFeature {
 
     // Draw rough circles for hand-drawn effect
     final Offset center = _position;
-    final int segments = 8;
-    final double segmentAngle = 2 * math.pi / segments;
+    const int segments = 8;
+    const double segmentAngle = 2 * math.pi / segments;
 
     canvas.save();
     canvas.transform(transform.storage);

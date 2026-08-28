@@ -41,29 +41,29 @@ class WiredTextArea extends HookWidget {
       textField: true,
       child: Stack(
         children: [
-        Positioned.fill(
-          child: WiredCanvas(
-            painter: WiredRectangleBase(
-              fillColor: theme.fillColor,
-              borderColor: theme.borderColor,
+          Positioned.fill(
+            child: WiredCanvas(
+              painter: WiredRectangleBase(
+                fillColor: theme.fillColor,
+                borderColor: theme.borderColor,
+              ),
+              fillerType: RoughFilter.noFiller,
             ),
-            fillerType: RoughFilter.noFiller,
           ),
-        ),
-        TextField(
-          controller: controller,
-          style: style,
-          maxLines: maxLines,
-          minLines: minLines,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: hintText,
-            hintStyle: hintStyle,
-            contentPadding: const EdgeInsets.all(8.0),
+          TextField(
+            controller: controller,
+            style: style,
+            maxLines: maxLines,
+            minLines: minLines,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hintText,
+              hintStyle: hintStyle,
+              contentPadding: const EdgeInsets.all(8.0),
+            ),
+            onChanged: onChanged,
           ),
-          onChanged: onChanged,
-        ),
-      ],
+        ],
       ),
     );
   }

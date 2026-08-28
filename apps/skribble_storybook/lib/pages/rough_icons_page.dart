@@ -42,7 +42,14 @@ class RoughIconsPage extends HookWidget {
                     child: Column(
                       children: [
                         WiredIcon(
+                          // Storybook gallery: renders every catalogued
+                          // codepoint at runtime; const evaluation (and the
+                          // icon tree-shaking it enables) does not apply.
                           icon: IconData(
+                            // Renders every catalogued codepoint at runtime;
+                            // const evaluation (and the icon tree-shaking it
+                            // enables) does not apply in the storybook.
+                            // ignore: non_const_argument_for_const_parameter
                             codePoint,
                             fontFamily: 'MaterialIcons',
                           ),

@@ -18,8 +18,7 @@ class Note {
     Color color = const Color(0xFFF5ECD7),
   }) {
     final now = DateTime.now();
-    final id =
-        '${now.millisecondsSinceEpoch}-${now.microsecond}';
+    final id = '${now.millisecondsSinceEpoch}-${now.microsecond}';
     return Note(
       id: id,
       title: title,

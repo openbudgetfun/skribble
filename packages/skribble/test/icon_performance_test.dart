@@ -46,13 +46,15 @@ void main() {
       // Test creating a batch of icon data objects
       final icons = <WiredSvgIconData>[];
       for (int i = 0; i < 100; i++) {
-        icons.add(WiredSvgIconData(
-          width: 24,
-          height: 24,
-          primitives: [
-            WiredSvgPrimitive.path('M12 2L2 22h20L12 2z'),
-          ],
-        ));
+        icons.add(
+          WiredSvgIconData(
+            width: 24,
+            height: 24,
+            primitives: [
+              WiredSvgPrimitive.path('M12 2L2 22h20L12 2z'),
+            ],
+          ),
+        );
       }
 
       stopwatch.stop();
@@ -66,13 +68,15 @@ void main() {
       // Create a large number of icon data objects
       final icons = <WiredSvgIconData>[];
       for (int i = 0; i < 1000; i++) {
-        icons.add(WiredSvgIconData(
-          width: 24,
-          height: 24,
-          primitives: [
-            WiredSvgPrimitive.path('M12 2L2 22h20L12 2z'),
-          ],
-        ));
+        icons.add(
+          WiredSvgIconData(
+            width: 24,
+            height: 24,
+            primitives: [
+              WiredSvgPrimitive.path('M12 2L2 22h20L12 2z'),
+            ],
+          ),
+        );
       }
 
       // Verify we can create 1000 icons without issues

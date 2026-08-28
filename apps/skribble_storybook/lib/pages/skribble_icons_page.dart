@@ -66,10 +66,9 @@ class SkribbleIconsPage extends HookWidget {
                         const SizedBox(height: 4),
                         Text(
                           identifier,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(fontSize: 9),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.copyWith(fontSize: 9),
                           textAlign: TextAlign.center,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,

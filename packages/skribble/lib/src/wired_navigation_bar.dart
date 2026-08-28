@@ -48,35 +48,35 @@ class WiredNavigationBar extends HookWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-        SizedBox(
-          height: 2,
-          child: WiredCanvas(
-            painter: WiredLineBase(
-              x1: 0,
-              y1: 0,
-              x2: double.infinity,
-              y2: 0,
-              borderColor: theme.borderColor,
+          SizedBox(
+            height: 2,
+            child: WiredCanvas(
+              painter: WiredLineBase(
+                x1: 0,
+                y1: 0,
+                x2: double.infinity,
+                y2: 0,
+                borderColor: theme.borderColor,
+              ),
+              fillerType: RoughFilter.noFiller,
             ),
-            fillerType: RoughFilter.noFiller,
           ),
-        ),
-        SizedBox(
-          height: 80,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              for (int i = 0; i < destinations.length; i++)
-                _buildDestination(
-                  destinations[i],
-                  i == selectedIndex,
-                  () => onDestinationSelected?.call(i),
-                  theme,
-                ),
-            ],
+          SizedBox(
+            height: 80,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                for (int i = 0; i < destinations.length; i++)
+                  _buildDestination(
+                    destinations[i],
+                    i == selectedIndex,
+                    () => onDestinationSelected?.call(i),
+                    theme,
+                  ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
       ),
     );
   }

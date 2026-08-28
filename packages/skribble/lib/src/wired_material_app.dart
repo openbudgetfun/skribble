@@ -281,8 +281,10 @@ class WiredMaterialApp extends HookWidget {
     required WiredThemeData effectiveHighContrastDarkTheme,
   }) {
     final platformDispatcher =
-        View.maybeOf(context)?.platformDispatcher ?? PlatformDispatcher.instance;
-    final isHighContrast = platformDispatcher.accessibilityFeatures.highContrast;
+        View.maybeOf(context)?.platformDispatcher ??
+        PlatformDispatcher.instance;
+    final isHighContrast =
+        platformDispatcher.accessibilityFeatures.highContrast;
 
     switch (themeMode) {
       case ThemeMode.light:

@@ -17,12 +17,36 @@ WiredSvgIconData _iconAt(List<WiredSvgIconData> icons, int index) {
 
 /// Icon label names, cycling through the custom icons.
 const _iconNames = [
-  'home', 'search', 'settings', 'star', 'heart',
-  'user', 'menu', 'close', 'check', 'plus',
-  'minus', 'arrow_left', 'arrow_right', 'arrow_up', 'arrow_down',
-  'edit', 'delete', 'share', 'copy', 'mail',
-  'phone', 'camera', 'image', 'calendar', 'clock',
-  'lock', 'unlock', 'eye', 'eye_off', 'notification',
+  'home',
+  'search',
+  'settings',
+  'star',
+  'heart',
+  'user',
+  'menu',
+  'close',
+  'check',
+  'plus',
+  'minus',
+  'arrow_left',
+  'arrow_right',
+  'arrow_up',
+  'arrow_down',
+  'edit',
+  'delete',
+  'share',
+  'copy',
+  'mail',
+  'phone',
+  'camera',
+  'image',
+  'calendar',
+  'clock',
+  'lock',
+  'unlock',
+  'eye',
+  'eye_off',
+  'notification',
 ];
 
 const _itemCount = 500;
@@ -139,7 +163,8 @@ class ScrollBenchPage extends HookWidget {
       bool isCollecting,
       VoidCallback startCollecting,
       VoidCallback stopCollecting,
-    }) timer,
+    })
+    timer,
   ) {
     if (timer.isCollecting) {
       return 'Collecting frame timings... '

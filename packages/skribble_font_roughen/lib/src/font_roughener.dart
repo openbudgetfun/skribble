@@ -2,8 +2,15 @@ import 'dart:io';
 
 import 'package:opentype_dart/opentype.dart' as opentype;
 
-import 'font_variant.dart';
-import 'jitter_algorithm.dart';
+import 'package:skribble_font_roughen/src/font_variant.dart';
+import 'package:skribble_font_roughen/src/jitter_algorithm.dart';
+
+// opentype_dart 0.0.1 exposes a JS-port style dynamic API surface (parseBuffer,
+// glyph paths, and font metadata are all `dynamic`), so typed calls are not
+// available here. Revisit when the package gains a typed API.
+//
+// Progress prints are intentional: this library drives CLI output.
+// ignore_for_file: avoid_dynamic_calls, avoid_print
 
 /// Main class for roughening font files with hand-drawn jitter effects.
 ///
@@ -25,6 +32,16 @@ import 'jitter_algorithm.dart';
 /// await roughener.roughen();
 /// ```
 class FontRoughener {
+  /// Creates a font roughener with the specified configuration.
+  FontRoughener({
+    required this.inputPath,
+    required this.outputPath,
+    this.jitterAmount = 12.0,
+    this.variant = FontVariant.regular,
+  }) {
+    _jitter = JitterAlgorithm(jitterAmount: jitterAmount);
+  }
+
   /// Path to the input font file.
   final String inputPath;
 
@@ -39,16 +56,6 @@ class FontRoughener {
 
   /// The jitter algorithm to use.
   late final JitterAlgorithm _jitter;
-
-  /// Creates a font roughener with the specified configuration.
-  FontRoughener({
-    required this.inputPath,
-    required this.outputPath,
-    this.jitterAmount = 12.0,
-    this.variant = FontVariant.regular,
-  }) {
-    _jitter = JitterAlgorithm(jitterAmount: jitterAmount);
-  }
 
   /// Roughens the input font and writes the result to the output path.
   ///
@@ -86,19 +93,25 @@ class FontRoughener {
       print('Font loaded: ${font.numGlyphs} glyphs');
 
       // Apply jitter to all glyphs via path commands
-      int processedCount = 0;
+      var processedCount = 0;
       final dynamic glyphs = font.glyphs;
 
       if (glyphs != null) {
-        for (int i = 0; i < (glyphs.length as int); i++) {
+        for (var i = 0; i < (glyphs.length as int); i++) {
           final glyph = glyphs.get(i);
           if (glyph != null) {
             try {
               // Get the glyph path and jitter its commands
-              final pathRaw = glyph.getPath(0, 0, 72, <String, dynamic>{}, font);
+              final pathRaw = glyph.getPath(
+                0,
+                0,
+                72,
+                <String, dynamic>{},
+                font,
+              );
               final path = pathRaw as opentype.Path?;
               if (path != null && path.commands.isNotEmpty) {
-                for (int j = 0; j < path.commands.length; j++) {
+                for (var j = 0; j < path.commands.length; j++) {
                   final cmd = path.commands[j] as Map<String, Object?>;
 
                   // Apply jitter to coordinate values in commands
@@ -147,18 +160,20 @@ class FontRoughener {
                 }
                 processedCount++;
               }
-            } catch (_) {
-              // Skip glyphs that can't be pathed
+            } on Object catch (_) {
+              // Skip glyphs that can't be pathed; opentype_dart throws untyped
+              // errors for non-pathable glyphs.
             }
           }
         }
       }
 
       // Update font metadata for the variant
-      font.familyName = 'Skribble';
-      font.fontName = 'Skribble-${variant.name}';
-      font.fullName = variant.fullName;
-      font.weight = variant.weight;
+      font
+        ..familyName = 'Skribble'
+        ..fontName = 'Skribble-${variant.name}'
+        ..fullName = variant.fullName
+        ..weight = variant.weight;
 
       if (variant.italicAngle != 0) {
         font.italicAngle = variant.italicAngle;
@@ -179,7 +194,9 @@ class FontRoughener {
         jitterAmount: jitterAmount,
         glyphCount: processedCount,
       );
-    } catch (e) {
+    }
+    // Wraps any processing failure in FontParseException.
+    on Object catch (e) {
       if (e is FontParseException) {
         rethrow;
       }
@@ -190,6 +207,15 @@ class FontRoughener {
 
 /// Result of a font roughening operation.
 class RoughenResult {
+  /// Creates a roughen result with the specified values.
+  const RoughenResult({
+    required this.inputPath,
+    required this.outputPath,
+    required this.variant,
+    required this.jitterAmount,
+    required this.glyphCount,
+  });
+
   /// Path to the input font file.
   final String inputPath;
 
@@ -205,17 +231,9 @@ class RoughenResult {
   /// Number of glyphs that were processed.
   final int glyphCount;
 
-  /// Creates a roughen result with the specified values.
-  const RoughenResult({
-    required this.inputPath,
-    required this.outputPath,
-    required this.variant,
-    required this.jitterAmount,
-    required this.glyphCount,
-  });
-
   @override
-  String toString() => 'RoughenResult('
+  String toString() =>
+      'RoughenResult('
       'input: $inputPath, '
       'output: $outputPath, '
       'variant: ${variant.name}, '
@@ -226,11 +244,11 @@ class RoughenResult {
 
 /// Exception thrown when a font file cannot be parsed.
 class FontParseException implements Exception {
-  /// A message describing the parse error.
-  final String message;
-
   /// Creates a font parse exception with the specified message.
   const FontParseException(this.message);
+
+  /// A message describing the parse error.
+  final String message;
 
   @override
   String toString() => 'FontParseException: $message';

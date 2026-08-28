@@ -28,9 +28,7 @@ class SiteHeader extends StatelessComponent {
           span(classes: 'header-logo', [Component.text('\u270E')]),
           span([Component.text(title)]),
         ]),
-        div(classes: 'header-content', [
-          div(classes: 'header-items', items),
-        ]),
+        div(classes: 'header-content', [div(classes: 'header-items', items)]),
       ]),
     ]);
   }
@@ -48,7 +46,9 @@ class SiteHeader extends StatelessComponent {
           bottom: BorderSide(color: Color('#0000000d'), width: 1.px),
         ),
       ),
-      css.media(MediaQuery.all(minWidth: 768.px), [css('&').styles(padding: Padding.symmetric(horizontal: 2.5.rem))]),
+      css.media(MediaQuery.all(minWidth: 768.px), [
+        css('&').styles(padding: Padding.symmetric(horizontal: 2.5.rem)),
+      ]),
       css('.header-title', [
         css('&').styles(
           display: Display.inlineFlex,
@@ -58,11 +58,7 @@ class SiteHeader extends StatelessComponent {
         ),
         css('span').styles(fontWeight: FontWeight.w700),
       ]),
-      css('.header-logo', [
-        css('&').styles(
-          fontSize: 1.5.rem,
-        ),
-      ]),
+      css('.header-logo', [css('&').styles(fontSize: 1.5.rem)]),
       css('.header-content', [
         css('&').styles(
           display: Display.flex,
@@ -71,10 +67,7 @@ class SiteHeader extends StatelessComponent {
         ),
       ]),
       css('.header-items', [
-        css('&').styles(
-          display: Display.flex,
-          gap: Gap.column(0.25.rem),
-        ),
+        css('&').styles(display: Display.flex, gap: Gap.column(0.25.rem)),
       ]),
     ]),
   ];

@@ -16,6 +16,14 @@ workspace:
   - apps/skribble_benchmark
   - apps/skribble_example
 
+# Vendored, Flutter-free copy of opentype_dart 0.0.1 (see
+# third_party/opentype_dart/README.md). The upstream package declares an
+# unused `package:flutter/services.dart` import and a hard Flutter SDK
+# dependency, which breaks pure-Dart VM tests for skribble_font_roughen.
+dependency_overrides:
+  opentype_dart:
+    path: third_party/opentype_dart
+
 dev_dependencies:
   melos: ^7.4.0
 

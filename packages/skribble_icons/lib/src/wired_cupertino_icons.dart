@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'skribble_icon.dart';
+import 'package:skribble_icons/src/skribble_icon.dart';
 
 /// A hand-drawn Cupertino icon, corresponding to Flutter's `CupertinoIcons`.
 ///
@@ -19,6 +18,15 @@ import 'skribble_icon.dart';
 /// )
 /// ```
 class WiredCupertinoIcon extends HookWidget {
+  /// Creates a hand-drawn Cupertino icon.
+  const WiredCupertinoIcon({
+    required this.icon,
+    super.key,
+    this.size,
+    this.color,
+    this.semanticLabel,
+  });
+
   /// The Cupertino icon to display.
   final IconData icon;
 
@@ -30,15 +38,6 @@ class WiredCupertinoIcon extends HookWidget {
 
   /// Semantic label for accessibility.
   final String? semanticLabel;
-
-  /// Creates a hand-drawn Cupertino icon.
-  const WiredCupertinoIcon({
-    super.key,
-    required this.icon,
-    this.size,
-    this.color,
-    this.semanticLabel,
-  });
 
   @override
   Widget build(BuildContext context) {

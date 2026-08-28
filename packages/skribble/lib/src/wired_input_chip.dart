@@ -100,8 +100,9 @@ class WiredInputChip extends HookWidget {
                               child: WiredIcon(
                                 icon: Icons.close,
                                 size: 16,
-                                color:
-                                    selected ? Colors.white : theme.textColor,
+                                color: selected
+                                    ? Colors.white
+                                    : theme.textColor,
                                 fillStyle: WiredIconFillStyle.solid,
                                 strokeWidth: 1.1,
                               ),
@@ -178,8 +179,10 @@ class WiredActionChip extends HookWidget {
                           const SizedBox(width: 6),
                         ],
                         DefaultTextStyle(
-                          style:
-                              TextStyle(color: theme.textColor, fontSize: 13),
+                          style: TextStyle(
+                            color: theme.textColor,
+                            fontSize: 13,
+                          ),
                           child: label,
                         ),
                       ],

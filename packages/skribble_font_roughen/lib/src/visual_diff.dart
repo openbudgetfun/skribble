@@ -1,5 +1,8 @@
 import 'dart:io';
 
+// Progress prints are intentional: this tool drives CLI output.
+// ignore_for_file: avoid_print
+
 /// A tool for visual diffing of font renderings.
 ///
 /// This tool compares two font files and generates a visual diff
@@ -20,6 +23,15 @@ import 'dart:io';
 /// print('Differences found: ${result.differenceCount}');
 /// ```
 class VisualDiff {
+  /// Creates a visual diff tool.
+  const VisualDiff({
+    required this.originalPath,
+    required this.roughenedPath,
+    required this.outputPath,
+    this.sampleText = 'Hello, World! AaBbCc 123',
+    this.fontSize = 24.0,
+  });
+
   /// Path to the original font file.
   final String originalPath;
 
@@ -35,15 +47,6 @@ class VisualDiff {
   /// The font size to use for rendering.
   final double fontSize;
 
-  /// Creates a visual diff tool.
-  const VisualDiff({
-    required this.originalPath,
-    required this.roughenedPath,
-    required this.outputPath,
-    this.sampleText = 'Hello, World! AaBbCc 123',
-    this.fontSize = 24.0,
-  });
-
   /// Compares the two fonts and generates a diff image.
   ///
   /// Returns a [DiffResult] with statistics about the differences.
@@ -56,7 +59,7 @@ class VisualDiff {
       throw FileSystemException('Roughened font file not found', roughenedPath);
     }
 
-    // TODO: Implement actual font rendering and comparison
+    // TODO(ifiokjr): Implement actual font rendering and comparison.
     // This is a placeholder that will be replaced with actual image
     // comparison using Flutter's rendering engine.
 
@@ -72,13 +75,22 @@ class VisualDiff {
       roughenedPath: roughenedPath,
       outputPath: outputPath,
       differenceCount: 0,
-      similarityScore: 1.0,
+      similarityScore: 1,
     );
   }
 }
 
 /// Result of a visual diff comparison.
 class DiffResult {
+  /// Creates a diff result with the specified values.
+  const DiffResult({
+    required this.originalPath,
+    required this.roughenedPath,
+    required this.outputPath,
+    required this.differenceCount,
+    required this.similarityScore,
+  });
+
   /// Path to the original font file.
   final String originalPath;
 
@@ -94,23 +106,12 @@ class DiffResult {
   /// Similarity score between 0.0 (completely different) and 1.0 (identical).
   final double similarityScore;
 
-  /// Creates a diff result with the specified values.
-  const DiffResult({
-    required this.originalPath,
-    required this.roughenedPath,
-    required this.outputPath,
-    required this.differenceCount,
-    required this.similarityScore,
-  });
-
   /// Whether the fonts are considered similar enough.
   bool get isSimilar => similarityScore > 0.95;
 
   @override
-  String toString() => 'DiffResult('
-      'original: $originalPath, '
-      'roughened: $roughenedPath, '
+  String toString() =>
+      'DiffResult(original: $originalPath, roughened: $roughenedPath, '
       'differences: $differenceCount, '
-      'similarity: ${(similarityScore * 100).toStringAsFixed(1)}%'
-      ')';
+      'similarity: ${(similarityScore * 100).toStringAsFixed(1)}%)';
 }

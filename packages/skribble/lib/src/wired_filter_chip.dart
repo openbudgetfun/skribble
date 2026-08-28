@@ -37,56 +37,58 @@ class WiredFilterChip extends HookWidget {
       onTap: () => onSelected?.call(!selected),
       child: buildWiredElement(
         child: GestureDetector(
-        onTap: () => onSelected?.call(!selected),
-        child: IntrinsicWidth(
-          child: SizedBox(
-            height: 32,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Positioned.fill(
-                  child: WiredCanvas(
-                    painter: WiredRoundedRectangleBase(
-                      borderRadius: BorderRadius.circular(16),
-                      fillColor: selected ? theme.borderColor : theme.fillColor,
-                      borderColor: theme.borderColor,
-                    ),
-                    fillerType: selected
-                        ? RoughFilter.hachureFiller
-                        : RoughFilter.noFiller,
-                    fillerConfig: FillerConfig.build(hachureGap: 3.0),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (selected) ...[
-                        WiredIcon(
-                          icon: Icons.check,
-                          size: 16,
-                          color: theme.fillColor,
-                          fillStyle: WiredIconFillStyle.solid,
-                          strokeWidth: 1.1,
-                        ),
-                        const SizedBox(width: 4),
-                      ],
-                      DefaultTextStyle(
-                        style: TextStyle(
-                          color: selected ? theme.fillColor : theme.textColor,
-                          fontSize: 13,
-                        ),
-                        child: label,
+          onTap: () => onSelected?.call(!selected),
+          child: IntrinsicWidth(
+            child: SizedBox(
+              height: 32,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Positioned.fill(
+                    child: WiredCanvas(
+                      painter: WiredRoundedRectangleBase(
+                        borderRadius: BorderRadius.circular(16),
+                        fillColor: selected
+                            ? theme.borderColor
+                            : theme.fillColor,
+                        borderColor: theme.borderColor,
                       ),
-                    ],
+                      fillerType: selected
+                          ? RoughFilter.hachureFiller
+                          : RoughFilter.noFiller,
+                      fillerConfig: FillerConfig.build(hachureGap: 3.0),
+                    ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (selected) ...[
+                          WiredIcon(
+                            icon: Icons.check,
+                            size: 16,
+                            color: theme.fillColor,
+                            fillStyle: WiredIconFillStyle.solid,
+                            strokeWidth: 1.1,
+                          ),
+                          const SizedBox(width: 4),
+                        ],
+                        DefaultTextStyle(
+                          style: TextStyle(
+                            color: selected ? theme.fillColor : theme.textColor,
+                            fontSize: 13,
+                          ),
+                          child: label,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
       ),
     );
   }

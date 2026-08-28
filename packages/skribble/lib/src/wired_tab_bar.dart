@@ -38,31 +38,31 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-        SizedBox(
-          height: height - 2,
-          child: Row(
-            children: [
-              for (int i = 0; i < tabs.length; i++)
-                Expanded(
-                  child: _buildTab(tabs[i], i == selectedIndex, i, theme),
-                ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 2,
-          child: WiredCanvas(
-            painter: WiredLineBase(
-              x1: 0,
-              y1: 0,
-              x2: double.infinity,
-              y2: 0,
-              borderColor: theme.borderColor,
+          SizedBox(
+            height: height - 2,
+            child: Row(
+              children: [
+                for (int i = 0; i < tabs.length; i++)
+                  Expanded(
+                    child: _buildTab(tabs[i], i == selectedIndex, i, theme),
+                  ),
+              ],
             ),
-            fillerType: RoughFilter.noFiller,
           ),
-        ),
-      ],
+          SizedBox(
+            height: 2,
+            child: WiredCanvas(
+              painter: WiredLineBase(
+                x1: 0,
+                y1: 0,
+                x2: double.infinity,
+                y2: 0,
+                borderColor: theme.borderColor,
+              ),
+              fillerType: RoughFilter.noFiller,
+            ),
+          ),
+        ],
       ),
     );
   }

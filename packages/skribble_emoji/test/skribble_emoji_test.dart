@@ -186,8 +186,9 @@ void main() {
       expect(find.byType(WiredSvgIcon), findsOneWidget);
     });
 
-    testWidgets('fromName renders placeholder for unknown name',
-        (tester) async {
+    testWidgets('fromName renders placeholder for unknown name', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -218,8 +219,9 @@ void main() {
       expect(find.byType(WiredSvgIcon), findsOneWidget);
     });
 
-    testWidgets('fromUnicode renders placeholder for unknown codepoint',
-        (tester) async {
+    testWidgets('fromUnicode renders placeholder for unknown codepoint', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

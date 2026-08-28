@@ -147,9 +147,18 @@ void main() {
       final before = DateTime.now();
       final note = Note.create(title: 'Time test');
       final after = DateTime.now();
-      expect(note.createdAt.isAfter(before.subtract(const Duration(seconds: 1))), isTrue);
-      expect(note.createdAt.isBefore(after.add(const Duration(seconds: 1))), isTrue);
-      expect(note.updatedAt.isAfter(before.subtract(const Duration(seconds: 1))), isTrue);
+      expect(
+        note.createdAt.isAfter(before.subtract(const Duration(seconds: 1))),
+        isTrue,
+      );
+      expect(
+        note.createdAt.isBefore(after.add(const Duration(seconds: 1))),
+        isTrue,
+      );
+      expect(
+        note.updatedAt.isAfter(before.subtract(const Duration(seconds: 1))),
+        isTrue,
+      );
     });
 
     test('copyWith with color changes only the color', () {
@@ -187,19 +196,21 @@ void main() {
       expect(find.text('Project Ideas'), findsNothing);
     });
 
-    testWidgets('search filtering shows "No notes match" when nothing matches',
-        (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
-      await tester.pumpAndSettle();
+    testWidgets(
+      'search filtering shows "No notes match" when nothing matches',
+      (tester) async {
+        await tester.pumpWidget(const SketchNotesApp());
+        await tester.pumpAndSettle();
 
-      await tester.enterText(
-        find.byType(TextField).first,
-        'xyznonexistent',
-      );
-      await tester.pumpAndSettle();
+        await tester.enterText(
+          find.byType(TextField).first,
+          'xyznonexistent',
+        );
+        await tester.pumpAndSettle();
 
-      expect(find.text('No notes match your search.'), findsOneWidget);
-    });
+        expect(find.text('No notes match your search.'), findsOneWidget);
+      },
+    );
 
     testWidgets('search filters notes by content', (tester) async {
       await tester.pumpWidget(const SketchNotesApp());
@@ -229,8 +240,9 @@ void main() {
   });
 
   group('Edit page', () {
-    testWidgets('renders title and content input fields for new note',
-        (tester) async {
+    testWidgets('renders title and content input fields for new note', (
+      tester,
+    ) async {
       await tester.pumpWidget(_wrapInApp(const EditPage()));
       await tester.pumpAndSettle();
 
@@ -241,8 +253,9 @@ void main() {
       expect(find.text('Write your thoughts...'), findsOneWidget);
     });
 
-    testWidgets('save button shows "Create Note" for new notes',
-        (tester) async {
+    testWidgets('save button shows "Create Note" for new notes', (
+      tester,
+    ) async {
       await tester.pumpWidget(_wrapInApp(const EditPage()));
       await tester.pumpAndSettle();
 
@@ -261,66 +274,70 @@ void main() {
       expect(find.text('Purple'), findsOneWidget);
     });
 
-    testWidgets('editing an existing note pre-fills fields and shows Edit title',
-        (tester) async {
-      final existingNote = _sampleNote(
-        title: 'My Existing Note',
-        content: 'Existing content here.',
-      );
+    testWidgets(
+      'editing an existing note pre-fills fields and shows Edit title',
+      (tester) async {
+        final existingNote = _sampleNote(
+          title: 'My Existing Note',
+          content: 'Existing content here.',
+        );
 
-      // Build an app that navigates to EditPage with the note as argument.
-      await tester.pumpWidget(
-        WiredMaterialApp(
-          wiredTheme: WiredThemeData(
-            borderColor: const Color(0xFF5C3D2E),
-            textColor: const Color(0xFF2E2E2E),
-            disabledTextColor: const Color(0xFFA89888),
-            fillColor: const Color(0xFFF5ECD7),
-            roughness: 1.2,
+        // Build an app that navigates to EditPage with the note as argument.
+        await tester.pumpWidget(
+          WiredMaterialApp(
+            wiredTheme: WiredThemeData(
+              borderColor: const Color(0xFF5C3D2E),
+              textColor: const Color(0xFF2E2E2E),
+              disabledTextColor: const Color(0xFFA89888),
+              fillColor: const Color(0xFFF5ECD7),
+              roughness: 1.2,
+            ),
+            initialRoute: '/',
+            onGenerateRoute: (settings) {
+              if (settings.name == '/') {
+                return MaterialPageRoute(
+                  builder: (_) => Builder(
+                    builder: (context) {
+                      // Navigate immediately.
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        unawaited(
+                          Navigator.pushNamed(
+                            context,
+                            '/edit',
+                            arguments: existingNote,
+                          ),
+                        );
+                      });
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                );
+              }
+              if (settings.name == '/edit') {
+                return MaterialPageRoute(
+                  settings: settings,
+                  builder: (_) => const EditPage(),
+                );
+              }
+              return null;
+            },
           ),
-          initialRoute: '/',
-          onGenerateRoute: (settings) {
-            if (settings.name == '/') {
-              return MaterialPageRoute(
-                builder: (_) => Builder(
-                  builder: (context) {
-                    // Navigate immediately.
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      unawaited(Navigator.pushNamed(
-                        context,
-                        '/edit',
-                        arguments: existingNote,
-                      ));
-                    });
-                    return const SizedBox.shrink();
-                  },
-                ),
-              );
-            }
-            if (settings.name == '/edit') {
-              return MaterialPageRoute(
-                settings: settings,
-                builder: (_) => const EditPage(),
-              );
-            }
-            return null;
-          },
-        ),
-      );
-      await tester.pumpAndSettle();
+        );
+        await tester.pumpAndSettle();
 
-      expect(find.text('Edit Note'), findsOneWidget);
-      expect(find.text('Save Changes'), findsOneWidget);
+        expect(find.text('Edit Note'), findsOneWidget);
+        expect(find.text('Save Changes'), findsOneWidget);
 
-      // Verify the text controllers are pre-filled.
-      final titleField = tester.widgetList<EditableText>(
-        find.byType(EditableText),
-      );
-      // The first EditableText should have the title, the second the content.
-      final texts = titleField.map((e) => e.controller.text).toList();
-      expect(texts, contains('My Existing Note'));
-      expect(texts, contains('Existing content here.'));
-    });
+        // Verify the text controllers are pre-filled.
+        final titleField = tester.widgetList<EditableText>(
+          find.byType(EditableText),
+        );
+        // The first EditableText should have the title, the second the content.
+        final texts = titleField.map((e) => e.controller.text).toList();
+        expect(texts, contains('My Existing Note'));
+        expect(texts, contains('Existing content here.'));
+      },
+    );
 
     testWidgets('back button exists with semantic label', (tester) async {
       await tester.pumpWidget(_wrapInApp(const EditPage()));
@@ -448,7 +465,9 @@ void main() {
       expect(find.text('Short content.'), findsOneWidget);
     });
 
-    testWidgets('truncates long content with ellipsis indicator', (tester) async {
+    testWidgets('truncates long content with ellipsis indicator', (
+      tester,
+    ) async {
       final longContent = 'A' * 80; // Longer than 50 chars.
       final note = _sampleNote(content: longContent);
       await tester.pumpWidget(_wrapInApp(NoteCard(note: note)));
@@ -464,16 +483,18 @@ void main() {
       await tester.pumpAndSettle();
 
       // Find the colored circle Container by its decoration.
-      final container = tester.widgetList<Container>(
-        find.byType(Container),
-      ).where((c) {
-        final decoration = c.decoration;
-        if (decoration is BoxDecoration) {
-          return decoration.color == const Color(0xFFE8F5E9) &&
-              decoration.shape == BoxShape.circle;
-        }
-        return false;
-      });
+      final container = tester
+          .widgetList<Container>(
+            find.byType(Container),
+          )
+          .where((c) {
+            final decoration = c.decoration;
+            if (decoration is BoxDecoration) {
+              return decoration.color == const Color(0xFFE8F5E9) &&
+                  decoration.shape == BoxShape.circle;
+            }
+            return false;
+          });
       expect(container, isNotEmpty);
     });
 

@@ -45,16 +45,20 @@ void main() {
       );
     });
 
-    test('every identifier resolves to a codepoint present in the icon map', () {
-      for (final entry in kCustomRoughIconsCodePoints.entries) {
-        expect(
-          kCustomRoughIcons,
-          contains(entry.value),
-          reason: 'Identifier "${entry.key}" codepoint '
-              '0x${entry.value.toRadixString(16)} missing from map',
-        );
-      }
-    });
+    test(
+      'every identifier resolves to a codepoint present in the icon map',
+      () {
+        for (final entry in kCustomRoughIconsCodePoints.entries) {
+          expect(
+            kCustomRoughIcons,
+            contains(entry.value),
+            reason:
+                'Identifier "${entry.key}" codepoint '
+                '0x${entry.value.toRadixString(16)} missing from map',
+          );
+        }
+      },
+    );
   });
 
   group('lookupCustomRoughIconByIdentifier', () {
