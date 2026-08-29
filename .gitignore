@@ -36,3 +36,6 @@ pubspec.lock
 .screenshots/
 .ant-colony/
 .serena/
+
+# monochange local artifacts
+.monochange/

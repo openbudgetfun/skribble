@@ -14,15 +14,22 @@
     "commands": [
       {
         "command": "nixfmt",
-        "exts": ["nix"]
+        "exts": [
+          "nix"
+        ]
       },
       {
         "command": "shfmt --filename {{file_path}} -i 0",
-        "exts": ["sh", "bash"]
+        "exts": [
+          "sh",
+          "bash"
+        ]
       },
       {
         "command": "dartfmt {{file_path}}",
-        "exts": ["dart"],
+        "exts": [
+          "dart"
+        ],
         "stdin": false
       }
     ]
@@ -36,7 +43,8 @@
     "**/pubspec.lock",
     "**/*.dart",
     "**/*.nix",
-    "**/*.sh"
+    "**/*.sh",
+    "**/.monochange/**"
   ],
   "plugins": [
     "https://plugins.dprint.dev/json-0.21.1.wasm",
