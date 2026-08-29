@@ -39,3 +39,7 @@ pubspec.lock
 
 # monochange local artifacts
 .monochange/
+
+# Patrol generated files
+apps/skribble_storybook/test_bundle.dart
+apps/skribble_storybook/.patrol.env
