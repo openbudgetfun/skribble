@@ -208,3 +208,10 @@ The widgets below were part of earlier releases and keep their individual APIs:
 | `WiredCupertinoScaffold`         | `CupertinoPageScaffold`     | Layout page     |
 | `WiredCupertinoAlertDialog`      | `CupertinoAlertDialog`      | Feedback page   |
 | `WiredCupertinoActionSheet`      | `CupertinoActionSheet`      | Feedback page   |
+
+## Building the font and icon sets
+
+Every glyph and icon in this catalog is generated:
+
+- Fonts: `melos run` font tooling — see `skribble_font_roughen`
+- Icons: `melos run rough-icons` — see the generation guide

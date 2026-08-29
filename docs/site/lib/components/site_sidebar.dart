@@ -110,6 +110,7 @@ class SiteSidebar extends StatelessComponent {
             SidebarLink(text: 'Testing Widgets', href: link('/guides/testing')),
             SidebarLink(text: 'Screenshots', href: link('/guides/screenshots')),
             SidebarLink(text: 'E2E Testing', href: link('/guides/e2e-testing')),
+            SidebarLink(text: 'Jaspr (Web)', href: link('/guides/jaspr')),
           ],
         ),
         SidebarGroup(
