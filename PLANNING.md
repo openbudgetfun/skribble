@@ -578,3 +578,15 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 **Branch & worktree cleanup:**
 
 - Cleaned up ~15 stale merged remote branches and obsolete local worktrees
+
+**Publishing readiness (Phase 4):**
+
+- Verified `dart pub publish --dry-run` across all packages
+- Unblocked: skribble, skribble_emoji, skribble_icons, skribble_icons_custom,
+  skribble_lints all validate (after relaxing Flutter constraints to
+  `>=3.47.0` per the new pub.dev upper-bound deprecation)
+- `skribble_font_roughen` marked `publish_to: none`: its upstream dependency
+  `opentype_dart` ships no license and is not on pub.dev — publishing is
+  blocked until the dependency is replaced (see
+  third_party/opentype_dart/README.md). Remaining dry-run warnings are
+  working-tree-only and clear on commit.

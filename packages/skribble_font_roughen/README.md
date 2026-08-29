@@ -117,3 +117,11 @@ See the main [Skribble contributing guide](../../CONTRIBUTING.md) for details.
 ## License
 
 MIT - See [LICENSE](LICENSE) for details.
+
+## Publishing status
+
+`skribble_font_roughen` is marked `publish_to: none` (internal tool). Its
+upstream dependency `opentype_dart` 0.0.1 ships **no license** (all rights
+reserved) and carries a stray Flutter SDK dependency, so the package
+cannot be published to pub.dev until the dependency is replaced with a
+licensed font library or an in-repo OpenType reader/writer.

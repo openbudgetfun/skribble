@@ -2,6 +2,7 @@ name: skribble_font_roughen
 description: |
   Dart CLI tool for roughening fonts with hand-drawn jitter effects. Part of the Skribble hand-drawn Flutter design system.
 version: 0.1.0
+publish_to: none
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_roughen
 issue_tracker: https://github.com/openbudgetfun/skribble/issues
@@ -10,7 +11,7 @@ environment:
 resolution: workspace
 dependencies:
   args: ^2.4.2
-  opentype_dart: 0.0.1+skribble.1
+  opentype_dart: ^0.0.1
   path: ^1.8.3
 dev_dependencies:
   skribble_lints:
