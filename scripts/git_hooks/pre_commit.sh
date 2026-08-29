@@ -61,6 +61,13 @@ if [[ ${#dart_files[@]} -gt 0 ]]; then
     if [[ "$package_dir" == third_party/* ]]; then
       continue
     fi
+    # Root-level scripts/tools don't belong to a lint-managed package and
+    # dart fix at the workspace root also sweeps path dependencies
+    # (third_party). Analyze only.
+    if [[ "$package_dir" == "." ]]; then
+      echo "pre-commit: skipping dart fix for repo-root scripts"
+      continue
+    fi
     echo "pre-commit: applying dart fixes in $package_dir"
     (
       cd "$REPO_ROOT/$package_dir"

@@ -590,3 +590,35 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
   blocked until the dependency is replaced (see
   third_party/opentype_dart/README.md). Remaining dry-run warnings are
   working-tree-only and clear on commit.
+
+### 2026-08-29 (Decoupling groundwork — Phase 3 start)
+
+**Goal:** Skribble becomes a standalone design system library — a peer of
+`package:material_ui` / `package:cupertino_ui`, depending only on
+`flutter/widgets` and below. NOT a skin over Material widgets.
+
+**Status:** `material`/`cupertino` decoupled from the Flutter core into pub
+packages (Flutter 3.47 era). 94 of 109 files in packages/skribble/lib import
+material/cupertino today. The audit tool classifies them:
+
+- 57 × "skin" — wrap a Material widget; these are the real rewrite debt
+- 37 × "helpers" — theme/geometry/constants only; mechanical import swaps
+
+**Tooling:**
+
+- `tool/audit_material_dependencies.dart` — dependency heatmap classifier
+  (table or --json); report committed at `docs/material-dependency-audit.txt`
+- Rule codified in AGENTS.md: new code must not import material/cupertino;
+  add a CI import gate when the audit reaches 0
+
+**Rewrite order (skin debt):**
+
+1. Leaf inputs: button family, checkbox, switch, slider, text field
+2. Theme: WiredTheme/DrawConfig already custom — swap ThemeData reads for a
+   skribble-owned token set
+3. Navigation/containers: scaffold, app bar, tabs, bottom nav, dialogs
+4. App shell: SkribbleApp (WidgetsApp-based) replacing WiredMaterialApp;
+   keep WiredMaterialApp as a thin compatibility bridge until consumers
+   migrate
+5. Localization: use GlobalMaterialLocalizations alternatives or depend on
+   flutter_localizations directly (decision needed at step 4)
