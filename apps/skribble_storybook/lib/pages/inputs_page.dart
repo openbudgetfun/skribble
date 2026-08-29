@@ -444,31 +444,6 @@ class InputsPage extends HookWidget {
           ),
 
           ShowcaseSection(
-            title: 'WiredCupertinoSearchTextField',
-            children: [
-              ComponentShowcase(
-                title: 'Search Field',
-                description:
-                    'Stadium-shaped iOS search input with a sketchy '
-                    'magnifier glyph.',
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    WiredCupertinoSearchTextField(
-                      placeholder: 'Search widgets',
-                      onChanged: (v) => searchQuery.value = v,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Query: ${searchQuery.value.isEmpty ? "—" : searchQuery.value}',
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-
-          ShowcaseSection(
             title: 'WiredCupertinoFormSection',
             children: [
               ComponentShowcase(

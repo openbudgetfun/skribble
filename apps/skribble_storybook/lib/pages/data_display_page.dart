@@ -274,6 +274,47 @@ class DataDisplayPage extends HookWidget {
               ),
             ],
           ),
+
+          ShowcaseSection(
+            title: 'WiredCupertinoListSection',
+            children: [
+              ComponentShowcase(
+                title: 'Inset-Grouped List',
+                description:
+                    'iOS-style grouped list with hand-drawn card, '
+                    'separators, header, and footer.',
+                child: WiredCupertinoListSection(
+                  header: const Text('Documents'),
+                  footer: const Text('Files shared with your team.'),
+                  children: [
+                    WiredCupertinoListTile(
+                      leading: const Text('📄'),
+                      title: const Text('Roadmap.pdf'),
+                      subtitle: const Text('Updated yesterday'),
+                      additionalTrailingText: '2 MB',
+                      trailing: const Text('›'),
+                      onTap: () {},
+                    ),
+                    WiredCupertinoListTile(
+                      leading: const Text('📊'),
+                      title: const Text('Budget Q3.key'),
+                      subtitle: const Text('Shared with 4 people'),
+                      additionalTrailingText: '8 MB',
+                      trailing: const Text('›'),
+                      onTap: () {},
+                    ),
+                    WiredCupertinoListTile(
+                      leading: const Text('🖼️'),
+                      title: const Text('Sketch.png'),
+                      additionalTrailingText: '512 KB',
+                      trailing: const Text('›'),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
