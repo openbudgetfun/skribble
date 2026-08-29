@@ -562,3 +562,63 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - CI composite action picks up the new SDK automatically via `.fvmrc` cache keying
 - All suites green on 3.47: skribble 1194, emoji 34, icons 27, icons_custom 27,
   icons_dynamic 21, storybook 64, example 41, benchmark 8, font_roughen (dart test) 20
+
+### 2026-08-28/29 (Housekeeping & Release Management)
+
+**Workspace hygiene:**
+
+- Removed `skribble_icons_dynamic` (deprioritized; zero dependents — presets
+  in `skribble_icons` are the supported path; can be revived from git
+  history if dynamic generation is wanted later)
+- Added `skribble_emoji_gen` (Dart CLI emoji generator) to the workspace
+  with SDK constraint aligned to ^3.13.0 and `resolution: workspace`
+- Merged knope → monochange migration (PR #126): release flows now use
+  `mc release-pr` / `mc publish`; changesets reformatted for monochange
+
+**Branch & worktree cleanup:**
+
+- Cleaned up ~15 stale merged remote branches and obsolete local worktrees
+
+**Publishing readiness (Phase 4):**
+
+- Verified `dart pub publish --dry-run` across all packages
+- Unblocked: skribble, skribble_emoji, skribble_icons, skribble_icons_custom,
+  skribble_lints all validate (after relaxing Flutter constraints to
+  `>=3.47.0` per the new pub.dev upper-bound deprecation)
+- `skribble_font_roughen` marked `publish_to: none`: its upstream dependency
+  `opentype_dart` ships no license and is not on pub.dev — publishing is
+  blocked until the dependency is replaced (see
+  third_party/opentype_dart/README.md). Remaining dry-run warnings are
+  working-tree-only and clear on commit.
+
+### 2026-08-29 (Decoupling groundwork — Phase 3 start)
+
+**Goal:** Skribble becomes a standalone design system library — a peer of
+`package:material_ui` / `package:cupertino_ui`, depending only on
+`flutter/widgets` and below. NOT a skin over Material widgets.
+
+**Status:** `material`/`cupertino` decoupled from the Flutter core into pub
+packages (Flutter 3.47 era). 94 of 109 files in packages/skribble/lib import
+material/cupertino today. The audit tool classifies them:
+
+- 57 × "skin" — wrap a Material widget; these are the real rewrite debt
+- 37 × "helpers" — theme/geometry/constants only; mechanical import swaps
+
+**Tooling:**
+
+- `tool/audit_material_dependencies.dart` — dependency heatmap classifier
+  (table or --json); report committed at `docs/material-dependency-audit.txt`
+- Rule codified in AGENTS.md: new code must not import material/cupertino;
+  add a CI import gate when the audit reaches 0
+
+**Rewrite order (skin debt):**
+
+1. Leaf inputs: button family, checkbox, switch, slider, text field
+2. Theme: WiredTheme/DrawConfig already custom — swap ThemeData reads for a
+   skribble-owned token set
+3. Navigation/containers: scaffold, app bar, tabs, bottom nav, dialogs
+4. App shell: SkribbleApp (WidgetsApp-based) replacing WiredMaterialApp;
+   keep WiredMaterialApp as a thin compatibility bridge until consumers
+   migrate
+5. Localization: use GlobalMaterialLocalizations alternatives or depend on
+   flutter_localizations directly (decision needed at step 4)
