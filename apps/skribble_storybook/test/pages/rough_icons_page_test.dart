@@ -45,19 +45,13 @@ void main() {
       expect(find.byType(WiredAppBar), findsOneWidget);
     });
 
-    testWidgets('renders rough icons and codepoint labels', (tester) async {
+    testWidgets('renders rough icons with identifier labels', (tester) async {
       await navigateToRoughIcons(tester);
 
       expect(find.byType(WiredIcon), findsWidgets);
-      expect(
-        find.byWidgetPredicate(
-          (widget) =>
-              widget is Text &&
-              widget.data != null &&
-              widget.data!.startsWith('0x'),
-        ),
-        findsWidgets,
-      );
+      // The grid lazily renders the first visible rows; the alphabetically
+      // first identifier must be among them.
+      expect(find.text('ac_unit'), findsOneWidget);
     });
 
     testWidgets('shows icon count text', (tester) async {
@@ -66,12 +60,72 @@ void main() {
       expect(
         find.byWidgetPredicate(
           (widget) =>
-              widget is Text &&
-              widget.data != null &&
-              widget.data!.contains(' icons'),
+              widget is Text && widget.data != null &&
+              widget.data!.endsWith(' icons'),
         ),
         findsOneWidget,
       );
+    });
+
+    testWidgets('renders a search input', (tester) async {
+      await navigateToRoughIcons(tester);
+
+      expect(find.byType(WiredInput), findsOneWidget);
+      expect(find.byType(TextField), findsOneWidget);
+    });
+
+    testWidgets('search filters icons by identifier', (tester) async {
+      await navigateToRoughIcons(tester);
+
+      await tester.enterText(find.byType(TextField), 'ac_unit');
+      await tester.pumpAndSettle();
+
+      // The matching cell label stays visible. The predicate skips the
+      // search field's own EditableText content — only grid Text labels
+      // match.
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is Text && widget.data == 'ac_unit',
+        ),
+        findsOneWidget,
+      );
+      // Non-matching labels are filtered out of the lazy grid.
+      expect(find.text('add'), findsNothing);
+    });
+
+    testWidgets('search shows an empty state without matches', (tester) async {
+      await navigateToRoughIcons(tester);
+
+      await tester.enterText(find.byType(TextField), 'zzzznope');
+      await tester.pumpAndSettle();
+
+      expect(find.text('No icons match "zzzznope"'), findsOneWidget);
+      expect(find.byType(WiredIcon), findsNothing);
+    });
+
+    testWidgets('opens a preview popup when an icon is tapped', (tester) async {
+      await navigateToRoughIcons(tester);
+
+      await tester.tap(find.text('ac_unit'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Dialog), findsOneWidget);
+      expect(find.text('ac_unit'), findsNWidgets(2));
+      expect(find.text('24px'), findsOneWidget);
+      expect(find.text('48px'), findsOneWidget);
+      expect(find.text('96px'), findsOneWidget);
+    });
+
+    testWidgets('popup dismisses on outside tap', (tester) async {
+      await navigateToRoughIcons(tester);
+
+      await tester.tap(find.text('ac_unit'));
+      await tester.pumpAndSettle();
+      expect(find.byType(Dialog), findsOneWidget);
+
+      await tester.tapAt(const Offset(10, 300));
+      await tester.pumpAndSettle();
+      expect(find.byType(Dialog), findsNothing);
     });
 
     testWidgets('navigates back to home', (tester) async {

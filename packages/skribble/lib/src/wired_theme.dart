@@ -7,7 +7,7 @@ import 'rough/skribble_rough.dart';
 /// Based on Recursive (Casual axis) with hand-drawn roughening applied via
 /// FontForge. See `packages/skribble_font_roughen` for the Dart CLI tool
 /// that replaces the Python script.
-const skribbleFontFamily = 'Skribble';
+const String skribbleFontFamily = 'Skribble';
 
 /// Theme data for Wired widgets.
 class WiredThemeData {

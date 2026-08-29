@@ -439,7 +439,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
       points.fold(0.0, (acc, p) => acc + p.dx) / points.length,
       points.fold(0.0, (acc, p) => acc + p.dy) / points.length,
     );
-    final amplitude = math.max(1.5, path.getBounds().shortestSide / 14);
+    final amplitude = math.max(2.0, path.getBounds().shortestSide / 8);
     final raw = [
       for (var i = 0; i < points.length; i++)
         math.sin(i * 12.9898) * 43758.5453 % 1.0 - 0.5,
@@ -531,31 +531,39 @@ final class _WiredSvgIconPainter extends CustomPainter {
     canvas.restore();
   }
 
-  void _paintOutline(Canvas canvas, Path path, Paint paint) {
-    for (final metric in path.computeMetrics()) {
-      final points = _sampleMetric(metric);
-      if (points.length < 2) {
-        continue;
+  void _paintOutline(
+    Canvas canvas,
+    Path path,
+    Paint paint, {
+    bool doublePass = false,
+  }) {
+    for (var passIdx = (doublePass ? 2 : 1); passIdx > 0; passIdx--) {
+      // Second pass draws with a tiny offset for the layered pen-stroke feel.
+      final px = passIdx == 2 ? 1.2 : 0.0;
+      final py = passIdx == 2 ? -0.8 : 0.0;
+      canvas.save();
+      if (px != 0 || py != 0) {
+        canvas.translate(px, py);
       }
-
-      final contour = points
-          .map((offset) => PointD(offset.dx, offset.dy))
-          .toList(growable: false);
-
-      final opSet = OpSetBuilder.linearPath(
-        contour,
-        metric.isClosed,
-        drawConfig,
-      );
-      if (opSet.ops?.isEmpty ?? true) {
-        continue;
+      for (final metric in path.computeMetrics()) {
+        final pts = _sampleMetric(metric);
+        if (pts.length < 2) continue;
+        final contour = pts
+            .map((o) => PointD(o.dx, o.dy))
+            .toList(growable: false);
+        final opSet = OpSetBuilder.linearPath(
+          contour,
+          metric.isClosed,
+          drawConfig,
+        );
+        if (opSet.ops?.isEmpty ?? true) continue;
+        canvas.drawRough(
+          Drawable(options: drawConfig, sets: <OpSet>[opSet]),
+          paint,
+          paint,
+        );
       }
-
-      canvas.drawRough(
-        Drawable(options: drawConfig, sets: <OpSet>[opSet]),
-        paint,
-        paint,
-      );
+      canvas.restore();
     }
   }
 

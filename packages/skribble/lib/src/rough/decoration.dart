@@ -42,6 +42,12 @@ class RoughBoxDecoration extends Decoration {
 
   final BorderRadius? borderRadius;
 
+  /// A fixed seed for deterministic rough shapes. The same seed always
+  /// produces the same wobble, so hover/unhover doesn't re-randomise.
+  /// Set [seed] to a unique value per widget instance (e.g. hash of label)
+  /// for variety, or pass a random value for full randomness. Defaults to 1.
+  final int seed;
+
   const RoughBoxDecoration({
     this.borderStyle,
     this.drawConfig,
@@ -49,6 +55,7 @@ class RoughBoxDecoration extends Decoration {
     this.shape = RoughBoxShape.rectangle,
     this.filler,
     this.borderRadius,
+    this.seed = 1,
   });
 
   @override
@@ -73,7 +80,8 @@ class RoughDecorationPainter extends BoxPainter {
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
     final DrawConfig drawConfig =
-        roughDecoration.drawConfig ?? DrawConfig.defaultValues;
+        roughDecoration.drawConfig ??
+        DrawConfig.build(seed: roughDecoration.seed);
     final Filler filler = roughDecoration.filler ?? NoFiller();
     final Generator generator = Generator(drawConfig, filler);
     final Rect rect = offset & configuration.size!;
