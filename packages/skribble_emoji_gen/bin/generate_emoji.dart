@@ -124,15 +124,17 @@ Future<void> main(List<String> arguments) async {
       continue;
     }
 
-    final pathList = _extractPaths(svgFile);
-    if (pathList.isEmpty) {
+    final shapeList = _extractShapes(svgFile);
+    if (shapeList.isEmpty) {
       skippedNoPaths++;
       continue;
     }
 
     seenCodepoints.add(primaryCp);
     seenNames.add(name);
-    entries.add(_EmojiEntry(codepoint: primaryCp, name: name, paths: pathList));
+    entries.add(
+      _EmojiEntry(codepoint: primaryCp, name: name, paths: shapeList),
+    );
     processed++;
 
     if (processed % 500 == 0) {
@@ -169,7 +171,17 @@ Future<void> main(List<String> arguments) async {
 // SVG extraction
 // ---------------------------------------------------------------------------
 
-List<String> _extractPaths(String svgFile) {
+/// A resolved SVG shape: path data + effective paint attributes.
+class _SvgShape {
+  _SvgShape(this.data, this.fillColor, this.strokeColor, this.strokeWidth);
+
+  final String data;
+  final String? fillColor;
+  final String? strokeColor;
+  final double strokeWidth;
+}
+
+List<_SvgShape> _extractShapes(String svgFile) {
   final file = File(svgFile);
   if (!file.existsSync()) return [];
 
@@ -180,42 +192,89 @@ List<String> _extractPaths(String svgFile) {
     return [];
   }
 
-  final paths = <String>[];
-  _processElement(doc.rootElement, paths);
-  return paths;
+  final shapes = <_SvgShape>[];
+  _processElement(doc.rootElement, shapes, _PaintContext());
+  return shapes;
 }
 
-void _processElement(XmlElement element, List<String> paths) {
+/// Effective fill/stroke state, resolving SVG group inheritance.
+class _PaintContext {
+  String? fill; // null = default (black), 'none' = no fill
+  String? stroke; // null or 'none' = no stroke
+  double strokeWidth = 1;
+
+  _PaintContext copy() => _PaintContext()
+    ..fill = fill
+    ..stroke = stroke
+    ..strokeWidth = strokeWidth;
+}
+
+void _processElement(
+  XmlElement element,
+  List<_SvgShape> shapes,
+  _PaintContext parent,
+) {
   final tag = element.name.local;
+
+  var resolvedFill = _resolvePaint(
+    element,
+    'fill',
+    parent.fill,
+    () => '#000000',
+  );
+  var resolvedStroke = _resolvePaint(
+    element,
+    'stroke',
+    parent.stroke,
+    () => null,
+  );
+  final swAttr = element.getAttribute('stroke-width');
+  final resolvedSw = double.tryParse(swAttr ?? '') ?? parent.strokeWidth;
+
+  if ((resolvedFill ?? '').toLowerCase() == 'none') {
+    resolvedFill = null; // explicit "no fill"
+  }
+  if ((resolvedStroke ?? '').toLowerCase() == 'none') {
+    resolvedStroke = null;
+  }
+
+  final childCtx = _PaintContext()
+    ..fill = resolvedFill
+    ..stroke = resolvedStroke
+    ..strokeWidth = (swAttr != null
+        ? (double.tryParse(swAttr) ?? 1)
+        : parent.strokeWidth);
+
+  void add(String data) {
+    if (data.isEmpty) return;
+    // Invisible if it has neither fill nor stroke after resolution.
+    if (resolvedFill == null && resolvedStroke == null) return;
+    shapes.add(_SvgShape(data, resolvedFill, resolvedStroke, resolvedSw));
+  }
 
   if (tag == 'path') {
     final d = element.getAttribute('d')?.trim() ?? '';
     if (d.isNotEmpty && d.toLowerCase() != 'none' && !_shouldSkip(element)) {
-      paths.add(d);
+      add(d);
     }
   } else if (tag == 'polygon') {
     final pts = element.getAttribute('points')?.trim() ?? '';
     if (pts.isNotEmpty && !_shouldSkip(element)) {
-      final pd = _polygonPointsToPath(pts);
-      if (pd.isNotEmpty) paths.add(pd);
+      add(_polygonPointsToPath(pts));
     }
   } else if (tag == 'polyline') {
     final pts = element.getAttribute('points')?.trim() ?? '';
     if (pts.isNotEmpty && !_shouldSkip(element)) {
       var pd = _polygonPointsToPath(pts);
-      if (pd.isNotEmpty) {
-        if (pd.endsWith('Z')) pd = pd.substring(0, pd.length - 1);
-        paths.add(pd);
-      }
+      if (pd.endsWith('Z')) pd = pd.substring(0, pd.length - 1);
+      if (pd.isNotEmpty) add(pd);
     }
   } else if (tag == 'circle') {
     if (!_shouldSkip(element)) {
       final cx = double.tryParse(element.getAttribute('cx') ?? '0') ?? 0;
       final cy = double.tryParse(element.getAttribute('cy') ?? '0') ?? 0;
       final r = double.tryParse(element.getAttribute('r') ?? '0') ?? 0;
-      if (r > 0) {
-        paths.add(_circleToPath(cx, cy, r));
-      }
+      if (r > 0) add(_circleToPath(cx, cy, r));
     }
   } else if (tag == 'ellipse') {
     if (!_shouldSkip(element)) {
@@ -223,9 +282,7 @@ void _processElement(XmlElement element, List<String> paths) {
       final cy = double.tryParse(element.getAttribute('cy') ?? '0') ?? 0;
       final rx = double.tryParse(element.getAttribute('rx') ?? '0') ?? 0;
       final ry = double.tryParse(element.getAttribute('ry') ?? '0') ?? 0;
-      if (rx > 0 && ry > 0) {
-        paths.add(_ellipseToPath(cx, cy, rx, ry));
-      }
+      if (rx > 0 && ry > 0) add(_ellipseToPath(cx, cy, rx, ry));
     }
   } else if (tag == 'rect') {
     if (!_shouldSkip(element)) {
@@ -235,9 +292,7 @@ void _processElement(XmlElement element, List<String> paths) {
       final h = double.tryParse(element.getAttribute('height') ?? '0') ?? 0;
       final rx = double.tryParse(element.getAttribute('rx') ?? '0') ?? 0;
       final ry = double.tryParse(element.getAttribute('ry') ?? '0') ?? 0;
-      if (w > 0 && h > 0) {
-        paths.add(_rectToPath(x, y, w, h, rx, ry));
-      }
+      if (w > 0 && h > 0) add(_rectToPath(x, y, w, h, rx, ry));
     }
   } else if (tag == 'line') {
     if (!_shouldSkip(element)) {
@@ -245,13 +300,26 @@ void _processElement(XmlElement element, List<String> paths) {
       final y1 = element.getAttribute('y1') ?? '0';
       final x2 = element.getAttribute('x2') ?? '0';
       final y2 = element.getAttribute('y2') ?? '0';
-      paths.add('M$x1,$y1 L$x2,$y2');
+      add('M$x1,$y1 L$x2,$y2');
     }
   }
 
   for (final child in element.childElements) {
-    _processElement(child, paths);
+    _processElement(child, shapes, childCtx);
   }
+}
+
+/// Resolves an `attribute = inherited ?? svgDefault` paint chain.
+/// `svgDefault` supplies the value when the attribute is absent everywhere.
+String? _resolvePaint(
+  XmlElement element,
+  String attr,
+  String? inherited,
+  String? Function() svgDefault,
+) {
+  final own = element.getAttribute(attr)?.trim();
+  if (own != null && own.isNotEmpty) return own;
+  return inherited ?? svgDefault();
 }
 
 bool _shouldSkip(XmlElement elem) {
@@ -422,8 +490,21 @@ String _generateEmojiDart(List<_EmojiEntry> entries) {
       ..writeln('    width: 72.0,')
       ..writeln('    height: 72.0,')
       ..writeln('    primitives: <WiredSvgPrimitive>[');
-    for (final p in entry.paths) {
-      buf.writeln("      WiredSvgPrimitive.path('${_escape(p)}'),");
+    for (final shape in entry.paths) {
+      final params = StringBuffer();
+      if (shape.fillColor != null)
+        params.write("fillColor: '${shape.fillColor}', ");
+      if (shape.strokeColor != null) {
+        params.write("strokeColor: '${shape.strokeColor}', ");
+        params.write('strokeWidth: ${shape.strokeWidth.toStringAsFixed(1)}, ');
+      }
+      if (params.isEmpty) {
+        buf.writeln("      WiredSvgPrimitive.path('${_escape(shape.data)}'),");
+      } else {
+        buf.writeln(
+          "      WiredSvgPrimitive.path('${_escape(shape.data)}', ${params.toString().trim()}),",
+        );
+      }
     }
     buf
       ..writeln('    ],')
@@ -463,7 +544,7 @@ String _generateCodepointsDart(List<_EmojiEntry> entries) {
 class _EmojiEntry {
   final int codepoint;
   final String name;
-  final List<String> paths;
+  final List<_SvgShape> paths;
 
   const _EmojiEntry({
     required this.codepoint,

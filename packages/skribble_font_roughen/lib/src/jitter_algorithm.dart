@@ -8,39 +8,24 @@
 /// displacement value is produced. This ensures that the same font with
 /// the same configuration always produces the same output.
 class JitterAlgorithm {
-  /// Creates a jitter algorithm with the specified amount.
-  const JitterAlgorithm({this.jitterAmount = 12.0});
+  const JitterAlgorithm({this.jitterAmount = 48.0});
 
   /// The maximum displacement in font units.
   ///
-  /// Higher values create more sketchy/rough appearance.
-  /// Recommended range: 5-25 font units.
+  /// At the default 2048 UPM this is ~2.3% of the em — clearly visible
+  /// while keeping characters readable.
   final double jitterAmount;
 
-  /// Generates a deterministic jitter value for a given seed and index.
-  ///
-  /// The algorithm uses a hash-based approach to produce pseudo-random
-  /// values that are consistent for the same inputs.
-  ///
-  /// [seed] - A seed value, typically the glyph's Unicode codepoint.
-  /// [index] - The point index within the glyph.
-  /// [offset] - An offset to produce different X/Y values from the same seed/index.
+  /// Fraction of the on-curve jitter applied to off-curve control points.
+  static const double _offCurveFraction = 0.7;
+
   double jitterValue(int seed, int index, {int offset = 0}) {
-    // Hash constants for deterministic pseudo-random generation
     const hashA = 2654435761;
     const hashB = 40503;
-
     final h = (seed * hashA + (index + offset) * hashB) & 0xFFFFFFFF;
     return ((h % 1000) / 500.0 - 1.0) * jitterAmount;
   }
 
-  /// Applies jitter to a list of point coordinates.
-  ///
-  /// Takes a list of [Point] objects and returns a new list with
-  /// jitter applied to on-curve points only.
-  ///
-  /// [points] - The original glyph outline points.
-  /// [seed] - The seed value for deterministic jitter (typically Unicode codepoint).
   List<Point> applyJitter(List<Point> points, int seed) {
     final result = <Point>[];
     var index = 0;
@@ -49,19 +34,14 @@ class JitterAlgorithm {
       if (point.isOnCurve) {
         final dx = jitterValue(seed, index);
         final dy = jitterValue(seed, index, offset: 7919);
-        result.add(
-          Point(
-            x: point.x + dx,
-            y: point.y + dy,
-            isOnCurve: true,
-          ),
-        );
+        result.add(Point(x: point.x + dx, y: point.y + dy, isOnCurve: true));
       } else {
-        result.add(point);
+        final dx = jitterValue(seed, index, offset: 3571) * _offCurveFraction;
+        final dy = jitterValue(seed, index, offset: 6811) * _offCurveFraction;
+        result.add(Point(x: point.x + dx, y: point.y + dy, isOnCurve: false));
       }
       index++;
     }
-
     return result;
   }
 }

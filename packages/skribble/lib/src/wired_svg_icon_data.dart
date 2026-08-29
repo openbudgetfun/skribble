@@ -19,12 +19,26 @@ final class WiredSvgIconData {
 }
 
 /// A single drawable SVG primitive.
+///
+/// [fillColor] and [strokeColor] carry the source SVG paint attributes as
+/// `#RRGGBB` strings (already resolved through group inheritance by the
+/// generator). They exist on every primitive kind so emoji keep the colours
+/// from their source artwork; precomputed Material icons leave them null and
+/// render with the ambient single colour.
 sealed class WiredSvgPrimitive {
-  const WiredSvgPrimitive({this.fillRule = WiredSvgFillRule.nonZero});
+  const WiredSvgPrimitive({
+    this.fillRule = WiredSvgFillRule.nonZero,
+    this.fillColor,
+    this.strokeColor,
+    this.strokeWidth = 1.0,
+  });
 
   const factory WiredSvgPrimitive.path(
     String data, {
     WiredSvgFillRule fillRule,
+    String? fillColor,
+    String? strokeColor,
+    double? strokeWidth,
   }) = WiredSvgPathPrimitive;
 
   const factory WiredSvgPrimitive.circle({
@@ -32,6 +46,9 @@ sealed class WiredSvgPrimitive {
     required double cy,
     required double radius,
     WiredSvgFillRule fillRule,
+    String? fillColor,
+    String? strokeColor,
+    double? strokeWidth,
   }) = WiredSvgCirclePrimitive;
 
   const factory WiredSvgPrimitive.ellipse({
@@ -40,9 +57,30 @@ sealed class WiredSvgPrimitive {
     required double radiusX,
     required double radiusY,
     WiredSvgFillRule fillRule,
+    String? fillColor,
+    String? strokeColor,
+    double? strokeWidth,
   }) = WiredSvgEllipsePrimitive;
 
+  const factory WiredSvgPrimitive.polygon(
+    String data, {
+    WiredSvgFillRule fillRule,
+    String? fillColor,
+    String? strokeColor,
+    double? strokeWidth,
+  }) = WiredSvgPathPrimitive;
+
   final WiredSvgFillRule fillRule;
+
+  /// Paint colour for the enclosed area as `#RRGGBB`, or null when the
+  /// primitive should use the ambient single colour.
+  final String? fillColor;
+
+  /// Outline colour as `#RRGGBB`, or null for the ambient single colour.
+  final String? strokeColor;
+
+  /// Outline width from the source SVG (`stroke-width`), defaulting to 1.
+  final double strokeWidth;
 
   Path buildPath();
 
@@ -56,7 +94,13 @@ sealed class WiredSvgPrimitive {
 }
 
 final class WiredSvgPathPrimitive extends WiredSvgPrimitive {
-  const WiredSvgPathPrimitive(this.data, {super.fillRule});
+  const WiredSvgPathPrimitive(
+    this.data, {
+    super.fillRule,
+    super.fillColor,
+    super.strokeColor,
+    double? strokeWidth,
+  }) : super(strokeWidth: strokeWidth ?? 1.0);
 
   final String data;
 
@@ -74,7 +118,10 @@ final class WiredSvgCirclePrimitive extends WiredSvgPrimitive {
     required this.cy,
     required this.radius,
     super.fillRule,
-  });
+    super.fillColor,
+    super.strokeColor,
+    double? strokeWidth,
+  }) : super(strokeWidth: strokeWidth ?? 1.0);
 
   final double cx;
   final double cy;
@@ -98,7 +145,10 @@ final class WiredSvgEllipsePrimitive extends WiredSvgPrimitive {
     required this.radiusX,
     required this.radiusY,
     super.fillRule,
-  });
+    super.fillColor,
+    super.strokeColor,
+    double? strokeWidth,
+  }) : super(strokeWidth: strokeWidth ?? 1.0);
 
   final double cx;
   final double cy;
