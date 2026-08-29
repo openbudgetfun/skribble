@@ -9,7 +9,7 @@ The main library is imported via a single barrel file:
 import 'package:skribble/skribble.dart';
 ```
 
-This exports 93 files covering the full widget set, rough engine, theming, and canvas system.
+This exports 95 files covering the full widget set, rough engine, theming, and canvas system.
 
 ## API layers
 
@@ -103,7 +103,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredSegmentedButton`      | `wired_segmented_button.dart` |
 | `WiredCupertinoButton`      | `wired_cupertino_button.dart` |
 
-#### Inputs (18)
+#### Inputs (19)
 
 | Widget                    | File                              |
 | ------------------------- | --------------------------------- |
@@ -125,6 +125,8 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredCupertinoTextField` | `wired_cupertino_text_field.dart` |
 | `WiredCupertinoSlider`    | `wired_cupertino_slider.dart`     |
 | `WiredCupertinoSwitch`    | `wired_cupertino_switch.dart`     |
+| `WiredCupertinoSearchTextField` | `wired_cupertino_search_text_field.dart` |
+| `WiredCupertinoFormSection`     | `wired_cupertino_form_section.dart`      |
 
 #### Navigation (15)
 
@@ -164,8 +166,9 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredCupertinoPicker`           | `wired_cupertino_picker.dart`            |
 | `WiredCupertinoDatePicker`       | `wired_cupertino_date_picker.dart`       |
 | `WiredCupertinoSegmentedControl` | `wired_cupertino_segmented_control.dart` |
+| `WiredCupertinoTimerPicker`      | `wired_cupertino_timer_picker.dart`      |
 
-#### Feedback (13)
+#### Feedback (15)
 
 | Widget                      | File                                |
 | --------------------------- | ----------------------------------- |
@@ -174,6 +177,8 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredTooltip`              | `wired_tooltip.dart`                |
 | `WiredProgress`             | `wired_progress.dart`               |
 | `WiredCircularProgress`     | `wired_circular_progress.dart`      |
+| `WiredLoadingIndicator`     | `wired_loading_indicator.dart`      |
+| `WiredCupertinoActivityIndicator` | `wired_cupertino_activity_indicator.dart` |
 | `WiredBadge`                | `wired_badge.dart`                  |
 | `WiredBottomSheet`          | `wired_bottom_sheet.dart`           |
 | `WiredAboutDialog`          | `wired_about_dialog.dart`           |
@@ -183,7 +188,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredCupertinoAlertDialog` | `wired_cupertino_alert_dialog.dart` |
 | `WiredCupertinoActionSheet` | `wired_cupertino_action_sheet.dart` |
 
-#### Layout (19)
+#### Layout (18)
 
 | Widget                     | File                               |
 | -------------------------- | ---------------------------------- |
@@ -208,6 +213,8 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredAvatar`              | `wired_avatar.dart`                |
 | `WiredPageScaffold`        | `wired_cupertino_scaffold.dart`    |
 | `WiredTabScaffold`         | `wired_cupertino_scaffold.dart`    |
+| `WiredCupertinoListSection`| `wired_cupertino_list_section.dart`|
+| `WiredCupertinoListTile`   | `wired_cupertino_list_tile.dart`   |
 
 #### Icons
 

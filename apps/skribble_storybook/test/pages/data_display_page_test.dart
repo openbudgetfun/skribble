@@ -42,6 +42,18 @@ void main() {
       expect(find.byType(RepaintBoundary), findsWidgets);
     });
 
+    testWidgets('shows WiredCupertinoListSection on scroll', (tester) async {
+      await navigateToDataDisplay(tester);
+      await tester.scrollUntilVisible(
+        find.text('WiredCupertinoListSection'),
+        500,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('WiredCupertinoListSection'), findsOneWidget);
+      expect(find.text('Roadmap.pdf'), findsOneWidget);
+    });
+
     testWidgets('navigates back to home', (tester) async {
       await navigateToDataDisplay(tester);
       await tester.tap(find.byType(BackButton));

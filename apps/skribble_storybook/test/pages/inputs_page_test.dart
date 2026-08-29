@@ -58,6 +58,34 @@ void main() {
       expect(find.text('WiredCupertinoTextField'), findsOneWidget);
     });
 
+    testWidgets('shows WiredCupertinoSearchTextField section on scroll', (
+      tester,
+    ) async {
+      await navigateToInputs(tester);
+      await tester.scrollUntilVisible(
+        find.text('WiredCupertinoSearchTextField'),
+        500,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('WiredCupertinoSearchTextField'), findsOneWidget);
+      expect(find.text('Search widgets'), findsOneWidget);
+    });
+
+    testWidgets('shows WiredCupertinoFormSection section on scroll', (
+      tester,
+    ) async {
+      await navigateToInputs(tester);
+      await tester.scrollUntilVisible(
+        find.text('WiredCupertinoFormSection'),
+        500,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('WiredCupertinoFormSection'), findsOneWidget);
+      expect(find.text('Account'), findsOneWidget);
+    });
+
     testWidgets('renders multiple ComponentShowcase sections', (tester) async {
       await navigateToInputs(tester);
       expect(find.byType(ComponentShowcase), findsWidgets);

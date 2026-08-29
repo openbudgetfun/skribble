@@ -40,6 +40,31 @@ void main() {
       expect(find.byType(RepaintBoundary), findsWidgets);
     });
 
+    testWidgets('shows WiredCupertinoTimerPicker section on scroll', (
+      tester,
+    ) async {
+      await navigateToSelection(tester);
+
+      // The page contains nested scrollables (picker wheels), so jump the
+      // outer ListView directly to the end. ListView estimates its extent
+      // lazily, so keep jumping until the end of the list is reached.
+      var attempts = 0;
+      while (find.text('WiredCupertinoTimerPicker').evaluate().isEmpty &&
+          attempts < 20) {
+        final scrollableState = tester.state<ScrollableState>(
+          find.byType(Scrollable).first,
+        );
+        scrollableState.position.jumpTo(
+          scrollableState.position.maxScrollExtent,
+        );
+        await tester.pumpAndSettle();
+        attempts++;
+      }
+
+      expect(find.text('WiredCupertinoTimerPicker'), findsOneWidget);
+      expect(find.text('00 minutes'), findsOneWidget);
+    });
+
     testWidgets('navigates back to home', (tester) async {
       await navigateToSelection(tester);
       await tester.tap(find.byType(BackButton));

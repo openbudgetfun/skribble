@@ -417,6 +417,96 @@ class InputsPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredCupertinoSearchTextField',
+            children: [
+              ComponentShowcase(
+                title: 'Search Field',
+                description:
+                    'Stadium-shaped iOS search input with a sketchy '
+                    'magnifier glyph.',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    WiredCupertinoSearchTextField(
+                      placeholder: 'Search widgets',
+                      onChanged: (v) => searchQuery.value = v,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Query: ${searchQuery.value.isEmpty ? "—" : searchQuery.value}',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          ShowcaseSection(
+            title: 'WiredCupertinoSearchTextField',
+            children: [
+              ComponentShowcase(
+                title: 'Search Field',
+                description:
+                    'Stadium-shaped iOS search input with a sketchy '
+                    'magnifier glyph.',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    WiredCupertinoSearchTextField(
+                      placeholder: 'Search widgets',
+                      onChanged: (v) => searchQuery.value = v,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Query: ${searchQuery.value.isEmpty ? "—" : searchQuery.value}',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          ShowcaseSection(
+            title: 'WiredCupertinoFormSection',
+            children: [
+              ComponentShowcase(
+                title: 'Form Section',
+                description:
+                    'Grouped form rows with hand-drawn dividers, header, '
+                    'and footer.',
+                child: WiredCupertinoFormSection(
+                  header: const Text('Account'),
+                  footer: const Text('Changes sync to all devices.'),
+                  children: [
+                    WiredInput(labelText: 'Name'),
+                    WiredInput(labelText: 'Email'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          ShowcaseSection(
+            title: 'WiredCupertinoFormSection',
+            children: [
+              ComponentShowcase(
+                title: 'Form Section',
+                description:
+                    'Grouped form rows with hand-drawn dividers, header, '
+                    'and footer.',
+                child: WiredCupertinoFormSection(
+                  header: const Text('Account'),
+                  footer: const Text('Changes sync to all devices.'),
+                  children: [
+                    WiredInput(labelText: 'Name'),
+                    WiredInput(labelText: 'Email'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
         ],
       ),
     );
