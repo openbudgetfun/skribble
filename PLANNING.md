@@ -622,3 +622,35 @@ material/cupertino today. The audit tool classifies them:
    migrate
 5. Localization: use GlobalMaterialLocalizations alternatives or depend on
    flutter_localizations directly (decision needed at step 4)
+
+---
+
+## Session Status (2026-08-29)
+
+**All consolidation phases in this session are COMPLETE and merged:**
+
+| PR   | Scope                                          | Status    |
+| ---- | ---------------------------------------------- | --------- |
+| #129 | Mobile emulator/simulator screenshot pipeline  | ✅ merged |
+| #130 | Flutter 3.47.0 / Dart 3.13.0 upgrade           | ✅ merged |
+| #131 | Border radius support (tests, storybook, docs) | ✅ merged |
+| #126 | knope → monochange release management          | ✅ merged |
+| #132 | Workspace fixes + decoupling groundwork        | ✅ merged |
+
+**Publishing readiness:**
+
+- 5 packages pass `dart pub publish --dry-run` (skribble, skribble_emoji,
+  skribble_icons, skribble_icons_custom, skribble_lints)
+- `mc preview` plans release **v0.3.5** consuming the 80 pending changesets;
+  the flow is contributor changeset → `mc release-pr` → merge → `mc publish`
+- Blocked: `skribble_font_roughen` (`publish_to: none`) — needs a licensed
+  replacement for `opentype_dart`
+- Actual pub.dev publication requires: `pub.dev` publisher setup + CI
+  `PUB_CREDENTIALS`/OIDC + the maintainer running the release PR flow
+
+**Open follow-ups (next session):**
+
+1. Material decoupling rewrite (AGENTS.md — 57 skin-debt files, ordered plan)
+2. Capture real device screenshots via the new mobile driver + upload to B2
+3. Cut release v0.3.5 via the monochange release PR
+4. Optional pre-roughened font pack for popular fonts (needs font downloads)
