@@ -60,7 +60,8 @@ void main() {
       expect(
         find.byWidgetPredicate(
           (widget) =>
-              widget is Text && widget.data != null &&
+              widget is Text &&
+              widget.data != null &&
               widget.data!.endsWith(' icons'),
         ),
         findsOneWidget,
