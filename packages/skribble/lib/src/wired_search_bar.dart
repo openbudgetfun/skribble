@@ -15,6 +15,13 @@ class WiredSearchBar extends HookWidget {
   final Widget? leading;
   final Widget? trailing;
 
+  /// Called when the search bar is tapped. Use with `WiredSearchAnchor` to
+  /// open the suggestions view: `onTap: controller.openView`.
+  final VoidCallback? onTap;
+
+  /// Whether the internal text field should request focus on first build.
+  final bool autoFocus;
+
   const WiredSearchBar({
     super.key,
     this.controller,
@@ -23,6 +30,8 @@ class WiredSearchBar extends HookWidget {
     this.onSubmitted,
     this.leading,
     this.trailing,
+    this.onTap,
+    this.autoFocus = false,
   });
 
   @override
@@ -66,6 +75,8 @@ class WiredSearchBar extends HookWidget {
                       contentPadding: EdgeInsets.zero,
                     ),
                     style: TextStyle(color: theme.textColor),
+                    autofocus: autoFocus,
+                    onTap: onTap,
                     onChanged: onChanged,
                     onSubmitted: onSubmitted,
                   ),

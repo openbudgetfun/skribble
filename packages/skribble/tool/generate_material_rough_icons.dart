@@ -1,5 +1,3 @@
-// ignore_for_file: unreachable_from_main
-
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
