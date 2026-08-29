@@ -64,12 +64,7 @@ jobs:
           # --no-tree-shake-icons: the icon galleries render runtime
           # codepoints (thousands of them), which the const-arg shaker
           # cannot evaluate.
-          flutter build web \\
-            --release \\
-            --no-web-resources-cdn \\
-            --no-tree-shake-icons \\
-            --base-href "${{ steps.base.outputs.base_path }}storybook/" \\
-            --pwa-strategy=none
+          flutter build web --release --no-web-resources-cdn --no-tree-shake-icons --base-href "${{ steps.base.outputs.base_path }}storybook/" --pwa-strategy=none
         working-directory: apps/skribble_storybook
         shell: devenv shell -- bash -e {0}
       - name: Bundle storybook into docs artifact
