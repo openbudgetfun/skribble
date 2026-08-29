@@ -14,6 +14,7 @@ class InputsPage extends HookWidget {
     final checkboxValue = useState<bool?>(false);
     final radioValue = useState<String>('a');
     final toggleValue = useState(false);
+    final searchQuery = useState('');
     final sliderValue = useState(0.5);
     final comboValue = useState<String?>(null);
     final autocompleteValue = useState<String>('None');
@@ -506,7 +507,6 @@ class InputsPage extends HookWidget {
               ),
             ],
           ),
-
         ],
       ),
     );
