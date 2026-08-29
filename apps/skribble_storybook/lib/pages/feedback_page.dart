@@ -385,6 +385,28 @@ class FeedbackPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredLicensePage',
+            children: [
+              ComponentShowcase(
+                title: 'License Page',
+                description:
+                    'Full-screen page listing packages from LicenseRegistry.',
+                child: WiredButton(
+                  onPressed: () {
+                    unawaited(
+                      showWiredLicensePage(
+                        context: context,
+                        applicationName: 'Skribble Storybook',
+                        applicationVersion: '1.0.0',
+                      ),
+                    );
+                  },
+                  child: const Text('Show Licenses'),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

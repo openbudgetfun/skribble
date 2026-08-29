@@ -9,7 +9,7 @@ The main library is imported via a single barrel file:
 import 'package:skribble/skribble.dart';
 ```
 
-This exports 89 files covering the full widget set, rough engine, theming, and canvas system.
+This exports 93 files covering the full widget set, rough engine, theming, and canvas system.
 
 ## API layers
 
@@ -103,13 +103,14 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredSegmentedButton`      | `wired_segmented_button.dart` |
 | `WiredCupertinoButton`      | `wired_cupertino_button.dart` |
 
-#### Inputs (17)
+#### Inputs (18)
 
 | Widget                    | File                              |
 | ------------------------- | --------------------------------- |
 | `WiredInput`              | `wired_input.dart`                |
 | `WiredTextArea`           | `wired_text_area.dart`            |
 | `WiredSearchBar`          | `wired_search_bar.dart`           |
+| `WiredSearchAnchor`       | `wired_search_anchor.dart`        |
 | `WiredCheckbox`           | `wired_checkbox.dart`             |
 | `WiredCheckboxListTile`   | `wired_checkbox_list_tile.dart`   |
 | `WiredRadio`              | `wired_radio.dart`                |
@@ -143,7 +144,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredCupertinoNavigationBar` | `wired_cupertino_navigation_bar.dart` |
 | `WiredCupertinoTabBar`        | `wired_cupertino_tab_bar.dart`        |
 
-#### Selection (12)
+#### Selection (13)
 
 | Widget                           | File                                     |
 | -------------------------------- | ---------------------------------------- |
@@ -153,6 +154,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredInputChip`                 | `wired_input_chip.dart`                  |
 | `WiredCombo`                     | `wired_combo.dart`                       |
 | `WiredDatePicker`                | `wired_date_picker.dart`                 |
+| `WiredDateRangePickerDialog`     | `wired_date_range_picker.dart`           |
 | `WiredTimePicker`                | `wired_time_picker.dart`                 |
 | `WiredCalendarDatePicker`        | `wired_calendar_date_picker.dart`        |
 | `WiredColorPicker`               | `wired_color_picker.dart`                |
@@ -178,10 +180,12 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredCupertinoAlertDialog` | `wired_cupertino_alert_dialog.dart` |
 | `WiredCupertinoActionSheet` | `wired_cupertino_action_sheet.dart` |
 
-#### Layout (16)
+#### Layout (18)
 
 | Widget                     | File                               |
 | -------------------------- | ---------------------------------- |
+| `WiredCarouselView`        | `wired_carousel_view.dart`         |
+| `WiredLicensePage`         | `wired_license_page.dart`          |
 | `WiredCard`                | `wired_card.dart`                  |
 | `WiredDivider`             | `wired_divider.dart`               |
 | `WiredListTile`            | `wired_list_tile.dart`             |

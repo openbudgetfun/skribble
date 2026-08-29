@@ -94,20 +94,78 @@ WiredSearchBar(
 
 ### Constructor parameters
 
-| Parameter     | Type                     | Default | Description                                                   |
-| ------------- | ------------------------ | ------- | ------------------------------------------------------------- |
-| `controller`  | `TextEditingController?` | `null`  | Text controller.                                              |
-| `hintText`    | `String?`                | `null`  | Placeholder text. Defaults to `'Search...'`.                  |
-| `onChanged`   | `ValueChanged<String>?`  | `null`  | Called on every keystroke.                                    |
-| `onSubmitted` | `ValueChanged<String>?`  | `null`  | Called when the user submits.                                 |
-| `leading`     | `Widget?`                | `null`  | Custom leading widget. Defaults to a `WiredIcon` search icon. |
-| `trailing`    | `Widget?`                | `null`  | Optional trailing widget (e.g., a clear button).              |
+| Parameter     | Type                     | Default | Description                                                                                       |
+| ------------- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------- |
+| `controller`  | `TextEditingController?` | `null`  | Text controller.                                                                                  |
+| `hintText`    | `String?`                | `null`  | Placeholder text. Defaults to `'Search...'`.                                                      |
+| `onChanged`   | `ValueChanged<String>?`  | `null`  | Called on every keystroke.                                                                        |
+| `onSubmitted` | `ValueChanged<String>?`  | `null`  | Called when the user submits.                                                                     |
+| `leading`     | `Widget?`                | `null`  | Custom leading widget. Defaults to a `WiredIcon` search icon.                                     |
+| `trailing`    | `Widget?`                | `null`  | Optional trailing widget (e.g., a clear button).                                                  |
+| `onTap`       | `VoidCallback?`          | `null`  | Called when the bar is tapped. Pair with `WiredSearchAnchor` (e.g. `onTap: controller.openView`). |
+| `autoFocus`   | `bool`                   | `false` | Whether the internal text field requests focus on first build.                                    |
 
 ### Notes
 
 - Fixed height of 48px.
 - The default leading icon uses `WiredIcon` with `WiredIconFillStyle.solid`.
 - The hint color uses `theme.disabledTextColor`.
+
+---
+
+## WiredSearchAnchor
+
+A search anchor that pairs a collapsed search field with an in-place
+suggestions view, analogous to Material 3's `SearchAnchor`. The collapsed
+state is built by `builder` (which receives a `WiredSearchController` whose
+`openView()` opens the view); the open state renders a wired search bar plus
+the widgets returned by `suggestionsBuilder`, which re-runs on every
+keystroke so suggestions can filter live.
+
+```dart
+final controller = WiredSearchController();
+
+WiredSearchAnchor(
+  searchController: controller,
+  builder: (context, controller) => WiredSearchBar(
+    controller: controller,
+    hintText: 'Search fruits...',
+    onTap: controller.openView,
+  ),
+  suggestionsBuilder: (context, controller) => [
+    for (final fruit in _fruits)
+      if (fruit.toLowerCase().contains(controller.text.toLowerCase()))
+        WiredListTile(
+          title: Text(fruit),
+          onTap: () => controller.closeView(fruit),
+        ),
+  ],
+)
+```
+
+Also exported: `WiredSearchController` (a `TextEditingController` plus
+`openView()` / `closeView([String? selectedText])` / `isOpen`).
+
+### Constructor parameters
+
+| Parameter            | Type                       | Default  | Description                                                                                  |
+| -------------------- | -------------------------- | -------- | -------------------------------------------------------------------------------------------- |
+| `searchController`   | `WiredSearchController?`   | `null`   | Controller for the query text and open state. Created internally when omitted.               |
+| `builder`            | `WiredSearchAnchorBuilder` | required | Builds the collapsed field. Call `controller.openView()` on tap to open.                     |
+| `suggestionsBuilder` | `WiredSuggestionsBuilder`  | required | Builds the suggestion widgets; re-invoked on every view rebuild.                             |
+| `viewHintText`       | `String?`                  | `null`   | Hint text for the view's bar. Defaults to `'Search...'`.                                     |
+| `viewLeading`        | `Widget?`                  | `null`   | Leading widget for the view's bar. Defaults to a hand-drawn back arrow that closes the view. |
+| `viewTrailing`       | `Widget?`                  | `null`   | Trailing widget for the view's bar.                                                          |
+| `viewEmptyWidget`    | `Widget?`                  | `null`   | Widget shown when `suggestionsBuilder` returns an empty list.                                |
+
+### Notes
+
+- The search view renders in place (replacing the collapsed field) with a
+  rough-bordered container, matching the wired card visual language.
+- Selection flow: call `controller.closeView(option)` from a suggestion's tap
+  handler; the view closes and the query text is replaced with the selection.
+- When the anchor creates its own controller, it is disposed with the widget;
+  controllers passed via `searchController` are not disposed for you.
 
 ---
 

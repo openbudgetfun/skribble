@@ -384,6 +384,39 @@ class InputsPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredSearchAnchor',
+            children: [
+              ComponentShowcase(
+                title: 'Search with Suggestions',
+                description:
+                    'Tapping the bar opens an in-place suggestions view.',
+                child: WiredSearchAnchor(
+                  builder: (context, controller) => WiredSearchBar(
+                    controller: controller,
+                    hintText: 'Search fruits...',
+                    onTap: controller.openView,
+                  ),
+                  suggestionsBuilder: (context, controller) {
+                    final query = controller.text.toLowerCase();
+                    return [
+                      for (final fruit in [
+                        'Apple',
+                        'Banana',
+                        'Cherry',
+                        'Dragonfruit',
+                      ])
+                        if (fruit.toLowerCase().contains(query))
+                          WiredListTile(
+                            title: Text(fruit),
+                            onTap: () => controller.closeView(fruit),
+                          ),
+                    ];
+                  },
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

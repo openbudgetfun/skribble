@@ -359,6 +359,37 @@ class LayoutPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredCarouselView',
+            children: [
+              ComponentShowcase(
+                title: 'Basic Carousel',
+                description: 'Horizontally scrolling cards with rough borders.',
+                child: WiredCarouselView(
+                  itemExtent: 200,
+                  height: 150,
+                  onTap: (index) {},
+                  children: [
+                    for (final item in ['One', 'Two', 'Three', 'Four', 'Five'])
+                      Center(child: Text('Card $item')),
+                  ],
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Filled Carousel',
+                description: 'Items with hachure background fill.',
+                child: WiredCarouselView(
+                  itemExtent: 180,
+                  height: 130,
+                  fill: true,
+                  children: [
+                    for (final item in ['A', 'B', 'C'])
+                      Center(child: Text('Filled $item')),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
