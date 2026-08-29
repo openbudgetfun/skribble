@@ -46,16 +46,14 @@ showDialog(
 
 ### Constructor parameters
 
-| Parameter      | Type                  | Default      | Description                                                |
-| -------------- | --------------------- | ------------ | ---------------------------------------------------------- |
-| `child`        | `Widget`              | **required** | The dialog content.                                        |
-| `padding`      | `EdgeInsetsGeometry?` | `null`       | Padding around the content. Defaults to 20px on all sides. |
-| `borderRadius` | `BorderRadius?`       | `null`       | Rounded corner radii. `null` draws sharp corners.          |
+| Parameter | Type                  | Default      | Description                                                |
+| --------- | --------------------- | ------------ | ---------------------------------------------------------- |
+| `child`   | `Widget`              | **required** | The dialog content.                                        |
+| `padding` | `EdgeInsetsGeometry?` | `null`       | Padding around the content. Defaults to 20px on all sides. |
 
 ### Notes
 
-- The background uses `WiredRectangleBase` with `theme.fillColor` and `theme.borderColor` by default.
-- When `borderRadius` is provided, the background switches to `WiredRoundedRectangleBase` for hand-drawn rounded corners.
+- The background uses `WiredRectangleBase` with `theme.fillColor` and `theme.borderColor`.
 - The border is drawn with 5px inset from the dialog edge for a natural offset.
 - No fill is applied (uses `RoughFilter.noFiller`), keeping a clean background.
 

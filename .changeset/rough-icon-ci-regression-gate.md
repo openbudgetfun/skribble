@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Enable rough icon unresolved regression gating in CI.
+# Enable rough icon unresolved regression gating in CI.
 
 - Add a dedicated CI job (`rough-icons-regression`) that runs rough icon
   resolution in `--rough-only` mode against the committed unresolved baseline.

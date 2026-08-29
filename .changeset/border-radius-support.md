@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Add optional `borderRadius` support to `WiredButton`, `WiredCard`, `WiredDialog`,
+Add optional `borderRadius` support to `WiredButton`, ...
 `WiredElevatedButton`, `WiredFilledButton`, and `WiredOutlinedButton`. When a
 `BorderRadius` is provided the widgets draw with hand-drawn rounded corners
 (straight edges plus four jittered corner arcs); when omitted they keep their

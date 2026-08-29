@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-Improve rough icon CI failure diagnostics for sync checks.
+# Improve rough icon CI failure diagnostics for sync checks.
 
 - `rough-icons-baseline-sync` now saves and uploads a
   `rough-icons-baseline-sync-diff` artifact when the regenerated baseline file

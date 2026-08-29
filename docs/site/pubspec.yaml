@@ -21,3 +21,4 @@ dev_dependencies:
 jaspr:
   mode: static
   port: 9080
+publish_to: none

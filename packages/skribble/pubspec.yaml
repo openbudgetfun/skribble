@@ -1,55 +1,47 @@
 name: skribble
-description: >
-  Hand-drawn UI components for Flutter. 80+ sketchy widgets with
-  familiar Material and Cupertino APIs — buttons, inputs, navigation,
-  dialogs, and more, all with a hand-drawn aesthetic.
+description: |
+  Hand-drawn UI components for Flutter. 80+ sketchy widgets with familiar Material and Cupertino APIs — buttons, inputs, navigation, dialogs, and more, all with a hand-drawn aesthetic.
 version: 0.3.4
 homepage: https://github.com/openbudgetfun/skribble
-repository: https://github.com/openbudgetfun/skribble
+repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble
 documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble/README.md
 issue_tracker: https://github.com/openbudgetfun/skribble/issues
-
 topics:
   - ui
   - widgets
   - hand-drawn
   - design-system
   - sketch
-
 environment:
   sdk: ^3.13.0
   flutter: ^3.47.0
-
 resolution: workspace
-
 dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.21.3
   path_parsing: ^1.1.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
   skribble_lints:
     path: ../skribble_lints
   xml: ^6.6.1
-
 flutter:
   uses-material-design: true
   fonts:
-    - family: Skribble
-      fonts:
-        - asset: assets/fonts/Skribble-Regular.ttf
-        - asset: assets/fonts/Skribble-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Skribble-Italic.ttf
-          style: italic
-        - asset: assets/fonts/Skribble-BoldItalic.ttf
-          weight: 700
-          style: italic
     - family: ArchitectsDaughter
       fonts:
         - asset: assets/fonts/ArchitectsDaughter-Regular.ttf
+    - family: Skribble
+      fonts:
+        - asset: assets/fonts/Skribble-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Skribble-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Skribble-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Skribble-Regular.ttf
   assets:
     - assets/fonts/

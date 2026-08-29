@@ -2,13 +2,19 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
+
+let
+  monochangePkgs = inputs.ifiokjr-nixpkgs.packages.${pkgs.stdenv.system};
+in
 
 {
   packages =
     with pkgs;
     [
+      (monochangePkgs.monochange)
       dprint
       fontforge
       eget
@@ -111,14 +117,9 @@
       '';
       description = "Run the melos cli.";
     };
-    "knope" = {
-      exec = ''
-        set -e
-        $DEVENV_ROOT/.eget/bin/knope $@
-      '';
-      description = "The knope executable for changeset and release management.";
-      binary = "bash";
-    };
+    # NOTE: no devenv script for `mc` — the monochange nix package already
+    # provides the real binary; a same-named script here would shadow it and
+    # recurse into itself (fork bomb) inside devenv shells.
     "dartfmt" = {
       exec = ''
         set -e
@@ -149,9 +150,10 @@
       exec = ''
         HASH=$(nix hash path --base32 ./.eget/.eget.toml)
         echo "HASH: $HASH"
+        mkdir -p ./.eget/bin
         if [ ! -f ./.eget/bin/hash ] || [ "$HASH" != "$(cat ./.eget/bin/hash)" ]; then
           echo "Updating eget binaries"
-          eget -D --to "$DEVENV_ROOT/.eget/bin"
+          eget -D --to "$DEVENV_ROOT/.eget/bin" || echo "eget download skipped"
           echo "$HASH" > ./.eget/bin/hash
         else
           echo "eget binaries are up to date"

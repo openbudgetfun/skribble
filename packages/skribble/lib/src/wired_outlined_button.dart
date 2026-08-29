@@ -13,18 +13,11 @@ class WiredOutlinedButton extends HookWidget {
   /// Semantic label for accessibility.
   final String? semanticLabel;
 
-  /// The border radius for the hand-drawn shape.
-  ///
-  /// When provided, the button draws with rounded corners
-  /// instead of sharp corners. Defaults to null (sharp corners).
-  final BorderRadius? borderRadius;
-
   const WiredOutlinedButton({
     super.key,
     required this.child,
     this.onPressed,
     this.semanticLabel,
-    this.borderRadius,
   });
 
   @override
@@ -37,11 +30,8 @@ class WiredOutlinedButton extends HookWidget {
         child: Container(
           height: kWiredButtonHeight,
           decoration: RoughBoxDecoration(
-            shape: borderRadius != null
-                ? RoughBoxShape.roundedRectangle
-                : RoughBoxShape.rectangle,
+            shape: RoughBoxShape.rectangle,
             borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),
-            borderRadius: borderRadius,
           ),
           child: SizedBox(
             height: double.infinity,

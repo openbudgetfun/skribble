@@ -1,14 +1,17 @@
-name: Changeset policy
+name: Publish
 
 on:
-  pull_request:
-    branches: [main]
+  push:
+    tags:
+      - "all@*"
 
 jobs:
-  changeset-policy:
+  publish:
     runs-on: ubuntu-latest
+    environment: publisher
     permissions:
       contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
@@ -16,10 +19,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: validate monochange config and changesets
-        run: mc step:validate
+      - name: verify publish readiness
+        run: mc step:publish-readiness --from HEAD
         shell: devenv shell -- bash -e {0}
 
-      - name: check changeset and manifest policy
-        run: mc check
+      - name: publish to pub.dev
+        run: melos publish --no-dry-run
         shell: devenv shell -- bash -e {0}
