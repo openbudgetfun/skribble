@@ -222,6 +222,58 @@ class DataDisplayPage extends HookWidget {
               ),
             ],
           ),
+
+          ShowcaseSection(
+            title: 'WiredGridTile',
+            children: [
+              ComponentShowcase(
+                title: 'Grid tiles with bars',
+                description: 'Hand-drawn grid tiles with header/footer bars and an ink splash on tap.',
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  physics: const NeverScrollableScrollPhysics(),
+                  childAspectRatio: 1.4,
+                  children: [
+                    WiredGridTile(
+                      onTap: () {},
+                      header: const WiredGridTileBar(
+                        title: Text('Header only'),
+                      ),
+                      child: ColoredBox(color: Colors.indigo.shade100),
+                    ),
+                    WiredGridTile(
+                      onTap: () {},
+                      footer: const WiredGridTileBar(
+                        title: Text('Mountain'),
+                        subtitle: Text('Footer with subtitle'),
+                        leading: Icon(Icons.terrain),
+                      ),
+                      child: ColoredBox(color: Colors.teal.shade100),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          ShowcaseSection(
+            title: 'WiredAboutListTile',
+            children: [
+              ComponentShowcase(
+                title: 'About tile',
+                description: 'Opens a hand-drawn about dialog when tapped (via WiredListTile).',
+                child: WiredAboutListTile(
+                  icon: const Icon(Icons.info_outline),
+                  applicationName: 'Skribble Storybook',
+                  applicationVersion: '1.0.0',
+                  applicationLegalese: 'Hand-drawn with care.',
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

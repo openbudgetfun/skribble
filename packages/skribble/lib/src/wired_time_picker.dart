@@ -245,3 +245,75 @@ class _HandPainter extends CustomPainter {
   bool shouldRepaint(_HandPainter oldDelegate) =>
       angle != oldDelegate.angle || length != oldDelegate.length;
 }
+
+/// A hand-drawn time picker dialog with Cancel/Confirm actions.
+class _WiredTimePickerDialog extends HookWidget {
+  const _WiredTimePickerDialog({this.initialTime});
+
+  final TimeOfDay? initialTime;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
+    final selected = useState<TimeOfDay>(
+      initialTime ?? TimeOfDay.now(),
+    );
+
+    return Dialog(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            child: WiredTimePicker(
+              initialTime: selected.value,
+              onTimeSelected: (time) => selected.value = time,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(color: theme.disabledTextColor),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(selected.value),
+                  child: Text('OK', style: TextStyle(color: theme.textColor)),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Shows a hand-drawn time picker dialog.
+///
+/// Returns the selected [TimeOfDay] when the user confirms, or `null` if
+/// the dialog is dismissed or cancelled.
+///
+/// ```dart
+/// final time = await showWiredTimePicker(
+///   context: context,
+///   initialTime: TimeOfDay.now(),
+/// );
+/// if (time != null) {
+///   debugPrint('Selected ${time.format(context)}');
+/// }
+/// ```
+Future<TimeOfDay?> showWiredTimePicker({
+  required BuildContext context,
+  TimeOfDay? initialTime,
+}) {
+  return showDialog<TimeOfDay>(
+    context: context,
+    builder: (context) => _WiredTimePickerDialog(initialTime: initialTime),
+  );
+}

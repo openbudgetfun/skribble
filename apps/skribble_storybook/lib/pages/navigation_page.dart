@@ -13,6 +13,9 @@ class NavigationPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final bottomNavIndex = useState(0);
+    final showRulers = useState(true);
+    final snapToGrid = useState(false);
+    final themeMode = useState<String?>('light');
     final tabIndex = useState(0);
     final navBarIndex = useState(0);
     final railIndex = useState(0);
@@ -296,6 +299,57 @@ class NavigationPage extends HookWidget {
                         ),
                       ],
                       child: const Text('Edit'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCheckboxMenuButton / WiredRadioMenuButton',
+            children: [
+              ComponentShowcase(
+                title: 'Checkable menu items',
+                description: 'Menu items with hand-drawn checkbox and radio leading icons.',
+                child: WiredMenuBar(
+                  children: [
+                    WiredSubmenuButton(
+                      menuChildren: [
+                        WiredCheckboxMenuButton(
+                          value: showRulers.value,
+                          onChanged: (v) => showRulers.value = v ?? false,
+                          child: const Text('Show rulers'),
+                        ),
+                        WiredCheckboxMenuButton(
+                          value: snapToGrid.value,
+                          onChanged: (v) => snapToGrid.value = v ?? false,
+                          child: const Text('Snap to grid'),
+                        ),
+                      ],
+                      child: const Text('View'),
+                    ),
+                    WiredSubmenuButton(
+                      menuChildren: [
+                        WiredRadioMenuButton<String>(
+                          value: 'light',
+                          groupValue: themeMode.value,
+                          onChanged: (v) => themeMode.value = v,
+                          child: const Text('Light'),
+                        ),
+                        WiredRadioMenuButton<String>(
+                          value: 'dark',
+                          groupValue: themeMode.value,
+                          onChanged: (v) => themeMode.value = v,
+                          child: const Text('Dark'),
+                        ),
+                        WiredRadioMenuButton<String>(
+                          value: 'paper',
+                          groupValue: themeMode.value,
+                          onChanged: (v) => themeMode.value = v,
+                          child: const Text('Paper'),
+                        ),
+                      ],
+                      child: const Text('Theme'),
                     ),
                   ],
                 ),

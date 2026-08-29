@@ -307,4 +307,104 @@ void main() {
       expect(find.text('59'), findsOneWidget);
     });
   });
+
+  group('showWiredTimePicker', () {
+    Future<TimeOfDay?>? pending;
+
+    Future<void> pumpPickerHost(WidgetTester tester) async {
+      pending = null;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: WiredButton(
+                onPressed: () {
+                  pending = showWiredTimePicker(
+                    context: tester.element(
+                      find.byType(WiredButton),
+                    ),
+                    initialTime: const TimeOfDay(hour: 10, minute: 30),
+                  );
+                },
+                child: const Text('Pick a time'),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('opens a dialog with the wired time picker', (tester) async {
+      await pumpPickerHost(tester);
+
+      await tester.tap(find.text('Pick a time'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(WiredTimePicker), findsOneWidget);
+      expect(find.text('10'), findsOneWidget);
+      expect(find.text('30'), findsOneWidget);
+      expect(find.text('Cancel'), findsOneWidget);
+      expect(find.text('OK'), findsOneWidget);
+    });
+
+    testWidgets('OK returns the selected time', (tester) async {
+      await pumpPickerHost(tester);
+
+      await tester.tap(find.text('Pick a time'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      expect(await pending, const TimeOfDay(hour: 10, minute: 30));
+    });
+
+    testWidgets('OK returns an updated time after dragging', (tester) async {
+      await pumpPickerHost(tester);
+
+      await tester.tap(find.text('Pick a time'));
+      await tester.pumpAndSettle();
+
+      // Increment the hour via the existing drag interaction.
+      final gestures = find.descendant(
+        of: find.byType(WiredTimePicker),
+        matching: find.byType(GestureDetector),
+      );
+      await tester.drag(gestures.at(0), const Offset(0, -24));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      expect(await pending, const TimeOfDay(hour: 11, minute: 30));
+    });
+
+    testWidgets('Cancel returns null', (tester) async {
+      await pumpPickerHost(tester);
+
+      await tester.tap(find.text('Pick a time'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
+
+      expect(await pending, isNull);
+    });
+
+    testWidgets('dialog is dismissed with null when barrier is tapped', (
+      tester,
+    ) async {
+      await pumpPickerHost(tester);
+
+      await tester.tap(find.text('Pick a time'));
+      await tester.pumpAndSettle();
+
+      // Tap outside the dialog (on the barrier).
+      await tester.tapAt(const Offset(20, 20));
+      await tester.pumpAndSettle();
+
+      expect(await pending, isNull);
+    });
+  });
 }

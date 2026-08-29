@@ -156,17 +156,14 @@ WiredCombo<String>(
 
 ## WiredDatePicker
 
-A date picker dialog with hand-drawn calendar grid and navigation. Renders month headers and day cells with sketchy borders.
+A date picker dialog widget with hand-drawn calendar grid and navigation. Renders month headers and day cells with sketchy borders. Use `showWiredDatePicker` (top-level helper, shipped with the widget) to open it as a dialog.
 
 <!-- {=docsDatePickerUsage} -->
 
 ```dart
-final date = await showDatePicker(
+final date = await showWiredDatePicker(
   context: context,
   initialDate: DateTime.now(),
-  firstDate: DateTime(2020),
-  lastDate: DateTime(2030),
-  builder: (context, child) => WiredDatePicker(child: child!),
 );
 ```
 
@@ -215,17 +212,24 @@ final range = await showWiredDateRangePicker(
 
 ## WiredTimePicker
 
-A time picker with hand-drawn clock face and input mode. Replaces the standard Material time picker overlay.
+A time picker with hand-drawn clock face, clock hands, and drag-to-adjust hour/minute fields. The inline widget streams changes through `onTimeSelected`.
 
 <!-- {=docsTimePickerUsage} -->
 
 ```dart
-final time = await showTimePicker(
+final time = await showWiredTimePicker(
   context: context,
   initialTime: TimeOfDay.now(),
-  builder: (context, child) => WiredTimePicker(child: child!),
 );
+if (time != null) {
+  debugPrint('Selected ${time.format(context)}');
+}
 ```
+
+### Notes
+
+- `showWiredTimePicker` opens a dialog containing `WiredTimePicker` plus hand-drawn Cancel/OK buttons; it returns the selected `TimeOfDay`, or `null` when cancelled or dismissed.
+- Hours wrap modulo 24 (23 → 00) and minutes modulo 60 (00 → 59) when dragged.
 
 ---
 

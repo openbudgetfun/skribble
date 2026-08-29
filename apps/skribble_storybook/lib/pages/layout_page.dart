@@ -390,8 +390,71 @@ class LayoutPage extends HookWidget {
               ),
             ],
           ),
+          _MergeableShowcase(),
         ],
       ),
+    );
+  }
+}
+
+/// Hand-drawn mergeable material demo (WiredMergeableMaterial).
+class _MergeableShowcase extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    final expanded = useState(true);
+
+    final firstSlice = WiredMaterialSlice(
+      key: const ValueKey('features'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Text(
+              'Mergeable slices expand and collapse with a hand-drawn divider '
+              'that animates open and closed.',
+            ),
+          ),
+        ],
+      ),
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ShowcaseSection(
+          title: 'WiredMergeableMaterial',
+          children: [
+            ComponentShowcase(
+              title: 'Expandable slices',
+              description: 'Toggle a gap slice to animate slices apart.',
+              child: WiredMergeableMaterial(
+                children: [
+                  firstSlice,
+                  if (expanded.value)
+                    const WiredMaterialGap(key: ValueKey('gap')),
+                  const WiredMaterialSlice(
+                    key: ValueKey('extra'),
+                    child: Padding(
+                      padding: EdgeInsets.all(12),
+                      child: Text('Second slice'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Center(
+              child: WiredFilledButton(
+                onPressed: () => expanded.value = !expanded.value,
+                child: Text(
+                  expanded.value ? 'Collapse slices' : 'Expand slices',
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -511,3 +511,118 @@ WiredTabScaffold(
   },
 )
 ```
+
+---
+
+## WiredGridTile
+
+A grid tile with hand-drawn borders and optional header/footer bars. Mirrors Material's `GridTile`: the child fills the tile while `header` and `footer` overlay its top and bottom edges. Tapping the tile plays a hand-drawn ink splash.
+
+<!-- {=docsGridTileUsage} -->
+
+```dart
+GridView.count(
+  crossAxisCount: 2,
+  children: [
+    WiredGridTile(
+      onTap: () => print('tapped!'),
+      footer: const WiredGridTileBar(title: Text('Gallery item')),
+      child: ColoredBox(color: Colors.indigo.shade100),
+    ),
+  ],
+)
+```
+
+### Constructor parameters
+
+| Parameter       | Type            | Default | Description                                                                  |
+| --------------- | --------------- | ------- | ---------------------------------------------------------------------------- |
+| `child`         | `Widget`        | —       | The tile content, painted beneath the bars.                                  |
+| `header`        | `Widget?`       | `null`  | Widget overlaid on the top edge (typically `WiredGridTileBar`).              |
+| `footer`        | `Widget?`       | `null`  | Widget overlaid on the bottom edge (typically `WiredGridTileBar`).           |
+| `onTap`         | `VoidCallback?` | `null`  | Called when the tile is tapped; enables the ink splash and button semantics. |
+| `semanticLabel` | `String?`       | `null`  | Optional semantic label for accessibility.                                   |
+
+---
+
+## WiredGridTileBar
+
+A bar for use as `WiredGridTile.header` or `WiredGridTile.footer`. Mirrors Material's `GridTileBar` with a translucent strip, a rough hand-drawn edge line, and leading/title/subtitle/trailing slots.
+
+<!-- {=docsGridTileBarUsage} -->
+
+```dart
+const WiredGridTileBar(
+  title: Text('Mountain'),
+  subtitle: Text('Footer with subtitle'),
+  leading: Icon(Icons.terrain),
+)
+```
+
+### Constructor parameters
+
+| Parameter         | Type      | Default | Description                                                       |
+| ----------------- | --------- | ------- | ----------------------------------------------------------------- |
+| `color`           | `Color?`  | `null`  | Foreground color for text/icons; falls back to `theme.textColor`. |
+| `backgroundColor` | `Color?`  | `null`  | Bar background; falls back to a translucent `theme.fillColor`.    |
+| `height`          | `double`  | `56`    | Bar height.                                                       |
+| `titleSpacing`    | `double`  | `16`    | Spacing between leading, title and trailing.                      |
+| `leading`         | `Widget?` | `null`  | Widget shown at the start of the bar.                             |
+| `title`           | `Widget?` | `null`  | Primary text of the bar.                                          |
+| `subtitle`        | `Widget?` | `null`  | Secondary text shown below `title`.                               |
+| `trailing`        | `Widget?` | `null`  | Widget shown at the end of the bar.                               |
+
+### Notes
+
+- The bottom edge of the bar is closed with a rough `WiredLineBase` line so it reads as sketched, not machine-cut.
+- Use inside `WiredGridTile.header` or `.footer`; standalone usage also renders correctly.
+
+---
+
+## WiredMergeableMaterial
+
+A vertically stacked group of slices and gaps with hand-drawn borders. Mirrors Material's `MergeableMaterial`: `WiredMaterialSlice` children render as rows inside rough-bordered cards; `WiredMaterialGap` items separate cards and animate size changes, so a gap animating to `0` merges the slices around it.
+
+<!-- {=docsMergeableMaterialUsage} -->
+
+```dart
+var expanded = true;
+
+WiredMergeableMaterial(
+  hasDividers: true,
+  children: [
+    WiredMaterialSlice(
+      key: const ValueKey('a'),
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Text('Slice A'),
+      ),
+    ),
+    WiredMaterialGap(key: const ValueKey('gap'), size: expanded ? 64 : 0),
+    WiredMaterialSlice(
+      key: const ValueKey('b'),
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Text('Slice B'),
+      ),
+    ),
+  ],
+)
+```
+
+### Constructor parameters
+
+| Parameter           | Type                               | Default         | Description                                                |
+| ------------------- | ---------------------------------- | --------------- | ---------------------------------------------------------- |
+| `children`          | `List<WiredMergeableMaterialItem>` | required        | Slices and gaps, in order.                                 |
+| `hasDividers`       | `bool`                             | `false`         | Draws hand-drawn lines between contiguous slices.          |
+| `dividerColor`      | `Color?`                           | `null`          | Divider color override; falls back to `theme.borderColor`. |
+| `animationDuration` | `Duration`                         | `300ms`         | Duration for gap grow/collapse animations.                 |
+| `animationCurve`    | `Curve`                            | `fastOutSlowIn` | Curve for gap grow/collapse animations.                    |
+
+### Notes
+
+- `WiredMaterialSlice({required LocalKey key, required Widget child, Color? color})` mirrors Material's `MaterialSlice`.
+- `WiredMaterialGap({required LocalKey key, double size = 16})` mirrors Material's `MaterialGap`. Gap size changes animate automatically; drive expand/collapse by rebuilding `children` with different gap sizes.
+- Like Material's 3.47 API there is no controller; stable `LocalKey`s on items are required so animations track rebuilds.
+- Contiguous slices (no positive gap between them) share one card silhouette with rounded corners and internal dividers.

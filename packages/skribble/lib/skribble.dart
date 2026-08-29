@@ -5,10 +5,12 @@
 library;
 
 export 'src/canvas/wired_canvas.dart';
+export 'src/canvas/wired_ink_splash.dart';
 export 'src/canvas/wired_painter.dart';
 export 'src/canvas/wired_painter_base.dart';
 export 'src/rough/skribble_rough.dart';
 export 'src/wired_about_dialog.dart';
+export 'src/wired_about_list_tile.dart';
 export 'src/wired_animated_icon.dart';
 export 'src/wired_app_bar.dart';
 export 'src/wired_autocomplete.dart';
@@ -57,6 +59,7 @@ export 'src/wired_fab.dart';
 export 'src/wired_filled_button.dart';
 export 'src/wired_filter_chip.dart';
 export 'src/wired_form.dart';
+export 'src/wired_grid_tile.dart';
 export 'src/wired_icon.dart';
 export 'src/wired_icon_button.dart';
 export 'src/wired_input.dart';
@@ -66,6 +69,7 @@ export 'src/wired_list_tile.dart';
 export 'src/wired_material_app.dart';
 export 'src/wired_material_banner.dart';
 export 'src/wired_menu_bar.dart';
+export 'src/wired_mergeable_material.dart';
 export 'src/wired_navigation_bar.dart';
 export 'src/wired_navigation_drawer.dart';
 export 'src/wired_navigation_rail.dart';
