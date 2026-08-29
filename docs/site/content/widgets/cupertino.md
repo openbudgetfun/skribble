@@ -24,14 +24,14 @@ WiredCupertinoActivityIndicator(
 
 ### Constructor parameters
 
-| Parameter       | Type      | Default            | Description                                                            |
-| --------------- | --------- | ------------------ | ---------------------------------------------------------------------- |
-| `animating`     | `bool`    | `true`             | When false, the spinner renders statically and schedules no frames.     |
-| `radius`        | `double`  | `10`               | Radius of the spinner; the widget is a `2 * radius` square.             |
-| `color`         | `Color?`  | `theme.borderColor`| Color of the leading segments; trailing segments fade to transparent.  |
-| `strokeWidth`   | `double`  | `2`                | Stroke width of each hand-drawn tick.                                  |
-| `segmentCount`  | `int`     | `12`               | Number of segments around the circle (at least 2).                     |
-| `semanticLabel` | `String?` | `null`             | Optional label exposed to screen readers (e.g. "Loading").             |
+| Parameter       | Type      | Default             | Description                                                           |
+| --------------- | --------- | ------------------- | --------------------------------------------------------------------- |
+| `animating`     | `bool`    | `true`              | When false, the spinner renders statically and schedules no frames.   |
+| `radius`        | `double`  | `10`                | Radius of the spinner; the widget is a `2 * radius` square.           |
+| `color`         | `Color?`  | `theme.borderColor` | Color of the leading segments; trailing segments fade to transparent. |
+| `strokeWidth`   | `double`  | `2`                 | Stroke width of each hand-drawn tick.                                 |
+| `segmentCount`  | `int`     | `12`                | Number of segments around the circle (at least 2).                    |
+| `semanticLabel` | `String?` | `null`              | Optional label exposed to screen readers (e.g. "Loading").            |
 
 ### Notes
 
@@ -57,14 +57,14 @@ WiredCupertinoListSection(
 
 ### Constructor parameters
 
-| Parameter          | Type                | Default                                        | Description                                        |
-| ------------------ | ------------------- | ---------------------------------------------- | -------------------------------------------------- |
-| `children`         | `List<Widget>`      | **required**                                   | Rows of the section, usually list tiles.           |
-| `header`           | `Widget?`           | `null`                                         | Small helper text above the group.                 |
-| `footer`           | `Widget?`           | `null`                                         | Small footnote text below the group.               |
-| `margin`           | `EdgeInsetsGeometry`| `horizontal: 16, vertical: 8`                  | Outer margin around the whole section.             |
-| `backgroundColor`  | `Color?`            | `theme.fillColor`                              | Fill color of the group card.                      |
-| `separatorIndent`  | `double`            | `16`                                           | Leading inset for the hand-drawn separators.       |
+| Parameter         | Type                 | Default                       | Description                                  |
+| ----------------- | -------------------- | ----------------------------- | -------------------------------------------- |
+| `children`        | `List<Widget>`       | **required**                  | Rows of the section, usually list tiles.     |
+| `header`          | `Widget?`            | `null`                        | Small helper text above the group.           |
+| `footer`          | `Widget?`            | `null`                        | Small footnote text below the group.         |
+| `margin`          | `EdgeInsetsGeometry` | `horizontal: 16, vertical: 8` | Outer margin around the whole section.       |
+| `backgroundColor` | `Color?`             | `theme.fillColor`             | Fill color of the group card.                |
+| `separatorIndent` | `double`             | `16`                          | Leading inset for the hand-drawn separators. |
 
 ---
 
@@ -85,17 +85,17 @@ WiredCupertinoListTile(
 
 ### Constructor parameters
 
-| Parameter                | Type                 | Default                                   | Description                                                |
-| ------------------------ | -------------------- | ----------------------------------------- | ---------------------------------------------------------- |
-| `leading`                | `Widget?`            | `null`                                    | Widget at the start of the tile.                           |
-| `title`                  | `Widget?`            | `null`                                    | Primary content (17px `theme.textColor`).                  |
-| `subtitle`               | `Widget?`            | `null`                                    | Secondary content (14px `theme.disabledTextColor`).        |
-| `trailing`               | `Widget?`            | `null`                                    | Widget at the end of the tile (e.g. a chevron).            |
-| `additionalTrailingText` | `String?`            | `null`                                    | Small detail label before the trailing widget.             |
-| `onTap`                  | `VoidCallback?`      | `null`                                    | Called when the tile is tapped.                            |
-| `backgroundColor`        | `Color?`             | `null`                                    | Hand-drawn solid fill behind the tile when set.            |
-| `padding`                | `EdgeInsetsGeometry?`| `horizontal: 16, vertical: 10`            | Padding around the tile content.                           |
-| `semanticLabel`          | `String?`            | `null`                                    | Optional semantic label; the tile is a button when tappable.|
+| Parameter                | Type                  | Default                        | Description                                                  |
+| ------------------------ | --------------------- | ------------------------------ | ------------------------------------------------------------ |
+| `leading`                | `Widget?`             | `null`                         | Widget at the start of the tile.                             |
+| `title`                  | `Widget?`             | `null`                         | Primary content (17px `theme.textColor`).                    |
+| `subtitle`               | `Widget?`             | `null`                         | Secondary content (14px `theme.disabledTextColor`).          |
+| `trailing`               | `Widget?`             | `null`                         | Widget at the end of the tile (e.g. a chevron).              |
+| `additionalTrailingText` | `String?`             | `null`                         | Small detail label before the trailing widget.               |
+| `onTap`                  | `VoidCallback?`       | `null`                         | Called when the tile is tapped.                              |
+| `backgroundColor`        | `Color?`              | `null`                         | Hand-drawn solid fill behind the tile when set.              |
+| `padding`                | `EdgeInsetsGeometry?` | `horizontal: 16, vertical: 10` | Padding around the tile content.                             |
+| `semanticLabel`          | `String?`             | `null`                         | Optional semantic label; the tile is a button when tappable. |
 
 ### Notes
 
@@ -117,23 +117,23 @@ WiredCupertinoSearchTextField(
 
 ### Constructor parameters
 
-| Parameter           | Type                   | Default                      | Description                                                    |
-| ------------------- | ---------------------- | ---------------------------- | -------------------------------------------------------------- |
-| `controller`        | `TextEditingController?`| `null` — creates one        | Controls the text being edited.                                |
-| `placeholder`       | `String?`              | `null`                       | Shown when the field is empty, hidden while typing.            |
-| `placeholderStyle`  | `TextStyle?`           | 14px disabled color          | Style for the placeholder.                                     |
-| `style`             | `TextStyle?`           | 17px `theme.textColor`       | Style for the input text.                                      |
-| `onChanged`         | `ValueChanged<String>?`| `null`                       | Called on every text change.                                   |
-| `onSubmitted`       | `ValueChanged<String>?`| `null`                       | Called when the search action fires.                           |
-| `prefixWidget`      | `Widget?`              | sketchy magnifier glyph      | Widget before the text.                                        |
-| `suffixWidget`      | `Widget?`              | `null`                       | Widget after the text.                                         |
-| `enabled`           | `bool`                 | `true`                       | Disabled fields are read-only at 40% opacity.                  |
-| `autofocus`         | `bool`                 | `false`                      | Requests focus on first build.                                 |
-| `focusNode`         | `FocusNode?`           | `null` — creates one         | Focus node for the field.                                      |
-| `textInputAction`   | `TextInputAction?`     | `.search`                    | Keyboard submit action.                                        |
-| `height`            | `double`               | `36`                         | Field height.                                                  |
-| `borderRadius`      | `BorderRadius?`        | stadium matching `height`    | Hand-drawn border radius.                                      |
-| `semanticLabel`     | `String?`              | `null`                       | Optional semantic label.                                       |
+| Parameter          | Type                     | Default                   | Description                                         |
+| ------------------ | ------------------------ | ------------------------- | --------------------------------------------------- |
+| `controller`       | `TextEditingController?` | `null` — creates one      | Controls the text being edited.                     |
+| `placeholder`      | `String?`                | `null`                    | Shown when the field is empty, hidden while typing. |
+| `placeholderStyle` | `TextStyle?`             | 14px disabled color       | Style for the placeholder.                          |
+| `style`            | `TextStyle?`             | 17px `theme.textColor`    | Style for the input text.                           |
+| `onChanged`        | `ValueChanged<String>?`  | `null`                    | Called on every text change.                        |
+| `onSubmitted`      | `ValueChanged<String>?`  | `null`                    | Called when the search action fires.                |
+| `prefixWidget`     | `Widget?`                | sketchy magnifier glyph   | Widget before the text.                             |
+| `suffixWidget`     | `Widget?`                | `null`                    | Widget after the text.                              |
+| `enabled`          | `bool`                   | `true`                    | Disabled fields are read-only at 40% opacity.       |
+| `autofocus`        | `bool`                   | `false`                   | Requests focus on first build.                      |
+| `focusNode`        | `FocusNode?`             | `null` — creates one      | Focus node for the field.                           |
+| `textInputAction`  | `TextInputAction?`       | `.search`                 | Keyboard submit action.                             |
+| `height`           | `double`                 | `36`                      | Field height.                                       |
+| `borderRadius`     | `BorderRadius?`          | stadium matching `height` | Hand-drawn border radius.                           |
+| `semanticLabel`    | `String?`                | `null`                    | Optional semantic label.                            |
 
 ---
 
@@ -151,15 +151,15 @@ WiredCupertinoTimerPicker(
 
 ### Constructor parameters
 
-| Parameter              | Type                             | Default   | Description                                             |
-| ---------------------- | -------------------------------- | --------- | ------------------------------------------------------- |
-| `onTimerDurationChanged`| `ValueChanged<Duration>`        | **required** | Called whenever any wheel settles.                  |
-| `initialTimerDuration` | `Duration`                       | `zero`    | Used only when the widget is first built.               |
-| `mode`                 | `WiredCupertinoTimerPickerMode`  | `.hm`     | Which wheels to show (`hm`, `hms`, `ms`).               |
-| `minuteInterval`       | `int`                            | `1`       | Granularity of the minutes wheel; divides 60.           |
-| `secondInterval`       | `int`                            | `1`       | Granularity of the seconds wheel; divides 60.           |
-| `itemExtent`           | `double`                         | `32`      | Height of each wheel item.                              |
-| `height`               | `double`                         | `216`     | Total height of the picker.                             |
+| Parameter                | Type                            | Default      | Description                                   |
+| ------------------------ | ------------------------------- | ------------ | --------------------------------------------- |
+| `onTimerDurationChanged` | `ValueChanged<Duration>`        | **required** | Called whenever any wheel settles.            |
+| `initialTimerDuration`   | `Duration`                      | `zero`       | Used only when the widget is first built.     |
+| `mode`                   | `WiredCupertinoTimerPickerMode` | `.hm`        | Which wheels to show (`hm`, `hms`, `ms`).     |
+| `minuteInterval`         | `int`                           | `1`          | Granularity of the minutes wheel; divides 60. |
+| `secondInterval`         | `int`                           | `1`          | Granularity of the seconds wheel; divides 60. |
+| `itemExtent`             | `double`                        | `32`         | Height of each wheel item.                    |
+| `height`                 | `double`                        | `216`        | Total height of the picker.                   |
 
 ---
 
@@ -180,13 +180,13 @@ WiredCupertinoFormSection(
 
 ### Constructor parameters
 
-| Parameter        | Type                 | Default                                        | Description                                 |
-| ---------------- | -------------------- | ---------------------------------------------- | ------------------------------------------- |
-| `children`       | `List<Widget>`       | **required**                                   | Rows of the section, e.g. inputs and tiles. |
-| `header`         | `Widget?`            | `null`                                         | Small helper text above the group.          |
-| `footer`         | `Widget?`            | `null`                                         | Small footnote text below the group.        |
-| `margin`         | `EdgeInsetsGeometry` | `horizontal: 16, vertical: 8`                  | Outer margin around the whole section.      |
-| `dividerIndent`  | `double`             | `16`                                           | Leading inset for the hand-drawn dividers.  |
+| Parameter       | Type                 | Default                       | Description                                 |
+| --------------- | -------------------- | ----------------------------- | ------------------------------------------- |
+| `children`      | `List<Widget>`       | **required**                  | Rows of the section, e.g. inputs and tiles. |
+| `header`        | `Widget?`            | `null`                        | Small helper text above the group.          |
+| `footer`        | `Widget?`            | `null`                        | Small footnote text below the group.        |
+| `margin`        | `EdgeInsetsGeometry` | `horizontal: 16, vertical: 8` | Outer margin around the whole section.      |
+| `dividerIndent` | `double`             | `16`                          | Leading inset for the hand-drawn dividers.  |
 
 ---
 
@@ -194,17 +194,17 @@ WiredCupertinoFormSection(
 
 The widgets below were part of earlier releases and keep their individual APIs:
 
-| Widget                           | Replaces (Cupertino)     | Docs location        |
-| -------------------------------- | ------------------------ | -------------------- |
-| `WiredCupertinoButton`           | `CupertinoButton`        | Buttons page         |
-| `WiredCupertinoTextField`        | `CupertinoTextField`     | Inputs page          |
-| `WiredCupertinoSlider`           | `CupertinoSlider`        | Inputs page          |
-| `WiredCupertinoPicker`           | `CupertinoPicker`        | Selection page       |
-| `WiredCupertinoDatePicker`       | `CupertinoDatePicker`    | Selection page       |
-| `WiredCupertinoSegmentedControl` | `CupertinoSegmentedControl` | Selection page    |
-| `WiredCupertinoSwitch`           | `CupertinoSwitch`        | Selection page       |
-| `WiredCupertinoNavigationBar`    | `CupertinoNavigationBar` | Navigation page      |
-| `WiredCupertinoTabBar`           | `CupertinoTabBar`        | Navigation page      |
-| `WiredCupertinoScaffold`         | `CupertinoPageScaffold`  | Layout page          |
-| `WiredCupertinoAlertDialog`      | `CupertinoAlertDialog`   | Feedback page        |
-| `WiredCupertinoActionSheet`      | `CupertinoActionSheet`   | Feedback page        |
+| Widget                           | Replaces (Cupertino)        | Docs location   |
+| -------------------------------- | --------------------------- | --------------- |
+| `WiredCupertinoButton`           | `CupertinoButton`           | Buttons page    |
+| `WiredCupertinoTextField`        | `CupertinoTextField`        | Inputs page     |
+| `WiredCupertinoSlider`           | `CupertinoSlider`           | Inputs page     |
+| `WiredCupertinoPicker`           | `CupertinoPicker`           | Selection page  |
+| `WiredCupertinoDatePicker`       | `CupertinoDatePicker`       | Selection page  |
+| `WiredCupertinoSegmentedControl` | `CupertinoSegmentedControl` | Selection page  |
+| `WiredCupertinoSwitch`           | `CupertinoSwitch`           | Selection page  |
+| `WiredCupertinoNavigationBar`    | `CupertinoNavigationBar`    | Navigation page |
+| `WiredCupertinoTabBar`           | `CupertinoTabBar`           | Navigation page |
+| `WiredCupertinoScaffold`         | `CupertinoPageScaffold`     | Layout page     |
+| `WiredCupertinoAlertDialog`      | `CupertinoAlertDialog`      | Feedback page   |
+| `WiredCupertinoActionSheet`      | `CupertinoActionSheet`      | Feedback page   |
