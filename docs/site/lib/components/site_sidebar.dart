@@ -14,6 +14,11 @@ class SiteSidebar extends StatelessComponent {
   Component build(BuildContext context) {
     String link(String route) => docsRoute(basePath, route);
 
+    int pageDepth(BuildContext context) {
+      final url = context.page.url;
+      return url.split('/').where((segment) => segment.isNotEmpty).length;
+    }
+
     return Sidebar(
       currentRoute: link(context.page.url),
       groups: [
@@ -66,6 +71,21 @@ class SiteSidebar extends StatelessComponent {
             SidebarLink(text: 'Layout', href: link('/widgets/layout')),
             SidebarLink(text: 'Icons', href: link('/widgets/icons')),
             SidebarLink(text: 'Cupertino', href: link('/widgets/cupertino')),
+          ],
+        ),
+        SidebarGroup(
+          title: 'Live Showcase',
+          links: [
+            SidebarLink(
+              text: 'Live Preview',
+              href: link('/showcase/overview'),
+            ),
+            // Relative to each page URL so it stays depth-correct under any
+            // base path: resolves to <base>/storybook/#/font-specimen.
+            SidebarLink(
+              text: 'Font Specimen',
+              href: '${'../' * pageDepth(context)}storybook/#/font-specimen',
+            ),
           ],
         ),
         SidebarGroup(
