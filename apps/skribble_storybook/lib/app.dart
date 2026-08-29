@@ -25,7 +25,7 @@ class SkribbleStorybookApp extends HookWidget {
       textColor: const Color(0xFF2A2238),
       disabledTextColor: const Color(0xFFA39AAD),
       fillColor: const Color(0xFFFFFCF1),
-      roughness: 1.15,
+      roughness: 1.6,
     );
 
     return WiredMaterialApp(
