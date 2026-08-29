@@ -93,25 +93,6 @@ class DataDisplayPage extends HookWidget {
                   child: WiredTimePicker(),
                 ),
               ),
-              ComponentShowcase(
-                title: 'Time Picker dialog',
-                description: 'showWiredTimePicker opens a dialog with Cancel/OK actions.',
-                child: WiredButton(
-                  onPressed: () async {
-                    final time = await showWiredTimePicker(
-                      context: context,
-                      initialTime: const TimeOfDay(hour: 9, minute: 40),
-                    );
-                    if (time != null && context.mounted) {
-                      showWiredSnackBar(
-                        context,
-                        content: Text('Selected: ${time.format(context)}'),
-                      );
-                    }
-                  },
-                  child: const Text('Pick Time'),
-                ),
-              ),
             ],
           ),
           ShowcaseSection(
@@ -237,6 +218,12 @@ class DataDisplayPage extends HookWidget {
                               '${selectedRange.value!.end.day}/'
                               '${selectedRange.value!.end.month}',
                   ),
+                ),
+              ),
+            ],
+          ),
+
+          ShowcaseSection(
             title: 'WiredGridTile',
             children: [
               ComponentShowcase(
@@ -271,6 +258,7 @@ class DataDisplayPage extends HookWidget {
               ),
             ],
           ),
+
           ShowcaseSection(
             title: 'WiredAboutListTile',
             children: [
