@@ -155,4 +155,10 @@ const _categories = [
     route: '/emoji',
     icon: Icons.emoji_emotions_outlined,
   ),
+  _Category(
+    title: 'Font Specimen',
+    description: 'Every glyph of the bundled hand-drawn Skribble typeface',
+    route: '/font-specimen',
+    icon: Icons.text_fields_outlined,
+  ),
 ];

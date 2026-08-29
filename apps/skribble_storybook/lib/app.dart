@@ -6,6 +6,7 @@ import 'package:skribble_storybook/pages/buttons_page.dart';
 import 'package:skribble_storybook/pages/data_display_page.dart';
 import 'package:skribble_storybook/pages/emoji_page.dart';
 import 'package:skribble_storybook/pages/feedback_page.dart';
+import 'package:skribble_storybook/pages/font_specimen_page.dart';
 import 'package:skribble_storybook/pages/home_page.dart';
 import 'package:skribble_storybook/pages/inputs_page.dart';
 import 'package:skribble_storybook/pages/layout_page.dart';
@@ -43,6 +44,7 @@ class SkribbleStorybookApp extends HookWidget {
         '/rough-icons': (context) => const RoughIconsPage(),
         '/skribble-icons': (context) => const SkribbleIconsPage(),
         '/emoji': (context) => const EmojiPage(),
+        '/font-specimen': (context) => const FontSpecimenPage(),
       },
     );
   }

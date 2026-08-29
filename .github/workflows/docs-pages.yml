@@ -59,6 +59,24 @@ jobs:
       - name: Build docs site
         run: docs:site:build --dart-define=DOCS_BASE_PATH=${{ steps.base.outputs.base_path }}
         shell: devenv shell -- bash -e {0}
+      - name: Build storybook web preview
+        run: |
+          # --no-tree-shake-icons: the icon galleries render runtime
+          # codepoints (thousands of them), which the const-arg shaker
+          # cannot evaluate.
+          flutter build web \\
+            --release \\
+            --no-web-resources-cdn \\
+            --no-tree-shake-icons \\
+            --base-href "${{ steps.base.outputs.base_path }}storybook/" \\
+            --pwa-strategy=none
+        working-directory: apps/skribble_storybook
+        shell: devenv shell -- bash -e {0}
+      - name: Bundle storybook into docs artifact
+        run: |
+          mkdir -p docs/site/build/jaspr/storybook
+          cp -R apps/skribble_storybook/build/web/. docs/site/build/jaspr/storybook/
+        shell: bash
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
