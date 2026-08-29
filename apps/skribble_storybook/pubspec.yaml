@@ -31,5 +31,16 @@ dev_dependencies:
   skribble_lints:
     path: ../../packages/skribble_lints
 
+patrol:
+  # Test suite location — Patrol discovers both patrolTest (native runner)
+  # and plain integration tests here.
+  test_directory_path: integration_test
+  verbose: false
+  android:
+    # The storybook scaffolding is web-first; the Android package id is
+    # provisional until the native runner is committed (see
+    # docs/site/content/guides/e2e-testing.md).
+    package_name: com.example.skribble_storybook
+
 flutter:
   uses-material-design: true
