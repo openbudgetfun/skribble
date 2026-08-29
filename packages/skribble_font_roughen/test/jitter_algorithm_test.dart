@@ -43,7 +43,7 @@ void main() {
       }
     });
 
-    test('applies jitter only to on-curve points', () {
+    test('applies jitter to both on-curve and off-curve points', () {
       const jitter = JitterAlgorithm();
 
       final points = [
@@ -61,10 +61,15 @@ void main() {
       expect(result[0].y, isNot(equals(100)));
       expect(result[0].isOnCurve, isTrue);
 
-      // Control point should remain unchanged
-      expect(result[1].x, equals(150));
-      expect(result[1].y, equals(150));
+      // Control point should also be modified (proportional to the
+      // on-curve jitter) so Bézier curves bend with the contour
+      expect(result[1].x, isNot(equals(150)));
+      expect(result[1].y, isNot(equals(150)));
       expect(result[1].isOnCurve, isFalse);
+
+      // Off-curve jitter is a fraction of on-curve jitter (0.7×)
+      final scaled = jitter.jitterValue(65, 1, offset: 3571) * 0.7;
+      expect(result[1].x, equals(150 + scaled));
 
       // Second on-curve point should be modified
       expect(result[2].x, isNot(equals(200)));
