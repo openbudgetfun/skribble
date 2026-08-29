@@ -16,6 +16,7 @@ class SelectionPage extends HookWidget {
     final pickerIndex = useState(0);
     final segmentedValue = useState(0);
     final slidingValue = useState('a');
+    final timerDuration = useState(const Duration(hours: 1, minutes: 30));
     final pickedColor = useState<Color>(Colors.blue);
 
     return WiredScaffold(
@@ -274,6 +275,44 @@ class SelectionPage extends HookWidget {
                       ],
                     ),
                   ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCupertinoTimerPicker',
+            children: [
+              ComponentShowcase(
+                title: 'Hours & Minutes',
+                description:
+                    'iOS timer wheels composed on the sketchy picker '
+                    'internals.',
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 300,
+                      child: WiredCupertinoTimerPicker(
+                        initialTimerDuration: timerDuration.value,
+                        onTimerDurationChanged: (d) => timerDuration.value = d,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Selected: ${timerDuration.value.toString().split('.')[0]}',
+                    ),
+                  ],
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Minutes & Seconds',
+                child: SizedBox(
+                  width: 240,
+                  child: WiredCupertinoTimerPicker(
+                    mode: WiredCupertinoTimerPickerMode.ms,
+                    height: 160,
+                    secondInterval: 15,
+                    onTimerDurationChanged: (_) {},
+                  ),
                 ),
               ),
             ],

@@ -15,6 +15,7 @@ class FeedbackPage extends HookWidget {
       duration: const Duration(seconds: 3),
     );
     final scrollbarController = useScrollController();
+    final indicatorAnimating = useState(false);
 
     return WiredScaffold(
       appBar: WiredAppBar(
@@ -103,6 +104,62 @@ class FeedbackPage extends HookWidget {
                     WiredCircularProgress(value: 0.5, size: 60),
                     WiredCircularProgress(value: 0.75, size: 60),
                     WiredCircularProgress(value: 1, size: 60),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredCupertinoActivityIndicator',
+            children: [
+              ComponentShowcase(
+                title: 'Activity Indicator',
+                description:
+                    'iOS-style sunburst spinner with hand-drawn strokes. '
+                    'Flip the animation toggle to watch it spin.',
+                child: Column(
+                  children: [
+                    WiredCupertinoActivityIndicator(
+                      animating: indicatorAnimating.value,
+                    ),
+                    const SizedBox(height: 12),
+                    TextButton.icon(
+                      onPressed: () =>
+                          indicatorAnimating.value = !indicatorAnimating.value,
+                      icon: Icon(
+                        indicatorAnimating.value
+                            ? Icons.pause
+                            : Icons.play_arrow,
+                      ),
+                      label: Text(
+                        indicatorAnimating.value
+                            ? 'Stop animation'
+                            : 'Start animation',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Sizes',
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    WiredCupertinoActivityIndicator(
+                      radius: 7,
+                      animating: false,
+                    ),
+                    WiredCupertinoActivityIndicator(
+                      animating: false,
+                    ),
+                    WiredCupertinoActivityIndicator(
+                      radius: 16,
+                      animating: false,
+                    ),
+                    WiredCupertinoActivityIndicator(
+                      radius: 22,
+                      animating: false,
+                    ),
                   ],
                 ),
               ),

@@ -55,5 +55,20 @@ void main() {
       await navigateToFeedback(tester);
       expect(find.byType(ComponentShowcase), findsWidgets);
     });
+
+    testWidgets('shows WiredCupertinoActivityIndicator section on scroll', (
+      tester,
+    ) async {
+      await navigateToFeedback(tester);
+      await tester.scrollUntilVisible(
+        find.text('WiredCupertinoActivityIndicator'),
+        500,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('WiredCupertinoActivityIndicator'), findsOneWidget);
+      // The toggle demo starts paused so pages stay settle-safe.
+      expect(find.text('Start animation'), findsOneWidget);
+    });
   });
 }
