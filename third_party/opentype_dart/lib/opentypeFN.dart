@@ -150,7 +150,7 @@ Map<String, dynamic> uncompressTable(data, Map<String, dynamic> tableEntry) {
  * @param  {Object} opt - options for parsing
  * @return {opentype.Font}
  */
-Function parseBuffer = (Uint8List buffer, opt) {
+Function parseBuffer = (dynamic buffer, opt) {
   opt = (opt == null || opt == null) ? {} : opt;
 
   var indexToLocFormat;

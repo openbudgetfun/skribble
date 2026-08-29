@@ -80,11 +80,10 @@ class FontRoughener {
 
     try {
       // Read the font file
-      final bytes = await inputFile.readAsBytes();
-      final buffer = bytes.buffer;
+      final bytes = inputFile.readAsBytesSync();
 
       // Parse the font using opentype_dart
-      final font = opentype.parseBuffer(buffer, opt: <String, dynamic>{});
+      final font = opentype.parseBuffer(bytes, <String, dynamic>{});
 
       if (font == null) {
         throw const FontParseException('Failed to parse font file');
@@ -119,42 +118,42 @@ class FontRoughener {
                     final dx = _jitter.jitterValue(i, j);
                     final val = cmd['x'];
                     if (val is num) {
-                      cmd['x'] = val + dx;
+                      cmd['x'] = (val + dx).round();
                     }
                   }
                   if (cmd.containsKey('y')) {
                     final dy = _jitter.jitterValue(i, j, offset: 7919);
                     final val = cmd['y'];
                     if (val is num) {
-                      cmd['y'] = val + dy;
+                      cmd['y'] = (val + dy).round();
                     }
                   }
                   if (cmd.containsKey('x1')) {
                     final dx1 = _jitter.jitterValue(i, j, offset: 3823);
                     final val = cmd['x1'];
                     if (val is num) {
-                      cmd['x1'] = val + dx1;
+                      cmd['x1'] = (val + dx1).round();
                     }
                   }
                   if (cmd.containsKey('y1')) {
                     final dy1 = _jitter.jitterValue(i, j, offset: 5413);
                     final val = cmd['y1'];
                     if (val is num) {
-                      cmd['y1'] = val + dy1;
+                      cmd['y1'] = (val + dy1).round();
                     }
                   }
                   if (cmd.containsKey('x2')) {
                     final dx2 = _jitter.jitterValue(i, j, offset: 6701);
                     final val = cmd['x2'];
                     if (val is num) {
-                      cmd['x2'] = val + dx2;
+                      cmd['x2'] = (val + dx2).round();
                     }
                   }
                   if (cmd.containsKey('y2')) {
                     final dy2 = _jitter.jitterValue(i, j, offset: 8237);
                     final val = cmd['y2'];
                     if (val is num) {
-                      cmd['y2'] = val + dy2;
+                      cmd['y2'] = (val + dy2).round();
                     }
                   }
                 }

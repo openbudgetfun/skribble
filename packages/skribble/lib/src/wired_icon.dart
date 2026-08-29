@@ -55,12 +55,12 @@ class WiredSvgIcon extends HookWidget {
     final effectiveDrawConfig =
         drawConfig ??
         DrawConfig.build(
-          maxRandomnessOffset: math.max(0.6, effectiveSize / 28),
-          roughness: 0.9,
-          bowing: 0.75,
-          curveFitting: 0.96,
+          maxRandomnessOffset: math.max(2.5, effectiveSize / 10),
+          roughness: 1.8,
+          bowing: 1.6,
+          curveFitting: 0.9,
           curveTightness: 0,
-          curveStepCount: 10,
+          curveStepCount: 8,
           seed: 1,
         );
 
@@ -207,9 +207,31 @@ List<_PreparedPrimitive> _preparePrimitives({
       .map(
         (primitive) => _PreparedPrimitive(
           path: primitive.buildPath().transform(transform),
+          fillColor: primitive.fillColor == null
+              ? null
+              : _parseSvgColor(primitive.fillColor!),
+          strokeColor: primitive.strokeColor == null
+              ? null
+              : _parseSvgColor(primitive.strokeColor!),
+          strokeWidth: primitive.strokeWidth * scale,
         ),
       )
       .toList(growable: false);
+}
+
+/// Parses an SVG paint colour (`#RGB`, `#RRGGBB`) into a [Color], or null
+/// when the value is not a plain colour (e.g. `none`, a URL reference).
+Color? _parseSvgColor(String value) {
+  var hex = value.trim();
+  if (!hex.startsWith('#')) return null;
+  hex = hex.substring(1);
+  if (hex.length == 3) {
+    hex = hex.split('').map((c) => c + c).join();
+  }
+  if (hex.length != 6) return null;
+  final rgb = int.tryParse(hex, radix: 16);
+  if (rgb == null) return null;
+  return Color(0xFF000000 | rgb);
 }
 
 Float64List _buildTransform({
@@ -261,9 +283,19 @@ Float64List _buildTransform({
 }
 
 final class _PreparedPrimitive {
-  const _PreparedPrimitive({required this.path});
+  const _PreparedPrimitive({
+    required this.path,
+    this.fillColor,
+    this.strokeColor,
+    this.strokeWidth = 1,
+  });
 
   final Path path;
+
+  /// Resolved paint colours, or null to use the ambient single colour.
+  final Color? fillColor;
+  final Color? strokeColor;
+  final double strokeWidth;
 }
 
 final class _WiredSvgIconPainter extends CustomPainter {
@@ -291,11 +323,6 @@ final class _WiredSvgIconPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     drawConfig.randomizer?.reset();
 
-    final fillPaint = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill
-      ..isAntiAlias = true;
-
     final outlinePaint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
@@ -311,11 +338,52 @@ final class _WiredSvgIconPainter extends CustomPainter {
       ..isAntiAlias = true;
 
     for (final primitive in primitives) {
+      // Per-primitive colours (from source SVG artwork) override the
+      // ambient single colour. Precomputed Material icons ship without
+      // colours and use the theme colour; emoji carry their OpenMoji
+      // palette through.
+      final hasOwnColors =
+          primitive.fillColor != null || primitive.strokeColor != null;
+
+      if (hasOwnColors) {
+        if (primitive.fillColor != null) {
+          _paintRoughSolidFill(
+            canvas,
+            primitive.path,
+            paint: Paint()
+              ..color = primitive.fillColor!
+              ..style = PaintingStyle.fill
+              ..isAntiAlias = true,
+            step: math.max(0.6, sampleDistance),
+          );
+        }
+        if (primitive.strokeColor != null) {
+          _paintOutline(
+            canvas,
+            primitive.path,
+            sketchPaint
+              ..color = primitive.strokeColor!
+              ..strokeWidth = math.max(0.8, 1.9 * (primitive.strokeWidth / 2)),
+          );
+        }
+        continue;
+      }
+
+      final fillPaint = Paint()
+        ..color = color
+        ..style = PaintingStyle.fill
+        ..isAntiAlias = true;
+
       switch (fillStyle) {
         case WiredIconFillStyle.none:
           break;
         case WiredIconFillStyle.solid:
-          canvas.drawPath(primitive.path, fillPaint);
+          _paintRoughSolidFill(
+            canvas,
+            primitive.path,
+            paint: fillPaint,
+            step: math.max(0.6, sampleDistance),
+          );
         case WiredIconFillStyle.hachure:
           _paintHachureFill(
             canvas,
@@ -343,6 +411,78 @@ final class _WiredSvgIconPainter extends CustomPainter {
 
       _paintOutline(canvas, primitive.path, outlinePaint);
     }
+  }
+
+  /// Fills [path] with a solid colour using a hand-wobbled silhouette.
+  ///
+  /// the contour is sampled, each point is displaced with smooth seeded
+  /// noise, and the closed polygon is filled — a "scribble" fill that is
+  /// completely solid but visibly hand-drawn.
+  void _paintRoughSolidFill(
+    Canvas canvas,
+    Path path, {
+    required Paint paint,
+    required double step,
+  }) {
+    final points = <Offset>[];
+    for (final metric in path.computeMetrics()) {
+      points.addAll(_sampleMetric(metric, distance: step));
+    }
+    if (points.length < 3) {
+      canvas.drawPath(path, paint);
+      return;
+    }
+
+    // Smooth radial wobble: deterministic per-index noise, smoothed over
+    // neighbours so the silhouette wobbles like a pen stroke, not static.
+    final centroid = Offset(
+      points.fold(0.0, (acc, p) => acc + p.dx) / points.length,
+      points.fold(0.0, (acc, p) => acc + p.dy) / points.length,
+    );
+    final amplitude = math.max(1.5, path.getBounds().shortestSide / 14);
+    final raw = [
+      for (var i = 0; i < points.length; i++)
+        math.sin(i * 12.9898) * 43758.5453 % 1.0 - 0.5,
+    ];
+    // Two smoothing passes for pen-like wobble.
+    for (var pass = 0; pass < 2; pass++) {
+      final smoothed = List<double>.filled(raw.length, 0);
+      for (var i = 0; i < raw.length; i++) {
+        final a = raw[(i - 1 + raw.length) % raw.length];
+        final b = raw[i];
+        final c = raw[(i + 1) % raw.length];
+        smoothed[i] = a * 0.25 + b * 0.5 + c * 0.25;
+      }
+      for (var i = 0; i < raw.length; i++) {
+        raw[i] = smoothed[i];
+      }
+    }
+
+    final wobbled = Path();
+    for (var i = 0; i < points.length; i++) {
+      final p = points[i];
+      final fromCenter = p - centroid;
+      final dist = fromCenter.distance;
+      var nx = 0.0;
+      var ny = 0.0;
+      if (dist > 0.0001) {
+        nx = fromCenter.dx / dist;
+        ny = fromCenter.dy / dist;
+      }
+      final scale = 1 + raw[i] * (amplitude / math.max(dist, 1));
+      final wx =
+          centroid.dx + fromCenter.dx * scale + nx * raw[i] * amplitude * 0.5;
+      final wy =
+          centroid.dy + fromCenter.dy * scale + ny * raw[i] * amplitude * 0.5;
+      if (i == 0) {
+        wobbled.moveTo(wx, wy);
+      } else {
+        wobbled.lineTo(wx, wy);
+      }
+    }
+    wobbled.close();
+
+    canvas.drawPath(wobbled, paint);
   }
 
   void _paintHachureFill(
@@ -419,13 +559,13 @@ final class _WiredSvgIconPainter extends CustomPainter {
     }
   }
 
-  List<Offset> _sampleMetric(PathMetric metric) {
+  List<Offset> _sampleMetric(PathMetric metric, {double? distance}) {
     final length = metric.length;
     if (length == 0) {
       return const <Offset>[];
     }
 
-    final step = math.max(0.6, sampleDistance);
+    final step = math.max(0.6, distance ?? sampleDistance);
     final sampleCount = math.max(2, (length / step).ceil());
     final points = <Offset>[];
 
