@@ -6,6 +6,8 @@ description: >-
   dependencies removed so it runs as pure Dart on the VM.
 version: 0.0.1+skribble.1
 
+publish_to: none
+
 environment:
   sdk: ^3.0.0
 
