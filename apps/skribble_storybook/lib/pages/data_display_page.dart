@@ -11,6 +11,7 @@ class DataDisplayPage extends HookWidget {
   Widget build(BuildContext context) {
     final stepperIndex = useState(0);
     final calendarSelected = useState<String?>(null);
+    final selectedRange = useState<DateTimeRange<DateTime>?>(null);
 
     return WiredScaffold(
       appBar: WiredAppBar(
@@ -183,6 +184,39 @@ class DataDisplayPage extends HookWidget {
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.indigo,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredDateRangePickerDialog',
+            children: [
+              ComponentShowcase(
+                title: 'Date Range Picker',
+                description:
+                    'Dialog for picking start and end dates, analogous to '
+                    'showDateRangePicker.',
+                child: WiredButton(
+                  onPressed: () async {
+                    final range = await showWiredDateRangePicker(
+                      context: context,
+                      initialDateRange: DateTimeRange<DateTime>(
+                        start: DateTime.now(),
+                        end: DateTime.now().add(const Duration(days: 6)),
+                      ),
+                    );
+                    if (range != null) {
+                      selectedRange.value = range;
+                    }
+                  },
+                  child: Text(
+                    selectedRange.value == null
+                        ? 'Pick Date Range'
+                        : '${selectedRange.value!.start.day}/'
+                              '${selectedRange.value!.start.month} – '
+                              '${selectedRange.value!.end.day}/'
+                              '${selectedRange.value!.end.month}',
                   ),
                 ),
               ),

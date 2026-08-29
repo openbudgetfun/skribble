@@ -48,6 +48,60 @@ WiredCard(
 
 ---
 
+## WiredCarouselView
+
+A horizontally scrolling hand-drawn carousel of rough-bordered cards,
+analogous to Material 3's `CarouselView`. Each item is drawn with a sketchy
+rough rounded-rectangle border reading `theme.fillColor` /
+`theme.borderColor`, with optional hachure fill.
+
+```dart
+WiredCarouselView(
+  itemExtent: 200,
+  height: 180,
+  onTap: (index) => debugPrint('Tapped item $index'),
+  children: [
+    Center(child: Text('Item 1')),
+    Center(child: Text('Item 2')),
+  ],
+)
+
+// Items with hachure background fill
+WiredCarouselView(
+  itemExtent: 180,
+  height: 130,
+  fill: true,
+  children: [Center(child: Text('A'))],
+)
+```
+
+### Constructor parameters
+
+| Parameter       | Type                 | Default                     | Description                                                     |
+| --------------- | -------------------- | --------------------------- | --------------------------------------------------------------- |
+| `children`      | `List<Widget>`       | required                    | The widgets displayed as carousel items.                        |
+| `itemExtent`    | `double?`            | `220.0`                     | Width of each item. `null` sizes items to intrinsic width.      |
+| `height`        | `double`             | `200.0`                     | Cross-axis height of the carousel.                              |
+| `shrinkWrap`    | `bool`               | `true`                      | Size the carousel to its content instead of filling its parent. |
+| `fill`          | `bool`               | `false`                     | Hachure (sketchy) background fill for each item card.           |
+| `borderRadius`  | `BorderRadius`       | `BorderRadius.circular(12)` | Corner rounding of each item's rough border.                    |
+| `padding`       | `EdgeInsetsGeometry` | `EdgeInsets.zero`           | Padding around the scrollable content.                          |
+| `reverse`       | `bool`               | `false`                     | Scroll in the reading direction's reverse.                      |
+| `onTap`         | `ValueChanged<int>?` | `null`                      | Called with the tapped item's index.                            |
+| `semanticLabel` | `String?`            | `null`                      | Semantic label describing the carousel.                         |
+
+### Notes
+
+- Mirrors the Material 3 `itemExtent` / `height` / `children` / `shrinkWrap`
+  API surface for easy migration; per-item material chrome (`elevation`,
+  `shape`, `overlayColor`) is intentionally replaced by the wired card look.
+- With `shrinkWrap: true` the underlying list uses a `ListView` with all
+  children; with a fixed `itemExtent` and `shrinkWrap: false` it lazily
+  builds items via `ListView.builder`.
+- Items are wrapped in `Semantics` and report as buttons when `onTap` is set.
+
+---
+
 ## WiredDivider
 
 A hand-drawn horizontal divider line. Renders a sketchy line spanning the full width of its parent.

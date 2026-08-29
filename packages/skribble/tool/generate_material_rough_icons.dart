@@ -1,4 +1,6 @@
-// ignore_for_file: unreachable_from_main
+// ignore_for_file: unreachable_from_main — the ForTest helpers are
+// exercised from test/tool/generate_material_rough_icons_parser_test.dart;
+// the reachability heuristic only walks main() so it cannot see them.
 
 import 'dart:collection';
 import 'dart:convert';
