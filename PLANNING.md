@@ -562,3 +562,19 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - CI composite action picks up the new SDK automatically via `.fvmrc` cache keying
 - All suites green on 3.47: skribble 1194, emoji 34, icons 27, icons_custom 27,
   icons_dynamic 21, storybook 64, example 41, benchmark 8, font_roughen (dart test) 20
+
+### 2026-08-28/29 (Housekeeping & Release Management)
+
+**Workspace hygiene:**
+
+- Removed `skribble_icons_dynamic` (deprioritized; zero dependents — presets
+  in `skribble_icons` are the supported path; can be revived from git
+  history if dynamic generation is wanted later)
+- Added `skribble_emoji_gen` (Dart CLI emoji generator) to the workspace
+  with SDK constraint aligned to ^3.13.0 and `resolution: workspace`
+- Merged knope → monochange migration (PR #126): release flows now use
+  `mc release-pr` / `mc publish`; changesets reformatted for monochange
+
+**Branch & worktree cleanup:**
+
+- Cleaned up ~15 stale merged remote branches and obsolete local worktrees
