@@ -462,26 +462,6 @@ class InputsPage extends HookWidget {
               ),
             ],
           ),
-
-          ShowcaseSection(
-            title: 'WiredCupertinoFormSection',
-            children: [
-              ComponentShowcase(
-                title: 'Form Section',
-                description:
-                    'Grouped form rows with hand-drawn dividers, header, '
-                    'and footer.',
-                child: WiredCupertinoFormSection(
-                  header: const Text('Account'),
-                  footer: const Text('Changes sync to all devices.'),
-                  children: [
-                    WiredInput(labelText: 'Name'),
-                    WiredInput(labelText: 'Email'),
-                  ],
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );
