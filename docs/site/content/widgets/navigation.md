@@ -366,3 +366,129 @@ WiredCupertinoTabBar(
   ],
 )
 ```
+
+---
+
+## WiredCheckboxMenuButton
+
+A menu item showing a hand-drawn checkbox as its leading icon. Mirrors Material's `CheckboxMenuButton`: activating the item toggles the value and (by default) keeps the menu open so several options can be flipped in a row. Best used inside `WiredSubmenuButton` within a `WiredMenuBar`.
+
+<!-- {=docsCheckboxMenuButtonUsage} -->
+
+```dart
+WiredMenuBar(
+  children: [
+    WiredSubmenuButton(
+      menuChildren: [
+        WiredCheckboxMenuButton(
+          value: showRulers,
+          onChanged: (v) => setState(() => showRulers = v ?? false),
+          child: const Text('Show rulers'),
+        ),
+      ],
+      child: const Text('View'),
+    ),
+  ],
+)
+```
+
+### Constructor parameters
+
+| Parameter         | Type                   | Default  | Description                                                         |
+| ----------------- | ---------------------- | -------- | ------------------------------------------------------------------- |
+| `value`           | `bool?`                | required | Current checked state (`null` = indeterminate).                     |
+| `child`           | `Widget`               | required | The item label.                                                     |
+| `tristate`        | `bool`                 | `false`  | Whether `null` values are allowed.                                  |
+| `onChanged`       | `ValueChanged<bool?>?` | `null`   | Called with the next state on activation; `null` disables the item. |
+| `closeOnActivate` | `bool`                 | `false`  | Whether activation closes the containing menu.                      |
+| `semanticLabel`   | `String?`              | `null`   | Optional semantic label for the checkbox icon.                      |
+
+### Notes
+
+- The toggle follows Material's cycle: `false → true`, `true → (tristate ? null : false)`, `null → true`.
+- The icon reuses the rough-frame checkbox visual (`RoughBoxDecoration` frame around a transparent checkbox) and participates in menu anchoring via `MenuItemButton`.
+- The item reports `checked` semantics for screen readers.
+
+---
+
+## WiredRadioMenuButton
+
+A menu item showing a hand-drawn radio button as its leading icon. Mirrors Material's `RadioMenuButton`: activating the item selects `value` within `groupValue`, and the menu closes after activation so selection feels immediate.
+
+<!-- {=docsRadioMenuButtonUsage} -->
+
+```dart
+WiredMenuBar(
+  children: [
+    WiredSubmenuButton(
+      menuChildren: [
+        WiredRadioMenuButton<String>(
+          value: 'light',
+          groupValue: themeMode,
+          onChanged: (v) => setState(() => themeMode = v),
+          child: const Text('Light'),
+        ),
+        WiredRadioMenuButton<String>(
+          value: 'dark',
+          groupValue: themeMode,
+          onChanged: (v) => setState(() => themeMode = v),
+          child: const Text('Dark'),
+        ),
+      ],
+      child: const Text('Theme'),
+    ),
+  ],
+)
+```
+
+### Constructor parameters
+
+| Parameter         | Type                | Default  | Description                                                                                |
+| ----------------- | ------------------- | -------- | ------------------------------------------------------------------------------------------ |
+| `value`           | `T`                 | required | Value this item represents.                                                                |
+| `groupValue`      | `T?`                | required | Currently selected value of the radio group.                                               |
+| `child`           | `Widget`            | required | The item label.                                                                            |
+| `onChanged`       | `ValueChanged<T?>?` | `null`   | Called with `value` on activation (or `null` when `toggleable`); `null` disables the item. |
+| `toggleable`      | `bool`              | `false`  | Whether an already-selected item can be deselected.                                        |
+| `closeOnActivate` | `bool`              | `true`   | Whether activation closes the containing menu.                                             |
+| `semanticLabel`   | `String?`           | `null`   | Optional semantic label for the radio icon.                                                |
+
+### Notes
+
+- The leading icon draws a rough `WiredCircleBase` ring plus a hachure-filled inner dot when selected — the same visual language as `WiredRadio`.
+- Reports `checked` semantics so screen readers announce the group state.
+
+---
+
+## WiredAboutListTile
+
+A list tile that opens a hand-drawn about dialog when tapped. Mirrors Material's `AboutListTile`: combines a `WiredListTile` with `showWiredAboutDialog` and the application metadata fields.
+
+<!-- {=docsAboutListTileUsage} -->
+
+```dart
+WiredAboutListTile(
+  icon: const Icon(Icons.info_outline),
+  applicationName: 'Sketchbook',
+  applicationVersion: '1.2.3',
+  applicationLegalese: 'Made with pencil and paper.',
+)
+```
+
+### Constructor parameters
+
+| Parameter             | Type            | Default | Description                                   |
+| --------------------- | --------------- | ------- | --------------------------------------------- |
+| `icon`                | `Widget?`       | `null`  | Widget shown at the start of the tile.        |
+| `child`               | `Widget?`       | `null`  | Tile content; falls back to `About <name>`.   |
+| `applicationName`     | `String?`       | `null`  | Application name shown in the dialog.         |
+| `applicationVersion`  | `String?`       | `null`  | Version string shown in the dialog.           |
+| `applicationIcon`     | `Widget?`       | `null`  | Application icon shown in the dialog.         |
+| `applicationLegalese` | `String?`       | `null`  | Legal text shown at the bottom of the dialog. |
+| `aboutBoxChildren`    | `List<Widget>?` | `null`  | Extra children below the about information.   |
+| `semanticLabel`       | `String?`       | `null`  | Optional semantic label for accessibility.    |
+
+### Notes
+
+- Tapping the tile calls `showWiredAboutDialog` with all application metadata passed through.
+- The dialog can be dismissed via its Close button or the modal barrier; use `showLicensePage` from within the dialog for license details.

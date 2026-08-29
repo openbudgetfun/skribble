@@ -126,7 +126,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredCupertinoSlider`    | `wired_cupertino_slider.dart`     |
 | `WiredCupertinoSwitch`    | `wired_cupertino_switch.dart`     |
 
-#### Navigation (13)
+#### Navigation (15)
 
 | Widget                        | File                                  |
 | ----------------------------- | ------------------------------------- |
@@ -139,6 +139,9 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredDrawer`                 | `wired_drawer.dart`                   |
 | `WiredPopupMenuButton`        | `wired_popup_menu.dart`               |
 | `WiredMenuBar`                | `wired_menu_bar.dart`                 |
+| `WiredCheckboxMenuButton`     | `wired_menu_bar.dart`                 |
+| `WiredRadioMenuButton`        | `wired_menu_bar.dart`                 |
+| `WiredAboutListTile`          | `wired_about_list_tile.dart`          |
 | `WiredBottomAppBar`           | `wired_bottom_app_bar.dart`           |
 | `WiredSliverAppBar`           | `wired_sliver_app_bar.dart`           |
 | `WiredCupertinoNavigationBar` | `wired_cupertino_navigation_bar.dart` |
@@ -180,7 +183,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredCupertinoAlertDialog` | `wired_cupertino_alert_dialog.dart` |
 | `WiredCupertinoActionSheet` | `wired_cupertino_action_sheet.dart` |
 
-#### Layout (18)
+#### Layout (19)
 
 | Widget                     | File                               |
 | -------------------------- | ---------------------------------- |
@@ -197,6 +200,9 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredScaffold`            | `wired_scaffold.dart`              |
 | `WiredReorderableListView` | `wired_reorderable_list_view.dart` |
 | `WiredDismissible`         | `wired_dismissible.dart`           |
+| `WiredGridTile`            | `wired_grid_tile.dart`             |
+| `WiredGridTileBar`         | `wired_grid_tile.dart`             |
+| `WiredMergeableMaterial`   | `wired_mergeable_material.dart`    |
 | `WiredSelectableText`      | `wired_selectable_text.dart`       |
 | `WiredDrawerHeader`        | `wired_drawer_header.dart`         |
 | `WiredAvatar`              | `wired_avatar.dart`                |

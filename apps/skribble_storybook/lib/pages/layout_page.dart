@@ -13,6 +13,7 @@ class LayoutPage extends HookWidget {
     final radioTileValue = useState<String>('a');
     final switchTileValue = useState(false);
     final reorderItems = useState(['🍎 Apple', '🍌 Banana', '🍒 Cherry']);
+    final mergeableGap = useState<double>(56);
 
     return WiredScaffold(
       appBar: WiredAppBar(
@@ -386,6 +387,42 @@ class LayoutPage extends HookWidget {
                     for (final item in ['A', 'B', 'C'])
                       Center(child: Text('Filled $item')),
                   ],
+            title: 'WiredMergeableMaterial',
+            children: [
+              ComponentShowcase(
+                title: 'Expand / Collapse slices',
+                description: 'Gap size changes are animated; a zero gap merges slices into one hand-drawn card.',
+                child: WiredMergeableMaterial(
+                  hasDividers: true,
+                  children: [
+                    WiredMaterialSlice(
+                      key: const ValueKey('slice-panels'),
+                      child: WiredListTile(
+                        title: const Text('Panels'),
+                        showDivider: false,
+                      ),
+                    ),
+                    WiredMaterialGap(
+                      key: const ValueKey('mergeable-gap'),
+                      size: mergeableGap.value,
+                    ),
+                    WiredMaterialSlice(
+                      key: const ValueKey('slice-details'),
+                      child: const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text('Extra slice content'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
+              WiredButton(
+                onPressed: () {
+                  mergeableGap.value = mergeableGap.value > 0 ? 0 : 56;
+                },
+                child: Text(
+                  mergeableGap.value > 0 ? 'Collapse' : 'Expand',
                 ),
               ),
             ],
