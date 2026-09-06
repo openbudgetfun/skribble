@@ -47,11 +47,11 @@ flutter:
   fonts:
     - family: Skribble
       fonts:
-        - asset: fonts/Skribble-Bold.ttf
+        - asset: assets/fonts/Skribble-Bold.ttf
           weight: 700
-        - asset: fonts/Skribble-BoldItalic.ttf
+        - asset: assets/fonts/Skribble-BoldItalic.ttf
           style: italic
           weight: 700
-        - asset: fonts/Skribble-Italic.ttf
+        - asset: assets/fonts/Skribble-Italic.ttf
           style: italic
-        - asset: fonts/Skribble-Regular.ttf
+        - asset: assets/fonts/Skribble-Regular.ttf
