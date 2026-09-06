@@ -44,3 +44,14 @@ patrol:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Skribble
+      fonts:
+        - asset: fonts/Skribble-Regular.ttf
+        - asset: fonts/Skribble-Bold.ttf
+          weight: 700
+        - asset: fonts/Skribble-Italic.ttf
+          style: italic
+        - asset: fonts/Skribble-BoldItalic.ttf
+          weight: 700
+          style: italic
