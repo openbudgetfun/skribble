@@ -31,6 +31,8 @@ After the pull request merges, the `Release PR` workflow refreshes the long-runn
 
 The shared CI setup restores `.fvmrc` after FVM selects the pinned SDK, and the storybook ignores Flutter's generated iOS configuration. These keep the checkout clean while Monochange commits the release branch.
 
+The rough-icon generator exposes parsing and rendering helpers for its tests. The declarations suppress `unreachable_from_main`, while the file suppresses the analyzer's contradictory `unnecessary_ignore` result when those helpers are imported by tests.
+
 ## Publish a release
 
 Review and merge the release pull request. The merge starts this sequence:
