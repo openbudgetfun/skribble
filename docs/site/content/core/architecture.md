@@ -43,7 +43,7 @@ All 80+ Skribble widgets extend `HookWidget` (or `HookConsumerWidget` when River
 
 ### 5. Theme
 
-`WiredThemeData` centralizes border color, fill color, text color, stroke width, roughness, and an optional `DrawConfig`. The `WiredTheme` `InheritedWidget` makes this data available to every descendant widget through `WiredTheme.of(context)`.
+`WiredThemeData` centralizes border color, fill color, text color, stroke width, roughness, and an optional `DrawConfig`. The `WiredTheme` scope makes this data available to every descendant widget through `WiredTheme.of(context)`.
 
 ### 6. App Shell
 

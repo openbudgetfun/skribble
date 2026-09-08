@@ -3,4 +3,4 @@ skribble: minor
 skribble_font_roughen: minor
 ---
 
-Make Wired borders locally uneven with connected wandering pen strokes, stronger default roughness, and bounded jitter. Preserve visible centres in small circular controls. Double the bundled Recursive Casual outline deformation across all four styles while preserving spacing and shaping.
+Add app-wide Gentle, Playful, and Expressive roughness levels with matching four-style font families, nested typography inheritance, and theme-aware rough icons. Make expressive borders locally uneven with bounded wandering strokes while retaining the gentler bowed renderer. Preserve visible centres in small circular controls and font spacing and shaping. Support named custom font families in the numeric roughening tool.

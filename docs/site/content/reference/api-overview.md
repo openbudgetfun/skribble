@@ -73,15 +73,15 @@ Key types:
 
 Colors, roughness, and Material bridge.
 
-| Export                    | Purpose                                     |
-| ------------------------- | ------------------------------------------- |
-| `wired_theme.dart`        | WiredThemeData + WiredTheme InheritedWidget |
-| `wired_material_app.dart` | WiredMaterialApp (.router)                  |
+| Export                    | Purpose                           |
+| ------------------------- | --------------------------------- |
+| `wired_theme.dart`        | WiredThemeData + WiredTheme scope |
+| `wired_material_app.dart` | WiredMaterialApp (.router)        |
 
 Key types:
 
 - `WiredThemeData` — borderColor, textColor, fillColor, strokeWidth, roughness, drawConfig
-- `WiredTheme` — InheritedWidget, accessed via `WiredTheme.of(context)`
+- `WiredTheme` — inherited theme and typography scope, accessed via `WiredTheme.of(context)`
 - `WiredMaterialApp` — MaterialApp wrapper that syncs WiredTheme + Material ThemeData
 
 ### 5. Widgets (80+)
@@ -291,3 +291,7 @@ Full dartdoc API reference is available at:
 - `skribble_font_roughen` exports `VisualDiff` and `DiffResult` for HTML specimens and outline-change statistics; these are not pixel comparisons.
 
 SVG path primitives also accept `strokeDashArray`, `strokeDashOffset`, `strokeCap`, `strokeJoin`, and `strokeMiterLimit`. `buildStrokePath()` expands dashes in source coordinates before display scaling; fill geometry remains unchanged.
+
+### Roughness presets
+
+`WiredRoughness.gentle`, `.playful`, and `.expressive` are public exports. Pass a level through `WiredThemeData(roughnessLevel: ...)` or `copyWith(roughnessLevel: ...)` to coordinate the font and drawing defaults. `WiredThemeData.fontPackage` resolves bundled families for standalone text styles. Explicit font and geometry overrides remain supported. `DrawConfig.lineWobble` selects the local wandering strength, with zero restoring gently bowed edges.

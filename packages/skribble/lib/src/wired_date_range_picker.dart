@@ -65,7 +65,6 @@ TextStyle _wiredTextStyle({
   Color? color,
 }) {
   return TextStyle(
-    fontFamily: skribbleFontFamily,
     fontSize: fontSize,
     fontWeight: fontWeight,
     color: color,
@@ -297,7 +296,6 @@ class WiredDateRangePickerDialog extends HookWidget {
         '${_months[displayedMonth.month - 1]} ${displayedMonth.year}';
 
     const navTextStyle = TextStyle(
-      fontFamily: skribbleFontFamily,
       fontWeight: FontWeight.bold,
       fontSize: 22,
     );

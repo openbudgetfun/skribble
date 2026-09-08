@@ -255,7 +255,6 @@ Widget _wiredText(
     text,
     textAlign: TextAlign.center,
     style: TextStyle(
-      fontFamily: skribbleFontFamily,
       fontWeight: fontWeight,
       fontSize: fontSize,
       color: color,

@@ -315,3 +315,5 @@ WiredSvgIcon(
 The Material catalog contains 8,622 unique icon codepoints (8,825 names including aliases) for the pinned Flutter 3.47.0 SDK. Run `./scripts/check_rough_icons_ci.sh all` to check unresolved symbols and generated catalog drift. The 30 curated icons regenerate from `packages/skribble_icons/tool/skribble_icons.manifest.json` with `dart run packages/skribble_emoji_gen/bin/generate_icons.dart`.
 
 Curated geometry retains its source view box, preventing oversized output. Runtime rough fills preserve separate contours and even-odd fill rules, so rings, search symbols, and other counters stay open. Small icons use a gentler wobble than layout borders. `WiredSvgPrimitive.path` also accepts `clipPaths` in the same coordinate system. Source colors may be `#RGB`, `#RRGGBB`, or `#RRGGBBAA`.
+
+Theme-derived icon outline deformation follows the active geometry amplitude, including `WiredRoughness` presets. Supplying an icon `drawConfig` keeps that explicit configuration when the theme level changes.

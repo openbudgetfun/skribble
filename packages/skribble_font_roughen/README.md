@@ -47,3 +47,9 @@ dart test
 ```
 
 Recursive is by Arrow Type, under the SIL Open Font License 1.1. The derivative is named Skribble. Keep the bundled OFL notice when redistributing the fonts. Sources: [Recursive releases](https://github.com/arrowtype/recursive/releases), [TrueType glyph specification](https://learn.microsoft.com/en-us/typography/opentype/spec/glyf).
+
+## Roughness levels and custom families
+
+The bundled generator now writes Gentle (18), Playful (27), and Expressive (36), each in all four styles. The extra families live in the main library assets; existing Expressive copies remain synchronized for compatibility. Run the same command with `--check` to detect stale files.
+
+For custom strengths, use `--jitter 23.5 --family MyInk` or `FontRoughener(jitterAmount: 23.5, familyName: 'MyInk', ...)`. Family names use 1–48 ASCII letters, digits or hyphens and start with a letter. The font remains static, with preserved advance widths and shaping.

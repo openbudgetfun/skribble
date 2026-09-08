@@ -390,14 +390,16 @@ void main() {
       expect(find.text('Card'), findsOneWidget);
     });
 
-    testWidgets('is an InheritedWidget', (tester) async {
+    testWidgets('retains the provided data on its public boundary', (
+      tester,
+    ) async {
       await pumpApp(
         tester,
         WiredTheme(data: WiredThemeData(), child: const SizedBox()),
       );
 
       final widget = tester.widget<WiredTheme>(find.byType(WiredTheme));
-      expect(widget, isA<InheritedWidget>());
+      expect(widget.data.fontFamily, skribbleFontFamily);
     });
 
     testWidgets('provides all custom theme properties to descendants', (

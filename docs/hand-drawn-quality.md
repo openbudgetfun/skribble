@@ -60,3 +60,7 @@ The review added first-frame slider geometry checks for a 10–100 range and bot
 SVG import also preserves dash patterns and offsets, cap/join styles, miter limits, and stroke-before-fill ordering. Hidden elements are omitted. Import tests cover inheritance and transforms, and both SVG renderers have pixel checks for dash gaps and square endpoints. The extraction directory is cleared before each rebuild so removed upstream files cannot linger. Asset CI checks tracked changes and newly generated files.
 
 The completed visual review covers 13 catalog routes at 390 and 1,440 pixels, with three settled scroll captures each (78 images), plus all four font specimens and notebook morning/evening views. These are representative screens, not an assertion that every possible widget configuration has been inspected. Catalog Patrol covers 11 navigation and control journeys; notebook Patrol covers five responsive interaction journeys with explicit saved-text, reset, palette-color, and reminder postconditions.
+
+## Consumer roughness levels
+
+The follow-up adds Gentle, Playful, and Expressive app-level presets with matching four-style font families. The storybook picker changes the root theme and preserves notebook state across selection and navigation. Nested themes now synchronize typography as well as border configuration. Font metadata and shaping preservation are checked across all twelve assets; widget and Patrol coverage exercise level propagation, state retention, independent overrides, and different viewport widths.

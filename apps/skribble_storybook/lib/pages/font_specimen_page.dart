@@ -90,7 +90,6 @@ class FontSpecimenPage extends HookWidget {
                   Text(
                     'The quick brown fox jumps over the lazy dog.',
                     style: TextStyle(
-                      fontFamily: skribbleFontFamily,
                       fontSize: size.value,
                       fontWeight: selectedWeight.value == 700
                           ? FontWeight.bold
@@ -102,7 +101,6 @@ class FontSpecimenPage extends HookWidget {
                   Text(
                     'Pack my box with five dozen liquor jugs. 0123456789',
                     style: TextStyle(
-                      fontFamily: skribbleFontFamily,
                       fontSize: size.value * 0.75,
                       fontWeight: selectedWeight.value == 700
                           ? FontWeight.bold
@@ -177,7 +175,6 @@ class _GlyphCard extends StatelessWidget {
             child: Text(
               glyph,
               style: TextStyle(
-                fontFamily: skribbleFontFamily,
                 fontSize: fontSize,
                 fontWeight: bold ? FontWeight.bold : null,
                 fontStyle: italic ? FontStyle.italic : null,

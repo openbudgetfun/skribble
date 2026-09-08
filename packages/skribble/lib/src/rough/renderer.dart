@@ -17,10 +17,15 @@ List<Op> _line(
   final lengthSq = pow(x1 - x2, 2) + pow(y1 - y2, 2);
   final length = sqrt(lengthSq);
 
-  if (length >= 48 && config.roughness! > 0) {
+  if (length >= 48 && config.roughness! > 0 && config.lineWobble! > 0) {
     return _wanderingLine(x1, y1, x2, y2, config, overlay);
   }
 
+  final roughnessGain = length < 200
+      ? 1.0
+      : length > 500
+      ? 0.4
+      : (-0.0016668) * length + 1.233334;
   double offset = config.maxRandomnessOffset!;
   if ((offset * offset * 100) > lengthSq) {
     offset = length / 10;
@@ -33,12 +38,12 @@ List<Op> _line(
       config.bowing! * config.maxRandomnessOffset! * (y2 - y1) / 200;
   double offsetY =
       config.bowing! * config.maxRandomnessOffset! * (x1 - x2) / 200;
-  offsetX = config.offsetSymmetric(offsetX);
-  offsetY = config.offsetSymmetric(offsetY);
+  offsetX = config.offsetSymmetric(offsetX, roughnessGain);
+  offsetY = config.offsetSymmetric(offsetY, roughnessGain);
 
   final ops = <Op>[];
-  randomHalf() => config.offsetSymmetric(halfOffset);
-  randomFull() => config.offsetSymmetric(offset);
+  randomHalf() => config.offsetSymmetric(halfOffset, roughnessGain);
+  randomFull() => config.offsetSymmetric(offset, roughnessGain);
 
   if (move) {
     if (overlay) {
@@ -47,8 +52,8 @@ List<Op> _line(
       ops.add(
         Op.move(
           PointD(
-            x1 + config.offsetSymmetric(offset),
-            y1 + config.offsetSymmetric(offset),
+            x1 + config.offsetSymmetric(offset, roughnessGain),
+            y1 + config.offsetSymmetric(offset, roughnessGain),
           ),
         ),
       );
@@ -108,7 +113,9 @@ List<Op> _wanderingLine(
     final t = i / segments;
     final endGain = i == 0 || i == segments ? 0.45 : 1.0;
 
-    return (config.offsetSymmetric(offset) * 0.7 * endGain + bow * sin(t * pi))
+    return ((config.offsetSymmetric(offset) * 0.7 * endGain +
+                bow * sin(t * pi)) *
+            config.lineWobble!)
         .clamp(-limit, limit);
   });
   PointD point(double t, double displacement) => PointD(

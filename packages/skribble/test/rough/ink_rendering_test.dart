@@ -29,6 +29,30 @@ Future<Uint8List> renderInk({
 }
 
 void main() {
+  test('all preset borders fit inside phone and wide card bounds', () async {
+    for (final level in WiredRoughness.values) {
+      for (final size in [const Size(390, 80), const Size(1440, 120)]) {
+        final width = size.width.toInt();
+        final height = size.height.toInt();
+        for (final seed in [1, 7, 23, 84]) {
+          final pixels = await renderInk(
+            size: size,
+            config: WiredThemeData(roughnessLevel: level).drawConfig
+                .copyWith(seed: seed),
+          );
+          for (var x = 0; x < width; x++) {
+            expect(pixels[x * 4 + 3], 0, reason: '${level.name} top');
+            expect(pixels[((height - 1) * width + x) * 4 + 3], 0);
+          }
+          for (var y = 0; y < height; y++) {
+            expect(pixels[y * width * 4 + 3], 0);
+            expect(pixels[(y * width + width - 1) * 4 + 3], 0);
+          }
+        }
+      }
+    }
+  });
+
   test('small circular thumbs retain a visible paper centre', () async {
     for (final seed in [1, 7, 23, 84]) {
       final recorder = ui.PictureRecorder();

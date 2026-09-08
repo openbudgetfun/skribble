@@ -535,3 +535,7 @@ Edges at least 48 logical pixels long use two independently wandering strokes, w
 `WiredCircleBase` scales roughness by `min(1, shortestSide / 48)` for small circles. This keeps a switch or slider thumb's paper centre visible while larger circles retain the full roughness.
 
 Icons use a smaller runtime displacement so counters remain open at 24 pixels. Solid fills preserve separate contours and the SVG fill rule. Precomputed emoji have their pen wobble baked into the generated paths and do not receive a second runtime deformation.
+
+### Coordinated levels
+
+`WiredRoughness` supplies three drawing presets together with matching fonts. Gentle uses offset 1.2, roughness 1.25 and `lineWobble: 0`; playful uses 1.6, 1.5 and 0.65; expressive uses 2, 1.8 and 1. Local wandering remains bounded by the jitter band. Setting `lineWobble: 0` restores the earlier single-cubic renderer and its long-edge attenuation. Theme-derived icons scale their smaller outline deformation with the active geometry amplitude; explicit icon configurations take precedence.

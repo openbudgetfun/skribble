@@ -14,6 +14,7 @@ import 'package:skribble_font_roughen/skribble_font_roughen.dart';
 /// Options:
 ///   --jitter, -j    Deformation strength per 1000 units per em (default: 36)
 ///   --variant, -v   Font variant: regular, bold, italic, boldItalic (default: regular)
+///   --family       Output family name (default: Skribble)
 ///   --help, -h      Show help message
 void main(List<String> arguments) async {
   final parser = ArgParser()
@@ -29,6 +30,11 @@ void main(List<String> arguments) async {
       help: 'Font variant: regular, bold, italic, boldItalic',
       defaultsTo: 'regular',
       allowed: ['regular', 'bold', 'italic', 'boldItalic'],
+    )
+    ..addOption(
+      'family',
+      help: 'Family name embedded in the generated font',
+      defaultsTo: 'Skribble',
     )
     ..addFlag(
       'help',
@@ -63,6 +69,7 @@ void main(List<String> arguments) async {
       inputPath: inputPath,
       outputPath: outputPath,
       jitterAmount: jitter,
+      familyName: results['family'] as String,
       variant: variant,
     );
 

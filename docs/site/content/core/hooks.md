@@ -297,7 +297,7 @@ Widget build(BuildContext context) {
 
 <!-- {/docsThemeReadPattern} -->
 
-This establishes a dependency on the `WiredTheme` `InheritedWidget`, so the widget rebuilds automatically when the theme changes.
+This establishes a dependency on the internal inherited scope of `WiredTheme`, so the widget rebuilds automatically when the theme changes.
 
 ### Complete Widget Example
 
