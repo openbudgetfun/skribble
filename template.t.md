@@ -169,6 +169,10 @@ Widget build(BuildContext context) {
 
 <!-- {@docsAgentWidgetTemplate} -->
 
+Use this template for ordinary UI components. For motion lifecycle wrappers,
+use standard Flutter state and ticker providers as described in the ink motion
+guide. Borrowed `Animation<double>` values remain owned by the consumer.
+
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

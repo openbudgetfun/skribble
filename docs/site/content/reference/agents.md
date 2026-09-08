@@ -7,7 +7,7 @@ This document is the authoritative reference for AI coding agents (Claude, Copil
 
 ## Golden rules
 
-1. **Every widget is a `HookWidget`.** Never generate `StatefulWidget` or `StatelessWidget`. Use `HookConsumerWidget` only when Riverpod is needed.
+1. **UI components use `HookWidget`.** Use `HookConsumerWidget` when Riverpod is needed. The motion layer uses standard Flutter state, ticker providers, and inherited scopes; see [Ink motion](../core/motion) when changing animation ownership or policy.
 2. **Every widget name starts with `Wired`.** `WiredButton`, `WiredAppBar`, `WiredDatePicker` — no exceptions.
 3. **Every widget reads theme from `WiredTheme.of(context)`.** Never hardcode colors, stroke widths, or roughness values.
 4. **Every widget wraps its output with `RepaintBoundary`.** Use `buildWiredElement(child: ...)` or extend `WiredBaseWidget`.
@@ -51,6 +51,10 @@ This is the most common task an agent will perform. Follow every step exactly.
 Create `packages/skribble/lib/src/wired_<name>.dart`:
 
 <!-- {=docsAgentWidgetTemplate} -->
+
+Use this template for ordinary UI components. For motion lifecycle wrappers,
+use standard Flutter state and ticker providers as described in the ink motion
+guide. Borrowed `Animation<double>` values remain owned by the consumer.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -896,7 +900,7 @@ chore: bump version to 0.3.5
 Before marking any widget task as complete, verify:
 
 - [ ] Widget file created at `packages/skribble/lib/src/wired_<name>.dart`
-- [ ] Uses `HookWidget` (not `StatefulWidget` or `StatelessWidget`)
+- [ ] UI components use `HookWidget`; motion lifecycle code uses standard Flutter state and tickers
 - [ ] Name starts with `Wired` prefix
 - [ ] Reads theme via `WiredTheme.of(context)` — no hardcoded colors
 - [ ] Wraps output with `buildWiredElement()` or `RepaintBoundary`
@@ -914,7 +918,7 @@ Before marking any widget task as complete, verify:
 
 ## Common mistakes to avoid
 
-1. **Using `StatefulWidget`** — always use `HookWidget` with `useState` instead
+1. **Using stateful UI components** — use `HookWidget` with `useState` for ordinary components. Keep the motion layer on standard Flutter lifecycle classes.
 2. **Forgetting `RepaintBoundary`** — every widget must isolate repaints
 3. **Hardcoding colors** — always read from `WiredTheme.of(context)`
 4. **Skipping tests** — minimum 6 `testWidgets` per widget, no exceptions

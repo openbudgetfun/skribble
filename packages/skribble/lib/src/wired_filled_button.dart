@@ -63,7 +63,10 @@ class WiredFilledButton extends HookWidget {
               height: double.infinity,
               child: TextButton(
                 statesController: states,
-                style: TextButton.styleFrom(foregroundColor: fg),
+                style: TextButton.styleFrom(
+                  foregroundColor: fg,
+                  disabledForegroundColor: fg.withValues(alpha: 0.75),
+                ),
                 onPressed: onPressed,
                 child: child,
               ),
