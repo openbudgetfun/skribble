@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'motion/wired_ink_response.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -28,38 +29,41 @@ class WiredIconButton extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Semantics(
-      label: semanticLabel,
-      button: true,
-      child: buildWiredElement(
-        child: SizedBox(
-          width: size,
-          height: size,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              WiredCanvas(
-                painter: WiredCircleBase(
-                  strokeWidth: theme.strokeWidth,
-                  diameterRatio: 0.85,
-                  borderColor: theme.borderColor,
+    return WiredInkResponse(
+      builder: (context, states) => Semantics(
+        label: semanticLabel,
+        button: true,
+        child: buildWiredElement(
+          child: SizedBox(
+            width: size,
+            height: size,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                WiredCanvas(
+                  painter: WiredCircleBase(
+                    strokeWidth: theme.strokeWidth,
+                    diameterRatio: 0.85,
+                    borderColor: theme.borderColor,
+                  ),
+                  fillerType: RoughFilter.noFiller,
                 ),
-                fillerType: RoughFilter.noFiller,
-              ),
-              IconButton(
-                icon: WiredIcon(
-                  icon: icon,
-                  color: iconColor ?? theme.textColor,
-                  size: size * 0.5,
-                  fillStyle: WiredIconFillStyle.solid,
-                  strokeWidth: 1.4,
+                IconButton(
+                  statesController: states,
+                  icon: WiredIcon(
+                    icon: icon,
+                    color: iconColor ?? theme.textColor,
+                    size: size * 0.5,
+                    fillStyle: WiredIconFillStyle.solid,
+                    strokeWidth: 1.4,
+                  ),
+                  onPressed: onPressed,
+                  iconSize: size * 0.5,
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(maxWidth: size, maxHeight: size),
                 ),
-                onPressed: onPressed,
-                iconSize: size * 0.5,
-                padding: EdgeInsets.zero,
-                constraints: BoxConstraints(maxWidth: size, maxHeight: size),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,9 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../motion/wired_draw.dart';
+import '../motion/wired_ink_response.dart';
 import '../rough/skribble_rough.dart';
 import '../wired_theme.dart';
-
 import 'wired_painter.dart';
 import 'wired_painter_base.dart';
 
@@ -42,6 +43,8 @@ class WiredCanvas extends HookWidget {
         drawConfig ?? WiredTheme.of(context).drawConfig,
         filler,
         painter,
+        progress: WiredDrawTransition.progressOf(context),
+        pressure: WiredInkResponse.pressureOf(context),
       ),
     );
   }

@@ -1,12 +1,13 @@
 import 'dart:math';
 
+import 'package:flutter/animation.dart';
 import 'package:flutter/painting.dart';
 
 import 'config.dart';
 import 'entities.dart';
 import 'filler.dart';
 import 'generator.dart';
-import 'rough.dart';
+import 'rough_drawing.dart';
 
 /// Style configuration for rough-drawn strokes and fills.
 ///
@@ -34,6 +35,13 @@ enum RoughBoxShape { rectangle, roundedRectangle, circle, ellipse }
 /// Supports rectangle, rounded rectangle, circle, and ellipse shapes
 /// with configurable border and fill styles.
 class RoughBoxDecoration extends Decoration {
+  /// Optional pen progress. Resolve ambient motion policy before supplying it.
+  /// See WiredDrawTransition.progressOf for context-aware integration.
+  final Animation<double>? progress;
+
+  /// Optional pen pressure for interaction feedback, from zero to one.
+  final Animation<double>? pressure;
+
   final RoughBoxShape shape;
   final RoughDrawingStyle? borderStyle;
   final DrawConfig? drawConfig;
@@ -49,6 +57,8 @@ class RoughBoxDecoration extends Decoration {
   final int seed;
 
   const RoughBoxDecoration({
+    this.progress,
+    this.pressure,
     this.borderStyle,
     this.drawConfig,
     this.fillStyle,
@@ -64,7 +74,7 @@ class RoughBoxDecoration extends Decoration {
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return RoughDecorationPainter(this);
+    return RoughDecorationPainter(this, onChanged);
   }
 }
 
@@ -75,23 +85,63 @@ class RoughBoxDecoration extends Decoration {
 class RoughDecorationPainter extends BoxPainter {
   final RoughBoxDecoration roughDecoration;
 
-  RoughDecorationPainter(this.roughDecoration);
+  RoughDecorationPainter(this.roughDecoration, [VoidCallback? onChanged])
+    : super(onChanged) {
+    if (onChanged != null) {
+      for (final animation in _animations) {
+        animation.addListener(onChanged);
+      }
+    }
+  }
+
+  Set<Animation<double>> get _animations => {
+    ?roughDecoration.progress,
+    ?roughDecoration.pressure,
+  };
+  Size? _size;
+  late RoughDrawing _drawing;
+
+  @override
+  void dispose() {
+    final callback = onChanged;
+    if (callback != null) {
+      for (final animation in _animations) {
+        animation.removeListener(callback);
+      }
+    }
+    super.dispose();
+  }
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+    final size = configuration.size;
+    if (size == null || size.isEmpty) return;
+    if (_size != size) {
+      _drawing = _prepare(size);
+      _size = size;
+    }
+    canvas.save();
+    canvas.translate(offset.dx, offset.dy);
+    _drawing.paint(
+      canvas,
+      progress: roughDecoration.progress?.value ?? 1,
+      pressure: roughDecoration.pressure?.value ?? 0,
+    );
+    canvas.restore();
+  }
+
+  RoughDrawing _prepare(Size size) {
     final DrawConfig drawConfig =
         roughDecoration.drawConfig ??
         DrawConfig.build(seed: roughDecoration.seed);
     drawConfig.randomizer?.reset();
     final Filler filler = roughDecoration.filler ?? NoFiller();
     final Generator generator = Generator(drawConfig, filler);
-    final size = configuration.size;
-    if (size == null || size.isEmpty) return;
     final bleed =
         (roughDecoration.borderStyle?.width ?? 0) / 2 +
         1 +
         (drawConfig.maxRandomnessOffset ?? 0) * (drawConfig.roughness ?? 0);
-    final Rect rect = (offset & size).deflate(
+    final Rect rect = (Offset.zero & size).deflate(
       min(bleed, size.shortestSide / 2),
     );
 
@@ -141,7 +191,7 @@ class RoughDecorationPainter extends BoxPainter {
         );
     }
 
-    canvas.drawRough(drawable, borderPaint, fillPaint);
+    return RoughDrawing(drawable, borderPaint, fillPaint);
   }
 
   Paint _buildDrawPaint(RoughDrawingStyle roughDrawDecoration, Rect rect) {

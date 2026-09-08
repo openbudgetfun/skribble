@@ -6,6 +6,36 @@ import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
+  testWidgets(
+    'natural height accepts responsive content without intrinsic layout',
+    (tester) async {
+      await tester.pumpWidget(
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Center(
+            child: SizedBox(
+              width: 240,
+              child: WiredCard(
+                height: null,
+                child: LayoutBuilder(
+                  builder: (context, constraints) => SizedBox(
+                    height: constraints.maxWidth / 2,
+                    child: const Text('Responsive paper'),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+      expect(
+        tester.getSize(find.byType(WiredCard)).height,
+        greaterThanOrEqualTo(100),
+      );
+    },
+  );
+
   group('WiredCard', () {
     testWidgets('renders child widget', (tester) async {
       await pumpApp(tester, WiredCard(child: const Text('Card content')));

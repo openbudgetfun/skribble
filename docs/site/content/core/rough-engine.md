@@ -539,3 +539,11 @@ Icons use a smaller runtime displacement so counters remain open at 24 pixels. S
 ### Coordinated levels
 
 `WiredRoughness` supplies three drawing presets together with matching fonts. Gentle uses offset 1.2, roughness 1.25 and `lineWobble: 0`; playful uses 1.6, 1.5 and 0.65; expressive uses 2, 1.8 and 1. Local wandering remains bounded by the jitter band. Setting `lineWobble: 0` restores the earlier single-cubic renderer and its long-edge attenuation. Theme-derived icons scale their smaller outline deformation with the active geometry amplitude; explicit icon configurations take precedence.
+
+## Drawing ink over time
+
+`RoughDrawing` snapshots generated paths and paints, then reveals cumulative
+pen distance across contours. It retains measured paths for replay and reverse.
+Solid fills remain opaque; hatch fills appear stroke by stroke. No random seeds
+change during animation. `RoughBoxDecoration` also caches local geometry and
+accepts borrowed paint animations. See [Ink motion](motion).

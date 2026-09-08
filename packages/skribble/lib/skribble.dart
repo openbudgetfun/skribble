@@ -8,6 +8,8 @@ export 'src/canvas/wired_canvas.dart';
 export 'src/canvas/wired_ink_splash.dart';
 export 'src/canvas/wired_painter.dart';
 export 'src/canvas/wired_painter_base.dart';
+export 'src/motion/wired_draw.dart';
+export 'src/motion/wired_motion.dart';
 export 'src/rough/skribble_rough.dart';
 export 'src/wired_about_dialog.dart';
 export 'src/wired_about_list_tile.dart';

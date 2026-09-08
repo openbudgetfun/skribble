@@ -489,3 +489,10 @@ The switch thumb has an opaque paper fill and a full-size sketch outline, so the
 `WiredSlider` positions its thumb during the first layout, including custom nonzero ranges, and keeps both endpoints inside its bounds. A null callback disables interaction. `WiredInput` hints merge the themed secondary text color with any explicit hint style so empty fields remain readable on dark paper.
 
 Input lettering inherits the active `WiredRoughness` level. Changing the root theme or a nested `WiredTheme` changes both the input border and font without clearing controller text. An explicit text style or drawing configuration continues to override inherited defaults.
+
+## Ink entrances
+
+Rough borders in input components inherit `WiredDrawTransition` progress.
+Their text, focus, hit targets, and existing functional state animations remain
+available throughout the reveal. See [Ink motion](../core/motion) for opt-in
+entrances and reduced-motion behavior.

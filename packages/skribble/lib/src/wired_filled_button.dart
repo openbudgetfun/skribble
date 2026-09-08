@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'motion/wired_draw.dart';
+import 'motion/wired_ink_response.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
@@ -38,28 +40,33 @@ class WiredFilledButton extends HookWidget {
         foregroundColor ??
         (fill.computeLuminance() > 0.179 ? Colors.black : Colors.white);
 
-    return Semantics(
-      label: semanticLabel,
-      button: true,
-      child: buildWiredElement(
-        child: Container(
-          height: kWiredButtonHeight,
-          decoration: RoughBoxDecoration(
-            drawConfig: theme.drawConfig,
-            shape: RoughBoxShape.rectangle,
-            borderStyle: RoughDrawingStyle(
-              width: theme.strokeWidth,
-              color: theme.borderColor,
+    return WiredInkResponse(
+      builder: (context, states) => Semantics(
+        label: semanticLabel,
+        button: true,
+        child: buildWiredElement(
+          child: Container(
+            height: kWiredButtonHeight,
+            decoration: RoughBoxDecoration(
+              progress: WiredDrawTransition.progressOf(context),
+              pressure: WiredInkResponse.pressureOf(context),
+              drawConfig: theme.drawConfig,
+              shape: RoughBoxShape.rectangle,
+              borderStyle: RoughDrawingStyle(
+                width: theme.strokeWidth,
+                color: theme.borderColor,
+              ),
+              fillStyle: RoughDrawingStyle(color: fill),
+              filler: SolidFiller(),
             ),
-            fillStyle: RoughDrawingStyle(color: fill),
-            filler: SolidFiller(),
-          ),
-          child: SizedBox(
-            height: double.infinity,
-            child: TextButton(
-              style: TextButton.styleFrom(foregroundColor: fg),
-              onPressed: onPressed,
-              child: child,
+            child: SizedBox(
+              height: double.infinity,
+              child: TextButton(
+                statesController: states,
+                style: TextButton.styleFrom(foregroundColor: fg),
+                onPressed: onPressed,
+                child: child,
+              ),
             ),
           ),
         ),
