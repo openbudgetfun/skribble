@@ -9,6 +9,8 @@ void main() {
     Future<void> navigateToNavigation(WidgetTester tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('Navigation'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Navigation'));
       await tester.pumpAndSettle();
     }

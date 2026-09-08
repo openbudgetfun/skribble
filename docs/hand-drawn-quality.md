@@ -64,3 +64,5 @@ The completed visual review covers 13 catalog routes at 390 and 1,440 pixels, wi
 ## Consumer roughness levels
 
 The follow-up adds Gentle, Playful, and Expressive app-level presets with matching four-style font families. The storybook picker changes the root theme and preserves notebook state across selection and navigation. Nested themes now synchronize typography as well as border configuration. Font metadata and shaping preservation are checked across all twelve assets; widget and Patrol coverage exercise level propagation, state retention, independent overrides, and different viewport widths.
+
+Catalog widget tests scroll navigation cards into view before tapping, since the global picker reserves vertical space. The SVG path throughput test warms the parser before measuring 1,000 builds against its existing 100 ms budget; it measures repeated work, not cold JIT startup. Local cold batches ranged from 30–329 ms, while subsequent batches took about 2–6 ms.
