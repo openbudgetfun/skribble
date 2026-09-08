@@ -9,6 +9,7 @@ import 'package:skribble_storybook/pages/font_specimen_page.dart';
 import 'package:skribble_storybook/pages/home_page.dart';
 import 'package:skribble_storybook/pages/inputs_page.dart';
 import 'package:skribble_storybook/pages/layout_page.dart';
+import 'package:skribble_storybook/pages/motion_page.dart';
 import 'package:skribble_storybook/pages/navigation_page.dart';
 import 'package:skribble_storybook/pages/rough_icons_page.dart';
 import 'package:skribble_storybook/pages/selection_page.dart';
@@ -51,6 +52,7 @@ class SkribbleStorybookApp extends HookWidget {
       ),
       routes: {
         '/': (context) => const HomePage(),
+        '/motion': (context) => const WiredMotionPage(),
         '/studio': (context) => const WiredStudioPage(),
         '/buttons': (context) => const ButtonsPage(),
         '/inputs': (context) => const InputsPage(),

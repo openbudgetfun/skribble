@@ -219,12 +219,12 @@ void main() {
       expect(controller.hasListeners, false);
       controller.value = .8;
       await tester.pump();
-      expect(
-        WiredDrawTransition.progressOf(
-          tester.element(find.byType(WiredCanvas)),
-        )!.value,
-        .8,
-      );
+      final frozen = tester
+          .widgetList<CustomPaint>(find.byType(CustomPaint))
+          .map((widget) => widget.painter)
+          .whereType<WiredPainter>()
+          .single;
+      expect(frozen.progress!.value, .25);
       await tester.pumpWidget(host(child));
       expect(controller.hasListeners, true);
     },

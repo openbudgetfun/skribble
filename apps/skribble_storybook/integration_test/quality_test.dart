@@ -2,10 +2,68 @@ import 'package:flutter/widgets.dart';
 import 'package:patrol/patrol.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/app.dart';
+import 'package:skribble_storybook/pages/motion_page.dart';
 import 'package:skribble_storybook/pages/studio_page.dart';
+import 'package:skribble_storybook/testing/motion_keys.dart';
 import 'package:skribble_storybook/testing/quality_keys.dart';
 
 void main() {
+  for (final width in [390.0, 1440.0]) {
+    patrolTest(
+      'ink can replay, unwind, scrub and settle at ${width.toInt()} pixels',
+      ($) async {
+        await $.platform.web.resizeWindow(size: Size(width, 1100));
+        await $.pumpWidget(
+          WiredMaterialApp(
+            wiredTheme: WiredThemeData(),
+            home: const WiredMotionPage(),
+          ),
+        );
+        await $(MotionKeys.replay).scrollTo();
+        await $(MotionKeys.replay).tap();
+        await $(MotionKeys.reverse).tap();
+        await $(MotionKeys.half).tap();
+        await $(MotionKeys.action).scrollTo();
+        await $(MotionKeys.action).tap();
+        await $(MotionKeys.enabled).scrollTo();
+        await $(MotionKeys.enabled).tap();
+        await $(MotionKeys.status).waitUntilVisible();
+        if ($(MotionKeys.status).text !=
+            'Motion off · every line is complete') {
+          throw StateError('Disabling motion did not settle the drawing.');
+        }
+        final replay = $.tester.widget<WiredFilledButton>($(MotionKeys.replay));
+        if (replay.onPressed != null) {
+          throw StateError('A disabled replay still starts animations.');
+        }
+      },
+    );
+    patrolTest(
+      'ink reversal and precise pause retain live content at ${width.toInt()} pixels',
+      ($) async {
+        await $.platform.web.resizeWindow(size: Size(width, 1100));
+        await $.pumpWidget(
+          WiredMaterialApp(
+            wiredTheme: WiredThemeData(),
+            home: const WiredMotionPage(),
+          ),
+        );
+        await $(MotionKeys.reverse).scrollTo();
+        await $(MotionKeys.reverse).tap();
+        await $(MotionKeys.half).tap();
+        await $(MotionKeys.action).scrollTo();
+        await $(MotionKeys.action).tap();
+        await $(MotionKeys.status).scrollTo();
+        await $(MotionKeys.status).waitUntilVisible();
+        if ($(MotionKeys.status).text != 'Pen 50% · 1 ideas kept') {
+          throw StateError(
+            'The paused pen lost its progress or blocked the button.',
+          );
+        }
+      },
+    );
+  }
+
   for (final width in [390.0, 1440.0]) {
     patrolTest(
       'app-wide roughness keeps the notebook at ${width.toInt()} pixels',

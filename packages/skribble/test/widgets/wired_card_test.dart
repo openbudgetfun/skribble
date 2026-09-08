@@ -60,21 +60,24 @@ void main() {
       expect(cardSize.height, 200.0);
     });
 
-    testWidgets('renders with null height (uses IntrinsicHeight)', (
-      tester,
-    ) async {
+    testWidgets('null height follows the child height', (tester) async {
       await pumpApp(
         tester,
-        WiredCard(height: null, child: const Text('Intrinsic')),
-      );
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredCard),
-          matching: find.byType(IntrinsicHeight),
+        const WiredCard(
+          height: null,
+          child: SizedBox(height: 80, child: Text('Natural paper')),
         ),
-        findsOneWidget,
       );
+      final initial = tester.getSize(find.byType(WiredCard)).height;
+      await pumpApp(
+        tester,
+        const WiredCard(
+          height: null,
+          child: SizedBox(height: 180, child: Text('Natural paper')),
+        ),
+      );
+      expect(tester.getSize(find.byType(WiredCard)).height - initial, 100);
+      expect(find.text('Natural paper'), findsOneWidget);
     });
 
     testWidgets('does not use IntrinsicHeight when height is provided', (

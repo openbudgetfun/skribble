@@ -90,6 +90,24 @@ void main() {
     expect(pressure(tester), .5);
   });
 
+  testWidgets('restoring motion resumes the existing hover state', (
+    tester,
+  ) async {
+    await tester.pumpWidget(app());
+    final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
+    await mouse.addPointer();
+    await mouse.moveTo(tester.getCenter(find.text('Press me')));
+    await tester.pumpAndSettle();
+    expect(pressure(tester), .5);
+    await tester.pumpWidget(app(enabled: false));
+    await tester.pumpAndSettle();
+    expect(pressure(tester), 0);
+    await tester.pumpWidget(app());
+    await tester.pumpAndSettle();
+    expect(pressure(tester), .5);
+    await mouse.removePointer();
+  });
+
   testWidgets('disabled button remains idle and cannot be activated', (
     tester,
   ) async {

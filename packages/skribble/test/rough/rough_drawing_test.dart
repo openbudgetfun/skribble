@@ -121,10 +121,10 @@ void main() {
           OpSet(
             type: OpSetType.fillSketch,
             ops: [
-              Op.move(PointD(10, 50)),
-              Op.lineTo(PointD(110, 50)),
-              Op.move(PointD(10, 70)),
-              Op.lineTo(PointD(110, 70)),
+              Op.move(PointD(10, 80)),
+              Op.lineTo(PointD(110, 80)),
+              Op.move(PointD(10, 100)),
+              Op.lineTo(PointD(110, 100)),
             ],
           ),
           twoLines.sets!.single,
@@ -137,9 +137,9 @@ void main() {
       final middle = await pixels(
         (canvas) => drawing.paint(canvas, progress: .475),
       );
-      expect(alphaAt(early, 30, 70), 0);
-      expect(alphaAt(middle, 30, 50), greaterThan(0));
-      expect(alphaAt(middle, 30, 70), 0);
+      expect(alphaAt(early, 30, 80), 0);
+      expect(alphaAt(middle, 30, 80), greaterThan(0));
+      expect(alphaAt(middle, 30, 100), 0);
     },
   );
 

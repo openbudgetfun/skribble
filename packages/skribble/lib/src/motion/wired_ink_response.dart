@@ -45,8 +45,11 @@ class _WiredInkResponseState extends State<WiredInkResponse>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _enabled = WiredMotion.enabledOf(context);
-    if (!_enabled) _controller.value = 0;
+    final enabled = WiredMotion.enabledOf(context);
+    if (enabled != _enabled) {
+      _enabled = enabled;
+      _updatePressure();
+    }
   }
 
   void _updatePressure() {
