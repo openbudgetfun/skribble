@@ -1070,3 +1070,5 @@ WiredIcon.svg(iconData: myCustomIconData)
 ## Visual asset checks
 
 After changing fonts, SVG import, or painting, run the glyph/corpus/pixel regressions and inspect real browser screenshots. `dart run packages/skribble_emoji_gen/bin/update_assets.dart` rebuilds the pinned source assets. `dart run tool/font_specimen.dart` creates embedded-font HTML comparisons. Patrol notebook journeys use shared keys in `lib/testing/quality_keys.dart`; run them through Patrol CLI and retain screenshots. Report browser coverage separately from native-device coverage.
+
+The pre-push hook invokes the workspace's Melos through `flutter pub run`. This preserves Flutter SDK resolution when Git supplies a different PATH from the interactive devenv shell. Package tests run after that resolution with `--no-pub`, avoiding repeated workspace dependency updates during a single hook.
