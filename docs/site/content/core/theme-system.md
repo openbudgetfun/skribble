@@ -13,15 +13,18 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 
 ### Fields
 
-| Field               | Type          | Default                               | Description                               |
-| ------------------- | ------------- | ------------------------------------- | ----------------------------------------- |
-| `borderColor`       | `Color`       | `Color(0xFF1A2B3C)`                   | Border stroke color for all shapes        |
-| `textColor`         | `Color`       | `Colors.black`                        | Primary text color                        |
-| `disabledTextColor` | `Color`       | `Colors.grey`                         | Text color for disabled states            |
-| `fillColor`         | `Color`       | `Color(0xFFFEFEFE)`                   | Interior fill color for shapes            |
-| `strokeWidth`       | `double`      | `2.4`                                 | Default border stroke width               |
-| `roughness`         | `double`      | `1.8`                                 | Roughness multiplier passed to the engine |
-| `drawConfig`        | `DrawConfig?` | `null` (derives from theme roughness) | Optional custom draw configuration        |
+| Field               | Type             | Default                                  | Description                                                                     |
+| ------------------- | ---------------- | ---------------------------------------- | ------------------------------------------------------------------------------- |
+| `borderColor`       | `Color`          | `Color(0xFF1A2B3C)`                      | Border stroke color for all shapes                                              |
+| `textColor`         | `Color`          | `Colors.black`                           | Primary text color                                                              |
+| `disabledTextColor` | `Color`          | `Colors.grey`                            | Text color for disabled states                                                  |
+| `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`                      | Interior fill color for shapes                                                  |
+| `strokeWidth`       | `double`         | `2.4`                                    | Default border stroke width                                                     |
+| `roughnessLevel`    | `WiredRoughness` | `expressive`                             | Coordinated defaults for borders, icons, and lettering                          |
+| `roughness`         | `double`         | Level value (`1.8` for expressive)       | Resolved amplitude; an explicit constructor value overrides the preset          |
+| `fontFamily`        | `String`         | Level family (`Skribble` for expressive) | Resolved bundled or custom family                                               |
+| `fontPackage`       | `String?`        | `skribble` for bundled families          | Asset package; null for custom app fonts                                        |
+| `drawConfig`        | `DrawConfig`     | Derived from the level and amplitude     | Resolved drawing configuration; an explicit constructor config takes precedence |
 
 ### Creating a Theme
 

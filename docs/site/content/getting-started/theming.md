@@ -19,23 +19,27 @@ WiredThemeData({
   Color textColor = Colors.black,
   Color disabledTextColor = Colors.grey,
   Color fillColor = const Color(0xFFFEFEFE),
-  double strokeWidth = 2,
-  double roughness = 1,
+  double strokeWidth = 2.4,
+  WiredRoughness roughnessLevel = WiredRoughness.expressive,
+  double? roughness,
+  String? fontFamily,
   DrawConfig? drawConfig,
 })
 ```
 
 ### Parameters
 
-| Parameter           | Type          | Default             | Description                                                                                                                                                                                        |
-| ------------------- | ------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `borderColor`       | `Color`       | `Color(0xFF1A2B3C)` | The color used for all hand-drawn borders, outlines, and strokes. A dark blue-gray by default.                                                                                                     |
-| `textColor`         | `Color`       | `Colors.black`      | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`.                                                                                                          |
-| `disabledTextColor` | `Color`       | `Colors.grey`       | Text color for disabled widgets.                                                                                                                                                                   |
-| `fillColor`         | `Color`       | `Color(0xFFFEFEFE)` | Background fill for cards, inputs, dialogs, and other surfaces. Near-white by default.                                                                                                             |
-| `strokeWidth`       | `double`      | `2`                 | Width in logical pixels of the rough-drawn border strokes.                                                                                                                                         |
-| `roughness`         | `double`      | `1`                 | Controls how wobbly and imperfect the hand-drawn lines are. `0` produces perfectly straight lines. Higher values increase the sketch effect.                                                       |
-| `drawConfig`        | `DrawConfig?` | `null`              | Advanced drawing configuration. When `null`, uses `DrawConfig.defaultValues`. Controls `maxRandomnessOffset`, `bowing`, `curveFitting`, `curveTightness`, `curveStepCount`, and the random `seed`. |
+| Parameter           | Type             | Default               | Description                                                                                                                                                 |
+| ------------------- | ---------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderColor`       | `Color`          | `Color(0xFF1A2B3C)`   | The color used for all hand-drawn borders, outlines, and strokes. A dark blue-gray by default.                                                              |
+| `textColor`         | `Color`          | `Colors.black`        | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`.                                                                   |
+| `disabledTextColor` | `Color`          | `Colors.grey`         | Text color for disabled widgets.                                                                                                                            |
+| `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`   | Background fill for cards, inputs, dialogs, and other surfaces. Near-white by default.                                                                      |
+| `strokeWidth`       | `double`         | `2.4`                 | Width in logical pixels of the rough-drawn border strokes.                                                                                                  |
+| `roughnessLevel`    | `WiredRoughness` | `expressive`          | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                          |
+| `roughness`         | `double?`        | `null` → level value  | Optional geometry amplitude override. The default expressive level resolves to `1.8`; `0` removes random displacement.                                      |
+| `fontFamily`        | `String?`        | `null` → level family | Optional font override. Bundled families resolve to the `skribble` package; custom families belong to the consuming app.                                    |
+| `drawConfig`        | `DrawConfig?`    | `null` → level config | Optional complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and any explicit `roughness`. |
 
 ### copyWith
 
