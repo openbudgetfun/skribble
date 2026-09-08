@@ -12,7 +12,7 @@ class FontRoughener {
   FontRoughener({
     required this.inputPath,
     required this.outputPath,
-    this.jitterAmount = 18,
+    this.jitterAmount = 36,
     this.variant = FontVariant.regular,
   }) {
     if (!jitterAmount.isFinite || jitterAmount < 0 || jitterAmount > 50) {

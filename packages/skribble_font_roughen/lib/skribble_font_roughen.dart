@@ -15,7 +15,7 @@
 /// final roughener = FontRoughener(
 ///   inputPath: 'input.ttf',
 ///   outputPath: 'output.ttf',
-///   jitterAmount: 18.0,
+///   jitterAmount: 36.0,
 ///   variant: FontVariant.regular,
 /// );
 /// await roughener.roughen();

@@ -20,7 +20,7 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 | `disabledTextColor` | `Color`       | `Colors.grey`                         | Text color for disabled states            |
 | `fillColor`         | `Color`       | `Color(0xFFFEFEFE)`                   | Interior fill color for shapes            |
 | `strokeWidth`       | `double`      | `2.4`                                 | Default border stroke width               |
-| `roughness`         | `double`      | `1.25`                                | Roughness multiplier passed to the engine |
+| `roughness`         | `double`      | `1.8`                                 | Roughness multiplier passed to the engine |
 | `drawConfig`        | `DrawConfig?` | `null` (derives from theme roughness) | Optional custom draw configuration        |
 
 ### Creating a Theme

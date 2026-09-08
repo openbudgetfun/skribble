@@ -25,7 +25,7 @@ class WiredThemeData {
     this.disabledTextColor = Colors.grey,
     this.fillColor = const Color(0xFFFEFEFE),
     this.strokeWidth = 2.4,
-    this.roughness = 1.25,
+    this.roughness = 1.8,
     this.fontFamily = skribbleFontFamily,
     this._drawConfig,
   });
@@ -61,9 +61,7 @@ class WiredThemeData {
   double get inkExtent =>
       strokeWidth +
       2 +
-      (drawConfig.maxRandomnessOffset ?? 1.2) *
-          (drawConfig.roughness ?? 1.25) *
-          2;
+      (drawConfig.maxRandomnessOffset ?? 2) * (drawConfig.roughness ?? 1.8) * 2;
 
   /// A softly lifted paper tone for Material page backgrounds.
   Color get paperBackgroundColor =>

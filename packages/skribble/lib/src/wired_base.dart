@@ -253,8 +253,13 @@ class WiredCircleBase extends WiredPainterBase {
     DrawConfig drawConfig,
     Filler filler,
   ) {
-    final Generator generator = Generator(drawConfig, filler);
-    final rect = _inkRect(size, strokeWidth, drawConfig);
+    // A thumb needs a paper centre: full card-sized jitter consumes most of a
+    // 24px circle. Scale both the wobble and its inset with the available size.
+    final config = drawConfig.copyWith(
+      roughness: drawConfig.roughness! * math.min(1, size.shortestSide / 48),
+    );
+    final Generator generator = Generator(config, filler);
+    final rect = _inkRect(size, strokeWidth, config);
     final Drawable figure = generator.circle(
       size.width / 2,
       size.height / 2,

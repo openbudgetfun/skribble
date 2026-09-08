@@ -14,7 +14,7 @@ void main() {
       expect(theme.disabledTextColor, Colors.grey);
       expect(theme.fillColor, const Color(0xFFFEFEFE));
       expect(theme.strokeWidth, 2.4);
-      expect(theme.roughness, 1.25);
+      expect(theme.roughness, 1.8);
       expect(theme.fontFamily, skribbleFontFamily);
     });
 

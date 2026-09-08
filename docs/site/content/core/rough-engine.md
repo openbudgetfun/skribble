@@ -36,8 +36,8 @@ canvas.drawRough(drawable, pathPaint, fillPaint);
 
 | Field                 | Type         | Default | Description                                                          |
 | --------------------- | ------------ | ------- | -------------------------------------------------------------------- |
-| `maxRandomnessOffset` | `double`     | `1.2`   | Maximum pixel offset for random jitter                               |
-| `roughness`           | `double`     | `1.25`  | Overall roughness multiplier -- higher values produce wobblier lines |
+| `maxRandomnessOffset` | `double`     | `2`     | Maximum pixel offset for random jitter                               |
+| `roughness`           | `double`     | `1.8`   | Overall roughness multiplier -- higher values produce wobblier lines |
 | `bowing`              | `double`     | `1`     | How much lines bow outward at the midpoint                           |
 | `curveFitting`        | `double`     | `0.95`  | How closely curves follow the intended path (0 = loose, 1 = tight)   |
 | `curveTightness`      | `double`     | `0`     | Tension of Catmull-Rom splines                                       |
@@ -528,6 +528,10 @@ The "double line" technique -- drawing each edge twice with slightly different r
 
 ## UI defaults and determinism
 
-The UI defaults are `roughness: 1.25`, `maxRandomnessOffset: 1.2`, and a 2.4-pixel themed pen. `WiredThemeData.roughness` feeds the default `DrawConfig`; an explicit `drawConfig` takes precedence. `copyWith(seed: ...)` constructs a randomizer for the new seed. Equality compares randomizer seeds rather than mutable object identity.
+The UI defaults are `roughness: 1.8`, `maxRandomnessOffset: 2`, and a 2.4-pixel themed pen. `WiredThemeData.roughness` feeds the default `DrawConfig`; an explicit `drawConfig` takes precedence. `copyWith(seed: ...)` constructs a randomizer for the new seed. Equality compares randomizer seeds rather than mutable object identity.
+
+Edges at least 48 logical pixels long use two independently wandering strokes, with connected curves about every 48 pixels. The curves change direction locally instead of smoothing a whole card edge into one bow. Control points stay inside the configured jitter band, so wider layouts do not require larger insets. Zero roughness remains straight and seeds remain deterministic.
+
+`WiredCircleBase` scales roughness by `min(1, shortestSide / 48)` for small circles. This keeps a switch or slider thumb's paper centre visible while larger circles retain the full roughness.
 
 Icons use a smaller runtime displacement so counters remain open at 24 pixels. Solid fills preserve separate contours and the SVG fill rule. Precomputed emoji have their pen wobble baked into the generated paths and do not receive a second runtime deformation.

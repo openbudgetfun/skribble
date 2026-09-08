@@ -281,7 +281,7 @@ Full dartdoc API reference is available at:
 
 ## Hand-drawn quality additions
 
-- `WiredThemeData.inkExtent`: pen-and-wobble space for dividers; default `strokeWidth` is 2.4 and `roughness` is 1.25.
+- `WiredThemeData.inkExtent`: pen-and-wobble space for dividers; default `strokeWidth` is 2.4 and `roughness` is 1.8.
 - `WiredSvgPrimitive.path(clipPaths: ...)`: SVG clipping paths in primitive coordinates; source colors support optional alpha.
 - `kSkribbleEmojiNames`: every emoji name mapped to its complete hexadecimal sequence.
 - `lookupSkribbleEmojiBySequence(String)`: lookup by literal emoji or hexadecimal sequence.

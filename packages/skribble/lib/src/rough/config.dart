@@ -12,8 +12,8 @@ class DrawConfig {
   final Randomizer? randomizer;
 
   static DrawConfig defaultValues = DrawConfig.build(
-    maxRandomnessOffset: 1.2,
-    roughness: 1.25,
+    maxRandomnessOffset: 2,
+    roughness: 1.8,
     bowing: 1,
     curveFitting: 0.95,
     curveTightness: 0,

@@ -5,6 +5,8 @@ description: Hand-drawn form controls, text fields, toggles, and sliders in the 
 
 # Inputs
 
+Input borders inherit the shared roughness of 1.8 and 2.4-pixel pen. Long outlines use two locally wandering strokes. Small circular switch and slider thumbs reduce their jitter with their size, preserving a visible paper centre under the stronger theme.
+
 Skribble replaces standard form controls with sketchy, hand-drawn equivalents. All input widgets read their palette from `WiredTheme.of(context)` and extend `HookWidget`.
 
 ---

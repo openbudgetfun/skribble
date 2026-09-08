@@ -19,10 +19,10 @@ The first command writes all four styles to the package, tool, and storybook fon
 ## Roughen another static TrueType font
 
 ```bash
-dart run skribble_font_roughen input.ttf output.ttf --jitter 18 --variant regular
+dart run skribble_font_roughen input.ttf output.ttf --jitter 36 --variant regular
 ```
 
-`--jitter` ranges from 0 to 50 and is measured per 1,000 units per em; the default is 18. Zero leaves the geometry unchanged. This is normalized to the source font's em, not the temporary display size of a glyph.
+`--jitter` ranges from 0 to 50 and is measured per 1,000 units per em; the default is 36. This doubles the previous default's deformation for visibly less regular stems, bowls, and letter angles. Zero leaves the geometry unchanged. This is normalized to the source font's em, not the temporary display size of a glyph.
 
 Use a matching source weight and style for each output. `--variant bold` names the output; it does not manufacture a bold weight from a regular source.
 

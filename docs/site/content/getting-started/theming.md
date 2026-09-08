@@ -194,8 +194,8 @@ For fine-grained control over the rough-drawing engine, pass a custom `DrawConfi
 ```dart
 WiredThemeData(
   drawConfig: DrawConfig.build(
-    maxRandomnessOffset: 3,  // max pixel offset for jitter (default: 1.2)
-    roughness: 1.5,          // line wobbliness (default: 1.25)
+    maxRandomnessOffset: 3,  // max pixel offset for jitter (default: 2)
+    roughness: 1.5,          // line wobbliness (default: 1.8)
     bowing: 2,               // arc bowing for curves (default: 1)
     curveFitting: 0.9,       // how tightly curves follow control points (default: 0.95)
     curveTightness: 0.1,     // tightness of curve interpolation (default: 0)
@@ -223,7 +223,7 @@ void main() {
     disabledTextColor: Color(0xFFCE93D8), // light purple for disabled
     fillColor: Color(0xFFF3E5F5),       // very light purple surface
     strokeWidth: 2.5,                    // slightly thicker strokes
-    roughness: 1.2,                      // a bit more sketchy
+    roughness: 1.2,                      // gentler than the default
   );
 
   // Dark variant
@@ -338,4 +338,4 @@ The red-themed card and button will use `Colors.red` for borders, while everythi
 
 Skribble's four text styles are derived from the matching **Recursive Sans Casual** static sources. `WiredMaterialApp` registers the package-qualified Skribble family through its theme, so regular, bold, italic, and bold italic select the right bundled assets. Do not manually register only the regular font with `FontLoader`.
 
-For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble'`. Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.25. Local widget text styles merge with inherited typography instead of dropping the font family.
+For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble'`. Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.8. Local widget text styles merge with inherited typography instead of dropping the font family. The bundled Recursive Casual derivative uses deformation strength 36 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
