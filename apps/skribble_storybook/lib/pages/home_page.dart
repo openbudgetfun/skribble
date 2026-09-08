@@ -96,12 +96,6 @@ class _Category {
 
 const _categories = [
   _Category(
-    title: 'Ink in motion',
-    description: 'Drawing borders, scribbled shading, and a lively pen.',
-    route: '/motion',
-    icon: Icons.gesture,
-  ),
-  _Category(
     title: 'The sketchbook',
     description: 'A working notebook in morning paper and evening ink.',
     route: '/studio',
@@ -172,5 +166,11 @@ const _categories = [
     description: 'Every glyph of the bundled hand-drawn Skribble typeface',
     route: '/font-specimen',
     icon: Icons.text_fields_outlined,
+  ),
+  _Category(
+    title: 'Ink in motion',
+    description: 'Drawing borders, scribbled shading, and a lively pen.',
+    route: '/motion',
+    icon: Icons.gesture,
   ),
 ];

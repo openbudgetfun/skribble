@@ -496,3 +496,5 @@ Rough borders in input components inherit `WiredDrawTransition` progress.
 Their text, focus, hit targets, and existing functional state animations remain
 available throughout the reveal. See [Ink motion](../core/motion) for opt-in
 entrances and reduced-motion behavior.
+The slider's endpoint thumb now paints into its reserved outer padding, so its
+circle remains whole at both minimum and maximum values.
