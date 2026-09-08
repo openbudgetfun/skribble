@@ -12,9 +12,17 @@ class FontRoughener {
   FontRoughener({
     required this.inputPath,
     required this.outputPath,
-    this.jitterAmount = 18,
+    this.jitterAmount = 36,
+    this.familyName = 'Skribble',
     this.variant = FontVariant.regular,
   }) {
+    if (!RegExp(r'^[A-Za-z][A-Za-z0-9-]{0,47}$').hasMatch(familyName)) {
+      throw ArgumentError.value(
+        familyName,
+        'familyName',
+        'Use 1–48 ASCII letters, digits or hyphens, starting with a letter.',
+      );
+    }
     if (!jitterAmount.isFinite || jitterAmount < 0 || jitterAmount > 50) {
       throw ArgumentError.value(
         jitterAmount,
@@ -33,6 +41,12 @@ class FontRoughener {
   /// Strength of the handwriting deformation, normalized to a 1000-unit em.
   final double jitterAmount;
 
+  /// Family name embedded in the output font, distinct for each roughness level.
+  ///
+  /// Use 1–48 ASCII letters, digits or hyphens, starting with a letter.
+  /// This also forms a valid, bounded PostScript name with the style suffix.
+  final String familyName;
+
   /// Naming metadata for the source weight and style.
   final FontVariant variant;
 
@@ -43,7 +57,7 @@ class FontRoughener {
       final font = TrueTypeFont(bytes);
       final count = font.roughen(jitterAmount);
       final output = font.encode(
-        family: 'Skribble',
+        family: familyName,
         style: variant.fullNameSuffix,
       );
       // Reparse the saved representation before replacing an existing artifact.

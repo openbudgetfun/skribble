@@ -5,6 +5,10 @@ class DrawConfig {
   final double? maxRandomnessOffset;
   final double? roughness;
   final double? bowing;
+
+  /// Local wandering along long edges; zero restores softly bowed lines.
+  /// Values from zero through one span the bundled theme presets.
+  final double? lineWobble;
   final double? curveFitting;
   final double? curveTightness;
   final double? curveStepCount;
@@ -12,9 +16,10 @@ class DrawConfig {
   final Randomizer? randomizer;
 
   static DrawConfig defaultValues = DrawConfig.build(
-    maxRandomnessOffset: 1.2,
-    roughness: 1.25,
+    maxRandomnessOffset: 2,
+    roughness: 1.8,
     bowing: 1,
+    lineWobble: 1,
     curveFitting: 0.95,
     curveTightness: 0,
     curveStepCount: 9,
@@ -25,6 +30,7 @@ class DrawConfig {
     this.maxRandomnessOffset,
     this.roughness,
     this.bowing,
+    this.lineWobble,
     this.curveFitting,
     this.curveTightness,
     this.curveStepCount,
@@ -36,6 +42,7 @@ class DrawConfig {
     double? maxRandomnessOffset,
     double? roughness,
     double? bowing,
+    double? lineWobble,
     double? curveFitting,
     double? curveTightness,
     double? curveStepCount,
@@ -45,6 +52,7 @@ class DrawConfig {
         maxRandomnessOffset ?? defaultValues.maxRandomnessOffset,
     roughness: roughness ?? defaultValues.roughness,
     bowing: bowing ?? defaultValues.bowing,
+    lineWobble: lineWobble ?? defaultValues.lineWobble,
     curveFitting: curveFitting ?? defaultValues.curveFitting,
     curveTightness: curveTightness ?? defaultValues.curveTightness,
     curveStepCount: curveStepCount ?? defaultValues.curveStepCount,
@@ -66,6 +74,7 @@ class DrawConfig {
     double? maxRandomnessOffset,
     double? roughness,
     double? bowing,
+    double? lineWobble,
     double? curveFitting,
     double? curveTightness,
     double? curveStepCount,
@@ -77,6 +86,7 @@ class DrawConfig {
     maxRandomnessOffset: maxRandomnessOffset ?? this.maxRandomnessOffset,
     roughness: roughness ?? this.roughness,
     bowing: bowing ?? this.bowing,
+    lineWobble: lineWobble ?? this.lineWobble,
     curveFitting: curveFitting ?? this.curveFitting,
     curveTightness: curveTightness ?? this.curveTightness,
     curveStepCount: curveStepCount ?? this.curveStepCount,
@@ -96,6 +106,7 @@ class DrawConfig {
           maxRandomnessOffset == other.maxRandomnessOffset &&
           roughness == other.roughness &&
           bowing == other.bowing &&
+          lineWobble == other.lineWobble &&
           curveFitting == other.curveFitting &&
           curveTightness == other.curveTightness &&
           curveStepCount == other.curveStepCount &&
@@ -107,6 +118,7 @@ class DrawConfig {
       maxRandomnessOffset.hashCode ^
       roughness.hashCode ^
       bowing.hashCode ^
+      lineWobble.hashCode ^
       curveFitting.hashCode ^
       curveTightness.hashCode ^
       curveStepCount.hashCode ^

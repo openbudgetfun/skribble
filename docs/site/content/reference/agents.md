@@ -26,7 +26,7 @@ skribble/
 │   │       ├── rough/              # Rough drawing engine (Dart port of rough.js)
 │   │       ├── generated/          # Generated icon font + map files
 │   │       ├── wired_*.dart        # Widget implementations
-│   │       ├── wired_theme.dart    # WiredThemeData + WiredTheme InheritedWidget
+│   │       ├── wired_theme.dart    # WiredThemeData + WiredTheme inherited scope
 │   │       ├── wired_material_app.dart  # Material app bridge
 │   │       └── wired_base.dart     # Base painters + RepaintBoundary helpers
 │   ├── test/

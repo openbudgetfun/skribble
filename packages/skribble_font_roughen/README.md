@@ -19,10 +19,10 @@ The first command writes all four styles to the package, tool, and storybook fon
 ## Roughen another static TrueType font
 
 ```bash
-dart run skribble_font_roughen input.ttf output.ttf --jitter 18 --variant regular
+dart run skribble_font_roughen input.ttf output.ttf --jitter 36 --variant regular
 ```
 
-`--jitter` ranges from 0 to 50 and is measured per 1,000 units per em; the default is 18. Zero leaves the geometry unchanged. This is normalized to the source font's em, not the temporary display size of a glyph.
+`--jitter` ranges from 0 to 50 and is measured per 1,000 units per em; the default is 36. This doubles the previous default's deformation for visibly less regular stems, bowls, and letter angles. Zero leaves the geometry unchanged. This is normalized to the source font's em, not the temporary display size of a glyph.
 
 Use a matching source weight and style for each output. `--variant bold` names the output; it does not manufacture a bold weight from a regular source.
 
@@ -47,3 +47,9 @@ dart test
 ```
 
 Recursive is by Arrow Type, under the SIL Open Font License 1.1. The derivative is named Skribble. Keep the bundled OFL notice when redistributing the fonts. Sources: [Recursive releases](https://github.com/arrowtype/recursive/releases), [TrueType glyph specification](https://learn.microsoft.com/en-us/typography/opentype/spec/glyf).
+
+## Roughness levels and custom families
+
+The bundled generator now writes Gentle (18), Playful (27), and Expressive (36), each in all four styles. The extra families live in the main library assets; existing Expressive copies remain synchronized for compatibility. Run the same command with `--check` to detect stale files.
+
+For custom strengths, use `--jitter 23.5 --family MyInk` or `FontRoughener(jitterAmount: 23.5, familyName: 'MyInk', ...)`. Family names use 1–48 ASCII letters, digits or hyphens and start with a letter. The font remains static, with preserved advance widths and shaping.

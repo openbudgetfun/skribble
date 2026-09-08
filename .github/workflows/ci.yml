@@ -142,7 +142,7 @@ jobs:
           export PATH="$GITHUB_WORKSPACE/.fvm/flutter_sdk/bin:$PATH"
           dart pub global activate patrol_cli 4.7.0
           cd apps/skribble_storybook
-          dart pub global run patrol_cli:main test --verbose --device chrome --target integration_test/quality_test.dart --target integration_test/patrol_test.dart --web-headless --web-locale en-GB --web-screenshot on --web-trace retain-on-failure --web-workers 1 --web-reporter '["html", "json", "list"]'
+          dart pub global run patrol_cli:main test --verbose --device chrome --target integration_test/quality_test.dart --target integration_test/patrol_test.dart --web-headless --web-server-timeout 300 --web-locale en-GB --web-screenshot on --web-trace retain-on-failure --web-workers 1 --web-reporter '["html", "json", "list"]'
         shell: bash
       - name: Upload browser screenshots and report
         if: always()

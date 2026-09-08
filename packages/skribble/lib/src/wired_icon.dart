@@ -49,6 +49,7 @@ class WiredSvgIcon extends HookWidget {
   Widget build(BuildContext context) {
     final iconTheme = IconTheme.of(context);
     final wiredTheme = WiredTheme.of(context);
+    final themeDrawConfig = wiredTheme.drawConfig;
     final effectiveSize = size ?? iconTheme.size ?? 24;
     final effectiveColor = color ?? iconTheme.color ?? wiredTheme.textColor;
 
@@ -56,12 +57,13 @@ class WiredSvgIcon extends HookWidget {
         drawConfig ??
         DrawConfig.build(
           maxRandomnessOffset: math.max(0.35, effectiveSize / 80),
-          roughness: 0.65,
+          roughness: themeDrawConfig.roughness! * 0.65 / 1.8,
+          lineWobble: themeDrawConfig.lineWobble,
           bowing: 0.8,
           curveFitting: 0.9,
           curveTightness: 0,
           curveStepCount: 8,
-          seed: 1,
+          seed: themeDrawConfig.seed,
         );
 
     final primitives = useMemoized(

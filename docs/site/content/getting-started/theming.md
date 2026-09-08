@@ -5,7 +5,7 @@ description: Customize Skribble's hand-drawn look with WiredThemeData. Control c
 
 # Theming
 
-Every Wired widget reads its visual properties from a single `WiredThemeData` object, accessed via `WiredTheme.of(context)`. This page covers the full theming API: constructor parameters, default values, the `WiredTheme` inherited widget, Material `ThemeData` synchronization, and dark mode support.
+Every Wired widget reads its visual properties from a single `WiredThemeData` object, accessed via `WiredTheme.of(context)`. This page covers the full theming API: constructor parameters, default values, the `WiredTheme` inherited scope, Material `ThemeData` synchronization, and dark mode support.
 
 ## WiredThemeData
 
@@ -19,23 +19,27 @@ WiredThemeData({
   Color textColor = Colors.black,
   Color disabledTextColor = Colors.grey,
   Color fillColor = const Color(0xFFFEFEFE),
-  double strokeWidth = 2,
-  double roughness = 1,
+  double strokeWidth = 2.4,
+  WiredRoughness roughnessLevel = WiredRoughness.expressive,
+  double? roughness,
+  String? fontFamily,
   DrawConfig? drawConfig,
 })
 ```
 
 ### Parameters
 
-| Parameter           | Type          | Default             | Description                                                                                                                                                                                        |
-| ------------------- | ------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `borderColor`       | `Color`       | `Color(0xFF1A2B3C)` | The color used for all hand-drawn borders, outlines, and strokes. A dark blue-gray by default.                                                                                                     |
-| `textColor`         | `Color`       | `Colors.black`      | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`.                                                                                                          |
-| `disabledTextColor` | `Color`       | `Colors.grey`       | Text color for disabled widgets.                                                                                                                                                                   |
-| `fillColor`         | `Color`       | `Color(0xFFFEFEFE)` | Background fill for cards, inputs, dialogs, and other surfaces. Near-white by default.                                                                                                             |
-| `strokeWidth`       | `double`      | `2`                 | Width in logical pixels of the rough-drawn border strokes.                                                                                                                                         |
-| `roughness`         | `double`      | `1`                 | Controls how wobbly and imperfect the hand-drawn lines are. `0` produces perfectly straight lines. Higher values increase the sketch effect.                                                       |
-| `drawConfig`        | `DrawConfig?` | `null`              | Advanced drawing configuration. When `null`, uses `DrawConfig.defaultValues`. Controls `maxRandomnessOffset`, `bowing`, `curveFitting`, `curveTightness`, `curveStepCount`, and the random `seed`. |
+| Parameter           | Type             | Default               | Description                                                                                                                                                 |
+| ------------------- | ---------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderColor`       | `Color`          | `Color(0xFF1A2B3C)`   | The color used for all hand-drawn borders, outlines, and strokes. A dark blue-gray by default.                                                              |
+| `textColor`         | `Color`          | `Colors.black`        | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`.                                                                   |
+| `disabledTextColor` | `Color`          | `Colors.grey`         | Text color for disabled widgets.                                                                                                                            |
+| `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`   | Background fill for cards, inputs, dialogs, and other surfaces. Near-white by default.                                                                      |
+| `strokeWidth`       | `double`         | `2.4`                 | Width in logical pixels of the rough-drawn border strokes.                                                                                                  |
+| `roughnessLevel`    | `WiredRoughness` | `expressive`          | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                          |
+| `roughness`         | `double?`        | `null` → level value  | Optional geometry amplitude override. The default expressive level resolves to `1.8`; `0` removes random displacement.                                      |
+| `fontFamily`        | `String?`        | `null` → level family | Optional font override. Bundled families resolve to the `skribble` package; custom families belong to the consuming app.                                    |
+| `drawConfig`        | `DrawConfig?`    | `null` → level config | Optional complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and any explicit `roughness`. |
 
 ### copyWith
 
@@ -49,9 +53,9 @@ final boldTheme = baseTheme.copyWith(
 );
 ```
 
-## WiredTheme InheritedWidget
+## WiredTheme scope
 
-`WiredTheme` is the `InheritedWidget` that makes `WiredThemeData` available throughout the widget tree.
+`WiredTheme` is a `HookWidget` backed by an internal `InheritedTheme`; it makes the drawing settings and typography available throughout its subtree.
 
 ### Providing a theme
 
@@ -194,8 +198,8 @@ For fine-grained control over the rough-drawing engine, pass a custom `DrawConfi
 ```dart
 WiredThemeData(
   drawConfig: DrawConfig.build(
-    maxRandomnessOffset: 3,  // max pixel offset for jitter (default: 1.2)
-    roughness: 1.5,          // line wobbliness (default: 1.25)
+    maxRandomnessOffset: 3,  // max pixel offset for jitter (default: 2)
+    roughness: 1.5,          // line wobbliness (default: 1.8)
     bowing: 2,               // arc bowing for curves (default: 1)
     curveFitting: 0.9,       // how tightly curves follow control points (default: 0.95)
     curveTightness: 0.1,     // tightness of curve interpolation (default: 0)
@@ -223,7 +227,7 @@ void main() {
     disabledTextColor: Color(0xFFCE93D8), // light purple for disabled
     fillColor: Color(0xFFF3E5F5),       // very light purple surface
     strokeWidth: 2.5,                    // slightly thicker strokes
-    roughness: 1.2,                      // a bit more sketchy
+    roughness: 1.2,                      // gentler than the default
   );
 
   // Dark variant
@@ -338,4 +342,53 @@ The red-themed card and button will use `Colors.red` for borders, while everythi
 
 Skribble's four text styles are derived from the matching **Recursive Sans Casual** static sources. `WiredMaterialApp` registers the package-qualified Skribble family through its theme, so regular, bold, italic, and bold italic select the right bundled assets. Do not manually register only the regular font with `FontLoader`.
 
-For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble'`. Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.25. Local widget text styles merge with inherited typography instead of dropping the font family.
+For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble'`. Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.8. Local widget text styles merge with inherited typography instead of dropping the font family. The bundled Recursive Casual derivative uses deformation strength 36 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
+
+## App-wide roughness levels
+
+Choose a level once at the app root. The theme coordinates borders, rough icons, and all four lettering styles:
+
+```dart
+WiredMaterialApp(
+  wiredTheme: WiredThemeData(
+    roughnessLevel: WiredRoughness.gentle,
+    borderColor: const Color(0xFF624079),
+    fillColor: const Color(0xFFFFFBEF),
+  ),
+  home: const MyHomePage(),
+)
+```
+
+| Level        | Appearance                                             | Border amplitude | Font deformation | Bundled family    |
+| ------------ | ------------------------------------------------------ | ---------------- | ---------------- | ----------------- |
+| `gentle`     | Earlier, softer handwriting and gently bowed edges     | 1.25             | 18               | `SkribbleGentle`  |
+| `playful`    | An intermediate amount of wavering ink                 | 1.5              | 27               | `SkribblePlayful` |
+| `expressive` | Strong lettering and locally wandering edges (default) | 1.8              | 36               | `Skribble`        |
+
+All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. This adds eight font files, about 2.8 MB before delivery compression. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
+
+For a section with quieter ink, inherit the palette and override only its level:
+
+```dart
+WiredTheme(
+  data: WiredTheme.of(context).copyWith(
+    roughnessLevel: WiredRoughness.gentle,
+  ),
+  child: const MyQuietSection(),
+)
+```
+
+`WiredTheme` updates plain `Text`, the Material compatibility text theme, and the inherited drawing settings. Its internal `InheritedTheme` also supports captured theme scopes for overlays. Changing a level does not reset control state. Widgets without their own text style inherit the selected family; explicitly styled text, custom fonts, explicit `DrawConfig` values, and artwork with a fixed drawing configuration remain deliberate overrides.
+
+`copyWith` preserves explicit overrides, even when the level changes. For example, a custom `fontFamily` remains custom; a manually supplied `roughness` remains the geometry amplitude. Create fresh `WiredThemeData(roughnessLevel: ...)` to return all those controls to preset defaults. Explicit widget drawing configurations take precedence over the theme.
+
+For custom tuning, `roughness` and `DrawConfig` continue to accept numeric settings. `DrawConfig.lineWobble` controls local wandering: zero restores the earlier bowed-edge renderer; values through one increase the local wavering. Geometry controls do not deform a font at runtime. To generate a custom font between the bundled levels, run:
+
+```bash
+dart run packages/skribble_font_roughen/bin/skribble_font_roughen.dart \
+  input.ttf MyInk-Regular.ttf --jitter 23.5 --family MyInk
+```
+
+Repeat with the matching source and `--variant` for each desired weight/style. Register the resulting files in your app's `pubspec.yaml`, then set `fontFamily: 'MyInk'`. Family names use 1–48 ASCII letters, digits, or hyphens and begin with a letter, so their generated PostScript names remain valid. `--jitter` accepts finite values from 0 through 50.
+
+Rebuild every bundled level with `dart run packages/skribble_font_roughen/bin/roughen_fonts.dart`; add `--check` to verify generated artifacts. The storybook's persistent **Ink style** picker changes the app-level theme and follows navigation to every category.

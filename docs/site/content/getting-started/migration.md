@@ -446,3 +446,9 @@ If you experience performance issues:
 - [Theming Guide](/getting-started/theming) - Customize the hand-drawn palette
 - [Widget Catalog](/widgets/buttons) - Browse all available Wired widgets
 - [Core Concepts](/core/architecture) - Understand the rough engine and painting system
+
+## Roughness-level theme scopes
+
+`WiredThemeData(roughnessLevel: WiredRoughness.gentle)` selects matching drawing and font defaults; the other levels are `playful` and `expressive` (the default). Existing `roughness:`, `fontFamily:`, `drawConfig:`, constructor calls, and `WiredTheme.of(context)` remain supported.
+
+`WiredTheme` is now a `HookWidget` with an internal `InheritedTheme` so it can propagate typography alongside drawing data. If your code directly used `dependOnInheritedWidgetOfExactType<WiredTheme>()`, replace that implementation-dependent lookup with `WiredTheme.of(context)`.

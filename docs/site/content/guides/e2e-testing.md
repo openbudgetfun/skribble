@@ -32,3 +32,7 @@ Chromium CI installs Playwright 1.56.0's Linux system libraries with `install --
 CI enables Patrol's verbose output and HTML, JSON, and list reporters. Verbose output exposes Playwright startup errors that otherwise appear only as an exit code before any tests or report files exist.
 
 The CI browser uses `--web-locale en-GB`. An unspecified Linux runner locale can produce an invalid browser language and stop Flutter's `parseBrowserLanguages` before test discovery. Set the browser locale explicitly when reproducing CI runs.
+
+The root Ink style control exercises Gentle, Playful, and Expressive across fonts and borders. The quality journeys switch all three levels while preserving entered text, then navigate to another category to verify the app-level selection follows the route. Run both `quality_test.dart` and `patrol_test.dart` for the complete set of 18 browser journeys.
+
+CI allows `--web-server-timeout 300` for the initial Flutter compilation. This changes only server startup allowance, not individual journey deadlines or assertions; the larger catalog can exceed the CLI's two-minute startup default on a busy machine.

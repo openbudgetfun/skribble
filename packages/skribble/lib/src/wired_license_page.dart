@@ -146,7 +146,6 @@ class WiredLicensePage extends HookWidget {
 }
 
 TextStyle _headerStyle(WiredThemeData theme) => TextStyle(
-  fontFamily: skribbleFontFamily,
   fontSize: 22,
   fontWeight: FontWeight.bold,
   color: theme.textColor,
@@ -188,7 +187,6 @@ class _LicenseHeader extends StatelessWidget {
               'Version $applicationVersion',
               style: TextStyle(
                 color: theme.disabledTextColor,
-                fontFamily: skribbleFontFamily,
               ),
             ),
           if (packageCount != null)
@@ -196,7 +194,6 @@ class _LicenseHeader extends StatelessWidget {
               'Built with $packageCount open source packages',
               style: TextStyle(
                 color: theme.disabledTextColor,
-                fontFamily: skribbleFontFamily,
               ),
             ),
         ],
@@ -242,7 +239,6 @@ class _LicensePackageSection extends StatelessWidget {
                 child: Text(
                   library.name,
                   style: TextStyle(
-                    fontFamily: skribbleFontFamily,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                     color: theme.textColor,
@@ -261,7 +257,6 @@ class _LicensePackageSection extends StatelessWidget {
                   Text(
                     paragraph,
                     style: TextStyle(
-                      fontFamily: skribbleFontFamily,
                       fontSize: 13,
                       color: theme.textColor,
                     ),

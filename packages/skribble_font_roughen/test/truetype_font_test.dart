@@ -16,7 +16,7 @@ void main() {
         final bytes = source.readAsBytesSync();
         final original = TrueTypeFont(bytes);
         final edited = TrueTypeFont(bytes);
-        expect(edited.roughen(18), 1297);
+        expect(edited.roughen(36), 1297);
         final output = edited.encode(
           family: 'Skribble',
           style: variant.fullNameSuffix,
@@ -51,7 +51,7 @@ void main() {
 
         expect(saved.tables.containsKey('DSIG'), isFalse);
         expect(saved.tables.containsKey('prep'), isFalse);
-        final second = TrueTypeFont(bytes)..roughen(18);
+        final second = TrueTypeFont(bytes)..roughen(36);
         expect(
           second.encode(family: 'Skribble', style: variant.fullNameSuffix),
           output,
@@ -75,6 +75,33 @@ void main() {
         );
       }
     });
+
+    test(
+      '$suffix doubles the previous deformation without changing spacing',
+      () {
+        final bytes = source.readAsBytesSync();
+        final original = TrueTypeFont(bytes);
+        final previous = TrueTypeFont(bytes)..roughen(18);
+        final current = TrueTypeFont(bytes)..roughen(36);
+        var oldDistance = 0.0;
+        var newDistance = 0.0;
+
+        for (var id = 0; id < original.glyphCount; id++) {
+          final points = original.glyphPoints(id);
+          final oldPoints = previous.glyphPoints(id);
+          final newPoints = current.glyphPoints(id);
+
+          for (var i = 0; i < points.length; i++) {
+            oldDistance += points[i].distanceTo(oldPoints[i]);
+            newDistance += points[i].distanceTo(newPoints[i]);
+          }
+        }
+
+        expect(newDistance / oldDistance, closeTo(2, 0.02));
+        expect(current.tables['hmtx'], original.tables['hmtx']);
+        expect(FontRoughener(inputPath: '', outputPath: '').jitterAmount, 36);
+      },
+    );
   }
 
   test(

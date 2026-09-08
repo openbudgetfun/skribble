@@ -5,6 +5,8 @@ description: Hand-drawn form controls, text fields, toggles, and sliders in the 
 
 # Inputs
 
+Input borders inherit the shared roughness of 1.8 and 2.4-pixel pen. Long outlines use two locally wandering strokes. Small circular switch and slider thumbs reduce their jitter with their size, preserving a visible paper centre under the stronger theme.
+
 Skribble replaces standard form controls with sketchy, hand-drawn equivalents. All input widgets read their palette from `WiredTheme.of(context)` and extend `HookWidget`.
 
 ---
@@ -485,3 +487,5 @@ WiredCupertinoSwitch(
 The switch thumb has an opaque paper fill and a full-size sketch outline, so the track cannot show through it. Its semantics expose the disabled state.
 
 `WiredSlider` positions its thumb during the first layout, including custom nonzero ranges, and keeps both endpoints inside its bounds. A null callback disables interaction. `WiredInput` hints merge the themed secondary text color with any explicit hint style so empty fields remain readable on dark paper.
+
+Input lettering inherits the active `WiredRoughness` level. Changing the root theme or a nested `WiredTheme` changes both the input border and font without clearing controller text. An explicit text style or drawing configuration continues to override inherited defaults.

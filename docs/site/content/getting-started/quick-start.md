@@ -43,7 +43,7 @@ void main() {
 
 `WiredMaterialApp` is a `HookWidget` that wraps Flutter's `MaterialApp`. It does two things automatically:
 
-1. **Injects `WiredTheme`** -- it places a `WiredTheme` `InheritedWidget` at the top of the tree so every descendant Wired widget can call `WiredTheme.of(context)` to read theme values (border color, fill color, stroke width, roughness, text colors).
+1. **Injects `WiredTheme`** -- it places a `WiredTheme` scope at the top of the tree so every descendant Wired widget can call `WiredTheme.of(context)` to read theme values (border color, fill color, stroke width, roughness, text colors).
 
 2. **Syncs Material `ThemeData`** -- it calls `wiredTheme.toThemeData()` internally, producing a Material `ThemeData` whose `ColorScheme`, scaffold background, input decoration, card theme, dialog theme, and text theme all match the Wired palette. This means standard Material widgets (like `Scaffold`, `Text`, `Icon`) also look consistent.
 

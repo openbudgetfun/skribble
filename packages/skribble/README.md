@@ -299,3 +299,7 @@ conventions, testing requirements, and quality gates.
 ## License
 
 MIT — see [LICENSE](../../LICENSE) for details.
+
+### Choose the amount of hand-drawn ink
+
+Set `WiredThemeData(roughnessLevel: WiredRoughness.gentle)` on your `WiredMaterialApp`. The `gentle`, `playful`, and `expressive` presets coordinate borders, rough icons, and all four bundled font styles. Expressive is the default. Nested `WiredTheme` scopes can select another level while retaining the parent palette through `copyWith`; explicit fonts and drawing configurations remain overrides. See the [theming guide](../../docs/site/content/getting-started/theming.md) for custom font generation and inheritance details.

@@ -86,6 +86,7 @@ export 'src/wired_radio.dart';
 export 'src/wired_radio_list_tile.dart';
 export 'src/wired_range_slider.dart';
 export 'src/wired_reorderable_list_view.dart';
+export 'src/wired_roughness.dart';
 export 'src/wired_scaffold.dart';
 export 'src/wired_scrollbar.dart';
 export 'src/wired_search_anchor.dart';

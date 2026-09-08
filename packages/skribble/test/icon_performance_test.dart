@@ -24,8 +24,13 @@ void main() {
       expect(stopwatch.elapsedMilliseconds, lessThan(100));
     });
 
-    test('WiredSvgPathPrimitive path building is fast', () {
+    test('WiredSvgPathPrimitive warmed path building is fast', () {
       final primitive = WiredSvgPrimitive.path('M12 2L2 22h20L12 2z');
+
+      // Keep one-time JIT compilation out of the repeated parsing budget.
+      for (var index = 0; index < 1000; index++) {
+        primitive.buildPath();
+      }
 
       final stopwatch = Stopwatch()..start();
 

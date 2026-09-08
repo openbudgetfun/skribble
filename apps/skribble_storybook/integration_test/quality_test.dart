@@ -1,10 +1,54 @@
 import 'package:flutter/widgets.dart';
 import 'package:patrol/patrol.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_storybook/app.dart';
 import 'package:skribble_storybook/pages/studio_page.dart';
 import 'package:skribble_storybook/testing/quality_keys.dart';
 
 void main() {
+  for (final width in [390.0, 1440.0]) {
+    patrolTest(
+      'app-wide roughness keeps the notebook at ${width.toInt()} pixels',
+      ($) async {
+        await $.platform.web.resizeWindow(size: Size(width, 1100));
+        await $.pumpWidget(const SkribbleStorybookApp());
+        await $('The sketchbook').tap();
+        await $(QualityKeys.input).scrollTo();
+        await $(QualityKeys.input).enterText('Keep my café sketch');
+        await $(QualityKeys.add).tap();
+        for (final level in [
+          WiredRoughness.gentle,
+          WiredRoughness.playful,
+          WiredRoughness.expressive,
+        ]) {
+          await $(ValueKey('roughness-${level.name}')).tap();
+          final theme = WiredTheme.of($.tester.element($(QualityKeys.title)));
+          final field = $.tester.widget<EditableText>($(EditableText));
+          if (theme.roughnessLevel != level ||
+              field.style.fontFamily !=
+                  'packages/skribble/${level.fontFamily}') {
+            throw StateError(
+              'The app level did not cascade to the notebook and input.',
+            );
+          }
+          if (field.controller.text != 'Keep my café sketch' ||
+              $(QualityKeys.inputResult).text != 'Keep my café sketch') {
+            throw StateError('Changing the ink level lost the note.');
+          }
+        }
+        await $(ValueKey('roughness-gentle')).tap();
+        await $('All components').scrollTo();
+        await $('All components').tap();
+        await $('Buttons').tap();
+        await $('Click Me').waitUntilVisible();
+        final buttonTheme = WiredTheme.of($.tester.element($('Click Me')));
+        if (buttonTheme.roughnessLevel != WiredRoughness.gentle) {
+          throw StateError('The selected level did not follow navigation.');
+        }
+      },
+    );
+  }
+
   for (final width in [390.0, 820.0, 1440.0]) {
     patrolTest('sketchbook saves an idea at ${width.toInt()} pixels', (
       $,

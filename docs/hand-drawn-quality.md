@@ -15,7 +15,9 @@ Skribble now uses a real outline-derived Recursive Casual family, a broader roun
 
 The font writer now rewrites static TrueType outlines and verifies the saved representation. It preserves all source glyphs, spacing, and layout tables. Four source styles produce four deterministic Skribble styles. Coherent deformation gives a rounded, uneven pen appearance without jagged counters. The family is bundled under the package-qualified font name, and local widget styles inherit it.
 
-The default border is 2.4 logical pixels, with roughness 1.25 and a 1.2-unit maximum random offset. Round caps and joins, insets for stroke bleed, stable seeded repaints, and sufficient divider space make the pen visible without clipping. Theme updates repaint the actual geometry. Runtime icon wobble is smaller than layout-border wobble, because a 24-pixel symbol must remain legible.
+The default border is 2.4 logical pixels, with roughness 1.8 and a 2-unit maximum random offset. Round caps and joins, insets for stroke bleed, stable seeded repaints, and sufficient divider space make the pen visible without clipping. Theme updates repaint the actual geometry. Runtime icon wobble is smaller than layout-border wobble, because a 24-pixel symbol must remain legible.
+
+The rougher follow-up replaces the single smooth curve along each long border with two wandering strokes connected about every 48 pixels. Their control points stay within the reserved jitter band. Small circles reduce their jitter to preserve visible thumb centres. Font strength is now 36 per 1,000 units per em, twice the previous default of 18, across all four Recursive Casual styles. Glyph coverage, spacing, and shaping tables remain unchanged.
 
 OpenMoji 17.0.0 contributes 4,495 named entries, including flags, modifiers, ZWJ sequences, and Unicode 17 additions. Source colors, unfilled strokes, even-odd contours, nested transforms, transparency, and the Ontario emblem's clip survive generation. Artwork is gently warped once during generation. All 30 curated icons regenerate from their checked-in SVG manifest with their correct view boxes. The existing Material pipeline covers 8,622 unique icon codepoints (8,825 names including aliases) in Flutter 3.47.0.
 
@@ -39,6 +41,8 @@ The source SVG importer supports the features used by the pinned corpus. It is n
 
 ## Verification
 
+Run `mc check` when changing font declarations. It validates the package manifests, including alphabetical ordering of each family's font assets, alongside the generated-asset checks in CI.
+
 The regression suite checks all source glyphs, all 4,495 emoji paths, all curated icon bounds, filled icon counters at 24/48/96 pixels, color and alpha pixels, clipping, deterministic ink, theme repainting, external checkbox/slider state, and inputs at 100–300% text scaling in a scrollable form. Notebook widget tests cover 320, 390, 820, and 1,440-pixel layouts, long notes, save/reset, and palette changes.
 
 Patrol runs the notebook in Chromium at phone, tablet, and desktop widths. It enters and saves accented text and currency, checks a task, resets the notebook, changes palette, and operates the reminder. Browser screenshots and traces are retained as test artifacts. These are browser runs; native Android/iOS runners are separate work.
@@ -58,3 +62,9 @@ The review added first-frame slider geometry checks for a 10–100 range and bot
 SVG import also preserves dash patterns and offsets, cap/join styles, miter limits, and stroke-before-fill ordering. Hidden elements are omitted. Import tests cover inheritance and transforms, and both SVG renderers have pixel checks for dash gaps and square endpoints. The extraction directory is cleared before each rebuild so removed upstream files cannot linger. Asset CI checks tracked changes and newly generated files.
 
 The completed visual review covers 13 catalog routes at 390 and 1,440 pixels, with three settled scroll captures each (78 images), plus all four font specimens and notebook morning/evening views. These are representative screens, not an assertion that every possible widget configuration has been inspected. Catalog Patrol covers 11 navigation and control journeys; notebook Patrol covers five responsive interaction journeys with explicit saved-text, reset, palette-color, and reminder postconditions.
+
+## Consumer roughness levels
+
+The follow-up adds Gentle, Playful, and Expressive app-level presets with matching four-style font families. The storybook picker changes the root theme and preserves notebook state across selection and navigation. Nested themes now synchronize typography as well as border configuration. Font metadata and shaping preservation are checked across all twelve assets; widget and Patrol coverage exercise level propagation, state retention, independent overrides, and different viewport widths.
+
+Catalog widget tests scroll navigation cards into view before tapping, since the global picker reserves vertical space. The SVG path throughput test warms the parser before measuring 1,000 builds against its existing 100 ms budget; it measures repeated work, not cold JIT startup. Local cold batches ranged from 30–329 ms, while subsequent batches took about 2–6 ms.

@@ -16,16 +16,16 @@ List<Op> _line(
 ) {
   final lengthSq = pow(x1 - x2, 2) + pow(y1 - y2, 2);
   final length = sqrt(lengthSq);
-  double roughnessGain;
 
-  if (length < 200) {
-    roughnessGain = 1;
-  } else if (length > 500) {
-    roughnessGain = 0.4;
-  } else {
-    roughnessGain = (-0.0016668) * length + 1.233334;
+  if (length >= 48 && config.roughness! > 0 && config.lineWobble! > 0) {
+    return _wanderingLine(x1, y1, x2, y2, config, overlay);
   }
 
+  final roughnessGain = length < 200
+      ? 1.0
+      : length > 500
+      ? 0.4
+      : (-0.0016668) * length + 1.233334;
   double offset = config.maxRandomnessOffset!;
   if ((offset * offset * 100) > lengthSq) {
     offset = length / 10;
@@ -88,6 +88,58 @@ List<Op> _line(
       ),
     );
   }
+  return ops;
+}
+
+// Long edges need local changes of direction: one cubic looks like a ruler
+// even with displaced endpoints. Keep every control point within the pen's
+// reserved jitter band so larger cards do not need larger painting insets.
+List<Op> _wanderingLine(
+  double x1,
+  double y1,
+  double x2,
+  double y2,
+  DrawConfig config,
+  bool overlay,
+) {
+  final dx = x2 - x1;
+  final dy = y2 - y1;
+  final length = sqrt(dx * dx + dy * dy);
+  final segments = (length / 48).ceil();
+  final limit = config.maxRandomnessOffset! * config.roughness!;
+  final offset = config.maxRandomnessOffset! * (overlay ? 0.85 : 1);
+  final bow = config.offsetSymmetric(offset) * config.bowing! * 0.3;
+  final displacements = List.generate(segments + 1, (i) {
+    final t = i / segments;
+    final endGain = i == 0 || i == segments ? 0.45 : 1.0;
+
+    return ((config.offsetSymmetric(offset) * 0.7 * endGain +
+                bow * sin(t * pi)) *
+            config.lineWobble!)
+        .clamp(-limit, limit);
+  });
+  PointD point(double t, double displacement) => PointD(
+    x1 + dx * t - dy / length * displacement,
+    y1 + dy * t + dx / length * displacement,
+  );
+  final ops = <Op>[Op.move(point(0, displacements.first))];
+
+  for (var i = 0; i < segments; i++) {
+    final before = displacements[max(0, i - 1)];
+    final start = displacements[i];
+    final end = displacements[i + 1];
+    final after = displacements[min(segments, i + 2)];
+    final control1 = (start + (end - before) / 6).clamp(-limit, limit);
+    final control2 = (end - (after - start) / 6).clamp(-limit, limit);
+    ops.add(
+      Op.curveTo(
+        point((i + 1 / 3) / segments, control1),
+        point((i + 2 / 3) / segments, control2),
+        point((i + 1) / segments, end),
+      ),
+    );
+  }
+
   return ops;
 }
 

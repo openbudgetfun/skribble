@@ -19,6 +19,7 @@ class WiredStudioPage extends HookWidget {
     final saved = useState('Pick something small. Make it yours.');
     final controller = useTextEditingController();
     final theme = WiredThemeData(
+      roughnessLevel: WiredTheme.of(context).roughnessLevel,
       borderColor: dark.value
           ? const Color(0xffdfc4ff)
           : const Color(0xff624079),
@@ -37,8 +38,8 @@ class WiredStudioPage extends HookWidget {
       home: Builder(
         builder: (context) => DefaultTextStyle(
           style: TextStyle(
-            fontFamily: skribbleFontFamily,
-            package: 'skribble',
+            fontFamily: theme.fontFamily,
+            package: theme.fontPackage,
             color: theme.textColor,
             fontSize: 16,
           ),

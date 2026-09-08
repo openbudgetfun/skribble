@@ -14,7 +14,7 @@ void main() {
       expect(theme.disabledTextColor, Colors.grey);
       expect(theme.fillColor, const Color(0xFFFEFEFE));
       expect(theme.strokeWidth, 2.4);
-      expect(theme.roughness, 1.25);
+      expect(theme.roughness, 1.8);
       expect(theme.fontFamily, skribbleFontFamily);
     });
 
@@ -390,14 +390,16 @@ void main() {
       expect(find.text('Card'), findsOneWidget);
     });
 
-    testWidgets('is an InheritedWidget', (tester) async {
+    testWidgets('retains the provided data on its public boundary', (
+      tester,
+    ) async {
       await pumpApp(
         tester,
         WiredTheme(data: WiredThemeData(), child: const SizedBox()),
       );
 
       final widget = tester.widget<WiredTheme>(find.byType(WiredTheme));
-      expect(widget, isA<InheritedWidget>());
+      expect(widget.data.fontFamily, skribbleFontFamily);
     });
 
     testWidgets('provides all custom theme properties to descendants', (

@@ -14,23 +14,41 @@ import 'package:skribble_storybook/pages/rough_icons_page.dart';
 import 'package:skribble_storybook/pages/selection_page.dart';
 import 'package:skribble_storybook/pages/skribble_icons_page.dart';
 import 'package:skribble_storybook/pages/studio_page.dart';
+import 'package:skribble_storybook/widgets/roughness_picker.dart';
 
 class SkribbleStorybookApp extends HookWidget {
   const SkribbleStorybookApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final roughness = useState(WiredRoughness.expressive);
     final wiredTheme = WiredThemeData(
+      roughnessLevel: roughness.value,
       borderColor: const Color(0xFF4A3470),
       textColor: const Color(0xFF2A2238),
       disabledTextColor: const Color(0xFFA39AAD),
       fillColor: const Color(0xFFFFFCF1),
-      roughness: 1.6,
     );
 
     return WiredMaterialApp(
       wiredTheme: wiredTheme,
       title: 'Skribble Storybook',
+      builder: (context, child) => DefaultTextStyle(
+        style: Theme.of(context).textTheme.bodyMedium!,
+        child: Column(
+          // Paint the toolbar after the navigator so its route semantics do
+          // not hide these app-wide controls from assistive technology.
+          verticalDirection: VerticalDirection.up,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(child: child ?? const SizedBox.shrink()),
+            WiredRoughnessPicker(
+              value: roughness.value,
+              onChanged: (value) => roughness.value = value,
+            ),
+          ],
+        ),
+      ),
       routes: {
         '/': (context) => const HomePage(),
         '/studio': (context) => const WiredStudioPage(),
