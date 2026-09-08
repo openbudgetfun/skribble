@@ -553,27 +553,20 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 **Flutter 3.47.0 / Dart 3.13.0 upgrade (Phase 2):**
 
 - Bumped `.fvmrc` to Flutter 3.47.0 (from 3.41.1); Dart SDK constraints to `^3.13.0`
-- Applied 3.47 analyzer updates across the workspace (3,294 mechanical fixes via `dart fix`,
-  including the new `unnecessary_unawaited` lint and `strict_top_level_inference` batch)
-- Removed deprecated `one_member_abstracts` lint override; documented intentional
-  single-member abstract painter protocol with a local ignore
+- Applied 3.47 analyzer updates across the workspace (3,294 mechanical fixes via `dart fix`, including the new `unnecessary_unawaited` lint and `strict_top_level_inference` batch)
+- Removed deprecated `one_member_abstracts` lint override; documented intentional single-member abstract painter protocol with a local ignore
 - Fixed `wired_cupertino_navigation_bar_test.dart` (multiline `Navigator.push` restructured)
 - Updated README + contributing docs to Flutter >= 3.47
 - CI composite action picks up the new SDK automatically via `.fvmrc` cache keying
-- All suites green on 3.47: skribble 1194, emoji 34, icons 27, icons_custom 27,
-  icons_dynamic 21, storybook 64, example 41, benchmark 8, font_roughen (dart test) 20
+- All suites green on 3.47: skribble 1194, emoji 34, icons 27, icons_custom 27, icons_dynamic 21, storybook 64, example 41, benchmark 8, font_roughen (dart test) 20
 
 ### 2026-08-28/29 (Housekeeping & Release Management)
 
 **Workspace hygiene:**
 
-- Removed `skribble_icons_dynamic` (deprioritized; zero dependents — presets
-  in `skribble_icons` are the supported path; can be revived from git
-  history if dynamic generation is wanted later)
-- Added `skribble_emoji_gen` (Dart CLI emoji generator) to the workspace
-  with SDK constraint aligned to ^3.13.0 and `resolution: workspace`
-- Merged knope → monochange migration (PR #126): release flows now use
-  `mc release-pr` / `mc publish`; changesets reformatted for monochange
+- Removed `skribble_icons_dynamic` (deprioritized; zero dependents — presets in `skribble_icons` are the supported path; can be revived from git history if dynamic generation is wanted later)
+- Added `skribble_emoji_gen` (Dart CLI emoji generator) to the workspace with SDK constraint aligned to ^3.13.0 and `resolution: workspace`
+- Merged knope → monochange migration (PR #126): release flows now use `mc release-pr` / `mc publish`; changesets reformatted for monochange
 
 **Branch & worktree cleanup:**
 
@@ -582,46 +575,30 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 **Publishing readiness (Phase 4):**
 
 - Verified `dart pub publish --dry-run` across all packages
-- Unblocked: skribble, skribble_emoji, skribble_icons, skribble_icons_custom,
-  skribble_lints all validate (after relaxing Flutter constraints to
-  `>=3.47.0` per the new pub.dev upper-bound deprecation)
-- `skribble_font_roughen` marked `publish_to: none`: its upstream dependency
-  `opentype_dart` ships no license and is not on pub.dev — publishing is
-  blocked until the dependency is replaced (see
-  third_party/opentype_dart/README.md). Remaining dry-run warnings are
-  working-tree-only and clear on commit.
+- Unblocked: skribble, skribble_emoji, skribble_icons, skribble_icons_custom, skribble_lints all validate (after relaxing Flutter constraints to `>=3.47.0` per the new pub.dev upper-bound deprecation)
+- `skribble_font_roughen` marked `publish_to: none`: its upstream dependency `opentype_dart` ships no license and is not on pub.dev — publishing is blocked until the dependency is replaced (see third_party/opentype_dart/README.md). Remaining dry-run warnings are working-tree-only and clear on commit.
 
 ### 2026-08-29 (Decoupling groundwork — Phase 3 start)
 
-**Goal:** Skribble becomes a standalone design system library — a peer of
-`package:material_ui` / `package:cupertino_ui`, depending only on
-`flutter/widgets` and below. NOT a skin over Material widgets.
+**Goal:** Skribble becomes a standalone design system library — a peer of `package:material_ui` / `package:cupertino_ui`, depending only on `flutter/widgets` and below. NOT a skin over Material widgets.
 
-**Status:** `material`/`cupertino` decoupled from the Flutter core into pub
-packages (Flutter 3.47 era). 94 of 109 files in packages/skribble/lib import
-material/cupertino today. The audit tool classifies them:
+**Status:** `material`/`cupertino` decoupled from the Flutter core into pub packages (Flutter 3.47 era). 94 of 109 files in packages/skribble/lib import material/cupertino today. The audit tool classifies them:
 
 - 57 × "skin" — wrap a Material widget; these are the real rewrite debt
 - 37 × "helpers" — theme/geometry/constants only; mechanical import swaps
 
 **Tooling:**
 
-- `tool/audit_material_dependencies.dart` — dependency heatmap classifier
-  (table or --json); report committed at `docs/material-dependency-audit.txt`
-- Rule codified in AGENTS.md: new code must not import material/cupertino;
-  add a CI import gate when the audit reaches 0
+- `tool/audit_material_dependencies.dart` — dependency heatmap classifier (table or --json); report committed at `docs/material-dependency-audit.txt`
+- Rule codified in AGENTS.md: new code must not import material/cupertino; add a CI import gate when the audit reaches 0
 
 **Rewrite order (skin debt):**
 
 1. Leaf inputs: button family, checkbox, switch, slider, text field
-2. Theme: WiredTheme/DrawConfig already custom — swap ThemeData reads for a
-   skribble-owned token set
+2. Theme: WiredTheme/DrawConfig already custom — swap ThemeData reads for a skribble-owned token set
 3. Navigation/containers: scaffold, app bar, tabs, bottom nav, dialogs
-4. App shell: SkribbleApp (WidgetsApp-based) replacing WiredMaterialApp;
-   keep WiredMaterialApp as a thin compatibility bridge until consumers
-   migrate
-5. Localization: use GlobalMaterialLocalizations alternatives or depend on
-   flutter_localizations directly (decision needed at step 4)
+4. App shell: SkribbleApp (WidgetsApp-based) replacing WiredMaterialApp; keep WiredMaterialApp as a thin compatibility bridge until consumers migrate
+5. Localization: use GlobalMaterialLocalizations alternatives or depend on flutter_localizations directly (decision needed at step 4)
 
 ---
 
@@ -639,14 +616,10 @@ material/cupertino today. The audit tool classifies them:
 
 **Publishing readiness:**
 
-- 5 packages pass `dart pub publish --dry-run` (skribble, skribble_emoji,
-  skribble_icons, skribble_icons_custom, skribble_lints)
-- `mc preview` plans release **v0.3.5** consuming the 80 pending changesets;
-  the flow is contributor changeset → `mc release-pr` → merge → `mc publish`
-- Blocked: `skribble_font_roughen` (`publish_to: none`) — needs a licensed
-  replacement for `opentype_dart`
-- Actual pub.dev publication requires: `pub.dev` publisher setup + CI
-  `PUB_CREDENTIALS`/OIDC + the maintainer running the release PR flow
+- 5 packages pass `dart pub publish --dry-run` (skribble, skribble_emoji, skribble_icons, skribble_icons_custom, skribble_lints)
+- `mc preview` plans release **v0.3.5** consuming the 80 pending changesets; the flow is contributor changeset → `mc release-pr` → merge → `mc publish`
+- Blocked: `skribble_font_roughen` (`publish_to: none`) — needs a licensed replacement for `opentype_dart`
+- Actual pub.dev publication requires: `pub.dev` publisher setup + CI `PUB_CREDENTIALS`/OIDC + the maintainer running the release PR flow
 
 **Open follow-ups (next session):**
 
@@ -659,25 +632,14 @@ material/cupertino today. The audit tool classifies them:
 
 **Parity COMPLETE — all named long-tail gaps closed (PRs #136, #137, #138):**
 
-- Material: WiredCarouselView, WiredSearchAnchor/WiredSearchController/
-  WiredSearchBar, WiredDateRangePickerDialog + showWiredDateRangePicker,
-  WiredLicensePage + showWiredLicensePage, WiredGridTile/GridTileBar,
-  WiredMergeableMaterial (+Items), WiredCheckboxMenuButton,
-  WiredRadioMenuButton, WiredAboutListTile, showWiredTimePicker
-- Cupertino (12 → 18): ActivityIndicator, ListSection, ListTile,
-  SearchTextField, TimerPicker, FormSection
+- Material: WiredCarouselView, WiredSearchAnchor/WiredSearchController/ WiredSearchBar, WiredDateRangePickerDialog + showWiredDateRangePicker, WiredLicensePage + showWiredLicensePage, WiredGridTile/GridTileBar, WiredMergeableMaterial (+Items), WiredCheckboxMenuButton, WiredRadioMenuButton, WiredAboutListTile, showWiredTimePicker
+- Cupertino (12 → 18): ActivityIndicator, ListSection, ListTile, SearchTextField, TimerPicker, FormSection
 - ~195 new widget tests; suites at 1389 (skribble) all green
 - Packages ready to publish with release v0.3.5 (mc preview)
 
-**Live showcase published (PRs #134, #135):** docs site + full interactive
-storybook (all widgets, 8.6k icons, emoji, font specimen glyphs) on
-GitHub Pages. Screenshot harness across 4 device form factors.
-Preview: https://openbudgetfun.github.io/skribble/ and
-https://openbudgetfun.github.io/skribble/storybook/
+**Live showcase published (PRs #134, #135):** docs site + full interactive storybook (all widgets, 8.6k icons, emoji, font specimen glyphs) on GitHub Pages. Screenshot harness across 4 device form factors. Preview: https://openbudgetfun.github.io/skribble/ and https://openbudgetfun.github.io/skribble/storybook/
 
-**Testing (PR #139):** Patrol configured (`patrol:` block + journeys);
-3-tier testing documented (guides/e2e-testing.md); device runs ready for
-YoyaPhoneBra once Developer Mode is enabled on the phone.
+**Testing (PR #139):** Patrol configured (`patrol:` block + journeys); 3-tier testing documented (guides/e2e-testing.md); device runs ready for YoyaPhoneBra once Developer Mode is enabled on the phone.
 
 ---
 
@@ -685,42 +647,25 @@ YoyaPhoneBra once Developer Mode is enabled on the phone.
 
 ### Phase 1 — simple-icons (brand icons, ~3,400 glyphs)
 
-New package `skribble_icons_simple`, generated exactly like the other
-icon sets:
+New package `skribble_icons_simple`, generated exactly like the other icon sets:
 
-1. Vendor the simple-icons SVGs (CC0) into
-   `packages/skribble_icons_simple/manifest/` at a pinned version tag
-2. Extend `generate_rough_icons.dart`'s svg-manifest kit with a
-   simple-icons loader (brand list + slugs → manifest.json)
-3. Roughen + precompute → `kSkribbleSimpleIcons` map + `SkribbleSimpleIcons`
-   lookup class; publish as its own package so apps only bundle brands they
-   reference (tree-shaking via const map)
+1. Vendor the simple-icons SVGs (CC0) into `packages/skribble_icons_simple/manifest/` at a pinned version tag
+2. Extend `generate_rough_icons.dart`'s svg-manifest kit with a simple-icons loader (brand list + slugs → manifest.json)
+3. Roughen + precompute → `kSkribbleSimpleIcons` map + `SkribbleSimpleIcons` lookup class; publish as its own package so apps only bundle brands they reference (tree-shaking via const map)
 4. CI gates identical to the Material pipeline (baseline, sync, regression)
 
 Estimated effort: 1–2 sessions (mostly pipeline reuse).
 
 ### Phase 2 — Iconify-scale (200k+ icons, 150+ sets)
 
-A blanket roughening of ALL Iconify sets is not tractable (size, quality
-control, licensing variance). Proposed architecture:
+A blanket roughening of ALL Iconify sets is not tractable (size, quality control, licensing variance). Proposed architecture:
 
-- `skribble_icons_any`: a **build-time package** (no bundled assets) that
-  roughens ONLY the icons an app declares (a slugged list in yaml), via a
-  codegen step reusing the generate_rough_icons pipeline
-- Licensing: per-set allowlist encoded in a manifest (MIT/CC0/Apache sets
-  first — e.g. tabler, lucide, heroicons, mdi)
-- Quality: the deterministic roughening is font-agnostic — SVG paths in,
-  rough paths out — but each new set gets a visual-review golden pass
-  (`.screenshots/review/`) before the set is allowlisted
-- Cache: roughened outputs keyed by (set, icon, roughVersion) in a shared
-  pub cache so apps don't re-roughen
+- `skribble_icons_any`: a **build-time package** (no bundled assets) that roughens ONLY the icons an app declares (a slugged list in yaml), via a codegen step reusing the generate_rough_icons pipeline
+- Licensing: per-set allowlist encoded in a manifest (MIT/CC0/Apache sets first — e.g. tabler, lucide, heroicons, mdi)
+- Quality: the deterministic roughening is font-agnostic — SVG paths in, rough paths out — but each new set gets a visual-review golden pass (`.screenshots/review/`) before the set is allowlisted
+- Cache: roughened outputs keyed by (set, icon, roughVersion) in a shared pub cache so apps don't re-roughen
 
 ### jaspr support
 
-- Today: docs site shows the pattern — Skribble webfont (self-hosted
-  TTFs from packages/skribble/assets) + inline rough-SVG borders
-  (rough.js-compatible paths can be generated by skribble_font_roughen's
-  engine for boxes)
-- Planned: `skribble_jaspr` component package (Button, Card, Divider,
-  TextField as Jaspr components with rough SVG chrome). Scoped proposal
-  in a future session once the Flutter library is published.
+- Today: docs site shows the pattern — Skribble webfont (self-hosted TTFs from packages/skribble/assets) + inline rough-SVG borders (rough.js-compatible paths can be generated by skribble_font_roughen's engine for boxes)
+- Planned: `skribble_jaspr` component package (Button, Card, Divider, TextField as Jaspr components with rough SVG chrome). Scoped proposal in a future session once the Flutter library is published.

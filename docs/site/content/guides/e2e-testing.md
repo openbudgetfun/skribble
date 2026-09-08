@@ -24,8 +24,7 @@ Reports are written to `playwright-report/` and screenshots to `test-results/`. 
 
 Run the original catalog journeys separately with `--target integration_test/patrol_test.dart`. Widget tests cover more states cheaply, including long labels, narrow layouts, font inheritance, 300% text scaling, theme changes, and deterministic pixel rendering. See [Testing](testing) and [Screenshots](screenshots).
 
-These commands exercise Flutter web in Chromium. Native Android and iOS testing requires configured runners and devices; browser coverage must not be reported as native-device coverage. Patrol's current web documentation is at [Patrol web testing](https://patrol.leancode.co/documentation/web).
-The `test:all` command runs Flutter packages sequentially with four test workers per package. This keeps large generated catalogs and timing checks from competing across packages on CI runners.
+These commands exercise Flutter web in Chromium. Native Android and iOS testing requires configured runners and devices; browser coverage must not be reported as native-device coverage. Patrol's current web documentation is at [Patrol web testing](https://patrol.leancode.co/documentation/web). The `test:all` command runs Flutter packages sequentially with four test workers per package. This keeps large generated catalogs and timing checks from competing across packages on CI runners.
 
 Chromium CI installs Playwright 1.56.0's Linux system libraries with `install --with-deps`, matching Patrol 4.9.0's web runner. The browser process runs in the host shell with the pinned Flutter SDK and Node 22, so Ubuntu's browser libraries are visible. Patrol's automatic browser download alone does not install those libraries.
 

@@ -1,14 +1,12 @@
 # Contributing to Skribble
 
-Thanks for your interest in contributing! This guide covers the workflow,
-conventions, and quality gates you should know before submitting a PR.
+Thanks for your interest in contributing! This guide covers the workflow, conventions, and quality gates you should know before submitting a PR.
 
 ## Prerequisites
 
 - [Flutter SDK](https://flutter.dev/docs/get-started/install) ≥ 3.41
 - [Melos](https://melos.invertase.dev/) for monorepo commands
-- (Optional) [devenv](https://devenv.sh/) — the CI uses it; you can use plain
-  Flutter locally
+- (Optional) [devenv](https://devenv.sh/) — the CI uses it; you can use plain Flutter locally
 
 ## Repository Layout
 
@@ -50,8 +48,7 @@ melos run flutter-test
 
 ## Widget Conventions
 
-- Every widget **must** use `HookWidget` (or `HookConsumerWidget`).
-  No `StatefulWidget` or `StatelessWidget`.
+- Every widget **must** use `HookWidget` (or `HookConsumerWidget`). No `StatefulWidget` or `StatelessWidget`.
 - All widgets use the `Wired` prefix (e.g., `WiredButton`, `WiredAppBar`).
 - Read border/fill colors from `WiredTheme.of(context)` — never hardcode.
 - Wrap with `RepaintBoundary` via `WiredBaseWidget`.

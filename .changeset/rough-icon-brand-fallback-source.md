@@ -10,5 +10,4 @@ skribble: patch
 - Default behavior now attempts a best-effort `simple-icons` package fallback
 - Adds `woo_commerce -> woocommerce` brand slug mapping for fallback lookup
 
-This reduces unresolved Material rough icon codepoints when Flutter exposes
-brand identifiers that are not present in upstream Material SVG packages.
+This reduces unresolved Material rough icon codepoints when Flutter exposes brand identifiers that are not present in upstream Material SVG packages.

@@ -2,9 +2,7 @@
 
 ## Goal
 
-Create a **new Dart package** in this workspace that publishes a standalone
-hand-drawn icon set generated from SVG sources, instead of baking the new set
-into `packages/skribble`.
+Create a **new Dart package** in this workspace that publishes a standalone hand-drawn icon set generated from SVG sources, instead of baking the new set into `packages/skribble`.
 
 Suggested placeholder package name:
 
@@ -30,8 +28,7 @@ That means the fastest, lowest-risk path is:
 3. generate outputs into a **new package**
 4. have the new package depend on `skribble` for `WiredSvgIconData`
 
-This avoids duplicating the roughing tool while still shipping a clean,
-separate package for the icon set.
+This avoids duplicating the roughing tool while still shipping a clean, separate package for the icon set.
 
 ## Proposed package structure
 
@@ -59,8 +56,7 @@ packages/
 
 ## Package API shape
 
-Mirror the Material rough icon API from `packages/skribble` as closely as
-possible so usage feels familiar.
+Mirror the Material rough icon API from `packages/skribble` as closely as possible so usage feels familiar.
 
 Public API should expose:
 
@@ -153,8 +149,7 @@ workspace:
 The new package should:
 
 - depend on `flutter`
-- depend on `skribble` via workspace path/version, because generated files use
-  `WiredSvgIconData`
+- depend on `skribble` via workspace path/version, because generated files use `WiredSvgIconData`
 - depend on `flutter_test` in dev dependencies
 - depend on `skribble_lints` in dev dependencies
 
@@ -211,8 +206,7 @@ Update:
 
 ## Release / publishing plan
 
-Ship this as a separate package release rather than a core `skribble` API
-expansion.
+Ship this as a separate package release rather than a core `skribble` API expansion.
 
 Changeset strategy:
 

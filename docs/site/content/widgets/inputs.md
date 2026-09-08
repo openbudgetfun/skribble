@@ -111,12 +111,7 @@ WiredSearchBar(
 
 ## WiredSearchAnchor
 
-A search anchor that pairs a collapsed search field with an in-place
-suggestions view, analogous to Material 3's `SearchAnchor`. The collapsed
-state is built by `builder` (which receives a `WiredSearchController` whose
-`openView()` opens the view); the open state renders a wired search bar plus
-the widgets returned by `suggestionsBuilder`, which re-runs on every
-keystroke so suggestions can filter live.
+A search anchor that pairs a collapsed search field with an in-place suggestions view, analogous to Material 3's `SearchAnchor`. The collapsed state is built by `builder` (which receives a `WiredSearchController` whose `openView()` opens the view); the open state renders a wired search bar plus the widgets returned by `suggestionsBuilder`, which re-runs on every keystroke so suggestions can filter live.
 
 ```dart
 final controller = WiredSearchController();
@@ -139,8 +134,7 @@ WiredSearchAnchor(
 )
 ```
 
-Also exported: `WiredSearchController` (a `TextEditingController` plus
-`openView()` / `closeView([String? selectedText])` / `isOpen`).
+Also exported: `WiredSearchController` (a `TextEditingController` plus `openView()` / `closeView([String? selectedText])` / `isOpen`).
 
 ### Constructor parameters
 
@@ -156,12 +150,9 @@ Also exported: `WiredSearchController` (a `TextEditingController` plus
 
 ### Notes
 
-- The search view renders in place (replacing the collapsed field) with a
-  rough-bordered container, matching the wired card visual language.
-- Selection flow: call `controller.closeView(option)` from a suggestion's tap
-  handler; the view closes and the query text is replaced with the selection.
-- When the anchor creates its own controller, it is disposed with the widget;
-  controllers passed via `searchController` are not disposed for you.
+- The search view renders in place (replacing the collapsed field) with a rough-bordered container, matching the wired card visual language.
+- Selection flow: call `controller.closeView(option)` from a suggestion's tap handler; the view closes and the query text is replaced with the selection.
+- When the anchor creates its own controller, it is disposed with the widget; controllers passed via `searchController` are not disposed for you.
 
 ---
 

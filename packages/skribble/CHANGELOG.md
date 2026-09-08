@@ -23,22 +23,13 @@
 
 ### Accessibility
 
-- **Semantic labels**: Added `semanticLabel` parameter to 10 hand-drawn
-  widgets — `WiredButton`, `WiredElevatedButton`, `WiredOutlinedButton`,
-  `WiredTextButton`, `WiredFilledButton`, `WiredIconButton`,
-  `WiredFloatingActionButton`, `WiredToggle`, `WiredSwitch`,
-  and `WiredCupertinoSwitch` (pre-existing).
-  All wrap content in `Semantics(button: true)` or `Semantics(toggled: value)`.
+- **Semantic labels**: Added `semanticLabel` parameter to 10 hand-drawn widgets — `WiredButton`, `WiredElevatedButton`, `WiredOutlinedButton`, `WiredTextButton`, `WiredFilledButton`, `WiredIconButton`, `WiredFloatingActionButton`, `WiredToggle`, `WiredSwitch`, and `WiredCupertinoSwitch` (pre-existing). All wrap content in `Semantics(button: true)` or `Semantics(toggled: value)`.
 
 ### Quality & Tooling
 
-- **`finders.dart` test helper**: Shared `findWiredCanvas`,
-  `findRepaintBoundary`, `findCustomPaint` getters and scoped descendant
-  finders — adopted across all 42 widget test files (100%).
-- **`buildSubject` cleanup**: Migrated last 4 files to `pumpSubject`
-  pattern. Only 1 file retains `buildSubject` (uses `StatefulBuilder`).
-- **Duplicate canvas tests removed**: Deleted `test/canvas/` directory
-  whose 5 tests were already covered in `test/widgets/wired_canvas_test.dart`.
+- **`finders.dart` test helper**: Shared `findWiredCanvas`, `findRepaintBoundary`, `findCustomPaint` getters and scoped descendant finders — adopted across all 42 widget test files (100%).
+- **`buildSubject` cleanup**: Migrated last 4 files to `pumpSubject` pattern. Only 1 file retains `buildSubject` (uses `StatefulBuilder`).
+- **Duplicate canvas tests removed**: Deleted `test/canvas/` directory whose 5 tests were already covered in `test/widgets/wired_canvas_test.dart`.
 - **`codecov.yml`**: Added project/patch coverage thresholds.
 - **Root README rewrite**: Badges, stats table, package/app tables.
 - **SECURITY.md**: Vulnerability reporting policy.
@@ -58,15 +49,11 @@
 
 ### Quality & Tooling
 
-- **100% pumpApp adoption**: All 82 widget test files now use the shared
-  `pumpApp` / `pumpSubject` helper, with `asAppBar`, `asBottomNav`, and
-  `asDrawer` variants for Scaffold slot testing.
+- **100% pumpApp adoption**: All 82 widget test files now use the shared `pumpApp` / `pumpSubject` helper, with `asAppBar`, `asBottomNav`, and `asDrawer` variants for Scaffold slot testing.
 - **MIT LICENSE**: Added project-wide MIT license file.
-- **pub.dev readiness**: Added `homepage` and `documentation` URLs,
-  removed `publish_to: none`.
+- **pub.dev readiness**: Added `homepage` and `documentation` URLs, removed `publish_to: none`.
 - **GitHub templates**: Bug report, feature request, and PR checklist.
-- **CONTRIBUTING.md**: Contributor guide covering setup, conventions,
-  testing requirements (≥ 6 tests), and quality gates.
+- **CONTRIBUTING.md**: Contributor guide covering setup, conventions, testing requirements (≥ 6 tests), and quality gates.
 - **README**: Added Contributing and License sections with links.
 
 ### Stats
@@ -80,58 +67,37 @@
 
 ### Internal Improvements
 
-- **`pumpApp` test helper**: New `test/helpers/pump_app.dart` reduces
-  `MaterialApp(home: Scaffold(body: ...))` boilerplate across widget tests.
-  64 of 88 widget test files migrated, eliminating ~2,500 lines of
-  repetitive wrapping code.
+- **`pumpApp` test helper**: New `test/helpers/pump_app.dart` reduces `MaterialApp(home: Scaffold(body: ...))` boilerplate across widget tests. 64 of 88 widget test files migrated, eliminating ~2,500 lines of repetitive wrapping code.
 - **`dart format`**: Applied consistent formatting across all 213 source files.
-- **`.gitattributes`**: Added for consistent line endings, Dart diff driver,
-  and binary file handling.
+- **`.gitattributes`**: Added for consistent line endings, Dart diff driver, and binary file handling.
 - **README badges**: CI status, license, and Flutter version badges.
 - **Rough engine tests**: +10 `Canvas.drawRough` extension tests.
 
-- **100% pumpApp adoption**: All 82 widget test files now use the `pumpApp`
-  or `pumpSubject` helper (including `asAppBar`, `asBottomNav`, `asDrawer`
-  variants).
+- **100% pumpApp adoption**: All 82 widget test files now use the `pumpApp` or `pumpSubject` helper (including `asAppBar`, `asBottomNav`, `asDrawer` variants).
 - **GitHub templates**: Bug report, feature request, and PR checklist templates.
-- **pub.dev readiness**: Added MIT LICENSE, homepage, documentation URLs,
-  removed `publish_to: none`.
+- **pub.dev readiness**: Added MIT LICENSE, homepage, documentation URLs, removed `publish_to: none`.
 
 ### Stats
 
-- 81 widget source files, 88 widget test files, 857 widget tests,
-  138 rough engine tests, 6 smoke tests = 1,001 library tests +
-  58 storybook tests = **1,059 total**.
+- 81 widget source files, 88 widget test files, 857 widget tests, 138 rough engine tests, 6 smoke tests = 1,001 library tests + 58 storybook tests = **1,059 total**.
 
 ## 0.3.0
 
 ### Complete Theme Integration
 
-Every widget and every painter base class now reads colors from
-`WiredTheme.of(context)` at runtime. Setting a custom `WiredThemeData`
-propagates `borderColor`, `fillColor`, `textColor`, and `disabledTextColor`
-through the entire widget tree — no hardcoded constants remain.
+Every widget and every painter base class now reads colors from `WiredTheme.of(context)` at runtime. Setting a custom `WiredThemeData` propagates `borderColor`, `fillColor`, `textColor`, and `disabledTextColor` through the entire widget tree — no hardcoded constants remain.
 
-- **Painter base classes** (`WiredRectangleBase`, `WiredLineBase`,
-  `WiredRoundedRectangleBase`, `WiredCircleBase`, `WiredInvertedTriangleBase`)
-  accept `borderColor` and `fillColor` parameters
-- **108 painter constructor calls** across 65 widget files updated to pass
-  `borderColor: theme.borderColor`
-- **10 additional widgets** added `WiredTheme.of(context)`:
-  `WiredBottomSheet`, `WiredCalendarDatePicker`, `WiredColorPicker`,
-  `WiredCupertinoSlider`, `WiredCupertinoSwitch`, `WiredDismissible`,
-  `WiredDivider`, `WiredDrawer`, `WiredForm`, `WiredNavigationDrawer`
-- **Deleted `const.dart`** — defaults moved to private constants in
-  `wired_base.dart`
+- **Painter base classes** (`WiredRectangleBase`, `WiredLineBase`, `WiredRoundedRectangleBase`, `WiredCircleBase`, `WiredInvertedTriangleBase`) accept `borderColor` and `fillColor` parameters
+- **108 painter constructor calls** across 65 widget files updated to pass `borderColor: theme.borderColor`
+- **10 additional widgets** added `WiredTheme.of(context)`: `WiredBottomSheet`, `WiredCalendarDatePicker`, `WiredColorPicker`, `WiredCupertinoSlider`, `WiredCupertinoSwitch`, `WiredDismissible`, `WiredDivider`, `WiredDrawer`, `WiredForm`, `WiredNavigationDrawer`
+- **Deleted `const.dart`** — defaults moved to private constants in `wired_base.dart`
 - `WiredBase.pathPainter()` now accepts an optional `color` parameter
 - Removed unused `WiredBase.pathPaint` and `WiredBase.fillPaint` static fields
 
 ### Lint Fixes
 
 - Resolved all `dart analyze --fatal-infos` issues across library and storybook
-- Fixed `comment_references`, `use_null_aware_elements`,
-  `unnecessary_import`, `directives_ordering`, `discarded_futures`,
-  `parameter_assignments`
+- Fixed `comment_references`, `use_null_aware_elements`, `unnecessary_import`, `directives_ordering`, `discarded_futures`, `parameter_assignments`
 - 0 infos, 0 warnings in both `packages/skribble` and `apps/skribble_storybook`
 
 ### Test Coverage
@@ -243,8 +209,7 @@ through the entire widget tree — no hardcoded constants remain.
 ### Theme System
 
 - `WiredTheme` — `InheritedWidget` providing `WiredThemeData` to all descendants
-- `WiredThemeData` — configurable `borderColor`, `textColor`, `fillColor`,
-  `disabledTextColor`, `strokeWidth`, `roughness`, and `DrawConfig`
+- `WiredThemeData` — configurable `borderColor`, `textColor`, `fillColor`, `disabledTextColor`, `strokeWidth`, `roughness`, and `DrawConfig`
 
 ### Infrastructure
 
