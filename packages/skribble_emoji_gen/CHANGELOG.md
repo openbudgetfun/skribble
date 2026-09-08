@@ -1,5 +1,3 @@
 # Changelog
 
-## 0.3.4
-
-- Publish the deterministic OpenMoji emoji and icon generation tools as a public package.
+Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).

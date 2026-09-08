@@ -15,6 +15,8 @@ Skribble publishes seven packages to pub.dev as one synchronized release group:
 
 All packages use the same version and the release tag `v<version>`. Applications, the workspace root, and the documentation site remain private.
 
+The first public release is pinned to `0.1.0`. Package manifests use the unpublished `0.0.1` development baseline after the `0.0.0` registry placeholders. Monochange replaces that baseline when it prepares the release pull request.
+
 ## Record a change
 
 Every releasable pull request needs a file in `.changeset/`. Use the configured Monochange command or follow an existing changeset:
@@ -26,6 +28,8 @@ monochange check
 ```
 
 After the pull request merges, the `Release PR` workflow refreshes the long-running `chore/release*` pull request. It prepares package versions and changelogs, then embeds the authoritative release record in the release commit.
+
+The shared CI setup restores `.fvmrc` after FVM selects the pinned SDK, and the storybook ignores Flutter's generated iOS configuration. These keep the checkout clean while Monochange commits the release branch.
 
 ## Publish a release
 

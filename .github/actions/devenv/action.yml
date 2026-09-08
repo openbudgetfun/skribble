@@ -43,3 +43,7 @@ runs:
     - name: install dependencies
       run: install:all
       shell: devenv shell -- bash -e {0}
+
+    - name: restore tracked fvm configuration
+      run: git restore --worktree -- .fvmrc
+      shell: bash

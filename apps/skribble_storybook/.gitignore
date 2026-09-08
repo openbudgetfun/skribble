@@ -58,5 +58,5 @@ app.*.map.json
 /ios/Pods/
 /ios/.symlinks/
 /ios/Flutter/ephemeral/
-/ios/Flutter/generated.xcconfig
+/ios/Flutter/Generated.xcconfig
 /ios/Flutter/flutter_export_environment.sh
