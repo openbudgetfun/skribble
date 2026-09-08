@@ -91,13 +91,13 @@ class WiredCupertinoListTile extends HookWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (title != null)
-                  DefaultTextStyle(
+                  DefaultTextStyle.merge(
                     style: TextStyle(color: theme.textColor, fontSize: 17),
                     child: title!,
                   ),
                 if (subtitle != null) ...[
                   const SizedBox(height: 2),
-                  DefaultTextStyle(
+                  DefaultTextStyle.merge(
                     style: TextStyle(
                       color: theme.disabledTextColor,
                       fontSize: 14,
@@ -110,7 +110,7 @@ class WiredCupertinoListTile extends HookWidget {
           ),
           if (additionalTrailingText != null) ...[
             const SizedBox(width: 8),
-            DefaultTextStyle(
+            DefaultTextStyle.merge(
               style: TextStyle(color: theme.disabledTextColor, fontSize: 14),
               child: Text(additionalTrailingText!),
             ),
@@ -134,6 +134,7 @@ class WiredCupertinoListTile extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRoundedRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     borderRadius: BorderRadius.circular(8),
                     fillColor: backgroundColor!,
                     borderColor: backgroundColor!,

@@ -1,84 +1,21 @@
 # skribble_emoji
 
-Hand-drawn emoji for the [Skribble](https://github.com/openbudgetfun/skribble)
-design system.
-
-## Overview
-
-`skribble_emoji` provides **1,800+** hand-drawn emoji rendered as SVG path data
-using the `WiredSvgIcon` pipeline from the `skribble` package.
-
-Emoji artwork is sourced from [OpenMoji](https://openmoji.org/) and licensed
-under **CC-BY-SA 4.0**.
-
-### Categories covered
-
-| Category          | Examples                                             |
-| ----------------- | ---------------------------------------------------- |
-| Smileys & Emotion | grinning face, face with tears of joy, thinking face |
-| People & Body     | thumbs up, waving hand, folded hands                 |
-| Animals & Nature  | dog face, cat face, sun, rainbow                     |
-| Food & Drink      | pizza, hamburger, hot beverage                       |
-| Travel & Places   | rocket, house, world map                             |
-| Activities        | trophy, direct hit, party popper                     |
-| Objects           | laptop, key, memo, camera                            |
-| Symbols           | red heart, star, check mark, fire                    |
-| Flags             | regional indicator symbols                           |
-
-## Usage
+Hand-drawn, colored emoji for Flutter from OpenMoji 17.0.0. The catalog contains 4,495 names, including complete skin-tone, flag, and joined sequences.
 
 ```dart
 import 'package:skribble_emoji/skribble_emoji.dart';
 
-// Render an emoji by name
 WiredEmoji.fromName('grinning_face', size: 32);
-
-// Render by Unicode codepoint
-WiredEmoji.fromUnicode(0x1f600, size: 32);
-
-// Look up data and render manually
-final data = lookupSkribbleEmojiByName('fire');
-if (data != null) {
-  WiredEmoji(data: data, size: 48);
-}
+WiredEmoji.fromSequence('👩🏽‍💻', semanticLabel: 'Developer');
+PrecomputedEmoji.fromSequence('🇬🇧', size: 48);
 ```
 
-## API
+Both widgets render precomputed paths that are gently roughened during generation. Colors, strokes, transparency, clipping, and contour holes remain intact. `PrecomputedEmoji.color` only supplies fallback color for uncolored data or a placeholder.
 
-| Symbol                         | Description                                                  |
-| ------------------------------ | ------------------------------------------------------------ |
-| `kSkribbleEmoji`               | `Map<int, WiredSvgIconData>` -- all emoji keyed by codepoint |
-| `kSkribbleEmojiCodePoints`     | `Map<String, int>` -- name to codepoint lookup               |
-| `lookupSkribbleEmojiByName`    | Look up emoji data by string identifier                      |
-| `lookupSkribbleEmojiByUnicode` | Look up emoji data by Unicode codepoint                      |
-| `WiredEmoji`                   | Widget that renders a hand-drawn emoji                       |
+`kSkribbleEmojiNames` includes every name and full hexadecimal sequence. `lookupSkribbleEmojiBySequence` accepts either actual emoji text or hyphenated hexadecimal scalars. The existing `kSkribbleEmoji` and `kSkribbleEmojiCodePoints` maps cover single scalars. Search results include the full `sequence` and the legacy first `codePoint`.
 
-## Regeneration
+From the workspace root, run `dart run packages/skribble_emoji_gen/bin/update_assets.dart` to verify pinned downloads and rebuild emoji, icons, and fonts. The generator's SVG tests and this package's corpus/pixel tests validate the conversion. Do not edit generated maps manually.
 
-The generated Dart files are committed to the repository. To regenerate from
-scratch (e.g. after an OpenMoji update):
+Artwork by [OpenMoji](https://openmoji.org/), licensed [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The gently warped derivatives retain that license; keep the attribution when redistributing artwork.
 
-1. Download OpenMoji SVGs:
-
-```bash
-bash tool/download_openmoji.sh /tmp/openmoji-svgs
-```
-
-2. Run the generation script:
-
-```bash
-python3 tool/generate_emoji.py \
-    --svg-dir /tmp/openmoji-svgs \
-    --output-dir lib/src/generated/
-```
-
-The script downloads the OpenMoji CSV catalog automatically, filters out
-skin-tone variants and complex ZWJ sequences, parses each SVG, and produces:
-
-- `lib/src/generated/skribble_emoji.g.dart` -- the codepoint-to-icon-data map
-- `lib/src/generated/skribble_emoji_codepoints.g.dart` -- the name-to-codepoint map
-
-## Attribution
-
-Emoji artwork: [OpenMoji](https://openmoji.org/) -- the open-source emoji and
-icon project. License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+Source stroke dashes, cap/join styles, miter limits, hidden layers, and stroke-first paint ordering are preserved. Dash gaps and square caps are verified in both Flutter rendering paths.

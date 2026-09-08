@@ -38,6 +38,7 @@ class WiredDataTable extends HookWidget {
             Positioned.fill(
               child: WiredCanvas(
                 painter: WiredRectangleBase(
+                  strokeWidth: theme.strokeWidth,
                   fillColor: theme.fillColor,
                   borderColor: theme.borderColor,
                 ),
@@ -50,14 +51,14 @@ class WiredDataTable extends HookWidget {
                 // Header row
                 _buildHeaderRow(theme),
                 SizedBox(
-                  height: 2,
+                  height: theme.inkExtent,
                   child: WiredCanvas(
                     painter: WiredLineBase(
                       x1: 0,
                       y1: 0,
                       x2: double.infinity,
                       y2: 0,
-                      strokeWidth: 2,
+                      strokeWidth: theme.strokeWidth,
                       borderColor: theme.borderColor,
                     ),
                     fillerType: RoughFilter.noFiller,
@@ -68,9 +69,10 @@ class WiredDataTable extends HookWidget {
                   _buildDataRow(rows[i], theme),
                   if (i < rows.length - 1)
                     SizedBox(
-                      height: 1,
+                      height: theme.inkExtent,
                       child: WiredCanvas(
                         painter: WiredLineBase(
+                          strokeWidth: theme.strokeWidth,
                           x1: 0,
                           y1: 0,
                           x2: double.infinity,
@@ -96,7 +98,7 @@ class WiredDataTable extends HookWidget {
         children: [
           for (int i = 0; i < columns.length; i++)
             Expanded(
-              child: DefaultTextStyle(
+              child: DefaultTextStyle.merge(
                 style: TextStyle(
                   color: theme.textColor,
                   fontWeight: FontWeight.bold,
@@ -119,7 +121,7 @@ class WiredDataTable extends HookWidget {
           children: [
             for (int i = 0; i < row.cells.length && i < columns.length; i++)
               Expanded(
-                child: DefaultTextStyle(
+                child: DefaultTextStyle.merge(
                   style: TextStyle(color: theme.textColor, fontSize: 14),
                   child: row.cells[i],
                 ),

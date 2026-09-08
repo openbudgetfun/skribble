@@ -47,6 +47,7 @@ class WiredFilterChip extends HookWidget {
                   Positioned.fill(
                     child: WiredCanvas(
                       painter: WiredRoundedRectangleBase(
+                        strokeWidth: theme.strokeWidth,
                         borderRadius: BorderRadius.circular(16),
                         fillColor: selected
                             ? theme.borderColor
@@ -74,7 +75,7 @@ class WiredFilterChip extends HookWidget {
                           ),
                           const SizedBox(width: 4),
                         ],
-                        DefaultTextStyle(
+                        DefaultTextStyle.merge(
                           style: TextStyle(
                             color: selected ? theme.fillColor : theme.textColor,
                             fontSize: 13,

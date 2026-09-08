@@ -1,72 +1,28 @@
 ---
-title: E2E Testing
-description: Widget tests, integration tests, and Patrol tests across the Skribble workspace and storybook.
+title: End-to-End Testing
+description: Run the Skribble notebook through Patrol in a real browser, with screenshots and traces.
 ---
 
-# E2E Testing
+# End-to-End Testing
 
-Skribble's testing strategy has three tiers, all runnable from the workspace:
-
-## Tier 1 — Widget tests (unit-level, fast)
-
-Every Wired widget has a widget-test suite in
-`packages/skribble/test/widgets/`, mirroring `lib/src/` layout. They cover
-rendering, interaction, state changes, edge cases, and Semantics. These run
-purely on the Dart VM through `flutter test`:
+The storybook uses Patrol for real-browser interaction tests. Run from the repository root:
 
 ```bash
-cd packages/skribble && flutter test
-```
-
-## Tier 2 — Patrol + integration tests (storybook journeys)
-
-The storybook app carries real-journey tests in
-`apps/skribble_storybook/integration_test/`:
-
-- `patrol_test.dart` — `patrolTest` harness flows (category navigation,
-  component discovery)
-- `journey_test.dart` — cross-page journeys including the icons gallery,
-  emoji catalog, font specimen, and the long-tail widgets from the parity
-  batches
-- `navigation_test.dart` — plain integration navigation regression
-- `screenshots_test.dart` — the screenshot capture pipeline
-
-### Running as widget tests (no device needed)
-
-Patrol tests compile under the standard widget-test binding, so the whole
-suite can run on the host:
-
-```bash
+devenv shell
 cd apps/skribble_storybook
-flutter test integration_test/   # or a single file
+dart pub global activate patrol_cli 4.7.0
+dart pub global run patrol_cli:main test --device chrome \
+  --target integration_test/quality_test.dart --web-headless \
+  --web-screenshot on --web-trace retain-on-failure --web-workers 1
 ```
 
-### Running on a real device (Patrol)
+Use the workspace Flutter/Dart SDK. Patrol CLI 4.7.0 is paired with the storybook's Patrol 4.9.0 dependency. Chrome/Chromium must be available; the CLI installs its Playwright harness. Run `patrol test`, not `flutter test`, for tests that use Patrol's platform automation.
 
-With the native runner configured (Android `MainActivityTest` + iOS
-dev signing), run the suite on a phone or emulator:
+The notebook journeys resize the real browser to 390, 820, and 1,440 pixels, type accented text and currency, save a note, mark a task, reset external state, switch between morning and evening palettes, and toggle reminders. Shared keys live in `lib/testing/quality_keys.dart`. New tests use those keys rather than coordinates or fragile text selectors.
 
-```bash
-cd apps/skribble_storybook
-patrol test -d <device-id>          # native runner: full Patrol features
-flutter test integration_test/ -d <device-id>   # integration-test runner
-```
+Reports are written to `playwright-report/` and screenshots to `test-results/`. CI uploads them even after failures; traces are retained for failing journeys. View the actual screenshot before treating a test as visual evidence. A passing interaction test alone does not prove a font loaded or a border looks good.
 
-Discover device IDs with `flutter devices`. The `patrol:` block in
-`apps/skribble_storybook/pubspec.yaml` configures the test directory
-(`integration_test`) and the Android package name.
+Run the original catalog journeys separately with `--target integration_test/patrol_test.dart`. Widget tests cover more states cheaply, including long labels, narrow layouts, font inheritance, 300% text scaling, theme changes, and deterministic pixel rendering. See [Testing](testing) and [Screenshots](screenshots).
 
-## Tier 3 — CI
-
-GitHub Actions run Tiers 1 and 2 (no device) on every PR; the device tier is
-run by maintainers on phones/emulators before releases to validate
-real-environment behaviour.
-
-## Notes
-
-- The Patrol native Android runner (`androidTest` orchestrator files) is a
-  documented next step: `flutter create . --platforms android` in the
-  storybook, then follow
-  [Patrol's Android setup](https://patrol.leancode.co/documentation#android-setup).
-- Nightly full-suite runs use `melos run flutter-test` + the storybook
-  integration suites.
+These commands exercise Flutter web in Chromium. Native Android and iOS testing requires configured runners and devices; browser coverage must not be reported as native-device coverage. Patrol's current web documentation is at [Patrol web testing](https://patrol.leancode.co/documentation/web).
+The `test:all` command runs Flutter packages sequentially with four test workers per package. This keeps large generated catalogs and timing checks from competing across packages on CI runners.

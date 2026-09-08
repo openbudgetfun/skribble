@@ -61,7 +61,7 @@ class WiredCupertinoSegmentedControl<T extends Object> extends HookWidget {
               painter: WiredRoundedRectangleBase(
                 borderRadius: BorderRadius.circular(8),
                 fillColor: unselectedColor ?? theme.fillColor,
-                strokeWidth: 2,
+                strokeWidth: WiredTheme.of(context).strokeWidth,
                 borderColor: effectiveBorderColor,
               ),
               fillerType: RoughFilter.noFiller,
@@ -75,14 +75,14 @@ class WiredCupertinoSegmentedControl<T extends Object> extends HookWidget {
                 for (var i = 0; i < keys.length; i++) ...[
                   if (i > 0)
                     SizedBox(
-                      width: 2,
+                      width: theme.inkExtent,
                       child: WiredCanvas(
                         painter: WiredLineBase(
                           x1: 1,
                           y1: 0,
                           x2: 1,
                           y2: double.maxFinite,
-                          strokeWidth: 2,
+                          strokeWidth: WiredTheme.of(context).strokeWidth,
                           borderColor: effectiveBorderColor,
                         ),
                         fillerType: RoughFilter.noFiller,
@@ -141,6 +141,7 @@ class _SegmentTile<T> extends HookWidget {
             Positioned.fill(
               child: WiredCanvas(
                 painter: WiredRectangleBase(
+                  strokeWidth: WiredTheme.of(context).strokeWidth,
                   fillColor: selectedColor,
                   borderColor: borderColor,
                 ),
@@ -151,7 +152,7 @@ class _SegmentTile<T> extends HookWidget {
           Padding(
             padding: padding,
             child: Center(
-              child: DefaultTextStyle(
+              child: DefaultTextStyle.merge(
                 style: TextStyle(
                   color: isSelected ? Colors.white : borderColor,
                   fontSize: 14,
@@ -217,6 +218,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
           Positioned.fill(
             child: WiredCanvas(
               painter: WiredRoundedRectangleBase(
+                strokeWidth: WiredTheme.of(context).strokeWidth,
                 borderRadius: BorderRadius.circular(8),
                 fillColor: effectiveBgColor,
                 borderColor: theme.borderColor,
@@ -244,6 +246,8 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
                                 padding: const EdgeInsets.all(2),
                                 child: WiredCanvas(
                                   painter: WiredRoundedRectangleBase(
+                                    strokeWidth: WiredTheme.of(context)
+                                        .strokeWidth,
                                     borderRadius: BorderRadius.circular(6),
                                     fillColor: effectiveThumbColor,
                                     borderColor: theme.borderColor,
@@ -258,7 +262,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
                           Padding(
                             padding: padding,
                             child: Center(
-                              child: DefaultTextStyle(
+                              child: DefaultTextStyle.merge(
                                 style: TextStyle(
                                   color: theme.textColor,
                                   fontSize: 14,

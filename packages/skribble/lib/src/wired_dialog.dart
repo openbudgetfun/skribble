@@ -28,6 +28,7 @@ class WiredDialog extends HookWidget {
             padding: const EdgeInsets.all(5.0),
             child: WiredCanvas(
               painter: WiredRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 fillColor: theme.fillColor,
                 borderColor: theme.borderColor,
               ),

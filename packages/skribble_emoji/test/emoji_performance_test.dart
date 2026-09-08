@@ -4,6 +4,9 @@ import 'package:skribble_emoji/skribble_emoji.dart';
 void main() {
   group('Emoji Performance', () {
     test('emoji lookup by unicode is fast', () {
+      // Exclude the one-time lazy initialization of the generated catalog.
+      lookupSkribbleEmojiByUnicode(0x1f600);
+
       final stopwatch = Stopwatch()..start();
 
       // Test looking up 1000 emoji by unicode
@@ -19,6 +22,8 @@ void main() {
     });
 
     test('emoji lookup by name is fast', () {
+      // As above, measure repeated lookup separately from lazy catalog setup.
+      lookupSkribbleEmojiByName('grinning_face');
       final stopwatch = Stopwatch()..start();
 
       // Test looking up emoji by name

@@ -50,6 +50,7 @@ class WiredRadio<T> extends HookWidget {
               width: 48.0,
               child: WiredCanvas(
                 painter: WiredCircleBase(
+                  strokeWidth: theme.strokeWidth,
                   diameterRatio: .7,
                   borderColor: theme.borderColor,
                 ),
@@ -62,6 +63,7 @@ class WiredRadio<T> extends HookWidget {
                 width: 24.0,
                 child: WiredCanvas(
                   painter: WiredCircleBase(
+                    strokeWidth: theme.strokeWidth,
                     diameterRatio: .7,
                     fillColor: theme.textColor,
                     borderColor: theme.borderColor,

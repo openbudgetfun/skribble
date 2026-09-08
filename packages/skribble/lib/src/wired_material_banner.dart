@@ -67,6 +67,7 @@ class WiredMaterialBanner extends HookWidget {
           Positioned.fill(
             child: WiredCanvas(
               painter: WiredRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 fillColor: bgColor,
                 borderColor: theme.borderColor,
               ),
@@ -85,9 +86,10 @@ class WiredMaterialBanner extends HookWidget {
             left: 0,
             right: 0,
             bottom: 0,
-            height: 3,
+            height: theme.inkExtent,
             child: WiredCanvas(
               painter: WiredLineBase(
+                strokeWidth: theme.strokeWidth,
                 x1: 0,
                 y1: 1,
                 x2: double.maxFinite,
@@ -116,7 +118,7 @@ class WiredMaterialBanner extends HookWidget {
                   child: leading,
                 ),
               Expanded(
-                child: DefaultTextStyle(
+                child: DefaultTextStyle.merge(
                   style:
                       contentTextStyle ??
                       TextStyle(color: theme.textColor, fontSize: 14),
@@ -145,7 +147,7 @@ class WiredMaterialBanner extends HookWidget {
             child: leading,
           ),
         Expanded(
-          child: DefaultTextStyle(
+          child: DefaultTextStyle.merge(
             style:
                 contentTextStyle ??
                 TextStyle(color: theme.textColor, fontSize: 14),

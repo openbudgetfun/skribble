@@ -17,10 +17,14 @@ A basic button with a hand-drawn rectangle border. The simplest entry point for 
 
 ```dart
 WiredButton(
-  onPressed: () => print('tapped'),
-  child: Text('Click me'),
+  onPressed: () {
+    // Handle tap
+  },
+  child: Text('Press Me'),
 )
 ```
+
+<!-- {/docsButtonBasicUsage} -->
 
 ### Constructor parameters
 
@@ -41,8 +45,6 @@ WiredButton(
 ## WiredElevatedButton
 
 An elevated variant with a slight offset shadow layer rendered behind the main button face. Both the shadow and the face use hachure fills for a tactile, layered look.
-
-<!-- {=docsElevatedButtonUsage} -->
 
 ```dart
 WiredElevatedButton(
@@ -70,8 +72,6 @@ WiredElevatedButton(
 
 A solid button with a dense hachure fill, analogous to Material's `FilledButton`. Good for primary call-to-action placement.
 
-<!-- {=docsFilledButtonUsage} -->
-
 ```dart
 WiredFilledButton(
   onPressed: () {},
@@ -81,13 +81,13 @@ WiredFilledButton(
 
 ### Constructor parameters
 
-| Parameter         | Type            | Default      | Description                                         |
-| ----------------- | --------------- | ------------ | --------------------------------------------------- |
-| `child`           | `Widget`        | **required** | The button label.                                   |
-| `onPressed`       | `VoidCallback?` | `null`       | Callback when tapped.                               |
-| `fillColor`       | `Color?`        | `null`       | Custom fill color. Defaults to `theme.borderColor`. |
-| `foregroundColor` | `Color?`        | `null`       | Text/icon color. Defaults to white.                 |
-| `semanticLabel`   | `String?`       | `null`       | Accessibility label.                                |
+| Parameter         | Type            | Default      | Description                                              |
+| ----------------- | --------------- | ------------ | -------------------------------------------------------- |
+| `child`           | `Widget`        | **required** | The button label.                                        |
+| `onPressed`       | `VoidCallback?` | `null`       | Callback when tapped.                                    |
+| `fillColor`       | `Color?`        | `null`       | Custom fill color. Defaults to `theme.borderColor`.      |
+| `foregroundColor` | `Color?`        | `null`       | Text/icon color. Defaults to contrasting black or white. |
+| `semanticLabel`   | `String?`       | `null`       | Accessibility label.                                     |
 
 ### Notes
 
@@ -99,8 +99,6 @@ WiredFilledButton(
 ## WiredFloatingActionButton
 
 A circular floating action button with a hand-drawn circle border and hachure fill. Designed for primary screen actions.
-
-<!-- {=docsFabUsage} -->
 
 ```dart
 WiredFloatingActionButton(
@@ -131,8 +129,6 @@ WiredFloatingActionButton(
 
 An icon button enclosed in a hand-drawn circle border with no fill. Ideal for toolbar actions and compact controls.
 
-<!-- {=docsIconButtonUsage} -->
-
 ```dart
 WiredIconButton(
   icon: Icons.favorite,
@@ -161,8 +157,6 @@ WiredIconButton(
 
 A button with a thick hand-drawn border (2px stroke width) and no fill. The heavier outline provides strong visual emphasis without a background.
 
-<!-- {=docsOutlinedButtonUsage} -->
-
 ```dart
 WiredOutlinedButton(
   onPressed: () {},
@@ -187,8 +181,6 @@ WiredOutlinedButton(
 ## WiredTextButton
 
 A text-only button with a sketchy underline drawn beneath the label. No border or fill surrounds the text.
-
-<!-- {=docsTextButtonUsage} -->
 
 ```dart
 WiredTextButton(
@@ -215,8 +207,6 @@ WiredTextButton(
 ## WiredToggleButtons
 
 A multi-toggle button group where each button gets a sketchy rectangle border. Selected buttons receive a hachure fill; unselected buttons remain transparent.
-
-<!-- {=docsToggleButtonsUsage} -->
 
 ```dart
 WiredToggleButtons(
@@ -254,8 +244,6 @@ WiredToggleButtons(
 ## WiredSegmentedButton
 
 A segmented control with connected rounded rectangles, analogous to Material 3's `SegmentedButton`. Each segment can display a label and optional icon.
-
-<!-- {=docsSegmentedButtonUsage} -->
 
 ```dart
 WiredSegmentedButton<String>(
@@ -300,8 +288,6 @@ WiredSegmentedButton<String>(
 
 A Cupertino-style press-opacity button with a hand-drawn rounded rectangle border. Mirrors the `CupertinoButton` API including a `.filled` factory constructor.
 
-<!-- {=docsCupertinoButtonUsage} -->
-
 ```dart
 // Default (outlined)
 WiredCupertinoButton(
@@ -335,3 +321,9 @@ WiredCupertinoButton.filled(
 - Uses a `useState` hook for tracking press state and `AnimatedOpacity` for the press feedback.
 - The filled variant sets `color` to `CupertinoColors.activeBlue` and uses hachure fill.
 - Disabled buttons render at 40% opacity.
+
+## Shared ink and typography
+
+Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.
+
+`WiredFilledButton` uses an opaque rough fill so its label stays readable. Without an explicit foreground color, it selects black or white for contrast with the chosen fill.

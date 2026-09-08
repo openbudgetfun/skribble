@@ -43,6 +43,7 @@ class WiredChip extends HookWidget {
                 Positioned.fill(
                   child: WiredCanvas(
                     painter: WiredRoundedRectangleBase(
+                      strokeWidth: theme.strokeWidth,
                       borderRadius: BorderRadius.circular(16),
                       borderColor: theme.borderColor,
                     ),
@@ -58,7 +59,7 @@ class WiredChip extends HookWidget {
                         avatar!,
                         const SizedBox(width: 8),
                       ],
-                      DefaultTextStyle(
+                      DefaultTextStyle.merge(
                         style: TextStyle(color: theme.textColor, fontSize: 13),
                         child: label,
                       ),

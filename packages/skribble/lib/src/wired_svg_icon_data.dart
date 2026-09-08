@@ -31,6 +31,12 @@ sealed class WiredSvgPrimitive {
     this.fillColor,
     this.strokeColor,
     this.strokeWidth = 1.0,
+    this.clipPaths = const [],
+    this.strokeDashArray = const [],
+    this.strokeDashOffset = 0,
+    this.strokeCap = StrokeCap.round,
+    this.strokeJoin = StrokeJoin.round,
+    this.strokeMiterLimit = 4,
   });
 
   const factory WiredSvgPrimitive.path(
@@ -39,6 +45,12 @@ sealed class WiredSvgPrimitive {
     String? fillColor,
     String? strokeColor,
     double? strokeWidth,
+    List<String> clipPaths,
+    List<double> strokeDashArray,
+    double strokeDashOffset,
+    StrokeCap strokeCap,
+    StrokeJoin strokeJoin,
+    double strokeMiterLimit,
   }) = WiredSvgPathPrimitive;
 
   const factory WiredSvgPrimitive.circle({
@@ -82,6 +94,66 @@ sealed class WiredSvgPrimitive {
   /// Outline width from the source SVG (`stroke-width`), defaulting to 1.
   final double strokeWidth;
 
+  /// SVG clipping paths in the same coordinate space as this primitive.
+  final List<String> clipPaths;
+
+  /// Alternating painted and unpainted lengths in source coordinates.
+  final List<double> strokeDashArray;
+
+  /// Distance into the dash pattern at each contour's start.
+  final double strokeDashOffset;
+
+  /// Shape of open stroke endpoints.
+  final StrokeCap strokeCap;
+
+  /// Shape of stroke corners.
+  final StrokeJoin strokeJoin;
+
+  /// Maximum miter length relative to the stroke width.
+  final double strokeMiterLimit;
+
+  /// Builds the stroke geometry, preserving SVG dashes on each contour.
+  Path buildStrokePath() {
+    final path = buildPath();
+    if (strokeDashArray.isEmpty) return path;
+    if (strokeDashArray.any((value) => !value.isFinite || value < 0) ||
+        !strokeDashOffset.isFinite) {
+      throw const FormatException(
+        'SVG dash lengths must be finite and nonnegative.',
+      );
+    }
+    final pattern = strokeDashArray.length.isOdd
+        ? [...strokeDashArray, ...strokeDashArray]
+        : strokeDashArray;
+    final length = pattern.fold(0.0, (sum, value) => sum + value);
+    if (length == 0) return path;
+    final dashed = Path();
+    for (final metric in path.computeMetrics()) {
+      var index = 0;
+      var offset = strokeDashOffset % length;
+      while (offset >= pattern[index]) {
+        offset -= pattern[index];
+        index = (index + 1) % pattern.length;
+      }
+      var position = -offset;
+      while (position < metric.length) {
+        final end = position + pattern[index];
+        if (index.isEven && end > 0 && end > position) {
+          dashed.addPath(
+            metric.extractPath(
+              position.clamp(0, metric.length),
+              end.clamp(0, metric.length),
+            ),
+            Offset.zero,
+          );
+        }
+        position = end;
+        index = (index + 1) % pattern.length;
+      }
+    }
+    return dashed;
+  }
+
   Path buildPath();
 
   Path createPath() {
@@ -96,6 +168,12 @@ sealed class WiredSvgPrimitive {
 final class WiredSvgPathPrimitive extends WiredSvgPrimitive {
   const WiredSvgPathPrimitive(
     this.data, {
+    super.clipPaths,
+    super.strokeDashArray,
+    super.strokeDashOffset,
+    super.strokeCap,
+    super.strokeJoin,
+    super.strokeMiterLimit,
     super.fillRule,
     super.fillColor,
     super.strokeColor,

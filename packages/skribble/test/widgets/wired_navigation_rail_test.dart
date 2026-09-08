@@ -369,9 +369,9 @@ void main() {
         ),
       );
 
-      // The rail main column is 72px wide, plus the 2px border line.
+      // The rail main column is 72px wide, plus space for the themed pen.
       final railSize = tester.getSize(find.byType(WiredNavigationRail));
-      expect(railSize.width, 74.0);
+      expect(railSize.width, 72 + WiredThemeData.defaultTheme.inkExtent);
     });
   });
 }

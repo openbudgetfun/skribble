@@ -13,8 +13,6 @@ Skribble renders Material icons with rough, hand-drawn outlines and optional hac
 
 The primary icon widget. Looks up the given `IconData` in the pre-generated rough icon catalog and renders it with hand-drawn strokes. Falls back to Flutter's standard `Icon` for unsupported icon families.
 
-<!-- {=docsIconUsage} -->
-
 ```dart
 // Basic usage
 WiredIcon(icon: Icons.home)
@@ -68,8 +66,6 @@ The `WiredIconFillStyle` enum controls how icon shapes are filled:
 
 Renders a pre-parsed `WiredSvgIconData` with rough hand-drawn strokes. This is the lower-level rendering widget used by `WiredIcon` internally.
 
-<!-- {=docsSvgIconUsage} -->
-
 ```dart
 WiredSvgIcon(
   data: myCustomSvgIconData,
@@ -108,8 +104,6 @@ WiredSvgIcon(
 
 The data type that represents a pre-parsed SVG icon. Contains the viewport dimensions and a list of drawable primitives.
 
-<!-- {=docsSvgIconDataUsage} -->
-
 ```dart
 const myIcon = WiredSvgIconData(
   width: 24,
@@ -146,8 +140,6 @@ Each primitive supports an optional `fillRule` parameter (`WiredSvgFillRule.nonZ
 ## WiredAnimatedIcon
 
 A hand-drawn wrapper around Flutter's `AnimatedIcon`. Applies Skribble theme colors while preserving the standard animation behavior.
-
-<!-- {=docsAnimatedIconUsage} -->
 
 ```dart
 final controller = useAnimationController(
@@ -300,8 +292,6 @@ The `skribble_icons_custom` package provides tooling for generating rough icon c
 3. Run the generation pipeline to produce a Dart file with `WiredSvgIconData` constants.
 4. Use the generated constants with `WiredSvgIcon`.
 
-<!-- {=docsCustomIconsUsage} -->
-
 ```dart
 // After generating from your SVG set:
 import 'package:my_app/generated/custom_icons.g.dart';
@@ -319,3 +309,9 @@ WiredSvgIcon(
 - The generator handles path, circle, and ellipse SVG elements.
 - Fill rules (nonZero / evenOdd) are preserved from the source SVG.
 - Complex SVG features (gradients, filters, masks) are not supported -- icons should be simple path-based designs.
+
+## Reproducible catalogs and readable counters
+
+The Material catalog contains 8,622 unique icon codepoints (8,825 names including aliases) for the pinned Flutter 3.47.0 SDK. Run `./scripts/check_rough_icons_ci.sh all` to check unresolved symbols and generated catalog drift. The 30 curated icons regenerate from `packages/skribble_icons/tool/skribble_icons.manifest.json` with `dart run packages/skribble_emoji_gen/bin/generate_icons.dart`.
+
+Curated geometry retains its source view box, preventing oversized output. Runtime rough fills preserve separate contours and even-odd fill rules, so rings, search symbols, and other counters stay open. Small icons use a gentler wobble than layout borders. `WiredSvgPrimitive.path` also accepts `clipPaths` in the same coordinate system. Source colors may be `#RGB`, `#RRGGBB`, or `#RRGGBBAA`.

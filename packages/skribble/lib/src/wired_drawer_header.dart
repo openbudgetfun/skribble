@@ -52,6 +52,7 @@ class WiredDrawerHeader extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     fillColor: theme.borderColor.withValues(alpha: 0.06),
                     borderColor: theme.borderColor,
                   ),
@@ -77,9 +78,10 @@ class WiredDrawerHeader extends HookWidget {
               left: 0,
               right: 0,
               bottom: 0,
-              height: 3,
+              height: theme.inkExtent,
               child: WiredCanvas(
                 painter: WiredLineBase(
+                  strokeWidth: theme.strokeWidth,
                   x1: 0,
                   y1: 1,
                   x2: double.maxFinite,
@@ -150,6 +152,7 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     fillColor: theme.borderColor.withValues(alpha: 0.08),
                     borderColor: theme.borderColor,
                   ),
@@ -183,7 +186,7 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
                     const Spacer(),
                     // Account info
                     if (accountName != null)
-                      DefaultTextStyle(
+                      DefaultTextStyle.merge(
                         style: TextStyle(
                           color: theme.textColor,
                           fontSize: 14,
@@ -192,7 +195,7 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
                         child: accountName!,
                       ),
                     if (accountEmail != null)
-                      DefaultTextStyle(
+                      DefaultTextStyle.merge(
                         style: TextStyle(
                           color: theme.textColor.withValues(alpha: 0.7),
                           fontSize: 12,
@@ -208,9 +211,10 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
               left: 0,
               right: 0,
               bottom: 0,
-              height: 3,
+              height: theme.inkExtent,
               child: WiredCanvas(
                 painter: WiredLineBase(
+                  strokeWidth: theme.strokeWidth,
                   x1: 0,
                   y1: 1,
                   x2: double.maxFinite,

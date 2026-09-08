@@ -55,9 +55,9 @@ class WiredSvgIcon extends HookWidget {
     final effectiveDrawConfig =
         drawConfig ??
         DrawConfig.build(
-          maxRandomnessOffset: math.max(2.5, effectiveSize / 10),
-          roughness: 1.8,
-          bowing: 1.6,
+          maxRandomnessOffset: math.max(0.35, effectiveSize / 80),
+          roughness: 0.65,
+          bowing: 0.8,
           curveFitting: 0.9,
           curveTightness: 0,
           curveStepCount: 8,
@@ -207,6 +207,18 @@ List<_PreparedPrimitive> _preparePrimitives({
       .map(
         (primitive) => _PreparedPrimitive(
           path: primitive.buildPath().transform(transform),
+          strokePath: primitive.buildStrokePath().transform(transform),
+          strokeCap: primitive.strokeCap,
+          strokeJoin: primitive.strokeJoin,
+          strokeMiterLimit: primitive.strokeMiterLimit,
+          clips: primitive.clipPaths
+              .map(
+                (data) =>
+                    WiredSvgPrimitive.path(data)
+                        .buildPath()
+                        .transform(transform),
+              )
+              .toList(growable: false),
           fillColor: primitive.fillColor == null
               ? null
               : _parseSvgColor(primitive.fillColor!),
@@ -227,6 +239,10 @@ Color? _parseSvgColor(String value) {
   hex = hex.substring(1);
   if (hex.length == 3) {
     hex = hex.split('').map((c) => c + c).join();
+  }
+  if (hex.length == 8) {
+    final rgba = int.tryParse(hex, radix: 16);
+    return rgba == null ? null : Color(((rgba & 255) << 24) | (rgba >> 8));
   }
   if (hex.length != 6) return null;
   final rgb = int.tryParse(hex, radix: 16);
@@ -285,12 +301,22 @@ Float64List _buildTransform({
 final class _PreparedPrimitive {
   const _PreparedPrimitive({
     required this.path,
+    required this.strokePath,
+    required this.strokeCap,
+    required this.strokeJoin,
+    required this.strokeMiterLimit,
+    required this.clips,
     this.fillColor,
     this.strokeColor,
     this.strokeWidth = 1,
   });
 
   final Path path;
+  final Path strokePath;
+  final StrokeCap strokeCap;
+  final StrokeJoin strokeJoin;
+  final double strokeMiterLimit;
+  final List<Path> clips;
 
   /// Resolved paint colours, or null to use the ambient single colour.
   final Color? fillColor;
@@ -338,6 +364,8 @@ final class _WiredSvgIconPainter extends CustomPainter {
       ..isAntiAlias = true;
 
     for (final primitive in primitives) {
+      canvas.save();
+      primitive.clips.forEach(canvas.clipPath);
       // Per-primitive colours (from source SVG artwork) override the
       // ambient single colour. Precomputed Material icons ship without
       // colours and use the theme colour; emoji carry their OpenMoji
@@ -358,14 +386,19 @@ final class _WiredSvgIconPainter extends CustomPainter {
           );
         }
         if (primitive.strokeColor != null) {
-          _paintOutline(
-            canvas,
-            primitive.path,
-            sketchPaint
+          canvas.drawPath(
+            primitive.strokePath,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..isAntiAlias = true
               ..color = primitive.strokeColor!
-              ..strokeWidth = math.max(0.8, 1.9 * (primitive.strokeWidth / 2)),
+              ..strokeWidth = primitive.strokeWidth
+              ..strokeCap = primitive.strokeCap
+              ..strokeJoin = primitive.strokeJoin
+              ..strokeMiterLimit = primitive.strokeMiterLimit,
           );
         }
+        canvas.restore();
         continue;
       }
 
@@ -410,6 +443,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
       }
 
       _paintOutline(canvas, primitive.path, outlinePaint);
+      canvas.restore();
     }
   }
 
@@ -424,64 +458,28 @@ final class _WiredSvgIconPainter extends CustomPainter {
     required Paint paint,
     required double step,
   }) {
-    final points = <Offset>[];
-    for (final metric in path.computeMetrics()) {
-      points.addAll(_sampleMetric(metric, distance: step));
-    }
-    if (points.length < 3) {
+    if (drawConfig.roughness == 0) {
       canvas.drawPath(path, paint);
       return;
     }
-
-    // Smooth radial wobble: deterministic per-index noise, smoothed over
-    // neighbours so the silhouette wobbles like a pen stroke, not static.
-    final centroid = Offset(
-      points.fold(0.0, (acc, p) => acc + p.dx) / points.length,
-      points.fold(0.0, (acc, p) => acc + p.dy) / points.length,
-    );
-    final amplitude = math.max(2.0, path.getBounds().shortestSide / 8);
-    final raw = [
-      for (var i = 0; i < points.length; i++)
-        math.sin(i * 12.9898) * 43758.5453 % 1.0 - 0.5,
-    ];
-    // Two smoothing passes for pen-like wobble.
-    for (var pass = 0; pass < 2; pass++) {
-      final smoothed = List<double>.filled(raw.length, 0);
-      for (var i = 0; i < raw.length; i++) {
-        final a = raw[(i - 1 + raw.length) % raw.length];
-        final b = raw[i];
-        final c = raw[(i + 1) % raw.length];
-        smoothed[i] = a * 0.25 + b * 0.5 + c * 0.25;
+    final wobbled = Path()..fillType = path.fillType;
+    final amplitude = (drawConfig.roughness ?? 1) * 0.35;
+    // Each contour stays separate: joining contours paints over counters in
+    // letters, rings, search icons, and other shapes with holes.
+    for (final metric in path.computeMetrics()) {
+      final points = _sampleMetric(metric, distance: step);
+      for (var i = 0; i < points.length; i++) {
+        final point = points[i];
+        final x = point.dx + amplitude * math.sin(point.dy / 3.5);
+        final y = point.dy + amplitude * math.sin(point.dx / 4.5);
+        if (i == 0) {
+          wobbled.moveTo(x, y);
+        } else {
+          wobbled.lineTo(x, y);
+        }
       }
-      for (var i = 0; i < raw.length; i++) {
-        raw[i] = smoothed[i];
-      }
+      if (metric.isClosed) wobbled.close();
     }
-
-    final wobbled = Path();
-    for (var i = 0; i < points.length; i++) {
-      final p = points[i];
-      final fromCenter = p - centroid;
-      final dist = fromCenter.distance;
-      var nx = 0.0;
-      var ny = 0.0;
-      if (dist > 0.0001) {
-        nx = fromCenter.dx / dist;
-        ny = fromCenter.dy / dist;
-      }
-      final scale = 1 + raw[i] * (amplitude / math.max(dist, 1));
-      final wx =
-          centroid.dx + fromCenter.dx * scale + nx * raw[i] * amplitude * 0.5;
-      final wy =
-          centroid.dy + fromCenter.dy * scale + ny * raw[i] * amplitude * 0.5;
-      if (i == 0) {
-        wobbled.moveTo(wx, wy);
-      } else {
-        wobbled.lineTo(wx, wy);
-      }
-    }
-    wobbled.close();
-
     canvas.drawPath(wobbled, paint);
   }
 

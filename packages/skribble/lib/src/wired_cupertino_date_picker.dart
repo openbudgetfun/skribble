@@ -71,6 +71,7 @@ class WiredCupertinoDatePicker extends HookWidget {
             Positioned.fill(
               child: WiredCanvas(
                 painter: WiredRoundedRectangleBase(
+                  strokeWidth: theme.strokeWidth,
                   borderRadius: borderRadius,
                   borderColor: theme.borderColor,
                 ),
@@ -83,6 +84,7 @@ class WiredCupertinoDatePicker extends HookWidget {
                 height: itemExtent,
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     fillColor: theme.borderColor.withValues(alpha: 0.08),
                     borderColor: theme.borderColor,
                   ),

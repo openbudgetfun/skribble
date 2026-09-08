@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'dart:math' as math;
+
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_painter_base.dart';
@@ -20,6 +22,8 @@ class WiredBase {
       ..color = color
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
       ..strokeWidth = 2;
   }
 
@@ -31,6 +35,8 @@ class WiredBase {
       ..color = color
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
       ..strokeWidth = strokeWidth;
   }
 }
@@ -71,7 +77,7 @@ class WiredRectangleBase extends WiredPainterBase {
     this.rightIndent = 0.0,
     this.fillColor = _defaultFillColor,
     this.borderColor = _defaultBorderColor,
-    this.strokeWidth = 2,
+    this.strokeWidth = 2.4,
   });
 
   @override
@@ -82,11 +88,12 @@ class WiredRectangleBase extends WiredPainterBase {
     Filler filler,
   ) {
     final Generator generator = Generator(drawConfig, filler);
+    final rect = _inkRect(size, strokeWidth, drawConfig);
     final Drawable figure = generator.rectangle(
-      0 + leftIndent,
-      0,
-      size.width - leftIndent - rightIndent,
-      size.height,
+      rect.left + leftIndent,
+      rect.top,
+      math.max(0, rect.width - leftIndent - rightIndent),
+      rect.height,
     );
     canvas.drawRough(
       figure,
@@ -103,7 +110,7 @@ class WiredInvertedTriangleBase extends WiredPainterBase {
 
   WiredInvertedTriangleBase({
     this.borderColor = _defaultBorderColor,
-    this.strokeWidth = 2,
+    this.strokeWidth = 2.4,
   });
 
   @override
@@ -114,10 +121,11 @@ class WiredInvertedTriangleBase extends WiredPainterBase {
     Filler filler,
   ) {
     final Generator generator = Generator(drawConfig, filler);
+    final rect = _inkRect(size, strokeWidth, drawConfig);
     final points = [
-      PointD(0, 0),
-      PointD(size.width, 0),
-      PointD(size.width / 2, size.height),
+      PointD(rect.left, rect.top),
+      PointD(rect.right, rect.top),
+      PointD(rect.center.dx, rect.bottom),
     ];
     final Drawable figure = generator.polygon(points);
     canvas.drawRough(
@@ -168,7 +176,13 @@ class WiredLineBase extends WiredPainterBase {
     if (ly2 > size.height) ly2 = size.height;
 
     final Generator generator = Generator(drawConfig, filler);
-    final Drawable figure = generator.line(lx1, ly1, lx2, ly2);
+    final rect = _inkRect(size, strokeWidth, drawConfig);
+    final Drawable figure = generator.line(
+      lx1.clamp(rect.left, rect.right),
+      ly1.clamp(rect.top, rect.bottom),
+      lx2.clamp(rect.left, rect.right),
+      ly2.clamp(rect.top, rect.bottom),
+    );
     canvas.drawRough(
       figure,
       WiredBase.pathPainter(strokeWidth, color: borderColor),
@@ -188,7 +202,7 @@ class WiredRoundedRectangleBase extends WiredPainterBase {
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
     this.fillColor = _defaultFillColor,
     this.borderColor = _defaultBorderColor,
-    this.strokeWidth = 2,
+    this.strokeWidth = 2.4,
   });
 
   @override
@@ -199,11 +213,12 @@ class WiredRoundedRectangleBase extends WiredPainterBase {
     Filler filler,
   ) {
     final Generator generator = Generator(drawConfig, filler);
+    final rect = _inkRect(size, strokeWidth, drawConfig);
     final Drawable figure = generator.roundedRectangle(
-      0,
-      0,
-      size.width,
-      size.height,
+      rect.left,
+      rect.top,
+      rect.width,
+      rect.height,
       borderRadius.topLeft.x,
       borderRadius.topRight.x,
       borderRadius.bottomRight.x,
@@ -228,7 +243,7 @@ class WiredCircleBase extends WiredPainterBase {
     this.diameterRatio = 1,
     this.fillColor = _defaultFillColor,
     this.borderColor = _defaultBorderColor,
-    this.strokeWidth = 2,
+    this.strokeWidth = 2.4,
   });
 
   @override
@@ -239,12 +254,11 @@ class WiredCircleBase extends WiredPainterBase {
     Filler filler,
   ) {
     final Generator generator = Generator(drawConfig, filler);
+    final rect = _inkRect(size, strokeWidth, drawConfig);
     final Drawable figure = generator.circle(
       size.width / 2,
       size.height / 2,
-      size.width > size.height
-          ? size.width * diameterRatio
-          : size.height * diameterRatio,
+      rect.shortestSide * diameterRatio,
     );
     canvas.drawRough(
       figure,
@@ -252,4 +266,13 @@ class WiredCircleBase extends WiredPainterBase {
       WiredBase.fillPainter(fillColor),
     );
   }
+}
+
+// Keep both pen passes inside a clipped parent, including at fractional DPR.
+Rect _inkRect(Size size, double strokeWidth, DrawConfig config) {
+  final bleed =
+      strokeWidth / 2 +
+      1 +
+      (config.maxRandomnessOffset ?? 0) * (config.roughness ?? 0);
+  return (Offset.zero & size).deflate(math.min(bleed, size.shortestSide / 2));
 }

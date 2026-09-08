@@ -97,6 +97,7 @@ class WiredCupertinoSwitch extends HookWidget {
                     height: _trackHeight,
                     child: WiredCanvas(
                       painter: WiredRoundedRectangleBase(
+                        strokeWidth: theme.strokeWidth,
                         borderRadius: BorderRadius.circular(16),
                         fillColor: value
                             ? effectiveActiveColor
@@ -117,6 +118,7 @@ class WiredCupertinoSwitch extends HookWidget {
                       height: _thumbSize,
                       child: WiredCanvas(
                         painter: WiredCircleBase(
+                          strokeWidth: theme.strokeWidth,
                           fillColor: effectiveThumbColor,
                           borderColor: theme.borderColor,
                         ),

@@ -46,6 +46,7 @@ class WiredSegmentedButton<T> extends HookWidget {
             Positioned.fill(
               child: WiredCanvas(
                 painter: WiredRoundedRectangleBase(
+                  strokeWidth: theme.strokeWidth,
                   borderRadius: BorderRadius.circular(8),
                   borderColor: theme.borderColor,
                 ),
@@ -62,6 +63,7 @@ class WiredSegmentedButton<T> extends HookWidget {
                       height: kWiredButtonHeight,
                       child: WiredCanvas(
                         painter: WiredLineBase(
+                          strokeWidth: theme.strokeWidth,
                           x1: 0,
                           y1: 0,
                           x2: 0,
@@ -103,9 +105,10 @@ class WiredSegmentedButton<T> extends HookWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: isSelected
             ? RoughBoxDecoration(
+                drawConfig: theme.drawConfig,
                 shape: RoughBoxShape.rectangle,
                 borderStyle: RoughDrawingStyle(
-                  width: 0.5,
+                  width: theme.strokeWidth,
                   color: theme.borderColor,
                 ),
                 filler: HachureFiller(FillerConfig.build(hachureGap: 3)),

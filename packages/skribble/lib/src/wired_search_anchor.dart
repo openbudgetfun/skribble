@@ -196,6 +196,7 @@ class _WiredSearchView extends HookWidget {
             Positioned.fill(
               child: WiredCanvas(
                 painter: WiredRoundedRectangleBase(
+                  strokeWidth: theme.strokeWidth,
                   borderRadius: const BorderRadius.all(Radius.circular(16)),
                   fillColor: theme.fillColor,
                   borderColor: theme.borderColor,

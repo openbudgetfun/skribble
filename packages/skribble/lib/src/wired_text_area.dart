@@ -44,6 +44,7 @@ class WiredTextArea extends HookWidget {
           Positioned.fill(
             child: WiredCanvas(
               painter: WiredRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 fillColor: theme.fillColor,
                 borderColor: theme.borderColor,
               ),
@@ -56,6 +57,9 @@ class WiredTextArea extends HookWidget {
             maxLines: maxLines,
             minLines: minLines,
             decoration: InputDecoration(
+              filled: false,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
               border: InputBorder.none,
               hintText: hintText,
               hintStyle: hintStyle,

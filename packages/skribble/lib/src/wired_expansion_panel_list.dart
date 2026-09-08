@@ -57,9 +57,10 @@ class WiredExpansionPanelList extends HookWidget {
           for (int i = 0; i < children.length; i++) ...[
             if (i > 0)
               SizedBox(
-                height: 1,
+                height: theme.inkExtent,
                 child: WiredCanvas(
                   painter: WiredLineBase(
+                    strokeWidth: theme.strokeWidth,
                     x1: 0,
                     y1: 0,
                     x2: double.infinity,
@@ -93,8 +94,12 @@ class WiredExpansionPanelList extends HookWidget {
 
     return Container(
       decoration: RoughBoxDecoration(
+        drawConfig: theme.drawConfig,
         shape: RoughBoxShape.rectangle,
-        borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
+        borderStyle: RoughDrawingStyle(
+          width: theme.strokeWidth,
+          color: theme.borderColor,
+        ),
       ),
       child: Column(
         children: [

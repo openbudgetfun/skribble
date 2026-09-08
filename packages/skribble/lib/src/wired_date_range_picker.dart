@@ -175,6 +175,7 @@ class WiredDateRangePickerDialog extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     fillColor: theme.fillColor,
                     borderColor: theme.borderColor,
                   ),
@@ -450,6 +451,7 @@ class WiredDateRangePickerDialog extends HookWidget {
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: WiredCanvas(
                     painter: WiredRectangleBase(
+                      strokeWidth: theme.strokeWidth,
                       fillColor: Colors.transparent,
                     ),
                     fillerType: RoughFilter.hachureFiller,
@@ -460,6 +462,7 @@ class WiredDateRangePickerDialog extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredCircleBase(
+                    strokeWidth: theme.strokeWidth,
                     diameterRatio: 0.8,
                     fillColor: Colors.transparent,
                   ),

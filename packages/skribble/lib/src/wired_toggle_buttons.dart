@@ -85,6 +85,7 @@ class _WiredToggleButton extends HookWidget {
             Positioned.fill(
               child: WiredCanvas(
                 painter: WiredRectangleBase(
+                  strokeWidth: theme.strokeWidth,
                   fillColor: theme.fillColor,
                   borderColor: theme.borderColor,
                 ),
@@ -96,7 +97,7 @@ class _WiredToggleButton extends HookWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
               child: Center(
-                child: DefaultTextStyle(
+                child: DefaultTextStyle.merge(
                   style: TextStyle(
                     color: selected ? Colors.white : theme.textColor,
                     fontSize: 14,

@@ -12,8 +12,8 @@ class DrawConfig {
   final Randomizer? randomizer;
 
   static DrawConfig defaultValues = DrawConfig.build(
-    maxRandomnessOffset: 2,
-    roughness: 1,
+    maxRandomnessOffset: 1.2,
+    roughness: 1.25,
     bowing: 1,
     curveFitting: 0.95,
     curveTightness: 0,
@@ -85,7 +85,7 @@ class DrawConfig {
         randomizer ??
         (this.randomizer == null
             ? null
-            : Randomizer(seed: this.randomizer!.seed)),
+            : Randomizer(seed: seed ?? this.randomizer!.seed)),
   );
 
   @override
@@ -100,7 +100,7 @@ class DrawConfig {
           curveTightness == other.curveTightness &&
           curveStepCount == other.curveStepCount &&
           seed == other.seed &&
-          randomizer == other.randomizer;
+          randomizer?.seed == other.randomizer?.seed;
 
   @override
   int get hashCode =>
@@ -111,7 +111,7 @@ class DrawConfig {
       curveTightness.hashCode ^
       curveStepCount.hashCode ^
       seed.hashCode ^
-      randomizer.hashCode;
+      (randomizer?.seed.hashCode ?? 0);
 }
 
 /// A seedable pseudo-random number generator for deterministic rough drawing.

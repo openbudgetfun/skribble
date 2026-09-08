@@ -347,3 +347,16 @@ The rough icon generator requires these tools on PATH:
 - **deno** -- runs the `svg2roughjs` wrapper script
 - **Chrome/Chromium** -- required by `svg2roughjs` for headless SVG rendering (discoverable via PATH or `CHROME_PATH` environment variable)
 - **npm** -- needed for `fantasticon` (icon font generation) and `simple-icons` (brand icon fallback)
+
+## Curated SVG regeneration
+
+For the checked-in Skribble icon set, add an SVG and manifest entry under `packages/skribble_icons/tool/`, then run:
+
+```bash
+dart run packages/skribble_emoji_gen/bin/generate_icons.dart
+dart format packages/skribble_icons/lib/src/generated/skribble_icons_rough.g.dart
+```
+
+The pure Dart generator preserves the source view-box dimensions and applies a small smooth pen warp. Render with `WiredSvgIcon(data: lookupSkribbleCustomIconByIdentifier('heart')!)`. There is no `WiredIcon.custom` constructor. Keep new symbols inside their declared bounds and add them to the existing bounds test.
+
+The pinned OpenMoji, curated icon, and text-font pipelines can also run together with `dart run packages/skribble_emoji_gen/bin/update_assets.dart`. CI verifies that regeneration leaves the committed assets unchanged.

@@ -36,8 +36,8 @@ canvas.drawRough(drawable, pathPaint, fillPaint);
 
 | Field                 | Type         | Default | Description                                                          |
 | --------------------- | ------------ | ------- | -------------------------------------------------------------------- |
-| `maxRandomnessOffset` | `double`     | `2`     | Maximum pixel offset for random jitter                               |
-| `roughness`           | `double`     | `1`     | Overall roughness multiplier -- higher values produce wobblier lines |
+| `maxRandomnessOffset` | `double`     | `1.2`   | Maximum pixel offset for random jitter                               |
+| `roughness`           | `double`     | `1.25`  | Overall roughness multiplier -- higher values produce wobblier lines |
 | `bowing`              | `double`     | `1`     | How much lines bow outward at the midpoint                           |
 | `curveFitting`        | `double`     | `0.95`  | How closely curves follow the intended path (0 = loose, 1 = tight)   |
 | `curveTightness`      | `double`     | `0`     | Tension of Catmull-Rom splines                                       |
@@ -525,3 +525,9 @@ Controls the paint properties for borders and fills:
 - `OpsGenerator.arc(increment, cx, cy, rx, ry, start, stop, offset, config)` -- arc points
 
 The "double line" technique -- drawing each edge twice with slightly different random offsets -- is what gives Skribble its characteristic sketchy stroke.
+
+## UI defaults and determinism
+
+The UI defaults are `roughness: 1.25`, `maxRandomnessOffset: 1.2`, and a 2.4-pixel themed pen. `WiredThemeData.roughness` feeds the default `DrawConfig`; an explicit `drawConfig` takes precedence. `copyWith(seed: ...)` constructs a randomizer for the new seed. Equality compares randomizer seeds rather than mutable object identity.
+
+Icons use a smaller runtime displacement so counters remain open at 24 pixels. Solid fills preserve separate contours and the SVG fill rule. Precomputed emoji have their pen wobble baked into the generated paths and do not receive a second runtime deformation.

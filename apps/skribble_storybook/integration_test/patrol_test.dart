@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';
+import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/app.dart';
 
 void main() {
@@ -22,16 +23,21 @@ void main() {
 
     await $('Buttons').tap();
 
-    expect($('WiredButton'), findsOneWidget);
-    expect($('WiredElevatedButton'), findsOneWidget);
-    expect($('WiredOutlinedButton'), findsOneWidget);
-    expect($('WiredTextButton'), findsOneWidget);
-    expect($('WiredIconButton'), findsOneWidget);
+    for (final label in [
+      'WiredButton',
+      'WiredElevatedButton',
+      'WiredOutlinedButton',
+      'WiredTextButton',
+      'WiredIconButton',
+    ]) {
+      await $(label).scrollTo();
+      await $(label).waitUntilVisible();
+    }
 
     await $.scrollUntilVisible(finder: $('WiredFloatingActionButton'));
     expect($('WiredFloatingActionButton'), findsOneWidget);
 
-    await $.scrollUntilVisible(finder: $('WiredSegmentedButton'));
+    await $('Week').scrollTo(step: 250, maxScrolls: 50);
     expect($('WiredSegmentedButton'), findsOneWidget);
   });
 
@@ -51,6 +57,7 @@ void main() {
     await $('Inputs').tap();
 
     expect($('WiredInput'), findsOneWidget);
+    await $('WiredCheckbox').scrollTo();
     expect($('WiredCheckbox'), findsOneWidget);
   });
 
@@ -113,9 +120,17 @@ void main() {
     await $('Buttons').tap();
 
     // Scroll to the segmented button section.
-    await $.scrollUntilVisible(finder: $('WiredSegmentedButton'));
+    await $('Week').scrollTo(step: 250, maxScrolls: 50);
 
     // Tap "Week" segment.
     await $('Week').tap();
+    expect(
+      $.tester
+          .widget<WiredSegmentedButton<String>>(
+            find.byType(WiredSegmentedButton<String>),
+          )
+          .selected,
+      {'week'},
+    );
   });
 }

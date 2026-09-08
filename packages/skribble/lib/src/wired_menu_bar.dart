@@ -34,6 +34,7 @@ class WiredMenuBar extends HookWidget {
             Positioned.fill(
               child: WiredCanvas(
                 painter: WiredRectangleBase(
+                  strokeWidth: theme.strokeWidth,
                   fillColor: theme.fillColor,
                   borderColor: theme.borderColor,
                 ),
@@ -294,9 +295,10 @@ class _WiredMenuCheckboxIcon extends HookWidget {
           height: 20.0,
           width: 27.0,
           decoration: RoughBoxDecoration(
+            drawConfig: theme.drawConfig,
             shape: RoughBoxShape.rectangle,
             borderStyle: RoughDrawingStyle(
-              width: 1,
+              width: theme.strokeWidth,
               color: theme.borderColor,
             ),
           ),
@@ -351,6 +353,7 @@ class _WiredMenuRadioIcon<T> extends HookWidget {
             children: [
               WiredCanvas(
                 painter: WiredCircleBase(
+                  strokeWidth: theme.strokeWidth,
                   diameterRatio: 0.9,
                   borderColor: theme.borderColor,
                 ),
@@ -362,6 +365,7 @@ class _WiredMenuRadioIcon<T> extends HookWidget {
                   width: 12,
                   child: WiredCanvas(
                     painter: WiredCircleBase(
+                      strokeWidth: theme.strokeWidth,
                       diameterRatio: 0.85,
                       fillColor: theme.textColor,
                       borderColor: theme.borderColor,
@@ -408,6 +412,7 @@ class WiredDropdownMenu<T> extends HookWidget {
           Positioned.fill(
             child: WiredCanvas(
               painter: WiredRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 fillColor: theme.fillColor,
                 borderColor: theme.borderColor,
               ),

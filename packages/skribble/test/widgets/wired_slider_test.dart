@@ -6,13 +6,6 @@ import '../helpers/pump_app.dart';
 
 void main() {
   group('WiredSlider', () {
-    // WiredSlider uses useFuture(Future.delayed(Duration.zero)) which creates
-    // a zero-duration timer on every build. When the future completes it
-    // triggers a rebuild creating another timer, forming an infinite loop.
-    // We verify the Slider state right after pumpWidget and explicitly flush
-    // the pending timer with an extra pump before teardown to avoid the
-    // "Timer still pending" assertion.
-
     Future<void> pumpSubject(WidgetTester tester, WiredSlider slider) {
       return pumpApp(tester, slider);
     }

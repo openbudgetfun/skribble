@@ -284,3 +284,9 @@ This occurs when the platform-specific screenshot plugin is not available. The t
 ### Widget not found by anchor text
 
 The `focusOnText()` helper scrolls to find the text. If the text does not exist on the current page, the test fails with a descriptive error. Make sure the anchor text exactly matches a visible text widget on the storybook page.
+
+## Notebook and font review
+
+The notebook lives at `/#/studio` in the web storybook. For a release build of the catalog, use `flutter build web --release --no-tree-shake-icons` from `apps/skribble_storybook`; the icon browser constructs `IconData` dynamically. Inspect phone and desktop layouts, morning and evening palettes, and both ends of long pages. Wait for actual Flutter content before taking a capture.
+
+Run `dart run tool/font_specimen.dart` from the root to generate self-contained comparisons in `.screenshots/font/`. These embed original Recursive Casual and generated Skribble fonts. Inspect all four weights/styles at reading sizes, punctuation, accents, currency, and large headings. Outline-change counts do not replace visual inspection.

@@ -69,14 +69,14 @@ class WiredNavigationRail extends HookWidget {
           ),
         ),
         SizedBox(
-          width: 2,
+          width: theme.inkExtent,
           child: WiredCanvas(
             painter: WiredLineBase(
               x1: 0,
               y1: 0,
               x2: 0,
               y2: double.infinity,
-              strokeWidth: 2,
+              strokeWidth: theme.strokeWidth,
               borderColor: theme.borderColor,
             ),
             fillerType: RoughFilter.noFiller,
@@ -112,6 +112,7 @@ class WiredNavigationRail extends HookWidget {
                       height: 28,
                       child: WiredCanvas(
                         painter: WiredRoundedRectangleBase(
+                          strokeWidth: theme.strokeWidth,
                           borderRadius: BorderRadius.circular(14),
                           fillColor: theme.borderColor,
                           borderColor: theme.borderColor,

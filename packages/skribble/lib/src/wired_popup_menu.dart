@@ -50,9 +50,10 @@ class WiredPopupMenuButton<T> extends HookWidget {
             value: item.value,
             child: Container(
               decoration: RoughBoxDecoration(
+                drawConfig: theme.drawConfig,
                 shape: RoughBoxShape.rectangle,
                 borderStyle: RoughDrawingStyle(
-                  width: 0.5,
+                  width: theme.strokeWidth,
                   color: theme.borderColor,
                 ),
               ),

@@ -96,6 +96,12 @@ class _Category {
 
 const _categories = [
   _Category(
+    title: 'The sketchbook',
+    description: 'A working notebook in morning paper and evening ink.',
+    route: '/studio',
+    icon: Icons.auto_awesome,
+  ),
+  _Category(
     title: 'Buttons',
     description: 'Button variants with hand-drawn styles',
     route: '/buttons',

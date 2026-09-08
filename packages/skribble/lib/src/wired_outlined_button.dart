@@ -30,8 +30,12 @@ class WiredOutlinedButton extends HookWidget {
         child: Container(
           height: kWiredButtonHeight,
           decoration: RoughBoxDecoration(
+            drawConfig: theme.drawConfig,
             shape: RoughBoxShape.rectangle,
-            borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),
+            borderStyle: RoughDrawingStyle(
+              width: theme.strokeWidth,
+              color: theme.borderColor,
+            ),
           ),
           child: SizedBox(
             height: double.infinity,

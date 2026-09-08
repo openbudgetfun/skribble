@@ -96,74 +96,35 @@ If no `WiredTheme` ancestor exists, `WiredTheme.of(context)` returns `WiredTheme
 
 <!-- {=docsThemeSetupSection} -->
 
-`WiredMaterialApp` is the recommended way to set up theming. It handles both the `WiredTheme` injection and Material `ThemeData` synchronization in one widget.
-
-### Basic setup
-
 ```dart
+import 'package:flutter/material.dart';
+import 'package:skribble/skribble.dart';
+
 void main() {
+  final wiredTheme = WiredThemeData(
+    borderColor: Color(0xFF4A3470),
+    textColor: Color(0xFF2A2238),
+    disabledTextColor: Color(0xFFA39AAD),
+    fillColor: Color(0xFFFFFCF1),
+    roughness: 1.15,
+  );
+
   runApp(
     WiredMaterialApp(
-      wiredTheme: WiredThemeData(),
+      wiredTheme: wiredTheme,
+      darkWiredTheme: WiredThemeData(
+        borderColor: Color(0xFFB09BDC),
+        textColor: Color(0xFFF0EBF5),
+        fillColor: Color(0xFF1E1A26),
+        roughness: 1.15,
+      ),
+      themeMode: ThemeMode.system,
+      title: 'My Sketchy App',
       home: MyHomePage(),
     ),
   );
 }
 ```
-
-### Theme variants
-
-`WiredMaterialApp` supports four theme variants for full platform adaptation:
-
-```dart
-WiredMaterialApp(
-  // Light mode theme (required)
-  wiredTheme: WiredThemeData(
-    borderColor: Color(0xFF1A2B3C),
-    fillColor: Color(0xFFFEFEFE),
-  ),
-
-  // Dark mode theme (optional -- falls back to wiredTheme)
-  darkWiredTheme: WiredThemeData(
-    borderColor: Color(0xFFB0BEC5),
-    textColor: Colors.white,
-    fillColor: Color(0xFF263238),
-  ),
-
-  // High-contrast theme for accessibility (optional -- falls back to wiredTheme)
-  highContrastWiredTheme: WiredThemeData(
-    borderColor: Colors.black,
-    textColor: Colors.black,
-    fillColor: Colors.white,
-    strokeWidth: 3,
-  ),
-
-  // High-contrast dark theme (optional -- falls back to darkWiredTheme, then wiredTheme)
-  highContrastDarkWiredTheme: WiredThemeData(
-    borderColor: Colors.white,
-    textColor: Colors.white,
-    fillColor: Colors.black,
-    strokeWidth: 3,
-  ),
-
-  // Controls which theme is active
-  themeMode: ThemeMode.system,
-
-  home: MyHomePage(),
-)
-```
-
-### Theme resolution
-
-`WiredMaterialApp` resolves the active `WiredThemeData` based on `themeMode` and the platform's accessibility settings:
-
-| `themeMode`        | High contrast off                          | High contrast on                           |
-| ------------------ | ------------------------------------------ | ------------------------------------------ |
-| `ThemeMode.light`  | `wiredTheme`                               | `highContrastWiredTheme`                   |
-| `ThemeMode.dark`   | `darkWiredTheme`                           | `highContrastDarkWiredTheme`               |
-| `ThemeMode.system` | Light or dark based on platform brightness | High-contrast variant of the resolved mode |
-
-If an optional variant is not provided, the fallback chain is: `highContrastDarkWiredTheme` -> `darkWiredTheme` -> `wiredTheme`.
 
 <!-- {/docsThemeSetupSection} -->
 
@@ -233,8 +194,8 @@ For fine-grained control over the rough-drawing engine, pass a custom `DrawConfi
 ```dart
 WiredThemeData(
   drawConfig: DrawConfig.build(
-    maxRandomnessOffset: 3,  // max pixel offset for jitter (default: 2)
-    roughness: 1.5,          // line wobbliness (default: 1)
+    maxRandomnessOffset: 3,  // max pixel offset for jitter (default: 1.2)
+    roughness: 1.5,          // line wobbliness (default: 1.25)
     bowing: 2,               // arc bowing for curves (default: 1)
     curveFitting: 0.9,       // how tightly curves follow control points (default: 0.95)
     curveTightness: 0.1,     // tightness of curve interpolation (default: 0)
@@ -372,3 +333,9 @@ The red-themed card and button will use `Colors.red` for borders, while everythi
 - [Widget Reference](/widgets) -- browse the full catalog with API details
 - [Custom Widgets](/guides/custom-widgets) -- build your own Wired widgets using the rough-drawing engine
 - [Icons](/guides/icons) -- use the hand-drawn icon set
+
+## The bundled handwriting
+
+Skribble's four text styles are derived from the matching **Recursive Sans Casual** static sources. `WiredMaterialApp` registers the package-qualified Skribble family through its theme, so regular, bold, italic, and bold italic select the right bundled assets. Do not manually register only the regular font with `FontLoader`.
+
+For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble'`. Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.25. Local widget text styles merge with inherited typography instead of dropping the font family.

@@ -13,15 +13,15 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 
 ### Fields
 
-| Field               | Type          | Default                                  | Description                               |
-| ------------------- | ------------- | ---------------------------------------- | ----------------------------------------- |
-| `borderColor`       | `Color`       | `Color(0xFF1A2B3C)`                      | Border stroke color for all shapes        |
-| `textColor`         | `Color`       | `Colors.black`                           | Primary text color                        |
-| `disabledTextColor` | `Color`       | `Colors.grey`                            | Text color for disabled states            |
-| `fillColor`         | `Color`       | `Color(0xFFFEFEFE)`                      | Interior fill color for shapes            |
-| `strokeWidth`       | `double`      | `2`                                      | Default border stroke width               |
-| `roughness`         | `double`      | `1`                                      | Roughness multiplier passed to the engine |
-| `drawConfig`        | `DrawConfig?` | `null` (uses `DrawConfig.defaultValues`) | Optional custom draw configuration        |
+| Field               | Type          | Default                               | Description                               |
+| ------------------- | ------------- | ------------------------------------- | ----------------------------------------- |
+| `borderColor`       | `Color`       | `Color(0xFF1A2B3C)`                   | Border stroke color for all shapes        |
+| `textColor`         | `Color`       | `Colors.black`                        | Primary text color                        |
+| `disabledTextColor` | `Color`       | `Colors.grey`                         | Text color for disabled states            |
+| `fillColor`         | `Color`       | `Color(0xFFFEFEFE)`                   | Interior fill color for shapes            |
+| `strokeWidth`       | `double`      | `2.4`                                 | Default border stroke width               |
+| `roughness`         | `double`      | `1.25`                                | Roughness multiplier passed to the engine |
+| `drawConfig`        | `DrawConfig?` | `null` (derives from theme roughness) | Optional custom draw configuration        |
 
 ### Creating a Theme
 
@@ -53,7 +53,7 @@ final boldTheme = baseTheme.copyWith(
 
 ### drawConfig Getter
 
-When no `DrawConfig` is passed to the constructor, the getter returns `DrawConfig.defaultValues`. When a custom config is provided, that value is used instead:
+When no `DrawConfig` is passed to the constructor, the getter derives a `DrawConfig` using the theme’s `roughness`. When a custom config is provided, that value is used instead:
 
 ```dart
 final theme = WiredThemeData(
@@ -83,8 +83,20 @@ The standard lookup method:
 <!-- {=docsThemeReadPattern} -->
 
 ```dart
-final theme = WiredTheme.of(context);
-// Use theme.borderColor, theme.fillColor, theme.textColor, etc.
+@override
+Widget build(BuildContext context) {
+  final theme = WiredTheme.of(context);
+
+  // Use theme values for all visual properties
+  final borderColor = theme.borderColor;
+  final fillColor = theme.fillColor;
+  final textColor = theme.textColor;
+  final strokeWidth = theme.strokeWidth;
+  final roughness = theme.roughness;
+  final drawConfig = theme.drawConfig;
+  final inkExtent = theme.inkExtent;
+  // ...
+}
 ```
 
 <!-- {/docsThemeReadPattern} -->

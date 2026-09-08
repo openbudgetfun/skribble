@@ -60,6 +60,7 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                           Positioned.fill(
                             child: WiredCanvas(
                               painter: WiredRectangleBase(
+                                strokeWidth: theme.strokeWidth,
                                 fillColor: theme.fillColor,
                                 borderColor: theme.borderColor,
                               ),
@@ -102,6 +103,7 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                     Positioned.fill(
                       child: WiredCanvas(
                         painter: WiredRoundedRectangleBase(
+                          strokeWidth: theme.strokeWidth,
                           borderRadius: BorderRadius.circular(12),
                           borderColor: theme.borderColor,
                         ),

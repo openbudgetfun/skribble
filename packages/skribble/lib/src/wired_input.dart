@@ -19,18 +19,34 @@ import 'wired_theme.dart';
 ///  * `WiredSearchBar`, for a search-specific input.
 ///  * `WiredCupertinoTextField`, for Cupertino styling.
 class WiredInput extends HookWidget {
+  /// Controller for the editable value. An internal controller is used if absent.
   final TextEditingController? controller;
+
+  /// Text style merged with the app typography.
   final TextStyle? style;
+
+  /// Wrapping label placed above the field.
   final String? labelText;
+
+  /// Optional style for the label.
   final TextStyle? labelStyle;
+
+  /// Hint displayed while the field is empty.
   final String? hintText;
+
+  /// Optional style for the hint.
   final TextStyle? hintStyle;
+
+  /// Called when the user edits the value.
   final void Function(String)? onChanged;
+
+  /// Whether to conceal the entered text.
   final bool obscureText;
 
   /// Optional semantic label for accessibility.
   final String? semanticLabel;
 
+  /// Creates an input with a single sketch border and an optional label.
   const WiredInput({
     super.key,
     this.controller,
@@ -47,43 +63,57 @@ class WiredInput extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Semantics(
-      label: semanticLabel ?? labelText,
-      textField: true,
-      child: Row(
-        children: [
-          if (labelText != null) Text('$labelText', style: labelStyle),
-          if (labelText != null) SizedBox(width: 10.0),
-          Expanded(
-            child: Stack(
-              children: [
-                SizedBox(
-                  height: 48.0,
-                  child: WiredCanvas(
-                    painter: WiredRectangleBase(
-                      fillColor: theme.fillColor,
-                      borderColor: theme.borderColor,
-                    ),
-                    fillerType: RoughFilter.noFiller,
-                  ),
-                ),
-                TextField(
-                  controller: controller,
-                  style: style,
-                  obscureText: obscureText,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: hintText,
-                    hintStyle: hintStyle,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  ),
-                  onChanged: onChanged,
-                ),
-              ],
-            ),
-          ),
+    final focus = useFocusNode();
+    useListenable(focus);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (labelText != null) ...[
+          ExcludeSemantics(child: Text(labelText!, style: labelStyle)),
+          const SizedBox(height: 8),
         ],
-      ),
+        Stack(
+          children: [
+            Positioned.fill(
+              child: WiredCanvas(
+                painter: WiredRectangleBase(
+                  fillColor: theme.fillColor,
+                  borderColor: theme.borderColor,
+                  strokeWidth: theme.strokeWidth + (focus.hasFocus ? 0.6 : 0),
+                ),
+                fillerType: RoughFilter.noFiller,
+              ),
+            ),
+            Semantics(
+              container: true,
+              label: semanticLabel ?? labelText,
+              child: TextField(
+                controller: controller,
+                focusNode: focus,
+                style: style,
+                obscureText: obscureText,
+                decoration: InputDecoration(
+                  filled: false,
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  hintText: hintText,
+                  hintStyle: TextStyle(color: theme.disabledTextColor)
+                      .merge(hintStyle),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 14,
+                  ),
+                ),
+                onChanged: onChanged,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

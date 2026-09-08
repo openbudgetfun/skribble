@@ -278,3 +278,16 @@ import 'package:skribble_emoji/skribble_emoji.dart';
 Full dartdoc API reference is available at:
 
 - [pub.dev/documentation/skribble/latest/](https://pub.dev/documentation/skribble/latest/)
+
+## Hand-drawn quality additions
+
+- `WiredThemeData.inkExtent`: pen-and-wobble space for dividers; default `strokeWidth` is 2.4 and `roughness` is 1.25.
+- `WiredSvgPrimitive.path(clipPaths: ...)`: SVG clipping paths in primitive coordinates; source colors support optional alpha.
+- `kSkribbleEmojiNames`: every emoji name mapped to its complete hexadecimal sequence.
+- `lookupSkribbleEmojiBySequence(String)`: lookup by literal emoji or hexadecimal sequence.
+- `WiredEmoji.fromSequence` and `PrecomputedEmoji.fromSequence`: render joined sequences directly.
+- `WiredEmoji.semanticLabel`: accessible description, including placeholder states.
+- `EmojiSearchResult.sequence`: complete sequence alongside the legacy first `codePoint`.
+- `skribble_font_roughen` exports `VisualDiff` and `DiffResult` for HTML specimens and outline-change statistics; these are not pixel comparisons.
+
+SVG path primitives also accept `strokeDashArray`, `strokeDashOffset`, `strokeCap`, `strokeJoin`, and `strokeMiterLimit`. `buildStrokePath()` expands dashes in source coordinates before display scaling; fill geometry remains unchanged.

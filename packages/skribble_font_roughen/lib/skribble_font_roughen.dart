@@ -3,8 +3,8 @@
 /// Part of the Skribble hand-drawn Flutter design system.
 ///
 /// This library provides functionality to:
-/// - Read TTF/OTF font files
-/// - Apply deterministic jitter to on-curve glyph points
+/// - Read static TrueType font files
+/// - Apply coherent deformation to all glyph outline points
 /// - Output roughened font variants with hand-drawn character
 ///
 /// ## Usage
@@ -15,7 +15,7 @@
 /// final roughener = FontRoughener(
 ///   inputPath: 'input.ttf',
 ///   outputPath: 'output.ttf',
-///   jitterAmount: 12.0,
+///   jitterAmount: 18.0,
 ///   variant: FontVariant.regular,
 /// );
 /// await roughener.roughen();
@@ -25,3 +25,5 @@ library;
 export 'src/font_roughener.dart';
 export 'src/font_variant.dart';
 export 'src/jitter_algorithm.dart';
+
+export 'src/visual_diff.dart';

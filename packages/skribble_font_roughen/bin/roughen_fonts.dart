@@ -1,109 +1,52 @@
 import 'dart:io';
 
-import 'package:path/path.dart' as path;
+import 'package:skribble_font_roughen/skribble_font_roughen.dart';
 
-// This is a CLI tool, so prints are part of the user interface.
-// ignore_for_file: avoid_print
+/// Rebuilds all four bundled Recursive Casual derivatives from repository root.
+/// Pass --check to verify artifacts without changing them.
+Future<void> main(List<String> arguments) async {
+  final check = arguments.contains('--check');
+  final scratch = await Directory.systemTemp.createTemp('skribble-fonts-');
+  var stale = false;
 
-/// Script to pre-roughen popular fonts for the Skribble design system.
-///
-/// This script downloads and roughens popular fonts, creating
-/// hand-drawn variants for use in Skribble apps.
-///
-/// Usage:
-///   dart run bin/roughen_fonts.dart `[output_dir]`
-void main(List<String> arguments) async {
-  final outputDir = arguments.isNotEmpty
-      ? arguments[0]
-      : 'packages/skribble/assets/fonts/roughened';
+  try {
+    for (final variant in FontVariant.values) {
+      final suffix = variant.fullNameSuffix.replaceAll(' ', '');
+      final name = 'Skribble-$suffix.ttf';
+      final result = await FontRoughener(
+        inputPath: 'packages/skribble/tool/font/RecursiveSansCslSt-$suffix.ttf',
+        outputPath: '${scratch.path}/$name',
+        variant: variant,
+      ).roughen();
+      final bytes = await File(result.outputPath).readAsBytes();
 
-  print('Skribble Font Roughener - Pre-roughen Popular Fonts');
-  print('===================================================');
-  print('');
-  print('Output directory: $outputDir');
-  print('');
+      for (final directory in [
+        'packages/skribble/assets/fonts',
+        'packages/skribble/tool/font',
+        'apps/skribble_storybook/assets/fonts',
+      ]) {
+        final destination = File('$directory/$name');
 
-  // Create output directory
-  final dir = Directory(outputDir);
-  if (!dir.existsSync()) {
-    dir.createSync(recursive: true);
+        if (check) {
+          final current = await destination.readAsBytes();
+          if (current.length != bytes.length ||
+              !List.generate(
+                bytes.length,
+                (i) => i,
+              ).every((i) => bytes[i] == current[i])) {
+            stderr.writeln('Stale font: ${destination.path}');
+            stale = true;
+          }
+        } else {
+          await destination.writeAsBytes(bytes);
+        }
+      }
+
+      stdout.writeln('$name: ${result.glyphCount} outlined glyphs');
+    }
+  } finally {
+    await scratch.delete(recursive: true);
   }
 
-  // Popular fonts to roughen
-  final fonts = [
-    const _FontConfig(
-      name: 'Inter',
-      variants: ['Regular', 'Bold', 'Italic', 'BoldItalic'],
-      sourceUrl:
-          'https://github.com/rsms/inter/releases/download/v4.0/Inter-4.0.zip',
-    ),
-    const _FontConfig(
-      name: 'Roboto',
-      variants: ['Regular', 'Bold', 'Italic', 'BoldItalic'],
-      sourceUrl: 'https://fonts.google.com/download?family=Roboto',
-    ),
-    const _FontConfig(
-      name: 'Open Sans',
-      variants: ['Regular', 'Bold', 'Italic', 'BoldItalic'],
-      sourceUrl: 'https://fonts.google.com/download?family=Open+Sans',
-    ),
-    const _FontConfig(
-      name: 'Lato',
-      variants: ['Regular', 'Bold', 'Italic', 'BoldItalic'],
-      sourceUrl: 'https://fonts.google.com/download?family=Lato',
-    ),
-    const _FontConfig(
-      name: 'Poppins',
-      variants: ['Regular', 'Bold', 'Italic', 'BoldItalic'],
-      sourceUrl: 'https://fonts.google.com/download?family=Poppins',
-    ),
-    const _FontConfig(
-      name: 'Source Sans Pro',
-      variants: ['Regular', 'Bold', 'Italic', 'BoldItalic'],
-      sourceUrl: 'https://fonts.google.com/download?family=Source+Sans+Pro',
-    ),
-  ];
-
-  // Process each font
-  for (final font in fonts) {
-    print('Processing ${font.name}...');
-    await _processFont(font, outputDir);
-    print('');
-  }
-
-  print('Done! Roughened fonts saved to: $outputDir');
-}
-
-Future<void> _processFont(_FontConfig font, String outputDir) async {
-  // TODO(ifiokjr): Implement actual font downloading and processing.
-  // For now, create placeholder files
-
-  for (final variant in font.variants) {
-    final outputName = 'Skribble-${font.name.replaceAll(' ', '')}-$variant.ttf';
-    final outputPath = path.join(outputDir, outputName);
-
-    print('  - $variant -> $outputName');
-
-    // Create placeholder file
-    final file = File(outputPath);
-    await file.writeAsString('Placeholder for ${font.name} $variant');
-
-    // In a real implementation, we would:
-    // 1. Download the font from font.sourceUrl
-    // 2. Extract the TTF/OTF file
-    // 3. Run FontRoughener on it
-    // 4. Save the roughened version
-  }
-}
-
-/// Configuration for a font to roughen.
-class _FontConfig {
-  const _FontConfig({
-    required this.name,
-    required this.variants,
-    required this.sourceUrl,
-  });
-  final String name;
-  final List<String> variants;
-  final String sourceUrl;
+  if (stale) exitCode = 1;
 }

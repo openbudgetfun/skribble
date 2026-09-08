@@ -51,7 +51,7 @@ void main() {
     testWidgets('renders top border line', (tester) async {
       await pumpApp(tester, WiredBottomSheet(child: const Text('Content')));
 
-      // The top border is a 2px-tall SizedBox containing a WiredCanvas.
+      // The top border is a pen-sized SizedBox containing a WiredCanvas.
       final sizedBoxes = tester.widgetList<SizedBox>(
         find.descendant(
           of: find.byType(WiredBottomSheet),
@@ -59,9 +59,11 @@ void main() {
         ),
       );
 
-      // One SizedBox should have height 2 (top line) and another width 40,
+      // One SizedBox reserves space for the top pen and another width 40,
       // height 4 (drag handle).
-      final topLine = sizedBoxes.where((s) => s.height == 2);
+      final topLine = sizedBoxes.where(
+        (s) => s.height == WiredThemeData.defaultTheme.inkExtent,
+      );
       expect(topLine, isNotEmpty);
     });
 

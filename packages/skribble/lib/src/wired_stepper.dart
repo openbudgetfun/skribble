@@ -56,6 +56,7 @@ class WiredStepper extends HookWidget {
                   height: 24,
                   child: WiredCanvas(
                     painter: WiredLineBase(
+                      strokeWidth: theme.strokeWidth,
                       x1: 0,
                       y1: 0,
                       x2: 0,
@@ -90,6 +91,7 @@ class WiredStepper extends HookWidget {
               children: [
                 WiredCanvas(
                   painter: WiredCircleBase(
+                    strokeWidth: theme.strokeWidth,
                     diameterRatio: 0.85,
                     fillColor: isCompleted || isActive
                         ? theme.borderColor
@@ -126,7 +128,7 @@ class WiredStepper extends HookWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DefaultTextStyle(
+                DefaultTextStyle.merge(
                   style: TextStyle(
                     color: isActive ? theme.textColor : theme.disabledTextColor,
                     fontSize: 16,
@@ -135,7 +137,7 @@ class WiredStepper extends HookWidget {
                   child: step.title,
                 ),
                 if (step.subtitle != null)
-                  DefaultTextStyle(
+                  DefaultTextStyle.merge(
                     style: TextStyle(
                       color: theme.disabledTextColor,
                       fontSize: 12,

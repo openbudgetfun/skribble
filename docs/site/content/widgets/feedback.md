@@ -13,8 +13,6 @@ Skribble provides feedback widgets that communicate status, confirmations, and p
 
 A dialog with a hand-drawn rectangle border drawn behind the content. Uses Flutter's `Dialog` widget internally.
 
-<!-- {=docsDialogUsage} -->
-
 ```dart
 showDialog(
   context: context,
@@ -62,8 +60,6 @@ showDialog(
 ## WiredSnackBarContent / showWiredSnackBar
 
 A snack bar content wrapper with a hand-drawn border and solid fill. The `showWiredSnackBar` helper function displays it via `ScaffoldMessenger`.
-
-<!-- {=docsSnackBarUsage} -->
 
 ```dart
 // Using the helper function
@@ -113,8 +109,6 @@ showWiredSnackBar(
 
 A tooltip with a hand-drawn rectangle border. Wraps Flutter's `Tooltip` widget with sketchy decoration.
 
-<!-- {=docsTooltipUsage} -->
-
 ```dart
 WiredTooltip(
   message: 'Add to favorites',
@@ -144,8 +138,6 @@ WiredTooltip(
 ## WiredProgress
 
 A hand-drawn linear progress bar. Renders a sketchy rectangle track with a hachure-filled progress region that animates via an `AnimationController`.
-
-<!-- {=docsProgressUsage} -->
 
 ```dart
 // In a HookWidget:
@@ -182,8 +174,6 @@ WiredProgress(
 
 A circular progress indicator with a hand-drawn arc and background circle. Supports both determinate and indeterminate modes.
 
-<!-- {=docsCircularProgressUsage} -->
-
 ```dart
 // Indeterminate (spinner)
 WiredCircularProgress()
@@ -215,8 +205,6 @@ WiredCircularProgress(
 ## WiredBadge
 
 A badge overlay that positions a hand-drawn circle indicator at the top-right corner of its child. Supports optional text labels.
-
-<!-- {=docsBadgeUsage} -->
 
 ```dart
 WiredBadge(
@@ -254,8 +242,6 @@ WiredBadge(
 
 A bottom sheet with a hand-drawn top border. Can be shown as a modal or persistent sheet.
 
-<!-- {=docsBottomSheetUsage} -->
-
 ```dart
 showModalBottomSheet(
   context: context,
@@ -276,8 +262,6 @@ showModalBottomSheet(
 ## WiredAboutDialog / showWiredAboutDialog
 
 An about dialog with a hand-drawn border, application icon, and version info. The `showWiredAboutDialog` helper function displays it.
-
-<!-- {=docsAboutDialogUsage} -->
 
 ```dart
 showWiredAboutDialog(
@@ -343,8 +327,6 @@ that want the aggregated package/paragraph data.
 
 A context menu with hand-drawn borders, triggered by long-press or right-click. Menu items appear in a sketchy bordered overlay.
 
-<!-- {=docsContextMenuUsage} -->
-
 ```dart
 WiredContextMenu(
   items: [
@@ -361,8 +343,6 @@ WiredContextMenu(
 ## WiredAnimatedIcon
 
 A hand-drawn wrapper around Flutter's `AnimatedIcon`. Applies Skribble theming to animated icon transitions.
-
-<!-- {=docsAnimatedIconUsage} -->
 
 ```dart
 // In a HookWidget:
@@ -394,8 +374,6 @@ WiredAnimatedIcon(
 
 A banner with a hand-drawn border displayed at the top of the scaffold. Contains a message and action buttons.
 
-<!-- {=docsMaterialBannerUsage} -->
-
 ```dart
 ScaffoldMessenger.of(context).showMaterialBanner(
   WiredMaterialBanner(
@@ -419,8 +397,6 @@ ScaffoldMessenger.of(context).showMaterialBanner(
 ## WiredCupertinoAlertDialog
 
 A Cupertino-style alert dialog with hand-drawn borders. Mirrors the `CupertinoAlertDialog` API with sketchy styling.
-
-<!-- {=docsCupertinoAlertDialogUsage} -->
 
 ```dart
 showCupertinoDialog(
@@ -451,8 +427,6 @@ showCupertinoDialog(
 
 A Cupertino-style action sheet with hand-drawn borders. Slides up from the bottom of the screen.
 
-<!-- {=docsCupertinoActionSheetUsage} -->
-
 ```dart
 showCupertinoModalPopup(
   context: context,
@@ -475,3 +449,7 @@ showCupertinoModalPopup(
   ),
 );
 ```
+
+## Shared ink and typography
+
+Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.

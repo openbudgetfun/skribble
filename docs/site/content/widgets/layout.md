@@ -13,8 +13,6 @@ Skribble provides layout and structural widgets that form the scaffolding of you
 
 A card with a hand-drawn rectangle border. Supports optional hachure fill for a more prominent appearance.
 
-<!-- {=docsCardUsage} -->
-
 ```dart
 WiredCard(
   child: Padding(
@@ -106,8 +104,6 @@ WiredCarouselView(
 
 A hand-drawn horizontal divider line. Renders a sketchy line spanning the full width of its parent.
 
-<!-- {=docsDividerUsage} -->
-
 ```dart
 Column(
   children: [
@@ -133,8 +129,6 @@ None. `WiredDivider` has no configurable parameters beyond the inherited `key`.
 ## WiredListTile
 
 A list tile with a hand-drawn separator line at the bottom. Supports leading, title, subtitle, and trailing widgets.
-
-<!-- {=docsListTileUsage} -->
 
 ```dart
 WiredListTile(
@@ -169,8 +163,6 @@ WiredListTile(
 
 An expansion tile with a hand-drawn border that expands to reveal child content. The expand/collapse arrow animates on tap.
 
-<!-- {=docsExpansionTileUsage} -->
-
 ```dart
 WiredExpansionTile(
   title: Text('Advanced Settings'),
@@ -189,8 +181,6 @@ WiredExpansionTile(
 ## WiredDataTable
 
 A data table with hand-drawn column headers and row borders. Each cell is separated by sketchy lines.
-
-<!-- {=docsDataTableUsage} -->
 
 ```dart
 WiredDataTable(
@@ -220,8 +210,6 @@ WiredDataTable(
 
 A step-by-step wizard with hand-drawn circles for step indicators and sketchy connecting lines.
 
-<!-- {=docsStepperUsage} -->
-
 ```dart
 WiredStepper(
   currentStep: currentStep,
@@ -241,8 +229,6 @@ WiredStepper(
 
 A standalone calendar widget with hand-drawn day cells and month navigation. Days are rendered within sketchy rectangle cells.
 
-<!-- {=docsCalendarUsage} -->
-
 ```dart
 WiredCalendar(
   selectedDate: selectedDate,
@@ -255,8 +241,6 @@ WiredCalendar(
 ## WiredScrollbar
 
 A scrollbar with a hand-drawn track and thumb. Wraps Flutter's `Scrollbar` with sketchy styling.
-
-<!-- {=docsScrollbarUsage} -->
 
 ```dart
 WiredScrollbar(
@@ -274,8 +258,6 @@ WiredScrollbar(
 ## WiredScaffold
 
 A Material `Scaffold` wrapper tuned for Skribble's paper-like palette. Provides the familiar scaffold API with hand-drawn theme integration.
-
-<!-- {=docsScaffoldUsage} -->
 
 ```dart
 WiredScaffold(
@@ -337,8 +319,6 @@ WiredScaffold(
 
 A reorderable list with hand-drawn drag handles and separator lines. Items can be dragged to reorder.
 
-<!-- {=docsReorderableListViewUsage} -->
-
 ```dart
 WiredReorderableListView(
   onReorder: (oldIndex, newIndex) {
@@ -363,8 +343,6 @@ WiredReorderableListView(
 
 A dismissible wrapper with hand-drawn swipe-to-dismiss background. Shows a sketchy indicator as the user swipes.
 
-<!-- {=docsDismissibleUsage} -->
-
 ```dart
 WiredDismissible(
   key: ValueKey(item.id),
@@ -379,8 +357,6 @@ WiredDismissible(
 
 Selectable text rendered with Skribble's text color from the theme. Allows copy-paste of displayed text.
 
-<!-- {=docsSelectableTextUsage} -->
-
 ```dart
 WiredSelectableText('This text can be selected and copied.')
 ```
@@ -390,8 +366,6 @@ WiredSelectableText('This text can be selected and copied.')
 ## WiredDrawerHeader
 
 A drawer header area with a hand-drawn bottom border. Typically placed at the top of a `WiredDrawer`.
-
-<!-- {=docsDrawerHeaderUsage} -->
 
 ```dart
 WiredDrawerHeader(
@@ -412,8 +386,6 @@ WiredDrawerHeader(
 
 A drawer header with account info: avatar, name, and email. Displays a hand-drawn border and themed background.
 
-<!-- {=docsUserAccountsDrawerHeaderUsage} -->
-
 ```dart
 WiredUserAccountsDrawerHeader(
   accountName: Text('Jane Doe'),
@@ -430,8 +402,6 @@ WiredUserAccountsDrawerHeader(
 ## WiredAvatar
 
 A hand-drawn circular avatar. Displays an image, icon, or initials inside a sketchy circle border with optional hachure fill.
-
-<!-- {=docsAvatarUsage} -->
 
 ```dart
 // With initials
@@ -479,8 +449,6 @@ WiredAvatar(
 
 A Cupertino page scaffold with hand-drawn navigation bar and paper-like background. Mirrors the `CupertinoPageScaffold` API.
 
-<!-- {=docsPageScaffoldUsage} -->
-
 ```dart
 WiredPageScaffold(
   navigationBar: WiredCupertinoNavigationBar(
@@ -495,8 +463,6 @@ WiredPageScaffold(
 ## WiredTabScaffold (Cupertino)
 
 A Cupertino tab scaffold with a hand-drawn tab bar and page switching. Mirrors the `CupertinoTabScaffold` API.
-
-<!-- {=docsTabScaffoldUsage} -->
 
 ```dart
 WiredTabScaffold(
@@ -517,8 +483,6 @@ WiredTabScaffold(
 ## WiredGridTile
 
 A grid tile with hand-drawn borders and optional header/footer bars. Mirrors Material's `GridTile`: the child fills the tile while `header` and `footer` overlay its top and bottom edges. Tapping the tile plays a hand-drawn ink splash.
-
-<!-- {=docsGridTileUsage} -->
 
 ```dart
 GridView.count(
@@ -548,8 +512,6 @@ GridView.count(
 ## WiredGridTileBar
 
 A bar for use as `WiredGridTile.header` or `WiredGridTile.footer`. Mirrors Material's `GridTileBar` with a translucent strip, a rough hand-drawn edge line, and leading/title/subtitle/trailing slots.
-
-<!-- {=docsGridTileBarUsage} -->
 
 ```dart
 const WiredGridTileBar(
@@ -582,8 +544,6 @@ const WiredGridTileBar(
 ## WiredMergeableMaterial
 
 A vertically stacked group of slices and gaps with hand-drawn borders. Mirrors Material's `MergeableMaterial`: `WiredMaterialSlice` children render as rows inside rough-bordered cards; `WiredMaterialGap` items separate cards and animate size changes, so a gap animating to `0` merges the slices around it.
-
-<!-- {=docsMergeableMaterialUsage} -->
 
 ```dart
 var expanded = true;
@@ -626,3 +586,7 @@ WiredMergeableMaterial(
 - `WiredMaterialGap({required LocalKey key, double size = 16})` mirrors Material's `MaterialGap`. Gap size changes animate automatically; drive expand/collapse by rebuilding `children` with different gap sizes.
 - Like Material's 3.47 API there is no controller; stable `LocalKey`s on items are required so animations track rebuilds.
 - Contiguous slices (no positive gap between them) share one card silhouette with rounded corners and internal dividers.
+
+## Shared ink and typography
+
+Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.

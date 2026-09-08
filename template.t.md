@@ -159,6 +159,8 @@ Widget build(BuildContext context) {
   final textColor = theme.textColor;
   final strokeWidth = theme.strokeWidth;
   final roughness = theme.roughness;
+  final drawConfig = theme.drawConfig;
+  final inkExtent = theme.inkExtent;
   // ...
 }
 ```
@@ -379,26 +381,6 @@ await pumpApp(
 
 <!-- {/docsPumpAppHelper} -->
 
-<!-- {@docsRoughBoxDecorationPattern} -->
-
-```dart
-Container(
-  decoration: RoughBoxDecoration(
-    shape: RoughBoxShape.rectangle,
-    borderStyle: RoughDrawingStyle(
-      width: theme.strokeWidth,
-      color: theme.borderColor,
-    ),
-    fillStyle: RoughDrawingStyle(
-      color: theme.fillColor,
-    ),
-  ),
-  child: child,
-)
-```
-
-<!-- {/docsRoughBoxDecorationPattern} -->
-
 <!-- {@docsContribSetupSection} -->
 
 ```bash
@@ -505,18 +487,3 @@ WiredButton(
 ```
 
 <!-- {/docsButtonBasicUsage} -->
-
-<!-- {@docsDocsSiteCommandsSection} -->
-
-```bash
-# Serve docs site locally at http://localhost:9080
-docs:site:serve
-
-# Build static docs output for GitHub Pages
-docs:site:build
-
-# Build with custom base path
-docs:site:build --dart-define=DOCS_BASE_PATH=/skribble/
-```
-
-<!-- {/docsDocsSiteCommandsSection} -->

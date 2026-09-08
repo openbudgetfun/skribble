@@ -24,14 +24,14 @@ class WiredDrawer extends HookWidget {
             top: 0,
             bottom: 0,
             child: SizedBox(
-              width: 2,
+              width: theme.inkExtent,
               child: WiredCanvas(
                 painter: WiredLineBase(
                   x1: 0,
                   y1: 0,
                   x2: 0,
                   y2: double.infinity,
-                  strokeWidth: 2,
+                  strokeWidth: theme.strokeWidth,
                   borderColor: theme.borderColor,
                 ),
                 fillerType: RoughFilter.noFiller,

@@ -108,6 +108,7 @@ class _WiredReorderableItem extends HookWidget {
           Positioned.fill(
             child: WiredCanvas(
               painter: WiredRoundedRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderColor: theme.borderColor,
               ),

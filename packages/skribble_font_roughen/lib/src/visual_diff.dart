@@ -1,88 +1,91 @@
+import 'dart:convert';
 import 'dart:io';
 
-// Progress prints are intentional: this tool drives CLI output.
-// ignore_for_file: avoid_print
+import 'package:skribble_font_roughen/src/truetype_font.dart';
 
-/// A tool for visual diffing of font renderings.
-///
-/// This tool compares two font files and generates a visual diff
-/// showing the differences between them. This is useful for:
-/// - Verifying that font roughening produces expected results
-/// - Detecting regressions in font rendering
-/// - Comparing different jitter amounts
-///
-/// ## Example
-///
-/// ```dart
-/// final diff = VisualDiff(
-///   originalPath: 'original.ttf',
-///   roughenedPath: 'roughened.ttf',
-///   outputPath: 'diff.png',
-/// );
-/// final result = await diff.compare();
-/// print('Differences found: ${result.differenceCount}');
-/// ```
+/// Creates a self-contained HTML specimen and measures changed outline points.
+/// Open the specimen in a browser to inspect real font rasterization at the
+/// requested size. The statistics compare outlines, not screenshot pixels.
 class VisualDiff {
-  /// Creates a visual diff tool.
+  /// Creates a comparison. [outputPath] must end in `.html`.
   const VisualDiff({
     required this.originalPath,
     required this.roughenedPath,
     required this.outputPath,
     this.sampleText = 'Hello, World! AaBbCc 123',
-    this.fontSize = 24.0,
+    this.fontSize = 24,
   });
 
-  /// Path to the original font file.
+  /// Original static TrueType font.
   final String originalPath;
 
-  /// Path to the roughened font file.
+  /// Roughened static TrueType font with matching glyph order.
   final String roughenedPath;
 
-  /// Path for the output diff image.
+  /// Self-contained HTML output file.
   final String outputPath;
 
-  /// The text to render for comparison.
+  /// Text used to compare the fonts.
   final String sampleText;
 
-  /// The font size to use for rendering.
+  /// Default specimen size in CSS pixels.
   final double fontSize;
 
-  /// Compares the two fonts and generates a diff image.
-  ///
-  /// Returns a [DiffResult] with statistics about the differences.
+  /// Writes the specimen and counts changed points across every glyph.
   Future<DiffResult> compare() async {
-    // Verify input files exist
-    if (!File(originalPath).existsSync()) {
-      throw FileSystemException('Original font file not found', originalPath);
+    if (!outputPath.endsWith('.html')) {
+      throw ArgumentError('VisualDiff output must be .html.');
     }
-    if (!File(roughenedPath).existsSync()) {
-      throw FileSystemException('Roughened font file not found', roughenedPath);
+    final before = await File(originalPath).readAsBytes();
+    final after = await File(roughenedPath).readAsBytes();
+    final original = TrueTypeFont(before);
+    final rough = TrueTypeFont(after);
+    if (original.glyphCount != rough.glyphCount) {
+      throw ArgumentError('Glyph counts differ.');
     }
-
-    // TODO(ifiokjr): Implement actual font rendering and comparison.
-    // This is a placeholder that will be replaced with actual image
-    // comparison using Flutter's rendering engine.
-
-    print('Comparing fonts:');
-    print('  Original: $originalPath');
-    print('  Roughened: $roughenedPath');
-    print('  Sample text: "$sampleText"');
-    print('  Font size: $fontSize');
-
-    // For now, return a placeholder result
+    var changed = 0;
+    var total = 0;
+    for (var id = 0; id < original.glyphCount; id++) {
+      final a = original.glyphPoints(id);
+      final b = rough.glyphPoints(id);
+      if (a.length != b.length) {
+        throw ArgumentError('Point counts differ in glyph $id.');
+      }
+      total += a.length;
+      for (var point = 0; point < a.length; point++) {
+        if (a[point] != b[point]) changed++;
+      }
+    }
+    final sample = const HtmlEscape().convert(sampleText);
+    final html =
+        '''
+<!doctype html><html lang="en"><meta charset="utf-8">
+<title>Recursive Casual and Skribble</title><style>
+@font-face{font-family:Source;src:url(data:font/ttf;base64,${base64Encode(before)})}
+@font-face{font-family:Sketch;src:url(data:font/ttf;base64,${base64Encode(after)})}
+body{margin:40px;background:#fffbef;color:#382d40;font:16px system-ui;max-width:1100px}
+section{margin:32px 0;padding:24px;border:1px solid #c7b9c9}p{line-height:1.5;overflow-wrap:anywhere}
+.source{font-family:Source}.sketch{font-family:Sketch}.sample{font-size:${fontSize}px}
+</style><h1>Recursive Casual → Skribble</h1><p>$changed of $total outline points changed. Glyph order and advance widths are preserved.</p>
+<section><h2>Original Recursive Casual</h2><p class="source sample">$sample</p></section>
+<section><h2>Skribble, a gently uneven pen</h2><p class="sketch sample">$sample</p></section>
+${[12, 16, 24, 36, 48].map((size) => '<p class="sketch" style="font-size:${size}px">${size}px · Café sketch, £12.50. Make something lovely!</p>').join()}
+</html>''';
+    await File(outputPath).parent.create(recursive: true);
+    await File(outputPath).writeAsString(html);
     return DiffResult(
       originalPath: originalPath,
       roughenedPath: roughenedPath,
       outputPath: outputPath,
-      differenceCount: 0,
-      similarityScore: 1,
+      differenceCount: changed,
+      similarityScore: total == 0 ? 1 : 1 - changed / total,
     );
   }
 }
 
-/// Result of a visual diff comparison.
+/// Outline-change statistics accompanying a browser-renderable specimen.
 class DiffResult {
-  /// Creates a diff result with the specified values.
+  /// Creates comparison statistics.
   const DiffResult({
     required this.originalPath,
     required this.roughenedPath,
@@ -91,27 +94,18 @@ class DiffResult {
     required this.similarityScore,
   });
 
-  /// Path to the original font file.
+  /// Original font path.
   final String originalPath;
 
-  /// Path to the roughened font file.
+  /// Roughened font path.
   final String roughenedPath;
 
-  /// Path to the output diff image.
+  /// Generated HTML specimen path.
   final String outputPath;
 
-  /// Number of differences found.
+  /// Number of changed outline points.
   final int differenceCount;
 
-  /// Similarity score between 0.0 (completely different) and 1.0 (identical).
+  /// Fraction of unchanged points, from zero to one. Not a perceptual score.
   final double similarityScore;
-
-  /// Whether the fonts are considered similar enough.
-  bool get isSimilar => similarityScore > 0.95;
-
-  @override
-  String toString() =>
-      'DiffResult(original: $originalPath, roughened: $roughenedPath, '
-      'differences: $differenceCount, '
-      'similarity: ${(similarityScore * 100).toStringAsFixed(1)}%)';
 }

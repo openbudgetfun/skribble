@@ -7,15 +7,15 @@ import 'wired_theme.dart';
 
 /// A hand-drawn filled button, corresponding to Flutter's [FilledButton].
 ///
-/// The button has a solid hachure fill with the sketchy hand-drawn border.
+/// The button has an opaque ink fill with a sketchy hand-drawn border.
 class WiredFilledButton extends HookWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  /// Fill color for the hachure pattern. Defaults to `borderColor`.
+  /// Fill color. Defaults to `borderColor`.
   final Color? fillColor;
 
-  /// Text/icon color. Defaults to white when filled.
+  /// Text/icon color. Defaults to black or white for contrast with the fill.
   final Color? foregroundColor;
 
   /// Semantic label for accessibility.
@@ -34,7 +34,9 @@ class WiredFilledButton extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final fill = fillColor ?? theme.borderColor;
-    final fg = foregroundColor ?? Colors.white;
+    final fg =
+        foregroundColor ??
+        (fill.computeLuminance() > 0.179 ? Colors.black : Colors.white);
 
     return Semantics(
       label: semanticLabel,
@@ -43,10 +45,14 @@ class WiredFilledButton extends HookWidget {
         child: Container(
           height: kWiredButtonHeight,
           decoration: RoughBoxDecoration(
+            drawConfig: theme.drawConfig,
             shape: RoughBoxShape.rectangle,
-            borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
+            borderStyle: RoughDrawingStyle(
+              width: theme.strokeWidth,
+              color: theme.borderColor,
+            ),
             fillStyle: RoughDrawingStyle(color: fill),
-            filler: HachureFiller(FillerConfig.build(hachureGap: 2)),
+            filler: SolidFiller(),
           ),
           child: SizedBox(
             height: double.infinity,

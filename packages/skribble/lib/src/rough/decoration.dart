@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 import 'config.dart';
 import 'entities.dart';
@@ -82,12 +82,21 @@ class RoughDecorationPainter extends BoxPainter {
     final DrawConfig drawConfig =
         roughDecoration.drawConfig ??
         DrawConfig.build(seed: roughDecoration.seed);
+    drawConfig.randomizer?.reset();
     final Filler filler = roughDecoration.filler ?? NoFiller();
     final Generator generator = Generator(drawConfig, filler);
-    final Rect rect = offset & configuration.size!;
+    final size = configuration.size;
+    if (size == null || size.isEmpty) return;
+    final bleed =
+        (roughDecoration.borderStyle?.width ?? 0) / 2 +
+        1 +
+        (drawConfig.maxRandomnessOffset ?? 0) * (drawConfig.roughness ?? 0);
+    final Rect rect = (offset & size).deflate(
+      min(bleed, size.shortestSide / 2),
+    );
 
     final Paint borderPaint = _buildDrawPaint(
-      roughDecoration.borderStyle!,
+      roughDecoration.borderStyle ?? const RoughDrawingStyle(),
       rect,
     );
 
@@ -99,36 +108,36 @@ class RoughDecorationPainter extends BoxPainter {
     switch (roughDecoration.shape) {
       case RoughBoxShape.rectangle:
         drawable = generator.rectangle(
-          offset.dx,
-          offset.dy,
-          configuration.size!.width,
-          configuration.size!.height,
+          rect.left,
+          rect.top,
+          rect.width,
+          rect.height,
         );
       case RoughBoxShape.roundedRectangle:
         final br = roughDecoration.borderRadius ?? BorderRadius.zero;
         drawable = generator.roundedRectangle(
-          offset.dx,
-          offset.dy,
-          configuration.size!.width,
-          configuration.size!.height,
+          rect.left,
+          rect.top,
+          rect.width,
+          rect.height,
           br.topLeft.x,
           br.topRight.x,
           br.bottomRight.x,
           br.bottomLeft.x,
         );
       case RoughBoxShape.circle:
-        final double centerX = offset.dx + configuration.size!.width / 2;
-        final double centerY = offset.dy + configuration.size!.height / 2;
-        final double diameter = configuration.size!.shortestSide;
+        final double centerX = rect.center.dx;
+        final double centerY = rect.center.dy;
+        final double diameter = rect.shortestSide;
         drawable = generator.circle(centerX, centerY, diameter);
       case RoughBoxShape.ellipse:
-        final double centerX = offset.dx + configuration.size!.width / 2;
-        final double centerY = offset.dy + configuration.size!.height / 2;
+        final double centerX = rect.center.dx;
+        final double centerY = rect.center.dy;
         drawable = generator.ellipse(
           centerX,
           centerY,
-          configuration.size!.width,
-          configuration.size!.height,
+          rect.width,
+          rect.height,
         );
     }
 
@@ -140,7 +149,8 @@ class RoughDecorationPainter extends BoxPainter {
     final Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true
-      ..strokeCap = StrokeCap.square
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
       ..strokeWidth = roughDrawDecoration.width ?? 0.1
       ..color = roughDrawDecoration.color ?? defaultColor
       ..shader = roughDrawDecoration.gradient?.createShader(rect);

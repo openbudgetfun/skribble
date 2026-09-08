@@ -42,12 +42,18 @@ class WiredSlider extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final currentSliderValue = useRef(value);
-    useFuture(Future<void>.delayed(Duration.zero));
+    final currentSliderValue = useState(value);
+    useEffect(() {
+      currentSliderValue.value = value;
+      return null;
+    }, [value]);
 
     return Semantics(
+      container: true,
+      excludeSemantics: true,
       label: semanticLabel,
       slider: true,
+      enabled: onChanged != null,
       value: currentSliderValue.value.toStringAsFixed(1),
       increasedValue:
           (currentSliderValue.value + (max - min) / (divisions ?? 10))
@@ -57,91 +63,110 @@ class WiredSlider extends HookWidget {
           (currentSliderValue.value - (max - min) / (divisions ?? 10))
               .clamp(min, max)
               .toStringAsFixed(1),
-      onIncrease: () {
-        final step = (max - min) / (divisions ?? 10);
-        final newValue = (currentSliderValue.value + step).clamp(min, max);
-        if (onChanged?.call(newValue) ?? false) {
-          currentSliderValue.value = newValue;
-        }
-      },
-      onDecrease: () {
-        final step = (max - min) / (divisions ?? 10);
-        final newValue = (currentSliderValue.value - step).clamp(min, max);
-        if (onChanged?.call(newValue) ?? false) {
-          currentSliderValue.value = newValue;
-        }
-      },
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-            height: 1,
-            width: double.infinity,
-            child: WiredCanvas(
-              painter: WiredLineBase(
-                x1: 0,
-                y1: 0,
-                x2: double.infinity,
-                y2: 0,
-                strokeWidth: 2,
-                borderColor: theme.borderColor,
-              ),
-              fillerType: RoughFilter.hatchFiller,
-            ),
-          ),
-          Positioned(
-            left: _getWidth(context) * currentSliderValue.value / max - 12,
-            child: SizedBox(
-              height: 24.0,
-              width: 24.0,
-              child: WiredCanvas(
-                painter: WiredCircleBase(
-                  diameterRatio: .7,
-                  fillColor: theme.textColor,
-                  borderColor: theme.borderColor,
+      onIncrease: onChanged == null
+          ? null
+          : () {
+              final step = (max - min) / (divisions ?? 10);
+              final newValue = (currentSliderValue.value + step).clamp(
+                min,
+                max,
+              );
+              if (onChanged?.call(newValue) ?? false) {
+                currentSliderValue.value = newValue;
+              }
+            },
+      onDecrease: onChanged == null
+          ? null
+          : () {
+              final step = (max - min) / (divisions ?? 10);
+              final newValue = (currentSliderValue.value - step).clamp(
+                min,
+                max,
+              );
+              if (onChanged?.call(newValue) ?? false) {
+                currentSliderValue.value = newValue;
+              }
+            },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final fraction = max == min
+                ? 0.0
+                : (currentSliderValue.value - min) / (max - min);
+            final visualFraction =
+                Directionality.of(context) == TextDirection.rtl
+                ? 1 - fraction
+                : fraction;
+            return Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  height: theme.inkExtent,
+                  width: double.infinity,
+                  child: WiredCanvas(
+                    painter: WiredLineBase(
+                      x1: 0,
+                      y1: theme.inkExtent / 2,
+                      x2: double.infinity,
+                      y2: theme.inkExtent / 2,
+                      strokeWidth: theme.strokeWidth,
+                      borderColor: theme.borderColor,
+                    ),
+                    fillerType: RoughFilter.hatchFiller,
+                  ),
                 ),
-                fillerType: RoughFilter.hachureFiller,
-                fillerConfig: FillerConfig.build(hachureGap: 1.0),
-              ),
-            ),
-          ),
-          SliderTheme(
-            data: SliderThemeData(trackShape: CustomTrackShape()),
-            child: Slider(
-              value: currentSliderValue.value,
-              min: min,
-              max: max,
-              activeColor: Colors.transparent,
-              inactiveColor: Colors.transparent,
-              divisions: divisions,
-              label: label,
-              onChanged: (value) {
-                bool result = false;
-                if (onChanged != null) {
-                  result = onChanged!(value);
-                }
+                Positioned(
+                  left: constraints.maxWidth * visualFraction - 12,
+                  child: SizedBox(
+                    height: 24.0,
+                    width: 24.0,
+                    child: WiredCanvas(
+                      painter: WiredCircleBase(
+                        strokeWidth: theme.strokeWidth,
+                        diameterRatio: .7,
+                        fillColor: theme.textColor,
+                        borderColor: theme.borderColor,
+                      ),
+                      fillerType: RoughFilter.hachureFiller,
+                      fillerConfig: FillerConfig.build(hachureGap: 1.0),
+                    ),
+                  ),
+                ),
+                SliderTheme(
+                  data: SliderThemeData(
+                    trackShape: CustomTrackShape(),
+                    thumbShape: SliderComponentShape.noThumb,
+                    overlayShape: SliderComponentShape.noOverlay,
+                  ),
+                  child: Slider(
+                    value: currentSliderValue.value,
+                    min: min,
+                    max: max,
+                    activeColor: Colors.transparent,
+                    inactiveColor: Colors.transparent,
+                    divisions: divisions,
+                    label: label,
+                    onChanged: onChanged == null
+                        ? null
+                        : (value) {
+                            bool result = false;
+                            if (onChanged != null) {
+                              result = onChanged!(value);
+                            }
 
-                if (result) {
-                  currentSliderValue.value = value;
-                }
-              },
-            ),
-          ),
-        ],
+                            if (result) {
+                              currentSliderValue.value = value;
+                            }
+                          },
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
-  }
-
-  double _getWidth(BuildContext context) {
-    double width = 0;
-    try {
-      final box = context.findRenderObject()! as RenderBox;
-      width = box.size.width;
-    } catch (_) {
-      width = 0;
-    }
-
-    return width;
   }
 }
 
