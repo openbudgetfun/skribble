@@ -41,6 +41,8 @@ The source SVG importer supports the features used by the pinned corpus. It is n
 
 ## Verification
 
+Run `mc check` when changing font declarations. It validates the package manifests, including alphabetical ordering of each family's font assets, alongside the generated-asset checks in CI.
+
 The regression suite checks all source glyphs, all 4,495 emoji paths, all curated icon bounds, filled icon counters at 24/48/96 pixels, color and alpha pixels, clipping, deterministic ink, theme repainting, external checkbox/slider state, and inputs at 100–300% text scaling in a scrollable form. Notebook widget tests cover 320, 390, 820, and 1,440-pixel layouts, long notes, save/reset, and palette changes.
 
 Patrol runs the notebook in Chromium at phone, tablet, and desktop widths. It enters and saves accented text and currency, checks a task, resets the notebook, changes palette, and operates the reminder. Browser screenshots and traces are retained as test artifacts. These are browser runs; native Android/iOS runners are separate work.

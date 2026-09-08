@@ -45,23 +45,23 @@ flutter:
         - asset: assets/fonts/Skribble-Regular.ttf
     - family: SkribbleGentle
       fonts:
-        - asset: assets/fonts/SkribbleGentle-Regular.ttf
         - asset: assets/fonts/SkribbleGentle-Bold.ttf
           weight: 700
-        - asset: assets/fonts/SkribbleGentle-Italic.ttf
-          style: italic
         - asset: assets/fonts/SkribbleGentle-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/SkribbleGentle-Italic.ttf
+          style: italic
+        - asset: assets/fonts/SkribbleGentle-Regular.ttf
     - family: SkribblePlayful
       fonts:
-        - asset: assets/fonts/SkribblePlayful-Regular.ttf
         - asset: assets/fonts/SkribblePlayful-Bold.ttf
           weight: 700
-        - asset: assets/fonts/SkribblePlayful-Italic.ttf
-          style: italic
         - asset: assets/fonts/SkribblePlayful-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/SkribblePlayful-Italic.ttf
+          style: italic
+        - asset: assets/fonts/SkribblePlayful-Regular.ttf
   assets:
     - assets/fonts/
