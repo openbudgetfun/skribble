@@ -121,6 +121,7 @@ class SiteSidebar extends StatelessComponent {
               href: link('/reference/api-overview'),
             ),
             SidebarLink(text: 'Agents', href: link('/reference/agents')),
+            SidebarLink(text: 'Releasing', href: link('/reference/releasing')),
             SidebarLink(
               text: 'Contributing',
               href: link('/reference/contributing'),

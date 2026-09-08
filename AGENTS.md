@@ -99,4 +99,11 @@ docs:site:serve
 
 # Build docs site for deployment
 docs:site:build
+
+# Validate release configuration and changesets
+monochange step validate
+monochange check
+
+# Preview release files without changing the workspace
+monochange step prepare-release --dry-run --diff
 ```

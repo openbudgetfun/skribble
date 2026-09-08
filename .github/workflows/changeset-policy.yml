@@ -17,9 +17,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: validate monochange config and changesets
-        run: mc step:validate
+        run: monochange step validate
         shell: devenv shell -- bash -e {0}
 
       - name: check changeset and manifest policy
-        run: mc check
+        run: monochange check
         shell: devenv shell -- bash -e {0}

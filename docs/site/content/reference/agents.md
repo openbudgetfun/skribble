@@ -1006,6 +1006,13 @@ Without a fixed seed, rough drawings will vary between renders, which can cause 
 1. Update the sidebar if pages were added/removed (`docs/site/lib/components/site_sidebar.dart`)
 2. Update internal cross-links between pages
 
+**When you modify release or publication automation:**
+
+1. Update `docs/site/content/reference/releasing.md`
+2. Run `monochange step validate` and `monochange check`
+3. Preview release changes with `monochange step prepare-release --dry-run --diff`
+4. Keep pub.dev publication in the two documented rate-limit batches
+
 ## Icon pipeline reference
 
 ### Generating Material rough icons
@@ -1066,6 +1073,9 @@ WiredIcon.svg(iconData: myCustomIconData)
 | `fix:all`                        | Auto-fix format + lint issues      |
 | `docs:site:serve`                | Serve docs site locally            |
 | `docs:site:build`                | Build static docs for deployment   |
+| `monochange step validate`       | Validate release configuration     |
+| `monochange check`               | Check manifests and changesets     |
+| `monochange run release`         | Open or refresh the release PR     |
 
 ## Visual asset checks
 
