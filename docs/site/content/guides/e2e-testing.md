@@ -28,3 +28,5 @@ These commands exercise Flutter web in Chromium. Native Android and iOS testing 
 The `test:all` command runs Flutter packages sequentially with four test workers per package. This keeps large generated catalogs and timing checks from competing across packages on CI runners.
 
 Chromium CI installs Playwright 1.56.0's Linux system libraries with `install --with-deps`, matching Patrol 4.9.0's web runner. The browser process runs in the host shell with the pinned Flutter SDK and Node 22, so Ubuntu's browser libraries are visible. Patrol's automatic browser download alone does not install those libraries.
+
+CI enables Patrol's verbose output and HTML, JSON, and list reporters. Verbose output exposes Playwright startup errors that otherwise appear only as an exit code before any tests or report files exist.
