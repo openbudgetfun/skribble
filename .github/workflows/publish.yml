@@ -1,28 +1,155 @@
 name: Publish
 
 on:
-  push:
-    tags:
-      - "all@*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-pub-dev-${{ github.sha }}
+  cancel-in-progress: false
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
+  primary:
+    if: github.repository == 'openbudgetfun/skribble'
     environment: publisher
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
     permissions:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out release tag
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
-      - uses: ./.github/actions/devenv
+      - name: Verify release tag
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_REF_TYPE" != "tag" ]; then
+            echo "::error::Publish must be dispatched against a release tag."
+            exit 1
+          fi
+          git fetch --force origin main:refs/remotes/origin/main --tags
+          tag_commit="$(git rev-list -n1 "$RELEASE_TAG")"
+          if [ "$(git rev-parse HEAD)" != "$tag_commit" ]; then
+            echo "::error::The checkout does not match $RELEASE_TAG."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor "$tag_commit" refs/remotes/origin/main; then
+            echo "::error::$RELEASE_TAG is not reachable from main."
+            exit 1
+          fi
+        shell: bash
+
+      - name: Set up Dart trusted publishing
+        uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
+
+      - name: Set up toolchains
+        uses: ./.github/actions/devenv
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: verify publish readiness
-        run: mc step:publish-readiness --from HEAD
+      - name: Check Monochange publish readiness
+        run: |
+          monochange step publish-readiness \
+            --from HEAD \
+            --package skribble_lints \
+            --package skribble_emoji_gen \
+            --package skribble_font_roughen \
+            --package skribble \
+            --output "$RUNNER_TEMP/publish-readiness-primary.json" \
+            --format json
         shell: devenv shell -- bash -e {0}
 
-      - name: publish to pub.dev
-        run: melos publish --no-dry-run
+      - name: Dry-run and publish the first package batch
+        run: |
+          set -euo pipefail
+          for package in skribble_lints skribble_emoji_gen skribble_font_roughen skribble; do
+            (cd "packages/$package" && dart pub publish --dry-run)
+            monochange step publish-packages \
+              --package "$package" \
+              --output "$RUNNER_TEMP/publish-$package.json" \
+              --format json
+          done
         shell: devenv shell -- bash -e {0}
+
+      - name: Upload Monochange primary-batch reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: monochange-publish-primary-${{ github.ref_name }}
+          path: |
+            ${{ runner.temp }}/publish-readiness-primary.json
+            ${{ runner.temp }}/publish-*.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+  resume:
+    if: github.repository == 'openbudgetfun/skribble'
+    needs: primary
+    environment: publisher-resume
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Check out release tag
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Dart trusted publishing
+        uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
+
+      - name: Set up toolchains
+        uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check Monochange publish readiness
+        run: |
+          monochange step publish-readiness \
+            --from HEAD \
+            --package skribble_emoji \
+            --package skribble_icons \
+            --package skribble_icons_custom \
+            --output "$RUNNER_TEMP/publish-readiness-resume.json" \
+            --format json
+        shell: devenv shell -- bash -e {0}
+
+      - name: Dry-run and publish the resumed package batch
+        run: |
+          set -euo pipefail
+          for package in skribble_emoji skribble_icons skribble_icons_custom; do
+            (cd "packages/$package" && dart pub publish --dry-run)
+            monochange step publish-packages \
+              --package "$package" \
+              --output "$RUNNER_TEMP/publish-$package.json" \
+              --format json
+          done
+        shell: devenv shell -- bash -e {0}
+
+      - name: Publish the GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: monochange step publish-release --from-ref HEAD --format json
+        shell: devenv shell -- bash -e {0}
+
+      - name: Upload Monochange resumed-batch reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: monochange-publish-resume-${{ github.ref_name }}
+          path: |
+            ${{ runner.temp }}/publish-readiness-resume.json
+            ${{ runner.temp }}/publish-*.json
+          if-no-files-found: ignore
+          retention-days: 14

@@ -1,7 +1,15 @@
 name: skribble_emoji_gen
-description: Dart CLI tool to generate emoji maps from OpenMoji SVGs.
-version: 1.0.0
-publish_to: none
+description: Generate pinned, hand-drawn emoji and icon assets from OpenMoji SVG sources.
+version: 0.3.4
+homepage: https://github.com/openbudgetfun/skribble
+repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_emoji_gen
+issue_tracker: https://github.com/openbudgetfun/skribble/issues
+topics:
+  - emoji
+  - icons
+  - codegen
+  - svg
+  - tooling
 
 resolution: workspace
 

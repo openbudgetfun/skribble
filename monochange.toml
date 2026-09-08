@@ -1,3 +1,5 @@
+# :schema https://monochange.github.io/monochange/schemas/monochange.schema.json
+
 # =============================================================================
 # monochange.toml — repository configuration for monochange
 # =============================================================================
@@ -25,23 +27,33 @@ This changelog is managed by [monochange](https://github.com/monochange/monochan
 
 [package.skribble]
 path = "packages/skribble"
+type = "dart"
 tag = true
 release = true
 
 [package.skribble_icons]
 path = "packages/skribble_icons"
+type = "dart"
 
 [package.skribble_icons_custom]
 path = "packages/skribble_icons_custom"
+type = "dart"
 
 [package.skribble_emoji]
 path = "packages/skribble_emoji"
+type = "dart"
+
+[package.skribble_emoji_gen]
+path = "packages/skribble_emoji_gen"
+type = "dart"
 
 [package.skribble_font_roughen]
 path = "packages/skribble_font_roughen"
+type = "dart"
 
 [package.skribble_lints]
 path = "packages/skribble_lints"
+type = "dart"
 
 # =============================================================================
 # [group.*] — version groups that share a single release identity
@@ -53,6 +65,7 @@ packages = [
   "skribble_icons",
   "skribble_icons_custom",
   "skribble_emoji",
+  "skribble_emoji_gen",
   "skribble_font_roughen",
   "skribble_lints",
 ]
@@ -68,8 +81,31 @@ changelog = { path = "CHANGELOG.md" }
 [ecosystems.dart]
 enabled = true
 publish.enabled = true
-publish.mode = "external"
+publish.mode = "builtin"
 publish.registry = "pub_dev"
+publish.trusted_publishing = { enabled = true, repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
+publish.rate_limits.enforce = true
+versioned_files = [
+  { path = "**/pubspec.yaml", type = "dart", fields = ["dependencies", "dev_dependencies"] },
+]
+
+[package.skribble_emoji.publish.trusted_publishing]
+enabled = true
+repository = "openbudgetfun/skribble"
+workflow = "publish.yml"
+environment = "publisher-resume"
+
+[package.skribble_icons.publish.trusted_publishing]
+enabled = true
+repository = "openbudgetfun/skribble"
+workflow = "publish.yml"
+environment = "publisher-resume"
+
+[package.skribble_icons_custom.publish.trusted_publishing]
+enabled = true
+repository = "openbudgetfun/skribble"
+workflow = "publish.yml"
+environment = "publisher-resume"
 
 # =============================================================================
 # [source] — repository host for release automation
@@ -90,7 +126,7 @@ enforce_for_commit = false
 
 [source.pull_requests]
 enabled = true
-branch_prefix = "monochange/release"
+branch_prefix = "chore/release"
 base = "main"
 title = "chore(release): prepare release"
 labels = ["release", "automated"]
@@ -127,27 +163,10 @@ steps = [
 ]
 
 [cli.release]
-help_text = "Prepare a local release: plan bumps, sync files, format, optionally commit, tag, and publish the GitHub release"
-inputs = [
-  { name = "format", type = "choice", choices = ["text", "json", "markdown"], default = "markdown" },
-  { name = "no_verify", type = "boolean", default = true },
-  { name = "commit", help_text = "Whether to commit the release changes", type = "boolean", default = false },
-  { name = "push", help_text = "Whether to push the release after the commit", type = "boolean", default = false },
-  { name = "tag", help_text = "Whether to create and push release tags from the release commit", type = "boolean", default = false },
-  { name = "publish_release", help_text = "Whether to publish the GitHub release object for the release tag", type = "boolean", default = false },
-]
+help_text = "Prepare, commit, and open or refresh the grouped Skribble release pull request"
 steps = [
-  { type = "PrepareRelease", name = "plan release", allow_empty_changesets = true },
-  { type = "Command", name = "format with dart", when = "{{ number_of_changesets > 0 }}", command = "dart format ." },
-  { type = "CommitRelease", name = "create release commit", when = "{{ number_of_changesets > 0 && inputs.commit }}", inputs = { no_verify = "{{ inputs.no_verify }}" } },
-  { type = "Command", name = "push release commit", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.push }}", command = "git push" },
-  { type = "TagRelease", name = "create and push release tags", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag }}", inputs = { from = "HEAD", push = true, format = "json" } },
-  { type = "PublishRelease", name = "publish GitHub release", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag && inputs.publish_release }}", inputs = { from-ref = "HEAD", draft = false, format = "json" } },
-]
-
-[cli.publish]
-help_text = "Publish packages to pub.dev via melos. Must be run from a tagged release commit."
-dry_run = false
-steps = [
-  { type = "Command", name = "publish Dart packages", command = "melos publish --no-dry-run" },
+  { type = "PrepareRelease", name = "prepare release", allow_empty_changesets = true, inputs = { format = "json" } },
+  { type = "Command", name = "format release files", when = "{{ number_of_changesets > 0 }}", command = "fix:format", shell = true },
+  { type = "CommitRelease", name = "commit release", when = "{{ number_of_changesets > 0 }}", inputs = { no_verify = true } },
+  { type = "OpenReleaseRequest", name = "open release request", when = "{{ number_of_changesets > 0 }}", inputs = { no_verify = true } },
 ]
