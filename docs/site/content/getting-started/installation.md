@@ -11,59 +11,19 @@ There are two ways to get started with Skribble: add it to an existing app as a 
 
 <!-- {=docsInstallSection} -->
 
-Add the Skribble package to your Flutter project:
+## Install in an app
+
+Add the `skribble` package to your Flutter project:
 
 ```bash
 dart pub add skribble
 ```
 
-Or add it manually to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  skribble: ^0.1.0
-```
-
-Then run:
-
-```bash
-dart pub get
-```
-
-Import the library in any Dart file:
+Then import it:
 
 ```dart
 import 'package:skribble/skribble.dart';
 ```
-
-That single import gives you access to every Wired widget, the theming system, the rough-drawing engine, and the icon set. No additional setup is required -- just start using Wired widgets in your widget tree.
-
-### Optional companion packages
-
-For curated custom icons, hand-drawn emoji, and font roughening, add the companion packages:
-
-```bash
-dart pub add skribble_icons
-dart pub add skribble_emoji
-```
-
-Or add them manually to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  skribble: ^0.1.0
-  skribble_icons: ^0.1.0
-  skribble_emoji: ^0.1.0
-```
-
-Import them separately:
-
-```dart
-import 'package:skribble_icons/skribble_icons.dart';
-import 'package:skribble_emoji/skribble_emoji.dart';
-```
-
-`skribble_icons` provides 8,600+ hand-drawn Material icons with a unified lookup API. `skribble_emoji` provides 1,827 hand-drawn emoji from OpenMoji with the `WiredEmoji` widget and `EmojiSearch` utility for searching and filtering.
 
 <!-- {/docsInstallSection} -->
 
@@ -71,53 +31,21 @@ import 'package:skribble_emoji/skribble_emoji.dart';
 
 <!-- {=docsWorkspaceSetupSection} -->
 
-To contribute to Skribble or run the storybook app locally, clone the repository and set up the development environment.
-
-### Prerequisites
-
-- **Flutter SDK** -- managed by [FVM](https://fvm.app/) (the pinned version is in `.fvmrc`)
-- **Dart SDK** -- bundled with Flutter
-- **devenv** -- the project uses [devenv](https://devenv.sh/) for reproducible tooling (Melos, formatters, linters)
-- **Melos** -- workspace management for the monorepo (installed via devenv)
-
-### Clone and bootstrap
-
 ```bash
 # Clone the repository
 git clone https://github.com/openbudgetfun/skribble.git
 cd skribble
 
-# Activate the devenv shell (installs Melos, FVM, and other tools)
-devenv shell
+# If using devenv
+direnv allow
 
-# Install the pinned Flutter SDK
+# If not using devenv
 fvm install
+fvm use --force
 
-# Bootstrap all packages (resolves deps, links local packages)
-melos bootstrap
+# Install dependencies
+flutter pub get
 ```
-
-### Workspace structure
-
-```
-skribble/
-  packages/skribble/             # Main UI component library
-  packages/skribble_lints/       # Shared lint rules
-  apps/skribble_storybook/       # Demo/showcase app
-  docs/site/                     # Documentation site (this site)
-```
-
-The `packages/skribble/` directory contains all Wired widgets, the rough-drawing engine, the theme system, and the generated icon font. `apps/skribble_storybook/` is a Flutter app that showcases every widget with live examples.
-
-### Additional packages
-
-The workspace also includes:
-
-- `packages/skribble_icons/` -- Pre-computed rough Material icons (8,600+)
-- `packages/skribble_icons_custom/` -- Custom SVG icon roughening
-- `packages/skribble_emoji/` -- Hand-drawn emoji from OpenMoji (1,827 emoji)
-- `packages/skribble_font_roughen/` -- Dart CLI tool for roughening fonts
-- `packages/skribble_lints/` -- Shared lint rules
 
 <!-- {/docsWorkspaceSetupSection} -->
 
@@ -125,44 +53,36 @@ The workspace also includes:
 
 <!-- {=docsWorkspaceDevCommandsSection} -->
 
-All commands are run from the repository root via Melos:
-
 ```bash
-# Analyze all packages for lint and type errors
+# Run all lint checks (format + analyze)
+lint:all
+
+# Run dart analyze across all packages
 melos run analyze
 
-# Run all Flutter widget tests
+# Run Flutter widget tests
 melos run flutter-test
 
 # Format all Dart code
-melos run format
+dart format .
 
-# Capture widget screenshots to .screenshots/
+# Fix all fixable lint and format issues
+fix:all
+
+# Capture component screenshots
 melos run screenshot
 
-# Apply all auto-fixable lint rules across the workspace
-melos run fix:all
-```
+# Generate rough Material icon SVGs
+melos run rough-icons
 
-### Running the storybook
+# Generate rough icon font (TTF + Dart helpers)
+melos run rough-icons-font
 
-```bash
-cd apps/skribble_storybook
-flutter run -d chrome    # or -d macos, -d linux, etc.
-```
+# Generate custom icon artifacts from SVG manifest
+melos run rough-icons-custom
 
-### Running tests for a single package
-
-```bash
-cd packages/skribble
-flutter test
-```
-
-### Analyzing a single package
-
-```bash
-cd packages/skribble
-dart analyze --fatal-infos .
+# Run CI-equivalent rough icon checks
+melos run rough-icons-ci-check
 ```
 
 <!-- {/docsWorkspaceDevCommandsSection} -->

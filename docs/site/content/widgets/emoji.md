@@ -5,7 +5,7 @@ description: Hand-drawn emoji from OpenMoji, rendered as rough SVG icons with th
 
 # Emoji
 
-The `skribble_emoji` package provides hand-drawn emoji sourced from [OpenMoji](https://openmoji.org/), rendered through the same rough SVG pipeline used for icons. Emoji are displayed with hand-drawn strokes and optional fill styles, matching the Skribble design language.
+The `skribble_emoji` package provides hand-drawn emoji sourced from [OpenMoji](https://openmoji.org/), roughened during generation and rendered as colored paths with pen strokes.
 
 ---
 
@@ -47,10 +47,10 @@ WiredEmoji.fromUnicode(0x1f600, size: 32)
 
 ### Named constructors
 
-| Constructor              | Description                                                         |
-| ------------------------ | ------------------------------------------------------------------- |
-| `WiredEmoji.fromName`    | Looks up emoji by identifier string via `kSkribbleEmojiCodePoints`. |
-| `WiredEmoji.fromUnicode` | Looks up emoji by Unicode codepoint via `kSkribbleEmoji`.           |
+| Constructor              | Description                                                    |
+| ------------------------ | -------------------------------------------------------------- |
+| `WiredEmoji.fromName`    | Looks up emoji by identifier string via `kSkribbleEmojiNames`. |
+| `WiredEmoji.fromUnicode` | Looks up emoji by Unicode codepoint via `kSkribbleEmoji`.      |
 
 ---
 
@@ -58,7 +58,7 @@ WiredEmoji.fromUnicode(0x1f600, size: 32)
 
 The emoji catalog is generated from OpenMoji SVG sources through the Skribble rough icon pipeline. The catalog is populated by running the generator against the emoji manifest.
 
-The `kSkribbleEmoji` map contains all generated emoji keyed by Unicode codepoint, and `kSkribbleEmojiCodePoints` maps human-readable names to their codepoints.
+The `kSkribbleEmoji` and `kSkribbleEmojiCodePoints` maps cover single Unicode scalars. `kSkribbleEmojiNames` contains every name, including full joined sequences.
 
 ---
 
@@ -84,39 +84,28 @@ if (grinning != null) {
 final thumbsUp = lookupSkribbleEmojiByUnicode(0x1f44d);
 
 // Check available emoji count
-print('${kSkribbleEmoji.length} emoji available');
+print('${kSkribbleEmojiNames.length} emoji available');
 
 // Iterate all emoji names
-for (final name in kSkribbleEmojiCodePoints.keys) {
+for (final name in kSkribbleEmojiNames.keys) {
   print(name);
 }
 ```
 
 ---
 
-## How to add more emoji
+## OpenMoji 17 and complete sequences
 
-To add emoji to the catalog:
+The generated catalog contains **4,495 named OpenMoji 17.0.0 entries**, including Unicode 17 additions, joined professions, skin tones, flags, and keycaps. `kSkribbleEmoji` and `kSkribbleEmojiCodePoints` remain single-scalar compatibility maps; use `kSkribbleEmojiNames` for the complete name list.
 
-1. Download SVG sources from [OpenMoji](https://openmoji.org/) or create your own simple path-based SVG files.
-2. Place the SVG files in the `packages/skribble_emoji/emoji/` directory.
-3. Create or update the emoji manifest JSON file with the mapping of names to SVG filenames and Unicode codepoints.
-4. Run the rough icon generator against the manifest:
-
-```bash
-cd packages/skribble &&
-dart run tool/generate_rough_icons.dart \
-  --kit svg-manifest \
-  --manifest ../skribble_emoji/tool/emoji.manifest.json \
-  --output ../skribble_emoji/lib/src/generated/skribble_emoji.g.dart \
-  --map-name kSkribbleEmoji
+```dart
+WiredEmoji.fromSequence('👩🏽‍💻', semanticLabel: 'Developer');
+PrecomputedEmoji.fromSequence('🇬🇧', size: 48, semanticLabel: 'United Kingdom');
+final data = lookupSkribbleEmojiBySequence('1F469-1F3FD-200D-1F4BB');
 ```
 
-5. Update the `kSkribbleEmojiCodePoints` map in `skribble_emoji.dart` with entries for each new emoji.
+`lookupSkribbleEmojiBySequence` accepts literal emoji or hyphenated hexadecimal scalars. Optional FE0F presentation selectors are normalized; ZWJ, skin tones, and regional indicators are retained. `EmojiSearchResult.sequence` exposes the full sequence, while `codePoint` remains its first scalar for compatibility.
 
-### SVG requirements
+Both widget entry points render the same precomputed, gently warped artwork. Source colors, unfilled strokes, transforms, transparency, clip paths, and fill rules are preserved. `PrecomputedEmoji.color` is a fallback for uncolored data and placeholders, not a palette override.
 
-- Emoji SVGs should use simple path, circle, and ellipse elements.
-- Complex SVG features (gradients, filters, masks, embedded images) are not supported.
-- Fill rules (`nonZero` and `evenOdd`) are preserved from the source SVG.
-- Keep SVGs clean and path-based for the best rough rendering results.
+Regenerate from the repository root with `dart run packages/skribble_emoji_gen/bin/update_assets.dart`. The command checks pinned source hashes before writing output. The source artwork is by [OpenMoji](https://openmoji.org/) under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); Skribble's modified artwork retains that license. Preserve attribution when redistributing it.

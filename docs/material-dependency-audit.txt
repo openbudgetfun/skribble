@@ -1,20 +1,17 @@
-Material dependency audit — 94 of 109 files import material/cupertino
+Material dependency audit — 97 of 122 files import material/cupertino
 
-  skin     (wraps a Material/Cupertino widget): 57
-  helpers  (constants/theme only):              37
+  skin     (wraps a Material/Cupertino widget): 65
+  helpers  (constants/theme only):              32
 
-helpers   material         packages/skribble/lib/src/canvas/wired_canvas.dart
 skin      material         packages/skribble/lib/src/canvas/wired_ink_splash.dart
-helpers   material         packages/skribble/lib/src/canvas/wired_painter.dart
-helpers   material         packages/skribble/lib/src/rough/decoration.dart
 helpers   material         packages/skribble/lib/src/rough/rough.dart
 skin      material         packages/skribble/lib/src/wired_about_dialog.dart
+skin      material         packages/skribble/lib/src/wired_about_list_tile.dart
 helpers   material         packages/skribble/lib/src/wired_animated_icon.dart
 skin      material         packages/skribble/lib/src/wired_app_bar.dart
 skin      material         packages/skribble/lib/src/wired_autocomplete.dart
 skin      material         packages/skribble/lib/src/wired_avatar.dart
 helpers   material         packages/skribble/lib/src/wired_badge.dart
-helpers   material         packages/skribble/lib/src/wired_base.dart
 skin      material         packages/skribble/lib/src/wired_bottom_app_bar.dart
 skin      material         packages/skribble/lib/src/wired_bottom_nav.dart
 helpers   material         packages/skribble/lib/src/wired_bottom_sheet.dart
@@ -22,6 +19,7 @@ helpers   material         packages/skribble/lib/src/wired_button.dart
 skin      material         packages/skribble/lib/src/wired_calendar.dart
 helpers   material         packages/skribble/lib/src/wired_calendar_date_picker.dart
 helpers   material         packages/skribble/lib/src/wired_card.dart
+skin      material         packages/skribble/lib/src/wired_carousel_view.dart
 skin      material         packages/skribble/lib/src/wired_checkbox.dart
 skin      material         packages/skribble/lib/src/wired_checkbox_list_tile.dart
 skin      material         packages/skribble/lib/src/wired_chip.dart
@@ -44,6 +42,7 @@ skin      cupertino        packages/skribble/lib/src/wired_cupertino_tab_bar.dar
 skin      material+cupertino packages/skribble/lib/src/wired_cupertino_text_field.dart
 skin      material         packages/skribble/lib/src/wired_data_table.dart
 skin      material         packages/skribble/lib/src/wired_date_picker.dart
+skin      material         packages/skribble/lib/src/wired_date_range_picker.dart
 skin      material         packages/skribble/lib/src/wired_dialog.dart
 skin      material         packages/skribble/lib/src/wired_dismissible.dart
 helpers   material         packages/skribble/lib/src/wired_divider.dart
@@ -56,15 +55,18 @@ helpers   material         packages/skribble/lib/src/wired_fab.dart
 helpers   material         packages/skribble/lib/src/wired_filled_button.dart
 skin      material         packages/skribble/lib/src/wired_filter_chip.dart
 helpers   material         packages/skribble/lib/src/wired_form.dart
+skin      material         packages/skribble/lib/src/wired_grid_tile.dart
 helpers   material         packages/skribble/lib/src/wired_icon.dart
 helpers   material         packages/skribble/lib/src/wired_icon_button.dart
 skin      material         packages/skribble/lib/src/wired_input.dart
 skin      material         packages/skribble/lib/src/wired_input_chip.dart
+skin      material         packages/skribble/lib/src/wired_license_page.dart
 skin      material         packages/skribble/lib/src/wired_list_tile.dart
 skin      material         packages/skribble/lib/src/wired_loading_indicator.dart
 skin      material         packages/skribble/lib/src/wired_material_app.dart
 skin      material         packages/skribble/lib/src/wired_material_banner.dart
 skin      material         packages/skribble/lib/src/wired_menu_bar.dart
+skin      material         packages/skribble/lib/src/wired_mergeable_material.dart
 skin      material         packages/skribble/lib/src/wired_navigation_bar.dart
 helpers   material         packages/skribble/lib/src/wired_navigation_drawer.dart
 skin      material         packages/skribble/lib/src/wired_navigation_rail.dart
@@ -79,6 +81,7 @@ skin      material         packages/skribble/lib/src/wired_refresh_indicator.dar
 skin      material         packages/skribble/lib/src/wired_reorderable_list_view.dart
 skin      material         packages/skribble/lib/src/wired_scaffold.dart
 skin      material         packages/skribble/lib/src/wired_scrollbar.dart
+skin      material         packages/skribble/lib/src/wired_search_anchor.dart
 skin      material         packages/skribble/lib/src/wired_search_bar.dart
 skin      material         packages/skribble/lib/src/wired_segmented_button.dart
 helpers   material         packages/skribble/lib/src/wired_selectable_text.dart
@@ -92,7 +95,7 @@ skin      material         packages/skribble/lib/src/wired_tab_bar.dart
 skin      material         packages/skribble/lib/src/wired_text_area.dart
 helpers   material         packages/skribble/lib/src/wired_text_button.dart
 skin      material         packages/skribble/lib/src/wired_theme.dart
-helpers   material         packages/skribble/lib/src/wired_time_picker.dart
+skin      material         packages/skribble/lib/src/wired_time_picker.dart
 helpers   material         packages/skribble/lib/src/wired_toggle.dart
 skin      material         packages/skribble/lib/src/wired_toggle_buttons.dart
 skin      material         packages/skribble/lib/src/wired_tooltip.dart

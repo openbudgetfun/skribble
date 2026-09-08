@@ -54,7 +54,7 @@ class WiredListTile extends HookWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         if (title != null)
-                          DefaultTextStyle(
+                          DefaultTextStyle.merge(
                             style: TextStyle(
                               color: theme.textColor,
                               fontSize: 16,
@@ -63,7 +63,7 @@ class WiredListTile extends HookWidget {
                           ),
                         if (subtitle != null) ...[
                           const SizedBox(height: 2),
-                          DefaultTextStyle(
+                          DefaultTextStyle.merge(
                             style: TextStyle(
                               color: theme.disabledTextColor,
                               fontSize: 14,
@@ -84,9 +84,10 @@ class WiredListTile extends HookWidget {
           ),
           if (showDivider)
             SizedBox(
-              height: 1,
+              height: theme.inkExtent,
               child: WiredCanvas(
                 painter: WiredLineBase(
+                  strokeWidth: theme.strokeWidth,
                   x1: 0,
                   y1: 0,
                   x2: double.infinity,

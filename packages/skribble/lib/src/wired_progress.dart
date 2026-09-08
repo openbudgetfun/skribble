@@ -50,6 +50,7 @@ class WiredProgress extends HookWidget {
             width: width.value * animation,
             child: WiredCanvas(
               painter: WiredRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 fillColor: theme.borderColor,
                 borderColor: theme.borderColor,
               ),
@@ -62,6 +63,7 @@ class WiredProgress extends HookWidget {
             width: width.value,
             child: WiredCanvas(
               painter: WiredRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 fillColor: theme.fillColor,
                 borderColor: theme.borderColor,
               ),

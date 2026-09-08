@@ -33,6 +33,7 @@ class WiredForm extends HookWidget {
           Positioned.fill(
             child: WiredCanvas(
               painter: WiredRoundedRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 borderRadius: borderRadius,
                 borderColor: theme.borderColor,
               ),

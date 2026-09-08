@@ -13,8 +13,6 @@ Skribble provides selection widgets for choices, filtering, date/time picking, a
 
 A chip with a hand-drawn pill-shaped border (16px radius). Supports an optional avatar and delete action.
 
-<!-- {=docsChipUsage} -->
-
 ```dart
 WiredChip(
   label: Text('Flutter'),
@@ -44,8 +42,6 @@ WiredChip(
 
 A selectable chip that toggles between selected and unselected states. When selected, it receives a hachure fill.
 
-<!-- {=docsChoiceChipUsage} -->
-
 ```dart
 WiredChoiceChip(
   label: Text('Small'),
@@ -67,8 +63,6 @@ WiredChoiceChip(
 
 A chip with a checkmark indicator that can be toggled on and off for filtering. Shows a hand-drawn checkmark when selected.
 
-<!-- {=docsFilterChipUsage} -->
-
 ```dart
 WiredFilterChip(
   label: Text('Vegetarian'),
@@ -87,8 +81,6 @@ WiredFilterChip(
 
 A chip representing a piece of user input (e.g., a tag or email address). Supports avatar, delete, and tap actions.
 
-<!-- {=docsInputChipUsage} -->
-
 ```dart
 WiredInputChip(
   label: Text('user@example.com'),
@@ -104,8 +96,6 @@ WiredInputChip(
 
 A chip that triggers an action when tapped. Has a hand-drawn border but no selected state.
 
-<!-- {=docsActionChipUsage} -->
-
 ```dart
 WiredActionChip(
   label: Text('Share'),
@@ -119,8 +109,6 @@ WiredActionChip(
 ## WiredCombo
 
 A hand-drawn dropdown selector wrapping Flutter's `DropdownButton`. Displays a sketchy inverted triangle indicator and draws a hand-drawn rectangle around each dropdown item.
-
-<!-- {=docsComboUsage} -->
 
 ```dart
 WiredCombo<String>(
@@ -157,8 +145,6 @@ WiredCombo<String>(
 ## WiredDatePicker
 
 A date picker dialog widget with hand-drawn calendar grid and navigation. Renders month headers and day cells with sketchy borders. Use `showWiredDatePicker` (top-level helper, shipped with the widget) to open it as a dialog.
-
-<!-- {=docsDatePickerUsage} -->
 
 ```dart
 final date = await showWiredDatePicker(
@@ -214,8 +200,6 @@ final range = await showWiredDateRangePicker(
 
 A time picker with hand-drawn clock face, clock hands, and drag-to-adjust hour/minute fields. The inline widget streams changes through `onTimeSelected`.
 
-<!-- {=docsTimePickerUsage} -->
-
 ```dart
 final time = await showWiredTimePicker(
   context: context,
@@ -237,8 +221,6 @@ if (time != null) {
 
 An inline calendar date picker widget (not a dialog) with hand-drawn day cells and month navigation arrows.
 
-<!-- {=docsCalendarDatePickerUsage} -->
-
 ```dart
 WiredCalendarDatePicker(
   initialDate: DateTime.now(),
@@ -254,8 +236,6 @@ WiredCalendarDatePicker(
 
 A color picker with a hand-drawn grid of color swatches. Each swatch is a sketchy circle that fills with hachure when selected.
 
-<!-- {=docsColorPickerUsage} -->
-
 ```dart
 WiredColorPicker(
   selectedColor: currentColor,
@@ -268,8 +248,6 @@ WiredColorPicker(
 ## WiredCupertinoPicker
 
 A Cupertino-style scrolling picker wheel with hand-drawn selection highlight. Mirrors the `CupertinoPicker` API.
-
-<!-- {=docsCupertinoPickerUsage} -->
 
 ```dart
 WiredCupertinoPicker(
@@ -289,8 +267,6 @@ WiredCupertinoPicker(
 
 A Cupertino-style date picker with hand-drawn wheel columns. Mirrors the `CupertinoDatePicker` API.
 
-<!-- {=docsCupertinoDatePickerUsage} -->
-
 ```dart
 WiredCupertinoDatePicker(
   mode: CupertinoDatePickerMode.date,
@@ -305,8 +281,6 @@ WiredCupertinoDatePicker(
 
 A Cupertino-style segmented control with hand-drawn segment borders and hachure selection fill.
 
-<!-- {=docsCupertinoSegmentedControlUsage} -->
-
 ```dart
 WiredCupertinoSegmentedControl<int>(
   groupValue: selectedSegment,
@@ -318,3 +292,9 @@ WiredCupertinoSegmentedControl<int>(
   },
 )
 ```
+
+## Shared ink and typography
+
+Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.
+
+`WiredCheckbox` is a binary checkbox: `null` is displayed as unchecked, and taps toggle false/true. Parent value changes reset its local visual state.

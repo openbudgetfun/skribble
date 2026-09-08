@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:skribble/skribble.dart' show WiredSvgIcon;
 import 'package:skribble_emoji/skribble_emoji.dart';
 
 /// Renders a hand-drawn emoji from [WiredSvgIconData].
@@ -18,6 +17,7 @@ class WiredEmoji extends HookWidget {
     super.key,
     this.data,
     this.size = 24.0,
+    this.semanticLabel,
   });
 
   /// Creates a [WiredEmoji] by looking up the emoji [name] in
@@ -28,6 +28,7 @@ class WiredEmoji extends HookWidget {
     String name, {
     super.key,
     this.size = 24.0,
+    this.semanticLabel,
   }) : data = lookupSkribbleEmojiByName(name);
 
   /// Creates a [WiredEmoji] by looking up the Unicode [codePoint] in
@@ -38,7 +39,19 @@ class WiredEmoji extends HookWidget {
     int codePoint, {
     super.key,
     this.size = 24.0,
+    this.semanticLabel,
   }) : data = lookupSkribbleEmojiByUnicode(codePoint);
+
+  /// Creates an emoji from a complete Unicode string or hexadecimal sequence.
+  WiredEmoji.fromSequence(
+    String sequence, {
+    super.key,
+    this.size = 24.0,
+    this.semanticLabel,
+  }) : data = lookupSkribbleEmojiBySequence(sequence);
+
+  /// Accessible description of the emoji, including its meaning in context.
+  final String? semanticLabel;
 
   /// The emoji icon data to render, or `null` to show a placeholder.
   final WiredSvgIconData? data;
@@ -47,61 +60,9 @@ class WiredEmoji extends HookWidget {
   final double size;
 
   @override
-  Widget build(BuildContext context) {
-    final effectiveData = data;
-
-    if (effectiveData != null) {
-      return WiredSvgIcon(
-        data: effectiveData,
-        size: size,
-      );
-    }
-
-    // Placeholder: hand-drawn circle with "?" text.
-    return SizedBox.square(
-      dimension: size,
-      child: CustomPaint(
-        painter: _PlaceholderCirclePainter(
-          color: IconTheme.of(context).color ?? Colors.grey,
-        ),
-        child: Center(
-          child: Text(
-            '?',
-            style: TextStyle(
-              fontSize: size * 0.5,
-              fontWeight: FontWeight.bold,
-              color: IconTheme.of(context).color ?? Colors.grey,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Paints a rough circle outline for the emoji placeholder.
-class _PlaceholderCirclePainter extends CustomPainter {
-  const _PlaceholderCirclePainter({required this.color});
-
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.5
-      ..strokeCap = StrokeCap.round
-      ..isAntiAlias = true;
-
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = (size.shortestSide / 2) - 1.5;
-
-    canvas.drawCircle(center, radius, paint);
-  }
-
-  @override
-  bool shouldRepaint(_PlaceholderCirclePainter oldDelegate) {
-    return oldDelegate.color != color;
-  }
+  Widget build(BuildContext context) => PrecomputedEmoji(
+    data: data,
+    size: size,
+    semanticLabel: semanticLabel,
+  );
 }

@@ -13,8 +13,8 @@ void main() {
       expect(theme.textColor, Colors.black);
       expect(theme.disabledTextColor, Colors.grey);
       expect(theme.fillColor, const Color(0xFFFEFEFE));
-      expect(theme.strokeWidth, 2);
-      expect(theme.roughness, 1);
+      expect(theme.strokeWidth, 2.4);
+      expect(theme.roughness, 1.25);
       expect(theme.fontFamily, skribbleFontFamily);
     });
 
@@ -40,7 +40,7 @@ void main() {
 
       expect(defaultTheme, isA<WiredThemeData>());
       expect(defaultTheme.borderColor, const Color(0xFF1A2B3C));
-      expect(defaultTheme.strokeWidth, 2);
+      expect(defaultTheme.strokeWidth, 2.4);
     });
 
     test('accepts custom values', () {
@@ -118,19 +118,19 @@ void main() {
 
       expect(
         materialTheme.textTheme.bodyLarge?.fontFamily,
-        skribbleFontFamily,
+        'packages/skribble/Skribble',
       );
       expect(
         materialTheme.textTheme.bodyMedium?.fontFamily,
-        skribbleFontFamily,
+        'packages/skribble/Skribble',
       );
       expect(
         materialTheme.textTheme.headlineMedium?.fontFamily,
-        skribbleFontFamily,
+        'packages/skribble/Skribble',
       );
       expect(
         materialTheme.textTheme.titleLarge?.fontFamily,
-        skribbleFontFamily,
+        'packages/skribble/Skribble',
       );
     });
 

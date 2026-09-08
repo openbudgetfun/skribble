@@ -27,8 +27,12 @@ class WiredTooltip extends HookWidget {
       waitDuration: waitDuration,
       showDuration: showDuration,
       decoration: RoughBoxDecoration(
+        drawConfig: theme.drawConfig,
         shape: RoughBoxShape.rectangle,
-        borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
+        borderStyle: RoughDrawingStyle(
+          width: theme.strokeWidth,
+          color: theme.borderColor,
+        ),
         fillStyle: RoughDrawingStyle(color: theme.fillColor),
       ),
       textStyle: TextStyle(color: theme.textColor, fontSize: 12),

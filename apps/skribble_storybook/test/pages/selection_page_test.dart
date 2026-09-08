@@ -10,6 +10,11 @@ void main() {
     Future<void> navigateToSelection(WidgetTester tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.text('Selection'),
+        250,
+        scrollable: find.byType(Scrollable).first,
+      );
       await tester.tap(find.text('Selection'));
       await tester.pumpAndSettle();
     }

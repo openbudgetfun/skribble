@@ -89,6 +89,7 @@ class WiredDismissible extends HookWidget {
         Positioned.fill(
           child: WiredCanvas(
             painter: WiredRectangleBase(
+              strokeWidth: theme.strokeWidth,
               fillColor: deleteColor,
               borderColor: theme.borderColor,
             ),

@@ -212,7 +212,7 @@ in
     "test:all" = {
       exec = ''
         set -e
-        melos exec --dir-exists=test --depends-on=flutter -- flutter test
+        melos exec --dir-exists=test --depends-on=flutter --concurrency=1 -- flutter test --concurrency=4
       '';
       description = "Run all unit and widget tests in Flutter packages.";
       binary = "bash";

@@ -44,6 +44,7 @@ class WiredBadge extends HookWidget {
                 children: [
                   WiredCanvas(
                     painter: WiredCircleBase(
+                      strokeWidth: theme.strokeWidth,
                       fillColor: backgroundColor ?? theme.borderColor,
                       diameterRatio: 0.9,
                       borderColor: theme.borderColor,

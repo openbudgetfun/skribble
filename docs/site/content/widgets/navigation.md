@@ -13,8 +13,6 @@ Skribble provides navigation chrome that replaces Material and Cupertino navigat
 
 An app bar with a hand-drawn bottom border line. Implements `PreferredSizeWidget` so it can be used directly in `WiredScaffold.appBar`.
 
-<!-- {=docsAppBarUsage} -->
-
 ```dart
 WiredAppBar(
   title: Text('My App'),
@@ -49,8 +47,6 @@ WiredAppBar(
 ## WiredBottomNavigationBar
 
 A bottom navigation bar with hand-drawn circle selection indicators around active icons.
-
-<!-- {=docsBottomNavUsage} -->
 
 ```dart
 WiredBottomNavigationBar(
@@ -91,8 +87,6 @@ WiredBottomNavigationBar(
 
 A Material 3 style navigation bar with hand-drawn rounded rectangle selection indicators and support for `selectedIcon`.
 
-<!-- {=docsNavigationBarUsage} -->
-
 ```dart
 WiredNavigationBar(
   selectedIndex: currentIndex,
@@ -132,8 +126,6 @@ WiredNavigationBar(
 ## WiredNavigationRail
 
 A vertical navigation rail with hand-drawn rounded rectangle selection indicators. Best for desktop and tablet layouts.
-
-<!-- {=docsNavigationRailUsage} -->
 
 ```dart
 WiredNavigationRail(
@@ -178,8 +170,6 @@ WiredNavigationRail(
 
 A side navigation drawer with a hand-drawn border. Displays a list of navigation destinations with sketchy selection indicators.
 
-<!-- {=docsNavigationDrawerUsage} -->
-
 ```dart
 WiredNavigationDrawer(
   selectedIndex: currentIndex,
@@ -201,8 +191,6 @@ WiredNavigationDrawer(
 ## WiredTabBar
 
 A tab bar with hand-drawn underline indicators. Each tab label gets a sketchy line beneath it when selected.
-
-<!-- {=docsTabBarUsage} -->
 
 ```dart
 WiredTabBar(
@@ -227,8 +215,6 @@ WiredTabBar(
 
 A hand-drawn drawer panel with a sketchy border, suitable for side menus.
 
-<!-- {=docsDrawerUsage} -->
-
 ```dart
 WiredScaffold(
   drawer: WiredDrawer(
@@ -250,8 +236,6 @@ WiredScaffold(
 
 A popup menu triggered by a button press. Menu items appear in a hand-drawn bordered overlay.
 
-<!-- {=docsPopupMenuUsage} -->
-
 ```dart
 WiredPopupMenuButton<String>(
   onSelected: (value) => print(value),
@@ -267,8 +251,6 @@ WiredPopupMenuButton<String>(
 ## WiredMenuBar
 
 A horizontal menu bar with hand-drawn borders, suitable for desktop-style navigation.
-
-<!-- {=docsMenuBarUsage} -->
 
 ```dart
 WiredMenuBar(
@@ -290,8 +272,6 @@ WiredMenuBar(
 ## WiredBottomAppBar
 
 A bottom app bar with a hand-drawn top border. Can contain actions and an optional notch for a FAB.
-
-<!-- {=docsBottomAppBarUsage} -->
 
 ```dart
 WiredScaffold(
@@ -315,8 +295,6 @@ WiredScaffold(
 
 A sliver app bar with hand-drawn borders for use in `CustomScrollView`. Supports expanding/collapsing behavior.
 
-<!-- {=docsSliverAppBarUsage} -->
-
 ```dart
 CustomScrollView(
   slivers: [
@@ -336,8 +314,6 @@ CustomScrollView(
 
 A Cupertino-style navigation bar with hand-drawn borders. Mirrors the `CupertinoNavigationBar` API with sketchy styling.
 
-<!-- {=docsCupertinoNavBarUsage} -->
-
 ```dart
 WiredCupertinoNavigationBar(
   middle: Text('Page Title'),
@@ -353,8 +329,6 @@ WiredCupertinoNavigationBar(
 ## WiredCupertinoTabBar
 
 A Cupertino-style tab bar with hand-drawn selection indicators. Mirrors the `CupertinoTabBar` API.
-
-<!-- {=docsCupertinoTabBarUsage} -->
 
 ```dart
 WiredCupertinoTabBar(
@@ -372,8 +346,6 @@ WiredCupertinoTabBar(
 ## WiredCheckboxMenuButton
 
 A menu item showing a hand-drawn checkbox as its leading icon. Mirrors Material's `CheckboxMenuButton`: activating the item toggles the value and (by default) keeps the menu open so several options can be flipped in a row. Best used inside `WiredSubmenuButton` within a `WiredMenuBar`.
-
-<!-- {=docsCheckboxMenuButtonUsage} -->
 
 ```dart
 WiredMenuBar(
@@ -414,8 +386,6 @@ WiredMenuBar(
 ## WiredRadioMenuButton
 
 A menu item showing a hand-drawn radio button as its leading icon. Mirrors Material's `RadioMenuButton`: activating the item selects `value` within `groupValue`, and the menu closes after activation so selection feels immediate.
-
-<!-- {=docsRadioMenuButtonUsage} -->
 
 ```dart
 WiredMenuBar(
@@ -464,8 +434,6 @@ WiredMenuBar(
 
 A list tile that opens a hand-drawn about dialog when tapped. Mirrors Material's `AboutListTile`: combines a `WiredListTile` with `showWiredAboutDialog` and the application metadata fields.
 
-<!-- {=docsAboutListTileUsage} -->
-
 ```dart
 WiredAboutListTile(
   icon: const Icon(Icons.info_outline),
@@ -492,3 +460,7 @@ WiredAboutListTile(
 
 - Tapping the tile calls `showWiredAboutDialog` with all application metadata passed through.
 - The dialog can be dismissed via its Close button or the modal barrier; use `showLicensePage` from within the dialog for license details.
+
+## Shared ink and typography
+
+Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.

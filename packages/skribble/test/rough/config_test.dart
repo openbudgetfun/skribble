@@ -7,8 +7,8 @@ void main() {
       test('has expected properties', () {
         final DrawConfig defaults = DrawConfig.defaultValues;
 
-        expect(defaults.maxRandomnessOffset, equals(2));
-        expect(defaults.roughness, equals(1));
+        expect(defaults.maxRandomnessOffset, equals(1.2));
+        expect(defaults.roughness, equals(1.25));
         expect(defaults.bowing, equals(1));
         expect(defaults.curveFitting, equals(0.95));
         expect(defaults.curveTightness, equals(0));

@@ -131,6 +131,7 @@ class WiredCarouselView extends HookWidget {
         Positioned.fill(
           child: WiredCanvas(
             painter: WiredRoundedRectangleBase(
+              strokeWidth: theme.strokeWidth,
               borderRadius: borderRadius,
               fillColor: theme.fillColor,
               borderColor: theme.borderColor,

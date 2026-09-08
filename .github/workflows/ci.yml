@@ -105,8 +105,54 @@ jobs:
       - name: run font roughener tests
         run: |
           cd packages/skribble_font_roughen
-          flutter test
+          dart test
         shell: devenv shell -- bash -e {0}
+
+  visual-assets-sync:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test SVG import and rebuild pinned visual assets
+        run: |
+          (cd packages/skribble_emoji_gen && dart test)
+          dart run packages/skribble_emoji_gen/bin/update_assets.dart
+          dart run packages/skribble_font_roughen/bin/roughen_fonts.dart --check
+          git diff --exit-code -- packages/skribble/assets/fonts packages/skribble/tool/font apps/skribble_storybook/assets/fonts packages/skribble_emoji/lib/src/generated packages/skribble_icons/lib/src/generated/skribble_icons_rough.g.dart
+          test -z "$(git ls-files --others --exclude-standard -- packages/skribble/assets/fonts packages/skribble/tool/font apps/skribble_storybook/assets/fonts packages/skribble_emoji/lib/src/generated packages/skribble_icons/lib/src/generated)"
+        shell: devenv shell -- bash -e {0}
+
+  patrol-web:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Chromium system libraries
+        run: npx --yes playwright@1.56.0 install --with-deps chromium
+      - name: Run notebook and catalog journeys in Chromium
+        run: |
+          export PATH="$GITHUB_WORKSPACE/.fvm/flutter_sdk/bin:$PATH"
+          dart pub global activate patrol_cli 4.7.0
+          cd apps/skribble_storybook
+          dart pub global run patrol_cli:main test --verbose --device chrome --target integration_test/quality_test.dart --target integration_test/patrol_test.dart --web-headless --web-locale en-GB --web-screenshot on --web-trace retain-on-failure --web-workers 1 --web-reporter '["html", "json", "list"]'
+        shell: bash
+      - name: Upload browser screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: patrol-web-quality
+          path: |
+            apps/skribble_storybook/test-results/
+            apps/skribble_storybook/playwright-report/
+          if-no-files-found: warn
 
   coverage:
     if: github.ref == 'refs/heads/main'

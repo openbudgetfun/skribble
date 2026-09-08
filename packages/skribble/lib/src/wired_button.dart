@@ -38,8 +38,12 @@ class WiredButton extends HookWidget {
           padding: EdgeInsets.zero,
           height: kWiredButtonHeight,
           decoration: RoughBoxDecoration(
+            drawConfig: theme.drawConfig,
             shape: RoughBoxShape.rectangle,
-            borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
+            borderStyle: RoughDrawingStyle(
+              width: theme.strokeWidth,
+              color: theme.borderColor,
+            ),
           ),
           child: SizedBox(
             height: double.infinity,

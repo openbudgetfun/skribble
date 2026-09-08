@@ -32,50 +32,12 @@ void main() {
 
 <!-- {=docsFirstWidgetButton} -->
 
-`WiredButton` is the simplest Wired widget. It draws a hand-sketched rectangle border around a child widget and fires `onPressed` when tapped.
-
-```dart
-class ExamplePage extends HookWidget {
-  const ExamplePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: WiredAppBar(title: const Text('Button Example')),
-      body: Center(
-        child: WiredButton(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Button pressed!')),
-            );
-          },
-          child: const Text('Tap me'),
-        ),
-      ),
-    );
-  }
-}
-```
-
-### How WiredButton reads the theme
-
-Inside its `build` method, `WiredButton` calls:
-
-```dart
-final theme = WiredTheme.of(context);
-```
-
-It then uses `theme.borderColor` for the sketchy rectangle border and `theme.textColor` for the label. You never pass colors to individual widgets -- they inherit everything from the nearest `WiredTheme` ancestor.
-
-### Accessibility
-
-`WiredButton` wraps its content in a `Semantics` widget. Pass `semanticLabel` when the child widget does not convey meaning to screen readers:
-
 ```dart
 WiredButton(
-  onPressed: handleSave,
-  semanticLabel: 'Save document',
-  child: Icon(Icons.save),
+  onPressed: () {
+    print('Tapped!');
+  },
+  child: Text('Click Me'),
 )
 ```
 
@@ -85,65 +47,14 @@ WiredButton(
 
 <!-- {=docsFirstWidgetInput} -->
 
-`WiredInput` is a text field with a hand-drawn rectangle border. It wraps Flutter's `TextField` internally, so all standard text input behavior (focus, selection, IME) works automatically.
-
 ```dart
-class ExamplePage extends HookWidget {
-  const ExamplePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final controller = useTextEditingController();
-
-    return Scaffold(
-      appBar: WiredAppBar(title: const Text('Input Example')),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            WiredInput(
-              controller: controller,
-              labelText: 'Email',
-              hintText: 'you@example.com',
-              onChanged: (value) {
-                debugPrint('Current input: $value');
-              },
-            ),
-            const SizedBox(height: 16),
-            WiredInput(
-              labelText: 'Password',
-              hintText: 'Enter your password',
-              obscureText: true,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+WiredInput(
+  hintText: 'Enter your name',
+  onChanged: (value) {
+    print('Name: $value');
+  },
+)
 ```
-
-### WiredInput parameters
-
-| Parameter     | Type                     | Description                                                                          |
-| ------------- | ------------------------ | ------------------------------------------------------------------------------------ |
-| `controller`  | `TextEditingController?` | Controls the text being edited. Use `useTextEditingController()` from flutter_hooks. |
-| `labelText`   | `String?`                | Label displayed to the left of the input.                                            |
-| `hintText`    | `String?`                | Placeholder text inside the field.                                                   |
-| `onChanged`   | `void Function(String)?` | Called every time the text changes.                                                  |
-| `obscureText` | `bool`                   | Hides the input text (for passwords). Defaults to `false`.                           |
-| `style`       | `TextStyle?`             | Custom text style for the input content.                                             |
-| `labelStyle`  | `TextStyle?`             | Custom text style for the label.                                                     |
-| `hintStyle`   | `TextStyle?`             | Custom text style for the hint text.                                                 |
-
-### How WiredInput reads the theme
-
-`WiredInput` calls `WiredTheme.of(context)` and uses:
-
-- `theme.fillColor` for the rectangle background
-- `theme.borderColor` for the sketchy rectangle stroke
-
-The underlying `TextField` uses Flutter's default text styling, which `WiredMaterialApp` has already synced with the Wired theme's text color.
 
 <!-- {/docsFirstWidgetInput} -->
 
@@ -151,64 +62,20 @@ The underlying `TextField` uses Flutter's default text styling, which `WiredMate
 
 <!-- {=docsFirstWidgetCard} -->
 
-`WiredCard` draws a hand-sketched rectangle container. Use it to group related content.
-
 ```dart
-class ExamplePage extends HookWidget {
-  const ExamplePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: WiredAppBar(title: const Text('Card Example')),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            // Fixed-height card (default 130px)
-            WiredCard(
-              child: Center(
-                child: Text('Default card'),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Auto-sized card
-            WiredCard(
-              height: null,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text('This card sizes to its content.'),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Filled card with hachure pattern
-            WiredCard(
-              fill: true,
-              child: Center(
-                child: Text('Hachure-filled card'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+WiredCard(
+  child: Padding(
+    padding: EdgeInsets.all(16),
+    child: Column(
+      children: [
+        Text('Card Title', style: TextStyle(fontWeight: FontWeight.bold)),
+        SizedBox(height: 8),
+        Text('This is a hand-drawn card with sketchy borders.'),
+      ],
+    ),
+  ),
+)
 ```
-
-### WiredCard parameters
-
-| Parameter | Type      | Default | Description                                                            |
-| --------- | --------- | ------- | ---------------------------------------------------------------------- |
-| `child`   | `Widget?` | `null`  | The content inside the card.                                           |
-| `height`  | `double?` | `130.0` | Fixed height. Pass `null` to auto-size.                                |
-| `fill`    | `bool`    | `false` | When `true`, the card background is drawn with a hachure fill pattern. |
-
-### How WiredCard reads the theme
-
-`WiredCard` calls `WiredTheme.of(context)` and passes `theme.fillColor` and `theme.borderColor` to its internal `WiredRectangleBase` painter.
 
 <!-- {/docsFirstWidgetCard} -->
 
@@ -216,45 +83,18 @@ class ExamplePage extends HookWidget {
 
 <!-- {=docsFirstWidgetCheckbox} -->
 
-`WiredCheckbox` draws a hand-sketched square with a checkmark inside when checked.
-
 ```dart
-class ExamplePage extends HookWidget {
-  const ExamplePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final isChecked = useState(false);
-
-    return Scaffold(
-      appBar: WiredAppBar(title: const Text('Checkbox Example')),
-      body: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            WiredCheckbox(
-              value: isChecked.value,
-              onChanged: (value) {
-                isChecked.value = value ?? false;
-              },
-            ),
-            const SizedBox(width: 12),
-            Text(isChecked.value ? 'Checked' : 'Unchecked'),
-          ],
-        ),
-      ),
-    );
-  }
-}
+WiredCheckbox(
+  value: isChecked,
+  onChanged: (value) {
+    setState(() => isChecked = value!);
+  },
+)
 ```
-
-`WiredCheckbox` supports tristate values. Pass `null` for the indeterminate state.
 
 <!-- {/docsFirstWidgetCheckbox} -->
 
 ## Combining widgets: a complete form
-
-<!-- {=docsFirstWidgetForm} -->
 
 Here is a complete example that combines all four widgets into a sign-up form:
 

@@ -226,6 +226,7 @@ class _LicensePackageSection extends StatelessWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRoundedRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     fillColor: theme.fillColor,
                     borderColor: theme.borderColor,

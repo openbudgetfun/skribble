@@ -56,6 +56,7 @@ class WiredCupertinoActionSheet extends HookWidget {
                   Positioned.fill(
                     child: WiredCanvas(
                       painter: WiredRoundedRectangleBase(
+                        strokeWidth: theme.strokeWidth,
                         borderRadius: BorderRadius.circular(14),
                         borderColor: theme.borderColor,
                       ),
@@ -79,7 +80,7 @@ class WiredCupertinoActionSheet extends HookWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 if (title != null)
-                                  DefaultTextStyle(
+                                  DefaultTextStyle.merge(
                                     style: TextStyle(
                                       color: theme.textColor.withValues(
                                         alpha: 0.6,
@@ -93,7 +94,7 @@ class WiredCupertinoActionSheet extends HookWidget {
                                 if (title != null && message != null)
                                   const SizedBox(height: 4),
                                 if (message != null)
-                                  DefaultTextStyle(
+                                  DefaultTextStyle.merge(
                                     style: TextStyle(
                                       color: theme.textColor.withValues(
                                         alpha: 0.6,
@@ -110,9 +111,10 @@ class WiredCupertinoActionSheet extends HookWidget {
                         if ((title != null || message != null) &&
                             actions.isNotEmpty)
                           SizedBox(
-                            height: 2,
+                            height: theme.inkExtent,
                             child: WiredCanvas(
                               painter: WiredLineBase(
+                                strokeWidth: theme.strokeWidth,
                                 x1: 0,
                                 y1: 1,
                                 x2: double.maxFinite,
@@ -126,9 +128,10 @@ class WiredCupertinoActionSheet extends HookWidget {
                         for (var i = 0; i < actions.length; i++) ...[
                           if (i > 0)
                             SizedBox(
-                              height: 2,
+                              height: theme.inkExtent,
                               child: WiredCanvas(
                                 painter: WiredLineBase(
+                                  strokeWidth: theme.strokeWidth,
                                   x1: 0,
                                   y1: 1,
                                   x2: double.maxFinite,
@@ -153,6 +156,7 @@ class WiredCupertinoActionSheet extends HookWidget {
                     Positioned.fill(
                       child: WiredCanvas(
                         painter: WiredRoundedRectangleBase(
+                          strokeWidth: theme.strokeWidth,
                           borderRadius: BorderRadius.circular(14),
                           borderColor: theme.borderColor,
                         ),
@@ -209,7 +213,7 @@ class WiredCupertinoActionSheetAction extends HookWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 14),
         child: Center(
-          child: DefaultTextStyle(
+          child: DefaultTextStyle.merge(
             style: TextStyle(
               color: isDestructiveAction
                   ? Colors.red

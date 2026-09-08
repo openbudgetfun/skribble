@@ -34,14 +34,14 @@ class WiredBottomNavigationBar extends HookWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          height: 2,
+          height: theme.inkExtent,
           child: WiredCanvas(
             painter: WiredLineBase(
               x1: 0,
               y1: 0,
               x2: double.infinity,
               y2: 0,
-              strokeWidth: 2,
+              strokeWidth: theme.strokeWidth,
               borderColor: theme.borderColor,
             ),
             fillerType: RoughFilter.noFiller,
@@ -89,6 +89,7 @@ class WiredBottomNavigationBar extends HookWidget {
                     height: 32,
                     child: WiredCanvas(
                       painter: WiredCircleBase(
+                        strokeWidth: theme.strokeWidth,
                         diameterRatio: 0.9,
                         borderColor: theme.borderColor,
                       ),

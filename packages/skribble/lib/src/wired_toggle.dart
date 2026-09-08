@@ -80,6 +80,7 @@ class WiredToggle extends HookWidget {
                   width: thumbRadius * 2,
                   child: WiredCanvas(
                     painter: WiredCircleBase(
+                      strokeWidth: theme.strokeWidth,
                       diameterRatio: .7,
                       fillColor: theme.textColor,
                       borderColor: theme.borderColor,
@@ -94,6 +95,7 @@ class WiredToggle extends HookWidget {
                 height: thumbRadius,
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     fillColor: theme.fillColor,
                     borderColor: theme.borderColor,
                   ),

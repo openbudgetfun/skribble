@@ -660,3 +660,11 @@ SizedBox(
 3. **Accept color and strokeWidth parameters** -- this lets the widget layer pass theme values through.
 4. **Clamp coordinates** -- if your shape depends on input coordinates (like `WiredLineBase`), clamp them to `[0, size.width]` and `[0, size.height]`.
 5. **Wrap with RepaintBoundary** -- use `buildWiredElement()` or `WiredBaseWidget` in the widget that hosts your painter.
+
+## Pen width, clipping, and repainting
+
+Shared shapes use rounded stroke caps and joins. Their drawing rectangle is inset by half the pen width, one raster pixel, and the configured wobble allowance. This keeps thick strokes inside repaint boundaries. Circles use the shortest available dimension.
+
+`WiredCanvas` reads the nearest theme's drawing configuration unless explicitly overridden. `WiredPainter.shouldRepaint` compares its painter and filler instances as well as drawing configuration, so a new color, width, or geometry takes effect. `RoughBoxDecoration` resets its seeded randomizer on each paint: rebuilding a theme does not make stable lines flicker.
+
+Use `WiredThemeData.inkExtent` for the cross-axis space of a divider. A 2.4-pixel pen cannot show its shape inside a one-pixel canvas.

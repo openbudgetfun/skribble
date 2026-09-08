@@ -28,13 +28,14 @@ class WiredAppBar extends HookWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
+    final inkHeight = theme.inkExtent.clamp(0.0, height);
     return SafeArea(
       bottom: false,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            height: height - 2,
+            height: height - inkHeight,
             color: backgroundColor ?? Colors.transparent,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
@@ -44,7 +45,7 @@ class WiredAppBar extends HookWidget implements PreferredSizeWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: DefaultTextStyle(
+                      child: DefaultTextStyle.merge(
                         style: TextStyle(
                           color: theme.textColor,
                           fontSize: 20,
@@ -61,14 +62,14 @@ class WiredAppBar extends HookWidget implements PreferredSizeWidget {
             ),
           ),
           SizedBox(
-            height: 2,
+            height: inkHeight,
             child: WiredCanvas(
               painter: WiredLineBase(
                 x1: 0,
                 y1: 0,
                 x2: double.infinity,
                 y2: 0,
-                strokeWidth: 2,
+                strokeWidth: theme.strokeWidth,
                 borderColor: theme.borderColor,
               ),
               fillerType: RoughFilter.noFiller,

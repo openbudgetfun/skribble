@@ -32,78 +32,26 @@ Every `wired_*.dart` source file must have a corresponding `wired_*_test.dart` t
 
 <!-- {=docsPumpAppHelper} -->
 
-All widget tests use the `pumpApp()` helper from `test/helpers/pump_app.dart`. It wraps your widget in a `MaterialApp` and `Scaffold`, which is the minimum tree required for Material widgets to function.
-
-### Signature
-
 ```dart
-Future<void> pumpApp(
-  WidgetTester tester,
-  Widget widget, {
-  ThemeData? theme,
-  bool asAppBar = false,
-  bool asBottomNav = false,
-  bool asDrawer = false,
-  Widget? body,
-})
-```
+import '../helpers/pump_app.dart';
 
-### Basic usage
+// Body slot (default)
+await pumpApp(tester, myWidget);
 
-Place a widget in the `Scaffold.body` slot (default):
+// AppBar slot
+await pumpApp(tester, WiredAppBar(title: Text('T')), asAppBar: true);
 
-```dart
-await pumpApp(tester, WiredButton(
-  onPressed: () {},
-  child: const Text('Press me'),
-));
-```
+// BottomNavigationBar slot
+await pumpApp(tester, myNavBar, asBottomNav: true);
 
-### App bar slot
+// Drawer slot
+await pumpApp(tester, WiredDrawer(child: Text('X')), asDrawer: true);
 
-Use `asAppBar: true` for widgets that implement `PreferredSizeWidget`:
-
-```dart
+// With custom theme
 await pumpApp(
   tester,
-  WiredAppBar(title: Text('Title')),
-  asAppBar: true,
-);
-```
-
-### Bottom navigation slot
-
-Use `asBottomNav: true` for bottom navigation widgets:
-
-```dart
-await pumpApp(
-  tester,
-  myBottomNavBar,
-  asBottomNav: true,
-);
-```
-
-### Drawer slot
-
-Use `asDrawer: true` for drawer widgets:
-
-```dart
-await pumpApp(
-  tester,
-  WiredDrawer(child: Text('Menu')),
-  asDrawer: true,
-);
-```
-
-### Custom theme
-
-Pass a `ThemeData` to test under a specific Material theme:
-
-```dart
-await pumpApp(
-  tester,
-  WiredButton(onPressed: () {}, child: const Text('Dark')),
-  theme: ThemeData.dark(),
+  myWidget,
+  theme: WiredThemeData(borderColor: Colors.red),
 );
 ```
 

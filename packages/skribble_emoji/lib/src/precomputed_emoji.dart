@@ -1,14 +1,14 @@
 import 'dart:math' as math;
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble_emoji/skribble_emoji.dart';
 
 /// Renders emoji by drawing pre-parsed SVG paths directly — no rough engine.
 ///
-/// This is the fast rendering path for performance-critical screens. For
-/// runtime roughening with the Skribble rough engine, use [WiredEmoji] instead.
+/// This is the fast rendering path for performance-critical screens. The
+/// artwork is roughened once during generation and keeps its source palette.
 ///
 /// ```dart
 /// PrecomputedEmoji(data: kSkribbleEmoji[0x1f600]!)
@@ -45,13 +45,23 @@ class PrecomputedEmoji extends HookWidget {
     this.semanticLabel,
   }) : data = lookupSkribbleEmojiByUnicode(codePoint);
 
+  /// Creates an emoji from a complete Unicode string or hexadecimal sequence.
+  PrecomputedEmoji.fromSequence(
+    String sequence, {
+    super.key,
+    this.size = 24.0,
+    this.color,
+    this.semanticLabel,
+  }) : data = lookupSkribbleEmojiBySequence(sequence);
+
   /// The emoji data to render, or `null` to show a placeholder.
   final WiredSvgIconData? data;
 
   /// The logical size of the emoji. Defaults to 24.0.
   final double size;
 
-  /// Emoji color. Falls back to [IconThemeData.color] or grey.
+  /// Fallback color for uncolored data and placeholders. Source colors win.
+  /// Falls back to [IconThemeData.color] or grey.
   final Color? color;
 
   /// Semantic label for accessibility.
@@ -61,29 +71,29 @@ class PrecomputedEmoji extends HookWidget {
   Widget build(BuildContext context) {
     final effectiveData = data;
     final effectiveColor =
-        color ?? IconTheme.of(context).color ?? Colors.grey.shade700;
-
-    if (effectiveData == null) {
-      return _buildPlaceholder(context, effectiveColor);
-    }
+        color ?? IconTheme.of(context).color ?? const Color(0xff616161);
 
     final primitives = useMemoized(
-      () => _preparePrimitives(data: effectiveData, emojiSize: size),
+      () => effectiveData == null
+          ? <_PreparedPrimitive>[]
+          : _preparePrimitives(data: effectiveData, emojiSize: size),
       <Object?>[effectiveData, size],
     );
 
-    Widget child = RepaintBoundary(
-      child: SizedBox.square(
-        dimension: size,
-        child: CustomPaint(
-          painter: _PrecomputedEmojiPainter(
-            primitives: primitives,
-            color: effectiveColor,
-            size: size,
-          ),
-        ),
-      ),
-    );
+    var child = effectiveData == null
+        ? _buildPlaceholder(context, effectiveColor)
+        : RepaintBoundary(
+            child: SizedBox.square(
+              dimension: size,
+              child: CustomPaint(
+                painter: _PrecomputedEmojiPainter(
+                  primitives: primitives,
+                  color: effectiveColor,
+                  size: size,
+                ),
+              ),
+            ),
+          );
 
     if (semanticLabel != null && semanticLabel!.isNotEmpty) {
       child = Semantics(label: semanticLabel, image: true, child: child);
@@ -133,15 +143,49 @@ List<_PreparedPrimitive> _preparePrimitives({
       .map(
         (primitive) => _PreparedPrimitive(
           path: primitive.buildPath().transform(transform),
+          strokePath: primitive.buildStrokePath().transform(transform),
+          strokeCap: primitive.strokeCap,
+          strokeJoin: primitive.strokeJoin,
+          strokeMiterLimit: primitive.strokeMiterLimit,
+          clips: primitive.clipPaths
+              .map(
+                (data) =>
+                    WiredSvgPrimitive.path(data)
+                        .buildPath()
+                        .transform(transform),
+              )
+              .toList(growable: false),
+          fillColor: _parseColor(primitive.fillColor),
+          strokeColor: _parseColor(primitive.strokeColor),
+          strokeWidth: primitive.strokeWidth * scale,
         ),
       )
       .toList(growable: false);
 }
 
 final class _PreparedPrimitive {
-  const _PreparedPrimitive({required this.path});
+  const _PreparedPrimitive({
+    required this.path,
+    required this.strokePath,
+    required this.strokeCap,
+    required this.strokeJoin,
+    required this.strokeMiterLimit,
+    required this.clips,
+    required this.strokeWidth,
+    this.fillColor,
+    this.strokeColor,
+  });
+
+  final Color? fillColor;
+  final Color? strokeColor;
+  final double strokeWidth;
 
   final Path path;
+  final Path strokePath;
+  final StrokeCap strokeCap;
+  final StrokeJoin strokeJoin;
+  final double strokeMiterLimit;
+  final List<Path> clips;
 }
 
 final class _PrecomputedEmojiPainter extends CustomPainter {
@@ -157,22 +201,36 @@ final class _PrecomputedEmojiPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size canvasSize) {
-    final fillPaint = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill
-      ..isAntiAlias = true;
-
-    final outlinePaint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = math.max(0.5, size / 48)
-      ..strokeCap = StrokeCap.round
-      ..isAntiAlias = true;
-
     for (final primitive in primitives) {
-      canvas
-        ..drawPath(primitive.path, fillPaint)
-        ..drawPath(primitive.path, outlinePaint);
+      canvas.save();
+      primitive.clips.forEach(canvas.clipPath);
+      final hasPaint =
+          primitive.fillColor != null || primitive.strokeColor != null;
+      final fill = hasPaint ? primitive.fillColor : color;
+      final stroke = hasPaint ? primitive.strokeColor : null;
+      if (fill != null) {
+        canvas.drawPath(
+          primitive.path,
+          Paint()
+            ..color = fill
+            ..style = PaintingStyle.fill
+            ..isAntiAlias = true,
+        );
+      }
+      if (stroke != null) {
+        canvas.drawPath(
+          primitive.strokePath,
+          Paint()
+            ..color = stroke
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = primitive.strokeWidth
+            ..strokeCap = primitive.strokeCap
+            ..strokeJoin = primitive.strokeJoin
+            ..strokeMiterLimit = primitive.strokeMiterLimit
+            ..isAntiAlias = true,
+        );
+      }
+      canvas.restore();
     }
   }
 
@@ -207,4 +265,17 @@ class _PlaceholderCirclePainter extends CustomPainter {
   bool shouldRepaint(_PlaceholderCirclePainter oldDelegate) {
     return oldDelegate.color != color;
   }
+}
+
+Color? _parseColor(String? value) {
+  if (value == null || value == 'none') return null;
+  var hex = value.replaceFirst('#', '');
+  if (hex.length == 3) hex = hex.split('').map((c) => '$c$c').join();
+  if (hex.length == 8) {
+    final rgba = int.tryParse(hex, radix: 16);
+    return rgba == null ? null : Color(((rgba & 255) << 24) | (rgba >> 8));
+  }
+  if (hex.length != 6) return null;
+  final rgb = int.tryParse(hex, radix: 16);
+  return rgb == null ? null : Color(0xff000000 | rgb);
 }

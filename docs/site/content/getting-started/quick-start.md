@@ -15,8 +15,6 @@ Make sure you have [installed Skribble](/getting-started/installation) in your F
 
 <!-- {=docsMinimalAppSection} -->
 
-Replace your `main.dart` with the following:
-
 ```dart
 import 'package:flutter/material.dart';
 import 'package:skribble/skribble.dart';
@@ -38,14 +36,6 @@ void main() {
   );
 }
 ```
-
-Run it:
-
-```bash
-flutter run
-```
-
-You should see a full-screen app with a wobbly-bordered app bar and a hand-drawn button in the center.
 
 <!-- {/docsMinimalAppSection} -->
 

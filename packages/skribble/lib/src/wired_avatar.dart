@@ -72,6 +72,7 @@ class WiredAvatar extends HookWidget {
             Positioned.fill(
               child: WiredCanvas(
                 painter: WiredCircleBase(
+                  strokeWidth: theme.strokeWidth,
                   fillColor: bgColor,
                   borderColor: theme.borderColor,
                 ),
@@ -105,7 +106,7 @@ class WiredAvatar extends HookWidget {
               ),
             // Child (initials or icon)
             if (backgroundImage == null && child != null)
-              DefaultTextStyle(
+              DefaultTextStyle.merge(
                 style: TextStyle(
                   color: fgColor,
                   fontSize: effectiveRadius * 0.7,

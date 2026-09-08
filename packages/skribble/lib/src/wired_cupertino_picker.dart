@@ -51,6 +51,7 @@ class WiredCupertinoPicker extends HookWidget {
             Positioned.fill(
               child: WiredCanvas(
                 painter: WiredRoundedRectangleBase(
+                  strokeWidth: theme.strokeWidth,
                   borderRadius: BorderRadius.circular(12),
                   borderColor: theme.borderColor,
                 ),
@@ -63,6 +64,7 @@ class WiredCupertinoPicker extends HookWidget {
                 height: itemExtent,
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     fillColor: theme.fillColor,
                     borderColor: theme.borderColor,
                   ),
@@ -79,7 +81,7 @@ class WiredCupertinoPicker extends HookWidget {
               children: [
                 for (final child in children)
                   Center(
-                    child: DefaultTextStyle(
+                    child: DefaultTextStyle.merge(
                       style: TextStyle(color: theme.textColor, fontSize: 16),
                       child: child,
                     ),

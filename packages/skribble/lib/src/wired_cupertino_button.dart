@@ -95,6 +95,7 @@ class WiredCupertinoButton extends HookWidget {
                 Positioned.fill(
                   child: WiredCanvas(
                     painter: WiredRoundedRectangleBase(
+                      strokeWidth: theme.strokeWidth,
                       borderRadius: effectiveRadius,
                       fillColor: hasFill ? effectiveFill : theme.fillColor,
                       borderColor: theme.borderColor,
@@ -109,7 +110,7 @@ class WiredCupertinoButton extends HookWidget {
                   padding:
                       padding ??
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  child: DefaultTextStyle(
+                  child: DefaultTextStyle.merge(
                     style: TextStyle(
                       color: hasFill ? Colors.white : theme.borderColor,
                       fontSize: 16,

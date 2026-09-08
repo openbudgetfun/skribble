@@ -46,6 +46,7 @@ class WiredChoiceChip extends HookWidget {
                   Positioned.fill(
                     child: WiredCanvas(
                       painter: WiredRoundedRectangleBase(
+                        strokeWidth: theme.strokeWidth,
                         borderRadius: BorderRadius.circular(16),
                         fillColor: selected
                             ? theme.borderColor
@@ -60,7 +61,7 @@ class WiredChoiceChip extends HookWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: DefaultTextStyle(
+                    child: DefaultTextStyle.merge(
                       style: TextStyle(
                         color: selected ? theme.fillColor : theme.textColor,
                         fontSize: 13,

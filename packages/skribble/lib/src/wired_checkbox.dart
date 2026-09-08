@@ -7,8 +7,8 @@ import 'wired_theme.dart';
 
 /// A hand-drawn checkbox, corresponding to Flutter's `Checkbox`.
 ///
-/// Draws a sketchy circle border with a hachure-filled checkmark when
-/// [value] is `true`. Supports tristate (`null`) values.
+/// Draws a sketchy square border with a checkmark when [value] is `true`.
+/// A `null` value is treated as unchecked; tapping toggles between false and true.
 ///
 /// The checkbox is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the current checked state.
@@ -33,8 +33,14 @@ class WiredCheckbox extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final isChecked = useState(value ?? false);
+    useEffect(() {
+      isChecked.value = value ?? false;
+      return null;
+    }, [value]);
 
     return Semantics(
+      container: true,
+      excludeSemantics: true,
       label: semanticLabel,
       checked: isChecked.value,
       onTap: () {
@@ -43,20 +49,24 @@ class WiredCheckbox extends HookWidget {
         onChanged(newValue);
       },
       child: buildWiredElement(
-        key: key,
         child: Container(
           padding: EdgeInsets.zero,
           height: 27.0,
           width: 27.0,
           decoration: RoughBoxDecoration(
+            drawConfig: theme.drawConfig,
             shape: RoughBoxShape.rectangle,
-            borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
+            borderStyle: RoughDrawingStyle(
+              width: theme.strokeWidth,
+              color: theme.borderColor,
+            ),
           ),
           child: SizedBox(
             height: double.infinity,
             child: Transform.scale(
               scale: 1.5,
               child: Checkbox(
+                side: BorderSide.none,
                 fillColor: WidgetStateProperty.all(Colors.transparent),
                 checkColor: theme.borderColor,
                 onChanged: (newValue) {

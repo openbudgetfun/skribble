@@ -63,9 +63,10 @@ class WiredCupertinoTabBar extends HookWidget {
               left: 0,
               right: 0,
               top: 0,
-              height: 3,
+              height: theme.inkExtent,
               child: WiredCanvas(
                 painter: WiredLineBase(
+                  strokeWidth: theme.strokeWidth,
                   x1: 0,
                   y1: 1,
                   x2: double.maxFinite,

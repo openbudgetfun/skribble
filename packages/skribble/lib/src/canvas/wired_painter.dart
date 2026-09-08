@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import '../rough/skribble_rough.dart';
 
@@ -25,7 +25,7 @@ class WiredPainter extends CustomPainter {
   @override
   bool shouldRepaint(WiredPainter oldDelegate) {
     return oldDelegate.drawConfig != drawConfig ||
-        oldDelegate.filler.runtimeType != filler.runtimeType ||
-        oldDelegate.painter.runtimeType != painter.runtimeType;
+        oldDelegate.filler != filler ||
+        oldDelegate.painter != painter;
   }
 }

@@ -50,9 +50,10 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
             ),
           ),
           SizedBox(
-            height: 2,
+            height: theme.inkExtent,
             child: WiredCanvas(
               painter: WiredLineBase(
+                strokeWidth: theme.strokeWidth,
                 x1: 0,
                 y1: 0,
                 x2: double.infinity,
@@ -93,7 +94,7 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
           ),
           if (selected)
             SizedBox(
-              height: 3,
+              height: theme.inkExtent,
               child: WiredCanvas(
                 painter: WiredLineBase(
                   x1: 0,

@@ -21,13 +21,11 @@ The library ships 80+ production-ready widgets, each built on `HookWidget` and p
 
 <!-- {=docsQuickInstallSection} -->
 
-Add Skribble to your Flutter project:
-
 ```bash
 dart pub add skribble
 ```
 
-Then import and use any Wired widget:
+Then import it in your application code:
 
 ```dart
 import 'package:skribble/skribble.dart';

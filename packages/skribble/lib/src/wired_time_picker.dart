@@ -124,6 +124,7 @@ class _TimeField extends HookWidget {
           children: [
             WiredCanvas(
               painter: WiredRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 fillColor: theme.fillColor,
                 borderColor: theme.borderColor,
               ),
@@ -163,6 +164,7 @@ class _ClockFace extends HookWidget {
             children: [
               WiredCanvas(
                 painter: WiredCircleBase(
+                  strokeWidth: theme.strokeWidth,
                   diameterRatio: 0.95,
                   borderColor: theme.borderColor,
                 ),
@@ -194,6 +196,7 @@ class _ClockFace extends HookWidget {
                 height: 8,
                 child: WiredCanvas(
                   painter: WiredCircleBase(
+                    strokeWidth: theme.strokeWidth,
                     fillColor: theme.borderColor,
                     diameterRatio: 0.9,
                     borderColor: theme.borderColor,

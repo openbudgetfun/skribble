@@ -52,15 +52,19 @@ class WiredSnackBarContent extends HookWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: RoughBoxDecoration(
+          drawConfig: theme.drawConfig,
           shape: RoughBoxShape.rectangle,
-          borderStyle: RoughDrawingStyle(width: 1.5, color: theme.borderColor),
+          borderStyle: RoughDrawingStyle(
+            width: theme.strokeWidth,
+            color: theme.borderColor,
+          ),
           fillStyle: RoughDrawingStyle(color: theme.fillColor),
           filler: SolidFiller(FillerConfig.build()),
         ),
         child: Row(
           children: [
             Expanded(
-              child: DefaultTextStyle(
+              child: DefaultTextStyle.merge(
                 style: TextStyle(color: theme.textColor, fontSize: 14),
                 child: child,
               ),

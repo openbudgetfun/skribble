@@ -79,8 +79,12 @@ class WiredPaginatedDataTable extends HookWidget {
       label: semanticLabel ?? 'Paginated data table',
       child: Container(
         decoration: RoughBoxDecoration(
+          drawConfig: theme.drawConfig,
           shape: RoughBoxShape.rectangle,
-          borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),
+          borderStyle: RoughDrawingStyle(
+            width: theme.strokeWidth,
+            color: theme.borderColor,
+          ),
         ),
         child: PaginatedDataTable(
           columns: columns,

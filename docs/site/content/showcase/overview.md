@@ -57,3 +57,7 @@ pipeline (`.screenshots/`) and uploaded to external object storage after each
 release. Run `melos run screenshot` locally, then
 `scripts/upload_screenshots.sh` with Backblaze B2 credentials to publish a
 versioned gallery.
+
+## The sketchbook
+
+Open **The sketchbook** on the storybook home page (`/#/studio` on web). This working notebook combines the four-style Recursive Casual derivative, ink borders, colored emoji, and curated icons. Try entering an idea, marking a task, resetting the page, and switching to evening ink. Its scrollable layout is tested at 320–1,440 pixels. The palette switch preserves your note.

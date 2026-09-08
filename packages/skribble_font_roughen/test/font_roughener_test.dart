@@ -11,13 +11,13 @@ void main() {
         outputPath: '/tmp/output.ttf',
       );
 
-      expect(
-        roughener.roughen,
+      await expectLater(
+        roughener.roughen(),
         throwsA(isA<FileSystemException>()),
       );
     });
 
-    test('creates output file for valid input', () async {
+    test('rejects a malformed input without creating output', () async {
       // Create a temporary test font file
       final tempDir = await Directory.systemTemp.createTemp('font_test');
       final inputFile = File('${tempDir.path}/test.ttf');
@@ -33,12 +33,12 @@ void main() {
           jitterAmount: 10,
         );
 
-        // This will throw a FontParseException because the file isn't a real font
-        // but it tests that the file existence check works
-        expect(
-          roughener.roughen,
+        // Wait for validation before deleting the input fixture.
+        await expectLater(
+          roughener.roughen(),
           throwsA(isA<FontParseException>()),
         );
+        expect(outputFile.existsSync(), isFalse);
       } finally {
         // Clean up
         await tempDir.delete(recursive: true);

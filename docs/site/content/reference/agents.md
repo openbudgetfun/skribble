@@ -131,7 +131,6 @@ import '../helpers/pump_app.dart';
 
 void main() {
   group('Wired<Name>', () {
-    // 1. Rendering
     testWidgets('renders without error', (tester) async {
       await pumpApp(
         tester,
@@ -148,7 +147,6 @@ void main() {
       expect(find.text('Hello'), findsOneWidget);
     });
 
-    // 2. Dimensions
     testWidgets('has correct default height', (tester) async {
       await pumpApp(
         tester,
@@ -158,7 +156,6 @@ void main() {
       expect(size.height, greaterThan(0));
     });
 
-    // 3. Interaction
     testWidgets('calls onPressed when tapped', (tester) async {
       var tapped = false;
       await pumpApp(
@@ -169,7 +166,6 @@ void main() {
       expect(tapped, isTrue);
     });
 
-    // 4. State changes
     testWidgets('rebuilds with new child', (tester) async {
       await pumpApp(
         tester,
@@ -184,7 +180,6 @@ void main() {
       expect(find.text('After'), findsOneWidget);
     });
 
-    // 5. Edge cases
     testWidgets('handles rapid taps', (tester) async {
       var count = 0;
       await pumpApp(
@@ -197,7 +192,6 @@ void main() {
       expect(count, 3);
     });
 
-    // 6. Accessibility
     testWidgets('applies semantic label', (tester) async {
       await pumpApp(
         tester,
@@ -1072,3 +1066,11 @@ WiredIcon.svg(iconData: myCustomIconData)
 | `fix:all`                        | Auto-fix format + lint issues      |
 | `docs:site:serve`                | Serve docs site locally            |
 | `docs:site:build`                | Build static docs for deployment   |
+
+## Visual asset checks
+
+After changing fonts, SVG import, or painting, run the glyph/corpus/pixel regressions and inspect real browser screenshots. `dart run packages/skribble_emoji_gen/bin/update_assets.dart` rebuilds the pinned source assets. `dart run tool/font_specimen.dart` creates embedded-font HTML comparisons. Patrol notebook journeys use shared keys in `lib/testing/quality_keys.dart`; run them through Patrol CLI and retain screenshots. Report browser coverage separately from native-device coverage.
+
+The pre-push hook clears Git's repository-local environment variables before invoking Flutter, so the SDK can inspect its own checkout and report its version correctly. It invokes the workspace's Melos through `flutter pub run`. Package tests then use `--no-pub`, avoiding repeated workspace dependency updates during a single hook.
+
+The automated PR review resolves the separate Jaspr docs package before repository-wide analysis. Its generated Markdown lives under `.audit/` so it does not fail its own formatting check, and test-file inventory paths are repository-relative without a duplicate package prefix.

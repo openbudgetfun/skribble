@@ -23,6 +23,7 @@ class WiredDivider extends HookWidget {
           width: double.infinity,
           child: WiredCanvas(
             painter: WiredLineBase(
+              strokeWidth: theme.strokeWidth,
               x1: 0,
               y1: 0,
               x2: double.infinity,

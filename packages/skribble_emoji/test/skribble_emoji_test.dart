@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:skribble/skribble.dart' show WiredSvgIcon;
 import 'package:skribble_emoji/skribble_emoji.dart';
 
 void main() {
@@ -183,7 +182,7 @@ void main() {
       // Should NOT show placeholder since emoji is found
       expect(find.text('?'), findsNothing);
       // Should render a WiredSvgIcon
-      expect(find.byType(WiredSvgIcon), findsOneWidget);
+      expect(find.byType(PrecomputedEmoji), findsOneWidget);
     });
 
     testWidgets('fromName renders placeholder for unknown name', (
@@ -216,7 +215,7 @@ void main() {
 
       expect(find.byType(WiredEmoji), findsOneWidget);
       expect(find.text('?'), findsNothing);
-      expect(find.byType(WiredSvgIcon), findsOneWidget);
+      expect(find.byType(PrecomputedEmoji), findsOneWidget);
     });
 
     testWidgets('fromUnicode renders placeholder for unknown codepoint', (
@@ -266,7 +265,7 @@ void main() {
 
       expect(find.byType(WiredEmoji), findsOneWidget);
       expect(find.text('?'), findsNothing);
-      expect(find.byType(WiredSvgIcon), findsOneWidget);
+      expect(find.byType(PrecomputedEmoji), findsOneWidget);
     });
   });
 
@@ -352,7 +351,7 @@ void main() {
       expect(sizedBox.height, 64);
     });
 
-    testWidgets('does not use WiredSvgIcon (no rough engine)', (tester) async {
+    testWidgets('renders paths through a CustomPaint', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -363,7 +362,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredSvgIcon), findsNothing);
+      expect(find.byType(CustomPaint), findsWidgets);
     });
 
     testWidgets('adds semantics label when provided', (tester) async {

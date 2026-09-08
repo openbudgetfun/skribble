@@ -48,6 +48,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRoundedRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     borderRadius: BorderRadius.circular(14),
                     borderColor: theme.borderColor,
                   ),
@@ -70,7 +71,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           if (title != null)
-                            DefaultTextStyle(
+                            DefaultTextStyle.merge(
                               style: TextStyle(
                                 color: theme.textColor,
                                 fontSize: 17,
@@ -82,7 +83,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
                           if (title != null && content != null)
                             const SizedBox(height: 4),
                           if (content != null)
-                            DefaultTextStyle(
+                            DefaultTextStyle.merge(
                               style: TextStyle(
                                 color: theme.textColor.withValues(alpha: 0.7),
                                 fontSize: 13,
@@ -96,9 +97,10 @@ class WiredCupertinoAlertDialog extends HookWidget {
                     // Separator
                     if (actions.isNotEmpty)
                       SizedBox(
-                        height: 2,
+                        height: theme.inkExtent,
                         child: WiredCanvas(
                           painter: WiredLineBase(
+                            strokeWidth: theme.strokeWidth,
                             x1: 0,
                             y1: 1,
                             x2: double.maxFinite,
@@ -116,9 +118,10 @@ class WiredCupertinoAlertDialog extends HookWidget {
                             for (var i = 0; i < actions.length; i++) ...[
                               if (i > 0)
                                 SizedBox(
-                                  width: 2,
+                                  width: theme.inkExtent,
                                   child: WiredCanvas(
                                     painter: WiredLineBase(
+                                      strokeWidth: theme.strokeWidth,
                                       x1: 1,
                                       y1: 0,
                                       x2: 1,
@@ -176,7 +179,7 @@ class WiredCupertinoDialogAction extends HookWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Center(
-          child: DefaultTextStyle(
+          child: DefaultTextStyle.merge(
             style: TextStyle(
               color: isDestructiveAction
                   ? Colors.red

@@ -54,8 +54,10 @@ class WiredSwitch extends HookWidget {
     final effectiveInactiveColor = inactiveColor ?? theme.fillColor;
 
     return Semantics(
+      container: true,
       label: semanticLabel,
       toggled: value,
+      enabled: onChanged != null,
       child: GestureDetector(
         onTap: () => onChanged?.call(!value),
         child: SizedBox(
@@ -70,6 +72,7 @@ class WiredSwitch extends HookWidget {
                 height: _trackHeight,
                 child: WiredCanvas(
                   painter: WiredRoundedRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     borderRadius: BorderRadius.circular(12),
                     fillColor: value
                         ? effectiveActiveColor
@@ -89,12 +92,12 @@ class WiredSwitch extends HookWidget {
                   height: _thumbSize,
                   child: WiredCanvas(
                     painter: WiredCircleBase(
-                      diameterRatio: 0.8,
-                      fillColor: value ? theme.fillColor : theme.borderColor,
+                      strokeWidth: theme.strokeWidth,
+                      diameterRatio: 1,
+                      fillColor: theme.fillColor,
                       borderColor: theme.borderColor,
                     ),
-                    fillerType: RoughFilter.hachureFiller,
-                    fillerConfig: FillerConfig.build(hachureGap: 1.0),
+                    fillerType: RoughFilter.solidFiller,
                   ),
                 ),
               ),

@@ -188,8 +188,20 @@ Widgets never hardcode colors. They read from `WiredTheme.of(context)` at build 
 <!-- {=docsThemeReadPattern} -->
 
 ```dart
-final theme = WiredTheme.of(context);
-// Use theme.borderColor, theme.fillColor, theme.textColor, etc.
+@override
+Widget build(BuildContext context) {
+  final theme = WiredTheme.of(context);
+
+  // Use theme values for all visual properties
+  final borderColor = theme.borderColor;
+  final fillColor = theme.fillColor;
+  final textColor = theme.textColor;
+  final strokeWidth = theme.strokeWidth;
+  final roughness = theme.roughness;
+  final drawConfig = theme.drawConfig;
+  final inkExtent = theme.inkExtent;
+  // ...
+}
 ```
 
 <!-- {/docsThemeReadPattern} -->

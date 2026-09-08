@@ -43,6 +43,7 @@ class WiredFloatingActionButton extends HookWidget {
               children: [
                 WiredCanvas(
                   painter: WiredCircleBase(
+                    strokeWidth: theme.strokeWidth,
                     diameterRatio: 0.9,
                     fillColor: theme.borderColor,
                     borderColor: theme.borderColor,

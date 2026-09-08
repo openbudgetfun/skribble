@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
-import 'package:xml/xml.dart';
+import 'package:skribble_emoji_gen/svg_shapes.dart';
 
 const _defaultCsvUrl =
-    'https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/data/openmoji.csv';
+    'https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/data/openmoji.csv';
 
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
@@ -64,11 +64,9 @@ Future<void> main(List<String> arguments) async {
 
   // 2. Process
   final entries = <_EmojiEntry>[];
-  final seenCodepoints = <int>{};
+  final seenSequences = <String>{};
   final seenNames = <String>{};
 
-  var skippedSkin = 0;
-  var skippedZwj = 0;
   var skippedMissing = 0;
   var skippedNoPaths = 0;
   var skippedDupCp = 0;
@@ -84,19 +82,10 @@ Future<void> main(List<String> arguments) async {
 
     final hexcode = (map['hexcode'] ?? '').trim();
     final annotation = (map['annotation'] ?? '').trim();
-    final skintone = (map['skintone'] ?? '').trim();
-
-    if (skintone.isNotEmpty) {
-      skippedSkin++;
-      continue;
-    }
 
     final parts = hexcode.split('-');
     final meaningful = parts.where((p) => p != 'FE0F').toList();
-    if (meaningful.length >= 3) {
-      skippedZwj++;
-      continue;
-    }
+    final sequence = meaningful.join('-');
 
     final svgFile = p.join(svgDir, '$hexcode.svg');
     if (!File(svgFile).existsSync()) {
@@ -106,7 +95,7 @@ Future<void> main(List<String> arguments) async {
 
     final primaryCp = int.parse(parts[0], radix: 16);
 
-    if (seenCodepoints.contains(primaryCp)) {
+    if (seenSequences.contains(sequence)) {
       skippedDupCp++;
       continue;
     }
@@ -117,23 +106,28 @@ Future<void> main(List<String> arguments) async {
     }
 
     if (seenNames.contains(name)) {
-      name = '${name}_${primaryCp.toRadixString(16)}';
+      name = '${name}_${sequence.toLowerCase().replaceAll('-', '_')}';
     }
     if (seenNames.contains(name)) {
       skippedDupName++;
       continue;
     }
 
-    final shapeList = _extractShapes(svgFile);
+    final shapeList = extractShapes(svgFile);
     if (shapeList.isEmpty) {
       skippedNoPaths++;
       continue;
     }
 
-    seenCodepoints.add(primaryCp);
+    seenSequences.add(sequence);
     seenNames.add(name);
     entries.add(
-      _EmojiEntry(codepoint: primaryCp, name: name, paths: shapeList),
+      _EmojiEntry(
+        codepoint: primaryCp,
+        name: name,
+        sequence: sequence,
+        paths: shapeList,
+      ),
     );
     processed++;
 
@@ -142,12 +136,29 @@ Future<void> main(List<String> arguments) async {
     }
   }
 
-  entries.sort((a, b) => a.codepoint.compareTo(b.codepoint));
+  entries.sort((a, b) => a.sequence.compareTo(b.sequence));
+
+  if (skippedMissing != 0 || skippedNoPaths != 0) {
+    throw StateError(
+      'Incomplete OpenMoji source: missing=$skippedMissing, empty=$skippedNoPaths',
+    );
+  }
 
   // 3. Write files
   final emojiPath = p.join(outputDir, 'skribble_emoji.g.dart');
   await File(emojiPath).parent.create(recursive: true);
-  await File(emojiPath).writeAsString(_generateEmojiDart(entries));
+  await File(emojiPath).writeAsString(
+    _generateEmojiDart(
+      entries.where((e) => !e.sequence.contains('-')).toList(),
+    ),
+  );
+  await File(p.join(outputDir, 'skribble_emoji_sequences.g.dart'))
+      .writeAsString(
+        _generateEmojiDart(
+          entries.where((e) => e.sequence.contains('-')).toList(),
+          sequences: true,
+        ),
+      );
   print('Written: $emojiPath');
 
   final cpPath = p.join(outputDir, 'skribble_emoji_codepoints.g.dart');
@@ -159,8 +170,6 @@ Future<void> main(List<String> arguments) async {
   print('=== Summary ===');
   print('Catalog rows:          ${dataRows.length}');
   print('Included:              ${entries.length}');
-  print('Skipped (skin tones):  $skippedSkin');
-  print('Skipped (3+ ZWJ):      $skippedZwj');
   print('Skipped (missing SVG): $skippedMissing');
   print('Skipped (no paths):    $skippedNoPaths');
   print('Skipped (dup codepoint): $skippedDupCp');
@@ -170,246 +179,6 @@ Future<void> main(List<String> arguments) async {
 // ---------------------------------------------------------------------------
 // SVG extraction
 // ---------------------------------------------------------------------------
-
-/// A resolved SVG shape: path data + effective paint attributes.
-class _SvgShape {
-  _SvgShape(this.data, this.fillColor, this.strokeColor, this.strokeWidth);
-
-  final String data;
-  final String? fillColor;
-  final String? strokeColor;
-  final double strokeWidth;
-}
-
-List<_SvgShape> _extractShapes(String svgFile) {
-  final file = File(svgFile);
-  if (!file.existsSync()) return [];
-
-  XmlDocument doc;
-  try {
-    doc = XmlDocument.parse(file.readAsStringSync());
-  } on XmlParserException {
-    return [];
-  }
-
-  final shapes = <_SvgShape>[];
-  _processElement(doc.rootElement, shapes, _PaintContext());
-  return shapes;
-}
-
-/// Effective fill/stroke state, resolving SVG group inheritance.
-class _PaintContext {
-  String? fill; // null = default (black), 'none' = no fill
-  String? stroke; // null or 'none' = no stroke
-  double strokeWidth = 1;
-
-  _PaintContext copy() => _PaintContext()
-    ..fill = fill
-    ..stroke = stroke
-    ..strokeWidth = strokeWidth;
-}
-
-void _processElement(
-  XmlElement element,
-  List<_SvgShape> shapes,
-  _PaintContext parent,
-) {
-  final tag = element.name.local;
-
-  var resolvedFill = _resolvePaint(
-    element,
-    'fill',
-    parent.fill,
-    () => '#000000',
-  );
-  var resolvedStroke = _resolvePaint(
-    element,
-    'stroke',
-    parent.stroke,
-    () => null,
-  );
-  final swAttr = element.getAttribute('stroke-width');
-  final resolvedSw = double.tryParse(swAttr ?? '') ?? parent.strokeWidth;
-
-  if ((resolvedFill ?? '').toLowerCase() == 'none') {
-    resolvedFill = null; // explicit "no fill"
-  }
-  if ((resolvedStroke ?? '').toLowerCase() == 'none') {
-    resolvedStroke = null;
-  }
-
-  final childCtx = _PaintContext()
-    ..fill = resolvedFill
-    ..stroke = resolvedStroke
-    ..strokeWidth = (swAttr != null
-        ? (double.tryParse(swAttr) ?? 1)
-        : parent.strokeWidth);
-
-  void add(String data) {
-    if (data.isEmpty) return;
-    // Invisible if it has neither fill nor stroke after resolution.
-    if (resolvedFill == null && resolvedStroke == null) return;
-    shapes.add(_SvgShape(data, resolvedFill, resolvedStroke, resolvedSw));
-  }
-
-  if (tag == 'path') {
-    final d = element.getAttribute('d')?.trim() ?? '';
-    if (d.isNotEmpty && d.toLowerCase() != 'none' && !_shouldSkip(element)) {
-      add(d);
-    }
-  } else if (tag == 'polygon') {
-    final pts = element.getAttribute('points')?.trim() ?? '';
-    if (pts.isNotEmpty && !_shouldSkip(element)) {
-      add(_polygonPointsToPath(pts));
-    }
-  } else if (tag == 'polyline') {
-    final pts = element.getAttribute('points')?.trim() ?? '';
-    if (pts.isNotEmpty && !_shouldSkip(element)) {
-      var pd = _polygonPointsToPath(pts);
-      if (pd.endsWith('Z')) pd = pd.substring(0, pd.length - 1);
-      if (pd.isNotEmpty) add(pd);
-    }
-  } else if (tag == 'circle') {
-    if (!_shouldSkip(element)) {
-      final cx = double.tryParse(element.getAttribute('cx') ?? '0') ?? 0;
-      final cy = double.tryParse(element.getAttribute('cy') ?? '0') ?? 0;
-      final r = double.tryParse(element.getAttribute('r') ?? '0') ?? 0;
-      if (r > 0) add(_circleToPath(cx, cy, r));
-    }
-  } else if (tag == 'ellipse') {
-    if (!_shouldSkip(element)) {
-      final cx = double.tryParse(element.getAttribute('cx') ?? '0') ?? 0;
-      final cy = double.tryParse(element.getAttribute('cy') ?? '0') ?? 0;
-      final rx = double.tryParse(element.getAttribute('rx') ?? '0') ?? 0;
-      final ry = double.tryParse(element.getAttribute('ry') ?? '0') ?? 0;
-      if (rx > 0 && ry > 0) add(_ellipseToPath(cx, cy, rx, ry));
-    }
-  } else if (tag == 'rect') {
-    if (!_shouldSkip(element)) {
-      final x = double.tryParse(element.getAttribute('x') ?? '0') ?? 0;
-      final y = double.tryParse(element.getAttribute('y') ?? '0') ?? 0;
-      final w = double.tryParse(element.getAttribute('width') ?? '0') ?? 0;
-      final h = double.tryParse(element.getAttribute('height') ?? '0') ?? 0;
-      final rx = double.tryParse(element.getAttribute('rx') ?? '0') ?? 0;
-      final ry = double.tryParse(element.getAttribute('ry') ?? '0') ?? 0;
-      if (w > 0 && h > 0) add(_rectToPath(x, y, w, h, rx, ry));
-    }
-  } else if (tag == 'line') {
-    if (!_shouldSkip(element)) {
-      final x1 = element.getAttribute('x1') ?? '0';
-      final y1 = element.getAttribute('y1') ?? '0';
-      final x2 = element.getAttribute('x2') ?? '0';
-      final y2 = element.getAttribute('y2') ?? '0';
-      add('M$x1,$y1 L$x2,$y2');
-    }
-  }
-
-  for (final child in element.childElements) {
-    _processElement(child, shapes, childCtx);
-  }
-}
-
-/// Resolves an `attribute = inherited ?? svgDefault` paint chain.
-/// `svgDefault` supplies the value when the attribute is absent everywhere.
-String? _resolvePaint(
-  XmlElement element,
-  String attr,
-  String? inherited,
-  String? Function() svgDefault,
-) {
-  final own = element.getAttribute(attr)?.trim();
-  if (own != null && own.isNotEmpty) return own;
-  return inherited ?? svgDefault();
-}
-
-bool _shouldSkip(XmlElement elem) {
-  final fill = (elem.getAttribute('fill') ?? '').toLowerCase();
-  final stroke = (elem.getAttribute('stroke') ?? '').toLowerCase();
-  return fill == 'none' && (stroke.isEmpty || stroke == 'none');
-}
-
-String _polygonPointsToPath(String input) {
-  final pointsStr = input.trim();
-  final parts = RegExp(r'\s+').allMatches(pointsStr).isEmpty
-      ? [pointsStr]
-      : pointsStr.split(RegExp(r'\s+'));
-  if (parts.isEmpty) return '';
-
-  final pathParts = <String>[];
-  for (var i = 0; i < parts.length; i++) {
-    final part = parts[i];
-    if (part.contains(',')) {
-      final xy = part.split(',');
-      if (xy.length >= 2) {
-        pathParts.add(i == 0 ? 'M${xy[0]} ${xy[1]}' : 'L${xy[0]} ${xy[1]}');
-      }
-    }
-  }
-
-  if (pathParts.isNotEmpty) {
-    pathParts.add('Z');
-    return pathParts.join('');
-  }
-
-  final values = <String>[];
-  for (final part in parts) {
-    if (part.contains(',')) {
-      values.addAll(part.split(','));
-    } else {
-      values.add(part);
-    }
-  }
-
-  final fallbackParts = <String>[];
-  for (var i = 0; i < values.length - 1; i += 2) {
-    final x = values[i];
-    final y = values[i + 1];
-    fallbackParts.add(i == 0 ? 'M$x $y' : 'L$x $y');
-  }
-  fallbackParts.add('Z');
-  return fallbackParts.join('');
-}
-
-String _circleToPath(double cx, double cy, double r) {
-  return 'M${cx - r},$cy'
-      ' A$r,$r,0,1,0,${cx + r},$cy'
-      ' A$r,$r,0,1,0,${cx - r},$cy'
-      'Z';
-}
-
-String _ellipseToPath(double cx, double cy, double rx, double ry) {
-  return 'M${cx - rx},$cy'
-      ' A$rx,$ry,0,1,0,${cx + rx},$cy'
-      ' A$rx,$ry,0,1,0,${cx - rx},$cy'
-      'Z';
-}
-
-String _rectToPath(
-  double x,
-  double y,
-  double w,
-  double h, [
-  double rx = 0,
-  double ry = 0,
-]) {
-  if (rx == 0 && ry == 0) {
-    return 'M$x,${y}L${x + w},$y L${x + w},${y + h}L$x,${y + h}Z';
-  }
-  var rxVal = rx;
-  var ryVal = ry;
-  if (rxVal == 0) rxVal = ryVal;
-  if (ryVal == 0) ryVal = rxVal;
-  return 'M${x + rxVal},$y'
-      ' L${x + w - rxVal},$y'
-      ' A$rxVal,$ryVal,0,0,1,${x + w},${y + ryVal}'
-      ' L${x + w},${y + h - ryVal}'
-      ' A$rxVal,$ryVal,0,0,1,${x + w - rxVal},${y + h}'
-      ' L${x + rxVal},${y + h}'
-      ' A$rxVal,$ryVal,0,0,1,$x,${y + h - ryVal}'
-      ' L$x,${y + ryVal}'
-      ' A$rxVal,$ryVal,0,0,1,${x + rxVal},$y'
-      'Z';
-}
 
 // ---------------------------------------------------------------------------
 // CSV parsing
@@ -471,32 +240,55 @@ String _escape(String d) => d.replaceAll("'", r"\'");
 // Dart code generation
 // ---------------------------------------------------------------------------
 
-String _generateEmojiDart(List<_EmojiEntry> entries) {
+String _generateEmojiDart(List<_EmojiEntry> entries, {bool sequences = false}) {
   final buf = StringBuffer()
     ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND.')
+    ..writeln('// OpenMoji 17.0.0, CC-BY-SA 4.0; outlines adapted by Skribble.')
     ..writeln('// ignore_for_file: lines_longer_than_80_chars')
     ..writeln()
+    ..writeln("import 'dart:ui' show StrokeCap, StrokeJoin;")
     ..writeln("import '../wired_svg_icon_data.dart';")
     ..writeln()
     ..writeln(
-      'const Map<int, WiredSvgIconData> kSkribbleEmoji = <int, WiredSvgIconData>{',
+      sequences
+          ? 'const Map<String, WiredSvgIconData> kSkribbleEmojiSequences = <String, WiredSvgIconData>{'
+          : 'const Map<int, WiredSvgIconData> kSkribbleEmoji = <int, WiredSvgIconData>{',
     );
 
   for (final entry in entries) {
     final hexStr = entry.codepoint.toRadixString(16);
     buf
       ..writeln('  // ${entry.name}')
-      ..writeln('  0x$hexStr: WiredSvgIconData(')
+      ..writeln(
+        sequences
+            ? "  '${entry.sequence}': WiredSvgIconData("
+            : '  0x$hexStr: WiredSvgIconData(',
+      )
       ..writeln('    width: 72.0,')
       ..writeln('    height: 72.0,')
       ..writeln('    primitives: <WiredSvgPrimitive>[');
     for (final shape in entry.paths) {
       final params = StringBuffer();
+      if (shape.clipPaths.isNotEmpty)
+        params.write(
+          'clipPaths: ${shape.clipPaths.map((path) => "'$path'").toList()}, ',
+        );
+      if (shape.evenOdd) params.write('fillRule: WiredSvgFillRule.evenOdd, ');
       if (shape.fillColor != null)
         params.write("fillColor: '${shape.fillColor}', ");
       if (shape.strokeColor != null) {
         params.write("strokeColor: '${shape.strokeColor}', ");
-        params.write('strokeWidth: ${shape.strokeWidth.toStringAsFixed(1)}, ');
+        params.write('strokeWidth: ${shape.strokeWidth.toStringAsFixed(3)}, ');
+        params.write(
+          'strokeCap: StrokeCap.${shape.strokeCap}, strokeJoin: StrokeJoin.${shape.strokeJoin}, ',
+        );
+        if (shape.strokeMiterLimit != 4)
+          params.write('strokeMiterLimit: ${shape.strokeMiterLimit}, ');
+        if (shape.strokeDashArray.isNotEmpty) {
+          params.write(
+            'strokeDashArray: ${shape.strokeDashArray}, strokeDashOffset: ${shape.strokeDashOffset}, ',
+          );
+        }
       }
       if (params.isEmpty) {
         buf.writeln("      WiredSvgPrimitive.path('${_escape(shape.data)}'),");
@@ -520,6 +312,7 @@ String _generateEmojiDart(List<_EmojiEntry> entries) {
 String _generateCodepointsDart(List<_EmojiEntry> entries) {
   final buf = StringBuffer()
     ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND.')
+    ..writeln('// OpenMoji 17.0.0, CC-BY-SA 4.0; outlines adapted by Skribble.')
     ..writeln('// ignore_for_file: lines_longer_than_80_chars')
     ..writeln()
     ..writeln(
@@ -530,7 +323,7 @@ String _generateCodepointsDart(List<_EmojiEntry> entries) {
       'const Map<String, int> kSkribbleEmojiCodePoints = <String, int>{',
     );
 
-  for (final entry in entries) {
+  for (final entry in entries.where((e) => !e.sequence.contains('-'))) {
     final hexStr = entry.codepoint.toRadixString(16);
     buf.writeln("  '${entry.name}': 0x$hexStr,");
   }
@@ -538,15 +331,27 @@ String _generateCodepointsDart(List<_EmojiEntry> entries) {
   buf
     ..writeln('};')
     ..writeln();
+  buf.writeln(
+    '/// Maps names to complete Unicode sequences, including modifiers.',
+  );
+  buf.writeln(
+    'const Map<String, String> kSkribbleEmojiNames = <String, String>{',
+  );
+  for (final entry in entries) {
+    buf.writeln("  '${entry.name}': '${entry.sequence}',");
+  }
+  buf.writeln('};');
   return buf.toString();
 }
 
 class _EmojiEntry {
+  final String sequence;
   final int codepoint;
   final String name;
-  final List<_SvgShape> paths;
+  final List<SvgShape> paths;
 
   const _EmojiEntry({
+    required this.sequence,
     required this.codepoint,
     required this.name,
     required this.paths,

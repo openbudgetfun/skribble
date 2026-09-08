@@ -68,7 +68,7 @@ class WiredCupertinoFormSection extends HookWidget {
           if (header != null)
             Padding(
               padding: const EdgeInsets.only(left: 16, bottom: 6),
-              child: DefaultTextStyle(
+              child: DefaultTextStyle.merge(
                 style: TextStyle(color: theme.disabledTextColor, fontSize: 13),
                 child: header!,
               ),
@@ -78,6 +78,7 @@ class WiredCupertinoFormSection extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRoundedRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     borderRadius: BorderRadius.circular(10),
                     fillColor: theme.fillColor,
                     borderColor: theme.borderColor,
@@ -99,7 +100,7 @@ class WiredCupertinoFormSection extends HookWidget {
           if (footer != null)
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 6),
-              child: DefaultTextStyle(
+              child: DefaultTextStyle.merge(
                 style: TextStyle(color: theme.disabledTextColor, fontSize: 13),
                 child: footer!,
               ),
@@ -112,7 +113,7 @@ class WiredCupertinoFormSection extends HookWidget {
   Widget _buildDivider(WiredThemeData theme) {
     return SizedBox(
       width: double.infinity,
-      height: 1,
+      height: theme.inkExtent,
       child: WiredCanvas(
         painter: WiredLineBase(
           x1: dividerIndent,
@@ -120,7 +121,7 @@ class WiredCupertinoFormSection extends HookWidget {
           x2: double.infinity,
           y2: 0,
           borderColor: theme.borderColor,
-          strokeWidth: 1,
+          strokeWidth: theme.strokeWidth,
         ),
         fillerType: RoughFilter.noFiller,
       ),

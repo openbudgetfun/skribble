@@ -70,7 +70,7 @@ class WiredCupertinoListSection extends HookWidget {
           if (header != null)
             Padding(
               padding: const EdgeInsets.only(left: 16, bottom: 6),
-              child: DefaultTextStyle(
+              child: DefaultTextStyle.merge(
                 style: TextStyle(
                   color: theme.disabledTextColor,
                   fontSize: 13,
@@ -83,6 +83,7 @@ class WiredCupertinoListSection extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRoundedRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     borderRadius: BorderRadius.circular(10),
                     fillColor: backgroundColor ?? theme.fillColor,
                     borderColor: theme.borderColor,
@@ -104,7 +105,7 @@ class WiredCupertinoListSection extends HookWidget {
           if (footer != null)
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 6),
-              child: DefaultTextStyle(
+              child: DefaultTextStyle.merge(
                 style: TextStyle(
                   color: theme.disabledTextColor,
                   fontSize: 13,
@@ -120,7 +121,7 @@ class WiredCupertinoListSection extends HookWidget {
   Widget _buildSeparator(WiredThemeData theme) {
     return SizedBox(
       width: double.infinity,
-      height: 1,
+      height: theme.inkExtent,
       child: WiredCanvas(
         painter: WiredLineBase(
           x1: separatorIndent,
@@ -128,7 +129,7 @@ class WiredCupertinoListSection extends HookWidget {
           x2: double.infinity,
           y2: 0,
           borderColor: theme.borderColor,
-          strokeWidth: 1,
+          strokeWidth: theme.strokeWidth,
         ),
         fillerType: RoughFilter.noFiller,
       ),

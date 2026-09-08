@@ -134,9 +134,10 @@ class WiredGridTileBar extends HookWidget {
             start: 0,
             end: 0,
             child: SizedBox(
-              height: 2,
+              height: theme.inkExtent,
               child: WiredCanvas(
                 painter: WiredLineBase(
+                  strokeWidth: theme.strokeWidth,
                   x1: 0,
                   y1: 1,
                   x2: double.infinity,
@@ -162,7 +163,7 @@ class WiredGridTileBar extends HookWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         if (title != null)
-                          DefaultTextStyle(
+                          DefaultTextStyle.merge(
                             style: TextStyle(
                               color: color ?? theme.textColor,
                               fontSize: 14,
@@ -172,7 +173,7 @@ class WiredGridTileBar extends HookWidget {
                           ),
                         if (subtitle != null) ...[
                           const SizedBox(height: 2),
-                          DefaultTextStyle(
+                          DefaultTextStyle.merge(
                             style: TextStyle(
                               color:
                                   color ??

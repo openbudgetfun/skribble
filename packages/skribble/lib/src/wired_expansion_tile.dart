@@ -55,7 +55,7 @@ class WiredExpansionTile extends HookWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        DefaultTextStyle(
+                        DefaultTextStyle.merge(
                           style: TextStyle(
                             color: theme.textColor,
                             fontSize: 16,
@@ -64,7 +64,7 @@ class WiredExpansionTile extends HookWidget {
                         ),
                         if (subtitle != null) ...[
                           const SizedBox(height: 2),
-                          DefaultTextStyle(
+                          DefaultTextStyle.merge(
                             style: TextStyle(
                               color: theme.disabledTextColor,
                               fontSize: 14,
@@ -90,9 +90,10 @@ class WiredExpansionTile extends HookWidget {
             ),
           ),
           SizedBox(
-            height: 1,
+            height: theme.inkExtent,
             child: WiredCanvas(
               painter: WiredLineBase(
+                strokeWidth: theme.strokeWidth,
                 x1: 0,
                 y1: 0,
                 x2: double.infinity,

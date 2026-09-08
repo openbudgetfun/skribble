@@ -12,4 +12,8 @@ dependencies:
   args: ^2.7.0
   http: ^1.4.0
   path: ^1.9.1
+  path_parsing: ^1.1.0
   xml: ^6.6.0
+
+dev_dependencies:
+  test: ^1.31.0

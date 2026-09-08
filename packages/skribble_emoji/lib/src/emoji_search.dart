@@ -1,4 +1,5 @@
-import 'package:skribble_emoji/src/generated/skribble_emoji.g.dart';
+import 'package:skribble_emoji/skribble_emoji.dart'
+    show lookupSkribbleEmojiByName;
 import 'package:skribble_emoji/src/generated/skribble_emoji_codepoints.g.dart';
 import 'package:skribble_emoji/src/wired_svg_icon_data.dart';
 
@@ -40,14 +41,15 @@ class EmojiSearch {
     final lowerQuery = query.toLowerCase();
     final results = <EmojiSearchResult>[];
 
-    for (final entry in kSkribbleEmojiCodePoints.entries) {
+    for (final entry in kSkribbleEmojiNames.entries) {
       if (entry.key.toLowerCase().contains(lowerQuery)) {
-        final data = kSkribbleEmoji[entry.value];
+        final data = lookupSkribbleEmojiByName(entry.key);
         if (data != null) {
           results.add(
             EmojiSearchResult(
               name: entry.key,
-              codePoint: entry.value,
+              codePoint: int.parse(entry.value.split('-').first, radix: 16),
+              sequence: entry.value,
               data: data,
             ),
           );
@@ -72,7 +74,7 @@ class EmojiSearch {
     final lowerPrefix = prefix.toLowerCase();
     final suggestions = <String>[];
 
-    for (final name in kSkribbleEmojiCodePoints.keys) {
+    for (final name in kSkribbleEmojiNames.keys) {
       if (name.toLowerCase().startsWith(lowerPrefix)) {
         suggestions.add(name);
       }
@@ -88,7 +90,7 @@ class EmojiSearch {
   /// print('Total emoji: ${allNames.length}');
   /// ```
   static List<String> allNames() {
-    return kSkribbleEmojiCodePoints.keys.toList();
+    return kSkribbleEmojiNames.keys.toList();
   }
 
   /// Returns the total number of emoji in the collection.
@@ -98,7 +100,7 @@ class EmojiSearch {
   /// print('Total emoji: $count');
   /// ```
   static int count() {
-    return kSkribbleEmojiCodePoints.length;
+    return kSkribbleEmojiNames.length;
   }
 
   /// Returns emoji grouped by common category prefixes.
@@ -122,9 +124,9 @@ class EmojiSearch {
   static Map<String, List<EmojiSearchResult>> categories() {
     final categories = <String, List<EmojiSearchResult>>{};
 
-    for (final entry in kSkribbleEmojiCodePoints.entries) {
+    for (final entry in kSkribbleEmojiNames.entries) {
       final name = entry.key;
-      final data = kSkribbleEmoji[entry.value];
+      final data = lookupSkribbleEmojiByName(entry.key);
 
       if (data == null) continue;
 
@@ -169,7 +171,8 @@ class EmojiSearch {
       categories[category]!.add(
         EmojiSearchResult(
           name: name,
-          codePoint: entry.value,
+          codePoint: int.parse(entry.value.split('-').first, radix: 16),
+          sequence: entry.value,
           data: data,
         ),
       );
@@ -186,10 +189,14 @@ class EmojiSearchResult {
     required this.name,
     required this.codePoint,
     required this.data,
+    this.sequence,
   });
 
   /// The name of the emoji (e.g., 'grinning_face').
   final String name;
+
+  /// Complete Unicode sequence for joined and modified emoji.
+  final String? sequence;
 
   /// The Unicode codepoint of the emoji.
   final int codePoint;

@@ -24,61 +24,63 @@ jobs:
         id: analysis
         run: |
           set -e
+          mkdir -p .audit
+          (cd docs/site && dart pub get)
 
-          echo "## Automated PR Review" > review.md
-          echo "" >> review.md
+          echo "## Automated PR Review" > .audit/review.md
+          echo "" >> .audit/review.md
 
           # Run dart analyze
-          echo "### Static Analysis" >> review.md
+          echo "### Static Analysis" >> .audit/review.md
           if dart analyze --fatal-infos . 2>&1; then
-            echo "All analysis checks passed." >> review.md
+            echo "All analysis checks passed." >> .audit/review.md
           else
-            echo "Analysis issues found. See details above." >> review.md
+            echo "Analysis issues found. See details above." >> .audit/review.md
           fi
-          echo "" >> review.md
+          echo "" >> .audit/review.md
 
           # Check formatting
-          echo "### Formatting" >> review.md
+          echo "### Formatting" >> .audit/review.md
           if dprint check 2>&1; then
-            echo "All formatting checks passed." >> review.md
+            echo "All formatting checks passed." >> .audit/review.md
           else
-            echo "Formatting issues found. Run \`dprint fmt\` to fix." >> review.md
+            echo "Formatting issues found. Run \`dprint fmt\` to fix." >> .audit/review.md
           fi
-          echo "" >> review.md
+          echo "" >> .audit/review.md
 
           # Run tests
-          echo "### Tests" >> review.md
+          echo "### Tests" >> .audit/review.md
           if melos flutter-test 2>&1; then
-            echo "All tests passed." >> review.md
+            echo "All tests passed." >> .audit/review.md
           else
-            echo "Some tests failed. See CI logs for details." >> review.md
+            echo "Some tests failed. See CI logs for details." >> .audit/review.md
           fi
-          echo "" >> review.md
+          echo "" >> .audit/review.md
 
           # Check for missing tests
-          echo "### Coverage Check" >> review.md
+          echo "### Widget test file inventory" >> .audit/review.md
           changed_files=$(git diff --name-only origin/main...HEAD -- 'packages/skribble/lib/src/wired_*.dart' | sed 's|lib/src/|test/widgets/|' | sed 's|\.dart|_test.dart|')
           missing_tests=""
           for test_file in $changed_files; do
-            full_path="packages/skribble/$test_file"
+            full_path="$test_file"
             if [ ! -f "$full_path" ]; then
               missing_tests="$missing_tests\n- \`$full_path\`"
             fi
           done
 
           if [ -n "$missing_tests" ]; then
-            echo "Missing test files for changed widgets:" >> review.md
-            echo -e "$missing_tests" >> review.md
+            echo "No same-named test file for the following sources (coverage may exist in another test file):" >> .audit/review.md
+            echo -e "$missing_tests" >> .audit/review.md
           else
-            echo "All changed widgets have corresponding test files." >> review.md
+            echo "All changed widgets have corresponding test files." >> .audit/review.md
           fi
 
-          echo "" >> review.md
-          echo "---" >> review.md
-          echo "*This review was generated automatically by the Skribble CI pipeline.*" >> review.md
+          echo "" >> .audit/review.md
+          echo "---" >> .audit/review.md
+          echo "*This review was generated automatically by the Skribble CI pipeline.*" >> .audit/review.md
         shell: devenv shell -- bash -e {0}
 
       - name: post review comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          path: review.md
+          path: .audit/review.md

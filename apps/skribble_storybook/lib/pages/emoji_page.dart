@@ -19,7 +19,7 @@ class EmojiPage extends HookWidget {
     final searchQuery = useState('');
 
     final sortedNames = useMemoized(
-      () => kSkribbleEmojiCodePoints.keys.toList()..sort(),
+      () => kSkribbleEmojiNames.keys.toList()..sort(),
     );
 
     final filteredNames = useMemoized(

@@ -46,6 +46,7 @@ class WiredAboutDialog extends HookWidget {
             Positioned.fill(
               child: WiredCanvas(
                 painter: WiredRoundedRectangleBase(
+                  strokeWidth: theme.strokeWidth,
                   borderRadius: BorderRadius.circular(16),
                   borderColor: theme.borderColor,
                 ),
@@ -103,9 +104,10 @@ class WiredAboutDialog extends HookWidget {
                   const SizedBox(height: 20),
                   // Sketchy divider
                   SizedBox(
-                    height: 2,
+                    height: theme.inkExtent,
                     child: WiredCanvas(
                       painter: WiredLineBase(
+                        strokeWidth: theme.strokeWidth,
                         x1: 0,
                         y1: 1,
                         x2: double.maxFinite,

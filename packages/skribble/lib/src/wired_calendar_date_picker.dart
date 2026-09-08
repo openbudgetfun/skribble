@@ -52,6 +52,7 @@ class WiredCalendarDatePicker extends HookWidget {
           Positioned.fill(
             child: WiredCanvas(
               painter: WiredRoundedRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 borderRadius: BorderRadius.circular(16),
                 borderColor: theme.borderColor,
               ),

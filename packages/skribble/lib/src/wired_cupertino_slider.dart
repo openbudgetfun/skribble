@@ -121,6 +121,7 @@ class WiredCupertinoSlider extends HookWidget {
                         height: _trackHeight,
                         child: WiredCanvas(
                           painter: WiredRoundedRectangleBase(
+                            strokeWidth: theme.strokeWidth,
                             borderRadius: BorderRadius.circular(2),
                             fillColor: effectiveInactiveColor,
                             borderColor: theme.borderColor,
@@ -137,6 +138,7 @@ class WiredCupertinoSlider extends HookWidget {
                         height: _trackHeight,
                         child: WiredCanvas(
                           painter: WiredRoundedRectangleBase(
+                            strokeWidth: theme.strokeWidth,
                             borderRadius: BorderRadius.circular(2),
                             fillColor: effectiveActiveColor,
                             borderColor: theme.borderColor,
@@ -154,6 +156,7 @@ class WiredCupertinoSlider extends HookWidget {
                         height: _thumbSize,
                         child: WiredCanvas(
                           painter: WiredCircleBase(
+                            strokeWidth: theme.strokeWidth,
                             fillColor: thumbColor,
                             borderColor: theme.borderColor,
                           ),

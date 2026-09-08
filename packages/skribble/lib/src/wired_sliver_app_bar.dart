@@ -75,7 +75,7 @@ class WiredSliverAppBar extends HookWidget {
 
     return SliverAppBar(
       title: title != null
-          ? DefaultTextStyle(
+          ? DefaultTextStyle.merge(
               style: TextStyle(
                 color: fgColor,
                 fontSize: 20,
@@ -110,6 +110,7 @@ class WiredSliverAppBar extends HookWidget {
                     child: buildWiredElement(
                       child: WiredCanvas(
                         painter: WiredLineBase(
+                          strokeWidth: theme.strokeWidth,
                           x1: 0,
                           y1: 1,
                           x2: double.maxFinite,
@@ -136,6 +137,7 @@ class WiredSliverAppBar extends HookWidget {
                     child: buildWiredElement(
                       child: WiredCanvas(
                         painter: WiredLineBase(
+                          strokeWidth: theme.strokeWidth,
                           x1: 0,
                           y1: 1,
                           x2: double.maxFinite,

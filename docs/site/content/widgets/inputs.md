@@ -13,8 +13,6 @@ Skribble replaces standard form controls with sketchy, hand-drawn equivalents. A
 
 A single-line text field wrapped in a hand-drawn rectangle border. Supports labels, hints, and password masking.
 
-<!-- {=docsInputUsage} -->
-
 ```dart
 WiredInput(
   labelText: 'Name',
@@ -48,8 +46,6 @@ WiredInput(
 
 A multi-line text input with a hand-drawn rectangle border. The border fills behind the text area using `Positioned.fill`.
 
-<!-- {=docsTextAreaUsage} -->
-
 ```dart
 WiredTextArea(
   hintText: 'Write something...',
@@ -81,8 +77,6 @@ WiredTextArea(
 ## WiredSearchBar
 
 A search input with a pill-shaped hand-drawn border (24px border radius). Includes a leading search icon and optional trailing widget.
-
-<!-- {=docsSearchBarUsage} -->
 
 ```dart
 WiredSearchBar(
@@ -173,8 +167,6 @@ Also exported: `WiredSearchController` (a `TextEditingController` plus
 
 A hand-drawn checkbox with a sketchy rectangle border. The checkmark is rendered by an underlying transparent `Checkbox` widget, scaled up for visual presence.
 
-<!-- {=docsCheckboxUsage} -->
-
 ```dart
 WiredCheckbox(
   value: isChecked,
@@ -203,8 +195,6 @@ WiredCheckbox(
 
 Combines `WiredCheckbox` with a `WiredListTile`-style layout including title, subtitle, and optional secondary widget. Follows the same API pattern as Material's `CheckboxListTile`.
 
-<!-- {=docsCheckboxListTileUsage} -->
-
 ```dart
 WiredCheckboxListTile(
   title: Text('Accept terms'),
@@ -218,8 +208,6 @@ WiredCheckboxListTile(
 ## WiredRadio
 
 A hand-drawn radio button with a sketchy circle border. When selected, the inner circle fills with a hachure pattern.
-
-<!-- {=docsRadioUsage} -->
 
 ```dart
 WiredRadio<String>(
@@ -251,8 +239,6 @@ WiredRadio<String>(
 
 Combines `WiredRadio` with a list tile layout. Follows the `RadioListTile` API pattern.
 
-<!-- {=docsRadioListTileUsage} -->
-
 ```dart
 WiredRadioListTile<String>(
   title: Text('Option A'),
@@ -267,8 +253,6 @@ WiredRadioListTile<String>(
 ## WiredSwitch
 
 A toggle switch with a hand-drawn rounded rectangle track and a circle thumb that animates between on and off positions.
-
-<!-- {=docsSwitchUsage} -->
 
 ```dart
 WiredSwitch(
@@ -302,8 +286,6 @@ WiredSwitch(
 
 Combines `WiredSwitch` with a list tile layout. Follows the `SwitchListTile` API pattern.
 
-<!-- {=docsSwitchListTileUsage} -->
-
 ```dart
 WiredSwitchListTile(
   title: Text('Dark mode'),
@@ -317,8 +299,6 @@ WiredSwitchListTile(
 ## WiredSlider
 
 A slider with a sketchy track line and a hand-drawn circle thumb. Supports divisions and labels.
-
-<!-- {=docsSliderUsage} -->
 
 ```dart
 WiredSlider(
@@ -357,8 +337,6 @@ WiredSlider(
 
 A dual-handle variant of `WiredSlider` for selecting a range of values. Follows the `RangeSlider` API.
 
-<!-- {=docsRangeSliderUsage} -->
-
 ```dart
 WiredRangeSlider(
   values: RangeValues(20, 80),
@@ -373,8 +351,6 @@ WiredRangeSlider(
 ## WiredToggle
 
 A simple on/off toggle with a hand-drawn rectangle track and an animated circle thumb. More minimal than `WiredSwitch`.
-
-<!-- {=docsToggleUsage} -->
 
 ```dart
 WiredToggle(
@@ -406,8 +382,6 @@ WiredToggle(
 ## WiredForm
 
 A hand-drawn wrapper around Flutter's `Form` widget. Draws a sketchy rounded rectangle border around form content.
-
-<!-- {=docsFormUsage} -->
 
 ```dart
 final formKey = GlobalKey<FormState>();
@@ -450,8 +424,6 @@ WiredForm(
 
 A hand-drawn autocomplete field that displays suggestions in a sketchy dropdown as the user types. Wraps Flutter's `Autocomplete` widget.
 
-<!-- {=docsAutocompleteUsage} -->
-
 ```dart
 WiredAutocomplete<String>(
   optionsBuilder: (textEditingValue) {
@@ -469,8 +441,6 @@ WiredAutocomplete<String>(
 
 A Cupertino-styled text field with a hand-drawn rounded rectangle border. Mirrors the `CupertinoTextField` API.
 
-<!-- {=docsCupertinoTextFieldUsage} -->
-
 ```dart
 WiredCupertinoTextField(
   placeholder: 'Enter text',
@@ -483,8 +453,6 @@ WiredCupertinoTextField(
 ## WiredCupertinoSlider
 
 A Cupertino-styled slider with a sketchy track and thumb. Mirrors the `CupertinoSlider` API.
-
-<!-- {=docsCupertinoSliderUsage} -->
 
 ```dart
 WiredCupertinoSlider(
@@ -501,11 +469,19 @@ WiredCupertinoSlider(
 
 A Cupertino-styled toggle switch with hand-drawn track and thumb. Mirrors the `CupertinoSwitch` API.
 
-<!-- {=docsCupertinoSwitchUsage} -->
-
 ```dart
 WiredCupertinoSwitch(
   value: isActive,
   onChanged: (value) => setState(() => isActive = value),
 )
 ```
+
+## Handwriting and large text
+
+`WiredInput` places its label above the sketch border, where a long label can wrap. The field grows with text scaling and uses one transparent Material input decoration, leaving the hand-drawn border visible. Focus adds 0.6 logical pixels to the themed pen. Put forms in a scrollable parent when large text exceeds the viewport height.
+
+`WiredTextArea` likewise avoids an opaque second input border. Checkbox and slider state follows subsequent external value changes, including a parent reset after interaction. Slider updates no longer schedule a new future on each build. Pixel and interaction regressions cover these paths alongside input text at 100–300% scaling.
+
+The switch thumb has an opaque paper fill and a full-size sketch outline, so the track cannot show through it. Its semantics expose the disabled state.
+
+`WiredSlider` positions its thumb during the first layout, including custom nonzero ranges, and keeps both endpoints inside its bounds. A null callback disables interaction. `WiredInput` hints merge the themed secondary text color with any explicit hint style so empty fields remain readable on dark paper.

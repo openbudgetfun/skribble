@@ -31,6 +31,7 @@ dev_dependencies:
   skribble_lints:
     path: ../../packages/skribble_lints
 
+  test_api: any
 patrol:
   # Test suite location — Patrol discovers both patrolTest (native runner)
   # and plain integration tests here.

@@ -43,6 +43,7 @@ class WiredDatePicker extends HookWidget {
               Positioned.fill(
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
+                    strokeWidth: theme.strokeWidth,
                     fillColor: theme.fillColor,
                     borderColor: theme.borderColor,
                   ),

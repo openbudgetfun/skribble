@@ -184,9 +184,10 @@ class _SliceCard extends HookWidget {
       if (rows.isNotEmpty && showDividers) {
         rows.add(
           SizedBox(
-            height: 1,
+            height: theme.inkExtent,
             child: WiredCanvas(
               painter: WiredLineBase(
+                strokeWidth: theme.strokeWidth,
                 x1: 8,
                 y1: 0,
                 x2: double.infinity,
@@ -214,6 +215,7 @@ class _SliceCard extends HookWidget {
           Positioned.fill(
             child: WiredCanvas(
               painter: WiredRoundedRectangleBase(
+                strokeWidth: theme.strokeWidth,
                 borderRadius: BorderRadius.circular(radius),
                 fillColor: theme.fillColor,
                 borderColor: theme.borderColor,
