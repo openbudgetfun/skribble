@@ -114,6 +114,12 @@ in
     "melos" = {
       exec = ''
         set -e
+        # Melos otherwise requires the gitignored `.fvm/flutter_sdk` symlink
+        # whenever `.fvmrc` is present, which breaks in fresh clones,
+        # worktrees, and hook contexts that run outside the devenv shell.
+        # "auto" makes Melos use the dart/flutter already resolved on PATH
+        # (the profile scripts pin fvm's SDK).
+        export MELOS_SDK_PATH=auto
         dart run melos $@
       '';
       description = "Run the melos cli.";
