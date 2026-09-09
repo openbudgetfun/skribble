@@ -153,15 +153,26 @@ void main() {
 <!-- Raw pumpApp slot examples; consumers add fences/prefixes. -->
 <!-- {@docsPumpAppExample} -->
 
-// Body slot (default) await pumpApp(tester, myWidget);
+```dart
+// Body slot (default)
+await pumpApp(tester, myWidget);
 
-// AppBar slot await pumpApp(tester, WiredAppBar(title: Text('T')), asAppBar: true);
+// AppBar slot
+await pumpApp(tester, WiredAppBar(title: Text('T')), asAppBar: true);
 
-// BottomNavigationBar slot await pumpApp(tester, myNavBar, asBottomNav: true);
+// BottomNavigationBar slot
+await pumpApp(tester, myNavBar, asBottomNav: true);
 
-// Drawer slot await pumpApp(tester, WiredDrawer(child: Text('X')), asDrawer: true);
+// Drawer slot
+await pumpApp(tester, WiredDrawer(child: Text('X')), asDrawer: true);
 
-// With custom theme await pumpApp( tester, myWidget, theme: WiredThemeData(borderColor: Colors.red), );
+// With custom theme
+await pumpApp(
+  tester,
+  myWidget,
+  theme: WiredThemeData(borderColor: Colors.red),
+);
+```
 
 <!-- {/docsPumpAppExample} -->
 

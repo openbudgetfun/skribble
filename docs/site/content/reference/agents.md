@@ -432,9 +432,9 @@ lib/src/wired_checkbox.dart  →  test/widgets/wired_checkbox_test.dart
 
 Always use `pumpApp()` to render widgets in tests. It wraps the widget in the correct app shell:
 
-<!-- {=docsPumpAppExample|prefix:"import '../helpers/pump_app.dart';\n\n"|codeBlock:"dart"} -
+<!-- {=docsPumpAppExample} -->
+
 ```dart
-import ../helpers/pump_app.dart;\n\n
 // Body slot (default)
 await pumpApp(tester, myWidget);
 
@@ -453,8 +453,8 @@ await pumpApp(
   myWidget,
   theme: WiredThemeData(borderColor: Colors.red),
 );
-
 ```
+
 <!-- {/docsPumpAppExample} -->
 
 ### Minimum 6 tests per widget
