@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'motion/wired_draw.dart';
+import 'motion/wired_ink_response.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
@@ -50,6 +52,8 @@ class WiredPopupMenuButton<T> extends HookWidget {
             value: item.value,
             child: Container(
               decoration: RoughBoxDecoration(
+                progress: WiredDrawTransition.progressOf(context),
+                pressure: WiredInkResponse.pressureOf(context),
                 drawConfig: theme.drawConfig,
                 shape: RoughBoxShape.rectangle,
                 borderStyle: RoughDrawingStyle(

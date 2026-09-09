@@ -10,3 +10,4 @@ export 'entities.dart';
 export 'filler.dart';
 export 'generator.dart';
 export 'rough.dart';
+export 'rough_drawing.dart';

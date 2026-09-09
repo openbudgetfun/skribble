@@ -4,8 +4,8 @@
 
 ### Widget Development
 
-- Every widget MUST use `HookWidget` (or `HookConsumerWidget` if Riverpod is needed)
-- No `StatefulWidget` or `StatelessWidget` — hooks only
+- UI components use `HookWidget` (or `HookConsumerWidget` if Riverpod is needed).
+- Motion lifecycle code in `packages/skribble/lib/src/motion/` and its controller examples use standard Flutter `State` and ticker providers; motion scopes use `InheritedWidget`. Their public API accepts `Animation<double>` and remains independent of hooks. See `docs/site/content/core/motion.md` when changing animation ownership or policy.
 - All widgets use the "Wired" prefix (e.g., `WiredButton`, `WiredAppBar`)
 - Follow existing patterns:
   - `WiredPainterBase` for painting rough shapes

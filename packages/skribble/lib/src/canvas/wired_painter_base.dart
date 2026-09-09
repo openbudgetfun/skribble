@@ -10,10 +10,12 @@ import '../rough/skribble_rough.dart';
 /// See also:
 ///  * `WiredRectangleBase`, `WiredCircleBase`, `WiredLineBase` in
 ///    `wired_base.dart`.
-// The single-member abstract class is intentional: it defines the painter
-// protocol shared by every rough painter implementation.
-// ignore: one_member_abstracts
 abstract class WiredPainterBase {
+  /// Prepares stable ink for paint-only animation. Legacy custom painters may
+  /// leave this null and continue to implement [paintRough] with static output.
+  RoughDrawing? prepare(Size size, DrawConfig drawConfig, Filler filler) =>
+      null;
+
   void paintRough(
     Canvas canvas,
     Size size,

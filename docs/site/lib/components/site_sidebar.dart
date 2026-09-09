@@ -54,6 +54,7 @@ class SiteSidebar extends StatelessComponent {
             SidebarLink(text: 'Theme System', href: link('/core/theme-system')),
             SidebarLink(text: 'Hooks & State', href: link('/core/hooks')),
             SidebarLink(text: 'Painters', href: link('/core/painters')),
+            SidebarLink(text: 'Ink motion', href: link('/core/motion')),
             SidebarLink(
               text: 'Material Bridge',
               href: link('/core/material-bridge'),

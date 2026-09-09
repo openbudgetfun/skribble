@@ -668,3 +668,11 @@ Shared shapes use rounded stroke caps and joins. Their drawing rectangle is inse
 `WiredCanvas` reads the nearest theme's drawing configuration unless explicitly overridden. `WiredPainter.shouldRepaint` compares its painter and filler instances as well as drawing configuration, so a new color, width, or geometry takes effect. `RoughBoxDecoration` resets its seeded randomizer on each paint: rebuilding a theme does not make stable lines flicker.
 
 Use `WiredThemeData.inkExtent` for the cross-axis space of a divider. A 2.4-pixel pen cannot show its shape inside a one-pixel canvas.
+
+## Prepared animated ink
+
+Built-in painters implement `WiredPainterBase.prepare` and return a
+`RoughDrawing`. `WiredPainter` retains that drawing until its size or delegate
+changes, listening directly to optional `progress` and `pressure` animations.
+Custom imperative painters remain compatible; override `prepare` to opt into
+animated paths. See [Ink motion](motion) for ownership and reduced-motion rules.

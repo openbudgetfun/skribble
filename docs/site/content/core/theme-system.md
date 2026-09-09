@@ -512,3 +512,10 @@ dart run packages/skribble_font_roughen/bin/skribble_font_roughen.dart \
 Repeat with the matching source and `--variant` for each desired weight/style. Register the resulting files in your app's `pubspec.yaml`, then set `fontFamily: 'MyInk'`. Family names use 1–48 ASCII letters, digits, or hyphens and begin with a letter, so their generated PostScript names remain valid. `--jitter` accepts finite values from 0 through 50.
 
 Rebuild every bundled level with `dart run packages/skribble_font_roughen/bin/roughen_fonts.dart`; add `--check` to verify generated artifacts. The storybook's persistent **Ink style** picker changes the app-level theme and follows navigation to every category.
+
+## Decorative motion
+
+`motionEnabled` defaults to `true` and is preserved by `copyWith`. Set it to
+`false` at the app root to settle decorative ink throughout the app. Nested
+motion boundaries cannot override a disabled ancestor, and platform reduced
+motion always wins. See [Ink motion](motion) for opt-in drawing transitions.

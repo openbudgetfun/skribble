@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'motion/wired_motion.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_roughness.dart';
 
@@ -12,6 +13,9 @@ const String skribbleFontFamily = 'Skribble';
 
 /// Theme data for Wired widgets.
 class WiredThemeData {
+  /// Whether decorative ink motion is permitted. Reduced motion still wins.
+  final bool motionEnabled;
+
   final Color borderColor;
   final Color textColor;
   final Color disabledTextColor;
@@ -39,6 +43,7 @@ class WiredThemeData {
       : null;
 
   WiredThemeData({
+    this.motionEnabled = true,
     this.borderColor = const Color(0xFF1A2B3C),
     this.textColor = Colors.black,
     this.disabledTextColor = Colors.grey,
@@ -61,6 +66,7 @@ class WiredThemeData {
   static final defaultTheme = WiredThemeData();
 
   WiredThemeData copyWith({
+    bool? motionEnabled,
     Color? borderColor,
     Color? textColor,
     Color? disabledTextColor,
@@ -72,6 +78,7 @@ class WiredThemeData {
     WiredRoughness? roughnessLevel,
   }) {
     return WiredThemeData(
+      motionEnabled: motionEnabled ?? this.motionEnabled,
       borderColor: borderColor ?? this.borderColor,
       textColor: textColor ?? this.textColor,
       disabledTextColor: disabledTextColor ?? this.disabledTextColor,
@@ -247,7 +254,7 @@ class WiredTheme extends HookWidget {
             package: data.fontPackage,
             color: data.textColor,
           ),
-          child: child,
+          child: WiredMotion(enabled: data.motionEnabled, child: child),
         ),
       ),
     );

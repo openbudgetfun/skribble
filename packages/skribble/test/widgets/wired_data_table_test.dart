@@ -1,11 +1,130 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble/src/wired_paginated_data_table.dart';
 
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
+  group('WiredPaginatedDataTable', () {
+    late NotebookSource source;
+
+    setUp(() => source = NotebookSource());
+    tearDown(() => source.dispose());
+
+    WiredPaginatedDataTable table({
+      ValueChanged<int>? onPageChanged,
+      String? semanticLabel,
+    }) => WiredPaginatedDataTable(
+      columns: const [DataColumn(label: Text('Note'))],
+      source: source,
+      rowsPerPage: 2,
+      showCheckboxColumn: false,
+      header: const Text('Notebook'),
+      onPageChanged: onPageChanged,
+      semanticLabel: semanticLabel,
+    );
+
+    testWidgets('renders the header and only the first page of rows', (
+      tester,
+    ) async {
+      await pumpApp(tester, table());
+      expect(find.text('Notebook'), findsOneWidget);
+      expect(find.text('Note'), findsOneWidget);
+      expect(find.text('Idea 0'), findsOneWidget);
+      expect(find.text('Idea 1'), findsOneWidget);
+      expect(find.text('Idea 2'), findsNothing);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('changes pages in both directions and reports the first row', (
+      tester,
+    ) async {
+      final pages = <int>[];
+      await pumpApp(tester, table(onPageChanged: pages.add));
+      await tester.tap(find.byTooltip('Next page'));
+      await tester.pumpAndSettle();
+      expect(find.text('Idea 0'), findsNothing);
+      expect(find.text('Idea 2'), findsOneWidget);
+      await tester.tap(find.byTooltip('Previous page'));
+      await tester.pumpAndSettle();
+      expect(find.text('Idea 0'), findsOneWidget);
+      expect(pages, [2, 0]);
+    });
+
+    testWidgets('shows source changes after notification', (tester) async {
+      await pumpApp(tester, table());
+      source.renameFirst('A new thought');
+      await tester.pumpAndSettle();
+      expect(find.text('A new thought'), findsOneWidget);
+      expect(find.text('Idea 0'), findsNothing);
+    });
+
+    testWidgets('renders an empty source without layout errors', (
+      tester,
+    ) async {
+      source.notes.clear();
+      await pumpApp(tester, table());
+      expect(find.text('Notebook'), findsOneWidget);
+      expect(find.text('Idea 0'), findsNothing);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('exposes the supplied accessible label', (tester) async {
+      await pumpApp(tester, table(semanticLabel: 'Saved notebook ideas'));
+      expect(find.bySemanticsLabel('Saved notebook ideas'), findsOneWidget);
+    });
+
+    testWidgets('pagination remains usable while the border is drawing', (
+      tester,
+    ) async {
+      final progress = AnimationController(vsync: tester);
+      addTearDown(progress.dispose);
+      await pumpApp(
+        tester,
+        WiredDrawTransition(progress: progress, child: table()),
+      );
+      final border = tester
+          .widgetList<Container>(find.byType(Container))
+          .map((widget) => widget.decoration)
+          .whereType<RoughBoxDecoration>()
+          .single;
+      expect(border.progress, same(progress));
+      await tester.tap(find.byTooltip('Next page'));
+      await tester.pumpAndSettle();
+      progress.value = .5;
+      await tester.pump();
+      expect(find.text('Idea 2'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('motion opt-out completes the border without hiding rows', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        WiredMotion(
+          enabled: false,
+          child: WiredDrawTransition(
+            progress: const AlwaysStoppedAnimation(.2),
+            child: table(),
+          ),
+        ),
+      );
+      final border = tester
+          .widgetList<Container>(find.byType(Container))
+          .map((widget) => widget.decoration)
+          .whereType<RoughBoxDecoration>()
+          .single;
+      expect(border.progress, isNull);
+      expect(find.text('Idea 0'), findsOneWidget);
+      await tester.tap(find.byTooltip('Next page'));
+      await tester.pumpAndSettle();
+      expect(find.text('Idea 2'), findsOneWidget);
+    });
+  });
+
   group('WiredDataColumn', () {
     test('stores label widget', () {
       const column = WiredDataColumn(label: Text('Name'));
@@ -332,4 +451,27 @@ void main() {
       );
     });
   });
+}
+
+class NotebookSource extends DataTableSource {
+  final List<String> notes = List.generate(5, (index) => 'Idea $index');
+
+  void renameFirst(String value) {
+    notes[0] = value;
+    notifyListeners();
+  }
+
+  @override
+  DataRow? getRow(int index) => index >= notes.length
+      ? null
+      : DataRow.byIndex(index: index, cells: [DataCell(Text(notes[index]))]);
+
+  @override
+  int get rowCount => notes.length;
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get selectedRowCount => 0;
 }

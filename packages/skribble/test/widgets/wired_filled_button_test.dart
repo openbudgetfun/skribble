@@ -1,10 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
 import '../helpers/pump_app.dart';
 
 void main() {
+  for (final fill in [const Color(0xff4a3470), const Color(0xfffffcf1)]) {
+    testWidgets('disabled content keeps contrast on ${fill.toARGB32()}', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        WiredFilledButton(
+          fillColor: fill,
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [Text('Resting ink'), Icon(Icons.check)],
+          ),
+        ),
+      );
+      final paragraph = tester.renderObject<RenderParagraph>(
+        find.text('Resting ink'),
+      );
+      final textColor = paragraph.text.style!.color!;
+      final iconColor = IconTheme.of(tester.element(find.byIcon(Icons.check)))
+          .color!;
+      final effective = Color.alphaBlend(textColor, fill);
+      final light = effective.computeLuminance();
+      final background = fill.computeLuminance();
+      final contrast = light > background
+          ? (light + .05) / (background + .05)
+          : (background + .05) / (light + .05);
+      expect(contrast, greaterThan(3));
+      expect(iconColor, textColor);
+      expect(
+        textColor.a,
+        lessThan(1),
+        reason: 'Disabled content remains visibly muted.',
+      );
+      expect(
+        tester.widget<TextButton>(find.byType(TextButton)).onPressed,
+        isNull,
+      );
+    });
+  }
+
   group('WiredFilledButton', () {
     testWidgets('renders with child text', (tester) async {
       await tester.pumpWidget(

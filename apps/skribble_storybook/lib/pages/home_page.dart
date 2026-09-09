@@ -167,4 +167,10 @@ const _categories = [
     route: '/font-specimen',
     icon: Icons.text_fields_outlined,
   ),
+  _Category(
+    title: 'Ink in motion',
+    description: 'Drawing borders, scribbled shading, and a lively pen.',
+    route: '/motion',
+    icon: Icons.gesture,
+  ),
 ];

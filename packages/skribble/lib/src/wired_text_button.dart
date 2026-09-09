@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'motion/wired_ink_response.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -23,34 +24,37 @@ class WiredTextButton extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Semantics(
-      label: semanticLabel,
-      button: true,
-      child: buildWiredElement(
-        child: IntrinsicWidth(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextButton(
-                style: TextButton.styleFrom(foregroundColor: theme.textColor),
-                onPressed: onPressed,
-                child: child,
-              ),
-              SizedBox(
-                height: theme.inkExtent,
-                child: WiredCanvas(
-                  painter: WiredLineBase(
-                    strokeWidth: theme.strokeWidth,
-                    x1: 0,
-                    y1: 0,
-                    x2: double.infinity,
-                    y2: 0,
-                    borderColor: theme.borderColor,
-                  ),
-                  fillerType: RoughFilter.noFiller,
+    return WiredInkResponse(
+      builder: (context, states) => Semantics(
+        label: semanticLabel,
+        button: true,
+        child: buildWiredElement(
+          child: IntrinsicWidth(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextButton(
+                  statesController: states,
+                  style: TextButton.styleFrom(foregroundColor: theme.textColor),
+                  onPressed: onPressed,
+                  child: child,
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: theme.inkExtent,
+                  child: WiredCanvas(
+                    painter: WiredLineBase(
+                      strokeWidth: theme.strokeWidth,
+                      x1: 0,
+                      y1: 0,
+                      x2: double.infinity,
+                      y2: 0,
+                      borderColor: theme.borderColor,
+                    ),
+                    fillerType: RoughFilter.noFiller,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

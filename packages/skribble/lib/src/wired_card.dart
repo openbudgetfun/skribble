@@ -57,14 +57,12 @@ class WiredCard extends HookWidget {
       ],
     );
 
-    final content = height != null ? stack : IntrinsicHeight(child: stack);
-
     return Container(
       color: Colors.transparent,
       padding: EdgeInsets.zero,
       margin: EdgeInsets.zero,
       height: height,
-      child: content,
+      child: stack,
     );
   }
 }

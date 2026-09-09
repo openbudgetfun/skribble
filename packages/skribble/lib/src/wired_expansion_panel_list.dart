@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'motion/wired_draw.dart';
+import 'motion/wired_ink_response.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_icon_button.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn expansion panel list, corresponding to Flutter's `ExpansionPanelList`.
@@ -92,8 +95,21 @@ class WiredExpansionPanelList extends HookWidget {
   ) {
     final isExpanded = expandedPanels.value.contains(index);
 
+    void toggle() {
+      final newExpanded = Set<int>.from(expandedPanels.value);
+      if (isExpanded) {
+        newExpanded.remove(index);
+      } else {
+        newExpanded.add(index);
+      }
+      expandedPanels.value = newExpanded;
+      expansionCallback?.call(index, !isExpanded);
+    }
+
     return Container(
       decoration: RoughBoxDecoration(
+        progress: WiredDrawTransition.progressOf(context),
+        pressure: WiredInkResponse.pressureOf(context),
         drawConfig: theme.drawConfig,
         shape: RoughBoxShape.rectangle,
         borderStyle: RoughDrawingStyle(
@@ -104,16 +120,7 @@ class WiredExpansionPanelList extends HookWidget {
       child: Column(
         children: [
           InkWell(
-            onTap: () {
-              final newExpanded = Set<int>.from(expandedPanels.value);
-              if (isExpanded) {
-                newExpanded.remove(index);
-              } else {
-                newExpanded.add(index);
-              }
-              expandedPanels.value = newExpanded;
-              expansionCallback?.call(index, !isExpanded);
-            },
+            onTap: panel.canTapOnHeader ? toggle : null,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Row(
@@ -124,10 +131,16 @@ class WiredExpansionPanelList extends HookWidget {
                   AnimatedRotation(
                     turns: isExpanded ? 0.5 : 0,
                     duration: const Duration(milliseconds: 200),
-                    child: Icon(
-                      Icons.expand_more,
-                      color: theme.textColor,
-                    ),
+                    child: panel.canTapOnHeader
+                        ? Icon(Icons.expand_more, color: theme.textColor)
+                        : WiredIconButton(
+                            icon: Icons.expand_more,
+                            iconColor: theme.textColor,
+                            onPressed: toggle,
+                            semanticLabel: isExpanded
+                                ? 'Collapse panel'
+                                : 'Expand panel',
+                          ),
                   ),
                 ],
               ),
@@ -152,7 +165,9 @@ class WiredExpansionPanel {
   /// The body content of the panel.
   final Widget body;
 
-  /// Whether the panel can be expanded.
+  /// Whether tapping the header toggles the panel.
+  ///
+  /// When false, a separate expand button remains available.
   final bool canTapOnHeader;
 
   /// Creates an expansion panel.

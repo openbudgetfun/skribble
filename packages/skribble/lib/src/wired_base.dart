@@ -65,7 +65,7 @@ Widget buildWiredElement({Key? key, required Widget child}) {
 }
 
 /// Base wired rectangle painter.
-class WiredRectangleBase extends WiredPainterBase {
+class WiredRectangleBase extends _PreparedWiredPainter {
   final double leftIndent;
   final double rightIndent;
   final Color fillColor;
@@ -81,8 +81,7 @@ class WiredRectangleBase extends WiredPainterBase {
   });
 
   @override
-  void paintRough(
-    Canvas canvas,
+  RoughDrawing prepare(
     Size size,
     DrawConfig drawConfig,
     Filler filler,
@@ -95,7 +94,7 @@ class WiredRectangleBase extends WiredPainterBase {
       math.max(0, rect.width - leftIndent - rightIndent),
       rect.height,
     );
-    canvas.drawRough(
+    return RoughDrawing(
       figure,
       WiredBase.pathPainter(strokeWidth, color: borderColor),
       WiredBase.fillPainter(fillColor),
@@ -104,7 +103,7 @@ class WiredRectangleBase extends WiredPainterBase {
 }
 
 /// Base wired inverted triangle painter.
-class WiredInvertedTriangleBase extends WiredPainterBase {
+class WiredInvertedTriangleBase extends _PreparedWiredPainter {
   final Color borderColor;
   final double strokeWidth;
 
@@ -114,8 +113,7 @@ class WiredInvertedTriangleBase extends WiredPainterBase {
   });
 
   @override
-  void paintRough(
-    Canvas canvas,
+  RoughDrawing prepare(
     Size size,
     DrawConfig drawConfig,
     Filler filler,
@@ -128,7 +126,7 @@ class WiredInvertedTriangleBase extends WiredPainterBase {
       PointD(rect.center.dx, rect.bottom),
     ];
     final Drawable figure = generator.polygon(points);
-    canvas.drawRough(
+    return RoughDrawing(
       figure,
       WiredBase.pathPainter(strokeWidth, color: borderColor),
       WiredBase.fillPainter(borderColor),
@@ -137,7 +135,7 @@ class WiredInvertedTriangleBase extends WiredPainterBase {
 }
 
 /// Base wired line painter.
-class WiredLineBase extends WiredPainterBase {
+class WiredLineBase extends _PreparedWiredPainter {
   final double x1;
   final double y1;
   final double x2;
@@ -155,8 +153,7 @@ class WiredLineBase extends WiredPainterBase {
   });
 
   @override
-  void paintRough(
-    Canvas canvas,
+  RoughDrawing prepare(
     Size size,
     DrawConfig drawConfig,
     Filler filler,
@@ -183,7 +180,7 @@ class WiredLineBase extends WiredPainterBase {
       lx2.clamp(rect.left, rect.right),
       ly2.clamp(rect.top, rect.bottom),
     );
-    canvas.drawRough(
+    return RoughDrawing(
       figure,
       WiredBase.pathPainter(strokeWidth, color: borderColor),
       WiredBase.fillPainter(borderColor),
@@ -192,7 +189,7 @@ class WiredLineBase extends WiredPainterBase {
 }
 
 /// Base wired rounded rectangle painter.
-class WiredRoundedRectangleBase extends WiredPainterBase {
+class WiredRoundedRectangleBase extends _PreparedWiredPainter {
   final BorderRadius borderRadius;
   final Color fillColor;
   final Color borderColor;
@@ -206,8 +203,7 @@ class WiredRoundedRectangleBase extends WiredPainterBase {
   });
 
   @override
-  void paintRough(
-    Canvas canvas,
+  RoughDrawing prepare(
     Size size,
     DrawConfig drawConfig,
     Filler filler,
@@ -224,7 +220,7 @@ class WiredRoundedRectangleBase extends WiredPainterBase {
       borderRadius.bottomRight.x,
       borderRadius.bottomLeft.x,
     );
-    canvas.drawRough(
+    return RoughDrawing(
       figure,
       WiredBase.pathPainter(strokeWidth, color: borderColor),
       WiredBase.fillPainter(fillColor),
@@ -233,7 +229,7 @@ class WiredRoundedRectangleBase extends WiredPainterBase {
 }
 
 /// Base wired circle painter.
-class WiredCircleBase extends WiredPainterBase {
+class WiredCircleBase extends _PreparedWiredPainter {
   final double diameterRatio;
   final Color fillColor;
   final Color borderColor;
@@ -247,8 +243,7 @@ class WiredCircleBase extends WiredPainterBase {
   });
 
   @override
-  void paintRough(
-    Canvas canvas,
+  RoughDrawing prepare(
     Size size,
     DrawConfig drawConfig,
     Filler filler,
@@ -265,7 +260,7 @@ class WiredCircleBase extends WiredPainterBase {
       size.height / 2,
       rect.shortestSide * diameterRatio,
     );
-    canvas.drawRough(
+    return RoughDrawing(
       figure,
       WiredBase.pathPainter(strokeWidth, color: borderColor),
       WiredBase.fillPainter(fillColor),
@@ -280,4 +275,20 @@ Rect _inkRect(Size size, double strokeWidth, DrawConfig config) {
       1 +
       (config.maxRandomnessOffset ?? 0) * (config.roughness ?? 0);
   return (Offset.zero & size).deflate(math.min(bleed, size.shortestSide / 2));
+}
+
+// Preserve the imperative public painter protocol for existing consumers.
+abstract class _PreparedWiredPainter extends WiredPainterBase {
+  @override
+  RoughDrawing prepare(Size size, DrawConfig drawConfig, Filler filler);
+
+  @override
+  void paintRough(
+    Canvas canvas,
+    Size size,
+    DrawConfig drawConfig,
+    Filler filler,
+  ) {
+    prepare(size, drawConfig, filler).paint(canvas);
+  }
 }

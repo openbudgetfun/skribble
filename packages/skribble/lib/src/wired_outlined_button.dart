@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'motion/wired_draw.dart';
+import 'motion/wired_ink_response.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
@@ -23,26 +25,31 @@ class WiredOutlinedButton extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return Semantics(
-      label: semanticLabel,
-      button: true,
-      child: buildWiredElement(
-        child: Container(
-          height: kWiredButtonHeight,
-          decoration: RoughBoxDecoration(
-            drawConfig: theme.drawConfig,
-            shape: RoughBoxShape.rectangle,
-            borderStyle: RoughDrawingStyle(
-              width: theme.strokeWidth,
-              color: theme.borderColor,
+    return WiredInkResponse(
+      builder: (context, states) => Semantics(
+        label: semanticLabel,
+        button: true,
+        child: buildWiredElement(
+          child: Container(
+            height: kWiredButtonHeight,
+            decoration: RoughBoxDecoration(
+              progress: WiredDrawTransition.progressOf(context),
+              pressure: WiredInkResponse.pressureOf(context),
+              drawConfig: theme.drawConfig,
+              shape: RoughBoxShape.rectangle,
+              borderStyle: RoughDrawingStyle(
+                width: theme.strokeWidth,
+                color: theme.borderColor,
+              ),
             ),
-          ),
-          child: SizedBox(
-            height: double.infinity,
-            child: TextButton(
-              style: TextButton.styleFrom(foregroundColor: theme.textColor),
-              onPressed: onPressed,
-              child: child,
+            child: SizedBox(
+              height: double.infinity,
+              child: TextButton(
+                statesController: states,
+                style: TextButton.styleFrom(foregroundColor: theme.textColor),
+                onPressed: onPressed,
+                child: child,
+              ),
             ),
           ),
         ),

@@ -189,3 +189,11 @@ Every Wired widget follows the same pattern:
 - [Your First Widget](/getting-started/first-widget) -- deeper dive into individual widgets and event handling
 - [Theming](/getting-started/theming) -- change colors, stroke width, and roughness
 - [Widget Reference](/widgets) -- browse the full catalog of 80+ widgets
+
+## Bring the ink to life
+
+Wrap a card or section in `WiredDraw(child: ...)` for a one-time drawing
+entrance. Use `WiredDrawTransition(progress: animation, child: ...)` to control
+the timing with standard Flutter animations. Set `motionEnabled: false` in
+`WiredThemeData` to disable decorative ink app-wide. Platform reduced motion
+is respected automatically. See [Ink motion](../core/motion).

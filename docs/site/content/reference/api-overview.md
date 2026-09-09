@@ -295,3 +295,14 @@ SVG path primitives also accept `strokeDashArray`, `strokeDashOffset`, `strokeCa
 ### Roughness presets
 
 `WiredRoughness.gentle`, `.playful`, and `.expressive` are public exports. Pass a level through `WiredThemeData(roughnessLevel: ...)` or `copyWith(roughnessLevel: ...)` to coordinate the font and drawing defaults. `WiredThemeData.fontPackage` resolves bundled families for standalone text styles. Explicit font and geometry overrides remain supported. `DrawConfig.lineWobble` selects the local wandering strength, with zero restoring gently bowed edges.
+
+## Ink motion
+
+- `WiredDraw`: opt-in, one-time drawing entrance.
+- `WiredDrawTransition`: inherited pen progress from any `Animation<double>`.
+- `WiredMotion`: cascading decorative motion opt-out.
+- `WiredThemeData.motionEnabled`: app-level ink motion preference.
+- `RoughDrawing`: prepared geometry with measured reveal and pen pressure.
+- `WiredPainterBase.prepare`: optional animation support for custom painters.
+
+See [Ink motion](../core/motion) for examples and supported components.

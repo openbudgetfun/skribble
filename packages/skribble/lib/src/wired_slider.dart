@@ -99,6 +99,8 @@ class WiredSlider extends HookWidget {
                 ? 1 - fraction
                 : fraction;
             return Stack(
+              // The outer 12px padding reserves space for both endpoint thumbs.
+              clipBehavior: Clip.none,
               alignment: Alignment.center,
               children: [
                 SizedBox(

@@ -6,6 +6,36 @@ import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
+  testWidgets(
+    'natural height accepts responsive content without intrinsic layout',
+    (tester) async {
+      await tester.pumpWidget(
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Center(
+            child: SizedBox(
+              width: 240,
+              child: WiredCard(
+                height: null,
+                child: LayoutBuilder(
+                  builder: (context, constraints) => SizedBox(
+                    height: constraints.maxWidth / 2,
+                    child: const Text('Responsive paper'),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+      expect(
+        tester.getSize(find.byType(WiredCard)).height,
+        greaterThanOrEqualTo(100),
+      );
+    },
+  );
+
   group('WiredCard', () {
     testWidgets('renders child widget', (tester) async {
       await pumpApp(tester, WiredCard(child: const Text('Card content')));
@@ -30,21 +60,24 @@ void main() {
       expect(cardSize.height, 200.0);
     });
 
-    testWidgets('renders with null height (uses IntrinsicHeight)', (
-      tester,
-    ) async {
+    testWidgets('null height follows the child height', (tester) async {
       await pumpApp(
         tester,
-        WiredCard(height: null, child: const Text('Intrinsic')),
-      );
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredCard),
-          matching: find.byType(IntrinsicHeight),
+        const WiredCard(
+          height: null,
+          child: SizedBox(height: 80, child: Text('Natural paper')),
         ),
-        findsOneWidget,
       );
+      final initial = tester.getSize(find.byType(WiredCard)).height;
+      await pumpApp(
+        tester,
+        const WiredCard(
+          height: null,
+          child: SizedBox(height: 180, child: Text('Natural paper')),
+        ),
+      );
+      expect(tester.getSize(find.byType(WiredCard)).height - initial, 100);
+      expect(find.text('Natural paper'), findsOneWidget);
     });
 
     testWidgets('does not use IntrinsicHeight when height is provided', (
