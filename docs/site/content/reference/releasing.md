@@ -15,7 +15,7 @@ Skribble publishes seven packages to pub.dev as one synchronized release group:
 
 All packages use the same version and the release tag `v<version>`. Applications, the workspace root, and the documentation site remain private.
 
-The first public release is pinned to `0.1.0`. Package manifests use the unpublished `0.0.1` development baseline after the `0.0.0` registry placeholders. Monochange replaces that baseline when it prepares the release pull request.
+The first public release uses a pre-1.0 `major` bump pinned to `0.1.0`. Package manifests use the unpublished `0.0.1` development baseline after the `0.0.0` registry placeholders. Monochange replaces that baseline when it prepares the release pull request.
 
 ## Record a change
 
@@ -41,17 +41,18 @@ Review and merge the release pull request. The merge starts this sequence:
 2. The release workflow pushes the recorded `v<version>` tag with its scoped GitHub token.
 3. It dispatches the trusted pub.dev workflow against that tag. This explicit dispatch is required because GitHub suppresses new workflow runs for ordinary events created by `GITHUB_TOKEN`.
 4. Monochange runs publish readiness checks. The workflow also executes `dart pub publish --dry-run` immediately before each real publish.
-5. The `publisher` environment publishes four dependency-ordered packages.
-6. The `publisher-resume` environment waits four hours, then publishes the remaining three packages from the same dispatched run.
-7. Monochange publishes the GitHub release after every package exists on pub.dev.
+5. The `publisher` environment publishes all seven packages in dependency order.
+6. Monochange publishes the GitHub release after every package exists on pub.dev.
 
-The two environments keep each registry batch within the project's four-package, four-hour limit. Do not remove the wait timer from `publisher-resume` or combine the batches.
+The rate limit applied only to the packages' first `0.0.0` placeholder publication. Normal version updates do not use the four-hour split or a 12-per-day cap, so the release workflow publishes the complete group in one job.
+
+pub.dev accepts both `push` and `workflow_dispatch` events for every package. The workflow listens for `v*` tag pushes as well as manual dispatches. The release workflow still dispatches the publish workflow explicitly because GitHub does not start a second workflow from a tag created with `GITHUB_TOKEN`.
 
 ## Recover a partial publish
 
 Rerunning the publish workflow at the release tag is safe at the package step: Monochange checks pub.dev and skips package versions that already exist. Always dispatch it with the release tag as its ref; branch and scheduled runs do not satisfy the trusted-publishing identity.
 
-Each batch uploads its readiness and publication reports for 14 days. Read those artifacts before retrying. Keep the original release tag on the release-record commit.
+Each run uploads its readiness and publication reports for 14 days. Read those artifacts before retrying. Keep the original release tag on the release-record commit.
 
 Useful local checks:
 

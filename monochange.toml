@@ -84,28 +84,9 @@ publish.enabled = true
 publish.mode = "builtin"
 publish.registry = "pub_dev"
 publish.trusted_publishing = { enabled = true, repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
-publish.rate_limits.enforce = true
 versioned_files = [
   { path = "**/pubspec.yaml", type = "dart", fields = ["dependencies", "dev_dependencies"] },
 ]
-
-[package.skribble_emoji.publish.trusted_publishing]
-enabled = true
-repository = "openbudgetfun/skribble"
-workflow = "publish.yml"
-environment = "publisher-resume"
-
-[package.skribble_icons.publish.trusted_publishing]
-enabled = true
-repository = "openbudgetfun/skribble"
-workflow = "publish.yml"
-environment = "publisher-resume"
-
-[package.skribble_icons_custom.publish.trusted_publishing]
-enabled = true
-repository = "openbudgetfun/skribble"
-workflow = "publish.yml"
-environment = "publisher-resume"
 
 # =============================================================================
 # [source] — repository host for release automation
