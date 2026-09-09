@@ -46,7 +46,7 @@ const Wrap(
 | `color`          | `Color?`             | `null`       | Icon color. Defaults to `IconTheme.of(context).color` or `theme.textColor`. |
 | `semanticLabel`  | `String?`            | `null`       | Accessibility label.                                                        |
 | `fillStyle`      | `WiredIconFillStyle` | `.solid`     | Fill strategy for the icon shapes.                                          |
-| `strokeWidth`    | `double`             | `1.6`        | Width of the outline strokes.                                               |
+| `strokeWidth`    | `double`             | `1.6`        | Base pen width; solid fills use a 45% contour to keep small counters open.  |
 | `drawConfig`     | `DrawConfig?`        | `null`       | Custom rough drawing configuration.                                         |
 | `sampleDistance` | `double`             | `1.2`        | Sampling distance along path contours.                                      |
 | `hachureGap`     | `double`             | `2.25`       | Gap between hachure fill lines.                                             |
@@ -89,19 +89,19 @@ WiredSvgIcon(
 
 ### Constructor parameters
 
-| Parameter          | Type                 | Default      | Description                         |
-| ------------------ | -------------------- | ------------ | ----------------------------------- |
-| `data`             | `WiredSvgIconData`   | **required** | Pre-parsed SVG icon data.           |
-| `size`             | `double?`            | `null`       | Icon size.                          |
-| `color`            | `Color?`             | `null`       | Icon color.                         |
-| `semanticLabel`    | `String?`            | `null`       | Accessibility label.                |
-| `fillStyle`        | `WiredIconFillStyle` | `.solid`     | Fill strategy.                      |
-| `strokeWidth`      | `double`             | `1.6`        | Outline stroke width.               |
-| `drawConfig`       | `DrawConfig?`        | `null`       | Custom rough drawing configuration. |
-| `flipHorizontally` | `bool`               | `false`      | Mirror the icon horizontally.       |
-| `sampleDistance`   | `double`             | `1.2`        | Path sampling distance.             |
-| `hachureGap`       | `double`             | `2.25`       | Hachure line gap.                   |
-| `hachureAngle`     | `double`             | `320`        | Hachure angle in degrees.           |
+| Parameter          | Type                 | Default      | Description                                                                |
+| ------------------ | -------------------- | ------------ | -------------------------------------------------------------------------- |
+| `data`             | `WiredSvgIconData`   | **required** | Pre-parsed SVG icon data.                                                  |
+| `size`             | `double?`            | `null`       | Icon size.                                                                 |
+| `color`            | `Color?`             | `null`       | Icon color.                                                                |
+| `semanticLabel`    | `String?`            | `null`       | Accessibility label.                                                       |
+| `fillStyle`        | `WiredIconFillStyle` | `.solid`     | Fill strategy.                                                             |
+| `strokeWidth`      | `double`             | `1.6`        | Base pen width; solid fills use a 45% contour to keep small counters open. |
+| `drawConfig`       | `DrawConfig?`        | `null`       | Custom rough drawing configuration.                                        |
+| `flipHorizontally` | `bool`               | `false`      | Mirror the icon horizontally.                                              |
+| `sampleDistance`   | `double`             | `1.2`        | Path sampling distance.                                                    |
+| `hachureGap`       | `double`             | `2.25`       | Hachure line gap.                                                          |
+| `hachureAngle`     | `double`             | `320`        | Hachure angle in degrees.                                                  |
 
 ### Notes
 

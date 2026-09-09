@@ -37,6 +37,8 @@ class WiredSvgIcon extends HookWidget {
   final Color? color;
   final String? semanticLabel;
   final WiredIconFillStyle fillStyle;
+
+  /// Base pen width. Solid fills use a 45% contour to keep small counters open.
   final double strokeWidth;
   final DrawConfig? drawConfig;
   final bool flipHorizontally;
@@ -125,6 +127,8 @@ class WiredIcon extends HookWidget {
   final Color? color;
   final String? semanticLabel;
   final WiredIconFillStyle fillStyle;
+
+  /// Base pen width. Solid fills use a 45% contour to keep small counters open.
   final double strokeWidth;
   final DrawConfig? drawConfig;
   final double sampleDistance;
