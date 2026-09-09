@@ -12,13 +12,23 @@ void main() {
       expect(paint.secondaryInk, WiredMapStyle.paper.roadPaperColor);
     });
 
+    test('basemap defaults favor legibility over full widget roughness', () {
+      expect(WiredMapStyle.paper.roughness, lessThan(1));
+      expect(WiredMapStyle.paper.roadRoughnessFactor, lessThan(0.5));
+      expect(WiredMapStyle.paper.lineEchoOpacity, lessThan(0.2));
+    });
+
     test('copyWith replaces selected values', () {
       final style = WiredMapStyle.paper.copyWith(
         roughness: 0,
+        roadRoughnessFactor: 0.5,
+        lineEchoOpacity: 0,
         minimumBuildingZoom: 12,
       );
 
       expect(style.roughness, 0);
+      expect(style.roadRoughnessFactor, 0.5);
+      expect(style.lineEchoOpacity, 0);
       expect(style.minimumBuildingZoom, 12);
       expect(style.waterColor, WiredMapStyle.paper.waterColor);
     });
@@ -44,6 +54,7 @@ void main() {
       expect(style.paperColor, theme.fillColor);
       expect(style.roadColor, theme.borderColor);
       expect(style.labelColor, theme.textColor);
+      expect(style.roughness, theme.roughness * 0.4);
     });
   });
 }

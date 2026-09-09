@@ -2,7 +2,9 @@
 
 Hand-drawn vector maps for Flutter, built as a companion to [`skribble`](https://pub.dev/packages/skribble).
 
-`skribble_maps` owns its Web Mercator camera and vector geometry renderer. It does not wrap Google Maps, Mapbox, MapLibre, or `flutter_map`, and it does not make a network request until you provide a basemap. Roads, waterways, boundaries, and building outlines are decoded from MVT data and redrawn as stable, rough geometry.
+`skribble_maps` owns its Web Mercator camera and vector geometry renderer. It does not wrap Google Maps, Mapbox, MapLibre, or `flutter_map`, and it does not make a network request until you provide a basemap. Roads, waterways, boundaries, and building outlines are decoded from MVT data and redrawn as stable, restrained geometry. App-owned pins, routes, and areas keep the stronger Skribble roughness.
+
+This renderer is an illustrated-map option, not a replacement for a mature map engine in every product. For a global production application, especially one whose team does not want to maintain cartographic rendering and offline update logic, use MapLibre for the basemap and place Wired overlays above it. The [mapping research](../../docs/mapping-libraries-research.md) explains the trade-off.
 
 ## Features
 
@@ -146,7 +148,9 @@ const WiredOpenFreeMapLayer(style: WiredMapStyle.paper)
 const WiredOpenFreeMapLayer(style: WiredMapStyle.night)
 ```
 
-Use `copyWith` to tune colors, stroke width, roughness, seeds, hatching, or the zoom thresholds for buildings, paths, and road labels.
+Use `copyWith` to tune colors, stroke width, roughness, seeds, hatching, or the zoom thresholds for buildings, paths, and road labels. `roadRoughnessFactor` keeps roads steadier than other basemap features, while `lineEchoOpacity` controls the faint offset pencil edge.
+
+The defaults prioritize navigation clarity. Basemap roughness is lower than the normal Wired widget roughness, road displacement is reduced again, and the offset echo is faint. Overzoomed source tiles normalize line width, dash spacing, hatching, and displacement so zooming past the provider's maximum tile level does not magnify the effect. `WiredMapFeatureLayer` and `WiredMapPin` are independent of these basemap controls and remain more expressive.
 
 The style is deliberately semantic rather than a MapLibre JSON interpreter. It covers the map roles used by a readable check-in basemap without importing the complexity of a general GIS styling engine.
 
@@ -156,7 +160,7 @@ The package code is open source, but map data has its own license and service te
 
 The public OpenStreetMap tile endpoints are not a free production CDN and must not be used for bulk or offline downloads. `skribble_maps` does not configure them. `WiredVectorTileLayer` shows provider attribution by default; do not hide it unless your data source permits that.
 
-Read the repository's [`mapping-libraries-research.md`](../../docs/mapping-libraries-research.md) for the renderer decision, current ecosystem comparison, licenses, and operating tradeoffs.
+Read the repository's [`mapping-libraries-research.md`](../../docs/mapping-libraries-research.md) for the current production recommendation, ecosystem comparison, licenses, and operating tradeoffs.
 
 ## Scope
 

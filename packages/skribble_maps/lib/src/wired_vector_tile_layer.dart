@@ -256,9 +256,7 @@ class WiredVectorTileLayer extends HookWidget {
                 LinkedHashMap<
                     WiredMapTileCoordinate,
                     WiredPreparedMapTile
-                  >.from(
-                    prepared.value,
-                  )
+                  >.from(prepared.value)
                   ..remove(coordinate)
                   ..[coordinate] = tile;
             while (next.length > maximumPreparedTiles) {
@@ -534,7 +532,7 @@ class _WiredVectorTilePainter extends CustomPainter {
         camera.zoom < style.minimumPathZoom) {
       return;
     }
-    final featurePaint = _paintFor(feature);
+    final featurePaint = _paintFor(placement, feature);
     final parts = [
       for (final part in feature.parts)
         [
@@ -551,9 +549,24 @@ class _WiredVectorTilePainter extends CustomPainter {
     }
   }
 
-  WiredMapFeaturePaint _paintFor(WiredMapSemanticFeature feature) {
+  WiredMapFeaturePaint _paintFor(
+    WiredMapTilePlacement placement,
+    WiredMapSemanticFeature feature,
+  ) {
     final paint = style.paintFor(feature.kind);
-    if (feature.kind != WiredMapFeatureKind.road) return paint;
+    final width = paint.width / _overzoomScale(placement);
+
+    if (feature.kind != WiredMapFeatureKind.road) {
+      return WiredMapFeaturePaint(
+        fill: paint.fill,
+        ink: paint.ink,
+        secondaryInk: paint.secondaryInk,
+        width: width,
+        dashed: paint.dashed,
+        hachure: paint.hachure,
+      );
+    }
+
     final widthScale = switch (feature.properties['class']) {
       'motorway' || 'trunk' || 'primary' => 1.15,
       'secondary' || 'tertiary' => 0.82,
@@ -564,7 +577,7 @@ class _WiredVectorTilePainter extends CustomPainter {
       fill: paint.fill,
       ink: paint.ink,
       secondaryInk: paint.secondaryInk,
-      width: paint.width * widthScale,
+      width: width * widthScale,
       dashed: paint.dashed,
       hachure: paint.hachure,
     );
@@ -590,7 +603,13 @@ class _WiredVectorTilePainter extends CustomPainter {
       canvas.drawPath(cleanPath, Paint()..color = fill);
     }
     if (featurePaint.hachure) {
-      _paintHachure(canvas, cleanPath, cleanPath.getBounds(), featurePaint);
+      _paintHachure(
+        canvas,
+        placement,
+        cleanPath,
+        cleanPath.getBounds(),
+        featurePaint,
+      );
     }
     if (featurePaint.ink != null) {
       for (final part in parts.where((part) => part.length >= 3)) {
@@ -671,10 +690,21 @@ class _WiredVectorTilePainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.round
       ..strokeWidth = width;
     if (dashed) {
-      _drawDashedPath(canvas, path, paint, 5 + width, 4 + width);
+      final overzoomScale = _overzoomScale(placement);
+
+      _drawDashedPath(
+        canvas,
+        path,
+        paint,
+        5 / overzoomScale + width,
+        4 / overzoomScale + width,
+      );
     } else {
       canvas.drawPath(path, paint);
-      if (echo && pass == 0 && style.roughness > 0) {
+      if (echo &&
+          pass == 0 &&
+          style.roughness > 0 &&
+          style.lineEchoOpacity > 0) {
         final echo = ui.Path();
         for (var index = 0; index < points.length; index++) {
           final screenPoint = points[index];
@@ -691,7 +721,8 @@ class _WiredVectorTilePainter extends CustomPainter {
         }
         canvas.drawPath(
           echo,
-          Paint.from(paint)..color = color.withValues(alpha: color.a * 0.55),
+          Paint.from(paint)
+            ..color = color.withValues(alpha: color.a * style.lineEchoOpacity),
         );
       }
     }
@@ -710,11 +741,26 @@ class _WiredVectorTilePainter extends CustomPainter {
     final yNoise = _noise(base + 1543, globalX.round(), globalY.round());
     final point =
         placement.offset + Offset(local.dx, local.dy) * placement.size;
-    return point + Offset(xNoise, yNoise) * style.roughness;
+    final baseRoughness = kind == WiredMapFeatureKind.road
+        ? style.roughness * style.roadRoughnessFactor
+        : style.roughness;
+    final featureRoughness = baseRoughness / _overzoomScale(placement);
+
+    return point + Offset(xNoise, yNoise) * featureRoughness;
+  }
+
+  double _overzoomScale(WiredMapTilePlacement placement) {
+    final overzoomLevels = math.max(
+      0,
+      camera.zoom.floor() - placement.coordinate.z,
+    );
+
+    return math.pow(2, overzoomLevels).toDouble();
   }
 
   void _paintHachure(
     Canvas canvas,
+    WiredMapTilePlacement placement,
     ui.Path clip,
     Rect bounds,
     WiredMapFeaturePaint featurePaint,
@@ -724,7 +770,7 @@ class _WiredVectorTilePainter extends CustomPainter {
     canvas
       ..save()
       ..clipPath(clip);
-    final gap = style.hachureGap;
+    final gap = style.hachureGap / _overzoomScale(placement);
     final start = ((bounds.left - bounds.height) / gap).floor() * gap;
     final end = bounds.right + bounds.height;
     final paint = Paint()
@@ -752,7 +798,7 @@ class _WiredVectorTilePainter extends CustomPainter {
 }
 
 class _WiredMapPictureCache {
-  final LinkedHashMap<(WiredMapTileCoordinate, bool, bool), ui.Picture>
+  final LinkedHashMap<(WiredMapTileCoordinate, bool, bool, int), ui.Picture>
   _pictures = LinkedHashMap();
 
   ui.Picture obtain(
@@ -766,6 +812,7 @@ class _WiredMapPictureCache {
       tile.coordinate,
       zoom >= style.minimumBuildingZoom,
       zoom >= style.minimumPathZoom,
+      math.max(0, zoom.floor() - tile.coordinate.z),
     );
     final cached = _pictures.remove(key);
     if (cached != null) {
