@@ -20,6 +20,8 @@ dependencies:
     path: ../../packages/skribble_emoji
   skribble_icons:
     path: ../../packages/skribble_icons
+  skribble_maps:
+    path: ../../packages/skribble_maps
 
 dev_dependencies:
   flutter_test:

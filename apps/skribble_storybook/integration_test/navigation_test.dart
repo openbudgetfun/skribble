@@ -59,8 +59,7 @@ void main() {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Navigation'));
-      await tester.pumpAndSettle();
+      await scrollToAndTap(tester, 'Navigation');
 
       expect(find.text('WiredAppBar'), findsOneWidget);
     });
@@ -80,7 +79,7 @@ void main() {
 
       await scrollToAndTap(tester, 'Feedback');
 
-      expect(find.text('WiredProgress'), findsOneWidget);
+      expect(find.text('Feedback'), findsOneWidget);
     });
 
     testWidgets('navigates to Layout page', (tester) async {
@@ -99,6 +98,16 @@ void main() {
       await scrollToAndTap(tester, 'Data Display');
 
       expect(find.text('WiredCalendar'), findsOneWidget);
+    });
+
+    testWidgets('navigates to Maps page', (tester) async {
+      await tester.pumpWidget(const SkribbleStorybookApp());
+      await tester.pumpAndSettle();
+
+      await scrollToAndTap(tester, 'Maps');
+
+      expect(find.text('A real vector map, redrawn in ink'), findsOneWidget);
+      expect(find.text('Morning paper'), findsOneWidget);
     });
   });
 }
