@@ -46,7 +46,7 @@ Skribble's endgame is a **standalone design system library** — a peer of `pack
 - Update core concept pages in `docs/site/content/core/` when modifying the theme system, rough engine, or painting infrastructure
 - Update `docs/site/content/reference/agents.md` when agent workflows or conventions change
 - Update `docs/site/content/reference/api-overview.md` when public exports change
-- Update MDT template blocks in `template.t.md` when reusable patterns change, then run `mdt update`
+- Update MDT template blocks in `templates/*.t.md` when reusable patterns change, then run `mdt update`
 - Add dartdoc `///` comments on all public classes and parameters
 - See `docs/site/content/reference/agents.md` section "Documentation update requirements" for the complete checklist
 

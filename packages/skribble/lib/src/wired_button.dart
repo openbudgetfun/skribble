@@ -18,7 +18,9 @@ class WiredButton extends HookWidget {
   /// Called when the button is tapped.
   final void Function() onPressed;
 
+  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
   /// Semantic label for accessibility.
+  /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
   const WiredButton({

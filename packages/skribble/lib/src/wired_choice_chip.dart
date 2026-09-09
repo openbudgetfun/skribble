@@ -15,7 +15,9 @@ class WiredChoiceChip extends HookWidget {
   final bool selected;
   final ValueChanged<bool>? onSelected;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredChoiceChip({

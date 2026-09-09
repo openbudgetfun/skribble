@@ -16,7 +16,9 @@ class WiredRadioListTile<T> extends HookWidget {
   final Widget? subtitle;
   final bool showDivider;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredRadioListTile({

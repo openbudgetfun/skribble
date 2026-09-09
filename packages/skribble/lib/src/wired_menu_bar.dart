@@ -147,7 +147,9 @@ class WiredCheckboxMenuButton extends HookWidget {
   /// The item label.
   final Widget child;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredCheckboxMenuButton({
@@ -228,7 +230,9 @@ class WiredRadioMenuButton<T> extends HookWidget {
   /// The item label.
   final Widget child;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredRadioMenuButton({

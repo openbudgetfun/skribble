@@ -21,7 +21,9 @@ class WiredCheckbox extends HookWidget {
   final bool? value;
   final void Function(bool?) onChanged;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredCheckbox({

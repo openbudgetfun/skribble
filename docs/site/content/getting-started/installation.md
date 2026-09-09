@@ -29,7 +29,7 @@ import 'package:skribble/skribble.dart';
 
 ## Workspace contribution setup
 
-<!-- {=docsWorkspaceSetupSection} -->
+<!-- {=docsSetupSection} -->
 
 ```bash
 # Clone the repository
@@ -47,14 +47,17 @@ fvm use --force
 flutter pub get
 ```
 
-<!-- {/docsWorkspaceSetupSection} -->
+<!-- {/docsSetupSection} -->
 
 ## Development commands
 
-<!-- {=docsWorkspaceDevCommandsSection} -->
+<!-- {=docsCommandsSection} -->
 
 ```bash
-# Run all lint checks (format + analyze)
+# Install dependencies
+flutter pub get
+
+# Run all lint checks (format + analyze + docs)
 lint:all
 
 # Run dart analyze across all packages
@@ -66,7 +69,7 @@ melos run flutter-test
 # Format all Dart code
 dart format .
 
-# Fix all fixable lint and format issues
+# Fix all fixable lint, format, and docs issues
 fix:all
 
 # Capture component screenshots
@@ -85,7 +88,7 @@ melos run rough-icons-custom
 melos run rough-icons-ci-check
 ```
 
-<!-- {/docsWorkspaceDevCommandsSection} -->
+<!-- {/docsCommandsSection} -->
 
 ## Next steps
 

@@ -35,7 +35,9 @@ class WiredSnackBarContent extends HookWidget {
   final Widget child;
   final Widget? action;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredSnackBarContent({

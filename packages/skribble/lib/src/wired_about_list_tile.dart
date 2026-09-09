@@ -41,7 +41,9 @@ class WiredAboutListTile extends HookWidget {
   /// Additional children shown below the about information.
   final List<Widget>? aboutBoxChildren;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredAboutListTile({

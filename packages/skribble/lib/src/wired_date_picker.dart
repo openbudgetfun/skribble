@@ -14,7 +14,9 @@ class WiredDatePicker extends HookWidget {
   final DateTime? initialDate;
   final void Function(DateTime)? onDateSelected;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredDatePicker({

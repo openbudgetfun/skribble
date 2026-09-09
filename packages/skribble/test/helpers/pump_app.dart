@@ -6,19 +6,19 @@ import 'package:flutter_test/flutter_test.dart';
 /// By default the widget is placed in [Scaffold.body]. Use the named
 /// parameters to place it in other Scaffold slots instead:
 ///
+/// <!-- {=docsPumpAppExample|trim|codeBlock:"dart"|linePrefix:"/// "} -->
 /// ```dart
-/// // body (default)
-/// await pumpApp(tester, WiredButton(child: Text('Hi'), onPressed: () {}));
-///
-/// // appBar slot
-/// await pumpApp(tester, WiredAppBar(title: Text('Title')), asAppBar: true);
-///
-/// // bottomNavigationBar slot
-/// await pumpApp(tester, myNavBar, asBottomNav: true);
-///
-/// // drawer slot
-/// await pumpApp(tester, WiredDrawer(child: Text('Menu')), asDrawer: true);
+/// // Body slot (default) await pumpApp(tester, myWidget);
+
+/// // AppBar slot await pumpApp(tester, WiredAppBar(title: Text('T')), asAppBar: true);
+
+/// // BottomNavigationBar slot await pumpApp(tester, myNavBar, asBottomNav: true);
+
+/// // Drawer slot await pumpApp(tester, WiredDrawer(child: Text('X')), asDrawer: true);
+
+/// // With custom theme await pumpApp( tester, myWidget, theme: WiredThemeData(borderColor: Colors.red), );
 /// ```
+/// <!-- {/docsPumpAppExample} -->
 Future<void> pumpApp(
   WidgetTester tester,
   Widget widget, {

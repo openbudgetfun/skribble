@@ -479,6 +479,8 @@ WiredMaterialApp(
 )
 ```
 
+<!-- {=docsRoughnessLevelTable} -->
+
 | Level        | Appearance                                             | Border amplitude | Font deformation | Bundled family    |
 | ------------ | ------------------------------------------------------ | ---------------- | ---------------- | ----------------- |
 | `gentle`     | Earlier, softer handwriting and gently bowed edges     | 1.25             | 18               | `SkribbleGentle`  |
@@ -486,6 +488,8 @@ WiredMaterialApp(
 | `expressive` | Strong lettering and locally wandering edges (default) | 1.8              | 36               | `Skribble`        |
 
 All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. This adds eight font files, about 2.8 MB before delivery compression. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
+
+<!-- {/docsRoughnessLevelTable} -->
 
 For a section with quieter ink, inherit the palette and override only its level:
 
@@ -497,6 +501,8 @@ WiredTheme(
   child: const MyQuietSection(),
 )
 ```
+
+<!-- {=docsRoughnessLevelBehavior} -->
 
 `WiredTheme` updates plain `Text`, the Material compatibility text theme, and the inherited drawing settings. Its internal `InheritedTheme` also supports captured theme scopes for overlays. Changing a level does not reset control state. Widgets without their own text style inherit the selected family; explicitly styled text, custom fonts, explicit `DrawConfig` values, and artwork with a fixed drawing configuration remain deliberate overrides.
 
@@ -512,6 +518,8 @@ dart run packages/skribble_font_roughen/bin/skribble_font_roughen.dart \
 Repeat with the matching source and `--variant` for each desired weight/style. Register the resulting files in your app's `pubspec.yaml`, then set `fontFamily: 'MyInk'`. Family names use 1–48 ASCII letters, digits, or hyphens and begin with a letter, so their generated PostScript names remain valid. `--jitter` accepts finite values from 0 through 50.
 
 Rebuild every bundled level with `dart run packages/skribble_font_roughen/bin/roughen_fonts.dart`; add `--check` to verify generated artifacts. The storybook's persistent **Ink style** picker changes the app-level theme and follows navigation to every category.
+
+<!-- {/docsRoughnessLevelBehavior} -->
 
 ## Decorative motion
 

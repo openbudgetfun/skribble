@@ -55,7 +55,9 @@ class WiredCupertinoListTile extends HookWidget {
   /// `EdgeInsets.symmetric(horizontal: 16, vertical: 10)`.
   final EdgeInsetsGeometry? padding;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   /// Creates a hand-drawn Cupertino-style list tile.

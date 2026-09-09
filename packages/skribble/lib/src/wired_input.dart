@@ -43,7 +43,9 @@ class WiredInput extends HookWidget {
   /// Whether to conceal the entered text.
   final bool obscureText;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   /// Creates an input with a single sketch border and an optional label.

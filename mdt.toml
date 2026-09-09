@@ -2,6 +2,23 @@
 before = 0
 after = 0
 
+[templates]
+paths = ["templates"]
+
+[include]
+# Dart sources are not scanned by default; include the library and test
+# helpers so shared dartdoc blocks can be synced from the templates.
+patterns = [
+  "packages/skribble/lib/**/*.dart",
+  "packages/skribble/test/helpers/*.dart",
+]
+
+# Keep mdt-written markdown converged with dprint's canonical formatting so
+# `mdt check` stays green after `fix:format` runs.
+[[formatters]]
+command = "dprint fmt --stdin \"{{ filePath }}\""
+patterns = ["**/*.md", "**/*.t.md"]
+
 [exclude]
 patterns = [
   "AGENTS.md",

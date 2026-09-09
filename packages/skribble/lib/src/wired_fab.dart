@@ -14,7 +14,9 @@ class WiredFloatingActionButton extends HookWidget {
   final double size;
   final Color? iconColor;
 
+  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
   /// Semantic label for accessibility.
+  /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
   const WiredFloatingActionButton({

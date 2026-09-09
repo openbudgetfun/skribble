@@ -13,7 +13,7 @@ Thanks for your interest in contributing to Skribble! This guide covers the work
 
 ## Clone and set up
 
-<!-- {=docsContribSetupSection} -->
+<!-- {=docsSetupSection} -->
 
 ```bash
 # Clone the repository
@@ -26,10 +26,12 @@ direnv allow
 # If not using devenv
 fvm install
 fvm use --force
+
+# Install dependencies
 flutter pub get
 ```
 
-<!-- {/docsContribSetupSection} -->
+<!-- {/docsSetupSection} -->
 
 ## Repository layout
 

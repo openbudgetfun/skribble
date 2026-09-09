@@ -35,7 +35,9 @@ class WiredGridTile extends HookWidget {
   /// Called when the tile is tapped.
   final VoidCallback? onTap;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredGridTile({

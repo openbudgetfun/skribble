@@ -18,7 +18,9 @@ class WiredTextArea extends HookWidget {
   final int maxLines;
   final int minLines;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredTextArea({

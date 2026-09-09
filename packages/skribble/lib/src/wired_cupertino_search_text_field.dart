@@ -72,7 +72,9 @@ class WiredCupertinoSearchTextField extends HookWidget {
   /// [height].
   final BorderRadius? borderRadius;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   /// Creates a hand-drawn Cupertino-style search text field.

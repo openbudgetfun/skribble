@@ -32,7 +32,9 @@ class WiredCupertinoSwitch extends HookWidget {
   /// Whether to apply Cupertino haptic feedback on toggle.
   final bool applyTheme;
 
+  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
   /// Semantic label for accessibility.
+  /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
   static const double _trackWidth = 52.0;

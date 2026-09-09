@@ -12,7 +12,9 @@ class WiredOutlinedButton extends HookWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
+  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
   /// Semantic label for accessibility.
+  /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
   const WiredOutlinedButton({

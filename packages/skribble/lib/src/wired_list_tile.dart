@@ -17,7 +17,9 @@ class WiredListTile extends HookWidget {
   final VoidCallback? onTap;
   final bool showDivider;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredListTile({

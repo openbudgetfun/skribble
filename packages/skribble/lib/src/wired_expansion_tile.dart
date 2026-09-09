@@ -17,7 +17,9 @@ class WiredExpansionTile extends HookWidget {
   final List<Widget> children;
   final bool initiallyExpanded;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredExpansionTile({

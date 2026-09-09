@@ -25,7 +25,9 @@ class WiredStepper extends HookWidget {
   final int currentStep;
   final ValueChanged<int>? onStepTapped;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredStepper({

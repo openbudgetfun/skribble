@@ -30,7 +30,9 @@ class WiredToggle extends HookWidget {
   final bool Function(bool)? onChange;
   final double thumbRadius;
 
+  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
   /// Semantic label for accessibility.
+  /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
   @override

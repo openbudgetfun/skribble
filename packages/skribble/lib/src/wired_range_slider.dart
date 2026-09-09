@@ -17,7 +17,9 @@ class WiredRangeSlider extends HookWidget {
   final RangeLabels? labels;
   final bool Function(RangeValues)? onChanged;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredRangeSlider({

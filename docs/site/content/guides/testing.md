@@ -30,11 +30,9 @@ Every `wired_*.dart` source file must have a corresponding `wired_*_test.dart` t
 
 ## The pumpApp() helper
 
-<!-- {=docsPumpAppHelper} -->
-
+<!-- {=docsPumpAppExample|prefix:"import '../helpers/pump_app.dart';\n\n"|codeBlock:"dart"} -
 ```dart
-import '../helpers/pump_app.dart';
-
+import ../helpers/pump_app.dart;\n\n
 // Body slot (default)
 await pumpApp(tester, myWidget);
 
@@ -53,9 +51,9 @@ await pumpApp(
   myWidget,
   theme: WiredThemeData(borderColor: Colors.red),
 );
-```
 
-<!-- {/docsPumpAppHelper} -->
+```
+<!-- {/docsPumpAppExample} -->
 
 ### Testing with WiredTheme
 

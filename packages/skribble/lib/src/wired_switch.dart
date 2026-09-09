@@ -15,7 +15,9 @@ class WiredSwitch extends HookWidget {
   final Color? activeColor;
   final Color? inactiveColor;
 
+  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
   /// Semantic label for accessibility.
+  /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
   const WiredSwitch({

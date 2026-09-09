@@ -13,7 +13,9 @@ import 'wired_theme.dart';
 class WiredBottomSheet extends HookWidget {
   final Widget child;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredBottomSheet({super.key, required this.child, this.semanticLabel});

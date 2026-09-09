@@ -432,10 +432,10 @@ lib/src/wired_checkbox.dart  →  test/widgets/wired_checkbox_test.dart
 
 Always use `pumpApp()` to render widgets in tests. It wraps the widget in the correct app shell:
 
+<!-- {=docsPumpAppExample|prefix:"import '../helpers/pump_app.dart';\n\n"|codeBlock:"dart"} -
 ```dart
-import '../helpers/pump_app.dart';
-
-// Default: widget in body
+import ../helpers/pump_app.dart;\n\n
+// Body slot (default)
 await pumpApp(tester, myWidget);
 
 // AppBar slot
@@ -447,13 +447,15 @@ await pumpApp(tester, myNavBar, asBottomNav: true);
 // Drawer slot
 await pumpApp(tester, WiredDrawer(child: Text('X')), asDrawer: true);
 
-// Custom theme
+// With custom theme
 await pumpApp(
   tester,
   myWidget,
   theme: WiredThemeData(borderColor: Colors.red),
 );
+
 ```
+<!-- {/docsPumpAppExample} -->
 
 ### Minimum 6 tests per widget
 
@@ -831,44 +833,44 @@ const Color _defaultFillColor = Color(0xFFFEFEFE);
 
 ## Commands reference
 
-<!-- {=docsAgentCommandsSection} -->
+<!-- {=docsCommandsSection} -->
 
 ```bash
 # Install dependencies
 flutter pub get
 
-# Run all lint checks
+# Run all lint checks (format + analyze + docs)
 lint:all
 
-# Run dart analyze
+# Run dart analyze across all packages
 melos run analyze
 
-# Run widget tests
+# Run Flutter widget tests
 melos run flutter-test
 
-# Format code
+# Format all Dart code
 dart format .
 
-# Fix lint issues
-melos exec -- dart fix --apply
+# Fix all fixable lint, format, and docs issues
+fix:all
 
-# Capture screenshots
+# Capture component screenshots
 melos run screenshot
 
-# Generate rough Material icons
+# Generate rough Material icon SVGs
 melos run rough-icons
 
-# Generate rough icon font
+# Generate rough icon font (TTF + Dart helpers)
 melos run rough-icons-font
 
-# Generate custom icon set
+# Generate custom icon artifacts from SVG manifest
 melos run rough-icons-custom
 
-# CI-equivalent checks
+# Run CI-equivalent rough icon checks
 melos run rough-icons-ci-check
 ```
 
-<!-- {/docsAgentCommandsSection} -->
+<!-- {/docsCommandsSection} -->
 
 ## Commit message conventions
 
@@ -985,7 +987,7 @@ Without a fixed seed, rough drawings will vary between renders, which can cause 
 1. Update `docs/site/content/core/theme-system.md`
 2. Update the theming getting-started page
 3. Update the WiredThemeData defaults table in this document
-4. Update the theming MDT template block in `template.t.md`
+4. Update the theming MDT template block in `templates/theme.t.md`
 
 **When you modify tests or testing infrastructure:**
 

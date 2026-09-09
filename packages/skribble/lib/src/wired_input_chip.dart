@@ -22,7 +22,9 @@ class WiredInputChip extends HookWidget {
   final VoidCallback? onDeleted;
   final VoidCallback? onPressed;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredInputChip({
@@ -134,7 +136,9 @@ class WiredActionChip extends HookWidget {
   final Widget? avatar;
   final VoidCallback? onPressed;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredActionChip({

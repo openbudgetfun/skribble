@@ -20,7 +20,9 @@ class WiredFilledButton extends HookWidget {
   /// Text/icon color. Defaults to black or white for contrast with the fill.
   final Color? foregroundColor;
 
+  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
   /// Semantic label for accessibility.
+  /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
   const WiredFilledButton({

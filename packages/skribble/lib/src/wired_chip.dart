@@ -15,7 +15,9 @@ class WiredChip extends HookWidget {
   final Widget? avatar;
   final VoidCallback? onDeleted;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredChip({

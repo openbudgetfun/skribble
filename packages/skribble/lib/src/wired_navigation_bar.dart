@@ -29,7 +29,9 @@ class WiredNavigationBar extends HookWidget {
   final int selectedIndex;
   final ValueChanged<int>? onDestinationSelected;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredNavigationBar({

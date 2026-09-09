@@ -25,7 +25,9 @@ class WiredSlider extends HookWidget {
   final double max;
   final bool Function(double)? onChanged;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredSlider({

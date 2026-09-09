@@ -16,7 +16,9 @@ class WiredTimePicker extends HookWidget {
   final TimeOfDay? initialTime;
   final ValueChanged<TimeOfDay>? onTimeSelected;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredTimePicker({

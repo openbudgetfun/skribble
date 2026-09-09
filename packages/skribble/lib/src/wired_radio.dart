@@ -21,7 +21,9 @@ class WiredRadio<T> extends HookWidget {
   final T? groupValue;
   final bool Function(T? value)? onChanged;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredRadio({

@@ -15,7 +15,9 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
   final ValueChanged<int>? onTap;
   final double height;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   const WiredTabBar({
