@@ -18,6 +18,7 @@ void main() {
           label: 'Gentle',
           isButton: true,
           hasSelectedState: true,
+          isSelected: true,
           hasTapAction: true,
         ),
       );
@@ -25,15 +26,15 @@ void main() {
         DefaultTextStyle.of(tester.element(find.text('Ink style')))
             .style
             .fontFamily,
-        'packages/skribble/Skribble',
+        'packages/skribble/SkribbleGentle',
       );
-      await tester.tap(find.text('Gentle'));
+      await tester.tap(find.text('Expressive'));
       await tester.pumpAndSettle();
       expect(
         DefaultTextStyle.of(tester.element(find.text('Ink style')))
             .style
             .fontFamily,
-        'packages/skribble/SkribbleGentle',
+        'packages/skribble/Skribble',
       );
       expect(tester.takeException(), isNull);
     } finally {

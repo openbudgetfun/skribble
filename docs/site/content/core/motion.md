@@ -119,3 +119,29 @@ RoughBoxDecoration(
 Low-level `RoughBoxDecoration` and `WiredPainter` accept a borrowed `progress` and `pressure`. They have no `BuildContext` and cannot discover accessibility policy by themselves. A null progress means complete; null pressure means idle.
 
 Custom `WiredPainterBase` implementations can override `prepare` to return a `RoughDrawing`. Keep the existing `paintRough` method for direct callers. Prepared paths and contour lengths are cached per painter and size. Animation ticks repaint without rebuilding children or regenerating rough geometry. Elastic progress is clamped to zero through one; non-finite progress settles at complete. There is no global geometry cache.
+
+## Choose how buttons respond
+
+`WiredInkInteraction` controls decorative button feedback. The default is `pressure`: existing strokes become a little stronger on hover, keyboard focus, and press. `redraw` also traces the outline and patterned fill over 360 milliseconds when a press begins. `none` keeps the ink still.
+
+```dart
+WiredThemeData(
+  roughnessLevel: WiredRoughness.gentle,
+  inkInteraction: WiredInkInteraction.redraw,
+)
+```
+
+A button can override the surrounding theme:
+
+```dart
+WiredFilledButton(
+  inkInteraction: WiredInkInteraction.redraw,
+  fillColor: Color(0xffe87960),
+  onPressed: saveIdea,
+  child: Text('Keep this little idea'),
+)
+```
+
+This option is available on `WiredButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredElevatedButton`, `WiredTextButton`, and `WiredIconButton`. Each control retains its normal gestures, keyboard behavior, and callback. Repeated presses restart the trace without changing its deterministic geometry. Solid fills stay opaque, and labels stay still. A surrounding draw transition limits how much ink an interaction may reveal.
+
+Use redraw for a few meaningful actions; pressure is a quieter default for dense toolbars. `WiredMotion(enabled: false)`, `WiredThemeData(motionEnabled: false)`, muted tickers, and platform reduced motion settle the decoration. Consumer-owned controllers remain consumer-owned, including controllers supplied by Flutter hooks.

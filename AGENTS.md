@@ -64,7 +64,7 @@ skribble/
   packages/skribble/         # Main UI component library
   packages/skribble_lints/   # Shared lint rules
   apps/skribble_storybook/   # Demo/showcase app
-  docs/site/                 # Documentation site (Jaspr)
+  docs/site/                 # Documentation site (Flutter)
 ```
 
 ### Commands

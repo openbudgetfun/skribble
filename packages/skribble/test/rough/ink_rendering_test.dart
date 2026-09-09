@@ -29,6 +29,46 @@ Future<Uint8List> renderInk({
 }
 
 void main() {
+  test(
+    'wide solid buttons keep their fill inside the outline envelope',
+    () async {
+      for (final level in WiredRoughness.values) {
+        final recorder = ui.PictureRecorder();
+        final generator = Generator(
+          WiredThemeData(roughnessLevel: level).drawConfig,
+          SolidFiller(),
+        );
+        final drawing = RoughDrawing(
+          generator.rectangle(24, 24, 260, 36),
+          Paint()..color = const Color(0x00000000),
+          Paint()..color = const Color(0xffe87960),
+        );
+        drawing.paint(Canvas(recorder), progress: 0);
+        final picture = recorder.endRecording();
+        final image = await picture.toImage(320, 84);
+        final pixels = (await image.toByteData())!.buffer.asUint8List();
+        expect(
+          pixels[(40 * 320 + 150) * 4 + 3],
+          255,
+          reason: 'opaque label backing',
+        );
+        for (var y = 0; y < 84; y++) {
+          for (var x = 0; x < 320; x++) {
+            if (x < 20 || x > 288 || y < 20 || y > 64) {
+              expect(
+                pixels[(y * 320 + x) * 4 + 3],
+                0,
+                reason: '${level.name} fill leaked at $x,$y',
+              );
+            }
+          }
+        }
+        image.dispose();
+        picture.dispose();
+      }
+    },
+  );
+
   test('all preset borders fit inside phone and wide card bounds', () async {
     for (final level in WiredRoughness.values) {
       for (final size in [const Size(390, 80), const Size(1440, 120)]) {

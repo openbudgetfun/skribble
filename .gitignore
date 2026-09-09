@@ -51,3 +51,9 @@ rough-icons-baseline-sync.diff
 
 # /.pi
 /.claude
+
+# Flutter documentation browser tests
+docs/site/test_bundle.dart
+docs/site/.patrol.env
+docs/site/test-results/
+docs/site/playwright-report/

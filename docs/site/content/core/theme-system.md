@@ -13,18 +13,18 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 
 ### Fields
 
-| Field               | Type             | Default                                  | Description                                                                     |
-| ------------------- | ---------------- | ---------------------------------------- | ------------------------------------------------------------------------------- |
-| `borderColor`       | `Color`          | `Color(0xFF1A2B3C)`                      | Border stroke color for all shapes                                              |
-| `textColor`         | `Color`          | `Colors.black`                           | Primary text color                                                              |
-| `disabledTextColor` | `Color`          | `Colors.grey`                            | Text color for disabled states                                                  |
-| `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`                      | Interior fill color for shapes                                                  |
-| `strokeWidth`       | `double`         | `2.4`                                    | Default border stroke width                                                     |
-| `roughnessLevel`    | `WiredRoughness` | `expressive`                             | Coordinated defaults for borders, icons, and lettering                          |
-| `roughness`         | `double`         | Level value (`1.8` for expressive)       | Resolved amplitude; an explicit constructor value overrides the preset          |
-| `fontFamily`        | `String`         | Level family (`Skribble` for expressive) | Resolved bundled or custom family                                               |
-| `fontPackage`       | `String?`        | `skribble` for bundled families          | Asset package; null for custom app fonts                                        |
-| `drawConfig`        | `DrawConfig`     | Derived from the level and amplitude     | Resolved drawing configuration; an explicit constructor config takes precedence |
+| Field               | Type             | Default                                    | Description                                                                     |
+| ------------------- | ---------------- | ------------------------------------------ | ------------------------------------------------------------------------------- |
+| `borderColor`       | `Color`          | `Color(0xFF1A2B3C)`                        | Border stroke color for all shapes                                              |
+| `textColor`         | `Color`          | `Colors.black`                             | Primary text color                                                              |
+| `disabledTextColor` | `Color`          | `Colors.grey`                              | Text color for disabled states                                                  |
+| `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`                        | Interior fill color for shapes                                                  |
+| `strokeWidth`       | `double`         | `2.4`                                      | Default border stroke width                                                     |
+| `roughnessLevel`    | `WiredRoughness` | `gentle`                                   | Coordinated defaults for borders, icons, and lettering                          |
+| `roughness`         | `double`         | Level value (`1.25` for gentle)            | Resolved amplitude; an explicit constructor value overrides the preset          |
+| `fontFamily`        | `String`         | Level family (`SkribbleGentle` for gentle) | Resolved bundled or custom family                                               |
+| `fontPackage`       | `String?`        | `skribble` for bundled families            | Asset package; null for custom app fonts                                        |
+| `drawConfig`        | `DrawConfig`     | Derived from the level and amplitude       | Resolved drawing configuration; an explicit constructor config takes precedence |
 
 ### Creating a Theme
 
@@ -481,11 +481,11 @@ WiredMaterialApp(
 
 <!-- {=docsRoughnessLevelTable} -->
 
-| Level        | Appearance                                             | Border amplitude | Font deformation | Bundled family    |
-| ------------ | ------------------------------------------------------ | ---------------- | ---------------- | ----------------- |
-| `gentle`     | Earlier, softer handwriting and gently bowed edges     | 1.25             | 18               | `SkribbleGentle`  |
-| `playful`    | An intermediate amount of wavering ink                 | 1.5              | 27               | `SkribblePlayful` |
-| `expressive` | Strong lettering and locally wandering edges (default) | 1.8              | 36               | `Skribble`        |
+| Level        | Appearance                                          | Border amplitude | Font deformation | Bundled family    |
+| ------------ | --------------------------------------------------- | ---------------- | ---------------- | ----------------- |
+| `gentle`     | Softer handwriting and gently bowed edges (default) | 1.25             | 18               | `SkribbleGentle`  |
+| `playful`    | An intermediate amount of wavering ink              | 1.5              | 27               | `SkribblePlayful` |
+| `expressive` | Strong lettering and locally wandering edges        | 1.8              | 36               | `Skribble`        |
 
 All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. This adds eight font files, about 2.8 MB before delivery compression. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 

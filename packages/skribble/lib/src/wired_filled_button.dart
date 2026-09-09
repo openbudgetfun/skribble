@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'motion/wired_draw.dart';
+import 'motion/wired_ink_interaction.dart';
 import 'motion/wired_ink_response.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
@@ -25,6 +26,9 @@ class WiredFilledButton extends HookWidget {
   /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
+  /// Overrides the theme’s decorative ink feedback for this control.
+  final WiredInkInteraction? inkInteraction;
+
   const WiredFilledButton({
     super.key,
     required this.child,
@@ -32,6 +36,7 @@ class WiredFilledButton extends HookWidget {
     this.fillColor,
     this.foregroundColor,
     this.semanticLabel,
+    this.inkInteraction,
   });
 
   @override
@@ -43,6 +48,7 @@ class WiredFilledButton extends HookWidget {
         (fill.computeLuminance() > 0.179 ? Colors.black : Colors.white);
 
     return WiredInkResponse(
+      interaction: inkInteraction,
       builder: (context, states) => Semantics(
         label: semanticLabel,
         button: true,

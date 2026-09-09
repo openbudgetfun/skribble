@@ -492,14 +492,18 @@ class SolidFiller extends Filler {
             ),
           )
           .toList();
-      result
-        ..add(result.first)
-        ..add(result[1])
-        ..add(result[2]);
     }
     return OpSet(
       type: OpSetType.fillPath,
-      ops: OpsGenerator.curve(result, _config!.drawConfig!),
+      // Smoothing a polygon as a spline rounds its corners and overshoots long
+      // edges. Preserve the perturbed polygon so solid ink stays in its shape.
+      ops: result.isEmpty
+          ? []
+          : [
+              Op.move(result.first),
+              for (final point in result.skip(1)) Op.lineTo(point),
+              Op.lineTo(result.first),
+            ],
     );
   }
 }

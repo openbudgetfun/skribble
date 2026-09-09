@@ -227,7 +227,7 @@ void main() {
           DefaultTextStyle.of(tester.element(find.text('Outer')))
               .style
               .fontFamily,
-          'packages/skribble/Skribble',
+          'packages/skribble/SkribbleGentle',
         );
         for (final label in ['Inner', 'Inner button']) {
           expect(

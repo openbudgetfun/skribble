@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'motion/wired_ink_interaction.dart';
 import 'motion/wired_ink_response.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
@@ -19,6 +20,9 @@ class WiredIconButton extends HookWidget {
   /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
+  /// Overrides the theme’s decorative ink feedback for this control.
+  final WiredInkInteraction? inkInteraction;
+
   const WiredIconButton({
     super.key,
     required this.icon,
@@ -26,12 +30,14 @@ class WiredIconButton extends HookWidget {
     this.size = 48.0,
     this.iconColor,
     this.semanticLabel,
+    this.inkInteraction,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     return WiredInkResponse(
+      interaction: inkInteraction,
       builder: (context, states) => Semantics(
         label: semanticLabel,
         button: true,
