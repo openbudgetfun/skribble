@@ -57,26 +57,30 @@ void main() {
       expect(north.dy, closeTo(limit.dy, 0.000001));
     });
 
-    test('controller clamps zoom limits', () {
+    test('controller clamps zoom limits', () async {
       final controller = WiredMapController(
         minimumZoom: 2,
         maximumZoom: 5,
-      )..zoomTo(50);
+      );
+
+      await controller.zoomTo(50);
 
       expect(controller.camera.zoom, 5);
+      controller.dispose();
     });
 
-    test('focal zoom preserves the anchored coordinate', () {
+    test('focal zoom preserves the anchored coordinate', () async {
       final controller = WiredMapController(initialZoom: 4)
         ..updateViewport(const Size(400, 300));
       const focal = Offset(80, 90);
       final before = controller.camera.unproject(focal);
 
-      controller.zoomBy(2, focalPoint: focal);
+      await controller.zoomBy(2, focalPoint: focal);
       final after = controller.camera.unproject(focal);
 
       expect(after.latitude, closeTo(before.latitude, 0.000001));
       expect(after.longitude, closeTo(before.longitude, 0.000001));
+      controller.dispose();
     });
 
     test('world size doubles at each zoom', () {
@@ -92,35 +96,27 @@ void main() {
     });
   });
 
-  group('WiredMapTileCoverage', () {
-    test('clamps tile rows at the poles', () {
-      const camera = WiredMapCamera(
-        center: LatLng(wiredMapMaximumLatitude, 0),
-        zoom: 2,
-        viewportSize: Size(300, 300),
-        minimumZoom: 0,
-        maximumZoom: 20,
-      );
+  group('WiredMapController', () {
+    test('moves to a new center without an attached engine', () async {
+      final controller = WiredMapController();
 
-      final placements = WiredMapTileCoverage.visible(camera, 2);
+      await controller.move(const LatLng(25.2048, 55.2708), zoom: 13);
 
-      expect(placements.every((tile) => tile.coordinate.y >= 0), isTrue);
-      expect(placements.every((tile) => tile.coordinate.y < 4), isTrue);
+      expect(controller.camera.center, const LatLng(25.2048, 55.2708));
+      expect(controller.camera.zoom, 13);
+      controller.dispose();
     });
 
-    test('normalizes repeated-world tile columns', () {
+    test('MapLibre zoom zero uses a 512 logical-pixel world', () {
       const camera = WiredMapCamera(
-        center: LatLng(0, 179),
-        zoom: 1,
-        viewportSize: Size(800, 300),
+        center: LatLng(0, 0),
+        zoom: 0,
+        viewportSize: Size.zero,
         minimumZoom: 0,
         maximumZoom: 20,
       );
 
-      final placements = WiredMapTileCoverage.visible(camera, 1);
-
-      expect(placements.any((tile) => tile.worldX != tile.coordinate.x), isTrue);
-      expect(placements.every((tile) => tile.coordinate.x < 2), isTrue);
+      expect(camera.worldSize, 512);
     });
   });
 }

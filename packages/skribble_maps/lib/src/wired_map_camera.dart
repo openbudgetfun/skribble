@@ -1,15 +1,20 @@
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:maplibre_gl/maplibre_gl.dart' as maplibre;
 
 /// Maximum latitude representable by the Web Mercator projection.
 const double wiredMapMaximumLatitude = 85.05112878;
 
-/// The logical size of one unscaled vector tile.
-const double wiredMapTileSize = 256;
+/// MapLibre's logical world size at zoom zero.
+///
+/// MapLibre vector sources use 512-pixel tiles. Matching that coordinate plane
+/// keeps Flutter overlays aligned with the native basemap.
+const double wiredMapTileSize = 512;
 
-/// Immutable Web Mercator camera state for a `WiredMap`.
+/// Immutable flat Web Mercator camera state for a [WiredMapController].
 @immutable
 class WiredMapCamera {
   /// Creates camera state.
@@ -24,7 +29,7 @@ class WiredMapCamera {
   /// Geographic coordinate at the viewport center.
   final LatLng center;
 
-  /// Continuous Web Mercator zoom level.
+  /// Continuous MapLibre zoom level.
   final double zoom;
 
   /// Current logical viewport size.
@@ -40,26 +45,34 @@ class WiredMapCamera {
   double get worldSize => wiredMapTileSize * math.pow(2, zoom);
 
   /// Converts [coordinate] to a viewport offset.
+  ///
+  /// This projection is exact while `WiredMap` keeps pitch and bearing at
+  /// zero, which is why those MapLibre gestures are deliberately disabled.
   Offset project(LatLng coordinate) {
     final point = projectToWorld(coordinate, zoom);
     final centerPoint = projectToWorld(center, zoom);
-    var deltaX = point.dx - centerPoint.dx;
     final width = worldSize;
+    var deltaX = point.dx - centerPoint.dx;
+
     if (width > 0) {
       while (deltaX > width / 2) {
         deltaX -= width;
       }
+
       while (deltaX < -width / 2) {
         deltaX += width;
       }
     }
-    return viewportSize.center(Offset.zero) + Offset(deltaX, point.dy - centerPoint.dy);
+
+    return viewportSize.center(Offset.zero) +
+        Offset(deltaX, point.dy - centerPoint.dy);
   }
 
   /// Converts a viewport [offset] to a geographic coordinate.
   LatLng unproject(Offset offset) {
     final centerPoint = projectToWorld(center, zoom);
     final worldPoint = centerPoint + offset - viewportSize.center(Offset.zero);
+
     return unprojectFromWorld(worldPoint, zoom);
   }
 
@@ -80,7 +93,7 @@ class WiredMapCamera {
     );
   }
 
-  /// Projects [coordinate] into the global Web Mercator pixel plane.
+  /// Projects [coordinate] into MapLibre's global Web Mercator pixel plane.
   static Offset projectToWorld(LatLng coordinate, double zoom) {
     final latitude = coordinate.latitude.clamp(
       -wiredMapMaximumLatitude,
@@ -90,8 +103,9 @@ class WiredMapCamera {
     final scale = wiredMapTileSize * math.pow(2, zoom);
     final sinLatitude = math.sin(latitude * math.pi / 180);
     final x = (longitude + 180) / 360;
-    final y = 0.5 -
-        math.log((1 + sinLatitude) / (1 - sinLatitude)) / (4 * math.pi);
+    final y =
+        0.5 - math.log((1 + sinLatitude) / (1 - sinLatitude)) / (4 * math.pi);
+
     return Offset(x * scale, y * scale);
   }
 
@@ -100,9 +114,9 @@ class WiredMapCamera {
     final scale = wiredMapTileSize * math.pow(2, zoom);
     final longitude = _wrapLongitude(point.dx / scale * 360 - 180);
     final mercatorY = math.pi - 2 * math.pi * point.dy / scale;
-    final hyperbolicSine =
-        (math.exp(mercatorY) - math.exp(-mercatorY)) / 2;
+    final hyperbolicSine = (math.exp(mercatorY) - math.exp(-mercatorY)) / 2;
     final latitude = 180 / math.pi * math.atan(hyperbolicSine);
+
     return LatLng(
       latitude.clamp(-wiredMapMaximumLatitude, wiredMapMaximumLatitude),
       longitude,
@@ -110,13 +124,14 @@ class WiredMapCamera {
   }
 
   @override
-  bool operator ==(Object other) =>
-      other is WiredMapCamera &&
-      other.center == center &&
-      other.zoom == zoom &&
-      other.viewportSize == viewportSize &&
-      other.minimumZoom == minimumZoom &&
-      other.maximumZoom == maximumZoom;
+  bool operator ==(Object other) {
+    return other is WiredMapCamera &&
+        other.center == center &&
+        other.zoom == zoom &&
+        other.viewportSize == viewportSize &&
+        other.minimumZoom == minimumZoom &&
+        other.maximumZoom == maximumZoom;
+  }
 
   @override
   int get hashCode => Object.hash(
@@ -128,7 +143,7 @@ class WiredMapCamera {
   );
 }
 
-/// Controls a `WiredMap` camera and exposes projection helpers.
+/// Controls a MapLibre-backed `WiredMap` and exposes flat projection helpers.
 class WiredMapController extends ChangeNotifier {
   /// Creates a map controller.
   WiredMapController({
@@ -155,40 +170,95 @@ class WiredMapController extends ChangeNotifier {
   final double maximumZoom;
 
   WiredMapCamera _camera;
+  maplibre.MapLibreMapController? _engineController;
 
   /// Current camera state.
   WiredMapCamera get camera => _camera;
 
-  /// Moves the camera to [center] and optionally [zoom].
-  void move(LatLng center, {double? zoom}) {
-    _setCamera(
-      _camera.copyWith(
-        center: _clampCoordinate(center),
-        zoom: zoom?.clamp(minimumZoom, maximumZoom),
+  /// Moves immediately to [center] and optionally [zoom].
+  Future<void> move(LatLng center, {double? zoom}) async {
+    final next = _camera.copyWith(
+      center: _clampCoordinate(center),
+      zoom: zoom?.clamp(minimumZoom, maximumZoom),
+    );
+
+    _setCamera(next);
+
+    final engineController = _engineController;
+    if (engineController == null) return;
+
+    await engineController.moveCamera(
+      maplibre.CameraUpdate.newLatLngZoom(
+        _toMapLibreLatLng(next.center),
+        next.zoom,
       ),
     );
   }
 
+  /// Animates to [center] and optionally [zoom].
+  Future<void> animateTo(
+    LatLng center, {
+    double? zoom,
+    Duration duration = const Duration(milliseconds: 320),
+  }) async {
+    final next = _camera.copyWith(
+      center: _clampCoordinate(center),
+      zoom: zoom?.clamp(minimumZoom, maximumZoom),
+    );
+
+    _setCamera(next);
+
+    final engineController = _engineController;
+    if (engineController == null) return;
+
+    await engineController.animateCamera(
+      maplibre.CameraUpdate.newLatLngZoom(
+        _toMapLibreLatLng(next.center),
+        next.zoom,
+      ),
+      duration: duration,
+    );
+  }
+
   /// Pans the camera by a viewport-pixel [delta].
-  void panBy(Offset delta) {
+  Future<void> panBy(Offset delta) async {
     if (delta == Offset.zero) return;
-    final centerWorld = WiredMapCamera.projectToWorld(_camera.center, _camera.zoom);
+
+    final centerWorld = WiredMapCamera.projectToWorld(
+      _camera.center,
+      _camera.zoom,
+    );
     final next = WiredMapCamera.unprojectFromWorld(
       centerWorld - delta,
       _camera.zoom,
     );
-    move(next);
+
+    await move(next);
   }
 
   /// Changes zoom by [delta], keeping [focalPoint] geographically stable.
-  void zoomBy(double delta, {Offset? focalPoint}) {
-    zoomTo(_camera.zoom + delta, focalPoint: focalPoint);
+  Future<void> zoomBy(
+    double delta, {
+    Offset? focalPoint,
+    Duration duration = const Duration(milliseconds: 180),
+  }) async {
+    await zoomTo(
+      _camera.zoom + delta,
+      focalPoint: focalPoint,
+      duration: duration,
+    );
   }
 
   /// Sets [zoom], keeping [focalPoint] geographically stable.
-  void zoomTo(double zoom, {Offset? focalPoint}) {
+  Future<void> zoomTo(
+    double zoom, {
+    Offset? focalPoint,
+    Duration duration = const Duration(milliseconds: 180),
+  }) async {
     final nextZoom = zoom.clamp(minimumZoom, maximumZoom);
-    if (nextZoom == _camera.zoom) return;
+    final currentZoom = _camera.zoom;
+    if (nextZoom == currentZoom) return;
+
     final focal = focalPoint ?? _camera.viewportSize.center(Offset.zero);
     final anchoredCoordinate = _camera.unproject(focal);
     final anchoredWorld = WiredMapCamera.projectToWorld(
@@ -197,11 +267,20 @@ class WiredMapController extends ChangeNotifier {
     );
     final nextCenterWorld =
         anchoredWorld - focal + _camera.viewportSize.center(Offset.zero);
+
     _setCamera(
       _camera.copyWith(
         center: WiredMapCamera.unprojectFromWorld(nextCenterWorld, nextZoom),
         zoom: nextZoom,
       ),
+    );
+
+    final engineController = _engineController;
+    if (engineController == null) return;
+
+    await engineController.animateCamera(
+      maplibre.CameraUpdate.zoomBy(nextZoom - currentZoom, focalPoint),
+      duration: duration,
     );
   }
 
@@ -211,23 +290,60 @@ class WiredMapController extends ChangeNotifier {
   /// call it directly.
   void updateViewport(Size size) {
     if (size == _camera.viewportSize) return;
+
     _camera = _camera.copyWith(viewportSize: size);
+  }
+
+  /// Connects this controller to the MapLibre view owned by `WiredMap` and
+  /// returns a matching disconnect callback.
+  @internal
+  VoidCallback bindEngine(maplibre.MapLibreMapController controller) {
+    _engineController = controller;
+
+    return () {
+      if (identical(_engineController, controller)) {
+        _engineController = null;
+      }
+    };
+  }
+
+  /// Mirrors camera movement reported by MapLibre into Flutter overlay state.
+  @internal
+  void synchronizeFromEngine(maplibre.CameraPosition position) {
+    _setCamera(
+      _camera.copyWith(
+        center: LatLng(
+          position.target.latitude,
+          position.target.longitude,
+        ),
+        zoom: position.zoom.clamp(minimumZoom, maximumZoom),
+      ),
+    );
   }
 
   void _setCamera(WiredMapCamera next) {
     if (next == _camera) return;
+
     _camera = next;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _engineController = null;
+    super.dispose();
   }
 }
 
 /// Returns the camera inherited from the nearest `WiredMap`.
 WiredMapCamera wiredMapCameraOf(BuildContext context) {
-  final scope =
-      context.dependOnInheritedWidgetOfExactType<WiredMapCameraScope>();
+  final scope = context
+      .dependOnInheritedWidgetOfExactType<WiredMapCameraScope>();
+
   if (scope == null) {
     throw StateError('A Wired map layer must be placed inside WiredMap');
   }
+
   return scope.camera;
 }
 
@@ -249,17 +365,20 @@ class WiredMapCameraScope extends InheritedWidget {
 
   /// Returns the nearest controller.
   static WiredMapController controllerOf(BuildContext context) {
-    final scope =
-        context.dependOnInheritedWidgetOfExactType<WiredMapCameraScope>();
+    final scope = context
+        .dependOnInheritedWidgetOfExactType<WiredMapCameraScope>();
+
     if (scope == null) {
       throw StateError('A Wired map layer must be placed inside WiredMap');
     }
+
     return scope.controller;
   }
 
   @override
-  bool updateShouldNotify(WiredMapCameraScope oldWidget) =>
-      oldWidget.camera != camera || oldWidget.controller != controller;
+  bool updateShouldNotify(WiredMapCameraScope oldWidget) {
+    return oldWidget.camera != camera || oldWidget.controller != controller;
+  }
 }
 
 LatLng _clampCoordinate(LatLng value) {
@@ -271,11 +390,18 @@ LatLng _clampCoordinate(LatLng value) {
 
 double _wrapLongitude(double value) {
   var longitude = value;
+
   while (longitude < -180) {
     longitude += 360;
   }
+
   while (longitude >= 180) {
     longitude -= 360;
   }
+
   return longitude;
+}
+
+maplibre.LatLng _toMapLibreLatLng(LatLng coordinate) {
+  return maplibre.LatLng(coordinate.latitude, coordinate.longitude);
 }

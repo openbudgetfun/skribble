@@ -48,7 +48,10 @@ void main() {
         ),
       );
 
-      expect(find.bySemanticsLabel('OpenStreetMap attribution'), findsOneWidget);
+      expect(
+        find.bySemanticsLabel('OpenStreetMap attribution'),
+        findsOneWidget,
+      );
       semantics.dispose();
     });
 
@@ -62,10 +65,12 @@ void main() {
       );
 
       final padding = tester.widget<Padding>(
-        find.descendant(
-          of: find.byType(WiredMapAttribution),
-          matching: find.byType(Padding),
-        ).first,
+        find
+            .descendant(
+              of: find.byType(WiredMapAttribution),
+              matching: find.byType(Padding),
+            )
+            .first,
       );
       expect(padding.padding, const EdgeInsets.all(20));
     });

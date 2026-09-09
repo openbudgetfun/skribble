@@ -12,8 +12,8 @@ class WiredMapMarker {
     required this.point,
     required this.child,
     this.key,
-    this.width = 44,
-    this.height = 54,
+    this.width = 52,
+    this.height = 64,
     this.alignment = Alignment.bottomCenter,
     this.semanticLabel,
     this.onTap,
@@ -60,8 +60,7 @@ class WiredMapMarkerLayer extends HookWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          for (final marker in markers)
-            _positionedMarker(camera, marker),
+          for (final marker in markers) _positionedMarker(camera, marker),
         ],
       ),
     );

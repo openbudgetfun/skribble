@@ -1,5 +1,5 @@
 name: skribble_maps
-description: Hand-drawn, vendor-independent vector maps for the Skribble Flutter design system.
+description: MapLibre maps with hand-drawn overlays for the Skribble Flutter design system.
 version: 0.0.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_maps
@@ -19,11 +19,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.21.3
-  http: ^1.6.0
   latlong2: ">=0.9.1 <0.11.0"
-  pmtiles: ^2.2.0
+  maplibre_gl: ^0.27.0
   skribble: ^0.0.1
-  vector_tile: ^4.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

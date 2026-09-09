@@ -234,7 +234,10 @@ class _WiredMapFeaturePainter extends CustomPainter {
     WiredMapPolyline line,
     List<Offset> points,
   ) {
-    final config = drawConfig.copyWith(seed: line.seed + camera.zoom.round());
+    final config = _overlayDrawConfig(
+      drawConfig,
+      seed: line.seed + camera.zoom.round(),
+    );
     final generator = Generator(config, NoFiller());
     final sets = <OpSet>[];
     for (var index = 1; index < points.length; index++) {
@@ -259,10 +262,12 @@ class _WiredMapFeaturePainter extends CustomPainter {
     WiredMapPolygon polygon,
     List<Offset> points,
   ) {
-    final config = drawConfig.copyWith(
+    final config = _overlayDrawConfig(
+      drawConfig,
       seed: polygon.seed + camera.zoom.round(),
     );
-    final fillColor = polygon.fillColor ??
+    final fillColor =
+        polygon.fillColor ??
         (polygon.inkColor ?? defaultInkColor).withValues(alpha: 0.42);
     final drawable = Generator(
       config,
@@ -302,7 +307,11 @@ class _WiredMapFeaturePainter extends CustomPainter {
         case final WiredMapPolyline line:
           final tolerance = line.strokeWidth / 2 + hitTolerance;
           for (var index = 1; index < points.length; index++) {
-            if (_distanceToSegment(position, points[index - 1], points[index]) <=
+            if (_distanceToSegment(
+                  position,
+                  points[index - 1],
+                  points[index],
+                ) <=
                 tolerance) {
               return true;
             }
@@ -400,9 +409,18 @@ double _distanceToSegment(Offset point, Offset start, Offset end) {
   final delta = end - start;
   final lengthSquared = delta.dx * delta.dx + delta.dy * delta.dy;
   if (lengthSquared == 0) return (point - start).distance;
-  final along = ((point - start).dx * delta.dx +
-          (point - start).dy * delta.dy) /
+  final along =
+      ((point - start).dx * delta.dx + (point - start).dy * delta.dy) /
       lengthSquared;
   final nearest = start + delta * along.clamp(0.0, 1.0);
   return (point - nearest).distance;
+}
+
+DrawConfig _overlayDrawConfig(DrawConfig source, {required int seed}) {
+  return source.copyWith(
+    seed: seed,
+    maxRandomnessOffset: math.min(source.maxRandomnessOffset ?? 1.2, 1.2),
+    roughness: math.min(source.roughness ?? 1.25, 1.25),
+    lineWobble: math.min(source.lineWobble ?? 0, 0.45),
+  );
 }

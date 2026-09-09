@@ -6,16 +6,21 @@ import 'helpers/pump_map.dart';
 
 void main() {
   group('WiredMap', () {
-    testWidgets('renders without a basemap', (tester) async {
-      await pumpMapApp(tester, const WiredMap());
+    testWidgets('renders with a replacement map view', (tester) async {
+      await pumpMapApp(
+        tester,
+        const WiredMap(mapViewBuilder: buildTestMapView),
+      );
 
       expect(find.byType(WiredMap), findsOneWidget);
+      expect(find.byType(ColoredBox), findsWidgets);
     });
 
     testWidgets('renders overlay children', (tester) async {
       await pumpMapApp(
         tester,
         const WiredMap(
+          mapViewBuilder: buildTestMapView,
           children: [Center(child: Text('Overlay'))],
         ),
       );
@@ -26,7 +31,7 @@ void main() {
     testWidgets('fills the requested dimensions', (tester) async {
       await pumpMapApp(
         tester,
-        const WiredMap(),
+        const WiredMap(mapViewBuilder: buildTestMapView),
         size: const Size(320, 240),
       );
 
@@ -38,6 +43,7 @@ void main() {
       await pumpMapApp(
         tester,
         const WiredMap(
+          mapViewBuilder: buildTestMapView,
           semanticLabel: 'Check-in map',
         ),
       );
@@ -50,7 +56,7 @@ void main() {
       final semantics = tester.ensureSemantics();
       await pumpMapApp(
         tester,
-        const WiredMap(),
+        const WiredMap(mapViewBuilder: buildTestMapView),
       );
 
       expect(find.bySemanticsLabel('Zoom in'), findsOneWidget);
@@ -62,6 +68,7 @@ void main() {
       await pumpMapApp(
         tester,
         const WiredMap(
+          mapViewBuilder: buildTestMapView,
           showZoomControls: false,
         ),
       );
@@ -75,56 +82,33 @@ void main() {
         tester,
         WiredMap(
           controller: controller,
+          mapViewBuilder: buildTestMapView,
         ),
       );
 
-      await tester.tap(find.text('+'));
+      await tester.tap(find.bySemanticsLabel('Zoom in'));
       await tester.pump(const Duration(milliseconds: 350));
 
       expect(controller.camera.zoom, 6);
       controller.dispose();
     });
 
-    testWidgets('pans the camera with a drag gesture', (tester) async {
-      final controller = WiredMapController();
-      await pumpMapApp(
-        tester,
-        WiredMap(controller: controller, showZoomControls: false),
-      );
-      final original = controller.camera.center;
-
-      await tester.drag(find.byType(WiredMap), const Offset(60, 0));
-      await tester.pump();
-
-      expect(controller.camera.center.longitude, lessThan(original.longitude));
-      controller.dispose();
-    });
-
-    testWidgets('zooms once on a map double tap', (tester) async {
-      final controller = WiredMapController(initialZoom: 5);
-      await pumpMapApp(
-        tester,
-        WiredMap(controller: controller, showZoomControls: false),
-      );
-      final center = tester.getCenter(find.byType(WiredMap));
-
-      await tester.tapAt(center);
-      await tester.tapAt(center);
-      await tester.pump();
-
-      expect(controller.camera.zoom, 6);
-      controller.dispose();
-    });
-
-    testWidgets('handles rapid zoom-control taps without map double zoom', (
+    testWidgets('handles rapid zoom-control taps', (
       tester,
     ) async {
       final controller = WiredMapController(initialZoom: 5);
-      await pumpMapApp(tester, WiredMap(controller: controller));
+      await pumpMapApp(
+        tester,
+        WiredMap(
+          controller: controller,
+          mapViewBuilder: buildTestMapView,
+        ),
+      );
 
-      await tester.tap(find.text('+'));
-      await tester.tap(find.text('+'));
-      await tester.tap(find.text('+'));
+      final zoomIn = find.bySemanticsLabel('Zoom in');
+      await tester.tap(zoomIn);
+      await tester.tap(zoomIn);
+      await tester.tap(zoomIn);
       await tester.pump();
 
       expect(controller.camera.zoom, 8);

@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble/skribble.dart';
 import 'package:skribble_maps/skribble_maps.dart';
 
 import 'helpers/pump_map.dart';
@@ -21,10 +22,38 @@ void main() {
       expect(find.text('A'), findsOneWidget);
     });
 
+    testWidgets('renders a large hand-drawn place icon by default', (
+      tester,
+    ) async {
+      await pumpMapApp(tester, const WiredMapPin());
+
+      final icon = tester.widget<WiredSvgIcon>(find.byType(WiredSvgIcon));
+      expect(icon.size, 28);
+      expect(icon.fillStyle, WiredIconFillStyle.none);
+    });
+
+    testWidgets('renders each typed category icon', (tester) async {
+      for (final icon in WiredMapPinIcon.values) {
+        await pumpMapApp(tester, WiredMapPin(icon: icon));
+
+        expect(find.byType(WiredSvgIcon), findsOneWidget);
+      }
+    });
+
+    testWidgets('custom child replaces the generated icon', (tester) async {
+      await pumpMapApp(
+        tester,
+        const WiredMapPin(child: Text('Custom')),
+      );
+
+      expect(find.text('Custom'), findsOneWidget);
+      expect(find.byType(WiredSvgIcon), findsNothing);
+    });
+
     testWidgets('uses the requested dimensions', (tester) async {
       await pumpMapApp(
         tester,
-        const Center(child: WiredMapPin(width: 52, height: 68)),
+        const Center(child: WiredMapPin(height: 68)),
       );
 
       expect(tester.getSize(find.byType(WiredMapPin)), const Size(52, 68));

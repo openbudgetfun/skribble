@@ -1,15 +1,13 @@
 ---
 title: Maps
-description: Render open vector map data as stable, hand-drawn geometry with markers, routes, offline PMTiles, and no proprietary map SDK.
+description: Use a crisp MapLibre basemap with hand-drawn Skribble pins, routes, areas, and controls.
 ---
 
 # Maps
 
-`skribble_maps` is a companion package for maps that should look drawn, not merely decorated with a paper texture. It decodes road, water, park, building, and boundary geometry from open vector tiles, then paints those shapes with a restrained version of Skribble's visual language.
+`skribble_maps` combines MapLibre cartography with Skribble interaction design. MapLibre loads and renders the basemap. Skribble draws the app-owned overlays above it.
 
-The package owns its map viewport and rendering pipeline. It does not depend on a proprietary map SDK, `flutter_map`, or MapLibre. Its source imports neither Material nor Cupertino.
-
-Treat this custom renderer as an illustrated-map option. For a global production app where minimizing map-engine maintenance matters more than wobbled basemap geometry, use MapLibre as the basemap and compose Wired markers, routes, and controls above it.
+The package does not decode or roughen downloaded road and building geometry. MapLibre handles vector tiles, labels, source schemas, camera gestures, and cache behavior.
 
 ## Install
 
@@ -22,31 +20,41 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_maps/skribble_maps.dart';
 ```
 
-## Start with an explicit online source
+## Create a map
 
-`WiredMap` has no basemap by default and causes no hidden network traffic. Add `WiredOpenFreeMapLayer` when you deliberately want the keyless public OpenFreeMap service:
+The default paper style is OpenFreeMap Positron. It is global and does not need an API key.
 
 ```dart
 const WiredMap(
-  initialCenter: LatLng(51.5074, -0.1278),
+  initialCenter: LatLng(25.2048, 55.2708),
   initialZoom: 13,
-  basemap: WiredOpenFreeMapLayer(),
 )
 ```
 
-The public OpenFreeMap instance is useful for examples and development. It does not provide a service-level guarantee. Use a regional PMTiles archive or a vector-tile endpoint you control for a predictable production deployment.
+MapLibre requests the tiles visible around Dubai. Panning to another area requests its tiles. There is no city-specific preprocessing step in the application.
 
-## Compose a map
+Choose another included style or provide any MapLibre style URL, local style, or raw JSON:
 
-The map uses layers in ordinary Flutter paint order. Keep the basemap below application features and markers:
+```dart
+const WiredMap(
+  style: WiredMapStyle.liberty,
+)
+
+const WiredMap(
+  style: WiredMapStyle(
+    styleString: 'https://maps.example.com/style.json',
+  ),
+)
+```
+
+OpenFreeMap's public service has no availability guarantee. Keep the style configurable so a production app can move to a contracted provider or its own tile infrastructure without changing the map widgets.
+
+## Draw pins and routes
 
 ```dart
 WiredMap(
   initialCenter: const LatLng(51.5242, -0.0778),
   initialZoom: 14,
-  basemap: const WiredOpenFreeMapLayer(
-    style: WiredMapStyle.paper,
-  ),
   children: [
     WiredMapFeatureLayer(
       semanticLabel: 'Walking route',
@@ -57,7 +65,7 @@ WiredMap(
             LatLng(51.5242, -0.0778),
             LatLng(51.5260, -0.0740),
           ],
-          color: const Color(0xFFD95C45),
+          color: const Color(0xFF66584B),
           strokeWidth: 4,
         ),
       ],
@@ -66,9 +74,13 @@ WiredMap(
       markers: [
         WiredMapMarker(
           point: const LatLng(51.5242, -0.0778),
-          semanticLabel: 'Favourite café',
+          semanticLabel: 'Favourite cafe',
           onTap: selectCafe,
-          child: const WiredMapPin(child: Text('☕')),
+          child: const WiredMapPin(
+            icon: WiredMapPinIcon.coffee,
+            fillColor: Color(0xFFF1E9DB),
+            inkColor: Color(0xFF37342F),
+          ),
         ),
       ],
     ),
@@ -76,93 +88,56 @@ WiredMap(
 )
 ```
 
-Markers are real widgets. Their child can be a `WiredMapPin`, another Wired control, an animation, or an application-specific composition.
+Pins default to 52 by 64 logical pixels with a 28-pixel rough vector icon. The built-in icon choices are `place`, `checkIn`, `coffee`, `market`, `gallery`, `favorite`, and `person`. Each icon uses the same Skribble rough drawing system as the pin outline.
+
+Use low-saturation fills and one consistent ink color when several categories share a map. The glyph should carry the category. Color should support selection or status rather than make every category compete.
 
 ## Map widgets
 
-| API                     | Purpose                                                           |
-| ----------------------- | ----------------------------------------------------------------- |
-| `WiredMap`              | Web Mercator viewport with pan, pinch, double-tap, and wheel zoom |
-| `WiredMapController`    | Camera movement plus coordinate projection helpers                |
-| `WiredVectorTileLayer`  | Decode and paint semantic MVT basemap geometry                    |
-| `WiredOpenFreeMapLayer` | Explicit keyless OpenFreeMap setup with bounded memory caching    |
-| `WiredMapMarkerLayer`   | Position arbitrary widgets at geographic coordinates              |
-| `WiredMapPin`           | Seeded hand-drawn pin with interaction and semantics              |
-| `WiredMapFeatureLayer`  | Draw tappable app-owned routes and polygons                       |
-| `WiredMapAttribution`   | Visible hand-drawn provider attribution badge                     |
-| `WiredMapZoomControls`  | Accessible hand-drawn zoom controls                               |
+| API                    | Purpose                                                    |
+| ---------------------- | ---------------------------------------------------------- |
+| `WiredMap`             | MapLibre basemap with Flutter overlays                     |
+| `WiredMapController`   | Camera movement plus flat projection helpers               |
+| `WiredMapStyle`        | MapLibre style string and attribution-button color         |
+| `WiredMapMarkerLayer`  | Position a small set of Flutter widgets on the map         |
+| `WiredMapPin`          | Interactive hand-drawn pin with typed rough category icons |
+| `WiredMapFeatureLayer` | Draw tappable app-owned routes and polygons                |
+| `WiredMapAttribution`  | Optional hand-drawn provider attribution badge             |
+| `WiredMapZoomControls` | Accessible hand-drawn zoom controls                        |
 
-## Providers and schemas
+## Why maps stay flat
 
-The provider loads raw bytes. The schema adapter translates source-specific layer names into a small semantic vocabulary. The style decides how each role looks.
+`WiredMapController` mirrors MapLibre's center and zoom in the same 512-pixel Web Mercator coordinate plane. Flutter overlays use that camera to calculate their screen positions.
 
-```text
-provider bytes -> schema adapter -> semantic geometry -> rough painter
-```
+`WiredMap` disables map pitch and rotation because a native perspective transform would make those screen-space overlays drift. Applications that need tilt, rotation, terrain, or 3D content should render their data as MapLibre style layers instead.
 
-Included providers:
+## Large point collections
 
-- `WiredNetworkVectorTileProvider` for an MVT URL template
-- `WiredOpenFreeMapProvider` for OpenFreeMap's current TileJSON endpoint
-- `WiredPmTilesVectorTileProvider` for a local or hosted PMTiles v3 archive
-- `WiredMemoryVectorTileProvider` for fixtures and bundled small maps
-- `WiredCachingTileProvider` for bounded byte caching and request coalescing
+Use `WiredMapMarkerLayer` for selected places, active check-ins, search results, and other small interactive sets. Flutter widgets are expensive when a map contains hundreds or thousands of points.
 
-Included schemas:
-
-- `WiredOpenMapTilesSchema` for OpenMapTiles layer names
-- `WiredProtomapsSchema` for the Protomaps basemap schema
-
-Create a `WiredMapSchemaAdapter` when your source uses different layer names or feature properties.
-
-## Controlled and offline PMTiles
-
-Open a regional vector archive before building its layer:
+For a large collection, add a GeoJSON source and clustered symbol layers through the native controller returned by `onMapCreated`. MapLibre then culls, clusters, and renders those points on the map engine. A selected symbol can still gain a `WiredMapPin` overlay.
 
 ```dart
-final provider = await WiredPmTilesVectorTileProvider.open(
-  '/application-data/london.pmtiles',
-  attribution: WiredMapAttributionData(
-    text: '© Protomaps · © OpenStreetMap contributors',
-    url: Uri.parse('https://www.openstreetmap.org/copyright'),
-  ),
-);
-
-final basemap = WiredVectorTileLayer(
-  provider: provider,
-  schema: const WiredProtomapsSchema(),
-  disposeProvider: true,
-);
+WiredMap(
+  onMapCreated: (controller) async {
+    await controller.addGeoJsonSource('places', placesGeoJson);
+  },
+  onStyleLoaded: addPlaceLayers,
+)
 ```
 
-Native apps can use a local path or HTTP URL. Web apps use an HTTP URL served with CORS and byte-range support. The consuming app decides how an archive is downloaded, updated, stored, and licensed.
+Use the [MapLibre Flutter guides](https://maplibre.org/flutter-maplibre-gl/) for GeoJSON, symbols, clusters, PMTiles, and offline regions.
 
-`open` accepts request headers or an `http.Client` for hosted archives. Use `WiredPmTilesVectorTileProvider.fromBytes` for data loaded from a Flutter asset. The provider also exposes the suggested center, center zoom, and geographic bounds stored in the archive.
+## Global and offline data
 
-## Styling and stable roughness
+The style's tile provider determines geographic coverage and update frequency. A global style requests only the tiles needed for the current viewport.
 
-Use `WiredMapStyle.fromTheme` to follow `WiredTheme`, or start from the paper and night styles. A style assigns color, width, hatching, and roughness to semantic map roles instead of attempting to implement the full MapLibre style language.
+Android and iOS support MapLibre offline regions for a chosen bounding box and zoom range. The consuming app owns the download, expiry, and refresh policy. Web uses the browser cache and has no mobile offline-region API.
 
-Call `copyWith` to tune colors, roughness, hatching, and the zoom thresholds for buildings, paths, or road labels without rebuilding the complete style. `roadRoughnessFactor` reduces road displacement relative to other features, and `lineEchoOpacity` controls the faint second pencil pass.
+OpenStreetMap-derived data still requires attribution. Open data avoids a proprietary map-data license, but production tile hosting, storage, and bandwidth are separate costs.
 
-The defaults keep the basemap quieter than product overlays. Roads use only a fraction of the general basemap roughness. Overzoom compensation prevents line widths, dash spacing, hatching, and jitter from growing each time the camera zooms beyond the provider's final tile level. App routes and polygons in `WiredMapFeatureLayer`, plus `WiredMapPin`, continue to use Skribble's normal rough engine.
-
-Sketch noise is derived from global tile coordinates, feature role, pass, and style seed. Rebuilding or moving the camera does not reroll a road. Adjacent tiles use the same coordinate field at shared edges, reducing visible seams. Labels are placed in a separate screen-space pass so they stay upright and can be collision-filtered across tile boundaries.
-
-## Loading, errors, and ownership
-
-`WiredVectorTileLayer` exposes `loadingBuilder`, `errorBuilder`, and `onTileError`. Set `disposeProvider` when the layer owns the provider. The layer suppresses results from a replaced provider and bounds its prepared-tile cache. Built-in schemas prepare MVT data through Flutter's background compute path on native platforms and yield between tiles on web. Vector pictures are cached separately for fast pan and zoom, while `WiredCachingTileProvider` separately bounds raw bytes.
-
-Provider attribution is shown by default. Supply `onAttributionTap` if the app can open the provider's attribution URL.
-
-## Data is open, infrastructure is not automatically free
-
-OpenStreetMap-derived data is available without a per-map-view license fee, but ODbL and attribution obligations still apply. The OpenStreetMap Foundation's public tile servers have separate usage policies and are not a general production CDN. This package does not configure those endpoints.
-
-OpenFreeMap currently offers keyless public vector tiles, but its service can change or stop. PMTiles avoids a proprietary tile API, while storage, request, and bandwidth costs remain the application's responsibility.
-
-See the [mapping library research](https://github.com/openbudgetfun/skribble/blob/main/docs/mapping-libraries-research.md) for the full comparison of Flutter renderers, licenses, data sources, and the recommendation to use MapLibre for a low-maintenance global production basemap.
+See the [mapping library research](https://github.com/openbudgetfun/skribble/blob/main/docs/mapping-libraries-research.md) for the renderer and provider comparison.
 
 ## Deliberate limits
 
-Version 1 does not include geocoding, routing, turn-by-turn navigation, satellite imagery, terrain, 3D rendering, arbitrary MapLibre style JSON, or a global offline dataset. Those concerns stay separate from the focused hand-drawn basemap and overlay API.
+The package does not provide place search, geocoding, routing, turn-by-turn navigation, satellite imagery, or tile hosting. Those services have different data and operating requirements and stay outside the visual map package.
