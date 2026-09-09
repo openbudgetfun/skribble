@@ -1,6 +1,37 @@
+import 'dart:math' as math;
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+
+/// Hand-drawn category glyphs sized for [WiredMapPin].
+enum WiredMapPinIcon {
+  /// A general place.
+  place('place'),
+
+  /// A completed check-in.
+  checkIn('check'),
+
+  /// A cafe or coffee stop.
+  coffee('coffee'),
+
+  /// A shop or market.
+  market('storefront'),
+
+  /// A gallery, studio, or museum.
+  gallery('palette'),
+
+  /// A saved or favourite place.
+  favorite('favorite'),
+
+  /// A person or meeting point.
+  person('person');
+
+  const WiredMapPinIcon(this.identifier);
+
+  /// Identifier in Skribble's rough Material icon catalog.
+  final String identifier;
+}
 
 /// A hand-drawn map pin with a stable, seedable outline.
 class WiredMapPin extends HookWidget {
@@ -10,14 +41,18 @@ class WiredMapPin extends HookWidget {
     this.child,
     this.onTap,
     this.semanticLabel,
-    this.width = 44,
-    this.height = 54,
+    this.width = 52,
+    this.height = 64,
     this.fillColor,
     this.inkColor,
+    this.iconColor,
+    this.icon = WiredMapPinIcon.place,
+    this.iconSize = 28,
     this.strokeWidth,
     this.seed = 37,
   }) : assert(width > 0, 'width must be positive'),
-       assert(height > 0, 'height must be positive');
+       assert(height > 0, 'height must be positive'),
+       assert(iconSize > 0, 'iconSize must be positive');
 
   /// Content drawn inside the rounded head of the pin.
   final Widget? child;
@@ -40,6 +75,17 @@ class WiredMapPin extends HookWidget {
   /// The pin outline color, or the active Wired theme border color.
   final Color? inkColor;
 
+  /// The icon color, or the resolved pin outline color.
+  final Color? iconColor;
+
+  /// Rough category icon used when [child] is null.
+  ///
+  /// Set this to null for a pin without an icon.
+  final WiredMapPinIcon? icon;
+
+  /// Size of the generated rough icon.
+  final double iconSize;
+
   /// The pin outline width, or the active Wired theme stroke width.
   final double? strokeWidth;
 
@@ -53,6 +99,18 @@ class WiredMapPin extends HookWidget {
     final enabled = onTap != null;
     final resolvedInk = inkColor ?? theme.borderColor;
     final resolvedFill = fillColor ?? theme.fillColor;
+    final iconData = icon == null
+        ? null
+        : lookupMaterialRoughIconByIdentifier(icon!.identifier);
+    final pinDrawConfig = theme.drawConfig.copyWith(
+      seed: seed,
+      maxRandomnessOffset: math.min(
+        theme.drawConfig.maxRandomnessOffset ?? 1.2,
+        1.2,
+      ),
+      roughness: math.min(theme.drawConfig.roughness ?? 1.25, 1.25),
+      lineWobble: math.min(theme.drawConfig.lineWobble ?? 0, 0.35),
+    );
     final duration = theme.motionEnabled
         ? const Duration(milliseconds: 90)
         : Duration.zero;
@@ -83,7 +141,7 @@ class WiredMapPin extends HookWidget {
                   children: [
                     Positioned.fill(
                       child: WiredCanvas(
-                        drawConfig: theme.drawConfig.copyWith(seed: seed),
+                        drawConfig: pinDrawConfig,
                         fillerType: RoughFilter.solidFiller,
                         painter: _WiredMapPinPainter(
                           fillColor: resolvedFill,
@@ -92,12 +150,28 @@ class WiredMapPin extends HookWidget {
                         ),
                       ),
                     ),
-                    if (child != null)
+                    if (child != null || iconData != null)
                       Positioned(
-                        top: height * 0.12,
-                        width: width * 0.55,
-                        height: height * 0.42,
-                        child: Center(child: child),
+                        top: height * 0.075,
+                        width: width * 0.7,
+                        height: height * 0.5,
+                        child: Center(
+                          child:
+                              child ??
+                              WiredSvgIcon(
+                                data: iconData!,
+                                size: iconSize,
+                                color: iconColor ?? resolvedInk,
+                                fillStyle: WiredIconFillStyle.none,
+                                strokeWidth: 1.8,
+                                drawConfig: pinDrawConfig.copyWith(
+                                  seed: seed + 1,
+                                  roughness: 0.9,
+                                  maxRandomnessOffset: 0.75,
+                                  lineWobble: 0.25,
+                                ),
+                              ),
+                        ),
                       ),
                   ],
                 ),

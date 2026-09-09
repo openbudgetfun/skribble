@@ -1,15 +1,25 @@
-import 'dart:math' as math;
+import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:maplibre_gl/maplibre_gl.dart' as maplibre;
 import 'package:skribble/skribble.dart';
 import 'package:skribble_maps/src/wired_map_camera.dart';
+import 'package:skribble_maps/src/wired_map_style.dart';
 
-/// A widgets-only Web Mercator map with hand-drawn layers and controls.
+/// Builds a replacement for the native map view in widget tests.
+typedef WiredMapViewBuilder = Widget Function(BuildContext context);
+
+/// A MapLibre basemap with hand-drawn Flutter overlays and controls.
+///
+/// MapLibre renders source data, roads, buildings, water, and labels. Skribble
+/// only draws the widgets in [children]. Pitch and rotation stay disabled so
+/// those Flutter overlays remain aligned with geographic coordinates.
 class WiredMap extends HookWidget {
-  /// Creates a map viewport.
+  /// Creates a MapLibre-backed map.
   const WiredMap({
     super.key,
     this.controller,
@@ -17,7 +27,7 @@ class WiredMap extends HookWidget {
     this.initialZoom = 2,
     this.minimumZoom = 0,
     this.maximumZoom = 20,
-    this.basemap,
+    this.style = WiredMapStyle.paper,
     this.children = const [],
     this.backgroundColor,
     this.showZoomControls = true,
@@ -25,14 +35,18 @@ class WiredMap extends HookWidget {
     this.zoomControlsPadding = const EdgeInsets.all(12),
     this.semanticLabel = 'Interactive map',
     this.clipBehavior = Clip.hardEdge,
-    this.scrollZoomSensitivity = 0.005,
+    this.scrollGesturesEnabled = true,
+    this.zoomGesturesEnabled = true,
+    this.myLocationEnabled = false,
+    this.gestureRecognizers,
+    this.onMapCreated,
+    this.onStyleLoaded,
+    this.onCameraChanged,
+    this.onTap,
+    this.mapViewBuilder,
   }) : assert(
          minimumZoom <= maximumZoom,
          'minimumZoom must not exceed maximumZoom',
-       ),
-       assert(
-         scrollZoomSensitivity > 0,
-         'scrollZoomSensitivity must be positive',
        );
 
   /// An external controller. The map creates and owns one when omitted.
@@ -50,16 +64,13 @@ class WiredMap extends HookWidget {
   /// Maximum zoom used by an internally created controller.
   final double maximumZoom;
 
-  /// Optional basemap layer placed below [children].
-  ///
-  /// There is intentionally no network-backed default. Choose a provider
-  /// explicitly so opening a map never creates hidden traffic.
-  final Widget? basemap;
+  /// MapLibre style used for the basemap.
+  final WiredMapStyle style;
 
-  /// Overlay layers painted above [basemap].
+  /// Flutter overlays placed above the MapLibre view.
   final List<Widget> children;
 
-  /// Paper color behind all layers.
+  /// Color visible while MapLibre loads its style and tiles.
   final Color? backgroundColor;
 
   /// Whether hand-drawn zoom controls are displayed.
@@ -71,14 +82,45 @@ class WiredMap extends HookWidget {
   /// Inset around the zoom controls.
   final EdgeInsetsGeometry zoomControlsPadding;
 
-  /// Accessibility label for the map surface.
+  /// Accessibility label for the map.
   final String semanticLabel;
 
   /// How map content is clipped at the viewport bounds.
   final Clip clipBehavior;
 
-  /// Zoom units applied per mouse-wheel logical pixel.
-  final double scrollZoomSensitivity;
+  /// Whether MapLibre handles mouse-wheel and trackpad scrolling.
+  final bool scrollGesturesEnabled;
+
+  /// Whether MapLibre handles pinch and double-tap zoom gestures.
+  final bool zoomGesturesEnabled;
+
+  /// Whether MapLibre displays the device-location indicator.
+  ///
+  /// The consuming application must configure and request each platform's
+  /// location permission before enabling this option.
+  final bool myLocationEnabled;
+
+  /// Gesture recognizers forwarded to MapLibre's platform view.
+  final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
+
+  /// Called after MapLibre creates its controller.
+  ///
+  /// Use the native controller for advanced MapLibre operations such as
+  /// clustered style layers, offline regions, or large GeoJSON sources.
+  final ValueChanged<maplibre.MapLibreMapController>? onMapCreated;
+
+  /// Called after the MapLibre style and annotation managers load.
+  final VoidCallback? onStyleLoaded;
+
+  /// Called while MapLibre moves the camera.
+  final ValueChanged<WiredMapCamera>? onCameraChanged;
+
+  /// Called when the user taps an unclaimed point on the map.
+  final ValueChanged<LatLng>? onTap;
+
+  /// Optional native-view replacement for deterministic widget tests.
+  @visibleForTesting
+  final WiredMapViewBuilder? mapViewBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -93,70 +135,28 @@ class WiredMap extends HookWidget {
           ),
       [controller, initialCenter, initialZoom, minimumZoom, maximumZoom],
     );
+    final disconnectEngine = useRef<VoidCallback?>(null);
+    final theme = WiredTheme.of(context);
+
     useEffect(() {
       if (controller != null) return null;
+
       return mapController.dispose;
     }, [controller, mapController]);
 
-    final scaleStartZoom = useRef(mapController.camera.zoom);
-    final activeTapPointer = useRef<int?>(null);
-    final activeTapOrigin = useRef<Offset?>(null);
-    final activeTapMoved = useRef(false);
-    final previousTapTimestamp = useRef<Duration?>(null);
-    final previousTapPosition = useRef<Offset?>(null);
-    final theme = WiredTheme.of(context);
+    useEffect(() {
+      return () {
+        disconnectEngine.value?.call();
+      };
+    }, [mapController]);
 
-    void handlePointerDown(PointerDownEvent event) {
-      if (activeTapPointer.value != null) return;
-      activeTapPointer.value = event.pointer;
-      activeTapOrigin.value = event.localPosition;
-      activeTapMoved.value = false;
-    }
-
-    void handlePointerMove(PointerMoveEvent event) {
-      if (event.pointer != activeTapPointer.value) return;
-      final origin = activeTapOrigin.value;
-      if (origin == null) return;
-      const tapSlop = 18.0;
-      if ((event.localPosition - origin).distanceSquared > tapSlop * tapSlop) {
-        activeTapMoved.value = true;
-      }
-    }
-
-    void handlePointerUp(PointerUpEvent event) {
-      if (event.pointer != activeTapPointer.value) return;
-      if (!activeTapMoved.value) {
-        final timestamp = event.timeStamp;
-        final previousTimestamp = previousTapTimestamp.value;
-        final previousPosition = previousTapPosition.value;
-        const doubleTapTimeout = Duration(milliseconds: 300);
-        const doubleTapSlop = 48.0;
-        final isDoubleTap =
-            previousTimestamp != null &&
-            previousPosition != null &&
-            timestamp - previousTimestamp <= doubleTapTimeout &&
-            (event.localPosition - previousPosition).distanceSquared <=
-                doubleTapSlop * doubleTapSlop;
-        if (isDoubleTap) {
-          mapController.zoomBy(1, focalPoint: event.localPosition);
-          previousTapTimestamp.value = null;
-          previousTapPosition.value = null;
-        } else {
-          previousTapTimestamp.value = timestamp;
-          previousTapPosition.value = event.localPosition;
-        }
-      }
-      activeTapPointer.value = null;
-      activeTapOrigin.value = null;
-      activeTapMoved.value = false;
-    }
-
-    void handlePointerCancel(PointerCancelEvent event) {
-      if (event.pointer != activeTapPointer.value) return;
-      activeTapPointer.value = null;
-      activeTapOrigin.value = null;
-      activeTapMoved.value = false;
-    }
+    final mapView =
+        mapViewBuilder?.call(context) ??
+        _buildMapLibreView(
+          mapController: mapController,
+          disconnectEngine: disconnectEngine,
+          loadingColor: backgroundColor ?? theme.fillColor,
+        );
 
     return buildWiredElement(
       child: Semantics(
@@ -166,62 +166,33 @@ class WiredMap extends HookWidget {
         child: LayoutBuilder(
           builder: (context, constraints) {
             final size = constraints.biggest;
-            final finiteSize = Size(
+            final viewportSize = Size(
               size.width.isFinite ? size.width : 0,
               size.height.isFinite ? size.height : 0,
             );
-            mapController.updateViewport(finiteSize);
-            return AnimatedBuilder(
-              animation: mapController,
-              builder: (context, _) {
-                final camera = mapController.camera.copyWith(
-                  viewportSize: finiteSize,
-                );
-                return ClipRect(
-                  clipBehavior: clipBehavior,
-                  child: ColoredBox(
-                    color: backgroundColor ?? theme.fillColor,
-                    child: WiredMapCameraScope(
+
+            mapController.updateViewport(viewportSize);
+
+            return ClipRect(
+              clipBehavior: clipBehavior,
+              child: ColoredBox(
+                color: backgroundColor ?? theme.fillColor,
+                child: AnimatedBuilder(
+                  animation: mapController,
+                  child: mapView,
+                  builder: (context, mapView) {
+                    final camera = mapController.camera.copyWith(
+                      viewportSize: viewportSize,
+                    );
+
+                    return WiredMapCameraScope(
                       camera: camera,
                       controller: mapController,
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
-                          Listener(
-                            onPointerDown: handlePointerDown,
-                            onPointerMove: handlePointerMove,
-                            onPointerUp: handlePointerUp,
-                            onPointerCancel: handlePointerCancel,
-                            onPointerSignal: (event) {
-                              if (event is! PointerScrollEvent) return;
-                              mapController.zoomBy(
-                                -event.scrollDelta.dy *
-                                    scrollZoomSensitivity,
-                                focalPoint: event.localPosition,
-                              );
-                            },
-                            child: GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onScaleStart: (_) {
-                                scaleStartZoom.value =
-                                    mapController.camera.zoom;
-                              },
-                              onScaleUpdate: (details) {
-                                mapController.panBy(details.focalPointDelta);
-                                if (details.scale > 0) {
-                                  mapController.zoomTo(
-                                    scaleStartZoom.value +
-                                        math.log(details.scale) / math.ln2,
-                                    focalPoint: details.localFocalPoint,
-                                  );
-                                }
-                              },
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: [?basemap, ...children],
-                              ),
-                            ),
-                          ),
+                          ?mapView,
+                          ...children,
                           if (showZoomControls)
                             WiredMapZoomControls(
                               controller: mapController,
@@ -230,14 +201,67 @@ class WiredMap extends HookWidget {
                             ),
                         ],
                       ),
-                    ),
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ),
             );
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildMapLibreView({
+    required WiredMapController mapController,
+    required ObjectRef<VoidCallback?> disconnectEngine,
+    required Color loadingColor,
+  }) {
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+      // Android needs the texture-backed view for Flutter overlays to compose
+      // above MapLibre reliably.
+      maplibre.MapLibreMap.useHybridComposition = true;
+    }
+
+    final camera = mapController.camera;
+
+    return maplibre.MapLibreMap(
+      initialCameraPosition: maplibre.CameraPosition(
+        target: maplibre.LatLng(
+          camera.center.latitude,
+          camera.center.longitude,
+        ),
+        zoom: camera.zoom,
+      ),
+      styleString: style.styleString,
+      minMaxZoomPreference: maplibre.MinMaxZoomPreference(
+        mapController.minimumZoom,
+        mapController.maximumZoom,
+      ),
+      rotateGesturesEnabled: false,
+      tiltGesturesEnabled: false,
+      scrollGesturesEnabled: scrollGesturesEnabled,
+      zoomGesturesEnabled: zoomGesturesEnabled,
+      doubleClickZoomEnabled: zoomGesturesEnabled,
+      compassEnabled: false,
+      trackCameraPosition: true,
+      myLocationEnabled: myLocationEnabled,
+      attributionButtonColor: style.attributionButtonColor,
+      foregroundLoadColor: loadingColor,
+      gestureRecognizers: gestureRecognizers,
+      onMapCreated: (controller) {
+        disconnectEngine.value?.call();
+        disconnectEngine.value = mapController.bindEngine(controller);
+        onMapCreated?.call(controller);
+      },
+      onStyleLoadedCallback: onStyleLoaded,
+      onCameraMove: (position) {
+        mapController.synchronizeFromEngine(position);
+        onCameraChanged?.call(mapController.camera);
+      },
+      onMapClick: (_, coordinate) {
+        onTap?.call(LatLng(coordinate.latitude, coordinate.longitude));
+      },
     );
   }
 }
@@ -278,8 +302,13 @@ class WiredMapZoomControls extends HookWidget {
     final canZoomOut = camera.zoom > camera.minimumZoom;
 
     void zoomBy(double delta) {
-      mapController.zoomBy(delta);
-      onZoomChanged?.call(mapController.camera.zoom);
+      final nextZoom = (camera.zoom + delta).clamp(
+        camera.minimumZoom,
+        camera.maximumZoom,
+      );
+
+      unawaited(mapController.zoomBy(delta));
+      onZoomChanged?.call(nextZoom);
     }
 
     return Align(
@@ -292,13 +321,13 @@ class WiredMapZoomControls extends HookWidget {
             _WiredMapControlButton(
               semanticLabel: 'Zoom in',
               onTap: canZoomIn ? () => zoomBy(zoomStep) : null,
-              child: const Text('+', style: TextStyle(fontSize: 24, height: 1)),
+              iconIdentifier: 'add',
             ),
             const SizedBox(height: 8),
             _WiredMapControlButton(
               semanticLabel: 'Zoom out',
               onTap: canZoomOut ? () => zoomBy(-zoomStep) : null,
-              child: const Text('−', style: TextStyle(fontSize: 24, height: 1)),
+              iconIdentifier: 'remove',
             ),
           ],
         ),
@@ -311,18 +340,20 @@ class _WiredMapControlButton extends HookWidget {
   const _WiredMapControlButton({
     required this.semanticLabel,
     required this.onTap,
-    required this.child,
+    required this.iconIdentifier,
   });
 
   final String semanticLabel;
   final VoidCallback? onTap;
-  final Widget child;
+  final String iconIdentifier;
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final pressed = useState(false);
     final enabled = onTap != null;
+    final icon = lookupMaterialRoughIconByIdentifier(iconIdentifier);
+
     return Semantics(
       label: semanticLabel,
       button: true,
@@ -348,25 +379,25 @@ class _WiredMapControlButton extends HookWidget {
                   fillerType: RoughFilter.solidFiller,
                   painter: WiredRoundedRectangleBase(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    fillColor: theme.fillColor.withValues(alpha: 0.92),
+                    fillColor: theme.fillColor.withValues(alpha: 0.94),
                     borderColor: enabled
                         ? theme.borderColor
                         : theme.disabledTextColor,
                     strokeWidth: theme.strokeWidth,
                   ),
                 ),
-                Center(
-                  child: DefaultTextStyle.merge(
-                    style: TextStyle(
+                if (icon != null)
+                  Center(
+                    child: WiredSvgIcon(
+                      data: icon,
+                      size: 22,
                       color: enabled
                           ? theme.textColor
                           : theme.disabledTextColor,
-                      fontFamily: theme.fontFamily,
-                      package: theme.fontPackage,
+                      fillStyle: WiredIconFillStyle.none,
+                      strokeWidth: 1.9,
                     ),
-                    child: child,
                   ),
-                ),
               ],
             ),
           ),

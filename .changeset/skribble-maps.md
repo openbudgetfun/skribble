@@ -2,6 +2,6 @@
 skribble_maps: minor
 ---
 
-# Add hand-drawn vector maps without a proprietary SDK
+# Add MapLibre maps with hand-drawn overlays
 
-Introduces a widgets-only map package with direct MVT rendering, an explicit OpenFreeMap example source, PMTiles support, interactive Wired pins and markers, rough routes and areas, zoom controls, attribution, and bounded in-memory caching. Basemap geometry uses restrained defaults, steadier roads, faint line echoes, and overzoom compensation so detail remains legible while app overlays keep the stronger hand-drawn treatment.
+Introduces a MapLibre-backed map package with keyless OpenFreeMap presets, interactive Wired pins and markers, rough routes and areas, zoom controls, and attribution. MapLibre owns basemap rendering, labels, tile loading, and gestures. Pins use larger hand-drawn category icons and a quieter default treatment.

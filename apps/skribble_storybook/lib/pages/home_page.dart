@@ -145,7 +145,7 @@ const _categories = [
   ),
   _Category(
     title: 'Maps',
-    description: 'Open vector data redrawn with rough roads, places, and pins',
+    description: 'Clear MapLibre maps with hand-drawn routes, areas, and pins',
     route: '/maps',
     icon: Icons.map_outlined,
   ),

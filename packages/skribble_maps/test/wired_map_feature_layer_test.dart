@@ -9,6 +9,7 @@ void main() {
     return WiredMap(
       initialZoom: 5,
       showZoomControls: false,
+      mapViewBuilder: buildTestMapView,
       children: [WiredMapFeatureLayer(features: features)],
     );
   }
@@ -122,6 +123,7 @@ void main() {
         tester,
         const WiredMap(
           showZoomControls: false,
+          mapViewBuilder: buildTestMapView,
           children: [
             WiredMapFeatureLayer(
               features: [],

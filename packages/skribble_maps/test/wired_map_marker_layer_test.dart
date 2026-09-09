@@ -9,6 +9,7 @@ void main() {
     return WiredMap(
       initialZoom: 4,
       showZoomControls: false,
+      mapViewBuilder: buildTestMapView,
       children: [WiredMapMarkerLayer(markers: markers)],
     );
   }
