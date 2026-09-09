@@ -330,10 +330,6 @@ Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 l
 
 ## Ink motion
 
-Wrap this component in `WiredDraw` or `WiredDrawTransition` to draw its rough
-outline and patterned fill. Button variants also reinforce their ink on hover,
-focus, and press. Labels and solid backgrounds stay readable. See
-[Ink motion](../core/motion) for timing, supported variants, and disabling motion.
+Wrap this component in `WiredDraw` or `WiredDrawTransition` to draw its rough outline and patterned fill. Button variants also reinforce their ink on hover, focus, and press. Labels and solid backgrounds stay readable. See [Ink motion](../core/motion) for timing, supported variants, and disabling motion.
 
-Disabled filled buttons retain the contrast-selected foreground at 75% opacity,
-so labels and icons remain legible on their opaque ink background.
+Disabled filled buttons retain the contrast-selected foreground at 75% opacity, so labels and icons remain legible on their opaque ink background.

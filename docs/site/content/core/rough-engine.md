@@ -542,8 +542,4 @@ Icons use a smaller runtime displacement so counters remain open at 24 pixels. S
 
 ## Drawing ink over time
 
-`RoughDrawing` snapshots generated paths and paints, then reveals cumulative
-pen distance across contours. It retains measured paths for replay and reverse.
-Solid fills remain opaque; hatch fills appear stroke by stroke. No random seeds
-change during animation. `RoughBoxDecoration` also caches local geometry and
-accepts borrowed paint animations. See [Ink motion](motion).
+`RoughDrawing` snapshots generated paths and paints, then reveals cumulative pen distance across contours. It retains measured paths for replay and reverse. Solid fills remain opaque; hatch fills appear stroke by stroke. No random seeds change during animation. `RoughBoxDecoration` also caches local geometry and accepts borrowed paint animations. See [Ink motion](motion).
