@@ -30,6 +30,7 @@ path = "packages/skribble"
 type = "dart"
 tag = true
 release = true
+bump_propagation = "inherit"
 
 [package.skribble_icons]
 path = "packages/skribble_icons"
@@ -58,6 +59,9 @@ type = "dart"
 [package.skribble_maps]
 path = "packages/skribble_maps"
 type = "dart"
+tag = true
+release = true
+version_format = "namespaced"
 
 # =============================================================================
 # [group.*] — version groups that share a single release identity
@@ -72,7 +76,6 @@ packages = [
   "skribble_emoji_gen",
   "skribble_font_roughen",
   "skribble_lints",
-  "skribble_maps",
 ]
 tag = true
 release = true

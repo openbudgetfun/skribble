@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+      - "skribble_maps/v*"
   workflow_dispatch:
 
 permissions:
@@ -50,6 +51,28 @@ jobs:
           fi
         shell: bash
 
+      - name: Select release packages
+        id: release
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          case "$RELEASE_TAG" in
+            skribble_maps/v*)
+              echo "packages=skribble_maps" >>"$GITHUB_OUTPUT"
+              echo "artifact_name=monochange-publish-skribble-maps" >>"$GITHUB_OUTPUT"
+              ;;
+            v*)
+              echo "packages=skribble_lints skribble_emoji_gen skribble_font_roughen skribble skribble_emoji skribble_icons skribble_icons_custom" >>"$GITHUB_OUTPUT"
+              echo "artifact_name=monochange-publish-main" >>"$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "::error::Unsupported release tag: $RELEASE_TAG"
+              exit 1
+              ;;
+          esac
+        shell: bash
+
       - name: Set up Dart trusted publishing
         uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
 
@@ -59,24 +82,29 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check Monochange publish readiness
+        env:
+          RELEASE_PACKAGES: ${{ steps.release.outputs.packages }}
         run: |
+          set -euo pipefail
+          read -r -a packages <<<"$RELEASE_PACKAGES"
+          package_args=()
+          for package in "${packages[@]}"; do
+            package_args+=(--package "$package")
+          done
           monochange step publish-readiness \
             --from HEAD \
-            --package skribble_lints \
-            --package skribble_emoji_gen \
-            --package skribble_font_roughen \
-            --package skribble \
-            --package skribble_emoji \
-            --package skribble_icons \
-            --package skribble_icons_custom \
+            "${package_args[@]}" \
             --output "$RUNNER_TEMP/publish-readiness.json" \
             --format json
         shell: devenv shell -- bash -e {0}
 
       - name: Dry-run and publish packages
+        env:
+          RELEASE_PACKAGES: ${{ steps.release.outputs.packages }}
         run: |
           set -euo pipefail
-          for package in skribble_lints skribble_emoji_gen skribble_font_roughen skribble skribble_emoji skribble_icons skribble_icons_custom; do
+          read -r -a packages <<<"$RELEASE_PACKAGES"
+          for package in "${packages[@]}"; do
             (cd "packages/$package" && dart pub publish --dry-run)
             monochange step publish-packages \
               --package "$package" \
@@ -95,7 +123,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: monochange-publish-${{ github.ref_name }}
+          name: ${{ steps.release.outputs.artifact_name }}
           path: |
             ${{ runner.temp }}/publish-readiness.json
             ${{ runner.temp }}/publish-*.json
