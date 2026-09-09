@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 /// <!-- {=docsPumpAppExample|trim|linePrefix:"/// "} -->
 /// ```dart
+/// // Static example: test
 /// // Body slot (default)
 /// await pumpApp(tester, myWidget);
 

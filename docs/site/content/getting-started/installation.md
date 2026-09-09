@@ -22,6 +22,7 @@ dart pub add skribble
 Then import it:
 
 ```dart
+// Static example: setup
 import 'package:skribble/skribble.dart';
 ```
 

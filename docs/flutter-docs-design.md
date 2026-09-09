@@ -1,6 +1,6 @@
 # Flutter documentation design
 
-The docs should demonstrate Skribble while helping developers read, copy, and use it. Preserve the hand-drawn identity and the existing Markdown corpus. Use warm paper for reading, dark plum ink, and coral, moss, golden yellow, and lilac for meaningful interactive examples. Gentle is the default; the other styles stay available.
+The docs should demonstrate Skribble while helping developers read, copy, and use it. Preserve the hand-drawn identity and the existing Markdown corpus. Use warm paper for reading, dark plum ink, and coral, moss, golden yellow, and lilac for meaningful interactive examples. Playful is the default; the other styles stay available.
 
 ## Grounding
 

@@ -16,6 +16,7 @@ Make sure you have [installed Skribble](/getting-started/installation) in your F
 <!-- {=docsMinimalAppSection} -->
 
 ```dart
+// Static example: setup
 import 'package:flutter/material.dart';
 import 'package:skribble/skribble.dart';
 
@@ -50,6 +51,7 @@ void main() {
 The app supports multiple theme variants:
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: lightTheme,                     // required -- used for light mode
   darkWiredTheme: darkTheme,                   // optional -- used for dark mode
@@ -67,6 +69,7 @@ If you omit `darkWiredTheme`, the light theme is used for both modes. The `theme
 For apps using `go_router` or another `RouterConfig`, use the `.router` constructor:
 
 ```dart
+// Static example: setup
 WiredMaterialApp.router(
   wiredTheme: WiredThemeData(),
   routerConfig: goRouter,
@@ -78,6 +81,7 @@ WiredMaterialApp.router(
 Now let's build a more complete page. Replace the `home` parameter with a dedicated page widget:
 
 ```dart
+// Static example: setup
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';

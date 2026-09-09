@@ -89,12 +89,18 @@ class WiredInputChip extends HookWidget {
                             avatar!,
                             const SizedBox(width: 6),
                           ],
-                          DefaultTextStyle.merge(
-                            style: TextStyle(
-                              color: selected ? Colors.white : theme.textColor,
-                              fontSize: 13,
+                          Flexible(
+                            child: DefaultTextStyle.merge(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: selected
+                                    ? Colors.white
+                                    : theme.textColor,
+                                fontSize: 13,
+                              ),
+                              child: label,
                             ),
-                            child: label,
                           ),
                           if (onDeleted != null) ...[
                             const SizedBox(width: 4),

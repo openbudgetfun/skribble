@@ -61,9 +61,16 @@ class WiredChip extends HookWidget {
                         avatar!,
                         const SizedBox(width: 8),
                       ],
-                      DefaultTextStyle.merge(
-                        style: TextStyle(color: theme.textColor, fontSize: 13),
-                        child: label,
+                      Flexible(
+                        child: DefaultTextStyle.merge(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: theme.textColor,
+                            fontSize: 13,
+                          ),
+                          child: label,
+                        ),
                       ),
                       if (onDeleted != null) ...[
                         const SizedBox(width: 4),

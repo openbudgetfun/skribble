@@ -1,0 +1,16 @@
+# Recursive comparison specimens
+
+Sources are Recursive 1.085 from [arrowtype/recursive](https://github.com/arrowtype/recursive/tree/5f4be025122d72d4710267e959128e8986ebe435/fonts/ArrowType-Recursive-1.085/Recursive_Desktop/separate_statics/TTF), pinned to commit `5f4be025122d72d4710267e959128e8986ebe435`.
+
+`RecursiveSansCslSt-*` and `RecursiveSansLnrSt-*` are unchanged source fonts. Modified Linear families are renamed `SkribbleLinearGentle`, `SkribbleLinearPlayful`, and `SkribbleLinearExpressive`, under the included SIL Open Font License. The library's existing roughened Casual families remain in the Skribble package.
+
+Run `dart run tool/docs_font_comparison.dart` from the repository root to reproduce the copied originals and all twelve Linear specimens. Use `--check` to compare without writing. The source files live in `packages/skribble/tool/font` alongside their license.
+
+SHA-256 of the pinned Linear sources:
+
+| Style       | SHA-256                                                            |
+| ----------- | ------------------------------------------------------------------ |
+| Regular     | `ca6aeb615fe2d1c2a97b101ee32c9cad19ffbdfaf3011f0935d6b210d365fb4e` |
+| Bold        | `a8d93b2c5082171c3a841744b5cb4dd427483e9a104911206c5f05fb0d0dc99b` |
+| Italic      | `62e4d508318ec18f689c3c528b890577f33b49f65249781fd8bb6be22e424744` |
+| Bold Italic | `c65925fa7be536d7ab950d13e97c8a0089095e1d8784cd7664718b7d05b75bb2` |

@@ -21,12 +21,17 @@ class WiredElevatedButton extends HookWidget {
   /// Overrides the theme’s decorative ink feedback for this control.
   final WiredInkInteraction? inkInteraction;
 
+  /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
+  /// for square corners.
+  final BorderRadius borderRadius;
+
   const WiredElevatedButton({
     super.key,
     required this.child,
     this.onPressed,
     this.semanticLabel,
     this.inkInteraction,
+    this.borderRadius = const BorderRadius.all(Radius.circular(6)),
   });
 
   @override
@@ -51,7 +56,10 @@ class WiredElevatedButton extends HookWidget {
                     progress: WiredDrawTransition.progressOf(context),
                     pressure: WiredInkResponse.pressureOf(context),
                     drawConfig: theme.drawConfig,
-                    shape: RoughBoxShape.rectangle,
+                    shape: borderRadius == BorderRadius.zero
+                        ? RoughBoxShape.rectangle
+                        : RoughBoxShape.roundedRectangle,
+                    borderRadius: borderRadius,
                     borderStyle: RoughDrawingStyle(
                       width: 0.5,
                       color: theme.borderColor,
@@ -67,7 +75,10 @@ class WiredElevatedButton extends HookWidget {
                   progress: WiredDrawTransition.progressOf(context),
                   pressure: WiredInkResponse.pressureOf(context),
                   drawConfig: theme.drawConfig,
-                  shape: RoughBoxShape.rectangle,
+                  shape: borderRadius == BorderRadius.zero
+                      ? RoughBoxShape.rectangle
+                      : RoughBoxShape.roundedRectangle,
+                  borderRadius: borderRadius,
                   borderStyle: RoughDrawingStyle(
                     width: theme.strokeWidth,
                     color: theme.borderColor,

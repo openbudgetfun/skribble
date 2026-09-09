@@ -14,24 +14,24 @@ void main() {
       expect(theme.disabledTextColor, Colors.grey);
       expect(theme.fillColor, const Color(0xFFFEFEFE));
       expect(theme.strokeWidth, 2.4);
-      expect(theme.roughness, 1.25);
+      expect(theme.roughness, 1.5);
       expect(theme.fontFamily, skribbleFontFamily);
     });
 
-    test('skribbleFontFamily constant is SkribbleGentle', () {
-      expect(skribbleFontFamily, 'SkribbleGentle');
+    test('skribbleFontFamily constant is SkribblePlayful', () {
+      expect(skribbleFontFamily, 'SkribblePlayful');
     });
 
-    test('drawConfig uses the gentle geometry when not provided', () {
+    test('drawConfig uses the playful geometry when not provided', () {
       final theme = WiredThemeData();
 
-      expect(theme.roughnessLevel, WiredRoughness.gentle);
-      expect(theme.drawConfig.roughness, 1.25);
+      expect(theme.roughnessLevel, WiredRoughness.playful);
+      expect(theme.drawConfig.roughness, 1.5);
       expect(
         theme.drawConfig.maxRandomnessOffset,
-        WiredRoughness.gentle.maxRandomnessOffset,
+        WiredRoughness.playful.maxRandomnessOffset,
       );
-      expect(theme.drawConfig.lineWobble, WiredRoughness.gentle.lineWobble);
+      expect(theme.drawConfig.lineWobble, WiredRoughness.playful.lineWobble);
     });
 
     test('drawConfig returns custom value when provided', () {
@@ -124,19 +124,19 @@ void main() {
 
       expect(
         materialTheme.textTheme.bodyLarge?.fontFamily,
-        'packages/skribble/SkribbleGentle',
+        'packages/skribble/SkribblePlayful',
       );
       expect(
         materialTheme.textTheme.bodyMedium?.fontFamily,
-        'packages/skribble/SkribbleGentle',
+        'packages/skribble/SkribblePlayful',
       );
       expect(
         materialTheme.textTheme.headlineMedium?.fontFamily,
-        'packages/skribble/SkribbleGentle',
+        'packages/skribble/SkribblePlayful',
       );
       expect(
         materialTheme.textTheme.titleLarge?.fontFamily,
-        'packages/skribble/SkribbleGentle',
+        'packages/skribble/SkribblePlayful',
       );
     });
 

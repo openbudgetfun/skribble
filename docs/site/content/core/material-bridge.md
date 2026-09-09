@@ -16,6 +16,7 @@ Skribble is not a Material replacement -- it sits alongside Material. `WiredMate
 Use the standard constructor for apps with `Navigator`-based routing:
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: WiredThemeData(
     borderColor: Color(0xFF1A2B3C),
@@ -31,6 +32,7 @@ WiredMaterialApp(
 Use `WiredMaterialApp.router()` for apps using `Router`-based navigation (GoRouter, auto_route, etc.):
 
 ```dart
+// Static example: setup
 WiredMaterialApp.router(
   wiredTheme: WiredThemeData(),
   routerConfig: goRouter,
@@ -116,6 +118,7 @@ The `.router()` constructor requires either `routerDelegate` or `routerConfig` -
 When `WiredMaterialApp` builds, it calls `wiredTheme.toThemeData()` to generate a Material `ThemeData`. This happens for each theme variant:
 
 ```dart
+// Static example: api
 final theme = wiredTheme.toThemeData();
 final darkTheme = effectiveDarkTheme.toThemeData(brightness: Brightness.dark);
 final highContrastTheme = effectiveHighContrastTheme.toThemeData();
@@ -131,6 +134,7 @@ These are passed directly to `MaterialApp`'s `theme`, `darkTheme`, `highContrast
 `WiredThemeData.toColorScheme()` builds a `ColorScheme` from `ColorScheme.fromSeed` using `borderColor` as the seed, then overrides specific slots:
 
 ```dart
+// Static example: api
 ColorScheme toColorScheme({Brightness brightness = Brightness.light}) {
   final base = ColorScheme.fromSeed(
     seedColor: borderColor,
@@ -154,6 +158,7 @@ ColorScheme toColorScheme({Brightness brightness = Brightness.light}) {
 The `_bestContrastingColor` helper picks white or black based on the luminance of the input color:
 
 ```dart
+// Static example: api
 Color _bestContrastingColor(Color color) {
   return ThemeData.estimateBrightnessForColor(color) == Brightness.dark
       ? Colors.white
@@ -168,6 +173,7 @@ Color _bestContrastingColor(Color color) {
 ### AppBar
 
 ```dart
+// Static example: configuration
 AppBarTheme(
   backgroundColor: paperBackgroundColor,
   foregroundColor: textColor,
@@ -180,6 +186,7 @@ AppBarTheme(
 ### Card
 
 ```dart
+// Static example: configuration
 CardThemeData(
   color: fillColor,
   elevation: 0,
@@ -191,6 +198,7 @@ CardThemeData(
 ### Dialog
 
 ```dart
+// Static example: configuration
 DialogThemeData(
   backgroundColor: fillColor,
   surfaceTintColor: Colors.transparent,
@@ -201,6 +209,7 @@ DialogThemeData(
 ### BottomSheet
 
 ```dart
+// Static example: configuration
 BottomSheetThemeData(
   backgroundColor: fillColor,
   surfaceTintColor: Colors.transparent,
@@ -211,6 +220,7 @@ BottomSheetThemeData(
 ### SnackBar
 
 ```dart
+// Static example: configuration
 SnackBarThemeData(
   backgroundColor: fillColor,
   contentTextStyle: TextStyle(color: textColor),
@@ -221,6 +231,7 @@ SnackBarThemeData(
 ### InputDecoration
 
 ```dart
+// Static example: configuration
 InputDecorationTheme(
   filled: true,
   fillColor: fillColor,
@@ -242,6 +253,7 @@ InputDecorationTheme(
 ### Divider
 
 ```dart
+// Static example: configuration
 DividerThemeData(
   color: borderColor.withValues(alpha: 0.35),
   thickness: 1,
@@ -251,6 +263,7 @@ DividerThemeData(
 ### Text, Icons, and Scaffold
 
 ```dart
+// Static example: configuration
 scaffoldBackgroundColor: paperBackgroundColor,
 canvasColor: fillColor,
 dividerColor: borderColor.withValues(alpha: 0.35),
@@ -267,6 +280,7 @@ primaryIconTheme: IconThemeData(color: colorScheme.onPrimary),
 `WiredMaterialApp` resolves which `WiredThemeData` to inject into the `WiredTheme` ancestor based on `themeMode` and the platform's high-contrast accessibility setting:
 
 ```dart
+// Static example: api
 WiredThemeData _resolveWiredTheme({...}) {
   final isHighContrast = platformDispatcher
       .accessibilityFeatures.highContrast;
@@ -299,6 +313,7 @@ Fallback chain:
 ## Using with GoRouter
 
 ```dart
+// Static example: setup
 import 'package:go_router/go_router.dart';
 import 'package:skribble/skribble.dart';
 
@@ -333,6 +348,7 @@ class MyApp extends HookWidget {
 ## Using with auto_route
 
 ```dart
+// Static example: api
 import 'package:auto_route/auto_route.dart';
 import 'package:skribble/skribble.dart';
 
@@ -364,6 +380,7 @@ class MyApp extends HookWidget {
 If your router library provides a delegate and parser separately:
 
 ```dart
+// Static example: setup
 WiredMaterialApp.router(
   wiredTheme: WiredThemeData(),
   routeInformationParser: MyRouteParser(),
@@ -375,6 +392,7 @@ WiredMaterialApp.router(
 ## Complete Example: Dark Mode with GoRouter
 
 ```dart
+// Static example: setup
 class MyApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -427,6 +445,7 @@ Cupertino widgets read from `WiredTheme.of(context)` just like their Material co
 <!-- {=docsThemeReadPattern} -->
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -448,6 +467,7 @@ Widget build(BuildContext context) {
 Example:
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: WiredThemeData(),
   home: WiredCupertinoScaffold(
@@ -469,6 +489,7 @@ WiredMaterialApp(
 You can freely mix Material and Cupertino Wired widgets in the same tree. They all read from the same `WiredTheme`:
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: WiredThemeData(),
   home: WiredScaffold(

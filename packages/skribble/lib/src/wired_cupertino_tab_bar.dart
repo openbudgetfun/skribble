@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
+import 'wired_bottom_nav.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn tab bar corresponding to Flutter's [CupertinoTabBar].
@@ -45,6 +46,33 @@ class WiredCupertinoTabBar extends HookWidget {
     this.height = 50,
     this.iconSize = 26,
   });
+
+  /// Creates tabs from Skribble's icon-and-label destinations.
+  /// [items] must contain at least two destinations.
+  factory WiredCupertinoTabBar.destinations({
+    Key? key,
+    required List<WiredBottomNavItem> items,
+    int currentIndex = 0,
+    ValueChanged<int>? onTap,
+    Color activeColor = CupertinoColors.activeBlue,
+    Color inactiveColor = CupertinoColors.inactiveGray,
+    Color? backgroundColor,
+    double height = 50,
+    double iconSize = 26,
+  }) => WiredCupertinoTabBar(
+    key: key,
+    items: [
+      for (final item in items)
+        BottomNavigationBarItem(icon: Icon(item.icon), label: item.label),
+    ],
+    currentIndex: currentIndex,
+    onTap: onTap,
+    activeColor: activeColor,
+    inactiveColor: inactiveColor,
+    backgroundColor: backgroundColor,
+    height: height,
+    iconSize: iconSize,
+  );
 
   @override
   Widget build(BuildContext context) {

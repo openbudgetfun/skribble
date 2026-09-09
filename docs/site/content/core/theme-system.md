@@ -13,22 +13,23 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 
 ### Fields
 
-| Field               | Type             | Default                                    | Description                                                                     |
-| ------------------- | ---------------- | ------------------------------------------ | ------------------------------------------------------------------------------- |
-| `borderColor`       | `Color`          | `Color(0xFF1A2B3C)`                        | Border stroke color for all shapes                                              |
-| `textColor`         | `Color`          | `Colors.black`                             | Primary text color                                                              |
-| `disabledTextColor` | `Color`          | `Colors.grey`                              | Text color for disabled states                                                  |
-| `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`                        | Interior fill color for shapes                                                  |
-| `strokeWidth`       | `double`         | `2.4`                                      | Default border stroke width                                                     |
-| `roughnessLevel`    | `WiredRoughness` | `gentle`                                   | Coordinated defaults for borders, icons, and lettering                          |
-| `roughness`         | `double`         | Level value (`1.25` for gentle)            | Resolved amplitude; an explicit constructor value overrides the preset          |
-| `fontFamily`        | `String`         | Level family (`SkribbleGentle` for gentle) | Resolved bundled or custom family                                               |
-| `fontPackage`       | `String?`        | `skribble` for bundled families            | Asset package; null for custom app fonts                                        |
-| `drawConfig`        | `DrawConfig`     | Derived from the level and amplitude       | Resolved drawing configuration; an explicit constructor config takes precedence |
+| Field               | Type             | Default                                      | Description                                                                     |
+| ------------------- | ---------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
+| `borderColor`       | `Color`          | `Color(0xFF1A2B3C)`                          | Border stroke color for all shapes                                              |
+| `textColor`         | `Color`          | `Colors.black`                               | Primary text color                                                              |
+| `disabledTextColor` | `Color`          | `Colors.grey`                                | Text color for disabled states                                                  |
+| `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`                          | Interior fill color for shapes                                                  |
+| `strokeWidth`       | `double`         | `2.4`                                        | Default border stroke width                                                     |
+| `roughnessLevel`    | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, and lettering                          |
+| `roughness`         | `double`         | Level value (`1.5` for playful)              | Resolved amplitude; an explicit constructor value overrides the preset          |
+| `fontFamily`        | `String`         | Level family (`SkribblePlayful` for playful) | Resolved bundled or custom family                                               |
+| `fontPackage`       | `String?`        | `skribble` for bundled families              | Asset package; null for custom app fonts                                        |
+| `drawConfig`        | `DrawConfig`     | Derived from the level and amplitude         | Resolved drawing configuration; an explicit constructor config takes precedence |
 
 ### Creating a Theme
 
 ```dart
+// Static example: configuration
 // Default theme
 final theme = WiredThemeData();
 
@@ -47,6 +48,7 @@ final theme = WiredThemeData(
 Derive a new theme from an existing one, overriding specific fields:
 
 ```dart
+// Static example: configuration
 final baseTheme = WiredThemeData();
 final boldTheme = baseTheme.copyWith(
   strokeWidth: 4,
@@ -59,6 +61,7 @@ final boldTheme = baseTheme.copyWith(
 When no `DrawConfig` is passed to the constructor, the getter derives a `DrawConfig` using the theme’s `roughness`. When a custom config is provided, that value is used instead:
 
 ```dart
+// Static example: configuration
 final theme = WiredThemeData(
   drawConfig: DrawConfig.build(roughness: 0.5, seed: 99),
 );
@@ -70,6 +73,7 @@ print(theme.drawConfig.roughness); // 0.5
 A static singleton that holds the default theme:
 
 ```dart
+// Static example: api
 final fallback = WiredThemeData.defaultTheme;
 ```
 
@@ -86,6 +90,7 @@ The standard lookup method:
 <!-- {=docsThemeReadPattern} -->
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -109,6 +114,7 @@ If no `WiredTheme` ancestor exists, `of` returns `WiredThemeData.defaultTheme` r
 ### Placing WiredTheme in the Tree
 
 ```dart
+// Static example: setup
 WiredTheme(
   data: WiredThemeData(
     borderColor: Colors.indigo,
@@ -130,6 +136,7 @@ WiredTheme(
 `WiredTheme` compares the `data` reference. When you pass a new `WiredThemeData` instance, all dependent widgets rebuild:
 
 ```dart
+// Static example: api
 @override
 bool updateShouldNotify(WiredTheme oldWidget) {
   return data != oldWidget.data;
@@ -141,6 +148,7 @@ bool updateShouldNotify(WiredTheme oldWidget) {
 `WiredThemeData` can generate a Material `ColorScheme` derived from its colors:
 
 ```dart
+// Static example: api
 ColorScheme toColorScheme({Brightness brightness = Brightness.light})
 ```
 
@@ -159,6 +167,7 @@ The method uses `ColorScheme.fromSeed` with `borderColor` as the seed, then over
 | `shadow`         | `borderColor` at 12% opacity                         |
 
 ```dart
+// Static example: api
 final scheme = theme.toColorScheme();
 print(scheme.primary); // same as theme.borderColor
 ```
@@ -166,6 +175,7 @@ print(scheme.primary); // same as theme.borderColor
 For dark mode, pass `Brightness.dark`:
 
 ```dart
+// Static example: api
 final darkScheme = theme.toColorScheme(brightness: Brightness.dark);
 ```
 
@@ -174,6 +184,7 @@ final darkScheme = theme.toColorScheme(brightness: Brightness.dark);
 Converts the Wired theme into a complete Material `ThemeData`:
 
 ```dart
+// Static example: api
 ThemeData toThemeData({
   Brightness brightness = Brightness.light,
   bool useMaterial3 = true,
@@ -197,6 +208,7 @@ This method sets up Material component themes so that standard Material widgets 
 ### AppBarTheme
 
 ```dart
+// Static example: configuration
 AppBarTheme(
   backgroundColor: paperBackgroundColor,
   foregroundColor: textColor,
@@ -209,6 +221,7 @@ AppBarTheme(
 ### CardTheme
 
 ```dart
+// Static example: configuration
 CardThemeData(
   color: fillColor,
   elevation: 0,
@@ -220,6 +233,7 @@ CardThemeData(
 ### DialogTheme
 
 ```dart
+// Static example: configuration
 DialogThemeData(
   backgroundColor: fillColor,
   surfaceTintColor: Colors.transparent,
@@ -230,6 +244,7 @@ DialogThemeData(
 ### BottomSheetTheme
 
 ```dart
+// Static example: configuration
 BottomSheetThemeData(
   backgroundColor: fillColor,
   surfaceTintColor: Colors.transparent,
@@ -240,6 +255,7 @@ BottomSheetThemeData(
 ### SnackBarTheme
 
 ```dart
+// Static example: configuration
 SnackBarThemeData(
   backgroundColor: fillColor,
   contentTextStyle: TextStyle(color: textColor),
@@ -250,6 +266,7 @@ SnackBarThemeData(
 ### InputDecorationTheme
 
 ```dart
+// Static example: configuration
 InputDecorationTheme(
   filled: true,
   fillColor: fillColor,
@@ -271,6 +288,7 @@ InputDecorationTheme(
 ### DividerTheme
 
 ```dart
+// Static example: configuration
 DividerThemeData(
   color: borderColor.withValues(alpha: 0.35),
   thickness: 1,
@@ -282,6 +300,7 @@ DividerThemeData(
 A computed getter that produces a soft, paper-like background tone by alpha-blending `fillColor` over white:
 
 ```dart
+// Static example: api
 Color get paperBackgroundColor =>
     Color.alphaBlend(fillColor.withValues(alpha: 0.92), Colors.white);
 ```
@@ -311,6 +330,7 @@ The app shell accepts a `wiredTheme` parameter. It wraps the entire `MaterialApp
 You can insert additional `WiredTheme` ancestors to override the theme for a subtree:
 
 ```dart
+// Static example: pseudocode
 WiredMaterialApp(
   wiredTheme: globalTheme,
   home: Column(
@@ -331,6 +351,7 @@ WiredMaterialApp(
 Some widgets accept color parameters directly. These take precedence over the theme:
 
 ```dart
+// Static example: configuration
 WiredRectangleBase(
   borderColor: Colors.blue, // overrides theme.borderColor
   fillColor: Colors.yellow, // overrides theme.fillColor
@@ -342,6 +363,7 @@ WiredRectangleBase(
 `WiredMaterialApp` accepts four theme variants:
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: lightTheme,
   darkWiredTheme: darkTheme,
@@ -365,6 +387,7 @@ Fallback behavior: if `darkWiredTheme` is not provided, `wiredTheme` is used for
 ### Example: Dark Theme
 
 ```dart
+// Static example: configuration
 final lightTheme = WiredThemeData(
   borderColor: Color(0xFF1A2B3C),
   fillColor: Color(0xFFFEFEFE),
@@ -390,6 +413,7 @@ WiredMaterialApp(
 Because every widget uses `HookWidget`, you can build dynamic theme switchers with `useState`:
 
 ```dart
+// Static example: setup
 class ThemeSwitcherApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -429,32 +453,48 @@ While most widgets inherit `DrawConfig` from the theme, you can override it at t
 Pass a custom `DrawConfig` directly to `WiredCanvas`:
 
 ```dart
-WiredCanvas(
-  painter: WiredRectangleBase(
-    fillColor: theme.fillColor,
-    borderColor: theme.borderColor,
-  ),
-  fillerType: RoughFilter.hachureFiller,
-  drawConfig: DrawConfig.build(roughness: 4, bowing: 3, seed: 42),
+// Live example: theme-drawing-1
+Builder(
+  builder: (context) {
+    final theme = WiredTheme.of(context);
+    return SizedBox(
+      width: 240,
+      height: 140,
+      child: WiredCanvas(
+        painter: WiredRectangleBase(
+          fillColor: theme.fillColor,
+          borderColor: theme.borderColor,
+        ),
+        fillerType: RoughFilter.hachureFiller,
+        drawConfig: DrawConfig.build(roughness: 4, bowing: 3, seed: 42),
+      ),
+    );
+  },
 )
 ```
 
 Or use `RoughBoxDecoration` with a custom config:
 
 ```dart
-Container(
-  decoration: RoughBoxDecoration(
-    shape: RoughBoxShape.rectangle,
-    borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),
-    drawConfig: DrawConfig.build(roughness: 0.3), // very smooth
-  ),
-  child: Text('Barely rough'),
+// Live example: theme-drawing-2
+Builder(
+  builder: (context) {
+    final theme = WiredTheme.of(context);
+    return Container(
+      decoration: RoughBoxDecoration(
+        borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),
+        drawConfig: DrawConfig.build(roughness: 0.3), // very smooth
+      ),
+      child: const Text('Barely rough'),
+    );
+  },
 )
 ```
 
 You can also set a custom `DrawConfig` on the theme itself to affect all widgets:
 
 ```dart
+// Static example: configuration
 final theme = WiredThemeData(
   drawConfig: DrawConfig.build(
     roughness: 2.5,
@@ -469,6 +509,7 @@ final theme = WiredThemeData(
 Choose a level once at the app root. The theme coordinates borders, rough icons, and all four lettering styles:
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: WiredThemeData(
     roughnessLevel: WiredRoughness.gentle,
@@ -481,11 +522,13 @@ WiredMaterialApp(
 
 <!-- {=docsRoughnessLevelTable} -->
 
-| Level        | Appearance                                          | Border amplitude | Font deformation | Bundled family    |
-| ------------ | --------------------------------------------------- | ---------------- | ---------------- | ----------------- |
-| `gentle`     | Softer handwriting and gently bowed edges (default) | 1.25             | 18               | `SkribbleGentle`  |
-| `playful`    | An intermediate amount of wavering ink              | 1.5              | 27               | `SkribblePlayful` |
-| `expressive` | Strong lettering and locally wandering edges        | 1.8              | 36               | `Skribble`        |
+Playful is the default. The docs toolbar switches all inherited lettering and ink between Gentle, Playful, and Expressive, without resetting the current page. [Compare the original and roughened Casual and Linear fonts](/core/font-comparison).
+
+| Level        | Appearance                                   | Border amplitude | Font deformation | Bundled family    |
+| ------------ | -------------------------------------------- | ---------------- | ---------------- | ----------------- |
+| `gentle`     | Softer handwriting and gently bowed edges    | 1.25             | 18               | `SkribbleGentle`  |
+| `playful`    | An intermediate amount of wavering ink       | 1.5              | 27               | `SkribblePlayful` |
+| `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
 
 All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. This adds eight font files, about 2.8 MB before delivery compression. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 
@@ -494,6 +537,7 @@ All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the
 For a section with quieter ink, inherit the palette and override only its level:
 
 ```dart
+// Static example: setup
 WiredTheme(
   data: WiredTheme.of(context).copyWith(
     roughnessLevel: WiredRoughness.gentle,

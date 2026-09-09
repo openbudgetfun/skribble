@@ -13,9 +13,9 @@ void main() {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
       expect(
-        tester.getSemantics(find.byKey(const ValueKey('roughness-gentle'))),
+        tester.getSemantics(find.byKey(const ValueKey('roughness-playful'))),
         matchesSemantics(
-          label: 'Gentle',
+          label: 'Playful',
           isButton: true,
           hasSelectedState: true,
           isSelected: true,
@@ -26,7 +26,7 @@ void main() {
         DefaultTextStyle.of(tester.element(find.text('Ink style')))
             .style
             .fontFamily,
-        'packages/skribble/SkribbleGentle',
+        'packages/skribble/SkribblePlayful',
       );
       await tester.tap(find.text('Expressive'));
       await tester.pumpAndSettle();

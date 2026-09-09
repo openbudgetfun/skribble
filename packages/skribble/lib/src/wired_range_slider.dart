@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -33,10 +34,39 @@ class WiredRangeSlider extends HookWidget {
     this.semanticLabel,
   });
 
+  /// Creates a range from numeric endpoints without importing Material values.
+  /// [start] and [end] are the selected endpoints between [min] and [max].
+  /// [onChanged] returns true to accept the new endpoints. Other options match
+  /// the unnamed constructor.
+  factory WiredRangeSlider.between({
+    Key? key,
+    required double start,
+    required double end,
+    double min = 0,
+    double max = 1,
+    int? divisions,
+    bool Function(double start, double end)? onChanged,
+    String? semanticLabel,
+  }) => WiredRangeSlider(
+    key: key,
+    values: RangeValues(start, end),
+    min: min,
+    max: max,
+    divisions: divisions,
+    onChanged: onChanged == null
+        ? null
+        : (values) => onChanged(values.start, values.end),
+    semanticLabel: semanticLabel,
+  );
+
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final currentValues = useRef(values);
+    final currentValues = useState(values);
+    useEffect(() {
+      currentValues.value = values;
+      return null;
+    }, [values]);
 
     return Semantics(
       label: semanticLabel,
@@ -76,12 +106,14 @@ class WiredRangeSlider extends HookWidget {
               max: max,
               divisions: divisions,
               labels: labels,
-              onChanged: (newValues) {
-                final result = onChanged?.call(newValues) ?? false;
-                if (result) {
-                  currentValues.value = newValues;
-                }
-              },
+              onChanged: onChanged == null
+                  ? null
+                  : (newValues) {
+                      final result = onChanged?.call(newValues) ?? false;
+                      if (result) {
+                        currentValues.value = newValues;
+                      }
+                    },
             ),
           ),
         ],
@@ -95,8 +127,19 @@ class _WiredRangeThumbShape extends RangeSliderThumbShape {
 
   _WiredRangeThumbShape(this.theme);
 
+  late final RoughDrawing _drawing =
+      WiredCircleBase(
+        borderColor: theme.borderColor,
+        fillColor: theme.fillColor,
+        strokeWidth: theme.strokeWidth,
+      ).prepare(
+        const Size(28, 28),
+        theme.drawConfig,
+        SolidFiller(FillerConfig.build(drawConfig: theme.drawConfig)),
+      );
+
   @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) => const Size(24, 24);
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) => const Size(28, 28);
 
   @override
   void paint(
@@ -113,15 +156,9 @@ class _WiredRangeThumbShape extends RangeSliderThumbShape {
     bool? isPressed,
   }) {
     final canvas = context.canvas;
-    final paint = Paint()
-      ..color = theme.textColor
-      ..style = PaintingStyle.fill;
-    canvas.drawCircle(center, 8, paint);
-
-    final borderPaint = Paint()
-      ..color = theme.borderColor
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-    canvas.drawCircle(center, 8, borderPaint);
+    canvas.save();
+    canvas.translate(center.dx - 14, center.dy - 14);
+    _drawing.paint(canvas);
+    canvas.restore();
   }
 }

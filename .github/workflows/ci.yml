@@ -115,6 +115,8 @@ jobs:
           (cd packages/skribble_emoji_gen && dart test)
           dart run packages/skribble_emoji_gen/bin/update_assets.dart
           dart run packages/skribble_font_roughen/bin/roughen_fonts.dart --check
+          dart run tool/docs_font_comparison.dart --check
+          (cd docs/site && dart run tool/generate_examples.dart --check)
           git diff --exit-code -- packages/skribble/assets/fonts packages/skribble/tool/font apps/skribble_storybook/assets/fonts packages/skribble_emoji/lib/src/generated packages/skribble_icons/lib/src/generated/skribble_icons_rough.g.dart
           test -z "$(git ls-files --others --exclude-standard -- packages/skribble/assets/fonts packages/skribble/tool/font apps/skribble_storybook/assets/fonts packages/skribble_emoji/lib/src/generated packages/skribble_icons/lib/src/generated)"
         shell: devenv shell -- bash -e {0}
@@ -170,7 +172,7 @@ jobs:
           export PATH="$GITHUB_WORKSPACE/.fvm/flutter_sdk/bin:$PATH"
           dart pub global activate patrol_cli 4.7.0
           cd docs/site
-          dart pub global run patrol_cli:main test --verbose --device chrome --target integration_test/docs_test.dart --web-headless --web-server-timeout 300 --web-locale en-GB --web-screenshot on --web-trace retain-on-failure --web-workers 1
+          dart pub global run patrol_cli:main test --verbose --device chrome --target integration_test/docs_test.dart,integration_test/interactive_examples_test.dart --web-headless --web-server-timeout 300 --web-locale en-GB --web-screenshot on --web-trace retain-on-failure --web-workers 1
         shell: bash
       - name: Upload documentation browser evidence
         if: always()

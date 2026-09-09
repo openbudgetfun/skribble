@@ -14,13 +14,14 @@ Every Wired widget reads its visual properties from a single `WiredThemeData` ob
 ### Constructor
 
 ```dart
+// Static example: api
 WiredThemeData({
   Color borderColor = const Color(0xFF1A2B3C),
   Color textColor = Colors.black,
   Color disabledTextColor = Colors.grey,
   Color fillColor = const Color(0xFFFEFEFE),
   double strokeWidth = 2.4,
-  WiredRoughness roughnessLevel = WiredRoughness.expressive,
+  WiredRoughness roughnessLevel = WiredRoughness.playful,
   double? roughness,
   String? fontFamily,
   DrawConfig? drawConfig,
@@ -36,8 +37,8 @@ WiredThemeData({
 | `disabledTextColor` | `Color`          | `Colors.grey`         | Text color for disabled widgets.                                                                                                                            |
 | `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`   | Background fill for cards, inputs, dialogs, and other surfaces. Near-white by default.                                                                      |
 | `strokeWidth`       | `double`         | `2.4`                 | Width in logical pixels of the rough-drawn border strokes.                                                                                                  |
-| `roughnessLevel`    | `WiredRoughness` | `gentle`              | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                          |
-| `roughness`         | `double?`        | `null` → level value  | Optional geometry amplitude override. The default gentle level resolves to `1.25`; `0` removes random displacement.                                         |
+| `roughnessLevel`    | `WiredRoughness` | `playful`             | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                          |
+| `roughness`         | `double?`        | `null` → level value  | Optional geometry amplitude override. The default playful level resolves to `1.5`; `0` removes random displacement.                                         |
 | `fontFamily`        | `String?`        | `null` → level family | Optional font override. Bundled families resolve to the `skribble` package; custom families belong to the consuming app.                                    |
 | `drawConfig`        | `DrawConfig?`    | `null` → level config | Optional complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and any explicit `roughness`. |
 
@@ -46,6 +47,7 @@ WiredThemeData({
 Use `copyWith` to derive a new theme from an existing one, changing only specific values:
 
 ```dart
+// Static example: configuration
 final baseTheme = WiredThemeData();
 final boldTheme = baseTheme.copyWith(
   strokeWidth: 4,
@@ -62,6 +64,7 @@ final boldTheme = baseTheme.copyWith(
 Wrap any subtree in a `WiredTheme` to override the theme for descendant widgets:
 
 ```dart
+// Static example: setup
 WiredTheme(
   data: WiredThemeData(
     borderColor: Colors.deepPurple,
@@ -76,6 +79,7 @@ WiredTheme(
 Inside any widget's `build` method:
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -101,6 +105,7 @@ If no `WiredTheme` ancestor exists, `WiredTheme.of(context)` returns `WiredTheme
 <!-- {=docsThemeSetupSection} -->
 
 ```dart
+// Static example: setup
 import 'package:flutter/material.dart';
 import 'package:skribble/skribble.dart';
 
@@ -141,6 +146,7 @@ void main() {
 `WiredThemeData.toColorScheme()` builds a Material `ColorScheme` seeded from `borderColor`:
 
 ```dart
+// Static example: api
 final scheme = WiredThemeData(
   borderColor: Color(0xFF1A2B3C),
   fillColor: Color(0xFFFEFEFE),
@@ -162,6 +168,7 @@ Pass `brightness: Brightness.dark` to generate a dark-mode color scheme.
 `WiredThemeData.toThemeData()` produces a complete Material `ThemeData`:
 
 ```dart
+// Static example: api
 final materialTheme = myWiredTheme.toThemeData();
 ```
 
@@ -185,6 +192,7 @@ The generated `ThemeData` configures:
 `WiredThemeData` exposes a computed `paperBackgroundColor` property:
 
 ```dart
+// Static example: api
 Color get paperBackgroundColor =>
     Color.alphaBlend(fillColor.withValues(alpha: 0.92), Colors.white);
 ```
@@ -196,6 +204,7 @@ This gives scaffolds a slightly warm, paper-like background instead of pure whit
 For fine-grained control over the rough-drawing engine, pass a custom `DrawConfig`:
 
 ```dart
+// Static example: configuration
 WiredThemeData(
   drawConfig: DrawConfig.build(
     maxRandomnessOffset: 3,  // max pixel offset for jitter (default: 2)
@@ -216,6 +225,7 @@ The `seed` parameter is important: the same seed produces the same wobbly lines 
 Here is a complete example with a purple sketchy palette:
 
 ```dart
+// Static example: setup
 import 'package:flutter/material.dart';
 import 'package:skribble/skribble.dart';
 
@@ -291,6 +301,7 @@ class PurpleDemo extends StatelessWidget {
 You can nest `WiredTheme` widgets to override the theme for specific subtrees. This is useful for sections that need a different color treatment:
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: WiredThemeData(), // default theme for most of the app
   home: Scaffold(
@@ -342,13 +353,14 @@ The red-themed card and button will use `Colors.red` for borders, while everythi
 
 Skribble's four text styles are derived from the matching **Recursive Sans Casual** static sources. `WiredMaterialApp` registers the package-qualified Skribble family through its theme, so regular, bold, italic, and bold italic select the right bundled assets. Do not manually register only the regular font with `FontLoader`.
 
-For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble'`. Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.8. Local widget text styles merge with inherited typography instead of dropping the font family. The bundled Recursive Casual derivative uses deformation strength 36 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
+For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble'`. Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.5. Local widget text styles merge with inherited typography instead of dropping the font family. The bundled Recursive Casual derivative uses deformation strength 27 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
 
 ## App-wide roughness levels
 
 Choose a level once at the app root. The theme coordinates borders, rough icons, and all four lettering styles:
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: WiredThemeData(
     roughnessLevel: WiredRoughness.gentle,
@@ -361,11 +373,13 @@ WiredMaterialApp(
 
 <!-- {=docsRoughnessLevelTable} -->
 
-| Level        | Appearance                                          | Border amplitude | Font deformation | Bundled family    |
-| ------------ | --------------------------------------------------- | ---------------- | ---------------- | ----------------- |
-| `gentle`     | Softer handwriting and gently bowed edges (default) | 1.25             | 18               | `SkribbleGentle`  |
-| `playful`    | An intermediate amount of wavering ink              | 1.5              | 27               | `SkribblePlayful` |
-| `expressive` | Strong lettering and locally wandering edges        | 1.8              | 36               | `Skribble`        |
+Playful is the default. The docs toolbar switches all inherited lettering and ink between Gentle, Playful, and Expressive, without resetting the current page. [Compare the original and roughened Casual and Linear fonts](/core/font-comparison).
+
+| Level        | Appearance                                   | Border amplitude | Font deformation | Bundled family    |
+| ------------ | -------------------------------------------- | ---------------- | ---------------- | ----------------- |
+| `gentle`     | Softer handwriting and gently bowed edges    | 1.25             | 18               | `SkribbleGentle`  |
+| `playful`    | An intermediate amount of wavering ink       | 1.5              | 27               | `SkribblePlayful` |
+| `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
 
 All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. This adds eight font files, about 2.8 MB before delivery compression. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 
@@ -374,6 +388,7 @@ All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the
 For a section with quieter ink, inherit the palette and override only its level:
 
 ```dart
+// Static example: setup
 WiredTheme(
   data: WiredTheme.of(context).copyWith(
     roughnessLevel: WiredRoughness.gentle,

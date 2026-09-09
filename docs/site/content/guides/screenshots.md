@@ -57,6 +57,7 @@ apps/skribble_storybook/integration_test/screenshots_test.dart
 The test file defines a `WidgetShot` class that pairs a screenshot name with a text anchor used to scroll the storybook to the right widget:
 
 ```dart
+// Static example: test
 class WidgetShot {
   final String name;
   final String anchor;
@@ -72,6 +73,7 @@ The test defines several helpers:
 **`pumpStorybook()`** -- pumps the full storybook app wrapped in a `RepaintBoundary` for screenshot capture:
 
 ```dart
+// Static example: test
 Future<void> pumpStorybook(WidgetTester tester) async {
   await tester.pumpWidget(
     RepaintBoundary(
@@ -86,6 +88,7 @@ Future<void> pumpStorybook(WidgetTester tester) async {
 **`takeScreenshot()`** -- captures the current screen to a PNG file. It first tries the `IntegrationTestWidgetsFlutterBinding.takeScreenshot()` method, then falls back to rendering the `RepaintBoundary` directly:
 
 ```dart
+// Static example: test
 Future<void> takeScreenshot(WidgetTester tester, String name) async {
   final dir = Directory('$screenshotsDir/${name.split('/').first}');
   if (!dir.existsSync()) {
@@ -101,6 +104,7 @@ Future<void> takeScreenshot(WidgetTester tester, String name) async {
 **`focusOnText()`** -- scrolls the storybook page until a specific text widget is visible. This handles the case where a widget is below the fold:
 
 ```dart
+// Static example: test
 Future<void> focusOnText(WidgetTester tester, String text) async {
   final finder = find.text(text);
   if (finder.evaluate().isEmpty) {
@@ -115,6 +119,7 @@ Future<void> focusOnText(WidgetTester tester, String text) async {
 **`capturePageAndWidgets()`** -- the high-level function that navigates to a category, captures the page screenshot, then captures each individual widget:
 
 ```dart
+// Static example: test
 Future<void> capturePageAndWidgets(
   WidgetTester tester, {
   required String category,
@@ -137,6 +142,7 @@ Future<void> capturePageAndWidgets(
 A typical screenshot test group looks like this:
 
 ```dart
+// Static example: test
 testWidgets('capture buttons page and widgets', (tester) async {
   await capturePageAndWidgets(
     tester,
@@ -210,6 +216,7 @@ Make sure your widget appears on a storybook page with a visible text label that
 If the widget belongs to an existing category, add `WidgetShot` entries to the corresponding `capturePageAndWidgets()` call:
 
 ```dart
+// Static example: test
 testWidgets('capture inputs page and widgets', (tester) async {
   await capturePageAndWidgets(
     tester,
@@ -230,6 +237,7 @@ testWidgets('capture inputs page and widgets', (tester) async {
 For a new category, add a new `testWidgets` block:
 
 ```dart
+// Static example: test
 testWidgets('capture my-category page and widgets', (tester) async {
   await capturePageAndWidgets(
     tester,

@@ -14,11 +14,8 @@ Skribble provides selection widgets for choices, filtering, date/time picking, a
 A chip with a hand-drawn pill-shaped border (16px radius). Supports an optional avatar and delete action.
 
 ```dart
-WiredChip(
-  label: Text('Flutter'),
-  avatar: WiredIcon(icon: Icons.tag, size: 16),
-  onDeleted: () => removeTag('Flutter'),
-)
+// Live example: chip
+WiredChip(label: Text('Make something lovely'))
 ```
 
 ### Constructor parameters
@@ -43,11 +40,15 @@ WiredChip(
 A selectable chip that toggles between selected and unselected states. When selected, it receives a hachure fill.
 
 ```dart
-WiredChoiceChip(
-  label: Text('Small'),
-  selected: size == 'small',
-  onSelected: (selected) {
-    setState(() => size = selected ? 'small' : null);
+// Live example: choice-chip
+HookBuilder(
+  builder: (context) {
+    final selected = useState(false);
+    return WiredChoiceChip(
+      label: Text('Make something lovely'),
+      selected: selected.value,
+      onSelected: (value) => selected.value = value,
+    );
   },
 )
 ```
@@ -64,13 +65,15 @@ WiredChoiceChip(
 A chip with a checkmark indicator that can be toggled on and off for filtering. Shows a hand-drawn checkmark when selected.
 
 ```dart
-WiredFilterChip(
-  label: Text('Vegetarian'),
-  selected: filters.contains('vegetarian'),
-  onSelected: (selected) {
-    setState(() {
-      selected ? filters.add('vegetarian') : filters.remove('vegetarian');
-    });
+// Live example: filter-chip
+HookBuilder(
+  builder: (context) {
+    final selected = useState(true);
+    return WiredFilterChip(
+      label: Text('Make something lovely'),
+      selected: selected.value,
+      onSelected: (value) => selected.value = value,
+    );
   },
 )
 ```
@@ -82,11 +85,20 @@ WiredFilterChip(
 A chip representing a piece of user input (e.g., a tag or email address). Supports avatar, delete, and tap actions.
 
 ```dart
-WiredInputChip(
-  label: Text('user@example.com'),
-  avatar: WiredAvatar(radius: 12, child: Text('U')),
-  onDeleted: () => removeRecipient('user@example.com'),
-  onPressed: () => editRecipient('user@example.com'),
+// Live example: input-chip
+HookBuilder(
+  builder: (context) {
+    final visible = useState(true);
+    return visible.value
+        ? WiredInputChip(
+            label: Text('Make something lovely'),
+            onDeleted: () => visible.value = false,
+          )
+        : WiredTextButton(
+            onPressed: () => visible.value = true,
+            child: const Text('Restore tag'),
+          );
+  },
 )
 ```
 
@@ -97,10 +109,21 @@ WiredInputChip(
 A chip that triggers an action when tapped. Has a hand-drawn border but no selected state.
 
 ```dart
-WiredActionChip(
-  label: Text('Share'),
-  avatar: WiredIcon(icon: Icons.share, size: 16),
-  onPressed: () => shareContent(),
+// Live example: action-chip
+HookBuilder(
+  builder: (context) {
+    final count = useState(0);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        WiredActionChip(
+          label: Text('Make something lovely'),
+          onPressed: () => count.value++,
+        ),
+        Text('Pressed ${count.value} times'),
+      ],
+    );
+  },
 )
 ```
 
@@ -111,17 +134,14 @@ WiredActionChip(
 A hand-drawn dropdown selector wrapping Flutter's `DropdownButton`. Displays a sketchy inverted triangle indicator and draws a hand-drawn rectangle around each dropdown item.
 
 ```dart
-WiredCombo<String>(
-  value: selectedFruit,
-  items: [
-    DropdownMenuItem(value: 'apple', child: Text('Apple')),
-    DropdownMenuItem(value: 'banana', child: Text('Banana')),
-    DropdownMenuItem(value: 'cherry', child: Text('Cherry')),
-  ],
-  onChanged: (value) {
-    setState(() => selectedFruit = value);
-    return false; // Return false to let WiredCombo manage state
+// Live example: combo
+WiredCombo<String>.options(
+  options: const {
+    'paper': Text('Paper'),
+    'ink': Text('Ink'),
+    'ideas': Text('Ideas'),
   },
+  value: 'paper',
 )
 ```
 
@@ -147,10 +167,28 @@ WiredCombo<String>(
 A date picker dialog widget with hand-drawn calendar grid and navigation. Renders month headers and day cells with sketchy borders. Use `showWiredDatePicker` (top-level helper, shipped with the widget) to open it as a dialog.
 
 ```dart
-final date = await showWiredDatePicker(
-  context: context,
-  initialDate: DateTime.now(),
-);
+// Live example: date-picker
+HookBuilder(
+  builder: (context) {
+    final selected = useState<DateTime?>(null);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        WiredButton(
+          onPressed: () async {
+            selected.value = await showWiredDatePicker(
+              context: context,
+              initialDate: DateTime(2026, 9, 9),
+            );
+          },
+          child: Text('Make something lovely'),
+        ),
+        if (selected.value case final DateTime date)
+          Text('${date.day}/${date.month}/${date.year}'),
+      ],
+    );
+  },
+)
 ```
 
 ---
@@ -160,15 +198,17 @@ final date = await showWiredDatePicker(
 A hand-drawn dialog for selecting a date range, analogous to Material's `showDateRangePicker`. A rough circle marks each range endpoint and hachure-filled rectangles highlight the days in between. Days outside `firstDate`..`lastDate` (and from neighbouring months) are dimmed and disabled; the OK action stays disabled until the range is complete.
 
 ```dart
-final range = await showWiredDateRangePicker(
-  context: context,
-  initialDateRange: DateTimeRange<DateTime>(
-    start: DateTime(2026, 6, 5),
-    end: DateTime(2026, 6, 12),
+// Live example: date-range-picker
+Builder(
+  builder: (context) => WiredButton(
+    onPressed: () => showWiredDateRangePicker(
+      context: context,
+      firstDate: DateTime(2026),
+      lastDate: DateTime(2027),
+    ),
+    child: Text('Make something lovely'),
   ),
-  firstDate: DateTime(2026),
-  lastDate: DateTime(2027),
-);
+)
 ```
 
 ### Constructor parameters
@@ -194,13 +234,13 @@ final range = await showWiredDateRangePicker(
 A time picker with hand-drawn clock face, clock hands, and drag-to-adjust hour/minute fields. The inline widget streams changes through `onTimeSelected`.
 
 ```dart
-final time = await showWiredTimePicker(
-  context: context,
-  initialTime: TimeOfDay.now(),
-);
-if (time != null) {
-  debugPrint('Selected ${time.format(context)}');
-}
+// Live example: time-picker
+Builder(
+  builder: (context) => WiredButton(
+    onPressed: () => showWiredTimePicker(context: context),
+    child: Text('Make something lovely'),
+  ),
+)
 ```
 
 ### Notes
@@ -215,11 +255,12 @@ if (time != null) {
 An inline calendar date picker widget (not a dialog) with hand-drawn day cells and month navigation arrows.
 
 ```dart
+// Live example: calendar-date-picker
 WiredCalendarDatePicker(
-  initialDate: DateTime.now(),
-  firstDate: DateTime(2020),
-  lastDate: DateTime(2030),
-  onDateChanged: (date) => setState(() => selectedDate = date),
+  initialDate: DateTime(2026, 9, 9),
+  firstDate: DateTime(2026),
+  lastDate: DateTime(2027),
+  onDateChanged: (date) {},
 )
 ```
 
@@ -230,9 +271,15 @@ WiredCalendarDatePicker(
 A color picker with a hand-drawn grid of color swatches. Each swatch is a sketchy circle that fills with hachure when selected.
 
 ```dart
-WiredColorPicker(
-  selectedColor: currentColor,
-  onColorChanged: (color) => setState(() => currentColor = color),
+// Live example: color-picker
+HookBuilder(
+  builder: (context) {
+    final selected = useState(const Color(0xffe8957d));
+    return WiredColorPicker(
+      selectedColor: selected.value,
+      onColorChanged: (color) => selected.value = color,
+    );
+  },
 )
 ```
 
@@ -243,14 +290,13 @@ WiredColorPicker(
 A Cupertino-style scrolling picker wheel with hand-drawn selection highlight. Mirrors the `CupertinoPicker` API.
 
 ```dart
-WiredCupertinoPicker(
-  itemExtent: 32,
-  onSelectedItemChanged: (index) => setState(() => selectedIndex = index),
-  children: [
-    Text('Item 1'),
-    Text('Item 2'),
-    Text('Item 3'),
-  ],
+// Live example: cupertino-picker
+SizedBox(
+  height: 160,
+  child: WiredCupertinoPicker(
+    onSelectedItemChanged: (index) {},
+    children: const [Text('Paper'), Text('Ink'), Text('Possibility')],
+  ),
 )
 ```
 
@@ -261,10 +307,13 @@ WiredCupertinoPicker(
 A Cupertino-style date picker with hand-drawn wheel columns. Mirrors the `CupertinoDatePicker` API.
 
 ```dart
-WiredCupertinoDatePicker(
-  mode: CupertinoDatePickerMode.date,
-  initialDateTime: DateTime.now(),
-  onDateTimeChanged: (dateTime) => setState(() => selectedDate = dateTime),
+// Live example: cupertino-date-picker
+SizedBox(
+  height: 180,
+  child: WiredCupertinoDatePicker(
+    initialDateTime: DateTime(2026, 9, 9, 12),
+    onDateTimeChanged: (date) {},
+  ),
 )
 ```
 
@@ -275,13 +324,15 @@ WiredCupertinoDatePicker(
 A Cupertino-style segmented control with hand-drawn segment borders and hachure selection fill.
 
 ```dart
-WiredCupertinoSegmentedControl<int>(
-  groupValue: selectedSegment,
-  onValueChanged: (value) => setState(() => selectedSegment = value),
-  children: {
-    0: Text('Day'),
-    1: Text('Week'),
-    2: Text('Month'),
+// Live example: cupertino-segmented-control
+HookBuilder(
+  builder: (context) {
+    final selected = useState('paper');
+    return WiredCupertinoSegmentedControl<String>(
+      children: const {'paper': Text('Paper'), 'ink': Text('Ink')},
+      groupValue: selected.value,
+      onValueChanged: (value) => selected.value = value,
+    );
   },
 )
 ```
@@ -295,3 +346,5 @@ Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 l
 <!-- {/docsWidgetInkSection} -->
 
 `WiredCheckbox` is a binary checkbox: `null` is displayed as unchecked, and taps toggle false/true. Parent value changes reset its local visual state.
+
+Chip labels in `WiredChip`, `WiredFilterChip`, and `WiredInputChip` now fit the available width. Long labels use an ellipsis while retaining their full text for accessibility, leaving room for checkmarks and delete actions.

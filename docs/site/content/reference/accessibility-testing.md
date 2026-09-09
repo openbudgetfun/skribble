@@ -50,6 +50,7 @@ flutter run --debug
 Use the `SemanticsDebugger` widget to visualize semantics:
 
 ```dart
+// Static example: test
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -80,6 +81,7 @@ For each interactive widget, verify:
 #### WiredCheckbox
 
 ```dart
+// Static example: test
 testWidgets('checkbox has correct semantics', (tester) async {
   await tester.pumpWidget(
     MaterialApp(
@@ -102,6 +104,7 @@ testWidgets('checkbox has correct semantics', (tester) async {
 #### WiredSlider
 
 ```dart
+// Static example: test
 testWidgets('slider has correct semantics', (tester) async {
   await tester.pumpWidget(
     MaterialApp(
@@ -124,6 +127,7 @@ testWidgets('slider has correct semantics', (tester) async {
 #### WiredInput
 
 ```dart
+// Static example: test
 testWidgets('input has correct semantics', (tester) async {
   await tester.pumpWidget(
     MaterialApp(
@@ -149,6 +153,7 @@ testWidgets('input has correct semantics', (tester) async {
 If a widget doesn't have a label:
 
 ```dart
+// Static example: test
 // Bad - no label
 WiredButton(
   onPressed: () {},
@@ -168,6 +173,7 @@ WiredButton(
 If state changes aren't announced:
 
 ```dart
+// Static example: test
 // Bad - state not announced
 WiredCheckbox(
   value: true,
@@ -187,6 +193,7 @@ WiredCheckbox(
 If actions aren't announced:
 
 ```dart
+// Static example: test
 // Bad - action not clear
 WiredIconButton(
   icon: Icons.delete,
@@ -208,6 +215,7 @@ WiredIconButton(
 Create semantic tests for all widgets:
 
 ```dart
+// Static example: test
 testWidgets('all interactive widgets have semantics', (tester) async {
   await tester.pumpWidget(
     MaterialApp(

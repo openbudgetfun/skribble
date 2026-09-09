@@ -10,6 +10,7 @@ dart pub add skribble
 Then import it in your application code:
 
 ```dart
+// Static example: setup
 import 'package:skribble/skribble.dart';
 ```
 
@@ -28,6 +29,7 @@ dart pub add skribble
 Then import it:
 
 ```dart
+// Static example: setup
 import 'package:skribble/skribble.dart';
 ```
 
@@ -95,6 +97,7 @@ melos run rough-icons-ci-check
 <!-- {@docsMinimalAppSection} -->
 
 ```dart
+// Static example: setup
 import 'package:flutter/material.dart';
 import 'package:skribble/skribble.dart';
 
@@ -121,6 +124,7 @@ void main() {
 <!-- {@docsThemeSetupSection} -->
 
 ```dart
+// Static example: setup
 import 'package:flutter/material.dart';
 import 'package:skribble/skribble.dart';
 
@@ -155,11 +159,12 @@ void main() {
 <!-- {@docsFirstWidgetButton} -->
 
 ```dart
+// Live example: button
 WiredButton(
-  onPressed: () {
-    print('Tapped!');
-  },
-  child: Text('Click Me'),
+  borderRadius: BorderRadius.circular(8),
+  onPressed: () {},
+  inkInteraction: WiredInkInteraction.pressure,
+  child: Text('Make something lovely'),
 )
 ```
 
@@ -168,11 +173,10 @@ WiredButton(
 <!-- {@docsFirstWidgetInput} -->
 
 ```dart
+// Live example: input
 WiredInput(
-  hintText: 'Enter your name',
-  onChanged: (value) {
-    print('Name: $value');
-  },
+  labelText: 'Make something lovely',
+  hintText: 'A tiny spark of an idea…',
 )
 ```
 
@@ -181,17 +185,10 @@ WiredInput(
 <!-- {@docsFirstWidgetCard} -->
 
 ```dart
+// Live example: card
 WiredCard(
-  child: Padding(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      children: [
-        Text('Card Title', style: TextStyle(fontWeight: FontWeight.bold)),
-        SizedBox(height: 8),
-        Text('This is a hand-drawn card with sketchy borders.'),
-      ],
-    ),
-  ),
+  fill: true,
+  child: Center(child: Text('Make something lovely')),
 )
 ```
 
@@ -200,10 +197,22 @@ WiredCard(
 <!-- {@docsFirstWidgetCheckbox} -->
 
 ```dart
-WiredCheckbox(
-  value: isChecked,
-  onChanged: (value) {
-    setState(() => isChecked = value!);
+// Live example: checkbox
+HookBuilder(
+  builder: (context) {
+    final checked = useState(false);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        WiredCheckbox(
+          value: checked.value,
+          onChanged: (value) => checked.value = value ?? false,
+          semanticLabel: 'Keep this idea',
+        ),
+        const SizedBox(width: 12),
+        Flexible(child: Text('Make something lovely')),
+      ],
+    );
   },
 )
 ```

@@ -14,16 +14,8 @@ Skribble provides navigation chrome that replaces Material and Cupertino navigat
 An app bar with a hand-drawn bottom border line. Implements `PreferredSizeWidget` so it can be used directly in `WiredScaffold.appBar`.
 
 ```dart
-WiredAppBar(
-  title: Text('My App'),
-  leading: WiredIconButton(
-    icon: Icons.menu,
-    onPressed: () => Scaffold.of(context).openDrawer(),
-  ),
-  actions: [
-    WiredIconButton(icon: Icons.search, onPressed: () {}),
-  ],
-)
+// Live example: app-bar
+WiredAppBar(title: Text('Make something lovely'))
 ```
 
 ### Constructor parameters
@@ -49,14 +41,25 @@ WiredAppBar(
 A bottom navigation bar with hand-drawn circle selection indicators around active icons.
 
 ```dart
-WiredBottomNavigationBar(
-  currentIndex: selectedTab,
-  onTap: (index) => setState(() => selectedTab = index),
-  items: [
-    WiredBottomNavItem(icon: Icons.home, label: 'Home'),
-    WiredBottomNavItem(icon: Icons.search, label: 'Search'),
-    WiredBottomNavItem(icon: Icons.person, label: 'Profile'),
-  ],
+// Live example: bottom-navigation-bar
+HookBuilder(
+  builder: (context) {
+    final selected = useState(0);
+    return WiredBottomNavigationBar(
+      currentIndex: selected.value,
+      onTap: (index) => selected.value = index,
+      items: const [
+        WiredBottomNavItem(
+          icon: IconData(0xe318, fontFamily: 'MaterialIcons'),
+          label: 'Home',
+        ),
+        WiredBottomNavItem(
+          icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),
+          label: 'Saved',
+        ),
+      ],
+    );
+  },
 )
 ```
 
@@ -88,14 +91,25 @@ WiredBottomNavigationBar(
 A Material 3 style navigation bar with hand-drawn rounded rectangle selection indicators and support for `selectedIcon`.
 
 ```dart
-WiredNavigationBar(
-  selectedIndex: currentIndex,
-  onDestinationSelected: (index) => setState(() => currentIndex = index),
-  destinations: [
-    WiredNavigationDestination(icon: Icons.home_outlined, selectedIcon: Icons.home, label: 'Home'),
-    WiredNavigationDestination(icon: Icons.explore_outlined, selectedIcon: Icons.explore, label: 'Explore'),
-    WiredNavigationDestination(icon: Icons.settings_outlined, selectedIcon: Icons.settings, label: 'Settings'),
-  ],
+// Live example: navigation-bar
+HookBuilder(
+  builder: (context) {
+    final selected = useState(0);
+    return WiredNavigationBar(
+      selectedIndex: selected.value,
+      onDestinationSelected: (index) => selected.value = index,
+      destinations: const [
+        WiredNavigationDestination(
+          icon: IconData(0xe318, fontFamily: 'MaterialIcons'),
+          label: 'Home',
+        ),
+        WiredNavigationDestination(
+          icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),
+          label: 'Saved',
+        ),
+      ],
+    );
+  },
 )
 ```
 
@@ -128,15 +142,28 @@ WiredNavigationBar(
 A vertical navigation rail with hand-drawn rounded rectangle selection indicators. Best for desktop and tablet layouts.
 
 ```dart
-WiredNavigationRail(
-  selectedIndex: currentIndex,
-  onDestinationSelected: (index) => setState(() => currentIndex = index),
-  leading: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
-  destinations: [
-    WiredNavigationRailDestination(icon: Icons.home, label: 'Home'),
-    WiredNavigationRailDestination(icon: Icons.bookmark, label: 'Saved'),
-    WiredNavigationRailDestination(icon: Icons.settings, label: 'Settings'),
-  ],
+// Live example: navigation-rail
+HookBuilder(
+  builder: (context) {
+    final selected = useState(0);
+    return SizedBox(
+      height: 240,
+      child: WiredNavigationRail(
+        selectedIndex: selected.value,
+        onDestinationSelected: (index) => selected.value = index,
+        destinations: const [
+          WiredNavigationRailDestination(
+            icon: IconData(0xe318, fontFamily: 'MaterialIcons'),
+            label: 'Home',
+          ),
+          WiredNavigationRailDestination(
+            icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),
+            label: 'Saved',
+          ),
+        ],
+      ),
+    );
+  },
 )
 ```
 
@@ -171,13 +198,28 @@ WiredNavigationRail(
 A side navigation drawer with a hand-drawn border. Displays a list of navigation destinations with sketchy selection indicators.
 
 ```dart
-WiredNavigationDrawer(
-  selectedIndex: currentIndex,
-  onDestinationSelected: (index) => setState(() => currentIndex = index),
-  children: [
-    WiredDrawerHeader(child: Text('My App')),
-    // destinations...
-  ],
+// Live example: navigation-drawer
+HookBuilder(
+  builder: (context) {
+    final selected = useState(0);
+    return SizedBox(
+      height: 220,
+      child: WiredNavigationDrawer(
+        selectedIndex: selected.value,
+        onDestinationSelected: (index) => selected.value = index,
+        destinations: const [
+          WiredNavigationDrawerDestination(
+            icon: IconData(0xe318, fontFamily: 'MaterialIcons'),
+            label: 'Home',
+          ),
+          WiredNavigationDrawerDestination(
+            icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),
+            label: 'Saved',
+          ),
+        ],
+      ),
+    );
+  },
 )
 ```
 
@@ -193,13 +235,16 @@ WiredNavigationDrawer(
 A tab bar with hand-drawn underline indicators. Each tab label gets a sketchy line beneath it when selected.
 
 ```dart
-WiredTabBar(
-  controller: tabController,
-  tabs: [
-    Tab(text: 'Tab 1'),
-    Tab(text: 'Tab 2'),
-    Tab(text: 'Tab 3'),
-  ],
+// Live example: tab-bar
+HookBuilder(
+  builder: (context) {
+    final selected = useState(0);
+    return WiredTabBar(
+      tabs: const ['Ideas', 'Sketches', 'Notes'],
+      selectedIndex: selected.value,
+      onTap: (index) => selected.value = index,
+    );
+  },
 )
 ```
 
@@ -216,17 +261,15 @@ WiredTabBar(
 A hand-drawn drawer panel with a sketchy border, suitable for side menus.
 
 ```dart
-WiredScaffold(
-  drawer: WiredDrawer(
-    child: ListView(
-      children: [
-        WiredDrawerHeader(child: Text('Menu')),
-        WiredListTile(title: Text('Home'), onTap: () {}),
-        WiredListTile(title: Text('Settings'), onTap: () {}),
-      ],
+// Live example: drawer
+SizedBox(
+  height: 180,
+  child: WiredDrawer(
+    child: Padding(
+      padding: const EdgeInsets.all(20),
+      child: Text('Make something lovely'),
     ),
   ),
-  body: Center(child: Text('Content')),
 )
 ```
 
@@ -237,12 +280,24 @@ WiredScaffold(
 A popup menu triggered by a button press. Menu items appear in a hand-drawn bordered overlay.
 
 ```dart
-WiredPopupMenuButton<String>(
-  onSelected: (value) => print(value),
-  itemBuilder: (context) => [
-    PopupMenuItem(value: 'edit', child: Text('Edit')),
-    PopupMenuItem(value: 'delete', child: Text('Delete')),
-  ],
+// Live example: popup-menu-button
+HookBuilder(
+  builder: (context) {
+    final selected = useState('Choose an action');
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        WiredPopupMenuButton<String>(
+          items: const [
+            WiredPopupMenuItem(value: 'Saved', child: Text('Save')),
+            WiredPopupMenuItem(value: 'Shared', child: Text('Share')),
+          ],
+          onSelected: (value) => selected.value = value,
+        ),
+        Text(selected.value),
+      ],
+    );
+  },
 )
 ```
 
@@ -253,15 +308,15 @@ WiredPopupMenuButton<String>(
 A horizontal menu bar with hand-drawn borders, suitable for desktop-style navigation.
 
 ```dart
+// Live example: menu-bar
 WiredMenuBar(
   children: [
-    WiredPopupMenuButton(
-      child: Text('File'),
-      itemBuilder: (context) => [...],
-    ),
-    WiredPopupMenuButton(
-      child: Text('Edit'),
-      itemBuilder: (context) => [...],
+    WiredSubmenuButton(
+      menuChildren: [
+        WiredMenuItemButton(onPressed: () {}, child: const Text('New sketch')),
+        WiredMenuItemButton(onPressed: () {}, child: const Text('Save sketch')),
+      ],
+      child: Text('Make something lovely'),
     ),
   ],
 )
@@ -274,19 +329,8 @@ WiredMenuBar(
 A bottom app bar with a hand-drawn top border. Can contain actions and an optional notch for a FAB.
 
 ```dart
-WiredScaffold(
-  bottomNavigationBar: WiredBottomAppBar(
-    child: Row(
-      children: [
-        WiredIconButton(icon: Icons.menu, onPressed: () {}),
-        Spacer(),
-        WiredIconButton(icon: Icons.search, onPressed: () {}),
-      ],
-    ),
-  ),
-  floatingActionButton: WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
-  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-)
+// Live example: bottom-app-bar
+WiredBottomAppBar(child: Text('Make something lovely'))
 ```
 
 ---
@@ -296,15 +340,27 @@ WiredScaffold(
 A sliver app bar with hand-drawn borders for use in `CustomScrollView`. Supports expanding/collapsing behavior.
 
 ```dart
-CustomScrollView(
-  slivers: [
-    WiredSliverAppBar(
-      title: Text('Scrollable'),
-      expandedHeight: 200,
-      floating: true,
-    ),
-    SliverList(delegate: SliverChildListDelegate([...])),
-  ],
+// Live example: sliver-app-bar
+SizedBox(
+  height: 240,
+  child: CustomScrollView(
+    slivers: [
+      WiredSliverAppBar(
+        title: Text('Make something lovely'),
+        expandedHeight: 120,
+        pinned: true,
+      ),
+      SliverList.list(
+        children: [
+          for (var index = 0; index < 8; index++)
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text('Sketch ${index + 1}'),
+            ),
+        ],
+      ),
+    ],
+  ),
 )
 ```
 
@@ -315,13 +371,8 @@ CustomScrollView(
 A Cupertino-style navigation bar with hand-drawn borders. Mirrors the `CupertinoNavigationBar` API with sketchy styling.
 
 ```dart
-WiredCupertinoNavigationBar(
-  middle: Text('Page Title'),
-  leading: WiredCupertinoButton(
-    onPressed: () => Navigator.pop(context),
-    child: Text('Back'),
-  ),
-)
+// Live example: cupertino-navigation-bar
+WiredCupertinoNavigationBar(middle: Text('Make something lovely'))
 ```
 
 ---
@@ -331,13 +382,25 @@ WiredCupertinoNavigationBar(
 A Cupertino-style tab bar with hand-drawn selection indicators. Mirrors the `CupertinoTabBar` API.
 
 ```dart
-WiredCupertinoTabBar(
-  currentIndex: selectedTab,
-  onTap: (index) => setState(() => selectedTab = index),
-  items: [
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-  ],
+// Live example: cupertino-tab-bar
+HookBuilder(
+  builder: (context) {
+    final selected = useState(0);
+    return WiredCupertinoTabBar.destinations(
+      currentIndex: selected.value,
+      onTap: (index) => selected.value = index,
+      items: const [
+        WiredBottomNavItem(
+          icon: IconData(0xe318, fontFamily: 'MaterialIcons'),
+          label: 'Home',
+        ),
+        WiredBottomNavItem(
+          icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),
+          label: 'Saved',
+        ),
+      ],
+    );
+  },
 )
 ```
 
@@ -348,19 +411,25 @@ WiredCupertinoTabBar(
 A menu item showing a hand-drawn checkbox as its leading icon. Mirrors Material's `CheckboxMenuButton`: activating the item toggles the value and (by default) keeps the menu open so several options can be flipped in a row. Best used inside `WiredSubmenuButton` within a `WiredMenuBar`.
 
 ```dart
-WiredMenuBar(
-  children: [
-    WiredSubmenuButton(
-      menuChildren: [
-        WiredCheckboxMenuButton(
-          value: showRulers,
-          onChanged: (v) => setState(() => showRulers = v ?? false),
-          child: const Text('Show rulers'),
+// Live example: checkbox-menu-button
+HookBuilder(
+  builder: (context) {
+    final checked = useState(true);
+    return WiredMenuBar(
+      children: [
+        WiredSubmenuButton(
+          menuChildren: [
+            WiredCheckboxMenuButton(
+              value: checked.value,
+              onChanged: (value) => checked.value = value ?? false,
+              child: Text('Make something lovely'),
+            ),
+          ],
+          child: const Text('Options'),
         ),
       ],
-      child: const Text('View'),
-    ),
-  ],
+    );
+  },
 )
 ```
 
@@ -388,26 +457,23 @@ WiredMenuBar(
 A menu item showing a hand-drawn radio button as its leading icon. Mirrors Material's `RadioMenuButton`: activating the item selects `value` within `groupValue`, and the menu closes after activation so selection feels immediate.
 
 ```dart
-WiredMenuBar(
-  children: [
-    WiredSubmenuButton(
-      menuChildren: [
-        WiredRadioMenuButton<String>(
-          value: 'light',
-          groupValue: themeMode,
-          onChanged: (v) => setState(() => themeMode = v),
-          child: const Text('Light'),
-        ),
-        WiredRadioMenuButton<String>(
-          value: 'dark',
-          groupValue: themeMode,
-          onChanged: (v) => setState(() => themeMode = v),
-          child: const Text('Dark'),
-        ),
+// Live example: radio-menu-button
+HookBuilder(
+  builder: (context) {
+    final selected = useState('paper');
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (final value in ['paper', 'ink'])
+          WiredRadioMenuButton<String>(
+            value: value,
+            groupValue: selected.value,
+            onChanged: (value) => selected.value = value!,
+            child: Text(value),
+          ),
       ],
-      child: const Text('Theme'),
-    ),
-  ],
+    );
+  },
 )
 ```
 
@@ -435,11 +501,11 @@ WiredMenuBar(
 A list tile that opens a hand-drawn about dialog when tapped. Mirrors Material's `AboutListTile`: combines a `WiredListTile` with `showWiredAboutDialog` and the application metadata fields.
 
 ```dart
+// Live example: about-list-tile
 WiredAboutListTile(
-  icon: const Icon(Icons.info_outline),
-  applicationName: 'Sketchbook',
-  applicationVersion: '1.2.3',
-  applicationLegalese: 'Made with pencil and paper.',
+  applicationName: 'A little sketchbook',
+  applicationVersion: '1.0',
+  child: Text('Make something lovely'),
 )
 ```
 

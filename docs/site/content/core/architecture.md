@@ -81,6 +81,7 @@ melos run screenshot    # Capture widget screenshots
 Every Wired widget follows the same structural pattern. Here is the full stack from bottom to top:
 
 ```dart
+// Static example: pseudocode
 // 1. Painter -- generates the rough shape
 class WiredRectangleBase extends WiredPainterBase {
   @override
@@ -159,6 +160,7 @@ canvas.drawRough(drawable, pathPaint, fillPaint)
 Every widget uses `HookWidget` from the `flutter_hooks` package. No `StatefulWidget` or `StatelessWidget` exists in the codebase. This gives composable state management (via `useState`, `useMemoized`, `useEffect`, etc.) without lifecycle boilerplate.
 
 ```dart
+// Static example: pseudocode
 // Correct
 class WiredSlider extends HookWidget { ... }
 
@@ -171,6 +173,7 @@ class WiredSlider extends StatefulWidget { ... }
 Every Wired widget wraps its painted content with `RepaintBoundary` to prevent expensive rough-drawing repaints from propagating up the tree. The `WiredBaseWidget` abstract class and the standalone `buildWiredElement()` function both handle this automatically.
 
 ```dart
+// Static example: pseudocode
 // WiredBaseWidget handles it:
 class MyWidget extends WiredBaseWidget {
   @override
@@ -188,6 +191,7 @@ Widgets never hardcode colors. They read from `WiredTheme.of(context)` at build 
 <!-- {=docsThemeReadPattern} -->
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -215,6 +219,7 @@ Wired widgets mirror Material and Cupertino constructor signatures wherever poss
 The rough engine uses a seeded `Randomizer` that is reset on every paint call. Given the same `DrawConfig.seed`, the same sketchy output is produced. This avoids visual jitter during hot reload and animation frames while keeping the hand-drawn appearance.
 
 ```dart
+// Static example: pseudocode
 // The randomizer resets before each paint:
 drawConfig.randomizer!.reset();
 painter.paintRough(canvas, size, drawConfig, filler);

@@ -28,6 +28,7 @@ dart pub add skribble
 Then import it in your application code:
 
 ```dart
+// Static example: setup
 import 'package:skribble/skribble.dart';
 ```
 

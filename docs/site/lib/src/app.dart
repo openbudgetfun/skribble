@@ -6,7 +6,9 @@ import 'package:markdown/markdown.dart' as md;
 import 'package:skribble/skribble.dart';
 import 'package:skribble_docs_site/src/article.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
+import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/document.dart';
+import 'package:skribble_docs_site/src/font_comparison.dart';
 import 'package:skribble_docs_site/src/playground.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,6 +28,7 @@ class DocsApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final roughness = useState(WiredRoughness.playful);
     final router = useMemoized(
       () => GoRouter(
         initialLocation: initialLocation,
@@ -66,6 +69,7 @@ class DocsApp extends HookWidget {
       routerConfig: router,
       title: 'Skribble',
       wiredTheme: WiredThemeData(
+        roughnessLevel: roughness.value,
         borderColor: _ink,
         textColor: _ink,
         fillColor: _paper,
@@ -78,7 +82,44 @@ class DocsApp extends HookWidget {
           fontSize: 16,
           height: 1.65,
         ),
-        child: child!,
+        child: _DocsRoughness(value: roughness, child: child!),
+      ),
+    );
+  }
+}
+
+class _DocsRoughness extends InheritedWidget {
+  const _DocsRoughness({required this.value, required super.child});
+
+  final ValueNotifier<WiredRoughness> value;
+
+  @override
+  bool updateShouldNotify(_DocsRoughness oldWidget) => value != oldWidget.value;
+}
+
+class _RoughnessPicker extends StatelessWidget {
+  const _RoughnessPicker();
+
+  @override
+  Widget build(BuildContext context) {
+    final state = context.dependOnInheritedWidgetOfExactType<_DocsRoughness>()!;
+
+    return SelectionContainer.disabled(
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        spacing: 4,
+        children: [
+          for (final level in WiredRoughness.values)
+            DocsAction(
+              key: DocsKeys.roughness(level.name),
+              selected: WiredTheme.of(context).roughnessLevel == level,
+              onPressed: () => state.value.value = level,
+              child: Text(
+                '${level.name[0].toUpperCase()}${level.name.substring(1)}',
+                style: const TextStyle(fontSize: 13),
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -219,14 +260,14 @@ class _DocsPage extends HookWidget {
                     ),
                   const Spacer(),
                   if (wide)
-                    WiredTextButton(
+                    DocsAction(
                       onPressed: () => launchUrl(
                         Uri.parse('https://github.com/openbudgetfun/skribble'),
                       ),
                       child: const Text('GitHub'),
                     ),
                   if (!wide)
-                    WiredTextButton(
+                    DocsAction(
                       key: DocsKeys.menu,
                       onPressed: () =>
                           navigationOpen.value = !navigationOpen.value,
@@ -237,6 +278,7 @@ class _DocsPage extends HookWidget {
                 ],
               ),
             ),
+            const _RoughnessPicker(),
             Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -267,6 +309,9 @@ class _DocsPage extends HookWidget {
                                     if (document.path == '/' ||
                                         document.path == '/showcase/overview')
                                       const Playground(),
+                                    if (document.path ==
+                                        '/core/font-comparison')
+                                      const FontComparison(),
                                     if (document.path == '/core/motion')
                                       const MotionPlayground(),
                                     Row(
@@ -288,7 +333,7 @@ class _DocsPage extends HookWidget {
                                             ),
                                           ),
                                         ),
-                                        WiredTextButton(
+                                        DocsAction(
                                           key: DocsKeys.copyPage,
                                           onPressed: () async {
                                             await Clipboard.setData(
@@ -314,7 +359,6 @@ class _DocsPage extends HookWidget {
                                       anchors: anchors,
                                     ),
                                     const SizedBox(height: 36),
-                                    const WiredDivider(),
                                     const SizedBox(height: 20),
                                     const Text(
                                       'Made with Skribble. Including this page.',
@@ -433,25 +477,18 @@ class _Navigation extends HookWidget {
             ))
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 2),
-                child: Semantics(
+                child: DocsAction(
+                  key: DocsKeys.page(document.path),
                   selected: currentPath == document.path,
                   link: true,
-                  child: ColoredBox(
-                    color: currentPath == document.path
-                        ? const Color(0xfff6dfd5)
-                        : const Color(0x00000000),
-                    child: WiredTextButton(
-                      key: DocsKeys.page(document.path),
-                      onPressed: () => onNavigate(document.path),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          document.path == '/'
-                              ? 'Hello, Skribble'
-                              : document.title.split(' — ').first,
-                          style: const TextStyle(fontSize: 13),
-                        ),
-                      ),
+                  onPressed: () => onNavigate(document.path),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      document.path == '/'
+                          ? 'Hello, Skribble'
+                          : document.title.split(' — ').first,
+                      style: const TextStyle(fontSize: 13),
                     ),
                   ),
                 ),
