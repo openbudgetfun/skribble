@@ -2,6 +2,7 @@
 <!-- {@docsThemeReadPattern} -->
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);

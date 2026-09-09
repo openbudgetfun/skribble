@@ -8,11 +8,8 @@ description: Draw borders and hatch fills with standard Flutter animations, casc
 Wrap a group of Wired widgets to draw its ink into place. Text, icons, layout, semantics, and hit targets stay stable throughout the reveal.
 
 ```dart
-WiredDraw(
-  child: WiredCard(
-    child: Text('Make something worth keeping.'),
-  ),
-)
+// Live example: ink-basic
+WiredDraw(child: WiredCard(child: Text('Make something lovely')))
 ```
 
 `WiredDraw` plays once on mount, over 650 milliseconds. Give it a new key to replay. Entrances are opt-in, so scrolling a normal list does not animate every card. Set `duration` and `curve` when the occasion needs a different pace.
@@ -56,6 +53,7 @@ WiredDrawTransition(
 `WiredDrawTransition` accepts any `Animation<double>`. Zero hides outlines and patterned fill; one completes them. The outline draws first and shading follows with a short overlap. Solid backgrounds stay opaque for readable labels.
 
 ```dart
+// Static example: custom-class
 class NoteState extends State<Note> with SingleTickerProviderStateMixin {
   late final controller = AnimationController(
     vsync: this,
@@ -86,6 +84,7 @@ class NoteState extends State<Note> with SingleTickerProviderStateMixin {
 Call `controller.forward(from: 0)` to replay, `controller.reverse()` to unwind, or assign `controller.value` to scrub. Nest a transition to give one component its own timing. An `Interval` provides ordinary Flutter staggering:
 
 ```dart
+// Static example: api
 final later = controller.drive(
   CurveTween(curve: Interval(0.2, 1, curve: Curves.easeOutCubic)),
 );
@@ -99,6 +98,7 @@ Skribble borrows the animation. It never starts, stops, or disposes a controller
 The animation implementation uses Flutter widgets, tickers, and animations. It has no hooks-specific controller or adapter. Existing Skribble components still use hooks internally. Consumers using `flutter_hooks` can write:
 
 ```dart
+// Static example: configuration
 final controller = useAnimationController(
   duration: const Duration(milliseconds: 800),
 );
@@ -117,6 +117,7 @@ Let the hook dispose its controller. Do not call `forward` directly during every
 At the app root:
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: WiredThemeData(motionEnabled: false),
   home: notebook,
@@ -126,6 +127,7 @@ WiredMaterialApp(
 For one section:
 
 ```dart
+// Static example: setup
 WiredMotion(enabled: false, child: notebook)
 ```
 
@@ -144,6 +146,7 @@ Built-in `WiredCanvas` shapes and Wired rough decorations inherit the reveal. SV
 For custom decorations, resolve the ambient policy at the widget boundary:
 
 ```dart
+// Static example: configuration
 RoughBoxDecoration(
   progress: WiredDrawTransition.progressOf(context),
   borderStyle: RoughDrawingStyle(width: 2.4, color: inkColor),
@@ -159,6 +162,7 @@ Custom `WiredPainterBase` implementations can override `prepare` to return a `Ro
 `WiredInkInteraction` controls decorative button feedback. The default is `pressure`: existing strokes become a little stronger on hover, keyboard focus, and press. `redraw` also traces the outline and patterned fill over 360 milliseconds when a press begins. `none` keeps the ink still.
 
 ```dart
+// Static example: configuration
 WiredThemeData(
   roughnessLevel: WiredRoughness.gentle,
   inkInteraction: WiredInkInteraction.redraw,
@@ -168,11 +172,13 @@ WiredThemeData(
 A button can override the surrounding theme:
 
 ```dart
+// Live example: redraw-button
 WiredFilledButton(
   inkInteraction: WiredInkInteraction.redraw,
-  fillColor: Color(0xffe87960),
-  onPressed: saveIdea,
-  child: Text('Keep this little idea'),
+  fillColor: const Color(0xffe8957d),
+  borderRadius: BorderRadius.circular(8),
+  onPressed: () {},
+  child: Text('Make something lovely'),
 )
 ```
 

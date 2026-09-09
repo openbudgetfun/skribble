@@ -18,6 +18,7 @@ part 'layout.examples.dart';
 part 'maps.examples.dart';
 part 'motion.examples.dart';
 part 'navigation.examples.dart';
+part 'patterns.examples.dart';
 part 'selection.examples.dart';
 part 'shapes.examples.dart';
 part 'catalog.g.dart';

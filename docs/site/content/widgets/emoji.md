@@ -18,6 +18,7 @@ dart pub add skribble_emoji
 Import the package:
 
 ```dart
+// Static example: setup
 import 'package:skribble_emoji/skribble_emoji.dart';
 ```
 
@@ -82,6 +83,7 @@ The `kSkribbleEmoji` and `kSkribbleEmojiCodePoints` maps cover single Unicode sc
 ### Examples
 
 ```dart
+// Static example: api
 import 'package:skribble_emoji/skribble_emoji.dart';
 
 // Look up by name

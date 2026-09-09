@@ -5,7 +5,8 @@
 Use this template for ordinary UI components. For motion lifecycle wrappers, use standard Flutter state and ticker providers as described in the ink motion guide. Borrowed `Animation<double>` values remain owned by the consumer.
 
 ```dart
-import 'package:flutter/material.dart';
+// Static example: pseudocode
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'rough/skribble_rough.dart';
@@ -61,7 +62,8 @@ class Wired<Name> extends HookWidget {
 <!-- {@docsAgentTestTemplate} -->
 
 ```dart
-import 'package:flutter/material.dart';
+// Static example: test
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -154,6 +156,7 @@ void main() {
 <!-- {@docsPumpAppExample} -->
 
 ```dart
+// Static example: test
 // Body slot (default)
 await pumpApp(tester, myWidget);
 

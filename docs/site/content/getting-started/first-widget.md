@@ -14,6 +14,7 @@ Make sure you have a working `WiredMaterialApp` shell. If not, follow the [Quick
 All examples below assume this outer structure:
 
 ```dart
+// Static example: setup
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
@@ -104,139 +105,53 @@ HookBuilder(
 Here is a complete example that combines all four widgets into a sign-up form:
 
 ```dart
-class SignUpForm extends HookWidget {
-  const SignUpForm({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final nameController = useTextEditingController();
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
-    final agreeToTerms = useState(false);
-    final subscribeNewsletter = useState(false);
-
-    void handleSubmit() {
-      final name = nameController.text;
-      final email = emailController.text;
-      final password = passwordController.text;
-
-      if (name.isEmpty || email.isEmpty || password.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please fill in all fields')),
-        );
-        return;
-      }
-
-      if (!agreeToTerms.value) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please agree to the terms')),
-        );
-        return;
-      }
-
-      debugPrint('Name: $name');
-      debugPrint('Email: $email');
-      debugPrint('Agreed: ${agreeToTerms.value}');
-      debugPrint('Newsletter: ${subscribeNewsletter.value}');
-    }
-
-    return Scaffold(
-      appBar: WiredAppBar(title: const Text('Sign Up')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: WiredCard(
-          height: null,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  'Create an Account',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                const SizedBox(height: 24),
-
-                // Name field
-                WiredInput(
-                  controller: nameController,
-                  labelText: 'Name',
-                  hintText: 'Jane Doe',
-                ),
-                const SizedBox(height: 16),
-
-                // Email field
-                WiredInput(
-                  controller: emailController,
-                  labelText: 'Email',
-                  hintText: 'jane@example.com',
-                ),
-                const SizedBox(height: 16),
-
-                // Password field
-                WiredInput(
-                  controller: passwordController,
-                  labelText: 'Password',
-                  hintText: 'At least 8 characters',
-                  obscureText: true,
-                ),
-                const SizedBox(height: 20),
-
-                // Terms checkbox
-                Row(
-                  children: [
-                    WiredCheckbox(
-                      value: agreeToTerms.value,
-                      onChanged: (value) {
-                        agreeToTerms.value = value ?? false;
-                      },
-                    ),
-                    const SizedBox(width: 10),
-                    const Expanded(
-                      child: Text('I agree to the Terms of Service'),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-
-                // Newsletter checkbox
-                Row(
-                  children: [
-                    WiredCheckbox(
-                      value: subscribeNewsletter.value,
-                      onChanged: (value) {
-                        subscribeNewsletter.value = value ?? false;
-                      },
-                    ),
-                    const SizedBox(width: 10),
-                    const Expanded(
-                      child: Text('Subscribe to newsletter'),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-
-                // Submit button
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: WiredButton(
-                    onPressed: handleSubmit,
-                    child: const Text('Create Account'),
-                  ),
-                ),
-              ],
+// Live example: signup-pattern
+HookBuilder(
+  builder: (context) {
+    final name = useTextEditingController();
+    final email = useTextEditingController();
+    final agreed = useState(false);
+    final status = useState<String?>(null);
+    return WiredCard(
+      height: null,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            WiredInput(controller: name, labelText: 'Name'),
+            const SizedBox(height: 16),
+            WiredInput(controller: email, labelText: 'Email'),
+            const SizedBox(height: 16),
+            WiredCheckboxListTile(
+              value: agreed.value,
+              onChanged: (value) => agreed.value = value ?? false,
+              title: const Text('I agree to the sample terms'),
+              showDivider: false,
             ),
-          ),
+            const SizedBox(height: 16),
+            WiredButton(
+              onPressed: () {
+                status.value =
+                    name.text.trim().isEmpty || !email.text.contains('@')
+                    ? 'Enter your name and email.'
+                    : !agreed.value
+                    ? 'Please agree to the sample terms.'
+                    : 'Your sample is ready. Nothing was sent.';
+              },
+              child: const Text('Check the details'),
+            ),
+            if (status.value case final String message)
+              Semantics(liveRegion: true, child: Text(message)),
+          ],
         ),
       ),
     );
-  }
-}
+  },
+)
 ```
 
 Every widget in this form reads colors and stroke styles from `WiredTheme.of(context)`. Change the theme once and the entire form updates -- no per-widget color props needed.
-
-<!-- {/docsFirstWidgetForm} -->
 
 ## The pattern behind every Wired widget
 

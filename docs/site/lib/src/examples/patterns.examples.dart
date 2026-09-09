@@ -1,17 +1,7 @@
----
-title: Code Examples
-description: Common patterns and code examples for building apps with Skribble's hand-drawn design system.
----
+part of 'catalog.dart';
 
-# Code Examples
-
-This page provides code examples for common patterns when building apps with Skribble. Each example runs the Flutter expression shown below it. Place the expression inside a `WiredMaterialApp` widget tree. Import `package:flutter/widgets.dart`, `package:flutter_hooks/flutter_hooks.dart`, and `package:skribble/skribble.dart`. These examples use local sample data; forms do not submit information and loading does not contact a service.
-
-## Basic App Structure
-
-```dart
-// Live example: app-pattern
-HookBuilder(
+/// @docs-example app-pattern
+Widget _appPattern(ExampleSettings settings) => HookBuilder(
   builder: (context) {
     final tab = useState(0);
     return SizedBox(
@@ -38,14 +28,10 @@ HookBuilder(
       ),
     );
   },
-)
-```
+);
 
-## Forms with Validation
-
-```dart
-// Live example: validated-form
-HookBuilder(
+/// @docs-example validated-form
+Widget _validatedForm(ExampleSettings settings) => HookBuilder(
   builder: (context) {
     final key = useMemoized(GlobalKey<FormState>.new);
     final accepted = useState(false);
@@ -78,14 +64,10 @@ HookBuilder(
       ),
     );
   },
-)
-```
+);
 
-## Lists with Swipe Actions
-
-```dart
-// Live example: task-list-pattern
-HookBuilder(
+/// @docs-example task-list-pattern
+Widget _taskListPattern(ExampleSettings settings) => HookBuilder(
   builder: (context) {
     const initial = [
       (title: 'Buy paper', done: false),
@@ -121,14 +103,10 @@ HookBuilder(
       ],
     );
   },
-)
-```
+);
 
-## Settings Screen
-
-```dart
-// Live example: settings-pattern
-HookBuilder(
+/// @docs-example settings-pattern
+Widget _settingsPattern(ExampleSettings settings) => HookBuilder(
   builder: (context) {
     final notifications = useState(true);
     final language = useState('English');
@@ -160,14 +138,10 @@ HookBuilder(
       ],
     );
   },
-)
-```
+);
 
-## Loading States
-
-```dart
-// Live example: loading-pattern
-HookBuilder(
+/// @docs-example loading-pattern
+Widget _loadingPattern(ExampleSettings settings) => HookBuilder(
   builder: (context) {
     final request = useState<Future<List<String>>?>(null);
     final result = useFuture(request.value);
@@ -195,14 +169,10 @@ HookBuilder(
       ],
     );
   },
-)
-```
+);
 
-## Search with Filtering
-
-```dart
-// Live example: search-pattern
-HookBuilder(
+/// @docs-example search-pattern
+Widget _searchPattern(ExampleSettings settings) => HookBuilder(
   builder: (context) {
     final query = useState('');
     final category = useState('All');
@@ -251,56 +221,10 @@ HookBuilder(
       ],
     );
   },
-)
-```
+);
 
-## Animations
-
-```dart
-// Live example: ink-reveal
-HookBuilder(
-  builder: (context) {
-    final replay = useState(0);
-    return Column(
-      children: [
-        WiredDraw(
-          key: ValueKey(replay.value),
-          child: WiredCard(child: Text('Make something lovely')),
-        ),
-        const SizedBox(height: 16),
-        WiredOutlinedButton(
-          onPressed: () => replay.value++,
-          child: const Text('Draw again'),
-        ),
-      ],
-    );
-  },
-)
-```
-
-## Error Handling with Snackbars
-
-```dart
-// Live example: snackbar-pattern
-Builder(
-  builder: (context) => WiredOutlinedButton(
-    onPressed: () => showWiredSnackBar(
-      context,
-      content: const WiredSnackBarContent(
-        child: Text('The sample could not save. Please try again.'),
-      ),
-      duration: const Duration(seconds: 3),
-    ),
-    child: const Text('Show a sample error'),
-  ),
-)
-```
-
-## Responsive Layout
-
-```dart
-// Live example: responsive-pattern
-LayoutBuilder(
+/// @docs-example responsive-pattern
+Widget _responsivePattern(ExampleSettings settings) => LayoutBuilder(
   builder: (context, constraints) {
     final cards = [
       for (final title in ['Ideas', 'In progress', 'Finished'])
@@ -315,12 +239,152 @@ LayoutBuilder(
           )
         : Row(children: [for (final card in cards) Expanded(child: card)]);
   },
-)
-```
+);
 
-## Next Steps
+/// @docs-example snackbar-pattern
+Widget _snackbarPattern(ExampleSettings settings) => Builder(
+  builder: (context) => WiredOutlinedButton(
+    onPressed: () => showWiredSnackBar(
+      context,
+      content: const WiredSnackBarContent(
+        child: Text('The sample could not save. Please try again.'),
+      ),
+      duration: const Duration(seconds: 3),
+    ),
+    child: const Text('Show a sample error'),
+  ),
+);
 
-- [Theming Guide](/getting-started/theming) - Customize the hand-drawn palette
-- [Widget Catalog](/widgets/buttons) - Browse all available Wired widgets
-- [Core Concepts](/core/architecture) - Understand the rough engine and painting system
-- [Migration Guide](/getting-started/migration) - Migrate from Material to Skribble
+/// @docs-example signup-pattern
+Widget _signupPattern(ExampleSettings settings) => HookBuilder(
+  builder: (context) {
+    final name = useTextEditingController();
+    final email = useTextEditingController();
+    final agreed = useState(false);
+    final status = useState<String?>(null);
+    return WiredCard(
+      height: null,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            WiredInput(controller: name, labelText: 'Name'),
+            const SizedBox(height: 16),
+            WiredInput(controller: email, labelText: 'Email'),
+            const SizedBox(height: 16),
+            WiredCheckboxListTile(
+              value: agreed.value,
+              onChanged: (value) => agreed.value = value ?? false,
+              title: const Text('I agree to the sample terms'),
+              showDivider: false,
+            ),
+            const SizedBox(height: 16),
+            WiredButton(
+              onPressed: () {
+                status.value =
+                    name.text.trim().isEmpty || !email.text.contains('@')
+                    ? 'Enter your name and email.'
+                    : !agreed.value
+                    ? 'Please agree to the sample terms.'
+                    : 'Your sample is ready. Nothing was sent.';
+              },
+              child: const Text('Check the details'),
+            ),
+            if (status.value case final String message)
+              Semantics(liveRegion: true, child: Text(message)),
+          ],
+        ),
+      ),
+    );
+  },
+);
+
+/// @docs-example selection-pattern
+Widget _selectionPattern(ExampleSettings settings) => const WiredSelectionArea(
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text('A small beginning.\n'),
+      Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(text: 'Make something '),
+            TextSpan(
+              text: 'delightful.',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    ],
+  ),
+);
+
+/// @docs-example lettering-pattern
+Widget _letteringPattern(ExampleSettings settings) => Text(
+  settings.label,
+  style: const TextStyle(
+    fontFamily: skribbleFontFamily,
+    package: 'skribble',
+    fontSize: 24,
+  ),
+);
+
+/// @docs-example accessible-inputs
+Widget _accessibleInputs(ExampleSettings settings) => HookBuilder(
+  builder: (context) {
+    final checked = useState(false);
+    return Column(
+      children: [
+        WiredCheckbox(
+          value: checked.value,
+          onChanged: (value) => checked.value = value ?? false,
+          semanticLabel: 'Accept terms and conditions',
+        ),
+        const SizedBox(height: 16),
+        WiredSlider(
+          value: settings.amount,
+          onChanged: (value) => true,
+          semanticLabel: 'Volume control',
+        ),
+      ],
+    );
+  },
+);
+
+/// @docs-example expanding-decoration
+Widget _expandingDecoration(ExampleSettings settings) => HookBuilder(
+  builder: (context) {
+    final expanded = useState(false);
+    return Column(
+      children: [
+        WiredButton(
+          onPressed: () => expanded.value = !expanded.value,
+          child: Text(expanded.value ? 'Make it smaller' : 'Make room'),
+        ),
+        const SizedBox(height: 16),
+        AnimatedContainer(
+          duration:
+              MediaQuery.disableAnimationsOf(context) ||
+                  !WiredTheme.of(context).motionEnabled
+              ? Duration.zero
+              : const Duration(milliseconds: 300),
+          width: expanded.value ? 260 : 150,
+          height: expanded.value ? 180 : 100,
+          alignment: Alignment.center,
+          decoration: RoughBoxDecoration(
+            shape: RoughBoxShape.roundedRectangle,
+            drawConfig: WiredTheme.of(context).drawConfig,
+            borderStyle: RoughDrawingStyle(
+              width: 2.4,
+              color: WiredTheme.of(context).borderColor,
+            ),
+            borderRadius: BorderRadius.circular(settings.radius),
+          ),
+          child: const Text('Room for ideas'),
+        ),
+      ],
+    );
+  },
+);

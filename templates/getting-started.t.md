@@ -10,6 +10,7 @@ dart pub add skribble
 Then import it in your application code:
 
 ```dart
+// Static example: setup
 import 'package:skribble/skribble.dart';
 ```
 
@@ -28,6 +29,7 @@ dart pub add skribble
 Then import it:
 
 ```dart
+// Static example: setup
 import 'package:skribble/skribble.dart';
 ```
 
@@ -95,6 +97,7 @@ melos run rough-icons-ci-check
 <!-- {@docsMinimalAppSection} -->
 
 ```dart
+// Static example: setup
 import 'package:flutter/material.dart';
 import 'package:skribble/skribble.dart';
 
@@ -121,6 +124,7 @@ void main() {
 <!-- {@docsThemeSetupSection} -->
 
 ```dart
+// Static example: setup
 import 'package:flutter/material.dart';
 import 'package:skribble/skribble.dart';
 

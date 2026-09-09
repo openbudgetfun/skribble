@@ -4,10 +4,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
-/// A hand-drawn animated icon corresponding to Flutter's [AnimatedIcon].
+/// A theme-aware compatibility wrapper for Flutter's [AnimatedIcon].
 ///
-/// Wraps [AnimatedIcon] with Skribble styling and an optional
-/// hand-drawn circle background.
+/// Uses Skribble's text colour while preserving Material's smooth morph.
+/// Use `WiredDraw` with rough icon geometry for a hand-drawn reveal.
 class WiredAnimatedIcon extends HookWidget {
   /// The animated icon data (e.g. [AnimatedIcons.menu_arrow]).
   final AnimatedIconData icon;

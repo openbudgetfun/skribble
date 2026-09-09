@@ -124,6 +124,15 @@ final Map<String, ExampleDefinition> examples = {
         .where((file) => file.path.endsWith('.t.md'));
     for (final markdown in [...content, ...templates]) {
       final current = markdown.readAsStringSync();
+      for (final fence in RegExp(
+        r'```dart\n([\s\S]*?)\n```',
+      ).allMatches(current)) {
+        final problem = exampleCoverageProblem(fence.group(1)!);
+        if (problem == null) continue;
+        final line = current.substring(0, fence.start).split('\n').length;
+        stderr.writeln('${markdown.path}:$line: $problem');
+        exitCode = 1;
+      }
       final updated = current.replaceAllMapped(
         RegExp(r'```dart\n// Live example: ([a-z0-9-]+)\n[\s\S]*?```'),
         (match) {
@@ -151,6 +160,32 @@ final Map<String, ExampleDefinition> examples = {
   } finally {
     await scratch.delete(recursive: true);
   }
+}
+
+/// Explains missing preview coverage or an invalid reference classification.
+/// Setup, API definitions, tests, and examples requiring caller-owned classes
+/// or assets are explicit exceptions; standalone widget expressions are live.
+String? exampleCoverageProblem(String code) {
+  if (RegExp(r'^// Live example: [a-z0-9]+(?:-[a-z0-9]+)*\n').hasMatch(code)) {
+    return null;
+  }
+  final classification = RegExp(r'^// Static example: ([a-z-]+)\n')
+      .firstMatch(code);
+  if (classification != null) {
+    return const {
+          'setup',
+          'configuration',
+          'api',
+          'type',
+          'test',
+          'custom-class',
+          'external-asset',
+          'pseudocode',
+        }.contains(classification.group(1))
+        ? null
+        : 'Unknown static example reason: ${classification.group(1)}';
+  }
+  return 'Dart examples need // Live example: <id> or // Static example: <reason>.';
 }
 
 String _literal(String value) => jsonEncode(value).replaceAll(r'$', r'\$');

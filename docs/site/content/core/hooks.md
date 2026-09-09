@@ -5,7 +5,7 @@ description: Why Skribble uses HookWidget exclusively, common hook patterns, Riv
 
 # Hooks & State Management
 
-Every widget in Skribble uses `HookWidget` from the [flutter_hooks](https://pub.dev/packages/flutter_hooks) package. This is not a suggestion -- it is a hard rule. No `StatefulWidget` or `StatelessWidget` exists anywhere in the codebase.
+UI components in Skribble use `HookWidget` from [flutter_hooks](https://pub.dev/packages/flutter_hooks). The motion layer uses standard Flutter `State`, ticker providers, and `InheritedWidget` scopes. Its public API accepts `Animation<double>`, so consumers can own animations with hooks or other Flutter animation libraries.
 
 ## Why HookWidget
 
@@ -14,6 +14,7 @@ Every widget in Skribble uses `HookWidget` from the [flutter_hooks](https://pub.
 `StatefulWidget` separates widget configuration from mutable state across two classes. This creates boilerplate (`createState`, `initState`, `dispose`, `didUpdateWidget`) and makes it harder to extract and reuse stateful logic.
 
 ```dart
+// Static example: pseudocode
 // Standard Flutter -- lots of ceremony
 class AnimatedBox extends StatefulWidget {
   @override
@@ -49,6 +50,7 @@ class _AnimatedBoxState extends State<AnimatedBox>
 Hooks compress all of this into the `build` method. State, side effects, and disposal are declared inline and automatically cleaned up:
 
 ```dart
+// Static example: pseudocode
 // Skribble way -- clean and composable
 class AnimatedBox extends HookWidget {
   @override
@@ -76,6 +78,7 @@ class AnimatedBox extends HookWidget {
 Manages a single piece of mutable state. Calling `.value =` triggers a rebuild.
 
 ```dart
+// Static example: custom-class
 class WiredToggle extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -97,6 +100,7 @@ class WiredToggle extends HookWidget {
 Creates an `AnimationController` that is automatically disposed. Replaces the `SingleTickerProviderStateMixin` pattern entirely.
 
 ```dart
+// Static example: custom-class
 class WiredProgress extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -118,6 +122,7 @@ class WiredProgress extends HookWidget {
 Subscribes to an `Animation` and returns its current value. The widget rebuilds whenever the animation ticks.
 
 ```dart
+// Static example: api
 final controller = useAnimationController(duration: Duration(milliseconds: 500));
 final value = useAnimation(controller); // double, rebuilds every frame
 ```
@@ -127,6 +132,7 @@ final value = useAnimation(controller); // double, rebuilds every frame
 Caches an expensive computation across rebuilds. Only recomputes when the keys change.
 
 ```dart
+// Static example: custom-class
 class WiredCard extends HookWidget {
   final double roughness;
 
@@ -154,6 +160,7 @@ class WiredCard extends HookWidget {
 Runs a side effect when the widget mounts (or when keys change) and optionally returns a cleanup function. Replaces `initState` and `dispose`.
 
 ```dart
+// Static example: custom-class
 class WiredLiveData extends HookWidget {
   final Stream<int> dataStream;
 
@@ -180,6 +187,7 @@ class WiredLiveData extends HookWidget {
 Calls a callback whenever a watched value changes. Useful for triggering animations on prop changes:
 
 ```dart
+// Static example: custom-class
 class WiredBadge extends HookWidget {
   final int count;
 
@@ -208,6 +216,7 @@ class WiredBadge extends HookWidget {
 Creates a `TextEditingController` that is automatically disposed:
 
 ```dart
+// Static example: custom-class
 class WiredInput extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -225,6 +234,7 @@ class WiredInput extends HookWidget {
 Creates a `FocusNode` that is automatically disposed:
 
 ```dart
+// Static example: custom-class
 class WiredSearchBar extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -244,6 +254,7 @@ Use `HookWidget` for widgets that only need hooks. Use `HookConsumerWidget` (fro
 ### HookWidget (default)
 
 ```dart
+// Static example: pseudocode
 class WiredButton extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -256,6 +267,7 @@ class WiredButton extends HookWidget {
 ### HookConsumerWidget (when Riverpod is needed)
 
 ```dart
+// Static example: custom-class
 class WiredUserProfile extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -279,6 +291,7 @@ Every Wired widget reads the theme at the top of its `build` method:
 <!-- {=docsThemeReadPattern} -->
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -302,6 +315,7 @@ This establishes a dependency on the internal inherited scope of `WiredTheme`, s
 ### Complete Widget Example
 
 ```dart
+// Static example: custom-class
 class WiredButton extends HookWidget {
   final Widget child;
   final VoidCallback onPressed;
@@ -344,6 +358,7 @@ class WiredButton extends HookWidget {
 Combine `useAnimationController` with `useAnimation` for animated Wired widgets:
 
 ```dart
+// Static example: custom-class
 class WiredCheckbox extends HookWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
@@ -393,6 +408,7 @@ class WiredCheckbox extends HookWidget {
 When creating a `Generator` or `DrawConfig` is expensive or you want to avoid unnecessary object allocation, use `useMemoized`:
 
 ```dart
+// Static example: custom-class
 class WiredShape extends HookWidget {
   final double roughness;
   final RoughFilter fillerType;
@@ -420,7 +436,7 @@ class WiredShape extends HookWidget {
 
 ## Rules
 
-1. **Always use `HookWidget`** -- never `StatefulWidget` or `StatelessWidget`.
+1. **Use `HookWidget` for UI components.** Motion lifecycle code uses standard Flutter state and ticker providers; see [Motion](/core/motion).
 2. **Use `HookConsumerWidget` only when Riverpod is needed** -- do not import `hooks_riverpod` unless you need `WidgetRef`.
 3. **Read the theme first** -- `WiredTheme.of(context)` should be one of the first lines in `build`.
 4. **Wrap painted content with RepaintBoundary** -- use `WiredBaseWidget` or `buildWiredElement()`.

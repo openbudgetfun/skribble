@@ -31,7 +31,7 @@ class DocsAction extends HookWidget {
   const DocsAction({
     required this.onPressed,
     required this.child,
-    this.selected = false,
+    this.selected,
     this.link = false,
     super.key,
   });
@@ -42,8 +42,9 @@ class DocsAction extends HookWidget {
   /// The visible label.
   final Widget child;
 
-  /// Whether this action represents the current choice.
-  final bool selected;
+  /// Whether this action represents the current choice, or null for an action
+  /// that does not participate in a selection.
+  final bool? selected;
 
   /// Whether the action navigates to a document.
   final bool link;
@@ -81,10 +82,10 @@ class DocsAction extends HookWidget {
           child: Container(
             constraints: const BoxConstraints(minHeight: 44),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-            decoration: selected || hovered.value || focused.value
+            decoration: selected == true || hovered.value || focused.value
                 ? docsSurface(
                     context,
-                    color: selected
+                    color: selected == true
                         ? const Color(0xfff6dfd5)
                         : hovered.value
                         ? const Color(0xffeee9f0)

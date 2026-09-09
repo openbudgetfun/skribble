@@ -55,7 +55,8 @@ Create `packages/skribble/lib/src/wired_<name>.dart`:
 Use this template for ordinary UI components. For motion lifecycle wrappers, use standard Flutter state and ticker providers as described in the ink motion guide. Borrowed `Animation<double>` values remain owned by the consumer.
 
 ```dart
-import 'package:flutter/material.dart';
+// Static example: pseudocode
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'rough/skribble_rough.dart';
@@ -113,6 +114,7 @@ class Wired<Name> extends HookWidget {
 Add one line to `packages/skribble/lib/skribble.dart`:
 
 ```dart
+// Static example: api
 export 'src/wired_<name>.dart';
 ```
 
@@ -125,7 +127,8 @@ Create `packages/skribble/test/widgets/wired_<name>_test.dart`:
 <!-- {=docsAgentTestTemplate} -->
 
 ```dart
-import 'package:flutter/material.dart';
+// Static example: test
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -250,6 +253,7 @@ When adding a new widget, update the docs site:
 Every widget must read colors and config from the theme — never hardcode:
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -269,6 +273,7 @@ Widget build(BuildContext context) {
 Replace standard `BoxDecoration` with `RoughBoxDecoration` for hand-drawn borders:
 
 ```dart
+// Static example: custom-class
 Container(
   decoration: RoughBoxDecoration(
     shape: RoughBoxShape.rectangle,   // or roundedRectangle, circle, ellipse
@@ -297,6 +302,7 @@ Available `RoughBoxShape` values:
 Always wrap the widget output with `RepaintBoundary` to isolate repaints:
 
 ```dart
+// Static example: custom-class
 // Option 1: use the global helper function
 return buildWiredElement(child: myContent);
 
@@ -320,6 +326,7 @@ class WiredFoo extends HookWidget with WiredRepaintMixin {
 Use `flutter_hooks` for all state management:
 
 ```dart
+// Static example: custom-class
 class WiredCounter extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -352,6 +359,7 @@ Common hooks:
 For widgets that need custom drawing beyond `RoughBoxDecoration`:
 
 ```dart
+// Static example: custom-class
 class MyShapePainter extends WiredPainterBase {
   final Color borderColor;
   final double strokeWidth;
@@ -407,6 +415,7 @@ The `RoughFilter` enum controls fill patterns:
 Every interactive widget must include accessibility support:
 
 ```dart
+// Static example: custom-class
 Semantics(
   label: semanticLabel,
   button: true,        // for buttons
@@ -435,6 +444,7 @@ Always use `pumpApp()` to render widgets in tests. It wraps the widget in the co
 <!-- {=docsPumpAppExample} -->
 
 ```dart
+// Static example: test
 // Body slot (default)
 await pumpApp(tester, myWidget);
 
@@ -473,6 +483,7 @@ Every widget test file must have at least 6 `testWidgets` covering:
 For widgets like `WiredCheckbox` or `WiredSlider` that have a current value:
 
 ```dart
+// Static example: test
 testWidgets('updates when value changes', (tester) async {
   var currentValue = false;
   await pumpApp(
@@ -496,6 +507,7 @@ testWidgets('updates when value changes', (tester) async {
 ### Never hardcode visual values
 
 ```dart
+// Static example: test
 // WRONG — hardcoded colors
 Container(color: Color(0xFF1A2B3C))
 
@@ -519,6 +531,7 @@ Container(color: theme.borderColor)
 ### WiredMaterialApp theme setup
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: WiredThemeData(
     borderColor: Color(0xFF4A3470),
@@ -563,6 +576,7 @@ Theme resolution follows this fallback chain:
 For apps using `go_router`, `auto_route`, or any `RouterConfig`, use the `.router` named constructor:
 
 ```dart
+// Static example: setup
 import 'package:go_router/go_router.dart';
 import 'package:skribble/skribble.dart';
 
@@ -590,136 +604,145 @@ The `.router` constructor accepts the same theme parameters as the standard cons
 Use `WiredForm` with `WiredInput` for validated forms:
 
 ```dart
-class MyForm extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    final formKey = useMemoized(() => GlobalKey<FormState>());
-
+// Live example: validated-form
+HookBuilder(
+  builder: (context) {
+    final key = useMemoized(GlobalKey<FormState>.new);
+    final accepted = useState(false);
     return WiredForm(
-      formKey: formKey,
+      formKey: key,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          WiredInput(
-            labelText: 'Email',
-            validator: (value) {
-              if (value == null || !value.contains('@')) {
-                return 'Enter a valid email';
-              }
-              return null;
-            },
+          FormField<String>(
+            validator: (value) => value != null && value.contains('@')
+                ? null
+                : 'Enter an email address.',
+            builder: (field) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                WiredInput(labelText: 'Email', onChanged: field.didChange),
+                if (field.errorText case final String error)
+                  Semantics(liveRegion: true, child: Text(error)),
+              ],
+            ),
           ),
-          WiredButton(
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                // form is valid
-              }
-            },
-            child: Text('Submit'),
+          const SizedBox(height: 16),
+          WiredFilledButton(
+            onPressed: () => accepted.value = key.currentState!.validate(),
+            child: const Text('Check the form'),
           ),
+          if (accepted.value)
+            const Text('The sample form is valid. Nothing was sent.'),
         ],
       ),
     );
-  }
-}
+  },
+)
 ```
 
 ### Popup menus
 
 ```dart
-WiredPopupMenuButton<String>(
-  onSelected: (value) => print('Selected: $value'),
-  itemBuilder: (context) => [
-    PopupMenuItem(value: 'edit', child: Text('Edit')),
-    PopupMenuItem(value: 'delete', child: Text('Delete')),
-  ],
+// Live example: popup-menu-button
+HookBuilder(
+  builder: (context) {
+    final selected = useState('Choose an action');
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        WiredPopupMenuButton<String>(
+          items: const [
+            WiredPopupMenuItem(value: 'Saved', child: Text('Save')),
+            WiredPopupMenuItem(value: 'Shared', child: Text('Share')),
+          ],
+          onSelected: (value) => selected.value = value,
+        ),
+        Text(selected.value),
+      ],
+    );
+  },
 )
 ```
 
 ### Bottom sheets
 
 ```dart
-// Show a modal bottom sheet
-showModalBottomSheet(
-  context: context,
-  builder: (context) => WiredBottomSheet(
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        WiredListTile(
-          leading: Icon(Icons.share),
-          title: Text('Share'),
-          onTap: () => Navigator.pop(context),
+// Live example: bottom-sheet
+Builder(
+  builder: (context) => WiredButton(
+    onPressed: () => showWiredBottomSheet<void>(
+      context: context,
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Make something lovely'),
+            WiredTextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Done'),
+            ),
+          ],
         ),
-        WiredListTile(
-          leading: Icon(Icons.copy),
-          title: Text('Copy link'),
-          onTap: () => Navigator.pop(context),
-        ),
-      ],
+      ),
     ),
+    child: const Text('Open the sheet'),
   ),
-);
+)
 ```
 
 ### Context menus
 
 ```dart
+// Live example: context-menu
 WiredContextMenu(
-  items: [
-    ContextMenuItem(
-      title: 'Copy',
-      onTap: () => print('Copied'),
-    ),
-    ContextMenuItem(
-      title: 'Paste',
-      onTap: () => print('Pasted'),
-    ),
+  actions: [
+    WiredContextMenuAction(label: 'Save', onPressed: () {}),
+    WiredContextMenuAction(label: 'Share', onPressed: () {}),
   ],
-  child: Text('Long-press me'),
+  child: Padding(
+    padding: const EdgeInsets.all(24),
+    child: Text('Make something lovely'),
+  ),
 )
 ```
 
 ### Steppers
 
 ```dart
-class OnboardingFlow extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    final currentStep = useState(0);
-
+// Live example: stepper
+HookBuilder(
+  builder: (context) {
+    final current = useState(0);
     return WiredStepper(
-      currentStep: currentStep.value,
-      onStepContinue: () => currentStep.value++,
-      onStepCancel: () {
-        if (currentStep.value > 0) currentStep.value--;
-      },
-      steps: [
-        Step(title: Text('Account'), content: Text('Create account')),
-        Step(title: Text('Profile'), content: Text('Fill profile')),
-        Step(title: Text('Done'), content: Text('All set!')),
+      currentStep: current.value,
+      onStepTapped: (index) => current.value = index,
+      steps: const [
+        WiredStep(
+          title: Text('Imagine'),
+          content: Text('Start with a small idea.'),
+        ),
+        WiredStep(title: Text('Make'), content: Text('Give it a little ink.')),
+        WiredStep(title: Text('Share'), content: Text('Let someone try it.')),
       ],
     );
-  }
-}
+  },
+)
 ```
 
 ### Data tables
 
 ```dart
-WiredDataTable(
+// Live example: data-table
+const WiredDataTable(
   columns: [
-    DataColumn(label: Text('Name')),
-    DataColumn(label: Text('Score')),
+    WiredDataColumn(label: Text('Sketch')),
+    WiredDataColumn(label: Text('Status')),
   ],
   rows: [
-    DataRow(cells: [
-      DataCell(Text('Alice')),
-      DataCell(Text('95')),
-    ]),
-    DataRow(cells: [
-      DataCell(Text('Bob')),
-      DataCell(Text('87')),
-    ]),
+    WiredDataRow(cells: [Text('Paper boats'), Text('Ready')]),
+    WiredDataRow(cells: [Text('Tiny gardens'), Text('Growing')]),
   ],
 )
 ```
@@ -763,6 +786,7 @@ When implementing selection UI, choose the right widget:
 ### Generator shapes
 
 ```dart
+// Static example: configuration
 final generator = Generator(drawConfig, filler);
 
 // Lines
@@ -789,6 +813,7 @@ generator.linearPath([PointD(x1, y1), PointD(x2, y2), ...]);
 ### DrawConfig tuning
 
 ```dart
+// Static example: configuration
 DrawConfig(
   maxRandomnessOffset: 2,    // Max random offset per point
   roughness: 1,              // 0 = smooth, 1 = standard, 2+ = very rough
@@ -803,6 +828,7 @@ DrawConfig(
 ### Rendering to canvas
 
 ```dart
+// Static example: configuration
 final drawable = generator.rectangle(0, 0, 100, 50);
 canvas.drawRough(
   drawable,
@@ -826,6 +852,7 @@ These are the built-in painters agents should reuse where possible:
 ## Constants reference
 
 ```dart
+// Static example: api
 const double kWiredButtonHeight = 42.0;
 const Color _defaultBorderColor = Color(0xFF1A2B3C);
 const Color _defaultFillColor = Color(0xFFFEFEFE);
@@ -951,6 +978,7 @@ Use a custom `WiredPainterBase` when:
 For consistent visual output in tests and screenshots, use a fixed seed:
 
 ```dart
+// Static example: configuration
 DrawConfig(seed: 42, roughness: 1)
 ```
 
@@ -1053,6 +1081,7 @@ dart run tool/generate_rough_icons.dart \
 ### Using icons in widgets
 
 ```dart
+// Static example: external-asset
 // Material rough icon
 WiredIcon(icon: Icons.home)
 
@@ -1099,3 +1128,5 @@ Live Markdown fences begin with `// Live example: <stable-id>`. Define the match
 From `docs/site`, run `dart run tool/generate_examples.dart` after changing a builder. It extracts the displayed source and synchronizes marked Markdown fences and the shared button template. Run `--check` in CI. Unknown IDs, unused builders, and stale source must fail validation. Run `mdt update` after generation when changing template-owned examples.
 
 Keep previews in the actual docs layout during tests: inherited typography and article padding can expose failures that an isolated widget hides. Configuration, shell commands, and platform setup remain source instructions rather than simulated widgets.
+
+Every Dart fence requires an explicit classification. Standalone widget expressions use a live example marker. Setup, configuration, API definitions, implementation lessons, tests, pseudocode, and examples requiring custom assets use `// Static example: <reason>` with a reason accepted by `tool/generate_examples.dart`. These internal markers are hidden from displayed and copied code. Do not classify a runnable widget demonstration as static just to bypass preview coverage.

@@ -35,6 +35,7 @@ Use `pumpApp()` from `test/helpers/pump_app.dart`:
 <!-- {=docsPumpAppExample} -->
 
 ```dart
+// Static example: test
 // Body slot (default)
 await pumpApp(tester, myWidget);
 
@@ -62,6 +63,7 @@ await pumpApp(
 When you need to test how a widget responds to `WiredThemeData`, bypass `pumpApp()` and build the tree manually:
 
 ```dart
+// Static example: test
 await tester.pumpWidget(
   MaterialApp(
     home: WiredTheme(
@@ -83,6 +85,7 @@ Every widget must have at least 6 `testWidgets` calls covering these categories:
 Verify the widget renders without throwing and displays its child content:
 
 ```dart
+// Static example: test
 testWidgets('renders child text widget', (tester) async {
   await pumpApp(
     tester,
@@ -107,6 +110,7 @@ testWidgets('renders with icon child', (tester) async {
 Verify the widget has the expected size and respects custom dimensions:
 
 ```dart
+// Static example: test
 testWidgets('renders with correct height (42.0)', (tester) async {
   await pumpApp(
     tester,
@@ -123,6 +127,7 @@ testWidgets('renders with correct height (42.0)', (tester) async {
 Verify the widget responds to taps and calls callbacks:
 
 ```dart
+// Static example: test
 testWidgets('calls onPressed callback when tapped', (tester) async {
   var pressed = false;
 
@@ -143,6 +148,7 @@ testWidgets('calls onPressed callback when tapped', (tester) async {
 Verify the widget rebuilds correctly when values change:
 
 ```dart
+// Static example: test
 testWidgets('rebuilds when value changes', (tester) async {
   var value = false;
 
@@ -171,6 +177,7 @@ testWidgets('rebuilds when value changes', (tester) async {
 Test null values, empty content, rapid interactions, and boundary conditions:
 
 ```dart
+// Static example: test
 testWidgets('handles null semantic label gracefully', (tester) async {
   await pumpApp(
     tester,
@@ -209,6 +216,7 @@ testWidgets('handles rapid taps without error', (tester) async {
 Verify semantic labels are applied and the widget tree has correct semantics:
 
 ```dart
+// Static example: test
 testWidgets('applies semantic label when provided', (tester) async {
   await pumpApp(
     tester,
@@ -228,6 +236,7 @@ testWidgets('applies semantic label when provided', (tester) async {
 Verify the widget contains expected internal widgets like `RepaintBoundary`, `TextButton`, etc.:
 
 ```dart
+// Static example: test
 testWidgets('has RepaintBoundary wrapper', (tester) async {
   await pumpApp(
     tester,
@@ -264,6 +273,7 @@ testWidgets('contains TextButton internally', (tester) async {
 Here is a complete test file for `WiredButton`, showing all required categories:
 
 ```dart
+// Static example: test
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
@@ -453,6 +463,7 @@ Every widget should have:
 ### Testing hover/focus states
 
 ```dart
+// Static example: test
 testWidgets('shows focus ring on focus', (tester) async {
   await pumpApp(
     tester,
@@ -470,6 +481,7 @@ testWidgets('shows focus ring on focus', (tester) async {
 ### Testing with async callbacks
 
 ```dart
+// Static example: test
 testWidgets('handles async onPressed', (tester) async {
   var completed = false;
 
@@ -494,6 +506,7 @@ testWidgets('handles async onPressed', (tester) async {
 ### Testing value-driven widgets
 
 ```dart
+// Static example: test
 testWidgets('slider updates value on drag', (tester) async {
   double value = 0.5;
 

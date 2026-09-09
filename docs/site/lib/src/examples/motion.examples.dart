@@ -25,3 +25,16 @@ Widget _inkProgress(ExampleSettings settings) => WiredDrawTransition(
   progress: AlwaysStoppedAnimation(settings.amount),
   child: WiredCard(child: Text(settings.label)),
 );
+
+/// @docs-example ink-basic
+Widget _inkBasic(ExampleSettings settings) =>
+    WiredDraw(child: WiredCard(child: Text(settings.label)));
+
+/// @docs-example redraw-button
+Widget _redrawButton(ExampleSettings settings) => WiredFilledButton(
+  inkInteraction: WiredInkInteraction.redraw,
+  fillColor: settings.color,
+  borderRadius: BorderRadius.circular(settings.radius),
+  onPressed: () {},
+  child: Text(settings.label),
+);

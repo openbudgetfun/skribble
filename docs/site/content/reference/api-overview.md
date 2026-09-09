@@ -6,6 +6,7 @@ description: High-level map of the Skribble public API — exports, key types, a
 The main library is imported via a single barrel file:
 
 ```dart
+// Static example: api
 import 'package:skribble/skribble.dart';
 ```
 
@@ -248,6 +249,7 @@ The main library depends on:
 ### skribble_icons
 
 ```dart
+// Static example: api
 import 'package:skribble_icons/skribble_icons.dart';
 ```
 
@@ -262,6 +264,7 @@ import 'package:skribble_icons/skribble_icons.dart';
 ### skribble_emoji
 
 ```dart
+// Static example: api
 import 'package:skribble_emoji/skribble_emoji.dart';
 ```
 
@@ -277,6 +280,7 @@ import 'package:skribble_emoji/skribble_emoji.dart';
 ### skribble_maps
 
 ```dart
+// Static example: api
 import 'package:skribble_maps/skribble_maps.dart';
 ```
 
@@ -301,7 +305,7 @@ Full dartdoc API reference is available at:
 
 ## Hand-drawn quality additions
 
-- `WiredThemeData.inkExtent`: pen-and-wobble space for dividers; default `strokeWidth` is 2.4 and `roughness` is 1.8.
+- `WiredThemeData.inkExtent`: pen-and-wobble space for dividers; default `strokeWidth` is 2.4 and `roughness` is 1.5.
 - `WiredSvgPrimitive.path(clipPaths: ...)`: SVG clipping paths in primitive coordinates; source colors support optional alpha.
 - `kSkribbleEmojiNames`: every emoji name mapped to its complete hexadecimal sequence.
 - `lookupSkribbleEmojiBySequence(String)`: lookup by literal emoji or hexadecimal sequence.
@@ -331,7 +335,7 @@ See [Ink motion](../core/motion) for examples and supported components.
 
 - `WiredSelectionArea` enables selection across participating Flutter text widgets, with Wired handles and localized Copy and Select all controls. See [Text selection](/core/selection).
 - `WiredInkInteraction` configures `none`, `pressure`, or `redraw` feedback through `WiredThemeData.inkInteraction` or a button override. See [Ink motion](/core/motion).
-- `WiredThemeData()` and `skribbleFontFamily` now use Gentle. Select `WiredRoughness.expressive` explicitly to retain the stronger former default.
+- `WiredThemeData()` and `skribbleFontFamily` now use Playful. Select `WiredRoughness.expressive` explicitly to retain the stronger former default.
 
 ### Constructor conveniences
 

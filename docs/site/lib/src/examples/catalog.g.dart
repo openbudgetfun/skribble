@@ -431,12 +431,12 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'map-online': ExampleDefinition(
     builder: _mapOnline,
-    source: "HookBuilder(\n  builder: (context) {\n    final online = useState(false);\n    return Column(\n      mainAxisSize: MainAxisSize.min,\n      children: [\n        WiredButton(\n          onPressed: () => online.value = !online.value,\n          child: Text(\n            online.value ? 'Disconnect the online map' : 'Load OpenFreeMap',\n          ),\n        ),\n        const SizedBox(height: 16),\n        SizedBox(\n          height: 300,\n          child: WiredMap(\n            initialCenter: const LatLng(51.5074, -0.1278),\n            initialZoom: 13,\n            basemap: online.value ? const WiredOpenFreeMapLayer() : null,\n          ),\n        ),\n      ],\n    );\n  },\n)",
+    source: "HookBuilder(\n  builder: (context) {\n    final online = useState(false);\n    return Column(\n      mainAxisSize: MainAxisSize.min,\n      children: [\n        WiredButton(\n          onPressed: () => online.value = !online.value,\n          child: Text(online.value ? 'Close the map' : 'Load OpenFreeMap'),\n        ),\n        if (online.value) ...[\n          const SizedBox(height: 16),\n          const SizedBox(\n            height: 300,\n            child: WiredMap(\n              initialCenter: LatLng(51.5074, -0.1278),\n              initialZoom: 13,\n              scrollGesturesEnabled: false,\n            ),\n          ),\n        ],\n      ],\n    );\n  },\n)",
     edits: [],
   ),
   'map-features': ExampleDefinition(
     builder: _mapFeatures,
-    source: "const SizedBox(\n  height: 300,\n  child: WiredMap(\n    initialCenter: LatLng(51.5242, -0.0778),\n    initialZoom: 14,\n    children: [\n      WiredMapFeatureLayer(\n        features: [\n          WiredMapPolyline(\n            points: [\n              LatLng(51.5228, -0.0810),\n              LatLng(51.5242, -0.0778),\n              LatLng(51.5260, -0.0740),\n            ],\n            color: Color(0xffb2533d),\n            strokeWidth: 4,\n          ),\n        ],\n      ),\n      WiredMapMarkerLayer(\n        markers: [\n          WiredMapMarker(\n            point: LatLng(51.5242, -0.0778),\n            semanticLabel: 'Favourite café',\n            child: WiredMapPin(child: Text('C')),\n          ),\n        ],\n      ),\n    ],\n  ),\n)",
+    source: "HookBuilder(\n  builder: (context) {\n    final online = useState(false);\n    return Column(\n      children: [\n        const WiredMapPin(\n          icon: WiredMapPinIcon.coffee,\n          semanticLabel: 'Favourite café',\n        ),\n        const SizedBox(height: 16),\n        WiredButton(\n          onPressed: () => online.value = !online.value,\n          child: Text(\n            online.value ? 'Close the route' : 'Show the route on a map',\n          ),\n        ),\n        if (online.value) ...[\n          const SizedBox(height: 16),\n          const SizedBox(\n            height: 300,\n            child: WiredMap(\n              initialCenter: LatLng(51.5242, -0.0778),\n              initialZoom: 14,\n              scrollGesturesEnabled: false,\n              children: [\n                WiredMapFeatureLayer(\n                  semanticLabel: 'Walking route',\n                  features: [\n                    WiredMapPolyline(\n                      points: [\n                        LatLng(51.5228, -0.0810),\n                        LatLng(51.5242, -0.0778),\n                        LatLng(51.5260, -0.0740),\n                      ],\n                      color: Color(0xffb2533d),\n                      strokeWidth: 4,\n                    ),\n                  ],\n                ),\n                WiredMapMarkerLayer(\n                  markers: [\n                    WiredMapMarker(\n                      point: LatLng(51.5242, -0.0778),\n                      semanticLabel: 'Favourite café',\n                      child: WiredMapPin(icon: WiredMapPinIcon.coffee),\n                    ),\n                  ],\n                ),\n              ],\n            ),\n          ),\n        ],\n      ],\n    );\n  },\n)",
     edits: [],
   ),
   'ink-reveal': ExampleDefinition(
@@ -450,6 +450,20 @@ final Map<String, ExampleDefinition> examples = {
     edits: [
       ExampleEdit(56, 71, ExampleParameter.amount),
       ExampleEdit(105, 119, ExampleParameter.label),
+    ],
+  ),
+  'ink-basic': ExampleDefinition(
+    builder: _inkBasic,
+    source: "WiredDraw(child: WiredCard(child: Text(settings.label)))",
+    edits: [ExampleEdit(39, 53, ExampleParameter.label)],
+  ),
+  'redraw-button': ExampleDefinition(
+    builder: _redrawButton,
+    source: "WiredFilledButton(\n  inkInteraction: WiredInkInteraction.redraw,\n  fillColor: settings.color,\n  borderRadius: BorderRadius.circular(settings.radius),\n  onPressed: () {},\n  child: Text(settings.label),\n)",
+    edits: [
+      ExampleEdit(78, 92, ExampleParameter.color),
+      ExampleEdit(132, 147, ExampleParameter.radius),
+      ExampleEdit(184, 198, ExampleParameter.label),
     ],
   ),
   'app-bar': ExampleDefinition(
@@ -531,6 +545,71 @@ final Map<String, ExampleDefinition> examples = {
     builder: _cupertinoTabBar,
     source: "HookBuilder(\n  builder: (context) {\n    final selected = useState(0);\n    return WiredCupertinoTabBar.destinations(\n      currentIndex: selected.value,\n      onTap: (index) => selected.value = index,\n      items: const [\n        WiredBottomNavItem(\n          icon: IconData(0xe318, fontFamily: 'MaterialIcons'),\n          label: 'Home',\n        ),\n        WiredBottomNavItem(\n          icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),\n          label: 'Saved',\n        ),\n      ],\n    );\n  },\n)",
     edits: [],
+  ),
+  'app-pattern': ExampleDefinition(
+    builder: _appPattern,
+    source: "HookBuilder(\n  builder: (context) {\n    final tab = useState(0);\n    return SizedBox(\n      height: 320,\n      child: WiredScaffold(\n        appBar: const WiredAppBar(title: Text('My sketchbook')),\n        body: Center(\n          child: Text(tab.value == 0 ? 'A fresh page' : 'Your saved ideas'),\n        ),\n        bottomNavigationBar: WiredBottomNavigationBar(\n          currentIndex: tab.value,\n          onTap: (value) => tab.value = value,\n          items: const [\n            WiredBottomNavItem(\n              icon: IconData(0xe318, fontFamily: 'MaterialIcons'),\n              label: 'Home',\n            ),\n            WiredBottomNavItem(\n              icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),\n              label: 'Saved',\n            ),\n          ],\n        ),\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'validated-form': ExampleDefinition(
+    builder: _validatedForm,
+    source: "HookBuilder(\n  builder: (context) {\n    final key = useMemoized(GlobalKey<FormState>.new);\n    final accepted = useState(false);\n    return WiredForm(\n      formKey: key,\n      child: Column(\n        crossAxisAlignment: CrossAxisAlignment.stretch,\n        children: [\n          FormField<String>(\n            validator: (value) => value != null && value.contains('@')\n                ? null\n                : 'Enter an email address.',\n            builder: (field) => Column(\n              crossAxisAlignment: CrossAxisAlignment.stretch,\n              children: [\n                WiredInput(labelText: 'Email', onChanged: field.didChange),\n                if (field.errorText case final String error)\n                  Semantics(liveRegion: true, child: Text(error)),\n              ],\n            ),\n          ),\n          const SizedBox(height: 16),\n          WiredFilledButton(\n            onPressed: () => accepted.value = key.currentState!.validate(),\n            child: const Text('Check the form'),\n          ),\n          if (accepted.value)\n            const Text('The sample form is valid. Nothing was sent.'),\n        ],\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'task-list-pattern': ExampleDefinition(
+    builder: _taskListPattern,
+    source: "HookBuilder(\n  builder: (context) {\n    const initial = [\n      (title: 'Buy paper', done: false),\n      (title: 'Walk the dog', done: true),\n      (title: 'Sketch an idea', done: false),\n    ];\n    final tasks = useState(initial);\n    return Column(\n      children: [\n        for (final task in tasks.value)\n          WiredDismissible(\n            dismissKey: ValueKey(task.title),\n            onDismissed: (_) => tasks.value = tasks.value\n                .where((item) => item.title != task.title)\n                .toList(),\n            child: WiredCheckboxListTile(\n              title: Text(task.title),\n              value: task.done,\n              showDivider: false,\n              onChanged: (value) => tasks.value = [\n                for (final item in tasks.value)\n                  if (item.title == task.title)\n                    (title: item.title, done: value ?? false)\n                  else\n                    item,\n              ],\n            ),\n          ),\n        WiredOutlinedButton(\n          onPressed: () => tasks.value = initial,\n          child: const Text('Reset the sample list'),\n        ),\n      ],\n    );\n  },\n)",
+    edits: [],
+  ),
+  'settings-pattern': ExampleDefinition(
+    builder: _settingsPattern,
+    source: "HookBuilder(\n  builder: (context) {\n    final notifications = useState(true);\n    final language = useState('English');\n    return Column(\n      crossAxisAlignment: CrossAxisAlignment.stretch,\n      children: [\n        WiredSwitchListTile(\n          title: const Text('Notifications'),\n          value: notifications.value,\n          onChanged: (value) => notifications.value = value,\n          showDivider: false,\n        ),\n        const SizedBox(height: 16),\n        const Text('Language'),\n        for (final option in ['English', 'Spanish', 'French'])\n          WiredRadioListTile<String>(\n            title: Text(option),\n            value: option,\n            groupValue: language.value,\n            onChanged: (value) {\n              language.value = value!;\n              return true;\n            },\n            showDivider: false,\n          ),\n        Text(\n          'Sample preferences: \${language.value}, notifications \${notifications.value ? 'on' : 'off'}.',\n        ),\n      ],\n    );\n  },\n)",
+    edits: [],
+  ),
+  'loading-pattern': ExampleDefinition(
+    builder: _loadingPattern,
+    source: "HookBuilder(\n  builder: (context) {\n    final request = useState<Future<List<String>>?>(null);\n    final result = useFuture(request.value);\n    return Column(\n      children: [\n        WiredOutlinedButton(\n          onPressed: result.connectionState == ConnectionState.waiting\n              ? null\n              : () {\n                  request.value = Future.delayed(\n                    const Duration(milliseconds: 350),\n                    () => ['Paper', 'Ink', 'Possibility'],\n                  );\n                },\n          child: const Text('Load sample notes'),\n        ),\n        const SizedBox(height: 16),\n        if (result.connectionState == ConnectionState.waiting)\n          const WiredCircularProgress()\n        else if (result.hasError)\n          const Text('The sample could not load. Try again.')\n        else if (result.data case final List<String> notes)\n          for (final note in notes)\n            WiredListTile(title: Text(note), showDivider: false),\n      ],\n    );\n  },\n)",
+    edits: [],
+  ),
+  'search-pattern': ExampleDefinition(
+    builder: _searchPattern,
+    source: "HookBuilder(\n  builder: (context) {\n    final query = useState('');\n    final category = useState('All');\n    const items = [\n      (title: 'Write a proposal', category: 'Work'),\n      (title: 'Buy sketchbooks', category: 'Shopping'),\n      (title: 'Draw with friends', category: 'Personal'),\n    ];\n    final filtered = items\n        .where(\n          (item) =>\n              item.title.toLowerCase().contains(query.value.toLowerCase()) &&\n              (category.value == 'All' || item.category == category.value),\n        )\n        .toList();\n    return Column(\n      crossAxisAlignment: CrossAxisAlignment.stretch,\n      children: [\n        WiredInput(\n          labelText: 'Search sample tasks',\n          onChanged: (value) => query.value = value,\n        ),\n        const SizedBox(height: 16),\n        Wrap(\n          spacing: 8,\n          runSpacing: 8,\n          children: [\n            for (final option in ['All', 'Work', 'Shopping', 'Personal'])\n              WiredChoiceChip(\n                label: Text(option),\n                selected: category.value == option,\n                onSelected: (selected) {\n                  if (selected) category.value = option;\n                },\n              ),\n          ],\n        ),\n        const SizedBox(height: 16),\n        if (filtered.isEmpty) const Text('No matching sample tasks.'),\n        for (final item in filtered)\n          WiredListTile(\n            title: Text(item.title),\n            subtitle: Text(item.category),\n            showDivider: false,\n          ),\n      ],\n    );\n  },\n)",
+    edits: [],
+  ),
+  'responsive-pattern': ExampleDefinition(
+    builder: _responsivePattern,
+    source: "LayoutBuilder(\n  builder: (context, constraints) {\n    final cards = [\n      for (final title in ['Ideas', 'In progress', 'Finished'])\n        WiredCard(\n          child: Padding(padding: const EdgeInsets.all(16), child: Text(title)),\n        ),\n    ];\n    return constraints.maxWidth < 600\n        ? Column(\n            crossAxisAlignment: CrossAxisAlignment.stretch,\n            children: cards,\n          )\n        : Row(children: [for (final card in cards) Expanded(child: card)]);\n  },\n)",
+    edits: [],
+  ),
+  'snackbar-pattern': ExampleDefinition(
+    builder: _snackbarPattern,
+    source: "Builder(\n  builder: (context) => WiredOutlinedButton(\n    onPressed: () => showWiredSnackBar(\n      context,\n      content: const WiredSnackBarContent(\n        child: Text('The sample could not save. Please try again.'),\n      ),\n      duration: const Duration(seconds: 3),\n    ),\n    child: const Text('Show a sample error'),\n  ),\n)",
+    edits: [],
+  ),
+  'signup-pattern': ExampleDefinition(
+    builder: _signupPattern,
+    source: "HookBuilder(\n  builder: (context) {\n    final name = useTextEditingController();\n    final email = useTextEditingController();\n    final agreed = useState(false);\n    final status = useState<String?>(null);\n    return WiredCard(\n      height: null,\n      child: Padding(\n        padding: const EdgeInsets.all(16),\n        child: Column(\n          crossAxisAlignment: CrossAxisAlignment.stretch,\n          children: [\n            WiredInput(controller: name, labelText: 'Name'),\n            const SizedBox(height: 16),\n            WiredInput(controller: email, labelText: 'Email'),\n            const SizedBox(height: 16),\n            WiredCheckboxListTile(\n              value: agreed.value,\n              onChanged: (value) => agreed.value = value ?? false,\n              title: const Text('I agree to the sample terms'),\n              showDivider: false,\n            ),\n            const SizedBox(height: 16),\n            WiredButton(\n              onPressed: () {\n                status.value =\n                    name.text.trim().isEmpty || !email.text.contains('@')\n                    ? 'Enter your name and email.'\n                    : !agreed.value\n                    ? 'Please agree to the sample terms.'\n                    : 'Your sample is ready. Nothing was sent.';\n              },\n              child: const Text('Check the details'),\n            ),\n            if (status.value case final String message)\n              Semantics(liveRegion: true, child: Text(message)),\n          ],\n        ),\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'selection-pattern': ExampleDefinition(
+    builder: _selectionPattern,
+    source: "const WiredSelectionArea(\n  child: Column(\n    crossAxisAlignment: CrossAxisAlignment.start,\n    children: [\n      Text('A small beginning.\\n'),\n      Text.rich(\n        TextSpan(\n          children: [\n            TextSpan(text: 'Make something '),\n            TextSpan(\n              text: 'delightful.',\n              style: TextStyle(fontWeight: FontWeight.bold),\n            ),\n          ],\n        ),\n      ),\n    ],\n  ),\n)",
+    edits: [],
+  ),
+  'lettering-pattern': ExampleDefinition(
+    builder: _letteringPattern,
+    source: "Text(\n  settings.label,\n  style: const TextStyle(\n    fontFamily: skribbleFontFamily,\n    package: 'skribble',\n    fontSize: 24,\n  ),\n)",
+    edits: [ExampleEdit(8, 22, ExampleParameter.label)],
+  ),
+  'accessible-inputs': ExampleDefinition(
+    builder: _accessibleInputs,
+    source: "HookBuilder(\n  builder: (context) {\n    final checked = useState(false);\n    return Column(\n      children: [\n        WiredCheckbox(\n          value: checked.value,\n          onChanged: (value) => checked.value = value ?? false,\n          semanticLabel: 'Accept terms and conditions',\n        ),\n        const SizedBox(height: 16),\n        WiredSlider(\n          value: settings.amount,\n          onChanged: (value) => true,\n          semanticLabel: 'Volume control',\n        ),\n      ],\n    );\n  },\n)",
+    edits: [ExampleEdit(370, 385, ExampleParameter.amount)],
+  ),
+  'expanding-decoration': ExampleDefinition(
+    builder: _expandingDecoration,
+    source: "HookBuilder(\n  builder: (context) {\n    final expanded = useState(false);\n    return Column(\n      children: [\n        WiredButton(\n          onPressed: () => expanded.value = !expanded.value,\n          child: Text(expanded.value ? 'Make it smaller' : 'Make room'),\n        ),\n        const SizedBox(height: 16),\n        AnimatedContainer(\n          duration:\n              MediaQuery.disableAnimationsOf(context) ||\n                  !WiredTheme.of(context).motionEnabled\n              ? Duration.zero\n              : const Duration(milliseconds: 300),\n          width: expanded.value ? 260 : 150,\n          height: expanded.value ? 180 : 100,\n          alignment: Alignment.center,\n          decoration: RoughBoxDecoration(\n            shape: RoughBoxShape.roundedRectangle,\n            drawConfig: WiredTheme.of(context).drawConfig,\n            borderStyle: RoughDrawingStyle(\n              width: 2.4,\n              color: WiredTheme.of(context).borderColor,\n            ),\n            borderRadius: BorderRadius.circular(settings.radius),\n          ),\n          child: const Text('Room for ideas'),\n        ),\n      ],\n    );\n  },\n)",
+    edits: [ExampleEdit(1026, 1041, ExampleParameter.radius)],
   ),
   'chip': ExampleDefinition(
     builder: _chip,
@@ -626,5 +705,95 @@ final Map<String, ExampleDefinition> examples = {
       ExampleEdit(255, 269, ExampleParameter.color),
       ExampleEdit(344, 357, ExampleParameter.fill),
     ],
+  ),
+  'painter-usage-1': ExampleDefinition(
+    builder: _painterUsage1,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return SizedBox(\n      width: 240,\n      height: 140,\n      child: WiredCanvas(\n        painter: WiredRectangleBase(\n          fillColor: const Color(0xfff6dfd5),\n          borderColor: theme.borderColor,\n          strokeWidth: 2,\n          leftIndent: 10,\n          rightIndent: 10,\n        ),\n        fillerType: RoughFilter.hachureFiller,\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'painter-usage-2': ExampleDefinition(
+    builder: _painterUsage2,
+    source: "Builder(\n  builder: (context) {\n    return SizedBox(\n      width: 80,\n      height: 80,\n      child: WiredCanvas(\n        painter: WiredCircleBase(\n          diameterRatio: 0.9,\n          fillColor: const Color(0xffebc569),\n        ),\n        fillerType: RoughFilter.solidFiller,\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'painter-usage-3': ExampleDefinition(
+    builder: _painterUsage3,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return SizedBox(\n      width: 200,\n      height: theme.inkExtent,\n      child: WiredCanvas(\n        painter: WiredLineBase(\n          x1: 0,\n          y1: theme.inkExtent / 2,\n          x2: 200,\n          y2: theme.inkExtent / 2,\n          borderColor: theme.borderColor,\n        ),\n        fillerType: RoughFilter.noFiller,\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'painter-usage-4': ExampleDefinition(
+    builder: _painterUsage4,
+    source: "Builder(\n  builder: (context) {\n    return SizedBox(\n      width: 240,\n      height: 140,\n      child: WiredCanvas(\n        painter: WiredRoundedRectangleBase(\n          borderRadius: const BorderRadius.only(\n            topLeft: Radius.circular(20),\n            bottomRight: Radius.circular(20),\n          ),\n          fillColor: const Color(0xFFF5F0E1),\n        ),\n        fillerType: RoughFilter.noFiller,\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'painter-usage-5': ExampleDefinition(
+    builder: _painterUsage5,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return SizedBox(\n      width: 16,\n      height: 10,\n      child: WiredCanvas(\n        painter: WiredInvertedTriangleBase(\n          borderColor: theme.borderColor,\n        ),\n        fillerType: RoughFilter.solidFiller,\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'painter-usage-6': ExampleDefinition(
+    builder: _painterUsage6,
+    source: "Builder(\n  builder: (context) {\n    return SizedBox(\n      width: 200,\n      height: 100,\n      child: WiredCanvas(\n        painter: WiredRectangleBase(),\n        fillerType: RoughFilter.hachureFiller,\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'painter-usage-7': ExampleDefinition(
+    builder: _painterUsage7,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return SizedBox(\n      width: 240,\n      height: 140,\n      child: WiredCanvas(\n        painter: WiredCircleBase(\n          fillColor: const Color(0xffaecfda),\n          borderColor: theme.borderColor,\n        ),\n        fillerType: RoughFilter.zigZagFiller,\n        drawConfig: DrawConfig.build(roughness: 2, seed: 42),\n        fillerConfig: FillerConfig.build(\n          hachureGap: 8,\n          hachureAngle: 60,\n        ),\n        size: const Size(100, 100),\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'decoration-usage-1': ExampleDefinition(
+    builder: _decorationUsage1,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      decoration: BoxDecoration(\n        border: Border.all(color: theme.borderColor, width: 2),\n        borderRadius: BorderRadius.circular(8),\n      ),\n      child: const Text('Standard'),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'decoration-usage-2': ExampleDefinition(
+    builder: _decorationUsage2,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      decoration: RoughBoxDecoration(\n        drawConfig: theme.drawConfig,\n        shape: RoughBoxShape.roundedRectangle,\n        borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),\n        borderRadius: BorderRadius.circular(8),\n      ),\n      child: const Text('Sketchy'),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'decoration-usage-3': ExampleDefinition(
+    builder: _decorationUsage3,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      width: 100,\n      height: 100,\n      decoration: RoughBoxDecoration(\n        drawConfig: theme.drawConfig,\n        shape: RoughBoxShape.circle,\n        borderStyle: const RoughDrawingStyle(\n          width: 2,\n          color: Color(0xff456c5c),\n        ),\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'decoration-usage-4': ExampleDefinition(
+    builder: _decorationUsage4,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      width: 160,\n      height: 80,\n      decoration: RoughBoxDecoration(\n        drawConfig: theme.drawConfig,\n        shape: RoughBoxShape.ellipse,\n        borderStyle: const RoughDrawingStyle(\n          width: 2,\n          color: Color(0xffb2533d),\n        ),\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'decoration-usage-5': ExampleDefinition(
+    builder: _decorationUsage5,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      width: 200,\n      height: 100,\n      padding: const EdgeInsets.all(16),\n      decoration: RoughBoxDecoration(\n        drawConfig: theme.drawConfig,\n        borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),\n      ),\n      child: const Text('Hello, Skribble!'),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'decoration-usage-6': ExampleDefinition(
+    builder: _decorationUsage6,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      padding: const EdgeInsets.all(16),\n      decoration: RoughBoxDecoration(\n        drawConfig: theme.drawConfig,\n        shape: RoughBoxShape.roundedRectangle,\n        borderStyle: const RoughDrawingStyle(\n          width: 1.5,\n          color: Color(0xff716275),\n        ),\n        borderRadius: BorderRadius.circular(12),\n      ),\n      child: const Column(\n        crossAxisAlignment: CrossAxisAlignment.start,\n        children: [\n          Text('Card Title', style: TextStyle(fontWeight: FontWeight.bold)),\n          SizedBox(height: 8),\n          Text('Card body text goes here.'),\n        ],\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'decoration-usage-7': ExampleDefinition(
+    builder: _decorationUsage7,
+    source: "Builder(\n  builder: (context) {\n    return Container(\n      padding: const EdgeInsets.all(16),\n      decoration: RoughBoxDecoration(\n        borderStyle: const RoughDrawingStyle(\n          width: 2,\n          color: Color(0xff9b542d),\n        ),\n        fillStyle: const RoughDrawingStyle(width: 1, color: Color(0xfff6dfd5)),\n        filler: HachureFiller(FillerConfig.build(hachureGap: 20)),\n        drawConfig: DrawConfig.build(roughness: 1.5, seed: 7),\n      ),\n      child: const Row(\n        children: [\n          WiredIcon(\n            icon: IconData(0xe33d, fontFamily: 'MaterialIcons'),\n            color: Color(0xff9b542d),\n          ),\n          SizedBox(width: 12),\n          Expanded(child: Text('This is an important note.')),\n        ],\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'decoration-usage-8': ExampleDefinition(
+    builder: _decorationUsage8,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),\n      decoration: RoughBoxDecoration(\n        drawConfig: theme.drawConfig,\n        shape: RoughBoxShape.roundedRectangle,\n        borderStyle: const RoughDrawingStyle(\n          width: 1,\n          color: Color(0xff456c5c),\n        ),\n        fillStyle: const RoughDrawingStyle(\n          width: 0.5,\n          color: Color(0xffeef1df),\n        ),\n        filler: SolidFiller(FillerConfig.defaultConfig),\n        borderRadius: BorderRadius.circular(20),\n      ),\n      child: const Text(\n        'flutter',\n        style: TextStyle(color: Color(0xff456c5c), fontSize: 12),\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'decoration-usage-9': ExampleDefinition(
+    builder: _decorationUsage9,
+    source: "Builder(\n  builder: (context) {\n    return Container(\n      width: 200,\n      height: 100,\n      decoration: RoughBoxDecoration(\n        borderStyle: const RoughDrawingStyle(\n          width: 2,\n          color: Color(0xFF1A2B3C),\n        ),\n        fillStyle: const RoughDrawingStyle(\n          width: 1,\n          color: Color(0xFFE8E8E8),\n        ),\n        drawConfig: DrawConfig.build(roughness: 1.5),\n        filler: HachureFiller(),\n      ),\n      child: const Center(child: Text('Sketchy box')),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'theme-drawing-1': ExampleDefinition(
+    builder: _themeDrawing1,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return SizedBox(\n      width: 240,\n      height: 140,\n      child: WiredCanvas(\n        painter: WiredRectangleBase(\n          fillColor: theme.fillColor,\n          borderColor: theme.borderColor,\n        ),\n        fillerType: RoughFilter.hachureFiller,\n        drawConfig: DrawConfig.build(roughness: 4, bowing: 3, seed: 42),\n      ),\n    );\n  },\n)",
+    edits: [],
+  ),
+  'theme-drawing-2': ExampleDefinition(
+    builder: _themeDrawing2,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      decoration: RoughBoxDecoration(\n        borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),\n        drawConfig: DrawConfig.build(roughness: 0.3), // very smooth\n      ),\n      child: const Text('Barely rough'),\n    );\n  },\n)",
+    edits: [],
   ),
 };

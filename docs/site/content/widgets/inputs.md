@@ -562,6 +562,6 @@ Rough borders in input components inherit `WiredDrawTransition` progress. Their 
 
 `WiredRangeSlider.between(start: .2, end: .8, onChanged: (start, end) => true)` accepts numbers directly. Return `true` to accept an interaction or `false` to keep the current range. A null callback disables input. Rebuilding with different endpoints updates the displayed range. Both thumbs use the theme's rough drawing configuration.
 
-`WiredCombo.options(options: {'one': Text('One')}, value: 'one', onChanged: (value) => true)` accepts a map of values to labels without requiring Material dropdown items. Its callback follows the same acceptance convention as the original constructor.
+`WiredCombo.options(options: {'one': Text('One')}, value: 'one', onChanged: (value) => true)` accepts a map of values to labels without requiring Material dropdown items. Return true when the caller owns the value and rebuilds it; return false or null, or omit the callback, to update the selection internally.
 
 Give `WiredCalendar` a bounded height, for example `SizedBox(height: 360, child: WiredCalendar(...))`. Its month heading and weekday columns adapt to narrow widths.

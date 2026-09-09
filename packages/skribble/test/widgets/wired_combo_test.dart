@@ -6,6 +6,61 @@ import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
+  testWidgets('options maps labels and updates an uncontrolled selection', (
+    tester,
+  ) async {
+    await pumpApp(
+      tester,
+      WiredCombo<String>.options(
+        value: 'a',
+        options: const {'a': Text('Alpha'), 'b': Text('Beta')},
+      ),
+    );
+    await tester.tap(find.byType(DropdownButton<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Beta').last);
+    await tester.pumpAndSettle();
+    expect(
+      tester
+          .widget<DropdownButton<String>>(find.byType(DropdownButton<String>))
+          .value,
+      'b',
+    );
+  });
+  testWidgets(
+    'options preserves caller ownership and accepts external changes',
+    (tester) async {
+      String? received;
+      Widget subject(String value) => WiredCombo<String>.options(
+        value: value,
+        options: const {'a': Text('Alpha'), 'b': Text('Beta')},
+        onChanged: (value) {
+          received = value;
+          return true;
+        },
+      );
+      await pumpApp(tester, subject('a'));
+      await tester.tap(find.byType(DropdownButton<String>));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Beta').last);
+      await tester.pumpAndSettle();
+      expect(received, 'b');
+      expect(
+        tester
+            .widget<DropdownButton<String>>(find.byType(DropdownButton<String>))
+            .value,
+        'a',
+      );
+      await pumpApp(tester, subject('b'));
+      expect(
+        tester
+            .widget<DropdownButton<String>>(find.byType(DropdownButton<String>))
+            .value,
+        'b',
+      );
+    },
+  );
+
   group('WiredCombo', () {
     testWidgets('renders without error', (tester) async {
       await pumpApp(

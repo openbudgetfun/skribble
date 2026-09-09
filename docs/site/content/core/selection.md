@@ -8,14 +8,23 @@ description: Select and copy rich prose using Flutter's native selection system 
 `WiredSelectionArea` makes participating `Text` and `Text.rich` descendants selectable together. It uses Flutter's selection system, Wired touch handles, and localized Copy and Select all controls. The documentation you are reading uses this widget.
 
 ```dart
-WiredSelectionArea(
+// Live example: selection-pattern
+const WiredSelectionArea(
   child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text('A small beginning.\n'),
-      Text.rich(TextSpan(children: [
-        TextSpan(text: 'Make something '),
-        TextSpan(text: 'delightful.', style: TextStyle(fontWeight: FontWeight.bold)),
-      ])),
+      Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(text: 'Make something '),
+            TextSpan(
+              text: 'delightful.',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
     ],
   ),
 )

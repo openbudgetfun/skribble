@@ -59,6 +59,7 @@ Builder(
 `WiredPainterBase` is the abstract class all shape painters extend. It lives in `packages/skribble/lib/src/canvas/wired_painter_base.dart`.
 
 ```dart
+// Static example: type
 abstract class WiredPainterBase {
   void paintRough(
     Canvas canvas,
@@ -93,6 +94,7 @@ All concrete painters live in `packages/skribble/lib/src/wired_base.dart`.
 Draws an axis-aligned rectangle with optional left and right indents.
 
 ```dart
+// Static example: type
 class WiredRectangleBase extends WiredPainterBase {
   final double leftIndent;
   final double rightIndent;
@@ -134,15 +136,25 @@ class WiredRectangleBase extends WiredPainterBase {
 Usage:
 
 ```dart
-WiredCanvas(
-  painter: WiredRectangleBase(
-    fillColor: Colors.white,
-    borderColor: Colors.black,
-    strokeWidth: 2,
-    leftIndent: 10,
-    rightIndent: 10,
-  ),
-  fillerType: RoughFilter.hachureFiller,
+// Live example: painter-usage-1
+Builder(
+  builder: (context) {
+    final theme = WiredTheme.of(context);
+    return SizedBox(
+      width: 240,
+      height: 140,
+      child: WiredCanvas(
+        painter: WiredRectangleBase(
+          fillColor: const Color(0xfff6dfd5),
+          borderColor: theme.borderColor,
+          strokeWidth: 2,
+          leftIndent: 10,
+          rightIndent: 10,
+        ),
+        fillerType: RoughFilter.hachureFiller,
+      ),
+    );
+  },
 )
 ```
 
@@ -151,6 +163,7 @@ WiredCanvas(
 Draws a circle centered in the available area. The `diameterRatio` controls how much of the available space the circle fills.
 
 ```dart
+// Static example: type
 class WiredCircleBase extends WiredPainterBase {
   final double diameterRatio;
   final Color fillColor;
@@ -191,16 +204,21 @@ class WiredCircleBase extends WiredPainterBase {
 Usage:
 
 ```dart
-SizedBox(
-  width: 80,
-  height: 80,
-  child: WiredCanvas(
-    painter: WiredCircleBase(
-      diameterRatio: 0.9,
-      fillColor: Colors.amber,
-    ),
-    fillerType: RoughFilter.solidFiller,
-  ),
+// Live example: painter-usage-2
+Builder(
+  builder: (context) {
+    return SizedBox(
+      width: 80,
+      height: 80,
+      child: WiredCanvas(
+        painter: WiredCircleBase(
+          diameterRatio: 0.9,
+          fillColor: const Color(0xffebc569),
+        ),
+        fillerType: RoughFilter.solidFiller,
+      ),
+    );
+  },
 )
 ```
 
@@ -209,6 +227,7 @@ SizedBox(
 Draws a single line between two points, clamped to the available size.
 
 ```dart
+// Static example: type
 class WiredLineBase extends WiredPainterBase {
   final double x1;
   final double y1;
@@ -253,19 +272,25 @@ class WiredLineBase extends WiredPainterBase {
 Usage:
 
 ```dart
-SizedBox(
-  width: 200,
-  height: 2,
-  child: WiredCanvas(
-    painter: WiredLineBase(
-      x1: 0,
-      y1: 1,
-      x2: 200,
-      y2: 1,
-      borderColor: Colors.grey,
-    ),
-    fillerType: RoughFilter.noFiller,
-  ),
+// Live example: painter-usage-3
+Builder(
+  builder: (context) {
+    final theme = WiredTheme.of(context);
+    return SizedBox(
+      width: 200,
+      height: theme.inkExtent,
+      child: WiredCanvas(
+        painter: WiredLineBase(
+          x1: 0,
+          y1: theme.inkExtent / 2,
+          x2: 200,
+          y2: theme.inkExtent / 2,
+          borderColor: theme.borderColor,
+        ),
+        fillerType: RoughFilter.noFiller,
+      ),
+    );
+  },
 )
 ```
 
@@ -274,6 +299,7 @@ SizedBox(
 Draws a rectangle with individually configurable corner radii.
 
 ```dart
+// Static example: type
 class WiredRoundedRectangleBase extends WiredPainterBase {
   final BorderRadius borderRadius;
   final Color fillColor;
@@ -314,15 +340,24 @@ class WiredRoundedRectangleBase extends WiredPainterBase {
 Usage:
 
 ```dart
-WiredCanvas(
-  painter: WiredRoundedRectangleBase(
-    borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(20),
-      bottomRight: Radius.circular(20),
-    ),
-    fillColor: Color(0xFFF5F0E1),
-  ),
-  fillerType: RoughFilter.noFiller,
+// Live example: painter-usage-4
+Builder(
+  builder: (context) {
+    return SizedBox(
+      width: 240,
+      height: 140,
+      child: WiredCanvas(
+        painter: WiredRoundedRectangleBase(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+          fillColor: const Color(0xFFF5F0E1),
+        ),
+        fillerType: RoughFilter.noFiller,
+      ),
+    );
+  },
 )
 ```
 
@@ -331,6 +366,7 @@ WiredCanvas(
 Draws a downward-pointing triangle (inverted triangle). Used internally for dropdown arrows and similar indicators.
 
 ```dart
+// Static example: type
 class WiredInvertedTriangleBase extends WiredPainterBase {
   final Color borderColor;
   final double strokeWidth;
@@ -366,15 +402,21 @@ class WiredInvertedTriangleBase extends WiredPainterBase {
 Usage:
 
 ```dart
-SizedBox(
-  width: 16,
-  height: 10,
-  child: WiredCanvas(
-    painter: WiredInvertedTriangleBase(
-      borderColor: theme.borderColor,
-    ),
-    fillerType: RoughFilter.solidFiller,
-  ),
+// Live example: painter-usage-5
+Builder(
+  builder: (context) {
+    final theme = WiredTheme.of(context);
+    return SizedBox(
+      width: 16,
+      height: 10,
+      child: WiredCanvas(
+        painter: WiredInvertedTriangleBase(
+          borderColor: theme.borderColor,
+        ),
+        fillerType: RoughFilter.solidFiller,
+      ),
+    );
+  },
 )
 ```
 
@@ -383,6 +425,7 @@ SizedBox(
 `WiredCanvas` is the `HookWidget` that renders a `WiredPainterBase` via `CustomPaint`. It maps a `RoughFilter` enum value to a `Filler` instance and passes everything to `WiredPainter`.
 
 ```dart
+// Static example: custom-class
 class WiredCanvas extends HookWidget {
   final WiredPainterBase painter;
   final DrawConfig? drawConfig;
@@ -429,31 +472,46 @@ class WiredCanvas extends HookWidget {
 ### Minimal Example
 
 ```dart
-SizedBox(
-  width: 200,
-  height: 100,
-  child: WiredCanvas(
-    painter: WiredRectangleBase(),
-    fillerType: RoughFilter.hachureFiller,
-  ),
+// Live example: painter-usage-6
+Builder(
+  builder: (context) {
+    return SizedBox(
+      width: 200,
+      height: 100,
+      child: WiredCanvas(
+        painter: WiredRectangleBase(),
+        fillerType: RoughFilter.hachureFiller,
+      ),
+    );
+  },
 )
 ```
 
 ### With Custom Configuration
 
 ```dart
-WiredCanvas(
-  painter: WiredCircleBase(
-    fillColor: Colors.blue,
-    borderColor: Colors.indigo,
-  ),
-  fillerType: RoughFilter.zigZagFiller,
-  drawConfig: DrawConfig.build(roughness: 2, seed: 42),
-  fillerConfig: FillerConfig.build(
-    hachureGap: 8,
-    hachureAngle: 60,
-  ),
-  size: Size(100, 100),
+// Live example: painter-usage-7
+Builder(
+  builder: (context) {
+    final theme = WiredTheme.of(context);
+    return SizedBox(
+      width: 240,
+      height: 140,
+      child: WiredCanvas(
+        painter: WiredCircleBase(
+          fillColor: const Color(0xffaecfda),
+          borderColor: theme.borderColor,
+        ),
+        fillerType: RoughFilter.zigZagFiller,
+        drawConfig: DrawConfig.build(roughness: 2, seed: 42),
+        fillerConfig: FillerConfig.build(
+          hachureGap: 8,
+          hachureAngle: 60,
+        ),
+        size: const Size(100, 100),
+      ),
+    );
+  },
 )
 ```
 
@@ -462,6 +520,7 @@ WiredCanvas(
 `WiredPainter` is the `CustomPainter` that `WiredCanvas` creates internally. It resets the randomizer before each paint call so shapes render deterministically:
 
 ```dart
+// Static example: type
 class WiredPainter extends CustomPainter {
   final DrawConfig drawConfig;
   final Filler filler;
@@ -495,6 +554,7 @@ The `shouldRepaint` check compares `DrawConfig` by value equality and filler/pai
 Creates a stroke-style paint used for fill patterns:
 
 ```dart
+// Static example: api
 static Paint fillPainter(Color color) {
   return Paint()
     ..color = color
@@ -509,6 +569,7 @@ static Paint fillPainter(Color color) {
 Creates a stroke-style paint used for shape outlines:
 
 ```dart
+// Static example: api
 static Paint pathPainter(
   double strokeWidth, {
   Color color = const Color(0xFF1A2B3C),
@@ -532,6 +593,7 @@ Every Wired widget wraps its painted content in a `RepaintBoundary`. This preven
 Extend `WiredBaseWidget` when your widget is purely a painted shape with no external child:
 
 ```dart
+// Static example: type
 abstract class WiredBaseWidget extends HookWidget {
   const WiredBaseWidget({super.key});
 
@@ -547,6 +609,7 @@ abstract class WiredBaseWidget extends HookWidget {
 Example:
 
 ```dart
+// Static example: type
 class WiredDivider extends WiredBaseWidget {
   @override
   Widget buildWiredElement() {
@@ -566,6 +629,7 @@ class WiredDivider extends WiredBaseWidget {
 For widgets that compose children with painted shapes, use the standalone helper:
 
 ```dart
+// Static example: api
 Widget buildWiredElement({Key? key, required Widget child}) {
   return RepaintBoundary(key: key, child: child);
 }
@@ -574,6 +638,7 @@ Widget buildWiredElement({Key? key, required Widget child}) {
 This is how most Wired widgets wrap their content:
 
 ```dart
+// Static example: custom-class
 class WiredButton extends HookWidget {
   final Widget child;
   final VoidCallback onPressed;
@@ -606,6 +671,7 @@ class WiredButton extends HookWidget {
 An alternative mixin-based approach for classes that cannot extend `WiredBaseWidget`:
 
 ```dart
+// Static example: type
 abstract mixin class WiredRepaintMixin {
   Widget buildWiredElement({Key? key, required Widget child}) {
     return RepaintBoundary(key: key, child: child);
@@ -620,6 +686,7 @@ To create a new shape painter, extend `WiredPainterBase` and implement `paintRou
 ### Step 1: Define the Painter
 
 ```dart
+// Static example: custom-class
 class WiredDiamondBase extends WiredPainterBase {
   final Color fillColor;
   final Color borderColor;
@@ -658,6 +725,7 @@ class WiredDiamondBase extends WiredPainterBase {
 ### Step 2: Use it in a Widget
 
 ```dart
+// Static example: custom-class
 class WiredDiamond extends HookWidget {
   final Widget child;
 
@@ -691,6 +759,7 @@ class WiredDiamond extends HookWidget {
 ### Step 3: Use it in Your App
 
 ```dart
+// Static example: custom-class
 SizedBox(
   width: 120,
   height: 120,

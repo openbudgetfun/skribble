@@ -140,7 +140,7 @@
       "label": { "displayName": "Secondary label", "purpose": "Navigation groups and secondary context." },
       "code": {
         "displayName": "Code text",
-        "purpose": "Exact source in copyable code panels; currently uses the bundled gentle face."
+        "purpose": "Exact syntax-coloured source in copyable code panels; inherits the selected face, with SkribblePlayful as the default."
       }
     },
     "shadows": [],
@@ -165,6 +165,7 @@
       }
     ],
     "breakpoints": [
+      { "name": "paired-font-specimens", "value": "560px" },
       { "name": "narrow-display", "value": "650px" },
       { "name": "persistent-navigation", "value": "1050px" },
       { "name": "table-of-contents", "value": "1440px" }
@@ -177,7 +178,7 @@
       "refersTo": "button-filled",
       "description": "Coral live action. This HTML is an illustrative translation; Flutter owns seeded rough geometry, sizing, and ink redraw.",
       "html": "<button class=\"ds-filled\">Keep this little idea</button>",
-      "css": ".ds-filled{font-family:SkribbleGentle,cursive;color:#34283f;background:#e87960;border:2.4px solid #34283f;padding:12px 20px;font-size:14px;cursor:pointer}.ds-filled:hover{border-width:3px}.ds-filled:focus-visible{outline:2px solid #34283f;outline-offset:4px}.ds-filled:active{border-width:3px}"
+      "css": ".ds-filled{font-family:SkribblePlayful,cursive;color:#34283f;background:#e87960;border:2.4px solid #34283f;padding:12px 20px;font-size:14px;cursor:pointer}.ds-filled:hover{border-width:3px}.ds-filled:focus-visible{outline:2px solid #34283f;outline-offset:4px}.ds-filled:active{border-width:3px}"
     },
     {
       "name": "Outlined action",
@@ -185,15 +186,15 @@
       "refersTo": "button-outline",
       "description": "Wired outline action; preview illustrates ink hierarchy, not the seeded painter.",
       "html": "<button class=\"ds-outline\">Replay the drawing</button>",
-      "css": ".ds-outline{font-family:SkribbleGentle,cursive;color:#34283f;background:transparent;border:2.4px solid #34283f;padding:12px 20px;font-size:14px;cursor:pointer}.ds-outline:hover{border-width:3px}.ds-outline:focus-visible{outline:2px solid #34283f;outline-offset:4px}.ds-outline:active{border-width:3px}"
+      "css": ".ds-outline{font-family:SkribblePlayful,cursive;color:#34283f;background:transparent;border:2.4px solid #34283f;padding:12px 20px;font-size:14px;cursor:pointer}.ds-outline:hover{border-width:3px}.ds-outline:focus-visible{outline:2px solid #34283f;outline-offset:4px}.ds-outline:active{border-width:3px}"
     },
     {
       "name": "Text action",
       "kind": "button",
       "refersTo": "button-text",
-      "description": "Lightweight Wired action for copy and replay; browser preview approximates the painter underline.",
-      "html": "<button class=\"ds-text\">Copy page</button>",
-      "css": ".ds-text{font-family:SkribbleGentle,cursive;color:#34283f;background:transparent;border:0;border-bottom:2.4px solid #34283f;padding:8px 12px;font-size:14px;cursor:pointer}.ds-text:hover{text-decoration:underline}.ds-text:focus-visible{outline:2px solid #34283f;outline-offset:4px}.ds-text:active{border-bottom-width:3px}"
+      "description": "WiredTextButton keeps its underline in widget examples. Documentation copy actions use the quiet DocsAction treatment instead.",
+      "html": "<button class=\"ds-text\">Text action</button>",
+      "css": ".ds-text{font-family:SkribblePlayful,cursive;color:#34283f;background:transparent;border:0;border-bottom:2.4px solid #34283f;padding:8px 12px;font-size:14px;cursor:pointer}.ds-text:hover{text-decoration:underline}.ds-text:focus-visible{outline:2px solid #34283f;outline-offset:4px}.ds-text:active{border-bottom-width:3px}"
     },
     {
       "name": "Page search",
@@ -201,38 +202,45 @@
       "refersTo": "search",
       "description": "Single ink rectangle with a legible hint and stronger focus stroke; Flutter supplies rough geometry.",
       "html": "<input class=\"ds-search\" aria-label=\"Find a documentation page\" placeholder=\"Find a page…\">",
-      "css": ".ds-search{font-family:SkribbleGentle,cursive;background:#fffaf0;color:#34283f;border:2.4px solid #34283f;border-radius:0;padding:14px 12px;font-size:16px;max-width:100%}.ds-search::placeholder{color:#796c7a;opacity:1}.ds-search:hover{cursor:text}.ds-search:focus-visible{outline:0;border-width:3px}"
+      "css": ".ds-search{font-family:SkribblePlayful,cursive;background:#fffaf0;color:#34283f;border:2.4px solid #34283f;border-radius:0;padding:14px 12px;font-size:16px;max-width:100%}.ds-search::placeholder{color:#796c7a;opacity:1}.ds-search:hover{cursor:text}.ds-search:focus-visible{outline:0;border-width:3px}"
     },
     {
       "name": "Selected navigation",
       "kind": "nav",
       "refersTo": "navigation-selected",
-      "description": "Current page uses a warm selection field and accessible current-page state.",
+      "description": "Quiet page links have no permanent underline. Selection, hover, and keyboard focus use rough paper fields; this HTML approximates the Flutter painter.",
       "html": "<nav class=\"ds-nav\" aria-label=\"Documentation\"><a href=\"#welcome\" aria-current=\"page\">Hello, Skribble</a><a href=\"#start\">Getting started</a></nav>",
-      "css": ".ds-nav{font-family:SkribbleGentle,cursive;font-size:13px}.ds-nav a{display:block;color:#34283f;padding:8px 12px;text-decoration:none}.ds-nav a[aria-current]{background:#f6dfd5}.ds-nav a:hover{text-decoration:underline}.ds-nav a:focus-visible{outline:2px solid #34283f;outline-offset:2px}.ds-nav a:active{text-decoration:underline}"
+      "css": ".ds-nav{font-family:SkribblePlayful,cursive;font-size:13px}.ds-nav a{display:flex;align-items:center;min-height:44px;box-sizing:border-box;color:#34283f;padding:9px 12px;text-decoration:none;border-radius:8px}.ds-nav a:hover{background:#eee9f0}.ds-nav a[aria-current]{background:#f6dfd5}.ds-nav a:focus-visible{outline:1.5px solid #34283f;outline-offset:-1.5px}"
     },
     {
       "name": "Hatched card",
       "kind": "card",
       "description": "Illustrates a WiredCard's optional hachure. Local golden note colour is example-specific; Flutter uses actual seeded rough lines.",
       "html": "<article class=\"ds-card\"><strong>A tiny plan for today</strong><p>Leave a little room for the unexpected.</p></article>",
-      "css": ".ds-card{font-family:SkribbleGentle,cursive;color:#34283f;border:2.4px solid #6a4e25;padding:22px;background:repeating-linear-gradient(135deg,transparent 0 5px,#eadbb6 5px 6px),#fffaf0}.ds-card strong{font-size:22px}.ds-card p{font-size:14px;line-height:1.65}"
+      "css": ".ds-card{font-family:SkribblePlayful,cursive;color:#34283f;border:2.4px solid #6a4e25;padding:22px;background:repeating-linear-gradient(135deg,transparent 0 5px,#eadbb6 5px 6px),#fffaf0}.ds-card strong{font-size:22px}.ds-card p{font-size:14px;line-height:1.65}"
     },
     {
       "name": "Source panel",
       "kind": "custom",
       "refersTo": "code-block",
-      "description": "Tonal code surface with an independent action. The preview illustrates appearance; clipboard behavior belongs to Flutter.",
-      "html": "<section class=\"ds-code\"><button type=\"button\">Copy code</button><pre>WiredDraw(child: note);</pre></section>",
-      "css": ".ds-code{background:#eee9f0;color:#34283f;border-radius:8px;padding:18px;font-family:SkribbleGentle,cursive}.ds-code button{display:block;margin-left:auto;color:#34283f;background:transparent;border:0;font:inherit;cursor:pointer}.ds-code button:hover{text-decoration:underline}.ds-code button:focus-visible{outline:2px solid #34283f;outline-offset:4px}.ds-code button:active{text-decoration:underline}.ds-code pre{font-family:inherit;font-size:14px;line-height:1.7;overflow-x:auto}"
+      "description": "Rough code-paper panel with syntax colour and an independent quiet Copy code action. This preview approximates the painter; Flutter preserves exact source for selection and copying.",
+      "html": "<section class=\"ds-code\"><button type=\"button\">Copy code</button><pre>Text(<span class=\"ds-string\">'Make something lovely'</span>);</pre></section>",
+      "css": ".ds-code{background:#eee9f0;color:#34283f;border-radius:8px;padding:18px;font-family:SkribblePlayful,cursive}.ds-code button{display:block;min-height:44px;padding:9px 12px;margin-left:auto;color:#34283f;background:transparent;border:0;border-radius:8px;font:inherit;cursor:pointer}.ds-code button:hover{background:#eee9f0}.ds-code button:focus-visible{outline:1.5px solid #34283f;outline-offset:-1.5px}.ds-code pre{font-family:inherit;font-size:14px;line-height:1.7;overflow-x:auto}.ds-string{color:#35634b}"
+    },
+    {
+      "name": "Roughness toolbar",
+      "kind": "custom",
+      "description": "Gentle, Playful, and Expressive cascade through inherited lettering and rough geometry. Playful starts selected. HTML illustrates choice styling; Flutter owns switching and seeded outlines.",
+      "html": "<div class=\"ds-presets\" aria-label=\"Roughness\"><button>Gentle</button><button aria-pressed=\"true\">Playful</button><button>Expressive</button></div>",
+      "css": ".ds-presets{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;font-family:SkribblePlayful,cursive}.ds-presets button{font:inherit;font-size:13px;min-height:44px;padding:9px 12px;border:0;border-radius:8px;background:transparent;color:#34283f;cursor:pointer}.ds-presets button:hover{background:#eee9f0}.ds-presets button[aria-pressed=true]{background:#f6dfd5}.ds-presets button:focus-visible{outline:1.5px solid #34283f;outline-offset:-1.5px}"
     }
   ],
   "narrative": {
     "northStar": "A little ink. A lot of possibility.",
-    "overview": "The documentation is a working expression of the Wired identity: warm paper, hand-lettered plum text, rough outlines, restrained marker overlap, and coloured hatching. Gentle is the default. Playful and expressive remain library options; this site does not replace that identity with a new theme.\n\nReading space stays calm around the interactive ink. Examples use real Wired controls, and decorative movement leaves text and layout available. The binding product constraints are readable, selectable documentation on phones and desktops, keyboard navigation, accessible controls, and reduced-motion support; see [PRODUCT.md](PRODUCT.md).",
+    "overview": "The documentation is a working expression of the Wired identity: warm paper, hand-lettered plum text, rough outlines, restrained marker overlap, and coloured hatching. Playful is the default. The toolbar offers Gentle, Playful, and Expressive, changing inherited lettering and rough geometry throughout the site.\n\nReading space stays calm around the interactive ink. Examples use compiled Wired controls with typed edits and matching source. Paired Casual and Linear font specimens share a multiline editor and comparison controls. The binding product constraints are readable, selectable documentation on phones and desktops, keyboard navigation, accessible controls, and reduced-motion support; see [PRODUCT.md](PRODUCT.md).",
     "keyCharacteristics": [
       "Warm paper and dark plum ink.",
-      "Gentle lettering and seed-stable rough geometry.",
+      "Playful lettering and seed-stable rough geometry.",
       "Colour and hatching on working examples.",
       "Open reading space with compact navigation.",
       "Ink motion that preserves content and state."
@@ -255,7 +263,7 @@
       }
     ],
     "dos": [
-      "Do use the bundled gentle lettering and Wired painters together.",
+      "Do use the selected preset's bundled lettering and Wired painters together, starting with Playful.",
       "Do retain slight marker overlap and coloured hatching where the component uses them.",
       "Do keep filled action text backed by opaque colour during redraw.",
       "Do preserve ordinary selection, accessible labels, keyboard focus, and reduced-motion behavior.",

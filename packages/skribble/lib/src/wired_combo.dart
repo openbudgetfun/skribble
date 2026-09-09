@@ -28,7 +28,8 @@ class WiredCombo<T> extends HookWidget {
   });
 
   /// Creates a selector from unique values and their visible labels.
-  /// [value] and [onChanged] follow the same ownership rules as [WiredCombo].
+  /// Return true from [onChanged] when the caller owns [value] and rebuilds it.
+  /// Return false or null, or omit the callback, to update selection internally.
   factory WiredCombo.options({
     Key? key,
     required Map<T, Widget> options,

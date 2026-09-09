@@ -146,7 +146,10 @@ class DocArticle extends HookWidget {
     }
 
     return CodeView(
-      code: node.textContent,
+      code: node.textContent.replaceFirst(
+        RegExp(r'^// Static example: [a-z-]+\n'),
+        '',
+      ),
       language:
           node.children
               ?.whereType<md.Element>()

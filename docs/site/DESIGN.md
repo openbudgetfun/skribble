@@ -1,6 +1,6 @@
 ---
 name: Skribble documentation
-description: Warm paper, gentle ink, and working hand-drawn Flutter components.
+description: Warm paper, playful ink, and working hand-drawn Flutter components.
 colors:
   paper: "#fffaf0"
   ink: "#34283f"
@@ -11,34 +11,39 @@ colors:
   code-paper: "#eee9f0"
   inline-code-paper: "#eee7f0"
   quote-paper: "#eef1df"
+  syntax-keyword: "#784175"
+  syntax-string: "#35634b"
+  syntax-number: "#9c482b"
+  syntax-comment: "#716275"
+  syntax-type: "#315c83"
 typography:
   headline:
-    fontFamily: SkribbleGentle
+    fontFamily: SkribblePlayful
     fontSize: "42px"
     fontWeight: 700
     lineHeight: 1.25
   section:
-    fontFamily: SkribbleGentle
+    fontFamily: SkribblePlayful
     fontSize: "29px"
     fontWeight: 700
     lineHeight: 1.25
   subsection:
-    fontFamily: SkribbleGentle
+    fontFamily: SkribblePlayful
     fontSize: "23px"
     fontWeight: 700
     lineHeight: 1.25
   body:
-    fontFamily: SkribbleGentle
+    fontFamily: SkribblePlayful
     fontSize: "16px"
     lineHeight: 1.65
   navigation:
-    fontFamily: SkribbleGentle
+    fontFamily: SkribblePlayful
     fontSize: "13px"
   label:
-    fontFamily: SkribbleGentle
+    fontFamily: SkribblePlayful
     fontSize: "12px"
   code:
-    fontFamily: SkribbleGentle
+    fontFamily: SkribblePlayful
     fontSize: "14px"
     lineHeight: 1.7
 rounded:
@@ -81,19 +86,19 @@ components:
 
 **Creative North Star: "A little ink. A lot of possibility."**
 
-The documentation is a working expression of the Wired identity: warm paper, hand-lettered plum text, rough outlines, restrained marker overlap, and coloured hatching. Gentle is the default. Playful and expressive remain library options; this site does not replace that identity with a new theme.
+The documentation is a working expression of the Wired identity: warm paper, hand-lettered plum text, rough outlines, restrained marker overlap, and coloured hatching. Playful is the default. The toolbar offers Gentle, Playful, and Expressive, changing inherited lettering and rough geometry throughout the site.
 
 Reading space stays calm around the interactive ink. Examples use real Wired controls, and decorative movement leaves text and layout available. The binding product constraints are readable, selectable documentation on phones and desktops, keyboard navigation, accessible controls, and reduced-motion support; see [PRODUCT.md](PRODUCT.md).
 
 **Key Characteristics:**
 
 - Warm paper and dark plum ink.
-- Gentle lettering and seed-stable rough geometry.
+- Playful lettering and seed-stable rough geometry.
 - Colour and hatching on working examples.
 - Open reading space with compact navigation.
 - Ink motion that preserves content and state.
 
-This file records the implemented documentation system. Values in frontmatter are normative; logical Flutter pixels are expressed as pixels for portable tooling. Sources are `lib/src/app.dart`, `lib/src/article.dart`, `lib/src/playground.dart`, and the library's Wired theme, roughness, input, card, button, and motion implementations. The sidecar's HTML previews illustrate Flutter components; they do not replace the library's seeded painters. Its synthesized tonal ramps are panel visualizations, not additional application colour tokens.
+This file records the implemented documentation system. Values in frontmatter describe the default preset; logical Flutter pixels are expressed as pixels for portable tooling. Sources are `lib/src/app.dart`, `lib/src/article.dart`, `lib/src/docs_surface.dart`, `lib/src/code_view.dart`, `lib/src/font_comparison.dart`, `lib/src/examples/example.dart`, and the library's Wired implementations. The sidecar's HTML previews illustrate Flutter components; they do not replace the library's seeded painters. Its synthesized tonal ramps are panel visualizations, not additional application colour tokens.
 
 ## Colors
 
@@ -118,11 +123,13 @@ Warm neutral surfaces carry plum text, with coral marking the working filled act
 
 The golden note and moss motion card are local example themes, not mandatory colours for every card. Their scoped overrides demonstrate the library's theme model.
 
+Syntax colours distinguish keywords and literals in purple, strings in green, numbers in rust, comments in muted plum, and types and titles in blue. Unclassified source retains the surrounding ink colour.
+
 **The Opaque Label Rule.** Filled actions keep an opaque backing under their text throughout decorative redraw.
 
 ## Typography
 
-SkribbleGentle is the bundled default, derived from Recursive Casual with gently warped outlines. Headings and body share its handwriting; emphasis comes from weight, scale, and spacing. The site currently uses the same family for code, so do not claim a separate monospace family is implemented.
+SkribblePlayful is the bundled default, derived from Recursive Casual with warped outlines. Headings, body, navigation, and code inherit the selected preset's handwriting. Gentle uses SkribbleGentle and Expressive uses Skribble. Emphasis comes from weight, scale, and spacing; syntax colouring does not introduce a separate monospace family.
 
 The frontmatter records the recurring article hierarchy. Lower heading levels continue at 20 and 18 logical pixels. Heading line height is compact; paragraph line height is more open. Selection separators are supplied by the selection delegate, not extra blank lines in rendered text.
 
@@ -130,7 +137,7 @@ The introductory display is a surface-specific expression: 52 logical pixels on 
 
 ## Layout
 
-A fixed-height header sits above the scrollable content. At 1050 logical pixels, navigation becomes a persistent left column, 254 pixels wide; below that, the Explore action opens navigation in the content area. At 1440 pixels, articles with section headings gain a 218-pixel right table of contents.
+A fixed-height header and a centred, wrapping roughness toolbar sit above the scrollable content. At 1050 logical pixels, navigation becomes a persistent left column, 254 pixels wide; below that, the Explore action opens navigation in the content area. At 1440 pixels, articles with section headings gain a 218-pixel right table of contents.
 
 The reading column is constrained to 820 pixels. Horizontal document padding is 46 pixels with persistent navigation and 22 otherwise; top padding is 32 and bottom padding is 70. The header is 82 pixels tall. These are observed shell dimensions, not universal component sizes.
 
@@ -144,9 +151,9 @@ The documentation uses flat paper fields, coloured hatching, and rough outlines.
 
 ## Shapes
 
-Wired geometry supplies softly bowed, uneven rectangular edges. The default stroke is 2.4 logical pixels. Gentle uses roughness 1.25, maximum randomness offset 1.2, and no additional line wobble. Reuse the library painter instead of substituting a uniformly rounded CSS-style border.
+Wired geometry supplies softly bowed, uneven rectangular edges. The default stroke is 2.4 logical pixels. Playful uses roughness 1.5, maximum randomness offset 1.6, and line wobble 0.65. Gentle uses 1.25, 1.2, and 0 respectively; Expressive uses 1.8, 2, and 1. Reuse the library painter so lettering and edges respond together to the toolbar.
 
-Solid fills retain slight seeded marker overlap. The user approved this restraint: preserve the pixel-sized irregularity without restoring the long-edge spline bulge. Code panels use the rounded token; that radius is not a global card or button radius.
+Solid fills retain slight seeded marker overlap. The user approved this restraint: preserve the pixel-sized irregularity without restoring the long-edge spline bulge. Selected, hovered, and focused documentation actions, code panels, and quotations share a rough rounded rectangle with an 8-pixel radius. That radius is not a global card or button radius.
 
 ## Components
 
@@ -168,9 +175,19 @@ Search uses one rough rectangle and the search padding token. Its quiet-ink hint
 
 Navigation groups and secondary labels use quiet ink; page links use the navigation text role. Selected items receive selected-paper and selected semantics. Brand and table-of-contents links have keyboard activation, link semantics, and a rough two-pixel focus outline. Narrow layouts expose Explore and Close menu actions.
 
+Sidebar page links, copy actions, and toolbar choices use DocsAction without a permanent underline. Each has a minimum height of 44 pixels and 9-pixel vertical, 12-pixel horizontal padding. Hover adds code-paper; selection takes precedence with selected-paper. Keyboard focus adds a 1.5-pixel plum rough outline. Keep article-link underlining distinct from these quiet controls.
+
 ### Articles and source panels
 
-Article links are underlined. Code panels pair a separate Copy code action with horizontally scrollable source. Copy exact source; exclude the action label from selection. Copy page supplements ordinary selection. Heading semantics track Markdown levels.
+Article links are underlined. Code panels pair a separate Copy code action with horizontally scrollable, syntax-coloured source. Supported fences include Dart, Bash, CSS, JavaScript, JSON, Swift, XML, and YAML; unknown languages retain plain readable text. Copy exact source; exclude the action label from selection. Copy page supplements ordinary selection. Heading semantics track Markdown levels.
+
+### Live examples
+
+Compiled Flutter widgets appear above their typed parameter controls and matching source. Previews have a minimum height of 120 pixels with 20-pixel horizontal and 24-pixel vertical padding. Controls wrap with 16-pixel spacing and 12-pixel run spacing. Show only parameters used by the example, using Wired inputs or quiet choices. Valid edits update both the preview and copyable source; invalid numeric or colour input shows a nearby error and retains the last valid preview.
+
+### Font comparison
+
+Pair Sans Casual and Sans Linear at equal size, weight, and style in Original, Gentle, Playful, and Expressive rows. A labelled multiline WiredTextArea accepts two to four visible lines; changes update every specimen. Size choices are 14, 16, 24, 48, and 72 pixels, with 24 selected initially. Bold and Italic apply across the comparison. Pairs stack below 560 pixels of available width. Specimens retain their explicit families when the toolbar changes the surrounding site.
 
 ### Ink replay
 
@@ -182,7 +199,7 @@ WiredDraw draws over 650 milliseconds with Flutter's easeInOutCubic. Button pres
 
 ### Do:
 
-- **Do** use the bundled gentle lettering and Wired painters together.
+- **Do** use the selected preset's bundled lettering and Wired painters together, starting with Playful.
 - **Do** retain slight marker overlap and coloured hatching where the component uses them.
 - **Do** keep filled action text backed by opaque colour during redraw.
 - **Do** preserve ordinary selection, accessible labels, keyboard focus, and reduced-motion behavior.

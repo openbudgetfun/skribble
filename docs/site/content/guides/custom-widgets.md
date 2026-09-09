@@ -31,7 +31,8 @@ packages/skribble/lib/src/wired_info_box.dart
 Every Skribble widget uses `HookWidget` from the `flutter_hooks` package. Never use `StatefulWidget` or `StatelessWidget`.
 
 ```dart
-import 'package:flutter/material.dart';
+// Static example: custom-class
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'rough/skribble_rough.dart';
@@ -81,6 +82,7 @@ The `const` constructor with `super.key` is required. Document every parameter w
 Every widget reads its colors and configuration from `WiredTheme.of(context)`. This returns a `WiredThemeData` that contains `borderColor`, `textColor`, `fillColor`, `strokeWidth`, and `roughness`.
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -101,6 +103,7 @@ When no `WiredTheme` ancestor exists, `WiredTheme.of(context)` falls back to `Wi
 Replace standard `BoxDecoration` with `RoughBoxDecoration` to get sketchy borders. Available shapes are `rectangle`, `roundedRectangle`, `circle`, and `ellipse`.
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -135,6 +138,7 @@ Widget build(BuildContext context) {
 The `buildWiredElement()` function wraps your widget tree in a `RepaintBoundary`. This isolates repaint operations so that when the rough engine redraws, it does not trigger repaints in unrelated parts of the tree.
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -166,6 +170,7 @@ The `buildWiredElement()` top-level function is defined in `wired_base.dart`. Th
 Wrap the outermost widget in `Semantics` when a `semanticLabel` is provided:
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -196,6 +201,7 @@ Widget build(BuildContext context) {
 For interactive widgets like buttons, also set `button: true` on the `Semantics` widget:
 
 ```dart
+// Static example: custom-class
 Semantics(
   label: semanticLabel,
   button: true,
@@ -208,6 +214,7 @@ Semantics(
 Add your widget to the barrel export file at `packages/skribble/lib/skribble.dart`. Keep the list in alphabetical order:
 
 ```dart
+// Static example: api
 export 'src/wired_icon.dart';
 export 'src/wired_icon_button.dart';
 export 'src/wired_info_box.dart';   // <-- add this line
@@ -222,7 +229,8 @@ Create a test file at `packages/skribble/test/widgets/wired_info_box_test.dart`.
 Use the `pumpApp()` helper from `test/helpers/pump_app.dart`:
 
 ```dart
-import 'package:flutter/material.dart';
+// Static example: test
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -352,7 +360,8 @@ Create or update a storybook page in `apps/skribble_storybook/` to showcase the 
 Here is the complete `wired_info_box.dart` file:
 
 ```dart
-import 'package:flutter/material.dart';
+// Static example: custom-class
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'rough/skribble_rough.dart';

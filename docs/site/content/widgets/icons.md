@@ -134,6 +134,7 @@ const WiredSvgIcon(
 ### Structure
 
 ```dart
+// Static example: type
 final class WiredSvgIconData {
   final double width;
   final double height;
@@ -226,6 +227,7 @@ The build pipeline produces two files in `packages/skribble/lib/src/generated/`:
 ### Using generated icon maps
 
 ```dart
+// Static example: api
 import 'package:skribble/skribble.dart';
 
 // Look up by IconData
@@ -309,6 +311,7 @@ The package includes 30 custom icons covering common UI actions:
 Look up any custom icon by its string identifier:
 
 ```dart
+// Static example: api
 import 'package:skribble_icons/skribble_icons.dart';
 
 // Look up a custom icon by name
@@ -346,6 +349,7 @@ The `skribble_icons_custom` package provides tooling for generating rough icon c
 4. Use the generated constants with `WiredSvgIcon`.
 
 ```dart
+// Static example: external-asset
 // After generating from your SVG set:
 import 'package:my_app/generated/custom_icons.g.dart';
 

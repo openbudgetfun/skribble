@@ -92,6 +92,7 @@ Every widget test file must have **>= 6 `testWidgets`** covering:
 Use `pumpApp()` from `test/helpers/pump_app.dart`:
 
 ```dart
+// Static example: test
 import '../helpers/pump_app.dart';
 
 // Body slot (default)

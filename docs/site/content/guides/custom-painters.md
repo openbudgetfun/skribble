@@ -22,6 +22,7 @@ When you build a custom painter, you implement layer 1 and use layer 2 inside it
 `WiredPainterBase` has a single method to implement:
 
 ```dart
+// Static example: custom-class
 abstract class WiredPainterBase {
   void paintRough(
     Canvas canvas,
@@ -42,6 +43,7 @@ abstract class WiredPainterBase {
 Inside `paintRough()`, create a `Generator` from the config and filler, then call its shape methods:
 
 ```dart
+// Static example: api
 final generator = Generator(drawConfig, filler);
 ```
 
@@ -64,12 +66,14 @@ Each returns a `Drawable` that holds the rough path data.
 The `drawRough()` extension method on `Canvas` renders a `Drawable` with separate border and fill paints:
 
 ```dart
+// Static example: api
 canvas.drawRough(drawable, borderPaint, fillPaint);
 ```
 
 Use `WiredBase.pathPainter()` and `WiredBase.fillPainter()` for standard paint objects:
 
 ```dart
+// Static example: api
 canvas.drawRough(
   figure,
   WiredBase.pathPainter(strokeWidth, color: borderColor),
@@ -82,6 +86,7 @@ canvas.drawRough(
 `WiredCanvas` is a `HookWidget` that takes a `WiredPainterBase` and handles filler creation, `CustomPaint` wiring, and lifecycle:
 
 ```dart
+// Static example: custom-class
 WiredCanvas(
   painter: MyCustomPainter(),
   fillerType: RoughFilter.hachureFiller,
@@ -96,6 +101,7 @@ WiredCanvas(
 Here is a full custom painter that draws a five-pointed star:
 
 ```dart
+// Static example: custom-class
 import 'dart:math' as math;
 import 'dart:ui';
 
@@ -158,6 +164,7 @@ class WiredStarPainter extends WiredPainterBase {
 Use it in a widget:
 
 ```dart
+// Static example: custom-class
 WiredCanvas(
   painter: WiredStarPainter(
     borderColor: Colors.orange,
@@ -173,6 +180,7 @@ WiredCanvas(
 This painter draws a rough sine wave line:
 
 ```dart
+// Static example: custom-class
 import 'dart:math' as math;
 import 'dart:ui';
 
@@ -231,6 +239,7 @@ Skribble ships these painters in `wired_base.dart`:
 ### WiredRectangleBase
 
 ```dart
+// Static example: configuration
 WiredRectangleBase(
   leftIndent: 0.0,    // inset from the left edge
   rightIndent: 0.0,   // inset from the right edge
@@ -243,6 +252,7 @@ WiredRectangleBase(
 ### WiredCircleBase
 
 ```dart
+// Static example: configuration
 WiredCircleBase(
   diameterRatio: 1,   // multiplier on the bounding dimension
   fillColor: fillColor,
@@ -254,6 +264,7 @@ WiredCircleBase(
 ### WiredLineBase
 
 ```dart
+// Static example: configuration
 WiredLineBase(
   x1: 0, y1: 0,       // start point
   x2: 100, y2: 100,   // end point
@@ -265,6 +276,7 @@ WiredLineBase(
 ### WiredRoundedRectangleBase
 
 ```dart
+// Static example: configuration
 WiredRoundedRectangleBase(
   borderRadius: BorderRadius.all(Radius.circular(12)),
   fillColor: fillColor,
@@ -276,6 +288,7 @@ WiredRoundedRectangleBase(
 ### WiredInvertedTriangleBase
 
 ```dart
+// Static example: configuration
 WiredInvertedTriangleBase(
   borderColor: borderColor,
   strokeWidth: 2,
@@ -287,6 +300,7 @@ WiredInvertedTriangleBase(
 A single `paintRough()` call can draw multiple shapes. Each `Generator` call creates an independent `Drawable`:
 
 ```dart
+// Static example: custom-class
 @override
 void paintRough(Canvas canvas, Size size, DrawConfig drawConfig, Filler filler) {
   final generator = Generator(drawConfig, filler);
@@ -312,6 +326,7 @@ void paintRough(Canvas canvas, Size size, DrawConfig drawConfig, Filler filler) 
 Control fill behavior by adjusting `FillerConfig`:
 
 ```dart
+// Static example: custom-class
 WiredCanvas(
   painter: WiredStarPainter(),
   fillerType: RoughFilter.zigZagFiller,
@@ -342,6 +357,7 @@ Available `RoughFilter` values:
 The typical pattern stacks `WiredCanvas` behind content using a `Stack`:
 
 ```dart
+// Static example: custom-class
 class WiredStarBadge extends HookWidget {
   final Widget child;
 

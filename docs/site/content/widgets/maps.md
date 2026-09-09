@@ -16,6 +16,7 @@ dart pub add skribble skribble_maps
 ```
 
 ```dart
+// Static example: setup
 import 'package:skribble/skribble.dart';
 import 'package:skribble_maps/skribble_maps.dart';
 ```
@@ -26,6 +27,31 @@ The default paper style is OpenFreeMap Positron. It is global and does not need 
 
 ```dart
 // Live example: map-online
+HookBuilder(
+  builder: (context) {
+    final online = useState(false);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        WiredButton(
+          onPressed: () => online.value = !online.value,
+          child: Text(online.value ? 'Close the map' : 'Load OpenFreeMap'),
+        ),
+        if (online.value) ...[
+          const SizedBox(height: 16),
+          const SizedBox(
+            height: 300,
+            child: WiredMap(
+              initialCenter: LatLng(51.5074, -0.1278),
+              initialZoom: 13,
+              scrollGesturesEnabled: false,
+            ),
+          ),
+        ],
+      ],
+    );
+  },
+)
 ```
 
 MapLibre requests the tiles visible around Dubai. Panning to another area requests its tiles. There is no city-specific preprocessing step in the application.
@@ -33,6 +59,7 @@ MapLibre requests the tiles visible around Dubai. Panning to another area reques
 Choose another included style or provide any MapLibre style URL, local style, or raw JSON:
 
 ```dart
+// Static example: external-asset
 const WiredMap(
   style: WiredMapStyle.liberty,
 )
@@ -50,6 +77,62 @@ OpenFreeMap's public service has no availability guarantee. Keep the style confi
 
 ```dart
 // Live example: map-features
+HookBuilder(
+  builder: (context) {
+    final online = useState(false);
+    return Column(
+      children: [
+        const WiredMapPin(
+          icon: WiredMapPinIcon.coffee,
+          semanticLabel: 'Favourite café',
+        ),
+        const SizedBox(height: 16),
+        WiredButton(
+          onPressed: () => online.value = !online.value,
+          child: Text(
+            online.value ? 'Close the route' : 'Show the route on a map',
+          ),
+        ),
+        if (online.value) ...[
+          const SizedBox(height: 16),
+          const SizedBox(
+            height: 300,
+            child: WiredMap(
+              initialCenter: LatLng(51.5242, -0.0778),
+              initialZoom: 14,
+              scrollGesturesEnabled: false,
+              children: [
+                WiredMapFeatureLayer(
+                  semanticLabel: 'Walking route',
+                  features: [
+                    WiredMapPolyline(
+                      points: [
+                        LatLng(51.5228, -0.0810),
+                        LatLng(51.5242, -0.0778),
+                        LatLng(51.5260, -0.0740),
+                      ],
+                      color: Color(0xffb2533d),
+                      strokeWidth: 4,
+                    ),
+                  ],
+                ),
+                WiredMapMarkerLayer(
+                  markers: [
+                    WiredMapMarker(
+                      point: LatLng(51.5242, -0.0778),
+                      semanticLabel: 'Favourite café',
+                      child: WiredMapPin(icon: WiredMapPinIcon.coffee),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ],
+    );
+  },
+)
 ```
 
 Pins default to 52 by 64 logical pixels with a 28-pixel rough vector icon. The built-in icon choices are `place`, `checkIn`, `coffee`, `market`, `gallery`, `favorite`, and `person`. Each icon uses the same Skribble rough drawing system as the pin outline.
@@ -82,6 +165,7 @@ Use `WiredMapMarkerLayer` for selected places, active check-ins, search results,
 For a large collection, add a GeoJSON source and clustered symbol layers through the native controller returned by `onMapCreated`. MapLibre then culls, clusters, and renders those points on the map engine. A selected symbol can still gain a `WiredMapPin` overlay.
 
 ```dart
+// Static example: external-asset
 WiredMap(
   onMapCreated: (controller) async {
     await controller.addGeoJsonSource('places', placesGeoJson);

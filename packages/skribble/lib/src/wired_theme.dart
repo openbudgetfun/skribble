@@ -232,7 +232,7 @@ class WiredTheme extends HookWidget {
   /// The subtree that inherits this theme.
   final Widget child;
 
-  /// Returns the nearest Wired theme, or the gentle default.
+  /// Returns the nearest Wired theme, or the playful default.
   static WiredThemeData of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<_WiredThemeScope>()?.data ??
       WiredThemeData.defaultTheme;

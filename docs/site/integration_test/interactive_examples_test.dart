@@ -55,7 +55,7 @@ void main() {
         final selected = $.tester
             .widget<DocsAction>($(DocsKeys.roughness('expressive')))
             .selected;
-        if (!selected) throw StateError('Roughness reset during navigation.');
+        if (selected != true) throw StateError('Roughness reset during navigation.');
         if (!copied.contains('A magical little idea') ||
             !copied.contains('WiredInkInteraction.redraw') ||
             !copied.contains('BorderRadius.circular(12)') ||
