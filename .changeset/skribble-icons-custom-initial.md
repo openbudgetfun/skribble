@@ -5,9 +5,7 @@ skribble: patch
 
 # Feat: add `skribble_icons_custom` standalone icon ...
 
-Introduces `packages/skribble_icons_custom` — the first standalone Skribble
-icon set package, demonstrating the `svg-manifest` kit workflow for
-non-Material icon sets.
+Introduces `packages/skribble_icons_custom` — the first standalone Skribble icon set package, demonstrating the `svg-manifest` kit workflow for non-Material icon sets.
 
 ### New package: `skribble_icons_custom`
 
@@ -22,6 +20,4 @@ non-Material icon sets.
 
 ### Generator improvement: `--map-name`
 
-Adds `--map-name <name>` flag to `generate_rough_icons.dart` so that
-non-Material icon sets can name their generated Dart map constant correctly.
-Defaults to `kMaterialRoughIcons` (no breaking change).
+Adds `--map-name <name>` flag to `generate_rough_icons.dart` so that non-Material icon sets can name their generated Dart map constant correctly. Defaults to `kMaterialRoughIcons` (no breaking change).

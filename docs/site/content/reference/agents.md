@@ -1088,3 +1088,5 @@ After changing fonts, SVG import, or painting, run the glyph/corpus/pixel regres
 The pre-push hook clears Git's repository-local environment variables before invoking Flutter, so the SDK can inspect its own checkout and report its version correctly. It invokes the workspace's Melos through `flutter pub run`. Package tests then use `--no-pub`, avoiding repeated workspace dependency updates during a single hook.
 
 The automated PR review resolves the separate Jaspr docs package before repository-wide analysis. Its generated Markdown lives under `.audit/` so it does not fail its own formatting check, and test-file inventory paths are repository-relative without a duplicate package prefix.
+
+Repository Markdown uses dprint with `textWrap: "never"`. Keep prose paragraphs unwrapped and run `dprint fmt` after editing Markdown.

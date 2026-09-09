@@ -255,10 +255,7 @@ Check that the new PNG files appear in `.screenshots/` with the expected names a
 1. The integration test initializes `IntegrationTestWidgetsFlutterBinding`
 2. Google Fonts runtime fetching is disabled (fonts are bundled)
 3. The full `SkribbleStorybookApp` is pumped inside a `RepaintBoundary`
-4. For each category:
-   a. Navigate to the category page in the storybook
-   b. Capture the full-page screenshot
-   c. For each widget, scroll to its anchor text and capture
+4. For each category: a. Navigate to the category page in the storybook b. Capture the full-page screenshot c. For each widget, scroll to its anchor text and capture
 5. Screenshots are written as PNG files to `.screenshots/<category>/<name>.png`
 
 ## Baseline comparison in CI

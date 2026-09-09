@@ -1,7 +1,7 @@
 name: skribble_emoji
 description: |
   Hand-drawn emoji for Skribble. An SVG-manifest-based emoji package generated with the Skribble rough icon pipeline.
-version: 0.3.4
+version: 0.0.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_emoji
 documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble_emoji/README.md
@@ -20,10 +20,10 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.21.3
-  skribble: ^0.3.4
+  skribble: ^0.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  skribble_lints: ^0.3.4
+  skribble_lints: ^0.0.1
 flutter:
   uses-material-design: true

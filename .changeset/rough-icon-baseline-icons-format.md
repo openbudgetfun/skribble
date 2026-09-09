@@ -10,5 +10,4 @@ JSON formats.
   - unresolved report format (`unresolved[]`)
   - supplemental manifest format (`icons[]`)
 
-This lets generated supplemental manifest templates be reused directly as
-baseline inputs for `--fail-on-new-unresolved` checks.
+This lets generated supplemental manifest templates be reused directly as baseline inputs for `--fail-on-new-unresolved` checks.

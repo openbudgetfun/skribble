@@ -157,11 +157,7 @@ final date = await showWiredDatePicker(
 
 ## WiredDateRangePickerDialog
 
-A hand-drawn dialog for selecting a date range, analogous to Material's
-`showDateRangePicker`. A rough circle marks each range endpoint and
-hachure-filled rectangles highlight the days in between. Days outside
-`firstDate`..`lastDate` (and from neighbouring months) are dimmed and
-disabled; the OK action stays disabled until the range is complete.
+A hand-drawn dialog for selecting a date range, analogous to Material's `showDateRangePicker`. A rough circle marks each range endpoint and hachure-filled rectangles highlight the days in between. Days outside `firstDate`..`lastDate` (and from neighbouring months) are dimmed and disabled; the OK action stays disabled until the range is complete.
 
 ```dart
 final range = await showWiredDateRangePicker(
@@ -186,12 +182,9 @@ final range = await showWiredDateRangePicker(
 
 ### Notes
 
-- Prefer `showWiredDateRangePicker`, which pops the completed
-  `DateTimeRange<DateTime>` (or `null` when cancelled) through the route.
-- The month grid follows the `WiredCalendar` pattern: month navigation via
-  hand-drawn `<<` / `>>` controls, clamped to `firstDate`..`lastDate`.
-- The month shown on open defaults to the month of `initialDateRange` (or of
-  `firstDate` when no range is given).
+- Prefer `showWiredDateRangePicker`, which pops the completed `DateTimeRange<DateTime>` (or `null` when cancelled) through the route.
+- The month grid follows the `WiredCalendar` pattern: month navigation via hand-drawn `<<` / `>>` controls, clamped to `firstDate`..`lastDate`.
+- The month shown on open defaults to the month of `initialDateRange` (or of `firstDate` when no range is given).
 - Day cells expose `Semantics` with labels like `Select Jan 20, 2026`.
 
 ---

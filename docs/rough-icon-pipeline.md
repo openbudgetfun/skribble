@@ -23,8 +23,7 @@ Compatibility alias (backward compatible):
    - emits Dart map (`material_rough_icons.g.dart`)
    - emits rough SVG files (`--rough-output-dir`)
    - generates icon fonts with `fantasticon` (`--font-output-dir`)
-   - emits Dart helpers for generated icon fonts (`--font-dart-output`)
-     including legacy alias identifiers that share resolved codepoints
+   - emits Dart helpers for generated icon fonts (`--font-dart-output`) including legacy alias identifiers that share resolved codepoints
    - emits unresolved icon reports as JSON (`--unresolved-output`)
    - emits supplemental manifest templates (`--supplemental-manifest-output`)
    - can fail CI on unresolved icons (`--fail-on-unresolved`, `--max-unresolved`, `--fail-on-new-unresolved`, `--max-new-unresolved`)
@@ -47,11 +46,9 @@ dart run tool/generate_rough_icons.dart --list-kits
 
 ### `svg-manifest` kit format
 
-Use `--kit svg-manifest --manifest <path>` to rough any icon set without
-writing Dart provider code.
+Use `--kit svg-manifest --manifest <path>` to rough any icon set without writing Dart provider code.
 
-Manifest supports either a top-level list or `{ "icons": [...] }`, where each
-entry includes:
+Manifest supports either a top-level list or `{ "icons": [...] }`, where each entry includes:
 
 - `identifier` (string, must be unique)
 - `codePoint` (int, decimal string, or hex string like `"0xe001"`, `"e001"`, `"U+E001"`; must be unique)
@@ -92,22 +89,18 @@ The roughing and font stages remain unchanged.
 
 ## Brand icon fallback source
 
-When a Flutter Material icon identifier does not exist in Material SVG packages
-(e.g. social/brand icons), the CLI can also resolve from `simple-icons`.
+When a Flutter Material icon identifier does not exist in Material SVG packages (e.g. social/brand icons), the CLI can also resolve from `simple-icons`.
 
 - Auto mode (default): tries `npm pack simple-icons` best-effort.
 - Manual source override: `--brand-icons-source <path>`.
 
 ## Supplemental manifest source
 
-For unresolved Flutter Material icons that are absent from both Material SVG
-packages and brand fallback packages, pass a custom manifest file:
+For unresolved Flutter Material icons that are absent from both Material SVG packages and brand fallback packages, pass a custom manifest file:
 
 - `--supplemental-manifest <path>`
 
-This uses the same JSON schema as `--kit svg-manifest` (`identifier`,
-`codePoint`, `svgPath`) and is applied as a fallback during
-`--kit flutter-material` resolution.
+This uses the same JSON schema as `--kit svg-manifest` (`identifier`, `codePoint`, `svgPath`) and is applied as a fallback during `--kit flutter-material` resolution.
 
 This repo includes a committed supplemental manifest for known upstream gaps:
 
@@ -145,8 +138,7 @@ To emit a baseline file dedicated to regression checks, pass:
 
 - `--unresolved-baseline-output <path>`
 
-By default, this output contains only an `unresolved[]` list so baseline
-updates are smaller and avoid churn in unrelated report metadata.
+By default, this output contains only an `unresolved[]` list so baseline updates are smaller and avoid churn in unrelated report metadata.
 
 To emit an even smaller baseline with only codepoint strings, pass:
 
@@ -160,9 +152,7 @@ To emit a starter supplemental manifest for unresolved icons, pass:
 
 - `--supplemental-manifest-output <path>`
 
-The output uses the same `icons[]` schema as `--kit svg-manifest` and can be
-edited by replacing placeholder `svgPath` values before passing it back via
-`--supplemental-manifest`.
+The output uses the same `icons[]` schema as `--kit svg-manifest` and can be edited by replacing placeholder `svgPath` values before passing it back via `--supplemental-manifest`.
 
 ## Strict unresolved mode
 
@@ -179,8 +169,7 @@ To detect only regressions relative to an existing unresolved baseline:
 - `--fail-on-new-unresolved` (strict; equivalent to allowing 0 newly unresolved)
 - `--max-new-unresolved <int>` (bounded; fail only when newly unresolved count exceeds threshold)
 
-Use either strict baseline-regression mode or threshold baseline-regression mode
-(these flags are mutually exclusive).
+Use either strict baseline-regression mode or threshold baseline-regression mode (these flags are mutually exclusive).
 
 Baseline input supports:
 
@@ -188,11 +177,9 @@ Baseline input supports:
 - supplemental manifest JSON (`icons[]`)
 - minimal baseline JSON (`unresolvedCodePoints[]`/`unresolvedCodePoint[]`/`unresolvedCodepoint[]`/`unresolvedCodepoints[]`/`unresolved_code_points[]`/`unresolved_codepoint[]`/`unresolved_codepoints[]`/`unresolved-code-points[]`/`unresolved-codepoints[]`/`codePoints[]`, also accepts `codePoint[]`/`codepoints[]`/`codepoint[]`/`code_points[]`/`code-points[]`)
 
-For object entries inside `unresolved[]` or `icons[]`, the code point field
-may be `codePoint`, `codepoint`, `code_point`, or `code-point`.
+For object entries inside `unresolved[]` or `icons[]`, the code point field may be `codePoint`, `codepoint`, `code_point`, or `code-point`.
 
-When code points are provided as strings, decimal, `0x`-prefixed hex, bare
-hex, and `U+`-prefixed hex forms are accepted.
+When code points are provided as strings, decimal, `0x`-prefixed hex, bare hex, and `U+`-prefixed hex forms are accepted.
 
 This is useful in CI while tightening coverage incrementally.
 
@@ -203,13 +190,9 @@ Workspace shortcuts:
 - `melos run rough-icons-baseline`
 - `melos run rough-icons-ci-check`
 
-`rough-icons` and `rough-icons-font` both apply the committed supplemental
-manifest `packages/skribble/tool/examples/material_rough_icons.supplemental.manifest.json`
-and enforce `--max-new-unresolved 0` (strict-mode equivalent) against
-`packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`.
+`rough-icons` and `rough-icons-font` both apply the committed supplemental manifest `packages/skribble/tool/examples/material_rough_icons.supplemental.manifest.json` and enforce `--max-new-unresolved 0` (strict-mode equivalent) against `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`.
 
-`rough-icons-ci-check` runs the same rough icon regression/sync checks used by
-CI via `./scripts/check_rough_icons_ci.sh all`.
+`rough-icons-ci-check` runs the same rough icon regression/sync checks used by CI via `./scripts/check_rough_icons_ci.sh all`.
 
 For targeted local debugging, run an individual CI-equivalent check:
 
@@ -222,38 +205,22 @@ On sync-check failures, the script prints `git diff` output and saves it to:
 - `rough-icons-baseline-sync.diff`
 - `rough-icons-generated-sync.diff`
 
-`regression` cleans up `packages/skribble/unresolved-report.json` after a
-successful local run. Set `ROUGH_ICONS_KEEP_UNRESOLVED_REPORT=1` to keep it.
-Set `ROUGH_ICONS_MAX_UNRESOLVED=<int>` to enable total unresolved gating via
-`--max-unresolved` (default: disabled).
-By default, regression/generated-sync checks use
-`--max-new-unresolved 0` (strict-mode equivalent). Set
-`ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>` to relax or tighten that threshold.
+`regression` cleans up `packages/skribble/unresolved-report.json` after a successful local run. Set `ROUGH_ICONS_KEEP_UNRESOLVED_REPORT=1` to keep it. Set `ROUGH_ICONS_MAX_UNRESOLVED=<int>` to enable total unresolved gating via `--max-unresolved` (default: disabled). By default, regression/generated-sync checks use `--max-new-unresolved 0` (strict-mode equivalent). Set `ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>` to relax or tighten that threshold.
 
-Pull-request CI explicitly sets `ROUGH_ICONS_MAX_NEW_UNRESOLVED=0` for those
-checks to keep the workflow configuration aligned with local defaults.
+Pull-request CI explicitly sets `ROUGH_ICONS_MAX_NEW_UNRESOLVED=0` for those checks to keep the workflow configuration aligned with local defaults.
 
-CI also enforces the same unresolved regression gate on pull requests using
-`--rough-only`, `--supplemental-manifest`, and `--unresolved-baseline`, and
-uploads an `rough-icons-unresolved-report` artifact (from
-`--unresolved-output`) to aid regression diagnosis.
+CI also enforces the same unresolved regression gate on pull requests using `--rough-only`, `--supplemental-manifest`, and `--unresolved-baseline`, and uploads an `rough-icons-unresolved-report` artifact (from `--unresolved-output`) to aid regression diagnosis.
 
-CI also verifies the committed baseline file is up to date by regenerating
-`packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json`
-and failing if a diff remains. On failure, CI uploads a
-`rough-icons-baseline-sync-diff` artifact with the baseline diff.
+CI also verifies the committed baseline file is up to date by regenerating `packages/skribble/tool/examples/material_rough_icons.unresolved-baseline.json` and failing if a diff remains. On failure, CI uploads a `rough-icons-baseline-sync-diff` artifact with the baseline diff.
 
-CI additionally verifies generated rough icon catalogs are committed and up to
-date by regenerating:
+CI additionally verifies generated rough icon catalogs are committed and up to date by regenerating:
 
 - `packages/skribble/lib/src/generated/material_rough_icons.g.dart`
 - `packages/skribble/lib/src/generated/material_rough_icon_font.g.dart`
 
-On generated-sync failures, CI uploads a
-`rough-icons-generated-sync-diff` artifact with catalog diffs.
+On generated-sync failures, CI uploads a `rough-icons-generated-sync-diff` artifact with catalog diffs.
 
-To refresh the committed `codePoints[]` baseline after intentional coverage
-changes:
+To refresh the committed `codePoints[]` baseline after intentional coverage changes:
 
 ```bash
 melos run rough-icons-baseline

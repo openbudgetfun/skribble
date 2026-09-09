@@ -5,10 +5,7 @@ description: Preview every hand-drawn widget, icon, emoji, and font glyph live i
 
 # Live Showcase
 
-The complete Skribble storybook runs as a web build on this site. Every
-widget category, all 8,600+ roughened Material icons, the curated icon set,
-the 1,827 hand-drawn emoji, and the full Skribble font specimen are
-interactive in your browser — no install required.
+The complete Skribble storybook runs as a web build on this site. Every widget category, all 8,600+ roughened Material icons, the curated icon set, the 1,827 hand-drawn emoji, and the full Skribble font specimen are interactive in your browser — no install required.
 
 ## Open the live storybook
 
@@ -44,19 +41,17 @@ Paste this into any page to embed the live preview:
 
 ## Try it interactively
 
-The storybook below is the real Flutter application compiled to web — resize
-the window to see the hand-drawn widgets reflow at different device sizes:
+The storybook below is the real Flutter application compiled to web — resize the window to see the hand-drawn widgets reflow at different device sizes:
 
-<iframe src="../../storybook/" style="width: 100%; height: 720px; border: 1px dashed #a39aad;"
-  title="Skribble Storybook interactive preview"></iframe>
+<iframe
+  src="../../storybook/"
+  style="width: 100%; height: 720px; border: 1px dashed #a39aad;"
+  title="Skribble Storybook interactive preview"
+></iframe>
 
 ## Screenshot galleries
 
-Static screenshots of every widget are captured by the integration-test
-pipeline (`.screenshots/`) and uploaded to external object storage after each
-release. Run `melos run screenshot` locally, then
-`scripts/upload_screenshots.sh` with Backblaze B2 credentials to publish a
-versioned gallery.
+Static screenshots of every widget are captured by the integration-test pipeline (`.screenshots/`) and uploaded to external object storage after each release. Run `melos run screenshot` locally, then `scripts/upload_screenshots.sh` with Backblaze B2 credentials to publish a versioned gallery.
 
 ## The sketchbook
 

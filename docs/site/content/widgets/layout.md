@@ -48,10 +48,7 @@ WiredCard(
 
 ## WiredCarouselView
 
-A horizontally scrolling hand-drawn carousel of rough-bordered cards,
-analogous to Material 3's `CarouselView`. Each item is drawn with a sketchy
-rough rounded-rectangle border reading `theme.fillColor` /
-`theme.borderColor`, with optional hachure fill.
+A horizontally scrolling hand-drawn carousel of rough-bordered cards, analogous to Material 3's `CarouselView`. Each item is drawn with a sketchy rough rounded-rectangle border reading `theme.fillColor` / `theme.borderColor`, with optional hachure fill.
 
 ```dart
 WiredCarouselView(
@@ -90,12 +87,8 @@ WiredCarouselView(
 
 ### Notes
 
-- Mirrors the Material 3 `itemExtent` / `height` / `children` / `shrinkWrap`
-  API surface for easy migration; per-item material chrome (`elevation`,
-  `shape`, `overlayColor`) is intentionally replaced by the wired card look.
-- With `shrinkWrap: true` the underlying list uses a `ListView` with all
-  children; with a fixed `itemExtent` and `shrinkWrap: false` it lazily
-  builds items via `ListView.builder`.
+- Mirrors the Material 3 `itemExtent` / `height` / `children` / `shrinkWrap` API surface for easy migration; per-item material chrome (`elevation`, `shape`, `overlayColor`) is intentionally replaced by the wired card look.
+- With `shrinkWrap: true` the underlying list uses a `ListView` with all children; with a fixed `itemExtent` and `shrinkWrap: false` it lazily builds items via `ListView.builder`.
 - Items are wrapped in `Semantics` and report as buttons when `onTap` is set.
 
 ---

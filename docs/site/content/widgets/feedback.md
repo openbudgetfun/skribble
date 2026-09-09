@@ -279,12 +279,7 @@ showWiredAboutDialog(
 
 ## WiredLicensePage / showWiredLicensePage
 
-A hand-drawn license page listing the open source packages the app uses,
-analogous to Material's `LicensePage`. Data is read from `LicenseRegistry`
-(each entry contributes its paragraphs to every package it names), so the
-page reflects the same license inventory as Material's page. Each package
-renders as a rough-bordered header with its license paragraphs beneath a
-hand-drawn divider.
+A hand-drawn license page listing the open source packages the app uses, analogous to Material's `LicensePage`. Data is read from `LicenseRegistry` (each entry contributes its paragraphs to every package it names), so the page reflects the same license inventory as Material's page. Each package renders as a rough-bordered header with its license paragraphs beneath a hand-drawn divider.
 
 ```dart
 showWiredLicensePage(
@@ -301,8 +296,7 @@ WiredLicensePage(
 )
 ```
 
-Also exported: `loadWiredLicenses()` and `WiredLicenseLibrary` for callers
-that want the aggregated package/paragraph data.
+Also exported: `loadWiredLicenses()` and `WiredLicenseLibrary` for callers that want the aggregated package/paragraph data.
 
 ### Constructor parameters
 
@@ -315,10 +309,8 @@ that want the aggregated package/paragraph data.
 
 ### Notes
 
-- `showWiredLicensePage` pushes a full-screen route wrapping the page in a
-  wired scaffold with a "Licenses" app bar and back button.
-- While licenses load asynchronously the page shows a wired spinner, then a
-  "Built with N open source packages" summary line.
+- `showWiredLicensePage` pushes a full-screen route wrapping the page in a wired scaffold with a "Licenses" app bar and back button.
+- While licenses load asynchronously the page shows a wired spinner, then a "Built with N open source packages" summary line.
 - Packages are listed alphabetically and deduplicated by name.
 
 ---

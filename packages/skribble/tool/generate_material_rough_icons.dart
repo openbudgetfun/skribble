@@ -1,5 +1,6 @@
 // exercised from test/tool/generate_material_rough_icons_parser_test.dart;
 // the reachability heuristic only walks main() so it cannot see them.
+// ignore_for_file: unnecessary_ignore
 
 import 'dart:collection';
 import 'dart:convert';
@@ -375,6 +376,7 @@ String _defaultOutputPathForKit(String kit) {
   return 'lib/src/generated/${normalized}_rough_icons.g.dart';
 }
 
+// ignore: unreachable_from_main
 List<String> supportedIconKitsForTest() =>
     _kSupportedKitDescriptions.keys.toList(growable: false);
 
@@ -1020,6 +1022,7 @@ bool _isAbsolutePath(String path) {
       RegExp(r'^[a-zA-Z]:[\\/]').hasMatch(path);
 }
 
+// ignore: unreachable_from_main
 List<ParsedManifestIconDeclaration> parseSvgManifestDeclarationsForTest(
   String source, {
   required String manifestDirectoryPath,
@@ -1082,6 +1085,7 @@ List<_FlutterIconDeclaration> _parseFlutterIconDeclarations(File file) {
   return _parseFlutterIconDeclarationsFromSource(file.readAsStringSync());
 }
 
+// ignore: unreachable_from_main
 List<ParsedFlutterIconDeclaration> parseFlutterIconDeclarationsForTest(
   String source,
 ) {
@@ -1917,6 +1921,7 @@ String _renderSupplementalManifestTemplateJson({
   return const JsonEncoder.withIndent('  ').convert(manifest);
 }
 
+// ignore: unreachable_from_main
 String renderFontCodePointsDartForTest({
   required String fontName,
   required Map<String, int> codePoints,
@@ -2438,6 +2443,7 @@ final class _GeneratedIconData {
   final List<_PrimitiveData> primitives;
 }
 
+// ignore: unreachable_from_main
 final class ParsedFlutterIconDeclaration {
   const ParsedFlutterIconDeclaration({
     required this.identifier,
@@ -2449,15 +2455,29 @@ final class ParsedFlutterIconDeclaration {
     required this.useSymbolFillVariant,
   });
 
+  // ignore: unreachable_from_main
   final String identifier;
+
+  // ignore: unreachable_from_main
   final String baseIdentifier;
+
+  // ignore: unreachable_from_main
   final int codePoint;
+
+  // ignore: unreachable_from_main
   final String svgName;
+
+  // ignore: unreachable_from_main
   final String oldPackageFolder;
+
+  // ignore: unreachable_from_main
   final String symbolPackageFolder;
+
+  // ignore: unreachable_from_main
   final bool useSymbolFillVariant;
 }
 
+// ignore: unreachable_from_main
 final class ParsedManifestIconDeclaration {
   const ParsedManifestIconDeclaration({
     required this.identifier,
@@ -2465,8 +2485,13 @@ final class ParsedManifestIconDeclaration {
     required this.svgPath,
   });
 
+  // ignore: unreachable_from_main
   final String identifier;
+
+  // ignore: unreachable_from_main
   final int codePoint;
+
+  // ignore: unreachable_from_main
   final String svgPath;
 }
 

@@ -1,8 +1,6 @@
 # skribble
 
-[![CI](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml/badge.svg)](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml)
-[![License](https://img.shields.io/github/license/openbudgetfun/skribble)](LICENSE)
-[![Flutter](https://img.shields.io/badge/Flutter-%E2%89%A53.41-blue?logo=flutter)](https://flutter.dev)
+[![CI](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml/badge.svg)](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml) [![License](https://img.shields.io/github/license/openbudgetfun/skribble)](LICENSE) [![Flutter](https://img.shields.io/badge/Flutter-%E2%89%A53.41-blue?logo=flutter)](https://flutter.dev)
 
 Hand-drawn UI components for Flutter — every widget looks like it was sketched by hand, with drop-in familiar Material and Cupertino APIs.
 
@@ -38,17 +36,9 @@ WiredMaterialApp.router(
 );
 ```
 
-Both constructors also expose high-value `MaterialApp` bootstrapping options
-like locale resolution callbacks, restoration, scroll behavior, shortcuts /
-actions, generated titles, theme animation controls, high-contrast theme
-variants, and common debug / diagnostics flags.
+Both constructors also expose high-value `MaterialApp` bootstrapping options like locale resolution callbacks, restoration, scroll behavior, shortcuts / actions, generated titles, theme animation controls, high-contrast theme variants, and common debug / diagnostics flags.
 
-All wired widget implementations read from the nearest `WiredTheme` ancestor
-and fall back to defaults when no theme is provided. `WiredThemeData`
-also exposes `toColorScheme()` and `toThemeData()` helpers so your app shell,
-text, and Material fallbacks stay aligned with the Skribble palette, while
-`WiredMaterialApp` and `WiredMaterialApp.router` keep `MaterialApp` and
-`WiredTheme` synchronized.
+All wired widget implementations read from the nearest `WiredTheme` ancestor and fall back to defaults when no theme is provided. `WiredThemeData` also exposes `toColorScheme()` and `toThemeData()` helpers so your app shell, text, and Material fallbacks stay aligned with the Skribble palette, while `WiredMaterialApp` and `WiredMaterialApp.router` keep `MaterialApp` and `WiredTheme` synchronized.
 
 ## Widget Catalog
 
@@ -216,16 +206,9 @@ melos run rough-icons-baseline
 melos run rough-icons-ci-check
 ```
 
-`rough-icons` and `rough-icons-font` both apply the committed supplemental
-manifest (`tool/examples/material_rough_icons.supplemental.manifest.json`) and
-enforce unresolved regression gating via
-`--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json`
-plus `--max-new-unresolved 0` (strict-mode equivalent). Use
-`rough-icons-baseline` to refresh that committed `codePoints[]` baseline file
-after intentional changes.
+`rough-icons` and `rough-icons-font` both apply the committed supplemental manifest (`tool/examples/material_rough_icons.supplemental.manifest.json`) and enforce unresolved regression gating via `--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json` plus `--max-new-unresolved 0` (strict-mode equivalent). Use `rough-icons-baseline` to refresh that committed `codePoints[]` baseline file after intentional changes.
 
-`rough-icons-ci-check` runs the same rough icon regression/sync checks enforced
-by CI via `./scripts/check_rough_icons_ci.sh all`.
+`rough-icons-ci-check` runs the same rough icon regression/sync checks enforced by CI via `./scripts/check_rough_icons_ci.sh all`.
 
 For targeted local debugging, run an individual CI-equivalent check:
 
@@ -238,23 +221,11 @@ On sync-check failures, the script prints `git diff` output and writes:
 - `rough-icons-baseline-sync.diff`
 - `rough-icons-generated-sync.diff`
 
-`regression` cleans up `packages/skribble/unresolved-report.json` after a
-successful local run. Set `ROUGH_ICONS_KEEP_UNRESOLVED_REPORT=1` to keep it.
-Set `ROUGH_ICONS_MAX_UNRESOLVED=<int>` to enable total unresolved gating via
-`--max-unresolved` (default: disabled).
-By default, regression/generated-sync checks use
-`--max-new-unresolved 0` (strict-mode equivalent). Set
-`ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>` to relax or tighten that threshold.
+`regression` cleans up `packages/skribble/unresolved-report.json` after a successful local run. Set `ROUGH_ICONS_KEEP_UNRESOLVED_REPORT=1` to keep it. Set `ROUGH_ICONS_MAX_UNRESOLVED=<int>` to enable total unresolved gating via `--max-unresolved` (default: disabled). By default, regression/generated-sync checks use `--max-new-unresolved 0` (strict-mode equivalent). Set `ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>` to relax or tighten that threshold.
 
-Pull-request CI explicitly sets `ROUGH_ICONS_MAX_NEW_UNRESOLVED=0` for those
-checks to keep workflow configuration aligned with local defaults.
+Pull-request CI explicitly sets `ROUGH_ICONS_MAX_NEW_UNRESOLVED=0` for those checks to keep workflow configuration aligned with local defaults.
 
-Pull-request CI also runs the unresolved gate in `--rough-only` mode, uploads a
-`rough-icons-unresolved-report` artifact for diagnostics, verifies the
-committed baseline file is up to date, checks that generated rough icon
-catalog files are committed/synced, and uploads diff artifacts
-(`rough-icons-baseline-sync-diff`, `rough-icons-generated-sync-diff`) when
-those sync checks fail.
+Pull-request CI also runs the unresolved gate in `--rough-only` mode, uploads a `rough-icons-unresolved-report` artifact for diagnostics, verifies the committed baseline file is up to date, checks that generated rough icon catalog files are committed/synced, and uploads diff artifacts (`rough-icons-baseline-sync-diff`, `rough-icons-generated-sync-diff`) when those sync checks fail.
 
 Useful flags:
 
@@ -286,8 +257,7 @@ Runtime helpers exposed by `wired_icon.dart`:
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for development setup, widget
-conventions, testing requirements, and quality gates.
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) for development setup, widget conventions, testing requirements, and quality gates.
 
 ## Docs
 
