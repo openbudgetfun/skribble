@@ -328,3 +328,9 @@ SVG path primitives also accept `strokeDashArray`, `strokeDashOffset`, `strokeCa
 - `WiredPainterBase.prepare`: optional animation support for custom painters.
 
 See [Ink motion](../core/motion) for examples and supported components.
+
+## Selection and interaction ink
+
+- `WiredSelectionArea` enables selection across participating Flutter text widgets, with Wired handles and localized Copy and Select all controls. See [Text selection](/core/selection).
+- `WiredInkInteraction` configures `none`, `pressure`, or `redraw` feedback through `WiredThemeData.inkInteraction` or a button override. See [Ink motion](/core/motion).
+- `WiredThemeData()` and `skribbleFontFamily` now use Gentle. Select `WiredRoughness.expressive` explicitly to retain the stronger former default.

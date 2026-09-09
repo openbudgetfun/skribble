@@ -337,3 +337,7 @@ Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 l
 Wrap this component in `WiredDraw` or `WiredDrawTransition` to draw its rough outline and patterned fill. Button variants also reinforce their ink on hover, focus, and press. Labels and solid backgrounds stay readable. See [Ink motion](../core/motion) for timing, supported variants, and disabling motion.
 
 Disabled filled buttons retain the contrast-selected foreground at 75% opacity, so labels and icons remain legible on their opaque ink background.
+
+## Decorative interaction styles
+
+The six standard Wired button variants accept `inkInteraction`. Leave it unset to inherit `WiredThemeData.inkInteraction`, use `WiredInkInteraction.none` for still ink, `pressure` for subtle reinforcement, or `redraw` for a short pen trace on press. Text and opaque fills stay visible. Reduced motion always takes precedence. See [Ink motion](/core/motion#choose-how-buttons-respond) for examples and animation ownership.

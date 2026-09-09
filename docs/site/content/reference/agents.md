@@ -39,7 +39,7 @@ skribble/
 ├── apps/skribble_storybook/        # Interactive demo app
 │   ├── lib/pages/                  # Storybook category pages
 │   └── integration_test/           # Screenshot capture tests
-└── docs/site/                      # This documentation site (Jaspr)
+└── docs/site/                      # This documentation site (Flutter)
 ```
 
 ## Creating a new widget — step by step
@@ -1088,6 +1088,6 @@ After changing fonts, SVG import, or painting, run the glyph/corpus/pixel regres
 
 Git hooks are managed by devenv with `prek` and installed the first time you enter the devenv shell. The pre-commit stage checks formatting with `lint:format` and scans staged changes for secrets with gitleaks; the pre-push stage runs the CI lint job (`lint:push`) and scans the full history for secrets. Hooks invoke devenv profile scripts by absolute path, so they work outside the devenv shell, and the pre-push script prepends `.devenv/profile/bin` to `PATH` so nested `dart`/`melos`/`mdt` calls resolve the pinned toolchain.
 
-The automated PR review resolves the separate Jaspr docs package before repository-wide analysis. Its generated Markdown lives under `.audit/` so it does not fail its own formatting check, and test-file inventory paths are repository-relative without a duplicate package prefix.
+The automated PR review resolves the Flutter docs workspace package before repository-wide analysis. Its generated Markdown lives under `.audit/` so it does not fail its own formatting check, and test-file inventory paths are repository-relative without a duplicate package prefix.
 
 Repository Markdown uses dprint with `textWrap: "never"`. Keep prose paragraphs unwrapped and run `dprint fmt` after editing Markdown.

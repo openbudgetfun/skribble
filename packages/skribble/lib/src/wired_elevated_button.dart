@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'motion/wired_draw.dart';
+import 'motion/wired_ink_interaction.dart';
 import 'motion/wired_ink_response.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
@@ -17,17 +18,22 @@ class WiredElevatedButton extends HookWidget {
   /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
+  /// Overrides the theme’s decorative ink feedback for this control.
+  final WiredInkInteraction? inkInteraction;
+
   const WiredElevatedButton({
     super.key,
     required this.child,
     this.onPressed,
     this.semanticLabel,
+    this.inkInteraction,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     return WiredInkResponse(
+      interaction: inkInteraction,
       builder: (context, states) => Semantics(
         label: semanticLabel,
         button: true,

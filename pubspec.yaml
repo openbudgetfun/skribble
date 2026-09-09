@@ -5,6 +5,7 @@ environment:
   sdk: ^3.13.0
 
 workspace:
+  - docs/site
   - packages/skribble
   - packages/skribble_emoji
   - packages/skribble_emoji_gen
