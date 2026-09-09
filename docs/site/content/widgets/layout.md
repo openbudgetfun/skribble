@@ -586,13 +586,6 @@ Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 l
 
 ## Drawing cards into place
 
-Wrap a card in `WiredDraw` for a one-time outline entrance, or use
-`WiredDrawTransition` with a caller-owned animation. Patterned fills scribble
-in after the outline starts. A card with `height: null` now uses its child's
-natural layout directly, so responsive `LayoutBuilder` content works without
-intrinsic-size queries. See [Ink motion](../core/motion).
+Wrap a card in `WiredDraw` for a one-time outline entrance, or use `WiredDrawTransition` with a caller-owned animation. Patterned fills scribble in after the outline starts. A card with `height: null` now uses its child's natural layout directly, so responsive `LayoutBuilder` content works without intrinsic-size queries. See [Ink motion](../core/motion).
 
-The transitional `WiredExpansionPanelList` source also inherits ink reveals.
-Setting a panel's `canTapOnHeader` to false keeps header taps inactive and
-provides a labeled Wired expand button. This component remains available through
-its source import while its standalone API is developed.
+The transitional `WiredExpansionPanelList` source also inherits ink reveals. Setting a panel's `canTapOnHeader` to false keeps header taps inactive and provides a labeled Wired expand button. This component remains available through its source import while its standalone API is developed.

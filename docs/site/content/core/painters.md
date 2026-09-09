@@ -671,8 +671,4 @@ Use `WiredThemeData.inkExtent` for the cross-axis space of a divider. A 2.4-pixe
 
 ## Prepared animated ink
 
-Built-in painters implement `WiredPainterBase.prepare` and return a
-`RoughDrawing`. `WiredPainter` retains that drawing until its size or delegate
-changes, listening directly to optional `progress` and `pressure` animations.
-Custom imperative painters remain compatible; override `prepare` to opt into
-animated paths. See [Ink motion](motion) for ownership and reduced-motion rules.
+Built-in painters implement `WiredPainterBase.prepare` and return a `RoughDrawing`. `WiredPainter` retains that drawing until its size or delegate changes, listening directly to optional `progress` and `pressure` animations. Custom imperative painters remain compatible; override `prepare` to opt into animated paths. See [Ink motion](motion) for ownership and reduced-motion rules.

@@ -192,8 +192,4 @@ Every Wired widget follows the same pattern:
 
 ## Bring the ink to life
 
-Wrap a card or section in `WiredDraw(child: ...)` for a one-time drawing
-entrance. Use `WiredDrawTransition(progress: animation, child: ...)` to control
-the timing with standard Flutter animations. Set `motionEnabled: false` in
-`WiredThemeData` to disable decorative ink app-wide. Platform reduced motion
-is respected automatically. See [Ink motion](../core/motion).
+Wrap a card or section in `WiredDraw(child: ...)` for a one-time drawing entrance. Use `WiredDrawTransition(progress: animation, child: ...)` to control the timing with standard Flutter animations. Set `motionEnabled: false` in `WiredThemeData` to disable decorative ink app-wide. Platform reduced motion is respected automatically. See [Ink motion](../core/motion).
