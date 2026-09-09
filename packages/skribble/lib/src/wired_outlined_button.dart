@@ -21,12 +21,17 @@ class WiredOutlinedButton extends HookWidget {
   /// Overrides the theme’s decorative ink feedback for this control.
   final WiredInkInteraction? inkInteraction;
 
+  /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
+  /// for square corners.
+  final BorderRadius borderRadius;
+
   const WiredOutlinedButton({
     super.key,
     required this.child,
     this.onPressed,
     this.semanticLabel,
     this.inkInteraction,
+    this.borderRadius = const BorderRadius.all(Radius.circular(6)),
   });
 
   @override
@@ -44,7 +49,10 @@ class WiredOutlinedButton extends HookWidget {
               progress: WiredDrawTransition.progressOf(context),
               pressure: WiredInkResponse.pressureOf(context),
               drawConfig: theme.drawConfig,
-              shape: RoughBoxShape.rectangle,
+              shape: borderRadius == BorderRadius.zero
+                  ? RoughBoxShape.rectangle
+                  : RoughBoxShape.roundedRectangle,
+              borderRadius: borderRadius,
               borderStyle: RoughDrawingStyle(
                 width: theme.strokeWidth,
                 color: theme.borderColor,

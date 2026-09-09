@@ -37,6 +37,17 @@ class WiredAnimatedIcon extends HookWidget {
     this.textDirection,
   });
 
+  /// Creates the menu-to-close compatibility animation using Flutter progress.
+  /// This preserves Material's smooth morph; use `WiredDraw` for rough pen traces.
+  const WiredAnimatedIcon.menuClose({
+    super.key,
+    required this.progress,
+    this.color,
+    this.size,
+    this.semanticLabel,
+    this.textDirection,
+  }) : icon = AnimatedIcons.menu_close;
+
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);

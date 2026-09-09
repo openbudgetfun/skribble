@@ -16,10 +16,10 @@ Skribble replaces standard form controls with sketchy, hand-drawn equivalents. A
 A single-line text field wrapped in a hand-drawn rectangle border. Supports labels, hints, and password masking.
 
 ```dart
+// Live example: input
 WiredInput(
-  labelText: 'Name',
-  hintText: 'Enter your name',
-  onChanged: (value) => print(value),
+  labelText: 'Make something lovely',
+  hintText: 'A tiny spark of an idea…',
 )
 ```
 
@@ -49,11 +49,9 @@ WiredInput(
 A multi-line text input with a hand-drawn rectangle border. The border fills behind the text area using `Positioned.fill`.
 
 ```dart
+// Live example: text-area
 WiredTextArea(
-  hintText: 'Write something...',
-  maxLines: 8,
-  minLines: 4,
-  onChanged: (value) {},
+  hintText: 'Make something lovely',
 )
 ```
 
@@ -81,11 +79,8 @@ WiredTextArea(
 A search input with a pill-shaped hand-drawn border (24px border radius). Includes a leading search icon and optional trailing widget.
 
 ```dart
-WiredSearchBar(
-  hintText: 'Search widgets...',
-  onChanged: (query) => filterResults(query),
-  onSubmitted: (query) => search(query),
-)
+// Live example: search-bar
+WiredSearchBar(hintText: 'Make something lovely')
 ```
 
 ### Constructor parameters
@@ -114,22 +109,22 @@ WiredSearchBar(
 A search anchor that pairs a collapsed search field with an in-place suggestions view, analogous to Material 3's `SearchAnchor`. The collapsed state is built by `builder` (which receives a `WiredSearchController` whose `openView()` opens the view); the open state renders a wired search bar plus the widgets returned by `suggestionsBuilder`, which re-runs on every keystroke so suggestions can filter live.
 
 ```dart
-final controller = WiredSearchController();
-
+// Live example: search-anchor
 WiredSearchAnchor(
-  searchController: controller,
   builder: (context, controller) => WiredSearchBar(
     controller: controller,
-    hintText: 'Search fruits...',
+    hintText: 'Make something lovely',
     onTap: controller.openView,
   ),
   suggestionsBuilder: (context, controller) => [
-    for (final fruit in _fruits)
-      if (fruit.toLowerCase().contains(controller.text.toLowerCase()))
-        WiredListTile(
-          title: Text(fruit),
-          onTap: () => controller.closeView(fruit),
-        ),
+    for (final option in ['Paper', 'Ink', 'Possibility'].where(
+      (option) => option.toLowerCase().contains(controller.text.toLowerCase()),
+    ))
+      WiredListTile(
+        title: Text(option),
+        showDivider: false,
+        onTap: () => controller.closeView(option),
+      ),
   ],
 )
 ```
@@ -161,10 +156,22 @@ Also exported: `WiredSearchController` (a `TextEditingController` plus `openView
 A hand-drawn checkbox with a sketchy rectangle border. The checkmark is rendered by an underlying transparent `Checkbox` widget, scaled up for visual presence.
 
 ```dart
-WiredCheckbox(
-  value: isChecked,
-  onChanged: (newValue) {
-    setState(() => isChecked = newValue ?? false);
+// Live example: checkbox
+HookBuilder(
+  builder: (context) {
+    final checked = useState(false);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        WiredCheckbox(
+          value: checked.value,
+          onChanged: (value) => checked.value = value ?? false,
+          semanticLabel: 'Keep this idea',
+        ),
+        const SizedBox(width: 12),
+        Flexible(child: Text('Make something lovely')),
+      ],
+    );
   },
 )
 ```
@@ -189,10 +196,17 @@ WiredCheckbox(
 Combines `WiredCheckbox` with a `WiredListTile`-style layout including title, subtitle, and optional secondary widget. Follows the same API pattern as Material's `CheckboxListTile`.
 
 ```dart
-WiredCheckboxListTile(
-  title: Text('Accept terms'),
-  value: accepted,
-  onChanged: (value) => setState(() => accepted = value ?? false),
+// Live example: checkbox-list-tile
+HookBuilder(
+  builder: (context) {
+    final checked = useState(true);
+    return WiredCheckboxListTile(
+      value: checked.value,
+      onChanged: (value) => checked.value = value ?? false,
+      title: Text('Make something lovely'),
+      showDivider: false,
+    );
+  },
 )
 ```
 
@@ -203,11 +217,26 @@ WiredCheckboxListTile(
 A hand-drawn radio button with a sketchy circle border. When selected, the inner circle fills with a hachure pattern.
 
 ```dart
-WiredRadio<String>(
-  value: 'option1',
-  groupValue: selectedValue,
-  onChanged: (value) {
-    setState(() => selectedValue = value);
+// Live example: radio
+HookBuilder(
+  builder: (context) {
+    final selected = useState('paper');
+    return Wrap(
+      children: [
+        for (final value in ['paper', 'ink'])
+          WiredRadio<String>(
+            value: value,
+            groupValue: selected.value,
+            semanticLabel: value,
+            onChanged: true
+                ? (value) {
+                    selected.value = value!;
+                    return true;
+                  }
+                : null,
+          ),
+      ],
+    );
   },
 )
 ```
@@ -233,11 +262,28 @@ WiredRadio<String>(
 Combines `WiredRadio` with a list tile layout. Follows the `RadioListTile` API pattern.
 
 ```dart
-WiredRadioListTile<String>(
-  title: Text('Option A'),
-  value: 'a',
-  groupValue: selected,
-  onChanged: (value) => setState(() => selected = value),
+// Live example: radio-list-tile
+HookBuilder(
+  builder: (context) {
+    final selected = useState('paper');
+    return Column(
+      children: [
+        for (final value in ['paper', 'ink'])
+          WiredRadioListTile<String>(
+            title: Text(value),
+            value: value,
+            groupValue: selected.value,
+            showDivider: false,
+            onChanged: true
+                ? (value) {
+                    selected.value = value!;
+                    return true;
+                  }
+                : null,
+          ),
+      ],
+    );
+  },
 )
 ```
 
@@ -248,10 +294,16 @@ WiredRadioListTile<String>(
 A toggle switch with a hand-drawn rounded rectangle track and a circle thumb that animates between on and off positions.
 
 ```dart
-WiredSwitch(
-  value: isEnabled,
-  onChanged: (newValue) {
-    setState(() => isEnabled = newValue);
+// Live example: switch
+HookBuilder(
+  builder: (context) {
+    final enabled = useState(true);
+    return WiredSwitch(
+      value: enabled.value,
+      onChanged: (value) {
+        enabled.value = value;
+      },
+    );
   },
 )
 ```
@@ -280,10 +332,17 @@ WiredSwitch(
 Combines `WiredSwitch` with a list tile layout. Follows the `SwitchListTile` API pattern.
 
 ```dart
-WiredSwitchListTile(
-  title: Text('Dark mode'),
-  value: isDark,
-  onChanged: (value) => setState(() => isDark = value),
+// Live example: switch-list-tile
+HookBuilder(
+  builder: (context) {
+    final enabled = useState(true);
+    return WiredSwitchListTile(
+      value: enabled.value,
+      onChanged: (value) => enabled.value = value,
+      title: Text('Make something lovely'),
+      showDivider: false,
+    );
+  },
 )
 ```
 
@@ -294,16 +353,12 @@ WiredSwitchListTile(
 A slider with a sketchy track line and a hand-drawn circle thumb. Supports divisions and labels.
 
 ```dart
+// Live example: slider
 WiredSlider(
-  value: volume,
-  min: 0,
-  max: 100,
+  value: .6,
   divisions: 10,
-  label: 'Volume',
-  onChanged: (newValue) {
-    setState(() => volume = newValue);
-    return true; // Return true to accept the change
-  },
+  semanticLabel: 'Amount',
+  onChanged: true ? (value) => true : null,
 )
 ```
 
@@ -331,11 +386,22 @@ WiredSlider(
 A dual-handle variant of `WiredSlider` for selecting a range of values. Follows the `RangeSlider` API.
 
 ```dart
-WiredRangeSlider(
-  values: RangeValues(20, 80),
-  min: 0,
-  max: 100,
-  onChanged: (values) => setState(() => range = values),
+// Live example: range-slider
+HookBuilder(
+  builder: (context) {
+    final range = useState((start: .2, end: .8));
+    return WiredRangeSlider.between(
+      start: range.value.start,
+      end: range.value.end,
+      divisions: 10,
+      onChanged: true
+          ? (start, end) {
+              range.value = (start: start, end: end);
+              return true;
+            }
+          : null,
+    );
+  },
 )
 ```
 
@@ -346,11 +412,18 @@ WiredRangeSlider(
 A simple on/off toggle with a hand-drawn rectangle track and an animated circle thumb. More minimal than `WiredSwitch`.
 
 ```dart
-WiredToggle(
-  value: isOn,
-  onChange: (newValue) {
-    setState(() => isOn = newValue);
-    return true; // Return true to accept the change
+// Live example: toggle
+HookBuilder(
+  builder: (context) {
+    final enabled = useState(false);
+    return WiredToggle(
+      value: enabled.value,
+      semanticLabel: 'Ink enabled',
+      onChange: (value) {
+        enabled.value = value;
+        return true;
+      },
+    );
   },
 )
 ```
@@ -377,21 +450,10 @@ WiredToggle(
 A hand-drawn wrapper around Flutter's `Form` widget. Draws a sketchy rounded rectangle border around form content.
 
 ```dart
-final formKey = GlobalKey<FormState>();
-
+// Live example: form
 WiredForm(
-  formKey: formKey,
-  autovalidateMode: AutovalidateMode.onUserInteraction,
-  child: Column(
-    children: [
-      WiredInput(labelText: 'Email', hintText: 'you@example.com'),
-      SizedBox(height: 16),
-      WiredButton(
-        onPressed: () => formKey.currentState?.validate(),
-        child: Text('Submit'),
-      ),
-    ],
-  ),
+  borderRadius: BorderRadius.circular(8),
+  child: WiredInput(labelText: 'Make something lovely', hintText: 'Your next idea'),
 )
 ```
 
@@ -418,13 +480,12 @@ WiredForm(
 A hand-drawn autocomplete field that displays suggestions in a sketchy dropdown as the user types. Wraps Flutter's `Autocomplete` widget.
 
 ```dart
+// Live example: autocomplete
 WiredAutocomplete<String>(
-  optionsBuilder: (textEditingValue) {
-    return suggestions.where(
-      (s) => s.toLowerCase().contains(textEditingValue.text.toLowerCase()),
-    );
-  },
-  onSelected: (selection) => print('Selected: $selection'),
+  options: const ['Apple', 'Apricot', 'Banana', 'Cherry'],
+  displayStringForOption: (value) => value,
+  hintText: 'Make something lovely',
+  optionsWidth: 260,
 )
 ```
 
@@ -435,9 +496,11 @@ WiredAutocomplete<String>(
 A Cupertino-styled text field with a hand-drawn rounded rectangle border. Mirrors the `CupertinoTextField` API.
 
 ```dart
+// Live example: cupertino-text-field
 WiredCupertinoTextField(
-  placeholder: 'Enter text',
-  onChanged: (value) => print(value),
+  placeholder: 'Make something lovely',
+  enabled: true,
+  borderRadius: BorderRadius.circular(8),
 )
 ```
 
@@ -448,11 +511,15 @@ WiredCupertinoTextField(
 A Cupertino-styled slider with a sketchy track and thumb. Mirrors the `CupertinoSlider` API.
 
 ```dart
-WiredCupertinoSlider(
-  value: brightness,
-  min: 0,
-  max: 1,
-  onChanged: (value) => setState(() => brightness = value),
+// Live example: cupertino-slider
+HookBuilder(
+  builder: (context) {
+    final value = useState(.6);
+    return WiredCupertinoSlider(
+      value: value.value,
+      onChanged: true ? (next) => value.value = next : null,
+    );
+  },
 )
 ```
 
@@ -463,9 +530,15 @@ WiredCupertinoSlider(
 A Cupertino-styled toggle switch with hand-drawn track and thumb. Mirrors the `CupertinoSwitch` API.
 
 ```dart
-WiredCupertinoSwitch(
-  value: isActive,
-  onChanged: (value) => setState(() => isActive = value),
+// Live example: cupertino-switch
+HookBuilder(
+  builder: (context) {
+    final value = useState(true);
+    return WiredCupertinoSwitch(
+      value: value.value,
+      onChanged: true ? (next) => value.value = next : null,
+    );
+  },
 )
 ```
 
@@ -484,3 +557,11 @@ Input lettering inherits the active `WiredRoughness` level. Changing the root th
 ## Ink entrances
 
 Rough borders in input components inherit `WiredDrawTransition` progress. Their text, focus, hit targets, and existing functional state animations remain available throughout the reveal. See [Ink motion](../core/motion) for opt-in entrances and reduced-motion behavior. The slider's endpoint thumb now paints into its reserved outer padding, so its circle remains whole at both minimum and maximum values.
+
+## Numeric range endpoints
+
+`WiredRangeSlider.between(start: .2, end: .8, onChanged: (start, end) => true)` accepts numbers directly. Return `true` to accept an interaction or `false` to keep the current range. A null callback disables input. Rebuilding with different endpoints updates the displayed range. Both thumbs use the theme's rough drawing configuration.
+
+`WiredCombo.options(options: {'one': Text('One')}, value: 'one', onChanged: (value) => true)` accepts a map of values to labels without requiring Material dropdown items. Its callback follows the same acceptance convention as the original constructor.
+
+Give `WiredCalendar` a bounded height, for example `SizedBox(height: 360, child: WiredCalendar(...))`. Its month heading and weekday columns adapt to narrow widths.

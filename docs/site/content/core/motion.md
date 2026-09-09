@@ -17,6 +17,40 @@ WiredDraw(
 
 `WiredDraw` plays once on mount, over 650 milliseconds. Give it a new key to replay. Entrances are opt-in, so scrolling a normal list does not animate every card. Set `duration` and `curve` when the occasion needs a different pace.
 
+## Try the ink
+
+Replay the entrance, then change the progress value to inspect the outline and shading at your own pace.
+
+```dart
+// Live example: ink-reveal
+HookBuilder(
+  builder: (context) {
+    final replay = useState(0);
+    return Column(
+      children: [
+        WiredDraw(
+          key: ValueKey(replay.value),
+          child: WiredCard(child: Text('Make something lovely')),
+        ),
+        const SizedBox(height: 16),
+        WiredOutlinedButton(
+          onPressed: () => replay.value++,
+          child: const Text('Draw again'),
+        ),
+      ],
+    );
+  },
+)
+```
+
+```dart
+// Live example: ink-progress
+WiredDrawTransition(
+  progress: AlwaysStoppedAnimation(.6),
+  child: WiredCard(child: Text('Make something lovely')),
+)
+```
+
 ## Own the timing
 
 `WiredDrawTransition` accepts any `Animation<double>`. Zero hides outlines and patterned fill; one completes them. The outline draws first and shading follows with a short overlap. Solid backgrounds stay opaque for readable labels.

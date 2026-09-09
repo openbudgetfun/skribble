@@ -7,6 +7,53 @@ description: Guide to WiredPainterBase, all concrete shape painters, WiredCanvas
 
 The painter layer sits between the raw rough engine and the finished Wired widgets. It defines a simple contract -- `paintRough(Canvas, Size, DrawConfig, Filler)` -- that each shape implements. Understanding painters is essential for creating custom Wired widgets or modifying how existing shapes render.
 
+## Try the shape painters
+
+Change the radius and fill pattern. Corners follow the roughness selected at the top of this page.
+
+```dart
+// Live example: rounded-canvas
+Builder(
+  builder: (context) {
+    final theme = WiredTheme.of(context);
+    return SizedBox(
+      width: 260,
+      height: 140,
+      child: WiredCanvas(
+        painter: WiredRoundedRectangleBase(
+          borderRadius: BorderRadius.circular(8),
+          borderColor: theme.borderColor,
+          fillColor: const Color(0xffde987d),
+          strokeWidth: theme.strokeWidth,
+        ),
+        fillerType: RoughFilter.hachureFiller,
+      ),
+    );
+  },
+)
+```
+
+```dart
+// Live example: circle-canvas
+Builder(
+  builder: (context) {
+    final theme = WiredTheme.of(context);
+    return SizedBox(
+      width: 160,
+      height: 160,
+      child: WiredCanvas(
+        painter: WiredCircleBase(
+          borderColor: theme.borderColor,
+          fillColor: const Color(0xffe8957d),
+          strokeWidth: theme.strokeWidth,
+        ),
+        fillerType: RoughFilter.hachureFiller,
+      ),
+    );
+  },
+)
+```
+
 ## WiredPainterBase
 
 `WiredPainterBase` is the abstract class all shape painters extend. It lives in `packages/skribble/lib/src/canvas/wired_painter_base.dart`.

@@ -1091,3 +1091,11 @@ Git hooks are managed by devenv with `prek` and installed the first time you ent
 The automated PR review resolves the Flutter docs workspace package before repository-wide analysis. Its generated Markdown lives under `.audit/` so it does not fail its own formatting check, and test-file inventory paths are repository-relative without a duplicate package prefix.
 
 Repository Markdown uses dprint with `textWrap: "never"`. Keep prose paragraphs unwrapped and run `dprint fmt` after editing Markdown.
+
+### Executable documentation examples
+
+Live Markdown fences begin with `// Live example: <stable-id>`. Define the matching compiled expression in the relevant `docs/site/lib/src/examples/*.examples.dart` category file, with an `@docs-example` doc comment. Editable values use the typed `ExampleSettings` fields. The generator parses setting references, so text and comments are never changed by string matching.
+
+From `docs/site`, run `dart run tool/generate_examples.dart` after changing a builder. It extracts the displayed source and synchronizes marked Markdown fences and the shared button template. Run `--check` in CI. Unknown IDs, unused builders, and stale source must fail validation. Run `mdt update` after generation when changing template-owned examples.
+
+Keep previews in the actual docs layout during tests: inherited typography and article padding can expose failures that an isolated widget hides. Configuration, shell commands, and platform setup remain source instructions rather than simulated widgets.

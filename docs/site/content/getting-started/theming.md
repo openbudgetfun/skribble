@@ -36,8 +36,8 @@ WiredThemeData({
 | `disabledTextColor` | `Color`          | `Colors.grey`         | Text color for disabled widgets.                                                                                                                            |
 | `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`   | Background fill for cards, inputs, dialogs, and other surfaces. Near-white by default.                                                                      |
 | `strokeWidth`       | `double`         | `2.4`                 | Width in logical pixels of the rough-drawn border strokes.                                                                                                  |
-| `roughnessLevel`    | `WiredRoughness` | `gentle`              | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                          |
-| `roughness`         | `double?`        | `null` → level value  | Optional geometry amplitude override. The default gentle level resolves to `1.25`; `0` removes random displacement.                                         |
+| `roughnessLevel`    | `WiredRoughness` | `playful`             | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                          |
+| `roughness`         | `double?`        | `null` → level value  | Optional geometry amplitude override. The default playful level resolves to `1.5`; `0` removes random displacement.                                         |
 | `fontFamily`        | `String?`        | `null` → level family | Optional font override. Bundled families resolve to the `skribble` package; custom families belong to the consuming app.                                    |
 | `drawConfig`        | `DrawConfig?`    | `null` → level config | Optional complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and any explicit `roughness`. |
 
@@ -361,11 +361,13 @@ WiredMaterialApp(
 
 <!-- {=docsRoughnessLevelTable} -->
 
-| Level        | Appearance                                          | Border amplitude | Font deformation | Bundled family    |
-| ------------ | --------------------------------------------------- | ---------------- | ---------------- | ----------------- |
-| `gentle`     | Softer handwriting and gently bowed edges (default) | 1.25             | 18               | `SkribbleGentle`  |
-| `playful`    | An intermediate amount of wavering ink              | 1.5              | 27               | `SkribblePlayful` |
-| `expressive` | Strong lettering and locally wandering edges        | 1.8              | 36               | `Skribble`        |
+Playful is the default. The docs toolbar switches all inherited lettering and ink between Gentle, Playful, and Expressive, without resetting the current page. [Compare the original and roughened Casual and Linear fonts](/core/font-comparison).
+
+| Level        | Appearance                                   | Border amplitude | Font deformation | Bundled family    |
+| ------------ | -------------------------------------------- | ---------------- | ---------------- | ----------------- |
+| `gentle`     | Softer handwriting and gently bowed edges    | 1.25             | 18               | `SkribbleGentle`  |
+| `playful`    | An intermediate amount of wavering ink       | 1.5              | 27               | `SkribblePlayful` |
+| `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
 
 All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. This adds eight font files, about 2.8 MB before delivery compression. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 

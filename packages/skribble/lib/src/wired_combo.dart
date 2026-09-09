@@ -27,6 +27,23 @@ class WiredCombo<T> extends HookWidget {
     this.onChanged,
   });
 
+  /// Creates a selector from unique values and their visible labels.
+  /// [value] and [onChanged] follow the same ownership rules as [WiredCombo].
+  factory WiredCombo.options({
+    Key? key,
+    required Map<T, Widget> options,
+    T? value,
+    bool? Function(T?)? onChanged,
+  }) => WiredCombo<T>(
+    key: key,
+    value: value,
+    onChanged: onChanged,
+    items: [
+      for (final option in options.entries)
+        DropdownMenuItem(value: option.key, child: option.value),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);

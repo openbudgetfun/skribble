@@ -14,16 +14,26 @@ Skribble renders Material icons with rough, hand-drawn outlines and optional hac
 The primary icon widget. Looks up the given `IconData` in the pre-generated rough icon catalog and renders it with hand-drawn strokes. Falls back to Flutter's standard `Icon` for unsupported icon families.
 
 ```dart
-// Basic usage
-WiredIcon(icon: Icons.home)
-
-// With customization
-WiredIcon(
-  icon: Icons.favorite,
-  size: 32,
-  color: Colors.red,
-  fillStyle: WiredIconFillStyle.hachure,
-  strokeWidth: 2.0,
+// Live example: icon
+const Wrap(
+  spacing: 24,
+  children: [
+    WiredIcon(
+      icon: IconData(0xe318, fontFamily: 'MaterialIcons'),
+      semanticLabel: 'Home',
+      size: 48,
+    ),
+    WiredIcon(
+      icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),
+      semanticLabel: 'Favourite',
+      size: 48,
+    ),
+    WiredIcon(
+      icon: IconData(0xe047, fontFamily: 'MaterialIcons'),
+      semanticLabel: 'Add',
+      size: 48,
+    ),
+  ],
 )
 ```
 
@@ -67,12 +77,13 @@ The `WiredIconFillStyle` enum controls how icon shapes are filled:
 Renders a pre-parsed `WiredSvgIconData` with rough hand-drawn strokes. This is the lower-level rendering widget used by `WiredIcon` internally.
 
 ```dart
+// Live example: svg-icon
 WiredSvgIcon(
-  data: myCustomSvgIconData,
-  size: 48,
-  color: Colors.blue,
-  fillStyle: WiredIconFillStyle.crossHatch,
-  strokeWidth: 2.0,
+  data: lookupMaterialRoughIconByIdentifier('favorite')!,
+  size: 64,
+  color: const Color(0xffe8957d),
+  fillStyle: WiredIconFillStyle.solid,
+  semanticLabel: 'Favourite',
 )
 ```
 
@@ -105,14 +116,19 @@ WiredSvgIcon(
 The data type that represents a pre-parsed SVG icon. Contains the viewport dimensions and a list of drawable primitives.
 
 ```dart
-const myIcon = WiredSvgIconData(
-  width: 24,
-  height: 24,
-  primitives: [
-    WiredSvgPrimitive.path('M12 2L2 22h20L12 2z'),
-    WiredSvgPrimitive.circle(cx: 12, cy: 16, radius: 2),
-  ],
-);
+// Live example: svg-icon-data
+const WiredSvgIcon(
+  data: WiredSvgIconData(
+    width: 24,
+    height: 24,
+    primitives: [
+      WiredSvgPrimitive.path('M12 2L2 22h20L12 2z'),
+      WiredSvgPrimitive.circle(cx: 12, cy: 16, radius: 2),
+    ],
+  ),
+  size: 64,
+  semanticLabel: 'Triangle with a circular detail',
+)
 ```
 
 ### Structure
@@ -142,14 +158,30 @@ Each primitive supports an optional `fillRule` parameter (`WiredSvgFillRule.nonZ
 A hand-drawn wrapper around Flutter's `AnimatedIcon`. Applies Skribble theme colors while preserving the standard animation behavior.
 
 ```dart
-final controller = useAnimationController(
-  duration: Duration(milliseconds: 300),
-);
-
-WiredAnimatedIcon(
-  icon: AnimatedIcons.menu_arrow,
-  progress: controller,
-  size: 24,
+// Live example: animated-icon
+HookBuilder(
+  builder: (context) {
+    final controller = useAnimationController(
+      duration: const Duration(milliseconds: 350),
+    );
+    final open = useState(false);
+    return WiredButton(
+      onPressed: () {
+        open.value = !open.value;
+        if (MediaQuery.disableAnimationsOf(context)) {
+          controller.value = open.value ? 1 : 0;
+        } else if (open.value) {
+          controller.forward();
+        } else {
+          controller.reverse();
+        }
+      },
+      child: WiredAnimatedIcon.menuClose(
+        progress: controller,
+        semanticLabel: open.value ? 'Close' : 'Open menu',
+      ),
+    );
+  },
 )
 ```
 
@@ -242,7 +274,28 @@ dart pub add skribble_icons
 ### Import
 
 ```dart
-import 'package:skribble_icons/skribble_icons.dart';
+// Live example: custom-icons
+Wrap(
+  spacing: 24,
+  runSpacing: 20,
+  children: [
+    SkribbleIcon(
+      data: kSkribbleCustomIconsRough[0xf001]!,
+      semanticLabel: 'Home',
+      size: 48,
+    ),
+    SkribbleIcon(
+      data: kSkribbleCustomIconsRough[0xf005]!,
+      semanticLabel: 'Heart',
+      size: 48,
+    ),
+    SkribbleIcon(
+      data: kSkribbleCustomIconsRough[0xf003]!,
+      semanticLabel: 'Settings',
+      size: 48,
+    ),
+  ],
+)
 ```
 
 ### Curated custom icons
@@ -317,3 +370,7 @@ The Material catalog contains 8,622 unique icon codepoints (8,825 names includin
 Curated geometry retains its source view box, preventing oversized output. Runtime rough fills preserve separate contours and even-odd fill rules, so rings, search symbols, and other counters stay open. Small icons use a gentler wobble than layout borders. `WiredSvgPrimitive.path` also accepts `clipPaths` in the same coordinate system. Source colors may be `#RGB`, `#RRGGBB`, or `#RRGGBBAA`.
 
 Theme-derived icon outline deformation follows the active geometry amplitude, including `WiredRoughness` presets. Supplying an icon `drawConfig` keeps that explicit configuration when the theme level changes.
+
+## Animated glyph compatibility
+
+`WiredAnimatedIcon.menuClose(progress: animation)` selects the built-in menu-to-close glyph without requiring a Material import. This compatibility widget uses Flutter's smooth glyph morph. Use `WiredDraw` or `WiredDrawTransition` around Wired components when you want hand-drawn outlines to appear as pen strokes.

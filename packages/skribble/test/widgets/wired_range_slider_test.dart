@@ -7,6 +7,62 @@ import '../helpers/pump_app.dart';
 
 void main() {
   group('WiredRangeSlider', () {
+    testWidgets('numeric endpoints update after an external rebuild', (
+      tester,
+    ) async {
+      await pumpApp(tester, WiredRangeSlider.between(start: .2, end: .8));
+      await pumpApp(tester, WiredRangeSlider.between(start: .4, end: .6));
+      expect(
+        tester.widget<RangeSlider>(find.byType(RangeSlider)).values,
+        const RangeValues(.4, .6),
+      );
+    });
+
+    testWidgets('null callback disables input and preserves endpoints', (
+      tester,
+    ) async {
+      await pumpApp(tester, WiredRangeSlider.between(start: .2, end: .8));
+      final slider = find.byType(RangeSlider);
+      expect(tester.widget<RangeSlider>(slider).onChanged, isNull);
+      await tester.drag(slider, const Offset(80, 0));
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<RangeSlider>(slider).values,
+        const RangeValues(.2, .8),
+      );
+    });
+
+    for (final accept in [true, false]) {
+      testWidgets('drag reports endpoints and respects acceptance: $accept', (
+        tester,
+      ) async {
+        (double, double)? reported;
+        await pumpApp(
+          tester,
+          WiredRangeSlider.between(
+            start: .2,
+            end: .8,
+            onChanged: (start, end) {
+              reported = (start, end);
+              return accept;
+            },
+          ),
+        );
+        await tester.drag(find.byType(RangeSlider), const Offset(80, 0));
+        await tester.pumpAndSettle();
+        expect(reported, isNotNull);
+        final actual = tester
+            .widget<RangeSlider>(find.byType(RangeSlider))
+            .values;
+        expect(
+          actual,
+          accept
+              ? RangeValues(reported!.$1, reported!.$2)
+              : const RangeValues(.2, .8),
+        );
+      });
+    }
+
     testWidgets('renders without error', (tester) async {
       await pumpApp(
         tester,

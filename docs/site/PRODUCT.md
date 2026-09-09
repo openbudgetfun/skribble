@@ -2,7 +2,7 @@
 
 Skribble serves Flutter developers building playful, hand-drawn apps. Its documentation should let developers read API guidance, copy prose or exact code, find every component, and try actual Wired widgets before using them in their own apps.
 
-The existing Wired identity is binding: hand-lettered type, rough ink outlines, coloured marker fills and hatching. Gentle is the default. The user approved the restrained uneven fill overlap after comparing screenshots. Preserve that treatment.
+The existing Wired identity is binding: hand-lettered type, rough ink outlines, coloured marker fills and hatching. Playful is the default, with Gentle and Expressive available through the persistent roughness controls. The user approved the restrained uneven fill overlap after comparing screenshots. Preserve that treatment.
 
 Reading works on phones and desktops. Text must support ordinary selection and copying, including content beyond the viewport. Navigation and examples must support keyboard and accessibility actions. Scrolling must remain responsive on long articles. Decorative animation can be disabled and respects platform reduced motion.
 

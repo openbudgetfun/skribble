@@ -332,3 +332,12 @@ See [Ink motion](../core/motion) for examples and supported components.
 - `WiredSelectionArea` enables selection across participating Flutter text widgets, with Wired handles and localized Copy and Select all controls. See [Text selection](/core/selection).
 - `WiredInkInteraction` configures `none`, `pressure`, or `redraw` feedback through `WiredThemeData.inkInteraction` or a button override. See [Ink motion](/core/motion).
 - `WiredThemeData()` and `skribbleFontFamily` now use Gentle. Select `WiredRoughness.expressive` explicitly to retain the stronger former default.
+
+### Constructor conveniences
+
+- `WiredRangeSlider.between` accepts numeric `start` and `end` values.
+- `WiredCombo.options` accepts a map of values to label widgets.
+- `WiredCupertinoTabBar.destinations` accepts `WiredBottomNavItem` values.
+- `WiredAnimatedIcon.menuClose` selects Flutter's menu-to-close compatibility morph.
+
+These constructors preserve the original constructors and avoid requiring Material types at these call sites. No new exports are required.

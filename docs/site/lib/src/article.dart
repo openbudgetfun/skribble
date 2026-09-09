@@ -1,12 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:skribble/skribble.dart';
-
+import 'package:skribble_docs_site/src/code_view.dart';
+import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/document.dart';
+import 'package:skribble_docs_site/src/examples/catalog.dart';
+import 'package:skribble_docs_site/src/examples/example.dart';
 
 /// Renders cached Markdown using Flutter's native text selection machinery.
 class DocArticle extends HookWidget {
@@ -38,14 +40,14 @@ class DocArticle extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             for (final node in document.nodes)
-              RepaintBoundary(child: _block(node)),
+              RepaintBoundary(child: _block(context, node)),
           ],
         ),
       ),
     );
   }
 
-  Widget _block(md.Node node) {
+  Widget _block(BuildContext context, md.Node node) {
     if (node is md.Text && node.textContent.trimLeft().startsWith('<!--')) {
       return const SizedBox.shrink();
     }
@@ -77,7 +79,7 @@ class DocArticle extends HookWidget {
     }
 
     return switch (node.tag) {
-      'pre' => _CodeBlock(code: node.textContent),
+      'pre' => _code(node),
       'ul' || 'ol' => Padding(
         padding: const EdgeInsets.only(bottom: 16),
         child: Column(
@@ -93,7 +95,7 @@ class DocArticle extends HookWidget {
                       width: 28,
                       child: Text(node.tag == 'ol' ? '${index + 1}.' : '•'),
                     ),
-                    Expanded(child: _block(children[index])),
+                    Expanded(child: _block(context, children[index])),
                   ],
                 ),
               ),
@@ -107,7 +109,7 @@ class DocArticle extends HookWidget {
             (child) =>
                 child is md.Element && {'p', 'ul', 'ol'}.contains(child.tag),
           ))
-            for (final child in children) _block(child)
+            for (final child in children) _block(context, child)
           else
             _Paragraph(nodes: children, onLink: onLink),
         ],
@@ -115,19 +117,14 @@ class DocArticle extends HookWidget {
       'blockquote' => Container(
         margin: const EdgeInsets.symmetric(vertical: 12),
         padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
-          color: Color(0xffeef1df),
-        ),
+        decoration: docsSurface(context, color: const Color(0xffeef1df)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: children.map(_block).toList(),
+          children: children.map((child) => _block(context, child)).toList(),
         ),
       ),
       'table' => _table(node),
-      'hr' => const Padding(
-        padding: EdgeInsets.symmetric(vertical: 24),
-        child: WiredDivider(),
-      ),
+      'hr' => const SizedBox(height: 24),
       'p' => Padding(
         padding: const EdgeInsets.only(bottom: 16),
         child: _Paragraph(nodes: children, onLink: onLink),
@@ -136,6 +133,28 @@ class DocArticle extends HookWidget {
       'html' => const SizedBox.shrink(),
       _ => _Paragraph(nodes: children, onLink: onLink),
     };
+  }
+
+  Widget _code(md.Element node) {
+    final id = RegExp(r'^// Live example: ([a-z0-9-]+)\n')
+        .firstMatch(node.textContent)
+        ?.group(1);
+    if (id != null) {
+      final definition = examples[id];
+      if (definition == null) throw StateError('Unknown live example: $id');
+      return LiveExample(key: ValueKey(id), id: id, definition: definition);
+    }
+
+    return CodeView(
+      code: node.textContent,
+      language:
+          node.children
+              ?.whereType<md.Element>()
+              .firstOrNull
+              ?.attributes['class']
+              ?.replaceFirst('language-', '') ??
+          '',
+    );
   }
 
   Widget _table(md.Element table) {
@@ -233,7 +252,7 @@ class _InlineContent {
       'strong' => const TextStyle(fontWeight: FontWeight.w700),
       'em' => const TextStyle(fontStyle: FontStyle.italic),
       'code' => const TextStyle(
-        backgroundColor: Color(0xffeee7f0),
+        color: Color(0xff714265),
         fontSize: 15,
       ),
       'a' => const TextStyle(
@@ -264,48 +283,5 @@ class _InlineContent {
     for (final recognizer in _recognizers) {
       recognizer.dispose();
     }
-  }
-}
-
-class _CodeBlock extends HookWidget {
-  const _CodeBlock({required this.code});
-  final String code;
-
-  @override
-  Widget build(BuildContext context) {
-    final copied = useState(false);
-
-    return Container(
-      margin: const EdgeInsets.only(top: 4, bottom: 24),
-      padding: const EdgeInsets.all(18),
-      decoration: const BoxDecoration(
-        color: Color(0xffeee9f0),
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: SelectionContainer.disabled(
-              child: WiredTextButton(
-                onPressed: () async {
-                  await Clipboard.setData(ClipboardData(text: code));
-                  if (context.mounted) copied.value = true;
-                },
-                child: Text(copied.value ? 'Copied!' : 'Copy code'),
-              ),
-            ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Text(
-              code,
-              style: const TextStyle(fontSize: 14, height: 1.7),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

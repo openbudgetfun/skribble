@@ -23,7 +23,7 @@ class SkribbleStorybookApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final roughness = useState(WiredRoughness.gentle);
+    final roughness = useState(WiredRoughness.playful);
     final wiredTheme = WiredThemeData(
       roughnessLevel: roughness.value,
       borderColor: const Color(0xFF4A3470),

@@ -77,12 +77,18 @@ class WiredFilterChip extends HookWidget {
                           ),
                           const SizedBox(width: 4),
                         ],
-                        DefaultTextStyle.merge(
-                          style: TextStyle(
-                            color: selected ? theme.fillColor : theme.textColor,
-                            fontSize: 13,
+                        Flexible(
+                          child: DefaultTextStyle.merge(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: selected
+                                  ? theme.fillColor
+                                  : theme.textColor,
+                              fontSize: 13,
+                            ),
+                            child: label,
                           ),
-                          child: label,
                         ),
                       ],
                     ),

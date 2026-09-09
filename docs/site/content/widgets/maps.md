@@ -22,13 +22,10 @@ import 'package:skribble_maps/skribble_maps.dart';
 
 ## Create a map
 
-The default paper style is OpenFreeMap Positron. It is global and does not need an API key.
+The default paper style is OpenFreeMap Positron. It is global and does not need an API key. Select Load OpenFreeMap to start the live map. This explicitly loads the online renderer and basemap while leaving normal document scrolling available.
 
 ```dart
-const WiredMap(
-  initialCenter: LatLng(25.2048, 55.2708),
-  initialZoom: 13,
-)
+// Live example: map-online
 ```
 
 MapLibre requests the tiles visible around Dubai. Panning to another area requests its tiles. There is no city-specific preprocessing step in the application.
@@ -52,40 +49,7 @@ OpenFreeMap's public service has no availability guarantee. Keep the style confi
 ## Draw pins and routes
 
 ```dart
-WiredMap(
-  initialCenter: const LatLng(51.5242, -0.0778),
-  initialZoom: 14,
-  children: [
-    WiredMapFeatureLayer(
-      semanticLabel: 'Walking route',
-      features: [
-        WiredMapPolyline(
-          points: const [
-            LatLng(51.5228, -0.0810),
-            LatLng(51.5242, -0.0778),
-            LatLng(51.5260, -0.0740),
-          ],
-          color: const Color(0xFF66584B),
-          strokeWidth: 4,
-        ),
-      ],
-    ),
-    WiredMapMarkerLayer(
-      markers: [
-        WiredMapMarker(
-          point: const LatLng(51.5242, -0.0778),
-          semanticLabel: 'Favourite cafe',
-          onTap: selectCafe,
-          child: const WiredMapPin(
-            icon: WiredMapPinIcon.coffee,
-            fillColor: Color(0xFFF1E9DB),
-            inkColor: Color(0xFF37342F),
-          ),
-        ),
-      ],
-    ),
-  ],
-)
+// Live example: map-features
 ```
 
 Pins default to 52 by 64 logical pixels with a 28-pixel rough vector icon. The built-in icon choices are `place`, `checkIn`, `coffee`, `market`, `gallery`, `favorite`, and `person`. Each icon uses the same Skribble rough drawing system as the pin outline.

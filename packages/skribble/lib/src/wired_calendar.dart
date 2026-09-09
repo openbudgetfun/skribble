@@ -138,7 +138,16 @@ Widget _buildWeekdaysNav({
           onTap: onPre,
           child: _wiredText('<<', fontWeight: FontWeight.bold, fontSize: 24.0),
         ),
-        _wiredText(monthYear, fontWeight: FontWeight.bold, fontSize: 22.0),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              monthYear,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+            ),
+          ),
+        ),
         InkWell(
           onTap: onNext,
           child: _wiredText('>>', fontWeight: FontWeight.bold, fontSize: 24.0),
@@ -152,11 +161,13 @@ Widget _buildWeeksHeaderUI({required Color borderColor}) {
   final headers = <Widget>[];
   for (final weekday in _weekdaysShort) {
     headers.add(
-      _buildCell(
-        weekday,
-        fontWeight: FontWeight.bold,
-        fontSize: 18.0,
-        borderColor: borderColor,
+      Expanded(
+        child: _buildCell(
+          weekday,
+          fontWeight: FontWeight.bold,
+          fontSize: 14.0,
+          borderColor: borderColor,
+        ),
       ),
     );
   }
@@ -204,11 +215,7 @@ Widget _buildCell(
       ? Stack(
           fit: StackFit.expand,
           children: [
-            Positioned(
-              left: 0,
-              top: 0,
-              width: width,
-              height: height,
+            Positioned.fill(
               child: WiredCanvas(
                 painter: WiredCircleBase(
                   diameterRatio: .8,

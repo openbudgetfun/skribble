@@ -449,6 +449,6 @@ If you experience performance issues:
 
 ## Roughness-level theme scopes
 
-`WiredThemeData(roughnessLevel: WiredRoughness.gentle)` selects matching drawing and font defaults; the other levels are `playful` and `expressive`; Gentle is the default. Existing `roughness:`, `fontFamily:`, `drawConfig:`, constructor calls, and `WiredTheme.of(context)` remain supported.
+`WiredThemeData(roughnessLevel: WiredRoughness.gentle)` selects matching drawing and font defaults; the other levels are `playful` and `expressive`; Playful is the default. Existing `roughness:`, `fontFamily:`, `drawConfig:`, constructor calls, and `WiredTheme.of(context)` remain supported.
 
 `WiredTheme` is now a `HookWidget` with an internal `InheritedTheme` so it can propagate typography alongside drawing data. If your code directly used `dependOnInheritedWidgetOfExactType<WiredTheme>()`, replace that implementation-dependent lookup with `WiredTheme.of(context)`.
