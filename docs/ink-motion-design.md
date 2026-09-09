@@ -98,6 +98,10 @@ ordinary table tests in `test/widgets/wired_data_table_test.dart`; it exercises
 page changes, source notifications, empty data, semantic labels, and usable
 pagination during a reveal. These transitional components are tested through
 their source imports without adding new public exports.
+An inactive expansion header now honors `canTapOnHeader: false`; a labeled
+Wired icon button still opens and closes its panel. The regression test first
+reproduced the ignored setting, then verified both the inactive header and the
+button's callbacks.
 
 ## Flutter references
 

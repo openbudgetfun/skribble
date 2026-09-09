@@ -5,13 +5,53 @@ import 'package:skribble/src/wired_expansion_panel_list.dart';
 
 import '../helpers/pump_app.dart';
 
-WiredExpansionPanel panel(String name) => WiredExpansionPanel(
-  headerBuilder: (context, expanded) =>
-      Text('$name ${expanded ? 'open' : 'closed'}'),
-  body: Text('$name content'),
-);
+WiredExpansionPanel panel(String name, {bool canTapOnHeader = true}) =>
+    WiredExpansionPanel(
+      canTapOnHeader: canTapOnHeader,
+      headerBuilder: (context, expanded) =>
+          Text('$name ${expanded ? 'open' : 'closed'}'),
+      body: Text('$name content'),
+    );
 
 void main() {
+  testWidgets('an inactive header leaves expansion to its accessible button', (
+    tester,
+  ) async {
+    final changes = <(int, bool)>[];
+    await pumpApp(
+      tester,
+      WiredExpansionPanelList(
+        children: [panel('First', canTapOnHeader: false)],
+        expansionCallback: (index, expanded) => changes.add((index, expanded)),
+      ),
+    );
+    await tester.tap(find.text('First closed'));
+    await tester.pumpAndSettle();
+    expect(find.text('First content'), findsNothing);
+    expect(changes, isEmpty);
+    expect(
+      tester
+          .getSemantics(find.byType(WiredIconButton))
+          .getSemanticsData()
+          .label,
+      contains('Expand panel'),
+    );
+    await tester.tap(find.byType(WiredIconButton));
+    await tester.pumpAndSettle();
+    expect(find.text('First content'), findsOneWidget);
+    expect(
+      tester
+          .getSemantics(find.byType(WiredIconButton))
+          .getSemanticsData()
+          .label,
+      contains('Collapse panel'),
+    );
+    await tester.tap(find.byType(WiredIconButton));
+    await tester.pumpAndSettle();
+    expect(find.text('First content'), findsNothing);
+    expect(changes, [(0, true), (0, false)]);
+  });
+
   testWidgets('renders collapsed headers within the available width', (
     tester,
   ) async {
