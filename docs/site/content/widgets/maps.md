@@ -5,9 +5,11 @@ description: Render open vector map data as stable, hand-drawn geometry with mar
 
 # Maps
 
-`skribble_maps` is a companion package for maps that should look drawn, not merely decorated with a paper texture. It decodes road, water, park, building, and boundary geometry from open vector tiles, then paints those shapes with Skribble's rough visual language.
+`skribble_maps` is a companion package for maps that should look drawn, not merely decorated with a paper texture. It decodes road, water, park, building, and boundary geometry from open vector tiles, then paints those shapes with a restrained version of Skribble's visual language.
 
 The package owns its map viewport and rendering pipeline. It does not depend on a proprietary map SDK, `flutter_map`, or MapLibre. Its source imports neither Material nor Cupertino.
+
+Treat this custom renderer as an illustrated-map option. For a global production app where minimizing map-engine maintenance matters more than wobbled basemap geometry, use MapLibre as the basemap and compose Wired markers, routes, and controls above it.
 
 ## Install
 
@@ -141,7 +143,9 @@ Native apps can use a local path or HTTP URL. Web apps use an HTTP URL served wi
 
 Use `WiredMapStyle.fromTheme` to follow `WiredTheme`, or start from the paper and night styles. A style assigns color, width, hatching, and roughness to semantic map roles instead of attempting to implement the full MapLibre style language.
 
-Call `copyWith` to tune colors, roughness, hatching, and the zoom thresholds for buildings, paths, or road labels without rebuilding the complete style.
+Call `copyWith` to tune colors, roughness, hatching, and the zoom thresholds for buildings, paths, or road labels without rebuilding the complete style. `roadRoughnessFactor` reduces road displacement relative to other features, and `lineEchoOpacity` controls the faint second pencil pass.
+
+The defaults keep the basemap quieter than product overlays. Roads use only a fraction of the general basemap roughness. Overzoom compensation prevents line widths, dash spacing, hatching, and jitter from growing each time the camera zooms beyond the provider's final tile level. App routes and polygons in `WiredMapFeatureLayer`, plus `WiredMapPin`, continue to use Skribble's normal rough engine.
 
 Sketch noise is derived from global tile coordinates, feature role, pass, and style seed. Rebuilding or moving the camera does not reroll a road. Adjacent tiles use the same coordinate field at shared edges, reducing visible seams. Labels are placed in a separate screen-space pass so they stay upright and can be collision-filtered across tile boundaries.
 
@@ -157,7 +161,7 @@ OpenStreetMap-derived data is available without a per-map-view license fee, but 
 
 OpenFreeMap currently offers keyless public vector tiles, but its service can change or stop. PMTiles avoids a proprietary tile API, while storage, request, and bandwidth costs remain the application's responsibility.
 
-See the [mapping library research](https://github.com/openbudgetfun/skribble/blob/main/docs/mapping-libraries-research.md) for the full comparison of Flutter renderers, licenses, data sources, and the reason Skribble owns this rendering pipeline.
+See the [mapping library research](https://github.com/openbudgetfun/skribble/blob/main/docs/mapping-libraries-research.md) for the full comparison of Flutter renderers, licenses, data sources, and the recommendation to use MapLibre for a low-maintenance global production basemap.
 
 ## Deliberate limits
 

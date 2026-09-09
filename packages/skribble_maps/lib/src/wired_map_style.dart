@@ -22,8 +22,10 @@ class WiredMapStyle {
     required this.boundaryColor,
     required this.labelColor,
     required this.labelHaloColor,
-    this.roughness = 1.8,
-    this.strokeWidth = 1.4,
+    this.roughness = 0.65,
+    this.roadRoughnessFactor = 0.32,
+    this.lineEchoOpacity = 0.14,
+    this.strokeWidth = 1.1,
     this.hachureGap = 9,
     this.seed = 71,
     this.showHachure = true,
@@ -31,6 +33,14 @@ class WiredMapStyle {
     this.minimumPathZoom = 14,
     this.minimumRoadLabelZoom = 15.5,
   }) : assert(roughness >= 0, 'roughness cannot be negative'),
+       assert(
+         roadRoughnessFactor >= 0,
+         'roadRoughnessFactor cannot be negative',
+       ),
+       assert(
+         lineEchoOpacity >= 0 && lineEchoOpacity <= 1,
+         'lineEchoOpacity must be between 0 and 1',
+       ),
        assert(strokeWidth > 0, 'strokeWidth must be positive'),
        assert(hachureGap > 0, 'hachureGap must be positive'),
        assert(
@@ -73,8 +83,8 @@ class WiredMapStyle {
       boundaryColor: theme.borderColor.withValues(alpha: 0.58),
       labelColor: theme.textColor,
       labelHaloColor: theme.fillColor.withValues(alpha: 0.92),
-      roughness: theme.roughness,
-      strokeWidth: theme.strokeWidth * 0.62,
+      roughness: theme.roughness * 0.4,
+      strokeWidth: theme.strokeWidth * 0.5,
       seed: theme.drawConfig.seed ?? 71,
     );
   }
@@ -165,6 +175,14 @@ class WiredMapStyle {
   /// Rough line displacement in logical pixels.
   final double roughness;
 
+  /// Multiplier that keeps roads steadier than other basemap geometry.
+  ///
+  /// App-owned routes and areas are unaffected.
+  final double roadRoughnessFactor;
+
+  /// Opacity of the offset line that gives basemap geometry a pencil edge.
+  final double lineEchoOpacity;
+
   /// Base geometry stroke width.
   final double strokeWidth;
 
@@ -252,6 +270,8 @@ class WiredMapStyle {
     Color? labelColor,
     Color? labelHaloColor,
     double? roughness,
+    double? roadRoughnessFactor,
+    double? lineEchoOpacity,
     double? strokeWidth,
     double? hachureGap,
     int? seed,
@@ -277,15 +297,15 @@ class WiredMapStyle {
       labelColor: labelColor ?? this.labelColor,
       labelHaloColor: labelHaloColor ?? this.labelHaloColor,
       roughness: roughness ?? this.roughness,
+      roadRoughnessFactor: roadRoughnessFactor ?? this.roadRoughnessFactor,
+      lineEchoOpacity: lineEchoOpacity ?? this.lineEchoOpacity,
       strokeWidth: strokeWidth ?? this.strokeWidth,
       hachureGap: hachureGap ?? this.hachureGap,
       seed: seed ?? this.seed,
       showHachure: showHachure ?? this.showHachure,
-      minimumBuildingZoom:
-          minimumBuildingZoom ?? this.minimumBuildingZoom,
+      minimumBuildingZoom: minimumBuildingZoom ?? this.minimumBuildingZoom,
       minimumPathZoom: minimumPathZoom ?? this.minimumPathZoom,
-      minimumRoadLabelZoom:
-          minimumRoadLabelZoom ?? this.minimumRoadLabelZoom,
+      minimumRoadLabelZoom: minimumRoadLabelZoom ?? this.minimumRoadLabelZoom,
     );
   }
 
@@ -308,6 +328,8 @@ class WiredMapStyle {
       other.labelColor == labelColor &&
       other.labelHaloColor == labelHaloColor &&
       other.roughness == roughness &&
+      other.roadRoughnessFactor == roadRoughnessFactor &&
+      other.lineEchoOpacity == lineEchoOpacity &&
       other.strokeWidth == strokeWidth &&
       other.hachureGap == hachureGap &&
       other.seed == seed &&
@@ -334,6 +356,8 @@ class WiredMapStyle {
     labelColor,
     labelHaloColor,
     roughness,
+    roadRoughnessFactor,
+    lineEchoOpacity,
     strokeWidth,
     hachureGap,
     seed,

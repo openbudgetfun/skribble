@@ -4,7 +4,51 @@ Research snapshot: 9 September 2026.
 
 This document evaluates open-source Flutter map clients, vector-tile renderers, and data delivery options for a new `skribble_maps` package. It uses package documentation, source repositories, licenses, and official data-provider policies. Package versions and platform support are a point-in-time snapshot, not a promise about future releases.
 
-## Recommendation
+## Updated recommendation for a global product
+
+Use a MapLibre renderer for the production basemap. Keep the custom `skribble_maps` renderer as an optional illustrated-map mode and as a useful prototype, not as the only map engine for a worldwide application.
+
+For Android, iOS, and web, the current first choice is the official [`maplibre_gl`](https://pub.dev/packages/maplibre_gl) package. Version 0.27.0 is actively maintained by the MapLibre organization, supports vector and raster sources, PMTiles, style layers, and mobile offline regions, and leaves the difficult map rendering work in MapLibre Native or MapLibre GL JS ([project README](https://github.com/maplibre/flutter-maplibre-gl)). The newer [`maplibre`](https://pub.dev/packages/maplibre) rewrite is promising and adds desktop support, but has a shorter production history. Evaluate it separately if desktop support becomes a requirement.
+
+Apply the Skribble design through one restrained MapLibre style, hand-drawn sprites and glyphs, and Flutter overlays above the map. The style can make the basemap feel illustrated without changing road geometry. Keep stronger roughness for pins, selected areas, routes, and other app-owned features. This gives up true basemap vertex wobble, but it removes most of the cartographic, label, cache, and cross-platform renderer code from the application's maintenance burden.
+
+OpenFreeMap is the lowest-work online source for development and an early product: its public instance is keyless, has no published request limit, and currently updates the full planet weekly ([OpenFreeMap README](https://github.com/hyperknot/openfreemap/blob/main/README.md)). Its terms provide no warranty and allow the service to change or stop ([terms](https://openfreemap.org/tos/)), so keep the source URL configurable. For more control without a tile server, copy a Protomaps build or regional extract to object storage and serve it as versioned PMTiles. Protomaps publishes daily builds, but storage and bandwidth still cost money ([download documentation](https://docs.protomaps.com/basemaps/downloads)).
+
+This recommendation supersedes the original prototype decision below. The prototype proved that custom rough geometry is possible. It also made the cost clear: Skribble would own projection, tile selection, provider behavior, schema changes, geometry ordering, label placement, seams, caching, offline updates, and rendering performance.
+
+### Relative engineering cost
+
+These are planning estimates for one experienced Flutter engineer. They assume a flat interactive basemap on Android, iOS, and web, with custom markers and routes. They exclude search, routing, navigation, satellite imagery, and terrain.
+
+| Approach                           | Initial usable result | Production hardening | Ongoing responsibility                                                  |
+| ---------------------------------- | --------------------- | -------------------- | ----------------------------------------------------------------------- |
+| Custom `skribble_maps` renderer    | 1–3 days to tune      | 8–16 engineer-weeks  | High: rendering, labels, schemas, seams, caches, offline updates        |
+| MapLibre plus a Skribble style     | 1–2 weeks             | 3–6 weeks            | Low to moderate: style, provider configuration, overlays, platform bugs |
+| `flutter_map` plus raster tiles    | 2–5 days              | 1–3 weeks            | Low in the client, but custom raster generation and hosting are extra   |
+| `flutter_map` plus a vector plugin | 2–4 weeks             | 1–2 months           | Moderate: plugin behavior, performance, styling, and version alignment  |
+
+Matching MapLibre's robustness with a custom renderer would be a six-to-twelve month project, and it would still need ongoing map-specific maintenance. That is not justified when the product only needs a distinctive visual treatment.
+
+### How worldwide data reaches the map
+
+The renderer and the data source are separate. A camera centered in Dubai follows the same path as one centered in London:
+
+```text
+camera and viewport
+  -> visible z/x/y tile addresses
+  -> vector tiles from OpenFreeMap or hosted PMTiles
+  -> geometry decoded by the renderer
+  -> one style applied at runtime
+  -> application markers and routes drawn above the basemap
+```
+
+The application does not pre-render or roughen a separate map for each city. It downloads only the tiles needed for the current viewport. With MapLibre, MapLibre decodes and draws those tiles. With the custom renderer, Skribble decodes them and applies its roughness while recording the visible tile pictures.
+
+Online freshness follows the provider's publication schedule and HTTP cache headers. OpenFreeMap currently publishes a weekly planet build. Protomaps publishes daily builds; its full zoom 0–15 planet archive is roughly 120 GB, so applications should use HTTP range requests or extract a bounded region rather than make a device download the world ([Protomaps downloads](https://docs.protomaps.com/basemaps/downloads)).
+
+For offline use, MapLibre can download a bounding box and zoom range, including the tiles, fonts, and sprites, on Android and iOS. Web has no offline-region API. An offline pack is a cache with its own refresh policy; it does not update merely because the online provider published new data ([offline-region guide](https://maplibre.org/flutter-maplibre-gl/advanced/offline-regions/)).
+
+## Original prototype recommendation
 
 Build `skribble_maps` as a small, pure-Flutter Web Mercator viewport with its own semantic vector-tile renderer. Decode Mapbox Vector Tiles (MVT) directly with [`vector_tile`](https://pub.dev/packages/vector_tile), read local or hosted PMTiles archives with [`pmtiles`](https://pub.dev/packages/pmtiles), and draw the prepared geometry through Skribble painters using only `flutter/widgets.dart`, `flutter/painting.dart`, and `dart:ui`.
 
@@ -260,11 +304,11 @@ If the first milestone must be delivered before a custom viewport is viable, the
 
 That fallback must be recorded as temporary Material debt because `flutter_map` 8.3.2 imports Material in its library. It should not use `vector_tile_renderer` or `flutter_map_vector_tiles` for basemap drawing, because doing so would again hide the geometry behind internal painters. Keep the renderer, provider, semantic style, and cache types independent so the custom viewport can replace `flutter_map` without an API rewrite.
 
-## Final decision
+## Revised decision
 
-Adopt the custom viewport plus direct MVT/PMTiles architecture for `skribble_maps`.
+Do not use the custom viewport plus direct MVT renderer as the default engine for a global product whose team does not want to maintain mapping internals. Keep it available as an experimental illustrated renderer, with a restrained basemap and more expressive app overlays.
 
-The existing libraries solve conventional mapping well, and several are valuable references. None exposes the exact supported extension point this package needs, and the pure-Flutter map stacks reviewed here introduce Material dependencies that conflict with Skribble's stated direction. Owning a deliberately small renderer is justified because the geometry algorithm is the product distinction, not incidental infrastructure.
+Use `maplibre_gl` behind a small application-facing adapter for the production path on Android, iOS, and web. MapLibre should own basemap rendering, labels, tile seams, zoom behavior, and offline-region mechanics. Skribble should own the style assets and the product overlays. If the application later proves that rough basemap geometry materially improves the product, the custom renderer can remain an opt-in mode with a clear maintenance budget.
 
 The default operational posture should be:
 
@@ -273,14 +317,15 @@ The default operational posture should be:
 - no default traffic to OSM Foundation tile servers;
 - visible, provider-driven attribution;
 - OpenFreeMap for explicit online examples;
-- regional Protomaps PMTiles for offline and production use;
-- user-controlled hosting, storage, and cache policy.
+- MapLibre offline regions for bounded mobile downloads;
+- optional versioned Protomaps PMTiles when the application needs controlled hosting;
+- user-controlled source URLs, attribution, and cache policy.
 
-This avoids paid map-data licensing and proprietary renderer lock-in. It does not pretend bandwidth, storage, operations, or ODbL compliance are free.
+This avoids paid map-data licensing and proprietary renderer lock-in. It does not pretend that reliable delivery, storage, bandwidth, or ODbL compliance are free.
 
 ## Implementation outcome
 
-The accompanying `skribble_maps` package follows this decision. It includes the widgets-only camera, direct MVT rendering, OpenMapTiles and Protomaps adapters, HTTP and PMTiles providers, deterministic world-coordinate roughness, picture and byte caches, screen-space labels, widget markers, app-owned routes and polygons, accessible controls, and visible attribution.
+The accompanying `skribble_maps` package records the prototype result. It includes the widgets-only camera, direct MVT rendering, OpenMapTiles and Protomaps adapters, HTTP and PMTiles providers, deterministic world-coordinate roughness, picture and byte caches, screen-space labels, widget markers, app-owned routes and polygons, accessible controls, and visible attribution. It is not presented as a substitute for MapLibre's full production renderer.
 
 The storybook uses OpenFreeMap only through an explicit `WiredOpenFreeMapLayer`. The core `WiredMap` has no basemap and performs no network traffic by default. Built-in schemas prepare MVT content through Flutter's background compute path on native platforms; the web path bounds concurrent work and yields between tile preparations. Provider replacement, camera changes, and unmount all suppress stale asynchronous results.
 
