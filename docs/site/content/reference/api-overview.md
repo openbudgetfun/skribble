@@ -241,6 +241,7 @@ The main library depends on:
 | ----------------------- | -------------------------------------------------- |
 | `skribble_icons`        | 30 curated hand-drawn custom icons + unified API   |
 | `skribble_emoji`        | Hand-drawn emoji from OpenMoji + WiredEmoji widget |
+| `skribble_maps`         | Open vector maps redrawn with Skribble geometry    |
 | `skribble_lints`        | Shared lint rules (extends `very_good_analysis`)   |
 | `skribble_icons_custom` | Example custom icon set with SVG-manifest pipeline |
 
@@ -272,6 +273,27 @@ import 'package:skribble_emoji/skribble_emoji.dart';
 | `lookupSkribbleEmojiByUnicode()` | function                     | Look up emoji data by Unicode codepoint     |
 | `WiredEmoji`                     | widget                       | HookWidget for rendering hand-drawn emoji   |
 | `WiredSvgIconData`               | class                        | SVG icon data (re-exported from `skribble`) |
+
+### skribble_maps
+
+```dart
+import 'package:skribble_maps/skribble_maps.dart';
+```
+
+| Export                           | Type           | Purpose                                                 |
+| -------------------------------- | -------------- | ------------------------------------------------------- |
+| `WiredMap`                       | widget         | Widgets-only Web Mercator viewport and gestures         |
+| `WiredMapController`             | class          | Camera movement, projection, and unprojection           |
+| `WiredVectorTileLayer`           | widget         | Semantic MVT decoding and rough basemap painting        |
+| `WiredOpenFreeMapLayer`          | widget         | Explicit keyless OpenFreeMap layer with bounded caching |
+| `WiredMapTileProvider`           | abstract class | Source boundary for vector tile bytes and attribution   |
+| `WiredPmTilesVectorTileProvider` | class          | Local or hosted vector PMTiles reader                   |
+| `WiredMapSchemaAdapter`          | abstract class | Converts source layers into semantic map roles          |
+| `WiredMapStyle`                  | class          | Typed paper, night, or theme-derived map style          |
+| `WiredMapMarkerLayer`            | widget         | Geographic placement for arbitrary Flutter widgets      |
+| `WiredMapPin`                    | widget         | Interactive hand-drawn map pin                          |
+| `WiredMapFeatureLayer`           | widget         | Rough app-owned polylines and polygons                  |
+| `WiredMapAttribution`            | widget         | Visible provider attribution badge                      |
 
 ## API documentation
 

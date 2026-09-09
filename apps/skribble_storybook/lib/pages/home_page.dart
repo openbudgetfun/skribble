@@ -144,6 +144,12 @@ const _categories = [
     icon: Icons.calendar_today,
   ),
   _Category(
+    title: 'Maps',
+    description: 'Open vector data redrawn with rough roads, places, and pins',
+    route: '/maps',
+    icon: Icons.map_outlined,
+  ),
+  _Category(
     title: 'Rough Icons',
     description: 'Gallery of all generated rough Material icons',
     route: '/rough-icons',

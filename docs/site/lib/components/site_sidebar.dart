@@ -70,6 +70,7 @@ class SiteSidebar extends StatelessComponent {
             SidebarLink(text: 'Selection', href: link('/widgets/selection')),
             SidebarLink(text: 'Feedback', href: link('/widgets/feedback')),
             SidebarLink(text: 'Layout', href: link('/widgets/layout')),
+            SidebarLink(text: 'Maps', href: link('/widgets/maps')),
             SidebarLink(text: 'Icons', href: link('/widgets/icons')),
             SidebarLink(text: 'Cupertino', href: link('/widgets/cupertino')),
           ],
