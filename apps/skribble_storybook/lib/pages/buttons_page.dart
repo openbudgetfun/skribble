@@ -79,18 +79,72 @@ class ButtonsPage extends HookWidget {
           ShowcaseSection(
             title: 'WiredIcon',
             children: [
+              for (final fill in [
+                WiredIconFillStyle.solid,
+                WiredIconFillStyle.hachure,
+              ])
+                ComponentShowcase(
+                  title: fill == WiredIconFillStyle.solid
+                      ? 'Material Icons · solid ink'
+                      : 'Material Icons · pencil shading',
+                  description: 'Smoothly wandering contours at everyday sizes.',
+                  child: Wrap(
+                    spacing: 20,
+                    runSpacing: 16,
+                    children: [
+                      WiredIcon(
+                        icon: Icons.search,
+                        size: 28,
+                        fillStyle: fill,
+                        semanticLabel: 'Search',
+                      ),
+                      WiredIcon(
+                        icon: Icons.favorite,
+                        size: 28,
+                        fillStyle: fill,
+                        semanticLabel: 'Favourite',
+                      ),
+                      WiredIcon(
+                        icon: Icons.share,
+                        size: 28,
+                        fillStyle: fill,
+                        semanticLabel: 'Share',
+                      ),
+                      WiredIcon(
+                        icon: Icons.delete,
+                        size: 28,
+                        fillStyle: fill,
+                        semanticLabel: 'Delete',
+                      ),
+                    ],
+                  ),
+                ),
               ComponentShowcase(
-                title: 'Material Icons',
-                description: 'Standalone rough-rendered Material icons.',
-                child: Row(
-                  children: const [
-                    WiredIcon(icon: Icons.search, size: 28),
-                    SizedBox(width: 16),
-                    WiredIcon(icon: Icons.favorite, size: 28),
-                    SizedBox(width: 16),
-                    WiredIcon(icon: Icons.share, size: 28),
-                    SizedBox(width: 16),
-                    WiredIcon(icon: Icons.delete, size: 28),
+                title: 'Simple Icons · brand marks',
+                description: 'GitHub, Dart, Flutter, and Figma in solid ink and pencil shading.',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (final fill in [
+                      WiredIconFillStyle.solid,
+                      WiredIconFillStyle.hachure,
+                    ])
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        child: Wrap(
+                          spacing: 24,
+                          runSpacing: 16,
+                          children: [
+                            for (final brand in WiredBrandIcon.values)
+                              WiredSvgIcon(
+                                data: brand.data,
+                                size: 40,
+                                fillStyle: fill,
+                                semanticLabel: brand.name,
+                              ),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
               ),

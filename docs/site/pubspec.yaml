@@ -74,33 +74,13 @@ flutter:
         - asset: assets/fonts/RecursiveSansLnrSt-BoldItalic.ttf
           weight: 700
           style: italic
-    - family: SkribbleLinearGentle
+    - family: RecursiveMonoOriginal
       fonts:
-        - asset: assets/fonts/SkribbleLinearGentle-Regular.ttf
-        - asset: assets/fonts/SkribbleLinearGentle-Bold.ttf
+        - asset: assets/fonts/RecursiveMonoLnrSt-Regular.ttf
+        - asset: assets/fonts/RecursiveMonoLnrSt-Bold.ttf
           weight: 700
-        - asset: assets/fonts/SkribbleLinearGentle-Italic.ttf
+        - asset: assets/fonts/RecursiveMonoLnrSt-Italic.ttf
           style: italic
-        - asset: assets/fonts/SkribbleLinearGentle-BoldItalic.ttf
-          weight: 700
-          style: italic
-    - family: SkribbleLinearPlayful
-      fonts:
-        - asset: assets/fonts/SkribbleLinearPlayful-Regular.ttf
-        - asset: assets/fonts/SkribbleLinearPlayful-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/SkribbleLinearPlayful-Italic.ttf
-          style: italic
-        - asset: assets/fonts/SkribbleLinearPlayful-BoldItalic.ttf
-          weight: 700
-          style: italic
-    - family: SkribbleLinearExpressive
-      fonts:
-        - asset: assets/fonts/SkribbleLinearExpressive-Regular.ttf
-        - asset: assets/fonts/SkribbleLinearExpressive-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/SkribbleLinearExpressive-Italic.ttf
-          style: italic
-        - asset: assets/fonts/SkribbleLinearExpressive-BoldItalic.ttf
+        - asset: assets/fonts/RecursiveMonoLnrSt-BoldItalic.ttf
           weight: 700
           style: italic

@@ -46,7 +46,7 @@ const Wrap(
 | `color`          | `Color?`             | `null`       | Icon color. Defaults to `IconTheme.of(context).color` or `theme.textColor`. |
 | `semanticLabel`  | `String?`            | `null`       | Accessibility label.                                                        |
 | `fillStyle`      | `WiredIconFillStyle` | `.solid`     | Fill strategy for the icon shapes.                                          |
-| `strokeWidth`    | `double`             | `1.6`        | Width of the outline strokes.                                               |
+| `strokeWidth`    | `double`             | `1.6`        | Base pen width; solid fills use a 45% contour to keep small counters open.  |
 | `drawConfig`     | `DrawConfig?`        | `null`       | Custom rough drawing configuration.                                         |
 | `sampleDistance` | `double`             | `1.2`        | Sampling distance along path contours.                                      |
 | `hachureGap`     | `double`             | `2.25`       | Gap between hachure fill lines.                                             |
@@ -89,19 +89,19 @@ WiredSvgIcon(
 
 ### Constructor parameters
 
-| Parameter          | Type                 | Default      | Description                         |
-| ------------------ | -------------------- | ------------ | ----------------------------------- |
-| `data`             | `WiredSvgIconData`   | **required** | Pre-parsed SVG icon data.           |
-| `size`             | `double?`            | `null`       | Icon size.                          |
-| `color`            | `Color?`             | `null`       | Icon color.                         |
-| `semanticLabel`    | `String?`            | `null`       | Accessibility label.                |
-| `fillStyle`        | `WiredIconFillStyle` | `.solid`     | Fill strategy.                      |
-| `strokeWidth`      | `double`             | `1.6`        | Outline stroke width.               |
-| `drawConfig`       | `DrawConfig?`        | `null`       | Custom rough drawing configuration. |
-| `flipHorizontally` | `bool`               | `false`      | Mirror the icon horizontally.       |
-| `sampleDistance`   | `double`             | `1.2`        | Path sampling distance.             |
-| `hachureGap`       | `double`             | `2.25`       | Hachure line gap.                   |
-| `hachureAngle`     | `double`             | `320`        | Hachure angle in degrees.           |
+| Parameter          | Type                 | Default      | Description                                                                |
+| ------------------ | -------------------- | ------------ | -------------------------------------------------------------------------- |
+| `data`             | `WiredSvgIconData`   | **required** | Pre-parsed SVG icon data.                                                  |
+| `size`             | `double?`            | `null`       | Icon size.                                                                 |
+| `color`            | `Color?`             | `null`       | Icon color.                                                                |
+| `semanticLabel`    | `String?`            | `null`       | Accessibility label.                                                       |
+| `fillStyle`        | `WiredIconFillStyle` | `.solid`     | Fill strategy.                                                             |
+| `strokeWidth`      | `double`             | `1.6`        | Base pen width; solid fills use a 45% contour to keep small counters open. |
+| `drawConfig`       | `DrawConfig?`        | `null`       | Custom rough drawing configuration.                                        |
+| `flipHorizontally` | `bool`               | `false`      | Mirror the icon horizontally.                                              |
+| `sampleDistance`   | `double`             | `1.2`        | Path sampling distance.                                                    |
+| `hachureGap`       | `double`             | `2.25`       | Hachure line gap.                                                          |
+| `hachureAngle`     | `double`             | `320`        | Hachure angle in degrees.                                                  |
 
 ### Notes
 
@@ -378,3 +378,38 @@ Theme-derived icon outline deformation follows the active geometry amplitude, in
 ## Animated glyph compatibility
 
 `WiredAnimatedIcon.menuClose(progress: animation)` selects the built-in menu-to-close glyph without requiring a Material import. This compatibility widget uses Flutter's smooth glyph morph. Use `WiredDraw` or `WiredDrawTransition` around Wired components when you want hand-drawn outlines to appear as pen strokes.
+
+## Simple Icons brand marks
+
+GitHub, Dart, Flutter, and Figma are bundled as vector paths. Choose a fill style in the live example, and use the page roughness control to compare the contours. Solid ink keeps a clean interior; hachure makes the drawing strokes visible.
+
+```dart
+// Live example: brand-icons
+Wrap(
+  spacing: 24,
+  runSpacing: 20,
+  children: [
+    for (final brand in WiredBrandIcon.values)
+      WiredSvgIcon(
+        data: brand.data,
+        size: 48,
+        color: const Color(0xffe8957d),
+        fillStyle: WiredIconFillStyle.solid,
+        semanticLabel: brand.name,
+      ),
+  ],
+)
+```
+
+`WiredBrandIcon.github.data` can be passed directly to `WiredSvgIcon`. The curated artwork comes from Simple Icons 16.30.0. See the [source and brand guidelines](https://github.com/simple-icons/simple-icons/tree/16.30.0) before using a brand mark in a product.
+
+### How icon roughness works
+
+A deterministic, smooth displacement moves the icon's contour points. Fills and outlines share this geometry, so small icons have uneven curves without noisy edges. The theme's Gentle, Playful, and Expressive presets control the amplitude. An explicit `drawConfig` overrides the theme; set its roughness to zero for the unwarped silhouette.
+
+Icons remain vector data. No bitmap images or per-resolution assets are generated for these styles. To regenerate the curated brand catalog from the repository root:
+
+```bash
+dart run packages/skribble/tool/generate_rough_icons.dart --kit svg-manifest --manifest packages/skribble/tool/brands/manifest.json --output packages/skribble/lib/src/generated/brand_rough_icons.g.dart --map-name kBrandRoughIcons
+dart format packages/skribble/lib/src/generated/brand_rough_icons.g.dart
+```

@@ -345,3 +345,7 @@ See [Ink motion](../core/motion) for examples and supported components.
 - `WiredAnimatedIcon.menuClose` selects Flutter's menu-to-close compatibility morph.
 
 These constructors preserve the original constructors and avoid requiring Material types at these call sites. No new exports are required.
+
+## Typeface and brand choices
+
+`WiredFont` selects bundled Casual, Sans Linear, or Mono typography. `WiredThemeData.font` follows the inherited roughness; `fontFamily` remains the explicit string override. `WiredBrandIcon` exposes curated Simple Icons vector artwork through `.data` for `WiredSvgIcon`.

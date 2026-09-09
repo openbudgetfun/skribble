@@ -116,6 +116,9 @@ jobs:
           dart run packages/skribble_emoji_gen/bin/update_assets.dart
           dart run packages/skribble_font_roughen/bin/roughen_fonts.dart --check
           dart run tool/docs_font_comparison.dart --check
+          dart run packages/skribble/tool/generate_rough_icons.dart --kit svg-manifest --manifest packages/skribble/tool/brands/manifest.json --output packages/skribble/lib/src/generated/brand_rough_icons.g.dart --map-name kBrandRoughIcons
+          dart format packages/skribble/lib/src/generated/brand_rough_icons.g.dart
+          git diff --exit-code -- packages/skribble/lib/src/generated/brand_rough_icons.g.dart
           (cd docs/site && dart run tool/generate_examples.dart --check)
           git diff --exit-code -- packages/skribble/assets/fonts packages/skribble/tool/font apps/skribble_storybook/assets/fonts packages/skribble_emoji/lib/src/generated packages/skribble_icons/lib/src/generated/skribble_icons_rough.g.dart
           test -z "$(git ls-files --others --exclude-standard -- packages/skribble/assets/fonts packages/skribble/tool/font apps/skribble_storybook/assets/fonts packages/skribble_emoji/lib/src/generated packages/skribble_icons/lib/src/generated)"

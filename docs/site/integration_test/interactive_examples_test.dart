@@ -55,7 +55,9 @@ void main() {
         final selected = $.tester
             .widget<DocsAction>($(DocsKeys.roughness('expressive')))
             .selected;
-        if (selected != true) throw StateError('Roughness reset during navigation.');
+        if (selected != true) {
+          throw StateError('Roughness reset during navigation.');
+        }
         if (!copied.contains('A magical little idea') ||
             !copied.contains('WiredInkInteraction.redraw') ||
             !copied.contains('BorderRadius.circular(12)') ||
@@ -68,6 +70,14 @@ void main() {
                 .roughnessLevel !=
             WiredRoughness.expressive) {
           throw StateError('The page did not inherit the selected roughness.');
+        }
+        await $(DocsKeys.fontCodeSample).tap();
+        final mono = $.tester.widget<Text>(
+          $(DocsKeys.fontSpecimen('mono', 'playful')),
+        );
+        if (!(mono.data?.contains('final total = 42;') ?? false) ||
+            mono.style?.fontFamily != 'packages/skribble/SkribbleMonoPlayful') {
+          throw StateError('The Mono specimen did not update.');
         }
         await $(DocsKeys.fontSample).waitUntilVisible();
       },

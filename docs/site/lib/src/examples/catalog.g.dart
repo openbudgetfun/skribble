@@ -218,6 +218,14 @@ final Map<String, ExampleDefinition> examples = {
     source: "Wrap(\n  spacing: 24,\n  runSpacing: 20,\n  children: [\n    SkribbleIcon(\n      data: kSkribbleCustomIconsRough[0xf001]!,\n      semanticLabel: 'Home',\n      size: 48,\n    ),\n    SkribbleIcon(\n      data: kSkribbleCustomIconsRough[0xf005]!,\n      semanticLabel: 'Heart',\n      size: 48,\n    ),\n    SkribbleIcon(\n      data: kSkribbleCustomIconsRough[0xf003]!,\n      semanticLabel: 'Settings',\n      size: 48,\n    ),\n  ],\n)",
     edits: [],
   ),
+  'brand-icons': ExampleDefinition(
+    builder: _brandIcons,
+    source: "Wrap(\n  spacing: 24,\n  runSpacing: 20,\n  children: [\n    for (final brand in WiredBrandIcon.values)\n      WiredSvgIcon(\n        data: brand.data,\n        size: 48,\n        color: settings.color,\n        fillStyle: settings.iconFill,\n        semanticLabel: brand.name,\n      ),\n  ],\n)",
+    edits: [
+      ExampleEdit(179, 193, ExampleParameter.color),
+      ExampleEdit(214, 231, ExampleParameter.iconFill),
+    ],
+  ),
   'checkbox': ExampleDefinition(
     builder: _checkbox,
     source: "HookBuilder(\n  builder: (context) {\n    final checked = useState(false);\n    return Row(\n      mainAxisSize: MainAxisSize.min,\n      children: [\n        WiredCheckbox(\n          value: checked.value,\n          onChanged: (value) => checked.value = value ?? false,\n          semanticLabel: 'Keep this idea',\n        ),\n        const SizedBox(width: 12),\n        Flexible(child: Text(settings.label)),\n      ],\n    );\n  },\n)",

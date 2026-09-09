@@ -26,6 +26,13 @@ abstract final class DocsKeys {
   /// Shared text used by all font specimens.
   static const ValueKey<String> fontSample = ValueKey('font-sample');
 
+  /// Replaces the shared specimen with a short code sample.
+  static const ValueKey<String> fontCodeSample = ValueKey('font-code-sample');
+
+  /// A rendered font specimen identified by family and roughness.
+  static ValueKey<String> fontSpecimen(String font, String level) =>
+      ValueKey('font-$font-$level');
+
   /// Copies the current page's Markdown.
   static const ValueKey<String> copyPage = ValueKey('docs-copy-page');
 

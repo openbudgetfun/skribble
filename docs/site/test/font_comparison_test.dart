@@ -45,16 +45,20 @@ void main() {
           .whereType<Text>()
           .where((text) => text.style?.inherit == false)
           .toList();
-      expect(specimens, hasLength(8));
+      expect(specimens, hasLength(12));
       expect(specimens.map((text) => text.style!.fontFamily).toSet(), {
         'RecursiveCasualOriginal',
         'RecursiveLinearOriginal',
+        'RecursiveMonoOriginal',
+        'packages/skribble/SkribbleMonoGentle',
+        'packages/skribble/SkribbleMonoPlayful',
+        'packages/skribble/SkribbleMonoExpressive',
         'packages/skribble/SkribbleGentle',
         'packages/skribble/SkribblePlayful',
         'packages/skribble/Skribble',
-        'SkribbleLinearGentle',
-        'SkribbleLinearPlayful',
-        'SkribbleLinearExpressive',
+        'packages/skribble/SkribbleLinearGentle',
+        'packages/skribble/SkribbleLinearPlayful',
+        'packages/skribble/SkribbleLinearExpressive',
       });
       for (final text in specimens) {
         expect(text.style!.fontSize, 72);

@@ -67,3 +67,19 @@ Widget _customIcons(ExampleSettings settings) => Wrap(
     ),
   ],
 );
+
+/// @docs-example brand-icons
+Widget _brandIcons(ExampleSettings settings) => Wrap(
+  spacing: 24,
+  runSpacing: 20,
+  children: [
+    for (final brand in WiredBrandIcon.values)
+      WiredSvgIcon(
+        data: brand.data,
+        size: 48,
+        color: settings.color,
+        fillStyle: settings.iconFill,
+        semanticLabel: brand.name,
+      ),
+  ],
+);
