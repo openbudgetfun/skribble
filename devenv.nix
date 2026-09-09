@@ -7,17 +7,18 @@
 }:
 
 let
-  monochangePkgs = inputs.ifiokjr-nixpkgs.packages.${pkgs.stdenv.system};
+  ifi = inputs.ifiokjr-nixpkgs.packages.${pkgs.stdenv.system};
 in
 
 {
   packages =
     with pkgs;
     [
-      (monochangePkgs.monochange)
+      ifi.mdt
+      ifi.monochange
+      ifi.melos
       dprint
       fontforge
-      eget
       fvm
       gitleaks
       libiconv
@@ -33,53 +34,6 @@ in
 
   # Rely on the global sdk for now as the nix apple sdk is not working for me.
   apple.sdk = null;
-
-  env = {
-    EGET_CONFIG = "${config.env.DEVENV_ROOT}/.eget/.eget.toml";
-    # Prefer the active shell SDK inside devenv so Melos does not depend on the
-    # gitignored `.fvm/flutter_sdk` symlink being present.
-    MELOS_SDK_PATH = "auto";
-  };
-
-  git-hooks = {
-    package = pkgs.prek;
-    hooks = {
-      "secrets:commit" = {
-        enable = true;
-        name = "secrets:commit";
-        description = "Scan staged changes for leaked secrets with gitleaks.";
-        entry = "${pkgs.gitleaks}/bin/gitleaks protect --staged --verbose --redact --config .gitleaks.toml";
-        pass_filenames = false;
-        stages = [ "pre-commit" ];
-      };
-      "secrets:push" = {
-        enable = true;
-        name = "secrets:push";
-        description = "Check entire git history for leaked secrets with gitleaks.";
-        entry = "${pkgs.gitleaks}/bin/gitleaks detect --verbose --redact --config .gitleaks.toml";
-        pass_filenames = false;
-        stages = [ "pre-push" ];
-      };
-      ci-parity-commit = {
-        enable = true;
-        name = "ci-parity:commit";
-        description = "Format staged files, apply Dart fixes in changed packages, and analyze staged Dart files.";
-        entry = "bash ${config.env.DEVENV_ROOT}/scripts/git_hooks/pre_commit.sh";
-        language = "system";
-        pass_filenames = true;
-        stages = [ "pre-commit" ];
-      };
-      ci-parity-push = {
-        enable = true;
-        name = "ci-parity:push";
-        description = "Run CI-parity formatting, analysis, and unit/widget tests before push.";
-        entry = "bash ${config.env.DEVENV_ROOT}/scripts/git_hooks/pre_push_ci.sh";
-        language = "system";
-        pass_filenames = false;
-        stages = [ "pre-push" ];
-      };
-    };
-  };
 
   scripts = {
     "flutter" = {
@@ -131,7 +85,6 @@ in
     "install:all" = {
       exec = ''
         set -e
-        install:eget
         install:dart
       '';
       description = "Run all install scripts.";
@@ -146,24 +99,12 @@ in
       description = "Install dart dependencies";
       binary = "bash";
     };
-    "install:eget" = {
-      exec = ''
-        HASH=$(nix hash path --base32 ./.eget/.eget.toml)
-        echo "HASH: $HASH"
-        mkdir -p ./.eget/bin
-        if [ ! -f ./.eget/bin/hash ] || [ "$HASH" != "$(cat ./.eget/bin/hash)" ]; then
-          echo "Updating eget binaries"
-          eget -D --to "$DEVENV_ROOT/.eget/bin" || echo "eget download skipped"
-          echo "$HASH" > ./.eget/bin/hash
-        else
-          echo "eget binaries are up to date"
-        fi
-      '';
-      description = "Install github binaries with eget.";
-    };
+    # NOTE: fix:docs runs before fix:format so dprint normalizes any markdown
+    # freshly synced by mdt update (no mdt/dprint formatter convergence issue).
     "fix:all" = {
       exec = ''
         set -e
+        fix:docs
         fix:format
         fix:lint
       '';
@@ -185,11 +126,19 @@ in
       description = "Fix lint issues across all packages.";
       binary = "bash";
     };
+    "fix:docs" = {
+      exec = ''
+        set -e
+        mdt update
+      '';
+      description = "Sync MDT template blocks to fix documentation drift.";
+    };
     "lint:all" = {
       exec = ''
         set -e
         lint:format
         lint:analyze
+        lint:docs
       '';
       description = "Run all lint checks.";
       binary = "bash";
@@ -208,6 +157,13 @@ in
       '';
       description = "Run dart analyze across all packages (warnings are fatal).";
       binary = "bash";
+    };
+    "lint:docs" = {
+      exec = ''
+        set -e
+        mdt check
+      '';
+      description = "Check MDT template blocks are up to date.";
     };
     "test:all" = {
       exec = ''

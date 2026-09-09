@@ -29,9 +29,6 @@ pubspec.lock
 # macOS
 .DS_Store
 
-# eget binaries (installed locally)
-.eget/bin/
-
 # Screenshots
 .screenshots/
 .audit/
@@ -50,3 +47,7 @@ apps/skribble_storybook/.patrol.env
 apps/skribble_storybook/playwright-report/
 rough-icons-generated-sync.diff
 rough-icons-baseline-sync.diff
+
+
+# /.pi
+/.claude
