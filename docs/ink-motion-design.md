@@ -92,6 +92,13 @@ replay, reversal, precise progress, and global opt-out on phone and desktop.
 Patrol drives those controls in a real browser; captured frames document the
 visual result.
 
+The expansion-panel tests also open, close, and rapidly toggle panels while ink
+is hidden or motion is disabled. Paginated-table coverage lives alongside the
+ordinary table tests in `test/widgets/wired_data_table_test.dart`; it exercises
+page changes, source notifications, empty data, semantic labels, and usable
+pagination during a reveal. These transitional components are tested through
+their source imports without adding new public exports.
+
 ## Flutter references
 
 [CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html)
