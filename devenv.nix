@@ -8,6 +8,10 @@
 
 let
   ifi = inputs.ifiokjr-nixpkgs.packages.${pkgs.stdenv.system};
+  # Absolute path of this devenv root, baked at evaluation time. Git hooks run
+  # outside the devenv shell, so scripts resolve the workspace root from
+  # $DEVENV_ROOT with this path as fallback.
+  currentDir = builtins.dirOf __curPos.file;
 in
 
 {
@@ -34,6 +38,49 @@ in
 
   # Rely on the global sdk for now as the nix apple sdk is not working for me.
   apple.sdk = null;
+
+  # Git hooks installed by devenv on shell entry (run `devenv shell` once after
+  # cloning, or reload direnv). prek drives the hooks; the generated config
+  # lives at .pre-commit-config.yaml (gitignored).
+  git-hooks = {
+    package = pkgs.prek;
+    hooks = {
+      "lint:commit" = {
+        enable = true;
+        name = "lint:commit";
+        description = "Check formatting on every commit.";
+        entry = "${config.env.DEVENV_PROFILE}/bin/lint:format";
+        pass_filenames = true;
+        always_run = true;
+        stages = [ "pre-commit" ];
+      };
+      "lint:push" = {
+        enable = true;
+        name = "lint:push";
+        description = "Run CI-parity lint checks before `git push`.";
+        entry = "${config.env.DEVENV_PROFILE}/bin/lint:push";
+        pass_filenames = false;
+        always_run = true;
+        stages = [ "pre-push" ];
+      };
+      "secrets:commit" = {
+        enable = true;
+        name = "secrets:commit";
+        description = "Scan staged changes for leaked secrets with gitleaks.";
+        entry = "${pkgs.gitleaks}/bin/gitleaks protect --staged --verbose --redact --config .gitleaks.toml";
+        pass_filenames = false;
+        stages = [ "pre-commit" ];
+      };
+      "secrets:push" = {
+        enable = true;
+        name = "secrets:push";
+        description = "Check entire git history for leaked secrets with gitleaks.";
+        entry = "${pkgs.gitleaks}/bin/gitleaks detect --verbose --redact --config .gitleaks.toml";
+        pass_filenames = false;
+        stages = [ "pre-push" ];
+      };
+    };
+  };
 
   scripts = {
     "flutter" = {
@@ -146,9 +193,29 @@ in
     "lint:format" = {
       exec = ''
         set -e
-        dprint check
+        workspace_root="''${DEVENV_ROOT:-${currentDir}}"
+        # Hooks run outside the devenv shell; the profile bin provides dprint.
+        export PATH="$workspace_root/.devenv/profile/bin:$PATH"
+        dprint check --config "$workspace_root/dprint.json"
       '';
       description = "Check all formatting is correct.";
+    };
+    "lint:push" = {
+      exec = ''
+        set -e
+        workspace_root="''${DEVENV_ROOT:-${currentDir}}"
+        export DEVENV_ROOT="$workspace_root"
+        export PATH="$workspace_root/.devenv/profile/bin:$PATH"
+        cd "$workspace_root"
+
+        # Mirrors the CI lint job: refresh resolution, format, analyze, docs,
+        # and release configuration.
+        install:dart
+        lint:all
+        monochange step validate
+      '';
+      description = "Run all lint checks before `git push`.";
+      binary = "bash";
     };
     "lint:analyze" = {
       exec = ''

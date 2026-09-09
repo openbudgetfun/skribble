@@ -129,6 +129,19 @@ dart doc --dry-run .
 
 <!-- {/docsContribQualityGatesSection} -->
 
+## Git hooks
+
+Git hooks are managed by devenv and driven by [prek](https://github.com/j178/prek). They install automatically the first time you enter the devenv shell (`devenv shell`); the generated config lives at `.pre-commit-config.yaml` (gitignored).
+
+| Hook             | Stage      | What it runs                                                                   |
+| ---------------- | ---------- | ------------------------------------------------------------------------------ |
+| `lint:commit`    | pre-commit | `lint:format` (dprint) across the workspace                                    |
+| `secrets:commit` | pre-commit | gitleaks scan of staged changes (`.gitleaks.toml`)                             |
+| `lint:push`      | pre-push   | CI lint parity: dependency refresh, `lint:all`, and `monochange step validate` |
+| `secrets:push`   | pre-push   | gitleaks scan of the full git history                                          |
+
+Hooks call devenv profile scripts by absolute path, so they work from plain `git` calls outside the devenv shell. Run them on demand with `prek run` (pre-commit) or `prek run --hook-type pre-push`, or skip them for a single commit with `git commit --no-verify` — CI still enforces every check.
+
 ## Commit messages
 
 Follow [Conventional Commits](https://www.conventionalcommits.org/):

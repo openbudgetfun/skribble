@@ -1073,6 +1073,7 @@ WiredIcon.svg(iconData: myCustomIconData)
 | `melos run rough-icons-custom`   | Generate custom icon artifacts     |
 | `melos run rough-icons-ci-check` | CI-equivalent icon checks          |
 | `lint:all`                       | All lint checks (format + analyze) |
+| `lint:push`                      | CI lint checks before `git push`   |
 | `test:all`                       | All unit and widget tests          |
 | `fix:all`                        | Auto-fix format + lint issues      |
 | `docs:site:serve`                | Serve docs site locally            |
@@ -1085,7 +1086,7 @@ WiredIcon.svg(iconData: myCustomIconData)
 
 After changing fonts, SVG import, or painting, run the glyph/corpus/pixel regressions and inspect real browser screenshots. `dart run packages/skribble_emoji_gen/bin/update_assets.dart` rebuilds the pinned source assets. `dart run tool/font_specimen.dart` creates embedded-font HTML comparisons. Patrol notebook journeys use shared keys in `lib/testing/quality_keys.dart`; run them through Patrol CLI and retain screenshots. Report browser coverage separately from native-device coverage.
 
-The pre-push hook clears Git's repository-local environment variables before invoking Flutter, so the SDK can inspect its own checkout and report its version correctly. It invokes the workspace's Melos through `flutter pub run`. Package tests then use `--no-pub`, avoiding repeated workspace dependency updates during a single hook.
+Git hooks are managed by devenv with `prek` and installed the first time you enter the devenv shell. The pre-commit stage checks formatting with `lint:format` and scans staged changes for secrets with gitleaks; the pre-push stage runs the CI lint job (`lint:push`) and scans the full history for secrets. Hooks invoke devenv profile scripts by absolute path, so they work outside the devenv shell, and the pre-push script prepends `.devenv/profile/bin` to `PATH` so nested `dart`/`melos`/`mdt` calls resolve the pinned toolchain.
 
 The automated PR review resolves the separate Jaspr docs package before repository-wide analysis. Its generated Markdown lives under `.audit/` so it does not fail its own formatting check, and test-file inventory paths are repository-relative without a duplicate package prefix.
 
