@@ -7,7 +7,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'generated/material_rough_icon_font.g.dart';
 import 'generated/material_rough_icons.g.dart';
-import 'rough/renderer.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_svg_icon_data.dart';
@@ -56,8 +55,10 @@ class WiredSvgIcon extends HookWidget {
     final effectiveDrawConfig =
         drawConfig ??
         DrawConfig.build(
-          maxRandomnessOffset: math.max(0.35, effectiveSize / 80),
-          roughness: themeDrawConfig.roughness! * 0.65 / 1.8,
+          maxRandomnessOffset:
+              themeDrawConfig.maxRandomnessOffset! *
+              math.min(2.0, effectiveSize / 24),
+          roughness: themeDrawConfig.roughness,
           lineWobble: themeDrawConfig.lineWobble,
           bowing: 0.8,
           curveFitting: 0.9,
@@ -354,7 +355,9 @@ final class _WiredSvgIconPainter extends CustomPainter {
     final outlinePaint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
+      ..strokeWidth = fillStyle == WiredIconFillStyle.solid
+          ? strokeWidth * 0.45
+          : strokeWidth
       ..strokeCap = StrokeCap.round
       ..isAntiAlias = true;
 
@@ -366,6 +369,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
       ..isAntiAlias = true;
 
     for (final primitive in primitives) {
+      final roughPath = _roughPath(primitive.path);
       canvas.save();
       primitive.clips.forEach(canvas.clipPath);
       // Per-primitive colours (from source SVG artwork) override the
@@ -377,17 +381,17 @@ final class _WiredSvgIconPainter extends CustomPainter {
 
       if (hasOwnColors) {
         if (primitive.fillColor != null) {
-          _paintRoughSolidFill(
-            canvas,
-            primitive.path,
-            paint: Paint()
+          canvas.drawPath(
+            roughPath,
+            Paint()
               ..color = primitive.fillColor!
               ..style = PaintingStyle.fill
               ..isAntiAlias = true,
-            step: math.max(0.6, sampleDistance),
           );
         }
         if (primitive.strokeColor != null) {
+          // Authored SVG strokes retain their exact caps, joins, and dash
+          // endpoints. The contour renderer below is for monochrome icons.
           canvas.drawPath(
             primitive.strokePath,
             Paint()
@@ -413,16 +417,11 @@ final class _WiredSvgIconPainter extends CustomPainter {
         case WiredIconFillStyle.none:
           break;
         case WiredIconFillStyle.solid:
-          _paintRoughSolidFill(
-            canvas,
-            primitive.path,
-            paint: fillPaint,
-            step: math.max(0.6, sampleDistance),
-          );
+          canvas.drawPath(roughPath, fillPaint);
         case WiredIconFillStyle.hachure:
           _paintHachureFill(
             canvas,
-            primitive.path,
+            roughPath,
             sketchPaint,
             angleDegrees: hachureAngle,
             gap: hachureGap,
@@ -430,59 +429,52 @@ final class _WiredSvgIconPainter extends CustomPainter {
         case WiredIconFillStyle.crossHatch:
           _paintHachureFill(
             canvas,
-            primitive.path,
+            roughPath,
             sketchPaint,
             angleDegrees: hachureAngle,
             gap: hachureGap,
           );
           _paintHachureFill(
             canvas,
-            primitive.path,
+            roughPath,
             sketchPaint,
             angleDegrees: hachureAngle + 90,
             gap: hachureGap,
           );
       }
 
-      _paintOutline(canvas, primitive.path, outlinePaint);
+      canvas.drawPath(roughPath, outlinePaint);
       canvas.restore();
     }
   }
 
-  /// Fills [path] with a solid colour using a hand-wobbled silhouette.
-  ///
-  /// the contour is sampled, each point is displaced with smooth seeded
-  /// noise, and the closed polygon is filled — a "scribble" fill that is
-  /// completely solid but visibly hand-drawn.
-  void _paintRoughSolidFill(
-    Canvas canvas,
-    Path path, {
-    required Paint paint,
-    required double step,
-  }) {
-    if (drawConfig.roughness == 0) {
-      canvas.drawPath(path, paint);
-      return;
-    }
-    final wobbled = Path()..fillType = path.fillType;
-    final amplitude = (drawConfig.roughness ?? 1) * 0.35;
-    // Each contour stays separate: joining contours paints over counters in
-    // letters, rings, search icons, and other shapes with holes.
+  // One smooth displacement field moves both sides of a stroke together.
+  // Independent jitter on tiny outline segments looks like raster fuzz and
+  // closes narrow counters. Fill and outline must share the same geometry.
+  Path _roughPath(Path path) {
+    if (drawConfig.roughness == 0) return path;
+    final rough = Path()..fillType = path.fillType;
+    final amplitude =
+        (drawConfig.roughness ?? 1) *
+        (drawConfig.maxRandomnessOffset ?? 1) *
+        0.5;
+    final phase = (drawConfig.seed ?? 0) * 0.61803398875;
+
     for (final metric in path.computeMetrics()) {
-      final points = _sampleMetric(metric, distance: step);
+      final points = _sampleMetric(metric);
       for (var i = 0; i < points.length; i++) {
         final point = points[i];
-        final x = point.dx + amplitude * math.sin(point.dy / 3.5);
-        final y = point.dy + amplitude * math.sin(point.dx / 4.5);
+        final x = point.dx + amplitude * math.sin(point.dy / 5.5 + phase);
+        final y = point.dy + amplitude * math.sin(point.dx / 7 + phase + 1.7);
         if (i == 0) {
-          wobbled.moveTo(x, y);
+          rough.moveTo(x, y);
         } else {
-          wobbled.lineTo(x, y);
+          rough.lineTo(x, y);
         }
       }
-      if (metric.isClosed) wobbled.close();
+      if (metric.isClosed) rough.close();
     }
-    canvas.drawPath(wobbled, paint);
+    return rough;
   }
 
   void _paintHachureFill(
@@ -531,49 +523,13 @@ final class _WiredSvgIconPainter extends CustomPainter {
     canvas.restore();
   }
 
-  void _paintOutline(
-    Canvas canvas,
-    Path path,
-    Paint paint, {
-    bool doublePass = false,
-  }) {
-    for (var passIdx = (doublePass ? 2 : 1); passIdx > 0; passIdx--) {
-      // Second pass draws with a tiny offset for the layered pen-stroke feel.
-      final px = passIdx == 2 ? 1.2 : 0.0;
-      final py = passIdx == 2 ? -0.8 : 0.0;
-      canvas.save();
-      if (px != 0 || py != 0) {
-        canvas.translate(px, py);
-      }
-      for (final metric in path.computeMetrics()) {
-        final pts = _sampleMetric(metric);
-        if (pts.length < 2) continue;
-        final contour = pts
-            .map((o) => PointD(o.dx, o.dy))
-            .toList(growable: false);
-        final opSet = OpSetBuilder.linearPath(
-          contour,
-          metric.isClosed,
-          drawConfig,
-        );
-        if (opSet.ops?.isEmpty ?? true) continue;
-        canvas.drawRough(
-          Drawable(options: drawConfig, sets: <OpSet>[opSet]),
-          paint,
-          paint,
-        );
-      }
-      canvas.restore();
-    }
-  }
-
-  List<Offset> _sampleMetric(PathMetric metric, {double? distance}) {
+  List<Offset> _sampleMetric(PathMetric metric) {
     final length = metric.length;
     if (length == 0) {
       return const <Offset>[];
     }
 
-    final step = math.max(0.6, distance ?? sampleDistance);
+    final step = math.max(0.6, sampleDistance);
     final sampleCount = math.max(2, (length / step).ceil());
     final points = <Offset>[];
 

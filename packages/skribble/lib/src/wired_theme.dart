@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'motion/wired_ink_interaction.dart';
 import 'motion/wired_motion.dart';
 import 'rough/skribble_rough.dart';
+import 'wired_font.dart';
 import 'wired_roughness.dart';
 
 /// The default hand-drawn font family bundled with Skribble.
@@ -32,19 +33,19 @@ class WiredThemeData {
   final double? _roughness;
   final String? _fontFamily;
 
+  /// Bundled typeface coordinated with [roughnessLevel].
+  /// An explicit [fontFamily] overrides this choice.
+  final WiredFont font;
+
   /// Geometry amplitude; an explicit constructor value overrides the level.
   double get roughness => _roughness ?? roughnessLevel.roughness;
 
   /// Font family; an explicit constructor value overrides the level.
-  String get fontFamily => _fontFamily ?? roughnessLevel.fontFamily;
+  String get fontFamily => _fontFamily ?? font.familyFor(roughnessLevel);
 
   /// Asset package for bundled fonts, or null for an app-provided family.
   String? get fontPackage =>
-      WiredRoughness.values.any(
-        (level) => level.fontFamily == fontFamily,
-      )
-      ? 'skribble'
-      : null;
+      WiredFont.isBundled(fontFamily) ? 'skribble' : null;
 
   WiredThemeData({
     this.motionEnabled = true,
@@ -55,6 +56,7 @@ class WiredThemeData {
     this.fillColor = const Color(0xFFFEFEFE),
     this.strokeWidth = 2.4,
     this.roughnessLevel = WiredRoughness.playful,
+    this.font = WiredFont.casual,
     this._roughness,
     this._fontFamily,
     this._drawConfig,
@@ -82,6 +84,7 @@ class WiredThemeData {
     double? roughness,
     String? fontFamily,
     WiredRoughness? roughnessLevel,
+    WiredFont? font,
   }) {
     return WiredThemeData(
       motionEnabled: motionEnabled ?? this.motionEnabled,
@@ -93,6 +96,7 @@ class WiredThemeData {
       strokeWidth: strokeWidth ?? this.strokeWidth,
       drawConfig: drawConfig ?? _drawConfig,
       roughnessLevel: roughnessLevel ?? this.roughnessLevel,
+      font: font ?? this.font,
       roughness: roughness ?? _roughness,
       fontFamily: fontFamily ?? _fontFamily,
     );

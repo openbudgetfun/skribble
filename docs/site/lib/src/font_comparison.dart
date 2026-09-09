@@ -4,7 +4,7 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
 import 'package:skribble_docs_site/src/docs_surface.dart';
 
-/// Matched specimens of original and roughened Recursive Casual and Linear.
+/// Matched specimens of original and roughened Recursive Casual, Linear, and Mono.
 class FontComparison extends HookWidget {
   /// Creates the comparison without replacing the app's current font.
   const FontComparison({super.key});
@@ -23,12 +23,12 @@ class FontComparison extends HookWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Text(
-          'Two kinds of handwriting',
+          'Choose your handwriting',
           style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         const Text(
-          'Compare Recursive Casual with Recursive Sans Linear. The original fonts keep their hinting; each roughened pair uses the same outline-warp strength.',
+          'Compare Recursive Sans Casual, Sans Linear, and Mono Linear. The original fonts keep their hinting; each roughened family uses the same outline-warp strength.',
         ),
         const SizedBox(height: 20),
         const Text('Your specimen text'),
@@ -46,6 +46,16 @@ class FontComparison extends HookWidget {
         Wrap(
           spacing: 4,
           children: [
+            DocsAction(
+              key: DocsKeys.fontCodeSample,
+              onPressed: () {
+                const code =
+                    "final total = 42;\nfinal label = 'ink';\n// 0123456789 <> {} []";
+                textController.text = code;
+                sample.value = code;
+              },
+              child: const Text('Code specimen'),
+            ),
             for (final value in [14.0, 16.0, 24.0, 48.0, 72.0])
               DocsAction(
                 selected: size.value == value,
@@ -76,9 +86,9 @@ class FontComparison extends HookWidget {
           LayoutBuilder(
             builder: (context, constraints) {
               final specimens = [
-                for (final linear in [false, true])
+                for (final font in WiredFont.values)
                   _Specimen(
-                    linear: linear,
+                    font: font,
                     level: level,
                     text: sample.value,
                     size: size.value,
@@ -87,7 +97,7 @@ class FontComparison extends HookWidget {
                   ),
               ];
 
-              return constraints.maxWidth < 560
+              return constraints.maxWidth < 720
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: specimens,
@@ -114,14 +124,14 @@ class FontComparison extends HookWidget {
 
 class _Specimen extends HookWidget {
   const _Specimen({
-    required this.linear,
+    required this.font,
     required this.level,
     required this.text,
     required this.size,
     required this.bold,
     required this.italic,
   });
-  final bool linear;
+  final WiredFont font;
   final WiredRoughness? level;
   final String text;
   final double size;
@@ -131,12 +141,12 @@ class _Specimen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final family = level == null
-        ? linear
-              ? 'RecursiveLinearOriginal'
-              : 'RecursiveCasualOriginal'
-        : linear
-        ? 'SkribbleLinear${level!.name[0].toUpperCase()}${level!.name.substring(1)}'
-        : level!.fontFamily;
+        ? switch (font) {
+            WiredFont.casual => 'RecursiveCasualOriginal',
+            WiredFont.linear => 'RecursiveLinearOriginal',
+            WiredFont.mono => 'RecursiveMonoOriginal',
+          }
+        : font.familyFor(level!);
 
     return Padding(
       padding: const EdgeInsets.only(right: 16, bottom: 12),
@@ -144,17 +154,22 @@ class _Specimen extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            linear ? 'Sans Linear' : 'Sans Casual',
+            switch (font) {
+              WiredFont.casual => 'Sans Casual',
+              WiredFont.linear => 'Sans Linear',
+              WiredFont.mono => 'Mono Linear',
+            },
             style: const TextStyle(fontSize: 13, color: Color(0xff716275)),
           ),
           const SizedBox(height: 8),
           Text(
             text,
+            key: DocsKeys.fontSpecimen(font.name, level?.name ?? 'original'),
             style: TextStyle(
               inherit: false,
               color: const Color(0xff34283f),
               fontFamily: family,
-              package: !linear && level != null ? 'skribble' : null,
+              package: level != null ? 'skribble' : null,
               fontSize: size,
               fontWeight: bold ? FontWeight.bold : FontWeight.normal,
               fontStyle: italic ? FontStyle.italic : FontStyle.normal,

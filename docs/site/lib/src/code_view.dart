@@ -10,6 +10,7 @@ import 'package:highlight/languages/json.dart';
 import 'package:highlight/languages/swift.dart';
 import 'package:highlight/languages/xml.dart';
 import 'package:highlight/languages/yaml.dart';
+import 'package:skribble/skribble.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
 import 'package:skribble_docs_site/src/docs_surface.dart';
 
@@ -115,7 +116,14 @@ class CodeView extends HookWidget {
             scrollDirection: Axis.horizontal,
             child: Text.rich(
               spans,
-              style: const TextStyle(fontSize: 14, height: 1.7),
+              style: TextStyle(
+                fontFamily: WiredFont.mono.familyFor(
+                  WiredTheme.of(context).roughnessLevel,
+                ),
+                package: 'skribble',
+                fontSize: 14,
+                height: 1.7,
+              ),
             ),
           ),
         ],

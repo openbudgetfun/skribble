@@ -10,6 +10,28 @@ import 'package:skribble_docs_site/src/examples/catalog.dart';
 import 'package:skribble_docs_site/src/examples/example.dart';
 
 void main() {
+  testWidgets('code typography uses Mono and follows inherited roughness', (
+    tester,
+  ) async {
+    for (final level in WiredRoughness.values) {
+      await tester.pumpWidget(
+        WiredMaterialApp(
+          wiredTheme: WiredThemeData(roughnessLevel: level),
+          home: const CodeView(code: 'final ink = 42;'),
+        ),
+      );
+      final text = tester
+          .widgetList<Text>(find.byType(Text))
+          .singleWhere(
+            (text) => text.textSpan?.toPlainText() == 'final ink = 42;',
+          );
+      expect(
+        text.style!.fontFamily,
+        'packages/skribble/${WiredFont.mono.familyFor(level)}',
+      );
+    }
+  });
+
   test('syntax colour preserves every source character', () {
     for (final language in ['dart', 'bash', 'yaml', 'html', 'unknown']) {
       const code = 'Widget build<T>() => Text("café & <hello> \$value");\n';
