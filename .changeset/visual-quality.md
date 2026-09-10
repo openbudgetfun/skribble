@@ -2,15 +2,6 @@
 skribble: minor
 ---
 
-# Preserve source SVG colours through the rough pipeline
+# Preserve source colours through the roughened rendering pipeline
 
-Preserve colours from source SVG artwork through the rough rendering pipeline:
-
-- Add `fillColor`/`strokeColor`/`strokeWidth` to `WiredSvgPrimitive`
-- Parse SVG paint attributes with group inheritance in `generate_emoji.dart`
-- Paint each precomputed primitive with its own colour (rough solid fill for enclosed areas, wobbled outline for strokes) instead of a single ambient colour
-- Regenerate all 1,820 emoji with their OpenMoji colour palettes flowing through
-- Icon default fill changed from hachure to the new rough solid wire fill
-- Amplify rough engine defaults (maxRandomnessOffset, roughness, bowing) for clearly visible hand-drawn wobble at any icon size
-- Improve font roughening: 4× more aggressive jitter, silhouette displacement applied to both on-curve and off-curve Bézier control points
-- Regenerate all 4 Skribble typeface variants with aggressive contour displacement across all 1,479 foreground contours
+`WiredSvgPrimitive` carries `fillColor`, `strokeColor`, and `strokeWidth`, SVG paint attributes parse with group inheritance, and every primitive paints with its own colour — rough solid fill for enclosed areas (now the icon default, replacing hachure) and wobbled outlines for strokes. Rough engine parameters were amplified for a clearly hand-drawn look at any size: maxRandomnessOffset 3x, roughness 2.4, bowing 2.2, curveFitting 0 for jagged polylines, fill wobble amplitude up to shortestSide/8, and a double-pass canvas translate that layers pen strokes on per-colour primitives while keeping visible centres in small circular controls.
