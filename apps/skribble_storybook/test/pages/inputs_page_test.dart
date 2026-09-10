@@ -10,6 +10,8 @@ void main() {
     Future<void> navigateToInputs(WidgetTester tester) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(find.text('Inputs'), 200);
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Inputs'));
       await tester.pumpAndSettle();
     }

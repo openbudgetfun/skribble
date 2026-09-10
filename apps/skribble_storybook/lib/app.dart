@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/pages/buttons_page.dart';
+import 'package:skribble_storybook/pages/charts_page.dart';
 import 'package:skribble_storybook/pages/data_display_page.dart';
 import 'package:skribble_storybook/pages/emoji_page.dart';
 import 'package:skribble_storybook/pages/feedback_page.dart';
@@ -35,6 +36,10 @@ class SkribbleStorybookApp extends HookWidget {
     return WiredMaterialApp(
       wiredTheme: wiredTheme,
       title: 'Skribble Storybook',
+      initialRoute: const String.fromEnvironment(
+        'STORYBOOK_ROUTE',
+        defaultValue: '/',
+      ),
       builder: (context, child) => DefaultTextStyle(
         style: Theme.of(context).textTheme.bodyMedium!,
         child: Column(
@@ -62,6 +67,7 @@ class SkribbleStorybookApp extends HookWidget {
         '/feedback': (context) => const FeedbackPage(),
         '/layout': (context) => const LayoutPage(),
         '/maps': (context) => const MapsPage(),
+        '/charts': (context) => const ChartsPage(),
         '/data-display': (context) => const DataDisplayPage(),
         '/rough-icons': (context) => const RoughIconsPage(),
         '/skribble-icons': (context) => const SkribbleIconsPage(),

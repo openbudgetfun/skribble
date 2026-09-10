@@ -76,6 +76,18 @@ melos run format        # Format all Dart files
 melos run screenshot    # Capture widget screenshots
 ```
 
+## Maps and charts
+
+The optional `skribble_maps` and `skribble_charts` packages depend on Skribble, with independent public barrels and release versions. Apps can use the core widgets without either dependency.
+
+Maps delegates geographic projection and the basemap to MapLibre. Flutter paints and hit-tests the app-owned pins, routes, and areas. Online basemaps need a network connection; the docs also provide an offline pin demonstration.
+
+Charts keeps exact decimal market data separate from screen coordinates. Its controller merges timestamped revisions and owns the viewport. A separate annotation controller owns drawing history, so live ticks never enter undo/redo. The widget borrows these controllers; the host disposes them. `WiredChartFeed` coordinates a host-supplied snapshot and update stream without selecting an exchange or transport.
+
+Chart painters use visible data, cached indicator results, and separate repaint boundaries for the crosshair. Candle bodies and wicks preserve their price coordinates. Seeded hatching and bounded sideways pen variation add texture. Chart rendering uses Flutter canvas directly because general rough outlines would move exact price endpoints.
+
+See [Charts](/widgets/charts) and [Maps](/widgets/maps) for public examples.
+
 ## Widget Layer Stack
 
 Every Wired widget follows the same structural pattern. Here is the full stack from bottom to top:

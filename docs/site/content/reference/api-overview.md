@@ -238,13 +238,14 @@ The main library depends on:
 
 ## Companion packages
 
-| Package                 | Purpose                                            |
-| ----------------------- | -------------------------------------------------- |
-| `skribble_icons`        | 30 curated hand-drawn custom icons + unified API   |
-| `skribble_emoji`        | Hand-drawn emoji from OpenMoji + WiredEmoji widget |
-| `skribble_maps`         | MapLibre maps with hand-drawn Skribble overlays    |
-| `skribble_lints`        | Shared lint rules (extends `very_good_analysis`)   |
-| `skribble_icons_custom` | Example custom icon set with SVG-manifest pipeline |
+| Package                 | Purpose                                                           |
+| ----------------------- | ----------------------------------------------------------------- |
+| `skribble_icons`        | 30 curated hand-drawn custom icons + unified API                  |
+| `skribble_emoji`        | Hand-drawn emoji from OpenMoji + WiredEmoji widget                |
+| `skribble_maps`         | MapLibre maps with hand-drawn Skribble overlays                   |
+| `skribble_charts`       | Exact OHLC data, hand-drawn charts, indicators, and drawing tools |
+| `skribble_lints`        | Shared lint rules (extends `very_good_analysis`)                  |
+| `skribble_icons_custom` | Example custom icon set with SVG-manifest pipeline                |
 
 ### skribble_icons
 
@@ -296,6 +297,27 @@ import 'package:skribble_maps/skribble_maps.dart';
 | `WiredMapFeatureLayer` | widget | Rough app-owned polylines and polygons                      |
 | `WiredMapAttribution`  | widget | Optional provider attribution badge                         |
 | `WiredMapZoomControls` | widget | Accessible hand-drawn zoom controls                         |
+
+### skribble_charts
+
+```dart
+// Static example: api
+import 'package:skribble_charts/skribble_charts.dart';
+```
+
+| Export                                                                 | Purpose                                                                      |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `WiredFinancialChart`                                                  | Candlesticks, OHLC bars, lines, areas, crosshair, and gestures               |
+| `WiredChartDecimal`, `WiredChartCandle`, `WiredChartInstrument`        | Exact prices, validated OHLCV values, and display precision                  |
+| `WiredChartController`, `WiredChartFeed`                               | Viewport, revision-aware history updates, and snapshot/live coordination     |
+| `aggregateWiredChartCandles`                                           | UTC-aligned interval aggregation                                             |
+| `WiredChartPriceTransform`, `WiredChartViewport`                       | Coordinates and linear, logarithmic, and percentage scales                   |
+| `WiredSma`, `WiredEma`, `WiredBollingerBands`, `WiredRsi`, `WiredMacd` | Indicator calculations and warmup handling                                   |
+| `WiredVolumePane`, `WiredIndicatorPane`, `WiredChartStyle`             | Pane layout and controlled hand-drawn appearance                             |
+| `WiredChartAnnotations`, `WiredChartDrawingTool`                       | Trend lines, price lines, rectangles, notes, Fibonacci levels, and undo/redo |
+| `WiredChartWorkspace`                                                  | Versioned chart settings and annotation persistence                          |
+
+Hosts own and dispose controllers and feeds. The chart owns an annotation editor only when none is supplied. See [Charts](/widgets/charts) for the live example, numeric guarantees, and supported interactions.
 
 ## API documentation
 

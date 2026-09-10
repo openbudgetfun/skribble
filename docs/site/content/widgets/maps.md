@@ -34,6 +34,7 @@ HookBuilder(
       mainAxisSize: MainAxisSize.min,
       children: [
         WiredButton(
+          key: const ValueKey('docs-map-online-toggle'),
           onPressed: () => online.value = !online.value,
           child: Text(online.value ? 'Close the map' : 'Load OpenFreeMap'),
         ),
@@ -42,6 +43,7 @@ HookBuilder(
           const SizedBox(
             height: 300,
             child: WiredMap(
+              key: ValueKey('docs-online-map'),
               initialCenter: LatLng(51.5074, -0.1278),
               initialZoom: 13,
               scrollGesturesEnabled: false,
@@ -54,7 +56,9 @@ HookBuilder(
 )
 ```
 
-MapLibre requests the tiles visible around Dubai. Panning to another area requests its tiles. There is no city-specific preprocessing step in the application.
+MapLibre requests the tiles visible around London. Panning to another area requests its tiles. There is no city-specific preprocessing step in the application. The embedded examples disable map scrolling so you can continue scrolling the document. Their zoom buttons remain available.
+
+Use `onStyleLoaded` to react when the style and annotation managers are available. Use `onMapIdle` before capturing a screenshot: it waits for requested tiles, camera transitions, and fades to finish. Storybook's **Map ready** status follows this idle event and resets when the map moves or its city or palette changes.
 
 Choose another included style or provide any MapLibre style URL, local style, or raw JSON:
 
@@ -75,16 +79,48 @@ OpenFreeMap's public service has no availability guarantee. Keep the style confi
 
 ## Draw pins and routes
 
+Tap the café, market, or gallery pin below to try its selection feedback without loading a basemap. Select Show the route on a map to load a London example with a precise route, a hatched area, and a tappable café marker. The selected place is announced to screen readers.
+
 ```dart
 // Live example: map-features
 HookBuilder(
   builder: (context) {
     final online = useState(false);
+    final selected = useState('Choose a pin, then explore the walking route.');
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        const WiredMapPin(
-          icon: WiredMapPinIcon.coffee,
-          semanticLabel: 'Favourite café',
+        Wrap(
+          spacing: 24,
+          runSpacing: 12,
+          children: [
+            WiredMapPin(
+              key: const ValueKey('docs-map-pin-coffee'),
+              icon: WiredMapPinIcon.coffee,
+              semanticLabel: 'Favourite café',
+              onTap: () => selected.value = 'Selected: Favourite café',
+            ),
+            WiredMapPin(
+              key: const ValueKey('docs-map-pin-market'),
+              icon: WiredMapPinIcon.market,
+              semanticLabel: 'Weekend market',
+              onTap: () => selected.value = 'Selected: Weekend market',
+            ),
+            WiredMapPin(
+              key: const ValueKey('docs-map-pin-gallery'),
+              icon: WiredMapPinIcon.gallery,
+              semanticLabel: 'Local gallery',
+              onTap: () => selected.value = 'Selected: Local gallery',
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Semantics(
+          liveRegion: true,
+          child: Text(
+            selected.value,
+            key: const ValueKey('docs-map-selection'),
+          ),
         ),
         const SizedBox(height: 16),
         WiredButton(
@@ -95,16 +131,25 @@ HookBuilder(
         ),
         if (online.value) ...[
           const SizedBox(height: 16),
-          const SizedBox(
+          SizedBox(
             height: 300,
             child: WiredMap(
-              initialCenter: LatLng(51.5242, -0.0778),
+              initialCenter: const LatLng(51.5242, -0.0778),
               initialZoom: 14,
               scrollGesturesEnabled: false,
+              semanticLabel: 'Shoreditch walking route',
               children: [
-                WiredMapFeatureLayer(
+                const WiredMapFeatureLayer(
                   semanticLabel: 'Walking route',
                   features: [
+                    WiredMapPolygon(
+                      points: [
+                        LatLng(51.5256, -0.0798),
+                        LatLng(51.5258, -0.0769),
+                        LatLng(51.5245, -0.0765),
+                        LatLng(51.5242, -0.0792),
+                      ],
+                    ),
                     WiredMapPolyline(
                       points: [
                         LatLng(51.5228, -0.0810),
@@ -119,9 +164,10 @@ HookBuilder(
                 WiredMapMarkerLayer(
                   markers: [
                     WiredMapMarker(
-                      point: LatLng(51.5242, -0.0778),
+                      point: const LatLng(51.5242, -0.0778),
                       semanticLabel: 'Favourite café',
-                      child: WiredMapPin(icon: WiredMapPinIcon.coffee),
+                      onTap: () => selected.value = 'Selected: Favourite café',
+                      child: const WiredMapPin(icon: WiredMapPinIcon.coffee),
                     ),
                   ],
                 ),
@@ -142,6 +188,8 @@ Each category has a pastel fill and dark brown ink by default, including on dark
 Roads and labels retain MapLibre's exact geometry. `WiredMapPolyline` also follows its supplied points exactly, with continuous round joins and caps. Theme roughness does not distort routes, and the existing polyline `seed` parameter is retained for compatibility without affecting the stroke. `WiredMapPolygon` keeps a sketch outline and light hatching for area annotations. Its default hatch opacity is 22 percent to leave underlying labels visible.
 
 ## Map widgets
+
+The Storybook Maps page opens the same map package as a full-screen example. Switch between London, Dubai, and Tokyo, choose Paper or Night, and tap a pin to name the next stop. Changing cities clears the selection; changing the map style preserves it. The selection stays above the map so it cannot cover a pin or the zoom buttons. Controls wrap on narrow screens, and the page scrolls in landscape or with larger text to keep the map reachable. Routes are illustrative overlays rather than directions returned by a routing service.
 
 | API                    | Purpose                                                    |
 | ---------------------- | ---------------------------------------------------------- |

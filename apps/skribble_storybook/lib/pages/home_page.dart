@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_storybook/testing/chart_keys.dart';
+import 'package:skribble_storybook/testing/map_keys.dart';
 
 class HomePage extends HookWidget {
   const HomePage({super.key});
@@ -36,6 +38,11 @@ class HomePage extends HookWidget {
               child: WiredCard(
                 height: null,
                 child: InkWell(
+                  key: switch (cat.route) {
+                    '/charts' => ChartDemoKeys.category,
+                    '/maps' => MapDemoKeys.category,
+                    _ => null,
+                  },
                   onTap: () => Navigator.pushNamed(context, cat.route),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
@@ -95,6 +102,12 @@ class _Category {
 }
 
 const _categories = [
+  _Category(
+    title: 'Financial charts',
+    description: 'Precise candles, inked indicators, and your own annotations.',
+    route: '/charts',
+    icon: Icons.candlestick_chart,
+  ),
   _Category(
     title: 'The sketchbook',
     description: 'A working notebook in morning paper and evening ink.',

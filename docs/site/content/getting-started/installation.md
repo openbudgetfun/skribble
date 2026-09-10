@@ -28,6 +28,17 @@ import 'package:skribble/skribble.dart';
 
 <!-- {/docsInstallSection} -->
 
+## Optional maps and financial charts
+
+Install either companion package when your app needs it:
+
+```bash
+flutter pub add skribble_maps
+flutter pub add skribble_charts
+```
+
+[Maps](/widgets/maps) combines a MapLibre basemap with hand-drawn pins, routes, and areas. [Charts](/widgets/charts) supports candlesticks, indicators, and editable drawings. Both pages include interactive examples; Storybook includes larger demonstrations under Maps and Financial charts.
+
 ## Workspace contribution setup
 
 <!-- {=docsSetupSection} -->

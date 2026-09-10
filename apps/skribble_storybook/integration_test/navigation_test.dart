@@ -106,8 +106,19 @@ void main() {
 
       await scrollToAndTap(tester, 'Maps');
 
-      expect(find.text('A real vector map, redrawn in ink'), findsOneWidget);
-      expect(find.text('Morning paper'), findsOneWidget);
+      expect(find.text('A little wander'), findsOneWidget);
+      expect(find.text('Paper'), findsOneWidget);
+      expect(find.text('Night'), findsOneWidget);
+
+      await tester.tap(find.text('Dubai'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.bySemanticsLabel('Dubai Mall'));
+      await tester.pumpAndSettle();
+      expect(find.text('Dubai Mall'), findsOneWidget);
+
+      await tester.tap(find.text('Tokyo'));
+      await tester.pumpAndSettle();
+      expect(find.text('Tap a pin to choose the next stop'), findsOneWidget);
     });
   });
 }

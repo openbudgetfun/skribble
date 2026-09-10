@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_charts/skribble_charts.dart';
 import 'package:skribble_docs_site/src/examples/example.dart';
 import 'package:skribble_emoji/skribble_emoji.dart'
     show PrecomputedEmoji, WiredEmoji;
@@ -9,6 +10,7 @@ import 'package:skribble_icons/skribble_icons.dart'
 import 'package:skribble_maps/skribble_maps.dart';
 
 part 'buttons.examples.dart';
+part 'charts.examples.dart';
 part 'cupertino.examples.dart';
 part 'emoji.examples.dart';
 part 'feedback.examples.dart';

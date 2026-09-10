@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_maps/skribble_maps.dart';
+import 'package:skribble_storybook/testing/map_keys.dart';
 
 enum _MapInk { paper, night }
 
@@ -11,13 +12,18 @@ enum _MapCity { london, dubai, tokyo }
 
 /// Interactive showcase for the hand-drawn map package.
 class MapsPage extends HookWidget {
-  const MapsPage({super.key});
+  /// Creates the interactive map, optionally replacing its native basemap.
+  const MapsPage({super.key, this.mapViewBuilder});
+
+  /// Native map boundary used by deterministic widget tests.
+  final WiredMapViewBuilder? mapViewBuilder;
 
   @override
   Widget build(BuildContext context) {
     final ink = useState(_MapInk.paper);
     final city = useState(_MapCity.london);
     final selectedPlace = useState('Tap a pin to choose the next stop');
+    final mapReady = useState(false);
     final mapController = useMemoized(
       () => WiredMapController(
         initialCenter: _places[_MapCity.london]!.center,
@@ -62,111 +68,143 @@ class MapsPage extends HookWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text(
-              'Good places. Little detours.',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 4),
-            const Text(
-              'Follow the ink, find a favourite. Tap a pin to pick your next stop.',
-              style: TextStyle(fontSize: 14, height: 1.25),
-            ),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: [
-                WiredSegmentedButton<_MapCity>(
-                  segments: const [
-                    WiredButtonSegment(
-                      value: _MapCity.london,
-                      label: Text('London'),
-                    ),
-                    WiredButtonSegment(
-                      value: _MapCity.dubai,
-                      label: Text('Dubai'),
-                    ),
-                    WiredButtonSegment(
-                      value: _MapCity.tokyo,
-                      label: Text('Tokyo'),
-                    ),
-                  ],
-                  selected: {city.value},
-                  onSelectionChanged: (selection) {
-                    city.value = selection.single;
-                  },
-                ),
-                WiredSegmentedButton<_MapInk>(
-                  segments: const [
-                    WiredButtonSegment(
-                      value: _MapInk.paper,
-                      label: Text('Paper'),
-                    ),
-                    WiredButtonSegment(
-                      value: _MapInk.night,
-                      label: Text('Night'),
-                    ),
-                  ],
-                  selected: {ink.value},
-                  onSelectionChanged: (selection) {
-                    ink.value = selection.single;
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(18)),
-                child: WiredMap(
-                  controller: mapController,
-                  minimumZoom: 2,
-                  maximumZoom: 18,
-                  style: style,
-                  children: [
-                    WiredMapFeatureLayer(
-                      semanticLabel: places.routeLabel,
-                      features: [
-                        WiredMapPolygon(
-                          points: places.area,
-                          fillColor: overlayPalette.areaFill,
-                          inkColor: overlayPalette.areaInk,
-                        ),
-                        WiredMapPolyline(
-                          points: places.route,
-                          color: overlayPalette.routeInk,
-                          strokeWidth: 4,
-                          seed: 91,
-                        ),
-                      ],
-                    ),
-                    WiredMapMarkerLayer(
-                      markers: [
-                        for (final place in places.markers)
-                          WiredMapMarker(
-                            point: place.point,
-                            semanticLabel: place.label,
-                            onTap: () => selectedPlace.value = place.label,
-                            child: WiredMapPin(
-                              icon: place.icon,
-                              fillColor: place.fillColor,
-                              seed: place.icon.index + 37,
-                              inkColor: const Color(0xFF37342F),
+        child: CustomScrollView(
+          key: MapDemoKeys.scroll,
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    'Good places. Little detours.',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'Follow the ink, find a favourite. Tap a pin to pick your next stop.',
+                    style: TextStyle(fontSize: 14, height: 1.25),
+                  ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: [
+                      for (final option in _MapCity.values)
+                        Semantics(
+                          selected: city.value == option,
+                          child: WiredButton(
+                            key: MapDemoKeys.choice(option.name),
+                            onPressed: () {
+                              if (city.value == option) return;
+                              mapReady.value = false;
+                              city.value = option;
+                            },
+                            child: Text(
+                              switch (option) {
+                                _MapCity.london => 'London',
+                                _MapCity.dubai => 'Dubai',
+                                _MapCity.tokyo => 'Tokyo',
+                              },
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: city.value == option
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
                             ),
                           ),
-                      ],
+                        ),
+                      for (final option in _MapInk.values)
+                        Semantics(
+                          selected: ink.value == option,
+                          child: WiredButton(
+                            key: MapDemoKeys.choice(option.name),
+                            onPressed: () {
+                              if (ink.value == option) return;
+                              mapReady.value = false;
+                              ink.value = option;
+                            },
+                            child: Text(
+                              option == _MapInk.paper ? 'Paper' : 'Night',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: ink.value == option
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Semantics(
+                    liveRegion: true,
+                    child: Text(
+                      mapReady.value ? 'Map ready' : 'Loading map…',
+                      style: const TextStyle(fontSize: 12),
                     ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: _MapStatus(text: selectedPlace.value),
+                  ),
+                  const SizedBox(height: 8),
+                  Semantics(
+                    liveRegion: true,
+                    child: _MapStatus(text: selectedPlace.value),
+                  ),
+                  const SizedBox(height: 12),
+                ],
+              ),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: SizedBox(
+                height: 280,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(18)),
+                  child: WiredMap(
+                    key: MapDemoKeys.map,
+                    mapViewBuilder: mapViewBuilder,
+                    controller: mapController,
+                    minimumZoom: 2,
+                    maximumZoom: 18,
+                    style: style,
+                    onMapIdle: () => mapReady.value = true,
+                    onCameraChanged: (_) => mapReady.value = false,
+                    children: [
+                      WiredMapFeatureLayer(
+                        semanticLabel: places.routeLabel,
+                        features: [
+                          WiredMapPolygon(
+                            points: places.area,
+                            fillColor: overlayPalette.areaFill,
+                            inkColor: overlayPalette.areaInk,
+                          ),
+                          WiredMapPolyline(
+                            points: places.route,
+                            color: overlayPalette.routeInk,
+                            strokeWidth: 4,
+                            seed: 91,
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      WiredMapMarkerLayer(
+                        markers: [
+                          for (final place in places.markers)
+                            WiredMapMarker(
+                              point: place.point,
+                              semanticLabel: place.label,
+                              onTap: () => selectedPlace.value = place.label,
+                              child: WiredMapPin(
+                                key: MapDemoKeys.pin(place.label),
+                                icon: place.icon,
+                                fillColor: place.fillColor,
+                                seed: place.icon.index + 37,
+                                inkColor: const Color(0xFF37342F),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -394,6 +432,7 @@ class _MapStatus extends HookWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             child: Text(
               text,
+              key: MapDemoKeys.status,
               style: const TextStyle(fontSize: 14, color: Color(0xFF35332F)),
             ),
           ),

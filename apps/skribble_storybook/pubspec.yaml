@@ -3,6 +3,7 @@ description: >
   Interactive showcase app for the Skribble hand-drawn UI component library.
   Demonstrates all 80+ widgets across component category pages and a rough-icons gallery.
 publish_to: none
+version: 1.0.0+1
 
 environment:
   sdk: ^3.13.0
@@ -16,6 +17,8 @@ dependencies:
   flutter_hooks: ^0.21.3
   skribble:
     path: ../../packages/skribble
+  skribble_charts:
+    path: ../../packages/skribble_charts
   skribble_emoji:
     path: ../../packages/skribble_emoji
   skribble_icons:
@@ -40,10 +43,7 @@ patrol:
   test_directory_path: integration_test
   verbose: false
   android:
-    # The storybook scaffolding is web-first; the Android package id is
-    # provisional until the native runner is committed (see
-    # docs/site/content/guides/e2e-testing.md).
-    package_name: com.example.skribble_storybook
+    package_name: fun.openbudget.skribble_storybook
 
 flutter:
   uses-material-design: true

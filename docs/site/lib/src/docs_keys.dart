@@ -2,8 +2,28 @@ import 'package:flutter/widgets.dart';
 
 /// Stable targets for the documentation's browser journeys.
 abstract final class DocsKeys {
+  /// The opt-in online map, mounted only after the visitor requests it.
+  static const ValueKey<String> map = ValueKey('docs-online-map');
+
+  /// Opens or closes the optional online basemap.
+  static const ValueKey<String> mapOnlineToggle = ValueKey(
+    'docs-map-online-toggle',
+  );
+
+  /// One of the network-independent sample pins.
+  static ValueKey<String> mapPin(String icon) => ValueKey('docs-map-pin-$icon');
+
+  /// Visible feedback from the sample pin selection.
+  static const ValueKey<String> mapSelection = ValueKey('docs-map-selection');
+
+  /// The financial chart's copyable example widget.
+  static const ValueKey<String> chart = ValueKey('docs-financial-chart');
+
   /// Copies one code block; scope this key to the desired example.
   static const ValueKey<String> copyCode = ValueKey('docs-copy-code');
+
+  /// The article scroll view surrounding live examples and source blocks.
+  static const ValueKey<String> documentScroll = ValueKey('document-scroll');
 
   /// A roughness choice in the persistent toolbar.
   static ValueKey<String> roughness(String level) =>

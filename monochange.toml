@@ -63,6 +63,13 @@ tag = true
 release = true
 version_format = "namespaced"
 
+[package.skribble_charts]
+path = "packages/skribble_charts"
+type = "dart"
+tag = true
+release = true
+version_format = "namespaced"
+
 # =============================================================================
 # [group.*] — version groups that share a single release identity
 # =============================================================================
