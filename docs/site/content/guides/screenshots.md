@@ -295,3 +295,9 @@ The `focusOnText()` helper scrolls to find the text. If the text does not exist 
 The notebook lives at `/#/studio` in the web storybook. For a release build of the catalog, use `flutter build web --release --no-tree-shake-icons` from `apps/skribble_storybook`; the icon browser constructs `IconData` dynamically. Inspect phone and desktop layouts, morning and evening palettes, and both ends of long pages. Wait for actual Flutter content before taking a capture.
 
 Run `dart run tool/font_specimen.dart` from the root to generate self-contained comparisons in `.screenshots/font/`. These embed original Recursive Casual and generated Skribble fonts. Inspect all four weights/styles at reading sizes, punctuation, accents, currency, and large headings. Outline-change counts do not replace visual inspection.
+
+## Choosing images for public documentation
+
+Archived input captures can predate the Recursive font repair and contain missing-glyph boxes. Do not reuse them as current product evidence. Prefer the live documentation font comparison or a newly captured notebook with the current theme and loaded fonts. Inspect accents, currency, all four font styles, stroke clipping, and the settled first frame. Record the revision and viewport alongside exported captures.
+
+For editable design handoff, use the [design kit](../reference/design-kit). Its font preview and SVG pen specimens can be regenerated from the current source; a screenshot does not preserve editable geometry or target dimensions.
