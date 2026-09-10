@@ -135,9 +135,11 @@ HookBuilder(
 )
 ```
 
-Pins default to 52 by 64 logical pixels with a 28-pixel rough vector icon. The built-in icon choices are `place`, `checkIn`, `coffee`, `market`, `gallery`, `favorite`, and `person`. Each icon uses the same Skribble rough drawing system as the pin outline.
+Pins default to 52 by 64 logical pixels with a 28-pixel vector icon. A softly asymmetric ink contour, small pen accent, and cream sticker edge keep them distinct from the map. The built-in icon choices are `place`, `checkIn`, `coffee`, `market`, `gallery`, `favorite`, and `person`. Their icons use very little roughness so small details remain readable.
 
-Use low-saturation fills and one consistent ink color when several categories share a map. The glyph should carry the category. Color should support selection or status rather than make every category compete.
+Each category has a pastel fill and dark brown ink by default, including on dark maps. Override `fillColor`, `inkColor`, or `iconColor` to match your app. Keep the glyph as well as the color so categories remain distinguishable without color vision. A pin's seed varies its shoulders while its bottom-center anchor stays fixed.
+
+Roads and labels retain MapLibre's exact geometry. `WiredMapPolyline` also follows its supplied points exactly, with continuous round joins and caps. Theme roughness does not distort routes, and the existing polyline `seed` parameter is retained for compatibility without affecting the stroke. `WiredMapPolygon` keeps a sketch outline and light hatching for area annotations. Its default hatch opacity is 22 percent to leave underlying labels visible.
 
 ## Map widgets
 

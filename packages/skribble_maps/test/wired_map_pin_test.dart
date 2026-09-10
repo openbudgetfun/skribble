@@ -40,6 +40,40 @@ void main() {
       }
     });
 
+    testWidgets('press cancels back to its geographic anchor', (tester) async {
+      await pumpMapApp(tester, Center(child: WiredMapPin(onTap: () {})));
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.byType(WiredMapPin)),
+      );
+      await tester.pumpAndSettle();
+      final scale = tester.widget<AnimatedScale>(find.byType(AnimatedScale));
+      expect(scale.scale, 0.92);
+      expect(scale.alignment, Alignment.bottomCenter);
+
+      await gesture.cancel();
+      await tester.pumpAndSettle();
+      expect(tester.widget<AnimatedScale>(find.byType(AnimatedScale)).scale, 1);
+    });
+
+    testWidgets('small pins constrain their icon without overflow', (
+      tester,
+    ) async {
+      await pumpMapApp(
+        tester,
+        const Center(child: WiredMapPin(width: 32, height: 40)),
+      );
+
+      expect(tester.getSize(find.byType(WiredMapPin)), const Size(32, 40));
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('null icon paints an empty pin', (tester) async {
+      await pumpMapApp(tester, const WiredMapPin(icon: null));
+
+      expect(find.byType(WiredSvgIcon), findsNothing);
+      expect(tester.takeException(), isNull);
+    });
+
     testWidgets('custom child replaces the generated icon', (tester) async {
       await pumpMapApp(
         tester,
