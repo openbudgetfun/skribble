@@ -133,9 +133,12 @@ enforce_for_commit = false
 
 [source.pull_requests]
 enabled = true
-branch_prefix = "monochange/release"
+branch_prefix = "chore/release"
 base = "main"
 title = "chore(release): prepare release"
+# The prefix must stay stable while a release PR is open: renaming it orphans
+# the long-running PR, and recreating it fails on GitHub's 65536-character
+# PR body limit because the pending 0.1.0 changesets exceed it.
 # Requires monochange with commit_subject support (monochange#675).
 commit_subject = "🔖 chore(release): prepare release"
 labels = ["release", "automated"]
