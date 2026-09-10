@@ -2,6 +2,6 @@
 skribble: minor
 ---
 
-# Expand `skribble_emoji` from 50 to 1,827 emoji sourced from OpenMoji
+# Add the hand-drawn emoji package with the complete OpenMoji set
 
-Includes generation pipeline script, download helper, and comprehensive lookup by name and Unicode codepoint.
+The `skribble_emoji` package ships 1,827 emoji generated from OpenMoji artwork — early scaffolds served 50 — with lookup by name and Unicode codepoint, a generation pipeline and download helper, complete OpenMoji 17 sequences, and source colour palettes preserved through the rough pipeline. `PrecomputedEmoji` draws the same API (fromName, fromUnicode, placeholder fallback) directly via `canvas.drawPath` for performance-critical screens, and the `skribble_emoji_gen` package hosts the asset generation in the workspace.

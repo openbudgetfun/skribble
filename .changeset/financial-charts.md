@@ -1,8 +1,7 @@
 ---
 skribble_charts: minor
-skribble_maps: minor
 ---
 
-# Add hand-drawn financial charts and live chart examples
+# Add hand-drawn financial charts
 
-Add precise hand-drawn financial charts with exact OHLC data, interactive viewports, indicators, annotation editing and saved workspaces. Include live chart examples in the documentation and Storybook, and improve map previews, selection feedback, and responsive layouts in both applications.
+`skribble_charts` draws precise hand-drawn financial charts over exact OHLC data with interactive viewports, indicators, annotation editing, and saved workspaces. Live chart examples ship in the documentation and Storybook.

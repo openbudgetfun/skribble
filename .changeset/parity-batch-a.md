@@ -2,13 +2,6 @@
 skribble: minor
 ---
 
-# Add Material long tail batch A parity widgets
+# Add the Material long-tail parity widgets
 
-Add "Material long tail" batch A widgets to close four M3 parity gaps:
-
-- `WiredCarouselView`: hand-drawn horizontal carousel of rough-bordered cards mirroring M3 `CarouselView`'s `itemExtent` / `height` / `children` / `shrinkWrap` API, with optional hachure fill, tap callbacks, and item semantics.
-- `WiredSearchAnchor` + `WiredSearchController`: search anchor pairing a collapsible `WiredSearchBar` with an in-place suggestions view (`builder` / `suggestionsBuilder` / `closeView(selection)` flow, analogous to Material's `SearchAnchor`). `WiredSearchBar` gains `onTap` and `autoFocus` parameters.
-- `WiredDateRangePickerDialog` + `showWiredDateRangePicker`: hand-drawn range selection dialog reusing the calendar's month-grid visual language, with `firstDate`/`lastDate` clamping and month navigation.
-- `WiredLicensePage` + `showWiredLicensePage`: license page rendered from `LicenseRegistry` data (alphabetical packages, rough-bordered headers, wired spinner while loading).
-
-Storybook showcases were added to the Layout, Inputs, Data Display, and Feedback pages; docs catalog entries to `widgets/layout.md`, `widgets/inputs.md`, `widgets/selection.md`, `widgets/feedback.md`, and the API overview; plus ~54 new widget tests.
+The final Material parity audit batches add hand-drawn widgets mirroring the M3 APIs: `WiredCarouselView` (itemExtent/height/children/shrinkWrap with optional hachure fill), `WiredSearchAnchor` and `WiredSearchController` pairing a collapsible `WiredSearchBar` (with `onTap` and `autoFocus`) with an in-place suggestions view, `WiredDateRangePickerDialog` plus `showWiredDateRangePicker` reusing the calendar's month-grid language, `WiredLicensePage` plus `showWiredLicensePage` rendered from `LicenseRegistry`, `WiredGridTile` and `WiredGridTileBar` with rough borders and the publicly exported `WiredInkSplashFactory`, `WiredMergeableMaterial` with its slice/gap API family and animated merging, `WiredCheckboxMenuButton` and `WiredRadioMenuButton` wired into menu anchoring with tristate and toggleable semantics, `WiredAboutListTile`, and the top-level `showWiredTimePicker` dialog helper. Storybook showcases, widget catalog entries, and widget tests cover every widget.
