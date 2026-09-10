@@ -23,6 +23,9 @@ void main() {
       final selected = $.tester.widget<Text>($(DocsKeys.mapSelection)).data;
       await $(DocsKeys.mapPin('gallery')).tap();
       final gallery = $.tester.widget<Text>($(DocsKeys.mapSelection)).data;
+      await $.tester.longPress($(DocsKeys.mapPin('market')));
+      await $.pumpAndSettle();
+      final held = $.tester.widget<Text>($(DocsKeys.mapSelection)).data;
       await $(DocsKeys.mapOnlineToggle).scrollTo(
         view: $(DocsKeys.documentScroll),
         scrollDirection: AxisDirection.up,
@@ -33,8 +36,10 @@ void main() {
       await $(DocsKeys.mapOnlineToggle).tap();
       if (selected != 'Selected: Weekend market' ||
           gallery != 'Selected: Local gallery' ||
+          held != 'Selected: Weekend market' ||
           map.initialCenter != const LatLng(51.5074, -0.1278) ||
-          map.scrollGesturesEnabled ||
+          !map.scrollGesturesEnabled ||
+          !map.zoomGesturesEnabled ||
           $(DocsKeys.map).exists) {
         throw StateError(
           'The map preview did not select pins or close its online embed.',
