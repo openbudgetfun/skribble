@@ -16,9 +16,22 @@ This page is the catalog for the full `wired_cupertino_*` family: the widgets ad
 An iOS-style sunburst spinner drawn with hand-drawn strokes. Each of the twelve radial segments is a jittered tick that fades out behind the leading segment, and the whole set rotates continuously while `animating` is true.
 
 ```dart
-WiredCupertinoActivityIndicator(
-  animating: true,
-  radius: 12,
+// Live example: cupertino-activity-indicator
+HookBuilder(
+  builder: (context) {
+    final running = useState(false);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        WiredCupertinoActivityIndicator(animating: running.value, radius: 18),
+        const SizedBox(height: 12),
+        WiredTextButton(
+          onPressed: () => running.value = !running.value,
+          child: Text(running.value ? 'Pause' : 'Animate'),
+        ),
+      ],
+    );
+  },
 )
 ```
 
@@ -45,14 +58,14 @@ WiredCupertinoActivityIndicator(
 An inset-grouped list section, equivalent to `CupertinoListSection.insetGrouped`. Wraps its children (typically `WiredCupertinoListTile`s) in a single hand-drawn rounded-rectangle card and draws a sketchy separator line between each row. Optional header/footer text renders in a 13px footnote style.
 
 ```dart
+// Live example: cupertino-list-section
 WiredCupertinoListSection(
-  header: Text('Documents'),
-  footer: Text('Shared with your team.'),
-  children: [
-    WiredCupertinoListTile(title: Text('Roadmap.pdf'), onTap: () {}),
-    WiredCupertinoListTile(title: Text('Budget Q3.key'), onTap: () {}),
-  ],
-)
+      header: Text('Make something lovely'),
+      children: const [
+        WiredCupertinoListTile(title: Text('Sketches')),
+        WiredCupertinoListTile(title: Text('Little notes')),
+      ],
+    )
 ```
 
 ### Constructor parameters
@@ -73,12 +86,11 @@ WiredCupertinoListSection(
 An iOS-style list tile with the same leading / title / subtitle / trailing API as `CupertinoListTile`, plus an `additionalTrailingText` detail label. The whole row is tappable and exposed as a button to assistive tech.
 
 ```dart
+// Live example: cupertino-list-tile
 WiredCupertinoListTile(
-  leading: Text('📄'),
-  title: Text('Roadmap.pdf'),
-  subtitle: Text('Updated yesterday'),
-  additionalTrailingText: '2 MB',
-  trailing: Text('›'),
+  title: Text('Make something lovely'),
+  subtitle: const Text('Saved for a rainy day'),
+  backgroundColor: const Color(0xffdde4c9),
   onTap: () {},
 )
 ```
@@ -109,10 +121,12 @@ WiredCupertinoListTile(
 A stadium-shaped search input equivalent to `CupertinoSearchTextField`. It has a hand-drawn rounded border, a sketchy rough magnifier prefix glyph, placeholder support, and submit handling. Built on `EditableText` (flutter/widgets only).
 
 ```dart
+// Live example: cupertino-search-text-field
 WiredCupertinoSearchTextField(
-  placeholder: 'Search widgets',
-  onSubmitted: (query) => runSearch(query),
-)
+      placeholder: 'Make something lovely',
+      enabled: true,
+      borderRadius: BorderRadius.circular(8),
+    )
 ```
 
 ### Constructor parameters
@@ -142,10 +156,10 @@ WiredCupertinoSearchTextField(
 An iOS timer picker built by composing hour / minute / second wheels on top of `WiredCupertinoPicker`, so the sketches on the borders and center highlight come straight from the picker internals. Modes: `hm` (default), `hms`, and `ms`. Wheel granularity is controlled with `minuteInterval` / `secondInterval` (both must evenly divide 60).
 
 ```dart
+// Live example: cupertino-timer-picker
 WiredCupertinoTimerPicker(
-  mode: WiredCupertinoTimerPickerMode.hms,
-  initialTimerDuration: Duration(hours: 1, minutes: 30),
-  onTimerDurationChanged: (duration) => setState(...),
+  initialTimerDuration: const Duration(hours: 1, minutes: 15),
+  onTimerDurationChanged: (duration) {},
 )
 ```
 
@@ -168,12 +182,12 @@ WiredCupertinoTimerPicker(
 A grouped form-section wrapper equivalent to `CupertinoFormSection.insetGrouped`. Children sit in one hand-drawn rounded rectangle with sketchy dividers between rows, plus optional header/footer text. Unlike `WiredCupertinoListSection`, the group is left unfilled so nested inputs keep a clean paper background.
 
 ```dart
+// Live example: cupertino-form-section
 WiredCupertinoFormSection(
-  header: Text('Account'),
-  footer: Text('Changes sync to all devices.'),
-  children: [
-    WiredInput(labelText: 'Name'),
-    WiredInput(labelText: 'Email'),
+  header: Text('Make something lovely'),
+  children: const [
+    WiredCupertinoTextField(placeholder: 'Your name'),
+    WiredCupertinoTextField(placeholder: 'Your next idea'),
   ],
 )
 ```
@@ -223,3 +237,7 @@ Every glyph and icon in this catalog is generated:
 Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.
 
 <!-- {/docsWidgetInkSection} -->
+
+## Destinations without Cupertino item types
+
+`WiredCupertinoTabBar.destinations` accepts the library's `WiredBottomNavItem` values through `items`, with the same `currentIndex` and `onTap` behavior as the original constructor.

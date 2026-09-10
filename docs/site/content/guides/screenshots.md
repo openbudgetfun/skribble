@@ -57,6 +57,7 @@ apps/skribble_storybook/integration_test/screenshots_test.dart
 The test file defines a `WidgetShot` class that pairs a screenshot name with a text anchor used to scroll the storybook to the right widget:
 
 ```dart
+// Static example: test
 class WidgetShot {
   final String name;
   final String anchor;
@@ -72,6 +73,7 @@ The test defines several helpers:
 **`pumpStorybook()`** -- pumps the full storybook app wrapped in a `RepaintBoundary` for screenshot capture:
 
 ```dart
+// Static example: test
 Future<void> pumpStorybook(WidgetTester tester) async {
   await tester.pumpWidget(
     RepaintBoundary(
@@ -86,6 +88,7 @@ Future<void> pumpStorybook(WidgetTester tester) async {
 **`takeScreenshot()`** -- captures the current screen to a PNG file. It first tries the `IntegrationTestWidgetsFlutterBinding.takeScreenshot()` method, then falls back to rendering the `RepaintBoundary` directly:
 
 ```dart
+// Static example: test
 Future<void> takeScreenshot(WidgetTester tester, String name) async {
   final dir = Directory('$screenshotsDir/${name.split('/').first}');
   if (!dir.existsSync()) {
@@ -101,6 +104,7 @@ Future<void> takeScreenshot(WidgetTester tester, String name) async {
 **`focusOnText()`** -- scrolls the storybook page until a specific text widget is visible. This handles the case where a widget is below the fold:
 
 ```dart
+// Static example: test
 Future<void> focusOnText(WidgetTester tester, String text) async {
   final finder = find.text(text);
   if (finder.evaluate().isEmpty) {
@@ -115,6 +119,7 @@ Future<void> focusOnText(WidgetTester tester, String text) async {
 **`capturePageAndWidgets()`** -- the high-level function that navigates to a category, captures the page screenshot, then captures each individual widget:
 
 ```dart
+// Static example: test
 Future<void> capturePageAndWidgets(
   WidgetTester tester, {
   required String category,
@@ -137,6 +142,7 @@ Future<void> capturePageAndWidgets(
 A typical screenshot test group looks like this:
 
 ```dart
+// Static example: test
 testWidgets('capture buttons page and widgets', (tester) async {
   await capturePageAndWidgets(
     tester,
@@ -210,6 +216,7 @@ Make sure your widget appears on a storybook page with a visible text label that
 If the widget belongs to an existing category, add `WidgetShot` entries to the corresponding `capturePageAndWidgets()` call:
 
 ```dart
+// Static example: test
 testWidgets('capture inputs page and widgets', (tester) async {
   await capturePageAndWidgets(
     tester,
@@ -230,6 +237,7 @@ testWidgets('capture inputs page and widgets', (tester) async {
 For a new category, add a new `testWidgets` block:
 
 ```dart
+// Static example: test
 testWidgets('capture my-category page and widgets', (tester) async {
   await capturePageAndWidgets(
     tester,
@@ -287,3 +295,9 @@ The `focusOnText()` helper scrolls to find the text. If the text does not exist 
 The notebook lives at `/#/studio` in the web storybook. For a release build of the catalog, use `flutter build web --release --no-tree-shake-icons` from `apps/skribble_storybook`; the icon browser constructs `IconData` dynamically. Inspect phone and desktop layouts, morning and evening palettes, and both ends of long pages. Wait for actual Flutter content before taking a capture.
 
 Run `dart run tool/font_specimen.dart` from the root to generate self-contained comparisons in `.screenshots/font/`. These embed original Recursive Casual and generated Skribble fonts. Inspect all four weights/styles at reading sizes, punctuation, accents, currency, and large headings. Outline-change counts do not replace visual inspection.
+
+## Choosing images for public documentation
+
+Archived input captures can predate the Recursive font repair and contain missing-glyph boxes. Do not reuse them as current product evidence. Prefer the live documentation font comparison or a newly captured notebook with the current theme and loaded fonts. Inspect accents, currency, all four font styles, stroke clipping, and the settled first frame. Record the revision and viewport alongside exported captures.
+
+For editable design handoff, use the [design kit](../reference/design-kit). Its font preview and SVG pen specimens can be regenerated from the current source; a screenshot does not preserve editable geometry or target dimensions.

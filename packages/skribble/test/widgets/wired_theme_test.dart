@@ -14,18 +14,24 @@ void main() {
       expect(theme.disabledTextColor, Colors.grey);
       expect(theme.fillColor, const Color(0xFFFEFEFE));
       expect(theme.strokeWidth, 2.4);
-      expect(theme.roughness, 1.8);
+      expect(theme.roughness, 1.5);
       expect(theme.fontFamily, skribbleFontFamily);
     });
 
-    test('skribbleFontFamily constant is Skribble', () {
-      expect(skribbleFontFamily, 'Skribble');
+    test('skribbleFontFamily constant is SkribblePlayful', () {
+      expect(skribbleFontFamily, 'SkribblePlayful');
     });
 
-    test('drawConfig returns defaultValues when not provided', () {
+    test('drawConfig uses the playful geometry when not provided', () {
       final theme = WiredThemeData();
 
-      expect(theme.drawConfig, DrawConfig.defaultValues);
+      expect(theme.roughnessLevel, WiredRoughness.playful);
+      expect(theme.drawConfig.roughness, 1.5);
+      expect(
+        theme.drawConfig.maxRandomnessOffset,
+        WiredRoughness.playful.maxRandomnessOffset,
+      );
+      expect(theme.drawConfig.lineWobble, WiredRoughness.playful.lineWobble);
     });
 
     test('drawConfig returns custom value when provided', () {
@@ -118,19 +124,19 @@ void main() {
 
       expect(
         materialTheme.textTheme.bodyLarge?.fontFamily,
-        'packages/skribble/Skribble',
+        'packages/skribble/SkribblePlayful',
       );
       expect(
         materialTheme.textTheme.bodyMedium?.fontFamily,
-        'packages/skribble/Skribble',
+        'packages/skribble/SkribblePlayful',
       );
       expect(
         materialTheme.textTheme.headlineMedium?.fontFamily,
-        'packages/skribble/Skribble',
+        'packages/skribble/SkribblePlayful',
       );
       expect(
         materialTheme.textTheme.titleLarge?.fontFamily,
-        'packages/skribble/Skribble',
+        'packages/skribble/SkribblePlayful',
       );
     });
 

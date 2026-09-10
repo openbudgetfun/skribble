@@ -28,6 +28,7 @@ dart pub add skribble
 Then import it in your application code:
 
 ```dart
+// Static example: setup
 import 'package:skribble/skribble.dart';
 ```
 
@@ -76,6 +77,7 @@ Skribble organizes its 80+ widgets into categories:
 | **Date & Time** | `WiredDatePicker`, `WiredCalendar`, `WiredCalendarDatePicker`, `WiredTimePicker`                                                                                                                                                                                                                                                   |
 | **Chips**       | `WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`                                                                                                                                                                                                                                                                |
 | **Data**        | `WiredDataTable`                                                                                                                                                                                                                                                                                                                   |
+| **Maps**        | `WiredMap`, `WiredMapController`, `WiredMapMarkerLayer`, `WiredMapPin`, `WiredMapFeatureLayer`                                                                                                                                                                                                                                     |
 | **Cupertino**   | `WiredCupertinoButton`, `WiredCupertinoTextField`, `WiredCupertinoSwitch`, `WiredCupertinoSlider`, `WiredCupertinoNavigationBar`, `WiredCupertinoTabBar`, `WiredCupertinoDatePicker`, `WiredCupertinoPicker`, `WiredCupertinoActionSheet`, `WiredCupertinoAlertDialog`, `WiredCupertinoSegmentedControl`, `WiredCupertinoScaffold` |
 
 Browse the full [widget reference](/widgets) for API details and live examples.

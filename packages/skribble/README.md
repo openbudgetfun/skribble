@@ -272,4 +272,10 @@ MIT — see [LICENSE](../../LICENSE) for details.
 
 ### Choose the amount of hand-drawn ink
 
-Set `WiredThemeData(roughnessLevel: WiredRoughness.gentle)` on your `WiredMaterialApp`. The `gentle`, `playful`, and `expressive` presets coordinate borders, rough icons, and all four bundled font styles. Expressive is the default. Nested `WiredTheme` scopes can select another level while retaining the parent palette through `copyWith`; explicit fonts and drawing configurations remain overrides. See the [theming guide](../../docs/site/content/getting-started/theming.md) for custom font generation and inheritance details.
+Set `WiredThemeData(roughnessLevel: WiredRoughness.gentle)` on your `WiredMaterialApp`. The `gentle`, `playful`, and `expressive` presets coordinate borders, rough icons, and all four bundled font styles. Playful is the default. Nested `WiredTheme` scopes can select another level while retaining the parent palette through `copyWith`; explicit fonts and drawing configurations remain overrides. See the [theming guide](../../docs/site/content/getting-started/theming.md) for custom font generation and inheritance details.
+
+### Typeface choices and brand icons
+
+Set `font: WiredFont.casual`, `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. Each choice follows the inherited roughness. Mono retains equal character spacing for code. These are static fonts with four genuine faces (400/700, upright/italic); they do not contain a variable-weight axis. [Compare all three families](../../docs/site/content/core/font-comparison.md).
+
+Use `WiredSvgIcon(data: WiredBrandIcon.github.data)` for a curated Simple Icons brand mark. GitHub, Dart, Flutter, and Figma support solid and hatched ink through the same vector renderer as Material icons. [See the examples and generation command](../../docs/site/content/widgets/icons.md).

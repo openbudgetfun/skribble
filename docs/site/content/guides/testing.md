@@ -35,6 +35,7 @@ Use `pumpApp()` from `test/helpers/pump_app.dart`:
 <!-- {=docsPumpAppExample} -->
 
 ```dart
+// Static example: test
 // Body slot (default)
 await pumpApp(tester, myWidget);
 
@@ -62,6 +63,7 @@ await pumpApp(
 When you need to test how a widget responds to `WiredThemeData`, bypass `pumpApp()` and build the tree manually:
 
 ```dart
+// Static example: test
 await tester.pumpWidget(
   MaterialApp(
     home: WiredTheme(
@@ -83,6 +85,7 @@ Every widget must have at least 6 `testWidgets` calls covering these categories:
 Verify the widget renders without throwing and displays its child content:
 
 ```dart
+// Static example: test
 testWidgets('renders child text widget', (tester) async {
   await pumpApp(
     tester,
@@ -107,6 +110,7 @@ testWidgets('renders with icon child', (tester) async {
 Verify the widget has the expected size and respects custom dimensions:
 
 ```dart
+// Static example: test
 testWidgets('renders with correct height (42.0)', (tester) async {
   await pumpApp(
     tester,
@@ -123,6 +127,7 @@ testWidgets('renders with correct height (42.0)', (tester) async {
 Verify the widget responds to taps and calls callbacks:
 
 ```dart
+// Static example: test
 testWidgets('calls onPressed callback when tapped', (tester) async {
   var pressed = false;
 
@@ -143,6 +148,7 @@ testWidgets('calls onPressed callback when tapped', (tester) async {
 Verify the widget rebuilds correctly when values change:
 
 ```dart
+// Static example: test
 testWidgets('rebuilds when value changes', (tester) async {
   var value = false;
 
@@ -171,6 +177,7 @@ testWidgets('rebuilds when value changes', (tester) async {
 Test null values, empty content, rapid interactions, and boundary conditions:
 
 ```dart
+// Static example: test
 testWidgets('handles null semantic label gracefully', (tester) async {
   await pumpApp(
     tester,
@@ -209,6 +216,7 @@ testWidgets('handles rapid taps without error', (tester) async {
 Verify semantic labels are applied and the widget tree has correct semantics:
 
 ```dart
+// Static example: test
 testWidgets('applies semantic label when provided', (tester) async {
   await pumpApp(
     tester,
@@ -228,6 +236,7 @@ testWidgets('applies semantic label when provided', (tester) async {
 Verify the widget contains expected internal widgets like `RepaintBoundary`, `TextButton`, etc.:
 
 ```dart
+// Static example: test
 testWidgets('has RepaintBoundary wrapper', (tester) async {
   await pumpApp(
     tester,
@@ -264,6 +273,7 @@ testWidgets('contains TextButton internally', (tester) async {
 Here is a complete test file for `WiredButton`, showing all required categories:
 
 ```dart
+// Static example: test
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
@@ -422,6 +432,30 @@ cd packages/skribble
 flutter test --reporter expanded
 ```
 
+## Chart and map verification
+
+Run the companion package suites from the workspace root:
+
+```bash
+devenv shell flutter test packages/skribble_charts/test
+devenv shell flutter test packages/skribble_maps/test
+devenv shell test:all
+```
+
+Chart tests cover exact decimals, OHLC validation, UTC aggregation, revision merging, snapshot/live races, coordinate inversion, indicator reference values, drawing undo/redo, workspace validation, gestures, semantics, and a deterministic rendering golden. The docs and Storybook have separate composition tests for their real controls and responsive layouts.
+
+The chart golden loads a bundled font, so it does not depend on fonts installed on the test machine. Inspect the image whenever intentionally updating it. Passing a golden does not verify native gestures or MapLibre.
+
+Storybook includes Android and iOS runners. Its native integration journey uses the real chart and map, captures screenshots, and records chart gesture frame timings:
+
+```bash
+cd apps/skribble_storybook
+SKRIBBLE_DEVICE_LABEL=android devenv shell flutter drive --profile --no-dds --driver=test_driver/charts_device_test.dart --target=integration_test/charts_device_test.dart -d <android-device-id>
+SKRIBBLE_DEVICE_LABEL=ios devenv shell flutter drive --driver=test_driver/charts_device_test.dart --target=integration_test/charts_device_test.dart -d <ios-simulator-id>
+```
+
+Run it on an attached Android device and an iOS simulator. Android uses profile mode for representative frame timings. Simulator timings use debug mode and are diagnostic only. Map checks require access to the demo tile provider and wait for the style-loaded signal. Local screenshots belong in the ignored `.screenshots/charts/` and `.screenshots/maps/` directories. Browser CI separately exercises the docs and Storybook, including the docs build with a deployment path prefix.
+
 ## Coverage tracking
 
 Generate a coverage report for the skribble package:
@@ -453,6 +487,7 @@ Every widget should have:
 ### Testing hover/focus states
 
 ```dart
+// Static example: test
 testWidgets('shows focus ring on focus', (tester) async {
   await pumpApp(
     tester,
@@ -470,6 +505,7 @@ testWidgets('shows focus ring on focus', (tester) async {
 ### Testing with async callbacks
 
 ```dart
+// Static example: test
 testWidgets('handles async onPressed', (tester) async {
   var completed = false;
 
@@ -494,6 +530,7 @@ testWidgets('handles async onPressed', (tester) async {
 ### Testing value-driven widgets
 
 ```dart
+// Static example: test
 testWidgets('slider updates value on drag', (tester) async {
   double value = 0.5;
 

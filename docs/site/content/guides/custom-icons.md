@@ -170,15 +170,26 @@ melos run rough-icons-ci-check
 The generated catalog maps code points to `WiredSvgIconData` objects. The `WiredIcon` widget looks up icons in this catalog automatically:
 
 ```dart
-import 'package:flutter/material.dart';
-import 'package:skribble/skribble.dart';
-
-// WiredIcon automatically renders a rough version of Material Icons
-WiredIcon(
-  icon: Icons.home,
-  size: 32,
-  color: Colors.black,
-  semanticLabel: 'Home',
+// Live example: icon
+const Wrap(
+  spacing: 24,
+  children: [
+    WiredIcon(
+      icon: IconData(0xe318, fontFamily: 'MaterialIcons'),
+      semanticLabel: 'Home',
+      size: 48,
+    ),
+    WiredIcon(
+      icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),
+      semanticLabel: 'Favourite',
+      size: 48,
+    ),
+    WiredIcon(
+      icon: IconData(0xe047, fontFamily: 'MaterialIcons'),
+      semanticLabel: 'Add',
+      size: 48,
+    ),
+  ],
 )
 ```
 
@@ -189,17 +200,14 @@ When a Material icon exists in the generated `kMaterialRoughIcons` map, `WiredIc
 `WiredIcon` supports four fill styles:
 
 ```dart
-// Solid fill (default)
-WiredIcon(icon: Icons.star, fillStyle: WiredIconFillStyle.solid)
-
-// No fill -- outline only
-WiredIcon(icon: Icons.star, fillStyle: WiredIconFillStyle.none)
-
-// Hachure fill -- parallel diagonal strokes
-WiredIcon(icon: Icons.star, fillStyle: WiredIconFillStyle.hachure)
-
-// Cross-hatch fill -- two overlapping hachure passes
-WiredIcon(icon: Icons.star, fillStyle: WiredIconFillStyle.crossHatch)
+// Live example: svg-icon
+WiredSvgIcon(
+  data: lookupMaterialRoughIconByIdentifier('favorite')!,
+  size: 64,
+  color: const Color(0xffe8957d),
+  fillStyle: WiredIconFillStyle.solid,
+  semanticLabel: 'Favourite',
+)
 ```
 
 ### WiredSvgIcon for direct SVG icon data
@@ -207,6 +215,7 @@ WiredIcon(icon: Icons.star, fillStyle: WiredIconFillStyle.crossHatch)
 If you have a `WiredSvgIconData` object (from a custom-generated catalog), use `WiredSvgIcon` directly:
 
 ```dart
+// Static example: external-asset
 WiredSvgIcon(
   data: myCustomIconData,
   size: 24,
@@ -224,6 +233,7 @@ WiredSvgIcon(
 The generated code provides several lookup utilities:
 
 ```dart
+// Static example: api
 // Look up rough icon data by IconData
 final data = lookupMaterialRoughIcon(Icons.home);
 

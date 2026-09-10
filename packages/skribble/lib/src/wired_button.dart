@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'motion/wired_draw.dart';
+import 'motion/wired_ink_interaction.dart';
 import 'motion/wired_ink_response.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
@@ -23,11 +24,20 @@ class WiredButton extends HookWidget {
   /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
+  /// Overrides the theme’s decorative ink feedback for this control.
+  final WiredInkInteraction? inkInteraction;
+
+  /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
+  /// for square corners.
+  final BorderRadius borderRadius;
+
   const WiredButton({
     super.key,
     required this.child,
     required this.onPressed,
     this.semanticLabel,
+    this.inkInteraction,
+    this.borderRadius = const BorderRadius.all(Radius.circular(6)),
   });
 
   @override
@@ -35,6 +45,7 @@ class WiredButton extends HookWidget {
     final theme = WiredTheme.of(context);
 
     return WiredInkResponse(
+      interaction: inkInteraction,
       builder: (context, states) => Semantics(
         label: semanticLabel,
         button: true,
@@ -46,7 +57,10 @@ class WiredButton extends HookWidget {
               progress: WiredDrawTransition.progressOf(context),
               pressure: WiredInkResponse.pressureOf(context),
               drawConfig: theme.drawConfig,
-              shape: RoughBoxShape.rectangle,
+              shape: borderRadius == BorderRadius.zero
+                  ? RoughBoxShape.rectangle
+                  : RoughBoxShape.roundedRectangle,
+              borderRadius: borderRadius,
               borderStyle: RoughDrawingStyle(
                 width: theme.strokeWidth,
                 color: theme.borderColor,

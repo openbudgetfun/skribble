@@ -47,8 +47,8 @@ void main() {
 
       final gentle = await pixels(WiredRoughness.gentle);
       final expectedGentle = DrawConfig.build(
-        maxRandomnessOffset: 1.2,
-        roughness: 1.25 * 0.65 / 1.8,
+        maxRandomnessOffset: 2.4,
+        roughness: 1.25,
         lineWobble: 0,
         bowing: 0.8,
         curveFitting: 0.9,
@@ -227,7 +227,7 @@ void main() {
           DefaultTextStyle.of(tester.element(find.text('Outer')))
               .style
               .fontFamily,
-          'packages/skribble/Skribble',
+          'packages/skribble/SkribblePlayful',
         );
         for (final label in ['Inner', 'Inner button']) {
           expect(

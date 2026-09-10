@@ -5,631 +5,317 @@ description: Common patterns and code examples for building apps with Skribble's
 
 # Code Examples
 
-This page provides code examples for common patterns when building apps with Skribble. Each example shows the Skribble way of implementing typical Flutter UI patterns.
+This page provides code examples for common patterns when building apps with Skribble. Each example runs the Flutter expression shown below it. Place the expression inside a `WiredMaterialApp` widget tree. Import `package:flutter/widgets.dart`, `package:flutter_hooks/flutter_hooks.dart`, and `package:skribble/skribble.dart`. These examples use local sample data; forms do not submit information and loading does not contact a service.
 
 ## Basic App Structure
 
 ```dart
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:skribble/skribble.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return WiredMaterialApp(
-      title: 'My Skribble App',
-      theme: WiredThemeData(
-        borderColor: Color(0xFF1A2B3C),
-        textColor: Colors.black87,
-        fillColor: Colors.white,
-        strokeWidth: 2.0,
-        roughness: 1.0,
-        fontFamily: 'Skribble',
-      ),
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    final selectedIndex = useState(0);
-
-    return WiredScaffold(
-      appBar: WiredAppBar(
-        title: Text('My App'),
-        actions: [
-          WiredIconButton(
-            icon: Icons.search,
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: _buildBody(selectedIndex.value),
-      bottomNavigationBar: WiredBottomNav(
-        currentIndex: selectedIndex.value,
-        onTap: (index) => selectedIndex.value = index,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
+// Live example: app-pattern
+HookBuilder(
+  builder: (context) {
+    final tab = useState(0);
+    return SizedBox(
+      height: 320,
+      child: WiredScaffold(
+        appBar: const WiredAppBar(title: Text('My sketchbook')),
+        body: Center(
+          child: Text(tab.value == 0 ? 'A fresh page' : 'Your saved ideas'),
+        ),
+        bottomNavigationBar: WiredBottomNavigationBar(
+          currentIndex: tab.value,
+          onTap: (value) => tab.value = value,
+          items: const [
+            WiredBottomNavItem(
+              icon: IconData(0xe318, fontFamily: 'MaterialIcons'),
+              label: 'Home',
+            ),
+            WiredBottomNavItem(
+              icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),
+              label: 'Saved',
+            ),
+          ],
+        ),
       ),
     );
-  }
-
-  Widget _buildBody(int index) {
-    switch (index) {
-      case 0:
-        return HomeTab();
-      case 1:
-        return SearchTab();
-      case 2:
-        return ProfileTab();
-      default:
-        return HomeTab();
-    }
-  }
-}
+  },
+)
 ```
 
 ## Forms with Validation
 
 ```dart
-class LoginForm extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
-    final isLoading = useState(false);
-    final formKey = useMemoized(() => GlobalKey<FormState>());
-
-    return WiredCard(
-      child: Padding(
-        padding: EdgeInsets.all(24),
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'Login',
-                style: Theme.of(context).textTheme.headlineMedium,
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 24),
-              WiredInput(
-                controller: emailController,
-                labelText: 'Email',
-                hintText: 'Enter your email',
-                semanticLabel: 'Email address',
-              ),
-              SizedBox(height: 16),
-              WiredInput(
-                controller: passwordController,
-                labelText: 'Password',
-                hintText: 'Enter your password',
-                obscureText: true,
-                semanticLabel: 'Password',
-              ),
-              SizedBox(height: 24),
-              WiredElevatedButton(
-                onPressed: isLoading.value
-                    ? null
-                    : () async {
-                        if (formKey.currentState?.validate() ?? false) {
-                          isLoading.value = true;
-                          // Simulate network request
-                          await Future.delayed(Duration(seconds: 2));
-                          isLoading.value = false;
-                        }
-                      },
-                child: isLoading.value
-                    ? WiredLoadingIndicator(size: 20, color: Colors.white)
-                    : Text('Login'),
-              ),
-            ],
+// Live example: validated-form
+HookBuilder(
+  builder: (context) {
+    final key = useMemoized(GlobalKey<FormState>.new);
+    final accepted = useState(false);
+    return WiredForm(
+      formKey: key,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          FormField<String>(
+            validator: (value) => value != null && value.contains('@')
+                ? null
+                : 'Enter an email address.',
+            builder: (field) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                WiredInput(labelText: 'Email', onChanged: field.didChange),
+                if (field.errorText case final String error)
+                  Semantics(liveRegion: true, child: Text(error)),
+              ],
+            ),
           ),
-        ),
+          const SizedBox(height: 16),
+          WiredFilledButton(
+            onPressed: () => accepted.value = key.currentState!.validate(),
+            child: const Text('Check the form'),
+          ),
+          if (accepted.value)
+            const Text('The sample form is valid. Nothing was sent.'),
+        ],
       ),
     );
-  }
-}
+  },
+)
 ```
 
 ## Lists with Swipe Actions
 
 ```dart
-class TaskList extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    final tasks = useState([
-      Task(title: 'Buy groceries', completed: false),
-      Task(title: 'Walk the dog', completed: true),
-      Task(title: 'Write code', completed: false),
-    ]);
-
-    return WiredScaffold(
-      appBar: WiredAppBar(title: Text('Tasks')),
-      body: ListView.builder(
-        itemCount: tasks.value.length,
-        itemBuilder: (context, index) {
-          final task = tasks.value[index];
-          return WiredDismissible(
-            key: ValueKey(task.title),
-            onDismissed: (direction) {
-              final newList = List<Task>.from(tasks.value);
-              newList.removeAt(index);
-              tasks.value = newList;
-            },
-            background: Container(
-              color: Colors.red,
-              alignment: Alignment.centerRight,
-              padding: EdgeInsets.only(right: 16),
-              child: Icon(Icons.delete, color: Colors.white),
+// Live example: task-list-pattern
+HookBuilder(
+  builder: (context) {
+    const initial = [
+      (title: 'Buy paper', done: false),
+      (title: 'Walk the dog', done: true),
+      (title: 'Sketch an idea', done: false),
+    ];
+    final tasks = useState(initial);
+    return Column(
+      children: [
+        for (final task in tasks.value)
+          WiredDismissible(
+            dismissKey: ValueKey(task.title),
+            onDismissed: (_) => tasks.value = tasks.value
+                .where((item) => item.title != task.title)
+                .toList(),
+            child: WiredCheckboxListTile(
+              title: Text(task.title),
+              value: task.done,
+              showDivider: false,
+              onChanged: (value) => tasks.value = [
+                for (final item in tasks.value)
+                  if (item.title == task.title)
+                    (title: item.title, done: value ?? false)
+                  else
+                    item,
+              ],
             ),
-            child: WiredListTile(
-              leading: WiredCheckbox(
-                value: task.completed,
-                onChanged: (value) {
-                  final newList = List<Task>.from(tasks.value);
-                  newList[index] = Task(
-                    title: task.title,
-                    completed: value ?? false,
-                  );
-                  tasks.value = newList;
-                },
-              ),
-              title: Text(
-                task.title,
-                style: TextStyle(
-                  decoration: task.completed
-                      ? TextDecoration.lineThrough
-                      : null,
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-      floatingActionButton: WiredFab(
-        onPressed: () {
-          // Add new task
-        },
-        child: Icon(Icons.add),
-      ),
+          ),
+        WiredOutlinedButton(
+          onPressed: () => tasks.value = initial,
+          child: const Text('Reset the sample list'),
+        ),
+      ],
     );
-  }
-}
+  },
+)
 ```
 
 ## Settings Screen
 
 ```dart
-class SettingsScreen extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    final notificationsEnabled = useState(true);
-    final darkModeEnabled = useState(false);
-    final selectedLanguage = useState('English');
-
-    return WiredScaffold(
-      appBar: WiredAppBar(title: Text('Settings')),
-      body: ListView(
-        children: [
-          WiredListTile(
-            leading: Icon(Icons.notifications),
-            title: Text('Notifications'),
-            trailing: WiredSwitch(
-              value: notificationsEnabled.value,
-              onChanged: (value) => notificationsEnabled.value = value,
-            ),
-          ),
-          WiredDivider(),
-          WiredListTile(
-            leading: Icon(Icons.dark_mode),
-            title: Text('Dark Mode'),
-            trailing: WiredSwitch(
-              value: darkModeEnabled.value,
-              onChanged: (value) => darkModeEnabled.value = value,
-            ),
-          ),
-          WiredDivider(),
-          WiredExpansionTile(
-            leading: Icon(Icons.language),
-            title: Text('Language'),
-            subtitle: Text(selectedLanguage.value),
-            children: [
-              WiredRadioListTile(
-                value: 'English',
-                groupValue: selectedLanguage.value,
-                onChanged: (value) {
-                  if (value != null) selectedLanguage.value = value;
-                },
-                title: Text('English'),
-              ),
-              WiredRadioListTile(
-                value: 'Spanish',
-                groupValue: selectedLanguage.value,
-                onChanged: (value) {
-                  if (value != null) selectedLanguage.value = value;
-                },
-                title: Text('Spanish'),
-              ),
-              WiredRadioListTile(
-                value: 'French',
-                groupValue: selectedLanguage.value,
-                onChanged: (value) {
-                  if (value != null) selectedLanguage.value = value;
-                },
-                title: Text('French'),
-              ),
-            ],
-          ),
-          WiredDivider(),
-          WiredListTile(
-            leading: Icon(Icons.info),
-            title: Text('About'),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () {
-              showWiredAboutDialog(
-                context: context,
-                applicationName: 'My Skribble App',
-                applicationVersion: '1.0.0',
-              );
+// Live example: settings-pattern
+HookBuilder(
+  builder: (context) {
+    final notifications = useState(true);
+    final language = useState('English');
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        WiredSwitchListTile(
+          title: const Text('Notifications'),
+          value: notifications.value,
+          onChanged: (value) => notifications.value = value,
+          showDivider: false,
+        ),
+        const SizedBox(height: 16),
+        const Text('Language'),
+        for (final option in ['English', 'Spanish', 'French'])
+          WiredRadioListTile<String>(
+            title: Text(option),
+            value: option,
+            groupValue: language.value,
+            onChanged: (value) {
+              language.value = value!;
+              return true;
             },
+            showDivider: false,
           ),
-        ],
-      ),
+        Text(
+          'Sample preferences: ${language.value}, notifications ${notifications.value ? 'on' : 'off'}.',
+        ),
+      ],
     );
-  }
-}
+  },
+)
 ```
 
 ## Loading States
 
 ```dart
-class DataLoader extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    final isLoading = useState(true);
-    final data = useState<List<String>?>(null);
-    final error = useState<String?>(null);
-
-    useEffect(() {
-      Future.delayed(Duration(seconds: 2), () {
-        data.value = ['Item 1', 'Item 2', 'Item 3'];
-        isLoading.value = false;
-      });
-      return null;
-    }, []);
-
-    if (isLoading.value) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            WiredCircularProgressIndicator(size: 48),
-            SizedBox(height: 16),
-            Text('Loading...'),
-          ],
+// Live example: loading-pattern
+HookBuilder(
+  builder: (context) {
+    final request = useState<Future<List<String>>?>(null);
+    final result = useFuture(request.value);
+    return Column(
+      children: [
+        WiredOutlinedButton(
+          onPressed: result.connectionState == ConnectionState.waiting
+              ? null
+              : () {
+                  request.value = Future.delayed(
+                    const Duration(milliseconds: 350),
+                    () => ['Paper', 'Ink', 'Possibility'],
+                  );
+                },
+          child: const Text('Load sample notes'),
         ),
-      );
-    }
-
-    if (error.value != null) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            WiredIcon(icon: Icons.error_outline, size: 48, color: Colors.red),
-            SizedBox(height: 16),
-            Text('Error: ${error.value}'),
-            SizedBox(height: 16),
-            WiredElevatedButton(
-              onPressed: () {
-                isLoading.value = true;
-                error.value = null;
-                // Retry loading
-              },
-              child: Text('Retry'),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return ListView.builder(
-      itemCount: data.value?.length ?? 0,
-      itemBuilder: (context, index) {
-        return WiredListTile(
-          title: Text(data.value![index]),
-        );
-      },
+        const SizedBox(height: 16),
+        if (result.connectionState == ConnectionState.waiting)
+          const WiredCircularProgress()
+        else if (result.hasError)
+          const Text('The sample could not load. Try again.')
+        else if (result.data case final List<String> notes)
+          for (final note in notes)
+            WiredListTile(title: Text(note), showDivider: false),
+      ],
     );
-  }
-}
+  },
+)
 ```
 
 ## Search with Filtering
 
 ```dart
-class SearchScreen extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    final searchQuery = useState('');
-    final selectedCategory = useState<String?>(null);
-
-    final categories = ['All', 'Work', 'Personal', 'Shopping'];
-
-    final filteredItems = useMemoized(() {
-      return items.where((item) {
-        final matchesSearch = searchQuery.value.isEmpty ||
-            item.title.toLowerCase().contains(searchQuery.value.toLowerCase());
-        final matchesCategory = selectedCategory.value == null ||
-            selectedCategory.value == 'All' ||
-            item.category == selectedCategory.value;
-        return matchesSearch && matchesCategory;
-      }).toList();
-    }, [searchQuery.value, selectedCategory.value]);
-
-    return WiredScaffold(
-      appBar: WiredAppBar(
-        title: Text('Search'),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(16),
-            child: WiredInput(
-              hintText: 'Search items...',
-              onChanged: (value) => searchQuery.value = value,
-              semanticLabel: 'Search items',
-            ),
+// Live example: search-pattern
+HookBuilder(
+  builder: (context) {
+    final query = useState('');
+    final category = useState('All');
+    const items = [
+      (title: 'Write a proposal', category: 'Work'),
+      (title: 'Buy sketchbooks', category: 'Shopping'),
+      (title: 'Draw with friends', category: 'Personal'),
+    ];
+    final filtered = items
+        .where(
+          (item) =>
+              item.title.toLowerCase().contains(query.value.toLowerCase()) &&
+              (category.value == 'All' || item.category == category.value),
+        )
+        .toList();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        WiredInput(
+          labelText: 'Search sample tasks',
+          onChanged: (value) => query.value = value,
+        ),
+        const SizedBox(height: 16),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final option in ['All', 'Work', 'Shopping', 'Personal'])
+              WiredChoiceChip(
+                label: Text(option),
+                selected: category.value == option,
+                onSelected: (selected) {
+                  if (selected) category.value = option;
+                },
+              ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        if (filtered.isEmpty) const Text('No matching sample tasks.'),
+        for (final item in filtered)
+          WiredListTile(
+            title: Text(item.title),
+            subtitle: Text(item.category),
+            showDivider: false,
           ),
-          SizedBox(
-            height: 40,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                final category = categories[index];
-                final isSelected = selectedCategory.value == category ||
-                    (selectedCategory.value == null && category == 'All');
-                return Padding(
-                  padding: EdgeInsets.only(right: 8),
-                  child: WiredChoiceChip(
-                    label: Text(category),
-                    selected: isSelected,
-                    onSelected: (selected) {
-                      if (selected) {
-                        selectedCategory.value = category == 'All' ? null : category;
-                      }
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredItems.length,
-              itemBuilder: (context, index) {
-                final item = filteredItems[index];
-                return WiredListTile(
-                  title: Text(item.title),
-                  subtitle: Text(item.category),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+      ],
     );
-  }
-}
+  },
+)
 ```
 
 ## Animations
 
 ```dart
-class AnimatedCard extends HookWidget {
-  final Widget child;
-  final Duration delay;
-
-  const AnimatedCard({
-    required this.child,
-    this.delay = Duration.zero,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final controller = useAnimationController(
-      duration: Duration(milliseconds: 500),
-    );
-
-    useEffect(() {
-      Future.delayed(delay, () {
-        if (context.mounted) {
-          controller.forward();
-        }
-      });
-      return null;
-    }, []);
-
-    return WiredFadeTransition(
-      animation: CurvedAnimation(
-        parent: controller,
-        curve: Curves.easeOutCubic,
-      ),
-      child: WiredSlideTransition(
-        animation: CurvedAnimation(
-          parent: controller,
-          curve: Curves.easeOutCubic,
+// Live example: ink-reveal
+HookBuilder(
+  builder: (context) {
+    final replay = useState(0);
+    return Column(
+      children: [
+        WiredDraw(
+          key: ValueKey(replay.value),
+          child: WiredCard(child: Text('Make something lovely')),
         ),
-        begin: Offset(0, 0.2),
-        child: child,
-      ),
+        const SizedBox(height: 16),
+        WiredOutlinedButton(
+          onPressed: () => replay.value++,
+          child: const Text('Draw again'),
+        ),
+      ],
     );
-  }
-}
-
-// Usage in a list
-class AnimatedList extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return AnimatedCard(
-          delay: Duration(milliseconds: index * 100),
-          child: WiredCard(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Text('Item ${index + 1}'),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
+  },
+)
 ```
 
 ## Error Handling with Snackbars
 
 ```dart
-class ErrorHandler extends HookWidget {
-  final Widget child;
-
-  const ErrorHandler({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return child;
-  }
-
-  static void showError(BuildContext context, String message) {
-    showWiredSnackBar(
+// Live example: snackbar-pattern
+Builder(
+  builder: (context) => WiredOutlinedButton(
+    onPressed: () => showWiredSnackBar(
       context,
-      content: WiredSnackBarContent(
-        child: Row(
-          children: [
-            WiredIcon(icon: Icons.error_outline, color: Colors.red),
-            SizedBox(width: 8),
-            Expanded(child: Text(message)),
-          ],
-        ),
+      content: const WiredSnackBarContent(
+        child: Text('The sample could not save. Please try again.'),
       ),
-      duration: Duration(seconds: 4),
-    );
-  }
-
-  static void showSuccess(BuildContext context, String message) {
-    showWiredSnackBar(
-      context,
-      content: WiredSnackBarContent(
-        child: Row(
-          children: [
-            WiredIcon(icon: Icons.check_circle_outline, color: Colors.green),
-            SizedBox(width: 8),
-            Expanded(child: Text(message)),
-          ],
-        ),
-      ),
-      duration: Duration(seconds: 3),
-    );
-  }
-}
+      duration: const Duration(seconds: 3),
+    ),
+    child: const Text('Show a sample error'),
+  ),
+)
 ```
 
 ## Responsive Layout
 
 ```dart
-class ResponsiveLayout extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth < 600) {
-          return MobileLayout();
-        } else if (constraints.maxWidth < 1200) {
-          return TabletLayout();
-        } else {
-          return DesktopLayout();
-        }
-      },
-    );
-  }
-}
-
-class MobileLayout extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    return WiredScaffold(
-      appBar: WiredAppBar(title: Text('My App')),
-      body: ContentArea(),
-      bottomNavigationBar: WiredBottomNav(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
-    );
-  }
-}
-
-class TabletLayout extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    return WiredScaffold(
-      body: Row(
-        children: [
-          WiredNavigationRail(
-            destinations: [
-              NavigationRailDestination(icon: Icon(Icons.home), label: Text('Home')),
-              NavigationRailDestination(icon: Icon(Icons.search), label: Text('Search')),
-              NavigationRailDestination(icon: Icon(Icons.person), label: Text('Profile')),
-            ],
-          ),
-          VerticalDivider(width: 1),
-          Expanded(child: ContentArea()),
-        ],
-      ),
-    );
-  }
-}
-
-class DesktopLayout extends HookWidget {
-  @override
-  Widget build(BuildContext context) {
-    return WiredScaffold(
-      body: Row(
-        children: [
-          WiredNavigationDrawer(
-            children: [
-              WiredDrawerHeader(child: Text('My App')),
-              WiredListTile(leading: Icon(Icons.home), title: Text('Home')),
-              WiredListTile(leading: Icon(Icons.search), title: Text('Search')),
-              WiredListTile(leading: Icon(Icons.person), title: Text('Profile')),
-            ],
-          ),
-          VerticalDivider(width: 1),
-          Expanded(child: ContentArea()),
-        ],
-      ),
-    );
-  }
-}
+// Live example: responsive-pattern
+LayoutBuilder(
+  builder: (context, constraints) {
+    final cards = [
+      for (final title in ['Ideas', 'In progress', 'Finished'])
+        WiredCard(
+          child: Padding(padding: const EdgeInsets.all(16), child: Text(title)),
+        ),
+    ];
+    return constraints.maxWidth < 600
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: cards,
+          )
+        : Row(children: [for (final card in cards) Expanded(child: card)]);
+  },
+)
 ```
 
 ## Next Steps

@@ -3,7 +3,7 @@ title: Releasing
 description: How Monochange prepares, validates, and publishes Skribble packages.
 ---
 
-Skribble publishes seven packages to pub.dev as one synchronized release group:
+Skribble publishes seven packages to pub.dev as one synchronized `main` release group:
 
 - `skribble`
 - `skribble_emoji`
@@ -13,7 +13,9 @@ Skribble publishes seven packages to pub.dev as one synchronized release group:
 - `skribble_icons_custom`
 - `skribble_lints`
 
-All packages use the same version and the release tag `v<version>`. Applications, the workspace root, and the documentation site remain private.
+Those packages use the same version and the release tag `v<version>`. `skribble_maps` and `skribble_charts` release independently, with tags `skribble_maps/v<version>` and `skribble_charts/v<version>`. Neither belongs to the `main` group. Applications, the workspace root, and the documentation site remain private.
+
+Both companion packages depend on `skribble`, so Monochange propagates the core package's release severity to them. A breaking core change produces a breaking companion change. Changes confined to maps or charts can release without forcing a release of the seven-package group.
 
 The first public release uses a pre-1.0 `major` bump pinned to `0.1.0`. Package manifests use the unpublished `0.0.1` development baseline after the `0.0.0` registry placeholders. Monochange replaces that baseline when it prepares the release pull request.
 
@@ -42,13 +44,13 @@ The rough-icon generator exposes parsing and rendering helpers for its tests. Th
 Review and merge the release pull request. The merge starts this sequence:
 
 1. Monochange verifies that `HEAD` is the release-record commit.
-2. The release workflow pushes the recorded `v<version>` tag with its scoped GitHub token.
-3. It creates a **draft** GitHub release from the release record. The release stays invisible until every publishing step below succeeds.
-4. It dispatches the trusted pub.dev workflow against that tag. This explicit dispatch is required because GitHub suppresses new workflow runs for ordinary events created by `GITHUB_TOKEN`.
-5. The publish workflow's `fonts` job waits for the draft release, then packages every bundled font family as a zip and uploads the archives to it.
+2. The release workflow pushes every recorded tag: `v<version>` for the main group and the namespaced maps or charts tag when that package is included.
+3. It creates a **draft** GitHub release for every release in the record. Drafts stay invisible until every publishing step below succeeds.
+4. It dispatches the trusted pub.dev workflow against each tag in sequence. This explicit dispatch is required because GitHub suppresses new workflow runs for ordinary events created by `GITHUB_TOKEN`.
+5. For the main `v<version>` tag, the publish workflow's `fonts` job waits for the draft release, then packages every bundled font family as a zip and uploads the archives to it.
 6. Monochange runs publish readiness checks. The workflow also executes `dart pub publish --dry-run` immediately before each real publish.
-7. The `publisher` environment publishes all seven packages in dependency order.
-8. Once the packages exist on pub.dev and the font zips are attached, the workflow flips the draft release to published and marks it latest.
+7. The `publisher` environment publishes either all seven main-group packages in dependency order or the single companion package identified by the tag namespace.
+8. Once the packages exist on pub.dev and the font zips are attached, the workflow flips each draft release to published and marks it latest.
 
 ### Font release assets
 
@@ -59,11 +61,13 @@ Each bundled font family ships as a versioned zip attached to the GitHub release
 - `SkribblePlayful-<tag>.zip`
 - `ArchitectsDaughter-<tag>.zip`
 
-Every zip contains the family's TTFs (Regular, Bold, Italic, BoldItalic where available) and the `OFL.txt` license. Fonts are static assets inside `packages/skribble`, so the zip upload is retried safely with `--clobber` when a publish run is re-dispatched.
+Every zip contains the family's TTFs (Regular, Bold, Italic, BoldItalic where available) and the `OFL.txt` license. Fonts are static assets inside `packages/skribble`, so the zip upload is retried safely with `--clobber` when a publish run is re-dispatched. Companion tags (`skribble_maps/v*`, `skribble_charts/v*`) skip the fonts job entirely.
 
 The rate limit applied only to the packages' first `0.0.0` placeholder publication. Normal version updates do not use the four-hour split or a 12-per-day cap, so the release workflow publishes the complete group in one job.
 
-pub.dev accepts both `push` and `workflow_dispatch` events for every package. The workflow listens for `v*` tag pushes as well as manual dispatches. The release workflow still dispatches the publish workflow explicitly because GitHub does not start a second workflow from a tag created with `GITHUB_TOKEN`.
+pub.dev accepts both `push` and `workflow_dispatch` events. The workflow listens for `v*`, `skribble_maps/v*`, and `skribble_charts/v*` tag pushes as well as manual dispatches. The release workflow still dispatches the publish workflow explicitly because GitHub does not start a second workflow from a tag created with `GITHUB_TOKEN`.
+
+The pub.dev automated publisher for `skribble_maps` uses repository `openbudgetfun/skribble`, workflow `publish.yml`, GitHub environment `publisher`, and tag pattern `skribble_maps/v{{version}}`. Its `0.0.0` placeholder was published with Monochange before the automated publisher was registered.
 
 ## Release checks on every pull request
 
@@ -95,4 +99,13 @@ monochange step prepare-release --dry-run --diff
 monochange step placeholder-publish --dry-run --format json
 ```
 
-`placeholder-publish` is only for the one-time `0.0.0` registry bootstrap needed before pub.dev automated publishing can be enabled. It is not part of normal releases.
+`placeholder-publish` is only for the one-time `0.0.0` registry bootstrap needed before pub.dev automated publishing can be enabled. It is not part of normal releases. Select a single package with `--package <name>` when bootstrapping a newly independent package.
+
+For `skribble_charts`, bootstrap after its implementation merges:
+
+```bash
+monochange step placeholder-publish --package skribble_charts --dry-run
+monochange step placeholder-publish --package skribble_charts
+```
+
+Then configure its pub.dev automated publisher with repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, and tag pattern `skribble_charts/v{{version}}`. Allow both `push` and `workflow_dispatch`. The placeholder reserves the package name; the subsequent release publishes the chart implementation.

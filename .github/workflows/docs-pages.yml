@@ -57,7 +57,7 @@ jobs:
           echo "base_path=$base_path" >> "$GITHUB_OUTPUT"
           echo "Using DOCS_BASE_PATH=$base_path"
       - name: Build docs site
-        run: docs:site:build --dart-define=DOCS_BASE_PATH=${{ steps.base.outputs.base_path }}
+        run: docs:site:build --base-href=${{ steps.base.outputs.base_path }}
         shell: devenv shell -- bash -e {0}
       - name: Build storybook web preview
         run: |
@@ -69,13 +69,13 @@ jobs:
         shell: devenv shell -- bash -e {0}
       - name: Bundle storybook into docs artifact
         run: |
-          mkdir -p docs/site/build/jaspr/storybook
-          cp -R apps/skribble_storybook/build/web/. docs/site/build/jaspr/storybook/
+          mkdir -p docs/site/build/web/storybook
+          cp -R apps/skribble_storybook/build/web/. docs/site/build/web/storybook/
         shell: bash
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: docs/site/build/jaspr
+          path: docs/site/build/web
 
   deploy:
     environment:

@@ -1,0 +1,420 @@
+import 'dart:math' as math;
+import 'dart:ui' as ui show Path;
+
+import 'package:flutter/semantics.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:skribble/skribble.dart';
+import 'package:skribble_maps/src/wired_map_camera.dart';
+
+/// Base type for hand-drawn geographic features.
+@immutable
+sealed class WiredMapFeature {
+  /// Creates a geographic feature.
+  const WiredMapFeature({required this.points, this.semanticLabel, this.onTap});
+
+  /// Ordered geographic points that define the feature.
+  final List<LatLng> points;
+
+  /// An accessibility label for the feature.
+  final String? semanticLabel;
+
+  /// Called when the painted feature is activated.
+  final VoidCallback? onTap;
+}
+
+/// A precise route with a continuous, round-capped ink stroke.
+@immutable
+class WiredMapPolyline extends WiredMapFeature {
+  /// Creates a map polyline without displacing its geographic points.
+  const WiredMapPolyline({
+    required super.points,
+    super.semanticLabel,
+    super.onTap,
+    this.color,
+    this.strokeWidth = 3,
+    this.seed = 41,
+  }) : assert(strokeWidth > 0, 'strokeWidth must be positive');
+
+  /// The stroke color, or the active Wired theme border color.
+  final Color? color;
+
+  /// The logical-pixel stroke width.
+  final double strokeWidth;
+
+  /// Reserved for compatibility. Routes use exact geometry regardless of seed.
+  final int seed;
+}
+
+/// An area painted with a rough outline and hand-drawn hachure fill.
+@immutable
+class WiredMapPolygon extends WiredMapFeature {
+  /// Creates a hand-drawn polygon.
+  const WiredMapPolygon({
+    required super.points,
+    super.semanticLabel,
+    super.onTap,
+    this.inkColor,
+    this.fillColor,
+    this.strokeWidth = 2,
+    this.hachureGap = 8,
+    this.hachureAngle = 320,
+    this.seed = 43,
+  }) : assert(strokeWidth > 0, 'strokeWidth must be positive'),
+       assert(hachureGap > 0, 'hachureGap must be positive');
+
+  /// The outline color, or the active Wired theme border color.
+  final Color? inkColor;
+
+  /// The hachure color, or a translucent theme border color.
+  final Color? fillColor;
+
+  /// The logical-pixel outline width.
+  final double strokeWidth;
+
+  /// The spacing between hachure lines.
+  final double hachureGap;
+
+  /// The hachure angle in degrees.
+  final double hachureAngle;
+
+  /// The deterministic rough-drawing seed.
+  final int seed;
+}
+
+/// Paints precise routes and hand-hatched areas above the basemap.
+///
+/// Routes follow the supplied points exactly. Areas use Skribble's rough
+/// engine with stable seeds and restrained hatching to keep map labels clear.
+class WiredMapFeatureLayer extends HookWidget {
+  /// Creates a hand-drawn feature layer.
+  const WiredMapFeatureLayer({
+    required this.features,
+    super.key,
+    this.hitTolerance = 12,
+    this.semanticLabel = 'Hand-drawn map features',
+  }) : assert(hitTolerance >= 0, 'hitTolerance cannot be negative');
+
+  /// Features painted in list order.
+  final List<WiredMapFeature> features;
+
+  /// Extra logical pixels around a line that count as a tap.
+  final double hitTolerance;
+
+  /// Accessibility label for the feature canvas.
+  final String semanticLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    assert(
+      features.every(
+        (feature) => switch (feature) {
+          WiredMapPolyline() => feature.points.length >= 2,
+          WiredMapPolygon() => feature.points.length >= 3,
+        },
+      ),
+      'Polylines require two points and polygons require three points',
+    );
+    final camera = wiredMapCameraOf(context);
+    final theme = WiredTheme.of(context);
+    final painter = _WiredMapFeaturePainter(
+      camera: camera,
+      features: features,
+      drawConfig: theme.drawConfig,
+      defaultInkColor: theme.borderColor,
+      hitTolerance: hitTolerance,
+      textDirection: Directionality.of(context),
+    );
+    final hasActions = features.any((feature) => feature.onTap != null);
+
+    return buildWiredElement(
+      child: Semantics(
+        container: true,
+        label: semanticLabel,
+        child: GestureDetector(
+          behavior: HitTestBehavior.deferToChild,
+          onTapUp: hasActions
+              ? (details) {
+                  painter.featureAt(details.localPosition)?.onTap?.call();
+                }
+              : null,
+          child: CustomPaint(
+            size: camera.viewportSize,
+            painter: painter,
+            isComplex: true,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _WiredMapFeaturePainter extends CustomPainter {
+  _WiredMapFeaturePainter({
+    required this.camera,
+    required this.features,
+    required this.drawConfig,
+    required this.defaultInkColor,
+    required this.hitTolerance,
+    required this.textDirection,
+  });
+
+  final WiredMapCamera camera;
+  final List<WiredMapFeature> features;
+  final DrawConfig drawConfig;
+  final Color defaultInkColor;
+  final double hitTolerance;
+  final TextDirection textDirection;
+
+  late final List<_ProjectedFeature> _projected = [
+    for (final feature in features)
+      _ProjectedFeature(feature, _project(feature.points)),
+  ];
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    for (final projected in _projected) {
+      _paintFeature(canvas, projected);
+    }
+  }
+
+  WiredMapFeature? featureAt(Offset position) {
+    for (final projected in _projected.reversed) {
+      if (projected.feature.onTap != null && _contains(projected, position)) {
+        return projected.feature;
+      }
+    }
+    return null;
+  }
+
+  // A background CustomPainter otherwise claims its entire rectangle, hiding
+  // the native map from Flutter hit testing even when no overlay has actions.
+  @override
+  bool hitTest(Offset position) => featureAt(position) != null;
+
+  List<Offset> _project(List<LatLng> points) {
+    final worldWidth = camera.worldSize;
+    final offsets = <Offset>[];
+    for (final point in points) {
+      var projected = camera.project(point);
+      if (worldWidth > 0) {
+        final reference = offsets.isEmpty
+            ? camera.viewportSize.center(Offset.zero)
+            : offsets.last;
+        while (projected.dx - reference.dx > worldWidth / 2) {
+          projected = Offset(projected.dx - worldWidth, projected.dy);
+        }
+        while (reference.dx - projected.dx > worldWidth / 2) {
+          projected = Offset(projected.dx + worldWidth, projected.dy);
+        }
+      }
+      offsets.add(projected);
+    }
+    return offsets;
+  }
+
+  void _paintFeature(Canvas canvas, _ProjectedFeature projected) {
+    final worldWidth = camera.worldSize;
+    final shifts = worldWidth > 0
+        ? <double>[-worldWidth, 0, worldWidth]
+        : const <double>[0];
+    for (final shift in shifts) {
+      final shifted = [
+        for (final point in projected.points)
+          Offset(point.dx + shift, point.dy),
+      ];
+      final bounds = _boundsOf(shifted).inflate(24);
+      if (!bounds.overlaps(Offset.zero & camera.viewportSize)) continue;
+      switch (projected.feature) {
+        case final WiredMapPolyline line:
+          _paintPolyline(canvas, line, shifted);
+        case final WiredMapPolygon polygon:
+          _paintPolygon(canvas, polygon, shifted);
+      }
+    }
+  }
+
+  void _paintPolyline(
+    Canvas canvas,
+    WiredMapPolyline line,
+    List<Offset> points,
+  ) {
+    final path = ui.Path()..addPolygon(points, false);
+    final paint = Paint()
+      ..color = line.color ?? defaultInkColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = line.strokeWidth
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+
+    canvas.drawPath(path, paint);
+  }
+
+  void _paintPolygon(
+    Canvas canvas,
+    WiredMapPolygon polygon,
+    List<Offset> points,
+  ) {
+    final config = _overlayDrawConfig(
+      drawConfig,
+      seed: polygon.seed + camera.zoom.round(),
+    );
+    final fillColor =
+        polygon.fillColor ??
+        (polygon.inkColor ?? defaultInkColor).withValues(alpha: 0.22);
+    final drawable = Generator(
+      config,
+      HachureFiller(
+        FillerConfig.build(
+          drawConfig: config,
+          hachureGap: polygon.hachureGap,
+          hachureAngle: polygon.hachureAngle,
+          fillWeight: math.max(0.8, polygon.strokeWidth * 0.55),
+        ),
+      ),
+    ).polygon([for (final point in points) PointD(point.dx, point.dy)]);
+    RoughDrawing(
+      drawable,
+      WiredBase.pathPainter(
+        polygon.strokeWidth,
+        color: polygon.inkColor ?? defaultInkColor,
+      ),
+      WiredBase.pathPainter(
+        math.max(0.8, polygon.strokeWidth * 0.55),
+        color: fillColor,
+      ),
+    ).paint(canvas);
+  }
+
+  bool _contains(_ProjectedFeature projected, Offset position) {
+    final worldWidth = camera.worldSize;
+    final shifts = worldWidth > 0
+        ? <double>[-worldWidth, 0, worldWidth]
+        : const <double>[0];
+    for (final shift in shifts) {
+      final points = [
+        for (final point in projected.points)
+          Offset(point.dx + shift, point.dy),
+      ];
+      switch (projected.feature) {
+        case final WiredMapPolyline line:
+          final tolerance = line.strokeWidth / 2 + hitTolerance;
+          for (var index = 1; index < points.length; index++) {
+            if (_distanceToSegment(
+                  position,
+                  points[index - 1],
+                  points[index],
+                ) <=
+                tolerance) {
+              return true;
+            }
+          }
+        case WiredMapPolygon():
+          final path = ui.Path()..moveTo(points.first.dx, points.first.dy);
+          for (final point in points.skip(1)) {
+            path.lineTo(point.dx, point.dy);
+          }
+          path.close();
+          if (path.contains(position)) return true;
+      }
+    }
+    return false;
+  }
+
+  @override
+  SemanticsBuilderCallback get semanticsBuilder => (size) {
+    final viewport = Offset.zero & size;
+    final worldWidth = camera.worldSize;
+    final shifts = worldWidth > 0
+        ? <double>[-worldWidth, 0, worldWidth]
+        : const <double>[0];
+    final semantics = <CustomPainterSemantics>[];
+    for (final projected in _projected) {
+      final label = projected.feature.semanticLabel;
+      if (label == null) continue;
+      for (final shift in shifts) {
+        final points = [
+          for (final point in projected.points)
+            Offset(point.dx + shift, point.dy),
+        ];
+        var bounds = _boundsOf(points).inflate(hitTolerance);
+        if (!bounds.overlaps(viewport)) continue;
+        if (bounds.width < 44 || bounds.height < 44) {
+          bounds = Rect.fromCenter(
+            center: bounds.center,
+            width: math.max(44, bounds.width),
+            height: math.max(44, bounds.height),
+          );
+        }
+        semantics.add(
+          CustomPainterSemantics(
+            rect: bounds.intersect(viewport),
+            properties: SemanticsProperties(
+              label: label,
+              textDirection: textDirection,
+              button: projected.feature.onTap != null,
+              onTap: projected.feature.onTap,
+            ),
+          ),
+        );
+        break;
+      }
+    }
+    return semantics;
+  };
+
+  @override
+  bool shouldRepaint(_WiredMapFeaturePainter oldDelegate) =>
+      oldDelegate.camera != camera ||
+      oldDelegate.features != features ||
+      oldDelegate.drawConfig != drawConfig ||
+      oldDelegate.defaultInkColor != defaultInkColor ||
+      oldDelegate.hitTolerance != hitTolerance ||
+      oldDelegate.textDirection != textDirection;
+
+  @override
+  bool shouldRebuildSemantics(_WiredMapFeaturePainter oldDelegate) =>
+      shouldRepaint(oldDelegate);
+}
+
+class _ProjectedFeature {
+  const _ProjectedFeature(this.feature, this.points);
+
+  final WiredMapFeature feature;
+  final List<Offset> points;
+}
+
+Rect _boundsOf(List<Offset> points) {
+  var left = points.first.dx;
+  var top = points.first.dy;
+  var right = left;
+  var bottom = top;
+  for (final point in points.skip(1)) {
+    left = math.min(left, point.dx);
+    top = math.min(top, point.dy);
+    right = math.max(right, point.dx);
+    bottom = math.max(bottom, point.dy);
+  }
+  return Rect.fromLTRB(left, top, right, bottom);
+}
+
+double _distanceToSegment(Offset point, Offset start, Offset end) {
+  final delta = end - start;
+  final lengthSquared = delta.dx * delta.dx + delta.dy * delta.dy;
+  if (lengthSquared == 0) return (point - start).distance;
+  final along =
+      ((point - start).dx * delta.dx + (point - start).dy * delta.dy) /
+      lengthSquared;
+  final nearest = start + delta * along.clamp(0.0, 1.0);
+  return (point - nearest).distance;
+}
+
+DrawConfig _overlayDrawConfig(DrawConfig source, {required int seed}) {
+  return source.copyWith(
+    seed: seed,
+    maxRandomnessOffset: math.min(source.maxRandomnessOffset ?? 1.2, 1.2),
+    roughness: math.min(source.roughness ?? 1.25, 1.25),
+    lineWobble: math.min(source.lineWobble ?? 0, 0.45),
+  );
+}

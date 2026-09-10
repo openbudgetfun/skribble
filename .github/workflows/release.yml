@@ -141,7 +141,7 @@ jobs:
     needs: update
     environment: publisher
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 90
     permissions:
       actions: write
       contents: write
@@ -176,11 +176,14 @@ jobs:
           monochange step tag-release --from HEAD --push=true --format json
         shell: devenv shell -- bash -e {0}
 
-      - name: Create the draft release
+      - name: Create the draft releases
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
+          # Draft releases exist before any publish dispatch so the publish
+          # workflow's fonts job can attach assets without racing the release
+          # going public; the publish job flips drafts to published.
           monochange step publish-release --from-ref HEAD --draft --format json
         shell: devenv shell -- bash -e {0}
 
@@ -189,11 +192,47 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          mapfile -t release_tags < <(git tag --points-at HEAD --list 'v[0-9]*')
-          if [ "${#release_tags[@]}" -ne 1 ]; then
-            echo "::error::Expected one release tag at HEAD, found ${#release_tags[@]}."
+          mapfile -t main_tags < <(git tag --points-at HEAD --list 'v[0-9]*')
+          mapfile -t maps_tags < <(git tag --points-at HEAD --list 'skribble_maps/v[0-9]*')
+          mapfile -t charts_tags < <(git tag --points-at HEAD --list 'skribble_charts/v[0-9]*')
+          release_tags=("${main_tags[@]}" "${maps_tags[@]}" "${charts_tags[@]}")
+          if [ "${#release_tags[@]}" -eq 0 ]; then
+            echo "::error::Expected at least one release tag at HEAD."
             exit 1
           fi
 
-          gh workflow run publish.yml --ref "${release_tags[0]}"
+          release_commit="$(git rev-parse HEAD)"
+          for release_tag in "${release_tags[@]}"; do
+            previous_run_id="$(
+              gh run list \
+                --workflow publish.yml \
+                --event workflow_dispatch \
+                --limit 1 \
+                --json databaseId \
+                --jq '.[0].databaseId // 0'
+            )"
+            gh workflow run publish.yml --ref "$release_tag"
+
+            run_id=""
+            for _ in {1..30}; do
+              run_id="$(
+                gh run list \
+                  --workflow publish.yml \
+                  --event workflow_dispatch \
+                  --limit 20 \
+                  --json databaseId,headSha \
+                  --jq "[.[] | select(.databaseId > $previous_run_id and .headSha == \"$release_commit\")][0].databaseId // empty"
+              )"
+              if [ -n "$run_id" ]; then
+                break
+              fi
+              sleep 2
+            done
+            if [ -z "$run_id" ]; then
+              echo "::error::Could not find the publish run for $release_tag."
+              exit 1
+            fi
+
+            gh run watch "$run_id" --exit-status
+          done
         shell: devenv shell -- bash -e {0}

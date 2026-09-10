@@ -166,6 +166,8 @@ class WiredGridTileBar extends HookWidget {
                       children: [
                         if (title != null)
                           DefaultTextStyle.merge(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               color: color ?? theme.textColor,
                               fontSize: 14,
@@ -176,6 +178,8 @@ class WiredGridTileBar extends HookWidget {
                         if (subtitle != null) ...[
                           const SizedBox(height: 2),
                           DefaultTextStyle.merge(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               color:
                                   color ??

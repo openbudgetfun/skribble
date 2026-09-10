@@ -5,6 +5,30 @@ import 'package:skribble/skribble.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
+  testWidgets(
+    'menuClose forwards progress, direction, colour, size, and semantics',
+    (tester) async {
+      const progress = AlwaysStoppedAnimation<double>(.5);
+      await pumpApp(
+        tester,
+        const WiredAnimatedIcon.menuClose(
+          progress: progress,
+          textDirection: TextDirection.rtl,
+          color: Color(0xff663399),
+          size: 36,
+          semanticLabel: 'Close menu',
+        ),
+      );
+      final icon = tester.widget<AnimatedIcon>(find.byType(AnimatedIcon));
+      expect(icon.icon, AnimatedIcons.menu_close);
+      expect(icon.progress, same(progress));
+      expect(icon.color, const Color(0xff663399));
+      expect(icon.size, 36);
+      expect(icon.textDirection, TextDirection.rtl);
+      expect(icon.semanticLabel, 'Close menu');
+    },
+  );
+
   group('WiredAnimatedIcon', () {
     testWidgets('renders without error', (tester) async {
       await pumpApp(

@@ -1,0 +1,24 @@
+{
+  "icons": [
+    {
+      "identifier": "github",
+      "codePoint": 61441,
+      "svgPath": "github.svg"
+    },
+    {
+      "identifier": "dart",
+      "codePoint": 61442,
+      "svgPath": "dart.svg"
+    },
+    {
+      "identifier": "flutter",
+      "codePoint": 61443,
+      "svgPath": "flutter.svg"
+    },
+    {
+      "identifier": "figma",
+      "codePoint": 61444,
+      "svgPath": "figma.svg"
+    }
+  ]
+}

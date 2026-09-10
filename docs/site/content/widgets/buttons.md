@@ -16,11 +16,12 @@ A basic button with a hand-drawn rectangle border. The simplest entry point for 
 <!-- {=docsButtonBasicUsage} -->
 
 ```dart
+// Live example: button
 WiredButton(
-  onPressed: () {
-    // Handle tap
-  },
-  child: Text('Press Me'),
+  borderRadius: BorderRadius.circular(8),
+  onPressed: () {},
+  inkInteraction: WiredInkInteraction.pressure,
+  child: Text('Make something lovely'),
 )
 ```
 
@@ -28,11 +29,12 @@ WiredButton(
 
 ### Constructor parameters
 
-| Parameter       | Type              | Default      | Description                                    |
-| --------------- | ----------------- | ------------ | ---------------------------------------------- |
-| `child`         | `Widget`          | **required** | The button label.                              |
-| `onPressed`     | `void Function()` | **required** | Callback when the button is tapped.            |
-| `semanticLabel` | `String?`         | `null`       | Accessibility label exposed to screen readers. |
+| Parameter       | Type              | Default                                | Description                                      |
+| --------------- | ----------------- | -------------------------------------- | ------------------------------------------------ |
+| `borderRadius`  | `BorderRadius`    | `BorderRadius.all(Radius.circular(6))` | Rough corner radii; use zero for square corners. |
+| `child`         | `Widget`          | **required**                           | The button label.                                |
+| `onPressed`     | `void Function()` | **required**                           | Callback when the button is tapped.              |
+| `semanticLabel` | `String?`         | `null`                                 | Accessibility label exposed to screen readers.   |
 
 ### Notes
 
@@ -47,19 +49,23 @@ WiredButton(
 An elevated variant with a slight offset shadow layer rendered behind the main button face. Both the shadow and the face use hachure fills for a tactile, layered look.
 
 ```dart
+// Live example: elevated-button
 WiredElevatedButton(
-  onPressed: () {},
-  child: Text('Elevated'),
+  borderRadius: BorderRadius.circular(8),
+  onPressed: true ? () {} : null,
+  inkInteraction: WiredInkInteraction.pressure,
+  child: Text('Make something lovely'),
 )
 ```
 
 ### Constructor parameters
 
-| Parameter       | Type            | Default      | Description                                       |
-| --------------- | --------------- | ------------ | ------------------------------------------------- |
-| `child`         | `Widget`        | **required** | The button label.                                 |
-| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped. `null` disables the button. |
-| `semanticLabel` | `String?`       | `null`       | Accessibility label.                              |
+| Parameter       | Type            | Default                                | Description                                       |
+| --------------- | --------------- | -------------------------------------- | ------------------------------------------------- |
+| `borderRadius`  | `BorderRadius`  | `BorderRadius.all(Radius.circular(6))` | Rough corner radii; use zero for square corners.  |
+| `child`         | `Widget`        | **required**                           | The button label.                                 |
+| `onPressed`     | `VoidCallback?` | `null`                                 | Callback when tapped. `null` disables the button. |
+| `semanticLabel` | `String?`       | `null`                                 | Accessibility label.                              |
 
 ### Notes
 
@@ -73,25 +79,30 @@ WiredElevatedButton(
 A solid button with a dense hachure fill, analogous to Material's `FilledButton`. Good for primary call-to-action placement.
 
 ```dart
+// Live example: filled-button
 WiredFilledButton(
-  onPressed: () {},
-  child: Text('Submit'),
+  borderRadius: BorderRadius.circular(8),
+  onPressed: true ? () {} : null,
+  fillColor: const Color(0xffe8957d),
+  inkInteraction: WiredInkInteraction.pressure,
+  child: Text('Make something lovely'),
 )
 ```
 
 ### Constructor parameters
 
-| Parameter         | Type            | Default      | Description                                              |
-| ----------------- | --------------- | ------------ | -------------------------------------------------------- |
-| `child`           | `Widget`        | **required** | The button label.                                        |
-| `onPressed`       | `VoidCallback?` | `null`       | Callback when tapped.                                    |
-| `fillColor`       | `Color?`        | `null`       | Custom fill color. Defaults to `theme.borderColor`.      |
-| `foregroundColor` | `Color?`        | `null`       | Text/icon color. Defaults to contrasting black or white. |
-| `semanticLabel`   | `String?`       | `null`       | Accessibility label.                                     |
+| Parameter         | Type            | Default                                | Description                                              |
+| ----------------- | --------------- | -------------------------------------- | -------------------------------------------------------- |
+| `borderRadius`    | `BorderRadius`  | `BorderRadius.all(Radius.circular(6))` | Rough corner radii; use zero for square corners.         |
+| `child`           | `Widget`        | **required**                           | The button label.                                        |
+| `onPressed`       | `VoidCallback?` | `null`                                 | Callback when tapped.                                    |
+| `fillColor`       | `Color?`        | `null`                                 | Custom fill color. Defaults to `theme.borderColor`.      |
+| `foregroundColor` | `Color?`        | `null`                                 | Text/icon color. Defaults to contrasting black or white. |
+| `semanticLabel`   | `String?`       | `null`                                 | Accessibility label.                                     |
 
 ### Notes
 
-- The hachure gap is tighter (2px) than the elevated button for a denser fill.
+- The solid fill keeps the label readable and retains a small, uneven overlap along the outline.
 - When `fillColor` is not provided the button uses `theme.borderColor` for a high-contrast filled look.
 
 ---
@@ -101,9 +112,11 @@ WiredFilledButton(
 A circular floating action button with a hand-drawn circle border and hachure fill. Designed for primary screen actions.
 
 ```dart
+// Live example: floating-button
 WiredFloatingActionButton(
-  icon: Icons.add,
-  onPressed: () {},
+  icon: const IconData(0xe047, fontFamily: 'MaterialIcons'),
+  semanticLabel: 'Add an idea',
+  onPressed: true ? () {} : null,
 )
 ```
 
@@ -130,9 +143,11 @@ WiredFloatingActionButton(
 An icon button enclosed in a hand-drawn circle border with no fill. Ideal for toolbar actions and compact controls.
 
 ```dart
+// Live example: icon-button
 WiredIconButton(
-  icon: Icons.favorite,
-  onPressed: () {},
+  icon: const IconData(0xe25b, fontFamily: 'MaterialIcons'),
+  semanticLabel: 'Favourite',
+  onPressed: true ? () {} : null,
 )
 ```
 
@@ -158,19 +173,23 @@ WiredIconButton(
 A button with a thick hand-drawn border (2px stroke width) and no fill. The heavier outline provides strong visual emphasis without a background.
 
 ```dart
+// Live example: outlined-button
 WiredOutlinedButton(
-  onPressed: () {},
-  child: Text('Outlined'),
+  borderRadius: BorderRadius.circular(8),
+  onPressed: true ? () {} : null,
+  inkInteraction: WiredInkInteraction.pressure,
+  child: Text('Make something lovely'),
 )
 ```
 
 ### Constructor parameters
 
-| Parameter       | Type            | Default      | Description           |
-| --------------- | --------------- | ------------ | --------------------- |
-| `child`         | `Widget`        | **required** | The button label.     |
-| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped. |
-| `semanticLabel` | `String?`       | `null`       | Accessibility label.  |
+| Parameter       | Type            | Default                                | Description                                      |
+| --------------- | --------------- | -------------------------------------- | ------------------------------------------------ |
+| `borderRadius`  | `BorderRadius`  | `BorderRadius.all(Radius.circular(6))` | Rough corner radii; use zero for square corners. |
+| `child`         | `Widget`        | **required**                           | The button label.                                |
+| `onPressed`     | `VoidCallback?` | `null`                                 | Callback when tapped.                            |
+| `semanticLabel` | `String?`       | `null`                                 | Accessibility label.                             |
 
 ### Notes
 
@@ -183,9 +202,11 @@ WiredOutlinedButton(
 A text-only button with a sketchy underline drawn beneath the label. No border or fill surrounds the text.
 
 ```dart
+// Live example: text-button
 WiredTextButton(
-  onPressed: () {},
-  child: Text('Learn more'),
+  onPressed: true ? () {} : null,
+  inkInteraction: WiredInkInteraction.pressure,
+  child: Text('Make something lovely'),
 )
 ```
 
@@ -209,18 +230,22 @@ WiredTextButton(
 A multi-toggle button group where each button gets a sketchy rectangle border. Selected buttons receive a hachure fill; unselected buttons remain transparent.
 
 ```dart
-WiredToggleButtons(
-  isSelected: [true, false, false],
-  onPressed: (index) {
-    setState(() {
-      isSelected[index] = !isSelected[index];
-    });
+// Live example: toggle-buttons
+HookBuilder(
+  builder: (context) {
+    final selected = useState([true, false, false]);
+    return WiredToggleButtons(
+      isSelected: selected.value,
+      onPressed: true
+          ? (index) {
+              final next = List<bool>.of(selected.value);
+              next[index] = !next[index];
+              selected.value = next;
+            }
+          : null,
+      children: const [Text('B'), Text('I'), Text('U')],
+    );
   },
-  children: [
-    Icon(Icons.format_bold),
-    Icon(Icons.format_italic),
-    Icon(Icons.format_underline),
-  ],
 )
 ```
 
@@ -246,15 +271,21 @@ WiredToggleButtons(
 A segmented control with connected rounded rectangles, analogous to Material 3's `SegmentedButton`. Each segment can display a label and optional icon.
 
 ```dart
-WiredSegmentedButton<String>(
-  segments: [
-    WiredButtonSegment(value: 'day', label: Text('Day')),
-    WiredButtonSegment(value: 'week', label: Text('Week')),
-    WiredButtonSegment(value: 'month', label: Text('Month'), icon: Icons.calendar_today),
-  ],
-  selected: {'week'},
-  onSelectionChanged: (newSelection) {
-    setState(() => selected = newSelection);
+// Live example: segmented-button
+HookBuilder(
+  builder: (context) {
+    final selected = useState({'week'});
+    return WiredSegmentedButton<String>(
+      segments: const [
+        WiredButtonSegment(value: 'day', label: Text('Day')),
+        WiredButtonSegment(value: 'week', label: Text('Week')),
+        WiredButtonSegment(value: 'month', label: Text('Month')),
+      ],
+      selected: selected.value,
+      onSelectionChanged: true
+          ? (value) => selected.value = value
+          : null,
+    );
   },
 )
 ```
@@ -289,16 +320,12 @@ WiredSegmentedButton<String>(
 A Cupertino-style press-opacity button with a hand-drawn rounded rectangle border. Mirrors the `CupertinoButton` API including a `.filled` factory constructor.
 
 ```dart
-// Default (outlined)
+// Live example: cupertino-button
 WiredCupertinoButton(
-  onPressed: () {},
-  child: Text('Cupertino'),
-)
-
-// Filled variant
-WiredCupertinoButton.filled(
-  onPressed: () {},
-  child: Text('Filled Cupertino'),
+  onPressed: true ? () {} : null,
+  color: const Color(0xffe8957d),
+  borderRadius: BorderRadius.circular(8),
+  child: Text('Make something lovely'),
 )
 ```
 
@@ -337,3 +364,13 @@ Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 l
 Wrap this component in `WiredDraw` or `WiredDrawTransition` to draw its rough outline and patterned fill. Button variants also reinforce their ink on hover, focus, and press. Labels and solid backgrounds stay readable. See [Ink motion](../core/motion) for timing, supported variants, and disabling motion.
 
 Disabled filled buttons retain the contrast-selected foreground at 75% opacity, so labels and icons remain legible on their opaque ink background.
+
+## Decorative interaction styles
+
+The six standard Wired button variants accept `inkInteraction`. Leave it unset to inherit `WiredThemeData.inkInteraction`, use `WiredInkInteraction.none` for still ink, `pressure` for subtle reinforcement, or `redraw` for a short pen trace on press. Text and opaque fills stay visible. Reduced motion always takes precedence. See [Ink motion](/core/motion#choose-how-buttons-respond) for examples and animation ownership.
+
+## Rough rounded corners
+
+`WiredButton`, `WiredFilledButton`, `WiredElevatedButton`, and `WiredOutlinedButton` now use a small 6 px corner radius. Their `borderRadius` parameter accepts a `BorderRadius`, including `BorderRadius.zero` for square corners. Both the straight segments and corner arcs use the nearest theme's roughness; a radius does not introduce a smooth, machine-drawn outline.
+
+Change **radius** beside a live example to compare square, softly rounded, and rounder shapes. The fill follows the same rough contour, retaining a little marker overlap.

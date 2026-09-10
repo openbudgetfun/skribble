@@ -21,6 +21,7 @@ The engine has four core pieces:
 The typical flow is:
 
 ```dart
+// Static example: configuration
 final config = DrawConfig.build(roughness: 1.5, seed: 42);
 final filler = HachureFiller(FillerConfig.defaultConfig);
 final generator = Generator(config, filler);
@@ -50,6 +51,7 @@ canvas.drawRough(drawable, pathPaint, fillPaint);
 Use `DrawConfig.build()` to create a config with defaults for any unspecified field:
 
 ```dart
+// Static example: configuration
 // All defaults
 final config = DrawConfig.defaultValues;
 
@@ -63,6 +65,7 @@ final config = DrawConfig.build(
 Use `copyWith` to derive a new config from an existing one:
 
 ```dart
+// Static example: configuration
 final smooth = DrawConfig.build(roughness: 0.5);
 final rough = smooth.copyWith(roughness: 3.0);
 ```
@@ -72,6 +75,7 @@ final rough = smooth.copyWith(roughness: 3.0);
 `DrawConfig` exposes two helper methods used internally by the renderer:
 
 ```dart
+// Static example: api
 // Random value between min and max, scaled by roughness
 double value = config.offset(0, 10);
 
@@ -86,6 +90,7 @@ Both accept an optional `roughnessGain` parameter that further scales the output
 The `Randomizer` class wraps Dart's `Random` with a resettable seed. Calling `reset()` replays the same sequence of random numbers, ensuring that a shape looks identical across rebuilds.
 
 ```dart
+// Static example: api
 final randomizer = Randomizer(seed: 42);
 print(randomizer.next()); // 0.548...
 print(randomizer.next()); // 0.193...
@@ -100,6 +105,7 @@ The `WiredPainter` `CustomPainter` calls `drawConfig.randomizer!.reset()` before
 `Generator` is the main entry point for producing rough shapes. It takes a `DrawConfig` and a `Filler`, and exposes methods for every supported shape.
 
 ```dart
+// Static example: configuration
 final generator = Generator(drawConfig, filler);
 ```
 
@@ -110,6 +116,7 @@ final generator = Generator(drawConfig, filler);
 Draws a single hand-drawn line between two points.
 
 ```dart
+// Static example: api
 final drawable = generator.line(0, 0, 200, 100);
 ```
 
@@ -118,6 +125,7 @@ final drawable = generator.line(0, 0, 200, 100);
 Draws a rectangle with a filled interior.
 
 ```dart
+// Static example: api
 final drawable = generator.rectangle(10, 10, 180, 80);
 ```
 
@@ -128,6 +136,7 @@ The fill points are the four corners of the rectangle, passed to the active `Fil
 Draws a circle as a special case of `ellipse` with equal width and height.
 
 ```dart
+// Static example: api
 // Center at (100, 100), diameter 80
 final drawable = generator.circle(100, 100, 80);
 ```
@@ -137,6 +146,7 @@ final drawable = generator.circle(100, 100, 80);
 Draws an ellipse with independent width and height.
 
 ```dart
+// Static example: api
 final drawable = generator.ellipse(100, 100, 160, 80);
 ```
 
@@ -145,6 +155,7 @@ final drawable = generator.ellipse(100, 100, 160, 80);
 Draws an arbitrary closed polygon from a list of `PointD` vertices.
 
 ```dart
+// Static example: api
 final drawable = generator.polygon([
   PointD(0, 0),
   PointD(100, 0),
@@ -157,6 +168,7 @@ final drawable = generator.polygon([
 Draws an arc segment, optionally closed.
 
 ```dart
+// Static example: api
 import 'dart:math';
 
 // Open arc
@@ -171,6 +183,7 @@ final drawable = generator.arc(100, 100, 80, 80, 0, pi, true);
 Draws an open path through a series of points (not closed like `polygon`).
 
 ```dart
+// Static example: api
 final drawable = generator.linearPath([
   PointD(0, 50),
   PointD(50, 0),
@@ -184,6 +197,7 @@ final drawable = generator.linearPath([
 Draws a rectangle with individually configurable corner radii.
 
 ```dart
+// Static example: api
 final drawable = generator.roundedRectangle(
   0,    // x
   0,    // y
@@ -203,6 +217,7 @@ Radii are automatically clamped to half the shortest side to prevent overlapping
 Draws a smooth curve through a series of points.
 
 ```dart
+// Static example: api
 final drawable = generator.curvePath([
   PointD(0, 50),
   PointD(50, 0),
@@ -230,6 +245,7 @@ Fillers control how the interior of a closed shape is painted. Every `Filler` su
 | `zigzagOffset` | `double`     | `5`                        | Amplitude of zigzag lines            |
 
 ```dart
+// Static example: configuration
 final fillerConfig = FillerConfig.build(
   hachureAngle: 45,
   hachureGap: 10,
@@ -244,6 +260,7 @@ final fillerConfig = FillerConfig.build(
 Produces no fill at all. Shapes render as outlines only.
 
 ```dart
+// Static example: configuration
 final filler = NoFiller();
 ```
 
@@ -252,6 +269,7 @@ final filler = NoFiller();
 Fills with parallel lines at the configured `hachureAngle`.
 
 ```dart
+// Static example: configuration
 final filler = HachureFiller(FillerConfig.build(
   hachureAngle: 320,
   hachureGap: 15,
@@ -263,6 +281,7 @@ final filler = HachureFiller(FillerConfig.build(
 Like hachure, but the fill lines connect end-to-end in a zigzag pattern.
 
 ```dart
+// Static example: configuration
 final filler = ZigZagFiller(FillerConfig.build(
   hachureGap: 10,
 ));
@@ -273,6 +292,7 @@ final filler = ZigZagFiller(FillerConfig.build(
 Cross-hatching: runs two perpendicular hachure passes (the second rotated 90 degrees from the first).
 
 ```dart
+// Static example: configuration
 final filler = HatchFiller(FillerConfig.build(
   hachureAngle: 45,
 ));
@@ -283,6 +303,7 @@ final filler = HatchFiller(FillerConfig.build(
 Scatters small ellipses (dots) across the fill area.
 
 ```dart
+// Static example: configuration
 final filler = DotFiller(FillerConfig.build(
   hachureGap: 12,
   fillWeight: 2,
@@ -294,6 +315,7 @@ final filler = DotFiller(FillerConfig.build(
 Fills with dashed line segments controlled by `dashOffset` and `dashGap`.
 
 ```dart
+// Static example: configuration
 final filler = DashedFiller(FillerConfig.build(
   dashOffset: 10,
   dashGap: 3,
@@ -305,6 +327,7 @@ final filler = DashedFiller(FillerConfig.build(
 Fills with a solid path (no pattern). The path is slightly offset by `fillWeight` for a hand-drawn feel.
 
 ```dart
+// Static example: configuration
 final filler = SolidFiller();
 ```
 
@@ -313,6 +336,7 @@ final filler = SolidFiller();
 `RoughFilter` is a convenience enum that maps to `Filler` subclasses. `WiredCanvas` uses it to select the fill type without constructing a `Filler` instance directly.
 
 ```dart
+// Static example: type
 enum RoughFilter {
   noFiller,       // -> NoFiller
   hachureFiller,  // -> HachureFiller
@@ -327,9 +351,18 @@ enum RoughFilter {
 Usage with `WiredCanvas`:
 
 ```dart
-WiredCanvas(
-  painter: WiredRectangleBase(),
-  fillerType: RoughFilter.hachureFiller,
+// Live example: painter-usage-6
+Builder(
+  builder: (context) {
+    return SizedBox(
+      width: 200,
+      height: 100,
+      child: WiredCanvas(
+        painter: WiredRectangleBase(),
+        fillerType: RoughFilter.hachureFiller,
+      ),
+    );
+  },
 )
 ```
 
@@ -340,6 +373,7 @@ WiredCanvas(
 An `OpSet` is a list of drawing operations (`Op`) with a type that tells the canvas how to render them:
 
 ```dart
+// Static example: type
 class OpSet {
   OpSetType? type;
   List<Op>? ops;
@@ -357,6 +391,7 @@ enum OpSetType {
 A single drawing operation -- move, lineTo, or curveTo:
 
 ```dart
+// Static example: type
 class Op {
   final OpType op;
   final List<PointD> data;
@@ -374,6 +409,7 @@ enum OpType { move, curveTo, lineTo }
 A `Drawable` is the output of a `Generator` shape method. It contains one or more `OpSet` instances (typically one for the outline and one for the fill) plus the `DrawConfig` that produced them.
 
 ```dart
+// Static example: type
 class Drawable {
   String? shape;
   DrawConfig? options;
@@ -386,6 +422,7 @@ class Drawable {
 `PointD` extends `Point<double>` with polygon containment testing:
 
 ```dart
+// Static example: api
 final point = PointD(50, 50);
 final polygon = [PointD(0, 0), PointD(100, 0), PointD(100, 100), PointD(0, 100)];
 print(point.isInPolygon(polygon)); // true
@@ -396,6 +433,7 @@ print(point.isInPolygon(polygon)); // true
 The `Rough` extension on `Canvas` renders a `Drawable` to the Flutter canvas:
 
 ```dart
+// Static example: type
 extension Rough on Canvas {
   void drawRough(Drawable drawable, Paint pathPaint, Paint fillPaint);
 }
@@ -410,6 +448,7 @@ It iterates over each `OpSet` in the `Drawable`:
 ### Full Rendering Example
 
 ```dart
+// Static example: custom-class
 import 'package:flutter/material.dart';
 import 'package:skribble/skribble.dart';
 
@@ -448,23 +487,27 @@ class RoughDemoPainter extends CustomPainter {
 `RoughBoxDecoration` is a `Decoration` that replaces `BoxDecoration` for sketchy containers. Use it with any `Container` or `DecoratedBox`:
 
 ```dart
-Container(
-  width: 200,
-  height: 100,
-  decoration: RoughBoxDecoration(
-    shape: RoughBoxShape.rectangle,
-    borderStyle: RoughDrawingStyle(
-      width: 2,
-      color: Color(0xFF1A2B3C),
-    ),
-    fillStyle: RoughDrawingStyle(
-      width: 1,
-      color: Color(0xFFE8E8E8),
-    ),
-    drawConfig: DrawConfig.build(roughness: 1.5),
-    filler: HachureFiller(),
-  ),
-  child: Center(child: Text('Sketchy box')),
+// Live example: decoration-usage-9
+Builder(
+  builder: (context) {
+    return Container(
+      width: 200,
+      height: 100,
+      decoration: RoughBoxDecoration(
+        borderStyle: const RoughDrawingStyle(
+          width: 2,
+          color: Color(0xFF1A2B3C),
+        ),
+        fillStyle: const RoughDrawingStyle(
+          width: 1,
+          color: Color(0xFFE8E8E8),
+        ),
+        drawConfig: DrawConfig.build(roughness: 1.5),
+        filler: HachureFiller(),
+      ),
+      child: const Center(child: Text('Sketchy box')),
+    );
+  },
 )
 ```
 
@@ -473,6 +516,7 @@ Container(
 The decoration supports four shapes:
 
 ```dart
+// Static example: type
 enum RoughBoxShape {
   rectangle,        // Axis-aligned rectangle
   roundedRectangle, // Rectangle with configurable corner radii
@@ -484,6 +528,7 @@ enum RoughBoxShape {
 For rounded rectangles, pass a `borderRadius`:
 
 ```dart
+// Static example: configuration
 RoughBoxDecoration(
   shape: RoughBoxShape.roundedRectangle,
   borderRadius: BorderRadius.circular(16),
@@ -528,7 +573,7 @@ The "double line" technique -- drawing each edge twice with slightly different r
 
 ## UI defaults and determinism
 
-The UI defaults are `roughness: 1.8`, `maxRandomnessOffset: 2`, and a 2.4-pixel themed pen. `WiredThemeData.roughness` feeds the default `DrawConfig`; an explicit `drawConfig` takes precedence. `copyWith(seed: ...)` constructs a randomizer for the new seed. Equality compares randomizer seeds rather than mutable object identity.
+The UI defaults are `roughness: 1.5`, `maxRandomnessOffset: 1.6`, and a 2.4-pixel themed pen. `WiredThemeData.roughness` feeds the default `DrawConfig`; an explicit `drawConfig` takes precedence. `copyWith(seed: ...)` constructs a randomizer for the new seed. Equality compares randomizer seeds rather than mutable object identity.
 
 Edges at least 48 logical pixels long use two independently wandering strokes, with connected curves about every 48 pixels. The curves change direction locally instead of smoothing a whole card edge into one bow. Control points stay inside the configured jitter band, so wider layouts do not require larger insets. Zero roughness remains straight and seeds remain deterministic.
 
@@ -543,3 +588,7 @@ Icons use a smaller runtime displacement so counters remain open at 24 pixels. S
 ## Drawing ink over time
 
 `RoughDrawing` snapshots generated paths and paints, then reveals cumulative pen distance across contours. It retains measured paths for replay and reverse. Solid fills remain opaque; hatch fills appear stroke by stroke. No random seeds change during animation. `RoughBoxDecoration` also caches local geometry and accepts borrowed paint animations. See [Ink motion](motion).
+
+### Solid polygon fills
+
+Solid fills preserve the shape's slightly perturbed polygon edges. They do not smooth rectangle corners into a spline: that would bulge past long button borders. Patterned fills still use their configured hachure strokes. Solid backgrounds remain opaque throughout ink animations.

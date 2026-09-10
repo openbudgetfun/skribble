@@ -44,7 +44,7 @@ skribble/
 ├── packages/skribble_lints/    # Shared lint rules
 ├── packages/skribble_icons_custom/  # Custom icon set example
 ├── apps/skribble_storybook/    # Demo / showcase app
-└── docs/site/                  # Documentation site (Jaspr)
+└── docs/site/                  # Documentation site (Flutter)
 ```
 
 ## Development workflow
@@ -92,6 +92,7 @@ Every widget test file must have **>= 6 `testWidgets`** covering:
 Use `pumpApp()` from `test/helpers/pump_app.dart`:
 
 ```dart
+// Static example: test
 import '../helpers/pump_app.dart';
 
 // Body slot (default)
@@ -195,3 +196,13 @@ melos run rough-icons-ci-check
 
 - Check the [Agents](agents) reference for AI agent-specific guidance
 - Open an issue at [github.com/openbudgetfun/skribble/issues](https://github.com/openbudgetfun/skribble/issues)
+
+## Develop the Flutter documentation
+
+The documentation app belongs to the Dart workspace and renders the canonical Markdown under `docs/site/content/`. Add a Markdown file in an existing content directory and it appears in the catalog automatically. For a new directory, also add its asset path to the docs pubspec. Shared MDT content still comes from `templates/*.t.md`.
+
+Run `docs:site:serve --web-port=4178` to preview the app. `docs:site:build --base-href=/skribble/` produces `docs/site/build/web/`, including per-route entrypoints for direct GitHub Pages reloads. The Pages workflow bundles the separate storybook under `/storybook/`.
+
+Widget tests render and scroll every page at mobile and desktop widths. Patrol browser journeys exercise live examples, responsive navigation, and real clipboard access. Run them from `docs/site` with `patrol test --device chrome --target integration_test/docs_test.dart --web-headless`.
+
+Preserve ordinary text selection when changing the article renderer. Copy buttons complement selection; they do not replace it. Cache parsing outside scrolling, avoid rebuilding the article on animation ticks, and inspect a release build before claiming a scrolling improvement.

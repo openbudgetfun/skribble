@@ -52,6 +52,66 @@ flutter:
         - asset: assets/fonts/SkribbleGentle-Italic.ttf
           style: italic
         - asset: assets/fonts/SkribbleGentle-Regular.ttf
+    - family: SkribbleLinearExpressive
+      fonts:
+        - asset: assets/fonts/SkribbleLinearExpressive-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SkribbleLinearExpressive-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/SkribbleLinearExpressive-Italic.ttf
+          style: italic
+        - asset: assets/fonts/SkribbleLinearExpressive-Regular.ttf
+    - family: SkribbleLinearGentle
+      fonts:
+        - asset: assets/fonts/SkribbleLinearGentle-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SkribbleLinearGentle-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/SkribbleLinearGentle-Italic.ttf
+          style: italic
+        - asset: assets/fonts/SkribbleLinearGentle-Regular.ttf
+    - family: SkribbleLinearPlayful
+      fonts:
+        - asset: assets/fonts/SkribbleLinearPlayful-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SkribbleLinearPlayful-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/SkribbleLinearPlayful-Italic.ttf
+          style: italic
+        - asset: assets/fonts/SkribbleLinearPlayful-Regular.ttf
+    - family: SkribbleMonoExpressive
+      fonts:
+        - asset: assets/fonts/SkribbleMonoExpressive-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SkribbleMonoExpressive-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/SkribbleMonoExpressive-Italic.ttf
+          style: italic
+        - asset: assets/fonts/SkribbleMonoExpressive-Regular.ttf
+    - family: SkribbleMonoGentle
+      fonts:
+        - asset: assets/fonts/SkribbleMonoGentle-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SkribbleMonoGentle-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/SkribbleMonoGentle-Italic.ttf
+          style: italic
+        - asset: assets/fonts/SkribbleMonoGentle-Regular.ttf
+    - family: SkribbleMonoPlayful
+      fonts:
+        - asset: assets/fonts/SkribbleMonoPlayful-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SkribbleMonoPlayful-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/SkribbleMonoPlayful-Italic.ttf
+          style: italic
+        - asset: assets/fonts/SkribbleMonoPlayful-Regular.ttf
     - family: SkribblePlayful
       fonts:
         - asset: assets/fonts/SkribblePlayful-Bold.ttf

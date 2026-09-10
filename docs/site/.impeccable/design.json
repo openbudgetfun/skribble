@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-09T00:00:00Z",
+  "title": "Design System: Skribble documentation",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm paper",
+        "tonalRamp": [
+          "oklch(15% .016 85)",
+          "oklch(27% .016 85)",
+          "oklch(39% .016 85)",
+          "oklch(51% .016 85)",
+          "oklch(63% .016 85)",
+          "oklch(75% .016 85)",
+          "oklch(87% .016 85)",
+          "oklch(95% .016 85)"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Plum ink",
+        "tonalRamp": [
+          "oklch(15% .045 310)",
+          "oklch(27% .045 310)",
+          "oklch(39% .045 310)",
+          "oklch(51% .045 310)",
+          "oklch(63% .045 310)",
+          "oklch(75% .045 310)",
+          "oklch(87% .045 310)",
+          "oklch(95% .045 310)"
+        ]
+      },
+      "quiet-ink": {
+        "role": "neutral",
+        "displayName": "Quiet ink",
+        "tonalRamp": [
+          "oklch(15% .025 325)",
+          "oklch(27% .025 325)",
+          "oklch(39% .025 325)",
+          "oklch(51% .025 325)",
+          "oklch(63% .025 325)",
+          "oklch(75% .025 325)",
+          "oklch(87% .025 325)",
+          "oklch(95% .025 325)"
+        ]
+      },
+      "link-ink": {
+        "role": "primary",
+        "displayName": "Link ink",
+        "tonalRamp": [
+          "oklch(15% .075 337)",
+          "oklch(27% .075 337)",
+          "oklch(39% .075 337)",
+          "oklch(51% .075 337)",
+          "oklch(63% .075 337)",
+          "oklch(75% .075 337)",
+          "oklch(87% .075 337)",
+          "oklch(95% .075 337)"
+        ]
+      },
+      "coral": {
+        "role": "secondary",
+        "displayName": "Coral marker",
+        "tonalRamp": [
+          "oklch(15% .14 35)",
+          "oklch(27% .14 35)",
+          "oklch(39% .14 35)",
+          "oklch(51% .14 35)",
+          "oklch(63% .14 35)",
+          "oklch(75% .14 35)",
+          "oklch(87% .14 35)",
+          "oklch(95% .14 35)"
+        ]
+      },
+      "selected-paper": {
+        "role": "neutral",
+        "displayName": "Selected paper",
+        "tonalRamp": [
+          "oklch(15% .03 45)",
+          "oklch(27% .03 45)",
+          "oklch(39% .03 45)",
+          "oklch(51% .03 45)",
+          "oklch(63% .03 45)",
+          "oklch(75% .03 45)",
+          "oklch(87% .03 45)",
+          "oklch(95% .03 45)"
+        ]
+      },
+      "code-paper": {
+        "role": "neutral",
+        "displayName": "Code paper",
+        "tonalRamp": [
+          "oklch(15% .01 310)",
+          "oklch(27% .01 310)",
+          "oklch(39% .01 310)",
+          "oklch(51% .01 310)",
+          "oklch(63% .01 310)",
+          "oklch(75% .01 310)",
+          "oklch(87% .01 310)",
+          "oklch(95% .01 310)"
+        ]
+      },
+      "inline-code-paper": {
+        "role": "neutral",
+        "displayName": "Inline code paper",
+        "tonalRamp": [
+          "oklch(15% .014 310)",
+          "oklch(27% .014 310)",
+          "oklch(39% .014 310)",
+          "oklch(51% .014 310)",
+          "oklch(63% .014 310)",
+          "oklch(75% .014 310)",
+          "oklch(87% .014 310)",
+          "oklch(95% .014 310)"
+        ]
+      },
+      "quote-paper": {
+        "role": "neutral",
+        "displayName": "Quote paper",
+        "tonalRamp": [
+          "oklch(15% .025 115)",
+          "oklch(27% .025 115)",
+          "oklch(39% .025 115)",
+          "oklch(51% .025 115)",
+          "oklch(63% .025 115)",
+          "oklch(75% .025 115)",
+          "oklch(87% .025 115)",
+          "oklch(95% .025 115)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": { "displayName": "Article title", "purpose": "First-level Markdown headings." },
+      "section": { "displayName": "Section heading", "purpose": "Second-level Markdown headings." },
+      "subsection": { "displayName": "Subsection heading", "purpose": "Third-level Markdown headings." },
+      "body": { "displayName": "Reading text", "purpose": "Selectable article prose." },
+      "navigation": { "displayName": "Page navigation", "purpose": "Compact links in the documentation index." },
+      "label": { "displayName": "Secondary label", "purpose": "Navigation groups and secondary context." },
+      "code": {
+        "displayName": "Code text",
+        "purpose": "Exact syntax-coloured source in copyable code panels; inherits the selected face, with SkribblePlayful as the default."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "draw-duration",
+        "value": "650ms",
+        "purpose": "WiredDraw decorative reveal; respects platform reduced motion and local opt-out."
+      },
+      {
+        "name": "draw-curve",
+        "value": "Curves.easeInOutCubic",
+        "purpose": "Flutter's drawing curve; not a CSS token."
+      },
+      { "name": "pressure-duration", "value": "120ms", "purpose": "Restrained default button ink response." },
+      { "name": "redraw-duration", "value": "360ms", "purpose": "Intentional button re-inking." },
+      { "name": "response-curve", "value": "Curves.easeOutCubic", "purpose": "Flutter button ink response curve." },
+      {
+        "name": "anchor-scroll",
+        "value": "220ms",
+        "purpose": "Section navigation; zero duration when platform animations are disabled."
+      }
+    ],
+    "breakpoints": [
+      { "name": "paired-font-specimens", "value": "560px" },
+      { "name": "narrow-display", "value": "650px" },
+      { "name": "persistent-navigation", "value": "1050px" },
+      { "name": "table-of-contents", "value": "1440px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Filled action",
+      "kind": "button",
+      "refersTo": "button-filled",
+      "description": "Coral live action. This HTML is an illustrative translation; Flutter owns seeded rough geometry, sizing, and ink redraw.",
+      "html": "<button class=\"ds-filled\">Keep this little idea</button>",
+      "css": ".ds-filled{font-family:SkribblePlayful,cursive;color:#34283f;background:#e87960;border:2.4px solid #34283f;padding:12px 20px;font-size:14px;cursor:pointer}.ds-filled:hover{border-width:3px}.ds-filled:focus-visible{outline:2px solid #34283f;outline-offset:4px}.ds-filled:active{border-width:3px}"
+    },
+    {
+      "name": "Outlined action",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Wired outline action; preview illustrates ink hierarchy, not the seeded painter.",
+      "html": "<button class=\"ds-outline\">Replay the drawing</button>",
+      "css": ".ds-outline{font-family:SkribblePlayful,cursive;color:#34283f;background:transparent;border:2.4px solid #34283f;padding:12px 20px;font-size:14px;cursor:pointer}.ds-outline:hover{border-width:3px}.ds-outline:focus-visible{outline:2px solid #34283f;outline-offset:4px}.ds-outline:active{border-width:3px}"
+    },
+    {
+      "name": "Text action",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "WiredTextButton keeps its underline in widget examples. Documentation copy actions use the quiet DocsAction treatment instead.",
+      "html": "<button class=\"ds-text\">Text action</button>",
+      "css": ".ds-text{font-family:SkribblePlayful,cursive;color:#34283f;background:transparent;border:0;border-bottom:2.4px solid #34283f;padding:8px 12px;font-size:14px;cursor:pointer}.ds-text:hover{text-decoration:underline}.ds-text:focus-visible{outline:2px solid #34283f;outline-offset:4px}.ds-text:active{border-bottom-width:3px}"
+    },
+    {
+      "name": "Page search",
+      "kind": "input",
+      "refersTo": "search",
+      "description": "Single ink rectangle with a legible hint and stronger focus stroke; Flutter supplies rough geometry.",
+      "html": "<input class=\"ds-search\" aria-label=\"Find a documentation page\" placeholder=\"Find a page…\">",
+      "css": ".ds-search{font-family:SkribblePlayful,cursive;background:#fffaf0;color:#34283f;border:2.4px solid #34283f;border-radius:0;padding:14px 12px;font-size:16px;max-width:100%}.ds-search::placeholder{color:#796c7a;opacity:1}.ds-search:hover{cursor:text}.ds-search:focus-visible{outline:0;border-width:3px}"
+    },
+    {
+      "name": "Selected navigation",
+      "kind": "nav",
+      "refersTo": "navigation-selected",
+      "description": "Quiet page links have no permanent underline. Selection, hover, and keyboard focus use rough paper fields; this HTML approximates the Flutter painter.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Documentation\"><a href=\"#welcome\" aria-current=\"page\">Hello, Skribble</a><a href=\"#start\">Getting started</a></nav>",
+      "css": ".ds-nav{font-family:SkribblePlayful,cursive;font-size:13px}.ds-nav a{display:flex;align-items:center;min-height:44px;box-sizing:border-box;color:#34283f;padding:9px 12px;text-decoration:none;border-radius:8px}.ds-nav a:hover{background:#eee9f0}.ds-nav a[aria-current]{background:#f6dfd5}.ds-nav a:focus-visible{outline:1.5px solid #34283f;outline-offset:-1.5px}"
+    },
+    {
+      "name": "Hatched card",
+      "kind": "card",
+      "description": "Illustrates a WiredCard's optional hachure. Local golden note colour is example-specific; Flutter uses actual seeded rough lines.",
+      "html": "<article class=\"ds-card\"><strong>A tiny plan for today</strong><p>Leave a little room for the unexpected.</p></article>",
+      "css": ".ds-card{font-family:SkribblePlayful,cursive;color:#34283f;border:2.4px solid #6a4e25;padding:22px;background:repeating-linear-gradient(135deg,transparent 0 5px,#eadbb6 5px 6px),#fffaf0}.ds-card strong{font-size:22px}.ds-card p{font-size:14px;line-height:1.65}"
+    },
+    {
+      "name": "Source panel",
+      "kind": "custom",
+      "refersTo": "code-block",
+      "description": "Rough code-paper panel with syntax colour and an independent quiet Copy code action. This preview approximates the painter; Flutter preserves exact source for selection and copying.",
+      "html": "<section class=\"ds-code\"><button type=\"button\">Copy code</button><pre>Text(<span class=\"ds-string\">'Make something lovely'</span>);</pre></section>",
+      "css": ".ds-code{background:#eee9f0;color:#34283f;border-radius:8px;padding:18px;font-family:SkribblePlayful,cursive}.ds-code button{display:block;min-height:44px;padding:9px 12px;margin-left:auto;color:#34283f;background:transparent;border:0;border-radius:8px;font:inherit;cursor:pointer}.ds-code button:hover{background:#eee9f0}.ds-code button:focus-visible{outline:1.5px solid #34283f;outline-offset:-1.5px}.ds-code pre{font-family:inherit;font-size:14px;line-height:1.7;overflow-x:auto}.ds-string{color:#35634b}"
+    },
+    {
+      "name": "Roughness toolbar",
+      "kind": "custom",
+      "description": "Gentle, Playful, and Expressive cascade through inherited lettering and rough geometry. Playful starts selected. HTML illustrates choice styling; Flutter owns switching and seeded outlines.",
+      "html": "<div class=\"ds-presets\" aria-label=\"Roughness\"><button>Gentle</button><button aria-pressed=\"true\">Playful</button><button>Expressive</button></div>",
+      "css": ".ds-presets{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;font-family:SkribblePlayful,cursive}.ds-presets button{font:inherit;font-size:13px;min-height:44px;padding:9px 12px;border:0;border-radius:8px;background:transparent;color:#34283f;cursor:pointer}.ds-presets button:hover{background:#eee9f0}.ds-presets button[aria-pressed=true]{background:#f6dfd5}.ds-presets button:focus-visible{outline:1.5px solid #34283f;outline-offset:-1.5px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A little ink. A lot of possibility.",
+    "overview": "The documentation is a working expression of the Wired identity: warm paper, hand-lettered plum text, rough outlines, restrained marker overlap, and coloured hatching. Playful is the default. The toolbar offers Gentle, Playful, and Expressive, changing inherited lettering and rough geometry throughout the site.\n\nReading space stays calm around the interactive ink. Examples use compiled Wired controls with typed edits and matching source. Paired Casual and Linear font specimens share a multiline editor and comparison controls. The binding product constraints are readable, selectable documentation on phones and desktops, keyboard navigation, accessible controls, and reduced-motion support; see [PRODUCT.md](PRODUCT.md).",
+    "keyCharacteristics": [
+      "Warm paper and dark plum ink.",
+      "Playful lettering and seed-stable rough geometry.",
+      "Colour and hatching on working examples.",
+      "Open reading space with compact navigation.",
+      "Ink motion that preserves content and state."
+    ],
+    "rules": [
+      {
+        "name": "The Opaque Label Rule",
+        "body": "Filled actions keep an opaque backing under their text throughout decorative redraw.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading Space Rule",
+        "body": "Preserve reading width, selectable text, and visible focus when adapting the shell to another viewport.",
+        "section": "layout"
+      },
+      {
+        "name": "The Content Stays Rule",
+        "body": "Re-inking must not reset local choices, remove readable content, or change layout.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do use the selected preset's bundled lettering and Wired painters together, starting with Playful.",
+      "Do retain slight marker overlap and coloured hatching where the component uses them.",
+      "Do keep filled action text backed by opaque colour during redraw.",
+      "Do preserve ordinary selection, accessible labels, keyboard focus, and reduced-motion behavior.",
+      "Do scope example palettes through the local Wired theme."
+    ],
+    "donts": [
+      "Don't replace the Wired identity with generic rounded controls or an invented shadow scale.",
+      "Don't treat a home example's composition or palette as mandatory for all documentation pages.",
+      "Don't create extra rendered blank lines to separate copied paragraphs.",
+      "Don't reset interactive choices when replaying decorative ink."
+    ]
+  }
+}

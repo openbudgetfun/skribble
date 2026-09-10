@@ -291,7 +291,7 @@ in
         set -e
         cd "$DEVENV_ROOT/docs/site"
         dart pub get
-        dart run jaspr_cli:jaspr serve $@
+        flutter run -d web-server "$@"
       '';
       description = "Serve the docs site locally.";
       binary = "bash";
@@ -301,7 +301,8 @@ in
         set -e
         cd "$DEVENV_ROOT/docs/site"
         dart pub get
-        dart run jaspr_cli:jaspr build $@
+        flutter build web --release --no-web-resources-cdn --no-tree-shake-icons --pwa-strategy=none "$@"
+        dart run tool/prepare_pages.dart
       '';
       description = "Build static docs output for GitHub Pages.";
       binary = "bash";

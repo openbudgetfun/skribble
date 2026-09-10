@@ -14,32 +14,29 @@ Skribble provides feedback widgets that communicate status, confirmations, and p
 A dialog with a hand-drawn rectangle border drawn behind the content. Uses Flutter's `Dialog` widget internally.
 
 ```dart
-showDialog(
-  context: context,
-  builder: (context) => WiredDialog(
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text('Are you sure?'),
-        SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+// Live example: dialog
+Builder(
+  builder: (context) => WiredButton(
+    child: const Text('Open a little dialog'),
+    onPressed: () => showGeneralDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: 'Close dialog',
+      pageBuilder: (context, animation, secondaryAnimation) => WiredDialog(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
+            Text('Make something lovely'),
             WiredTextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
-            ),
-            SizedBox(width: 8),
-            WiredButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text('Confirm'),
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Lovely'),
             ),
           ],
         ),
-      ],
+      ),
     ),
   ),
-);
+)
 ```
 
 ### Constructor parameters
@@ -62,24 +59,11 @@ showDialog(
 A snack bar content wrapper with a hand-drawn border and solid fill. The `showWiredSnackBar` helper function displays it via `ScaffoldMessenger`.
 
 ```dart
-// Using the helper function
-showWiredSnackBar(
-  context,
-  content: WiredSnackBarContent(
-    child: Text('Item saved successfully'),
-    action: WiredTextButton(
-      onPressed: () {},
-      child: Text('Undo'),
-    ),
-  ),
-);
-
-// Or build it manually
-showWiredSnackBar(
-  context,
-  content: Text('Simple message'),
-  duration: Duration(seconds: 3),
-);
+// Live example: snack-bar-content
+WiredSnackBarContent(
+  action: WiredTextButton(onPressed: () {}, child: const Text('Undo')),
+  child: Text('Make something lovely'),
+)
 ```
 
 ### showWiredSnackBar parameters
@@ -110,11 +94,12 @@ showWiredSnackBar(
 A tooltip with a hand-drawn rectangle border. Wraps Flutter's `Tooltip` widget with sketchy decoration.
 
 ```dart
+// Live example: tooltip
 WiredTooltip(
-  message: 'Add to favorites',
-  child: WiredIconButton(
-    icon: Icons.favorite_border,
-    onPressed: () {},
+  message: 'Make something lovely',
+  child: const Padding(
+    padding: EdgeInsets.all(16),
+    child: Text('Hover or long press here'),
   ),
 )
 ```
@@ -140,17 +125,15 @@ WiredTooltip(
 A hand-drawn linear progress bar. Renders a sketchy rectangle track with a hachure-filled progress region that animates via an `AnimationController`.
 
 ```dart
-// In a HookWidget:
-final controller = useAnimationController(
-  duration: Duration(seconds: 2),
-);
-
-// Start the animation
-controller.forward();
-
-WiredProgress(
-  controller: controller,
-  value: 0.0, // Starting value
+// Live example: progress
+HookBuilder(
+  builder: (context) {
+    final controller = useAnimationController(
+      duration: const Duration(milliseconds: 600),
+      initialValue: 1,
+    );
+    return WiredProgress(controller: controller, value: .6);
+  },
 )
 ```
 
@@ -175,15 +158,8 @@ WiredProgress(
 A circular progress indicator with a hand-drawn arc and background circle. Supports both determinate and indeterminate modes.
 
 ```dart
-// Indeterminate (spinner)
-WiredCircularProgress()
-
-// Determinate (specific progress)
-WiredCircularProgress(
-  value: 0.65,
-  size: 64,
-  strokeWidth: 4,
-)
+// Live example: circular-progress
+WiredCircularProgress(value: .6)
 ```
 
 ### Constructor parameters
@@ -207,17 +183,11 @@ WiredCircularProgress(
 A badge overlay that positions a hand-drawn circle indicator at the top-right corner of its child. Supports optional text labels.
 
 ```dart
+// Live example: badge
 WiredBadge(
   label: '3',
-  child: WiredIconButton(
-    icon: Icons.notifications,
-    onPressed: () {},
-  ),
-)
-
-// Dot badge (no label)
-WiredBadge(
-  child: WiredIcon(icon: Icons.mail),
+  isVisible: true,
+  child: const Padding(padding: EdgeInsets.all(16), child: Text('New ideas')),
 )
 ```
 
@@ -243,18 +213,28 @@ WiredBadge(
 A bottom sheet with a hand-drawn top border. Can be shown as a modal or persistent sheet.
 
 ```dart
-showModalBottomSheet(
-  context: context,
-  builder: (context) => WiredBottomSheet(
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        WiredListTile(title: Text('Option 1'), onTap: () {}),
-        WiredListTile(title: Text('Option 2'), onTap: () {}),
-      ],
+// Live example: bottom-sheet
+Builder(
+  builder: (context) => WiredButton(
+    onPressed: () => showWiredBottomSheet<void>(
+      context: context,
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Make something lovely'),
+            WiredTextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Done'),
+            ),
+          ],
+        ),
+      ),
     ),
+    child: const Text('Open the sheet'),
   ),
-);
+)
 ```
 
 ---
@@ -264,15 +244,17 @@ showModalBottomSheet(
 An about dialog with a hand-drawn border, application icon, and version info. The `showWiredAboutDialog` helper function displays it.
 
 ```dart
-showWiredAboutDialog(
-  context: context,
-  applicationName: 'My Sketchy App',
-  applicationVersion: '1.0.0',
-  applicationIcon: WiredIcon(icon: Icons.draw, size: 48),
-  children: [
-    Text('A hand-drawn Flutter application.'),
-  ],
-);
+// Live example: about-dialog
+Builder(
+  builder: (context) => WiredButton(
+    onPressed: () => showWiredAboutDialog(
+      context: context,
+      applicationName: 'Make something lovely',
+      applicationVersion: '1.0',
+    ),
+    child: const Text('About this sketchbook'),
+  ),
+)
 ```
 
 ---
@@ -282,17 +264,13 @@ showWiredAboutDialog(
 A hand-drawn license page listing the open source packages the app uses, analogous to Material's `LicensePage`. Data is read from `LicenseRegistry` (each entry contributes its paragraphs to every package it names), so the page reflects the same license inventory as Material's page. Each package renders as a rough-bordered header with its license paragraphs beneath a hand-drawn divider.
 
 ```dart
-showWiredLicensePage(
-  context: context,
-  applicationName: 'My Sketchy App',
-  applicationVersion: '1.0.0',
-);
-
-// Or embed the page directly (e.g. inside a tab):
-WiredLicensePage(
-  applicationName: 'My Sketchy App',
-  applicationVersion: '1.0.0',
-  applicationIcon: WiredIcon(icon: Icons.draw, size: 48),
+// Live example: license-page
+Builder(
+  builder: (context) => WiredButton(
+    onPressed: () =>
+        showWiredLicensePage(context: context, applicationName: 'Make something lovely'),
+    child: const Text('Read the licenses'),
+  ),
 )
 ```
 
@@ -320,13 +298,16 @@ Also exported: `loadWiredLicenses()` and `WiredLicenseLibrary` for callers that 
 A context menu with hand-drawn borders, triggered by long-press or right-click. Menu items appear in a sketchy bordered overlay.
 
 ```dart
+// Live example: context-menu
 WiredContextMenu(
-  items: [
-    WiredContextMenuItem(title: 'Copy', onTap: () => copy()),
-    WiredContextMenuItem(title: 'Paste', onTap: () => paste()),
-    WiredContextMenuItem(title: 'Delete', onTap: () => delete()),
+  actions: [
+    WiredContextMenuAction(label: 'Save', onPressed: () {}),
+    WiredContextMenuAction(label: 'Share', onPressed: () {}),
   ],
-  child: Text('Right-click or long-press me'),
+  child: Padding(
+    padding: const EdgeInsets.all(24),
+    child: Text('Make something lovely'),
+  ),
 )
 ```
 
@@ -337,15 +318,30 @@ WiredContextMenu(
 A hand-drawn wrapper around Flutter's `AnimatedIcon`. Applies Skribble theming to animated icon transitions.
 
 ```dart
-// In a HookWidget:
-final controller = useAnimationController(
-  duration: Duration(milliseconds: 300),
-);
-
-WiredAnimatedIcon(
-  icon: AnimatedIcons.menu_arrow,
-  progress: controller,
-  size: 24,
+// Live example: animated-icon
+HookBuilder(
+  builder: (context) {
+    final controller = useAnimationController(
+      duration: const Duration(milliseconds: 350),
+    );
+    final open = useState(false);
+    return WiredButton(
+      onPressed: () {
+        open.value = !open.value;
+        if (MediaQuery.disableAnimationsOf(context)) {
+          controller.value = open.value ? 1 : 0;
+        } else if (open.value) {
+          controller.forward();
+        } else {
+          controller.reverse();
+        }
+      },
+      child: WiredAnimatedIcon.menuClose(
+        progress: controller,
+        semanticLabel: open.value ? 'Close' : 'Open menu',
+      ),
+    );
+  },
 )
 ```
 
@@ -367,21 +363,27 @@ WiredAnimatedIcon(
 A banner with a hand-drawn border displayed at the top of the scaffold. Contains a message and action buttons.
 
 ```dart
-ScaffoldMessenger.of(context).showMaterialBanner(
-  WiredMaterialBanner(
-    content: Text('New version available'),
-    actions: [
-      WiredTextButton(
-        onPressed: () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
-        child: Text('Dismiss'),
-      ),
-      WiredButton(
-        onPressed: () => updateApp(),
-        child: Text('Update'),
-      ),
-    ],
-  ),
-);
+// Live example: material-banner
+HookBuilder(
+  builder: (context) {
+    final visible = useState(true);
+    return visible.value
+        ? WiredMaterialBanner(
+            content: Text('Make something lovely'),
+            backgroundColor: const Color(0xffdde4c9),
+            actions: [
+              WiredTextButton(
+                onPressed: () => visible.value = false,
+                child: const Text('Got it'),
+              ),
+            ],
+          )
+        : WiredTextButton(
+            onPressed: () => visible.value = true,
+            child: const Text('Show banner'),
+          );
+  },
+)
 ```
 
 ---
@@ -391,26 +393,28 @@ ScaffoldMessenger.of(context).showMaterialBanner(
 A Cupertino-style alert dialog with hand-drawn borders. Mirrors the `CupertinoAlertDialog` API with sketchy styling.
 
 ```dart
-showCupertinoDialog(
-  context: context,
-  builder: (context) => WiredCupertinoAlertDialog(
-    title: Text('Delete Item?'),
-    content: Text('This action cannot be undone.'),
-    actions: [
-      WiredCupertinoButton(
-        onPressed: () => Navigator.pop(context),
-        child: Text('Cancel'),
-      ),
-      WiredCupertinoButton(
-        onPressed: () {
-          deleteItem();
-          Navigator.pop(context);
-        },
-        child: Text('Delete'),
-      ),
-    ],
+// Live example: cupertino-alert-dialog
+Builder(
+  builder: (context) => WiredButton(
+    child: const Text('Show an alert'),
+    onPressed: () => showGeneralDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: 'Close alert',
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          WiredCupertinoAlertDialog(
+            title: Text('Make something lovely'),
+            content: const Text('Your sketch is ready to keep.'),
+            actions: [
+              WiredCupertinoDialogAction(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Keep it'),
+              ),
+            ],
+          ),
+    ),
   ),
-);
+)
 ```
 
 ---
@@ -420,26 +424,33 @@ showCupertinoDialog(
 A Cupertino-style action sheet with hand-drawn borders. Slides up from the bottom of the screen.
 
 ```dart
-showCupertinoModalPopup(
-  context: context,
-  builder: (context) => WiredCupertinoActionSheet(
-    title: Text('Choose an option'),
-    actions: [
-      WiredCupertinoButton(
-        onPressed: () => Navigator.pop(context, 'camera'),
-        child: Text('Take Photo'),
+// Live example: cupertino-action-sheet
+Builder(
+  builder: (context) => WiredButton(
+    child: const Text('Choose what happens next'),
+    onPressed: () => showGeneralDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: 'Close actions',
+      pageBuilder: (context, animation, secondaryAnimation) => Align(
+        alignment: Alignment.bottomCenter,
+        child: WiredCupertinoActionSheet(
+          title: Text('Make something lovely'),
+          actions: [
+            WiredCupertinoActionSheetAction(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Save the sketch'),
+            ),
+          ],
+          cancelButton: WiredCupertinoActionSheetAction(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel'),
+          ),
+        ),
       ),
-      WiredCupertinoButton(
-        onPressed: () => Navigator.pop(context, 'gallery'),
-        child: Text('Choose from Gallery'),
-      ),
-    ],
-    cancelButton: WiredCupertinoButton(
-      onPressed: () => Navigator.pop(context),
-      child: Text('Cancel'),
     ),
   ),
-);
+)
 ```
 
 <!-- {=docsWidgetInkSection} -->

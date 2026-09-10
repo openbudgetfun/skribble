@@ -1,6 +1,6 @@
 # skribble_font_roughen
 
-Creates a digitally hand-lettered derivative of **Recursive Casual**. The bundled Skribble family includes Regular, Bold, Italic, and Bold Italic, generated from the corresponding static Recursive Sans Casual styles. It retains the source's character coverage, spacing, and shaping features.
+Creates digitally hand-lettered derivatives of **Recursive Sans Casual, Sans Linear, and Mono Linear**. Every bundled typeface includes Regular (400), Bold (700), Italic (400), and Bold Italic (700), generated from the corresponding static Recursive styles. It retains the source's character coverage, spacing, and shaping features.
 
 The generator modifies the actual TrueType `glyf` outlines, including compound glyphs. It applies a gentle continuous displacement and a small glyph-dependent tilt. Moving neighboring points together keeps counters open and curves readable; independently scattering points produces broken joins and noisy letters.
 
@@ -14,7 +14,7 @@ dart run packages/skribble_font_roughen/bin/roughen_fonts.dart --check
 dart run tool/font_specimen.dart
 ```
 
-The first command writes all four styles to the package, tool, and storybook font directories. `--check` regenerates in memory and fails if any bundled copy differs. Each style has 1,297 nonempty outlined glyphs; empty glyphs such as spaces remain empty. The HTML specimens are saved under `.screenshots/font/`. Open them in a browser and inspect the rendered fonts at 12–48 px.
+The first command writes all 36 faces (three typefaces × three roughness levels × four styles) to the package font directory. Legacy Expressive Casual copies also stay synchronized in the tool and storybook directories. `--check` regenerates in memory and fails if any bundled copy differs. Each style has 1,297 nonempty outlined glyphs; empty glyphs such as spaces remain empty. The HTML specimens are saved under `.screenshots/font/`. Open them in a browser and inspect the rendered fonts at 12–48 px.
 
 ## Roughen another static TrueType font
 

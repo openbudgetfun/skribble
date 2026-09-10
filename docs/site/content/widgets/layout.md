@@ -14,18 +14,10 @@ Skribble provides layout and structural widgets that form the scaffolding of you
 A card with a hand-drawn rectangle border. Supports optional hachure fill for a more prominent appearance.
 
 ```dart
-WiredCard(
-  child: Padding(
-    padding: EdgeInsets.all(16),
-    child: Text('Card content'),
-  ),
-)
-
-// Filled card
+// Live example: card
 WiredCard(
   fill: true,
-  height: 200,
-  child: Center(child: Text('Filled card')),
+  child: Center(child: Text('Make something lovely')),
 )
 ```
 
@@ -51,22 +43,13 @@ WiredCard(
 A horizontally scrolling hand-drawn carousel of rough-bordered cards, analogous to Material 3's `CarouselView`. Each item is drawn with a sketchy rough rounded-rectangle border reading `theme.fillColor` / `theme.borderColor`, with optional hachure fill.
 
 ```dart
+// Live example: carousel-view
 WiredCarouselView(
-  itemExtent: 200,
-  height: 180,
-  onTap: (index) => debugPrint('Tapped item $index'),
+  borderRadius: BorderRadius.circular(8),
   children: [
-    Center(child: Text('Item 1')),
-    Center(child: Text('Item 2')),
+    for (final label in ['Little plans', 'Bright ideas', 'Happy accidents'])
+      Center(child: Text(label)),
   ],
-)
-
-// Items with hachure background fill
-WiredCarouselView(
-  itemExtent: 180,
-  height: 130,
-  fill: true,
-  children: [Center(child: Text('A'))],
 )
 ```
 
@@ -98,13 +81,8 @@ WiredCarouselView(
 A hand-drawn horizontal divider line. Renders a sketchy line spanning the full width of its parent.
 
 ```dart
-Column(
-  children: [
-    WiredListTile(title: Text('Item 1')),
-    WiredDivider(),
-    WiredListTile(title: Text('Item 2')),
-  ],
-)
+// Live example: divider
+const WiredDivider()
 ```
 
 ### Constructor parameters
@@ -124,12 +102,12 @@ None. `WiredDivider` has no configurable parameters beyond the inherited `key`.
 A list tile with a hand-drawn separator line at the bottom. Supports leading, title, subtitle, and trailing widgets.
 
 ```dart
+// Live example: list-tile
 WiredListTile(
-  leading: WiredAvatar(radius: 20, child: Text('A')),
-  title: Text('Alice Johnson'),
-  subtitle: Text('alice@example.com'),
-  trailing: WiredIconButton(icon: Icons.chevron_right, onPressed: () {}),
-  onTap: () => navigateToProfile(),
+  title: Text('Make something lovely'),
+  subtitle: const Text('A little note for later'),
+  showDivider: false,
+  onTap: true ? () {} : null,
 )
 ```
 
@@ -157,13 +135,13 @@ WiredListTile(
 An expansion tile with a hand-drawn border that expands to reveal child content. The expand/collapse arrow animates on tap.
 
 ```dart
+// Live example: expansion-tile
 WiredExpansionTile(
-  title: Text('Advanced Settings'),
-  children: [
-    WiredSwitchListTile(
-      title: Text('Debug mode'),
-      value: debugMode,
-      onChanged: (v) => setState(() => debugMode = v),
+  title: Text('Make something lovely'),
+  children: const [
+    Padding(
+      padding: EdgeInsets.all(20),
+      child: Text('A small surprise tucked inside.'),
     ),
   ],
 )
@@ -176,23 +154,15 @@ WiredExpansionTile(
 A data table with hand-drawn column headers and row borders. Each cell is separated by sketchy lines.
 
 ```dart
-WiredDataTable(
+// Live example: data-table
+const WiredDataTable(
   columns: [
-    DataColumn(label: Text('Name')),
-    DataColumn(label: Text('Age')),
-    DataColumn(label: Text('Role')),
+    WiredDataColumn(label: Text('Sketch')),
+    WiredDataColumn(label: Text('Status')),
   ],
   rows: [
-    DataRow(cells: [
-      DataCell(Text('Alice')),
-      DataCell(Text('30')),
-      DataCell(Text('Engineer')),
-    ]),
-    DataRow(cells: [
-      DataCell(Text('Bob')),
-      DataCell(Text('25')),
-      DataCell(Text('Designer')),
-    ]),
+    WiredDataRow(cells: [Text('Paper boats'), Text('Ready')]),
+    WiredDataRow(cells: [Text('Tiny gardens'), Text('Growing')]),
   ],
 )
 ```
@@ -204,15 +174,23 @@ WiredDataTable(
 A step-by-step wizard with hand-drawn circles for step indicators and sketchy connecting lines.
 
 ```dart
-WiredStepper(
-  currentStep: currentStep,
-  onStepContinue: () => setState(() => currentStep++),
-  onStepCancel: () => setState(() => currentStep--),
-  steps: [
-    Step(title: Text('Account'), content: Text('Create your account')),
-    Step(title: Text('Profile'), content: Text('Set up your profile')),
-    Step(title: Text('Done'), content: Text('All set!')),
-  ],
+// Live example: stepper
+HookBuilder(
+  builder: (context) {
+    final current = useState(0);
+    return WiredStepper(
+      currentStep: current.value,
+      onStepTapped: (index) => current.value = index,
+      steps: const [
+        WiredStep(
+          title: Text('Imagine'),
+          content: Text('Start with a small idea.'),
+        ),
+        WiredStep(title: Text('Make'), content: Text('Give it a little ink.')),
+        WiredStep(title: Text('Share'), content: Text('Let someone try it.')),
+      ],
+    );
+  },
 )
 ```
 
@@ -223,9 +201,18 @@ WiredStepper(
 A standalone calendar widget with hand-drawn day cells and month navigation. Days are rendered within sketchy rectangle cells.
 
 ```dart
-WiredCalendar(
-  selectedDate: selectedDate,
-  onDateSelected: (date) => setState(() => selectedDate = date),
+// Live example: calendar
+HookBuilder(
+  builder: (context) {
+    final selected = useState('2026-09-09');
+    return SizedBox(
+      height: 360,
+      child: WiredCalendar(
+        selected: selected.value,
+        onSelected: (date) => selected.value = date,
+      ),
+    );
+  },
 )
 ```
 
@@ -236,13 +223,28 @@ WiredCalendar(
 A scrollbar with a hand-drawn track and thumb. Wraps Flutter's `Scrollbar` with sketchy styling.
 
 ```dart
-WiredScrollbar(
-  child: ListView.builder(
-    itemCount: 100,
-    itemBuilder: (context, index) => WiredListTile(
-      title: Text('Item $index'),
-    ),
-  ),
+// Live example: scrollbar
+HookBuilder(
+  builder: (context) {
+    final controller = useScrollController();
+    return SizedBox(
+      height: 180,
+      child: WiredScrollbar(
+        controller: controller,
+        thumbVisibility: true,
+        child: ListView(
+          controller: controller,
+          children: [
+            for (var index = 0; index < 15; index++)
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text('Little idea ${index + 1}'),
+              ),
+          ],
+        ),
+      ),
+    );
+  },
 )
 ```
 
@@ -253,26 +255,13 @@ WiredScrollbar(
 A Material `Scaffold` wrapper tuned for Skribble's paper-like palette. Provides the familiar scaffold API with hand-drawn theme integration.
 
 ```dart
-WiredScaffold(
-  appBar: WiredAppBar(title: Text('My App')),
-  body: Center(child: Text('Hello, Skribble!')),
-  floatingActionButton: WiredFloatingActionButton(
-    icon: Icons.add,
-    onPressed: () {},
-  ),
-  drawer: WiredDrawer(
-    child: ListView(
-      children: [
-        WiredDrawerHeader(child: Text('Menu')),
-        WiredListTile(title: Text('Home')),
-      ],
-    ),
-  ),
-  bottomNavigationBar: WiredBottomNavigationBar(
-    items: [
-      WiredBottomNavItem(icon: Icons.home, label: 'Home'),
-      WiredBottomNavItem(icon: Icons.settings, label: 'Settings'),
-    ],
+// Live example: scaffold
+SizedBox(
+  height: 240,
+  child: WiredScaffold(
+    backgroundColor: const Color(0xffeef1df),
+    appBar: const WiredAppBar(title: Text('A little sketchbook')),
+    body: Center(child: Text('Make something lovely')),
   ),
 )
 ```
@@ -313,20 +302,24 @@ WiredScaffold(
 A reorderable list with hand-drawn drag handles and separator lines. Items can be dragged to reorder.
 
 ```dart
-WiredReorderableListView(
-  onReorder: (oldIndex, newIndex) {
-    setState(() {
-      final item = items.removeAt(oldIndex);
-      items.insert(newIndex > oldIndex ? newIndex - 1 : newIndex, item);
-    });
-  },
-  children: [
-    for (final item in items)
-      WiredListTile(
-        key: ValueKey(item.id),
-        title: Text(item.name),
+// Live example: reorderable-list-view
+HookBuilder(
+  builder: (context) {
+    final items = useState(['Paper', 'Ink', 'Possibility']);
+    return SizedBox(
+      height: 220,
+      child: WiredReorderableListView(
+        onReorder: (from, to) {
+          final next = List<String>.of(items.value);
+          next.insert(to > from ? to - 1 : to, next.removeAt(from));
+          items.value = next;
+        },
+        children: [
+          for (final item in items.value) Text(item, key: ValueKey(item)),
+        ],
       ),
-  ],
+    );
+  },
 )
 ```
 
@@ -337,10 +330,25 @@ WiredReorderableListView(
 A dismissible wrapper with hand-drawn swipe-to-dismiss background. Shows a sketchy indicator as the user swipes.
 
 ```dart
-WiredDismissible(
-  key: ValueKey(item.id),
-  onDismissed: (direction) => removeItem(item),
-  child: WiredListTile(title: Text(item.name)),
+// Live example: dismissible
+HookBuilder(
+  builder: (context) {
+    final visible = useState(true);
+    return visible.value
+        ? WiredDismissible(
+            dismissKey: const ValueKey('sketch'),
+            onDismissed: (direction) => visible.value = false,
+            child: WiredListTile(
+              title: Text('Make something lovely'),
+              subtitle: const Text('Swipe to put this away'),
+              showDivider: false,
+            ),
+          )
+        : WiredTextButton(
+            onPressed: () => visible.value = true,
+            child: const Text('Bring it back'),
+          );
+  },
 )
 ```
 
@@ -351,7 +359,8 @@ WiredDismissible(
 Selectable text rendered with Skribble's text color from the theme. Allows copy-paste of displayed text.
 
 ```dart
-WiredSelectableText('This text can be selected and copied.')
+// Live example: selectable-text
+WiredSelectableText('Make something lovely')
 ```
 
 ---
@@ -361,15 +370,10 @@ WiredSelectableText('This text can be selected and copied.')
 A drawer header area with a hand-drawn bottom border. Typically placed at the top of a `WiredDrawer`.
 
 ```dart
-WiredDrawerHeader(
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      WiredAvatar(radius: 30, child: Text('S')),
-      SizedBox(height: 8),
-      Text('Skribble App'),
-    ],
-  ),
+// Live example: drawer-header
+SizedBox(
+  height: 180,
+  child: WiredDrawerHeader(child: Text('Make something lovely')),
 )
 ```
 
@@ -380,13 +384,11 @@ WiredDrawerHeader(
 A drawer header with account info: avatar, name, and email. Displays a hand-drawn border and themed background.
 
 ```dart
+// Live example: user-accounts-drawer-header
 WiredUserAccountsDrawerHeader(
-  accountName: Text('Jane Doe'),
-  accountEmail: Text('jane@example.com'),
-  currentAccountPicture: WiredAvatar(
-    radius: 36,
-    backgroundImage: NetworkImage('https://example.com/avatar.jpg'),
-  ),
+  accountName: Text('Make something lovely'),
+  accountEmail: const Text('hello@example.com'),
+  currentAccountPicture: const WiredAvatar(child: Text('SK')),
 )
 ```
 
@@ -397,22 +399,11 @@ WiredUserAccountsDrawerHeader(
 A hand-drawn circular avatar. Displays an image, icon, or initials inside a sketchy circle border with optional hachure fill.
 
 ```dart
-// With initials
-WiredAvatar(
-  radius: 24,
-  child: Text('JD'),
-)
-
-// With image
-WiredAvatar(
-  radius: 24,
-  backgroundImage: NetworkImage('https://example.com/photo.jpg'),
-)
-
-// With icon fallback
-WiredAvatar(
-  radius: 20,
-  child: Icon(Icons.person),
+// Live example: avatar
+const WiredAvatar(
+  radius: 32,
+  backgroundColor: Color(0xffe8b59e),
+  child: Text('SK'),
 )
 ```
 
@@ -443,11 +434,15 @@ WiredAvatar(
 A Cupertino page scaffold with hand-drawn navigation bar and paper-like background. Mirrors the `CupertinoPageScaffold` API.
 
 ```dart
-WiredPageScaffold(
-  navigationBar: WiredCupertinoNavigationBar(
-    middle: Text('Page'),
+// Live example: page-scaffold
+SizedBox(
+  height: 240,
+  child: WiredPageScaffold(
+    navigationBar: const WiredCupertinoNavigationBar(
+      middle: Text('Little notes'),
+    ),
+    child: Center(child: Text('Make something lovely')),
   ),
-  child: Center(child: Text('Cupertino page content')),
 )
 ```
 
@@ -458,16 +453,24 @@ WiredPageScaffold(
 A Cupertino tab scaffold with a hand-drawn tab bar and page switching. Mirrors the `CupertinoTabScaffold` API.
 
 ```dart
-WiredTabScaffold(
-  tabBar: WiredCupertinoTabBar(
-    items: [
-      BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-      BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+// Live example: tab-scaffold
+SizedBox(
+  height: 240,
+  child: WiredTabScaffold(
+    tabs: const [
+      WiredTabItem(
+        icon: IconData(0xe318, fontFamily: 'MaterialIcons'),
+        label: 'Home',
+      ),
+      WiredTabItem(
+        icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),
+        label: 'Saved',
+      ),
     ],
+    tabBuilder: (context, index) => Center(
+      child: Text(index == 0 ? 'A fresh page' : 'Your favourite sketches'),
+    ),
   ),
-  tabBuilder: (context, index) {
-    return Center(child: Text('Tab $index'));
-  },
 )
 ```
 
@@ -478,15 +481,14 @@ WiredTabScaffold(
 A grid tile with hand-drawn borders and optional header/footer bars. Mirrors Material's `GridTile`: the child fills the tile while `header` and `footer` overlay its top and bottom edges. Tapping the tile plays a hand-drawn ink splash.
 
 ```dart
-GridView.count(
-  crossAxisCount: 2,
-  children: [
-    WiredGridTile(
-      onTap: () => print('tapped!'),
-      footer: const WiredGridTileBar(title: Text('Gallery item')),
-      child: ColoredBox(color: Colors.indigo.shade100),
-    ),
-  ],
+// Live example: grid-tile
+SizedBox(
+  height: 180,
+  child: WiredGridTile(
+    footer: WiredGridTileBar(title: Text('Make something lovely')),
+    onTap: () {},
+    child: const ColoredBox(color: Color(0xffdde4c9)),
+  ),
 )
 ```
 
@@ -507,10 +509,10 @@ GridView.count(
 A bar for use as `WiredGridTile.header` or `WiredGridTile.footer`. Mirrors Material's `GridTileBar` with a translucent strip, a rough hand-drawn edge line, and leading/title/subtitle/trailing slots.
 
 ```dart
-const WiredGridTileBar(
-  title: Text('Mountain'),
-  subtitle: Text('Footer with subtitle'),
-  leading: Icon(Icons.terrain),
+// Live example: grid-tile-bar
+WiredGridTileBar(
+  title: Text('Make something lovely'),
+  subtitle: const Text('A small caption'),
 )
 ```
 
@@ -539,27 +541,40 @@ const WiredGridTileBar(
 A vertically stacked group of slices and gaps with hand-drawn borders. Mirrors Material's `MergeableMaterial`: `WiredMaterialSlice` children render as rows inside rough-bordered cards; `WiredMaterialGap` items separate cards and animate size changes, so a gap animating to `0` merges the slices around it.
 
 ```dart
-var expanded = true;
-
-WiredMergeableMaterial(
-  hasDividers: true,
-  children: [
-    WiredMaterialSlice(
-      key: const ValueKey('a'),
-      child: Padding(
-        padding: EdgeInsets.all(16),
-        child: Text('Slice A'),
-      ),
-    ),
-    WiredMaterialGap(key: const ValueKey('gap'), size: expanded ? 64 : 0),
-    WiredMaterialSlice(
-      key: const ValueKey('b'),
-      child: Padding(
-        padding: EdgeInsets.all(16),
-        child: Text('Slice B'),
-      ),
-    ),
-  ],
+// Live example: mergeable-material
+HookBuilder(
+  builder: (context) {
+    final open = useState(false);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        WiredButton(
+          onPressed: () => open.value = !open.value,
+          child: const Text('Separate the notes'),
+        ),
+        const SizedBox(height: 12),
+        WiredMergeableMaterial(
+          children: [
+            const WiredMaterialSlice(
+              key: ValueKey('first'),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Text('A bright idea'),
+              ),
+            ),
+            if (open.value) const WiredMaterialGap(key: ValueKey('gap')),
+            const WiredMaterialSlice(
+              key: ValueKey('second'),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Text('A happy accident'),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  },
 )
 ```
 
@@ -593,3 +608,5 @@ Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 l
 Wrap a card in `WiredDraw` for a one-time outline entrance, or use `WiredDrawTransition` with a caller-owned animation. Patterned fills scribble in after the outline starts. A card with `height: null` now uses its child's natural layout directly, so responsive `LayoutBuilder` content works without intrinsic-size queries. See [Ink motion](../core/motion).
 
 The transitional `WiredExpansionPanelList` source also inherits ink reveals. Setting a panel's `canTapOnHeader` to false keeps header taps inactive and provides a labeled Wired expand button. This component remains available through its source import while its standalone API is developed.
+
+Long `WiredGridTileBar` titles and subtitles stay on one line with an ellipsis, so a narrow tile keeps room for both labels. Their full text remains available to accessibility services.

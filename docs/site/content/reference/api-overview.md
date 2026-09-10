@@ -6,6 +6,7 @@ description: High-level map of the Skribble public API — exports, key types, a
 The main library is imported via a single barrel file:
 
 ```dart
+// Static example: api
 import 'package:skribble/skribble.dart';
 ```
 
@@ -237,16 +238,19 @@ The main library depends on:
 
 ## Companion packages
 
-| Package                 | Purpose                                            |
-| ----------------------- | -------------------------------------------------- |
-| `skribble_icons`        | 30 curated hand-drawn custom icons + unified API   |
-| `skribble_emoji`        | Hand-drawn emoji from OpenMoji + WiredEmoji widget |
-| `skribble_lints`        | Shared lint rules (extends `very_good_analysis`)   |
-| `skribble_icons_custom` | Example custom icon set with SVG-manifest pipeline |
+| Package                 | Purpose                                                           |
+| ----------------------- | ----------------------------------------------------------------- |
+| `skribble_icons`        | 30 curated hand-drawn custom icons + unified API                  |
+| `skribble_emoji`        | Hand-drawn emoji from OpenMoji + WiredEmoji widget                |
+| `skribble_maps`         | MapLibre maps with hand-drawn Skribble overlays                   |
+| `skribble_charts`       | Exact OHLC data, hand-drawn charts, indicators, and drawing tools |
+| `skribble_lints`        | Shared lint rules (extends `very_good_analysis`)                  |
+| `skribble_icons_custom` | Example custom icon set with SVG-manifest pipeline                |
 
 ### skribble_icons
 
 ```dart
+// Static example: api
 import 'package:skribble_icons/skribble_icons.dart';
 ```
 
@@ -261,6 +265,7 @@ import 'package:skribble_icons/skribble_icons.dart';
 ### skribble_emoji
 
 ```dart
+// Static example: api
 import 'package:skribble_emoji/skribble_emoji.dart';
 ```
 
@@ -273,6 +278,49 @@ import 'package:skribble_emoji/skribble_emoji.dart';
 | `WiredEmoji`                     | widget                       | HookWidget for rendering hand-drawn emoji   |
 | `WiredSvgIconData`               | class                        | SVG icon data (re-exported from `skribble`) |
 
+### skribble_maps
+
+```dart
+// Static example: api
+import 'package:skribble_maps/skribble_maps.dart';
+```
+
+| Export                 | Type   | Purpose                                                     |
+| ---------------------- | ------ | ----------------------------------------------------------- |
+| `WiredMap`             | widget | MapLibre basemap with hand-drawn Flutter overlays           |
+| `WiredMapController`   | class  | Camera movement, projection, and unprojection               |
+| `WiredMapStyle`        | class  | MapLibre style string and attribution-button color          |
+| `WiredMapMarkerLayer`  | widget | Geographic placement for a small set of Flutter widgets     |
+| `WiredMapMarker`       | class  | Position, size, semantics, and interaction for one marker   |
+| `WiredMapPin`          | widget | Hand-drawn pin with a large rough category icon             |
+| `WiredMapPinIcon`      | enum   | Typed place, check-in, cafe, market, gallery, and user icon |
+| `WiredMapFeatureLayer` | widget | Precise routes and hand-hatched polygons                    |
+| `WiredMapAttribution`  | widget | Optional provider attribution badge                         |
+| `WiredMapZoomControls` | widget | Accessible hand-drawn zoom controls                         |
+
+`WiredMap` enables pan and pinch zoom by default and exposes `onTap` and `onCameraChanged`. `WiredMapMarker` and `WiredMapPin` each expose `onTap` and `onLongPress` for app-owned selection, including accessibility actions. See the [maps guide](../widgets/maps.md) for gesture arbitration inside scroll views and connecting real API data.
+
+### skribble_charts
+
+```dart
+// Static example: api
+import 'package:skribble_charts/skribble_charts.dart';
+```
+
+| Export                                                                 | Purpose                                                                      |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `WiredFinancialChart`                                                  | Candlesticks, OHLC bars, lines, areas, crosshair, and gestures               |
+| `WiredChartDecimal`, `WiredChartCandle`, `WiredChartInstrument`        | Exact prices, validated OHLCV values, and display precision                  |
+| `WiredChartController`, `WiredChartFeed`                               | Viewport, revision-aware history updates, and snapshot/live coordination     |
+| `aggregateWiredChartCandles`                                           | UTC-aligned interval aggregation                                             |
+| `WiredChartPriceTransform`, `WiredChartViewport`                       | Coordinates and linear, logarithmic, and percentage scales                   |
+| `WiredSma`, `WiredEma`, `WiredBollingerBands`, `WiredRsi`, `WiredMacd` | Indicator calculations and warmup handling                                   |
+| `WiredVolumePane`, `WiredIndicatorPane`, `WiredChartStyle`             | Pane layout and controlled hand-drawn appearance                             |
+| `WiredChartAnnotations`, `WiredChartDrawingTool`                       | Trend lines, price lines, rectangles, notes, Fibonacci levels, and undo/redo |
+| `WiredChartWorkspace`                                                  | Versioned chart settings and annotation persistence                          |
+
+Hosts own and dispose controllers and feeds. The chart owns an annotation editor only when none is supplied. See [Charts](/widgets/charts) for the live example, numeric guarantees, and supported interactions.
+
 ## API documentation
 
 Full dartdoc API reference is available at:
@@ -281,7 +329,7 @@ Full dartdoc API reference is available at:
 
 ## Hand-drawn quality additions
 
-- `WiredThemeData.inkExtent`: pen-and-wobble space for dividers; default `strokeWidth` is 2.4 and `roughness` is 1.8.
+- `WiredThemeData.inkExtent`: pen-and-wobble space for dividers; default `strokeWidth` is 2.4 and `roughness` is 1.5.
 - `WiredSvgPrimitive.path(clipPaths: ...)`: SVG clipping paths in primitive coordinates; source colors support optional alpha.
 - `kSkribbleEmojiNames`: every emoji name mapped to its complete hexadecimal sequence.
 - `lookupSkribbleEmojiBySequence(String)`: lookup by literal emoji or hexadecimal sequence.
@@ -306,3 +354,22 @@ SVG path primitives also accept `strokeDashArray`, `strokeDashOffset`, `strokeCa
 - `WiredPainterBase.prepare`: optional animation support for custom painters.
 
 See [Ink motion](../core/motion) for examples and supported components.
+
+## Selection and interaction ink
+
+- `WiredSelectionArea` enables selection across participating Flutter text widgets, with Wired handles and localized Copy and Select all controls. See [Text selection](/core/selection).
+- `WiredInkInteraction` configures `none`, `pressure`, or `redraw` feedback through `WiredThemeData.inkInteraction` or a button override. See [Ink motion](/core/motion).
+- `WiredThemeData()` and `skribbleFontFamily` now use Playful. Select `WiredRoughness.expressive` explicitly to retain the stronger former default.
+
+### Constructor conveniences
+
+- `WiredRangeSlider.between` accepts numeric `start` and `end` values.
+- `WiredCombo.options` accepts a map of values to label widgets.
+- `WiredCupertinoTabBar.destinations` accepts `WiredBottomNavItem` values.
+- `WiredAnimatedIcon.menuClose` selects Flutter's menu-to-close compatibility morph.
+
+These constructors preserve the original constructors and avoid requiring Material types at these call sites. No new exports are required.
+
+## Typeface and brand choices
+
+`WiredFont` selects bundled Casual, Sans Linear, or Mono typography. `WiredThemeData.font` follows the inherited roughness; `fontFamily` remains the explicit string override. `WiredBrandIcon` exposes curated Simple Icons vector artwork through `.data` for `WiredSvgIcon`.

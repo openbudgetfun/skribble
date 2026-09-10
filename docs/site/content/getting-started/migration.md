@@ -37,6 +37,7 @@ Replace your `MaterialApp` with `WiredMaterialApp`:
 **Before:**
 
 ```dart
+// Static example: pseudocode
 MaterialApp(
   title: 'My App',
   theme: ThemeData(
@@ -50,9 +51,10 @@ MaterialApp(
 **After:**
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   title: 'My App',
-  theme: WiredThemeData(
+  wiredTheme: WiredThemeData(
     borderColor: Colors.blue,
     textColor: Colors.black,
     fillColor: Colors.white,
@@ -76,6 +78,7 @@ WiredMaterialApp(
 **Before:**
 
 ```dart
+// Static example: pseudocode
 ElevatedButton(
   onPressed: () {},
   child: Text('Click me'),
@@ -85,9 +88,12 @@ ElevatedButton(
 **After:**
 
 ```dart
+// Live example: elevated-button
 WiredElevatedButton(
-  onPressed: () {},
-  child: Text('Click me'),
+  borderRadius: BorderRadius.circular(8),
+  onPressed: true ? () {} : null,
+  inkInteraction: WiredInkInteraction.pressure,
+  child: Text('Make something lovely'),
 )
 ```
 
@@ -105,6 +111,7 @@ WiredElevatedButton(
 **Before:**
 
 ```dart
+// Static example: pseudocode
 TextField(
   decoration: InputDecoration(
     labelText: 'Email',
@@ -116,9 +123,10 @@ TextField(
 **After:**
 
 ```dart
+// Live example: input
 WiredInput(
-  labelText: 'Email',
-  hintText: 'Enter your email',
+  labelText: 'Make something lovely',
+  hintText: 'A tiny spark of an idea…',
 )
 ```
 
@@ -136,6 +144,7 @@ WiredInput(
 **Before:**
 
 ```dart
+// Static example: pseudocode
 Scaffold(
   appBar: AppBar(title: Text('My App')),
   body: MyContent(),
@@ -148,6 +157,7 @@ Scaffold(
 **After:**
 
 ```dart
+// Static example: pseudocode
 WiredScaffold(
   appBar: WiredAppBar(title: Text('My App')),
   body: MyContent(),
@@ -169,6 +179,7 @@ WiredScaffold(
 **Before:**
 
 ```dart
+// Static example: pseudocode
 Card(
   child: Padding(
     padding: EdgeInsets.all(16),
@@ -180,11 +191,10 @@ Card(
 **After:**
 
 ```dart
+// Live example: card
 WiredCard(
-  child: Padding(
-    padding: EdgeInsets.all(16),
-    child: Text('Card content'),
-  ),
+  fill: true,
+  child: Center(child: Text('Make something lovely')),
 )
 ```
 
@@ -201,6 +211,7 @@ WiredCard(
 **Before:**
 
 ```dart
+// Static example: pseudocode
 ListTile(
   leading: Icon(Icons.person),
   title: Text('John Doe'),
@@ -213,12 +224,12 @@ ListTile(
 **After:**
 
 ```dart
+// Live example: list-tile
 WiredListTile(
-  leading: Icon(Icons.person),
-  title: Text('John Doe'),
-  subtitle: Text('john@example.com'),
-  trailing: Icon(Icons.chevron_right),
-  onTap: () {},
+  title: Text('Make something lovely'),
+  subtitle: const Text('A little note for later'),
+  showDivider: false,
+  onTap: true ? () {} : null,
 )
 ```
 
@@ -236,6 +247,7 @@ WiredListTile(
 **Before:**
 
 ```dart
+// Static example: pseudocode
 DropdownButton<String>(
   value: selectedValue,
   items: [...],
@@ -246,6 +258,7 @@ DropdownButton<String>(
 **After:**
 
 ```dart
+// Static example: pseudocode
 WiredCombo<String>(
   value: selectedValue,
   items: [...],
@@ -267,13 +280,15 @@ WiredCombo<String>(
 **Before:**
 
 ```dart
+// Static example: pseudocode
 CircularProgressIndicator()
 ```
 
 **After:**
 
 ```dart
-WiredCircularProgress()
+// Live example: circular-progress
+WiredCircularProgress(value: .6)
 ```
 
 ## Step 4: Update Icons (Optional)
@@ -283,17 +298,34 @@ Replace Material icons with hand-drawn versions:
 **Before:**
 
 ```dart
+// Static example: pseudocode
 Icon(Icons.home)
 ```
 
 **After:**
 
 ```dart
-// Using pre-computed hand-drawn icons
-SkribbleIcon(data: kSkribbleIcons[Icons.home.codePoint])
-
-// Or using the WiredIcon widget (renders with rough engine)
-WiredIcon(icon: Icons.home)
+// Live example: icon
+const Wrap(
+  spacing: 24,
+  children: [
+    WiredIcon(
+      icon: IconData(0xe318, fontFamily: 'MaterialIcons'),
+      semanticLabel: 'Home',
+      size: 48,
+    ),
+    WiredIcon(
+      icon: IconData(0xe25b, fontFamily: 'MaterialIcons'),
+      semanticLabel: 'Favourite',
+      size: 48,
+    ),
+    WiredIcon(
+      icon: IconData(0xe047, fontFamily: 'MaterialIcons'),
+      semanticLabel: 'Add',
+      size: 48,
+    ),
+  ],
+)
 ```
 
 ## Step 5: Update Fonts (Optional)
@@ -303,6 +335,7 @@ Use the Skribble font for a fully hand-drawn text experience:
 **Before:**
 
 ```dart
+// Static example: api
 Text(
   'Hello World',
   style: TextStyle(fontFamily: 'Roboto'),
@@ -312,17 +345,23 @@ Text(
 **After:**
 
 ```dart
+// Live example: lettering-pattern
 Text(
-  'Hello World',
-  style: TextStyle(fontFamily: 'Skribble'),
+  'Make something lovely',
+  style: const TextStyle(
+    fontFamily: skribbleFontFamily,
+    package: 'skribble',
+    fontSize: 24,
+  ),
 )
 ```
 
 Or update your theme:
 
 ```dart
+// Static example: pseudocode
 WiredMaterialApp(
-  theme: WiredThemeData(
+  wiredTheme: WiredThemeData(
     fontFamily: 'Skribble',
     // ... other properties
   ),
@@ -334,16 +373,26 @@ WiredMaterialApp(
 All Wired widgets support accessibility through the `semanticLabel` property:
 
 ```dart
-WiredCheckbox(
-  value: true,
-  onChanged: (value) {},
-  semanticLabel: 'Accept terms and conditions',
-)
-
-WiredSlider(
-  value: 0.5,
-  onChanged: (value) => true,
-  semanticLabel: 'Volume control',
+// Live example: accessible-inputs
+HookBuilder(
+  builder: (context) {
+    final checked = useState(false);
+    return Column(
+      children: [
+        WiredCheckbox(
+          value: checked.value,
+          onChanged: (value) => checked.value = value ?? false,
+          semanticLabel: 'Accept terms and conditions',
+        ),
+        const SizedBox(height: 16),
+        WiredSlider(
+          value: .6,
+          onChanged: (value) => true,
+          semanticLabel: 'Volume control',
+        ),
+      ],
+    );
+  },
 )
 ```
 
@@ -361,6 +410,7 @@ After migration:
 ### Theme Customization
 
 ```dart
+// Static example: configuration
 WiredThemeData(
   borderColor: Colors.blue,      // Border color for hand-drawn shapes
   textColor: Colors.black,       // Text color
@@ -376,6 +426,7 @@ WiredThemeData(
 Skribble widgets work with Flutter's responsive layout system:
 
 ```dart
+// Static example: pseudocode
 LayoutBuilder(
   builder: (context, constraints) {
     if (constraints.maxWidth < 600) {
@@ -390,28 +441,40 @@ LayoutBuilder(
 ### Form Handling
 
 ```dart
-WiredForm(
-  child: Column(
-    children: [
-      WiredInput(
-        labelText: 'Email',
-        validator: (value) {
-          if (value?.isEmpty ?? true) {
-            return 'Email is required';
-          }
-          return null;
-        },
+// Live example: validated-form
+HookBuilder(
+  builder: (context) {
+    final key = useMemoized(GlobalKey<FormState>.new);
+    final accepted = useState(false);
+    return WiredForm(
+      formKey: key,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          FormField<String>(
+            validator: (value) => value != null && value.contains('@')
+                ? null
+                : 'Enter an email address.',
+            builder: (field) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                WiredInput(labelText: 'Email', onChanged: field.didChange),
+                if (field.errorText case final String error)
+                  Semantics(liveRegion: true, child: Text(error)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          WiredFilledButton(
+            onPressed: () => accepted.value = key.currentState!.validate(),
+            child: const Text('Check the form'),
+          ),
+          if (accepted.value)
+            const Text('The sample form is valid. Nothing was sent.'),
+        ],
       ),
-      WiredElevatedButton(
-        onPressed: () {
-          if (WiredForm.of(context).validate()) {
-            // Submit form
-          }
-        },
-        child: Text('Submit'),
-      ),
-    ],
-  ),
+    );
+  },
 )
 ```
 
@@ -449,6 +512,6 @@ If you experience performance issues:
 
 ## Roughness-level theme scopes
 
-`WiredThemeData(roughnessLevel: WiredRoughness.gentle)` selects matching drawing and font defaults; the other levels are `playful` and `expressive` (the default). Existing `roughness:`, `fontFamily:`, `drawConfig:`, constructor calls, and `WiredTheme.of(context)` remain supported.
+`WiredThemeData(roughnessLevel: WiredRoughness.gentle)` selects matching drawing and font defaults; the other levels are `playful` and `expressive`; Playful is the default. Existing `roughness:`, `fontFamily:`, `drawConfig:`, constructor calls, and `WiredTheme.of(context)` remain supported.
 
 `WiredTheme` is now a `HookWidget` with an internal `InheritedTheme` so it can propagate typography alongside drawing data. If your code directly used `dependOnInheritedWidgetOfExactType<WiredTheme>()`, replace that implementation-dependent lookup with `WiredTheme.of(context)`.

@@ -5,7 +5,7 @@ description: Hand-drawn aesthetics in Jaspr sites — Skribble webfont, rough SV
 
 # Using Skribble on Jaspr (Web)
 
-Skribble's Flutter packages target Flutter apps, but the hand-drawn aesthetic works on the web today — this very site (and the docs engine) is a Jaspr app using the Skribble typeface and rough-line motifs.
+Skribble's Flutter packages target Flutter apps, but the hand-drawn aesthetic works on the web today — you can self-host its fonts and reproduce rough-line motifs in a Jaspr app. This documentation site itself now uses Flutter and the actual Wired components.
 
 ## 1. The Skribble webfont
 
@@ -41,12 +41,12 @@ const node = rc.rectangle(10, 10, 200, 100, {
 });
 ```
 
-2. **Pre-generated rough SVG paths** — the Skribble engine produces the same primitives deterministically; you can extract path data for a fixed geometry once and inline it (zero runtime cost, this documentation site's approach).
+2. **Pre-generated rough SVG paths** — the Skribble engine produces the same primitives deterministically; you can extract path data for a fixed geometry once and inline it (zero drawing-engine runtime cost).
 
 ## 3. Live examples in this ecosystem
 
 - **Storybook on the web** — https://openbudgetfun.github.io/skribble/storybook/ (the Flutter storybook compiled to web — every widget rendered with the rough engine in the browser)
-- **This documentation site** — Jaspr + the Skribble webfont
+- **This documentation site** — Flutter + the actual Wired component library
 
 ## 4. `skribble_jaspr` (planned)
 

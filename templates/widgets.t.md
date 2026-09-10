@@ -10,11 +10,12 @@ Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 l
 <!-- {@docsButtonBasicUsage} -->
 
 ```dart
+// Live example: button
 WiredButton(
-  onPressed: () {
-    // Handle tap
-  },
-  child: Text('Press Me'),
+  borderRadius: BorderRadius.circular(8),
+  onPressed: () {},
+  inkInteraction: WiredInkInteraction.pressure,
+  child: Text('Make something lovely'),
 )
 ```
 

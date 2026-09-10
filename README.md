@@ -11,6 +11,7 @@ A hand-drawn design system for Flutter. Skribble provides sketchy, hand-drawn UI
 | Package                                      | Description                                                |
 | -------------------------------------------- | ---------------------------------------------------------- |
 | [`skribble`](packages/skribble/)             | Main UI library (Wired widgets, rough engine, and exports) |
+| [`skribble_maps`](packages/skribble_maps/)   | MapLibre maps with hand-drawn overlays and controls        |
 | [`skribble_lints`](packages/skribble_lints/) | Shared lint rules                                          |
 
 ## Apps

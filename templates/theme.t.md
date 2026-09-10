@@ -2,6 +2,7 @@
 <!-- {@docsThemeReadPattern} -->
 
 ```dart
+// Static example: custom-class
 @override
 Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
@@ -23,13 +24,17 @@ Widget build(BuildContext context) {
 <!-- Level table + bundled-font sizing note. -->
 <!-- {@docsRoughnessLevelTable} -->
 
-| Level        | Appearance                                             | Border amplitude | Font deformation | Bundled family    |
-| ------------ | ------------------------------------------------------ | ---------------- | ---------------- | ----------------- |
-| `gentle`     | Earlier, softer handwriting and gently bowed edges     | 1.25             | 18               | `SkribbleGentle`  |
-| `playful`    | An intermediate amount of wavering ink                 | 1.5              | 27               | `SkribblePlayful` |
-| `expressive` | Strong lettering and locally wandering edges (default) | 1.8              | 36               | `Skribble`        |
+Playful is the default. The docs toolbar switches all inherited lettering and ink between Gentle, Playful, and Expressive, without resetting the current page. [Compare the original and roughened Casual, Linear, and Mono fonts](/core/font-comparison).
 
-All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. This adds eight font files, about 2.8 MB before delivery compression. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
+| Level        | Appearance                                   | Border amplitude | Font deformation | Bundled family    |
+| ------------ | -------------------------------------------- | ---------------- | ---------------- | ----------------- |
+| `gentle`     | Softer handwriting and gently bowed edges    | 1.25             | 18               | `SkribbleGentle`  |
+| `playful`    | An intermediate amount of wavering ink       | 1.5              | 27               | `SkribblePlayful` |
+| `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
+
+Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble'` for code-only typography. An explicit `fontFamily` takes precedence.
+
+All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three typefaces bundles twelve static faces. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 
 <!-- {/docsRoughnessLevelTable} -->
 

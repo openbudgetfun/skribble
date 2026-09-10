@@ -5,13 +5,16 @@ environment:
   sdk: ^3.13.0
 
 workspace:
+  - docs/site
   - packages/skribble
+  - packages/skribble_charts
   - packages/skribble_emoji
   - packages/skribble_emoji_gen
   - packages/skribble_font_roughen
   - packages/skribble_icons
   - packages/skribble_icons_custom
   - packages/skribble_lints
+  - packages/skribble_maps
   - apps/skribble_storybook
   - apps/skribble_benchmark
   - apps/skribble_example

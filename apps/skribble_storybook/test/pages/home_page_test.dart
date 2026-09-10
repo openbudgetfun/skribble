@@ -19,14 +19,23 @@ void main() {
       expect(find.text('Hand-drawn UI components for Flutter'), findsOneWidget);
     });
 
-    testWidgets('renders all ten category cards', (tester) async {
+    testWidgets('renders chart, map, and component category cards', (
+      tester,
+    ) async {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
 
-      // First few categories are visible without scrolling.
-      expect(find.text('Buttons'), findsOneWidget);
-      expect(find.text('Inputs'), findsOneWidget);
-      expect(find.text('Navigation'), findsOneWidget);
+      for (final title in [
+        'Financial charts',
+        'The sketchbook',
+        'Buttons',
+        'Inputs',
+        'Navigation',
+      ]) {
+        await tester.scrollUntilVisible(find.text(title), 200);
+        await tester.pumpAndSettle();
+        expect(find.text(title), findsOneWidget);
+      }
 
       // Scroll down to find middle categories.
       await tester.scrollUntilVisible(find.text('Selection'), 200);
@@ -44,6 +53,10 @@ void main() {
       await tester.scrollUntilVisible(find.text('Data Display'), 200);
       await tester.pumpAndSettle();
       expect(find.text('Data Display'), findsOneWidget);
+
+      await tester.scrollUntilVisible(find.text('Maps'), 200);
+      await tester.pumpAndSettle();
+      expect(find.text('Maps'), findsOneWidget);
 
       await tester.scrollUntilVisible(find.text('Rough Icons'), 200);
       await tester.pumpAndSettle();

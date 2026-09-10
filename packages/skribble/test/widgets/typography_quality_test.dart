@@ -29,7 +29,7 @@ void main() {
             .style;
         expect(
           style.fontFamily,
-          family == skribbleFontFamily ? 'packages/skribble/Skribble' : family,
+          family == skribbleFontFamily ? 'packages/skribble/SkribblePlayful' : family,
           reason: label,
         );
       }

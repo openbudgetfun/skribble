@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/pages/buttons_page.dart';
+import 'package:skribble_storybook/pages/charts_page.dart';
 import 'package:skribble_storybook/pages/data_display_page.dart';
 import 'package:skribble_storybook/pages/emoji_page.dart';
 import 'package:skribble_storybook/pages/feedback_page.dart';
@@ -9,6 +10,7 @@ import 'package:skribble_storybook/pages/font_specimen_page.dart';
 import 'package:skribble_storybook/pages/home_page.dart';
 import 'package:skribble_storybook/pages/inputs_page.dart';
 import 'package:skribble_storybook/pages/layout_page.dart';
+import 'package:skribble_storybook/pages/maps_page.dart';
 import 'package:skribble_storybook/pages/motion_page.dart';
 import 'package:skribble_storybook/pages/navigation_page.dart';
 import 'package:skribble_storybook/pages/rough_icons_page.dart';
@@ -22,7 +24,7 @@ class SkribbleStorybookApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final roughness = useState(WiredRoughness.expressive);
+    final roughness = useState(WiredRoughness.playful);
     final wiredTheme = WiredThemeData(
       roughnessLevel: roughness.value,
       borderColor: const Color(0xFF4A3470),
@@ -34,6 +36,10 @@ class SkribbleStorybookApp extends HookWidget {
     return WiredMaterialApp(
       wiredTheme: wiredTheme,
       title: 'Skribble Storybook',
+      initialRoute: const String.fromEnvironment(
+        'STORYBOOK_ROUTE',
+        defaultValue: '/',
+      ),
       builder: (context, child) => DefaultTextStyle(
         style: Theme.of(context).textTheme.bodyMedium!,
         child: Column(
@@ -60,6 +66,8 @@ class SkribbleStorybookApp extends HookWidget {
         '/selection': (context) => const SelectionPage(),
         '/feedback': (context) => const FeedbackPage(),
         '/layout': (context) => const LayoutPage(),
+        '/maps': (context) => const MapsPage(),
+        '/charts': (context) => const ChartsPage(),
         '/data-display': (context) => const DataDisplayPage(),
         '/rough-icons': (context) => const RoughIconsPage(),
         '/skribble-icons': (context) => const SkribbleIconsPage(),

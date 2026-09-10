@@ -41,13 +41,7 @@ Paste this into any page to embed the live preview:
 
 ## Try it interactively
 
-The storybook below is the real Flutter application compiled to web — resize the window to see the hand-drawn widgets reflow at different device sizes:
-
-<iframe
-  src="../../storybook/"
-  style="width: 100%; height: 720px; border: 1px dashed #a39aad;"
-  title="Skribble Storybook interactive preview"
-></iframe>
+The live note above uses the actual Wired components. Toggle its checkbox, save an idea, and replay its ink. Open the full storybook for the complete catalog.
 
 ## Screenshot galleries
 

@@ -8,20 +8,52 @@ description: Draw borders and hatch fills with standard Flutter animations, casc
 Wrap a group of Wired widgets to draw its ink into place. Text, icons, layout, semantics, and hit targets stay stable throughout the reveal.
 
 ```dart
-WiredDraw(
-  child: WiredCard(
-    child: Text('Make something worth keeping.'),
-  ),
-)
+// Live example: ink-basic
+WiredDraw(child: WiredCard(child: Text('Make something lovely')))
 ```
 
 `WiredDraw` plays once on mount, over 650 milliseconds. Give it a new key to replay. Entrances are opt-in, so scrolling a normal list does not animate every card. Set `duration` and `curve` when the occasion needs a different pace.
+
+## Try the ink
+
+Replay the entrance, then change the progress value to inspect the outline and shading at your own pace.
+
+```dart
+// Live example: ink-reveal
+HookBuilder(
+  builder: (context) {
+    final replay = useState(0);
+    return Column(
+      children: [
+        WiredDraw(
+          key: ValueKey(replay.value),
+          child: WiredCard(child: Text('Make something lovely')),
+        ),
+        const SizedBox(height: 16),
+        WiredOutlinedButton(
+          onPressed: () => replay.value++,
+          child: const Text('Draw again'),
+        ),
+      ],
+    );
+  },
+)
+```
+
+```dart
+// Live example: ink-progress
+WiredDrawTransition(
+  progress: AlwaysStoppedAnimation(.6),
+  child: WiredCard(child: Text('Make something lovely')),
+)
+```
 
 ## Own the timing
 
 `WiredDrawTransition` accepts any `Animation<double>`. Zero hides outlines and patterned fill; one completes them. The outline draws first and shading follows with a short overlap. Solid backgrounds stay opaque for readable labels.
 
 ```dart
+// Static example: custom-class
 class NoteState extends State<Note> with SingleTickerProviderStateMixin {
   late final controller = AnimationController(
     vsync: this,
@@ -52,6 +84,7 @@ class NoteState extends State<Note> with SingleTickerProviderStateMixin {
 Call `controller.forward(from: 0)` to replay, `controller.reverse()` to unwind, or assign `controller.value` to scrub. Nest a transition to give one component its own timing. An `Interval` provides ordinary Flutter staggering:
 
 ```dart
+// Static example: api
 final later = controller.drive(
   CurveTween(curve: Interval(0.2, 1, curve: Curves.easeOutCubic)),
 );
@@ -65,6 +98,7 @@ Skribble borrows the animation. It never starts, stops, or disposes a controller
 The animation implementation uses Flutter widgets, tickers, and animations. It has no hooks-specific controller or adapter. Existing Skribble components still use hooks internally. Consumers using `flutter_hooks` can write:
 
 ```dart
+// Static example: configuration
 final controller = useAnimationController(
   duration: const Duration(milliseconds: 800),
 );
@@ -83,6 +117,7 @@ Let the hook dispose its controller. Do not call `forward` directly during every
 At the app root:
 
 ```dart
+// Static example: setup
 WiredMaterialApp(
   wiredTheme: WiredThemeData(motionEnabled: false),
   home: notebook,
@@ -92,6 +127,7 @@ WiredMaterialApp(
 For one section:
 
 ```dart
+// Static example: setup
 WiredMotion(enabled: false, child: notebook)
 ```
 
@@ -110,6 +146,7 @@ Built-in `WiredCanvas` shapes and Wired rough decorations inherit the reveal. SV
 For custom decorations, resolve the ambient policy at the widget boundary:
 
 ```dart
+// Static example: configuration
 RoughBoxDecoration(
   progress: WiredDrawTransition.progressOf(context),
   borderStyle: RoughDrawingStyle(width: 2.4, color: inkColor),
@@ -119,3 +156,36 @@ RoughBoxDecoration(
 Low-level `RoughBoxDecoration` and `WiredPainter` accept a borrowed `progress` and `pressure`. They have no `BuildContext` and cannot discover accessibility policy by themselves. A null progress means complete; null pressure means idle.
 
 Custom `WiredPainterBase` implementations can override `prepare` to return a `RoughDrawing`. Keep the existing `paintRough` method for direct callers. Prepared paths and contour lengths are cached per painter and size. Animation ticks repaint without rebuilding children or regenerating rough geometry. Elastic progress is clamped to zero through one; non-finite progress settles at complete. There is no global geometry cache.
+
+## Choose how buttons respond
+
+`WiredInkInteraction` controls decorative button feedback. The default is `pressure`: existing strokes become a little stronger on hover, keyboard focus, and press. `redraw` also traces the outline and patterned fill over 360 milliseconds when a press begins. `none` keeps the ink still.
+
+```dart
+// Static example: configuration
+WiredThemeData(
+  roughnessLevel: WiredRoughness.gentle,
+  inkInteraction: WiredInkInteraction.redraw,
+)
+```
+
+A button can override the surrounding theme:
+
+```dart
+// Live example: redraw-button
+WiredFilledButton(
+  inkInteraction: WiredInkInteraction.redraw,
+  fillColor: const Color(0xffe8957d),
+  borderRadius: BorderRadius.circular(8),
+  onPressed: () {},
+  child: Text('Make something lovely'),
+)
+```
+
+This option is available on `WiredButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredElevatedButton`, `WiredTextButton`, and `WiredIconButton`. Each control retains its normal gestures, keyboard behavior, and callback. Repeated presses restart the trace without changing its deterministic geometry. Solid fills stay opaque, and labels stay still. A surrounding draw transition limits how much ink an interaction may reveal.
+
+Use redraw for a few meaningful actions; pressure is a quieter default for dense toolbars. `WiredMotion(enabled: false)`, `WiredThemeData(motionEnabled: false)`, muted tickers, and platform reduced motion settle the decoration. Consumer-owned controllers remain consumer-owned, including controllers supplied by Flutter hooks.
+
+## Static design handoff
+
+The [design kit](../reference/design-kit) exports resting and pressed button ink with identical paths and layout bounds. Its manifest maps reduced motion to the completed resting specimen. Use those files when prototyping the 120 ms pressure response or the 650 ms entry reveal. Keep labels, solid backgrounds, focus indication, and hit regions available throughout.

@@ -6,6 +6,29 @@ import 'package:skribble/skribble.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
+  testWidgets(
+    'destinations renders owned labels and reports the selected tab',
+    (tester) async {
+      int? selected;
+      await pumpApp(
+        tester,
+        WiredCupertinoTabBar.destinations(
+          items: const [
+            WiredBottomNavItem(icon: Icons.home, label: 'Home'),
+            WiredBottomNavItem(icon: Icons.favorite, label: 'Saved'),
+          ],
+          currentIndex: 0,
+          onTap: (value) => selected = value,
+        ),
+        asBottomNav: true,
+      );
+      await tester.tap(find.text('Saved'));
+      await tester.pumpAndSettle();
+      expect(selected, 1);
+      expect(find.text('Home'), findsOneWidget);
+    },
+  );
+
   List<BottomNavigationBarItem> defaultItems() => const [
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.search), label: 'Search'),
