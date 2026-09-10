@@ -2,6 +2,8 @@
 skribble: minor
 ---
 
+# Make Playful the default roughness with executable docs
+
 Make Playful the default roughness and lettering, with Gentle and Expressive still available through `WiredThemeData`. Add executable documentation examples with matching highlighted source, editable parameters, persistent roughness choices, and a comparison of roughened Recursive Casual and Sans Linear.
 
 Fix long chip and grid-tile labels on narrow layouts and calendar headers and weekday columns on mobile. Range-slider thumbs now use the rough painter; disabled sliders ignore input and external endpoint changes update the displayed range.

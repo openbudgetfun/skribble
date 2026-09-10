@@ -89,6 +89,13 @@ release = true
 version_format = "primary"
 changelog = { path = "CHANGELOG.md" }
 
+# Dependents of main-group packages inherit the group's own release
+# severity, never exceeding a major bump. Without a declaration they only
+# received the legacy `parent_bump = "patch"` floor, so a major release of
+# `group.main` left dependents on stale dependency ranges behind a patch.
+bump_propagation = "inherit"
+bump_propagation_max = "major"
+
 # =============================================================================
 # [ecosystems.*] — per-ecosystem discovery and publishing settings
 # =============================================================================
@@ -98,6 +105,10 @@ enabled = true
 publish.enabled = true
 publish.mode = "builtin"
 publish.registry = "pub_dev"
+# `flutter pub publish --dry-run` for the larger packages (skribble,
+# skribble_emoji) takes well over the default timeout on cold caches.
+publish.timeout.timeout_seconds = 600
+publish.timeout.retries = 1
 publish.trusted_publishing = { enabled = true, repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
 versioned_files = [
   { path = "**/pubspec.yaml", type = "dart", fields = ["dependencies", "dev_dependencies"] },
@@ -122,9 +133,11 @@ enforce_for_commit = false
 
 [source.pull_requests]
 enabled = true
-branch_prefix = "chore/release"
+branch_prefix = "monochange/release"
 base = "main"
 title = "chore(release): prepare release"
+# Requires monochange with commit_subject support (monochange#675).
+commit_subject = "🔖 chore(release): prepare release"
 labels = ["release", "automated"]
 auto_merge = false
 
@@ -138,14 +151,44 @@ required = true
 skip_labels = []
 comment_on_failure = true
 changed_paths = []
-ignored_paths = []
+ignored_paths = ["**/CHANGELOG.md"]
 
 # =============================================================================
 # [lints] — manifest lint configuration
 # =============================================================================
 
+[lints]
+# `changesets/recommended` adds `changesets/prefer-inline` and
+# `changesets/summary-description` on top of the explicit rules below;
+# `dart/recommended` covers pubspec metadata and publishability hygiene.
+use = ["changesets/recommended", "dart/recommended"]
+
 [lints.rules]
 "dart/internal-path-dependency-policy" = "off"
+"dart/dependency-sorted" = "error"
+"dart/assets-sorted" = "error"
+"dart/workspace-internal-version-consistency" = "error"
+"dart/no-unexpected-dependency-overrides" = "warning"
+"changesets/duplicate" = "error"
+"changesets/no_section_headings" = "error"
+"changesets/summary" = { level = "error", required = true, heading_level = 1, min_length = 8, max_length = 90, forbid_trailing_period = true, forbid_conventional_commit_prefix = true }
+"changesets/bump/major" = { level = "error", min_body_chars = 120, require_code_block = true }
+"changesets/bump/minor" = { level = "error", min_body_chars = 80 }
+"changesets/bump/patch" = { level = "error", min_body_chars = 80 }
+"changesets/bump/none" = { level = "error", min_body_chars = 80 }
+"changesets/types/breaking" = { level = "error", required_bump = "major", forbidden_headings = [
+  "Breaking",
+  "Breaking change",
+  "Breaking changes",
+] }
+"changesets/types/major" = { level = "error", required_bump = "major", forbidden_headings = [
+  "Major",
+  "Breaking",
+  "Breaking change",
+  "Breaking changes",
+] }
+"changesets/types/feat" = { level = "error", required_bump = "minor", forbidden_headings = ["Feat", "Feature"] }
+"changesets/types/fix" = { level = "error", required_bump = "patch", forbidden_headings = ["Fix", "Fixed"] }
 
 # =============================================================================
 # [cli.*] — user-defined CLI commands
@@ -165,4 +208,10 @@ steps = [
   { type = "Command", name = "format release files", when = "{{ number_of_changesets > 0 }}", command = "fix:format", shell = true },
   { type = "CommitRelease", name = "commit release", when = "{{ number_of_changesets > 0 }}", inputs = { no_verify = true } },
   { type = "OpenReleaseRequest", name = "open release request", when = "{{ number_of_changesets > 0 }}", inputs = { no_verify = true } },
+]
+
+[cli.publish-check]
+help_text = "Preview package publishing in dry-run mode against pub.dev"
+steps = [
+  { type = "Command", name = "dry-run package publishing", command = "monochange step publish-packages --dry-run --all --format json" },
 ]

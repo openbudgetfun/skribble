@@ -16,8 +16,90 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  fonts:
+    # Font zips belong to the main group's `v<version>` release only; companion
+    # tags (skribble_maps/v*, skribble_charts/v*) skip this job entirely.
+    if: github.repository == 'openbudgetfun/skribble' && startsWith(github.ref_name, 'v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      # The release-pr tag job pushes the tag (firing the dispatch of this
+      # workflow) and then creates the draft release. Wait for that draft
+      # release to exist before uploading font assets into it.
+      - name: Wait for the draft release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          echo "Waiting for the draft release $RELEASE_TAG to be created by the release workflow..."
+          for attempt in $(seq 1 30); do
+            if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+              echo "Draft release $RELEASE_TAG exists after $attempt attempt(s)."
+              exit 0
+            fi
+            echo "  attempt $attempt/30: release not found yet; sleeping 10s"
+            sleep 10
+          done
+          echo "::error::Release $RELEASE_TAG was not created within the wait window. Check the release workflow's tag job." >&2
+          exit 1
+        shell: bash
+
+      - name: Check out release tag
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify release tag
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_REF_TYPE" != "tag" ]; then
+            echo "::error::Publish must be dispatched against a release tag."
+            exit 1
+          fi
+          git fetch --force origin main:refs/remotes/origin/main --tags
+          tag_commit="$(git rev-list -n1 "$RELEASE_TAG")"
+          if [ "$(git rev-parse HEAD)" != "$tag_commit" ]; then
+            echo "::error::The checkout does not match $RELEASE_TAG."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor "$tag_commit" refs/remotes/origin/main; then
+            echo "::error::$RELEASE_TAG is not reachable from main."
+            exit 1
+          fi
+        shell: bash
+
+      - name: Package the font families
+        run: |
+          set -euo pipefail
+          ./scripts/release/package_fonts.sh \
+            packages/skribble/assets/fonts \
+            "$RUNNER_TEMP/font-assets" \
+            "$GITHUB_REF_NAME"
+          find "$RUNNER_TEMP/font-assets" -maxdepth 1 -type f -print
+        shell: bash
+
+      - name: Upload the font zips to the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          gh release upload "$RELEASE_TAG" \
+            "$RUNNER_TEMP"/font-assets/*.zip \
+            --clobber \
+            --repo "$GITHUB_REPOSITORY"
+        shell: bash
+
   publish:
-    if: github.repository == 'openbudgetfun/skribble'
+    # Tolerate the fonts job being skipped for companion release tags.
+    if: always() && github.repository == 'openbudgetfun/skribble' && (needs.fonts.result == 'success' || needs.fonts.result == 'skipped')
+    needs: fonts
     environment: publisher
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -118,11 +200,12 @@ jobs:
           done
         shell: devenv shell -- bash -e {0}
 
-      - name: Publish the GitHub release
+      - name: Publish the draft release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: monochange step publish-release --from-ref HEAD --format json
-        shell: devenv shell -- bash -e {0}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: gh release edit "$RELEASE_TAG" --draft=false --latest --repo "$GITHUB_REPOSITORY"
+        shell: bash
 
       - name: Upload Monochange publication reports
         if: always()

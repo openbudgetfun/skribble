@@ -942,6 +942,7 @@ Before marking any widget task as complete, verify:
 - [ ] `dart analyze --fatal-infos .` passes
 - [ ] `flutter test` passes
 - [ ] Documentation updated (widget catalog page, any affected MDT blocks)
+- [ ] Changeset added and `monochange check` passes with no lint issues
 
 ## Common mistakes to avoid
 
@@ -1091,25 +1092,37 @@ WiredIcon.svg(iconData: myCustomIconData)
 
 ## Workspace commands quick reference
 
-| Command                          | What it does                       |
-| -------------------------------- | ---------------------------------- |
-| `melos run analyze`              | Dart analyze across all packages   |
-| `melos run flutter-test`         | Run Flutter widget tests           |
-| `melos run format`               | Format all Dart code               |
-| `melos run screenshot`           | Capture component screenshots      |
-| `melos run rough-icons`          | Generate rough Material icon SVGs  |
-| `melos run rough-icons-font`     | Generate icon font + Dart helpers  |
-| `melos run rough-icons-custom`   | Generate custom icon artifacts     |
-| `melos run rough-icons-ci-check` | CI-equivalent icon checks          |
-| `lint:all`                       | All lint checks (format + analyze) |
-| `lint:push`                      | CI lint checks before `git push`   |
-| `test:all`                       | All unit and widget tests          |
-| `fix:all`                        | Auto-fix format + lint issues      |
-| `docs:site:serve`                | Serve docs site locally            |
-| `docs:site:build`                | Build static docs for deployment   |
-| `monochange step validate`       | Validate release configuration     |
-| `monochange check`               | Check manifests and changesets     |
-| `monochange run release`         | Open or refresh the release PR     |
+| Command                          | What it does                                    |
+| -------------------------------- | ----------------------------------------------- |
+| `melos run analyze`              | Dart analyze across all packages                |
+| `melos run flutter-test`         | Run Flutter widget tests                        |
+| `melos run format`               | Format all Dart code                            |
+| `melos run screenshot`           | Capture component screenshots                   |
+| `melos run rough-icons`          | Generate rough Material icon SVGs               |
+| `melos run rough-icons-font`     | Generate icon font + Dart helpers               |
+| `melos run rough-icons-custom`   | Generate custom icon artifacts                  |
+| `melos run rough-icons-ci-check` | CI-equivalent icon checks                       |
+| `lint:all`                       | All lint checks (format + analyze)              |
+| `lint:push`                      | CI lint checks before `git push`                |
+| `test:all`                       | All unit and widget tests                       |
+| `fix:all`                        | Auto-fix format + lint issues                   |
+| `docs:site:serve`                | Serve docs site locally                         |
+| `docs:site:build`                | Build static docs for deployment                |
+| `monochange step validate`       | Validate release configuration                  |
+| `monochange check`               | Validate and lint config, changesets, manifests |
+| `monochange run release`         | Open or refresh the release PR                  |
+
+## Changeset lint rules
+
+Changesets are linted by `monochange check`, which the CI `lint` job runs on every pull request. A changeset that breaks a rule fails CI, so follow these when authoring one:
+
+- Exactly one H1 summary heading, 8–90 characters, no trailing period, no Conventional Commit prefix (`feat:` or `fix(scope):` headings are rejected).
+- The first description sentence must add information beyond the heading, not restate it.
+- At least 80 characters of body prose (120 plus a code block for `major` bumps).
+- Keep entries in the inline `target: type` form; never use change types as section headings (`## Breaking`).
+- One changeset file per concern; duplicate targets across files are rejected.
+
+Run `monochange check --fix` to auto-fix the style rules; everything else needs a manual edit. The full policy is documented in `docs/site/content/reference/releasing.md` under "Changeset lint rules".
 
 ## Visual asset checks
 

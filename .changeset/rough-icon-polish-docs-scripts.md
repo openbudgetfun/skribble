@@ -2,6 +2,6 @@
 skribble: patch
 ---
 
-# Add workspace scripts for rough icon generation, and ...
+# Add workspace scripts for rough icon generation and docs polish
 
-icons snapshot category in UI screenshot docs.
+Add an icons snapshot category to the UI screenshot docs.

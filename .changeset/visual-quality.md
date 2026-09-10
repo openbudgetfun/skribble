@@ -2,6 +2,8 @@
 skribble: minor
 ---
 
+# Preserve source SVG colours through the rough pipeline
+
 Preserve colours from source SVG artwork through the rough rendering pipeline:
 
 - Add `fillColor`/`strokeColor`/`strokeWidth` to `WiredSvgPrimitive`

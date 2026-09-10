@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Improve unresolved baseline parser compatibility for ...
+# Accept `codePoints[]` and `codepoints[]` baseline keys
 
 - `--unresolved-baseline` now accepts either `codePoints[]` or `codepoints[]` keys when loading minimal baseline JSON objects.
 - Add parser coverage for lowercase `codepoints[]` baseline input.

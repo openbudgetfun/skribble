@@ -2,9 +2,7 @@
 skribble: patch
 ---
 
-# Improve rough Material icon SVG resolution for ...
-
-`simple-icons` fallback source to the generator.
+# Add a `simple-icons` fallback source to rough icon resolution
 
 - New CLI option: `--brand-icons-source <path>`
 - Default behavior now attempts a best-effort `simple-icons` package fallback

@@ -2,6 +2,6 @@
 skribble: patch
 ---
 
-# Add `WiredScaffold` as a Material shell with ...
+# Add `WiredScaffold` and the `WiredMaterialApp` theme bridge
 
-introduce `WiredMaterialApp` for syncing `MaterialApp` with `WiredTheme`, and extend `WiredThemeData` with `paperBackgroundColor`, `toColorScheme()`, and `toThemeData()` helpers for aligning app-level `ThemeData` with the hand-drawn palette.
+Introduce `WiredMaterialApp` for syncing `MaterialApp` with `WiredTheme`, and extend `WiredThemeData` with `paperBackgroundColor`, `toColorScheme()`, and `toThemeData()` helpers for aligning app-level `ThemeData` with the hand-drawn palette.

@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Sync and enforce committed rough icon generated catalogs.
+# Sync and enforce committed rough icon generated catalogs
 
 - Regenerate committed rough icon catalogs with the current generator + supplemental manifest:
   - `packages/skribble/lib/src/generated/material_rough_icons.g.dart`

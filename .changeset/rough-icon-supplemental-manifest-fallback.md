@@ -2,9 +2,7 @@
 skribble: patch
 ---
 
-# Add a supplemental manifest fallback for ...
-
-generation.
+# Add a supplemental manifest fallback for icon resolution
 
 - New CLI option: `--supplemental-manifest <path>`
 - Manifest entries (`identifier`, `codePoint`, `svgPath`) are used as a final fallback when Material and brand SVG sources cannot resolve an icon

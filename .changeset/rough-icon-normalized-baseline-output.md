@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Add normalized unresolved baseline output for rough ...
+# Add normalized unresolved baseline output for rough icons
 
 - New CLI option: `--unresolved-baseline-output <path>`
   - emits a minimal JSON file containing only `unresolved[]` entries

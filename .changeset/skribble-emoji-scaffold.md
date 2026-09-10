@@ -2,6 +2,6 @@
 skribble: patch
 ---
 
-# Add `skribble_emoji` package scaffold with ...
+# Add the `skribble_emoji` package scaffold
 
-lookup helpers, and test infrastructure. Ready to accept hand-drawn emoji SVG sources.
+Add name/codepoint lookup helpers and test infrastructure, ready to accept hand-drawn emoji SVG sources.
