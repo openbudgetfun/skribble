@@ -10,6 +10,26 @@ Future<void> main(List<String> arguments) async {
   var stale = false;
 
   try {
+    final notice = await File('packages/skribble/tool/font/RECURSIVE-OFL.txt')
+        .readAsString();
+
+    for (final directory in [
+      'packages/skribble/assets/fonts',
+      'apps/skribble_storybook/assets/fonts',
+    ]) {
+      final destination = File('$directory/OFL.txt');
+
+      if (check) {
+        if (!destination.existsSync() ||
+            await destination.readAsString() != notice) {
+          stderr.writeln('Stale font notice: ${destination.path}');
+          stale = true;
+        }
+      } else {
+        await destination.writeAsString(notice);
+      }
+    }
+
     for (final source in [
       (name: 'RecursiveSansCslSt', prefix: 'Skribble'),
       (name: 'RecursiveSansLnrSt', prefix: 'SkribbleLinear'),

@@ -570,3 +570,7 @@ Rebuild every bundled level with `dart run packages/skribble_font_roughen/bin/ro
 ## Decorative motion
 
 `motionEnabled` defaults to `true` and is preserved by `copyWith`. Set it to `false` at the app root to settle decorative ink throughout the app. Nested motion boundaries cannot override a disabled ancestor, and platform reduced motion always wins. See [Ink motion](motion) for opt-in drawing transitions.
+
+## Designer reference
+
+The [design kit](../reference/design-kit) collects pen width, stable seeds, roughness presets, reserved bleed, and the names of all bundled font families in one reference. Its exporter reuses the rough engine and copies the shipped fonts for use in design tools.

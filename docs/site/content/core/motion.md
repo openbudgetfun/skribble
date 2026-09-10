@@ -185,3 +185,7 @@ WiredFilledButton(
 This option is available on `WiredButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredElevatedButton`, `WiredTextButton`, and `WiredIconButton`. Each control retains its normal gestures, keyboard behavior, and callback. Repeated presses restart the trace without changing its deterministic geometry. Solid fills stay opaque, and labels stay still. A surrounding draw transition limits how much ink an interaction may reveal.
 
 Use redraw for a few meaningful actions; pressure is a quieter default for dense toolbars. `WiredMotion(enabled: false)`, `WiredThemeData(motionEnabled: false)`, muted tickers, and platform reduced motion settle the decoration. Consumer-owned controllers remain consumer-owned, including controllers supplied by Flutter hooks.
+
+## Static design handoff
+
+The [design kit](../reference/design-kit) exports resting and pressed button ink with identical paths and layout bounds. Its manifest maps reduced motion to the completed resting specimen. Use those files when prototyping the 120 ms pressure response or the 650 ms entry reveal. Keep labels, solid backgrounds, focus indication, and hit regions available throughout.
