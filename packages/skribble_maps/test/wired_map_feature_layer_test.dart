@@ -15,6 +15,105 @@ void main() {
   }
 
   group('WiredMapFeatureLayer', () {
+    testWidgets('decorative overlays let pinch gestures reach the map', (
+      tester,
+    ) async {
+      var zoomed = false;
+      await pumpMapApp(
+        tester,
+        WiredMap(
+          showZoomControls: false,
+          mapViewBuilder: (context) => GestureDetector(
+            onScaleUpdate: (details) => zoomed |= details.scale > 1.1,
+            child: const ColoredBox(color: Color(0xFFF3F0E8)),
+          ),
+          children: const [
+            WiredMapFeatureLayer(
+              features: [
+                WiredMapPolygon(
+                  points: [LatLng(-1, -1), LatLng(-1, 1), LatLng(1, 1)],
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+      final center = tester.getCenter(find.byType(WiredMap));
+      final left = await tester.startGesture(
+        center - const Offset(30, 0),
+        pointer: 1,
+      );
+      final right = await tester.startGesture(
+        center + const Offset(30, 0),
+        pointer: 2,
+      );
+      await left.moveBy(const Offset(-60, 0));
+      await right.moveBy(const Offset(60, 0));
+      await left.moveBy(const Offset(-20, 0));
+      await right.moveBy(const Offset(20, 0));
+      await left.up();
+      await right.up();
+      await tester.pumpAndSettle();
+      expect(zoomed, isTrue);
+    });
+
+    testWidgets('empty space beside an interactive feature reaches the map', (
+      tester,
+    ) async {
+      var tapped = false;
+      await pumpMapApp(
+        tester,
+        WiredMap(
+          showZoomControls: false,
+          mapViewBuilder: (context) => GestureDetector(
+            onTap: () => tapped = true,
+            child: const ColoredBox(color: Color(0xFFF3F0E8)),
+          ),
+          children: [
+            WiredMapFeatureLayer(
+              features: [
+                WiredMapPolyline(
+                  points: const [LatLng(0, -1), LatLng(0, 1)],
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+      await tester.tapAt(
+        tester.getTopLeft(find.byType(WiredMap)) + const Offset(25, 25),
+      );
+      await tester.pumpAndSettle();
+      expect(tapped, isTrue);
+    });
+
+    testWidgets('decorative overlays let drags reach the map below', (
+      tester,
+    ) async {
+      var moved = false;
+      await pumpMapApp(
+        tester,
+        WiredMap(
+          showZoomControls: false,
+          mapViewBuilder: (context) => GestureDetector(
+            onPanUpdate: (_) => moved = true,
+            child: const ColoredBox(color: Color(0xFFF3F0E8)),
+          ),
+          children: const [
+            WiredMapFeatureLayer(
+              features: [
+                WiredMapPolyline(points: [LatLng(0, -1), LatLng(0, 1)]),
+              ],
+            ),
+          ],
+        ),
+      );
+      await tester.drag(find.byType(WiredMap), const Offset(80, 0));
+      await tester.pumpAndSettle();
+      expect(moved, isTrue);
+    });
+
     testWidgets('renders an empty feature list', (tester) async {
       await pumpMapApp(tester, subject(const []));
 

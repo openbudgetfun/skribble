@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
@@ -81,7 +83,7 @@ class MapsPage extends HookWidget {
                   ),
                   const SizedBox(height: 4),
                   const Text(
-                    'Follow the ink, find a favourite. Tap a pin to pick your next stop.',
+                    'Drag to explore, pinch to zoom. Tap or hold a pin to pick your next stop.',
                     style: TextStyle(fontSize: 14, height: 1.25),
                   ),
                   const SizedBox(height: 12),
@@ -167,6 +169,11 @@ class MapsPage extends HookWidget {
                     minimumZoom: 2,
                     maximumZoom: 18,
                     style: style,
+                    gestureRecognizers: {
+                      Factory<OneSequenceGestureRecognizer>(
+                        EagerGestureRecognizer.new,
+                      ),
+                    },
                     onMapIdle: () => mapReady.value = true,
                     onCameraChanged: (_) => mapReady.value = false,
                     children: [
@@ -193,6 +200,8 @@ class MapsPage extends HookWidget {
                               point: place.point,
                               semanticLabel: place.label,
                               onTap: () => selectedPlace.value = place.label,
+                              onLongPress: () =>
+                                  selectedPlace.value = place.label,
                               child: WiredMapPin(
                                 key: MapDemoKeys.pin(place.label),
                                 icon: place.icon,

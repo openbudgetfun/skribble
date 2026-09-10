@@ -7,6 +7,57 @@ import 'helpers/pump_map.dart';
 
 void main() {
   group('WiredMapPin', () {
+    testWidgets('holding selects once without also tapping', (tester) async {
+      var taps = 0;
+      var holds = 0;
+      final semantics = tester.ensureSemantics();
+      await pumpMapApp(
+        tester,
+        Center(
+          child: WiredMapPin(
+            semanticLabel: 'Saved cafe',
+            onTap: () => taps++,
+            onLongPress: () => holds++,
+          ),
+        ),
+      );
+
+      await tester.longPress(find.byType(WiredMapPin));
+      await tester.pumpAndSettle();
+
+      expect(holds, 1);
+      expect(taps, 0);
+      expect(tester.widget<AnimatedScale>(find.byType(AnimatedScale)).scale, 1);
+      expect(
+        tester.getSemantics(find.bySemanticsLabel('Saved cafe')),
+        matchesSemantics(
+          label: 'Saved cafe',
+          isButton: true,
+          hasTapAction: true,
+          hasLongPressAction: true,
+        ),
+      );
+      semantics.dispose();
+    });
+
+    testWidgets('a long-press-only pin ignores taps and cancelled drags', (
+      tester,
+    ) async {
+      var holds = 0;
+      await pumpMapApp(
+        tester,
+        Center(child: WiredMapPin(onLongPress: () => holds++)),
+      );
+      await tester.tap(find.byType(WiredMapPin));
+      await tester.drag(find.byType(WiredMapPin), const Offset(80, 0));
+      await tester.pumpAndSettle();
+      expect(holds, 0);
+
+      await tester.longPress(find.byType(WiredMapPin));
+      await tester.pumpAndSettle();
+      expect(holds, 1);
+    });
+
     testWidgets('renders without error', (tester) async {
       await pumpMapApp(tester, const WiredMapPin());
 

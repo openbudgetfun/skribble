@@ -22,6 +22,13 @@ Future<void> _pumpMap(WidgetTester tester, {double textScale = 1}) async {
 }
 
 void main() {
+  testWidgets('holding a map pin names the selected stop', (tester) async {
+    await _pumpMap(tester);
+    await tester.longPress(find.bySemanticsLabel('Brick Lane market'));
+    await tester.pumpAndSettle();
+    expect(find.text('Brick Lane market'), findsOneWidget);
+  });
+
   testWidgets('waits for loaded tiles after changing cities or palettes', (
     tester,
   ) async {

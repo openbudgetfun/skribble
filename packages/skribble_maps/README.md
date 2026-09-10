@@ -96,9 +96,17 @@ WiredMap(
 
 `WiredMapPin` uses a large hand-drawn place icon by default. Its typed icon set covers check-ins, cafes, markets, galleries, favourite places, and people. Pass `child` when the product needs a custom widget.
 
-Pins default to category-specific pastel fills and dark brown ink on both light and dark maps. Their seed varies the curved shoulders without moving the anchor. Explicit color overrides still take precedence. Routes follow the supplied coordinates exactly, independent of theme roughness; the polyline `seed` remains accepted for compatibility. Area annotations keep their rough outline with a lighter default hatch opacity of 22 percent.
+Pins default to category-specific pastel fills and dark brown ink on both light and dark maps. Seeded wobble in the icons and border, including a short retraced shoulder, keeps the ink hand-drawn without moving the anchor or flickering on rebuild. Explicit color overrides still take precedence. Routes follow the supplied coordinates exactly, independent of theme roughness; the polyline `seed` remains accepted for compatibility. Area annotations keep their rough outline with a lighter default hatch opacity of 22 percent.
 
 ## Camera and overlay alignment
+
+Dragging to pan and pinching to zoom are enabled by default. `scrollGesturesEnabled` controls panning; `zoomGesturesEnabled` controls pinch, double-tap, and web wheel zoom. Use `onCameraChanged` to observe the camera and `onTap` to receive an unclaimed map coordinate.
+
+Both `WiredMapMarker` and standalone `WiredMapPin` accept `onTap` and `onLongPress`. Set either callback to update your app's selected place ID. A completed hold fires the long-press callback without also firing a tap, and movement before recognition cancels the hold. Both actions are exposed to accessibility services. Configure these actions on the marker or its interactive child, rather than both.
+
+Inside a mobile scroll view, use `gestureRecognizers: {Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new)}` when touches starting inside the map should pan or zoom it rather than scroll the parent. Import the recognizer types from `flutter/gestures.dart` and `Factory` from `flutter/foundation.dart`. The docs demos enable interaction after you choose to load a map.
+
+Decorative features and empty space in `WiredMapFeatureLayer` pass touches through to the map. Only features with `onTap` claim their hit area.
 
 `WiredMapController` mirrors MapLibre's center and zoom. `WiredMapMarkerLayer` and `WiredMapFeatureLayer` read that camera to position their Flutter content.
 
@@ -118,18 +126,29 @@ await controller.animateTo(
 
 ## Large datasets and advanced MapLibre work
 
+The default OpenFreeMap style already supplies real OpenStreetMap-derived cartography. To add your own API's places or check-ins, validate its JSON, build `LatLng(latitude, longitude)` values, and rebuild a `WiredMapMarkerLayer` with stable place keys. Pass decoded routing-service points to `WiredMapPolyline`; the library does not calculate directions. GeoJSON coordinates use the opposite order, `[longitude, latitude]`.
+
+See the [real map data guide](../../docs/site/content/widgets/maps.md#connect-your-own-places-and-routes) for an HTTP loader, selected-marker rendering, coordinate conversion, loading and error handling, provider setup, and native GeoJSON updates.
+
 Flutter widget markers work best for the small set of visible places that need custom interaction or animation. Put hundreds or thousands of points in a MapLibre GeoJSON symbol layer and enable MapLibre clustering. Reserve `WiredMapMarkerLayer` for selected items, search results, and active check-ins.
 
-`onMapCreated` gives the app the official `MapLibreMapController`:
+`onMapCreated` gives the app the official `MapLibreMapController`. Store it in persistent widget state and add sources and layers only after `onStyleLoaded`:
 
 ```dart
 WiredMap(
-  onMapCreated: (controller) async {
-    await controller.addGeoJsonSource('places', placesGeoJson);
-    // Add MapLibre symbol and cluster layers after the style loads.
+  onMapCreated: (controller) => nativeController = controller,
+  onStyleLoaded: () async {
+    await nativeController.addGeoJsonSource('places', placesGeoJson);
+    await nativeController.addCircleLayer(
+      'places',
+      'place-dots',
+      const CircleLayerProperties(circleRadius: 6, circleColor: '#B2533D'),
+    );
   },
 )
 ```
+
+Declare `late MapLibreMapController nativeController` in persistent state and import it and `CircleLayerProperties` from `maplibre_gl`. Add that package to the consuming app if using its native APIs. Recreate sources and layers after a style change; update initialized sources with `setGeoJsonSource` rather than adding duplicate source IDs. Surface asynchronous errors in your app.
 
 Use the [MapLibre Flutter documentation](https://maplibre.org/flutter-maplibre-gl/) for sources, style layers, clustering, PMTiles, and mobile offline regions. The map package does not copy those APIs.
 

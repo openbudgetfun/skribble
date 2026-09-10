@@ -20,6 +20,16 @@ Future<void> _pumpExample(WidgetTester tester, String id) async {
 }
 
 void main() {
+  testWidgets('holding a preview pin selects it without loading a map', (
+    tester,
+  ) async {
+    await _pumpExample(tester, 'map-features');
+    await tester.longPress(find.bySemanticsLabel('Favourite café'));
+    await tester.pumpAndSettle();
+    expect(find.text('Selected: Favourite café'), findsOneWidget);
+    expect(find.byType(WiredMap), findsNothing);
+  });
+
   testWidgets('map preview explains how to start the online renderer', (
     tester,
   ) async {

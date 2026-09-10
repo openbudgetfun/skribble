@@ -15,6 +15,62 @@ void main() {
   }
 
   group('WiredMapMarkerLayer', () {
+    testWidgets('holding a marker selects without firing its tap', (
+      tester,
+    ) async {
+      var taps = 0;
+      var holds = 0;
+      final semantics = tester.ensureSemantics();
+      await pumpMapApp(
+        tester,
+        subject([
+          WiredMapMarker(
+            point: const LatLng(0, 0),
+            semanticLabel: 'Cafe',
+            onTap: () => taps++,
+            onLongPress: () => holds++,
+            child: const WiredMapPin(),
+          ),
+        ]),
+      );
+      await tester.longPress(find.byType(WiredMapPin));
+      await tester.pumpAndSettle();
+      expect(holds, 1);
+      expect(taps, 0);
+      expect(
+        tester.getSemantics(find.bySemanticsLabel('Cafe')),
+        matchesSemantics(
+          label: 'Cafe',
+          isButton: true,
+          hasTapAction: true,
+          hasLongPressAction: true,
+        ),
+      );
+      semantics.dispose();
+    });
+
+    testWidgets('moving off a marker cancels long-press selection', (
+      tester,
+    ) async {
+      var holds = 0;
+      await pumpMapApp(
+        tester,
+        subject([
+          WiredMapMarker(
+            point: const LatLng(0, 0),
+            onLongPress: () => holds++,
+            child: const WiredMapPin(),
+          ),
+        ]),
+      );
+      await tester.drag(find.byType(WiredMapPin), const Offset(100, 0));
+      await tester.pumpAndSettle();
+      expect(holds, 0);
+      await tester.longPress(find.byType(WiredMapPin));
+      await tester.pumpAndSettle();
+      expect(holds, 1);
+    });
+
     testWidgets('renders marker content', (tester) async {
       await pumpMapApp(
         tester,
