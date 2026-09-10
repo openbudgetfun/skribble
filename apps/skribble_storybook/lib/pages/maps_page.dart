@@ -58,7 +58,7 @@ class MapsPage extends HookWidget {
     return WiredScaffold(
       appBar: WiredAppBar(
         leading: const _MapBackButton(),
-        title: const Text('MapLibre maps'),
+        title: const Text('A little wander'),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
@@ -66,13 +66,12 @@ class MapsPage extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
-              'Clear maps, drawn interactions',
+              'Good places. Little detours.',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             const Text(
-              'MapLibre renders the streets and labels. Skribble draws the '
-              'route, area, pins, and controls above it.',
+              'Follow the ink, find a favourite. Tap a pin to pick your next stop.',
               style: TextStyle(fontSize: 14, height: 1.25),
             ),
             const SizedBox(height: 12),
@@ -154,6 +153,7 @@ class MapsPage extends HookWidget {
                             child: WiredMapPin(
                               icon: place.icon,
                               fillColor: place.fillColor,
+                              seed: place.icon.index + 37,
                               inkColor: const Color(0xFF37342F),
                             ),
                           ),
@@ -244,19 +244,19 @@ const _places = <_MapCity, _MapPlaces>{
         point: LatLng(51.5228, -0.0810),
         label: 'Coffee stop',
         icon: WiredMapPinIcon.coffee,
-        fillColor: Color(0xFFF1E9DB),
+        fillColor: Color(0xFFF5CB83),
       ),
       _MapPlace(
         point: LatLng(51.5242, -0.0778),
         label: 'Brick Lane market',
         icon: WiredMapPinIcon.market,
-        fillColor: Color(0xFFE6EBE2),
+        fillColor: Color(0xFFAED9BC),
       ),
       _MapPlace(
         point: LatLng(51.5260, -0.0740),
         label: 'Gallery stop',
         icon: WiredMapPinIcon.gallery,
-        fillColor: Color(0xFFECE5E2),
+        fillColor: Color(0xFFBFC8ED),
       ),
     ],
   ),
@@ -282,19 +282,19 @@ const _places = <_MapCity, _MapPlaces>{
         point: LatLng(25.1949, 55.2782),
         label: 'Coffee by the boulevard',
         icon: WiredMapPinIcon.coffee,
-        fillColor: Color(0xFFF1E9DB),
+        fillColor: Color(0xFFF5CB83),
       ),
       _MapPlace(
         point: LatLng(25.1972, 55.2744),
         label: 'Dubai Mall',
         icon: WiredMapPinIcon.market,
-        fillColor: Color(0xFFE6EBE2),
+        fillColor: Color(0xFFAED9BC),
       ),
       _MapPlace(
         point: LatLng(25.1995, 55.2715),
         label: 'Burj Park',
         icon: WiredMapPinIcon.favorite,
-        fillColor: Color(0xFFECE5E2),
+        fillColor: Color(0xFFF3ABA6),
       ),
     ],
   ),
@@ -320,19 +320,19 @@ const _places = <_MapCity, _MapPlaces>{
         point: LatLng(35.6575, 139.6990),
         label: 'Coffee stop',
         icon: WiredMapPinIcon.coffee,
-        fillColor: Color(0xFFF1E9DB),
+        fillColor: Color(0xFFF5CB83),
       ),
       _MapPlace(
         point: LatLng(35.6595, 139.7005),
         label: 'Shibuya crossing',
         icon: WiredMapPinIcon.person,
-        fillColor: Color(0xFFE6EBE2),
+        fillColor: Color(0xFFA9D8E8),
       ),
       _MapPlace(
         point: LatLng(35.6612, 139.7025),
         label: 'Gallery stop',
         icon: WiredMapPinIcon.gallery,
-        fillColor: Color(0xFFECE5E2),
+        fillColor: Color(0xFFBFC8ED),
       ),
     ],
   ),
@@ -370,23 +370,33 @@ class _MapStatus extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     return buildWiredElement(
-      child: DecoratedBox(
-        decoration: RoughBoxDecoration(
-          drawConfig: theme.drawConfig.copyWith(seed: 19),
-          shape: RoughBoxShape.roundedRectangle,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          borderStyle: RoughDrawingStyle(
-            width: theme.strokeWidth,
-            color: theme.borderColor,
+      child: Transform.rotate(
+        angle: -0.025,
+        child: DecoratedBox(
+          decoration: RoughBoxDecoration(
+            drawConfig: theme.drawConfig.copyWith(
+              seed: 19,
+              roughness: 0.6,
+              maxRandomnessOffset: 0.7,
+            ),
+            shape: RoughBoxShape.roundedRectangle,
+            borderRadius: const BorderRadius.all(Radius.circular(4)),
+            borderStyle: RoughDrawingStyle(
+              width: 1.5,
+              color: const Color(0xFF514634),
+            ),
+            fillStyle: RoughDrawingStyle(
+              color: const Color(0xFFFFF0B8),
+            ),
+            filler: SolidFiller(),
           ),
-          fillStyle: RoughDrawingStyle(
-            color: theme.fillColor.withValues(alpha: 0.92),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 14, color: Color(0xFF35332F)),
+            ),
           ),
-          filler: SolidFiller(),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-          child: Text(text, style: const TextStyle(fontSize: 12)),
         ),
       ),
     );

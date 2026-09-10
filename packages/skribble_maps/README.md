@@ -12,8 +12,8 @@ This split keeps the map readable and keeps cartography out of the application c
 - MapLibre style URLs, local styles, or raw style JSON
 - Keyless OpenFreeMap Positron, Liberty, and Dark presets
 - Flat Web Mercator camera synchronization for Flutter overlays
-- Hand-drawn pins with large rough vector category icons
-- Tappable hand-drawn routes and hatched areas
+- Rounded sketch pins with pastel category fills, readable icons, and cream sticker edges
+- Precise, round-capped routes and lightly hatched area annotations
 - Hand-drawn zoom controls and optional attribution badges
 - Direct access to the MapLibre controller for clustering, GeoJSON layers, PMTiles, and offline regions
 - No Material or Cupertino imports in `skribble_maps`
@@ -95,6 +95,8 @@ WiredMap(
 ```
 
 `WiredMapPin` uses a large hand-drawn place icon by default. Its typed icon set covers check-ins, cafes, markets, galleries, favourite places, and people. Pass `child` when the product needs a custom widget.
+
+Pins default to category-specific pastel fills and dark brown ink on both light and dark maps. Their seed varies the curved shoulders without moving the anchor. Explicit color overrides still take precedence. Routes follow the supplied coordinates exactly, independent of theme roughness; the polyline `seed` remains accepted for compatibility. Area annotations keep their rough outline with a lighter default hatch opacity of 22 percent.
 
 ## Camera and overlay alignment
 

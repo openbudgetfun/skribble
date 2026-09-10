@@ -69,10 +69,10 @@ class WiredMapPin extends HookWidget {
   /// The pin height.
   final double height;
 
-  /// The pin body color, or the active Wired theme fill color.
+  /// The pin body color, or a pastel chosen for its category.
   final Color? fillColor;
 
-  /// The pin outline color, or the active Wired theme border color.
+  /// The pin outline color, or a dark brown ink readable on the pastel fill.
   final Color? inkColor;
 
   /// The icon color, or the resolved pin outline color.
@@ -97,8 +97,18 @@ class WiredMapPin extends HookWidget {
     final theme = WiredTheme.of(context);
     final pressed = useState(false);
     final enabled = onTap != null;
-    final resolvedInk = inkColor ?? theme.borderColor;
-    final resolvedFill = fillColor ?? theme.fillColor;
+    final resolvedInk = inkColor ?? const Color(0xFF35332F);
+    final resolvedFill =
+        fillColor ??
+        switch (icon) {
+          WiredMapPinIcon.coffee => const Color(0xFFF5CB83),
+          WiredMapPinIcon.market => const Color(0xFFAED9BC),
+          WiredMapPinIcon.gallery => const Color(0xFFBFC8ED),
+          WiredMapPinIcon.favorite => const Color(0xFFF3ABA6),
+          WiredMapPinIcon.person => const Color(0xFFA9D8E8),
+          WiredMapPinIcon.checkIn => const Color(0xFFC9DC91),
+          WiredMapPinIcon.place || null => const Color(0xFFF3D77A),
+        };
     final iconData = icon == null
         ? null
         : lookupMaterialRoughIconByIdentifier(icon!.identifier);
@@ -144,6 +154,18 @@ class WiredMapPin extends HookWidget {
                         drawConfig: pinDrawConfig,
                         fillerType: RoughFilter.solidFiller,
                         painter: _WiredMapPinPainter(
+                          fillColor: const Color(0xFFFFFCF3),
+                          inkColor: const Color(0xFFFFFCF3),
+                          strokeWidth: strokeWidth ?? theme.strokeWidth,
+                          halo: true,
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: WiredCanvas(
+                        drawConfig: pinDrawConfig,
+                        fillerType: RoughFilter.solidFiller,
+                        painter: _WiredMapPinPainter(
                           fillColor: resolvedFill,
                           inkColor: resolvedInk,
                           strokeWidth: strokeWidth ?? theme.strokeWidth,
@@ -152,9 +174,9 @@ class WiredMapPin extends HookWidget {
                     ),
                     if (child != null || iconData != null)
                       Positioned(
-                        top: height * 0.075,
-                        width: width * 0.7,
-                        height: height * 0.5,
+                        top: height * 0.12,
+                        width: width * 0.64,
+                        height: height * 0.48,
                         child: Center(
                           child:
                               child ??
@@ -163,12 +185,12 @@ class WiredMapPin extends HookWidget {
                                 size: iconSize,
                                 color: iconColor ?? resolvedInk,
                                 fillStyle: WiredIconFillStyle.none,
-                                strokeWidth: 1.8,
+                                strokeWidth: 1.2,
                                 drawConfig: pinDrawConfig.copyWith(
                                   seed: seed + 1,
-                                  roughness: 0.9,
-                                  maxRandomnessOffset: 0.75,
-                                  lineWobble: 0.25,
+                                  roughness: 0.35,
+                                  maxRandomnessOffset: 0.3,
+                                  lineWobble: 0,
                                 ),
                               ),
                         ),
@@ -189,34 +211,53 @@ class _WiredMapPinPainter extends WiredPainterBase {
     required this.fillColor,
     required this.inkColor,
     required this.strokeWidth,
+    this.halo = false,
   });
 
   final Color fillColor;
   final Color inkColor;
   final double strokeWidth;
+  final bool halo;
 
   @override
   RoughDrawing prepare(Size size, DrawConfig drawConfig, Filler filler) {
-    final inset = strokeWidth + (drawConfig.maxRandomnessOffset ?? 2);
-    final left = inset.clamp(0, size.width / 3).toDouble();
-    final right = size.width - left;
-    final top = inset.clamp(0, size.height / 4).toDouble();
-    final tip = size.height - inset;
-    final points = <PointD>[
-      PointD(size.width * 0.5, tip),
-      PointD(size.width * 0.18, size.height * 0.5),
-      PointD(left, size.height * 0.31),
-      PointD(size.width * 0.22, size.height * 0.14),
-      PointD(size.width * 0.39, top),
-      PointD(size.width * 0.61, top),
-      PointD(size.width * 0.78, size.height * 0.14),
-      PointD(right, size.height * 0.31),
-      PointD(size.width * 0.82, size.height * 0.5),
+    final inset = math.min(strokeWidth / 2 + 3, size.shortestSide / 4);
+    final width = size.width - inset * 2;
+    final height = size.height - inset * 2;
+    final random = math.Random(drawConfig.seed);
+    // Vary the shoulders, never the tip: a marker must still point at its
+    // geographic anchor. One continuous contour avoids polygon corners and
+    // doubled strokes at this small size.
+    final lean = (random.nextDouble() - 0.5) * 0.06;
+    PointD point(double x, double y) =>
+        PointD(inset + width * x, inset + height * y);
+    final contour = <Op>[
+      Op.move(point(0.5, 1)),
+      Op.curveTo(point(0.40, 0.80), point(0.02, 0.62), point(0.02, 0.35)),
+      Op.curveTo(point(0, 0.13), point(0.20 + lean, 0.01), point(0.47, 0.02)),
+      Op.curveTo(point(0.77 + lean, 0), point(0.99, 0.13), point(0.98, 0.36)),
+      Op.curveTo(point(0.98, 0.63), point(0.62, 0.82), point(0.5, 1)),
     ];
-    final drawable = Generator(drawConfig, filler).polygon(points);
+    final accent = <Op>[
+      Op.move(point(0.12, 0.34)),
+      Op.curveTo(point(0.11, 0.23), point(0.18, 0.15), point(0.28, 0.13)),
+    ];
+    final drawable = Drawable(
+      options: drawConfig,
+      sets: [
+        OpSet(type: OpSetType.fillPath, ops: contour),
+        OpSet(type: OpSetType.path, ops: [...contour, if (!halo) ...accent]),
+      ],
+    );
+
     return RoughDrawing(
       drawable,
-      WiredBase.pathPainter(strokeWidth, color: inkColor),
+      WiredBase.pathPainter(
+          halo ? strokeWidth + 4 : strokeWidth,
+          color: inkColor,
+        )
+        ..strokeCap = StrokeCap.round
+        ..strokeJoin = StrokeJoin.round,
       WiredBase.fillPainter(fillColor),
     );
   }
