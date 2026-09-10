@@ -2,9 +2,7 @@
 skribble: patch
 ---
 
-# Allow unresolved baseline regression checks to accept ...
-
-JSON formats.
+# Allow unresolved baseline regression checks to accept JSON formats
 
 - `--unresolved-baseline` now supports:
   - unresolved report format (`unresolved[]`)

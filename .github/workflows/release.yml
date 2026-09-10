@@ -90,7 +90,21 @@ jobs:
         if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: monochange run release
+        run: |
+          set -euo pipefail
+          # A changeset that only bumps `none` produces no releaseable
+          # packages; monochange exits non-zero with that message. Treat that
+          # specific case as "nothing to release" rather than failing the
+          # workflow. Any other failure is re-raised.
+          if ! output="$(monochange run release 2>&1)"; then
+            if printf '%s\n' "$output" | grep -q 'no releaseable packages were found in discovered changesets'; then
+              echo "No releaseable packages in current changesets; skipping release PR refresh."
+              exit 0
+            fi
+            printf '%s\n' "$output" >&2
+            exit 1
+          fi
+          printf '%s\n' "$output"
         shell: devenv shell -- bash -e {0}
 
       - name: Add release PR attribution
@@ -104,7 +118,7 @@ jobs:
               --base main \
               --state open \
               --json headRefName,number \
-              --jq '[.[] | select(.headRefName | startswith("chore/release"))][0].number'
+              --jq '[.[] | select(.headRefName | startswith("monochange/release"))][0].number'
           )"
           if [ -z "$pr_number" ] || [ "$pr_number" = "null" ]; then
             echo "::error::Monochange did not leave an open release PR."
@@ -154,13 +168,27 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         shell: bash
 
-      - name: Create release tag and dispatch publishing
+      - name: Create release tag
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           monochange step tag-release --from HEAD --push=true --format json
+        shell: devenv shell -- bash -e {0}
 
+      - name: Create the draft release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          monochange step publish-release --from-ref HEAD --draft --format json
+        shell: devenv shell -- bash -e {0}
+
+      - name: Dispatch publishing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
           mapfile -t release_tags < <(git tag --points-at HEAD --list 'v[0-9]*')
           if [ "${#release_tags[@]}" -ne 1 ]; then
             echo "::error::Expected one release tag at HEAD, found ${#release_tags[@]}."

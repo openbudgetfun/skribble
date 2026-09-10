@@ -17,8 +17,11 @@ jobs:
       - name: lint all
         run: lint:all
         shell: devenv shell -- bash -e {0}
-      - name: Validate monochange configuration
-        run: monochange step validate
+      - name: Check monochange configuration, changesets, and manifests
+        # `check` runs workspace validation plus every configured lint rule
+        # (changeset summary/heading/body policy and Dart manifest hygiene).
+        # Use `monochange check --fix` locally to auto-fix the fixable ones.
+        run: monochange check
         shell: devenv shell -- bash -e {0}
 
   test:
@@ -170,3 +173,67 @@ jobs:
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
           use_oidc: true
+
+  publish-check:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # Runs `flutter/dart pub publish --dry-run` for every package against
+      # pub.dev, which is exactly what the publish workflow performs before
+      # each real publish.
+      - name: Dry-run package publishing
+        run: monochange step publish-packages --dry-run --all --format json
+        shell: devenv shell -- bash -e {0}
+
+  publish-check-release:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Configure release identity
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        shell: bash
+      # Simulate the release commit the release PR would create after this
+      # pull request merges: prepare version bumps and changelogs, then commit
+      # them locally. Nothing is pushed, tagged, or published.
+      - name: Create the release commit locally
+        id: release_commit
+        run: |
+          set -euo pipefail
+          if find .changeset -type f -name '*.md' -print -quit | grep -q .; then
+            monochange step prepare-release --release-json --format json
+            monochange step commit-release --no-verify
+            echo "created=true" >>"$GITHUB_OUTPUT"
+          else
+            echo "No pending changesets; skipping the local release commit."
+          fi
+        shell: devenv shell -- bash -e {0}
+      - name: Check publish readiness on the release commit
+        if: steps.release_commit.outputs.created == 'true'
+        run: >-
+          monochange step publish-readiness --from HEAD
+          --package skribble_lints
+          --package skribble_emoji_gen
+          --package skribble_font_roughen
+          --package skribble
+          --package skribble_emoji
+          --package skribble_icons
+          --package skribble_icons_custom
+          --format json
+        shell: devenv shell -- bash -e {0}
+      - name: Dry-run package publishing on the release commit
+        run: monochange step publish-packages --dry-run --all --format json
+        shell: devenv shell -- bash -e {0}

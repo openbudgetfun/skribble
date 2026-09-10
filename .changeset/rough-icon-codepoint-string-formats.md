@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Improve rough icon codepoint parsing ergonomics for ...
+# Accept more string formats when parsing rough icon codepoints
 
 - `codePoint` parsing now accepts additional string forms:
   - bare hex (for example `"e001"`)

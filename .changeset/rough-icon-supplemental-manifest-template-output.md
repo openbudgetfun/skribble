@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Add supplemental manifest template output support to ...
+# Add supplemental manifest template output to icon tooling
 
 - New CLI option: `--supplemental-manifest-output <path>`
 - Emits a starter JSON manifest for unresolved icons using the same `icons[]` schema consumed by `--supplemental-manifest`

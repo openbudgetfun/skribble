@@ -2,6 +2,6 @@
 skribble: patch
 ---
 
-# Add a Rough Icons storybook gallery that renders the ...
+# Add a Rough Icons storybook gallery
 
-icon catalog, expose `materialRoughIconCodePoints` for tooling/showcase use, and include rough-icon screenshot coverage in the screenshot manifest.
+Render the full Material rough icon catalog, expose `materialRoughIconCodePoints` for tooling/showcase use, and include rough-icon screenshot coverage in the screenshot manifest.

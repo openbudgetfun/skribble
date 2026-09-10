@@ -2,6 +2,8 @@
 skribble: minor
 ---
 
+# Add Material long tail batch A parity widgets
+
 Add "Material long tail" batch A widgets to close four M3 parity gaps:
 
 - `WiredCarouselView`: hand-drawn horizontal carousel of rough-bordered cards mirroring M3 `CarouselView`'s `itemExtent` / `height` / `children` / `shrinkWrap` API, with optional hachure fill, tap callbacks, and item semantics.

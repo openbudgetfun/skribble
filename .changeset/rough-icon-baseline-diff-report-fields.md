@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Improve unresolved baseline comparison reporting for ...
+# Add regression and recovery fields to the unresolved baseline diff
 
 - `--unresolved-baseline` now records both regression and recovery context in unresolved JSON output
 - New optional report fields when baseline comparison is enabled:

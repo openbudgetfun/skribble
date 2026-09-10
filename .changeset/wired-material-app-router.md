@@ -2,6 +2,6 @@
 skribble: patch
 ---
 
-# Add `WiredMaterialApp.router` so router-based Flutter ...
+# Add `WiredMaterialApp.router` for router-based Flutter apps
 
-`MaterialApp.router` configuration and `WiredTheme` synchronized while using Skribble's hand-drawn app-level theming.
+Keep `MaterialApp.router` configuration and `WiredTheme` synchronized while using Skribble's hand-drawn app-level theming.

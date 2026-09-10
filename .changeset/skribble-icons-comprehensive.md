@@ -2,6 +2,6 @@
 skribble: patch
 ---
 
-# Make all 8,600+ Flutter Material icons available ...
+# Make all 8,600+ Material icons available as rough icons
 
 unified lookup API. Re-exports Material rough icons from `skribble` package, keeps 30 curated custom icons, and provides `lookupSkribbleIconByIdentifier()` that searches custom first then falls back to Material. Adds `rough-icons-skribble` melos script for custom icon regeneration.

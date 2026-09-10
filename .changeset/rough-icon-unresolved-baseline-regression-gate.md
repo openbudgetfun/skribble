@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Add unresolved baseline regression gating to rough ...
+# Add unresolved baseline regression gating to rough icons
 
 - New option: `--unresolved-baseline <path>` to load previous unresolved report
 - New option: `--fail-on-new-unresolved` to fail only when new unresolved codepoints appear versus baseline

@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Switch rough icon baseline sync defaults to ...
+# Switch rough icon baseline sync defaults to codepoints output
 
 - `melos run rough-icons-baseline` now writes baseline JSON using `--unresolved-baseline-output-format codepoints`.
 - CI/local baseline sync script (`scripts/check_rough_icons_ci.sh`) now uses the same `codepoints` baseline output format.

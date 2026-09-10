@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Accept additional codepoint field aliases in ...
+# Accept additional codepoint field aliases in baseline entries
 
 - `--unresolved-baseline` now accepts `codepoint` and `code_point` for object entries in `unresolved[]` and `icons[]` (in addition to `codePoint`).
 - Keeps existing minimal list-key aliases unchanged.

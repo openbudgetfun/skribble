@@ -2,7 +2,7 @@
 skribble: patch
 ---
 
-# Enhance unresolved rough icon report JSON with ...
+# Add unresolved codepoint summaries to the unresolved report
 
 - `--unresolved-output` now includes `unresolvedCodePoints[]` (hex strings) alongside existing `unresolved[]` entries.
 - When baseline comparison is enabled, reports now include `newUnresolvedCodePoints[]` in addition to `newUnresolved[]`.

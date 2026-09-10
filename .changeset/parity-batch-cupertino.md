@@ -2,6 +2,8 @@
 skribble: minor
 ---
 
+# Add hand-drawn Cupertino parity widgets
+
 Add a batch of hand-drawn Cupertino parity widgets, completing the highest priority cupertino gaps from the planning audit:
 
 - `WiredCupertinoActivityIndicator` — iOS-style sunburst spinner drawn with jittered rough strokes; `animating` toggles the continuous rotation (idle-safe for `pumpAndSettle` tests) and supports semantic labels.
