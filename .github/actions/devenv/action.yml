@@ -34,6 +34,35 @@ runs:
         nix profile add nixpkgs#devenv
       shell: bash
 
+    # On a fresh runner store, the first devenv evaluation intermittently
+    # fails with "path '/nix/store/...-<hook>.sh' is not valid": a Nix daemon
+    # store-consistency bug that records a fetcher path in the derivation
+    # before it is valid in the local store (cachix/devenv#2729, unfixed as of
+    # Nix 2.35.2). Retrying after deleting the orphaned path resolves it, and
+    # this warm-up also pre-builds the shell for the steps below.
+    - name: warm up devenv shell
+      run: |
+        for attempt in 1 2 3; do
+          if out="$(devenv shell -- true 2>&1)"; then
+            echo "devenv shell evaluated on attempt $attempt"
+            exit 0
+          fi
+          echo "attempt $attempt failed:"
+          printf '%s\n' "$out" | tail -20
+          bad="$(printf '%s\n' "$out" \
+            | grep "is not valid" \
+            | grep -oE "/nix/store/[a-z0-9]{32}-[^'[:space:]]+" \
+            | head -1)"
+          if [ -n "$bad" ]; then
+            echo "removing invalid store path: $bad"
+            sudo rm -rf "$bad" || true
+          fi
+          sleep 2
+        done
+        echo "::error::devenv shell failed to evaluate after 3 attempts"
+        exit 1
+      shell: bash
+
     - name: install flutter sdk via fvm
       run: |
         fvm install
