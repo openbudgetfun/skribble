@@ -163,7 +163,8 @@ jobs:
 
           mapfile -t main_tags < <(git tag --points-at HEAD --list 'v[0-9]*')
           mapfile -t maps_tags < <(git tag --points-at HEAD --list 'skribble_maps/v[0-9]*')
-          release_tags=("${main_tags[@]}" "${maps_tags[@]}")
+          mapfile -t charts_tags < <(git tag --points-at HEAD --list 'skribble_charts/v[0-9]*')
+          release_tags=("${main_tags[@]}" "${maps_tags[@]}" "${charts_tags[@]}")
           if [ "${#release_tags[@]}" -eq 0 ]; then
             echo "::error::Expected at least one release tag at HEAD."
             exit 1

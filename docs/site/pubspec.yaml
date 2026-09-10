@@ -18,6 +18,8 @@ dependencies:
   markdown: ^7.3.1
   skribble:
     path: ../../packages/skribble
+  skribble_charts:
+    path: ../../packages/skribble_charts
   skribble_emoji:
     path: ../../packages/skribble_emoji
   skribble_icons:

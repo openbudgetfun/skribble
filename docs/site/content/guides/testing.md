@@ -432,6 +432,30 @@ cd packages/skribble
 flutter test --reporter expanded
 ```
 
+## Chart and map verification
+
+Run the companion package suites from the workspace root:
+
+```bash
+devenv shell flutter test packages/skribble_charts/test
+devenv shell flutter test packages/skribble_maps/test
+devenv shell test:all
+```
+
+Chart tests cover exact decimals, OHLC validation, UTC aggregation, revision merging, snapshot/live races, coordinate inversion, indicator reference values, drawing undo/redo, workspace validation, gestures, semantics, and a deterministic rendering golden. The docs and Storybook have separate composition tests for their real controls and responsive layouts.
+
+The chart golden loads a bundled font, so it does not depend on fonts installed on the test machine. Inspect the image whenever intentionally updating it. Passing a golden does not verify native gestures or MapLibre.
+
+Storybook includes Android and iOS runners. Its native integration journey uses the real chart and map, captures screenshots, and records chart gesture frame timings:
+
+```bash
+cd apps/skribble_storybook
+SKRIBBLE_DEVICE_LABEL=android devenv shell flutter drive --profile --no-dds --driver=test_driver/charts_device_test.dart --target=integration_test/charts_device_test.dart -d <android-device-id>
+SKRIBBLE_DEVICE_LABEL=ios devenv shell flutter drive --driver=test_driver/charts_device_test.dart --target=integration_test/charts_device_test.dart -d <ios-simulator-id>
+```
+
+Run it on an attached Android device and an iOS simulator. Android uses profile mode for representative frame timings. Simulator timings use debug mode and are diagnostic only. Map checks require access to the demo tile provider and wait for the style-loaded signal. Local screenshots belong in the ignored `.screenshots/charts/` and `.screenshots/maps/` directories. Browser CI separately exercises the docs and Storybook, including the docs build with a deployment path prefix.
+
 ## Coverage tracking
 
 Generate a coverage report for the skribble package:

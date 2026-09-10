@@ -7,6 +7,7 @@ environment:
 workspace:
   - docs/site
   - packages/skribble
+  - packages/skribble_charts
   - packages/skribble_emoji
   - packages/skribble_emoji_gen
   - packages/skribble_font_roughen

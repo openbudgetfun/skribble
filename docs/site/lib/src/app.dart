@@ -234,19 +234,21 @@ class _DocsPage extends HookWidget {
               ),
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 132,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.centerLeft,
-                      child: _NavigationLink(
-                        onActivate: () => navigate('/'),
-                        child: const Text(
-                          'skribble',
-                          style: TextStyle(
-                            fontSize: 31,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: -1.5,
+                  Flexible(
+                    child: SizedBox(
+                      width: 132,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: _NavigationLink(
+                          onActivate: () => navigate('/'),
+                          child: const Text(
+                            'skribble',
+                            style: TextStyle(
+                              fontSize: 31,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: -1.5,
+                            ),
                           ),
                         ),
                       ),
@@ -267,12 +269,14 @@ class _DocsPage extends HookWidget {
                       child: const Text('GitHub'),
                     ),
                   if (!wide)
-                    DocsAction(
-                      key: DocsKeys.menu,
-                      onPressed: () =>
-                          navigationOpen.value = !navigationOpen.value,
-                      child: Text(
-                        navigationOpen.value ? 'Close menu' : 'Explore',
+                    Flexible(
+                      child: DocsAction(
+                        key: DocsKeys.menu,
+                        onPressed: () =>
+                            navigationOpen.value = !navigationOpen.value,
+                        child: Text(
+                          navigationOpen.value ? 'Close menu' : 'Explore',
+                        ),
                       ),
                     ),
                 ],

@@ -41,6 +41,7 @@ class WiredMap extends HookWidget {
     this.gestureRecognizers,
     this.onMapCreated,
     this.onStyleLoaded,
+    this.onMapIdle,
     this.onCameraChanged,
     this.onTap,
     this.mapViewBuilder,
@@ -111,6 +112,13 @@ class WiredMap extends HookWidget {
 
   /// Called after the MapLibre style and annotation managers load.
   final VoidCallback? onStyleLoaded;
+
+  /// Called after requested tiles load and camera and fade transitions finish.
+  ///
+  /// Unlike [onStyleLoaded], this callback is suitable for waiting before a
+  /// screenshot. Further camera movement or data loading can make the map busy
+  /// again.
+  final VoidCallback? onMapIdle;
 
   /// Called while MapLibre moves the camera.
   final ValueChanged<WiredMapCamera>? onCameraChanged;
@@ -255,6 +263,7 @@ class WiredMap extends HookWidget {
         onMapCreated?.call(controller);
       },
       onStyleLoadedCallback: onStyleLoaded,
+      onMapIdle: onMapIdle,
       onCameraMove: (position) {
         mapController.synchronizeFromEngine(position);
         onCameraChanged?.call(mapController.camera);

@@ -5,6 +5,7 @@ on:
     tags:
       - "v*"
       - "skribble_maps/v*"
+      - "skribble_charts/v*"
   workflow_dispatch:
 
 permissions:
@@ -58,6 +59,10 @@ jobs:
         run: |
           set -euo pipefail
           case "$RELEASE_TAG" in
+            skribble_charts/v*)
+              echo "packages=skribble_charts" >>"$GITHUB_OUTPUT"
+              echo "artifact_name=monochange-publish-skribble-charts" >>"$GITHUB_OUTPUT"
+              ;;
             skribble_maps/v*)
               echo "packages=skribble_maps" >>"$GITHUB_OUTPUT"
               echo "artifact_name=monochange-publish-skribble-maps" >>"$GITHUB_OUTPUT"
