@@ -89,10 +89,12 @@ class WiredMap extends HookWidget {
   /// How map content is clipped at the viewport bounds.
   final Clip clipBehavior;
 
-  /// Whether MapLibre handles mouse-wheel and trackpad scrolling.
+  /// Whether MapLibre handles dragging to pan across the map.
   final bool scrollGesturesEnabled;
 
   /// Whether MapLibre handles pinch and double-tap zoom gestures.
+  ///
+  /// Also controls mouse-wheel and trackpad zoom on the web.
   final bool zoomGesturesEnabled;
 
   /// Whether MapLibre displays the device-location indicator.
@@ -102,6 +104,10 @@ class WiredMap extends HookWidget {
   final bool myLocationEnabled;
 
   /// Gesture recognizers forwarded to MapLibre's platform view.
+  ///
+  /// On mobile, a map inside a scrollable can compete with its parent for
+  /// drags. Supply an eager recognizer when gestures starting on the map
+  /// should belong to the map; the rest of the page remains scrollable.
   final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
 
   /// Called after MapLibre creates its controller.

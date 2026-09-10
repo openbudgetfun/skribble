@@ -40,6 +40,7 @@ class WiredMapPin extends HookWidget {
     super.key,
     this.child,
     this.onTap,
+    this.onLongPress,
     this.semanticLabel,
     this.width = 52,
     this.height = 64,
@@ -59,6 +60,12 @@ class WiredMapPin extends HookWidget {
 
   /// Called when the pin is activated.
   final VoidCallback? onTap;
+
+  /// Called when the pin is held, independently of [onTap].
+  ///
+  /// Use this to select the place or open its context actions. Moving beyond
+  /// the gesture slop before the hold completes cancels the long press.
+  final VoidCallback? onLongPress;
 
   /// An accessibility label for the pin.
   final String? semanticLabel;
@@ -96,7 +103,7 @@ class WiredMapPin extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final pressed = useState(false);
-    final enabled = onTap != null;
+    final enabled = onTap != null || onLongPress != null;
     final resolvedInk = inkColor ?? const Color(0xFF35332F);
     final resolvedFill =
         fillColor ??
@@ -129,12 +136,25 @@ class WiredMapPin extends HookWidget {
       child: Semantics(
         label: semanticLabel,
         button: enabled,
+        onTap: onTap,
+        onLongPress: onLongPress,
         excludeSemantics: semanticLabel != null,
         child: MouseRegion(
           cursor: enabled ? SystemMouseCursors.click : SystemMouseCursors.basic,
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
+            excludeFromSemantics: true,
             onTap: onTap,
+            onLongPress: onLongPress,
+            onLongPressStart: onLongPress != null
+                ? (_) => pressed.value = true
+                : null,
+            onLongPressEnd: onLongPress != null
+                ? (_) => pressed.value = false
+                : null,
+            onLongPressCancel: onLongPress != null
+                ? () => pressed.value = false
+                : null,
             onTapDown: enabled ? (_) => pressed.value = true : null,
             onTapUp: enabled ? (_) => pressed.value = false : null,
             onTapCancel: enabled ? () => pressed.value = false : null,
@@ -185,12 +205,12 @@ class WiredMapPin extends HookWidget {
                                 size: iconSize,
                                 color: iconColor ?? resolvedInk,
                                 fillStyle: WiredIconFillStyle.none,
-                                strokeWidth: 1.2,
+                                strokeWidth: 1.35,
                                 drawConfig: pinDrawConfig.copyWith(
                                   seed: seed + 1,
-                                  roughness: 0.35,
-                                  maxRandomnessOffset: 0.3,
-                                  lineWobble: 0,
+                                  roughness: 1,
+                                  maxRandomnessOffset: 0.9,
+                                  lineWobble: 0.12,
                                 ),
                               ),
                         ),
@@ -226,21 +246,35 @@ class _WiredMapPinPainter extends WiredPainterBase {
     final height = size.height - inset * 2;
     final random = math.Random(drawConfig.seed);
     // Vary the shoulders, never the tip: a marker must still point at its
-    // geographic anchor. One continuous contour avoids polygon corners and
-    // doubled strokes at this small size.
+    // geographic anchor. Seeded deviations keep the pen irregular without
+    // letting the border flicker on rebuild or drift away from the fill.
     final lean = (random.nextDouble() - 0.5) * 0.06;
-    PointD point(double x, double y) =>
-        PointD(inset + width * x, inset + height * y);
+    final wobble = math.min(size.shortestSide * 0.018, 1.1);
+    PointD point(double x, double y) {
+      if (x == 0.5 && y == 1) {
+        return PointD(size.width / 2, size.height - inset);
+      }
+
+      return PointD(
+        inset + width * x + (random.nextDouble() - 0.5) * wobble * 2,
+        inset + height * y + (random.nextDouble() - 0.5) * wobble * 2,
+      );
+    }
+
     final contour = <Op>[
       Op.move(point(0.5, 1)),
-      Op.curveTo(point(0.40, 0.80), point(0.02, 0.62), point(0.02, 0.35)),
+      Op.curveTo(point(0.43, 0.84), point(0.25, 0.72), point(0.16, 0.60)),
+      Op.curveTo(point(0.06, 0.48), point(0.02, 0.43), point(0.02, 0.35)),
       Op.curveTo(point(0, 0.13), point(0.20 + lean, 0.01), point(0.47, 0.02)),
       Op.curveTo(point(0.77 + lean, 0), point(0.99, 0.13), point(0.98, 0.36)),
-      Op.curveTo(point(0.98, 0.63), point(0.62, 0.82), point(0.5, 1)),
+      Op.curveTo(point(0.98, 0.48), point(0.90, 0.59), point(0.79, 0.70)),
+      Op.curveTo(point(0.66, 0.82), point(0.58, 0.89), point(0.5, 1)),
     ];
     final accent = <Op>[
-      Op.move(point(0.12, 0.34)),
-      Op.curveTo(point(0.11, 0.23), point(0.18, 0.15), point(0.28, 0.13)),
+      // A short retraced shoulder reads as a pen correction, rather than a
+      // perfectly inset highlight or a second outline around the whole pin.
+      Op.move(point(0.04, 0.30)),
+      Op.curveTo(point(0.05, 0.14), point(0.22, 0.04), point(0.40, 0.045)),
     ];
     final drawable = Drawable(
       options: drawConfig,

@@ -23,7 +23,7 @@ import 'package:skribble_maps/skribble_maps.dart';
 
 ## Create a map
 
-The default paper style is OpenFreeMap Positron. It is global and does not need an API key. Select Load OpenFreeMap to start the live map. This explicitly loads the online renderer and basemap while leaving normal document scrolling available.
+The default paper style is OpenFreeMap Positron. These are real OpenStreetMap-derived streets, buildings, and labels, not a mock map. It is global and does not need an API key. Select Load OpenFreeMap to start the live map. Once loaded, drag and zoom inside the map; scroll the document outside it or close the map to resume reading.
 
 ```dart
 // Live example: map-online
@@ -46,7 +46,11 @@ HookBuilder(
               key: ValueKey('docs-online-map'),
               initialCenter: LatLng(51.5074, -0.1278),
               initialZoom: 13,
-              scrollGesturesEnabled: false,
+              gestureRecognizers: {
+                Factory<OneSequenceGestureRecognizer>(
+                  EagerGestureRecognizer.new,
+                ),
+              },
             ),
           ),
         ],
@@ -99,18 +103,21 @@ HookBuilder(
               icon: WiredMapPinIcon.coffee,
               semanticLabel: 'Favourite café',
               onTap: () => selected.value = 'Selected: Favourite café',
+              onLongPress: () => selected.value = 'Selected: Favourite café',
             ),
             WiredMapPin(
               key: const ValueKey('docs-map-pin-market'),
               icon: WiredMapPinIcon.market,
               semanticLabel: 'Weekend market',
               onTap: () => selected.value = 'Selected: Weekend market',
+              onLongPress: () => selected.value = 'Selected: Weekend market',
             ),
             WiredMapPin(
               key: const ValueKey('docs-map-pin-gallery'),
               icon: WiredMapPinIcon.gallery,
               semanticLabel: 'Local gallery',
               onTap: () => selected.value = 'Selected: Local gallery',
+              onLongPress: () => selected.value = 'Selected: Local gallery',
             ),
           ],
         ),
@@ -136,7 +143,11 @@ HookBuilder(
             child: WiredMap(
               initialCenter: const LatLng(51.5242, -0.0778),
               initialZoom: 14,
-              scrollGesturesEnabled: false,
+              gestureRecognizers: const {
+                Factory<OneSequenceGestureRecognizer>(
+                  EagerGestureRecognizer.new,
+                ),
+              },
               semanticLabel: 'Shoreditch walking route',
               children: [
                 const WiredMapFeatureLayer(
@@ -167,6 +178,8 @@ HookBuilder(
                       point: const LatLng(51.5242, -0.0778),
                       semanticLabel: 'Favourite café',
                       onTap: () => selected.value = 'Selected: Favourite café',
+                      onLongPress: () =>
+                          selected.value = 'Selected: Favourite café',
                       child: const WiredMapPin(icon: WiredMapPinIcon.coffee),
                     ),
                   ],
@@ -181,11 +194,128 @@ HookBuilder(
 )
 ```
 
-Pins default to 52 by 64 logical pixels with a 28-pixel vector icon. A softly asymmetric ink contour, small pen accent, and cream sticker edge keep them distinct from the map. The built-in icon choices are `place`, `checkIn`, `coffee`, `market`, `gallery`, `favorite`, and `person`. Their icons use very little roughness so small details remain readable.
+Pins default to 52 by 64 logical pixels with a 28-pixel vector icon. Seeded pen wobble, a lightly retraced shoulder, and a cream sticker edge give the border a hand-drawn finish. The built-in icon choices are `place`, `checkIn`, `coffee`, `market`, `gallery`, `favorite`, and `person`. Their icons have a restrained wobble so small details remain readable. Rebuilding a pin with the same seed keeps its ink stable.
 
 Each category has a pastel fill and dark brown ink by default, including on dark maps. Override `fillColor`, `inkColor`, or `iconColor` to match your app. Keep the glyph as well as the color so categories remain distinguishable without color vision. A pin's seed varies its shoulders while its bottom-center anchor stays fixed.
 
 Roads and labels retain MapLibre's exact geometry. `WiredMapPolyline` also follows its supplied points exactly, with continuous round joins and caps. Theme roughness does not distort routes, and the existing polyline `seed` parameter is retained for compatibility without affecting the stroke. `WiredMapPolygon` keeps a sketch outline and light hatching for area annotations. Its default hatch opacity is 22 percent to leave underlying labels visible.
+
+## Gestures and selection
+
+| Interaction                            | Support                              | API                                                       |
+| -------------------------------------- | ------------------------------------ | --------------------------------------------------------- |
+| Drag to pan                            | Enabled by default on mobile and web | `scrollGesturesEnabled`                                   |
+| Pinch to zoom                          | Enabled by default                   | `zoomGesturesEnabled`                                     |
+| Double-tap and web wheel/trackpad zoom | Enabled by default                   | `zoomGesturesEnabled`                                     |
+| Zoom buttons                           | Shown by default                     | `showZoomControls`                                        |
+| Tap an unclaimed map coordinate        | Callback available                   | `WiredMap.onTap(LatLng)`                                  |
+| Tap a pin                              | Callback available                   | `WiredMapMarker.onTap` or `WiredMapPin.onTap`             |
+| Hold a pin to select it                | Callback available on mobile and web | `WiredMapMarker.onLongPress` or `WiredMapPin.onLongPress` |
+| Observe pan or zoom                    | Callback available                   | `onCameraChanged(WiredMapCamera)`                         |
+
+Selection belongs to your app. Both tap and long press can update the same selected place ID; a completed long press does not also fire the tap callback. Moving before the hold is recognized cancels selection. Standalone pins expose the same callbacks, and both actions are available to accessibility services. The live pin demo and Storybook support either tap or hold. Configure callbacks on the marker **or** its interactive child; nesting two gesture handlers makes them compete.
+
+On Android and iOS, a map inside a scroll view competes with the page for drags. The live examples give gestures that start inside the map to its platform view:
+
+```dart
+// Static example: setup
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+
+WiredMap(
+  gestureRecognizers: {
+    Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new),
+  },
+)
+```
+
+The rest of the page still scrolls. Omit this recognizer when the parent should participate in gesture arbitration. `WiredMapFeatureLayer` passes touches through decorative features and empty space; only features with `onTap` claim their hit area. Other decorative overlays should use `IgnorePointer` so they do not cover the map's hit area. A press on a Flutter pin selects the pin; it does not move the pin's coordinates. Rotation and pitch remain disabled to keep Flutter overlays aligned.
+
+## Connect your own places and routes
+
+There are two independent data inputs. `WiredMapStyle.styleString` supplies the basemap and its tile sources. Your API supplies places, check-ins, boundaries, or routes to the Flutter overlay layers. Replacing your place data does not require replacing the basemap.
+
+For a small set of interactive places, fetch your API's JSON in a repository or service, validate it, and convert coordinates into `LatLng(latitude, longitude)`. For example, an endpoint could return:
+
+```json
+[
+  {
+    "id": "cafe-1",
+    "name": "Corner cafe",
+    "latitude": 51.5242,
+    "longitude": -0.0778
+  }
+]
+```
+
+Add `http` to your consuming app with `dart pub add http`. This loader accepts that specific schema and reports malformed data instead of placing a pin at an invented location:
+
+```dart
+// Static example: external-asset
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:skribble_maps/skribble_maps.dart';
+
+typedef MapPlace = ({String id, String name, LatLng point});
+
+Future<List<MapPlace>> loadPlaces(http.Client client, Uri endpoint) async {
+  final response = await client.get(endpoint).timeout(const Duration(seconds: 15));
+  if (response.statusCode != 200) {
+    throw StateError('Place request failed: ${response.statusCode}');
+  }
+  final Object? decoded = jsonDecode(response.body);
+  if (decoded is! List<Object?>) {
+    throw const FormatException('Expected a list of places');
+  }
+  final places = <MapPlace>[];
+  for (final item in decoded) {
+    if (item case {
+      'id': final String id,
+      'name': final String name,
+      'latitude': final num latitude,
+      'longitude': final num longitude,
+    } when latitude.isFinite && longitude.isFinite &&
+        latitude.abs() <= 90 && longitude.abs() <= 180) {
+      places.add((
+        id: id,
+        name: name,
+        point: LatLng(latitude.toDouble(), longitude.toDouble()),
+      ));
+    } else {
+      throw const FormatException('Invalid place or coordinates');
+    }
+  }
+  return places;
+}
+```
+
+Keep the HTTP client and request outside `build`, close the client when its owner is disposed, and show loading, error/retry, and empty states. Keep stable, unique place IDs from your API. Once your state holds the loaded `places`, render them like this; `selectPlace` updates your application's selected ID:
+
+```dart
+// Static example: external-asset
+WiredMapMarkerLayer(
+  markers: [
+    for (final place in places)
+      WiredMapMarker(
+        key: ValueKey(place.id),
+        point: place.point,
+        semanticLabel: place.name,
+        onTap: () => selectPlace(place.id),
+        onLongPress: () => selectPlace(place.id),
+        child: WiredMapPin(
+          icon: WiredMapPinIcon.place,
+          fillColor: selectedId == place.id ? const Color(0xFFF3ABA6) : null,
+        ),
+      ),
+  ],
+)
+```
+
+Rebuild the marker list when the request or a realtime subscription produces new data. Use `onCameraChanged` to observe the viewport, but debounce requests and discard stale responses so panning does not start a request every frame. `onMapIdle` is another trigger when you only need updates after the map settles.
+
+For routes, pass the routing service's decoded points to `WiredMapPolyline(points: routePoints)`. For boundaries, use `WiredMapPolygon(points: boundaryPoints)`. Skribble draws those supplied coordinates; it does not calculate directions. GeoJSON stores coordinates as **[longitude, latitude]**, the reverse of the `LatLng` constructor. Decode encoded polylines using the precision documented by your routing service before constructing the points.
+
+For hosted basemaps, use a MapLibre **style JSON URL**, not a raster tile template, in `styleString`. Configure vector or raster tile URLs inside that style's `sources`. A custom provider may require an app-scoped public token; keep server credentials on your backend. Web requests for your API, style, tiles, sprites, and fonts must allow your app's origin through CORS. Mobile apps need network access and any provider-specific platform configuration. Location permission is only needed for device location, not for displaying supplied coordinates. Retain provider and OpenStreetMap attribution.
 
 ## Map widgets
 
@@ -217,12 +347,19 @@ For a large collection, add a GeoJSON source and clustered symbol layers through
 ```dart
 // Static example: external-asset
 WiredMap(
-  onMapCreated: (controller) async {
-    await controller.addGeoJsonSource('places', placesGeoJson);
+  onMapCreated: (controller) => nativeController = controller,
+  onStyleLoaded: () async {
+    await nativeController.addGeoJsonSource('places', placesGeoJson);
+    await nativeController.addCircleLayer(
+      'places',
+      'place-dots',
+      const CircleLayerProperties(circleRadius: 6, circleColor: '#B2533D'),
+    );
   },
-  onStyleLoaded: addPlaceLayers,
 )
 ```
+
+Import `MapLibreMapController` and `CircleLayerProperties` from `package:maplibre_gl/maplibre_gl.dart` in the consuming app. Declare `late MapLibreMapController nativeController` in the widget's persistent state; `onMapCreated` assigns it before the style-loaded callback. `placesGeoJson` is a validated GeoJSON FeatureCollection from your service. Create **both the source and its layers after the style loads**, and recreate them on every style reload. Update existing data with `nativeController.setGeoJsonSource('places', nextGeoJson)` after initialization rather than adding the same source again. Await these operations and surface loading failures in your app. Add clustering through MapLibre's source options when the dataset requires it.
 
 Use the [MapLibre Flutter guides](https://maplibre.org/flutter-maplibre-gl/) for GeoJSON, symbols, clusters, PMTiles, and offline regions.
 

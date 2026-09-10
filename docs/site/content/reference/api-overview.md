@@ -294,9 +294,11 @@ import 'package:skribble_maps/skribble_maps.dart';
 | `WiredMapMarker`       | class  | Position, size, semantics, and interaction for one marker   |
 | `WiredMapPin`          | widget | Hand-drawn pin with a large rough category icon             |
 | `WiredMapPinIcon`      | enum   | Typed place, check-in, cafe, market, gallery, and user icon |
-| `WiredMapFeatureLayer` | widget | Rough app-owned polylines and polygons                      |
+| `WiredMapFeatureLayer` | widget | Precise routes and hand-hatched polygons                    |
 | `WiredMapAttribution`  | widget | Optional provider attribution badge                         |
 | `WiredMapZoomControls` | widget | Accessible hand-drawn zoom controls                         |
+
+`WiredMap` enables pan and pinch zoom by default and exposes `onTap` and `onCameraChanged`. `WiredMapMarker` and `WiredMapPin` each expose `onTap` and `onLongPress` for app-owned selection, including accessibility actions. See the [maps guide](../widgets/maps.md) for gesture arbitration inside scroll views and connecting real API data.
 
 ### skribble_charts
 

@@ -133,7 +133,7 @@ class WiredMapFeatureLayer extends HookWidget {
         container: true,
         label: semanticLabel,
         child: GestureDetector(
-          behavior: HitTestBehavior.translucent,
+          behavior: HitTestBehavior.deferToChild,
           onTapUp: hasActions
               ? (details) {
                   painter.featureAt(details.localPosition)?.onTap?.call();
@@ -181,10 +181,17 @@ class _WiredMapFeaturePainter extends CustomPainter {
 
   WiredMapFeature? featureAt(Offset position) {
     for (final projected in _projected.reversed) {
-      if (_contains(projected, position)) return projected.feature;
+      if (projected.feature.onTap != null && _contains(projected, position)) {
+        return projected.feature;
+      }
     }
     return null;
   }
+
+  // A background CustomPainter otherwise claims its entire rectangle, hiding
+  // the native map from Flutter hit testing even when no overlay has actions.
+  @override
+  bool hitTest(Offset position) => featureAt(position) != null;
 
   List<Offset> _project(List<LatLng> points) {
     final worldWidth = camera.worldSize;

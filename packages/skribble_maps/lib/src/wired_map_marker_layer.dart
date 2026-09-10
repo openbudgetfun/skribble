@@ -17,6 +17,7 @@ class WiredMapMarker {
     this.alignment = Alignment.bottomCenter,
     this.semanticLabel,
     this.onTap,
+    this.onLongPress,
   }) : assert(width > 0, 'width must be positive'),
        assert(height > 0, 'height must be positive');
 
@@ -43,6 +44,12 @@ class WiredMapMarker {
 
   /// Called when the marker is activated.
   final VoidCallback? onTap;
+
+  /// Called when the marker is held, independently of [onTap].
+  ///
+  /// Keep the selected place in application state and update the marker's
+  /// child to show that selection. A long press does not also trigger a tap.
+  final VoidCallback? onLongPress;
 }
 
 /// Positions interactive Wired widgets over the map geometry.
@@ -78,11 +85,15 @@ class WiredMapMarkerLayer extends HookWidget {
       height: marker.height,
       child: Semantics(
         label: marker.semanticLabel,
-        button: marker.onTap != null,
+        button: marker.onTap != null || marker.onLongPress != null,
+        onTap: marker.onTap,
+        onLongPress: marker.onLongPress,
         excludeSemantics: marker.semanticLabel != null,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
+          excludeFromSemantics: true,
           onTap: marker.onTap,
+          onLongPress: marker.onLongPress,
           child: marker.child,
         ),
       ),

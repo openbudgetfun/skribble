@@ -20,7 +20,11 @@ Widget _mapOnline(ExampleSettings settings) => HookBuilder(
               key: ValueKey('docs-online-map'),
               initialCenter: LatLng(51.5074, -0.1278),
               initialZoom: 13,
-              scrollGesturesEnabled: false,
+              gestureRecognizers: {
+                Factory<OneSequenceGestureRecognizer>(
+                  EagerGestureRecognizer.new,
+                ),
+              },
             ),
           ),
         ],
@@ -46,18 +50,21 @@ Widget _mapFeatures(ExampleSettings settings) => HookBuilder(
               icon: WiredMapPinIcon.coffee,
               semanticLabel: 'Favourite café',
               onTap: () => selected.value = 'Selected: Favourite café',
+              onLongPress: () => selected.value = 'Selected: Favourite café',
             ),
             WiredMapPin(
               key: const ValueKey('docs-map-pin-market'),
               icon: WiredMapPinIcon.market,
               semanticLabel: 'Weekend market',
               onTap: () => selected.value = 'Selected: Weekend market',
+              onLongPress: () => selected.value = 'Selected: Weekend market',
             ),
             WiredMapPin(
               key: const ValueKey('docs-map-pin-gallery'),
               icon: WiredMapPinIcon.gallery,
               semanticLabel: 'Local gallery',
               onTap: () => selected.value = 'Selected: Local gallery',
+              onLongPress: () => selected.value = 'Selected: Local gallery',
             ),
           ],
         ),
@@ -83,7 +90,11 @@ Widget _mapFeatures(ExampleSettings settings) => HookBuilder(
             child: WiredMap(
               initialCenter: const LatLng(51.5242, -0.0778),
               initialZoom: 14,
-              scrollGesturesEnabled: false,
+              gestureRecognizers: const {
+                Factory<OneSequenceGestureRecognizer>(
+                  EagerGestureRecognizer.new,
+                ),
+              },
               semanticLabel: 'Shoreditch walking route',
               children: [
                 const WiredMapFeatureLayer(
@@ -114,6 +125,8 @@ Widget _mapFeatures(ExampleSettings settings) => HookBuilder(
                       point: const LatLng(51.5242, -0.0778),
                       semanticLabel: 'Favourite café',
                       onTap: () => selected.value = 'Selected: Favourite café',
+                      onLongPress: () =>
+                          selected.value = 'Selected: Favourite café',
                       child: const WiredMapPin(icon: WiredMapPinIcon.coffee),
                     ),
                   ],
