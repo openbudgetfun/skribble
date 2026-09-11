@@ -160,9 +160,6 @@ jobs:
           esac
         shell: bash
 
-      - name: Set up Dart trusted publishing
-        uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
-
       - name: Set up toolchains
         uses: ./.github/actions/devenv
         with:
@@ -185,7 +182,7 @@ jobs:
             --format json
         shell: devenv shell -- bash -e {0}
 
-      - name: Dry-run and publish packages
+      - name: Dry-run package publishing
         env:
           RELEASE_PACKAGES: ${{ steps.release.outputs.packages }}
         run: |
@@ -193,6 +190,27 @@ jobs:
           read -r -a packages <<<"$RELEASE_PACKAGES"
           for package in "${packages[@]}"; do
             (cd "packages/$package" && dart pub publish --dry-run)
+          done
+        shell: devenv shell -- bash -e {0}
+
+      # setup-dart exchanges the job's OIDC token for a pub.dev session token
+      # and registers it with `dart pub token add https://pub.dev --env-var
+      # PUB_TOKEN`, which authenticates EVERY pub.dev request made afterwards.
+      # pub.dev rejects dependency resolution with that publish-scoped token
+      # ("authorization failed"), so every anonymous pub.dev read — the
+      # flutter tool bootstrap, `pub get`s, readiness, and publish dry-runs —
+      # must happen before this step and nothing may run after it except the
+      # real publishes, which are the only operations the token is for.
+      - name: Set up Dart trusted publishing
+        uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
+
+      - name: Publish packages
+        env:
+          RELEASE_PACKAGES: ${{ steps.release.outputs.packages }}
+        run: |
+          set -euo pipefail
+          read -r -a packages <<<"$RELEASE_PACKAGES"
+          for package in "${packages[@]}"; do
             monochange step publish-packages \
               --package "$package" \
               --output "$RUNNER_TEMP/publish-$package.json" \
