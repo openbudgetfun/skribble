@@ -1,6 +1,6 @@
 name: skribble_emoji_gen
 description: Generate pinned, hand-drawn emoji and icon assets from OpenMoji SVG sources.
-version: 0.1.0
+version: 0.0.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_emoji_gen
 issue_tracker: https://github.com/openbudgetfun/skribble/issues
