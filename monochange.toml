@@ -131,19 +131,6 @@ enforce_for_tags = true
 enforce_for_publish = true
 enforce_for_commit = false
 
-[source.pull_requests]
-enabled = true
-branch_prefix = "chore/release"
-base = "main"
-title = "chore(release): prepare release"
-# The prefix must stay stable while a release PR is open: renaming it orphans
-# the long-running PR, and recreating it fails on GitHub's 65536-character
-# PR body limit because the pending 0.1.0 changesets exceed it.
-# Requires monochange with commit_subject support (monochange#675).
-commit_subject = "🔖 chore(release): prepare release"
-labels = ["release", "automated"]
-auto_merge = false
-
 # =============================================================================
 # [changesets.affected] — changeset verification settings
 # =============================================================================
@@ -205,16 +192,27 @@ steps = [
 ]
 
 [cli.release]
-help_text = "Prepare, commit, and open or refresh the grouped Skribble release pull request"
+help_text = "Prepare a local release: plan bumps, sync files, format, then commit, tag, and publish the GitHub release"
+inputs = [
+  { name = "format", type = "choice", choices = ["text", "json", "markdown"], default = "markdown" },
+  { name = "no_verify", type = "boolean", default = true },
+  { name = "commit", help_text = "Whether to commit the release changes", type = "boolean", default = false },
+  { name = "push", help_text = "Whether to push the release commit after committing", type = "boolean", default = false },
+  { name = "tag", help_text = "Whether to create and push release tags from the release commit", type = "boolean", default = false },
+  { name = "publish_release", help_text = "Whether to publish the GitHub release objects for the release tags", type = "boolean", default = false },
+]
 steps = [
-  { type = "PrepareRelease", name = "prepare release", allow_empty_changesets = true, inputs = { format = "json" } },
-  { type = "Command", name = "format release files", when = "{{ number_of_changesets > 0 }}", command = "fix:format", shell = true },
-  { type = "CommitRelease", name = "commit release", when = "{{ number_of_changesets > 0 }}", inputs = { no_verify = true } },
-  { type = "OpenReleaseRequest", name = "open release request", when = "{{ number_of_changesets > 0 }}", inputs = { no_verify = true } },
+  { type = "PrepareRelease", name = "plan release", allow_empty_changesets = true },
+  { type = "Command", name = "sync dependency versions", when = "{{ number_of_changesets > 0 }}", command = "monochange versions sync" },
+  { type = "Command", name = "format release files", when = "{{ number_of_changesets > 0 }}", command = "devenv shell fix:format" },
+  { type = "CommitRelease", name = "create release commit", when = "{{ number_of_changesets > 0 && inputs.commit }}", inputs = { no_verify = "{{ inputs.no_verify }}", stage_all = true } },
+  { type = "Command", name = "push release commit", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.push }}", command = "git push --no-verify" },
+  { type = "TagRelease", name = "create and push release tags", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag }}", inputs = { from = "HEAD", push = true, format = "json" } },
+  { type = "PublishRelease", name = "publish GitHub releases", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag && inputs.publish_release }}", inputs = { from-ref = "HEAD", draft = false, format = "json" } },
 ]
 
-[cli.publish-check]
-help_text = "Preview package publishing in dry-run mode against pub.dev"
+[cli.publish]
+help_text = "Publish the packages recorded in the current release"
 steps = [
-  { type = "Command", name = "dry-run package publishing", command = "monochange step publish-packages --dry-run --all --format json" },
+  { type = "PublishPackages", name = "publish packages" },
 ]

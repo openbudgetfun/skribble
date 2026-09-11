@@ -221,7 +221,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       # Runs `flutter/dart pub publish --dry-run` for every package against
-      # pub.dev, which is exactly what the publish workflow performs before
+      # pub.dev, the same validation the publish workflow performs before
       # each real publish.
       - name: Dry-run package publishing
         run: monochange step publish-packages --dry-run --all --format json
@@ -244,9 +244,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         shell: bash
-      # Simulate the release commit the release PR would create after this
-      # pull request merges: prepare version bumps and changelogs, then commit
-      # them locally. Nothing is pushed, tagged, or published.
+      # Simulate the release commit a local release would create from this
+      # branch: prepare version bumps and changelogs, then commit them
+      # locally. Nothing is pushed, tagged, or published.
       - name: Create the release commit locally
         id: release_commit
         run: |
@@ -261,17 +261,8 @@ jobs:
         shell: devenv shell -- bash -e {0}
       - name: Check publish readiness on the release commit
         if: steps.release_commit.outputs.created == 'true'
-        run: >-
-          monochange step publish-readiness --from HEAD
-          --package skribble_lints
-          --package skribble_emoji_gen
-          --package skribble_font_roughen
-          --package skribble
-          --package skribble_emoji
-          --package skribble_icons
-          --package skribble_icons_custom
-          --format json
+        run: monochange step publish-readiness --from HEAD --format json
         shell: devenv shell -- bash -e {0}
       - name: Dry-run package publishing on the release commit
-        run: monochange step publish-packages --dry-run --all --format json
+        run: monochange step publish-packages --dry-run --format json
         shell: devenv shell -- bash -e {0}
