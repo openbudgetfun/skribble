@@ -332,7 +332,7 @@ final class _PreparedPrimitive {
 }
 
 final class _WiredSvgIconPainter extends CustomPainter {
-  const _WiredSvgIconPainter({
+  _WiredSvgIconPainter({
     required this.primitives,
     required this.color,
     required this.fillStyle,
@@ -351,6 +351,19 @@ final class _WiredSvgIconPainter extends CustomPainter {
   final double sampleDistance;
   final double hachureGap;
   final double hachureAngle;
+
+  /// Displaced contours, built once per painter.
+  ///
+  /// Sampling a contour costs a tangent evaluation every [sampleDistance], so
+  /// rebuilding it on each repaint dominates the cost of drawing a large icon.
+  /// The displacement is a pure function of the source path and this painter's
+  /// configuration, and a rebuild produces a new painter and a fresh list.
+  List<Path>? _roughPaths;
+
+  List<Path> _resolveRoughPaths() =>
+      _roughPaths ??= [
+        for (final primitive in primitives) _roughPath(primitive.path),
+      ];
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -372,8 +385,10 @@ final class _WiredSvgIconPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..isAntiAlias = true;
 
-    for (final primitive in primitives) {
-      final roughPath = _roughPath(primitive.path);
+    final roughPaths = _resolveRoughPaths();
+    for (var index = 0; index < primitives.length; index++) {
+      final primitive = primitives[index];
+      final roughPath = roughPaths[index];
       canvas.save();
       primitive.clips.forEach(canvas.clipPath);
       // Per-primitive colours (from source SVG artwork) override the
