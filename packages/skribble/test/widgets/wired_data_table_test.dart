@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
-import 'package:skribble/src/wired_paginated_data_table.dart';
 
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';

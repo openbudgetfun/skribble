@@ -232,6 +232,54 @@ void main() {
         expect(copied.fontFamily, original.fontFamily);
       });
     });
+
+    group('value equality', () {
+      test('two themes with the same values are equal', () {
+        expect(WiredThemeData(), equals(WiredThemeData()));
+        expect(WiredThemeData().hashCode, WiredThemeData().hashCode);
+      });
+
+      test('a changed value makes themes unequal', () {
+        expect(WiredThemeData(), isNot(equals(WiredThemeData(strokeWidth: 4))));
+        expect(
+          WiredThemeData(roughnessLevel: WiredRoughness.gentle),
+          isNot(equals(WiredThemeData())),
+        );
+      });
+
+      test('drawConfig is built once per instance', () {
+        final theme = WiredThemeData();
+
+        expect(identical(theme.drawConfig, theme.drawConfig), isTrue);
+      });
+
+      testWidgets('a value-equal theme does not rebuild dependents', (
+        tester,
+      ) async {
+        var builds = 0;
+        // One child instance across pumps, so only an inherited-widget
+        // notification can rebuild it.
+        final child = Builder(
+          builder: (context) {
+            builds++;
+            WiredTheme.of(context);
+            return const SizedBox();
+          },
+        );
+
+        await pumpApp(tester, WiredTheme(data: WiredThemeData(), child: child));
+        expect(builds, 1);
+
+        await pumpApp(tester, WiredTheme(data: WiredThemeData(), child: child));
+        expect(builds, 1, reason: 'equal theme data must not notify');
+
+        await pumpApp(
+          tester,
+          WiredTheme(data: WiredThemeData(strokeWidth: 4), child: child),
+        );
+        expect(builds, 2, reason: 'changed theme data must notify');
+      });
+    });
   });
 
   group('WiredTheme', () {

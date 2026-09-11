@@ -78,9 +78,7 @@ class DrawConfig {
     double? curveFitting,
     double? curveTightness,
     double? curveStepCount,
-    double? fillWeight,
     int? seed,
-    bool? combineNestedSvgPaths,
     Randomizer? randomizer,
   }) => DrawConfig._(
     maxRandomnessOffset: maxRandomnessOffset ?? this.maxRandomnessOffset,

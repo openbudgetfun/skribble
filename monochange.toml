@@ -209,6 +209,9 @@ steps = [
   { type = "Command", name = "push release commit", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.push }}", command = "git push --no-verify" },
   { type = "TagRelease", name = "create and push release tags", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag }}", inputs = { from = "HEAD", push = true, format = "json" } },
   { type = "PublishRelease", name = "publish GitHub releases", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag && inputs.publish_release }}", inputs = { from-ref = "HEAD", draft = false, format = "json" } },
+  # Font zips are attached by the publish workflow's `v<version>` job. Releases
+  # prepared locally bypass that job, so the assets are uploaded here instead.
+  { type = "Command", name = "attach font release assets", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag && inputs.publish_release }}", command = "devenv shell publish:fonts" },
 ]
 
 [cli.publish]

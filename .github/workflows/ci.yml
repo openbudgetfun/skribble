@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [main]
 
+# A new push supersedes the previous run for the same ref: cancel it instead
+# of paying for a full result nobody will read.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     runs-on: blacksmith-2vcpu-ubuntu-2404
@@ -14,14 +20,10 @@ jobs:
       - uses: ./.github/actions/devenv
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      # Includes `monochange check`, so the changeset and manifest policy runs
+      # here as well as in the Changeset policy workflow.
       - name: lint all
         run: lint:all
-        shell: devenv shell -- bash -e {0}
-      - name: Check monochange configuration, changesets, and manifests
-        # `check` runs workspace validation plus every configured lint rule
-        # (changeset summary/heading/body policy and Dart manifest hygiene).
-        # Use `monochange check --fix` locally to auto-fix the fixable ones.
-        run: monochange check
         shell: devenv shell -- bash -e {0}
 
   test:

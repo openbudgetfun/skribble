@@ -192,6 +192,10 @@ in
         lint:format
         lint:analyze
         lint:docs
+        # Workspace validation plus every configured lint rule: changeset
+        # summary/heading/body policy and Dart manifest hygiene. `monochange
+        # check --fix` repairs the fixable ones.
+        monochange check
       '';
       description = "Run all lint checks.";
       binary = "bash";
@@ -226,9 +230,9 @@ in
     "lint:analyze" = {
       exec = ''
         set -e
-        melos exec -- dart analyze --fatal-warnings .
+        melos exec -- dart analyze --fatal-infos .
       '';
-      description = "Run dart analyze across all packages (warnings are fatal).";
+      description = "Run dart analyze across all packages (infos are fatal).";
       binary = "bash";
     };
     "lint:docs" = {
@@ -305,6 +309,17 @@ in
         dart run tool/prepare_pages.dart
       '';
       description = "Build static docs output for GitHub Pages.";
+      binary = "bash";
+    };
+    # Releases are prepared on a developer machine, so the font zips that the
+    # publish workflow used to attach on tag pushes are uploaded from here.
+    "publish:fonts" = {
+      exec = ''
+        set -e
+        cd "$DEVENV_ROOT"
+        ./scripts/release/publish_fonts.sh "$@"
+      '';
+      description = "Package the bundled fonts and attach them to a GitHub release (--dry-run to preview).";
       binary = "bash";
     };
   };

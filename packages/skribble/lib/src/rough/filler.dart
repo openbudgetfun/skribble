@@ -93,6 +93,10 @@ abstract class Filler {
     _config = config ?? FillerConfig.defaultConfig;
   }
 
+  /// Configuration this filler draws with, defaulting to
+  /// [FillerConfig.defaultConfig].
+  FillerConfig? get config => _config;
+
   OpSet fill(List<PointD> points);
 
   List<Line> buildFillLines(List<PointD> points, FillerConfig? config) {
@@ -111,7 +115,9 @@ abstract class Filler {
   }
 
   List<Line> _straightenLines(List<PointD> points) {
-    final List<PointD> vertices = points;
+    // Closing the ring appends the first point, so the caller's list must not
+    // be the one that gets extended.
+    final List<PointD> vertices = List<PointD>.of(points);
     final List<Line> lines = [];
     if (vertices[0] != vertices[vertices.length - 1]) {
       vertices.add(vertices[0]);

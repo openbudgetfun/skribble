@@ -177,23 +177,29 @@ class OpSetBuilder {
   static OpSet linearPath(List<PointD> points, bool close, DrawConfig config) {
     final int len = points.length;
     if (len > 2) {
-      List<Op> ops = [];
+      // `ops += ...` copies the accumulated list on every edge, which turns a
+      // polygon into quadratic work as the vertex count grows.
+      final List<Op> ops = [];
       for (int i = 0; i < len - 1; i++) {
-        ops += OpsGenerator.doubleLine(
-          points[i].x,
-          points[i].y,
-          points[i + 1].x,
-          points[i + 1].y,
-          config,
+        ops.addAll(
+          OpsGenerator.doubleLine(
+            points[i].x,
+            points[i].y,
+            points[i + 1].x,
+            points[i + 1].y,
+            config,
+          ),
         );
       }
       if (close) {
-        ops += OpsGenerator.doubleLine(
-          points[len - 1].x,
-          points[len - 1].y,
-          points[0].x,
-          points[0].y,
-          config,
+        ops.addAll(
+          OpsGenerator.doubleLine(
+            points[len - 1].x,
+            points[len - 1].y,
+            points[0].x,
+            points[0].y,
+            config,
+          ),
         );
       }
       return OpSet(type: OpSetType.path, ops: ops);

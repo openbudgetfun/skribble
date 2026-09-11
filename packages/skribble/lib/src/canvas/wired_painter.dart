@@ -31,16 +31,26 @@ class WiredPainter extends CustomPainter {
   Size? _size;
   RoughDrawing? _drawing;
 
+  /// Replays every random stream the fill depends on.
+  ///
+  /// The filler owns a [DrawConfig] separate from this painter's, so resetting
+  /// one of them is not enough: fill randomness keeps advancing across paints
+  /// and the same shape hatches differently on a rebuild than on first paint.
+  void _resetRandomizers() {
+    drawConfig.randomizer?.reset();
+    filler.config?.drawConfig?.randomizer?.reset();
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     if (_size != size) {
-      drawConfig.randomizer?.reset();
+      _resetRandomizers();
       _drawing = painter.prepare(size, drawConfig, filler);
       _size = size;
     }
     final drawing = _drawing;
     if (drawing == null) {
-      drawConfig.randomizer?.reset();
+      _resetRandomizers();
       painter.paintRough(canvas, size, drawConfig, filler);
     } else {
       drawing.paint(

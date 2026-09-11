@@ -46,6 +46,8 @@ class WiredMaterialApp extends HookWidget {
     this.checkerboardOffscreenLayers = false,
     this.showSemanticsDebugger = false,
     this.debugShowCheckedModeBanner = false,
+    // Kept for MaterialApp parity; removing it is a breaking change.
+    // ignore: remove_deprecations_in_breaking_versions
     @Deprecated(
       'Remove this parameter as it is now ignored. '
       'MaterialApp never introduces its own MediaQuery; the View widget takes '
@@ -90,6 +92,8 @@ class WiredMaterialApp extends HookWidget {
     this.checkerboardOffscreenLayers = false,
     this.showSemanticsDebugger = false,
     this.debugShowCheckedModeBanner = false,
+    // Kept for MaterialApp parity; removing it is a breaking change.
+    // ignore: remove_deprecations_in_breaking_versions
     @Deprecated(
       'Remove this parameter as it is now ignored. '
       'MaterialApp never introduces its own MediaQuery; the View widget takes '
@@ -154,6 +158,8 @@ class WiredMaterialApp extends HookWidget {
   final bool showSemanticsDebugger;
   final bool debugShowCheckedModeBanner;
 
+  // Kept for MaterialApp parity; removing it is a breaking change.
+  // ignore: remove_deprecations_in_breaking_versions
   @Deprecated(
     'Remove this parameter as it is now ignored. '
     'MaterialApp never introduces its own MediaQuery; the View widget takes '
@@ -180,13 +186,25 @@ class WiredMaterialApp extends HookWidget {
       effectiveHighContrastTheme: effectiveHighContrastTheme,
       effectiveHighContrastDarkTheme: effectiveHighContrastDarkTheme,
     );
-    final theme = wiredTheme.toThemeData();
-    final darkTheme = effectiveDarkTheme.toThemeData(
-      brightness: Brightness.dark,
+    // Each conversion runs ColorScheme.fromSeed and builds a full ThemeData.
+    // They only change with their input theme, so keep them across rebuilds.
+    final theme = useMemoized(
+      wiredTheme.toThemeData,
+      <Object?>[wiredTheme],
     );
-    final highContrastTheme = effectiveHighContrastTheme.toThemeData();
-    final highContrastDarkTheme = effectiveHighContrastDarkTheme.toThemeData(
-      brightness: Brightness.dark,
+    final darkTheme = useMemoized(
+      () => effectiveDarkTheme.toThemeData(brightness: Brightness.dark),
+      <Object?>[effectiveDarkTheme],
+    );
+    final highContrastTheme = useMemoized(
+      effectiveHighContrastTheme.toThemeData,
+      <Object?>[effectiveHighContrastTheme],
+    );
+    final highContrastDarkTheme = useMemoized(
+      () => effectiveHighContrastDarkTheme.toThemeData(
+        brightness: Brightness.dark,
+      ),
+      <Object?>[effectiveHighContrastDarkTheme],
     );
 
     return WiredTheme(
@@ -280,10 +298,15 @@ class WiredMaterialApp extends HookWidget {
     required WiredThemeData effectiveHighContrastTheme,
     required WiredThemeData effectiveHighContrastDarkTheme,
   }) {
+    // Read through MediaQuery so a system appearance change is observed as a
+    // dependency. The dispatcher alone does not notify this widget, which left
+    // the resolved theme stale until something else rebuilt it.
+    final mediaQuery = MediaQuery.maybeOf(context);
     final platformDispatcher =
         View.maybeOf(context)?.platformDispatcher ??
         PlatformDispatcher.instance;
     final isHighContrast =
+        mediaQuery?.highContrast ??
         platformDispatcher.accessibilityFeatures.highContrast;
 
     switch (themeMode) {
@@ -294,7 +317,10 @@ class WiredMaterialApp extends HookWidget {
             ? effectiveHighContrastDarkTheme
             : effectiveDarkTheme;
       case ThemeMode.system:
-        final isDark = platformDispatcher.platformBrightness == Brightness.dark;
+        final isDark =
+            (mediaQuery?.platformBrightness ??
+                platformDispatcher.platformBrightness) ==
+            Brightness.dark;
         if (isDark) {
           return isHighContrast
               ? effectiveHighContrastDarkTheme

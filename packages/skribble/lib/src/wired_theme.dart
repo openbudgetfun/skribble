@@ -62,7 +62,11 @@ class WiredThemeData {
     this._drawConfig,
   });
 
-  DrawConfig get drawConfig =>
+  /// Resolved drawing configuration, built once per theme instance.
+  ///
+  /// Painters replay its random stream before each shape, so sharing one
+  /// instance across a subtree stays deterministic.
+  late final DrawConfig drawConfig =
       _drawConfig ??
       DrawConfig.build(
         roughness: roughness,
@@ -71,6 +75,40 @@ class WiredThemeData {
       );
 
   static final defaultTheme = WiredThemeData();
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredThemeData &&
+          runtimeType == other.runtimeType &&
+          motionEnabled == other.motionEnabled &&
+          inkInteraction == other.inkInteraction &&
+          borderColor == other.borderColor &&
+          textColor == other.textColor &&
+          disabledTextColor == other.disabledTextColor &&
+          fillColor == other.fillColor &&
+          strokeWidth == other.strokeWidth &&
+          roughnessLevel == other.roughnessLevel &&
+          font == other.font &&
+          _roughness == other._roughness &&
+          _fontFamily == other._fontFamily &&
+          _drawConfig == other._drawConfig;
+
+  @override
+  int get hashCode => Object.hash(
+    motionEnabled,
+    inkInteraction,
+    borderColor,
+    textColor,
+    disabledTextColor,
+    fillColor,
+    strokeWidth,
+    roughnessLevel,
+    font,
+    _roughness,
+    _fontFamily,
+    _drawConfig,
+  );
 
   WiredThemeData copyWith({
     bool? motionEnabled,

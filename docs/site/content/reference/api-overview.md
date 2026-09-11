@@ -189,7 +189,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredCupertinoAlertDialog`       | `wired_cupertino_alert_dialog.dart`       |
 | `WiredCupertinoActionSheet`       | `wired_cupertino_action_sheet.dart`       |
 
-#### Layout (18)
+#### Layout (25)
 
 | Widget                      | File                                |
 | --------------------------- | ----------------------------------- |
@@ -199,7 +199,10 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredDivider`              | `wired_divider.dart`                |
 | `WiredListTile`             | `wired_list_tile.dart`              |
 | `WiredExpansionTile`        | `wired_expansion_tile.dart`         |
+| `WiredExpansionPanelList`   | `wired_expansion_panel_list.dart`   |
+| `WiredExpansionPanel`       | `wired_expansion_panel_list.dart`   |
 | `WiredDataTable`            | `wired_data_table.dart`             |
+| `WiredPaginatedDataTable`   | `wired_paginated_data_table.dart`   |
 | `WiredStepper`              | `wired_stepper.dart`                |
 | `WiredCalendar`             | `wired_calendar.dart`               |
 | `WiredScrollbar`            | `wired_scrollbar.dart`              |
