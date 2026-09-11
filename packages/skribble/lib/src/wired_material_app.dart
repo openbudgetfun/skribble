@@ -47,7 +47,6 @@ class WiredMaterialApp extends HookWidget {
     this.showSemanticsDebugger = false,
     this.debugShowCheckedModeBanner = false,
     // Kept for MaterialApp parity; removing it is a breaking change.
-    // ignore: remove_deprecations_in_breaking_versions
     @Deprecated(
       'Remove this parameter as it is now ignored. '
       'MaterialApp never introduces its own MediaQuery; the View widget takes '
@@ -93,7 +92,6 @@ class WiredMaterialApp extends HookWidget {
     this.showSemanticsDebugger = false,
     this.debugShowCheckedModeBanner = false,
     // Kept for MaterialApp parity; removing it is a breaking change.
-    // ignore: remove_deprecations_in_breaking_versions
     @Deprecated(
       'Remove this parameter as it is now ignored. '
       'MaterialApp never introduces its own MediaQuery; the View widget takes '
@@ -159,7 +157,6 @@ class WiredMaterialApp extends HookWidget {
   final bool debugShowCheckedModeBanner;
 
   // Kept for MaterialApp parity; removing it is a breaking change.
-  // ignore: remove_deprecations_in_breaking_versions
   @Deprecated(
     'Remove this parameter as it is now ignored. '
     'MaterialApp never introduces its own MediaQuery; the View widget takes '

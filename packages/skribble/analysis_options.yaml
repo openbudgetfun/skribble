@@ -43,6 +43,12 @@ analyzer:
   errors:
     # Deprecated Radio API usage until migration to RadioGroup
     deprecated_member_use: ignore
+    # `WiredMaterialApp` keeps its deprecated `useInheritedMediaQuery`
+    # parameter for MaterialApp parity, so there is nothing to remove in a
+    # breaking version. The hint only fires at breaking versions (0.x.0),
+    # which made per-line ignores flip between required and unnecessary on
+    # every release, so suppress it for the package instead.
+    remove_deprecations_in_breaking_versions: ignore
   exclude:
     - build/**
     - android/**
