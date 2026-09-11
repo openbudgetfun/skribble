@@ -61,20 +61,40 @@ Run the publish locally instead (or after the release tags already exist) with:
 
 ```bash
 monochange run publish
+publish:fonts
 ```
+
+Font zips are attached by the publish workflow's `v<version>` job. When a release is published without that workflow — the local flow above — nothing else uploads the zips, so run `publish:fonts` for the release to keep its font assets.
 
 pub.dev's automated publishing only accepts GitHub Actions runs triggered by pushing a git tag. `workflow_dispatch` runs — even against a tag ref — are rejected, so publish from tag pushes.
 
 ### Font release assets
 
-Each bundled font family ships as a versioned zip attached to the GitHub release, produced by `scripts/release/package_fonts.sh`:
+Each bundled font family ships as a versioned zip attached to the GitHub release, produced by `scripts/release/package_fonts.sh`. The zip stem is the `fontFamily` value a consumer passes to Flutter, except for the `Skribble` family, which keeps its already-published `SkribbleRecursive` stem:
 
-- `SkribbleRecursive-<tag>.zip` — the `Skribble` family, roughened from Recursive
-- `SkribbleGentle-<tag>.zip`
-- `SkribblePlayful-<tag>.zip`
-- `ArchitectsDaughter-<tag>.zip`
+- `SkribbleRecursive-<tag>.zip` — the `Skribble` family, roughened from Recursive Casual
+- `SkribbleGentle-<tag>.zip`, `SkribblePlayful-<tag>.zip` — the Casual family at Gentle and Playful roughness
+- `SkribbleLinearGentle-<tag>.zip`, `SkribbleLinearPlayful-<tag>.zip`, `SkribbleLinearExpressive-<tag>.zip` — roughened from Recursive Sans Linear
+- `SkribbleMonoGentle-<tag>.zip`, `SkribbleMonoPlayful-<tag>.zip`, `SkribbleMonoExpressive-<tag>.zip` — roughened from Recursive Mono Linear
+- `ArchitectsDaughter-<tag>.zip` — the bundled third-party handwriting face
 
-Every zip contains the family's TTFs (Regular, Bold, Italic, BoldItalic where available) and the `OFL.txt` license. Fonts are static assets inside `packages/skribble`, so the zip upload is retried safely with `--clobber` when a publish run re-runs. Companion tags (`skribble_maps/v*`, `skribble_charts/v*`) skip the fonts step entirely.
+Every zip contains the family's four faces (Regular, Bold, Italic, BoldItalic, or a single Regular for `ArchitectsDaughter`) and the `OFL.txt` license.
+
+The family list is read from the `fonts:` block of `packages/skribble/pubspec.yaml`, so declaring a new family is enough to ship it. `package_fonts.sh` fails when a declared family has no matching TTFs, or when a TTF in the fonts directory is not claimed by any declared family, so a release cannot silently drop a family. Ten families are bundled today; the four-family list this replaced omitted the six Linear and Mono families that were already declared in the package.
+
+The publish workflow checks out the release tag, so it packages fonts with the `package_fonts.sh` committed at that tag. A later fix to the script reaches new tags only; use `publish:fonts` to attach the full set to a release that was tagged before the fix.
+
+Fonts are static assets inside `packages/skribble`, so the zip upload is retried safely with `--clobber` when a run repeats. Companion tags (`skribble_maps/v*`, `skribble_charts/v*`) skip the fonts step entirely.
+
+When publishing runs from a developer machine instead of the tag-push workflow, attach the zips with the devenv command:
+
+```bash
+publish:fonts                    # newest main-group v<version> tag
+publish:fonts v0.2.0             # explicit tag
+publish:fonts v0.2.0 --dry-run   # package and list the uploads without sending them
+```
+
+The command packages the fonts committed at the tag (`git archive`, not the working tree), so the archives always describe the release they are attached to, and it fails if the GitHub release object does not exist yet.
 
 pub.dev's automated publisher requires the tag push event, so the publish workflow only listens for `v*`, `skribble_maps/v*`, and `skribble_charts/v*` tag pushes. A `workflow_dispatch` with an explicit `tag` input exists for re-running the non-registry steps, but pub.dev rejects the publish itself on dispatch runs.
 

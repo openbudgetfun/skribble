@@ -94,4 +94,7 @@ monochange check
 
 # Preview release files without changing the workspace
 monochange step prepare-release --dry-run --diff
+
+# Attach the bundled font zips to a GitHub release (--dry-run to preview)
+publish:fonts
 ```

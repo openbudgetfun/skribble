@@ -307,5 +307,16 @@ in
       description = "Build static docs output for GitHub Pages.";
       binary = "bash";
     };
+    # Releases are prepared on a developer machine, so the font zips that the
+    # publish workflow used to attach on tag pushes are uploaded from here.
+    "publish:fonts" = {
+      exec = ''
+        set -e
+        cd "$DEVENV_ROOT"
+        ./scripts/release/publish_fonts.sh "$@"
+      '';
+      description = "Package the bundled fonts and attach them to a GitHub release (--dry-run to preview).";
+      binary = "bash";
+    };
   };
 }
