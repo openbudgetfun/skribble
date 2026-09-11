@@ -93,6 +93,10 @@ abstract class Filler {
     _config = config ?? FillerConfig.defaultConfig;
   }
 
+  /// Configuration this filler draws with, defaulting to
+  /// [FillerConfig.defaultConfig].
+  FillerConfig? get config => _config;
+
   OpSet fill(List<PointD> points);
 
   List<Line> buildFillLines(List<PointD> points, FillerConfig? config) {
