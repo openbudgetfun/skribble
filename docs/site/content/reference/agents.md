@@ -1110,6 +1110,7 @@ WiredIcon.svg(iconData: myCustomIconData)
 | `docs:site:build`                | Build static docs for deployment                                                |
 | `monochange step validate`       | Validate release configuration                                                  |
 | `monochange check`               | Validate and lint config, changesets, manifests                                 |
+| `monochange run release-pr`      | Prepare, commit, and open or refresh the automated release PR                   |
 | `monochange run release`         | Prepare a local release (plan, format, commit, tag, publish the GitHub release) |
 | `monochange run publish`         | Publish the packages in the current release                                     |
 

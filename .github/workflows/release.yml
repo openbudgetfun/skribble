@@ -1,0 +1,212 @@
+name: Release PR
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-pr-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.repository == 'openbudgetfun/skribble'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      is_release_commit: ${{ steps.release_record.outputs.is_release_commit }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up toolchains
+        uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure release identity
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --force --tags origin
+        shell: bash
+
+      - name: Detect a merged release commit
+        id: release_record
+        run: |
+          set -euo pipefail
+          error_file="$(mktemp)"
+          if is_release_commit="$(
+            monochange step release-record \
+              --from HEAD \
+              --format json \
+              --jq '.resolved_commit == .record_commit' \
+              2>"$error_file"
+          )"; then
+            echo "is_release_commit=$is_release_commit" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          commit_body="$(git log -1 --pretty=%B)"
+          if grep -q '<!-- monochange:release-record:start -->' <<<"$commit_body"; then
+            echo "::error::The release record in HEAD could not be read."
+            sed -n '1,120p' "$error_file" >&2
+            exit 1
+          fi
+
+          echo "is_release_commit=false" >>"$GITHUB_OUTPUT"
+        shell: devenv shell -- bash -e {0}
+
+      - name: Detect pending changesets
+        id: changesets
+        if: steps.release_record.outputs.is_release_commit != 'true'
+        run: |
+          if find .changeset -type f -name '*.md' -print -quit | grep -q .; then
+            echo "present=true" >>"$GITHUB_OUTPUT"
+          else
+            echo "present=false" >>"$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
+      - name: Configure GitHub authentication
+        if: steps.release_record.outputs.is_release_commit != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh auth setup-git
+        shell: bash
+
+      - name: Open or refresh the release PR
+        if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # A changeset that only bumps `none` produces no releaseable
+          # packages; monochange exits non-zero with that message. Treat that
+          # specific case as "nothing to release" rather than failing the
+          # workflow. Any other failure is re-raised.
+          if ! output="$(monochange run release-pr 2>&1)"; then
+            if printf '%s\n' "$output" | grep -q 'no releaseable packages were found in discovered changesets'; then
+              echo "No releaseable packages in current changesets; skipping release PR refresh."
+              exit 0
+            fi
+            printf '%s\n' "$output" >&2
+            exit 1
+          fi
+          printf '%s\n' "$output"
+        shell: devenv shell -- bash -e {0}
+
+  tag:
+    if: github.repository == 'openbudgetfun/skribble' && needs.update.outputs.is_release_commit == 'true'
+    needs: update
+    environment: publisher
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: false
+
+      - name: Set up toolchains
+        uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure release identity
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        shell: bash
+
+      # pub.dev only allows automated publishing from GitHub Actions runs that
+      # were triggered by pushing a git tag, and pushes made with GITHUB_TOKEN
+      # do not fire workflow events. The publish runs must therefore be real
+      # tag-push events, so the tags are pushed with the RELEASES_GITHUB_TOKEN
+      # fine-grained PAT (contents: read and write on this repository only).
+      - name: Install the release tag push token
+        env:
+          RELEASES_GITHUB_TOKEN: ${{ secrets.RELEASES_GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "$RELEASES_GITHUB_TOKEN" ]; then
+            echo "::error::RELEASES_GITHUB_TOKEN is not configured; automated releases cannot push tags."
+            exit 1
+          fi
+          git config --local \
+            http."https://github.com/".extraheader \
+            "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$RELEASES_GITHUB_TOKEN" | base64 -w0)"
+        shell: bash
+
+      - name: Create release tags
+        run: |
+          set -euo pipefail
+          # Tags are created locally and pushed by the next step so every tag
+          # produces its own push event, which is what fires publish.yml.
+          monochange step tag-release --from HEAD --push=false --format json
+        shell: devenv shell -- bash -e {0}
+
+      # The tags are pushed one at a time and each publish run is watched to
+      # completion before the next tag is pushed: companion packages depend on
+      # the main group, and pub.dev only accepts a package's own tag pattern,
+      # so the main release has to land before the companions publish.
+      - name: Push tags and watch the publish runs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mapfile -t main_tags < <(git tag --points-at HEAD --list 'v[0-9]*')
+          mapfile -t maps_tags < <(git tag --points-at HEAD --list 'skribble_maps/v[0-9]*')
+          mapfile -t charts_tags < <(git tag --points-at HEAD --list 'skribble_charts/v[0-9]*')
+          release_tags=("${main_tags[@]}" "${maps_tags[@]}" "${charts_tags[@]}")
+          if [ "${#release_tags[@]}" -eq 0 ]; then
+            echo "::error::Expected at least one release tag at HEAD."
+            exit 1
+          fi
+
+          release_commit="$(git rev-parse HEAD)"
+          for release_tag in "${release_tags[@]}"; do
+            echo "pushing $release_tag"
+            git push origin "refs/tags/$release_tag"
+
+            run_id=""
+            for _ in {1..30}; do
+              run_id="$(
+                gh run list \
+                  --workflow publish.yml \
+                  --event push \
+                  --branch "$release_tag" \
+                  --limit 10 \
+                  --json databaseId,headSha \
+                  --jq "[.[] | select(.headSha == \"$release_commit\")][0].databaseId // empty"
+              )"
+              if [ -n "$run_id" ]; then
+                break
+              fi
+              sleep 2
+            done
+            if [ -z "$run_id" ]; then
+              echo "::error::Could not find the publish run for $release_tag."
+              exit 1
+            fi
+
+            gh run watch "$run_id" --exit-status
+          done
+        shell: devenv shell -- bash -e {0}

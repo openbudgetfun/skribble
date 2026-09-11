@@ -6,6 +6,10 @@ on:
       - "v*"
       - "skribble_maps/v*"
       - "skribble_charts/v*"
+  # pub.dev only accepts automated publishing from runs triggered by a tag
+  # push, so a dispatch cannot publish packages. Keep it for re-running the
+  # non-registry repair steps (GitHub releases and font assets) at an existing
+  # release tag.
   workflow_dispatch:
     inputs:
       tag:
@@ -76,31 +80,25 @@ jobs:
       - name: Set up Dart trusted publishing
         uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
 
-      # Publishes exactly the packages recorded in the release commit's
-      # release record, in dependency order. Re-runs skip versions that
-      # already exist on pub.dev.
-      - name: Publish packages
-        run: monochange step publish-packages --format json
+      # pub.dev configures automated publishing per package, and each package
+      # only accepts its own tag pattern, so every tag publishes just the
+      # release targets it owns: the main group for `v<version>`, and the
+      # single companion package for its namespaced tag. Re-runs skip
+      # versions that already exist on pub.dev.
+      - name: Publish the main group
+        if: startsWith(inputs.tag || github.ref_name, 'v')
+        run: monochange step publish-packages --group main --format json
         shell: devenv shell -- bash -e {0}
 
-      # Font zips belong to the main group's `v<version>` release only;
-      # companion tags (skribble_maps/v*, skribble_charts/v*) skip this step.
-      - name: Attach the font zips to the release
-        if: startsWith(inputs.tag || github.ref_name, 'v')
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
-        run: |
-          set -euo pipefail
-          ./scripts/release/package_fonts.sh \
-            packages/skribble/assets/fonts \
-            "$RUNNER_TEMP/font-assets" \
-            "$RELEASE_TAG"
-          gh release upload "$RELEASE_TAG" \
-            "$RUNNER_TEMP"/font-assets/*.zip \
-            --clobber \
-            --repo "$GITHUB_REPOSITORY"
-        shell: bash
+      - name: Publish skribble_maps
+        if: startsWith(inputs.tag || github.ref_name, 'skribble_maps/v')
+        run: monochange step publish-packages --package skribble_maps --format json
+        shell: devenv shell -- bash -e {0}
+
+      - name: Publish skribble_charts
+        if: startsWith(inputs.tag || github.ref_name, 'skribble_charts/v')
+        run: monochange step publish-packages --package skribble_charts --format json
+        shell: devenv shell -- bash -e {0}
 
       - name: Publish the GitHub releases
         env:
@@ -109,6 +107,19 @@ jobs:
           monochange step publish-release \
             --from-ref HEAD \
             --format json | tee "$RUNNER_TEMP/publish-release.json"
+        shell: devenv shell -- bash -e {0}
+
+      # Font zips belong to the main group's `v<version>` release only;
+      # companion tags (skribble_maps/v*, skribble_charts/v*) skip this step.
+      # This runs after the GitHub releases exist, and packages from the tag's
+      # committed fonts, so local and automated releases attach identical
+      # archives.
+      - name: Attach the font zips to the release
+        if: startsWith(inputs.tag || github.ref_name, 'v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+        run: ./scripts/release/publish_fonts.sh "$RELEASE_TAG"
         shell: devenv shell -- bash -e {0}
 
       - name: Upload Monochange publication reports
