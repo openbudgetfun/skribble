@@ -33,29 +33,33 @@ monochange check
 
 `monochange check` lints every changeset, and the CI `lint` job fails a pull request that violates the policy. Each changeset needs exactly one H1 summary heading of 8–90 characters that does not end with a period and does not use a Conventional Commit prefix (`feat:`, `fix(scope):`, …). The first description sentence must add information beyond the heading instead of restating it, and the body needs at least 80 characters of explanation — 120 plus a code block for `major` bumps — so the generated changelog stays meaningful. Change entries stay in the inline `target: type` form, change types never appear as section headings (`## Breaking`), and two changesets cannot target the same package. The lint rules also cover manifest hygiene: dependencies and assets stay alphabetically sorted, internal dependency versions match the workspace, publishable packages declare required metadata and an SDK constraint, and unmanaged packages declare `publish_to: none`. Run `monochange check --fix` to auto-fix the style rules (`prefer-inline`, sorting); everything else needs a manual edit.
 
-After the pull request merges, release the changes locally. Releases are prepared from `main` on your machine — there is no release pull request bot. Run the release inside the devenv shell so the pinned SDK is used:
+Merging a pull request with changesets triggers the `Release PR` workflow. It prepares the version bumps and changelogs, commits them on the `chore/release` branch, and opens or refreshes the release pull request. Merging that release pull request is itself a release commit, so the workflow then pushes the release tags and the publish workflow publishes the packages.
+
+The same release is available locally as a fallback. Run it inside the devenv shell so the pinned SDK is used:
 
 ```bash
 monochange run release --diff            # preview planned versions and files
 monochange run release                   # prepare versions and changelogs only
 monochange run release --commit          # prepare and commit
 monochange run release --commit --push --tag          # prepare, commit, push, and push tags
-monochange run release --commit --push --tag --publish-release  # also publish the GitHub releases
+monochange run release --commit --push --tag --publish-release  # also publish the GitHub releases and font assets
 ```
 
-The full run does everything in one pass: it plans the bumps, syncs dependency references, formats the workspace, creates the release commit, pushes it to `main`, pushes the release tags, and creates the published GitHub release objects from the embedded release record.
+The local run does everything in one pass on `main`: it plans the bumps, syncs dependency references, formats the workspace, creates the release commit, pushes it, pushes the release tags, publishes the GitHub release objects, and attaches the font assets.
 
 The shared CI setup restores `.fvmrc` after FVM selects the pinned SDK, and the storybook ignores Flutter's generated iOS configuration. These keep the checkout clean while the release command commits.
 
 ## Publish a release
 
-`monochange run release` with `--tag` pushes the release tags to GitHub — `v<version>` for the main group plus the namespaced maps or charts tag when that package is included. Because the tags are pushed with your own credentials, each tag push is a real workflow event that fires the publish workflow:
+The `Release PR` workflow pushes the release tags once a release commit lands on `main` — `v<version>` for the main group, plus the namespaced maps or charts tag when that package is included. The tags are pushed one at a time with the `RELEASES_GITHUB_TOKEN` fine-grained PAT, and each push is a real workflow event that fires the publish workflow:
 
 1. The publish workflow checks out the tag and verifies it matches a commit reachable from `main`.
 2. Monochange checks publish readiness for the packages in the release record.
-3. setup-dart registers the trusted pub.dev token, and Monochange publishes exactly the packages recorded in the release commit's release record, in dependency order. Re-runs skip versions that already exist on pub.dev.
-4. For the main `v<version>` tag, the workflow packages every bundled font family as a zip and uploads the archives to the GitHub release.
-5. The workflow publishes the GitHub release objects from the release record.
+3. setup-dart registers the trusted pub.dev token, and Monochange publishes the release targets the tag owns — the main group for `v<version>`, or the single companion package for its namespaced tag — in dependency order. Re-runs skip versions that already exist on pub.dev.
+4. The workflow publishes the GitHub release objects from the release record.
+5. For the main `v<version>` tag, the workflow packages every bundled font family as a zip and uploads the archives to the GitHub release.
+
+Companion tags are pushed only after the main group's publish run succeeds, because `skribble_maps` and `skribble_charts` depend on `skribble`.
 
 Run the publish locally instead (or after the release tags already exist) with:
 
@@ -64,9 +68,16 @@ monochange run publish
 publish:fonts
 ```
 
-Font zips are attached by the publish workflow's `v<version>` job. When a release is published without that workflow — the local flow above — nothing else uploads the zips, so run `publish:fonts` for the release to keep its font assets.
+`monochange run release --commit --push --tag --publish-release` runs both for a local release. Font zips are attached by the publish workflow's `v<version>` job; a release published locally uses `publish:fonts` to upload the same archives.
 
-pub.dev's automated publishing only accepts GitHub Actions runs triggered by pushing a git tag. `workflow_dispatch` runs — even against a tag ref — are rejected, so publish from tag pushes.
+pub.dev's automated publishing only accepts GitHub Actions runs triggered by pushing a git tag. `workflow_dispatch` runs — even against a tag ref — are rejected, so publish from tag pushes. The publish workflow's dispatch input exists only for re-running the GitHub release and font repair steps.
+
+### Prerequisites for automated publishing
+
+Two repository-side settings make the automated path work. The local fallback needs neither.
+
+- **`RELEASES_GITHUB_TOKEN` secret** — a fine-grained PAT with `Contents: read and write` on this repository. GitHub suppresses workflow events for tags pushed with `GITHUB_TOKEN`, and deploy keys are disabled on this repository, so the release workflow needs this token to push tags that fire the publish workflow.
+- **pub.dev automated publishing** — configured per package in the package's Admin tab: repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, and the tag pattern for that package (`v{{version}}`, `skribble_maps/v{{version}}`, or `skribble_charts/v{{version}}`). pub.dev rejects a tagged publish whose configuration does not match.
 
 ### Font release assets
 
@@ -117,7 +128,7 @@ monochange run publish --dry-run
 
 ## Recover a partial publish
 
-Rerunning the publish workflow at the release tag is safe at the package step: Monochange checks pub.dev and skips package versions that already exist. Dispatch it with the release tag as its ref; branch and scheduled runs do not satisfy the trusted-publishing identity.
+Recovering a partial publish starts with rerunning at the release tag: Monochange checks pub.dev and skips package versions that already exist. Push the tag again to fire a fresh publish run (delete and re-push it, or use the local `monochange run publish`). A `workflow_dispatch` run at the tag cannot publish packages because pub.dev rejects dispatch-triggered publishes, but it can repair the GitHub release objects and font assets.
 
 Each run uploads its readiness and publication reports for 14 days. Read those artifacts before retrying. Keep the original release tag on the release-record commit.
 
