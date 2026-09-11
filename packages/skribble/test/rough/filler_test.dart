@@ -389,4 +389,23 @@ void main() {
       });
     });
   });
+
+  group('Filler.buildFillLines', () {
+    test('leaves the caller polygon untouched', () {
+      // An angle that skips rotation is the case where the caller's list was
+      // extended in place to close the ring.
+      final config = FillerConfig.build(hachureAngle: -90);
+      final points = [
+        PointD(0, 0),
+        PointD(40, 0),
+        PointD(40, 40),
+        PointD(0, 40),
+      ];
+      final before = List<PointD>.of(points);
+
+      HachureFiller(config).buildFillLines(points, config);
+
+      expect(points, equals(before));
+    });
+  });
 }
