@@ -8,6 +8,10 @@ permissions:
   contents: read
   pull-requests: write
 
+concurrency:
+  group: pr-review-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   review:
     runs-on: blacksmith-2vcpu-ubuntu-2404
@@ -20,41 +24,17 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      # Analysis, formatting, and tests already run in the CI workflow, where
+      # they block the pull request. Repeating them here produced a second,
+      # non-blocking copy of the same result, so this job reports only what CI
+      # does not: which changed widgets lack a same-named test file.
       - name: run analysis
         id: analysis
         run: |
           set -e
           mkdir -p .audit
-          (cd docs/site && dart pub get)
 
           echo "## Automated PR Review" > .audit/review.md
-          echo "" >> .audit/review.md
-
-          # Run dart analyze
-          echo "### Static Analysis" >> .audit/review.md
-          if dart analyze --fatal-infos . 2>&1; then
-            echo "All analysis checks passed." >> .audit/review.md
-          else
-            echo "Analysis issues found. See details above." >> .audit/review.md
-          fi
-          echo "" >> .audit/review.md
-
-          # Check formatting
-          echo "### Formatting" >> .audit/review.md
-          if dprint check 2>&1; then
-            echo "All formatting checks passed." >> .audit/review.md
-          else
-            echo "Formatting issues found. Run \`dprint fmt\` to fix." >> .audit/review.md
-          fi
-          echo "" >> .audit/review.md
-
-          # Run tests
-          echo "### Tests" >> .audit/review.md
-          if melos flutter-test 2>&1; then
-            echo "All tests passed." >> .audit/review.md
-          else
-            echo "Some tests failed. See CI logs for details." >> .audit/review.md
-          fi
           echo "" >> .audit/review.md
 
           # Check for missing tests

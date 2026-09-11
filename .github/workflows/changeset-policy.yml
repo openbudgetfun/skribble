@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: changeset-policy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   changeset-policy:
     runs-on: ubuntu-latest

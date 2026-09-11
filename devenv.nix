@@ -192,6 +192,10 @@ in
         lint:format
         lint:analyze
         lint:docs
+        # Workspace validation plus every configured lint rule: changeset
+        # summary/heading/body policy and Dart manifest hygiene. `monochange
+        # check --fix` repairs the fixable ones.
+        monochange check
       '';
       description = "Run all lint checks.";
       binary = "bash";
@@ -226,9 +230,9 @@ in
     "lint:analyze" = {
       exec = ''
         set -e
-        melos exec -- dart analyze --fatal-warnings .
+        melos exec -- dart analyze --fatal-infos .
       '';
-      description = "Run dart analyze across all packages (warnings are fatal).";
+      description = "Run dart analyze across all packages (infos are fatal).";
       binary = "bash";
     };
     "lint:docs" = {
