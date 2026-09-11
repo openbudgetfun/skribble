@@ -39,7 +39,7 @@ apps/skribble_storybook/test-results/
 .serena/
 
 # monochange local artifacts
-.monochange/
+.monochange/local
 
 # Patrol generated files
 apps/skribble_storybook/test_bundle.dart
