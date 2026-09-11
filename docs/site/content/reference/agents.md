@@ -1092,25 +1092,26 @@ WiredIcon.svg(iconData: myCustomIconData)
 
 ## Workspace commands quick reference
 
-| Command                          | What it does                                    |
-| -------------------------------- | ----------------------------------------------- |
-| `melos run analyze`              | Dart analyze across all packages                |
-| `melos run flutter-test`         | Run Flutter widget tests                        |
-| `melos run format`               | Format all Dart code                            |
-| `melos run screenshot`           | Capture component screenshots                   |
-| `melos run rough-icons`          | Generate rough Material icon SVGs               |
-| `melos run rough-icons-font`     | Generate icon font + Dart helpers               |
-| `melos run rough-icons-custom`   | Generate custom icon artifacts                  |
-| `melos run rough-icons-ci-check` | CI-equivalent icon checks                       |
-| `lint:all`                       | All lint checks (format + analyze)              |
-| `lint:push`                      | CI lint checks before `git push`                |
-| `test:all`                       | All unit and widget tests                       |
-| `fix:all`                        | Auto-fix format + lint issues                   |
-| `docs:site:serve`                | Serve docs site locally                         |
-| `docs:site:build`                | Build static docs for deployment                |
-| `monochange step validate`       | Validate release configuration                  |
-| `monochange check`               | Validate and lint config, changesets, manifests |
-| `monochange run release`         | Open or refresh the release PR                  |
+| Command                          | What it does                                                                    |
+| -------------------------------- | ------------------------------------------------------------------------------- |
+| `melos run analyze`              | Dart analyze across all packages                                                |
+| `melos run flutter-test`         | Run Flutter widget tests                                                        |
+| `melos run format`               | Format all Dart code                                                            |
+| `melos run screenshot`           | Capture component screenshots                                                   |
+| `melos run rough-icons`          | Generate rough Material icon SVGs                                               |
+| `melos run rough-icons-font`     | Generate icon font + Dart helpers                                               |
+| `melos run rough-icons-custom`   | Generate custom icon artifacts                                                  |
+| `melos run rough-icons-ci-check` | CI-equivalent icon checks                                                       |
+| `lint:all`                       | All lint checks (format + analyze)                                              |
+| `lint:push`                      | CI lint checks before `git push`                                                |
+| `test:all`                       | All unit and widget tests                                                       |
+| `fix:all`                        | Auto-fix format + lint issues                                                   |
+| `docs:site:serve`                | Serve docs site locally                                                         |
+| `docs:site:build`                | Build static docs for deployment                                                |
+| `monochange step validate`       | Validate release configuration                                                  |
+| `monochange check`               | Validate and lint config, changesets, manifests                                 |
+| `monochange run release`         | Prepare a local release (plan, format, commit, tag, publish the GitHub release) |
+| `monochange run publish`         | Publish the packages in the current release                                     |
 
 ## Changeset lint rules
 
