@@ -17,7 +17,7 @@ Those packages use the same version and the release tag `v<version>`. `skribble_
 
 Both companion packages depend on `skribble`, so Monochange propagates the core package's release severity to them. A breaking core change produces a breaking companion change. Changes confined to maps or charts can release without forcing a release of the seven-package group.
 
-The first public release uses a pre-1.0 `major` bump pinned to `0.1.0`. Package manifests use the unpublished `0.0.1` development baseline after the `0.0.0` registry placeholders. Monochange replaces that baseline when it prepares the release pull request.
+The first public release uses a pre-1.0 `major` bump pinned to `0.1.0`. Package manifests use the unpublished `0.0.1` development baseline after the `0.0.0` registry placeholders. Monochange replaces that baseline when it prepares the release.
 
 ## Record a change
 
@@ -85,7 +85,7 @@ The pub.dev automated publisher for `skribble_maps` uses repository `openbudgetf
 CI validates publishing before anything is released. Two jobs in the `CI` workflow run on every pull request and every push to `main`:
 
 - **`publish-check`** validates the pull request as-is. `monochange step publish-packages --dry-run --all` runs `dart pub publish --dry-run` (or `flutter pub publish --dry-run` for Flutter packages) for all seven packages against pub.dev, the same validation the publish workflow performs before a real publish.
-- **`publish-check-release`** validates the release commit. When the branch has pending changesets, it runs `monochange step prepare-release --release-json` and `monochange step commit-release --no-verify` locally — the same version bumps, changelog updates, and release record the release pull request will produce — then checks `monochange step publish-readiness` for all seven packages and repeats the publish dry-run against that commit. Nothing is pushed, tagged, or published.
+- **`publish-check-release`** validates the release commit. When the branch has pending changesets, it runs `monochange step prepare-release --release-json` and `monochange step commit-release --no-verify` locally — the same version bumps, changelog updates, and release record `monochange run release` will produce — then checks `monochange step publish-readiness` and repeats the publish dry-run against that commit. Nothing is pushed, tagged, or published.
 
 A pull request that would produce an unpublishable release fails here instead of at release time. The per-package publish timeout is raised to 600 seconds in `monochange.toml` because the large Flutter packages can exceed the default on cold caches.
 
