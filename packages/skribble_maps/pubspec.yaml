@@ -1,6 +1,6 @@
 name: skribble_maps
 description: MapLibre maps with hand-drawn overlays for the Skribble Flutter design system.
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_maps
 documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble_maps/README.md
@@ -21,10 +21,10 @@ dependencies:
   flutter_hooks: ^0.21.3
   latlong2: ">=0.9.1 <0.11.0"
   maplibre_gl: ^0.27.0
-  skribble: ^0.0.1
+  skribble: ^0.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  skribble_lints: ^0.0.1
+  skribble_lints: ^0.1.0
 flutter:
   uses-material-design: true
