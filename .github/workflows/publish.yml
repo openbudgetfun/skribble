@@ -53,9 +53,6 @@ jobs:
           RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
         shell: bash
 
-      - name: Set up Dart trusted publishing
-        uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
-
       - name: Set up toolchains
         uses: ./.github/actions/devenv
         with:
@@ -68,6 +65,16 @@ jobs:
             --output "$RUNNER_TEMP/publish-readiness.json" \
             --format json
         shell: devenv shell -- bash -e {0}
+
+      # setup-dart registers a pub.dev token for every pub.dev request that
+      # follows it (`dart pub token add https://pub.dev --env-var PUB_TOKEN`),
+      # and pub.dev rejects dependency resolution with that publish-scoped
+      # token. Every anonymous pub.dev read therefore has to happen first:
+      # the flutter tool bootstrap inside the toolchains step and the
+      # readiness check above both resolve packages, so this step belongs
+      # directly before the publishes it authenticates.
+      - name: Set up Dart trusted publishing
+        uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
 
       # Publishes exactly the packages recorded in the release commit's
       # release record, in dependency order. Re-runs skip versions that
