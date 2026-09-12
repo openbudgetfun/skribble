@@ -36,6 +36,8 @@ Skribble's endgame is a **standalone design system library** — a peer of `pack
 
 - Screenshots saved to `.screenshots/` (gitignored)
 - Organized by category: `.screenshots/<category>/<widget>.png`
+- **Keep image files out of Git**, including screenshots, design exports, and golden snapshots. Save them in gitignored local output directories, upload review images with `gh pr create/edit/comment --attach`, or use external file storage. Put the resulting attachment or download URL in the PR or a README.
+- Before pushing, check staged additions and the branch's commits for image files. Remove newly introduced images from an unmerged branch's history before publishing the corrected branch; deleting them only in a later commit still leaves the repository bloated.
 
 ### Documentation
 

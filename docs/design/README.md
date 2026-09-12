@@ -53,3 +53,9 @@ Flourishes ignore pointer events, remain seed-stable, and are silent to assistiv
 ## Attribution and license
 
 The original logo and reference sketches were designed by Ifiok Jr. The refined brand and new generated flourishes are part of Skribble under the repository's MIT license. Recursive fonts retain their bundled OFL license.
+
+## Map location exploration
+
+The [location comparison](https://github.com/user-attachments/assets/a2c463e1-2300-4579-8f79-8009e8bb1a74) shows the Flutter blue dot with wash, pencil hatching, and combined heading fans on light and dark map backgrounds. This is a GitHub PR attachment. The interactive version lives in the [Maps catalog](../site/content/widgets/maps.md).
+
+Location pixel tests render in memory and check transparency, stable seeded ink, heading, and contrast against light and dark backgrounds. Catalog widget tests check wrapping and heading controls. Keep review images in external storage or PR attachments as required by the repository's agent rules.

@@ -1149,3 +1149,9 @@ From `docs/site`, run `dart run tool/generate_examples.dart` after changing a bu
 Keep previews in the actual docs layout during tests: inherited typography and article padding can expose failures that an isolated widget hides. Configuration, shell commands, and platform setup remain source instructions rather than simulated widgets.
 
 Every Dart fence requires an explicit classification. Standalone widget expressions use a live example marker. Setup, configuration, API definitions, implementation lessons, tests, pseudocode, and examples requiring custom assets use `// Static example: <reason>` with a reason accepted by `tool/generate_examples.dart`. These internal markers are hidden from displayed and copied code. Do not classify a runnable widget demonstration as static just to bypass preview coverage.
+
+### Image storage
+
+Keep image files out of Git, including screenshots, design exports, and golden snapshots. Store generated images in gitignored local output directories. Upload review images with `gh pr create/edit/comment --attach`, or upload them to external file storage, then reference the resulting URL in a PR or README. Inspect images before uploading so they do not expose secrets or personal data.
+
+Check both staged additions and the task branch's commits before pushing. Remove newly introduced images from an unmerged branch's history, not just its latest checkout. Prefer pixel assertions against in-memory renders when a visual test can express the expected behavior without a committed image.
