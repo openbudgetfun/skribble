@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:math' as math;
 import 'dart:typed_data';
 
-/// A static TrueType font whose unrelated OpenType tables survive regeneration.
+/// A TrueType font whose unrelated OpenType tables survive regeneration.
 ///
 /// Outlines are edited in font units, including off-curve points. Character
 /// maps, kerning, layout features, metrics, and composite references are kept.
 final class TrueTypeFont {
-  /// Reads a static glyf-based font. CFF and variable fonts must be instanced
-  /// and converted to TrueType before use.
+  /// Reads a glyf font. Variable fonts require explicit deltas for every point.
+  /// Expand sparse deltas with `fonttools varLib.instancer --no-optimize` first.
   TrueTypeFont(Uint8List bytes) {
     final reader = _Reader(bytes);
 
@@ -32,10 +32,6 @@ final class TrueTypeFont {
       tables[tag] = Uint8List.fromList(bytes.sublist(offset, offset + length));
     }
 
-    if (tables.containsKey('fvar')) {
-      throw const FormatException('Instance variable fonts before roughening.');
-    }
-
     final head = ByteData.sublistView(_table('head'));
     unitsPerEm = head.getUint16(18);
     final countGlyphs = ByteData.sublistView(_table('maxp')).getUint16(4);
@@ -55,6 +51,67 @@ final class TrueTypeFont {
       }
 
       _glyphs.add(_Glyph(Uint8List.fromList(glyf.sublist(start, end))));
+    }
+
+    if (tables.containsKey('fvar')) _validateVariations(countGlyphs);
+  }
+
+  // IUP infers omitted deltas from the ORIGINAL outline coordinates. Warping
+  // that outline invalidates its inference ratios, so accept only full tuples.
+  // Keeping full deltas makes the displacement constant across the designspace.
+  void _validateVariations(int glyphCount) {
+    final data = _table('gvar');
+    final reader = _Reader(data);
+    if (reader.u16() != 1 || reader.u16() != 0) {
+      throw const FormatException('Unsupported gvar version.');
+    }
+    final axes = reader.u16();
+    reader
+      ..u16()
+      ..u32();
+    if (reader.u16() != glyphCount) {
+      throw const FormatException('gvar glyph count does not match glyf.');
+    }
+    final longOffsets = reader.u16() & 1 != 0;
+    final start = reader.u32();
+    final offsets = List.generate(
+      glyphCount + 1,
+      (_) => longOffsets ? reader.u32() : reader.u16() * 2,
+    );
+    for (var glyph = 0; glyph < glyphCount; glyph++) {
+      final begin = start + offsets[glyph];
+      final end = start + offsets[glyph + 1];
+      if (begin > end || end > data.length) {
+        throw const FormatException('Invalid gvar glyph range.');
+      }
+      if (begin == end) continue;
+      final tuples = _Reader(Uint8List.sublistView(data, begin, end));
+      final flags = tuples.u16();
+      var payload = tuples.u16();
+      final shared = flags & 0x8000 != 0;
+      final sharedAll = !shared || tuples.data[payload] == 0;
+      // An all-point shared list consists of the single zero count byte.
+      if (shared) {
+        if (!sharedAll) {
+          throw const FormatException(
+            'Expand sparse gvar deltas before roughening.',
+          );
+        }
+        payload++;
+      }
+      for (var tuple = 0; tuple < (flags & 0x0fff); tuple++) {
+        final size = tuples.u16();
+        final index = tuples.u16();
+        if (index & 0x8000 != 0) tuples.take(axes * 2);
+        if (index & 0x4000 != 0) tuples.take(axes * 4);
+        if (payload + size > tuples.data.length ||
+            (index & 0x2000 != 0 && tuples.data[payload] != 0)) {
+          throw const FormatException(
+            'Expand sparse gvar deltas before roughening.',
+          );
+        }
+        payload += size;
+      }
     }
   }
 
@@ -119,7 +176,12 @@ final class TrueTypeFont {
 
   /// Serializes the edited outlines and names, removing obsolete hint programs
   /// and digital signatures and recalculating every table checksum.
-  Uint8List encode({required String family, required String style}) {
+  Uint8List encode({
+    required String family,
+    required String style,
+    int? weight,
+    bool? italic,
+  }) {
     final bounds = <int, List<math.Point<int>>>{};
     final allPoints = <math.Point<int>>[];
     final glyf = BytesBuilder(copy: false);
@@ -147,6 +209,20 @@ final class TrueTypeFont {
     // Edited outlines no longer share the source font's hinted side bearings.
     _writeBounds(head, 36, allPoints);
     ByteData.sublistView(_table('maxp')).setUint16(26, 0);
+    if (weight != null && italic != null) {
+      final os2 = ByteData.sublistView(_table('OS/2'));
+      final bold = weight >= 700;
+      os2
+        ..setUint16(4, weight)
+        ..setUint16(
+          62,
+          (os2.getUint16(62) & ~0x61) |
+              (italic ? 1 : 0) |
+              (bold ? 0x20 : 0) |
+              (!italic && !bold ? 0x40 : 0),
+        );
+      head.setUint16(44, (bold ? 1 : 0) | (italic ? 2 : 0));
+    }
     _rename(family, style);
 
     [
@@ -154,6 +230,7 @@ final class TrueTypeFont {
       'fpgm',
       'prep',
       'cvt ',
+      'cvar',
       'hdmx',
       'LTSH',
       'VDMX',
@@ -244,9 +321,12 @@ final class TrueTypeFont {
     final records = _Writer();
     final strings = BytesBuilder(copy: false);
     final compactStyle = style.replaceAll(' ', '');
+    final extended =
+        !tables.containsKey('fvar') &&
+        !['Regular', 'Bold', 'Italic', 'Bold Italic'].contains(style);
     final replacements = <int, String>{
-      1: family,
-      2: style,
+      1: extended ? '$family ${style.replaceAll(' Italic', '')}' : family,
+      2: extended ? (style.endsWith('Italic') ? 'Italic' : 'Regular') : style,
       3: '$family-$compactStyle;Skribble-2',
       4: '$family $style',
       6: '$family-$compactStyle',
@@ -265,7 +345,22 @@ final class TrueTypeFont {
       final name = reader.u16();
       final length = reader.u16();
       final offset = reader.u16();
-      final replacement = replacements[name];
+      var replacement = replacements[name];
+      if (replacement == null && name >= 256) {
+        final original = reader.data.sublist(
+          start + offset,
+          start + offset + length,
+        );
+        final text = platform == 0 || platform == 3
+            ? String.fromCharCodes([
+                for (var i = 0; i + 1 < original.length; i += 2)
+                  (original[i] << 8) | original[i + 1],
+              ])
+            : latin1.decode(original);
+        if (text.contains('Recursive')) {
+          replacement = text.replaceAll('Recursive', family);
+        }
+      }
       final List<int> data;
 
       if (replacement == null) {

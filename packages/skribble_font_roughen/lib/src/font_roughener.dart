@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:skribble_font_roughen/src/font_variant.dart';
 import 'package:skribble_font_roughen/src/truetype_font.dart';
 
-/// Produces a hand-lettered static TrueType font with coherent outline warping.
+/// Produces a hand-lettered TrueType font with coherent outline warping.
 ///
 /// All source characters, layout features, and advance widths are preserved.
-/// CFF and variable inputs must first be converted to a static TrueType font.
+/// CFF must be converted to TrueType. Variable input must have fully expanded
+/// gvar deltas, produced by `fonttools varLib.instancer --no-optimize`.
 class FontRoughener {
   /// Creates a roughener. [jitterAmount] is measured per 1000 units per em.
   FontRoughener({
@@ -32,7 +33,7 @@ class FontRoughener {
     }
   }
 
-  /// Source static TrueType font.
+  /// Source TrueType font, with explicit point deltas if variable.
   final String inputPath;
 
   /// Destination font file, written only after complete serialization.

@@ -23,6 +23,7 @@ in
       ifi.melos
       dprint
       fontforge
+      python3Packages.fonttools
       fvm
       gitleaks
       # hb-shape is in dev. The ICU variant removes its core library on Linux.

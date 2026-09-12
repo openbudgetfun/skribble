@@ -51,6 +51,10 @@ void main() {
         if (width < 1050) await $(DocsKeys.menu).tap();
         await $(DocsKeys.search).enterText('Compare the lettering');
         await $(DocsKeys.page('/core/font-comparison')).tap();
+        await $(DocsKeys.fontSample).scrollTo(
+          view: $(const ValueKey('document-scroll')),
+          maxScrolls: 40,
+        );
         await $(DocsKeys.fontSample).enterText('Paper, ink, possibility.');
         final selected = $.tester
             .widget<DocsAction>($(DocsKeys.roughness('expressive')))
@@ -71,6 +75,10 @@ void main() {
             WiredRoughness.expressive) {
           throw StateError('The page did not inherit the selected roughness.');
         }
+        await $(DocsKeys.fontCodeSample).scrollTo(
+          view: $(const ValueKey('document-scroll')),
+          maxScrolls: 40,
+        );
         await $(DocsKeys.fontCodeSample).tap();
         final mono = $.tester.widget<Text>(
           $(DocsKeys.fontSpecimen('mono', 'playful')),

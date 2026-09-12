@@ -29,6 +29,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
+      await tester.ensureVisible(find.byKey(DocsKeys.fontSample));
       await tester.enterText(
         find.descendant(
           of: find.byKey(DocsKeys.fontSample),
@@ -36,6 +37,7 @@ void main() {
         ),
         'Ink & paper 0123',
       );
+      await tester.ensureVisible(find.text('72 px'));
       await tester.tap(find.text('72 px'));
       await tester.tap(find.text('Bold'));
       await tester.tap(find.text('Italic'));

@@ -377,7 +377,7 @@ These constructors preserve the original constructors and avoid requiring Materi
 
 `WiredLogo` draws the bracketed Skribble smile. `WiredDoodle` adds seeded butterflies, hearts, smiles, flowers, sparkles, scribbles, and leaves through `WiredDoodleKind`. `WiredPalette` and `WiredThemeData.cuddly()` share the design kit's light/dark palette. See [Flourishes and logo](/widgets/flourishes).
 
-`WiredFont` selects bundled Casual, Sans Linear, or Mono typography. `WiredThemeData.font` follows the inherited roughness; `fontFamily` remains the explicit string override. `WiredBrandIcon` exposes curated Simple Icons vector artwork through `.data` for `WiredSvgIcon`.
+`WiredFont` selects bundled Casual, Sans Linear, or Mono typography, with dedicated upright and italic weights 300–900. `WiredFont.variableFamilyFor` resolves a shared variable font for each roughness level; use `FontVariation` values for continuous weight, casualness, monospace, and slant, plus cursive letterform selection. `WiredThemeData.font` follows the inherited roughness; `fontFamily` remains the explicit string override. `WiredBrandIcon` exposes curated Simple Icons vector artwork through `.data` for `WiredSvgIcon`.
 
 ### Map location indicators
 
