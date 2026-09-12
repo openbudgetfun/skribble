@@ -25,6 +25,8 @@ in
       fontforge
       fvm
       gitleaks
+      # hb-shape is in dev. The ICU variant removes its core library on Linux.
+      harfbuzz.dev
       libiconv
       nixfmt
       ripgrep

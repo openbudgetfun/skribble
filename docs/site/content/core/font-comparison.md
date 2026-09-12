@@ -33,6 +33,14 @@ The generator reads the actual TrueType glyph outlines and moves their points wi
 
 Character mappings, advance widths, kerning, and shaping tables are retained. The original row loads untouched fonts with their hinting; roughened fonts have new outlines and remove obsolete source hinting. Both changes contribute to the visual difference.
 
+## Experimental lettering
+
+A separate Casual and coding-font experiment is available through `dart run tool/casual_font_experiment.dart`, followed by `dart run tool/font_exploration_specimen.dart --serve`. Run these from repository root with FontForge installed. Outputs go to `.screenshots/font-exploration/`; the shipped font families stay unchanged.
+
+The `SkribblePetal` prototype adds a looped ascender, text ligatures, and optional swashes. `SkribbleCode` derives from Recursive's dedicated Code Casual release and preserves its fixed-width cells and `calt` programming ligatures. Both have four real styles. These are experiments for comparison, not yet package font choices. See `docs/research/font-exploration.md` for reproduction, coverage limits, shaping verification, and editor settings.
+
+The existing Regular and Bold Casual fonts have optional programming substitutions under `dlig`, but no standard `liga` text feature. Italic and Bold Italic inherit `fi` and `ffi`. Existing Mono derives from the desktop Linear source and also requires `dlig` for optional code substitutions. Requesting a feature tag only activates rules already present in the selected font.
+
 ## Weights and variable fonts
 
 The current output is **static TrueType**, with four real faces for every family and roughness:

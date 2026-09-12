@@ -104,9 +104,23 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: run font roughener tests
         run: |
-          cd packages/skribble_font_roughen
-          dart test
+          (cd packages/skribble_font_roughen && dart test)
+          dart run tool/casual_font_experiment.dart
+          dart run packages/skribble_font_roughen/bin/verify_exploration.dart
+          dart run tool/font_exploration_specimen.dart
         shell: devenv shell -- bash -e {0}
+      - name: upload experimental fonts and comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: font-exploration
+          include-hidden-files: true
+          path: |
+            .screenshots/font-exploration/*.ttf
+            .screenshots/font-exploration/OFL.txt
+            .screenshots/font-exploration/README.txt
+            .screenshots/font-exploration/comparison.html
+            .screenshots/font-exploration/verification.json
+          if-no-files-found: error
 
   visual-assets-sync:
     runs-on: blacksmith-2vcpu-ubuntu-2404
