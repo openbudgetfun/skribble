@@ -6,6 +6,137 @@ import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 void main() {
+  for (final direction in TextDirection.values) {
+    testWidgets('selected label has an inset in $direction', (tester) async {
+      await pumpApp(
+        tester,
+        Directionality(
+          textDirection: direction,
+          child: SizedBox(
+            width: 320,
+            child: WiredCombo<String>.options(
+              value: 'paper',
+              options: const {'paper': Text('Paper'), 'ink': Text('Ink')},
+            ),
+          ),
+        ),
+      );
+      final field = tester.getRect(find.byType(WiredCombo<String>));
+      final label = tester.getRect(find.text('Paper'));
+      final inset = direction == TextDirection.ltr
+          ? label.left - field.left
+          : field.right - label.right;
+      expect(inset, greaterThanOrEqualTo(16));
+      expect(label.center.dy, closeTo(field.center.dy, 1));
+      final arrow = tester.getRect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is WiredCanvas &&
+              widget.painter is WiredInvertedTriangleBase,
+        ),
+      );
+      expect(arrow.center.dy, closeTo(field.center.dy, 1));
+      expect(
+        direction == TextDirection.ltr
+            ? field.right - arrow.right
+            : arrow.left - field.left,
+        greaterThanOrEqualTo(16),
+      );
+    });
+  }
+
+  testWidgets('empty fields retain their own border', (tester) async {
+    await pumpApp(tester, const WiredCombo<String>(items: []));
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is WiredCanvas &&
+            widget.painter is WiredRoundedRectangleBase,
+      ),
+      findsOneWidget,
+    );
+    expect(tester.getSize(find.byType(WiredCombo<String>)).height, 60);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('long labels and large text fit without covering the indicator', (
+    tester,
+  ) async {
+    const label = 'A long paper name that must fit the field';
+    await pumpApp(
+      tester,
+      MediaQuery(
+        data: const MediaQueryData(textScaler: TextScaler.linear(3)),
+        child: SizedBox(
+          width: 180,
+          child: WiredCombo<String>.options(
+            value: 'paper',
+            options: const {'paper': Text(label)},
+          ),
+        ),
+      ),
+    );
+    final field = tester.getRect(find.byType(WiredCombo<String>));
+    final text = tester.getRect(find.text(label));
+    final arrow = tester.getRect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is WiredCanvas &&
+            widget.painter is WiredInvertedTriangleBase,
+      ),
+    );
+    expect(field.height, 96);
+    expect(text.right, lessThan(arrow.left));
+    expect(text.top, greaterThan(field.top));
+    expect(text.bottom, lessThan(field.bottom));
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('menu keeps disabled items and per-item tap callbacks', (
+    tester,
+  ) async {
+    var tapped = 0;
+    await pumpApp(
+      tester,
+      WiredCombo<String>(
+        value: 'paper',
+        items: [
+          const DropdownMenuItem(value: 'paper', child: Text('Paper')),
+          const DropdownMenuItem(
+            value: 'ink',
+            enabled: false,
+            child: Text('Ink'),
+          ),
+          DropdownMenuItem(
+            value: 'ideas',
+            onTap: () => tapped++,
+            child: const Text('Ideas'),
+          ),
+        ],
+      ),
+    );
+    await tester.tap(find.byType(DropdownButton<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Ink').last);
+    await tester.pumpAndSettle();
+    expect(
+      tester
+          .widget<DropdownButton<String>>(find.byType(DropdownButton<String>))
+          .value,
+      'paper',
+    );
+    await tester.tap(find.text('Ideas').last);
+    await tester.pumpAndSettle();
+    expect(tapped, 1);
+    expect(
+      tester
+          .widget<DropdownButton<String>>(find.byType(DropdownButton<String>))
+          .value,
+      'ideas',
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('options maps labels and updates an uncontrolled selection', (
     tester,
   ) async {

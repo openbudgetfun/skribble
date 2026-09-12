@@ -1,25 +1,31 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
-import 'wired_icon.dart';
 import 'wired_theme.dart';
 
-/// A hand-drawn dropdown selector, corresponding to Flutter's
-/// `DropdownButton`.
+/// A hand-drawn dropdown selector with a padded label and trailing indicator.
 ///
-/// Wraps a `DropdownButton` with a sketchy rectangle border and an
-/// inverted triangle indicator drawn with `WiredInvertedTriangleBase`.
+/// Wraps a `DropdownButton` with a sketchy field border and outlined triangle.
+/// Menu rows have their own borders, independent of the selected label.
 ///
 /// See also:
 ///  * `WiredDropdownMenu`, for an M3-style dropdown menu.
 class WiredCombo<T> extends HookWidget {
+  /// The selected value, or null for an empty field.
   final T? value;
+
+  /// Available menu rows, including their enabled state and tap callbacks.
   final List<DropdownMenuItem<T>> items;
+
+  /// Return true when the caller owns [value] and rebuilds it.
+  /// Return false or null to update selection internally.
   final bool? Function(T?)? onChanged;
 
+  /// Creates a selector from dropdown menu items.
   const WiredCombo({
     super.key,
     required this.items,
@@ -49,83 +55,103 @@ class WiredCombo<T> extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final internalValue = useState<T?>(value);
-    final height = useRef(60.0);
+    // Reserve a scaled 24px label line plus vertical breathing room.
+    final height = math.max(
+      60.0,
+      MediaQuery.textScalerOf(context).scale(24) + 24,
+    );
 
     useEffect(() {
       internalValue.value = value;
       return null;
     }, [value]);
 
-    return Container(
-      color: Colors.transparent,
-      padding: EdgeInsets.zero,
-      margin: EdgeInsets.zero,
-      height: height.value,
-      child: Stack(
-        children: [
-          Positioned(
-            right: 10.0,
-            top: 20.0,
-            child: WiredCanvas(
-              painter: WiredInvertedTriangleBase(
-                strokeWidth: theme.strokeWidth,
-                borderColor: theme.borderColor,
-              ),
-              fillerType: RoughFilter.hachureFiller,
-              fillerConfig: FillerConfig.build(hachureGap: 2),
-              size: Size(18.0, 18.0),
-            ),
-          ),
-          SizedBox(
-            height: height.value,
-            width: double.infinity,
-            child: DropdownButtonHideUnderline(
+    return buildWiredElement(
+      child: SizedBox(
+        height: height,
+        width: double.infinity,
+        child: Stack(
+          children: [
+            Positioned.fill(child: _border(theme)),
+            DropdownButtonHideUnderline(
               child: DropdownButton<T>(
-                itemHeight: height.value,
+                itemHeight: height,
                 isExpanded: true,
                 elevation: 0,
-                icon: Visibility(
-                  visible: false,
-                  child: WiredIcon(
-                    icon: Icons.arrow_downward,
-                    fillStyle: WiredIconFillStyle.solid,
-                    strokeWidth: 1.2,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                icon: Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 12),
+                  child: WiredCanvas(
+                    painter: WiredInvertedTriangleBase(
+                      strokeWidth: 1.4,
+                      borderColor: theme.borderColor,
+                    ),
+                    drawConfig: theme.drawConfig.copyWith(
+                      roughness: 0.7,
+                      maxRandomnessOffset: 0.6,
+                      lineWobble: 0.1,
+                    ),
+                    fillerType: RoughFilter.noFiller,
+                    size: const Size(18, 14),
                   ),
                 ),
+                selectedItemBuilder: (context) => [
+                  for (final item in items) _label(item),
+                ],
                 value: internalValue.value,
-                items: items.map((item) {
-                  return DropdownMenuItem<T>(
-                    value: item.value,
-                    child: Stack(
-                      children: [
-                        WiredCanvas(
-                          painter: WiredRectangleBase(
-                            strokeWidth: theme.strokeWidth,
-                            fillColor: theme.fillColor,
-                            borderColor: theme.borderColor,
-                          ),
-                          fillerType: RoughFilter.noFiller,
-                          size: Size(double.infinity, height.value),
+                items: [
+                  for (final item in items)
+                    DropdownMenuItem<T>(
+                      value: item.value,
+                      enabled: item.enabled,
+                      onTap: item.onTap,
+                      alignment: item.alignment,
+                      child: SizedBox(
+                        height: height,
+                        child: Stack(
+                          children: [
+                            Positioned.fill(child: _border(theme)),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              child: _label(item),
+                            ),
+                          ],
                         ),
-                        Positioned(top: 20.0, child: item.child),
-                      ],
+                      ),
                     ),
-                  );
-                }).toList(),
+                ],
                 onChanged: (changedValue) {
                   final isControlled = onChanged?.call(changedValue) ?? false;
 
-                  if (isControlled) {
-                    return;
-                  }
+                  if (isControlled) return;
 
                   internalValue.value = changedValue;
                 },
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+
+  Widget _label(DropdownMenuItem<T> item) => DefaultTextStyle.merge(
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+    child: Align(alignment: item.alignment, child: item.child),
+  );
+
+  Widget _border(WiredThemeData theme) => IgnorePointer(
+    child: WiredCanvas(
+      painter: WiredRoundedRectangleBase(
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
+        strokeWidth: theme.strokeWidth,
+        fillColor: theme.fillColor,
+        borderColor: theme.borderColor,
+      ),
+      fillerType: RoughFilter.noFiller,
+    ),
+  );
 }

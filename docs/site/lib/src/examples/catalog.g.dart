@@ -696,7 +696,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'combo': ExampleDefinition(
     builder: _combo,
-    source: "WiredCombo<String>.options(\n  options: const {\n    'paper': Text('Paper'),\n    'ink': Text('Ink'),\n    'ideas': Text('Ideas'),\n  },\n  value: 'paper',\n)",
+    source: "SizedBox(\n  width: 320,\n  child: WiredCombo<String>.options(\n    options: const {\n      'paper': Text('Paper'),\n      'ink': Text('Ink'),\n      'ideas': Text('Ideas'),\n    },\n    value: 'paper',\n  ),\n)",
     edits: [],
   ),
   'cupertino-filled-button': ExampleDefinition(
