@@ -23,6 +23,7 @@ in
       ifi.melos
       dprint
       fontforge
+      harfbuzzFull.dev
       fvm
       gitleaks
       libiconv
