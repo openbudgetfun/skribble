@@ -43,26 +43,46 @@ The existing Regular and Bold Casual fonts have optional programming substitutio
 
 ## Weights and variable fonts
 
-The current output is **static TrueType**, with four real faces for every family and roughness:
+Every Casual, Linear, and Mono family includes dedicated upright and italic files at 300 (Light), 400 (Regular), 500 (Medium), 600 (SemiBold), 700 (Bold), 800 (ExtraBold), and 900 (Black). Select these through `TextStyle.fontWeight` and `fontStyle` as usual.
 
-| Face        | Weight | Style   |
-| ----------- | ------ | ------- |
-| Regular     | 400    | Upright |
-| Bold        | 700    | Upright |
-| Italic      | 400    | Italic  |
-| Bold italic | 700    | Italic  |
+The three shared variable families, one per roughness level, contain all these weights and continuous style axes. The playground compares a variable specimen against the nearest dedicated static face. Weight buttons set exact 100-step values; sliders allow intermediate values. Cursive uses three choices because Recursive switches letterforms rather than blending them continuously.
 
-There are no dedicated Light, Semibold, or Extra Bold files, and no continuous weight axis. Requesting another weight does not produce the corresponding Recursive source design.
+| Axis   | Range     | Purpose                            |
+| ------ | --------- | ---------------------------------- |
+| `wght` | 300–900   | Light through Black                |
+| `CASL` | 0–1       | Linear through Casual              |
+| `MONO` | 0–1       | Proportional through fixed-width   |
+| `slnt` | −15–0     | Slanted through upright            |
+| `CRSV` | 0, 0.5, 1 | Roman, automatic, or cursive forms |
 
-A variable hand-drawn font is possible in principle, but requires a pipeline that preserves or rebuilds the variation data and checks interpolated outlines. The current writer deliberately rejects variable input. Adding more genuine static weights from Recursive would be a smaller extension. This release keeps the approved four-face approach.
+```dart
+// Static example: configuration
+TextStyle(
+  fontFamily: WiredFont.variableFamilyFor(WiredRoughness.playful),
+  package: 'skribble',
+  fontVariations: const [
+    FontVariation('wght', 575),
+    FontVariation('CASL', 0.7),
+    FontVariation('MONO', 0),
+    FontVariation('slnt', -8),
+    FontVariation('CRSV', 0.5),
+  ],
+)
+```
+
+Import `FontVariation` from `dart:ui`. Set `wght` explicitly when using a variable family. Its default is 400, with linear proportional forms. Casual uses `CASL=1, MONO=0`; Mono Linear uses `CASL=0, MONO=1`. Static italics use `slnt=-15, CRSV=1`. The variable font can also show upright cursive forms and intermediate casualness or spacing.
+
+The pipeline expands sparse variation deltas before deforming the default outlines. It preserves those explicit deltas and point topology, so the displacement stays consistent across the designspace. It then instances the finished variable font to produce every static face. This changes the former static-only roughening baseline; existing 400/700 faces are regenerated from the same design as the new weights. All source layout features and variation axes are retained, with weight restricted from Recursive's 300–1000 source range to 300–900.
+
+Sources: [Recursive axes and licensing](https://github.com/arrowtype/recursive), [FontTools instancing](https://fonttools.readthedocs.io/en/latest/varLib/instancer.html). The pinned source, checksum, and reproduction notes are in `packages/skribble/tool/font/VARIABLE-SOURCE.md`.
 
 ## Reproduce the comparison
 
 Run from the repository root:
 
 ```bash
-dart run packages/skribble_font_roughen/bin/roughen_fonts.dart
+devenv shell dart run packages/skribble_font_roughen/bin/roughen_fonts.dart
 dart run tool/docs_font_comparison.dart
 ```
 
-Add `--check` to either command to verify without writing. All 36 modified faces live in the Skribble package. The docs keep only the 12 unmodified originals for comparison; modified Linear files are no longer duplicated there. These are vector font files, but adding families still increases the package asset size. The OFL license and pinned Recursive 1.085 source provenance are retained with the fonts.
+Add `--check` to either command to verify without writing. All 126 static faces and three variable fonts live in the Skribble package. The docs keep only the 12 unmodified originals for comparison; modified Linear files are no longer duplicated there. These are vector font files, but adding families still increases the package asset size. The OFL license and pinned Recursive 1.085 source provenance are retained with the fonts.

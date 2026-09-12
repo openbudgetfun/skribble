@@ -34,93 +34,345 @@ flutter:
         - asset: assets/fonts/ArchitectsDaughter-Regular.ttf
     - family: Skribble
       fonts:
+        - asset: assets/fonts/Skribble-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Skribble-BlackItalic.ttf
+          weight: 900
+          style: italic
         - asset: assets/fonts/Skribble-Bold.ttf
           weight: 700
         - asset: assets/fonts/Skribble-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/Skribble-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Skribble-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
         - asset: assets/fonts/Skribble-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Skribble-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Skribble-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Skribble-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Skribble-MediumItalic.ttf
+          weight: 500
           style: italic
         - asset: assets/fonts/Skribble-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Skribble-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Skribble-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
     - family: SkribbleGentle
       fonts:
+        - asset: assets/fonts/SkribbleGentle-Black.ttf
+          weight: 900
+        - asset: assets/fonts/SkribbleGentle-BlackItalic.ttf
+          weight: 900
+          style: italic
         - asset: assets/fonts/SkribbleGentle-Bold.ttf
           weight: 700
         - asset: assets/fonts/SkribbleGentle-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/SkribbleGentle-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/SkribbleGentle-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
         - asset: assets/fonts/SkribbleGentle-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/SkribbleGentle-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SkribbleGentle-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/SkribbleGentle-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SkribbleGentle-MediumItalic.ttf
+          weight: 500
           style: italic
         - asset: assets/fonts/SkribbleGentle-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SkribbleGentle-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SkribbleGentle-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
     - family: SkribbleLinearExpressive
       fonts:
+        - asset: assets/fonts/SkribbleLinearExpressive-Black.ttf
+          weight: 900
+        - asset: assets/fonts/SkribbleLinearExpressive-BlackItalic.ttf
+          weight: 900
+          style: italic
         - asset: assets/fonts/SkribbleLinearExpressive-Bold.ttf
           weight: 700
         - asset: assets/fonts/SkribbleLinearExpressive-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/SkribbleLinearExpressive-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/SkribbleLinearExpressive-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
         - asset: assets/fonts/SkribbleLinearExpressive-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/SkribbleLinearExpressive-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SkribbleLinearExpressive-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/SkribbleLinearExpressive-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SkribbleLinearExpressive-MediumItalic.ttf
+          weight: 500
           style: italic
         - asset: assets/fonts/SkribbleLinearExpressive-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SkribbleLinearExpressive-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SkribbleLinearExpressive-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
     - family: SkribbleLinearGentle
       fonts:
+        - asset: assets/fonts/SkribbleLinearGentle-Black.ttf
+          weight: 900
+        - asset: assets/fonts/SkribbleLinearGentle-BlackItalic.ttf
+          weight: 900
+          style: italic
         - asset: assets/fonts/SkribbleLinearGentle-Bold.ttf
           weight: 700
         - asset: assets/fonts/SkribbleLinearGentle-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/SkribbleLinearGentle-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/SkribbleLinearGentle-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
         - asset: assets/fonts/SkribbleLinearGentle-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/SkribbleLinearGentle-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SkribbleLinearGentle-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/SkribbleLinearGentle-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SkribbleLinearGentle-MediumItalic.ttf
+          weight: 500
           style: italic
         - asset: assets/fonts/SkribbleLinearGentle-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SkribbleLinearGentle-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SkribbleLinearGentle-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
     - family: SkribbleLinearPlayful
       fonts:
+        - asset: assets/fonts/SkribbleLinearPlayful-Black.ttf
+          weight: 900
+        - asset: assets/fonts/SkribbleLinearPlayful-BlackItalic.ttf
+          weight: 900
+          style: italic
         - asset: assets/fonts/SkribbleLinearPlayful-Bold.ttf
           weight: 700
         - asset: assets/fonts/SkribbleLinearPlayful-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/SkribbleLinearPlayful-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/SkribbleLinearPlayful-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
         - asset: assets/fonts/SkribbleLinearPlayful-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/SkribbleLinearPlayful-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SkribbleLinearPlayful-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/SkribbleLinearPlayful-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SkribbleLinearPlayful-MediumItalic.ttf
+          weight: 500
           style: italic
         - asset: assets/fonts/SkribbleLinearPlayful-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SkribbleLinearPlayful-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SkribbleLinearPlayful-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
     - family: SkribbleMonoExpressive
       fonts:
+        - asset: assets/fonts/SkribbleMonoExpressive-Black.ttf
+          weight: 900
+        - asset: assets/fonts/SkribbleMonoExpressive-BlackItalic.ttf
+          weight: 900
+          style: italic
         - asset: assets/fonts/SkribbleMonoExpressive-Bold.ttf
           weight: 700
         - asset: assets/fonts/SkribbleMonoExpressive-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/SkribbleMonoExpressive-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/SkribbleMonoExpressive-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
         - asset: assets/fonts/SkribbleMonoExpressive-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/SkribbleMonoExpressive-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SkribbleMonoExpressive-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/SkribbleMonoExpressive-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SkribbleMonoExpressive-MediumItalic.ttf
+          weight: 500
           style: italic
         - asset: assets/fonts/SkribbleMonoExpressive-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SkribbleMonoExpressive-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SkribbleMonoExpressive-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
     - family: SkribbleMonoGentle
       fonts:
+        - asset: assets/fonts/SkribbleMonoGentle-Black.ttf
+          weight: 900
+        - asset: assets/fonts/SkribbleMonoGentle-BlackItalic.ttf
+          weight: 900
+          style: italic
         - asset: assets/fonts/SkribbleMonoGentle-Bold.ttf
           weight: 700
         - asset: assets/fonts/SkribbleMonoGentle-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/SkribbleMonoGentle-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/SkribbleMonoGentle-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
         - asset: assets/fonts/SkribbleMonoGentle-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/SkribbleMonoGentle-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SkribbleMonoGentle-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/SkribbleMonoGentle-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SkribbleMonoGentle-MediumItalic.ttf
+          weight: 500
           style: italic
         - asset: assets/fonts/SkribbleMonoGentle-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SkribbleMonoGentle-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SkribbleMonoGentle-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
     - family: SkribbleMonoPlayful
       fonts:
+        - asset: assets/fonts/SkribbleMonoPlayful-Black.ttf
+          weight: 900
+        - asset: assets/fonts/SkribbleMonoPlayful-BlackItalic.ttf
+          weight: 900
+          style: italic
         - asset: assets/fonts/SkribbleMonoPlayful-Bold.ttf
           weight: 700
         - asset: assets/fonts/SkribbleMonoPlayful-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/SkribbleMonoPlayful-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/SkribbleMonoPlayful-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
         - asset: assets/fonts/SkribbleMonoPlayful-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/SkribbleMonoPlayful-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SkribbleMonoPlayful-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/SkribbleMonoPlayful-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SkribbleMonoPlayful-MediumItalic.ttf
+          weight: 500
           style: italic
         - asset: assets/fonts/SkribbleMonoPlayful-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SkribbleMonoPlayful-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SkribbleMonoPlayful-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
     - family: SkribblePlayful
       fonts:
+        - asset: assets/fonts/SkribblePlayful-Black.ttf
+          weight: 900
+        - asset: assets/fonts/SkribblePlayful-BlackItalic.ttf
+          weight: 900
+          style: italic
         - asset: assets/fonts/SkribblePlayful-Bold.ttf
           weight: 700
         - asset: assets/fonts/SkribblePlayful-BoldItalic.ttf
           weight: 700
           style: italic
+        - asset: assets/fonts/SkribblePlayful-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/SkribblePlayful-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
         - asset: assets/fonts/SkribblePlayful-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/SkribblePlayful-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SkribblePlayful-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/SkribblePlayful-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SkribblePlayful-MediumItalic.ttf
+          weight: 500
           style: italic
         - asset: assets/fonts/SkribblePlayful-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SkribblePlayful-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/SkribblePlayful-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+    - family: SkribbleVariableExpressive
+      fonts:
+        - asset: assets/fonts/SkribbleVariableExpressive-Regular.ttf
+    - family: SkribbleVariableGentle
+      fonts:
+        - asset: assets/fonts/SkribbleVariableGentle-Regular.ttf
+    - family: SkribbleVariablePlayful
+      fonts:
+        - asset: assets/fonts/SkribbleVariablePlayful-Regular.ttf
   assets:
     - assets/fonts/

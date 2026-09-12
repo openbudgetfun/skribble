@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:skribble_font_roughen/skribble_font_roughen.dart';
+import 'package:skribble_font_roughen/src/truetype_font.dart';
 
 /// Builds review-only Casual and Code families, leaving bundled fonts intact.
 /// Run from the repository root with FontForge on PATH.
@@ -73,8 +74,13 @@ SetFontOrder(3); Save($2);
   ]);
   var sfd = await File(sfdPath).readAsString();
   // Source italic fi/ffi must not consume input before our new liga lookup.
-  final removeOldLigatures = sfd.split('\n')
-      .where((line) => line.startsWith('Lookup:') && line.contains("['liga'"))
+  final removeOldLigatures = sfd
+      .split('\n')
+      .where(
+        (line) =>
+            line.startsWith('Lookup:') &&
+            (line.contains("['liga'") || line.contains("['rvrn'")),
+      )
       .map((line) => RegExp('"([^"]+)"').firstMatch(line)![1]!)
       .map((lookup) => 'RemoveLookup("$lookup");')
       .join('\n');
@@ -83,6 +89,21 @@ SetFontOrder(3); Save($2);
     for (final match in glyphPattern.allMatches(sfd)) match[1]!: match[0]!,
   };
   final splines = RegExp(r'SplineSet\n(.*?)EndSplineSet', dotAll: true);
+
+  // The variable-source instances retain required substitutions (e.g. l.sans).
+  // Bake their selected outlines before drawing new ligatures and swashes, so
+  // rvrn cannot redirect letters away from the prototype's authored glyphs.
+  final selectedOutlines = Map<String, String>.of(glyphs);
+  final variation = RegExp(r'''Substitution2: "[^"\n]*'rvrn'[^"\n]*" (\S+)''');
+  final advance = RegExp(r'Width: \d+');
+  for (final entry in selectedOutlines.entries) {
+    final target = variation.firstMatch(entry.value)?[1];
+    if (target == null) continue;
+    final selected = selectedOutlines[target]!;
+    glyphs[entry.key] = entry.value
+        .replaceFirst(splines, splines.firstMatch(selected)![0]!)
+        .replaceFirst(advance, advance.firstMatch(selected)![0]!);
+  }
 
   for (final entry in glyphs.entries.toList()) {
     final phase = entry.key.codeUnits.fold(0, (a, b) => a + b) * 1.618;
@@ -203,7 +224,8 @@ SetFontOrder(3); Save($2);
   await File(sfdPath).writeAsString(sfd);
   final featurePath = '$output/casual-$suffix.fea';
   await File(featurePath).writeAsString(features.toString());
-  final compile = '''
+  final compile =
+      '''
 Open(\$1);
 $removeOldLigatures
 MergeFeature(\$2);
@@ -224,13 +246,15 @@ SelectAll(); CorrectDirection(); RoundToInt(); Generate(\$3);
   ]);
   // FontForge retains source typographic names. The existing writer updates
   // every platform's family/style records without deforming the new outlines.
-  await FontRoughener(
-    inputPath: compiled,
-    outputPath: '$output/SkribblePetal-$suffix.ttf',
-    familyName: 'SkribblePetal',
-    variant: variant,
-    jitterAmount: 0,
-  ).roughen();
+  final font = TrueTypeFont(await File(compiled).readAsBytes());
+  await File('$output/SkribblePetal-$suffix.ttf').writeAsBytes(
+    font.encode(
+      family: 'SkribblePetal',
+      style: variant.fullNameSuffix,
+      weight: bold ? 700 : 400,
+      italic: italic,
+    ),
+  );
 }
 
 /// Gives every contour a restrained wave and a consistent per-glyph bounce.

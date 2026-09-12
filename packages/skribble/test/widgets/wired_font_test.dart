@@ -3,6 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
+  test('variable families resolve package assets at every roughness', () {
+    for (final level in WiredRoughness.values) {
+      final family = WiredFont.variableFamilyFor(level);
+      expect(WiredFont.isBundled(family), isTrue);
+      expect(WiredThemeData(fontFamily: family).fontPackage, 'skribble');
+    }
+  });
   test('each bundled typeface follows the roughness and copyWith', () {
     expect(WiredThemeData().font, WiredFont.casual);
     for (final font in WiredFont.values) {

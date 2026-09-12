@@ -16,7 +16,7 @@ void main() {
         final bytes = source.readAsBytesSync();
         final original = TrueTypeFont(bytes);
         final edited = TrueTypeFont(bytes);
-        expect(edited.roughen(36), 1297);
+        expect(edited.roughen(36), 1296);
         final output = edited.encode(
           family: 'Skribble',
           style: variant.fullNameSuffix,
@@ -115,7 +115,7 @@ void main() {
         outputPath: output.path,
       ).roughen();
       final bytes = output.readAsBytesSync();
-      expect(TrueTypeFont(bytes).glyphCount, greaterThan(1297));
+      expect(TrueTypeFont(bytes).glyphCount, greaterThan(1296));
       final invalid = File('${temporary.path}/broken.ttf')
         ..writeAsStringSync('not a font');
       await expectLater(

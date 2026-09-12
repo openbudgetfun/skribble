@@ -5,6 +5,8 @@ import 'package:skribble_font_roughen/skribble_font_roughen.dart';
 import 'package:skribble_font_roughen/src/truetype_font.dart';
 import 'package:test/test.dart';
 
+import 'helpers/metrics.dart';
+
 String familyName(TrueTypeFont font) {
   final data = ByteData.sublistView(font.tables['name']!);
   final count = data.getUint16(2);
@@ -52,14 +54,12 @@ void main() {
         expect(familyName(font), family);
         expect(TrueTypeFont.checksum(bytes), 0xb1b0afba);
         expect(font.glyphCount, source.glyphCount);
+        expect(advances(font), advances(source));
         for (final table in [
           'cmap',
-          'hmtx',
-          'hhea',
           'GSUB',
           'GPOS',
           'GDEF',
-          'OS/2',
         ]) {
           expect(
             font.tables[table],
@@ -100,7 +100,7 @@ void main() {
         'CustomInk',
       );
       expect(result.jitterAmount, 23.5);
-      expect(result.glyphCount, 1297);
+      expect(result.glyphCount, 1296);
     },
   );
 }

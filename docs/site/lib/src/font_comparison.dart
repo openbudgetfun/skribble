@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
 import 'package:skribble_docs_site/src/docs_surface.dart';
+import 'package:skribble_docs_site/src/variable_font_comparison.dart';
 
 /// Matched specimens of original and roughened Recursive Casual, Linear, and Mono.
 class FontComparison extends HookWidget {
@@ -22,6 +23,7 @@ class FontComparison extends HookWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        const VariableFontComparison(),
         const Text(
           'Choose your handwriting',
           style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
