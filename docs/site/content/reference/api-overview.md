@@ -378,3 +378,7 @@ These constructors preserve the original constructors and avoid requiring Materi
 `WiredLogo` draws the bracketed Skribble smile. `WiredDoodle` adds seeded butterflies, hearts, smiles, flowers, sparkles, scribbles, and leaves through `WiredDoodleKind`. `WiredPalette` and `WiredThemeData.cuddly()` share the design kit's light/dark palette. See [Flourishes and logo](/widgets/flourishes).
 
 `WiredFont` selects bundled Casual, Sans Linear, or Mono typography. `WiredThemeData.font` follows the inherited roughness; `fontFamily` remains the explicit string override. `WiredBrandIcon` exposes curated Simple Icons vector artwork through `.data` for `WiredSvgIcon`.
+
+### Map location indicators
+
+`package:skribble_maps/skribble_maps.dart` exports `WiredMapLocation` for a standalone current-location dot, `WiredMapLocationLayer` for geographic placement inside `WiredMap`, and `WiredMapHeadingStyle` for translucent wash, hatching, or combined facing indicators. See [Maps](../widgets/maps.md).

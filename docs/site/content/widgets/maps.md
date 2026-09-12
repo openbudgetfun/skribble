@@ -376,3 +376,139 @@ See the [mapping library research](https://github.com/openbudgetfun/skribble/blo
 ## Deliberate limits
 
 The package does not provide place search, geocoding, routing, turn-by-turn navigation, satellite imagery, or tile hosting. Those services have different data and operating requirements and stay outside the visual map package.
+
+## Current location and facing direction
+
+```dart
+// Live example: map-location
+HookBuilder(
+  builder: (context) {
+    final heading = useState<double?>(35);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text('Simulated location · compare direction ink'),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: [
+            for (final style in WiredMapHeadingStyle.values)
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 180,
+                    child: Text(
+                      switch (style) {
+                        WiredMapHeadingStyle.wash => 'Blue wash',
+                        WiredMapHeadingStyle.hatching => 'Pencil hatching',
+                        WiredMapHeadingStyle.washAndHatching => 'Wash + pencil',
+                      },
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  for (final dark in [false, true])
+                    SizedBox(
+                      width: 180,
+                      height: 150,
+                      child: ColoredBox(
+                        color: dark
+                            ? const Color(0xFF272E32)
+                            : const Color(0xFFF6F2E9),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Positioned.fill(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  for (var i = 0; i < 4; i++)
+                                    Container(
+                                      height: 5,
+                                      color: dark
+                                          ? const Color(0xFF42494D)
+                                          : const Color(0xFFE2DCCF),
+                                    ),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              top: 35,
+                              right: 12,
+                              child: Text(
+                                'Park lane',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: dark
+                                      ? const Color(0xFFD6DBDC)
+                                      : const Color(0xFF666052),
+                                ),
+                              ),
+                            ),
+                            WiredMapLocation(
+                              heading: heading.value,
+                              headingStyle: style,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 12,
+          runSpacing: 8,
+          children: [
+            WiredButton(
+              onPressed: () =>
+                  heading.value = ((heading.value ?? 0) + 45) % 360,
+              child: const Text('Turn 45°'),
+            ),
+            WiredButton(
+              onPressed: () =>
+                  heading.value = heading.value == null ? 35 : null,
+              child: Text(
+                heading.value == null ? 'Restore heading' : 'Hide heading',
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  },
+)
+```
+
+`WiredMapLocation` draws a blue dot with an irregular outline and a white rim. The fan uses translucent ink so streets and labels remain visible. Compare `wash`, `hatching`, and `washAndHatching` above on light and dark backgrounds. The dot stays fixed while the fan rotates. Its shape stays stable on rebuild.
+
+Place `WiredMapLocationLayer` in `WiredMap.children` to anchor the dot to a coordinate. The indicator stays the same screen size while zooming, and pointer events pass through to the map and any controls underneath.
+
+```dart
+// Static example: setup
+WiredMap(
+  initialCenter: const LatLng(51.5242, -0.0778),
+  initialZoom: 15,
+  children: const [
+    WiredMapLocationLayer(
+      point: LatLng(51.5242, -0.0778),
+      heading: 35,
+      headingStyle: WiredMapHeadingStyle.washAndHatching,
+    ),
+  ],
+)
+```
+
+These are simulated coordinates. Your app owns location permission, sensor subscriptions, and unavailable or stale fixes. Remove the layer when there is no usable fix. Pass `heading: null` when orientation is unavailable; this hides the fan without implying north. Heading is clockwise degrees from true north, not direction of travel. The map is north-up, with rotation disabled. The fan is a visual facing cue, not a measured GPS or compass accuracy region.
+
+Both widgets accept a localizable `semanticLabel`, a stable `seed`, an ink `color`, and a square `size` in logical pixels. The default extent is 128, with a dot diameter of approximately 21. Heading updates apply immediately; apps can filter noisy sensor input before rebuilding. No animation or sensor runs inside the component.
+
+Storybook also places a simulated location between the first two route points in each city, using the combined wash and pencil treatment with a 35° heading. It does not read your device location.
+
+The default heading treatment is `WiredMapHeadingStyle.washAndHatching`. The plain wash and pencil-only treatments remain available through `headingStyle` on both the standalone indicator and the geographic layer.

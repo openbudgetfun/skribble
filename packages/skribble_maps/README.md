@@ -165,3 +165,7 @@ Read the repository's [mapping research](../../docs/mapping-libraries-research.m
 ## Scope
 
 `skribble_maps` renders a MapLibre basemap and app-owned overlays. It does not provide geocoding, place search, routing, turn-by-turn navigation, or a tile-hosting service.
+
+### Current location
+
+Add `WiredMapLocationLayer(point: location, heading: trueNorthDegrees)` to `WiredMap.children`. The blue dot stays centered on the supplied coordinate. Choose `WiredMapHeadingStyle.wash`, `.hatching`, or `.washAndHatching` for the translucent direction fan. Null heading hides the fan. `WiredMapLocation` also works as a standalone preview. These widgets do not acquire device location; your app owns permissions and sensor subscriptions.

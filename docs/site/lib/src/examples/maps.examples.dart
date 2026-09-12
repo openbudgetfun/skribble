@@ -139,3 +139,108 @@ Widget _mapFeatures(ExampleSettings settings) => HookBuilder(
     );
   },
 );
+
+/// @docs-example map-location
+Widget _mapLocation(ExampleSettings settings) => HookBuilder(
+  builder: (context) {
+    final heading = useState<double?>(35);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text('Simulated location · compare direction ink'),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: [
+            for (final style in WiredMapHeadingStyle.values)
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 180,
+                    child: Text(
+                      switch (style) {
+                        WiredMapHeadingStyle.wash => 'Blue wash',
+                        WiredMapHeadingStyle.hatching => 'Pencil hatching',
+                        WiredMapHeadingStyle.washAndHatching => 'Wash + pencil',
+                      },
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  for (final dark in [false, true])
+                    SizedBox(
+                      width: 180,
+                      height: 150,
+                      child: ColoredBox(
+                        color: dark
+                            ? const Color(0xFF272E32)
+                            : const Color(0xFFF6F2E9),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Positioned.fill(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  for (var i = 0; i < 4; i++)
+                                    Container(
+                                      height: 5,
+                                      color: dark
+                                          ? const Color(0xFF42494D)
+                                          : const Color(0xFFE2DCCF),
+                                    ),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              top: 35,
+                              right: 12,
+                              child: Text(
+                                'Park lane',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: dark
+                                      ? const Color(0xFFD6DBDC)
+                                      : const Color(0xFF666052),
+                                ),
+                              ),
+                            ),
+                            WiredMapLocation(
+                              heading: heading.value,
+                              headingStyle: style,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 12,
+          runSpacing: 8,
+          children: [
+            WiredButton(
+              onPressed: () =>
+                  heading.value = ((heading.value ?? 0) + 45) % 360,
+              child: const Text('Turn 45°'),
+            ),
+            WiredButton(
+              onPressed: () =>
+                  heading.value = heading.value == null ? 35 : null,
+              child: Text(
+                heading.value == null ? 'Restore heading' : 'Hide heading',
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  },
+);

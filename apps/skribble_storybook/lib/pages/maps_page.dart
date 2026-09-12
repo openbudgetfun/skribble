@@ -193,6 +193,18 @@ class MapsPage extends HookWidget {
                           ),
                         ],
                       ),
+                      WiredMapLocationLayer(
+                        point: LatLng(
+                          (places.route.first.latitude +
+                                  places.route[1].latitude) /
+                              2,
+                          (places.route.first.longitude +
+                                  places.route[1].longitude) /
+                              2,
+                        ),
+                        heading: 35,
+                        semanticLabel: 'Simulated current location',
+                      ),
                       WiredMapMarkerLayer(
                         markers: [
                           for (final place in places.markers)
