@@ -29,6 +29,9 @@ pubspec.lock
 # macOS
 .DS_Store
 
+# Figma exports are release assets, never repository source.
+*.[fF][iI][gG]
+
 # Screenshots
 .screenshots/
 .audit/

@@ -1128,6 +1128,10 @@ Run `monochange check --fix` to auto-fix the style rules; everything else needs 
 
 ## Visual asset checks
 
+Figma exports are downloadable release assets. Never commit `.fig` files, including renamed or archived copies. Export `skribble-design-system.fig` outside the checkout, attach it to the release marked Latest, and verify its size and SHA-256 digest. Use `https://github.com/openbudgetfun/skribble/releases/latest/download/skribble-design-system.fig` for downloads. See [the design-kit publishing instructions](https://github.com/openbudgetfun/skribble/blob/main/docs/design/README.md#publishing-a-figma-export). The `design-asset-policy` CI job rejects tracked Figma exports.
+
+When checking the Figma guide, inspect each complete page with component masters visible. Confirm that masters are children of the paper-backed guide, no sibling boards overlap, long text wraps within its container, and selected-state labels contrast with their backgrounds. Inspect old archive pages too, keeping intentional overlap within illustrations intact.
+
 After changing fonts, SVG import, or painting, run the glyph/corpus/pixel regressions and inspect real browser screenshots. `dart run packages/skribble_emoji_gen/bin/update_assets.dart` rebuilds the pinned source assets. `dart run tool/font_specimen.dart` creates embedded-font HTML comparisons. Patrol notebook journeys use shared keys in `lib/testing/quality_keys.dart`; run them through Patrol CLI and retain screenshots. Report browser coverage separately from native-device coverage.
 
 Git hooks are managed by devenv with `prek` and installed the first time you enter the devenv shell. The pre-commit stage checks formatting with `lint:format` and scans staged changes for secrets with gitleaks; the pre-push stage runs the CI lint job (`lint:push`) and scans the full history for secrets. Hooks invoke devenv profile scripts by absolute path, so they work outside the devenv shell, and the pre-push script prepends `.devenv/profile/bin` to `PATH` so nested `dart`/`melos`/`mdt` calls resolve the pinned toolchain.

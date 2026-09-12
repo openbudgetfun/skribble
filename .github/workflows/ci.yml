@@ -13,6 +13,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  design-asset-policy:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - name: Keep Figma exports in release assets
+        shell: bash
+        run: |
+          if git ls-files -- ':(icase)*.fig' | grep -q .; then
+            echo 'Figma exports must be attached to the latest release, not committed.'
+            git ls-files -- ':(icase)*.fig'
+            exit 1
+          fi
+
   lint:
     runs-on: blacksmith-2vcpu-ubuntu-2404
     steps:

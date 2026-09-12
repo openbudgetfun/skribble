@@ -39,6 +39,8 @@ Skribble's endgame is a **standalone design system library** — a peer of `pack
 
 ### Documentation
 
+- **Figma exports belong on the latest GitHub release, never in Git.** Save `.fig` files outside the checkout and publish them as `skribble-design-system.fig`. Follow `docs/design/README.md` for upload and verification. Link downloads through `releases/latest/download/skribble-design-system.fig`.
+
 - **Every change must be documented.** No PR should be merged without documentation for what was changed or added. This is a hard rule.
 - Documentation MUST be updated whenever APIs change, features are added, or behavior is modified
 - Update the relevant widget catalog page in `docs/site/content/widgets/` when adding or modifying widgets

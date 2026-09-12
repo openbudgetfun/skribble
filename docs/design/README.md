@@ -2,7 +2,7 @@
 
 The [editable Figma file](https://www.figma.com/design/pjRi0rh4NWkGRROPlWLLBo/Skribble-Design-System) pairs the Flutter library with warm paper, plum ink, reusable components, and seeded flourishes.
 
-You can also download the [editable `.fig` source](../../assets/design/skribble-design-system.fig) from the repository and open it in the Figma desktop app.
+Download the [editable `.fig` source from the latest release](https://github.com/openbudgetfun/skribble/releases/latest/download/skribble-design-system.fig) and open it in the Figma desktop app. Figma exports are release assets and must never be committed to Git.
 
 ## How the file is organized
 
@@ -10,13 +10,25 @@ Start on `✨ Start here`. It explains the reading order and includes three reus
 
 1. `🎨 Foundations` — paper, ink, palette, type, spacing, and roughness.
 2. `📌 Brand` — the bracketed smile, light and dark marks, and logo usage.
-3. `🌿 Flourishes` — the core hand-drawn vocabulary.
-4. `🌈 More flourishes` — twelve additional kinds, each shown with three seeded variants.
-5. The `· Wired` pages — reusable component sets grouped by interaction and surface.
+3. `🌿 Flourishes` — all nineteen kinds, each shown with three seeded variants.
+4. The `· Wired` pages — reusable component sets grouped by interaction and surface.
 
-The `🗂️ Archive · …` pages come last and preserve the older explorations without competing with the current guide. Archive boards have been translated into positive canvas space and reflowed where needed, so their original work remains inspectable without covering nearby frames.
+The `🗂️ Archive · …` pages come last and preserve the older explorations without competing with the current guide. Social-media boards use a spaced grid. Overlap within original illustrations and brainstorming compositions is preserved.
 
 Long notes use fixed reading widths and height-based text resizing. This keeps guidance visible at normal zoom and prevents copy from sitting on top of examples.
+
+The actual component sets live inside paper-backed guide frames. Auto layout keeps headings, examples, and masters apart as content grows. The Brand page includes the logo masters above its size examples and usage notes. Selected segment labels use contrasting paper-colored text.
+
+## Publishing a Figma export
+
+Save a local copy from Figma to a directory outside the checkout, named `skribble-design-system.fig`. Upload it to the release marked Latest:
+
+```sh
+gh release view --repo openbudgetfun/skribble --json tagName,url
+gh release upload <latest-tag> /absolute/path/skribble-design-system.fig --repo openbudgetfun/skribble --clobber
+```
+
+Verify the uploaded asset size and SHA-256 digest before sharing the download link. Keep the same filename so the latest-release URL stays stable. When publishing a new release, attach the current export to that release too. The ignore rule prevents accidental staging; CI rejects tracked `.fig` files even if force-added.
 
 ## Brand and flourishes
 
