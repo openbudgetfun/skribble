@@ -131,17 +131,20 @@ HookBuilder(
 
 ## WiredCombo
 
-A hand-drawn dropdown selector wrapping Flutter's `DropdownButton`. Displays a sketchy inverted triangle indicator and draws a hand-drawn rectangle around each dropdown item.
+A hand-drawn dropdown selector wrapping Flutter's `DropdownButton`. Its rounded field border surrounds a centered label with 16 px side padding and a small outlined triangle. The example uses a compact 320 px width; the widget fills the width supplied by its parent.
 
 ```dart
 // Live example: combo
-WiredCombo<String>.options(
-  options: const {
-    'paper': Text('Paper'),
-    'ink': Text('Ink'),
-    'ideas': Text('Ideas'),
-  },
-  value: 'paper',
+SizedBox(
+  width: 320,
+  child: WiredCombo<String>.options(
+    options: const {
+      'paper': Text('Paper'),
+      'ink': Text('Ink'),
+      'ideas': Text('Ideas'),
+    },
+    value: 'paper',
+  ),
 )
 ```
 
@@ -155,9 +158,10 @@ WiredCombo<String>.options(
 
 ### Notes
 
-- Item height is 60px.
-- The inverted triangle indicator is drawn with `WiredInvertedTriangleBase` at the right edge.
-- Each dropdown item is wrapped with a `WiredRectangleBase` border.
+- Field and item height starts at 60 px and grows with text scaling. Labels are vertically centered; long selected labels use an ellipsis and leave space for the indicator.
+- The outlined triangle follows the trailing edge, including in right-to-left layouts. Its restrained roughness keeps it readable at a small size.
+- The field retains its own rounded border when selection is null or the options are empty. Menu rows have separate rounded borders and padded labels.
+- Menu items preserve their `enabled`, `onTap`, and `alignment` values.
 - The `onChanged` callback uses a `bool` return pattern: return `true` if managing state externally, `false` (or `null`) to let `WiredCombo` update its internal state.
 
 ---

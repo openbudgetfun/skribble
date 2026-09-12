@@ -154,11 +154,14 @@ Widget _cupertinoSegmentedControl(ExampleSettings settings) => HookBuilder(
 );
 
 /// @docs-example combo
-Widget _combo(ExampleSettings settings) => WiredCombo<String>.options(
-  options: const {
-    'paper': Text('Paper'),
-    'ink': Text('Ink'),
-    'ideas': Text('Ideas'),
-  },
-  value: 'paper',
+Widget _combo(ExampleSettings settings) => SizedBox(
+  width: 320,
+  child: WiredCombo<String>.options(
+    options: const {
+      'paper': Text('Paper'),
+      'ink': Text('Ink'),
+      'ideas': Text('Ideas'),
+    },
+    value: 'paper',
+  ),
 );
