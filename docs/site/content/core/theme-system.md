@@ -43,6 +43,19 @@ final theme = WiredThemeData(
 );
 ```
 
+### Cuddly palette
+
+`WiredThemeData.cuddly()` pairs warm paper with plum ink and defaults to the playful pen. Pass `brightness: Brightness.dark` for dark plum paper and pale ink, or choose any `WiredRoughness` level independently.
+
+```dart
+// Static example: configuration
+final theme = WiredThemeData.cuddly(
+  roughnessLevel: WiredRoughness.gentle,
+);
+```
+
+`WiredPalette` exposes the same paper, night, ink, lilac, peach, sage, butter, and muted colors as the Figma kit. Accent washes are intended for decoration and backgrounds; use ink for readable text on pale accents.
+
 ### copyWith
 
 Derive a new theme from an existing one, overriding specific fields:

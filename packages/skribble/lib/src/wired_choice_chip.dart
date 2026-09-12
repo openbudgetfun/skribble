@@ -56,7 +56,7 @@ class WiredChoiceChip extends HookWidget {
                         borderColor: theme.borderColor,
                       ),
                       fillerType: selected
-                          ? RoughFilter.hachureFiller
+                          ? RoughFilter.solidFiller
                           : RoughFilter.noFiller,
                       fillerConfig: FillerConfig.build(hachureGap: 3.0),
                     ),

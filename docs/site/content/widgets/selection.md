@@ -37,7 +37,7 @@ WiredChip(label: Text('Make something lovely'))
 
 ## WiredChoiceChip
 
-A selectable chip that toggles between selected and unselected states. When selected, it receives a hachure fill.
+A selectable chip that toggles between selected and unselected states. Selected chips use solid ink behind the label to keep small text clear.
 
 ```dart
 // Live example: choice-chip
@@ -55,14 +55,14 @@ HookBuilder(
 
 ### Notes
 
-- Selected state applies a hachure fill behind the label, similar to `WiredToggleButtons`.
-- The label text color switches to white when selected for contrast.
+- Selected state applies a solid `theme.borderColor` fill behind the label.
+- The label uses `theme.fillColor` when selected. The outline retains the selected roughness level.
 
 ---
 
 ## WiredFilterChip
 
-A chip with a checkmark indicator that can be toggled on and off for filtering. Shows a hand-drawn checkmark when selected.
+A chip with a checkmark indicator that can be toggled on and off for filtering. Selected chips use a solid ink fill and a hand-drawn checkmark.
 
 ```dart
 // Live example: filter-chip
@@ -82,7 +82,7 @@ HookBuilder(
 
 ## WiredInputChip
 
-A chip representing a piece of user input (e.g., a tag or email address). Supports avatar, delete, and tap actions.
+A chip representing a piece of user input (e.g., a tag or email address). Supports avatar, delete, and tap actions. Its selected state uses the same solid ink fill as choice and filter chips.
 
 ```dart
 // Live example: input-chip

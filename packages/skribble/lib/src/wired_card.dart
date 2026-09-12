@@ -13,11 +13,15 @@ class WiredCard extends HookWidget {
   final bool fill;
   final double? height;
 
+  /// Soft corners for the paper outline. Use [BorderRadius.zero] for square ink.
+  final BorderRadius borderRadius;
+
   const WiredCard({
     super.key,
     this.child,
     this.fill = false,
     this.height = 130.0,
+    this.borderRadius = const BorderRadius.all(Radius.circular(12)),
   });
 
   @override
@@ -27,7 +31,8 @@ class WiredCard extends HookWidget {
       children: [
         Positioned.fill(
           child: WiredCanvas(
-            painter: WiredRectangleBase(
+            painter: WiredRoundedRectangleBase(
+              borderRadius: borderRadius,
               strokeWidth: theme.strokeWidth,
               fillColor: theme.fillColor,
               borderColor: theme.borderColor,
