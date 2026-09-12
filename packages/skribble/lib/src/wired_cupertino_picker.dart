@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
@@ -9,6 +9,9 @@ import 'wired_theme.dart';
 /// A hand-drawn picker wheel, corresponding to Flutter's [CupertinoPicker].
 ///
 /// Wraps [CupertinoPicker] with a sketchy border and selection highlight.
+/// Supports mouse dragging as well as the surrounding scroll policy's input
+/// devices. Labels use the Wired theme's font family and roughness variant;
+/// explicit text styles on children still take precedence.
 class WiredCupertinoPicker extends HookWidget {
   /// The list of items to display in the picker.
   final List<Widget> children;
@@ -72,21 +75,38 @@ class WiredCupertinoPicker extends HookWidget {
                 ),
               ),
             ),
-            CupertinoPicker(
-              scrollController: controller,
-              itemExtent: itemExtent,
-              onSelectedItemChanged: onSelectedItemChanged,
-              selectionOverlay: const SizedBox.shrink(),
-              backgroundColor: Colors.transparent,
-              children: [
-                for (final child in children)
-                  Center(
-                    child: DefaultTextStyle.merge(
-                      style: TextStyle(color: theme.textColor, fontSize: 16),
-                      child: child,
+            ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(
+                dragDevices: {
+                  ...ScrollConfiguration.of(context).dragDevices,
+                  PointerDeviceKind.mouse,
+                },
+              ),
+              child: CupertinoPicker(
+                scrollController: controller,
+                itemExtent: itemExtent,
+                onSelectedItemChanged: onSelectedItemChanged,
+                selectionOverlay: const SizedBox.shrink(),
+                backgroundColor: const Color(0x00000000),
+                children: [
+                  for (final child in children)
+                    Center(
+                      child: DefaultTextStyle.merge(
+                        style: TextStyle(
+                          color: theme.textColor,
+                          fontSize: 16,
+                          // Qualify the family without inheriting a package
+                          // prefix into a child's explicit custom font.
+                          fontFamily: TextStyle(
+                            fontFamily: theme.fontFamily,
+                            package: theme.fontPackage,
+                          ).fontFamily,
+                        ),
+                        child: child,
+                      ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

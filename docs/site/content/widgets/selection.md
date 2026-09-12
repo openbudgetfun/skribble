@@ -291,6 +291,8 @@ HookBuilder(
 
 ## WiredCupertinoPicker
 
+Mouse and touch dragging both scroll the wheel. The picker adds mouse support to the surrounding scroll configuration without replacing its other settings. Labels inherit the active Wired theme's font family and roughness variant, including the asset package for bundled fonts. An explicit child text style still overrides those defaults.
+
 A Cupertino-style scrolling picker wheel with hand-drawn selection highlight. Mirrors the `CupertinoPicker` API.
 
 ```dart
