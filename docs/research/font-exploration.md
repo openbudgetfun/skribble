@@ -39,6 +39,8 @@ The verifier checks all four styles. It checks font checksums, original Casual c
 
 The CI font job rebuilds and verifies both families, then uploads the eight TTFs, license, comparison and verification report as its `font-exploration` artifact.
 
+The shell uses the core `harfbuzz.dev` package for `hb-shape`. The pinned Nixpkgs ICU variant removes its own core shared library during packaging, which prevents its Linux CLI from starting. The core package retains that library; no ICU-specific functionality is needed for these shaping checks.
+
 Browser review covers paragraph text, alphabet and punctuation, code columns, ambiguous characters, feature toggles, all four styles, and narrow layouts. It does not verify selection, cursor behavior, rendering or font installation in every editor. The Casual prototype also needs a broader typography review before replacing shipped assets.
 
 ## Try the coding font in an editor
