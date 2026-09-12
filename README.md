@@ -1,10 +1,37 @@
 # Skribble
 
+<picture>
+  <source
+    media="(prefers-color-scheme: dark)"
+    srcset="assets/brand/skribble-dark-transparent.svg"
+  >
+  <img
+    src="assets/brand/skribble-light-transparent.svg"
+    alt="Skribble: a little smile in square brackets"
+    width="120"
+    height="120"
+  >
+</picture>
+
 [![CI](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml/badge.svg)](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-openbudgetfun.github.io%2Fskribble-violet)](https://openbudgetfun.github.io/skribble/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Flutter](https://img.shields.io/badge/Flutter-%E2%89%A53.47-blue?logo=flutter)](https://flutter.dev)
 
 A hand-drawn design system for Flutter. Skribble provides sketchy, hand-drawn UI components that give your app a unique, informal aesthetic — with familiar Material and Cupertino APIs.
 
 **[Documentation](https://openbudgetfun.github.io/skribble/)** | **[Widget Catalog](https://openbudgetfun.github.io/skribble/widgets/buttons)** | **[Getting Started](https://openbudgetfun.github.io/skribble/getting-started/installation)**
+
+## Design with Skribble
+
+Open the [Figma design system](https://www.figma.com/design/pjRi0rh4NWkGRROPlWLLBo/Skribble-Design-System) for reusable components, light and dark colors, the bracketed-smile logo, and hand-drawn flourishes. See the [design kit guide](docs/design/README.md) for coverage, downloads, and how the Figma assets map to Flutter.
+
+Prefer a local file? Download the [editable Figma source](assets/design/skribble-design-system.fig) and open it in Figma.
+
+Butterflies, hearts, smiles, flowers, sparkles, scribbles, leaves, clouds, suns, moons, rainbows, comets, balloons, mushrooms, cupcakes, birds, sprouts, waves, and confetti are generated from stable seeds:
+
+```dart
+WiredDoodle(kind: WiredDoodleKind.butterfly, seed: 8)
+```
+
+Use `WiredThemeData.cuddly()` for warm paper and plum ink, or pass `brightness: Brightness.dark` for dark paper. The gentle, playful, and expressive roughness presets work with either palette.
 
 ## Packages
 

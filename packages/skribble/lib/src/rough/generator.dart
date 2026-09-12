@@ -128,107 +128,94 @@ class Generator {
     final br = bottomRight.clamp(0, min(maxRadiusH, maxRadiusV)).toDouble();
     final bl = bottomLeft.clamp(0, min(maxRadiusH, maxRadiusV)).toDouble();
 
-    // Build outline: 4 lines + 4 corner arcs
+    // Each pen pass follows one closed contour. Separate rough corner arcs
+    // overlap at small radii and leave knots where they meet the straight edges.
     final List<Op> ops = [];
+    final config = drawConfig!;
+    final offset = min(config.maxRandomnessOffset!, min(width, height) / 16);
+    const kappa = 0.5522847498307936;
 
-    // Top side: from (x + tl, y) to (x + width - tr, y)
-    if (width - tl - tr > 0) {
-      ops.addAll(
-        OpsGenerator.doubleLine(x + tl, y, x + width - tr, y, drawConfig!),
-      );
-    }
+    for (var pass = 0; pass < 2; pass++) {
+      final gain = pass == 0 ? 0.45 : 0.7;
+      final dx = config.offsetSymmetric(offset, gain);
+      final dy = config.offsetSymmetric(offset, gain);
+      final left = x + dx;
+      final top = y + dy;
+      final right = x + width + dx;
+      final bottom = y + height + dy;
+      var cursor = PointD(left + tl, top);
+      ops.add(Op.move(cursor));
 
-    // Top-right corner arc
-    if (tr > 0) {
-      final arcOps = OpSetBuilder.arc(
-        PointD(x + width - tr, y + tr),
-        tr * 2,
-        tr * 2,
-        -pi / 2,
-        0,
-        false,
-        false,
-        drawConfig!,
-      );
-      ops.addAll(arcOps.ops!);
-    }
+      void curve(PointD first, PointD second, PointD end) {
+        ops.add(Op.curveTo(first, second, end));
+        cursor = end;
+      }
 
-    // Right side: from (x + width, y + tr) to (x + width, y + height - br)
-    if (height - tr - br > 0) {
-      ops.addAll(
-        OpsGenerator.doubleLine(
-          x + width,
-          y + tr,
-          x + width,
-          y + height - br,
-          drawConfig!,
-        ),
-      );
-    }
+      void edge(PointD end) {
+        final start = cursor;
+        final dx = end.x - start.x;
+        final dy = end.y - start.y;
+        final length = sqrt(dx * dx + dy * dy);
+        if (length == 0) return;
 
-    // Bottom-right corner arc
-    if (br > 0) {
-      final arcOps = OpSetBuilder.arc(
-        PointD(x + width - br, y + height - br),
-        br * 2,
-        br * 2,
-        0,
-        pi / 2,
-        false,
-        false,
-        drawConfig!,
-      );
-      ops.addAll(arcOps.ops!);
-    }
+        // Bow a continuous stroke gently; longer edges can wander locally.
+        // Endpoint handles stay tangent to the rounded corners.
+        final bow = config.offsetSymmetric(
+          min(offset, length / 12),
+          config.bowing! * gain,
+        );
+        final drift = config.offsetSymmetric(
+          min(offset, length / 12),
+          config.lineWobble! * gain,
+        );
+        final normalX = -dy / length;
+        final normalY = dx / length;
+        final middle = PointD(
+          start.x + dx / 2 + normalX * bow,
+          start.y + dy / 2 + normalY * bow,
+        );
+        curve(
+          PointD(start.x + dx / 6, start.y + dy / 6),
+          PointD(
+            middle.x - dx / 6 + normalX * drift,
+            middle.y - dy / 6 + normalY * drift,
+          ),
+          middle,
+        );
+        curve(
+          PointD(
+            middle.x + dx / 6 - normalX * drift,
+            middle.y + dy / 6 - normalY * drift,
+          ),
+          PointD(end.x - dx / 6, end.y - dy / 6),
+          end,
+        );
+      }
 
-    // Bottom side: from (x + width - br, y + height) to (x + bl, y + height)
-    if (width - br - bl > 0) {
-      ops.addAll(
-        OpsGenerator.doubleLine(
-          x + width - br,
-          y + height,
-          x + bl,
-          y + height,
-          drawConfig!,
-        ),
+      edge(PointD(right - tr, top));
+      curve(
+        PointD(right - tr + tr * kappa, top),
+        PointD(right, top + tr - tr * kappa),
+        PointD(right, top + tr),
       );
-    }
-
-    // Bottom-left corner arc
-    if (bl > 0) {
-      final arcOps = OpSetBuilder.arc(
-        PointD(x + bl, y + height - bl),
-        bl * 2,
-        bl * 2,
-        pi / 2,
-        pi,
-        false,
-        false,
-        drawConfig!,
+      edge(PointD(right, bottom - br));
+      curve(
+        PointD(right, bottom - br + br * kappa),
+        PointD(right - br + br * kappa, bottom),
+        PointD(right - br, bottom),
       );
-      ops.addAll(arcOps.ops!);
-    }
-
-    // Left side: from (x, y + height - bl) to (x, y + tl)
-    if (height - bl - tl > 0) {
-      ops.addAll(
-        OpsGenerator.doubleLine(x, y + height - bl, x, y + tl, drawConfig!),
+      edge(PointD(left + bl, bottom));
+      curve(
+        PointD(left + bl - bl * kappa, bottom),
+        PointD(left, bottom - bl + bl * kappa),
+        PointD(left, bottom - bl),
       );
-    }
-
-    // Top-left corner arc
-    if (tl > 0) {
-      final arcOps = OpSetBuilder.arc(
-        PointD(x + tl, y + tl),
-        tl * 2,
-        tl * 2,
-        pi,
-        3 * pi / 2,
-        false,
-        false,
-        drawConfig!,
+      edge(PointD(left, top + tl));
+      curve(
+        PointD(left, top + tl - tl * kappa),
+        PointD(left + tl - tl * kappa, top),
+        PointD(left + tl, top),
       );
-      ops.addAll(arcOps.ops!);
     }
 
     final outline = OpSet(type: OpSetType.path, ops: ops);

@@ -231,6 +231,36 @@ void main() {
     });
 
     group('roundedRectangle()', () {
+      test('small rounded outlines are two continuous closed pen passes', () {
+        for (final side in [0.0, 1.0, 12.0, 27.0, 42.0]) {
+          final drawing = Generator(
+            DrawConfig.build(seed: 8),
+            NoFiller(),
+          ).roundedRectangle(0, 0, side, side, 4, 4, 4, 4);
+          final ops = drawing.sets!.last.ops!;
+          expect(ops.where((op) => op.op == OpType.move), hasLength(2));
+          PointD? start;
+          PointD? end;
+          for (final op in ops) {
+            if (op.op == OpType.move) {
+              if (start != null) {
+                expect(end!.x, start.x);
+                expect(end.y, start.y);
+              }
+              start = op.data.single;
+            }
+            end = op.data.last;
+            for (final p in op.data) {
+              expect(p.x.isFinite && p.y.isFinite, isTrue);
+              expect(p.x, inInclusiveRange(-4, side + 4));
+              expect(p.y, inInclusiveRange(-4, side + 4));
+            }
+          }
+          expect(end!.x, start!.x);
+          expect(end.y, start.y);
+        }
+      });
+
       test('produces non-empty Drawable', () {
         final Drawable drawable = generator.roundedRectangle(
           10,

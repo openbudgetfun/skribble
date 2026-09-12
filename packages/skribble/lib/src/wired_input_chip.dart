@@ -76,7 +76,7 @@ class WiredInputChip extends HookWidget {
                           borderColor: theme.borderColor,
                         ),
                         fillerType: selected
-                            ? RoughFilter.hachureFiller
+                            ? RoughFilter.solidFiller
                             : RoughFilter.noFiller,
                       ),
                     ),

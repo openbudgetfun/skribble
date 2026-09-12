@@ -13,6 +13,8 @@ Skribble replaces standard form controls with sketchy, hand-drawn equivalents. A
 
 ## WiredInput
 
+The default ink corners have an 8 px radius. Set `borderRadius: BorderRadius.zero` for square corners or supply another `BorderRadius`. Focus adds 0.6 px to the pen without adding a second field border.
+
 A single-line text field wrapped in a hand-drawn rectangle border. Supports labels, hints, and password masking.
 
 ```dart
@@ -152,6 +154,8 @@ Also exported: `WiredSearchController` (a `TextEditingController` plus `openView
 ---
 
 ## WiredCheckbox
+
+The 27 px visual now uses 4 px rounded ink corners. Override `borderRadius` when needed; compose it with a label and a larger touch area for small-screen use.
 
 A hand-drawn checkbox with a sketchy rectangle border. The checkmark is rendered by an underlying transparent `Checkbox` widget, scaled up for visual presence.
 

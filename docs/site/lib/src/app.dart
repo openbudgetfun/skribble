@@ -8,12 +8,13 @@ import 'package:skribble_docs_site/src/article.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
 import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/document.dart';
+import 'package:skribble_docs_site/src/doodle_playground.dart';
 import 'package:skribble_docs_site/src/font_comparison.dart';
 import 'package:skribble_docs_site/src/playground.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-const _paper = Color(0xfffffaf0);
-const _ink = Color(0xff34283f);
+const Color _paper = WiredPalette.paper;
+const Color _ink = WiredPalette.ink;
 
 /// Documentation built from the same Wired components it teaches.
 class DocsApp extends HookWidget {
@@ -68,11 +69,8 @@ class DocsApp extends HookWidget {
     return WiredMaterialApp.router(
       routerConfig: router,
       title: 'Skribble',
-      wiredTheme: WiredThemeData(
+      wiredTheme: WiredThemeData.cuddly(
         roughnessLevel: roughness.value,
-        borderColor: _ink,
-        textColor: _ink,
-        fillColor: _paper,
       ),
       builder: (context, child) => DefaultTextStyle(
         style: TextStyle(
@@ -236,19 +234,26 @@ class _DocsPage extends HookWidget {
                 children: [
                   Flexible(
                     child: SizedBox(
-                      width: 132,
+                      width: 180,
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.centerLeft,
                         child: _NavigationLink(
                           onActivate: () => navigate('/'),
-                          child: const Text(
-                            'skribble',
-                            style: TextStyle(
-                              fontSize: 31,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: -1.5,
-                            ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              WiredLogo(size: 40, semanticLabel: null),
+                              SizedBox(width: 8),
+                              Text(
+                                'skribble',
+                                style: TextStyle(
+                                  fontSize: 31,
+                                  fontWeight: FontWeight.w800,
+                                  letterSpacing: -1.5,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -318,6 +323,8 @@ class _DocsPage extends HookWidget {
                                       const FontComparison(),
                                     if (document.path == '/core/motion')
                                       const MotionPlayground(),
+                                    if (document.path == '/widgets/flourishes')
+                                      const DoodlePlayground(),
                                     Row(
                                       children: [
                                         Expanded(

@@ -5,6 +5,8 @@ description: Complete guide to Skribble's Dart port of rough.js -- DrawConfig, G
 
 # Rough Engine
 
+Rounded rectangles use two continuous closed pen contours. Long edges can bow and wander according to the theme; each corner joins the adjacent edge without overlapping independent arc fragments. This prevents tangled ink at small button and checkbox radii. Fill polygons retain their nominal rounded perimeter.
+
 Skribble's hand-drawn aesthetic comes from a Dart port of [rough.js](https://roughjs.com/). The engine lives in `packages/skribble/lib/src/rough/` and is re-exported through `package:skribble/skribble.dart`. Every wobbly border, hachure fill, and imperfect line in Skribble passes through this engine.
 
 ## Overview
