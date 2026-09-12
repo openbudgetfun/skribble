@@ -54,4 +54,4 @@ Install the four `SkribbleCode` TTFs with your operating system's font manager. 
 
 Restart the editor if its font cache does not refresh. Fonts do not change the underlying source text: operator sequences remain ordinary text. Terminal ligature configuration is separate from editor configuration. See the [source audit and editor references](casual-font-ligatures.md#editor-activation-and-implementation-choice).
 
-In Flutter, declare the four faces in your app's font manifest and select `fontFamily: 'SkribbleCode'` with `FontFeature.contextualAlternates()`. For Petal, use `FontFeature.standardLigatures()` and optionally `FontFeature.discretionaryLigatures()` or `FontFeature.swash()`. These experimental families are not registered in the published Skribble package yet.
+In Flutter, declare the four faces in your app's font manifest and select `fontFamily: 'SkribbleCode'` with `FontFeature.contextualAlternates()`. For Petal, use `FontFeature.enable('liga')` and optionally `FontFeature.enable('dlig')` or `FontFeature.swash()`. These experimental families are not registered in the published Skribble package yet.
