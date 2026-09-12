@@ -17,7 +17,10 @@ class WiredButton extends HookWidget {
   final Widget child;
 
   /// Called when the button is tapped.
-  final void Function() onPressed;
+  ///
+  /// When null, the button is disabled: taps are ignored and the label
+  /// renders with the theme's [WiredThemeData.disabledTextColor].
+  final VoidCallback? onPressed;
 
   /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
   /// Semantic label for accessibility.
@@ -34,7 +37,7 @@ class WiredButton extends HookWidget {
   const WiredButton({
     super.key,
     required this.child,
-    required this.onPressed,
+    this.onPressed,
     this.semanticLabel,
     this.inkInteraction,
     this.borderRadius = const BorderRadius.all(Radius.circular(6)),
@@ -70,7 +73,10 @@ class WiredButton extends HookWidget {
               height: double.infinity,
               child: TextButton(
                 statesController: states,
-                style: TextButton.styleFrom(foregroundColor: theme.textColor),
+                style: TextButton.styleFrom(
+                  foregroundColor: theme.textColor,
+                  disabledForegroundColor: theme.disabledTextColor,
+                ),
                 onPressed: onPressed,
                 child: child,
               ),
