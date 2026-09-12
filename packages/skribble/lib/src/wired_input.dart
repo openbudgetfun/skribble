@@ -43,6 +43,9 @@ class WiredInput extends HookWidget {
   /// Whether to conceal the entered text.
   final bool obscureText;
 
+  /// Soft corners for the ink outline. Use [BorderRadius.zero] for square ink.
+  final BorderRadius borderRadius;
+
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
   /// <!-- {/dartSemanticLabelOptional} -->
@@ -59,6 +62,7 @@ class WiredInput extends HookWidget {
     this.hintStyle,
     this.onChanged,
     this.obscureText = false,
+    this.borderRadius = const BorderRadius.all(Radius.circular(8)),
     this.semanticLabel,
   });
 
@@ -80,7 +84,8 @@ class WiredInput extends HookWidget {
           children: [
             Positioned.fill(
               child: WiredCanvas(
-                painter: WiredRectangleBase(
+                painter: WiredRoundedRectangleBase(
+                  borderRadius: borderRadius,
                   fillColor: theme.fillColor,
                   borderColor: theme.borderColor,
                   strokeWidth: theme.strokeWidth + (focus.hasFocus ? 0.6 : 0),

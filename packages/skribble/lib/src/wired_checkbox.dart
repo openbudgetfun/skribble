@@ -21,6 +21,9 @@ class WiredCheckbox extends HookWidget {
   final bool? value;
   final void Function(bool?) onChanged;
 
+  /// Soft corners for the box. Use [BorderRadius.zero] for square ink.
+  final BorderRadius borderRadius;
+
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
   /// <!-- {/dartSemanticLabelOptional} -->
@@ -31,6 +34,7 @@ class WiredCheckbox extends HookWidget {
     required this.value,
     required this.onChanged,
     this.semanticLabel,
+    this.borderRadius = const BorderRadius.all(Radius.circular(4)),
   });
 
   @override
@@ -61,7 +65,8 @@ class WiredCheckbox extends HookWidget {
             progress: WiredDrawTransition.progressOf(context),
             pressure: WiredInkResponse.pressureOf(context),
             drawConfig: theme.drawConfig,
-            shape: RoughBoxShape.rectangle,
+            shape: RoughBoxShape.roundedRectangle,
+            borderRadius: borderRadius,
             borderStyle: RoughDrawingStyle(
               width: theme.strokeWidth,
               color: theme.borderColor,

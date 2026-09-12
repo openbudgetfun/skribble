@@ -5,6 +5,7 @@ import 'motion/wired_ink_interaction.dart';
 import 'motion/wired_motion.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_font.dart';
+import 'wired_palette.dart';
 import 'wired_roughness.dart';
 
 /// The default hand-drawn font family bundled with Skribble.
@@ -61,6 +62,29 @@ class WiredThemeData {
     this._fontFamily,
     this._drawConfig,
   });
+
+  /// Warm paper and plum ink from the shared Figma library.
+  ///
+  /// Keeps the existing roughness presets independent of color and supports
+  /// both light and dark surfaces. Accent washes live in [WiredPalette].
+  factory WiredThemeData.cuddly({
+    Brightness brightness = Brightness.light,
+    WiredRoughness roughnessLevel = WiredRoughness.playful,
+  }) => WiredThemeData(
+    borderColor: brightness == Brightness.dark
+        ? WiredPalette.paper
+        : WiredPalette.ink,
+    textColor: brightness == Brightness.dark
+        ? WiredPalette.paper
+        : WiredPalette.ink,
+    disabledTextColor: brightness == Brightness.dark
+        ? WiredPalette.mutedPaper
+        : WiredPalette.mutedInk,
+    fillColor: brightness == Brightness.dark
+        ? WiredPalette.night
+        : WiredPalette.paper,
+    roughnessLevel: roughnessLevel,
+  );
 
   /// Resolved drawing configuration, built once per theme instance.
   ///

@@ -11,6 +11,8 @@ Skribble provides layout and structural widgets that form the scaffolding of you
 
 ## WiredCard
 
+Card outlines use 12 px corners by default. The `borderRadius` parameter accepts custom or square corners. Two continuous pen passes keep the corners soft while retaining the selected roughness.
+
 A card with a hand-drawn rectangle border. Supports optional hachure fill for a more prominent appearance.
 
 ```dart
