@@ -112,7 +112,9 @@ class WiredSkeletonOverlay extends HookWidget {
             container: true,
             liveRegion: true,
             label: semanticLabel,
-            child: ExcludeSemantics(child: IgnorePointer(child: skeleton)),
+            child: ExcludeFocus(
+              child: ExcludeSemantics(child: IgnorePointer(child: skeleton)),
+            ),
           ),
         ),
     ],

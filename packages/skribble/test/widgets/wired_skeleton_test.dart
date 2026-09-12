@@ -3,6 +3,29 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
+  testWidgets('custom placeholders stay decorative and cannot acquire focus', (
+    tester,
+  ) async {
+    final focus = FocusNode();
+    addTearDown(focus.dispose);
+    final semantics = tester.ensureSemantics();
+    await tester.pumpWidget(
+      _app(
+        WiredSkeletonOverlay(
+          loading: true,
+          skeleton: Focus(focusNode: focus, child: const Text('Placeholder')),
+          child: const SizedBox(width: 80, height: 40),
+        ),
+      ),
+    );
+    focus.requestFocus();
+    await tester.pump();
+    expect(focus.hasFocus, isFalse);
+    expect(find.semantics.byLabel('Placeholder'), findsNothing);
+    expect(find.semantics.byLabel('Loading'), findsOneWidget);
+    semantics.dispose();
+  });
+
   for (final policy in ['ancestor', 'ticker', 'local']) {
     testWidgets('skeleton settles under $policy policy and resumes', (
       tester,

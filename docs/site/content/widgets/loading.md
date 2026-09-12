@@ -69,7 +69,7 @@ WiredSkeletonOverlay(
 )
 ```
 
-The overlay measures the real child and fits the skeleton into the same bounds. It retains the child's mounted state. During loading it hides the child and excludes its pointer input, focus, semantics, and tickers. Loading completion restores the child without replacing its element. Focus is not automatically restored. The default placeholder is a single hatched block; pass a row or column of skeletons to match structured content, as in the live card above. This is an explicit placeholder layout, not automatic text or image detection.
+The overlay measures the real child and fits the skeleton into the same bounds. It retains the child's mounted state. During loading it hides the child and excludes its pointer input, focus, semantics, and tickers. Loading completion restores the child without replacing its element. Focus is not automatically restored. The default placeholder is a single hatched block; pass a row or column of skeletons to match structured content, as in the live card above. Custom placeholders are decorative and cannot receive focus, pointer input, or their own semantics. This is an explicit placeholder layout, not automatic text or image detection.
 
 ## Accessible status
 
