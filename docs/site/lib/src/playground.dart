@@ -16,8 +16,8 @@ class Playground extends HookWidget {
     final narrow = MediaQuery.sizeOf(context).width < 650;
     final note = WiredTheme(
       data: WiredTheme.of(context).copyWith(
-        fillColor: const Color(0xffeadbb6),
-        borderColor: const Color(0xff6a4e25),
+        fillColor: WiredPalette.butter,
+        borderColor: WiredPalette.ink,
       ),
       child: WiredDraw(
         key: ValueKey(replay.value),
@@ -57,11 +57,11 @@ class Playground extends HookWidget {
                 const SizedBox(height: 20),
                 WiredTheme(
                   data: WiredTheme.of(context)
-                      .copyWith(fillColor: const Color(0xffe87960)),
+                      .copyWith(fillColor: WiredPalette.peach),
                   child: WiredFilledButton(
                     key: DocsKeys.saveIdea,
-                    fillColor: const Color(0xffe87960),
-                    foregroundColor: const Color(0xff34283f),
+                    fillColor: WiredPalette.peach,
+                    foregroundColor: WiredPalette.ink,
                     inkInteraction: WiredInkInteraction.redraw,
                     onPressed: () => saved.value = !saved.value,
                     child: Text(
@@ -83,14 +83,27 @@ class Playground extends HookWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'A little less perfect.\nA lot more personality.',
-            style: TextStyle(
-              fontSize: narrow ? 36 : 52,
-              height: 1.12,
-              fontWeight: FontWeight.w800,
-              letterSpacing: narrow ? -1.4 : -1.8,
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'A little less perfect.\nA lot more personality.',
+                  style: TextStyle(
+                    fontSize: narrow ? 36 : 52,
+                    height: 1.12,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: narrow ? -1.4 : -1.8,
+                  ),
+                ),
+              ),
+              if (!narrow)
+                const WiredDoodle(
+                  kind: WiredDoodleKind.butterfly,
+                  size: 108,
+                  seed: 8,
+                  fillColor: WiredPalette.lilac,
+                ),
+            ],
           ),
           const SizedBox(height: 24),
           const Text(
