@@ -2,6 +2,35 @@
 
 Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).
 
+## [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.1) (2026-09-12)
+
+### Features
+
+#### Add a shared design kit, bracketed smile, and seeded flourishes
+
+Add WiredDoodle, WiredDoodleKind, WiredLogo, WiredPalette, and the light/dark WiredThemeData.cuddly factory. The pure Dart flourish and logo geometry also produces the downloadable SVG assets used by Figma and the documentation site.
+
+Rounded outlines now follow two continuous pen passes to avoid tangled corner joins at small sizes. Inputs, cards, and checkboxes have configurable soft corners. Choice, filter, and input chips use solid selected fills to keep small labels readable.
+
+_Owner:_ test · _Introduced in:_ [ea5297d](https://github.com/openbudgetfun/skribble/commit/ea5297df5b179c8cb3acb51c7ab6772a374b78f7)
+
+- **Add animated ink loaders and pencil skeletons.** Add six WiredLoader rhythms, including animated flower and scribble doodles, with reduced-motion support and borrowed animation control. Add hatched skeleton blocks and layout-preserving overlays that hide and disable loading content. Update the original loading indicator to use the orbit renderer and add an interactive loading catalog. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #192](https://github.com/openbudgetfun/skribble/pull/192)
+- **Add variable lettering and dedicated weights 300–900.** Ship shared variable fonts for all three roughness levels, with continuous weight, casualness, monospace, and slant axes plus cursive letterform selection. Generate matching upright and italic static weights for every bundled family. Add an interactive comparison, preserve expanded variation deltas while roughening, validate intermediate outlines and shaping, and expose variable family lookup through WiredFont. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #191](https://github.com/openbudgetfun/skribble/pull/191)
+
+### Fixes
+
+- **Reuse displaced icon contours between repaints.** `WiredSvgIcon` sampled every contour and rebuilt its displaced path on each repaint. Sampling runs a tangent evaluation roughly every 0.6 logical pixels, so a 96 px icon re-did thousands of them per frame. The contours are now displaced once per painter and reused, which roughly halves the cost of painting a filled icon. Rendering is unchanged: a fresh painter and a cached one produce identical pixels. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #181](https://github.com/openbudgetfun/skribble/pull/181)
+- **Give combo fields consistent spacing and a legible indicator.** Separate the field border from menu rows, inset and center the selected label, and replace the cramped hatched arrow with an outlined triangle. Field and menu height grow with text scaling. Long selections keep space for the indicator, right-to-left layouts place it on the trailing edge, and empty fields retain their border. Wrapped menu items preserve their enabled state and callbacks. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #190](https://github.com/openbudgetfun/skribble/pull/190)
+- **Tighten three rough-engine edge cases.** `DrawConfig.copyWith` accepted `fillWeight` and `combineNestedSvgPaths` and dropped both on the floor, so a caller could pass them and silently get nothing; the parameters are gone and passing them is now a compile error. `Filler.buildFillLines` closed the polygon ring by appending to the caller's point list, which corrupted the polygon for the connecting-line pass whenever the hachure angle skipped rotation. `OpSetBuilder.linearPath` copied its accumulated operation list once per edge, making a polygon quadratic in its vertex count; it now appends in place. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #181](https://github.com/openbudgetfun/skribble/pull/181)
+- **Export the widgets the API reference already documents.** `WiredLoadingIndicator` and `WiredCircularProgressIndicator` were documented in the API reference but missing from `skribble.dart`, so the only way to reach them was a `package:skribble/src/...` import. `WiredExpansionPanelList`, `WiredExpansionPanel`, and `WiredPaginatedDataTable` had widget tests that imported them the same way. All five are now exported, and the tests import the public library. The unused `wired_transitions.dart` and the `utils/` icon helpers, which nothing imported or documented, are gone. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #181](https://github.com/openbudgetfun/skribble/pull/181)
+- **Fix picker dragging and hand-drawn typography.** Enable mouse dragging on WiredCupertinoPicker and the timer wheels built from it. Apply the Wired theme's font family and bundled font package to wheel labels so roughness and typeface choices appear correctly. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #193](https://github.com/openbudgetfun/skribble/pull/193)
+- **Keep the hand-drawn fill pattern stable across repaints.** The filler carried its own random stream, separate from the painter's, and nothing replayed it. A card, switch, or slider could hatch differently after a rebuild than it did on first paint, and its pattern depended on which other filled widgets had painted before it. Both streams now reset before each shape is prepared, so a shape reproduces its ink exactly. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #181](https://github.com/openbudgetfun/skribble/pull/181)
+- **Stop rebuilding a themed subtree when the theme has not changed.** `WiredThemeData` had no value equality, so the inherited theme compared object identity and notified every descendant on each rebuild — the documented `copyWith`-per-build pattern rebuilt the whole subtree every frame. Theme data now compares by value and builds its `DrawConfig` once per instance, and `WiredMaterialApp` caches its four `ThemeData` conversions instead of re-running `ColorScheme.fromSeed` on each frame. System dark mode and high contrast are read through `MediaQuery`, so toggling either repaints the app rather than waiting for an unrelated rebuild. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #181](https://github.com/openbudgetfun/skribble/pull/181)
+
+### Other
+
+- **Compare experimental Casual and coding fonts.** Add a repository-only font experiment with real text ligatures, optional Casual swashes, a hand-drawn Recursive Code Casual family, and an interactive comparison. The CI job checks shaping, font metadata, character coverage and monospace advances. Published font assets and package font choices are unchanged. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #185](https://github.com/openbudgetfun/skribble/pull/185)
+
 ## [0.1.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.0) (2026-09-11)
 
 ### Features
