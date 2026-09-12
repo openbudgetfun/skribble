@@ -23,7 +23,7 @@ A hand-drawn design system for Flutter. Skribble provides sketchy, hand-drawn UI
 
 Open the [Figma design system](https://www.figma.com/design/pjRi0rh4NWkGRROPlWLLBo/Skribble-Design-System) for reusable components, light and dark colors, the bracketed-smile logo, and hand-drawn flourishes. See the [design kit guide](docs/design/README.md) for coverage, downloads, and how the Figma assets map to Flutter.
 
-Prefer a local file? Download the [editable Figma source](assets/design/skribble-design-system.fig) and open it in Figma.
+Prefer a local file? Download the [editable Figma source from the latest release](https://github.com/openbudgetfun/skribble/releases/latest/download/skribble-design-system.fig) and open it in Figma.
 
 Butterflies, hearts, smiles, flowers, sparkles, scribbles, leaves, clouds, suns, moons, rainbows, comets, balloons, mushrooms, cupcakes, birds, sprouts, waves, and confetti are generated from stable seeds:
 
