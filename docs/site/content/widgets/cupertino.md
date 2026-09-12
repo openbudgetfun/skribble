@@ -153,6 +153,8 @@ WiredCupertinoSearchTextField(
 
 ## WiredCupertinoTimerPicker
 
+Drag either wheel with a mouse or touch to change its value, or click a nearby row. Wheel labels use the active Wired font and its Gentle, Playful, or Expressive variant. The same input and typography behavior applies to `WiredCupertinoPicker` wherever it is used.
+
 An iOS timer picker built by composing hour / minute / second wheels on top of `WiredCupertinoPicker`, so the sketches on the borders and center highlight come straight from the picker internals. Modes: `hm` (default), `hms`, and `ms`. Wheel granularity is controlled with `minuteInterval` / `secondInterval` (both must evenly divide 60).
 
 ```dart

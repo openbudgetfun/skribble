@@ -32,7 +32,7 @@ skin      material+cupertino packages/skribble/lib/src/wired_cupertino_alert_dia
 helpers   material+cupertino packages/skribble/lib/src/wired_cupertino_button.dart
 helpers   material+cupertino packages/skribble/lib/src/wired_cupertino_date_picker.dart
 skin      cupertino        packages/skribble/lib/src/wired_cupertino_navigation_bar.dart
-helpers   material+cupertino packages/skribble/lib/src/wired_cupertino_picker.dart
+helpers   cupertino        packages/skribble/lib/src/wired_cupertino_picker.dart
 skin      material         packages/skribble/lib/src/wired_cupertino_scaffold.dart
 helpers   material+cupertino packages/skribble/lib/src/wired_cupertino_segmented_control.dart
 helpers   cupertino        packages/skribble/lib/src/wired_cupertino_slider.dart
