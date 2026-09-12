@@ -1,6 +1,6 @@
-Material dependency audit — 95 of 129 files import material/cupertino
+Material dependency audit — 94 of 137 files import material/cupertino
 
-  skin     (wraps a Material/Cupertino widget): 71
+  skin     (wraps a Material/Cupertino widget): 70
   helpers  (constants/theme only):              24
 
 skin      material         packages/skribble/lib/src/canvas/wired_ink_splash.dart
@@ -61,7 +61,6 @@ skin      material         packages/skribble/lib/src/wired_input.dart
 skin      material         packages/skribble/lib/src/wired_input_chip.dart
 skin      material         packages/skribble/lib/src/wired_license_page.dart
 skin      material         packages/skribble/lib/src/wired_list_tile.dart
-skin      material         packages/skribble/lib/src/wired_loading_indicator.dart
 skin      material         packages/skribble/lib/src/wired_material_app.dart
 skin      material         packages/skribble/lib/src/wired_material_banner.dart
 skin      material         packages/skribble/lib/src/wired_menu_bar.dart
