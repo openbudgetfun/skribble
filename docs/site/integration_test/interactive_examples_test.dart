@@ -75,6 +75,10 @@ void main() {
             WiredRoughness.expressive) {
           throw StateError('The page did not inherit the selected roughness.');
         }
+        await $(DocsKeys.fontCodeSample).scrollTo(
+          view: $(const ValueKey('document-scroll')),
+          maxScrolls: 40,
+        );
         await $(DocsKeys.fontCodeSample).tap();
         final mono = $.tester.widget<Text>(
           $(DocsKeys.fontSpecimen('mono', 'playful')),
