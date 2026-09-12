@@ -1,8 +1,9 @@
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'wired_loader.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn loading indicator with organic animation.
@@ -37,107 +38,12 @@ class WiredLoadingIndicator extends HookWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final theme = WiredTheme.of(context);
-    final effectiveColor = color ?? theme.borderColor;
-
-    final controller = useAnimationController(
-      duration: const Duration(milliseconds: 1200),
-    );
-
-    useEffect(() {
-      controller.repeat();
-      return null;
-    }, []);
-
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (context, child) {
-        return SizedBox(
-          width: size,
-          height: size,
-          child: CustomPaint(
-            painter: _WiredSpinnerPainter(
-              progress: controller.value,
-              color: effectiveColor,
-              strokeWidth: strokeWidth,
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-/// Painter for the hand-drawn loading spinner.
-class _WiredSpinnerPainter extends CustomPainter {
-  final double progress;
-  final Color color;
-  final double strokeWidth;
-
-  _WiredSpinnerPainter({
-    required this.progress,
-    required this.color,
-    required this.strokeWidth,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = (size.shortestSide - strokeWidth) / 2;
-
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.round;
-
-    // Draw incomplete circle with hand-drawn effect
-    final path = Path();
-    const segments = 12;
-    const segmentAngle = 2 * math.pi / segments;
-    final startAngle = progress * 2 * math.pi;
-    const sweepAngle = math.pi * 1.5; // 270 degrees
-
-    for (int i = 0; i <= segments; i++) {
-      final angle = startAngle + (i * segmentAngle);
-      if (angle > startAngle + sweepAngle) break;
-
-      // Add slight jitter for hand-drawn feel
-      final jitter = (i % 2 == 0 ? 1.0 : -1.0) * 1.5;
-      final x = center.dx + (radius + jitter) * math.cos(angle);
-      final y = center.dy + (radius + jitter) * math.sin(angle);
-
-      if (i == 0) {
-        path.moveTo(x, y);
-      } else {
-        path.lineTo(x, y);
-      }
-    }
-
-    canvas.drawPath(path, paint);
-
-    // Draw small circle at the end for emphasis
-    final endAngle = startAngle + sweepAngle;
-    final endX = center.dx + radius * math.cos(endAngle);
-    final endY = center.dy + radius * math.sin(endAngle);
-    final endCenter = Offset(endX, endY);
-
-    canvas.drawCircle(
-      endCenter,
-      strokeWidth * 1.5,
-      Paint()
-        ..color = color
-        ..style = PaintingStyle.fill,
-    );
-  }
-
-  @override
-  bool shouldRepaint(_WiredSpinnerPainter oldDelegate) {
-    return progress != oldDelegate.progress ||
-        color != oldDelegate.color ||
-        strokeWidth != oldDelegate.strokeWidth;
-  }
+  Widget build(BuildContext context) => WiredLoader(
+    size: size,
+    color: color ?? WiredTheme.of(context).borderColor,
+    strokeWidth: strokeWidth,
+    duration: const Duration(milliseconds: 1200),
+  );
 }
 
 /// A hand-drawn circular progress indicator.

@@ -17,7 +17,7 @@
 Skribble's endgame is a **standalone design system library** — a peer of `package:material_ui` / `package:cupertino_ui`, depending only on `flutter/widgets` and below, not a hand-drawn skin over Material widgets.
 
 - **New code MUST NOT import `package:flutter/material.dart` or `package:flutter/cupertino.dart`.**
-- Existing Material usage is transitional debt. The current state is tracked in `docs/material-dependency-audit.txt` (regenerate with `dart run tool/audit_material_dependencies.dart > docs/material-dependency-audit.txt`): 71 files wrap a Material widget ("skin" debt — the real rewrite work), 24 files only use helpers/constants (mechanical import swaps, do these opportunistically).
+- Existing Material usage is transitional debt. The current state is tracked in `docs/material-dependency-audit.txt` (regenerate with `dart run tool/audit_material_dependencies.dart > docs/material-dependency-audit.txt`): 70 files wrap a Material widget ("skin" debt — the real rewrite work), 24 files only use helpers/constants (mechanical import swaps, do these opportunistically).
 - Rewrite order for skin-debt: leaf input widgets first (buttons, checkbox, switch, slider, text field), then containers/navigation (scaffold, app bar, tabs), keeping `WiredMaterialApp`/`WiredTheme` as a compatibility bridge for consuming apps until the last PR.
 - When the audit reaches 0, add a CI gate that fails any PR reintroducing a material/cupertino import into `packages/skribble/lib`.
 

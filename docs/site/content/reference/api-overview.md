@@ -382,3 +382,7 @@ These constructors preserve the original constructors and avoid requiring Materi
 ### Map location indicators
 
 `package:skribble_maps/skribble_maps.dart` exports `WiredMapLocation` for a standalone current-location dot, `WiredMapLocationLayer` for geographic placement inside `WiredMap`, and `WiredMapHeadingStyle` for translucent wash, hatching, or combined facing indicators. See [Maps](../widgets/maps.md).
+
+## Loading states
+
+`WiredLoader` offers `orbit`, `dots`, `bars`, `ripple`, `flower`, and `scribble` rhythms through `WiredLoaderStyle`. It accepts a caller-owned phase animation or runs its own clock. `WiredSkeleton` draws softly pulsing pencil placeholders. `WiredSkeletonOverlay` preserves a child's measured layout and mounted state while excluding its input, focus, semantics, and tickers. See [Loaders and skeletons](/widgets/loading) for the live gallery and motion policies.

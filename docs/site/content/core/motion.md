@@ -189,3 +189,7 @@ Use redraw for a few meaningful actions; pressure is a quieter default for dense
 ## Static design handoff
 
 The [design kit](../reference/design-kit) exports resting and pressed button ink with identical paths and layout bounds. Its manifest maps reduced motion to the completed resting specimen. Use those files when prototyping the 120 ms pressure response or the 650 ms entry reveal. Keep labels, solid backgrounds, focus indication, and hit regions available throughout.
+
+## Repeating loading ink
+
+[Loaders and skeletons](/widgets/loading) use a shared internal clock that stops when `WiredMotion` is disabled, the platform requests reduced motion, or `TickerMode` is muted. They settle to a visible pose. `WiredLoader.progress` can borrow an ordinary animation; its owner retains control and ownership, while the painter detaches from ticks when motion is disabled. Geometry stays cached across ticks. Skeleton overlays also mute the hidden child's tickers until loading finishes.

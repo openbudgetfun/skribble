@@ -10,6 +10,7 @@ import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/document.dart';
 import 'package:skribble_docs_site/src/doodle_playground.dart';
 import 'package:skribble_docs_site/src/font_comparison.dart';
+import 'package:skribble_docs_site/src/loading_playground.dart';
 import 'package:skribble_docs_site/src/playground.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -69,9 +70,7 @@ class DocsApp extends HookWidget {
     return WiredMaterialApp.router(
       routerConfig: router,
       title: 'Skribble',
-      wiredTheme: WiredThemeData.cuddly(
-        roughnessLevel: roughness.value,
-      ),
+      wiredTheme: WiredThemeData.cuddly(roughnessLevel: roughness.value),
       builder: (context, child) => DefaultTextStyle(
         style: TextStyle(
           fontFamily: WiredTheme.of(context).fontFamily,
@@ -323,6 +322,8 @@ class _DocsPage extends HookWidget {
                                       const FontComparison(),
                                     if (document.path == '/core/motion')
                                       const MotionPlayground(),
+                                    if (document.path == '/widgets/loading')
+                                      const LoadingPlayground(),
                                     if (document.path == '/widgets/flourishes')
                                       const DoodlePlayground(),
                                     Row(
