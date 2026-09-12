@@ -4,7 +4,19 @@ The [editable Figma file](https://www.figma.com/design/pjRi0rh4NWkGRROPlWLLBo/Sk
 
 You can also download the [editable `.fig` source](../../assets/design/skribble-design-system.fig) from the repository and open it in the Figma desktop app.
 
-The updated pages use the `Skribble /` prefix. Original pages remain available as historical references.
+## How the file is organized
+
+Start on `✨ Start here`. It explains the reading order and includes three reusable guide components: `📌 Component anatomy`, `💡 Usage callout`, and `🌿 Flourish tile`. The working pages then follow a short path:
+
+1. `🎨 Foundations` — paper, ink, palette, type, spacing, and roughness.
+2. `📌 Brand` — the bracketed smile, light and dark marks, and logo usage.
+3. `🌿 Flourishes` — the core hand-drawn vocabulary.
+4. `🌈 More flourishes` — twelve additional kinds, each shown with three seeded variants.
+5. The `· Wired` pages — reusable component sets grouped by interaction and surface.
+
+The `🗂️ Archive · …` pages come last and preserve the older explorations without competing with the current guide. Archive boards have been translated into positive canvas space and reflowed where needed, so their original work remains inspectable without covering nearby frames.
+
+Long notes use fixed reading widths and height-based text resizing. This keeps guidance visible at normal zoom and prevents copy from sitting on top of examples.
 
 ## Brand and flourishes
 
