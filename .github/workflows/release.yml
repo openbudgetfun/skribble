@@ -136,12 +136,37 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         shell: bash
 
+      # A rerun after the release tags were already pushed (a retried or
+      # recovered release) still has to watch the publish runs to completion,
+      # but nothing is left to push: the token is not needed there, and
+      # monochange treats a same-commit tag rerun as already up to date.
+      - name: Detect an already tagged release
+        id: tagged
+        run: |
+          set -euo pipefail
+          existing="$(
+            git tag --points-at HEAD \
+              --list 'v[0-9]*' \
+              --list 'skribble_maps/v[0-9]*' \
+              --list 'skribble_charts/v[0-9]*' \
+              | sort | tr '\n' ' '
+          )"
+          if [ -n "$existing" ]; then
+            echo "tagged=true" >>"$GITHUB_OUTPUT"
+            echo "preexisting=$existing" >>"$GITHUB_OUTPUT"
+            echo "Release tags already exist at HEAD; skipping tagging."
+          else
+            echo "tagged=false" >>"$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
       # pub.dev only allows automated publishing from GitHub Actions runs that
       # were triggered by pushing a git tag, and pushes made with GITHUB_TOKEN
       # do not fire workflow events. The publish runs must therefore be real
       # tag-push events, so the tags are pushed with the RELEASES_GITHUB_TOKEN
       # fine-grained PAT (contents: read and write on this repository only).
       - name: Install the release tag push token
+        if: steps.tagged.outputs.tagged != 'true'
         env:
           RELEASES_GITHUB_TOKEN: ${{ secrets.RELEASES_GITHUB_TOKEN }}
         run: |
@@ -156,6 +181,7 @@ jobs:
         shell: bash
 
       - name: Create release tags
+        if: steps.tagged.outputs.tagged != 'true'
         run: |
           set -euo pipefail
           # Tags are created locally and pushed by the next step so every tag
@@ -170,6 +196,7 @@ jobs:
       - name: Push tags and watch the publish runs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PREEXISTING_TAGS: ${{ steps.tagged.outputs.preexisting }}
         run: |
           set -euo pipefail
           mapfile -t main_tags < <(git tag --points-at HEAD --list 'v[0-9]*')
@@ -183,8 +210,17 @@ jobs:
 
           release_commit="$(git rev-parse HEAD)"
           for release_tag in "${release_tags[@]}"; do
-            echo "pushing $release_tag"
-            git push origin "refs/tags/$release_tag"
+            case " $PREEXISTING_TAGS " in
+              *" $release_tag "*)
+                # The tag came with the checkout, so it is already on origin
+                # and pushing it again needs no release token.
+                echo "$release_tag already exists on origin; not pushing again"
+                ;;
+              *)
+                echo "pushing $release_tag"
+                git push origin "refs/tags/$release_tag"
+                ;;
+            esac
 
             run_id=""
             for _ in {1..30}; do
