@@ -10,6 +10,7 @@ description: Generate little hand-drawn butterflies, hearts, smiles, and other u
 ## Choose a flourish
 
 ```dart
+// Static example: api
 WiredDoodle(
   kind: WiredDoodleKind.butterfly,
   seed: 8,
@@ -28,6 +29,7 @@ The surrounding `WiredThemeData.roughnessLevel` controls the amount of curve var
 Keep flourishes out of text and touch areas. All drawings ignore pointer events. They are excluded from semantics unless you supply a meaningful `semanticLabel`.
 
 ```dart
+// Static example: api
 Stack(
   children: [
     content,
