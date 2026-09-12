@@ -130,6 +130,8 @@ monochange run publish --dry-run
 
 Recovering a partial publish starts with rerunning at the release tag: Monochange checks pub.dev and skips package versions that already exist. Push the tag again to fire a fresh publish run (delete and re-push it, or use the local `monochange run publish`). A `workflow_dispatch` run at the tag cannot publish packages because pub.dev rejects dispatch-triggered publishes, but it can repair the GitHub release objects and font assets.
 
+When the release tags already exist on the release commit, the `tag` job of the `Release PR` workflow reruns cleanly without `RELEASES_GITHUB_TOKEN`: it skips token installation and tag creation, leaves the existing tags untouched, and only watches the publish runs to completion. The token is still required to push any new tag.
+
 Each run uploads its readiness and publication reports for 14 days. Read those artifacts before retrying. Keep the original release tag on the release-record commit.
 
 Useful local checks:
