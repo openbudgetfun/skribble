@@ -163,7 +163,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-The `buildWiredElement()` top-level function is defined in `wired_base.dart`. There is also a `WiredBaseWidget` abstract class and a `WiredRepaintMixin` for more advanced use cases, but most widgets use the simple function form.
+The `buildWiredElement()` top-level function is defined in `wired_element.dart`, re-exported through `wired_base.dart`. There is also a `WiredBaseWidget` abstract class and a `WiredRepaintMixin` for more advanced use cases, but most widgets use the simple function form.
 
 ## Step 6: Add semanticLabel for accessibility
 

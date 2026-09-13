@@ -87,7 +87,7 @@ Every concrete painter follows the same three-step pattern inside `paintRough`:
 
 ## Concrete Painters
 
-All concrete painters live in `packages/skribble/lib/src/wired_base.dart`.
+All concrete painters live in `packages/skribble/lib/src/wired_painter_bases.dart`, re-exported through `wired_base.dart`.
 
 ### WiredRectangleBase
 

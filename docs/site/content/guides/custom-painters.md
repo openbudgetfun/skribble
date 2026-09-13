@@ -234,7 +234,7 @@ class WiredWavePainter extends WiredPainterBase {
 
 ## Built-in painters reference
 
-skribble ships these painters in `wired_base.dart`:
+skribble ships these painters in `wired_painter_bases.dart` (re-exported through `wired_base.dart`):
 
 ### WiredRectangleBase
 

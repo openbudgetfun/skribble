@@ -31,9 +31,11 @@ skribble/
 │   │       ├── skribble_app.dart   # SkribbleApp widgets-based shell
 │   │       ├── skribble_localizations.dart  # Widgets-only localization delegate
 │   │       ├── wired_theme.dart    # WiredThemeData + WiredTheme inherited scope
-│   │       ├── wired_theme_scope.dart  # Material-free WiredThemeScope
 │   │       ├── compat/             # Quarantined Material/Cupertino interop (transitional)
-│   │       └── wired_base.dart     # Base painters + RepaintBoundary helpers
+│   │       ├── wired_base.dart     # Re-exports the three base libraries below
+│   │       ├── wired_paint.dart    # WiredBase paint factories + constants
+│   │       ├── wired_element.dart  # RepaintBoundary helpers
+│   │       └── wired_painter_bases.dart  # Concrete rough painters
 │   ├── test/
 │   │   ├── rough/                  # Rough engine unit tests
 │   │   ├── widgets/                # Widget tests (one file per widget)
