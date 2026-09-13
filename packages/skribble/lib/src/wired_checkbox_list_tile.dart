@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'wired_checkbox.dart';
-import 'wired_list_tile.dart';
+import 'wired_control_list_tile.dart';
 
 /// A list tile with a hand-drawn checkbox.
 ///
-/// Combines [WiredListTile] with [WiredCheckbox] for a labeled checkbox.
+/// Combines `WiredListTile` with [WiredCheckbox] for a labeled checkbox.
 /// The combined widget is wrapped in [Semantics] for accessibility.
 ///
 /// Passing `null` for [onChanged] disables both the checkbox and the tile's tap
@@ -46,7 +46,7 @@ class WiredCheckboxListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WiredListTile(
+    return WiredControlListTile(
       semanticLabel: semanticLabel,
       title: title,
       subtitle: subtitle,

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'canvas/wired_canvas.dart';
 import 'canvas/wired_painter_base.dart';
 import 'doodles/doodle_geometry.dart';
+import 'doodles/doodle_raster.dart';
 import 'motion/wired_draw.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
@@ -106,20 +107,21 @@ class _DoodlePainter extends WiredPainterBase {
     final pen = referenceSize == 0 ? 0.0 : strokeWidth * side / referenceSize;
     PointD point(DoodlePoint p) =>
         PointD(p.x * scale + offset.dx, p.y * scale + offset.dy);
+    List<Op> strokeOps(DoodleStroke stroke) {
+      final ops = <Op>[];
+      walkDoodleStroke(
+        stroke,
+        moveTo: (start) => ops.add(Op.move(point(start))),
+        curveTo: (curve) => ops.add(
+          Op.curveTo(point(curve.first), point(curve.second), point(curve.end)),
+        ),
+      );
+      return ops;
+    }
+
     final outlines = [
       for (final stroke in strokes)
-        OpSet(
-          type: OpSetType.path,
-          ops: [
-            Op.move(point(stroke.start)),
-            for (final curve in stroke.curves)
-              Op.curveTo(
-                point(curve.first),
-                point(curve.second),
-                point(curve.end),
-              ),
-          ],
-        ),
+        OpSet(type: OpSetType.path, ops: strokeOps(stroke)),
     ];
 
     return RoughDrawing(

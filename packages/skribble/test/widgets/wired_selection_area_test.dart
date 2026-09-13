@@ -14,9 +14,12 @@ void main() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(SystemChannels.platform, (call) async {
           if (call.method == 'Clipboard.setData') {
-            clipboardText = (call.arguments as Map<Object?, Object?>)['text']! as String;
+            clipboardText =
+                (call.arguments as Map<Object?, Object?>)['text']! as String;
           }
-          if (call.method == 'Clipboard.getData') return {'text': clipboardText};
+          if (call.method == 'Clipboard.getData') {
+            return {'text': clipboardText};
+          }
           return null;
         });
   });

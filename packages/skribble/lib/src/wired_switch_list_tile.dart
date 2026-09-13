@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'wired_list_tile.dart';
+import 'wired_control_list_tile.dart';
 import 'wired_switch.dart';
 
 /// A list tile with a hand-drawn switch.
 ///
-/// Combines [WiredListTile] with [WiredSwitch] for a labeled switch.
+/// Combines `WiredListTile` with [WiredSwitch] for a labeled switch.
 /// The combined widget is wrapped in [Semantics] for accessibility.
 class WiredSwitchListTile extends HookWidget {
   final bool value;
@@ -32,7 +32,7 @@ class WiredSwitchListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WiredListTile(
+    return WiredControlListTile(
       semanticLabel: semanticLabel,
       title: title,
       subtitle: subtitle,

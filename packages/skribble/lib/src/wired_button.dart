@@ -1,45 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'motion/wired_draw.dart';
-import 'motion/wired_ink_interaction.dart';
 import 'motion/wired_ink_response.dart';
 import 'rough/skribble_rough.dart';
-import 'wired_base.dart';
+import 'wired_button_base.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn button with a sketchy rectangle border.
 ///
 /// Reads colors from the nearest [WiredTheme] ancestor, falling back
 /// to the default constants when no theme is provided.
-class WiredButton extends HookWidget {
-  /// The button label.
-  final Widget child;
-
-  /// Called when the button is tapped.
-  ///
-  /// When null, the button is disabled: taps are ignored and the label
-  /// renders with the theme's [WiredThemeData.disabledTextColor].
-  final VoidCallback? onPressed;
-
-  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
-  /// Semantic label for accessibility.
-  /// <!-- {/dartSemanticLabel} -->
-  final String? semanticLabel;
-
-  /// Overrides the theme’s decorative ink feedback for this control.
-  final WiredInkInteraction? inkInteraction;
-
+class WiredButton extends WiredButtonBase {
   /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
   /// for square corners.
   final BorderRadius borderRadius;
 
+  /// Creates a sketchy button. See [WiredButtonBase] for the shared
+  /// parameters.
   const WiredButton({
     super.key,
-    required this.child,
-    this.onPressed,
-    this.semanticLabel,
-    this.inkInteraction,
+    required super.child,
+    super.onPressed,
+    super.semanticLabel,
+    super.inkInteraction,
     this.borderRadius = const BorderRadius.all(Radius.circular(6)),
   });
 
@@ -47,42 +30,23 @@ class WiredButton extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
 
-    return WiredInkResponse(
-      interaction: inkInteraction,
-      builder: (context, states) => Semantics(
-        label: semanticLabel,
-        button: true,
-        child: buildWiredElement(
-          child: Container(
-            padding: EdgeInsets.zero,
-            height: kWiredButtonHeight,
-            decoration: RoughBoxDecoration(
-              progress: WiredDrawTransition.progressOf(context),
-              pressure: WiredInkResponse.pressureOf(context),
-              drawConfig: theme.drawConfig,
-              shape: borderRadius == BorderRadius.zero
-                  ? RoughBoxShape.rectangle
-                  : RoughBoxShape.roundedRectangle,
-              borderRadius: borderRadius,
-              borderStyle: RoughDrawingStyle(
-                width: theme.strokeWidth,
-                color: theme.borderColor,
-              ),
-            ),
-            child: SizedBox(
-              height: double.infinity,
-              child: TextButton(
-                statesController: states,
-                style: TextButton.styleFrom(
-                  foregroundColor: theme.textColor,
-                  disabledForegroundColor: theme.disabledTextColor,
-                ),
-                onPressed: onPressed,
-                child: child,
-              ),
-            ),
-          ),
+    return buildWiredButton(
+      decorationBuilder: (context) => RoughBoxDecoration(
+        progress: WiredDrawTransition.progressOf(context),
+        pressure: WiredInkResponse.pressureOf(context),
+        drawConfig: theme.drawConfig,
+        shape: borderRadius == BorderRadius.zero
+            ? RoughBoxShape.rectangle
+            : RoughBoxShape.roundedRectangle,
+        borderRadius: borderRadius,
+        borderStyle: RoughDrawingStyle(
+          width: theme.strokeWidth,
+          color: theme.borderColor,
         ),
+      ),
+      textStyle: TextButton.styleFrom(
+        foregroundColor: theme.textColor,
+        disabledForegroundColor: theme.disabledTextColor,
       ),
     );
   }

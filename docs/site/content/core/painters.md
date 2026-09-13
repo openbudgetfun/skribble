@@ -87,7 +87,7 @@ Every concrete painter follows the same three-step pattern inside `paintRough`:
 
 ## Concrete Painters
 
-All concrete painters live in `packages/skribble/lib/src/wired_base.dart`.
+All concrete painters live in `packages/skribble/lib/src/wired_painter_bases.dart`, re-exported through `wired_base.dart`.
 
 ### WiredRectangleBase
 
@@ -515,9 +515,9 @@ Builder(
 )
 ```
 
-## WiredPainter (CustomPainter)
+## WiredPainter (internal CustomPainter)
 
-`WiredPainter` is the `CustomPainter` that `WiredCanvas` creates internally. It resets the randomizer before each paint call so shapes render deterministically:
+`WiredPainter` is the `CustomPainter` that `WiredCanvas` creates internally. It is engine plumbing, not public API: it is not exported from `package:skribble/skribble.dart`, and custom painters extend `WiredPainterBase` instead. It resets the randomizer before each paint call so shapes render deterministically:
 
 ```dart
 // Static example: type

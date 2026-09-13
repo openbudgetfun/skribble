@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -7,6 +5,7 @@ import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
+import 'wired_thumb_animation.dart';
 
 /// A switch widget with a hand-drawn appearance, mirroring Flutter's Switch API.
 class WiredSwitch extends HookWidget {
@@ -36,21 +35,11 @@ class WiredSwitch extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final controller = useAnimationController(
-      duration: const Duration(milliseconds: 200),
-      initialValue: value ? 1.0 : 0.0,
+    final animation = useWiredThumbOffset(
+      value: value,
+      begin: 0,
+      end: _trackWidth - _thumbSize,
     );
-    final animation = useAnimation(
-      Tween<double>(
-        begin: 0,
-        end: _trackWidth - _thumbSize,
-      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut)),
-    );
-
-    useEffect(() {
-      unawaited(value ? controller.forward() : controller.reverse());
-      return null;
-    }, [value]);
 
     final effectiveActiveColor = activeColor ?? theme.borderColor;
     final effectiveInactiveColor = inactiveColor ?? theme.fillColor;

@@ -44,14 +44,12 @@ Low-level painting infrastructure.
 | Export                    | Purpose                                              |
 | ------------------------- | ---------------------------------------------------- |
 | `wired_canvas.dart`       | HookWidget that renders rough shapes via CustomPaint |
-| `wired_painter.dart`      | CustomPainter implementation for rough shapes        |
 | `wired_painter_base.dart` | Abstract base class for shape painters               |
 
 Key types:
 
 - `WiredPainterBase` — override `paintRough(Canvas, Size, DrawConfig, Filler)`
 - `WiredCanvas` — widget that takes a painter + filler type
-- `WiredPainter` — CustomPainter adapter for WiredPainterBase
 
 ### 3. Base utilities
 

@@ -2,16 +2,63 @@
 ///
 /// skribble provides sketchy, hand-drawn widgets that give your app
 /// a unique, informal aesthetic.
+///
+/// The exports are grouped by audience:
+///
+/// - **Canvas, motion & rough engine** — the extension points for custom
+///   painters and animations; see the custom painters guide.
+/// - **Widgets & theme** — the catalog of ready-made wired components plus
+///   the `WiredTheme` system, palettes, roughness levels, and fonts.
+///
+/// Library-internal machinery (for example `WiredPainter`, the
+/// `CustomPainter` adapter that `WiredCanvas` creates) intentionally lives
+/// under `package:skribble/src/…` and is not part of the public contract.
+/// The rough engine exports below are likewise curated: the configuration,
+/// generator, filler, and drawing data structures that the docs promise are
+/// public, while pure engine internals (geometry helpers, filler plumbing)
+/// are not exported.
 library;
+
+// ---------------------------------------------------------------------------
+// Canvas, motion & rough engine — extension points for custom painters
+// ---------------------------------------------------------------------------
 
 export 'src/canvas/wired_canvas.dart';
 export 'src/canvas/wired_ink_splash.dart';
-export 'src/canvas/wired_painter.dart';
 export 'src/canvas/wired_painter_base.dart';
 export 'src/motion/wired_draw.dart';
 export 'src/motion/wired_ink_interaction.dart';
 export 'src/motion/wired_motion.dart';
-export 'src/rough/skribble_rough.dart';
+export 'src/rough/skribble_rough.dart'
+    show
+        DashedFiller,
+        DotFiller,
+        DrawConfig,
+        Drawable,
+        Filler,
+        FillerConfig,
+        Generator,
+        HachureFiller,
+        HatchFiller,
+        NoFiller,
+        Op,
+        OpSet,
+        OpSetType,
+        OpType,
+        PointD,
+        Randomizer,
+        Rough,
+        RoughBoxDecoration,
+        RoughBoxShape,
+        RoughDrawing,
+        RoughDrawingStyle,
+        SolidFiller,
+        ZigZagFiller;
+
+// ---------------------------------------------------------------------------
+// Widgets & theme
+// ---------------------------------------------------------------------------
+
 export 'src/skribble_app.dart' hide resolveWiredAppTheme;
 export 'src/skribble_localizations.dart';
 export 'src/wired_about_dialog.dart';

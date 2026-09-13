@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'doodles/doodle_geometry.dart';
+import 'doodles/doodle_raster.dart';
 import 'motion/loading_cycle.dart';
 import 'wired_doodle_kind.dart';
 import 'wired_theme.dart';
@@ -155,19 +156,7 @@ class _LoaderGeometry {
 
     if (strokes != null) {
       for (final stroke in strokes) {
-        final path = Path()..moveTo(stroke.start.x, stroke.start.y);
-
-        for (final curve in stroke.curves) {
-          path.cubicTo(
-            curve.first.x,
-            curve.first.y,
-            curve.second.x,
-            curve.second.y,
-            curve.end.x,
-            curve.end.y,
-          );
-        }
-        paths.add(path);
+        paths.add(doodleStrokePath(stroke));
       }
     } else {
       final wobble = roughness * math.sin(seed * .7);
