@@ -123,7 +123,7 @@ void main() {
   );
 
   runApp(
-    skribbleApp(
+    SkribbleApp(
       wiredTheme: wiredTheme,
       darkWiredTheme: WiredThemeData(
         borderColor: Color(0xFFB09BDC),
@@ -131,7 +131,7 @@ void main() {
         fillColor: Color(0xFF1E1A26),
         roughness: 1.15,
       ),
-      themeMode: skribbleThemeMode.system,
+      themeMode: SkribbleThemeMode.system,
       title: 'My sketchy app',
       home: MyHomePage(),
     ),
@@ -381,9 +381,9 @@ Playful is the default. The docs toolbar switches all inherited lettering and in
 
 | Level        | Appearance                                   | Border amplitude | Font deformation | Bundled family    |
 | ------------ | -------------------------------------------- | ---------------- | ---------------- | ----------------- |
-| `gentle`     | Softer handwriting and gently bowed edges    | 1.25             | 18               | `skribbleGentle`  |
-| `playful`    | An intermediate amount of wavering ink       | 1.5              | 27               | `skribblePlayful` |
-| `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `skribble`        |
+| `gentle`     | Softer handwriting and gently bowed edges    | 1.25             | 18               | `SkribbleGentle`  |
+| `playful`    | An intermediate amount of wavering ink       | 1.5              | 27               | `SkribblePlayful` |
+| `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
 
 Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble'` for code-only typography. An explicit `fontFamily` takes precedence.
 

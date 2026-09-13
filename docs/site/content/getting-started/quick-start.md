@@ -22,7 +22,7 @@ import 'package:skribble/skribble.dart';
 
 void main() {
   runApp(
-    skribbleApp(
+    SkribbleApp(
       title: 'My sketchy app',
       home: WiredScaffold(
         appBar: WiredAppBar(title: Text('My sketchy app')),
