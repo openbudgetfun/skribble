@@ -4,6 +4,109 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/monochange/monochange).
 
+## [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)
+
+Grouped release for `main`.
+
+### Features
+
+#### Remove internal machinery from the public barrel
+
+_Packages:_ _skribble_
+
+The `package:skribble/skribble.dart` barrel is now grouped (canvas/motion/rough engine extension points, then widgets & theme) and only exports the surface the documentation promises.
+
+Symbols removed from the public barrel:
+
+- `WiredPainter` (in `src/canvas/wired_painter.dart`) — the internal `CustomPainter` adapter that `WiredCanvas` creates. Custom painters extend `WiredPainterBase`, which remains exported.
+- `Line`, `IntersectionInfo`, `FillStyle`, `RoughDecorationPainter`, and the rough engine's free geometry/filler helper functions (`src/rough/core.dart`, `src/rough/filler.dart`, `src/rough/decoration.dart`) — pure engine plumbing that no guide, example, or custom painter needs.
+
+All documented engine symbols stay exported: `DrawConfig`, `Randomizer`, `Generator`, `Drawable`, `PointD`, `Filler`, `FillerConfig`, the seven concrete fillers, `Op`/`OpSet`/`OpType`/`OpSetType`, the `drawRough` extension, `RoughDrawing`, and the rough decoration types. `WiredSvgIconData` and `WiredSvgPrimitive` remain exported and unchanged.
+
+This is breaking only for code that imported the removed internals through the barrel. Tests or tools that genuinely need them should import the defining `package:skribble/src/…` library directly.
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #204](https://github.com/openbudgetfun/skribble/pull/204)
+
+- **skribble**: **Add WiredLoadingScreen and the brand mark loader rhythm.** WiredLoadingScreen fills the viewport with themed paper, centers one loader, and announces an optional status message as a single live region. WiredLoaderStyle.mark sketches the shipped logo outlines at the logo's pen weight, so a splash can hand over to WiredLogo without the mark jumping. The documentation site now opens with the same mark: an HTML shell sketches it before Flutter starts, then the app keeps it drawing while the page catalog resolves. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #200](https://github.com/openbudgetfun/skribble/pull/200)
+
+#### Add a quarantined Material/Cupertino compatibility layer
+
+_Packages:_ _skribble_
+
+Material and Cupertino interop now lives in one clearly-labelled group, exported from `package:skribble/skribble.dart` and sourced from `lib/src/compat/`. It is the single sanctioned exception to the rule that Skribble core imports only `flutter/widgets.dart` and below.
+
+What it exposes:
+
+- `WiredThemeInterop` converts theme objects both ways: `fromThemeData`, `fromColorScheme`, and `fromCupertinoTheme` derive Skribble tokens (colors, disabled state, stroke width from the shape language, font family), while the existing `toThemeData`/`toColorScheme` gain `toCupertinoThemeData`. `WiredThemeModeInterop` converts `SkribbleThemeMode` to and from Material's `ThemeMode`.
+- `WiredMaterialTheme` installs the Material theme and English Material localizations a `SkribbleApp` cannot provide, so Material widgets keep working inside a Skribble app.
+- `WiredThemeFromMaterial` and `WiredThemeFromCupertino` let existing Material and Cupertino apps give Wired widgets the host app's palette a screen at a time.
+- `WiredMaterialApp` remains for apps that keep `MaterialApp` while migrating.
+
+The compatibility group's job is interop and migration, not Material parity: it does not add new `MaterialApp` passthroughs to `WiredMaterialApp`.
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #203](https://github.com/openbudgetfun/skribble/pull/203) · _Related issues:_ [#204](https://github.com/openbudgetfun/skribble/issues/204), [#89](https://github.com/openbudgetfun/skribble/issues/89), [#99](https://github.com/openbudgetfun/skribble/issues/99)
+
+#### Add `SkribbleApp`, a widgets-based app shell
+
+_Packages:_ _skribble_
+
+`SkribbleApp` (and `SkribbleApp.router`) is a new application shell built on Flutter's widgets-layer `WidgetsApp` instead of `MaterialApp`. A Skribble app no longer needs a Material ancestor to run, and the shell installs the Skribble theme by default so `WiredTheme.of(context)` works inside it.
+
+The shell exposes the app-level capability a real app needs using Flutter's own widgets-layer types: `home`, `routes`, `initialRoute`, `onGenerateRoute`, `onGenerateInitialRoutes`, `onUnknownRoute`, `navigatorKey`, `navigatorObservers`, `routerConfig` and the other `Router` hooks, `title`, `onGenerateTitle`, `color`, `builder`, `locale`, `localizationsDelegates`, `supportedLocales`, locale resolution callbacks, `shortcuts`, `actions`, `restorationScopeId`, `pageRouteBuilder`, and the debug switches. `themeMode` uses the new `SkribbleThemeMode` because `ThemeMode` lives in Material; the compatibility layer converts between them.
+
+Two supporting additions:
+
+- `WiredThemeScope` is the Material-free theme boundary behind `WiredTheme`. `WiredTheme.of(context)` now finds either boundary, and `WiredTheme` builds on the scope. Existing behaviour is unchanged.
+- `SkribbleLocalizations` and `SkribbleLocalizationsDelegate` provide a widgets-only default localization delegate with correct right-to-left text direction. The shell appends it after any callers' delegates, so apps that pass `flutter_localizations` delegates keep full per-locale strings; the core still does not depend on `flutter_localizations`.
+
+`WiredMaterialApp` remains available with an unchanged public API and is now documented as the transitional Material bridge. It shares the new theme-resolution code path and moved to `lib/src/compat/wired_material_app.dart` (the export from `package:skribble/skribble.dart` is unchanged).
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #203](https://github.com/openbudgetfun/skribble/pull/203) · _Related issues:_ [#204](https://github.com/openbudgetfun/skribble/issues/204), [#89](https://github.com/openbudgetfun/skribble/issues/89), [#99](https://github.com/openbudgetfun/skribble/issues/99)
+
+- **skribble**: **Let `WiredButton` render a disabled state.** `WiredButton.onPressed` is now nullable, matching `WiredFilledButton`, `WiredElevatedButton`, `WiredOutlinedButton`, `WiredTextButton`, and `WiredIconButton`. Passing null disables the button: taps are ignored and the label renders with the theme's `disabledTextColor`. Existing callers that pass a non-null callback are unaffected. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #195](https://github.com/openbudgetfun/skribble/pull/195) · _Related issues:_ [#99](https://github.com/openbudgetfun/skribble/issues/99)
+
+#### Align the button and boolean-input APIs with Material where it is additive
+
+_Packages:_ _skribble_
+
+Auditing the public `Wired*` constructor surfaces against their Material counterparts found places where a migration needed manual edits because the Wired parameter was required or named differently. The additive, source-compatible fixes:
+
+- `WiredCheckbox.onChanged` and `WiredCheckboxListTile.onChanged` are now optional `ValueChanged<bool?>?` instead of required. Passing null disables the control the Material way: the box renders disabled, the tile's tap action is dropped, and neither advertises a tap to assistive technology. Existing callers are unaffected.
+- `WiredSlider.onChanged` and `WiredRangeSlider.onChanged` are now optional. Omitting them disables the slider; previously you had to pass `null` explicitly because the parameter was `required`.
+- `WiredIconButton` accepts `iconSize` and `color`, mirroring `IconButton.iconSize` and `IconButton.color`. `iconSize` defaults to half of `size`, and `color` takes precedence over the existing `iconColor`, so existing callers are unaffected.
+
+The changeset does not change the bool-returning change callbacks (`WiredToggle.onChange`, `WiredRadio.onChanged`, `WiredRadioListTile.onChanged`, `WiredSlider.onChanged`, `WiredRangeSlider.onChanged`), the `WiredToggle.onChange` name, or the `WiredIconButton.size`/`iconColor` names: those match Material's types and names only with a source-breaking change. They are documented as known deviations in the widget catalog instead.
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #203](https://github.com/openbudgetfun/skribble/pull/203) · _Related issues:_ [#204](https://github.com/openbudgetfun/skribble/issues/204), [#89](https://github.com/openbudgetfun/skribble/issues/89), [#99](https://github.com/openbudgetfun/skribble/issues/99)
+
+### Fixes
+
+#### Narrow Material imports in files that only needed widgets-layer APIs
+
+_Packages:_ _skribble_
+
+Several files in `packages/skribble/lib` imported `package:flutter/material.dart` (or `flutter/cupertino.dart`) only for APIs that also exist in `flutter/widgets.dart` or `dart:ui`. They now import the narrowest correct dependency, and the Material dependency audit tool classifies `lib/src/compat/` as the sanctioned compatibility layer instead of counting it as rewrite debt.
+
+No public API or rendering behaviour changes.
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #203](https://github.com/openbudgetfun/skribble/pull/203) · _Related issues:_ [#204](https://github.com/openbudgetfun/skribble/issues/204), [#89](https://github.com/openbudgetfun/skribble/issues/89), [#99](https://github.com/openbudgetfun/skribble/issues/99)
+
+#### Deduplicate wired base, button, tile, and doodle internals
+
+_Packages:_ _skribble_
+
+Internal-only refactor with no behaviour or API change:
+
+- `wired_base.dart` is split into `wired_paint.dart` (paint factories), `wired_element.dart` (repaint isolation), and `wired_painter_bases.dart` (shape painter bases); `wired_base.dart` re-exports them so existing imports keep working.
+- The button family shares one internal `WiredButtonBase`; the checkbox, switch, and radio list tiles share an internal `WiredControlListTile`; both switches share the `useWiredThumbOffset` hook (with new RTL thumb-travel regression tests).
+- The logo, loader, and doodle widgets rasterize `DoodleStroke` geometry through one shared `walkDoodleStroke`/`doodleStrokePath` implementation in `doodles/doodle_raster.dart`.
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #204](https://github.com/openbudgetfun/skribble/pull/204)
+
+### Documentation
+
+- _Packages:_ _skribble_, _skribble_icons_, _skribble_icons_custom_, _skribble_emoji_, _skribble_emoji_gen_, _skribble_font_roughen_, _skribble_lints_ **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)
+
 ## [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.1) (2026-09-13)
 
 Grouped release for `main`.

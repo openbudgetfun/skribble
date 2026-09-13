@@ -16,6 +16,12 @@ This changelog is managed by [monochange](https://github.com/ifiokjr/monochange)
 
 - **Add hand-drawn current-location indicators.** Add `WiredMapLocation` and `WiredMapLocationLayer` with a centered blue dot and optional true-north heading. Choose a translucent wash, pencil hatching, or combined fan. The indicators pass touches through and accept app-owned sensor values. Documentation compares all treatments on light and dark backgrounds. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #189](https://github.com/openbudgetfun/skribble/pull/189)
 
+## skribble_maps [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.1.2) (2026-09-13)
+
+### Documentation
+
+- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)
+
 ## 0.0.1
 
 - Add the initial hand-drawn vector map viewport, renderer, providers, styles, overlays, controls, documentation, and tests.
