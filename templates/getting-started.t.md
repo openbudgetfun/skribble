@@ -98,19 +98,19 @@ melos run rough-icons-ci-check
 
 ```dart
 // Static example: setup
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
   runApp(
-    WiredMaterialApp(
-      wiredTheme: WiredThemeData(),
-      home: Scaffold(
-        appBar: WiredAppBar(title: Text('My Sketchy App')),
+    SkribbleApp(
+      title: 'My sketchy app',
+      home: WiredScaffold(
+        appBar: WiredAppBar(title: Text('My sketchy app')),
         body: Center(
           child: WiredButton(
             onPressed: () {},
-            child: Text('Press Me'),
+            child: Text('Press me'),
           ),
         ),
       ),
@@ -125,7 +125,7 @@ void main() {
 
 ```dart
 // Static example: setup
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
@@ -138,7 +138,7 @@ void main() {
   );
 
   runApp(
-    WiredMaterialApp(
+    SkribbleApp(
       wiredTheme: wiredTheme,
       darkWiredTheme: WiredThemeData(
         borderColor: Color(0xFFB09BDC),
@@ -146,8 +146,8 @@ void main() {
         fillColor: Color(0xFF1E1A26),
         roughness: 1.15,
       ),
-      themeMode: ThemeMode.system,
-      title: 'My Sketchy App',
+      themeMode: SkribbleThemeMode.system,
+      title: 'My sketchy app',
       home: MyHomePage(),
     ),
   );

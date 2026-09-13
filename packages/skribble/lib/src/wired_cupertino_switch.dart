@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
@@ -76,7 +75,7 @@ class WiredCupertinoSwitch extends HookWidget {
         activeTrackColor ?? CupertinoColors.activeGreen;
     final effectiveInactiveColor =
         inactiveTrackColor ?? CupertinoColors.systemGrey4;
-    final effectiveThumbColor = thumbColor ?? Colors.white;
+    final effectiveThumbColor = thumbColor ?? const Color(0xFFFFFFFF);
 
     return Semantics(
       label: semanticLabel,

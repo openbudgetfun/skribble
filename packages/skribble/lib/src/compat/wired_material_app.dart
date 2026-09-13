@@ -1,11 +1,29 @@
-import 'package:flutter/foundation.dart';
+// COMPATIBILITY LAYER -- transitional, sanctioned Material import.
+//
+// See `wired_theme_interop.dart` and docs/site/content/core/material-bridge.md
+// for why this directory is the one place allowed to import Material.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'wired_theme.dart';
+import '../skribble_app.dart';
+import '../wired_theme.dart';
 
 /// A convenience [MaterialApp] wrapper that keeps Material theming and
 /// [WiredTheme] in sync.
+///
+/// **Transitional bridge.** This widget exists for apps that already depend on
+/// Material and are migrating to Skribble incrementally. New Skribble apps
+/// should use `SkribbleApp`, which is built on [WidgetsApp] and needs no
+/// Material ancestor at all. `WiredMaterialApp` stays because removing it
+/// would be a breaking change for existing consumers; its theme resolution is
+/// shared with `SkribbleApp`.
+///
+/// Its job is interop, not parity expansion: it forwards the [MaterialApp]
+/// parameters it already had and deliberately does not grow new `MaterialApp`
+/// passthroughs. For Material widgets inside a `SkribbleApp`, use
+/// `WiredMaterialTheme`; to adapt an existing Material app's palette for Wired
+/// widgets, use `WiredThemeFromMaterial`.
 class WiredMaterialApp extends HookWidget {
   const WiredMaterialApp({
     super.key,
@@ -177,11 +195,17 @@ class WiredMaterialApp extends HookWidget {
     final effectiveHighContrastTheme = highContrastWiredTheme ?? wiredTheme;
     final effectiveHighContrastDarkTheme =
         highContrastDarkWiredTheme ?? darkWiredTheme ?? wiredTheme;
-    final effectiveWiredTheme = _resolveWiredTheme(
+    final effectiveWiredTheme = resolveWiredAppTheme(
       context: context,
-      effectiveDarkTheme: effectiveDarkTheme,
-      effectiveHighContrastTheme: effectiveHighContrastTheme,
-      effectiveHighContrastDarkTheme: effectiveHighContrastDarkTheme,
+      light: wiredTheme,
+      dark: effectiveDarkTheme,
+      highContrastLight: effectiveHighContrastTheme,
+      highContrastDark: effectiveHighContrastDarkTheme,
+      themeMode: switch (themeMode) {
+        ThemeMode.light => SkribbleThemeMode.light,
+        ThemeMode.dark => SkribbleThemeMode.dark,
+        ThemeMode.system => SkribbleThemeMode.system,
+      },
     );
     // Each conversion runs ColorScheme.fromSeed and builds a full ThemeData.
     // They only change with their input theme, so keep them across rebuilds.
@@ -287,43 +311,5 @@ class WiredMaterialApp extends HookWidget {
               useInheritedMediaQuery: useInheritedMediaQuery,
             ),
     );
-  }
-
-  WiredThemeData _resolveWiredTheme({
-    required BuildContext context,
-    required WiredThemeData effectiveDarkTheme,
-    required WiredThemeData effectiveHighContrastTheme,
-    required WiredThemeData effectiveHighContrastDarkTheme,
-  }) {
-    // Read through MediaQuery so a system appearance change is observed as a
-    // dependency. The dispatcher alone does not notify this widget, which left
-    // the resolved theme stale until something else rebuilt it.
-    final mediaQuery = MediaQuery.maybeOf(context);
-    final platformDispatcher =
-        View.maybeOf(context)?.platformDispatcher ??
-        PlatformDispatcher.instance;
-    final isHighContrast =
-        mediaQuery?.highContrast ??
-        platformDispatcher.accessibilityFeatures.highContrast;
-
-    switch (themeMode) {
-      case ThemeMode.light:
-        return isHighContrast ? effectiveHighContrastTheme : wiredTheme;
-      case ThemeMode.dark:
-        return isHighContrast
-            ? effectiveHighContrastDarkTheme
-            : effectiveDarkTheme;
-      case ThemeMode.system:
-        final isDark =
-            (mediaQuery?.platformBrightness ??
-                platformDispatcher.platformBrightness) ==
-            Brightness.dark;
-        if (isDark) {
-          return isHighContrast
-              ? effectiveHighContrastDarkTheme
-              : effectiveDarkTheme;
-        }
-        return isHighContrast ? effectiveHighContrastTheme : wiredTheme;
-    }
   }
 }

@@ -125,4 +125,20 @@ void main() {
       expect(find.byType(WiredSlider), findsOneWidget);
     });
   });
+
+  testWidgets('can be disabled by omitting onChanged', (tester) async {
+    await pumpApp(tester, const WiredSlider(value: 0.5));
+
+    final semantics = tester.widget<Semantics>(
+      find
+          .descendant(
+            of: find.byType(WiredSlider),
+            matching: find.byType(Semantics),
+          )
+          .first,
+    );
+    expect(semantics.properties.enabled, isFalse);
+    expect(semantics.properties.onIncrease, isNull);
+    expect(semantics.properties.onDecrease, isNull);
+  });
 }

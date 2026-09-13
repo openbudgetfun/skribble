@@ -100,15 +100,17 @@ Widget build(BuildContext context) {
 
 If no `WiredTheme` ancestor exists, `WiredTheme.of(context)` returns `WiredThemeData.defaultTheme` -- the default theme with all default values. This means Wired widgets always have a valid theme, even without explicit configuration.
 
-## WiredMaterialApp integration
+## skribbleApp integration
 
-`WiredMaterialApp` is the transitional compatibility shell: it lets a Material app adopt Wired theming without replacing its shell. It is not Skribble's destination -- see [Architecture](/core/architecture) and the [Material bridge](/core/material-bridge). You can also place a `WiredTheme` ancestor yourself and skip the bridge entirely.
+`skribbleApp` installs the theme for the whole app. It is widgets-based, so no Material ancestor is required; see [App shell](../core/app-shell).
+
+`WiredMaterialApp` is the transitional compatibility shell: it lets a Material app adopt Wired theming without replacing its shell. It is not skribble's destination -- see [Architecture](/core/architecture) and the [Material bridge](/core/material-bridge). You can also place a `WiredTheme` ancestor yourself and skip the bridge entirely.
 
 <!-- {=docsThemeSetupSection} -->
 
 ```dart
 // Static example: setup
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
@@ -121,7 +123,7 @@ void main() {
   );
 
   runApp(
-    WiredMaterialApp(
+    SkribbleApp(
       wiredTheme: wiredTheme,
       darkWiredTheme: WiredThemeData(
         borderColor: Color(0xFFB09BDC),
@@ -129,8 +131,8 @@ void main() {
         fillColor: Color(0xFF1E1A26),
         roughness: 1.15,
       ),
-      themeMode: ThemeMode.system,
-      title: 'My Sketchy App',
+      themeMode: SkribbleThemeMode.system,
+      title: 'My sketchy app',
       home: MyHomePage(),
     ),
   );
@@ -141,7 +143,7 @@ void main() {
 
 ## Material ThemeData synchronization
 
-`WiredMaterialApp` does not just inject `WiredTheme` -- it also generates a full Material `ThemeData` from your `WiredThemeData`. This keeps the standard Material widgets still present in a migrating tree (scaffolds, text, icons, dialogs) visually consistent with Wired widgets. Wired widgets themselves never read Material's `ThemeData`.
+skribble's core installs `WiredTheme` without touching Material. When Material widgets share the tree -- either because you kept `MaterialApp` via `WiredMaterialApp`, or because a `skribbleApp` subtree is wrapped in `WiredMaterialTheme` -- skribble also generates a full Material `ThemeData` from your `WiredThemeData`, so standard Material widgets (scaffolds, text, icons, dialogs) stay visually consistent with Wired widgets. See the [Material bridge](../core/material-bridge).
 
 ### toColorScheme()
 

@@ -10,11 +10,11 @@ The main library is imported via a single barrel file:
 import 'package:skribble/skribble.dart';
 ```
 
-This barrel exports the full widget set, rough engine, canvas system, theming, and motion helpers. Only symbols exported here are public API; files under `lib/src/` are internal implementation. See [Architecture](/core/architecture) for the dependency rule and layer structure.
+This barrel exports the full widget set, rough engine, theming, app shell, canvas system, and motion helpers, plus a clearly-labelled compatibility group at the end. Only symbols exported here are public API; files under `lib/src/` are internal implementation. See [Architecture](/core/architecture) for the dependency rule and layer structure.
 
 ## API layers
 
-The public API is organized into five layers, from lowest to highest:
+The public API is organized into six layers, from lowest to highest. Everything except layer 5 is core: it imports only `flutter/widgets.dart` and below.
 
 ### 1. Rough engine
 
@@ -70,22 +70,38 @@ Key types:
 - `WiredRectangleBase`, `WiredCircleBase`, `WiredLineBase`, `WiredRoundedRectangleBase`, `WiredInvertedTriangleBase` — concrete painters
 - `kWiredButtonHeight` — standard button height (42.0)
 
-### 4. Theme system
+### 4. Theme and app shell
 
-Colors, roughness, tokens, and the transitional Material bridge.
+Colors, roughness, and the widgets-based application root.
 
-| Export                    | Purpose                                               |
-| ------------------------- | ----------------------------------------------------- |
-| `wired_theme.dart`        | WiredThemeData + WiredTheme scope                     |
-| `wired_material_app.dart` | WiredMaterialApp (.router), the Material bridge shell |
+| Export                        | Purpose                                                   |
+| ----------------------------- | --------------------------------------------------------- |
+| `wired_theme.dart`            | WiredThemeData + WiredTheme (Material sync)               |
+| `wired_theme_scope.dart`      | WiredThemeScope (widgets-only theme boundary)             |
+| `skribble_app.dart`           | SkribbleApp / SkribbleApp.router, SkribbleThemeMode       |
+| `skribble_localizations.dart` | SkribbleLocalizationsDelegate (widgets-only localization) |
 
 Key types:
 
 - `WiredThemeData` — borderColor, textColor, fillColor, strokeWidth, roughness, drawConfig
-- `WiredTheme` — inherited theme and typography scope, accessed via `WiredTheme.of(context)`
-- `WiredMaterialApp` — transitional MaterialApp wrapper that syncs WiredTheme + Material ThemeData; see [Material bridge](/core/material-bridge)
+- `WiredTheme` — inherited theme and typography scope, accessed via `WiredTheme.of(context)`; also syncs Material text styles
+- `WiredThemeScope` — the Material-free half of `WiredTheme`; what `SkribbleApp` installs
+- `SkribbleApp` — widgets-based app shell (home/routes, router, theme, localization, shortcuts); see [App shell](../core/app-shell)
+- `SkribbleThemeMode` — `system`/`light`/`dark` without importing Material's `ThemeMode`
+- `SkribbleLocalizations`, `SkribbleLocalizationsDelegate` — English widgets labels and right-to-left text direction
 
-### 5. Widgets (80+)
+### 5. Compatibility layer (transitional)
+
+Sourced from `lib/src/compat/` and exported as a trailing group. These are the only files allowed to import `package:flutter/material.dart` or `package:flutter/cupertino.dart`; the core must not depend on them. See [Material bridge](../core/material-bridge).
+
+| Export                      | Purpose                                                                    |
+| --------------------------- | -------------------------------------------------------------------------- |
+| `wired_material_app.dart`   | `WiredMaterialApp` — transitional `MaterialApp` bridge                     |
+| `wired_material_theme.dart` | `WiredMaterialTheme` — Material theme + localizations inside `SkribbleApp` |
+| `wired_theme_adapters.dart` | `WiredThemeFromMaterial`, `WiredThemeFromCupertino`                        |
+| `wired_theme_interop.dart`  | `WiredThemeInterop`, `WiredThemeModeInterop`                               |
+
+### 6. Widgets (80+)
 
 All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 

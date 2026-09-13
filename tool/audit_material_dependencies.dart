@@ -7,14 +7,19 @@
 //               must be rewritten to reach a zero-Material endgame)
 //   helpers   – only uses theme/geometry/constants (e.g. ThemeData, EdgeInsets,
 //               Colors) with no Material widget in the public surface
+//   compat    – lives in lib/src/compat/, the sanctioned compatibility layer.
+//               These files exist to keep Material/Cupertino interop working
+//               during migration and are expected to import Material.
 //
 // Usage (from the repo root):
 //   dart run tool/audit_material_dependencies.dart            # human table
 //   dart run tool/audit_material_dependencies.dart --json     # machine output
 //
-// The zero-Material endgame: packages/skribble must import only
+// The zero-Material endgame: packages/skribble core must import only
 // flutter/widgets.dart and below, making skribble a peer of
-// package:material_ui / package:cupertino_ui instead of a skin over them.
+// package:material_ui / package:cupertino_ui instead of a skin over them. Only
+// skin + helpers count against that target; compat is the deliberate,
+// quarantined exception (see lib/src/compat/compat.dart).
 
 // CLI audit: prints are the output.
 // ignore_for_file: avoid_print
@@ -22,6 +27,7 @@ import 'dart:convert';
 import 'dart:io';
 
 const _libRoot = 'packages/skribble/lib';
+const _compatPathFragment = '$_libRoot/src/compat/';
 
 void main(List<String> args) {
   final asJson = args.contains('--json');
@@ -55,7 +61,11 @@ void main(List<String> args) {
         if (usesMaterial) 'material',
         if (usesCupertino) 'cupertino',
       ].join('+'),
-      'classification': _classifyWrapsMaterial(source) ? 'skin' : 'helpers',
+      'classification': file.path.contains(_compatPathFragment)
+          ? 'compat'
+          : _classifyWrapsMaterial(source)
+          ? 'skin'
+          : 'helpers',
     });
   }
 
@@ -71,14 +81,19 @@ void main(List<String> args) {
     return;
   }
 
-  stdout.writeln(
-    'Material dependency audit — ${results.length} of '
-    '${files.length} files import material/cupertino\n',
-  );
   final skins = results.where((r) => r['classification'] == 'skin').length;
   final helpers = results.where((r) => r['classification'] == 'helpers').length;
+  final compat = results.where((r) => r['classification'] == 'compat').length;
+  final core = skins + helpers;
+
+  stdout.writeln(
+    'Material dependency audit — $core core files and $compat compat files '
+    'import material/cupertino\n',
+  );
   print('  skin     (wraps a Material/Cupertino widget): $skins');
-  print('  helpers  (constants/theme only):              $helpers\n');
+  print('  helpers  (constants/theme only):              $helpers');
+  print('  compat   (sanctioned interop layer):          $compat');
+  print('  core total (target: 0):                       $core\n');
   for (final r in results) {
     print(
       '${r['classification']!.padRight(9)} ${r['framework']!.padRight(16)} '
@@ -86,7 +101,7 @@ void main(List<String> args) {
     );
   }
   print(
-    '\nTarget: 0 files. Track progress with: '
+    '\nTarget: 0 core files (lib/src/compat is exempt). Track progress with: '
     'dart run tool/audit_material_dependencies.dart',
   );
 }

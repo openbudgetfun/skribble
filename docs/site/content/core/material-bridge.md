@@ -1,6 +1,6 @@
 ---
 title: Material Bridge
-description: WiredMaterialApp is skribble's transitional compatibility layer for Material apps — how it synchronizes theming, its router and component mapping, and how to migrate off it.
+description: The quarantined compatibility layer for Material and Cupertino interop -- convert themes both ways, mix Material and Wired widgets, and migrate a real app one screen at a time.
 ---
 
 # Material Bridge
@@ -12,14 +12,87 @@ Read [Architecture](/core/architecture) first for what skribble is: a standalone
 ## Where this sits in the architecture
 
 - **Today**, `WiredMaterialApp` is how most consumers run skribble: existing apps get Wired theming without replacing `MaterialApp`.
-- **The destination** is a skribble-owned app shell built on `WidgetsApp`. When it ships, `WiredMaterialApp` remains as a thin compatibility bridge for apps that still need Material in the tree.
+- **The shell** shipped as `SkribbleApp`, built on `WidgetsApp`; `WiredMaterialApp` remains as a thin compatibility bridge for apps that still need Material in the tree.
 - **The compatibility promise**: `WiredMaterialApp`, `WiredTheme`, and `WiredThemeData.toThemeData()` keep their documented behavior and are not deprecated today. Removal is a breaking change with a changeset, changelog entry, and migration guide — never a side effect of a rewrite.
 
 The bridge exists to make incremental adoption possible. Material supplies the shell and the `Navigator` plumbing during migration, and the token synchronization below keeps the Material widgets you have not replaced yet visually aligned. The Wired widgets' painting, engine, and theme scope do not require Material to function; the Material-facing conversions (`toThemeData()`, `toColorScheme()`) exist solely for this bridge.
 
-## WiredMaterialApp
+Compatibility is not a compromise of that goal; it is an explicit, quarantined layer. Everything that needs Material or Cupertino lives in `lib/src/compat/`, is exported from `package:skribble/skribble.dart` as a clearly-labelled trailing group, and says so in every file header. The core never depends on it, and it does not grow Material parity. That keeps two promises at once: a pure library core, and an easy on-ramp for apps that already use Material or Cupertino.
 
-`WiredMaterialApp` is a `HookWidget` that wraps `MaterialApp` with a `WiredTheme` ancestor. It accepts a `WiredThemeData`, converts it into Material `ThemeData` via `toThemeData()`, and passes both into the widget tree.
+## Coexistence
+
+Four directions, each a small step rather than a rewrite:
+
+| Situation                                  | Use                                              |
+| ------------------------------------------ | ------------------------------------------------ |
+| Wired widgets in a Skribble app            | Nothing — `SkribbleApp` installs the Wired theme |
+| Wired widgets in an existing Material app  | `WiredThemeFromMaterial`                         |
+| Wired widgets in an existing Cupertino app | `WiredThemeFromCupertino`                        |
+| Material widgets in a Skribble app         | `WiredMaterialTheme`                             |
+
+`Wired*` widgets already work under a plain `MaterialApp` without a `WiredTheme` ancestor: they fall back to `WiredThemeData.defaultTheme`, so a dropped-in button renders a consistent Skribble look instead of crashing. Wrap a subtree in `WiredThemeFromMaterial` when those widgets should inherit the host app's colors instead.
+
+```dart
+// Static example: setup
+MaterialApp(
+  theme: myTheme,
+  home: WiredThemeFromMaterial(
+    child: WiredScaffold(
+      appBar: WiredAppBar(title: Text('Migrated screen')),
+      body: WiredButton(onPressed: () {}, child: Text('Save')),
+    ),
+  ),
+)
+```
+
+The opposite direction matters just as much: a `SkribbleApp` has no `MaterialApp` ancestor, so Material widgets — your own or a third-party package's — would otherwise fall back to `ThemeData.fallback()` and, for widgets such as `Scaffold`, fail their localization assertions. `WiredMaterialTheme` installs a Material `Theme` built from the active Wired tokens plus `DefaultMaterialLocalizations` when none are present:
+
+```dart
+// Static example: setup
+SkribbleApp(
+  builder: (context, child) => WiredMaterialTheme(child: child!),
+  home: MyMaterialScreen(),
+)
+```
+
+## Theme interop
+
+Conversion works in both directions and reuses the conversions that already existed on `WiredThemeData` (`toThemeData`, `toColorScheme`) instead of re-implementing them.
+
+From Material or Cupertino into Skribble:
+
+```dart
+// Static example: api
+final fromMaterial = WiredThemeInterop.fromThemeData(Theme.of(context));
+final fromScheme = WiredThemeInterop.fromColorScheme(colorScheme);
+final fromCupertino = WiredThemeInterop.fromCupertinoTheme(CupertinoTheme.of(context));
+```
+
+`fromThemeData` maps `colorScheme.primary` to `borderColor`, `onSurface` to `textColor`, `surface` to `fillColor`, `ThemeData.disabledColor` to `disabledTextColor`, the first non-zero border width in the card/dialog/sheet/input/divider shape language to `strokeWidth`, and `textTheme.bodyMedium` to `fontFamily`. Roughness and motion are not expressible in `ThemeData`, so they keep the Skribble defaults and can be overridden with `copyWith`.
+
+Back out to Cupertino:
+
+```dart
+// Static example: api
+final cupertino = WiredThemeData().toCupertinoThemeData();
+final themeMode = SkribbleThemeMode.dark.toThemeMode;
+```
+
+## Migration path
+
+The layer exists so a real app can move without a big-bang rewrite:
+
+1. **Adopt the palette.** Wrap one screen in `WiredThemeFromMaterial` (or `WiredThemeFromCupertino`) so Wired widgets on it match the host app.
+2. **Replace widgets screen by screen.** Swap Material widgets for their `Wired*` equivalents. The names match where it is cheap to match — `onPressed`, `enabled` disabled states, `semanticLabel` — and the widget catalog notes the deliberate deviations.
+3. **Keep Material where it earns its place.** When a screen needs Material widgets inside a Skribble app, wrap it in `WiredMaterialTheme` rather than reaching for `MaterialApp`.
+4. **Move the root.** Replace `WiredMaterialApp` with `SkribbleApp` (or `SkribbleApp.router`), which takes the same `wiredTheme`, `darkWiredTheme`, `themeMode`, navigation, and localization parameters. `SkribbleThemeMode` converts to and from Material's `ThemeMode`.
+5. **Drop Material when you are ready.** Once no screen needs a Material ancestor, remove the `WiredMaterialTheme` wrappers. The `docs/material-dependency-audit.txt` report tracks how much of the library itself still has to follow.
+
+## WiredMaterialApp (transitional bridge)
+
+**`WiredMaterialApp` is transitional.** It stays for apps that must keep `MaterialApp` while they migrate, and its public API does not change. New Skribble apps should use `SkribbleApp`, which is built on `WidgetsApp` and needs no Material ancestor. `WiredMaterialApp` now shares its theme resolution with `SkribbleApp` and lives in `lib/src/compat/wired_material_app.dart`.
+
+`WiredMaterialApp` is a `HookWidget` that wraps `MaterialApp` with a `WiredTheme` ancestor. It accepts a `WiredThemeData`, converts it into Material `ThemeData` via `toThemeData()`, and passes both into the widget tree. Its job is interop, not parity: it forwards the `MaterialApp` parameters it already had and does not grow new passthroughs.
 
 ### Standard Constructor
 
@@ -289,7 +362,7 @@ primaryIconTheme: IconThemeData(color: colorScheme.onPrimary),
 
 ## Theme Resolution Logic
 
-`WiredMaterialApp` resolves which `WiredThemeData` to inject into the `WiredTheme` ancestor based on `themeMode` and the platform's high-contrast accessibility setting:
+Both `WiredMaterialApp` and `SkribbleApp` resolve which `WiredThemeData` to inject based on the theme mode and the platform's high-contrast accessibility setting. The logic is shared in `resolveWiredAppTheme`; `WiredMaterialApp` maps Material's `ThemeMode` onto `SkribbleThemeMode` first:
 
 ```dart
 // Static example: api
@@ -542,3 +615,17 @@ WiredMaterialApp(
 ```
 
 Both sets of widgets produce the same hand-drawn aesthetic -- wobbly borders, hachure fills, and sketchy strokes -- regardless of whether the underlying API follows Material or Cupertino conventions.
+
+## Compatibility widgets and converters
+
+| Export                    | Purpose                                                                          |
+| ------------------------- | -------------------------------------------------------------------------------- |
+| `SkribbleApp` / `.router` | Widgets-based app shell (no Material ancestor)                                   |
+| `WiredMaterialApp`        | Transitional `MaterialApp` bridge with synchronized Wired theming                |
+| `WiredMaterialTheme`      | Material `Theme` + localizations for Material widgets inside a Skribble app      |
+| `WiredThemeFromMaterial`  | Wired tokens derived from an ambient Material theme                              |
+| `WiredThemeFromCupertino` | Wired tokens derived from an ambient Cupertino theme                             |
+| `WiredThemeInterop`       | `fromThemeData`, `fromColorScheme`, `fromCupertinoTheme`, `toCupertinoThemeData` |
+| `WiredThemeModeInterop`   | `SkribbleThemeMode` ⇄ Material `ThemeMode`                                       |
+
+`WiredThemeScope` is the widgets-only theme boundary behind both `SkribbleApp` and `WiredTheme`. `WiredTheme.of(context)` finds either, so widget code does not need to know which one is installed.

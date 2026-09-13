@@ -8,11 +8,25 @@ import 'wired_list_tile.dart';
 ///
 /// Combines [WiredListTile] with [WiredCheckbox] for a labeled checkbox.
 /// The combined widget is wrapped in [Semantics] for accessibility.
+///
+/// Passing `null` for [onChanged] disables both the checkbox and the tile's tap
+/// action, matching Material's `CheckboxListTile.onChanged == null` convention.
 class WiredCheckboxListTile extends HookWidget {
+  /// Whether the checkbox is checked. A `null` value is treated as unchecked.
   final bool? value;
-  final void Function(bool?) onChanged;
+
+  /// Called with the new value when the checkbox or the tile is tapped.
+  ///
+  /// Null disables the checkbox and the tile.
+  final ValueChanged<bool?>? onChanged;
+
+  /// The primary content of the tile.
   final Widget? title;
+
+  /// Additional content displayed below [title].
   final Widget? subtitle;
+
+  /// Whether to draw the hand-drawn divider below the tile.
   final bool showDivider;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -23,7 +37,7 @@ class WiredCheckboxListTile extends HookWidget {
   const WiredCheckboxListTile({
     super.key,
     required this.value,
-    required this.onChanged,
+    this.onChanged,
     this.title,
     this.subtitle,
     this.showDivider = true,
@@ -38,7 +52,7 @@ class WiredCheckboxListTile extends HookWidget {
       subtitle: subtitle,
       showDivider: showDivider,
       trailing: WiredCheckbox(value: value, onChanged: onChanged),
-      onTap: () => onChanged(!(value ?? false)),
+      onTap: onChanged == null ? null : () => onChanged!(!(value ?? false)),
     );
   }
 }

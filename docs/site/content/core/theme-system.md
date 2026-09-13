@@ -5,7 +5,7 @@ description: Deep dive into WiredThemeData, the WiredTheme scope, Material color
 
 # Theme System
 
-Every Wired widget reads its colors, stroke width, and roughness from a shared theme. The theme system has three parts: `WiredThemeData` (the data), `WiredTheme` (the inherited scope), and, for apps that still run a Material shell, `WiredMaterialApp` (the transitional compatibility shell that also syncs Material `ThemeData`). See [Architecture](/core/architecture) and the [Material bridge](/core/material-bridge) for where the shell is headed.
+Every Wired widget reads its colors, stroke width, and roughness from a shared theme. The theme system has four parts: `WiredThemeData` (the data), `WiredThemeScope` (the Material-free inherited scope), `WiredTheme` (the same scope plus Material text-style sync), and the app shell (`skribbleApp`, or `WiredMaterialApp` for apps that still need `MaterialApp`).
 
 ## WiredThemeData
 
@@ -22,7 +22,7 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 | `strokeWidth`       | `double`         | `2.4`                                        | Default border stroke width                                                     |
 | `roughnessLevel`    | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, and lettering                          |
 | `roughness`         | `double`         | Level value (`1.5` for playful)              | Resolved amplitude; an explicit constructor value overrides the preset          |
-| `fontFamily`        | `String`         | Level family (`SkribblePlayful` for playful) | Resolved bundled or custom family                                               |
+| `fontFamily`        | `String`         | Level family (`skribblePlayful` for playful) | Resolved bundled or custom family                                               |
 | `fontPackage`       | `String?`        | `skribble` for bundled families              | Asset package; null for custom app fonts                                        |
 | `drawConfig`        | `DrawConfig`     | Derived from the level and amplitude         | Resolved drawing configuration; an explicit constructor config takes precedence |
 
@@ -325,20 +325,18 @@ This is used as the `scaffoldBackgroundColor` in `toThemeData()`, giving Materia
 Theme data flows through three levels:
 
 ```
-WiredMaterialApp(wiredTheme: ...)
+skribbleApp(wiredTheme: ...)     <- or WiredMaterialApp / WiredTheme directly
     |
     v
-WiredTheme(data: ...)           <- injected automatically
+WiredThemeScope(data: ...)       <- injected automatically
     |
     v
-WiredTheme.of(context)          <- individual widgets read here
+WiredTheme.of(context)           <- individual widgets read here
 ```
 
-### Level 1: App shell
+### Level 1: The app shell
 
-`WiredMaterialApp` is the transitional shell: it accepts a `wiredTheme` parameter, wraps the entire `MaterialApp` in a `WiredTheme` ancestor, and also calls `toThemeData()` to keep Material theming aligned during migration. A Skribble-owned `WidgetsApp`-based shell will take this role, with `WiredMaterialApp` kept as a compatibility wrapper.
-
-If you are not using the bridge, place a `WiredTheme` ancestor at the root yourself. Nothing in the theme system requires Material.
+`skribbleApp` accepts a `wiredTheme` parameter and installs a `WiredThemeScope` above its `WidgetsApp`. `WiredTheme` is the Material-syncing variant of that boundary: it installs the same scope and also rewrites the surrounding Material text theme, which is what `WiredMaterialApp` uses. See [App shell](../core/app-shell).
 
 ### Level 2: Nested WiredTheme
 
@@ -375,27 +373,27 @@ WiredRectangleBase(
 
 ## Dark Mode and High-Contrast Support
 
-`WiredMaterialApp` accepts four theme variants:
+Both app shells accept four theme variants:
 
 ```dart
 // Static example: setup
-WiredMaterialApp(
+skribbleApp(
   wiredTheme: lightTheme,
   darkWiredTheme: darkTheme,
   highContrastWiredTheme: highContrastLight,
   highContrastDarkWiredTheme: highContrastDark,
-  themeMode: ThemeMode.system,
+  themeMode: skribbleThemeMode.system,
   home: MyHomePage(),
 )
 ```
 
-The app resolves which `WiredThemeData` to use based on `ThemeMode` and the platform's accessibility settings:
+The app resolves which `WiredThemeData` to use based on the theme mode and the platform's accessibility settings. `WiredMaterialApp` uses Material's `ThemeMode` and maps it onto `skribbleThemeMode`:
 
-| ThemeMode | High Contrast Off                                                        | High Contrast On             |
-| --------- | ------------------------------------------------------------------------ | ---------------------------- |
-| `light`   | `wiredTheme`                                                             | `highContrastWiredTheme`     |
-| `dark`    | `darkWiredTheme`                                                         | `highContrastDarkWiredTheme` |
-| `system`  | Platform brightness selects light or dark, then high-contrast is checked |                              |
+| skribbleThemeMode | High Contrast Off                                                        | High Contrast On             |
+| ----------------- | ------------------------------------------------------------------------ | ---------------------------- |
+| `light`           | `wiredTheme`                                                             | `highContrastWiredTheme`     |
+| `dark`            | `darkWiredTheme`                                                         | `highContrastDarkWiredTheme` |
+| `system`          | Platform brightness selects light or dark, then high-contrast is checked |                              |
 
 Fallback behavior: if `darkWiredTheme` is not provided, `wiredTheme` is used for dark mode. Similarly, the high-contrast variants fall back to their non-high-contrast equivalents.
 

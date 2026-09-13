@@ -11,11 +11,29 @@ import 'wired_theme.dart';
 /// The range slider is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the current range values.
 class WiredRangeSlider extends HookWidget {
+  /// The currently selected endpoints.
   final RangeValues values;
+
+  /// The value at the left end of the track.
   final double min;
+
+  /// The value at the right end of the track.
   final double max;
+
+  /// The number of discrete steps between [min] and [max], or null for
+  /// continuous values.
   final int? divisions;
+
+  /// Labels drawn above each thumb while it is being interacted with.
   final RangeLabels? labels;
+
+  /// Called with candidate [RangeValues] while either thumb moves.
+  ///
+  /// Returns whether the new endpoints are accepted: returning false keeps the
+  /// rendered range unchanged. This mirrors the other Wired inputs, whose
+  /// change callbacks also return a bool (Material's `RangeSlider.onChanged`
+  /// is a plain `ValueChanged<RangeValues>`); see the API consistency notes in
+  /// the widget catalog. Null disables the slider.
   final bool Function(RangeValues)? onChanged;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -30,7 +48,7 @@ class WiredRangeSlider extends HookWidget {
     this.max = 1.0,
     this.divisions,
     this.labels,
-    required this.onChanged,
+    this.onChanged,
     this.semanticLabel,
   });
 

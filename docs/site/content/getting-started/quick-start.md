@@ -1,6 +1,6 @@
 ---
 title: Quick Start
-description: Build a minimal Flutter app with skribble's WiredMaterialApp and a handful of hand-drawn widgets.
+description: Build a minimal Flutter app with skribbleApp and a handful of hand-drawn widgets.
 ---
 
 # Quick Start
@@ -17,19 +17,19 @@ Make sure you have [installed skribble](/getting-started/installation) in your F
 
 ```dart
 // Static example: setup
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
   runApp(
-    WiredMaterialApp(
-      wiredTheme: WiredThemeData(),
-      home: Scaffold(
-        appBar: WiredAppBar(title: Text('My Sketchy App')),
+    SkribbleApp(
+      title: 'My sketchy app',
+      home: WiredScaffold(
+        appBar: WiredAppBar(title: Text('My sketchy app')),
         body: Center(
           child: WiredButton(
             onPressed: () {},
-            child: Text('Press Me'),
+            child: Text('Press me'),
           ),
         ),
       ),
@@ -40,31 +40,31 @@ void main() {
 
 <!-- {/docsMinimalAppSection} -->
 
-## How WiredMaterialApp works
+## How skribbleApp works
 
-`WiredMaterialApp` is a `HookWidget` that wraps Flutter's `MaterialApp`. It is the transitional compatibility shell, not Skribble's final app abstraction -- the Wired widgets inside it are built on `flutter/widgets`, and a Skribble-owned shell will replace the `MaterialApp` wrapper. See [Architecture](/core/architecture) and the [Material bridge](/core/material-bridge).
+`skribbleApp` is an app shell built on Flutter's widgets-layer `WidgetsApp`. It does three things automatically:
 
-It does two things automatically:
+1. **Installs the Wired theme** -- it places a `WiredThemeScope` at the top of the tree so every descendant Wired widget can call `WiredTheme.of(context)` to read theme values (border color, fill color, stroke width, roughness, text colors).
 
-1. **Injects `WiredTheme`** -- it places a `WiredTheme` scope at the top of the tree so every descendant Wired widget can call `WiredTheme.of(context)` to read theme values (border color, fill color, stroke width, roughness, text colors).
+2. **Stays Material-free** -- nothing above your `home` widget imports Material or Cupertino, so a skribble app is a genuine peer of a Material or Cupertino app instead of a skin over one. `WiredScaffold` and `WiredAppBar` replace their Material counterparts.
 
-2. **Syncs Material `ThemeData`** -- it calls `wiredTheme.toThemeData()` internally, producing a Material `ThemeData` whose `ColorScheme`, scaffold background, input decoration, card theme, dialog theme, and text theme all match the Wired palette. This means standard Material widgets (like `Scaffold`, `Text`, `Icon`) also look consistent.
+3. **Localizes sensibly** -- it installs a widgets-only localization delegate that resolves left-to-right and right-to-left text direction. Add `flutter_localizations` delegates if you need translated Material or Cupertino strings; see [App shell](../core/app-shell#localization).
 
 The app supports multiple theme variants:
 
 ```dart
 // Static example: setup
-WiredMaterialApp(
-  wiredTheme: lightTheme,                     // required -- used for light mode
-  darkWiredTheme: darkTheme,                   // optional -- used for dark mode
-  highContrastWiredTheme: highContrastTheme,   // optional -- accessibility
-  highContrastDarkWiredTheme: hcDarkTheme,     // optional -- accessibility + dark
-  themeMode: ThemeMode.system,                 // follows platform brightness
+skribbleApp(
+  wiredTheme: lightTheme,                      // optional -- light mode
+  darkWiredTheme: darkTheme,                    // optional -- dark mode
+  highContrastWiredTheme: highContrastTheme,    // optional -- accessibility
+  highContrastDarkWiredTheme: hcDarkTheme,      // optional -- accessibility + dark
+  themeMode: skribbleThemeMode.system,          // follows platform brightness
   home: MyHomePage(),
 )
 ```
 
-If you omit `darkWiredTheme`, the light theme is used for both modes. The `themeMode` parameter works exactly like `MaterialApp.themeMode`.
+If you omit `wiredTheme`, `WiredThemeData.defaultTheme` is used. If you omit `darkWiredTheme`, the light theme is used for both modes.
 
 ### Router variant
 
@@ -72,11 +72,15 @@ For apps using `go_router` or another `RouterConfig`, use the `.router` construc
 
 ```dart
 // Static example: setup
-WiredMaterialApp.router(
+skribbleApp.router(
   wiredTheme: WiredThemeData(),
   routerConfig: goRouter,
 )
 ```
+
+### Already using MaterialApp?
+
+Keep it while you migrate and use `WiredMaterialApp`, the transitional compatibility bridge. It wraps `MaterialApp`, syncs the Wired palette into Material's `ThemeData`, and accepts the same `wiredTheme` parameters plus `ThemeMode`. See the [Material bridge](../core/material-bridge) for the full migration path.
 
 ## Adding more widgets
 
@@ -84,13 +88,13 @@ Now let's build a more complete page. Replace the `home` parameter with a dedica
 
 ```dart
 // Static example: setup
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
   runApp(
-    WiredMaterialApp(
+    skribbleApp(
       wiredTheme: WiredThemeData(),
       home: const SketchyHomePage(),
     ),
@@ -105,7 +109,7 @@ class SketchyHomePage extends HookWidget {
     final nameController = useTextEditingController();
     final isAgreed = useState(false);
 
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(title: Text('Sketchy Form')),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -120,9 +124,9 @@ class SketchyHomePage extends HookWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Sign Up',
-                      style: Theme.of(context).textTheme.headlineSmall,
+                    DefaultTextStyle.merge(
+                      style: TextStyle(fontSize: 24),
+                      child: Text('Sign Up'),
                     ),
                     const SizedBox(height: 16),
 

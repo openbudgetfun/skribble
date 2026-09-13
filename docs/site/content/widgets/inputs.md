@@ -182,16 +182,17 @@ HookBuilder(
 
 ### Constructor parameters
 
-| Parameter   | Type                   | Default      | Description                                        |
-| ----------- | ---------------------- | ------------ | -------------------------------------------------- |
-| `value`     | `bool?`                | **required** | Current checked state. Supports tristate (`null`). |
-| `onChanged` | `void Function(bool?)` | **required** | Called when the user taps the checkbox.            |
+| Parameter   | Type                   | Default      | Description                                               |
+| ----------- | ---------------------- | ------------ | --------------------------------------------------------- |
+| `value`     | `bool?`                | **required** | Current checked state. Supports tristate (`null`).        |
+| `onChanged` | `ValueChanged<bool?>?` | `null`       | Called when the user taps the checkbox. Null disables it. |
 
 ### Notes
 
 - The checkbox is 27x27 logical pixels.
 - The underlying `Checkbox` uses transparent fill with `theme.borderColor` for the check color.
 - Internal state is managed with `useState` for immediate visual feedback.
+- Passing `null` for `onChanged` disables the checkbox the Material way: it renders in the disabled state and advertises no tap action to assistive technology.
 
 ---
 
@@ -368,20 +369,21 @@ WiredSlider(
 
 ### Constructor parameters
 
-| Parameter   | Type                     | Default      | Description                                            |
-| ----------- | ------------------------ | ------------ | ------------------------------------------------------ |
-| `value`     | `double`                 | **required** | Current slider value.                                  |
-| `divisions` | `int?`                   | `null`       | Number of discrete steps.                              |
-| `label`     | `String?`                | `null`       | Label displayed above the thumb.                       |
-| `min`       | `double`                 | `0.0`        | Minimum value.                                         |
-| `max`       | `double`                 | `1.0`        | Maximum value.                                         |
-| `onChanged` | `bool Function(double)?` | **required** | Called on drag. Return `true` to accept the new value. |
+| Parameter   | Type                     | Default      | Description                                                                      |
+| ----------- | ------------------------ | ------------ | -------------------------------------------------------------------------------- |
+| `value`     | `double`                 | **required** | Current slider value.                                                            |
+| `divisions` | `int?`                   | `null`       | Number of discrete steps.                                                        |
+| `label`     | `String?`                | `null`       | Label displayed above the thumb.                                                 |
+| `min`       | `double`                 | `0.0`        | Minimum value.                                                                   |
+| `max`       | `double`                 | `1.0`        | Maximum value.                                                                   |
+| `onChanged` | `bool Function(double)?` | `null`       | Called on drag. Return `true` to accept the new value. Null disables the slider. |
 
 ### Notes
 
 - The track is drawn with `WiredLineBase` at full width.
 - The thumb is a 24px `WiredCircleBase` with a 0.7 diameter ratio and hachure fill.
 - The `onChanged` callback returns a `bool` -- return `true` to accept the value and update the thumb position.
+- Omitting `onChanged` renders a disabled slider; previously the parameter was `required`, so callers passed `null` explicitly.
 
 ---
 
@@ -569,3 +571,17 @@ Rough borders in input components inherit `WiredDrawTransition` progress. Their 
 `WiredCombo.options(options: {'one': Text('One')}, value: 'one', onChanged: (value) => true)` accepts a map of values to labels without requiring Material dropdown items. Return true when the caller owns the value and rebuilds it; return false or null, or omit the callback, to update the selection internally.
 
 Give `WiredCalendar` a bounded height, for example `SizedBox(height: 360, child: WiredCalendar(...))`. Its month heading and weekday columns adapt to narrow widths.
+
+---
+
+## API consistency with Material
+
+The boolean inputs and sliders were audited against their Material counterparts. What matches: `value`/`groupValue` shapes, nullable `onChanged` meaning "disabled", `semanticLabel`, and the `showDivider` layout extension on the list-tile variants. `WiredCheckbox`, `WiredCheckboxListTile`, `WiredSlider`, and `WiredRangeSlider` now make `onChanged` optional, matching Material's nullability; omitting it disables the control and drops its tap action (and for the list tiles, the tile's).
+
+Deliberate deviations, documented rather than silently changed because fixing them is source-breaking:
+
+- `WiredRadio.onChanged` and `WiredRadioListTile.onChanged` are `bool Function(T?)?` instead of Material's `ValueChanged<T?>?`, and remain required so a radio cannot yet be disabled. Returning `true` accepts the selection.
+- `WiredToggle.onChange` uses `onChange`, not `onChanged`, and returns `bool`.
+- `WiredSlider.onChanged` and `WiredRangeSlider.onChanged` return `bool` so a controlled caller can reject a value; `Slider.onChanged` returns `void`.
+- `WiredInputChip.enabled` mirrors Material's `isEnabled` concept under a shorter name.
+- `WiredSwitchListTile` and `WiredRadioListTile` expose the common tile subset (`title`, `subtitle`, `showDivider`, `semanticLabel`) rather than every `ListTile` knob.

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
@@ -154,7 +153,7 @@ class _SegmentTile<T> extends HookWidget {
             child: Center(
               child: DefaultTextStyle.merge(
                 style: TextStyle(
-                  color: isSelected ? Colors.white : borderColor,
+                  color: isSelected ? const Color(0xFFFFFFFF) : borderColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -208,7 +207,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
     final keys = children.keys.toList();
     final selectedIndex = groupValue != null ? keys.indexOf(groupValue!) : -1;
 
-    final effectiveThumbColor = thumbColor ?? Colors.white;
+    final effectiveThumbColor = thumbColor ?? const Color(0xFFFFFFFF);
     final effectiveBgColor = backgroundColor ?? CupertinoColors.systemGrey5;
 
     return buildWiredElement(
