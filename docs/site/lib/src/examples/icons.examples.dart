@@ -51,17 +51,17 @@ Widget _customIcons(ExampleSettings settings) => Wrap(
   runSpacing: 20,
   children: [
     SkribbleIcon(
-      data: kSkribbleCustomIconsRough[0xf001]!,
+      data: kSkribbleCuratedIcons[0xf001]!,
       semanticLabel: 'Home',
       size: 48,
     ),
     SkribbleIcon(
-      data: kSkribbleCustomIconsRough[0xf005]!,
+      data: kSkribbleCuratedIcons[0xf005]!,
       semanticLabel: 'Heart',
       size: 48,
     ),
     SkribbleIcon(
-      data: kSkribbleCustomIconsRough[0xf003]!,
+      data: kSkribbleCuratedIcons[0xf003]!,
       semanticLabel: 'Settings',
       size: 48,
     ),

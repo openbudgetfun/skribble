@@ -326,7 +326,7 @@ Widget _letteringPattern(ExampleSettings settings) => Text(
   settings.label,
   style: const TextStyle(
     fontFamily: skribbleFontFamily,
-    package: 'skribble',
+    package: 'skribble_font_recursive',
     fontSize: 24,
   ),
 );

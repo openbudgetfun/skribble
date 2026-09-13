@@ -22,8 +22,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 REPO="${SKRIBBLE_REPO:-openbudgetfun/skribble}"
-FONTS_PATH="packages/skribble/assets/fonts"
-PUBSPEC_PATH="packages/skribble/pubspec.yaml"
+FONTS_PATH="packages/skribble_font_recursive/assets/fonts"
+PUBSPEC_PATH="packages/skribble_font_recursive/pubspec.yaml"
 
 TAG=""
 DRY_RUN=0

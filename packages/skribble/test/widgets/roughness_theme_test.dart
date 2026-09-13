@@ -75,13 +75,13 @@ void main() {
     for (final level in WiredRoughness.values) {
       final theme = WiredThemeData(roughnessLevel: level);
       expect(theme.fontFamily, level.fontFamily);
-      expect(theme.fontPackage, 'skribble');
+      expect(theme.fontPackage, 'skribble_font_recursive');
       expect(theme.drawConfig.roughness, level.roughness);
       expect(theme.drawConfig.maxRandomnessOffset, level.maxRandomnessOffset);
       expect(theme.drawConfig.lineWobble, level.lineWobble);
       expect(
         theme.toThemeData().textTheme.bodyMedium!.fontFamily,
-        'packages/skribble/${level.fontFamily}',
+        'packages/skribble_font_recursive/${level.fontFamily}',
       );
     }
   });
@@ -169,13 +169,13 @@ void main() {
         final context = tester.element(find.text(label));
         expect(
           DefaultTextStyle.of(context).style.fontFamily,
-          'packages/skribble/${level.fontFamily}',
+          'packages/skribble_font_recursive/${level.fontFamily}',
           reason: label,
         );
         expect(WiredTheme.of(context).roughnessLevel, level);
       }
       final field = tester.widget<EditableText>(find.byType(EditableText));
-      expect(field.style.fontFamily, 'packages/skribble/${level.fontFamily}');
+      expect(field.style.fontFamily, 'packages/skribble_font_recursive/${level.fontFamily}');
       expect(tester.takeException(), isNull);
     });
   }
@@ -227,21 +227,21 @@ void main() {
           DefaultTextStyle.of(tester.element(find.text('Outer')))
               .style
               .fontFamily,
-          'packages/skribble/SkribblePlayful',
+          'packages/skribble_font_recursive/SkribblePlayful',
         );
         for (final label in ['Inner', 'Inner button']) {
           expect(
             DefaultTextStyle.of(tester.element(find.text(label)))
                 .style
                 .fontFamily,
-            'packages/skribble/${selected.fontFamily}',
+            'packages/skribble_font_recursive/${selected.fontFamily}',
           );
         }
         final input = tester.widget<EditableText>(find.byType(EditableText));
         expect(input.controller.text, 'Keep café £12.50');
         expect(
           input.style.fontFamily,
-          'packages/skribble/${selected.fontFamily}',
+          'packages/skribble_font_recursive/${selected.fontFamily}',
         );
         expect(tester.takeException(), isNull);
       }

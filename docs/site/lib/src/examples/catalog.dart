@@ -8,7 +8,7 @@ import 'package:skribble_docs_site/src/examples/example.dart';
 import 'package:skribble_emoji/skribble_emoji.dart'
     show PrecomputedEmoji, WiredEmoji;
 import 'package:skribble_icons/skribble_icons.dart'
-    show SkribbleIcon, kSkribbleCustomIconsRough;
+    show SkribbleIcon, kSkribbleCuratedIcons;
 import 'package:skribble_maps/skribble_maps.dart';
 
 part 'buttons.examples.dart';

@@ -220,7 +220,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'custom-icons': ExampleDefinition(
     builder: _customIcons,
-    source: "Wrap(\n  spacing: 24,\n  runSpacing: 20,\n  children: [\n    SkribbleIcon(\n      data: kSkribbleCustomIconsRough[0xf001]!,\n      semanticLabel: 'Home',\n      size: 48,\n    ),\n    SkribbleIcon(\n      data: kSkribbleCustomIconsRough[0xf005]!,\n      semanticLabel: 'Heart',\n      size: 48,\n    ),\n    SkribbleIcon(\n      data: kSkribbleCustomIconsRough[0xf003]!,\n      semanticLabel: 'Settings',\n      size: 48,\n    ),\n  ],\n)",
+    source: "Wrap(\n  spacing: 24,\n  runSpacing: 20,\n  children: [\n    SkribbleIcon(\n      data: kSkribbleCuratedIcons[0xf001]!,\n      semanticLabel: 'Home',\n      size: 48,\n    ),\n    SkribbleIcon(\n      data: kSkribbleCuratedIcons[0xf005]!,\n      semanticLabel: 'Heart',\n      size: 48,\n    ),\n    SkribbleIcon(\n      data: kSkribbleCuratedIcons[0xf003]!,\n      semanticLabel: 'Settings',\n      size: 48,\n    ),\n  ],\n)",
     edits: [],
   ),
   'brand-icons': ExampleDefinition(
@@ -616,7 +616,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'lettering-pattern': ExampleDefinition(
     builder: _letteringPattern,
-    source: "Text(\n  settings.label,\n  style: const TextStyle(\n    fontFamily: skribbleFontFamily,\n    package: 'skribble',\n    fontSize: 24,\n  ),\n)",
+    source: "Text(\n  settings.label,\n  style: const TextStyle(\n    fontFamily: skribbleFontFamily,\n    package: 'skribble_font_recursive',\n    fontSize: 24,\n  ),\n)",
     edits: [ExampleEdit(8, 22, ExampleParameter.label)],
   ),
   'accessible-inputs': ExampleDefinition(

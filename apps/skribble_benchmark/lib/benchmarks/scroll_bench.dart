@@ -5,9 +5,9 @@ import 'package:skribble_benchmark/widgets/frame_timer.dart';
 import 'package:skribble_benchmark/widgets/precomputed_icon.dart';
 import 'package:skribble_icons/skribble_icons.dart';
 
-/// Returns the list of icon data from [kSkribbleCustomIcons].
+/// Returns the list of icon data from [kSkribbleCuratedIcons].
 List<WiredSvgIconData> _getIconDataList() {
-  return kSkribbleCustomIcons.values.toList(growable: false);
+  return kSkribbleCuratedIcons.values.toList(growable: false);
 }
 
 /// Icon data for a given index, cycling through available icons.

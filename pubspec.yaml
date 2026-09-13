@@ -10,9 +10,15 @@ workspace:
   - packages/skribble_charts
   - packages/skribble_emoji
   - packages/skribble_emoji_gen
+  - packages/skribble_font_recursive
   - packages/skribble_font_roughen
   - packages/skribble_icons
-  - packages/skribble_icons_custom
+  - packages/skribble_icons_curated
+  - packages/skribble_icons_simple
+  - packages/skribble_icons_material
+  - packages/skribble_icons_lucide
+  - packages/skribble_icons_bxs
+  - packages/skribble_icons_cib
   - packages/skribble_lints
   - packages/skribble_maps
   - apps/skribble_storybook
@@ -94,25 +100,25 @@ melos:
         --unresolved-baseline-output tool/examples/material_rough_icons.unresolved-baseline.json
         --unresolved-baseline-output-format codepoints
 
-    rough-icons-custom:
-      description: Generate rough custom icon artifacts (Dart map) from the SVG manifest.
-      run: >-
-        cd packages/skribble &&
-        dart run tool/generate_rough_icons.dart
-        --kit svg-manifest
-        --manifest ../skribble_icons_custom/tool/custom_icons.manifest.json
-        --output ../skribble_icons_custom/lib/src/generated/custom_rough_icons.g.dart
-        --map-name kCustomRoughIcons
+    icons-curated:
+      description: Regenerate the curated icon catalog from its SVG manifest.
+      run: dart run packages/skribble_emoji_gen/bin/generate_icons.dart
 
-    rough-icons-skribble:
-      description: Generate rough custom icon artifacts for the skribble_icons package.
-      run: >-
-        cd packages/skribble &&
-        dart run tool/generate_rough_icons.dart
-        --kit svg-manifest
-        --manifest ../skribble_icons/tool/skribble_icons.manifest.json
-        --output ../skribble_icons/lib/src/generated/skribble_icons.g.dart
-        --map-name kSkribbleCustomIcons
+    icons-iconify:
+      description: >-
+        Regenerate the Simple Icons, Lucide, Boxicons Solid, and CoreUI Brands
+        catalogs from their pinned Iconify sources.
+      run: ./scripts/generate_iconify_sets.sh
+
+    icons-check:
+      description: Verify every committed icon catalog matches its generator output.
+      run: ./scripts/check_icon_catalogs.sh
+
+    package-sizes:
+      description: >-
+        Verify each publishable package stays inside its compressed-size budget
+        using `pub publish --dry-run`.
+      run: ./scripts/check_package_sizes.sh
 
     rough-icons-ci-check:
       description: Run the same rough icon regression/sync checks enforced by CI.

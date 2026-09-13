@@ -36,13 +36,13 @@ void main() {
   testWidgets('compare location ink and update all previews', (tester) async {
     final font = FontLoader('packages/skribble/Skribble')
       ..addFont(
-        rootBundle.load('packages/skribble/assets/fonts/Skribble-Regular.ttf'),
+        rootBundle.load('packages/skribble_font_recursive/assets/fonts/Skribble-Regular.ttf'),
       );
     await font.load();
     final buttonFont = FontLoader('packages/skribble/SkribblePlayful')
       ..addFont(
         rootBundle.load(
-          'packages/skribble/assets/fonts/SkribblePlayful-Regular.ttf',
+          'packages/skribble_font_recursive/assets/fonts/SkribblePlayful-Regular.ttf',
         ),
       );
     await buttonFont.load();

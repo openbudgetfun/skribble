@@ -60,10 +60,17 @@ class SvgShape {
 List<SvgShape> extractShapes(String svgFile) {
   final file = File(svgFile);
   if (!file.existsSync()) return [];
+  return extractShapesFromMarkup(file.readAsStringSync());
+}
 
+/// Resolves drawable shapes from SVG markup already held in memory.
+///
+/// Icon sources that store SVG inline, such as Iconify's `body` strings, wrap
+/// their markup in an `<svg>` element and pass it here.
+List<SvgShape> extractShapesFromMarkup(String svg) {
   XmlDocument doc;
   try {
-    doc = XmlDocument.parse(file.readAsStringSync());
+    doc = XmlDocument.parse(svg);
   } on XmlParserException {
     return [];
   }

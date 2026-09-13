@@ -8,7 +8,8 @@ const _zipHash =
 const _csvHash =
     '28375217b92fafacc59d7dfea631c720abedc883518dbf12a73d25d4032cbe7e';
 
-/// Rebuilds the pinned emoji, curated icons, and all four bundled text fonts.
+/// Rebuilds the pinned emoji, curated icons, the Iconify icon catalogs, and
+/// all bundled text fonts.
 /// Run from the repository root. The downloaded source hashes are verified
 /// before generation; upstream updates require an explicit version/hash edit.
 Future<void> main(List<String> arguments) async {
@@ -72,6 +73,9 @@ Future<void> main(List<String> arguments) async {
       'run',
       'packages/skribble_font_roughen/bin/roughen_fonts.dart',
     ]);
+    // The Iconify sets live in their own packages but are rebuilt here too, so
+    // one command refreshes every visual asset from its pinned source.
+    await _run('bash', ['scripts/generate_iconify_sets.sh']);
     await _run(Platform.resolvedExecutable, [
       'format',
       'packages/skribble_emoji/lib/src/generated',

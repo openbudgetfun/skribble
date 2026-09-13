@@ -12,7 +12,7 @@ void main() {
       final output = '${temporary.path}/specimen.html';
       final result = await VisualDiff(
         originalPath: '../skribble/tool/font/RecursiveSansCslSt-Regular.ttf',
-        roughenedPath: '../skribble/assets/fonts/Skribble-Regular.ttf',
+        roughenedPath: '../skribble_font_recursive/assets/fonts/Skribble-Regular.ttf',
         outputPath: output,
         sampleText: '<script>alert("test")</script> Café',
       ).compare();

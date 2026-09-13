@@ -46,7 +46,7 @@ class WiredThemeData {
 
   /// Asset package for bundled fonts, or null for an app-provided family.
   String? get fontPackage =>
-      WiredFont.isBundled(fontFamily) ? 'skribble' : null;
+      WiredFont.isBundled(fontFamily) ? 'skribble_font_recursive' : null;
 
   WiredThemeData({
     this.motionEnabled = true,

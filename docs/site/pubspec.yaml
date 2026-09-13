@@ -22,6 +22,8 @@ dependencies:
     path: ../../packages/skribble_charts
   skribble_emoji:
     path: ../../packages/skribble_emoji
+  skribble_font_recursive:
+    path: ../../packages/skribble_font_recursive
   skribble_icons:
     path: ../../packages/skribble_icons
   skribble_maps:

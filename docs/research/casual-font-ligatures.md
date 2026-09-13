@@ -61,7 +61,7 @@ A later contextual-alternate design could vary repeated letters, such as the two
 
 ## License and verification limits
 
-The bundled font notice licenses Recursive under SIL OFL 1.1. It permits modification and redistribution subject to its conditions. Preserve the copyright and license with derivatives, retain the OFL for font files, and name the experiment distinctly so users can identify the modified font. The bundled notice does not declare a Reserved Font Name. See the [bundled OFL](../../packages/skribble/assets/fonts/OFL.txt) and [official license text](https://openfontlicense.org/open-font-license-official-text/).
+The bundled font notice licenses Recursive under SIL OFL 1.1. It permits modification and redistribution subject to its conditions. Preserve the copyright and license with derivatives, retain the OFL for font files, and name the experiment distinctly so users can identify the modified font. The bundled notice does not declare a Reserved Font Name. See the [bundled OFL](../../packages/skribble_font_recursive/assets/fonts/OFL.txt) and [official license text](https://openfontlicense.org/open-font-license-official-text/).
 
 This research inspected feature presence and table preservation; it did not run a full text shaper across all sequences, languages, and platforms. The audit used a temporary Dart SFNT parser to inspect `maxp`, the `GSUB` feature and lookup lists, and the table bytes. A production change still needs shaped-text comparisons, glyph coverage checks, spacing and mark checks, small-size rendering, and verification that toggling a new ligature changes the glyph sequence while retaining the original text for selection and accessibility.
 

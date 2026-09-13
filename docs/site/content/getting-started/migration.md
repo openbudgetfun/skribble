@@ -379,7 +379,7 @@ Text(
   'Make something lovely',
   style: const TextStyle(
     fontFamily: skribbleFontFamily,
-    package: 'skribble',
+    package: 'skribble_font_recursive',
     fontSize: 24,
   ),
 )

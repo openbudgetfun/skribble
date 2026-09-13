@@ -27,7 +27,7 @@ void main() {
         paragraph.text.style!.fontFamily,
         theme.fontPackage == null
             ? theme.fontFamily
-            : 'packages/skribble/${theme.fontFamily}',
+            : 'packages/skribble_font_recursive/${theme.fontFamily}',
       );
       final wheel = tester.widget<ListWheelScrollView>(
         find.byType(ListWheelScrollView),
@@ -118,7 +118,7 @@ void main() {
         );
         expect(
           paragraph.text.style!.fontFamily,
-          'packages/skribble/${theme.fontFamily}',
+          'packages/skribble_font_recursive/${theme.fontFamily}',
         );
       },
     );

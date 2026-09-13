@@ -19,7 +19,7 @@
 #   ./scripts/release/package_fonts.sh <fonts-dir> <output-dir> <tag> [pubspec]
 #
 # Example:
-#   ./scripts/release/package_fonts.sh packages/skribble/assets/fonts dist v1.0.0
+#   ./scripts/release/package_fonts.sh packages/skribble_font_recursive/assets/fonts dist v1.0.0
 
 set -euo pipefail
 

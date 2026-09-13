@@ -8,7 +8,7 @@ import 'package:skribble_icons/skribble_icons.dart';
 ///
 /// Run with: flutter test test/icon_paint_benchmark_test.dart
 void main() {
-  final icons = kSkribbleCustomIcons.values.toList();
+  final icons = kSkribbleCuratedIcons.values.toList();
 
   /// Pump a widget and force N paint cycles, measuring total time.
   Future<_BenchResult> measurePaintCycles({

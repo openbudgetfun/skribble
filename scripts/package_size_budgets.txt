@@ -1,0 +1,30 @@
+# Compressed-size budgets, in MiB, for `pub publish --dry-run`.
+#
+# pub.dev's publishing guide recommends staying under 100 MB compressed and
+# 256 MB uncompressed. That is guidance rather than an enforced cap, so these
+# budgets sit far below it: a package that suddenly ships tens of megabytes of
+# artwork is almost always a generated catalog that belongs in its own package,
+# and this check is what surfaces that.
+#
+# Packages without an entry fall back to PACKAGE_SIZE_DEFAULT_MIB (10).
+#
+# Measured after the icon-set split. Most packages publish well under 1 MiB.
+#
+# Raise a budget deliberately, in the same commit as the growth, with a note
+# explaining why the package legitimately got bigger.
+skribble 10
+# skribble_font_recursive is the typeface package: 130 font files, 57 MiB
+# uncompressed, ~26 MiB compressed. TTF outlines barely compress, so this budget
+# mostly measures the family itself. `packages/skribble/.pubignore` keeps the
+# 8 MiB of `tool/font` regeneration sources out of the core package.
+skribble_font_recursive 40
+skribble_emoji 15
+skribble_maps 5
+skribble_charts 5
+skribble_icons 5
+skribble_icons_curated 5
+skribble_icons_material 10
+skribble_icons_lucide 10
+skribble_icons_bxs 5
+skribble_icons_cib 10
+skribble_lints 5

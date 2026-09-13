@@ -179,8 +179,42 @@ jobs:
           dart format packages/skribble/lib/src/generated/brand_rough_icons.g.dart
           git diff --exit-code -- packages/skribble/lib/src/generated/brand_rough_icons.g.dart
           (cd docs/site && dart run tool/generate_examples.dart --check)
-          git diff --exit-code -- packages/skribble/assets/fonts packages/skribble/tool/font apps/skribble_storybook/assets/fonts packages/skribble_emoji/lib/src/generated packages/skribble_icons/lib/src/generated/skribble_icons_rough.g.dart
-          test -z "$(git ls-files --others --exclude-standard -- packages/skribble/assets/fonts packages/skribble/tool/font apps/skribble_storybook/assets/fonts packages/skribble_emoji/lib/src/generated packages/skribble_icons/lib/src/generated)"
+          git diff --exit-code -- packages/skribble_font_recursive/assets/fonts packages/skribble/tool/font apps/skribble_storybook/assets/fonts packages/skribble_emoji/lib/src/generated
+          test -z "$(git ls-files --others --exclude-standard -- packages/skribble_font_recursive/assets/fonts packages/skribble/tool/font apps/skribble_storybook/assets/fonts packages/skribble_emoji/lib/src/generated)"
+        shell: devenv shell -- bash -e {0}
+
+  # The icon catalogs regenerate in pure Dart in seconds, so CI re-derives every
+  # one of them rather than trusting that a contributor ran the generator.
+  icon-catalogs-sync:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: verify committed icon catalogs match their generators
+        run: ./scripts/check_icon_catalogs.sh
+        shell: devenv shell -- bash -e {0}
+      - name: confirm no catalog files are untracked
+        run: |
+          test -z "$(git ls-files --others --exclude-standard -- \
+            packages/skribble_icons_curated/lib/src/generated \
+            packages/skribble_icons_lucide/lib/src/generated \
+            packages/skribble_icons_bxs/lib/src/generated \
+            packages/skribble_icons_cib/lib/src/generated)"
+        shell: devenv shell -- bash -e {0}
+
+  # Icon catalogs are the packages most likely to creep past pub.dev's size
+  # guidance, so every PR measures the real compressed archive.
+  package-sizes:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: verify publishable packages stay inside their size budgets
+        run: ./scripts/check_package_sizes.sh
         shell: devenv shell -- bash -e {0}
 
   patrol-web:

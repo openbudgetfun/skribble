@@ -5,10 +5,9 @@ import 'dart:ui' show PathMetric;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'generated/material_rough_icon_font.g.dart';
-import 'generated/material_rough_icons.g.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_icon_registry.dart';
 import 'wired_svg_icon_data.dart';
 import 'wired_theme.dart';
 
@@ -162,34 +161,26 @@ class WiredIcon extends HookWidget {
   }
 }
 
+/// Returns precomputed hand-drawn geometry for [icon], or `null` when no
+/// icon-set package has registered a catalog covering it.
+///
+/// Importing an icon-set package (for example `package:skribble_icons_material`)
+/// and calling its registration function installs the catalog. Without one,
+/// [WiredIcon] falls back to Flutter's regular [Icon] widget, which renders the
+/// font glyph. Identifier lookups live with each catalog instead, because only
+/// the owning package knows its own names.
 WiredSvgIconData? lookupMaterialRoughIcon(IconData icon) {
-  if (icon.fontFamily != 'MaterialIcons') {
-    return null;
-  }
-  return kMaterialRoughIcons[icon.codePoint];
+  return wiredIconCatalog?.resolve(icon);
 }
 
+/// Returns precomputed hand-drawn geometry for a catalog [identifier] such as
+/// `'search'`, or `null` when no catalog is registered or none ships the name.
+///
+/// This searches whichever catalog was registered, so it stays useful to code
+/// that should not care which icon set is loaded.
 WiredSvgIconData? lookupMaterialRoughIconByIdentifier(String identifier) {
-  final codePoint = kMaterialRoughIconsCodePoints[identifier];
-  if (codePoint == null) {
-    return null;
-  }
-  return kMaterialRoughIcons[codePoint];
+  return wiredIconCatalog?.resolveByIdentifier(identifier);
 }
-
-IconData? lookupMaterialRoughFontIcon(String identifier) =>
-    lookupMaterialRoughIconsIconData(identifier);
-
-String get materialRoughFontFamily => kMaterialRoughIconsFontFamily;
-
-Map<String, int> get materialRoughFontCodePoints =>
-    kMaterialRoughIconsCodePoints;
-
-List<String> get materialRoughIconIdentifiers =>
-    kMaterialRoughIconsCodePoints.keys.toList(growable: false);
-
-List<int> get materialRoughIconCodePoints =>
-    kMaterialRoughIcons.keys.toList(growable: false);
 
 List<_PreparedPrimitive> _preparePrimitives({
   required WiredSvgIconData data,
@@ -226,21 +217,23 @@ List<_PreparedPrimitive> _preparePrimitives({
                         .transform(transform),
               )
               .toList(growable: false),
-          fillColor: primitive.fillColor == null
-              ? null
-              : _parseSvgColor(primitive.fillColor!),
-          strokeColor: primitive.strokeColor == null
-              ? null
-              : _parseSvgColor(primitive.strokeColor!),
+          fillColor: _parseSvgColor(primitive.fillColor),
+          strokeColor: _parseSvgColor(primitive.strokeColor),
+          fillIsAmbient: primitive.fillColor == 'currentColor',
+          strokeIsAmbient: primitive.strokeColor == 'currentColor',
           strokeWidth: primitive.strokeWidth * scale,
         ),
       )
       .toList(growable: false);
 }
 
-/// Parses an SVG paint colour (`#RGB`, `#RRGGBB`) into a [Color], or null
-/// when the value is not a plain colour (e.g. `none`, a URL reference).
-Color? _parseSvgColor(String value) {
+/// Parses an SVG paint colour (`#RGB`, `#RRGGBB`) into a [Color].
+///
+/// Returns `null` for anything that is not a plain colour, including `none`,
+/// `currentColor`, and `url(...)` references. Callers check the ambient flags
+/// separately for `currentColor`.
+Color? _parseSvgColor(String? value) {
+  if (value == null) return null;
   var hex = value.trim();
   if (!hex.startsWith('#')) return null;
   hex = hex.substring(1);
@@ -315,6 +308,8 @@ final class _PreparedPrimitive {
     required this.clips,
     this.fillColor,
     this.strokeColor,
+    this.fillIsAmbient = false,
+    this.strokeIsAmbient = false,
     this.strokeWidth = 1,
   });
 
@@ -325,10 +320,27 @@ final class _PreparedPrimitive {
   final double strokeMiterLimit;
   final List<Path> clips;
 
-  /// Resolved paint colours, or null to use the ambient single colour.
+  /// Resolved fill colour, or null when the source specified no plain colour.
   final Color? fillColor;
+
+  /// Resolved stroke colour, or null when the source specified no plain colour.
   final Color? strokeColor;
+
+  /// Whether the source asked for `currentColor` on this channel.
+  final bool fillIsAmbient;
+
+  /// Whether the source asked for `currentColor` on this channel.
+  final bool strokeIsAmbient;
+
   final double strokeWidth;
+
+  /// Whether this primitive paints its own colours instead of inheriting the
+  /// single ambient icon colour.
+  bool get hasOwnColors =>
+      fillColor != null ||
+      strokeColor != null ||
+      fillIsAmbient ||
+      strokeIsAmbient;
 }
 
 final class _WiredSvgIconPainter extends CustomPainter {
@@ -390,24 +402,21 @@ final class _WiredSvgIconPainter extends CustomPainter {
       final roughPath = roughPaths[index];
       canvas.save();
       primitive.clips.forEach(canvas.clipPath);
-      // Per-primitive colours (from source SVG artwork) override the
-      // ambient single colour. Precomputed Material icons ship without
-      // colours and use the theme colour; emoji carry their OpenMoji
-      // palette through.
-      final hasOwnColors =
-          primitive.fillColor != null || primitive.strokeColor != null;
-
-      if (hasOwnColors) {
-        if (primitive.fillColor != null) {
+      // Per-primitive colours (from source SVG artwork) override the ambient
+      // single colour. `currentColor` means "use whatever colour the caller
+      // asked for", which is how outline sets like Lucide stay themeable.
+      // Emoji carry their OpenMoji palette through the same channel.
+      if (primitive.hasOwnColors) {
+        if (primitive.fillColor != null || primitive.fillIsAmbient) {
           canvas.drawPath(
             roughPath,
             Paint()
-              ..color = primitive.fillColor!
+              ..color = primitive.fillColor ?? color
               ..style = PaintingStyle.fill
               ..isAntiAlias = true,
           );
         }
-        if (primitive.strokeColor != null) {
+        if (primitive.strokeColor != null || primitive.strokeIsAmbient) {
           // Authored SVG strokes retain their exact caps, joins, and dash
           // endpoints. The contour renderer below is for monochrome icons.
           canvas.drawPath(
@@ -415,7 +424,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
             Paint()
               ..style = PaintingStyle.stroke
               ..isAntiAlias = true
-              ..color = primitive.strokeColor!
+              ..color = primitive.strokeColor ?? color
               ..strokeWidth = primitive.strokeWidth
               ..strokeCap = primitive.strokeCap
               ..strokeJoin = primitive.strokeJoin

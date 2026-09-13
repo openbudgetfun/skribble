@@ -1,0 +1,28 @@
+name: skribble_icons_material
+description: |
+  Hand-drawn Material icon catalog for skribble. Ships the full roughened
+  Flutter Material icon set as precomputed geometry.version: 0.1.1
+homepage: https://github.com/openbudgetfun/skribble
+repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_icons_material
+documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble_icons_material/README.md
+issue_tracker: https://github.com/openbudgetfun/skribble/issues
+topics:
+  - ui
+  - icons
+  - hand-drawn
+  - design-system
+  - sketch
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  skribble: ^0.1.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  skribble_lints: ^0.1.1
+flutter:
+  uses-material-design: true

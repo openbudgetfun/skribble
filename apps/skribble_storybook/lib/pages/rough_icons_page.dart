@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_icons/skribble_icons.dart';
 
 /// Lazy-rendered gallery of every precomputed roughened Material icon.
 ///

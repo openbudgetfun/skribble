@@ -124,19 +124,19 @@ void main() {
 
       expect(
         materialTheme.textTheme.bodyLarge?.fontFamily,
-        'packages/skribble/SkribblePlayful',
+        'packages/skribble_font_recursive/SkribblePlayful',
       );
       expect(
         materialTheme.textTheme.bodyMedium?.fontFamily,
-        'packages/skribble/SkribblePlayful',
+        'packages/skribble_font_recursive/SkribblePlayful',
       );
       expect(
         materialTheme.textTheme.headlineMedium?.fontFamily,
-        'packages/skribble/SkribblePlayful',
+        'packages/skribble_font_recursive/SkribblePlayful',
       );
       expect(
         materialTheme.textTheme.titleLarge?.fontFamily,
-        'packages/skribble/SkribblePlayful',
+        'packages/skribble_font_recursive/SkribblePlayful',
       );
     });
 
