@@ -56,7 +56,11 @@ enum SkribbleThemeMode {
 ///
 /// * `WiredMaterialApp`, the compatibility bridge for apps that must keep
 ///   using `MaterialApp`.
-/// * `WiredCupertinoApp`, the equivalent bridge for Cupertino apps.
+/// * `WiredThemeFromCupertino` and `WiredThemeInterop`, which put Wired
+///   widgets on a Cupertino app's palette. There is no `WiredCupertinoApp`
+///   shell: `CupertinoApp` already exists as the Cupertino root, and a
+///   Skribble shell for Cupertino apps would only re-export it -- use
+///   `SkribbleApp` directly, or `CupertinoApp` with a `WiredThemeScope`.
 class SkribbleApp extends StatelessWidget {
   /// Creates a Skribble app with a [Navigator]-based route setup.
   ///

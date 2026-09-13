@@ -428,6 +428,7 @@ HookBuilder(
 Do not assume a widget's current screen-reader behavior is permanent. Many Wired widgets get semantics from the Material widget they currently wrap; that semantics disappears when the wrapper is [rewritten onto `flutter/widgets`](/core/architecture#rewrite-order). Verify each widget you migrate with the accessibility inspector or a screen reader, and see [Accessibility testing](/reference/accessibility-testing).
 
 ## Step 7: Test and Adjust
+
 ## Step 8: Test and Adjust
 
 After migration:
