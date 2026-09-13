@@ -42,7 +42,8 @@ class WiredRadio<T> extends HookWidget {
     return Semantics(
       label: semanticLabel,
       checked: isSelected,
-      onTap: () => onChanged?.call(value),
+      enabled: onChanged != null,
+      onTap: onChanged == null ? null : () => onChanged?.call(value),
       child: buildWiredElement(
         child: Stack(
           alignment: Alignment.center,

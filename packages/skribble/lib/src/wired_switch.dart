@@ -43,6 +43,7 @@ class WiredSwitch extends HookWidget {
 
     final effectiveActiveColor = activeColor ?? theme.borderColor;
     final effectiveInactiveColor = inactiveColor ?? theme.fillColor;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return Semantics(
       container: true,
@@ -50,7 +51,7 @@ class WiredSwitch extends HookWidget {
       toggled: value,
       enabled: onChanged != null,
       child: GestureDetector(
-        onTap: () => onChanged?.call(!value),
+        onTap: onChanged == null ? null : () => onChanged!(!value),
         child: SizedBox(
           width: _trackWidth,
           height: _thumbSize,
@@ -77,7 +78,10 @@ class WiredSwitch extends HookWidget {
                 ),
               ),
               Positioned(
-                left: animation,
+                // Mirror the thumb travel so "on" sits at the inline end.
+                left: isRtl
+                    ? (_trackWidth - _thumbSize) - animation
+                    : animation,
                 child: SizedBox(
                   width: _thumbSize,
                   height: _thumbSize,

@@ -67,6 +67,7 @@ class WiredIconButton extends HookWidget {
       builder: (context, states) => Semantics(
         label: semanticLabel,
         button: true,
+        enabled: onPressed != null,
         child: buildWiredElement(
           child: SizedBox(
             width: size,

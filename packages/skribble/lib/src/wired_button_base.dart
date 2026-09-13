@@ -73,6 +73,7 @@ abstract class WiredButtonBase extends HookWidget {
         return Semantics(
           label: semanticLabel,
           button: true,
+          enabled: onPressed != null,
           child: buildWiredElement(
             child: background == null
                 ? surface
