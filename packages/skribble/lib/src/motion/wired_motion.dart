@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 /// Cascading permission for decorative ink motion.
 ///
 /// A disabled ancestor or the platform's reduced-motion preference always wins.
-/// This controls Skribble ink; it does not disable consumer-owned animations.
+/// This controls skribble ink; it does not disable consumer-owned animations.
 class WiredMotion extends InheritedWidget {
   /// Creates a motion boundary. Use false to settle all ink in this subtree.
   const WiredMotion({super.key, this.enabled = true, required super.child});

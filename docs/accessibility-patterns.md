@@ -1,10 +1,10 @@
-# Skribble Accessibility Patterns
+# skribble Accessibility Patterns
 
-This document describes the accessibility patterns used in the Skribble hand-drawn Flutter design system.
+This document describes the accessibility patterns used in the skribble hand-drawn Flutter design system.
 
 ## Overview
 
-Skribble widgets follow Flutter's accessibility best practices by wrapping interactive elements with `Semantics` widgets. This ensures that screen readers and other assistive technologies can properly describe the UI to users.
+skribble widgets follow Flutter's accessibility best practices by wrapping interactive elements with `Semantics` widgets. This ensures that screen readers and other assistive technologies can properly describe the UI to users.
 
 ## Core Patterns
 

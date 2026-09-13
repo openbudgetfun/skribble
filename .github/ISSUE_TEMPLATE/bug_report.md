@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a bug in a Skribble widget
+about: Report a bug in a skribble widget
 title: "[Bug] "
 labels: bug
 ---
@@ -26,7 +26,7 @@ What actually happened.
 ## Environment
 
 - **Flutter version**: `flutter --version`
-- **Skribble version**: (e.g., 0.3.1)
+- **skribble version**: (e.g., 0.3.1)
 - **Platform**: iOS / Android / Web / macOS / Linux / Windows
 - **Device**: (e.g., iPhone 15 Simulator, Pixel 7)
 

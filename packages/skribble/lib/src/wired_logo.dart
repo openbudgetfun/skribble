@@ -5,7 +5,7 @@ import 'doodles/doodle_geometry.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
-/// Skribble's bracketed smile, drawn from the same paths as the brand SVGs.
+/// skribble's bracketed smile, drawn from the same paths as the brand SVGs.
 class WiredLogo extends HookWidget {
   /// Creates the mark with an optional accessible name.
   const WiredLogo({
@@ -21,7 +21,7 @@ class WiredLogo extends HookWidget {
   /// Ink color, defaulting to the surrounding theme's text color.
   final Color? color;
 
-  /// Accessible name, or null when adjacent text already identifies Skribble.
+  /// Accessible name, or null when adjacent text already identifies skribble.
   final String? semanticLabel;
 
   @override

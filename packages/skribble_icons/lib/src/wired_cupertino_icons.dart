@@ -56,7 +56,7 @@ class WiredCupertinoIcon extends HookWidget {
 /// A collection of commonly used hand-drawn Cupertino icons.
 ///
 /// This class provides convenient access to frequently used Cupertino icons
-/// with the Skribble hand-drawn style.
+/// with the skribble hand-drawn style.
 ///
 /// ## Example
 ///

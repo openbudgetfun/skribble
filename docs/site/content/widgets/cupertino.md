@@ -1,11 +1,11 @@
 ---
 title: Cupertino Parity
-description: Hand-drawn Cupertino-style widgets in Skribble — activity indicators, list sections, search fields, timer pickers, and form sections.
+description: Hand-drawn Cupertino-style widgets in skribble — activity indicators, list sections, search fields, timer pickers, and form sections.
 ---
 
 # Cupertino Parity
 
-Skribble ships hand-drawn equivalents for the most common `Cupertino` widgets. All `wired_cupertino_*` widgets keep the "Wired" prefix, are built as `HookWidget`s, and draw their chrome exclusively with the rough engine (`WiredCanvas` + `WiredPainterBase` painters) — nothing is a skin over a Cupertino widget. Every widget reads its palette from `WiredTheme.of(context)`.
+skribble ships hand-drawn equivalents for the most common `Cupertino` widgets. All `wired_cupertino_*` widgets keep the "Wired" prefix, are built as `HookWidget`s, and draw their chrome exclusively with the rough engine (`WiredCanvas` + `WiredPainterBase` painters) — nothing is a skin over a Cupertino widget. Every widget reads its palette from `WiredTheme.of(context)`.
 
 This page is the catalog for the full `wired_cupertino_*` family: the widgets added in the parity batch (`WiredCupertinoActivityIndicator`, `WiredCupertinoListSection`, `WiredCupertinoListTile`, `WiredCupertinoSearchTextField`, `WiredCupertinoTimerPicker`, `WiredCupertinoFormSection`) plus the existing cupertino counterparts.
 

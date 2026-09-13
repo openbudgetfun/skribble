@@ -15,7 +15,7 @@ typedef WiredMapViewBuilder = Widget Function(BuildContext context);
 
 /// A MapLibre basemap with hand-drawn Flutter overlays and controls.
 ///
-/// MapLibre renders source data, roads, buildings, water, and labels. Skribble
+/// MapLibre renders source data, roads, buildings, water, and labels. skribble
 /// only draws the widgets in [children]. Pitch and rotation stay disabled so
 /// those Flutter overlays remain aligned with geographic coordinates.
 class WiredMap extends HookWidget {

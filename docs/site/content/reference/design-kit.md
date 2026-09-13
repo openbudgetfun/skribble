@@ -5,7 +5,7 @@ description: Fonts, editable SVG pen specimens, design tokens, and the ink motio
 
 # Design kit
 
-Use the same fonts and rough geometry in a design file that Skribble uses in Flutter. Generate the kit from the repository root:
+Use the same fonts and rough geometry in a design file that skribble uses in Flutter. Generate the kit from the repository root:
 
 ```bash
 devenv shell dart run packages/skribble/tool/design_kit.dart
@@ -95,7 +95,7 @@ Keep label position, layout, and hit regions fixed. Do not add scale, bounce, or
 
 ## Notices
 
-The TTF files derive from Recursive and use the SIL Open Font License 1.1. Keep `fonts/OFL.txt` with redistributed fonts. The source notice names The Recursive Project Authors. Skribble source code and these generated pen specimens use the repository MIT license included as `LICENSE`. This kit contains no third-party icon or emoji artwork.
+The TTF files derive from Recursive and use the SIL Open Font License 1.1. Keep `fonts/OFL.txt` with redistributed fonts. The source notice names The Recursive Project Authors. skribble source code and these generated pen specimens use the repository MIT license included as `LICENSE`. This kit contains no third-party icon or emoji artwork.
 
 ## Screenshot selection
 

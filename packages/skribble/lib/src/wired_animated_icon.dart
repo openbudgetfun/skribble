@@ -6,7 +6,7 @@ import 'wired_theme.dart';
 
 /// A theme-aware compatibility wrapper for Flutter's [AnimatedIcon].
 ///
-/// Uses Skribble's text colour while preserving Material's smooth morph.
+/// Uses skribble's text colour while preserving Material's smooth morph.
 /// Use `WiredDraw` with rough icon geometry for a hand-drawn reveal.
 class WiredAnimatedIcon extends HookWidget {
   /// The animated icon data (e.g. [AnimatedIcons.menu_arrow]).

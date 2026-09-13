@@ -1,15 +1,15 @@
 ---
 title: Quick Start
-description: Build a minimal Flutter app with Skribble's WiredMaterialApp and a handful of hand-drawn widgets.
+description: Build a minimal Flutter app with skribble's WiredMaterialApp and a handful of hand-drawn widgets.
 ---
 
 # Quick Start
 
-This page walks you through a minimal Skribble app. By the end you will have a running Flutter app with a hand-drawn app bar, button, text input, and checkbox -- all styled by a single `WiredThemeData`.
+This page walks you through a minimal skribble app. By the end you will have a running Flutter app with a hand-drawn app bar, button, text input, and checkbox -- all styled by a single `WiredThemeData`.
 
 ## Prerequisites
 
-Make sure you have [installed Skribble](/getting-started/installation) in your Flutter project.
+Make sure you have [installed skribble](/getting-started/installation) in your Flutter project.
 
 ## Minimal app
 

@@ -18,7 +18,7 @@ Use `WiredLoader` for an unknown wait, `WiredSkeleton` to reserve space, and `Wi
 | `flower`   | Rotating flower doodle             | A friendly empty panel     |
 | `scribble` | A loop drawing and erasing itself  | Sketches and creative work |
 
-The collection takes inspiration from the variety in [react-native-indicators](https://github.com/n4kz/react-native-indicators). These are original Flutter drawings and animations; flower and scribble reuse Skribble's existing seeded flourish geometry.
+The collection takes inspiration from the variety in [react-native-indicators](https://github.com/n4kz/react-native-indicators). These are original Flutter drawings and animations; flower and scribble reuse skribble's existing seeded flourish geometry.
 
 ```dart
 // Static example: api

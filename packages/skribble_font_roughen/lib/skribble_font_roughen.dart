@@ -1,6 +1,6 @@
 /// Dart CLI tool for roughening fonts with hand-drawn jitter effects.
 ///
-/// Part of the Skribble hand-drawn Flutter design system.
+/// Part of the skribble hand-drawn Flutter design system.
 ///
 /// This library provides functionality to:
 /// - Read static TrueType font files

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
-/// Font specimen page — every renderable character of the bundled Skribble
+/// Font specimen page — every renderable character of the bundled skribble
 /// font family, across weights and sizes.
 ///
 /// Covers Latin letters, digits, punctuation, currency, math, and assorted
-/// symbols. Characters are rendered with the `Skribble` family and fall back
+/// symbols. Characters are rendered with the `skribble` family and fall back
 /// to the platform font for anything the roughened font does not contain.
 class FontSpecimenPage extends HookWidget {
   const FontSpecimenPage({super.key});

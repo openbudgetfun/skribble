@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Package the bundled Skribble fonts and attach the zips to a GitHub release.
+# Package the bundled skribble fonts and attach the zips to a GitHub release.
 #
 # Local replacement for the "Attach the font zips to the release" step of
 # .github/workflows/publish.yml, for releases published from a developer

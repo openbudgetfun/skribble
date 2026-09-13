@@ -10,7 +10,7 @@ Hand-drawn UI components for Flutter — every widget looks like it was sketched
 import 'package:skribble/skribble.dart';
 ```
 
-Use `WiredMaterialApp` to customize colors across all Skribble widgets while keeping Material theming aligned:
+Use `WiredMaterialApp` to customize colors across all skribble widgets while keeping Material theming aligned:
 
 ```dart
 final wiredTheme = WiredThemeData(
@@ -38,7 +38,7 @@ WiredMaterialApp.router(
 
 Both constructors also expose high-value `MaterialApp` bootstrapping options like locale resolution callbacks, restoration, scroll behavior, shortcuts / actions, generated titles, theme animation controls, high-contrast theme variants, and common debug / diagnostics flags.
 
-All wired widget implementations read from the nearest `WiredTheme` ancestor and fall back to defaults when no theme is provided. `WiredThemeData` also exposes `toColorScheme()` and `toThemeData()` helpers so your app shell, text, and Material fallbacks stay aligned with the Skribble palette, while `WiredMaterialApp` and `WiredMaterialApp.router` keep `MaterialApp` and `WiredTheme` synchronized.
+All wired widget implementations read from the nearest `WiredTheme` ancestor and fall back to defaults when no theme is provided. `WiredThemeData` also exposes `toColorScheme()` and `toThemeData()` helpers so your app shell, text, and Material fallbacks stay aligned with the skribble palette, while `WiredMaterialApp` and `WiredMaterialApp.router` keep `MaterialApp` and `WiredTheme` synchronized.
 
 ## Widget Catalog
 
@@ -129,7 +129,7 @@ All wired widget implementations read from the nearest `WiredTheme` ancestor and
 | `WiredBottomSheet`                           | Bottom sheet with sketchy top border                          |
 | `WiredAboutDialog` / `showWiredAboutDialog`  | Hand-drawn about dialog                                       |
 | `WiredContextMenu`                           | Long-press context menu with `WiredContextMenuAction`         |
-| `WiredAnimatedIcon`                          | Animated icon with Skribble styling                           |
+| `WiredAnimatedIcon`                          | Animated icon with skribble styling                           |
 | `WiredMaterialBanner`                        | Persistent banner with sketchy borders                        |
 | `WiredCupertinoAlertDialog`                  | Cupertino alert with `WiredCupertinoDialogAction`             |
 | `WiredCupertinoActionSheet`                  | Cupertino action sheet with `WiredCupertinoActionSheetAction` |
@@ -149,7 +149,7 @@ All wired widget implementations read from the nearest `WiredTheme` ancestor and
 | `WiredScaffold`                                       | Material page shell with paper-like background     |
 | `WiredReorderableListView`                            | Reorderable list with sketchy items                |
 | `WiredDismissible`                                    | Swipe-to-dismiss with sketchy background           |
-| `WiredSelectableText`                                 | Selectable text with Skribble styling              |
+| `WiredSelectableText`                                 | Selectable text with skribble styling              |
 | `WiredDrawerHeader` / `WiredUserAccountsDrawerHeader` | Drawer headers                                     |
 | `WiredAvatar`                                         | Hand-drawn circle avatar                           |
 | `WiredPageScaffold` / `WiredTabScaffold`              | Cupertino scaffold layouts                         |
@@ -167,7 +167,7 @@ All wired widget implementations read from the nearest `WiredTheme` ancestor and
 
 ## API Patterns
 
-All Skribble widgets follow familiar Flutter conventions:
+All skribble widgets follow familiar Flutter conventions:
 
 - **`Wired*` prefix** mirrors the Flutter widget it replaces
 - **Same constructor params**: `child`, `onPressed`, `onChanged`, `value`, `selectedIndex`

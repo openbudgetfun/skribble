@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND.
-// OpenMoji 17.0.0, CC-BY-SA 4.0; outlines adapted by Skribble.
+// OpenMoji 17.0.0, CC-BY-SA 4.0; outlines adapted by skribble.
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'dart:ui' show StrokeCap, StrokeJoin;

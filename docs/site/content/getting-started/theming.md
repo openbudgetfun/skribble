@@ -1,6 +1,6 @@
 ---
 title: Theming
-description: Customize Skribble's hand-drawn look with WiredThemeData. Control colors, stroke width, roughness, and dark mode across every widget.
+description: Customize skribble's hand-drawn look with WiredThemeData. Control colors, stroke width, roughness, and dark mode across every widget.
 ---
 
 # Theming
@@ -351,7 +351,7 @@ The red-themed card and button will use `Colors.red` for borders, while everythi
 
 ## The bundled handwriting
 
-Skribble's four text styles are derived from the matching **Recursive Sans Casual** static sources. `WiredMaterialApp` registers the package-qualified Skribble family through its theme, so regular, bold, italic, and bold italic select the right bundled assets. Do not manually register only the regular font with `FontLoader`.
+skribble's four text styles are derived from the matching **Recursive Sans Casual** static sources. `WiredMaterialApp` registers the package-qualified skribble family through its theme, so regular, bold, italic, and bold italic select the right bundled assets. Do not manually register only the regular font with `FontLoader`.
 
 For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble'`. Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.5. Local widget text styles merge with inherited typography instead of dropping the font family. The bundled Recursive Casual derivative uses deformation strength 27 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
 

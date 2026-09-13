@@ -48,7 +48,7 @@ Wrap a drawing in `WiredDraw` for a one-time entrance, or use `WiredDrawTransiti
 
 ## The bracketed smile
 
-`WiredLogo(size: 48)` renders the Skribble logo in the surrounding text color. Set `semanticLabel: null` when nearby text already identifies the brand. The mark has fixed geometry and does not change with roughness or seed.
+`WiredLogo(size: 48)` renders the skribble logo in the surrounding text color. Set `semanticLabel: null` when nearby text already identifies the brand. The mark has fixed geometry and does not change with roughness or seed.
 
 ## Figma and downloads
 

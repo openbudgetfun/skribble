@@ -1,6 +1,12 @@
-# Skribble — Hand-Drawn Flutter Design System
+# skribble — Hand-Drawn Flutter Design System
 
 ## Project Rules
+
+### Brand and casing
+
+- The brand word is always lowercase **skribble** — in READMEs, docs site pages and frontmatter, and source comments. Sentence position does not change it: a heading reads `# skribble`.
+- Keep machine-readable names as they are: identifiers (`SkribbleIcons`), bundled font families (`Skribble`, `SkribbleGentle`), asset names (`Skribble-Bold.ttf`), the Figma URL slug (`Skribble-Design-System`), and runtime strings such as app titles, page names, and semantic labels.
+- The root `README.md` keeps a centered header: the logo (240px, linked to the docs site), `<h1 align="center">skribble</h1>`, a one-line tagline, centered links into the documentation, then the badges. Those links point at `https://openbudgetfun.github.io/skribble/`.
 
 ### Widget Development
 
@@ -14,7 +20,7 @@
 
 ### Material decoupling direction (hard target)
 
-Skribble's endgame is a **standalone design system library** — a peer of `package:material_ui` / `package:cupertino_ui`, depending only on `flutter/widgets` and below, not a hand-drawn skin over Material widgets.
+skribble's endgame is a **standalone design system library** — a peer of `package:material_ui` / `package:cupertino_ui`, depending only on `flutter/widgets` and below, not a hand-drawn skin over Material widgets.
 
 - **New code MUST NOT import `package:flutter/material.dart` or `package:flutter/cupertino.dart`.**
 - Existing Material usage is transitional debt. The current state is tracked in `docs/material-dependency-audit.txt` (regenerate with `dart run tool/audit_material_dependencies.dart > docs/material-dependency-audit.txt`): 70 files wrap a Material widget ("skin" debt — the real rewrite work), 24 files only use helpers/constants (mechanical import swaps, do these opportunistically).

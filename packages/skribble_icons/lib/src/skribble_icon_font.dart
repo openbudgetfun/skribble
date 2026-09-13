@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-/// A font-based icon widget for Skribble icons.
+/// A font-based icon widget for skribble icons.
 ///
 /// Renders icons using a TTF icon font instead of SVG paths.
 /// This approach is more efficient for large icon sets as it
@@ -17,7 +17,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 /// )
 /// ```
 class SkribbleIconFont extends HookWidget {
-  /// Creates a font-based Skribble icon.
+  /// Creates a font-based skribble icon.
   const SkribbleIconFont({
     required this.icon,
     super.key,
@@ -66,7 +66,7 @@ class SkribbleIconFont extends HookWidget {
   }
 }
 
-/// Data class for font-based Skribble icons.
+/// Data class for font-based skribble icons.
 ///
 /// Contains the codepoint and font family information needed
 /// to render an icon from a TTF icon font.
@@ -105,9 +105,9 @@ class SkribbleIconFontData {
       'SkribbleIconFontData(0x${codePoint.toRadixString(16)}, $fontFamily)';
 }
 
-/// A collection of font-based Skribble icons.
+/// A collection of font-based skribble icons.
 ///
-/// This class provides access to all Skribble icons rendered
+/// This class provides access to all skribble icons rendered
 /// via a TTF icon font. The font must be included in the
 /// project's assets.
 ///

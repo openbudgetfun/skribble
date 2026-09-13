@@ -1,11 +1,11 @@
 ---
 title: Custom Icon Sets
-description: How to generate hand-drawn icon fonts from Material Icons or custom SVGs using Skribble's rough icon pipeline, and how to use them with WiredIcon.
+description: How to generate hand-drawn icon fonts from Material Icons or custom SVGs using skribble's rough icon pipeline, and how to use them with WiredIcon.
 ---
 
 # Custom Icon Sets
 
-Skribble includes a CLI tool that converts vector icons into rough, hand-drawn versions. The pipeline takes SVG sources, runs them through `svg2roughjs` to add wobble and imperfection, and optionally generates an icon font with Dart helper code.
+skribble includes a CLI tool that converts vector icons into rough, hand-drawn versions. The pipeline takes SVG sources, runs them through `svg2roughjs` to add wobble and imperfection, and optionally generates an icon font with Dart helper code.
 
 ## Overview of the rough icon pipeline
 
@@ -37,7 +37,7 @@ dart run tool/generate_rough_icons.dart --list-kits
 
 ### flutter-material kit
 
-Generates rough icons from the Flutter Material icon set. This is the default kit used by the main Skribble package.
+Generates rough icons from the Flutter Material icon set. This is the default kit used by the main skribble package.
 
 How it works:
 
@@ -360,7 +360,7 @@ The rough icon generator requires these tools on PATH:
 
 ## Curated SVG regeneration
 
-For the checked-in Skribble icon set, add an SVG and manifest entry under `packages/skribble_icons/tool/`, then run:
+For the checked-in skribble icon set, add an SVG and manifest entry under `packages/skribble_icons/tool/`, then run:
 
 ```bash
 dart run packages/skribble_emoji_gen/bin/generate_icons.dart

@@ -1,11 +1,11 @@
 ---
 title: Screenshots
-description: How Skribble captures widget screenshots via integration tests, organized by category, validated in CI, and compared against baselines.
+description: How skribble captures widget screenshots via integration tests, organized by category, validated in CI, and compared against baselines.
 ---
 
 # Screenshots
 
-Skribble uses integration tests to capture screenshots of every widget in the storybook app. These screenshots serve as visual documentation and regression baselines.
+skribble uses integration tests to capture screenshots of every widget in the storybook app. These screenshots serve as visual documentation and regression baselines.
 
 ## Where screenshots are saved
 
@@ -294,7 +294,7 @@ The `focusOnText()` helper scrolls to find the text. If the text does not exist 
 
 The notebook lives at `/#/studio` in the web storybook. For a release build of the catalog, use `flutter build web --release --no-tree-shake-icons` from `apps/skribble_storybook`; the icon browser constructs `IconData` dynamically. Inspect phone and desktop layouts, morning and evening palettes, and both ends of long pages. Wait for actual Flutter content before taking a capture.
 
-Run `dart run tool/font_specimen.dart` from the root to generate self-contained comparisons in `.screenshots/font/`. These embed original Recursive Casual and generated Skribble fonts. Inspect all four weights/styles at reading sizes, punctuation, accents, currency, and large headings. Outline-change counts do not replace visual inspection.
+Run `dart run tool/font_specimen.dart` from the root to generate self-contained comparisons in `.screenshots/font/`. These embed original Recursive Casual and generated skribble fonts. Inspect all four weights/styles at reading sizes, punctuation, accents, currency, and large headings. Outline-change counts do not replace visual inspection.
 
 ## Choosing images for public documentation
 

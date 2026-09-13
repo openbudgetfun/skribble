@@ -1,4 +1,4 @@
-# Contributing to Skribble
+# Contributing to skribble
 
 Thanks for your interest in contributing! This guide covers the workflow, conventions, and quality gates you should know before submitting a PR.
 

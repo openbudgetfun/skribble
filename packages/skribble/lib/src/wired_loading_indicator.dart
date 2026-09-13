@@ -9,7 +9,7 @@ import 'wired_theme.dart';
 /// A hand-drawn loading indicator with organic animation.
 ///
 /// Displays a sketchy circular spinner that rotates with a slightly
-/// irregular motion, fitting the Skribble hand-drawn aesthetic.
+/// irregular motion, fitting the skribble hand-drawn aesthetic.
 ///
 /// ## Example
 ///

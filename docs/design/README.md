@@ -1,4 +1,4 @@
-# Skribble design kit
+# skribble design kit
 
 The [editable Figma file](https://www.figma.com/design/pjRi0rh4NWkGRROPlWLLBo/Skribble-Design-System) pairs the Flutter library with warm paper, plum ink, reusable components, and seeded flourishes.
 
@@ -52,7 +52,7 @@ Flourishes ignore pointer events, remain seed-stable, and are silent to assistiv
 
 ## Attribution and license
 
-The original logo and reference sketches were designed by Ifiok Jr. The refined brand and new generated flourishes are part of Skribble under the repository's MIT license. Recursive fonts retain their bundled OFL license.
+The original logo and reference sketches were designed by Ifiok Jr. The refined brand and new generated flourishes are part of skribble under the repository's MIT license. Recursive fonts retain their bundled OFL license.
 
 ## Map location exploration
 

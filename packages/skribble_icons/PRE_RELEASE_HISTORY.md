@@ -4,7 +4,7 @@ These entries describe internal development versions that were never published t
 
 ### 0.3.4
 
-- Align the package with the grouped Skribble release train and prepare public publishing.
+- Align the package with the grouped skribble release train and prepare public publishing.
 
 ### 0.1.0
 

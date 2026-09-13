@@ -1,11 +1,11 @@
 ---
 title: Feedback
-description: Hand-drawn dialogs, snack bars, tooltips, progress indicators, and other feedback widgets in the Skribble design system.
+description: Hand-drawn dialogs, snack bars, tooltips, progress indicators, and other feedback widgets in the skribble design system.
 ---
 
 # Feedback
 
-Skribble provides feedback widgets that communicate status, confirmations, and progress using sketchy hand-drawn visuals. All feedback widgets read their palette from `WiredTheme.of(context)`.
+skribble provides feedback widgets that communicate status, confirmations, and progress using sketchy hand-drawn visuals. All feedback widgets read their palette from `WiredTheme.of(context)`.
 
 ---
 
@@ -315,7 +315,7 @@ WiredContextMenu(
 
 ## WiredAnimatedIcon
 
-A hand-drawn wrapper around Flutter's `AnimatedIcon`. Applies Skribble theming to animated icon transitions.
+A hand-drawn wrapper around Flutter's `AnimatedIcon`. Applies skribble theming to animated icon transitions.
 
 ```dart
 // Live example: animated-icon

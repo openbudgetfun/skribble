@@ -85,4 +85,4 @@ devenv shell dart run packages/skribble_font_roughen/bin/roughen_fonts.dart
 dart run tool/docs_font_comparison.dart
 ```
 
-Add `--check` to either command to verify without writing. All 126 static faces and three variable fonts live in the Skribble package. The docs keep only the 12 unmodified originals for comparison; modified Linear files are no longer duplicated there. These are vector font files, but adding families still increases the package asset size. The OFL license and pinned Recursive 1.085 source provenance are retained with the fonts.
+Add `--check` to either command to verify without writing. All 126 static faces and three variable fonts live in the skribble package. The docs keep only the 12 unmodified originals for comparison; modified Linear files are no longer duplicated there. These are vector font files, but adding families still increases the package asset size. The OFL license and pinned Recursive 1.085 source provenance are retained with the fonts.

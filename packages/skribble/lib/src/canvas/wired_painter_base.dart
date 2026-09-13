@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import '../rough/skribble_rough.dart';
 
-/// Abstract base class for all Skribble shape painters.
+/// Abstract base class for all skribble shape painters.
 ///
 /// Implementations provide [paintRough] to draw a specific shape
 /// (rectangle, circle, line, etc.) using the rough drawing engine.

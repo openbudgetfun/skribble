@@ -764,7 +764,7 @@ List<DoodleStroke> doodleGeometry(
   };
 }
 
-/// The bracketed smile, refined from Ifiok Jr.'s original Skribble mark.
+/// The bracketed smile, refined from Ifiok Jr.'s original skribble mark.
 List<DoodleStroke> logoGeometry() {
   DoodlePoint p(double x, double y) => (x: x, y: y);
   DoodleStroke s(List<double> data) => DoodleStroke(p(data[0], data[1]), [

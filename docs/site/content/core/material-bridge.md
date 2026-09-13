@@ -1,11 +1,11 @@
 ---
 title: Material Bridge
-description: How WiredMaterialApp synchronizes Skribble theming with Material, including router configuration, ColorScheme generation, component mapping, and Cupertino bridge widgets.
+description: How WiredMaterialApp synchronizes skribble theming with Material, including router configuration, ColorScheme generation, component mapping, and Cupertino bridge widgets.
 ---
 
 # Material Bridge
 
-Skribble is not a Material replacement -- it sits alongside Material. `WiredMaterialApp` bridges the two systems, ensuring that the Wired theme and Material `ThemeData` stay synchronized. Standard Material widgets (like `Scaffold`, `AppBar`, `Dialog`) automatically inherit colors from the active `WiredThemeData`.
+skribble is not a Material replacement -- it sits alongside Material. `WiredMaterialApp` bridges the two systems, ensuring that the Wired theme and Material `ThemeData` stay synchronized. Standard Material widgets (like `Scaffold`, `AppBar`, `Dialog`) automatically inherit colors from the active `WiredThemeData`.
 
 ## WiredMaterialApp
 
@@ -168,7 +168,7 @@ Color _bestContrastingColor(Color color) {
 
 ## Theme Component Mapping
 
-`toThemeData()` configures Material component themes to blend with the Skribble look. All elevations are set to zero and surface tints are transparent, removing Material 3's default tinted surfaces.
+`toThemeData()` configures Material component themes to blend with the skribble look. All elevations are set to zero and surface tints are transparent, removing Material 3's default tinted surfaces.
 
 ### AppBar
 
@@ -419,7 +419,7 @@ class MyApp extends HookWidget {
 
 ## Cupertino Bridge
 
-Skribble provides Cupertino-style widgets that render with the hand-drawn aesthetic. These are standalone widgets (not wrappers around `CupertinoApp`) that work inside any `WiredMaterialApp`.
+skribble provides Cupertino-style widgets that render with the hand-drawn aesthetic. These are standalone widgets (not wrappers around `CupertinoApp`) that work inside any `WiredMaterialApp`.
 
 ### Available Cupertino Widgets
 

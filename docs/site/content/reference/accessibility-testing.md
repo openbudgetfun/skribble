@@ -1,15 +1,15 @@
 ---
 title: Accessibility Testing
-description: Guide for testing Skribble widgets with screen readers and accessibility tools.
+description: Guide for testing skribble widgets with screen readers and accessibility tools.
 ---
 
 # Accessibility Testing
 
-This guide covers how to test Skribble widgets for accessibility, including screen reader testing, semantic tree inspection, and keyboard navigation.
+This guide covers how to test skribble widgets for accessibility, including screen reader testing, semantic tree inspection, and keyboard navigation.
 
 ## Overview
 
-Skribble widgets are designed to be accessible by default. All interactive widgets include `Semantics` wrappers that provide screen readers with the information they need to describe the UI to users.
+skribble widgets are designed to be accessible by default. All interactive widgets include `Semantics` wrappers that provide screen readers with the information they need to describe the UI to users.
 
 ## Testing Tools
 

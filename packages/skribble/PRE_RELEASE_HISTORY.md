@@ -186,7 +186,7 @@ Every widget and every painter base class now reads colors from `WiredTheme.of(c
 - `WiredMaterialBanner` — top banner with sketchy borders
 - `WiredCupertinoAlertDialog` / `WiredCupertinoActionSheet`
 - `WiredAboutDialog` — hand-drawn about dialog
-- `WiredAnimatedIcon` — animated icon with Skribble styling
+- `WiredAnimatedIcon` — animated icon with skribble styling
 
 ##### Layout
 
@@ -198,7 +198,7 @@ Every widget and every painter base class now reads colors from `WiredTheme.of(c
 - `WiredScrollbar` — styled scrollbar with sketchy thumb
 - `WiredSliverAppBar` — collapsible sliver bar
 - `WiredDismissible` — swipe-to-dismiss with sketchy background
-- `WiredSelectableText` — selectable text with Skribble styling
+- `WiredSelectableText` — selectable text with skribble styling
 - `WiredCupertinoPageScaffold` / `WiredCupertinoTabScaffold`
 
 ##### Data Display

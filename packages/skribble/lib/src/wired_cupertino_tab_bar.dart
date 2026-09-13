@@ -47,7 +47,7 @@ class WiredCupertinoTabBar extends HookWidget {
     this.iconSize = 26,
   });
 
-  /// Creates tabs from Skribble's icon-and-label destinations.
+  /// Creates tabs from skribble's icon-and-label destinations.
   /// [items] must contain at least two destinations.
   factory WiredCupertinoTabBar.destinations({
     Key? key,

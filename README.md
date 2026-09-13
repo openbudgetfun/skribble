@@ -1,25 +1,50 @@
-# Skribble
+<p align="center">
+  <a href="https://openbudgetfun.github.io/skribble/">
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="assets/brand/skribble-dark-transparent.svg"
+      >
+      <img
+        src="assets/brand/skribble-light-transparent.svg"
+        alt="skribble: a little smile in square brackets"
+        width="240"
+        height="240"
+      >
+    </picture>
+  </a>
+</p>
 
-<picture>
-  <source
-    media="(prefers-color-scheme: dark)"
-    srcset="assets/brand/skribble-dark-transparent.svg"
-  >
-  <img
-    src="assets/brand/skribble-light-transparent.svg"
-    alt="Skribble: a little smile in square brackets"
-    width="120"
-    height="120"
-  >
-</picture>
+<h1 align="center">skribble</h1>
 
-[![CI](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml/badge.svg)](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-openbudgetfun.github.io%2Fskribble-violet)](https://openbudgetfun.github.io/skribble/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Flutter](https://img.shields.io/badge/Flutter-%E2%89%A53.47-blue?logo=flutter)](https://flutter.dev)
+<p align="center">
+  Sketchy, hand-drawn UI components for <em>Flutter</em>.
+</p>
 
-A hand-drawn design system for Flutter. Skribble provides sketchy, hand-drawn UI components that give your app a unique, informal aesthetic — with familiar Material and Cupertino APIs.
+<br />
 
-**[Documentation](https://openbudgetfun.github.io/skribble/)** | **[Widget Catalog](https://openbudgetfun.github.io/skribble/widgets/buttons)** | **[Getting Started](https://openbudgetfun.github.io/skribble/getting-started/installation)**
+<p align="center">
+  <a href="https://openbudgetfun.github.io/skribble/getting-started/installation"><strong>Getting Started</strong></a> ·
+  <a href="https://openbudgetfun.github.io/skribble/widgets/buttons"><strong>Widgets</strong></a> ·
+  <a href="https://openbudgetfun.github.io/skribble/showcase/overview"><strong>Showcase</strong></a> ·
+  <a href="https://openbudgetfun.github.io/skribble"><strong>Documentation</strong></a> ·
+  <a href="CONTRIBUTING.md"><strong>Contributing</strong></a>
+</p>
 
-## Design with Skribble
+<br />
+
+<p align="center">
+  <a href="https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml"><img src="https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml/badge.svg" alt="Continuous integration status"></a>
+  <a href="https://openbudgetfun.github.io/skribble/"><img src="https://img.shields.io/badge/docs-openbudgetfun.github.io%2Fskribble-violet" alt="Documentation"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-%E2%89%A53.47-blue?logo=flutter" alt="Flutter"></a>
+</p>
+
+<br />
+
+A hand-drawn design system for Flutter. skribble gives your app a unique, informal aesthetic — with familiar Material and Cupertino APIs.
+
+## Design with skribble
 
 Open the [Figma design system](https://www.figma.com/design/pjRi0rh4NWkGRROPlWLLBo/Skribble-Design-System) for reusable components, light and dark colors, the bracketed-smile logo, and hand-drawn flourishes. See the [design kit guide](docs/design/README.md) for coverage, downloads, and how the Figma assets map to Flutter.
 

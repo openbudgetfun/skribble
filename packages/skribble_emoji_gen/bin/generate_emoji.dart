@@ -243,7 +243,7 @@ String _escape(String d) => d.replaceAll("'", r"\'");
 String _generateEmojiDart(List<_EmojiEntry> entries, {bool sequences = false}) {
   final buf = StringBuffer()
     ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND.')
-    ..writeln('// OpenMoji 17.0.0, CC-BY-SA 4.0; outlines adapted by Skribble.')
+    ..writeln('// OpenMoji 17.0.0, CC-BY-SA 4.0; outlines adapted by skribble.')
     ..writeln('// ignore_for_file: lines_longer_than_80_chars')
     ..writeln()
     ..writeln("import 'dart:ui' show StrokeCap, StrokeJoin;")
@@ -312,7 +312,7 @@ String _generateEmojiDart(List<_EmojiEntry> entries, {bool sequences = false}) {
 String _generateCodepointsDart(List<_EmojiEntry> entries) {
   final buf = StringBuffer()
     ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND.')
-    ..writeln('// OpenMoji 17.0.0, CC-BY-SA 4.0; outlines adapted by Skribble.')
+    ..writeln('// OpenMoji 17.0.0, CC-BY-SA 4.0; outlines adapted by skribble.')
     ..writeln('// ignore_for_file: lines_longer_than_80_chars')
     ..writeln()
     ..writeln(

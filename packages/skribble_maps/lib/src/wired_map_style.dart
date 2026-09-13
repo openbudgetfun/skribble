@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 /// A MapLibre style source with the small amount of chrome styling that
-/// Skribble owns.
+/// skribble owns.
 @immutable
 class WiredMapStyle {
   /// Creates a MapLibre-backed map style.

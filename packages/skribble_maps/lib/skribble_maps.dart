@@ -1,4 +1,4 @@
-/// MapLibre maps with hand-drawn Skribble overlays for Flutter.
+/// MapLibre maps with hand-drawn skribble overlays for Flutter.
 library;
 
 export 'package:latlong2/latlong.dart' show LatLng;

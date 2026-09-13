@@ -1,11 +1,11 @@
 ---
 title: Architecture
-description: High-level overview of Skribble's layered architecture, package structure, rendering pipeline, and design principles.
+description: High-level overview of skribble's layered architecture, package structure, rendering pipeline, and design principles.
 ---
 
 # Architecture
 
-Skribble is organized as a layered system where each layer builds on the one below it. Understanding this stack helps you decide where to make changes, whether you are customizing a single widget or creating an entirely new one.
+skribble is organized as a layered system where each layer builds on the one below it. Understanding this stack helps you decide where to make changes, whether you are customizing a single widget or creating an entirely new one.
 
 ## Library Layers
 
@@ -27,7 +27,7 @@ WiredMaterialApp / WiredCupertinoScaffold   (app shell)
 
 ### 1. Rough Engine
 
-The foundation is a Dart port of [rough.js](https://roughjs.com/). It provides `DrawConfig` for controlling randomness, `Generator` for producing `Drawable` shapes, and `Filler` subclasses for fill patterns (hachure, zigzag, dots, and more). Every hand-drawn line in Skribble ultimately passes through this engine.
+The foundation is a Dart port of [rough.js](https://roughjs.com/). It provides `DrawConfig` for controlling randomness, `Generator` for producing `Drawable` shapes, and `Filler` subclasses for fill patterns (hachure, zigzag, dots, and more). Every hand-drawn line in skribble ultimately passes through this engine.
 
 ### 2. Painters
 
@@ -39,7 +39,7 @@ The foundation is a Dart port of [rough.js](https://roughjs.com/). It provides `
 
 ### 4. Widgets
 
-All 80+ Skribble widgets extend `HookWidget` (or `HookConsumerWidget` when Riverpod is needed). They read colors and stroke settings from `WiredTheme.of(context)`, compose painters and canvases, and wrap content with `RepaintBoundary` via `WiredBaseWidget` or the `buildWiredElement()` helper.
+All 80+ skribble widgets extend `HookWidget` (or `HookConsumerWidget` when Riverpod is needed). They read colors and stroke settings from `WiredTheme.of(context)`, compose painters and canvases, and wrap content with `RepaintBoundary` via `WiredBaseWidget` or the `buildWiredElement()` helper.
 
 ### 5. Theme
 
@@ -78,7 +78,7 @@ melos run screenshot    # Capture widget screenshots
 
 ## Maps and charts
 
-The optional `skribble_maps` and `skribble_charts` packages depend on Skribble, with independent public barrels and release versions. Apps can use the core widgets without either dependency.
+The optional `skribble_maps` and `skribble_charts` packages depend on skribble, with independent public barrels and release versions. Apps can use the core widgets without either dependency.
 
 Maps delegates geographic projection and the basemap to MapLibre. Flutter paints and hit-tests the app-owned pins, routes, and areas. Online basemaps need a network connection; the docs also provide an offline pin demonstration.
 

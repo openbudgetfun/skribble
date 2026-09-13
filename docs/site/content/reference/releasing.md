@@ -1,9 +1,9 @@
 ---
 title: Releasing
-description: How Monochange prepares, validates, and publishes Skribble packages.
+description: How Monochange prepares, validates, and publishes skribble packages.
 ---
 
-Skribble publishes seven packages to pub.dev as one synchronized `main` release group:
+skribble publishes seven packages to pub.dev as one synchronized `main` release group:
 
 - `skribble`
 - `skribble_emoji`

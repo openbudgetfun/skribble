@@ -53,4 +53,4 @@ The expansion-panel tests also open, close, and rapidly toggle panels while ink 
 
 ## Flutter references
 
-[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html) accepts a repaint listenable so animation can bypass build and layout. [AnimationController](https://api.flutter.dev/flutter/animation/AnimationController-class.html) documents ticker ownership and `TickerMode` behavior. [AnimationBehavior](https://api.flutter.dev/flutter/animation/AnimationBehavior.html) describes platform reduced-motion behavior; decorative ink additionally settles immediately through Skribble's policy.
+[CustomPainter](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html) accepts a repaint listenable so animation can bypass build and layout. [AnimationController](https://api.flutter.dev/flutter/animation/AnimationController-class.html) documents ticker ownership and `TickerMode` behavior. [AnimationBehavior](https://api.flutter.dev/flutter/animation/AnimationBehavior.html) describes platform reduced-motion behavior; decorative ink additionally settles immediately through skribble's policy.

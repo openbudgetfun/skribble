@@ -6,7 +6,7 @@ import 'wired_theme.dart';
 
 /// A hand-drawn selectable text corresponding to Flutter's [SelectableText].
 ///
-/// Provides selectable text with the Skribble hand-drawn text styling.
+/// Provides selectable text with the skribble hand-drawn text styling.
 class WiredSelectableText extends HookWidget {
   /// The text to display.
   final String data;

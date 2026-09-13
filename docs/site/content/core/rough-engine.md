@@ -1,13 +1,13 @@
 ---
 title: Rough Engine
-description: Complete guide to Skribble's Dart port of rough.js -- DrawConfig, Generator, Filler system, Drawable data structures, and canvas rendering.
+description: Complete guide to skribble's Dart port of rough.js -- DrawConfig, Generator, Filler system, Drawable data structures, and canvas rendering.
 ---
 
 # Rough Engine
 
 Rounded rectangles use two continuous closed pen contours. Long edges can bow and wander according to the theme; each corner joins the adjacent edge without overlapping independent arc fragments. This prevents tangled ink at small button and checkbox radii. Fill polygons retain their nominal rounded perimeter.
 
-Skribble's hand-drawn aesthetic comes from a Dart port of [rough.js](https://roughjs.com/). The engine lives in `packages/skribble/lib/src/rough/` and is re-exported through `package:skribble/skribble.dart`. Every wobbly border, hachure fill, and imperfect line in Skribble passes through this engine.
+skribble's hand-drawn aesthetic comes from a Dart port of [rough.js](https://roughjs.com/). The engine lives in `packages/skribble/lib/src/rough/` and is re-exported through `package:skribble/skribble.dart`. Every wobbly border, hachure fill, and imperfect line in skribble passes through this engine.
 
 ## Overview
 
@@ -571,7 +571,7 @@ Controls the paint properties for borders and fills:
 - `OpsGenerator.curveWithOffset(points, offset, config)` -- offset curve for wobble
 - `OpsGenerator.arc(increment, cx, cy, rx, ry, start, stop, offset, config)` -- arc points
 
-The "double line" technique -- drawing each edge twice with slightly different random offsets -- is what gives Skribble its characteristic sketchy stroke.
+The "double line" technique -- drawing each edge twice with slightly different random offsets -- is what gives skribble its characteristic sketchy stroke.
 
 ## UI defaults and determinism
 

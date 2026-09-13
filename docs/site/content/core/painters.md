@@ -547,7 +547,7 @@ The `shouldRepaint` check compares `DrawConfig` by value equality and filler/pai
 
 ## WiredBase Utility Class
 
-`WiredBase` provides two static methods for creating `Paint` objects used throughout Skribble:
+`WiredBase` provides two static methods for creating `Paint` objects used throughout skribble:
 
 ### fillPainter
 

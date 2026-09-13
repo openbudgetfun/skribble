@@ -9,7 +9,7 @@ import 'wired_theme.dart';
 /// A hand-drawn paginated data table, corresponding to Flutter's `PaginatedDataTable`.
 ///
 /// Wraps Flutter's `PaginatedDataTable` with a sketchy border and
-/// hand-drawn styling that fits the Skribble aesthetic.
+/// hand-drawn styling that fits the skribble aesthetic.
 ///
 /// ## Example
 ///

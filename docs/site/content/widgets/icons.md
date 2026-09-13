@@ -1,11 +1,11 @@
 ---
 title: Icons
-description: Hand-drawn icon rendering, SVG icon data, animated icons, and the rough icon generation pipeline in Skribble.
+description: Hand-drawn icon rendering, SVG icon data, animated icons, and the rough icon generation pipeline in skribble.
 ---
 
 # Icons
 
-Skribble renders Material icons with rough, hand-drawn outlines and optional hachure or cross-hatch fills. The icon system includes a pre-generated catalog of Material icons converted to SVG primitives, a runtime rough renderer, and helpers for custom icon sets.
+skribble renders Material icons with rough, hand-drawn outlines and optional hachure or cross-hatch fills. The icon system includes a pre-generated catalog of Material icons converted to SVG primitives, a runtime rough renderer, and helpers for custom icon sets.
 
 ---
 
@@ -156,7 +156,7 @@ Each primitive supports an optional `fillRule` parameter (`WiredSvgFillRule.nonZ
 
 ## WiredAnimatedIcon
 
-A hand-drawn wrapper around Flutter's `AnimatedIcon`. Applies Skribble theme colors while preserving the standard animation behavior.
+A hand-drawn wrapper around Flutter's `AnimatedIcon`. Applies skribble theme colors while preserving the standard animation behavior.
 
 ```dart
 // Live example: animated-icon
@@ -206,7 +206,7 @@ HookBuilder(
 
 ## Rough icon generation pipeline
 
-Skribble includes a build-time pipeline that converts Material icons from their standard font/SVG format into the `WiredSvgIconData` catalog used at runtime.
+skribble includes a build-time pipeline that converts Material icons from their standard font/SVG format into the `WiredSvgIconData` catalog used at runtime.
 
 ### Overview
 

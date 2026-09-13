@@ -1,11 +1,11 @@
 ---
 title: Layout
-description: Hand-drawn cards, dividers, list tiles, scaffolds, and other layout widgets in the Skribble design system.
+description: Hand-drawn cards, dividers, list tiles, scaffolds, and other layout widgets in the skribble design system.
 ---
 
 # Layout
 
-Skribble provides layout and structural widgets that form the scaffolding of your app's UI. These replace Material and Cupertino containers with sketchy hand-drawn borders and paper-like backgrounds. All layout widgets read their palette from `WiredTheme.of(context)`.
+skribble provides layout and structural widgets that form the scaffolding of your app's UI. These replace Material and Cupertino containers with sketchy hand-drawn borders and paper-like backgrounds. All layout widgets read their palette from `WiredTheme.of(context)`.
 
 ---
 
@@ -254,7 +254,7 @@ HookBuilder(
 
 ## WiredScaffold
 
-A Material `Scaffold` wrapper tuned for Skribble's paper-like palette. Provides the familiar scaffold API with hand-drawn theme integration.
+A Material `Scaffold` wrapper tuned for skribble's paper-like palette. Provides the familiar scaffold API with hand-drawn theme integration.
 
 ```dart
 // Live example: scaffold
@@ -358,7 +358,7 @@ HookBuilder(
 
 ## WiredSelectableText
 
-Selectable text rendered with Skribble's text color from the theme. Allows copy-paste of displayed text.
+Selectable text rendered with skribble's text color from the theme. Allows copy-paste of displayed text.
 
 ```dart
 // Live example: selectable-text

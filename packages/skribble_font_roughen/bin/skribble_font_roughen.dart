@@ -6,7 +6,7 @@ import 'package:skribble_font_roughen/skribble_font_roughen.dart';
 // This is a CLI entry point, so prints are part of the user interface.
 // ignore_for_file: avoid_print
 
-/// CLI entry point for the Skribble font roughening tool.
+/// CLI entry point for the skribble font roughening tool.
 ///
 /// Usage:
 ///   dart run skribble_font_roughen `<input.ttf> <output.ttf>` `[options]`
@@ -14,7 +14,7 @@ import 'package:skribble_font_roughen/skribble_font_roughen.dart';
 /// Options:
 ///   --jitter, -j    Deformation strength per 1000 units per em (default: 36)
 ///   --variant, -v   Font variant: regular, bold, italic, boldItalic (default: regular)
-///   --family       Output family name (default: Skribble)
+///   --family       Output family name (default: skribble)
 ///   --help, -h      Show help message
 void main(List<String> arguments) async {
   final parser = ArgParser()

@@ -29,7 +29,7 @@ enum WiredMapPinIcon {
 
   const WiredMapPinIcon(this.identifier);
 
-  /// Identifier in Skribble's rough Material icon catalog.
+  /// Identifier in skribble's rough Material icon catalog.
   final String identifier;
 }
 

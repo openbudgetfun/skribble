@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
-/// A Material [Scaffold] wrapper tuned for Skribble's paper-like palette.
+/// A Material [Scaffold] wrapper tuned for skribble's paper-like palette.
 ///
 /// This gives apps a lightweight architectural shell that matches the
 /// hand-drawn widgets while keeping the familiar Material scaffold API.
