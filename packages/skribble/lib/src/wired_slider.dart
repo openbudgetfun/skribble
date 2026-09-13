@@ -18,11 +18,29 @@ import 'wired_theme.dart';
 ///  * `WiredRangeSlider`, for a dual-handle variant.
 ///  * `WiredCupertinoSlider`, for Cupertino styling.
 class WiredSlider extends HookWidget {
+  /// The currently selected value, between [min] and [max].
   final double value;
+
+  /// The number of discrete steps between [min] and [max], or null for
+  /// continuous values.
   final int? divisions;
+
+  /// A label drawn above the thumb while the slider is being interacted with.
   final String? label;
+
+  /// The value at the left end of the track.
   final double min;
+
+  /// The value at the right end of the track.
   final double max;
+
+  /// Called with a candidate value while the slider is dragged or stepped.
+  ///
+  /// Returns whether the new value is accepted: returning false keeps the
+  /// rendered value unchanged. This mirrors the other Wired inputs, whose
+  /// change callbacks also return a bool (Material's `Slider.onChanged` is a
+  /// plain `ValueChanged<double>`); see the API consistency notes in the
+  /// widget catalog. Null disables the slider.
   final bool Function(double)? onChanged;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -37,7 +55,7 @@ class WiredSlider extends HookWidget {
     this.label,
     this.min = 0.0,
     this.max = 1.0,
-    required this.onChanged,
+    this.onChanged,
     this.semanticLabel,
   });
 

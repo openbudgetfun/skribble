@@ -102,4 +102,31 @@ void main() {
       expect(find.byType(WiredCheckbox), findsOneWidget);
     });
   });
+
+  testWidgets('is disabled when onChanged is null', (tester) async {
+    await pumpApp(tester, const WiredCheckbox(value: false));
+
+    final checkbox = tester.widget<Checkbox>(find.byType(Checkbox));
+    expect(checkbox.onChanged, isNull);
+
+    final semantics = tester.widget<Semantics>(
+      find
+          .descendant(
+            of: find.byType(WiredCheckbox),
+            matching: find.byType(Semantics),
+          )
+          .first,
+    );
+    expect(semantics.properties.enabled, isFalse);
+    expect(semantics.properties.onTap, isNull);
+  });
+
+  testWidgets('ignores taps when disabled', (tester) async {
+    await pumpApp(tester, const WiredCheckbox(value: false));
+
+    await tester.tap(find.byType(Checkbox), warnIfMissed: false);
+    await tester.pump();
+
+    expect(tester.widget<Checkbox>(find.byType(Checkbox)).value, isFalse);
+  });
 }

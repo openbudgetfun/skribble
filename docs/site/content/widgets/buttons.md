@@ -154,17 +154,19 @@ WiredIconButton(
 
 ### Constructor parameters
 
-| Parameter       | Type            | Default      | Description                                         |
-| --------------- | --------------- | ------------ | --------------------------------------------------- |
-| `icon`          | `IconData`      | **required** | The icon to display.                                |
-| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped.                               |
-| `size`          | `double`        | `48.0`       | Overall size of the button.                         |
-| `iconColor`     | `Color?`        | `null`       | Icon color override. Defaults to `theme.textColor`. |
-| `semanticLabel` | `String?`       | `null`       | Accessibility label.                                |
+| Parameter       | Type            | Default      | Description                                                        |
+| --------------- | --------------- | ------------ | ------------------------------------------------------------------ |
+| `icon`          | `IconData`      | **required** | The icon to display.                                               |
+| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped. Null disables the button.                    |
+| `size`          | `double`        | `48.0`       | Overall width and height of the hand-drawn frame.                  |
+| `iconSize`      | `double?`       | `null`       | Glyph size; mirrors `IconButton.iconSize`. Defaults to `size / 2`. |
+| `iconColor`     | `Color?`        | `null`       | Glyph color override. Defaults to `theme.textColor`.               |
+| `color`         | `Color?`        | `null`       | Glyph color; mirrors `IconButton.color` and wins over `iconColor`. |
+| `semanticLabel` | `String?`       | `null`       | Accessibility label.                                               |
 
 ### Notes
 
-- The inner icon renders at 50% of the button size.
+- The inner icon renders at `iconSize`, which defaults to 50% of `size`.
 - The circle uses `RoughFilter.noFiller` so only the hand-drawn border is visible.
 
 ---
@@ -223,6 +225,7 @@ WiredTextButton(
 
 - The underline is drawn with `WiredLineBase` spanning the intrinsic width of the child.
 - Good for inline-style links within paragraphs of text.
+- There is deliberately no `borderRadius`: the text button draws a line, not a box.
 
 ---
 
@@ -375,3 +378,15 @@ The six standard Wired button variants accept `inkInteraction`. Leave it unset t
 `WiredButton`, `WiredFilledButton`, `WiredElevatedButton`, and `WiredOutlinedButton` now use a small 6 px corner radius. Their `borderRadius` parameter accepts a `BorderRadius`, including `BorderRadius.zero` for square corners. Both the straight segments and corner arcs use the nearest theme's roughness; a radius does not introduce a smooth, machine-drawn outline.
 
 Change **radius** beside a live example to compare square, softly rounded, and rounder shapes. The fill follows the same rough contour, retaining a little marker overlap.
+
+---
+
+## API consistency with Material
+
+The button family was audited against its Material counterparts so a migration is a small diff. What matches: `child`, `onPressed` (nullable, and null disables the button), `semanticLabel`, and per-widget color overrides. `WiredIconButton` now also accepts `iconSize` and `color`, the names `IconButton` uses; `size` and `iconColor` remain as the original names.
+
+Deliberate deviations, kept because renaming them would break existing callers:
+
+- `WiredIconButton.size` measures the whole frame, while Material's `iconSize` measures the glyph. Use `iconSize` for the Material meaning.
+- The Wired buttons have no `style`/`ButtonStyle`, `onLongPress`, `focusNode`, `autofocus`, or `statesController`. Styling flows through `WiredThemeData` and `inkInteraction` instead.
+- `WiredTextButton` has no `borderRadius` because it draws an underline, not a box.

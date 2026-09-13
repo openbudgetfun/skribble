@@ -267,4 +267,14 @@ void main() {
       expect(slider.labels, isNull);
     });
   });
+
+  testWidgets('can be disabled by omitting onChanged', (tester) async {
+    await pumpApp(
+      tester,
+      const WiredRangeSlider(values: RangeValues(0.2, 0.8)),
+    );
+
+    final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
+    expect(slider.onChanged, isNull);
+  });
 }

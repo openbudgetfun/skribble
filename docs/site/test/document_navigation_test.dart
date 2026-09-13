@@ -203,6 +203,8 @@ void main() {
         label: 'Allow decorative motion',
         hasCheckedState: true,
         isChecked: true,
+        isEnabled: true,
+        hasEnabledState: true,
         hasTapAction: true,
       ),
     );

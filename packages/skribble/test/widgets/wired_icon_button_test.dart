@@ -190,4 +190,48 @@ void main() {
       expect(find.bySemanticsLabel('Open settings'), findsOneWidget);
     });
   });
+
+  testWidgets('mirrors Material iconSize and color names', (tester) async {
+    await pumpApp(
+      tester,
+      const WiredIconButton(
+        icon: Icons.settings,
+        onPressed: null,
+        iconSize: 30,
+        color: Color(0xFF123456),
+      ),
+    );
+
+    final wiredIcon = tester.widget<WiredIcon>(find.byType(WiredIcon));
+    expect(wiredIcon.size, 30);
+    expect(wiredIcon.color, const Color(0xFF123456));
+
+    final iconButton = tester.widget<IconButton>(find.byType(IconButton));
+    expect(iconButton.iconSize, 30);
+  });
+
+  testWidgets('iconSize defaults to half of size', (tester) async {
+    await pumpApp(
+      tester,
+      const WiredIconButton(icon: Icons.settings, onPressed: null, size: 60),
+    );
+
+    expect(tester.widget<WiredIcon>(find.byType(WiredIcon)).size, 30);
+  });
+
+  testWidgets('iconColor is used when color is not set', (tester) async {
+    await pumpApp(
+      tester,
+      const WiredIconButton(
+        icon: Icons.settings,
+        onPressed: null,
+        iconColor: Color(0xFF654321),
+      ),
+    );
+
+    expect(
+      tester.widget<WiredIcon>(find.byType(WiredIcon)).color,
+      const Color(0xFF654321),
+    );
+  });
 }

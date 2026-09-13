@@ -215,6 +215,19 @@ void main() {
       expect(find.byType(WiredCheckboxListTile), findsOneWidget);
     });
   });
+
+  testWidgets('is disabled when onChanged is null', (tester) async {
+    await pumpApp(
+      tester,
+      const WiredCheckboxListTile(value: false, title: Text('Label')),
+    );
+
+    expect(tester.widget<Checkbox>(find.byType(Checkbox)).onChanged, isNull);
+    expect(
+      tester.widget<WiredListTile>(find.byType(WiredListTile)).onTap,
+      isNull,
+    );
+  });
 }
 
 void _noOp(bool? value) {}
