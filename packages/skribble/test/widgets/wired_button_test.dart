@@ -109,5 +109,38 @@ void main() {
 
       expect(find.bySemanticsLabel('Submit form'), findsOneWidget);
     });
+
+    testWidgets('disabled when onPressed is null', (tester) async {
+      await pumpApp(tester, WiredButton(child: const Text('Disabled')));
+
+      final button = tester.widget<TextButton>(find.byType(TextButton));
+      expect(button.onPressed, isNull);
+    });
+
+    testWidgets('disabled label uses theme disabled text color', (
+      tester,
+    ) async {
+      const disabledColor = Color(0xFF555555);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(disabledTextColor: disabledColor),
+            child: Scaffold(
+              body: WiredButton(child: const Text('Disabled')),
+            ),
+          ),
+        ),
+      );
+
+      final style = tester.widget<TextButton>(find.byType(TextButton)).style!;
+
+      expect(
+        style.foregroundColor?.resolve(const <WidgetState>{
+          WidgetState.disabled,
+        }),
+        disabledColor,
+      );
+    });
   });
 }

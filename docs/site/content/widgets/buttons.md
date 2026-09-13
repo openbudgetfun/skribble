@@ -29,18 +29,19 @@ WiredButton(
 
 ### Constructor parameters
 
-| Parameter       | Type              | Default                                | Description                                      |
-| --------------- | ----------------- | -------------------------------------- | ------------------------------------------------ |
-| `borderRadius`  | `BorderRadius`    | `BorderRadius.all(Radius.circular(6))` | Rough corner radii; use zero for square corners. |
-| `child`         | `Widget`          | **required**                           | The button label.                                |
-| `onPressed`     | `void Function()` | **required**                           | Callback when the button is tapped.              |
-| `semanticLabel` | `String?`         | `null`                                 | Accessibility label exposed to screen readers.   |
+| Parameter       | Type               | Default                                | Description                                                     |
+| --------------- | ------------------ | -------------------------------------- | --------------------------------------------------------------- |
+| `borderRadius`  | `BorderRadius`     | `BorderRadius.all(Radius.circular(6))` | Rough corner radii; use zero for square corners.                |
+| `child`         | `Widget`           | **required**                           | The button label.                                               |
+| `onPressed`     | `void Function()?` | `null`                                 | Callback when the button is tapped; `null` disables the button. |
+| `semanticLabel` | `String?`          | `null`                                 | Accessibility label exposed to screen readers.                  |
 
 ### Notes
 
 - The button uses `kWiredButtonHeight` for consistent sizing across all rectangular buttons.
 - The border is drawn with a `RoughBoxDecoration` using the theme's `borderColor`.
 - Text color inherits from `theme.textColor`.
+- Pass `onPressed: null` to disable the button. Taps are ignored and the label renders with `theme.disabledTextColor`, matching `WiredFilledButton` and the other rectangular button variants.
 
 ---
 
