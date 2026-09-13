@@ -71,42 +71,6 @@ class FeedbackPage extends HookWidget {
             ],
           ),
           ShowcaseSection(
-            title: 'WiredLoadingScreen',
-            children: [
-              ComponentShowcase(
-                title: 'Getting the pens ready',
-                description:
-                    'Full-screen wait for app startup. The default mark style '
-                    'sketches the brand mark, then hands over to WiredLogo.',
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 320,
-                      child: WiredLoadingScreen(
-                        message: 'Getting the pens ready…',
-                        animating: loadingAnimating.value,
-                      ),
-                    ),
-                    TextButton.icon(
-                      onPressed: () =>
-                          loadingAnimating.value = !loadingAnimating.value,
-                      icon: Icon(
-                        loadingAnimating.value
-                            ? Icons.pause
-                            : Icons.play_arrow,
-                      ),
-                      label: Text(
-                        loadingAnimating.value
-                            ? 'Pause the pens'
-                            : 'Start the pens',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          ShowcaseSection(
             title: 'WiredProgress',
             children: [
               ComponentShowcase(
@@ -497,6 +461,42 @@ class FeedbackPage extends HookWidget {
                     );
                   },
                   child: const Text('Show Licenses'),
+                ),
+              ),
+            ],
+          ),
+          ShowcaseSection(
+            title: 'WiredLoadingScreen',
+            children: [
+              ComponentShowcase(
+                title: 'Getting the pens ready',
+                description:
+                    'Full-screen wait for app startup. The default mark style '
+                    'sketches the brand mark, then hands over to WiredLogo.',
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 320,
+                      child: WiredLoadingScreen(
+                        message: 'Getting the pens ready…',
+                        animating: loadingAnimating.value,
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: () =>
+                          loadingAnimating.value = !loadingAnimating.value,
+                      icon: Icon(
+                        loadingAnimating.value
+                            ? Icons.pause
+                            : Icons.play_arrow,
+                      ),
+                      label: Text(
+                        loadingAnimating.value
+                            ? 'Pause the pens'
+                            : 'Start the pens',
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
