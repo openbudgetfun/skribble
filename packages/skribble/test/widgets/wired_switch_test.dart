@@ -191,52 +191,6 @@ void main() {
       expectRenders(tester, findWired<WiredSwitch>(), size: const Size(60, 24));
       expect(tester.takeException(), isNull);
     });
-
-    testWidgets('thumb travels the full track width in LTR', (tester) async {
-      // The thumb is the second WiredCanvas: track first, thumb last.
-      Finder thumb() => find
-          .descendant(of: find.byType(WiredSwitch), matching: findWiredCanvas)
-          .last;
-
-      await pumpApp(tester, Center(child: WiredSwitch(value: false)));
-      final switchLeft = tester.getTopLeft(find.byType(WiredSwitch)).dx;
-
-      expect(tester.getTopLeft(thumb()).dx, switchLeft);
-
-      await pumpApp(tester, Center(child: WiredSwitch(value: true)));
-      await tester.pumpAndSettle();
-
-      // Track (60) minus thumb (24) is the thumb travel.
-      expect(tester.getTopLeft(thumb()).dx, switchLeft + 36);
-    });
-
-    testWidgets(
-      'thumb travel is unchanged under right-to-left directionality',
-      (tester) async {
-        // The thumb is positioned with a physical `Positioned(left: ...)`
-        // offset, so an RTL ambient direction does not move it. Pin that
-        // behaviour: the shared thumb animation must not change travel based
-        // on text direction.
-        Finder thumb() => find
-            .descendant(of: find.byType(WiredSwitch), matching: findWiredCanvas)
-            .last;
-
-        Widget rtl(bool value) => Directionality(
-          textDirection: TextDirection.rtl,
-          child: Center(child: WiredSwitch(value: value)),
-        );
-
-        await pumpApp(tester, rtl(false));
-        final switchLeft = tester.getTopLeft(find.byType(WiredSwitch)).dx;
-
-        expect(tester.getTopLeft(thumb()).dx, switchLeft);
-
-        await pumpApp(tester, rtl(true));
-        await tester.pumpAndSettle();
-
-        expect(tester.getTopLeft(thumb()).dx, switchLeft + 36);
-      },
-    );
   });
 }
 

@@ -8,8 +8,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 ///
 /// Internal to the library and deliberately not exported from the package
 /// barrel. The returned value moves from [begin] to [end] when [value]
-/// flips, using the 200ms ease-in-out curve both switches use.
+/// flips, using the 200ms ease-in-out curve both switches use. Travel is
+/// mirrored under right-to-left directionality so the "on" position sits at
+/// the inline end, matching platform switch behaviour.
 double useWiredThumbOffset({
+  required BuildContext context,
   required bool value,
   required double begin,
   required double end,
@@ -29,5 +32,6 @@ double useWiredThumbOffset({
     return null;
   }, [value]);
 
-  return animation;
+  final isRtl = Directionality.of(context) == TextDirection.rtl;
+  return isRtl ? begin + end - animation : animation;
 }

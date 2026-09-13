@@ -203,12 +203,8 @@ void main() {
   });
 
   testWidgets('can be disabled by omitting onChanged', (tester) async {
-    await pumpApp(
-      tester,
-      const WiredRangeSlider(values: RangeValues(0.2, 0.8)),
-    );
+    await pumpApp(tester, WiredRangeSlider.between(start: 0.2, end: 0.8));
 
-    final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
-    expect(slider.onChanged, isNull);
+    expectSemantics(tester, findWired<WiredRangeSlider>(), isEnabled: false);
   });
 }

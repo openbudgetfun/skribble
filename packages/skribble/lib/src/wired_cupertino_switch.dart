@@ -54,6 +54,7 @@ class WiredCupertinoSwitch extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final animation = useWiredThumbOffset(
+      context: context,
       value: value,
       begin: 2,
       end: _trackWidth - _thumbSize - 2,

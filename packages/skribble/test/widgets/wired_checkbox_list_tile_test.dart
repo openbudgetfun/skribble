@@ -228,11 +228,13 @@ void main() {
       const WiredCheckboxListTile(value: false, title: Text('Label')),
     );
 
-    expect(tester.widget<Checkbox>(find.byType(Checkbox)).onChanged, isNull);
-    expect(
-      tester.widget<WiredListTile>(find.byType(WiredListTile)).onTap,
-      isNull,
+    expectSemantics(
+      tester,
+      findWired<WiredCheckbox>(),
+      isEnabled: false,
+      isChecked: false,
     );
+    expect(tester.widget<WiredListTile>(find.byType(WiredListTile)).onTap, isNull);
   });
 }
 

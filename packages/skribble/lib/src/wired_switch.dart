@@ -36,6 +36,7 @@ class WiredSwitch extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final animation = useWiredThumbOffset(
+      context: context,
       value: value,
       begin: 0,
       end: _trackWidth - _thumbSize,
@@ -43,8 +44,6 @@ class WiredSwitch extends HookWidget {
 
     final effectiveActiveColor = activeColor ?? theme.borderColor;
     final effectiveInactiveColor = inactiveColor ?? theme.fillColor;
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
-
     return Semantics(
       container: true,
       label: semanticLabel,
@@ -78,10 +77,7 @@ class WiredSwitch extends HookWidget {
                 ),
               ),
               Positioned(
-                // Mirror the thumb travel so "on" sits at the inline end.
-                left: isRtl
-                    ? (_trackWidth - _thumbSize) - animation
-                    : animation,
+                left: animation,
                 child: SizedBox(
                   width: _thumbSize,
                   height: _thumbSize,
