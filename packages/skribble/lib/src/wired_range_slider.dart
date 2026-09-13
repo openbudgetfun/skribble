@@ -89,6 +89,7 @@ class WiredRangeSlider extends HookWidget {
     return Semantics(
       label: semanticLabel,
       slider: true,
+      enabled: onChanged != null,
       value:
           '${currentValues.value.start.toStringAsFixed(1)} to ${currentValues.value.end.toStringAsFixed(1)}',
       child: Stack(

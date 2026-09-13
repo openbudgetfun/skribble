@@ -1,132 +1,226 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('WiredCheckbox', () {
     testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, WiredCheckbox(value: false, onChanged: (_) {}));
+      await pumpWired(
+        tester,
+        WiredCheckbox(value: false, onChanged: (_) {}),
+      );
 
-      expect(find.byType(WiredCheckbox), findsOneWidget);
+      expectRenders(tester, findWired<WiredCheckbox>());
+      expectPaints(findWired<WiredCheckbox>());
+      expectRepaintIsolation(findWired<WiredCheckbox>());
     });
 
-    testWidgets('calls onChanged when tapped', (tester) async {
-      bool? receivedValue;
+    testWidgets('reports checked state to assistive technology', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredCheckbox(value: true, onChanged: (_) {}),
+      );
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckbox(
-              value: false,
-              onChanged: (v) => receivedValue = v,
-            ),
-          ),
+      expectSemantics(
+        tester,
+        findWired<WiredCheckbox>(),
+        isChecked: true,
+        hasTapAction: true,
+      );
+    });
+
+    testWidgets('reports unchecked state to assistive technology', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredCheckbox(value: false, onChanged: (_) {}),
+      );
+
+      expectSemantics(
+        tester,
+        findWired<WiredCheckbox>(),
+        isChecked: false,
+        hasTapAction: true,
+      );
+    });
+
+    testWidgets('exposes the supplied semantics label', (tester) async {
+      await pumpWired(
+        tester,
+        WiredCheckbox(
+          value: false,
+          onChanged: (_) {},
+          semanticLabel: 'Accept terms',
         ),
       );
 
-      await tester.tap(find.byType(Checkbox));
-      await tester.pump();
+      expect(findWiredBySemanticsLabel('Accept terms'), findsOneWidget);
+      expectSemantics(
+        tester,
+        findWired<WiredCheckbox>(),
+        label: 'Accept terms',
+        isChecked: false,
+      );
+    });
 
-      expect(receivedValue, isNotNull);
+    testWidgets('calls onChanged with the toggled value when tapped', (
+      tester,
+    ) async {
+      bool? receivedValue;
+
+      await pumpWired(
+        tester,
+        WiredCheckbox(
+          value: false,
+          onChanged: (value) => receivedValue = value,
+        ),
+      );
+
+      await tapWired(tester, findWired<WiredCheckbox>());
+
       expect(receivedValue, isTrue);
     });
 
-    testWidgets('displays checked state when value is true', (tester) async {
-      await pumpApp(tester, WiredCheckbox(value: true, onChanged: (_) {}));
+    testWidgets('toggles back to false from a checked state', (tester) async {
+      bool? receivedValue;
 
-      // The internal Checkbox should reflect the initial checked state.
-      final checkbox = tester.widget<Checkbox>(find.byType(Checkbox));
+      await pumpWired(
+        tester,
+        WiredCheckbox(value: true, onChanged: (value) => receivedValue = value),
+      );
 
-      expect(checkbox.value, isTrue);
+      await tapWired(tester, findWired<WiredCheckbox>());
+
+      expect(receivedValue, isFalse);
     });
 
-    testWidgets('toggles internal state', (tester) async {
-      bool? lastValue;
+    testWidgets('activates through the semantics tap action', (tester) async {
+      bool? receivedValue;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: WiredCheckbox(value: false, onChanged: (v) => lastValue = v),
-          ),
+      await pumpWired(
+        tester,
+        WiredCheckbox(
+          value: false,
+          onChanged: (value) => receivedValue = value,
         ),
       );
 
-      // Initially unchecked.
-      var checkbox = tester.widget<Checkbox>(find.byType(Checkbox));
-      expect(checkbox.value, isFalse);
+      await semanticTapWired(tester, findWired<WiredCheckbox>());
 
-      // Tap to check.
-      await tester.tap(find.byType(Checkbox));
-      await tester.pump();
-
-      expect(lastValue, isTrue);
-
-      // After tapping, the internal state via useState should now be true.
-      checkbox = tester.widget<Checkbox>(find.byType(Checkbox));
-      expect(checkbox.value, isTrue);
-    });
-
-    testWidgets('displays unchecked state when value is false', (tester) async {
-      await pumpApp(tester, WiredCheckbox(value: false, onChanged: (_) {}));
-
-      final checkbox = tester.widget<Checkbox>(find.byType(Checkbox));
-      expect(checkbox.value, isFalse);
-    });
-
-    testWidgets('contains RepaintBoundary wrapper', (tester) async {
-      await pumpApp(tester, WiredCheckbox(value: false, onChanged: (_) {}));
-
-      // WiredCheckbox uses buildWiredElement which wraps with RepaintBoundary.
-      expect(
-        find.descendant(
-          of: find.byType(WiredCheckbox),
-          matching: find.byType(RepaintBoundary),
-        ),
-        findsOneWidget,
+      expect(receivedValue, isTrue);
+      expectSemantics(
+        tester,
+        findWired<WiredCheckbox>(),
+        isChecked: true,
+        reason: 'The semantics tap must move the widget to checked.',
       );
     });
 
-    testWidgets('renders within WiredTheme', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: WiredTheme(
-            data: WiredThemeData(borderColor: Colors.red),
-            child: Scaffold(
-              body: WiredCheckbox(value: true, onChanged: (_) {}),
-            ),
-          ),
+    testWidgets('follows an external value change', (tester) async {
+      await pumpWired(
+        tester,
+        WiredCheckbox(value: false, onChanged: (_) {}),
+      );
+      expectSemantics(tester, findWired<WiredCheckbox>(), isChecked: false);
+
+      await pumpWired(
+        tester,
+        WiredCheckbox(value: true, onChanged: (_) {}),
+      );
+      expectSemantics(tester, findWired<WiredCheckbox>(), isChecked: true);
+    });
+
+    testWidgets('lays out and paints in RTL', (tester) async {
+      bool? receivedValue;
+
+      await pumpWiredRtl(
+        tester,
+        WiredCheckbox(
+          value: false,
+          onChanged: (value) => receivedValue = value,
         ),
       );
-      expect(find.byType(WiredCheckbox), findsOneWidget);
+
+      expectRenders(tester, findWired<WiredCheckbox>());
+      expectPaints(findWired<WiredCheckbox>());
+      await tapWired(tester, findWired<WiredCheckbox>());
+      expect(receivedValue, isTrue);
+    });
+
+    testWidgets('keeps a tappable size under small and zero constraints', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredCheckbox(value: false, onChanged: (_) {}),
+        surfaceSize: const Size(27, 27),
+      );
+      expectRenders(tester, findWired<WiredCheckbox>());
+      expectPaints(findWired<WiredCheckbox>());
+      expect(tester.takeException(), isNull);
+
+      await pumpWired(
+        tester,
+        WiredCheckbox(value: false, onChanged: (_) {}),
+        surfaceSize: Size.zero,
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('is unaffected by doubled text scale', (tester) async {
+      await pumpWiredScaled(
+        tester,
+        WiredCheckbox(value: true, onChanged: (_) {}),
+      );
+
+      expectSemantics(tester, findWired<WiredCheckbox>(), isChecked: true);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('renders with a custom border radius', (tester) async {
+      await pumpWired(
+        tester,
+        WiredCheckbox(
+          value: false,
+          onChanged: (_) {},
+          borderRadius: BorderRadius.zero,
+        ),
+      );
+
+      expectRenders(tester, findWired<WiredCheckbox>());
+      expectPaints(findWired<WiredCheckbox>());
+    });
+
+    testWidgets('picks up the surrounding theme', (tester) async {
+      await pumpWired(
+        tester,
+        WiredCheckbox(value: true, onChanged: (_) {}),
+        theme: WiredThemeData(borderColor: const Color(0xFF00FF00)),
+      );
+
+      expectPaints(findWired<WiredCheckbox>());
+      expectSemantics(tester, findWired<WiredCheckbox>(), isChecked: true);
     });
   });
 
   testWidgets('is disabled when onChanged is null', (tester) async {
     await pumpApp(tester, const WiredCheckbox(value: false));
 
-    final checkbox = tester.widget<Checkbox>(find.byType(Checkbox));
-    expect(checkbox.onChanged, isNull);
-
-    final semantics = tester.widget<Semantics>(
-      find
-          .descendant(
-            of: find.byType(WiredCheckbox),
-            matching: find.byType(Semantics),
-          )
-          .first,
-    );
-    expect(semantics.properties.enabled, isFalse);
-    expect(semantics.properties.onTap, isNull);
+    expectSemantics(tester, findWired<WiredCheckbox>(), isEnabled: false);
   });
 
   testWidgets('ignores taps when disabled', (tester) async {
     await pumpApp(tester, const WiredCheckbox(value: false));
 
-    await tester.tap(find.byType(Checkbox), warnIfMissed: false);
+    await tester.tap(findWired<WiredCheckbox>(), warnIfMissed: false);
     await tester.pump();
 
-    expect(tester.widget<Checkbox>(find.byType(Checkbox)).value, isFalse);
+    // Still unchecked, and still announced as disabled.
+    expectSemantics(tester, findWired<WiredCheckbox>(), isEnabled: false, isChecked: false);
   });
 }

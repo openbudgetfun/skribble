@@ -25,6 +25,7 @@ class WiredTextButton extends WiredButtonBase {
       builder: (context, states) => Semantics(
         label: semanticLabel,
         button: true,
+        enabled: onPressed != null,
         child: buildWiredElement(
           child: IntrinsicWidth(
             child: Column(

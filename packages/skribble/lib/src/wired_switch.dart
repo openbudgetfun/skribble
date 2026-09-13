@@ -36,6 +36,7 @@ class WiredSwitch extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final animation = useWiredThumbOffset(
+      context: context,
       value: value,
       begin: 0,
       end: _trackWidth - _thumbSize,
@@ -43,14 +44,13 @@ class WiredSwitch extends HookWidget {
 
     final effectiveActiveColor = activeColor ?? theme.borderColor;
     final effectiveInactiveColor = inactiveColor ?? theme.fillColor;
-
     return Semantics(
       container: true,
       label: semanticLabel,
       toggled: value,
       enabled: onChanged != null,
       child: GestureDetector(
-        onTap: () => onChanged?.call(!value),
+        onTap: onChanged == null ? null : () => onChanged!(!value),
         child: SizedBox(
           width: _trackWidth,
           height: _thumbSize,

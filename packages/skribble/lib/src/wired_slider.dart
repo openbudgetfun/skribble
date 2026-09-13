@@ -111,6 +111,13 @@ class WiredSlider extends HookWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: LayoutBuilder(
           builder: (context, constraints) {
+            // A zero-width slot (a collapsed panel, an entrance animation at
+            // its first frame) has no track to lay the thumb on. Material's
+            // Slider asserts while painting in that case, so bail out before
+            // building it.
+            if (constraints.maxWidth <= 0) {
+              return const SizedBox.shrink();
+            }
             final fraction = max == min
                 ? 0.0
                 : (currentSliderValue.value - min) / (max - min);

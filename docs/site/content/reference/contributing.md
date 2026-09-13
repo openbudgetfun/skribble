@@ -87,9 +87,21 @@ Every widget test file must have **>= 6 `testWidgets`** covering:
 | Edge cases    | Null values, rapid interactions               |
 | Accessibility | Semantic labels where applicable              |
 
-### Test helper
+### Test host and helpers
 
-Use `pumpApp()` from `test/helpers/pump_app.dart`:
+New and converted tests use the `pumpWired()` host and the public-API helpers:
+
+```dart
+// Static example: test
+import 'package:skribble/skribble.dart';
+
+import '../helpers/skribble_test_support.dart';
+
+await pumpWired(tester, WiredButton(child: Text('Hi'), onPressed: () {}));
+await tapWired(tester, findWired<WiredButton>());
+```
+
+`test/helpers/README.md` lists every helper and the migration pattern. `pumpApp()` from `test/helpers/pump_app.dart` remains for files that have not been migrated yet and for tests that need its Material app-bar/drawer slots:
 
 ```dart
 // Static example: test

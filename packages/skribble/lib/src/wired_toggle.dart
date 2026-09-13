@@ -53,29 +53,38 @@ class WiredToggle extends HookWidget {
     });
 
     useEffect(() {
+      // Keep the painted position in sync with the controlled value: the
+      // widget may be rebuilt with a new value by its parent at any time.
+      isSwitched.value = value;
       toggle();
       return null;
-    }, []);
+    }, [value]);
+
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return Semantics(
       label: semanticLabel,
       toggled: value,
+      enabled: onChange != null,
       child: buildWiredElement(
         child: GestureDetector(
-          onTap: () {
-            final nextValue = !isSwitched.value;
-            final result = onChange?.call(nextValue) ?? false;
+          onTap: onChange == null
+              ? null
+              : () {
+                  final nextValue = !isSwitched.value;
+                  final result = onChange?.call(nextValue) ?? false;
 
-            if (result) {
-              isSwitched.value = nextValue;
-              toggle();
-            }
-          },
+                  if (result) {
+                    isSwitched.value = nextValue;
+                    toggle();
+                  }
+                },
           child: Stack(
             clipBehavior: Clip.none,
             children: [
               Positioned(
-                left: animation,
+                // Mirror the thumb travel so "on" sits at the inline end.
+                left: isRtl ? thumbRadius * 0.5 - animation : animation,
                 top: -thumbRadius / 2,
                 child: SizedBox(
                   height: thumbRadius * 2,

@@ -1,42 +1,45 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('WiredOutlinedButton', () {
-    testWidgets('renders without error', (tester) async {
-      await pumpApp(
-        tester,
-        WiredOutlinedButton(onPressed: () {}, child: const Text('Hello')),
-      );
-
-      expect(find.byType(WiredOutlinedButton), findsOneWidget);
-    });
-
-    testWidgets('renders child text widget', (tester) async {
-      await pumpApp(
+    testWidgets('renders its child label', (tester) async {
+      await pumpWired(
         tester,
         WiredOutlinedButton(onPressed: () {}, child: const Text('Press me')),
       );
 
       expect(find.text('Press me'), findsOneWidget);
+      expectRenders(tester, findWired<WiredOutlinedButton>());
+      expectPaints(findWired<WiredOutlinedButton>());
+      expectRepaintIsolation(findWired<WiredOutlinedButton>());
     });
 
-    testWidgets('renders child icon widget', (tester) async {
-      await pumpApp(
+    testWidgets('renders a rough icon child', (tester) async {
+      final checkIcon = lookupMaterialRoughFontIcon('check');
+
+      await pumpWired(
         tester,
-        WiredOutlinedButton(onPressed: () {}, child: const Icon(Icons.check)),
+        WiredOutlinedButton(
+          onPressed: () {},
+          child: WiredIcon(icon: checkIcon!),
+        ),
       );
 
-      expect(find.byIcon(Icons.check), findsOneWidget);
+      expect(
+        findWiredIn<WiredIcon>(findWired<WiredOutlinedButton>()),
+        findsOneWidget,
+      );
+      expectRenders(tester, findWired<WiredOutlinedButton>());
     });
 
-    testWidgets('calls onPressed callback when tapped', (tester) async {
+    testWidgets('calls onPressed when tapped', (tester) async {
       var pressed = false;
 
-      await pumpApp(
+      await pumpWired(
         tester,
         WiredOutlinedButton(
           onPressed: () => pressed = true,
@@ -44,100 +47,15 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Tap'));
-      await tester.pump();
+      await tapWired(tester, findWired<WiredOutlinedButton>());
 
       expect(pressed, isTrue);
     });
 
-    testWidgets('does not crash when onPressed is null', (tester) async {
-      await pumpApp(
-        tester,
-        WiredOutlinedButton(onPressed: null, child: const Text('Disabled')),
-      );
-
-      expect(find.byType(WiredOutlinedButton), findsOneWidget);
-      expect(find.text('Disabled'), findsOneWidget);
-    });
-
-    testWidgets('does not call callback when onPressed is null', (
-      tester,
-    ) async {
-      const pressed = false;
-
-      await pumpApp(
-        tester,
-        WiredOutlinedButton(onPressed: null, child: const Text('Disabled')),
-      );
-
-      await tester.tap(find.text('Disabled'));
-      await tester.pump();
-
-      expect(pressed, isFalse);
-    });
-
-    testWidgets('onPressed defaults to null', (tester) async {
-      const button = WiredOutlinedButton(child: Text('Default'));
-
-      expect(button.onPressed, isNull);
-    });
-
-    testWidgets('renders with correct height (42.0)', (tester) async {
-      await pumpApp(
-        tester,
-        WiredOutlinedButton(onPressed: () {}, child: const Text('Height test')),
-      );
-
-      // The WiredOutlinedButton uses a Container with height 42.0.
-      // Find the Container that has this height constraint.
-      final containers = tester.widgetList<Container>(
-        find.descendant(
-          of: find.byType(WiredOutlinedButton),
-          matching: find.byType(Container),
-        ),
-      );
-
-      // Verify the container exists (it may use decoration height).
-      expect(containers, isNotEmpty);
-      // Also verify via rendered size — the button should be at least 42 pixels
-      // tall due to the Container height.
-      expect(find.byType(WiredOutlinedButton), findsOneWidget);
-    });
-
-    testWidgets('contains TextButton internally', (tester) async {
-      await pumpApp(
-        tester,
-        WiredOutlinedButton(onPressed: () {}, child: const Text('Button')),
-      );
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredOutlinedButton),
-          matching: find.byType(TextButton),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('has RepaintBoundary wrapper', (tester) async {
-      await pumpApp(
-        tester,
-        WiredOutlinedButton(onPressed: () {}, child: const Text('Repaint')),
-      );
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredOutlinedButton),
-          matching: find.byType(RepaintBoundary),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('tracks multiple rapid taps', (tester) async {
+    testWidgets('tracks rapid repeated taps', (tester) async {
       var tapCount = 0;
 
-      await pumpApp(
+      await pumpWired(
         tester,
         WiredOutlinedButton(
           onPressed: () => tapCount++,
@@ -145,18 +63,15 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Multi'));
-      await tester.pump();
-      await tester.tap(find.text('Multi'));
-      await tester.pump();
-      await tester.tap(find.text('Multi'));
-      await tester.pump();
+      for (var i = 0; i < 3; i++) {
+        await tapWired(tester, findWired<WiredOutlinedButton>());
+      }
 
       expect(tapCount, 3);
     });
 
-    testWidgets('applies semantic label when provided', (tester) async {
-      await pumpApp(
+    testWidgets('exposes a labelled button role', (tester) async {
+      await pumpWired(
         tester,
         WiredOutlinedButton(
           onPressed: () {},
@@ -165,7 +80,92 @@ void main() {
         ),
       );
 
-      expect(find.bySemanticsLabel('Cancel action'), findsOneWidget);
+      expect(findWiredBySemanticsLabel('Cancel action'), findsOneWidget);
+      expectSemantics(
+        tester,
+        findWired<WiredOutlinedButton>(),
+        label: 'Cancel action',
+        isButton: true,
+        isEnabled: true,
+      );
+    });
+
+    testWidgets('disabled button ignores taps and reports disabled', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredOutlinedButton(
+          onPressed: null,
+          semanticLabel: 'Disabled',
+          child: const Text('Disabled'),
+        ),
+      );
+
+      await tapWired(tester, findWired<WiredOutlinedButton>());
+
+      expect(tester.takeException(), isNull);
+      expectSemantics(
+        tester,
+        findWired<WiredOutlinedButton>(),
+        isButton: true,
+        isEnabled: false,
+        hasTapAction: false,
+      );
+      expectPaints(findWired<WiredOutlinedButton>());
+    });
+
+    testWidgets('onPressed defaults to null', (tester) async {
+      const button = WiredOutlinedButton(child: Text('Default'));
+
+      expect(button.onPressed, isNull);
+    });
+
+    testWidgets('renders at the standard button height', (tester) async {
+      await pumpWired(
+        tester,
+        WiredOutlinedButton(onPressed: () {}, child: const Text('Height test')),
+      );
+
+      expect(
+        tester.getSize(findWired<WiredOutlinedButton>()).height,
+        kWiredButtonHeight,
+      );
+    });
+
+    testWidgets('keeps layout in RTL', (tester) async {
+      await pumpWiredRtl(
+        tester,
+        WiredOutlinedButton(onPressed: () {}, child: const Text('RTL')),
+      );
+
+      expect(find.text('RTL'), findsOneWidget);
+      expectRenders(tester, findWired<WiredOutlinedButton>());
+      expectPaints(findWired<WiredOutlinedButton>());
+    });
+
+    testWidgets('survives doubled text and small constraints', (tester) async {
+      await pumpWiredScaled(
+        tester,
+        WiredOutlinedButton(onPressed: () {}, child: const Text('Scaled')),
+        surfaceSize: const Size(120, 80),
+      );
+
+      expectRenders(tester, findWired<WiredOutlinedButton>());
+      expectPaints(findWired<WiredOutlinedButton>());
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('lays out without throwing under zero constraints', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredOutlinedButton(onPressed: () {}, child: const Text('Zero')),
+        surfaceSize: Size.zero,
+      );
+
+      expect(tester.takeException(), isNull);
     });
   });
 }

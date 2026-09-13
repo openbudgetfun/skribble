@@ -1,201 +1,217 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/finders.dart';
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('WiredIconButton', () {
-    testWidgets('renders without error', (tester) async {
-      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
+    testWidgets('renders the requested rough icon', (tester) async {
+      final addIcon = lookupMaterialRoughFontIcon('add')!;
 
-      expect(find.byType(WiredIconButton), findsOneWidget);
-    });
+      await pumpWired(tester, WiredIconButton(icon: addIcon, onPressed: () {}));
 
-    testWidgets('renders the provided rough icon', (tester) async {
-      await pumpApp(
-        tester,
-        WiredIconButton(icon: Icons.favorite, onPressed: () {}),
+      expect(
+        findWiredIn<WiredIcon>(findWired<WiredIconButton>()),
+        findsOneWidget,
       );
-
-      expect(find.byType(WiredIcon), findsOneWidget);
-      final roughIcon = tester.widget<WiredIcon>(find.byType(WiredIcon));
-      expect(roughIcon.icon, Icons.favorite);
+      expect(tester.widget<WiredIcon>(findWired<WiredIcon>()).icon, addIcon);
+      expectRenders(tester, findWired<WiredIconButton>());
+      expectPaints(findWired<WiredIconButton>());
+      expectRepaintIsolation(findWired<WiredIconButton>());
     });
 
-    testWidgets('calls onPressed callback when tapped', (tester) async {
+    testWidgets('calls onPressed when tapped', (tester) async {
       var pressed = false;
 
-      await pumpApp(
+      await pumpWired(
         tester,
-        WiredIconButton(icon: Icons.add, onPressed: () => pressed = true),
+        WiredIconButton(
+          icon: lookupMaterialRoughFontIcon('add')!,
+          onPressed: () => pressed = true,
+        ),
       );
 
-      await tester.tap(find.byType(IconButton));
-      await tester.pump();
+      await tapWired(tester, findWired<WiredIconButton>());
 
       expect(pressed, isTrue);
     });
 
-    testWidgets('does not crash when onPressed is null', (tester) async {
-      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: null));
-
-      expect(find.byType(WiredIconButton), findsOneWidget);
-    });
-
-    testWidgets('does not call callback when onPressed is null', (
-      tester,
-    ) async {
-      const pressed = false;
-
-      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: null));
-
-      await tester.tap(find.byType(WiredIconButton));
-      await tester.pump();
-
-      expect(pressed, isFalse);
-    });
-
-    testWidgets('onPressed defaults to null', (tester) async {
-      const button = WiredIconButton(icon: Icons.add);
-
-      expect(button.onPressed, isNull);
-    });
-
-    testWidgets('size defaults to 48.0', (tester) async {
-      const button = WiredIconButton(icon: Icons.add);
-
-      expect(button.size, 48.0);
-    });
-
-    testWidgets('renders with default size (48.0)', (tester) async {
-      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
-
-      final buttonSize = tester.getSize(find.byType(WiredIconButton));
-
-      expect(buttonSize.width, 48.0);
-      expect(buttonSize.height, 48.0);
-    });
-
-    testWidgets('renders with custom size', (tester) async {
-      await pumpApp(
-        tester,
-        WiredIconButton(icon: Icons.add, onPressed: () {}, size: 64.0),
-      );
-
-      final buttonSize = tester.getSize(find.byType(WiredIconButton));
-
-      expect(buttonSize.width, 64.0);
-      expect(buttonSize.height, 64.0);
-    });
-
-    testWidgets('iconColor defaults to null', (tester) async {
-      const button = WiredIconButton(icon: Icons.add);
-
-      expect(button.iconColor, isNull);
-    });
-
-    testWidgets('uses custom iconColor when provided', (tester) async {
-      await pumpApp(
-        tester,
-        WiredIconButton(
-          icon: Icons.add,
-          onPressed: () {},
-          iconColor: Colors.red,
-        ),
-      );
-
-      final roughIcon = tester.widget<WiredIcon>(find.byType(WiredIcon));
-
-      expect(roughIcon.color, Colors.red);
-    });
-
-    testWidgets('contains IconButton internally', (tester) async {
-      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredIconButton),
-          matching: find.byType(IconButton),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('contains WiredCanvas for circle border', (tester) async {
-      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredIconButton),
-          matching: findWiredCanvas,
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('contains Stack for layering circle and icon', (tester) async {
-      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredIconButton),
-          matching: find.byType(Stack),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('has RepaintBoundary wrapper', (tester) async {
-      await pumpApp(tester, WiredIconButton(icon: Icons.add, onPressed: () {}));
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredIconButton),
-          matching: findRepaintBoundary,
-        ),
-        findsAtLeastNWidgets(1),
-      );
-    });
-
-    testWidgets('tracks multiple rapid taps', (tester) async {
+    testWidgets('tracks rapid repeated taps', (tester) async {
       var tapCount = 0;
 
-      await pumpApp(
+      await pumpWired(
         tester,
-        WiredIconButton(icon: Icons.add, onPressed: () => tapCount++),
+        WiredIconButton(
+          icon: lookupMaterialRoughFontIcon('add')!,
+          onPressed: () => tapCount++,
+        ),
       );
 
-      await tester.tap(find.byType(IconButton));
-      await tester.pump();
-      await tester.tap(find.byType(IconButton));
-      await tester.pump();
-      await tester.tap(find.byType(IconButton));
-      await tester.pump();
+      for (var i = 0; i < 3; i++) {
+        await tapWired(tester, findWired<WiredIconButton>());
+      }
 
       expect(tapCount, 3);
     });
 
-    testWidgets('applies semantic label when provided', (tester) async {
-      await pumpApp(
+    testWidgets('exposes a labelled button role', (tester) async {
+      await pumpWired(
         tester,
         WiredIconButton(
-          icon: Icons.settings,
+          icon: lookupMaterialRoughFontIcon('settings')!,
           onPressed: () {},
           semanticLabel: 'Open settings',
         ),
       );
 
-      expect(find.bySemanticsLabel('Open settings'), findsOneWidget);
+      expect(findWiredBySemanticsLabel('Open settings'), findsOneWidget);
+      expectSemantics(
+        tester,
+        findWired<WiredIconButton>(),
+        label: 'Open settings',
+        isButton: true,
+        isEnabled: true,
+      );
+    });
+
+    testWidgets('disabled button ignores taps and reports disabled', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredIconButton(
+          icon: lookupMaterialRoughFontIcon('add')!,
+          onPressed: null,
+          semanticLabel: 'Disabled',
+        ),
+      );
+
+      await tapWired(tester, findWired<WiredIconButton>());
+
+      expect(tester.takeException(), isNull);
+      expectSemantics(
+        tester,
+        findWired<WiredIconButton>(),
+        isButton: true,
+        isEnabled: false,
+        hasTapAction: false,
+      );
+      expectRenders(tester, findWired<WiredIconButton>());
+      expectPaints(findWired<WiredIconButton>());
+    });
+
+    testWidgets('onPressed defaults to null', (tester) async {
+      final addIcon = lookupMaterialRoughFontIcon('add')!;
+      final button = WiredIconButton(icon: addIcon);
+
+      expect(button.onPressed, isNull);
+      expect(button.size, 48.0);
+      expect(button.iconColor, isNull);
+    });
+
+    testWidgets('renders at its default and custom sizes', (tester) async {
+      final addIcon = lookupMaterialRoughFontIcon('add')!;
+
+      await pumpWired(tester, WiredIconButton(icon: addIcon, onPressed: () {}));
+      expect(
+        tester.getSize(findWired<WiredIconButton>()),
+        const Size(48, 48),
+      );
+
+      await pumpWired(
+        tester,
+        WiredIconButton(icon: addIcon, onPressed: () {}, size: 64),
+      );
+      expect(
+        tester.getSize(findWired<WiredIconButton>()),
+        const Size(64, 64),
+      );
+      expectRenders(tester, findWired<WiredIconButton>());
+    });
+
+    testWidgets('passes a custom icon color through to the icon', (
+      tester,
+    ) async {
+      const red = Color(0xFFFF0000);
+
+      await pumpWired(
+        tester,
+        WiredIconButton(
+          icon: lookupMaterialRoughFontIcon('add')!,
+          onPressed: () {},
+          iconColor: red,
+        ),
+      );
+
+      expect(tester.widget<WiredIcon>(findWired<WiredIcon>()).color, red);
+    });
+
+    testWidgets('keeps its hit area in RTL', (tester) async {
+      var pressed = false;
+
+      await pumpWiredRtl(
+        tester,
+        WiredIconButton(
+          icon: lookupMaterialRoughFontIcon('add')!,
+          onPressed: () => pressed = true,
+        ),
+      );
+
+      expectRenders(
+        tester,
+        findWired<WiredIconButton>(),
+        size: const Size(48, 48),
+      );
+      expectPaints(findWired<WiredIconButton>());
+      await tapWired(tester, findWired<WiredIconButton>());
+      expect(pressed, isTrue);
+    });
+
+    testWidgets('renders and paints under small and zero constraints', (
+      tester,
+    ) async {
+      final addIcon = lookupMaterialRoughFontIcon('add')!;
+
+      await pumpWired(
+        tester,
+        WiredIconButton(icon: addIcon, onPressed: () {}),
+        surfaceSize: const Size(24, 24),
+      );
+      expectRenders(tester, findWired<WiredIconButton>());
+      expectPaints(findWired<WiredIconButton>());
+      expect(tester.takeException(), isNull);
+
+      await pumpWired(
+        tester,
+        WiredIconButton(icon: addIcon, onPressed: () {}),
+        surfaceSize: Size.zero,
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('is unaffected by doubled text scale', (tester) async {
+      await pumpWiredScaled(
+        tester,
+        WiredIconButton(
+          icon: lookupMaterialRoughFontIcon('add')!,
+          onPressed: () {},
+        ),
+      );
+
+      expect(
+        tester.getSize(findWired<WiredIconButton>()),
+        const Size(48, 48),
+      );
+      expect(tester.takeException(), isNull);
     });
   });
 
   testWidgets('mirrors Material iconSize and color names', (tester) async {
     await pumpApp(
       tester,
-      const WiredIconButton(
-        icon: Icons.settings,
+      WiredIconButton(
+        icon: lookupMaterialRoughFontIcon('settings')!,
         onPressed: null,
         iconSize: 30,
         color: Color(0xFF123456),
@@ -205,15 +221,12 @@ void main() {
     final wiredIcon = tester.widget<WiredIcon>(find.byType(WiredIcon));
     expect(wiredIcon.size, 30);
     expect(wiredIcon.color, const Color(0xFF123456));
-
-    final iconButton = tester.widget<IconButton>(find.byType(IconButton));
-    expect(iconButton.iconSize, 30);
   });
 
   testWidgets('iconSize defaults to half of size', (tester) async {
     await pumpApp(
       tester,
-      const WiredIconButton(icon: Icons.settings, onPressed: null, size: 60),
+      WiredIconButton(icon: lookupMaterialRoughFontIcon('settings')!, onPressed: null, size: 60),
     );
 
     expect(tester.widget<WiredIcon>(find.byType(WiredIcon)).size, 30);
@@ -222,8 +235,8 @@ void main() {
   testWidgets('iconColor is used when color is not set', (tester) async {
     await pumpApp(
       tester,
-      const WiredIconButton(
-        icon: Icons.settings,
+      WiredIconButton(
+        icon: lookupMaterialRoughFontIcon('settings')!,
         onPressed: null,
         iconColor: Color(0xFF654321),
       ),

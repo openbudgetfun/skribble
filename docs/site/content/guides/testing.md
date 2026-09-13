@@ -5,7 +5,7 @@ description: Comprehensive guide to testing skribble widgets, including the pump
 
 # Testing Widgets
 
-Every skribble widget ships with comprehensive widget tests. This guide covers the test structure, the `pumpApp()` helper, required test categories, and how to run and track tests.
+Every skribble widget ships with comprehensive widget tests. This guide covers the test structure, the `pumpWired()` test host, required test categories, and how to run and track tests.
 
 ## Test file structure
 
@@ -18,8 +18,8 @@ packages/skribble/
     wired_card.dart
     wired_checkbox.dart
   test/
-    helpers/
-      pump_app.dart          # shared test helper
+    helpers/                 # pumpWired host, finders, semantics, rendering
+      skribble_test_support.dart # barrel: import this in new tests
     widgets/
       wired_button_test.dart
       wired_card_test.dart
@@ -28,9 +28,29 @@ packages/skribble/
 
 Every `wired_*.dart` source file must have a corresponding `wired_*_test.dart` test file.
 
-## The pumpApp() helper
+## The pumpWired() test host
 
-Use `pumpApp()` from `test/helpers/pump_app.dart`:
+New and converted tests use `pumpWired()` from `test/helpers/` and assert against skribble's public types and semantics:
+
+```dart
+// Static example: test
+import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble/skribble.dart';
+
+import '../helpers/skribble_test_support.dart';
+
+testWidgets('reports checked state to assistive technology', (tester) async {
+  await pumpWired(tester, WiredCheckbox(value: true, onChanged: (_) {}));
+
+  expectSemantics(tester, findWired<WiredCheckbox>(), isChecked: true);
+});
+```
+
+`pumpWiredRtl()` and `pumpWiredScaled()` are the same host with a right-to-left directionality or a scaled text size. `test/helpers/README.md` documents every helper and the migration pattern. A guard test fails the suite if a test outside the migration backlog names a Material or Cupertino type in a type lookup.
+
+## The pumpApp() helper (legacy)
+
+Files that have not been migrated yet still use `pumpApp()` from `test/helpers/pump_app.dart`:
 
 <!-- {=docsPumpAppExample} -->
 
