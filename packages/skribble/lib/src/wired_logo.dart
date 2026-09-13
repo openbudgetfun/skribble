@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'doodles/doodle_geometry.dart';
+import 'doodles/doodle_raster.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -27,21 +28,10 @@ class WiredLogo extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final paths = useMemoized(
-      () => logoGeometry().map((stroke) {
-        final path = Path()..moveTo(stroke.start.x, stroke.start.y);
-        for (final curve in stroke.curves) {
-          path.cubicTo(
-            curve.first.x,
-            curve.first.y,
-            curve.second.x,
-            curve.second.y,
-            curve.end.x,
-            curve.end.y,
-          );
-        }
-        if (stroke.closed) path.close();
-        return path;
-      }).toList(),
+      () => [
+        for (final stroke in logoGeometry())
+          doodleStrokePath(stroke, close: stroke.closed),
+      ],
     );
     final picture = RepaintBoundary(
       child: CustomPaint(
