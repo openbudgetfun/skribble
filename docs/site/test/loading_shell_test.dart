@@ -9,7 +9,7 @@ void main() {
   final shell = File('web/index.html').readAsStringSync();
 
   test('sketches the brand mark on paper', () {
-    expect(RegExp(r'<path d="M ').allMatches(shell).length, 6);
+    expect(RegExp('<path d="M ').allMatches(shell).length, 6);
     expect(shell, contains('<title>skribble — make something delightful</title>'));
     expect(shell, contains('Getting the pens ready…'));
     expect(
