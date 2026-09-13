@@ -1,128 +1,210 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('WiredSlider', () {
-    Future<void> pumpSubject(WidgetTester tester, WiredSlider slider) {
-      return pumpApp(tester, slider);
-    }
+    testWidgets('renders and paints', (tester) async {
+      await pumpWired(tester, WiredSlider(value: 0.5, onChanged: (v) => true));
 
-    testWidgets('renders Slider widget', (tester) async {
-      await tester.runAsync(() async {
-        await pumpSubject(
-          tester,
-          WiredSlider(value: 0.5, onChanged: (v) => true),
-        );
-      });
-
-      expect(find.byType(Slider), findsOneWidget);
+      expectRenders(tester, findWired<WiredSlider>());
+      expectPaints(findWired<WiredSlider>());
     });
 
-    testWidgets('has correct min/max defaults', (tester) async {
-      await tester.runAsync(() async {
-        await pumpSubject(
-          tester,
-          WiredSlider(value: 0.5, onChanged: (v) => true),
-        );
-      });
+    testWidgets('exposes a slider role with its current value', (tester) async {
+      await pumpWired(tester, WiredSlider(value: 0.5, onChanged: (v) => true));
 
-      final slider = tester.widget<Slider>(find.byType(Slider));
-
-      expect(slider.min, 0.0);
-      expect(slider.max, 1.0);
+      expectSemantics(
+        tester,
+        findWired<WiredSlider>(),
+        isSlider: true,
+        isEnabled: true,
+        hasIncreaseAction: true,
+        hasDecreaseAction: true,
+      );
+      expect(semanticsOf(tester, findWired<WiredSlider>()).value, '0.5');
     });
 
-    testWidgets('uses custom min/max values', (tester) async {
-      await tester.runAsync(() async {
-        await pumpSubject(
-          tester,
-          WiredSlider(
-            value: 50.0,
-            min: 10.0,
-            max: 100.0,
-            onChanged: (v) => true,
-          ),
-        );
-      });
+    testWidgets('exposes the supplied semantics label', (tester) async {
+      await pumpWired(
+        tester,
+        WiredSlider(
+          value: 0.5,
+          semanticLabel: 'Volume',
+          onChanged: (v) => true,
+        ),
+      );
 
-      final slider = tester.widget<Slider>(find.byType(Slider));
-
-      expect(slider.min, 10.0);
-      expect(slider.max, 100.0);
+      expect(findWiredBySemanticsLabel('Volume'), findsOneWidget);
+      expectSemantics(tester, findWired<WiredSlider>(), label: 'Volume');
     });
 
-    testWidgets('calls onChanged when slider value changes', (tester) async {
+    testWidgets('reports disabled without a value-changing action', (
+      tester,
+    ) async {
+      await pumpWired(tester, const WiredSlider(value: 0.5, onChanged: null));
+
+      expectSemantics(
+        tester,
+        findWired<WiredSlider>(),
+        isEnabled: false,
+        hasIncreaseAction: false,
+        hasDecreaseAction: false,
+      );
+    });
+
+    testWidgets('reports new values when dragged', (tester) async {
       double? receivedValue;
 
-      await tester.runAsync(() async {
-        await pumpSubject(
-          tester,
-          WiredSlider(
-            value: 0.0,
-            onChanged: (v) {
-              receivedValue = v;
-              return true;
-            },
-          ),
-        );
-      });
+      await pumpWired(
+        tester,
+        WiredSlider(
+          value: 0.0,
+          onChanged: (value) {
+            receivedValue = value;
+            return true;
+          },
+        ),
+      );
 
-      final sliderFinder = find.byType(Slider);
-      await tester.drag(sliderFinder, const Offset(100.0, 0));
-
-      await tester.runAsync(() async {
-        await tester.pump();
-      });
+      await dragWired(tester, findWired<WiredSlider>(), const Offset(100, 0));
 
       expect(receivedValue, isNotNull);
       expect(receivedValue, greaterThan(0.0));
     });
 
-    testWidgets('does not update value when onChanged returns false', (
+    testWidgets('respects a rejected change and keeps the painted value', (
       tester,
     ) async {
-      await tester.runAsync(() async {
-        await pumpSubject(
-          tester,
-          WiredSlider(value: 0.5, onChanged: (v) => false),
-        );
-      });
+      await pumpWired(
+        tester,
+        WiredSlider(value: 0.5, onChanged: (value) => false),
+      );
 
-      final slider = tester.widget<Slider>(find.byType(Slider));
-      expect(slider.value, 0.5);
+      await dragWired(tester, findWired<WiredSlider>(), const Offset(100, 0));
+
+      expect(semanticsOf(tester, findWired<WiredSlider>()).value, '0.5');
     });
 
-    testWidgets('renders with divisions and label', (tester) async {
-      await tester.runAsync(() async {
-        await pumpSubject(
-          tester,
-          WiredSlider(
-            value: 0.5,
-            divisions: 5,
-            label: 'Value: 0.5',
-            onChanged: (v) => true,
-          ),
-        );
-      });
+    testWidgets('moves through the semantics increase action', (tester) async {
+      final reported = <double>[];
 
-      final slider = tester.widget<Slider>(find.byType(Slider));
+      await pumpWired(
+        tester,
+        WiredSlider(
+          value: 0.5,
+          onChanged: (value) {
+            reported.add(value);
+            return true;
+          },
+        ),
+      );
 
-      expect(slider.divisions, 5);
-      expect(slider.label, 'Value: 0.5');
+      final node = tester.getSemantics(findWired<WiredSlider>());
+      node.owner!.performAction(node.id, SemanticsAction.increase);
+      await tester.pump();
+
+      expect(reported, isNotEmpty);
+      expect(reported.single, greaterThan(0.5));
+      expect(semanticsOf(tester, findWired<WiredSlider>()).value, '0.6');
     });
 
-    testWidgets('contains WiredSlider widget type', (tester) async {
-      await tester.runAsync(() async {
-        await pumpSubject(
-          tester,
-          WiredSlider(value: 0.0, onChanged: (v) => true),
-        );
-      });
+    testWidgets('honours custom min and max', (tester) async {
+      await pumpWired(
+        tester,
+        WiredSlider(
+          value: 50,
+          min: 10,
+          max: 100,
+          onChanged: (value) => true,
+        ),
+      );
 
-      expect(find.byType(WiredSlider), findsOneWidget);
+      expectSemantics(
+        tester,
+        findWired<WiredSlider>(),
+        isSlider: true,
+        hasIncreaseAction: true,
+        hasDecreaseAction: true,
+      );
+      expect(semanticsOf(tester, findWired<WiredSlider>()).value, '50.0');
+    });
+
+    testWidgets('steps by divisions', (tester) async {
+      final reported = <double>[];
+
+      await pumpWired(
+        tester,
+        WiredSlider(
+          value: 0.5,
+          divisions: 5,
+          onChanged: (value) {
+            reported.add(value);
+            return true;
+          },
+        ),
+      );
+
+      final node = tester.getSemantics(findWired<WiredSlider>());
+      node.owner!.performAction(node.id, SemanticsAction.increase);
+      await tester.pump();
+
+      expect(reported.single, closeTo(0.7, 0.0001));
+    });
+
+    testWidgets('mirrors the thumb travel in RTL', (tester) async {
+      await pumpWired(tester, WiredSlider(value: 1, onChanged: (v) => true));
+      final ltrHigh = _thumbCenterX(tester) - _sliderCenterX(tester);
+
+      await pumpWiredRtl(tester, WiredSlider(value: 1, onChanged: (v) => true));
+      final rtlHigh = _thumbCenterX(tester) - _sliderCenterX(tester);
+
+      expect(
+        ltrHigh,
+        greaterThan(0),
+        reason: 'LTR high value sits at the end.',
+      );
+      expect(rtlHigh, lessThan(0), reason: 'RTL high value sits at the end.');
+
+      await pumpWiredRtl(tester, WiredSlider(value: 0, onChanged: (v) => true));
+      final rtlLow = _thumbCenterX(tester) - _sliderCenterX(tester);
+
+      expect(
+        rtlLow,
+        greaterThan(0),
+        reason: 'RTL low value sits at the start.',
+      );
+    });
+
+    testWidgets('renders and paints under small and zero constraints', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredSlider(value: 0.5, onChanged: (v) => true),
+        surfaceSize: const Size(60, 24),
+      );
+      expectRenders(tester, findWired<WiredSlider>());
+      expect(tester.takeException(), isNull);
+
+      await pumpWired(
+        tester,
+        WiredSlider(value: 0.5, onChanged: (v) => true),
+        surfaceSize: Size.zero,
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('is unaffected by doubled text scale', (tester) async {
+      await pumpWiredScaled(
+        tester,
+        WiredSlider(value: 0.5, onChanged: (v) => true),
+      );
+
+      expectSemantics(tester, findWired<WiredSlider>(), isSlider: true);
+      expect(tester.takeException(), isNull);
     });
   });
 
@@ -142,3 +224,22 @@ void main() {
     expect(semantics.properties.onDecrease, isNull);
   });
 }
+
+/// Horizontal centre of the square thumb canvas, in global coordinates.
+double _thumbCenterX(WidgetTester tester) {
+  final rects = findWiredIn<WiredCanvas>(findWired<WiredSlider>())
+      .evaluate()
+      .map((element) {
+        final box = element.renderObject! as RenderBox;
+        return box.localToGlobal(Offset.zero) & box.size;
+      })
+      .where((rect) => rect.width == rect.height)
+      .toList();
+
+  expect(rects, hasLength(1), reason: 'Expected exactly one square thumb.');
+  return rects.single.center.dx;
+}
+
+/// Horizontal centre of the whole slider, in global coordinates.
+double _sliderCenterX(WidgetTester tester) =>
+    tester.getRect(findWired<WiredSlider>()).center.dx;

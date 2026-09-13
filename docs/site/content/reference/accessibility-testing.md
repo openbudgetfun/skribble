@@ -13,6 +13,8 @@ Many Wired widgets currently expose accessibility semantics because the Material
 
 Use this guide to inspect a widget's semantics, label interactive controls, and check both the migrated widget and its states (enabled, disabled, selected, error) with a screen reader.
 
+In widget tests, assert semantics with `expectSemantics()` from `test/helpers/` so failures read as behavioural claims (`isButton: true`, `isEnabled: false`, `isChecked: true`, `hasTapAction: true`) and name the Skribble widget rather than the Material control underneath. See `test/helpers/README.md` for the helper table and the migration pattern.
+
 ## Testing Tools
 
 ### 1. Flutter Accessibility Inspector

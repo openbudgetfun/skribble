@@ -1,43 +1,45 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/finders.dart';
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('WiredTextButton', () {
-    testWidgets('renders without error', (tester) async {
-      await pumpApp(
-        tester,
-        WiredTextButton(onPressed: () {}, child: const Text('Hello')),
-      );
-
-      expect(find.byType(WiredTextButton), findsOneWidget);
-    });
-
-    testWidgets('renders child text widget', (tester) async {
-      await pumpApp(
+    testWidgets('renders its child label', (tester) async {
+      await pumpWired(
         tester,
         WiredTextButton(onPressed: () {}, child: const Text('Press me')),
       );
 
       expect(find.text('Press me'), findsOneWidget);
+      expectRenders(tester, findWired<WiredTextButton>());
+      expectPaints(findWired<WiredTextButton>());
+      expectRepaintIsolation(findWired<WiredTextButton>());
     });
 
-    testWidgets('renders child icon widget', (tester) async {
-      await pumpApp(
+    testWidgets('renders a rough icon child', (tester) async {
+      final starIcon = lookupMaterialRoughFontIcon('star');
+
+      await pumpWired(
         tester,
-        WiredTextButton(onPressed: () {}, child: const Icon(Icons.star)),
+        WiredTextButton(
+          onPressed: () {},
+          child: WiredIcon(icon: starIcon!),
+        ),
       );
 
-      expect(find.byIcon(Icons.star), findsOneWidget);
+      expect(
+        findWiredIn<WiredIcon>(findWired<WiredTextButton>()),
+        findsOneWidget,
+      );
+      expectRenders(tester, findWired<WiredTextButton>());
     });
 
-    testWidgets('calls onPressed callback when tapped', (tester) async {
+    testWidgets('calls onPressed when tapped', (tester) async {
       var pressed = false;
 
-      await pumpApp(
+      await pumpWired(
         tester,
         WiredTextButton(
           onPressed: () => pressed = true,
@@ -45,123 +47,15 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Tap'));
-      await tester.pump();
+      await tapWired(tester, findWired<WiredTextButton>());
 
       expect(pressed, isTrue);
     });
 
-    testWidgets('does not crash when onPressed is null', (tester) async {
-      await pumpApp(
-        tester,
-        WiredTextButton(onPressed: null, child: const Text('Disabled')),
-      );
-
-      expect(find.byType(WiredTextButton), findsOneWidget);
-      expect(find.text('Disabled'), findsOneWidget);
-    });
-
-    testWidgets('does not call callback when onPressed is null', (
-      tester,
-    ) async {
-      const pressed = false;
-
-      await pumpApp(
-        tester,
-        WiredTextButton(onPressed: null, child: const Text('Disabled')),
-      );
-
-      await tester.tap(find.text('Disabled'));
-      await tester.pump();
-
-      expect(pressed, isFalse);
-    });
-
-    testWidgets('onPressed defaults to null', (tester) async {
-      const button = WiredTextButton(child: Text('Default'));
-
-      expect(button.onPressed, isNull);
-    });
-
-    testWidgets('contains TextButton internally', (tester) async {
-      await pumpApp(
-        tester,
-        WiredTextButton(onPressed: () {}, child: const Text('Button')),
-      );
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredTextButton),
-          matching: find.byType(TextButton),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('uses IntrinsicWidth to size to content', (tester) async {
-      await pumpApp(
-        tester,
-        WiredTextButton(onPressed: () {}, child: const Text('Intrinsic')),
-      );
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredTextButton),
-          matching: find.byType(IntrinsicWidth),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('contains WiredCanvas for underline', (tester) async {
-      await pumpApp(
-        tester,
-        WiredTextButton(onPressed: () {}, child: const Text('Underline')),
-      );
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredTextButton),
-          matching: findWiredCanvas,
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('has RepaintBoundary wrapper', (tester) async {
-      await pumpApp(
-        tester,
-        WiredTextButton(onPressed: () {}, child: const Text('Repaint')),
-      );
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredTextButton),
-          matching: findRepaintBoundary,
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('uses Column layout with button and underline', (tester) async {
-      await pumpApp(
-        tester,
-        WiredTextButton(onPressed: () {}, child: const Text('Layout')),
-      );
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredTextButton),
-          matching: find.byType(Column),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('tracks multiple rapid taps', (tester) async {
+    testWidgets('tracks rapid repeated taps', (tester) async {
       var tapCount = 0;
 
-      await pumpApp(
+      await pumpWired(
         tester,
         WiredTextButton(
           onPressed: () => tapCount++,
@@ -169,18 +63,15 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Multi'));
-      await tester.pump();
-      await tester.tap(find.text('Multi'));
-      await tester.pump();
-      await tester.tap(find.text('Multi'));
-      await tester.pump();
+      for (var i = 0; i < 3; i++) {
+        await tapWired(tester, findWired<WiredTextButton>());
+      }
 
       expect(tapCount, 3);
     });
 
-    testWidgets('applies semantic label when provided', (tester) async {
-      await pumpApp(
+    testWidgets('exposes a labelled button role', (tester) async {
+      await pumpWired(
         tester,
         WiredTextButton(
           onPressed: () {},
@@ -189,7 +80,125 @@ void main() {
         ),
       );
 
-      expect(find.bySemanticsLabel('Learn more'), findsOneWidget);
+      expect(findWiredBySemanticsLabel('Learn more'), findsOneWidget);
+      expectSemantics(
+        tester,
+        findWired<WiredTextButton>(),
+        label: 'Learn more',
+        isButton: true,
+        isEnabled: true,
+      );
+    });
+
+    testWidgets('disabled button ignores taps and reports disabled', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredTextButton(
+          onPressed: null,
+          semanticLabel: 'Disabled',
+          child: const Text('Disabled'),
+        ),
+      );
+
+      await tapWired(tester, findWired<WiredTextButton>());
+
+      expect(tester.takeException(), isNull);
+      expectSemantics(
+        tester,
+        findWired<WiredTextButton>(),
+        isButton: true,
+        isEnabled: false,
+        hasTapAction: false,
+      );
+      expectPaints(findWired<WiredTextButton>());
+    });
+
+    testWidgets('onPressed defaults to null', (tester) async {
+      const button = WiredTextButton(child: Text('Default'));
+
+      expect(button.onPressed, isNull);
+    });
+
+    testWidgets('sizes to its content rather than the surface', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredTextButton(onPressed: () {}, child: const Text('Intrinsic')),
+        surfaceSize: const Size(600, 200),
+      );
+
+      expect(tester.getSize(findWired<WiredTextButton>()).width, lessThan(600));
+    });
+
+    testWidgets('keeps layout in RTL', (tester) async {
+      await pumpWiredRtl(
+        tester,
+        WiredTextButton(onPressed: () {}, child: const Text('RTL')),
+      );
+
+      expect(find.text('RTL'), findsOneWidget);
+      expectRenders(tester, findWired<WiredTextButton>());
+      expectPaints(findWired<WiredTextButton>());
+    });
+
+    testWidgets('scales its label inside the button bounds', (tester) async {
+      await pumpWired(
+        tester,
+        WiredTextButton(onPressed: () {}, child: const Text('Scaled')),
+        surfaceSize: const Size(400, 300),
+      );
+      final normalTextHeight = tester.getSize(find.text('Scaled')).height;
+
+      await pumpWiredScaled(
+        tester,
+        WiredTextButton(onPressed: () {}, child: const Text('Scaled')),
+        surfaceSize: const Size(400, 300),
+      );
+
+      final textRect = tester.getRect(find.text('Scaled'));
+      final buttonRect = tester.getRect(findWired<WiredTextButton>());
+
+      expect(
+        textRect.height,
+        greaterThan(normalTextHeight),
+        reason: 'The 2x text scale must reach the label.',
+      );
+      expect(
+        textRect.bottom,
+        lessThanOrEqualTo(buttonRect.bottom),
+        reason:
+            'The scaled label must stay inside the painted control so the '
+            'hand-drawn underline does not detach or clip.',
+      );
+      expectPaints(findWired<WiredTextButton>());
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('renders and paints under small constraints', (tester) async {
+      await pumpWired(
+        tester,
+        WiredTextButton(onPressed: () {}, child: const Text('Scaled')),
+        surfaceSize: const Size(120, 80),
+      );
+
+      expectRenders(tester, findWired<WiredTextButton>());
+      expectPaints(findWired<WiredTextButton>());
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('lays out without throwing under zero constraints', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredTextButton(onPressed: () {}, child: const Text('Zero')),
+        surfaceSize: Size.zero,
+      );
+
+      expect(tester.takeException(), isNull);
     });
   });
 }

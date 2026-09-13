@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/finders.dart';
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('WiredRadio', () {
-    testWidgets('renders without error', (tester) async {
-      await pumpApp(
+    testWidgets('renders and paints at its documented size', (tester) async {
+      await pumpWired(
         tester,
         WiredRadio<String>(
           value: 'a',
@@ -17,45 +16,63 @@ void main() {
         ),
       );
 
-      expect(find.byType(WiredRadio<String>), findsOneWidget);
+      expectRenders(
+        tester,
+        findWired<WiredRadio<String>>(),
+        size: const Size(48, 48),
+      );
+      expectPaints(findWired<WiredRadio<String>>());
+      expectRepaintIsolation(findWired<WiredRadio<String>>());
     });
 
-    testWidgets('shows filled circle when selected (value == groupValue)', (
+    testWidgets('reports the selected state to assistive technology', (
       tester,
     ) async {
-      await pumpApp(
+      await pumpWired(
         tester,
         WiredRadio<String>(value: 'a', groupValue: 'a', onChanged: (_) => true),
       );
 
-      // When selected, the widget renders two WiredCanvas widgets:
-      // one for the outer circle and one for the filled inner circle.
-      final canvasWidgets = find.descendant(
-        of: find.byType(WiredRadio<String>),
-        matching: findWiredCanvas,
+      expectSemantics(
+        tester,
+        findWired<WiredRadio<String>>(),
+        isChecked: true,
+        hasTapAction: true,
       );
-      expect(canvasWidgets, findsAtLeast(2));
-    });
 
-    testWidgets('shows empty circle when not selected', (tester) async {
-      await pumpApp(
+      await pumpWired(
         tester,
         WiredRadio<String>(value: 'a', groupValue: 'b', onChanged: (_) => true),
       );
 
-      // When not selected, there is only the outer circle WiredCanvas
-      // (the inner filled one is conditionally hidden).
-      final canvasWidgets = find.descendant(
-        of: find.byType(WiredRadio<String>),
-        matching: findWiredCanvas,
+      expectSemantics(
+        tester,
+        findWired<WiredRadio<String>>(),
+        isChecked: false,
+        hasTapAction: true,
       );
-      expect(canvasWidgets, findsOneWidget);
     });
 
-    testWidgets('calls onChanged when tapped', (tester) async {
+    testWidgets('exposes the supplied semantics label', (tester) async {
+      await pumpWired(
+        tester,
+        WiredRadio<String>(
+          value: 'a',
+          groupValue: 'a',
+          onChanged: (_) => true,
+          semanticLabel: 'Option A',
+        ),
+      );
+
+      expect(findWiredBySemanticsLabel('Option A'), findsOneWidget);
+    });
+
+    testWidgets('calls onChanged with its own value when tapped', (
+      tester,
+    ) async {
       String? changedValue;
 
-      await pumpApp(
+      await pumpWired(
         tester,
         WiredRadio<String>(
           value: 'a',
@@ -67,108 +84,164 @@ void main() {
         ),
       );
 
-      await tester.tap(find.byType(Radio<String>));
-      await tester.pump();
+      await tapWired(tester, findWired<WiredRadio<String>>());
 
       expect(changedValue, 'a');
     });
 
-    testWidgets('works with String generic type', (tester) async {
-      String? selectedValue;
+    testWidgets('activates through the semantics tap action', (tester) async {
+      var selected = false;
 
-      await pumpApp(
+      await pumpWired(
         tester,
-        Column(
-          children: [
-            WiredRadio<String>(
-              value: 'option1',
-              groupValue: 'option1',
-              onChanged: (v) {
-                selectedValue = v;
-                return true;
-              },
-            ),
-            WiredRadio<String>(
-              value: 'option2',
-              groupValue: 'option1',
-              onChanged: (v) {
-                selectedValue = v;
-                return true;
-              },
-            ),
-          ],
+        WiredRadio<String>(
+          value: 'a',
+          groupValue: 'b',
+          onChanged: (value) {
+            selected = true;
+            return true;
+          },
         ),
       );
 
-      // The first radio should be selected (has 2+ canvases).
-      final firstRadio = find.byType(WiredRadio<String>).first;
-      final firstCanvases = find.descendant(
-        of: firstRadio,
-        matching: findWiredCanvas,
-      );
-      expect(firstCanvases, findsAtLeast(2));
+      await semanticTapWired(tester, findWired<WiredRadio<String>>());
 
-      // Tap the second radio.
-      final secondRadio = find.byType(Radio<String>).last;
-      await tester.tap(secondRadio);
-      await tester.pump();
-
-      expect(selectedValue, 'option2');
+      expect(selected, isTrue);
     });
 
-    testWidgets('works with int generic type', (tester) async {
-      int? selectedValue;
-
-      await pumpApp(
+    testWidgets('disabled radio reports disabled and is not tappable', (
+      tester,
+    ) async {
+      await pumpWired(
         tester,
-        Column(
-          children: [
-            WiredRadio<int>(
-              value: 1,
-              groupValue: 1,
-              onChanged: (v) {
-                selectedValue = v;
-                return true;
-              },
-            ),
-            WiredRadio<int>(
-              value: 2,
-              groupValue: 1,
-              onChanged: (v) {
-                selectedValue = v;
-                return true;
-              },
-            ),
-          ],
+        WiredRadio<String>(
+          value: 'a',
+          groupValue: 'a',
+          onChanged: null,
         ),
       );
 
-      expect(find.byType(WiredRadio<int>), findsNWidgets(2));
-
-      // Tap the second radio.
-      final secondRadio = find.byType(Radio<int>).last;
-      await tester.tap(secondRadio);
-      await tester.pump();
-
-      expect(selectedValue, 2);
+      expectSemantics(
+        tester,
+        findWired<WiredRadio<String>>(),
+        isEnabled: false,
+        isChecked: true,
+      );
+      await tapWired(tester, findWired<WiredRadio<String>>());
+      expect(tester.takeException(), isNull);
     });
 
-    testWidgets('renders within WiredTheme', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: WiredTheme(
-            data: WiredThemeData(borderColor: Colors.green),
-            child: Scaffold(
-              body: WiredRadio<int>(
-                value: 1,
-                groupValue: 1,
-                onChanged: (_) => true,
-              ),
-            ),
+    testWidgets('supports String and int group values', (tester) async {
+      int? selected;
+
+      Widget buildGroup(int groupValue) => Column(
+        children: [
+          WiredRadio<int>(
+            value: 1,
+            groupValue: groupValue,
+            onChanged: (value) {
+              selected = value;
+              return true;
+            },
           ),
-        ),
+          WiredRadio<int>(
+            value: 2,
+            groupValue: groupValue,
+            onChanged: (value) {
+              selected = value;
+              return true;
+            },
+          ),
+        ],
       );
-      expect(find.byType(WiredRadio<int>), findsOneWidget);
+
+      await pumpWired(tester, buildGroup(1));
+
+      expect(findWired<WiredRadio<int>>(), findsNWidgets(2));
+      expectSemantics(
+        tester,
+        findWired<WiredRadio<int>>().first,
+        isChecked: true,
+      );
+      expectSemantics(
+        tester,
+        findWired<WiredRadio<int>>().last,
+        isChecked: false,
+      );
+
+      await tapWired(tester, findWired<WiredRadio<int>>().last);
+
+      expect(selected, 2);
+
+      // The group is controlled: once the parent moves the value, the second
+      // radio must be the one that reports itself selected.
+      await pumpWired(tester, buildGroup(2));
+
+      expectSemantics(
+        tester,
+        findWired<WiredRadio<int>>().first,
+        isChecked: false,
+      );
+      expectSemantics(
+        tester,
+        findWired<WiredRadio<int>>().last,
+        isChecked: true,
+      );
+    });
+
+    testWidgets('picks up the surrounding theme', (tester) async {
+      await pumpWired(
+        tester,
+        WiredRadio<int>(value: 1, groupValue: 1, onChanged: (_) => true),
+        theme: WiredThemeData(borderColor: const Color(0xFF00FF00)),
+      );
+
+      expectPaints(findWired<WiredRadio<int>>());
+      expectSemantics(tester, findWired<WiredRadio<int>>(), isChecked: true);
+    });
+
+    testWidgets('lays out and paints in RTL', (tester) async {
+      await pumpWiredRtl(
+        tester,
+        WiredRadio<String>(value: 'a', groupValue: 'a', onChanged: (_) => true),
+      );
+
+      expectRenders(tester, findWired<WiredRadio<String>>());
+      expectPaints(findWired<WiredRadio<String>>());
+      expectSemantics(tester, findWired<WiredRadio<String>>(), isChecked: true);
+    });
+
+    testWidgets('renders and paints under small and zero constraints', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredRadio<String>(value: 'a', groupValue: 'a', onChanged: (_) => true),
+        surfaceSize: const Size(48, 48),
+      );
+      expectPaints(findWired<WiredRadio<String>>());
+      expect(tester.takeException(), isNull);
+
+      await pumpWired(
+        tester,
+        WiredRadio<String>(value: 'a', groupValue: 'a', onChanged: (_) => true),
+        surfaceSize: Size.zero,
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('is unaffected by doubled text scale', (tester) async {
+      await pumpWiredScaled(
+        tester,
+        WiredRadio<String>(value: 'a', groupValue: 'a', onChanged: (_) => true),
+      );
+
+      expectRenders(
+        tester,
+        findWired<WiredRadio<String>>(),
+        size: const Size(48, 48),
+      );
+      expect(tester.takeException(), isNull);
     });
   });
 }

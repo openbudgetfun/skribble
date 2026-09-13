@@ -1,59 +1,42 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('WiredTooltip', () {
-    testWidgets('renders without error', (tester) async {
-      await pumpApp(
-        tester,
-        WiredTooltip(message: 'Tooltip text', child: const Text('Hover me')),
-      );
-
-      expect(find.byType(WiredTooltip), findsOneWidget);
-    });
-
-    testWidgets('renders child content', (tester) async {
-      await pumpApp(
-        tester,
-        WiredTooltip(message: 'Tooltip', child: const Icon(Icons.info)),
-      );
-
-      expect(find.byIcon(Icons.info), findsOneWidget);
-    });
-
-    testWidgets('contains Tooltip widget internally', (tester) async {
-      await pumpApp(
-        tester,
-        WiredTooltip(message: 'Internal tooltip', child: const Text('Child')),
-      );
-
-      expect(
-        find.descendant(
-          of: find.byType(WiredTooltip),
-          matching: find.byType(Tooltip),
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('tooltip message is set correctly', (tester) async {
-      await pumpApp(
+    testWidgets('renders its child content', (tester) async {
+      await pumpWired(
         tester,
         WiredTooltip(
-          message: 'My tooltip message',
+          message: 'Tooltip text',
+          child: const Text('Hover me'),
+        ),
+      );
+
+      expect(find.text('Hover me'), findsOneWidget);
+      expectRenders(tester, findWired<WiredTooltip>());
+    });
+
+    testWidgets('exposes the message as a semantics tooltip', (tester) async {
+      await pumpWired(
+        tester,
+        WiredTooltip(
+          message: 'Accessible hint',
           child: const Text('Target'),
         ),
       );
 
-      final tooltip = tester.widget<Tooltip>(find.byType(Tooltip));
-      expect(tooltip.message, 'My tooltip message');
+      // find.byTooltip matches the framework's semanticsTooltip contract, so
+      // this proves the message reaches assistive technology rather than just
+      // being stored on a widget property.
+      expect(find.byTooltip('Accessible hint'), findsOneWidget);
     });
 
-    testWidgets('shows tooltip on long press', (tester) async {
-      await pumpApp(
+    testWidgets('shows the message on long press', (tester) async {
+      await pumpWired(
         tester,
         WiredTooltip(
           message: 'Long press tooltip',
@@ -61,63 +44,133 @@ void main() {
         ),
       );
 
-      // Long press to trigger the tooltip.
-      await tester.longPress(find.text('Press me'));
+      await tester.longPress(findWired<WiredTooltip>());
       await tester.pumpAndSettle();
 
       expect(find.text('Long press tooltip'), findsOneWidget);
     });
 
-    testWidgets('accepts waitDuration parameter', (tester) async {
-      await pumpApp(
+    testWidgets('draws the revealed message with rough ink', (tester) async {
+      await pumpWired(
         tester,
         WiredTooltip(
-          message: 'Wait tooltip',
-          waitDuration: const Duration(seconds: 2),
-          child: const Text('Wait'),
+          message: 'Decorated',
+          child: const Text('Styled'),
         ),
       );
 
-      final tooltip = tester.widget<Tooltip>(find.byType(Tooltip));
-      expect(tooltip.waitDuration, const Duration(seconds: 2));
+      await tester.longPress(findWired<WiredTooltip>());
+      await tester.pumpAndSettle();
+
+      final message = find.text('Decorated');
+      expect(message, findsOneWidget);
+      expect(
+        find.ancestor(of: message, matching: findWiredRoughPaint()),
+        findsWidgets,
+        reason: 'The revealed tooltip must be hand-drawn, not a plain box.',
+      );
     });
 
-    testWidgets('accepts showDuration parameter', (tester) async {
-      await pumpApp(
+    testWidgets('shows the message on hover after the wait duration', (
+      tester,
+    ) async {
+      await pumpWired(
         tester,
         WiredTooltip(
-          message: 'Show tooltip',
+          message: 'Hover tooltip',
+          waitDuration: Duration.zero,
+          child: const Text('Hover target'),
+        ),
+      );
+
+      final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
+      await gesture.addPointer(location: Offset.zero);
+      addTearDown(gesture.removePointer);
+      await gesture.moveTo(tester.getCenter(findWired<WiredTooltip>()));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Hover tooltip'), findsOneWidget);
+    });
+
+    testWidgets('keeps the message hidden until triggered', (tester) async {
+      await pumpWired(
+        tester,
+        WiredTooltip(
+          message: 'Hidden message',
           showDuration: const Duration(seconds: 5),
-          child: const Text('Show'),
+          child: const Text('Quiet'),
         ),
       );
 
-      final tooltip = tester.widget<Tooltip>(find.byType(Tooltip));
-      expect(tooltip.showDuration, const Duration(seconds: 5));
+      expect(find.text('Hidden message'), findsNothing);
+      expect(tester.takeException(), isNull);
     });
 
-    testWidgets('waitDuration defaults to null', (tester) async {
-      await pumpApp(
+    testWidgets('accepts custom durations and a custom child', (tester) async {
+      const wait = Duration(seconds: 2);
+      const show = Duration(seconds: 5);
+
+      await pumpWired(
+        tester,
+        const WiredTooltip(
+          message: 'Custom durations',
+          waitDuration: wait,
+          showDuration: show,
+          child: Text('Custom'),
+        ),
+      );
+
+      final widget = tester.widget<WiredTooltip>(findWired<WiredTooltip>());
+      expect(widget.waitDuration, wait);
+      expect(widget.showDuration, show);
+      expect(widget.message, 'Custom durations');
+    });
+
+    testWidgets('lays out and shows in RTL', (tester) async {
+      await pumpWiredRtl(
         tester,
         WiredTooltip(
-          message: 'Default',
-          child: const Text('Default durations'),
+          message: 'RTL tooltip',
+          child: const Text('RTL target'),
         ),
       );
 
-      final tooltip = tester.widget<Tooltip>(find.byType(Tooltip));
-      expect(tooltip.waitDuration, isNull);
-      expect(tooltip.showDuration, isNull);
+      expectRenders(tester, findWired<WiredTooltip>());
+      await tester.longPress(findWired<WiredTooltip>());
+      await tester.pumpAndSettle();
+      expect(find.text('RTL tooltip'), findsOneWidget);
     });
 
-    testWidgets('has RoughBoxDecoration on tooltip', (tester) async {
-      await pumpApp(
+    testWidgets('keeps its child usable under doubled text scale', (
+      tester,
+    ) async {
+      await pumpWiredScaled(
         tester,
-        WiredTooltip(message: 'Decorated', child: const Text('Styled')),
+        WiredTooltip(
+          message: 'Scaled tooltip',
+          child: const Text('Scaled target'),
+        ),
       );
 
-      final tooltip = tester.widget<Tooltip>(find.byType(Tooltip));
-      expect(tooltip.decoration, isA<RoughBoxDecoration>());
+      expectRenders(tester, findWired<WiredTooltip>());
+      await tester.longPress(findWired<WiredTooltip>());
+      await tester.pumpAndSettle();
+      expect(find.text('Scaled tooltip'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('renders under narrow constraints', (tester) async {
+      await pumpWired(
+        tester,
+        WiredTooltip(
+          message: 'Narrow tooltip',
+          child: const Text('Narrow'),
+        ),
+        surfaceSize: const Size(80, 40),
+      );
+
+      expectRenders(tester, findWired<WiredTooltip>());
+      expect(tester.takeException(), isNull);
     });
   });
 }

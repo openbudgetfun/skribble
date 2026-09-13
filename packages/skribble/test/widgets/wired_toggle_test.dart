@@ -1,194 +1,232 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('WiredToggle', () {
-    testWidgets('renders without error', (tester) async {
-      await pumpApp(
+    testWidgets('renders and paints', (tester) async {
+      await pumpWired(
         tester,
         Center(
           child: SizedBox(
-            width: 100,
+            width: 120,
             height: 100,
             child: WiredToggle(value: false, onChange: (v) => true),
           ),
         ),
       );
 
-      expect(find.byType(WiredToggle), findsOneWidget);
+      expectRenders(tester, findWired<WiredToggle>());
+      expectPaints(findWired<WiredToggle>());
     });
 
-    testWidgets('contains GestureDetector', (tester) async {
-      await pumpApp(
+    testWidgets('reports its toggled state to assistive technology', (
+      tester,
+    ) async {
+      await pumpWired(tester, WiredToggle(value: true, onChange: (v) => true));
+
+      expectSemantics(
         tester,
-        Center(
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: WiredToggle(value: false, onChange: (v) => true),
-          ),
-        ),
+        findWired<WiredToggle>(),
+        isToggled: true,
+        isEnabled: true,
+        hasTapAction: true,
       );
 
-      expect(
-        find.descendant(
-          of: find.byType(WiredToggle),
-          matching: find.byType(GestureDetector),
-        ),
-        findsOneWidget,
+      await pumpWired(tester, WiredToggle(value: false, onChange: (v) => true));
+
+      expectSemantics(
+        tester,
+        findWired<WiredToggle>(),
+        isToggled: false,
+        isEnabled: true,
       );
     });
 
-    testWidgets('calls onChange on tap', (tester) async {
+    testWidgets('exposes the supplied semantics label', (tester) async {
+      await pumpWired(
+        tester,
+        WiredToggle(
+          value: true,
+          onChange: (v) => true,
+          semanticLabel: 'Dark mode',
+        ),
+      );
+
+      expect(findWiredBySemanticsLabel('Dark mode'), findsOneWidget);
+    });
+
+    testWidgets('calls onChange with the next value when tapped', (
+      tester,
+    ) async {
       bool? receivedValue;
 
-      await pumpApp(
+      await pumpWired(
         tester,
-        Center(
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: WiredToggle(
-              value: false,
-              onChange: (v) {
-                receivedValue = v;
-                return true;
-              },
-            ),
-          ),
-        ),
+        WiredToggle(value: false, onChange: (v) => receivedValue = v),
       );
 
-      // The GestureDetector inside WiredToggle wraps a Stack sized to 60x24
-      // (thumbRadius * 2.5 x thumbRadius). It sits at the top-left of the
-      // enclosing SizedBox. We retrieve the GestureDetector's onTap callback
-      // directly since the CustomPaint children in the Stack intercept
-      // hit-testing in the test environment.
-      final gestureDetector = tester.widget<GestureDetector>(
-        find.descendant(
-          of: find.byType(WiredToggle),
-          matching: find.byType(GestureDetector),
-        ),
-      );
-      gestureDetector.onTap!();
-      await tester.pumpAndSettle();
+      await tapWired(tester, findWired<WiredToggle>());
 
-      // The toggle starts with value=false, so tapping should pass true
-      // as the next value.
       expect(receivedValue, isTrue);
     });
 
-    testWidgets('has correct default thumbRadius (24.0)', (tester) async {
-      await pumpApp(
+    testWidgets('activates through the semantics tap action', (tester) async {
+      bool? receivedValue;
+
+      await pumpWired(
         tester,
-        Center(
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: WiredToggle(value: false),
-          ),
-        ),
+        WiredToggle(value: false, onChange: (v) => receivedValue = v),
       );
 
-      final toggle = tester.widget<WiredToggle>(find.byType(WiredToggle));
+      await semanticTapWired(tester, findWired<WiredToggle>());
 
-      expect(toggle.thumbRadius, 24.0);
+      expect(receivedValue, isTrue);
     });
 
-    testWidgets('accepts custom thumbRadius', (tester) async {
-      await pumpApp(
-        tester,
-        Center(
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: WiredToggle(value: false, thumbRadius: 16.0),
-          ),
-        ),
-      );
-
-      final toggle = tester.widget<WiredToggle>(find.byType(WiredToggle));
-
-      expect(toggle.thumbRadius, 16.0);
-    });
-
-    testWidgets('does not toggle when onChange returns false', (tester) async {
+    testWidgets('does not change state when onChange rejects the toggle', (
+      tester,
+    ) async {
       var callCount = 0;
 
-      await pumpApp(
+      await pumpWired(
         tester,
-        Center(
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: WiredToggle(
-              value: false,
-              onChange: (v) {
-                callCount++;
-                return false;
-              },
-            ),
-          ),
+        WiredToggle(
+          value: false,
+          onChange: (v) {
+            callCount++;
+            return false;
+          },
         ),
       );
 
-      // Invoke onTap directly on the GestureDetector.
-      final gestureDetector = tester.widget<GestureDetector>(
-        find.descendant(
-          of: find.byType(WiredToggle),
-          matching: find.byType(GestureDetector),
-        ),
-      );
-      gestureDetector.onTap!();
-      await tester.pump();
+      await tapWired(tester, findWired<WiredToggle>());
 
-      // onChange was called but returned false, so the internal state should
-      // not change. We verify onChange was invoked.
       expect(callCount, 1);
+      expectSemantics(
+        tester,
+        findWired<WiredToggle>(),
+        isToggled: false,
+        reason: 'A rejected toggle must stay off.',
+      );
     });
 
-    testWidgets('contains RepaintBoundary wrapper', (tester) async {
-      await pumpApp(
+    testWidgets('disabled toggle reports disabled and is not tappable', (
+      tester,
+    ) async {
+      await pumpWired(tester, const WiredToggle(value: true));
+
+      expectSemantics(
         tester,
-        Center(
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: WiredToggle(value: false),
-          ),
-        ),
+        findWired<WiredToggle>(),
+        isEnabled: false,
+        isToggled: true,
+        hasTapAction: false,
+        reason: 'A disabled toggle must not advertise a tap action.',
+      );
+      await tapWired(tester, findWired<WiredToggle>());
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('has documented thumb radius defaults', (tester) async {
+      const toggle = WiredToggle(value: false);
+      expect(toggle.thumbRadius, 24.0);
+      expect(toggle.onChange, isNull);
+      expect(toggle.semanticLabel, isNull);
+
+      await pumpWired(
+        tester,
+        const WiredToggle(value: false, thumbRadius: 16),
       );
 
-      // WiredToggle uses buildWiredElement which wraps in RepaintBoundary.
       expect(
-        find.descendant(
-          of: find.byType(WiredToggle),
-          matching: find.byType(RepaintBoundary),
-        ),
-        findsOneWidget,
+        tester.widget<WiredToggle>(findWired<WiredToggle>()).thumbRadius,
+        16.0,
       );
+      expectRenders(tester, findWired<WiredToggle>());
     });
 
-    testWidgets('applies semantic label when provided', (tester) async {
-      await pumpApp(
+    testWidgets('mirrors the thumb travel in RTL', (tester) async {
+      await pumpWired(tester, WiredToggle(value: false, onChange: (v) => true));
+      await tester.pumpAndSettle();
+      final ltrOff = _thumbCenterX(tester) - _toggleCenterX(tester);
+
+      await pumpWired(tester, WiredToggle(value: true, onChange: (v) => true));
+      await tester.pumpAndSettle();
+      final ltrOn = _thumbCenterX(tester) - _toggleCenterX(tester);
+
+      await pumpWiredRtl(
         tester,
-        Center(
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: WiredToggle(
-              value: true,
-              onChange: (v) => true,
-              semanticLabel: 'Dark mode',
-            ),
-          ),
-        ),
+        WiredToggle(value: false, onChange: (v) => true),
+      );
+      await tester.pumpAndSettle();
+      final rtlOff = _thumbCenterX(tester) - _toggleCenterX(tester);
+
+      await pumpWiredRtl(
+        tester,
+        WiredToggle(value: true, onChange: (v) => true),
+      );
+      await tester.pumpAndSettle();
+      final rtlOn = _thumbCenterX(tester) - _toggleCenterX(tester);
+
+      expect(ltrOff, lessThan(0), reason: 'LTR off rests at the start edge.');
+      expect(ltrOn, greaterThan(0), reason: 'LTR on rests at the end edge.');
+      expect(
+        rtlOff,
+        greaterThan(0),
+        reason: 'RTL off rests at the start edge.',
+      );
+      expect(rtlOn, lessThan(0), reason: 'RTL on rests at the end edge.');
+    });
+
+    testWidgets('renders and paints under small and zero constraints', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredToggle(value: true, onChange: (v) => true),
+        surfaceSize: const Size(60, 24),
+      );
+      expectRenders(tester, findWired<WiredToggle>());
+      expect(tester.takeException(), isNull);
+
+      await pumpWired(
+        tester,
+        WiredToggle(value: true, onChange: (v) => true),
+        surfaceSize: Size.zero,
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('is unaffected by doubled text scale', (tester) async {
+      await pumpWiredScaled(
+        tester,
+        WiredToggle(value: true, onChange: (v) => true),
       );
 
-      expect(find.bySemanticsLabel('Dark mode'), findsOneWidget);
+      expectSemantics(tester, findWired<WiredToggle>(), isToggled: true);
+      expect(tester.takeException(), isNull);
     });
   });
 }
+
+/// Horizontal centre of the square thumb canvas, in global coordinates.
+double _thumbCenterX(WidgetTester tester) {
+  final rects = findWiredIn<WiredCanvas>(findWired<WiredToggle>())
+      .evaluate()
+      .map((element) {
+        final box = element.renderObject! as RenderBox;
+        return box.localToGlobal(Offset.zero) & box.size;
+      })
+      .where((rect) => rect.width == rect.height)
+      .toList();
+
+  expect(rects, hasLength(1), reason: 'Expected exactly one square thumb.');
+  return rects.single.center.dx;
+}
+
+/// Horizontal centre of the whole toggle, in global coordinates.
+double _toggleCenterX(WidgetTester tester) =>
+    tester.getRect(findWired<WiredToggle>()).center.dx;

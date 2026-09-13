@@ -1,34 +1,67 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/finders.dart';
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('WiredRangeSlider', () {
-    testWidgets('numeric endpoints update after an external rebuild', (
-      tester,
-    ) async {
-      await pumpApp(tester, WiredRangeSlider.between(start: .2, end: .8));
-      await pumpApp(tester, WiredRangeSlider.between(start: .4, end: .6));
+    testWidgets('renders and paints', (tester) async {
+      await pumpWired(
+        tester,
+        WiredRangeSlider.between(start: 0.2, end: 0.8),
+      );
+
+      expectRenders(tester, findWired<WiredRangeSlider>());
+      expectPaints(findWired<WiredRangeSlider>());
+    });
+
+    testWidgets('exposes a slider role with the current range', (tester) async {
+      await pumpWired(
+        tester,
+        WiredRangeSlider.between(
+          start: 0.2,
+          end: 0.8,
+          onChanged: (start, end) => true,
+        ),
+      );
+
+      expectSemantics(tester, findWired<WiredRangeSlider>(), isSlider: true);
       expect(
-        tester.widget<RangeSlider>(find.byType(RangeSlider)).values,
-        const RangeValues(.4, .6),
+        semanticsOf(tester, findWired<WiredRangeSlider>()).value,
+        '0.2 to 0.8',
       );
     });
 
-    testWidgets('null callback disables input and preserves endpoints', (
-      tester,
-    ) async {
-      await pumpApp(tester, WiredRangeSlider.between(start: .2, end: .8));
-      final slider = find.byType(RangeSlider);
-      expect(tester.widget<RangeSlider>(slider).onChanged, isNull);
-      await tester.drag(slider, const Offset(80, 0));
-      await tester.pumpAndSettle();
-      expect(
-        tester.widget<RangeSlider>(slider).values,
-        const RangeValues(.2, .8),
+    testWidgets('exposes the supplied semantics label', (tester) async {
+      await pumpWired(
+        tester,
+        WiredRangeSlider.between(
+          start: 0.2,
+          end: 0.8,
+          semanticLabel: 'Price range',
+        ),
+      );
+
+      expect(findWiredBySemanticsLabel('Price range'), findsOneWidget);
+      expectSemantics(
+        tester,
+        findWired<WiredRangeSlider>(),
+        label: 'Price range',
+      );
+    });
+
+    testWidgets('reports disabled when there is no callback', (tester) async {
+      await pumpWired(
+        tester,
+        WiredRangeSlider.between(start: 0.2, end: 0.8),
+      );
+
+      expectSemantics(
+        tester,
+        findWired<WiredRangeSlider>(),
+        isSlider: true,
+        isEnabled: false,
       );
     });
 
@@ -37,7 +70,8 @@ void main() {
         tester,
       ) async {
         (double, double)? reported;
-        await pumpApp(
+
+        await pumpWired(
           tester,
           WiredRangeSlider.between(
             start: .2,
@@ -48,223 +82,123 @@ void main() {
             },
           ),
         );
-        await tester.drag(find.byType(RangeSlider), const Offset(80, 0));
-        await tester.pumpAndSettle();
-        expect(reported, isNotNull);
-        final actual = tester
-            .widget<RangeSlider>(find.byType(RangeSlider))
-            .values;
-        expect(
-          actual,
-          accept
-              ? RangeValues(reported!.$1, reported!.$2)
-              : const RangeValues(.2, .8),
+
+        await dragWired(
+          tester,
+          findWired<WiredRangeSlider>(),
+          const Offset(80, 0),
         );
+
+        expect(reported, isNotNull);
+
+        final value = semanticsOf(
+          tester,
+          findWired<WiredRangeSlider>(),
+        ).value;
+        if (accept) {
+          expect(
+            value,
+            '${reported!.$1.toStringAsFixed(1)} to '
+            '${reported!.$2.toStringAsFixed(1)}',
+            reason: 'An accepted drag must move the reported endpoints.',
+          );
+        } else {
+          expect(
+            value,
+            '0.2 to 0.8',
+            reason: 'A rejected drag must keep the previous endpoints.',
+          );
+        }
       });
     }
 
-    testWidgets('renders without error', (tester) async {
-      await pumpApp(
+    testWidgets('follows external endpoint changes', (tester) async {
+      await pumpWired(
         tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
-          onChanged: (v) => true,
-        ),
+        WiredRangeSlider.between(start: .2, end: .8),
+      );
+      expect(
+        semanticsOf(tester, findWired<WiredRangeSlider>()).value,
+        '0.2 to 0.8',
       );
 
-      expect(find.byType(WiredRangeSlider), findsOneWidget);
-    });
-
-    testWidgets('contains RangeSlider internally', (tester) async {
-      await pumpApp(
+      await pumpWired(
         tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
-          onChanged: (v) => true,
-        ),
+        WiredRangeSlider.between(start: .4, end: .6),
       );
 
       expect(
-        find.descendant(
-          of: find.byType(WiredRangeSlider),
-          matching: find.byType(RangeSlider),
-        ),
-        findsOneWidget,
+        semanticsOf(tester, findWired<WiredRangeSlider>()).value,
+        '0.4 to 0.6',
       );
+      expectPaints(findWired<WiredRangeSlider>());
     });
 
-    testWidgets('has correct min/max defaults', (tester) async {
-      await pumpApp(
+    testWidgets('honours custom min, max, and divisions', (tester) async {
+      await pumpWired(
         tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
-          onChanged: (v) => true,
-        ),
-      );
-
-      final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
-      expect(slider.min, 0.0);
-      expect(slider.max, 1.0);
-    });
-
-    testWidgets('uses custom min/max values', (tester) async {
-      await pumpApp(
-        tester,
-        WiredRangeSlider(
-          values: const RangeValues(20, 80),
+        WiredRangeSlider.between(
+          start: 20,
+          end: 80,
           min: 10,
           max: 100,
-          onChanged: (v) => true,
-        ),
-      );
-
-      final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
-      expect(slider.min, 10.0);
-      expect(slider.max, 100.0);
-    });
-
-    testWidgets('renders with divisions', (tester) async {
-      await pumpApp(
-        tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
           divisions: 5,
-          onChanged: (v) => true,
-        ),
-      );
-
-      final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
-      expect(slider.divisions, 5);
-    });
-
-    testWidgets('renders with labels', (tester) async {
-      await pumpApp(
-        tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
-          labels: const RangeLabels('Start', 'End'),
-          onChanged: (v) => true,
-        ),
-      );
-
-      final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
-      expect(slider.labels?.start, 'Start');
-      expect(slider.labels?.end, 'End');
-    });
-
-    testWidgets('calls onChanged when slider is dragged', (tester) async {
-      RangeValues? receivedValues;
-
-      await pumpApp(
-        tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
-          onChanged: (v) {
-            receivedValues = v;
-            return true;
-          },
-        ),
-      );
-
-      // Drag the range slider to trigger onChanged.
-      final sliderFinder = find.byType(RangeSlider);
-      await tester.drag(sliderFinder, const Offset(50.0, 0));
-      await tester.pump();
-
-      expect(receivedValues, isNotNull);
-    });
-
-    testWidgets('does not update when onChanged returns false', (tester) async {
-      await pumpApp(
-        tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.3, 0.7),
-          onChanged: (v) => false,
-        ),
-      );
-
-      final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
-      expect(slider.values, const RangeValues(0.3, 0.7));
-    });
-
-    testWidgets('contains Stack for layered layout', (tester) async {
-      await pumpApp(
-        tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
-          onChanged: (v) => true,
+          onChanged: (start, end) => true,
         ),
       );
 
       expect(
-        find.descendant(
-          of: find.byType(WiredRangeSlider),
-          matching: find.byType(Stack),
-        ),
-        findsAtLeast(1),
+        semanticsOf(tester, findWired<WiredRangeSlider>()).value,
+        '20.0 to 80.0',
       );
+      expectRenders(tester, findWired<WiredRangeSlider>());
+      expectPaints(findWired<WiredRangeSlider>());
     });
 
-    testWidgets('contains WiredCanvas for track line', (tester) async {
-      await pumpApp(
+    testWidgets('lays out and paints in RTL', (tester) async {
+      await pumpWiredRtl(
         tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
-          onChanged: (v) => true,
+        WiredRangeSlider.between(
+          start: 0.2,
+          end: 0.8,
+          onChanged: (start, end) => true,
         ),
       );
 
-      expect(
-        find.descendant(
-          of: find.byType(WiredRangeSlider),
-          matching: findWiredCanvas,
-        ),
-        findsOneWidget,
-      );
+      expectRenders(tester, findWired<WiredRangeSlider>());
+      expectPaints(findWired<WiredRangeSlider>());
+      expectSemantics(tester, findWired<WiredRangeSlider>(), isSlider: true);
     });
 
-    testWidgets('has transparent track colors via SliderTheme', (tester) async {
-      await pumpApp(
+    testWidgets('renders under small and zero constraints', (tester) async {
+      await pumpWired(
         tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
-          onChanged: (v) => true,
-        ),
+        WiredRangeSlider.between(start: 0.2, end: 0.8),
+        surfaceSize: const Size(60, 24),
       );
+      expectRenders(tester, findWired<WiredRangeSlider>());
+      expect(tester.takeException(), isNull);
 
-      expect(
-        find.descendant(
-          of: find.byType(WiredRangeSlider),
-          matching: find.byType(SliderTheme),
-        ),
-        findsOneWidget,
+      await pumpWired(
+        tester,
+        WiredRangeSlider.between(start: 0.2, end: 0.8),
+        surfaceSize: Size.zero,
       );
+      expect(tester.takeException(), isNull);
     });
 
-    testWidgets('divisions defaults to null', (tester) async {
-      await pumpApp(
+    testWidgets('is unaffected by doubled text scale', (tester) async {
+      await pumpWiredScaled(
         tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
-          onChanged: (v) => true,
+        WiredRangeSlider.between(
+          start: 0.2,
+          end: 0.8,
+          onChanged: (start, end) => true,
         ),
       );
 
-      final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
-      expect(slider.divisions, isNull);
-    });
-
-    testWidgets('labels defaults to null', (tester) async {
-      await pumpApp(
-        tester,
-        WiredRangeSlider(
-          values: const RangeValues(0.2, 0.8),
-          onChanged: (v) => true,
-        ),
-      );
-
-      final slider = tester.widget<RangeSlider>(find.byType(RangeSlider));
-      expect(slider.labels, isNull);
+      expectSemantics(tester, findWired<WiredRangeSlider>(), isSlider: true);
+      expect(tester.takeException(), isNull);
     });
   });
 

@@ -11,7 +11,7 @@ This document is the authoritative reference for AI coding agents (Claude, Copil
 2. **Every widget name starts with `Wired`.** `WiredButton`, `WiredAppBar`, `WiredDatePicker` — no exceptions.
 3. **Every widget reads theme from `WiredTheme.of(context)`.** Never hardcode colors, stroke widths, or roughness values.
 4. **Every widget wraps its output with `RepaintBoundary`.** Use `buildWiredElement(child: ...)` or extend `WiredBaseWidget`.
-5. **Every widget has 6+ tests.** Covering rendering, dimensions, interaction, state, edge cases, and accessibility.
+5. **Every widget has 6+ tests, written against Skribble's public API.** Cover rendering, dimensions, interaction, state, edge cases, semantics, RTL, and text scaling. Never assert on the Material/Cupertino control the implementation currently wraps — see [Durable widget tests](#durable-widget-tests).
 6. **Documentation must be updated when APIs change or features are added.** This includes the docs site content, dartdoc comments, and MDT template blocks.
 7. **No new Material or Cupertino imports in library code.** `packages/skribble/lib` may import `package:flutter/widgets.dart` and below, never `package:flutter/material.dart` or `package:flutter/cupertino.dart`. Read [Architecture](/core/architecture) before touching a file that currently imports either; the audit is a migration tracker, not a precedent.
 
@@ -39,7 +39,8 @@ skribble/
 │   ├── test/
 │   │   ├── rough/                  # Rough engine unit tests
 │   │   ├── widgets/                # Widget tests (one file per widget)
-│   │   └── helpers/pump_app.dart   # Test helper
+│   │   ├── tool/                   # Guards, e.g. no Material test coupling
+│   │   └── helpers/                # pumpWired host, finders, semantics, rendering
 │   └── tool/                       # Icon generation CLI
 ├── packages/skribble_lints/        # Shared lint rules (very_good_analysis based)
 ├── packages/skribble_icons_custom/ # Custom SVG-based icon package example
@@ -139,84 +140,82 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('Wired<Name>', () {
-    testWidgets('renders without error', (tester) async {
-      await pumpApp(
+    testWidgets('renders and paints', (tester) async {
+      await pumpWired(
         tester,
-        Wired<Name>(child: Text('Test'), onPressed: () {}),
+        Wired<Name>(child: const Text('Test'), onPressed: () {}),
       );
-      expect(find.byType(Wired<Name>), findsOneWidget);
+      expectRenders(tester, findWired<Wired<Name>>());
+      expectPaints(findWired<Wired<Name>>());
     });
 
     testWidgets('renders child content', (tester) async {
-      await pumpApp(
+      await pumpWired(
         tester,
-        Wired<Name>(child: Text('Hello'), onPressed: () {}),
+        Wired<Name>(child: const Text('Hello'), onPressed: () {}),
       );
       expect(find.text('Hello'), findsOneWidget);
     });
 
-    testWidgets('has correct default height', (tester) async {
-      await pumpApp(
-        tester,
-        Wired<Name>(child: Text('Test'), onPressed: () {}),
-      );
-      final size = tester.getSize(find.byType(Wired<Name>));
-      expect(size.height, greaterThan(0));
-    });
-
     testWidgets('calls onPressed when tapped', (tester) async {
       var tapped = false;
-      await pumpApp(
+      await pumpWired(
         tester,
-        Wired<Name>(child: Text('Tap'), onPressed: () => tapped = true),
+        Wired<Name>(child: const Text('Tap'), onPressed: () => tapped = true),
       );
-      await tester.tap(find.byType(Wired<Name>));
+      await tapWired(tester, findWired<Wired<Name>>());
       expect(tapped, isTrue);
     });
 
-    testWidgets('rebuilds with new child', (tester) async {
-      await pumpApp(
-        tester,
-        Wired<Name>(child: Text('Before'), onPressed: () {}),
-      );
-      expect(find.text('Before'), findsOneWidget);
-
-      await pumpApp(
-        tester,
-        Wired<Name>(child: Text('After'), onPressed: () {}),
-      );
-      expect(find.text('After'), findsOneWidget);
-    });
-
-    testWidgets('handles rapid taps', (tester) async {
-      var count = 0;
-      await pumpApp(
-        tester,
-        Wired<Name>(child: Text('Rapid'), onPressed: () => count++),
-      );
-      await tester.tap(find.byType(Wired<Name>));
-      await tester.tap(find.byType(Wired<Name>));
-      await tester.tap(find.byType(Wired<Name>));
-      expect(count, 3);
-    });
-
-    testWidgets('applies semantic label', (tester) async {
-      await pumpApp(
+    testWidgets('exposes a labelled button role', (tester) async {
+      await pumpWired(
         tester,
         Wired<Name>(
-          child: Text('Label'),
+          child: const Text('Label'),
           onPressed: () {},
           semanticLabel: 'My widget',
         ),
       );
-      expect(
-        tester.getSemantics(find.byType(Wired<Name>)),
-        matchesSemantics(label: 'My widget'),
+      expectSemantics(
+        tester,
+        findWired<Wired<Name>>(),
+        label: 'My widget',
+        isButton: true,
+        isEnabled: true,
       );
+    });
+
+    testWidgets('disabled widget ignores taps', (tester) async {
+      await pumpWired(tester, const Wired<Name>(child: Text('Off')));
+      await tapWired(tester, findWired<Wired<Name>>());
+      expectSemantics(
+        tester,
+        findWired<Wired<Name>>(),
+        isButton: true,
+        isEnabled: false,
+      );
+    });
+
+    testWidgets('lays out and paints in RTL', (tester) async {
+      await pumpWiredRtl(
+        tester,
+        Wired<Name>(child: const Text('RTL'), onPressed: () {}),
+      );
+      expectRenders(tester, findWired<Wired<Name>>());
+      expectPaints(findWired<Wired<Name>>());
+    });
+
+    testWidgets('scales text without clipping', (tester) async {
+      await pumpWiredScaled(
+        tester,
+        Wired<Name>(child: const Text('Scaled'), onPressed: () {}),
+      );
+      expectRenders(tester, findWired<Wired<Name>>());
+      expect(tester.takeException(), isNull);
     });
   });
 }
@@ -444,9 +443,37 @@ lib/src/wired_card.dart      →  test/widgets/wired_card_test.dart
 lib/src/wired_checkbox.dart  →  test/widgets/wired_checkbox_test.dart
 ```
 
-### pumpApp helper
+### Test host and helpers
 
-Always use `pumpApp()` to render widgets in tests. It wraps the widget in the correct app shell:
+New and converted tests use `pumpWired()` and the helpers in `packages/skribble/test/helpers/`. Import them through the single barrel:
+
+```dart
+// Static example: test
+import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble/skribble.dart';
+
+import '../helpers/skribble_test_support.dart';
+```
+
+`pumpWired` supplies the minimal host a widget needs (theme, directionality, text scale, bounded surface). `pumpWiredRtl` and `pumpWiredScaled` are the same host with RTL or a scaled `TextScaler`, so those dimensions are one named argument away instead of a hand-built tree. `pumpApp()` still exists for files that have not been migrated, but it exposes Material slots new tests should not depend on.
+
+See `packages/skribble/test/helpers/README.md` for the full helper table and the before/after migration pattern.
+
+### Durable widget tests
+
+Skribble's endgame removes Material from `packages/skribble/lib`. A test that asserts `find.byType(Checkbox)` or `tester.widget<TextButton>(...)` encodes the transitional implementation as the contract, breaks on the rewrite, and gives false confidence because it never exercises the Wired widget's own painting, hit area, or semantics.
+
+Rules for every test you write or touch:
+
+- Never name a Material or Cupertino type in a type lookup. The guard test `packages/skribble/test/tool/no_material_test_coupling_test.dart` enforces this with a shrinking allowlist of files that still need migrating; a new violation fails the suite with instructions.
+- Assert behaviour: callbacks fired, semantics flags, rendered size, rough paint reached — not which internal widget holds a value.
+- Use `findWired<T>()`, `expectSemantics(...)`, `expectRenders(...)`, `expectPaints(...)`, and `tapWired(...)` instead of raw framework lookups.
+- Add the dimensions Material currently masks: disabled state, RTL, text scaling, and large/zero/small constraints.
+- Do not assert painter classes or pixel output; the screenshot harnesses in `apps/skribble_storybook` cover ink fidelity.
+
+### pumpApp helper (legacy)
+
+`pumpApp()` remains for the files listed in the migration backlog. It wraps the widget in a Material app shell:
 
 <!-- {=docsPumpAppExample} -->
 
@@ -478,12 +505,12 @@ await pumpApp(
 
 Every widget test file must have at least 6 `testWidgets` covering:
 
-1. **Rendering** — widget renders without error, child content appears
-2. **Dimensions** — correct default size, custom size respected
-3. **Interaction** — taps fire callbacks, state changes work
-4. **State** — rebuilds when values change, animations complete
-5. **Edge cases** — null values, empty strings, rapid interactions, overflow
-6. **Accessibility** — semantic labels applied correctly
+1. **Rendering** — widget renders without error, child content appears, rough paint is reached
+2. **Dimensions** — correct default size, custom size respected, sensible non-zero size
+3. **Interaction** — taps fire callbacks, state changes work, disabled state ignores taps
+4. **State** — rebuilds when values change, animations settle
+5. **Edge cases** — null values, empty strings, rapid interactions, large/zero/small constraints
+6. **Accessibility and direction** — semantic label/role/state, RTL layout, doubled text scale
 
 ### Testing value-driven widgets
 
@@ -493,7 +520,7 @@ For widgets like `WiredCheckbox` or `WiredSlider` that have a current value:
 // Static example: test
 testWidgets('updates when value changes', (tester) async {
   var currentValue = false;
-  await pumpApp(
+  await pumpWired(
     tester,
     StatefulBuilder(
       builder: (context, setState) => WiredCheckbox(
@@ -503,9 +530,10 @@ testWidgets('updates when value changes', (tester) async {
     ),
   );
 
-  await tester.tap(find.byType(WiredCheckbox));
+  await tapWired(tester, findWired<WiredCheckbox>());
   await tester.pumpAndSettle();
   expect(currentValue, isTrue);
+  expectSemantics(tester, findWired<WiredCheckbox>(), isChecked: true);
 });
 ```
 

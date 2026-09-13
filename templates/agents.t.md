@@ -67,84 +67,82 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('Wired<Name>', () {
-    testWidgets('renders without error', (tester) async {
-      await pumpApp(
+    testWidgets('renders and paints', (tester) async {
+      await pumpWired(
         tester,
-        Wired<Name>(child: Text('Test'), onPressed: () {}),
+        Wired<Name>(child: const Text('Test'), onPressed: () {}),
       );
-      expect(find.byType(Wired<Name>), findsOneWidget);
+      expectRenders(tester, findWired<Wired<Name>>());
+      expectPaints(findWired<Wired<Name>>());
     });
 
     testWidgets('renders child content', (tester) async {
-      await pumpApp(
+      await pumpWired(
         tester,
-        Wired<Name>(child: Text('Hello'), onPressed: () {}),
+        Wired<Name>(child: const Text('Hello'), onPressed: () {}),
       );
       expect(find.text('Hello'), findsOneWidget);
     });
 
-    testWidgets('has correct default height', (tester) async {
-      await pumpApp(
-        tester,
-        Wired<Name>(child: Text('Test'), onPressed: () {}),
-      );
-      final size = tester.getSize(find.byType(Wired<Name>));
-      expect(size.height, greaterThan(0));
-    });
-
     testWidgets('calls onPressed when tapped', (tester) async {
       var tapped = false;
-      await pumpApp(
+      await pumpWired(
         tester,
-        Wired<Name>(child: Text('Tap'), onPressed: () => tapped = true),
+        Wired<Name>(child: const Text('Tap'), onPressed: () => tapped = true),
       );
-      await tester.tap(find.byType(Wired<Name>));
+      await tapWired(tester, findWired<Wired<Name>>());
       expect(tapped, isTrue);
     });
 
-    testWidgets('rebuilds with new child', (tester) async {
-      await pumpApp(
-        tester,
-        Wired<Name>(child: Text('Before'), onPressed: () {}),
-      );
-      expect(find.text('Before'), findsOneWidget);
-
-      await pumpApp(
-        tester,
-        Wired<Name>(child: Text('After'), onPressed: () {}),
-      );
-      expect(find.text('After'), findsOneWidget);
-    });
-
-    testWidgets('handles rapid taps', (tester) async {
-      var count = 0;
-      await pumpApp(
-        tester,
-        Wired<Name>(child: Text('Rapid'), onPressed: () => count++),
-      );
-      await tester.tap(find.byType(Wired<Name>));
-      await tester.tap(find.byType(Wired<Name>));
-      await tester.tap(find.byType(Wired<Name>));
-      expect(count, 3);
-    });
-
-    testWidgets('applies semantic label', (tester) async {
-      await pumpApp(
+    testWidgets('exposes a labelled button role', (tester) async {
+      await pumpWired(
         tester,
         Wired<Name>(
-          child: Text('Label'),
+          child: const Text('Label'),
           onPressed: () {},
           semanticLabel: 'My widget',
         ),
       );
-      expect(
-        tester.getSemantics(find.byType(Wired<Name>)),
-        matchesSemantics(label: 'My widget'),
+      expectSemantics(
+        tester,
+        findWired<Wired<Name>>(),
+        label: 'My widget',
+        isButton: true,
+        isEnabled: true,
       );
+    });
+
+    testWidgets('disabled widget ignores taps', (tester) async {
+      await pumpWired(tester, const Wired<Name>(child: Text('Off')));
+      await tapWired(tester, findWired<Wired<Name>>());
+      expectSemantics(
+        tester,
+        findWired<Wired<Name>>(),
+        isButton: true,
+        isEnabled: false,
+      );
+    });
+
+    testWidgets('lays out and paints in RTL', (tester) async {
+      await pumpWiredRtl(
+        tester,
+        Wired<Name>(child: const Text('RTL'), onPressed: () {}),
+      );
+      expectRenders(tester, findWired<Wired<Name>>());
+      expectPaints(findWired<Wired<Name>>());
+    });
+
+    testWidgets('scales text without clipping', (tester) async {
+      await pumpWiredScaled(
+        tester,
+        Wired<Name>(child: const Text('Scaled'), onPressed: () {}),
+      );
+      expectRenders(tester, findWired<Wired<Name>>());
+      expect(tester.takeException(), isNull);
     });
   });
 }
