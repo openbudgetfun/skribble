@@ -3,7 +3,7 @@ title: Contributing
 description: How to set up the workspace, follow conventions, and submit mergeable pull requests.
 ---
 
-Thanks for your interest in contributing to Skribble! This guide covers the workflow, conventions, and quality gates you should know before submitting a PR.
+Thanks for your interest in contributing to skribble! This guide covers the workflow, conventions, and quality gates you should know before submitting a PR.
 
 ## Prerequisites
 

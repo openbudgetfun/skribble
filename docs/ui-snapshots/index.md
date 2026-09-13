@@ -1,6 +1,6 @@
-# Skribble UI Snapshots
+# skribble UI Snapshots
 
-Visual reference for all hand-drawn Flutter components in the Skribble design system.
+Visual reference for all hand-drawn Flutter components in the skribble design system.
 
 Each category page documents the screenshot artifacts produced by the integration screenshot flow.
 

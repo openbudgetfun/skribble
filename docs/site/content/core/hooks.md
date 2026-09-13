@@ -1,11 +1,11 @@
 ---
 title: Hooks & State Management
-description: Why Skribble uses HookWidget exclusively, common hook patterns, Riverpod integration with HookConsumerWidget, and state management recipes.
+description: Why skribble uses HookWidget exclusively, common hook patterns, Riverpod integration with HookConsumerWidget, and state management recipes.
 ---
 
 # Hooks & State Management
 
-UI components in Skribble use `HookWidget` from [flutter_hooks](https://pub.dev/packages/flutter_hooks). The motion layer uses standard Flutter `State`, ticker providers, and `InheritedWidget` scopes. Its public API accepts `Animation<double>`, so consumers can own animations with hooks or other Flutter animation libraries.
+UI components in skribble use `HookWidget` from [flutter_hooks](https://pub.dev/packages/flutter_hooks). The motion layer uses standard Flutter `State`, ticker providers, and `InheritedWidget` scopes. Its public API accepts `Animation<double>`, so consumers can own animations with hooks or other Flutter animation libraries.
 
 ## Why HookWidget
 
@@ -51,7 +51,7 @@ Hooks compress all of this into the `build` method. State, side effects, and dis
 
 ```dart
 // Static example: pseudocode
-// Skribble way -- clean and composable
+// skribble way -- clean and composable
 class AnimatedBox extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class AnimatedBox extends HookWidget {
 - **No lifecycle boilerplate** -- no `initState`, `dispose`, `didUpdateWidget`, or `createState`.
 - **Testable** -- hooks follow the same patterns as the widget tree, so widget tests work unchanged.
 
-## Common Hooks in Skribble
+## Common Hooks in skribble
 
 ### useState
 

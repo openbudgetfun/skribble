@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-/// Common finders for Skribble widget tests.
+/// Common finders for skribble widget tests.
 ///
 /// Usage:
 /// ```dart

@@ -5,7 +5,7 @@ description: Preview every hand-drawn widget, icon, emoji, and font glyph live i
 
 # Live Showcase
 
-The complete Skribble storybook runs as a web build on this site. Every widget category, all 8,600+ roughened Material icons, the curated icon set, the 1,827 hand-drawn emoji, and the full Skribble font specimen are interactive in your browser — no install required.
+The complete skribble storybook runs as a web build on this site. Every widget category, all 8,600+ roughened Material icons, the curated icon set, the 1,827 hand-drawn emoji, and the full skribble font specimen are interactive in your browser — no install required.
 
 ## Open the live storybook
 
@@ -23,7 +23,7 @@ The storybook is organized into categories:
 | Layout                      | [Live preview →](../../storybook/#/layout)         |
 | Data Display                | [Live preview →](../../storybook/#/data-display)   |
 | Rough Icons (8,600+)        | [Live preview →](../../storybook/#/rough-icons)    |
-| Skribble Icons (curated)    | [Live preview →](../../storybook/#/skribble-icons) |
+| skribble Icons (curated)    | [Live preview →](../../storybook/#/skribble-icons) |
 | Emoji (1,827)               | [Live preview →](../../storybook/#/emoji)          |
 | Font Specimen (every glyph) | [Live preview →](../../storybook/#/font-specimen)  |
 

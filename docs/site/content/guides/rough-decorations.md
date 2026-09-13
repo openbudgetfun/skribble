@@ -27,7 +27,7 @@ Builder(
 )
 ```
 
-Skribble equivalent:
+skribble equivalent:
 
 ```dart
 // Live example: decoration-usage-2
@@ -544,7 +544,7 @@ Builder(
 
 ## Integration with WiredTheme
 
-When building widgets that need to respect the Skribble theme, read colors from `WiredTheme.of(context)`:
+When building widgets that need to respect the skribble theme, read colors from `WiredTheme.of(context)`:
 
 ```dart
 // Static example: configuration

@@ -1,13 +1,13 @@
 ---
-title: Using Skribble on Jaspr (Web)
-description: Hand-drawn aesthetics in Jaspr sites — Skribble webfont, rough SVG borders, and the planned skribble_jaspr package.
+title: Using skribble on Jaspr (Web)
+description: Hand-drawn aesthetics in Jaspr sites — skribble webfont, rough SVG borders, and the planned skribble_jaspr package.
 ---
 
-# Using Skribble on Jaspr (Web)
+# Using skribble on Jaspr (Web)
 
-Skribble's Flutter packages target Flutter apps, but the hand-drawn aesthetic works on the web today — you can self-host its fonts and reproduce rough-line motifs in a Jaspr app. This documentation site itself now uses Flutter and the actual Wired components.
+skribble's Flutter packages target Flutter apps, but the hand-drawn aesthetic works on the web today — you can self-host its fonts and reproduce rough-line motifs in a Jaspr app. This documentation site itself now uses Flutter and the actual Wired components.
 
-## 1. The Skribble webfont
+## 1. The skribble webfont
 
 The bundled fonts live in [`packages/skribble/assets/fonts/`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble/assets/fonts) (OFL license). Self-host them with `@font-face`:
 
@@ -41,7 +41,7 @@ const node = rc.rectangle(10, 10, 200, 100, {
 });
 ```
 
-2. **Pre-generated rough SVG paths** — the Skribble engine produces the same primitives deterministically; you can extract path data for a fixed geometry once and inline it (zero drawing-engine runtime cost).
+2. **Pre-generated rough SVG paths** — the skribble engine produces the same primitives deterministically; you can extract path data for a fixed geometry once and inline it (zero drawing-engine runtime cost).
 
 ## 3. Live examples in this ecosystem
 
@@ -50,4 +50,4 @@ const node = rc.rectangle(10, 10, 200, 100, {
 
 ## 4. `skribble_jaspr` (planned)
 
-A Jaspr component package (`ScribbleButton`, `ScribbleCard`, `ScribbleDivider`, `ScribbleTextField`) with rough SVG chrome and the Skribble fonts as assets. Scoped in PLANNING.md under "Beyond Flutter" — design is a direct port of the rough engine's constants (roughness, bowing, stroke widths, hachure angles) to JS/SVG generators.
+A Jaspr component package (`ScribbleButton`, `ScribbleCard`, `ScribbleDivider`, `ScribbleTextField`) with rough SVG chrome and the skribble fonts as assets. Scoped in PLANNING.md under "Beyond Flutter" — design is a direct port of the rough engine's constants (roughness, bowing, stroke widths, hachure angles) to JS/SVG generators.

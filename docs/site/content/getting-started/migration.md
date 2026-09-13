@@ -1,25 +1,25 @@
 ---
 title: Migration Guide
-description: How to migrate an existing Flutter app from Material Design to Skribble's hand-drawn aesthetic.
+description: How to migrate an existing Flutter app from Material Design to skribble's hand-drawn aesthetic.
 ---
 
 # Migration Guide
 
-This guide walks you through migrating an existing Flutter app from Material Design to Skribble's hand-drawn aesthetic. The migration is straightforward because Skribble's Wired widgets follow similar APIs to their Material counterparts.
+This guide walks you through migrating an existing Flutter app from Material Design to skribble's hand-drawn aesthetic. The migration is straightforward because skribble's Wired widgets follow similar APIs to their Material counterparts.
 
 ## Overview
 
-Migrating to Skribble involves:
+Migrating to skribble involves:
 
-1. Adding the Skribble package to your project
+1. Adding the skribble package to your project
 2. Replacing Material widgets with their Wired equivalents
 3. Wrapping your app with `WiredTheme` and `WiredMaterialApp`
 4. Updating the font family (optional)
 5. Testing and adjusting the visual appearance
 
-## Step 1: Add Skribble
+## Step 1: Add skribble
 
-Add the Skribble package to your `pubspec.yaml`:
+Add the skribble package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
@@ -67,7 +67,7 @@ WiredMaterialApp(
 
 ### Buttons
 
-| Material               | Skribble              |
+| Material               | skribble              |
 | ---------------------- | --------------------- |
 | `ElevatedButton`       | `WiredElevatedButton` |
 | `TextButton`           | `WiredTextButton`     |
@@ -99,7 +99,7 @@ WiredElevatedButton(
 
 ### Inputs
 
-| Material        | Skribble                          |
+| Material        | skribble                          |
 | --------------- | --------------------------------- |
 | `TextField`     | `WiredInput`                      |
 | `TextFormField` | `WiredInput` (with form handling) |
@@ -132,7 +132,7 @@ WiredInput(
 
 ### Navigation
 
-| Material              | Skribble              |
+| Material              | skribble              |
 | --------------------- | --------------------- |
 | `AppBar`              | `WiredAppBar`         |
 | `NavigationBar`       | `WiredNavigationBar`  |
@@ -169,7 +169,7 @@ WiredScaffold(
 
 ### Cards and Containers
 
-| Material      | Skribble           |
+| Material      | skribble           |
 | ------------- | ------------------ |
 | `Card`        | `WiredCard`        |
 | `Dialog`      | `WiredDialog`      |
@@ -200,7 +200,7 @@ WiredCard(
 
 ### Lists
 
-| Material           | Skribble                |
+| Material           | skribble                |
 | ------------------ | ----------------------- |
 | `ListTile`         | `WiredListTile`         |
 | `CheckboxListTile` | `WiredCheckboxListTile` |
@@ -235,7 +235,7 @@ WiredListTile(
 
 ### Selections
 
-| Material          | Skribble               |
+| Material          | skribble               |
 | ----------------- | ---------------------- |
 | `DropdownButton`  | `WiredCombo`           |
 | `DropdownMenu`    | `WiredDropdownMenu`    |
@@ -268,7 +268,7 @@ WiredCombo<String>(
 
 ### Data Display
 
-| Material                    | Skribble                  |
+| Material                    | skribble                  |
 | --------------------------- | ------------------------- |
 | `DataTable`                 | `WiredDataTable`          |
 | `PaginatedDataTable`        | `WiredPaginatedDataTable` |
@@ -330,7 +330,7 @@ const Wrap(
 
 ## Step 5: Update Fonts (Optional)
 
-Use the Skribble font for a fully hand-drawn text experience:
+Use the skribble font for a fully hand-drawn text experience:
 
 **Before:**
 
@@ -423,7 +423,7 @@ WiredThemeData(
 
 ### Responsive Layout
 
-Skribble widgets work with Flutter's responsive layout system:
+skribble widgets work with Flutter's responsive layout system:
 
 ```dart
 // Static example: pseudocode
@@ -485,7 +485,7 @@ HookBuilder(
 If you can't find a Wired equivalent for a Material widget, check:
 
 1. The widget catalog in the documentation
-2. Use the Material widget directly - it will still work within Skribble apps
+2. Use the Material widget directly - it will still work within skribble apps
 3. Consider wrapping it with `WiredCanvas` for a hand-drawn border
 
 ### Styling differences

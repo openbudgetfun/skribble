@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_charts/skribble_charts.dart';
 
-/// Embeds exact illustrative candles in a normal Skribble application.
+/// Embeds exact illustrative candles in a normal skribble application.
 void main() => runApp(
   WiredMaterialApp(wiredTheme: WiredThemeData(), home: const ChartExample()),
 );

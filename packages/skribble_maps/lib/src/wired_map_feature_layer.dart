@@ -85,7 +85,7 @@ class WiredMapPolygon extends WiredMapFeature {
 
 /// Paints precise routes and hand-hatched areas above the basemap.
 ///
-/// Routes follow the supplied points exactly. Areas use Skribble's rough
+/// Routes follow the supplied points exactly. Areas use skribble's rough
 /// engine with stable seeds and restrained hatching to keep map labels clear.
 class WiredMapFeatureLayer extends HookWidget {
   /// Creates a hand-drawn feature layer.

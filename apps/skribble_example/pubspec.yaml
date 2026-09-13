@@ -1,6 +1,6 @@
 name: skribble_example
 description: >
-  A hand-drawn notes app demonstrating the Skribble design system.
+  A hand-drawn notes app demonstrating the skribble design system.
 publish_to: none
 
 environment:

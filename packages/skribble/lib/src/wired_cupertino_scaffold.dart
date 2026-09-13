@@ -16,7 +16,7 @@ class WiredPageScaffold extends HookWidget {
   /// The content of the page.
   final Widget child;
 
-  /// Background color. Defaults to the Skribble cream background.
+  /// Background color. Defaults to the skribble cream background.
   final Color? backgroundColor;
 
   const WiredPageScaffold({

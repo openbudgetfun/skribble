@@ -26,7 +26,7 @@ WiredFinancialChart(
 
 The existing Maps package establishes independently versioned companion packages. The Flutter docs compile real example widgets from annotated Dart expressions and generate their Markdown snippets from that source. Storybook uses a route per category.
 
-Skribble's generic rough line renderer displaces endpoints. Its rectangles also reserve room for ink bleed. These behaviors are appropriate for controls but must not determine candle prices. The chart clips hatching to exact body bounds and preserves every OHLC position. Themes contribute appearance, not geometry.
+skribble's generic rough line renderer displaces endpoints. Its rectangles also reserve room for ink bleed. These behaviors are appropriate for controls but must not determine candle prices. The chart clips hatching to exact body bounds and preserves every OHLC position. Themes contribute appearance, not geometry.
 
 ## Alternatives and synthesis
 

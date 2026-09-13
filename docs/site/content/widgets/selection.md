@@ -1,11 +1,11 @@
 ---
 title: Selection
-description: Hand-drawn chips, dropdowns, date/time pickers, and color pickers in the Skribble design system.
+description: Hand-drawn chips, dropdowns, date/time pickers, and color pickers in the skribble design system.
 ---
 
 # Selection
 
-Skribble provides selection widgets for choices, filtering, date/time picking, and color selection. Each widget replaces its Material or Cupertino counterpart with sketchy hand-drawn chrome. All selection widgets read their palette from `WiredTheme.of(context)`.
+skribble provides selection widgets for choices, filtering, date/time picking, and color selection. Each widget replaces its Material or Cupertino counterpart with sketchy hand-drawn chrome. All selection widgets read their palette from `WiredTheme.of(context)`.
 
 ---
 

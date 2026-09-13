@@ -1,6 +1,6 @@
 /// Hand-drawn UI components for Flutter.
 ///
-/// Skribble provides sketchy, hand-drawn widgets that give your app
+/// skribble provides sketchy, hand-drawn widgets that give your app
 /// a unique, informal aesthetic.
 library;
 

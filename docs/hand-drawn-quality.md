@@ -1,6 +1,6 @@
 # Hand-drawn quality work
 
-Skribble now uses a real outline-derived Recursive Casual family, a broader rounded pen for UI borders, and complete OpenMoji 17 artwork. The storybook's **The sketchbook** page combines those pieces in an interactive notebook with morning and evening palettes.
+skribble now uses a real outline-derived Recursive Casual family, a broader rounded pen for UI borders, and complete OpenMoji 17 artwork. The storybook's **The sketchbook** page combines those pieces in an interactive notebook with morning and evening palettes.
 
 ## What was wrong
 
@@ -13,7 +13,7 @@ Skribble now uses a real outline-derived Recursive Casual family, a broader roun
 
 ## Changes
 
-The font writer now rewrites static TrueType outlines and verifies the saved representation. It preserves all source glyphs, spacing, and layout tables. Four source styles produce four deterministic Skribble styles. Coherent deformation gives a rounded, uneven pen appearance without jagged counters. The family is bundled under the package-qualified font name, and local widget styles inherit it.
+The font writer now rewrites static TrueType outlines and verifies the saved representation. It preserves all source glyphs, spacing, and layout tables. Four source styles produce four deterministic skribble styles. Coherent deformation gives a rounded, uneven pen appearance without jagged counters. The family is bundled under the package-qualified font name, and local widget styles inherit it.
 
 The default border is 2.4 logical pixels, with roughness 1.8 and a 2-unit maximum random offset. Round caps and joins, insets for stroke bleed, stable seeded repaints, and sufficient divider space make the pen visible without clipping. Theme updates repaint the actual geometry. Runtime icon wobble is smaller than layout-border wobble, because a 24-pixel symbol must remain legible.
 

@@ -1,5 +1,5 @@
 name: skribble_docs_site
-description: Interactive Flutter documentation for the Skribble design system.
+description: Interactive Flutter documentation for the skribble design system.
 publish_to: none
 
 environment:

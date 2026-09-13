@@ -1,6 +1,6 @@
 name: skribble_icons_custom
 description: |
-  Hand-drawn custom icon set for Skribble. A small SVG-manifest-based icon package generated with the Skribble rough icon pipeline.
+  Hand-drawn custom icon set for skribble. A small SVG-manifest-based icon package generated with the skribble rough icon pipeline.
 version: 0.1.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_icons_custom

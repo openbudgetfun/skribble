@@ -1,6 +1,6 @@
-# Flutter Default Widget Parity Matrix vs Skribble
+# Flutter Default Widget Parity Matrix vs skribble
 
-This matrix inventories common Flutter **Material** and **Cupertino** default widgets and maps each to Skribble coverage across:
+This matrix inventories common Flutter **Material** and **Cupertino** default widgets and maps each to skribble coverage across:
 
 - library implementation (`packages/skribble/lib/src`)
 - widget tests (`packages/skribble/test/widgets`)
@@ -11,11 +11,11 @@ Status meanings:
 - **implemented**: matching Wired widget exists with test + storybook usage
 - **partial**: some coverage exists, but parity is incomplete (variant gaps / helper-only / no one-to-one equivalent)
 - **unverified**: implementation exists but test or storybook evidence is missing
-- **missing**: no Skribble equivalent found
+- **missing**: no skribble equivalent found
 
 ## Material widgets
 
-| Flutter widget            | Skribble mapping            | Lib | Test |                     Storybook | Status      | Notes                                                |
+| Flutter widget            | skribble mapping            | Lib | Test |                     Storybook | Status      | Notes                                                |
 | ------------------------- | --------------------------- | --: | ---: | ----------------------------: | ----------- | ---------------------------------------------------- |
 | AppBar                    | `WiredAppBar`               |  ✅ |   ✅ |   ✅ (`navigation_page.dart`) | implemented |                                                      |
 | BottomNavigationBar       | `WiredBottomNavigationBar`  |  ✅ |   ✅ |   ✅ (`navigation_page.dart`) | implemented |                                                      |
@@ -76,7 +76,7 @@ Status meanings:
 
 ## Cupertino widgets
 
-| Flutter widget                   | Skribble mapping                 | Lib | Test |                   Storybook | Status      | Notes                                  |
+| Flutter widget                   | skribble mapping                 | Lib | Test |                   Storybook | Status      | Notes                                  |
 | -------------------------------- | -------------------------------- | --: | ---: | --------------------------: | ----------- | -------------------------------------- |
 | CupertinoButton                  | `WiredCupertinoButton`           |  ✅ |   ✅ |    ✅ (`buttons_page.dart`) | implemented | Press-opacity, filled variant          |
 | CupertinoSwitch                  | `WiredCupertinoSwitch`           |  ✅ |   ✅ |     ✅ (`inputs_page.dart`) | implemented | Animated thumb with green active track |
@@ -95,7 +95,7 @@ Status meanings:
 
 ## Extended widgets (beyond parity)
 
-| Widget                   | Skribble mapping                | Lib | Test |                     Storybook | Status      | Notes                                           |
+| Widget                   | skribble mapping                | Lib | Test |                     Storybook | Status      | Notes                                           |
 | ------------------------ | ------------------------------- | --: | ---: | ----------------------------: | ----------- | ----------------------------------------------- |
 | CircleAvatar             | `WiredAvatar`                   |  ✅ |   ✅ |       ✅ (`layout_page.dart`) | implemented | Hand-drawn circle with initials/icon/image      |
 | MaterialBanner           | `WiredMaterialBanner`           |  ✅ |   ✅ |     ✅ (`feedback_page.dart`) | implemented | Persistent top banner with sketchy borders      |
@@ -105,15 +105,15 @@ Status meanings:
 | SliverAppBar             | `WiredSliverAppBar`             |  ✅ |   ✅ |       ✅ (`layout_page.dart`) | implemented | Collapsible sliver bar with sketchy border      |
 | Dismissible              | `WiredDismissible`              |  ✅ |   ✅ |       ✅ (`layout_page.dart`) | implemented | Swipe-to-dismiss with sketchy delete background |
 | Scaffold                 | `WiredScaffold`                 |  ✅ |   ✅ |       ✅ (`layout_page.dart`) | implemented | Material shell with paper-like background       |
-| SelectableText           | `WiredSelectableText`           |  ✅ |   ✅ | ✅ (`data_display_page.dart`) | implemented | Selectable text with Skribble styling           |
+| SelectableText           | `WiredSelectableText`           |  ✅ |   ✅ | ✅ (`data_display_page.dart`) | implemented | Selectable text with skribble styling           |
 | AboutDialog              | `WiredAboutDialog`              |  ✅ |   ✅ |     ✅ (`feedback_page.dart`) | implemented | Hand-drawn about dialog with app info           |
-| AnimatedIcon             | `WiredAnimatedIcon`             |  ✅ |   ✅ |     ✅ (`feedback_page.dart`) | implemented | Morphing icon with Skribble styling             |
+| AnimatedIcon             | `WiredAnimatedIcon`             |  ✅ |   ✅ |     ✅ (`feedback_page.dart`) | implemented | Morphing icon with skribble styling             |
 | ContextMenu              | `WiredContextMenu`              |  ✅ |   ✅ |     ✅ (`feedback_page.dart`) | implemented | Long-press context actions with sketchy overlay |
 | (Custom) Color Picker    | `WiredColorPicker`              |  ✅ |   ✅ |    ✅ (`selection_page.dart`) | implemented | Grid of sketchy circle swatches with selection  |
 
 ## App architecture bridges
 
-| Flutter construct       | Skribble mapping                                    | Lib | Test |       Storybook | Status      | Notes                                                                                                                       |
+| Flutter construct       | skribble mapping                                    | Lib | Test |       Storybook | Status      | Notes                                                                                                                       |
 | ----------------------- | --------------------------------------------------- | --: | ---: | --------------: | ----------- | --------------------------------------------------------------------------------------------------------------------------- |
 | MaterialApp + ThemeData | `WiredMaterialApp` + `WiredThemeData.toThemeData()` |  ✅ |   ✅ | ✅ (`app.dart`) | implemented | Keeps Material theming and `WiredTheme` synchronized                                                                        |
 | MaterialApp.router      | `WiredMaterialApp.router`                           |  ✅ |   ✅ |             n/a | implemented | Router-based app bootstrapping with synced theming                                                                          |

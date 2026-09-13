@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_icons/skribble_icons.dart';
 
-/// Lazy-rendered gallery of the 30 curated hand-drawn Skribble icons.
+/// Lazy-rendered gallery of the 30 curated hand-drawn skribble icons.
 ///
 /// Renders only the visible rows of the grid via `GridView.builder`, with a
 /// search bar filtering by identifier and tappable cells that open a preview

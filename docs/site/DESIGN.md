@@ -1,5 +1,5 @@
 ---
-name: Skribble documentation
+name: skribble documentation
 description: Warm paper, playful ink, and working hand-drawn Flutter components.
 colors:
   paper: "#fffaf0"
@@ -80,7 +80,7 @@ components:
     padding: "{spacing.inset}"
 ---
 
-# Design System: Skribble documentation
+# Design System: skribble documentation
 
 ## Overview
 
@@ -129,7 +129,7 @@ Syntax colours distinguish keywords and literals in purple, strings in green, nu
 
 ## Typography
 
-SkribblePlayful is the bundled default, derived from Recursive Casual with warped outlines. Headings, body, navigation, and code inherit the selected preset's handwriting. Gentle uses SkribbleGentle and Expressive uses Skribble. Emphasis comes from weight, scale, and spacing; syntax colouring does not introduce a separate monospace family.
+SkribblePlayful is the bundled default, derived from Recursive Casual with warped outlines. Headings, body, navigation, and code inherit the selected preset's handwriting. Gentle uses SkribbleGentle and Expressive uses skribble. Emphasis comes from weight, scale, and spacing; syntax colouring does not introduce a separate monospace family.
 
 The frontmatter records the recurring article hierarchy. Lower heading levels continue at 20 and 18 logical pixels. Heading line height is compact; paragraph line height is more open. Selection separators are supplied by the selection delegate, not extra blank lines in rendered text.
 

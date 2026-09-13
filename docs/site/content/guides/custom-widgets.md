@@ -1,11 +1,11 @@
 ---
 title: Build a Custom Widget
-description: Step-by-step guide to building a new Skribble widget from scratch, including theming, accessibility, repaint isolation, and comprehensive tests.
+description: Step-by-step guide to building a new skribble widget from scratch, including theming, accessibility, repaint isolation, and comprehensive tests.
 ---
 
 # Build a Custom Widget
 
-This guide walks through building a complete Skribble widget from file creation to storybook integration. Every Skribble widget follows the same pattern: extend `HookWidget`, read the theme, use rough decorations, wrap with `buildWiredElement()`, and ship with tests.
+This guide walks through building a complete skribble widget from file creation to storybook integration. Every skribble widget follows the same pattern: extend `HookWidget`, read the theme, use rough decorations, wrap with `buildWiredElement()`, and ship with tests.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ packages/skribble/lib/src/wired_info_box.dart
 
 ## Step 2: Extend HookWidget
 
-Every Skribble widget uses `HookWidget` from the `flutter_hooks` package. Never use `StatefulWidget` or `StatelessWidget`.
+Every skribble widget uses `HookWidget` from the `flutter_hooks` package. Never use `StatefulWidget` or `StatelessWidget`.
 
 ```dart
 // Static example: custom-class
@@ -353,7 +353,7 @@ flutter test
 
 ## Step 9: Add to the storybook
 
-Create or update a storybook page in `apps/skribble_storybook/` to showcase the new widget. The storybook app is the live demo surface for all Skribble widgets.
+Create or update a storybook page in `apps/skribble_storybook/` to showcase the new widget. The storybook app is the live demo surface for all skribble widgets.
 
 ## Step 10: Full working example
 

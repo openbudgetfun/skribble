@@ -1,4 +1,4 @@
-/// Hand-drawn custom icon set for Skribble.
+/// Hand-drawn custom icon set for skribble.
 ///
 /// Provides [kCustomRoughIcons], a compile-time map from codepoint to
 /// [WiredSvgIconData], and [lookupCustomRoughIconByIdentifier] for

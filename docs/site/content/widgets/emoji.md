@@ -67,7 +67,7 @@ Wrap(
 
 ## Available emoji
 
-The emoji catalog is generated from OpenMoji SVG sources through the Skribble rough icon pipeline. The catalog is populated by running the generator against the emoji manifest.
+The emoji catalog is generated from OpenMoji SVG sources through the skribble rough icon pipeline. The catalog is populated by running the generator against the emoji manifest.
 
 The `kSkribbleEmoji` and `kSkribbleEmojiCodePoints` maps cover single Unicode scalars. `kSkribbleEmojiNames` contains every name, including full joined sequences.
 
@@ -134,4 +134,4 @@ Wrap(
 
 Both widget entry points render the same precomputed, gently warped artwork. Source colors, unfilled strokes, transforms, transparency, clip paths, and fill rules are preserved. `PrecomputedEmoji.color` is a fallback for uncolored data and placeholders, not a palette override.
 
-Regenerate from the repository root with `dart run packages/skribble_emoji_gen/bin/update_assets.dart`. The command checks pinned source hashes before writing output. The source artwork is by [OpenMoji](https://openmoji.org/) under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); Skribble's modified artwork retains that license. Preserve attribution when redistributing it.
+Regenerate from the repository root with `dart run packages/skribble_emoji_gen/bin/update_assets.dart`. The command checks pinned source hashes before writing output. The source artwork is by [OpenMoji](https://openmoji.org/) under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); skribble's modified artwork retains that license. Preserve attribution when redistributing it.

@@ -27,7 +27,7 @@ typedef WiredSuggestionsBuilder = List<Widget> Function(
   WiredSearchController controller,
 );
 
-/// A [TextEditingController] that additionally tracks whether the Skribble
+/// A [TextEditingController] that additionally tracks whether the skribble
 /// search view is open, mirroring Material's `SearchController` API surface.
 ///
 /// ```dart

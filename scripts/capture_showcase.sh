@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Capture responsive screenshots of the Skribble storybook web preview
+# Capture responsive screenshots of the skribble storybook web preview
 # across device form factors, and build a local HTML gallery.
 #
 # Usage:

@@ -1,11 +1,11 @@
 ---
 title: Buttons
-description: Hand-drawn button widgets for actions, toggles, and segmented controls in Skribble.
+description: Hand-drawn button widgets for actions, toggles, and segmented controls in skribble.
 ---
 
 # Buttons
 
-Skribble provides a full set of button widgets that replace their Material and Cupertino counterparts with sketchy, hand-drawn borders, hachure fills, and wobbly outlines. Every button reads its palette from `WiredTheme.of(context)` and extends `HookWidget`.
+skribble provides a full set of button widgets that replace their Material and Cupertino counterparts with sketchy, hand-drawn borders, hachure fills, and wobbly outlines. Every button reads its palette from `WiredTheme.of(context)` and extends `HookWidget`.
 
 ---
 

@@ -1,11 +1,11 @@
 ---
 title: Custom Painters
-description: How to create custom shape painters that plug into Skribble's rough-drawing engine, from extending WiredPainterBase to composing shapes with WiredCanvas.
+description: How to create custom shape painters that plug into skribble's rough-drawing engine, from extending WiredPainterBase to composing shapes with WiredCanvas.
 ---
 
 # Custom Painters
 
-Skribble's rendering pipeline is built on a small set of composable primitives. When the built-in rectangle, circle, line, and rounded rectangle painters do not cover your shape, you can create a custom painter that plugs into the same rough engine.
+skribble's rendering pipeline is built on a small set of composable primitives. When the built-in rectangle, circle, line, and rounded rectangle painters do not cover your shape, you can create a custom painter that plugs into the same rough engine.
 
 ## Architecture overview
 
@@ -234,7 +234,7 @@ class WiredWavePainter extends WiredPainterBase {
 
 ## Built-in painters reference
 
-Skribble ships these painters in `wired_base.dart`:
+skribble ships these painters in `wired_base.dart`:
 
 ### WiredRectangleBase
 

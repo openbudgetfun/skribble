@@ -1,6 +1,6 @@
 # skribble_maps
 
-MapLibre maps with hand-drawn overlays for the [Skribble](https://pub.dev/packages/skribble) Flutter design system.
+MapLibre maps with hand-drawn overlays for the [skribble](https://pub.dev/packages/skribble) Flutter design system.
 
 MapLibre renders the basemap. It loads vector tiles, places labels, draws roads and buildings, and handles map gestures. `skribble_maps` adds interactive Flutter pins, routes, areas, controls, and callouts above that map.
 

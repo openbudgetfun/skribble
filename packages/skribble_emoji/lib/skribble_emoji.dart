@@ -1,4 +1,4 @@
-/// Hand-drawn emoji for Skribble.
+/// Hand-drawn emoji for skribble.
 ///
 /// Provides `kSkribbleEmoji`, a compile-time map from codepoint to
 /// `WiredSvgIconData`, and [lookupSkribbleEmojiByName] /

@@ -1,11 +1,11 @@
 ---
 title: Navigation
-description: Hand-drawn app bars, navigation bars, drawers, tabs, and menus in the Skribble design system.
+description: Hand-drawn app bars, navigation bars, drawers, tabs, and menus in the skribble design system.
 ---
 
 # Navigation
 
-Skribble provides navigation chrome that replaces Material and Cupertino navigation components with sketchy, hand-drawn variants. Every widget reads its palette from `WiredTheme.of(context)`.
+skribble provides navigation chrome that replaces Material and Cupertino navigation components with sketchy, hand-drawn variants. Every widget reads its palette from `WiredTheme.of(context)`.
 
 ---
 

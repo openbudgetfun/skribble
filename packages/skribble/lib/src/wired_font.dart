@@ -39,7 +39,7 @@ enum WiredFont {
         WiredRoughness.expressive => 'SkribbleVariableExpressive',
       };
 
-  /// Whether [family] is a font supplied by the Skribble package.
+  /// Whether [family] is a font supplied by the skribble package.
   static bool isBundled(String family) =>
       WiredRoughness.values.any(
         (roughness) => variableFamilyFor(roughness) == family,

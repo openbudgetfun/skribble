@@ -5,7 +5,7 @@ description: Add WiredButton, WiredInput, and WiredCard to your app step by step
 
 # Your First Widget
 
-This guide walks through adding individual Skribble widgets to your app, one at a time. You will learn how each widget reads its appearance from `WiredTheme.of(context)`, how to handle user events, and how to compose widgets into a form layout.
+This guide walks through adding individual skribble widgets to your app, one at a time. You will learn how each widget reads its appearance from `WiredTheme.of(context)`, how to handle user events, and how to compose widgets into a form layout.
 
 ## Before you start
 

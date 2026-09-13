@@ -4,4 +4,4 @@ The twelve `RecursiveSansCslSt-*`, `RecursiveSansLnrSt-*`, and `RecursiveMonoLnr
 
 Run `devenv shell dart run packages/skribble_font_roughen/bin/roughen_fonts.dart` at repository root to generate these original instances, 126 roughened static faces, and three variable families. Then run `devenv shell dart run tool/docs_font_comparison.dart` to copy the twelve originals into this directory. Add `--check` to compare without writing.
 
-The modified Casual, Linear, Mono, and variable families live only in the Skribble package. Their renamed files and the original specimens retain Recursive's SIL Open Font License. The experimental Petal compiler bakes required variation substitutions before applying its custom ligatures and swashes, so those authored forms still take effect with this source.
+The modified Casual, Linear, Mono, and variable families live only in the skribble package. Their renamed files and the original specimens retain Recursive's SIL Open Font License. The experimental Petal compiler bakes required variation substitutions before applying its custom ligatures and swashes, so those authored forms still take effect with this source.

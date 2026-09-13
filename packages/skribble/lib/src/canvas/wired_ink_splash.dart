@@ -2,10 +2,10 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-/// A hand-drawn ink splash effect for Skribble widgets.
+/// A hand-drawn ink splash effect for skribble widgets.
 ///
 /// This creates a sketchy, organic splash animation that fits the
-/// hand-drawn aesthetic of the Skribble design system.
+/// hand-drawn aesthetic of the skribble design system.
 ///
 /// Use with `InkWell` or `InkResponse` by setting the `splashFactory`:
 ///

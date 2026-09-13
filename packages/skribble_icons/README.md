@@ -1,10 +1,10 @@
 # skribble_icons
 
-Comprehensive hand-drawn icon library for the [Skribble](https://github.com/openbudgetfun/skribble) design system.
+Comprehensive hand-drawn icon library for the [skribble](https://github.com/openbudgetfun/skribble) design system.
 
-Provides unified access to **all 8,600+ roughened Flutter Material icons** plus 30 curated custom icons through a single API. Every icon is rendered with the Skribble hand-drawn aesthetic.
+Provides unified access to **all 8,600+ roughened Flutter Material icons** plus 30 curated custom icons through a single API. Every icon is rendered with the skribble hand-drawn aesthetic.
 
-The catalog contains precomputed rough geometry. Render it with `WiredSvgIcon` from Skribble, which supports solid, hachure, and outline styles. Regenerate the 30 curated icons with `dart run packages/skribble_emoji_gen/bin/generate_icons.dart` from the workspace root.
+The catalog contains precomputed rough geometry. Render it with `WiredSvgIcon` from skribble, which supports solid, hachure, and outline styles. Regenerate the 30 curated icons with `dart run packages/skribble_emoji_gen/bin/generate_icons.dart` from the workspace root.
 
 ## Installation
 
@@ -135,4 +135,4 @@ dart run tool/generate_rough_icons.dart \
 
 ## License
 
-Same as the root Skribble repository — see [LICENSE](../../LICENSE) for details.
+Same as the root skribble repository — see [LICENSE](../../LICENSE) for details.

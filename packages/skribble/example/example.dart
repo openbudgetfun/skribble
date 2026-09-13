@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skribble/skribble.dart';
 
-/// Minimal Skribble example.
+/// Minimal skribble example.
 ///
 /// Run with:
 /// ```sh

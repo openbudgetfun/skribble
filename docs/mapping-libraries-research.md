@@ -1,4 +1,4 @@
-# Open-source Flutter maps for Skribble
+# Open-source Flutter maps for skribble
 
 Research snapshot: 9 September 2026.
 
@@ -6,15 +6,15 @@ This document compares open-source Flutter map clients and open map-data deliver
 
 ## Decision
 
-Use the official [`maplibre_gl`](https://pub.dev/packages/maplibre_gl) package for the basemap on Android, iOS, and web. MapLibre draws the geographic data. Skribble draws app-owned pins, routes, selected areas, callouts, and controls above it.
+Use the official [`maplibre_gl`](https://pub.dev/packages/maplibre_gl) package for the basemap on Android, iOS, and web. MapLibre draws the geographic data. skribble draws app-owned pins, routes, selected areas, callouts, and controls above it.
 
-Do not maintain the custom Skribble vector-tile renderer. The prototype proved that rough roads and buildings were possible, but it also made dense roads harder to read. It required Skribble to own tile decoding, source schemas, label placement, tile seams, cache behavior, offline updates, and render performance. Those responsibilities do not improve the check-in experience enough to justify the maintenance cost.
+Do not maintain the custom skribble vector-tile renderer. The prototype proved that rough roads and buildings were possible, but it also made dense roads harder to read. It required skribble to own tile decoding, source schemas, label placement, tile seams, cache behavior, offline updates, and render performance. Those responsibilities do not improve the check-in experience enough to justify the maintenance cost.
 
 The production design rule is now simple:
 
 ```text
 MapLibre: basemap, labels, roads, buildings, tiles, camera, cache
-Skribble: pins, active routes, selected areas, callouts, controls
+skribble: pins, active routes, selected areas, callouts, controls
 ```
 
 ## Why the official MapLibre binding
@@ -32,7 +32,7 @@ The [`maplibre`](https://pub.dev/packages/maplibre) rewrite remains worth watchi
 | [`maplibre_gl`](https://pub.dev/packages/maplibre_gl)                           | BSD-3-Clause; Android, iOS, web          | Maintained by MapLibre, mature source and layer APIs, PMTiles, clustering, mobile offline regions | Chosen                                                                                 |
 | [`maplibre`](https://pub.dev/packages/maplibre)                                 | BSD-3-Clause; Android, iOS, web, desktop | Modern bindings and Flutter widget markers                                                        | Shorter production record; desktop backends are not equal to the mobile engines        |
 | [`flutter_map`](https://pub.dev/packages/flutter_map)                           | BSD-3-Clause; all Flutter targets        | Pure Flutter, large plugin set, arbitrary widget markers                                          | Raster tiles are easy, but vector maps need another renderer and plugin stack          |
-| [`flutter_map_vector_tiles`](https://pub.dev/packages/flutter_map_vector_tiles) | BSD-3-Clause; all Flutter targets        | Pure Flutter vector tiles and screen-space labels                                                 | Geometry painter is internal; Skribble cannot replace it through a supported API       |
+| [`flutter_map_vector_tiles`](https://pub.dev/packages/flutter_map_vector_tiles) | BSD-3-Clause; all Flutter targets        | Pure Flutter vector tiles and screen-space labels                                                 | Geometry painter is internal; skribble cannot replace it through a supported API       |
 | [`vector_tile_renderer`](https://pub.dev/packages/vector_tile_renderer)         | BSD-3-Clause; all Flutter targets        | MapLibre-style vector rendering to a Flutter canvas                                               | Public API does not accept replacement road or polygon painters                        |
 | [`flutter_map_maplibre`](https://pub.dev/packages/flutter_map_maplibre)         | MIT                                      | Places MapLibre inside `flutter_map`                                                              | Adds a second camera and layer system without improving this product's chosen flat map |
 | [`maplibre_flutter_gpu`](https://pub.dev/packages/maplibre_flutter_gpu)         | BSD-2-Clause; native desktop and mobile  | Flutter GPU map and widget synchronization                                                        | Beta, no web support, and requires Flutter GPU                                         |
@@ -48,7 +48,7 @@ user camera in Dubai
   -> MapLibre calculates visible tile addresses
   -> provider returns vector tiles, glyphs, and sprites
   -> MapLibre draws roads, buildings, water, and labels
-  -> Skribble places app-owned overlays above the flat camera
+  -> skribble places app-owned overlays above the flat camera
 ```
 
 The app does not generate a rough map for Dubai or any other city. It gives MapLibre a global style URL. MapLibre requests only the tiles needed for the current viewport and zoom level.
@@ -87,9 +87,9 @@ An offline region does not update when the provider publishes new data. The appl
 
 ## Design boundary
 
-Basemap roads, boundaries, coastlines, buildings, and labels stay crisp. A muted MapLibre style can still use the Skribble palette, fonts, and hand-drawn sprite assets, but it should not distort geographic geometry.
+Basemap roads, boundaries, coastlines, buildings, and labels stay crisp. A muted MapLibre style can still use the skribble palette, fonts, and hand-drawn sprite assets, but it should not distort geographic geometry.
 
-Skribble roughness belongs where it communicates application state:
+skribble roughness belongs where it communicates application state:
 
 - a check-in pin;
 - a selected search result;
@@ -115,12 +115,12 @@ These estimates assume one experienced Flutter engineer and a flat interactive m
 
 | Approach                           | First usable result | Production work                            | Ongoing responsibility                                              |
 | ---------------------------------- | ------------------- | ------------------------------------------ | ------------------------------------------------------------------- |
-| MapLibre with Skribble overlays    | 1 to 2 weeks        | 3 to 6 weeks                               | Style, provider, overlays, and platform integration                 |
+| MapLibre with skribble overlays    | 1 to 2 weeks        | 3 to 6 weeks                               | Style, provider, overlays, and platform integration                 |
 | Custom Flutter vector renderer     | 8 to 16 weeks       | 6 to 12 months to approach mature behavior | Projection, labels, schemas, seams, caches, offline, and rendering  |
 | `flutter_map` with raster tiles    | 2 to 5 days         | 1 to 3 weeks                               | Client is simple; custom raster generation and hosting are separate |
 | `flutter_map` with a vector plugin | 2 to 4 weeks        | 1 to 2 months                              | Plugin behavior, styling, performance, and version alignment        |
 
-The MapLibre path can still hit plugin or platform bugs. The difference is that those bugs belong to an active mapping project with documented APIs and many users. A custom renderer would make every cartographic defect a Skribble defect.
+The MapLibre path can still hit plugin or platform bugs. The difference is that those bugs belong to an active mapping project with documented APIs and many users. A custom renderer would make every cartographic defect a skribble defect.
 
 ## Implementation result
 
@@ -146,4 +146,4 @@ Before launch, the application team still needs to choose:
 - a routing service if the product draws calculated routes;
 - the MapLibre style and attribution text used in production.
 
-These are application and infrastructure decisions. They do not require changes to the Skribble overlay widgets.
+These are application and infrastructure decisions. They do not require changes to the skribble overlay widgets.

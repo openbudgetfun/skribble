@@ -1,4 +1,4 @@
-/// Comprehensive hand-drawn icon library for Skribble.
+/// Comprehensive hand-drawn icon library for skribble.
 ///
 /// Provides unified access to **all** roughened Flutter Material icons (8,600+)
 /// plus 30 curated custom icons through a single API.

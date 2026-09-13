@@ -1,4 +1,4 @@
-// Material dependency audit for the Skribble design system.
+// Material dependency audit for the skribble design system.
 //
 // Scans packages/skribble/lib for imports of package:flutter/material.dart and
 // package:flutter/cupertino.dart and classifies how each file uses them:
@@ -13,7 +13,7 @@
 //   dart run tool/audit_material_dependencies.dart --json     # machine output
 //
 // The zero-Material endgame: packages/skribble must import only
-// flutter/widgets.dart and below, making Skribble a peer of
+// flutter/widgets.dart and below, making skribble a peer of
 // package:material_ui / package:cupertino_ui instead of a skin over them.
 
 // CLI audit: prints are the output.

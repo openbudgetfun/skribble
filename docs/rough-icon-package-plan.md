@@ -157,7 +157,7 @@ Example outline:
 
 ```yaml
 name: skribble_icons_<set>
-description: Hand-drawn <set> icon set for Skribble.
+description: Hand-drawn <set> icon set for skribble.
 version: 0.1.0
 publish_to: none
 resolution: workspace
@@ -202,7 +202,7 @@ Update:
   - install/use instructions
   - sample lookups
   - sample `WiredIcon.custom(...)` usage
-  - note that icons are generated via Skribble’s rough icon pipeline
+  - note that icons are generated via skribble’s rough icon pipeline
 
 ## Release / publishing plan
 

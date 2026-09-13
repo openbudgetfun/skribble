@@ -1,9 +1,9 @@
 ---
 title: Agents
-description: Comprehensive guide for AI agents working with the Skribble design system — conventions, patterns, workflows, and rules.
+description: Comprehensive guide for AI agents working with the skribble design system — conventions, patterns, workflows, and rules.
 ---
 
-This document is the authoritative reference for AI coding agents (Claude, Copilot, Cursor, etc.) working in the Skribble codebase. It covers every convention, pattern, constraint, and workflow an agent must follow to produce correct, mergeable contributions.
+This document is the authoritative reference for AI coding agents (Claude, Copilot, Cursor, etc.) working in the skribble codebase. It covers every convention, pattern, constraint, and workflow an agent must follow to produce correct, mergeable contributions.
 
 ## Golden rules
 
@@ -13,6 +13,7 @@ This document is the authoritative reference for AI coding agents (Claude, Copil
 4. **Every widget wraps its output with `RepaintBoundary`.** Use `buildWiredElement(child: ...)` or extend `WiredBaseWidget`.
 5. **Every widget has 6+ tests.** Covering rendering, dimensions, interaction, state, edge cases, and accessibility.
 6. **Documentation must be updated when APIs change or features are added.** This includes the docs site content, dartdoc comments, and MDT template blocks.
+7. **Write the brand as lowercase `skribble`.** Prose, docs, page titles, and comments never capitalize it; only machine-readable names keep their casing. See [Brand and casing](#brand-and-casing).
 
 ## Project structure
 
@@ -749,7 +750,7 @@ const WiredDataTable(
 
 ### Cupertino vs Material widget selection
 
-Skribble provides both Material and Cupertino variants for common patterns. Use the Cupertino variants when building iOS-native experiences:
+skribble provides both Material and Cupertino variants for common patterns. Use the Cupertino variants when building iOS-native experiences:
 
 | Material                   | Cupertino                        | When to use Cupertino     |
 | -------------------------- | -------------------------------- | ------------------------- |
@@ -922,6 +923,24 @@ chore: bump version to 0.3.5
 | Storybook page | `apps/skribble_storybook/lib/pages/`  | `<category>_page.dart`            |
 | Docs page      | `docs/site/content/widgets/`          | `<category>.md`                   |
 
+## Brand and casing
+
+The product name is always lowercase **skribble** in prose: READMEs, docs site pages, page frontmatter, and source comments (`/// skribble's bracketed smile`). Sentence position does not change it — a heading reads `# skribble`, and a page title reads `title: skribble — Hand-Drawn Flutter Design System`.
+
+Code and names that must stay machine-readable keep their existing casing:
+
+| Kind                    | Examples                                                        |
+| ----------------------- | --------------------------------------------------------------- |
+| Dart identifiers        | `SkribbleIcons`, `SkribbleStorybookApp`, `SkribbleIconFontData` |
+| Bundled font families   | `Skribble`, `SkribbleGentle`, `SkribblePlayful`, `SkribbleMono` |
+| Asset and release names | `Skribble-Bold.ttf`, `SkribbleRecursive-v1.0.0.zip`             |
+| URL slugs               | `Skribble-Design-System` (Figma)                                |
+| Runtime strings         | App titles, page names, `WiredLogo.semanticLabel`               |
+
+The font-family column in the theming tables therefore keeps `Skribble` even though the surrounding prose is lowercase: it names a bundled family a consumer passes to Flutter.
+
+The root `README.md` opens with a centered header modeled on the docs site: the logo at 240px linked to the documentation, a centered `<h1>`, a one-line tagline, centered links into the docs, and the badges underneath. Documentation links point at <https://openbudgetfun.github.io/skribble/>.
+
 ## Checklist for agents
 
 Before marking any widget task as complete, verify:
@@ -942,6 +961,7 @@ Before marking any widget task as complete, verify:
 - [ ] `dart analyze --fatal-infos .` passes
 - [ ] `flutter test` passes
 - [ ] Documentation updated (widget catalog page, any affected MDT blocks)
+- [ ] Prose uses the lowercase brand word (`skribble`) — see [Brand and casing](#brand-and-casing)
 - [ ] Changeset added and `monochange check` passes with no lint issues
 
 ## Common mistakes to avoid

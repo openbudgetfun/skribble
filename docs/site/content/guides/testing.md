@@ -1,11 +1,11 @@
 ---
 title: Testing Widgets
-description: Comprehensive guide to testing Skribble widgets, including the pumpApp helper, required test categories, full example test files, and coverage tracking.
+description: Comprehensive guide to testing skribble widgets, including the pumpApp helper, required test categories, full example test files, and coverage tracking.
 ---
 
 # Testing Widgets
 
-Every Skribble widget ships with comprehensive widget tests. This guide covers the test structure, the `pumpApp()` helper, required test categories, and how to run and track tests.
+Every skribble widget ships with comprehensive widget tests. This guide covers the test structure, the `pumpApp()` helper, required test categories, and how to run and track tests.
 
 ## Test file structure
 

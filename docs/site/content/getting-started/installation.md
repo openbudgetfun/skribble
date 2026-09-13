@@ -1,11 +1,11 @@
 ---
 title: Installation
-description: Add Skribble to a Flutter app or set up the full workspace for contributing.
+description: Add skribble to a Flutter app or set up the full workspace for contributing.
 ---
 
 # Installation
 
-There are two ways to get started with Skribble: add it to an existing app as a dependency, or clone the workspace to contribute.
+There are two ways to get started with skribble: add it to an existing app as a dependency, or clone the workspace to contribute.
 
 ## App usage
 
@@ -104,6 +104,6 @@ melos run rough-icons-ci-check
 
 ## Next steps
 
-- [Quick Start](/getting-started/quick-start) -- build your first Skribble app
+- [Quick Start](/getting-started/quick-start) -- build your first skribble app
 - [Your First Widget](/getting-started/first-widget) -- add buttons, inputs, and cards
 - [Theming](/getting-started/theming) -- customize the hand-drawn palette

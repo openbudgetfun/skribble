@@ -1,11 +1,11 @@
 ---
 title: Maps
-description: Use a crisp MapLibre basemap with hand-drawn Skribble pins, routes, areas, and controls.
+description: Use a crisp MapLibre basemap with hand-drawn skribble pins, routes, areas, and controls.
 ---
 
 # Maps
 
-`skribble_maps` combines MapLibre cartography with Skribble interaction design. MapLibre loads and renders the basemap. Skribble draws the app-owned overlays above it.
+`skribble_maps` combines MapLibre cartography with skribble interaction design. MapLibre loads and renders the basemap. skribble draws the app-owned overlays above it.
 
 The package does not decode or roughen downloaded road and building geometry. MapLibre handles vector tiles, labels, source schemas, camera gestures, and cache behavior.
 
@@ -313,7 +313,7 @@ WiredMapMarkerLayer(
 
 Rebuild the marker list when the request or a realtime subscription produces new data. Use `onCameraChanged` to observe the viewport, but debounce requests and discard stale responses so panning does not start a request every frame. `onMapIdle` is another trigger when you only need updates after the map settles.
 
-For routes, pass the routing service's decoded points to `WiredMapPolyline(points: routePoints)`. For boundaries, use `WiredMapPolygon(points: boundaryPoints)`. Skribble draws those supplied coordinates; it does not calculate directions. GeoJSON stores coordinates as **[longitude, latitude]**, the reverse of the `LatLng` constructor. Decode encoded polylines using the precision documented by your routing service before constructing the points.
+For routes, pass the routing service's decoded points to `WiredMapPolyline(points: routePoints)`. For boundaries, use `WiredMapPolygon(points: boundaryPoints)`. skribble draws those supplied coordinates; it does not calculate directions. GeoJSON stores coordinates as **[longitude, latitude]**, the reverse of the `LatLng` constructor. Decode encoded polylines using the precision documented by your routing service before constructing the points.
 
 For hosted basemaps, use a MapLibre **style JSON URL**, not a raster tile template, in `styleString`. Configure vector or raster tile URLs inside that style's `sources`. A custom provider may require an app-scoped public token; keep server credentials on your backend. Web requests for your API, style, tiles, sprites, and fonts must allow your app's origin through CORS. Mobile apps need network access and any provider-specific platform configuration. Location permission is only needed for device location, not for displaying supplied coordinates. Retain provider and OpenStreetMap attribution.
 

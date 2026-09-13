@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Package the Skribble font families into release zip archives.
+# Package the skribble font families into release zip archives.
 #
 # One zip per font family, named "<stem>-<tag>.zip", with the family's TTFs and
 # the OFL license at the archive root:
 #
-#   SkribbleRecursive-v1.0.0.zip   (the Skribble family, roughened from Recursive)
+#   SkribbleRecursive-v1.0.0.zip   (the skribble family, roughened from Recursive)
 #   SkribbleGentle-v1.0.0.zip
 #   SkribbleLinearGentle-v1.0.0.zip
 #   ...
@@ -74,7 +74,7 @@ if [[ -z "$families" ]]; then
 fi
 
 # The published archive name for a family. `SkribbleRecursive` is kept for the
-# Skribble family because releases before this script shipped under that name.
+# skribble family because releases before this script shipped under that name.
 zip_stem() {
   case "$1" in
     Skribble) printf 'SkribbleRecursive\n' ;;

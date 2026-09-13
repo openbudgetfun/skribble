@@ -1,4 +1,4 @@
-# Skribble Charts
+# skribble Charts
 
 Financial charts with hand-drawn candle textures and exact price geometry for Flutter. Includes candlesticks, OHLC bars, line/area charts, volume, SMA, EMA, RSI, MACD, Bollinger Bands, and editable annotations.
 

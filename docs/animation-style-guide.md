@@ -1,6 +1,6 @@
 # Animation style guide
 
-Skribble motion follows the pen. An outline appears along its actual rough path, then shading scribbles into place. Buttons respond with slightly firmer ink. Keep labels and paper still so controls remain easy to read and target.
+skribble motion follows the pen. An outline appears along its actual rough path, then shading scribbles into place. Buttons respond with slightly firmer ink. Keep labels and paper still so controls remain easy to read and target.
 
 Use `WiredDraw` for a deliberate entrance and `WiredDrawTransition` when a screen, route, or interaction already owns an animation. Ordinary cards stay static by default. Avoid repeated drawing loops on routine content.
 

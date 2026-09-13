@@ -205,7 +205,7 @@ ThemeData toThemeData({
 })
 ```
 
-This method sets up Material component themes so that standard Material widgets blend with the Skribble aesthetic:
+This method sets up Material component themes so that standard Material widgets blend with the skribble aesthetic:
 
 ### Component Theme Mapping
 

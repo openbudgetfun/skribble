@@ -5,7 +5,7 @@ description: Precise hand-drawn candlesticks, indicators, and editable annotatio
 
 # Financial charts
 
-`skribble_charts` draws candles, OHLC bars, lines, areas, and volume with exact price geometry and restrained ink texture. It is a native Flutter companion to Skribble, with the same renderer on Android, iOS, desktop, and web.
+`skribble_charts` draws candles, OHLC bars, lines, areas, and volume with exact price geometry and restrained ink texture. It is a native Flutter companion to skribble, with the same renderer on Android, iOS, desktop, and web.
 
 The green and red bodies span open and close. Wick endpoints mark high and low. Hatching stays inside the bodies. Price labels and selected values use the original decimal values, regardless of the visual style.
 

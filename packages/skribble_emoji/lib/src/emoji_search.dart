@@ -3,7 +3,7 @@ import 'package:skribble_emoji/skribble_emoji.dart'
 import 'package:skribble_emoji/src/generated/skribble_emoji_codepoints.g.dart';
 import 'package:skribble_emoji/src/wired_svg_icon_data.dart';
 
-/// A utility class for searching and filtering Skribble emoji.
+/// A utility class for searching and filtering skribble emoji.
 ///
 /// Provides methods for searching emoji by partial name match,
 /// filtering by category, and getting emoji suggestions.

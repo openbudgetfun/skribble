@@ -91,11 +91,11 @@ final later = controller.drive(
 WiredDrawTransition(progress: later, child: nextCard);
 ```
 
-Skribble borrows the animation. It never starts, stops, or disposes a controller passed to `WiredDrawTransition`. This also works with route animations and controllers owned by other libraries.
+skribble borrows the animation. It never starts, stops, or disposes a controller passed to `WiredDrawTransition`. This also works with route animations and controllers owned by other libraries.
 
 ## Flutter hooks
 
-The animation implementation uses Flutter widgets, tickers, and animations. It has no hooks-specific controller or adapter. Existing Skribble components still use hooks internally. Consumers using `flutter_hooks` can write:
+The animation implementation uses Flutter widgets, tickers, and animations. It has no hooks-specific controller or adapter. Existing skribble components still use hooks internally. Consumers using `flutter_hooks` can write:
 
 ```dart
 // Static example: configuration
@@ -131,9 +131,9 @@ For one section:
 WiredMotion(enabled: false, child: notebook)
 ```
 
-A disabled ancestor wins over nested enabled scopes. The platform's `MediaQuery.disableAnimations` also settles ink immediately. Turning motion back on does not replay an implicit entrance that has already settled. This setting controls Skribble's decorative ink. Consumer animations and existing functional animations such as progress indicators keep their own policies.
+A disabled ancestor wins over nested enabled scopes. The platform's `MediaQuery.disableAnimations` also settles ink immediately. Turning motion back on does not replay an implicit entrance that has already settled. This setting controls skribble's decorative ink. Consumer animations and existing functional animations such as progress indicators keep their own policies.
 
-`TickerMode` mutes owned tickers. Paint listeners detach from external animations while the subtree is muted, then resume at the caller's current value. Skribble does not pause the caller's controller.
+`TickerMode` mutes owned tickers. Paint listeners detach from external animations while the subtree is muted, then resume at the caller's current value. skribble does not pause the caller's controller.
 
 ## Interaction feedback
 

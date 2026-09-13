@@ -1,4 +1,4 @@
-/// Hand-drawn rendering engine for Skribble.
+/// Hand-drawn rendering engine for skribble.
 ///
 /// This provides the rough/sketchy drawing primitives used by all Wired widgets.
 library;

@@ -1,4 +1,4 @@
-# Skribble font roughener
+# skribble font roughener
 
 Builds hand-drawn Recursive fonts as three variable roughness families and 126 dedicated static faces. Casual, Linear, and Mono Linear each have Gentle, Playful, and Expressive versions, with upright and italic weights 300 through 900.
 

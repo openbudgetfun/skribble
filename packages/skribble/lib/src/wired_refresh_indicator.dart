@@ -9,7 +9,7 @@ import 'wired_theme.dart';
 /// A hand-drawn refresh indicator, corresponding to Flutter's `RefreshIndicator`.
 ///
 /// Wraps Flutter's `RefreshIndicator` with a sketchy loading indicator
-/// and hand-drawn styling that fits the Skribble aesthetic.
+/// and hand-drawn styling that fits the skribble aesthetic.
 ///
 /// ## Example
 ///
