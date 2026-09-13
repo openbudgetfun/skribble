@@ -2,6 +2,17 @@
 
 Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).
 
+## [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)
+
+### Features
+
+- **Add WiredLoadingScreen and the brand mark loader rhythm.** WiredLoadingScreen fills the viewport with themed paper, centers one loader, and announces an optional status message as a single live region. WiredLoaderStyle.mark sketches the shipped logo outlines at the logo's pen weight, so a splash can hand over to WiredLogo without the mark jumping. The documentation site now opens with the same mark: an HTML shell sketches it before Flutter starts, then the app keeps it drawing while the page catalog resolves. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #200](https://github.com/openbudgetfun/skribble/pull/200)
+- **Let `WiredButton` render a disabled state.** `WiredButton.onPressed` is now nullable, matching `WiredFilledButton`, `WiredElevatedButton`, `WiredOutlinedButton`, `WiredTextButton`, and `WiredIconButton`. Passing null disables the button: taps are ignored and the label renders with the theme's `disabledTextColor`. Existing callers that pass a non-null callback are unaffected. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #195](https://github.com/openbudgetfun/skribble/pull/195) · _Related issues:_ [#99](https://github.com/openbudgetfun/skribble/issues/99)
+
+### Documentation
+
+- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)
+
 ## [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.1) (2026-09-13)
 
 ### Features

@@ -1,0 +1,910 @@
+{
+  "schema_version": "0.6",
+  "kind": "monochange.releaseRecord",
+  "created_at": "2026-09-13T16:00:46Z",
+  "command": "release-pr",
+  "version": "0.1.2",
+  "versions": {
+    "main": "0.1.2",
+    "skribble_charts": "0.1.2",
+    "skribble_maps": "0.1.2"
+  },
+  "release_targets": [
+    {
+      "id": "main",
+      "kind": "group",
+      "version": "0.1.2",
+      "version_format": "primary",
+      "tag": true,
+      "release": true,
+      "tag_name": "v0.1.2",
+      "members": [
+        "skribble",
+        "skribble_icons",
+        "skribble_icons_custom",
+        "skribble_emoji",
+        "skribble_emoji_gen",
+        "skribble_font_roughen",
+        "skribble_lints"
+      ]
+    },
+    {
+      "id": "skribble_charts",
+      "kind": "package",
+      "version": "0.1.2",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_charts/v0.1.2",
+      "members": [
+        "skribble_charts"
+      ]
+    },
+    {
+      "id": "skribble_maps",
+      "kind": "package",
+      "version": "0.1.2",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_maps/v0.1.2",
+      "members": [
+        "skribble_maps"
+      ]
+    }
+  ],
+  "released_packages": [
+    "skribble",
+    "skribble_charts",
+    "skribble_emoji",
+    "skribble_emoji_gen",
+    "skribble_font_roughen",
+    "skribble_icons",
+    "skribble_icons_custom",
+    "skribble_lints",
+    "skribble_maps"
+  ],
+  "changed_files": [
+    "CHANGELOG.md",
+    "apps/skribble_benchmark/pubspec.yaml",
+    "apps/skribble_example/pubspec.yaml",
+    "apps/skribble_storybook/pubspec.yaml",
+    "docs/site/pubspec.yaml",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble/pubspec.yaml",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_charts/pubspec.yaml",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji/pubspec.yaml",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_emoji_gen/pubspec.yaml",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_font_roughen/pubspec.yaml",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons/pubspec.yaml",
+    "packages/skribble_icons_custom/CHANGELOG.md",
+    "packages/skribble_icons_custom/pubspec.yaml",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_lints/pubspec.yaml",
+    "packages/skribble_maps/CHANGELOG.md",
+    "packages/skribble_maps/pubspec.yaml",
+    "pubspec.yaml"
+  ],
+  "package_publications": [
+    {
+      "package": "skribble",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.1.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "required",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_charts",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.1.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "required",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.1.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "required",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji_gen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.1.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "required",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_roughen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.1.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "required",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.1.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "required",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_custom",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.1.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "required",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_lints",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.1.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "required",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_maps",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.1.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "required",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    }
+  ],
+  "updated_changelogs": [
+    "CHANGELOG.md",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons_custom/CHANGELOG.md",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_maps/CHANGELOG.md"
+  ],
+  "deleted_changesets": [
+    ".changeset/loading-screen.md",
+    ".changeset/lowercase-skribble-branding.md",
+    ".changeset/wired-button-disabled-state.md"
+  ],
+  "changesets": [
+    {
+      "path": ".changeset/loading-screen.md",
+      "summary": "Add WiredLoadingScreen and the brand mark loader rhythm",
+      "details": "WiredLoadingScreen fills the viewport with themed paper, centers one loader, and announces an optional status message as a single live region. WiredLoaderStyle.mark sketches the shipped logo outlines at the logo's pen weight, so a splash can hand over to WiredLogo without the mark jumping. The documentation site now opens with the same mark: an HTML shell sketches it before Flutter starts, then the app keeps it drawing while the page catalog resolves.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "feat"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "5b5d1a198aff9f3b43d927c994c38d47c51138b4",
+            "short_sha": "5b5d1a1",
+            "url": "https://github.com/openbudgetfun/skribble/commit/5b5d1a198aff9f3b43d927c994c38d47c51138b4",
+            "authored_at": "2026-09-13T16:58:06+01:00",
+            "committed_at": "2026-09-13T16:58:06+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#200",
+            "title": "feat: add WiredLoadingScreen and a hand-drawn boot screen for the site",
+            "url": "https://github.com/openbudgetfun/skribble/pull/200",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "5b5d1a198aff9f3b43d927c994c38d47c51138b4",
+            "short_sha": "5b5d1a1",
+            "url": "https://github.com/openbudgetfun/skribble/commit/5b5d1a198aff9f3b43d927c994c38d47c51138b4",
+            "authored_at": "2026-09-13T16:58:06+01:00",
+            "committed_at": "2026-09-13T16:58:06+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#200",
+            "title": "feat: add WiredLoadingScreen and a hand-drawn boot screen for the site",
+            "url": "https://github.com/openbudgetfun/skribble/pull/200",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/lowercase-skribble-branding.md",
+      "summary": "Lowercase the skribble brand word across documentation",
+      "details": "READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "none",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "docs"
+        },
+        {
+          "id": "skribble_icons",
+          "kind": "package",
+          "bump": "none",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "docs"
+        },
+        {
+          "id": "skribble_icons_custom",
+          "kind": "package",
+          "bump": "none",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "docs"
+        },
+        {
+          "id": "skribble_emoji",
+          "kind": "package",
+          "bump": "none",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "docs"
+        },
+        {
+          "id": "skribble_emoji_gen",
+          "kind": "package",
+          "bump": "none",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "docs"
+        },
+        {
+          "id": "skribble_font_roughen",
+          "kind": "package",
+          "bump": "none",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "docs"
+        },
+        {
+          "id": "skribble_lints",
+          "kind": "package",
+          "bump": "none",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "docs"
+        },
+        {
+          "id": "skribble_maps",
+          "kind": "package",
+          "bump": "none",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "docs"
+        },
+        {
+          "id": "skribble_charts",
+          "kind": "package",
+          "bump": "none",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "docs"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "5e3937ccb6db77bc38e9ac95d273e018def98843",
+            "short_sha": "5e3937c",
+            "url": "https://github.com/openbudgetfun/skribble/commit/5e3937ccb6db77bc38e9ac95d273e018def98843",
+            "authored_at": "2026-09-13T14:34:19+01:00",
+            "committed_at": "2026-09-13T14:34:19+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#199",
+            "title": "docs: lowercase the skribble brand word and center the readme header",
+            "url": "https://github.com/openbudgetfun/skribble/pull/199",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "5e3937ccb6db77bc38e9ac95d273e018def98843",
+            "short_sha": "5e3937c",
+            "url": "https://github.com/openbudgetfun/skribble/commit/5e3937ccb6db77bc38e9ac95d273e018def98843",
+            "authored_at": "2026-09-13T14:34:19+01:00",
+            "committed_at": "2026-09-13T14:34:19+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#199",
+            "title": "docs: lowercase the skribble brand word and center the readme header",
+            "url": "https://github.com/openbudgetfun/skribble/pull/199",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/wired-button-disabled-state.md",
+      "summary": "Let `WiredButton` render a disabled state",
+      "details": "`WiredButton.onPressed` is now nullable, matching `WiredFilledButton`, `WiredElevatedButton`, `WiredOutlinedButton`, `WiredTextButton`, and `WiredIconButton`. Passing null disables the button: taps are ignored and the label renders with the theme's `disabledTextColor`. Existing callers that pass a non-null callback are unaffected.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "21befe1766f46d939034dd0aa90722d5567d0fbb",
+            "short_sha": "21befe1",
+            "url": "https://github.com/openbudgetfun/skribble/commit/21befe1766f46d939034dd0aa90722d5567d0fbb",
+            "authored_at": "2026-09-13T13:45:48+01:00",
+            "committed_at": "2026-09-13T13:45:48+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#195",
+            "title": "feat(skribble): support a disabled state on WiredButton",
+            "url": "https://github.com/openbudgetfun/skribble/pull/195",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "21befe1766f46d939034dd0aa90722d5567d0fbb",
+            "short_sha": "21befe1",
+            "url": "https://github.com/openbudgetfun/skribble/commit/21befe1766f46d939034dd0aa90722d5567d0fbb",
+            "authored_at": "2026-09-13T13:45:48+01:00",
+            "committed_at": "2026-09-13T13:45:48+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#195",
+            "title": "feat(skribble): support a disabled state on WiredButton",
+            "url": "https://github.com/openbudgetfun/skribble/pull/195",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": [
+          {
+            "provider": "github",
+            "host": "github.com",
+            "id": "#99",
+            "title": null,
+            "url": "https://github.com/openbudgetfun/skribble/issues/99",
+            "relationship": "referenced_by_review_request"
+          }
+        ]
+      }
+    }
+  ],
+  "changelogs": [
+    {
+      "owner_id": "main",
+      "owner_kind": "group",
+      "output": "default",
+      "stream": "default",
+      "path": "CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)",
+        "summary": [
+          "Grouped release for `main`."
+        ],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "- **skribble**: **Add WiredLoadingScreen and the brand mark loader rhythm.** WiredLoadingScreen fills the viewport with themed paper, centers one loader, and announces an optional status message as a single live region. WiredLoaderStyle.mark sketches the shipped logo outlines at the logo's pen weight, so a splash can hand over to WiredLogo without the mark jumping. The documentation site now opens with the same mark: an HTML shell sketches it before Flutter starts, then the app keeps it drawing while the page catalog resolves.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #200](https://github.com/openbudgetfun/skribble/pull/200)",
+              "- **skribble**: **Let `WiredButton` render a disabled state.** `WiredButton.onPressed` is now nullable, matching `WiredFilledButton`, `WiredElevatedButton`, `WiredOutlinedButton`, `WiredTextButton`, and `WiredIconButton`. Passing null disables the button: taps are ignored and the label renders with the theme's `disabledTextColor`. Existing callers that pass a non-null callback are unaffected.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #195](https://github.com/openbudgetfun/skribble/pull/195) · _Related issues:_ [#99](https://github.com/openbudgetfun/skribble/issues/99)"
+            ]
+          },
+          {
+            "title": "Documentation",
+            "collapsed": false,
+            "entries": [
+              "- _Packages:_ _skribble_, _skribble_icons_, _skribble_icons_custom_, _skribble_emoji_, _skribble_emoji_gen_, _skribble_font_roughen_, _skribble_lints_ **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)\n\nGrouped release for `main`.\n\n### Features\n\n- **skribble**: **Add WiredLoadingScreen and the brand mark loader rhythm.** WiredLoadingScreen fills the viewport with themed paper, centers one loader, and announces an optional status message as a single live region. WiredLoaderStyle.mark sketches the shipped logo outlines at the logo's pen weight, so a splash can hand over to WiredLogo without the mark jumping. The documentation site now opens with the same mark: an HTML shell sketches it before Flutter starts, then the app keeps it drawing while the page catalog resolves.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #200](https://github.com/openbudgetfun/skribble/pull/200)\n- **skribble**: **Let `WiredButton` render a disabled state.** `WiredButton.onPressed` is now nullable, matching `WiredFilledButton`, `WiredElevatedButton`, `WiredOutlinedButton`, `WiredTextButton`, and `WiredIconButton`. Passing null disables the button: taps are ignored and the label renders with the theme's `disabledTextColor`. Existing callers that pass a non-null callback are unaffected.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #195](https://github.com/openbudgetfun/skribble/pull/195) · _Related issues:_ [#99](https://github.com/openbudgetfun/skribble/issues/99)\n\n### Documentation\n\n- _Packages:_ _skribble_, _skribble_icons_, _skribble_icons_custom_, _skribble_emoji_, _skribble_emoji_gen_, _skribble_font_roughen_, _skribble_lints_ **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+    },
+    {
+      "owner_id": "skribble",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "- **Add WiredLoadingScreen and the brand mark loader rhythm.** WiredLoadingScreen fills the viewport with themed paper, centers one loader, and announces an optional status message as a single live region. WiredLoaderStyle.mark sketches the shipped logo outlines at the logo's pen weight, so a splash can hand over to WiredLogo without the mark jumping. The documentation site now opens with the same mark: an HTML shell sketches it before Flutter starts, then the app keeps it drawing while the page catalog resolves.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #200](https://github.com/openbudgetfun/skribble/pull/200)",
+              "- **Let `WiredButton` render a disabled state.** `WiredButton.onPressed` is now nullable, matching `WiredFilledButton`, `WiredElevatedButton`, `WiredOutlinedButton`, `WiredTextButton`, and `WiredIconButton`. Passing null disables the button: taps are ignored and the label renders with the theme's `disabledTextColor`. Existing callers that pass a non-null callback are unaffected.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #195](https://github.com/openbudgetfun/skribble/pull/195) · _Related issues:_ [#99](https://github.com/openbudgetfun/skribble/issues/99)"
+            ]
+          },
+          {
+            "title": "Documentation",
+            "collapsed": false,
+            "entries": [
+              "- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)\n\n### Features\n\n- **Add WiredLoadingScreen and the brand mark loader rhythm.** WiredLoadingScreen fills the viewport with themed paper, centers one loader, and announces an optional status message as a single live region. WiredLoaderStyle.mark sketches the shipped logo outlines at the logo's pen weight, so a splash can hand over to WiredLogo without the mark jumping. The documentation site now opens with the same mark: an HTML shell sketches it before Flutter starts, then the app keeps it drawing while the page catalog resolves.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #200](https://github.com/openbudgetfun/skribble/pull/200)\n- **Let `WiredButton` render a disabled state.** `WiredButton.onPressed` is now nullable, matching `WiredFilledButton`, `WiredElevatedButton`, `WiredOutlinedButton`, `WiredTextButton`, and `WiredIconButton`. Passing null disables the button: taps are ignored and the label renders with the theme's `disabledTextColor`. Existing callers that pass a non-null callback are unaffected.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #195](https://github.com/openbudgetfun/skribble/pull/195) · _Related issues:_ [#99](https://github.com/openbudgetfun/skribble/issues/99)\n\n### Documentation\n\n- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+    },
+    {
+      "owner_id": "skribble_charts",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_charts/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_charts [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.1.2) (2026-09-13)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Documentation",
+            "collapsed": false,
+            "entries": [
+              "- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_charts [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.1.2) (2026-09-13)\n\n### Documentation\n\n- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+    },
+    {
+      "owner_id": "skribble_emoji",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Documentation",
+            "collapsed": false,
+            "entries": [
+              "- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)\n\n### Documentation\n\n- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+    },
+    {
+      "owner_id": "skribble_emoji_gen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji_gen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Documentation",
+            "collapsed": false,
+            "entries": [
+              "- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)\n\n### Documentation\n\n- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+    },
+    {
+      "owner_id": "skribble_font_roughen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_roughen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Documentation",
+            "collapsed": false,
+            "entries": [
+              "- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)\n\n### Documentation\n\n- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+    },
+    {
+      "owner_id": "skribble_icons",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Documentation",
+            "collapsed": false,
+            "entries": [
+              "- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)\n\n### Documentation\n\n- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+    },
+    {
+      "owner_id": "skribble_icons_custom",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_custom/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Documentation",
+            "collapsed": false,
+            "entries": [
+              "- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)\n\n### Documentation\n\n- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+    },
+    {
+      "owner_id": "skribble_lints",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_lints/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Documentation",
+            "collapsed": false,
+            "entries": [
+              "- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.2) (2026-09-13)\n\n### Documentation\n\n- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+    },
+    {
+      "owner_id": "skribble_maps",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_maps/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_maps [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.1.2) (2026-09-13)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Documentation",
+            "collapsed": false,
+            "entries": [
+              "- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_maps [0.1.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.1.2) (2026-09-13)\n\n### Documentation\n\n- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #199](https://github.com/openbudgetfun/skribble/pull/199)"
+    }
+  ],
+  "provider": {
+    "kind": "github",
+    "owner": "openbudgetfun",
+    "repo": "skribble",
+    "host": null
+  }
+}
