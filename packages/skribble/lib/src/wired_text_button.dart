@@ -1,31 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'motion/wired_ink_interaction.dart';
 import 'motion/wired_ink_response.dart';
 import 'wired_base.dart';
+import 'wired_button_base.dart';
 import 'wired_theme.dart';
 
 /// A text button with a hand-drawn underline.
-class WiredTextButton extends HookWidget {
-  final Widget child;
-  final VoidCallback? onPressed;
-
-  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
-  /// Semantic label for accessibility.
-  /// <!-- {/dartSemanticLabel} -->
-  final String? semanticLabel;
-
-  /// Overrides the theme’s decorative ink feedback for this control.
-  final WiredInkInteraction? inkInteraction;
-
+class WiredTextButton extends WiredButtonBase {
+  /// Creates a text button. See [WiredButtonBase] for the shared parameters.
   const WiredTextButton({
     super.key,
-    required this.child,
-    this.onPressed,
-    this.semanticLabel,
-    this.inkInteraction,
+    required super.child,
+    super.onPressed,
+    super.semanticLabel,
+    super.inkInteraction,
   });
 
   @override

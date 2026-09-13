@@ -105,5 +105,30 @@ void main() {
       );
       expect(find.bySemanticsLabel('Dark mode toggle'), findsOneWidget);
     });
+
+    testWidgets('thumb travels the full track width in LTR', (tester) async {
+      Finder thumb() => find
+          .descendant(
+            of: find.byType(WiredCupertinoSwitch),
+            matching: find.byType(WiredCanvas),
+          )
+          .last;
+
+      await pumpSubject(tester);
+      final switchLeft = tester
+          .getTopLeft(
+            find.byType(WiredCupertinoSwitch),
+          )
+          .dx;
+
+      // The inset thumb starts two pixels into the track.
+      expect(tester.getTopLeft(thumb()).dx, switchLeft + 2);
+
+      await pumpSubject(tester, value: true);
+      await tester.pumpAndSettle();
+
+      // Track (52) minus thumb (28) and its two-pixel inset is the travel.
+      expect(tester.getTopLeft(thumb()).dx, switchLeft + 22);
+    });
   });
 }
