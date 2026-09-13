@@ -26,6 +26,33 @@ jobs:
             exit 1
           fi
 
+  # The zero-Material endgame is tracked by docs/material-dependency-audit.txt.
+  # The rewrite lands one widget at a time, so instead of failing every PR
+  # until the count reaches zero this job is a ratchet: it fails only when the
+  # debt grows past the committed baseline in
+  # docs/material-dependency-baseline.json. Debt going down is always allowed;
+  # only an increase needs a deliberate baseline refresh, explained in the PR.
+  material-debt-ratchet:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Committed audit report matches a fresh run
+        run: |
+          dart run tool/audit_material_dependencies.dart > "$RUNNER_TEMP/audit.txt"
+          if ! diff -u docs/material-dependency-audit.txt "$RUNNER_TEMP/audit.txt"; then
+            echo 'docs/material-dependency-audit.txt is stale. Regenerate it with:'
+            echo '  dart run tool/audit_material_dependencies.dart > docs/material-dependency-audit.txt'
+            exit 1
+          fi
+        shell: devenv shell -- bash -e {0}
+      - name: Material debt does not grow past the baseline
+        run: |
+          dart run tool/audit_material_dependencies.dart --check --baseline docs/material-dependency-baseline.json
+        shell: devenv shell -- bash -e {0}
+
   lint:
     runs-on: blacksmith-2vcpu-ubuntu-2404
     steps:

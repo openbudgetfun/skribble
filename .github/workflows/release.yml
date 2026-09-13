@@ -1,8 +1,10 @@
 name: Release PR
 
+# Releases are prepared and published from a local checkout (`monochange run
+# release`), so no release pull request is opened or refreshed automatically.
+# This workflow is kept for manual dispatch when an automated release is
+# wanted again; re-add the `push` trigger below to restore the release PR.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
