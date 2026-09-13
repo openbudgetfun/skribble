@@ -131,45 +131,47 @@ void main() {
       expect(tester.getTopLeft(thumb()).dx, switchLeft + 22);
     });
 
-    testWidgets('thumb travel is unchanged under right-to-left directionality',
-        (tester) async {
-      // The inset thumb is positioned with a physical `Positioned(left: ...)`
-      // offset, so an RTL ambient direction does not move it. Pin that
-      // behaviour: the shared thumb animation must not change travel based
-      // on text direction.
-      Finder thumb() => find
-          .descendant(
-            of: find.byType(WiredCupertinoSwitch),
-            matching: find.byType(WiredCanvas),
-          )
-          .last;
+    testWidgets(
+      'thumb travel is unchanged under right-to-left directionality',
+      (tester) async {
+        // The inset thumb is positioned with a physical `Positioned(left: ...)`
+        // offset, so an RTL ambient direction does not move it. Pin that
+        // behaviour: the shared thumb animation must not change travel based
+        // on text direction.
+        Finder thumb() => find
+            .descendant(
+              of: find.byType(WiredCupertinoSwitch),
+              matching: find.byType(WiredCanvas),
+            )
+            .last;
 
-      Future<void> pumpRtl(bool value) => pumpApp(
-            tester,
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: Center(
-                child: WiredCupertinoSwitch(
-                  value: value,
-                  onChanged: (_) {},
-                ),
+        Future<void> pumpRtl(bool value) => pumpApp(
+          tester,
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: Center(
+              child: WiredCupertinoSwitch(
+                value: value,
+                onChanged: (_) {},
               ),
             ),
-          );
+          ),
+        );
 
-      await pumpRtl(false);
-      final switchLeft = tester
-          .getTopLeft(
-            find.byType(WiredCupertinoSwitch),
-          )
-          .dx;
+        await pumpRtl(false);
+        final switchLeft = tester
+            .getTopLeft(
+              find.byType(WiredCupertinoSwitch),
+            )
+            .dx;
 
-      expect(tester.getTopLeft(thumb()).dx, switchLeft + 2);
+        expect(tester.getTopLeft(thumb()).dx, switchLeft + 2);
 
-      await pumpRtl(true);
-      await tester.pumpAndSettle();
+        await pumpRtl(true);
+        await tester.pumpAndSettle();
 
-      expect(tester.getTopLeft(thumb()).dx, switchLeft + 22);
-    });
+        expect(tester.getTopLeft(thumb()).dx, switchLeft + 22);
+      },
+    );
   });
 }

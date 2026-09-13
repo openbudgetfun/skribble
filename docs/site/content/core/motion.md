@@ -153,7 +153,7 @@ RoughBoxDecoration(
 )
 ```
 
-Low-level `RoughBoxDecoration` and `WiredPainter` accept a borrowed `progress` and `pressure`. They have no `BuildContext` and cannot discover accessibility policy by themselves. A null progress means complete; null pressure means idle.
+Low-level `RoughBoxDecoration` and the internal `WiredPainter` adapter that `WiredCanvas` creates accept a borrowed `progress` and `pressure`. They have no `BuildContext` and cannot discover accessibility policy by themselves. A null progress means complete; null pressure means idle.
 
 Custom `WiredPainterBase` implementations can override `prepare` to return a `RoughDrawing`. Keep the existing `paintRough` method for direct callers. Prepared paths and contour lengths are cached per painter and size. Animation ticks repaint without rebuilding children or regenerating rough geometry. Elastic progress is clamped to zero through one; non-finite progress settles at complete. There is no global geometry cache.
 

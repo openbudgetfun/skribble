@@ -17,8 +17,9 @@ void main() {
             clipboardText =
                 (call.arguments as Map<Object?, Object?>)['text']! as String;
           }
-          if (call.method == 'Clipboard.getData')
+          if (call.method == 'Clipboard.getData') {
             return {'text': clipboardText};
+          }
           return null;
         });
   });
