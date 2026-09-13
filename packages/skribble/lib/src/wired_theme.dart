@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'motion/wired_ink_interaction.dart';
-import 'motion/wired_motion.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_font.dart';
 import 'wired_palette.dart';
 import 'wired_roughness.dart';
+import 'wired_theme_scope.dart';
 
 /// The default hand-drawn font family bundled with skribble.
 ///
@@ -282,12 +282,19 @@ Color _bestContrastingColor(Color color) {
       : Colors.black;
 }
 
-/// Cascades geometry, ink colors, and typography to descendant Wired widgets.
+/// Cascades geometry, ink colors, and typography to descendant Wired widgets,
+/// and keeps the surrounding Material text styles in sync.
 ///
-/// Use `WiredMaterialApp` at the app root. A nested [WiredTheme] can override
-/// a section; use `WiredTheme.of(context).copyWith(roughnessLevel: ...)` to
+/// Use `SkribbleApp` at the app root for a widgets-only tree, or
+/// `WiredMaterialApp` when the app already depends on Material. A nested
+/// [WiredTheme] can override a section; use
+/// `WiredTheme.of(context).copyWith(roughnessLevel: ...)` to
 /// retain the surrounding palette. Explicit font and geometry overrides are
 /// preserved by `copyWith`, including when changing levels.
+///
+/// Material sync is the only reason this widget imports `material.dart`. For a
+/// boundary that does not touch Material, use [WiredThemeScope]; `WiredTheme`
+/// builds on it.
 class WiredTheme extends HookWidget {
   /// Creates a theme boundary without rebuilding its child's local state.
   const WiredTheme({super.key, required this.data, required this.child});
@@ -299,9 +306,14 @@ class WiredTheme extends HookWidget {
   final Widget child;
 
   /// Returns the nearest Wired theme, or the playful default.
-  static WiredThemeData of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<_WiredThemeScope>()?.data ??
-      WiredThemeData.defaultTheme;
+  ///
+  /// Finds a [WiredThemeScope] as well as a [WiredTheme], so widgets keep
+  /// working in a widgets-only shell such as `SkribbleApp`.
+  static WiredThemeData of(BuildContext context) => WiredThemeScope.of(context);
+
+  /// Returns the nearest Wired theme, or null when none is installed.
+  static WiredThemeData? maybeOf(BuildContext context) =>
+      WiredThemeScope.maybeOf(context);
 
   @override
   Widget build(BuildContext context) {
@@ -314,34 +326,15 @@ class WiredTheme extends HookWidget {
       bodyColor: data.textColor,
       displayColor: data.textColor,
     );
-    return _WiredThemeScope(
+    return WiredThemeScope(
       data: data,
       child: Theme(
         data: parent.copyWith(
           textTheme: apply(parent.textTheme),
           primaryTextTheme: apply(parent.primaryTextTheme),
         ),
-        child: DefaultTextStyle.merge(
-          style: TextStyle(
-            fontFamily: data.fontFamily,
-            package: data.fontPackage,
-            color: data.textColor,
-          ),
-          child: WiredMotion(enabled: data.motionEnabled, child: child),
-        ),
+        child: child,
       ),
     );
   }
-}
-
-class _WiredThemeScope extends InheritedTheme {
-  const _WiredThemeScope({required this.data, required super.child});
-  final WiredThemeData data;
-
-  @override
-  Widget wrap(BuildContext context, Widget child) =>
-      WiredTheme(data: data, child: child);
-
-  @override
-  bool updateShouldNotify(_WiredThemeScope oldWidget) => data != oldWidget.data;
 }

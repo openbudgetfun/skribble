@@ -55,7 +55,7 @@ The destination is zero: when the audit reaches `0 of 137`, a CI gate will fail 
 The library is organized in layers. Dependencies point downward only: a layer may import the layers below it, never the layers above.
 
 ```
-App shell          WiredMaterialApp (transitional)  ->  a WidgetsApp-based shell
+App shell          SkribbleApp (WidgetsApp-based); WiredMaterialApp as the transitional bridge
       |
 Theme / tokens     WiredThemeData, WiredTheme, WiredRoughness, WiredPalette, WiredFont
       |
@@ -100,9 +100,9 @@ The public widget layer: 80+ components named with the `Wired` prefix. Widgets i
 
 ### 5. App shell
 
-`WiredMaterialApp` (and its `.router()` variant) is the **transitional shell**: it wraps `MaterialApp`, converts `WiredThemeData` into a Material `ThemeData` via `toThemeData()`, and injects a `WiredTheme` ancestor so a migrating app gets Wired theming without rewriting its shell.
+`SkribbleApp` (and its `.router()` variant) is the app shell: a `StatelessWidget` over Flutter's widgets-layer `WidgetsApp`, so the app root needs no Material ancestor. It installs a `WiredThemeScope` (the Material-free theme boundary) and a widgets-only localization delegate that resolves left-to-right and right-to-left text direction. See [App shell](/core/app-shell) for the full parameter surface.
 
-The destination is a `WidgetsApp`-based skribble shell that provides navigation, overlays, and localization without Material. Until that shell ships, `WiredMaterialApp` is the supported entry point, and it remains as a compatibility wrapper afterwards. See [Material bridge](/core/material-bridge) for the interoperability details and the migration path.
+`WiredMaterialApp` (in `lib/src/compat/`) is the **transitional bridge** for apps that still run `MaterialApp`: it wraps `MaterialApp`, converts `WiredThemeData` into a Material `ThemeData` via `toThemeData()`, and injects a `WiredTheme` ancestor so a migrating app gets Wired theming without rewriting its shell. See [Material bridge](/core/material-bridge) for the interoperability details and the migration path.
 
 ## Where the transitional debt is
 
@@ -124,7 +124,7 @@ Snapshot from 2026-09-13: **94 of 137 files import Material or Cupertino — 70 
 
 1. **Leaf inputs** — the button family, `WiredCheckbox`, `WiredSwitch`, `WiredSlider`, and the text fields. Small public surfaces, well-tested, and they carry most of the semantics.
 2. **Containers and navigation** — `WiredScaffold`, `WiredAppBar`, tabs, bottom navigation, dialogs, overlays.
-3. **App shell** — a `WidgetsApp`-based shell, with `WiredMaterialApp` retained as a thin compatibility bridge for consumers.
+3. **App shell** — shipped as `SkribbleApp` (`lib/src/skribble_app.dart`), with `WiredMaterialApp` retained in `lib/src/compat/` as a thin compatibility bridge for consumers.
 4. **Localization** — replace the Material localizations dependency with `flutter_localizations` direct use or a skribble-owned delegate.
 
 Each skin rewrite must preserve the widget's accessibility semantics, which today often come from the Material widget being removed. See [Accessibility testing](/reference/accessibility-testing).
@@ -148,7 +148,7 @@ Interoperating with Material during migration is fine and temporary. Every Mater
 
 ### D2 — `WiredMaterialApp` is a transitional bridge, not the app-level abstraction
 
-The app-level abstraction is a skribble-owned shell built on `WidgetsApp`. `WiredMaterialApp` is how existing apps adopt skribble before that shell exists. Documentation must frame it as a compatibility layer, not as skribble's answer to `MaterialApp`. See [Material bridge](/core/material-bridge).
+The app-level abstraction is `SkribbleApp`, built on `WidgetsApp`. `WiredMaterialApp` is how existing apps adopt skribble before migrating to it. Documentation must frame `WiredMaterialApp` as a compatibility layer, not as skribble's answer to `MaterialApp`. See [Material bridge](/core/material-bridge).
 
 ### D3 — No new Material or Cupertino imports
 
@@ -335,6 +335,10 @@ Widget build(BuildContext context) {
 ```
 
 <!-- {/docsThemeReadPattern} -->
+
+### Familiar APIs
+
+Wired widgets mirror Material and Cupertino constructor signatures wherever the concepts match. `WiredButton` takes `child` and `onPressed` just like `TextButton`, and `SkribbleApp` accepts the app-level parameters of `MaterialApp` using widgets-layer types, so switching is a small diff. Where the APIs intentionally differ, the difference is documented in the widget catalog.
 
 ### Deterministic randomness
 
