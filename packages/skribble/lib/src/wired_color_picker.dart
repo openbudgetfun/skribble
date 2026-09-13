@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
@@ -18,6 +18,12 @@ class WiredColorPicker extends HookWidget {
   final ValueChanged<Color>? onColorChanged;
 
   /// The list of available colors.
+  ///
+  /// Defaults to the Material palette swatches, written as raw ARGB values so
+  /// this file keeps a widgets-only import; the values match `Colors.red`,
+  /// `Colors.pink`, and so on. A `MaterialColor` such as `Colors.blue` still
+  /// compares equal to its entry because `Color` equality uses the resolved
+  /// value.
   final List<Color> colors;
 
   /// Size of each color swatch.
@@ -34,26 +40,26 @@ class WiredColorPicker extends HookWidget {
     required this.selectedColor,
     required this.onColorChanged,
     this.colors = const [
-      Colors.red,
-      Colors.pink,
-      Colors.purple,
-      Colors.deepPurple,
-      Colors.indigo,
-      Colors.blue,
-      Colors.lightBlue,
-      Colors.cyan,
-      Colors.teal,
-      Colors.green,
-      Colors.lightGreen,
-      Colors.lime,
-      Colors.yellow,
-      Colors.amber,
-      Colors.orange,
-      Colors.deepOrange,
-      Colors.brown,
-      Colors.grey,
-      Colors.blueGrey,
-      Colors.black,
+      Color(0xFFF44336), // Colors.red
+      Color(0xFFE91E63), // Colors.pink
+      Color(0xFF9C27B0), // Colors.purple
+      Color(0xFF673AB7), // Colors.deepPurple
+      Color(0xFF3F51B5), // Colors.indigo
+      Color(0xFF2196F3), // Colors.blue
+      Color(0xFF03A9F4), // Colors.lightBlue
+      Color(0xFF00BCD4), // Colors.cyan
+      Color(0xFF009688), // Colors.teal
+      Color(0xFF4CAF50), // Colors.green
+      Color(0xFF8BC34A), // Colors.lightGreen
+      Color(0xFFCDDC39), // Colors.lime
+      Color(0xFFFFEB3B), // Colors.yellow
+      Color(0xFFFFC107), // Colors.amber
+      Color(0xFFFF9800), // Colors.orange
+      Color(0xFFFF5722), // Colors.deepOrange
+      Color(0xFF795548), // Colors.brown
+      Color(0xFF9E9E9E), // Colors.grey
+      Color(0xFF607D8B), // Colors.blueGrey
+      Color(0xFF000000), // Colors.black
     ],
     this.swatchSize = 36,
     this.spacing = 8,
@@ -138,7 +144,7 @@ class _ColorSwatch extends HookWidget {
             // Check mark for selected
             if (isSelected)
               WiredIcon(
-                icon: Icons.check,
+                icon: _checkIcon,
                 color: _contrastColor(color),
                 size: size * 0.5,
                 fillStyle: WiredIconFillStyle.solid,
@@ -151,6 +157,11 @@ class _ColorSwatch extends HookWidget {
   }
 
   Color _contrastColor(Color color) {
-    return color.computeLuminance() > 0.5 ? Colors.black : Colors.white;
+    return color.computeLuminance() > 0.5
+        ? const Color(0xFF000000)
+        : const Color(0xFFFFFFFF);
   }
 }
+
+/// `Icons.check` as a raw codepoint so this file stays widgets-only.
+const IconData _checkIcon = IconData(0xe156, fontFamily: 'MaterialIcons');

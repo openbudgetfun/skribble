@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
@@ -105,7 +104,7 @@ class WiredCupertinoDatePicker extends HookWidget {
                 maximumYear: maximumYear,
                 use24hFormat: use24hFormat,
                 itemExtent: itemExtent,
-                backgroundColor: Colors.transparent,
+                backgroundColor: Color(0x00000000),
               ),
             ),
           ],

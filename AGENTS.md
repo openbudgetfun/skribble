@@ -23,9 +23,11 @@
 skribble's endgame is a **standalone design system library** — a peer of `package:material_ui` / `package:cupertino_ui`, depending only on `flutter/widgets` and below, not a hand-drawn skin over Material widgets.
 
 - **New code MUST NOT import `package:flutter/material.dart` or `package:flutter/cupertino.dart`.**
-- Existing Material usage is transitional debt. The current state is tracked in `docs/material-dependency-audit.txt` (regenerate with `dart run tool/audit_material_dependencies.dart > docs/material-dependency-audit.txt`): 70 files wrap a Material widget ("skin" debt — the real rewrite work), 24 files only use helpers/constants (mechanical import swaps, do these opportunistically).
-- Rewrite order for skin-debt: leaf input widgets first (buttons, checkbox, switch, slider, text field), then containers/navigation (scaffold, app bar, tabs), keeping `WiredMaterialApp`/`WiredTheme` as a compatibility bridge for consuming apps until the last PR.
-- When the audit reaches 0, add a CI gate that fails any PR reintroducing a material/cupertino import into `packages/skribble/lib`.
+- Existing Material usage is transitional debt. The current state is tracked in `docs/material-dependency-audit.txt` (regenerate with `dart run tool/audit_material_dependencies.dart > docs/material-dependency-audit.txt`): 69 core files wrap a Material widget ("skin" debt — the real rewrite work), 15 core files only use helpers/constants (mechanical import swaps, do these opportunistically).
+- `packages/skribble/lib/src/compat/` is the sanctioned compatibility layer and the only place allowed to import material/cupertino. Its job is interop and migration (theme conversion both ways, hosting Material widgets in a Skribble app, hosting Wired widgets in a Material or Cupertino app), not parity. Nothing in the core may depend on it, and it must not grow new `MaterialApp` passthroughs.
+- New Skribble apps use `SkribbleApp` (built on `WidgetsApp`, no Material ancestor). `WiredMaterialApp` (`lib/src/compat/wired_material_app.dart`) is the transitional bridge for apps that still need `MaterialApp`.
+- Rewrite order for skin-debt: leaf input widgets first (buttons, checkbox, switch, slider, text field), then containers/navigation (scaffold, app bar, tabs), keeping `WiredMaterialApp`/`WiredTheme`/`WiredMaterialTheme` as the compatibility bridge for consuming apps until the last PR.
+- When the audit's core count reaches 0, add a CI gate that fails any PR reintroducing a material/cupertino import into `packages/skribble/lib` outside `src/compat`.
 
 ### Testing
 

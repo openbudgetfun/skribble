@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
@@ -112,7 +111,9 @@ class WiredCupertinoButton extends HookWidget {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   child: DefaultTextStyle.merge(
                     style: TextStyle(
-                      color: hasFill ? Colors.white : theme.borderColor,
+                      color: hasFill
+                          ? const Color(0xFFFFFFFF)
+                          : theme.borderColor,
                       fontSize: 16,
                     ),
                     child: child,
