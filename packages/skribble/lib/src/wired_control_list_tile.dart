@@ -11,7 +11,7 @@ class WiredControlListTile extends StatelessWidget {
   /// Creates a list tile around a single control.
   const WiredControlListTile({
     super.key,
-    required this.onTap,
+    this.onTap,
     this.leading,
     this.trailing,
     this.title,
@@ -20,8 +20,8 @@ class WiredControlListTile extends StatelessWidget {
     this.semanticLabel,
   });
 
-  /// Called when the row is tapped.
-  final VoidCallback onTap;
+  /// Called when the row is tapped; null when the control is disabled.
+  final VoidCallback? onTap;
 
   /// Control shown before the title.
   final Widget? leading;
