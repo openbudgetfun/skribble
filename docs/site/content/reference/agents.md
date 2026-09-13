@@ -13,7 +13,7 @@ This document is the authoritative reference for AI coding agents (Claude, Copil
 4. **Every widget wraps its output with `RepaintBoundary`.** Use `buildWiredElement(child: ...)` or extend `WiredBaseWidget`.
 5. **Every widget has 6+ tests.** Covering rendering, dimensions, interaction, state, edge cases, and accessibility.
 6. **Documentation must be updated when APIs change or features are added.** This includes the docs site content, dartdoc comments, and MDT template blocks.
-7. **Write the brand as lowercase `skribble`.** Prose, docs, page titles, and comments never capitalize it; only machine-readable names keep their casing. See [Brand and casing](#brand-and-casing).
+7. **No new Material or Cupertino imports in library code.** `packages/skribble/lib` may import `package:flutter/widgets.dart` and below, never `package:flutter/material.dart` or `package:flutter/cupertino.dart`. Read [Architecture](/core/architecture) before touching a file that currently imports either; the audit is a migration tracker, not a precedent.
 
 ## Project structure
 
@@ -28,7 +28,7 @@ skribble/
 │   │       ├── generated/          # Generated icon font + map files
 │   │       ├── wired_*.dart        # Widget implementations
 │   │       ├── wired_theme.dart    # WiredThemeData + WiredTheme inherited scope
-│   │       ├── wired_material_app.dart  # Material app bridge
+│   │       ├── wired_material_app.dart  # Transitional Material bridge shell
 │   │       └── wired_base.dart     # Base painters + RepaintBoundary helpers
 │   ├── test/
 │   │   ├── rough/                  # Rough engine unit tests
@@ -519,17 +519,23 @@ Container(color: theme.borderColor)
 
 ### WiredThemeData defaults (reference)
 
-| Field               | Default Value              | Description                                     |
-| ------------------- | -------------------------- | ----------------------------------------------- |
-| `borderColor`       | `Color(0xFF1A2B3C)`        | Sketchy stroke/border color                     |
-| `textColor`         | `Colors.black`             | Primary text color                              |
-| `disabledTextColor` | `Colors.grey`              | Disabled state text color                       |
-| `fillColor`         | `Color(0xFFFEFEFE)`        | Paper-like background fill                      |
-| `strokeWidth`       | `2.0`                      | Default stroke thickness                        |
-| `roughness`         | `1.0`                      | Sketch randomness (0 = smooth, 2+ = very rough) |
-| `drawConfig`        | `DrawConfig.defaultValues` | Advanced rough engine config                    |
+| Field               | Default Value                        | Description                                         |
+| ------------------- | ------------------------------------ | --------------------------------------------------- |
+| `borderColor`       | `Color(0xFF1A2B3C)`                  | Sketchy stroke/border color                         |
+| `textColor`         | `Colors.black`                       | Primary text color                                  |
+| `disabledTextColor` | `Colors.grey`                        | Disabled state text color                           |
+| `fillColor`         | `Color(0xFFFEFEFE)`                  | Paper-like background fill                          |
+| `strokeWidth`       | `2.4`                                | Default stroke thickness                            |
+| `roughnessLevel`    | `WiredRoughness.playful`             | Coordinated border, icon, and lettering preset      |
+| `roughness`         | `1.5` (resolved from the level)      | Sketch randomness (0 = smooth, 2+ = very rough)     |
+| `fontFamily`        | `skribblePlayful` (resolved)         | Level family unless explicitly overridden           |
+| `motionEnabled`     | `true`                               | Decorative ink motion; platform reduced motion wins |
+| `inkInteraction`    | `WiredInkInteraction.pressure`       | Default decorative feedback for buttons             |
+| `drawConfig`        | Derived from the level and amplitude | Advanced rough engine config; explicit value wins   |
 
 ### WiredMaterialApp theme setup
+
+`WiredMaterialApp` is the transitional Material compatibility shell for migrating apps, not skribble's app-level abstraction. See [Architecture](/core/architecture) and the [Material bridge](/core/material-bridge) before building new app-level patterns on it.
 
 ```dart
 // Static example: setup
@@ -931,13 +937,13 @@ Code and names that must stay machine-readable keep their existing casing:
 
 | Kind                    | Examples                                                        |
 | ----------------------- | --------------------------------------------------------------- |
-| Dart identifiers        | `SkribbleIcons`, `SkribbleStorybookApp`, `SkribbleIconFontData` |
-| Bundled font families   | `Skribble`, `SkribbleGentle`, `SkribblePlayful`, `SkribbleMono` |
-| Asset and release names | `Skribble-Bold.ttf`, `SkribbleRecursive-v1.0.0.zip`             |
-| URL slugs               | `Skribble-Design-System` (Figma)                                |
+| Dart identifiers        | `skribbleIcons`, `skribbleStorybookApp`, `skribbleIconFontData` |
+| Bundled font families   | `skribble`, `skribbleGentle`, `skribblePlayful`, `skribbleMono` |
+| Asset and release names | `skribble-Bold.ttf`, `skribbleRecursive-v1.0.0.zip`             |
+| URL slugs               | `skribble-Design-System` (Figma)                                |
 | Runtime strings         | App titles, page names, `WiredLogo.semanticLabel`               |
 
-The font-family column in the theming tables therefore keeps `Skribble` even though the surrounding prose is lowercase: it names a bundled family a consumer passes to Flutter.
+The font-family column in the theming tables therefore keeps `skribble` even though the surrounding prose is lowercase: it names a bundled family a consumer passes to Flutter.
 
 The root `README.md` opens with a centered header modeled on the docs site: the logo at 240px linked to the documentation, a centered `<h1>`, a one-line tagline, centered links into the docs, and the badges underneath. Documentation links point at <https://openbudgetfun.github.io/skribble/>.
 
@@ -1056,8 +1062,16 @@ Without a fixed seed, rough drawings will vary between renders, which can cause 
 
 **When you modify the docs site itself:**
 
-1. Update the sidebar if pages were added/removed (`docs/site/lib/components/site_sidebar.dart`)
-2. Update internal cross-links between pages
+1. Pages are discovered from `docs/site/content/**/*.md`; the navigation groups by the first path segment (`core/`, `guides/`, `reference/`, ...), so a new Markdown file needs no registration
+2. A new content directory must be added to the `assets:` list in `docs/site/pubspec.yaml`
+3. Update internal cross-links between pages
+
+**When you change the architecture, layer boundaries, or Material dependencies:**
+
+1. Update `docs/site/content/core/architecture.md` — it is the source of truth for direction; `PLANNING.md` is a historical tracker
+2. Update `docs/site/content/core/material-bridge.md` when bridge behavior or framing changes
+3. Regenerate `docs/material-dependency-audit.txt` with `dart run tool/audit_material_dependencies.dart`
+4. Record superseding decisions in the architecture page's decision records instead of relitigating settled ones in a pull request
 
 **When you modify release or publication automation:**
 
@@ -1065,6 +1079,20 @@ Without a fixed seed, rough drawings will vary between renders, which can cause 
 2. Run `monochange step validate` and `monochange check`
 3. Preview release changes with `monochange step prepare-release --dry-run --diff`
 4. Keep pub.dev publication in the two documented rate-limit batches
+
+## Design handoff and the Figma workflow
+
+Figma is a first-class design target. The editable design system is published as `skribble-design-system.fig` on the latest GitHub release; the generated design kit provides the fonts, SVG specimens, tokens, and manifest for a specific version. When a task asks for a design, a mockup, or a handoff, follow the [Figma workflow guide](../guides/figma) end to end.
+
+Rules agents must keep:
+
+- Design only with tokens and widgets that exist. A design the library cannot express is recorded as a gap in the bundle manifest and raised as an issue, never approximated with hardcoded values.
+- Generate the kit from the release tag that matches the target `skribble` version, never from `main`; never hand-edit files under `build/design-kit/`.
+- Verify the kit before sharing it: 36 font files, 18 specimens, and an accurate `manifest.json`.
+- Copy the design kit README into every handover bundle so token tables travel with the assets.
+- Figma text uses the real skribble font styles — no outlined text, no simulated bold or italic.
+- Upload fonts to the Figma account (not only local installation) when the design will be edited through Figma's remote or agent runtimes.
+- Reference the release version in design pointers so assets match the code version.
 
 ## Icon pipeline reference
 

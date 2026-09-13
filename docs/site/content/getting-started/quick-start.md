@@ -42,7 +42,9 @@ void main() {
 
 ## How WiredMaterialApp works
 
-`WiredMaterialApp` is a `HookWidget` that wraps Flutter's `MaterialApp`. It does two things automatically:
+`WiredMaterialApp` is a `HookWidget` that wraps Flutter's `MaterialApp`. It is the transitional compatibility shell, not Skribble's final app abstraction -- the Wired widgets inside it are built on `flutter/widgets`, and a Skribble-owned shell will replace the `MaterialApp` wrapper. See [Architecture](/core/architecture) and the [Material bridge](/core/material-bridge).
+
+It does two things automatically:
 
 1. **Injects `WiredTheme`** -- it places a `WiredTheme` scope at the top of the tree so every descendant Wired widget can call `WiredTheme.of(context)` to read theme values (border color, fill color, stroke width, roughness, text colors).
 
@@ -185,7 +187,7 @@ Every Wired widget follows the same pattern:
 
 1. It calls `WiredTheme.of(context)` to get the active `WiredThemeData`.
 2. It uses the rough-drawing engine (`RoughBoxDecoration`, `WiredCanvas`, `WiredPainterBase`) to render sketchy borders and fills.
-3. It wraps standard Flutter interaction widgets (`TextButton`, `TextField`, `Checkbox`) so gestures, focus, and accessibility work out of the box.
+3. It wraps standard Flutter interaction widgets (`TextButton`, `TextField`, `Checkbox`) so gestures, focus, and accessibility work out of the box. That Material wrapping is transitional debt: the [decoupling plan](/core/architecture#rewrite-order) replaces each wrapper with a `flutter/widgets` equivalent, and each rewrite re-verifies the semantics the wrapper supplied.
 4. It is a `HookWidget`, so local state uses `useState`, `useTextEditingController`, and other hooks instead of `setState`.
 
 ## Next steps

@@ -18,7 +18,7 @@ cd build
 zip -r skribble-design-kit.zip design-kit
 ```
 
-The exporter copies the committed fonts without modifying or regenerating them. Regenerate the kit after changing the source fonts or rough engine. It uses the engine's drawing operations directly and requires no Figma account or Material widget runtime.
+The exporter copies the committed fonts without modifying or regenerating them. Regenerate the kit after changing the source fonts or rough engine, and generate it from the release tag that matches the `skribble` version you are designing for — never from `main`. It uses the engine's drawing operations directly and requires no Figma account or Material widget runtime. For the end-to-end handover workflow — the published `.fig` file, per-design bundles, and pointing reviewers at the results — see the [Figma workflow guide](../guides/figma).
 
 ## Fonts for Figma
 

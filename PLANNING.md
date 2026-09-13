@@ -1,6 +1,8 @@
 # skribble — Detailed Planning & Progress Tracker
 
-Last updated: 2026-05-28
+Last updated: 2026-09-13
+
+> **Historical/rolling tracker — not a source of truth.** This document records how the project got to its current state: session notes, completed sprints, and plans as they were written. Claims in it go stale, and several (accessibility coverage, widget-gap status, decoupling counts) have been wrong in the past. For current architecture and direction, read [`docs/site/content/core/architecture.md`](docs/site/content/core/architecture.md). For the current decoupling snapshot, read [`docs/material-dependency-audit.txt`](docs/material-dependency-audit.txt) (regenerate with `dart run tool/audit_material_dependencies.dart`). When this file disagrees with either, they win.
 
 ## Status Legend
 
@@ -14,20 +16,20 @@ Last updated: 2026-05-28
 
 ## Overall Status
 
-**Project Status: SUBSTANTIALLY COMPLETE**
+**Project Status: SUBSTANTIALLY COMPLETE for widget parity; the material decoupling is the active hard target.**
 
-The skribble hand-drawn design system is now production-ready with:
+The skribble hand-drawn design system is production-ready with:
 
-- 82+ Material widgets with hand-drawn equivalents
-- 33 widgets with full accessibility support
-- Complete animation system
+- 80+ Wired widgets covering the Material and Cupertino catalogs (parity work is merged through PRs #136–#138)
+- Explicit `Semantics` in 45 of 112 widget files (see the accessibility correction below — most widgets currently appear accessible because the Material widget they wrap supplies semantics, and that supply disappears as each skin is rewritten)
+- Complete animation/motion system (`lib/src/motion`, hooks-independent)
 - Font roughening pipeline (Dart CLI tool)
 - 1,827 hand-drawn emoji from OpenMoji
 - Icon performance optimization
 - Comprehensive documentation
 - pub.dev publishing configuration
 
-**Remaining work is LOW priority or requires external resources.**
+**The remaining hard work is the Material decoupling rewrite** (70 skin files, ordered plan in AGENTS.md and the architecture doc). Other open items are LOW priority or need external resources.
 
 ---
 
@@ -75,7 +77,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 2. ~~`WiredDropdownMenu`~~ — ✅ Already exists (added in earlier PR)
 3. ~~`WiredExpansionPanelList`~~ — ✅ Multiple expansion panels (MEDIUM - implemented)
 4. ~~`WiredPaginatedDataTable`~~ — ✅ Paginated table (MEDIUM - implemented)
-5. ~~`WiredRefreshIndicator`~~ — ✅ Pull-to-refresh (HIGH priority - implemented)
+5. `WiredRefreshIndicator` — ⚠️ **not shipped.** The file exists at `packages/skribble/lib/src/wired_refresh_indicator.dart` (165 lines), but it is not exported from `packages/skribble/lib/skribble.dart` and is referenced nowhere else in the repository — no tests, no storybook entry. It is dead code, not a delivered pull-to-refresh widget. Either finish it (export, tests, storybook, docs, catalog entry) or delete it.
 6. `WiredCarouselView` — M3 carousel (LOW - new M3 component)
 7. `WiredDatePickerDialog` — Date picker dialog (already have calendar/date_picker)
 8. `WiredDateRangePickerDialog` — Date range picker (LOW)
@@ -90,7 +92,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 **Priority ranking:**
 
-- HIGH: ~~RefreshIndicator~~ ✅ (DropdownButton/DropdownMenu already exist as WiredCombo/WiredDropdownMenu)
+- HIGH: RefreshIndicator — ⚠️ implemented but unexported and unused (dead code; see above)
 - MEDIUM: ExpansionPanelList, PaginatedDataTable, SearchAnchor
 - LOW: Everything else
 
@@ -137,7 +139,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 - ✅ `WiredPaginatedDataTable`
 - ✅ `WiredExpansionPanelList`
-- ✅ `WiredRefreshIndicator`
+- ⚠️ `WiredRefreshIndicator` — file exists but is dead code, not exported (see Phase 1.1)
 - ⬜ `WiredSnackBar` animation improvements
 - ⬜ Other gaps TBD from audit
 
@@ -147,14 +149,16 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 ### 1.5 Accessibility audit
 
-- ✅ Review all Wired widgets for semantic labels
-- ✅ Add missing `Semantics` wrappers (22/24 done)
-- ✅ Test with screen reader (TalkBack/VoiceOver) - testing guide created
-- ✅ Document accessibility patterns
+- 🔀 Partial review only — do not read the checkmarks below as current coverage
+- 🔀 `Semantics` added to 22 widgets in the May sprint (list below); 45 of 112 widget files contain an explicit `Semantics` construction as of 2026-09-13
+- ⬜ Per-widget screen-reader verification (the testing guide exists, but "tested" was not recorded per widget)
+- ✅ Document accessibility patterns (see `docs/site/content/reference/accessibility-testing.md`)
 
-#### Accessibility Audit Results
+#### Accessibility Audit Results — corrected 2026-09-13
 
-**Widgets WITH built-in Semantics support (11 widgets):**
+> **Correction.** The summary this section used to end with ("33 total widgets with Semantics support... Only 2 widgets remaining for manual review") was wrong. A grep of `packages/skribble/lib/src/wired_*.dart` finds an explicit `Semantics` in 45 of 112 widget files, and the old audit conflated three different situations: widgets that render their own semantics, widgets whose semantics come from the wrapped Material/Cupertino widget, and widgets never checked. Most widgets look accessible today because a Material widget inside them supplies platform semantics. **Accessible with Material is not accessible without Material:** when a skin is rewritten onto `flutter/widgets`, the semantics supplied by the removed wrapper go with it. Every skin rewrite in the decoupling plan needs an accessibility check — semantic tree, labels, roles and states, focus order, and a screen-reader pass — and the result belongs in the widget's tests, not in a hand-maintained count on this page.
+
+**Widgets with explicit Semantics at the time of the sprint (11 widgets):**
 
 - wired_button, wired_elevated_button, wired_filled_button
 - wired_outlined_button, wired_text_button, wired_fab
@@ -188,20 +192,20 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - ✅ wired_stepper — stepper semantics with semanticLabel, current step info
 - ✅ wired_expansion_tile — expanded state semantics with semanticLabel
 
-**Widgets that inherit semantics from wrapped Flutter widgets (not needing changes):**
+**Widgets whose semantics came from the wrapped Material/Cupertino widget (rewrite re-verification required):**
 
-- wired_dialog — wraps Flutter's Dialog which has built-in semantics
-- wired_drawer — wraps Flutter's Drawer which has built-in semantics
-- wired_tooltip — wraps Flutter's Tooltip which has built-in semantics
+- wired_dialog — wraps Flutter's Dialog, which supplies semantics today
+- wired_drawer — wraps Flutter's Drawer, which supplies semantics today
+- wired_tooltip — wraps Flutter's Tooltip, which supplies semantics today
 
-**Remaining widgets needing accessibility review:**
+**Known gaps at the time of the sprint (never verified since):**
 
 - wired_bottom_nav — needs navigation semantics (LOW - wraps Flutter widget)
 - wired_reorderable_list_view — needs list semantics (LOW - wraps Flutter widget)
 
-**Priority:** HIGH — Accessibility is critical for production apps. Should be addressed alongside widget implementation.
+**Priority:** HIGH — accessibility is critical for production apps, and each decoupling rewrite is a chance to lose semantics silently.
 
-**Summary:** 33 total widgets with Semantics support (11 built-in + 22 added). Only 2 widgets remaining for manual review.
+**Correct summary (2026-09-13):** 45 of 112 widget files render an explicit `Semantics`; the rest either inherit semantics from a wrapped framework widget, wrap a widget that supplies them, or have not been reviewed. There is no current count of per-widget screen-reader verification.
 
 ### 1.6 Animation polish
 
@@ -301,7 +305,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - ✅ Generate test icon font with subset of icons (tests created)
 - ⬜ Evaluate visual quality
 - ⬜ If quality is good: generate full icon font
-- ✅ Create `SkribbleIconFont` widget for font-based icon rendering
+- ✅ Create `skribbleIconFont` widget for font-based icon rendering
 
 #### Research Findings
 
@@ -419,6 +423,21 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 ## Change Log
 
+### 2026-09-13 (Documentation truth pass)
+
+**Corrected claims in this tracker:**
+
+- Accessibility: replaced "33 widgets with Semantics / only 2 remaining" with the verified count (explicit `Semantics` in 45 of 112 widget files) and added the warning that semantics currently supplied by wrapped Material widgets disappear with each skin rewrite.
+- Decoupling snapshot: replaced "94 of 109 / 57 skin / 37 helpers" with the current "94 of 137 / 70 skin / 24 helpers" and recorded the trend (hard debt grew as parity widgets landed; one skin, `wired_loading_indicator.dart`, has been rewritten off Material).
+- `WiredRefreshIndicator`: reclassified from a completed HIGH-priority deliverable to unexported dead code (file present, referenced nowhere; `packages/skribble/lib/src/wired_refresh_indicator.dart`).
+- `skribble_icons_dynamic`: recorded that the package is untracked and gone from fresh checkouts; an older checkout may retain only ignored `build/` and `.dart_tool/` output.
+
+**Documentation changes:**
+
+- `docs/site/content/core/architecture.md` now states the standalone design-system direction, the dependency rule, the layers, the transitional debt, the compatibility promise, and the settled decision records.
+- `docs/site/content/core/material-bridge.md` reframed as a transitional compatibility layer with a migration path, not "skribble sits alongside Material".
+- Cross-framing fixes in `index.md`, `theme-system.md`, `theming.md`, `quick-start.md`, `migration.md`, `agents.md`, `api-overview.md`, and `accessibility-testing.md` (including a stale `google_fonts` dependency row and a stale sidebar-registration instruction).
+
 ### 2026-05-28 (Full Day Sprint)
 
 #### Morning Session (10:00 - 11:30)
@@ -437,8 +456,8 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 **Icon Font (Phase 3.2):**
 
-- Created SkribbleIconFont widget for font-based icon rendering
-- Added SkribbleIconFontData and SkribbleIconFontIcons classes
+- Created skribbleIconFont widget for font-based icon rendering
+- Added skribbleIconFontData and skribbleIconFontIcons classes
 - 4/5 tasks now complete
 
 **Performance (Phase 3.4) - COMPLETED:**
@@ -515,7 +534,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 **Cupertino Icons (Phase 3.3):**
 
 - WiredCupertinoIcon widget for hand-drawn Cupertino icons
-- SkribbleCupertinoIcons with common icon shortcuts
+- skribbleCupertinoIcons with common icon shortcuts
 
 **Performance (Phase 3.4):**
 
@@ -564,7 +583,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 **Workspace hygiene:**
 
-- Removed `skribble_icons_dynamic` (deprioritized; zero dependents — presets in `skribble_icons` are the supported path; can be revived from git history if dynamic generation is wanted later)
+- Removed `skribble_icons_dynamic` (deprioritized; zero dependents — presets in `skribble_icons` are the supported path; can be revived from git history if dynamic generation is wanted later). Verified 2026-09-13: the package has no tracked files and is absent from a fresh clone/worktree, but an older checkout can still contain an untracked `packages/skribble_icons_dynamic/` directory holding only ignored `.dart_tool/` and `build/` output from before the removal. It can be deleted safely; it is not part of the repository.
 - Added `skribble_emoji_gen` (Dart CLI emoji generator) to the workspace with SDK constraint aligned to ^3.13.0 and `resolution: workspace`
 - Merged knope → monochange migration (PR #126): release flows now use `mc release-pr` / `mc publish`; changesets reformatted for monochange
 
@@ -582,10 +601,12 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 **Goal:** skribble becomes a standalone design system library — a peer of `package:material_ui` / `package:cupertino_ui`, depending only on `flutter/widgets` and below. NOT a skin over Material widgets.
 
-**Status:** `material`/`cupertino` decoupled from the Flutter core into pub packages (Flutter 3.47 era). 94 of 109 files in packages/skribble/lib import material/cupertino today. The audit tool classifies them:
+**Status (2026-08-29 snapshot, corrected 2026-09-13):** `material`/`cupertino` decoupled from the Flutter core into pub packages (Flutter 3.47 era). At the time of this note, 94 of 109 files in packages/skribble/lib imported material/cupertino:
 
 - 57 × "skin" — wrap a Material widget; these are the real rewrite debt
 - 37 × "helpers" — theme/geometry/constants only; mechanical import swaps
+
+**Current snapshot (2026-09-13): 94 of 137 files import material/cupertino — 70 skin / 24 helpers.** The hard debt grew by 13 as parity widgets landed (7 new widgets, plus 7 files reclassified from helpers to skin). One skin was rewritten off Material (`wired_loading_indicator.dart`), and six other files dropped their Material imports entirely: five painting/core files (`wired_base.dart`, `canvas/wired_canvas.dart`, `canvas/wired_painter.dart`, `rough/decoration.dart`, `rough/rough.dart`) plus the loading indicator, while the old `wired_transitions.dart` was replaced by the hooks-independent motion layer. The skin number is the one that matters; the helpers number falling is not progress by itself. Regenerate the snapshot with `dart run tool/audit_material_dependencies.dart`.
 
 **Tooling:**
 
@@ -597,7 +618,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 1. Leaf inputs: button family, checkbox, switch, slider, text field
 2. Theme: WiredTheme/DrawConfig already custom — swap ThemeData reads for a skribble-owned token set
 3. Navigation/containers: scaffold, app bar, tabs, bottom nav, dialogs
-4. App shell: SkribbleApp (WidgetsApp-based) replacing WiredMaterialApp; keep WiredMaterialApp as a thin compatibility bridge until consumers migrate
+4. App shell: skribbleApp (WidgetsApp-based) replacing WiredMaterialApp; keep WiredMaterialApp as a thin compatibility bridge until consumers migrate
 5. Localization: use GlobalMaterialLocalizations alternatives or depend on flutter_localizations directly (decision needed at step 4)
 
 ---
@@ -621,11 +642,21 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 - Blocked: `skribble_font_roughen` (`publish_to: none`) — needs a licensed replacement for `opentype_dart`
 - Actual pub.dev publication requires: `pub.dev` publisher setup + CI `PUB_CREDENTIALS`/OIDC + the maintainer running the release PR flow
 
-**Open follow-ups (next session):**
+**Open follow-ups (updated 2026-09-13; the August list below it was superseded):**
+
+1. **Material decoupling rewrite — the main in-flight work.** 70 skin files, leaf inputs first (button family, checkbox, switch, slider, text fields). New code already follows the no-material rule, and one skin (`wired_loading_indicator.dart`) has been rewritten; the remaining skins still import Material, so the audit stands at 94 of 137 importers.
+2. **Accessibility verification per rewrite.** Each skin rewrite must replace the semantics the removed Material wrapper supplied and test it. See the corrected Phase 1.5.
+3. **Finish or delete `WiredRefreshIndicator`.** It is unexported dead code (see Phase 1.1).
+4. **Documentation truth pass.** This branch corrects the architecture direction, the Material bridge framing, and this tracker. Keep the architecture page authoritative.
+5. **Design handover.** The design kit (`packages/skribble/tool/design_kit.dart`) and the published `.fig` asset are documented in [docs/design/README.md](docs/design/README.md) and the Figma guide; release-time rules live in the releasing reference.
+6. **Device screenshots** via the mobile driver (from the August follow-ups) and the optional pre-roughened font pack remain open.
+7. **Publishing:** `skribble_font_roughen` stays `publish_to: none` until its `opentype_dart` dependency is replaced with a licensed one.
+
+**Open follow-ups (2026-08-29, historical):**
 
 1. Material decoupling rewrite (AGENTS.md — 57 skin-debt files, ordered plan)
 2. Capture real device screenshots via the new mobile driver + upload to B2
-3. Cut release v0.3.5 via the monochange release PR
+3. Cut release v0.3.5 via the monochange release PR (superseded: the first public releases are v0.1.0 and v0.1.1, published 2026-09-11 and 2026-09-13)
 4. Optional pre-roughened font pack for popular fonts (needs font downloads)
 
 ### 2026-08-29 (Session 2: parity, showcase, testing)
@@ -651,7 +682,7 @@ New package `skribble_icons_simple`, generated exactly like the other icon sets:
 
 1. Vendor the simple-icons SVGs (CC0) into `packages/skribble_icons_simple/manifest/` at a pinned version tag
 2. Extend `generate_rough_icons.dart`'s svg-manifest kit with a simple-icons loader (brand list + slugs → manifest.json)
-3. Roughen + precompute → `kSkribbleSimpleIcons` map + `SkribbleSimpleIcons` lookup class; publish as its own package so apps only bundle brands they reference (tree-shaking via const map)
+3. Roughen + precompute → `kskribbleSimpleIcons` map + `skribbleSimpleIcons` lookup class; publish as its own package so apps only bundle brands they reference (tree-shaking via const map)
 4. CI gates identical to the Material pipeline (baseline, sync, regression)
 
 Estimated effort: 1–2 sessions (mostly pipeline reuse).
