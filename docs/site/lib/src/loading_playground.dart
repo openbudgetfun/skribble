@@ -32,6 +32,10 @@ class LoadingPlayground extends HookWidget {
         'Endless scribble',
         'Draw a loop. Follow it back.',
       ),
+      WiredLoaderStyle.mark: (
+        'The mark itself',
+        'The logo, sketching itself in.',
+      ),
     };
 
     return Column(
@@ -138,6 +142,27 @@ class LoadingPlayground extends HookWidget {
                     ],
                   );
                 },
+              ),
+              const SizedBox(height: 32),
+              const Text(
+                'A whole screen for the wait.',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'WiredLoadingScreen fills the paper, centers one loader, and announces the status once. This is the screen the site shows while its pages load.',
+              ),
+              const SizedBox(height: 20),
+              ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
+                child: SizedBox(
+                  height: 340,
+                  child: WiredLoadingScreen(
+                    message: 'Getting the pens ready…',
+                    duration: Duration(milliseconds: speed.value.round()),
+                    animating: moving.value,
+                  ),
+                ),
               ),
               const SizedBox(height: 32),
               const Text(

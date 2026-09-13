@@ -82,6 +82,7 @@ export 'src/wired_license_page.dart';
 export 'src/wired_list_tile.dart';
 export 'src/wired_loader.dart';
 export 'src/wired_loading_indicator.dart';
+export 'src/wired_loading_screen.dart';
 export 'src/wired_logo.dart';
 export 'src/wired_material_app.dart';
 export 'src/wired_material_banner.dart';

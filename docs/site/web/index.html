@@ -8,11 +8,150 @@
   <meta name="theme-color" content="#fffaf0">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <title>skribble — make something delightful</title>
-  <style>html,body{margin:0;background:#fffaf0}#loading{font:18px monospace;color:#34283f;padding:48px}#loading strong{display:block;font-size:32px;margin-bottom:12px}</style>
+  <style>
+    /* The pre-boot screen: the brand mark sketches itself on paper while the
+       Flutter bundle loads. WiredLoadingScreen draws the same mark, in the
+       same typeface, so the handover is invisible. */
+    @font-face {
+      font-family: "Skribble Playful";
+      src: url("assets/packages/skribble/assets/fonts/SkribblePlayful-Regular.ttf")
+        format("truetype");
+      font-display: swap;
+    }
+
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background: #fffaf0;
+    }
+
+    #loading {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 32px;
+      background: #fffaf0;
+      color: #34283f;
+      font-family: "Skribble Playful", ui-rounded, "Segoe UI", system-ui,
+        -apple-system, sans-serif;
+      font-size: 17px;
+      line-height: 1.4;
+      text-align: center;
+      opacity: 1;
+      transition: opacity 0.45s ease;
+    }
+
+    #loading.is-done {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #loading .mark {
+      width: clamp(104px, 30vw, 160px);
+      height: clamp(104px, 30vw, 160px);
+    }
+
+    #loading .mark path {
+      fill: none;
+      stroke: #34283f;
+      stroke-width: 3.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: sketch 2.6s ease-in-out infinite;
+    }
+
+    /* Draw the brackets, then the circle, then the face: the order a hand
+       would follow. */
+    #loading .mark path:nth-child(2) { animation-delay: 0.06s; }
+    #loading .mark path:nth-child(3) { animation-delay: 0.12s; }
+    #loading .mark path:nth-child(4) { animation-delay: 0.5s; }
+    #loading .mark path:nth-child(5) { animation-delay: 0.56s; }
+    #loading .mark path:nth-child(6) { animation-delay: 0.62s; }
+
+    #loading .status {
+      position: relative;
+      margin: 0;
+      /* The ink at the same opacity WiredLoadingScreen paints it. */
+      color: rgba(52, 40, 63, 0.72);
+    }
+
+    /* Honest feedback when the first frame takes its time. It sits outside the
+       layout so the mark never shifts when it appears. */
+    #loading .status-late {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 8px 0 0;
+      font-size: 15px;
+      color: rgba(52, 40, 63, 0.5);
+      white-space: nowrap;
+      opacity: 0;
+      animation: appear 0.6s ease 6s forwards;
+    }
+
+    @keyframes sketch {
+      0% { stroke-dashoffset: 300; }
+      45%,
+      62% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 300; }
+    }
+
+    @keyframes appear {
+      to { opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #loading .mark path {
+        animation: none;
+        stroke-dashoffset: 0;
+      }
+
+      #loading .status-late {
+        animation-duration: 0.01s;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div id="loading" role="status"><strong>skribble</strong>Getting the pens ready…</div>
-  <script>window.addEventListener('flutter-first-frame', () => document.getElementById('loading').remove());</script>
+  <div id="loading" role="status" aria-live="polite">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+      <g stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 21.000 16.000 C 17.000 16.000 12.000 17.000 10.000 17.000 C 9.000 34.000 9.000 65.000 10.000 83.000 C 13.000 84.000 17.000 84.000 21.000 84.000"/>
+        <path d="M 79.000 16.000 C 83.000 16.000 88.000 17.000 90.000 17.000 C 91.000 34.000 91.000 65.000 90.000 83.000 C 87.000 84.000 83.000 84.000 79.000 84.000"/>
+        <path d="M 50.000 25.000 C 66.000 24.000 77.000 35.000 76.000 51.000 C 77.000 67.000 65.000 77.000 50.000 77.000 C 34.000 78.000 23.000 66.000 24.000 51.000 C 23.000 36.000 34.000 25.000 50.000 25.000"/>
+        <path d="M 41.000 43.000 C 40.000 45.000 40.000 47.000 41.000 49.000"/>
+        <path d="M 59.000 43.000 C 60.000 45.000 60.000 47.000 59.000 49.000"/>
+        <path d="M 38.000 58.000 C 44.000 67.000 56.000 68.000 63.000 57.000"/>
+      </g>
+    </svg>
+    <p class="status">
+      Getting the pens ready…
+      <span class="status-late" aria-hidden="true">Still fetching the ink…</span>
+    </p>
+  </div>
+  <script>
+    (() => {
+      const loading = document.getElementById('loading');
+      const dismiss = () => {
+        loading.classList.add('is-done');
+        loading.addEventListener('transitionend', () => loading.remove(), {
+          once: true,
+        });
+        // Fallback for reduced motion or a browser that skips the transition.
+        setTimeout(() => loading.remove(), 900);
+      };
+      window.addEventListener('flutter-first-frame', dismiss, { once: true });
+    })();
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

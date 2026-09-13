@@ -179,6 +179,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredProgress`                   | `wired_progress.dart`                     |
 | `WiredCircularProgress`           | `wired_circular_progress.dart`            |
 | `WiredLoadingIndicator`           | `wired_loading_indicator.dart`            |
+| `WiredLoadingScreen`              | `wired_loading_screen.dart`               |
 | `WiredCupertinoActivityIndicator` | `wired_cupertino_activity_indicator.dart` |
 | `WiredBadge`                      | `wired_badge.dart`                        |
 | `WiredBottomSheet`                | `wired_bottom_sheet.dart`                 |
@@ -385,4 +386,4 @@ These constructors preserve the original constructors and avoid requiring Materi
 
 ## Loading states
 
-`WiredLoader` offers `orbit`, `dots`, `bars`, `ripple`, `flower`, and `scribble` rhythms through `WiredLoaderStyle`. It accepts a caller-owned phase animation or runs its own clock. `WiredSkeleton` draws softly pulsing pencil placeholders. `WiredSkeletonOverlay` preserves a child's measured layout and mounted state while excluding its input, focus, semantics, and tickers. See [Loaders and skeletons](/widgets/loading) for the live gallery and motion policies.
+`WiredLoader` offers `orbit`, `dots`, `bars`, `ripple`, `flower`, `scribble`, and `mark` rhythms through `WiredLoaderStyle`. It accepts a caller-owned phase animation or runs its own clock. `WiredLoadingScreen` fills the viewport with themed paper, centers one loader, and announces an optional status message as a live region. `WiredSkeleton` draws softly pulsing pencil placeholders. `WiredSkeletonOverlay` preserves a child's measured layout and mounted state while excluding its input, focus, semantics, and tickers. See [Loaders and skeletons](/widgets/loading) for the live gallery and motion policies.
