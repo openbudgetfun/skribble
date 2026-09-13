@@ -69,7 +69,7 @@ class DocsApp extends HookWidget {
 
     return WiredMaterialApp.router(
       routerConfig: router,
-      title: 'Skribble',
+      title: 'skribble — make something delightful',
       wiredTheme: WiredThemeData.cuddly(roughnessLevel: roughness.value),
       builder: (context, child) => DefaultTextStyle(
         style: TextStyle(

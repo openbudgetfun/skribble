@@ -28,7 +28,12 @@ void main() {
             ),
           ),
         );
-        expect(find.byType(WiredLoader), findsNWidgets(7));
+        // One loader per rhythm, plus the loading screen and the dots inside
+        // the skeleton overlay.
+        expect(
+          find.byType(WiredLoader),
+          findsNWidgets(WiredLoaderStyle.values.length + 2),
+        );
         await tester.tap(find.text('Settle motion'));
         await tester.pumpAndSettle();
         expect(tester.hasRunningAnimations, isFalse);

@@ -28,6 +28,13 @@ enum WiredLoaderStyle {
 
   /// The existing looping flourish drawing and erasing itself.
   scribble,
+
+  /// The brand mark sketching itself in, then drawing back out.
+  ///
+  /// Uses the shipped `WiredLogo` outlines, and the pen scales with the
+  /// drawing like the logo does, so a splash can hand over to the static mark
+  /// without it jumping at any size.
+  mark,
 }
 
 /// An indeterminate hand-drawn loader with stable, cached curves.
@@ -96,12 +103,19 @@ class WiredLoader extends HookWidget {
         builder: (context, phase) => SizedBox.square(
           dimension: size,
           child: CustomPaint(
-            painter: _LoaderPainter(
-              phase: phase,
-              geometry: geometry,
-              color: color ?? theme.textColor,
-              pen: size == 0 ? 0 : strokeWidth * 100 / size,
-            ),
+              painter: _LoaderPainter(
+                phase: phase,
+                geometry: geometry,
+                color: color ?? theme.textColor,
+                // The mark keeps the logo's proportions, so its pen is measured
+                // in drawing units; every other rhythm is measured in logical
+                // pixels at the requested size.
+                pen: style == WiredLoaderStyle.mark
+                    ? strokeWidth * 1.8
+                    : size == 0
+                    ? 0
+                    : strokeWidth * 100 / size,
+              ),
           ),
         ),
       ),
@@ -122,18 +136,25 @@ class WiredLoader extends HookWidget {
 
 class _LoaderGeometry {
   _LoaderGeometry(this.style, int seed, double roughness) {
-    final kind = switch (style) {
-      WiredLoaderStyle.flower => WiredDoodleKind.flower,
-      WiredLoaderStyle.scribble => WiredDoodleKind.scribble,
+    // The mark keeps the brand outlines exactly; roughness and seeds belong to
+    // the doodle drawings.
+    final strokes = switch (style) {
+      WiredLoaderStyle.mark => logoGeometry(),
+      WiredLoaderStyle.flower => doodleGeometry(
+        WiredDoodleKind.flower,
+        seed: seed,
+        amplitude: roughness,
+      ),
+      WiredLoaderStyle.scribble => doodleGeometry(
+        WiredDoodleKind.scribble,
+        seed: seed,
+        amplitude: roughness,
+      ),
       _ => null,
     };
 
-    if (kind != null) {
-      for (final stroke in doodleGeometry(
-        kind,
-        seed: seed,
-        amplitude: roughness,
-      )) {
+    if (strokes != null) {
+      for (final stroke in strokes) {
         final path = Path()..moveTo(stroke.start.x, stroke.start.y);
 
         for (final curve in stroke.curves) {
@@ -258,6 +279,7 @@ class _LoaderPainter extends CustomPainter {
           canvas.drawPath(path, paint);
         }
       case WiredLoaderStyle.scribble:
+      case WiredLoaderStyle.mark:
         final amount = .12 + .88 * (.5 - .5 * math.cos(t * math.pi * 2));
         var remaining = geometry.length * amount;
         for (final metric in geometry.metrics) {

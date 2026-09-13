@@ -17,8 +17,9 @@ Use `WiredLoader` for an unknown wait, `WiredSkeleton` to reserve space, and `Wi
 | `ripple`   | Soft expanding contour rings       | Quiet background waits     |
 | `flower`   | Rotating flower doodle             | A friendly empty panel     |
 | `scribble` | A loop drawing and erasing itself  | Sketches and creative work |
+| `mark`     | The brand mark sketching itself    | Splashes and app startup   |
 
-The collection takes inspiration from the variety in [react-native-indicators](https://github.com/n4kz/react-native-indicators). These are original Flutter drawings and animations; flower and scribble reuse skribble's existing seeded flourish geometry.
+The collection takes inspiration from the variety in [react-native-indicators](https://github.com/n4kz/react-native-indicators). These are original Flutter drawings and animations; flower and scribble reuse skribble's existing seeded flourish geometry. The `mark` style keeps the shipped logo outlines and pen weight, so it can hand over to `WiredLogo` without the mark jumping.
 
 ```dart
 // Static example: api
@@ -38,6 +39,20 @@ Pass a caller-owned `Animation<double>` as `progress` to coordinate several load
 `animating: false`, `WiredMotion(enabled: false)`, the platform's reduced-motion preference, and muted `TickerMode` settle the drawing to a visible fixed pose and stop its own clock. External animations detach from painting while settled. Remove the loader when work finishes. A pause does not imply completion.
 
 The existing `WiredLoadingIndicator` now uses the orbit renderer and inherits these motion policies, retaining its size, color, and stroke-width parameters.
+
+## A full-screen wait
+
+```dart
+// Static example: api
+WiredLoadingScreen(
+  message: 'Getting the pens ready…',
+  size: 96,
+)
+```
+
+`WiredLoadingScreen` fills the viewport with the theme's paper, centers one loader, and shows an optional status line beneath it. `backgroundColor` and `color` override the paper and ink; `style` picks any rhythm from the table above. The screen is a single live region — the message is announced once, the drawing stays decorative, and `semanticLabel` overrides the announcement. Motion follows the same policies as `WiredLoader`, so reduced motion settles the mark into a visible pose. Replace the screen when the wait ends.
+
+This is the screen the documentation site shows while its page catalog loads. Its pre-boot shell draws the same mark as inline SVG, so the mark keeps sketching from the first paint until Flutter takes over.
 
 ## Pencil skeletons
 
