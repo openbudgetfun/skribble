@@ -9,13 +9,15 @@ This guide walks you through migrating an existing Flutter app from Material Des
 
 ## Overview
 
-Migrating to skribble involves:
+Skribble's compatibility layer is built for an incremental migration: you do not have to convert the whole app at once, and you do not have to delete Material to get started.
 
-1. Adding the skribble package to your project
-2. Replacing Material widgets with their Wired equivalents
-3. Wrapping your app with `WiredTheme` and `WiredMaterialApp`
-4. Updating the font family (optional)
-5. Testing and adjusting the visual appearance
+1. Add the Skribble package to your project
+2. Give one screen the Skribble palette (`WiredThemeFromMaterial`), or keep Material where it is
+3. Replace Material widgets with their Wired equivalents, screen by screen
+4. Move the app root to `SkribbleApp` when the screens are ready
+5. Update the font family (optional) and adjust the visual appearance
+
+You can stay on `WiredMaterialApp` (the transitional bridge over `MaterialApp`) for as long as you need. Nothing breaks by migrating gradually; see the [Material bridge](../core/material-bridge) for the coexistence rules and both theme directions.
 
 ## Step 1: Add skribble
 
@@ -30,9 +32,23 @@ dependencies:
 
 Run `dart pub get` to install the packages.
 
-## Step 2: Replace MaterialApp
+## Step 2: Adopt the palette
 
-Replace your `MaterialApp` with `WiredMaterialApp`:
+Start by giving one screen the Skribble palette derived from the Material theme you already have. Material widgets on that screen keep working:
+
+```dart
+// Static example: setup
+MaterialApp(
+  theme: myTheme,
+  home: WiredThemeFromMaterial(
+    child: MyFirstMigratedScreen(),
+  ),
+)
+```
+
+## Step 3: Move the app root
+
+When enough screens are converted, replace `MaterialApp` with `SkribbleApp`:
 
 **Before:**
 
@@ -52,20 +68,31 @@ MaterialApp(
 
 ```dart
 // Static example: setup
-WiredMaterialApp(
+SkribbleApp(
   title: 'My App',
   wiredTheme: WiredThemeData(
-    borderColor: Colors.blue,
-    textColor: Colors.black,
-    fillColor: Colors.white,
+    borderColor: Color(0xFF1E88E5),
+    textColor: Color(0xFF000000),
+    fillColor: Color(0xFFFFFFFF),
   ),
   home: MyHomePage(),
 )
 ```
 
-`WiredMaterialApp` is the transitional compatibility shell. It is the right move during migration, and it is not skribble's final app abstraction — a skribble-owned shell built on `WidgetsApp` is the destination. See [Architecture](/core/architecture) and the [Material bridge](/core/material-bridge).
+`SkribbleApp` takes the same `wiredTheme` variants as `WiredMaterialApp`. `themeMode` becomes a `SkribbleThemeMode` because the widgets layer has no `ThemeMode`; the compatibility layer converts between them. Any screen that still needs Material widgets gets a `WiredMaterialTheme` wrapper instead of a nested `MaterialApp`.
 
-## Step 3: Replace Common Widgets
+The existing bridge is still there if you are not ready for the new root:
+
+```dart
+// Static example: setup
+WiredMaterialApp(
+  title: 'My App',
+  wiredTheme: WiredThemeData(borderColor: Color(0xFF1E88E5)),
+  home: MyHomePage(),
+)
+```
+
+## Step 4: Replace Common Widgets
 
 ### Buttons
 
@@ -293,7 +320,7 @@ CircularProgressIndicator()
 WiredCircularProgress(value: .6)
 ```
 
-## Step 4: Update Icons (Optional)
+## Step 5: Update Icons (Optional)
 
 Replace Material icons with hand-drawn versions:
 
@@ -330,7 +357,7 @@ const Wrap(
 )
 ```
 
-## Step 5: Update Fonts (Optional)
+## Step 6: Update Fonts (Optional)
 
 Use the skribble font for a fully hand-drawn text experience:
 
@@ -370,7 +397,7 @@ WiredMaterialApp(
 )
 ```
 
-## Step 6: Add Accessibility
+## Step 7: Add Accessibility
 
 Interactive Wired widgets expose a `semanticLabel` parameter where they render their own semantics:
 
@@ -401,6 +428,7 @@ HookBuilder(
 Do not assume a widget's current screen-reader behavior is permanent. Many Wired widgets get semantics from the Material widget they currently wrap; that semantics disappears when the wrapper is [rewritten onto `flutter/widgets`](/core/architecture#rewrite-order). Verify each widget you migrate with the accessibility inspector or a screen reader, and see [Accessibility testing](/reference/accessibility-testing).
 
 ## Step 7: Test and Adjust
+## Step 8: Test and Adjust
 
 After migration:
 

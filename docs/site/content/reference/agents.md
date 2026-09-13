@@ -25,10 +25,14 @@ skribble/
 │   │   └── src/
 │   │       ├── canvas/             # WiredCanvas, WiredPainter, WiredPainterBase
 │   │       ├── rough/              # Rough drawing engine (Dart port of rough.js)
+│   │       ├── compat/             # Transitional Material/Cupertino interop (see below)
 │   │       ├── generated/          # Generated icon font + map files
 │   │       ├── wired_*.dart        # Widget implementations
+│   │       ├── skribble_app.dart   # SkribbleApp widgets-based shell
+│   │       ├── skribble_localizations.dart  # Widgets-only localization delegate
 │   │       ├── wired_theme.dart    # WiredThemeData + WiredTheme inherited scope
-│   │       ├── wired_material_app.dart  # Transitional Material bridge shell
+│   │       ├── wired_theme_scope.dart  # Material-free WiredThemeScope
+│   │       ├── compat/             # Quarantined Material/Cupertino interop (transitional)
 │   │       └── wired_base.dart     # Base painters + RepaintBoundary helpers
 │   ├── test/
 │   │   ├── rough/                  # Rough engine unit tests
@@ -1022,6 +1026,13 @@ Without a fixed seed, rough drawings will vary between renders, which can cause 
 3. Export it from `packages/skribble/lib/skribble.dart`
 4. Add a `///` dartdoc comment on the class and all public parameters
 5. Add the widget to the API overview at `docs/site/content/reference/api-overview.md`
+
+**When you touch Material or Cupertino interop:**
+
+1. Only `packages/skribble/lib/src/compat/` may import `package:flutter/material.dart` or `package:flutter/cupertino.dart`; every file there keeps the header note explaining why
+2. Do not add Material parity to `WiredMaterialApp` — the bridge exists for interop and migration, not parity
+3. Regenerate `docs/material-dependency-audit.txt` with `dart run tool/audit_material_dependencies.dart > docs/material-dependency-audit.txt` and describe the core-count change
+4. Update `docs/site/content/core/material-bridge.md` and, for the app root, `docs/site/content/core/app-shell.md`
 
 **When you modify a widget API:**
 
