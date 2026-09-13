@@ -10,7 +10,7 @@ The main library is imported via a single barrel file:
 import 'package:skribble/skribble.dart';
 ```
 
-This exports 95 files covering the full widget set, rough engine, theming, and canvas system.
+This barrel exports the full widget set, rough engine, canvas system, theming, and motion helpers. Only symbols exported here are public API; files under `lib/src/` are internal implementation. See [Architecture](/core/architecture) for the dependency rule and layer structure.
 
 ## API layers
 
@@ -72,18 +72,18 @@ Key types:
 
 ### 4. Theme system
 
-Colors, roughness, and Material bridge.
+Colors, roughness, tokens, and the transitional Material bridge.
 
-| Export                    | Purpose                           |
-| ------------------------- | --------------------------------- |
-| `wired_theme.dart`        | WiredThemeData + WiredTheme scope |
-| `wired_material_app.dart` | WiredMaterialApp (.router)        |
+| Export                    | Purpose                                               |
+| ------------------------- | ----------------------------------------------------- |
+| `wired_theme.dart`        | WiredThemeData + WiredTheme scope                     |
+| `wired_material_app.dart` | WiredMaterialApp (.router), the Material bridge shell |
 
 Key types:
 
 - `WiredThemeData` — borderColor, textColor, fillColor, strokeWidth, roughness, drawConfig
 - `WiredTheme` — inherited theme and typography scope, accessed via `WiredTheme.of(context)`
-- `WiredMaterialApp` — MaterialApp wrapper that syncs WiredTheme + Material ThemeData
+- `WiredMaterialApp` — transitional MaterialApp wrapper that syncs WiredTheme + Material ThemeData; see [Material bridge](/core/material-bridge)
 
 ### 5. Widgets (80+)
 
@@ -237,7 +237,6 @@ The main library depends on:
 | --------------- | --------- | ----------------------------------------- |
 | `flutter`       | SDK       | Core Flutter framework                    |
 | `flutter_hooks` | `^0.21.3` | HookWidget, useState, useEffect, etc.     |
-| `google_fonts`  | `^8.0.2`  | Hand-drawn font access                    |
 | `path_parsing`  | `^1.1.0`  | SVG path parsing for rough icon rendering |
 
 ## Companion packages

@@ -1,11 +1,21 @@
 ---
 title: Material Bridge
-description: How WiredMaterialApp synchronizes skribble theming with Material, including router configuration, ColorScheme generation, component mapping, and Cupertino bridge widgets.
+description: WiredMaterialApp is skribble's transitional compatibility layer for Material apps — how it synchronizes theming, its router and component mapping, and how to migrate off it.
 ---
 
 # Material Bridge
 
-skribble is not a Material replacement -- it sits alongside Material. `WiredMaterialApp` bridges the two systems, ensuring that the Wired theme and Material `ThemeData` stay synchronized. Standard Material widgets (like `Scaffold`, `AppBar`, `Dialog`) automatically inherit colors from the active `WiredThemeData`.
+The Material bridge is a **transitional compatibility layer**. Its job is to let an existing Flutter app adopt skribble incrementally — a button here, a card there — without rewriting its app shell first. It is not skribble's intended architecture, and the documentation used to present it as "skribble sitting alongside Material". It is not.
+
+Read [Architecture](/core/architecture) first for what skribble is: a standalone design system, a peer of `package:material_ui` and `package:cupertino_ui`. This page documents how to interoperate with Material **during migration**, and how to leave the bridge behind.
+
+## Where this sits in the architecture
+
+- **Today**, `WiredMaterialApp` is how most consumers run skribble: existing apps get Wired theming without replacing `MaterialApp`.
+- **The destination** is a skribble-owned app shell built on `WidgetsApp`. When it ships, `WiredMaterialApp` remains as a thin compatibility bridge for apps that still need Material in the tree.
+- **The compatibility promise**: `WiredMaterialApp`, `WiredTheme`, and `WiredThemeData.toThemeData()` keep their documented behavior and are not deprecated today. Removal is a breaking change with a changeset, changelog entry, and migration guide — never a side effect of a rewrite.
+
+The bridge exists to make incremental adoption possible. Material supplies the shell and the `Navigator` plumbing during migration, and the token synchronization below keeps the Material widgets you have not replaced yet visually aligned. The Wired widgets' painting, engine, and theme scope do not require Material to function; the Material-facing conversions (`toThemeData()`, `toColorScheme()`) exist solely for this bridge.
 
 ## WiredMaterialApp
 
@@ -22,7 +32,7 @@ WiredMaterialApp(
     borderColor: Color(0xFF1A2B3C),
     fillColor: Color(0xFFFEFEFE),
   ),
-  title: 'My Skribble App',
+  title: 'My skribble App',
   home: MyHomePage(),
 )
 ```
@@ -36,7 +46,7 @@ Use `WiredMaterialApp.router()` for apps using `Router`-based navigation (GoRout
 WiredMaterialApp.router(
   wiredTheme: WiredThemeData(),
   routerConfig: goRouter,
-  title: 'My Skribble App',
+  title: 'My skribble App',
 )
 ```
 
@@ -114,6 +124,8 @@ The `.router()` constructor requires either `routerDelegate` or `routerConfig` -
 | `debugShowCheckedModeBanner`    | `bool` | `false` |
 
 ## How WiredThemeData Converts to Material ThemeData
+
+This mapping exists so that standard Material widgets still in your tree (a `Scaffold` you have not replaced yet, a `Dialog`, a tooltip) do not clash with the Wired palette. It is synchronization for migration, not skribble's theming system.
 
 When `WiredMaterialApp` builds, it calls `wiredTheme.toThemeData()` to generate a Material `ThemeData`. This happens for each theme variant:
 
@@ -310,6 +322,15 @@ Fallback chain:
 - `highContrastWiredTheme` defaults to `wiredTheme`
 - `highContrastDarkWiredTheme` defaults to `darkWiredTheme`, then `wiredTheme`
 
+## Migrating from a Material app to a skribble shell
+
+You do not have to swap the whole shell at once. Work downward through the tree:
+
+1. **Adopt Wired widgets inside your existing `MaterialApp`.** Place a `WiredTheme` ancestor (or `WiredMaterialApp` if you are ready to change the root) and start replacing leaf widgets: buttons, inputs, checkboxes, cards.
+2. **Replace containers and navigation.** Move `Scaffold` → `WiredScaffold`, `AppBar` → `WiredAppBar`, tabs and bottom navigation to their `Wired` counterparts. At this point Material is mostly gone from your own widget code.
+3. **Replace the shell when the skribble shell ships.** Swap `WiredMaterialApp` for the skribble-owned app shell and remove `MaterialApp` from the tree. If you still need Material widgets after that, keep `WiredMaterialApp` as the compatibility wrapper — it is supported for the whole migration.
+4. **Keep Material out of new code.** New screens should not add `import 'package:flutter/material.dart'`. If a Wired widget is missing, record the gap rather than reaching for the Material original (see [Architecture decision D3](/core/architecture#d3--no-new-material-or-cupertino-imports)).
+
 ## Using with GoRouter
 
 ```dart
@@ -339,7 +360,7 @@ class MyApp extends HookWidget {
         fillColor: Color(0xFFF5F0E1),
       ),
       routerConfig: router,
-      title: 'Skribble + GoRouter',
+      title: 'skribble + GoRouter',
     );
   }
 }
@@ -369,7 +390,7 @@ class MyApp extends HookWidget {
     return WiredMaterialApp.router(
       wiredTheme: WiredThemeData(),
       routerConfig: _router.config(),
-      title: 'Skribble + AutoRoute',
+      title: 'skribble + AutoRoute',
     );
   }
 }
@@ -419,24 +440,30 @@ class MyApp extends HookWidget {
 
 ## Cupertino Bridge
 
-skribble provides Cupertino-style widgets that render with the hand-drawn aesthetic. These are standalone widgets (not wrappers around `CupertinoApp`) that work inside any `WiredMaterialApp`.
+skribble provides Cupertino-style widgets that render with the hand-drawn aesthetic. These are standalone widgets (not wrappers around `CupertinoApp`) that work inside any `WiredTheme` scope, including one provided by `WiredMaterialApp`.
 
 ### Available Cupertino Widgets
 
-| Widget                           | Material Equivalent         |
-| -------------------------------- | --------------------------- |
-| `WiredCupertinoButton`           | `CupertinoButton`           |
-| `WiredCupertinoNavigationBar`    | `CupertinoNavigationBar`    |
-| `WiredCupertinoTextField`        | `CupertinoTextField`        |
-| `WiredCupertinoSwitch`           | `CupertinoSwitch`           |
-| `WiredCupertinoSlider`           | `CupertinoSlider`           |
-| `WiredCupertinoTabBar`           | `CupertinoTabBar`           |
-| `WiredCupertinoDatePicker`       | `CupertinoDatePicker`       |
-| `WiredCupertinoPicker`           | `CupertinoPicker`           |
-| `WiredCupertinoActionSheet`      | `CupertinoActionSheet`      |
-| `WiredCupertinoAlertDialog`      | `CupertinoAlertDialog`      |
-| `WiredCupertinoSegmentedControl` | `CupertinoSegmentedControl` |
-| `WiredCupertinoScaffold`         | `CupertinoPageScaffold`     |
+| Widget                            | Cupertino Equivalent         |
+| --------------------------------- | ---------------------------- |
+| `WiredCupertinoButton`            | `CupertinoButton`            |
+| `WiredCupertinoNavigationBar`     | `CupertinoNavigationBar`     |
+| `WiredCupertinoTextField`         | `CupertinoTextField`         |
+| `WiredCupertinoSearchTextField`   | `CupertinoSearchTextField`   |
+| `WiredCupertinoSwitch`            | `CupertinoSwitch`            |
+| `WiredCupertinoSlider`            | `CupertinoSlider`            |
+| `WiredCupertinoTabBar`            | `CupertinoTabBar`            |
+| `WiredCupertinoDatePicker`        | `CupertinoDatePicker`        |
+| `WiredCupertinoPicker`            | `CupertinoPicker`            |
+| `WiredCupertinoTimerPicker`       | `CupertinoTimerPicker`       |
+| `WiredCupertinoActionSheet`       | `CupertinoActionSheet`       |
+| `WiredCupertinoAlertDialog`       | `CupertinoAlertDialog`       |
+| `WiredCupertinoSegmentedControl`  | `CupertinoSegmentedControl`  |
+| `WiredCupertinoScaffold`          | `CupertinoPageScaffold`      |
+| `WiredCupertinoActivityIndicator` | `CupertinoActivityIndicator` |
+| `WiredCupertinoListSection`       | `CupertinoListSection`       |
+| `WiredCupertinoListTile`          | `CupertinoListTile`          |
+| `WiredCupertinoFormSection`       | `CupertinoFormSection`       |
 
 ### Usage
 
@@ -468,9 +495,9 @@ Example:
 
 ```dart
 // Static example: setup
-WiredMaterialApp(
-  wiredTheme: WiredThemeData(),
-  home: WiredCupertinoScaffold(
+WiredTheme(
+  data: WiredThemeData(),
+  child: WiredCupertinoScaffold(
     navigationBar: WiredCupertinoNavigationBar(
       middle: Text('Cupertino Style'),
     ),

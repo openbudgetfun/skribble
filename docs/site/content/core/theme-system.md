@@ -5,7 +5,7 @@ description: Deep dive into WiredThemeData, the WiredTheme scope, Material color
 
 # Theme System
 
-Every Wired widget reads its colors, stroke width, and roughness from a shared theme. The theme system has three parts: `WiredThemeData` (the data), `WiredTheme` (the inherited scope), and `WiredMaterialApp` (the app-level sync layer).
+Every Wired widget reads its colors, stroke width, and roughness from a shared theme. The theme system has three parts: `WiredThemeData` (the data), `WiredTheme` (the inherited scope), and, for apps that still run a Material shell, `WiredMaterialApp` (the transitional compatibility shell that also syncs Material `ThemeData`). See [Architecture](/core/architecture) and the [Material bridge](/core/material-bridge) for where the shell is headed.
 
 ## WiredThemeData
 
@@ -334,9 +334,11 @@ WiredTheme(data: ...)           <- injected automatically
 WiredTheme.of(context)          <- individual widgets read here
 ```
 
-### Level 1: WiredMaterialApp
+### Level 1: App shell
 
-The app shell accepts a `wiredTheme` parameter. It wraps the entire `MaterialApp` in a `WiredTheme` ancestor and also calls `toThemeData()` to keep Material theming aligned.
+`WiredMaterialApp` is the transitional shell: it accepts a `wiredTheme` parameter, wraps the entire `MaterialApp` in a `WiredTheme` ancestor, and also calls `toThemeData()` to keep Material theming aligned during migration. A Skribble-owned `WidgetsApp`-based shell will take this role, with `WiredMaterialApp` kept as a compatibility wrapper.
+
+If you are not using the bridge, place a `WiredTheme` ancestor at the root yourself. Nothing in the theme system requires Material.
 
 ### Level 2: Nested WiredTheme
 

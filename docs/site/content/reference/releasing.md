@@ -58,6 +58,7 @@ The `Release PR` workflow pushes the release tags once a release commit lands on
 3. setup-dart registers the trusted pub.dev token, and Monochange publishes the release targets the tag owns — the main group for `v<version>`, or the single companion package for its namespaced tag — in dependency order. Re-runs skip versions that already exist on pub.dev.
 4. The workflow publishes the GitHub release objects from the release record.
 5. For the main `v<version>` tag, the workflow packages every bundled font family as a zip and uploads the archives to the GitHub release.
+6. For the main `v<version>` tag, refresh the design handover manually as described in [Publish the Figma handover](#publish-the-figma-handover).
 
 Companion tags are pushed only after the main group's publish run succeeds, because `skribble_maps` and `skribble_charts` depend on `skribble`.
 
@@ -110,6 +111,33 @@ The command packages the fonts committed at the tag (`git archive`, not the work
 pub.dev's automated publisher requires the tag push event, so the publish workflow only listens for `v*`, `skribble_maps/v*`, and `skribble_charts/v*` tag pushes. A `workflow_dispatch` with an explicit `tag` input exists for re-running the non-registry steps, but pub.dev rejects the publish itself on dispatch runs.
 
 The pub.dev automated publisher for `skribble_maps` uses repository `openbudgetfun/skribble`, workflow `publish.yml`, GitHub environment `publisher`, and tag pattern `skribble_maps/v{{version}}`. Its `0.0.0` placeholder was published with Monochange before the automated publisher was registered.
+
+## Publish the Figma handover
+
+Main-group releases publish the design handoff assets consumers design against:
+
+- **`skribble-design-system.fig`** — the editable Figma design system, attached to the release marked Latest. Save the export outside the checkout and upload it as described in [docs/design/README.md](https://github.com/openbudgetfun/skribble/blob/main/docs/design/README.md). Figma exports are release assets and must never be committed to Git.
+- **The generated design kit** — fonts, editable SVG pen specimens, token README, and manifest, produced by `packages/skribble/tool/design_kit.dart` and attached as `skribble-design-kit-v<version>.zip` so the fonts and specimens travel with the published version.
+
+Run the handover publish manually after the GitHub release exists:
+
+```bash
+git checkout v<version>
+devenv shell dart run packages/skribble/tool/design_kit.dart
+cd build && zip -r skribble-design-kit-v<version>.zip design-kit && cd ..
+gh release upload v<version> build/skribble-design-kit-v<version>.zip
+```
+
+Rules for the handover publish step:
+
+- **Generate from the release tag, never from `main`.** The kit must be produced at the exact commit the packages were published from, so design assets match published code. Font geometry and pen settings change with the rough engine, and a kit built from `main` matches no released version.
+- **Verify completeness before uploading.** The kit must contain 36 font files in `fonts/` and 18 specimens in `specimens/`, with a `manifest.json` listing both. The counts come from the design kit test; the check catches a partially regenerated kit before it ships.
+- Verify the `.fig` upload separately: confirm the uploaded asset size and SHA-256 digest before sharing the download link, and attach the export to the release whose code it matches.
+- A `skribble_maps`-only or `skribble_charts`-only release does not ship design assets. The kit reflects the core package's fonts and rough engine, which the companion packages do not change.
+- If a release changed the fonts or the rough engine, refreshing the handover is mandatory, not optional. Mention the design kit in the changeset so the release notes record the refresh.
+- Link the Figma guide from the release notes body, next to the package list.
+
+The [Figma workflow guide](../guides/figma) documents how agents and designers consume the released assets and assemble per-design handover bundles.
 
 ## Release checks on every pull request
 

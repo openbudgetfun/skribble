@@ -9,7 +9,9 @@ This guide covers how to test skribble widgets for accessibility, including scre
 
 ## Overview
 
-skribble widgets are designed to be accessible by default. All interactive widgets include `Semantics` wrappers that provide screen readers with the information they need to describe the UI to users.
+Many Wired widgets currently expose accessibility semantics because the Material or Cupertino widget they wrap provides them, not because they render their own. An explicit `Semantics` construction appears in 45 of 112 widget files today. Accessibility is therefore **per-widget work with a verification step**, not a library-wide guarantee: as each widget is [rewritten onto `flutter/widgets`](/core/architecture#rewrite-order), the semantics supplied by the removed wrapper must be replaced and re-tested.
+
+Use this guide to inspect a widget's semantics, label interactive controls, and check both the migrated widget and its states (enabled, disabled, selected, error) with a screen reader.
 
 ## Testing Tools
 

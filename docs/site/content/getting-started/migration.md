@@ -63,6 +63,8 @@ WiredMaterialApp(
 )
 ```
 
+`WiredMaterialApp` is the transitional compatibility shell. It is the right move during migration, and it is not skribble's final app abstraction — a skribble-owned shell built on `WidgetsApp` is the destination. See [Architecture](/core/architecture) and the [Material bridge](/core/material-bridge).
+
 ## Step 3: Replace Common Widgets
 
 ### Buttons
@@ -362,7 +364,7 @@ Or update your theme:
 // Static example: pseudocode
 WiredMaterialApp(
   wiredTheme: WiredThemeData(
-    fontFamily: 'Skribble',
+    fontFamily: 'skribble',
     // ... other properties
   ),
 )
@@ -370,7 +372,7 @@ WiredMaterialApp(
 
 ## Step 6: Add Accessibility
 
-All Wired widgets support accessibility through the `semanticLabel` property:
+Interactive Wired widgets expose a `semanticLabel` parameter where they render their own semantics:
 
 ```dart
 // Live example: accessible-inputs
@@ -396,6 +398,8 @@ HookBuilder(
 )
 ```
 
+Do not assume a widget's current screen-reader behavior is permanent. Many Wired widgets get semantics from the Material widget they currently wrap; that semantics disappears when the wrapper is [rewritten onto `flutter/widgets`](/core/architecture#rewrite-order). Verify each widget you migrate with the accessibility inspector or a screen reader, and see [Accessibility testing](/reference/accessibility-testing).
+
 ## Step 7: Test and Adjust
 
 After migration:
@@ -417,7 +421,7 @@ WiredThemeData(
   fillColor: Colors.white,       // Fill color for shapes
   strokeWidth: 2.0,              // Stroke width for hand-drawn lines
   roughness: 1.0,                // Roughness level (0.0 = smooth, 2.0 = very rough)
-  fontFamily: 'Skribble',        // Font family for text
+  fontFamily: 'skribble',        // Font family for text
 )
 ```
 
@@ -485,7 +489,7 @@ HookBuilder(
 If you can't find a Wired equivalent for a Material widget, check:
 
 1. The widget catalog in the documentation
-2. Use the Material widget directly - it will still work within skribble apps
+2. Use the Material widget directly for now - it still works inside a migrating app. (The no-new-Material rule applies to `packages/skribble/lib`, not to your application.) Consider recording the gap so a Wired equivalent can be prioritized
 3. Consider wrapping it with `WiredCanvas` for a hand-drawn border
 
 ### Styling differences
@@ -501,7 +505,7 @@ Wired widgets may have slightly different default styling than Material widgets.
 If you experience performance issues:
 
 1. Use `RepaintBoundary` around complex widget subtrees
-2. Consider using pre-computed icons (`SkribbleIcon`) instead of runtime roughening
+2. Consider using pre-computed icons (`skribbleIcon`) instead of runtime roughening
 3. Test on target devices early and often
 
 ## Next Steps

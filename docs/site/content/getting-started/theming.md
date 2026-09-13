@@ -102,6 +102,8 @@ If no `WiredTheme` ancestor exists, `WiredTheme.of(context)` returns `WiredTheme
 
 ## WiredMaterialApp integration
 
+`WiredMaterialApp` is the transitional compatibility shell: it lets a Material app adopt Wired theming without replacing its shell. It is not Skribble's destination -- see [Architecture](/core/architecture) and the [Material bridge](/core/material-bridge). You can also place a `WiredTheme` ancestor yourself and skip the bridge entirely.
+
 <!-- {=docsThemeSetupSection} -->
 
 ```dart
@@ -139,7 +141,7 @@ void main() {
 
 ## Material ThemeData synchronization
 
-`WiredMaterialApp` does not just inject `WiredTheme` -- it also generates a full Material `ThemeData` from your `WiredThemeData`. This keeps standard Material widgets (scaffolds, text, icons, dialogs) visually consistent with Wired widgets.
+`WiredMaterialApp` does not just inject `WiredTheme` -- it also generates a full Material `ThemeData` from your `WiredThemeData`. This keeps the standard Material widgets still present in a migrating tree (scaffolds, text, icons, dialogs) visually consistent with Wired widgets. Wired widgets themselves never read Material's `ThemeData`.
 
 ### toColorScheme()
 
