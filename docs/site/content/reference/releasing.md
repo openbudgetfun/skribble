@@ -3,19 +3,25 @@ title: Releasing
 description: How Monochange prepares, validates, and publishes skribble packages.
 ---
 
-skribble publishes seven packages to pub.dev as one synchronized `main` release group:
+skribble publishes packages to pub.dev as one synchronized `main` release group:
 
 - `skribble`
 - `skribble_emoji`
 - `skribble_emoji_gen`
+- `skribble_font_recursive`
 - `skribble_font_roughen`
 - `skribble_icons`
-- `skribble_icons_custom`
+- `skribble_icons_bxs`
+- `skribble_icons_cib`
+- `skribble_icons_curated`
+- `skribble_icons_lucide`
+- `skribble_icons_material`
+- `skribble_icons_simple`
 - `skribble_lints`
 
 Those packages use the same version and the release tag `v<version>`. `skribble_maps` and `skribble_charts` release independently, with tags `skribble_maps/v<version>` and `skribble_charts/v<version>`. Neither belongs to the `main` group. Applications, the workspace root, and the documentation site remain private.
 
-Both companion packages depend on `skribble`, so Monochange propagates the core package's release severity to them. A breaking core change produces a breaking companion change. Changes confined to maps or charts can release without forcing a release of the seven-package group.
+Both companion packages depend on `skribble`, so Monochange propagates the core package's release severity to them. A breaking core change produces a breaking companion change. Changes confined to maps or charts can release without forcing a release of the main group.
 
 The first public release uses a pre-1.0 `major` bump pinned to `0.1.0`. Package manifests use the unpublished `0.0.1` development baseline after the `0.0.0` registry placeholders. Monochange replaces that baseline when it prepares the release.
 
@@ -142,8 +148,10 @@ The [Figma workflow guide](../guides/figma) documents how agents and designers c
 
 CI validates publishing before anything is released. Two jobs in the `CI` workflow run on every pull request and every push to `main`:
 
-- **`publish-check`** validates the pull request as-is. `monochange step publish-packages --dry-run --all` runs `dart pub publish --dry-run` (or `flutter pub publish --dry-run` for Flutter packages) for all seven packages against pub.dev, the same validation the publish workflow performs before a real publish.
-- **`publish-check-release`** validates the release commit. When the branch has pending changesets, it runs `monochange step prepare-release --release-json` and `monochange step commit-release --no-verify` locally — the same version bumps, changelog updates, and release record `monochange run release` will produce — then checks `monochange step publish-readiness` and repeats the publish dry-run against that commit. Nothing is pushed, tagged, or published.
+- **`publish-check`** validates the pull request as-is. `monochange step publish-packages --dry-run --all` runs `dart pub publish --dry-run` (or `flutter pub publish --dry-run` for Flutter packages) for every package against pub.dev, the same validation the publish workflow performs before a real publish.
+- **`release-publish`** validates the release commit. When the branch has more than one pending changeset it runs `monochange step prepare-release --release-json` and `monochange step commit-release --no-verify` locally — the same version bumps, changelog updates, and release record `monochange run release` will produce — then checks `monochange step publish-readiness` and repeats the publish dry-run against that commit. Nothing is pushed, tagged, or published.
+
+  The `MIN_CHANGESETS` job-level environment variable sets the threshold. A single changeset is a trivial bump; the failures worth catching live in the cross-package version sync that multiple changesets trigger. A branch below the threshold skips the job with its pending count printed, so a skip explains itself.
 
 A pull request that would produce an unpublishable release fails here instead of at release time. The per-package publish timeout is raised to 600 seconds in `monochange.toml` because the large Flutter packages can exceed the default on cold caches.
 
@@ -180,3 +188,24 @@ monochange step placeholder-publish --package skribble_charts
 ```
 
 Then configure its pub.dev automated publisher with repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, and tag pattern `skribble_charts/v{{version}}`. Allow both `push` and `workflow_dispatch`. The placeholder reserves the package name; the subsequent release publishes the chart implementation.
+
+### Two things that bite during a bootstrap
+
+**Use the pinned SDK.** Monochange shells out to `dart pub publish`, which resolves `dart` from `PATH` rather than through the devenv `dart`/`flutter` wrappers. On a machine whose system Dart is older than the workspace's `environment.sdk` constraint, the run fails with a version-solving error naming the wrong SDK. Prepend the workspace SDK inside the shell:
+
+```bash
+devenv shell bash -c '
+  export PATH="$PWD/.fvm/flutter_sdk/bin:$PATH"
+  monochange step placeholder-publish
+'
+```
+
+**Expect to be rate limited.** pub.dev caps new-package creation independently of its documented daily publish guidance. A fresh bootstrap of several packages typically publishes four and then returns `the "package-created" operation is blocked, as its rate limit has been reached`. The command is safe to rerun: it skips versions that already exist, so the fix is to wait for the window to clear and run it again. Verify with the registry rather than the exit code, since a partial run exits non-zero after publishing some packages:
+
+```bash
+for p in skribble_icons_lucide skribble_icons_material; do
+  curl -s -o /dev/null -w "%{http_code} $p\n" "https://pub.dev/api/packages/$p"
+done
+```
+
+A `200` means the name is reserved.
