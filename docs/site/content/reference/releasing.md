@@ -149,9 +149,9 @@ The [Figma workflow guide](../guides/figma) documents how agents and designers c
 CI validates publishing before anything is released. Two jobs in the `CI` workflow run on every pull request and every push to `main`:
 
 - **`publish-check`** validates the pull request as-is. `monochange step publish-packages --dry-run --all` runs `dart pub publish --dry-run` (or `flutter pub publish --dry-run` for Flutter packages) for every package against pub.dev, the same validation the publish workflow performs before a real publish.
-- **`release-publish`** validates the release commit. When the branch has more than one pending changeset it runs `monochange step prepare-release --release-json` and `monochange step commit-release --no-verify` locally — the same version bumps, changelog updates, and release record `monochange run release` will produce — then checks `monochange step publish-readiness` and repeats the publish dry-run against that commit. Nothing is pushed, tagged, or published.
+- **`release-publish`** validates the release commit. When the branch carries at least one pending changeset it runs `monochange step prepare-release --release-json` and `monochange step commit-release --no-verify` locally — the same version bumps, changelog updates, and release record `monochange run release` will produce — then checks `monochange step publish-readiness` and repeats the publish dry-run against that commit. Nothing is pushed, tagged, or published.
 
-  The `MIN_CHANGESETS` job-level environment variable sets the threshold. A single changeset is a trivial bump; the failures worth catching live in the cross-package version sync that multiple changesets trigger. A branch below the threshold skips the job with its pending count printed, so a skip explains itself.
+  The `MIN_CHANGESETS` job-level environment variable sets the threshold, currently `1`: every releasable change is validated before it merges, and only a branch with nothing to release skips. The step prints the pending count against the threshold, so a skip explains itself.
 
 A pull request that would produce an unpublishable release fails here instead of at release time. The per-package publish timeout is raised to 600 seconds in `monochange.toml` because the large Flutter packages can exceed the default on cold caches.
 

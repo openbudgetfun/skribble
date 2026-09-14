@@ -322,15 +322,15 @@ jobs:
   # then dry-run the publish against it. Nothing is pushed, tagged, or
   # published.
   #
-  # The release commit is only built when the branch has more than one pending
-  # changeset. A single changeset is a trivial bump; the interesting failures
-  # live in the cross-package version sync that multiple changesets trigger.
-  # Raise or lower MIN_CHANGESETS to change that threshold.
+  # The release commit is built whenever the branch carries at least one
+  # changeset, so any releasable change is validated before it merges. Only a
+  # branch with nothing to release skips. Raise MIN_CHANGESETS to make the job
+  # less eager.
   release-publish:
     runs-on: blacksmith-2vcpu-ubuntu-2404
     timeout-minutes: 40
     env:
-      MIN_CHANGESETS: 2
+      MIN_CHANGESETS: 1
     steps:
       - uses: actions/checkout@v4
         with:
