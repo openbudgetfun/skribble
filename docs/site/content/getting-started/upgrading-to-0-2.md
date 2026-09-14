@@ -143,7 +143,7 @@ Import `package:skribble_icons_material/skribble_icons_material.dart` and the na
 A quick check that the catalog is live, rather than silently falling back:
 
 ```dart
-// In a test or a debug build.
+// Static example: test
 final data = lookupSkribbleIconByIdentifier('search');
 assert(data != null, 'Icon catalog is not registered.');
 ```
