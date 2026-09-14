@@ -1,17 +1,14 @@
----
-skribble: major
-skribble_font_recursive: minor
-skribble_icons: major
-skribble_icons_curated: minor
-skribble_icons_material: minor
-skribble_icons_lucide: minor
-skribble_icons_bxs: minor
-skribble_icons_cib: minor
-skribble_emoji_gen: minor
-skribble_maps: patch
----
+# Changelog
 
-# Split the icon catalog into per-set packages
+All notable changes to this project will be documented in this file.
+
+This changelog is managed by [monochange](https://github.com/monochange/monochange).
+
+## [0.2.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.0) (2026-09-14)
+
+### Breaking changes
+
+#### Split the icon catalog into per-set packages
 
 Icon data used to live in two places: the full Material catalog sat inside `skribble` itself, and `skribble_icons` bundled the 30 curated icons together with re-exports of that Material catalog. Every app paid for 8,600 Material codepoints whether or not it rendered one.
 
@@ -28,7 +25,7 @@ Each set now ships as its own package:
 
 `skribble_icons` keeps its name but becomes the umbrella over all of them.
 
-## Breaking changes
+##### Breaking changes
 
 **The Material catalog moved out of `skribble`.** `material_rough_icons.g.dart` and `material_rough_icon_font.g.dart` now live in `skribble_icons_material`, and `skribble` shrank from a ~31 MiB compressed archive to roughly 1.5 MiB. The catalog's identifier accessors (`materialRoughFontFamily`, `materialRoughFontCodePoints`, `materialRoughIconIdentifiers`, `materialRoughIconCodePoints`, `lookupMaterialRoughFontIcon`) moved with it.
 
@@ -45,7 +42,7 @@ void main() {
 
 Without the call, `WiredIcon` falls back to Flutter's plain `Icon` widget, which renders the Material font glyph. Nothing throws, so this degrades quietly rather than crashing.
 
-## The typefaces moved to `skribble_font_recursive`
+##### The typefaces moved to `skribble_font_recursive`
 
 `skribble` was 26 MiB compressed, and 25 of those megabytes were font files. All 129 Recursive-derived faces plus `OFL.txt` now ship from `skribble_font_recursive`; and the `ArchitectsDaughter` placeholder font is deleted outright. Core drops from 26 MB compressed to 432 KB and declares no font families.
 
@@ -58,7 +55,7 @@ dependencies:
 
 Apps that skip it fall back to the platform font, which is the point — text-only consumers stop downloading 25 MB of outlines. `WiredFont`, `WiredRoughness`, and `WiredTheme` stay in core and still own the family names; `WiredTheme.fontPackage` now resolves bundled families to `skribble_font_recursive`. Any TextStyle that pinned these faces with `package: 'skribble'` must switch to `package: 'skribble_font_recursive'`.
 
-## Other changes
+##### Other changes
 
 **The 30 curated icons are generated once, not twice.** They were previously emitted by both the `svg2roughjs` browser pipeline and the pure-Dart warper, with the runtime reading only the Dart output. The duplicate `skribble_icons.g.dart` is gone, along with the `rough-icons-skribble` and `rough-icons-custom` melos scripts.
 
@@ -68,7 +65,7 @@ Apps that skip it fall back to the platform font, which is the point — text-on
 
 **SVG `currentColor` renders correctly.** `WiredSvgIcon` treated any parsed colour as "this primitive paints itself", so a `currentColor` stroke resolved to no colour at all and the icon drew nothing. It now maps `currentColor` to the ambient icon colour, which is what makes the Lucide outline set themeable.
 
-## Provenance and determinism
+##### Provenance and determinism
 
 Every icon and font catalog now records exactly what it was built from. Each package README carries a provenance table, and `tool/asset_sources.txt` is the single registry those tables come from — upstream version, SHA-256, license, and codepoint band.
 
@@ -76,8 +73,14 @@ Regeneration is byte-for-byte deterministic, which is what makes the pinning mea
 
 `dart run packages/skribble_emoji_gen/bin/update_assets.dart` now rebuilds the Iconify catalogs too, so one command refreshes every visual asset. See `docs/asset-provenance.md`.
 
-## Removals
+##### Removals
 
 - `skribble_icons_custom` (5-icon example package, zero dependents)
 - `packages/skribble_icons/lib/src/skribble_icon_font.dart`, which documented a `SkribbleIcons.ttf` asset that was never shipped, and `wired_cupertino_icons.dart`, which imported a path that no longer resolved
 - `packages/skribble_emoji/tool/download_openmoji.sh`, which pinned OpenMoji 15.1.0 while `update_assets.dart` pinned 17.0.0
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [77bb664](https://github.com/openbudgetfun/skribble/commit/77bb6649c58d5be1876aec0eb1cc3a2389c7dc89)
+
+### Documentation
+
+- **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes. _Owner:_ Ifiok Jr. · _Introduced in:_ [5e3937c](https://github.com/openbudgetfun/skribble/commit/5e3937ccb6db77bc38e9ac95d273e018def98843) · _Last updated in:_ [77bb664](https://github.com/openbudgetfun/skribble/commit/77bb6649c58d5be1876aec0eb1cc3a2389c7dc89)

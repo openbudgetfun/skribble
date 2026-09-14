@@ -4,6 +4,263 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/monochange/monochange).
 
+## [0.2.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.0) (2026-09-14)
+
+Grouped release for `main`.
+
+### Breaking changes
+
+#### Split the icon catalog into per-set packages
+
+_Packages:_ _skribble_, _skribble_icons_
+
+Icon data used to live in two places: the full Material catalog sat inside `skribble` itself, and `skribble_icons` bundled the 30 curated icons together with re-exports of that Material catalog. Every app paid for 8,600 Material codepoints whether or not it rendered one.
+
+Each set now ships as its own package:
+
+| Package                   | Names  | Style                   | License    |
+| ------------------------- | ------ | ----------------------- | ---------- |
+| `skribble_icons_simple`   | 3,472  | brand marks             | CC0-1.0    |
+| `skribble_icons_curated`  | 30     | curated app vocabulary  | Apache-2.0 |
+| `skribble_icons_material` | 8,600+ | Flutter's `Icons`       | Apache-2.0 |
+| `skribble_icons_lucide`   | 2,056  | 2px open outlines       | ISC        |
+| `skribble_icons_bxs`      | 665    | filled silhouettes      | MIT        |
+| `skribble_icons_cib`      | 831    | brand and product marks | CC0-1.0    |
+
+`skribble_icons` keeps its name but becomes the umbrella over all of them.
+
+##### Breaking changes
+
+**The Material catalog moved out of `skribble`.** `material_rough_icons.g.dart` and `material_rough_icon_font.g.dart` now live in `skribble_icons_material`, and `skribble` shrank from a ~31 MiB compressed archive to roughly 1.5 MiB. The catalog's identifier accessors (`materialRoughFontFamily`, `materialRoughFontCodePoints`, `materialRoughIconIdentifiers`, `materialRoughIconCodePoints`, `lookupMaterialRoughFontIcon`) moved with it.
+
+**`WiredIcon` needs a one-time registration.** `WiredIcon(icon: Icons.search)` resolves `IconData` through a catalog that the core library no longer owns. An icon-set package registers it:
+
+```dart
+import 'package:skribble_icons/skribble_icons.dart';
+
+void main() {
+  registerSkribbleIcons(); // or registerSkribbleMaterialIcons() directly
+  runApp(const MyApp());
+}
+```
+
+Without the call, `WiredIcon` falls back to Flutter's plain `Icon` widget, which renders the Material font glyph. Nothing throws, so this degrades quietly rather than crashing.
+
+##### The typefaces moved to `skribble_font_recursive`
+
+`skribble` was 26 MiB compressed, and 25 of those megabytes were font files. All 129 Recursive-derived faces plus `OFL.txt` now ship from `skribble_font_recursive`; and the `ArchitectsDaughter` placeholder font is deleted outright. Core drops from 26 MB compressed to 432 KB and declares no font families.
+
+Unlike the icon catalogs, no code change is needed to keep the look: declare the package and Flutter registers the families from its pubspec.
+
+```yaml
+dependencies:
+  skribble_font_recursive: ^0.1.1
+```
+
+Apps that skip it fall back to the platform font, which is the point — text-only consumers stop downloading 25 MB of outlines. `WiredFont`, `WiredRoughness`, and `WiredTheme` stay in core and still own the family names; `WiredTheme.fontPackage` now resolves bundled families to `skribble_font_recursive`. Any TextStyle that pinned these faces with `package: 'skribble'` must switch to `package: 'skribble_font_recursive'`.
+
+##### Other changes
+
+**The 30 curated icons are generated once, not twice.** They were previously emitted by both the `svg2roughjs` browser pipeline and the pure-Dart warper, with the runtime reading only the Dart output. The duplicate `skribble_icons.g.dart` is gone, along with the `rough-icons-skribble` and `rough-icons-custom` melos scripts.
+
+**Codepoint bands are allocated per set** so a future merged catalog cannot collide: simple `0xF001–0xF0FF`, lucide `0xE000–0xEFFF`, bxs `0xF100–0xF3FF`, cib `0xF400–0xF7FF`. Material keeps its upstream codepoints.
+
+**The generators emit the identifier map too.** It used to be hand-maintained alongside generated geometry, so the two could drift. Both now come from one run, and `melos run icons-check` re-derives every catalog and fails on a diff.
+
+**SVG `currentColor` renders correctly.** `WiredSvgIcon` treated any parsed colour as "this primitive paints itself", so a `currentColor` stroke resolved to no colour at all and the icon drew nothing. It now maps `currentColor` to the ambient icon colour, which is what makes the Lucide outline set themeable.
+
+##### Provenance and determinism
+
+Every icon and font catalog now records exactly what it was built from. Each package README carries a provenance table, and `tool/asset_sources.txt` is the single registry those tables come from — upstream version, SHA-256, license, and codepoint band.
+
+Regeneration is byte-for-byte deterministic, which is what makes the pinning meaningful: without it, a rebuild would shimmer and review would be meaningless. There is no `Random` in the pipeline. Icon and emoji outlines warp through a fixed sum of sine terms evaluated at each coordinate; font glyphs use an integer hash of a seed and a point index; Material icons derive each seed from `1337 + codePoint`; and every generator sorts entries before assigning codepoints. Verified empirically: regenerating all four icon catalogs twice yields identical digests, and `roughen_fonts.dart --check` rebuilds all 130 font files with zero byte differences.
+
+`dart run packages/skribble_emoji_gen/bin/update_assets.dart` now rebuilds the Iconify catalogs too, so one command refreshes every visual asset. See `docs/asset-provenance.md`.
+
+##### Removals
+
+- `skribble_icons_custom` (5-icon example package, zero dependents)
+- `packages/skribble_icons/lib/src/skribble_icon_font.dart`, which documented a `SkribbleIcons.ttf` asset that was never shipped, and `wired_cupertino_icons.dart`, which imported a path that no longer resolved
+- `packages/skribble_emoji/tool/download_openmoji.sh`, which pinned OpenMoji 15.1.0 while `update_assets.dart` pinned 17.0.0
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [77bb664](https://github.com/openbudgetfun/skribble/commit/77bb6649c58d5be1876aec0eb1cc3a2389c7dc89)
+
+### Features
+
+#### Remove internal machinery from the public barrel
+
+_Packages:_ _skribble_
+
+The `package:skribble/skribble.dart` barrel is now grouped (canvas/motion/rough engine extension points, then widgets & theme) and only exports the surface the documentation promises.
+
+Symbols removed from the public barrel:
+
+- `WiredPainter` (in `src/canvas/wired_painter.dart`) — the internal `CustomPainter` adapter that `WiredCanvas` creates. Custom painters extend `WiredPainterBase`, which remains exported.
+- `Line`, `IntersectionInfo`, `FillStyle`, `RoughDecorationPainter`, and the rough engine's free geometry/filler helper functions (`src/rough/core.dart`, `src/rough/filler.dart`, `src/rough/decoration.dart`) — pure engine plumbing that no guide, example, or custom painter needs.
+
+All documented engine symbols stay exported: `DrawConfig`, `Randomizer`, `Generator`, `Drawable`, `PointD`, `Filler`, `FillerConfig`, the seven concrete fillers, `Op`/`OpSet`/`OpType`/`OpSetType`, the `drawRough` extension, `RoughDrawing`, and the rough decoration types. `WiredSvgIconData` and `WiredSvgPrimitive` remain exported and unchanged.
+
+This is breaking only for code that imported the removed internals through the barrel. Tests or tools that genuinely need them should import the defining `package:skribble/src/…` library directly.
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [e248129](https://github.com/openbudgetfun/skribble/commit/e248129304eadb1bc9be97c902ee422a85479fe6)
+
+- **skribble**: **Add WiredLoadingScreen and the brand mark loader rhythm.** WiredLoadingScreen fills the viewport with themed paper, centers one loader, and announces an optional status message as a single live region. WiredLoaderStyle.mark sketches the shipped logo outlines at the logo's pen weight, so a splash can hand over to WiredLogo without the mark jumping. The documentation site now opens with the same mark: an HTML shell sketches it before Flutter starts, then the app keeps it drawing while the page catalog resolves. _Owner:_ Ifiok Jr. · _Introduced in:_ [5b5d1a1](https://github.com/openbudgetfun/skribble/commit/5b5d1a198aff9f3b43d927c994c38d47c51138b4)
+
+#### Add a quarantined Material/Cupertino compatibility layer
+
+_Packages:_ _skribble_
+
+Material and Cupertino interop now lives in one clearly-labelled group, exported from `package:skribble/skribble.dart` and sourced from `lib/src/compat/`. It is the single sanctioned exception to the rule that Skribble core imports only `flutter/widgets.dart` and below.
+
+What it exposes:
+
+- `WiredThemeInterop` converts theme objects both ways: `fromThemeData`, `fromColorScheme`, and `fromCupertinoTheme` derive Skribble tokens (colors, disabled state, stroke width from the shape language, font family), while the existing `toThemeData`/`toColorScheme` gain `toCupertinoThemeData`. `WiredThemeModeInterop` converts `SkribbleThemeMode` to and from Material's `ThemeMode`.
+- `WiredMaterialTheme` installs the Material theme and English Material localizations a `SkribbleApp` cannot provide, so Material widgets keep working inside a Skribble app.
+- `WiredThemeFromMaterial` and `WiredThemeFromCupertino` let existing Material and Cupertino apps give Wired widgets the host app's palette a screen at a time.
+- `WiredMaterialApp` remains for apps that keep `MaterialApp` while migrating.
+
+The compatibility group's job is interop and migration, not Material parity: it does not add new `MaterialApp` passthroughs to `WiredMaterialApp`.
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [01c60f1](https://github.com/openbudgetfun/skribble/commit/01c60f1043e5db81e893ded768d3ab12367ee95c)
+
+#### Add `SkribbleApp`, a widgets-based app shell
+
+_Packages:_ _skribble_
+
+`SkribbleApp` (and `SkribbleApp.router`) is a new application shell built on Flutter's widgets-layer `WidgetsApp` instead of `MaterialApp`. A Skribble app no longer needs a Material ancestor to run, and the shell installs the Skribble theme by default so `WiredTheme.of(context)` works inside it.
+
+The shell exposes the app-level capability a real app needs using Flutter's own widgets-layer types: `home`, `routes`, `initialRoute`, `onGenerateRoute`, `onGenerateInitialRoutes`, `onUnknownRoute`, `navigatorKey`, `navigatorObservers`, `routerConfig` and the other `Router` hooks, `title`, `onGenerateTitle`, `color`, `builder`, `locale`, `localizationsDelegates`, `supportedLocales`, locale resolution callbacks, `shortcuts`, `actions`, `restorationScopeId`, `pageRouteBuilder`, and the debug switches. `themeMode` uses the new `SkribbleThemeMode` because `ThemeMode` lives in Material; the compatibility layer converts between them.
+
+Two supporting additions:
+
+- `WiredThemeScope` is the Material-free theme boundary behind `WiredTheme`. `WiredTheme.of(context)` now finds either boundary, and `WiredTheme` builds on the scope. Existing behaviour is unchanged.
+- `SkribbleLocalizations` and `SkribbleLocalizationsDelegate` provide a widgets-only default localization delegate with correct right-to-left text direction. The shell appends it after any callers' delegates, so apps that pass `flutter_localizations` delegates keep full per-locale strings; the core still does not depend on `flutter_localizations`.
+
+`WiredMaterialApp` remains available with an unchanged public API and is now documented as the transitional Material bridge. It shares the new theme-resolution code path and moved to `lib/src/compat/wired_material_app.dart` (the export from `package:skribble/skribble.dart` is unchanged).
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [01c60f1](https://github.com/openbudgetfun/skribble/commit/01c60f1043e5db81e893ded768d3ab12367ee95c)
+
+- **skribble**: **Let `WiredButton` render a disabled state.** `WiredButton.onPressed` is now nullable, matching `WiredFilledButton`, `WiredElevatedButton`, `WiredOutlinedButton`, `WiredTextButton`, and `WiredIconButton`. Passing null disables the button: taps are ignored and the label renders with the theme's `disabledTextColor`. Existing callers that pass a non-null callback are unaffected. _Owner:_ Ifiok Jr. · _Introduced in:_ [21befe1](https://github.com/openbudgetfun/skribble/commit/21befe1766f46d939034dd0aa90722d5567d0fbb)
+
+#### Align the button and boolean-input APIs with Material where it is additive
+
+_Packages:_ _skribble_
+
+Auditing the public `Wired*` constructor surfaces against their Material counterparts found places where a migration needed manual edits because the Wired parameter was required or named differently. The additive, source-compatible fixes:
+
+- `WiredCheckbox.onChanged` and `WiredCheckboxListTile.onChanged` are now optional `ValueChanged<bool?>?` instead of required. Passing null disables the control the Material way: the box renders disabled, the tile's tap action is dropped, and neither advertises a tap to assistive technology. Existing callers are unaffected.
+- `WiredSlider.onChanged` and `WiredRangeSlider.onChanged` are now optional. Omitting them disables the slider; previously you had to pass `null` explicitly because the parameter was `required`.
+- `WiredIconButton` accepts `iconSize` and `color`, mirroring `IconButton.iconSize` and `IconButton.color`. `iconSize` defaults to half of `size`, and `color` takes precedence over the existing `iconColor`, so existing callers are unaffected.
+
+The changeset does not change the bool-returning change callbacks (`WiredToggle.onChange`, `WiredRadio.onChanged`, `WiredRadioListTile.onChanged`, `WiredSlider.onChanged`, `WiredRangeSlider.onChanged`), the `WiredToggle.onChange` name, or the `WiredIconButton.size`/`iconColor` names: those match Material's types and names only with a source-breaking change. They are documented as known deviations in the widget catalog instead.
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [01c60f1](https://github.com/openbudgetfun/skribble/commit/01c60f1043e5db81e893ded768d3ab12367ee95c)
+
+#### Split the icon catalog into per-set packages
+
+_Packages:_ _skribble_icons_curated_, _skribble_icons_material_, _skribble_icons_lucide_, _skribble_icons_bxs_, _skribble_icons_cib_, _skribble_emoji_gen_, _skribble_font_recursive_
+
+Icon data used to live in two places: the full Material catalog sat inside `skribble` itself, and `skribble_icons` bundled the 30 curated icons together with re-exports of that Material catalog. Every app paid for 8,600 Material codepoints whether or not it rendered one.
+
+Each set now ships as its own package:
+
+| Package                   | Names  | Style                   | License    |
+| ------------------------- | ------ | ----------------------- | ---------- |
+| `skribble_icons_simple`   | 3,472  | brand marks             | CC0-1.0    |
+| `skribble_icons_curated`  | 30     | curated app vocabulary  | Apache-2.0 |
+| `skribble_icons_material` | 8,600+ | Flutter's `Icons`       | Apache-2.0 |
+| `skribble_icons_lucide`   | 2,056  | 2px open outlines       | ISC        |
+| `skribble_icons_bxs`      | 665    | filled silhouettes      | MIT        |
+| `skribble_icons_cib`      | 831    | brand and product marks | CC0-1.0    |
+
+`skribble_icons` keeps its name but becomes the umbrella over all of them.
+
+##### Breaking changes
+
+**The Material catalog moved out of `skribble`.** `material_rough_icons.g.dart` and `material_rough_icon_font.g.dart` now live in `skribble_icons_material`, and `skribble` shrank from a ~31 MiB compressed archive to roughly 1.5 MiB. The catalog's identifier accessors (`materialRoughFontFamily`, `materialRoughFontCodePoints`, `materialRoughIconIdentifiers`, `materialRoughIconCodePoints`, `lookupMaterialRoughFontIcon`) moved with it.
+
+**`WiredIcon` needs a one-time registration.** `WiredIcon(icon: Icons.search)` resolves `IconData` through a catalog that the core library no longer owns. An icon-set package registers it:
+
+```dart
+import 'package:skribble_icons/skribble_icons.dart';
+
+void main() {
+  registerSkribbleIcons(); // or registerSkribbleMaterialIcons() directly
+  runApp(const MyApp());
+}
+```
+
+Without the call, `WiredIcon` falls back to Flutter's plain `Icon` widget, which renders the Material font glyph. Nothing throws, so this degrades quietly rather than crashing.
+
+##### The typefaces moved to `skribble_font_recursive`
+
+`skribble` was 26 MiB compressed, and 25 of those megabytes were font files. All 129 Recursive-derived faces plus `OFL.txt` now ship from `skribble_font_recursive`; and the `ArchitectsDaughter` placeholder font is deleted outright. Core drops from 26 MB compressed to 432 KB and declares no font families.
+
+Unlike the icon catalogs, no code change is needed to keep the look: declare the package and Flutter registers the families from its pubspec.
+
+```yaml
+dependencies:
+  skribble_font_recursive: ^0.1.1
+```
+
+Apps that skip it fall back to the platform font, which is the point — text-only consumers stop downloading 25 MB of outlines. `WiredFont`, `WiredRoughness`, and `WiredTheme` stay in core and still own the family names; `WiredTheme.fontPackage` now resolves bundled families to `skribble_font_recursive`. Any TextStyle that pinned these faces with `package: 'skribble'` must switch to `package: 'skribble_font_recursive'`.
+
+##### Other changes
+
+**The 30 curated icons are generated once, not twice.** They were previously emitted by both the `svg2roughjs` browser pipeline and the pure-Dart warper, with the runtime reading only the Dart output. The duplicate `skribble_icons.g.dart` is gone, along with the `rough-icons-skribble` and `rough-icons-custom` melos scripts.
+
+**Codepoint bands are allocated per set** so a future merged catalog cannot collide: simple `0xF001–0xF0FF`, lucide `0xE000–0xEFFF`, bxs `0xF100–0xF3FF`, cib `0xF400–0xF7FF`. Material keeps its upstream codepoints.
+
+**The generators emit the identifier map too.** It used to be hand-maintained alongside generated geometry, so the two could drift. Both now come from one run, and `melos run icons-check` re-derives every catalog and fails on a diff.
+
+**SVG `currentColor` renders correctly.** `WiredSvgIcon` treated any parsed colour as "this primitive paints itself", so a `currentColor` stroke resolved to no colour at all and the icon drew nothing. It now maps `currentColor` to the ambient icon colour, which is what makes the Lucide outline set themeable.
+
+##### Provenance and determinism
+
+Every icon and font catalog now records exactly what it was built from. Each package README carries a provenance table, and `tool/asset_sources.txt` is the single registry those tables come from — upstream version, SHA-256, license, and codepoint band.
+
+Regeneration is byte-for-byte deterministic, which is what makes the pinning meaningful: without it, a rebuild would shimmer and review would be meaningless. There is no `Random` in the pipeline. Icon and emoji outlines warp through a fixed sum of sine terms evaluated at each coordinate; font glyphs use an integer hash of a seed and a point index; Material icons derive each seed from `1337 + codePoint`; and every generator sorts entries before assigning codepoints. Verified empirically: regenerating all four icon catalogs twice yields identical digests, and `roughen_fonts.dart --check` rebuilds all 130 font files with zero byte differences.
+
+`dart run packages/skribble_emoji_gen/bin/update_assets.dart` now rebuilds the Iconify catalogs too, so one command refreshes every visual asset. See `docs/asset-provenance.md`.
+
+##### Removals
+
+- `skribble_icons_custom` (5-icon example package, zero dependents)
+- `packages/skribble_icons/lib/src/skribble_icon_font.dart`, which documented a `SkribbleIcons.ttf` asset that was never shipped, and `wired_cupertino_icons.dart`, which imported a path that no longer resolved
+- `packages/skribble_emoji/tool/download_openmoji.sh`, which pinned OpenMoji 15.1.0 while `update_assets.dart` pinned 17.0.0
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [77bb664](https://github.com/openbudgetfun/skribble/commit/77bb6649c58d5be1876aec0eb1cc3a2389c7dc89)
+
+### Fixes
+
+- **skribble**: **Fix disabled, RTL, and controlled-value behaviour in input widgets.** Button-family widgets now expose `enabled: false` to assistive technology when their callback is null, `WiredSwitch`, `WiredToggle`, and `WiredRadio` no longer advertise a tap action while disabled, `WiredSwitch` and `WiredToggle` mirror their thumb travel in right-to-left layouts, `WiredToggle` follows external value changes, and `WiredSlider` no longer asserts when laid out at zero width. Widget tests for the button, boolean-input, and value-input families were rewritten against Skribble's public API and semantics, with a new guard that blocks reintroducing Material type coupling. _Owner:_ Ifiok Jr. · _Introduced in:_ [a240845](https://github.com/openbudgetfun/skribble/commit/a240845de52e640e6aaa8d40ee66e85398f318f5)
+
+#### Narrow Material imports in files that only needed widgets-layer APIs
+
+_Packages:_ _skribble_
+
+Several files in `packages/skribble/lib` imported `package:flutter/material.dart` (or `flutter/cupertino.dart`) only for APIs that also exist in `flutter/widgets.dart` or `dart:ui`. They now import the narrowest correct dependency, and the Material dependency audit tool classifies `lib/src/compat/` as the sanctioned compatibility layer instead of counting it as rewrite debt.
+
+No public API or rendering behaviour changes.
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [01c60f1](https://github.com/openbudgetfun/skribble/commit/01c60f1043e5db81e893ded768d3ab12367ee95c)
+
+#### Deduplicate wired base, button, tile, and doodle internals
+
+_Packages:_ _skribble_
+
+Internal-only refactor with no behaviour or API change:
+
+- `wired_base.dart` is split into `wired_paint.dart` (paint factories), `wired_element.dart` (repaint isolation), and `wired_painter_bases.dart` (shape painter bases); `wired_base.dart` re-exports them so existing imports keep working.
+- The button family shares one internal `WiredButtonBase`; the checkbox, switch, and radio list tiles share an internal `WiredControlListTile`; both switches share the `useWiredThumbOffset` hook (with new RTL thumb-travel regression tests).
+- The logo, loader, and doodle widgets rasterize `DoodleStroke` geometry through one shared `walkDoodleStroke`/`doodleStrokePath` implementation in `doodles/doodle_raster.dart`.
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [e248129](https://github.com/openbudgetfun/skribble/commit/e248129304eadb1bc9be97c902ee422a85479fe6)
+
+### Documentation
+
+- _Packages:_ _skribble_, _skribble_icons_, _skribble_icons_curated_, _skribble_emoji_, _skribble_emoji_gen_, _skribble_font_roughen_, _skribble_lints_ **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes. _Owner:_ Ifiok Jr. · _Introduced in:_ [5e3937c](https://github.com/openbudgetfun/skribble/commit/5e3937ccb6db77bc38e9ac95d273e018def98843) · _Last updated in:_ [77bb664](https://github.com/openbudgetfun/skribble/commit/77bb6649c58d5be1876aec0eb1cc3a2389c7dc89)
+
 ## [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.1.1) (2026-09-13)
 
 Grouped release for `main`.

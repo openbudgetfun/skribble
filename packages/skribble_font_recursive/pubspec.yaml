@@ -2,7 +2,7 @@ name: skribble_font_recursive
 description: |
   The bundled skribble typefaces: hand-drawn Recursive families at three
   roughness levels, as 126 static faces and 3 variable fonts.
-version: 0.1.1
+version: 0.2.0
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_recursive
 documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble_font_recursive/README.md
