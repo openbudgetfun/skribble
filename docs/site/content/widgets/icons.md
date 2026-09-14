@@ -317,6 +317,8 @@ Wrap(
 )
 ```
 
+**Upgrading from 0.1.x?** Icon catalogs and typefaces moved into their own packages in 0.2, and `WiredIcon` needs a one-time registration. See [Upgrading to 0.2](/getting-started/upgrading-to-0-2).
+
 ### Activating Material icons
 
 `WiredIcon` resolves an `IconData` through a registered catalog. Importing an icon package is not enough on its own, so call the registration once during startup. Without it, `WiredIcon` falls back to Flutter's plain `Icon` widget.

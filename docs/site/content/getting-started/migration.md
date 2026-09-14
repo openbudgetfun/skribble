@@ -537,6 +537,10 @@ If you experience performance issues:
 2. Consider using pre-computed icons (`skribbleIcon`) instead of runtime roughening
 3. Test on target devices early and often
 
+## Upgrading from an earlier skribble version
+
+This page covers moving an app _from Material_ to skribble. If you are already on skribble and moving between versions, see [Upgrading to 0.2](/getting-started/upgrading-to-0-2) — icon catalogs and typefaces moved into their own packages, which is a breaking change.
+
 ## Next Steps
 
 - [Theming Guide](/getting-started/theming) - Customize the hand-drawn palette

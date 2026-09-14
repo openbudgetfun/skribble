@@ -12,7 +12,7 @@ import 'package:skribble/skribble.dart';
 /// predictable.
 ///
 /// ```dart
-/// SkribbleIcon(data: kSkribbleCustomIconsRough[0xf001]!)
+/// SkribbleIcon(data: kSkribbleCuratedIcons[0xf001]!)
 /// ```
 class SkribbleIcon extends HookWidget {
   const SkribbleIcon({
