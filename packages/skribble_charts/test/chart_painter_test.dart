@@ -20,10 +20,11 @@ void main() {
     // Read the checked-in font directly so unrelated test asset bundles do not
     // decide whether golden labels use the real font or Ahem rectangles.
     const fontPath = 'assets/fonts/SkribbleMonoGentle-Regular.ttf';
-    final packageFont = File('../skribble/$fontPath');
+    // The typefaces ship from skribble_font_recursive, not core.
+    final packageFont = File('../skribble_font_recursive/$fontPath');
     final font = packageFont.existsSync()
         ? packageFont
-        : File('packages/skribble/$fontPath');
+        : File('packages/skribble_font_recursive/$fontPath');
     final loader = FontLoader('ChartTestFont')
       ..addFont(
         font.readAsBytes().then(ByteData.sublistView),

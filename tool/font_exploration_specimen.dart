@@ -6,7 +6,7 @@ import 'dart:io';
 Future<void> main(List<String> arguments) async {
   const output = '.screenshots/font-exploration';
   const sources = 'packages/skribble/tool/font';
-  const bundled = 'packages/skribble/assets/fonts';
+  const bundled = 'packages/skribble_font_recursive/assets/fonts';
   final fonts = {
     'Original': '$sources/RecursiveSansCslSt',
     'Current': '$bundled/Skribble',

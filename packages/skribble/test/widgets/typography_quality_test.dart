@@ -30,9 +30,8 @@ void main() {
         expect(
           style.fontFamily,
           family == skribbleFontFamily
-              ? 'packages/skribble/SkribblePlayful'
-              : family,
-          reason: label,
+              ? 'packages/skribble_font_recursive/SkribblePlayful'
+              : family,          reason: label,
         );
       }
       expect(tester.takeException(), isNull);

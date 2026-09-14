@@ -60,6 +60,7 @@ export 'src/rough/skribble_rough.dart'
 // ---------------------------------------------------------------------------
 
 export 'src/skribble_app.dart' hide resolveWiredAppTheme;
+export 'src/skribble_icon.dart';
 export 'src/skribble_localizations.dart';
 export 'src/wired_about_dialog.dart';
 export 'src/wired_about_list_tile.dart';
@@ -125,6 +126,7 @@ export 'src/wired_form.dart';
 export 'src/wired_grid_tile.dart';
 export 'src/wired_icon.dart';
 export 'src/wired_icon_button.dart';
+export 'src/wired_icon_registry.dart';
 export 'src/wired_input.dart';
 export 'src/wired_input_chip.dart';
 export 'src/wired_license_page.dart';

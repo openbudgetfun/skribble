@@ -256,7 +256,7 @@ class WiredStudioPage extends HookWidget {
                               'calendar',
                             ])
                               WiredSvgIcon(
-                                data: lookupSkribbleCustomIconByIdentifier(
+                                data: lookupSkribbleCuratedIconByIdentifier(
                                   name,
                                 )!,
                                 size: 28,

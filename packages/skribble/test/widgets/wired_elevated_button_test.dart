@@ -19,13 +19,13 @@ void main() {
     });
 
     testWidgets('renders a rough icon child', (tester) async {
-      final addIcon = lookupMaterialRoughFontIcon('add');
+      final addIcon = roughIconFor('add');
 
       await pumpWired(
         tester,
         WiredElevatedButton(
           onPressed: () {},
-          child: WiredIcon(icon: addIcon!),
+          child: WiredIcon(icon: addIcon),
         ),
       );
 

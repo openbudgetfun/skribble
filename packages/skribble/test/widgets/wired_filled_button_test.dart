@@ -180,4 +180,4 @@ void main() {
   }
 }
 
-final IconData _check = lookupMaterialRoughFontIcon('check')!;
+final IconData _check = roughIconFor('check');

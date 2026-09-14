@@ -29,7 +29,7 @@ Future<void> main(List<String> arguments) async {
 
   try {
     for (final directory in [
-      'packages/skribble/assets/fonts',
+      'packages/skribble_font_recursive/assets/fonts',
       'apps/skribble_storybook/assets/fonts',
     ]) {
       await publish(
@@ -58,7 +58,7 @@ Future<void> main(List<String> arguments) async {
           .writeAsBytes(font.encode(family: variableFamily, style: 'Regular'));
       await publish(
         variable,
-        'packages/skribble/assets/fonts/$variableFamily-Regular.ttf',
+        'packages/skribble_font_recursive/assets/fonts/$variableFamily-Regular.ttf',
       );
 
       for (final source in [
@@ -105,7 +105,7 @@ Future<void> main(List<String> arguments) async {
               await File(path).writeAsBytes(bytes);
               await publish(
                 path,
-                'packages/skribble/assets/fonts/$family-$suffix.ttf',
+                'packages/skribble_font_recursive/assets/fonts/$family-$suffix.ttf',
               );
               if (level.name == 'Gentle' && [400, 700].contains(weight.value)) {
                 final originalPrefix = switch (source.prefix) {

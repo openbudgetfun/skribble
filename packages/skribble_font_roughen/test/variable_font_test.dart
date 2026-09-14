@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 void main() {
   const source = '../skribble/tool/font/Recursive-Variable.ttf';
-  const assets = '../skribble/assets/fonts';
+  const assets = '../skribble_font_recursive/assets/fonts';
 
   test('sparse variable input is rejected before outline edits', () {
     expect(

@@ -88,9 +88,8 @@ Each bundled font family ships as a versioned zip attached to the GitHub release
 - `SkribbleGentle-<tag>.zip`, `SkribblePlayful-<tag>.zip` — the Casual family at Gentle and Playful roughness
 - `SkribbleLinearGentle-<tag>.zip`, `SkribbleLinearPlayful-<tag>.zip`, `SkribbleLinearExpressive-<tag>.zip` — roughened from Recursive Sans Linear
 - `SkribbleMonoGentle-<tag>.zip`, `SkribbleMonoPlayful-<tag>.zip`, `SkribbleMonoExpressive-<tag>.zip` — roughened from Recursive Mono Linear
-- `ArchitectsDaughter-<tag>.zip` — the bundled third-party handwriting face
 
-Every zip contains the family's four faces (Regular, Bold, Italic, BoldItalic, or a single Regular for `ArchitectsDaughter`) and the `OFL.txt` license.
+Every zip contains the family's four faces (Regular, Bold, Italic, and BoldItalic) and the `OFL.txt` license.
 
 The family list is read from the `fonts:` block of `packages/skribble/pubspec.yaml`, so declaring a new family is enough to ship it. `package_fonts.sh` fails when a declared family has no matching TTFs, or when a TTF in the fonts directory is not claimed by any declared family, so a release cannot silently drop a family. Ten families are bundled today; the four-family list this replaced omitted the six Linear and Mono families that were already declared in the package.
 

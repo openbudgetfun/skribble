@@ -1,0 +1,27 @@
+name: skribble_icons_bxs
+description: |
+  Boxicons Solid icon set for skribble, rendered as precomputed hand-drawn
+  geometry. The solid weight of Boxicons: 665 filled silhouettes that pair with an outline set.
+version: 0.1.1
+homepage: https://github.com/openbudgetfun/skribble
+repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_icons_bxs
+documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble_icons_bxs/README.md
+issue_tracker: https://github.com/openbudgetfun/skribble/issues
+topics:
+  - ui
+  - icons
+  - hand-drawn
+  - design-system
+  - sketch
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  skribble: ^0.1.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  skribble_lints: ^0.1.1

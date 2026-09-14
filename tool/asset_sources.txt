@@ -1,0 +1,66 @@
+# Asset provenance registry.
+#
+# Every generated visual asset in this repository is built from a source pinned
+# here by exact version and checksum. Bumping a source is always an explicit
+# edit to this file in the same commit as the regenerated catalog, so a diff
+# never hides an upstream change.
+#
+# Generation is deterministic: the same source bytes plus the same generator
+# produce byte-identical output. CI enforces this by re-deriving every catalog
+# and failing on any diff. See "Determinism" in docs/asset-provenance.md.
+
+# >>> iconify
+# Columns (whitespace separated, read by scripts/generate_iconify_sets.sh):
+#   <prefix> <npm-version> <sha256-of-icons.json> <base-codepoint> <SPDX>
+#   <dart-package> <display-name> <homepage>
+#
+# The Dart package name need not match the prefix: Iconify calls the Simple
+# Icons set `simple-icons`, which is not a legal Dart identifier, so it ships as
+# `skribble_icons_simple`.
+#
+# Codepoint bands are private-use allocations. Keep them disjoint. The BMP
+# private-use area (0xE000-0xF8FF) holds 6,400 codepoints, which the four
+# smaller sets fit inside; Simple Icons at 3,460 names does not, so it moves to
+# the supplementary private-use plane at 0xF0000.
+#
+#   curated      0xF001-0xF0FF     30 hand-authored UI icons
+#   lucide       0xE000-0xEFFF   2,056 used
+#   bxs          0xF100-0xF3FF     665 used
+#   cib          0xF400-0xF7FF     831 used
+#   simple       0xF0000-0xF0FFF 3,460 used (supplementary plane)
+#   material     upstream Material codepoints, resolved through IconData
+lucide 1.2.132 57e7242abc5244f9a21ecd0d195f958f39fd1c5757fe87c3b279d628f9239049 0xE000 ISC skribble_icons_lucide Lucide https://lucide.dev
+bxs 1.2.3 063965b251bd366adf94316fe3980f74fb5e7dad58e2c67f5876300967c7e2a5 0xF100 MIT skribble_icons_bxs Boxicons https://boxicons.com
+cib 1.2.3 1ca1a73bb741c5fcf73e112d5ce74e5577b43ef7a17facf11529d9356e2a6f82 0xF400 CC0-1.0 skribble_icons_cib CoreUI-Brands https://github.com/coreui/coreui-icons
+simple-icons 1.2.96 6eea755f8cf3a9f6482fcbb6d291746c9133ed4ed2d94dc0814e9529675e2bbd 0xF0000 CC0-1.0 skribble_icons_simple Simple-Icons https://simpleicons.org
+# <<< iconify
+
+# [emoji]
+# Pinned in packages/skribble_emoji_gen/bin/update_assets.dart; that script
+# verifies both checksums before generating.
+openmoji version=17.0.0 license=CC-BY-SA-4.0 homepage=https://openmoji.org
+openmoji-svg-color.zip sha256=59b0cd9f6fe033818fc02585cea42bea9fba5d68a4d3a3639bfe5d5cc3805689
+openmoji.csv sha256=28375217b92fafbacc59d7dfea631c720abedc883518dbf12a73d25d4032cbe7e
+
+# [material]
+# Icon declarations come from the pinned Flutter SDK. Source SVGs come from npm
+# packages that the CLI fetches with `npm pack`; the versions below are the
+# ones the committed catalog was last rebuilt against.
+flutter version=3.47.0 license=Apache-2.0 homepage=https://flutter.dev
+material-design-icons-svg version=latest-at-build license=Apache-2.0
+material-symbols-svg-400 version=latest-at-build license=Apache-2.0
+simple-icons version=latest-at-build license=CC0-1.0
+
+# [fonts]
+# Source variable font, pinned by upstream commit. Provenance notes live in
+# packages/skribble/tool/font/VARIABLE-SOURCE.md; the generated faces ship from
+# packages/skribble_font_recursive.
+recursive version=1.085 license=OFL-1.1 homepage=https://recursive.design
+recursive-variable.ttf commit=6d491202cea5cf6a493ef710cbef2527b9b08939 sha256=653221ca467f4732fe6856ac493f6c409e9f56a7674abe36b2364acc89796f7c
+
+# [simple]
+# Thirty curated icons authored as SVGs checked into
+# packages/skribble_icons_curated/icons/, registered by that package's
+# tool/skribble_icons.manifest.json. Artwork derives from Material Design
+# icons (Apache-2.0).
+simple-icons-manifest version=checked-in license=Apache-2.0

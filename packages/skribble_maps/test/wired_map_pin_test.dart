@@ -1,11 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_icons_material/skribble_icons_material.dart';
 import 'package:skribble_maps/skribble_maps.dart';
 
 import 'helpers/pump_map.dart';
 
 void main() {
+  setUpAll(registerSkribbleMaterialIcons);
+
   group('WiredMapPin', () {
     testWidgets('holding selects once without also tapping', (tester) async {
       var taps = 0;

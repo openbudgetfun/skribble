@@ -19,7 +19,7 @@ class SkribbleIconsPage extends HookWidget {
     final searchQuery = useState('');
 
     final sortedEntries = useMemoized(() {
-      final entries = kSkribbleCustomIconsCodePoints.entries.toList()
+      final entries = kSkribbleCuratedIconCodePoints.entries.toList()
         ..sort((a, b) => a.key.compareTo(b.key));
       return entries;
     });

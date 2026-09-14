@@ -1,7 +1,7 @@
 ---
 skribble: docs
 skribble_icons: docs
-skribble_icons_custom: docs
+skribble_icons_curated: docs
 skribble_emoji: docs
 skribble_emoji_gen: docs
 skribble_font_roughen: docs

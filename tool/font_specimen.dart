@@ -9,7 +9,7 @@ Future<void> main() async {
     final result = await VisualDiff(
       originalPath:
           'packages/skribble/tool/font/RecursiveSansCslSt-$suffix.ttf',
-      roughenedPath: 'packages/skribble/assets/fonts/Skribble-$suffix.ttf',
+      roughenedPath: 'packages/skribble_font_recursive/assets/fonts/Skribble-$suffix.ttf',
       outputPath: '.screenshots/font/$suffix.html',
       sampleText: 'Little plans, big days.\nABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n0123456789 & @ # £ € ¥ + − × ÷\nÀ bientôt! Café, piñata, naïve, über.',
       fontSize: 32,

@@ -114,7 +114,7 @@ class VariableFontComparison extends HookWidget {
                 specimenKey: const ValueKey('variable-specimen'),
                 style: TextStyle(
                   fontFamily: WiredFont.variableFamilyFor(roughness.value),
-                  package: 'skribble',
+                  package: 'skribble_font_recursive',
                   fontVariations: variations,
                 ),
               ),
@@ -125,7 +125,7 @@ class VariableFontComparison extends HookWidget {
                 specimenKey: const ValueKey('static-specimen'),
                 style: TextStyle(
                   fontFamily: staticFont.familyFor(roughness.value),
-                  package: 'skribble',
+                  package: 'skribble_font_recursive',
                   fontWeight: FontWeight.values[staticWeight - 1],
                   fontStyle: staticItalic ? FontStyle.italic : FontStyle.normal,
                 ),

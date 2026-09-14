@@ -7,7 +7,7 @@ void main() {
     for (final level in WiredRoughness.values) {
       final family = WiredFont.variableFamilyFor(level);
       expect(WiredFont.isBundled(family), isTrue);
-      expect(WiredThemeData(fontFamily: family).fontPackage, 'skribble');
+      expect(WiredThemeData(fontFamily: family).fontPackage, 'skribble_font_recursive');
     }
   });
   test('each bundled typeface follows the roughness and copyWith', () {
@@ -19,12 +19,12 @@ void main() {
           roughnessLevel: level,
         );
         expect(theme.fontFamily, font.familyFor(level));
-        expect(theme.fontPackage, 'skribble');
+        expect(theme.fontPackage, 'skribble_font_recursive');
         expect(theme.roughness, level.roughness);
         expect(theme.copyWith(strokeWidth: 3).font, font);
         expect(
           theme.toThemeData().textTheme.bodyMedium!.fontFamily,
-          'packages/skribble/${font.familyFor(level)}',
+          'packages/skribble_font_recursive/${font.familyFor(level)}',
         );
       }
     }
@@ -37,7 +37,7 @@ void main() {
     expect(custom.fontFamily, 'MyFont');
     expect(custom.fontPackage, isNull);
     final bundled = WiredThemeData(fontFamily: 'SkribbleMonoGentle');
-    expect(bundled.fontPackage, 'skribble');
+    expect(bundled.fontPackage, 'skribble_font_recursive');
   });
 
   testWidgets('nested themes resolve typefaces without changing parent ink', (

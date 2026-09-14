@@ -44,7 +44,7 @@ Future<void> exportDesignKit(
         final weight = style.startsWith('Bold') ? 700 : 400;
         final italic = style.endsWith('Italic');
         await File(
-          '${repository.path}/packages/skribble/assets/fonts/$filename',
+          '${repository.path}/packages/skribble_font_recursive/assets/fonts/$filename',
         ).copy('${fonts.path}/$filename');
         fontRecords.add({
           'file': 'fonts/$filename',
@@ -68,7 +68,7 @@ Future<void> exportDesignKit(
     }
   }
 
-  await File('${repository.path}/packages/skribble/assets/fonts/OFL.txt')
+  await File('${repository.path}/packages/skribble_font_recursive/assets/fonts/OFL.txt')
       .copy('${fonts.path}/OFL.txt');
   await File('${repository.path}/LICENSE').copy('${destination.path}/LICENSE');
   await File('${repository.path}/docs/site/content/reference/design-kit.md')

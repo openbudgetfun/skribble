@@ -15,7 +15,7 @@ enum WiredFont {
   mono;
 
   /// Package font family for [roughness], suitable for a Flutter TextStyle.
-  /// Set `package: 'skribble'` when using this name directly.
+  /// Set `package: 'skribble_font_recursive'` when using this name directly.
   String familyFor(WiredRoughness roughness) {
     if (this == casual) return roughness.fontFamily;
 

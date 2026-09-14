@@ -120,7 +120,7 @@ class CodeView extends HookWidget {
                 fontFamily: WiredFont.mono.familyFor(
                   WiredTheme.of(context).roughnessLevel,
                 ),
-                package: 'skribble',
+                package: 'skribble_font_recursive',
                 fontSize: 14,
                 height: 1.7,
               ),

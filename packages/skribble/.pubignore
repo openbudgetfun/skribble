@@ -1,0 +1,13 @@
+# Files kept out of the published package.
+#
+# Everything here is needed to *rebuild* Skribble, not to *use* it. The
+# regeneration sources are the bulk of the archive: `tool/font` alone is several
+# megabytes of upstream Recursive desktop fonts and intermediate static
+# instances that only `roughen_fonts.dart` reads. Consumers get the finished
+# faces from `assets/fonts`.
+#
+# `pub publish` unions this file with .gitignore, so entries never ship even if
+# they are tracked in Git.
+tool/
+example/
+build/

@@ -24,7 +24,7 @@ Widget _wiredIcon(ExampleSettings settings) => const Wrap(
 
 /// @docs-example svg-icon
 Widget _svgIcon(ExampleSettings settings) => WiredSvgIcon(
-  data: lookupMaterialRoughIconByIdentifier('favorite')!,
+  data: exampleIcon('favorite'),
   size: 64,
   color: settings.color,
   fillStyle: settings.iconFill,
@@ -51,17 +51,17 @@ Widget _customIcons(ExampleSettings settings) => Wrap(
   runSpacing: 20,
   children: [
     SkribbleIcon(
-      data: kSkribbleCustomIconsRough[0xf001]!,
+      data: kSkribbleCuratedIcons[0xf001]!,
       semanticLabel: 'Home',
       size: 48,
     ),
     SkribbleIcon(
-      data: kSkribbleCustomIconsRough[0xf005]!,
+      data: kSkribbleCuratedIcons[0xf005]!,
       semanticLabel: 'Heart',
       size: 48,
     ),
     SkribbleIcon(
-      data: kSkribbleCustomIconsRough[0xf003]!,
+      data: kSkribbleCuratedIcons[0xf003]!,
       semanticLabel: 'Settings',
       size: 48,
     ),

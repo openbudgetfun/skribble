@@ -19,13 +19,13 @@ void main() {
     });
 
     testWidgets('renders a rough icon child', (tester) async {
-      final checkIcon = lookupMaterialRoughFontIcon('check');
+      final checkIcon = roughIconFor('check');
 
       await pumpWired(
         tester,
         WiredOutlinedButton(
           onPressed: () {},
-          child: WiredIcon(icon: checkIcon!),
+          child: WiredIcon(icon: checkIcon),
         ),
       );
 

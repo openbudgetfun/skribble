@@ -9,7 +9,7 @@ skribble's Flutter packages target Flutter apps, but the hand-drawn aesthetic wo
 
 ## 1. The skribble webfont
 
-The bundled fonts live in [`packages/skribble/assets/fonts/`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble/assets/fonts) (OFL license). Self-host them with `@font-face`:
+The bundled fonts live in [`packages/skribble_font_recursive/assets/fonts/`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_recursive/assets/fonts) (OFL license). Self-host them with `@font-face`:
 
 ```css
 @font-face {

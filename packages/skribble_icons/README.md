@@ -1,138 +1,86 @@
 # skribble_icons
 
-Comprehensive hand-drawn icon library for the [skribble](https://github.com/openbudgetfun/skribble) design system.
+Every skribble hand-drawn icon set behind one import.
 
-Provides unified access to **all 8,600+ roughened Flutter Material icons** plus 30 curated custom icons through a single API. Every icon is rendered with the skribble hand-drawn aesthetic.
+The sets live in separate packages so an app only pays for the artwork it renders. This package depends on all of them, re-exports their catalogs, and adds a cross-set lookup.
 
-The catalog contains precomputed rough geometry. Render it with `WiredSvgIcon` from skribble, which supports solid, hachure, and outline styles. Regenerate the 30 curated icons with `dart run packages/skribble_emoji_gen/bin/generate_icons.dart` from the workspace root.
+| Set            | Package                   | Names  | Style                   | License    |
+| -------------- | ------------------------- | ------ | ----------------------- | ---------- |
+| Curated        | `skribble_icons_curated`  | 30     | app vocabulary          | Apache-2.0 |
+| Simple Icons   | `skribble_icons_simple`   | 3,472  | brand marks             | CC0-1.0    |
+| Material       | `skribble_icons_material` | 8,600+ | Flutter's `Icons`       | Apache-2.0 |
+| Lucide         | `skribble_icons_lucide`   | 2,056  | 2px open outlines       | ISC        |
+| Boxicons Solid | `skribble_icons_bxs`      | 665    | filled silhouettes      | MIT        |
+| CoreUI Brands  | `skribble_icons_cib`      | 831    | brand and product marks | CC0-1.0    |
 
 ## Installation
 
-```yaml
-dependencies:
-  skribble: ^0.3.4
-  skribble_icons: ^0.1.0
+```bash
+dart pub add skribble_icons
+```
+
+Installing a single set instead is often the better trade:
+
+```bash
+dart pub add skribble_icons_lucide
 ```
 
 ## Usage
-
-### Unified lookup (recommended)
-
-Search custom icons first, then fall back to the full Material set:
 
 ```dart
 import 'package:skribble/skribble.dart';
 import 'package:skribble_icons/skribble_icons.dart';
 
-// Any Material icon identifier works:
-final alarm = lookupSkribbleIconByIdentifier('access_alarm');
-final home = lookupSkribbleIconByIdentifier('home');
-
-// Render it:
-if (alarm != null) {
-  WiredSvgIcon(data: alarm);
+void main() {
+  registerSkribbleIcons();
+  runApp(const MyApp());
 }
+
+// Any set, by identifier:
+final icon = lookupSkribbleIconByIdentifier('home');
+
+// Or find out which set supplied it:
+final match = lookupSkribbleIcon('a-arrow-down');
+print(match?.set); // SkribbleIconSet.lucide
 ```
 
-### Custom icons only
+### Activating Material icons
 
-Access just the 30 curated custom icons:
+`registerSkribbleIcons()` installs the Material catalog so that `WiredIcon(icon: Icons.search)` draws hand-drawn geometry. Without it, `WiredIcon` falls back to Flutter's plain `Icon` widget and renders the font glyph. The call is idempotent and safe before `runApp`.
 
-```dart
-final star = lookupSkribbleCustomIconByIdentifier('star');
-```
+The Iconify sets and the simple set need no registration — they are looked up by identifier, which this package reads directly.
 
-### Material icons directly
+## Lookup order
 
-Access the full Material rough icon set:
+`lookupSkribbleIcon` searches in a fixed order and reports the winner:
 
-```dart
-// By identifier
-final icon = lookupMaterialRoughIconByIdentifier('favorite');
+1. `curated` — hand-authored names that match the component library's own vocabulary
+2. `simple` — Simple Icons brand marks, whose slugs are unambiguous (`github` always means the logo, never a UI glyph)
+3. `material` — so existing Flutter identifiers keep resolving
+4. `lucide`, then `bxs`, then `cib`
 
-// By codepoint
-final icon = kMaterialRoughIcons[0xe87d];
+## Regenerating catalogs
 
-// All available identifiers
-final names = materialRoughIconIdentifiers; // 8,600+ names
-```
-
-### Icon count
-
-```dart
-print(skribbleIconCount); // custom + Material total
-print(kSkribbleCustomIcons.length); // 30 curated icons
-print(kMaterialRoughIcons.length); // 8,600+ Material icons
-```
-
-## Custom icons
-
-The 30 curated custom icons cover common app patterns:
-
-| Identifier     | Codepoint | Description                    |
-| -------------- | --------- | ------------------------------ |
-| `home`         | `0xf001`  | House shape                    |
-| `search`       | `0xf002`  | Magnifying glass               |
-| `settings`     | `0xf003`  | Gear                           |
-| `star`         | `0xf004`  | 5-point star                   |
-| `heart`        | `0xf005`  | Heart shape (favorite)         |
-| `user`         | `0xf006`  | Person silhouette              |
-| `menu`         | `0xf007`  | 3 horizontal lines (hamburger) |
-| `close`        | `0xf008`  | X shape                        |
-| `check`        | `0xf009`  | Checkmark                      |
-| `plus`         | `0xf00a`  | Plus sign                      |
-| `minus`        | `0xf00b`  | Minus sign                     |
-| `arrow_left`   | `0xf00c`  | Left arrow                     |
-| `arrow_right`  | `0xf00d`  | Right arrow                    |
-| `arrow_up`     | `0xf00e`  | Up arrow                       |
-| `arrow_down`   | `0xf00f`  | Down arrow                     |
-| `edit`         | `0xf010`  | Pencil                         |
-| `delete`       | `0xf011`  | Trash can                      |
-| `share`        | `0xf012`  | Share icon                     |
-| `copy`         | `0xf013`  | Two overlapping squares        |
-| `mail`         | `0xf014`  | Envelope                       |
-| `phone`        | `0xf015`  | Phone handset                  |
-| `camera`       | `0xf016`  | Camera                         |
-| `image`        | `0xf017`  | Landscape / mountain           |
-| `calendar`     | `0xf018`  | Calendar grid                  |
-| `clock`        | `0xf019`  | Clock face                     |
-| `lock`         | `0xf01a`  | Padlock (closed)               |
-| `unlock`       | `0xf01b`  | Padlock (open)                 |
-| `eye`          | `0xf01c`  | Open eye                       |
-| `eye_off`      | `0xf01d`  | Eye with line through          |
-| `notification` | `0xf01e`  | Bell                           |
-
-## Regenerating custom icons
-
-The curated icons are generated from SVG sources via the rough icon pipeline:
+Every set regenerates in pure Dart — no headless browser involved:
 
 ```bash
-# From the workspace root:
-melos run rough-icons-skribble
-
-# Or directly:
-cd packages/skribble
-dart run tool/generate_rough_icons.dart \
-  --kit svg-manifest \
-  --manifest ../skribble_icons/tool/skribble_icons.manifest.json \
-  --output ../skribble_icons/lib/src/generated/skribble_icons.g.dart \
-  --map-name kSkribbleCustomIcons
+melos run icons-curated   # the 30 curated icons
+melos run icons-iconify   # simple, lucide, bxs, cib from pinned sources
+melos run icons-check     # verify the committed catalogs are current
 ```
 
-## Adding custom icons
+## Provenance and determinism
 
-1. Add a 24x24 SVG file to `icons/`.
-2. Add an entry to `tool/skribble_icons.manifest.json`:
-   ```json
-   {
-     "identifier": "my_icon",
-     "codePoint": "0xf01f",
-     "svgPath": "../icons/my_icon.svg"
-   }
-   ```
-3. Run `melos run rough-icons-skribble`.
-4. Update the `kSkribbleCustomIconsCodePoints` map in `lib/skribble_icons.dart`.
+Every set is generated from a source pinned by version and checksum, recorded in each package's README and in [`tool/asset_sources.txt`](../../tool/asset_sources.txt). Regeneration is byte-for-byte deterministic — see [docs/asset-provenance.md](../../docs/asset-provenance.md).
+
+```bash
+melos run icons-check   # verify every committed catalog is current
+```
+
+## Licenses
+
+Each set retains its upstream license, recorded in the header of its generated catalog. Artwork is warped by skribble; the derivative keeps the source license. See each package's README for attribution details.
 
 ## License
 
-Same as the root skribble repository — see [LICENSE](../../LICENSE) for details.
+Same as the root skribble repository — see [LICENSE](../../LICENSE).

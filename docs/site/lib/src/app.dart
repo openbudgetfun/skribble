@@ -74,7 +74,7 @@ class DocsApp extends HookWidget {
       builder: (context, child) => DefaultTextStyle(
         style: TextStyle(
           fontFamily: WiredTheme.of(context).fontFamily,
-          package: 'skribble',
+          package: 'skribble_font_recursive',
           color: _ink,
           fontSize: 16,
           height: 1.65,

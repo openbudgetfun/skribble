@@ -36,8 +36,28 @@ bump_propagation = "inherit"
 path = "packages/skribble_icons"
 type = "dart"
 
-[package.skribble_icons_custom]
-path = "packages/skribble_icons_custom"
+[package.skribble_icons_curated]
+path = "packages/skribble_icons_curated"
+type = "dart"
+
+[package.skribble_icons_simple]
+path = "packages/skribble_icons_simple"
+type = "dart"
+
+[package.skribble_icons_material]
+path = "packages/skribble_icons_material"
+type = "dart"
+
+[package.skribble_icons_lucide]
+path = "packages/skribble_icons_lucide"
+type = "dart"
+
+[package.skribble_icons_bxs]
+path = "packages/skribble_icons_bxs"
+type = "dart"
+
+[package.skribble_icons_cib]
+path = "packages/skribble_icons_cib"
 type = "dart"
 
 [package.skribble_emoji]
@@ -46,6 +66,10 @@ type = "dart"
 
 [package.skribble_emoji_gen]
 path = "packages/skribble_emoji_gen"
+type = "dart"
+
+[package.skribble_font_recursive]
+path = "packages/skribble_font_recursive"
 type = "dart"
 
 [package.skribble_font_roughen]
@@ -78,9 +102,15 @@ version_format = "namespaced"
 packages = [
   "skribble",
   "skribble_icons",
-  "skribble_icons_custom",
+  "skribble_icons_curated",
+  "skribble_icons_simple",
+  "skribble_icons_material",
+  "skribble_icons_lucide",
+  "skribble_icons_bxs",
+  "skribble_icons_cib",
   "skribble_emoji",
   "skribble_emoji_gen",
+  "skribble_font_recursive",
   "skribble_font_roughen",
   "skribble_lints",
 ]
