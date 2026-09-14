@@ -26,7 +26,7 @@ void main() {
         DefaultTextStyle.of(tester.element(find.text('Ink style')))
             .style
             .fontFamily,
-        'packages/skribble/SkribblePlayful',
+        'packages/skribble_font_recursive/SkribblePlayful',
       );
       await tester.tap(find.text('Expressive'));
       await tester.pumpAndSettle();
@@ -34,7 +34,7 @@ void main() {
         DefaultTextStyle.of(tester.element(find.text('Ink style')))
             .style
             .fontFamily,
-        'packages/skribble/Skribble',
+        'packages/skribble_font_recursive/Skribble',
       );
       expect(tester.takeException(), isNull);
     } finally {

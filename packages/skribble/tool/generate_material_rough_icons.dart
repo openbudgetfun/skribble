@@ -173,6 +173,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     outputFile.writeAsStringSync(
       _renderFontCodePointsDart(fontName: options.fontName, glyphs: fontGlyphs),
     );
+    await _formatGenerated(outputFile);
     stdout.writeln('Generated icon font Dart helpers to ${outputFile.path}');
   }
 
@@ -184,6 +185,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     outputFile.writeAsStringSync(
       _renderGeneratedFile(icons, mapName: options.mapName),
     );
+    await _formatGenerated(outputFile);
     stdout.writeln(
       'Generated ${icons.length} rough icons to ${outputFile.path}',
     );
@@ -2030,6 +2032,24 @@ String _toUpperCamelIdentifier(String value) {
     return 'Font$transformed';
   }
   return transformed;
+}
+
+/// Formats a generated catalog in place, so the committed file matches what
+/// `dart format` would produce and the sync gate sees no diff.
+Future<void> _formatGenerated(File file) async {
+  final result = await Process.run(Platform.resolvedExecutable, [
+    'format',
+    file.path,
+  ]);
+  if (result.exitCode != 0) {
+    stderr.write(result.stderr);
+    throw ProcessException(
+      Platform.resolvedExecutable,
+      ['format', file.path],
+      'Formatting the generated catalog failed',
+      result.exitCode,
+    );
+  }
 }
 
 String _formatDouble(double value) {

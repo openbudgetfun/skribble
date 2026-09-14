@@ -28,7 +28,7 @@ void main() {
             tester.widget<Text>(find.byKey(const ValueKey('static-specimen')));
         expect(
           variable().style!.fontFamily,
-          'packages/skribble/SkribbleVariablePlayful',
+          'packages/skribble_font_recursive/SkribbleVariablePlayful',
         );
         for (final weight in [300, 600, 800, 900]) {
           await tester.ensureVisible(find.text('$weight'));

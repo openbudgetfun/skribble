@@ -23,13 +23,16 @@ Widget _wiredIcon(ExampleSettings settings) => const Wrap(
 );
 
 /// @docs-example svg-icon
-Widget _svgIcon(ExampleSettings settings) => WiredSvgIcon(
-  data: lookupMaterialRoughIconByIdentifier('favorite')!,
-  size: 64,
-  color: settings.color,
-  fillStyle: settings.iconFill,
-  semanticLabel: 'Favourite',
-);
+Widget _svgIcon(ExampleSettings settings) {
+  ensureExampleIconsRegistered();
+  return WiredSvgIcon(
+    data: lookupMaterialRoughIconByIdentifier('favorite')!,
+    size: 64,
+    color: settings.color,
+    fillStyle: settings.iconFill,
+    semanticLabel: 'Favourite',
+  );
+}
 
 /// @docs-example svg-icon-data
 Widget _svgIconData(ExampleSettings settings) => const WiredSvgIcon(

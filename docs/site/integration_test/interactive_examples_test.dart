@@ -84,7 +84,7 @@ void main() {
           $(DocsKeys.fontSpecimen('mono', 'playful')),
         );
         if (!(mono.data?.contains('final total = 42;') ?? false) ||
-            mono.style?.fontFamily != 'packages/skribble/SkribbleMonoPlayful') {
+            mono.style?.fontFamily != 'packages/skribble_font_recursive/SkribbleMonoPlayful') {
           throw StateError('The Mono specimen did not update.');
         }
         await $(DocsKeys.fontSample).waitUntilVisible();

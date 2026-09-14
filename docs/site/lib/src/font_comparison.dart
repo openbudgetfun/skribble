@@ -171,7 +171,7 @@ class _Specimen extends HookWidget {
               inherit: false,
               color: const Color(0xff34283f),
               fontFamily: family,
-              package: level != null ? 'skribble' : null,
+              package: level != null ? 'skribble_font_recursive' : null,
               fontSize: size,
               fontWeight: bold ? FontWeight.bold : FontWeight.normal,
               fontStyle: italic ? FontStyle.italic : FontStyle.normal,

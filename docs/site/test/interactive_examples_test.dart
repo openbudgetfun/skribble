@@ -27,7 +27,7 @@ void main() {
           );
       expect(
         text.style!.fontFamily,
-        'packages/skribble/${WiredFont.mono.familyFor(level)}',
+        'packages/skribble_font_recursive/${WiredFont.mono.familyFor(level)}',
       );
     }
   });

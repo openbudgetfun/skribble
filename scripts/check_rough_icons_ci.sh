@@ -140,14 +140,14 @@ run_generated_sync_check() {
       --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json \
       "${UNRESOLVED_THRESHOLD_ARGS[@]}" \
       "${BASELINE_REGRESSION_ARGS[@]}" \
-      --output lib/src/generated/material_rough_icons.g.dart \
-      --font-dart-output lib/src/generated/material_rough_icon_font.g.dart
+      --output ../skribble_icons_material/lib/src/generated/material_rough_icons.g.dart \
+      --font-dart-output ../skribble_icons_material/lib/src/generated/material_rough_icon_font.g.dart
   )
 
   emit_sync_diff_if_needed \
     "$GENERATED_SYNC_DIFF_PATH" \
-    packages/skribble/lib/src/generated/material_rough_icons.g.dart \
-    packages/skribble/lib/src/generated/material_rough_icon_font.g.dart
+    packages/skribble_icons_material/lib/src/generated/material_rough_icons.g.dart \
+    packages/skribble_icons_material/lib/src/generated/material_rough_icon_font.g.dart
 }
 
 case "$MODE" in
