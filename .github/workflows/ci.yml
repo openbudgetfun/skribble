@@ -317,9 +317,20 @@ jobs:
         run: monochange step publish-packages --dry-run --all --format json
         shell: devenv shell -- bash -e {0}
 
-  publish-check-release:
+  # Validates the release path on every pull request and every push to main:
+  # build the release commit a local `monochange run release` would produce,
+  # then dry-run the publish against it. Nothing is pushed, tagged, or
+  # published.
+  #
+  # The release commit is only built when the branch has more than one pending
+  # changeset. A single changeset is a trivial bump; the interesting failures
+  # live in the cross-package version sync that multiple changesets trigger.
+  # Raise or lower MIN_CHANGESETS to change that threshold.
+  release-publish:
     runs-on: blacksmith-2vcpu-ubuntu-2404
     timeout-minutes: 40
+    env:
+      MIN_CHANGESETS: 2
     steps:
       - uses: actions/checkout@v4
         with:
@@ -341,13 +352,15 @@ jobs:
         id: release_commit
         run: |
           set -euo pipefail
-          if find .changeset -type f -name '*.md' -print -quit | grep -q .; then
-            monochange step prepare-release --release-json --format json
-            monochange step commit-release --no-verify
-            echo "created=true" >>"$GITHUB_OUTPUT"
-          else
-            echo "No pending changesets; skipping the local release commit."
+          changesets="$(find .changeset -type f -name '*.md' | wc -l | tr -d ' ')"
+          echo "Pending changesets: $changesets (threshold: >= $MIN_CHANGESETS)"
+          if [ "$changesets" -lt "$MIN_CHANGESETS" ]; then
+            echo "Below the changeset threshold; skipping the local release commit."
+            exit 0
           fi
+          monochange step prepare-release --release-json --format json
+          monochange step commit-release --no-verify
+          echo "created=true" >>"$GITHUB_OUTPUT"
         shell: devenv shell -- bash -e {0}
       - name: Check publish readiness on the release commit
         if: steps.release_commit.outputs.created == 'true'
