@@ -141,7 +141,8 @@ run_generated_sync_check() {
       "${UNRESOLVED_THRESHOLD_ARGS[@]}" \
       "${BASELINE_REGRESSION_ARGS[@]}" \
       --output ../skribble_icons_material/lib/src/generated/material_rough_icons.g.dart \
-      --font-dart-output ../skribble_icons_material/lib/src/generated/material_rough_icon_font.g.dart
+      --font-dart-output ../skribble_icons_material/lib/src/generated/material_rough_icon_font.g.dart \
+      --format-output
   )
 
   emit_sync_diff_if_needed \

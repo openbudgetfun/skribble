@@ -85,6 +85,7 @@ melos:
         --rough-output-dir tool/icon_exports/rough-svg
         --font-output-dir tool/icon_exports/font
         --font-dart-output ../skribble_icons_material/lib/src/generated/material_rough_icon_font.g.dart
+        --format-output
         --supplemental-manifest tool/examples/material_rough_icons.supplemental.manifest.json
         --unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json
         --max-new-unresolved 0

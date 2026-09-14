@@ -173,7 +173,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     outputFile.writeAsStringSync(
       _renderFontCodePointsDart(fontName: options.fontName, glyphs: fontGlyphs),
     );
-    await _formatGenerated(outputFile);
+    if (options.formatOutput) await _formatGenerated(outputFile);
     stdout.writeln('Generated icon font Dart helpers to ${outputFile.path}');
   }
 
@@ -185,7 +185,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     outputFile.writeAsStringSync(
       _renderGeneratedFile(icons, mapName: options.mapName),
     );
-    await _formatGenerated(outputFile);
+    if (options.formatOutput) await _formatGenerated(outputFile);
     stdout.writeln(
       'Generated ${icons.length} rough icons to ${outputFile.path}',
     );
@@ -350,6 +350,7 @@ Options:
   --rough-normalize-viewbox <size> Normalize SVGs to this square viewBox before roughing.
   --rough-bulk                     Use one manifest-driven converter invocation.
   --rough-only                     Skip Dart map generation; only emit rough SVG files.
+  --format-output                  Run `dart format` on generated Dart files.
   --font-output-dir <path>         Build an icon font from rough SVGs into this directory.
   --font-dart-output <path>        Emit Dart helpers (font family + codepoint lookup map).
   --font-name <name>               Name of generated icon font (default: material_rough_icons).
@@ -407,6 +408,7 @@ final class _ScriptOptions {
     this.roughNormalizeViewBox = 128,
     this.roughBulk = false,
     this.roughOnly = false,
+    this.formatOutput = false,
     this.failOnUnresolved = false,
     this.failOnNewUnresolved = false,
     this.fontOutputDir,
@@ -441,6 +443,13 @@ final class _ScriptOptions {
   final double roughNormalizeViewBox;
   final bool roughBulk;
   final bool roughOnly;
+
+  /// Formats the generated Dart with `dart format` after writing.
+  ///
+  /// Off by default: tests write throwaway catalogs and must not pay for
+  /// a formatter process. The CI sync gate turns it on so a regenerated
+  /// catalog is byte-identical to the committed one.
+  final bool formatOutput;
   final bool failOnUnresolved;
   final bool failOnNewUnresolved;
   final String? fontOutputDir;
@@ -476,6 +485,7 @@ final class _ScriptOptions {
     var roughNormalizeViewBox = 128.0;
     var roughBulk = false;
     var roughOnly = false;
+    var formatOutput = false;
     var failOnUnresolved = false;
     var failOnNewUnresolved = false;
     String? fontOutputDir;
@@ -503,6 +513,10 @@ final class _ScriptOptions {
       }
       if (argument == '--rough-only') {
         roughOnly = true;
+        continue;
+      }
+      if (argument == '--format-output') {
+        formatOutput = true;
         continue;
       }
       if (argument == '--fail-on-unresolved') {
@@ -653,6 +667,7 @@ final class _ScriptOptions {
       roughNormalizeViewBox: roughNormalizeViewBox,
       roughBulk: roughBulk,
       roughOnly: roughOnly,
+      formatOutput: formatOutput,
       failOnUnresolved: failOnUnresolved,
       failOnNewUnresolved: failOnNewUnresolved,
       fontOutputDir: fontOutputDir,
