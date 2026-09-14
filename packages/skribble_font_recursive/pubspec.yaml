@@ -25,39 +25,39 @@ flutter:
   fonts:
     - family: Skribble
       fonts:
-        - asset: assets/fonts/skribble-Black.ttf
+        - asset: assets/fonts/Skribble-Black.ttf
           weight: 900
-        - asset: assets/fonts/skribble-BlackItalic.ttf
+        - asset: assets/fonts/Skribble-BlackItalic.ttf
           weight: 900
           style: italic
-        - asset: assets/fonts/skribble-Bold.ttf
+        - asset: assets/fonts/Skribble-Bold.ttf
           weight: 700
-        - asset: assets/fonts/skribble-BoldItalic.ttf
+        - asset: assets/fonts/Skribble-BoldItalic.ttf
           weight: 700
           style: italic
-        - asset: assets/fonts/skribble-ExtraBold.ttf
+        - asset: assets/fonts/Skribble-ExtraBold.ttf
           weight: 800
-        - asset: assets/fonts/skribble-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Skribble-ExtraBoldItalic.ttf
           weight: 800
           style: italic
-        - asset: assets/fonts/skribble-Italic.ttf
+        - asset: assets/fonts/Skribble-Italic.ttf
           weight: 400
           style: italic
-        - asset: assets/fonts/skribble-Light.ttf
+        - asset: assets/fonts/Skribble-Light.ttf
           weight: 300
-        - asset: assets/fonts/skribble-LightItalic.ttf
+        - asset: assets/fonts/Skribble-LightItalic.ttf
           weight: 300
           style: italic
-        - asset: assets/fonts/skribble-Medium.ttf
+        - asset: assets/fonts/Skribble-Medium.ttf
           weight: 500
-        - asset: assets/fonts/skribble-MediumItalic.ttf
+        - asset: assets/fonts/Skribble-MediumItalic.ttf
           weight: 500
           style: italic
-        - asset: assets/fonts/skribble-Regular.ttf
+        - asset: assets/fonts/Skribble-Regular.ttf
           weight: 400
-        - asset: assets/fonts/skribble-SemiBold.ttf
+        - asset: assets/fonts/Skribble-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/skribble-SemiBoldItalic.ttf
+        - asset: assets/fonts/Skribble-SemiBoldItalic.ttf
           weight: 600
           style: italic
     - family: SkribbleGentle

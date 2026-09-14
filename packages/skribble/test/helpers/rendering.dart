@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble/skribble.dart' show WiredIcon;
+import 'package:skribble/src/wired_icon.dart' show WiredIcon;
 
 import 'finders.dart';
 
@@ -91,4 +93,26 @@ void expectRepaintIsolation(Finder finder, {String? reason}) {
         'Expected a RepaintBoundary beneath the subject$because. Without it '
         'every rough redraw repaints the surrounding subtree.',
   );
+}
+
+
+/// A Material [IconData] for tests that need an icon but do not care which.
+///
+/// [WiredIcon] resolves this through the registered catalog, falling back to
+/// the Material font when a catalog is absent — which is the behaviour these
+/// tests cover. The codepoints mirror `Icons`; they are written out rather than
+/// imported so core stays free of a Material dependency, matching the
+/// decoupling direction in AGENTS.md.
+IconData roughIconFor(String name) {
+  const icons = <String, IconData>{
+    'add': IconData(0xe047, fontFamily: 'MaterialIcons'),
+    'check': IconData(0xe156, fontFamily: 'MaterialIcons'),
+    'settings': IconData(0xe57f, fontFamily: 'MaterialIcons'),
+    'star': IconData(0xe5f9, fontFamily: 'MaterialIcons'),
+  };
+  final icon = icons[name];
+  if (icon == null) {
+    throw ArgumentError.value(name, 'name', 'Unknown test icon');
+  }
+  return icon;
 }

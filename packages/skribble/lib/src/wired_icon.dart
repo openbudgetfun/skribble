@@ -173,6 +173,16 @@ WiredSvgIconData? lookupMaterialRoughIcon(IconData icon) {
   return wiredIconCatalog?.resolve(icon);
 }
 
+/// Returns the font-backed [IconData] for a catalog [identifier], or `null`
+/// when no catalog is registered or none ships the name.
+///
+/// The bundled catalogs generate an icon font whose codepoints match their
+/// geometry map, so this is the glyph-rendering counterpart to
+/// [lookupMaterialRoughIconByIdentifier]. The name is kept for compatibility
+/// with earlier releases, when only the Material catalog existed.
+IconData? lookupMaterialRoughFontIcon(String identifier) =>
+    wiredIconCatalog?.resolveFontIcon(identifier);
+
 /// Returns precomputed hand-drawn geometry for a catalog [identifier] such as
 /// `'search'`, or `null` when no catalog is registered or none ships the name.
 ///

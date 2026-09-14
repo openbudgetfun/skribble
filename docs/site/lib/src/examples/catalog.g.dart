@@ -207,10 +207,10 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'svg-icon': ExampleDefinition(
     builder: _svgIcon,
-    source: "WiredSvgIcon(\n  data: lookupMaterialRoughIconByIdentifier('favorite')!,\n  size: 64,\n  color: settings.color,\n  fillStyle: settings.iconFill,\n  semanticLabel: 'Favourite',\n)",
+    source: "WiredSvgIcon(\n  data: exampleIcon('favorite'),\n  size: 64,\n  color: settings.color,\n  fillStyle: settings.iconFill,\n  semanticLabel: 'Favourite',\n)",
     edits: [
-      ExampleEdit(93, 107, ExampleParameter.color),
-      ExampleEdit(122, 139, ExampleParameter.iconFill),
+      ExampleEdit(68, 82, ExampleParameter.color),
+      ExampleEdit(97, 114, ExampleParameter.iconFill),
     ],
   ),
   'svg-icon-data': ExampleDefinition(

@@ -24,6 +24,7 @@ final class WiredIconCatalog {
     required this.fontFamily,
     required this.identifierCodePoints,
     required this.codePoints,
+    required this.resolveFontIcon,
   });
 
   /// Human-readable catalog name, used in diagnostics.
@@ -40,6 +41,13 @@ final class WiredIconCatalog {
 
   /// Identifier to codepoint, including legacy alias identifiers.
   final Map<String, int> identifierCodePoints;
+
+  /// Builds the font-backed [IconData] for a catalog identifier, or `null`.
+  ///
+  /// The generated font carries the same codepoints as the geometry map, so a
+  /// catalog can supply glyphs to the icon widgets without core depending on
+  /// any particular icon package.
+  final IconData? Function(String identifier) resolveFontIcon;
 
   /// Every codepoint the catalog ships.
   final List<int> codePoints;

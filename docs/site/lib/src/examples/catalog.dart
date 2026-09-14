@@ -31,8 +31,16 @@ part 'catalog.g.dart';
 /// catalog. Registering here means any entry point that renders an example —
 /// the app, a widget test, an embedded preview — resolves them correctly.
 bool _iconsRegistered = false;
-void ensureExampleIconsRegistered() {
-  if (_iconsRegistered) return;
-  registerSkribbleIcons();
-  _iconsRegistered = true;
+
+/// Registers the icon catalog and returns [identifier]'s geometry.
+///
+/// Examples use this rather than calling the lookup directly, so the
+/// registration happens on first use and the example keeps an expression body
+/// (which `tool/generate_examples.dart` requires).
+WiredSvgIconData exampleIcon(String identifier) {
+  if (!_iconsRegistered) {
+    registerSkribbleIcons();
+    _iconsRegistered = true;
+  }
+  return lookupMaterialRoughIconByIdentifier(identifier)!;
 }

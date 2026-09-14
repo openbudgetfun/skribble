@@ -79,7 +79,7 @@ Renders a pre-parsed `WiredSvgIconData` with rough hand-drawn strokes. This is t
 ```dart
 // Live example: svg-icon
 WiredSvgIcon(
-  data: lookupMaterialRoughIconByIdentifier('favorite')!,
+  data: exampleIcon('favorite'),
   size: 64,
   color: const Color(0xffe8957d),
   fillStyle: WiredIconFillStyle.solid,

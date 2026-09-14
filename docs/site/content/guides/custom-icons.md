@@ -202,7 +202,7 @@ When a Material icon exists in the generated `kMaterialRoughIcons` map, `WiredIc
 ```dart
 // Live example: svg-icon
 WiredSvgIcon(
-  data: lookupMaterialRoughIconByIdentifier('favorite')!,
+  data: exampleIcon('favorite'),
   size: 64,
   color: const Color(0xffe8957d),
   fillStyle: WiredIconFillStyle.solid,

@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
-import 'package:skribble_icons_material/skribble_icons_material.dart';
 
 import '../helpers/skribble_test_support.dart';
 
@@ -20,13 +19,13 @@ void main() {
     });
 
     testWidgets('renders a rough icon child', (tester) async {
-      final starIcon = lookupMaterialRoughFontIcon('star');
+      final starIcon = roughIconFor('star');
 
       await pumpWired(
         tester,
         WiredTextButton(
           onPressed: () {},
-          child: WiredIcon(icon: starIcon!),
+          child: WiredIcon(icon: starIcon),
         ),
       );
 

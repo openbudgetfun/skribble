@@ -1,14 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
-import 'package:skribble_icons_material/skribble_icons_material.dart';
 
 import '../helpers/skribble_test_support.dart';
 
 void main() {
   group('WiredIconButton', () {
     testWidgets('renders the requested rough icon', (tester) async {
-      final addIcon = lookupMaterialRoughFontIcon('add')!;
+      final addIcon = roughIconFor('add');
 
       await pumpWired(tester, WiredIconButton(icon: addIcon, onPressed: () {}));
 
@@ -28,7 +27,7 @@ void main() {
       await pumpWired(
         tester,
         WiredIconButton(
-          icon: lookupMaterialRoughFontIcon('add')!,
+          icon: roughIconFor('add'),
           onPressed: () => pressed = true,
         ),
       );
@@ -44,7 +43,7 @@ void main() {
       await pumpWired(
         tester,
         WiredIconButton(
-          icon: lookupMaterialRoughFontIcon('add')!,
+          icon: roughIconFor('add'),
           onPressed: () => tapCount++,
         ),
       );
@@ -60,7 +59,7 @@ void main() {
       await pumpWired(
         tester,
         WiredIconButton(
-          icon: lookupMaterialRoughFontIcon('settings')!,
+          icon: roughIconFor('settings'),
           onPressed: () {},
           semanticLabel: 'Open settings',
         ),
@@ -82,7 +81,7 @@ void main() {
       await pumpWired(
         tester,
         WiredIconButton(
-          icon: lookupMaterialRoughFontIcon('add')!,
+          icon: roughIconFor('add'),
           onPressed: null,
           semanticLabel: 'Disabled',
         ),
@@ -103,7 +102,7 @@ void main() {
     });
 
     testWidgets('onPressed defaults to null', (tester) async {
-      final addIcon = lookupMaterialRoughFontIcon('add')!;
+      final addIcon = roughIconFor('add');
       final button = WiredIconButton(icon: addIcon);
 
       expect(button.onPressed, isNull);
@@ -112,7 +111,7 @@ void main() {
     });
 
     testWidgets('renders at its default and custom sizes', (tester) async {
-      final addIcon = lookupMaterialRoughFontIcon('add')!;
+      final addIcon = roughIconFor('add');
 
       await pumpWired(tester, WiredIconButton(icon: addIcon, onPressed: () {}));
       expect(
@@ -139,7 +138,7 @@ void main() {
       await pumpWired(
         tester,
         WiredIconButton(
-          icon: lookupMaterialRoughFontIcon('add')!,
+          icon: roughIconFor('add'),
           onPressed: () {},
           iconColor: red,
         ),
@@ -154,7 +153,7 @@ void main() {
       await pumpWiredRtl(
         tester,
         WiredIconButton(
-          icon: lookupMaterialRoughFontIcon('add')!,
+          icon: roughIconFor('add'),
           onPressed: () => pressed = true,
         ),
       );
@@ -172,7 +171,7 @@ void main() {
     testWidgets('renders and paints under small and zero constraints', (
       tester,
     ) async {
-      final addIcon = lookupMaterialRoughFontIcon('add')!;
+      final addIcon = roughIconFor('add');
 
       await pumpWired(
         tester,
@@ -195,7 +194,7 @@ void main() {
       await pumpWiredScaled(
         tester,
         WiredIconButton(
-          icon: lookupMaterialRoughFontIcon('add')!,
+          icon: roughIconFor('add'),
           onPressed: () {},
         ),
       );
@@ -212,7 +211,7 @@ void main() {
     await pumpApp(
       tester,
       WiredIconButton(
-        icon: lookupMaterialRoughFontIcon('settings')!,
+        icon: roughIconFor('settings'),
         onPressed: null,
         iconSize: 30,
         color: Color(0xFF123456),
@@ -227,7 +226,7 @@ void main() {
   testWidgets('iconSize defaults to half of size', (tester) async {
     await pumpApp(
       tester,
-      WiredIconButton(icon: lookupMaterialRoughFontIcon('settings')!, onPressed: null, size: 60),
+      WiredIconButton(icon: roughIconFor('settings'), onPressed: null, size: 60),
     );
 
     expect(tester.widget<WiredIcon>(find.byType(WiredIcon)).size, 30);
@@ -237,7 +236,7 @@ void main() {
     await pumpApp(
       tester,
       WiredIconButton(
-        icon: lookupMaterialRoughFontIcon('settings')!,
+        icon: roughIconFor('settings'),
         onPressed: null,
         iconColor: Color(0xFF654321),
       ),

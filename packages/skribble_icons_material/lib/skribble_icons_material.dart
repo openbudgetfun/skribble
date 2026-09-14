@@ -45,6 +45,7 @@ void registerSkribbleMaterialIcons() {
       fontFamily: kMaterialRoughIconsFontFamily,
       identifierCodePoints: kMaterialRoughIconsCodePoints,
       codePoints: kMaterialRoughIcons.keys.toList(growable: false),
+      resolveFontIcon: lookupMaterialRoughIconsIconData,
     ),
   );
 }
