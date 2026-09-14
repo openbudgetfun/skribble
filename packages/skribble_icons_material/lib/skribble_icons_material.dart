@@ -81,6 +81,7 @@ List<String> get materialRoughIconIdentifiers =>
 List<int> get materialRoughIconCodePoints =>
     kMaterialRoughIcons.keys.toList(growable: false);
 
-/// Returns the font-backed [IconData] for [identifier], or `null`.
-IconData? lookupMaterialRoughFontIcon(String identifier) =>
-    lookupMaterialRoughIconsIconData(identifier);
+// `lookupMaterialRoughFontIcon` is not defined here: core owns it, building an
+// IconData from whichever catalog is registered. Defining it in both places
+// made every import of this library and `package:skribble/skribble.dart`
+// together an ambiguous reference.
