@@ -1,11 +1,11 @@
-/// Lucide icon set for Skribble.
+/// Lucide icon set for skribble.
 ///
 /// Lucide contributes 1,837 icons plus 219 aliases, all drawn as open outlines
 /// at a uniform 2px stroke. Because every path is a stroke rather than a
 /// silhouette, the set reads as the lightest of the bundled catalogs.
 ///
 /// Artwork comes from [Lucide](https://lucide.dev) under the ISC license,
-/// warped through the shared Skribble rough pass at generation time. Every path
+/// warped through the shared skribble rough pass at generation time. Every path
 /// here is precomputed, so rendering never runs the rough engine.
 ///
 /// ```dart

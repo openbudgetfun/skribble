@@ -1,11 +1,11 @@
-/// Boxicons Solid icon set for Skribble.
+/// Boxicons Solid icon set for skribble.
 ///
 /// The solid weight of Boxicons: 665 filled silhouettes on a 24×24 grid. It
 /// pairs with an outline set the way a filled Material icon pairs with its
 /// outlined counterpart.
 ///
 /// Artwork comes from [Boxicons](https://boxicons.com) under the MIT license,
-/// warped through the shared Skribble rough pass at generation time. Every path
+/// warped through the shared skribble rough pass at generation time. Every path
 /// here is precomputed, so rendering never runs the rough engine.
 ///
 /// ```dart

@@ -1,4 +1,4 @@
-/// Hand-drawn Material icon catalog for Skribble.
+/// Hand-drawn Material icon catalog for skribble.
 ///
 /// Ships precomputed rough geometry for the full Flutter Material icon set
 ///

@@ -1,11 +1,11 @@
-/// CoreUI Brands icon set for Skribble.
+/// CoreUI Brands icon set for skribble.
 ///
 /// 830 brand marks covering products, platforms, languages, and social
 /// networks — the logos an app needs for sign-in buttons, footer links, and
 /// tech-stack sections.
 ///
 /// Artwork comes from [CoreUI Icons](https://github.com/coreui/coreui-icons)
-/// under CC0-1.0, warped through the shared Skribble rough pass at generation
+/// under CC0-1.0, warped through the shared skribble rough pass at generation
 /// time. Every path here is precomputed, so rendering never runs the rough
 /// engine.
 ///

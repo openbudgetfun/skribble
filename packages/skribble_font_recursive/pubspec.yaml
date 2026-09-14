@@ -1,6 +1,6 @@
 name: skribble_font_recursive
 description: |
-  The bundled Skribble typefaces: hand-drawn Recursive families at three
+  The bundled skribble typefaces: hand-drawn Recursive families at three
   roughness levels, as 126 static faces and 3 variable fonts.
 version: 0.1.1
 homepage: https://github.com/openbudgetfun/skribble
@@ -16,45 +16,48 @@ environment:
   sdk: ^3.13.0
   flutter: ">=3.47.0"
 resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
 
 flutter:
   uses-material-design: true
   fonts:
     - family: Skribble
       fonts:
-        - asset: assets/fonts/Skribble-Black.ttf
+        - asset: assets/fonts/skribble-Black.ttf
           weight: 900
-        - asset: assets/fonts/Skribble-BlackItalic.ttf
+        - asset: assets/fonts/skribble-BlackItalic.ttf
           weight: 900
           style: italic
-        - asset: assets/fonts/Skribble-Bold.ttf
+        - asset: assets/fonts/skribble-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Skribble-BoldItalic.ttf
+        - asset: assets/fonts/skribble-BoldItalic.ttf
           weight: 700
           style: italic
-        - asset: assets/fonts/Skribble-ExtraBold.ttf
+        - asset: assets/fonts/skribble-ExtraBold.ttf
           weight: 800
-        - asset: assets/fonts/Skribble-ExtraBoldItalic.ttf
+        - asset: assets/fonts/skribble-ExtraBoldItalic.ttf
           weight: 800
           style: italic
-        - asset: assets/fonts/Skribble-Italic.ttf
+        - asset: assets/fonts/skribble-Italic.ttf
           weight: 400
           style: italic
-        - asset: assets/fonts/Skribble-Light.ttf
+        - asset: assets/fonts/skribble-Light.ttf
           weight: 300
-        - asset: assets/fonts/Skribble-LightItalic.ttf
+        - asset: assets/fonts/skribble-LightItalic.ttf
           weight: 300
           style: italic
-        - asset: assets/fonts/Skribble-Medium.ttf
+        - asset: assets/fonts/skribble-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Skribble-MediumItalic.ttf
+        - asset: assets/fonts/skribble-MediumItalic.ttf
           weight: 500
           style: italic
-        - asset: assets/fonts/Skribble-Regular.ttf
+        - asset: assets/fonts/skribble-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Skribble-SemiBold.ttf
+        - asset: assets/fonts/skribble-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Skribble-SemiBoldItalic.ttf
+        - asset: assets/fonts/skribble-SemiBoldItalic.ttf
           weight: 600
           style: italic
     - family: SkribbleGentle

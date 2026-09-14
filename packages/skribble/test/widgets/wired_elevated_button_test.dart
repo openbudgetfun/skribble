@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_icons_material/skribble_icons_material.dart';
 
 import '../helpers/skribble_test_support.dart';
 

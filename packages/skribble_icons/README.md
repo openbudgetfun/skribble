@@ -2,9 +2,7 @@
 
 Every skribble hand-drawn icon set behind one import.
 
-The sets live in separate packages so an app only pays for the artwork it
-renders. This package depends on all of them, re-exports their catalogs, and
-adds a cross-set lookup.
+The sets live in separate packages so an app only pays for the artwork it renders. This package depends on all of them, re-exports their catalogs, and adds a cross-set lookup.
 
 | Set            | Package                   | Names  | Style                   | License    |
 | -------------- | ------------------------- | ------ | ----------------------- | ---------- |
@@ -48,22 +46,16 @@ print(match?.set); // SkribbleIconSet.lucide
 
 ### Activating Material icons
 
-`registerSkribbleIcons()` installs the Material catalog so that
-`WiredIcon(icon: Icons.search)` draws hand-drawn geometry. Without it,
-`WiredIcon` falls back to Flutter's plain `Icon` widget and renders the font
-glyph. The call is idempotent and safe before `runApp`.
+`registerSkribbleIcons()` installs the Material catalog so that `WiredIcon(icon: Icons.search)` draws hand-drawn geometry. Without it, `WiredIcon` falls back to Flutter's plain `Icon` widget and renders the font glyph. The call is idempotent and safe before `runApp`.
 
-The Iconify sets and the simple set need no registration — they are looked up
-by identifier, which this package reads directly.
+The Iconify sets and the simple set need no registration — they are looked up by identifier, which this package reads directly.
 
 ## Lookup order
 
 `lookupSkribbleIcon` searches in a fixed order and reports the winner:
 
-1. `curated` — hand-authored names that match the component library's own
-   vocabulary
-2. `simple` — Simple Icons brand marks, whose slugs are unambiguous (`github`
-   always means the logo, never a UI glyph)
+1. `curated` — hand-authored names that match the component library's own vocabulary
+2. `simple` — Simple Icons brand marks, whose slugs are unambiguous (`github` always means the logo, never a UI glyph)
 3. `material` — so existing Flutter identifiers keep resolving
 4. `lucide`, then `bxs`, then `cib`
 
@@ -79,10 +71,7 @@ melos run icons-check     # verify the committed catalogs are current
 
 ## Provenance and determinism
 
-Every set is generated from a source pinned by version and checksum, recorded in
-each package's README and in [`tool/asset_sources.txt`](../../tool/asset_sources.txt).
-Regeneration is byte-for-byte deterministic — see
-[docs/asset-provenance.md](../../docs/asset-provenance.md).
+Every set is generated from a source pinned by version and checksum, recorded in each package's README and in [`tool/asset_sources.txt`](../../tool/asset_sources.txt). Regeneration is byte-for-byte deterministic — see [docs/asset-provenance.md](../../docs/asset-provenance.md).
 
 ```bash
 melos run icons-check   # verify every committed catalog is current
@@ -90,9 +79,7 @@ melos run icons-check   # verify every committed catalog is current
 
 ## Licenses
 
-Each set retains its upstream license, recorded in the header of its generated
-catalog. Artwork is warped by Skribble; the derivative keeps the source license.
-See each package's README for attribution details.
+Each set retains its upstream license, recorded in the header of its generated catalog. Artwork is warped by skribble; the derivative keeps the source license. See each package's README for attribution details.
 
 ## License
 

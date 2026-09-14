@@ -1,11 +1,8 @@
 # skribble_icons_curated
 
-The curated hand-drawn icon set for [Skribble](https://github.com/openbudgetfun/skribble).
+The curated hand-drawn icon set for [skribble](https://github.com/openbudgetfun/skribble).
 
-Thirty icons covering the vocabulary a typical screen needs — home, search,
-navigation arrows, editing, media, and status. Each one is authored as a 24x24
-SVG and warped through the shared Skribble rough pass at generation time, so the
-geometry is already hand-drawn and rendering never runs the rough engine.
+Thirty icons covering the vocabulary a typical screen needs — home, search, navigation arrows, editing, media, and status. Each one is authored as a 24x24 SVG and warped through the shared skribble rough pass at generation time, so the geometry is already hand-drawn and rendering never runs the rough engine.
 
 ## Installation
 
@@ -13,8 +10,7 @@ geometry is already hand-drawn and rendering never runs the rough engine.
 dart pub add skribble_icons_curated
 ```
 
-To pull in every Skribble icon set at once, use
-[`skribble_icons`](https://pub.dev/packages/skribble_icons) instead.
+To pull in every skribble icon set at once, use [`skribble_icons`](https://pub.dev/packages/skribble_icons) instead.
 
 ## Usage
 
@@ -28,8 +24,7 @@ if (data != null) {
 }
 ```
 
-`SkribbleIcon` is the fast path when you already hold the geometry: it paints
-precomputed paths with no runtime displacement.
+`SkribbleIcon` is the fast path when you already hold the geometry: it paints precomputed paths with no runtime displacement.
 
 ```dart
 SkribbleIcon(data: kSkribbleCuratedIcons[0xf001]!, size: 32)
@@ -75,36 +70,30 @@ Codepoints occupy the reserved band `0xF001–0xF0FF`.
 ## Adding an icon
 
 1. Add a 24x24 SVG to `icons/`.
-2. Add an entry to `tool/skribble_icons.manifest.json` with a free codepoint in
-   the band above.
+2. Add an entry to `tool/skribble_icons.manifest.json` with a free codepoint in the band above.
 3. Run `melos run icons-curated`.
 4. Commit the regenerated `lib/src/generated/skribble_curated_icons.g.dart`.
 
-The generator writes the geometry map and the identifier map from the same run,
-so the two cannot drift.
+The generator writes the geometry map and the identifier map from the same run, so the two cannot drift.
 
 ## License
 
-Skribble is licensed under the root repository's [LICENSE](../../LICENSE).
+skribble is licensed under the root repository's [LICENSE](../../LICENSE).
 
 ## Provenance
 
-This catalog is generated, never hand-edited. The table records exactly what it
-was built from. Bumping a value means editing `tool/asset_sources.txt` in the
-same commit as the regenerated catalog.
+This catalog is generated, never hand-edited. The table records exactly what it was built from. Bumping a value means editing `tool/asset_sources.txt` in the same commit as the regenerated catalog.
 
-| Field | Value |
-| --- | --- |
-| Source | 30 curated SVGs checked into `icons/` |
-| Artwork derived from | [Material Design icons](https://fonts.google.com/icons) |
-| Source license | Apache-2.0 |
-| Manifest | `tool/skribble_icons.manifest.json` |
-| Codepoint band | `0xF001-0xF0FF` |
-| Icons generated | 30 |
-| Generator | `dart run packages/skribble_emoji_gen/bin/generate_icons.dart` |
-| Melos shortcut | `melos run icons-curated` |
-| Registry | `tool/asset_sources.txt` |
+| Field                | Value                                                          |
+| -------------------- | -------------------------------------------------------------- |
+| Source               | 30 curated SVGs checked into `icons/`                          |
+| Artwork derived from | [Material Design icons](https://fonts.google.com/icons)        |
+| Source license       | Apache-2.0                                                     |
+| Manifest             | `tool/skribble_icons.manifest.json`                            |
+| Codepoint band       | `0xF001-0xF0FF`                                                |
+| Icons generated      | 30                                                             |
+| Generator            | `dart run packages/skribble_emoji_gen/bin/generate_icons.dart` |
+| Melos shortcut       | `melos run icons-curated`                                      |
+| Registry             | `tool/asset_sources.txt`                                       |
 
-Generation is deterministic: rebuilding from the same source bytes reproduces
-this catalog byte for byte. CI re-derives every catalog and fails on any diff,
-so an upstream change can never land silently.
+Generation is deterministic: rebuilding from the same source bytes reproduces this catalog byte for byte. CI re-derives every catalog and fails on any diff, so an upstream change can never land silently.

@@ -1,6 +1,6 @@
 name: skribble_icons_bxs
 description: |
-  Boxicons Solid icon set for Skribble, rendered as precomputed hand-drawn
+  Boxicons Solid icon set for skribble, rendered as precomputed hand-drawn
   geometry. The solid weight of Boxicons: 665 filled silhouettes that pair with an outline set.
 version: 0.1.1
 homepage: https://github.com/openbudgetfun/skribble

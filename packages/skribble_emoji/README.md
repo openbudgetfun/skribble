@@ -22,21 +22,17 @@ Source stroke dashes, cap/join styles, miter limits, hidden layers, and stroke-f
 
 ## Provenance
 
-This catalog is generated, never hand-edited. The table records exactly what it
-was built from. Bumping a value means editing `tool/asset_sources.txt` in the
-same commit as the regenerated catalog.
+This catalog is generated, never hand-edited. The table records exactly what it was built from. Bumping a value means editing `tool/asset_sources.txt` in the same commit as the regenerated catalog.
 
-| Field | Value |
-| --- | --- |
-| Source | [OpenMoji](https://openmoji.org) |
-| Upstream version | `17.0.0` |
-| SVG archive SHA-256 | `59b0cd9f6fe0…5cc3805689` |
-| Catalog CSV SHA-256 | `28375217b92f…d4032cbe7e` |
-| License | CC-BY-SA-4.0 (retained by the warped derivative) |
-| Names generated | 4,495, including skin-tone, flag, and ZWJ sequences |
-| Generator | `dart run packages/skribble_emoji_gen/bin/update_assets.dart` |
-| Registry | `tool/asset_sources.txt` |
+| Field               | Value                                                         |
+| ------------------- | ------------------------------------------------------------- |
+| Source              | [OpenMoji](https://openmoji.org)                              |
+| Upstream version    | `17.0.0`                                                      |
+| SVG archive SHA-256 | `59b0cd9f6fe0…5cc3805689`                                     |
+| Catalog CSV SHA-256 | `28375217b92f…d4032cbe7e`                                     |
+| License             | CC-BY-SA-4.0 (retained by the warped derivative)              |
+| Names generated     | 4,495, including skin-tone, flag, and ZWJ sequences           |
+| Generator           | `dart run packages/skribble_emoji_gen/bin/update_assets.dart` |
+| Registry            | `tool/asset_sources.txt`                                      |
 
-Generation is deterministic: rebuilding from the same source bytes reproduces
-this catalog byte for byte. CI re-derives every catalog and fails on any diff,
-so an upstream change can never land silently.
+Generation is deterministic: rebuilding from the same source bytes reproduces this catalog byte for byte. CI re-derives every catalog and fails on any diff, so an upstream change can never land silently.

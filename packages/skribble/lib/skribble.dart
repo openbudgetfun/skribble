@@ -60,8 +60,8 @@ export 'src/rough/skribble_rough.dart'
 // ---------------------------------------------------------------------------
 
 export 'src/skribble_app.dart' hide resolveWiredAppTheme;
-export 'src/skribble_localizations.dart';
 export 'src/skribble_icon.dart';
+export 'src/skribble_localizations.dart';
 export 'src/wired_about_dialog.dart';
 export 'src/wired_about_list_tile.dart';
 export 'src/wired_animated_icon.dart';

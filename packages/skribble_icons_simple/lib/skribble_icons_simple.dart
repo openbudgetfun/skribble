@@ -1,10 +1,10 @@
-/// Simple Icons for Skribble.
+/// Simple Icons for skribble.
 ///
 /// 3,472 brand and product marks from the [Simple Icons](https://simpleicons.org)
 /// project — the logos an app needs for sign-in buttons, footer links, tech-stack
 /// sections, and "works with" lists.
 ///
-/// Artwork is CC0-1.0, warped through the shared Skribble rough pass at
+/// Artwork is CC0-1.0, warped through the shared skribble rough pass at
 /// generation time. Every path is precomputed, so rendering never runs the rough
 /// engine.
 ///

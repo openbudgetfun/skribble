@@ -265,18 +265,16 @@ final codePoints = materialRoughIconCodePoints;
 
 ## Icon packages
 
-Each icon set ships as its own package so an app only pays for the artwork it
-renders. `skribble_icons` is the umbrella: it depends on every set, re-exports
-their catalogs, and adds a cross-set lookup.
+Each icon set ships as its own package so an app only pays for the artwork it renders. `skribble_icons` is the umbrella: it depends on every set, re-exports their catalogs, and adds a cross-set lookup.
 
-| Package                   | Names  | Style                  | License    |
-| ------------------------- | ------ | ---------------------- | ---------- |
-| `skribble_icons_simple`   | 3,472  | brand marks            | CC0-1.0    |
-| `skribble_icons_curated`  | 30     | app vocabulary         | Apache-2.0 |
-| `skribble_icons_material` | 8,600+ | Flutter's `Icons`      | Apache-2.0 |
-| `skribble_icons_lucide`   | 2,056  | 2px open outlines      | ISC        |
-| `skribble_icons_bxs`      | 665    | filled silhouettes     | MIT        |
-| `skribble_icons_cib`      | 831    | brand and product marks | CC0-1.0   |
+| Package                   | Names  | Style                   | License    |
+| ------------------------- | ------ | ----------------------- | ---------- |
+| `skribble_icons_simple`   | 3,472  | brand marks             | CC0-1.0    |
+| `skribble_icons_curated`  | 30     | app vocabulary          | Apache-2.0 |
+| `skribble_icons_material` | 8,600+ | Flutter's `Icons`       | Apache-2.0 |
+| `skribble_icons_lucide`   | 2,056  | 2px open outlines       | ISC        |
+| `skribble_icons_bxs`      | 665    | filled silhouettes      | MIT        |
+| `skribble_icons_cib`      | 831    | brand and product marks | CC0-1.0    |
 
 ### Installation
 
@@ -292,9 +290,7 @@ dart pub add skribble_icons_lucide
 
 ### Curated icons
 
-The curated set covers the actions a typical screen needs. Each one is authored
-as a 24x24 SVG and warped at generation time, so no rough engine work happens
-at render time.
+The curated set covers the actions a typical screen needs. Each one is authored as a 24x24 SVG and warped at generation time, so no rough engine work happens at render time.
 
 ```dart
 // Live example: custom-icons
@@ -323,9 +319,7 @@ Wrap(
 
 ### Activating Material icons
 
-`WiredIcon` resolves an `IconData` through a registered catalog. Importing an
-icon package is not enough on its own, so call the registration once during
-startup. Without it, `WiredIcon` falls back to Flutter's plain `Icon` widget.
+`WiredIcon` resolves an `IconData` through a registered catalog. Importing an icon package is not enough on its own, so call the registration once during startup. Without it, `WiredIcon` falls back to Flutter's plain `Icon` widget.
 
 ```dart
 // Static example: api
@@ -337,8 +331,7 @@ void main() {
 }
 ```
 
-The Iconify sets and the curated set need no registration. They are looked up by
-identifier, which the umbrella package reads directly:
+The Iconify sets and the curated set need no registration. They are looked up by identifier, which the umbrella package reads directly:
 
 ```dart
 // Static example: api
@@ -353,9 +346,7 @@ if (data != null) {
 
 ### Unified lookup API
 
-`lookupSkribbleIcon` searches the sets in a fixed order and reports which one
-matched. The curated set wins ties because its names are chosen to match
-the component library's own vocabulary.
+`lookupSkribbleIcon` searches the sets in a fixed order and reports which one matched. The curated set wins ties because its names are chosen to match the component library's own vocabulary.
 
 ```dart
 // Static example: api
@@ -364,37 +355,32 @@ print(match?.set); // SkribbleIconSet.lucide
 print(match?.data); // WiredSvgIconData
 ```
 
-| Function                               | Returns              | Description                                           |
-| -------------------------------------- | -------------------- | ----------------------------------------------------- |
-| `lookupSkribbleIconByIdentifier`       | `WiredSvgIconData?`  | Geometry for an identifier across every bundled set.  |
-| `lookupSkribbleIcon`                   | `SkribbleIconMatch?` | Geometry plus the `SkribbleIconSet` that supplied it. |
+| Function                                | Returns              | Description                                           |
+| --------------------------------------- | -------------------- | ----------------------------------------------------- |
+| `lookupSkribbleIconByIdentifier`        | `WiredSvgIconData?`  | Geometry for an identifier across every bundled set.  |
+| `lookupSkribbleIcon`                    | `SkribbleIconMatch?` | Geometry plus the `SkribbleIconSet` that supplied it. |
 | `lookupSkribbleCuratedIconByIdentifier` | `WiredSvgIconData?`  | Curated 30-icon set only.                             |
-| `lookupLucideIconByIdentifier`         | `WiredSvgIconData?`  | Lucide only.                                          |
-| `lookupBxsIconByIdentifier`            | `WiredSvgIconData?`  | Boxicons Solid only.                                  |
-| `lookupCibIconByIdentifier`            | `WiredSvgIconData?`  | CoreUI Brands only.                                   |
-| `skribbleIconCount`                    | `int`                | Names across the non-Material sets.                   |
-| `skribbleMaterialIconCount`            | `int`                | Names in the Material catalog.                        |
+| `lookupLucideIconByIdentifier`          | `WiredSvgIconData?`  | Lucide only.                                          |
+| `lookupBxsIconByIdentifier`             | `WiredSvgIconData?`  | Boxicons Solid only.                                  |
+| `lookupCibIconByIdentifier`             | `WiredSvgIconData?`  | CoreUI Brands only.                                   |
+| `skribbleIconCount`                     | `int`                | Names across the non-Material sets.                   |
+| `skribbleMaterialIconCount`             | `int`                | Names in the Material catalog.                        |
 
 ### Codepoint bands
 
-Private-use codepoints are allocated per set so a future merged catalog cannot
-collide. Material keeps its upstream codepoints and resolves through `IconData`.
+Private-use codepoints are allocated per set so a future merged catalog cannot collide. Material keeps its upstream codepoints and resolves through `IconData`.
 
-| Set    | Band              |
-| ------ | ----------------- |
-| curated | `0xF001–0xF0FF`  |
-| lucide | `0xE000–0xEFFF`   |
-| bxs    | `0xF100–0xF3FF`   |
-| cib    | `0xF400–0xF7FF`   |
-| simple | `0xF0000–0xF0FFF` |
+| Set     | Band              |
+| ------- | ----------------- |
+| curated | `0xF001–0xF0FF`   |
+| lucide  | `0xE000–0xEFFF`   |
+| bxs     | `0xF100–0xF3FF`   |
+| cib     | `0xF400–0xF7FF`   |
+| simple  | `0xF0000–0xF0FFF` |
 
 ### Material icons
 
-`WiredIcon(icon: Icons.home)` renders a hand-drawn shape once the Material
-catalog is registered. That catalog lives in `skribble_icons_material`, which
-keeps the core `skribble` package free of icon data. If you would rather not
-carry 8,600 codepoints, skip the registration and `WiredIcon` draws the ordinary
-font glyph instead.
+`WiredIcon(icon: Icons.home)` renders a hand-drawn shape once the Material catalog is registered. That catalog lives in `skribble_icons_material`, which keeps the core `skribble` package free of icon data. If you would rather not carry 8,600 codepoints, skip the registration and `WiredIcon` draws the ordinary font glyph instead.
 
 ---
 
@@ -430,16 +416,9 @@ WiredSvgIcon(
 
 ## Reproducible catalogs and readable counters
 
-The Material catalog contains 8,622 unique icon codepoints (8,825 names including aliases) for the pinned Flutter 3.47.0 SDK. Run `./scripts/check_rough_icons_ci.sh all` to check unresolved symbols and
-Material catalog drift, and `melos run icons-check` to re-derive every icon
-catalog and fail on any diff.
+The Material catalog contains 8,622 unique icon codepoints (8,825 names including aliases) for the pinned Flutter 3.47.0 SDK. Run `./scripts/check_rough_icons_ci.sh all` to check unresolved symbols and Material catalog drift, and `melos run icons-check` to re-derive every icon catalog and fail on any diff.
 
-The 30 curated icons regenerate from
-`packages/skribble_icons_curated/tool/skribble_icons.manifest.json` with
-`melos run icons-curated`. The Simple Icons, Lucide, Boxicons Solid, and CoreUI Brands
-catalogs regenerate from their pinned sources with `melos run icons-iconify`;
-the versions and SHA-256 checksums live in `tool/iconify_sources.txt`, so an
-upstream bump is an explicit edit rather than a silent drift.
+The 30 curated icons regenerate from `packages/skribble_icons_curated/tool/skribble_icons.manifest.json` with `melos run icons-curated`. The Simple Icons, Lucide, Boxicons Solid, and CoreUI Brands catalogs regenerate from their pinned sources with `melos run icons-iconify`; the versions and SHA-256 checksums live in `tool/asset_sources.txt`, so an upstream bump is an explicit edit rather than a silent drift.
 
 Curated geometry retains its source view box, preventing oversized output. Runtime rough fills preserve separate contours and even-odd fill rules, so rings, search symbols, and other counters stay open. Small icons use a gentler wobble than layout borders. `WiredSvgPrimitive.path` also accepts `clipPaths` in the same coordinate system. Source colors may be `#RGB`, `#RRGGBB`, or `#RRGGBBAA`.
 

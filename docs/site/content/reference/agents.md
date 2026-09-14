@@ -1146,33 +1146,24 @@ melos run rough-icons-font     # SVG + TTF font + Dart helpers
 
 ### Generating icon-set packages
 
-Each icon set ships as its own package under `packages/`. Adding a set means
-creating the package, pointing a generator at a pinned source, and committing
-the resulting `.g.dart`.
+Each icon set ships as its own package under `packages/`. Adding a set means creating the package, pointing a generator at a pinned source, and committing the resulting `.g.dart`.
 
 - `skribble_icons_curated` regenerates from a checked-in SVG manifest.
-- `skribble_icons_lucide`, `skribble_icons_bxs`, and `skribble_icons_cib`
-  regenerate from Iconify `icons.json` payloads pinned in
-  `tool/iconify_sources.txt` by version and SHA-256.
-- `skribble_icons_material` regenerates from the Flutter SDK through
-  `svg2roughjs`; see `docs/rough-icon-pipeline.md`.
+- `skribble_icons_lucide`, `skribble_icons_bxs`, and `skribble_icons_cib` regenerate from Iconify `icons.json` payloads pinned in `tool/asset_sources.txt` by version and SHA-256.
+- `skribble_icons_material` regenerates from the Flutter SDK through `svg2roughjs`; see `docs/rough-icon-pipeline.md`.
 
 Codepoints are private-use and allocated per set so catalogs cannot collide:
 
-| Set      | Band            |
-| -------- | --------------- |
-| simple   | `0xF001–0xF0FF` |
-| lucide   | `0xE000–0xEFFF` |
-| bxs      | `0xF100–0xF3FF` |
-| cib      | `0xF400–0xF7FF` |
+| Set    | Band            |
+| ------ | --------------- |
+| simple | `0xF001–0xF0FF` |
+| lucide | `0xE000–0xEFFF` |
+| bxs    | `0xF100–0xF3FF` |
+| cib    | `0xF400–0xF7FF` |
 
-Core `skribble` owns no icon catalog. `WiredIcon` resolves `IconData` through
-`registerWiredIconCatalog`, which an icon-set package calls from its own
-`registerSkribbleMaterialIcons()`. Adding an icon set therefore never touches
-the core package.
+Core `skribble` owns no icon catalog. `WiredIcon` resolves `IconData` through `registerWiredIconCatalog`, which an icon-set package calls from its own `registerSkribbleMaterialIcons()`. Adding an icon set therefore never touches the core package.
 
-`melos run icons-check` re-derives every catalog and fails on any byte
-difference, which is what the `icon-catalogs-sync` CI job enforces.
+`melos run icons-check` re-derives every catalog and fails on any byte difference, which is what the `icon-catalogs-sync` CI job enforces.
 
 ### Adding a curated custom icon
 

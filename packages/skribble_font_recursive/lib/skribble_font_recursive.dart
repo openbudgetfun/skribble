@@ -1,4 +1,4 @@
-/// The bundled Skribble typefaces, shipped separately from the widget library.
+/// The bundled skribble typefaces, shipped separately from the widget library.
 ///
 /// This package is almost entirely font assets: the hand-drawn Recursive
 /// families at three roughness levels, as 126 static faces and 3 variable

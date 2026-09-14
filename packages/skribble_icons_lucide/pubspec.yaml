@@ -1,6 +1,6 @@
 name: skribble_icons_lucide
 description: |
-  Lucide icon set for Skribble, rendered as precomputed hand-drawn
+  Lucide icon set for skribble, rendered as precomputed hand-drawn
   geometry. The Lucide outline icon set: 1,837 icons plus 219 aliases at a uniform 2px stroke.
 version: 0.1.1
 homepage: https://github.com/openbudgetfun/skribble

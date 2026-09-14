@@ -3,7 +3,8 @@ description: |
   Every skribble hand-drawn icon set behind one import. Aggregates the
   curated, Simple Icons, Material, Lucide, Boxicons, and CoreUI Brands catalogs
   with a unified lookup.
-version: 0.2.0homepage: https://github.com/openbudgetfun/skribble
+version: 0.2.0
+homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_icons
 documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble_icons/README.md
 issue_tracker: https://github.com/openbudgetfun/skribble/issues

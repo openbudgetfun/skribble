@@ -12,18 +12,9 @@ dart run packages/skribble_emoji_gen/bin/update_assets.dart
 
 The lower-level generators are repository tools:
 
-- `generate_emoji.dart` builds an emoji catalog from an extracted OpenMoji SVG
-  directory and CSV file.
-- `generate_icons.dart` rebuilds the curated simple icon catalog from its
-  checked-in SVG manifest, emitting the geometry map and the identifier map from
-  one run so the two cannot drift. Both generators accept `--check`, which
-  re-derives the catalog into memory and fails on any byte difference.
-- `generate_iconify_set.dart` converts a pinned Iconify `icons.json` payload
-  into a catalog for one of the `skribble_icons_*` packages. It resolves
-  Iconify aliases, applies per-icon geometry and flip overrides, and warps every
-  outline with the same deterministic rough pass the other generators use. All
-  three sets together finish in seconds, because the conversion is pure Dart
-  rather than a headless-browser round trip per icon.
+- `generate_emoji.dart` builds an emoji catalog from an extracted OpenMoji SVG directory and CSV file.
+- `generate_icons.dart` rebuilds the curated simple icon catalog from its checked-in SVG manifest, emitting the geometry map and the identifier map from one run so the two cannot drift. Both generators accept `--check`, which re-derives the catalog into memory and fails on any byte difference.
+- `generate_iconify_set.dart` converts a pinned Iconify `icons.json` payload into a catalog for one of the `skribble_icons_*` packages. It resolves Iconify aliases, applies per-icon geometry and flip overrides, and warps every outline with the same deterministic rough pass the other generators use. All three sets together finish in seconds, because the conversion is pure Dart rather than a headless-browser round trip per icon.
 
 ## Verification
 

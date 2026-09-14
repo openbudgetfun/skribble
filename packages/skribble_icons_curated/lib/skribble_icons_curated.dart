@@ -1,4 +1,4 @@
-/// Curated hand-drawn simple icon set for Skribble.
+/// Curated hand-drawn simple icon set for skribble.
 ///
 /// Thirty app-level icons that cover the common interface vocabulary — home,
 /// search, navigation arrows, editing, media, and status. Each one is authored
