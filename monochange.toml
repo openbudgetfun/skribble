@@ -139,7 +139,7 @@ publish.registry = "pub_dev"
 # skribble_emoji) takes well over the default timeout on cold caches.
 publish.timeout.timeout_seconds = 600
 publish.timeout.retries = 1
-publish.trusted_publishing = { enabled = true, repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
+publish.trusted_publishing = { enabled = true, mode = "preferred", repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
 versioned_files = [
   { path = "**/pubspec.yaml", type = "dart", fields = ["dependencies", "dev_dependencies"] },
 ]
