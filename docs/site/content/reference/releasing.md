@@ -86,6 +86,8 @@ Two repository-side settings make the automated path work. The local fallback ne
 - **`RELEASES_GITHUB_TOKEN` secret** — a fine-grained PAT with `Contents: read and write` on this repository. GitHub suppresses workflow events for tags pushed with `GITHUB_TOKEN`, and deploy keys are disabled on this repository, so the release workflow needs this token to push tags that fire the publish workflow.
 - **pub.dev automated publishing** — configured per package in the package's Admin tab: repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, and the tag pattern for that package (`v{{version}}`, `skribble_maps/v{{version}}`, or `skribble_charts/v{{version}}`). pub.dev rejects a tagged publish whose configuration does not match.
 
+`publish.trusted_publishing` in `monochange.toml` sets `mode = "preferred"`. When a verifiable GitHub Actions identity is present the publish still uses trusted publishing and still verifies the configured repository, workflow, and environment, so the automated path is unchanged. Without that identity — a local run, for example — publishing falls back to standard credentials instead of failing before the first registry call. The default mode, `required`, rejects any publish not backed by a CI identity, which makes trusted publishing mandatory in every environment.
+
 ### Font release assets
 
 Each bundled font family ships as a versioned zip attached to the GitHub release, produced by `scripts/release/package_fonts.sh`. The zip stem is the `fontFamily` value a consumer passes to Flutter, except for the `Skribble` family, which keeps its already-published `SkribbleRecursive` stem:
