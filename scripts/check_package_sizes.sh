@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
-# Verify every publishable package stays inside its compressed-size budget.
+# Verify every publishable package passes `pub publish --dry-run` validation
+# and stays inside its compressed-size budget.
 #
-# pub.dev documents a recommendation of "less than 100 MB after gzip
-# compression and less than 256 MB uncompressed" in its publishing guide. That
-# is advice rather than a hard cap, so this check enforces a much tighter
-# per-package budget: a design-system package should not ship tens of megabytes
-# of artwork, and a surprise jump is nearly always a generated catalog that
-# should live in its own package instead.
+# Two independent checks per package, both from the same dry run:
+#
+# 1. Validation. pub.dev rejects packages that fail its requirements (a
+#    missing LICENSE file, for example). monochange's own dry-run reports only
+#    the version plan and exits 0 regardless, so this check exists to catch
+#    what that misses.
+#
+# 2. Size budget. pub.dev documents a recommendation of "less than 100 MB
+#    after gzip compression and less than 256 MB uncompressed" in its
+#    publishing guide. That is advice rather than a hard cap, so this check
+#    enforces a much tighter per-package budget: a design-system package
+#    should not ship tens of megabytes of artwork, and a surprise jump is
+#    nearly always a generated catalog that should live in its own package
+#    instead.
 #
 # Usage:
 #   ./scripts/check_package_sizes.sh [--json] [--verbose]
@@ -105,6 +114,16 @@ measure_kib() {
   output="$("$runner" pub publish --dry-run 2>&1 || true)"
   local size
   size="$(sed -n 's/^Total compressed archive size: \(.*\)\.$/\1/p' <<<"$output" | tail -n1)"
+
+  # pub prints the archive size even when validation fails (a missing LICENSE,
+  # for example), so the size alone cannot be the verdict. A validation error
+  # blocks the real publish, so it must fail this check independently.
+  if grep -q 'found the following error' <<<"$output"; then
+    printf '%s\n' "$output" | grep -A2 'found the following error' >&2
+    popd >/dev/null
+    echo "VALIDATION_ERROR"
+    return
+  fi
 
   if [[ -z "$size" ]]; then
     # Surface the dry-run text so a real validation failure is diagnosable.
