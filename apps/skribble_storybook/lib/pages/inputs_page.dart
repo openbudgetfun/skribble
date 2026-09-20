@@ -325,8 +325,8 @@ class InputsPage extends HookWidget {
                 title: 'With Prefix & Suffix',
                 child: WiredCupertinoTextField(
                   placeholder: 'Search...',
-                  prefix: const Icon(Icons.search, size: 18),
-                  suffix: const Icon(Icons.clear, size: 18),
+                  prefix: const WiredIcon(icon: Icons.search, size: 18),
+                  suffix: const WiredIcon(icon: Icons.clear, size: 18),
                   onChanged: (v) {},
                 ),
               ),
@@ -335,7 +335,7 @@ class InputsPage extends HookWidget {
                 child: WiredCupertinoTextField(
                   placeholder: 'Password',
                   obscureText: true,
-                  prefix: const Icon(Icons.lock, size: 18),
+                  prefix: const WiredIcon(icon: Icons.lock, size: 18),
                   onChanged: (v) {},
                 ),
               ),

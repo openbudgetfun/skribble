@@ -21,6 +21,8 @@ dependencies:
     path: ../../packages/skribble_charts
   skribble_emoji:
     path: ../../packages/skribble_emoji
+  skribble_font_recursive:
+    path: ../../packages/skribble_font_recursive
   skribble_icons:
     path: ../../packages/skribble_icons
   skribble_maps:
@@ -47,14 +49,3 @@ patrol:
 
 flutter:
   uses-material-design: true
-  fonts:
-    - family: Skribble
-      fonts:
-        - asset: assets/fonts/Skribble-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Skribble-BoldItalic.ttf
-          style: italic
-          weight: 700
-        - asset: assets/fonts/Skribble-Italic.ttf
-          style: italic
-        - asset: assets/fonts/Skribble-Regular.ttf

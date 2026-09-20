@@ -158,6 +158,39 @@ class Generator {
         final length = sqrt(dx * dx + dy * dy);
         if (length == 0) return;
 
+        // The pass offset and local wobble share the reserved ink bleed.
+        final limit = offset * config.roughness! * (1 - gain);
+        PointD point(double t, double across) => PointD(
+          start.x + dx * t - dy / length * across.clamp(-limit, limit),
+          start.y + dy * t + dx / length * across.clamp(-limit, limit),
+        );
+        if (length >= 48 && config.lineWobble! > 0) {
+          final segments = max(2, (length / 48).ceil());
+          final displacement = List<double>.generate(
+            segments + 1,
+            (i) => i == 0 || i == segments
+                ? 0
+                : config
+                      .offsetSymmetric(offset, config.lineWobble! * gain)
+                      .clamp(-limit, limit),
+          );
+          for (var i = 0; i < segments; i++) {
+            final before = displacement[max(0, i - 1)];
+            final from = displacement[i];
+            final to = displacement[i + 1];
+            final after = displacement[min(segments, i + 2)];
+            // Zero endpoint tangents join the corner arcs without knots.
+            final first = i == 0 ? 0.0 : from + (to - before) / 6;
+            final second = i == segments - 1 ? 0.0 : to - (after - from) / 6;
+            curve(
+              point((i + 1 / 3) / segments, first),
+              point((i + 2 / 3) / segments, second),
+              point((i + 1) / segments, to),
+            );
+          }
+          return;
+        }
+
         // Bow a continuous stroke gently; longer edges can wander locally.
         // Endpoint handles stay tangent to the rounded corners.
         final bow = config.offsetSymmetric(
@@ -168,26 +201,14 @@ class Generator {
           min(offset, length / 12),
           config.lineWobble! * gain,
         );
-        final normalX = -dy / length;
-        final normalY = dx / length;
-        final middle = PointD(
-          start.x + dx / 2 + normalX * bow,
-          start.y + dy / 2 + normalY * bow,
+        curve(
+          point(1 / 6, 0),
+          point(1 / 3, bow + drift),
+          point(1 / 2, bow),
         );
         curve(
-          PointD(start.x + dx / 6, start.y + dy / 6),
-          PointD(
-            middle.x - dx / 6 + normalX * drift,
-            middle.y - dy / 6 + normalY * drift,
-          ),
-          middle,
-        );
-        curve(
-          PointD(
-            middle.x + dx / 6 - normalX * drift,
-            middle.y + dy / 6 - normalY * drift,
-          ),
-          PointD(end.x - dx / 6, end.y - dy / 6),
+          point(2 / 3, bow - drift),
+          point(5 / 6, 0),
           end,
         );
       }

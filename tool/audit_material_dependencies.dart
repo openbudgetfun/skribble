@@ -207,8 +207,9 @@ int _checkBaseline(
 
   final regressions = <String>[];
   void compare(String label, int current, int allowed) {
-    if (current > allowed)
+    if (current > allowed) {
       regressions.add('$label: $current (baseline allows $allowed)');
+    }
   }
 
   compare(

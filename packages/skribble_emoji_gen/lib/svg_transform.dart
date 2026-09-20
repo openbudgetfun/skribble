@@ -128,21 +128,49 @@ final class _PathWriter extends PathProxy {
   _PathWriter(this.transform);
   final SvgTransform transform;
   final StringBuffer output = StringBuffer();
+  math.Point<double> cursor = const math.Point(0, 0);
+  math.Point<double> start = const math.Point(0, 0);
 
-  String point(double x, double y) {
-    final px = transform.a * x + transform.c * y + transform.e;
-    final py = transform.b * x + transform.d * y + transform.f;
-    // Less than one source unit at a 72-unit em: a small pen wobble that
-    // preserves the source's expression even when rendered at 24 pixels.
-    final dx = 0.55 * math.sin(py / 5.5) + 0.2 * math.sin((px + py) / 3);
-    final dy = 0.4 * math.sin(px / 6.5);
-    return '${(px + dx).toStringAsFixed(3)} ${(py + dy).toStringAsFixed(3)}';
+  math.Point<double> point(double x, double y) => math.Point(
+    transform.a * x + transform.c * y + transform.e,
+    transform.b * x + transform.d * y + transform.f,
+  );
+
+  String coordinate(double value) {
+    // ARM and x64 arithmetic can land on opposite sides of a decimal tie.
+    // Discard insignificant drift before rounding to the catalog precision.
+    final stable = double.parse(value.toStringAsFixed(9));
+    return (stable == 0 ? 0.0 : stable).toStringAsFixed(3);
+  }
+
+  String format(math.Point<double> point) =>
+      '${coordinate(point.x)} ${coordinate(point.y)}';
+
+  @override
+  void moveTo(double x, double y) {
+    cursor = start = point(x, y);
+    output.write('M${format(cursor)}');
   }
 
   @override
-  void moveTo(double x, double y) => output.write('M${point(x, y)}');
-  @override
-  void lineTo(double x, double y) => output.write('L${point(x, y)}');
+  void lineTo(double x, double y) => line(point(x, y));
+
+  void line(math.Point<double> end) {
+    final delta = end - cursor;
+    final length = delta.magnitude;
+    if (length == 0) return;
+
+    // Opposing control offsets leave the endpoints and average direction
+    // intact. A height-dependent displacement of endpoints made every set
+    // lean like italic lettering, especially at a 24-unit viewBox.
+    final amount = math.min(0.7, length / 8);
+    final normal = math.Point(-delta.y / length, delta.x / length) * amount;
+    final first = cursor + delta * (1 / 3) + normal;
+    final second = cursor + delta * (2 / 3) - normal;
+    output.write('C${format(first)} ${format(second)} ${format(end)}');
+    cursor = end;
+  }
+
   @override
   void cubicTo(
     double x1,
@@ -151,7 +179,25 @@ final class _PathWriter extends PathProxy {
     double y2,
     double x3,
     double y3,
-  ) => output.write('C${point(x1, y1)} ${point(x2, y2)} ${point(x3, y3)}');
+  ) {
+    final first = point(x1, y1);
+    final second = point(x2, y2);
+    final end = point(x3, y3);
+    final delta = end - cursor;
+    final length = delta.magnitude;
+    final normal = length == 0
+        ? const math.Point<double>(0, 0)
+        : math.Point(-delta.y / length, delta.x / length) *
+              math.min(0.4, length / 12);
+    output.write(
+      'C${format(first + normal)} ${format(second - normal)} ${format(end)}',
+    );
+    cursor = end;
+  }
+
   @override
-  void close() => output.write('Z');
+  void close() {
+    line(start);
+    output.write('Z');
+  }
 }

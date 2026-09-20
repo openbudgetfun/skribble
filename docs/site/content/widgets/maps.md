@@ -198,6 +198,8 @@ Pins default to 52 by 64 logical pixels with a 28-pixel vector icon. Seeded pen 
 
 Each category has a pastel fill and dark brown ink by default, including on dark maps. Override `fillColor`, `inkColor`, or `iconColor` to match your app. Keep the glyph as well as the color so categories remain distinguishable without color vision. A pin's seed varies its shoulders while its bottom-center anchor stays fixed.
 
+Pin rendering tests check visible, distinct category glyphs with 4.5:1 ink contrast, complete cream sticker edges, and stable pixels across fresh renders on paper and dark backgrounds. These checks allow intentional improvements to icon contours without committing bitmap snapshots.
+
 Roads and labels retain MapLibre's exact geometry. `WiredMapPolyline` also follows its supplied points exactly, with continuous round joins and caps. Theme roughness does not distort routes, and the existing polyline `seed` parameter is retained for compatibility without affecting the stroke. `WiredMapPolygon` keeps a sketch outline and light hatching for area annotations. Its default hatch opacity is 22 percent to leave underlying labels visible.
 
 ## Gestures and selection

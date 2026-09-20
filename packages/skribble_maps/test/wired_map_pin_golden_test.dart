@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
@@ -64,38 +67,81 @@ void main() {
     tester,
   ) async {
     const key = Key('pin-sheet');
-    await pumpMapApp(
-      tester,
-      RepaintBoundary(
-        key: key,
-        child: Column(
-          children: [
-            for (final background in [
-              const Color(0xFFF6F2E9),
-              const Color(0xFF272E32),
-            ])
-              Expanded(
-                child: ColoredBox(
-                  color: background,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      for (final icon in WiredMapPinIcon.values)
-                        WiredMapPin(icon: icon, seed: 37 + icon.index),
-                    ],
-                  ),
-                ),
+    Future<ByteData> render(
+      WiredMapPinIcon icon,
+      Color background, {
+      bool showGlyph = true,
+    }) async {
+      await pumpMapApp(
+        tester,
+        RepaintBoundary(
+          key: key,
+          child: ColoredBox(
+            color: background,
+            child: Center(
+              child: WiredMapPin(
+                key: UniqueKey(),
+                icon: icon,
+                seed: 37 + icon.index,
+                child: showGlyph ? null : const SizedBox(),
               ),
-          ],
+            ),
+          ),
         ),
-      ),
-      size: const Size(560, 220),
-    );
-    await tester.pumpAndSettle();
+        size: const Size(96, 96),
+      );
+      await tester.pumpAndSettle();
+      return (await tester.runAsync(() async {
+        final image = await tester
+            .renderObject<RenderRepaintBoundary>(find.byKey(key))
+            .toImage();
+        final bytes = (await image.toByteData())!;
+        image.dispose();
+        return bytes;
+      }))!;
+    }
 
-    await expectLater(
-      find.byKey(key),
-      matchesGoldenFile('goldens/map-pins.png'),
-    );
+    for (final background in [
+      const Color(0xFFF6F2E9),
+      const Color(0xFF272E32),
+    ]) {
+      final signatures = <String>{};
+      for (final icon in WiredMapPinIcon.values) {
+        final pixels = await render(icon, background);
+        final repeated = await render(icon, background);
+        expect(pixels.buffer.asUint8List(), repeated.buffer.asUint8List());
+        final bounds = tester
+            .getRect(find.byType(WiredSvgIcon))
+            .shift(
+              -tester.getTopLeft(find.byKey(key)),
+            );
+        final blank = await render(icon, background, showGlyph: false);
+        final darkInk = <int>[];
+        var halo = 0;
+        for (var y = 0; y < 96; y++) {
+          for (var x = 0; x < 96; x++) {
+            final offset = (y * 96 + x) * 4;
+            final pixel = pixels.getUint32(offset);
+            final under = blank.getUint32(offset);
+            if (x < 2 || x > 93 || y < 2 || y > 93) {
+              expect(pixel, (background.toARGB32() << 8 | 0xff) & 0xffffffff);
+            }
+            if (pixel == 0xfffcf3ff) halo++;
+            if (pixel == under) continue;
+            expect(
+              bounds.inflate(1).contains(Offset(x.toDouble(), y.toDouble())),
+              isTrue,
+            );
+            final ink = Color(0xff000000 | pixel >> 8).computeLuminance();
+            final fill = Color(0xff000000 | under >> 8).computeLuminance();
+            if ((fill + 0.05) / (ink + 0.05) >= 4.5) darkInk.add(y * 96 + x);
+          }
+        }
+        expect(halo, greaterThan(30), reason: '${icon.name} sticker edge');
+        expect(darkInk.length, inInclusiveRange(20, 500), reason: icon.name);
+        signatures.add(darkInk.join(','));
+      }
+      expect(signatures, hasLength(WiredMapPinIcon.values.length));
+    }
   });
 }

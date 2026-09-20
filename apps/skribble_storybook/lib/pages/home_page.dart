@@ -170,7 +170,8 @@ const _categories = [
   ),
   _Category(
     title: 'Skribble Icons',
-    description: 'Curated hand-drawn custom icon set with unified lookup',
+    description:
+        'Curated, Material, Lucide, Simple Icons, Boxicons, and CoreUI Brands',
     route: '/skribble-icons',
     icon: Icons.auto_awesome_outlined,
   ),
@@ -187,9 +188,30 @@ const _categories = [
     icon: Icons.text_fields_outlined,
   ),
   _Category(
+    title: 'Variable fonts',
+    description:
+        'Continuous weight, casualness, monospace, slant, and cursive forms.',
+    route: '/variable-fonts',
+    icon: Icons.text_fields,
+  ),
+  _Category(
     title: 'Ink in motion',
     description: 'Drawing borders, scribbled shading, and a lively pen.',
     route: '/motion',
     icon: Icons.gesture,
+  ),
+  _Category(
+    title: 'Loading and skeletons',
+    description:
+        'Every loader, loading screen, progress ring, and placeholder.',
+    route: '/loading',
+    icon: Icons.hourglass_empty,
+  ),
+  _Category(
+    title: 'Doodles and fills',
+    description:
+        'Every flourish and shading pattern, with a new drawing on demand.',
+    route: '/drawing',
+    icon: Icons.brush,
   ),
 ];
