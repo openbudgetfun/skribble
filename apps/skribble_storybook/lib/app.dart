@@ -4,12 +4,14 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/pages/buttons_page.dart';
 import 'package:skribble_storybook/pages/charts_page.dart';
 import 'package:skribble_storybook/pages/data_display_page.dart';
+import 'package:skribble_storybook/pages/drawing_page.dart';
 import 'package:skribble_storybook/pages/emoji_page.dart';
 import 'package:skribble_storybook/pages/feedback_page.dart';
 import 'package:skribble_storybook/pages/font_specimen_page.dart';
 import 'package:skribble_storybook/pages/home_page.dart';
 import 'package:skribble_storybook/pages/inputs_page.dart';
 import 'package:skribble_storybook/pages/layout_page.dart';
+import 'package:skribble_storybook/pages/loading_page.dart';
 import 'package:skribble_storybook/pages/maps_page.dart';
 import 'package:skribble_storybook/pages/motion_page.dart';
 import 'package:skribble_storybook/pages/navigation_page.dart';
@@ -17,6 +19,7 @@ import 'package:skribble_storybook/pages/rough_icons_page.dart';
 import 'package:skribble_storybook/pages/selection_page.dart';
 import 'package:skribble_storybook/pages/skribble_icons_page.dart';
 import 'package:skribble_storybook/pages/studio_page.dart';
+import 'package:skribble_storybook/pages/variable_fonts_page.dart';
 import 'package:skribble_storybook/widgets/roughness_picker.dart';
 
 class SkribbleStorybookApp extends HookWidget {
@@ -25,8 +28,10 @@ class SkribbleStorybookApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final roughness = useState(WiredRoughness.playful);
+    final font = useState(WiredFont.casual);
     final wiredTheme = WiredThemeData(
       roughnessLevel: roughness.value,
+      font: font.value,
       borderColor: const Color(0xFF4A3470),
       textColor: const Color(0xFF2A2238),
       disabledTextColor: const Color(0xFFA39AAD),
@@ -52,6 +57,8 @@ class SkribbleStorybookApp extends HookWidget {
             WiredRoughnessPicker(
               value: roughness.value,
               onChanged: (value) => roughness.value = value,
+              font: font.value,
+              onFontChanged: (value) => font.value = value,
             ),
           ],
         ),
@@ -59,6 +66,9 @@ class SkribbleStorybookApp extends HookWidget {
       routes: {
         '/': (context) => const HomePage(),
         '/motion': (context) => const WiredMotionPage(),
+        '/drawing': (context) => const WiredDrawingPage(),
+        '/loading': (context) => const WiredLoadingPage(),
+        '/variable-fonts': (context) => const WiredVariableFontsPage(),
         '/studio': (context) => const WiredStudioPage(),
         '/buttons': (context) => const ButtonsPage(),
         '/inputs': (context) => const InputsPage(),

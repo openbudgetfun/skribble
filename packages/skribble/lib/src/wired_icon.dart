@@ -494,15 +494,51 @@ final class _WiredSvgIconPainter extends CustomPainter {
     final amplitude =
         (drawConfig.roughness ?? 1) *
         (drawConfig.maxRandomnessOffset ?? 1) *
-        0.5;
+        0.12;
     final phase = (drawConfig.seed ?? 0) * 0.61803398875;
+    final bounds = path.getBounds();
+
+    // Remove the field's linear trend across the icon. Endpoints on opposite
+    // sides receive no relative shift, keeping upright strokes upright.
+    double wavering(
+      double position,
+      double start,
+      double extent,
+      double wavelength,
+      double phase,
+    ) {
+      if (extent == 0) return 0;
+      final t = (position - start) / extent;
+      final first = math.sin(start / wavelength + phase);
+      final last = math.sin((start + extent) / wavelength + phase);
+      return math.sin(position / wavelength + phase) -
+          (first + (last - first) * t);
+    }
 
     for (final metric in path.computeMetrics()) {
       final points = _sampleMetric(metric);
       for (var i = 0; i < points.length; i++) {
         final point = points[i];
-        final x = point.dx + amplitude * math.sin(point.dy / 5.5 + phase);
-        final y = point.dy + amplitude * math.sin(point.dx / 7 + phase + 1.7);
+        final x =
+            point.dx +
+            amplitude *
+                wavering(
+                  point.dy,
+                  bounds.top,
+                  bounds.height,
+                  5.5,
+                  phase,
+                );
+        final y =
+            point.dy +
+            amplitude *
+                wavering(
+                  point.dx,
+                  bounds.left,
+                  bounds.width,
+                  7,
+                  phase + 1.7,
+                );
         if (i == 0) {
           rough.moveTo(x, y);
         } else {

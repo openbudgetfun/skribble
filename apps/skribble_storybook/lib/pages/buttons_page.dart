@@ -216,9 +216,9 @@ class ButtonsPage extends HookWidget {
                     toggleSelected.value = next;
                   },
                   children: const [
-                    Icon(Icons.format_bold),
-                    Icon(Icons.format_italic),
-                    Icon(Icons.format_underline),
+                    WiredIcon(icon: Icons.format_bold),
+                    WiredIcon(icon: Icons.format_italic),
+                    WiredIcon(icon: Icons.format_underline),
                   ],
                 ),
               ),

@@ -464,3 +464,11 @@ Icons remain vector data. No bitmap images or per-resolution assets are generate
 dart run packages/skribble/tool/generate_rough_icons.dart --kit svg-manifest --manifest packages/skribble/tool/brands/manifest.json --output packages/skribble/lib/src/generated/brand_rough_icons.g.dart --map-name kBrandRoughIcons
 dart format packages/skribble/lib/src/generated/brand_rough_icons.g.dart
 ```
+
+## Upright hand-drawn outlines
+
+Hand-drawn icons keep the source artwork's orientation. The generator preserves stroke endpoints and adds small opposing bends between them, so vertical stems stay upright. Deliberately diagonal artwork, such as an arrow, keeps its direction. Runtime rough icons remove the displacement field's overall tilt before painting.
+
+The docs and storybook register the Material catalog at startup. Applications using `WiredIcon` must call `registerSkribbleIcons()` before `runApp`; without a registered catalog, the widget uses Flutter's regular icon glyph.
+
+The storybook's **Skribble Icons** page has searchable Curated, Material, Lucide, Simple Icons, Boxicons, and CoreUI Brands catalogs. Tap an icon to compare it at 24, 48, and 96 pixels. Lookups stay within the selected set even when names overlap.

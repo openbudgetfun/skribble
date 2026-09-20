@@ -12,6 +12,8 @@ class DataDisplayPage extends HookWidget {
     final stepperIndex = useState(0);
     final calendarSelected = useState<String?>(null);
     final selectedRange = useState<DateTimeRange<DateTime>?>(null);
+    final tableSource = useMemoized(_NotebookRows.new);
+    useEffect(() => tableSource.dispose, [tableSource]);
 
     return WiredScaffold(
       appBar: WiredAppBar(
@@ -249,7 +251,7 @@ class DataDisplayPage extends HookWidget {
                       footer: const WiredGridTileBar(
                         title: Text('Mountain'),
                         subtitle: Text('Footer with subtitle'),
-                        leading: Icon(Icons.terrain),
+                        leading: WiredIcon(icon: Icons.terrain),
                       ),
                       child: ColoredBox(color: Colors.teal.shade100),
                     ),
@@ -266,7 +268,7 @@ class DataDisplayPage extends HookWidget {
                 title: 'About tile',
                 description: 'Opens a hand-drawn about dialog when tapped (via WiredListTile).',
                 child: WiredAboutListTile(
-                  icon: const Icon(Icons.info_outline),
+                  icon: const WiredIcon(icon: Icons.info_outline),
                   applicationName: 'Skribble Storybook',
                   applicationVersion: '1.0.0',
                   applicationLegalese: 'Hand-drawn with care.',
@@ -315,8 +317,49 @@ class DataDisplayPage extends HookWidget {
               ),
             ],
           ),
+          ShowcaseSection(
+            title: 'WiredPaginatedDataTable',
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: 560,
+                  child: WiredPaginatedDataTable(
+                    header: const Text('Notebook pages'),
+                    columns: const [
+                      DataColumn(label: Text('Page')),
+                      DataColumn(label: Text('Status')),
+                    ],
+                    source: tableSource,
+                    rowsPerPage: 5,
+                    showCheckboxColumn: false,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
+}
+
+class _NotebookRows extends DataTableSource {
+  @override
+  DataRow getRow(int index) => DataRow.byIndex(
+    index: index,
+    cells: [
+      DataCell(Text('Sketch ${index + 1}')),
+      const DataCell(Text('Ready')),
+    ],
+  );
+
+  @override
+  int get rowCount => 18;
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get selectedRowCount => 0;
 }

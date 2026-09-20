@@ -24,6 +24,7 @@ Future<void> _openCharts(WidgetTester tester) async {
   await tester.pumpWidget(const SkribbleStorybookApp());
   await tester.pumpAndSettle();
   await tester.scrollUntilVisible(find.text('Financial charts'), 250);
+  await tester.pumpAndSettle();
   await tester.tap(find.text('Financial charts'));
   await tester.pumpAndSettle();
 }

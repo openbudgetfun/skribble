@@ -41,7 +41,7 @@ class SelectionPage extends HookWidget {
                     const WiredChip(label: Text('Dart')),
                     WiredChip(label: const Text('Deletable'), onDeleted: () {}),
                     const WiredChip(
-                      avatar: Icon(Icons.person, size: 16),
+                      avatar: WiredIcon(icon: Icons.person, size: 16),
                       label: Text('With Avatar'),
                     ),
                   ],
@@ -116,12 +116,12 @@ class SelectionPage extends HookWidget {
                   children: [
                     WiredActionChip(
                       label: const Text('Share'),
-                      avatar: const Icon(Icons.share, size: 16),
+                      avatar: const WiredIcon(icon: Icons.share, size: 16),
                       onPressed: () {},
                     ),
                     WiredActionChip(
                       label: const Text('Copy'),
-                      avatar: const Icon(Icons.copy, size: 16),
+                      avatar: const WiredIcon(icon: Icons.copy, size: 16),
                       onPressed: () {},
                     ),
                   ],

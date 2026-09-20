@@ -43,8 +43,8 @@ class FeedbackPage extends HookWidget {
                 title: 'Banner',
                 description: 'Persistent top-of-screen message.',
                 child: WiredMaterialBanner(
-                  leading: const Icon(
-                    Icons.warning_amber,
+                  leading: const WiredIcon(
+                    icon: Icons.warning_amber,
                     color: Colors.orange,
                   ),
                   content: const Text('Your account is about to expire.'),
@@ -58,7 +58,7 @@ class FeedbackPage extends HookWidget {
                 title: 'Actions Below',
                 child: WiredMaterialBanner(
                   forceActionsBelow: true,
-                  leading: const Icon(Icons.info_outline),
+                  leading: const WiredIcon(icon: Icons.info_outline),
                   content: const Text('A new update is available.'),
                   actions: [
                     TextButton(
@@ -127,8 +127,8 @@ class FeedbackPage extends HookWidget {
                     TextButton.icon(
                       onPressed: () =>
                           indicatorAnimating.value = !indicatorAnimating.value,
-                      icon: Icon(
-                        indicatorAnimating.value
+                      icon: WiredIcon(
+                        icon: indicatorAnimating.value
                             ? Icons.pause
                             : Icons.play_arrow,
                       ),
@@ -286,9 +286,14 @@ class FeedbackPage extends HookWidget {
                 description: 'Small circle overlay on child.',
                 child: const Row(
                   children: [
-                    WiredBadge(label: '3', child: Icon(Icons.mail, size: 32)),
+                    WiredBadge(
+                      label: '3',
+                      child: WiredIcon(icon: Icons.mail, size: 32),
+                    ),
                     SizedBox(width: 24),
-                    WiredBadge(child: Icon(Icons.notifications, size: 32)),
+                    WiredBadge(
+                      child: WiredIcon(icon: Icons.notifications, size: 32),
+                    ),
                   ],
                 ),
               ),
@@ -485,8 +490,8 @@ class FeedbackPage extends HookWidget {
                     TextButton.icon(
                       onPressed: () =>
                           loadingAnimating.value = !loadingAnimating.value,
-                      icon: Icon(
-                        loadingAnimating.value
+                      icon: WiredIcon(
+                        icon: loadingAnimating.value
                             ? Icons.pause
                             : Icons.play_arrow,
                       ),

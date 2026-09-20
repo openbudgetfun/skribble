@@ -42,7 +42,7 @@ class NavigationPage extends HookWidget {
                     title: const Text('Sample Title'),
                     actions: [
                       IconButton(
-                        icon: const Icon(Icons.settings),
+                        icon: const WiredIcon(icon: Icons.settings),
                         onPressed: () {},
                       ),
                     ],
@@ -159,7 +159,7 @@ class NavigationPage extends HookWidget {
                   children: [
                     Text('Selected: ${popupSelection.value}'),
                     WiredPopupMenuButton<String>(
-                      icon: const Icon(Icons.more_vert),
+                      icon: const WiredIcon(icon: Icons.more_vert),
                       onSelected: (value) => popupSelection.value = value,
                       items: const [
                         WiredPopupMenuItem(
@@ -190,7 +190,10 @@ class NavigationPage extends HookWidget {
                 child: SizedBox(
                   height: 44,
                   child: WiredCupertinoNavigationBar(
-                    leading: const Icon(Icons.arrow_back_ios, size: 18),
+                    leading: const WiredIcon(
+                      icon: Icons.arrow_back_ios,
+                      size: 18,
+                    ),
                     middle: const Text('Settings'),
                     trailing: const Text('Done'),
                     automaticallyImplyLeading: false,
@@ -211,15 +214,15 @@ class NavigationPage extends HookWidget {
                   onTap: (i) => cupertinoTabIndex.value = i,
                   items: const [
                     BottomNavigationBarItem(
-                      icon: Icon(CupertinoIcons.home),
+                      icon: WiredIcon(icon: CupertinoIcons.home),
                       label: 'Home',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(CupertinoIcons.search),
+                      icon: WiredIcon(icon: CupertinoIcons.search),
                       label: 'Search',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(CupertinoIcons.settings),
+                      icon: WiredIcon(icon: CupertinoIcons.settings),
                       label: 'Settings',
                     ),
                   ],
@@ -238,16 +241,16 @@ class NavigationPage extends HookWidget {
                     children: [
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.menu),
+                        icon: const WiredIcon(icon: Icons.menu),
                       ),
                       const Spacer(),
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.search),
+                        icon: const WiredIcon(icon: Icons.search),
                       ),
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.more_vert),
+                        icon: const WiredIcon(icon: Icons.more_vert),
                       ),
                     ],
                   ),
@@ -266,17 +269,26 @@ class NavigationPage extends HookWidget {
                     WiredSubmenuButton(
                       menuChildren: [
                         WiredMenuItemButton(
-                          leadingIcon: const Icon(Icons.note_add, size: 18),
+                          leadingIcon: const WiredIcon(
+                            icon: Icons.note_add,
+                            size: 18,
+                          ),
                           onPressed: () {},
                           child: const Text('New'),
                         ),
                         WiredMenuItemButton(
-                          leadingIcon: const Icon(Icons.folder_open, size: 18),
+                          leadingIcon: const WiredIcon(
+                            icon: Icons.folder_open,
+                            size: 18,
+                          ),
                           onPressed: () {},
                           child: const Text('Open'),
                         ),
                         WiredMenuItemButton(
-                          leadingIcon: const Icon(Icons.save, size: 18),
+                          leadingIcon: const WiredIcon(
+                            icon: Icons.save,
+                            size: 18,
+                          ),
                           onPressed: () {},
                           child: const Text('Save'),
                         ),
@@ -426,12 +438,14 @@ class NavigationPage extends HookWidget {
                               child: ListView(
                                 children: [
                                   WiredListTile(
-                                    leading: const Icon(Icons.home),
+                                    leading: const WiredIcon(icon: Icons.home),
                                     title: const Text('Home'),
                                     onTap: () => Navigator.pop(ctx),
                                   ),
                                   WiredListTile(
-                                    leading: const Icon(Icons.settings),
+                                    leading: const WiredIcon(
+                                      icon: Icons.settings,
+                                    ),
                                     title: const Text('Settings'),
                                     onTap: () => Navigator.pop(ctx),
                                   ),

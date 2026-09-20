@@ -39,7 +39,10 @@ class LayoutPage extends HookWidget {
                       child: const Text('JD'),
                     ),
                     const SizedBox(width: 12),
-                    const WiredAvatar(radius: 24, child: Icon(Icons.person)),
+                    const WiredAvatar(
+                      radius: 24,
+                      child: WiredIcon(icon: Icons.person),
+                    ),
                   ],
                 ),
               ),
@@ -100,19 +103,19 @@ class LayoutPage extends HookWidget {
                 child: Column(
                   children: [
                     WiredListTile(
-                      leading: const Icon(Icons.inbox),
+                      leading: const WiredIcon(icon: Icons.inbox),
                       title: const Text('Inbox'),
                       subtitle: const Text('2 new messages'),
-                      trailing: const Icon(Icons.chevron_right),
+                      trailing: const WiredIcon(icon: Icons.chevron_right),
                       onTap: () {},
                     ),
                     WiredListTile(
-                      leading: const Icon(Icons.send),
+                      leading: const WiredIcon(icon: Icons.send),
                       title: const Text('Sent'),
                       onTap: () {},
                     ),
                     WiredListTile(
-                      leading: const Icon(Icons.drafts),
+                      leading: const WiredIcon(icon: Icons.drafts),
                       title: const Text('Drafts'),
                       showDivider: false,
                       onTap: () {},
@@ -391,6 +394,31 @@ class LayoutPage extends HookWidget {
             ],
           ),
           _MergeableShowcase(),
+          ShowcaseSection(
+            title: 'WiredExpansionPanelList',
+            children: [
+              WiredExpansionPanelList(
+                children: [
+                  WiredExpansionPanel(
+                    headerBuilder: (context, expanded) =>
+                        const Text('Open the notebook'),
+                    body: const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text('Each panel expands independently.'),
+                    ),
+                  ),
+                  WiredExpansionPanel(
+                    headerBuilder: (context, expanded) =>
+                        const Text('Another page'),
+                    body: const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text('Room for another idea.'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ],
       ),
     );

@@ -87,7 +87,8 @@ void main() {
 
   test('comma-only polygons keep every coordinate pair', () {
     final shape = parse('<polygon points="0,0,10,0,10,10"/>').single;
-    expect('L'.allMatches(shape.data), hasLength(2));
+    expect(shape.data, contains('10.000 0.000'));
+    expect(shape.data, contains('10.000 10.000'));
   });
 
   test('hidden subtrees are omitted and visibility can be restored', () {

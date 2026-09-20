@@ -148,6 +148,7 @@ class RoughIconsPage extends HookWidget {
         builder: (dialogContext) {
           return Dialog(
             child: Container(
+              constraints: const BoxConstraints(maxWidth: 420),
               padding: const EdgeInsets.all(20),
               decoration: RoughBoxDecoration(
                 // Per-icon fixed seed: the wobble is deterministic for the

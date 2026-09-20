@@ -158,6 +158,36 @@ class Generator {
         final length = sqrt(dx * dx + dy * dy);
         if (length == 0) return;
 
+        if (length >= 48 && config.lineWobble! > 0) {
+          final segments = max(2, (length / 48).ceil());
+          final limit = offset * config.roughness!;
+          final displacement = List<double>.generate(
+            segments + 1,
+            (i) => i == 0 || i == segments
+                ? 0
+                : config.offsetSymmetric(offset, config.lineWobble! * gain),
+          );
+          PointD point(double t, double across) => PointD(
+            start.x + dx * t - dy / length * across,
+            start.y + dy * t + dx / length * across,
+          );
+          for (var i = 0; i < segments; i++) {
+            final before = displacement[max(0, i - 1)];
+            final from = displacement[i];
+            final to = displacement[i + 1];
+            final after = displacement[min(segments, i + 2)];
+            // Zero endpoint tangents join the corner arcs without knots.
+            final first = i == 0 ? 0.0 : from + (to - before) / 6;
+            final second = i == segments - 1 ? 0.0 : to - (after - from) / 6;
+            curve(
+              point((i + 1 / 3) / segments, first.clamp(-limit, limit)),
+              point((i + 2 / 3) / segments, second.clamp(-limit, limit)),
+              point((i + 1) / segments, to),
+            );
+          }
+          return;
+        }
+
         // Bow a continuous stroke gently; longer edges can wander locally.
         // Endpoint handles stay tangent to the rounded corners.
         final bow = config.offsetSymmetric(

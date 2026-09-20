@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_icons/skribble_icons.dart';
 
-/// Lazy-rendered gallery of the 30 curated hand-drawn skribble icons.
+/// Searchable gallery of every bundled icon set, with previews at three sizes.
 ///
 /// Renders only the visible rows of the grid via `GridView.builder`, with a
 /// search bar filtering by identifier and tappable cells that open a preview
@@ -17,12 +17,22 @@ class SkribbleIconsPage extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final searchQuery = useState('');
+    final selectedSet = useState(SkribbleIconSet.curated);
+    final catalog = _catalogs[selectedSet.value]!;
+    // These sets already carry hand-drawn contours. Only Material's source
+    // geometry needs runtime roughening.
+    final drawConfig = selectedSet.value == SkribbleIconSet.material
+        ? null
+        : DrawConfig.build(roughness: 0);
 
     final sortedEntries = useMemoized(() {
-      final entries = kSkribbleCuratedIconCodePoints.entries.toList()
-        ..sort((a, b) => a.key.compareTo(b.key));
+      final entries =
+          catalog.names.entries
+              .where((entry) => catalog.icons.containsKey(entry.value))
+              .toList()
+            ..sort((a, b) => a.key.compareTo(b.key));
       return entries;
-    });
+    }, [selectedSet.value]);
 
     final filteredEntries = useMemoized(
       () {
@@ -51,13 +61,26 @@ class SkribbleIconsPage extends HookWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Curated hand-drawn icon set',
+                  '${catalog.label} hand-drawn icons',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '${sortedEntries.length} custom icons',
+                  '${sortedEntries.length} icons',
                   style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final entry in _catalogs.entries)
+                      WiredChoiceChip(
+                        label: Text(entry.value.label),
+                        selected: selectedSet.value == entry.key,
+                        onSelected: (_) => selectedSet.value = entry.key,
+                      ),
+                  ],
                 ),
                 const SizedBox(height: 12),
                 WiredInput(
@@ -90,16 +113,21 @@ class SkribbleIconsPage extends HookWidget {
                     itemBuilder: (context, index) {
                       final entry = filteredEntries[index];
                       return InkWell(
-                        onTap: () =>
-                            _showPopup(context, entry.key, entry.value),
+                        onTap: () => _showPopup(
+                          context,
+                          entry.key,
+                          entry.value,
+                          catalog.icons[entry.value]!,
+                          drawConfig,
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SkribbleIcon(
-                              data: lookupSkribbleIconByIdentifier(
-                                entry.key,
-                              )!,
+                            WiredSvgIcon(
+                              data: catalog.icons[entry.value]!,
+                              drawConfig: drawConfig,
                               size: 32,
+                              semanticLabel: '${catalog.label}: ${entry.key}',
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -122,13 +150,14 @@ class SkribbleIconsPage extends HookWidget {
   }
 
   /// Opens a hand-drawn preview dialog showing the icon at 24/48/96 px.
-  void _showPopup(BuildContext context, String identifier, int codePoint) {
+  void _showPopup(
+    BuildContext context,
+    String identifier,
+    int codePoint,
+    WiredSvgIconData data,
+    DrawConfig? drawConfig,
+  ) {
     final theme = WiredTheme.of(context);
-    final data = lookupSkribbleIconByIdentifier(identifier);
-
-    if (data == null) {
-      return;
-    }
 
     unawaited(
       showDialog<void>(
@@ -136,6 +165,7 @@ class SkribbleIconsPage extends HookWidget {
         builder: (dialogContext) {
           return Dialog(
             child: Container(
+              constraints: const BoxConstraints(maxWidth: 420),
               padding: const EdgeInsets.all(20),
               decoration: RoughBoxDecoration(
                 // Per-icon fixed seed: the wobble is deterministic for the
@@ -164,8 +194,9 @@ class SkribbleIconsPage extends HookWidget {
                       for (final size in const [24.0, 48.0, 96.0])
                         Column(
                           children: [
-                            SkribbleIcon(
+                            WiredSvgIcon(
                               data: data,
+                              drawConfig: drawConfig,
                               size: size,
                               semanticLabel: identifier,
                             ),
@@ -188,3 +219,44 @@ class SkribbleIconsPage extends HookWidget {
     );
   }
 }
+
+const _catalogs =
+    <
+      SkribbleIconSet,
+      ({
+        String label,
+        Map<String, int> names,
+        Map<int, WiredSvgIconData> icons,
+      })
+    >{
+      SkribbleIconSet.curated: (
+        label: 'Curated',
+        names: kSkribbleCuratedIconCodePoints,
+        icons: kSkribbleCuratedIcons,
+      ),
+      SkribbleIconSet.material: (
+        label: 'Material',
+        names: kMaterialRoughIconsCodePoints,
+        icons: kMaterialRoughIcons,
+      ),
+      SkribbleIconSet.lucide: (
+        label: 'Lucide',
+        names: kLucideIconCodePoints,
+        icons: kLucideIcons,
+      ),
+      SkribbleIconSet.simple: (
+        label: 'Simple Icons',
+        names: kSimpleIconCodePoints,
+        icons: kSimpleIcons,
+      ),
+      SkribbleIconSet.bxs: (
+        label: 'Boxicons',
+        names: kBxsIconCodePoints,
+        icons: kBxsIcons,
+      ),
+      SkribbleIconSet.cib: (
+        label: 'CoreUI Brands',
+        names: kCibIconCodePoints,
+        icons: kCibIcons,
+      ),
+    };

@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:skribble/skribble.dart';
-
 import 'package:skribble_docs_site/src/app.dart';
 import 'package:skribble_docs_site/src/document.dart';
+import 'package:skribble_icons/skribble_icons.dart';
 
 /// Shows the loading screen while the documentation catalog resolves.
 ///
@@ -11,6 +11,7 @@ import 'package:skribble_docs_site/src/document.dart';
 /// mark keeps drawing from the first paint until the first page appears.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  registerSkribbleIcons();
   usePathUrlStrategy();
   runApp(
     WiredMaterialApp(

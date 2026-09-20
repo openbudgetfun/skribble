@@ -29,8 +29,13 @@ class FontSpecimenPage extends HookWidget {
     final theme = WiredTheme.of(context);
     final selectedWeight = useState<double>(400);
     final weights = <double, String>{
+      300: 'Light',
       400: 'Regular',
+      500: 'Medium',
+      600: 'Semibold',
       700: 'Bold',
+      800: 'Extra bold',
+      900: 'Black',
     };
     final italic = useState<bool>(false);
     final size = useState<double>(24);
@@ -48,8 +53,8 @@ class FontSpecimenPage extends HookWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              'Every glyph of the bundled hand-drawn font, roughened from '
-              'Recursive (Casual axis).',
+              '${theme.font.name} · ${theme.roughnessLevel.name}. '
+              'Use the toolbar to compare Casual, Linear, and Mono at each ink style.',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 16),
@@ -61,18 +66,18 @@ class FontSpecimenPage extends HookWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 for (final entry in weights.entries)
-                  ChoiceChip(
+                  WiredChoiceChip(
                     label: Text(entry.value),
                     selected: selectedWeight.value == entry.key,
                     onSelected: (_) => selectedWeight.value = entry.key,
                   ),
-                ChoiceChip(
+                WiredChoiceChip(
                   label: const Text('Italic'),
                   selected: italic.value,
                   onSelected: (v) => italic.value = v,
                 ),
                 for (final s in sizes)
-                  ChoiceChip(
+                  WiredChoiceChip(
                     label: Text('${s.round()} px'),
                     selected: size.value == s,
                     onSelected: (_) => size.value = s,
@@ -91,9 +96,8 @@ class FontSpecimenPage extends HookWidget {
                     'The quick brown fox jumps over the lazy dog.',
                     style: TextStyle(
                       fontSize: size.value,
-                      fontWeight: selectedWeight.value == 700
-                          ? FontWeight.bold
-                          : null,
+                      fontWeight:
+                          FontWeight.values[selectedWeight.value ~/ 100 - 1],
                       fontStyle: italic.value ? FontStyle.italic : null,
                     ),
                   ),
@@ -102,9 +106,8 @@ class FontSpecimenPage extends HookWidget {
                     'Pack my box with five dozen liquor jugs. 0123456789',
                     style: TextStyle(
                       fontSize: size.value * 0.75,
-                      fontWeight: selectedWeight.value == 700
-                          ? FontWeight.bold
-                          : null,
+                      fontWeight:
+                          FontWeight.values[selectedWeight.value ~/ 100 - 1],
                       fontStyle: italic.value ? FontStyle.italic : null,
                       color: theme.textColor.withValues(alpha: 0.85),
                     ),
@@ -130,7 +133,8 @@ class FontSpecimenPage extends HookWidget {
                       character: String.fromCharCode(rune),
                       codePoint: rune,
                       fontSize: size.value,
-                      bold: selectedWeight.value == 700,
+                      weight:
+                          FontWeight.values[selectedWeight.value ~/ 100 - 1],
                       italic: italic.value,
                       textColor: theme.textColor,
                     ),
@@ -150,7 +154,7 @@ class _GlyphCard extends StatelessWidget {
     required this.character,
     required this.codePoint,
     required this.fontSize,
-    required this.bold,
+    required this.weight,
     required this.italic,
     required this.textColor,
   });
@@ -158,7 +162,7 @@ class _GlyphCard extends StatelessWidget {
   final String character;
   final int codePoint;
   final double fontSize;
-  final bool bold;
+  final FontWeight weight;
   final bool italic;
   final Color textColor;
 
@@ -176,7 +180,7 @@ class _GlyphCard extends StatelessWidget {
               glyph,
               style: TextStyle(
                 fontSize: fontSize,
-                fontWeight: bold ? FontWeight.bold : null,
+                fontWeight: weight,
                 fontStyle: italic ? FontStyle.italic : null,
                 color: textColor,
                 height: 1.2,

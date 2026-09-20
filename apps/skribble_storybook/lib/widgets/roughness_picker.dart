@@ -8,6 +8,8 @@ class WiredRoughnessPicker extends HookWidget {
   const WiredRoughnessPicker({
     required this.value,
     required this.onChanged,
+    this.font = WiredFont.casual,
+    this.onFontChanged,
     super.key,
   });
 
@@ -16,6 +18,12 @@ class WiredRoughnessPicker extends HookWidget {
 
   /// Called when a level is selected.
   final ValueChanged<WiredRoughness> onChanged;
+
+  /// The bundled font family used throughout the storybook.
+  final WiredFont font;
+
+  /// Called when a different bundled font is selected.
+  final ValueChanged<WiredFont>? onFontChanged;
 
   @override
   Widget build(BuildContext context) => ColoredBox(
@@ -39,6 +47,19 @@ class WiredRoughnessPicker extends HookWidget {
                 onSelected: (_) => onChanged(level),
                 label: ExcludeSemantics(child: Text(_label(level))),
               ),
+            if (onFontChanged != null) ...[
+              const Text('Typeface', style: TextStyle(fontSize: 14)),
+              for (final family in WiredFont.values)
+                WiredChoiceChip(
+                  label: Text(switch (family) {
+                    WiredFont.casual => 'Casual',
+                    WiredFont.linear => 'Linear',
+                    WiredFont.mono => 'Mono',
+                  }),
+                  selected: family == font,
+                  onSelected: (_) => onFontChanged!(family),
+                ),
+            ],
           ],
         ),
       ),
