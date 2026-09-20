@@ -2,6 +2,14 @@ import 'package:skribble_emoji_gen/svg_transform.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('decimal ties and zero ignore insignificant arithmetic drift', () {
+    const source = 'M15.0225 0L15.0225 11.902';
+    final below = SvgTransform.parse('translate(-1e-14 -1e-14)').path(source);
+    final above = SvgTransform.parse('translate(1e-14 1e-14)').path(source);
+    expect(below, above);
+    expect(below, isNot(contains('-0.000')));
+  });
+
   test(
     'vertical stems retain their authored endpoints at every source size',
     () {

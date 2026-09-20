@@ -136,8 +136,15 @@ final class _PathWriter extends PathProxy {
     transform.b * x + transform.d * y + transform.f,
   );
 
+  String coordinate(double value) {
+    // ARM and x64 arithmetic can land on opposite sides of a decimal tie.
+    // Discard insignificant drift before rounding to the catalog precision.
+    final stable = double.parse(value.toStringAsFixed(9));
+    return (stable == 0 ? 0.0 : stable).toStringAsFixed(3);
+  }
+
   String format(math.Point<double> point) =>
-      '${point.x.toStringAsFixed(3)} ${point.y.toStringAsFixed(3)}';
+      '${coordinate(point.x)} ${coordinate(point.y)}';
 
   @override
   void moveTo(double x, double y) {
