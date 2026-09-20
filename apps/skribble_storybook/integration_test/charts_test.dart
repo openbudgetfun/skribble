@@ -28,6 +28,7 @@ void main() {
           view: $(ChartDemoKeys.scroll),
           scrollDirection: AxisDirection.up,
           maxScrolls: 40,
+          alignment: const Alignment(0, -.4),
         );
         await $(ChartDemoKeys.chart).tap(alignment: const Alignment(0, -.4));
         await $(ChartDemoKeys.save)

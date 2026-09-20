@@ -27,3 +27,5 @@ The toolbar changes the bundled Casual, Linear, or Mono font and the Gentle, Pla
 - Existing pages cover controls, navigation, layout, tables, charts, maps, emoji, motion, and the working sketchbook. Layout includes expansion panels and Data Display includes a paginated table.
 
 The entry point registers the rough Material catalog before creating the app. Component examples use `WiredIcon` so their artwork matches the library.
+
+Browser journeys scroll to the actual chart drawing point before tapping it, keeping the drawing interaction reachable with the bundled fonts at phone widths.

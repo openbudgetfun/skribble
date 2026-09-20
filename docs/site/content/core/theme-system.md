@@ -593,3 +593,5 @@ The [design kit](../reference/design-kit) collects pen width, stable seeds, roug
 The storybook bundles `skribble_font_recursive` explicitly. Its toolbar selects Casual, Linear, or Mono alongside Gentle, Playful, or Expressive ink. The font specimen covers weights 300 through 900 and italics; the variable-font page lets you change weight, casualness, monospace, slant, and cursive letterforms.
 
 Rounded borders retain smooth corner joins while long edges wander locally. Gentle keeps the softer bowed treatment. Playful and Expressive introduce several small changes of direction along wide cards, without increasing their layout size.
+
+Rounded border variation shares the widget's reserved ink bleed with the offset of each pen pass. Even expressive strokes and their Bézier control points stay inside that allowance, so stronger local variation does not clip at the widget edge.
