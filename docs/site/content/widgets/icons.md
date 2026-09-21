@@ -456,7 +456,17 @@ Wrap(
 
 ### How icon roughness works
 
-A deterministic, smooth displacement moves the icon's contour points. Fills and outlines share this geometry, so small icons have uneven curves without noisy edges. The theme's Gentle, Playful, and Expressive presets control the amplitude. An explicit `drawConfig` overrides the theme; set its roughness to zero for the unwarped silhouette.
+A deterministic, smooth displacement moves the icon's contour points. Filled silhouettes and authored SVG strokes both follow the theme. The three levels apply to every catalog through `WiredIcon`, `WiredSvgIcon`, and `SkribbleIcon`:
+
+| Level             | Appearance                                                         |
+| ----------------- | ------------------------------------------------------------------ |
+| Gentle            | Subtle wavering, close to the original catalog artwork.            |
+| Playful (default) | More noticeable bends and uneven contours.                         |
+| Expressive        | Stronger local wavering while retaining the artwork's orientation. |
+
+Set `WiredThemeData(roughnessLevel: WiredRoughness.expressive)` to coordinate icons with fonts and borders. No extra icon catalog is needed. An explicit icon `drawConfig` overrides the theme; set its roughness to zero to paint the supplied geometry, including any bends already baked into a catalog.
+
+`SkribbleIcon` now uses the same cached painter as `WiredSvgIcon`, preserving source stroke widths, caps, joins, colors, and clips. It is no longer a separate fixed-roughness renderer. Use `drawConfig: DrawConfig.build(roughness: 0)` when you want source geometry without additional wavering.
 
 Icons remain vector data. No bitmap images or per-resolution assets are generated for these styles. To regenerate the curated brand catalog from the repository root:
 
@@ -473,4 +483,4 @@ Generated coordinates discard insignificant floating-point drift before decimal 
 
 The docs and storybook register the Material catalog at startup. Applications using `WiredIcon` must call `registerSkribbleIcons()` before `runApp`; without a registered catalog, the widget uses Flutter's regular icon glyph.
 
-The storybook's **Skribble Icons** page has searchable Curated, Material, Lucide, Simple Icons, Boxicons, and CoreUI Brands catalogs. Tap an icon to compare it at 24, 48, and 96 pixels. Lookups stay within the selected set even when names overlap.
+The storybook's **Skribble Icons** page has searchable Curated, Material, Lucide, Simple Icons, Boxicons, and CoreUI Brands catalogs. The toolbar's roughness selector updates every catalog. Tap an icon to compare all three levels at 24, 48, and 96 pixels in a scrollable preview. Filters scroll with the grid, and previews wrap their size samples when text is enlarged. Lookups stay within the selected set even when names overlap.

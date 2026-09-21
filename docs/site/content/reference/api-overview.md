@@ -279,6 +279,8 @@ import 'package:skribble_icons/skribble_icons.dart';
 | `WiredSvgIconData`                 | class                        | SVG icon data (re-exported from `skribble`)       |
 | `WiredSvgPrimitive`                | class                        | SVG primitive types (re-exported from `skribble`) |
 
+`WiredSvgIcon`, `WiredIcon`, and `SkribbleIcon` (from `package:skribble/skribble.dart`) inherit the theme's Gentle, Playful, or Expressive treatment. `SkribbleIcon.drawConfig` optionally overrides that treatment, including `DrawConfig.build(roughness: 0)` to draw the supplied geometry without additional wavering.
+
 ### skribble_emoji
 
 ```dart

@@ -595,3 +595,5 @@ The storybook bundles `skribble_font_recursive` explicitly. Its toolbar selects 
 Rounded borders retain smooth corner joins while long edges wander locally. Gentle keeps the softer bowed treatment. Playful and Expressive introduce several small changes of direction along wide cards, without increasing their layout size.
 
 Rounded border variation shares the widget's reserved ink bleed with the offset of each pen pass. Even expressive strokes and their Bézier control points stay inside that allowance, so stronger local variation does not clip at the widget edge.
+
+Icons use the same three levels across all six catalogs. Gentle adds subtle wavering, Playful increases contour variation, and Expressive makes it stronger. Filled silhouettes and SVG outline strokes both respond. `WiredIcon`, `WiredSvgIcon`, and `SkribbleIcon` share this treatment; an explicit icon `drawConfig` takes precedence. Open an icon in the storybook to compare all three levels at 24, 48, and 96 pixels.
