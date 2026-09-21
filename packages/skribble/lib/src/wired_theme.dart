@@ -29,7 +29,7 @@ class WiredThemeData {
   final double strokeWidth;
   final DrawConfig? _drawConfig;
 
-  /// Coordinated border and font settings. Defaults to playful ink.
+  /// Coordinated icon, border, and font settings. Defaults to playful ink.
   final WiredRoughness roughnessLevel;
   final double? _roughness;
   final String? _fontFamily;

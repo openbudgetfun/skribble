@@ -11,10 +11,7 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(390, 844));
     addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(
-      WiredMaterialApp(
-        wiredTheme: WiredThemeData(),
-        home: page,
-      ),
+      WiredMaterialApp(wiredTheme: WiredThemeData(), home: page),
     );
     await tester.pump(const Duration(milliseconds: 300));
   }
@@ -50,11 +47,15 @@ void main() {
         expect(icon, findsOneWidget);
         await tester.tap(icon);
         await tester.pump(const Duration(milliseconds: 300));
-        expect(find.text('24px'), findsOneWidget);
-        expect(find.text('48px'), findsOneWidget);
-        expect(find.text('96px'), findsOneWidget);
+        expect(find.text('Gentle'), findsOneWidget);
+        expect(find.text('Playful'), findsOneWidget);
+        expect(find.text('Expressive'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+        expect(find.text('24px'), findsNWidgets(3));
+        expect(find.text('48px'), findsNWidgets(3));
+        expect(find.text('96px'), findsNWidgets(3));
         expect(find.bySemanticsLabel(RegExp('arrow-down')), findsWidgets);
-        Navigator.of(tester.element(find.text('24px'))).pop();
+        Navigator.of(tester.element(find.text('24px').first)).pop();
         await tester.pumpAndSettle();
         await tester.enterText(
           find.byType(EditableText),
@@ -70,6 +71,49 @@ void main() {
       }
     },
   );
+
+  testWidgets('icon comparisons fit a small phone with enlarged text', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(320, 568));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(
+      WiredMaterialApp(
+        wiredTheme: WiredThemeData(),
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: TextScaler.linear(2)),
+          child: child!,
+        ),
+        home: const SkribbleIconsPage(),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final home = find.byWidgetPredicate(
+      (widget) =>
+          widget is WiredSvgIcon && widget.semanticLabel == 'Curated: home',
+    );
+    await tester.scrollUntilVisible(
+      home,
+      150,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(home);
+    await tester.pumpAndSettle();
+    expect(find.text('Gentle'), findsOneWidget);
+    await tester.ensureVisible(find.text('Expressive'));
+    await tester.pumpAndSettle();
+    expect(find.text('Expressive').hitTestable(), findsOneWidget);
+    final largest = find.byWidgetPredicate(
+      (widget) =>
+          widget is WiredSvgIcon &&
+          widget.semanticLabel == 'home, expressive, 96 pixels',
+    );
+    await tester.ensureVisible(largest);
+    await tester.pumpAndSettle();
+    expect(largest.hitTestable(), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
 
   testWidgets(
     'loading controls pause animation and reveal selectable content',

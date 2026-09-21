@@ -1,4 +1,4 @@
-/// Coordinated border and lettering presets for a Wired theme.
+/// Coordinated icon, border, and lettering presets for a Wired theme.
 ///
 /// Each level bundles regular, bold, italic, and bold italic fonts. Borders
 /// remain seed-stable; changing levels does not randomize the drawing.

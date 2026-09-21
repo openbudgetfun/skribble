@@ -39,6 +39,8 @@ class WiredSvgIcon extends HookWidget {
 
   /// Base pen width. Solid fills use a 45% contour to keep small counters open.
   final double strokeWidth;
+
+  /// Overrides theme-driven icon wavering. Zero roughness paints source paths.
   final DrawConfig? drawConfig;
   final bool flipHorizontally;
   final double sampleDistance;
@@ -53,11 +55,15 @@ class WiredSvgIcon extends HookWidget {
     final effectiveSize = size ?? iconTheme.size ?? 24;
     final effectiveColor = color ?? iconTheme.color ?? wiredTheme.textColor;
 
+    // Small silhouettes need more separation between the theme levels than
+    // borders do. Gentle keeps the original amplitude; local wobble increases
+    // it for Playful and Expressive. An explicit icon config bypasses this.
     final effectiveDrawConfig =
         drawConfig ??
         DrawConfig.build(
           maxRandomnessOffset:
               themeDrawConfig.maxRandomnessOffset! *
+              (1 + 1.5 * (themeDrawConfig.lineWobble ?? 0)) *
               math.min(2.0, effectiveSize / 24),
           roughness: themeDrawConfig.roughness,
           lineWobble: themeDrawConfig.lineWobble,
@@ -381,9 +387,18 @@ final class _WiredSvgIconPainter extends CustomPainter {
   /// The displacement is a pure function of the source path and this painter's
   /// configuration, and a rebuild produces a new painter and a fresh list.
   List<Path>? _roughPaths;
+  List<Path>? _roughStrokePaths;
 
   List<Path> _resolveRoughPaths() => _roughPaths ??= [
     for (final primitive in primitives) _roughPath(primitive.path),
+  ];
+
+  List<Path> _resolveRoughStrokePaths() => _roughStrokePaths ??= [
+    for (final primitive in primitives)
+      if (primitive.strokeColor != null || primitive.strokeIsAmbient)
+        _roughPath(primitive.strokePath, bounds: primitive.path.getBounds())
+      else
+        primitive.strokePath,
   ];
 
   @override
@@ -407,6 +422,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
       ..isAntiAlias = true;
 
     final roughPaths = _resolveRoughPaths();
+    final roughStrokePaths = _resolveRoughStrokePaths();
     for (var index = 0; index < primitives.length; index++) {
       final primitive = primitives[index];
       final roughPath = roughPaths[index];
@@ -427,10 +443,10 @@ final class _WiredSvgIconPainter extends CustomPainter {
           );
         }
         if (primitive.strokeColor != null || primitive.strokeIsAmbient) {
-          // Authored SVG strokes retain their exact caps, joins, and dash
-          // endpoints. The contour renderer below is for monochrome icons.
+          // Authored strokes share the icon's wavering treatment while keeping
+          // their source pen width, caps, joins, and separated dash contours.
           canvas.drawPath(
-            primitive.strokePath,
+            roughStrokePaths[index],
             Paint()
               ..style = PaintingStyle.stroke
               ..isAntiAlias = true
@@ -488,7 +504,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
   // One smooth displacement field moves both sides of a stroke together.
   // Independent jitter on tiny outline segments looks like raster fuzz and
   // closes narrow counters. Fill and outline must share the same geometry.
-  Path _roughPath(Path path) {
+  Path _roughPath(Path path, {Rect? bounds}) {
     if (drawConfig.roughness == 0) return path;
     final rough = Path()..fillType = path.fillType;
     final amplitude =
@@ -496,7 +512,10 @@ final class _WiredSvgIconPainter extends CustomPainter {
         (drawConfig.maxRandomnessOffset ?? 1) *
         0.12;
     final phase = (drawConfig.seed ?? 0) * 0.61803398875;
-    final bounds = path.getBounds();
+    final pathBounds = bounds ?? path.getBounds();
+
+    // Keep enlarged icons from accumulating extra ripples along every edge.
+    final wavelengthScale = math.max(1.0, pathBounds.longestSide / 24);
 
     // Remove the field's linear trend across the icon. Endpoints on opposite
     // sides receive no relative shift, keeping upright strokes upright.
@@ -515,39 +534,109 @@ final class _WiredSvgIconPainter extends CustomPainter {
           (first + (last - first) * t);
     }
 
+    Offset displacement(Offset point) => Offset(
+      amplitude *
+          wavering(
+            point.dy,
+            pathBounds.top,
+            pathBounds.height,
+            5.5 * wavelengthScale,
+            phase,
+          ),
+      amplitude *
+          wavering(
+            point.dx,
+            pathBounds.left,
+            pathBounds.width,
+            7 * wavelengthScale,
+            phase + 1.7,
+          ),
+    );
+
     for (final metric in path.computeMetrics()) {
-      final points = _sampleMetric(metric);
+      final samples = _sampleMetric(metric);
+      final points = samples
+          .map((sample) => sample.position)
+          .toList(growable: false);
+      if (points.isEmpty) continue;
+      final offsets = points.map(displacement).toList(growable: false);
+      // Anchor corners as well as the ends of open strokes. Removing only the
+      // whole icon's trend can still lean interior stems, such as a house door.
+      // Samples are equally spaced along the contour, so index interpolation
+      // removes the local trend between successive corners.
+      final anchors = [
+        0,
+        for (var i = 1; i < points.length - 1; i++)
+          if (_isCorner(points[i - 1], points[i], points[i + 1])) i,
+        points.length - 1,
+      ];
+      final anchorCorners = !metric.isClosed || anchors.length > 2;
+      var segment = 0;
+      if (!metric.isClosed) {
+        // Preserve the source segments at each open end. Even a small change
+        // in their tangent can rotate square/butt caps into a clear dash gap.
+        if (points.length < 4) {
+          rough.addPath(metric.extractPath(0, metric.length), Offset.zero);
+          continue;
+        }
+        rough.addPath(metric.extractPath(0, samples[1].distance), Offset.zero);
+      }
       for (var i = 0; i < points.length; i++) {
-        final point = points[i];
-        final x =
-            point.dx +
-            amplitude *
-                wavering(
-                  point.dy,
-                  bounds.top,
-                  bounds.height,
-                  5.5,
-                  phase,
-                );
-        final y =
-            point.dy +
-            amplitude *
-                wavering(
-                  point.dx,
-                  bounds.left,
-                  bounds.width,
-                  7,
-                  phase + 1.7,
-                );
+        var offset = offsets[i];
+        if (anchorCorners && points.length > 1) {
+          while (segment < anchors.length - 2 && i > anchors[segment + 1]) {
+            segment++;
+          }
+          final first = anchors[segment];
+          final last = anchors[segment + 1];
+          final t = (i - first) / (last - first);
+          offset -= Offset.lerp(
+            offsets[first],
+            offsets[last],
+            t,
+          )!;
+          final chord = points[last] - points[first];
+          final length = chord.distance;
+          if (length > 0) {
+            // Opposing bends keep short straight edges visibly hand-drawn
+            // without moving their corners or choosing a consistent lean.
+            final bend =
+                amplitude *
+                0.2 *
+                math.min(1, length / 8) *
+                math.sin(t * math.pi * 2);
+            offset += Offset(-chord.dy, chord.dx) * (bend / length);
+          }
+        }
+        if (!metric.isClosed) {
+          if (i <= 1) continue;
+          if (i == points.length - 1) {
+            rough.extendWithPath(
+              metric.extractPath(samples[i - 1].distance, metric.length),
+              Offset.zero,
+            );
+            continue;
+          }
+          if (i == points.length - 2) offset = Offset.zero;
+        }
+        final point = points[i] + offset;
         if (i == 0) {
-          rough.moveTo(x, y);
+          rough.moveTo(point.dx, point.dy);
         } else {
-          rough.lineTo(x, y);
+          rough.lineTo(point.dx, point.dy);
         }
       }
       if (metric.isClosed) rough.close();
     }
     return rough;
+  }
+
+  bool _isCorner(Offset before, Offset point, Offset after) {
+    final incoming = point - before;
+    final outgoing = after - point;
+    final length = incoming.distance * outgoing.distance;
+    return length > 0 &&
+        (incoming.dx * outgoing.dx + incoming.dy * outgoing.dy) / length < 0.9;
   }
 
   void _paintHachureFill(
@@ -596,15 +685,15 @@ final class _WiredSvgIconPainter extends CustomPainter {
     canvas.restore();
   }
 
-  List<Offset> _sampleMetric(PathMetric metric) {
+  List<({Offset position, double distance})> _sampleMetric(PathMetric metric) {
     final length = metric.length;
     if (length == 0) {
-      return const <Offset>[];
+      return const [];
     }
 
     final step = math.max(0.6, sampleDistance);
     final sampleCount = math.max(2, (length / step).ceil());
-    final points = <Offset>[];
+    final points = <({Offset position, double distance})>[];
 
     for (var index = 0; index <= sampleCount; index++) {
       final offset = math.min(length, length * (index / sampleCount));
@@ -614,16 +703,16 @@ final class _WiredSvgIconPainter extends CustomPainter {
       }
 
       final position = tangent.position;
-      if (points.isEmpty || (points.last - position).distance > 0.15) {
-        points.add(position);
+      if (points.isEmpty || (points.last.position - position).distance > 0.15) {
+        points.add((position: position, distance: offset));
       }
     }
 
     if (metric.isClosed && points.isNotEmpty) {
       final first = points.first;
       final last = points.last;
-      if ((first - last).distance > 0.15) {
-        points.add(first);
+      if ((first.position - last.position).distance > 0.15) {
+        points.add((position: first.position, distance: length));
       }
     }
 
