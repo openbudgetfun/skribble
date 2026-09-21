@@ -28,38 +28,44 @@ void main() {
     ],
   );
   for (final precomputed in [true, false]) {
-    testWidgets(
-      'dash gaps and square caps render with precomputed=$precomputed',
-      (tester) async {
-        final key = GlobalKey();
-        await tester.pumpWidget(
-          Directionality(
-            textDirection: TextDirection.ltr,
-            child: Center(
-              child: RepaintBoundary(
-                key: key,
-                child: precomputed
-                    ? const PrecomputedEmoji(data: data, size: 72)
-                    : const WiredSvgIcon(data: data, size: 72),
+    for (final level in WiredRoughness.values) {
+      testWidgets(
+        'dash gaps and square caps render with precomputed=$precomputed, ${level.name}',
+        (tester) async {
+          final key = GlobalKey();
+          await tester.pumpWidget(
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: WiredThemeScope(
+                data: WiredThemeData(roughnessLevel: level),
+                child: Center(
+                  child: RepaintBoundary(
+                    key: key,
+                    child: precomputed
+                        ? const PrecomputedEmoji(data: data, size: 72)
+                        : const WiredSvgIcon(data: data, size: 72),
+                  ),
+                ),
               ),
             ),
-          ),
-        );
-        final bytes = (await tester.runAsync<Uint8List>(() async {
-          final boundary =
-              key.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-          final image = await boundary.toImage();
-          final bytes = (await image.toByteData())!.buffer.asUint8List();
-          image.dispose();
-          return bytes;
-        }))!;
-        int alpha(int x, int y) => bytes[(y * 72 + x) * 4 + 3];
-        expect(alpha(6, 10), 255);
-        expect(alpha(16, 10), 0);
-        expect(alpha(22, 10), 255);
-        expect(alpha(10, 30), 255);
-        expect(alpha(8, 30), 0);
-      },
-    );
+          );
+          final bytes = (await tester.runAsync<Uint8List>(() async {
+            final boundary =
+                key.currentContext!.findRenderObject()!
+                    as RenderRepaintBoundary;
+            final image = await boundary.toImage();
+            final bytes = (await image.toByteData())!.buffer.asUint8List();
+            image.dispose();
+            return bytes;
+          }))!;
+          int alpha(int x, int y) => bytes[(y * 72 + x) * 4 + 3];
+          expect(alpha(6, 10), 255);
+          expect(alpha(16, 10), 0);
+          expect(alpha(22, 10), 255);
+          expect(alpha(10, 30), 255);
+          expect(alpha(8, 30), 0);
+        },
+      );
+    }
   }
 }

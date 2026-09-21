@@ -554,7 +554,10 @@ final class _WiredSvgIconPainter extends CustomPainter {
     );
 
     for (final metric in path.computeMetrics()) {
-      final points = _sampleMetric(metric);
+      final samples = _sampleMetric(metric);
+      final points = samples
+          .map((sample) => sample.position)
+          .toList(growable: false);
       if (points.isEmpty) continue;
       final offsets = points.map(displacement).toList(growable: false);
       // Anchor corners as well as the ends of open strokes. Removing only the
@@ -569,6 +572,15 @@ final class _WiredSvgIconPainter extends CustomPainter {
       ];
       final anchorCorners = !metric.isClosed || anchors.length > 2;
       var segment = 0;
+      if (!metric.isClosed) {
+        // Preserve the source segments at each open end. Even a small change
+        // in their tangent can rotate square/butt caps into a clear dash gap.
+        if (points.length < 4) {
+          rough.addPath(metric.extractPath(0, metric.length), Offset.zero);
+          continue;
+        }
+        rough.addPath(metric.extractPath(0, samples[1].distance), Offset.zero);
+      }
       for (var i = 0; i < points.length; i++) {
         var offset = offsets[i];
         if (anchorCorners && points.length > 1) {
@@ -595,6 +607,17 @@ final class _WiredSvgIconPainter extends CustomPainter {
                 math.sin(t * math.pi * 2);
             offset += Offset(-chord.dy, chord.dx) * (bend / length);
           }
+        }
+        if (!metric.isClosed) {
+          if (i <= 1) continue;
+          if (i == points.length - 1) {
+            rough.extendWithPath(
+              metric.extractPath(samples[i - 1].distance, metric.length),
+              Offset.zero,
+            );
+            continue;
+          }
+          if (i == points.length - 2) offset = Offset.zero;
         }
         final point = points[i] + offset;
         if (i == 0) {
@@ -662,15 +685,15 @@ final class _WiredSvgIconPainter extends CustomPainter {
     canvas.restore();
   }
 
-  List<Offset> _sampleMetric(PathMetric metric) {
+  List<({Offset position, double distance})> _sampleMetric(PathMetric metric) {
     final length = metric.length;
     if (length == 0) {
-      return const <Offset>[];
+      return const [];
     }
 
     final step = math.max(0.6, sampleDistance);
     final sampleCount = math.max(2, (length / step).ceil());
-    final points = <Offset>[];
+    final points = <({Offset position, double distance})>[];
 
     for (var index = 0; index <= sampleCount; index++) {
       final offset = math.min(length, length * (index / sampleCount));
@@ -680,16 +703,16 @@ final class _WiredSvgIconPainter extends CustomPainter {
       }
 
       final position = tangent.position;
-      if (points.isEmpty || (points.last - position).distance > 0.15) {
-        points.add(position);
+      if (points.isEmpty || (points.last.position - position).distance > 0.15) {
+        points.add((position: position, distance: offset));
       }
     }
 
     if (metric.isClosed && points.isNotEmpty) {
       final first = points.first;
       final last = points.last;
-      if ((first - last).distance > 0.15) {
-        points.add(first);
+      if ((first.position - last.position).distance > 0.15) {
+        points.add((position: first.position, distance: length));
       }
     }
 
