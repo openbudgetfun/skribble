@@ -1261,6 +1261,10 @@ From `docs/site`, run `dart run tool/generate_examples.dart` after changing a bu
 
 Keep previews in the actual docs layout during tests: inherited typography and article padding can expose failures that an isolated widget hides. Configuration, shell commands, and platform setup remain source instructions rather than simulated widgets.
 
+The web docs defer the live-example catalog until an article renders a live fence. `docs:site:build` also trims the release `FontManifest.json` to the Casual and Mono reading faces, and `tool/prepare_pages.dart` writes `DeferredFontManifest.json` for the font comparison page. Keep the `DOCS_DEFER_FONTS` build define and the manifest preparation step together when changing that pipeline; development builds retain Flutter's complete font manifest.
+
+The HTML loading mark remains visible until the first Flutter frame renders the requested article. `main.dart` must not mount a temporary router before `DocsApp`, since that replaces a deep-link URL with the home route.
+
 Every Dart fence requires an explicit classification. Standalone widget expressions use a live example marker. Setup, configuration, API definitions, implementation lessons, tests, pseudocode, and examples requiring custom assets use `// Static example: <reason>` with a reason accepted by `tool/generate_examples.dart`. These internal markers are hidden from displayed and copied code. Do not classify a runnable widget demonstration as static just to bypass preview coverage.
 
 ### Image storage

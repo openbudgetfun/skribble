@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_docs_site/src/comparison_fonts.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
 import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/variable_font_comparison.dart';
@@ -12,6 +13,8 @@ class FontComparison extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fonts = useMemoized(loadComparisonFonts);
+    final fontLoad = useFuture(fonts);
     final sample = useState(
       'Little things, made with care.\nHamburgefontsiv 0123456789',
     );
@@ -19,6 +22,14 @@ class FontComparison extends HookWidget {
     final bold = useState(false);
     final italic = useState(false);
     final textController = useTextEditingController(text: sample.value);
+
+    if (fontLoad.hasError) {
+      return Text('Could not load font specimens: ${fontLoad.error}');
+    }
+
+    if (fontLoad.connectionState != ConnectionState.done) {
+      return const Text('Preparing font specimens…');
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
