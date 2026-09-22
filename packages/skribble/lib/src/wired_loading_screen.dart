@@ -107,6 +107,8 @@ class WiredLoadingScreen extends HookWidget {
                       message!,
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        // Startup may precede the page's default text style.
+                        inherit: false,
                         fontFamily: theme.fontFamily,
                         package: theme.fontPackage,
                         color: ink.withValues(alpha: .72),
