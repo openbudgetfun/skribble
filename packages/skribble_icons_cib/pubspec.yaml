@@ -2,7 +2,7 @@ name: skribble_icons_cib
 description: |
   CoreUI Brands icon set for skribble, rendered as precomputed hand-drawn
   geometry. CoreUI brand marks: 830 logos for products, platforms, and social networks.
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_icons_cib
 documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble_icons_cib/README.md
@@ -20,8 +20,8 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  skribble: ^0.2.0
+  skribble: ^0.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  skribble_lints: ^0.2.0
+  skribble_lints: ^0.2.1

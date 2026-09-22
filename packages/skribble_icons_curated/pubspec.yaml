@@ -2,7 +2,7 @@ name: skribble_icons_curated
 description: |
   Curated hand-drawn simple icon set for skribble. Thirty app-level icons
   generated from SVG sources through the shared rough pass.
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_icons_curated
 documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble_icons_curated/README.md
@@ -21,10 +21,10 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.21.3
-  skribble: ^0.2.0
+  skribble: ^0.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  skribble_lints: ^0.2.0
+  skribble_lints: ^0.2.1
 flutter:
   uses-material-design: true

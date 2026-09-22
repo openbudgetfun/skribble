@@ -97,6 +97,12 @@ _Owner:_ Ifiok Jr. · _Introduced in:_ [77bb664](https://github.com/openbudgetfu
 
 - **Lowercase the skribble brand word across documentation.** READMEs, docs site pages and titles, package descriptions, and source comments now write the brand word as lowercase skribble. Dart identifiers, bundled font families such as SkribbleGentle, asset names, and runtime strings keep their casing, so no API or behaviour changes. _Owner:_ Ifiok Jr. · _Introduced in:_ [5e3937c](https://github.com/openbudgetfun/skribble/commit/5e3937ccb6db77bc38e9ac95d273e018def98843) · _Last updated in:_ [77bb664](https://github.com/openbudgetfun/skribble/commit/77bb6649c58d5be1876aec0eb1cc3a2389c7dc89)
 
+## skribble_maps [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.2.1) (2026-09-22)
+
+### Changed
+
+- **No package-specific changes were recorded; `skribble_maps` was updated to 0.2.1.**
+
 ## 0.0.1
 
 - Add the initial hand-drawn vector map viewport, renderer, providers, styles, overlays, controls, documentation, and tests.

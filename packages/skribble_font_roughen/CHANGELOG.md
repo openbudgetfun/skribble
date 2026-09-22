@@ -2,6 +2,12 @@
 
 Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).
 
+## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)
+
+### Changed
+
+- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.2.1 as part of group `main`.**
+
 ## [0.2.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.0) (2026-09-14)
 
 ### Documentation

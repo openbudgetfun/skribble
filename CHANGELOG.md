@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/monochange/monochange).
 
+## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)
+
+Grouped release for `main`.
+
+### Features
+
+#### Coordinate icon roughness across every catalog
+
+_Packages:_ _skribble_
+
+Give filled and outline icons distinct Gentle, Playful, and Expressive treatments through the existing theme. Make SkribbleIcon use the shared cached SVG renderer, preserving source stroke metadata and supporting an explicit drawConfig override.
+
+The storybook applies the selected level to all six icon catalogs and compares all three levels at 24, 48, and 96 pixels in each icon preview.
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [c9b137d](https://github.com/openbudgetfun/skribble/commit/c9b137da11973f4b00f9bd59d3b30d75e30f6046)
+
+### Fixes
+
+- **skribble**: **Fix loading message typography during startup.** Prevent startup loading messages from inheriting yellow underlines and bold fallback text styles. _Owner:_ Ifiok Jr. · _Introduced in:_ [ec8413d](https://github.com/openbudgetfun/skribble/commit/ec8413d791692b9e8fc6a724e6a627b7df6f6196)
+
+#### Keep hand-drawn icons upright and rounded borders visibly irregular
+
+_Packages:_ _skribble_, _skribble_icons_curated_, _skribble_icons_simple_, _skribble_icons_lucide_, _skribble_icons_bxs_, _skribble_icons_cib_, _skribble_emoji_, _skribble_emoji_gen_
+
+Preserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.
+
+Normalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.
+
+The documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.
+
+_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)
+
 ## [0.2.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.0) (2026-09-14)
 
 Grouped release for `main`.

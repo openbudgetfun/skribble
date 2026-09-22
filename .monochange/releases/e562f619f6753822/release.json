@@ -1,0 +1,1067 @@
+{
+  "schema_version": "0.6",
+  "kind": "monochange.releaseRecord",
+  "created_at": "2026-09-22T07:42:34Z",
+  "command": "release",
+  "version": "0.2.1",
+  "versions": {
+    "main": "0.2.1",
+    "skribble_charts": "0.2.1",
+    "skribble_maps": "0.2.1"
+  },
+  "release_targets": [
+    {
+      "id": "main",
+      "kind": "group",
+      "version": "0.2.1",
+      "version_format": "primary",
+      "tag": true,
+      "release": true,
+      "tag_name": "v0.2.1",
+      "members": [
+        "skribble",
+        "skribble_icons",
+        "skribble_icons_curated",
+        "skribble_icons_simple",
+        "skribble_icons_material",
+        "skribble_icons_lucide",
+        "skribble_icons_bxs",
+        "skribble_icons_cib",
+        "skribble_emoji",
+        "skribble_emoji_gen",
+        "skribble_font_recursive",
+        "skribble_font_roughen",
+        "skribble_lints"
+      ]
+    },
+    {
+      "id": "skribble_charts",
+      "kind": "package",
+      "version": "0.2.1",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_charts/v0.2.1",
+      "members": [
+        "skribble_charts"
+      ]
+    },
+    {
+      "id": "skribble_maps",
+      "kind": "package",
+      "version": "0.2.1",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_maps/v0.2.1",
+      "members": [
+        "skribble_maps"
+      ]
+    }
+  ],
+  "released_packages": [
+    "skribble",
+    "skribble_charts",
+    "skribble_emoji",
+    "skribble_emoji_gen",
+    "skribble_font_recursive",
+    "skribble_font_roughen",
+    "skribble_icons",
+    "skribble_icons_bxs",
+    "skribble_icons_cib",
+    "skribble_icons_curated",
+    "skribble_icons_lucide",
+    "skribble_icons_material",
+    "skribble_icons_simple",
+    "skribble_lints",
+    "skribble_maps"
+  ],
+  "changed_files": [
+    "CHANGELOG.md",
+    "apps/skribble_benchmark/pubspec.yaml",
+    "apps/skribble_example/pubspec.yaml",
+    "apps/skribble_storybook/pubspec.yaml",
+    "docs/site/pubspec.yaml",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble/pubspec.yaml",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_charts/pubspec.yaml",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji/pubspec.yaml",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_emoji_gen/pubspec.yaml",
+    "packages/skribble_font_recursive/CHANGELOG.md",
+    "packages/skribble_font_recursive/pubspec.yaml",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_font_roughen/pubspec.yaml",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons/pubspec.yaml",
+    "packages/skribble_icons_bxs/CHANGELOG.md",
+    "packages/skribble_icons_bxs/pubspec.yaml",
+    "packages/skribble_icons_cib/CHANGELOG.md",
+    "packages/skribble_icons_cib/pubspec.yaml",
+    "packages/skribble_icons_curated/CHANGELOG.md",
+    "packages/skribble_icons_curated/pubspec.yaml",
+    "packages/skribble_icons_lucide/CHANGELOG.md",
+    "packages/skribble_icons_lucide/pubspec.yaml",
+    "packages/skribble_icons_material/CHANGELOG.md",
+    "packages/skribble_icons_material/pubspec.yaml",
+    "packages/skribble_icons_simple/CHANGELOG.md",
+    "packages/skribble_icons_simple/pubspec.yaml",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_lints/pubspec.yaml",
+    "packages/skribble_maps/CHANGELOG.md",
+    "packages/skribble_maps/pubspec.yaml",
+    "pubspec.yaml"
+  ],
+  "package_publications": [
+    {
+      "package": "skribble",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_charts",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji_gen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_recursive",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_roughen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_bxs",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_cib",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_curated",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_lucide",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_material",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_simple",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_lints",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_maps",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.2.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    }
+  ],
+  "updated_changelogs": [
+    "CHANGELOG.md",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_font_recursive/CHANGELOG.md",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons_bxs/CHANGELOG.md",
+    "packages/skribble_icons_cib/CHANGELOG.md",
+    "packages/skribble_icons_curated/CHANGELOG.md",
+    "packages/skribble_icons_lucide/CHANGELOG.md",
+    "packages/skribble_icons_material/CHANGELOG.md",
+    "packages/skribble_icons_simple/CHANGELOG.md",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_maps/CHANGELOG.md"
+  ],
+  "deleted_changesets": [
+    ".changeset/docs-startup-text.md",
+    ".changeset/icon-roughness-levels.md",
+    ".changeset/upright-icon-strokes.md"
+  ],
+  "changesets": [
+    {
+      "path": ".changeset/docs-startup-text.md",
+      "summary": "Fix loading message typography during startup",
+      "details": "Prevent startup loading messages from inheriting yellow underlines and bold fallback text styles.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": null,
+            "display_name": "Ifiok Jr.",
+            "url": null,
+            "source": "commit_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "ec8413d791692b9e8fc6a724e6a627b7df6f6196",
+            "short_sha": "ec8413d",
+            "url": "https://github.com/openbudgetfun/skribble/commit/ec8413d791692b9e8fc6a724e6a627b7df6f6196",
+            "authored_at": "2026-09-22T06:40:48+01:00",
+            "committed_at": "2026-09-22T06:40:48+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": null
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": null,
+            "display_name": "Ifiok Jr.",
+            "url": null,
+            "source": "commit_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "ec8413d791692b9e8fc6a724e6a627b7df6f6196",
+            "short_sha": "ec8413d",
+            "url": "https://github.com/openbudgetfun/skribble/commit/ec8413d791692b9e8fc6a724e6a627b7df6f6196",
+            "authored_at": "2026-09-22T06:40:48+01:00",
+            "committed_at": "2026-09-22T06:40:48+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": null
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/icon-roughness-levels.md",
+      "summary": "Coordinate icon roughness across every catalog",
+      "details": "Give filled and outline icons distinct Gentle, Playful, and Expressive treatments through the existing theme. Make SkribbleIcon use the shared cached SVG renderer, preserving source stroke metadata and supporting an explicit drawConfig override.\n\nThe storybook applies the selected level to all six icon catalogs and compares all three levels at 24, 48, and 96 pixels in each icon preview.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "feat"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": null,
+            "display_name": "Ifiok Jr.",
+            "url": null,
+            "source": "commit_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c9b137da11973f4b00f9bd59d3b30d75e30f6046",
+            "short_sha": "c9b137d",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c9b137da11973f4b00f9bd59d3b30d75e30f6046",
+            "authored_at": "2026-09-21T07:07:06+01:00",
+            "committed_at": "2026-09-21T07:07:06+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": null
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": null,
+            "display_name": "Ifiok Jr.",
+            "url": null,
+            "source": "commit_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c9b137da11973f4b00f9bd59d3b30d75e30f6046",
+            "short_sha": "c9b137d",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c9b137da11973f4b00f9bd59d3b30d75e30f6046",
+            "authored_at": "2026-09-21T07:07:06+01:00",
+            "committed_at": "2026-09-21T07:07:06+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": null
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/upright-icon-strokes.md",
+      "summary": "Keep hand-drawn icons upright and rounded borders visibly irregular",
+      "details": "Preserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "fix"
+        },
+        {
+          "id": "skribble_emoji",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "fix"
+        },
+        {
+          "id": "skribble_emoji_gen",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "fix"
+        },
+        {
+          "id": "skribble_icons_curated",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "fix"
+        },
+        {
+          "id": "skribble_icons_simple",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "fix"
+        },
+        {
+          "id": "skribble_icons_lucide",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "fix"
+        },
+        {
+          "id": "skribble_icons_bxs",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "fix"
+        },
+        {
+          "id": "skribble_icons_cib",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "fix"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": null,
+            "display_name": "Ifiok Jr.",
+            "url": null,
+            "source": "commit_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4",
+            "short_sha": "26f116a",
+            "url": "https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4",
+            "authored_at": "2026-09-20T17:43:07+01:00",
+            "committed_at": "2026-09-20T17:43:07+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": null
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": null,
+            "display_name": "Ifiok Jr.",
+            "url": null,
+            "source": "commit_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4",
+            "short_sha": "26f116a",
+            "url": "https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4",
+            "authored_at": "2026-09-20T17:43:07+01:00",
+            "committed_at": "2026-09-20T17:43:07+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": null
+        },
+        "related_issues": []
+      }
+    }
+  ],
+  "changelogs": [
+    {
+      "owner_id": "main",
+      "owner_kind": "group",
+      "output": "default",
+      "stream": "default",
+      "path": "CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [
+          "Grouped release for `main`."
+        ],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Coordinate icon roughness across every catalog\n\n_Packages:_ _skribble_\n\nGive filled and outline icons distinct Gentle, Playful, and Expressive treatments through the existing theme. Make SkribbleIcon use the shared cached SVG renderer, preserving source stroke metadata and supporting an explicit drawConfig override.\n\nThe storybook applies the selected level to all six icon catalogs and compares all three levels at 24, 48, and 96 pixels in each icon preview.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [c9b137d](https://github.com/openbudgetfun/skribble/commit/c9b137da11973f4b00f9bd59d3b30d75e30f6046)"
+            ]
+          },
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "- **skribble**: **Fix loading message typography during startup.** Prevent startup loading messages from inheriting yellow underlines and bold fallback text styles.\n  _Owner:_ Ifiok Jr. · _Introduced in:_ [ec8413d](https://github.com/openbudgetfun/skribble/commit/ec8413d791692b9e8fc6a724e6a627b7df6f6196)",
+              "#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\n_Packages:_ _skribble_, _skribble_icons_curated_, _skribble_icons_simple_, _skribble_icons_lucide_, _skribble_icons_bxs_, _skribble_icons_cib_, _skribble_emoji_, _skribble_emoji_gen_\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\nGrouped release for `main`.\n\n### Features\n\n#### Coordinate icon roughness across every catalog\n\n_Packages:_ _skribble_\n\nGive filled and outline icons distinct Gentle, Playful, and Expressive treatments through the existing theme. Make SkribbleIcon use the shared cached SVG renderer, preserving source stroke metadata and supporting an explicit drawConfig override.\n\nThe storybook applies the selected level to all six icon catalogs and compares all three levels at 24, 48, and 96 pixels in each icon preview.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [c9b137d](https://github.com/openbudgetfun/skribble/commit/c9b137da11973f4b00f9bd59d3b30d75e30f6046)\n\n### Fixes\n\n- **skribble**: **Fix loading message typography during startup.** Prevent startup loading messages from inheriting yellow underlines and bold fallback text styles.\n  _Owner:_ Ifiok Jr. · _Introduced in:_ [ec8413d](https://github.com/openbudgetfun/skribble/commit/ec8413d791692b9e8fc6a724e6a627b7df6f6196)\n#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\n_Packages:_ _skribble_, _skribble_icons_curated_, _skribble_icons_simple_, _skribble_icons_lucide_, _skribble_icons_bxs_, _skribble_icons_cib_, _skribble_emoji_, _skribble_emoji_gen_\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+    },
+    {
+      "owner_id": "skribble",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Coordinate icon roughness across every catalog\n\nGive filled and outline icons distinct Gentle, Playful, and Expressive treatments through the existing theme. Make SkribbleIcon use the shared cached SVG renderer, preserving source stroke metadata and supporting an explicit drawConfig override.\n\nThe storybook applies the selected level to all six icon catalogs and compares all three levels at 24, 48, and 96 pixels in each icon preview.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [c9b137d](https://github.com/openbudgetfun/skribble/commit/c9b137da11973f4b00f9bd59d3b30d75e30f6046)"
+            ]
+          },
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "- **Fix loading message typography during startup.** Prevent startup loading messages from inheriting yellow underlines and bold fallback text styles.\n  _Owner:_ Ifiok Jr. · _Introduced in:_ [ec8413d](https://github.com/openbudgetfun/skribble/commit/ec8413d791692b9e8fc6a724e6a627b7df6f6196)",
+              "#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Features\n\n#### Coordinate icon roughness across every catalog\n\nGive filled and outline icons distinct Gentle, Playful, and Expressive treatments through the existing theme. Make SkribbleIcon use the shared cached SVG renderer, preserving source stroke metadata and supporting an explicit drawConfig override.\n\nThe storybook applies the selected level to all six icon catalogs and compares all three levels at 24, 48, and 96 pixels in each icon preview.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [c9b137d](https://github.com/openbudgetfun/skribble/commit/c9b137da11973f4b00f9bd59d3b30d75e30f6046)\n\n### Fixes\n\n- **Fix loading message typography during startup.** Prevent startup loading messages from inheriting yellow underlines and bold fallback text styles.\n  _Owner:_ Ifiok Jr. · _Introduced in:_ [ec8413d](https://github.com/openbudgetfun/skribble/commit/ec8413d791692b9e8fc6a724e6a627b7df6f6196)\n#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+    },
+    {
+      "owner_id": "skribble_charts",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_charts/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_charts [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_charts` was updated to 0.2.1.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_charts [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.2.1) (2026-09-22)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_charts` was updated to 0.2.1.**"
+    },
+    {
+      "owner_id": "skribble_emoji",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Fixes\n\n#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+    },
+    {
+      "owner_id": "skribble_emoji_gen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji_gen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Fixes\n\n#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+    },
+    {
+      "owner_id": "skribble_font_recursive",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_recursive/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.2.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.2.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_roughen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_roughen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.2.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.2.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons` was updated to 0.2.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons` was updated to 0.2.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_bxs",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_bxs/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Fixes\n\n#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+    },
+    {
+      "owner_id": "skribble_icons_cib",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_cib/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Fixes\n\n#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+    },
+    {
+      "owner_id": "skribble_icons_curated",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_curated/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Fixes\n\n#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+    },
+    {
+      "owner_id": "skribble_icons_lucide",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_lucide/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Fixes\n\n#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+    },
+    {
+      "owner_id": "skribble_icons_material",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_material/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_material` was updated to 0.2.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_material` was updated to 0.2.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_simple",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_simple/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Fixes\n\n#### Keep hand-drawn icons upright and rounded borders visibly irregular\n\nPreserve authored icon endpoints while adding small bends along each stroke. Remove the shared displacement that made unrelated icon sets lean to the right, and regenerate the icon and emoji catalogs. Runtime icon drawing removes overall tilt, while wide rounded borders gain local variation with smooth corner joins.\n\nNormalize insignificant floating-point drift so ARM and x64 generate identical icon and emoji coordinates.\n\nThe documentation and storybook activate the rough icon catalog at startup. The storybook bundles the current font package, exposes all six icon catalogs, and adds the missing loading, doodle, fill, typography, and table demonstrations.\n\n_Owner:_ Ifiok Jr. · _Introduced in:_ [26f116a](https://github.com/openbudgetfun/skribble/commit/26f116ae5da5dcdfc1b29b90c341b62ba1fb17f4)"
+    },
+    {
+      "owner_id": "skribble_lints",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_lints/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_lints` was updated to 0.2.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_lints` was updated to 0.2.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_maps",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_maps/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_maps [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.2.1) (2026-09-22)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_maps` was updated to 0.2.1.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_maps [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.2.1) (2026-09-22)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_maps` was updated to 0.2.1.**"
+    }
+  ],
+  "provider": {
+    "kind": "github",
+    "owner": "openbudgetfun",
+    "repo": "skribble",
+    "host": null
+  }
+}
