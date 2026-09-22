@@ -9,6 +9,7 @@ import 'package:skribble_docs_site/src/docs_keys.dart';
 import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/document.dart';
 import 'package:skribble_docs_site/src/doodle_playground.dart';
+import 'package:skribble_docs_site/src/find_in_page.dart';
 import 'package:skribble_docs_site/src/font_comparison.dart';
 import 'package:skribble_docs_site/src/loading_playground.dart';
 import 'package:skribble_docs_site/src/playground.dart';
@@ -139,6 +140,28 @@ class _DocsPage extends HookWidget {
     final navigationOpen = useState(false);
     final query = useState('');
     final copied = useState(false);
+    final findOpen = useState(false);
+    final findController = useTextEditingController();
+    final findFocus = useFocusNode();
+    final pageFocus = useFocusNode();
+    final findIndex = useState(0);
+    useListenable(findController);
+    final findQuery = findController.text;
+    final blockKeys = useMemoized(
+      () => List.generate(document.nodes.length, (_) => GlobalKey()),
+      [document],
+    );
+    final matches = useMemoized(
+      () => [
+        for (var index = 0; index < document.nodes.length; index++)
+          if (findTextMatches(
+            _searchableBlock(document.nodes[index]),
+            findQuery,
+          ).isNotEmpty)
+            index,
+      ],
+      [document, findQuery],
+    );
     final headings = useMemoized(
       () => document.nodes
           .whereType<md.Element>()
@@ -180,6 +203,52 @@ class _DocsPage extends HookWidget {
       return null;
     }, [fragment]);
 
+    useEffect(() {
+      if (!findOpen.value || matches.isEmpty) return null;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!context.mounted) return;
+        final target =
+            blockKeys[matches[findIndex.value % matches.length]].currentContext;
+        if (target != null) {
+          Scrollable.ensureVisible(
+            target,
+            alignment: .15,
+            duration: MediaQuery.disableAnimationsOf(context)
+                ? Duration.zero
+                : const Duration(milliseconds: 180),
+          );
+        }
+      });
+      return null;
+    }, [findOpen.value, findQuery, findIndex.value, matches]);
+
+    void openFind() {
+      navigationOpen.value = false;
+      findOpen.value = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!context.mounted) return;
+        findFocus.requestFocus();
+        findController.selection = TextSelection(
+          baseOffset: 0,
+          extentOffset: findController.text.length,
+        );
+      });
+    }
+
+    void closeFind() {
+      findOpen.value = false;
+      findController.clear();
+      findIndex.value = 0;
+      findFocus.unfocus();
+      pageFocus.requestFocus();
+    }
+
+    void nextMatch(int direction) {
+      if (matches.isEmpty) return;
+      findIndex.value =
+          (findIndex.value + direction + matches.length) % matches.length;
+    }
+
     Future<void> navigate(String href) async {
       final uri = Uri.parse(href);
       if (uri.hasScheme || href.startsWith('//')) {
@@ -217,7 +286,43 @@ class _DocsPage extends HookWidget {
       onNavigate: navigate,
     );
 
-    return WiredScaffold(
+    final findInput = WiredCupertinoSearchTextField(
+      key: DocsKeys.findInput,
+      controller: findController,
+      focusNode: findFocus,
+      placeholder: 'Find in this article',
+      semanticLabel: 'Find in this article',
+      onChanged: (_) => findIndex.value = 0,
+      onSubmitted: (_) => nextMatch(1),
+    );
+    final findControls = <Widget>[
+      Text(
+        key: DocsKeys.findCount,
+        findQuery.isEmpty
+            ? '0 matches'
+            : matches.isEmpty
+            ? 'No matches'
+            : '${findIndex.value % matches.length + 1} of ${matches.length} sections',
+        style: const TextStyle(fontSize: 13),
+      ),
+      DocsAction(
+        key: DocsKeys.findPrevious,
+        onPressed: () => nextMatch(-1),
+        child: Semantics(label: 'Previous match', child: const Text('↑')),
+      ),
+      DocsAction(
+        key: DocsKeys.findNext,
+        onPressed: () => nextMatch(1),
+        child: Semantics(label: 'Next match', child: const Text('↓')),
+      ),
+      DocsAction(
+        key: DocsKeys.findClose,
+        onPressed: closeFind,
+        child: Semantics(label: 'Close find', child: const Text('×')),
+      ),
+    ];
+
+    final page = WiredScaffold(
       backgroundColor: _paper,
       bodyPadding: EdgeInsets.zero,
       body: SafeArea(
@@ -227,7 +332,9 @@ class _DocsPage extends HookWidget {
               height: 82,
               padding: EdgeInsets.symmetric(horizontal: wide ? 32 : 18),
               decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: Color(0xffe4d9cd))),
+                border: Border(
+                  bottom: BorderSide(color: Color(0xffe4d9cd)),
+                ),
               ),
               child: Row(
                 children: [
@@ -262,13 +369,23 @@ class _DocsPage extends HookWidget {
                   if (wide)
                     const Text(
                       'A little ink. A lot of possibility.',
-                      style: TextStyle(fontSize: 13, color: Color(0xff796c7a)),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Color(0xff796c7a),
+                      ),
                     ),
                   const Spacer(),
+                  DocsAction(
+                    key: DocsKeys.find,
+                    onPressed: openFind,
+                    child: const Text('Find'),
+                  ),
                   if (wide)
                     DocsAction(
                       onPressed: () => launchUrl(
-                        Uri.parse('https://github.com/openbudgetfun/skribble'),
+                        Uri.parse(
+                          'https://github.com/openbudgetfun/skribble',
+                        ),
                       ),
                       child: const Text('GitHub'),
                     ),
@@ -287,6 +404,36 @@ class _DocsPage extends HookWidget {
               ),
             ),
             const _RoughnessPicker(),
+            if (findOpen.value)
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Color(0xffe4d9cd)),
+                  ),
+                ),
+                child: width < 600
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          findInput,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: findControls,
+                          ),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          Expanded(child: findInput),
+                          const SizedBox(width: 8),
+                          ...findControls,
+                        ],
+                      ),
+              ),
             Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -369,6 +516,10 @@ class _DocsPage extends HookWidget {
                                       document: document,
                                       onLink: navigate,
                                       anchors: anchors,
+                                      findQuery: findOpen.value
+                                          ? findQuery
+                                          : '',
+                                      blockKeys: blockKeys,
                                     ),
                                     const SizedBox(height: 36),
                                     const SizedBox(height: 20),
@@ -402,7 +553,9 @@ class _DocsPage extends HookWidget {
                             const SizedBox(height: 14),
                             for (final heading in headings)
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.only(
+                                  bottom: 10,
+                                ),
                                 child: _NavigationLink(
                                   onActivate: () => navigate(
                                     '#${document.headingIds[heading]}',
@@ -431,7 +584,34 @@ class _DocsPage extends HookWidget {
         ),
       ),
     );
+
+    return CallbackShortcuts(
+      bindings: {
+        const SingleActivator(LogicalKeyboardKey.keyF, meta: true): openFind,
+        const SingleActivator(LogicalKeyboardKey.keyF, control: true): openFind,
+        if (findOpen.value)
+          const SingleActivator(LogicalKeyboardKey.escape): closeFind,
+      },
+      child: Focus(autofocus: true, focusNode: pageFocus, child: page),
+    );
   }
+}
+
+String _searchableBlock(md.Node node) {
+  if (node is md.Text && node.textContent.trimLeft().startsWith('<!--')) {
+    return '';
+  }
+  if (node is md.Element) {
+    if (node.tag == 'html' ||
+        (node.tag == 'pre' &&
+            node.textContent.startsWith('// Live example:'))) {
+      return '';
+    }
+  }
+  return node.textContent.replaceFirst(
+    RegExp(r'^// Static example: [a-z-]+\n'),
+    '',
+  );
 }
 
 class _Navigation extends HookWidget {
