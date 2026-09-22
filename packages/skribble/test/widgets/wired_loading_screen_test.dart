@@ -9,6 +9,49 @@ import 'package:skribble/skribble.dart';
 const ValueKey<String> _capture = ValueKey('capture');
 
 void main() {
+  testWidgets('startup status never inherits fallback text decorations', (
+    tester,
+  ) async {
+    for (final materialHost in [true, false]) {
+      final theme = WiredThemeData.cuddly();
+      const screen = RepaintBoundary(
+        key: _capture,
+        child: WiredLoadingScreen(
+          message: 'Getting the pens ready…',
+          animating: false,
+        ),
+      );
+      await tester.pumpWidget(
+        materialHost
+            ? WiredMaterialApp(wiredTheme: theme, home: screen)
+            : SkribbleApp(wiredTheme: theme, home: screen),
+      );
+      final paragraph = tester.renderObject<RenderParagraph>(
+        find.descendant(
+          of: find.text('Getting the pens ready…'),
+          matching: find.byType(RichText),
+        ),
+      );
+      final style = paragraph.text.style!;
+      expect(style.decoration ?? TextDecoration.none, TextDecoration.none);
+      expect(style.fontWeight ?? FontWeight.normal, FontWeight.normal);
+      expect(style.fontSize, 17);
+      expect(style.color, theme.textColor.withValues(alpha: .72));
+      final pixels = await _pixels(tester);
+
+      for (var offset = 0; offset < pixels.length; offset += 4) {
+        expect(
+          pixels[offset] > 240 &&
+              pixels[offset + 1] > 240 &&
+              pixels[offset + 2] < 100,
+          isFalse,
+          reason: 'Startup must not paint the yellow fallback underline',
+        );
+      }
+      expect(tester.takeException(), isNull);
+    }
+  });
+
   testWidgets('renders the brand mark on paper', (tester) async {
     await tester.pumpWidget(_app(const WiredLoadingScreen()));
 

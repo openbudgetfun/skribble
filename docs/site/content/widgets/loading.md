@@ -54,6 +54,8 @@ WiredLoadingScreen(
 
 This is the screen the documentation site shows while its page catalog loads. Its pre-boot shell draws the same mark as inline SVG, so the mark keeps sketching from the first paint until Flutter takes over.
 
+The status line owns its text style and uses the theme's typeface without decorations. It can sit directly at the app root during startup without inheriting Flutter's yellow fallback underline or an ancestor's bold text.
+
 ## Pencil skeletons
 
 ```dart
