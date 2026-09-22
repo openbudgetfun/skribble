@@ -308,8 +308,8 @@ in
         set -e
         cd "$DEVENV_ROOT/docs/site"
         dart pub get
-        flutter build web --release --no-web-resources-cdn --no-tree-shake-icons --pwa-strategy=none "$@"
-        dart run tool/prepare_pages.dart
+        flutter build web --release --no-web-resources-cdn --no-tree-shake-icons --pwa-strategy=none --dart-define=DOCS_DEFER_FONTS=true "$@"
+        dart run tool/prepare_pages.dart --defer-fonts
       '';
       description = "Build static docs output for GitHub Pages.";
       binary = "bash";

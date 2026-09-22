@@ -1,33 +1,16 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:skribble/skribble.dart';
 import 'package:skribble_docs_site/src/app.dart';
 import 'package:skribble_docs_site/src/document.dart';
 import 'package:skribble_icons/skribble_icons.dart';
 
-/// Shows the loading screen while the documentation catalog resolves.
+/// Loads the catalog while the HTML loading mark remains on screen.
 ///
-/// The web shell sketches the same mark in HTML before Flutter starts, so the
-/// mark keeps drawing from the first paint until the first page appears.
+/// The first Flutter frame is the requested article, including direct links.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   registerSkribbleIcons();
   usePathUrlStrategy();
-  runApp(
-    WiredMaterialApp(
-      wiredTheme: WiredThemeData.cuddly(),
-      title: 'skribble — make something delightful',
-      home: Builder(
-        builder: (context) => WiredLoadingScreen(
-          message: 'Getting the pens ready…',
-          backgroundColor: WiredPalette.paper,
-          // The same clamp the shell uses for its mark.
-          size: (MediaQuery.sizeOf(context).width * 0.3).clamp(104, 160),
-        ),
-      ),
-    ),
-  );
-
   final documents = await loadDocuments();
   runApp(DocsApp(documents: documents));
 }

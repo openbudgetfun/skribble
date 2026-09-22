@@ -27,6 +27,8 @@ TextStyle(
 
 Each comparison uses the same generator, strength, weight, style, and size. Gentle uses strength 18, Playful 27, and Expressive 36 per 1,000 font units. Use **Code specimen** to compare aligned text, or type your own sample. On narrow screens the three specimens stack within each roughness level.
 
+The docs site loads the additional original, Linear, and variable specimens when you open this comparison. Normal article reading only downloads the Casual and Mono faces it uses, so the full font catalog does not delay the first page.
+
 ## How the handwriting is made
 
 The generator reads the actual TrueType glyph outlines and moves their points with smooth waves and a small, deterministic tilt. Nearby points move together, preserving the relationship between a stroke and its counter. This changes the letter shapes themselves. It does not add a blur or a raster texture. Repeated occurrences of a character use the same outline.

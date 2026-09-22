@@ -7,7 +7,7 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_docs_site/src/code_view.dart';
 import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/document.dart';
-import 'package:skribble_docs_site/src/examples/catalog.dart';
+import 'package:skribble_docs_site/src/examples/catalog.dart' deferred as catalog;
 import 'package:skribble_docs_site/src/examples/example.dart';
 import 'package:skribble_docs_site/src/find_in_page.dart';
 
@@ -159,9 +159,7 @@ class DocArticle extends HookWidget {
         .firstMatch(node.textContent)
         ?.group(1);
     if (id != null) {
-      final definition = examples[id];
-      if (definition == null) throw StateError('Unknown live example: $id');
-      return LiveExample(key: ValueKey(id), id: id, definition: definition);
+      return _DeferredLiveExample(key: ValueKey(id), id: id);
     }
 
     return CodeView(
@@ -219,6 +217,31 @@ class DocArticle extends HookWidget {
         ),
       ),
     );
+  }
+}
+
+class _DeferredLiveExample extends HookWidget {
+  const _DeferredLiveExample({required this.id, super.key});
+
+  final String id;
+
+  @override
+  Widget build(BuildContext context) {
+    final library = useMemoized(catalog.loadLibrary);
+    final load = useFuture(library);
+
+    if (load.hasError) {
+      return Text('Could not load live example: ${load.error}');
+    }
+
+    if (load.connectionState != ConnectionState.done) {
+      return const Text('Preparing live example…');
+    }
+
+    final definition = catalog.examples[id];
+    if (definition == null) throw StateError('Unknown live example: $id');
+
+    return LiveExample(id: id, definition: definition);
   }
 }
 
