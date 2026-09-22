@@ -9,6 +9,7 @@ import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/document.dart';
 import 'package:skribble_docs_site/src/examples/catalog.dart';
 import 'package:skribble_docs_site/src/examples/example.dart';
+import 'package:skribble_docs_site/src/find_in_page.dart';
 
 /// Renders cached Markdown using Flutter's native text selection machinery.
 class DocArticle extends HookWidget {
@@ -17,6 +18,8 @@ class DocArticle extends HookWidget {
     required this.document,
     required this.onLink,
     required this.anchors,
+    this.findQuery = '',
+    this.blockKeys,
     super.key,
   });
 
@@ -29,6 +32,12 @@ class DocArticle extends HookWidget {
   /// Stable keys used for table-of-contents and URL fragment navigation.
   final Map<String, GlobalKey> anchors;
 
+  /// Current page search term, highlighted in rendered prose and code.
+  final String findQuery;
+
+  /// Optional keys for scrolling to top-level search matches.
+  final List<GlobalKey>? blockKeys;
+
   @override
   Widget build(BuildContext context) {
     final selection = useMemoized(_ArticleSelection.new);
@@ -39,8 +48,11 @@ class DocArticle extends HookWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            for (final node in document.nodes)
-              RepaintBoundary(child: _block(context, node)),
+            for (var index = 0; index < document.nodes.length; index++)
+              RepaintBoundary(
+                key: blockKeys?[index],
+                child: _block(context, document.nodes[index]),
+              ),
           ],
         ),
       ),
@@ -51,7 +63,9 @@ class DocArticle extends HookWidget {
     if (node is md.Text && node.textContent.trimLeft().startsWith('<!--')) {
       return const SizedBox.shrink();
     }
-    if (node is! md.Element) return _Paragraph(nodes: [node], onLink: onLink);
+    if (node is! md.Element) {
+      return _Paragraph(nodes: [node], onLink: onLink, findQuery: findQuery);
+    }
     final children = node.children ?? const <md.Node>[];
     final heading = RegExp(r'^h([1-6])$').firstMatch(node.tag);
 
@@ -68,6 +82,7 @@ class DocArticle extends HookWidget {
           child: _Paragraph(
             nodes: children,
             onLink: onLink,
+            findQuery: findQuery,
             style: TextStyle(
               fontSize: sizes[level - 1],
               fontWeight: FontWeight.w700,
@@ -111,7 +126,7 @@ class DocArticle extends HookWidget {
           ))
             for (final child in children) _block(context, child)
           else
-            _Paragraph(nodes: children, onLink: onLink),
+            _Paragraph(nodes: children, onLink: onLink, findQuery: findQuery),
         ],
       ),
       'blockquote' => Container(
@@ -127,11 +142,15 @@ class DocArticle extends HookWidget {
       'hr' => const SizedBox(height: 24),
       'p' => Padding(
         padding: const EdgeInsets.only(bottom: 16),
-        child: _Paragraph(nodes: children, onLink: onLink),
+        child: _Paragraph(
+          nodes: children,
+          onLink: onLink,
+          findQuery: findQuery,
+        ),
       ),
       // Generated MDT markers and old HTML embeds have no readable prose.
       'html' => const SizedBox.shrink(),
-      _ => _Paragraph(nodes: children, onLink: onLink),
+      _ => _Paragraph(nodes: children, onLink: onLink, findQuery: findQuery),
     };
   }
 
@@ -157,6 +176,7 @@ class DocArticle extends HookWidget {
               ?.attributes['class']
               ?.replaceFirst('language-', '') ??
           '',
+      findQuery: findQuery,
     );
   }
 
@@ -187,6 +207,7 @@ class DocArticle extends HookWidget {
                             ? cell.children ?? []
                             : [cell],
                         onLink: onLink,
+                        findQuery: findQuery,
                         style: cell is md.Element && cell.tag == 'th'
                             ? const TextStyle(fontWeight: FontWeight.bold)
                             : null,
@@ -202,9 +223,15 @@ class DocArticle extends HookWidget {
 }
 
 class _Paragraph extends HookWidget {
-  const _Paragraph({required this.nodes, required this.onLink, this.style});
+  const _Paragraph({
+    required this.nodes,
+    required this.onLink,
+    required this.findQuery,
+    this.style,
+  });
   final List<md.Node> nodes;
   final ValueChanged<String> onLink;
+  final String findQuery;
   final TextStyle? style;
 
   @override
@@ -216,7 +243,7 @@ class _Paragraph extends HookWidget {
     useEffect(() => content.dispose, [content]);
 
     return Text.rich(
-      TextSpan(children: content.spans),
+      markTextMatches(TextSpan(children: content.spans), findQuery),
       style: style,
     );
   }
@@ -254,10 +281,7 @@ class _InlineContent {
     final style = switch (node.tag) {
       'strong' => const TextStyle(fontWeight: FontWeight.w700),
       'em' => const TextStyle(fontStyle: FontStyle.italic),
-      'code' => const TextStyle(
-        color: Color(0xff714265),
-        fontSize: 15,
-      ),
+      'code' => const TextStyle(color: Color(0xff714265), fontSize: 15),
       'a' => const TextStyle(
         color: Color(0xff714265),
         decoration: TextDecoration.underline,

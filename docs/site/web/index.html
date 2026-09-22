@@ -140,6 +140,14 @@
   </div>
   <script>
     (() => {
+      // Flutter paints the article into a canvas, so browser Find cannot see
+      // its text. Let Flutter handle the shortcut after blocking native Find.
+      document.addEventListener('keydown', (event) => {
+        if ((event.metaKey || event.ctrlKey) && !event.altKey && event.key.toLowerCase() === 'f') {
+          event.preventDefault();
+        }
+      }, true);
+
       const loading = document.getElementById('loading');
       const dismiss = () => {
         loading.classList.add('is-done');

@@ -13,6 +13,7 @@ import 'package:highlight/languages/yaml.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
 import 'package:skribble_docs_site/src/docs_surface.dart';
+import 'package:skribble_docs_site/src/find_in_page.dart';
 
 final _syntax = syntax.Highlight()
   ..registerLanguage('dart', dart)
@@ -72,13 +73,21 @@ TextSpan _span(syntax.Node node) => TextSpan(
 /// Selectable source with syntax colour and an exact-source copy action.
 class CodeView extends HookWidget {
   /// Displays code in its declared language; unknown languages remain readable.
-  const CodeView({required this.code, this.language = 'dart', super.key});
+  const CodeView({
+    required this.code,
+    this.language = 'dart',
+    this.findQuery = '',
+    super.key,
+  });
 
   /// Complete source copied to the clipboard.
   final String code;
 
   /// Markdown fence language.
   final String language;
+
+  /// Current page search term, highlighted without changing copied source.
+  final String findQuery;
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +124,7 @@ class CodeView extends HookWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Text.rich(
-              spans,
+              markTextMatches(spans, findQuery),
               style: TextStyle(
                 fontFamily: WiredFont.mono.familyFor(
                   WiredTheme.of(context).roughnessLevel,

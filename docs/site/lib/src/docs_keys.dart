@@ -2,6 +2,24 @@ import 'package:flutter/widgets.dart';
 
 /// Stable targets for the documentation's browser journeys.
 abstract final class DocsKeys {
+  /// Opens the current-page find bar.
+  static const ValueKey<String> find = ValueKey('docs-find');
+
+  /// Input for searching the current rendered page.
+  static const ValueKey<String> findInput = ValueKey('docs-find-input');
+
+  /// Visible number of current-page matches.
+  static const ValueKey<String> findCount = ValueKey('docs-find-count');
+
+  /// Moves to the preceding current-page match.
+  static const ValueKey<String> findPrevious = ValueKey('docs-find-previous');
+
+  /// Moves to the following current-page match.
+  static const ValueKey<String> findNext = ValueKey('docs-find-next');
+
+  /// Closes the current-page find bar.
+  static const ValueKey<String> findClose = ValueKey('docs-find-close');
+
   /// The opt-in online map, mounted only after the visitor requests it.
   static const ValueKey<String> map = ValueKey('docs-online-map');
 

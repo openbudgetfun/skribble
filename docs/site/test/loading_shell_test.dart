@@ -10,7 +10,10 @@ void main() {
 
   test('sketches the brand mark on paper', () {
     expect(RegExp('<path d="M ').allMatches(shell).length, 6);
-    expect(shell, contains('<title>skribble — make something delightful</title>'));
+    expect(
+      shell,
+      contains('<title>skribble — make something delightful</title>'),
+    );
     expect(shell, contains('Getting the pens ready…'));
     expect(
       shell,
@@ -28,5 +31,11 @@ void main() {
   test('keeps a reduced-motion pose and a late-wait hint', () {
     expect(shell, contains('prefers-reduced-motion'));
     expect(shell, contains('Still fetching the ink…'));
+  });
+
+  test('hands browser Find to the canvas documentation', () {
+    expect(shell, contains("document.addEventListener('keydown'"));
+    expect(shell, contains('event.metaKey || event.ctrlKey'));
+    expect(shell, contains('event.preventDefault()'));
   });
 }
