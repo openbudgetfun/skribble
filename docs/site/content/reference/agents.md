@@ -562,7 +562,7 @@ Container(color: theme.borderColor)
 | `strokeWidth`       | `2.4`                                | Default stroke thickness                            |
 | `roughnessLevel`    | `WiredRoughness.playful`             | Coordinated border, icon, and lettering preset      |
 | `roughness`         | `1.5` (resolved from the level)      | Sketch randomness (0 = smooth, 2+ = very rough)     |
-| `fontFamily`        | `skribblePlayful` (resolved)         | Level family unless explicitly overridden           |
+| `fontFamily`        | `SkribblePlayful` (resolved)         | Level family unless explicitly overridden           |
 | `motionEnabled`     | `true`                               | Decorative ink motion; platform reduced motion wins |
 | `inkInteraction`    | `WiredInkInteraction.pressure`       | Default decorative feedback for buttons             |
 | `drawConfig`        | Derived from the level and amplitude | Advanced rough engine config; explicit value wins   |
@@ -971,13 +971,13 @@ Code and names that must stay machine-readable keep their existing casing:
 
 | Kind                    | Examples                                                        |
 | ----------------------- | --------------------------------------------------------------- |
-| Dart identifiers        | `skribbleIcons`, `skribbleStorybookApp`, `skribbleIconFontData` |
-| Bundled font families   | `skribble`, `skribbleGentle`, `skribblePlayful`, `skribbleMono` |
-| Asset and release names | `skribble-Bold.ttf`, `skribbleRecursive-v1.0.0.zip`             |
-| URL slugs               | `skribble-Design-System` (Figma)                                |
+| Dart identifiers        | `SkribbleApp`, `SkribbleStorybookApp`, `SkribbleIcon`           |
+| Bundled font families   | `Skribble`, `SkribbleGentle`, `SkribblePlayful`, `SkribbleMono` |
+| Asset and release names | `Skribble-Bold.ttf`, `SkribbleRecursive-v1.0.0.zip`             |
+| URL slugs               | `Skribble-Design-System` (Figma)                                |
 | Runtime strings         | App titles, page names, `WiredLogo.semanticLabel`               |
 
-The font-family column in the theming tables therefore keeps `skribble` even though the surrounding prose is lowercase: it names a bundled family a consumer passes to Flutter.
+The font-family column in the theming tables therefore keeps `Skribble` even though the surrounding prose is lowercase: it names a bundled family a consumer passes to Flutter.
 
 The root `README.md` opens with a centered header modeled on the docs site: the logo at 240px linked to the documentation, a centered `<h1>`, a one-line tagline, centered links into the docs, and the badges underneath. Documentation links point at <https://openbudgetfun.github.io/skribble/>.
 

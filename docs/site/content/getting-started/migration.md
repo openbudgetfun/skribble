@@ -391,7 +391,7 @@ Or update your theme:
 // Static example: pseudocode
 WiredMaterialApp(
   wiredTheme: WiredThemeData(
-    fontFamily: 'skribble',
+    fontFamily: 'Skribble',
     // ... other properties
   ),
 )
@@ -450,7 +450,7 @@ WiredThemeData(
   fillColor: Colors.white,       // Fill color for shapes
   strokeWidth: 2.0,              // Stroke width for hand-drawn lines
   roughness: 1.0,                // Roughness level (0.0 = smooth, 2.0 = very rough)
-  fontFamily: 'skribble',        // Font family for text
+  fontFamily: 'Skribble',        // Font family for text
 )
 ```
 
@@ -534,7 +534,7 @@ Wired widgets may have slightly different default styling than Material widgets.
 If you experience performance issues:
 
 1. Use `RepaintBoundary` around complex widget subtrees
-2. Consider using pre-computed icons (`skribbleIcon`) instead of runtime roughening
+2. Consider using pre-computed icons (`SkribbleIcon`) instead of runtime roughening
 3. Test on target devices early and often
 
 ## Upgrading from an earlier skribble version
