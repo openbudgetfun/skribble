@@ -88,4 +88,13 @@ abstract final class DocsKeys {
 
   /// Searches the canonical documentation catalog.
   static const ValueKey<String> search = ValueKey('docs-search');
+
+  /// An "On this page" entry for the heading with [id].
+  static ValueKey<String> contents(String id) => ValueKey('docs-contents-$id');
+
+  /// The link to the previous document in reading order.
+  static const ValueKey<String> previousPage = ValueKey('docs-previous-page');
+
+  /// The link to the next document in reading order.
+  static const ValueKey<String> nextPage = ValueKey('docs-next-page');
 }

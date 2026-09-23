@@ -77,8 +77,12 @@ class CodeView extends HookWidget {
     required this.code,
     this.language = 'dart',
     this.findQuery = '',
+    this.margin = const EdgeInsets.only(top: 4, bottom: 24),
     super.key,
   });
+
+  /// Space around the panel; live examples tighten it inside their frame.
+  final EdgeInsetsGeometry margin;
 
   /// Complete source copied to the clipboard.
   final String code;
@@ -92,36 +96,59 @@ class CodeView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final copied = useState(false);
-    final spans = useMemoized(() => highlightCode(code, language), [
-      code,
-      language,
-    ]);
+    // A fenced block's closing newline would render as an empty last line;
+    // the copy action still copies [code] exactly.
+    final spans = useMemoized(
+      () => highlightCode(
+        code.endsWith('\n') ? code.substring(0, code.length - 1) : code,
+        language,
+      ),
+      [code, language],
+    );
     useEffect(() {
       copied.value = false;
       return null;
     }, [code]);
 
     return Container(
-      margin: const EdgeInsets.only(top: 4, bottom: 24),
-      padding: const EdgeInsets.all(18),
+      margin: margin,
+      padding: const EdgeInsets.fromLTRB(18, 8, 8, 18),
       decoration: docsSurface(context, color: const Color(0xffeee9f0)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: SelectionContainer.disabled(
-              child: DocsAction(
-                key: DocsKeys.copyCode,
-                onPressed: () async {
-                  await Clipboard.setData(ClipboardData(text: code));
-                  if (context.mounted) copied.value = true;
-                },
-                child: Text(copied.value ? 'Copied!' : 'Copy code'),
-              ),
+          SelectionContainer.disabled(
+            child: Row(
+              children: [
+                Expanded(
+                  child: ExcludeSemantics(
+                    child: Text(
+                      language.isEmpty ? 'text' : language,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: docsQuietInk,
+                      ),
+                    ),
+                  ),
+                ),
+                DocsAction(
+                  key: DocsKeys.copyCode,
+                  dense: true,
+                  onPressed: () async {
+                    await Clipboard.setData(ClipboardData(text: code));
+                    if (context.mounted) copied.value = true;
+                  },
+                  child: Text(
+                    copied.value ? 'Copied!' : 'Copy code',
+                    style: const TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
             ),
           ),
+          const SizedBox(height: 6),
           SingleChildScrollView(
+            padding: const EdgeInsets.only(right: 10),
             scrollDirection: Axis.horizontal,
             child: Text.rich(
               markTextMatches(spans, findQuery),

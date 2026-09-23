@@ -11,6 +11,9 @@ colors:
   code-paper: "#eee9f0"
   inline-code-paper: "#eee7f0"
   quote-paper: "#eef1df"
+  rule: "#d9cdc1"
+  stage-paper: "#fdf3e4"
+  table-head-paper: "#f3ebe4"
   syntax-keyword: "#784175"
   syntax-string: "#35634b"
   syntax-number: "#9c482b"
@@ -48,6 +51,7 @@ typography:
     lineHeight: 1.7
 rounded:
   code: "8px"
+  frame: "12px"
 spacing:
   small: "8px"
   control-gap: "12px"
@@ -78,6 +82,16 @@ components:
   quotation:
     backgroundColor: "{colors.quote-paper}"
     padding: "{spacing.inset}"
+  example-frame:
+    rounded: "{rounded.frame}"
+    padding: "6px"
+  example-stage:
+    backgroundColor: "{colors.stage-paper}"
+    rounded: "{rounded.code}"
+  table-header:
+    backgroundColor: "{colors.table-head-paper}"
+  pager-card:
+    rounded: "{rounded.frame}"
 ---
 
 # Design System: skribble documentation
@@ -86,7 +100,7 @@ components:
 
 **Creative North Star: "A little ink. A lot of possibility."**
 
-The documentation is a working expression of the Wired identity: warm paper, hand-lettered plum text, rough outlines, restrained marker overlap, and coloured hatching. Playful is the default. The toolbar offers Gentle, Playful, and Expressive, changing inherited lettering and rough geometry throughout the site.
+The documentation is a working expression of the Wired identity: warm paper, hand-lettered plum text, rough outlines, restrained marker overlap, and coloured hatching. Playful is the default. The Pen picker offers Gentle, Playful, and Expressive, changing inherited lettering and rough geometry throughout the site.
 
 Reading space stays calm around the interactive ink. Examples use real Wired controls, and decorative movement leaves text and layout available. The binding product constraints are readable, selectable documentation on phones and desktops, keyboard navigation, accessible controls, and reduced-motion support; see [PRODUCT.md](PRODUCT.md).
 
@@ -120,6 +134,9 @@ Warm neutral surfaces carry plum text, with coral marking the working filled act
 - **Selected paper** (`selected-paper`) identifies the current navigation item.
 - **Code paper** and **inline code paper** distinguish source text from surrounding prose.
 - **Quote paper** separates block quotations through a pale green field.
+- **Rule** draws hairlines: the header edge, table rules, contents guides, and the rough outline of example frames and pager cards.
+- **Stage paper** backs live previews, with a 16-pixel dot grid in ink at 18% opacity.
+- **Table-head paper** tints the first row of a table.
 
 The golden note and moss motion card are local example themes, not mandatory colours for every card. Their scoped overrides demonstrate the library's theme model.
 
@@ -137,11 +154,11 @@ The introductory display is a surface-specific expression: 52 logical pixels on 
 
 ## Layout
 
-A fixed-height header and a centred, wrapping roughness toolbar sit above the scrollable content. At 1050 logical pixels, navigation becomes a persistent left column, 254 pixels wide; below that, the Explore action opens navigation in the content area. At 1440 pixels, articles with section headings gain a 218-pixel right table of contents.
+A 72-pixel header sits above the scrollable content. The brand takes the free space on the left, so the actions always end at the far edge; the tagline joins it from 1200 pixels. At 1050 logical pixels the Pen picker (Gentle, Playful, Expressive) moves into the header, separated from Find and GitHub by a short hairline; below that it is a centred row under the header. Large text scales the header actions down instead of pushing them past the edge. At 1050 pixels navigation also becomes a persistent left column, 254 pixels wide; below that, the Explore action opens navigation in the content area. At 1440 pixels, articles with section headings gain a 218-pixel right table of contents.
 
-The reading column is constrained to 820 pixels. Horizontal document padding is 46 pixels with persistent navigation and 22 otherwise; top padding is 32 and bottom padding is 70. The header is 82 pixels tall. These are observed shell dimensions, not universal component sizes.
+The reading column is constrained to 820 pixels. Horizontal document padding is 46 pixels with persistent navigation and 22 otherwise; top padding is 32 and bottom padding is 70. These are observed shell dimensions, not universal component sizes.
 
-Paragraphs end with the paragraph spacing token. Subsequent headings receive section spacing above and 14 pixels below. Lists retain visible item spacing; tables and code can scroll horizontally without widening the article. Keep the current article mounted so ordinary selection can cross viewport boundaries.
+Paragraphs end with the paragraph spacing token. Subsequent headings receive section spacing above and 14 pixels below. Lists retain visible item spacing. Tables fill the reading column when every column can have 150 pixels: columns never break inside a word, and prose columns carry more flex, so they absorb the squeeze. Narrower pages scroll tables horizontally, capping each column at 240 pixels. Code scrolls horizontally without widening the article. Keep the current article mounted so ordinary selection can cross viewport boundaries.
 
 **The Reading Space Rule.** Preserve reading width, selectable text, and visible focus when adapting the shell to another viewport.
 
@@ -173,17 +190,21 @@ Search uses one rough rectangle and the search padding token. Its quiet-ink hint
 
 ### Navigation
 
-Navigation groups and secondary labels use quiet ink; page links use the navigation text role. Selected items receive selected-paper and selected semantics. Brand and table-of-contents links have keyboard activation, link semantics, and a rough two-pixel focus outline. Narrow layouts expose Explore and Close menu actions.
+Navigation groups and secondary labels use quiet ink; page links use the navigation text role. Selected items receive selected-paper and selected semantics. Brand and table-of-contents links have keyboard activation, link semantics with their visible label, and a rough two-pixel focus outline. Narrow layouts expose Explore and Close menu actions.
 
-Sidebar page links, copy actions, and toolbar choices use DocsAction without a permanent underline. Each has a minimum height of 44 pixels and 9-pixel vertical, 12-pixel horizontal padding. Hover adds code-paper; selection takes precedence with selected-paper. Keyboard focus adds a 1.5-pixel plum rough outline. Keep article-link underlining distinct from these quiet controls.
+Page links, copy actions, and toolbar choices use DocsAction without a permanent underline. Standard actions have a minimum height of 44 pixels and 9-pixel vertical, 12-pixel horizontal padding. Dense actions — sidebar page links, the Pen picker, code-panel copy actions, and example choices — use 36 pixels with 6-pixel vertical, 10-pixel horizontal padding, so more of the catalog fits without dropping below a comfortable pointer target. Hover adds code-paper; selection takes precedence with selected-paper. Keyboard focus adds a 1.5-pixel plum rough outline. Keep article-link underlining distinct from these quiet controls.
+
+The table of contents lists section headings in semibold and subsections in regular weight, indented behind a rule-coloured guide. The section being read takes selected-paper, ink text, and selected semantics; it follows scrolling and settles on the last heading at the end of a page.
+
+Every article ends with Previous and Next cards that follow the sidebar's reading order. Each is a rough frame around a link carrying a quiet direction label and the page's navigation title; the first and last pages omit the missing side.
 
 ### Articles and source panels
 
-Article links are underlined. Code panels pair a separate Copy code action with horizontally scrollable, syntax-coloured source. Supported fences include Dart, Bash, CSS, JavaScript, JSON, Swift, XML, and YAML; unknown languages retain plain readable text. Copy exact source; exclude the action label from selection. Copy page supplements ordinary selection. Heading semantics track Markdown levels.
+Article links are underlined. Code panels open with a header line: the fence language (or "text") in quiet ink and a dense Copy code action. Horizontally scrollable, syntax-coloured source follows; the fence's closing newline is not rendered as an empty line, but Copy code still copies it. Supported fences include Dart, Bash, CSS, JavaScript, JSON, Swift, XML, and YAML; unknown languages retain plain readable text. Copy exact source; exclude the action label from selection. Copy page supplements ordinary selection. Heading semantics track Markdown levels.
 
 ### Live examples
 
-Compiled Flutter widgets appear above their typed parameter controls and matching source. Previews have a minimum height of 120 pixels with 20-pixel horizontal and 24-pixel vertical padding. Controls wrap with 16-pixel spacing and 12-pixel run spacing. Show only parameters used by the example, using Wired inputs or quiet choices. Valid edits update both the preview and copyable source; invalid numeric or colour input shows a nearby error and retains the last valid preview.
+Each example is one rough frame (rule colour, 12-pixel radius, 6-pixel inset) holding a stage, its typed parameter controls, and the matching source. The stage is stage paper with a dot grid and a quiet "Live · try it" label; previews have a minimum height of 120 pixels with 12-pixel horizontal and 36-pixel top, 28-pixel bottom padding, which keeps narrow previews at least as wide as before the frame existed. Controls wrap with 16-pixel spacing and 12-pixel run spacing. Show only parameters used by the example, using Wired inputs or quiet choices. Valid edits update both the preview and copyable source; invalid numeric or colour input shows a nearby error and retains the last valid preview.
 
 ### Font comparison
 

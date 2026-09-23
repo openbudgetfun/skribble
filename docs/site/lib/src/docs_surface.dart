@@ -25,6 +25,24 @@ RoughBoxDecoration docsSurface(
   );
 }
 
+/// A rough rounded outline that groups related content without a fill.
+RoughBoxDecoration docsFrame(BuildContext context, {double radius = 12}) {
+  final config = WiredTheme.of(context).drawConfig;
+
+  return RoughBoxDecoration(
+    shape: RoughBoxShape.roundedRectangle,
+    borderRadius: BorderRadius.circular(radius),
+    drawConfig: config,
+    borderStyle: const RoughDrawingStyle(color: docsRule, width: 1.6),
+  );
+}
+
+/// Hairline colour shared by frames, table rules, and the header edge.
+const Color docsRule = Color(0xffd9cdc1);
+
+/// Secondary copy: groups, breadcrumbs, hints, and quiet labels.
+const Color docsQuietInk = Color(0xff796c7a);
+
 /// Keyboard-accessible documentation action without a permanent underline.
 class DocsAction extends HookWidget {
   /// Creates a compact action, optionally representing a selected link.
@@ -33,6 +51,7 @@ class DocsAction extends HookWidget {
     required this.child,
     this.selected,
     this.link = false,
+    this.dense = false,
     super.key,
   });
 
@@ -48,6 +67,10 @@ class DocsAction extends HookWidget {
 
   /// Whether the action navigates to a document.
   final bool link;
+
+  /// Whether to use the compact 36-pixel height for dense lists and segmented
+  /// choices instead of the standard 44-pixel target.
+  final bool dense;
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +103,11 @@ class DocsAction extends HookWidget {
           excludeFromSemantics: true,
           onTap: onPressed,
           child: Container(
-            constraints: const BoxConstraints(minHeight: 44),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+            constraints: BoxConstraints(minHeight: dense ? 36 : 44),
+            padding: EdgeInsets.symmetric(
+              horizontal: dense ? 10 : 12,
+              vertical: dense ? 6 : 9,
+            ),
             decoration: selected == true || hovered.value || focused.value
                 ? docsSurface(
                     context,
