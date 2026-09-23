@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -7,7 +9,8 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_docs_site/src/code_view.dart';
 import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/document.dart';
-import 'package:skribble_docs_site/src/examples/catalog.dart' deferred as catalog;
+import 'package:skribble_docs_site/src/examples/catalog.dart'
+    deferred as catalog;
 import 'package:skribble_docs_site/src/examples/example.dart';
 import 'package:skribble_docs_site/src/find_in_page.dart';
 
@@ -186,37 +189,92 @@ class DocArticle extends HookWidget {
       }
     }
 
+    final columns = rows.fold(
+      0,
+      (count, row) => math.max(count, row.children?.length ?? 0),
+    );
+    final weights = [
+      for (var column = 0; column < columns; column++)
+        _columnWeight(rows, column),
+    ];
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Table(
-          defaultColumnWidth: const FixedColumnWidth(240),
-          border: TableBorder.all(color: const Color(0xffdfd6ce)),
-          children: [
-            for (final row in rows)
-              TableRow(
-                children: [
-                  for (final cell in row.children ?? <md.Node>[])
-                    Padding(
-                      padding: const EdgeInsets.all(14),
-                      child: _Paragraph(
-                        nodes: cell is md.Element
-                            ? cell.children ?? []
-                            : [cell],
-                        onLink: onLink,
-                        findQuery: findQuery,
-                        style: cell is md.Element && cell.tag == 'th'
-                            ? const TextStyle(fontWeight: FontWeight.bold)
-                            : null,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final fits = columns * _minTableColumn <= constraints.maxWidth;
+          final table = Table(
+            columnWidths: {
+              for (var column = 0; column < columns; column++)
+                // Columns never break inside a word; prose columns carry more
+                // flex, so they absorb most of the squeeze.
+                column: fits
+                    ? IntrinsicColumnWidth(flex: weights[column])
+                    : const MinColumnWidth(
+                        IntrinsicColumnWidth(),
+                        FixedColumnWidth(240),
                       ),
-                    ),
-                ],
-              ),
-          ],
-        ),
+            },
+            border: const TableBorder(
+              top: BorderSide(color: docsRule),
+              bottom: BorderSide(color: docsRule),
+              horizontalInside: BorderSide(color: docsRule),
+            ),
+            children: [
+              for (final (index, row) in rows.indexed)
+                TableRow(
+                  decoration: index == 0
+                      ? const BoxDecoration(color: Color(0xfff3ebe4))
+                      : null,
+                  children: [
+                    for (final cell in row.children ?? <md.Node>[])
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
+                        child: _Paragraph(
+                          nodes: cell is md.Element
+                              ? cell.children ?? []
+                              : [cell],
+                          onLink: onLink,
+                          findQuery: findQuery,
+                          style: cell is md.Element && cell.tag == 'th'
+                              ? const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                )
+                              : const TextStyle(fontSize: 15),
+                        ),
+                      ),
+                  ],
+                ),
+            ],
+          );
+
+          return fits
+              ? table
+              : SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: table,
+                );
+        },
       ),
     );
+  }
+
+  /// Narrowest readable column before a table scrolls instead of squeezing.
+  static const double _minTableColumn = 150;
+
+  /// Wider prose columns earn more of the reading width than short names.
+  static double _columnWeight(List<md.Element> rows, int column) {
+    final longest = rows
+        .map(
+          (row) =>
+              row.children?.elementAtOrNull(column)?.textContent.length ?? 0,
+        )
+        .fold(0, math.max);
+    return (longest / 14).clamp(1, 4).toDouble();
   }
 }
 

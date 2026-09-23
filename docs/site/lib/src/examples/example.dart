@@ -130,58 +130,116 @@ class LiveExample extends HookWidget {
     final revision = useState(0);
     void changed() => revision.value++;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        SelectionContainer.disabled(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                key: DocsKeys.preview(id),
-                constraints: const BoxConstraints(minHeight: 120),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 24,
-                ),
-                alignment: Alignment.center,
-                child: definition.builder(settings),
-              ),
-              if (definition.parameters.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Wrap(
-                    spacing: 16,
-                    runSpacing: 12,
-                    children: [
-                      for (final parameter in definition.parameters)
-                        SizedBox(
-                          width:
-                              parameter == ExampleParameter.interaction ||
-                                  parameter == ExampleParameter.fill
-                              ? 280
-                              : 220,
-                          child: _ParameterEditor(
-                            key: DocsKeys.parameter(id, parameter.name),
-                            id: id,
-                            parameter: parameter,
-                            settings: settings,
-                            onChanged: changed,
-                          ),
-                        ),
-                    ],
+    return Container(
+      margin: const EdgeInsets.only(top: 4, bottom: 24),
+      // Frame inset, stroke, and stage padding stay within the previous
+      // 20-pixel preview inset, so narrow previews keep their full width.
+      padding: const EdgeInsets.all(6),
+      decoration: docsFrame(context),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SelectionContainer.disabled(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _Stage(
+                  child: Container(
+                    key: DocsKeys.preview(id),
+                    constraints: const BoxConstraints(minHeight: 120),
+                    padding: const EdgeInsets.fromLTRB(12, 36, 12, 28),
+                    alignment: Alignment.center,
+                    child: definition.builder(settings),
                   ),
                 ),
-            ],
+                if (definition.parameters.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 16, 12, 8),
+                    child: Wrap(
+                      spacing: 16,
+                      runSpacing: 12,
+                      children: [
+                        for (final parameter in definition.parameters)
+                          SizedBox(
+                            width:
+                                parameter == ExampleParameter.interaction ||
+                                    parameter == ExampleParameter.fill
+                                ? 280
+                                : 220,
+                            child: _ParameterEditor(
+                              key: DocsKeys.parameter(id, parameter.name),
+                              id: id,
+                              parameter: parameter,
+                              settings: settings,
+                              onChanged: changed,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
           ),
-        ),
-        CodeView(
-          key: DocsKeys.exampleCode(id),
-          code: definition.sourceFor(settings),
-        ),
-      ],
+          CodeView(
+            key: DocsKeys.exampleCode(id),
+            code: definition.sourceFor(settings),
+            margin: const EdgeInsets.only(top: 6),
+          ),
+        ],
+      ),
     );
   }
+}
+
+/// Dotted drafting paper behind a live preview, labelled as interactive.
+class _Stage extends StatelessWidget {
+  const _Stage({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: docsSurface(context, color: const Color(0xfffdf3e4)),
+      child: Stack(
+        children: [
+          const Positioned.fill(
+            child: CustomPaint(painter: _PaperDotsPainter()),
+          ),
+          child,
+          const Positioned(
+            left: 14,
+            top: 10,
+            child: ExcludeSemantics(
+              child: Text(
+                'Live · try it',
+                style: TextStyle(fontSize: 11, color: docsQuietInk),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PaperDotsPainter extends CustomPainter {
+  const _PaperDotsPainter();
+
+  static const double _spacing = 16;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = const Color(0x2e34283f);
+    for (var y = _spacing / 2; y < size.height; y += _spacing) {
+      for (var x = _spacing / 2; x < size.width; x += _spacing) {
+        canvas.drawCircle(Offset(x, y), .9, paint);
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(_PaperDotsPainter oldDelegate) => false;
 }
 
 class _ParameterEditor extends HookWidget {
@@ -211,6 +269,7 @@ class _ParameterEditor extends HookWidget {
 
     if (parameter == ExampleParameter.enabled) {
       return DocsAction(
+        dense: true,
         selected: settings.enabled,
         onPressed: () {
           settings.enabled = !settings.enabled;
@@ -231,12 +290,16 @@ class _ParameterEditor extends HookWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(parameter.name, style: const TextStyle(fontSize: 13)),
+          Text(
+            parameter.name,
+            style: const TextStyle(fontSize: 13, color: docsQuietInk),
+          ),
           Wrap(
             children: [
               for (final value in values)
                 DocsAction(
                   key: DocsKeys.choice(id, parameter.name, value.name),
+                  dense: true,
                   selected:
                       value == settings.interaction ||
                       value == settings.fill ||

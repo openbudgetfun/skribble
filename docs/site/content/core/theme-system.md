@@ -5,7 +5,7 @@ description: Deep dive into WiredThemeData, the WiredTheme scope, Material color
 
 # Theme System
 
-Every Wired widget reads its colors, stroke width, and roughness from a shared theme. The theme system has four parts: `WiredThemeData` (the data), `WiredThemeScope` (the Material-free inherited scope), `WiredTheme` (the same scope plus Material text-style sync), and the app shell (`skribbleApp`, or `WiredMaterialApp` for apps that still need `MaterialApp`).
+Every Wired widget reads its colors, stroke width, and roughness from a shared theme. The theme system has four parts: `WiredThemeData` (the data), `WiredThemeScope` (the Material-free inherited scope), `WiredTheme` (the same scope plus Material text-style sync), and the app shell (`SkribbleApp`, or `WiredMaterialApp` for apps that still need `MaterialApp`).
 
 ## WiredThemeData
 
@@ -22,7 +22,7 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 | `strokeWidth`       | `double`         | `2.4`                                        | Default border stroke width                                                     |
 | `roughnessLevel`    | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, and lettering                          |
 | `roughness`         | `double`         | Level value (`1.5` for playful)              | Resolved amplitude; an explicit constructor value overrides the preset          |
-| `fontFamily`        | `String`         | Level family (`skribblePlayful` for playful) | Resolved bundled or custom family                                               |
+| `fontFamily`        | `String`         | Level family (`SkribblePlayful` for playful) | Resolved bundled or custom family                                               |
 | `fontPackage`       | `String?`        | `skribble` for bundled families              | Asset package; null for custom app fonts                                        |
 | `drawConfig`        | `DrawConfig`     | Derived from the level and amplitude         | Resolved drawing configuration; an explicit constructor config takes precedence |
 
@@ -325,7 +325,7 @@ This is used as the `scaffoldBackgroundColor` in `toThemeData()`, giving Materia
 Theme data flows through three levels:
 
 ```
-skribbleApp(wiredTheme: ...)     <- or WiredMaterialApp / WiredTheme directly
+SkribbleApp(wiredTheme: ...)     <- or WiredMaterialApp / WiredTheme directly
     |
     v
 WiredThemeScope(data: ...)       <- injected automatically
@@ -336,7 +336,7 @@ WiredTheme.of(context)           <- individual widgets read here
 
 ### Level 1: The app shell
 
-`skribbleApp` accepts a `wiredTheme` parameter and installs a `WiredThemeScope` above its `WidgetsApp`. `WiredTheme` is the Material-syncing variant of that boundary: it installs the same scope and also rewrites the surrounding Material text theme, which is what `WiredMaterialApp` uses. See [App shell](../core/app-shell).
+`SkribbleApp` accepts a `wiredTheme` parameter and installs a `WiredThemeScope` above its `WidgetsApp`. `WiredTheme` is the Material-syncing variant of that boundary: it installs the same scope and also rewrites the surrounding Material text theme, which is what `WiredMaterialApp` uses. See [App shell](../core/app-shell).
 
 ### Level 2: Nested WiredTheme
 
@@ -377,19 +377,19 @@ Both app shells accept four theme variants:
 
 ```dart
 // Static example: setup
-skribbleApp(
+SkribbleApp(
   wiredTheme: lightTheme,
   darkWiredTheme: darkTheme,
   highContrastWiredTheme: highContrastLight,
   highContrastDarkWiredTheme: highContrastDark,
-  themeMode: skribbleThemeMode.system,
+  themeMode: SkribbleThemeMode.system,
   home: MyHomePage(),
 )
 ```
 
-The app resolves which `WiredThemeData` to use based on the theme mode and the platform's accessibility settings. `WiredMaterialApp` uses Material's `ThemeMode` and maps it onto `skribbleThemeMode`:
+The app resolves which `WiredThemeData` to use based on the theme mode and the platform's accessibility settings. `WiredMaterialApp` uses Material's `ThemeMode` and maps it onto `SkribbleThemeMode`:
 
-| skribbleThemeMode | High Contrast Off                                                        | High Contrast On             |
+| SkribbleThemeMode | High Contrast Off                                                        | High Contrast On             |
 | ----------------- | ------------------------------------------------------------------------ | ---------------------------- |
 | `light`           | `wiredTheme`                                                             | `highContrastWiredTheme`     |
 | `dark`            | `darkWiredTheme`                                                         | `highContrastDarkWiredTheme` |

@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -103,21 +105,36 @@ class _RoughnessPicker extends StatelessWidget {
     final state = context.dependOnInheritedWidgetOfExactType<_DocsRoughness>()!;
 
     return SelectionContainer.disabled(
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        spacing: 4,
-        children: [
-          for (final level in WiredRoughness.values)
-            DocsAction(
-              key: DocsKeys.roughness(level.name),
-              selected: WiredTheme.of(context).roughnessLevel == level,
-              onPressed: () => state.value.value = level,
-              child: Text(
-                '${level.name[0].toUpperCase()}${level.name.substring(1)}',
-                style: const TextStyle(fontSize: 13),
+      child: Semantics(
+        container: true,
+        label: 'Pen roughness',
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 2,
+          children: [
+            const ExcludeSemantics(
+              child: Padding(
+                padding: EdgeInsets.only(right: 6),
+                child: Text(
+                  'Pen',
+                  style: TextStyle(fontSize: 12, color: docsQuietInk),
+                ),
               ),
             ),
-        ],
+            for (final level in WiredRoughness.values)
+              DocsAction(
+                key: DocsKeys.roughness(level.name),
+                dense: true,
+                selected: WiredTheme.of(context).roughnessLevel == level,
+                onPressed: () => state.value.value = level,
+                child: Text(
+                  '${level.name[0].toUpperCase()}${level.name.substring(1)}',
+                  style: const TextStyle(fontSize: 13),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -180,6 +197,38 @@ class _DocsPage extends HookWidget {
     );
     final width = MediaQuery.sizeOf(context).width;
     final wide = width >= 1050;
+    final showContents = width >= 1440 && headings.isNotEmpty;
+    final reading = useMemoized(() => docsReadingOrder(documents), [documents]);
+    final readingIndex = reading.indexOf(document);
+    final activeHeading = useState<String?>(null);
+
+    // Highlights the last contents entry whose heading has scrolled past the
+    // top of the reading column.
+    useEffect(() {
+      if (!showContents) return null;
+      void track() {
+        final viewport = scroll.position.context.notificationContext
+            ?.findRenderObject();
+        if (viewport is! RenderBox) return;
+        final top = viewport.localToGlobal(Offset.zero).dy + 96;
+        String? active;
+        for (final heading in headings) {
+          final id = document.headingIds[heading]!;
+          final box = anchors[id]?.currentContext?.findRenderObject();
+          if (box is! RenderBox || !box.attached) continue;
+          if (box.localToGlobal(Offset.zero).dy > top) break;
+          active = id;
+        }
+        // The last sections of a page may never reach the top edge.
+        if (scroll.position.extentAfter < 4) {
+          active = document.headingIds[headings.last];
+        }
+        activeHeading.value = active;
+      }
+
+      scroll.addListener(track);
+      return () => scroll.removeListener(track);
+    }, [scroll, showContents, document]);
 
     void jump(String anchor) {
       final target = anchors[anchor]?.currentContext;
@@ -329,81 +378,120 @@ class _DocsPage extends HookWidget {
         child: Column(
           children: [
             Container(
-              height: 82,
-              padding: EdgeInsets.symmetric(horizontal: wide ? 32 : 18),
+              height: _headerHeight,
+              padding: EdgeInsets.symmetric(horizontal: wide ? 24 : 18),
               decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Color(0xffe4d9cd)),
-                ),
+                border: Border(bottom: BorderSide(color: docsRule)),
               ),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: SizedBox(
-                      width: 180,
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        alignment: Alignment.centerLeft,
-                        child: _NavigationLink(
-                          onActivate: () => navigate('/'),
-                          child: const Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              WiredLogo(size: 40, semanticLabel: null),
-                              SizedBox(width: 8),
-                              Text(
-                                'skribble',
-                                style: TextStyle(
-                                  fontSize: 31,
-                                  fontWeight: FontWeight.w800,
-                                  letterSpacing: -1.5,
+              child: LayoutBuilder(
+                builder: (context, header) => Row(
+                  children: [
+                    // The brand takes the free space so the actions sit at the
+                    // far edge; it scales down rather than overflowing phones.
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(maxWidth: 180),
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: _NavigationLink(
+                                  onActivate: () => navigate('/'),
+                                  child: const Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      WiredLogo(size: 40, semanticLabel: null),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        'skribble',
+                                        style: TextStyle(
+                                          fontSize: 31,
+                                          fontWeight: FontWeight.w800,
+                                          letterSpacing: -1.5,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ],
+                            ),
                           ),
+                          if (width >= 1200) ...[
+                            const SizedBox(width: 18),
+                            const Flexible(
+                              child: Text(
+                                'A little ink. A lot of possibility.',
+                                maxLines: 1,
+                                overflow: TextOverflow.fade,
+                                softWrap: false,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: docsQuietInk,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    // Large text scales the actions down instead of pushing
+                    // them past the edge; the brand keeps a small minimum.
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: math.max(0, header.maxWidth - 64),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerRight,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (wide) ...[
+                              const _RoughnessPicker(),
+                              const SizedBox(width: 12),
+                              const _HeaderRule(),
+                              const SizedBox(width: 8),
+                            ],
+                            DocsAction(
+                              key: DocsKeys.find,
+                              onPressed: openFind,
+                              child: const Text('Find'),
+                            ),
+                            if (wide)
+                              DocsAction(
+                                onPressed: () => launchUrl(
+                                  Uri.parse(
+                                    'https://github.com/openbudgetfun/skribble',
+                                  ),
+                                ),
+                                child: const Text('GitHub'),
+                              ),
+                            if (!wide)
+                              DocsAction(
+                                key: DocsKeys.menu,
+                                onPressed: () => navigationOpen.value =
+                                    !navigationOpen.value,
+                                child: Text(
+                                  navigationOpen.value
+                                      ? 'Close menu'
+                                      : 'Explore',
+                                ),
+                              ),
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 18),
-                  if (wide)
-                    const Text(
-                      'A little ink. A lot of possibility.',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Color(0xff796c7a),
-                      ),
-                    ),
-                  const Spacer(),
-                  DocsAction(
-                    key: DocsKeys.find,
-                    onPressed: openFind,
-                    child: const Text('Find'),
-                  ),
-                  if (wide)
-                    DocsAction(
-                      onPressed: () => launchUrl(
-                        Uri.parse(
-                          'https://github.com/openbudgetfun/skribble',
-                        ),
-                      ),
-                      child: const Text('GitHub'),
-                    ),
-                  if (!wide)
-                    Flexible(
-                      child: DocsAction(
-                        key: DocsKeys.menu,
-                        onPressed: () =>
-                            navigationOpen.value = !navigationOpen.value,
-                        child: Text(
-                          navigationOpen.value ? 'Close menu' : 'Explore',
-                        ),
-                      ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ),
-            const _RoughnessPicker(),
+            if (!wide)
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 2),
+                child: _RoughnessPicker(),
+              ),
             if (findOpen.value)
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -411,9 +499,7 @@ class _DocsPage extends HookWidget {
                   vertical: 8,
                 ),
                 decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Color(0xffe4d9cd)),
-                  ),
+                  border: Border(bottom: BorderSide(color: docsRule)),
                 ),
                 child: width < 600
                     ? Column(
@@ -488,7 +574,7 @@ class _DocsPage extends HookWidget {
                                                       .join(' / '),
                                             style: const TextStyle(
                                               fontSize: 12,
-                                              color: Color(0xff796c7a),
+                                              color: docsQuietInk,
                                             ),
                                           ),
                                         ),
@@ -521,13 +607,24 @@ class _DocsPage extends HookWidget {
                                           : '',
                                       blockKeys: blockKeys,
                                     ),
-                                    const SizedBox(height: 36),
-                                    const SizedBox(height: 20),
+                                    const SizedBox(height: 40),
+                                    _Pager(
+                                      previous: readingIndex > 0
+                                          ? reading[readingIndex - 1]
+                                          : null,
+                                      next:
+                                          readingIndex >= 0 &&
+                                              readingIndex < reading.length - 1
+                                          ? reading[readingIndex + 1]
+                                          : null,
+                                      onNavigate: navigate,
+                                    ),
+                                    const SizedBox(height: 28),
                                     const Text(
                                       'Made with Skribble. Including this page.',
                                       style: TextStyle(
                                         fontSize: 13,
-                                        color: Color(0xff796c7a),
+                                        color: docsQuietInk,
                                       ),
                                     ),
                                   ],
@@ -536,45 +633,38 @@ class _DocsPage extends HookWidget {
                             ),
                           ),
                   ),
-                  if (width >= 1440 && headings.isNotEmpty)
+                  if (showContents)
                     SizedBox(
                       width: 218,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 40, 24, 16),
-                        child: ListView(
-                          children: [
-                            const Text(
+                      child: ListView(
+                        padding: const EdgeInsets.fromLTRB(8, 34, 20, 16),
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(left: 8, bottom: 10),
+                            child: Text(
                               'On this page',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 13,
+                                fontSize: 12,
+                                color: docsQuietInk,
                               ),
                             ),
-                            const SizedBox(height: 14),
-                            for (final heading in headings)
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  bottom: 10,
-                                ),
-                                child: _NavigationLink(
-                                  onActivate: () => navigate(
-                                    '#${document.headingIds[heading]}',
-                                  ),
-                                  child: Text(
-                                    heading.textContent,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: const Color(0xff796c7a),
-                                      height: 1.5,
-                                      fontWeight: heading.tag == 'h2'
-                                          ? FontWeight.w600
-                                          : FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
+                          ),
+                          for (final heading in headings)
+                            _ContentsEntry(
+                              key: DocsKeys.contents(
+                                document.headingIds[heading]!,
                               ),
-                          ],
-                        ),
+                              label: heading.textContent,
+                              nested: heading.tag == 'h3',
+                              active:
+                                  activeHeading.value ==
+                                  document.headingIds[heading],
+                              onActivate: () => navigate(
+                                '#${document.headingIds[heading]}',
+                              ),
+                            ),
+                        ],
                       ),
                     ),
                 ],
@@ -614,6 +704,32 @@ String _searchableBlock(md.Node node) {
   );
 }
 
+/// Sidebar groups in reading order, keyed by the first path segment.
+const Map<String, String> _groups = {
+  '': 'Welcome',
+  'getting-started': 'Start making',
+  'core': 'The good stuff',
+  'widgets': 'Your toolbox',
+  'guides': 'Go a little further',
+  'showcase': 'Made of possibilities',
+  'reference': 'Under the hood',
+};
+
+String _groupOf(DocDocument document) =>
+    document.path.split('/').where((part) => part.isNotEmpty).firstOrNull ?? '';
+
+/// Documents in the order the sidebar lists them, which is also the order the
+/// previous and next links walk through.
+List<DocDocument> docsReadingOrder(List<DocDocument> documents) => [
+  for (final group in _groups.keys)
+    ...documents.where((document) => _groupOf(document) == group),
+];
+
+/// Short label used for a document in the sidebar and the pager.
+String docsNavigationTitle(DocDocument document) => document.path == '/'
+    ? 'Hello, Skribble'
+    : document.title.split(' — ').first;
+
 class _Navigation extends HookWidget {
   const _Navigation({
     required this.documents,
@@ -630,56 +746,45 @@ class _Navigation extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    const groups = {
-      '': 'Welcome',
-      'getting-started': 'Start making',
-      'core': 'The good stuff',
-      'widgets': 'Your toolbox',
-      'guides': 'Go a little further',
-      'showcase': 'Made of possibilities',
-      'reference': 'Under the hood',
-    };
-
     return ListView(
-      padding: const EdgeInsets.fromLTRB(22, 26, 20, 32),
+      padding: const EdgeInsets.fromLTRB(18, 22, 16, 32),
       children: [
         WiredInput(
           key: DocsKeys.search,
           hintText: 'Find a page…',
-          hintStyle: const TextStyle(color: Color(0xff796c7a)),
+          hintStyle: const TextStyle(color: docsQuietInk),
           semanticLabel: 'Find a documentation page',
           onChanged: onQuery,
         ),
-        const SizedBox(height: 20),
-        for (final group in groups.entries) ...[
-          if (documents.any((document) => _inGroup(document, group.key))) ...[
+        const SizedBox(height: 8),
+        for (final group in _groups.entries) ...[
+          if (documents.any((document) => _matches(document, group.key))) ...[
             Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 8),
+              padding: const EdgeInsets.fromLTRB(10, 22, 0, 4),
               child: Text(
                 group.value,
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff796c7a),
+                  color: docsQuietInk,
                 ),
               ),
             ),
             for (final document in documents.where(
-              (document) => _inGroup(document, group.key),
+              (document) => _matches(document, group.key),
             ))
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
+                padding: const EdgeInsets.symmetric(vertical: 1),
                 child: DocsAction(
                   key: DocsKeys.page(document.path),
+                  dense: true,
                   selected: currentPath == document.path,
                   link: true,
                   onPressed: () => onNavigate(document.path),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      document.path == '/'
-                          ? 'Hello, Skribble'
-                          : document.title.split(' — ').first,
+                      docsNavigationTitle(document),
                       style: const TextStyle(fontSize: 13),
                     ),
                   ),
@@ -691,22 +796,25 @@ class _Navigation extends HookWidget {
     );
   }
 
-  bool _inGroup(DocDocument document, String group) {
-    final segment =
-        document.path.split('/').where((part) => part.isNotEmpty).firstOrNull ??
-        '';
-    return segment == group &&
-        '${document.title} ${document.source}'.toLowerCase().contains(
-          query.toLowerCase(),
-        );
-  }
+  bool _matches(DocDocument document, String group) =>
+      _groupOf(document) == group &&
+      '${document.title} ${document.source}'.toLowerCase().contains(
+        query.toLowerCase(),
+      );
 }
 
 class _NavigationLink extends HookWidget {
-  const _NavigationLink({required this.onActivate, required this.child});
+  const _NavigationLink({
+    required this.onActivate,
+    required this.child,
+    this.selected,
+  });
 
   final VoidCallback onActivate;
   final Widget child;
+
+  /// Whether the link marks the current location, or null when it cannot.
+  final bool? selected;
 
   @override
   Widget build(BuildContext context) {
@@ -724,8 +832,12 @@ class _NavigationLink extends HookWidget {
       },
       child: Semantics(
         link: true,
+        selected: selected,
         onTap: onActivate,
         child: GestureDetector(
+          // The enclosing Semantics already exposes the tap, so the label
+          // merges into one link node instead of a nested tappable child.
+          excludeFromSemantics: true,
           onTap: onActivate,
           child: Container(
             padding: const EdgeInsets.all(4),
@@ -738,6 +850,134 @@ class _NavigationLink extends HookWidget {
             child: child,
           ),
         ),
+      ),
+    );
+  }
+}
+
+const double _headerHeight = 72;
+
+/// A short vertical hairline separating header control groups.
+class _HeaderRule extends StatelessWidget {
+  const _HeaderRule();
+
+  @override
+  Widget build(BuildContext context) =>
+      const SizedBox(width: 1, height: 24, child: ColoredBox(color: docsRule));
+}
+
+/// One "On this page" link; subsections sit indented behind a hairline.
+class _ContentsEntry extends StatelessWidget {
+  const _ContentsEntry({
+    required this.label,
+    required this.nested,
+    required this.active,
+    required this.onActivate,
+    super.key,
+  });
+
+  final String label;
+  final bool nested;
+  final bool active;
+  final VoidCallback onActivate;
+
+  @override
+  Widget build(BuildContext context) {
+    final entry = _NavigationLink(
+      onActivate: onActivate,
+      selected: active,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: active
+            ? docsSurface(context, color: WiredPalette.peach, radius: 6)
+            : null,
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            height: 1.45,
+            color: active ? _ink : docsQuietInk,
+            fontWeight: nested ? FontWeight.normal : FontWeight.w600,
+          ),
+        ),
+      ),
+    );
+
+    if (!nested) {
+      return Padding(padding: const EdgeInsets.only(top: 8), child: entry);
+    }
+    return Container(
+      margin: const EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.only(left: 6),
+      decoration: const BoxDecoration(
+        border: Border(left: BorderSide(color: docsRule)),
+      ),
+      child: entry,
+    );
+  }
+}
+
+/// Previous and next links that follow the sidebar's reading order.
+class _Pager extends StatelessWidget {
+  const _Pager({
+    required this.previous,
+    required this.next,
+    required this.onNavigate,
+  });
+
+  final DocDocument? previous;
+  final DocDocument? next;
+  final ValueChanged<String> onNavigate;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget card(DocDocument? document, {required bool forward}) {
+      if (document == null) return const Expanded(child: SizedBox.shrink());
+      return Expanded(
+        child: Container(
+          decoration: docsFrame(context),
+          child: DocsAction(
+            key: forward ? DocsKeys.nextPage : DocsKeys.previousPage,
+            link: true,
+            onPressed: () => onNavigate(document.path),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+              child: Column(
+                crossAxisAlignment: forward
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    forward ? 'Next →' : '← Previous',
+                    style: const TextStyle(fontSize: 12, color: docsQuietInk),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    docsNavigationTitle(document),
+                    textAlign: forward ? TextAlign.end : TextAlign.start,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      height: 1.3,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return SelectionContainer.disabled(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          card(previous, forward: false),
+          const SizedBox(width: 14),
+          card(next, forward: true),
+        ],
       ),
     );
   }

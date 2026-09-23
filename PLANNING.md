@@ -618,7 +618,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 1. Leaf inputs: button family, checkbox, switch, slider, text field
 2. Theme: WiredTheme/DrawConfig already custom — swap ThemeData reads for a skribble-owned token set
 3. Navigation/containers: scaffold, app bar, tabs, bottom nav, dialogs
-4. App shell: skribbleApp (WidgetsApp-based) replacing WiredMaterialApp; keep WiredMaterialApp as a thin compatibility bridge until consumers migrate
+4. App shell: SkribbleApp (WidgetsApp-based) replacing WiredMaterialApp; keep WiredMaterialApp as a thin compatibility bridge until consumers migrate
 5. Localization: use GlobalMaterialLocalizations alternatives or depend on flutter_localizations directly (decision needed at step 4)
 
 ---

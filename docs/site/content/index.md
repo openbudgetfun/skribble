@@ -15,7 +15,7 @@ The library ships 80+ production-ready widgets, each built on `HookWidget` and p
 - **80+ widgets** -- buttons, inputs, cards, dialogs, navigation bars, sliders, steppers, date pickers, data tables, and more. Material and Cupertino variants are both covered.
 - **HookWidget-based widget layer** -- every widget uses `HookWidget` (or `HookConsumerWidget` for Riverpod). The motion layer uses standard Flutter state and tickers by design; see [Architecture](/core/architecture).
 - **Standalone dependency rule** -- `packages/skribble/lib` imports `flutter/widgets` and below, never Material or Cupertino. A [transitional Material bridge](/core/material-bridge) exists so existing apps can adopt skribble incrementally, and it will remain a compatibility layer while the decoupling finishes.
-- **A widgets-based app shell** -- `skribbleApp` builds on `WidgetsApp`, so a skribble app needs no Material ancestor. The quarantined compatibility layer (`WiredMaterialApp`, `WiredMaterialTheme`, `WiredThemeFromMaterial`) keeps Material and Cupertino adoption incremental.
+- **A widgets-based app shell** -- `SkribbleApp` builds on `WidgetsApp`, so a skribble app needs no Material ancestor. The quarantined compatibility layer (`WiredMaterialApp`, `WiredMaterialTheme`, `WiredThemeFromMaterial`) keeps Material and Cupertino adoption incremental.
 - **Centralized theming** -- one `WiredThemeData` object controls border color, fill color, stroke width, roughness, and text colors across every widget via `WiredTheme.of(context)`.
 
 ## Quick install
@@ -42,7 +42,7 @@ Use **Find** in the header, or press ⌘F on macOS or Ctrl+F elsewhere, to searc
 Work through these pages in order to go from zero to a fully themed skribble app:
 
 1. [Installation](/getting-started/installation) -- add the package or set up the workspace for contributing
-2. [Quick Start](/getting-started/quick-start) -- build a minimal app with `skribbleApp`
+2. [Quick Start](/getting-started/quick-start) -- build a minimal app with `SkribbleApp`
 3. [Your First Widget](/getting-started/first-widget) -- add buttons, inputs, and cards step by step
 4. [Theming](/getting-started/theming) -- customize colors, stroke width, roughness, and dark mode
 
@@ -50,11 +50,11 @@ Work through these pages in order to go from zero to a fully themed skribble app
 
 ### Add widgets to an existing app
 
-Wrap your app in `skribbleApp` (or keep `WiredMaterialApp` while you migrate), then swap Material widgets for their Wired counterparts. Each Wired widget reads theme values from `WiredTheme.of(context)`, so they integrate with the tree automatically.
+Wrap your app in `SkribbleApp` (or keep `WiredMaterialApp` while you migrate), then swap Material widgets for their Wired counterparts. Each Wired widget reads theme values from `WiredTheme.of(context)`, so they integrate with the tree automatically.
 
 ### Customize the theme
 
-Create a `WiredThemeData` with your brand colors and pass it to `skribbleApp`. All Wired widgets pick up the new palette instantly. See [Theming](/getting-started/theming) for the full parameter reference.
+Create a `WiredThemeData` with your brand colors and pass it to `SkribbleApp`. All Wired widgets pick up the new palette instantly. See [Theming](/getting-started/theming) for the full parameter reference.
 
 ### Create a custom Wired widget
 

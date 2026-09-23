@@ -1,6 +1,6 @@
 ---
 title: Quick Start
-description: Build a minimal Flutter app with skribbleApp and a handful of hand-drawn widgets.
+description: Build a minimal Flutter app with SkribbleApp and a handful of hand-drawn widgets.
 ---
 
 # Quick Start
@@ -40,9 +40,9 @@ void main() {
 
 <!-- {/docsMinimalAppSection} -->
 
-## How skribbleApp works
+## How SkribbleApp works
 
-`skribbleApp` is an app shell built on Flutter's widgets-layer `WidgetsApp`. It does three things automatically:
+`SkribbleApp` is an app shell built on Flutter's widgets-layer `WidgetsApp`. It does three things automatically:
 
 1. **Installs the Wired theme** -- it places a `WiredThemeScope` at the top of the tree so every descendant Wired widget can call `WiredTheme.of(context)` to read theme values (border color, fill color, stroke width, roughness, text colors).
 
@@ -54,12 +54,12 @@ The app supports multiple theme variants:
 
 ```dart
 // Static example: setup
-skribbleApp(
+SkribbleApp(
   wiredTheme: lightTheme,                      // optional -- light mode
   darkWiredTheme: darkTheme,                    // optional -- dark mode
   highContrastWiredTheme: highContrastTheme,    // optional -- accessibility
   highContrastDarkWiredTheme: hcDarkTheme,      // optional -- accessibility + dark
-  themeMode: skribbleThemeMode.system,          // follows platform brightness
+  themeMode: SkribbleThemeMode.system,          // follows platform brightness
   home: MyHomePage(),
 )
 ```
@@ -72,7 +72,7 @@ For apps using `go_router` or another `RouterConfig`, use the `.router` construc
 
 ```dart
 // Static example: setup
-skribbleApp.router(
+SkribbleApp.router(
   wiredTheme: WiredThemeData(),
   routerConfig: goRouter,
 )
@@ -94,7 +94,7 @@ import 'package:skribble/skribble.dart';
 
 void main() {
   runApp(
-    skribbleApp(
+    SkribbleApp(
       wiredTheme: WiredThemeData(),
       home: const SketchyHomePage(),
     ),
