@@ -96,10 +96,18 @@ jobs:
       # that already exists). Isolating each publish, then verifying the
       # registry state, names the packages that still need publishing instead
       # of reporting a bare error.
+      #
+      # The readiness report computed above is passed through rather than
+      # recomputed: the script needs its dependency-corrected order, and
+      # computing that order runs `pub publish` dry runs, which resolve
+      # dependencies — work that must happen before the publish credential is
+      # registered.
       - name: Publish the packages this tag owns
         env:
           RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
-        run: ./scripts/release/publish_owned_packages.sh "$RELEASE_TAG"
+        run: |
+          ./scripts/release/publish_owned_packages.sh "$RELEASE_TAG" \
+            --readiness "$RUNNER_TEMP/publish-readiness.json"
         shell: devenv shell -- bash -e {0}
 
       - name: Publish the GitHub releases
