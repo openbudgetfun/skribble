@@ -325,5 +325,17 @@ in
       description = "Package the bundled fonts and attach them to a GitHub release (--dry-run to preview).";
       binary = "bash";
     };
+    # The same tag-scoped publish the publish workflow runs: each package in its
+    # own monochange invocation so one rejection cannot strand the rest, then a
+    # registry check that names whatever is still missing.
+    "publish:owned" = {
+      exec = ''
+        set -e
+        cd "$DEVENV_ROOT"
+        ./scripts/release/publish_owned_packages.sh "$@"
+      '';
+      description = "Publish the packages a release tag owns in dependency order (<tag> [--dry-run]).";
+      binary = "bash";
+    };
   };
 }

@@ -70,34 +70,36 @@ jobs:
             --format json
         shell: devenv shell -- bash -e {0}
 
-      # setup-dart registers a pub.dev token for every pub.dev request that
+      # setup-dart registers a pub.dev credential for every pub.dev request that
       # follows it (`dart pub token add https://pub.dev --env-var PUB_TOKEN`),
       # and pub.dev rejects dependency resolution with that publish-scoped
-      # token. Every anonymous pub.dev read therefore has to happen first:
-      # the flutter tool bootstrap inside the toolchains step and the
-      # readiness check above both resolve packages, so this step belongs
-      # directly before the publishes it authenticates.
+      # credential. Every anonymous pub.dev read therefore has to happen first:
+      # the flutter tool bootstrap inside the toolchains step and the readiness
+      # check above both resolve packages, so this step belongs directly before
+      # the publishes it authenticates.
       - name: Set up Dart trusted publishing
         uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
 
       # pub.dev configures automated publishing per package, and each package
       # only accepts its own tag pattern, so every tag publishes just the
       # release targets it owns: the main group for `v<version>`, and the
-      # single companion package for its namespaced tag. Re-runs skip
-      # versions that already exist on pub.dev.
-      - name: Publish the main group
-        if: startsWith(inputs.tag || github.ref_name, 'v')
-        run: monochange step publish-packages --group main --format json
-        shell: devenv shell -- bash -e {0}
-
-      - name: Publish skribble_maps
-        if: startsWith(inputs.tag || github.ref_name, 'skribble_maps/v')
-        run: monochange step publish-packages --package skribble_maps --format json
-        shell: devenv shell -- bash -e {0}
-
-      - name: Publish skribble_charts
-        if: startsWith(inputs.tag || github.ref_name, 'skribble_charts/v')
-        run: monochange step publish-packages --package skribble_charts --format json
+      # single companion package for its namespaced tag. Re-runs skip versions
+      # that already exist on pub.dev.
+      #
+      # The script publishes one package per invocation because monochange
+      # aborts the whole batch on the first failure. That is how v0.2.0 and
+      # v0.2.1 each left 11 of the group's 13 packages blocked: publishing
+      # stopped on `skribble_font_recursive`, which answered "publishing from
+      # github is not enabled" — a registry-side automated-publishing rule that
+      # only pub.dev's own admin page can confirm, and one the readiness check
+      # cannot see (it reports `manual_verification_required` for every package
+      # that already exists). Isolating each publish, then verifying the
+      # registry state, names the packages that still need publishing instead
+      # of reporting a bare error.
+      - name: Publish the packages this tag owns
+        env:
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+        run: ./scripts/release/publish_owned_packages.sh "$RELEASE_TAG"
         shell: devenv shell -- bash -e {0}
 
       - name: Publish the GitHub releases
