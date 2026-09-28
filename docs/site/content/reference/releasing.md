@@ -84,6 +84,8 @@ The same tag-scoped publish is available as a script, which is what the workflow
 
 It resolves the packages the tag owns from the release record, publishes each in its own `monochange step publish-packages` invocation in dependency order, and then verifies every one of them is on the registry. Publishing one package at a time is deliberate: monochange aborts the rest of a batch when any package fails, so a single rejected publish would otherwise leave every package behind it unpublished. A package that fails is reported by name and the script exits non-zero.
 
+Dependency order comes from a `monochange step publish-readiness` report. The script computes one when it needs to, but the workflow passes its own with `--readiness`: that step dry-runs `pub publish` for every package, which resolves dependencies, and a publish-scoped pub.dev credential breaks resolution. In the workflow the report is therefore computed before setup-dart registers the credential and handed to the script rather than recomputed after it. The final registry check reads the pub.dev API directly, so it does not depend on that report.
+
 `monochange run release --commit --push --tag --publish-release` runs both for a local release. Font zips are attached by the publish workflow's `v<version>` job; a release published locally uses `publish:fonts` to upload the same archives.
 
 pub.dev's automated publishing only accepts GitHub Actions runs triggered by pushing a git tag. `workflow_dispatch` runs — even against a tag ref — are rejected, so publish from tag pushes. The publish workflow's dispatch input exists only for re-running the GitHub release and font repair steps.

@@ -9,17 +9,29 @@
 #
 # Each package is published in its own `monochange step publish-packages`
 # invocation. Monochange aborts the remaining batch once any package fails,
-# which is how the v0.2.0 and v0.2.1 releases left 11 and 12 packages
-# unpublished behind a single registry rejection. Per-package invocations
-# isolate that failure and let the remaining packages publish; the run still
-# exits non-zero so the failure is not hidden.
+# which is how the v0.2.0 and v0.2.1 releases left 11 of the group's 13
+# packages unpublished behind a single registry rejection. Per-package
+# invocations isolate that failure and let the remaining packages publish; the
+# run still exits non-zero so the failure is not hidden.
+#
+# Dependency order comes from `monochange step publish-readiness`, which is
+# also where this differs from the workflow's own step ordering: that step
+# dry-runs `pub publish` for every package, which resolves dependencies, and a
+# publish-scoped pub.dev credential breaks resolution. In the publish workflow
+# it therefore runs *before* setup-dart registers the credential, and the
+# workflow passes that already-computed report here with `--readiness`. When
+# the flag is omitted the script computes the order itself, which is correct
+# for a local run against the developer's own credentials.
+#
+# The final verification reads the registry API directly rather than reusing a
+# readiness report, so it stays correct whether or not one was supplied.
 #
 # Usage:
-#   ./scripts/release/publish_owned_packages.sh <tag> [--dry-run]
+#   ./scripts/release/publish_owned_packages.sh <tag> [--dry-run] [--readiness <path>]
 #
 # Exit codes:
 #   0 — every package this tag owns exists on its registry
-#   1 — setup error, or at least one package failed to publish
+#   1 — setup error, or at least one package was not published
 
 set -uo pipefail
 
@@ -28,15 +40,26 @@ ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 TAG=""
 DRY_RUN=0
+READINESS=""
 
 usage() {
-	sed -n '2,22p' "$0" | sed 's/^# \{0,1\}//'
+	sed -n '2,34p' "$0" | sed 's/^# \{0,1\}//'
 }
 
-for arg in "$@"; do
+while [[ $# -gt 0 ]]; do
+	arg="$1"
 	case "$arg" in
 	--dry-run)
 		DRY_RUN=1
+		shift
+		;;
+	--readiness)
+		if [[ $# -lt 2 ]]; then
+			echo "Error: --readiness needs a path." >&2
+			exit 1
+		fi
+		READINESS="$2"
+		shift 2
 		;;
 	-h | --help)
 		usage
@@ -53,6 +76,7 @@ for arg in "$@"; do
 			exit 1
 		fi
 		TAG="$arg"
+		shift
 		;;
 	esac
 done
@@ -63,7 +87,7 @@ if [[ -z "$TAG" ]]; then
 	exit 1
 fi
 
-for tool in jq monochange; do
+for tool in jq monochange curl; do
 	command -v "$tool" >/dev/null || {
 		echo "Error: '$tool' is required but was not found on PATH." >&2
 		exit 1
@@ -92,18 +116,31 @@ if [[ -z "$members" ]]; then
 	exit 1
 fi
 
-# Publishing order follows the dependency-corrected order, not the record's
-# declaration order: `skribble_maps` and `skribble_charts` depend on
-# `skribble`, so a dependent must not be attempted before its dependency.
-if ! readiness="$(monochange step publish-readiness --from HEAD --format json 2>"$scratch/readiness.err")"; then
-	echo "Error: could not read publish readiness at HEAD." >&2
-	cat "$scratch/readiness.err" >&2
-	exit 1
+# Dependency order. The release record lists a target's members in declaration
+# order, which is not safe to publish in: `skribble` declares a hosted
+# constraint on `skribble_lints`, so publishing `skribble` first would fail to
+# resolve. `publish-readiness` returns the dependency-corrected order. The
+# workflow supplies its report with `--readiness` because it has to compute
+# that order before registering the publish credential; anywhere else the
+# script computes it.
+if [[ -n "$READINESS" ]]; then
+	if [[ ! -r "$READINESS" ]]; then
+		echo "Error: readiness report '$READINESS' is not readable." >&2
+		exit 1
+	fi
+	order_json="$(cat "$READINESS")"
+else
+	if ! order_json="$(monochange step publish-readiness --from HEAD --format json 2>"$scratch/readiness.err")"; then
+		echo "Error: could not read publish readiness at HEAD." >&2
+		cat "$scratch/readiness.err" >&2
+		exit 1
+	fi
 fi
 
-ordered="$(jq -rn \
-	--argjson members "$(printf '%s' "$record" | jq --arg tag "$TAG" '[.record.release_targets[]? | select(.tag_name == $tag) | .members[]]')" \
-	--argjson order "$(printf '%s' "$readiness" | jq '.publish_order')" \
+members_json="$(printf '%s' "$record" | jq -c --arg tag "$TAG" \
+	'[.record.release_targets[]? | select(.tag_name == $tag) | .members[]]')"
+ordered="$(jq -rn --argjson members "$members_json" \
+	--argjson order "$(printf '%s' "$order_json" | jq '.publish_order')" \
 	'$order[] as $p | select($members | index($p)) | $p')"
 if [[ -z "$ordered" ]]; then
 	echo "Error: publish readiness listed none of $TAG's packages." >&2
@@ -133,30 +170,37 @@ while IFS= read -r package; do
 	echo
 done <"$scratch/ordered.txt"
 
-# A package that already existed is a skip, not a publish, so the check is the
-# registry state rather than the per-package exit status. A dry run publishes
-# nothing, so it reports the same state without treating unpublished packages
-# as failures.
+# Verify against the registry API rather than a readiness dry run: the dry run
+# would resolve dependencies, which the publish credential breaks. A version
+# that is present is a success whether this run published it or an earlier one
+# did, so a re-run of a partial publish reports success.
 echo "=== verifying every package $TAG owns is on the registry ==="
-monochange step publish-readiness --from HEAD --format json --output "$scratch/final-readiness.json" >/dev/null 2>&1 || true
-
 missing=""
 while IFS= read -r package; do
 	[[ -n "$package" ]] || continue
-	status="$(jq -r --arg p "$package" '.packages[]? | select(.package == $p) | .status' "$scratch/final-readiness.json" 2>/dev/null)"
-	case "$status" in
-	already_published | published)
-		printf '  ok          %s (%s)\n' "$package" "$status"
-		;;
-	*)
-		if [[ "$DRY_RUN" -eq 1 ]]; then
-			printf '  to publish  %s (%s)\n' "$package" "${status:-unknown}"
-		else
-			printf '  MISSING     %s (%s)\n' "$package" "${status:-unknown}"
-			missing="$missing $package"
-		fi
-		;;
-	esac
+	version="$(jq -r --arg p "$package" \
+		'first(.record.package_publications[]? | select(.package == $p) | .version) // empty' <<<"$record")"
+	if [[ -z "$version" ]]; then
+		printf '  unknown     %s (no version in the release record)\n' "$package"
+		missing="$missing $package"
+		continue
+	fi
+
+	code="$(curl -s -o "$scratch/pkg.json" -w '%{http_code}' \
+		"https://pub.dev/api/packages/$package" || true)"
+	if [[ "$code" != "200" ]]; then
+		printf '  MISSING     %s (registry returned HTTP %s)\n' "$package" "${code:-none}"
+		missing="$missing $package"
+		continue
+	fi
+
+	published="$(jq -r --arg v "$version" '[.versions[]?.version] | index($v) != null' "$scratch/pkg.json" 2>/dev/null)"
+	if [[ "$published" == "true" ]]; then
+		printf '  ok          %s (%s)\n' "$package" "$version"
+	else
+		printf '  MISSING     %s (%s is not on the registry)\n' "$package" "$version"
+		missing="$missing $package"
+	fi
 done <"$scratch/ordered.txt"
 
 echo
@@ -170,7 +214,7 @@ if [[ -n "$missing" ]]; then
 fi
 
 if [[ "$DRY_RUN" -eq 1 ]]; then
-	echo "Dry run: no packages were published; the status above is the current registry state."
+	echo "All $count package(s) from $TAG are already on the registry; a real run would skip them."
 else
-	echo "All $(grep -c . "$scratch/ordered.txt") package(s) from $TAG are present on their registry."
+	echo "All $count package(s) from $TAG are present on the registry."
 fi
