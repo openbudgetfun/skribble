@@ -186,6 +186,8 @@ Before rerunning, check which packages are actually missing rather than assuming
 ./scripts/release/publish_owned_packages.sh <tag> --dry-run   # lists the tag's packages and current registry state
 ```
 
+A recovery run is the one case where the publish workflow reads a file from `main` rather than from the tag: the publish script is loaded from `origin/main`, because every tag cut before it existed predates the file. Everything else — the release record, package manifests, and versions — still comes from the tag, so the release being published is the tag's. The same applies to `scripts/release/package_fonts.sh`, which is why [Font release assets](#font-release-assets) notes that a script fix reaches only new tags.
+
 When the release tags already exist on the release commit, the `tag` job of the `Release PR` workflow reruns cleanly without `RELEASES_GITHUB_TOKEN`: it skips token installation and tag creation, leaves the existing tags untouched, and only watches the publish runs to completion. The token is still required to push any new tag.
 
 Each run uploads its readiness and publication reports for 14 days. Read those artifacts before retrying. Keep the original release tag on the release-record commit.

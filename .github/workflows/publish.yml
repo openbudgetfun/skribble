@@ -102,12 +102,21 @@ jobs:
       # computing that order runs `pub publish` dry runs, which resolve
       # dependencies — work that must happen before the publish credential is
       # registered.
+      #
+      # The script is read from `origin/main`, not from the checked-out tag.
+      # Every tag cut before it was added predates the file, so running the
+      # tag's own copy would fail with "No such file or directory" — exactly
+      # the recovery path this step exists to serve. The script takes the
+      # release record and package manifests from the working tree, so the
+      # release it publishes is still the tag's, not main's.
       - name: Publish the packages this tag owns
         env:
           RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
         run: |
-          ./scripts/release/publish_owned_packages.sh "$RELEASE_TAG" \
-            --readiness "$RUNNER_TEMP/publish-readiness.json"
+          runner="$RUNNER_TEMP/publish_owned_packages.sh"
+          git show origin/main:scripts/release/publish_owned_packages.sh >"$runner"
+          chmod +x "$runner"
+          "$runner" "$RELEASE_TAG" --readiness "$RUNNER_TEMP/publish-readiness.json"
         shell: devenv shell -- bash -e {0}
 
       - name: Publish the GitHub releases
