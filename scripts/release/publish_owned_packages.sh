@@ -134,7 +134,9 @@ while IFS= read -r package; do
 done <"$scratch/ordered.txt"
 
 # A package that already existed is a skip, not a publish, so the check is the
-# registry state rather than the per-package exit status.
+# registry state rather than the per-package exit status. A dry run publishes
+# nothing, so it reports the same state without treating unpublished packages
+# as failures.
 echo "=== verifying every package $TAG owns is on the registry ==="
 monochange step publish-readiness --from HEAD --format json --output "$scratch/final-readiness.json" >/dev/null 2>&1 || true
 
@@ -144,11 +146,15 @@ while IFS= read -r package; do
 	status="$(jq -r --arg p "$package" '.packages[]? | select(.package == $p) | .status' "$scratch/final-readiness.json" 2>/dev/null)"
 	case "$status" in
 	already_published | published)
-		printf '  ok      %s (%s)\n' "$package" "$status"
+		printf '  ok          %s (%s)\n' "$package" "$status"
 		;;
 	*)
-		printf '  MISSING %s (%s)\n' "$package" "${status:-unknown}"
-		missing="$missing $package"
+		if [[ "$DRY_RUN" -eq 1 ]]; then
+			printf '  to publish  %s (%s)\n' "$package" "${status:-unknown}"
+		else
+			printf '  MISSING     %s (%s)\n' "$package" "${status:-unknown}"
+			missing="$missing $package"
+		fi
 		;;
 	esac
 done <"$scratch/ordered.txt"
@@ -163,4 +169,8 @@ if [[ -n "$missing" ]]; then
 	exit 1
 fi
 
-echo "All $(grep -c . "$scratch/ordered.txt") package(s) from $TAG are present on their registry."
+if [[ "$DRY_RUN" -eq 1 ]]; then
+	echo "Dry run: no packages were published; the status above is the current registry state."
+else
+	echo "All $(grep -c . "$scratch/ordered.txt") package(s) from $TAG are present on their registry."
+fi
