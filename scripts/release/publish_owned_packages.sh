@@ -35,8 +35,18 @@
 
 set -uo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+# Operate on the checkout the script is run from, not on the script's own
+# location. The publish workflow extracts this file to a temp path and runs it
+# against the release tag's working tree, so deriving the repository root from
+# `$BASH_SOURCE` would resolve outside the checkout and find no release record.
+# Resolve the root from the working tree instead, and fall back to the script's
+# own location only when the caller is not inside a checkout.
+if [[ -n "$(git rev-parse --show-toplevel 2>/dev/null)" ]]; then
+	ROOT_DIR="$(git rev-parse --show-toplevel)"
+else
+	SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+fi
 
 TAG=""
 DRY_RUN=0
