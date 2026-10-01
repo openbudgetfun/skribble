@@ -151,6 +151,7 @@ class WiredAboutDialog extends HookWidget {
 
   String _getApplicationName(BuildContext context) {
     final title = context.findAncestorWidgetOfExactType<MaterialApp>();
+
     return title?.title ?? '';
   }
 }

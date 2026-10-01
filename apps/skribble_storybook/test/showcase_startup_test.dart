@@ -25,6 +25,7 @@ void main() {
           findsOneWidget,
         );
       }
+
       final manifest = (jsonDecode(
         await rootBundle.loadString('FontManifest.json'),
       ) as List<Object?>).cast<Map<String, Object?>>();
@@ -38,6 +39,7 @@ void main() {
             ),
           );
         }
+
         expect(
           families,
           contains(
@@ -45,6 +47,7 @@ void main() {
           ),
         );
       }
+
       await tester.tap(find.text('Mono'));
       await tester.pumpAndSettle();
       expect(

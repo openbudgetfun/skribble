@@ -44,6 +44,7 @@ class EmojiSearch {
     for (final entry in kSkribbleEmojiNames.entries) {
       if (entry.key.toLowerCase().contains(lowerQuery)) {
         final data = lookupSkribbleEmojiByName(entry.key);
+
         if (data != null) {
           results.add(
             EmojiSearchResult(
@@ -132,6 +133,7 @@ class EmojiSearch {
 
       // Determine category from name prefix
       String category;
+
       if (name.startsWith('face') || name.contains('_face')) {
         category = 'faces';
       } else if (name.startsWith('hand') ||
@@ -144,6 +146,7 @@ class EmojiSearch {
           name.contains('cat') ||
           name.contains('dog') ||
           name.contains('bird')) {
+
         category = 'animals';
       } else if (name.contains('food') ||
           name.contains('fruit') ||

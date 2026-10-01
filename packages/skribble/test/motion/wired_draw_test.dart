@@ -18,6 +18,7 @@ class CountingPainter extends WiredRectangleBase {
   @override
   RoughDrawing prepare(Size size, DrawConfig drawConfig, Filler filler) {
     preparations++;
+
     return super.prepare(size, drawConfig, filler);
   }
 }
@@ -74,6 +75,7 @@ void main() {
         controller.value = value;
         await tester.pump();
       }
+
       expect(builds, 1);
       expect(painter.preparations, 1);
       expect(tester.getRect(find.byType(WiredCanvas)), rect);
@@ -155,6 +157,7 @@ void main() {
             child: child,
           );
         }
+
         await tester.pumpWidget(host(child, reduced: source == 'platform'));
         expect(resolved, isNull);
       },

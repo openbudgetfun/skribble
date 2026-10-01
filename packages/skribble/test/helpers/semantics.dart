@@ -12,7 +12,6 @@ import 'package:flutter_test/flutter_test.dart';
 /// produced the node. A test written with them keeps passing when the
 /// internal implementation is rewritten, and fails when accessibility
 /// regresses.
-
 /// Returns the semantics data exposed by the nearest node for [finder].
 ///
 /// Use when a test needs to inspect several flags together, or when the
@@ -135,6 +134,7 @@ void expectSemantics(
     );
   }
   if (isToggled != null) {
+
     expect(
       data.flagsCollection.isToggled.toBoolOrNull(),
       isToggled,
@@ -173,6 +173,7 @@ String _describe(SemanticsData data) {
   final actions =
       SemanticsAction.values.where(data.hasAction).map((a) => a.name).toList()
         ..sort();
+
   return 'Actual semantics -> label: ${data.label.isEmpty ? '<empty>' : '"${data.label}"'}, '
       'value: ${data.value.isEmpty ? '<empty>' : '"${data.value}"'}, '
       'button: ${flags.isButton}, '

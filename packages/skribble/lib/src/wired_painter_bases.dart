@@ -130,14 +130,21 @@ class WiredLineBase extends _PreparedWiredPainter {
     var ly1 = y1;
     var lx2 = x2;
     var ly2 = y2;
+
     if (lx1 < 0) lx1 = 0;
+
     if (lx1 > size.width) lx1 = size.width;
+
     if (ly1 < 0) ly1 = 0;
+
     if (ly1 > size.height) ly1 = size.height;
 
     if (lx2 < 0) lx2 = 0;
+
     if (lx2 > size.width) lx2 = size.width;
+
     if (ly2 < 0) ly2 = 0;
+
     if (ly2 > size.height) ly2 = size.height;
 
     final Generator generator = Generator(drawConfig, filler);
@@ -258,6 +265,7 @@ Rect _inkRect(Size size, double strokeWidth, DrawConfig config) {
       strokeWidth / 2 +
       1 +
       (config.maxRandomnessOffset ?? 0) * (config.roughness ?? 0);
+
   return (Offset.zero & size).deflate(math.min(bleed, size.shortestSide / 2));
 }
 

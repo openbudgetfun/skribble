@@ -209,14 +209,17 @@ String _highlightedText(WidgetTester tester) {
 
   void visit(InlineSpan span) {
     if (span is! TextSpan) return;
+
     if (span.style?.backgroundColor != null && span.text != null) {
       text.add(span.text!);
     }
+
     span.children?.forEach(visit);
   }
 
   for (final richText in tester.widgetList<RichText>(find.byType(RichText))) {
     visit(richText.text);
   }
+
   return text.join(' ').toLowerCase();
 }

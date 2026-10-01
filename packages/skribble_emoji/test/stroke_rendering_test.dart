@@ -27,6 +27,7 @@ void main() {
       ),
     ],
   );
+
   for (final precomputed in [true, false]) {
     for (final level in WiredRoughness.values) {
       testWidgets(

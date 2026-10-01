@@ -20,6 +20,7 @@ List<WiredChartCandle> aggregateWiredChartCandles(
       'Aggregation interval must be a positive whole multiple of the source interval',
     );
   }
+
   final byTime = <DateTime, WiredChartCandle>{};
   for (final candle in candles) {
     if (candle.time.microsecondsSinceEpoch % sourceWidth != 0) {
@@ -29,11 +30,14 @@ List<WiredChartCandle> aggregateWiredChartCandles(
         'Source candle is not aligned to its interval',
       );
     }
+
     final existing = byTime[candle.time];
+
     if (existing == null || candle.revision >= existing.revision) {
       byTime[candle.time] = candle;
     }
   }
+
   final ordered = byTime.values.toList()
     ..sort((a, b) => a.time.compareTo(b.time));
   final result = <WiredChartCandle>[];
@@ -44,6 +48,7 @@ List<WiredChartCandle> aggregateWiredChartCandles(
       timestamp - timestamp % width,
       isUtc: true,
     );
+
     if (result.isEmpty || result.last.time != start) {
       result.add(
         WiredChartCandle(
@@ -57,6 +62,7 @@ List<WiredChartCandle> aggregateWiredChartCandles(
       );
       continue;
     }
+
     final previous = result.removeLast();
     result.add(
       WiredChartCandle(

@@ -157,6 +157,7 @@ void main() {
       await mouse.moveTo(Offset.zero);
       await tester.pump(const Duration(milliseconds: 16));
     }
+
     await tester.pumpAndSettle();
     expect(pressure(tester), 0);
     await tester.pumpWidget(const SizedBox());

@@ -53,6 +53,7 @@ final class SvgTransform {
           .map((m) => double.parse(m[0]!))
           .toList();
       final angle = values.first * math.pi / 180;
+
       final operation = switch (match[1]) {
         'matrix' => SvgTransform(
           values[0],
@@ -107,8 +108,10 @@ final class SvgTransform {
         'skewY' => SvgTransform(1, math.tan(angle)),
         _ => throw FormatException('Unsupported SVG transform: ${match[1]}'),
       };
+
       result = result.multiply(operation);
     }
+
     return result;
   }
 
@@ -117,6 +120,7 @@ final class SvgTransform {
   String path(String source) {
     final proxy = _PathWriter(this);
     writeSvgPathDataToPath(source, proxy);
+
     return proxy.output.toString();
   }
 
@@ -140,6 +144,7 @@ final class _PathWriter extends PathProxy {
     // ARM and x64 arithmetic can land on opposite sides of a decimal tie.
     // Discard insignificant drift before rounding to the catalog precision.
     final stable = double.parse(value.toStringAsFixed(9));
+
     return (stable == 0 ? 0.0 : stable).toStringAsFixed(3);
   }
 
@@ -158,6 +163,7 @@ final class _PathWriter extends PathProxy {
   void line(math.Point<double> end) {
     final delta = end - cursor;
     final length = delta.magnitude;
+
     if (length == 0) return;
 
     // Opposing control offsets leave the endpoints and average direction
@@ -192,6 +198,7 @@ final class _PathWriter extends PathProxy {
     output.write(
       'C${format(first + normal)} ${format(second - normal)} ${format(end)}',
     );
+
     cursor = end;
   }
 

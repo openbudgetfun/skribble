@@ -27,6 +27,7 @@ export 'package:skribble_icons_bxs/src/generated/bxs_icons.g.dart'
 /// `null` when this set does not ship it.
 WiredSvgIconData? lookupBxsIconByIdentifier(String identifier) {
   final codePoint = kBxsIconCodePoints[identifier];
+
   if (codePoint == null) return null;
   return kBxsIcons[codePoint];
 }

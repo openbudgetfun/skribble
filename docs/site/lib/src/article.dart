@@ -66,9 +66,11 @@ class DocArticle extends HookWidget {
     if (node is md.Text && node.textContent.trimLeft().startsWith('<!--')) {
       return const SizedBox.shrink();
     }
+
     if (node is! md.Element) {
       return _Paragraph(nodes: [node], onLink: onLink, findQuery: findQuery);
     }
+
     final children = node.children ?? const <md.Node>[];
     final heading = RegExp(r'^h([1-6])$').firstMatch(node.tag);
 
@@ -161,6 +163,7 @@ class DocArticle extends HookWidget {
     final id = RegExp(r'^// Live example: ([a-z0-9-]+)\n')
         .firstMatch(node.textContent)
         ?.group(1);
+
     if (id != null) {
       return _DeferredLiveExample(key: ValueKey(id), id: id);
     }
@@ -183,6 +186,7 @@ class DocArticle extends HookWidget {
 
   Widget _table(md.Element table) {
     final rows = <md.Element>[];
+
     for (final section in table.children ?? <md.Node>[]) {
       if (section is md.Element) {
         rows.addAll((section.children ?? <md.Node>[]).whereType<md.Element>());
@@ -274,6 +278,7 @@ class DocArticle extends HookWidget {
               row.children?.elementAtOrNull(column)?.textContent.length ?? 0,
         )
         .fold(0, math.max);
+
     return (longest / 14).clamp(1, 4).toDouble();
   }
 }
@@ -297,6 +302,7 @@ class _DeferredLiveExample extends HookWidget {
     }
 
     final definition = catalog.examples[id];
+
     if (definition == null) throw StateError('Unknown live example: $id');
 
     return LiveExample(id: id, definition: definition);
@@ -339,6 +345,7 @@ class _ArticleSelection extends StaticSelectionContainerDelegate {
         if (selectable.getSelectedContent() case final SelectedContent content)
           content.plainText,
     ];
+
     return parts.isEmpty ? null : SelectedContent(plainText: parts.join('\n'));
   }
 }
@@ -358,7 +365,9 @@ class _InlineContent {
     if (node is! md.Element) {
       return TextSpan(text: node.textContent, recognizer: link);
     }
+
     if (node.tag == 'br') return const TextSpan(text: '\n');
+
     final style = switch (node.tag) {
       'strong' => const TextStyle(fontWeight: FontWeight.w700),
       'em' => const TextStyle(fontStyle: FontStyle.italic),
@@ -370,6 +379,7 @@ class _InlineContent {
       'del' => const TextStyle(decoration: TextDecoration.lineThrough),
       _ => null,
     };
+
     var recognizer = link;
 
     if ((node.tag, node.attributes['href']) case ('a', final String href)) {

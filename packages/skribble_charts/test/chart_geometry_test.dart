@@ -16,6 +16,7 @@ void main() {
         closeTo(index, 1e-12),
       );
     }
+
     expect(
       () => WiredChartViewport(firstVisible: 0, visibleCount: 0, width: 100),
       throwsArgumentError,

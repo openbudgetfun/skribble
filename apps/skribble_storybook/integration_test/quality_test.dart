@@ -146,6 +146,7 @@ void main() {
     if ($(QualityKeys.status).text != 'Small steps count.') {
       throw StateError('Reset did not clear the checked state.');
     }
+
     final field = $.tester.widget<EditableText>($(EditableText));
     if (field.controller.text.isNotEmpty) {
       throw StateError('Reset did not clear the input controller.');
@@ -165,6 +166,7 @@ void main() {
     if (theme.fillColor != const Color(0xff29232f)) {
       throw StateError('The evening paper color was not applied.');
     }
+
     await $(QualityKeys.input).scrollTo();
     await $(QualityKeys.input).enterText('Ideas after sunset');
     await $(QualityKeys.add).tap();

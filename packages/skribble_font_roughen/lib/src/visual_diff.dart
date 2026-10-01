@@ -36,26 +36,35 @@ class VisualDiff {
     if (!outputPath.endsWith('.html')) {
       throw ArgumentError('VisualDiff output must be .html.');
     }
+
     final before = await File(originalPath).readAsBytes();
     final after = await File(roughenedPath).readAsBytes();
     final original = TrueTypeFont(before);
     final rough = TrueTypeFont(after);
+
     if (original.glyphCount != rough.glyphCount) {
       throw ArgumentError('Glyph counts differ.');
     }
+
     var changed = 0;
     var total = 0;
+
     for (var id = 0; id < original.glyphCount; id++) {
       final a = original.glyphPoints(id);
       final b = rough.glyphPoints(id);
+
       if (a.length != b.length) {
         throw ArgumentError('Point counts differ in glyph $id.');
       }
+
       total += a.length;
+
       for (var point = 0; point < a.length; point++) {
+
         if (a[point] != b[point]) changed++;
       }
     }
+
     final sample = const HtmlEscape().convert(sampleText);
     final html =
         '''

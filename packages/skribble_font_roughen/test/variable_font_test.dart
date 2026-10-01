@@ -45,6 +45,7 @@ void main() {
         outlineChanges++;
       }
     }
+
     expect(outlineChanges, greaterThan(1000));
     for (final point in [
       (weight: 300, casual: 1.0, mono: 0.0, slant: 0.0, cursive: 0.0),
@@ -94,6 +95,7 @@ void main() {
           );
         }
       }
+
       final shaped = await Process.run('hb-shape', [
         afterPath,
         'Hamburgefontsiv café ffi 0123456789',

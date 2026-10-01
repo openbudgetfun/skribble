@@ -188,6 +188,7 @@ class SkribbleIconsPage extends HookWidget {
                         WiredRoughness.playful => 'Playful',
                         WiredRoughness.expressive => 'Expressive',
                       }),
+
                       const SizedBox(height: 8),
                       WiredThemeScope(
                         data: theme.copyWith(roughnessLevel: level),

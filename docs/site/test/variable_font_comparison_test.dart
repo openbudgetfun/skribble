@@ -40,6 +40,7 @@ void main() {
             FontWeight.values[weight ~/ 100 - 1],
           );
         }
+
         final weightSlider = find.byKey(const ValueKey('variable-Weight'));
         await tester.ensureVisible(weightSlider);
         await tester.drag(weightSlider, const Offset(-137, 0));

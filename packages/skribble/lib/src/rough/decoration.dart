@@ -104,22 +104,27 @@ class RoughDecorationPainter extends BoxPainter {
   @override
   void dispose() {
     final callback = onChanged;
+
     if (callback != null) {
       for (final animation in _animations) {
         animation.removeListener(callback);
       }
     }
+
     super.dispose();
   }
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
     final size = configuration.size;
+
     if (size == null || size.isEmpty) return;
+
     if (_size != size) {
       _drawing = _prepare(size);
       _size = size;
     }
+
     canvas.save();
     canvas.translate(offset.dx, offset.dy);
     _drawing.paint(
@@ -127,6 +132,7 @@ class RoughDecorationPainter extends BoxPainter {
       progress: roughDecoration.progress?.value ?? 1,
       pressure: roughDecoration.pressure?.value ?? 0,
     );
+
     canvas.restore();
   }
 
@@ -139,6 +145,7 @@ class RoughDecorationPainter extends BoxPainter {
     final Generator generator = Generator(drawConfig, filler);
     final bleed =
         (roughDecoration.borderStyle?.width ?? 0) / 2 +
+
         1 +
         (drawConfig.maxRandomnessOffset ?? 0) * (drawConfig.roughness ?? 0);
     final Rect rect = (Offset.zero & size).deflate(
@@ -155,6 +162,7 @@ class RoughDecorationPainter extends BoxPainter {
         : _buildDrawPaint(roughDecoration.fillStyle!, rect);
 
     Drawable drawable;
+
     switch (roughDecoration.shape) {
       case RoughBoxShape.rectangle:
         drawable = generator.rectangle(
@@ -204,9 +212,11 @@ class RoughDecorationPainter extends BoxPainter {
       ..strokeWidth = roughDrawDecoration.width ?? 0.1
       ..color = roughDrawDecoration.color ?? defaultColor
       ..shader = roughDrawDecoration.gradient?.createShader(rect);
+
     if (roughDrawDecoration.blendMode != null) {
       paint.blendMode = roughDrawDecoration.blendMode!;
     }
+
     return paint;
   }
 }

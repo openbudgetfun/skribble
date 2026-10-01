@@ -34,10 +34,12 @@ class MapsPage extends HookWidget {
         maximumZoom: 18,
       ),
     );
+
     final style = switch (ink.value) {
       _MapInk.paper => WiredMapStyle.paper,
       _MapInk.night => WiredMapStyle.night,
     };
+
     final overlayPalette = switch (ink.value) {
       _MapInk.paper => const _MapOverlayPalette(
         areaFill: Color(0x286A7568),
@@ -50,6 +52,7 @@ class MapsPage extends HookWidget {
         routeInk: Color(0xFFD8BE9B),
       ),
     };
+
     final places = _places[city.value]!;
 
     useEffect(() => mapController.dispose, [mapController]);
@@ -126,6 +129,7 @@ class MapsPage extends HookWidget {
                               mapReady.value = false;
                               ink.value = option;
                             },
+
                             child: Text(
                               option == _MapInk.paper ? 'Paper' : 'Night',
                               style: TextStyle(

@@ -20,6 +20,7 @@ class VariableFontComparison extends HookWidget {
       'A little ink, a lot of possibility.\nHamburgefontsiv 0123456789',
     );
     final controller = useTextEditingController(text: sample.value);
+
     final staticWeight = (weight.value / 100).round().clamp(3, 9);
     final staticFont = mono.value >= 0.5
         ? WiredFont.mono

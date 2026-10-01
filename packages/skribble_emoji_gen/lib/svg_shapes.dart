@@ -59,6 +59,7 @@ class SvgShape {
 /// Missing or malformed XML returns an empty list; unsupported features throw.
 List<SvgShape> extractShapes(String svgFile) {
   final file = File(svgFile);
+
   if (!file.existsSync()) return [];
   return extractShapesFromMarkup(file.readAsStringSync());
 }
@@ -81,6 +82,7 @@ List<SvgShape> extractShapesFromMarkup(String svg) {
       element.getAttribute('id')!: element,
   };
   _processElement(doc.rootElement, shapes, _PaintContext(), definitions);
+
   return shapes;
 }
 
@@ -111,6 +113,7 @@ void _processElement(
   Map<String, XmlElement> definitions,
 ) {
   final tag = element.name.local;
+
   if (tag == 'defs' || element.getAttribute('display') == 'none') return;
   final visibility = element.getAttribute('visibility') ?? parent.visibility;
   final dash = element.getAttribute('stroke-dasharray');
@@ -119,9 +122,11 @@ void _processElement(
       : dash == 'none'
       ? <double>[]
       : dash.trim().split(RegExp(r'[\s,]+')).map(double.parse).toList();
+
   if (dashArray.any((value) => !value.isFinite || value < 0)) {
     throw const FormatException('Invalid SVG dash array.');
   }
+
   final dashOffset =
       double.tryParse(element.getAttribute('stroke-dashoffset') ?? '') ??
       parent.dashOffset;
@@ -161,6 +166,7 @@ void _processElement(
   if ((resolvedFill ?? '').toLowerCase() == 'none') {
     resolvedFill = null; // explicit "no fill"
   }
+
   if ((resolvedStroke ?? '').toLowerCase() == 'none') {
     resolvedStroke = null;
   }
@@ -172,13 +178,17 @@ void _processElement(
       double.tryParse(element.getAttribute('stroke-opacity') ?? '') ??
       parent.strokeOpacity;
   final opacity = double.tryParse(element.getAttribute('opacity') ?? '') ?? 1;
+
   if (tag == 'g' && opacity != 1) {
+
     throw const FormatException(
       'Group opacity requires compositing; flatten it in the source SVG.',
     );
   }
+
   final clips = [...parent.clipPaths];
   final clip = element.getAttribute('clip-path');
+
   if (clip != null && clip != 'none') {
     final id = RegExp(r'^url\(#([^)]*)\)$').firstMatch(clip)?.group(1);
     final definition = definitions[id];
@@ -196,6 +206,7 @@ void _processElement(
     );
     clips.add(paths.map((shape) => shape.data).join());
   }
+
   final childCtx = _PaintContext()
     ..dashArray = dashArray
     ..dashOffset = dashOffset
@@ -221,6 +232,7 @@ void _processElement(
     if (resolvedFill == null && resolvedStroke == null) return;
     final fill = _withOpacity(resolvedFill, opacity * fillOpacity);
     final stroke = _withOpacity(resolvedStroke, opacity * strokeOpacity);
+
     if (fill == null && stroke == null) return;
     final path = transform.path(data);
     SvgShape shape(String? fill, String? stroke) => SvgShape(
@@ -237,6 +249,7 @@ void _processElement(
       miterLimit,
     );
     final order = paintOrder.split(RegExp(r'\s+'));
+
     if (fill != null && stroke != null && order.first == 'stroke') {
       shapes.addAll([shape(null, stroke), shape(fill, null)]);
     } else {
@@ -246,19 +259,25 @@ void _processElement(
 
   if (tag == 'path') {
     final d = element.getAttribute('d')?.trim() ?? '';
+
     if (d.isNotEmpty && d.toLowerCase() != 'none') {
       add(d);
     }
   } else if (tag == 'polygon') {
     final pts = element.getAttribute('points')?.trim() ?? '';
+
     if (pts.isNotEmpty) {
       add(_polygonPointsToPath(pts));
     }
+
   } else if (tag == 'polyline') {
     final pts = element.getAttribute('points')?.trim() ?? '';
+
     if (pts.isNotEmpty) {
       var pd = _polygonPointsToPath(pts);
+
       if (pd.endsWith('Z')) pd = pd.substring(0, pd.length - 1);
+
       if (pd.isNotEmpty) add(pd);
     }
   } else if (tag == 'circle') {
@@ -266,6 +285,7 @@ void _processElement(
       final cx = double.tryParse(element.getAttribute('cx') ?? '0') ?? 0;
       final cy = double.tryParse(element.getAttribute('cy') ?? '0') ?? 0;
       final r = double.tryParse(element.getAttribute('r') ?? '0') ?? 0;
+
       if (r > 0) add(_circleToPath(cx, cy, r));
     }
   } else if (tag == 'ellipse') {
@@ -274,6 +294,7 @@ void _processElement(
       final cy = double.tryParse(element.getAttribute('cy') ?? '0') ?? 0;
       final rx = double.tryParse(element.getAttribute('rx') ?? '0') ?? 0;
       final ry = double.tryParse(element.getAttribute('ry') ?? '0') ?? 0;
+
       if (rx > 0 && ry > 0) add(_ellipseToPath(cx, cy, rx, ry));
     }
   } else if (tag == 'rect') {
@@ -284,6 +305,7 @@ void _processElement(
       final h = double.tryParse(element.getAttribute('height') ?? '0') ?? 0;
       final rx = double.tryParse(element.getAttribute('rx') ?? '0') ?? 0;
       final ry = double.tryParse(element.getAttribute('ry') ?? '0') ?? 0;
+
       if (w > 0 && h > 0) add(_rectToPath(x, y, w, h, rx, ry));
     }
   } else if (tag == 'line') {
@@ -310,16 +332,21 @@ String? _resolvePaint(
   String? Function() svgDefault,
 ) {
   final own = element.getAttribute(attr)?.trim();
+
   if (own != null && own.isNotEmpty) return own;
   return inherited ?? svgDefault();
 }
 
 String? _withOpacity(String? color, double opacity) {
   if (color == null || opacity <= 0) return null;
+
   if (opacity >= 1) return color;
   var hex = color.replaceFirst('#', '');
+
   if (hex.length == 3) hex = hex.split('').map((c) => '$c$c').join();
+
   if (hex.length != 6) throw FormatException('Unsupported SVG color: $color');
+
   return '#$hex${(opacity * 255).round().toRadixString(16).padLeft(2, '0')}';
 }
 
@@ -328,8 +355,10 @@ String _polygonPointsToPath(String input) {
       .allMatches(input)
       .map((match) => match[0]!)
       .toList();
+
   if (values.length.isOdd)
     throw const FormatException('Odd polygon coordinate count.');
+
   if (values.isEmpty) return '';
   return [
     for (var i = 0; i < values.length; i += 2)
@@ -363,10 +392,14 @@ String _rectToPath(
   if (rx == 0 && ry == 0) {
     return 'M$x,${y}L${x + w},$y L${x + w},${y + h}L$x,${y + h}Z';
   }
+
   var rxVal = rx;
   var ryVal = ry;
+
   if (rxVal == 0) rxVal = ryVal;
+
   if (ryVal == 0) ryVal = rxVal;
+
   return 'M${x + rxVal},$y'
       ' L${x + w - rxVal},$y'
       ' A$rxVal,$ryVal,0,0,1,${x + w},${y + ryVal}'

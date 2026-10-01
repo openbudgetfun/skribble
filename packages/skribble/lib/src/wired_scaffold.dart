@@ -66,9 +66,11 @@ class WiredScaffold extends HookWidget {
     final theme = WiredTheme.of(context);
 
     Widget? effectiveBody = body;
+
     if (effectiveBody != null && bodyPadding != null) {
       effectiveBody = Padding(padding: bodyPadding!, child: effectiveBody);
     }
+
     if (effectiveBody != null && applySafeArea) {
       effectiveBody = SafeArea(child: effectiveBody);
     }

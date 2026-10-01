@@ -19,6 +19,7 @@ class InputsPage extends HookWidget {
     final comboValue = useState<String?>(null);
     final autocompleteValue = useState<String>('None');
     final switchValue = useState(false);
+
     final cupertinoSwitchValue = useState(false);
     final cupertinoSliderValue = useState(0.5);
     final formKey = useMemoized(GlobalKey<FormState>.new);

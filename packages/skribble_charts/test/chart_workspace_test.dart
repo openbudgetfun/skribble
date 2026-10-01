@@ -695,6 +695,7 @@ void main() {
             reason: key,
           );
         }
+
         expect(() => WiredChartWorkspace.decode('{'), throwsFormatException);
       },
     );
@@ -948,6 +949,7 @@ void main() {
           expect(annotations.exportDocument(), originalAnnotations);
           expect(annotations.canUndo, isTrue);
         }
+
         expect(controllerNotifications, 0);
         expect(annotationNotifications, 0);
       },

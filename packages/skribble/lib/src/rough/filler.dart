@@ -103,14 +103,18 @@ abstract class Filler {
     final config0 = config ?? FillerConfig.defaultConfig;
     final PointD rotationCenter = PointD(0, 0);
     final double angle = (config0.hachureAngle! + 90).roundToDouble();
+
     if (angle != 0) {
       // ignore: parameter_assignments
       points = rotatePoints(points, rotationCenter, angle);
     }
+
     List<Line> lines = _straightenLines(points);
+
     if (angle != 0) {
       lines = rotateLines(lines, rotationCenter, -angle);
     }
+
     return lines;
   }
 
@@ -119,28 +123,36 @@ abstract class Filler {
     // be the one that gets extended.
     final List<PointD> vertices = List<PointD>.of(points);
     final List<Line> lines = [];
+
     if (vertices[0] != vertices[vertices.length - 1]) {
       vertices.add(vertices[0]);
     }
+
     if (vertices.length > 2) {
       double? gap = _config!.hachureGap;
       gap = max(gap!, 0.1);
 
       final List<Edge> edges = createdSortedEdges(vertices);
+
       if (edges.isEmpty) {
         return lines;
       }
+
       List<ActiveEdge> activeEdges = [];
       double y = edges[0].yMin!;
+
       while (activeEdges.isNotEmpty || edges.isNotEmpty) {
         if (edges.isNotEmpty) {
           int ix = -1;
+
           for (int i = 0; i < edges.length; i++) {
             if (edges[i].yMin! > y) {
               break;
             }
+
             ix = i;
           }
+
           final List<Edge> removed = edges.sublist(0, ix + 1);
           edges.removeRange(0, ix + 1);
           // ignore: prefer_final_in_for_each
@@ -148,6 +160,7 @@ abstract class Filler {
             activeEdges.add(ActiveEdge(y, edge));
           }
         }
+
         activeEdges = activeEdges.where((ae) => ae.edge.yMax! > y).toList();
 
         activeEdges.sort((ae1, ae2) => ae1.edge.x!.compareTo(ae2.edge.x!));
@@ -155,9 +168,11 @@ abstract class Filler {
         if (activeEdges.length > 1) {
           for (int i = 0; i < activeEdges.length; i = i + 2) {
             final int next = i + 1;
+
             if (next >= activeEdges.length) {
               break;
             }
+
             final Edge ce = activeEdges[i].edge;
             final Edge ne = activeEdges[next].edge;
             lines.add(
@@ -178,14 +193,17 @@ abstract class Filler {
         }).toList();
       }
     }
+
     return lines;
   }
 
   List<Edge> createdSortedEdges(List<PointD> vertices) {
     final List<Edge> edges = [];
+
     for (int i = 0; i < vertices.length - 1; i++) {
       final PointD p1 = vertices[i];
       final PointD p2 = vertices[i + 1];
+
       if (p1.y != p2.y) {
         final double yMin = min(p1.y, p2.y);
         edges.add(
@@ -198,7 +216,9 @@ abstract class Filler {
         );
       }
     }
+
     edges.sort(edgeSorter);
+
     return edges;
   }
 
@@ -206,15 +226,19 @@ abstract class Filler {
     if (e1.yMin! < e2.yMin!) {
       return -1;
     }
+
     if (e1.yMin! > e2.yMin!) {
       return 1;
     }
+
     if (e1.x! < e2.x!) {
       return -1;
     }
+
     if (e1.x! > e2.x!) {
       return 1;
     }
+
     return e1.yMax!.compareTo(e2.yMax!);
   }
 
@@ -224,62 +248,78 @@ abstract class Filler {
     bool connectEnds,
   ) {
     List<Line> lines = buildFillLines(points, config);
+
     if (connectEnds) {
       final List<Line> connectingLines = connectLines(points, lines);
       lines += connectingLines;
     }
+
     final List<Op> ops = renderLines(lines, config);
+
     return OpSet(type: OpSetType.fillSketch, ops: ops);
   }
 
   List<Line> connectLines(List<PointD> polygon, List<Line> lines) {
     final List<Line> result = [];
+
     if (lines.length > 1) {
       for (int i = 1; i < lines.length; i++) {
         final Line prev = lines[i - 1];
+
         if (prev.length < 3) {
           continue;
         }
+
         final Line current = lines[i];
         final Line segment = Line(current.source, prev.target);
+
         if (segment.length > 3) {
           final List<Line> segSplits = splitOnIntersections(polygon, segment);
           result.addAll(segSplits);
         }
       }
     }
+
     return result;
   }
 
   List<Line> splitOnIntersections(List<PointD> polygon, Line segment) {
     final double error = max(5, segment.length * 0.1);
     final List<IntersectionInfo> intersections = [];
+
     for (int i = 0; i < polygon.length; i++) {
       final PointD p1 = polygon[i];
       final PointD p2 = polygon[(i + 1) % polygon.length];
       final Line polygonSegment = Line(p1, p2);
+
       if (segment.intersects(polygonSegment)) {
         final PointD? ip = segment.intersectionWith(polygonSegment);
+
         if (ip != null) {
           final double d0 = Line(ip, segment.source).length;
           final double d1 = Line(ip, segment.target).length;
+
           if (d0 > error && d1 > error) {
             intersections.add(IntersectionInfo(point: ip, distance: d0));
           }
         }
       }
     }
+
     if (intersections.length > 1) {
       intersections.sort((a, b) => (a.distance! - b.distance!).ceil());
       final List<PointD> intersectionPoints = intersections
           .map((d) => d.point!)
           .toList();
+
       if (segment.source.isInPolygon(polygon)) {
         intersectionPoints.removeAt(0);
       }
+
       if (segment.target.isInPolygon(polygon)) {
         intersectionPoints.removeLast();
       }
+
       if (intersectionPoints.length <= 1) {
         if (segment.isMidPointInPolygon(polygon)) {
           return [segment];
@@ -287,15 +327,19 @@ abstract class Filler {
           return [];
         }
       }
+
       final List<PointD> splitPoints =
           [segment.source] + intersectionPoints + [segment.target];
       final List<Line> splitLines = [];
+
       for (int i = 0; i < (splitPoints.length - 1); i += 2) {
         final Line subSegment = Line(splitPoints[i], splitPoints[i + 1]);
+
         if (subSegment.isMidPointInPolygon(polygon)) {
           splitLines.add(subSegment);
         }
       }
+
       return splitLines;
     } else if (segment.isMidPointInPolygon(polygon)) {
       return [segment];
@@ -306,6 +350,7 @@ abstract class Filler {
 
   List<Op> renderLines(List<Line> lines, FillerConfig config) {
     final List<Op> ops = [];
+
     for (final Line line in lines) {
       ops.addAll(
         OpSetBuilder.buildLine(
@@ -317,6 +362,7 @@ abstract class Filler {
         ).ops!,
       );
     }
+
     return ops;
   }
 }
@@ -362,6 +408,7 @@ class HatchFiller extends Filler {
       hachureAngle: _config!.hachureAngle! + 90,
     );
     final OpSet set2 = fillPolygon(points, rotated, false);
+
     return OpSet(type: OpSetType.fillSketch, ops: set1.ops! + set2.ops!);
   }
 }
@@ -373,6 +420,7 @@ class DashedFiller extends Filler {
   @override
   OpSet fill(List<PointD> points) {
     final List<Line> lines = buildFillLines(points, _config);
+
     return OpSet(type: OpSetType.fillSketch, ops: dashedLines(lines, _config!));
   }
 
@@ -380,19 +428,24 @@ class DashedFiller extends Filler {
     final double offset = config.dashOffset!;
     final double gap = config.dashGap!;
     final List<Op> ops = [];
+
     for (final Line line in lines) {
       final double length = line.length;
       final int count = (length / (offset + gap)).floor();
       final double lineOffset = (length + gap - (count * (offset + gap))) / 2;
       PointD lineStart = line.source;
+
       PointD lineEnd = line.target;
+
       if (lineStart.x > lineEnd.x) {
         lineStart = line.target;
         lineEnd = line.source;
       }
+
       final double alpha = atan(
         (lineEnd.y - lineStart.y) / (lineEnd.x - lineStart.x),
       );
+
       for (int i = 0; i < count; i++) {
         final double segmentStartOffset = i * (offset + gap);
 
@@ -404,6 +457,7 @@ class DashedFiller extends Filler {
             lineStart.y +
             segmentStartOffset * sin(alpha) +
             (lineOffset * sin(alpha));
+
         final PointD gapStart = PointD(segmentStartX, segmentStartY);
 
         final double segmentEndOffset = segmentStartOffset + offset;
@@ -416,6 +470,7 @@ class DashedFiller extends Filler {
             lineStart.y +
             (segmentEndOffset * sin(alpha)) +
             (lineOffset * sin(alpha));
+
         final PointD gapEnd = PointD(segmentEndX, segmentEndY);
 
         ops.addAll(
@@ -429,6 +484,7 @@ class DashedFiller extends Filler {
         );
       }
     }
+
     return ops;
   }
 }
@@ -447,6 +503,7 @@ class DotFiller extends Filler {
       hachureAngle: 1,
     );
     final List<Line> lines = buildFillLines(points, dotConfig);
+
     return dotsOnLines(lines, dotConfig);
   }
 
@@ -455,13 +512,16 @@ class DotFiller extends Filler {
     final double gap = max(config.hachureGap!, 0.1);
     final double fWeight = max(config.fillWeight!, 0.1);
     final double ro = gap / 4;
+
     for (final Line line in lines) {
       final double length = line.length;
       final double dl = length / gap;
       final int count = dl.ceil() - 1;
+
       final double off = length - (count * gap);
       final double x = ((line.source.x + line.target.x) / 2) - (gap / 4);
       final double minY = min(line.source.y, line.target.y);
+
       for (int i = 0; i < count; i++) {
         final double y = minY + off + (i * gap);
         final double cx = config.drawConfig!.offset(x - ro, x + ro);
@@ -476,6 +536,7 @@ class DotFiller extends Filler {
         ops.addAll(el.ops!);
       }
     }
+
     return OpSet(type: OpSetType.fillSketch, ops: ops);
   }
 }
@@ -487,6 +548,7 @@ class SolidFiller extends Filler {
   @override
   OpSet fill(List<PointD> points) {
     List<PointD> result = [];
+
     if (points.length > 2) {
       result = points
           .map(

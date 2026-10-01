@@ -100,6 +100,7 @@ void main() {
       await tester.tap(find.text(name));
       await tester.pumpAndSettle();
     }
+
     expect(find.text('First content'), findsNothing);
     expect(find.text('Second content'), findsOneWidget);
   });
@@ -112,6 +113,7 @@ void main() {
       await tester.tap(find.text('First ${i.isEven ? 'closed' : 'open'}'));
       await tester.pump(const Duration(milliseconds: 10));
     }
+
     await tester.pumpAndSettle();
     expect(find.text('First closed'), findsOneWidget);
     expect(find.text('First content'), findsNothing);

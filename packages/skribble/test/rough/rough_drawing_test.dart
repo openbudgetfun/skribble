@@ -12,6 +12,7 @@ Future<Uint8List> pixels(void Function(Canvas) paint) async {
   final data = (await image.toByteData())!.buffer.asUint8List();
   image.dispose();
   picture.dispose();
+
   return data;
 }
 
@@ -24,9 +25,11 @@ Paint pen(Color color) => Paint()
 int alphaAt(Uint8List image, int x, int y) => image[(y * 160 + x) * 4 + 3];
 int inkCount(Uint8List image) {
   var count = 0;
+
   for (var i = 3; i < image.length; i += 4) {
     if (image[i] > 0) count++;
   }
+
   return count;
 }
 
@@ -64,6 +67,7 @@ void main() {
             'circle' => generator.circle(80, 60, 92),
             _ => generator.line(12, 30, 130, 92),
           };
+
           final drawing = RoughDrawing(drawable, border, fill);
           final before = await pixels(
             (canvas) => drawing.paint(canvas, progress: .41),

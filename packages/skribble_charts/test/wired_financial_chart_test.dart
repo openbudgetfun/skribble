@@ -98,6 +98,7 @@ ChartScene _scene(WidgetTester tester) =>
 
 Offset _point(WidgetTester tester, double x, double y) {
   final rect = _scene(tester).priceRect;
+
   return tester.getTopLeft(find.byKey(_plotKey)) +
       Offset(rect.left + rect.width * x, rect.top + rect.height * y);
 }
@@ -375,6 +376,7 @@ void main() {
       await tester.sendKeyEvent(LogicalKeyboardKey.equal);
       await tester.pump();
     }
+
     expect(controller.visibleCount, 1);
     expect(tester.takeException(), isNull);
     controller.setViewport(0, 1000000);
@@ -415,6 +417,7 @@ void main() {
           await tester.tapAt(end);
           await tester.pump();
         }
+
         expect(find.text('Tap the second point'), findsNothing);
         expect(editor.annotations.single.tool, tool);
         expect(editor.annotations.single.label, 'My level');
@@ -493,6 +496,7 @@ void main() {
           otherEditor.add(replacement);
           await _pumpChart(tester, controller, annotations: otherEditor);
       }
+
       await tester.pump();
       await gesture.up();
       await tester.pump();
@@ -507,6 +511,7 @@ void main() {
         expect(editor.annotations, isEmpty);
         expect(_scene(tester).annotations, isEmpty);
       }
+
       expect(tester.takeException(), isNull);
     });
   }
@@ -645,6 +650,7 @@ void main() {
         expect(_details(tester), contains(selected.toIso8601String()));
         expect(editor.canUndo, isFalse);
       }
+
       expect(_details(tester), contains('C 111'));
       expect(tester.takeException(), isNull);
     },

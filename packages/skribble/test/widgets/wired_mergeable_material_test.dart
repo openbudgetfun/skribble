@@ -258,6 +258,7 @@ void main() {
         );
         await tester.pump(const Duration(milliseconds: 30));
       }
+
       await tester.pumpAndSettle();
     });
   });

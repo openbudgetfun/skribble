@@ -28,6 +28,7 @@ export 'package:skribble_icons_cib/src/generated/cib_icons.g.dart'
 /// when this set does not ship it.
 WiredSvgIconData? lookupCibIconByIdentifier(String identifier) {
   final codePoint = kCibIconCodePoints[identifier];
+
   if (codePoint == null) return null;
   return kCibIcons[codePoint];
 }

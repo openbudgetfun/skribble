@@ -65,6 +65,7 @@ final class WiredChartPriceTransform {
     this.reference,
   }) {
     if (min > max) throw ArgumentError('Price minimum must not exceed maximum');
+
     if (!top.isFinite || !bottom.isFinite || top >= bottom) {
       throw ArgumentError(
         'Pane bounds must be finite and top must be less than bottom',
@@ -121,8 +122,10 @@ final class WiredChartPriceTransform {
         'Logarithmic prices must be positive',
       );
     }
+
     final digits = value.coefficient.toString();
     final head = digits.substring(0, math.min(16, digits.length));
+
     return math.log(double.parse(head)) +
         (digits.length - head.length - value.scale) * math.ln10;
   }
@@ -133,10 +136,12 @@ final class WiredChartPriceTransform {
         price <= WiredChartDecimal.zero) {
       throw ArgumentError.value(price, 'price', 'Must be positive');
     }
+
     if (_isFlat) return (top + bottom) / 2;
     final fraction = scale == WiredChartPriceScale.logarithmic
         ? (_log(price) - _logMin) / _logRange
         : price.fractionBetween(min, max);
+
     return bottom - fraction * (bottom - top);
   }
 
@@ -145,13 +150,18 @@ final class WiredChartPriceTransform {
   /// coordinates outside the supported integer range throw [ArgumentError].
   WiredChartDecimal priceForY(double y) {
     if (!y.isFinite) throw ArgumentError.value(y, 'y', 'Must be finite');
+
     if (_isFlat || y == bottom) return min;
+
     if (y == top) return max;
     final fraction = (bottom - y) / (bottom - top);
+
     if (scale == WiredChartPriceScale.logarithmic) {
       final logarithm = (_logMin + fraction * _logRange) / math.ln10;
+
       return WiredChartDecimal.fromLog10(logarithm);
     }
+
     return min.interpolate(max, fraction);
   }
 

@@ -26,6 +26,7 @@ export 'src/generated/skribble_curated_icons.g.dart'
 /// `'search'`, or `null` when this set does not ship it.
 WiredSvgIconData? lookupSkribbleCuratedIconByIdentifier(String identifier) {
   final codePoint = kSkribbleCuratedIconCodePoints[identifier];
+
   if (codePoint == null) return null;
   return kSkribbleCuratedIcons[codePoint];
 }

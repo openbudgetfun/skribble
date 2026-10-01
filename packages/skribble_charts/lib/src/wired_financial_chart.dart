@@ -155,6 +155,7 @@ class _ChartCanvas extends HookWidget {
     final editing = useRef<({WiredChartAnnotation drawing, int handle})?>(null);
     final gestureOrigin = useRef(Offset.zero);
     final gestureFirst = useRef<double>(0);
+
     final gestureCount = useRef<double>(60);
     final pointers = useRef<Map<int, Offset>>({});
     final nextId = useRef(0);
@@ -238,6 +239,7 @@ class _ChartCanvas extends HookWidget {
       final selected = drawings
           .where((drawing) => drawing.id == editor.selectedId)
           .firstOrNull;
+
       if (selected == null) return null;
 
       for (var index = 0; index < selected.anchors.length; index++) {
@@ -247,6 +249,7 @@ class _ChartCanvas extends HookWidget {
           return (drawing: selected, handle: index);
         }
       }
+
       return null;
     }
 
@@ -267,6 +270,7 @@ class _ChartCanvas extends HookWidget {
 
     void inspect(double x) {
       final index = scene.indexForX(x);
+
       if (index == controller.selectedIndex) return;
       controller.selectIndex(index);
       chart.onCandleSelected?.call(
@@ -289,13 +293,16 @@ class _ChartCanvas extends HookWidget {
 
     void tap(Offset point) {
       focus.requestFocus();
+
       if (controller.candles.isEmpty || !scene.priceRect.contains(point)) {
         return;
       }
+
       inspect(point.dx);
 
       if (chart.tool == WiredChartDrawingTool.none) {
         editor.select(_hitDrawing(scene, drawings, point)?.id);
+
         return;
       }
 
@@ -303,12 +310,15 @@ class _ChartCanvas extends HookWidget {
       final single =
           chart.tool == WiredChartDrawingTool.horizontalLine ||
           chart.tool == WiredChartDrawingTool.text;
+
       if (!single && pending.value == null) {
         pending.value = anchor;
+
         return;
       }
 
       String id;
+
       do {
         id = 'drawing-${controller.instrument.id}-${nextId.value++}';
       } while (editor.annotations.any((annotation) => annotation.id == id));
@@ -330,6 +340,7 @@ class _ChartCanvas extends HookWidget {
       if (event is! KeyDownEvent && event is! KeyRepeatEvent) {
         return KeyEventResult.ignored;
       }
+
       final key = event.logicalKey;
       final keyboard = HardwareKeyboard.instance;
       final command = keyboard.isControlPressed || keyboard.isMetaPressed;
@@ -342,12 +353,14 @@ class _ChartCanvas extends HookWidget {
         pending.value = null;
         preview.value = null;
         editing.value = null;
+
         editor.select(null);
       } else if (key == LogicalKeyboardKey.delete ||
           key == LogicalKeyboardKey.backspace) {
         editing.value = null;
         preview.value = null;
         final id = editor.selectedId;
+
         if (id != null) editor.remove(id);
       } else if (key == LogicalKeyboardKey.end) {
         controller.scrollToLatest();
@@ -654,15 +667,19 @@ WiredChartAnnotation? _hitDrawing(
     if (drawing.anchors.any(
       (anchor) => (scene.positionForAnchor(anchor) - point).distance < 20,
     )) {
+
       return drawing;
     }
+
     if (drawing.anchors.length < 2) continue;
     final second = scene.positionForAnchor(drawing.anchors.last);
     if (drawing is WiredChartRectangle &&
         Rect.fromPoints(first, second).inflate(10).contains(point)) {
       return drawing;
     }
+
     if (_segmentDistance(point, first, second) < 14) return drawing;
+
     if (drawing is WiredChartFibonacci) {
       for (final level in WiredChartFibonacci.levels) {
         final price = drawing.anchors.first.price.interpolate(
@@ -684,11 +701,13 @@ WiredChartAnnotation? _hitDrawing(
 
 double _segmentDistance(Offset point, Offset start, Offset end) {
   final span = end - start;
+
   if (span.distanceSquared == 0) return (point - start).distance;
   final fraction =
       (((point.dx - start.dx) * span.dx + (point.dy - start.dy) * span.dy) /
               span.distanceSquared)
           .clamp(0.0, 1.0);
+
   return (point - (start + span * fraction)).distance;
 }
 
@@ -714,11 +733,14 @@ class _InteractionPainter extends CustomPainter {
       ..save()
       ..clipRect(Offset.zero & size);
     final index = selected;
+
     if (index != null && index < scene.candles.length) {
       final candle = scene.candles[index];
       final x = scene.xForTime(candle.time);
+
       if (x >= scene.priceRect.left && x <= scene.priceRect.right) {
         final y = scene.yForPrice(candle.close);
+
         canvas
           ..drawLine(
             Offset(x, scene.priceRect.top),
@@ -750,6 +772,7 @@ class _InteractionPainter extends CustomPainter {
             ..strokeWidth = 1.5,
         );
     }
+
     canvas.restore();
   }
 

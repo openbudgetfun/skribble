@@ -14,6 +14,7 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
     if (scale < 0 || scale > 1000) {
       throw RangeError.range(scale, 0, 1000, 'scale');
     }
+
     var normalizedCoefficient = coefficient;
     var normalizedScale = scale;
     while (normalizedScale > 0 &&
@@ -21,13 +22,16 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
       normalizedCoefficient ~/= _ten;
       normalizedScale--;
     }
+
     if (normalizedCoefficient.abs().toString().length > 2000) {
+
       throw ArgumentError.value(
         coefficient,
         'coefficient',
         'At most 2000 digits are supported',
       );
     }
+
     return WiredChartDecimal._(normalizedCoefficient, normalizedScale);
   }
 
@@ -41,29 +45,37 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
   /// and an exponent between −1000 and 1000.
   factory WiredChartDecimal.parse(String value) {
     final match = _pattern.firstMatch(value);
+
     if (match == null || value.length > 4096) {
       throw FormatException('Invalid chart decimal', value);
     }
+
     final whole = match.group(2) ?? '0';
     final fraction = match.group(3) ?? match.group(4) ?? '';
     final digits = '$whole$fraction';
     final exponent = int.tryParse(match.group(5) ?? '0');
+
     if (exponent == null || exponent.abs() > 1000) {
       throw FormatException('Chart decimal exceeds supported precision', value);
     }
+
     final scale = fraction.length - exponent;
+
     if (scale > 1000) {
       throw FormatException('Chart decimal exceeds supported scale', value);
     }
+
     final coefficient = BigInt.parse(
       '${match.group(1) == '-' ? '-' : ''}$digits',
     );
+
     if (coefficient.abs().toString().length + (scale < 0 ? -scale : 0) > 2000) {
       throw FormatException(
         'Chart decimal exceeds supported coefficient size',
         value,
       );
     }
+
     return scale < 0
         ? WiredChartDecimal(coefficient * _ten.pow(-scale), 0)
         : WiredChartDecimal(coefficient, scale);
@@ -81,6 +93,7 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
         'Outside the supported decimal range',
       );
     }
+
     final exponent = logarithm.floor();
     final mantissa = WiredChartDecimal.parse(
       math.pow(10, logarithm - exponent).toString(),
@@ -95,15 +108,19 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
     if (scale < 0) return WiredChartDecimal(coefficient * _ten.pow(-scale), 0);
     final digits = coefficient.abs().toString().length;
     final discard = math.max(0, math.max(scale - 1000, digits - 2000));
+
     if (discard > scale) {
       throw ArgumentError('Drawing coordinate exceeds 2000 integer digits');
     }
+
     if (discard == 0) return WiredChartDecimal(coefficient, scale);
     final divisor = _ten.pow(discard);
     var rounded = coefficient ~/ divisor;
+
     if (coefficient.abs().remainder(divisor) * BigInt.two >= divisor) {
       rounded += coefficient.isNegative ? -BigInt.one : BigInt.one;
     }
+
     return WiredChartDecimal(rounded, scale - discard);
   }
 
@@ -135,6 +152,7 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
   /// Adds exact values.
   WiredChartDecimal operator +(WiredChartDecimal other) {
     final target = math.max(scale, other.scale);
+
     return WiredChartDecimal(_atScale(target) + other._atScale(target), target);
   }
 
@@ -158,12 +176,15 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
     if (!fraction.isFinite) {
       throw ArgumentError.value(fraction, 'fraction', 'Must be finite');
     }
+
     if (fraction == 0 || this == other) return this;
+
     if (fraction == 1) return other;
     final factor = WiredChartDecimal.parse(fraction.toString());
     final commonScale = math.max(scale, other.scale);
     final start = _atScale(commonScale);
     final end = other._atScale(commonScale);
+
     return WiredChartDecimal._rounded(
       start * _ten.pow(factor.scale) + (end - start) * factor.coefficient,
       commonScale + factor.scale,
@@ -187,6 +208,7 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
   double relativeChangeFrom(WiredChartDecimal reference) {
     final commonScale = math.max(scale, reference.scale);
     final baseline = reference._atScale(commonScale);
+
     return _integerRatio(_atScale(commonScale) - baseline, baseline);
   }
 
@@ -194,14 +216,17 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
     if (denominator == BigInt.zero) {
       throw ArgumentError('Ratio denominator must be nonzero');
     }
+
     if (numerator == BigInt.zero) return 0;
     final a = numerator.abs().toString();
     final b = denominator.abs().toString();
     final headA = a.substring(0, math.min(16, a.length));
     final headB = b.substring(0, math.min(16, b.length));
     final mantissa = double.parse(headA) / double.parse(headB);
+
     final exponent = a.length - headA.length - b.length + headB.length;
     final sign = numerator.isNegative == denominator.isNegative ? 1 : -1;
+
     return double.parse('${sign * mantissa}e$exponent');
   }
 
@@ -212,17 +237,20 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
     if (other.isZero) {
       throw ArgumentError.value(other, 'other', 'Must be nonzero');
     }
+
     if (isZero) return 0;
     final numerator = coefficient.abs().toString();
     final denominator = other.coefficient.abs().toString();
     final a = math.min(16, numerator.length);
     final b = math.min(16, denominator.length);
     final mantissa =
+
         double.parse('${numerator[0]}.${numerator.substring(1, a)}') /
         double.parse('${denominator[0]}.${denominator.substring(1, b)}');
     final exponent =
         numerator.length - scale - denominator.length + other.scale;
     final sign = isNegative == other.isNegative ? 1 : -1;
+
     return double.parse('${sign * mantissa}e$exponent');
   }
 
@@ -234,25 +262,32 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
     if (fractionDigits < 0 || fractionDigits > 1000) {
       throw RangeError.range(fractionDigits, 0, 1000, 'fractionDigits');
     }
+
     var digits = coefficient;
+
     if (fractionDigits >= scale) {
       digits *= _ten.pow(fractionDigits - scale);
     } else {
       final divisor = _ten.pow(scale - fractionDigits);
       final remainder = digits.abs().remainder(divisor);
+
       digits ~/= divisor;
+
       if (remainder * BigInt.two >= divisor) {
         digits += isNegative ? -BigInt.one : BigInt.one;
       }
     }
+
     return _format(digits, fractionDigits);
   }
 
   static String _format(BigInt coefficient, int scale) {
     final sign = coefficient.isNegative ? '-' : '';
     final digits = coefficient.abs().toString().padLeft(scale + 1, '0');
+
     if (scale == 0) return '$sign$digits';
     final split = digits.length - scale;
+
     return '$sign${digits.substring(0, split)}.${digits.substring(split)}';
   }
 
@@ -262,8 +297,10 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
   @override
   int compareTo(WiredChartDecimal other) {
     if (identical(this, other)) return 0;
+
     if (scale == other.scale) return coefficient.compareTo(other.coefficient);
     final target = math.max(scale, other.scale);
+
     return _atScale(target).compareTo(other._atScale(target));
   }
 
@@ -344,9 +381,11 @@ final class WiredChartCandle {
         close > high) {
       throw ArgumentError('Candle high/low must contain open and close');
     }
+
     if (this.volume.isNegative) {
       throw ArgumentError.value(volume, 'volume', 'Must be nonnegative');
     }
+
     if (revision < 0) {
       throw RangeError.value(revision, 'revision', 'Must be nonnegative');
     }

@@ -9,7 +9,6 @@ import 'package:flutter_test/flutter_test.dart';
 /// that currently handles the gesture, so the tests survive the decoupling
 /// rewrite and, in the semantics case, additionally prove that the control
 /// is usable by assistive technology rather than only by a mouse.
-
 /// Taps [finder] with a real pointer event and pumps one frame.
 ///
 /// Use for the common case. The pump is included because a tap that fires a

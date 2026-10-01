@@ -185,6 +185,7 @@ class _WiredMapFeaturePainter extends CustomPainter {
         return projected.feature;
       }
     }
+
     return null;
   }
 
@@ -196,21 +197,27 @@ class _WiredMapFeaturePainter extends CustomPainter {
   List<Offset> _project(List<LatLng> points) {
     final worldWidth = camera.worldSize;
     final offsets = <Offset>[];
+
     for (final point in points) {
       var projected = camera.project(point);
+
       if (worldWidth > 0) {
         final reference = offsets.isEmpty
             ? camera.viewportSize.center(Offset.zero)
             : offsets.last;
+
         while (projected.dx - reference.dx > worldWidth / 2) {
           projected = Offset(projected.dx - worldWidth, projected.dy);
         }
+
         while (reference.dx - projected.dx > worldWidth / 2) {
           projected = Offset(projected.dx + worldWidth, projected.dy);
         }
       }
+
       offsets.add(projected);
     }
+
     return offsets;
   }
 
@@ -219,13 +226,16 @@ class _WiredMapFeaturePainter extends CustomPainter {
     final shifts = worldWidth > 0
         ? <double>[-worldWidth, 0, worldWidth]
         : const <double>[0];
+
     for (final shift in shifts) {
       final shifted = [
         for (final point in projected.points)
           Offset(point.dx + shift, point.dy),
       ];
       final bounds = _boundsOf(shifted).inflate(24);
+
       if (!bounds.overlaps(Offset.zero & camera.viewportSize)) continue;
+
       switch (projected.feature) {
         case final WiredMapPolyline line:
           _paintPolyline(canvas, line, shifted);
@@ -292,14 +302,17 @@ class _WiredMapFeaturePainter extends CustomPainter {
     final shifts = worldWidth > 0
         ? <double>[-worldWidth, 0, worldWidth]
         : const <double>[0];
+
     for (final shift in shifts) {
       final points = [
         for (final point in projected.points)
           Offset(point.dx + shift, point.dy),
       ];
+
       switch (projected.feature) {
         case final WiredMapPolyline line:
           final tolerance = line.strokeWidth / 2 + hitTolerance;
+
           for (var index = 1; index < points.length; index++) {
             if (_distanceToSegment(
                   position,
@@ -312,13 +325,17 @@ class _WiredMapFeaturePainter extends CustomPainter {
           }
         case WiredMapPolygon():
           final path = ui.Path()..moveTo(points.first.dx, points.first.dy);
+
           for (final point in points.skip(1)) {
             path.lineTo(point.dx, point.dy);
           }
+
           path.close();
+
           if (path.contains(position)) return true;
       }
     }
+
     return false;
   }
 
@@ -330,16 +347,22 @@ class _WiredMapFeaturePainter extends CustomPainter {
         ? <double>[-worldWidth, 0, worldWidth]
         : const <double>[0];
     final semantics = <CustomPainterSemantics>[];
+
     for (final projected in _projected) {
       final label = projected.feature.semanticLabel;
+
       if (label == null) continue;
+
       for (final shift in shifts) {
+
         final points = [
           for (final point in projected.points)
             Offset(point.dx + shift, point.dy),
         ];
         var bounds = _boundsOf(points).inflate(hitTolerance);
+
         if (!bounds.overlaps(viewport)) continue;
+
         if (bounds.width < 44 || bounds.height < 44) {
           bounds = Rect.fromCenter(
             center: bounds.center,
@@ -347,6 +370,7 @@ class _WiredMapFeaturePainter extends CustomPainter {
             height: math.max(44, bounds.height),
           );
         }
+
         semantics.add(
           CustomPainterSemantics(
             rect: bounds.intersect(viewport),
@@ -361,6 +385,7 @@ class _WiredMapFeaturePainter extends CustomPainter {
         break;
       }
     }
+
     return semantics;
   };
 
@@ -390,23 +415,28 @@ Rect _boundsOf(List<Offset> points) {
   var top = points.first.dy;
   var right = left;
   var bottom = top;
+
   for (final point in points.skip(1)) {
     left = math.min(left, point.dx);
     top = math.min(top, point.dy);
     right = math.max(right, point.dx);
+
     bottom = math.max(bottom, point.dy);
   }
+
   return Rect.fromLTRB(left, top, right, bottom);
 }
 
 double _distanceToSegment(Offset point, Offset start, Offset end) {
   final delta = end - start;
   final lengthSquared = delta.dx * delta.dx + delta.dy * delta.dy;
+
   if (lengthSquared == 0) return (point - start).distance;
   final along =
       ((point - start).dx * delta.dx + (point - start).dy * delta.dy) /
       lengthSquared;
   final nearest = start + delta * along.clamp(0.0, 1.0);
+
   return (point - nearest).distance;
 }
 

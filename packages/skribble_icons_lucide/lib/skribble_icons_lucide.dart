@@ -27,6 +27,7 @@ export 'package:skribble_icons_lucide/src/generated/lucide_icons.g.dart'
 /// this set does not ship it.
 WiredSvgIconData? lookupLucideIconByIdentifier(String identifier) {
   final codePoint = kLucideIconCodePoints[identifier];
+
   if (codePoint == null) return null;
   return kLucideIcons[codePoint];
 }

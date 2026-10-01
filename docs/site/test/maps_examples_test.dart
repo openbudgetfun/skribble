@@ -52,6 +52,7 @@ void main() {
       expect(find.text('Selected: $place'), findsOneWidget);
       expect(find.byType(WiredMap), findsNothing);
     }
+
     expect(tester.takeException(), isNull);
   });
 

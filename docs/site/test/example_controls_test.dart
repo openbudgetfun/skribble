@@ -47,6 +47,7 @@ void main() {
       expect(tester.widget<CodeView>(find.byType(CodeView)).code, source);
       expect(find.text('Enter a number from 0 to 48.'), findsOneWidget);
     }
+
     await tester.enterText(editor('color'), '#ff');
     await tester.pumpAndSettle();
     expect(preview().fillColor, const Color(0xffb9d6ad));

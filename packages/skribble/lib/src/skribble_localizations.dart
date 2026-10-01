@@ -39,9 +39,11 @@ class SkribbleLocalizations implements WidgetsLocalizations {
   /// [Locale.scriptCode].
   bool get isRightToLeft {
     final scriptCode = locale.scriptCode;
+
     if (scriptCode != null) {
       return _rightToLeftScripts.contains(scriptCode);
     }
+
     return _rightToLeftLanguages.contains(locale.languageCode.toLowerCase());
   }
 

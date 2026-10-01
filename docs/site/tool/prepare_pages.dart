@@ -20,6 +20,7 @@ void main(List<String> args) {
         .substring('content/'.length)
         .replaceFirst(RegExp(r'\.md$'), '')
         .replaceFirst(RegExp(r'(^|/)index$'), '');
+
     if (route.isEmpty) continue;
     final target = File('${output.path}/$route/index.html');
     target.parent.createSync(recursive: true);
@@ -73,10 +74,12 @@ void deferComparisonFonts(Directory output) {
       final remainingFaces = fonts
           .where((font) => !readingFaces.contains(font))
           .toList();
+
       if (remainingFaces.isNotEmpty) {
         comparison.add({...family, 'fonts': remainingFaces});
       }
     } else {
+
       comparison.add(family);
     }
   }

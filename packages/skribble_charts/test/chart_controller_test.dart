@@ -160,6 +160,7 @@ void main() {
     for (final count in [0.0, -1.0, double.nan, double.infinity, 1000001.0]) {
       expect(() => controller.setViewport(0, count), throwsArgumentError);
     }
+
     expect(() => controller.setViewport(double.nan, 10), throwsArgumentError);
     expect(() => controller.zoom(0), throwsArgumentError);
     expect(() => controller.zoom(double.infinity), throwsArgumentError);

@@ -101,6 +101,7 @@ class WiredInkSplash extends InteractiveInkFeature {
       size.width,
       size.height,
     );
+
     return d / 2.0;
   }
 
@@ -147,6 +148,7 @@ class WiredInkSplash extends InteractiveInkFeature {
       paint.color = color.withValues(alpha: layerAlpha / 255.0);
 
       final Path path = Path();
+
       for (int j = 0; j <= segments; j++) {
         final double angle = j * segmentAngle;
         // Add slight randomness for hand-drawn effect
@@ -160,6 +162,7 @@ class WiredInkSplash extends InteractiveInkFeature {
           path.lineTo(x, y);
         }
       }
+
       path.close();
 
       canvas.drawPath(path, paint);

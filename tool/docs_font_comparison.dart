@@ -5,6 +5,7 @@ import 'dart:io';
 Future<void> main(List<String> arguments) async {
   final check = arguments.contains('--check');
   final destination = Directory('docs/site/assets/fonts');
+
   if (!check) await destination.create(recursive: true);
 
   for (final source in [

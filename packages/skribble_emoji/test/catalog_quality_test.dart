@@ -21,6 +21,7 @@ void main() {
         reason: sequence,
       );
     }
+
     expect(
       lookupSkribbleEmojiBySequence('🇬🇧'),
       isNot(same(lookupSkribbleEmojiBySequence('🇫🇷'))),

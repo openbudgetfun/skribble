@@ -9,7 +9,6 @@
 #   test      - Run all font roughener tests
 #   validate  - Validate the font roughener package
 #   all       - Run all checks (default)
-
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -36,6 +35,7 @@ validate_package() {
 
     # Check formatting
     echo "Checking formatting..."
+
     dart format --output=none --set-exit-if-changed .
 
     # Check that package can be resolved

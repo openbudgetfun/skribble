@@ -143,6 +143,7 @@ class _ActivityIndicatorPainter extends CustomPainter {
 
     for (var i = 0; i < segmentCount; i++) {
       final fade = (1 - i / segmentCount).clamp(0.0, 1.0);
+
       if (fade <= 0.05) continue;
 
       paint.color = color.withValues(alpha: fade);

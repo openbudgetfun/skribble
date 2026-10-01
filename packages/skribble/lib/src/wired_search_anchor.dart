@@ -56,6 +56,7 @@ class WiredSearchController extends TextEditingController {
     if (selectedText != null) {
       text = selectedText;
     }
+
     if (!_isOpen) return;
     _isOpen = false;
     notifyListeners();

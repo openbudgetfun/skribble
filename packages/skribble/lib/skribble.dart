@@ -22,7 +22,6 @@ library;
 // ---------------------------------------------------------------------------
 // Canvas, motion & rough engine — extension points for custom painters
 // ---------------------------------------------------------------------------
-
 export 'src/canvas/wired_canvas.dart';
 export 'src/canvas/wired_ink_splash.dart';
 export 'src/canvas/wired_painter_base.dart';
@@ -50,6 +49,7 @@ export 'src/rough/skribble_rough.dart'
         Rough,
         RoughBoxDecoration,
         RoughBoxShape,
+
         RoughDrawing,
         RoughDrawingStyle,
         SolidFiller,
@@ -58,7 +58,6 @@ export 'src/rough/skribble_rough.dart'
 // ---------------------------------------------------------------------------
 // Widgets & theme
 // ---------------------------------------------------------------------------
-
 export 'src/skribble_app.dart' hide resolveWiredAppTheme;
 export 'src/skribble_icon.dart';
 export 'src/skribble_localizations.dart';

@@ -41,6 +41,7 @@ class DocDocument {
     required this.nodes,
   }) {
     final counts = <String, int>{};
+
     for (final node in nodes.whereType<md.Element>()) {
       if (!RegExp(r'^h[1-6]$').hasMatch(node.tag)) continue;
       final slug = headingSlug(node.textContent);

@@ -43,6 +43,7 @@ class HomePage extends HookWidget {
                     '/maps' => MapDemoKeys.category,
                     _ => null,
                   },
+
                   onTap: () => Navigator.pushNamed(context, cat.route),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
