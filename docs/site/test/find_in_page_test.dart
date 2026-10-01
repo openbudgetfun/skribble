@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble_docs_site/src/app.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
 import 'package:skribble_docs_site/src/document.dart';
+
 import 'package:skribble_docs_site/src/find_in_page.dart';
 
 void main() {
@@ -209,14 +210,17 @@ String _highlightedText(WidgetTester tester) {
 
   void visit(InlineSpan span) {
     if (span is! TextSpan) return;
+
     if (span.style?.backgroundColor != null && span.text != null) {
       text.add(span.text!);
     }
+
     span.children?.forEach(visit);
   }
 
   for (final richText in tester.widgetList<RichText>(find.byType(RichText))) {
     visit(richText.text);
   }
+
   return text.join(' ').toLowerCase();
 }

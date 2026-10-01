@@ -13,6 +13,7 @@ Future<void> main(List<String> arguments) async {
   if (arguments.isNotEmpty) {
     stderr.writeln('Usage: dart run packages/skribble/tool/design_kit.dart');
     exitCode = 64;
+
     return;
   }
 
@@ -248,6 +249,7 @@ class DesignSpecimen {
           OpType.lineTo => 'L',
           OpType.curveTo => 'C',
         };
+
         path.write('$command${op.data.map((p) => '${p.x} ${p.y}').join(' ')} ');
       }
 

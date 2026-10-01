@@ -32,14 +32,17 @@ class WiredLicenseLibrary {
 /// name several packages contribute their paragraphs to each of them.
 Future<List<WiredLicenseLibrary>> loadWiredLicenses() async {
   final buckets = <String, List<String>>{};
+
   await for (final entry in LicenseRegistry.licenses) {
     final texts = [
       for (final paragraph in entry.paragraphs) paragraph.text,
     ];
+
     for (final packageName in entry.packages) {
       buckets.putIfAbsent(packageName, () => <String>[]).addAll(texts);
     }
   }
+
   final names = buckets.keys.toList()..sort();
   return [
     for (final name in names)

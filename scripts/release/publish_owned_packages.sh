@@ -81,6 +81,7 @@ while [[ $# -gt 0 ]]; do
 		exit 1
 		;;
 	*)
+
 		if [[ -n "$TAG" ]]; then
 			echo "Error: tag given twice ('$TAG' and '$arg')." >&2
 			exit 1
@@ -120,6 +121,7 @@ fi
 
 members="$(printf '%s' "$record" | jq -r --arg tag "$TAG" \
 	'.record.release_targets[]? | select(.tag_name == $tag) | .members[]')"
+
 if [[ -z "$members" ]]; then
 	echo "Error: no release target in the release record matches '$TAG'." >&2
 	echo "Targets present: $(printf '%s' "$record" | jq -r '[.record.release_targets[]?.tag_name] | join(", ")')" >&2
@@ -140,8 +142,10 @@ if [[ -n "$READINESS" ]]; then
 	fi
 	order_json="$(cat "$READINESS")"
 else
+
 	if ! order_json="$(monochange step publish-readiness --from HEAD --format json 2>"$scratch/readiness.err")"; then
 		echo "Error: could not read publish readiness at HEAD." >&2
+
 		cat "$scratch/readiness.err" >&2
 		exit 1
 	fi
@@ -152,6 +156,7 @@ members_json="$(printf '%s' "$record" | jq -c --arg tag "$TAG" \
 ordered="$(jq -rn --argjson members "$members_json" \
 	--argjson order "$(printf '%s' "$order_json" | jq '.publish_order')" \
 	'$order[] as $p | select($members | index($p)) | $p')"
+
 if [[ -z "$ordered" ]]; then
 	echo "Error: publish readiness listed none of $TAG's packages." >&2
 	exit 1
@@ -165,14 +170,17 @@ sed 's/^/  /' "$scratch/ordered.txt"
 echo
 
 failed=""
+
 while IFS= read -r package; do
 	[[ -n "$package" ]] || continue
 	echo "=== $package ==="
+
 	if [[ "$DRY_RUN" -eq 1 ]]; then
 		set -- --dry-run
 	else
 		set --
 	fi
+
 	if ! monochange step publish-packages --package "$package" --stream-output --format json "$@"; then
 		echo "::warning::$package failed to publish; continuing with the remaining packages" >&2
 		failed="$failed $package"
@@ -186,10 +194,12 @@ done <"$scratch/ordered.txt"
 # did, so a re-run of a partial publish reports success.
 echo "=== verifying every package $TAG owns is on the registry ==="
 missing=""
+
 while IFS= read -r package; do
 	[[ -n "$package" ]] || continue
 	version="$(jq -r --arg p "$package" \
 		'first(.record.package_publications[]? | select(.package == $p) | .version) // empty' <<<"$record")"
+
 	if [[ -z "$version" ]]; then
 		printf '  unknown     %s (no version in the release record)\n' "$package"
 		missing="$missing $package"
@@ -198,6 +208,7 @@ while IFS= read -r package; do
 
 	code="$(curl -s -o "$scratch/pkg.json" -w '%{http_code}' \
 		"https://pub.dev/api/packages/$package" || true)"
+
 	if [[ "$code" != "200" ]]; then
 		printf '  MISSING     %s (registry returned HTTP %s)\n' "$package" "${code:-none}"
 		missing="$missing $package"
@@ -205,6 +216,7 @@ while IFS= read -r package; do
 	fi
 
 	published="$(jq -r --arg v "$version" '[.versions[]?.version] | index($v) != null' "$scratch/pkg.json" 2>/dev/null)"
+
 	if [[ "$published" == "true" ]]; then
 		printf '  ok          %s (%s)\n' "$package" "$version"
 	else
@@ -214,9 +226,11 @@ while IFS= read -r package; do
 done <"$scratch/ordered.txt"
 
 echo
+
 if [[ -n "$failed" ]]; then
 	echo "::warning::publish failures this run:${failed}" >&2
 fi
+
 if [[ -n "$missing" ]]; then
 	count="$(printf '%s' "$missing" | wc -w | tr -d ' ')"
 	echo "Error: $count package(s) from $TAG are not published:${missing}" >&2

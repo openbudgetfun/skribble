@@ -143,6 +143,7 @@ class WiredIcon extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final data = lookupMaterialRoughIcon(icon);
+
     if (data == null) {
       return Icon(icon, size: size, color: color, semanticLabel: semanticLabel);
     }
@@ -251,17 +252,23 @@ List<_PreparedPrimitive> _preparePrimitives({
 Color? _parseSvgColor(String? value) {
   if (value == null) return null;
   var hex = value.trim();
+
   if (!hex.startsWith('#')) return null;
   hex = hex.substring(1);
+
   if (hex.length == 3) {
     hex = hex.split('').map((c) => c + c).join();
   }
+
   if (hex.length == 8) {
     final rgba = int.tryParse(hex, radix: 16);
+
     return rgba == null ? null : Color(((rgba & 255) << 24) | (rgba >> 8));
   }
+
   if (hex.length != 6) return null;
   final rgb = int.tryParse(hex, radix: 16);
+
   if (rgb == null) return null;
   return Color(0xFF000000 | rgb);
 }
@@ -423,6 +430,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
 
     final roughPaths = _resolveRoughPaths();
     final roughStrokePaths = _resolveRoughStrokePaths();
+
     for (var index = 0; index < primitives.length; index++) {
       final primitive = primitives[index];
       final roughPath = roughPaths[index];
@@ -433,6 +441,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
       // asked for", which is how outline sets like Lucide stay themeable.
       // Emoji carry their OpenMoji palette through the same channel.
       if (primitive.hasOwnColors) {
+
         if (primitive.fillColor != null || primitive.fillIsAmbient) {
           canvas.drawPath(
             roughPath,
@@ -442,6 +451,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
               ..isAntiAlias = true,
           );
         }
+
         if (primitive.strokeColor != null || primitive.strokeIsAmbient) {
           // Authored strokes share the icon's wavering treatment while keeping
           // their source pen width, caps, joins, and separated dash contours.
@@ -457,6 +467,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
               ..strokeMiterLimit = primitive.strokeMiterLimit,
           );
         }
+
         canvas.restore();
         continue;
       }
@@ -530,6 +541,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
       final t = (position - start) / extent;
       final first = math.sin(start / wavelength + phase);
       final last = math.sin((start + extent) / wavelength + phase);
+
       return math.sin(position / wavelength + phase) -
           (first + (last - first) * t);
     }
@@ -558,6 +570,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
       final points = samples
           .map((sample) => sample.position)
           .toList(growable: false);
+
       if (points.isEmpty) continue;
       final offsets = points.map(displacement).toList(growable: false);
       // Anchor corners as well as the ends of open strokes. Removing only the
@@ -572,21 +585,27 @@ final class _WiredSvgIconPainter extends CustomPainter {
       ];
       final anchorCorners = !metric.isClosed || anchors.length > 2;
       var segment = 0;
+
       if (!metric.isClosed) {
+
         // Preserve the source segments at each open end. Even a small change
         // in their tangent can rotate square/butt caps into a clear dash gap.
         if (points.length < 4) {
           rough.addPath(metric.extractPath(0, metric.length), Offset.zero);
           continue;
         }
+
         rough.addPath(metric.extractPath(0, samples[1].distance), Offset.zero);
       }
+
       for (var i = 0; i < points.length; i++) {
         var offset = offsets[i];
+
         if (anchorCorners && points.length > 1) {
           while (segment < anchors.length - 2 && i > anchors[segment + 1]) {
             segment++;
           }
+
           final first = anchors[segment];
           final last = anchors[segment + 1];
           final t = (i - first) / (last - first);
@@ -597,6 +616,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
           )!;
           final chord = points[last] - points[first];
           final length = chord.distance;
+
           if (length > 0) {
             // Opposing bends keep short straight edges visibly hand-drawn
             // without moving their corners or choosing a consistent lean.
@@ -608,8 +628,10 @@ final class _WiredSvgIconPainter extends CustomPainter {
             offset += Offset(-chord.dy, chord.dx) * (bend / length);
           }
         }
+
         if (!metric.isClosed) {
           if (i <= 1) continue;
+
           if (i == points.length - 1) {
             rough.extendWithPath(
               metric.extractPath(samples[i - 1].distance, metric.length),
@@ -617,17 +639,22 @@ final class _WiredSvgIconPainter extends CustomPainter {
             );
             continue;
           }
+
           if (i == points.length - 2) offset = Offset.zero;
         }
+
         final point = points[i] + offset;
+
         if (i == 0) {
           rough.moveTo(point.dx, point.dy);
         } else {
           rough.lineTo(point.dx, point.dy);
         }
       }
+
       if (metric.isClosed) rough.close();
     }
+
     return rough;
   }
 
@@ -635,6 +662,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
     final incoming = point - before;
     final outgoing = after - point;
     final length = incoming.distance * outgoing.distance;
+
     return length > 0 &&
         (incoming.dx * outgoing.dx + incoming.dy * outgoing.dy) / length < 0.9;
   }
@@ -687,6 +715,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
 
   List<({Offset position, double distance})> _sampleMetric(PathMetric metric) {
     final length = metric.length;
+
     if (length == 0) {
       return const [];
     }
@@ -698,11 +727,13 @@ final class _WiredSvgIconPainter extends CustomPainter {
     for (var index = 0; index <= sampleCount; index++) {
       final offset = math.min(length, length * (index / sampleCount));
       final tangent = metric.getTangentForOffset(offset);
+
       if (tangent == null) {
         continue;
       }
 
       final position = tangent.position;
+
       if (points.isEmpty || (points.last.position - position).distance > 0.15) {
         points.add((position: position, distance: offset));
       }
@@ -711,6 +742,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
     if (metric.isClosed && points.isNotEmpty) {
       final first = points.first;
       final last = points.last;
+
       if ((first.position - last.position).distance > 0.15) {
         points.add((position: first.position, distance: length));
       }

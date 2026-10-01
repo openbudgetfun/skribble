@@ -13,6 +13,7 @@ List<int> findTextMatches(String text, String query) {
 /// Marks matches inside rich text without changing its text or link gestures.
 TextSpan markTextMatches(TextSpan source, String query) {
   final offsets = findTextMatches(source.toPlainText(), query);
+
   if (offsets.isEmpty) return source;
 
   var position = 0;
@@ -20,11 +21,13 @@ TextSpan markTextMatches(TextSpan source, String query) {
   TextSpan mark(TextSpan span) {
     if (span.semanticsLabel != null) {
       position += span.toPlainText().length;
+
       return span;
     }
 
     final children = <InlineSpan>[];
     final value = span.text;
+
     if (value != null) {
       final start = position;
       final end = start + value.length;
@@ -32,9 +35,11 @@ TextSpan markTextMatches(TextSpan source, String query) {
 
       for (final offset in offsets) {
         final matchEnd = offset + query.length;
+
         if (matchEnd <= start || offset >= end) continue;
         final from = offset.clamp(start, end);
         final to = matchEnd.clamp(start, end);
+
         if (from > cursor) {
           children.add(
             TextSpan(
@@ -43,6 +48,7 @@ TextSpan markTextMatches(TextSpan source, String query) {
             ),
           );
         }
+
         children.add(
           TextSpan(
             text: value.substring(from - start, to - start),
@@ -50,8 +56,10 @@ TextSpan markTextMatches(TextSpan source, String query) {
             style: const TextStyle(backgroundColor: Color(0xffffdc79)),
           ),
         );
+
         cursor = to;
       }
+
       if (cursor < end) {
         children.add(
           TextSpan(
@@ -60,6 +68,7 @@ TextSpan markTextMatches(TextSpan source, String query) {
           ),
         );
       }
+
       position = end;
     }
 

@@ -237,6 +237,7 @@ void main() {
             'packages/skribble_font_recursive/${selected.fontFamily}',
           );
         }
+
         final input = tester.widget<EditableText>(find.byType(EditableText));
         expect(input.controller.text, 'Keep café £12.50');
         expect(

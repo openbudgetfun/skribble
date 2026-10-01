@@ -69,6 +69,7 @@ void main() {
             Paint()..style = PaintingStyle.stroke,
           );
       }
+
       recorder.endRecording().dispose();
     });
   });

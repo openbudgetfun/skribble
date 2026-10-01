@@ -88,6 +88,7 @@ void main() {
             weight += alpha;
             weightedX += x * alpha;
           }
+
           expect(weight, greaterThan(0));
           return weightedX / weight;
         }
@@ -110,6 +111,7 @@ void main() {
             );
           }
         }
+
         final filled = await render(tester, counter, level);
         for (var y = 40; y < 56; y++) {
           for (var x = 44; x < 52; x++) {
@@ -120,6 +122,7 @@ void main() {
             );
           }
         }
+
         expect(tester.takeException(), isNull);
       },
     );

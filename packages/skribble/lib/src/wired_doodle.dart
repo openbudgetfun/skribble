@@ -10,6 +10,7 @@ import 'motion/wired_draw.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_doodle_kind.dart';
+
 import 'wired_theme.dart';
 
 /// A seeded, softly drawn flourish that inherits ink from [WiredTheme].
@@ -116,6 +117,7 @@ class _DoodlePainter extends WiredPainterBase {
           Op.curveTo(point(curve.first), point(curve.second), point(curve.end)),
         ),
       );
+
       return ops;
     }
 

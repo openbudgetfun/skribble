@@ -40,6 +40,7 @@ void main() {
           if (pixels![(y * 200 + x) * 4 + 3] > 0) outerInk++;
         }
       }
+
       expect(
         outerInk,
         greaterThan(0),

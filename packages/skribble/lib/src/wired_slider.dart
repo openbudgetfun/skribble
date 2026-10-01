@@ -118,6 +118,7 @@ class WiredSlider extends HookWidget {
             if (constraints.maxWidth <= 0) {
               return const SizedBox.shrink();
             }
+
             final fraction = max == min
                 ? 0.0
                 : (currentSliderValue.value - min) / (max - min);
@@ -215,6 +216,7 @@ class CustomTrackShape extends RoundedRectSliderTrackShape {
     final double trackTop =
         offset.dy + (parentBox.size.height - trackHeight) / 2;
     final double trackWidth = parentBox.size.width;
+
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
 }

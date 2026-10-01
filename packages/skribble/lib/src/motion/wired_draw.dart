@@ -43,6 +43,7 @@ class _WiredDrawState extends State<WiredDraw>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
     if (!WiredMotion.enabledOf(context)) {
       _controller.value = 1;
       _started = true;
@@ -56,6 +57,7 @@ class _WiredDrawState extends State<WiredDraw>
   void didUpdateWidget(WiredDraw oldWidget) {
     super.didUpdateWidget(oldWidget);
     _controller.duration = widget.duration;
+
     if (oldWidget.curve != widget.curve) {
       _progress = _controller.drive(CurveTween(curve: widget.curve));
     }
@@ -102,6 +104,7 @@ class WiredDrawTransition extends InheritedWidget {
     final progress = context
         .dependOnInheritedWidgetOfExactType<WiredDrawTransition>()
         ?.progress;
+
     if (progress == null || TickerMode.of(context)) return progress;
     return AlwaysStoppedAnimation(progress.value);
   }

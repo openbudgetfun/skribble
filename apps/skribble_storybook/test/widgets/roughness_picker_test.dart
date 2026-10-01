@@ -137,6 +137,7 @@ void main() {
     for (final label in ['Gentle', 'Playful', 'Expressive', 'Gentle']) {
       await tester.tap(find.text(label));
     }
+
     expect(values, [
       WiredRoughness.gentle,
       WiredRoughness.playful,

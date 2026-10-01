@@ -25,6 +25,7 @@ Future<Uint8List> renderInk({
   final bytes = (await image.toByteData())!.buffer.asUint8List();
   image.dispose();
   picture.dispose();
+
   return bytes;
 }
 
@@ -63,6 +64,7 @@ void main() {
             }
           }
         }
+
         image.dispose();
         picture.dispose();
       }

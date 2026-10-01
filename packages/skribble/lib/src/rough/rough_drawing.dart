@@ -46,6 +46,7 @@ class RoughDrawing {
           fraction == 1 || fraction == 0 || type == OpSetType.fillPath
           ? 0.0
           : sets.fold(0.0, (sum, set) => sum + set.length) * fraction;
+
       for (final set in sets) {
         if (type == OpSetType.fillPath) {
           canvas.drawPath(
@@ -55,6 +56,7 @@ class RoughDrawing {
         } else if (fraction > 0) {
           final path = fraction == 1 ? set.path : set.prefix(remaining);
           canvas.drawPath(path, type == OpSetType.path ? border : _fillPaint);
+
           if (fraction != 1) remaining -= set.length;
         }
       }
@@ -80,8 +82,10 @@ class _InkPath {
 
   Path prefix(double distance) {
     var remaining = distance;
+
     if (distance >= length) return path;
     final result = Path();
+
     for (var i = 0; i < _metrics.length && remaining > 0; i++) {
       final metric = _metrics[i];
       result.addPath(
@@ -92,6 +96,7 @@ class _InkPath {
       );
       remaining -= metric.length;
     }
+
     return result;
   }
 }
@@ -99,8 +104,10 @@ class _InkPath {
 /// Converts rough engine operations to a Flutter path without changing them.
 Path _roughPath(OpSet drawing) {
   final path = Path();
+
   for (final op in drawing.ops ?? <Op>[]) {
     final data = op.data;
+
     switch (op.op) {
       case OpType.move:
         path.moveTo(data[0].x, data[0].y);
@@ -117,5 +124,6 @@ Path _roughPath(OpSet drawing) {
         path.lineTo(data[0].x, data[0].y);
     }
   }
+
   return path;
 }

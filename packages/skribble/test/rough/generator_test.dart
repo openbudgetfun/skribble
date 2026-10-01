@@ -247,8 +247,10 @@ void main() {
                 expect(end!.x, start.x);
                 expect(end.y, start.y);
               }
+
               start = op.data.single;
             }
+
             end = op.data.last;
             for (final p in op.data) {
               expect(p.x.isFinite && p.y.isFinite, isTrue);
@@ -256,6 +258,7 @@ void main() {
               expect(p.y, inInclusiveRange(-4, side + 4));
             }
           }
+
           expect(end!.x, start!.x);
           expect(end.y, start.y);
         }

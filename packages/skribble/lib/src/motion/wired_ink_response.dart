@@ -27,6 +27,7 @@ class WiredInkResponse extends StatefulWidget {
     final pressure = context
         .dependOnInheritedWidgetOfExactType<_InkPressure>()
         ?.pressure;
+
     if (pressure == null || TickerMode.of(context)) return pressure;
     return AlwaysStoppedAnimation(pressure.value);
   }
@@ -77,6 +78,7 @@ class _WiredInkResponseState extends State<WiredInkResponse>
   @override
   void didUpdateWidget(WiredInkResponse oldWidget) {
     super.didUpdateWidget(oldWidget);
+
     if (oldWidget.interaction == widget.interaction) return;
     _interaction = widget.interaction ?? WiredTheme.of(context).inkInteraction;
     _updatePressure();
@@ -89,11 +91,14 @@ class _WiredInkResponseState extends State<WiredInkResponse>
         states.contains(WidgetState.disabled) ||
         _interaction == WiredInkInteraction.none;
     final pressed = states.contains(WidgetState.pressed);
+
     if (idle || _interaction != WiredInkInteraction.redraw) {
       _redraw.value = 1;
+
     } else if (pressed && !_pressed) {
       _redraw.forward(from: 0);
     }
+
     _pressed = pressed;
     final target = idle
         ? 0.0
@@ -102,7 +107,9 @@ class _WiredInkResponseState extends State<WiredInkResponse>
         : states.contains(WidgetState.hovered) ||
               states.contains(WidgetState.focused)
         ? 0.5
+
         : 0.0;
+
     if (idle) {
       _controller.value = target;
     } else {

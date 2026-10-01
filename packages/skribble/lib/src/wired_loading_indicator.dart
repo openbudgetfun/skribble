@@ -166,6 +166,7 @@ class _WiredCircularProgressPainter extends CustomPainter {
 
     for (int i = 0; i <= segments; i++) {
       final angle = startAngle + (i * segmentAngle);
+
       if (angle > startAngle + sweepAngle) break;
 
       // Add slight jitter for hand-drawn feel

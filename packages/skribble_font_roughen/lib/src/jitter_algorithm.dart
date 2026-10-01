@@ -23,6 +23,7 @@ class JitterAlgorithm {
     const hashA = 2654435761;
     const hashB = 40503;
     final h = (seed * hashA + (index + offset) * hashB) & 0xFFFFFFFF;
+
     return ((h % 1000) / 500.0 - 1.0) * jitterAmount;
   }
 
@@ -38,10 +39,13 @@ class JitterAlgorithm {
       } else {
         final dx = jitterValue(seed, index, offset: 3571) * _offCurveFraction;
         final dy = jitterValue(seed, index, offset: 6811) * _offCurveFraction;
+
         result.add(Point(x: point.x + dx, y: point.y + dy, isOnCurve: false));
       }
+
       index++;
     }
+
     return result;
   }
 }

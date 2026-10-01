@@ -35,6 +35,7 @@ if [[ -z "$BASE_URL" ]]; then
   python3 -m http.server "$PORT" --directory "$WEB_DIR" >/dev/null 2>&1 &
   SERVER_PID=$!
   trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+
   sleep 1
   BASE_URL="http://127.0.0.1:$PORT"
 fi
@@ -63,6 +64,7 @@ PAGES=(
 mkdir -p "$OUT"
 
 echo "Capturing pages from $BASE_URL"
+
 for device in "${DEVICES[@]}"; do
   name="${device%%:*}"
   sizes="${device#*:}"
@@ -70,6 +72,7 @@ for device in "${DEVICES[@]}"; do
   height="${sizes##*:}"
   device_dir="$OUT/$name"
   mkdir -p "$device_dir"
+
   for page in "${PAGES[@]}"; do
     page_name="${page%%:*}"
     route="${page#*:}"
@@ -78,6 +81,7 @@ for device in "${DEVICES[@]}"; do
       --wait-for-timeout=3000 \
       --full-page \
       "${BASE_URL}/#${route}" \
+
       "$device_dir/$page_name.png" 2>/dev/null || true
   done
   echo "  ✓ $name complete"

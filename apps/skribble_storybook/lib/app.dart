@@ -6,6 +6,7 @@ import 'package:skribble_storybook/pages/charts_page.dart';
 import 'package:skribble_storybook/pages/data_display_page.dart';
 import 'package:skribble_storybook/pages/drawing_page.dart';
 import 'package:skribble_storybook/pages/emoji_page.dart';
+
 import 'package:skribble_storybook/pages/feedback_page.dart';
 import 'package:skribble_storybook/pages/font_specimen_page.dart';
 import 'package:skribble_storybook/pages/home_page.dart';
@@ -14,6 +15,7 @@ import 'package:skribble_storybook/pages/layout_page.dart';
 import 'package:skribble_storybook/pages/loading_page.dart';
 import 'package:skribble_storybook/pages/maps_page.dart';
 import 'package:skribble_storybook/pages/motion_page.dart';
+
 import 'package:skribble_storybook/pages/navigation_page.dart';
 import 'package:skribble_storybook/pages/rough_icons_page.dart';
 import 'package:skribble_storybook/pages/selection_page.dart';

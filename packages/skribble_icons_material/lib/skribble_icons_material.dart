@@ -52,9 +52,11 @@ void registerSkribbleMaterialIcons() {
 
 WiredSvgIconData? _resolveByIdentifier(String identifier) {
   final codePoint = kMaterialRoughIconsCodePoints[identifier];
+
   if (codePoint == null) {
     return null;
   }
+
   return kMaterialRoughIcons[codePoint];
 }
 
@@ -62,6 +64,7 @@ WiredSvgIconData? _resolveIcon(IconData icon) {
   if (icon.fontFamily != 'MaterialIcons') {
     return null;
   }
+
   return kMaterialRoughIcons[icon.codePoint];
 }
 

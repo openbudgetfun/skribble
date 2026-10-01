@@ -48,11 +48,13 @@ function parseArgs(argv: string[]): Map<string, string> {
 
     const [key, inlineValue] = argument.split("=", 2);
     const value = inlineValue ?? argv[index + 1];
+
     if (value == null) {
       throw new Error(`Missing value for ${key}`);
     }
 
     args.set(key, value);
+
     if (inlineValue == null) {
       index += 1;
     }
@@ -65,21 +67,26 @@ function parseSeed(value: string | undefined): number | null {
   if (value == null || value.length === 0) {
     return null;
   }
+
   const parsed = Number.parseInt(value, 10);
+
   if (Number.isNaN(parsed)) {
     throw new Error(`Invalid seed: ${value}`);
   }
+
   return parsed;
 }
 
 async function fileExists(path: string): Promise<boolean> {
   try {
     await Deno.stat(path);
+
     return true;
   } catch (error) {
     if (error instanceof Deno.errors.NotFound) {
       return false;
     }
+
     throw error;
   }
 }
@@ -108,9 +115,11 @@ async function resolveChromeExecutablePath(): Promise<string> {
 
 async function parseTasks(args: Map<string, string>): Promise<Task[]> {
   const manifestPath = args.get("--manifest");
+
   if (manifestPath != null) {
     const raw = await Deno.readTextFile(manifestPath);
     const decoded = JSON.parse(raw);
+
     if (!Array.isArray(decoded)) {
       throw new Error("--manifest must contain a JSON array");
     }
@@ -141,9 +150,11 @@ async function parseTasks(args: Map<string, string>): Promise<Task[]> {
 
   const input = args.get("--input");
   const output = args.get("--output");
+
   if (input == null || input.length === 0) {
     throw new Error("--input is required when --manifest is omitted");
   }
+
   if (output == null || output.length === 0) {
     throw new Error("--output is required when --manifest is omitted");
   }
@@ -159,20 +170,25 @@ async function parseTasks(args: Map<string, string>): Promise<Task[]> {
 
 function outputDirectory(path: string): string {
   const slashIndex = Math.max(path.lastIndexOf("/"), path.lastIndexOf("\\"));
+
   if (slashIndex <= 0) {
     return ".";
   }
+
   return path.slice(0, slashIndex);
 }
 
 async function main(): Promise<void> {
   const args = parseArgs(Deno.args);
+
   if (args.has("--help")) {
     printUsage();
+
     return;
   }
 
   const tasks = await parseTasks(args);
+
   if (tasks.length === 0) {
     return;
   }
@@ -210,6 +226,7 @@ async function main(): Promise<void> {
           if (outputContainer == null) {
             throw new Error("Missing output container");
           }
+
           outputContainer.replaceChildren();
 
           // deno-lint-ignore no-explicit-any
@@ -223,6 +240,7 @@ async function main(): Promise<void> {
           if (seed != null) {
             converter.seed = seed;
           }
+
           await converter.sketch(true);
 
           const outputSvg = outputContainer.querySelector("svg");

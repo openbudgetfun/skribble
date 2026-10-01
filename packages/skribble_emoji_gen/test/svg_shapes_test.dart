@@ -11,6 +11,7 @@ void main() {
   List<SvgShape> parse(String body) {
     final file = File('${temp.path}/source.svg')
       ..writeAsStringSync('<svg>$body</svg>');
+
     return extractShapes(file.path);
   }
 

@@ -115,6 +115,7 @@ sealed class WiredSvgPrimitive {
   /// Builds the stroke geometry, preserving SVG dashes on each contour.
   Path buildStrokePath() {
     final path = buildPath();
+
     if (strokeDashArray.isEmpty) return path;
     if (strokeDashArray.any((value) => !value.isFinite || value < 0) ||
         !strokeDashOffset.isFinite) {
@@ -126,18 +127,24 @@ sealed class WiredSvgPrimitive {
         ? [...strokeDashArray, ...strokeDashArray]
         : strokeDashArray;
     final length = pattern.fold(0.0, (sum, value) => sum + value);
+
     if (length == 0) return path;
     final dashed = Path();
+
     for (final metric in path.computeMetrics()) {
       var index = 0;
       var offset = strokeDashOffset % length;
+
       while (offset >= pattern[index]) {
         offset -= pattern[index];
         index = (index + 1) % pattern.length;
       }
+
       var position = -offset;
+
       while (position < metric.length) {
         final end = position + pattern[index];
+
         if (index.isEven && end > 0 && end > position) {
           dashed.addPath(
             metric.extractPath(
@@ -147,10 +154,12 @@ sealed class WiredSvgPrimitive {
             Offset.zero,
           );
         }
+
         position = end;
         index = (index + 1) % pattern.length;
       }
     }
+
     return dashed;
   }
 
@@ -186,6 +195,7 @@ final class WiredSvgPathPrimitive extends WiredSvgPrimitive {
   Path buildPath() {
     final path = createPath();
     writeSvgPathDataToPath(data, _FlutterPathProxy(path));
+
     return path;
   }
 }

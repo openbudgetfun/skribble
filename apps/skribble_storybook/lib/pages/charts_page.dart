@@ -27,6 +27,7 @@ class ChartsPage extends HookWidget {
     final overlays = useState<List<WiredChartIndicator>>(const [WiredSma()]);
     final panes = useState<List<WiredChartPane>>(const [WiredVolumePane()]);
     final tool = useState(WiredChartDrawingTool.none);
+
     final handDrawn = useState(true);
     final night = useState(false);
     final live = useState(false);
@@ -37,6 +38,7 @@ class ChartsPage extends HookWidget {
     final status = useState(
       'Illustrative prices. No live exchange connection.',
     );
+
     useListenable(annotations);
     useListenable(note);
 
@@ -376,6 +378,7 @@ class ChartsPage extends HookWidget {
                           status.value = 'Save a workspace first.';
                           return;
                         }
+
                         final restored = WiredChartWorkspace.fromJson(
                           snapshot.toJson(),
                         );
@@ -392,6 +395,7 @@ class ChartsPage extends HookWidget {
                                   ),
                           );
                         }
+
                         restored.restore(
                           controller: controller,
                           annotations: annotations,

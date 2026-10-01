@@ -10,6 +10,7 @@ import 'package:skribble_charts/src/chart_data.dart';
 import 'package:skribble_charts/src/chart_geometry.dart';
 import 'package:skribble_charts/src/chart_indicators.dart';
 import 'package:skribble_charts/src/chart_painter.dart';
+
 import 'package:skribble_charts/src/chart_theme.dart';
 
 void main() {
@@ -43,6 +44,7 @@ void main() {
       for (var index = 0; index < candles.length; index++) {
         expect(scene.indexForX(scene.xForTime(candles[index].time)), index);
       }
+
       expect(scene.indexForX(scene.priceRect.left - 1), isNull);
       expect(scene.indexForX(scene.priceRect.right + 1), isNull);
     });
@@ -595,6 +597,7 @@ Future<ui.Image> _image(ChartScene scene) async {
     scene.size.height.toInt(),
   );
   picture.dispose();
+
   return image;
 }
 
@@ -602,5 +605,6 @@ Future<Uint8List> _pixels(ChartScene scene) async {
   final image = await _image(scene);
   final bytes = await image.toByteData();
   image.dispose();
+
   return bytes!.buffer.asUint8List();
 }

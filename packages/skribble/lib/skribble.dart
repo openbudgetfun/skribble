@@ -22,7 +22,6 @@ library;
 // ---------------------------------------------------------------------------
 // Canvas, motion & rough engine — extension points for custom painters
 // ---------------------------------------------------------------------------
-
 export 'src/canvas/wired_canvas.dart';
 export 'src/canvas/wired_ink_splash.dart';
 export 'src/canvas/wired_painter_base.dart';
@@ -31,6 +30,7 @@ export 'src/motion/wired_ink_interaction.dart';
 export 'src/motion/wired_motion.dart';
 export 'src/rough/skribble_rough.dart'
     show
+
         DashedFiller,
         DotFiller,
         DrawConfig,
@@ -39,6 +39,7 @@ export 'src/rough/skribble_rough.dart'
         FillerConfig,
         Generator,
         HachureFiller,
+
         HatchFiller,
         NoFiller,
         Op,
@@ -47,6 +48,7 @@ export 'src/rough/skribble_rough.dart'
         OpType,
         PointD,
         Randomizer,
+
         Rough,
         RoughBoxDecoration,
         RoughBoxShape,
@@ -58,7 +60,6 @@ export 'src/rough/skribble_rough.dart'
 // ---------------------------------------------------------------------------
 // Widgets & theme
 // ---------------------------------------------------------------------------
-
 export 'src/skribble_app.dart' hide resolveWiredAppTheme;
 export 'src/skribble_icon.dart';
 export 'src/skribble_localizations.dart';
@@ -67,6 +68,7 @@ export 'src/wired_about_list_tile.dart';
 export 'src/wired_animated_icon.dart';
 export 'src/wired_app_bar.dart';
 export 'src/wired_autocomplete.dart';
+
 export 'src/wired_avatar.dart';
 export 'src/wired_badge.dart';
 export 'src/wired_base.dart';
@@ -75,6 +77,7 @@ export 'src/wired_bottom_nav.dart';
 export 'src/wired_bottom_sheet.dart';
 export 'src/wired_brand_icon.dart';
 export 'src/wired_button.dart';
+
 export 'src/wired_calendar.dart';
 export 'src/wired_calendar_date_picker.dart';
 export 'src/wired_card.dart';
@@ -83,6 +86,7 @@ export 'src/wired_checkbox.dart';
 export 'src/wired_checkbox_list_tile.dart';
 export 'src/wired_chip.dart';
 export 'src/wired_choice_chip.dart';
+
 export 'src/wired_circular_progress.dart';
 export 'src/wired_color_picker.dart';
 export 'src/wired_combo.dart';

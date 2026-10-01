@@ -92,34 +92,48 @@ WiredSvgIconData? lookupSkribbleIconByIdentifier(String identifier) {
 /// Like [lookupSkribbleIconByIdentifier], but also reports which set matched.
 SkribbleIconMatch? lookupSkribbleIcon(String identifier) {
   final curated = lookupSkribbleCuratedIconByIdentifier(identifier);
+
   if (curated != null) {
     return SkribbleIconMatch(SkribbleIconSet.curated, curated);
   }
+
   final simple = lookupSimpleIconByIdentifier(identifier);
+
   if (simple != null) {
     return SkribbleIconMatch(SkribbleIconSet.simple, simple);
   }
+
   // Read the Material maps directly rather than going through the registered
   // catalog, so a cross-set lookup works without a startup registration.
   final materialCodePoint = kMaterialRoughIconsCodePoints[identifier];
+
   if (materialCodePoint != null) {
+
     final data = kMaterialRoughIcons[materialCodePoint];
+
     if (data != null) {
       return SkribbleIconMatch(SkribbleIconSet.material, data);
     }
   }
+
   final lucide = lookupLucideIconByIdentifier(identifier);
+
   if (lucide != null) {
     return SkribbleIconMatch(SkribbleIconSet.lucide, lucide);
   }
+
   final bxs = lookupBxsIconByIdentifier(identifier);
+
   if (bxs != null) {
     return SkribbleIconMatch(SkribbleIconSet.bxs, bxs);
   }
+
   final cib = lookupCibIconByIdentifier(identifier);
+
   if (cib != null) {
     return SkribbleIconMatch(SkribbleIconSet.cib, cib);
   }
+
   return null;
 }
 

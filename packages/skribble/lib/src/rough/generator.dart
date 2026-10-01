@@ -21,10 +21,13 @@ class Generator {
 
   Drawable _buildDrawable(OpSet drawSets, [List<PointD>? fillPoints]) {
     final List<OpSet> sets = [];
+
     if (fillPoints != null) {
       sets.add(filler!.fill(fillPoints));
     }
+
     sets.add(drawSets);
+
     return Drawable(sets: sets, options: drawConfig);
   }
 
@@ -40,6 +43,7 @@ class Generator {
       PointD(x, y + height),
     ];
     final OpSet outline = OpSetBuilder.buildPolygon(points, drawConfig!);
+
     return _buildDrawable(outline, points);
   }
 
@@ -60,6 +64,7 @@ class Generator {
       overlap: 0,
       config: drawConfig!,
     );
+
     return _buildDrawable(ellipseOp, estimatedPoints);
   }
 
@@ -73,6 +78,7 @@ class Generator {
 
   Drawable polygon(List<PointD> points) {
     final OpSet path = OpSetBuilder.linearPath(points, true, drawConfig!);
+
     return _buildDrawable(path, points);
   }
 
@@ -103,6 +109,7 @@ class Generator {
       stop,
       drawConfig!,
     );
+
     return _buildDrawable(outline, fillPoints);
   }
 
@@ -143,6 +150,7 @@ class Generator {
       final top = y + dy;
       final right = x + width + dx;
       final bottom = y + height + dy;
+
       var cursor = PointD(left + tl, top);
       ops.add(Op.move(cursor));
 
@@ -156,6 +164,7 @@ class Generator {
         final dx = end.x - start.x;
         final dy = end.y - start.y;
         final length = sqrt(dx * dx + dy * dy);
+
         if (length == 0) return;
 
         // The pass offset and local wobble share the reserved ink bleed.
@@ -164,6 +173,7 @@ class Generator {
           start.x + dx * t - dy / length * across.clamp(-limit, limit),
           start.y + dy * t + dx / length * across.clamp(-limit, limit),
         );
+
         if (length >= 48 && config.lineWobble! > 0) {
           final segments = max(2, (length / 48).ceil());
           final displacement = List<double>.generate(
@@ -174,9 +184,11 @@ class Generator {
                       .offsetSymmetric(offset, config.lineWobble! * gain)
                       .clamp(-limit, limit),
           );
+
           for (var i = 0; i < segments; i++) {
             final before = displacement[max(0, i - 1)];
             final from = displacement[i];
+
             final to = displacement[i + 1];
             final after = displacement[min(segments, i + 2)];
             // Zero endpoint tangents join the corner arcs without knots.
@@ -188,6 +200,7 @@ class Generator {
               point((i + 1) / segments, to),
             );
           }
+
           return;
         }
 
@@ -252,6 +265,7 @@ class Generator {
       br,
       bl,
     );
+
     return _buildDrawable(outline, fillPoints);
   }
 

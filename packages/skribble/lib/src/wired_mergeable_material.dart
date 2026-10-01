@@ -148,9 +148,11 @@ class WiredMergeableMaterial extends HookWidget {
           ),
         );
       }
+
       // A gap with size <= 0 connects the slices around it: keep them in
       // the same run so they render as one merged card.
     }
+
     closeRun();
 
     return buildWiredElement(
@@ -180,6 +182,7 @@ class _SliceCard extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final rows = <Widget>[];
+
     for (final slice in slices) {
       if (rows.isNotEmpty && showDividers) {
         rows.add(
@@ -199,6 +202,7 @@ class _SliceCard extends HookWidget {
           ),
         );
       }
+
       final sliceColor = slice.color;
       rows.add(
         sliceColor == null

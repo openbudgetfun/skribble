@@ -24,6 +24,7 @@ class FontRoughener {
         'Use 1–48 ASCII letters, digits or hyphens, starting with a letter.',
       );
     }
+
     if (!jitterAmount.isFinite || jitterAmount < 0 || jitterAmount > 50) {
       throw ArgumentError.value(
         jitterAmount,
@@ -69,6 +70,7 @@ class FontRoughener {
       }
       await File(outputPath).parent.create(recursive: true);
       await File(outputPath).writeAsBytes(output);
+
       return RoughenResult(
         inputPath: inputPath,
         outputPath: outputPath,

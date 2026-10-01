@@ -35,6 +35,8 @@ Path doodleStrokePath(DoodleStroke stroke, {bool close = false}) {
       curve.end.y,
     ),
   );
+
   if (close) path.close();
+
   return path;
 }

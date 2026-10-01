@@ -83,6 +83,7 @@ class WiredCarouselView extends HookWidget {
     final theme = WiredTheme.of(context);
 
     final Widget list;
+
     if (shrinkWrap || itemExtent == null) {
       list = ListView(
         scrollDirection: Axis.horizontal,

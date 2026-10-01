@@ -44,9 +44,11 @@ enum PointsOrientation { collinear, clockwise, counterclockwise }
 /// Returns the orientation of the ordered triplet (p, q, r).
 PointsOrientation getOrientation(PointD p, PointD q, PointD r) {
   final double val = (q.x - p.x) * (r.y - q.y) - (q.y - p.y) * (r.x - q.x);
+
   if (val == 0) {
     return PointsOrientation.collinear;
   }
+
   return val > 0
       ? PointsOrientation.clockwise
       : PointsOrientation.counterclockwise;

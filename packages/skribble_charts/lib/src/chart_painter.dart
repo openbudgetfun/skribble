@@ -125,6 +125,7 @@ final class ChartScene {
 
     for (final bucket in buckets) {
       if (bucket.low < minPrice) minPrice = bucket.low;
+
       if (bucket.high > maxPrice) maxPrice = bucket.high;
     }
 
@@ -132,10 +133,14 @@ final class ChartScene {
       for (final line in results[indicator]!.lines) {
         for (final index in _valueIndices(line.values, buckets)) {
           final value = line.values[index];
+
           if (value == null || !value.isFinite) continue;
+
           if (scale == WiredChartPriceScale.logarithmic && value <= 0) continue;
           final price = WiredChartDecimal.parse(value.toString());
+
           if (price < minPrice) minPrice = price;
+
           if (price > maxPrice) maxPrice = price;
         }
       }
@@ -284,6 +289,7 @@ final class ChartScene {
   /// Interpolates a timestamp across actual candle intervals, including gaps.
   double xForTime(DateTime time) {
     if (candles.isEmpty) return priceRect.left;
+
     if (candles.length == 1) return xForIndex(0);
     var lo = 0;
     var hi = candles.length - 1;
@@ -291,6 +297,7 @@ final class ChartScene {
 
     while (lo + 1 < hi) {
       final mid = (lo + hi) ~/ 2;
+
       if (candles[mid].time.microsecondsSinceEpoch <= target) {
         lo = mid;
       } else {
@@ -300,6 +307,7 @@ final class ChartScene {
 
     final a = candles[lo].time.microsecondsSinceEpoch;
     final b = candles[lo + 1].time.microsecondsSinceEpoch;
+
     return xForIndex(lo + (target - a) / (b - a));
   }
 
@@ -308,12 +316,14 @@ final class ChartScene {
     if (candles.isEmpty) {
       return DateTime.fromMillisecondsSinceEpoch(0, isUtc: true);
     }
+
     if (candles.length == 1) return candles.first.time;
     final index =
         (x - priceRect.left) / priceRect.width * viewport.visibleCount +
         viewport.firstVisible -
         0.5;
     final base = index.floor().clamp(0, candles.length - 2);
+
     final a = candles[base].time.microsecondsSinceEpoch;
     final b = candles[base + 1].time.microsecondsSinceEpoch;
     return DateTime.fromMicrosecondsSinceEpoch(
@@ -325,6 +335,7 @@ final class ChartScene {
   /// Converts a vertical chart position to an exact decimal approximation.
   WiredChartDecimal priceForY(double y) {
     if (!y.isFinite) throw ArgumentError.value(y, 'y', 'Must be finite');
+
     return transform.priceForY(y.clamp(transform.top, transform.bottom));
   }
 
@@ -338,6 +349,7 @@ final class ChartScene {
         ((x - priceRect.left) / priceRect.width * viewport.visibleCount +
                 viewport.firstVisible)
             .floor();
+
     return index < 0 || index >= candles.length ? null : index;
   }
 
@@ -363,6 +375,7 @@ final class ChartPainter extends CustomPainter {
       Offset.zero & size,
       Paint()..color = scene.style.background,
     );
+
     if (size.width < 24 || size.height < 24) return;
     _grid(canvas);
     canvas
@@ -380,9 +393,12 @@ final class ChartPainter extends CustomPainter {
         case WiredPriceSeries.area:
           _priceLine(canvas);
       }
+
       var colorIndex = 0;
+
       for (final indicator in scene.overlays) {
         final result = scene.results[indicator]!;
+
         for (final line in result.lines) {
           _indicatorLine(
             canvas,
@@ -398,15 +414,19 @@ final class ChartPainter extends CustomPainter {
           );
         }
       }
+
       for (final annotation in scene.annotations) {
+
         _annotation(canvas, annotation);
       }
     }
+
     canvas.restore();
 
     for (var index = 0; index < scene.panes.length; index++) {
       _pane(canvas, index);
     }
+
     _axes(canvas);
 
     if (scene.candles.isEmpty) {
@@ -422,6 +442,7 @@ final class ChartPainter extends CustomPainter {
     final paint = Paint()
       ..color = scene.style.grid
       ..strokeWidth = 0.6;
+
     for (var step = 0; step <= 4; step++) {
       final y =
           scene.transform.top +
@@ -432,10 +453,13 @@ final class ChartPainter extends CustomPainter {
         paint,
       );
     }
+
     final bottom = scene.paneRects.isEmpty
         ? scene.priceRect.bottom
+
         : scene.paneRects.last.bottom;
     final count = math.max(1, (scene.priceRect.width / 105).floor());
+
     for (var step = 0; step <= count; step++) {
       final x = scene.priceRect.left + scene.priceRect.width * step / count;
       canvas.drawLine(Offset(x, scene.priceRect.top), Offset(x, bottom), paint);
@@ -463,12 +487,14 @@ final class ChartPainter extends CustomPainter {
       ..color = color
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
+
     canvas.drawLine(Offset(x, high), Offset(x, low), ink);
 
     if (scene.series == WiredPriceSeries.bars) {
       canvas
         ..drawLine(Offset(x - width / 2, open), Offset(x, open), ink)
         ..drawLine(Offset(x, close), Offset(x + width / 2, close), ink);
+
       return;
     }
 
@@ -478,10 +504,13 @@ final class ChartPainter extends CustomPainter {
       x + width / 2,
       math.max(open, close),
     );
+
     if (body.height == 0) {
       canvas.drawLine(body.topLeft, body.topRight, ink);
+
       return;
     }
+
     canvas
       ..drawRect(body, Paint()..color = scene.style.background)
       ..drawRect(
@@ -512,8 +541,10 @@ final class ChartPainter extends CustomPainter {
   void _side(Canvas canvas, Offset start, Offset end, Paint paint, int seed) {
     if (!scene.style.handDrawn || (end - start).distance < 3) {
       canvas.drawLine(start, end, paint);
+
       return;
     }
+
     final amount = scene.style.roughness * ((seed % 101) / 50 - 1);
     final path = Path()
       ..moveTo(start.dx, start.dy)
@@ -544,10 +575,12 @@ final class ChartPainter extends CustomPainter {
       ..save()
       ..clipRect(rect)
       ..translate(rect.left, rect.top);
+
     for (var index = 0; index < lines.length; index++) {
       final line = lines[index];
       final drift =
           scene.style.roughness * (((seed + index * 29) % 101) / 50 - 1);
+
       final path = Path()
         ..moveTo(line.source.x, line.source.y)
         ..quadraticBezierTo(
@@ -558,12 +591,14 @@ final class ChartPainter extends CustomPainter {
         );
       canvas.drawPath(path, ink);
     }
+
     canvas.restore();
   }
 
   void _priceLine(Canvas canvas) {
     final path = Path();
     final indices = scene._priceIndices;
+
     if (indices.isEmpty) return;
     final start = indices.first;
     final first = Offset(
@@ -571,12 +606,14 @@ final class ChartPainter extends CustomPainter {
       scene.yForPrice(scene.candles[start].close),
     );
     path.moveTo(first.dx, first.dy);
+
     for (final index in indices.skip(1)) {
       path.lineTo(
         scene.xForIndex(index.toDouble()),
         scene.yForPrice(scene.candles[index].close),
       );
     }
+
     if (scene.series == WiredPriceSeries.area) {
       final fill = Path.from(path)
         ..lineTo(
@@ -590,6 +627,7 @@ final class ChartPainter extends CustomPainter {
         Paint()..color = scene.style.rise.withValues(alpha: 0.13),
       );
     }
+
     canvas.drawPath(
       path,
       Paint()
@@ -614,11 +652,14 @@ final class ChartPainter extends CustomPainter {
     ]) {
       final value = values[index];
       final y = value == null || !value.isFinite ? null : yForValue(value);
+
       if (y == null || !y.isFinite) {
         connected = false;
         continue;
       }
+
       final x = scene.xForIndex(index.toDouble());
+
       if (connected) {
         path.lineTo(x, y);
       } else {
@@ -656,6 +697,7 @@ final class ChartPainter extends CustomPainter {
       rect.right,
       rect.bottom - math.min(5, rect.height * 0.1),
     );
+
     switch (pane) {
       case WiredVolumePane():
         final maximum = _volume(canvas, content);
@@ -683,10 +725,12 @@ final class ChartPainter extends CustomPainter {
         ];
         var min = samples.isEmpty ? 0.0 : samples.reduce(math.min);
         var max = samples.isEmpty ? 1.0 : samples.reduce(math.max);
+
         if (result.histogram != null) {
           min = math.min(0, min);
           max = math.max(0, max);
         }
+
         upperLabel = _compactNumber(max);
         lowerLabel = _compactNumber(min);
         final magnitude = math.max(min.abs(), max.abs());
@@ -699,14 +743,17 @@ final class ChartPainter extends CustomPainter {
               (normalizedMax - normalizedMin);
           return content.bottom - content.height * (0.08 + fraction * 0.84);
         }
+
         if (result.histogram case final histogram?) {
           final width = math.max(
             0.8,
             math.min(22, rect.width / scene.viewport.visibleCount * 0.68),
           );
           final zero = yForValue(0);
+
           for (final i in scene.sampledValueIndices(histogram)) {
             final value = histogram[i];
+
             if (value == null || !value.isFinite) continue;
             final y = yForValue(value);
             canvas.drawRect(
@@ -722,6 +769,7 @@ final class ChartPainter extends CustomPainter {
             );
           }
         }
+
         for (var line = 0; line < result.lines.length; line++) {
           _indicatorLine(
             canvas,
@@ -730,6 +778,7 @@ final class ChartPainter extends CustomPainter {
             yForValue,
           );
         }
+
         _text(
           canvas,
           pane.indicator.label,
@@ -737,7 +786,9 @@ final class ChartPainter extends CustomPainter {
           fontSize: 10,
         );
     }
+
     canvas.restore();
+
     if (scene.size.width >= 180 && rect.height >= 35) {
       final maxWidth = math.max<double>(0, scene.size.width - rect.right - 9);
       _text(
@@ -759,12 +810,15 @@ final class ChartPainter extends CustomPainter {
 
   WiredChartDecimal _volume(Canvas canvas, Rect rect) {
     var maximum = WiredChartDecimal.zero;
+
     for (final bucket in scene._buckets) {
       if (bucket.peakVolume > maximum) {
         maximum = bucket.peakVolume;
       }
     }
+
     if (maximum.isZero) return maximum;
+
     for (final candle in scene._buckets) {
       final width = math.max<double>(
         0.8,
@@ -777,6 +831,7 @@ final class ChartPainter extends CustomPainter {
         ),
       );
       final x = scene.xForIndex(candle.centerIndex);
+
       final y = rect.bottom - candle.peakVolume.ratio(maximum) * rect.height;
       canvas.drawRect(
         Rect.fromLTRB(x - width / 2, y, x + width / 2, rect.bottom),
@@ -785,16 +840,21 @@ final class ChartPainter extends CustomPainter {
               .withValues(alpha: 0.40),
       );
     }
+
     return maximum;
   }
 
   String _compactNumber(double value) {
     if (!value.isFinite) return '—';
+
     if (value.abs() >= 1e9) return value.toStringAsExponential(2);
+
     if (value.abs() >= 1000000) {
       return '${(value / 1000000).toStringAsFixed(1)}M';
     }
+
     if (value.abs() >= 1000) return '${(value / 1000).toStringAsFixed(1)}k';
+
     if (value != 0 && value.abs() < 0.01) return value.toStringAsExponential(2);
     return value.toStringAsFixed(2);
   }
@@ -809,11 +869,13 @@ final class ChartPainter extends CustomPainter {
       return;
     }
     final points = annotation.anchors.map(scene.positionForAnchor).toList();
+
     if (points.any((point) => !point.dx.isFinite || !point.dy.isFinite)) return;
     final ink = Paint()
       ..color = scene.style.foreground.withValues(alpha: 0.82)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.2;
+
     switch (annotation) {
       case WiredChartTrendLine():
         canvas.drawLine(points[0], points[1], ink);
@@ -836,6 +898,7 @@ final class ChartPainter extends CustomPainter {
       case WiredChartFibonacci():
         final left = math.min(points[0].dx, points[1].dx);
         final right = math.max(points[0].dx, points[1].dx);
+
         for (final level in WiredChartFibonacci.levels) {
           final price = annotation.anchors[0].price.interpolate(
             annotation.anchors[1].price,
@@ -855,6 +918,7 @@ final class ChartPainter extends CustomPainter {
           );
         }
     }
+
     if (annotation.label.isNotEmpty) {
       _text(canvas, annotation.label, points[0] + const Offset(4, -16));
     }
@@ -862,6 +926,7 @@ final class ChartPainter extends CustomPainter {
 
   void _axes(Canvas canvas) {
     if (scene.size.width < 180 || scene.size.height < 80) return;
+
     for (var step = 0; step <= 4; step++) {
       if (scene.transform.min == scene.transform.max && step != 2) continue;
       final y =
@@ -869,6 +934,7 @@ final class ChartPainter extends CustomPainter {
           (scene.transform.bottom - scene.transform.top) * step / 4;
       final price = scene.priceForY(y);
       final label = scene.scale == WiredChartPriceScale.percentage
+
           ? '${scene.transform.valueForPrice(price).toStringAsFixed(2)}%'
           : _formatPrice(price);
       _text(
@@ -878,6 +944,7 @@ final class ChartPainter extends CustomPainter {
         maxWidth: math.max(0, scene.size.width - scene.priceRect.right - 9),
       );
     }
+
     if (scene.candles.isEmpty) return;
     final count = math.max(1, (scene.priceRect.width / 105).floor());
     final bottom = scene.paneRects.isEmpty
@@ -886,6 +953,7 @@ final class ChartPainter extends CustomPainter {
     final interval = scene.candles.length < 2
         ? Duration.zero
         : scene.candles.last.time.difference(scene.candles.first.time) ~/
+
               (scene.candles.length - 1);
     final firstTime = scene.timeForX(scene.priceRect.left);
     final lastTime = scene.timeForX(scene.priceRect.right);
@@ -893,6 +961,7 @@ final class ChartPainter extends CustomPainter {
         firstTime.year != lastTime.year ||
         firstTime.month != lastTime.month ||
         firstTime.day != lastTime.day;
+
     for (var step = 0; step < count; step++) {
       final x =
           scene.priceRect.left + scene.priceRect.width * (step + 0.5) / count;
@@ -903,6 +972,7 @@ final class ChartPainter extends CustomPainter {
           '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
       final label = interval.inHours >= 24
           ? date
+
           : crossesDay
           ? '$date $clock'
           : clock;
@@ -913,6 +983,7 @@ final class ChartPainter extends CustomPainter {
         fontSize: 10,
       );
     }
+
     _text(
       canvas,
       'UTC',
@@ -923,10 +994,12 @@ final class ChartPainter extends CustomPainter {
 
   String _formatPrice(WiredChartDecimal price) {
     final fixed = price.toStringAsFixed(scene.instrument.priceDecimals);
+
     if (fixed.length <= 11) return fixed;
     final digits = price.coefficient.abs().toString();
     final significant = digits.padRight(4, '0').substring(0, 4);
     final exponent = digits.length - price.scale - 1;
+
     return '${price.isNegative ? '-' : ''}${significant[0]}.${significant.substring(1)}e$exponent';
   }
 
@@ -956,9 +1029,11 @@ final class ChartPainter extends CustomPainter {
 
   static int _seed(String instrument, int timestamp) {
     var seed = timestamp % 2147483647;
+
     for (final unit in instrument.codeUnits) {
       seed = (seed * 31 + unit) % 2147483647;
     }
+
     return seed;
   }
 
@@ -981,55 +1056,77 @@ List<_CandleBucket> _visibleBuckets(
 ) {
   if (start >= end) return const [];
   var span = 1;
+
   while ((end - start) / span > math.max(1, width)) {
     span *= 2;
   }
+
   final cache = _candleBucketCache[candles] ??= LinkedHashMap();
   final buckets = <_CandleBucket>[];
+
   for (var index = start; index < end;) {
+
     final next = math.min(end, (index ~/ span + 1) * span);
     final key = (index, next);
     final bucket = span == 1
         ? _CandleBucket.read(candles, index, next)
         : cache.remove(key) ?? _CandleBucket.read(candles, index, next);
+
     if (span > 1) {
       cache[key] = bucket;
+
       if (cache.length > _bucketCacheLimit) cache.remove(cache.keys.first);
     }
+
     buckets.add(bucket);
     index = next;
   }
+
   return buckets;
 }
 
 List<int> _valueIndices(List<double?> values, List<_CandleBucket> buckets) {
   final cache = _valueBucketCache[values] ??= LinkedHashMap();
   final indices = <int>[];
+
   for (final bucket in buckets) {
     final start = bucket.start;
     final end = math.min(bucket.end, values.length);
+
     if (start >= end) continue;
+
     if (end - start == 1) {
       indices.add(start);
+
       continue;
     }
+
     final key = (start, end);
     var summary = cache.remove(key);
+
     if (summary == null) {
       int? minimum;
       int? maximum;
+
       for (var index = start; index < end; index++) {
         final value = values[index];
+
         if (value == null) continue;
+
         if (minimum == null || value < values[minimum]!) minimum = index;
+
         if (maximum == null || value > values[maximum]!) maximum = index;
       }
+
       summary = {start, end - 1, ?minimum, ?maximum}.toList()..sort();
     }
+
     cache[key] = summary;
+
     if (cache.length > _bucketCacheLimit) cache.remove(cache.keys.first);
     indices.addAll(summary);
   }
+
   return indices;
 }
 
@@ -1055,12 +1152,18 @@ final class _CandleBucket {
     var volume = candles[start].volume;
     var minimumClose = start;
     var maximumClose = start;
+
     for (var index = start + 1; index < end; index++) {
       final candle = candles[index];
+
       if (candle.high > high) high = candle.high;
+
       if (candle.low < low) low = candle.low;
+
       if (candle.volume > volume) volume = candle.volume;
+
       if (candle.close < candles[minimumClose].close) minimumClose = index;
+
       if (candle.close > candles[maximumClose].close) maximumClose = index;
     }
     return _CandleBucket(

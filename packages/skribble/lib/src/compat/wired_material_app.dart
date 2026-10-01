@@ -221,6 +221,7 @@ class WiredMaterialApp extends HookWidget {
       effectiveHighContrastTheme.toThemeData,
       <Object?>[effectiveHighContrastTheme],
     );
+
     final highContrastDarkTheme = useMemoized(
       () => effectiveHighContrastDarkTheme.toThemeData(
         brightness: Brightness.dark,

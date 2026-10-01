@@ -7,8 +7,10 @@ import 'entities.dart';
 extension Rough on Canvas {
   Path _drawToContext(OpSet drawing) {
     final Path path = Path();
+
     for (final Op op in drawing.ops!) {
       final data = op.data;
+
       switch (op.op) {
         case OpType.move:
           path.moveTo(data[0].x, data[0].y);
@@ -25,6 +27,7 @@ extension Rough on Canvas {
           path.lineTo(data[0].x, data[0].y);
       }
     }
+
     return path;
   }
 

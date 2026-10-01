@@ -39,12 +39,15 @@ stem_for() {
   printf '%s' "$suffix" | awk -v FS='' '{
     out = ""
     cap = 1
+
     for (i = 1; i <= NF; i++) {
       c = $i
+
       if (c == "_") { cap = 1; continue }
       out = out (cap ? toupper(c) : c)
       cap = 0
     }
+
     print out
   }'
 }
@@ -70,6 +73,7 @@ generate_one() {
 
   local actual
   actual="$(shasum -a 256 "$json" | cut -d' ' -f1)"
+
   if [[ "$actual" != "$sha" ]]; then
     echo "Error: checksum mismatch for $prefix." >&2
     echo "  expected $sha" >&2

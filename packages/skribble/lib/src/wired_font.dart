@@ -20,6 +20,7 @@ enum WiredFont {
     if (this == casual) return roughness.fontFamily;
 
     final prefix = this == linear ? 'SkribbleLinear' : 'SkribbleMono';
+
     final suffix = switch (roughness) {
       WiredRoughness.gentle => 'Gentle',
       WiredRoughness.playful => 'Playful',

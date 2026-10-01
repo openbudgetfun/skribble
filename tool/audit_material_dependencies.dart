@@ -60,8 +60,11 @@ void main(List<String> args) {
     final usesCupertino =
         source.contains("'package:flutter/cupertino.dart'") ||
         source.contains('"package:flutter/cupertino.dart"');
+
     if (!usesMaterial && !usesCupertino) continue;
+
     if (usesMaterial) materialCount++;
+
     if (usesCupertino) cupertinoCount++;
 
     results.add({
@@ -92,10 +95,12 @@ void main(List<String> args) {
         'files': results,
       }),
     );
+
     return;
   }
 
   final writePath = _optionValue(args, '--write-baseline');
+
   if (writePath != null) {
     File(writePath).writeAsStringSync(
       '${const JsonEncoder.withIndent('  ').convert({
@@ -109,6 +114,7 @@ void main(List<String> args) {
       'Baseline written to $writePath: $core core files '
       '($skins skin, $helpers helpers) and $compat compat files.',
     );
+
     return;
   }
 
@@ -120,6 +126,7 @@ void main(List<String> args) {
       helpers: helpers,
       compat: compat,
     );
+
     if (exitCode != 0) return;
     print('');
   }
@@ -132,12 +139,14 @@ void main(List<String> args) {
   print('  helpers  (constants/theme only):              $helpers');
   print('  compat   (sanctioned interop layer):          $compat');
   print('  core total (target: 0):                       $core\n');
+
   for (final r in results) {
     print(
       '${r['classification']!.padRight(9)} ${r['framework']!.padRight(16)} '
       '${r['file']}',
     );
   }
+
   print(
     '\nTarget: 0 core files (lib/src/compat is exempt). Track progress with: '
     'dart run tool/audit_material_dependencies.dart',
@@ -164,9 +173,11 @@ bool _classifyWrapsMaterial(String source) {
     'Tooltip(', 'ListTile(', 'PopupMenuItem', 'DropdownMenuItem',
     'MaterialState', 'WidgetState',
   ];
+
   for (final name in widgetNames) {
     if (source.contains(name)) return true;
   }
+
   // Extends or implements a Material base class.
   if (RegExp(
     r'(extends|implements)\s+(Stateless|Stateful)?\w*'
@@ -174,6 +185,7 @@ bool _classifyWrapsMaterial(String source) {
   ).hasMatch(source)) {
     return true;
   }
+
   return false;
 }
 
@@ -190,8 +202,10 @@ int _checkBaseline(
   final path = _optionValue(args, '--baseline');
   if (path == null) {
     stderr.writeln('--check requires --baseline <path>.');
+
     return 2;
   }
+
   final baselineFile = File(path);
   if (!baselineFile.existsSync()) {
     stderr
@@ -200,8 +214,10 @@ int _checkBaseline(
         'Create it with: dart run tool/audit_material_dependencies.dart '
         '--write-baseline $path',
       );
+
     return 2;
   }
+
   final baseline =
       jsonDecode(baselineFile.readAsStringSync()) as Map<String, dynamic>;
 
@@ -235,9 +251,11 @@ int _checkBaseline(
 
   if (regressions.isNotEmpty) {
     stderr.writeln('Material dependency audit regressed past the baseline:');
+
     for (final regression in regressions) {
       stderr.writeln('  $regression');
     }
+
     stderr
       ..writeln()
       ..writeln('New code must not import material/cupertino (see AGENTS.md),')
@@ -251,6 +269,7 @@ int _checkBaseline(
       ..writeln(
         '  dart run tool/audit_material_dependencies.dart --write-baseline $path',
       );
+
     return 1;
   }
 
@@ -267,6 +286,7 @@ int _checkBaseline(
 /// flag is absent or has no value.
 String? _optionValue(List<String> args, String name) {
   final index = args.indexOf(name);
+
   if (index < 0 || index + 1 >= args.length) return null;
   return args[index + 1];
 }

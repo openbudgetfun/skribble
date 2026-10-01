@@ -67,6 +67,7 @@ void main() {
             .whereType<double>()
             .fold<double>(0, (sum, value) => sum + value);
       }
+
       stopwatch.stop();
       _printMeasurement(indicator.label, stopwatch, _measuredCorrections);
     }

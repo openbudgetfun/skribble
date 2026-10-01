@@ -50,6 +50,7 @@ class FrameTimingStats {
 double _percentile(List<int> sorted, double p) {
   if (sorted.isEmpty) return 0;
   final index = ((p / 100) * (sorted.length - 1)).round();
+
   return sorted[index].toDouble();
 }
 
@@ -81,6 +82,7 @@ FrameTimingStats computeStats(List<FrameTiming> timings) {
     final rasterMicros = timing.rasterDuration.inMicroseconds;
     buildDurations.add(buildMicros);
     rasterDurations.add(rasterMicros);
+
     if (buildMicros + rasterMicros > 16000) {
       jankFrames++;
     }
@@ -134,6 +136,7 @@ useFrameTimer({int maxFrames = 120}) {
       SchedulerBinding.instance.removeTimingsCallback(callbackRef.value!);
       callbackRef.value = null;
     }
+
     isCollecting.value = false;
   }
 
@@ -144,6 +147,7 @@ useFrameTimer({int maxFrames = 120}) {
 
     void callback(List<FrameTiming> newTimings) {
       final current = List<FrameTiming>.of(timings.value)..addAll(newTimings);
+
       if (current.length >= maxFrames) {
         timings.value = current.take(maxFrames).toList();
         stopCollecting();

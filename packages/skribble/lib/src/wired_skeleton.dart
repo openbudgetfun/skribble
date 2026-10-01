@@ -153,6 +153,7 @@ class _SkeletonPainter extends CustomPainter {
         );
       }
     }
+
     final pulse = .5 - .5 * math.cos(phase.value * math.pi * 2);
     final shape = borderRadius.toRRect(Offset.zero & size);
     canvas.save();
@@ -161,6 +162,7 @@ class _SkeletonPainter extends CustomPainter {
       shape,
       Paint()..color = color.withValues(alpha: color.a * .055),
     );
+
     canvas.drawPath(
       _hatching,
       Paint()

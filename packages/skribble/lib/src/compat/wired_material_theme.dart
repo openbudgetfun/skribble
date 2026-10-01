@@ -89,6 +89,7 @@ class WiredMaterialTheme extends StatelessWidget {
         child: result,
       );
     }
+
     return result;
   }
 }

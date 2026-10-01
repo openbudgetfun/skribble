@@ -170,10 +170,12 @@ class ScrollBenchPage extends HookWidget {
       return 'Collecting frame timings... '
           '(${timer.timings.length}/120) - scroll now!';
     }
+
     if (timer.stats.frameCount > 0) {
       return '${timer.stats.frameCount} frames collected. '
           'Tap play to re-measure.';
     }
+
     return 'Tap play, then scroll to collect frame timings.';
   }
 }

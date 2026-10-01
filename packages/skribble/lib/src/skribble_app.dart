@@ -393,6 +393,7 @@ WiredThemeData resolveWiredAppTheme({
           (mediaQuery?.platformBrightness ??
               platformDispatcher.platformBrightness) ==
           Brightness.dark;
+
       if (isDark) {
         return isHighContrast ? highContrastDark : dark;
       }

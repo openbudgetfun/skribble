@@ -43,6 +43,7 @@ void main() {
     if ((button.child as Text).data != 'Lovely. It’s saved!') {
       throw StateError('Replaying decorative ink lost the example state.');
     }
+
     await $(DocsKeys.saveIdea).waitUntilVisible();
   });
 }

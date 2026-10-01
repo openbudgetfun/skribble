@@ -219,6 +219,7 @@ void main() {
         ),
       );
     }
+
     expect(tester.hasRunningAnimations, isFalse);
     expect(tester.takeException(), isNull);
   });

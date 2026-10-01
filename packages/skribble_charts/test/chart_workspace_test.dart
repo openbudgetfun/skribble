@@ -8,6 +8,7 @@ import 'package:skribble_charts/src/chart_data.dart';
 import 'package:skribble_charts/src/chart_geometry.dart';
 import 'package:skribble_charts/src/chart_indicators.dart';
 import 'package:skribble_charts/src/chart_painter.dart';
+
 import 'package:skribble_charts/src/chart_theme.dart';
 import 'package:skribble_charts/src/chart_workspace.dart';
 
@@ -695,6 +696,7 @@ void main() {
             reason: key,
           );
         }
+
         expect(() => WiredChartWorkspace.decode('{'), throwsFormatException);
       },
     );
@@ -948,6 +950,7 @@ void main() {
           expect(annotations.exportDocument(), originalAnnotations);
           expect(annotations.canUndo, isTrue);
         }
+
         expect(controllerNotifications, 0);
         expect(annotationNotifications, 0);
       },

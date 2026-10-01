@@ -22,6 +22,7 @@ class WiredMotion extends InheritedWidget {
       }
       return enabled;
     });
+
     return enabled;
   }
 

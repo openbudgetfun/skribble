@@ -96,8 +96,10 @@ SetFontOrder(3); Save($2);
   final selectedOutlines = Map<String, String>.of(glyphs);
   final variation = RegExp(r'''Substitution2: "[^"\n]*'rvrn'[^"\n]*" (\S+)''');
   final advance = RegExp(r'Width: \d+');
+
   for (final entry in selectedOutlines.entries) {
     final target = variation.firstMatch(entry.value)?[1];
+
     if (target == null) continue;
     final selected = selectedOutlines[target]!;
     glyphs[entry.key] = entry.value

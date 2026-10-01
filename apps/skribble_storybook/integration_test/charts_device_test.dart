@@ -80,6 +80,7 @@ void main() {
         await binding.convertFlutterSurfaceToImage();
         await tester.pump();
       }
+
       await binding.takeScreenshot('charts/$platform');
 
       for (final label in ['Line', 'Area', 'OHLC', 'Candles']) {
@@ -88,6 +89,7 @@ void main() {
         await tester.pumpAndSettle();
         expect(find.text('✓ $label'), findsOneWidget);
       }
+
       await tester.tap(_choice('Night'));
       await tester.pumpAndSettle();
       await binding.takeScreenshot('charts/$platform-night');
@@ -197,8 +199,10 @@ Future<void> _show(
 
 Future<void> _waitFor(WidgetTester tester, Finder finder) async {
   final deadline = DateTime.now().add(const Duration(seconds: 30));
+
   while (finder.evaluate().isEmpty && DateTime.now().isBefore(deadline)) {
     await tester.pump(const Duration(milliseconds: 100));
   }
+
   expect(finder, findsOneWidget);
 }

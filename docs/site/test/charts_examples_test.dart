@@ -8,6 +8,7 @@ import 'package:skribble_charts/src/chart_painter.dart';
 import 'package:skribble_docs_site/src/app.dart';
 import 'package:skribble_docs_site/src/code_view.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
+
 import 'package:skribble_docs_site/src/document.dart';
 import 'package:skribble_docs_site/src/examples/catalog.dart';
 import 'package:skribble_docs_site/src/examples/example.dart';
@@ -54,6 +55,7 @@ Future<WiredFinancialChart> _chart(WidgetTester tester) async {
     scrollable: _scrollable,
   );
   await tester.pumpAndSettle();
+
   return tester.widget<WiredFinancialChart>(find.byKey(_chartKey));
 }
 
@@ -64,6 +66,7 @@ Offset _plotPoint(WidgetTester tester, double x, double y) {
   );
   final scene =
       (tester.widget<CustomPaint>(finder).painter! as ChartPainter).scene;
+
   return tester.getTopLeft(finder) +
       Offset(
         scene.priceRect.left + scene.priceRect.width * x,

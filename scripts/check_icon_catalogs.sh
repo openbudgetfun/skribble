@@ -24,11 +24,13 @@ fi
 status=0
 
 echo "Checking the curated simple catalog..."
+
 if ! "$DART" run packages/skribble_emoji_gen/bin/generate_icons.dart --check; then
   status=1
 fi
 
 echo "Checking the Iconify catalogs..."
+
 if ! "$SCRIPT_DIR/generate_iconify_sets.sh" --check; then
   status=1
 fi

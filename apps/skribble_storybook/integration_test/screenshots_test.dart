@@ -38,6 +38,7 @@ void main() {
 
   Future<void> takeScreenshot(WidgetTester tester, String name) async {
     final dir = Directory('$screenshotsDir/${name.split('/').first}');
+
     if (!dir.existsSync()) {
       dir.createSync(recursive: true);
     }
@@ -59,6 +60,7 @@ void main() {
     final boundary =
         captureBoundaryKey.currentContext?.findRenderObject()
             as RenderRepaintBoundary?;
+
     if (boundary == null) {
       fail('Unable to locate RepaintBoundary for screenshot fallback: $name');
     }
@@ -78,8 +80,10 @@ void main() {
 
   Future<void> focusOnText(WidgetTester tester, String text) async {
     final finder = find.text(text);
+
     if (finder.evaluate().isEmpty) {
       final scrollableElements = find.byType(Scrollable).evaluate().toList();
+
       if (scrollableElements.isEmpty) {
         fail('Could not find a scrollable while searching for "$text".');
       }
@@ -101,6 +105,7 @@ void main() {
       );
 
       var attempts = 0;
+
       while (finder.evaluate().isEmpty && attempts < 100) {
         final origin = tester.getTopLeft(scrollable) + const Offset(16, 120);
         await tester.dragFrom(origin, const Offset(0, -350));
@@ -108,6 +113,7 @@ void main() {
         await tester.pump(const Duration(milliseconds: 50));
         attempts++;
       }
+
       await tester.pumpAndSettle();
     }
 
