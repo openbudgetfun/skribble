@@ -12,12 +12,16 @@ import 'package:skribble/skribble.dart';
 /// // Static example: test
 /// // Body slot (default)
 /// await pumpApp(tester, myWidget);
+
 /// // AppBar slot
 /// await pumpApp(tester, WiredAppBar(title: Text('T')), asAppBar: true);
+
 /// // BottomNavigationBar slot
 /// await pumpApp(tester, myNavBar, asBottomNav: true);
+
 /// // Drawer slot
 /// await pumpApp(tester, WiredDrawer(child: Text('X')), asDrawer: true);
+
 /// // With custom theme
 /// await pumpApp(
 ///   tester,
