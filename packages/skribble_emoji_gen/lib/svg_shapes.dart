@@ -120,7 +120,6 @@ void _processElement(
   final dashArray = dash == null
       ? parent.dashArray
       : dash == 'none'
-
       ? <double>[]
       : dash.trim().split(RegExp(r'[\s,]+')).map(double.parse).toList();
 

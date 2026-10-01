@@ -194,11 +194,11 @@ final class _PathWriter extends PathProxy {
     final normal = length == 0
         ? const math.Point<double>(0, 0)
         : math.Point(-delta.y / length, delta.x / length) *
-
               math.min(0.4, length / 12);
     output.write(
       'C${format(first + normal)} ${format(second - normal)} ${format(end)}',
     );
+
     cursor = end;
   }
 

@@ -117,9 +117,9 @@ class WiredMapPin extends HookWidget {
           WiredMapPinIcon.place || null => const Color(0xFFF3D77A),
         };
     final iconData = icon == null
-
         ? null
         : lookupMaterialRoughIconByIdentifier(icon!.identifier);
+
     final pinDrawConfig = theme.drawConfig.copyWith(
       seed: seed,
       maxRandomnessOffset: math.min(

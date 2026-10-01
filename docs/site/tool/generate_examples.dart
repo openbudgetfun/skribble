@@ -60,6 +60,7 @@ final Map<String, ExampleDefinition> examples = {
       final body = declaration.functionExpression.body;
 
       if (body is! ExpressionFunctionBody) {
+
         throw StateError('$id must have an expression body.');
       }
 

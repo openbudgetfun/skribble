@@ -354,6 +354,7 @@ class _WiredMapFeaturePainter extends CustomPainter {
       if (label == null) continue;
 
       for (final shift in shifts) {
+
         final points = [
           for (final point in projected.points)
             Offset(point.dx + shift, point.dy),

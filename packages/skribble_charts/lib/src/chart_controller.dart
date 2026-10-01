@@ -256,7 +256,6 @@ class WiredChartController extends ChangeNotifier {
       final index = _lowerBound(_candles, selectedTime);
       _selectedIndex =
           index < _candles.length && _candles[index].time == selectedTime
-
           ? index
           : null;
     }

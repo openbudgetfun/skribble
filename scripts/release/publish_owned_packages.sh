@@ -84,6 +84,7 @@ while [[ $# -gt 0 ]]; do
 
 		if [[ -n "$TAG" ]]; then
 			echo "Error: tag given twice ('$TAG' and '$arg')." >&2
+
 			exit 1
 		fi
 		TAG="$arg"

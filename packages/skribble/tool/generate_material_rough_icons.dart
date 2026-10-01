@@ -1942,7 +1942,6 @@ String _renderUnresolvedReportJson({
     if (newUnresolvedThreshold != null) ...<String, Object>{
       'maxNewUnresolved': newUnresolvedThreshold,
       'maxNewUnresolvedExceeded':
-
           (newUnresolved?.length ?? 0) > newUnresolvedThreshold,
     },
     if (resolvedSinceBaseline != null) ...<String, Object>{

@@ -448,11 +448,11 @@ final class _Glyph {
         final words = flags & 1 != 0;
         final dx = words
             ? (xy ? reader.i16() : reader.u16())
-
             : (xy ? reader.i8() : reader.u8());
         final dy = words
             ? (xy ? reader.i16() : reader.u16())
             : (xy ? reader.i8() : reader.u8());
+
         var a = 1.0;
         var b = 0.0;
         var c = 0.0;

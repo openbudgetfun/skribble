@@ -456,7 +456,6 @@ final class ChartPainter extends CustomPainter {
 
     final bottom = scene.paneRects.isEmpty
         ? scene.priceRect.bottom
-
         : scene.paneRects.last.bottom;
     final count = math.max(1, (scene.priceRect.width / 105).floor());
 
@@ -934,9 +933,9 @@ final class ChartPainter extends CustomPainter {
           (scene.transform.bottom - scene.transform.top) * step / 4;
       final price = scene.priceForY(y);
       final label = scene.scale == WiredChartPriceScale.percentage
-
           ? '${scene.transform.valueForPrice(price).toStringAsFixed(2)}%'
           : _formatPrice(price);
+
       _text(
         canvas,
         label,
