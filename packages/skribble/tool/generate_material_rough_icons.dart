@@ -496,7 +496,6 @@ final class _ScriptOptions {
     int? maxUnresolved;
     int? maxNewUnresolved;
     String? outputPath;
-
     String? roughCliPath;
     var roughCliRunner = _kDefaultRoughCliRunner;
     String? roughOutputDir;
@@ -505,7 +504,6 @@ final class _ScriptOptions {
     var roughBulk = false;
     var roughOnly = false;
     var formatOutput = false;
-
     var failOnUnresolved = false;
     var failOnNewUnresolved = false;
     String? fontOutputDir;
@@ -1620,7 +1618,6 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     final unresolvedCodepointsSnakeCaseValue = decoded['unresolved_codepoints'];
     final unresolvedCodePointsKebabCaseValue =
         decoded['unresolved-code-points'];
-
     final unresolvedCodepointsKebabCaseValue = decoded['unresolved-codepoints'];
     final codePointsValue = decoded['codePoints'];
     final codePointValue = decoded['codePoint'];
@@ -1684,7 +1681,6 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     addInvalidRecognizedListValue('codepoints', codepointsValue);
     addInvalidRecognizedListValue('codepoint', codepointValue);
     addInvalidRecognizedListValue('code_points', codePointsSnakeCaseValue);
-
     addInvalidRecognizedListValue('code-points', codePointsKebabCaseValue);
 
     if (unresolvedValue is List<Object?>) {
@@ -1704,7 +1700,6 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       entries = unresolvedCodePointsSnakeCaseValue;
     } else if (unresolvedCodepointSnakeCaseValue is List<Object?>) {
       entries = unresolvedCodepointSnakeCaseValue;
-
     } else if (unresolvedCodepointsSnakeCaseValue is List<Object?>) {
       entries = unresolvedCodepointsSnakeCaseValue;
     } else if (unresolvedCodePointsKebabCaseValue is List<Object?>) {
@@ -1713,7 +1708,6 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       entries = unresolvedCodepointsKebabCaseValue;
     } else if (codePointsValue is List<Object?>) {
       entries = codePointsValue;
-
     } else if (codePointValue is List<Object?>) {
       entries = codePointValue;
     } else if (codepointsValue is List<Object?>) {

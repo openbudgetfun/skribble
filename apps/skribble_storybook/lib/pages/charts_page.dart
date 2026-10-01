@@ -38,7 +38,6 @@ class ChartsPage extends HookWidget {
     final status = useState(
       'Illustrative prices. No live exchange connection.',
     );
-
     useListenable(annotations);
     useListenable(note);
 

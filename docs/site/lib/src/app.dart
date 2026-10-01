@@ -8,7 +8,6 @@ import 'package:markdown/markdown.dart' as md;
 import 'package:skribble/skribble.dart';
 import 'package:skribble_docs_site/src/article.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
-
 import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/document.dart';
 import 'package:skribble_docs_site/src/doodle_playground.dart';
@@ -198,7 +197,6 @@ class _DocsPage extends HookWidget {
       [document],
     );
     final width = MediaQuery.sizeOf(context).width;
-
     final wide = width >= 1050;
     final showContents = width >= 1440 && headings.isNotEmpty;
     final reading = useMemoized(() => docsReadingOrder(documents), [documents]);

@@ -8,7 +8,6 @@ import 'package:skribble_charts/src/chart_painter.dart';
 import 'package:skribble_docs_site/src/app.dart';
 import 'package:skribble_docs_site/src/code_view.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
-
 import 'package:skribble_docs_site/src/document.dart';
 import 'package:skribble_docs_site/src/examples/catalog.dart';
 import 'package:skribble_docs_site/src/examples/example.dart';

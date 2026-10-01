@@ -9,6 +9,5 @@ export 'src/chart_geometry.dart';
 export 'src/chart_indicators.dart' hide calculateWiredChartIndicators;
 export 'src/chart_theme.dart';
 export 'src/chart_timeframe.dart';
-
 export 'src/chart_workspace.dart';
 export 'src/wired_financial_chart.dart';

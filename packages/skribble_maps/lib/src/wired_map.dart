@@ -8,7 +8,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:maplibre_gl/maplibre_gl.dart' as maplibre;
 import 'package:skribble/skribble.dart';
 import 'package:skribble_maps/src/wired_map_camera.dart';
-
 import 'package:skribble_maps/src/wired_map_style.dart';
 
 /// Builds a replacement for the native map view in widget tests.

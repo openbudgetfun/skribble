@@ -23,7 +23,6 @@ export 'package:skribble_emoji/src/generated/skribble_emoji_codepoints.g.dart'
     show kSkribbleEmojiCodePoints, kSkribbleEmojiNames;
 export 'package:skribble_emoji/src/precomputed_emoji.dart'
     show PrecomputedEmoji;
-
 export 'package:skribble_emoji/src/wired_emoji.dart' show WiredEmoji;
 export 'package:skribble_emoji/src/wired_svg_icon_data.dart'
     show
@@ -32,7 +31,6 @@ export 'package:skribble_emoji/src/wired_svg_icon_data.dart'
         WiredSvgFillRule,
         WiredSvgIconData,
         WiredSvgPathPrimitive,
-
         WiredSvgPrimitive;
 
 // ---------------------------------------------------------------------------

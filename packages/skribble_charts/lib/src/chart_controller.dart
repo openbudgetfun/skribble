@@ -188,7 +188,6 @@ class WiredChartController extends ChangeNotifier {
         incomingIndex++;
       } else {
         merged.add(next.revision >= existing.revision ? next : existing);
-
         existingIndex++;
         incomingIndex++;
       }

@@ -100,7 +100,6 @@ final class TrueTypeFont {
       // An all-point shared list consists of the single zero count byte.
       if (shared) {
         if (!sharedAll) {
-
           throw const FormatException(
             'Expand sparse gvar deltas before roughening.',
           );

@@ -953,7 +953,6 @@ final class ChartPainter extends CustomPainter {
     final interval = scene.candles.length < 2
         ? Duration.zero
         : scene.candles.last.time.difference(scene.candles.first.time) ~/
-
               (scene.candles.length - 1);
     final firstTime = scene.timeForX(scene.priceRect.left);
     final lastTime = scene.timeForX(scene.priceRect.right);
@@ -972,7 +971,6 @@ final class ChartPainter extends CustomPainter {
           '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
       final label = interval.inHours >= 24
           ? date
-
           : crossesDay
           ? '$date $clock'
           : clock;

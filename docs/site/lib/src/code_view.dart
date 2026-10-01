@@ -6,7 +6,6 @@ import 'package:highlight/languages/bash.dart';
 import 'package:highlight/languages/css.dart';
 import 'package:highlight/languages/dart.dart';
 import 'package:highlight/languages/javascript.dart';
-
 import 'package:highlight/languages/json.dart';
 import 'package:highlight/languages/swift.dart';
 import 'package:highlight/languages/xml.dart';

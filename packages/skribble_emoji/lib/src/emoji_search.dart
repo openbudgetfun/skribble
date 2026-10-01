@@ -165,7 +165,6 @@ class EmojiSearch {
       } else if (name.contains('symbol') ||
           name.contains('warning') ||
           name.contains('check')) {
-
         category = 'symbols';
       } else {
         category = 'other';

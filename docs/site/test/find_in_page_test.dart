@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble_docs_site/src/app.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
 import 'package:skribble_docs_site/src/document.dart';
-
 import 'package:skribble_docs_site/src/find_in_page.dart';
 
 void main() {

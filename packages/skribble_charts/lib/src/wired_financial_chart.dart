@@ -372,7 +372,6 @@ class _ChartCanvas extends HookWidget {
         zoom(.8, .5);
       } else if (key == LogicalKeyboardKey.arrowLeft ||
           key == LogicalKeyboardKey.arrowRight) {
-
         if (controller.candles.isEmpty) return KeyEventResult.handled;
         final delta = key == LogicalKeyboardKey.arrowLeft ? -1 : 1;
         final next =
@@ -388,7 +387,6 @@ class _ChartCanvas extends HookWidget {
           );
         }
         chart.onCandleSelected?.call(controller.candles[next]);
-
       } else {
         return KeyEventResult.ignored;
       }

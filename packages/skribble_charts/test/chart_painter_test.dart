@@ -10,7 +10,6 @@ import 'package:skribble_charts/src/chart_data.dart';
 import 'package:skribble_charts/src/chart_geometry.dart';
 import 'package:skribble_charts/src/chart_indicators.dart';
 import 'package:skribble_charts/src/chart_painter.dart';
-
 import 'package:skribble_charts/src/chart_theme.dart';
 
 void main() {

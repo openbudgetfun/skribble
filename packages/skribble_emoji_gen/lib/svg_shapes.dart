@@ -138,7 +138,6 @@ void _processElement(
       !['miter', 'round', 'bevel'].contains(strokeJoin)) {
     throw const FormatException('Unsupported SVG stroke cap or join.');
   }
-
   final miterLimit =
       double.tryParse(element.getAttribute('stroke-miterlimit') ?? '') ??
       parent.miterLimit;
@@ -306,7 +305,6 @@ void _processElement(
       final w = double.tryParse(element.getAttribute('width') ?? '0') ?? 0;
       final h = double.tryParse(element.getAttribute('height') ?? '0') ?? 0;
       final rx = double.tryParse(element.getAttribute('rx') ?? '0') ?? 0;
-
       final ry = double.tryParse(element.getAttribute('ry') ?? '0') ?? 0;
 
       if (w > 0 && h > 0) add(_rectToPath(x, y, w, h, rx, ry));

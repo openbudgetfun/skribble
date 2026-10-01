@@ -107,7 +107,6 @@ class _WiredInkResponseState extends State<WiredInkResponse>
         : states.contains(WidgetState.hovered) ||
               states.contains(WidgetState.focused)
         ? 0.5
-
         : 0.0;
 
     if (idle) {
