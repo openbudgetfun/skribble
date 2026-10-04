@@ -28,4 +28,7 @@ abstract final class WiredPalette {
 
   /// Secondary text on dark paper.
   static const mutedPaper = Color(0xFFB9ACBF);
+
+  /// A bold warm coral accent (stamp ink), used for primary actions.
+  static const coral = Color(0xFFE87960);
 }

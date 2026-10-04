@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -67,8 +68,9 @@ class WiredToggle extends HookWidget {
       toggled: value,
       enabled: onChange != null,
       child: buildWiredElement(
-        child: GestureDetector(
-          onTap: onChange == null
+        child: WiredActivatable(
+          enabled: onChange != null,
+          onActivate: onChange == null
               ? null
               : () {
                   final nextValue = !isSwitched.value;

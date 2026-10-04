@@ -357,7 +357,7 @@ The red-themed card and button will use `Colors.red` for borders, while everythi
 
 skribble's four text styles are derived from the matching **Recursive Sans Casual** static sources. `WiredMaterialApp` registers the package-qualified skribble family through its theme, so regular, bold, italic, and bold italic select the right bundled assets. Do not manually register only the regular font with `FontLoader`.
 
-For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble'`. Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.5. Local widget text styles merge with inherited typography instead of dropping the font family. The bundled Recursive Casual derivative uses deformation strength 27 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
+For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble_font_recursive'` — the bundled families ship in the `skribble_font_recursive` package (install it with `flutter pub add skribble_font_recursive`; see [Installation](/getting-started/installation)). Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.5. Local widget text styles merge with inherited typography instead of dropping the font family. The bundled Recursive Casual derivative uses deformation strength 27 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
 
 ## App-wide roughness levels
 
@@ -385,7 +385,7 @@ Playful is the default. The docs toolbar switches all inherited lettering and in
 | `playful`    | An intermediate amount of wavering ink       | 1.5              | 27               | `SkribblePlayful` |
 | `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
 
-Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble'` for code-only typography. An explicit `fontFamily` takes precedence.
+Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble_font_recursive'` for code-only typography. An explicit `fontFamily` takes precedence.
 
 All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three typefaces bundles twelve static faces. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 

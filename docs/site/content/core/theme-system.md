@@ -543,7 +543,7 @@ Playful is the default. The docs toolbar switches all inherited lettering and in
 | `playful`    | An intermediate amount of wavering ink       | 1.5              | 27               | `SkribblePlayful` |
 | `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
 
-Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble'` for code-only typography. An explicit `fontFamily` takes precedence.
+Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble_font_recursive'` for code-only typography. An explicit `fontFamily` takes precedence.
 
 All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three typefaces bundles twelve static faces. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 

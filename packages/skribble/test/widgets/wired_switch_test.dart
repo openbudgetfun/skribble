@@ -1,4 +1,5 @@
-import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -11,6 +12,49 @@ void main() {
 
       expectRenders(tester, findWired<WiredSwitch>(), size: const Size(60, 24));
       expectPaints(findWired<WiredSwitch>());
+    });
+
+    testWidgets('activates from the keyboard (Space) when focused', (
+      tester,
+    ) async {
+      final state = ValueNotifier<bool>(false);
+      addTearDown(state.dispose);
+      await pumpWired(
+        tester,
+        ValueListenableBuilder<bool>(
+          valueListenable: state,
+          builder: (context, value, _) =>
+              WiredSwitch(value: value, onChanged: (next) => state.value = next),
+        ),
+      );
+
+      // Move focus onto the switch, then toggle it with Space.
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.space);
+      await tester.pumpAndSettle();
+
+      expect(state.value, isTrue);
+    });
+
+    testWidgets('disabled switch is not focusable or keyboard-activatable', (
+      tester,
+    ) async {
+      await pumpWired(tester, const WiredSwitch(value: false, onChanged: null));
+
+      // No focusable target exists, so Space is a no-op (nothing to activate).
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.space);
+      await tester.pumpAndSettle();
+
+      // The control is unfocusable and unchanged (still reports off, disabled).
+      expectSemantics(
+        tester,
+        findWired<WiredSwitch>(),
+        isToggled: false,
+        isEnabled: false,
+      );
     });
 
     testWidgets('reports its toggled state to assistive technology', (

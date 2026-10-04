@@ -24,6 +24,8 @@ The library ships 80+ production-ready widgets, each built on `HookWidget` and p
 
 ```bash
 dart pub add skribble
+# Hand-drawn text: add the bundled typefaces (see Installation)
+flutter pub add skribble_font_recursive
 ```
 
 Then import it in your application code:

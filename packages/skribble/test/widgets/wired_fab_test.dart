@@ -166,10 +166,20 @@ void main() {
         WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
       );
 
+      // The icon is centered over the hand-drawn circle canvas. The focus/
+      // keyboard chrome may contribute its own decorative Stack, so assert the
+      // layering itself rather than a Stack count.
       expect(
         find.descendant(
           of: find.byType(WiredFloatingActionButton),
-          matching: find.byType(Stack),
+          matching: find.byType(WiredIcon),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: find.byType(WiredFloatingActionButton),
+          matching: findWiredCanvas,
         ),
         findsOneWidget,
       );
