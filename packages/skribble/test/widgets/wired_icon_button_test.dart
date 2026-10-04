@@ -226,7 +226,11 @@ void main() {
   testWidgets('iconSize defaults to half of size', (tester) async {
     await pumpApp(
       tester,
-      WiredIconButton(icon: roughIconFor('settings'), onPressed: null, size: 60),
+      WiredIconButton(
+        icon: roughIconFor('settings'),
+        onPressed: null,
+        size: 60,
+      ),
     );
 
     expect(tester.widget<WiredIcon>(find.byType(WiredIcon)).size, 30);

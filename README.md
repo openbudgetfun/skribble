@@ -26,6 +26,7 @@
 <p align="center">
   <a href="https://openbudgetfun.github.io/skribble/getting-started/installation"><strong>Getting Started</strong></a> ·
   <a href="https://openbudgetfun.github.io/skribble/widgets/buttons"><strong>Widgets</strong></a> ·
+  <a href="https://openbudgetfun.github.io/skribble/storybook/"><strong>Live Demo</strong></a> ·
   <a href="https://openbudgetfun.github.io/skribble/showcase/overview"><strong>Showcase</strong></a> ·
   <a href="https://openbudgetfun.github.io/skribble"><strong>Documentation</strong></a> ·
   <a href="CONTRIBUTING.md"><strong>Contributing</strong></a>

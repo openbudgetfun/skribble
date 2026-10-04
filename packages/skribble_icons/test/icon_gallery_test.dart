@@ -77,7 +77,8 @@ void main() {
         for (var i = 0; i < wanted; i++) resolvable[(i * step).floor()],
       ];
 
-      final setDir = Directory('$outRoot/$setName')..createSync(recursive: true);
+      final setDir = Directory('$outRoot/$setName')
+        ..createSync(recursive: true);
 
       // One pump per set; each cell carries its own RepaintBoundary so the
       // capture loop below only pays for toImage.
@@ -145,7 +146,7 @@ void main() {
           '<h1>$setName</h1><p>${identifiers.length} of '
           '${totals[setName]} identifiers, sampled evenly from the sorted '
           'list.</p><div class="grid">',
-      );
+        );
       for (final id in identifiers) {
         html.writeln(
           '<div class="card"><img src="$setName/'

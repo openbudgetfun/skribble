@@ -68,8 +68,9 @@ Future<void> exportDesignKit(
     }
   }
 
-  await File('${repository.path}/packages/skribble_font_recursive/assets/fonts/OFL.txt')
-      .copy('${fonts.path}/OFL.txt');
+  await File(
+    '${repository.path}/packages/skribble_font_recursive/assets/fonts/OFL.txt',
+  ).copy('${fonts.path}/OFL.txt');
   await File('${repository.path}/LICENSE').copy('${destination.path}/LICENSE');
   await File('${repository.path}/docs/site/content/reference/design-kit.md')
       .copy('${destination.path}/README.md');

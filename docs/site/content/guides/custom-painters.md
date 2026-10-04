@@ -114,8 +114,8 @@ class WiredStarPainter extends WiredPainterBase {
   final double strokeWidth;
 
   WiredStarPainter({
-    this.borderColor = const Color(0xFF1A2B3C),
-    this.fillColor = const Color(0xFFFEFEFE),
+    this.borderColor = WiredPalette.ink,
+    this.fillColor = WiredPalette.paper,
     this.strokeWidth = 2,
   });
 
@@ -194,7 +194,7 @@ class WiredWavePainter extends WiredPainterBase {
   final double amplitude;
 
   WiredWavePainter({
-    this.color = const Color(0xFF1A2B3C),
+    this.color = WiredPalette.ink,
     this.strokeWidth = 2,
     this.cycles = 3,
     this.amplitude = 0.3,

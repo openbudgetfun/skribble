@@ -25,12 +25,13 @@ Add the skribble package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  skribble: ^0.1.0
-  skribble_icons: ^0.1.0 # Optional: for hand-drawn icons
-  skribble_emoji: ^0.1.0 # Optional: for hand-drawn emoji
+  skribble: ^0.2.1
+  skribble_font_recursive: ^0.2.1 # Hand-drawn text (recommended)
+  skribble_icons: ^0.2.1 # Optional: for hand-drawn icons
+  skribble_emoji: ^0.2.1 # Optional: for hand-drawn emoji
 ```
 
-Run `dart pub get` to install the packages.
+Run `dart pub get` to install the packages. Add `skribble_font_recursive` whenever you want `Text` to render in the hand-drawn typefaces; without it, borders and shapes still look sketched but text falls back to the platform font.
 
 ## Step 2: Adopt the palette
 
@@ -96,13 +97,13 @@ WiredMaterialApp(
 
 ### Buttons
 
-| Material               | skribble              |
-| ---------------------- | --------------------- |
-| `ElevatedButton`       | `WiredElevatedButton` |
-| `TextButton`           | `WiredTextButton`     |
-| `OutlinedButton`       | `WiredOutlinedButton` |
-| `IconButton`           | `WiredIconButton`     |
-| `FloatingActionButton` | `WiredFab`            |
+| Material               | skribble                    |
+| ---------------------- | --------------------------- |
+| `ElevatedButton`       | `WiredElevatedButton`       |
+| `TextButton`           | `WiredTextButton`           |
+| `OutlinedButton`       | `WiredOutlinedButton`       |
+| `IconButton`           | `WiredIconButton`           |
+| `FloatingActionButton` | `WiredFloatingActionButton` |
 
 **Before:**
 
@@ -161,14 +162,14 @@ WiredInput(
 
 ### Navigation
 
-| Material              | skribble              |
-| --------------------- | --------------------- |
-| `AppBar`              | `WiredAppBar`         |
-| `NavigationBar`       | `WiredNavigationBar`  |
-| `NavigationRail`      | `WiredNavigationRail` |
-| `Drawer`              | `WiredDrawer`         |
-| `BottomNavigationBar` | `WiredBottomNav`      |
-| `TabBar`              | `WiredTabBar`         |
+| Material              | skribble                   |
+| --------------------- | -------------------------- |
+| `AppBar`              | `WiredAppBar`              |
+| `NavigationBar`       | `WiredNavigationBar`       |
+| `NavigationRail`      | `WiredNavigationRail`      |
+| `Drawer`              | `WiredDrawer`              |
+| `BottomNavigationBar` | `WiredBottomNavigationBar` |
+| `TabBar`              | `WiredTabBar`              |
 
 **Before:**
 
@@ -198,12 +199,12 @@ WiredScaffold(
 
 ### Cards and Containers
 
-| Material      | skribble           |
-| ------------- | ------------------ |
-| `Card`        | `WiredCard`        |
-| `Dialog`      | `WiredDialog`      |
-| `BottomSheet` | `WiredBottomSheet` |
-| `SnackBar`    | `WiredSnackBar`    |
+| Material      | skribble                                       |
+| ------------- | ---------------------------------------------- |
+| `Card`        | `WiredCard`                                    |
+| `Dialog`      | `WiredDialog`                                  |
+| `BottomSheet` | `WiredBottomSheet`                             |
+| `SnackBar`    | `showWiredSnackBar()` / `WiredSnackBarContent` |
 
 **Before:**
 
@@ -385,17 +386,20 @@ Text(
 )
 ```
 
-Or update your theme:
+Or let the theme pick the family from the roughness level — this is the recipe to reach for first:
 
 ```dart
 // Static example: pseudocode
-WiredMaterialApp(
+SkribbleApp(
   wiredTheme: WiredThemeData(
-    fontFamily: 'Skribble',
+    font: WiredFont.casual, // default; .linear or .mono for other styles
+    roughnessLevel: WiredRoughness.playful,
     // ... other properties
   ),
 )
 ```
+
+A bare `TextStyle` qualifies the bundled family with `package: 'skribble_font_recursive'` (install that package first). Inside a themed app you rarely need this — the theme's `font` + `roughnessLevel` resolve the right family everywhere.
 
 ## Step 7: Add Accessibility
 

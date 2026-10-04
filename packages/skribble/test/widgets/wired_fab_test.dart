@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -166,10 +167,20 @@ void main() {
         WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
       );
 
+      // The icon is centered over the hand-drawn circle canvas. The focus/
+      // keyboard chrome may contribute its own decorative Stack, so assert the
+      // layering itself rather than a Stack count.
       expect(
         find.descendant(
           of: find.byType(WiredFloatingActionButton),
-          matching: find.byType(Stack),
+          matching: find.byType(WiredIcon),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: find.byType(WiredFloatingActionButton),
+          matching: findWiredCanvas,
         ),
         findsOneWidget,
       );
@@ -222,6 +233,38 @@ void main() {
       await tester.pump();
 
       expect(tapCount, 3);
+    });
+
+    testWidgets('activates from the keyboard (Enter) when focused', (
+      tester,
+    ) async {
+      var tapCount = 0;
+      await pumpApp(
+        tester,
+        WiredFloatingActionButton(icon: Icons.add, onPressed: () => tapCount++),
+      );
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      await tester.pump();
+
+      expect(tapCount, 1);
+    });
+
+    testWidgets('is not keyboard-activatable when disabled', (tester) async {
+      final tapCount = <int>[];
+      await pumpApp(
+        tester,
+        const WiredFloatingActionButton(icon: Icons.add, onPressed: null),
+      );
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      await tester.pump();
+
+      expect(tapCount, isEmpty);
     });
 
     testWidgets('applies semantic label when provided', (tester) async {

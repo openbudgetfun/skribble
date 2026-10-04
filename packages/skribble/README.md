@@ -4,41 +4,53 @@
 
 Hand-drawn UI components for Flutter — every widget looks like it was sketched by hand, with drop-in familiar Material and Cupertino APIs.
 
+**[Live demo](https://openbudgetfun.github.io/skribble/storybook/)** · **[Docs](https://openbudgetfun.github.io/skribble/)** · **[Pub](https://pub.dev/packages/skribble)**
+
 ## Getting Started
+
+```bash
+dart pub add skribble
+flutter pub add skribble_font_recursive   # hand-drawn text (borders look sketchy without it, text won't)
+```
 
 ```dart
 import 'package:skribble/skribble.dart';
 ```
 
-Use `WiredMaterialApp` to customize colors across all skribble widgets while keeping Material theming aligned:
+Wrap your app in `SkribbleApp`. It installs the Wired theme, needs no Material ancestor, and every sketchy widget reads its colors from it:
 
 ```dart
 final wiredTheme = WiredThemeData(
-  borderColor: Color(0xFF2D1B69),  // Sketchy border color
-  textColor: Colors.black87,
-  fillColor: Color(0xFFFFF8E1),    // Warm paper background
-  strokeWidth: 2,
-  roughness: 1,
+  borderColor: WiredPalette.ink,      // Sketchy border color (plum ink)
+  textColor: WiredPalette.ink,
+  fillColor: WiredPalette.paper,      // Warm paper background
+  strokeWidth: 2.4,
+  roughnessLevel: WiredRoughness.playful,
 );
 
+SkribbleApp(
+  wiredTheme: wiredTheme,
+  home: const WiredScaffold(/* ... */),
+);
+```
+
+Already have a `MaterialApp` you're not ready to replace? Keep it and use `WiredMaterialApp` — the transitional bridge that wraps `MaterialApp` and syncs the Wired palette into `ThemeData`:
+
+```dart
 WiredMaterialApp(
   wiredTheme: wiredTheme,
   home: const WiredScaffold(/* ... */),
 );
 ```
 
-Router-based apps are supported too:
+Router-based apps are supported too, on both shells:
 
 ```dart
-WiredMaterialApp.router(
+SkribbleApp.router(
   wiredTheme: wiredTheme,
   routerConfig: appRouter,
 );
 ```
-
-Both constructors also expose high-value `MaterialApp` bootstrapping options like locale resolution callbacks, restoration, scroll behavior, shortcuts / actions, generated titles, theme animation controls, high-contrast theme variants, and common debug / diagnostics flags.
-
-All wired widget implementations read from the nearest `WiredTheme` ancestor and fall back to defaults when no theme is provided. `WiredThemeData` also exposes `toColorScheme()` and `toThemeData()` helpers so your app shell, text, and Material fallbacks stay aligned with the skribble palette, while `WiredMaterialApp` and `WiredMaterialApp.router` keep `MaterialApp` and `WiredTheme` synchronized.
 
 ## Widget Catalog
 

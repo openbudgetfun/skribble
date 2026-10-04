@@ -4,7 +4,7 @@ description: |
 version: 0.2.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble
-documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble/README.md
+documentation: https://openbudgetfun.github.io/skribble/
 issue_tracker: https://github.com/openbudgetfun/skribble/issues
 topics:
   - ui

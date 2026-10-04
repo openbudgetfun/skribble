@@ -66,6 +66,20 @@ jobs:
         run: lint:all
         shell: devenv shell -- bash -e {0}
 
+  # dprint (lint:format) deliberately excludes Dart sources, so nothing else in
+  # the lint chain catches `dart format` drift. This is the Dart format gate
+  # CONTRIBUTING.md documents.
+  format:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/devenv
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: dart format
+        run: dart format --set-exit-if-changed -o none .
+        shell: devenv shell -- bash -e {0}
+
   test:
     runs-on: blacksmith-2vcpu-ubuntu-2404
     steps:
@@ -281,7 +295,10 @@ jobs:
           if-no-files-found: warn
 
   coverage:
-    if: github.ref == 'refs/heads/main'
+    # Run on every PR as well as main: with codecov's patch target declared,
+    # contributed code should produce a coverage signal before it merges. Upload
+    # stays best-effort (fail_ci_if_error: false) so a Codecov outage never
+    # blocks a green build.
     runs-on: blacksmith-2vcpu-ubuntu-2404
     permissions:
       contents: read

@@ -80,6 +80,30 @@ class FillerConfig {
     dashGap: dashGap ?? this.dashGap,
     zigzagOffset: zigzagOffset ?? this.zigzagOffset,
   );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FillerConfig &&
+          runtimeType == other.runtimeType &&
+          _drawConfig == other._drawConfig &&
+          fillWeight == other.fillWeight &&
+          hachureAngle == other.hachureAngle &&
+          hachureGap == other.hachureGap &&
+          dashOffset == other.dashOffset &&
+          dashGap == other.dashGap &&
+          zigzagOffset == other.zigzagOffset;
+
+  @override
+  int get hashCode => Object.hash(
+    _drawConfig,
+    fillWeight,
+    hachureAngle,
+    hachureGap,
+    dashOffset,
+    dashGap,
+    zigzagOffset,
+  );
 }
 
 /// Base class for polygon fill strategies.

@@ -48,8 +48,9 @@ void main() {
       );
       var previousDistance = 0.0;
       for (final family in ['SkribbleGentle', 'SkribblePlayful', 'Skribble']) {
-        final bytes = File('../skribble_font_recursive/assets/fonts/$family-$suffix.ttf')
-            .readAsBytesSync();
+        final bytes = File(
+          '../skribble_font_recursive/assets/fonts/$family-$suffix.ttf',
+        ).readAsBytesSync();
         final font = TrueTypeFont(bytes);
         expect(familyName(font), family);
         expect(TrueTypeFont.checksum(bytes), 0xb1b0afba);

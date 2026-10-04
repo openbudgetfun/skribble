@@ -13,50 +13,126 @@ Future<void> main(List<String> arguments) async {
 
   for (final style in ['Regular', 'Bold', 'Italic', 'BoldItalic']) {
     final codePath = '$output/SkribbleCode-$style.ttf';
-    final codeSource = TrueTypeFont(await File('packages/skribble/tool/font/RecMonoCasual-$style.ttf').readAsBytes());
+    final codeSource = TrueTypeFont(
+      await File('packages/skribble/tool/font/RecMonoCasual-$style.ttf')
+          .readAsBytes(),
+    );
     final codeBytes = await File(codePath).readAsBytes();
     final code = TrueTypeFont(codeBytes);
     _metadata(code, 'SkribbleCode', style);
-    _require(TrueTypeFont.checksum(codeBytes) == 0xb1b0afba, '$style Code checksum');
-    _require(code.glyphCount == codeSource.glyphCount, '$style Code glyph count');
+    _require(
+      TrueTypeFont.checksum(codeBytes) == 0xb1b0afba,
+      '$style Code checksum',
+    );
+    _require(
+      code.glyphCount == codeSource.glyphCount,
+      '$style Code glyph count',
+    );
 
-    for (final tag in ['cmap', 'hmtx', 'hhea', 'GSUB', 'GPOS', 'GDEF', 'OS/2', 'post']) {
-      _require(_same(code.tables[tag], codeSource.tables[tag]), '$style Code $tag preservation');
+    for (final tag in [
+      'cmap',
+      'hmtx',
+      'hhea',
+      'GSUB',
+      'GPOS',
+      'GDEF',
+      'OS/2',
+      'post',
+    ]) {
+      _require(
+        _same(code.tables[tag], codeSource.tables[tag]),
+        '$style Code $tag preservation',
+      );
     }
 
-    _require(!_same(code.tables['glyf'], codeSource.tables['glyf']), '$style Code outlines change');
-    _require(ByteData.sublistView(code.tables['post']!).getUint32(12) == 1, '$style fixed pitch');
+    _require(
+      !_same(code.tables['glyf'], codeSource.tables['glyf']),
+      '$style Code outlines change',
+    );
+    _require(
+      ByteData.sublistView(code.tables['post']!).getUint32(12) == 1,
+      '$style fixed pitch',
+    );
     final ascii = String.fromCharCodes(List.generate(95, (i) => i + 32));
     final asciiShape = await _shape(shaper, codePath, ascii, 'calt=0');
-    _require(asciiShape.length == 95 && asciiShape.every((g) => g['ax'] == 600), '$style ASCII 600-unit cells');
+    _require(
+      asciiShape.length == 95 && asciiShape.every((g) => g['ax'] == 600),
+      '$style ASCII 600-unit cells',
+    );
 
-    for (final operator in ['->', '=>', '==', '===', '!=', '!==', '<=', '>=', '<-', '&&', '||']) {
+    for (final operator in [
+      '->',
+      '=>',
+      '==',
+      '===',
+      '!=',
+      '!==',
+      '<=',
+      '>=',
+      '<-',
+      '&&',
+      '||',
+    ]) {
       final off = await _shape(shaper, codePath, operator, 'calt=0');
       final on = await _shape(shaper, codePath, operator, 'calt=1');
       _require(jsonEncode(on) != jsonEncode(off), '$style $operator activates');
-      _require(on.length == operator.length && on.every((g) => g['ax'] == 600), '$style $operator preserves individual cells');
+      _require(
+        on.length == operator.length && on.every((g) => g['ax'] == 600),
+        '$style $operator preserves individual cells',
+      );
     }
 
     final casualPath = '$output/SkribblePetal-$style.ttf';
-    final casualSource = TrueTypeFont(await File('packages/skribble/tool/font/RecursiveSansCslSt-$style.ttf').readAsBytes());
+    final casualSource = TrueTypeFont(
+      await File('packages/skribble/tool/font/RecursiveSansCslSt-$style.ttf')
+          .readAsBytes(),
+    );
     final casualBytes = await File(casualPath).readAsBytes();
     final casual = TrueTypeFont(casualBytes);
     _metadata(casual, 'SkribblePetal', style);
-    _require(TrueTypeFont.checksum(casualBytes) == 0xb1b0afba, '$style Casual checksum');
+    _require(
+      TrueTypeFont.checksum(casualBytes) == 0xb1b0afba,
+      '$style Casual checksum',
+    );
     final sourceCharacters = _characters(casualSource.tables['cmap']!);
     final newCharacters = _characters(casual.tables['cmap']!);
-    _require(newCharacters.containsAll(sourceCharacters), '$style Casual source character coverage');
+    _require(
+      newCharacters.containsAll(sourceCharacters),
+      '$style Casual source character coverage',
+    );
 
     for (final letters in ['fi', 'fl', 'ff', 'ffi', 'ffl', 'ct', 'st', 'tt']) {
-      final off = await _shape(shaper, casualPath, letters, 'liga=0,dlig=0,swsh=0');
-      final on = await _shape(shaper, casualPath, letters, 'liga=1,dlig=1,swsh=0');
+      final off = await _shape(
+        shaper,
+        casualPath,
+        letters,
+        'liga=0,dlig=0,swsh=0',
+      );
+      final on = await _shape(
+        shaper,
+        casualPath,
+        letters,
+        'liga=1,dlig=1,swsh=0',
+      );
       _require(off.length == letters.length, '$style $letters off');
-      _require(on.length == 1 && on.single['g'] == '${letters.split('').join('_')}.petal', '$style $letters new drawn glyph');
+      _require(
+        on.length == 1 &&
+            on.single['g'] == '${letters.split('').join('_')}.petal',
+        '$style $letters new drawn glyph',
+      );
     }
 
     for (final letter in 'aehkmnrtu'.split('')) {
-      final on = await _shape(shaper, casualPath, letter, 'liga=0,dlig=0,swsh=1');
-      _require(on.length == 1 && on.single['g'] == '$letter.petalSwash', '$style $letter swash');
+      final on = await _shape(
+        shaper,
+        casualPath,
+        letter,
+        'liga=0,dlig=0,swsh=1',
+      );
+      _require(
+        on.length == 1 && on.single['g'] == '$letter.petalSwash',
+        '$style $letter swash',
+      );
     }
 
     report[style] = {
@@ -68,10 +144,13 @@ Future<void> main(List<String> arguments) async {
       'textLigaturesChecked': 8,
       'swashesChecked': 9,
     };
-    stdout.writeln('$style: coverage, outline checksums, ligatures, and code cells passed');
+    stdout.writeln(
+      '$style: coverage, outline checksums, ligatures, and code cells passed',
+    );
   }
 
-  await File('$output/verification.json').writeAsString('${const JsonEncoder.withIndent('  ').convert(report)}\n');
+  await File('$output/verification.json')
+      .writeAsString('${const JsonEncoder.withIndent('  ').convert(report)}\n');
 }
 
 /// Checks installed family grouping and style flags rather than filenames.
@@ -96,22 +175,47 @@ void _metadata(TrueTypeFont font, String family, String style) {
 
   _require(foundFamily, '$style installed family name exists');
   final os2 = ByteData.sublistView(font.tables['OS/2']!);
-  _require(os2.getUint16(4) == (style.contains('Bold') ? 700 : 400), '$style weight metadata');
-  _require((os2.getUint16(62) & 1 != 0) == style.contains('Italic'), '$style italic metadata');
+  _require(
+    os2.getUint16(4) == (style.contains('Bold') ? 700 : 400),
+    '$style weight metadata',
+  );
+  _require(
+    (os2.getUint16(62) & 1 != 0) == style.contains('Italic'),
+    '$style italic metadata',
+  );
 }
 
 /// Executes a real shaping run and rejects missing glyphs.
-Future<List<Map<String, Object?>>> _shape(String executable, String font, String text, String features) async {
-  final arguments = [font, '--text=$text', '--features=$features', '--output-format=json'];
+Future<List<Map<String, Object?>>> _shape(
+  String executable,
+  String font,
+  String text,
+  String features,
+) async {
+  final arguments = [
+    font,
+    '--text=$text',
+    '--features=$features',
+    '--output-format=json',
+  ];
   final result = await Process.run(executable, arguments);
 
   if (result.exitCode != 0) {
-    throw ProcessException(executable, arguments, result.stderr.toString(), result.exitCode);
+    throw ProcessException(
+      executable,
+      arguments,
+      result.stderr.toString(),
+      result.exitCode,
+    );
   }
 
   final rows = (jsonDecode(result.stdout.toString()) as List<Object?>)
-      .map((row) => row! as Map<String, Object?>).toList();
-  _require(rows.every((row) => row['g'] != '.notdef'), 'No missing glyph in $text');
+      .map((row) => row! as Map<String, Object?>)
+      .toList();
+  _require(
+    rows.every((row) => row['g'] != '.notdef'),
+    'No missing glyph in $text',
+  );
 
   return rows;
 }
@@ -131,7 +235,11 @@ Set<int> _characters(Uint8List bytes) {
       for (var group = 0; group < count; group++) {
         final offset = start + 16 + group * 12;
 
-        for (var code = data.getUint32(offset); code <= data.getUint32(offset + 4); code++) {
+        for (
+          var code = data.getUint32(offset);
+          code <= data.getUint32(offset + 4);
+          code++
+        ) {
           result.add(code);
         }
       }
@@ -152,7 +260,9 @@ Set<int> _characters(Uint8List bytes) {
       final last = data.getUint16(ends + offset);
 
       for (var code = first; code <= last && code < 0xffff; code++) {
-        final glyph = range == 0 ? (code + delta) & 0xffff : data.getUint16(ranges + offset + range + (code - first) * 2);
+        final glyph = range == 0
+            ? (code + delta) & 0xffff
+            : data.getUint16(ranges + offset + range + (code - first) * 2);
 
         if (glyph != 0) result.add(code);
       }
@@ -167,7 +277,8 @@ Set<int> _characters(Uint8List bytes) {
 /// Compares optional source tables, including intentional absence.
 bool _same(Uint8List? a, Uint8List? b) => a == null || b == null
     ? a == b
-    : a.length == b.length && Iterable<int>.generate(a.length).every((i) => a[i] == b[i]);
+    : a.length == b.length &&
+          Iterable<int>.generate(a.length).every((i) => a[i] == b[i]);
 
 /// Makes failures fatal even when Dart assertions are disabled.
 void _require(bool condition, String message) {

@@ -95,7 +95,6 @@ void expectRepaintIsolation(Finder finder, {String? reason}) {
   );
 }
 
-
 /// A Material [IconData] for tests that need an icon but do not care which.
 ///
 /// [WiredIcon] resolves this through the registered catalog, falling back to

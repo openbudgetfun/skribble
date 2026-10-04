@@ -234,7 +234,10 @@ void main() {
       isEnabled: false,
       isChecked: false,
     );
-    expect(tester.widget<WiredListTile>(find.byType(WiredListTile)).onTap, isNull);
+    expect(
+      tester.widget<WiredListTile>(find.byType(WiredListTile)).onTap,
+      isNull,
+    );
   });
 }
 

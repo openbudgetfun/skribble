@@ -1,22 +1,17 @@
 # skribble_storybook
 
-A new Flutter project.
+The interactive showcase app for [skribble](https://pub.dev/packages/skribble) — every Wired widget, runnable and browsable. **[Open the live storybook](https://openbudgetfun.github.io/skribble/storybook/)**.
 
-## Getting Started
+## Run it
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the [online documentation](https://docs.flutter.dev/), which offers tutorials, samples, guidance on mobile development, and a full API reference.
-
-## Exploring the design system
+```bash
+flutter pub get
+flutter run -d chrome   # or any device
+```
 
 The toolbar changes the bundled Casual, Linear, or Mono font and the Gentle, Playful, or Expressive ink style across every page. The app depends explicitly on `skribble_font_recursive` so release builds include the same fonts as the docs.
+
+## What's inside
 
 - **Skribble Icons** searches all six icon sets and previews each result at three sizes.
 - **Rough Icons** retains the dedicated Material name and codepoint browser.

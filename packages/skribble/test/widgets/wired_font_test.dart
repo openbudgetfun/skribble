@@ -7,7 +7,10 @@ void main() {
     for (final level in WiredRoughness.values) {
       final family = WiredFont.variableFamilyFor(level);
       expect(WiredFont.isBundled(family), isTrue);
-      expect(WiredThemeData(fontFamily: family).fontPackage, 'skribble_font_recursive');
+      expect(
+        WiredThemeData(fontFamily: family).fontPackage,
+        'skribble_font_recursive',
+      );
     }
   });
   test('each bundled typeface follows the roughness and copyWith', () {

@@ -15,10 +15,10 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 
 | Field               | Type             | Default                                      | Description                                                                     |
 | ------------------- | ---------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
-| `borderColor`       | `Color`          | `Color(0xFF1A2B3C)`                          | Border stroke color for all shapes                                              |
-| `textColor`         | `Color`          | `Colors.black`                               | Primary text color                                                              |
-| `disabledTextColor` | `Color`          | `Colors.grey`                                | Text color for disabled states                                                  |
-| `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`                          | Interior fill color for shapes                                                  |
+| `borderColor`       | `Color`          | `WiredPalette.ink`                           | Border stroke color for all shapes                                              |
+| `textColor`         | `Color`          | `WiredPalette.ink`                           | Primary text color                                                              |
+| `disabledTextColor` | `Color`          | `WiredPalette.mutedInk`                      | Text color for disabled states                                                  |
+| `fillColor`         | `Color`          | `WiredPalette.paper`                         | Interior fill color for shapes                                                  |
 | `strokeWidth`       | `double`         | `2.4`                                        | Default border stroke width                                                     |
 | `roughnessLevel`    | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, and lettering                          |
 | `roughness`         | `double`         | Level value (`1.5` for playful)              | Resolved amplitude; an explicit constructor value overrides the preset          |
@@ -402,9 +402,9 @@ Fallback behavior: if `darkWiredTheme` is not provided, `wiredTheme` is used for
 ```dart
 // Static example: configuration
 final lightTheme = WiredThemeData(
-  borderColor: Color(0xFF1A2B3C),
-  fillColor: Color(0xFFFEFEFE),
-  textColor: Colors.black,
+  borderColor: WiredPalette.ink,
+  fillColor: WiredPalette.paper,
+  textColor: WiredPalette.ink,
 );
 
 final darkTheme = WiredThemeData(
@@ -433,8 +433,8 @@ class ThemeSwitcherApp extends HookWidget {
     final isDark = useState(false);
 
     final lightTheme = WiredThemeData(
-      borderColor: Color(0xFF1A2B3C),
-      fillColor: Color(0xFFFEFEFE),
+      borderColor: WiredPalette.ink,
+      fillColor: WiredPalette.paper,
     );
     final darkTheme = WiredThemeData(
       borderColor: Color(0xFFB0BEC5),
@@ -543,7 +543,7 @@ Playful is the default. The docs toolbar switches all inherited lettering and in
 | `playful`    | An intermediate amount of wavering ink       | 1.5              | 27               | `SkribblePlayful` |
 | `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
 
-Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble'` for code-only typography. An explicit `fontFamily` takes precedence.
+Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble_font_recursive'` for code-only typography. An explicit `fontFamily` takes precedence.
 
 All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three typefaces bundles twelve static faces. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 

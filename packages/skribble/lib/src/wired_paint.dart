@@ -1,16 +1,18 @@
 import 'package:flutter/widgets.dart';
 
+import 'wired_palette.dart';
+
 /// Default border color when no theme is provided.
 ///
 /// Internal to the library; exposed through [WiredBase]'s defaults rather than
-/// the public barrel.
-const Color kWiredDefaultBorderColor = Color(0xFF1A2B3C);
+/// the public barrel. Matches the branded plum ink of [WiredPalette.ink].
+const Color kWiredDefaultBorderColor = WiredPalette.ink;
 
 /// Default fill color when no theme is provided.
 ///
 /// Internal to the library; exposed through [WiredBase]'s defaults rather than
-/// the public barrel.
-const Color kWiredDefaultFillColor = Color(0xFFFEFEFE);
+/// the public barrel. Matches the warm paper of [WiredPalette.paper].
+const Color kWiredDefaultFillColor = WiredPalette.paper;
 
 /// Standard height for skribble button widgets (matches Material default).
 const double kWiredButtonHeight = 42.0;
