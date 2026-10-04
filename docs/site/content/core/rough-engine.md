@@ -469,7 +469,7 @@ class RoughDemoPainter extends CustomPainter {
     canvas.drawRough(
       rect,
       Paint()
-        ..color = const Color(0xFF1A2B3C)
+        ..color = WiredPalette.ink
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2,
       Paint()

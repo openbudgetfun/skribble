@@ -102,8 +102,8 @@ Use the standard constructor for apps with `Navigator`-based routing:
 // Static example: setup
 WiredMaterialApp(
   wiredTheme: WiredThemeData(
-    borderColor: Color(0xFF1A2B3C),
-    fillColor: Color(0xFFFEFEFE),
+    borderColor: WiredPalette.ink,
+    fillColor: WiredPalette.paper,
   ),
   title: 'My skribble App',
   home: MyHomePage(),
@@ -494,9 +494,9 @@ class MyApp extends HookWidget {
 
     return WiredMaterialApp.router(
       wiredTheme: WiredThemeData(
-        borderColor: Color(0xFF1A2B3C),
-        fillColor: Color(0xFFFEFEFE),
-        textColor: Colors.black,
+        borderColor: WiredPalette.ink,
+        fillColor: WiredPalette.paper,
+        textColor: WiredPalette.ink,
       ),
       darkWiredTheme: WiredThemeData(
         borderColor: Color(0xFFB0BEC5),

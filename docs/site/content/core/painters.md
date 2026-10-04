@@ -105,8 +105,8 @@ class WiredRectangleBase extends WiredPainterBase {
   WiredRectangleBase({
     this.leftIndent = 0.0,
     this.rightIndent = 0.0,
-    this.fillColor = const Color(0xFFFEFEFE),
-    this.borderColor = const Color(0xFF1A2B3C),
+    this.fillColor = WiredPalette.paper,
+    this.borderColor = WiredPalette.ink,
     this.strokeWidth = 2,
   });
 
@@ -172,8 +172,8 @@ class WiredCircleBase extends WiredPainterBase {
 
   WiredCircleBase({
     this.diameterRatio = 1,
-    this.fillColor = const Color(0xFFFEFEFE),
-    this.borderColor = const Color(0xFF1A2B3C),
+    this.fillColor = WiredPalette.paper,
+    this.borderColor = WiredPalette.ink,
     this.strokeWidth = 2,
   });
 
@@ -241,7 +241,7 @@ class WiredLineBase extends WiredPainterBase {
     required this.y1,
     required this.x2,
     required this.y2,
-    this.borderColor = const Color(0xFF1A2B3C),
+    this.borderColor = WiredPalette.ink,
     this.strokeWidth = 1,
   });
 
@@ -308,8 +308,8 @@ class WiredRoundedRectangleBase extends WiredPainterBase {
 
   WiredRoundedRectangleBase({
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
-    this.fillColor = const Color(0xFFFEFEFE),
-    this.borderColor = const Color(0xFF1A2B3C),
+    this.fillColor = WiredPalette.paper,
+    this.borderColor = WiredPalette.ink,
     this.strokeWidth = 2,
   });
 
@@ -372,7 +372,7 @@ class WiredInvertedTriangleBase extends WiredPainterBase {
   final double strokeWidth;
 
   WiredInvertedTriangleBase({
-    this.borderColor = const Color(0xFF1A2B3C),
+    this.borderColor = WiredPalette.ink,
     this.strokeWidth = 2,
   });
 
@@ -572,7 +572,7 @@ Creates a stroke-style paint used for shape outlines:
 // Static example: api
 static Paint pathPainter(
   double strokeWidth, {
-  Color color = const Color(0xFF1A2B3C),
+  Color color = WiredPalette.ink,
 }) {
   return Paint()
     ..color = color
@@ -693,8 +693,8 @@ class WiredDiamondBase extends WiredPainterBase {
   final double strokeWidth;
 
   WiredDiamondBase({
-    this.fillColor = const Color(0xFFFEFEFE),
-    this.borderColor = const Color(0xFF1A2B3C),
+    this.fillColor = WiredPalette.paper,
+    this.borderColor = WiredPalette.ink,
     this.strokeWidth = 2,
   });
 

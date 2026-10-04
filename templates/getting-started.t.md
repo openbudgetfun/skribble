@@ -5,6 +5,8 @@
 
 ```bash
 dart pub add skribble
+# Hand-drawn text: add the bundled typefaces (see Installation)
+flutter pub add skribble_font_recursive
 ```
 
 Then import it in your application code:
@@ -24,6 +26,12 @@ Add the `skribble` package to your Flutter project:
 
 ```bash
 dart pub add skribble
+```
+
+Add the bundled hand-drawn typefaces so text renders sketchy, not in the system font. This is the step that makes a first app _look_ hand-drawn:
+
+```bash
+flutter pub add skribble_font_recursive
 ```
 
 Then import it:

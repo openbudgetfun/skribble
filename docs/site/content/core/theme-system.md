@@ -15,10 +15,10 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 
 | Field               | Type             | Default                                      | Description                                                                     |
 | ------------------- | ---------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
-| `borderColor`       | `Color`          | `Color(0xFF1A2B3C)`                          | Border stroke color for all shapes                                              |
-| `textColor`         | `Color`          | `Colors.black`                               | Primary text color                                                              |
-| `disabledTextColor` | `Color`          | `Colors.grey`                                | Text color for disabled states                                                  |
-| `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`                          | Interior fill color for shapes                                                  |
+| `borderColor`       | `Color`          | `WiredPalette.ink`                           | Border stroke color for all shapes                                              |
+| `textColor`         | `Color`          | `WiredPalette.ink`                           | Primary text color                                                              |
+| `disabledTextColor` | `Color`          | `WiredPalette.mutedInk`                      | Text color for disabled states                                                  |
+| `fillColor`         | `Color`          | `WiredPalette.paper`                         | Interior fill color for shapes                                                  |
 | `strokeWidth`       | `double`         | `2.4`                                        | Default border stroke width                                                     |
 | `roughnessLevel`    | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, and lettering                          |
 | `roughness`         | `double`         | Level value (`1.5` for playful)              | Resolved amplitude; an explicit constructor value overrides the preset          |
@@ -402,9 +402,9 @@ Fallback behavior: if `darkWiredTheme` is not provided, `wiredTheme` is used for
 ```dart
 // Static example: configuration
 final lightTheme = WiredThemeData(
-  borderColor: Color(0xFF1A2B3C),
-  fillColor: Color(0xFFFEFEFE),
-  textColor: Colors.black,
+  borderColor: WiredPalette.ink,
+  fillColor: WiredPalette.paper,
+  textColor: WiredPalette.ink,
 );
 
 final darkTheme = WiredThemeData(
@@ -433,8 +433,8 @@ class ThemeSwitcherApp extends HookWidget {
     final isDark = useState(false);
 
     final lightTheme = WiredThemeData(
-      borderColor: Color(0xFF1A2B3C),
-      fillColor: Color(0xFFFEFEFE),
+      borderColor: WiredPalette.ink,
+      fillColor: WiredPalette.paper,
     );
     final darkTheme = WiredThemeData(
       borderColor: Color(0xFFB0BEC5),

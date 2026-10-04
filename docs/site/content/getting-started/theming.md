@@ -154,9 +154,9 @@ skribble's core installs `WiredTheme` without touching Material. When Material w
 ```dart
 // Static example: api
 final scheme = WiredThemeData(
-  borderColor: Color(0xFF1A2B3C),
-  fillColor: Color(0xFFFEFEFE),
-  textColor: Colors.black,
+  borderColor: WiredPalette.ink,
+  fillColor: WiredPalette.paper,
+  textColor: WiredPalette.ink,
 ).toColorScheme();
 
 // scheme.primary      == borderColor
@@ -347,7 +347,7 @@ WiredMaterialApp(
 )
 ```
 
-The red-themed card and button will use `Colors.red` for borders, while everything outside that subtree keeps the default `Color(0xFF1A2B3C)` border color.
+The red-themed card and button will use `Colors.red` for borders, while everything outside that subtree keeps the default `WiredPalette.ink` border color.
 
 ## Next steps
 
