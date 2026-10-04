@@ -34,18 +34,35 @@ class WiredCanvas extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Filler filler = _filters[fillerType]!.call(
-      fillerConfig ?? FillerConfig.defaultConfig,
+    // Rebuilds of an ancestor re-enter build with identical inputs; allocating
+    // a fresh Filler/WiredPainter each time would force shouldRepaint true and
+    // discard the painter's cached geometry. Memoize on the identity of the
+    // config inputs so a stable painter keeps its prepared RoughDrawing across
+    // rebuilds.
+    final effectiveFillerConfig = fillerConfig ?? FillerConfig.defaultConfig;
+    final Filler filler = useMemoized(
+      () => _filters[fillerType]!.call(effectiveFillerConfig),
+      [fillerType, effectiveFillerConfig],
+    );
+    // The theme's DrawConfig is a stable per-theme instance (see
+    // WiredThemeData.drawConfig), so this read is cheap; memoizing the painter
+    // on it (not on context) keeps the same WiredPainter across rebuilds.
+    final resolvedDrawConfig = drawConfig ?? WiredTheme.of(context).drawConfig;
+    final progress = WiredDrawTransition.progressOf(context);
+    final pressure = WiredInkResponse.pressureOf(context);
+    final wiredPainter = useMemoized(
+      () => WiredPainter(
+        resolvedDrawConfig,
+        filler,
+        painter,
+        progress: progress,
+        pressure: pressure,
+      ),
+      [resolvedDrawConfig, filler, painter, progress, pressure],
     );
     return CustomPaint(
       size: size ?? Size.infinite,
-      painter: WiredPainter(
-        drawConfig ?? WiredTheme.of(context).drawConfig,
-        filler,
-        painter,
-        progress: WiredDrawTransition.progressOf(context),
-        pressure: WiredInkResponse.pressureOf(context),
-      ),
+      painter: wiredPainter,
     );
   }
 }

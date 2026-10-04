@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -232,6 +233,38 @@ void main() {
       await tester.pump();
 
       expect(tapCount, 3);
+    });
+
+    testWidgets('activates from the keyboard (Enter) when focused', (
+      tester,
+    ) async {
+      var tapCount = 0;
+      await pumpApp(
+        tester,
+        WiredFloatingActionButton(icon: Icons.add, onPressed: () => tapCount++),
+      );
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      await tester.pump();
+
+      expect(tapCount, 1);
+    });
+
+    testWidgets('is not keyboard-activatable when disabled', (tester) async {
+      var tapCount = 0;
+      await pumpApp(
+        tester,
+        const WiredFloatingActionButton(icon: Icons.add, onPressed: null),
+      );
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      await tester.pump();
+
+      expect(tapCount, 0);
     });
 
     testWidgets('applies semantic label when provided', (tester) async {
