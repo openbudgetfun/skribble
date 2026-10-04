@@ -128,7 +128,6 @@ const Set<String> _migrationBacklog = <String>{
   'test/widgets/wired_snack_bar_test.dart', // SnackBar, TextButton
   'test/widgets/wired_switch_list_tile_test.dart', // InkWell
   'test/widgets/wired_text_area_test.dart', // TextField
-
   // Tests OF the compatibility layer are its subject: they must drive real
   // Material/Cupertino widgets to prove interop. Not migration backlog.
   'test/widgets/skribble_app_test.dart', // MaterialApp (interop + migration cases)

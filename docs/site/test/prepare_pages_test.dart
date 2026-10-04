@@ -36,8 +36,10 @@ void main() {
         family('packages/skribble_font_recursive/SkribblePlayful'),
         family('packages/skribble_font_recursive/SkribbleMonoPlayful'),
         family('packages/skribble_font_recursive/SkribbleLinearPlayful'),
-        family('packages/skribble_font_recursive/SkribbleVariablePlayful',
-            variable: true),
+        family(
+          'packages/skribble_font_recursive/SkribbleVariablePlayful',
+          variable: true,
+        ),
         family('RecursiveCasualOriginal'),
       ]),
     );

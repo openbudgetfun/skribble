@@ -27,8 +27,9 @@ void main() {
         final name = (entry['file'] as String).split('/').last;
         expect(
           await File('${destination.path}/${entry['file']}').readAsBytes(),
-          await File('${repository.path}/packages/skribble_font_recursive/assets/fonts/$name')
-              .readAsBytes(),
+          await File(
+            '${repository.path}/packages/skribble_font_recursive/assets/fonts/$name',
+          ).readAsBytes(),
         );
       }
 

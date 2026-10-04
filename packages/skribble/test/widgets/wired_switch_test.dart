@@ -23,8 +23,10 @@ void main() {
         tester,
         ValueListenableBuilder<bool>(
           valueListenable: state,
-          builder: (context, value, _) =>
-              WiredSwitch(value: value, onChanged: (next) => state.value = next),
+          builder: (context, value, _) => WiredSwitch(
+            value: value,
+            onChanged: (next) => state.value = next,
+          ),
         ),
       );
 

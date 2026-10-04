@@ -253,7 +253,7 @@ void main() {
     });
 
     testWidgets('is not keyboard-activatable when disabled', (tester) async {
-      var tapCount = 0;
+      final tapCount = <int>[];
       await pumpApp(
         tester,
         const WiredFloatingActionButton(icon: Icons.add, onPressed: null),
@@ -264,7 +264,7 @@ void main() {
       await tester.sendKeyEvent(LogicalKeyboardKey.enter);
       await tester.pump();
 
-      expect(tapCount, 0);
+      expect(tapCount, isEmpty);
     });
 
     testWidgets('applies semantic label when provided', (tester) async {
