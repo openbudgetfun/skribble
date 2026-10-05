@@ -52,8 +52,8 @@ abstract final class EmojiMotions {
       EmojiTrack('eyes', EmojiMove.blink()),
     ], duration: Duration(milliseconds: 2600)),
     'winking-face': EmojiMotion([
-      EmojiTrack('wink', EmojiMove.blink()),
-      EmojiTrack(null, EmojiMove.sway(angle: .08)),
+      EmojiTrack('mouth', EmojiMove.breathe(scale: 1.1)),
+      EmojiTrack(null, EmojiMove.sway(angle: .1)),
     ]),
     'smiling-face-with-smiling-eyes': _calm,
     'smiling-face-with-halo': EmojiMotion([
@@ -83,16 +83,16 @@ abstract final class EmojiMotions {
       EmojiTrack(null, EmojiMove.sway(angle: .06)),
     ]),
     'face-savoring-food': EmojiMotion([
-      EmojiTrack('tongue', EmojiMove.wave(angle: .3)),
+      EmojiTrack('mouth', EmojiMove.wave(angle: .12)),
       EmojiTrack('eyes', EmojiMove.blink()),
     ]),
     'winking-face-with-tongue': EmojiMotion([
-      EmojiTrack('tongue', EmojiMove.wave(angle: .25, swings: 3)),
+      EmojiTrack('mouth', EmojiMove.wave(angle: .12, swings: 3)),
       EmojiTrack(null, EmojiMove.sway(angle: .1)),
     ]),
     'zany-face': EmojiMotion([
       EmojiTrack(null, EmojiMove.wave(angle: .2, swings: 3)),
-      EmojiTrack('tongue', EmojiMove.wave(angle: .3, swings: 4)),
+      EmojiTrack('mouth', EmojiMove.wave(angle: .15, swings: 4)),
     ], duration: Duration(milliseconds: 1400)),
     'smiling-face-with-open-hands': EmojiMotion([
       EmojiTrack('hands', EmojiMove.breathe(scale: 1.12)),
@@ -114,8 +114,8 @@ abstract final class EmojiMotions {
     ]),
     'unamused-face': _blinkOnly,
     'face-with-rolling-eyes': EmojiMotion([
-      EmojiTrack('pupils', EmojiMove.spin()),
-      EmojiTrack('eyes', EmojiMove.bob(height: .6)),
+      EmojiTrack('eyes', EmojiMove.bob(height: 1)),
+      EmojiTrack(null, EmojiMove.sway(angle: .08)),
     ], duration: Duration(milliseconds: 2000)),
     'grimacing-face': EmojiMotion([
       EmojiTrack(null, EmojiMove.shake(distance: .5, times: 6)),
@@ -132,7 +132,7 @@ abstract final class EmojiMotions {
     ], duration: Duration(milliseconds: 2800)),
     'hot-face': EmojiMotion([
       EmojiTrack('sweat', EmojiMove.drip(distance: 3)),
-      EmojiTrack('tongue', EmojiMove.wave(angle: .2, swings: 4)),
+      EmojiTrack('mouth', EmojiMove.wave(angle: .1, swings: 4)),
       EmojiTrack(null, EmojiMove.breathe(scale: 1.05)),
     ]),
     'woozy-face': EmojiMotion([
@@ -140,13 +140,13 @@ abstract final class EmojiMotions {
       EmojiTrack('eyes', EmojiMove.blink()),
     ], duration: Duration(milliseconds: 2400)),
     'partying-face': EmojiMotion([
-      EmojiTrack('horn', EmojiMove.wave(angle: .25, swings: 3)),
+      EmojiTrack('blower', EmojiMove.wave(angle: .25, swings: 3)),
       EmojiTrack('hat', EmojiMove.wave(angle: .12)),
       EmojiTrack('confetti', EmojiMove.burst()),
       EmojiTrack(null, EmojiMove.hop(height: 1.5)),
     ]),
     'smiling-face-with-sunglasses': EmojiMotion([
-      EmojiTrack('glasses', EmojiMove.bob(height: .8)),
+      EmojiTrack('sunglasses', EmojiMove.bob(height: .8)),
       EmojiTrack(null, EmojiMove.sway(angle: .08)),
     ], duration: Duration(milliseconds: 2000)),
     'frowning-face': _blinkOnly,
@@ -159,7 +159,7 @@ abstract final class EmojiMotions {
       EmojiTrack(null, EmojiMove.sway(angle: .05)),
     ], duration: Duration(milliseconds: 2000)),
     'face-holding-back-tears': EmojiMotion([
-      EmojiTrack('tears', EmojiMove.breathe(scale: 1.15)),
+      EmojiTrack('eyes', EmojiMove.breathe(scale: 1.1)),
       EmojiTrack('mouth', EmojiMove.shake(distance: .3, times: 6)),
     ]),
     'crying-face': _crying,
@@ -185,7 +185,7 @@ abstract final class EmojiMotions {
       EmojiTrack('horns', EmojiMove.wave(angle: .08)),
     ]),
     'skull': EmojiMotion([
-      EmojiTrack('jaw', EmojiMove.shake(axis: Axis.vertical, distance: .6)),
+      EmojiTrack('mouth', EmojiMove.shake(axis: Axis.vertical, distance: .6)),
       EmojiTrack(null, EmojiMove.sway(angle: .06)),
     ]),
     'pile-of-poo': _wobble,
@@ -209,15 +209,15 @@ abstract final class EmojiMotions {
     ]),
     'growing-heart': EmojiMotion([
       EmojiTrack(null, EmojiMove.breathe(scale: 1.15)),
-      EmojiTrack('rings', EmojiMove.burst()),
+      EmojiTrack('growth', EmojiMove.burst()),
     ], duration: Duration(milliseconds: 1400)),
     'beating-heart': _heartbeat,
     'revolving-hearts': EmojiMotion([
       EmojiTrack(null, EmojiMove.spin()),
     ], duration: Duration(milliseconds: 3200)),
     'two-hearts': EmojiMotion([
-      EmojiTrack('big', EmojiMove.beat()),
-      EmojiTrack('small', EmojiMove.beat(scale: 1.25)),
+      EmojiTrack('hearts', EmojiMove.beat()),
+      EmojiTrack(null, EmojiMove.sway(angle: .08)),
     ]),
     'heart-exclamation': _heartbeat,
     'broken-heart': EmojiMotion([
@@ -271,13 +271,22 @@ abstract final class EmojiMotions {
       EmojiTrack(null, EmojiMove.hop(height: 2), pivot: Alignment.bottomCenter),
     ], duration: Duration(milliseconds: 1400)),
     'clapping-hands': EmojiMotion([
-      EmojiTrack('left', EmojiMove.wave(angle: .2, swings: 4), pivot: _wrist),
-      EmojiTrack('right', EmojiMove.wave(angle: -.2, swings: 4), pivot: _wrist),
-      EmojiTrack('motion', EmojiMove.burst()),
+      EmojiTrack(
+        'left-hand',
+        EmojiMove.wave(angle: .2, swings: 4),
+        pivot: _wrist,
+      ),
+      EmojiTrack(
+        'right-hand',
+        EmojiMove.wave(angle: -.2, swings: 4),
+        pivot: _wrist,
+      ),
+      EmojiTrack('clap', EmojiMove.burst()),
     ], duration: Duration(milliseconds: 1200)),
     'raising-hands': EmojiMotion([
-      EmojiTrack('hands', EmojiMove.hop(height: 1.5)),
-      EmojiTrack('motion', EmojiMove.burst()),
+      EmojiTrack('left-hand', EmojiMove.hop(height: 1.5)),
+      EmojiTrack('right-hand', EmojiMove.hop(height: 1.5)),
+      EmojiTrack('joy', EmojiMove.burst()),
     ], duration: Duration(milliseconds: 1200)),
     'heart-hands': EmojiMotion([
       EmojiTrack(null, EmojiMove.beat(scale: 1.08)),
@@ -307,13 +316,14 @@ abstract final class EmojiMotions {
       EmojiTrack(null, EmojiMove.shake(distance: .4, times: 3)),
     ], duration: Duration(milliseconds: 2000)),
     'shrugging': EmojiMotion([
-      EmojiTrack('hands', EmojiMove.bob(height: 1.4)),
+      EmojiTrack('arm-left', EmojiMove.bob(height: 1.4)),
+      EmojiTrack('arm-right', EmojiMove.bob(height: 1.4)),
       EmojiTrack('head', EmojiMove.sway(angle: .08)),
     ]),
     // Animals and plants.
     'dog-face': EmojiMotion([
       EmojiTrack('ears', EmojiMove.wave(angle: .1, swings: 3)),
-      EmojiTrack('tongue', EmojiMove.bob(height: .5)),
+      EmojiTrack('mouth', EmojiMove.bob(height: .5)),
       EmojiTrack('eyes', EmojiMove.blink()),
     ]),
     'cat-face': EmojiMotion([
@@ -327,7 +337,16 @@ abstract final class EmojiMotions {
       EmojiTrack(null, EmojiMove.bob(height: .8)),
     ], duration: Duration(milliseconds: 2000)),
     'butterfly': EmojiMotion([
-      EmojiTrack('wings', EmojiMove.breathe(scale: .8)),
+      EmojiTrack(
+        'wing-left',
+        EmojiMove.breathe(scale: .75),
+        pivot: Alignment.centerRight,
+      ),
+      EmojiTrack(
+        'wing-right',
+        EmojiMove.breathe(scale: .75),
+        pivot: Alignment.centerLeft,
+      ),
       EmojiTrack(null, EmojiMove.float()),
     ], duration: Duration(milliseconds: 1200)),
     'honeybee': EmojiMotion([
@@ -360,7 +379,10 @@ abstract final class EmojiMotions {
       EmojiTrack(null, EmojiMove.float(height: 1)),
     ]),
     'crescent-moon': _floating,
-    'sun': _sunny,
+    'sun': EmojiMotion([
+      EmojiTrack('rays', EmojiMove.spin()),
+      EmojiTrack(null, EmojiMove.breathe(scale: 1.04)),
+    ], duration: Duration(milliseconds: 6000)),
     'sun-with-face': _sunny,
     'star': _twinkle,
     'glowing-star': _twinkle,
@@ -389,12 +411,13 @@ abstract final class EmojiMotions {
     ], duration: Duration(milliseconds: 2000)),
     // Activities and objects.
     'jack-o-lantern': EmojiMotion([
-      EmojiTrack('glow', EmojiMove.flicker(amount: 1.5)),
+      EmojiTrack('eyes', EmojiMove.flicker(amount: 1.5)),
+      EmojiTrack('mouth', EmojiMove.flicker(amount: 1.5)),
       EmojiTrack(null, EmojiMove.sway(angle: .05)),
     ], duration: Duration(milliseconds: 1400)),
     'christmas-tree': EmojiMotion([
       EmojiTrack('star', EmojiMove.breathe(scale: 1.2)),
-      EmojiTrack('lights', EmojiMove.breathe(scale: 1.15)),
+      EmojiTrack('baubles', EmojiMove.breathe(scale: 1.15)),
     ]),
     'sparkles': _twinkle,
     'balloon': EmojiMotion([
@@ -425,7 +448,10 @@ abstract final class EmojiMotions {
       EmojiTrack('lid', EmojiMove.hop(height: 1.5)),
       EmojiTrack(null, EmojiMove.shake(distance: .4)),
     ]),
-    'trophy': _shine,
+    'trophy': EmojiMotion([
+      EmojiTrack('cup', EmojiMove.wave(angle: .08)),
+      EmojiTrack(null, EmojiMove.hop(height: 1.5)),
+    ], duration: Duration(milliseconds: 1800)),
     'soccer-ball': EmojiMotion([
       EmojiTrack(null, EmojiMove.hop()),
       EmojiTrack(null, EmojiMove.spin()),
@@ -434,7 +460,10 @@ abstract final class EmojiMotions {
       EmojiTrack('buttons', EmojiMove.bob(height: .5)),
       EmojiTrack(null, EmojiMove.shake(distance: .3, times: 6)),
     ], duration: Duration(milliseconds: 1400)),
-    'crown': _shine,
+    'crown': EmojiMotion([
+      EmojiTrack('gems', EmojiMove.beat(scale: 1.2)),
+      EmojiTrack(null, EmojiMove.bob(height: .8)),
+    ], duration: Duration(milliseconds: 2000)),
     'musical-note': _musical,
     'musical-notes': _musical,
     'guitar': EmojiMotion([
@@ -591,8 +620,3 @@ const EmojiMotion _candles = EmojiMotion([
     pivot: Alignment.bottomCenter,
   ),
 ], duration: Duration(milliseconds: 1400));
-
-const EmojiMotion _shine = EmojiMotion([
-  EmojiTrack('shine', EmojiMove.burst(scale: 1.3)),
-  EmojiTrack(null, EmojiMove.bob(height: .8)),
-], duration: Duration(milliseconds: 2000));
