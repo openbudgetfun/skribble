@@ -4,7 +4,7 @@ skribble_emoji: minor
 
 # Animated emoji, and emoji outside Flutter
 
-`WiredAnimatedEmoji` brings an emoji to life: its parts move and its lines boil, retraced eight times a second by a fresh hand like a hand-drawn cartoon. The most-used emoji have their own choreography (a heart beats, a hand waves around its wrist, a flame flickers, tears fall and fade), and every other emoji moves with its family. Motion follows `WiredMotion`, the platform's reduced-motion setting, and `TickerMode`, showing the emoji at rest when motion is off.
+`WiredAnimatedEmoji` brings an emoji to life: its parts move and its lines boil, retraced eight times a second by a fresh hand like a hand-drawn cartoon. The most-used emoji have their own choreography (a heart beats, a hand waves around its wrist, a flame flickers, tears fall and fade), and every other emoji moves with its family. Motion follows `WiredMotion`, the platform's reduced-motion setting, and `TickerMode`, showing the emoji at rest when motion is off, and `loops` plays a reaction a set number of times before it rests.
 
 ```dart
 const WiredAnimatedEmoji('❤️', size: 48);

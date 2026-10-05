@@ -255,6 +255,33 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
+    testWidgets('plays a set number of loops, then rests', (tester) async {
+      await pump(tester, const WiredAnimatedEmoji('❤️', loops: 2));
+      final loop = EmojiMotions.of(SkribbleEmoji.lookup('❤️')!)!.duration;
+      await tester.pump(loop);
+      expect(tester.hasRunningAnimations, isTrue);
+      await tester.pump(loop * 1.5);
+      expect(tester.hasRunningAnimations, isFalse);
+      // A rebuild does not start it again.
+      await pump(tester, const WiredAnimatedEmoji('❤️', loops: 2));
+      expect(tester.hasRunningAnimations, isFalse);
+      // A new emoji plays its own loops.
+      await pump(tester, const WiredAnimatedEmoji('🔥', loops: 2));
+      expect(tester.hasRunningAnimations, isTrue);
+    });
+
+    testWidgets('plays again when it is animated again', (tester) async {
+      await pump(tester, const WiredAnimatedEmoji('❤️', loops: 1));
+      await tester.pumpAndSettle();
+      await pump(
+        tester,
+        const WiredAnimatedEmoji('❤️', loops: 1, animating: false),
+      );
+      await pump(tester, const WiredAnimatedEmoji('❤️', loops: 1));
+      expect(tester.hasRunningAnimations, isTrue);
+      await tester.pumpAndSettle();
+    });
+
     testWidgets('rests when motion is turned off', (tester) async {
       await pump(
         tester,

@@ -42,8 +42,9 @@ class WiredAnimatedEmoji extends StatefulWidget {
     this.motion,
     this.boil = true,
     this.animating = true,
+    this.loops,
     this.progress,
-  });
+  }) : assert(loops == null || loops > 0, 'loops must be positive');
 
   /// The emoji to animate.
   final String emoji;
@@ -72,6 +73,13 @@ class WiredAnimatedEmoji extends StatefulWidget {
 
   /// Whether the emoji animates at all. False shows it at rest.
   final bool animating;
+
+  /// How many times the loop plays before the emoji comes to rest, or null
+  /// to loop for as long as it is shown.
+  ///
+  /// A reaction that plays once uses `loops: 1`. Changing [emoji] or turning
+  /// [animating] back on plays the loops again.
+  final int? loops;
 
   /// Drives the loop instead of the widget's own clock, from 0 to 1.
   ///
@@ -102,10 +110,26 @@ class _WiredAnimatedEmojiState extends State<WiredAnimatedEmoji>
         TickerMode.valuesOf(context).enabled;
     _clock.duration = motion?.duration ?? const Duration(seconds: 2);
     if (_enabled && widget.progress == null) {
-      if (!_clock.isAnimating) _clock.repeat();
+      if (!_clock.isAnimating && !_played) {
+        _clock.repeat(count: widget.loops);
+      }
     } else {
       _clock.stop();
+      _played = false;
     }
+  }
+
+  /// Whether a counted run has played out, so rebuilds do not restart it.
+  bool _played = false;
+
+  void _onStatus(AnimationStatus status) {
+    if (status == AnimationStatus.completed) _played = true;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _clock.addStatusListener(_onStatus);
   }
 
   @override
@@ -117,8 +141,11 @@ class _WiredAnimatedEmojiState extends State<WiredAnimatedEmoji>
   @override
   void didUpdateWidget(WiredAnimatedEmoji oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.emoji != widget.emoji || oldWidget.motion != widget.motion) {
+    if (oldWidget.emoji != widget.emoji ||
+        oldWidget.motion != widget.motion ||
+        oldWidget.loops != widget.loops) {
       _clock.stop();
+      _played = false;
     }
     _sync();
   }
