@@ -216,7 +216,6 @@ final class WiredChartFeed extends ChangeNotifier {
       _pendingSnapshot = null;
 
       if (_status == WiredChartFeedStatus.failed) {
-
         Error.throwWithStackTrace(_error!, _errorStackTrace!);
       }
 

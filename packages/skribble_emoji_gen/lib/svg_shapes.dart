@@ -180,7 +180,6 @@ void _processElement(
   final opacity = double.tryParse(element.getAttribute('opacity') ?? '') ?? 1;
 
   if (tag == 'g' && opacity != 1) {
-
     throw const FormatException(
       'Group opacity requires compositing; flatten it in the source SVG.',
     );
@@ -269,7 +268,6 @@ void _processElement(
     if (pts.isNotEmpty) {
       add(_polygonPointsToPath(pts));
     }
-
   } else if (tag == 'polyline') {
     final pts = element.getAttribute('points')?.trim() ?? '';
 

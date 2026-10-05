@@ -60,7 +60,6 @@ class VisualDiff {
       total += a.length;
 
       for (var point = 0; point < a.length; point++) {
-
         if (a[point] != b[point]) changed++;
       }
     }

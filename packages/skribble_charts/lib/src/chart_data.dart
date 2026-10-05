@@ -24,7 +24,6 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
     }
 
     if (normalizedCoefficient.abs().toString().length > 2000) {
-
       throw ArgumentError.value(
         coefficient,
         'coefficient',
@@ -244,7 +243,6 @@ final class WiredChartDecimal implements Comparable<WiredChartDecimal> {
     final a = math.min(16, numerator.length);
     final b = math.min(16, denominator.length);
     final mantissa =
-
         double.parse('${numerator[0]}.${numerator.substring(1, a)}') /
         double.parse('${denominator[0]}.${denominator.substring(1, b)}');
     final exponent =

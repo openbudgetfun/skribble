@@ -146,7 +146,6 @@ class EmojiSearch {
           name.contains('cat') ||
           name.contains('dog') ||
           name.contains('bird')) {
-
         category = 'animals';
       } else if (name.contains('food') ||
           name.contains('fruit') ||

@@ -36,7 +36,6 @@ class PointD extends Point<double> {
       final PointD next = points[(i + 1) % vertices];
 
       if (Line(current, next).intersects(Line(this, extreme))) {
-
         if (getOrientation(current, this, next) ==
             PointsOrientation.collinear) {
           return Line(current, next).onSegment(this);

@@ -416,7 +416,6 @@ final class ChartPainter extends CustomPainter {
       }
 
       for (final annotation in scene.annotations) {
-
         _annotation(canvas, annotation);
       }
     }
@@ -1062,7 +1061,6 @@ List<_CandleBucket> _visibleBuckets(
   final buckets = <_CandleBucket>[];
 
   for (var index = start; index < end;) {
-
     final next = math.min(end, (index ~/ span + 1) * span);
     final key = (index, next);
     final bucket = span == 1

@@ -1691,7 +1691,6 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       entries = unresolvedCodePointsValue;
     } else if (unresolvedCodePointValue is List<Object?>) {
       entries = unresolvedCodePointValue;
-
     } else if (unresolvedCodepointValue is List<Object?>) {
       entries = unresolvedCodepointValue;
     } else if (unresolvedCodepointsValue is List<Object?>) {
@@ -1843,7 +1842,6 @@ int _parseCodePointString(String value, {required String context}) {
   } else if (normalized.startsWith(r'\u')) {
     digits = normalized.substring(2);
     radix = 16;
-
   } else if (decimalPattern.hasMatch(normalized)) {
     digits = normalized;
   } else if (bareHexPattern.hasMatch(normalized)) {

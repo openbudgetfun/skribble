@@ -159,7 +159,6 @@ double _strokeWidthOf(ThemeData theme) {
       theme.inputDecorationTheme.border;
 
   if (inputBorder is OutlineInputBorder && inputBorder.borderSide.width > 0) {
-
     return inputBorder.borderSide.width;
   }
 

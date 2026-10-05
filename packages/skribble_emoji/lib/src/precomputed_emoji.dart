@@ -210,7 +210,6 @@ final class _PrecomputedEmojiPainter extends CustomPainter {
       final stroke = hasPaint ? primitive.strokeColor : null;
 
       if (fill != null) {
-
         canvas.drawPath(
           primitive.path,
           Paint()

@@ -134,7 +134,6 @@ void expectSemantics(
     );
   }
   if (isToggled != null) {
-
     expect(
       data.flagsCollection.isToggled.toBoolOrNull(),
       isToggled,

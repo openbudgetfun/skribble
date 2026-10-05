@@ -81,7 +81,6 @@ void deferComparisonFonts(Directory output) {
         comparison.add({...family, 'fonts': remainingFaces});
       }
     } else {
-
       comparison.add(family);
     }
   }

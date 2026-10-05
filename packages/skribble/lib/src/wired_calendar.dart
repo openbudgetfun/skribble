@@ -76,7 +76,6 @@ class WiredCalendar extends HookWidget {
           d = DateTime.now();
         }
       } else {
-
         d = DateTime.now();
       }
 

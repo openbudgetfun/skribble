@@ -161,7 +161,6 @@ class WiredDateRangePickerDialog extends HookWidget {
 
       if (s == null || _dateOf(day).isBefore(_dateOf(s))) {
         start.value = day;
-
       } else {
         end.value = day;
       }

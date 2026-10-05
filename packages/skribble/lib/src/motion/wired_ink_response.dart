@@ -94,7 +94,6 @@ class _WiredInkResponseState extends State<WiredInkResponse>
 
     if (idle || _interaction != WiredInkInteraction.redraw) {
       _redraw.value = 1;
-
     } else if (pressed && !_pressed) {
       _redraw.forward(from: 0);
     }

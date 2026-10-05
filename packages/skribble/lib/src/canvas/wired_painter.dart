@@ -54,7 +54,6 @@ class WiredPainter extends CustomPainter {
     if (drawing == null) {
       _resetRandomizers();
       painter.paintRough(canvas, size, drawConfig, filler);
-
     } else {
       drawing.paint(
         canvas,

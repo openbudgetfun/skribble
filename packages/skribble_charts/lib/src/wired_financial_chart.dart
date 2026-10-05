@@ -667,7 +667,6 @@ WiredChartAnnotation? _hitDrawing(
     if (drawing.anchors.any(
       (anchor) => (scene.positionForAnchor(anchor) - point).distance < 20,
     )) {
-
       return drawing;
     }
 

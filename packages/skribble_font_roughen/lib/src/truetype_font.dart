@@ -340,7 +340,6 @@ final class TrueTypeFont {
     final compactStyle = style.replaceAll(' ', '');
     final extended =
         !tables.containsKey('fvar') &&
-
         !['Regular', 'Bold', 'Italic', 'Bold Italic'].contains(style);
     final replacements = <int, String>{
       1: extended ? '$family ${style.replaceAll(' Italic', '')}' : family,
