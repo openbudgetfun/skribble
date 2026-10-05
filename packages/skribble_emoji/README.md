@@ -1,38 +1,48 @@
 # skribble_emoji
 
-Hand-drawn, colored emoji for Flutter from OpenMoji 17.0.0. The catalog contains 4,495 names, including complete skin-tone, flag, and joined sequences.
+skribble's own hand-drawn emoji for Flutter. Every fully-qualified emoji in Unicode Emoji 18.0 (3,963, with skin tones, gendered variants, families, keycaps, and flags) is drawn for skribble in one style, then inked live by the theme's pen: outlines taper and swell, fills sit a hair off the line like marker, and everything wavers with the theme's roughness.
 
 ```dart
 import 'package:skribble_emoji/skribble_emoji.dart';
 
-WiredEmoji.fromName('grinning_face', size: 32);
-WiredEmoji.fromSequence('👩🏽‍💻', semanticLabel: 'Developer');
-PrecomputedEmoji.fromSequence('🇬🇧', size: 48);
+const WiredEmoji('🎉', size: 32);
+const WiredEmoji('👩🏽‍💻', size: 48, weight: 600);
+const WiredEmojiText('Shipped it 🚀 and the team ❤️ it');
 ```
 
-Both widgets render precomputed paths that are gently roughened during generation. Colors, strokes, transparency, clipping, and contour holes remain intact. `PrecomputedEmoji.color` only supplies fallback color for uncolored data or a placeholder.
+- `WiredEmoji` draws one emoji and reads its Unicode name to screen readers. Text that is not an emoji falls back to the platform's rendering.
+- `WiredEmojiText` draws text with every emoji in it replaced by a `WiredEmoji` sized to the font.
+- `SkribbleEmoji` is the catalog: `lookup`, `named`, `inGroup`, `search`, and `withTone`.
+- `EmojiPalette` restyles every emoji at once by changing what each colour role (`ink`, `yellow`, `skin`, …) looks like.
+- `EmojiDrawing` prepares an emoji for your own painters, with named parts (`eyes`, `mouth`, `hand`, …) that a pose can move.
 
-`kSkribbleEmojiNames` includes every name and full hexadecimal sequence. `lookupSkribbleEmojiBySequence` accepts either actual emoji text or hyphenated hexadecimal scalars. The existing `kSkribbleEmoji` and `kSkribbleEmojiCodePoints` maps cover single scalars. Search results include the full `sequence` and the legacy first `codePoint`.
+See the [emoji guide](https://openbudgetfun.github.io/skribble/widgets/emoji) for live examples.
 
-From the workspace root, run `dart run packages/skribble_emoji_gen/bin/update_assets.dart` to verify pinned downloads and rebuild emoji, icons, and fonts. The generator's SVG tests and this package's corpus/pixel tests validate the conversion. Do not edit generated maps manually.
+## The art
 
-Artwork by [OpenMoji](https://openmoji.org/), licensed [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The gently warped derivatives retain that license; keep the attribution when redistributing artwork.
+Each drawing is a small SVG in `art/`, written against the rules in [`art/STYLE.md`](art/STYLE.md). Shared pieces (the smiley face, a person's head, the keycap) are included rather than copied. Gendered emoji share one drawing whose hair switches between person, man, and woman, and skin tones and "facing right" emoji are applied at runtime. That is how 3,963 emoji come from far fewer drawings.
 
-Source stroke dashes, cap/join styles, miter limits, hidden layers, and stroke-first paint ordering are preserved. Dash gaps and square caps are verified in both Flutter rendering paths.
+The art is not shipped in the package. `skribble_emoji_gen` compiles it, with Unicode's pinned `emoji-test.txt`, into the generated Dart catalog. From the repository root:
+
+```bash
+dart run packages/skribble_emoji_gen/bin/generate_emoji.dart
+```
+
+To review art, render contact sheets of any folder or set of art keys into `.screenshots/emoji/`:
+
+```bash
+cd packages/skribble_emoji
+EMOJI_GALLERY=animals flutter test test/art_gallery_test.dart
+```
 
 ## Provenance
 
-This catalog is generated, never hand-edited. The table records exactly what it was built from. Bumping a value means editing `tool/asset_sources.txt` in the same commit as the regenerated catalog.
+| Field     | Value                                                                   |
+| --------- | ----------------------------------------------------------------------- |
+| Art       | skribble's own, in `art/`                                               |
+| License   | MIT, like the rest of skribble                                          |
+| Emoji set | Unicode Emoji 18.0 `emoji-test.txt`, SHA-256 `8f3735cda1f9…d9bc57ab21a` |
+| Generator | `dart run packages/skribble_emoji_gen/bin/generate_emoji.dart`          |
+| Registry  | `tool/asset_sources.txt`                                                |
 
-| Field               | Value                                                         |
-| ------------------- | ------------------------------------------------------------- |
-| Source              | [OpenMoji](https://openmoji.org)                              |
-| Upstream version    | `17.0.0`                                                      |
-| SVG archive SHA-256 | `59b0cd9f6fe0…5cc3805689`                                     |
-| Catalog CSV SHA-256 | `28375217b92f…d4032cbe7e`                                     |
-| License             | CC-BY-SA-4.0 (retained by the warped derivative)              |
-| Names generated     | 4,495, including skin-tone, flag, and ZWJ sequences           |
-| Generator           | `dart run packages/skribble_emoji_gen/bin/update_assets.dart` |
-| Registry            | `tool/asset_sources.txt`                                      |
-
-Generation is deterministic: rebuilding from the same source bytes reproduces this catalog byte for byte. CI re-derives every catalog and fails on any diff, so an upstream change can never land silently.
+Generation is deterministic, and CI regenerates the catalog and fails on any difference. It also fails when any emoji in the pinned list has no drawing.

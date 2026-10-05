@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart' show immutable;
+import 'package:flutter/foundation.dart' show immutable, mapEquals;
 
 /// A named colour in skribble's emoji palette.
 ///
@@ -300,27 +300,31 @@ final class EmojiPaint {
 /// A Fitzpatrick skin tone, or [none] for the default emoji yellow.
 enum EmojiSkinTone {
   /// The default, unmodified yellow.
-  none(null),
+  none(null, 'default'),
 
   /// Light skin tone, `U+1F3FB`.
-  light(0x1F3FB),
+  light(0x1F3FB, 'light'),
 
   /// Medium-light skin tone, `U+1F3FC`.
-  mediumLight(0x1F3FC),
+  mediumLight(0x1F3FC, 'medium-light'),
 
   /// Medium skin tone, `U+1F3FD`.
-  medium(0x1F3FD),
+  medium(0x1F3FD, 'medium'),
 
   /// Medium-dark skin tone, `U+1F3FE`.
-  mediumDark(0x1F3FE),
+  mediumDark(0x1F3FE, 'medium-dark'),
 
   /// Dark skin tone, `U+1F3FF`.
-  dark(0x1F3FF);
+  dark(0x1F3FF, 'dark');
 
-  const EmojiSkinTone(this.modifier);
+  const EmojiSkinTone(this.modifier, this.label);
 
   /// The Unicode modifier codepoint, or null for [none].
   final int? modifier;
+
+  /// The tone's name as Unicode writes it, such as `medium-light`, or
+  /// `default` for [none].
+  final String label;
 
   /// The tone for a modifier [codePoint], or null when it is not one.
   static EmojiSkinTone? fromModifier(int codePoint) {
@@ -336,6 +340,10 @@ enum EmojiSkinTone {
 /// [EmojiPalette.skribble] is the default: marker colours tuned to sit beside
 /// skribble's plum ink and warm paper. Build your own to restyle every emoji
 /// at once, for example a softer pastel set, without redrawing anything.
+///
+/// Palettes compare by value, so an equal palette built on every frame still
+/// shares prepared drawings with the last one.
+@immutable
 final class EmojiPalette {
   /// Creates a palette from [colors] for every non-person token, plus the
   /// skin and hair colours for each tone.
@@ -372,6 +380,42 @@ final class EmojiPalette {
     EmojiToken.hair2 => hairs[tone2]!,
     _ => colors[token]!,
   };
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is EmojiPalette &&
+          mapEquals(colors, other.colors) &&
+          mapEquals(skins, other.skins) &&
+          mapEquals(skinShades, other.skinShades) &&
+          mapEquals(hairs, other.hairs);
+
+  @override
+  int get hashCode => Object.hash(
+    Object.hashAllUnordered(colors.entries.map(_entryHash)),
+    Object.hashAllUnordered(skins.entries.map(_entryHash)),
+    Object.hashAllUnordered(skinShades.entries.map(_entryHash)),
+    Object.hashAllUnordered(hairs.entries.map(_entryHash)),
+  );
+
+  static int _entryHash(MapEntry<Object, Color> entry) =>
+      Object.hash(entry.key, entry.value);
+
+  /// A copy with the given colours laid over this palette's.
+  ///
+  /// Each map only needs the entries that change, so a restyle can be as
+  /// small as `EmojiPalette.skribble.copyWith(colors: {EmojiToken.ink: c})`.
+  EmojiPalette copyWith({
+    Map<EmojiToken, Color> colors = const {},
+    Map<EmojiSkinTone, Color> skins = const {},
+    Map<EmojiSkinTone, Color> skinShades = const {},
+    Map<EmojiSkinTone, Color> hairs = const {},
+  }) => EmojiPalette(
+    colors: {...this.colors, ...colors},
+    skins: {...this.skins, ...skins},
+    skinShades: {...this.skinShades, ...skinShades},
+    hairs: {...this.hairs, ...hairs},
+  );
 
   /// skribble's marker palette.
   static const EmojiPalette skribble = EmojiPalette(

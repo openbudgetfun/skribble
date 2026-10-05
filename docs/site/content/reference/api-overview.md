@@ -271,7 +271,7 @@ The main library depends on:
 | `skribble_icons_bxs`      | Boxicons solid icons                                              |
 | `skribble_icons_simple`   | Simple Icons brand marks                                          |
 | `skribble_icons_cib`      | CoreUI brand marks                                                |
-| `skribble_emoji`          | Hand-drawn emoji + WiredEmoji widget                              |
+| `skribble_emoji`          | skribble's own hand-drawn emoji for every Unicode emoji           |
 | `skribble_font_recursive` | The bundled hand-drawn typefaces                                  |
 | `skribble_maps`           | MapLibre maps with hand-drawn skribble overlays                   |
 | `skribble_charts`         | Exact OHLC data, hand-drawn charts, indicators, and drawing tools |
@@ -301,14 +301,19 @@ import 'package:skribble_icons/skribble_icons.dart';
 import 'package:skribble_emoji/skribble_emoji.dart';
 ```
 
-| Export                           | Type                         | Purpose                                     |
-| -------------------------------- | ---------------------------- | ------------------------------------------- |
-| `kSkribbleEmoji`                 | `Map<int, WiredSvgIconData>` | All emoji keyed by Unicode codepoint        |
-| `kSkribbleEmojiCodePoints`       | `Map<String, int>`           | Emoji name to Unicode codepoint mapping     |
-| `lookupSkribbleEmojiByName()`    | function                     | Look up emoji data by name                  |
-| `lookupSkribbleEmojiByUnicode()` | function                     | Look up emoji data by Unicode codepoint     |
-| `WiredEmoji`                     | widget                       | HookWidget for rendering hand-drawn emoji   |
-| `WiredSvgIconData`               | class                        | SVG icon data (re-exported from `skribble`) |
+| Export                                 | Type     | Purpose                                                           |
+| -------------------------------------- | -------- | ----------------------------------------------------------------- |
+| `WiredEmoji`                           | widget   | Draws one emoji, inked live with the theme pen                    |
+| `WiredEmojiText`, `emojiSpans()`       | widget   | Text with every emoji in it drawn by `WiredEmoji`                 |
+| `SkribbleEmoji`                        | class    | The catalog: `all`, `lookup`, `named`, `inGroup`, `search`, tones |
+| `EmojiEntry`, `EmojiGroup`             | classes  | One Unicode emoji with its name, group, subgroup, and art         |
+| `EmojiSkinTone`, `EmojiVariant`        | enums    | Fitzpatrick tones and the person, man, and woman variants         |
+| `EmojiPalette`, `EmojiToken`           | classes  | The colour roles art paints with, and what each one looks like    |
+| `EmojiDrawing`, `emojiDrawingFor()`    | class    | A prepared emoji for custom painters, with poseable named parts   |
+| `emojiDrawConfig()`                    | function | The wavering and pen emoji use under a theme at a size            |
+| `EmojiArt`, `EmojiShape`, `EmojiPaint` | classes  | Art data, for drawing your own emoji in skribble's style          |
+
+See [Emoji](/widgets/emoji) for live examples.
 
 ### skribble_maps
 
@@ -363,11 +368,6 @@ Full dartdoc API reference is available at:
 
 - `WiredThemeData.inkExtent`: pen-and-wobble space for dividers; default `strokeWidth` is 2.4 and `roughness` is 1.5.
 - `WiredSvgPrimitive.path(clipPaths: ...)`: SVG clipping paths in primitive coordinates; source colors support optional alpha.
-- `kSkribbleEmojiNames`: every emoji name mapped to its complete hexadecimal sequence.
-- `lookupSkribbleEmojiBySequence(String)`: lookup by literal emoji or hexadecimal sequence.
-- `WiredEmoji.fromSequence` and `PrecomputedEmoji.fromSequence`: render joined sequences directly.
-- `WiredEmoji.semanticLabel`: accessible description, including placeholder states.
-- `EmojiSearchResult.sequence`: complete sequence alongside the legacy first `codePoint`.
 - `skribble_font_roughen` exports `VisualDiff` and `DiffResult` for HTML specimens and outline-change statistics; these are not pixel comparisons.
 
 SVG path primitives also accept `strokeDashArray`, `strokeDashOffset`, `strokeCap`, `strokeJoin`, and `strokeMiterLimit`. `buildStrokePath()` expands dashes in source coordinates before display scaling; fill geometry remains unchanged.

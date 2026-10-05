@@ -1,5 +1,5 @@
 name: skribble_emoji_gen
-description: Generate pinned, hand-drawn emoji and icon assets from OpenMoji SVG sources.
+description: Compile skribble's hand-drawn emoji and glyph art, and pinned icon sets, into Dart catalogs.
 version: 0.2.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_emoji_gen

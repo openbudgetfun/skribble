@@ -157,6 +157,33 @@ void main() {
       }
     });
 
+    test('copies with overrides and compares by value', () {
+      const plum = Color(0xFF5B2A86);
+      final restyled = EmojiPalette.skribble.copyWith(
+        colors: {EmojiToken.ink: plum},
+        skins: {EmojiSkinTone.dark: plum},
+      );
+      expect(restyled.colorOf(EmojiToken.ink), plum);
+      expect(restyled.colorOf(EmojiToken.skin, tone: EmojiSkinTone.dark), plum);
+      expect(
+        restyled.colorOf(EmojiToken.yellow),
+        EmojiPalette.skribble.colorOf(EmojiToken.yellow),
+      );
+      final again = EmojiPalette.skribble.copyWith(
+        colors: {EmojiToken.ink: plum},
+        skins: {EmojiSkinTone.dark: plum},
+      );
+      expect(again, restyled);
+      expect(again.hashCode, restyled.hashCode);
+      expect(restyled, isNot(EmojiPalette.skribble));
+      expect(EmojiPalette.skribble.copyWith(), EmojiPalette.skribble);
+    });
+
+    test('labels skin tones the way Unicode names them', () {
+      expect(EmojiSkinTone.mediumLight.label, 'medium-light');
+      expect(EmojiSkinTone.none.label, 'default');
+    });
+
     test('names tokens the way art writes them', () {
       expect(EmojiToken.yellowShade.artName, 'yellow-shade');
       expect(EmojiToken.skin2Shade.artName, 'skin2-shade');

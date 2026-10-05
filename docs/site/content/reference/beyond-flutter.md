@@ -85,4 +85,4 @@ Use the resulting SVG as an image, or import its paths into a design file. Prese
 
 Static assets do not implement interaction, accessibility, layout, or native framework components. The current supported UI library is Flutter. This guide does not promise React Native, SwiftUI, Compose, or web component packages.
 
-skribble source code and generated design-kit pen specimens use MIT. Recursive-derived TTF files use SIL OFL 1.1; redistribute the accompanying `OFL.txt`. Icon sets retain their source notices, and OpenMoji artwork uses its own CC BY-SA 4.0 terms. Review the notices distributed with the asset set you use; the source-code license does not replace them.
+skribble source code and generated design-kit pen specimens use MIT. Recursive-derived TTF files use SIL OFL 1.1; redistribute the accompanying `OFL.txt`. skribble's own emoji and glyph art is MIT too. Third-party icon sets retain their source notices. Review the notices distributed with the asset set you use; the source-code license does not replace them.

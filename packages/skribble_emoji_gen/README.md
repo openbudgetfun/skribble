@@ -1,6 +1,6 @@
 # skribble_emoji_gen
 
-Generates the pinned emoji and icon assets shipped by skribble. The tools read OpenMoji SVG and metadata sources, convert their paths into rough drawing data, and write deterministic Dart catalogs for `skribble_emoji` and `skribble_icons`.
+The repository tools that compile skribble's art and pinned icon sets into deterministic Dart catalogs for `skribble_emoji`, `skribble`, and the `skribble_icons_*` packages.
 
 Run the full asset rebuild from the skribble repository root:
 
@@ -8,13 +8,15 @@ Run the full asset rebuild from the skribble repository root:
 dart run packages/skribble_emoji_gen/bin/update_assets.dart
 ```
 
-`update_assets.dart` downloads the pinned OpenMoji release, verifies its SHA-256 hashes, regenerates emoji and icon catalogs, rebuilds the bundled skribble fonts, and formats the generated Dart files. Upstream updates require an explicit source version and checksum change.
+`update_assets.dart` runs every generator below and rebuilds the bundled skribble fonts. Each generator verifies its own pinned inputs, so an upstream update always needs an explicit version and checksum change.
 
-The lower-level generators are repository tools:
+- `generate_emoji.dart` builds skribble's emoji catalog. It downloads Unicode's `emoji-test.txt` (pinned by version and SHA-256), plans every fully-qualified emoji onto a drawing in `packages/skribble_emoji/art`, compiles those SVGs, and writes the catalog, the skin-tone map, and the art. Gendered emoji share one drawing, skin tones and "facing right" are applied at runtime, and flags are waved and outlined here. The run fails when any emoji has no drawing; `--allow-missing` lists them instead, and `--report <path>` writes a JSON coverage report.
+- `generate_glyphs.dart` rebuilds `SkribbleGlyphs` in the core package from the stroke SVGs and `glyphs.json` in `packages/skribble/tool/glyphs`, emitting the named glyphs and their Material codepoint fallbacks from one run so they cannot drift.
+- `generate_iconify_set.dart` converts a pinned Iconify `icons.json` payload into a catalog for one of the `skribble_icons_*` packages. It resolves Iconify aliases, applies per-icon geometry and flip overrides, and warps every outline with a deterministic rough pass.
 
-- `generate_emoji.dart` builds an emoji catalog from an extracted OpenMoji SVG directory and CSV file.
-- `generate_glyphs.dart` rebuilds `SkribbleGlyphs` in the core package from the stroke SVGs and `glyphs.json` in `packages/skribble/tool/glyphs`, emitting the named glyphs and their Material codepoint fallbacks from one run so they cannot drift. Both generators accept `--check`, which re-derives the catalog into memory and fails on any byte difference.
-- `generate_iconify_set.dart` converts a pinned Iconify `icons.json` payload into a catalog for one of the `skribble_icons_*` packages. It resolves Iconify aliases, applies per-icon geometry and flip overrides, and warps every outline with the same deterministic rough pass the other generators use. All three sets together finish in seconds, because the conversion is pure Dart rather than a headless-browser round trip per icon.
+Every generator accepts `--check`, which re-derives its output in memory and fails on any byte difference without writing.
+
+The library side is `EmojiArtCompiler` (the SVG authoring rules in `packages/skribble_emoji/art/STYLE.md`, enforced), `parseEmojiTest` and `planEmoji` (Unicode's list onto art keys), and the SVG shape and transform helpers the icon generators share.
 
 ## Verification
 
@@ -22,5 +24,3 @@ The lower-level generators are repository tools:
 cd packages/skribble_emoji_gen
 dart test
 ```
-
-OpenMoji artwork is available under the CC BY-SA 4.0 license. Generated packages retain the required attribution and license files.

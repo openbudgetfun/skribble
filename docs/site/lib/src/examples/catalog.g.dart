@@ -122,12 +122,17 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'emoji': ExampleDefinition(
     builder: _emoji,
-    source: "Wrap(\n  spacing: 20,\n  runSpacing: 20,\n  children: [\n    WiredEmoji.fromName('grinning_face', size: 56),\n    WiredEmoji.fromSequence(\n      '👩🏽‍💻',\n      size: 56,\n      semanticLabel: 'Developer',\n    ),\n    WiredEmoji.fromSequence(\n      '🇬🇧',\n      size: 56,\n      semanticLabel: 'United Kingdom',\n    ),\n  ],\n)",
+    source: "Wrap(\n  spacing: 20,\n  runSpacing: 20,\n  children: [\n    for (final emoji in ['😀', '🎉', '👩🏽‍💻', '🐱', '🍕', '🚀', '🇯🇵'])\n      WiredEmoji(emoji, size: 56, weight: settings.weight),\n  ],\n)",
+    edits: [ExampleEdit(170, 185, ExampleParameter.weight)],
+  ),
+  'emoji-tones': ExampleDefinition(
+    builder: _emojiTones,
+    source: "Wrap(\n  spacing: 16,\n  runSpacing: 16,\n  children: [\n    for (final tone in EmojiSkinTone.values)\n      WiredEmoji(\n        SkribbleEmoji.withTone(SkribbleEmoji.lookup('👋')!, tone)!.emoji,\n        size: 48,\n      ),\n  ],\n)",
     edits: [],
   ),
-  'emoji-sequences': ExampleDefinition(
-    builder: _emojiSequences,
-    source: "Wrap(\n  spacing: 20,\n  runSpacing: 20,\n  children: [\n    WiredEmoji.fromSequence(\n      '👩🏽‍💻',\n      size: 64,\n      semanticLabel: 'Developer',\n    ),\n    PrecomputedEmoji.fromSequence(\n      '🇬🇧',\n      size: 64,\n      semanticLabel: 'United Kingdom',\n    ),\n  ],\n)",
+  'emoji-text': ExampleDefinition(
+    builder: _emojiText,
+    source: "const WiredEmojiText(\n  'Shipped it 🚀 and the whole team ❤️ it 🎉',\n  style: TextStyle(fontSize: 24),\n)",
     edits: [],
   ),
   'circular-progress': ExampleDefinition(

@@ -102,3 +102,39 @@ SkribbleGlyphs.all['home'];
 `SkribbleIconSet.curated` is now `SkribbleIconSet.glyphs`, and `lookupSkribbleIconByIdentifier` still searches the glyphs first.
 
 Without a registered catalog, `WiredIcon` now draws the matching glyph for about sixty common Material icons (home, search, check, close, the arrows and chevrons, and so on) instead of the plain font glyph. Wired widgets use the glyphs for their own chrome, so checkboxes, chips, and search bars look hand-drawn out of the box.
+
+## skribble draws its own emoji
+
+`skribble_emoji` no longer converts OpenMoji. Every emoji is drawn for skribble and inked at runtime by the theme pen, so emoji now follow the theme's roughness, pen, and `weight` like everything else. The catalog covers all of Unicode Emoji 18.0, and the art is MIT rather than CC BY-SA.
+
+`WiredEmoji` takes the emoji itself, and the precomputed-path API is gone:
+
+```dart
+// Static example: api
+// Before
+WiredEmoji.fromName('grinning_face', size: 32);
+WiredEmoji.fromSequence('👩🏽‍💻', size: 32);
+PrecomputedEmoji.fromSequence('🇬🇧', size: 32);
+lookupSkribbleEmojiByName('red_heart');
+EmojiSearch.search('cat');
+
+// After
+const WiredEmoji('😀', size: 32);
+const WiredEmoji('👩🏽‍💻', size: 32);
+const WiredEmoji('🇬🇧', size: 32);
+WiredEmoji.named('grinning_face', size: 32);
+SkribbleEmoji.named('red_heart');
+SkribbleEmoji.search('cat');
+```
+
+| 0.2                                                  | 0.3                                                       |
+| ---------------------------------------------------- | --------------------------------------------------------- |
+| `WiredEmoji.fromName`, `fromSequence`, `fromUnicode` | `WiredEmoji(emoji)` or `WiredEmoji.named(identifier)`     |
+| `PrecomputedEmoji`                                   | `WiredEmoji`; `EmojiDrawing` for custom painters          |
+| `PrecomputedEmoji.color`                             | `palette: EmojiPalette.skribble.copyWith(...)`            |
+| `kSkribbleEmoji`, `kSkribbleEmojiNames`, …           | `SkribbleEmoji.all`, `.defaults`, `.inGroup(group)`       |
+| `lookupSkribbleEmojiBy*`                             | `SkribbleEmoji.lookup(text)`, `SkribbleEmoji.named(id)`   |
+| `EmojiSearch`, `EmojiSearchResult`                   | `SkribbleEmoji.search(query)` returning `EmojiEntry`      |
+| `WiredSvgIconData` re-exports                        | import them from `package:skribble/skribble.dart` instead |
+
+Snake-case identifiers now come from the Unicode short name, so OpenMoji's own extra, non-Unicode emoji and their names are gone. New in 0.3 are `WiredEmojiText` for emoji inside text, skin tones through `SkribbleEmoji.withTone`, and poseable parts through `EmojiDrawing.paint(canvas, pose: ...)`. See [Emoji](/widgets/emoji).

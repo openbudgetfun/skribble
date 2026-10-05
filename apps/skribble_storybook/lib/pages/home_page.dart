@@ -178,7 +178,7 @@ const _categories = [
   ),
   _Category(
     title: 'Emoji',
-    description: 'Hand-drawn emoji from OpenMoji rendered as SVG icons',
+    description: 'Every Unicode emoji, drawn for skribble and inked live',
     route: '/emoji',
     icon: Icons.emoji_emotions_outlined,
   ),

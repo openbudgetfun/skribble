@@ -35,11 +35,13 @@ simple-icons 1.2.96 6eea755f8cf3a9f6482fcbb6d291746c9133ed4ed2d94dc0814e9529675e
 # <<< iconify
 
 # [emoji]
-# Pinned in packages/skribble_emoji_gen/bin/update_assets.dart; that script
-# verifies both checksums before generating.
-openmoji version=17.0.0 license=CC-BY-SA-4.0 homepage=https://openmoji.org
-openmoji-svg-color.zip sha256=59b0cd9f6fe033818fc02585cea42bea9fba5d68a4d3a3639bfe5d5cc3805689
-openmoji.csv sha256=28375217b92fafbacc59d7dfea631c720abedc883518dbf12a73d25d4032cbe7e
+# The emoji art is skribble's own: hand-written SVGs in
+# packages/skribble_emoji/art, MIT like the rest of the repository. The only
+# upstream input is Unicode's emoji list, pinned in
+# packages/skribble_emoji_gen/bin/generate_emoji.dart, which verifies the hash
+# before generating.
+unicode-emoji version=18.0 license=Unicode-3.0 homepage=https://www.unicode.org/emoji/
+emoji-test.txt sha256=8f3735cda1f92a779d78af67cf86066bb1f07143dc22f2ac29394d9bc57ab21a
 
 # [material]
 # Icon declarations come from the pinned Flutter SDK. Source SVGs come from npm

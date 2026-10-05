@@ -1,5 +1,7 @@
 # Hand-drawn quality work
 
+> **Superseded for emoji.** The OpenMoji pipeline this report describes has been replaced by skribble's own hand-drawn emoji, compiled from SVG art in `packages/skribble_emoji/art` and inked at runtime by the theme pen. See `docs/site/content/widgets/emoji.md`. The font and pen notes below still apply.
+
 skribble now uses a real outline-derived Recursive Casual family, a broader rounded pen for UI borders, and complete OpenMoji 17 artwork. The storybook's **The sketchbook** page combines those pieces in an interactive notebook with morning and evening palettes.
 
 ## What was wrong
