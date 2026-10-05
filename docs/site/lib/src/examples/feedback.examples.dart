@@ -180,13 +180,8 @@ Widget _cupertinoActionSheet(ExampleSettings settings) => Builder(
 );
 
 /// @docs-example progress
-Widget _linearProgress(ExampleSettings settings) => Column(
-  children: [
-    WiredProgress(value: settings.amount, semanticLabel: 'Uploading'),
-    const SizedBox(height: 16),
-    const WiredProgress(semanticLabel: 'Working'),
-  ],
-);
+Widget _linearProgress(ExampleSettings settings) =>
+    WiredProgress(value: settings.amount, semanticLabel: 'Uploading');
 
 /// @docs-example animated-icon
 Widget _animatedIcon(ExampleSettings settings) => HookBuilder(

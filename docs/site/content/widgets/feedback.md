@@ -126,13 +126,14 @@ A hand-drawn linear progress bar. Give it a `value` from 0 to 1 and the marker f
 
 ```dart
 // Live example: progress
-Column(
-  children: [
-    WiredProgress(value: .6, semanticLabel: 'Uploading'),
-    const SizedBox(height: 16),
-    const WiredProgress(semanticLabel: 'Working'),
-  ],
-)
+WiredProgress(value: .6, semanticLabel: 'Uploading')
+```
+
+Leave the value out while the amount of work is unknown:
+
+```dart
+// Static example: api
+const WiredProgress(semanticLabel: 'Working');
 ```
 
 ### Constructor parameters

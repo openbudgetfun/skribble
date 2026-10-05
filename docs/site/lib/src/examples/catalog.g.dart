@@ -202,8 +202,8 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'progress': ExampleDefinition(
     builder: _linearProgress,
-    source: "Column(\n  children: [\n    WiredProgress(value: settings.amount, semanticLabel: 'Uploading'),\n    const SizedBox(height: 16),\n    const WiredProgress(semanticLabel: 'Working'),\n  ],\n)",
-    edits: [ExampleEdit(47, 62, ExampleParameter.amount)],
+    source: "WiredProgress(value: settings.amount, semanticLabel: 'Uploading')",
+    edits: [ExampleEdit(21, 36, ExampleParameter.amount)],
   ),
   'animated-icon': ExampleDefinition(
     builder: _animatedIcon,
