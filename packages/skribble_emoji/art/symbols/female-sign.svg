@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="sign">
+    <g fill="ink" stroke="ink" stroke-width="3.5">
+      <circle cx="18" cy="12.4" r="5.8" fill="none" stroke-width="7.1"/>
+      <rect x="16.2" y="17.6" width="3.6" height="13.6" rx="1.8" ry="1.8"/>
+      <rect x="11.4" y="23.4" width="13.2" height="3.6" rx="1.8" ry="1.8"/>
+    </g>
+    <g fill="pink">
+      <circle cx="18" cy="12.4" r="5.8" fill="none" stroke="pink" stroke-width="3.6"/>
+      <rect x="16.2" y="17.6" width="3.6" height="13.6" rx="1.8" ry="1.8"/>
+      <rect x="11.4" y="23.4" width="13.2" height="3.6" rx="1.8" ry="1.8"/>
+    </g>
+    <path d="M12.7 10.4 A5.8 5.8 0 0 1 15.6 7.1" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

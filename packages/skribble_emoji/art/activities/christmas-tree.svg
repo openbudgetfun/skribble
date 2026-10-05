@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="tree-clip">
+      <path d="M18 6.8 L24.6 14.6 L21.8 14.6 L27.8 22 L24.8 22 L31 29.6 L5 29.6 L11.2 22 L8.2 22 L14.2 14.6 L11.4 14.6 Z"/>
+    </clipPath>
+  </defs>
+  <rect data-part="trunk" x="15.2" y="27.6" width="5.6" height="6" rx="1" ry="1" fill="brown" stroke="ink" stroke-width="1.75"/>
+  <g id="tree" stroke="ink">
+    <path d="M18 6.8 L24.6 14.6 L21.8 14.6 L27.8 22 L24.8 22 L31 29.6 L5 29.6 L11.2 22 L8.2 22 L14.2 14.6 L11.4 14.6 Z" fill="green-shade" stroke="none"/>
+    <g clip-path="url(#tree-clip)">
+      <path d="M18 6.8 L24.6 14.6 L21.8 14.6 L27.8 22 L24.8 22 L31 29.6 L5 29.6 L11.2 22 L8.2 22 L14.2 14.6 L11.4 14.6 Z" transform="translate(-1.6 -1.4)" fill="green" stroke="none"/>
+    </g>
+    <path d="M18 6.8 L24.6 14.6 L21.8 14.6 L27.8 22 L24.8 22 L31 29.6 L5 29.6 L11.2 22 L8.2 22 L14.2 14.6 L11.4 14.6 Z" fill="none"/>
+  </g>
+  <g id="baubles" stroke="ink" stroke-width="1.25">
+    <circle cx="16" cy="12.4" r="1.4" fill="red"/>
+    <circle cx="21.2" cy="19.2" r="1.5" fill="yellow"/>
+    <circle cx="12.8" cy="20.2" r="1.5" fill="blue"/>
+    <circle cx="16.4" cy="26.4" r="1.5" fill="yellow"/>
+    <circle cx="24.6" cy="26.6" r="1.5" fill="red"/>
+  </g>
+  <path data-part="star" d="M18 2 L18.94 4.51 L21.61 4.63 L19.52 6.29 L20.23 8.87 L18 7.4 L15.77 8.87 L16.48 6.29 L14.39 4.63 L17.06 4.51 Z" fill="yellow" stroke="ink" stroke-width="1.5"/>
+</svg>

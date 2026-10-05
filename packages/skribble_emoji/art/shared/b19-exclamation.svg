@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A bold red exclamation mark for the punctuation symbols. -->
+  <g id="bar">
+    <path d="M14.4 6.8 Q14.4 3.6 18 3.6 Q21.6 3.6 21.6 6.8 L20.2 20.8 Q20 22.8 18 22.8 Q16 22.8 15.8 20.8 Z" fill="red"/>
+    <path d="M21.6 6.8 L20.2 20.8 Q20 22.8 18 22.8 Q19 21 19.4 17.8 L20.2 6.4 Q20.4 4.4 21.6 6.8 Z" fill="red-shade"/>
+    <path d="M14.4 6.8 Q14.4 3.6 18 3.6 Q21.6 3.6 21.6 6.8 L20.2 20.8 Q20 22.8 18 22.8 Q16 22.8 15.8 20.8 Z" fill="none" stroke="ink"/>
+    <path d="M16.6 7 L16.8 10" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+  <circle data-part="dot" cx="18" cy="28.8" r="3.2" fill="red" stroke="ink"/>
+</svg>

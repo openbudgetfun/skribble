@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="chopsticks" stroke="ink" stroke-width="1.5">
+    <g transform="translate(5 31) rotate(-47.9)">
+      <path d="M0 -0.7 L35.7 -1.7 Q36.7 -1.7 36.7 0 Q36.7 1.7 35.7 1.7 L0 0.7 Q-0.6 0 0 -0.7 Z" fill="tan"/>
+      <path d="M29.6 -1.5 L35.7 -1.7 Q36.7 -1.7 36.7 0 Q36.7 1.7 35.7 1.7 L29.6 1.5 Z" fill="red"/>
+    </g>
+    <g transform="translate(8.8 33.2) rotate(-45.7)">
+      <path d="M0 -0.7 L33.6 -1.7 Q34.6 -1.7 34.6 0 Q34.6 1.7 33.6 1.7 L0 0.7 Q-0.6 0 0 -0.7 Z" fill="tan"/>
+      <path d="M27.6 -1.5 L33.6 -1.7 Q34.6 -1.7 34.6 0 Q34.6 1.7 33.6 1.7 L27.6 1.5 Z" fill="red"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="globe">
+    <circle cx="18" cy="18" r="15" fill="blue"/>
+    <path d="M31.7 11.9 A15 15 0 0 1 18 33 C25.6 30.4 30.6 22.6 31.7 11.9 Z" fill="blue-shade"/>
+    <g fill="none" stroke="ink" stroke-width="1.5">
+      <ellipse cx="18" cy="18" rx="6.6" ry="15"/>
+      <path d="M18 3 L18 33 M3 18 L33 18"/>
+      <path d="M5.1 10.4 Q18 15 30.9 10.4 M5.1 25.6 Q18 30.2 30.9 25.6"/>
+    </g>
+    <circle cx="18" cy="18" r="15" fill="none" stroke="ink"/>
+    <path d="M7.6 11.6 Q9.2 7.8 13 6" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

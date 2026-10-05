@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b20-button-blue"/>
+  <g id="glyph" fill="none" stroke="white" stroke-width="2.6">
+    <path d="M7.5 12.2 L7.5 19.74 A3.26 4.06 0 0 0 14.02 19.74 L14.02 12.2 M17.72 23.8 L17.72 12.2 L20.89 12.2 A2.61 3.13 0 0 1 20.89 18.46 L17.72 18.46 M27.85 12.2 L27.85 19.39"/>
+    <circle cx="27.85" cy="23.1" r="1.16" fill="white" stroke="none"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="plate" stroke="ink">
+    <ellipse cx="18" cy="24" rx="15.6" ry="6.4" fill="white"/>
+    <path d="M33.6 24 C33.6 27.6 26.6 30.4 18 30.4 C25.6 29.2 31.4 26.8 32.4 23.2 Q33.4 23.4 33.6 24 Z" fill="silver" stroke="none"/>
+    <ellipse cx="18" cy="24" rx="15.6" ry="6.4" fill="none"/>
+  </g>
+  <g id="slice" stroke="ink" stroke-width="1.75">
+    <path d="M5.4 15.4 L8.4 15.4 L8.4 26.4 L5.4 26.4 Z" fill="yellow"/>
+    <path d="M5.4 15.4 L11.4 10.4 L14.4 10.4 L8.4 15.4 Z" fill="cream"/>
+    <path d="M8.4 15.4 L14.4 10.4 L14.4 21.4 L8.4 26.4 Z" fill="yellow-shade"/>
+  </g>
+  <g id="butter" stroke="ink">
+    <path d="M11.6 14.4 L24 14.4 L24 25.8 L11.6 25.8 Z" fill="yellow"/>
+    <path d="M11.6 14.4 L17.6 9.4 L30 9.4 L24 14.4 Z" fill="cream"/>
+    <path d="M24 14.4 L30 9.4 L30 20.8 L24 25.8 Z" fill="yellow-shade"/>
+  </g>
+</svg>

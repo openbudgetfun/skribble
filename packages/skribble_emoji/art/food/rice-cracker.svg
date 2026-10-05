@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="cracker-clip"><circle cx="18" cy="18" r="14.6"/></clipPath>
+  </defs>
+  <g id="cracker" stroke="ink">
+    <circle cx="18" cy="18" r="14.6" fill="brown" stroke="none"/>
+    <path d="M27.21 6.67 A14.6 14.6 0 1 1 6.67 27.21 A14.6 14.6 0 0 0 27.21 6.67 Z" fill="brown-shade" stroke="none"/>
+    <g fill="brown-shade" stroke="none">
+      <circle cx="11.4" cy="11.6" r="0.8"/>
+      <circle cx="17" cy="9" r="0.8"/>
+      <circle cx="22.8" cy="10.8" r="0.8"/>
+      <circle cx="14.6" cy="15" r="0.8"/>
+      <circle cx="20.6" cy="15.6" r="0.8"/>
+      <circle cx="26" cy="16.2" r="0.8"/>
+      <circle cx="9" cy="17.4" r="0.8"/>
+    </g>
+    <path clip-path="url(#cracker-clip)" d="M2 20.6 Q18 23.2 34 20.6 L34 28.8 Q18 31.4 2 28.8 Z" fill="black" stroke-width="1.5"/>
+    <circle cx="18" cy="18" r="14.6" fill="none"/>
+    <path d="M7.8 13.6 Q8.8 9.4 12.6 7.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

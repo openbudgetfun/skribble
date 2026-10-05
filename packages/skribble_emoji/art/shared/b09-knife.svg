@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- b09: an upright table knife centred on x 18, blade at the top. -->
+  <g stroke="ink" stroke-width="1.75">
+    <path d="M16.2 3 Q16.2 2.2 17 2.2 C20.4 3 21.6 7.4 21.6 13.4 L21.6 17.6 L16.2 17.6 Z" fill="silver"/>
+    <rect x="15.8" y="16.8" width="4.4" height="16.8" rx="2.2" ry="2.2" fill="grey"/>
+  </g>
+</svg>

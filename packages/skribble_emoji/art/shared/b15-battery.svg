@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A battery casing with an empty window; the battery emoji fill the window. -->
+  <g id="battery" stroke="ink">
+    <rect x="29.2" y="13.2" width="4.2" height="9.6" rx="1.4" ry="1.4" fill="silver"/>
+    <rect x="2.6" y="8.2" width="27.8" height="19.6" rx="4" ry="4" fill="silver"/>
+    <path d="M30.4 17 L30.4 23.8 Q30.4 27.8 26.4 27.8 L16 27.8 C23.4 26.8 29 23.4 30.4 17 Z" fill="grey" stroke="none"/>
+    <rect x="2.6" y="8.2" width="27.8" height="19.6" rx="4" ry="4" fill="none"/>
+    <rect x="5.4" y="11" width="22.2" height="14" rx="2" ry="2" fill="white" stroke-width="1.5"/>
+  </g>
+</svg>

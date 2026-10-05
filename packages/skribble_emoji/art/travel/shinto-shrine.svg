@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="torii" stroke="ink">
+    <rect x="8.2" y="10.4" width="3.8" height="21.4" fill="red"/>
+    <rect x="24" y="10.4" width="3.8" height="21.4" fill="red"/>
+    <path d="M10.8 12 h1.2 v17 h-1.2 Z M26.6 12 h1.2 v17 h-1.2 Z" fill="red-shade" stroke="none"/>
+    <rect x="8.2" y="10.4" width="3.8" height="21.4" fill="none"/>
+    <rect x="24" y="10.4" width="3.8" height="21.4" fill="none"/>
+    <rect x="7.6" y="28.8" width="5" height="3" rx="0.6" ry="0.6" fill="black" stroke-width="1.5"/>
+    <rect x="23.4" y="28.8" width="5" height="3" rx="0.6" ry="0.6" fill="black" stroke-width="1.5"/>
+    <rect x="4.4" y="15.6" width="27.2" height="2.8" rx="0.6" ry="0.6" fill="red"/>
+    <rect x="16" y="10.8" width="4" height="5" rx="0.4" ry="0.4" fill="black" stroke-width="1.5"/>
+    <path d="M4.6 8.2 Q18 10.2 31.4 8.2 L31.2 11.2 Q18 13 4.8 11.2 Z" fill="red"/>
+    <path d="M2.4 4.6 Q18 8.4 33.6 4.6 L33 7.6 Q18 10.8 3 7.6 Z" fill="black"/>
+  </g>
+</svg>

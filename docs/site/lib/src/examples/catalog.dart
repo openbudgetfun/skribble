@@ -6,7 +6,7 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_charts/skribble_charts.dart';
 import 'package:skribble_docs_site/src/examples/example.dart';
 import 'package:skribble_emoji/skribble_emoji.dart'
-    show PrecomputedEmoji, WiredEmoji;
+    show EmojiSkinTone, SkribbleEmoji, WiredEmoji, WiredEmojiText;
 import 'package:skribble_icons/skribble_icons.dart'
     show SkribbleIcon, registerSkribbleIcons;
 import 'package:skribble_maps/skribble_maps.dart';

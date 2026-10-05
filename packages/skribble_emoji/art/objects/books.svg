@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="book-bottom" stroke="ink">
+    <rect x="2.8" y="24.6" width="29.6" height="8.6" rx="1.4" ry="1.4" fill="blue"/>
+    <rect x="3.2" y="30.8" width="28.8" height="2" rx="1" ry="1" fill="blue-shade" stroke="none"/>
+    <rect x="2.8" y="24.6" width="29.6" height="8.6" rx="1.4" ry="1.4" fill="none"/>
+    <path d="M6.4 25.4 L6.4 32.4 M28.8 25.4 L28.8 32.4" fill="none" stroke="yellow" stroke-width="1.75"/>
+    <rect x="13.4" y="27.2" width="8.4" height="3.4" rx="0.8" ry="0.8" fill="white" stroke-width="1.25"/>
+  </g>
+  <g id="book-middle" stroke="ink">
+    <rect x="5.4" y="16" width="27.4" height="8.6" rx="1.4" ry="1.4" fill="green"/>
+    <rect x="5.8" y="22.2" width="26.6" height="2" rx="1" ry="1" fill="green-shade" stroke="none"/>
+    <rect x="5.4" y="16" width="27.4" height="8.6" rx="1.4" ry="1.4" fill="none"/>
+    <path d="M9 16.8 L9 23.8 M29.2 16.8 L29.2 23.8" fill="none" stroke="yellow" stroke-width="1.75"/>
+    <rect x="15" y="18.6" width="8.4" height="3.4" rx="0.8" ry="0.8" fill="white" stroke-width="1.25"/>
+  </g>
+  <g id="book-top" transform="rotate(-5 17 12)" stroke="ink">
+    <rect x="4" y="7.6" width="26" height="8.4" rx="1.4" ry="1.4" fill="red"/>
+    <rect x="4.4" y="13.6" width="25.2" height="2" rx="1" ry="1" fill="red-shade" stroke="none"/>
+    <rect x="4" y="7.6" width="26" height="8.4" rx="1.4" ry="1.4" fill="none"/>
+    <path d="M7.6 8.4 L7.6 15.2 M26.4 8.4 L26.4 15.2" fill="none" stroke="yellow" stroke-width="1.75"/>
+    <rect x="12.8" y="10.1" width="8.4" height="3.4" rx="0.8" ry="0.8" fill="white" stroke-width="1.25"/>
+  </g>
+</svg>

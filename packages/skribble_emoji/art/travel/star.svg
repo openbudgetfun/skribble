@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="star-clip"><path d="M18 3.4 L22.47 13.05 L33.03 14.32 L25.23 21.55 L27.29 31.98 L18 26.8 L8.71 31.98 L10.77 21.55 L2.97 14.32 L13.53 13.05Z"/></clipPath></defs>
+  <g id="star">
+    <path d="M18 3.4 L22.47 13.05 L33.03 14.32 L25.23 21.55 L27.29 31.98 L18 26.8 L8.71 31.98 L10.77 21.55 L2.97 14.32 L13.53 13.05Z" fill="yellow"/>
+    <path d="M18 3.4 L22.47 13.05 L33.03 14.32 L25.23 21.55 L27.29 31.98 L18 26.8 L8.71 31.98 L10.77 21.55 L2.97 14.32 L13.53 13.05Z M16.2 1.6 L20.67 11.25 L31.23 12.52 L23.43 19.75 L25.49 30.18 L16.2 25 L6.91 30.18 L8.97 19.75 L1.17 12.52 L11.73 11.25Z" fill="yellow-shade" fill-rule="evenodd" clip-path="url(#star-clip)"/>
+    <path d="M18 3.4 L22.47 13.05 L33.03 14.32 L25.23 21.55 L27.29 31.98 L18 26.8 L8.71 31.98 L10.77 21.55 L2.97 14.32 L13.53 13.05Z" fill="none" stroke="ink"/>
+  </g>
+</svg>

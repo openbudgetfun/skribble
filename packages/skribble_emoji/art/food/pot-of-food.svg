@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="steam" fill="none" stroke="grey" stroke-width="1.75">
+    <path d="M12 10.2 Q10.4 8.2 12 6.4 Q13.6 4.6 12 2.8"/>
+    <path d="M18 9.4 Q16.4 7.4 18 5.6 Q19.6 3.8 18 2.2"/>
+    <path d="M24 10.2 Q22.4 8.2 24 6.4 Q25.6 4.6 24 2.8"/>
+  </g>
+  <g id="stew" stroke="ink">
+    <path d="M5.6 17 C6 13 11 11 18 11 C25 11 30 13 30.4 17 Z" fill="orange"/>
+    <circle cx="13" cy="14.4" r="1.6" fill="green" stroke-width="1.25"/>
+    <rect x="18.6" y="12.6" width="3" height="3" rx="0.6" ry="0.6" fill="cream" stroke-width="1.25"/>
+    <circle cx="25" cy="15" r="1.3" fill="orange-shade" stroke-width="1.25"/>
+  </g>
+  <g id="pot" stroke="ink">
+    <rect x="1.8" y="17.4" width="5" height="3.6" rx="1.4" ry="1.4" fill="red"/>
+    <rect x="29.2" y="17.4" width="5" height="3.6" rx="1.4" ry="1.4" fill="red"/>
+    <path d="M4.6 16 Q18 19.6 31.4 16 L29.8 28.6 Q29.4 32.6 25.4 32.6 L10.6 32.6 Q6.6 32.6 6.2 28.6 Z" fill="red" stroke="none"/>
+    <path d="M31.4 16 L29.8 28.6 Q29.4 32.6 25.4 32.6 L22.4 32.6 C25.4 30.6 27.4 27 28 22.6 L28.8 17 Z" fill="red-shade" stroke="none"/>
+    <path d="M4.6 16 Q18 19.6 31.4 16 L29.8 28.6 Q29.4 32.6 25.4 32.6 L10.6 32.6 Q6.6 32.6 6.2 28.6 Z" fill="none"/>
+    <path d="M9.6 21.6 L10.2 27.6" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

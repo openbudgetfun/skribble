@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="frame" stroke="ink">
+    <path d="M5.4 33.6 L5.4 4.4 Q5.4 2.4 7.4 2.4 L28.6 2.4 Q30.6 2.4 30.6 4.4 L30.6 33.6 Z" fill="tan"/>
+  </g>
+  <g id="door" stroke="ink">
+    <path d="M8.4 33.6 L8.4 6 Q8.4 5.2 9.2 5.2 L26.8 5.2 Q27.6 5.2 27.6 6 L27.6 33.6 Z" fill="brown" stroke="none"/>
+    <path d="M27.6 6.4 L27.6 33.6 L25.4 33.6 L25.4 6.4 Z" fill="brown-shade" stroke="none"/>
+    <path d="M8.4 33.6 L8.4 6 Q8.4 5.2 9.2 5.2 L26.8 5.2 Q27.6 5.2 27.6 6 L27.6 33.6 Z" fill="none" stroke-width="1.75"/>
+    <rect x="11.4" y="8.4" width="11.6" height="9" rx="1" ry="1" fill="none" stroke-width="1.5"/>
+    <rect x="11.4" y="21.6" width="11.6" height="9.4" rx="1" ry="1" fill="none" stroke-width="1.5"/>
+    <circle data-part="knob" cx="23.8" cy="19.6" r="1.6" fill="yellow" stroke-width="1.5"/>
+  </g>
+  <path d="M3.4 33.6 L32.6 33.6" fill="none" stroke="ink"/>
+</svg>

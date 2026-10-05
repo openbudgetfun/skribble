@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="mark">
+    <path d="M6 4.6 L18 11 L18 32.2 L6 21.8 Z" fill="yellow"/>
+    <path d="M18 11 L30 4.6 L30 21.8 L18 32.2 Z" fill="green"/>
+    <path d="M30 4.6 L30 21.8 L18 32.2 L18 29.6 L28 20.8 L28 5.8 Z" fill="green-shade"/>
+    <path d="M18 11 L18 32.2" fill="none" stroke="ink" stroke-width="1.5"/>
+    <path d="M6 4.6 L18 11 L30 4.6 L30 21.8 L18 32.2 L6 21.8 Z" fill="none" stroke="ink"/>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="bottom"><path d="M6.2 19.6 L29.8 19.6 Q30.6 19.6 30.4 20.4 L29.6 23.2 Q23.4 25.2 21 32.4 L15 32.4 Q12.6 25.2 6.4 23.2 L5.6 20.4 Q5.4 19.6 6.2 19.6 Z"/></clipPath>
+  </defs>
+  <g id="strings" fill="none" stroke="ink" stroke-width="1.5">
+    <path d="M12.6 6.4 L15.4 2.8 M23.4 6.4 L20.6 2.8 M7.4 14.4 L2.8 13 M28.6 14.4 L33.2 13 M16.8 15 L19.2 15"/>
+    <path d="M6 21 L2.8 19.4 M6 21 L3 23.2 M30 21 L33.2 19.4 M30 21 L33 23.2"/>
+  </g>
+  <g id="top" stroke="ink" stroke-width="1.75">
+    <path d="M12.6 6.2 Q8.4 9.8 7.2 15 Q12.2 16.6 17.2 15.4 Q16.6 9.4 12.6 6.2 Z" fill="yellow"/>
+    <path d="M23.4 6.2 Q27.6 9.8 28.8 15 Q23.8 16.6 18.8 15.4 Q19.4 9.4 23.4 6.2 Z" fill="yellow"/>
+    <g fill="red" stroke="none">
+      <circle cx="11.4" cy="12.2" r="1"/>
+      <circle cx="14.4" cy="14" r="0.9"/>
+      <circle cx="24.6" cy="12.2" r="1"/>
+      <circle cx="21.6" cy="14" r="0.9"/>
+    </g>
+  </g>
+  <g id="bottom" stroke="ink">
+    <path d="M6.2 19.6 L29.8 19.6 Q30.6 19.6 30.4 20.4 L29.6 23.2 Q23.4 25.2 21 32.4 L15 32.4 Q12.6 25.2 6.4 23.2 L5.6 20.4 Q5.4 19.6 6.2 19.6 Z" fill="yellow" stroke="none"/>
+    <path d="M36 19 Q26 26 20 34 L36 34 Z" fill="yellow-shade" stroke="none" clip-path="url(#bottom)"/>
+    <g fill="red" stroke="none">
+      <circle cx="11" cy="21.6" r="1"/>
+      <circle cx="18" cy="22.6" r="1"/>
+      <circle cx="25" cy="21.6" r="1"/>
+      <circle cx="16.8" cy="28" r="0.9"/>
+    </g>
+    <path d="M6.2 19.6 L29.8 19.6 Q30.6 19.6 30.4 20.4 L29.6 23.2 Q23.4 25.2 21 32.4 L15 32.4 Q12.6 25.2 6.4 23.2 L5.6 20.4 Q5.4 19.6 6.2 19.6 Z" fill="none"/>
+  </g>
+</svg>

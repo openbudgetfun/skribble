@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.6" y="18.8" width="4.8" height="5.4" fill="skin"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="orange"/>
+    <path d="M25.4 24.8 C28.2 26.4 30 29.6 30.2 34.6 L26.8 34.6 C27 30.4 26.6 27.2 25.4 24.8 Z" fill="orange-shade" stroke="none"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="none"/>
+    <path d="M15.4 23.2 L18 25.6 L20.6 23.2 M18 25.6 L18 30" fill="none" stroke-width="1.5"/>
+  </g>
+  <g data-include="head"/>
+  <path data-part="beard" data-variant="man" d="M10.8 15 C11 21.4 14.2 23.6 18 23.6 C21.8 23.6 25 21.4 25.2 15 C24.2 18.2 22 19.8 18 19.8 C14 19.8 11.8 18.2 10.8 15 Z" fill="hair" stroke="ink" stroke-width="1.5"/>
+  <g id="turban" stroke="ink" stroke-width="1.75">
+    <path d="M10 12.4 C8.4 6 12.2 1.8 18 1.8 C23.8 1.8 27.6 6 26 12.4 C23.8 10.6 21 10 18 10.2 C15 10 12.2 10.6 10 12.4 Z" fill="white"/>
+    <path d="M24.4 3.8 C26.8 5.6 27 9 26 12.4 C25 11.6 24 11 22.8 10.6 C24.2 8.6 24.8 6.4 24.4 3.8 Z" fill="silver" stroke="none"/>
+    <path d="M10 12.4 C8.4 6 12.2 1.8 18 1.8 C23.8 1.8 27.6 6 26 12.4 C23.8 10.6 21 10 18 10.2 C15 10 12.2 10.6 10 12.4 Z" fill="none"/>
+    <path d="M10.6 9.4 Q15.4 4.2 24.8 5 M12.4 11 Q18.4 6.8 26 9" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

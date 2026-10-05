@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- b11: a clock face centred on (18, 18), radius 14: white dial, a silver
+       crescent on the lower right, the ink rim, and four hour ticks. Clocks
+       include it (scaled into their case) and draw their own ink `hands`. -->
+  <circle cx="18" cy="18" r="14" fill="white"/>
+  <path d="M30.8 12.3 A14 14 0 0 1 18 32 C25.1 29.6 29.8 22.3 30.8 12.3 Z" fill="silver"/>
+  <circle cx="18" cy="18" r="14" fill="none" stroke="ink"/>
+  <path d="M18 5.8 L18 8.2 M30.2 18 L27.8 18 M18 30.2 L18 27.8 M5.8 18 L8.2 18" fill="none" stroke="ink" stroke-width="1.75"/>
+</svg>

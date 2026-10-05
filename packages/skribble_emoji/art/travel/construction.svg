@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="board">
+      <rect x="2.6" y="10" width="30.8" height="9.6" rx="2" ry="2"/>
+    </clipPath>
+  </defs>
+  <g id="legs" stroke="ink">
+    <rect x="6.6" y="12" width="2.8" height="19.6" rx="0.8" ry="0.8" fill="grey" stroke-width="1.75"/>
+    <rect x="26.6" y="12" width="2.8" height="19.6" rx="0.8" ry="0.8" fill="grey" stroke-width="1.75"/>
+    <path d="M4.2 31.6 L11.8 31.6 M24.2 31.6 L31.8 31.6" fill="none" stroke-width="2.25"/>
+  </g>
+  <g id="light" stroke="ink" stroke-width="1.5">
+    <path d="M5.6 10 L5.6 8.2 Q5.6 5.4 8 5.4 Q10.4 5.4 10.4 8.2 L10.4 10 Z" fill="yellow"/>
+    <path d="M3.6 4.6 L4.6 5.6 M8 2.4 L8 3.6 M12.4 4.6 L11.4 5.6" fill="none" stroke="yellow-shade" stroke-width="1.75"/>
+  </g>
+  <g id="board" stroke="ink">
+    <rect x="2.6" y="10" width="30.8" height="9.6" rx="2" ry="2" fill="white" stroke="none"/>
+    <path d="M4 10 L7.8 10 L2.8 19.6 L-1 19.6 Z M11.6 10 L15.4 10 L10.4 19.6 L6.6 19.6 Z M19.2 10 L23 10 L18 19.6 L14.2 19.6 Z M26.8 10 L30.6 10 L25.6 19.6 L21.8 19.6 Z M34.4 10 L38.2 10 L33.2 19.6 L29.4 19.6 Z" fill="orange" stroke="none" clip-path="url(#board)"/>
+    <rect x="2.6" y="10" width="30.8" height="9.6" rx="2" ry="2" fill="none"/>
+  </g>
+</svg>

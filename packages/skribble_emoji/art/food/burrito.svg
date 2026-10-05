@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="burrito" stroke="ink" transform="translate(0.6 0) rotate(-40 18 18)">
+    <path d="M8.6 11.4 L27.4 11.4 L27.4 24.6 L8.6 24.6 C4.8 24.6 2.4 21.6 2.4 18 C2.4 14.4 4.8 11.4 8.6 11.4 Z" fill="cream" stroke="none"/>
+    <path d="M3 20.8 C4 23.2 6 24.6 8.6 24.6 L27.4 24.6 L27.4 22 L9 22 C6.8 22 4.6 21.8 3 20.8 Z" fill="tan" stroke="none"/>
+    <path d="M8.6 11.4 L27.4 11.4 L27.4 24.6 L8.6 24.6 C4.8 24.6 2.4 21.6 2.4 18 C2.4 14.4 4.8 11.4 8.6 11.4 Z" fill="none"/>
+    <path d="M13.6 11.6 C16 15.6 16.2 20.4 14.2 24.4" fill="none" stroke-width="1.5"/>
+    <path d="M8 15.4 L8 15.5 M20.4 14.4 L20.4 14.5 M21.6 20.6 L21.6 20.7" fill="none" stroke="tan" stroke-width="2"/>
+  </g>
+  <g id="filling" stroke="ink" transform="translate(0.6 0) rotate(-40 18 18)">
+    <ellipse cx="27.4" cy="18" rx="4.6" ry="6.6" fill="cream"/>
+    <ellipse cx="27.4" cy="18" rx="3.1" ry="5" fill="brown" stroke="none"/>
+    <circle cx="26.8" cy="15.6" r="1.2" fill="green" stroke="none"/>
+    <circle cx="28.2" cy="19.2" r="1.2" fill="red" stroke="none"/>
+    <circle cx="26.4" cy="20.8" r="0.9" fill="yellow" stroke="none"/>
+  </g>
+</svg>

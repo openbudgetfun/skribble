@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="arrows">
+    <g fill="ink" stroke="ink" stroke-width="3.5">
+      <g>
+        <rect x="11.5" y="8.27" width="9.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(-59.99 16.4 9.97)"/>
+        <rect x="14.2" y="9.14" width="11.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(59.98 20.1 10.84)"/>
+        <path d="M19.76 17.04 L24.8 18.98 L25.64 13.64 Z"/>
+      </g>
+      <g transform="rotate(120 18 21.29)">
+        <rect x="11.5" y="8.27" width="9.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(-59.99 16.4 9.97)"/>
+        <rect x="14.2" y="9.14" width="11.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(59.98 20.1 10.84)"/>
+        <path d="M19.76 17.04 L24.8 18.98 L25.64 13.64 Z"/>
+      </g>
+      <g transform="rotate(240 18 21.29)">
+        <rect x="11.5" y="8.27" width="9.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(-59.99 16.4 9.97)"/>
+        <rect x="14.2" y="9.14" width="11.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(59.98 20.1 10.84)"/>
+        <path d="M19.76 17.04 L24.8 18.98 L25.64 13.64 Z"/>
+      </g>
+    </g>
+    <g fill="green">
+      <g>
+        <rect x="11.5" y="8.27" width="9.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(-59.99 16.4 9.97)"/>
+        <rect x="14.2" y="9.14" width="11.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(59.98 20.1 10.84)"/>
+        <path d="M19.76 17.04 L24.8 18.98 L25.64 13.64 Z"/>
+      </g>
+      <g transform="rotate(120 18 21.29)">
+        <rect x="11.5" y="8.27" width="9.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(-59.99 16.4 9.97)"/>
+        <rect x="14.2" y="9.14" width="11.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(59.98 20.1 10.84)"/>
+        <path d="M19.76 17.04 L24.8 18.98 L25.64 13.64 Z"/>
+      </g>
+      <g transform="rotate(240 18 21.29)">
+        <rect x="11.5" y="8.27" width="9.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(-59.99 16.4 9.97)"/>
+        <rect x="14.2" y="9.14" width="11.8" height="3.4" rx="1.7" ry="1.7" transform="rotate(59.98 20.1 10.84)"/>
+        <path d="M19.76 17.04 L24.8 18.98 L25.64 13.64 Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

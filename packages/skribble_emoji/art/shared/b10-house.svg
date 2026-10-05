@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A cream house with a red roof, chimney, door, and two windows. It
+       fills x 2.8–33.2, y 3.8–31.8. house and house-with-garden include it. -->
+  <g id="house" stroke="ink">
+    <rect x="22.6" y="5.6" width="4.2" height="9" rx="0.8" ry="0.8" fill="brown"/>
+    <rect x="6.4" y="15.4" width="23.2" height="16.4" rx="1" ry="1" fill="cream"/>
+    <path d="M26.8 18.6 L29.6 18.6 L29.6 30.8 Q29.6 31.8 28.6 31.8 L26.8 31.8 Z" fill="tan" stroke="none"/>
+    <rect x="6.4" y="15.4" width="23.2" height="16.4" rx="1" ry="1" fill="none"/>
+    <path d="M3 17.6 L16.4 5.2 Q18 3.8 19.6 5.2 L33 17.6 Q33.6 19 32 19 L4 19 Q2.4 19 3 17.6 Z" fill="red"/>
+    <path d="M19.6 5.2 L33 17.6 Q33.6 19 32 19 L26.4 19 Q24.4 11.4 19.6 5.2 Z" fill="red-shade" stroke="none"/>
+    <path d="M3 17.6 L16.4 5.2 Q18 3.8 19.6 5.2 L33 17.6 Q33.6 19 32 19 L4 19 Q2.4 19 3 17.6 Z" fill="none"/>
+    <g id="door">
+      <path d="M15.4 31.8 L15.4 24.4 Q15.4 22.4 17.4 22.4 L18.6 22.4 Q20.6 22.4 20.6 24.4 L20.6 31.8 Z" fill="brown" stroke-width="1.75"/>
+      <circle cx="19.2" cy="27.4" r="0.6" fill="ink" stroke="none"/>
+    </g>
+    <g id="windows" stroke-width="1.5">
+      <rect x="9" y="21.8" width="4.6" height="4.6" rx="0.6" ry="0.6" fill="sky"/>
+      <rect x="22.4" y="21.8" width="4.6" height="4.6" rx="0.6" ry="0.6" fill="sky"/>
+      <path d="M11.3 21.8 L11.3 26.4 M9 24.1 L13.6 24.1 M24.7 21.8 L24.7 26.4 M22.4 24.1 L27 24.1" fill="none" stroke-width="1.25"/>
+    </g>
+  </g>
+</svg>

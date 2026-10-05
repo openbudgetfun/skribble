@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="pan" stroke="ink">
+    <path d="M23 25.8 L29.8 32.6 Q31 33.6 32.2 32.6 L32.6 32.2 Q33.6 31 32.6 29.8 L25.8 23 Z" fill="grey-shade"/>
+    <circle cx="15.6" cy="15.6" r="12.6" fill="grey"/>
+    <circle cx="15.6" cy="15.6" r="10.2" fill="grey-shade" stroke-width="1.5"/>
+    <path d="M6.6 13.4 Q7.6 9.2 11.4 7" fill="none" stroke="silver" stroke-width="1.75"/>
+  </g>
+  <g id="egg" stroke="ink">
+    <path d="M9.6 12 C11 8.2 16.4 7.4 19.8 9.4 C23.4 11.4 23.6 16.4 21.4 19.6 C19.4 22.6 14.6 23.6 11.4 21.6 C8.4 19.8 8.4 15.2 9.6 12 Z" fill="white" stroke-width="1.75"/>
+    <circle cx="15.8" cy="15.4" r="4" fill="yellow" stroke-width="1.5"/>
+    <path d="M13.8 14.6 Q14 13.2 15.4 12.8" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

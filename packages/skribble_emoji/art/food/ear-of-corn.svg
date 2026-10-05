@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="cob"><path d="M18 2.6 C22.6 2.6 24.6 8.6 24.6 15.6 C24.6 22.8 22 28.6 18 28.6 C14 28.6 11.4 22.8 11.4 15.6 C11.4 8.6 13.4 2.6 18 2.6 Z"/></clipPath>
+  </defs>
+  <g id="corn" stroke="ink" transform="rotate(35 18 18)">
+    <path d="M18 2.6 C22.6 2.6 24.6 8.6 24.6 15.6 C24.6 22.8 22 28.6 18 28.6 C14 28.6 11.4 22.8 11.4 15.6 C11.4 8.6 13.4 2.6 18 2.6 Z" fill="yellow" stroke="none"/>
+    <path d="M22.4 5.6 C23.8 8 24.6 11.6 24.6 15.6 C24.6 22.8 22 28.6 18 28.6 C20.6 25.6 22 20.8 22.2 15.4 C22.4 11.6 22.4 8.4 22.4 5.6 Z" fill="yellow-shade" stroke="none"/>
+    <path clip-path="url(#cob)" d="M14.6 2 C13.6 10 13.6 20 14.6 30 M18 2 L18 30 M21.4 2 C22.4 10 22.4 20 21.4 30 M10 6.4 L26 6.4 M10 10 L26 10 M10 13.6 L26 13.6 M10 17.2 L26 17.2 M10 20.8 L26 20.8 M10 24.4 L26 24.4" fill="none" stroke="yellow-shade" stroke-width="1.5"/>
+    <path d="M18 2.6 C22.6 2.6 24.6 8.6 24.6 15.6 C24.6 22.8 22 28.6 18 28.6 C14 28.6 11.4 22.8 11.4 15.6 C11.4 8.6 13.4 2.6 18 2.6 Z" fill="none"/>
+  </g>
+  <g id="husk" fill="green" stroke="ink" stroke-width="1.75" transform="rotate(35 18 18)">
+    <path d="M18 33.6 C25.2 31.6 28.4 24.2 27 14.4 C24.4 20 21.4 25.4 16.4 28 Z" fill="leaf"/>
+    <path d="M18 33.6 C10.8 31.6 7.6 24.2 9 14.4 C11.6 20 14.6 25.4 19.6 28 Z"/>
+  </g>
+</svg>

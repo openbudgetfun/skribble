@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="green" stroke="ink">
+    <ellipse cx="18" cy="29.2" rx="14.6" ry="4.4" fill="green" stroke="none"/>
+    <path d="M31.6 27.4 C32.3 28 32.6 28.6 32.6 29.2 C32.6 31.63 26.06 33.6 18 33.6 C24.8 32.6 30 30.8 31.6 27.4 Z" fill="green-shade" stroke="none"/>
+    <ellipse cx="18" cy="29.2" rx="14.6" ry="4.4" fill="none"/>
+    <ellipse cx="18" cy="29.4" rx="3.2" ry="1.2" fill="ink" stroke="none"/>
+  </g>
+  <rect data-part="pole" x="17.2" y="3.4" width="1.6" height="26" rx="0.8" ry="0.8" fill="white" stroke="ink" stroke-width="1.25"/>
+  <path data-part="flag" d="M18.8 3.6 L30.4 8.8 L18.8 14 Z" fill="red" stroke="ink" stroke-width="1.75"/>
+</svg>

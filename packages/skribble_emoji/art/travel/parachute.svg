@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="canopy">
+      <path d="M3 15.4 Q3 3 18 3 Q33 3 33 15.4 Q30.5 13.4 28 15.4 Q25.5 13.4 23 15.4 Q20.5 13.4 18 15.4 Q15.5 13.4 13 15.4 Q10.5 13.4 8 15.4 Q5.5 13.4 3 15.4 Z"/>
+    </clipPath>
+  </defs>
+  <g id="lines" fill="none" stroke="ink" stroke-width="1.25">
+    <path d="M3.4 15.2 L15.4 26.6 M13 15.4 L16.6 26.6 M23 15.4 L19.4 26.6 M32.6 15.2 L20.6 26.6"/>
+  </g>
+  <g id="canopy" stroke="ink">
+    <path d="M3 15.4 Q3 3 18 3 Q33 3 33 15.4 Q30.5 13.4 28 15.4 Q25.5 13.4 23 15.4 Q20.5 13.4 18 15.4 Q15.5 13.4 13 15.4 Q10.5 13.4 8 15.4 Q5.5 13.4 3 15.4 Z" fill="red" stroke="none"/>
+    <path d="M18 3 Q10.4 6 8 16 L13 16 Q14 7 18 3 Z M18 3 Q22 7 23 16 L28 16 Q25.6 6 18 3 Z" fill="yellow" stroke="none" clip-path="url(#canopy)"/>
+    <path d="M18 3 Q14 7 13 16 L23 16 Q22 7 18 3 Z" fill="white" stroke="none" clip-path="url(#canopy)"/>
+    <path d="M33 15.4 Q32.8 9 28.6 5.6 Q30.6 10 30 14.2 Q31.6 13.8 33 15.4 Z" fill="red-shade" stroke="none"/>
+    <path d="M3 15.4 Q3 3 18 3 Q33 3 33 15.4 Q30.5 13.4 28 15.4 Q25.5 13.4 23 15.4 Q20.5 13.4 18 15.4 Q15.5 13.4 13 15.4 Q10.5 13.4 8 15.4 Q5.5 13.4 3 15.4 Z" fill="none"/>
+    <path d="M18 3 Q10.4 6 8 15.4 M18 3 Q14 7 13 15.4 M18 3 Q22 7 23 15.4 M18 3 Q25.6 6 28 15.4" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="cargo" stroke="ink">
+    <rect x="14.6" y="26.4" width="6.8" height="6" rx="0.8" ry="0.8" fill="tan" stroke-width="1.75"/>
+    <path d="M18 26.4 L18 32.4" fill="none" stroke="brown" stroke-width="1.5"/>
+  </g>
+</svg>

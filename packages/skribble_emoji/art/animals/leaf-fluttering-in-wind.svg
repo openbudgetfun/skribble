@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="wind" fill="none" stroke="ink" stroke-width="1.5">
+    <path d="M3 22.6 C8 21.4 11 23.8 15.4 22.4"/>
+    <path d="M4.4 27.6 C9.4 26.4 13 29.6 18.4 27.4"/>
+    <path d="M20.4 8 C24.4 6.6 27.4 8.4 30.8 7"/>
+  </g>
+  <g id="leaf-back" transform="translate(6.6 -3.4) rotate(58 18 18) translate(18 18) scale(0.7) translate(-18 -18)" stroke="ink">
+    <path d="M18 4 C24.8 9.4 25.6 19 18 27.4 C10.4 19 11.2 9.4 18 4 Z" fill="lime"/>
+    <path d="M24.4 11 C25.4 16.6 23.4 22.4 18 27.4 C21.4 22.2 23.4 16.6 24.4 11 Z" fill="green" stroke="none"/>
+    <path d="M18 4 C24.8 9.4 25.6 19 18 27.4 C10.4 19 11.2 9.4 18 4 Z" fill="none"/>
+    <path d="M18 7 L18 30.6" fill="none" stroke="green-shade" stroke-width="1.5"/>
+  </g>
+  <g id="leaf-front" transform="translate(-1.6 3.4) rotate(-58 18 18) translate(18 18) scale(0.8) translate(-18 -18)" stroke="ink">
+    <path d="M18 4 C24.8 9.4 25.6 19 18 27.4 C10.4 19 11.2 9.4 18 4 Z" fill="green"/>
+    <path d="M24.4 11 C25.4 16.6 23.4 22.4 18 27.4 C21.4 22.2 23.4 16.6 24.4 11 Z" fill="green-shade" stroke="none"/>
+    <path d="M18 4 C24.8 9.4 25.6 19 18 27.4 C10.4 19 11.2 9.4 18 4 Z" fill="none"/>
+    <path d="M18 7 L18 30.6 M18 13 L21.2 10.8 M18 17.6 L22 15 M18 13 L14.8 10.8 M18 17.6 L14 15" fill="none" stroke="leaf" stroke-width="1.5"/>
+  </g>
+</svg>

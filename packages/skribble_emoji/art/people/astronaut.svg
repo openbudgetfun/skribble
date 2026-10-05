@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="visor"><circle cx="18" cy="13.8" r="8.8"/></clipPath>
+  </defs>
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="white"/>
+    <path d="M25.4 24.8 C28.2 26.4 30 29.6 30.2 34.6 L26.8 34.6 C27 30.4 26.6 27.2 25.4 24.8 Z" fill="silver" stroke="none"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="none"/>
+    <rect x="13.6" y="27.4" width="8.8" height="5.2" rx="1" ry="1" fill="grey" stroke-width="1.5"/>
+    <circle cx="16" cy="30" r="0.95" fill="red" stroke="none"/>
+    <circle cx="20" cy="30" r="0.95" fill="sky" stroke="none"/>
+  </g>
+  <circle data-part="visor" cx="18" cy="13.8" r="8.8" fill="sky"/>
+  <g data-include="head" clip-path="url(#visor)"/>
+  <g id="helmet" stroke="ink" stroke-width="1.75">
+    <path fill-rule="evenodd" d="M6.8 13.8 A11.2 11.2 0 1 0 29.2 13.8 A11.2 11.2 0 1 0 6.8 13.8 Z M9.2 13.8 A8.8 8.8 0 1 1 26.8 13.8 A8.8 8.8 0 1 1 9.2 13.8 Z" fill="white"/>
+    <path d="M28.4 18.4 A11.2 11.2 0 0 1 20.4 24.8 L20 22.4 A8.8 8.8 0 0 0 26.2 17.6 Z" fill="silver" stroke="none"/>
+    <path fill-rule="evenodd" d="M6.8 13.8 A11.2 11.2 0 1 0 29.2 13.8 A11.2 11.2 0 1 0 6.8 13.8 Z M9.2 13.8 A8.8 8.8 0 1 1 26.8 13.8 A8.8 8.8 0 1 1 9.2 13.8 Z" fill="none"/>
+    <path d="M11.4 9.4 Q12.6 7 15.2 6.2" fill="none" stroke="paper"/>
+  </g>
+</svg>

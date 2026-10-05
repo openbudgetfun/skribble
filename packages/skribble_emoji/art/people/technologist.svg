@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.6" y="18.8" width="4.8" height="5.4" fill="skin"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="blue"/>
+    <path d="M15.4 23.2 L18 26.2 L20.6 23.2" fill="none" stroke-width="1.5"/>
+  </g>
+  <g data-include="head"/>
+  <g id="laptop" stroke="ink">
+    <path d="M8.4 33.4 L9.6 24.6 Q9.8 23.6 10.8 23.6 L25.2 23.6 Q26.2 23.6 26.4 24.6 L27.6 33.4 Z" fill="silver"/>
+    <path d="M18 30.6 C15.6 29.2 15.2 27.8 15.8 27 C16.4 26.2 17.4 26.4 18 27.2 C18.6 26.4 19.6 26.2 20.2 27 C20.8 27.8 20.4 29.2 18 30.6 Z" fill="coral" stroke-width="1.25"/>
+    <path d="M5.6 33.6 L30.4 33.6" fill="none" stroke-width="2.25"/>
+  </g>
+</svg>

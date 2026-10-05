@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="boomerang" stroke="ink" transform="translate(0.1 -1.8) rotate(-8 18 18)">
+    <path d="M30.2 8.4 C22 6.6 12 5.4 7.4 7.4 C5.4 12 6.6 22 8.4 30.2 Q9 32.6 11.4 32.2 Q13.8 31.6 14 29.4 C13.8 23 13 17 15 15 C17 13 23 13.8 29.4 14 Q31.6 13.8 32.2 11.4 Q32.6 9 30.2 8.4 Z" fill="brown" stroke="none"/>
+    <path d="M14 29.4 C13.8 23 13 17 15 15 C17 13 23 13.8 29.4 14 L29.6 12 C23.4 11.8 16.4 11.2 13.6 13.6 C11.2 16.4 11.8 23.4 12 29.6 Z" fill="brown-shade" stroke="none"/>
+    <path d="M30.2 8.4 C22 6.6 12 5.4 7.4 7.4 C5.4 12 6.6 22 8.4 30.2 Q9 32.6 11.4 32.2 Q13.8 31.6 14 29.4 C13.8 23 13 17 15 15 C17 13 23 13.8 29.4 14 Q31.6 13.8 32.2 11.4 Q32.6 9 30.2 8.4 Z" fill="none"/>
+    <g fill="cream" stroke="none">
+      <circle cx="9.8" cy="9.8" r="1.2"/>
+      <circle cx="15.2" cy="9.4" r="1"/>
+      <circle cx="20.6" cy="9.9" r="1"/>
+      <circle cx="26" cy="10.7" r="1"/>
+      <circle cx="9.4" cy="15.2" r="1"/>
+      <circle cx="9.9" cy="20.6" r="1"/>
+      <circle cx="10.7" cy="26" r="1"/>
+    </g>
+  </g>
+</svg>

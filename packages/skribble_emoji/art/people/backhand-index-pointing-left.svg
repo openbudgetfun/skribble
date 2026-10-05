@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Back of the hand: index finger pointing left over three curled
+       fingers, cuff on the right. -->
+  <g id="hand" stroke="ink" transform="translate(-0.8 -1.6)">
+    <rect x="26.4" y="11.6" width="7" height="16.4" rx="1.2" ry="1.2" fill="blue"/>
+    <path d="M26.4 12.6 C23.6 11.2 20.4 11.2 17.8 12.4 L6.4 12.4 C3.4 12.4 3.4 17 6.4 17 L14.6 17 C12.4 17 12.4 20.8 14.6 20.8 C12.6 20.8 12.6 24.4 14.8 24.4 C13.2 24.4 13.2 27.6 15.4 27.6 C19 28.4 23 28.4 26.4 27 Z" fill="skin" stroke="none"/>
+    <path d="M26.4 27 C23 28.4 19 28.4 15.4 27.6 C15 27.6 14.6 27.4 14.4 27 C18.4 26.8 22.6 26.2 26.4 25 Z" fill="skin-shade" stroke="none"/>
+    <path d="M26.4 12.6 C23.6 11.2 20.4 11.2 17.8 12.4 L6.4 12.4 C3.4 12.4 3.4 17 6.4 17 L14.6 17 C12.4 17 12.4 20.8 14.6 20.8 C12.6 20.8 12.6 24.4 14.8 24.4 C13.2 24.4 13.2 27.6 15.4 27.6 C19 28.4 23 28.4 26.4 27 Z" fill="none"/>
+    <path d="M14.6 17 L20.4 17 M14.6 20.8 L19.6 20.8 M14.8 24.4 L19.4 24.4" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

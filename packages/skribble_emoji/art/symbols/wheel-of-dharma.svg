@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b18-button-purple"/>
+  <g data-part="wheel" stroke="white">
+    <path d="M6.6 18 L29.4 18 M18 6.6 L18 29.4 M9.94 9.94 L26.06 26.06 M26.06 9.94 L9.94 26.06" fill="none" stroke-width="1.75"/>
+    <circle cx="18" cy="18" r="7.4" fill="none" stroke-width="2.6"/>
+    <circle cx="18" cy="18" r="2.4" fill="white" stroke="none"/>
+    <g fill="white" stroke="none">
+      <circle cx="29.4" cy="18" r="1.5"/>
+      <circle cx="26.06" cy="26.06" r="1.5"/>
+      <circle cx="18" cy="29.4" r="1.5"/>
+      <circle cx="9.94" cy="26.06" r="1.5"/>
+      <circle cx="6.6" cy="18" r="1.5"/>
+      <circle cx="9.94" cy="9.94" r="1.5"/>
+      <circle cx="18" cy="6.6" r="1.5"/>
+      <circle cx="26.06" cy="9.94" r="1.5"/>
+    </g>
+  </g>
+</svg>

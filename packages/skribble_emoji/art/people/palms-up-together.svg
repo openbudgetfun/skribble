@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Two palms side by side, little fingers touching, thumbs out, held up
+       together as if to receive something. -->
+  <g id="right-hand" data-include="b03-palm" transform="translate(25 18.4) rotate(10) scale(0.66) translate(-18.5 -18.5)"/>
+  <g id="left-hand" data-include="b03-palm-flip" transform="translate(11 18.4) rotate(-10) scale(0.66) translate(-18.5 -18.5)"/>
+</svg>

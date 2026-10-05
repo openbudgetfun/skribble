@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="left-speech-bubble"/>
+  <g id="eye" stroke="ink">
+    <path d="M8.4 15.8 Q18 6.2 27.6 15.8 Q18 25.4 8.4 15.8 Z" fill="paper" stroke-width="1.75"/>
+    <circle cx="18" cy="15.8" r="3.8" fill="blue" stroke-width="1.5"/>
+    <circle cx="18" cy="15.8" r="1.7" fill="ink" stroke="none"/>
+    <circle cx="19.3" cy="14.5" r="0.7" fill="paper" stroke="none"/>
+  </g>
+</svg>

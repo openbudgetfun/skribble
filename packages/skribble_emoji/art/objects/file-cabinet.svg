@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="cabinet" stroke="ink">
+    <rect x="6" y="2.8" width="24" height="30.6" rx="2" ry="2" fill="silver" stroke="none"/>
+    <path d="M30 17 L30 31.4 Q30 33.4 28 33.4 L18 33.4 C24.6 31.4 28.8 25.6 30 17 Z" fill="grey" stroke="none"/>
+    <rect x="6" y="2.8" width="24" height="30.6" rx="2" ry="2" fill="none"/>
+    <rect x="8.6" y="5.4" width="18.8" height="7.8" rx="1" ry="1" fill="none" stroke-width="1.5"/>
+    <rect x="8.6" y="14.4" width="18.8" height="7.8" rx="1" ry="1" fill="none" stroke-width="1.5"/>
+    <rect x="8.6" y="23.4" width="18.8" height="7.8" rx="1" ry="1" fill="none" stroke-width="1.5"/>
+    <path d="M15.6 7.2 L20.4 7.2 L20.4 8.8 L15.6 8.8 Z M15.6 16.2 L20.4 16.2 L20.4 17.8 L15.6 17.8 Z M15.6 25.2 L20.4 25.2 L20.4 26.8 L15.6 26.8 Z" fill="white" stroke-width="1.25"/>
+    <path d="M15 11 L21 11 M15 20 L21 20 M15 29 L21 29" fill="none" stroke-width="2.25"/>
+  </g>
+</svg>

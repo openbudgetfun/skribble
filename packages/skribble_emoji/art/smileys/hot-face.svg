@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face" data-tokens="yellow:coral,yellow-shade:red-shade"/>
+  <g id="brows" fill="none" stroke="ink" stroke-width="1.75">
+    <path d="M9.2 10.6 Q12.4 10.2 15 8.4"/>
+    <path d="M21 8.4 Q23.6 10.2 26.8 10.6"/>
+  </g>
+  <g id="eyes">
+    <path d="M10.6 13.8 L14.6 13.8 Q14.6 17 12.6 17 Q10.6 17 10.6 13.8 Z" fill="ink"/>
+    <path d="M21.4 13.8 L25.4 13.8 Q25.4 17 23.4 17 Q21.4 17 21.4 13.8 Z" fill="ink"/>
+    <path d="M9.8 13.8 L15.4 13.8 M20.6 13.8 L26.2 13.8" fill="none" stroke="ink"/>
+  </g>
+  <g id="mouth">
+    <path d="M11.4 21 Q18 22.6 24.6 21 Q24 27 18 27 Q12 27 11.4 21 Z" fill="ink"/>
+    <path d="M14.4 23.6 L21.6 23.6 L21.6 27.8 Q21.6 31.6 18 31.6 Q14.4 31.6 14.4 27.8 Z" fill="pink" stroke="ink" stroke-width="1.5"/>
+    <path d="M18 24.6 L18 27.6" fill="none" stroke="pink-shade" stroke-width="1.25"/>
+  </g>
+  <g id="sweat">
+    <g data-include="b01-drop" transform="translate(5.2 3.6) scale(0.85) translate(-18 -13.2)"/>
+    <g data-include="b01-drop" transform="translate(30.4 5.6) scale(0.95) translate(-18 -13.2)"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="star-clip"><path d="M18 5.6 L21.76 13.62 L30.55 14.72 L24.09 20.78 L25.76 29.48 L18 25.2 L10.24 29.48 L11.91 20.78 L5.45 14.72 L14.24 13.62Z"/></clipPath></defs>
+  <path data-part="glow" d="M26.35 7.31 L27.76 5.37 M31.51 23.19 L33.79 23.93 M4.49 23.19 L2.21 23.93 M9.65 7.31 L8.24 5.37" fill="none" stroke="yellow-shade" stroke-width="2"/>
+  <g id="sparkles" fill="yellow" stroke="ink" stroke-width="1.25">
+    <path d="M4.6 2.4 Q4.6 4.8 7 4.8 Q4.6 4.8 4.6 7.2 Q4.6 4.8 2.2 4.8 Q4.6 4.8 4.6 2.4 Z"/>
+    <path d="M31.4 29 Q31.4 31.2 33.6 31.2 Q31.4 31.2 31.4 33.4 Q31.4 31.2 29.2 31.2 Q31.4 31.2 31.4 29 Z"/>
+  </g>
+  <g id="star">
+    <path d="M18 5.6 L21.76 13.62 L30.55 14.72 L24.09 20.78 L25.76 29.48 L18 25.2 L10.24 29.48 L11.91 20.78 L5.45 14.72 L14.24 13.62Z" fill="yellow"/>
+    <path d="M18 5.6 L21.76 13.62 L30.55 14.72 L24.09 20.78 L25.76 29.48 L18 25.2 L10.24 29.48 L11.91 20.78 L5.45 14.72 L14.24 13.62Z M16.4 4 L20.16 12.02 L28.95 13.12 L22.49 19.18 L24.16 27.88 L16.4 23.6 L8.64 27.88 L10.31 19.18 L3.85 13.12 L12.64 12.02Z" fill="yellow-shade" fill-rule="evenodd" clip-path="url(#star-clip)"/>
+    <path d="M18 5.6 L21.76 13.62 L30.55 14.72 L24.09 20.78 L25.76 29.48 L18 25.2 L10.24 29.48 L11.91 20.78 L5.45 14.72 L14.24 13.62Z" fill="none" stroke="ink"/>
+  </g>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="sea" stroke="ink">
+    <rect x="2.4" y="23" width="31.2" height="8.6" rx="4.3" ry="4.3" fill="blue"/>
+    <path d="M5.6 28.4 Q7.2 27.2 8.8 28.4 M27.2 28.4 Q28.8 27.2 30.4 28.4" fill="none" stroke="white" stroke-width="1.5"/>
+  </g>
+  <g id="island" stroke="ink">
+    <path d="M7.4 27.6 C9 22.6 13.2 20.6 18 20.6 C22.8 20.6 27 22.6 28.6 27.6 Z" fill="cream"/>
+    <path d="M28.6 27.6 C27 22.6 22.8 20.6 19.4 20.6 C23 22.4 25.4 24.8 25.8 27.6 Z" fill="tan" stroke="none"/>
+    <path d="M7.4 27.6 C9 22.6 13.2 20.6 18 20.6 C22.8 20.6 27 22.6 28.6 27.6 Z" fill="none"/>
+  </g>
+  <g id="palm" stroke="ink">
+    <path d="M14.8 22.4 C15.2 17.4 17 13.2 20.4 9.6 L22.6 10.8 C19.8 14.2 18.2 18 18 22.4 Z" fill="brown" stroke-width="1.75"/>
+    <path d="M15.6 18.6 L18.4 19 M17 14.8 L19.6 15.6" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="fronds" fill="green" stroke="ink" stroke-width="1.5">
+    <path d="M21.6 10 C16.6 5.2 9.6 6.2 6.6 12.4 C11.4 11.2 16.4 11.6 21.6 10 Z"/>
+    <path d="M21.6 10 C20 5.2 15.6 2.6 11.6 3.6 C15.8 5.2 18.4 7.2 21.6 10 Z"/>
+    <path d="M21.6 10 C23.2 5.4 27.8 3 31.4 4.6 C27.4 5.8 24.4 7.6 21.6 10 Z"/>
+    <path d="M21.6 10 C26.8 7.4 32.4 9.4 33.4 15 C29.6 12.2 25.8 11 21.6 10 Z"/>
+    <circle cx="20.2" cy="11.8" r="1.4" fill="brown" stroke-width="1.25"/>
+    <circle cx="22.8" cy="12.2" r="1.4" fill="brown" stroke-width="1.25"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="back"><path d="M15.6 31.4 L24.6 13.4 Q25.6 11.6 26.6 13.4 L33.6 31.4 Z"/></clipPath>
+    <clipPath id="front"><path d="M2.4 31.4 L14.4 7.4 Q15.6 5.2 16.8 7.4 L29.4 31.4 Z"/></clipPath>
+  </defs>
+  <g id="back-peak" stroke="ink">
+    <path d="M15.6 31.4 L24.6 13.4 Q25.6 11.6 26.6 13.4 L33.6 31.4 Z" fill="silver"/>
+    <polygon points="20.4,21.8 25.6,10 31,21.8 28.8,20 27,22 25,19.8 22.8,21.8" fill="white" stroke-width="1.5" clip-path="url(#back)"/>
+    <path d="M15.6 31.4 L24.6 13.4 Q25.6 11.6 26.6 13.4 L33.6 31.4 Z" fill="none"/>
+  </g>
+  <g id="peak" stroke="ink">
+    <path d="M2.4 31.4 L14.4 7.4 Q15.6 5.2 16.8 7.4 L29.4 31.4 Z" fill="grey"/>
+    <path d="M15.6 6 L29.4 31.4 L22.4 31.4 Q19.8 18 15.6 6 Z" fill="grey-shade" stroke="none" clip-path="url(#front)"/>
+    <polygon points="8,17.4 15.6,3 23.2,17.4 20.8,15.2 18.8,17.6 16.6,15 14.2,17.4 12,15.4" fill="white" stroke-width="1.5" clip-path="url(#front)"/>
+    <path d="M2.4 31.4 L14.4 7.4 Q15.6 5.2 16.8 7.4 L29.4 31.4 Z" fill="none"/>
+  </g>
+</svg>

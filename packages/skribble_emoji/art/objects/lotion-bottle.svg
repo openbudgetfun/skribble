@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="pump" stroke="ink">
+    <rect x="6.2" y="5" width="7" height="2.4" rx="1.2" ry="1.2" fill="white" stroke-width="1.5"/>
+    <rect x="16.6" y="7.6" width="2.8" height="4" rx="0.5" ry="0.5" fill="white" stroke-width="1.5"/>
+    <rect x="12" y="3.8" width="12" height="4" rx="1.4" ry="1.4" fill="white" stroke-width="1.75"/>
+  </g>
+  <g id="bottle" stroke="ink">
+    <rect x="14.2" y="11" width="7.6" height="4.2" rx="1" ry="1" fill="white" stroke-width="1.75"/>
+    <rect x="8.6" y="14.6" width="18.8" height="19" rx="4.4" ry="4.4" fill="pink" stroke="none"/>
+    <path d="M27.4 21.6 L27.4 29.2 Q27.4 33.6 23 33.6 L14 33.6 Q24.4 32 25.4 21.6 Z" fill="pink-shade" stroke="none"/>
+    <rect x="8.6" y="14.6" width="18.8" height="19" rx="4.4" ry="4.4" fill="none"/>
+    <path d="M10.6 19.6 L10.6 27.4" fill="none" stroke="paper" stroke-width="1.75"/>
+    <rect x="12.6" y="19.4" width="11.6" height="10" rx="1.6" ry="1.6" fill="white" stroke-width="1.5"/>
+    <path d="M18.4 21.6 C18.8 22.6 20.4 23.8 20.4 25 C20.4 26.2 19.5 27 18.4 27 C17.3 27 16.4 26.2 16.4 25 C16.4 23.8 18 22.6 18.4 21.6 Z" fill="pink" stroke-width="1.25"/>
+  </g>
+</svg>

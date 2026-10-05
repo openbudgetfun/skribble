@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="ladder" stroke="ink">
+    <path d="M14 10.2 L14 11.4 M31 10.2 L31 11.4" fill="none" stroke-width="1.5"/>
+    <rect x="11.4" y="6.8" width="22" height="3.4" rx="0.8" ry="0.8" fill="silver" stroke-width="1.5"/>
+    <path d="M15 6.8 L15 10.2 M18.6 6.8 L18.6 10.2 M22.2 6.8 L22.2 10.2 M25.8 6.8 L25.8 10.2 M29.4 6.8 L29.4 10.2" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="light" stroke="ink" stroke-width="1.5">
+    <path d="M5.4 11.4 L5.4 10 Q5.4 8.8 6.6 8.8 L8.2 8.8 Q9.4 8.8 9.4 10 L9.4 11.4 Z" fill="yellow"/>
+  </g>
+  <g id="body" stroke="ink">
+    <path d="M5 25 Q3 25 3 23 L3 15 Q3 11.4 6.6 11.4 L31.4 11.4 Q33 11.4 33 13 L33 23 Q33 25 31 25 Z" fill="red" stroke="none"/>
+    <path d="M33 16.6 L33 23 Q33 25 31 25 L12 25 Q28.4 24.2 31.8 20.8 Q32.8 19.6 33 16.6 Z" fill="red-shade" stroke="none"/>
+    <path d="M5 25 Q3 25 3 23 L3 15 Q3 11.4 6.6 11.4 L31.4 11.4 Q33 11.4 33 13 L33 23 Q33 25 31 25 Z" fill="none"/>
+    <path d="M4.8 17.6 L4.8 15.4 Q4.8 13.2 7 13.2 L10.8 13.2 L10.8 17.6 Z" fill="sky" stroke-width="1.5"/>
+    <path d="M12.6 11.4 L12.6 21.6" fill="none" stroke-width="1.5"/>
+    <rect x="14.6" y="13.6" width="7.4" height="6" rx="1" ry="1" fill="silver" stroke-width="1.5"/>
+    <rect x="23.8" y="13.6" width="7.4" height="6" rx="1" ry="1" fill="silver" stroke-width="1.5"/>
+  </g>
+  <g id="wheels">
+    <g data-include="b11-wheel" transform="translate(-8.6 7)"/>
+    <g data-include="b11-wheel" transform="translate(8.4 7)"/>
+  </g>
+</svg>

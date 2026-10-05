@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="hill" stroke="ink">
+    <path d="M2 34 L2 32.6 Q12 31.6 22 29.2 Q28 27.8 34 25.6 L34 34 Z" fill="brown"/>
+    <path d="M2 32.6 Q12 31.6 22 29.2 Q28 27.8 34 25.6" fill="none" stroke-width="1.75"/>
+    <circle cx="27.4" cy="31" r="0.9" fill="brown-shade" stroke="none"/>
+    <circle cx="14" cy="33" r="0.8" fill="brown-shade" stroke="none"/>
+  </g>
+  <g id="rider" data-include="b05-cyclist" data-tokens="red:green,yellow:orange,blue:red" transform="translate(0 -1.4) rotate(-8 18 20)"/>
+</svg>

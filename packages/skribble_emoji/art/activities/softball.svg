@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="ball" stroke="ink">
+    <circle cx="18" cy="18" r="15" fill="yellow" stroke="none"/>
+    <path d="M31.7 11.9 A15 15 0 0 1 18 33 C25.6 30.4 30.6 22.6 31.7 11.9 Z" fill="yellow-shade" stroke="none"/>
+    <g id="seams" fill="none" stroke="red" transform="rotate(30 18 18)">
+      <path d="M8.6 6.4 C12.6 11 12.6 25 8.6 29.6 M27.4 6.4 C23.4 11 23.4 25 27.4 29.6" stroke-width="1.75"/>
+      <path d="M9.1 10.7 L11.9 9.6 M10.1 15.8 L12.9 14.7 M10.1 20.2 L12.9 21.3 M9.1 25.3 L11.9 26.4 M26.9 10.7 L24.1 9.6 M25.9 15.8 L23.1 14.7 M25.9 20.2 L23.1 21.3 M26.9 25.3 L24.1 26.4" stroke-width="1.25"/>
+    </g>
+    <circle cx="18" cy="18" r="15" fill="none"/>
+    <path d="M14.4 7 Q16.4 5.8 18.8 5.8" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="leaves" fill="green" stroke="ink" stroke-width="1.75">
+    <path d="M10.8 20.4 C5.2 18.8 3 13.2 4.2 8.8 C5.2 5 9.2 4 11.8 6 C13.8 7.6 14.6 12.6 13.4 19.6 Z"/>
+    <path d="M25.2 20.4 C30.8 18.8 33 13.2 31.8 8.8 C30.8 5 26.8 4 24.2 6 C22.2 7.6 21.4 12.6 22.6 19.6 Z" fill="green-shade"/>
+    <path d="M18 20.4 C14 16.4 12.8 10 14.4 6 C15.6 2.8 20.4 2.8 21.6 6 C23.2 10 22 16.4 18 20.4 Z"/>
+  </g>
+  <g id="veins" fill="none" stroke="mint" stroke-width="1.5">
+    <path d="M11.4 18.4 C10.6 14.4 9.6 11 7.8 8.4 M18 18 L18 6.4 M24.6 18.4 C25.4 14.4 26.4 11 28.2 8.4"/>
+  </g>
+  <g id="stalks" fill="mint" stroke="ink" stroke-width="1.75">
+    <path d="M14.4 33.2 C11.4 29 9.6 24 9.2 18.8 L12 17.8 C13.4 22.6 15 27.6 17.2 31.8 Z"/>
+    <path d="M21.6 33.2 C24.6 29 26.4 24 26.8 18.8 L24 17.8 C22.6 22.6 21 27.6 18.8 31.8 Z"/>
+    <path d="M15.4 33.4 C14.8 27.4 15.2 21.6 16.4 16.4 L19.6 16.4 C20.8 21.6 21.2 27.4 20.6 33.4 Z"/>
+  </g>
+</svg>

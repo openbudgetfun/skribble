@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b18-button-purple"/>
+  <g data-part="glyph" fill="none" stroke="white" stroke-width="2.6">
+    <path d="M8.6 12.6 C10.6 9.6 15.8 9.8 15.6 13.4 C15.4 16 12.8 16.8 11.2 16.8 C15.6 16.8 18 19.4 17.6 22.8 C17.2 27 12 28.4 7.8 25.4"/>
+    <path d="M15 17.6 C18.4 15.4 22.2 15.4 24.2 18.2 C26.6 21.6 25.6 26.6 22.4 27.6 C20.6 28.2 19.4 26.8 20.4 25.4"/>
+    <path d="M20 9.6 Q23.4 13 27.2 9.6"/>
+    <circle cx="23.6" cy="6.6" r="1.5" fill="white" stroke="none"/>
+  </g>
+</svg>

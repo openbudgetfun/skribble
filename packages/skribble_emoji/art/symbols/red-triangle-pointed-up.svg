@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="triangle" stroke="ink">
+    <path d="M16.3 6.2 Q18 3.4 19.7 6.2 L32.4 27.6 Q34 30.6 30.6 30.6 L5.4 30.6 Q2 30.6 3.6 27.6 Z" fill="red" stroke="none"/>
+    <path d="M19.7 6.2 L32.4 27.6 Q34 30.6 30.6 30.6 L19 30.6 C27 29 29 22.4 19.7 6.2 Z" fill="red-shade" stroke="none"/>
+    <path d="M16.3 6.2 Q18 3.4 19.7 6.2 L32.4 27.6 Q34 30.6 30.6 30.6 L5.4 30.6 Q2 30.6 3.6 27.6 Z" fill="none"/>
+  </g>
+</svg>

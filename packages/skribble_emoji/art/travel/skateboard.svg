@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(18 18) rotate(-16) scale(0.95) translate(-18 -18)">
+    <g id="trucks" fill="silver" stroke="ink" stroke-width="1.5">
+      <path d="M8.2 19.4 L12 19.4 L11 21.8 L9.2 21.8 Z"/>
+      <path d="M24 19.4 L27.8 19.4 L26.8 21.8 L25 21.8 Z"/>
+    </g>
+    <g id="deck" stroke="ink">
+      <path d="M3.6 12.4 Q4.6 16.4 8.4 16.4 L27.6 16.4 Q31.4 16.4 32.4 12.4 Q33.8 12.6 33.4 14.4 Q32.2 19.6 27.6 19.6 L8.4 19.6 Q3.8 19.6 2.6 14.4 Q2.2 12.6 3.6 12.4 Z" fill="purple" stroke="none"/>
+      <path d="M33.4 14.4 Q32.2 19.6 27.6 19.6 L12 19.6 Q27.4 18.6 33.4 14.4 Z" fill="purple-shade" stroke="none"/>
+      <path d="M3.6 12.4 Q4.6 16.4 8.4 16.4 L27.6 16.4 Q31.4 16.4 32.4 12.4 Q33.8 12.6 33.4 14.4 Q32.2 19.6 27.6 19.6 L8.4 19.6 Q3.8 19.6 2.6 14.4 Q2.2 12.6 3.6 12.4 Z" fill="none"/>
+      <path d="M12.6 18 L15.4 18 M17.8 18 L23.4 18" fill="none" stroke="lilac" stroke-width="1.5"/>
+    </g>
+    <g id="wheels" fill="yellow" stroke="ink" stroke-width="1.75">
+      <circle cx="10.1" cy="23.8" r="2.7"/>
+      <circle cx="25.9" cy="23.8" r="2.7"/>
+    </g>
+  </g>
+</svg>

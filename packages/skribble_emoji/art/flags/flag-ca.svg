@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#ffffff"/>
+  <rect x="2" y="8" width="8" height="20" fill="#d52b1e"/>
+  <rect x="26" y="8" width="8" height="20" fill="#d52b1e"/>
+  <path id="leaf" d="M18 10.2L19.25 12.6L20.75 11.85L20.15 15.6L22.65 13.55L23.2 14.75L25.55 14.05L24.75 16.4L25.7 17L21.85 20.15L22.35 21.55L18.55 21L18.6 25.2L17.4 25.2L17.45 21L13.65 21.55L14.15 20.15L10.3 17L11.25 16.4L10.45 14.05L12.8 14.75L13.35 13.55L15.85 15.6L15.25 11.85L16.75 12.6Z" fill="#d52b1e"/>
+</svg>

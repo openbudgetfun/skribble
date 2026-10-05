@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The sole of a bare foot: five toes over the ball, the arch curving
+       in on the big-toe side, a round heel. -->
+  <g id="foot" stroke="ink" transform="rotate(-8 18 18)">
+    <g id="toes" fill="skin">
+      <circle cx="12.6" cy="6" r="3"/>
+      <circle cx="17.6" cy="4.6" r="2"/>
+      <circle cx="21.2" cy="5.4" r="1.8"/>
+      <circle cx="24.2" cy="7.4" r="1.6"/>
+      <circle cx="26.4" cy="10.2" r="1.4"/>
+    </g>
+    <path d="M17.6 8.4 C22.6 8.2 26.4 10.4 26 14.6 C25.6 18.4 22.4 20.4 21.6 24 C21 26.8 21.2 29 20.2 30.8 C19 33 13.6 33.2 12.2 30.8 C10.8 28.6 11.4 25.6 11 22.6 C10.6 19.6 9.2 17.2 9.4 13.8 C9.6 10.4 12.8 8.6 17.6 8.4 Z" fill="skin" stroke="none"/>
+    <path d="M25.9 15.6 C25.2 18.8 22.4 20.6 21.6 24 C21 26.8 21.2 29 20.2 30.8 C19.6 31.8 18.4 32.4 17 32.6 C19 30.4 19.2 27.6 19.8 24.4 C20.6 20.6 24 18.8 25.9 15.6 Z" fill="skin-shade" stroke="none"/>
+    <path d="M17.6 8.4 C22.6 8.2 26.4 10.4 26 14.6 C25.6 18.4 22.4 20.4 21.6 24 C21 26.8 21.2 29 20.2 30.8 C19 33 13.6 33.2 12.2 30.8 C10.8 28.6 11.4 25.6 11 22.6 C10.6 19.6 9.2 17.2 9.4 13.8 C9.6 10.4 12.8 8.6 17.6 8.4 Z" fill="none"/>
+  </g>
+</svg>

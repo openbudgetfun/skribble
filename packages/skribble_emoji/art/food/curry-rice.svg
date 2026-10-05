@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="plate-clip"><ellipse cx="18" cy="20" rx="15.6" ry="9.2"/></clipPath>
+  </defs>
+  <g id="plate" stroke="ink">
+    <ellipse cx="18" cy="20" rx="15.6" ry="9.2" fill="silver" stroke="none"/>
+    <ellipse clip-path="url(#plate-clip)" cx="16.6" cy="18.8" rx="15.6" ry="9.2" fill="white" stroke="none"/>
+    <ellipse cx="18" cy="20" rx="15.6" ry="9.2" fill="none"/>
+    <ellipse cx="18" cy="19.6" rx="11.8" ry="6.4" fill="none" stroke="silver" stroke-width="1.5"/>
+  </g>
+  <g id="curry" stroke="ink">
+    <path d="M8.6 22.8 C8.2 17.6 14 14.8 21 14.6 C27.4 14.4 31.6 17 31.2 20.8 C30.8 24.6 25.6 26.6 19 26.4 C12.8 26.2 8.8 25.4 8.6 22.8 Z" fill="brown" stroke-width="1.75"/>
+    <rect x="-1.6" y="-1.6" width="3.2" height="3.2" rx="0.6" ry="0.6" transform="translate(23.2 21.6) rotate(15)" fill="orange" stroke-width="1.25"/>
+    <rect x="-1.8" y="-1.6" width="3.6" height="3.2" rx="0.8" ry="0.8" transform="translate(27.6 18.8) rotate(-10)" fill="yellow" stroke-width="1.25"/>
+    <rect x="-1.4" y="-1.4" width="2.8" height="2.8" rx="0.6" ry="0.6" transform="translate(19.6 23.6) rotate(-20)" fill="orange" stroke-width="1.25"/>
+    <path d="M24 17.2 Q25 16.4 26 17" fill="none" stroke="brown-shade" stroke-width="1.25"/>
+  </g>
+  <g id="rice" stroke="ink">
+    <path d="M4.4 19.6 C4.2 12.6 8.4 8.4 13.4 8.4 C18.4 8.4 21.6 12.2 21 17.6 C20.6 20.6 16.4 22.2 12.4 22 C8.4 21.8 4.6 21.4 4.4 19.6 Z" fill="white" stroke-width="1.75"/>
+    <path d="M9.6 12.6 L10.6 12.2 M14.6 11.8 L15.6 12.2 M8.4 17 L9.4 16.8 M13.6 16.2 L14.6 16.6 M17.6 15.6 L18.6 15.4" fill="none" stroke="grey" stroke-width="1.25"/>
+  </g>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="body-shape"><rect x="10" y="9.6" width="22.4" height="14.4" rx="7.2" ry="7.2"/></clipPath>
+  </defs>
+  <g id="tail" stroke="ink">
+    <path d="M32 15 C33.4 16.4 33.8 18.6 33.4 20.8" fill="none" stroke-width="1.5"/>
+    <ellipse cx="33.4" cy="21.4" rx="0.8" ry="1.2" fill="grey-shade" stroke-width="1.25"/>
+  </g>
+  <g id="legs" stroke="ink">
+    <rect x="14.6" y="19" width="4.6" height="11.4" rx="2" ry="2" fill="grey-shade"/>
+    <rect x="22.4" y="19" width="4.6" height="11.4" rx="2" ry="2" fill="grey-shade"/>
+    <rect x="11.2" y="19" width="4.8" height="12.2" rx="2" ry="2" fill="grey"/>
+    <rect x="26" y="19" width="4.8" height="12.2" rx="2" ry="2" fill="grey"/>
+    <path d="M12.4 30.4 Q13.6 29.6 14.8 30.4 M27.2 30.4 Q28.4 29.6 29.6 30.4" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="body">
+    <rect x="10" y="9.6" width="22.4" height="14.4" rx="7.2" ry="7.2" fill="grey-shade"/>
+    <g clip-path="url(#body-shape)">
+      <rect x="10" y="9.6" width="22.4" height="14.4" rx="7.2" ry="7.2" transform="translate(-1.4 -1.6)" fill="grey"/>
+    </g>
+    <rect x="10" y="9.6" width="22.4" height="14.4" rx="7.2" ry="7.2" fill="none" stroke="ink"/>
+  </g>
+  <g id="head">
+    <path d="M10.2 5.6 C14 5.6 16.8 8.4 16.8 12.4 C16.8 16.4 14 19 10.4 19 C9.6 19 8.8 18.8 8.2 18.6 C7.4 19.8 7.2 21.4 7.6 22.8 C7.9 23.8 8.6 24.2 8.8 25.2 C9 26.4 7.6 27.2 6.6 26.4 C4.6 24.8 3.8 21.6 4.4 18.6 C3.6 17 3.4 15 3.6 13 C4 8.6 6.6 5.6 10.2 5.6 Z" fill="grey" stroke="ink"/>
+    <path d="M5.2 21.6 Q6.2 21.2 7.2 21.6 M5 23.6 Q6 23.2 7.4 23.8" fill="none" stroke="grey-shade" stroke-width="1.25"/>
+  </g>
+  <g id="ears" stroke="ink">
+    <path d="M11.6 8.4 C15.2 6 20.2 7.2 21.2 11.4 C22 15 20 18.8 16.4 19.6 C13.8 20 12 18.6 11.4 16.2 Z" fill="grey"/>
+    <path d="M13 9.6 C15.6 8.2 19 9 19.6 11.8 C20.2 14.4 18.8 17.2 16.2 17.8 C14.6 18 13.6 17.2 13.2 15.6 Z" fill="pink" stroke="none"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="8.4" cy="11.6" rx="1.2" ry="1.6"/>
+    <circle cx="8.7" cy="11" r="0.4" fill="paper"/>
+  </g>
+  <path data-part="mouth" d="M9 16.6 Q10.4 17.6 11.6 16.8" fill="none" stroke="ink" stroke-width="1.25"/>
+</svg>

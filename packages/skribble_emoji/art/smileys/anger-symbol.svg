@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Four curved brackets, corners toward the centre. -->
+  <g id="symbol" fill="red" stroke="ink" stroke-width="1.75">
+    <path d="M12.4 3.6 C13 9.4 12.2 12.2 3.6 12.4 L3.6 16.2 C13.6 16.2 16.4 13.6 16.4 3.6 Z"/>
+    <path transform="rotate(90 18 18)" d="M12.4 3.6 C13 9.4 12.2 12.2 3.6 12.4 L3.6 16.2 C13.6 16.2 16.4 13.6 16.4 3.6 Z"/>
+    <path transform="rotate(180 18 18)" d="M12.4 3.6 C13 9.4 12.2 12.2 3.6 12.4 L3.6 16.2 C13.6 16.2 16.4 13.6 16.4 3.6 Z"/>
+    <path transform="rotate(270 18 18)" d="M12.4 3.6 C13 9.4 12.2 12.2 3.6 12.4 L3.6 16.2 C13.6 16.2 16.4 13.6 16.4 3.6 Z"/>
+  </g>
+</svg>

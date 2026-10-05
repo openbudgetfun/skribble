@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="head" stroke="ink">
+    <circle cx="11" cy="10.8" r="5.6" fill="green"/>
+    <circle cx="25" cy="10.8" r="5.6" fill="green"/>
+    <ellipse cx="18" cy="21" rx="15" ry="10.4" fill="green"/>
+    <path d="M33 21 A15 10.4 0 0 1 18 31.4 C25.8 29.8 31 26.4 33 21 Z" fill="green-shade" stroke="none"/>
+    <ellipse cx="18" cy="21" rx="15" ry="10.4" fill="none"/>
+    <circle cx="11" cy="10.8" r="4.6" fill="green" stroke="none"/>
+    <circle cx="25" cy="10.8" r="4.6" fill="green" stroke="none"/>
+  </g>
+  <g id="eyes">
+    <circle cx="11" cy="10.6" r="3.4" fill="paper" stroke="ink" stroke-width="1.5"/>
+    <circle cx="25" cy="10.6" r="3.4" fill="paper" stroke="ink" stroke-width="1.5"/>
+    <ellipse cx="11.6" cy="11" rx="1.6" ry="2" fill="ink"/>
+    <ellipse cx="24.4" cy="11" rx="1.6" ry="2" fill="ink"/>
+    <circle cx="12.1" cy="10.2" r="0.55" fill="paper"/>
+    <circle cx="24.9" cy="10.2" r="0.55" fill="paper"/>
+  </g>
+  <g id="nose" fill="ink">
+    <circle cx="16.2" cy="17.4" r="0.6"/>
+    <circle cx="19.8" cy="17.4" r="0.6"/>
+  </g>
+  <g id="cheeks" fill="cheek">
+    <ellipse cx="7.6" cy="23" rx="1.9" ry="1.1"/>
+    <ellipse cx="28.4" cy="23" rx="1.9" ry="1.1"/>
+  </g>
+  <path data-part="mouth" d="M8.8 21.2 Q18 28.4 27.2 21.2" fill="none" stroke="ink" stroke-width="1.75"/>
+</svg>

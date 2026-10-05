@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="awning"><path d="M3 11.2 L33 11.2 L33 14.2 Q31.5 16.2 30 14.2 Q28.5 16.2 27 14.2 Q25.5 16.2 24 14.2 Q22.5 16.2 21 14.2 Q19.5 16.2 18 14.2 Q16.5 16.2 15 14.2 Q13.5 16.2 12 14.2 Q10.5 16.2 9 14.2 Q7.5 16.2 6 14.2 Q4.5 16.2 3 14.2 Z"/></clipPath></defs>
+  <g id="store" stroke="ink">
+    <rect x="4.4" y="13" width="27.2" height="18.8" rx="0.8" ry="0.8" fill="cream"/>
+    <path d="M29 14 L31.6 14 L31.6 31 Q31.6 31.8 30.8 31.8 L29 31.8 Z" fill="tan" stroke="none"/>
+    <rect x="4.4" y="13" width="27.2" height="18.8" rx="0.8" ry="0.8" fill="none"/>
+    <rect x="6.8" y="18.4" width="12.4" height="9.2" rx="0.6" ry="0.6" fill="sky" stroke-width="1.5"/>
+    <path d="M8.8 22.2 L11.4 19.8" fill="none" stroke="paper" stroke-width="1.5"/>
+    <rect x="21.8" y="18.4" width="7.2" height="13.4" rx="0.6" ry="0.6" fill="sky" stroke-width="1.5"/>
+    <path d="M23.6 23.6 L23.6 26.4" fill="none" stroke-width="1.5"/>
+  </g>
+  <g id="awning" stroke="ink">
+    <path d="M3 11.2 L33 11.2 L33 14.2 Q31.5 16.2 30 14.2 Q28.5 16.2 27 14.2 Q25.5 16.2 24 14.2 Q22.5 16.2 21 14.2 Q19.5 16.2 18 14.2 Q16.5 16.2 15 14.2 Q13.5 16.2 12 14.2 Q10.5 16.2 9 14.2 Q7.5 16.2 6 14.2 Q4.5 16.2 3 14.2 Z" fill="white"/>
+    <path d="M3 11 h3 v6 h-3 Z M9 11 h3 v6 h-3 Z M15 11 h3 v6 h-3 Z M21 11 h3 v6 h-3 Z M27 11 h3 v6 h-3 Z" fill="red" stroke="none" clip-path="url(#awning)"/>
+    <path d="M3 11.2 L33 11.2 L33 14.2 Q31.5 16.2 30 14.2 Q28.5 16.2 27 14.2 Q25.5 16.2 24 14.2 Q22.5 16.2 21 14.2 Q19.5 16.2 18 14.2 Q16.5 16.2 15 14.2 Q13.5 16.2 12 14.2 Q10.5 16.2 9 14.2 Q7.5 16.2 6 14.2 Q4.5 16.2 3 14.2 Z" fill="none" stroke-width="1.75"/>
+  </g>
+  <g id="sign" stroke="ink">
+    <rect x="3" y="3.8" width="30" height="7.4" rx="1.4" ry="1.4" fill="blue"/>
+    <path d="M13.6 6.2 Q13.8 5.4 15 5.4 Q16.4 5.4 16.4 6.6 Q16.4 7.6 13.6 9.6 L16.6 9.6 M20.6 5.4 L18.8 8.4 L22.2 8.4 M21 7 L21 9.6" fill="none" stroke="white" stroke-width="1.5"/>
+  </g>
+</svg>

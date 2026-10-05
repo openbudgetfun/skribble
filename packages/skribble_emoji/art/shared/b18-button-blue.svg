@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A blue rounded-square sign button: fill, a shaded crescent on the
+       lower right, then the ink outline. Draw the glyph on top inside
+       x 7–29, y 7–29. -->
+  <g id="button">
+    <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6" fill="blue"/>
+    <path d="M32.6 17 L32.6 26.6 Q32.6 32.6 26.6 32.6 L17 32.6 C24.2 30.8 30.8 24.6 32.6 17 Z" fill="blue-shade"/>
+    <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6" fill="none" stroke="ink"/>
+  </g>
+</svg>

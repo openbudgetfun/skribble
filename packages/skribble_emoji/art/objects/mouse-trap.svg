@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(0 -1.2)">
+    <g id="board" stroke="ink">
+      <path d="M2.6 25 L10.8 12 L33.8 12 L25.6 25 Z" fill="tan" stroke="none"/>
+      <path d="M2.6 25 L25.6 25 L25.6 29 L2.6 29 Z" fill="brown" stroke="none"/>
+      <path d="M25.6 25 L33.8 12 L33.8 16 L25.6 29 Z" fill="brown-shade" stroke="none"/>
+      <path d="M2.6 25 L10.8 12 L33.8 12 L33.8 16 L25.6 29 L2.6 29 Z" fill="none"/>
+      <path d="M2.6 25 L25.6 25 L33.8 12 M25.6 25 L25.6 29" fill="none" stroke-width="1.5"/>
+    </g>
+    <g id="bar" fill="none">
+      <path d="M14.87 23.05 L5.67 23.05 L11.41 13.95 L20.61 13.95" stroke="ink" stroke-width="3.2"/>
+      <path d="M14.87 23.05 L5.67 23.05 L11.41 13.95 L20.61 13.95" stroke="silver" stroke-width="1.4"/>
+      <path d="M14.87 23.05 L20.61 13.95" stroke="ink" stroke-width="4.4"/>
+      <path d="M14.87 23.05 L20.61 13.95" stroke="silver" stroke-width="2.4"/>
+    </g>
+    <g id="cheese" stroke="ink">
+      <path d="M17.6 22.4 L28.6 13 L30.6 10.2 L19.6 19.6 Z" fill="yellow" stroke="none"/>
+      <path d="M28.6 13 L28.6 22.4 L30.6 19.6 L30.6 10.2 Z" fill="yellow-shade" stroke="none"/>
+      <path d="M17.6 22.4 L28.6 22.4 L28.6 13 Z" fill="yellow" stroke="none"/>
+      <circle cx="24.8" cy="19.8" r="1" fill="yellow-shade" stroke="none"/>
+      <circle cx="26.9" cy="17" r="0.7" fill="yellow-shade" stroke="none"/>
+      <circle cx="22" cy="21.2" r="0.6" fill="yellow-shade" stroke="none"/>
+      <path d="M17.6 22.4 L19.6 19.6 L30.6 10.2 L30.6 19.6 L28.6 22.4 Z" fill="none" stroke-width="1.75"/>
+      <path d="M17.6 22.4 L28.6 13 L30.6 10.2 M28.6 13 L28.6 22.4" fill="none" stroke-width="1.25"/>
+    </g>
+  </g>
+</svg>

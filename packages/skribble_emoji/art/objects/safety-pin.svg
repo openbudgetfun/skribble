@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="pin" transform="translate(0 1) rotate(-40 18 18)">
+    <g fill="none">
+      <path d="M7 14.8 L28 14.2 M7 21.2 L27 19.4" stroke="ink" stroke-width="3.6"/>
+      <circle cx="7" cy="18" r="3.2" stroke="ink" stroke-width="3.6"/>
+      <path d="M7 14.8 L28 14.2 M7 21.2 L27 19.4" stroke="silver" stroke-width="1.6"/>
+      <circle cx="7" cy="18" r="3.2" stroke="silver" stroke-width="1.6"/>
+    </g>
+    <path data-part="clasp" d="M24 12.2 L30.8 11.6 Q33.4 11.6 33.4 14.4 L33.4 17.4 Q33.4 20.2 30.8 20.2 L24 19.8 Q25 16 24 12.2 Z" fill="silver" stroke="ink" stroke-width="1.75"/>
+  </g>
+</svg>

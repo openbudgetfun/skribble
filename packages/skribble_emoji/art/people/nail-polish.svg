@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The back of a hand with freshly painted red nails, and the polish
+       bottle beside it. -->
+  <g transform="translate(8 1.2) rotate(18 18 18) scale(0.74)">
+    <g data-include="raised-back-of-hand"/>
+    <g data-part="polish" transform="matrix(-1 0 0 1 37 0)" fill="red" stroke="ink" stroke-width="1.7">
+      <rect x="7.1" y="11" width="2.4" height="3" rx="1.2" ry="1"/>
+      <rect x="11" y="6.6" width="2.4" height="3" rx="1.2" ry="1"/>
+      <rect x="15" y="5.4" width="2.4" height="3" rx="1.2" ry="1"/>
+      <rect x="19" y="6.6" width="2.4" height="3" rx="1.2" ry="1"/>
+    </g>
+  </g>
+  <g id="bottle" stroke="ink">
+    <rect x="6.4" y="16.4" width="4.4" height="6.4" rx="1" ry="1" fill="black"/>
+    <rect x="3.6" y="22.4" width="10" height="11" rx="2.4" ry="2.4" fill="red"/>
+    <path d="M13.6 26.6 L13.6 31 Q13.6 33.4 11.2 33.4 L8 33.4 C11 32.6 13 30.4 13.6 26.6 Z" fill="red-shade" stroke="none"/>
+    <rect x="3.6" y="22.4" width="10" height="11" rx="2.4" ry="2.4" fill="none"/>
+    <path d="M5.8 27.2 Q5.8 25.2 7.4 24.8" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

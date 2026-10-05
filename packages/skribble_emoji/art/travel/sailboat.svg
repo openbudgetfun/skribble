@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="sails" stroke="ink">
+    <path d="M17.6 2.8 L21.8 4.2 L17.6 5.6 Z" fill="red" stroke-width="1.5"/>
+    <path d="M17.6 2.8 L17.6 23.4" fill="none"/>
+    <path d="M19.4 6.4 Q26.8 12.4 31.4 21.4 L19.4 21.4 Z" fill="white" stroke="none"/>
+    <path d="M31.4 21.4 L23.6 21.4 Q27.2 18 27 13.2 Q29.8 16.8 31.4 21.4 Z" fill="silver" stroke="none"/>
+    <path d="M19.4 6.4 Q26.8 12.4 31.4 21.4 L19.4 21.4 Z" fill="none"/>
+    <path d="M15.8 7.6 L15.8 21.4 L5.4 21.4 Q11.8 15.4 15.8 7.6 Z" fill="white"/>
+  </g>
+  <g id="hull" stroke="ink">
+    <path d="M2.8 23.4 L33 23.4 L31.6 28 Q31 30.4 28.6 30.4 L9.6 30.4 Q5 30.4 2.8 23.4 Z" fill="brown" stroke="none"/>
+    <path d="M33 23.4 L31.6 28 Q31 30.4 28.6 30.4 L14 30.4 Q27.4 29.4 33 23.4 Z" fill="brown-shade" stroke="none"/>
+    <path d="M2.8 23.4 L33 23.4 L31.6 28 Q31 30.4 28.6 30.4 L9.6 30.4 Q5 30.4 2.8 23.4 Z" fill="none"/>
+  </g>
+  <path data-part="water" d="M5 33 Q7.4 31.6 9.8 33 Q12.2 34.4 14.6 33 M21.4 33 Q23.8 31.6 26.2 33 Q28.6 34.4 31 33" fill="none" stroke="blue" stroke-width="1.75"/>
+</svg>

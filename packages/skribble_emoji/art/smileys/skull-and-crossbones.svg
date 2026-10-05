@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="bones" fill="white" stroke="ink" stroke-width="1.75">
+    <path transform="translate(18 25.4) rotate(26)" d="M-12 -1.6 L12 -1.6 C12.2 -3.8 15.6 -4.2 15.8 -1.8 C17.6 -1.4 17.6 1.4 15.8 1.8 C15.6 4.2 12.2 3.8 12 1.6 L-12 1.6 C-12.2 3.8 -15.6 4.2 -15.8 1.8 C-17.6 1.4 -17.6 -1.4 -15.8 -1.8 C-15.6 -4.2 -12.2 -3.8 -12 -1.6 Z"/>
+    <path transform="translate(18 25.4) rotate(-26)" d="M-12 -1.6 L12 -1.6 C12.2 -3.8 15.6 -4.2 15.8 -1.8 C17.6 -1.4 17.6 1.4 15.8 1.8 C15.6 4.2 12.2 3.8 12 1.6 L-12 1.6 C-12.2 3.8 -15.6 4.2 -15.8 1.8 C-17.6 1.4 -17.6 -1.4 -15.8 -1.8 C-15.6 -4.2 -12.2 -3.8 -12 -1.6 Z"/>
+  </g>
+  <g data-include="skull" transform="translate(4.5 0.3) scale(0.75)"/>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="face">
+    <circle cx="18" cy="18" r="15" fill="sky"/>
+    <path d="M31.7 11.9 A15 15 0 0 1 18 33 C25.6 30.4 30.6 22.6 31.7 11.9 Z" fill="blue"/>
+  </g>
+  <g id="frost">
+    <path d="M5.6 9.6 A15 15 0 0 1 30.4 9.6 L28.2 10.2 L27.4 13 L26.2 10.6 L23 11.2 L22 14.4 L20.6 11.4 L17 11.6 L16 13.8 L14.8 11.4 L11.6 11 L10.8 13.4 L9.6 10.6 Z" fill="white"/>
+    <path d="M30.4 9.6 L28.2 10.2 L27.4 13 L26.2 10.6 L23 11.2 L22 14.4 L20.6 11.4 L17 11.6 L16 13.8 L14.8 11.4 L11.6 11 L10.8 13.4 L9.6 10.6 L5.6 9.6" fill="none" stroke="ink" stroke-width="1.5"/>
+  </g>
+  <circle data-part="face" cx="18" cy="18" r="15" fill="none" stroke="ink"/>
+  <g id="eyes" fill="ink">
+    <ellipse cx="12.6" cy="17" rx="1.8" ry="2.4"/>
+    <ellipse cx="23.4" cy="17" rx="1.8" ry="2.4"/>
+    <circle cx="13.1" cy="16.1" r="0.55" fill="paper"/>
+    <circle cx="23.9" cy="16.1" r="0.55" fill="paper"/>
+  </g>
+  <g id="mouth" stroke="ink">
+    <rect x="10" y="22" width="16" height="6.4" rx="3.2" ry="3.2" fill="paper"/>
+    <path d="M10.2 25.2 L25.8 25.2 M14 22.2 L14 28.2 M18 22 L18 28.4 M22 22.2 L22 28.2" fill="none" stroke-width="1.25"/>
+  </g>
+</svg>

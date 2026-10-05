@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(0 3)">
+    <path data-part="rope" d="M6.8 11.4 C3 9.4 3.4 5.6 7 6.2 C9.2 6.6 9.4 8.6 8.6 10" fill="none" stroke="brown" stroke-width="1.5"/>
+    <path data-part="runner-far" d="M31.6 24 L9.6 24 C5.4 24 3.4 21 3.6 17.6 C3.8 15.2 5.6 13.6 7.6 14 L7.4 16.4 C6.4 16.4 6 17.2 6 18 C6 20 7.4 21.4 9.6 21.4 L31.6 21.4 Q32.8 21.4 32.8 22.7 Q32.8 24 31.6 24 Z" transform="translate(1.6 -2.2)" fill="red-shade" stroke="ink" stroke-width="1.5"/>
+    <g id="struts" fill="brown" stroke="ink" stroke-width="1.5">
+      <rect x="10" y="13.6" width="2.4" height="8.2"/>
+      <rect x="18.4" y="13.6" width="2.4" height="8.2"/>
+      <rect x="26.8" y="13.6" width="2.4" height="8.2"/>
+    </g>
+    <g id="seat" stroke="ink">
+      <rect x="6.4" y="9.4" width="25.2" height="4.6" rx="1.6" ry="1.6" fill="tan" stroke-width="1.75"/>
+      <path d="M8 11.7 L30 11.7" fill="none" stroke="brown" stroke-width="1.25"/>
+    </g>
+    <path data-part="runner" d="M31.6 24 L9.6 24 C5.4 24 3.4 21 3.6 17.6 C3.8 15.2 5.6 13.6 7.6 14 L7.4 16.4 C6.4 16.4 6 17.2 6 18 C6 20 7.4 21.4 9.6 21.4 L31.6 21.4 Q32.8 21.4 32.8 22.7 Q32.8 24 31.6 24 Z" fill="red" stroke="ink" stroke-width="1.75"/>
+  </g>
+</svg>

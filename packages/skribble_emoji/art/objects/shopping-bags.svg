@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="front-bag"><path d="M4.6 14.6 L22.4 14.6 L23.6 32.4 Q23.7 33.6 22.6 33.6 L4.4 33.6 Q3.3 33.6 3.4 32.4 Z"/></clipPath>
+  </defs>
+  <g id="back-bag" stroke="ink">
+    <path d="M20.2 12.2 Q20.2 3.2 24.2 3.2 Q28.2 3.2 28.2 12.2" fill="none" stroke-width="1.75"/>
+    <path d="M15.6 8.8 L31.6 8.8 L32.8 28.4 Q32.9 29.6 31.8 29.6 L16 29.6 Z" fill="blue" stroke-width="2"/>
+    <path d="M15.8 12.2 L31.8 12.2" fill="none" stroke-width="1.5"/>
+    <circle cx="20.2" cy="10.4" r="0.7" fill="ink" stroke="none"/>
+    <circle cx="28.2" cy="10.4" r="0.7" fill="ink" stroke="none"/>
+  </g>
+  <g id="front-bag" stroke="ink">
+    <path d="M4.6 14.6 L22.4 14.6 L23.6 32.4 Q23.7 33.6 22.6 33.6 L4.4 33.6 Q3.3 33.6 3.4 32.4 Z" fill="pink" stroke="none"/>
+    <path d="M26 16 Q22 30 12 35 L26 35 Z" fill="pink-shade" stroke="none" clip-path="url(#front-bag)"/>
+    <path d="M4.6 14.6 L22.4 14.6 L23.6 32.4 Q23.7 33.6 22.6 33.6 L4.4 33.6 Q3.3 33.6 3.4 32.4 Z" fill="none"/>
+    <path d="M4.5 18 L22.6 18" fill="none" stroke-width="1.5"/>
+    <path d="M9.2 16.4 Q9.2 7.4 13.5 7.4 Q17.8 7.4 17.8 16.4" fill="none" stroke-width="1.75"/>
+    <path d="M13.5 29 C10.4 27.1 9.8 25.4 10.4 24.2 C11 23 12.6 23.1 13.5 24.3 C14.4 23.1 16 23 16.6 24.2 C17.2 25.4 16.6 27.1 13.5 29 Z" fill="red" stroke-width="1.25"/>
+  </g>
+</svg>

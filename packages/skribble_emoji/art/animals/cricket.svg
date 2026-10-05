@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="antennae" fill="none" stroke="ink" stroke-width="1.25">
+    <path d="M7.4 13.6 C9.4 7.8 16 4.6 24 4.6 C28 4.6 31.6 5.8 33.6 7.8"/>
+    <path d="M8.6 13.2 C11.6 9.2 18 7.8 23.4 8.6"/>
+  </g>
+  <g id="legs" fill="none" stroke="ink" stroke-width="1.5">
+    <path d="M10.6 22 L8.6 26.6 L6.6 27.6 M14.6 22.6 L13.8 27 L12 28.2"/>
+  </g>
+  <path data-part="far-leg" d="M23.6 21.4 L24.4 27.6 L26.4 28.6" fill="none" stroke="ink" stroke-width="1.5"/>
+  <g id="body" stroke="ink">
+    <path d="M6 17.8 C6 14.8 8.4 13 11.2 13.2 L24.4 15.8 C28.4 16.6 31.4 18.2 31.4 20.6 C31.4 22.6 29.4 23.6 26.4 23.4 L11 22.6 C8 22.4 6 20.6 6 17.8 Z" fill="green"/>
+    <path d="M31.4 20.6 C31.4 22.6 29.4 23.6 26.4 23.4 L11 22.6 C9.4 22.5 8.1 21.9 7.2 21 C14 21.4 22 21.6 31 19.4 C31.3 19.8 31.4 20.2 31.4 20.6 Z" fill="green-shade" stroke="none"/>
+    <path d="M6 17.8 C6 14.8 8.4 13 11.2 13.2 L24.4 15.8 C28.4 16.6 31.4 18.2 31.4 20.6 C31.4 22.6 29.4 23.6 26.4 23.4 L11 22.6 C8 22.4 6 20.6 6 17.8 Z" fill="none"/>
+    <path data-part="wing" d="M13.4 15.2 L28.6 17.4 C31.6 17.8 33.2 19 33 20.2 C32.8 21 31.4 21.2 29.4 20.8 L14.4 18.6 Z" fill="leaf" stroke-width="1.5"/>
+  </g>
+  <g id="leg" fill="green" stroke="ink" stroke-width="1.5">
+    <path d="M27.5 13 C27.5 14.2 27.5 17.7 27.6 20.2 C27.7 22.7 27.9 26.8 28.3 28.2 C28.6 29.7 29.1 28.6 29.5 28.7 C29.9 28.9 30.5 29.1 30.7 29.2 A0.9 0.9 0 0 0 31.3 27.6 C31.1 27.5 30.5 27.2 30.1 27.1 C29.7 26.9 29.1 27.7 28.9 26.6 C28.8 25.4 29.3 22.5 29.4 20.2 C29.5 17.9 29.3 14.2 29.3 13 A0.9 0.9 0 0 0 27.5 13 Z"/>
+    <path d="M20.9 22.1 C21.6 21.4 23.7 19.4 25.1 18 C26.5 16.7 28.6 14.7 29.2 14 A1.3 1.3 0 0 0 27.6 12 C26.8 12.6 24.5 14.4 22.9 15.6 C21.4 16.7 19.1 18.5 18.3 19.1 A2 2 0 0 0 20.9 22.1 Z" stroke-width="1.75"/>
+  </g>
+  <g id="eyes">
+    <ellipse cx="9" cy="16.4" rx="1.3" ry="1.6" fill="ink"/>
+    <circle cx="9.4" cy="15.8" r="0.45" fill="paper"/>
+  </g>
+  <path data-part="mouth" d="M6.4 19.4 Q7.4 20.2 8.6 19.8" fill="none" stroke="ink" stroke-width="1.25"/>
+</svg>

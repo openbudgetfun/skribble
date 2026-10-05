@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Zombies take no skin tones, so the skin tokens are remapped to mint. -->
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.6" y="18.8" width="4.8" height="5.4" fill="mint"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="blue"/>
+    <path d="M25.4 24.8 C28.2 26.4 30 29.6 30.2 34.6 L26.8 34.6 C27 30.4 26.6 27.2 25.4 24.8 Z" fill="blue-shade" stroke="none"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="none"/>
+    <path d="M14 23.2 L15.4 25.4 L16.4 24 L18 26.2 L19.6 24 L20.6 25.4 L22 23.2" fill="mint" stroke-width="1.5"/>
+    <path d="M14.4 29.6 L15.6 28.4 L16.4 29.8 L17.6 29 L17.2 31 L15 31.4 Z" fill="mint" stroke-width="1.25"/>
+  </g>
+  <g data-include="b04-bare-head" data-tokens="skin:mint,skin-shade:green"/>
+  <g id="eyes">
+    <circle cx="15" cy="14.6" r="1.6" fill="paper" stroke="ink" stroke-width="1.25"/>
+    <circle cx="15.3" cy="14.9" r="0.6" fill="ink"/>
+    <path d="M19.6 14.4 L22.4 14.4 M19.8 14.4 Q21 15.8 22.2 14.4" fill="none" stroke="ink" stroke-width="1.4"/>
+  </g>
+  <g id="mouth" fill="none" stroke="ink">
+    <path d="M15.4 18.8 L20.6 18.2" stroke-width="1.4"/>
+    <path d="M16.6 18 L16.8 19.4 M18.2 17.8 L18.4 19.2 M19.6 17.6 L19.8 19" stroke-width="1"/>
+  </g>
+  <path data-part="scar" d="M22 16.2 L24.4 17.6 M22.6 17.4 L23.2 16.2 M23.6 18 L24.2 16.8" fill="none" stroke="ink" stroke-width="1"/>
+  <g id="arms" fill="blue" stroke="ink" stroke-width="1.75">
+    <path d="M12.5 32.7 L10.9 28.8 A1.8 1.8 0 0 0 7.5 30 L8.7 34.1 A2 2 0 0 0 12.5 32.7 Z"/>
+    <path d="M27.3 34.1 L28.5 30 A1.8 1.8 0 0 0 25.1 28.8 L23.5 32.7 A2 2 0 0 0 27.3 34.1 Z"/>
+  </g>
+  <g id="hands" fill="mint" stroke="ink" stroke-width="1.5">
+    <path d="M6.2 28.4 Q6 25.6 9 25.4 Q12 25.6 11.8 28.4 L11.4 30.6 Q11 31.4 10.4 30.6 L10.2 29.4 L9.6 31 Q9 31.8 8.4 31 L8.2 29.4 L7.4 30.6 Q6.6 31.2 6.4 30.4 Z"/>
+    <path d="M24.2 28.4 Q24 25.6 27 25.4 Q30 25.6 29.8 28.4 L29.6 30.4 Q29.4 31.2 28.6 30.6 L27.8 29.4 L27.6 31 Q27 31.8 26.4 31 L25.8 29.4 L25.6 30.6 Q25 31.4 24.6 30.6 Z"/>
+  </g>
+</svg>

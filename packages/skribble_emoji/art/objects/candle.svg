@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="glow" fill="none" stroke="yellow-shade" stroke-width="1.75">
+    <path d="M11.4 4.4 L12.6 5.6 M24.6 4.4 L23.4 5.6 M9.8 10.2 L11.4 10.2 M26.2 10.2 L24.6 10.2"/>
+  </g>
+  <g id="flame" stroke="ink">
+    <path d="M18 2.4 C21.2 6 22 8.8 21.2 10.8 C20.6 12.2 19.4 12.8 18 12.8 C16.6 12.8 15.4 12.2 14.8 10.8 C14 8.8 14.8 6 18 2.4 Z" fill="orange" stroke-width="1.5"/>
+    <path d="M18 6.6 C19.6 8.4 20 9.8 19.4 10.8 C19 11.4 18.6 11.6 18 11.6 C17.4 11.6 17 11.4 16.6 10.8 C16 9.8 16.4 8.4 18 6.6 Z" fill="yellow" stroke="none"/>
+  </g>
+  <path d="M18 12.8 L18 14.6" fill="none" stroke="ink" stroke-width="1.5"/>
+  <g id="candle" stroke="ink">
+    <rect x="12.2" y="14.2" width="11.6" height="16" rx="1.4" ry="1.4" fill="white"/>
+    <path d="M23.8 19 L23.8 30.2 L20.6 30.2 C22.2 27 22.6 23 22.4 19.6 Q23 18.8 23.8 19 Z" fill="silver" stroke="none"/>
+    <path d="M12.2 17.6 Q13.4 18.6 14.4 17.8 L14.4 20.8 Q15 22 15.6 20.8 L15.6 18 Q17.4 16.8 19 18.2 Q20.4 19.2 21.8 17.8 Q22.8 17 23.8 17.8" fill="none" stroke-width="1.25"/>
+    <rect x="12.2" y="14.2" width="11.6" height="16" rx="1.4" ry="1.4" fill="none"/>
+  </g>
+  <g id="holder" stroke="ink">
+    <path d="M4.4 29.6 Q4.4 28.6 5.6 28.6 L30.4 28.6 Q31.6 28.6 31.6 29.6 Q30.8 33.6 18 33.6 Q5.2 33.6 4.4 29.6 Z" fill="yellow"/>
+    <path d="M31.6 29.6 Q30.8 33.6 18 33.6 Q26.4 32.4 29 30.2 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M4.4 29.6 Q4.4 28.6 5.6 28.6 L30.4 28.6 Q31.6 28.6 31.6 29.6 Q30.8 33.6 18 33.6 Q5.2 33.6 4.4 29.6 Z" fill="none"/>
+  </g>
+</svg>

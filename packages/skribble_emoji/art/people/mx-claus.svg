@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.6" y="18.8" width="4.8" height="5.4" fill="skin"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="red"/>
+    <path d="M25.4 24.8 C28.2 26.4 30 29.6 30.2 34.6 L26.8 34.6 C27 30.4 26.6 27.2 25.4 24.8 Z" fill="red-shade" stroke="none"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="none"/>
+    <path d="M16.2 25 L19.8 25 L19.8 34.6 L16.2 34.6 Z" fill="white" stroke-width="1.5"/>
+    <path d="M12.2 23.6 Q18 28.4 23.8 23.6 L23 26.6 Q18 30.4 13 26.6 Z" fill="white" stroke-width="1.5"/>
+  </g>
+  <g data-include="head"/>
+  <g data-include="b04-santa-hat"/>
+</svg>

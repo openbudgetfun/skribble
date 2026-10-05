@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="left" data-include="b05-holder"/>
+  <g id="right" data-include="b05-holder" data-tokens="skin:skin2,skin-shade:skin2-shade,hair:hair2,teal:coral" transform="translate(36 0) scale(-1 1)"/>
+  <circle id="hands" cx="18" cy="21" r="1.6" fill="skin" stroke="ink" stroke-width="1.25"/>
+</svg>

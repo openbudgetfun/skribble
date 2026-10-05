@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="rotate(45 18 18)" stroke="ink">
+    <g id="pot">
+      <circle cx="18" cy="25.4" r="9.2" fill="silver"/>
+      <path d="M23.9 18.4 A9.2 9.2 0 0 1 23.9 32.4 C26.3 28.2 26.3 22.6 23.9 18.4 Z" fill="grey" stroke="none"/>
+      <circle cx="18" cy="25.4" r="9.2" fill="none"/>
+      <circle cx="18" cy="25.4" r="7" fill="cream" stroke-width="1.5"/>
+    </g>
+    <g id="neck">
+      <rect x="16.2" y="3.6" width="3.6" height="16" rx="0.6" ry="0.6" fill="brown" stroke-width="1.5"/>
+      <path d="M19.8 12.4 L21.6 12.4" fill="none" stroke-width="1.5"/>
+      <path d="M15.4 4.4 L15 1.2 Q15 0.2 16 0.2 L20 0.2 Q21 0.2 21 1.2 L20.6 4.4 Z" fill="brown-shade" stroke-width="1.5"/>
+    </g>
+    <path data-part="strings" d="M17.2 4.4 L17.2 31.6 M18.8 4.4 L18.8 31.6" fill="none" stroke="ink" stroke-width="1"/>
+    <rect x="15" y="26.8" width="6" height="1.6" rx="0.5" ry="0.5" fill="tan" stroke-width="1.25"/>
+  </g>
+</svg>

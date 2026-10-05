@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A pink tongue sticking out, with a groove down the middle. -->
+  <g id="tongue" stroke="ink">
+    <path d="M7 6.4 C11.6 4.6 24.4 4.6 29 6.4 C30.2 13.4 29.6 21.6 26.4 26.8 C24.4 30.2 21.2 31.8 18 31.8 C14.8 31.8 11.6 30.2 9.6 26.8 C6.4 21.6 5.8 13.4 7 6.4 Z" fill="pink" stroke="none"/>
+    <path d="M29.4 14.4 C29.6 19.4 28.6 23.8 26.4 26.8 C24.4 30.2 21.2 31.8 18 31.8 C16.6 31.8 15.2 31.5 13.8 30.8 C19.6 30.6 24.4 27.6 26.8 22.8 C28 20.4 28.8 17.6 29.4 14.4 Z" fill="pink-shade" stroke="none"/>
+    <path d="M7 6.4 C11.6 4.6 24.4 4.6 29 6.4 C30.2 13.4 29.6 21.6 26.4 26.8 C24.4 30.2 21.2 31.8 18 31.8 C14.8 31.8 11.6 30.2 9.6 26.8 C6.4 21.6 5.8 13.4 7 6.4 Z" fill="none"/>
+    <path d="M18 7.6 L18 19.4" fill="none" stroke-width="1.5"/>
+    <path d="M10.4 12 Q10.4 9.4 12.4 8.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

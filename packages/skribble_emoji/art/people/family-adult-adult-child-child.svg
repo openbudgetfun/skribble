@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="adult1" data-include="b05-shadow-adult" transform="translate(-7.6 0)"/>
+  <g id="adult2" data-include="b05-shadow-adult" transform="translate(7.6 0)"/>
+  <g id="child1" data-include="b05-shadow-child" transform="translate(-6 0)"/>
+  <g id="child2" data-include="b05-shadow-child" transform="translate(6 0)"/>
+</svg>

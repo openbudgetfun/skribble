@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="housing" stroke="ink">
+    <rect x="10.4" y="2.4" width="15.2" height="31.2" rx="4.4" ry="4.4" fill="black"/>
+  </g>
+  <g id="lights" stroke="ink" stroke-width="1.5">
+    <circle cx="18" cy="8.8" r="4.2" fill="red"/>
+    <circle cx="18" cy="18" r="4.2" fill="yellow"/>
+    <circle cx="18" cy="27.2" r="4.2" fill="green"/>
+    <g fill="paper" stroke="none">
+      <circle cx="16.6" cy="7.2" r="0.9"/>
+      <circle cx="16.6" cy="16.4" r="0.9"/>
+      <circle cx="16.6" cy="25.6" r="0.9"/>
+    </g>
+  </g>
+</svg>

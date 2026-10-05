@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="crown"><path d="M9.6 27 L8.8 6.8 Q8.8 4.2 18 4.2 Q27.2 4.2 27.2 6.8 L26.4 27 Z"/></clipPath>
+  </defs>
+  <g id="hat" stroke="ink">
+    <path d="M9.6 27 L8.8 6.8 Q8.8 4.2 18 4.2 Q27.2 4.2 27.2 6.8 L26.4 27 Z" fill="black"/>
+    <rect x="4" y="20.4" width="28" height="4.6" rx="0.4" ry="0.4" fill="red" stroke-width="1.5" clip-path="url(#crown)"/>
+    <path d="M9.6 27 L8.8 6.8 Q8.8 4.2 18 4.2 Q27.2 4.2 27.2 6.8 L26.4 27 Z" fill="none"/>
+    <ellipse cx="18" cy="6.8" rx="9.2" ry="2.6" fill="grey-shade" stroke-width="1.75"/>
+    <path d="M2.8 26.8 Q2.8 31.6 18 31.6 Q33.2 31.6 33.2 26.8 Q33.2 24.6 30.4 25 Q18 27.6 5.6 25 Q2.8 24.6 2.8 26.8 Z" fill="black"/>
+    <path d="M12 11.4 L12.4 18" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

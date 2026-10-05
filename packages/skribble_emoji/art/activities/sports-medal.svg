@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b13-medal-straps"/>
+  <g data-include="b13-medal-disc"/>
+  <path data-part="emblem" d="M18 18.8 L19.18 21.78 L22.37 21.98 L19.9 24.02 L20.7 27.12 L18 25.4 L15.3 27.12 L16.1 24.02 L13.63 21.98 L16.82 21.78 Z" fill="yellow-shade" stroke="ink" stroke-width="1.25"/>
+</svg>

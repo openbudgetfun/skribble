@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <path d="M2 8H34V28H2Z" fill="#ffffff"/>
+  <g transform="translate(2 8) scale(5.333333 6.666667)">
+    <path d="M0 3L0 0L6 0L6 1Z" fill="#d22730"/>
+    <path d="M0 3L0 0L4 0Z" fill="#fed141"/>
+    <path d="M0 3L0 0L2 0Z" fill="#002f6c"/>
+    <path d="M0 3L6 2L6 3Z" fill="#007a33"/>
+  </g>
+</svg>

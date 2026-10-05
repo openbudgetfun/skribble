@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="pot-clip"><path d="M18 11.4 C25.8 11.4 30 16.4 30 22 C30 28 25.6 32 18 32 C10.4 32 6 28 6 22 C6 16.4 10.2 11.4 18 11.4 Z"/></clipPath>
+  </defs>
+  <g id="teapot" stroke="ink">
+    <path d="M8.4 20.6 C5.6 19.4 4.6 15.6 2.8 13 Q2.4 11.8 3.6 11.8 Q6 12.8 7.2 15 C8.2 16.6 9.6 17 10.6 17.2 Z" fill="blue"/>
+    <path d="M27.4 14 C33 12.6 34.2 17.6 33.4 21 C32.6 24.2 30 26 26.8 25.6 L27.2 23.4 C29.6 23.4 31 22 31.2 20.4 C31.6 17.6 30.2 15.8 28 16.4 Z" fill="blue"/>
+    <path d="M18 11.4 C25.8 11.4 30 16.4 30 22 C30 28 25.6 32 18 32 C10.4 32 6 28 6 22 C6 16.4 10.2 11.4 18 11.4 Z" fill="blue-shade" stroke="none"/>
+    <g clip-path="url(#pot-clip)">
+      <path transform="translate(-2 -1.8)" d="M18 11.4 C25.8 11.4 30 16.4 30 22 C30 28 25.6 32 18 32 C10.4 32 6 28 6 22 C6 16.4 10.2 11.4 18 11.4 Z" fill="blue" stroke="none"/>
+    </g>
+    <path clip-path="url(#pot-clip)" d="M4 21.4 L32 21.4 L32 24.6 L4 24.6 Z" fill="white" stroke="none"/>
+    <path d="M6.1 21.4 L29.9 21.4 M6.2 24.6 L29.8 24.6" fill="none" stroke-width="1.25"/>
+    <path d="M18 11.4 C25.8 11.4 30 16.4 30 22 C30 28 25.6 32 18 32 C10.4 32 6 28 6 22 C6 16.4 10.2 11.4 18 11.4 Z" fill="none"/>
+    <path d="M9.4 18 Q10.6 15.2 13.4 14" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+  <g id="lid" stroke="ink">
+    <path d="M11 12.6 C11.6 9.4 14.4 8 18 8 C21.6 8 24.4 9.4 25 12.6 Z" fill="blue"/>
+    <circle cx="18" cy="6.4" r="1.9" fill="blue" stroke-width="1.5"/>
+  </g>
+</svg>

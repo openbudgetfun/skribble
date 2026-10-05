@@ -5,35 +5,47 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_emoji/skribble_emoji.dart';
 
-/// Lazy-rendered gallery of the hand-drawn OpenMoji emoji set.
+/// The emoji each group tab shows.
+const Map<EmojiGroup, String> _groupIcons = {
+  EmojiGroup.smileysAndEmotion: '😀',
+  EmojiGroup.peopleAndBody: '👋',
+  EmojiGroup.animalsAndNature: '🐱',
+  EmojiGroup.foodAndDrink: '🍕',
+  EmojiGroup.travelAndPlaces: '🚀',
+  EmojiGroup.activities: '🎉',
+  EmojiGroup.objects: '💡',
+  EmojiGroup.symbols: '✅',
+  EmojiGroup.flags: '🇯🇵',
+};
+
+/// Browses skribble's hand-drawn emoji like a picker: one tab per Unicode
+/// group, search by name, and a skin tone for every emoji that has one.
 ///
-/// Renders only the visible rows of the grid via `GridView.builder`, with a
-/// search bar filtering by emoji name and tappable cells that open a preview
-/// dialog showing the emoji at 24/48/96 px.
+/// Tapping an emoji opens a preview at several sizes and pen weights.
 class EmojiPage extends HookWidget {
   const EmojiPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final searchQuery = useState('');
+    final group = useState(EmojiGroup.smileysAndEmotion);
+    final query = useState('');
+    final tone = useState(EmojiSkinTone.none);
 
-    final sortedNames = useMemoized(
-      () => kSkribbleEmojiNames.keys.toList()..sort(),
-    );
+    final entries = useMemoized(() {
+      final found = query.value.trim().isEmpty
+          ? SkribbleEmoji.inGroup(group.value)
+          : SkribbleEmoji.search(query.value, limit: 200);
+      return [
+        for (final entry in found)
+          if (entry.hasTones && tone.value != EmojiSkinTone.none)
+            SkribbleEmoji.withTone(entry, tone.value) ?? entry
+          else
+            entry,
+      ];
+    }, [group.value, query.value, tone.value]);
 
-    final filteredNames = useMemoized(
-      () {
-        final query = searchQuery.value.trim().toLowerCase();
-        if (query.isEmpty) {
-          return sortedNames;
-        }
-        return sortedNames
-            .where((name) => name.toLowerCase().contains(query))
-            .toList(growable: false);
-      },
-      [searchQuery.value, sortedNames],
-    );
+    final textTheme = Theme.of(context).textTheme;
 
     return WiredScaffold(
       appBar: WiredAppBar(
@@ -44,67 +56,85 @@ class EmojiPage extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Hand-drawn emoji set',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                Text('Hand-drawn emoji', style: textTheme.titleLarge),
                 const SizedBox(height: 4),
                 Text(
-                  '${sortedNames.length} emoji from OpenMoji',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  '${_thousands(SkribbleEmoji.all.length)} emoji, every one '
+                  'drawn for skribble and inked live with the theme pen.',
+                  style: textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 12),
                 WiredInput(
                   hintText: 'Search emoji by name…',
                   semanticLabel: 'Search hand-drawn emoji',
                   hintStyle: TextStyle(color: theme.disabledTextColor),
-                  onChanged: (value) => searchQuery.value = value,
+                  onChanged: (value) => query.value = value,
+                ),
+                const SizedBox(height: 12),
+                _ToneRow(
+                  tone: tone.value,
+                  onChanged: (value) => tone.value = value,
                 ),
               ],
             ),
           ),
+          if (query.value.trim().isEmpty) ...[
+            SizedBox(
+              height: 52,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                children: [
+                  for (final MapEntry(key: value, value: icon)
+                      in _groupIcons.entries)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 3),
+                      child: WiredChoiceChip(
+                        selected: group.value == value,
+                        onSelected: (_) => group.value = value,
+                        semanticLabel: value.label,
+                        label: WiredEmoji(icon, semanticLabel: value.label),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
+              child: Text(group.value.label, style: textTheme.titleMedium),
+            ),
+          ],
           Expanded(
-            child: sortedNames.isEmpty
-                ? _EmptyCatalogMessage(theme: theme)
-                : filteredNames.isEmpty
+            child: entries.isEmpty
                 ? Center(
                     child: Text(
-                      'No emoji match "${searchQuery.value.trim()}"',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      'No emoji match "${query.value.trim()}"',
+                      style: textTheme.bodyMedium?.copyWith(
                         color: theme.disabledTextColor,
                       ),
                     ),
                   )
                 : GridView.builder(
-                    padding: const EdgeInsets.fromLTRB(12, 4, 12, 24),
+                    padding: const EdgeInsets.fromLTRB(12, 8, 12, 24),
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 64,
-                          childAspectRatio: 0.72,
+                          maxCrossAxisExtent: 56,
                         ),
-                    itemCount: filteredNames.length,
+                    itemCount: entries.length,
                     itemBuilder: (context, index) {
-                      final name = filteredNames[index];
-                      return InkWell(
-                        onTap: () => _showPopup(context, name),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            WiredEmoji.fromName(name, size: 32),
-                            const SizedBox(height: 4),
-                            Text(
-                              name,
-                              style: Theme.of(context).textTheme.bodySmall
-                                  ?.copyWith(fontSize: 9),
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+                      final entry = entries[index];
+                      return Tooltip(
+                        message: entry.name,
+                        child: InkWell(
+                          customBorder: const CircleBorder(),
+                          onTap: () => _showPreview(context, entry),
+                          child: Center(
+                            child: WiredEmoji(entry.emoji, size: 36),
+                          ),
                         ),
                       );
                     },
@@ -115,87 +145,123 @@ class EmojiPage extends HookWidget {
     );
   }
 
-  /// Opens a hand-drawn preview dialog showing the emoji at 24/48/96 px.
-  void _showPopup(BuildContext context, String name) {
-    final theme = WiredTheme.of(context);
-    final codePoint = kSkribbleEmojiCodePoints[name];
-
+  /// Opens a preview of [entry] at several sizes and pen weights.
+  void _showPreview(BuildContext context, EmojiEntry entry) {
     unawaited(
       showDialog<void>(
         context: context,
-        builder: (dialogContext) {
-          return Dialog(
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: RoughBoxDecoration(
-                // Per-icon fixed seed: the wobble is deterministic for the
-                // same emoji across rebuilds and app runs. Names without a
-                // catalogued codepoint (placeholders) share the default seed.
-                seed: codePoint ?? 1,
-                borderStyle: RoughDrawingStyle(
-                  width: 2,
-                  color: theme.borderColor,
-                ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    name,
-                    style: Theme.of(dialogContext).textTheme.titleMedium
-                        ?.copyWith(color: theme.textColor),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      for (final size in const [24.0, 48.0, 96.0])
-                        Column(
-                          children: [
-                            WiredEmoji.fromName(name, size: size),
-                            const SizedBox(height: 6),
-                            Text(
-                              '${size.round()}px',
-                              style: Theme.of(dialogContext).textTheme.bodySmall
-                                  ?.copyWith(color: theme.textColor),
-                            ),
-                          ],
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
+        builder: (dialogContext) => _EmojiPreview(entry: entry),
       ),
     );
   }
 }
 
-class _EmptyCatalogMessage extends HookWidget {
-  const _EmptyCatalogMessage({required this.theme});
+/// A row of skin-tone swatches, each a waving hand in that tone.
+class _ToneRow extends StatelessWidget {
+  const _ToneRow({required this.tone, required this.onChanged});
 
-  final WiredThemeData theme;
+  final EmojiSkinTone tone;
+  final ValueChanged<EmojiSkinTone> onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+    final hand = SkribbleEmoji.lookup('👋')!;
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        Text('Skin tone', style: Theme.of(context).textTheme.labelLarge),
+        for (final value in EmojiSkinTone.values)
+          WiredChoiceChip(
+            selected: tone == value,
+            onSelected: (_) => onChanged(value),
+            semanticLabel: '${value.label} skin tone',
+            label: WiredEmoji(
+              SkribbleEmoji.withTone(hand, value)!.emoji,
+              size: 22,
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// The emoji at three sizes and three pen weights, with its name and code.
+class _EmojiPreview extends StatelessWidget {
+  const _EmojiPreview({required this.entry});
+
+  final EmojiEntry entry;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final codes = [
+      for (final rune in entry.emoji.runes)
+        'U+${rune.toRadixString(16).toUpperCase().padLeft(4, '0')}',
+    ].join(' ');
+
+    Widget labelled(Widget child, String label) => Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        child,
+        const SizedBox(height: 6),
+        Text(label, style: textTheme.bodySmall),
+      ],
+    );
+
+    return WiredDialog(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const WiredEmoji(size: 48),
-            const SizedBox(height: 12),
             Text(
-              'No emoji generated yet.\n'
-              'Run the rough icon pipeline against the emoji '
-              'manifest to populate this gallery.',
-              style: TextStyle(color: theme.textColor),
+              entry.name,
+              style: textTheme.titleMedium?.copyWith(color: theme.textColor),
               textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '$codes · ${entry.group.label} › ${entry.subgroup}',
+              style: textTheme.bodySmall?.copyWith(
+                color: theme.disabledTextColor,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                for (final size in const [24.0, 48.0, 96.0])
+                  labelled(
+                    WiredEmoji(entry.emoji, size: size),
+                    '${size.round()} px',
+                  ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                for (final (weight, label) in const [
+                  (200.0, 'Light'),
+                  (400.0, 'Regular'),
+                  (700.0, 'Bold'),
+                ])
+                  labelled(
+                    WiredEmoji(entry.emoji, size: 56, weight: weight),
+                    label,
+                  ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            WiredButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close'),
             ),
           ],
         ),
@@ -203,3 +269,9 @@ class _EmptyCatalogMessage extends HookWidget {
     );
   }
 }
+
+/// [value] with thousands separators, such as `3,963`.
+String _thousands(int value) => value.toString().replaceAllMapped(
+  RegExp(r'\B(?=(\d{3})+(?!\d))'),
+  (_) => ',',
+);

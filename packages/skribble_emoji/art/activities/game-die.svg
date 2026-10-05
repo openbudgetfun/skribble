@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="die" stroke="ink">
+    <path d="M18 3 L31 10 L18 17 L5 10 Z" fill="white" stroke="none"/>
+    <path d="M5 10 L18 17 L18 33 L5 26 Z" fill="white" stroke="none"/>
+    <path d="M18 17 L31 10 L31 26 L18 33 Z" fill="silver" stroke="none"/>
+    <path d="M5 10 L18 17 L31 10 M18 17 L18 33" fill="none" stroke-width="1.5"/>
+    <path d="M18 3 L31 10 L31 26 L18 33 L5 26 L5 10 Z" fill="none"/>
+  </g>
+  <g id="pips" stroke="none">
+    <ellipse cx="18" cy="10" rx="2.2" ry="1.3" fill="red"/>
+    <circle cx="8.3" cy="15.8" r="1.4" fill="ink"/>
+    <circle cx="11.5" cy="21.5" r="1.4" fill="ink"/>
+    <circle cx="14.7" cy="27.2" r="1.4" fill="ink"/>
+    <circle cx="21.6" cy="19.5" r="1.4" fill="ink"/>
+    <circle cx="27.4" cy="23.5" r="1.4" fill="ink"/>
+  </g>
+</svg>

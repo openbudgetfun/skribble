@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(0 -0.8)">
+    <g id="wheels" stroke="ink">
+      <circle cx="8.2" cy="22.6" r="6" fill="none" stroke-width="2.25"/>
+      <circle cx="8.2" cy="22.6" r="1" fill="ink" stroke="none"/>
+      <circle cx="27.8" cy="22.6" r="6" fill="none" stroke-width="2.25"/>
+      <circle cx="27.8" cy="22.6" r="1" fill="ink" stroke="none"/>
+    </g>
+    <g id="frame" fill="none">
+      <path d="M12.2 13.6 L8.2 22.6" stroke="ink" stroke-width="2"/>
+      <path d="M27.8 22.6 L17.6 22.6 L12.2 13.6 L22.6 13.6 Z M17.6 22.6 L22.6 13.6 L23.2 11.2" stroke="ink" stroke-width="4"/>
+      <path d="M27.8 22.6 L17.6 22.6 L12.2 13.6 L22.6 13.6 Z M17.6 22.6 L22.6 13.6 L23.2 11.2" stroke="red" stroke-width="1.8"/>
+      <path d="M12.2 13.6 L11.4 9.6 L8.4 9.6" stroke="ink" stroke-width="2"/>
+    </g>
+    <g id="saddle" stroke="ink" stroke-width="1.5">
+      <path d="M20.4 10.4 L25.6 10.4 Q25.6 11.8 23.8 11.8 L21.8 11.8 Q20.4 11.8 20.4 10.4 Z" fill="black"/>
+    </g>
+    <g id="pedals" stroke="ink">
+      <path d="M17.6 22.6 L19.4 25.4 M18.2 25.4 L20.6 25.4" fill="none" stroke-width="1.75"/>
+      <circle cx="17.6" cy="22.6" r="1.6" fill="silver" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

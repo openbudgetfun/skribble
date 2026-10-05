@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="cheeks" fill="cheek">
+    <ellipse cx="8.4" cy="20.8" rx="3.2" ry="2.1"/>
+    <ellipse cx="27.6" cy="20.8" rx="3.2" ry="2.1"/>
+  </g>
+  <g id="eyes">
+    <ellipse cx="12.4" cy="13.6" rx="3.2" ry="3.8" fill="paper" stroke="ink" stroke-width="1.5"/>
+    <ellipse cx="23.6" cy="13.6" rx="3.2" ry="3.8" fill="paper" stroke="ink" stroke-width="1.5"/>
+    <circle cx="12.4" cy="14" r="1.7" fill="ink"/>
+    <circle cx="23.6" cy="14" r="1.7" fill="ink"/>
+  </g>
+  <ellipse data-part="mouth" cx="18" cy="25.4" rx="2" ry="1.4" fill="ink"/>
+</svg>

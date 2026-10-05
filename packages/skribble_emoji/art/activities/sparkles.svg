@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="sparkle-large" stroke="ink">
+    <path d="M14 8 Q15.9 18.1 26 20 Q15.9 21.9 14 32 Q12.1 21.9 2 20 Q12.1 18.1 14 8 Z" fill="yellow" stroke="none"/>
+    <path d="M26 20 Q15.9 21.9 14 32 Q14.9 23.6 21.6 20.9 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M14 8 Q15.9 18.1 26 20 Q15.9 21.9 14 32 Q12.1 21.9 2 20 Q12.1 18.1 14 8 Z" fill="none"/>
+  </g>
+  <path data-part="sparkle-medium" d="M27 2.5 Q28.05 7.95 33.5 9 Q28.05 10.05 27 15.5 Q25.95 10.05 20.5 9 Q25.95 7.95 27 2.5 Z" fill="yellow" stroke="ink" stroke-width="1.75"/>
+  <path data-part="sparkle-small" d="M28.6 22.2 Q29.35 26.05 33.2 26.8 Q29.35 27.55 28.6 31.4 Q27.85 27.55 24 26.8 Q27.85 26.05 28.6 22.2 Z" fill="yellow" stroke="ink" stroke-width="1.5"/>
+</svg>

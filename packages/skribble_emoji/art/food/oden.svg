@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="skewer" stroke="ink" transform="rotate(30 18 18)">
+    <rect x="17" y="1" width="2" height="34" rx="1" ry="1" fill="cream" stroke-width="1.25"/>
+    <path d="M18 3.4 Q18.8 3.4 19.4 4.4 L25 12.4 Q25.6 13.6 24.2 13.6 L11.8 13.6 Q10.4 13.6 11 12.4 L16.6 4.4 Q17.2 3.4 18 3.4 Z" fill="grey"/>
+    <g fill="ink" stroke="none">
+      <circle cx="16.4" cy="10.6" r="0.5"/>
+      <circle cx="19.6" cy="8.8" r="0.5"/>
+      <circle cx="18.4" cy="11.8" r="0.5"/>
+      <circle cx="21.6" cy="11.8" r="0.5"/>
+      <circle cx="17.6" cy="7.2" r="0.5"/>
+    </g>
+    <rect x="12.6" y="23.8" width="10.8" height="8" rx="1.8" ry="1.8" fill="tan"/>
+  </g>
+  <g id="ball" stroke="ink">
+    <circle cx="17.7" cy="18.52" r="4.8" fill="brown" stroke="none"/>
+    <path d="M20.52 14.64 A4.8 4.8 0 1 1 13.82 21.34 A4.8 4.8 0 0 0 20.52 14.64 Z" fill="brown-shade" stroke="none"/>
+    <circle cx="17.7" cy="18.52" r="4.8" fill="none"/>
+  </g>
+</svg>

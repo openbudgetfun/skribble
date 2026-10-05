@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="crown-shape"><path d="M5.4 29.6 L4.2 10.8 L9.6 18 L11.2 8 L15 16.6 L18 5.8 L21 16.6 L24.8 8 L26.4 18 L31.8 10.8 L30.6 29.6 Q30.6 30.8 29.4 30.8 L6.6 30.8 Q5.4 30.8 5.4 29.6 Z"/></clipPath>
+  </defs>
+  <g id="crown" stroke="ink">
+    <g fill="yellow" stroke-width="1.5">
+      <circle cx="4.2" cy="9.6" r="1.6"/>
+      <circle cx="11.2" cy="6.8" r="1.6"/>
+      <circle cx="18" cy="4.4" r="1.7"/>
+      <circle cx="24.8" cy="6.8" r="1.6"/>
+      <circle cx="31.8" cy="9.6" r="1.6"/>
+    </g>
+    <path d="M5.4 29.6 L4.2 10.8 L9.6 18 L11.2 8 L15 16.6 L18 5.8 L21 16.6 L24.8 8 L26.4 18 L31.8 10.8 L30.6 29.6 Q30.6 30.8 29.4 30.8 L6.6 30.8 Q5.4 30.8 5.4 29.6 Z" fill="yellow" stroke="none"/>
+    <path d="M36 10 Q31 27 16 32 L36 34 Z" fill="yellow-shade" stroke="none" clip-path="url(#crown-shape)"/>
+    <path d="M5.4 29.6 L4.2 10.8 L9.6 18 L11.2 8 L15 16.6 L18 5.8 L21 16.6 L24.8 8 L26.4 18 L31.8 10.8 L30.6 29.6 Q30.6 30.8 29.4 30.8 L6.6 30.8 Q5.4 30.8 5.4 29.6 Z" fill="none"/>
+    <path d="M5 23.4 L31 23.4" fill="none" stroke-width="1.75"/>
+    <path d="M7.4 14.4 L7.8 20.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+  <g id="gems" stroke="ink" stroke-width="1.5">
+    <circle cx="18" cy="27.2" r="2.1" fill="red"/>
+    <circle cx="11.2" cy="27.2" r="1.5" fill="blue"/>
+    <circle cx="24.8" cy="27.2" r="1.5" fill="blue"/>
+  </g>
+</svg>

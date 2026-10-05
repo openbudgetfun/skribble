@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="adult1" data-include="b05-adult" data-as="man" data-tokens="blue:teal,blue-shade:blue-shade" transform="translate(-7.2 0)"/>
+  <g id="adult2" data-include="b05-adult" data-as="woman" data-tokens="blue:coral,blue-shade:red-shade" transform="translate(7.2 0)"/>
+  <g id="girl" data-include="b05-kid" data-as="woman" data-tokens="blue:purple,blue-shade:purple-shade" transform="translate(8.64 16.1) scale(0.52)"/>
+</svg>

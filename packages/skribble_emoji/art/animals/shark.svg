@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="body"><path d="M2.4 19.6 C3.6 15 8.6 11.6 15.6 11.6 C21.8 11.6 26.8 14.2 30.4 17.4 L31.6 18.6 C29 22.4 24.6 25.4 17.6 25.8 C10.6 26.2 4.4 24.6 2.4 21 Z"/></clipPath>
+  </defs>
+  <path data-part="tail" d="M29.4 18.6 L32.4 9.6 Q33.2 8.4 33.8 9.8 L33.4 19 L32 24.8 Q31.4 25.8 30.8 24.8 Z" fill="grey" stroke="ink"/>
+  <path data-part="fin" d="M14.4 12 L18.6 4.4 Q19.2 3.6 19.6 4.6 L21.8 12.4 Z" fill="grey" stroke="ink"/>
+  <g id="body" stroke="ink">
+    <path d="M2.4 19.6 C3.6 15 8.6 11.6 15.6 11.6 C21.8 11.6 26.8 14.2 30.4 17.4 L31.6 18.6 C29 22.4 24.6 25.4 17.6 25.8 C10.6 26.2 4.4 24.6 2.4 21 Z" fill="grey"/>
+    <path clip-path="url(#body)" fill-rule="evenodd" d="M0 0 L36 0 L36 36 L0 36 Z M1.2 18 C2.4 13.4 7.4 10 14.4 10 C20.6 10 25.6 12.6 29.2 15.8 L30.4 17 C27.8 20.8 23.4 23.8 16.4 24.2 C9.4 24.6 3.2 23 1.2 19.4 Z" fill="grey-shade" stroke="none"/>
+    <path clip-path="url(#body)" d="M2 20.4 C8 23 16 23.4 24 21.8 C27 21.2 29.4 20 31.6 18.6 L32 30 L2 30 Z" fill="white" stroke="none"/>
+    <path d="M2.4 19.6 C3.6 15 8.6 11.6 15.6 11.6 C21.8 11.6 26.8 14.2 30.4 17.4 L31.6 18.6 C29 22.4 24.6 25.4 17.6 25.8 C10.6 26.2 4.4 24.6 2.4 21 Z" fill="none"/>
+    <path d="M13 15.4 Q12.4 17.4 13 19.4 M15 15.2 Q14.4 17.2 15 19.2" fill="none" stroke-width="1.25"/>
+    <path data-part="flipper" d="M14 22.6 L11.4 28.6 Q11.2 29.6 12.2 29.2 L18.2 24.4 Z" fill="grey-shade" stroke-width="1.5"/>
+  </g>
+  <g id="mouth">
+    <path d="M3.2 20.4 Q6.6 22.4 10.6 20.6 Q9.4 24 6.4 23.8 Q4 23.4 3.2 20.4 Z" fill="ink"/>
+    <path d="M4.2 21 L4.8 22.2 L5.6 21.6 L6.4 22.4 L7.2 21.6 L8 22.2 L9.2 21.2 Q6.6 22.2 4.2 21 Z" fill="paper"/>
+  </g>
+  <g id="eyes">
+    <circle cx="8.6" cy="16.6" r="1.2" fill="ink"/>
+    <circle cx="9" cy="16.2" r="0.4" fill="paper"/>
+  </g>
+</svg>

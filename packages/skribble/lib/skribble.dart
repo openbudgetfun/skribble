@@ -26,6 +26,7 @@ library;
 export 'src/canvas/wired_canvas.dart';
 export 'src/canvas/wired_ink_splash.dart';
 export 'src/canvas/wired_painter_base.dart';
+export 'src/canvas/wired_waver.dart';
 // ---------------------------------------------------------------------------
 // COMPATIBILITY LAYER (transitional) — the sanctioned exception to the
 // no-Material/no-Cupertino rule.

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="avocado" stroke="ink" transform="rotate(15 18 18.7)">
+    <path d="M18 4.6 C22.8 4.6 24.8 8.8 25.6 12.6 C26.4 16.4 29.6 19 29.6 24.2 C29.6 29.6 24.6 32.8 18 32.8 C11.4 32.8 6.4 29.6 6.4 24.2 C6.4 19 9.6 16.4 10.4 12.6 C11.2 8.8 13.2 4.6 18 4.6 Z" fill="leaf"/>
+    <path d="M18 7.4 C21.6 7.4 23 10.6 23.6 13.6 C24.4 17.2 27.4 19.6 27.4 24.2 C27.4 28.4 23.4 30.6 18 30.6 C12.6 30.6 8.6 28.4 8.6 24.2 C8.6 19.6 11.6 17.2 12.4 13.6 C13 10.6 14.4 7.4 18 7.4 Z" fill="lime" stroke="none"/>
+  </g>
+  <g id="pit" stroke="ink" transform="rotate(15 18 18.7)">
+    <circle cx="18" cy="23.6" r="5.6" fill="brown" stroke="none"/>
+    <path d="M23.1 21.2 A5.6 5.6 0 0 1 18 29.2 C20.8 28.2 22.7 25.3 23.1 21.2 Z" fill="brown-shade" stroke="none"/>
+    <circle cx="18" cy="23.6" r="5.6" fill="none"/>
+    <path d="M14.8 22.8 Q15 20.6 16.8 19.6" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

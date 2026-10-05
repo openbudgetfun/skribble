@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="brows" fill="none" stroke="ink" stroke-width="1.75">
+    <path d="M9.4 9.8 Q12.2 9.2 14.8 7.6"/>
+    <path d="M21.2 7.6 Q23.8 9.2 26.6 9.8"/>
+  </g>
+  <g id="eyes" fill="none" stroke="ink" stroke-width="2">
+    <path d="M9.8 14.8 Q12.6 10.6 15.4 14.8"/>
+    <path d="M20.6 14.8 Q23.4 10.6 26.2 14.8"/>
+  </g>
+  <path data-part="mouth" d="M11.8 21.4 Q18 26.4 24.2 21.4" fill="none" stroke="ink"/>
+  <g id="tears">
+    <g data-include="b01-drop" transform="translate(25.6 16.4) scale(0.8) translate(-18 -13.2)"/>
+  </g>
+</svg>

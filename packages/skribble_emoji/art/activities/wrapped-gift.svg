@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="box" stroke="ink">
+    <rect x="6" y="15.6" width="24" height="17.4" rx="1.6" ry="1.6" fill="red" stroke="none"/>
+    <path d="M30 17 L30 31.4 Q30 33 28.4 33 L24.6 33 C27.4 30.6 28.2 25.4 28.2 17 Z" fill="red-shade" stroke="none"/>
+    <rect x="15.6" y="15.6" width="4.8" height="17.4" fill="yellow" stroke="none"/>
+    <path d="M15.6 16 L15.6 33 M20.4 16 L20.4 33" fill="none" stroke-width="1.5"/>
+    <rect x="6" y="15.6" width="24" height="17.4" rx="1.6" ry="1.6" fill="none"/>
+  </g>
+  <g id="lid" stroke="ink">
+    <rect x="4.4" y="10.8" width="27.2" height="5.6" rx="1.4" ry="1.4" fill="red" stroke="none"/>
+    <rect x="15.4" y="10.8" width="5.2" height="5.6" fill="yellow" stroke="none"/>
+    <path d="M15.4 10.8 L15.4 16.4 M20.6 10.8 L20.6 16.4" fill="none" stroke-width="1.5"/>
+    <rect x="4.4" y="10.8" width="27.2" height="5.6" rx="1.4" ry="1.4" fill="none"/>
+  </g>
+  <g id="bow" fill="yellow" stroke="ink" stroke-width="1.75">
+    <path d="M18 10.8 C14 4.4 9.2 4.6 9.6 7.8 C10 10.4 14.6 10.8 18 10.8 Z"/>
+    <path d="M18 10.8 C22 4.4 26.8 4.6 26.4 7.8 C26 10.4 21.4 10.8 18 10.8 Z"/>
+    <rect x="16.2" y="8.8" width="3.6" height="3.2" rx="1.2" ry="1.2" stroke-width="1.5"/>
+  </g>
+</svg>

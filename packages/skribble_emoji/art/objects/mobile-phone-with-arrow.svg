@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b15-phone" transform="translate(5.2 0)"/>
+  <g id="arrow" stroke="ink">
+    <path d="M2.8 15 L9.4 15 L9.4 10.6 Q9.4 9.6 10.2 10.2 L17.6 17.2 Q18.4 18 17.6 18.8 L10.2 25.8 Q9.4 26.4 9.4 25.4 L9.4 21 L2.8 21 Q2 21 2 20.2 L2 15.8 Q2 15 2.8 15 Z" fill="red"/>
+    <path d="M17.6 18.8 L10.2 25.8 Q9.4 26.4 9.4 25.4 L9.4 23.6 Z" fill="red-shade" stroke="none"/>
+    <path d="M2.8 15 L9.4 15 L9.4 10.6 Q9.4 9.6 10.2 10.2 L17.6 17.2 Q18.4 18 17.6 18.8 L10.2 25.8 Q9.4 26.4 9.4 25.4 L9.4 21 L2.8 21 Q2 21 2 20.2 L2 15.8 Q2 15 2.8 15 Z" fill="none"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#c8102e"/>
+  <g data-include="b21-union-jack"/>
+  <g>
+    <path d="M22.8 13H29.2V18.8C29.2 21.4 27.6 23 26 23.8C24.4 23 22.8 21.4 22.8 18.8Z" fill="#ffffff"/>
+    <path d="M22.9 20.6Q26 19.6 29.1 20.6C28.6 22.2 27.3 23.2 26 23.8C24.7 23.2 23.4 22.2 22.9 20.6Z" fill="#3a8c3a"/>
+    <path d="M27.2 19.6Q28.8 18.4 28 16.4" fill="none" stroke="#c8102e" stroke-width="0.8"/>
+    <path d="M24.4 16C25.6 15.8 27 16.8 27.5 18.4C27.8 19.6 27.6 20.4 27 20.8H24C23.9 19.4 24 17.8 24.4 16Z" fill="#c8102e"/>
+    <circle cx="24.8" cy="15.4" r="1.35" fill="#c8102e"/>
+    <path d="M23.2 17.6H25.6V19.3C25.6 20 25 20.5 24.4 20.7C23.8 20.5 23.2 20 23.2 19.3Z" fill="#4fa6dc"/>
+  </g>
+</svg>

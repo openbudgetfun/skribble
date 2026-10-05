@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b20-button-blue"/>
+  <g id="glyph" fill="none" stroke="white" stroke-width="1.75">
+    <path d="M9.9 13.7 L6.5 13.7 L6.5 22.3 M6.5 18 L9.29 18 M12.75 22.3 L12.75 13.7 L14.81 13.7 A1.7 2.32 0 0 1 14.81 18.34 L12.75 18.34 M14.57 18.34 L16.76 22.3 M23.13 13.7 L19.61 13.7 L19.61 22.3 L23.13 22.3 M19.61 18 L22.52 18 M29.5 13.7 L25.98 13.7 L25.98 22.3 L29.5 22.3 M25.98 18 L28.89 18"/>
+  </g>
+</svg>

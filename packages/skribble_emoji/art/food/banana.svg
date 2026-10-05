@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="banana" stroke="ink" transform="translate(0 1)">
+    <path d="M30.6 8.6 C33 20.6 22.6 31.6 5.4 29.4 C12.4 26 20.6 19.6 24 8.8 Z" fill="yellow" stroke="none"/>
+    <path d="M30.6 8.6 C33 20.6 22.6 31.6 5.4 29.4 C18.4 28.6 27.4 21.6 28.2 8.8 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M30.6 8.6 C33 20.6 22.6 31.6 5.4 29.4 C12.4 26 20.6 19.6 24 8.8 Z" fill="none"/>
+    <path d="M7.8 27.6 Q4.4 27.6 3.4 29.8 Q5.8 31 8.4 29.6 Z" fill="brown" stroke-width="1.5"/>
+    <path d="M24.8 9.4 L25.8 4.4 Q26.2 3 27.6 3.2 L29 3.4 Q30.2 3.8 29.8 5.2 L29.6 9.4 Z" fill="lime" stroke-width="1.75"/>
+  </g>
+</svg>

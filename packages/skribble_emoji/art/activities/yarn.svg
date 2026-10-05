@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="strand" d="M26.4 26.4 C29.4 29 31 32.4 34 33" fill="none" stroke="pink-shade" stroke-width="2"/>
+  <g id="ball" stroke="ink">
+    <circle cx="17" cy="17" r="13.4" fill="pink" stroke="none"/>
+    <path d="M29.24 11.55 A13.4 13.4 0 0 1 17 30.4 C23.79 28.08 28.26 21.11 29.24 11.55 Z" fill="pink-shade" stroke="none"/>
+    <path d="M6.6 9 C12.6 11.6 16.6 18.4 16.4 29.8 M10.4 5.6 C17.6 9 21.4 16.4 21.6 29.4 M15.6 3.8 C22.6 7.4 26.2 13.4 26.8 25 M3.8 17.6 C8.4 17.6 12.2 21.8 12.4 29.4" fill="none" stroke="magenta" stroke-width="1.5"/>
+    <circle cx="17" cy="17" r="13.4" fill="none"/>
+  </g>
+</svg>

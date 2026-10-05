@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="mountain" stroke="ink">
+    <path d="M12.4 22 L23.6 4.4 Q24.4 3.2 25.2 4.4 L33.4 17.4 L33.4 26 Z" fill="grey" stroke-width="1.75"/>
+    <path d="M20.6 9.2 L23.6 4.4 Q24.4 3.2 25.2 4.4 L28.2 9.2 L26.4 8.2 L24.4 9.8 L22.4 8.2 Z" fill="white" stroke-width="1.5"/>
+  </g>
+  <g id="hill" stroke="ink">
+    <path d="M2.6 20.2 L33.4 31.4 L33.4 31.6 Q33.4 33 32 33 L4 33 Q2.6 33 2.6 31.6 Z" fill="green"/>
+  </g>
+  <g transform="translate(2.6 20.2) rotate(20)">
+    <g id="car" stroke="ink">
+      <path d="M3 -3.4 L3 -10.6 Q3 -13 5.4 -13 L19.6 -13 Q22 -13 22 -10.6 L22 -3.4 Z" fill="red" stroke="none"/>
+      <path d="M22 -9 L22 -3.4 L12 -3.4 Q20 -4.4 22 -9 Z" fill="red-shade" stroke="none"/>
+      <path d="M3 -3.4 L3 -10.6 Q3 -13 5.4 -13 L19.6 -13 Q22 -13 22 -10.6 L22 -3.4 Z" fill="none"/>
+      <rect x="5.2" y="-11" width="4.2" height="3.6" rx="0.8" ry="0.8" fill="sky" stroke-width="1.5"/>
+      <rect x="10.4" y="-11" width="4.2" height="3.6" rx="0.8" ry="0.8" fill="sky" stroke-width="1.5"/>
+      <rect x="15.6" y="-11" width="4.2" height="3.6" rx="0.8" ry="0.8" fill="sky" stroke-width="1.5"/>
+      <path d="M3 -5.8 L22 -5.8" fill="none" stroke="cream" stroke-width="1.5"/>
+    </g>
+    <g id="wheels" fill="black" stroke="ink" stroke-width="1.5">
+      <circle cx="7.4" cy="-2" r="2"/>
+      <circle cx="17.6" cy="-2" r="2"/>
+    </g>
+  </g>
+</svg>

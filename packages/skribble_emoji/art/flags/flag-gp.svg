@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#000000"/>
+  <rect x="2" y="8" width="32" height="5.4" fill="#1d3fa0"/>
+  <ellipse cx="10" cy="9.85" rx="0.42" ry="0.9" fill="#fcd116"/>
+  <ellipse cx="9.2" cy="10.15" rx="0.36" ry="0.75" fill="#fcd116" transform="rotate(-38 9.2 10.15)"/>
+  <ellipse cx="10.8" cy="10.15" rx="0.36" ry="0.75" fill="#fcd116" transform="rotate(38 10.8 10.15)"/>
+  <rect x="9.05" y="10.65" width="1.9" height="0.38" fill="#fcd116"/>
+  <polygon points="9.65,11 10.35,11 10,11.75" fill="#fcd116"/>
+  <ellipse cx="18" cy="9.85" rx="0.42" ry="0.9" fill="#fcd116"/>
+  <ellipse cx="17.2" cy="10.15" rx="0.36" ry="0.75" fill="#fcd116" transform="rotate(-38 17.2 10.15)"/>
+  <ellipse cx="18.8" cy="10.15" rx="0.36" ry="0.75" fill="#fcd116" transform="rotate(38 18.8 10.15)"/>
+  <rect x="17.05" y="10.65" width="1.9" height="0.38" fill="#fcd116"/>
+  <polygon points="17.65,11 18.35,11 18,11.75" fill="#fcd116"/>
+  <ellipse cx="26" cy="9.85" rx="0.42" ry="0.9" fill="#fcd116"/>
+  <ellipse cx="25.2" cy="10.15" rx="0.36" ry="0.75" fill="#fcd116" transform="rotate(-38 25.2 10.15)"/>
+  <ellipse cx="26.8" cy="10.15" rx="0.36" ry="0.75" fill="#fcd116" transform="rotate(38 26.8 10.15)"/>
+  <rect x="25.05" y="10.65" width="1.9" height="0.38" fill="#fcd116"/>
+  <polygon points="25.65,11 26.35,11 26,11.75" fill="#fcd116"/>
+  <path d="M8.6 15.4L17 20.2M8.2 17.4L17 20.6M10.2 14.4L17.2 19.6M8.8 19.2L16.8 21M21 21.2L27.6 23.8M20.8 22L27 25.2M21.2 20.4L28 22.6" fill="none" stroke="#2e9e3e" stroke-width="0.9"/>
+  <path d="M19 16L19.47 17.03L20.19 16.16L20.38 17.27L21.3 16.62L21.19 17.74L22.25 17.35L21.86 18.41L22.98 18.3L22.33 19.22L23.44 19.41L22.57 20.13L23.6 20.6L22.57 21.07L23.44 21.79L22.33 21.98L22.98 22.9L21.86 22.79L22.25 23.85L21.19 23.46L21.3 24.58L20.38 23.93L20.19 25.04L19.47 24.17L19 25.2L18.53 24.17L17.81 25.04L17.62 23.93L16.7 24.58L16.81 23.46L15.75 23.85L16.14 22.79L15.02 22.9L15.67 21.98L14.56 21.79L15.43 21.07L14.4 20.6L15.43 20.13L14.56 19.41L15.67 19.22L15.02 18.3L16.14 18.41L15.75 17.35L16.81 17.74L16.7 16.62L17.62 17.27L17.81 16.16L18.53 17.03Z" fill="#fcd116"/>
+</svg>

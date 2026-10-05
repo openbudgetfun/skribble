@@ -1,6 +1,6 @@
 # Asset provenance and determinism
 
-Every visual asset in this repository — icon catalogs, emoji, and the bundled typefaces — is generated from a source pinned by exact version and checksum. Nothing is hand-edited, and nothing regenerates differently twice.
+Every visual asset in this repository — icon catalogs, emoji, and the bundled typefaces — is generated, and nothing regenerates differently twice. Third-party sources are pinned by exact version and checksum. skribble's own art (the built-in glyphs and the emoji) is hand-written SVG checked into the repository, so its source of truth is reviewed like code. Generated catalogs are never hand-edited.
 
 The registry lives in [`tool/asset_sources.txt`](../../tool/asset_sources.txt). Each package's README repeats the rows relevant to it.
 
@@ -17,12 +17,13 @@ Two failure modes are easy to fall into with generated artwork:
 
 There is no `Random`, no clock, and no map-iteration-order dependence anywhere in the generation pipeline. Each stage derives its "wobble" from a pure function of stable inputs:
 
-| Stage                   | Where the variation comes from                | Why it is stable                                                                                                                                             |
-| ----------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Icon and emoji outlines | `SvgTransform.path()` in `skribble_emoji_gen` | A fixed sum of `sin()` terms evaluated at each coordinate. Same coordinate in, same displacement out.                                                        |
-| Font glyphs             | `JitterAlgorithm.jitterValue(seed, index)`    | An integer hash — `seed * 2654435761 + index * 40503`, masked to 32 bits. Deterministic by construction.                                                     |
-| Material icons          | `svg2roughjs`                                 | Each icon gets seed `1337 + codePoint`, so per-icon output is pinned to its identity.                                                                        |
-| Catalog ordering        | Every generator                               | Entries are sorted (icons by identifier, emoji by sequence) before codepoints are assigned, so ordering never depends on file-system or map iteration order. |
+| Stage                 | Where the variation comes from                | Why it is stable                                                                                                                                         |
+| --------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Iconify icon outlines | `SvgTransform.path()` in `skribble_emoji_gen` | A fixed sum of `sin()` terms evaluated at each coordinate. Same coordinate in, same displacement out.                                                    |
+| Glyphs and emoji      | None at build time                            | The generators compile the SVG geometry exactly. Wavering and ink happen at runtime, seeded by the theme and the art key, so they are deterministic too. |
+| Font glyphs           | `JitterAlgorithm.jitterValue(seed, index)`    | An integer hash — `seed * 2654435761 + index * 40503`, masked to 32 bits. Deterministic by construction.                                                 |
+| Material icons        | `svg2roughjs`                                 | Each icon gets seed `1337 + codePoint`, so per-icon output is pinned to its identity.                                                                    |
+| Catalog ordering      | Every generator                               | Icons are sorted by identifier and emoji keep Unicode's order from `emoji-test.txt`, so ordering never depends on file-system or map iteration order.    |
 
 Because the displacement is a pure function of position rather than a random walk, the same letter or icon always warps the same way — which is also why repeated characters within one font keep matching outlines.
 
@@ -30,7 +31,7 @@ Because the displacement is a pure function of position rather than a random wal
 
 - Regenerating all four icon catalogs twice produces identical SHA-256 digests.
 - `roughen_fonts.dart --check` rebuilds every font file into a temporary directory and compares each byte against the committed assets; it reports zero stale files. That is 130 files: the 3 variable faces, the 126 generated static faces, and the `OFL.txt` notice.
-- The emoji generator sorts entries by sequence before writing, and the `visual-assets-sync` CI job fails if running it changes any committed file.
+- The emoji generator writes entries in Unicode order and art by key, and the `visual-assets-sync` CI job fails if running it changes any committed file. It also fails when any emoji in the pinned Unicode list has no drawing.
 
 ### The boundary of the guarantee
 
@@ -47,13 +48,14 @@ Both are visible, reviewable, and reversible. Neither happens by accident.
 dart run packages/skribble_emoji_gen/bin/update_assets.dart
 ```
 
-That single command downloads the pinned OpenMoji payload (verifying both checksums), rebuilds the emoji catalog, the curated simple icons, the three Iconify icon catalogs, and all bundled fonts, then formats the output. Run it after bumping any version in the registry.
+That single command rebuilds the emoji catalog (downloading the pinned Unicode `emoji-test.txt` and verifying its checksum), the built-in glyphs, the Iconify icon catalogs, and all bundled fonts. Run it after bumping any version in the registry or editing any art.
 
 Individual stages:
 
 ```bash
-melos run icons-simple       # the 30 curated icons
-melos run icons-iconify      # lucide, bxs, cib
+melos run emoji              # the emoji catalog from packages/skribble_emoji/art
+melos run glyphs             # the built-in glyphs from packages/skribble/tool/glyphs
+melos run icons-iconify      # lucide, bxs, cib, simple-icons
 melos run rough-icons-font   # the Material catalog and its icon font
 devenv shell dart run packages/skribble_font_roughen/bin/roughen_fonts.dart
 ```
@@ -65,6 +67,7 @@ Every generator accepts `--check`, which re-derives the output in memory and fai
 ```bash
 melos run icons-check         # all icon catalogs
 ./scripts/check_icon_catalogs.sh
+dart run packages/skribble_emoji_gen/bin/generate_emoji.dart --check
 ```
 
 `package-sizes` then confirms the regenerated packages still fit their publish budgets, so a catalog that quietly doubles in size is caught before it ships.

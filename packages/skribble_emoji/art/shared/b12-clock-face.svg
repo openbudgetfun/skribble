@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The clock face for the 🕐–🕧 clocks: a white face with its shade, the
+       ink rim, and four ticks. Each clock draws its own hands on top. -->
+  <g id="clock">
+    <circle cx="18" cy="18" r="15" fill="white"/>
+    <path d="M31.7 11.89 A15 15 0 0 1 18 33 C25.61 30.41 30.6 22.61 31.7 11.89 Z" fill="silver"/>
+    <circle cx="18" cy="18" r="15" fill="none" stroke="ink"/>
+    <path d="M18 5 L18 7.2 M31 18 L28.8 18 M18 31 L18 28.8 M5 18 L7.2 18" fill="none" stroke="ink" stroke-width="1.75"/>
+  </g>
+</svg>

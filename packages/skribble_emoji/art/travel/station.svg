@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="posts" fill="grey" stroke="ink" stroke-width="1.75">
+    <rect x="4.6" y="11" width="2.4" height="19" rx="0.8" ry="0.8"/>
+    <rect x="29" y="11" width="2.4" height="19" rx="0.8" ry="0.8"/>
+  </g>
+  <g id="train" stroke="ink">
+    <path d="M12.6 13.4 L23.4 13.4 Q26.6 13.4 26.6 16.6 L26.6 29.6 L9.4 29.6 L9.4 16.6 Q9.4 13.4 12.6 13.4 Z" fill="teal"/>
+    <rect x="11.4" y="15.6" width="13.2" height="5.6" rx="1.4" ry="1.4" fill="sky" stroke-width="1.5"/>
+    <circle cx="12.6" cy="25" r="1.4" fill="yellow" stroke-width="1.5"/>
+    <circle cx="23.4" cy="25" r="1.4" fill="yellow" stroke-width="1.5"/>
+  </g>
+  <g id="roof" stroke="ink">
+    <path d="M2.6 11.4 L7.6 4.4 Q8 3.8 8.8 3.8 L27.2 3.8 Q28 3.8 28.4 4.4 L33.4 11.4 Z" fill="red" stroke="none"/>
+    <path d="M33.4 11.4 L28.4 4.4 Q28 3.8 27.2 3.8 L26.4 3.8 Q28.6 8 25.4 11.4 Z" fill="red-shade" stroke="none"/>
+    <path d="M2.6 11.4 L7.6 4.4 Q8 3.8 8.8 3.8 L27.2 3.8 Q28 3.8 28.4 4.4 L33.4 11.4 Z" fill="none"/>
+    <circle cx="18" cy="7.6" r="2.5" fill="white" stroke-width="1.5"/>
+    <path d="M18 6.4 L18 7.6 L19 8.2" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="platform" stroke="ink">
+    <rect x="2.6" y="29.6" width="30.8" height="3.4" rx="1" ry="1" fill="grey"/>
+    <path d="M4.2 31.3 L31.8 31.3" fill="none" stroke="yellow" stroke-width="1.5"/>
+  </g>
+</svg>

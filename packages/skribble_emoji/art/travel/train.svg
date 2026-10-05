@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="body"><path d="M3 25.4 L3 17.4 Q3 12.4 8 12 L31.4 12 Q33.4 12 33.4 14 L33.4 25.4 Q33.4 27.4 31.4 27.4 L5 27.4 Q3 27.4 3 25.4 Z"/></clipPath></defs>
+  <g id="wheels" fill="grey" stroke="ink" stroke-width="1.5">
+    <circle cx="8.6" cy="28.8" r="1.9"/>
+    <circle cx="13.2" cy="28.8" r="1.9"/>
+    <circle cx="23.6" cy="28.8" r="1.9"/>
+    <circle cx="28.2" cy="28.8" r="1.9"/>
+  </g>
+  <g id="train" stroke="ink">
+    <path d="M3 25.4 L3 17.4 Q3 12.4 8 12 L31.4 12 Q33.4 12 33.4 14 L33.4 25.4 Q33.4 27.4 31.4 27.4 L5 27.4 Q3 27.4 3 25.4 Z" fill="orange"/>
+    <path d="M0 24.2 h36 v4 h-36 Z" fill="orange-shade" stroke="none" clip-path="url(#body)"/>
+    <path d="M0 20.6 h36 v1.8 h-36 Z" fill="white" stroke-width="1.25" clip-path="url(#body)"/>
+    <path d="M3.4 18.4 Q3.6 14 8.2 13.6 L9.6 13.6 L9.6 18.4 Z" fill="sky" stroke-width="1.5"/>
+    <path d="M12.4 14.2 h3.4 v4.2 h-3.4 Z M23.4 14.2 h3.4 v4.2 h-3.4 Z M28.2 14.2 h3.2 v4.2 h-3.2 Z" fill="sky" stroke-width="1.5"/>
+    <rect x="17.4" y="13.6" width="4.4" height="12.6" rx="0.6" ry="0.6" fill="orange" stroke-width="1.5"/>
+    <rect x="18.2" y="14.6" width="2.8" height="4.2" rx="0.4" ry="0.4" fill="sky" stroke-width="1.25"/>
+    <path d="M3 25.4 L3 17.4 Q3 12.4 8 12 L31.4 12 Q33.4 12 33.4 14 L33.4 25.4 Q33.4 27.4 31.4 27.4 L5 27.4 Q3 27.4 3 25.4 Z" fill="none"/>
+    <circle cx="5.2" cy="23.6" r="1.1" fill="yellow" stroke-width="1.25"/>
+  </g>
+  <path id="rail" d="M2.4 31.8 L33.6 31.8" fill="none" stroke="ink"/>
+</svg>

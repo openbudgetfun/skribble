@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="18" cy="18" r="13" fill="white"/>
+  <g id="person" fill="none" stroke="ink">
+    <circle cx="19.6" cy="9.6" r="2.4" fill="ink" stroke="none"/>
+    <path d="M18.8 13 L17.4 20" stroke-width="3.6"/>
+    <path data-part="legs" d="M17.4 20 L14 27 M17.4 20 L21.4 26.6" stroke-width="3"/>
+    <path data-part="arms" d="M18.6 14.4 L14.8 18.4 M18.4 14.4 L21.8 18.2" stroke-width="2.4"/>
+  </g>
+  <g data-include="b18-no-sign"/>
+</svg>

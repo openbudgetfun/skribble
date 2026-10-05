@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A knotted rope of dough: each strand is a wide ink stroke with a
+       narrower brown stroke on top, so the second strand crosses over the
+       first at the twist. -->
+  <g id="pretzel" fill="none">
+    <path d="M9.6 27.4 C12 24.4 15 21.8 18 19.4 C21.6 16.4 23.4 7.4 27 7.4 C30.6 7.4 32.2 11.6 32.2 16 C32.2 25 26 30 18 30 C10 30 3.8 25 3.8 16 C3.8 11.6 5.4 7.4 9 7.4 C10.6 7.4 11.8 8.4 12.8 10.2" stroke="ink" stroke-width="6.4"/>
+    <path d="M9.6 27.4 C12 24.4 15 21.8 18 19.4 C21.6 16.4 23.4 7.4 27 7.4 C30.6 7.4 32.2 11.6 32.2 16 C32.2 25 26 30 18 30 C10 30 3.8 25 3.8 16 C3.8 11.6 5.4 7.4 9 7.4 C10.6 7.4 11.8 8.4 12.8 10.2" stroke="brown" stroke-width="3.4"/>
+    <path d="M12 8.8 C13.8 11.6 14.6 16.6 18 19.4 C21 21.8 24 24.4 26.4 27.4" stroke="ink" stroke-width="6.4"/>
+    <path d="M12 8.8 C13.8 11.6 14.6 16.6 18 19.4 C21 21.8 24 24.4 26.4 27.4" stroke="brown" stroke-width="3.4"/>
+  </g>
+  <g id="salt" fill="none" stroke="white" stroke-width="1.6">
+    <path d="M5.2 21.4 L5.6 22 M7.8 8.8 L8.6 8.6 M27.4 7.8 L28.2 8.2 M31 21.4 L30.6 22 M17.4 30 L18.2 30 M14.6 16.4 L15 17 M22.6 23.2 L23.2 23.6"/>
+  </g>
+</svg>

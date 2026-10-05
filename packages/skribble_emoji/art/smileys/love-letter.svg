@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="rotate(-6 18 18)">
+    <g id="envelope" stroke="ink">
+      <rect x="3.6" y="8.4" width="28.8" height="20" rx="2.4" ry="2.4" fill="white" stroke="none"/>
+      <path d="M32.4 17.6 L32.4 26 Q32.4 28.4 30 28.4 L20.4 28.4 C26.4 27 30.8 23.6 32.4 17.6 Z" fill="silver" stroke="none"/>
+      <rect x="3.6" y="8.4" width="28.8" height="20" rx="2.4" ry="2.4" fill="none"/>
+      <path d="M4.6 27.4 L13.6 19.2 M31.4 27.4 L22.4 19.2" fill="none" stroke-width="1.5"/>
+      <path d="M4.4 9.4 L18 20 L31.6 9.4" fill="none" stroke-width="1.75"/>
+    </g>
+    <path data-part="heart" transform="translate(18 20.2) scale(0.36) translate(-18 -18.9)" d="M18 31.4 C7.2 24.6 3.2 18.4 4.2 12.4 C5.2 6.6 12 4.6 15.6 8.8 L18 11.6 L20.4 8.8 C24 4.6 30.8 6.6 31.8 12.4 C32.8 18.4 28.8 24.6 18 31.4 Z" fill="red" stroke="ink" stroke-width="4.2"/>
+  </g>
+</svg>

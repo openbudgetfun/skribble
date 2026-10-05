@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="coin" stroke="ink">
+    <circle cx="19.6" cy="18.8" r="13.6" fill="yellow-shade"/>
+    <circle cx="17.2" cy="17.2" r="13.6" fill="yellow"/>
+    <circle cx="17.2" cy="17.2" r="10.2" fill="none" stroke="yellow-shade" stroke-width="1.75"/>
+    <polygon points="17.2,11.6 18.61,15.26 22.53,15.47 19.48,17.94 20.49,21.73 17.2,19.6 13.91,21.73 14.92,17.94 11.87,15.47 15.79,15.26" fill="yellow-shade" stroke-width="1.25"/>
+    <path d="M7.6 13.4 Q8.8 9.2 12.8 7.6" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

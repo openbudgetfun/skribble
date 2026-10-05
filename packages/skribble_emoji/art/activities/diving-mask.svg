@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="strap" fill="black" stroke="ink" stroke-width="1.5">
+    <path d="M5 15.2 L2.8 15.8 L2.8 18.8 L5 19.4 Z"/>
+    <path d="M31 15.2 L33.2 15.8 L33.2 18.8 L31 19.4 Z"/>
+  </g>
+  <g id="snorkel" stroke="ink">
+    <path d="M17 28.9 L26.8 28.9 Q28.9 28.9 28.9 26.8 L28.9 4.6 Q28.9 3.1 30.4 3.1 Q31.9 3.1 31.9 4.6 L31.9 27 Q31.9 31.9 27 31.9 L17 31.9 Z" fill="orange" stroke-width="1.75"/>
+    <rect x="13.8" y="28.2" width="3.6" height="4.4" rx="1.2" ry="1.2" fill="black" stroke-width="1.5"/>
+  </g>
+  <g id="mask" stroke="ink">
+    <path d="M5 14 Q5 9 10 9 L26 9 Q31 9 31 14 L31 19 Q31 24 26 24 L22 24 Q20.4 24 19.4 22.4 L18 20.6 L16.6 22.4 Q15.6 24 14 24 L10 24 Q5 24 5 19 Z" fill="blue" stroke="none"/>
+    <path d="M31 16 L31 19 Q31 24 26 24 L22.4 24 Q27.6 23 29.2 20.6 Q30.4 18.8 31 16 Z" fill="blue-shade" stroke="none"/>
+    <path d="M5 14 Q5 9 10 9 L26 9 Q31 9 31 14 L31 19 Q31 24 26 24 L22 24 Q20.4 24 19.4 22.4 L18 20.6 L16.6 22.4 Q15.6 24 14 24 L10 24 Q5 24 5 19 Z" fill="none"/>
+    <path d="M8 13.4 Q8 11.6 9.8 11.6 L16.6 11.6 L16.6 18.6 L15 20.8 Q14.4 21.6 13.4 21.6 L9.8 21.6 Q8 21.6 8 19.8 Z" fill="sky" stroke-width="1.5"/>
+    <path d="M28 13.4 Q28 11.6 26.2 11.6 L19.4 11.6 L19.4 18.6 L21 20.8 Q21.6 21.6 22.6 21.6 L26.2 21.6 Q28 21.6 28 19.8 Z" fill="sky" stroke-width="1.5"/>
+    <path d="M10 16 Q10.4 14 12.4 13.6 M21.4 16 Q21.8 14 23.8 13.6" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

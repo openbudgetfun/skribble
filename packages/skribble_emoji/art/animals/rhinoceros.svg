@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="body-shape"><rect x="10" y="10.6" width="22.4" height="13.6" rx="6.4" ry="6.4"/></clipPath>
+  </defs>
+  <g id="tail" stroke="ink">
+    <path d="M32 14.6 C33.4 15.8 33.8 17.8 33.4 19.8" fill="none" stroke-width="1.5"/>
+    <ellipse cx="33.4" cy="20.4" rx="0.8" ry="1.2" fill="grey-shade" stroke-width="1.25"/>
+  </g>
+  <g id="legs" stroke="ink">
+    <rect x="14.8" y="19" width="4.4" height="11" rx="1.8" ry="1.8" fill="grey-shade"/>
+    <rect x="22.6" y="19" width="4.4" height="11" rx="1.8" ry="1.8" fill="grey-shade"/>
+    <rect x="11.4" y="19" width="4.6" height="11.8" rx="1.8" ry="1.8" fill="grey"/>
+    <rect x="26.2" y="19" width="4.6" height="11.8" rx="1.8" ry="1.8" fill="grey"/>
+  </g>
+  <g id="body">
+    <rect x="10" y="10.6" width="22.4" height="13.6" rx="6.4" ry="6.4" fill="grey-shade"/>
+    <g clip-path="url(#body-shape)">
+      <rect x="10" y="10.6" width="22.4" height="13.6" rx="6.4" ry="6.4" transform="translate(-1.4 -1.6)" fill="grey"/>
+      <path d="M20.2 9.8 C19 14.4 19.2 19.4 20.6 24.4 M26.6 10 C25.6 13 25.8 16.4 26.8 19.4" fill="none" stroke="grey-shade" stroke-width="1.5"/>
+    </g>
+    <rect x="10" y="10.6" width="22.4" height="13.6" rx="6.4" ry="6.4" fill="none" stroke="ink"/>
+  </g>
+  <path data-part="ears" d="M12 10 C11.8 7.8 12.8 5.8 14.6 5.2 C15.2 7 14.8 9 13.6 10.6 Z" fill="grey" stroke="ink" stroke-width="1.75"/>
+  <g id="head">
+    <path d="M11.6 9.6 C14.4 10.4 15.6 13.4 15 16.6 C14.4 19.6 12 21.2 9 21.2 L5 21.2 C3.2 21.2 2.2 20 2.4 18.4 C2.6 16.6 3.4 15.2 4.6 14.2 L7.8 10.6 C8.8 9.6 10.2 9.2 11.6 9.6 Z" fill="grey"/>
+    <path d="M15 16.6 C14.4 19.6 12 21.2 9 21.2 L7.6 21.2 C10.6 20.2 12.6 18.6 13.2 16 C13.4 14.8 15.1 15 15 16.6 Z" fill="grey-shade"/>
+    <path d="M11.6 9.6 C14.4 10.4 15.6 13.4 15 16.6 C14.4 19.6 12 21.2 9 21.2 L5 21.2 C3.2 21.2 2.2 20 2.4 18.4 C2.6 16.6 3.4 15.2 4.6 14.2 L7.8 10.6 C8.8 9.6 10.2 9.2 11.6 9.6 Z" fill="none" stroke="ink"/>
+  </g>
+  <g id="horns" fill="cream" stroke="ink" stroke-width="1.75">
+    <path d="M3.4 15.4 C3 12.6 3.4 9.6 4.8 7.2 C5.6 9.8 6.6 12 8 13.6 Z"/>
+    <path d="M8.4 11.8 C8.4 10.2 9 8.8 10.2 8 C10.4 9.4 10.8 10.4 11.4 11.2 Z" stroke-width="1.5"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="10.4" cy="14.4" rx="1.1" ry="1.5"/>
+    <circle cx="10.7" cy="13.8" r="0.4" fill="paper"/>
+  </g>
+  <g id="mouth">
+    <ellipse cx="3.6" cy="17.6" rx="0.6" ry="0.8" fill="ink"/>
+    <path d="M3.4 19.6 Q5 20.2 6.6 19.6" fill="none" stroke="ink" stroke-width="1.25"/>
+  </g>
+</svg>

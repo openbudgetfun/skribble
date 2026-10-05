@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="thermometer" stroke="ink">
+    <path d="M14 21.6 L14 7 A4 4 0 0 1 22 7 L22 21.6 A6.6 6.6 0 1 1 14 21.6 Z" fill="white" stroke="none"/>
+    <path d="M22 7 L22 21.6 A6.6 6.6 0 0 1 18 33.6 C21.6 31.8 23.4 28.8 22.8 25.4 C22.4 23.6 20.6 22.4 20.6 20 L20.6 7.6 C20.6 6.4 20.4 4.6 19.4 3.4 C21 3.8 22 5.2 22 7 Z" fill="silver" stroke="none"/>
+    <path d="M14 21.6 L14 7 A4 4 0 0 1 22 7 L22 21.6 A6.6 6.6 0 1 1 14 21.6 Z" fill="none"/>
+    <path d="M14 9.6 L16 9.6 M14 13.2 L16 13.2 M14 16.8 L16 16.8" fill="none" stroke-width="1.5"/>
+  </g>
+  <g id="mercury" stroke="ink" stroke-width="1.5">
+    <path d="M16.6 24 L16.6 12.4 Q16.6 11.4 18 11.4 Q19.4 11.4 19.4 12.4 L19.4 24 Z" fill="red" stroke="none"/>
+    <circle cx="18" cy="27.2" r="4.2" fill="red"/>
+    <path d="M15.6 26.4 Q16 24.8 17.4 24.6" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

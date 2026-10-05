@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- An arm flexed hard: a big round biceps, the forearm up, a clenched
+       fist on top, a short sleeve at the shoulder. -->
+  <g id="arm" stroke="ink">
+    <path d="M9 20 C9.8 12 18.2 9.6 22.8 19.6 L23.4 13.4 L30.4 13.4 L31.6 25.6 C31.8 29 29.8 31.2 26.8 31.6 L13.4 33 C11.8 33.2 10.4 33 9 32.6 Z" fill="skin" stroke="none"/>
+    <path d="M31.2 22.4 L31.6 25.6 C31.8 29 29.8 31.2 26.8 31.6 L19.8 32.3 C25.4 30.6 29.4 27.4 31.2 22.4 Z" fill="skin-shade" stroke="none"/>
+    <path d="M9 20 C9.8 12 18.2 9.6 22.8 19.6 L23.4 13.4 L30.4 13.4 L31.6 25.6 C31.8 29 29.8 31.2 26.8 31.6 L13.4 33 C11.8 33.2 10.4 33 9 32.6 Z" fill="none"/>
+    <path d="M22.8 19.6 Q25.4 22.6 28.8 22.2" fill="none" stroke-width="1.5"/>
+    <path data-part="sleeve" d="M2.6 21.2 C4.6 20 6.8 19.6 9 20 L9 32.6 C6.8 33.2 4.6 33.4 2.6 33 Z" fill="blue"/>
+  </g>
+  <g id="fist" stroke="ink" transform="translate(16 -0.6) scale(0.55)">
+    <path d="M10 27.6 C8.4 25 7.6 21.6 7.8 17.4 L7.8 11.8 C7.8 8.6 12.6 8.6 12.6 11.8 L12.6 12.4 L12.6 10.2 C12.6 7 17.6 7 17.6 10.2 L17.6 11.4 L17.6 9 C17.6 5.8 22.6 5.8 22.6 9 L22.6 11.6 L22.6 10.2 C22.6 7 27.6 7 27.6 10.2 L28 18 C28.2 22.4 27.4 25.6 25.8 27.6 Z" fill="skin" stroke="none"/>
+    <path d="M28.1 20 C28.2 23.2 27.4 25.8 25.8 27.6 L21.6 27.6 C24.8 26 27 23.6 28.1 20 Z" fill="skin-shade" stroke="none"/>
+    <path d="M10 27.6 C8.4 25 7.6 21.6 7.8 17.4 L7.8 11.8 C7.8 8.6 12.6 8.6 12.6 11.8 L12.6 12.4 L12.6 10.2 C12.6 7 17.6 7 17.6 10.2 L17.6 11.4 L17.6 9 C17.6 5.8 22.6 5.8 22.6 9 L22.6 11.6 L22.6 10.2 C22.6 7 27.6 7 27.6 10.2 L28 18 C28.2 22.4 27.4 25.6 25.8 27.6 Z" fill="none" stroke-width="3.6"/>
+    <path data-part="thumb" d="M28 17.2 C23.6 16.6 18.2 16.6 14.6 17.4 C12 18 12.4 22.2 15 22 C19 21.8 23.6 22 28.2 22.6" fill="skin" stroke-width="3.2"/>
+  </g>
+</svg>

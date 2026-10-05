@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The crossed neck ribbon for the activities medals; include it before
+       b13-medal-disc so the disc hides the strap ends. -->
+  <g id="ribbon" stroke="ink" stroke-width="1.75">
+    <path d="M6.6 2.4 L13.4 2.4 L21 16.6 L15.8 18.4 Z" fill="blue"/>
+    <path d="M29.4 2.4 L22.6 2.4 L15 16.6 L20.2 18.4 Z" fill="red"/>
+  </g>
+</svg>

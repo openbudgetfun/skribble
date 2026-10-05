@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="tree" stroke="ink">
+    <rect x="7.4" y="24" width="2.8" height="7.2" rx="0.6" ry="0.6" fill="brown" stroke-width="1.75"/>
+    <path d="M8.8 3.4 L13.6 11.4 L11.6 11.4 L15 18.2 L12.8 18.2 L15.8 25.2 L1.8 25.2 L4.8 18.2 L2.6 18.2 L6 11.4 L4 11.4 Z" fill="green"/>
+    <path d="M8.8 3.4 L13.6 11.4 L11.6 11.4 L15 18.2 L12.8 18.2 L15.8 25.2 L10.4 25.2 Q11 13.6 8.8 3.4 Z" fill="green-shade" stroke="none"/>
+    <path d="M8.8 3.4 L13.6 11.4 L11.6 11.4 L15 18.2 L12.8 18.2 L15.8 25.2 L1.8 25.2 L4.8 18.2 L2.6 18.2 L6 11.4 L4 11.4 Z" fill="none"/>
+  </g>
+  <g data-include="b10-tent" transform="translate(10.4 8.8) scale(0.74)"/>
+  <path d="M2.4 31.4 L33.6 31.4" fill="none" stroke="ink" stroke-width="2.25"/>
+</svg>

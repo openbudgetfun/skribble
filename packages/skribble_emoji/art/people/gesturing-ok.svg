@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="arms" fill="skin" stroke="ink" stroke-width="1.75">
+    <path d="M10.9 29.9 L7.3 20.2 L8.5 11.8 L12.6 6.6 L17 5.4 A1.5 1.5 0 0 0 16.2 2.6 L11 4.2 L5.9 10.6 L4.3 20.6 L7.9 30.9 A1.6 1.6 0 0 0 10.9 29.9 Z"/>
+    <path d="M28.1 30.9 L31.7 20.6 L30.1 10.6 L25 4.2 L19.8 2.6 A1.5 1.5 0 0 0 19 5.4 L23.4 6.6 L27.5 11.8 L28.7 20.2 L25.1 29.9 A1.6 1.6 0 0 0 28.1 30.9 Z"/>
+  </g>
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="16.2" y="21.8" width="3.6" height="4.6" fill="skin"/>
+    <path d="M5.8 34.6 C6.2 28.6 10.6 25.4 18 25.4 C25.4 25.4 29.8 28.6 30.2 34.6 Z" fill="green"/>
+    <path d="M25 26.8 C27.8 28.2 30 30.8 30.2 34.6 L27 34.6 C27 31.6 26.4 29 25 26.8 Z" fill="green-shade" stroke="none"/>
+    <path d="M5.8 34.6 C6.2 28.6 10.6 25.4 18 25.4 C25.4 25.4 29.8 28.6 30.2 34.6 Z" fill="none"/>
+    <path d="M15.6 25.8 L18 28.4 L20.4 25.8" fill="none" stroke-width="1.5"/>
+  </g>
+  <g data-include="head" transform="translate(3.24 6.45) scale(0.82)"/>
+</svg>

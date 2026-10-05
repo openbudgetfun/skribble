@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="head"><circle cx="18" cy="18" r="15"/></clipPath>
+  </defs>
+  <!-- The standard face, with two streams of tears poured between the fill
+       and the outline so the outline stays on top. -->
+  <g id="face">
+    <circle cx="18" cy="18" r="15" fill="yellow"/>
+    <path d="M31.7 11.9 A15 15 0 0 1 18 33 C25.6 30.4 30.6 22.6 31.7 11.9 Z" fill="yellow-shade"/>
+  </g>
+  <g id="tears" clip-path="url(#head)" fill="sky" stroke="ink" stroke-width="1.5">
+    <path d="M9.8 15.4 Q12.2 14.6 14.6 15.4 L15.6 34 L7.4 34 Z"/>
+    <path d="M21.4 15.4 Q23.8 14.6 26.2 15.4 L28.6 34 L20.4 34 Z"/>
+  </g>
+  <circle data-part="face" cx="18" cy="18" r="15" fill="none" stroke="ink"/>
+  <g id="brows" fill="none" stroke="ink" stroke-width="1.75">
+    <path d="M8.4 10 Q11.2 9.2 13.8 7"/>
+    <path d="M27.6 10 Q24.8 9.2 22.2 7"/>
+  </g>
+  <g id="eyes" fill="none" stroke="ink">
+    <path d="M9.4 14.8 Q12.2 11.4 15 14.8"/>
+    <path d="M21 14.8 Q23.8 11.4 26.6 14.8"/>
+  </g>
+  <g id="mouth">
+    <path d="M11.4 21.2 Q18 19.2 24.6 21.2 Q24.8 29 18 29 Q11.2 29 11.4 21.2 Z" fill="ink"/>
+    <path d="M12.8 21.9 Q18 20.6 23.2 21.9 L23 23.4 Q18 22.2 13 23.4 Z" fill="paper"/>
+    <path d="M14.2 27.4 Q18 24.8 21.8 27.4 Q20.2 28.6 18 28.6 Q15.8 28.6 14.2 27.4 Z" fill="red"/>
+  </g>
+</svg>

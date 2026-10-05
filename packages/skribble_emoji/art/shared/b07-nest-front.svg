@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The front lip of the nest, drawn over anything sitting inside it. -->
+  <g id="nest-front" stroke="ink">
+    <path d="M3.2 19 A14.8 5.2 0 0 0 32.8 19 L29 19 A11 3.2 0 0 1 7 19 Z" fill="tan" stroke="none"/>
+    <path d="M3.2 19 A14.8 5.2 0 0 0 32.8 19 M29 19 A11 3.2 0 0 1 7 19" fill="none" stroke-width="1.5"/>
+    <path d="M6 21.8 C10 23.6 14 23.2 17.4 24.2 M19.6 24 C23.4 23 27 23.6 30.2 21.6 M8.4 26.8 C13 27.6 17 26.2 21.4 27.8 M23.4 27.4 C25.6 26.8 27.6 26.4 29.4 25.2 M12 30.6 C15.4 30.2 19.2 31 22.8 30.2" fill="none" stroke="brown-shade" stroke-width="1.5"/>
+    <path d="M2.4 17.4 L5.6 19.8 M31.4 16.4 L33.6 18.8 M26.6 31.6 L29.6 32.6" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

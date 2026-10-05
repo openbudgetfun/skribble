@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="wrench" stroke="ink" transform="rotate(45 18 18)">
+    <path d="M20.3 -0.8 A6.6 6.6 0 0 1 20.6 11.5 L20.6 34.4 A2.6 2.6 0 0 1 15.4 34.4 L15.4 11.5 A6.6 6.6 0 0 1 15.7 -0.8 L15.7 4.4 Q15.7 6.6 18 6.6 Q20.3 6.6 20.3 4.4 Z" fill="silver" stroke="none"/>
+    <path d="M24.03 2.66 A6.6 6.6 0 0 1 20.6 11.5 L20.6 34.4 A2.6 2.6 0 0 1 17.4 36.93 Q19 35.4 19 33.4 L19 10.4 Q22.8 8.4 24.03 2.66 Z" fill="grey" stroke="none"/>
+    <path d="M20.3 -0.8 A6.6 6.6 0 0 1 20.6 11.5 L20.6 34.4 A2.6 2.6 0 0 1 15.4 34.4 L15.4 11.5 A6.6 6.6 0 0 1 15.7 -0.8 L15.7 4.4 Q15.7 6.6 18 6.6 Q20.3 6.6 20.3 4.4 Z" fill="none"/>
+    <path d="M17 15 L17 28" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

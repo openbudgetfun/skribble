@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="picture-clip">
+      <rect x="7" y="9" width="22" height="18"/>
+    </clipPath>
+  </defs>
+  <g id="picture" stroke="ink" clip-path="url(#picture-clip)">
+    <rect x="6" y="8" width="24" height="20" fill="sky" stroke="none"/>
+    <circle cx="23.6" cy="13.6" r="2.6" fill="yellow" stroke-width="1.25"/>
+    <path d="M5 23 Q11 16.6 17.4 21 Q23 16.4 31 21.4 L31 29 L5 29 Z" fill="green" stroke-width="1.25"/>
+  </g>
+  <g id="frame" stroke="ink">
+    <path d="M3 5 L33 5 L33 31 L3 31 Z M7 9 L7 27 L29 27 L29 9 Z" fill="yellow" stroke="none"/>
+    <path d="M33 5 L33 31 L3 31 L4.6 29.4 L31.4 29.4 L31.4 6.6 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M3 5 L33 5 L33 31 L3 31 Z M7 9 L7 27 L29 27 L29 9 Z" fill="none"/>
+  </g>
+</svg>

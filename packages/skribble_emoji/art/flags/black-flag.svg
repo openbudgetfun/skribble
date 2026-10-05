@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="flag">
+    <path d="M7.2 5.4Q12.4 4.2 15 4.5Q17.6 4.8 20.15 5.5Q22.7 6.2 25.25 6.4Q27.8 6.6 30.4 6.2L33 5.8L33 21.8L30.4 22.2Q27.8 22.6 25.25 22.4Q22.7 22.2 20.15 21.5Q17.6 20.8 15 20.5Q12.4 20.2 7.2 21.4Z" fill="black"/>
+    <path d="M10.4 8.2Q13.4 7.2 16.4 7.8" fill="none" stroke="grey-shade" stroke-width="1.75"/>
+    <path d="M7.2 5.4Q12.4 4.2 15 4.5Q17.6 4.8 20.15 5.5Q22.7 6.2 25.25 6.4Q27.8 6.6 30.4 6.2L33 5.8L33 21.8L30.4 22.2Q27.8 22.6 25.25 22.4Q22.7 22.2 20.15 21.5Q17.6 20.8 15 20.5Q12.4 20.2 7.2 21.4Z" fill="none" stroke="ink"/>
+  </g>
+  <g data-include="b21-pole"/>
+</svg>

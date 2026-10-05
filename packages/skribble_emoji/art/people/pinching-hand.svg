@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A fist with the index finger and thumb reaching left, their tips a
+       tiny gap apart. -->
+  <g id="hand" stroke="ink">
+    <path data-part="index" d="M18.4 15.4 C14.6 11.8 10.6 10.4 7.6 11.6 C5.8 12.4 6.2 15 8.2 14.8 C10.8 14.6 13.6 16 16 18.6 Z" fill="skin"/>
+    <path data-part="thumb" d="M16.4 25 C13.2 24.2 10.2 22.8 8.4 20.8 C7 19.2 8.4 17.2 10.2 18.2 C12.2 19.4 14.6 20.2 17 20.4 Z" fill="skin"/>
+    <path d="M15.2 18.6 C15.2 15.2 18 13.2 21.4 13.2 L24.6 13.2 C28.4 13.2 30.6 15.6 30.6 19.4 L30.6 24.4 C30.6 28.6 27.8 31 24 31 L21 31 C17.4 31 15.2 28.6 15.2 25 Z" fill="skin" stroke="none"/>
+    <path d="M30.6 22 L30.6 24.4 C30.6 28.6 27.8 31 24 31 L20.8 31 C25.6 29.8 29.2 26.8 30.6 22 Z" fill="skin-shade" stroke="none"/>
+    <path d="M15.2 18.6 C15.2 15.2 18 13.2 21.4 13.2 L24.6 13.2 C28.4 13.2 30.6 15.6 30.6 19.4 L30.6 24.4 C30.6 28.6 27.8 31 24 31 L21 31 C17.4 31 15.2 28.6 15.2 25 Z" fill="none"/>
+    <path d="M15.4 25.4 L21.4 25.4 M22.4 13.4 Q22 16.2 23.6 18.4" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

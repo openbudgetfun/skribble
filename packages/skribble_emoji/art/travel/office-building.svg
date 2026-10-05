@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="building" stroke="ink">
+    <rect x="7" y="5.4" width="22" height="26.4" rx="0.8" ry="0.8" fill="silver"/>
+    <path d="M26.4 6 L29 6 L29 31 Q29 31.8 28.2 31.8 L26.4 31.8 Z" fill="grey" stroke="none"/>
+    <rect x="7" y="5.4" width="22" height="26.4" rx="0.8" ry="0.8" fill="none"/>
+    <rect x="6" y="2.8" width="24" height="3" rx="1" ry="1" fill="grey"/>
+    <path d="M9.6 8.6 h3.4 v2.8 h-3.4 Z M15.4 8.6 h3.4 v2.8 h-3.4 Z M21.2 8.6 h3.4 v2.8 h-3.4 Z M9.6 12.8 h3.4 v2.8 h-3.4 Z M15.4 12.8 h3.4 v2.8 h-3.4 Z M21.2 12.8 h3.4 v2.8 h-3.4 Z M9.6 17 h3.4 v2.8 h-3.4 Z M15.4 17 h3.4 v2.8 h-3.4 Z M21.2 17 h3.4 v2.8 h-3.4 Z M9.6 21.2 h3.4 v2.8 h-3.4 Z M21.2 21.2 h3.4 v2.8 h-3.4 Z" fill="sky" stroke-width="1.25"/>
+    <rect x="14.6" y="24.6" width="6.8" height="7.2" rx="0.6" ry="0.6" fill="sky" stroke-width="1.5"/>
+    <path d="M18 24.6 L18 31.8" fill="none" stroke-width="1.25"/>
+  </g>
+</svg>

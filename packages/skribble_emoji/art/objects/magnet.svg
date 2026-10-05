@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="magnet" stroke="ink">
+    <path d="M4 17 A14 14 0 0 1 32 17 L32 30.6 Q32 32 30.6 32 L26.4 32 Q25 32 25 30.6 L25 17 A7 7 0 0 0 11 17 L11 30.6 Q11 32 9.6 32 L5.4 32 Q4 32 4 30.6 Z" fill="red" stroke="none"/>
+    <path d="M26.99 6.28 A14 14 0 0 1 32 17 L32 25.4 L29.4 25.4 L29.4 17 A11.4 11.4 0 0 0 26.99 6.28 Z" fill="red-shade" stroke="none"/>
+    <path d="M4 25.4 L11 25.4 L11 30.6 Q11 32 9.6 32 L5.4 32 Q4 32 4 30.6 Z M25 25.4 L32 25.4 L32 30.6 Q32 32 30.6 32 L26.4 32 Q25 32 25 30.6 Z" fill="silver" stroke="none"/>
+    <path d="M4 17 A14 14 0 0 1 32 17 L32 30.6 Q32 32 30.6 32 L26.4 32 Q25 32 25 30.6 L25 17 A7 7 0 0 0 11 17 L11 30.6 Q11 32 9.6 32 L5.4 32 Q4 32 4 30.6 Z" fill="none"/>
+    <path d="M4 25.4 L11 25.4 M25 25.4 L32 25.4" fill="none" stroke-width="1.75"/>
+    <path d="M7.2 14.6 Q8.4 10.4 12.4 7.8" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

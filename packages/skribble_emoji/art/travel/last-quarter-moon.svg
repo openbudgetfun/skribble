@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="lit"><path d="M18 3 A15 15 0 0 0 18 33 Z"/></clipPath>
+  </defs>
+  <g data-include="b12-moon"/>
+  <g id="moon">
+    <path d="M18 3 A15 15 0 0 0 18 33 Z" fill="yellow"/>
+    <g clip-path="url(#lit)"><g data-include="b12-moon-craters"/></g>
+    <circle cx="18" cy="18" r="15" fill="none" stroke="ink"/>
+  </g>
+</svg>

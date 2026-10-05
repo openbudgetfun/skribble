@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="nut"><path d="M18 4.4 C21.4 6.6 27.6 10.2 30.6 15.6 C33.4 20.8 31.8 27.4 27.6 30.6 C23.8 33.6 12.2 33.6 8.4 30.6 C4.2 27.4 2.6 20.8 5.4 15.6 C8.4 10.2 14.6 6.6 18 4.4 Z"/></clipPath>
+  </defs>
+  <g id="chestnut" stroke="ink">
+    <path d="M16.6 5.6 L17.4 2.8 Q18 2.2 18.6 2.8 L19.4 5.6 Z" fill="tan" stroke-width="1.5"/>
+    <path d="M18 4.4 C21.4 6.6 27.6 10.2 30.6 15.6 C33.4 20.8 31.8 27.4 27.6 30.6 C23.8 33.6 12.2 33.6 8.4 30.6 C4.2 27.4 2.6 20.8 5.4 15.6 C8.4 10.2 14.6 6.6 18 4.4 Z" fill="brown" stroke="none"/>
+    <path d="M27.4 11.4 C28.8 12.6 29.8 14 30.6 15.6 C32.6 19.4 32.4 23.4 31.2 26.4 C29.8 21.8 28.6 16.4 27.4 11.4 Z" fill="brown-shade" stroke="none"/>
+    <path clip-path="url(#nut)" d="M2 25.2 C10 28.8 26 28.8 34 25.2 L34 36 L2 36 Z" fill="tan" stroke="none"/>
+    <path d="M4.6 25.6 C11 28.8 25 28.8 31.4 25.6" fill="none" stroke-width="1.5"/>
+    <path d="M12 30.8 L12 30.9 M18 31.6 L18 31.7 M24 30.8 L24 30.9" fill="none" stroke="brown" stroke-width="1.5"/>
+    <path d="M18 4.4 C21.4 6.6 27.6 10.2 30.6 15.6 C33.4 20.8 31.8 27.4 27.6 30.6 C23.8 33.6 12.2 33.6 8.4 30.6 C4.2 27.4 2.6 20.8 5.4 15.6 C8.4 10.2 14.6 6.6 18 4.4 Z" fill="none"/>
+    <path d="M8.4 18 Q9.6 13.4 13.6 10.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

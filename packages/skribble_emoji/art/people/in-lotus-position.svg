@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path id="top" d="M13.6 25 L13.8 17.6 Q14 14.6 17 14.6 L19 14.6 Q22 14.6 22.2 17.6 L22.4 25 Z" fill="purple" stroke="ink" stroke-width="1.75"/>
+  <g id="legs" stroke="ink">
+    <path d="M4.6 29.2 C4.6 25.6 8.8 23.6 18 23.6 C27.2 23.6 31.4 25.6 31.4 29.2 C31.4 32 27.6 32.8 18 32.8 C8.4 32.8 4.6 32 4.6 29.2 Z" fill="blue"/>
+    <path d="M31.4 29.2 C31.4 32 27.6 32.8 18 32.8 C14.4 32.8 11.6 32.7 9.6 32.4 C18 31.6 26.6 31.4 29.4 26.4 C30.8 27 31.4 28 31.4 29.2 Z" fill="blue-shade" stroke="none"/>
+    <path d="M4.6 29.2 C4.6 25.6 8.8 23.6 18 23.6 C27.2 23.6 31.4 25.6 31.4 29.2 C31.4 32 27.6 32.8 18 32.8 C8.4 32.8 4.6 32 4.6 29.2 Z" fill="none"/>
+    <path d="M17.4 25.4 Q20.2 28.4 26 29.2" fill="none" stroke-width="1.5"/>
+  </g>
+  <g id="arms" fill="none">
+    <path d="M14.6 16.8 L9.8 21.2 L7.8 25.4 M21.4 16.8 L26.2 21.2 L28.2 25.4" stroke="ink" stroke-width="4.4"/>
+    <path d="M14.6 16.8 L9.8 21.2 L7.8 25.4 M21.4 16.8 L26.2 21.2 L28.2 25.4" stroke="skin" stroke-width="2.8"/>
+  </g>
+  <g id="hands" fill="skin" stroke="ink" stroke-width="1.25">
+    <circle cx="7.8" cy="25.8" r="1.6"/>
+    <circle cx="28.2" cy="25.8" r="1.6"/>
+  </g>
+  <g data-include="b05-calm-head" transform="translate(6.84 0.768) scale(0.62)"/>
+</svg>

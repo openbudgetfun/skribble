@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The yellow face every smiley starts from: fill, a shaded crescent on
+       the lower right, then the ink outline on top. -->
+  <g id="face">
+    <circle cx="18" cy="18" r="15" fill="yellow"/>
+    <path d="M31.7 11.9 A15 15 0 0 1 18 33 C25.6 30.4 30.6 22.6 31.7 11.9 Z" fill="yellow-shade"/>
+    <circle cx="18" cy="18" r="15" fill="none" stroke="ink"/>
+  </g>
+</svg>

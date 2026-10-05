@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#418fde"/>
+  <rect x="2" y="21.33" width="32" height="1.11" fill="#fbe122"/>
+  <rect x="2" y="23.56" width="32" height="1.11" fill="#fbe122"/>
+  <g>
+    <path transform="translate(8 13.8) scale(4.6)" d="M0 -1L0.205 -0.205L1 0L0.205 0.205L0 1L-0.205 0.205L-1 0L-0.205 -0.205Z" fill="#ffffff"/>
+    <path transform="translate(8 13.8) scale(3.7)" d="M0 -1L0.205 -0.205L1 0L0.205 0.205L0 1L-0.205 0.205L-1 0L-0.205 -0.205Z" fill="#ef3340"/>
+  </g>
+</svg>

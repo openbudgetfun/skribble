@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="bamboo" stroke="ink">
+    <path d="M8.2 33.6 C8.6 22 9.8 12 11.8 3 L15 3.4 C13.2 12 12.2 22 12 33.6 Z" fill="green" stroke-width="1.75"/>
+    <path d="M8.6 24.6 L12.2 24.6 M10.4 14.6 L13.6 14.8" fill="none" stroke-width="1.5"/>
+    <path d="M12.8 10 Q22 6.6 31.2 8.6 M11.8 21 Q20 19.6 29.2 24.4" fill="none" stroke-width="1.75"/>
+  </g>
+  <g id="leaves" fill="leaf" stroke="ink" stroke-width="1.5">
+    <path d="M29 8.4 Q31.4 4.6 34 4.8 Q33 8.6 29 8.4 Z"/>
+    <path d="M20.6 7.8 Q21 3.6 24.2 2.6 Q24.6 6.2 20.6 7.8 Z"/>
+    <path d="M28 24 Q32.4 22.4 34 25.4 Q30.4 26.8 28 24 Z"/>
+  </g>
+  <g id="strips" stroke="ink">
+    <path d="M17.6 8.6 L17.6 10.6 M25.2 7.9 L25.2 9.4 M20.4 21.2 L20.4 22.6" fill="none" stroke-width="1.25"/>
+    <rect x="15.6" y="10.6" width="4" height="10" rx="0.6" ry="0.6" fill="pink" stroke-width="1.5"/>
+    <rect x="23.2" y="9.4" width="4" height="11.4" rx="0.6" ry="0.6" fill="yellow" stroke-width="1.5"/>
+    <rect x="18.4" y="22.6" width="4" height="10" rx="0.6" ry="0.6" fill="sky" stroke-width="1.5"/>
+  </g>
+</svg>

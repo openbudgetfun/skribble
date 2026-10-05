@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="arrow" d="M5.2 30.8 L29.4 6.6" fill="none" stroke="ink" stroke-width="2.25"/>
+  <g data-include="red-heart" transform="translate(2.52 2.65) scale(0.86)"/>
+  <g id="arrow" stroke="ink" stroke-width="1.5">
+    <path d="M33.4 2.6 L31.4 9 L27 4.6 Z" fill="yellow"/>
+    <path d="M8.6 27.4 L5.4 30.6 L2.6 29.4 L5.8 26.2 Z" fill="white"/>
+    <path d="M8.6 27.4 L5.4 30.6 L6.6 33.4 L9.8 30.2 Z" fill="white"/>
+  </g>
+</svg>

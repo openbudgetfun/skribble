@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="leaves" fill="green" stroke="ink">
+    <path d="M16.4 21.6 C12.2 22.4 7.6 21 5 17.6 C9.4 16.2 13.8 18 16.4 21.6 Z"/>
+    <path d="M19.6 21.6 C23.8 22.4 28.4 21 31 17.6 C26.6 16.2 22.2 18 19.6 21.6 Z"/>
+    <path d="M17 21 C12.4 19.4 8.4 15 7.6 9.2 C12.4 10.4 16 14.8 17 21 Z" fill="leaf"/>
+    <path d="M19 21 C23.6 19.4 27.6 15 28.4 9.2 C23.6 10.4 20 14.8 19 21 Z" fill="leaf"/>
+    <path d="M18 21 C15.2 15.4 15.4 8.4 18 3.4 C20.6 8.4 20.8 15.4 18 21 Z"/>
+    <path d="M18 19.6 L18 7 M16 20 Q12.4 16.6 10 12 M20 20 Q23.6 16.6 26 12" fill="none" stroke="lime" stroke-width="1.25"/>
+  </g>
+  <g id="pot" stroke="ink">
+    <path d="M10.8 23.4 L25.2 23.4 L23.6 32.4 Q23.4 33.6 22.2 33.6 L13.8 33.6 Q12.6 33.6 12.4 32.4 Z" fill="orange"/>
+    <path d="M25.2 23.4 L23.6 32.4 Q23.4 33.6 22.2 33.6 L19.6 33.6 C21.4 30.6 22 27 21.8 23.4 Z" fill="orange-shade" stroke="none"/>
+    <path d="M10.8 23.4 L25.2 23.4 L23.6 32.4 Q23.4 33.6 22.2 33.6 L13.8 33.6 Q12.6 33.6 12.4 32.4 Z" fill="none"/>
+    <rect x="9.2" y="19.8" width="17.6" height="4" rx="1.4" ry="1.4" fill="orange"/>
+  </g>
+</svg>

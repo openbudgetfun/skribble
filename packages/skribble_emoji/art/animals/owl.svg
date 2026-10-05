@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="ears" fill="brown" stroke="ink">
+    <path d="M8.8 11 L7.8 3.4 L14 7.4 Z"/>
+    <path d="M27.2 11 L28.2 3.4 L22 7.4 Z"/>
+  </g>
+  <g id="feet" fill="yellow" stroke="ink" stroke-width="1.5">
+    <ellipse cx="14.6" cy="32" rx="2" ry="1.1"/>
+    <ellipse cx="21.4" cy="32" rx="2" ry="1.1"/>
+  </g>
+  <g id="body">
+    <path d="M18 4.8 C25.6 4.8 29.4 10.6 29.4 18 C29.4 26.4 24.6 31.6 18 31.6 C11.4 31.6 6.6 26.4 6.6 18 C6.6 10.6 10.4 4.8 18 4.8 Z" fill="brown"/>
+    <path d="M29.4 18 C29.4 26.4 24.6 31.6 18 31.6 C23.4 29.4 27 24.6 27.2 18.4 C27.3 16.4 29.3 16.2 29.4 18 Z" fill="brown-shade"/>
+    <path d="M18 4.8 C25.6 4.8 29.4 10.6 29.4 18 C29.4 26.4 24.6 31.6 18 31.6 C11.4 31.6 6.6 26.4 6.6 18 C6.6 10.6 10.4 4.8 18 4.8 Z" fill="none" stroke="ink"/>
+    <ellipse cx="18" cy="25.2" rx="5.8" ry="5" fill="tan"/>
+    <path d="M14.8 23.2 L15.8 24.2 L16.8 23.2 M19.2 23.2 L20.2 24.2 L21.2 23.2 M17 26.2 L18 27.2 L19 26.2" fill="none" stroke="brown" stroke-width="1.25"/>
+    <path d="M18 9.6 C20 8 23.4 7.8 25.4 9.6 C27.6 11.6 27.6 15.6 25.6 17.6 C23.6 19.6 20.2 19.4 18 17.8 C15.8 19.4 12.4 19.6 10.4 17.6 C8.4 15.6 8.4 11.6 10.6 9.6 C12.6 7.8 16 8 18 9.6 Z" fill="cream" stroke="ink" stroke-width="1.5"/>
+  </g>
+  <g id="wings" fill="brown-shade" stroke="ink" stroke-width="1.75">
+    <path d="M7.4 16.6 C4.8 19.6 4.8 25 7.8 28.6 C9.6 27 10.4 23 9.8 19 Z"/>
+    <path d="M28.6 16.6 C31.2 19.6 31.2 25 28.2 28.6 C26.4 27 25.6 23 26.2 19 Z"/>
+  </g>
+  <g id="eyes">
+    <circle cx="13.8" cy="13.6" r="3.2" fill="yellow" stroke="ink" stroke-width="1.5"/>
+    <circle cx="22.2" cy="13.6" r="3.2" fill="yellow" stroke="ink" stroke-width="1.5"/>
+    <circle cx="13.8" cy="13.8" r="1.7" fill="ink"/>
+    <circle cx="22.2" cy="13.8" r="1.7" fill="ink"/>
+    <circle cx="14.3" cy="13.2" r="0.5" fill="paper"/>
+    <circle cx="22.7" cy="13.2" r="0.5" fill="paper"/>
+  </g>
+  <path data-part="beak" d="M16.6 16.8 L19.4 16.8 L18 19.6 Z" fill="orange" stroke="ink" stroke-width="1.25"/>
+</svg>

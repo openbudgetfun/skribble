@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="brows" fill="none" stroke="ink" stroke-width="1.75">
+    <path d="M9.2 10.8 Q12.4 10.4 15 8.4"/>
+    <path d="M21 8.4 Q23.6 10.4 26.8 10.8"/>
+  </g>
+  <g id="eyes" fill="none" stroke="ink" stroke-width="2">
+    <path d="M10 14.8 Q12.6 17.6 15.2 14.8"/>
+    <path d="M20.8 14.8 Q23.4 17.6 26 14.8"/>
+  </g>
+  <ellipse data-part="mouth" cx="15.4" cy="25.8" rx="2.2" ry="1.8" fill="ink"/>
+  <g id="bubble">
+    <g data-include="b01-drop" transform="translate(21.6 18.4) scale(1.05) translate(-18 -13.2)"/>
+  </g>
+</svg>

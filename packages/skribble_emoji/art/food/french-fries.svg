@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="fries" fill="yellow" stroke="ink" stroke-width="1.5">
+    <rect x="-1.6" y="-9" width="3.2" height="18" rx="0.8" ry="0.8" transform="translate(10.4 13) rotate(-16)"/>
+    <rect x="-1.6" y="-9" width="3.2" height="18" rx="0.8" ry="0.8" transform="translate(18.8 11) rotate(3)"/>
+    <rect x="-1.6" y="-9" width="3.2" height="18" rx="0.8" ry="0.8" transform="translate(26 13.4) rotate(18)"/>
+    <rect x="-1.6" y="-9" width="3.2" height="18" rx="0.8" ry="0.8" transform="translate(14.6 12) rotate(-6)"/>
+    <rect x="-1.6" y="-9" width="3.2" height="18" rx="0.8" ry="0.8" transform="translate(22.6 12.2) rotate(9)"/>
+  </g>
+  <g id="carton" stroke="ink">
+    <path d="M5.6 14.2 Q18 19.6 30.4 14.2 L27.6 32.4 Q27.4 33.4 26.4 33.4 L9.6 33.4 Q8.6 33.4 8.4 32.4 Z" fill="red" stroke="none"/>
+    <path d="M30.4 14.2 L27.6 32.4 Q27.4 33.4 26.4 33.4 L24 33.4 C25.8 27.6 27.2 21.6 27.8 15.4 Z" fill="red-shade" stroke="none"/>
+    <path d="M5.6 14.2 Q18 19.6 30.4 14.2 L27.6 32.4 Q27.4 33.4 26.4 33.4 L9.6 33.4 Q8.6 33.4 8.4 32.4 Z" fill="none"/>
+    <path d="M14.4 25.2 C14.4 22.4 16 21.2 18 23.2 C20 21.2 21.6 22.4 21.6 25.2 C21.6 27.2 19.4 28.6 18 29.6 C16.6 28.6 14.4 27.2 14.4 25.2 Z" fill="yellow" stroke-width="1.25"/>
+    <path d="M9.6 19.8 L10.6 26.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

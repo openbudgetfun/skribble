@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="car">
+      <path d="M5 25 Q3 25 3 23 L3 19.4 Q3 17.2 5.2 16.8 L10.4 15.8 L13.8 9.8 Q14.6 8.4 16.2 8.4 L25 8.4 Q26.6 8.4 27.4 9.8 L30.4 15.8 Q33 16.2 33 18.8 L33 23 Q33 25 31 25 Z"/>
+    </clipPath>
+  </defs>
+  <g id="sign" stroke="ink" stroke-width="1.5">
+    <path d="M17.4 8.6 L17.4 6.2 Q17.4 5 18.6 5 L22.6 5 Q23.8 5 23.8 6.2 L23.8 8.6 Z" fill="white"/>
+  </g>
+  <g id="body" stroke="ink">
+    <path d="M5 25 Q3 25 3 23 L3 19.4 Q3 17.2 5.2 16.8 L10.4 15.8 L13.8 9.8 Q14.6 8.4 16.2 8.4 L25 8.4 Q26.6 8.4 27.4 9.8 L30.4 15.8 Q33 16.2 33 18.8 L33 23 Q33 25 31 25 Z" fill="yellow" stroke="none"/>
+    <path d="M33 19 L33 23 Q33 25 31 25 L13 25 Q25.8 24.2 30.8 21.6 Q32.6 20.6 33 19 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M3 18.4 h2 v1.6 h-2 Z M7 18.4 h2 v1.6 h-2 Z M11 18.4 h2 v1.6 h-2 Z M15 18.4 h2 v1.6 h-2 Z M19 18.4 h2 v1.6 h-2 Z M23 18.4 h2 v1.6 h-2 Z M27 18.4 h2 v1.6 h-2 Z M31 18.4 h2 v1.6 h-2 Z M5 20 h2 v1.6 h-2 Z M9 20 h2 v1.6 h-2 Z M13 20 h2 v1.6 h-2 Z M17 20 h2 v1.6 h-2 Z M21 20 h2 v1.6 h-2 Z M25 20 h2 v1.6 h-2 Z M29 20 h2 v1.6 h-2 Z" fill="ink" stroke="none" clip-path="url(#car)"/>
+    <path d="M5 25 Q3 25 3 23 L3 19.4 Q3 17.2 5.2 16.8 L10.4 15.8 L13.8 9.8 Q14.6 8.4 16.2 8.4 L25 8.4 Q26.6 8.4 27.4 9.8 L30.4 15.8 Q33 16.2 33 18.8 L33 23 Q33 25 31 25 Z" fill="none"/>
+    <path d="M12.6 15.8 L15.2 11.2 Q15.6 10.4 16.4 10.4 L19.6 10.4 L19.6 15.8 Z" fill="sky" stroke-width="1.5"/>
+    <path d="M21.6 10.4 L24.8 10.4 Q25.6 10.4 26 11.2 L28.4 15.8 L21.6 15.8 Z" fill="sky" stroke-width="1.5"/>
+  </g>
+  <g id="wheels">
+    <g data-include="b11-wheel" transform="translate(-8 7)"/>
+    <g data-include="b11-wheel" transform="translate(8 7)"/>
+  </g>
+</svg>

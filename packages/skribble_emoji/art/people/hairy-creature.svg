@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A shaggy bigfoot bust: brown fur all over, a tan face. -->
+  <g id="fur" stroke="ink" stroke-width="1.75">
+    <path d="M18 2.4 C14.8 2.4 12.6 3.6 11 5.4 L9.2 4.6 L9.6 7.4 C8.8 8.8 8.6 10.4 8.6 12 L6.6 13.2 L8.4 14.6 L6.2 16.6 L8.6 17.4 C6.4 19.8 4.6 23.2 3.8 27.2 L5.8 27.6 L3.4 30.8 L5.6 31 L4.4 34.6 L31.6 34.6 L30.4 31 L32.6 30.8 L30.2 27.6 L32.2 27.2 C31.4 23.2 29.6 19.8 27.4 17.4 L29.8 16.6 L27.6 14.6 L29.4 13.2 L27.4 12 C27.4 10.4 27.2 8.8 26.4 7.4 L26.8 4.6 L25 5.4 C23.4 3.6 21.2 2.4 18 2.4 Z" fill="brown"/>
+    <path d="M27.4 17.4 C29.6 19.8 31.4 23.2 32.2 27.2 L30.2 27.6 L32.6 30.8 L30.4 31 L31.6 34.6 L27.6 34.6 C28 30 27.4 24.4 25 19.4 Z" fill="brown-shade" stroke="none"/>
+    <path d="M18 2.4 C14.8 2.4 12.6 3.6 11 5.4 L9.2 4.6 L9.6 7.4 C8.8 8.8 8.6 10.4 8.6 12 L6.6 13.2 L8.4 14.6 L6.2 16.6 L8.6 17.4 C6.4 19.8 4.6 23.2 3.8 27.2 L5.8 27.6 L3.4 30.8 L5.6 31 L4.4 34.6 L31.6 34.6 L30.4 31 L32.6 30.8 L30.2 27.6 L32.2 27.2 C31.4 23.2 29.6 19.8 27.4 17.4 L29.8 16.6 L27.6 14.6 L29.4 13.2 L27.4 12 C27.4 10.4 27.2 8.8 26.4 7.4 L26.8 4.6 L25 5.4 C23.4 3.6 21.2 2.4 18 2.4 Z" fill="none"/>
+    <path d="M11.4 24.6 L12.6 27.4 M15.4 27.8 L16.2 30.6 M21.6 26.4 L20.8 29.4 M24.4 23.2 L23.4 25.8" fill="none" stroke="brown-shade" stroke-width="1.5"/>
+  </g>
+  <g id="face" stroke="ink" stroke-width="1.5">
+    <path d="M12.2 14 C12.2 10.6 14.8 9.2 18 9.2 C21.2 9.2 23.8 10.6 23.8 14 C23.8 18.2 21.4 20.6 18 20.6 C14.6 20.6 12.2 18.2 12.2 14 Z" fill="tan"/>
+    <path d="M12.6 12.4 Q15.2 10.6 17.6 12 M18.4 12 Q20.8 10.6 23.4 12.4" fill="none" stroke-width="1.75"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <circle cx="15.4" cy="13.8" r="0.95"/>
+    <circle cx="20.6" cy="13.8" r="0.95"/>
+    <circle cx="15.7" cy="13.5" r="0.35" fill="paper"/>
+    <circle cx="20.9" cy="13.5" r="0.35" fill="paper"/>
+  </g>
+  <ellipse data-part="nose" cx="18" cy="16" rx="1.5" ry="1" fill="brown-shade" stroke="ink" stroke-width="1.25"/>
+  <path data-part="mouth" d="M16 18.4 Q18 19.6 20 18.4" fill="none" stroke="ink" stroke-width="1.4"/>
+</svg>

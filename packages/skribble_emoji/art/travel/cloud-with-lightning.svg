@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="lightning" d="M16.8 18.6 L23.2 18.6 L20.2 24.2 L24.4 24.2 L14.4 34 L16.8 27.4 L12.6 27.4Z" fill="yellow" stroke="ink" stroke-width="1.75"/>
+  <defs><clipPath id="cloud-clip"><path d="M8.9 23A5.8 5.8 0 1 1 9.7 11.46A7.6 7.6 0 0 1 24.67 9.55A6.8 6.8 0 1 1 26.1 23Z"/></clipPath></defs>
+  <g id="cloud">
+    <path d="M8.9 23A5.8 5.8 0 1 1 9.7 11.46A7.6 7.6 0 0 1 24.67 9.55A6.8 6.8 0 1 1 26.1 23Z" fill="grey"/>
+    <path d="M8.9 23A5.8 5.8 0 1 1 9.7 11.46A7.6 7.6 0 0 1 24.67 9.55A6.8 6.8 0 1 1 26.1 23Z M7.1 21.1A5.8 5.8 0 1 1 7.9 9.56A7.6 7.6 0 0 1 22.87 7.65A6.8 6.8 0 1 1 24.3 21.1Z" fill="grey-shade" fill-rule="evenodd" clip-path="url(#cloud-clip)"/>
+    <path d="M8.9 23A5.8 5.8 0 1 1 9.7 11.46A7.6 7.6 0 0 1 24.67 9.55A6.8 6.8 0 1 1 26.1 23Z" fill="none" stroke="ink"/>
+  </g>
+</svg>

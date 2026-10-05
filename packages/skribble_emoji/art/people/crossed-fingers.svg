@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Palm to the viewer: the index finger crossed over the middle finger,
+       the thumb holding the folded ring and little fingers. -->
+  <g id="hand" stroke="ink">
+    <path data-part="middle" d="M16.45 19.96 L19.45 5.36 C20.05 2.43 24.36 3.31 23.75 6.24 L20.75 20.84 Z" fill="skin"/>
+    <path data-part="index" d="M19.84 21.41 L13.04 8.21 C11.67 5.55 15.59 3.53 16.96 6.19 L23.76 19.39 Z" fill="skin"/>
+    <path d="M9 25 L9 20.4 C9 17.6 12.4 17.4 12.4 19.4 C12.4 16.6 16.7 16.4 16.7 18.6 L24.2 19.4 C26.2 20.6 26.8 22.6 26.6 25.4 C26.2 30.2 22.4 33 17.8 33 C13.2 33 9.6 30.4 9 25 Z" fill="skin" stroke="none"/>
+    <path d="M26.6 23 C26.7 23.8 26.7 24.6 26.6 25.4 C26.2 30.2 22.4 33 17.8 33 C16.2 33 14.8 32.6 13.6 32 C20 31.6 24.8 28.6 26.6 23 Z" fill="skin-shade" stroke="none"/>
+    <path d="M23.76 19.39 C25.8 20 26.8 22 26.6 25.4 C26.2 30.2 22.4 33 17.8 33 C13.2 33 9.6 30.4 9 25 L9 20.4 C9 17.6 12.4 17.4 12.4 19.4 C12.4 16.6 16.7 16.4 16.7 18.6" fill="none"/>
+    <path data-part="thumb" d="M26 21.4 C21.8 20.8 16.6 20.6 13.2 21.4 C10.8 22 11.2 25.8 13.6 25.6 C17.4 25.4 21.8 25.4 26.3 25.9" fill="skin" stroke-width="1.75"/>
+  </g>
+</svg>

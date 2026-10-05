@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b18-button-purple"/>
+  <g data-part="glyph" fill="white" transform="translate(0.7 0)">
+    <path d="M21.58 11.1 A9.4 9.4 0 1 0 21.58 24.9 A7.6 7.6 0 1 1 21.58 11.1 Z"/>
+    <polygon points="24.6,13.6 25.66,16.54 28.78,16.64 26.31,18.56 27.19,21.56 24.6,19.8 22.01,21.56 22.89,18.56 20.42,16.64 23.54,16.54"/>
+  </g>
+</svg>

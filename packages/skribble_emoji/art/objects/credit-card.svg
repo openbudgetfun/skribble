@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="card" stroke="ink">
+    <rect x="3" y="7.4" width="30" height="21.2" rx="2.8" ry="2.8" fill="blue" stroke="none"/>
+    <path d="M33 17.6 L33 25.8 Q33 28.6 30.2 28.6 L15.4 28.6 C25 27.4 31 23.6 33 17.6 Z" fill="blue-shade" stroke="none"/>
+    <path d="M3 11.4 L33 11.4 L33 15.8 L3 15.8 Z" fill="ink" stroke="none"/>
+    <rect x="3" y="7.4" width="30" height="21.2" rx="2.8" ry="2.8" fill="none"/>
+    <rect x="6.6" y="19" width="6.2" height="4.8" rx="1" ry="1" fill="yellow" stroke-width="1.25"/>
+    <path d="M16.2 20.2 L28.8 20.2 M16.2 24.4 L22.6 24.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

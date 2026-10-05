@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="base" stroke="ink">
+    <path d="M5 31.8 L7.2 25 L28.8 25 L31 31.8 Z" fill="grey"/>
+    <path d="M28.8 25 L31 31.8 L26.4 31.8 L25.8 25 Z" fill="grey-shade" stroke="none"/>
+    <path d="M6.6 28.4 L29.4 28.4 M12.6 25 L12.2 28.4 M23.4 25 L23.8 28.4 M18 28.4 L18 31.8" fill="none" stroke-width="1.25"/>
+    <path d="M5 31.8 L7.2 25 L28.8 25 L31 31.8 Z" fill="none"/>
+  </g>
+  <g id="castle" stroke="ink">
+    <rect x="9" y="20.4" width="18" height="4.8" fill="white" stroke-width="1.75"/>
+    <path d="M11.4 22.4 h2.6 v1.8 h-2.6 Z M16.7 22.4 h2.6 v1.8 h-2.6 Z M22 22.4 h2.6 v1.8 h-2.6 Z" fill="black" stroke-width="1.25"/>
+    <path d="M3.6 19.8 Q6.6 20.6 9.2 19.4 Q11.4 18.4 12.4 16.6 L23.6 16.6 Q24.6 18.4 26.8 19.4 Q29.4 20.6 32.4 19.8 Q31 21.6 27.6 21.6 L8.4 21.6 Q5 21.6 3.6 19.8 Z" fill="teal"/>
+    <rect x="12" y="13" width="12" height="3.8" fill="white" stroke-width="1.75"/>
+    <rect x="16.6" y="14.4" width="2.8" height="1.6" fill="black" stroke-width="1.25"/>
+    <path d="M7.6 12 Q10 12.6 12 11.8 Q13.6 11 14.4 9.6 L21.6 9.6 Q22.4 11 24 11.8 Q26 12.6 28.4 12 Q27.4 13.6 24.6 13.6 L11.4 13.6 Q8.6 13.6 7.6 12 Z" fill="teal"/>
+    <rect x="14.4" y="7" width="7.2" height="2.8" fill="white" stroke-width="1.75"/>
+    <path d="M10.8 6 Q13 6.4 14.6 5.6 Q16 4.8 16.4 3.6 L19.6 3.6 Q20 4.8 21.4 5.6 Q23 6.4 25.2 6 Q24.4 7.4 22.4 7.4 L13.6 7.4 Q11.6 7.4 10.8 6 Z" fill="teal"/>
+  </g>
+  <g id="ornaments" fill="yellow" stroke="ink" stroke-width="1.25">
+    <circle cx="16.4" cy="3" r="0.9"/>
+    <circle cx="19.6" cy="3" r="0.9"/>
+  </g>
+</svg>

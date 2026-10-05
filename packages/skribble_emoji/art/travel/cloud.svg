@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="cloud-clip"><path d="M8.54 28.18A6.03 6.03 0 1 1 9.37 16.18A7.9 7.9 0 0 1 24.94 14.2A7.07 7.07 0 1 1 26.42 28.18Z"/></clipPath></defs>
+  <g id="cloud">
+    <path d="M8.54 28.18A6.03 6.03 0 1 1 9.37 16.18A7.9 7.9 0 0 1 24.94 14.2A7.07 7.07 0 1 1 26.42 28.18Z" fill="white"/>
+    <path d="M8.54 28.18A6.03 6.03 0 1 1 9.37 16.18A7.9 7.9 0 0 1 24.94 14.2A7.07 7.07 0 1 1 26.42 28.18Z M6.74 26.28A6.03 6.03 0 1 1 7.57 14.28A7.9 7.9 0 0 1 23.14 12.3A7.07 7.07 0 1 1 24.62 26.28Z" fill="silver" fill-rule="evenodd" clip-path="url(#cloud-clip)"/>
+    <path d="M8.54 28.18A6.03 6.03 0 1 1 9.37 16.18A7.9 7.9 0 0 1 24.94 14.2A7.07 7.07 0 1 1 26.42 28.18Z" fill="none" stroke="ink"/>
+  </g>
+</svg>

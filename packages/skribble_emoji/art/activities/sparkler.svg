@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="stick" stroke="ink">
+    <path d="M11.2 24.8 L4.6 31.4" fill="none" stroke-width="1.75"/>
+    <rect x="-1.6" y="0" width="3.2" height="11" rx="1.6" ry="1.6" transform="translate(19 17) rotate(45)" fill="grey" stroke-width="1.5"/>
+  </g>
+  <g id="flame" stroke="ink">
+    <path d="M31 14 L25.7 15.53 L28.36 20.36 L23.53 17.7 L22 23 L20.47 17.7 L15.64 20.36 L18.3 15.53 L13 14 L18.3 12.47 L15.64 7.64 L20.47 10.3 L22 5 L23.53 10.3 L28.36 7.64 L25.7 12.47 Z" fill="yellow" stroke-width="1.75"/>
+    <circle cx="22" cy="14" r="2.2" fill="white" stroke="none"/>
+  </g>
+  <g id="sparks" stroke="ink" stroke-width="1.25">
+    <path d="M30.6 23.4 Q31.02 25.58 33.2 26 Q31.02 26.42 30.6 28.6 Q30.18 26.42 28 26 Q30.18 25.58 30.6 23.4 Z" fill="yellow"/>
+    <path d="M8.6 6.6 Q8.98 8.62 11 9 Q8.98 9.38 8.6 11.4 Q8.22 9.38 6.2 9 Q8.22 8.62 8.6 6.6 Z" fill="yellow"/>
+    <circle cx="31.4" cy="5.4" r="1" fill="orange" stroke="none"/>
+    <circle cx="13.6" cy="4.2" r="0.9" fill="orange" stroke="none"/>
+    <circle cx="25.4" cy="27.4" r="0.9" fill="orange" stroke="none"/>
+  </g>
+</svg>

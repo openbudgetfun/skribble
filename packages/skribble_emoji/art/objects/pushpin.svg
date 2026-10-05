@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="pin" stroke="ink" transform="translate(-1.6 1.8) rotate(45 18 18)">
+    <path d="M16.9 19 L19.1 19 L18 33.4 Z" fill="silver" stroke-width="1.5"/>
+    <path d="M9.6 21.4 Q9.6 17.4 13.6 17 L22.4 17 Q26.4 17.4 26.4 21.4 Z" fill="red" stroke-width="1.75"/>
+    <path d="M13.6 17.2 L14.8 10.6 L21.2 10.6 L22.4 17.2 Z" fill="red-shade" stroke-width="1.75"/>
+    <rect x="11.4" y="3.6" width="13.2" height="7.6" rx="2.8" ry="2.8" fill="red"/>
+    <path d="M14 6.2 Q14.8 5.4 16.6 5.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

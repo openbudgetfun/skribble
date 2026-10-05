@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="emperor" stroke="ink">
+    <path d="M11 16 C7.6 16 6 19 5.4 23 L4.4 31.6 Q4.4 33 5.8 33 L16.2 33 Q17.6 33 17.6 31.6 L16.6 23 C16 19 14.4 16 11 16 Z" fill="blue" stroke="none"/>
+    <path d="M16.6 23 L17.6 31.6 Q17.6 33 16.2 33 L13.4 33 C15 30 15.4 26 15 22 C14.8 19.8 14 17.8 13 16.6 C14.8 17.4 16 19.6 16.6 23 Z" fill="blue-shade" stroke="none"/>
+    <path d="M11 16 C7.6 16 6 19 5.4 23 L4.4 31.6 Q4.4 33 5.8 33 L16.2 33 Q17.6 33 17.6 31.6 L16.6 23 C16 19 14.4 16 11 16 Z" fill="none"/>
+    <path d="M8.2 16.8 L11 21.4 L13.8 16.8 Z" fill="white" stroke-width="1.5"/>
+    <path d="M9.2 9 L9.6 3.6 Q11 2.4 12.4 3.6 L12.8 9 Z" fill="black" stroke-width="1.5"/>
+    <circle cx="11" cy="12.2" r="4.2" fill="white" stroke-width="1.75"/>
+    <path d="M6.9 11.4 C6.9 9.2 8.6 8 11 8 C13.4 8 15.1 9.2 15.1 11.4 C13.8 10.2 8.2 10.2 6.9 11.4 Z" fill="black" stroke-width="1.5"/>
+    <g id="emperor-face" stroke="none">
+      <circle cx="9.6" cy="12.9" r="0.6" fill="ink"/>
+      <circle cx="12.4" cy="12.9" r="0.6" fill="ink"/>
+      <ellipse cx="8.7" cy="14.3" rx="0.8" ry="0.5" fill="cheek"/>
+      <ellipse cx="13.3" cy="14.3" rx="0.8" ry="0.5" fill="cheek"/>
+      <circle cx="11" cy="14.7" r="0.5" fill="red"/>
+    </g>
+  </g>
+  <g id="empress" stroke="ink">
+    <path d="M20.4 18 C19.6 12 21 8 25 8 C29 8 30.4 12 29.6 18 Z" fill="black" stroke-width="1.5"/>
+    <path d="M25 16 C21.6 16 20 19 19.4 23 L18.4 31.6 Q18.4 33 19.8 33 L30.2 33 Q31.6 33 31.6 31.6 L30.6 23 C30 19 28.4 16 25 16 Z" fill="red" stroke="none"/>
+    <path d="M30.6 23 L31.6 31.6 Q31.6 33 30.2 33 L27.4 33 C29 30 29.4 26 29 22 C28.8 19.8 28 17.8 27 16.6 C28.8 17.4 30 19.6 30.6 23 Z" fill="red-shade" stroke="none"/>
+    <path d="M25 16 C21.6 16 20 19 19.4 23 L18.4 31.6 Q18.4 33 19.8 33 L30.2 33 Q31.6 33 31.6 31.6 L30.6 23 C30 19 28.4 16 25 16 Z" fill="none"/>
+    <path d="M22.2 16.8 L25 21.4 L27.8 16.8 Z" fill="pink" stroke-width="1.5"/>
+    <path d="M25 27.6 L21.8 22.8 Q25 21.2 28.2 22.8 Z" fill="yellow" stroke-width="1.25"/>
+    <circle cx="25" cy="12.2" r="4.2" fill="white" stroke-width="1.75"/>
+    <path d="M20.9 11.4 C20.9 9.2 22.6 8 25 8 C27.4 8 29.1 9.2 29.1 11.4 C27.6 10.2 22.4 10.2 20.9 11.4 Z" fill="black" stroke-width="1.5"/>
+    <path d="M22.8 8.8 L23.2 6 L24.4 7.4 L25 5.4 L25.6 7.4 L26.8 6 L27.2 8.8 Z" fill="yellow" stroke-width="1.25"/>
+    <g id="empress-face" stroke="none">
+      <circle cx="23.6" cy="12.9" r="0.6" fill="ink"/>
+      <circle cx="26.4" cy="12.9" r="0.6" fill="ink"/>
+      <ellipse cx="22.7" cy="14.3" rx="0.8" ry="0.5" fill="cheek"/>
+      <ellipse cx="27.3" cy="14.3" rx="0.8" ry="0.5" fill="cheek"/>
+      <circle cx="25" cy="14.7" r="0.5" fill="red"/>
+    </g>
+  </g>
+</svg>

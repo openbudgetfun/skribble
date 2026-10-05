@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="body-shape"><rect x="9" y="15" width="20" height="10" rx="5" ry="5"/></clipPath>
+  </defs>
+  <g id="tail" stroke="ink">
+    <path d="M26 19.4 C31 18.6 34 14.2 33.4 9 C32.8 4.6 28.6 2.4 25 3.8 C22.6 4.8 21.8 7.6 23.4 9.2 C24.8 10.6 27.2 10 27.8 8.2 C28.6 11.2 27.2 14.2 24 15.4 Z" fill="black"/>
+    <path d="M24.4 6.2 C27.2 4.4 31.2 5.8 31.6 9.4 C32 13 29.8 16.4 26.2 17.6" fill="none" stroke="white" stroke-width="2"/>
+  </g>
+  <g id="legs" stroke="ink" fill="black">
+    <rect x="12.8" y="21" width="3.4" height="9" rx="1.7" ry="1.7"/>
+    <rect x="21.4" y="21" width="3.4" height="9" rx="1.7" ry="1.7"/>
+    <rect x="10" y="21" width="3.6" height="9.8" rx="1.8" ry="1.8"/>
+    <rect x="24.4" y="21" width="3.6" height="9.8" rx="1.8" ry="1.8"/>
+  </g>
+  <g id="body">
+    <rect x="9" y="15" width="20" height="10" rx="5" ry="5" fill="black"/>
+    <g clip-path="url(#body-shape)">
+      <path d="M9 14 C14 16.8 22 16.8 29 15.4 L29 18.2 C22 19.4 14.6 19.4 9 16.8 Z" fill="white"/>
+    </g>
+    <rect x="9" y="15" width="20" height="10" rx="5" ry="5" fill="none" stroke="ink"/>
+  </g>
+  <circle data-part="ears" cx="13.6" cy="11.2" r="1.7" fill="black" stroke="ink" stroke-width="1.5"/>
+  <g id="head">
+    <path d="M10.2 10.4 C13.6 10.4 16 12.8 16 15.8 C16 19 13.6 21 10.4 21 L6.4 21 C4.4 21 3 19.8 3 18.2 C3 16.8 3.8 16 5 15.4 C5.6 12.4 7.8 10.4 10.2 10.4 Z" fill="black" stroke="ink"/>
+    <path d="M5 16 C6.4 13.6 9 11.8 12.4 11.4" fill="none" stroke="white" stroke-width="1.75"/>
+  </g>
+  <g id="eyes">
+    <ellipse cx="9.2" cy="15.6" rx="1.2" ry="1.5" fill="paper"/>
+    <circle cx="9" cy="15.8" r="0.7" fill="ink"/>
+  </g>
+  <circle data-part="nose" cx="3.4" cy="18" r="0.9" fill="pink" stroke="ink" stroke-width="1"/>
+</svg>

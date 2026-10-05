@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="cube" stroke="ink">
+    <path d="M23 13 L30 6 L30 24 L23 31 Z" fill="blue"/>
+    <path d="M5 13 L12 6 L30 6 L23 13 Z" fill="white"/>
+    <path d="M5 13 L23 13 L23 31 L5 31 Z" fill="sky"/>
+    <path d="M8.2 16.6 L8.2 21.4 M8.2 24.2 L8.2 25.4 M14 9.8 L20.4 9.8" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="tile"><rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6"/></clipPath></defs>
+  <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6" fill="pink"/>
+  <g clip-path="url(#tile)">
+    <path id="rays" d="M10.21 17.5 L7.78 16.1 M13.5 14.21 L12.1 11.78 M18 13 L18 10.2 M22.5 14.21 L23.9 11.78 M25.79 17.5 L28.22 16.1" fill="none" stroke="orange" stroke-width="2"/>
+    <circle id="sun" cx="18" cy="22" r="7" fill="yellow" stroke="ink"/>
+    <path data-part="bird" d="M7 9 Q8 7.8 9 9 Q10 7.8 11 9" fill="none" stroke="ink" stroke-width="1.25"/>
+    <rect id="sea" x="2" y="22" width="32" height="12" fill="blue" stroke="ink"/>
+    <path id="glints" d="M13.6 25 L22.4 25 M15.2 27.8 L20.8 27.8 M16.8 30.4 L19.2 30.4" fill="none" stroke="yellow" stroke-width="1.75"/>
+  </g>
+  <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6" fill="none" stroke="ink"/>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="tick">
+    <path d="M8.4 16.65 L13.92 22.31 L27.93 6.73 A2.8 2.8 0 0 1 32.08 10.47 L16.08 28.27 A2.8 2.8 0 0 1 12 28.35 L4.4 20.55 A2.8 2.8 0 0 1 8.4 16.65 Z" fill="black" stroke="ink"/>
+    <path d="M22.4 13.9 L25.4 10.5" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

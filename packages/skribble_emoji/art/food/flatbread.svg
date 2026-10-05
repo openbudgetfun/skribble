@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="flatbread" stroke="ink">
+    <path d="M5.6 12.8 C9.6 7.8 19.4 6.2 26.4 8.6 C32.4 10.6 34 16.6 32 22.4 C30 28 23.6 31 16 30.4 C8.6 29.8 3.4 26 3 20.2 C2.8 17.4 3.8 15 5.6 12.8 Z" fill="cream" stroke="none"/>
+    <path d="M32.8 17.2 C33 19 32.6 20.8 32 22.4 C30 28 23.6 31 16 30.4 C22.4 29 28 26 30.6 21.2 C31.4 19.8 32 18.4 32.8 17.2 Z" fill="tan" stroke="none"/>
+    <path d="M5.6 12.8 C9.6 7.8 19.4 6.2 26.4 8.6 C32.4 10.6 34 16.6 32 22.4 C30 28 23.6 31 16 30.4 C8.6 29.8 3.4 26 3 20.2 C2.8 17.4 3.8 15 5.6 12.8 Z" fill="none"/>
+    <g fill="brown" stroke="none">
+      <ellipse cx="11" cy="14.4" rx="1.8" ry="1.1"/>
+      <ellipse cx="19.6" cy="12.4" rx="2" ry="1.2"/>
+      <ellipse cx="26.4" cy="17" rx="1.4" ry="1"/>
+      <ellipse cx="13.6" cy="22.6" rx="2" ry="1.2"/>
+      <ellipse cx="22" cy="24" rx="1.6" ry="1"/>
+      <ellipse cx="7.6" cy="20.4" rx="1.1" ry="0.8"/>
+    </g>
+  </g>
+</svg>

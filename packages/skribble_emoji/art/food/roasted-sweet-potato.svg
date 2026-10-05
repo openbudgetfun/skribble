@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="skin-clip"><path d="M29 11.4 C21 10 12 10.2 7.4 12.6 C3.4 14.8 3.4 21.2 7.4 23.4 C12 25.8 21 26 29 24.6 Z"/></clipPath>
+  </defs>
+  <g id="potato" stroke="ink" transform="rotate(-35 18 18)">
+    <path d="M29 11.4 C21 10 12 10.2 7.4 12.6 C3.4 14.8 3.4 21.2 7.4 23.4 C12 25.8 21 26 29 24.6 Z" fill="purple-shade" stroke="none"/>
+    <g clip-path="url(#skin-clip)"><path transform="translate(-0.6 -2.2)" d="M29 11.4 C21 10 12 10.2 7.4 12.6 C3.4 14.8 3.4 21.2 7.4 23.4 C12 25.8 21 26 29 24.6 Z" fill="purple" stroke="none"/></g>
+    <path d="M29 11.4 C21 10 12 10.2 7.4 12.6 C3.4 14.8 3.4 21.2 7.4 23.4 C12 25.8 21 26 29 24.6" fill="none"/>
+    <path d="M11 15.4 L13 15.8 M16 20.8 L18 21 M20.4 14.4 L22.4 14.6" fill="none" stroke="purple-shade" stroke-width="1.5"/>
+    <ellipse cx="29" cy="18" rx="3" ry="6.6" fill="yellow"/>
+    <ellipse cx="29.4" cy="18.4" rx="1.4" ry="3.6" fill="yellow-shade" stroke="none"/>
+  </g>
+  <g id="steam" fill="none" stroke="grey" stroke-width="1.75">
+    <path d="M31.4 11 Q33.2 8.8 31.4 6.8 Q29.6 4.8 31.4 2.8"/>
+  </g>
+</svg>

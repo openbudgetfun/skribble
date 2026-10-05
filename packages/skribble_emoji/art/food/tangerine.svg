@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="stem" fill="leaf" stroke="ink" stroke-width="1.5">
+    <path d="M16.8 7.4 L17.2 4 Q18 3.2 18.8 4 L19.2 7.4 Z"/>
+  </g>
+  <g id="tangerine" stroke="ink">
+    <circle cx="18" cy="19.6" r="13.4" fill="orange" stroke="none"/>
+    <path d="M30.1 13.9 A13.4 13.4 0 0 1 18 33 C24.8 30.7 29.3 23.7 30.1 13.9 Z" fill="orange-shade" stroke="none"/>
+    <circle cx="18" cy="19.6" r="13.4" fill="none"/>
+    <path d="M8.6 17.4 Q9.2 13.2 12.6 11" fill="none" stroke="paper" stroke-width="1.75"/>
+    <path d="M23.4 23 L23.4 23.1 M26 18.6 L26 18.7 M21 27.6 L21 27.7" fill="none" stroke="orange-shade" stroke-width="1.5"/>
+  </g>
+  <g id="leaf" stroke="ink" stroke-width="1.75">
+    <path d="M18.6 6 C20.6 2 26.8 1.4 31 3.8 C28.4 7.8 22.8 8.8 18.6 6 Z" fill="green"/>
+    <path d="M20.6 5.6 Q25 4.6 28.6 3.8" fill="none" stroke-width="1.25"/>
+  </g>
+</svg>

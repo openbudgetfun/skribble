@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.6" y="18.8" width="4.8" height="5.4" fill="skin"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="pink"/>
+    <path d="M25.4 24.8 C28.2 26.4 30 29.6 30.2 34.6 L26.8 34.6 C27 30.4 26.6 27.2 25.4 24.8 Z" fill="pink-shade" stroke="none"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="none"/>
+    <path d="M14.6 23.2 Q18 26.4 21.4 23.2" fill="skin" stroke-width="1.5"/>
+  </g>
+  <g data-include="head" data-as="woman"/>
+  <g id="baby" stroke="ink">
+    <ellipse cx="13.6" cy="29.6" rx="8.2" ry="4.4" transform="rotate(-16 13.6 29.6)" fill="sky"/>
+    <path d="M7 31.6 Q11.4 28.4 16.4 28.6" fill="none" stroke-width="1.25"/>
+    <circle cx="19.6" cy="26.6" r="3.4" fill="skin" stroke-width="1.5"/>
+    <path d="M18.2 26.8 Q18.8 27.4 19.4 26.8 M20.6 26.4 Q21.2 27 21.8 26.4" fill="none" stroke-width="1"/>
+    <path d="M19.4 23.2 Q20.2 22.2 21.2 22.8" fill="none" stroke="hair" stroke-width="1.25"/>
+    <ellipse cx="6.8" cy="31.6" rx="2.2" ry="1.8" fill="skin" stroke-width="1.5"/>
+  </g>
+  <path data-part="heart" d="M29.4 10.6 C26.6 9 25.8 7.4 26.2 6.2 C26.6 5 28.4 4.8 29.4 6.2 C30.4 4.8 32.2 5 32.6 6.2 C33 7.4 32.2 9 29.4 10.6 Z" fill="pink" stroke="ink" stroke-width="1.25"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="moon">
+    <circle cx="18" cy="18" r="15" fill="grey-shade"/>
+    <g fill="grey">
+      <circle cx="8.6" cy="21.6" r="2.2"/>
+      <circle cx="26.8" cy="26" r="2"/>
+      <circle cx="25.6" cy="7.4" r="1.6"/>
+      <circle cx="15.4" cy="6.8" r="1.2"/>
+    </g>
+    <circle cx="18" cy="18" r="15" fill="none" stroke="ink"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="14.4" cy="13.8" rx="1.9" ry="2.7"/>
+    <ellipse cx="25.2" cy="13.8" rx="1.9" ry="2.7"/>
+    <circle cx="15" cy="12.8" r="0.6" fill="paper"/>
+    <circle cx="25.8" cy="12.8" r="0.6" fill="paper"/>
+  </g>
+  <path data-part="mouth" d="M14 22 Q20.6 26.2 25.6 21" fill="none" stroke="ink" stroke-width="1.75"/>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="pole" stroke="ink">
+    <rect x="3.4" y="4.4" width="2.2" height="29.6" rx="1" ry="1" fill="brown" stroke-width="1.5"/>
+    <circle cx="4.5" cy="3.6" r="1.6" fill="yellow" stroke-width="1.25"/>
+  </g>
+  <g id="carp-top" stroke="ink">
+    <path d="M7 8.2 Q19 6.4 28.6 9.6 L33.6 6.8 L31.2 12.4 L33.6 18 L28.6 15.2 Q19 18.4 7 16.6 Z" fill="blue" stroke="none"/>
+    <path d="M7 16.6 Q19 18.4 28.6 15.2 L29.6 13.8 Q19 16.6 8 15 Z" fill="blue-shade" stroke="none"/>
+    <path d="M7 8.2 Q19 6.4 28.6 9.6 L33.6 6.8 L31.2 12.4 L33.6 18 L28.6 15.2 Q19 18.4 7 16.6 Z" fill="none"/>
+    <path d="M16 10 Q18.2 12.2 16 14.6 M20.4 9.8 Q22.6 12.2 20.4 14.8" fill="none" stroke="white" stroke-width="1.5"/>
+    <ellipse cx="7.4" cy="12.4" rx="1.3" ry="4" fill="white" stroke-width="1.5"/>
+    <circle cx="11.4" cy="10.8" r="1.6" fill="white" stroke-width="1.25"/>
+    <circle cx="11.4" cy="10.8" r="0.7" fill="ink" stroke="none"/>
+  </g>
+  <g id="carp-bottom" stroke="ink">
+    <path d="M7 21.8 Q18 20.2 26.6 23 L31 20.6 L29 25.8 L31 31 L26.6 28.6 Q18 31.6 7 30 Z" fill="red" stroke="none"/>
+    <path d="M7 30 Q18 31.6 26.6 28.6 L27.6 27.2 Q18 29.8 8 28.4 Z" fill="red-shade" stroke="none"/>
+    <path d="M7 21.8 Q18 20.2 26.6 23 L31 20.6 L29 25.8 L31 31 L26.6 28.6 Q18 31.6 7 30 Z" fill="none"/>
+    <path d="M15.6 23.6 Q17.8 25.8 15.6 28.2 M19.8 23.4 Q22 25.8 19.8 28.4" fill="none" stroke="white" stroke-width="1.5"/>
+    <ellipse cx="7.4" cy="25.9" rx="1.3" ry="4" fill="white" stroke-width="1.5"/>
+    <circle cx="11.2" cy="24.4" r="1.6" fill="white" stroke-width="1.25"/>
+    <circle cx="11.2" cy="24.4" r="0.7" fill="ink" stroke="none"/>
+  </g>
+</svg>

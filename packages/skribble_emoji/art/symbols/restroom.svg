@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b18-button-blue"/>
+  <g data-include="b18-man-sign" transform="translate(-2.3 4.5) scale(0.75)"/>
+  <rect x="17.4" y="8.2" width="1.2" height="19.6" rx="0.6" ry="0.6" fill="white"/>
+  <g data-include="b18-woman-sign" transform="translate(11.3 4.5) scale(0.75)"/>
+</svg>

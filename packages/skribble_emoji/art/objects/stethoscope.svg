@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="tube" fill="none">
+    <path d="M18 15.4 L18 19 C18 26.4 8.2 23.4 8.6 29.6 C9 34 16.2 34 19.6 30.2 C21.4 28.2 22.6 26.8 24 26" stroke="ink" stroke-width="4.6"/>
+    <path d="M18 15.4 L18 19 C18 26.4 8.2 23.4 8.6 29.6 C9 34 16.2 34 19.6 30.2 C21.4 28.2 22.6 26.8 24 26" stroke="blue" stroke-width="2.4"/>
+  </g>
+  <g id="earpieces">
+    <path d="M11.4 4.6 C10.6 9.6 12.6 13.6 18 15.4 C23.4 13.6 25.4 9.6 24.6 4.6" fill="none" stroke="ink" stroke-width="3.8"/>
+    <path d="M11.4 4.6 C10.6 9.6 12.6 13.6 18 15.4 C23.4 13.6 25.4 9.6 24.6 4.6" fill="none" stroke="silver" stroke-width="1.6"/>
+    <circle cx="11.4" cy="4.2" r="1.9" fill="black" stroke="ink" stroke-width="1.5"/>
+    <circle cx="24.6" cy="4.2" r="1.9" fill="black" stroke="ink" stroke-width="1.5"/>
+    <rect x="16.4" y="14.2" width="3.2" height="3.2" rx="0.8" ry="0.8" fill="silver" stroke="ink" stroke-width="1.5"/>
+  </g>
+  <g id="chestpiece" stroke="ink">
+    <circle cx="27" cy="25.4" r="5" fill="silver"/>
+    <circle cx="27" cy="25.4" r="2.6" fill="grey" stroke-width="1.5"/>
+    <path d="M24.2 23.2 Q25 22 26.4 21.8" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

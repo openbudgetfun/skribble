@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="stalk" stroke="ink" stroke-width="1.75">
+    <path d="M14 33.4 C14.6 28.6 14.8 24.4 13.8 20.6 L22.2 20.6 C21.2 24.4 21.4 28.6 22 33.4 Z" fill="lime"/>
+    <path d="M18 31 L18 24.8 M18 26.6 L15.6 22.6 M18 26.6 L20.4 22.6" fill="none" stroke="green" stroke-width="1.5"/>
+  </g>
+  <g id="florets" stroke="ink">
+    <path d="M8.2 23 C3.4 23 2.4 16.4 6.6 14.4 C5.6 9.2 10.6 5.4 14.8 7.8 C16.4 3.4 22.6 3.2 24.4 7.4 C28.6 5.8 33.2 10.2 30.4 14.8 C34 17.4 32.4 23.4 27.8 23 Q18 25.4 8.2 23 Z" fill="green" stroke="none"/>
+    <path d="M30.4 14.8 C34 17.4 32.4 23.4 27.8 23 Q22.4 24.4 17.6 24.2 C22.4 22.6 27.4 21.6 29 18.4 C29.6 17.2 29.8 16 30.4 14.8 Z" fill="green-shade" stroke="none"/>
+    <path d="M8.2 23 C3.4 23 2.4 16.4 6.6 14.4 C5.6 9.2 10.6 5.4 14.8 7.8 C16.4 3.4 22.6 3.2 24.4 7.4 C28.6 5.8 33.2 10.2 30.4 14.8 C34 17.4 32.4 23.4 27.8 23 Q18 25.4 8.2 23 Z" fill="none"/>
+    <path d="M9.8 16.4 Q11.4 14.4 13.6 15.4 M18.4 11.6 Q20 9.6 22.2 10.6 M21.4 18.4 Q23 16.4 25.2 17.4 M14.6 20.4 Q15.4 18.6 17.2 18.8" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

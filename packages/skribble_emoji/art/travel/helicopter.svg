@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(0 1)">
+    <g id="skids" fill="none" stroke="ink">
+      <path d="M10.4 23 L9.6 27.4 M19.6 23 L20.4 27.4" stroke-width="1.75"/>
+      <path d="M5.4 27.4 L25 27.4 Q26.4 27.4 26.8 26.2"/>
+    </g>
+    <g id="body" stroke="ink">
+      <path d="M30.6 14.4 L31.8 9.4 Q32 8.8 32.6 8.8 L33 8.8 Q33.6 8.8 33.6 9.4 L33.4 14.4 Z" fill="yellow" stroke-width="1.75"/>
+      <path d="M23.8 14.6 L32 14.2 Q33.4 14.2 33.4 15.6 L33.4 16.2 Q33.4 17.4 32.2 17.6 L24.6 19.2 Z" fill="yellow" stroke-width="1.75"/>
+      <path d="M4.4 18.4 Q4.4 11.4 12 11.4 L20.6 11.4 Q24.4 11.4 25 15.6 L25.4 18 Q25.4 23.6 18 23.6 L10 23.6 Q4.4 23.6 4.4 18.4 Z" fill="yellow" stroke="none"/>
+      <path d="M25.3 17 Q25.6 23.6 18 23.6 L12 23.6 Q22.4 22.4 24.4 15.6 Z" fill="yellow-shade" stroke="none"/>
+      <path d="M4.4 18.4 Q4.4 11.4 12 11.4 L20.6 11.4 Q24.4 11.4 25 15.6 L25.4 18 Q25.4 23.6 18 23.6 L10 23.6 Q4.4 23.6 4.4 18.4 Z" fill="none"/>
+      <path d="M5.8 18.4 Q5.8 13.4 11.6 13.2 L13.8 13.2 L13.8 18.4 Z" fill="sky" stroke-width="1.5"/>
+    </g>
+    <g id="rotor" stroke="ink">
+      <path d="M16.8 11.4 L16.8 8.6" fill="none"/>
+      <path d="M3.6 7.6 L30 7.6" fill="none" stroke-width="2.25"/>
+      <rect x="15" y="6.6" width="3.6" height="2" rx="1" ry="1" fill="grey" stroke-width="1.5"/>
+    </g>
+    <g id="tail-rotor" fill="none" stroke="ink" stroke-width="1.5">
+      <path d="M30.8 9.6 L33.8 12.6 M33.8 9.6 L30.8 12.6"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="mountains" stroke="ink">
+    <path d="M2.6 31 L2.6 23.4 L6.4 18.2 Q7 17.4 7.6 18.2 L12 24 L17 19 L21 23 L27.4 14.8 Q28 14 28.6 14.8 L33.4 21.6 L33.4 31 Q33.4 32.6 31.8 32.6 L4.2 32.6 Q2.6 32.6 2.6 31 Z" fill="green"/>
+    <path d="M25.2 17.6 L27.4 14.8 Q28 14 28.6 14.8 L30.8 17.6 L29.4 17 L28 18.4 L26.6 17 Z" fill="white" stroke-width="1.5"/>
+    <path d="M5 20.2 L6.4 18.2 Q7 17.4 7.6 18.2 L9 20.2 L7.8 19.8 L7 20.8 L6.2 19.8 Z" fill="white" stroke-width="1.25"/>
+  </g>
+  <path data-part="cable" d="M2.6 7.6 L33.4 3.4" fill="none" stroke="ink" stroke-width="1.5"/>
+  <g id="cabin" stroke="ink">
+    <path d="M18 5.6 L18 9.6" fill="none" stroke-width="1.75"/>
+    <circle cx="18" cy="5.4" r="1.3" fill="grey" stroke-width="1.5"/>
+    <rect x="11.6" y="9.6" width="12.8" height="11.8" rx="2.2" ry="2.2" fill="red" stroke="none"/>
+    <path d="M24.4 14.6 L24.4 19.2 Q24.4 21.4 22.2 21.4 L15 21.4 Q22.4 20.6 24.4 14.6 Z" fill="red-shade" stroke="none"/>
+    <rect x="11.6" y="9.6" width="12.8" height="11.8" rx="2.2" ry="2.2" fill="none"/>
+    <rect x="13.4" y="11.6" width="9.2" height="4.6" rx="1" ry="1" fill="sky" stroke-width="1.5"/>
+    <path d="M18 11.6 L18 16.2" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

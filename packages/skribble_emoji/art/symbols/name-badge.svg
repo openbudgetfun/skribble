@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="badge">
+    <path d="M5.6 9.4 L11.6 13 L18 5.2 L24.4 13 L30.4 9.4 L30.4 20.6 C30.4 27.8 25 32.4 18 32.4 C11 32.4 5.6 27.8 5.6 20.6 Z" fill="red"/>
+    <path d="M30.4 11.4 L30.4 20.6 C30.4 27.8 25 32.4 18 32.4 C24.4 30.6 28.4 25.4 28.4 19.4 L28.4 12.6 Z" fill="red-shade"/>
+    <path d="M5.6 9.4 L11.6 13 L18 5.2 L24.4 13 L30.4 9.4 L30.4 20.6 C30.4 27.8 25 32.4 18 32.4 C11 32.4 5.6 27.8 5.6 20.6 Z" fill="none" stroke="ink"/>
+  </g>
+  <g id="label" stroke="ink">
+    <rect x="9.2" y="17.2" width="17.6" height="8" rx="1.6" ry="1.6" fill="white" stroke-width="1.5"/>
+    <path d="M12.6 21.8 Q13.6 19.6 14.8 21.4 Q15.8 23 17 21.2 Q18 19.6 19.2 21.4 Q20.2 22.8 21.2 21.4 L23.4 21.4" fill="none" stroke-width="1.25"/>
+  </g>
+</svg>

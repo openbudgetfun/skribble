@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="car">
+      <path d="M8.8 5.6 L31.4 5.6 Q33.4 5.6 33.4 7.6 L33.4 18.4 Q33.4 20.4 31.4 20.4 L5.6 20.4 Q2.6 20.4 2.6 17.4 L2.6 12 Q2.6 5.6 8.8 5.6 Z"/>
+    </clipPath>
+  </defs>
+  <g id="track" stroke="ink">
+    <rect x="15.2" y="23.4" width="5.6" height="9.4" rx="0.8" ry="0.8" fill="grey" stroke-width="1.75"/>
+    <rect x="2.6" y="20.4" width="30.8" height="4" rx="1.2" ry="1.2" fill="grey"/>
+  </g>
+  <g id="car" stroke="ink">
+    <path d="M8.8 5.6 L31.4 5.6 Q33.4 5.6 33.4 7.6 L33.4 18.4 Q33.4 20.4 31.4 20.4 L5.6 20.4 Q2.6 20.4 2.6 17.4 L2.6 12 Q2.6 5.6 8.8 5.6 Z" fill="white" stroke="none"/>
+    <path d="M0 15.4 L36 15.4 L36 17.4 L0 17.4 Z" fill="teal" stroke="none" clip-path="url(#car)"/>
+    <path d="M33.4 17.4 L33.4 18.4 Q33.4 20.4 31.4 20.4 L10 20.4 Q8 20.4 7 17.4 Z" fill="silver" stroke="none" clip-path="url(#car)"/>
+    <path d="M8.8 5.6 L31.4 5.6 Q33.4 5.6 33.4 7.6 L33.4 18.4 Q33.4 20.4 31.4 20.4 L5.6 20.4 Q2.6 20.4 2.6 17.4 L2.6 12 Q2.6 5.6 8.8 5.6 Z" fill="none"/>
+    <path d="M4.8 13.2 Q5 7.8 9.4 7.8 L31.2 7.8 L31.2 13.2 Z" fill="sky" stroke-width="1.5"/>
+    <path d="M12.6 7.8 L12.6 13.2 M18.8 7.8 L18.8 13.2 M25 7.8 L25 13.2" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

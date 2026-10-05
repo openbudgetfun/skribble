@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="wheels" stroke="ink">
+    <path d="M12.6 21 L11 24.6" fill="none" stroke-width="1.75"/>
+    <circle cx="10.8" cy="26" r="2.4" fill="black" stroke-width="1.75"/>
+  </g>
+  <g id="plane" stroke="ink">
+    <path d="M27.6 15.2 L30.4 8.4 Q30.8 7.6 31.6 7.6 L32.6 7.6 Q33.4 7.6 33.2 8.6 L32.4 15.6 Z" fill="red" stroke-width="1.75"/>
+    <path d="M5.4 17.6 Q5.4 13.8 9.6 13.8 L20.4 13.8 Q24 13.8 26.4 15 L32.8 15.4 Q33.6 15.6 33.4 16.4 L33 17.4 Q32.8 18.2 32 18.2 L24 20.4 Q22.4 21.4 20 21.4 L9.6 21.4 Q5.4 21.4 5.4 17.6 Z" fill="yellow" stroke="none"/>
+    <path d="M33.2 17 Q32.8 18.2 32 18.2 L24 20.4 Q22.4 21.4 20 21.4 L10 21.4 Q22 20 26 18 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M5.4 17.6 Q5.4 13.8 9.6 13.8 L20.4 13.8 Q24 13.8 26.4 15 L32.8 15.4 Q33.6 15.6 33.4 16.4 L33 17.4 Q32.8 18.2 32 18.2 L24 20.4 Q22.4 21.4 20 21.4 L9.6 21.4 Q5.4 21.4 5.4 17.6 Z" fill="none"/>
+    <path d="M10.8 17.8 L12.4 15.4 L17.4 15.4 L17.4 17.8 Z" fill="sky" stroke-width="1.5"/>
+    <path d="M12.2 12.4 L14.4 20.4 M22 12.4 L19.8 20.6" fill="none" stroke-width="1.5"/>
+    <rect x="9" y="10" width="16.4" height="2.8" rx="1.4" ry="1.4" fill="red" stroke-width="1.75"/>
+    <path d="M7.4 21.6 L12.6 21.6" fill="none" stroke="red" stroke-width="1.5"/>
+  </g>
+  <g id="propeller" stroke="ink">
+    <path d="M5.8 15.4 Q3.6 15.6 3.6 17.6 Q3.6 19.6 5.8 19.8 Z" fill="grey" stroke-width="1.5"/>
+    <ellipse cx="3.2" cy="17.6" rx="1" ry="6.2" fill="grey" stroke-width="1.5"/>
+  </g>
+</svg>

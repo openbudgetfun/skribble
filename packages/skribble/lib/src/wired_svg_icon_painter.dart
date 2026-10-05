@@ -1,9 +1,9 @@
 import 'dart:math' as math;
 import 'dart:typed_data';
-import 'dart:ui' show PathMetric;
 
 import 'package:flutter/widgets.dart';
 
+import 'canvas/wired_waver.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_svg_icon_data.dart';
 
@@ -147,21 +147,6 @@ Color? _parseSvgColor(String? value) {
   return rgb == null ? null : Color(0xFF000000 | rgb);
 }
 
-/// One wavered contour: a polyline that is either closed or open.
-final class _Contour {
-  _Contour(this.points, {required this.closed});
-
-  final List<Offset> points;
-  final bool closed;
-
-  /// The contour as rough engine operations, so the pen can ink it.
-  List<Op> get ops => [
-    Op.move(PointD(points.first.dx, points.first.dy)),
-    for (final point in points.skip(1)) Op.lineTo(PointD(point.dx, point.dy)),
-    if (closed) Op.lineTo(PointD(points.first.dx, points.first.dy)),
-  ];
-}
-
 /// Paints prepared icon geometry with a smooth wavering field and the pen.
 ///
 /// Every derived shape is built once per painter and cached: rebuild the
@@ -236,12 +221,19 @@ final class _PrimitiveInk {
   double get _silhouetteWidth =>
       _silhouettePen * primitive.scale * painter.weight;
 
-  late final List<_Contour> _fillContours = _waver(primitive.path);
+  late final List<WaveredContour> _fillContours = waverPath(
+    primitive.path,
+    _config,
+  );
 
-  late final Path _fill = _polygonPath(_fillContours, primitive.path.fillType);
+  late final Path _fill = waveredPolygons(
+    _fillContours,
+    fillType: primitive.path.fillType,
+  );
 
-  late final List<_Contour> _strokeContours = _waver(
+  late final List<WaveredContour> _strokeContours = waverPath(
     primitive.strokePath,
+    _config,
     bounds: primitive.path.getBounds(),
   );
 
@@ -349,12 +341,12 @@ final class _PrimitiveInk {
     ..strokeCap = StrokeCap.round
     ..isAntiAlias = true;
 
-  Path _ink(List<_Contour> contours, double width) {
+  Path _ink(List<WaveredContour> contours, double width) {
     final sink = PathInkOutline();
     for (final (index, contour) in contours.indexed) {
       if (contour.points.length < 2) continue;
       InkStroke(
-        contour.ops,
+        contour.toOps(),
         width: width,
         pen: _config.pen,
         seed: _config.seed * 7919 + this.index * 131 + index,
@@ -395,143 +387,5 @@ final class _PrimitiveInk {
     }
     // Painting clips this to the silhouette.
     return sink.path;
-  }
-
-  /// Displaces [path] with one smooth field so both sides of a stroke move
-  /// together. Independent jitter on tiny segments looks like raster fuzz and
-  /// closes narrow counters; fills and outlines share the same geometry.
-  List<_Contour> _waver(Path path, {Rect? bounds}) {
-    final contours = <_Contour>[];
-    final amplitude = _config.roughness * _config.maxRandomnessOffset * 0.12;
-    final phase = _config.seed * 0.61803398875;
-    final pathBounds = bounds ?? path.getBounds();
-    // Keep enlarged icons from accumulating extra ripples along every edge.
-    final wavelengthScale = math.max(1.0, pathBounds.longestSide / 24);
-
-    // Remove the field's linear trend across the icon. Endpoints on opposite
-    // sides receive no relative shift, keeping upright strokes upright.
-    double wavering(
-      double position,
-      double start,
-      double extent,
-      double wavelength,
-      double phase,
-    ) {
-      if (extent == 0) return 0;
-      final t = (position - start) / extent;
-      final first = math.sin(start / wavelength + phase);
-      final last = math.sin((start + extent) / wavelength + phase);
-      return math.sin(position / wavelength + phase) -
-          (first + (last - first) * t);
-    }
-
-    Offset displacement(Offset point) => amplitude == 0
-        ? Offset.zero
-        : Offset(
-            amplitude *
-                wavering(
-                  point.dy,
-                  pathBounds.top,
-                  pathBounds.height,
-                  5.5 * wavelengthScale,
-                  phase,
-                ),
-            amplitude *
-                wavering(
-                  point.dx,
-                  pathBounds.left,
-                  pathBounds.width,
-                  7 * wavelengthScale,
-                  phase + 1.7,
-                ),
-          );
-
-    for (final metric in path.computeMetrics()) {
-      final points = _sample(metric);
-      if (points.length < 2) continue;
-      final offsets = points.map(displacement).toList(growable: false);
-      // Anchor corners as well as the ends of open strokes. Removing only the
-      // whole icon's trend can still lean interior stems, such as a door.
-      final anchors = [
-        0,
-        for (var i = 1; i < points.length - 1; i++)
-          if (_isCorner(points[i - 1], points[i], points[i + 1])) i,
-        points.length - 1,
-      ];
-      final anchorCorners = !metric.isClosed || anchors.length > 2;
-      var segment = 0;
-      final result = <Offset>[];
-      for (var i = 0; i < points.length; i++) {
-        var offset = offsets[i];
-        if (anchorCorners) {
-          while (segment < anchors.length - 2 && i > anchors[segment + 1]) {
-            segment++;
-          }
-          final first = anchors[segment];
-          final last = anchors[segment + 1];
-          final t = (i - first) / (last - first);
-          offset -= Offset.lerp(offsets[first], offsets[last], t)!;
-          final chord = points[last] - points[first];
-          final length = chord.distance;
-          if (length > 0) {
-            // Opposing bends keep short straight edges visibly hand-drawn
-            // without moving their corners or choosing a consistent lean.
-            final bend =
-                amplitude *
-                0.2 *
-                math.min(1, length / 8) *
-                math.sin(t * math.pi * 2);
-            offset += Offset(-chord.dy, chord.dx) * (bend / length);
-          }
-        }
-        // Open strokes keep their exact ends so caps land where the source
-        // put them.
-        if (!metric.isClosed && (i == 0 || i == points.length - 1)) {
-          offset = Offset.zero;
-        }
-        result.add(points[i] + offset);
-      }
-      contours.add(_Contour(result, closed: metric.isClosed));
-    }
-    return contours;
-  }
-
-  static Path _polygonPath(List<_Contour> contours, PathFillType fillType) {
-    final path = Path()..fillType = fillType;
-    for (final contour in contours) {
-      path.addPolygon(contour.points, contour.closed);
-    }
-    return path;
-  }
-
-  static bool _isCorner(Offset before, Offset point, Offset after) {
-    final incoming = point - before;
-    final outgoing = after - point;
-    final length = incoming.distance * outgoing.distance;
-    return length > 0 &&
-        (incoming.dx * outgoing.dx + incoming.dy * outgoing.dy) / length < 0.9;
-  }
-
-  /// Samples [metric] about every 1.2 logical pixels.
-  static List<Offset> _sample(PathMetric metric) {
-    final length = metric.length;
-    if (length == 0) {
-      final tangent = metric.getTangentForOffset(0);
-      return tangent == null ? const [] : [tangent.position, tangent.position];
-    }
-    final count = math.max(2, (length / 1.2).ceil());
-    final points = <Offset>[];
-    for (var index = 0; index <= count; index++) {
-      final tangent = metric.getTangentForOffset(length * index / count);
-      if (tangent == null) continue;
-      final position = tangent.position;
-      if (points.isEmpty || (points.last - position).distance > 0.15) {
-        points.add(position);
-      }
-    }
-    if (metric.isClosed && points.length > 1) {
-      if ((points.first - points.last).distance < 0.15) points.removeLast();
-    }
-    return points;
   }
 }

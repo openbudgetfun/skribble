@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="rail" stroke="ink">
+    <rect x="2.6" y="3" width="30.8" height="3.4" rx="1" ry="1" fill="grey"/>
+  </g>
+  <g transform="translate(0 1.4)">
+    <g id="hangers" fill="none" stroke="ink">
+      <path d="M11 5 L11 10.6 M25 5 L25 10.6"/>
+    </g>
+    <g id="car" stroke="ink">
+      <path d="M8.4 10.6 L31 10.6 Q33.4 10.6 33.4 13 L33.4 26.6 Q33.4 29 31 29 L7.6 29 Q2.6 29 2.6 24 L2.6 16.4 Q2.6 10.6 8.4 10.6 Z" fill="blue" stroke="none"/>
+      <path d="M33.4 19 L33.4 26.6 Q33.4 29 31 29 L14 29 Q29.6 28 32.6 23.4 Q33.4 21.8 33.4 19 Z" fill="blue-shade" stroke="none"/>
+      <path d="M8.4 10.6 L31 10.6 Q33.4 10.6 33.4 13 L33.4 26.6 Q33.4 29 31 29 L7.6 29 Q2.6 29 2.6 24 L2.6 16.4 Q2.6 10.6 8.4 10.6 Z" fill="none"/>
+      <path d="M4.8 19.6 L4.8 17 Q5 12.8 9 12.8 L31.2 12.8 L31.2 19.6 Z" fill="sky" stroke-width="1.5"/>
+      <path d="M13 12.8 L13 19.6 M19.2 12.8 L19.2 19.6 M25.2 12.8 L25.2 19.6" fill="none" stroke-width="1.5"/>
+      <path d="M3 23.4 L33 23.4" fill="none" stroke="white" stroke-width="1.75"/>
+    </g>
+  </g>
+</svg>

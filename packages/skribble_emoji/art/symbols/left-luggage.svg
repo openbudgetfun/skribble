@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b18-button-blue"/>
+  <g id="suitcase">
+    <path d="M12.2 15 L12.2 12 L17.4 12 L17.4 15" fill="none" stroke="white" stroke-width="2"/>
+    <rect x="7.4" y="14.8" width="14.8" height="12.6" rx="2" ry="2" fill="white"/>
+    <path d="M11 15.6 L11 26.6 M18.6 15.6 L18.6 26.6" fill="none" stroke="blue" stroke-width="1.5"/>
+  </g>
+  <g data-part="key" fill="none" stroke="white">
+    <circle cx="25.8" cy="10.4" r="2.8" stroke-width="2.2"/>
+    <path d="M25.8 13.2 L25.8 26.4 M25.8 21.6 L28.2 21.6 M25.8 25 L27.8 25" stroke-width="2.2"/>
+  </g>
+</svg>

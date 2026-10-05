@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="legs" fill="none" stroke="ink" stroke-width="2.25">
+    <path d="M10.4 28.6 L7.8 32 M25.6 28.6 L28.2 32"/>
+  </g>
+  <g id="bells" stroke="ink" stroke-width="1.75">
+    <path d="M18 6.8 L18 4.2" fill="none"/>
+    <circle cx="18" cy="3.4" r="1.2" fill="grey" stroke-width="1.5"/>
+    <path d="M3.6 10 Q3.6 4 8.6 4 Q13.6 4 13.6 10 Z" fill="yellow" transform="rotate(-38 8.6 8.6)"/>
+    <path d="M22.4 10 Q22.4 4 27.4 4 Q32.4 4 32.4 10 Z" fill="yellow" transform="rotate(38 27.4 8.6)"/>
+  </g>
+  <g id="clock" stroke="ink">
+    <circle cx="18" cy="19.4" r="12.6" fill="red" stroke="none"/>
+    <path d="M29.5 14.3 A12.6 12.6 0 0 1 18 32 C24.4 29.8 28.6 23.3 29.5 14.3 Z" fill="red-shade" stroke="none"/>
+    <circle cx="18" cy="19.4" r="12.6" fill="none"/>
+    <g data-include="b11-clock-face" transform="translate(5.76 7.16) scale(0.68)"/>
+  </g>
+  <g id="hands" fill="none" stroke="ink">
+    <path d="M18 19.4 L14.2 17.2"/>
+    <path d="M18 19.4 L23.5 16.2" stroke-width="1.75"/>
+    <circle cx="18" cy="19.4" r="1" fill="ink" stroke="none"/>
+  </g>
+</svg>

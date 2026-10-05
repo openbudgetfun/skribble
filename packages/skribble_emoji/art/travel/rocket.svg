@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="flame" stroke="ink" stroke-width="1.75">
+    <path d="M10.4 21.6 C6.2 22.4 4 26 3.2 32.8 C9.6 32 13.4 29.8 14.4 25.6 Z" fill="orange"/>
+    <path d="M10.2 24 C8 24.8 6.8 26.8 6.4 29.6 C9.2 29.2 11 28 11.8 26 Z" fill="yellow" stroke="none"/>
+  </g>
+  <g id="rocket" stroke="ink">
+    <path d="M9.6 19.4 L4.8 18.6 Q3.6 18.2 4.6 17.2 L9.2 13.4 L14.4 14 Z" fill="red"/>
+    <path d="M16.6 26.4 L17.4 31.2 Q17.8 32.4 18.8 31.4 L22.6 26.8 L22 21.6 Z" fill="red"/>
+    <path d="M9.6 22.4 C11.6 15.4 18 6.2 32 4 C29.8 18 20.6 24.4 13.6 26.4 Z" fill="silver"/>
+    <path d="M32 4 C29.8 18 20.6 24.4 13.6 26.4 L12 24.8 C19.4 22 27.2 15.4 32 4 Z" fill="grey" stroke="none"/>
+    <path d="M24.6 5.2 C27.4 4.4 29.6 4.1 32 4 C31.9 6.4 31.6 8.6 30.8 11.4 Z" fill="red"/>
+    <circle cx="22.4" cy="13.6" r="3" fill="sky"/>
+    <path d="M9.6 22.4 L13.6 26.4" fill="none"/>
+  </g>
+</svg>

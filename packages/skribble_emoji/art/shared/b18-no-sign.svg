@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The red prohibition ring and slash. Draw a white disc (r 13) first,
+       the forbidden thing in ink inside r 11, then include this on top. -->
+  <g id="sign">
+    <path d="M7.54 10.08 L10.08 7.54 L28.46 25.92 L25.92 28.46 Z" fill="red" stroke="ink" stroke-width="1.75"/>
+    <path fill-rule="evenodd" d="M33 18 A15 15 0 1 1 3 18 A15 15 0 1 1 33 18 Z M29.4 18 A11.4 11.4 0 1 0 6.6 18 A11.4 11.4 0 1 0 29.4 18 Z" fill="red"/>
+    <path d="M31.7 11.9 A15 15 0 0 1 18 33 C25.6 30.4 30.6 22.6 31.7 11.9 Z" fill="red-shade"/>
+    <circle cx="18" cy="18" r="15" fill="none" stroke="ink"/>
+    <path d="M24.69 27.23 A11.4 11.4 0 0 1 8.77 11.31 M11.31 8.77 A11.4 11.4 0 0 1 27.23 24.69" fill="none" stroke="ink" stroke-width="1.75"/>
+  </g>
+</svg>

@@ -111,7 +111,7 @@ class WiredStudioPage extends HookWidget {
                               'sparkles',
                               'rainbow',
                             ])
-                              PrecomputedEmoji.fromName(
+                              WiredEmoji.named(
                                 name,
                                 size: 44,
                                 semanticLabel: name.replaceAll('_', ' '),

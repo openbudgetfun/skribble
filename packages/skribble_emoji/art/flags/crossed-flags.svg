@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="poles" stroke="ink" stroke-width="1.5">
+    <path d="M19.93 33.46L22.07 32.94L15.07 3.94L12.93 4.46Z" fill="brown"/>
+    <path d="M16.07 33.46L13.93 32.94L20.93 3.94L23.07 4.46Z" fill="brown"/>
+  </g>
+  <g id="flag-left" stroke="ink" stroke-width="1.75">
+    <path d="M13.21 5.63C9.5 4.6 5.5 9.6 2.21 8.03L4.46 17.36C7.75 18.93 11.75 13.93 15.46 14.96Z" fill="white"/>
+    <path d="M4.46 17.36C7.75 18.93 11.75 13.93 15.46 14.96L15.1 13.4C11.4 12.6 7.8 17 4.1 15.8Z" fill="silver" stroke="none"/>
+    <circle cx="8.84" cy="11.3" r="2.5" fill="red" stroke="none"/>
+    <path d="M13.21 5.63C9.5 4.6 5.5 9.6 2.21 8.03L4.46 17.36C7.75 18.93 11.75 13.93 15.46 14.96Z" fill="none"/>
+  </g>
+  <g id="flag-right" stroke="ink" stroke-width="1.75">
+    <path d="M22.79 5.63C26.5 4.6 30.5 9.6 33.79 8.03L31.54 17.36C28.25 18.93 24.25 13.93 20.54 14.96Z" fill="white"/>
+    <path d="M31.54 17.36C28.25 18.93 24.25 13.93 20.54 14.96L20.9 13.4C24.6 12.6 28.2 17 31.9 15.8Z" fill="silver" stroke="none"/>
+    <circle cx="27.16" cy="11.3" r="2.5" fill="red" stroke="none"/>
+    <path d="M22.79 5.63C26.5 4.6 30.5 9.6 33.79 8.03L31.54 17.36C28.25 18.93 24.25 13.93 20.54 14.96Z" fill="none"/>
+  </g>
+  <g data-part="poles" stroke="ink" stroke-width="1.5" fill="yellow">
+    <circle cx="13.9" cy="3.5" r="1.5"/>
+    <circle cx="22.1" cy="3.5" r="1.5"/>
+  </g>
+</svg>

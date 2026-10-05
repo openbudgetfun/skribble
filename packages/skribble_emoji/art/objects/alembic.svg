@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="alembic-bulb"><circle cx="12.6" cy="22.4" r="9.6"/></clipPath>
+  </defs>
+  <g id="flask" stroke="ink">
+    <path d="M9.6 15 L10.6 9 Q11.6 4.4 16.4 4.4 Q20 4.4 22.8 7.4 L33.4 22.6 Q34 24 32.6 24.6 L21 11.6 Q19 9.6 17.4 9.6 Q15.6 9.6 15.4 11.4 L15.2 15 Z" fill="sky"/>
+    <circle cx="12.6" cy="22.4" r="9.6" fill="sky" stroke="none"/>
+    <g id="liquid" clip-path="url(#alembic-bulb)" stroke="none">
+      <path d="M2 23.6 Q7.4 21.6 12.6 23.6 Q18 25.6 23.4 23.6 L23.4 33 L2 33 Z" fill="purple"/>
+      <path d="M21.87 24.88 A9.6 9.6 0 0 1 12.6 32 Q19.6 30.4 21.87 24.88 Z" fill="purple-shade"/>
+      <circle cx="9.4" cy="27.4" r="1" fill="paper"/>
+      <circle cx="14.4" cy="28.6" r="0.7" fill="paper"/>
+    </g>
+    <circle cx="12.6" cy="22.4" r="9.6" fill="none"/>
+    <path d="M6 19.8 Q6.8 15.8 10.4 14.6" fill="none" stroke="paper" stroke-width="1.75"/>
+    <path d="M13 9.6 Q13.6 7 16 6.6" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

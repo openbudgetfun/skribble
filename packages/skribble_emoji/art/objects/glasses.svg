@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="arms" fill="none" stroke="ink" stroke-width="2">
+    <path d="M4 15.4 L7.6 10.8 Q8.2 10 9.2 10.4"/>
+    <path d="M32 15.4 L28.4 10.8 Q27.8 10 26.8 10.4"/>
+  </g>
+  <g id="frame" stroke="ink">
+    <path d="M16.6 17.4 Q18 15.4 19.4 17.4" fill="none" stroke-width="2.25"/>
+    <rect x="3.2" y="13.6" width="13.4" height="11.4" rx="4.6" ry="4.6" fill="sky" stroke-width="2.6"/>
+    <rect x="19.4" y="13.6" width="13.4" height="11.4" rx="4.6" ry="4.6" fill="sky" stroke-width="2.6"/>
+  </g>
+  <g id="glints" fill="none" stroke="paper" stroke-width="1.75">
+    <path d="M6.2 19.6 Q6.4 17.2 8.8 16.6"/>
+    <path d="M22.4 19.6 Q22.6 17.2 25 16.6"/>
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="body"><path d="M6.4 12.6 C6.4 8.6 9.2 6 12.8 6 C16.4 6 19.2 8.6 19.4 12.4 C19.6 16 21.2 18.4 24.6 20.2 C28 22 30.6 23.4 30.6 26 C30.6 28.6 27.4 30 22.4 30 L15.4 30 C9.6 30 6.6 27 6.6 22 C6.6 18.6 6.4 15.6 6.4 12.6 Z"/></clipPath>
+  </defs>
+  <g transform="translate(-2 0)">
+    <path data-part="tail" d="M28.6 25.2 L33.8 22.4 Q34.6 22.2 34.4 23 L32.8 26.8 L34.4 29.6 Q34.6 30.4 33.8 30.2 L28.4 28.6 Z" fill="grey-shade" stroke="ink" stroke-width="1.75"/>
+    <g id="body" stroke="ink">
+      <path d="M6.4 12.6 C6.4 8.6 9.2 6 12.8 6 C16.4 6 19.2 8.6 19.4 12.4 C19.6 16 21.2 18.4 24.6 20.2 C28 22 30.6 23.4 30.6 26 C30.6 28.6 27.4 30 22.4 30 L15.4 30 C9.6 30 6.6 27 6.6 22 C6.6 18.6 6.4 15.6 6.4 12.6 Z" fill="grey"/>
+      <path clip-path="url(#body)" fill-rule="evenodd" d="M0 0 L36 0 L36 36 L0 36 Z M5 11 C5 7 7.8 4.4 11.4 4.4 C15 4.4 17.8 7 18 10.8 C18.2 14.4 19.8 16.8 23.2 18.6 C26.6 20.4 29.2 21.8 29.2 24.4 C29.2 27 26 28.4 21 28.4 L14 28.4 C8.2 28.4 5.2 25.4 5.2 20.4 C5.2 17 5 14 5 11 Z" fill="grey-shade" stroke="none"/>
+      <path d="M6.4 12.6 C6.4 8.6 9.2 6 12.8 6 C16.4 6 19.2 8.6 19.4 12.4 C19.6 16 21.2 18.4 24.6 20.2 C28 22 30.6 23.4 30.6 26 C30.6 28.6 27.4 30 22.4 30 L15.4 30 C9.6 30 6.6 27 6.6 22 C6.6 18.6 6.4 15.6 6.4 12.6 Z" fill="none"/>
+    </g>
+    <path data-part="flipper" d="M14.4 24.6 C14.2 27.8 12.4 30.4 10 31 Q8.8 31.2 9.2 30.2 C10.2 28.6 11 26.6 11.2 24 Z" fill="grey-shade" stroke="ink" stroke-width="1.75"/>
+    <g id="face">
+      <ellipse cx="12.6" cy="15.6" rx="3.4" ry="2.2" fill="silver"/>
+      <g fill="ink">
+        <ellipse cx="10.2" cy="11.4" rx="1.3" ry="1.6"/>
+        <ellipse cx="15" cy="11.4" rx="1.3" ry="1.6"/>
+        <ellipse cx="12.6" cy="14.4" rx="1.2" ry="0.8"/>
+      </g>
+      <circle cx="10.6" cy="10.8" r="0.45" fill="paper"/>
+      <circle cx="15.4" cy="10.8" r="0.45" fill="paper"/>
+      <path d="M11.4 16.2 Q12.6 17.2 13.8 16.2" fill="none" stroke="ink" stroke-width="1.25"/>
+      <path data-part="whiskers" d="M9.6 15.2 L6.2 14.4 M9.6 16.4 L6.4 17 M15.6 15.2 L19 14.4 M15.6 16.4 L18.8 17" fill="none" stroke="ink" stroke-width="1.25"/>
+    </g>
+  </g>
+</svg>

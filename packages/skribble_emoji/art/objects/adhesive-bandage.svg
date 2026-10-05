@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="bandage" stroke="ink" transform="rotate(-45 18 18)">
+    <rect x="3" y="11.5" width="30" height="13" rx="6.5" ry="6.5" fill="tan" stroke="none"/>
+    <path d="M9.5 22.4 L26.5 22.4 Q30.8 22.2 32.6 19.8 Q31.6 24.5 26.5 24.5 L9.5 24.5 Q4.4 24.5 3.4 19.8 Q5.2 22.2 9.5 22.4 Z" fill="yellow-shade" stroke="none"/>
+    <rect x="3" y="11.5" width="30" height="13" rx="6.5" ry="6.5" fill="none"/>
+    <rect x="12.4" y="13.6" width="11.2" height="8.8" rx="1.6" ry="1.6" fill="white" stroke-width="1.5"/>
+    <g fill="brown" stroke="none">
+      <circle cx="6.6" cy="18" r="0.7"/>
+      <circle cx="9.2" cy="15.6" r="0.7"/>
+      <circle cx="9.2" cy="20.4" r="0.7"/>
+      <circle cx="29.4" cy="18" r="0.7"/>
+      <circle cx="26.8" cy="15.6" r="0.7"/>
+      <circle cx="26.8" cy="20.4" r="0.7"/>
+    </g>
+  </g>
+</svg>

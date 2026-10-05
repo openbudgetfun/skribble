@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="confetti" stroke="ink" stroke-width="1.25">
+    <path d="M13.8 22.8 Q11.6 26.2 14.4 28.2 Q17.2 30.2 14.8 33.4" fill="none" stroke="red" stroke-width="2"/>
+    <path d="M22.4 22.8 Q25.2 25.6 22.6 28.2 Q20 30.8 22.8 33.4" fill="none" stroke="blue" stroke-width="2"/>
+    <circle cx="18.2" cy="26" r="1.2" fill="pink"/>
+    <circle cx="8.6" cy="28" r="1.1" fill="green"/>
+    <circle cx="27.8" cy="29" r="1.1" fill="purple"/>
+    <circle cx="19" cy="31.8" r="1" fill="teal"/>
+    <path d="M6.6 22.8 L8.6 23.4 L8.2 25.2 L6.2 24.6 Z" fill="yellow"/>
+    <path d="M27.8 22.6 L29.8 22.2 L30.2 24 L28.2 24.4 Z" fill="orange"/>
+  </g>
+  <g id="ball" stroke="ink">
+    <circle cx="18" cy="3.2" r="1.2" fill="none" stroke-width="1.5"/>
+    <g transform="rotate(16 18 4.6)">
+      <path d="M18 4.6 A10 10 0 0 0 18 24.6 Z" fill="yellow"/>
+      <path d="M8.6 16.4 Q13 18.4 17.4 17.8" fill="none" stroke="red" stroke-width="2"/>
+    </g>
+    <g transform="rotate(-16 18 4.6)">
+      <path d="M18 4.6 A10 10 0 0 1 18 24.6 Z" fill="yellow" stroke="none"/>
+      <path d="M26.66 9.6 A10 10 0 0 1 18 24.6 C23.2 22.8 26.2 17.8 26.66 9.6 Z" fill="yellow-shade" stroke="none"/>
+      <path d="M18.6 17.8 Q23 18.4 27.4 16.4" fill="none" stroke="red" stroke-width="2"/>
+      <path d="M18 4.6 A10 10 0 0 1 18 24.6 Z" fill="none"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Two open palms thrown up in celebration, with joy marks above. -->
+  <g id="joy" fill="none" stroke="ink" stroke-width="1.5">
+    <path d="M3.4 9.4 L5.4 11"/>
+    <path d="M6.8 4.6 L8 7.2"/>
+    <path d="M12 3.4 L11.8 6.2"/>
+    <path d="M32.6 9.4 L30.6 11"/>
+    <path d="M29.2 4.6 L28 7.2"/>
+    <path d="M24 3.4 L24.2 6.2"/>
+  </g>
+  <g id="left-hand" data-include="b03-palm" transform="translate(10 22.6) rotate(-12) scale(0.62) translate(-18.5 -18.5)"/>
+  <g id="right-hand" data-include="b03-palm-flip" transform="translate(26 22.6) rotate(12) scale(0.62) translate(-18.5 -18.5)"/>
+</svg>

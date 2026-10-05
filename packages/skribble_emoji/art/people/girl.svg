@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A girl: the shared face with centre-parted hair in two bobbed
+       pigtails, on small shoulders in a pink top. -->
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.8" y="19" width="4.4" height="6" fill="skin"/>
+    <path d="M8.4 34.2 C8.8 28.4 12.4 24.6 18 24.6 C23.6 24.6 27.2 28.4 27.6 34.2 Z" fill="pink"/>
+    <path d="M15.2 24.8 Q18 26.8 20.8 24.8" fill="none" stroke-width="1.5"/>
+  </g>
+  <g id="pigtails" fill="hair" stroke="ink" stroke-width="1.75">
+    <ellipse cx="8.2" cy="16.6" rx="2.8" ry="4.6" transform="rotate(14 8.2 16.6)"/>
+    <ellipse cx="27.8" cy="16.6" rx="2.8" ry="4.6" transform="rotate(-14 27.8 16.6)"/>
+  </g>
+  <g data-include="b03-face"/>
+  <path data-part="hair" d="M10.6 13.4 C10.2 7.8 13.6 5.2 18 5.2 C22.4 5.2 25.8 7.8 25.4 13.4 C24.2 10.6 21.6 9.2 18.6 9 L18 8 L17.4 9 C14.4 9.2 11.8 10.6 10.6 13.4 Z" fill="hair" stroke="ink" stroke-width="1.75"/>
+  <g id="bobbles" fill="red" stroke="ink" stroke-width="1.25">
+    <circle cx="10.2" cy="11.6" r="1.4"/>
+    <circle cx="25.8" cy="11.6" r="1.4"/>
+  </g>
+</svg>

@@ -1,385 +1,362 @@
-import 'package:flutter/material.dart';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble/skribble.dart';
 import 'package:skribble_emoji/skribble_emoji.dart';
 
+Future<Uint8List> _pixels(EmojiDrawing drawing) async {
+  final recorder = ui.PictureRecorder();
+  drawing.paint(Canvas(recorder));
+  final size = drawing.size.ceil();
+  final image = await recorder.endRecording().toImage(size, size);
+  final bytes = (await image.toByteData())!.buffer.asUint8List();
+  image.dispose();
+  return bytes;
+}
+
+int _ink(Uint8List pixels) {
+  var total = 0;
+  for (var i = 3; i < pixels.length; i += 4) {
+    total += pixels[i];
+  }
+  return total;
+}
+
 void main() {
-  group('kSkribbleEmoji map', () {
-    test('contains more than 1000 emoji entries', () {
-      expect(kSkribbleEmoji.length, greaterThan(1000));
+  final config = DrawConfig.build(seed: 3);
+
+  group('SkribbleEmoji lookups', () {
+    test('cover every fully-qualified Unicode 18 emoji with art', () {
+      expect(SkribbleEmoji.all, hasLength(3963));
+      final undrawn = [
+        for (final entry in SkribbleEmoji.all)
+          if (entry.drawing.shapes.isEmpty) entry.name,
+      ];
+      expect(undrawn, isEmpty);
+      expect(
+        {for (final entry in SkribbleEmoji.all) entry.emoji},
+        hasLength(3963),
+        reason: 'every emoji appears once',
+      );
     });
 
-    test('all entries have valid dimensions', () {
-      for (final entry in kSkribbleEmoji.entries) {
-        expect(
-          entry.value.width,
-          72.0,
-          reason: 'Emoji 0x${entry.key.toRadixString(16)} width',
-        );
-        expect(
-          entry.value.height,
-          72.0,
-          reason: 'Emoji 0x${entry.key.toRadixString(16)} height',
-        );
-      }
+    test('find an emoji by its text, with or without variation selectors', () {
+      final heart = SkribbleEmoji.lookup('❤️');
+      expect(heart?.name, 'red heart');
+      expect(SkribbleEmoji.lookup('❤'), same(heart));
+      expect(SkribbleEmoji.lookup('not an emoji'), isNull);
     });
 
-    test('all entries have at least one primitive', () {
-      for (final entry in kSkribbleEmoji.entries) {
-        expect(
-          entry.value.primitives,
-          isNotEmpty,
-          reason: 'Emoji 0x${entry.key.toRadixString(16)} primitives',
-        );
-      }
+    test('find an emoji by its snake-case name', () {
+      expect(SkribbleEmoji.named('grinning_face')?.emoji, '😀');
+      expect(SkribbleEmoji.named('keycap_1')?.emoji, '1️⃣');
+      expect(SkribbleEmoji.named('nope'), isNull);
     });
 
-    test('all primitives are WiredSvgPathPrimitive', () {
-      for (final entry in kSkribbleEmoji.entries) {
-        for (final prim in entry.value.primitives) {
+    test('describe group, subgroup, and art', () {
+      final grin = SkribbleEmoji.lookup('😀')!;
+      expect(grin.group, EmojiGroup.smileysAndEmotion);
+      expect(grin.subgroup, 'face-smiling');
+      expect(grin.art, 'grinning-face');
+      expect(grin.drawing.shapes, isNotEmpty);
+      expect(grin.identifier, 'grinning_face');
+    });
+
+    test('map skin tones onto the same art', () {
+      final thumbs = SkribbleEmoji.lookup('👍')!;
+      expect(thumbs.hasTones, isTrue);
+      final medium = SkribbleEmoji.withTone(thumbs, EmojiSkinTone.medium)!;
+      expect(medium.emoji, '👍🏽');
+      expect(medium.tone, EmojiSkinTone.medium);
+      expect(medium.art, thumbs.art);
+      expect(SkribbleEmoji.withTone(medium, EmojiSkinTone.none), same(thumbs));
+      expect(
+        SkribbleEmoji.withTone(SkribbleEmoji.lookup('😀')!, EmojiSkinTone.dark),
+        isNull,
+      );
+    });
+
+    test('share one drawing between gendered variants', () {
+      final man = SkribbleEmoji.lookup('👨‍💻')!;
+      final woman = SkribbleEmoji.lookup('👩‍💻')!;
+      expect(man.art, 'technologist');
+      expect(woman.art, 'technologist');
+      expect(man.variant, EmojiVariant.man);
+      expect(woman.variant, EmojiVariant.woman);
+      expect(SkribbleEmoji.lookup('🧑‍💻')!.variant, EmojiVariant.person);
+    });
+
+    test('name country flags by ISO code', () {
+      final japan = SkribbleEmoji.lookup('🇯🇵')!;
+      expect(japan.name, 'flag: Japan');
+      expect(japan.art, 'flag-jp');
+      expect(japan.group, EmojiGroup.flags);
+    });
+
+    test('search names, ranking word starts first', () {
+      final results = SkribbleEmoji.search('heart');
+      final starts = [
+        for (final entry in results) RegExp('(^| )heart').hasMatch(entry.name),
+      ];
+      // Word-start matches come before matches inside a word.
+      expect(
+        starts,
+        orderedEquals(
+          List<bool>.of(starts)..sort((a, b) => a == b ? 0 : (a ? -1 : 1)),
+        ),
+      );
+      expect(results.map((entry) => entry.name), contains('red heart'));
+      expect(SkribbleEmoji.search('  '), isEmpty);
+      expect(
+        SkribbleEmoji.search('thumbs').every(
+          (entry) => entry.tone == EmojiSkinTone.none,
+        ),
+        isTrue,
+      );
+    });
+
+    test('defaults leave out toned variants and components', () {
+      expect(
+        SkribbleEmoji.defaults.every(
+          (entry) =>
+              entry.tone == EmojiSkinTone.none &&
+              entry.group != EmojiGroup.component,
+        ),
+        isTrue,
+      );
+      expect(
+        SkribbleEmoji.inGroup(EmojiGroup.smileysAndEmotion),
+        everyElement(
+          predicate<EmojiEntry>(
+            (entry) => entry.group == EmojiGroup.smileysAndEmotion,
+          ),
+        ),
+      );
+    });
+  });
+
+  group('EmojiPalette', () {
+    test('resolves tokens and skin tones', () {
+      const palette = EmojiPalette.skribble;
+      expect(
+        EmojiPaint.skin.resolve(palette),
+        palette.skins[EmojiSkinTone.none],
+      );
+      expect(
+        EmojiPaint.skin.resolve(palette, tone: EmojiSkinTone.dark),
+        palette.skins[EmojiSkinTone.dark],
+      );
+      expect(
+        EmojiPaint.skin2.resolve(palette, tone2: EmojiSkinTone.light),
+        palette.skins[EmojiSkinTone.light],
+      );
+      expect(
+        const EmojiPaint(0xFF112233).resolve(palette),
+        const Color(0xFF112233),
+      );
+    });
+
+    test('defines a colour for every token and tone', () {
+      const palette = EmojiPalette.skribble;
+      for (final token in EmojiToken.values) {
+        for (final tone in EmojiSkinTone.values) {
           expect(
-            prim,
-            isA<WiredSvgPathPrimitive>(),
-            reason: 'Emoji 0x${entry.key.toRadixString(16)} primitive type',
+            () => palette.colorOf(token, tone: tone, tone2: tone),
+            returnsNormally,
+            reason: '$token $tone',
           );
         }
       }
     });
 
-    test('contains well-known emoji by codepoint', () {
-      // grinning face
-      expect(kSkribbleEmoji.containsKey(0x1f600), isTrue);
-      // thumbs up
-      expect(kSkribbleEmoji.containsKey(0x1f44d), isTrue);
-      // red heart
-      expect(kSkribbleEmoji.containsKey(0x2764), isTrue);
-      // fire
-      expect(kSkribbleEmoji.containsKey(0x1f525), isTrue);
-      // rocket
-      expect(kSkribbleEmoji.containsKey(0x1f680), isTrue);
-      // star
-      expect(kSkribbleEmoji.containsKey(0x2b50), isTrue);
+    test('copies with overrides and compares by value', () {
+      const plum = Color(0xFF5B2A86);
+      final restyled = EmojiPalette.skribble.copyWith(
+        colors: {EmojiToken.ink: plum},
+        skins: {EmojiSkinTone.dark: plum},
+      );
+      expect(restyled.colorOf(EmojiToken.ink), plum);
+      expect(restyled.colorOf(EmojiToken.skin, tone: EmojiSkinTone.dark), plum);
+      expect(
+        restyled.colorOf(EmojiToken.yellow),
+        EmojiPalette.skribble.colorOf(EmojiToken.yellow),
+      );
+      final again = EmojiPalette.skribble.copyWith(
+        colors: {EmojiToken.ink: plum},
+        skins: {EmojiSkinTone.dark: plum},
+      );
+      expect(again, restyled);
+      expect(again.hashCode, restyled.hashCode);
+      expect(restyled, isNot(EmojiPalette.skribble));
+      expect(EmojiPalette.skribble.copyWith(), EmojiPalette.skribble);
+    });
+
+    test('labels skin tones the way Unicode names them', () {
+      expect(EmojiSkinTone.mediumLight.label, 'medium-light');
+      expect(EmojiSkinTone.none.label, 'default');
+    });
+
+    test('names tokens the way art writes them', () {
+      expect(EmojiToken.yellowShade.artName, 'yellow-shade');
+      expect(EmojiToken.skin2Shade.artName, 'skin2-shade');
+      expect(EmojiToken.fromArtName('skin2-shade'), EmojiToken.skin2Shade);
+      expect(EmojiToken.fromArtName('chartreuse'), isNull);
     });
   });
 
-  group('kSkribbleEmojiCodePoints map', () {
-    test('contains more than 1000 entries', () {
-      expect(kSkribbleEmojiCodePoints.length, greaterThan(1000));
-    });
-
-    test('has same length as kSkribbleEmoji', () {
-      expect(kSkribbleEmojiCodePoints.length, kSkribbleEmoji.length);
-    });
-
-    test('maps known emoji names to correct codepoints', () {
-      expect(kSkribbleEmojiCodePoints['grinning_face'], 0x1f600);
-      expect(kSkribbleEmojiCodePoints['thumbs_up'], 0x1f44d);
-      expect(kSkribbleEmojiCodePoints['red_heart'], 0x2764);
-      expect(kSkribbleEmojiCodePoints['fire'], 0x1f525);
-      expect(kSkribbleEmojiCodePoints['rocket'], 0x1f680);
-      expect(kSkribbleEmojiCodePoints['star'], 0x2b50);
-    });
-
-    test('all codepoints exist in kSkribbleEmoji', () {
-      for (final entry in kSkribbleEmojiCodePoints.entries) {
-        expect(
-          kSkribbleEmoji.containsKey(entry.value),
-          isTrue,
-          reason: '${entry.key} -> 0x${entry.value.toRadixString(16)}',
-        );
-      }
-    });
-  });
-
-  group('lookupSkribbleEmojiByName', () {
-    test('returns data for known emoji names', () {
-      expect(lookupSkribbleEmojiByName('grinning_face'), isNotNull);
-      expect(lookupSkribbleEmojiByName('thumbs_up'), isNotNull);
-      expect(lookupSkribbleEmojiByName('fire'), isNotNull);
-      expect(lookupSkribbleEmojiByName('red_heart'), isNotNull);
-      expect(lookupSkribbleEmojiByName('rocket'), isNotNull);
-    });
-
-    test('returns null for unknown names', () {
-      expect(lookupSkribbleEmojiByName('nonexistent_emoji'), isNull);
-      expect(lookupSkribbleEmojiByName(''), isNull);
-      expect(lookupSkribbleEmojiByName('smiley'), isNull);
-    });
-
-    test('returned data has correct dimensions', () {
-      final data = lookupSkribbleEmojiByName('grinning_face');
-      expect(data, isNotNull);
-      expect(data!.width, 72.0);
-      expect(data.height, 72.0);
-      expect(data.primitives, isNotEmpty);
-    });
-  });
-
-  group('lookupSkribbleEmojiByUnicode', () {
-    test('returns data for known codepoints', () {
-      expect(lookupSkribbleEmojiByUnicode(0x1f600), isNotNull);
-      expect(lookupSkribbleEmojiByUnicode(0x1f44d), isNotNull);
-      expect(lookupSkribbleEmojiByUnicode(0x2764), isNotNull);
-      expect(lookupSkribbleEmojiByUnicode(0x1f525), isNotNull);
-      expect(lookupSkribbleEmojiByUnicode(0x1f680), isNotNull);
-    });
-
-    test('returns null for unknown codepoints', () {
-      expect(lookupSkribbleEmojiByUnicode(0), isNull);
-      expect(lookupSkribbleEmojiByUnicode(0xffff), isNull);
-      expect(lookupSkribbleEmojiByUnicode(-1), isNull);
-    });
-
-    test('returned data matches lookupByName', () {
-      final byName = lookupSkribbleEmojiByName('grinning_face');
-      final byUnicode = lookupSkribbleEmojiByUnicode(0x1f600);
-      expect(byName, same(byUnicode));
-    });
-  });
-
-  group('WiredEmoji widget', () {
-    testWidgets('renders without error with null data', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredEmoji(),
-            ),
-          ),
+  group('EmojiDrawing', () {
+    test('paints ink, and paints skin tones differently', () async {
+      final thumbs = SkribbleEmoji.lookup('👍')!;
+      final light = await _pixels(
+        EmojiDrawing(
+          SkribbleEmoji.withTone(thumbs, EmojiSkinTone.light)!,
+          size: 48,
+          config: config,
         ),
       );
-
-      expect(find.byType(WiredEmoji), findsOneWidget);
-      // Placeholder should show "?"
-      expect(find.text('?'), findsOneWidget);
-    });
-
-    testWidgets('renders with explicit null data', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredEmoji(size: 48),
-            ),
-          ),
+      final dark = await _pixels(
+        EmojiDrawing(
+          SkribbleEmoji.withTone(thumbs, EmojiSkinTone.dark)!,
+          size: 48,
+          config: config,
         ),
       );
-
-      expect(find.byType(WiredEmoji), findsOneWidget);
+      expect(_ink(light), greaterThan(0));
+      expect(light, isNot(dark));
     });
 
-    testWidgets('fromName renders real emoji data', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredEmoji.fromName('grinning_face', size: 32),
-            ),
-          ),
-        ),
+    test('is deterministic for the same configuration', () async {
+      final grin = SkribbleEmoji.lookup('😀')!;
+      expect(
+        await _pixels(EmojiDrawing(grin, size: 40, config: config)),
+        await _pixels(EmojiDrawing(grin, size: 40, config: config)),
       );
-
-      expect(find.byType(WiredEmoji), findsOneWidget);
-      // Should NOT show placeholder since emoji is found
-      expect(find.text('?'), findsNothing);
-      // Should render a WiredSvgIcon
-      expect(find.byType(PrecomputedEmoji), findsOneWidget);
     });
 
-    testWidgets('fromName renders placeholder for unknown name', (
+    test('draws only the selected hair variant', () async {
+      final man = await _pixels(
+        EmojiDrawing(SkribbleEmoji.lookup('👨‍💻')!, size: 48, config: config),
+      );
+      final woman = await _pixels(
+        EmojiDrawing(SkribbleEmoji.lookup('👩‍💻')!, size: 48, config: config),
+      );
+      expect(man, isNot(woman));
+    });
+
+    test('mirrors art for facing-right entries', () async {
+      final art = SkribbleEmoji.lookup('👍')!.drawing;
+      final left = await _pixels(
+        EmojiDrawing.art(art, size: 40, config: config),
+      );
+      final right = await _pixels(
+        EmojiDrawing.art(art, size: 40, config: config, mirrored: true),
+      );
+      expect(left, isNot(right));
+    });
+
+    test('moves named parts with a pose', () async {
+      final grin = SkribbleEmoji.lookup('😀')!;
+      final drawing = EmojiDrawing(grin, size: 48, config: config);
+      expect(drawing.parts, containsAll(['face', 'eyes', 'mouth']));
+      final rest = await _pixels(drawing);
+      final recorder = ui.PictureRecorder();
+      drawing.paint(
+        Canvas(recorder),
+        pose: {'eyes': Matrix4.translationValues(0, 6, 0)},
+      );
+      final image = await recorder.endRecording().toImage(48, 48);
+      final moved = (await image.toByteData())!.buffer.asUint8List();
+      image.dispose();
+      expect(moved, isNot(rest));
+    });
+  });
+
+  group('WiredEmoji', () {
+    Future<void> pump(WidgetTester tester, Widget child) => tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: WiredThemeScope(
+          data: WiredThemeData(),
+          child: Center(child: child),
+        ),
+      ),
+    );
+
+    testWidgets('fills a square of its size and reads its name', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredEmoji.fromName('nonexistent_emoji', size: 32),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byType(WiredEmoji), findsOneWidget);
-      expect(find.text('?'), findsOneWidget);
+      final semantics = tester.ensureSemantics();
+      await pump(tester, const WiredEmoji('🎉', size: 40));
+      expect(tester.getSize(find.byType(WiredEmoji)), const Size.square(40));
+      expect(find.bySemanticsLabel('party popper'), findsOneWidget);
+      semantics.dispose();
     });
 
-    testWidgets('fromUnicode renders real emoji data', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredEmoji.fromUnicode(0x1f525, size: 48),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byType(WiredEmoji), findsOneWidget);
-      expect(find.text('?'), findsNothing);
-      expect(find.byType(PrecomputedEmoji), findsOneWidget);
+    testWidgets('uses a custom semantic label', (tester) async {
+      final semantics = tester.ensureSemantics();
+      await pump(tester, const WiredEmoji('🎉', semanticLabel: 'Launch party'));
+      expect(find.bySemanticsLabel('Launch party'), findsOneWidget);
+      semantics.dispose();
     });
 
-    testWidgets('fromUnicode renders placeholder for unknown codepoint', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredEmoji.fromUnicode(0xffff, size: 32),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byType(WiredEmoji), findsOneWidget);
-      expect(find.text('?'), findsOneWidget);
-    });
-
-    testWidgets('respects size parameter', (tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredEmoji(size: 64),
-            ),
-          ),
-        ),
-      );
-
-      final sizedBox = tester.widget<SizedBox>(find.byType(SizedBox).first);
-      expect(sizedBox.width, 64);
-      expect(sizedBox.height, 64);
-    });
-
-    testWidgets('renders with explicit WiredSvgIconData', (tester) async {
-      final data = lookupSkribbleEmojiByName('star')!;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: WiredEmoji(data: data, size: 40),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byType(WiredEmoji), findsOneWidget);
-      expect(find.text('?'), findsNothing);
-      expect(find.byType(PrecomputedEmoji), findsOneWidget);
-    });
-  });
-
-  group('PrecomputedEmoji widget', () {
-    testWidgets('renders without error with valid data', (tester) async {
-      final data = lookupSkribbleEmojiByName('grinning_face');
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(child: PrecomputedEmoji(data: data)),
-          ),
-        ),
-      );
-
-      expect(find.byType(PrecomputedEmoji), findsOneWidget);
-      expect(find.byType(CustomPaint), findsWidgets);
-      expect(find.text('?'), findsNothing);
-    });
-
-    testWidgets('fromName renders known emoji', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: PrecomputedEmoji.fromName('thumbs_up', size: 48),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byType(PrecomputedEmoji), findsOneWidget);
-      expect(find.text('?'), findsNothing);
-    });
-
-    testWidgets('fromName shows placeholder for unknown name', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: PrecomputedEmoji.fromName('nonexistent_xyz'),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byType(PrecomputedEmoji), findsOneWidget);
-      expect(find.text('?'), findsOneWidget);
-    });
-
-    testWidgets('fromUnicode renders known emoji', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: PrecomputedEmoji.fromUnicode(0x1f525, size: 36),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byType(PrecomputedEmoji), findsOneWidget);
-      expect(find.text('?'), findsNothing);
-    });
-
-    testWidgets('respects custom size', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: PrecomputedEmoji.fromName('fire', size: 64),
-            ),
-          ),
-        ),
-      );
-
-      final sizedBox = tester.widget<SizedBox>(
-        find.descendant(
-          of: find.byType(PrecomputedEmoji),
-          matching: find.byType(SizedBox),
-        ),
-      );
-      expect(sizedBox.width, 64);
-      expect(sizedBox.height, 64);
-    });
-
-    testWidgets('renders paths through a CustomPaint', (tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: PrecomputedEmoji.fromName('grinning_face'),
-            ),
-          ),
-        ),
-      );
-
+    testWidgets('looks emoji up by name', (tester) async {
+      await pump(tester, WiredEmoji.named('red_heart'));
       expect(find.byType(CustomPaint), findsWidgets);
     });
 
-    testWidgets('adds semantics label when provided', (tester) async {
+    testWidgets('shows unknown text as text', (tester) async {
+      await pump(tester, const WiredEmoji('zz'));
+      expect(find.text('zz'), findsOneWidget);
+    });
+
+    testWidgets('shares prepared drawings between identical emoji', (
+      tester,
+    ) async {
+      final entry = SkribbleEmoji.lookup('😀')!;
+      final config = emojiDrawConfig(WiredThemeData(), 32);
+      expect(
+        emojiDrawingFor(entry, size: 32, config: config),
+        same(emojiDrawingFor(entry, size: 32, config: config)),
+      );
+    });
+  });
+
+  group('WiredEmojiText', () {
+    test('splits text into words and drawn emoji', () {
+      final spans = emojiSpans('Ship it 🚀 now ❤️!', 20);
+      expect(spans, hasLength(5));
+      expect((spans[0] as TextSpan).text, 'Ship it ');
+      expect(
+        ((spans[1] as WidgetSpan).child as WiredEmoji).emoji,
+        '🚀',
+      );
+      expect((spans[2] as TextSpan).text, ' now ');
+      expect(((spans[3] as WidgetSpan).child as WiredEmoji).emoji, '❤️');
+      expect((spans[4] as TextSpan).text, '!');
+    });
+
+    test('keeps whole sequences together', () {
+      final spans = emojiSpans('👩🏽‍💻🇯🇵', 20);
+      expect(spans, hasLength(2));
+    });
+
+    testWidgets('renders emoji inside text', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: PrecomputedEmoji(
-                data: lookupSkribbleEmojiByName('star'),
-                semanticLabel: 'star emoji',
-              ),
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: WiredThemeScope(
+            data: WiredThemeData(),
+            child: const WiredEmojiText(
+              'Party 🎉',
+              style: TextStyle(fontSize: 20),
             ),
           ),
         ),
       );
-
-      expect(find.bySemanticsLabel('star emoji'), findsOneWidget);
+      expect(find.byType(WiredEmoji), findsOneWidget);
+      expect(tester.getSize(find.byType(WiredEmoji)).width, closeTo(23, 0.01));
     });
   });
 }

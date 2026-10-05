@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="legs" fill="skin" stroke="ink" stroke-width="1.5">
+    <path d="M16.7 23 L16.9 32.2 A1.1 1.1 0 0 0 19.1 32.2 L19.3 23 A1.3 1.3 0 0 0 16.7 23 Z"/>
+    <path d="M18.1 24.3 L22.7 27.4 A1.2 1.2 0 0 0 24.1 25.4 L19.5 22.1 A1.3 1.3 0 0 0 18.1 24.3 Z"/>
+    <path d="M22.9 25.3 L18.1 27.6 A1.1 1.1 0 0 0 19.1 29.6 L23.9 27.5 A1.2 1.2 0 0 0 22.9 25.3 Z"/>
+    <path d="M16.9 31.4 L17.2 33.8 Q18 34.6 18.8 33.8 L19.1 31.4 Z" fill="pink"/>
+  </g>
+  <g id="arms" fill="skin" stroke="ink" stroke-width="1.5">
+    <path d="M16.6 15.9 L12.9 11.7 L13.5 6.6 L17 4.2 A1 1 0 0 0 15.8 2.6 L11.7 5.4 L10.7 12.3 L15 17.3 A1.1 1.1 0 0 0 16.6 15.9 Z"/>
+    <path d="M21 17.3 L25.3 12.3 L24.3 5.4 L20.2 2.6 A1 1 0 0 0 19 4.2 L22.5 6.6 L23.1 11.7 L19.4 15.9 A1.1 1.1 0 0 0 21 17.3 Z"/>
+  </g>
+  <g id="body" stroke="ink" stroke-width="1.5">
+    <rect x="17.1" y="13.6" width="1.8" height="2" fill="skin"/>
+    <path d="M15.4 16.4 Q15.4 14.8 16.8 14.8 L19.2 14.8 Q20.6 14.8 20.6 16.4 L20.8 22.6 L15.2 22.6 Z" fill="pink"/>
+  </g>
+  <g id="tutu" stroke="ink" stroke-width="1.5">
+    <ellipse cx="18" cy="23.2" rx="9.2" ry="2.8" fill="pink-shade"/>
+    <ellipse cx="18" cy="22.4" rx="8.4" ry="2.2" fill="pink"/>
+  </g>
+  <g data-include="head" transform="translate(6.12 1.22) scale(0.66)"/>
+</svg>

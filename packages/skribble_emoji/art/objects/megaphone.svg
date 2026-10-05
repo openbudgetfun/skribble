@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="cone"><path d="M27.6 15.4 L9.6 6.6 Q7.8 5.8 7.8 7.8 L7.8 28.2 Q7.8 30.2 9.6 29.4 L27.6 20.6 Z"/></clipPath>
+  </defs>
+  <g id="megaphone" stroke="ink" transform="translate(1.6 0.6) rotate(20 18 18)">
+    <path d="M20.6 21.4 L20.2 27.4 Q20.2 28.6 21.4 28.6 L22.6 28.6 Q23.8 28.6 23.8 27.4 L23.6 20" fill="white" stroke-width="1.75"/>
+    <rect x="27" y="14.8" width="4.4" height="6.4" rx="1.4" ry="1.4" fill="white" stroke-width="1.75"/>
+    <path d="M27.6 15.4 L9.6 6.6 Q7.8 5.8 7.8 7.8 L7.8 28.2 Q7.8 30.2 9.6 29.4 L27.6 20.6 Z" fill="red" stroke="none"/>
+    <path d="M30 13 Q22 28 6 30 L30 32 Z" fill="red-shade" stroke="none" clip-path="url(#cone)"/>
+    <rect x="15.6" y="0" width="4" height="36" fill="white" stroke-width="1.5" clip-path="url(#cone)"/>
+    <path d="M27.6 15.4 L9.6 6.6 Q7.8 5.8 7.8 7.8 L7.8 28.2 Q7.8 30.2 9.6 29.4 L27.6 20.6 Z" fill="none"/>
+    <ellipse cx="8" cy="18" rx="2.4" ry="11.4" fill="red-shade"/>
+  </g>
+  <g id="sound" fill="none" stroke="ink" stroke-width="2">
+    <path d="M8.4 5 L6.6 2.6 M4.6 9.8 L2.2 8.6 M3.8 16.6 L2 17"/>
+  </g>
+</svg>

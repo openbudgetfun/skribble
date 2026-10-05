@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(18 33.4) scale(0.84) translate(-18 -33)">
+    <g data-include="face"/>
+    <g id="eyes">
+      <circle cx="12.4" cy="18.4" r="3.2" fill="paper" stroke="ink" stroke-width="1.75"/>
+      <circle cx="23.6" cy="18.4" r="3.2" fill="paper" stroke="ink" stroke-width="1.75"/>
+      <circle cx="12.4" cy="18.6" r="1.5" fill="ink"/>
+      <circle cx="23.6" cy="18.6" r="1.5" fill="ink"/>
+    </g>
+    <ellipse data-part="mouth" cx="18" cy="27" rx="2.8" ry="3" fill="ink"/>
+  </g>
+  <g id="explosion" stroke="ink">
+    <path d="M6.8 15 L9.4 12.6 L11.6 15.2 L14.2 12.8 L16.8 15.4 L19.4 12.8 L22 15.2 L24.6 12.6 L27 15 L29.4 13 L33.4 11.6 L30.2 9.4 L33.6 5.6 L28.6 6.2 L28.4 2 L24.6 4.8 L22 1.6 L19.6 4.8 L16.4 1.6 L14 4.8 L10.6 2 L10.2 5.8 L4.6 4.8 L6.8 8.6 L2.4 10.4 L6.6 12 Z" fill="orange"/>
+    <path d="M9 11.6 L8.4 8.4 L12 9 L13.2 5.8 L15.8 8.2 L18 4.8 L20.2 8.2 L22.8 5.8 L24 9 L27.6 8.4 L27 11.6 Z" fill="yellow" stroke="none"/>
+  </g>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="strip" stroke="ink" transform="translate(-2.6 -3.7) rotate(-35 18 18)">
+    <path d="M5 15.6 C8.4 12.2 11.6 12.2 15 15.6 C18.4 19 21.6 19 25 15.6 C27 13.6 29.2 13 31 13.4 L31 20.4 C29.2 20 27 20.6 25 22.6 C21.6 26 18.4 26 15 22.6 C11.6 19.2 8.4 19.2 5 22.6 Z" fill="coral"/>
+    <path d="M6.4 19.2 C9.4 16.4 12 16.6 15 19.2 C18.4 22.4 21.6 22.4 25 19.2 C26.8 17.6 28.4 17 29.6 17" fill="none" stroke="cream" stroke-width="2"/>
+  </g>
+  <g id="strip2" stroke="ink" transform="translate(2.6 3.7) rotate(-35 18 18)">
+    <path d="M5 15.6 C8.4 12.2 11.6 12.2 15 15.6 C18.4 19 21.6 19 25 15.6 C27 13.6 29.2 13 31 13.4 L31 20.4 C29.2 20 27 20.6 25 22.6 C21.6 26 18.4 26 15 22.6 C11.6 19.2 8.4 19.2 5 22.6 Z" fill="coral"/>
+    <path d="M6.4 19.2 C9.4 16.4 12 16.6 15 19.2 C18.4 22.4 21.6 22.4 25 19.2 C26.8 17.6 28.4 17 29.6 17" fill="none" stroke="cream" stroke-width="2"/>
+  </g>
+</svg>

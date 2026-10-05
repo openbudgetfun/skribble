@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="body" stroke="ink">
+    <path d="M4.6 17 C4.6 9.6 8.4 5.6 15 5.6 L31 5.6 Q33 5.6 33 7.6 L33 17 Z" fill="yellow"/>
+    <path d="M15.4 17 L15.4 10.2 Q15.4 8.6 17 8.6 L29.4 8.6 Q31 8.6 31 10.2 L31 17 Z" fill="black" stroke-width="1.5"/>
+    <path d="M22.4 17 L22.4 12.8 Q22.4 11.6 23.6 11.6 L28.2 11.6 Q29.4 11.6 29.4 12.8 L29.4 17 Z" fill="red" stroke-width="1.5"/>
+    <path d="M6.8 17 Q7 11.6 10.8 9.4 L13.2 9.4 L13.2 17 Z" fill="sky" stroke-width="1.5"/>
+    <path d="M5 26 Q3 26 3 24.4 L3 19 Q3 17 5 17 L33 17 L33 24.4 Q33 26 31.4 26 Z" fill="green" stroke="none"/>
+    <path d="M33 19.8 L33 24.4 Q33 26 31.4 26 L14 26 Q28.6 25.4 32 22.6 Q32.8 21.6 33 19.8 Z" fill="green-shade" stroke="none"/>
+    <path d="M5 26 Q3 26 3 24.4 L3 19 Q3 17 5 17 L33 17 L33 24.4 Q33 26 31.4 26 Z" fill="none"/>
+    <circle cx="5" cy="20.2" r="1.2" fill="yellow" stroke-width="1.25"/>
+  </g>
+  <g id="wheels">
+    <g data-include="b11-wheel" transform="translate(-9.4 8)"/>
+    <g data-include="b11-wheel" transform="translate(9.4 8)"/>
+  </g>
+</svg>

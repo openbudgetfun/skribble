@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <rect data-part="sky" x="3" y="3" width="30" height="30" rx="6" ry="6" fill="black"/>
+  <g id="burst" fill="none" stroke-width="2">
+    <path d="M22 18 L28.5 18 M18 22 L18 28.5 M14 18 L7.5 18 M18 14 L18 7.5" stroke="yellow"/>
+    <path d="M21.46 20 L27.09 23.25 M16 21.46 L12.75 27.09 M14.54 16 L8.91 12.75 M20 14.54 L23.25 8.91" stroke="pink"/>
+    <path d="M20 21.46 L23.25 27.09 M14.54 20 L8.91 23.25 M16 14.54 L12.75 8.91 M21.46 16 L27.09 12.75" stroke="sky"/>
+    <circle cx="18" cy="18" r="1.6" fill="white" stroke="none"/>
+  </g>
+  <g id="sparks" stroke="none">
+    <circle cx="30.4" cy="18" r="1" fill="yellow"/>
+    <circle cx="18" cy="30.4" r="1" fill="yellow"/>
+    <circle cx="5.6" cy="18" r="1" fill="yellow"/>
+    <circle cx="18" cy="5.6" r="1" fill="yellow"/>
+    <circle cx="28.74" cy="24.2" r="1" fill="pink"/>
+    <circle cx="11.8" cy="28.74" r="1" fill="pink"/>
+    <circle cx="7.26" cy="11.8" r="1" fill="pink"/>
+    <circle cx="24.2" cy="7.26" r="1" fill="pink"/>
+    <circle cx="24.2" cy="28.74" r="1" fill="sky"/>
+    <circle cx="7.26" cy="24.2" r="1" fill="sky"/>
+    <circle cx="11.8" cy="7.26" r="1" fill="sky"/>
+    <circle cx="28.74" cy="11.8" r="1" fill="sky"/>
+  </g>
+  <rect x="3" y="3" width="30" height="30" rx="6" ry="6" fill="none" stroke="ink"/>
+</svg>

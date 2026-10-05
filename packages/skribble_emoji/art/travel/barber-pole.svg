@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="glass"><rect x="12.4" y="7.2" width="11.2" height="21.2"/></clipPath></defs>
+  <g id="glass" stroke="ink">
+    <rect x="12.4" y="7.2" width="11.2" height="21.2" fill="white"/>
+    <g id="stripes" clip-path="url(#glass)" stroke="none">
+      <path d="M12.4 8 L23.6 2 L23.6 4.8 L12.4 10.8 Z M12.4 16 L23.6 10 L23.6 12.8 L12.4 18.8 Z M12.4 24 L23.6 18 L23.6 20.8 L12.4 26.8 Z M12.4 32 L23.6 26 L23.6 28.8 L12.4 34.8 Z" fill="red"/>
+      <path d="M12.4 12 L23.6 6 L23.6 8.8 L12.4 14.8 Z M12.4 20 L23.6 14 L23.6 16.8 L12.4 22.8 Z M12.4 28 L23.6 22 L23.6 24.8 L12.4 30.8 Z" fill="blue"/>
+    </g>
+    <path d="M14.8 9 L14.8 26.6" fill="none" stroke="paper" stroke-width="1.75"/>
+    <rect x="12.4" y="7.2" width="11.2" height="21.2" fill="none"/>
+  </g>
+  <g id="caps" stroke="ink">
+    <path d="M14.4 4.4 Q14.4 2.6 18 2.6 Q21.6 2.6 21.6 4.4 Z" fill="silver" stroke-width="1.75"/>
+    <rect x="11" y="4.2" width="14" height="3.4" rx="1.6" ry="1.6" fill="silver"/>
+    <rect x="11" y="28.2" width="14" height="3.6" rx="1.6" ry="1.6" fill="silver"/>
+  </g>
+</svg>

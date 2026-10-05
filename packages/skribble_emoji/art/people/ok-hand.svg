@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Palm to the viewer: three fingers fanned up, thumb and index finger
+       touching in a ring. -->
+  <g id="hand" stroke="ink">
+    <path d="M8.64 21.44 L4.44 12.64 C3.3 10.25 6.82 8.57 7.96 10.96 L10.94 17.2 L11.3 17.2 L9.15 7.24 C8.54 4.45 12.65 3.56 13.25 6.36 L15.37 16.15 L14.7 4.93 C14.53 2.07 18.73 1.82 18.9 4.67 L19.7 18.07 C23.8 18 26.8 20.4 26.4 25 C26 30 22.4 33 17.8 33 C12.8 33 9.2 30 8.64 21.44 Z" fill="skin" stroke="none"/>
+    <path d="M26.5 23 C26.5 23.6 26.5 24.3 26.4 25 C26 30 22.4 33 17.8 33 C16.2 33 14.8 32.6 13.6 32 C20 31.6 24.6 28.6 26.5 23 Z" fill="skin-shade" stroke="none"/>
+    <path d="M8.64 21.44 L4.44 12.64 C3.3 10.25 6.82 8.57 7.96 10.96 L10.94 17.2 L11.3 17.2 L9.15 7.24 C8.54 4.45 12.65 3.56 13.25 6.36 L15.37 16.15 L14.7 4.93 C14.53 2.07 18.73 1.82 18.9 4.67 L19.7 18.07 C23.8 18 26.8 20.4 26.4 25 C26 30 22.4 33 17.8 33 C12.8 33 9.2 30 8.64 21.44 Z" fill="none"/>
+    <g id="ring">
+      <path d="M19.2 14.6 A5.4 5.6 0 1 0 30 14.6 A5.4 5.6 0 1 0 19.2 14.6 Z M22.6 14.2 A2.2 2.2 0 1 0 27 14.2 A2.2 2.2 0 1 0 22.6 14.2 Z" fill="skin" fill-rule="evenodd"/>
+      <path d="M26.8 15.8 L29.6 17.4" fill="none" stroke-width="1.5"/>
+    </g>
+    <path d="M20.4 30.6 Q19.8 27.4 21.6 24.6" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

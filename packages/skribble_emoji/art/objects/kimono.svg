@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="robe"><path d="M12.6 3.6 L23.4 3.6 L30.6 5.8 Q33 6.6 33.2 9.2 L33.6 22.2 Q33.6 24 31.8 24 L26.6 24 L26.8 32.4 Q26.8 33.6 25.6 33.6 L10.4 33.6 Q9.2 33.6 9.2 32.4 L9.4 24 L4.2 24 Q2.4 24 2.4 22.2 L2.8 9.2 Q3 6.6 5.4 5.8 Z"/></clipPath>
+  </defs>
+  <g id="robe" stroke="ink">
+    <path d="M12.6 3.6 L23.4 3.6 L30.6 5.8 Q33 6.6 33.2 9.2 L33.6 22.2 Q33.6 24 31.8 24 L26.6 24 L26.8 32.4 Q26.8 33.6 25.6 33.6 L10.4 33.6 Q9.2 33.6 9.2 32.4 L9.4 24 L4.2 24 Q2.4 24 2.4 22.2 L2.8 9.2 Q3 6.6 5.4 5.8 Z" fill="red" stroke="none"/>
+    <path d="M36 7 Q30.4 22 25.6 35 L36 35 Z" fill="red-shade" stroke="none" clip-path="url(#robe)"/>
+    <path d="M12.6 3.6 L23.4 3.6 L30.6 5.8 Q33 6.6 33.2 9.2 L33.6 22.2 Q33.6 24 31.8 24 L26.6 24 L26.8 32.4 Q26.8 33.6 25.6 33.6 L10.4 33.6 Q9.2 33.6 9.2 32.4 L9.4 24 L4.2 24 Q2.4 24 2.4 22.2 L2.8 9.2 Q3 6.6 5.4 5.8 Z" fill="none"/>
+    <path d="M9.6 6.6 L9.4 24 M26.4 6.6 L26.6 24 M15.4 21.4 L13.6 33.6" fill="none" stroke-width="1.5"/>
+    <path d="M15.6 3.6 L20.4 3.6 L18 9.6 Z" fill="cream" stroke-width="1.5"/>
+    <path d="M12.6 3.6 L15.6 3.6 L19.2 11.6 L17.4 13.4 Z" fill="white" stroke-width="1.5"/>
+    <path d="M20.4 3.6 L23.4 3.6 L16.2 15.8 L13.2 15.8 Z" fill="white" stroke-width="1.5"/>
+  </g>
+  <g id="obi" stroke="ink">
+    <rect x="9.4" y="15.4" width="17.2" height="6" rx="0.6" ry="0.6" fill="yellow" stroke-width="1.75"/>
+    <path d="M9.6 18.4 L26.4 18.4" fill="none" stroke="red-shade" stroke-width="1.5"/>
+  </g>
+  <g id="blossoms">
+    <g fill="white">
+      <circle cx="5.8" cy="12.6" r="1.6"/>
+      <circle cx="30" cy="17.4" r="1.6"/>
+      <circle cx="21.8" cy="28.2" r="1.6"/>
+    </g>
+    <g fill="pink">
+      <circle cx="5.8" cy="12.6" r="0.6"/>
+      <circle cx="30" cy="17.4" r="0.6"/>
+      <circle cx="21.8" cy="28.2" r="0.6"/>
+    </g>
+  </g>
+</svg>

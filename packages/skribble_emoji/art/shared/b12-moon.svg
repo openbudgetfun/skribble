@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The unlit moon every phase starts from: the dark disc with its craters.
+       A phase paints its lit part on top, then the craters again clipped to the
+       lit part (b12-moon-craters), then the rim. -->
+  <g id="moon">
+    <circle cx="18" cy="18" r="15" fill="grey-shade"/>
+    <g fill="grey">
+      <circle cx="11.8" cy="11.4" r="2.9"/>
+      <circle cx="23.6" cy="23.4" r="3.4"/>
+      <circle cx="26.4" cy="10.8" r="1.9"/>
+      <circle cx="11.4" cy="24.6" r="1.8"/>
+    </g>
+  </g>
+</svg>

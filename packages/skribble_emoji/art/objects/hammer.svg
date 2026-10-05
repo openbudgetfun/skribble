@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="hammer" stroke="ink" transform="translate(2.2 1.5) translate(18 18) scale(0.9) translate(-18 -18) translate(0.4 0.4) rotate(-45 18 18)">
+    <path d="M15.8 12 L20.2 12 L20.6 31.4 Q20.6 33.6 18 33.6 Q15.4 33.6 15.4 31.4 Z" fill="tan"/>
+    <path d="M15.6 26.4 L20.4 26.4" fill="none" stroke-width="1.5"/>
+    <path d="M6 5.6 Q6 4 7.6 4 L10.4 4 L10.4 5.4 L28.6 6.2 Q30.2 6.4 30.2 8 L30.2 10.6 Q30.2 12.2 28.6 12.4 L10.4 13.2 L10.4 14.6 L7.6 14.6 Q6 14.6 6 13 Z" fill="silver" stroke="none"/>
+    <path d="M30.2 9.6 L30.2 10.6 Q30.2 12.2 28.6 12.4 L10.4 13.2 L10.4 14.6 L7.6 14.6 Q6 14.6 6 13 L6 12 Q7 13 10.4 11.6 Q20 11.4 30.2 9.6 Z" fill="grey" stroke="none"/>
+    <path d="M6 5.6 Q6 4 7.6 4 L10.4 4 L10.4 5.4 L28.6 6.2 Q30.2 6.4 30.2 8 L30.2 10.6 Q30.2 12.2 28.6 12.4 L10.4 13.2 L10.4 14.6 L7.6 14.6 Q6 14.6 6 13 Z" fill="none"/>
+    <path d="M10.4 5.4 L10.4 13.2" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

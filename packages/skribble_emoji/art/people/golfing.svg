@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse id="grass" cx="17" cy="33" rx="14.6" ry="1.8" fill="green" stroke="ink" stroke-width="1.5"/>
+  <circle id="ball" cx="6.6" cy="30.2" r="2.1" fill="white" stroke="ink" stroke-width="1.5"/>
+  <g id="club" stroke="ink">
+    <path d="M23.4 14.6 L30.6 3.8" fill="none" stroke-width="1.6"/>
+    <path d="M29.6 4.2 L31.6 2.2 Q32.6 1.8 33 2.8 L33.2 4.4 Q33 5.6 31.8 5.2 Z" fill="silver" stroke-width="1.25"/>
+  </g>
+  <g id="legs" fill="none">
+    <path d="M16.2 23.6 L14.6 32.8 M19.8 23.6 L21.8 32.8" stroke="ink" stroke-width="4.8"/>
+    <path d="M16.2 23.6 L14.6 32.8 M19.8 23.6 L21.8 32.8" stroke="blue" stroke-width="3.2"/>
+    <path d="M12.6 33 L14.8 33 M21.6 33 L23.8 33" stroke="ink" stroke-width="2.4"/>
+  </g>
+  <path id="shirt" d="M13.6 24.4 L13.8 18.4 Q14 15.6 16.8 15.6 L19.2 15.6 Q22 15.6 22.2 18.4 L22.4 24.4 Q18 25.8 13.6 24.4 Z" fill="green" stroke="ink" stroke-width="1.75"/>
+  <g id="arms" fill="none">
+    <path d="M14.8 17.6 L18.6 20.2 L23.2 15 M21.4 17.4 L23.2 15" stroke="ink" stroke-width="4.2"/>
+    <path d="M14.8 17.6 L18.6 20.2 L23.2 15 M21.4 17.4 L23.2 15" stroke="skin" stroke-width="2.6"/>
+  </g>
+  <circle id="glove" cx="23.4" cy="14.8" r="1.6" fill="white" stroke="ink" stroke-width="1.25"/>
+  <g data-include="head" transform="translate(7.2 1.84) scale(0.6)"/>
+</svg>

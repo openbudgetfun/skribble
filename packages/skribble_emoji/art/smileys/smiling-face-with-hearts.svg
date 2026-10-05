@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="cheeks" fill="cheek">
+    <ellipse cx="8.8" cy="19.4" rx="2.4" ry="1.4"/>
+    <ellipse cx="27.2" cy="19.4" rx="2.4" ry="1.4"/>
+  </g>
+  <g id="eyes" fill="none" stroke="ink" stroke-width="2">
+    <path d="M9.8 14.8 Q12.6 10.6 15.4 14.8"/>
+    <path d="M20.6 14.8 Q23.4 10.6 26.2 14.8"/>
+  </g>
+  <path data-part="mouth" d="M11.4 21 Q18 27.4 24.6 21" fill="none" stroke="ink"/>
+  <g id="hearts">
+    <g data-include="b01-heart-small" transform="translate(6.6 6.4) rotate(-20) translate(-18 -18)"/>
+    <g data-include="b01-heart-small" transform="translate(30 8.4) rotate(16) scale(0.8) translate(-18 -18)"/>
+    <g data-include="b01-heart-small" transform="translate(4.8 25.6) rotate(-10) scale(0.8) translate(-18 -18)"/>
+  </g>
+</svg>

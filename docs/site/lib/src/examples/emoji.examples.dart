@@ -5,34 +5,26 @@ Widget _emoji(ExampleSettings settings) => Wrap(
   spacing: 20,
   runSpacing: 20,
   children: [
-    WiredEmoji.fromName('grinning_face', size: 56),
-    WiredEmoji.fromSequence(
-      '👩🏽‍💻',
-      size: 56,
-      semanticLabel: 'Developer',
-    ),
-    WiredEmoji.fromSequence(
-      '🇬🇧',
-      size: 56,
-      semanticLabel: 'United Kingdom',
-    ),
+    for (final emoji in ['😀', '🎉', '👩🏽‍💻', '🐱', '🍕', '🚀', '🇯🇵'])
+      WiredEmoji(emoji, size: 56, weight: settings.weight),
   ],
 );
 
-/// @docs-example emoji-sequences
-Widget _emojiSequences(ExampleSettings settings) => Wrap(
-  spacing: 20,
-  runSpacing: 20,
+/// @docs-example emoji-tones
+Widget _emojiTones(ExampleSettings settings) => Wrap(
+  spacing: 16,
+  runSpacing: 16,
   children: [
-    WiredEmoji.fromSequence(
-      '👩🏽‍💻',
-      size: 64,
-      semanticLabel: 'Developer',
-    ),
-    PrecomputedEmoji.fromSequence(
-      '🇬🇧',
-      size: 64,
-      semanticLabel: 'United Kingdom',
-    ),
+    for (final tone in EmojiSkinTone.values)
+      WiredEmoji(
+        SkribbleEmoji.withTone(SkribbleEmoji.lookup('👋')!, tone)!.emoji,
+        size: 48,
+      ),
   ],
+);
+
+/// @docs-example emoji-text
+Widget _emojiText(ExampleSettings settings) => const WiredEmojiText(
+  'Shipped it 🚀 and the whole team ❤️ it 🎉',
+  style: TextStyle(fontSize: 24),
 );

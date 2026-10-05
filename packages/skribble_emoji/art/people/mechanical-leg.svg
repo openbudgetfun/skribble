@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A prosthetic leg: a socket at the top, a bolted knee, a steel shin
+       and a foot pointing left. -->
+  <g id="leg" stroke="ink">
+    <path data-part="socket" d="M12.2 2.6 L25.8 2.6 L24.6 12.4 Q19 15 13.4 12.4 Z" fill="grey"/>
+    <rect x="15.6" y="13.4" width="5.6" height="15" rx="1.4" ry="1.4" fill="silver"/>
+    <path d="M21.2 16 L21.2 27 Q21.2 28.4 19.8 28.4 L19.4 28.4 C20 24.6 20.4 20 21.2 16 Z" fill="grey" stroke="none"/>
+    <rect x="15.6" y="13.4" width="5.6" height="15" rx="1.4" ry="1.4" fill="none"/>
+    <g data-part="knee">
+      <circle cx="18.4" cy="14.2" r="3.2" fill="grey" stroke-width="1.75"/>
+      <circle cx="18.4" cy="14.2" r="0.9" fill="ink" stroke="none"/>
+    </g>
+    <path data-part="foot" d="M15 27.2 L22.4 27.2 C23.8 27.2 24.6 28.2 24.6 29.6 L24.6 31.2 Q24.6 33 22.8 33 L7.4 33 C5.4 33 5 30.2 7 29.6 Z" fill="silver"/>
+    <path d="M13.6 29.2 L13.6 33" fill="none" stroke-width="1.5"/>
+    <path d="M14.6 5.4 Q15.8 4.6 17.4 4.6" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="letters" fill="blue" stroke="ink">
+    <polygon points="3,17.4 16.6,17.4 16.6,20.8 8.2,28.4 16.6,28.4 16.6,31.8 3,31.8 3,28.4 11.4,20.8 3,20.8" stroke-width="1.75"/>
+    <polygon points="17.8,9 27,9 27,11.4 21.2,17.2 27,17.2 27,19.6 17.8,19.6 17.8,17.2 23.6,11.4 17.8,11.4" stroke-width="1.5"/>
+    <polygon points="27.6,2.8 33.4,2.8 33.4,4.6 29.8,7.8 33.4,7.8 33.4,9.6 27.6,9.6 27.6,7.8 31.2,4.6 27.6,4.6" stroke-width="1.25"/>
+  </g>
+</svg>

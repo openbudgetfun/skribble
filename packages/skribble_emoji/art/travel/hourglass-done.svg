@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="glass">
+      <path d="M10.4 6.4 L25.6 6.4 Q25.6 13.4 19.6 18 Q25.6 22.6 25.6 29.6 L10.4 29.6 Q10.4 22.6 16.4 18 Q10.4 13.4 10.4 6.4 Z"/>
+    </clipPath>
+  </defs>
+  <g id="hourglass" stroke="ink">
+    <path d="M10.4 6.4 L25.6 6.4 Q25.6 13.4 19.6 18 Q25.6 22.6 25.6 29.6 L10.4 29.6 Q10.4 22.6 16.4 18 Q10.4 13.4 10.4 6.4 Z" fill="sky" stroke="none"/>
+    <path data-part="sand" d="M9 30 Q10.4 23.6 18 22.2 Q25.6 23.6 27 30 Z" fill="yellow" stroke="none" clip-path="url(#glass)"/>
+    <path d="M10.4 6.4 L25.6 6.4 Q25.6 13.4 19.6 18 Q25.6 22.6 25.6 29.6 L10.4 29.6 Q10.4 22.6 16.4 18 Q10.4 13.4 10.4 6.4 Z" fill="none" stroke-width="1.75"/>
+    <path d="M12.8 8.6 Q13 11.8 14.8 13.8" fill="none" stroke="paper" stroke-width="1.5"/>
+    <rect x="7.2" y="6.4" width="2.2" height="23.2" rx="0.6" ry="0.6" fill="brown" stroke-width="1.5"/>
+    <rect x="26.6" y="6.4" width="2.2" height="23.2" rx="0.6" ry="0.6" fill="brown" stroke-width="1.5"/>
+    <rect x="5.6" y="2.6" width="24.8" height="3.8" rx="1.6" ry="1.6" fill="brown"/>
+    <rect x="5.6" y="29.6" width="24.8" height="3.8" rx="1.6" ry="1.6" fill="brown"/>
+  </g>
+</svg>

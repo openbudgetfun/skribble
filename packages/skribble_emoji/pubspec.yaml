@@ -1,6 +1,6 @@
 name: skribble_emoji
 description: |
-  Hand-drawn emoji for skribble. An SVG-manifest-based emoji package generated with the skribble rough icon pipeline.
+  skribble's own hand-drawn emoji: every Unicode 18 emoji, drawn for skribble and inked live by the theme pen, with skin tones, a themeable palette, and inline emoji text.
 version: 0.2.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_emoji
@@ -17,13 +17,15 @@ environment:
   flutter: ">=3.47.0"
 resolution: workspace
 dependencies:
+  characters: ^1.4.0
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.21.3
+  path_parsing: ^1.1.0
   skribble: ^0.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  skribble_emoji_gen: ^0.2.1
   skribble_lints: ^0.2.1
 flutter:
   uses-material-design: true

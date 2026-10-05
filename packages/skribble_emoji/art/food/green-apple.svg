@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The red apple, in green. -->
+  <g data-include="red-apple" data-tokens="red:green,red-shade:green-shade"/>
+</svg>

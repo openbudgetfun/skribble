@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="robe" stroke="ink">
+    <rect x="15.6" y="19.6" width="4.8" height="5" rx="1.2" ry="1.2" fill="skin" stroke-width="1.75"/>
+    <path d="M5.8 34.6 C6.2 27.4 10.6 23.2 18 23.2 C25.4 23.2 29.8 27.4 30.2 34.6 Z" fill="white"/>
+    <path d="M25.6 25 C28.6 27.2 30 30.4 30.2 34.6 L26.6 34.6 C27 31 26.8 27.8 25.6 25 Z" fill="silver" stroke="none"/>
+    <path d="M5.8 34.6 C6.2 27.4 10.6 23.2 18 23.2 C25.4 23.2 29.8 27.4 30.2 34.6 Z" fill="none"/>
+    <path d="M14.2 23.6 L19.8 31 M21.8 23.6 L18.6 27.8" fill="none" stroke-width="1.5"/>
+  </g>
+  <g data-include="b05-calm-head" transform="translate(0 1.4)"/>
+  <g id="towel" stroke="ink">
+    <path d="M10.2 14.8 C9 8.6 12.6 3.6 18 3.6 C23.4 3.6 27 8.6 25.8 14.8 C23.6 12.4 21 11.4 18 11.4 C15 11.4 12.4 12.4 10.2 14.8 Z" fill="white"/>
+    <path d="M23.6 5.8 C25.8 8 26.6 11.4 25.8 14.8 C25 14 24.2 13.4 23.2 12.8 C24.2 10.6 24.4 8.2 23.6 5.8 Z" fill="silver" stroke="none"/>
+    <path d="M10.2 14.8 C9 8.6 12.6 3.6 18 3.6 C23.4 3.6 27 8.6 25.8 14.8 C23.6 12.4 21 11.4 18 11.4 C15 11.4 12.4 12.4 10.2 14.8 Z" fill="none"/>
+    <path d="M11.6 10 Q17 11 23.6 7.2 M13.6 6 Q18 7.4 22.2 5" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="steam" fill="none" stroke="grey" stroke-width="1.75">
+    <path d="M4.4 24 Q2.8 21.4 4.4 18.8 Q6 16.2 4.4 13.6"/>
+    <path d="M31.6 24 Q30 21.4 31.6 18.8 Q33.2 16.2 31.6 13.6"/>
+    <path d="M7.4 10.6 Q6 8.6 7.4 6.6 Q8.8 4.6 7.4 2.8"/>
+  </g>
+</svg>

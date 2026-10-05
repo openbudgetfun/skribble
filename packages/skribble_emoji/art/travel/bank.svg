@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="building" stroke="ink">
+    <rect x="5" y="15" width="26" height="12.8" fill="silver"/>
+    <path d="M14.8 27.6 L14.8 21.6 Q14.8 18.8 18 18.8 Q21.2 18.8 21.2 21.6 L21.2 27.6 Z" fill="brown" stroke-width="1.75"/>
+    <rect x="5.6" y="15.2" width="3.6" height="12.4" fill="white" stroke-width="1.75"/>
+    <rect x="10.4" y="15.2" width="3.6" height="12.4" fill="white" stroke-width="1.75"/>
+    <rect x="22" y="15.2" width="3.6" height="12.4" fill="white" stroke-width="1.75"/>
+    <rect x="26.8" y="15.2" width="3.6" height="12.4" fill="white" stroke-width="1.75"/>
+    <path d="M7.8 16 h1 v10.8 h-1 Z M12.6 16 h1 v10.8 h-1 Z M24.2 16 h1 v10.8 h-1 Z M29 16 h1 v10.8 h-1 Z" fill="silver" stroke="none"/>
+    <path d="M3.4 12.6 L17 4.4 Q18 3.8 19 4.4 L32.6 12.6 Z" fill="white"/>
+    <rect x="4" y="12.4" width="28" height="3" rx="0.6" ry="0.6" fill="white"/>
+    <rect x="3.4" y="27.6" width="29.2" height="2.2" rx="0.6" ry="0.6" fill="silver"/>
+    <rect x="2.4" y="29.6" width="31.2" height="2.2" rx="0.6" ry="0.6" fill="silver"/>
+  </g>
+  <g id="coin" stroke="ink">
+    <circle cx="18" cy="9.2" r="3.1" fill="yellow" stroke-width="1.5"/>
+    <path d="M19.2 8 Q18.9 7.3 18 7.3 Q16.9 7.3 16.9 8.3 Q16.9 9.1 18 9.2 Q19.2 9.3 19.2 10.2 Q19.2 11.1 18 11.1 Q17.1 11.1 16.8 10.4 M18 6.6 L18 11.8" fill="none" stroke-width="1"/>
+  </g>
+</svg>

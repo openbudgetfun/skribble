@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4.4 18.4 L8.6 13.2 L27.4 13.2 L31.6 18.4 Z" fill="sky" stroke="ink" stroke-width="1.75"/>
+  <g id="ballot" stroke="ink">
+    <path d="M12.4 15.8 L12.4 3.8 Q12.4 2.8 13.4 2.8 L22.6 2.8 Q23.6 2.8 23.6 3.8 L23.6 15.8 Z" fill="white" stroke-width="1.75"/>
+    <path d="M14.8 9 L17.2 11.4 L21.4 6" fill="none" stroke="blue" stroke-width="2"/>
+  </g>
+  <path d="M10.8 15.8 L25.2 15.8" fill="none" stroke="ink" stroke-width="2.25"/>
+  <g id="box" stroke="ink">
+    <rect x="4.4" y="18.4" width="27.2" height="14.6" rx="1.4" ry="1.4" fill="blue" stroke="none"/>
+    <path d="M31.6 23 L31.6 31.6 Q31.6 33 30.2 33 L17.4 33 C24.8 31.4 29.6 27.8 31.6 23 Z" fill="blue-shade" stroke="none"/>
+    <rect x="4.4" y="18.4" width="27.2" height="14.6" rx="1.4" ry="1.4" fill="none"/>
+    <rect x="13" y="22.6" width="10" height="5.4" rx="1" ry="1" fill="white" stroke-width="1.25"/>
+  </g>
+</svg>

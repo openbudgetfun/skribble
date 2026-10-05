@@ -184,7 +184,7 @@ skribble/
     skribble_lints/           # Shared lint rules (analysis_options.yaml)
     skribble_icons/           # Curated hand-drawn icon set
     skribble_icons_custom/    # Custom hand-drawn icon font generation
-    skribble_emoji/           # Hand-drawn emoji from OpenMoji
+    skribble_emoji/           # skribble's own hand-drawn emoji
   apps/
     skribble_storybook/       # Showcase / demo app with every widget
       integration_test/       # Integration tests

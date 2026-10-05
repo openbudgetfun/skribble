@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+  <!-- The Union Jack as a flag canton (x 2–18, y 8–18), for the British
+       ensigns in batch 23. Exact polygons, no clipping, so nothing spills
+       past the canton. Drawn on a 60 × 30 grid. -->
+  <g transform="translate(2 8) scale(0.266667 0.333333)">
+    <rect x="0" y="0" width="60" height="30" fill="#012169"/>
+    <polygon points="0 0 0 3.354 53.292 30 60 30 60 26.646 6.708 0" fill="#ffffff"/>
+    <polygon points="0 30 6.708 30 60 3.354 60 0 53.292 0 0 26.646" fill="#ffffff"/>
+    <polygon points="0 0 30 15 29.106 16.789 0 2.236" fill="#c8102e"/>
+    <polygon points="60 0 30 15 29.106 13.211 55.528 0" fill="#c8102e"/>
+    <polygon points="60 30 30 15 30.894 13.211 60 27.764" fill="#c8102e"/>
+    <polygon points="0 30 30 15 30.894 16.789 4.472 30" fill="#c8102e"/>
+    <rect x="25" y="0" width="10" height="30" fill="#ffffff"/>
+    <rect x="0" y="10" width="60" height="10" fill="#ffffff"/>
+    <rect x="27" y="0" width="6" height="30" fill="#c8102e"/>
+    <rect x="0" y="12" width="60" height="6" fill="#c8102e"/>
+  </g>
+</svg>

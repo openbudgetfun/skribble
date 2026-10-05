@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- b09: a glass beer mug with a foam head, handle on the right. It has no
+       part ids so each drawing that includes it can name the whole mug. -->
+  <g stroke="ink">
+    <path d="M25.4 14 L29 14 Q33.4 14 33.4 18.4 L33.4 24.6 Q33.4 29 29 29 L25.4 29 L25.4 25.8 L28.6 25.8 Q30.2 25.8 30.2 24.2 L30.2 18.8 Q30.2 17.2 28.6 17.2 L25.4 17.2 Z" fill="sky"/>
+    <rect x="5.6" y="10.6" width="20.6" height="22.8" rx="2.4" ry="2.4" fill="yellow" stroke="none"/>
+    <path d="M26.2 13 L26.2 31 Q26.2 33.4 23.8 33.4 L22.8 33.4 L22.8 10.6 L23.8 10.6 Q26.2 10.6 26.2 13 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M5.6 29.4 L26.2 29.4 L26.2 31 Q26.2 33.4 23.8 33.4 L8 33.4 Q5.6 33.4 5.6 31 Z" fill="sky" stroke-width="1.5"/>
+    <rect x="5.6" y="10.6" width="20.6" height="22.8" rx="2.4" ry="2.4" fill="none"/>
+    <g fill="paper" stroke="none">
+      <circle cx="11.6" cy="22.4" r="0.8"/>
+      <circle cx="14" cy="25.6" r="0.7"/>
+      <circle cx="18.4" cy="21.4" r="0.7"/>
+    </g>
+    <path d="M8.6 17.6 L8.6 26" fill="none" stroke="paper" stroke-width="1.75"/>
+    <path d="M4.4 12.6 C2.8 10.4 4.4 7.4 7.4 7.8 C8 5 11.6 4 13.8 5.8 C15.4 3.4 19.6 3.4 20.8 6 C23.4 4.6 26.8 6.2 26.8 9 C29 9.6 28.8 12.6 27.2 13.4 L27.2 15.4 Q27.2 16.8 25.8 16.8 Q24.4 16.8 24.4 15.4 L24.4 14 L15.4 14 L15.4 17.6 Q15.2 19 13.8 19 Q12.4 19 12.4 17.6 L12.4 14 L6.6 14 Q4.4 13.8 4.4 12.6 Z" fill="white"/>
+  </g>
+</svg>

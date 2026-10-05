@@ -104,6 +104,12 @@ melos:
       description: Regenerate skribble's built-in hand-drawn glyphs from their SVG sources.
       run: dart run packages/skribble_emoji_gen/bin/generate_glyphs.dart
 
+    emoji:
+      description: >-
+        Regenerate skribble's emoji catalog from its hand-drawn SVG art and the
+        pinned Unicode emoji list.
+      run: dart run packages/skribble_emoji_gen/bin/generate_emoji.dart
+
     icons-iconify:
       description: >-
         Regenerate the Simple Icons, Lucide, Boxicons Solid, and CoreUI Brands

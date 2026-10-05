@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- An upright sword, tip at the top, for crossed swords. -->
+  <g id="sword" stroke="ink">
+    <path d="M18 2.4 L20.4 6 L20.4 23.4 L15.6 23.4 L15.6 6 Z" fill="silver" stroke="none"/>
+    <path d="M18 2.4 L20.4 6 L20.4 23.4 L18 23.4 Z" fill="grey" stroke="none"/>
+    <path d="M18 2.4 L20.4 6 L20.4 23.4 L15.6 23.4 L15.6 6 Z" fill="none"/>
+    <rect x="16.4" y="25.6" width="3.2" height="5.6" rx="0.6" ry="0.6" fill="brown" stroke-width="1.75"/>
+    <circle cx="18" cy="32.4" r="1.8" fill="yellow" stroke-width="1.75"/>
+    <rect x="11.6" y="23.2" width="12.8" height="2.8" rx="1.4" ry="1.4" fill="yellow" stroke-width="1.75"/>
+  </g>
+</svg>

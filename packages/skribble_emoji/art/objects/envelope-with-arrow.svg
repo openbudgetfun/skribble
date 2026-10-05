@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="envelope" transform="translate(18 23.6) scale(0.88) translate(-18 -18)"/>
+  <path data-part="arrow" d="M15.2 2.6 L20.8 2.6 L20.8 11 L25 11 L18 18.8 L11 11 L15.2 11 Z" fill="red" stroke="ink" stroke-width="1.75"/>
+</svg>

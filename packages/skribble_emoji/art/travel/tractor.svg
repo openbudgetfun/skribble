@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="exhaust" stroke="ink">
+    <path d="M8.4 15.6 L8.4 8.6" fill="none" stroke-width="2.25"/>
+    <path d="M7.2 8.4 L9.6 8.4" fill="none" stroke-width="1.75"/>
+  </g>
+  <g id="body" stroke="ink">
+    <path d="M18.4 18 L18.4 6.6 Q18.4 5 20 5 L30 5 Q31.6 5 31.6 6.6 L31.6 18 Z" fill="green"/>
+    <rect x="20.4" y="7.2" width="9.2" height="7.8" rx="1" ry="1" fill="sky" stroke-width="1.5"/>
+    <path d="M5.2 15.4 L19.6 15.4 Q20.8 15.4 20.8 16.6 L20.8 23.4 L3.4 23.4 L3.4 17.2 Q3.4 15.4 5.2 15.4 Z" fill="green"/>
+    <path d="M5.6 17.8 L5.6 21 M7.8 17.8 L7.8 21" fill="none" stroke-width="1.5"/>
+  </g>
+  <g id="wheels" stroke="ink">
+    <circle cx="8.4" cy="26" r="4" fill="black"/>
+    <circle cx="8.4" cy="26" r="1.8" fill="yellow" stroke-width="1.5"/>
+    <circle cx="25" cy="22.4" r="7.6" fill="black"/>
+    <circle cx="25" cy="22.4" r="3.8" fill="yellow" stroke-width="1.5"/>
+    <circle cx="25" cy="22.4" r="1.2" fill="ink" stroke="none"/>
+  </g>
+</svg>

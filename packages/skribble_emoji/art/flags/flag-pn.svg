@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="0" y="6" width="36" height="24" fill="#012169"/>
+  <g data-include="b23-union-jack"/>
+  <g id="arms">
+    <g id="crest">
+      <ellipse cx="25.2" cy="11.1" rx="1.6" ry="0.9" fill="#337321"/>
+      <ellipse cx="24" cy="11.9" rx="0.9" ry="0.55" fill="#337321"/>
+      <ellipse cx="26.4" cy="11.9" rx="0.9" ry="0.55" fill="#337321"/>
+      <polygon points="23.4 12.6 27 12.6 26.4 13.8 24 13.8" fill="#96877d"/>
+      <circle cx="27.1" cy="14" r="0.55" fill="#96877d"/>
+    </g>
+    <path d="M21.85 14.45 L28.55 14.45 L28.55 20.6 C28.55 22.7 26.9 23.9 25.2 24.6 C23.5 23.9 21.85 22.7 21.85 20.6 Z" fill="#ffffff"/>
+    <path d="M22.2 14.8 L28.2 14.8 L28.2 20.6 C28.2 22.4 26.7 23.5 25.2 24.15 C23.7 23.5 22.2 22.4 22.2 20.6 Z" fill="#4f9ad8"/>
+    <polygon points="22.2 14.8 28.2 14.8 25.2 24.15" fill="#ffd100"/>
+    <polygon points="22.95 14.8 27.45 14.8 25.2 22.3" fill="#337321"/>
+    <g fill="#ffd100">
+      <rect x="25" y="16.6" width="0.4" height="4.4"/>
+      <rect x="24.4" y="17.1" width="1.6" height="0.35"/>
+      <path d="M24 19.6 Q25.2 21.6 26.4 19.6 L26.4 20 Q25.2 22.2 24 20 Z"/>
+    </g>
+    <rect x="24.3" y="15.2" width="1.8" height="1.1" fill="#ffffff"/>
+  </g>
+</svg>

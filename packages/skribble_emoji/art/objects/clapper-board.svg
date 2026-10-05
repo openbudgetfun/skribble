@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="board" stroke="ink">
+    <rect x="3.6" y="16.4" width="28.8" height="17" rx="2" ry="2" fill="black"/>
+    <path d="M7.6 21.8 L28.4 21.8 M7.6 25.8 L17 25.8 M20.6 25.8 L28.4 25.8 M7.6 29.6 L14 29.6" fill="none" stroke="white" stroke-width="1.5"/>
+  </g>
+  <g id="stick" stroke="ink">
+    <rect x="3.6" y="12" width="28.8" height="4.6" rx="1" ry="1" fill="black"/>
+    <path d="M8.4 12 L11.8 12 L9.4 16.6 L6 16.6 Z M15.2 12 L18.6 12 L16.2 16.6 L12.8 16.6 Z M22 12 L25.4 12 L23 16.6 L19.6 16.6 Z M28.8 12 L32.2 12 L29.8 16.6 L26.4 16.6 Z" fill="white" stroke="none"/>
+    <rect x="3.6" y="12" width="28.8" height="4.6" rx="1" ry="1" fill="none"/>
+  </g>
+  <g id="clapper" transform="rotate(-10 4.4 12)" stroke="ink">
+    <rect x="3.6" y="7.2" width="28.8" height="4.6" rx="1" ry="1" fill="black"/>
+    <path d="M8.4 7.2 L11.8 7.2 L9.4 11.8 L6 11.8 Z M15.2 7.2 L18.6 7.2 L16.2 11.8 L12.8 11.8 Z M22 7.2 L25.4 7.2 L23 11.8 L19.6 11.8 Z M28.8 7.2 L32.2 7.2 L29.8 11.8 L26.4 11.8 Z" fill="white" stroke="none"/>
+    <rect x="3.6" y="7.2" width="28.8" height="4.6" rx="1" ry="1" fill="none"/>
+  </g>
+  <circle cx="5.4" cy="12" r="1.2" fill="silver" stroke="ink" stroke-width="1.25"/>
+</svg>

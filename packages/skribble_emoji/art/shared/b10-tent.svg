@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- An orange ridge tent seen from the front, base on y 31.2, apex at
+       (18, 4.6). tent and camping include it. -->
+  <g id="tent" stroke="ink">
+    <path d="M3 31.2 L16.6 6.8 Q18 4.6 19.4 6.8 L33 31.2 Z" fill="orange" stroke="none"/>
+    <path d="M19.4 6.8 L33 31.2 L25.6 31.2 C24 22.6 21.6 14 19.4 6.8 Z" fill="orange-shade" stroke="none"/>
+    <path d="M18 11.4 C17.2 18.4 15.8 25.2 13.4 31.2 L22.6 31.2 C20.2 25.2 18.8 18.4 18 11.4 Z" fill="black" stroke-width="1.5"/>
+    <path d="M3 31.2 L16.6 6.8 Q18 4.6 19.4 6.8 L33 31.2 Z" fill="none"/>
+  </g>
+</svg>

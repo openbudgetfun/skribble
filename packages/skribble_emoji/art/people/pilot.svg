@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.6" y="18.8" width="4.8" height="5.4" fill="skin"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="white"/>
+    <path d="M25.4 24.8 C28.2 26.4 30 29.6 30.2 34.6 L26.8 34.6 C27 30.4 26.6 27.2 25.4 24.8 Z" fill="silver" stroke="none"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="none"/>
+    <path d="M15.4 23.2 L18 25.6 L20.6 23.2" fill="none" stroke-width="1.5"/>
+    <path d="M17.2 24.6 L18.8 24.6 L19.4 30.4 L18 32 L16.6 30.4 Z" fill="black" stroke-width="1.25"/>
+    <path d="M7.2 28.4 L11.4 24.4 L13.4 26 L9.2 30 Z M28.8 28.4 L24.6 24.4 L22.6 26 L26.8 30 Z" fill="black" stroke-width="1.25"/>
+    <path d="M8.8 28.4 L11.8 25.6 M27.2 28.4 L24.2 25.6" fill="none" stroke="yellow" stroke-width="1"/>
+    <path d="M21.6 28.2 L23.8 27.6 L26 28.2 L23.8 29 Z" fill="yellow" stroke-width="1"/>
+  </g>
+  <g data-include="head"/>
+  <g id="cap" stroke="ink" stroke-width="1.75">
+    <path d="M8.8 5.6 Q18 1.6 27.2 5.6 L25.4 9.8 L10.6 9.8 Z" fill="white"/>
+    <path d="M10.6 9.6 L25.4 9.6 L25.4 11.2 Q18 12 10.6 11.2 Z" fill="black" stroke-width="1.5"/>
+    <path d="M11 11 Q18 14 25 11 Q24.4 12.8 18 13 Q11.6 12.8 11 11 Z" fill="black" stroke-width="1.5"/>
+    <path d="M14.6 6 L17.2 6.6 L18 5.6 L18.8 6.6 L21.4 6 L19.2 7.8 L16.8 7.8 Z" fill="yellow" stroke-width="1"/>
+  </g>
+</svg>

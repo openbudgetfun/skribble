@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="buttons" fill="grey" stroke="ink">
+    <rect x="16.4" y="4.4" width="3.2" height="3.4" rx="0.6" ry="0.6" stroke-width="1.5"/>
+    <rect x="14.2" y="2.2" width="7.6" height="2.8" rx="1.3" ry="1.3" stroke-width="1.75"/>
+    <rect x="26.6" y="6.4" width="3" height="3.6" rx="0.8" ry="0.8" stroke-width="1.5" transform="rotate(45 28.1 8.2)"/>
+  </g>
+  <g id="watch" stroke="ink">
+    <circle cx="18" cy="20" r="13" fill="grey" stroke="none"/>
+    <path d="M29.9 14.7 A13 13 0 0 1 18 33 C24.6 30.8 28.9 24 29.9 14.7 Z" fill="grey-shade" stroke="none"/>
+    <circle cx="18" cy="20" r="13" fill="none"/>
+    <g data-include="b11-clock-face" transform="translate(4.68 6.68) scale(0.74)"/>
+  </g>
+  <g id="hands" stroke="ink">
+    <path d="M18 20 L21.8 13.4" fill="none" stroke-width="1.75"/>
+    <circle cx="18" cy="20" r="1.1" fill="ink" stroke="none"/>
+  </g>
+</svg>

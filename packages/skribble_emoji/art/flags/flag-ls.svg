@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="0" y="6" width="36" height="24" fill="#ffffff"/>
+  <rect x="0" y="6" width="36" height="8" fill="#001489"/>
+  <rect x="0" y="22" width="36" height="8" fill="#009a44"/>
+  <g id="hat" fill="#000000">
+    <circle cx="18" cy="14.95" r="0.62"/>
+    <path d="M17.45 15.4 L18.55 15.4 C18.9 16.8 19.9 18 21.14 18.7 C21.3 19.2 20.9 19.53 20.4 19.53 L15.6 19.53 C15.1 19.53 14.7 19.2 14.86 18.7 C16.1 18 17.1 16.8 17.45 15.4 Z"/>
+  </g>
+</svg>

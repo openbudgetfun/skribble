@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="head">
+    <path d="M18 3 C26.6 3 32 8.8 32 15.6 C32 23.6 23.8 33 18 33 C12.2 33 4 23.6 4 15.6 C4 8.8 9.4 3 18 3 Z" fill="silver"/>
+    <path d="M32 15.6 C32 23.6 23.8 33 18 33 C23 29.4 29.4 22.4 29.6 14.6 C29.8 11.6 32 12 32 15.6 Z" fill="grey"/>
+    <path d="M18 3 C26.6 3 32 8.8 32 15.6 C32 23.6 23.8 33 18 33 C12.2 33 4 23.6 4 15.6 C4 8.8 9.4 3 18 3 Z" fill="none" stroke="ink"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <path d="M6.6 14.2 C8 12.4 11.8 12.6 14.8 15.4 C16.4 17 16.4 19.8 14.4 20.4 C11.6 21.2 8.2 18.8 6.6 14.2 Z"/>
+    <path d="M29.4 14.2 C28 12.4 24.2 12.6 21.2 15.4 C19.6 17 19.6 19.8 21.6 20.4 C24.4 21.2 27.8 18.8 29.4 14.2 Z"/>
+    <circle cx="10.4" cy="15.4" r="0.8" fill="paper"/>
+    <circle cx="23.8" cy="15.6" r="0.8" fill="paper"/>
+  </g>
+  <path data-part="mouth" d="M16 26.4 Q18 27.4 20 26.4" fill="none" stroke="ink" stroke-width="1.5"/>
+</svg>

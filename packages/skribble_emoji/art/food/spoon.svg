@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="bowl-clip"><ellipse cx="18" cy="9.8" rx="5.8" ry="7.6"/></clipPath>
+  </defs>
+  <g id="spoon" stroke="ink" transform="rotate(40 18 18)">
+    <path d="M16.8 16 L16.2 30.8 Q16.2 33.8 18 33.8 Q19.8 33.8 19.8 30.8 L19.2 16 Z" fill="silver" stroke-width="1.75"/>
+    <ellipse cx="18" cy="9.8" rx="5.8" ry="7.6" fill="silver" stroke="none"/>
+    <ellipse clip-path="url(#bowl-clip)" cx="19.6" cy="11.6" rx="4.6" ry="6.2" fill="grey" stroke="none"/>
+    <ellipse cx="18" cy="9.8" rx="5.8" ry="7.6" fill="none"/>
+    <path d="M14.8 9 Q15 5.6 17.4 4.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

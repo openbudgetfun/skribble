@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="stem" fill="none" stroke="ink">
+    <path d="M18 8.6 Q17.8 5.2 15.4 3"/>
+  </g>
+  <g id="leaf" stroke="ink" stroke-width="1.75">
+    <path d="M18.4 6.6 C20.2 2.6 26.4 1.6 31.6 3.4 C30.2 7.8 24.4 9.6 18.4 6.6 Z" fill="green"/>
+    <path d="M20.4 6.2 Q25.2 5.2 29 3.8" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="grapes" fill="purple" stroke="ink" stroke-width="1.75">
+    <circle cx="7.6" cy="11" r="3.9"/>
+    <circle cx="14.6" cy="10.4" r="3.9"/>
+    <circle cx="21.6" cy="10.4" r="3.9"/>
+    <circle cx="28.6" cy="11" r="3.9"/>
+    <circle cx="11" cy="16.8" r="3.9"/>
+    <circle cx="18.1" cy="16.6" r="3.9"/>
+    <circle cx="25.2" cy="16.8" r="3.9" fill="purple-shade"/>
+    <circle cx="14.4" cy="22.8" r="3.9"/>
+    <circle cx="21.6" cy="22.8" r="3.9" fill="purple-shade"/>
+    <circle cx="18" cy="28.8" r="3.9" fill="purple-shade"/>
+    <path d="M8.8 17 Q8.8 15.2 10.2 14.6 M12.2 23 Q12.2 21.2 13.6 20.6 M15.9 16.8 Q15.9 15 17.3 14.4" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

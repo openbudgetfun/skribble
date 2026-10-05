@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="tripod" fill="none" stroke="ink" stroke-width="2.2">
+    <path d="M18 18 L8.4 33.4 M18 18 L18 33.6 M18 18 L27.6 33.4"/>
+  </g>
+  <g id="tube" stroke="ink" transform="rotate(25 18 16)">
+    <path d="M6.6 10.6 L29 12.8 L29 19.2 L6.6 21.4 Z" fill="blue" stroke="none"/>
+    <path d="M6.6 18.6 L29 17.6 L29 19.2 L6.6 21.4 Z" fill="blue-shade" stroke="none"/>
+    <path d="M6.6 10.6 L29 12.8 L29 19.2 L6.6 21.4 Z" fill="none"/>
+    <path d="M16.6 11.6 L19.6 11.9 L19.6 20.1 L16.6 20.4 Z" fill="silver" stroke-width="1.5"/>
+    <rect x="28.4" y="13.6" width="4.4" height="4.8" rx="1" ry="1" fill="grey" stroke-width="1.75"/>
+    <rect x="4.4" y="9.4" width="4.6" height="13.2" rx="1.4" ry="1.4" fill="blue"/>
+    <ellipse cx="4.6" cy="16" rx="1.2" ry="5.2" fill="sky" stroke-width="1.5"/>
+  </g>
+  <circle cx="18" cy="18.4" r="2" fill="grey" stroke="ink" stroke-width="1.75"/>
+</svg>
