@@ -56,10 +56,10 @@
       height: clamp(104px, 30vw, 160px);
     }
 
-    #loading .mark path {
+    #loading .mark .ink path {
       fill: none;
       stroke: #34283f;
-      stroke-width: 3.6;
+      stroke-width: 5.2;
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-dasharray: 300;
@@ -69,11 +69,18 @@
 
     /* Draw the brackets, then the circle, then the face: the order a hand
        would follow. */
-    #loading .mark path:nth-child(2) { animation-delay: 0.06s; }
-    #loading .mark path:nth-child(3) { animation-delay: 0.12s; }
-    #loading .mark path:nth-child(4) { animation-delay: 0.5s; }
-    #loading .mark path:nth-child(5) { animation-delay: 0.56s; }
-    #loading .mark path:nth-child(6) { animation-delay: 0.62s; }
+    #loading .mark .ink path:nth-child(2) { animation-delay: 0.06s; }
+    #loading .mark .ink path:nth-child(3) { animation-delay: 0.12s; }
+    #loading .mark .ink path:nth-child(4) { animation-delay: 0.5s; }
+    #loading .mark .ink path:nth-child(5) { animation-delay: 0.56s; }
+    #loading .mark .ink path:nth-child(6) { animation-delay: 0.62s; }
+
+    /* The marker face and rosy cheeks wash in once the ink has found its
+       way, as WiredLogo paints them, and lift before the pen draws back. */
+    #loading .mark .wash {
+      opacity: 0;
+      animation: wash 2.6s ease-in-out infinite;
+    }
 
     #loading .status {
       position: relative;
@@ -104,14 +111,28 @@
       100% { stroke-dashoffset: 300; }
     }
 
+    @keyframes wash {
+      0%,
+      30% { opacity: 0; }
+      45%,
+      62% { opacity: 1; }
+      80%,
+      100% { opacity: 0; }
+    }
+
     @keyframes appear {
       to { opacity: 1; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      #loading .mark path {
+      #loading .mark .ink path {
         animation: none;
         stroke-dashoffset: 0;
+      }
+
+      #loading .mark .wash {
+        animation: none;
+        opacity: 1;
       }
 
       #loading .status-late {
@@ -123,7 +144,12 @@
 <body>
   <div id="loading" role="status" aria-live="polite">
     <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
-      <g stroke-linecap="round" stroke-linejoin="round">
+      <g class="wash">
+        <path d="M 50.000 25.000 C 66.000 24.000 77.000 35.000 76.000 51.000 C 77.000 67.000 65.000 77.000 50.000 77.000 C 34.000 78.000 23.000 66.000 24.000 51.000 C 23.000 36.000 34.000 25.000 50.000 25.000 Z" fill="#e5ddf4" transform="translate(1.4 1.2)"/>
+        <path d="M 37.100 55.000 C 37.100 56.215 35.488 57.200 33.500 57.200 C 31.512 57.200 29.900 56.215 29.900 55.000 C 29.900 53.785 31.512 52.800 33.500 52.800 C 35.488 52.800 37.100 53.785 37.100 55.000 Z" fill="#f59c9c"/>
+        <path d="M 70.100 55.000 C 70.100 56.215 68.488 57.200 66.500 57.200 C 64.512 57.200 62.900 56.215 62.900 55.000 C 62.900 53.785 64.512 52.800 66.500 52.800 C 68.488 52.800 70.100 53.785 70.100 55.000 Z" fill="#f59c9c"/>
+      </g>
+      <g class="ink" stroke-linecap="round" stroke-linejoin="round">
         <path d="M 21.000 16.000 C 17.000 16.000 12.000 17.000 10.000 17.000 C 9.000 34.000 9.000 65.000 10.000 83.000 C 13.000 84.000 17.000 84.000 21.000 84.000"/>
         <path d="M 79.000 16.000 C 83.000 16.000 88.000 17.000 90.000 17.000 C 91.000 34.000 91.000 65.000 90.000 83.000 C 87.000 84.000 83.000 84.000 79.000 84.000"/>
         <path d="M 50.000 25.000 C 66.000 24.000 77.000 35.000 76.000 51.000 C 77.000 67.000 65.000 77.000 50.000 77.000 C 34.000 78.000 23.000 66.000 24.000 51.000 C 23.000 36.000 34.000 25.000 50.000 25.000"/>

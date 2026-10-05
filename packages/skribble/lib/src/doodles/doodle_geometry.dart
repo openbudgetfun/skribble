@@ -854,3 +854,49 @@ List<DoodleStroke> logoGeometry() {
     s([38, 58, 44, 67, 56, 68, 63, 57]),
   ];
 }
+
+/// The face of [logoGeometry] as one closed contour, for its marker fill.
+DoodleStroke logoFaceGeometry() {
+  final face = logoGeometry()[2];
+  return DoodleStroke(face.start, face.curves, closed: true);
+}
+
+/// The logo's rosy cheeks: two closed ellipses beside the smile.
+List<DoodleStroke> logoCheekGeometry() => [
+  _ellipse(33.5, 55, 3.6, 2.2),
+  _ellipse(66.5, 55, 3.6, 2.2),
+];
+
+/// A closed ellipse as four cubic arcs.
+DoodleStroke _ellipse(double cx, double cy, double rx, double ry) {
+  // Handle length for a quarter circle drawn with one cubic.
+  const k = .5523;
+  final kx = rx * k;
+  final ky = ry * k;
+  return DoodleStroke(
+    (x: cx + rx, y: cy),
+    [
+      (
+        first: (x: cx + rx, y: cy + ky),
+        second: (x: cx + kx, y: cy + ry),
+        end: (x: cx, y: cy + ry),
+      ),
+      (
+        first: (x: cx - kx, y: cy + ry),
+        second: (x: cx - rx, y: cy + ky),
+        end: (x: cx - rx, y: cy),
+      ),
+      (
+        first: (x: cx - rx, y: cy - ky),
+        second: (x: cx - kx, y: cy - ry),
+        end: (x: cx, y: cy - ry),
+      ),
+      (
+        first: (x: cx + kx, y: cy - ry),
+        second: (x: cx + rx, y: cy - ky),
+        end: (x: cx + rx, y: cy),
+      ),
+    ],
+    closed: true,
+  );
+}

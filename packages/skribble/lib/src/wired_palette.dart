@@ -34,4 +34,7 @@ abstract final class WiredPalette {
 
   /// A bold warm coral accent (stamp ink), used for primary actions.
   static const coral = Color(0xFFE87960);
+
+  /// Rosy cheeks: the blush on the logo's face and on happy emoji.
+  static const blush = Color(0xFFF59C9C);
 }

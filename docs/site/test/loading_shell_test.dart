@@ -9,7 +9,10 @@ void main() {
   final shell = File('web/index.html').readAsStringSync();
 
   test('sketches the brand mark on paper', () {
-    expect(RegExp('<path d="M ').allMatches(shell).length, 6);
+    // Six inked outlines over a marker face and two cheeks.
+    expect(RegExp('<path d="M ').allMatches(shell).length, 9);
+    expect(shell, contains('<g class="ink"'));
+    expect(shell, contains('<g class="wash">'));
     expect(
       shell,
       contains('<title>skribble — make something delightful</title>'),
