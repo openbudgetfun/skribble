@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_example/models/sketch_settings.dart';
 
 /// The settings page for the Sketch Notes app.
 ///
 /// Demonstrates [WiredSwitchListTile], [WiredSlider], [WiredDivider],
-/// and [showWiredAboutDialog] in a cohesive settings layout.
+/// and [showWiredAboutDialog] in a cohesive settings layout. The switch and
+/// slider change the whole app through [SketchSettingsScope].
 class SettingsPage extends HookWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final darkMode = useState(false);
-    final roughness = useState(1.2);
+    final settings = SketchSettingsScope.of(context);
+    final current = useValueListenable(settings);
 
     return WiredScaffold(
       appBar: WiredAppBar(
@@ -40,10 +42,11 @@ class SettingsPage extends HookWidget {
             ),
           ),
           WiredSwitchListTile(
-            value: darkMode.value,
-            onChanged: (value) => darkMode.value = value,
+            value: current.night,
+            onChanged: (value) =>
+                settings.value = current.copyWith(night: value),
             title: const Text('Dark Mode'),
-            subtitle: const Text('Toggle dark theme'),
+            subtitle: const Text('Write on night parchment'),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -51,7 +54,7 @@ class SettingsPage extends HookWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Roughness: ${roughness.value.toStringAsFixed(1)}',
+                  'Roughness: ${current.roughness.toStringAsFixed(1)}',
                   style: TextStyle(
                     color: WiredTheme.of(context).textColor,
                     fontSize: 16,
@@ -67,11 +70,12 @@ class SettingsPage extends HookWidget {
                 ),
                 const SizedBox(height: 8),
                 WiredSlider(
-                  value: roughness.value,
+                  value: current.roughness,
                   min: 0.5,
                   max: 2.5,
+                  semanticLabel: 'Roughness',
                   onChanged: (value) {
-                    roughness.value = value;
+                    settings.value = current.copyWith(roughness: value);
                     return true;
                   },
                 ),
@@ -97,7 +101,9 @@ class SettingsPage extends HookWidget {
               size: 22,
             ),
             title: const Text('Theme'),
-            subtitle: const Text('Warm parchment'),
+            subtitle: Text(
+              current.night ? 'Night parchment' : 'Warm parchment',
+            ),
           ),
           WiredListTile(
             leading: const WiredIcon(
