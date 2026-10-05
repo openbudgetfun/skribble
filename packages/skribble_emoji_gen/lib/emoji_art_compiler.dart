@@ -204,7 +204,7 @@ final class EmojiArtCompiler {
               d: _transformData(shape.d, local.transform),
               fill: local.tokens[shape.fill] ?? shape.fill,
               stroke: local.tokens[shape.stroke] ?? shape.stroke,
-              width: shape.width * local.transform.scale,
+              width: _width(shape.width * local.transform.scale),
               part: shape.part ?? local.part,
               variant: as == null ? shape.variant ?? local.variant : null,
               clip: shape.clip == null
@@ -226,7 +226,7 @@ final class EmojiArtCompiler {
             d: _transformData(data, local.transform),
             fill: fill,
             stroke: stroke,
-            width: local.strokeWidth * local.transform.scale,
+            width: _width(local.strokeWidth * local.transform.scale),
             part: local.part,
             variant: local.variant,
             clip: local.clip,
@@ -375,6 +375,13 @@ final class EmojiArtCompiler {
     }
   }
 }
+
+/// [width] rounded to a thousandth of a unit.
+///
+/// A transform's scale comes from a square root of trigonometric products,
+/// which differ in the last bits between platforms' maths libraries. Rounding
+/// keeps compiled widths, and the generated catalog, identical everywhere.
+double _width(double width) => (width * 1000).roundToDouble() / 1000;
 
 /// Inherited paint and grouping state while walking art.
 final class _Context {

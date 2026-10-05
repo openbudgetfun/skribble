@@ -1118,7 +1118,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M6.05 28.03C3.28 19.13 7.1 14.35 11.7 10.49C16.3 6.64 21.66 3.7 29.95 7.97C32.72 16.87 28.9 21.65 24.3 25.51C19.7 29.36 14.34 32.3 6.05 28.03Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'ball',
     ),
     EmojiShape(
@@ -3101,26 +3100,22 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M3.37 19.79C4.21 15.06 6.83 13.22 11.57 14.05C16.3 14.89 18.92 13.05 19.76 8.32C20.25 5.53 21.71 3.78 23.41 3.08L27.43 8.81C25.72 9.51 24.26 11.27 23.77 14.05C22.94 18.79 20.32 20.62 15.58 19.79C10.85 18.95 8.22 20.79 7.39 25.52Z',
       fill: EmojiPaint.coral,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'strip',
     ),
     EmojiShape(
       'M6.59 21.94C7.44 17.92 9.68 16.59 13.63 17C18.25 17.67 20.87 15.84 21.82 11.27C22.38 8.92 23.35 7.52 24.33 6.83',
       stroke: EmojiPaint.cream,
-      width: 2,
       part: 'strip',
     ),
     EmojiShape(
       'M8.57 27.19C9.41 22.46 12.03 20.62 16.77 21.45C21.5 22.29 24.12 20.45 24.96 15.72C25.45 12.93 26.91 11.18 28.61 10.48L32.63 16.21C30.92 16.91 29.46 18.67 28.97 21.45C28.14 26.19 25.52 28.02 20.78 27.19C16.05 26.35 13.42 28.19 12.59 32.92Z',
       fill: EmojiPaint.coral,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'strip2',
     ),
     EmojiShape(
       'M11.79 29.34C12.64 25.32 14.88 23.99 18.83 24.4C23.45 25.07 26.07 23.24 27.02 18.67C27.58 16.32 28.55 14.92 29.53 14.23',
       stroke: EmojiPaint.cream,
-      width: 2,
       part: 'strip2',
     ),
   ]),
@@ -3235,7 +3230,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M17.41 8.81C20.13 12.71 19.92 17.55 16.93 19.64C13.95 21.74 9.32 20.28 6.59 16.39C3.87 12.49 4.08 7.65 7.07 5.56C10.05 3.46 14.68 4.92 17.41 8.81Z',
       fill: EmojiPaint.red,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'racket',
     ),
     EmojiShape(
@@ -3388,7 +3382,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M6 22.06L24.08 6.89C26.03 5.26 28.93 5.51 30.56 7.46L30.56 7.46C32.2 9.4 31.94 12.31 30 13.94L11.92 29.11C9.97 30.74 7.07 30.49 5.44 28.54L5.44 28.54C3.8 26.6 4.06 23.69 6 22.06Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'baguette',
     ),
     EmojiShape(
@@ -3776,7 +3769,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M7.7 12.14C7.84 9.61 9.56 8.52 12.88 8.87C16.19 9.22 17.65 10.64 17.25 13.15L15.14 29.42C14.7 32.32 13.09 33.62 10.3 33.33C7.52 33.04 6.21 31.43 6.39 28.5Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'shoe-left',
     ),
     EmojiShape(
@@ -3812,7 +3804,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M18.75 13.15C18.35 10.64 19.81 9.22 23.12 8.87C26.44 8.52 28.16 9.61 28.3 12.14L29.61 28.5C29.79 31.43 28.48 33.04 25.7 33.33C22.91 33.62 21.3 32.32 20.86 29.42Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'shoe-right',
     ),
     EmojiShape(
@@ -4905,7 +4896,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M33.96 25.05C34.4 26.42 32.63 28.22 30 29.07C27.38 29.93 24.89 29.51 24.44 28.15C24 26.78 25.77 24.98 28.4 24.13C31.02 23.27 33.51 23.69 33.96 25.05Z',
       fill: EmojiPaint.brownShade,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'tail',
     ),
     EmojiShape(
@@ -7144,7 +7134,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M8.97 22.18L23.68 9.84C21.85 6.41 25.55 3.05 27.89 5.52C29.33 6.92 28.62 8.57 28.26 9.39C29.13 9.18 30.87 8.76 32.01 10.42C34.04 13.16 30.08 16.22 27.03 13.82L12.32 26.16C14.15 29.59 10.45 32.95 8.11 30.48C6.67 29.08 7.38 27.43 7.74 26.61C6.87 26.82 5.13 27.24 3.99 25.58C1.96 22.84 5.92 19.78 8.97 22.18Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'bone',
     ),
   ]),
@@ -7370,7 +7359,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M20.57 8.25L23.19 10.09L20.67 13.69C19.41 15.49 21.62 18.26 19.9 20.72L12.44 31.37C11.91 32.13 11.26 32.25 10.49 31.71L4.59 27.58C3.83 27.05 3.72 26.4 4.25 25.63L11.71 14.99C13.43 12.53 16.79 13.66 18.05 11.86Z',
       fill: EmojiPaint.green,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'bottle',
     ),
     EmojiShape(
@@ -7382,7 +7370,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M20.57 8.25L23.19 10.09L20.67 13.69C19.41 15.49 21.62 18.26 19.9 20.72L12.44 31.37C11.91 32.13 11.26 32.25 10.49 31.71L4.59 27.58C3.83 27.05 3.72 26.4 4.25 25.63L11.71 14.99C13.43 12.53 16.79 13.66 18.05 11.86Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'bottle',
     ),
     EmojiShape(
@@ -8725,14 +8712,12 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M20.07 11.71L22.75 9.17C26.77 5.37 33.32 8.07 33.71 13.95C34.08 20.02 29.45 25.77 18 31.4L19.19 27.7L17.22 23.48L20.65 19.61L17.86 15.5Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'right',
     ),
     EmojiShape(
       'M18 31.4C6.55 25.77 1.92 20.02 2.29 13.95C2.68 8.07 9.23 5.37 13.25 9.17L15.93 11.71L14.56 15.87L18.14 19.32L15.59 23.81L18.4 27.54Z',
       fill: EmojiPaint.red,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'left',
     ),
     EmojiShape(
@@ -8763,7 +8748,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M14.49 16.21L21.24 21.87L15.98 31.56C15.72 31.86 15.44 31.89 15.13 31.63L5.94 23.92C5.63 23.66 5.61 23.38 5.87 23.07Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'bristles',
     ),
     EmojiShape(
@@ -9447,7 +9431,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M7.16 18.99L21.56 6.9L30.04 17.01L15.64 29.1C12.73 31.54 8.96 30.79 6.65 28.03C4.34 25.27 4.25 21.43 7.16 18.99Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'burrito',
     ),
     EmojiShape(
@@ -9459,14 +9442,12 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M9.27 22.44L9.33 22.51M18.12 13.7L18.19 13.78M23.03 17.68L23.09 17.75',
       stroke: EmojiPaint.tan,
-      width: 2,
       part: 'burrito',
     ),
     EmojiShape(
       'M29.32 9C31.67 11.79 31.99 15.38 30.04 17.01C28.1 18.65 24.62 17.71 22.28 14.91C19.93 12.12 19.61 8.53 21.56 6.9C23.5 5.27 26.98 6.21 29.32 9Z',
       fill: EmojiPaint.cream,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'filling',
     ),
     EmojiShape(
@@ -9924,7 +9905,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M5.29 6.9L5.29 6.9C6.34 6.01 7.92 6.15 8.81 7.21L13.82 13.18C14.71 14.24 14.57 15.82 13.51 16.7L13.51 16.7C12.46 17.59 10.88 17.45 9.99 16.39L4.98 10.42C4.09 9.36 4.23 7.78 5.29 6.9Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'thumb',
     ),
     EmojiShape(
@@ -11759,7 +11739,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M10.64 16.51L15.33 21.32L27.24 8.08C28.14 7.21 29.56 7.19 30.49 8.02C31.42 8.86 31.54 10.27 30.77 11.26L17.17 26.39C16.73 26.88 16.11 27.16 15.45 27.17C14.79 27.19 14.16 26.93 13.7 26.46L7.24 19.83C6.43 18.87 6.5 17.46 7.39 16.58C8.29 15.71 9.71 15.68 10.64 16.51Z',
       fill: EmojiPaint.ink,
       stroke: EmojiPaint.ink,
-      width: 3.48,
+      width: 3.49,
       part: 'tick',
     ),
     EmojiShape(
@@ -12379,7 +12359,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M8.47 4.25L22.25 1.82C23.56 1.59 24.8 2.46 25.03 3.76L28.37 22.67C28.6 23.98 27.73 25.22 26.42 25.45L12.63 27.88C11.33 28.11 10.08 27.24 9.85 25.94L6.52 7.03C6.29 5.72 7.16 4.48 8.47 4.25Z',
       fill: EmojiPaint.brown,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'chocolate',
     ),
     EmojiShape(
@@ -12390,7 +12369,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M8.47 4.25L22.25 1.82C23.56 1.59 24.8 2.46 25.03 3.76L28.37 22.67C28.6 23.98 27.73 25.22 26.42 25.45L12.63 27.88C11.33 28.11 10.08 27.24 9.85 25.94L6.52 7.03C6.29 5.72 7.16 4.48 8.47 4.25Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'chocolate',
     ),
     EmojiShape(
@@ -12416,7 +12394,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M9.87 20.25L26.41 17.33C27.28 17.18 28.11 17.76 28.26 18.63L30.28 30.05C30.43 30.92 29.85 31.75 28.98 31.9L12.44 34.82C11.57 34.98 10.74 34.39 10.58 33.52L8.57 22.1C8.42 21.23 9 20.4 9.87 20.25Z',
       fill: EmojiPaint.red,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'wrapper',
     ),
     EmojiShape(
@@ -12427,7 +12404,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M9.87 20.25L26.41 17.33C27.28 17.18 28.11 17.76 28.26 18.63L30.28 30.05C30.43 30.92 29.85 31.75 28.98 31.9L12.44 34.82C11.57 34.98 10.74 34.39 10.58 33.52L8.57 22.1C8.42 21.23 9 20.4 9.87 20.25Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'wrapper',
     ),
     EmojiShape(
@@ -13050,7 +13026,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M3.76 7.24L30.16 2.58C30.7 2.49 31.22 2.85 31.31 3.4L31.77 5.96C31.86 6.5 31.5 7.02 30.96 7.11L4.56 11.77C4.02 11.86 3.5 11.5 3.4 10.96L2.95 8.4C2.86 7.85 3.22 7.33 3.76 7.24Z',
       fill: EmojiPaint.black,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'clapper',
     ),
     EmojiShape(
@@ -13061,7 +13036,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M3.76 7.24L30.16 2.58C30.7 2.49 31.22 2.85 31.31 3.4L31.77 5.96C31.86 6.5 31.5 7.02 30.96 7.11L4.56 11.77C4.02 11.86 3.5 11.5 3.4 10.96L2.95 8.4C2.86 7.85 3.22 7.33 3.76 7.24Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'clapper',
     ),
     EmojiShape(
@@ -17338,7 +17312,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M17.05 11.98C18.08 10.75 19.28 10.46 20.66 11.09L21.68 11.43L23.83 13.23L24.34 14.18C25.2 15.43 25.12 16.67 24.09 17.89L13.42 30.61C12.4 31.83 11.27 31.93 10.04 30.9L6.67 28.08C5.45 27.05 5.35 25.92 6.38 24.7Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'bat',
     ),
     EmojiShape(
@@ -18071,7 +18044,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M7.31 18.63L22.64 7.41L29.52 17.24L13.73 27.81C11.11 29.64 7.65 28.89 5.93 26.43C4.21 23.97 4.69 20.47 7.31 18.63Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'cucumber',
     ),
     EmojiShape(
@@ -18899,7 +18871,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M11.27 9.12C10.37 4.72 12.65 2.85 15.56 2.44C18.47 2.03 21.18 3.2 21.53 7.68C22.06 10.43 22.9 12.43 23.99 14.12C22.32 15.34 20.36 15.48 19 14.82L15.67 15.29C14.54 16.3 12.62 16.71 10.68 15.99C11.26 14.07 11.52 11.91 11.27 9.12Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -18907,7 +18879,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M21.53 7.68C21.93 10.51 19.96 13.13 17.12 13.53C14.29 13.93 11.67 11.96 11.27 9.12C10.87 6.29 12.84 3.67 15.68 3.27C18.51 2.87 21.13 4.84 21.53 7.68Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'head',
     ),
     EmojiShape(
@@ -18940,7 +18912,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M11.35 8.69C10.59 5.26 12.71 3.26 15.62 2.85C18.53 2.45 21.12 3.78 21.33 7.28C19.93 6.35 18.43 5.71 16.6 5.83C14.92 6.91 13.19 7.72 11.35 8.69Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.person,
     ),
@@ -18948,7 +18920,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M11.3 8.83C10.5 5.13 12.55 3.14 15.6 2.72C18.65 2.29 21.17 3.63 21.42 7.41C20.99 6.34 20.39 5.58 19.36 5.3C17.22 6.16 14.29 6.44 11.97 6.05C11.51 6.82 11.35 7.7 11.3 8.83Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.man,
     ),
@@ -18956,7 +18928,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M11.23 8.84C10.55 4.98 12.53 3.01 15.58 2.58C18.63 2.15 21.08 3.5 21.49 7.4C20.13 5.76 18.17 4.9 15.93 5.07C14.56 6.4 13.04 7.6 11.23 8.84Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -22140,7 +22112,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M26.83 5.39C30.6 8.02 28.8 14.09 24.78 19.82C20.65 25.72 15.2 28.98 11.92 26.68C8.64 24.39 9.84 18.15 13.97 12.25C17.99 6.51 23.06 2.75 26.83 5.39Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'corn',
     ),
     EmojiShape(
@@ -43381,7 +43352,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M4.6 2.99L31.4 19.77L16.24 19.77L29.48 33.01L4.6 33.01Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'flag',
     ),
   ]),
@@ -48238,7 +48208,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M17.42 4.76L29.24 6.85C30.32 7.04 31.05 8.07 30.86 9.16L27.04 30.83C26.85 31.92 25.81 32.64 24.72 32.45L12.9 30.37C11.82 30.17 11.09 29.14 11.28 28.05L15.1 6.38C15.29 5.3 16.33 4.57 17.42 4.76Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'card-front',
     ),
   ]),
@@ -48303,7 +48272,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M4.56 25.63L27.84 6.08C29.03 5.09 30.79 5.25 31.79 6.43L31.79 6.43C32.78 7.61 32.63 9.38 31.44 10.37L8.16 29.92C6.97 30.91 5.21 30.75 4.21 29.57L4.21 29.57C3.22 28.39 3.37 26.62 4.56 25.63Z',
       fill: EmojiPaint.tan,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'flute',
     ),
     EmojiShape(
@@ -48314,7 +48282,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M4.56 25.63L27.84 6.08C29.03 5.09 30.79 5.25 31.79 6.43L31.79 6.43C32.78 7.61 32.63 9.38 31.44 10.37L8.16 29.92C6.97 30.91 5.21 30.75 4.21 29.57L4.21 29.57C3.22 28.39 3.37 26.62 4.56 25.63Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'flute',
     ),
     EmojiShape(
@@ -50680,7 +50647,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M11.93 17.6C11.6 12.35 14.56 10.55 18 10.55C21.44 10.55 24.4 12.35 24.07 17.6C24.23 20.88 24.89 23.34 25.87 25.47C23.74 26.62 21.44 26.46 19.97 25.47L16.03 25.47C14.56 26.46 12.26 26.62 10.13 25.47C11.11 23.34 11.77 20.88 11.93 17.6Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -50688,7 +50655,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M24.07 17.6C24.07 20.96 21.35 23.67 18 23.67C14.65 23.67 11.93 20.96 11.93 17.6C11.93 14.25 14.65 11.53 18 11.53C21.35 11.53 24.07 14.25 24.07 17.6Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -50721,7 +50688,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.1 17.11C11.77 13.01 14.56 11.04 18 11.04C21.44 11.04 24.23 13.01 23.9 17.11C22.43 15.8 20.79 14.81 18.66 14.65C16.52 15.63 14.39 16.29 12.1 17.11Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
       variant: EmojiVariant.person,
     ),
@@ -50729,7 +50696,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.01 17.27C11.69 12.85 14.39 10.88 18 10.88C21.61 10.88 24.31 12.85 23.99 17.27C23.66 15.96 23.08 14.98 21.94 14.49C19.31 15.14 15.87 14.98 13.24 14.16C12.59 14.98 12.26 15.96 12.01 17.27Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
       variant: EmojiVariant.man,
     ),
@@ -50737,7 +50704,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M11.93 17.27C11.77 12.68 14.39 10.71 18 10.71C21.61 10.71 24.23 12.68 24.07 17.27C22.76 15.14 20.62 13.83 18 13.67C16.2 14.98 14.23 16.13 11.93 17.27Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -51037,7 +51004,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M7 18.55C5.1 17.75 3.72 16.08 3.11 14.13C2.81 13.16 3.96 12.64 4.82 13.15C5.68 13.66 6.34 14.2 6.96 14.33C7.54 8.44 11.32 4.22 16.49 3.68C22.26 3.07 27.54 7.34 28.43 13.89L29 17.45C30.7 18.27 32.24 19.52 33 21.05C33.5 22 32.59 22.9 31.73 22.39C30.88 21.88 30.26 21.74 29.64 21.6L30.57 28.54C30.8 30.73 28.72 31.96 26.98 30.73C25.88 29.84 24.69 29.97 23.8 31.07C22.37 32.82 20.19 33.05 18.63 31.61C17.53 30.72 16.33 30.84 15.44 31.94C14.02 33.7 11.61 33.75 10.45 32.27C9.53 31.16 8.51 31.06 7.96 31.52C7.7 27.13 7.46 22.93 7 18.55Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'body',
     ),
     EmojiShape(
@@ -56577,7 +56543,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M30.4 5.6C32.02 7.88 33.35 9.4 33.35 11.49C33.35 13.2 32.02 14.53 30.4 14.53C28.79 14.53 27.46 13.2 27.46 11.49C27.46 9.4 28.79 7.88 30.4 5.6Z',
       fill: EmojiPaint.sky,
       stroke: EmojiPaint.ink,
-      width: 1.42,
+      width: 1.43,
       part: 'sweat',
     ),
   ]),
@@ -57401,7 +57367,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M25.86 4.15L29.1 5.2L20.75 30.88C20.09 32.91 18.75 33.6 16.72 32.94L4.74 29.04C3.34 28.59 2.85 27.73 3.26 26.46C3.68 25.19 4.58 24.79 5.97 25.24L17.77 29.07Z',
       fill: EmojiPaint.tan,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'stick',
     ),
     EmojiShape(
@@ -57759,7 +57724,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.42 8.2C12.14 3.72 14.66 2.18 17.6 2.18C20.54 2.18 23.06 3.72 22.78 8.2C22.92 11 23.48 13.1 24.32 14.92C22.5 15.9 20.54 15.76 19.28 14.92L15.92 14.92C14.66 15.76 12.7 15.9 10.88 14.92C11.72 13.1 12.28 11 12.42 8.2Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -57767,7 +57732,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M22.78 8.2C22.78 11.06 20.46 13.38 17.6 13.38C14.74 13.38 12.42 11.06 12.42 8.2C12.42 5.34 14.74 3.02 17.6 3.02C20.46 3.02 22.78 5.34 22.78 8.2Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'head',
     ),
     EmojiShape(
@@ -57800,7 +57765,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.56 7.78C12.28 4.28 14.66 2.6 17.6 2.6C20.54 2.6 22.92 4.28 22.64 7.78C21.38 6.66 19.98 5.82 18.16 5.68C16.34 6.52 14.52 7.08 12.56 7.78Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.person,
     ),
@@ -57808,7 +57773,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.49 7.92C12.21 4.14 14.52 2.46 17.6 2.46C20.68 2.46 22.99 4.14 22.71 7.92C22.43 6.8 21.94 5.96 20.96 5.54C18.72 6.1 15.78 5.96 13.54 5.26C12.98 5.96 12.7 6.8 12.49 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.man,
     ),
@@ -57816,7 +57781,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.42 7.92C12.28 4 14.52 2.32 17.6 2.32C20.68 2.32 22.92 4 22.78 7.92C21.66 6.1 19.84 4.98 17.6 4.84C16.06 5.96 14.38 6.94 12.42 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -57950,7 +57915,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.42 8.2C12.14 3.72 14.66 2.18 17.6 2.18C20.54 2.18 23.06 3.72 22.78 8.2C22.92 11 23.48 13.1 24.32 14.92C22.5 15.9 20.54 15.76 19.28 14.92L15.92 14.92C14.66 15.76 12.7 15.9 10.88 14.92C11.72 13.1 12.28 11 12.42 8.2Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -57958,7 +57923,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M22.78 8.2C22.78 11.06 20.46 13.38 17.6 13.38C14.74 13.38 12.42 11.06 12.42 8.2C12.42 5.34 14.74 3.02 17.6 3.02C20.46 3.02 22.78 5.34 22.78 8.2Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'head',
     ),
     EmojiShape(
@@ -57991,7 +57956,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.56 7.78C12.28 4.28 14.66 2.6 17.6 2.6C20.54 2.6 22.92 4.28 22.64 7.78C21.38 6.66 19.98 5.82 18.16 5.68C16.34 6.52 14.52 7.08 12.56 7.78Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.person,
     ),
@@ -57999,7 +57964,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.49 7.92C12.21 4.14 14.52 2.46 17.6 2.46C20.68 2.46 22.99 4.14 22.71 7.92C22.43 6.8 21.94 5.96 20.96 5.54C18.72 6.1 15.78 5.96 13.54 5.26C12.98 5.96 12.7 6.8 12.49 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.man,
     ),
@@ -58007,7 +57972,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.42 7.92C12.28 4 14.52 2.32 17.6 2.32C20.68 2.32 22.92 4 22.78 7.92C21.66 6.1 19.84 4.98 17.6 4.84C16.06 5.96 14.38 6.94 12.42 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -60697,7 +60662,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M10.15 18.76L12.1 19.03C12.63 19.11 13.01 19.61 12.94 20.14L12.59 22.58C12.52 23.12 12.02 23.49 11.48 23.42L9.53 23.14C9 23.07 8.62 22.57 8.7 22.03L9.04 19.6C9.11 19.06 9.61 18.68 10.15 18.76Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'body',
     ),
     EmojiShape(
@@ -60728,7 +60693,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M17.73 15.52C17.26 18.84 14.19 21.15 10.87 20.68C7.55 20.22 5.24 17.15 5.71 13.83C6.18 10.51 9.24 8.2 12.56 8.66C15.88 9.13 18.19 12.2 17.73 15.52Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -60763,14 +60728,14 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M5.94 13.36C6.19 9.26 9.22 7.7 12.63 8.18C16.04 8.66 18.53 10.99 17.63 15.01C16.35 13.5 14.87 12.3 12.78 11.84C10.53 12.52 8.33 12.87 5.94 13.36Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
       'M23.9 19.03L25.85 18.76C26.39 18.68 26.89 19.06 26.96 19.6L27.3 22.03C27.38 22.57 27 23.07 26.47 23.14L24.52 23.42C23.98 23.49 23.48 23.12 23.41 22.58L23.06 20.14C22.99 19.61 23.37 19.11 23.9 19.03Z',
       fill: EmojiPaint.skin2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'body',
     ),
     EmojiShape(
@@ -60801,7 +60766,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M30.29 13.83C30.76 17.15 28.45 20.22 25.13 20.68C21.81 21.15 18.74 18.84 18.27 15.52C17.81 12.2 20.12 9.13 23.44 8.66C26.76 8.2 29.82 10.51 30.29 13.83Z',
       fill: EmojiPaint.skin2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -60836,7 +60801,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M18.37 15.01C17.47 10.99 19.96 8.66 23.37 8.18C26.78 7.7 29.81 9.26 30.06 13.36C28.42 12.27 26.66 11.52 24.52 11.66C22.55 12.93 20.53 13.88 18.37 15.01Z',
       fill: EmojiPaint.hair2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
@@ -60867,7 +60832,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M10.15 18.76L12.1 19.03C12.63 19.11 13.01 19.61 12.94 20.14L12.59 22.58C12.52 23.12 12.02 23.49 11.48 23.42L9.53 23.14C9 23.07 8.62 22.57 8.7 22.03L9.04 19.6C9.11 19.06 9.61 18.68 10.15 18.76Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'body',
     ),
     EmojiShape(
@@ -60898,7 +60863,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M17.73 15.52C17.26 18.84 14.19 21.15 10.87 20.68C7.55 20.22 5.24 17.15 5.71 13.83C6.18 10.51 9.24 8.2 12.56 8.66C15.88 9.13 18.19 12.2 17.73 15.52Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -60933,14 +60898,14 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M5.84 13.52C6.13 9.09 9.08 7.51 12.65 8.01C16.23 8.52 18.63 10.84 17.69 15.18C17.55 13.84 17.12 12.78 16.05 12.14C13.36 12.42 9.97 11.78 7.49 10.6C6.72 11.32 6.26 12.25 5.84 13.52Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
       'M23.9 19.03L25.85 18.76C26.39 18.68 26.89 19.06 26.96 19.6L27.3 22.03C27.38 22.57 27 23.07 26.47 23.14L24.52 23.42C23.98 23.49 23.48 23.12 23.41 22.58L23.06 20.14C22.99 19.61 23.37 19.11 23.9 19.03Z',
       fill: EmojiPaint.skin2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'body',
     ),
     EmojiShape(
@@ -60971,7 +60936,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M30.29 13.83C30.76 17.15 28.45 20.22 25.13 20.68C21.81 21.15 18.74 18.84 18.27 15.52C17.81 12.2 20.12 9.13 23.44 8.66C26.76 8.2 29.82 10.51 30.29 13.83Z',
       fill: EmojiPaint.skin2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -61006,7 +60971,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M18.31 15.18C17.37 10.84 19.77 8.52 23.35 8.01C26.92 7.51 29.87 9.09 30.16 13.52C29.66 12.26 28.95 11.37 27.75 11.04C25.24 12.05 21.81 12.37 19.09 11.92C18.56 12.83 18.37 13.85 18.31 15.18Z',
       fill: EmojiPaint.hair2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
@@ -61037,7 +61002,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M3.71 20.91C6.06 14.61 10.01 11.68 13.37 12.3C14.81 12.45 15.94 13.07 17.1 13.88C17.91 12.72 18.75 11.76 20.06 11.12C23.01 9.38 27.72 10.79 32.08 15.91C26.83 17.24 22.26 17.84 18 19C13.6 19.37 9.1 20.37 3.71 20.91Z',
       fill: EmojiPaint.red,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'lips',
     ),
     EmojiShape(
@@ -61053,7 +61017,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M3.71 20.91C9.1 20.37 13.6 19.37 18 19C22.26 17.84 26.83 17.24 32.08 15.91C30.2 22.54 25.8 26.36 19.49 27.47C13.19 28.58 7.75 26.49 3.71 20.91Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'lips',
     ),
     EmojiShape(
@@ -61068,7 +61031,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M10.15 18.76L12.1 19.03C12.63 19.11 13.01 19.61 12.94 20.14L12.59 22.58C12.52 23.12 12.02 23.49 11.48 23.42L9.53 23.14C9 23.07 8.62 22.57 8.7 22.03L9.04 19.6C9.11 19.06 9.61 18.68 10.15 18.76Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'body',
     ),
     EmojiShape(
@@ -61099,7 +61062,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M17.73 15.52C17.26 18.84 14.19 21.15 10.87 20.68C7.55 20.22 5.24 17.15 5.71 13.83C6.18 10.51 9.24 8.2 12.56 8.66C15.88 9.13 18.19 12.2 17.73 15.52Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -61134,14 +61097,14 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M5.94 13.36C6.19 9.26 9.22 7.7 12.63 8.18C16.04 8.66 18.53 10.99 17.63 15.01C16.35 13.5 14.87 12.3 12.78 11.84C10.53 12.52 8.33 12.87 5.94 13.36Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
       'M23.9 19.03L25.85 18.76C26.39 18.68 26.89 19.06 26.96 19.6L27.3 22.03C27.38 22.57 27 23.07 26.47 23.14L24.52 23.42C23.98 23.49 23.48 23.12 23.41 22.58L23.06 20.14C22.99 19.61 23.37 19.11 23.9 19.03Z',
       fill: EmojiPaint.skin2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'body',
     ),
     EmojiShape(
@@ -61172,7 +61135,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M30.29 13.83C30.76 17.15 28.45 20.22 25.13 20.68C21.81 21.15 18.74 18.84 18.27 15.52C17.81 12.2 20.12 9.13 23.44 8.66C26.76 8.2 29.82 10.51 30.29 13.83Z',
       fill: EmojiPaint.skin2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -61207,7 +61170,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M18.37 15.01C17.47 10.99 19.96 8.66 23.37 8.18C26.78 7.7 29.81 9.26 30.06 13.36C28.42 12.27 26.66 11.52 24.52 11.66C22.55 12.93 20.53 13.88 18.37 15.01Z',
       fill: EmojiPaint.hair2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
@@ -61238,7 +61201,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M10.15 18.76L12.1 19.03C12.63 19.11 13.01 19.61 12.94 20.14L12.59 22.58C12.52 23.12 12.02 23.49 11.48 23.42L9.53 23.14C9 23.07 8.62 22.57 8.7 22.03L9.04 19.6C9.11 19.06 9.61 18.68 10.15 18.76Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'body',
     ),
     EmojiShape(
@@ -61269,14 +61232,14 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M5.71 13.83C6.11 8.59 9.29 7.21 12.7 7.69C16.11 8.17 18.78 10.37 17.73 15.52C17.43 18.79 17.74 21.32 18.42 23.56C16.15 24.4 13.9 23.92 12.57 22.74L8.67 22.2C7.07 22.96 4.78 22.81 2.83 21.37C4.1 19.4 5.09 17.05 5.71 13.83Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
       'M17.73 15.52C17.26 18.84 14.19 21.15 10.87 20.68C7.55 20.22 5.24 17.15 5.71 13.83C6.18 10.51 9.24 8.2 12.56 8.66C15.88 9.13 18.19 12.2 17.73 15.52Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -61311,14 +61274,14 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M5.75 13.5C6.23 8.93 9.1 7.35 12.68 7.85C16.25 8.35 18.57 10.67 17.77 15.19C16.77 12.9 14.84 11.3 12.27 10.78C10.3 11.82 8.19 12.69 5.75 13.5Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
       'M23.9 19.03L25.85 18.76C26.39 18.68 26.89 19.06 26.96 19.6L27.3 22.03C27.38 22.57 27 23.07 26.47 23.14L24.52 23.42C23.98 23.49 23.48 23.12 23.41 22.58L23.06 20.14C22.99 19.61 23.37 19.11 23.9 19.03Z',
       fill: EmojiPaint.skin2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'body',
     ),
     EmojiShape(
@@ -61349,7 +61312,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M30.29 13.83C30.76 17.15 28.45 20.22 25.13 20.68C21.81 21.15 18.74 18.84 18.27 15.52C17.81 12.2 20.12 9.13 23.44 8.66C26.76 8.2 29.82 10.51 30.29 13.83Z',
       fill: EmojiPaint.skin2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -61384,7 +61347,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M18.31 15.18C17.37 10.84 19.77 8.52 23.35 8.01C26.92 7.51 29.87 9.09 30.16 13.52C29.66 12.26 28.95 11.37 27.75 11.04C25.24 12.05 21.81 12.37 19.09 11.92C18.56 12.83 18.37 13.85 18.31 15.18Z',
       fill: EmojiPaint.hair2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
@@ -61415,7 +61378,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M10.15 18.76L12.1 19.03C12.63 19.11 13.01 19.61 12.94 20.14L12.59 22.58C12.52 23.12 12.02 23.49 11.48 23.42L9.53 23.14C9 23.07 8.62 22.57 8.7 22.03L9.04 19.6C9.11 19.06 9.61 18.68 10.15 18.76Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'body',
     ),
     EmojiShape(
@@ -61446,14 +61409,14 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M5.71 13.83C6.11 8.59 9.29 7.21 12.7 7.69C16.11 8.17 18.78 10.37 17.73 15.52C17.43 18.79 17.74 21.32 18.42 23.56C16.15 24.4 13.9 23.92 12.57 22.74L8.67 22.2C7.07 22.96 4.78 22.81 2.83 21.37C4.1 19.4 5.09 17.05 5.71 13.83Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
       'M17.73 15.52C17.26 18.84 14.19 21.15 10.87 20.68C7.55 20.22 5.24 17.15 5.71 13.83C6.18 10.51 9.24 8.2 12.56 8.66C15.88 9.13 18.19 12.2 17.73 15.52Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -61488,14 +61451,14 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M5.75 13.5C6.23 8.93 9.1 7.35 12.68 7.85C16.25 8.35 18.57 10.67 17.77 15.19C16.77 12.9 14.84 11.3 12.27 10.78C10.3 11.82 8.19 12.69 5.75 13.5Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
       'M23.9 19.03L25.85 18.76C26.39 18.68 26.89 19.06 26.96 19.6L27.3 22.03C27.38 22.57 27 23.07 26.47 23.14L24.52 23.42C23.98 23.49 23.48 23.12 23.41 22.58L23.06 20.14C22.99 19.61 23.37 19.11 23.9 19.03Z',
       fill: EmojiPaint.skin2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'body',
     ),
     EmojiShape(
@@ -61526,14 +61489,14 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M18.27 15.52C17.22 10.37 19.89 8.17 23.3 7.69C26.71 7.21 29.89 8.59 30.29 13.83C30.91 17.05 31.9 19.4 33.17 21.37C31.22 22.81 28.93 22.96 27.33 22.2L23.43 22.74C22.1 23.92 19.85 24.4 17.58 23.56C18.26 21.32 18.57 18.79 18.27 15.52Z',
       fill: EmojiPaint.hair2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
       'M30.29 13.83C30.76 17.15 28.45 20.22 25.13 20.68C21.81 21.15 18.74 18.84 18.27 15.52C17.81 12.2 20.12 9.13 23.44 8.66C26.76 8.2 29.82 10.51 30.29 13.83Z',
       fill: EmojiPaint.skin2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'head',
     ),
     EmojiShape(
@@ -61568,7 +61531,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M18.23 15.19C17.43 10.67 19.75 8.35 23.32 7.85C26.9 7.35 29.77 8.93 30.25 13.5C28.65 11.58 26.36 10.57 23.73 10.78C22.13 12.33 20.34 13.74 18.23 15.19Z',
       fill: EmojiPaint.hair2,
       stroke: EmojiPaint.ink,
-      width: 1.43,
+      width: 1.44,
       part: 'hair',
     ),
     EmojiShape(
@@ -61989,7 +61952,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M11.82 8.2C11.54 3.72 14.06 2.18 17 2.18C19.94 2.18 22.46 3.72 22.18 8.2C22.32 11 22.88 13.1 23.72 14.92C21.9 15.9 19.94 15.76 18.68 14.92L15.32 14.92C14.06 15.76 12.1 15.9 10.28 14.92C11.12 13.1 11.68 11 11.82 8.2Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -61997,7 +61960,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M22.18 8.2C22.18 11.06 19.86 13.38 17 13.38C14.14 13.38 11.82 11.06 11.82 8.2C11.82 5.34 14.14 3.02 17 3.02C19.86 3.02 22.18 5.34 22.18 8.2Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'head',
     ),
     EmojiShape(
@@ -62030,7 +61993,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M11.96 7.78C11.68 4.28 14.06 2.6 17 2.6C19.94 2.6 22.32 4.28 22.04 7.78C20.78 6.66 19.38 5.82 17.56 5.68C15.74 6.52 13.92 7.08 11.96 7.78Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.person,
     ),
@@ -62038,7 +62001,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M11.89 7.92C11.61 4.14 13.92 2.46 17 2.46C20.08 2.46 22.39 4.14 22.11 7.92C21.83 6.8 21.34 5.96 20.36 5.54C18.12 6.1 15.18 5.96 12.94 5.26C12.38 5.96 12.1 6.8 11.89 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.man,
     ),
@@ -62046,7 +62009,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M11.82 7.92C11.68 4 13.92 2.32 17 2.32C20.08 2.32 22.32 4 22.18 7.92C21.06 6.1 19.24 4.98 17 4.84C15.46 5.96 13.78 6.94 11.82 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -62254,7 +62217,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M6.04 7.64L15.85 6.22C16.61 6.15 17.29 6.38 17.9 6.89L30 17.05C30.82 17.73 30.89 18.48 30.2 19.3L21.72 29.41C21.03 30.23 20.28 30.29 19.46 29.61L7.36 19.45C6.75 18.94 6.41 18.31 6.34 17.55Z',
       fill: EmojiPaint.yellow,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'tag',
     ),
     EmojiShape(
@@ -62265,7 +62227,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M6.04 7.64L15.85 6.22C16.61 6.15 17.29 6.38 17.9 6.89L30 17.05C30.82 17.73 30.89 18.48 30.2 19.3L21.72 29.41C21.03 30.23 20.28 30.29 19.46 29.61L7.36 19.45C6.75 18.94 6.41 18.31 6.34 17.55Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'tag',
     ),
     EmojiShape(
@@ -62301,7 +62262,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M26.73 5.91C31.97 9.58 31.81 14.35 28.79 17.61C25.89 20.7 21.4 20.49 17.86 22.41L14.26 19.88C14.85 15.9 13.11 11.76 15.03 7.97C17.06 4.02 21.49 2.24 26.73 5.91Z',
       fill: EmojiPaint.teal,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'stick',
     ),
     EmojiShape(
@@ -65204,7 +65164,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M5.06 9.71L28.93 7.2C30.25 7.06 31.43 8.02 31.57 9.33L33.16 24.45C33.3 25.77 32.34 26.95 31.02 27.09L7.15 29.6C5.83 29.74 4.65 28.78 4.52 27.46L2.93 12.34C2.79 11.03 3.74 9.85 5.06 9.71Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'envelope',
     ),
     EmojiShape(
@@ -66036,7 +65995,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M7.31 7.72C11.55 2.66 18.48 4.05 23.72 8.7C30.18 14.38 33.68 22.02 29.08 27.82C25.12 32.85 17.95 32.06 12.28 27.3C6.16 22.16 1.91 14.16 7.31 7.72Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'mango',
     ),
     EmojiShape(
@@ -68771,7 +68729,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M8.76 15.94L25.86 14.14C26.96 14.02 27.95 14.82 28.06 15.92L29.02 25.07C29.14 26.17 28.34 27.15 27.24 27.26L10.14 29.06C9.04 29.18 8.05 28.38 7.94 27.28L6.98 18.13C6.86 17.03 7.66 16.05 8.76 15.94Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'bill',
     ),
     EmojiShape(
@@ -71123,25 +71080,25 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M32.13 10.82L32.13 10.82C31.66 10.67 31.18 10.87 31.05 11.25L30.82 11.96C30.7 12.34 30.98 12.78 31.44 12.93L31.44 12.93C31.9 13.09 32.39 12.89 32.51 12.51L32.74 11.8C32.87 11.41 32.59 10.97 32.13 10.82Z',
       stroke: EmojiPaint.ink,
-      width: 0.92,
+      width: 0.93,
       part: 'nails',
     ),
     EmojiShape(
       'M30.39 6.83L30.39 6.83C29.92 6.68 29.44 6.88 29.31 7.26L29.09 7.97C28.96 8.35 29.24 8.8 29.7 8.95L29.7 8.95C30.17 9.1 30.65 8.9 30.78 8.52L31 7.81C31.13 7.43 30.85 6.99 30.39 6.83Z',
       stroke: EmojiPaint.ink,
-      width: 0.92,
+      width: 0.93,
       part: 'nails',
     ),
     EmojiShape(
       'M27.85 5.08L27.85 5.08C27.38 4.92 26.9 5.12 26.77 5.5L26.55 6.21C26.42 6.6 26.7 7.04 27.16 7.19L27.16 7.19C27.63 7.34 28.11 7.14 28.23 6.76L28.46 6.05C28.59 5.67 28.31 5.23 27.85 5.08Z',
       stroke: EmojiPaint.ink,
-      width: 0.92,
+      width: 0.93,
       part: 'nails',
     ),
     EmojiShape(
       'M24.76 5.01L24.76 5.01C24.29 4.85 23.81 5.05 23.68 5.43L23.46 6.14C23.33 6.53 23.61 6.97 24.07 7.12L24.07 7.12C24.54 7.27 25.02 7.07 25.14 6.69L25.37 5.98C25.5 5.6 25.22 5.16 24.76 5.01Z',
       stroke: EmojiPaint.ink,
-      width: 0.92,
+      width: 0.93,
       part: 'nails',
     ),
     EmojiShape(
@@ -73649,7 +73606,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M18.11 21.55C19.44 25.64 17.96 29.79 14.81 30.82C11.66 31.84 8.02 29.35 6.69 25.25C5.36 21.16 6.84 17.01 9.99 15.98C13.14 14.96 16.78 17.45 18.11 21.55Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'olives',
     ),
     EmojiShape(
@@ -73932,7 +73888,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M13.21 29.98C11.13 28.13 9.64 25.47 8.71 21.98L6.98 16.66C5.99 13.61 10.56 12.13 11.55 15.17L11.73 15.74L11.05 13.65C10.07 10.61 14.82 9.06 15.81 12.11L16.18 13.25L15.44 10.96C14.45 7.92 19.2 6.38 20.19 9.42L21 11.89L20.56 10.56C19.58 7.52 24.33 5.97 25.32 9.02L28.11 16.31C30.4 22.72 28.21 28.26 22.12 30.24C18.7 31.35 15.54 31.33 13.21 29.98Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'fist',
     ),
     EmojiShape(
@@ -76777,7 +76732,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M27.51 6.66C30.88 9.49 31.13 13.87 28.43 17.09C26.5 19.39 23.94 19.33 22.24 21.04C20.93 22.29 22.35 25.57 19.78 28.63C16.7 32.31 11.6 32.47 8.23 29.64C4.86 26.82 4.13 21.77 7.22 18.09C9.79 15.03 13.27 15.86 14.27 14.35C15.66 12.38 15.16 9.87 17.09 7.57C19.79 4.36 24.14 3.83 27.51 6.66Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'peanut',
     ),
     EmojiShape(
@@ -78195,7 +78149,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M6.94 25.98C4.65 22.94 5.92 19.78 8.32 18.29C8.62 16.99 9.36 16.2 10.52 15.93C11.01 14.64 11.88 13.82 13.14 13.46C13.64 12.18 14.55 11.4 15.9 11.14C16.48 9.96 17.48 9.3 18.92 9.14C19.48 8.14 20.37 7.66 21.6 7.67C24.16 6.05 27.08 6.73 28.57 9.13C30.86 12.17 30.67 15.99 28.06 18.17C27.68 19.37 26.9 20.1 25.74 20.38C25.25 21.66 24.33 22.43 22.98 22.69C22.41 23.87 21.45 24.6 20.1 24.86C19.44 25.93 18.48 26.56 17.24 26.73C16.49 27.71 15.5 28.19 14.27 28.18C11.48 29.21 8.87 28.27 6.94 25.98Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'pickle',
     ),
     EmojiShape(
@@ -82056,14 +82009,12 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M15.95 8.57C16.6 12.27 15.54 15.55 13.58 15.9C11.62 16.24 9.51 13.52 8.85 9.83C8.2 6.13 9.26 2.85 11.22 2.5C13.18 2.16 15.29 4.88 15.95 8.57Z',
       fill: EmojiPaint.white,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'ears',
     ),
     EmojiShape(
       'M27.15 9.83C26.49 13.52 24.38 16.24 22.42 15.9C20.46 15.55 19.4 12.27 20.05 8.57C20.71 4.88 22.82 2.16 24.78 2.5C26.74 2.85 27.8 6.13 27.15 9.83Z',
       fill: EmojiPaint.white,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'ears',
     ),
     EmojiShape(
@@ -84825,7 +84776,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M23.23 6.28C15.87 9.73 8.61 15.05 6.22 19.66C4.2 23.75 7.88 29 12.41 28.5C17.56 27.83 25.05 22.83 30.8 17.1',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'potato',
     ),
     EmojiShape(
@@ -84838,7 +84788,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M29.47 9.97C31.56 12.96 32.15 16.15 30.8 17.1C29.44 18.05 26.64 16.4 24.55 13.41C22.46 10.43 21.87 7.23 23.23 6.28C24.58 5.33 27.38 6.98 29.47 9.97Z',
       fill: EmojiPaint.yellow,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'potato',
     ),
     EmojiShape(
@@ -85714,7 +85663,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M6.2 27.9C2.78 21.64 5.75 15.22 11.57 10.34C17.39 5.45 24.23 3.64 29.8 8.1C33.22 14.36 30.25 20.78 24.43 25.66C18.61 30.55 11.77 32.36 6.2 27.9Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'ball',
     ),
     EmojiShape(
@@ -85808,7 +85756,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M10.22 8.6C9.94 4.12 12.46 2.58 15.4 2.58C18.34 2.58 20.86 4.12 20.58 8.6C20.72 11.4 21.28 13.5 22.12 15.32C20.3 16.3 18.34 16.16 17.08 15.32L13.72 15.32C12.46 16.16 10.5 16.3 8.68 15.32C9.52 13.5 10.08 11.4 10.22 8.6Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -85816,7 +85764,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M20.58 8.6C20.58 11.46 18.26 13.78 15.4 13.78C12.54 13.78 10.22 11.46 10.22 8.6C10.22 5.74 12.54 3.42 15.4 3.42C18.26 3.42 20.58 5.74 20.58 8.6Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'head',
     ),
     EmojiShape(
@@ -85849,7 +85797,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M10.36 8.18C10.08 4.68 12.46 3 15.4 3C18.34 3 20.72 4.68 20.44 8.18C19.18 7.06 17.78 6.22 15.96 6.08C14.14 6.92 12.32 7.48 10.36 8.18Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.person,
     ),
@@ -85857,7 +85805,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M10.29 8.32C10.01 4.54 12.32 2.86 15.4 2.86C18.48 2.86 20.79 4.54 20.51 8.32C20.23 7.2 19.74 6.36 18.76 5.94C16.52 6.5 13.58 6.36 11.34 5.66C10.78 6.36 10.5 7.2 10.29 8.32Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.man,
     ),
@@ -85865,7 +85813,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M10.22 8.32C10.08 4.4 12.32 2.72 15.4 2.72C18.48 2.72 20.72 4.4 20.58 8.32C19.46 6.5 17.64 5.38 15.4 5.24C13.86 6.36 12.18 7.34 10.22 8.32Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -86725,14 +86673,12 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M5.63 23C11.15 29.72 17.18 30.78 23.74 26.19C30.29 21.6 31.35 15.57 26.93 8.09',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'dish',
     ),
     EmojiShape(
       'M26.93 8.09C28.32 10.08 24.68 15.03 18.8 19.15C12.92 23.26 7.02 24.99 5.63 23C4.24 21.01 7.87 16.06 13.76 11.94C19.64 7.82 25.53 6.1 26.93 8.09Z',
       fill: EmojiPaint.white,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'dish',
     ),
     EmojiShape(
@@ -88872,7 +88818,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M8.63 18.77L20.43 27.03C18.08 31.08 13.71 33.14 7.31 33.22C5.19 27.18 5.63 22.36 8.63 18.77Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'shovel',
     ),
     EmojiShape(
@@ -89524,14 +89469,14 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M9.42 21.84L12.89 20.85L12.6 23.3L10.96 23.77Z',
       fill: EmojiPaint.silver,
       stroke: EmojiPaint.ink,
-      width: 1.42,
+      width: 1.43,
       part: 'trucks',
     ),
     EmojiShape(
       'M23.85 17.71L27.32 16.71L27.03 19.17L25.39 19.64Z',
       fill: EmojiPaint.silver,
       stroke: EmojiPaint.ink,
-      width: 1.42,
+      width: 1.43,
       part: 'trucks',
     ),
     EmojiShape(
@@ -89553,7 +89498,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M13.07 19.41L15.63 18.68M17.82 18.05L22.93 16.59',
       stroke: EmojiPaint.lilac,
-      width: 1.42,
+      width: 1.43,
       part: 'deck',
     ),
     EmojiShape(
@@ -91380,7 +91325,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M6 27.52L29.64 23.35C30.83 23.14 31.97 23.94 32.18 25.13L32.18 25.13C32.4 26.33 31.6 27.47 30.4 27.68L6.76 31.85C5.57 32.06 4.43 31.26 4.22 30.07L4.22 30.07C4 28.87 4.8 27.73 6 27.52Z',
       fill: EmojiPaint.purple,
       stroke: EmojiPaint.ink,
-      width: 2,
     ),
     EmojiShape(
       'M16 19.4L12 21.8L12.6 25.8M19.6 19.4L23.4 21L22.6 24',
@@ -93026,7 +92970,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M27.71 15.45C25.02 18.66 20.84 19.6 18.39 17.54C15.93 15.48 16.13 11.21 18.83 7.99C21.53 4.77 25.7 3.84 28.16 5.9C30.61 7.96 30.41 12.23 27.71 15.45Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'spoon',
     ),
     EmojiShape(
@@ -93535,7 +93478,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.82 8.2C12.54 3.72 15.06 2.18 18 2.18C20.94 2.18 23.46 3.72 23.18 8.2C23.32 11 23.88 13.1 24.72 14.92C22.9 15.9 20.94 15.76 19.68 14.92L16.32 14.92C15.06 15.76 13.1 15.9 11.28 14.92C12.12 13.1 12.68 11 12.82 8.2Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -93543,7 +93486,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M23.18 8.2C23.18 11.06 20.86 13.38 18 13.38C15.14 13.38 12.82 11.06 12.82 8.2C12.82 5.34 15.14 3.02 18 3.02C20.86 3.02 23.18 5.34 23.18 8.2Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'head',
     ),
     EmojiShape(
@@ -93576,7 +93519,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.96 7.78C12.68 4.28 15.06 2.6 18 2.6C20.94 2.6 23.32 4.28 23.04 7.78C21.78 6.66 20.38 5.82 18.56 5.68C16.74 6.52 14.92 7.08 12.96 7.78Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.person,
     ),
@@ -93584,7 +93527,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.89 7.92C12.61 4.14 14.92 2.46 18 2.46C21.08 2.46 23.39 4.14 23.11 7.92C22.83 6.8 22.34 5.96 21.36 5.54C19.12 6.1 16.18 5.96 13.94 5.26C13.38 5.96 13.1 6.8 12.89 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.man,
     ),
@@ -93592,7 +93535,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.82 7.92C12.68 4 14.92 2.32 18 2.32C21.08 2.32 23.32 4 23.18 7.92C22.06 6.1 20.24 4.98 18 4.84C16.46 5.96 14.78 6.94 12.82 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -94475,7 +94418,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M4.13 20.8C5.61 15.76 9.24 12.61 14.18 10.41C19.11 8.22 23.88 7.62 28.61 9.9L29.83 12.64L5.35 23.54Z',
       fill: EmojiPaint.cream,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'back',
     ),
     EmojiShape(
@@ -94526,7 +94468,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M4.29 21.16C8.69 31.03 16.43 34.15 23.37 31.06C30.31 27.97 33.17 20.13 28.78 10.26C26.42 14.81 22.89 17.7 18.33 19.73C13.76 21.76 9.25 22.46 4.29 21.16Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'pita',
     ),
     EmojiShape(
@@ -97290,7 +97231,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M3.24 15.4C11.18 15.94 17.61 25.11 15.4 32.76M20.6 3.24C18.39 10.89 24.82 20.06 32.76 20.6',
       stroke: EmojiPaint.white,
-      width: 2,
       part: 'ball',
     ),
     EmojiShape(
@@ -97373,7 +97313,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M20.36 4.88L7.17 23.72C5.58 25.99 6.13 29.1 8.4 30.69C10.66 32.27 13.78 31.72 15.36 29.46L28.55 10.62',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'tube',
     ),
     EmojiShape(
@@ -97505,7 +97444,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M8.44 4.61C12.12 3.96 14.46 6.12 15.47 11.08C16.23 14.61 16.51 17.74 16.31 20.48C16.29 22.65 16.68 24.48 17.48 25.96C18.3 29.07 16.87 30.94 13.2 31.59C9.52 32.24 7.53 30.96 7.24 27.77C7.49 26.1 7.23 24.25 6.47 22.22C5.35 19.71 4.54 16.67 4.05 13.1C3.3 8.09 4.76 5.25 8.44 4.61Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'sandal-left',
     ),
     EmojiShape(
@@ -97517,7 +97455,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M5.99 20.68C6.73 15.67 7.86 12.09 9.38 9.92C11.54 11.44 13.82 14.42 16.23 18.87',
       stroke: EmojiPaint.blue,
-      width: 2,
       part: 'sandal-left',
     ),
     EmojiShape(
@@ -97541,7 +97478,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M27.56 4.61C31.24 5.25 32.7 8.09 31.95 13.1C31.46 16.67 30.65 19.71 29.53 22.22C28.77 24.25 28.51 26.1 28.76 27.77C28.47 30.96 26.48 32.24 22.8 31.59C19.13 30.94 17.7 29.07 18.52 25.96C19.32 24.48 19.71 22.65 19.69 20.48C19.49 17.74 19.77 14.61 20.53 11.08C21.54 6.12 23.88 3.96 27.56 4.61Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'sandal-right',
     ),
     EmojiShape(
@@ -97553,7 +97489,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M19.77 18.87C22.18 14.42 24.46 11.44 26.62 9.92C28.14 12.09 29.27 15.67 30.01 20.68',
       stroke: EmojiPaint.blue,
-      width: 2,
       part: 'sandal-right',
     ),
     EmojiShape(
@@ -98448,7 +98383,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
     EmojiShape(
       'M5.79 25.78L29.23 10.1C30.1 9.49 30.88 9.67 31.57 10.65C32.26 11.64 32.17 12.44 31.3 13.05L22.94 18.9L9 30.37C7.69 31.29 6.5 30.98 5.43 29.45C4.36 27.92 4.48 26.7 5.79 25.78Z',
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'toothbrush',
     ),
     EmojiShape(
@@ -101710,7 +101644,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.42 8.2C12.14 3.72 14.66 2.18 17.6 2.18C20.54 2.18 23.06 3.72 22.78 8.2C22.92 11 23.48 13.1 24.32 14.92C22.5 15.9 20.54 15.76 19.28 14.92L15.92 14.92C14.66 15.76 12.7 15.9 10.88 14.92C11.72 13.1 12.28 11 12.42 8.2Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -101718,7 +101652,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M22.78 8.2C22.78 11.06 20.46 13.38 17.6 13.38C14.74 13.38 12.42 11.06 12.42 8.2C12.42 5.34 14.74 3.02 17.6 3.02C20.46 3.02 22.78 5.34 22.78 8.2Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'head',
     ),
     EmojiShape(
@@ -101751,7 +101685,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.56 7.78C12.28 4.28 14.66 2.6 17.6 2.6C20.54 2.6 22.92 4.28 22.64 7.78C21.38 6.66 19.98 5.82 18.16 5.68C16.34 6.52 14.52 7.08 12.56 7.78Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.person,
     ),
@@ -101759,7 +101693,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.49 7.92C12.21 4.14 14.52 2.46 17.6 2.46C20.68 2.46 22.99 4.14 22.71 7.92C22.43 6.8 21.94 5.96 20.96 5.54C18.72 6.1 15.78 5.96 13.54 5.26C12.98 5.96 12.7 6.8 12.49 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.man,
     ),
@@ -101767,7 +101701,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.42 7.92C12.28 4 14.52 2.32 17.6 2.32C20.68 2.32 22.92 4 22.78 7.92C21.66 6.1 19.84 4.98 17.6 4.84C16.06 5.96 14.38 6.94 12.42 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -104375,7 +104309,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.42 8.2C12.14 3.72 14.66 2.18 17.6 2.18C20.54 2.18 23.06 3.72 22.78 8.2C22.92 11 23.48 13.1 24.32 14.92C22.5 15.9 20.54 15.76 19.28 14.92L15.92 14.92C14.66 15.76 12.7 15.9 10.88 14.92C11.72 13.1 12.28 11 12.42 8.2Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -104383,7 +104317,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M22.78 8.2C22.78 11.06 20.46 13.38 17.6 13.38C14.74 13.38 12.42 11.06 12.42 8.2C12.42 5.34 14.74 3.02 17.6 3.02C20.46 3.02 22.78 5.34 22.78 8.2Z',
       fill: EmojiPaint.skin,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'head',
     ),
     EmojiShape(
@@ -104416,7 +104350,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.56 7.78C12.28 4.28 14.66 2.6 17.6 2.6C20.54 2.6 22.92 4.28 22.64 7.78C21.38 6.66 19.98 5.82 18.16 5.68C16.34 6.52 14.52 7.08 12.56 7.78Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.person,
     ),
@@ -104424,7 +104358,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.49 7.92C12.21 4.14 14.52 2.46 17.6 2.46C20.68 2.46 22.99 4.14 22.71 7.92C22.43 6.8 21.94 5.96 20.96 5.54C18.72 6.1 15.78 5.96 13.54 5.26C12.98 5.96 12.7 6.8 12.49 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.man,
     ),
@@ -104432,7 +104366,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M12.42 7.92C12.28 4 14.52 2.32 17.6 2.32C20.68 2.32 22.92 4 22.78 7.92C21.66 6.1 19.84 4.98 17.6 4.84C16.06 5.96 14.38 6.94 12.42 7.92Z',
       fill: EmojiPaint.hair,
       stroke: EmojiPaint.ink,
-      width: 1.22,
+      width: 1.23,
       part: 'hair',
       variant: EmojiVariant.woman,
     ),
@@ -105702,7 +105636,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M23.49 7.78L25.94 9.84C26.19 10.05 26.23 10.43 26.01 10.68L13.93 25.08C13.72 25.34 13.34 25.37 13.08 25.16L10.63 23.1C10.38 22.89 10.35 22.51 10.56 22.25L22.64 7.85C22.86 7.6 23.23 7.57 23.49 7.78Z',
       fill: EmojiPaint.green,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'pencil',
     ),
     EmojiShape(
@@ -105721,7 +105654,6 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       'M26.26 5.41L27.79 6.69C28.3 7.12 28.37 7.88 27.94 8.38L27.17 9.3C26.74 9.81 25.99 9.88 25.48 9.45L23.95 8.16C23.44 7.74 23.37 6.98 23.8 6.47L24.57 5.55C25 5.05 25.75 4.98 26.26 5.41Z',
       fill: EmojiPaint.pink,
       stroke: EmojiPaint.ink,
-      width: 2,
       part: 'pencil',
     ),
     EmojiShape(
