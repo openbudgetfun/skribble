@@ -4,7 +4,7 @@
     <rect x="23" y="22" width="2.4" height="8.4" rx="0.6" ry="0.6" fill="brown-shade" stroke-width="1.75"/>
     <rect x="9.2" y="3" width="2.8" height="15" rx="1" ry="1" fill="brown"/>
     <rect x="24" y="3" width="2.8" height="15" rx="1" ry="1" fill="brown"/>
-    <rect x="11.4" y="10.2" width="13.2" height="2.4" fill="brown" stroke-width="1.75"/>
+    <rect x="11.4" y="10.2" width="13.2" height="2.4" rx="0.5" ry="0.5" fill="brown" stroke-width="1.75"/>
     <rect x="8.6" y="2.6" width="18.8" height="4.6" rx="1.6" ry="1.6" fill="brown"/>
     <path d="M9.2 16.6 L26.8 16.6 L30.4 21.4 L5.6 21.4 Z" fill="tan"/>
     <rect x="5.6" y="21.4" width="24.8" height="3" rx="0.8" ry="0.8" fill="brown"/>

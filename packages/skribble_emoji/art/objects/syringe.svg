@@ -8,7 +8,7 @@
     </g>
     <g id="plunger" stroke="ink">
       <rect x="19.6" y="16.8" width="12" height="2.4" rx="0.6" ry="0.6" fill="silver" stroke-width="1.5"/>
-      <rect x="17.6" y="13.2" width="2.2" height="9.6" fill="black" stroke-width="1.5"/>
+      <rect x="17.6" y="13.2" width="2.2" height="9.6" rx="0.5" ry="0.5" fill="black" stroke-width="1.5"/>
       <rect x="31.2" y="12.6" width="2.4" height="10.8" rx="1.2" ry="1.2" fill="silver" stroke-width="1.75"/>
     </g>
     <g id="barrel" stroke="ink">

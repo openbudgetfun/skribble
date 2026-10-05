@@ -7,7 +7,7 @@
     <path d="M13.4 11.2 C6.4 9.6 4.4 14.4 6.6 17 C7.4 18 8.4 18 9.2 17.4 M22.6 11.2 C29.6 9.6 31.6 14.4 29.4 17 C28.6 18 27.6 18 26.8 17.4" stroke="yellow" stroke-width="1.6"/>
   </g>
   <g id="urn" stroke="ink">
-    <rect x="13.4" y="7.4" width="9.2" height="3.4" fill="brown" stroke-width="1.75"/>
+    <rect x="13.4" y="7.4" width="9.2" height="3.4" rx="0.5" ry="0.5" fill="brown" stroke-width="1.75"/>
     <path d="M13.4 10 Q7.6 12.4 7.4 19.6 Q7.4 26.8 12.2 30 L11.2 33.4 L24.8 33.4 L23.8 30 Q28.6 26.8 28.6 19.6 Q28.4 12.4 22.6 10 Z" fill="brown" stroke="none"/>
     <g clip-path="url(#urn-body)">
       <path d="M28.6 15 Q29 26 22 30.4 L24.8 33.4 L19 33.4 Q25.8 27 25.8 15 Z" fill="brown-shade" stroke="none"/>

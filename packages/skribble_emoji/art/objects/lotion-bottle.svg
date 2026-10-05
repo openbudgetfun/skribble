@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
   <g id="pump" stroke="ink">
     <rect x="6.2" y="5" width="7" height="2.4" rx="1.2" ry="1.2" fill="white" stroke-width="1.5"/>
-    <rect x="16.6" y="7.6" width="2.8" height="4" fill="white" stroke-width="1.5"/>
+    <rect x="16.6" y="7.6" width="2.8" height="4" rx="0.5" ry="0.5" fill="white" stroke-width="1.5"/>
     <rect x="12" y="3.8" width="12" height="4" rx="1.4" ry="1.4" fill="white" stroke-width="1.75"/>
   </g>
   <g id="bottle" stroke="ink">

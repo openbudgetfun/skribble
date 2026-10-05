@@ -4999,14 +4999,14 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       part: 'frame',
     ),
     EmojiShape(
-      'M7.8 24L28.6 24L28.6 28.2L7.8 28.2Z',
+      'M8.3 24L28.1 24C28.38 24 28.6 24.22 28.6 24.5L28.6 27.7C28.6 27.98 28.38 28.2 28.1 28.2L8.3 28.2C8.02 28.2 7.8 27.98 7.8 27.7L7.8 24.5C7.8 24.22 8.02 24 8.3 24Z',
       fill: EmojiPaint.brownShade,
       stroke: EmojiPaint.ink,
       width: 1.75,
       part: 'frame',
     ),
     EmojiShape(
-      'M7.8 18.4L28.6 18.4L28.6 24L7.8 24Z',
+      'M8.3 18.4L28.1 18.4C28.38 18.4 28.6 18.62 28.6 18.9L28.6 23.5C28.6 23.78 28.38 24 28.1 24L8.3 24C8.02 24 7.8 23.78 7.8 23.5L7.8 18.9C7.8 18.62 8.02 18.4 8.3 18.4Z',
       fill: EmojiPaint.white,
       stroke: EmojiPaint.ink,
       width: 1.75,
@@ -11582,7 +11582,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       part: 'chair',
     ),
     EmojiShape(
-      'M11.4 10.2L24.6 10.2L24.6 12.6L11.4 12.6Z',
+      'M11.9 10.2L24.1 10.2C24.38 10.2 24.6 10.42 24.6 10.7L24.6 12.1C24.6 12.38 24.38 12.6 24.1 12.6L11.9 12.6C11.62 12.6 11.4 12.38 11.4 12.1L11.4 10.7C11.4 10.42 11.62 10.2 11.9 10.2Z',
       fill: EmojiPaint.brown,
       stroke: EmojiPaint.ink,
       width: 1.75,
@@ -22543,7 +22543,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       part: 'frame',
     ),
     EmojiShape(
-      'M7.8 13L28.2 13L28.2 33.6L7.8 33.6Z',
+      'M8.3 13L27.7 13C27.98 13 28.2 13.22 28.2 13.5L28.2 33.1C28.2 33.38 27.98 33.6 27.7 33.6L8.3 33.6C8.02 33.6 7.8 33.38 7.8 33.1L7.8 13.5C7.8 13.22 8.02 13 8.3 13Z',
       fill: EmojiPaint.grey,
       part: 'doors',
     ),
@@ -50106,7 +50106,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       part: 'handles',
     ),
     EmojiShape(
-      'M13.4 7.4L22.6 7.4L22.6 10.8L13.4 10.8Z',
+      'M13.9 7.4L22.1 7.4C22.38 7.4 22.6 7.62 22.6 7.9L22.6 10.3C22.6 10.58 22.38 10.8 22.1 10.8L13.9 10.8C13.62 10.8 13.4 10.58 13.4 10.3L13.4 7.9C13.4 7.62 13.62 7.4 13.9 7.4Z',
       fill: EmojiPaint.brown,
       stroke: EmojiPaint.ink,
       width: 1.75,
@@ -64868,7 +64868,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       part: 'pump',
     ),
     EmojiShape(
-      'M16.6 7.6L19.4 7.6L19.4 11.6L16.6 11.6Z',
+      'M17.1 7.6L18.9 7.6C19.18 7.6 19.4 7.82 19.4 8.1L19.4 11.1C19.4 11.38 19.18 11.6 18.9 11.6L17.1 11.6C16.82 11.6 16.6 11.38 16.6 11.1L16.6 8.1C16.6 7.82 16.82 7.6 17.1 7.6Z',
       fill: EmojiPaint.white,
       stroke: EmojiPaint.ink,
       width: 1.5,
@@ -70335,34 +70335,45 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       part: 'bar',
     ),
     EmojiShape(
-      'M19.8 20.2L28.2 14.2L30 11.4L21.6 17.4Z',
+      'M17.6 21.2L28.6 11.8L30.6 9L19.6 18.4Z',
       fill: EmojiPaint.yellow,
       part: 'cheese',
     ),
     EmojiShape(
-      'M28.2 14.2L28.2 20.2L30 17.4L30 11.4Z',
+      'M28.6 11.8L28.6 21.2L30.6 18.4L30.6 9Z',
       fill: EmojiPaint.yellowShade,
       part: 'cheese',
     ),
     EmojiShape(
-      'M19.8 20.2L28.2 20.2L28.2 14.2Z',
+      'M17.6 21.2L28.6 21.2L28.6 11.8Z',
       fill: EmojiPaint.yellow,
       part: 'cheese',
     ),
     EmojiShape(
-      'M26.4 18.4C26.4 18.84 26.04 19.2 25.6 19.2C25.16 19.2 24.8 18.84 24.8 18.4C24.8 17.96 25.16 17.6 25.6 17.6C26.04 17.6 26.4 17.96 26.4 18.4Z',
+      'M25.8 18.6C25.8 19.15 25.35 19.6 24.8 19.6C24.25 19.6 23.8 19.15 23.8 18.6C23.8 18.05 24.25 17.6 24.8 17.6C25.35 17.6 25.8 18.05 25.8 18.6Z',
       fill: EmojiPaint.yellowShade,
       part: 'cheese',
     ),
     EmojiShape(
-      'M27.55 16.6C27.55 16.9 27.3 17.15 27 17.15C26.7 17.15 26.45 16.9 26.45 16.6C26.45 16.3 26.7 16.05 27 16.05C27.3 16.05 27.55 16.3 27.55 16.6Z',
+      'M27.6 15.8C27.6 16.19 27.29 16.5 26.9 16.5C26.51 16.5 26.2 16.19 26.2 15.8C26.2 15.41 26.51 15.1 26.9 15.1C27.29 15.1 27.6 15.41 27.6 15.8Z',
       fill: EmojiPaint.yellowShade,
       part: 'cheese',
     ),
     EmojiShape(
-      'M19.8 20.2L21.6 17.4L30 11.4L30 17.4L28.2 20.2ZM19.8 20.2L28.2 14.2L30 11.4M28.2 14.2L28.2 20.2',
+      'M22.6 20C22.6 20.33 22.33 20.6 22 20.6C21.67 20.6 21.4 20.33 21.4 20C21.4 19.67 21.67 19.4 22 19.4C22.33 19.4 22.6 19.67 22.6 20Z',
+      fill: EmojiPaint.yellowShade,
+      part: 'cheese',
+    ),
+    EmojiShape(
+      'M17.6 21.2L19.6 18.4L30.6 9L30.6 18.4L28.6 21.2Z',
       stroke: EmojiPaint.ink,
-      width: 1.5,
+      width: 1.75,
+      part: 'cheese',
+    ),
+    EmojiShape(
+      'M17.6 21.2L28.6 11.8L30.6 9M28.6 11.8L28.6 21.2',
+      stroke: EmojiPaint.ink,
+      width: 1.25,
       part: 'cheese',
     ),
   ]),
@@ -83167,7 +83178,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       part: 'head',
     ),
     EmojiShape(
-      'M16.4 11.4L19.6 11.4L19.6 14.2L16.4 14.2Z',
+      'M16.9 11.4L19.1 11.4C19.38 11.4 19.6 11.62 19.6 11.9L19.6 13.7C19.6 13.98 19.38 14.2 19.1 14.2L16.9 14.2C16.62 14.2 16.4 13.98 16.4 13.7L16.4 11.9C16.4 11.62 16.62 11.4 16.9 11.4Z',
       fill: EmojiPaint.silver,
       stroke: EmojiPaint.ink,
       width: 1.5,
@@ -95863,7 +95874,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       part: 'plunger',
     ),
     EmojiShape(
-      'M12.72 16.49L14.28 14.93L21.07 21.72L19.51 23.28Z',
+      'M13.08 16.14L13.93 15.29C14.12 15.09 14.44 15.09 14.63 15.29L20.71 21.37C20.91 21.56 20.91 21.88 20.71 22.07L19.86 22.92C19.67 23.12 19.35 23.12 19.16 22.92L13.08 16.84C12.88 16.65 12.88 16.33 13.08 16.14Z',
       fill: EmojiPaint.black,
       stroke: EmojiPaint.ink,
       width: 1.5,
@@ -103025,7 +103036,7 @@ const Map<String, EmojiArt> kSkribbleEmojiArt = {
       part: 'cane',
     ),
     EmojiShape(
-      'M23.19 10.61L24.58 11.41L16.08 26.13L14.69 25.33Z',
+      'M23.63 10.86L24.15 11.16C24.38 11.29 24.47 11.6 24.33 11.84L16.33 25.7C16.19 25.93 15.88 26.02 15.65 25.88L15.13 25.58C14.89 25.44 14.8 25.13 14.94 24.9L22.94 11.04C23.08 10.8 23.39 10.72 23.63 10.86Z',
       fill: EmojiPaint.silver,
       part: 'cane',
     ),

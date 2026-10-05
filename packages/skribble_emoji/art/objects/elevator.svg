@@ -5,7 +5,7 @@
     <path d="M12.8 9.2 L14.8 6.4 L16.8 9.2 Z M19.2 6.4 L23.2 6.4 L21.2 9.2 Z" fill="yellow" stroke="none"/>
   </g>
   <g id="doors" stroke="ink">
-    <rect x="7.8" y="13" width="20.4" height="20.6" fill="grey" stroke="none"/>
+    <rect x="7.8" y="13" width="20.4" height="20.6" rx="0.5" ry="0.5" fill="grey" stroke="none"/>
     <path d="M28.2 13 L28.2 33.6 L25.8 33.6 L25.8 13 Z" fill="grey-shade" stroke="none"/>
     <path d="M10 22.4 L13.6 18.8 M10.2 25.6 L11.8 24 M20.2 22.4 L23.8 18.8" fill="none" stroke="silver" stroke-width="1.5"/>
     <rect x="7.8" y="13" width="20.4" height="20.6" rx="0.4" ry="0.4" fill="none" stroke-width="1.75"/>
