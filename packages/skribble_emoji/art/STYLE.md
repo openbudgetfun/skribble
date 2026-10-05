@@ -34,7 +34,7 @@ Paint with **tokens**, never hex (flags are the only exception). Tokens let one 
 | `skin` / `skin-shade`, `hair`                                        | The person. Never colour a person's skin any other way. |
 | `skin2` / `skin2-shade`, `hair2`                                     | The second person in two-person emoji.                  |
 
-Faces in Smileys & Emotion are always `yellow`, never `skin`: they do not take skin tones.
+Faces in Smileys & Emotion are `yellow`, never `skin`: they do not take skin tones. A face whose colour is the point (nauseated green, hot red, cold blue) uses that colour instead. Fantasy people that take no skin tones (genie, zombie, troll) likewise use their own colours.
 
 ## Line
 
@@ -97,6 +97,15 @@ The second person uses the `2` tokens. Remap them on the include:
 ### Flags
 
 Flag files set `data-warp="flag"` on the root and draw the flat flag in the rectangle `x 2–34, y 8–28` with **hex colours** from the official flag. The generator waves the cloth, clips the design to it, and adds the outline. Simplify coats of arms to a recognisable emblem in a few shapes.
+
+## Techniques
+
+- **Shading irregular shapes.** Draw the shape in its shade token, then the same shape in the base colour moved up and left and clipped to the original, then the outline. An even crescent remains on the lower right.
+- **Clips and transforms.** A `clip-path` on an element that also has a `transform` moves with it. Put the clip on a wrapping `<g>` when the shape is offset inside it.
+- **Thick coloured lines.** The pen tapers the ends of open strokes. For a rope, a bold symbol, or anything that needs even ends, draw closed shapes, or lay a wider `ink` stroke under a narrower coloured one.
+- **Ids.** Name clip paths `*-clip` so they never share an id with a part.
+- **Small heads.** The shared `head` included below about 0.6 scale thins its features toward the 0.75-unit minimum. Draw a small head of your own instead.
+- **Flags on cloth** lose about a unit along each edge under the outline. Keep borders, stars, and other edge details clear of it.
 
 ## Checking your work
 

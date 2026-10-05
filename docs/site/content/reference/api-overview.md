@@ -53,6 +53,7 @@ Key types:
 
 - `WiredPainterBase` — override `paintRough(Canvas, Size, DrawConfig, Filler)`
 - `WiredCanvas` — widget that takes a painter + filler type
+- `waverPath`, `waveredPolygons`, `WaveredContour` — the smooth hand-drawn wavering icons and emoji share: waver any `Path`, then fill the contours or ink them with an `InkStroke`
 
 ### 3. Base utilities
 
