@@ -5,8 +5,9 @@
 /// silhouette, the set reads as the lightest of the bundled catalogs.
 ///
 /// Artwork comes from [Lucide](https://lucide.dev) under the ISC license,
-/// warped through the shared skribble rough pass at generation time. Every path
-/// here is precomputed, so rendering never runs the rough engine.
+/// gently bent through the shared skribble rough pass at generation time. At
+/// render time `WiredSvgIcon` adds the theme's wavering and inks it with the
+/// theme pen, so icons follow the roughness level and `weight`.
 ///
 /// ```dart
 /// import 'package:skribble/skribble.dart';

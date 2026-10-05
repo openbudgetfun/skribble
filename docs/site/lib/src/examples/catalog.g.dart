@@ -218,10 +218,10 @@ final Map<String, ExampleDefinition> examples = {
     source: "const WiredSvgIcon(\n  data: WiredSvgIconData(\n    width: 24,\n    height: 24,\n    primitives: [\n      WiredSvgPrimitive.path('M12 2L2 22h20L12 2z'),\n      WiredSvgPrimitive.circle(cx: 12, cy: 16, radius: 2),\n    ],\n  ),\n  size: 64,\n  semanticLabel: 'Triangle with a circular detail',\n)",
     edits: [],
   ),
-  'custom-icons': ExampleDefinition(
-    builder: _customIcons,
-    source: "Wrap(\n  spacing: 24,\n  runSpacing: 20,\n  children: [\n    SkribbleIcon(\n      data: kSkribbleCuratedIcons[0xf001]!,\n      semanticLabel: 'Home',\n      size: 48,\n    ),\n    SkribbleIcon(\n      data: kSkribbleCuratedIcons[0xf005]!,\n      semanticLabel: 'Heart',\n      size: 48,\n    ),\n    SkribbleIcon(\n      data: kSkribbleCuratedIcons[0xf003]!,\n      semanticLabel: 'Settings',\n      size: 48,\n    ),\n  ],\n)",
-    edits: [],
+  'glyphs': ExampleDefinition(
+    builder: _glyphs,
+    source: "Wrap(\n  spacing: 20,\n  runSpacing: 20,\n  children: [\n    for (final glyph in const [\n      SkribbleGlyphs.home,\n      SkribbleGlyphs.search,\n      SkribbleGlyphs.heart,\n      SkribbleGlyphs.settings,\n      SkribbleGlyphs.mail,\n      SkribbleGlyphs.sparkle,\n    ])\n      SkribbleIcon(data: glyph, size: 48, weight: settings.weight),\n  ],\n)",
+    edits: [ExampleEdit(314, 329, ExampleParameter.weight)],
   ),
   'brand-icons': ExampleDefinition(
     builder: _brandIcons,

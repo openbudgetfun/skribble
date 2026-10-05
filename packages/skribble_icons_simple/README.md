@@ -4,7 +4,7 @@
 
 3,472 brand and product marks — the logos an app needs for sign-in buttons, footer links, tech-stack sections, and "works with" lists. GitHub, Slack, Postgres, Nintendo, Vercel, and everything else the project tracks.
 
-This package holds **logos, not interface icons**. Despite the name, it is not where `home`, `search`, and friends live — those are in [`skribble_icons_curated`](https://pub.dev/packages/skribble_icons_curated).
+This package holds **logos, not interface icons**. Despite the name, it is not where `home`, `search`, and friends live — those are `SkribbleGlyphs` in the core [`skribble`](https://pub.dev/packages/skribble) package.
 
 ## Installation
 

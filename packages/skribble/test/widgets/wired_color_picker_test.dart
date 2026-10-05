@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/finders.dart';
 
-Finder findWiredIcon(IconData icon) {
-  return find.byWidgetPredicate(
-    (widget) => widget is WiredIcon && widget.icon == icon,
-    description: 'WiredIcon($icon)',
-  );
-}
+import '../helpers/pump_app.dart';
 
 void main() {
   Widget buildSubject({
@@ -67,7 +62,7 @@ void main() {
       await tester.pumpWidget(
         buildSubject(selectedColor: Colors.blue, onColorChanged: (_) {}),
       );
-      expect(findWiredIcon(Icons.check), findsOneWidget);
+      expect(findWiredGlyph(SkribbleGlyphs.check), findsOneWidget);
     });
 
     testWidgets('does not call callback when disabled', (tester) async {
@@ -108,7 +103,7 @@ void main() {
           },
         ),
       );
-      expect(findWiredIcon(Icons.check), findsOneWidget);
+      expect(findWiredGlyph(SkribbleGlyphs.check), findsOneWidget);
     });
   });
 }

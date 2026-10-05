@@ -2,7 +2,7 @@
 
 The Lucide outline icon set: 1,837 icons plus 219 aliases, all drawn as open outlines at a uniform 2px stroke. Because every path is a stroke rather than a silhouette, it reads as the lightest of the bundled catalogs.
 
-Part of the [skribble](https://github.com/openbudgetfun/skribble) design system. Artwork comes from **Lucide** ([homepage](https://lucide.dev)) under **ISC**, warped through the shared skribble rough pass at generation time. Every path in the catalog is precomputed, so rendering never runs the rough engine.
+Part of the [skribble](https://github.com/openbudgetfun/skribble) design system. Artwork comes from **Lucide** ([homepage](https://lucide.dev)) under **ISC**, gently bent through the shared skribble rough pass at generation time. At render time `WiredSvgIcon` adds the theme's wavering and inks the result with its pen, so the icons follow the active roughness level and `weight`.
 
 ## Installation
 

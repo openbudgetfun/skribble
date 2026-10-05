@@ -1,22 +1,26 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'rough/skribble_rough.dart';
 import 'wired_icon.dart';
 import 'wired_svg_icon_data.dart';
+import 'wired_svg_icon_painter.dart';
 
 /// Renders catalog geometry with the theme's hand-drawn icon treatment.
 ///
-/// Uses the same cached painter as [WiredSvgIcon], including authored SVG
-/// strokes and colors. Gentle preserves subtle contours; Playful and Expressive
-/// add progressively stronger wavering without tilting the whole icon.
-class SkribbleIcon extends HookWidget {
+/// A convenience over [WiredSvgIcon] for catalog lookups such as
+/// `lookupLucideIconByIdentifier('house')`. Gentle preserves subtle
+/// contours; Playful and Expressive add progressively stronger wavering and
+/// looser pens without tilting the whole icon.
+class SkribbleIcon extends StatelessWidget {
+  /// Creates an icon from catalog [data].
   const SkribbleIcon({
     required this.data,
     super.key,
     this.size,
     this.color,
+    this.weight,
     this.semanticLabel,
+    this.fillStyle = WiredIconFillStyle.solid,
     this.drawConfig,
   });
 
@@ -29,8 +33,15 @@ class SkribbleIcon extends HookWidget {
   /// Icon color, falling back to the inherited icon or Wired theme color.
   final Color? color;
 
+  /// Pen weight from 100 (thin) to 700 (bold), 400 being normal. Falls back
+  /// to [IconThemeData.weight].
+  final double? weight;
+
   /// Semantic label for accessibility.
   final String? semanticLabel;
+
+  /// How ambient silhouettes are filled. Stroke artwork ignores it.
+  final WiredIconFillStyle fillStyle;
 
   /// Overrides theme-driven wavering. Use zero roughness for source geometry.
   final DrawConfig? drawConfig;
@@ -40,7 +51,9 @@ class SkribbleIcon extends HookWidget {
     data: data,
     size: size,
     color: color,
+    weight: weight,
     semanticLabel: semanticLabel,
+    fillStyle: fillStyle,
     drawConfig: drawConfig,
   );
 }

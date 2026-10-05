@@ -563,18 +563,24 @@ final class DrawableInk {
   /// A drawable without options is drawn with [RoughPen.uniform]. Pass
   /// `false` for [inkOutline] or [inkSketch] to keep that part as a plain
   /// centreline, for example when its paint fills instead of strokes.
+  ///
+  /// Uniform pens normally keep plain centrelines, because stroking them is
+  /// cheaper and exact. Pass [inkUniform] when every part must arrive as a
+  /// filled outline regardless of the pen.
   DrawableInk(
     Drawable drawable, {
     required double outlineWidth,
     required double sketchWidth,
     bool inkOutline = true,
     bool inkSketch = true,
+    bool inkUniform = false,
   }) : sets = _prepare(
          drawable,
          outlineWidth,
          sketchWidth,
          inkOutline,
          inkSketch,
+         inkUniform,
        );
 
   /// One entry per op set, in the drawable's order.
@@ -586,6 +592,7 @@ final class DrawableInk {
     double sketchWidth,
     bool inkOutline,
     bool inkSketch,
+    bool inkUniform,
   ) {
     final pen = drawable.options?.pen ?? RoughPen.uniform;
     final seed = drawable.options?.seed ?? 1;
@@ -597,7 +604,7 @@ final class DrawableInk {
           final ops = set.ops ?? const <Op>[];
           final width = type == OpSetType.path ? outlineWidth : sketchWidth;
           final inked =
-              !pen.isUniform &&
+              (inkUniform || !pen.isUniform) &&
               width > 0 &&
               switch (type) {
                 OpSetType.path => inkOutline,

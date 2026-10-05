@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'generated/skribble_glyphs.g.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn navigation bar corresponding to [CupertinoNavigationBar].
@@ -126,7 +128,12 @@ class WiredCupertinoNavigationBar extends HookWidget
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(CupertinoIcons.back, color: theme.borderColor, size: 22),
+          WiredSvgIcon(
+            data: SkribbleGlyphs.chevronLeft,
+            color: theme.borderColor,
+            size: 22,
+            flipHorizontally: Directionality.of(context) == TextDirection.rtl,
+          ),
           if (previousPageTitle != null)
             Text(
               previousPageTitle!,

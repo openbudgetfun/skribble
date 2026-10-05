@@ -212,7 +212,7 @@ jobs:
       - name: confirm no catalog files are untracked
         run: |
           test -z "$(git ls-files --others --exclude-standard -- \
-            packages/skribble_icons_curated/lib/src/generated \
+            packages/skribble/lib/src/generated \
             packages/skribble_icons_lucide/lib/src/generated \
             packages/skribble_icons_bxs/lib/src/generated \
             packages/skribble_icons_cib/lib/src/generated)"

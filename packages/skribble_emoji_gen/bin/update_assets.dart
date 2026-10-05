@@ -8,7 +8,7 @@ const _zipHash =
 const _csvHash =
     '28375217b92fafacc59d7dfea631c720abedc883518dbf12a73d25d4032cbe7e';
 
-/// Rebuilds the pinned emoji, curated icons, the Iconify icon catalogs, and
+/// Rebuilds the pinned emoji, built-in glyphs, the Iconify icon catalogs, and
 /// all bundled text fonts.
 /// Run from the repository root. The downloaded source hashes are verified
 /// before generation; upstream updates require an explicit version/hash edit.
@@ -67,7 +67,7 @@ Future<void> main(List<String> arguments) async {
     ]);
     await _run(Platform.resolvedExecutable, [
       'run',
-      'packages/skribble_emoji_gen/bin/generate_icons.dart',
+      'packages/skribble_emoji_gen/bin/generate_glyphs.dart',
     ]);
     await _run(Platform.resolvedExecutable, [
       'run',

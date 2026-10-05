@@ -5,13 +5,6 @@ import 'package:skribble/skribble.dart';
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
-Finder findWiredIcon(IconData icon) {
-  return find.byWidgetPredicate(
-    (widget) => widget is WiredIcon && widget.icon == icon,
-    description: 'WiredIcon($icon)',
-  );
-}
-
 void main() {
   group('WiredChip', () {
     testWidgets('renders without error', (tester) async {
@@ -58,7 +51,7 @@ void main() {
         ),
       );
 
-      expect(findWiredIcon(Icons.close), findsOneWidget);
+      expect(findWiredGlyph(SkribbleGlyphs.close), findsOneWidget);
     });
 
     testWidgets('does not render delete icon when onDeleted is null', (
@@ -66,7 +59,7 @@ void main() {
     ) async {
       await pumpApp(tester, WiredChip(label: const Text('Chip')));
 
-      expect(findWiredIcon(Icons.close), findsNothing);
+      expect(findWiredGlyph(SkribbleGlyphs.close), findsNothing);
     });
 
     testWidgets('calls onDeleted when delete icon is tapped', (tester) async {
@@ -83,7 +76,7 @@ void main() {
         ),
       );
 
-      await tester.tap(findWiredIcon(Icons.close));
+      await tester.tap(findWiredGlyph(SkribbleGlyphs.close));
       await tester.pump();
 
       expect(deleted, isTrue);

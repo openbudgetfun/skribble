@@ -131,8 +131,6 @@ class WiredSegmentedButton<T> extends HookWidget {
                 icon: segment.icon!,
                 size: 18,
                 color: theme.textColor,
-                fillStyle: WiredIconFillStyle.solid,
-                strokeWidth: 1.2,
               ),
               const SizedBox(width: 8),
             ],

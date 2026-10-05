@@ -55,6 +55,7 @@ void main() {
         curveTightness: 0,
         curveStepCount: 8,
         seed: 1,
+        pen: RoughPen.fineliner,
       );
       expect(
         gentle,

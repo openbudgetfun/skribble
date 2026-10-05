@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'generated/skribble_glyphs.g.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
@@ -127,12 +128,10 @@ class WiredAvatar extends HookWidget {
     return Center(
       child:
           child ??
-          WiredIcon(
-            icon: Icons.person,
+          WiredSvgIcon(
+            data: SkribbleGlyphs.user,
             color: fgColor,
             size: radius,
-            fillStyle: WiredIconFillStyle.solid,
-            strokeWidth: 1.2,
           ),
     );
   }

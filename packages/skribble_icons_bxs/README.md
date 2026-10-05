@@ -2,7 +2,7 @@
 
 The solid weight of Boxicons: 665 filled silhouettes. It pairs with an outline set the way a filled Material icon pairs with its outlined counterpart.
 
-Part of the [skribble](https://github.com/openbudgetfun/skribble) design system. Artwork comes from **Boxicons** ([homepage](https://boxicons.com)) under **MIT**, warped through the shared skribble rough pass at generation time. Every path in the catalog is precomputed, so rendering never runs the rough engine.
+Part of the [skribble](https://github.com/openbudgetfun/skribble) design system. Artwork comes from **Boxicons** ([homepage](https://boxicons.com)) under **MIT**, gently bent through the shared skribble rough pass at generation time. At render time `WiredSvgIcon` adds the theme's wavering and inks the result with its pen, so the icons follow the active roughness level and `weight`.
 
 ## Installation
 

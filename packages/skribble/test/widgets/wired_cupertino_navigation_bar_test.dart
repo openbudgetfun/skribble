@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+
+import '../helpers/finders.dart';
 
 import '../helpers/pump_app.dart';
 
@@ -163,10 +164,10 @@ void main() {
       await tester.tap(find.text('Open'));
       await tester.pumpAndSettle();
 
-      expect(find.byIcon(CupertinoIcons.back), findsOneWidget);
+      expect(findWiredGlyph(SkribbleGlyphs.chevronLeft), findsOneWidget);
       expect(find.text('Home'), findsOneWidget);
 
-      await tester.tap(find.byIcon(CupertinoIcons.back));
+      await tester.tap(findWiredGlyph(SkribbleGlyphs.chevronLeft));
       await tester.pumpAndSettle();
 
       expect(find.text('Open'), findsOneWidget);
@@ -205,7 +206,7 @@ void main() {
       await tester.tap(find.text('Open'));
       await tester.pumpAndSettle();
 
-      expect(find.byIcon(CupertinoIcons.back), findsNothing);
+      expect(findWiredGlyph(SkribbleGlyphs.chevronLeft), findsNothing);
       expect(find.text('Details page'), findsOneWidget);
     });
   });

@@ -2,11 +2,11 @@
 ///
 /// The sets live in separate packages so an app only pays for the artwork it
 /// ships. This package depends on all of them, re-exports their catalogs, and
-/// adds a cross-set lookup that searches the curated set first.
+/// adds a cross-set lookup that searches skribble's own glyphs first.
 ///
 /// | Set | Package | Names | Style |
 /// | --- | --- | --- | --- |
-/// | Curated | `skribble_icons_curated` | 30 | app vocabulary |
+/// | Glyphs | `skribble` (`SkribbleGlyphs`) | 51 | hand-drawn strokes |
 /// | Simple Icons | `skribble_icons_simple` | 3,472 | brand marks |
 /// | Material | `skribble_icons_material` | 8,600+ | Flutter's `Icons` |
 /// | Lucide | `skribble_icons_lucide` | 2,056 | 2px outline |
@@ -30,7 +30,6 @@ library;
 import 'package:skribble/skribble.dart';
 import 'package:skribble_icons_bxs/skribble_icons_bxs.dart';
 import 'package:skribble_icons_cib/skribble_icons_cib.dart';
-import 'package:skribble_icons_curated/skribble_icons_curated.dart';
 import 'package:skribble_icons_lucide/skribble_icons_lucide.dart';
 import 'package:skribble_icons_material/skribble_icons_material.dart';
 import 'package:skribble_icons_simple/skribble_icons_simple.dart';
@@ -38,7 +37,6 @@ import 'package:skribble_icons_simple/skribble_icons_simple.dart';
 export 'package:skribble/skribble.dart' show SkribbleIcon, WiredIconFillStyle;
 export 'package:skribble_icons_bxs/skribble_icons_bxs.dart';
 export 'package:skribble_icons_cib/skribble_icons_cib.dart';
-export 'package:skribble_icons_curated/skribble_icons_curated.dart';
 export 'package:skribble_icons_lucide/skribble_icons_lucide.dart';
 export 'package:skribble_icons_material/skribble_icons_material.dart';
 export 'package:skribble_icons_simple/skribble_icons_simple.dart';
@@ -53,8 +51,8 @@ void registerSkribbleIcons() => registerSkribbleMaterialIcons();
 /// The set that supplied an icon, in the order [lookupSkribbleIconByIdentifier]
 /// searches them.
 enum SkribbleIconSet {
-  /// Hand-authored app vocabulary from `skribble_icons_curated`.
-  curated,
+  /// skribble's own hand-drawn glyphs, `SkribbleGlyphs` in the core package.
+  glyphs,
 
   /// Simple Icons brand marks from `skribble_icons_simple`.
   simple,
@@ -74,14 +72,14 @@ enum SkribbleIconSet {
 
 /// Returns hand-drawn geometry for [identifier], searching every bundled set.
 ///
-/// The curated set wins ties, because those names are chosen to match the
+/// skribble's own glyphs win ties, because their names are chosen to match the
 /// component library's own vocabulary. Simple Icons brand slugs come next
 /// because they are unambiguous — `'github'` always means the logo. Material
 /// follows so existing Flutter identifiers keep resolving, then the remaining
 /// Iconify sets.
 ///
 /// ```dart
-/// lookupSkribbleIconByIdentifier('home'); // curated set
+/// lookupSkribbleIconByIdentifier('home'); // SkribbleGlyphs.home
 /// lookupSkribbleIconByIdentifier('github'); // simple set
 /// lookupSkribbleIconByIdentifier('a-arrow-down'); // lucide
 /// ```
@@ -91,9 +89,9 @@ WiredSvgIconData? lookupSkribbleIconByIdentifier(String identifier) {
 
 /// Like [lookupSkribbleIconByIdentifier], but also reports which set matched.
 SkribbleIconMatch? lookupSkribbleIcon(String identifier) {
-  final curated = lookupSkribbleCuratedIconByIdentifier(identifier);
-  if (curated != null) {
-    return SkribbleIconMatch(SkribbleIconSet.curated, curated);
+  final glyph = SkribbleGlyphs.all[identifier];
+  if (glyph != null) {
+    return SkribbleIconMatch(SkribbleIconSet.glyphs, glyph);
   }
   final simple = lookupSimpleIconByIdentifier(identifier);
   if (simple != null) {
@@ -139,7 +137,7 @@ final class SkribbleIconMatch {
 /// the result stays cheap to build. Use [materialRoughIconIdentifiers] for
 /// those.
 List<String> get skribbleIconIdentifiers => [
-  ...skribbleCuratedIconIdentifiers,
+  ...SkribbleGlyphs.all.keys,
   ...simpleIconIdentifiers,
   ...lucideIconIdentifiers,
   ...bxsIconIdentifiers,
@@ -148,7 +146,7 @@ List<String> get skribbleIconIdentifiers => [
 
 /// Total names across the bundled non-Material sets.
 int get skribbleIconCount =>
-    skribbleCuratedIconCount +
+    SkribbleGlyphs.all.length +
     simpleIconCount +
     lucideIconCount +
     bxsIconCount +

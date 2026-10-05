@@ -89,8 +89,6 @@ class WiredIconButton extends HookWidget {
                     icon: icon,
                     color: effectiveIconColor,
                     size: effectiveIconSize,
-                    fillStyle: WiredIconFillStyle.solid,
-                    strokeWidth: 1.4,
                   ),
                   onPressed: onPressed,
                   iconSize: effectiveIconSize,

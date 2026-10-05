@@ -1,6 +1,6 @@
 ---
 title: Upgrading to 0.3
-description: How to migrate an app to skribble 0.3, where every line is inked by a pen and the rough engine's configuration types lost their nullable fields.
+description: How to migrate an app to skribble 0.3, where every line is inked by a pen, icons take a weight, skribble ships its own glyphs, and the rough engine's configuration types lost their nullable fields.
 ---
 
 # Upgrading to 0.3
@@ -11,7 +11,7 @@ The breaking changes are in the rough engine's public types, which custom painte
 
 ## Do I have to migrate?
 
-Only if you touch the rough engine yourself: custom `WiredPainterBase` subclasses, direct `Generator` or `DrawConfig` use, or `Filler` subclasses. Apps that only use `Wired*` widgets and `WiredThemeData` keep compiling.
+If you touch the rough engine yourself (custom `WiredPainterBase` subclasses, direct `Generator` or `DrawConfig` use, or `Filler` subclasses), if you pass `strokeWidth` or `sampleDistance` to an icon, or if you depend on `skribble_icons_curated`. Apps that only use `Wired*` widgets and `WiredThemeData` otherwise keep compiling.
 
 ## Lines are inked by a pen
 
@@ -60,3 +60,45 @@ Line bowing used to grow without limit along very long edges, which could push a
 ## Design exports carry the real ink
 
 `dart run packages/skribble/tool/design_kit.dart` now exports filled ink outlines, matching what the app paints, instead of centreline strokes. If you import the specimens into Figma, re-import them after upgrading. Build your own exports with `DrawableInk(...).svgPaths()`; see [Pens](/core/rough-engine#pens).
+
+## Icons take a weight instead of a stroke width
+
+`WiredIcon`, `WiredSvgIcon`, and `SkribbleIcon` replace `strokeWidth` with `weight`, on Flutter's 100–700 icon weight scale. It falls back to `IconTheme.weight`, so an `IconTheme` that lightens Material Symbols lightens Wired icons too. Unlike `strokeWidth`, it works for every set: strokes are inked thinner or bolder, and silhouettes grow or shrink evenly.
+
+```dart
+// Static example: api
+// Before
+WiredIcon(icon: Icons.search, strokeWidth: 1.2);
+
+// After
+WiredIcon(icon: Icons.search, weight: 300);
+```
+
+`sampleDistance` is gone; sampling is now an internal detail. Icons also scale with the theme's `strokeWidth`, so a bolder theme pen draws bolder icons.
+
+Stroke icons are inked by the theme pen, which draws its own rounded, tapered ends. Authored square and butt caps are no longer reproduced in live rendering; dash patterns still are. `WiredIconFillStyle.none` now draws a silhouette's outline with the pen.
+
+## skribble draws its own glyphs; `skribble_icons_curated` is retired
+
+The 30 curated icons copied Material silhouettes. They are replaced by `SkribbleGlyphs` in the core package: 51 stroke drawings made for skribble, which take the pen and `weight` fully. Remove the `skribble_icons_curated` dependency and switch lookups:
+
+```dart
+// Static example: api
+// Before
+lookupSkribbleCuratedIconByIdentifier('home');
+kSkribbleCuratedIcons[0xf001];
+
+// After
+SkribbleGlyphs.home;
+SkribbleGlyphs.all['home'];
+```
+
+| 0.2 curated name                                   | 0.3 glyph                                        |
+| -------------------------------------------------- | ------------------------------------------------ |
+| `arrow_left` (a chevron)                           | `chevron_left`, or `arrow_left` for a real arrow |
+| `arrow_right`, `arrow_up`, `arrow_down` (chevrons) | `chevron_*`, or `arrow_*` for real arrows        |
+| every other name                                   | the same name                                    |
+
+`SkribbleIconSet.curated` is now `SkribbleIconSet.glyphs`, and `lookupSkribbleIconByIdentifier` still searches the glyphs first.
+
+Without a registered catalog, `WiredIcon` now draws the matching glyph for about sixty common Material icons (home, search, check, close, the arrows and chevrons, and so on) instead of the plain font glyph. Wired widgets use the glyphs for their own chrome, so checkboxes, chips, and search bars look hand-drawn out of the box.

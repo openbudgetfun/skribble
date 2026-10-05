@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/finders.dart';
 
-Finder findWiredIcon(IconData icon) {
-  return find.byWidgetPredicate(
-    (widget) => widget is WiredIcon && widget.icon == icon,
-    description: 'WiredIcon($icon)',
-  );
-}
+import '../helpers/pump_app.dart';
 
 void main() {
   group('WiredSearchController', () {
@@ -216,7 +211,7 @@ void main() {
       await tester.pump();
       expect(controller.isOpen, isTrue);
 
-      await tester.tap(findWiredIcon(Icons.arrow_back));
+      await tester.tap(findWiredGlyph(SkribbleGlyphs.arrowLeft));
       await tester.pump();
 
       expect(controller.isOpen, isFalse);
@@ -242,7 +237,7 @@ void main() {
       await tester.pump();
 
       expect(find.byIcon(Icons.menu), findsOneWidget);
-      expect(find.byIcon(Icons.arrow_back), findsNothing);
+      expect(findWiredGlyph(SkribbleGlyphs.arrowLeft), findsNothing);
 
       controller.dispose();
     });

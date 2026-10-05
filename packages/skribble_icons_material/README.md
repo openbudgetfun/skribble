@@ -2,7 +2,7 @@
 
 Hand-drawn versions of the full Flutter Material icon set.
 
-Ships precomputed rough geometry for all 8,600+ Material icon codepoints plus a generated icon font. Because the geometry is already warped, rendering never runs the rough engine.
+Ships the source geometry for all 8,600+ Material icon codepoints. At render time `WiredIcon` wavers each silhouette with the theme's roughness and honours `weight`, growing or shrinking the shapes evenly, so `WiredIcon(icon: Icons.search, weight: 300)` draws a lighter hand-drawn magnifier.
 
 This catalog used to live inside the core `skribble` package. It moved here so that apps which do not render Material icons no longer download it — `skribble` dropped from roughly 31 MiB compressed to about 1.5 MiB.
 

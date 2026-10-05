@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'generated/skribble_glyphs.g.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -80,11 +81,9 @@ class WiredExpansionTile extends HookWidget {
                   AnimatedRotation(
                     turns: isExpanded.value ? 0.5 : 0,
                     duration: const Duration(milliseconds: 200),
-                    child: WiredIcon(
-                      icon: Icons.expand_more,
+                    child: WiredSvgIcon(
+                      data: SkribbleGlyphs.chevronDown,
                       color: theme.textColor,
-                      fillStyle: WiredIconFillStyle.solid,
-                      strokeWidth: 1.2,
                     ),
                   ),
                 ],

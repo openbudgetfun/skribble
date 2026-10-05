@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/app.dart';
 import 'package:skribble_storybook/components/component_showcase.dart';
 import 'package:skribble_storybook/pages/navigation_page.dart';
@@ -49,7 +50,15 @@ void main() {
       expect(find.text('WiredPopupMenuButton'), findsOneWidget);
       expect(find.text('Selected: None'), findsOneWidget);
 
-      await tester.tap(find.byIcon(Icons.more_vert).last);
+      await tester.tap(
+        find
+            .byWidgetPredicate(
+              (widget) =>
+                  widget is WiredSvgIcon &&
+                  identical(widget.data, SkribbleGlyphs.moreVertical),
+            )
+            .last,
+      );
       await tester.pumpAndSettle();
 
       expect(find.text('Profile'), findsWidgets);

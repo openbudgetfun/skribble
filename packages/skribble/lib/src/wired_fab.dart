@@ -59,8 +59,6 @@ class WiredFloatingActionButton extends HookWidget {
                   icon: icon,
                   color: iconColor ?? theme.fillColor,
                   size: size * 0.43,
-                  fillStyle: WiredIconFillStyle.solid,
-                  strokeWidth: 1.4,
                 ),
               ],
             ),

@@ -4,13 +4,13 @@
 /// project — the logos an app needs for sign-in buttons, footer links, tech-stack
 /// sections, and "works with" lists.
 ///
-/// Artwork is CC0-1.0, warped through the shared skribble rough pass at
-/// generation time. Every path is precomputed, so rendering never runs the rough
-/// engine.
+/// Artwork is CC0-1.0, gently bent through the shared skribble rough pass at
+/// generation time. At render time `WiredSvgIcon` adds the theme's wavering and
+/// honours `weight`.
 ///
 /// Despite the name, this package holds logos, not interface icons. For home,
 /// search, and the rest of the app vocabulary see
-/// [`skribble_icons_curated`](https://pub.dev/packages/skribble_icons_curated).
+/// `SkribbleGlyphs` in the core [`skribble`](https://pub.dev/packages/skribble) package.
 ///
 /// ```dart
 /// import 'package:skribble/skribble.dart';

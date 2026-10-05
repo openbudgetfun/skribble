@@ -100,8 +100,6 @@ class WiredBottomNavigationBar extends HookWidget {
                   icon: item.icon,
                   color: selected ? theme.borderColor : theme.disabledTextColor,
                   size: 24,
-                  fillStyle: WiredIconFillStyle.solid,
-                  strokeWidth: 1.2,
                 ),
               ],
             ),

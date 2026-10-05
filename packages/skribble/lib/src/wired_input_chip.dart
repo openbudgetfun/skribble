@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'generated/skribble_glyphs.g.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -106,14 +107,13 @@ class WiredInputChip extends HookWidget {
                             const SizedBox(width: 4),
                             GestureDetector(
                               onTap: onDeleted,
-                              child: WiredIcon(
-                                icon: Icons.close,
+                              child: WiredSvgIcon(
+                                data: SkribbleGlyphs.close,
                                 size: 16,
                                 color: selected
                                     ? Colors.white
                                     : theme.textColor,
-                                fillStyle: WiredIconFillStyle.solid,
-                                strokeWidth: 1.1,
+                                weight: 300,
                               ),
                             ),
                           ],

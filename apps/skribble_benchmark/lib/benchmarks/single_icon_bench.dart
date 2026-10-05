@@ -3,11 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_benchmark/widgets/frame_timer.dart';
 import 'package:skribble_benchmark/widgets/precomputed_icon.dart';
-import 'package:skribble_icons/skribble_icons.dart';
 
 /// Returns a list of [WiredSvgIconData] from the curated custom icons.
 List<WiredSvgIconData> _getIconDataList() {
-  return kSkribbleCuratedIcons.values.toList(growable: false);
+  return SkribbleGlyphs.all.values.toList(growable: false);
 }
 
 /// Benchmark page that renders a single icon with each approach and measures

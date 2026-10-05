@@ -45,26 +45,20 @@ Widget _svgIconData(ExampleSettings settings) => const WiredSvgIcon(
   semanticLabel: 'Triangle with a circular detail',
 );
 
-/// @docs-example custom-icons
-Widget _customIcons(ExampleSettings settings) => Wrap(
-  spacing: 24,
+/// @docs-example glyphs
+Widget _glyphs(ExampleSettings settings) => Wrap(
+  spacing: 20,
   runSpacing: 20,
   children: [
-    SkribbleIcon(
-      data: kSkribbleCuratedIcons[0xf001]!,
-      semanticLabel: 'Home',
-      size: 48,
-    ),
-    SkribbleIcon(
-      data: kSkribbleCuratedIcons[0xf005]!,
-      semanticLabel: 'Heart',
-      size: 48,
-    ),
-    SkribbleIcon(
-      data: kSkribbleCuratedIcons[0xf003]!,
-      semanticLabel: 'Settings',
-      size: 48,
-    ),
+    for (final glyph in const [
+      SkribbleGlyphs.home,
+      SkribbleGlyphs.search,
+      SkribbleGlyphs.heart,
+      SkribbleGlyphs.settings,
+      SkribbleGlyphs.mail,
+      SkribbleGlyphs.sparkle,
+    ])
+      SkribbleIcon(data: glyph, size: 48, weight: settings.weight),
   ],
 );
 

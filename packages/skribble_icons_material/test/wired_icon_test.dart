@@ -196,7 +196,6 @@ void main() {
     Future<void> pumpIcon(
       WidgetTester tester, {
       WiredIconFillStyle fillStyle = WiredIconFillStyle.solid,
-      double sampleDistance = 1.2,
       bool flipHorizontally = false,
       DrawConfig? drawConfig,
     }) {
@@ -206,7 +205,6 @@ void main() {
           child: WiredSvgIcon(
             data: data,
             fillStyle: fillStyle,
-            sampleDistance: sampleDistance,
             flipHorizontally: flipHorizontally,
             drawConfig: drawConfig,
           ),
@@ -234,14 +232,11 @@ void main() {
       }
     });
 
-    testWidgets('supports flipped rendering and low sample distance', (
-      tester,
-    ) async {
-      await pumpIcon(tester, flipHorizontally: true, sampleDistance: 0.1);
+    testWidgets('supports flipped rendering', (tester) async {
+      await pumpIcon(tester, flipHorizontally: true);
 
       final widget = tester.widget<WiredSvgIcon>(find.byType(WiredSvgIcon));
       expect(widget.flipHorizontally, isTrue);
-      expect(widget.sampleDistance, 0.1);
     });
 
     testWidgets('repaints when configuration changes', (tester) async {

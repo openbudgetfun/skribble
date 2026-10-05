@@ -120,7 +120,7 @@ void main() {
         if (kind == 'filter') {
           await tester.tap(find.byType(WiredFilterChip));
         } else {
-          await tester.tap(find.byType(WiredIcon).last);
+          await tester.tap(find.byType(WiredSvgIcon).last);
         }
         expect(deleted, isTrue);
       },

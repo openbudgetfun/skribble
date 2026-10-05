@@ -60,3 +60,7 @@ docs/site/test_bundle.dart
 docs/site/.patrol.env
 docs/site/test-results/
 docs/site/playwright-report/
+
+# fantasticon writes its codepoint map beside the working directory when the
+# rough icon font is regenerated; it is a build artifact, not package source.
+packages/skribble/material_rough_icons_codepoints.json

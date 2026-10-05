@@ -6,6 +6,7 @@
 // source drives both harnesses.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';
+import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/app.dart';
 
 void main() {
@@ -31,13 +32,14 @@ void main() {
     }
   });
 
-  patrolTest('skribble icons page lists curated lookups', ($) async {
+  patrolTest("skribble icons page opens on skribble's own glyphs", ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
     await $.scrollUntilVisible(finder: $('Skribble Icons'));
     await $('Skribble Icons').tap();
 
-    expect($('SkribbleIcon'), findsWidgets);
+    expect($('Glyphs hand-drawn icons'), findsOneWidget);
+    expect($(WiredSvgIcon), findsWidgets);
   });
 
   patrolTest('emoji page renders the emoji catalog', ($) async {

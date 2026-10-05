@@ -1148,7 +1148,7 @@ melos run rough-icons-font     # SVG + TTF font + Dart helpers
 
 Each icon set ships as its own package under `packages/`. Adding a set means creating the package, pointing a generator at a pinned source, and committing the resulting `.g.dart`.
 
-- `skribble_icons_curated` regenerates from a checked-in SVG manifest.
+- `SkribbleGlyphs` (in the core package) regenerate from the stroke SVGs and `glyphs.json` in `packages/skribble/tool/glyphs` with `melos run glyphs`.
 - `skribble_icons_lucide`, `skribble_icons_bxs`, and `skribble_icons_cib` regenerate from Iconify `icons.json` payloads pinned in `tool/asset_sources.txt` by version and SHA-256.
 - `skribble_icons_material` regenerates from the Flutter SDK through `svg2roughjs`; see `docs/rough-icon-pipeline.md`.
 
