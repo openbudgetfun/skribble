@@ -135,6 +135,11 @@ final Map<String, ExampleDefinition> examples = {
     source: "const WiredEmojiText(\n  'Shipped it 🚀 and the whole team ❤️ it 🎉',\n  style: TextStyle(fontSize: 24),\n)",
     edits: [],
   ),
+  'emoji-animated': ExampleDefinition(
+    builder: _emojiAnimated,
+    source: "Wrap(\n  spacing: 20,\n  runSpacing: 20,\n  children: [\n    for (final emoji in ['❤️', '😂', '👋', '🔥', '🎉', '🚀'])\n      WiredAnimatedEmoji(emoji, size: 56),\n  ],\n)",
+    edits: [],
+  ),
   'circular-progress': ExampleDefinition(
     builder: _progress,
     source: "WiredCircularProgress(value: settings.amount)",

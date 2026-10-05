@@ -21,7 +21,8 @@ const Map<EmojiGroup, String> _groupIcons = {
 /// Browses skribble's hand-drawn emoji like a picker: one tab per Unicode
 /// group, search by name, and a skin tone for every emoji that has one.
 ///
-/// Tapping an emoji opens a preview at several sizes and pen weights.
+/// Tapping an emoji opens a preview: animated, at several sizes, and at
+/// several pen weights.
 class EmojiPage extends HookWidget {
   const EmojiPage({super.key});
 
@@ -187,7 +188,8 @@ class _ToneRow extends StatelessWidget {
   }
 }
 
-/// The emoji at three sizes and three pen weights, with its name and code.
+/// The emoji animated, at three sizes, and at three pen weights, with its
+/// name and code.
 class _EmojiPreview extends StatelessWidget {
   const _EmojiPreview({required this.entry});
 
@@ -212,7 +214,7 @@ class _EmojiPreview extends StatelessWidget {
     );
 
     return WiredDialog(
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -230,6 +232,13 @@ class _EmojiPreview extends StatelessWidget {
                 color: theme.disabledTextColor,
               ),
               textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            Center(
+              child: labelled(
+                WiredAnimatedEmoji(entry.emoji, size: 96),
+                'Animated',
+              ),
             ),
             const SizedBox(height: 20),
             Row(

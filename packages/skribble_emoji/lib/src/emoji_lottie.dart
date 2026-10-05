@@ -17,7 +17,8 @@ const double _boilRate = 8;
 ///
 /// The result is Lottie (Bodymovin 5.7) JSON as plain maps and lists, ready
 /// for `jsonEncode`. It plays in the `lottie` Flutter package, lottie-web,
-/// and the iOS and Android players, and imports into Rive's editor.
+/// and the iOS and Android players. Rive's editor can import it as a
+/// starting point on Rive's Enterprise plan.
 ///
 /// The emoji is prepared at [detail] logical pixels (the wobble and pen are
 /// tuned for that size by [config]) and scaled to a [size] canvas. [motion]

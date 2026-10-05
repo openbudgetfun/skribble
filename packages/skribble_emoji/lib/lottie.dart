@@ -1,6 +1,5 @@
 /// Exports skribble's emoji as Lottie animations, for players outside
-/// Flutter's own rendering: lottie-web, the iOS and Android players, and
-/// Rive's Lottie import.
+/// Flutter's own rendering: lottie-web and the iOS and Android players.
 ///
 /// ```dart
 /// import 'dart:convert';

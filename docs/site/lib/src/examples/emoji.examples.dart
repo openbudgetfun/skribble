@@ -28,3 +28,13 @@ Widget _emojiText(ExampleSettings settings) => const WiredEmojiText(
   'Shipped it 🚀 and the whole team ❤️ it 🎉',
   style: TextStyle(fontSize: 24),
 );
+
+/// @docs-example emoji-animated
+Widget _emojiAnimated(ExampleSettings settings) => Wrap(
+  spacing: 20,
+  runSpacing: 20,
+  children: [
+    for (final emoji in ['❤️', '😂', '👋', '🔥', '🎉', '🚀'])
+      WiredAnimatedEmoji(emoji, size: 56),
+  ],
+);

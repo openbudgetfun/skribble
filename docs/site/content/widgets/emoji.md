@@ -98,6 +98,67 @@ const WiredEmojiText(
 
 ---
 
+## Animated emoji
+
+`WiredAnimatedEmoji` brings an emoji to life. Its parts move (a heart beats, a hand waves, a flame flickers, faces blink) and its lines boil: eight times a second the pen retraces the same shapes by a fresh hand, the way hand-drawn cartoons shimmer.
+
+```dart
+// Live example: emoji-animated
+Wrap(
+  spacing: 20,
+  runSpacing: 20,
+  children: [
+    for (final emoji in ['❤️', '😂', '👋', '🔥', '🎉', '🚀'])
+      WiredAnimatedEmoji(emoji, size: 56),
+  ],
+)
+```
+
+The 140-odd most-used emoji have their own choreography, and every other emoji moves with its family: faces blink, hearts beat, hands wave, flowers sway, weather floats. Emoji without a natural motion, such as flags, only boil. Turn the boil off with `boil: false`, or stop everything with `animating: false`.
+
+Animation follows [skribble's motion policy](/core/motion): a `WiredMotion(enabled: false)` ancestor, the platform's reduced-motion setting, or a muted `TickerMode` shows the emoji at rest, exactly as `WiredEmoji` draws it.
+
+### Your own motion
+
+A motion is a list of tracks, each moving one part (or the whole emoji, with `null`) around a pivot in that part's bounds. Tracks for parts a drawing does not have are skipped.
+
+```dart
+// Static example: api
+import 'package:flutter/widgets.dart';
+import 'package:skribble_emoji/skribble_emoji.dart';
+
+const wave = EmojiMotion([
+  EmojiTrack('hand', EmojiMove.wave(swings: 3), pivot: Alignment(0, .8)),
+  EmojiTrack(null, EmojiMove.bob()),
+], duration: Duration(milliseconds: 1400));
+
+const hello = WiredAnimatedEmoji('👋', size: 64, motion: wave);
+```
+
+The built-in moves are `beat`, `blink`, `bob`, `wave`, `sway`, `shake`, `flicker`, `spin`, `hop`, `breathe`, `drip`, `float`, and `burst`; `move.delayed(fraction)` staggers one. Subclass `EmojiMove` to write your own: it maps loop progress to an `EmojiPose` of movement, rotation, scale, and opacity. Pass `progress` to drive the loop from your own `Animation<double>`; the widget borrows it and never starts or disposes it.
+
+### Outside Flutter: SVG and Lottie
+
+`EmojiVector` gives the same inked geometry as plain SVG path data, and `toSvg()` writes a standalone SVG with a `data-part` attribute on every part. `emojiLottie` in `package:skribble_emoji/lottie.dart` builds a Lottie animation of the motion and the boil, which plays in lottie-web and the iOS and Android Lottie players.
+
+```dart
+// Static example: api
+import 'dart:convert';
+
+import 'package:skribble/skribble.dart';
+import 'package:skribble_emoji/lottie.dart';
+import 'package:skribble_emoji/skribble_emoji.dart';
+
+final fire = SkribbleEmoji.lookup('🔥')!;
+final config = emojiDrawConfig(WiredThemeData(), 72);
+final svg = EmojiVector(fire, size: 72, config: config).toSvg();
+final lottie = jsonEncode(emojiLottie(fire, config: config));
+```
+
+Every release attaches the choreographed emoji as Lottie files: [skribble-emoji-lottie.zip](https://github.com/openbudgetfun/skribble/releases/latest/download/skribble-emoji-lottie.zip). Rive's editor can import Lottie files as a starting point on Rive's Enterprise plan; skribble does not produce `.riv` files itself.
+
+---
+
 ## Looking emoji up
 
 `SkribbleEmoji` is the catalog. Every entry carries its Unicode name, group, subgroup, and the art it is drawn with.
