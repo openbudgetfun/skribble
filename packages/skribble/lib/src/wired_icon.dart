@@ -62,8 +62,8 @@ class WiredSvgIcon extends HookWidget {
         drawConfig ??
         DrawConfig.build(
           maxRandomnessOffset:
-              themeDrawConfig.maxRandomnessOffset! *
-              (1 + 1.5 * (themeDrawConfig.lineWobble ?? 0)) *
+              themeDrawConfig.maxRandomnessOffset *
+              (1 + 1.5 * themeDrawConfig.lineWobble) *
               math.min(2.0, effectiveSize / 24),
           roughness: themeDrawConfig.roughness,
           lineWobble: themeDrawConfig.lineWobble,
@@ -403,7 +403,7 @@ final class _WiredSvgIconPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    drawConfig.randomizer?.reset();
+    drawConfig.randomizer.reset();
 
     final outlinePaint = Paint()
       ..color = color
@@ -508,10 +508,8 @@ final class _WiredSvgIconPainter extends CustomPainter {
     if (drawConfig.roughness == 0) return path;
     final rough = Path()..fillType = path.fillType;
     final amplitude =
-        (drawConfig.roughness ?? 1) *
-        (drawConfig.maxRandomnessOffset ?? 1) *
-        0.12;
-    final phase = (drawConfig.seed ?? 0) * 0.61803398875;
+        drawConfig.roughness * drawConfig.maxRandomnessOffset * 0.12;
+    final phase = drawConfig.seed * 0.61803398875;
     final pathBounds = bounds ?? path.getBounds();
 
     // Keep enlarged icons from accumulating extra ripples along every edge.

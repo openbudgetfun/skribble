@@ -20,7 +20,8 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 | `disabledTextColor` | `Color`          | `WiredPalette.mutedInk`                      | Text color for disabled states                                                  |
 | `fillColor`         | `Color`          | `WiredPalette.paper`                         | Interior fill color for shapes                                                  |
 | `strokeWidth`       | `double`         | `2.4`                                        | Default border stroke width                                                     |
-| `roughnessLevel`    | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, and lettering                          |
+| `roughnessLevel`    | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, pens, and lettering                    |
+| `pen`               | `RoughPen`       | Level pen (`RoughPen.ink` for playful)       | How lines are inked; an explicit constructor value overrides the preset         |
 | `roughness`         | `double`         | Level value (`1.5` for playful)              | Resolved amplitude; an explicit constructor value overrides the preset          |
 | `fontFamily`        | `String`         | Level family (`SkribblePlayful` for playful) | Resolved bundled or custom family                                               |
 | `fontPackage`       | `String?`        | `skribble` for bundled families              | Asset package; null for custom app fonts                                        |
@@ -66,6 +67,18 @@ final baseTheme = WiredThemeData();
 final boldTheme = baseTheme.copyWith(
   strokeWidth: 4,
   roughness: 2,
+);
+```
+
+### Choosing a pen
+
+Each roughness level brings its own pen: gentle draws with a fineliner, playful with ink, and expressive with a brush. Pass `pen` to keep a level's geometry and lettering but change how its lines are inked. `RoughPen.uniform` gives constant-width lines. See [Pens](/core/rough-engine#pens).
+
+```dart
+// Static example: configuration
+final theme = WiredThemeData(
+  roughnessLevel: WiredRoughness.expressive,
+  pen: RoughPen.fineliner,
 );
 ```
 

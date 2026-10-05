@@ -9,5 +9,7 @@ export 'decoration.dart';
 export 'entities.dart';
 export 'filler.dart';
 export 'generator.dart';
+export 'ink_stroke.dart';
+export 'pen.dart';
 export 'rough.dart';
 export 'rough_drawing.dart';

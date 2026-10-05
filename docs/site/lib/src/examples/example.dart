@@ -17,7 +17,16 @@ enum ExampleParameter {
   fill,
   color,
   iconFill,
+  pen,
 }
+
+/// The pen presets a live example can switch between, with their Dart names.
+const Map<String, RoughPen> examplePens = {
+  'fineliner': RoughPen.fineliner,
+  'ink': RoughPen.ink,
+  'brush': RoughPen.brush,
+  'uniform': RoughPen.uniform,
+};
 
 /// Values shared by an example's compiled builder and generated source.
 class ExampleSettings {
@@ -48,6 +57,9 @@ class ExampleSettings {
   /// Fill strategy used by runtime rough icons.
   WiredIconFillStyle iconFill = WiredIconFillStyle.solid;
 
+  /// How ink is laid along every line in pen examples.
+  RoughPen pen = RoughPen.ink;
+
   /// Dart literal corresponding to the current typed parameter.
   String literal(ExampleParameter parameter) => switch (parameter) {
     ExampleParameter.label => jsonEncode(label).replaceAll(r'$', r'\$'),
@@ -59,6 +71,8 @@ class ExampleSettings {
     ExampleParameter.color =>
       'Color(0x${color.toARGB32().toRadixString(16).padLeft(8, '0')})',
     ExampleParameter.iconFill => 'WiredIconFillStyle.${iconFill.name}',
+    ExampleParameter.pen =>
+      'RoughPen.${examplePens.entries.firstWhere((entry) => entry.value == pen).key}',
   };
 }
 
@@ -163,7 +177,8 @@ class LiveExample extends HookWidget {
                           SizedBox(
                             width:
                                 parameter == ExampleParameter.interaction ||
-                                    parameter == ExampleParameter.fill
+                                    parameter == ExampleParameter.fill ||
+                                    parameter == ExampleParameter.pen
                                 ? 280
                                 : 220,
                             child: _ParameterEditor(
@@ -276,6 +291,33 @@ class _ParameterEditor extends HookWidget {
           onChanged();
         },
         child: Text('enabled: ${settings.enabled}'),
+      );
+    }
+
+    if (parameter == ExampleParameter.pen) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            parameter.name,
+            style: const TextStyle(fontSize: 13, color: docsQuietInk),
+          ),
+          Wrap(
+            children: [
+              for (final MapEntry(key: name, value: pen) in examplePens.entries)
+                DocsAction(
+                  key: DocsKeys.choice(id, parameter.name, name),
+                  dense: true,
+                  selected: pen == settings.pen,
+                  onPressed: () {
+                    settings.pen = pen;
+                    onChanged();
+                  },
+                  child: Text(name, style: const TextStyle(fontSize: 12)),
+                ),
+            ],
+          ),
+        ],
       );
     }
 
