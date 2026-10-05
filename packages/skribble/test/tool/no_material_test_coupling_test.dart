@@ -92,6 +92,10 @@ void main() {
 /// time, as the button, boolean-input, and value-input families were.
 const Set<String> _migrationBacklog = <String>{
   'test/skribble_test.dart', // Checkbox, TextField
+  // InputDecorator, Scaffold: asserts the WiredMaterialApp bridge theme's
+  // input defaults never draw a second box inside Wired text fields. Obsolete
+  // once those fields stop wrapping TextField.
+  'test/compat/material_bridge_text_fields_test.dart',
   'test/widgets/control_quality_test.dart', // Checkbox, Slider, TextField
   'test/widgets/wired_about_dialog_test.dart', // LicensePage
   'test/widgets/wired_animated_icon_test.dart', // AnimatedIcon
