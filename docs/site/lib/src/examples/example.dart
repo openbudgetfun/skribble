@@ -18,6 +18,7 @@ enum ExampleParameter {
   color,
   iconFill,
   pen,
+  weight,
 }
 
 /// The pen presets a live example can switch between, with their Dart names.
@@ -60,6 +61,9 @@ class ExampleSettings {
   /// How ink is laid along every line in pen examples.
   RoughPen pen = RoughPen.ink;
 
+  /// Icon weight from 100 (thin) to 700 (bold).
+  double weight = 400;
+
   /// Dart literal corresponding to the current typed parameter.
   String literal(ExampleParameter parameter) => switch (parameter) {
     ExampleParameter.label => jsonEncode(label).replaceAll(r'$', r'\$'),
@@ -71,6 +75,7 @@ class ExampleSettings {
     ExampleParameter.color =>
       'Color(0x${color.toARGB32().toRadixString(16).padLeft(8, '0')})',
     ExampleParameter.iconFill => 'WiredIconFillStyle.${iconFill.name}',
+    ExampleParameter.weight => '$weight',
     ExampleParameter.pen =>
       'RoughPen.${examplePens.entries.firstWhere((entry) => entry.value == pen).key}',
   };
@@ -385,12 +390,16 @@ class _ParameterEditor extends HookWidget {
               );
             } else {
               final number = double.tryParse(value);
-              final max = parameter == ExampleParameter.radius ? 48 : 1;
+              final (min, max) = switch (parameter) {
+                ExampleParameter.radius => (0, 48),
+                ExampleParameter.weight => (100, 700),
+                _ => (0, 1),
+              };
               if (number == null ||
                   !number.isFinite ||
-                  number < 0 ||
+                  number < min ||
                   number > max) {
-                error.value = 'Enter a number from 0 to $max.';
+                error.value = 'Enter a number from $min to $max.';
                 return;
               }
               if (parameter == ExampleParameter.radius) {
@@ -398,6 +407,9 @@ class _ParameterEditor extends HookWidget {
               }
               if (parameter == ExampleParameter.amount) {
                 settings.amount = number;
+              }
+              if (parameter == ExampleParameter.weight) {
+                settings.weight = number;
               }
             }
             error.value = null;

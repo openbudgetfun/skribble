@@ -25,7 +25,6 @@ class DrawerMenu extends HookWidget {
                     child: WiredIcon(
                       icon: Icons.edit,
                       size: 24,
-                      strokeWidth: 1.2,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -48,7 +47,6 @@ class DrawerMenu extends HookWidget {
             leading: const WiredIcon(
               icon: Icons.notes,
               size: 22,
-              strokeWidth: 1.2,
             ),
             title: const Text('All Notes'),
             onTap: () async {
@@ -61,7 +59,6 @@ class DrawerMenu extends HookWidget {
             leading: const WiredIcon(
               icon: Icons.settings,
               size: 22,
-              strokeWidth: 1.2,
             ),
             title: const Text('Settings'),
             onTap: () async {
@@ -73,7 +70,6 @@ class DrawerMenu extends HookWidget {
             leading: const WiredIcon(
               icon: Icons.info_outline,
               size: 22,
-              strokeWidth: 1.2,
             ),
             title: const Text('About'),
             showDivider: false,

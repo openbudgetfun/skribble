@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'generated/skribble_glyphs.g.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
@@ -143,12 +144,10 @@ class _ColorSwatch extends HookWidget {
             ),
             // Check mark for selected
             if (isSelected)
-              WiredIcon(
-                icon: _checkIcon,
+              WiredSvgIcon(
+                data: SkribbleGlyphs.check,
                 color: _contrastColor(color),
                 size: size * 0.5,
-                fillStyle: WiredIconFillStyle.solid,
-                strokeWidth: 1.2,
               ),
           ],
         ),
@@ -162,6 +161,3 @@ class _ColorSwatch extends HookWidget {
         : const Color(0xFFFFFFFF);
   }
 }
-
-/// `Icons.check` as a raw codepoint so this file stays widgets-only.
-const IconData _checkIcon = IconData(0xe156, fontFamily: 'MaterialIcons');

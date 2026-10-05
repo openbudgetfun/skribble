@@ -99,3 +99,16 @@ Finder findWiredRoughPaint() => find.byWidgetPredicate(
 /// must not depend on which painter drew.
 Finder findWiredPainterIn(Finder ancestor) =>
     find.descendant(of: ancestor, matching: findWiredRoughPaint());
+
+/// Finds every `WiredSvgIcon` drawing the built-in [glyph], such as
+/// `SkribbleGlyphs.check`.
+///
+/// Wired widgets draw their own chrome (checks, chevrons, close buttons) with
+/// `SkribbleGlyphs`, so this is how a test proves the glyph is on screen
+/// without depending on Material's icon font.
+Finder findWiredGlyph(WiredSvgIconData glyph, {bool skipOffstage = true}) =>
+    find.byWidgetPredicate(
+      (widget) => widget is WiredSvgIcon && identical(widget.data, glyph),
+      description: 'WiredSvgIcon(glyph)',
+      skipOffstage: skipOffstage,
+    );

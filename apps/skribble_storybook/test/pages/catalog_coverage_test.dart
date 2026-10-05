@@ -23,7 +23,7 @@ void main() {
       try {
         await pump(tester, const SkribbleIconsPage());
         for (final set in [
-          'Curated',
+          'Glyphs',
           'Material',
           'Lucide',
           'Simple Icons',
@@ -91,7 +91,7 @@ void main() {
     await tester.pumpAndSettle();
     final home = find.byWidgetPredicate(
       (widget) =>
-          widget is WiredSvgIcon && widget.semanticLabel == 'Curated: home',
+          widget is WiredSvgIcon && widget.semanticLabel == 'Glyphs: home',
     );
     await tester.scrollUntilVisible(
       home,

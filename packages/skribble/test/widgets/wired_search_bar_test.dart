@@ -5,13 +5,6 @@ import 'package:skribble/skribble.dart';
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
-Finder findWiredIcon(IconData icon) {
-  return find.byWidgetPredicate(
-    (widget) => widget is WiredIcon && widget.icon == icon,
-    description: 'WiredIcon($icon)',
-  );
-}
-
 void main() {
   group('WiredSearchBar', () {
     testWidgets('renders without error', (tester) async {
@@ -23,7 +16,7 @@ void main() {
     testWidgets('renders default rough search icon', (tester) async {
       await pumpApp(tester, WiredSearchBar());
 
-      expect(findWiredIcon(Icons.search), findsOneWidget);
+      expect(findWiredGlyph(SkribbleGlyphs.search), findsOneWidget);
     });
 
     testWidgets('renders custom leading widget', (tester) async {
@@ -38,7 +31,7 @@ void main() {
       expect(find.byIcon(Icons.filter_list), findsOneWidget);
       // The default rough search icon should not be present when a custom
       // leading widget is provided.
-      expect(findWiredIcon(Icons.search), findsNothing);
+      expect(findWiredGlyph(SkribbleGlyphs.search), findsNothing);
     });
 
     testWidgets('renders trailing widget when provided', (tester) async {

@@ -12,8 +12,6 @@ dependencies:
     path: ../../packages/skribble
   skribble_font_recursive:
     path: ../../packages/skribble_font_recursive
-  skribble_icons:
-    path: ../../packages/skribble_icons
 dev_dependencies:
   flutter_test:
     sdk: flutter

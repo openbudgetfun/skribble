@@ -1,7 +1,7 @@
 name: skribble_icons
 description: |
   Every skribble hand-drawn icon set behind one import. Aggregates the
-  curated, Simple Icons, Material, Lucide, Boxicons, and CoreUI Brands catalogs
+  Simple Icons, Material, Lucide, Boxicons, and CoreUI Brands catalogs
   with a unified lookup.
 version: 0.2.1
 homepage: https://github.com/openbudgetfun/skribble
@@ -24,7 +24,6 @@ dependencies:
   skribble: ^0.2.1
   skribble_icons_bxs: ^0.2.1
   skribble_icons_cib: ^0.2.1
-  skribble_icons_curated: ^0.2.1
   skribble_icons_lucide: ^0.2.1
   skribble_icons_material: ^0.2.1
   skribble_icons_simple: ^0.2.1

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'generated/skribble_glyphs.g.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -122,12 +123,10 @@ class _WiredReorderableItem extends HookWidget {
                   index: index,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: WiredIcon(
-                      icon: Icons.drag_handle,
+                    child: WiredSvgIcon(
+                      data: SkribbleGlyphs.grip,
                       color: theme.textColor,
                       size: 20,
-                      fillStyle: WiredIconFillStyle.solid,
-                      strokeWidth: 1.2,
                     ),
                   ),
                 ),

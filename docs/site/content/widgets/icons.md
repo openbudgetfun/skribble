@@ -5,13 +5,15 @@ description: Hand-drawn icon rendering, SVG icon data, animated icons, and the r
 
 # Icons
 
-skribble renders Material icons with rough, hand-drawn outlines and optional hachure or cross-hatch fills. The icon system includes a pre-generated catalog of Material icons converted to SVG primitives, a runtime rough renderer, and helpers for custom icon sets.
+skribble draws icons by hand. Strokes are inked with the theme's pen, so they taper and swell like every other line in the interface; silhouettes waver and can be filled solid, hatched, or left as an inked outline. Every icon honours a **weight** from 100 to 700, so you can make icons thinner or bolder without changing sets.
+
+The core package ships 51 of its own drawings, `SkribbleGlyphs`, which Wired widgets use for their checks, chevrons, and close buttons. Larger catalogs (Material, Lucide, Boxicons, and brand sets) live in separate packages.
 
 ---
 
 ## WiredIcon
 
-The primary icon widget. Looks up the given `IconData` in the pre-generated rough icon catalog and renders it with hand-drawn strokes. Falls back to Flutter's standard `Icon` for unsupported icon families.
+Draws a Flutter `IconData` by hand. It looks the icon up in the registered catalog (see [Activating Material icons](#activating-material-icons)). Without a catalog, about sixty common Material icons — home, search, check, close, the arrows and chevrons, and more — are drawn with the matching `SkribbleGlyphs`. Anything else falls back to Flutter's `Icon`.
 
 ```dart
 // Live example: icon
@@ -39,42 +41,67 @@ const Wrap(
 
 ### Constructor parameters
 
-| Parameter        | Type                 | Default      | Description                                                                 |
-| ---------------- | -------------------- | ------------ | --------------------------------------------------------------------------- |
-| `icon`           | `IconData`           | **required** | The icon to render.                                                         |
-| `size`           | `double?`            | `null`       | Icon size. Defaults to `IconTheme.of(context).size` or 24.                  |
-| `color`          | `Color?`             | `null`       | Icon color. Defaults to `IconTheme.of(context).color` or `theme.textColor`. |
-| `semanticLabel`  | `String?`            | `null`       | Accessibility label.                                                        |
-| `fillStyle`      | `WiredIconFillStyle` | `.solid`     | Fill strategy for the icon shapes.                                          |
-| `strokeWidth`    | `double`             | `1.6`        | Base pen width; solid fills use a 45% contour to keep small counters open.  |
-| `drawConfig`     | `DrawConfig?`        | `null`       | Custom rough drawing configuration.                                         |
-| `sampleDistance` | `double`             | `1.2`        | Sampling distance along path contours.                                      |
-| `hachureGap`     | `double`             | `2.25`       | Gap between hachure fill lines.                                             |
-| `hachureAngle`   | `double`             | `320`        | Angle of hachure fill lines in degrees.                                     |
+| Parameter       | Type                 | Default      | Description                                                                    |
+| --------------- | -------------------- | ------------ | ------------------------------------------------------------------------------ |
+| `icon`          | `IconData`           | **required** | The icon to render.                                                            |
+| `size`          | `double?`            | `null`       | Icon size. Defaults to `IconTheme.of(context).size` or 24.                     |
+| `color`         | `Color?`             | `null`       | Icon color. Defaults to `IconTheme.of(context).color` or `theme.textColor`.    |
+| `weight`        | `double?`            | `null`       | Pen weight from 100 to 700. Defaults to `IconTheme.of(context).weight` or 400. |
+| `semanticLabel` | `String?`            | `null`       | Accessibility label.                                                           |
+| `fillStyle`     | `WiredIconFillStyle` | `.solid`     | How ambient silhouettes are filled. Stroke artwork ignores it.                 |
+| `drawConfig`    | `DrawConfig?`        | `null`       | Overrides the theme's wavering and pen.                                        |
+| `hachureGap`    | `double`             | `2.25`       | Gap between hachure strokes.                                                   |
+| `hachureAngle`  | `double`             | `320`        | Angle of hachure strokes in degrees.                                           |
+
+### Weight
+
+`weight` follows Flutter's icon weight scale, so `IconTheme(data: IconThemeData(weight: 300), ...)` lightens every Wired icon below it, the same as it lightens Material Symbols. Normal is 400; 100 halves the pen and 700 draws it 1.75 times as wide.
+
+- **Strokes** (Lucide, `SkribbleGlyphs`) are inked thinner or bolder by the theme pen.
+- **Silhouettes** (Material, Boxicons, brand marks) grow or shrink evenly along their edges. Shrinking keeps narrow counters open; very bold weights fill the smallest gaps, as a bold typeface does.
+- **The theme's ink weight** scales icons too: a `WiredThemeData` with `strokeWidth: 3.6` draws icons half again as bold as the 2.4 default, so one setting controls borders and icons together.
+
+```dart
+// Live example: glyphs
+Wrap(
+  spacing: 20,
+  runSpacing: 20,
+  children: [
+    for (final glyph in const [
+      SkribbleGlyphs.home,
+      SkribbleGlyphs.search,
+      SkribbleGlyphs.heart,
+      SkribbleGlyphs.settings,
+      SkribbleGlyphs.mail,
+      SkribbleGlyphs.sparkle,
+    ])
+      SkribbleIcon(data: glyph, size: 48, weight: 400),
+  ],
+)
+```
 
 ### Fill styles
 
-The `WiredIconFillStyle` enum controls how icon shapes are filled:
+The `WiredIconFillStyle` enum controls how ambient silhouettes are filled. Stroke artwork and multi-coloured artwork keep their authored paint.
 
-| Style        | Description                                              |
-| ------------ | -------------------------------------------------------- |
-| `none`       | Outline only, no fill.                                   |
-| `solid`      | Solid color fill (default). Clean and readable.          |
-| `hachure`    | Diagonal hatching lines at the configured angle and gap. |
-| `crossHatch` | Two layers of hachure lines at 90 degrees to each other. |
+| Style        | Description                                                    |
+| ------------ | -------------------------------------------------------------- |
+| `none`       | The silhouette's outline only, inked with the theme pen.       |
+| `solid`      | Solid fill (default), grown or shrunk to the requested weight. |
+| `hachure`    | Pen strokes at the configured angle and gap, plus the outline. |
+| `crossHatch` | Two crossing sets of pen strokes, plus the outline.            |
 
 ### Notes
 
-- Only `MaterialIcons` font family icons have rough equivalents in the catalog. Other icon families (e.g., custom fonts) fall back to `Icon`.
-- RTL text direction is handled automatically: icons with `matchTextDirection` are flipped horizontally.
-- The `drawConfig` parameter allows full control over randomness, roughness, bowing, and curve fitting.
-- The rough rendering uses path sampling along contours, with `sampleDistance` controlling fidelity.
+- RTL text direction is handled automatically: icons with `matchTextDirection` are flipped horizontally, including built-in glyph fallbacks.
+- The `drawConfig` parameter overrides the theme's wavering and pen. `DrawConfig.build(roughness: 0)` keeps the source geometry and still inks it with the pen.
+- The pen ends every stroke its own way, so authored square and butt caps are drawn round. Dash patterns are preserved.
 
 ---
 
 ## WiredSvgIcon
 
-Renders a pre-parsed `WiredSvgIconData` with rough hand-drawn strokes. This is the lower-level rendering widget used by `WiredIcon` internally.
+Draws `WiredSvgIconData` by hand. `WiredIcon` and `SkribbleIcon` both render through it. Use it directly for catalog lookups, `SkribbleGlyphs`, or your own generated geometry.
 
 ```dart
 // Live example: svg-icon
@@ -89,24 +116,23 @@ WiredSvgIcon(
 
 ### Constructor parameters
 
-| Parameter          | Type                 | Default      | Description                                                                |
-| ------------------ | -------------------- | ------------ | -------------------------------------------------------------------------- |
-| `data`             | `WiredSvgIconData`   | **required** | Pre-parsed SVG icon data.                                                  |
-| `size`             | `double?`            | `null`       | Icon size.                                                                 |
-| `color`            | `Color?`             | `null`       | Icon color.                                                                |
-| `semanticLabel`    | `String?`            | `null`       | Accessibility label.                                                       |
-| `fillStyle`        | `WiredIconFillStyle` | `.solid`     | Fill strategy.                                                             |
-| `strokeWidth`      | `double`             | `1.6`        | Base pen width; solid fills use a 45% contour to keep small counters open. |
-| `drawConfig`       | `DrawConfig?`        | `null`       | Custom rough drawing configuration.                                        |
-| `flipHorizontally` | `bool`               | `false`      | Mirror the icon horizontally.                                              |
-| `sampleDistance`   | `double`             | `1.2`        | Path sampling distance.                                                    |
-| `hachureGap`       | `double`             | `2.25`       | Hachure line gap.                                                          |
-| `hachureAngle`     | `double`             | `320`        | Hachure angle in degrees.                                                  |
+| Parameter          | Type                 | Default      | Description                                                                    |
+| ------------------ | -------------------- | ------------ | ------------------------------------------------------------------------------ |
+| `data`             | `WiredSvgIconData`   | **required** | Pre-parsed SVG icon data.                                                      |
+| `size`             | `double?`            | `null`       | Icon size.                                                                     |
+| `color`            | `Color?`             | `null`       | Icon color.                                                                    |
+| `weight`           | `double?`            | `null`       | Pen weight from 100 to 700. Defaults to `IconTheme.of(context).weight` or 400. |
+| `semanticLabel`    | `String?`            | `null`       | Accessibility label.                                                           |
+| `fillStyle`        | `WiredIconFillStyle` | `.solid`     | How ambient silhouettes are filled.                                            |
+| `drawConfig`       | `DrawConfig?`        | `null`       | Overrides the theme's wavering and pen.                                        |
+| `flipHorizontally` | `bool`               | `false`      | Mirror the icon horizontally.                                                  |
+| `hachureGap`       | `double`             | `2.25`       | Hachure stroke gap.                                                            |
+| `hachureAngle`     | `double`             | `320`        | Hachure angle in degrees.                                                      |
 
 ### Notes
 
 - SVG data is scaled to fit the target size while maintaining aspect ratio.
-- Path primitives are memoized with `useMemoized` for performance.
+- Scaled geometry and the painter are memoized. The painter caches its wavered contours and pen outlines, so repaints and rebuilds with the same inputs reuse them.
 - Supports `flipHorizontally` for RTL icon rendering.
 
 ---
@@ -265,16 +291,16 @@ final codePoints = materialRoughIconCodePoints;
 
 ## Icon packages
 
-Each icon set ships as its own package so an app only pays for the artwork it renders. `skribble_icons` is the umbrella: it depends on every set, re-exports their catalogs, and adds a cross-set lookup.
+skribble's own glyphs ship with the core package. Each third-party set ships as its own package so an app only pays for the artwork it renders. `skribble_icons` is the umbrella: it depends on every set, re-exports their catalogs, and adds a cross-set lookup.
 
-| Package                   | Names  | Style                   | License    |
-| ------------------------- | ------ | ----------------------- | ---------- |
-| `skribble_icons_simple`   | 3,472  | brand marks             | CC0-1.0    |
-| `skribble_icons_curated`  | 30     | app vocabulary          | Apache-2.0 |
-| `skribble_icons_material` | 8,600+ | Flutter's `Icons`       | Apache-2.0 |
-| `skribble_icons_lucide`   | 2,056  | 2px open outlines       | ISC        |
-| `skribble_icons_bxs`      | 665    | filled silhouettes      | MIT        |
-| `skribble_icons_cib`      | 831    | brand and product marks | CC0-1.0    |
+| Package                       | Names  | Style                   | License    |
+| ----------------------------- | ------ | ----------------------- | ---------- |
+| `skribble` (`SkribbleGlyphs`) | 51     | hand-drawn strokes      | MIT        |
+| `skribble_icons_simple`       | 3,472  | brand marks             | CC0-1.0    |
+| `skribble_icons_material`     | 8,600+ | Flutter's `Icons`       | Apache-2.0 |
+| `skribble_icons_lucide`       | 2,056  | 2px open outlines       | ISC        |
+| `skribble_icons_bxs`          | 665    | filled silhouettes      | MIT        |
+| `skribble_icons_cib`          | 831    | brand and product marks | CC0-1.0    |
 
 ### Installation
 
@@ -288,40 +314,23 @@ dart pub add skribble_icons
 dart pub add skribble_icons_lucide
 ```
 
-### Curated icons
+### skribble's glyphs
 
-The curated set covers the actions a typical screen needs. Each one is authored as a 24x24 SVG and warped at generation time, so no rough engine work happens at render time.
+`SkribbleGlyphs` are 51 interface icons drawn for skribble as 24-unit strokes: home, search, settings, star, heart, user, menu, close, check, plus, minus, the four arrows and four chevrons, edit, delete, share, copy, mail, phone, camera, image, calendar, clock, lock, unlock, eye, eye off, notification, more (both directions), info, warning, grip, sun, moon, sparkle, filter, download, upload, link, bookmark, flag, pin, send, and refresh. They have a little personality — the house has a chimney, the magnifier a glint, the menu's last line is short — and because they are strokes, the pen and `weight` apply fully.
 
 ```dart
-// Live example: custom-icons
-Wrap(
-  spacing: 24,
-  runSpacing: 20,
-  children: [
-    SkribbleIcon(
-      data: kSkribbleCuratedIcons[0xf001]!,
-      semanticLabel: 'Home',
-      size: 48,
-    ),
-    SkribbleIcon(
-      data: kSkribbleCuratedIcons[0xf005]!,
-      semanticLabel: 'Heart',
-      size: 48,
-    ),
-    SkribbleIcon(
-      data: kSkribbleCuratedIcons[0xf003]!,
-      semanticLabel: 'Settings',
-      size: 48,
-    ),
-  ],
-)
+// Static example: api
+SkribbleIcon(data: SkribbleGlyphs.sparkle, size: 32, weight: 300);
+WiredSvgIcon(data: SkribbleGlyphs.all['arrow_left']!, flipHorizontally: true);
 ```
+
+Wired widgets draw their own chrome with these glyphs, so checkboxes, chips, steppers, and search bars look hand-drawn without registering any catalog.
 
 **Upgrading from 0.1.x?** Icon catalogs and typefaces moved into their own packages in 0.2, and `WiredIcon` needs a one-time registration. See [Upgrading to 0.2](/getting-started/upgrading-to-0-2).
 
 ### Activating Material icons
 
-`WiredIcon` resolves an `IconData` through a registered catalog. Importing an icon package is not enough on its own, so call the registration once during startup. Without it, `WiredIcon` falls back to Flutter's plain `Icon` widget.
+`WiredIcon` resolves an `IconData` through a registered catalog. Importing an icon package is not enough on its own, so call the registration once during startup. Without it, `WiredIcon` draws the matching `SkribbleGlyphs` for about sixty common Material icons and falls back to Flutter's plain `Icon` widget for the rest.
 
 ```dart
 // Static example: api
@@ -333,7 +342,7 @@ void main() {
 }
 ```
 
-The Iconify sets and the curated set need no registration. They are looked up by identifier, which the umbrella package reads directly:
+The Iconify sets and `SkribbleGlyphs` need no registration. They are looked up by identifier, which the umbrella package reads directly:
 
 ```dart
 // Static example: api
@@ -348,7 +357,7 @@ if (data != null) {
 
 ### Unified lookup API
 
-`lookupSkribbleIcon` searches the sets in a fixed order and reports which one matched. The curated set wins ties because its names are chosen to match the component library's own vocabulary.
+`lookupSkribbleIcon` searches the sets in a fixed order and reports which one matched. `SkribbleGlyphs` win ties because their names are chosen to match the component library's own vocabulary.
 
 ```dart
 // Static example: api
@@ -357,38 +366,37 @@ print(match?.set); // SkribbleIconSet.lucide
 print(match?.data); // WiredSvgIconData
 ```
 
-| Function                                | Returns              | Description                                           |
-| --------------------------------------- | -------------------- | ----------------------------------------------------- |
-| `lookupSkribbleIconByIdentifier`        | `WiredSvgIconData?`  | Geometry for an identifier across every bundled set.  |
-| `lookupSkribbleIcon`                    | `SkribbleIconMatch?` | Geometry plus the `SkribbleIconSet` that supplied it. |
-| `lookupSkribbleCuratedIconByIdentifier` | `WiredSvgIconData?`  | Curated 30-icon set only.                             |
-| `lookupLucideIconByIdentifier`          | `WiredSvgIconData?`  | Lucide only.                                          |
-| `lookupBxsIconByIdentifier`             | `WiredSvgIconData?`  | Boxicons Solid only.                                  |
-| `lookupCibIconByIdentifier`             | `WiredSvgIconData?`  | CoreUI Brands only.                                   |
-| `skribbleIconCount`                     | `int`                | Names across the non-Material sets.                   |
-| `skribbleMaterialIconCount`             | `int`                | Names in the Material catalog.                        |
+| Function                         | Returns              | Description                                           |
+| -------------------------------- | -------------------- | ----------------------------------------------------- |
+| `lookupSkribbleIconByIdentifier` | `WiredSvgIconData?`  | Geometry for an identifier across every bundled set.  |
+| `lookupSkribbleIcon`             | `SkribbleIconMatch?` | Geometry plus the `SkribbleIconSet` that supplied it. |
+| `SkribbleGlyphs.all[name]`       | `WiredSvgIconData?`  | skribble's 51 glyphs only.                            |
+| `lookupLucideIconByIdentifier`   | `WiredSvgIconData?`  | Lucide only.                                          |
+| `lookupBxsIconByIdentifier`      | `WiredSvgIconData?`  | Boxicons Solid only.                                  |
+| `lookupCibIconByIdentifier`      | `WiredSvgIconData?`  | CoreUI Brands only.                                   |
+| `skribbleIconCount`              | `int`                | Names across the non-Material sets.                   |
+| `skribbleMaterialIconCount`      | `int`                | Names in the Material catalog.                        |
 
 ### Codepoint bands
 
 Private-use codepoints are allocated per set so a future merged catalog cannot collide. Material keeps its upstream codepoints and resolves through `IconData`.
 
-| Set     | Band              |
-| ------- | ----------------- |
-| curated | `0xF001–0xF0FF`   |
-| lucide  | `0xE000–0xEFFF`   |
-| bxs     | `0xF100–0xF3FF`   |
-| cib     | `0xF400–0xF7FF`   |
-| simple  | `0xF0000–0xF0FFF` |
+| Set    | Band              |
+| ------ | ----------------- |
+| lucide | `0xE000–0xEFFF`   |
+| bxs    | `0xF100–0xF3FF`   |
+| cib    | `0xF400–0xF7FF`   |
+| simple | `0xF0000–0xF0FFF` |
 
 ### Material icons
 
-`WiredIcon(icon: Icons.home)` renders a hand-drawn shape once the Material catalog is registered. That catalog lives in `skribble_icons_material`, which keeps the core `skribble` package free of icon data. If you would rather not carry 8,600 codepoints, skip the registration and `WiredIcon` draws the ordinary font glyph instead.
+`WiredIcon(icon: Icons.home)` renders a hand-drawn shape once the Material catalog is registered. That catalog lives in `skribble_icons_material`, which keeps the core `skribble` package free of large icon data. If you would rather not carry 8,600 codepoints, skip the registration: common icons are drawn with `SkribbleGlyphs` and the rest use the ordinary font glyph.
 
 ---
 
 ## Custom icon sets
 
-Use the `svg-manifest` kit in the rough icon CLI to generate a catalog from your own SVG icon set. The bundled sets all use it: `skribble_icons_curated` from a checked-in manifest, and the four Iconify packages from pinned upstream `icons.json` payloads.
+Use the `svg-manifest` kit in the rough icon CLI to generate a catalog from your own SVG icon set. Stroke-based SVGs (`fill="none" stroke="currentColor"`) work best: the pen inks them and `weight` applies fully. skribble's own glyphs are generated from checked-in SVGs the same way, and the four Iconify packages come from pinned upstream `icons.json` payloads.
 
 ### Workflow
 
@@ -420,9 +428,9 @@ WiredSvgIcon(
 
 The Material catalog contains 8,622 unique icon codepoints (8,825 names including aliases) for the pinned Flutter 3.47.0 SDK. Run `./scripts/check_rough_icons_ci.sh all` to check unresolved symbols and Material catalog drift, and `melos run icons-check` to re-derive every icon catalog and fail on any diff.
 
-The 30 curated icons regenerate from `packages/skribble_icons_curated/tool/skribble_icons.manifest.json` with `melos run icons-curated`. The Simple Icons, Lucide, Boxicons Solid, and CoreUI Brands catalogs regenerate from their pinned sources with `melos run icons-iconify`; the versions and SHA-256 checksums live in `tool/asset_sources.txt`, so an upstream bump is an explicit edit rather than a silent drift.
+`SkribbleGlyphs` regenerate from the SVGs and `glyphs.json` in `packages/skribble/tool/glyphs` with `melos run glyphs`. The Simple Icons, Lucide, Boxicons Solid, and CoreUI Brands catalogs regenerate from their pinned sources with `melos run icons-iconify`; the versions and SHA-256 checksums live in `tool/asset_sources.txt`, so an upstream bump is an explicit edit rather than a silent drift.
 
-Curated geometry retains its source view box, preventing oversized output. Runtime rough fills preserve separate contours and even-odd fill rules, so rings, search symbols, and other counters stay open. Small icons use a gentler wobble than layout borders. `WiredSvgPrimitive.path` also accepts `clipPaths` in the same coordinate system. Source colors may be `#RGB`, `#RRGGBB`, or `#RRGGBBAA`.
+Glyph geometry retains its source view box, preventing oversized output. Runtime rough fills preserve separate contours and even-odd fill rules, so rings, search symbols, and other counters stay open. Small icons use a gentler wobble than layout borders. `WiredSvgPrimitive.path` also accepts `clipPaths` in the same coordinate system. Source colors may be `#RGB`, `#RRGGBB`, or `#RRGGBBAA`.
 
 Theme-derived icon outline deformation follows the active geometry amplitude, including `WiredRoughness` presets. Supplying an icon `drawConfig` keeps that explicit configuration when the theme level changes.
 
@@ -483,4 +491,4 @@ Generated coordinates discard insignificant floating-point drift before decimal 
 
 The docs and storybook register the Material catalog at startup. Applications using `WiredIcon` must call `registerSkribbleIcons()` before `runApp`; without a registered catalog, the widget uses Flutter's regular icon glyph.
 
-The storybook's **Skribble Icons** page has searchable Curated, Material, Lucide, Simple Icons, Boxicons, and CoreUI Brands catalogs. The toolbar's roughness selector updates every catalog. Tap an icon to compare all three levels at 24, 48, and 96 pixels in a scrollable preview. Filters scroll with the grid, and previews wrap their size samples when text is enlarged. Lookups stay within the selected set even when names overlap.
+The storybook's **Skribble Icons** page has searchable Glyphs, Material, Lucide, Simple Icons, Boxicons, and CoreUI Brands catalogs. The toolbar's roughness selector updates every catalog. Tap an icon to compare all three levels at 24, 48, and 96 pixels in a scrollable preview. Filters scroll with the grid, and previews wrap their size samples when text is enlarged. Lookups stay within the selected set even when names overlap.

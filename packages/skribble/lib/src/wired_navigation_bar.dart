@@ -120,8 +120,6 @@ class WiredNavigationBar extends HookWidget {
                   icon: selected ? (dest.selectedIcon ?? dest.icon) : dest.icon,
                   color: selected ? theme.fillColor : theme.disabledTextColor,
                   size: 24,
-                  fillStyle: WiredIconFillStyle.solid,
-                  strokeWidth: 1.2,
                 ),
               ],
             ),

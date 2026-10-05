@@ -22,7 +22,6 @@ skribble_emoji 15
 skribble_maps 5
 skribble_charts 5
 skribble_icons 5
-skribble_icons_curated 5
 skribble_icons_material 10
 skribble_icons_lucide 10
 skribble_icons_bxs 5

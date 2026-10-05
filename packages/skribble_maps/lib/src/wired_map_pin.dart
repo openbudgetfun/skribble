@@ -202,7 +202,7 @@ class WiredMapPin extends HookWidget {
                                 size: iconSize,
                                 color: iconColor ?? resolvedInk,
                                 fillStyle: WiredIconFillStyle.none,
-                                strokeWidth: 1.35,
+                                weight: 300,
                                 drawConfig: pinDrawConfig.copyWith(
                                   seed: seed + 1,
                                   roughness: 1,

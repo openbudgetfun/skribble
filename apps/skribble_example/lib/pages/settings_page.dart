@@ -95,7 +95,6 @@ class SettingsPage extends HookWidget {
             leading: const WiredIcon(
               icon: Icons.palette,
               size: 22,
-              strokeWidth: 1.2,
             ),
             title: const Text('Theme'),
             subtitle: const Text('Warm parchment'),
@@ -104,7 +103,6 @@ class SettingsPage extends HookWidget {
             leading: const WiredIcon(
               icon: Icons.text_fields,
               size: 22,
-              strokeWidth: 1.2,
             ),
             title: const Text('Font Size'),
             subtitle: const Text('Medium'),
@@ -126,7 +124,6 @@ class SettingsPage extends HookWidget {
             leading: const WiredIcon(
               icon: Icons.info_outline,
               size: 22,
-              strokeWidth: 1.2,
             ),
             title: const Text('About'),
             subtitle: const Text('Version 1.0.0'),

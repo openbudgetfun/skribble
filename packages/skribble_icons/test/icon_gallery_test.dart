@@ -28,8 +28,8 @@ void main() {
     const outRoot = '../../.screenshots/icons';
     Directory(outRoot).createSync(recursive: true);
 
-    const sets = <String, WiredSvgIconData? Function(String)>{
-      'curated': lookupSkribbleCuratedIconByIdentifier,
+    final sets = <String, WiredSvgIconData? Function(String)>{
+      'glyphs': (name) => SkribbleGlyphs.all[name],
       'simple': lookupSimpleIconByIdentifier,
       'lucide': lookupLucideIconByIdentifier,
       'bxs': lookupBxsIconByIdentifier,
@@ -37,7 +37,7 @@ void main() {
       'material': lookupMaterialRoughIconByIdentifier,
     };
     final totals = <String, int>{
-      'curated': skribbleCuratedIconCount,
+      'glyphs': SkribbleGlyphs.all.length,
       'simple': simpleIconCount,
       'lucide': lucideIconCount,
       'bxs': bxsIconCount,
@@ -45,7 +45,7 @@ void main() {
       'material': skribbleMaterialIconCount,
     };
     const samples = <String, int>{
-      'curated': 30,
+      'glyphs': 51,
       'simple': 144,
       'lucide': 144,
       'bxs': 144,
@@ -57,7 +57,7 @@ void main() {
       final setName = entry.key;
       final lookup = entry.value;
       final all = switch (setName) {
-        'curated' => skribbleCuratedIconIdentifiers,
+        'glyphs' => SkribbleGlyphs.all.keys.toList(),
         'simple' => simpleIconIdentifiers,
         'lucide' => lucideIconIdentifiers,
         'bxs' => bxsIconIdentifiers,

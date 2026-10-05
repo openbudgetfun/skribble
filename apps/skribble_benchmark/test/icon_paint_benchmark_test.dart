@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
-import 'package:skribble_icons/skribble_icons.dart';
 
 /// Benchmark comparing runtime roughening vs pre-computed path drawing.
 ///
 /// Run with: flutter test test/icon_paint_benchmark_test.dart
 void main() {
-  final icons = kSkribbleCuratedIcons.values.toList();
+  final icons = SkribbleGlyphs.all.values.toList();
 
   /// Pump a widget and force N paint cycles, measuring total time.
   Future<_BenchResult> measurePaintCycles({

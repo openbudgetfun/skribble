@@ -1,0 +1,371 @@
+{
+  "glyphs": [
+    {
+      "name": "arrow_down",
+      "description": "Arrow pointing down",
+      "material": [
+        "0xe097"
+      ]
+    },
+    {
+      "name": "arrow_left",
+      "description": "Arrow pointing left",
+      "material": [
+        "0xe092"
+      ]
+    },
+    {
+      "name": "arrow_right",
+      "description": "Arrow pointing right",
+      "material": [
+        "0xe09b"
+      ]
+    },
+    {
+      "name": "arrow_up",
+      "description": "Arrow pointing up",
+      "material": [
+        "0xe0a0"
+      ]
+    },
+    {
+      "name": "bookmark",
+      "description": "Bookmark ribbon",
+      "material": [
+        "0xe0f4"
+      ]
+    },
+    {
+      "name": "calendar",
+      "description": "Calendar with a circled day",
+      "material": [
+        "0xe122"
+      ]
+    },
+    {
+      "name": "camera",
+      "description": "Camera",
+      "material": [
+        "0xe130"
+      ]
+    },
+    {
+      "name": "check",
+      "description": "Tick",
+      "material": [
+        "0xe156"
+      ]
+    },
+    {
+      "name": "chevron_down",
+      "description": "Chevron pointing down",
+      "material": [
+        "0xe246",
+        "0xe353"
+      ]
+    },
+    {
+      "name": "chevron_left",
+      "description": "Chevron pointing left",
+      "material": [
+        "0xe15e",
+        "0xe354"
+      ]
+    },
+    {
+      "name": "chevron_right",
+      "description": "Chevron pointing right",
+      "material": [
+        "0xe15f",
+        "0xe355"
+      ]
+    },
+    {
+      "name": "chevron_up",
+      "description": "Chevron pointing up",
+      "material": [
+        "0xe245",
+        "0xe356"
+      ]
+    },
+    {
+      "name": "clock",
+      "description": "Clock face",
+      "material": [
+        "0xe03a"
+      ]
+    },
+    {
+      "name": "close",
+      "description": "Cross",
+      "material": [
+        "0xe16a"
+      ]
+    },
+    {
+      "name": "copy",
+      "description": "Two overlapping cards",
+      "material": [
+        "0xe190"
+      ]
+    },
+    {
+      "name": "delete",
+      "description": "Bin with a lid",
+      "material": [
+        "0xe1b9",
+        "0xe1bb"
+      ]
+    },
+    {
+      "name": "download",
+      "description": "Arrow into a tray",
+      "material": [
+        "0xe201"
+      ]
+    },
+    {
+      "name": "edit",
+      "description": "Pencil",
+      "material": [
+        "0xe21a"
+      ]
+    },
+    {
+      "name": "eye",
+      "description": "Open eye",
+      "material": [
+        "0xe6bd"
+      ]
+    },
+    {
+      "name": "eye_off",
+      "description": "Eye with a line through it",
+      "material": [
+        "0xe6be"
+      ]
+    },
+    {
+      "name": "filter",
+      "description": "Funnel",
+      "material": [
+        "0xe280"
+      ]
+    },
+    {
+      "name": "flag",
+      "description": "Waving flag",
+      "material": [
+        "0xe28e"
+      ]
+    },
+    {
+      "name": "grip",
+      "description": "Two lines to drag by",
+      "material": [
+        "0xe206"
+      ]
+    },
+    {
+      "name": "heart",
+      "description": "Heart",
+      "material": [
+        "0xe25b",
+        "0xe25c"
+      ]
+    },
+    {
+      "name": "home",
+      "description": "House with a chimney",
+      "material": [
+        "0xe318"
+      ]
+    },
+    {
+      "name": "image",
+      "description": "Landscape with a sun",
+      "material": [
+        "0xe332"
+      ]
+    },
+    {
+      "name": "info",
+      "description": "Letter i in a circle",
+      "material": [
+        "0xe33c",
+        "0xe33d"
+      ]
+    },
+    {
+      "name": "link",
+      "description": "Two chain links",
+      "material": [
+        "0xe380"
+      ]
+    },
+    {
+      "name": "lock",
+      "description": "Closed padlock",
+      "material": [
+        "0xe3ae"
+      ]
+    },
+    {
+      "name": "mail",
+      "description": "Envelope",
+      "material": [
+        "0xe3c3",
+        "0xe3c4"
+      ]
+    },
+    {
+      "name": "menu",
+      "description": "Three lines, the last one short",
+      "material": [
+        "0xe3dc"
+      ]
+    },
+    {
+      "name": "minus",
+      "description": "Minus",
+      "material": [
+        "0xe516"
+      ]
+    },
+    {
+      "name": "moon",
+      "description": "Crescent moon",
+      "material": [
+        "0xe1b0"
+      ]
+    },
+    {
+      "name": "more_horizontal",
+      "description": "Three dots in a row",
+      "material": [
+        "0xe402"
+      ]
+    },
+    {
+      "name": "more_vertical",
+      "description": "Three dots in a column",
+      "material": [
+        "0xe404"
+      ]
+    },
+    {
+      "name": "notification",
+      "description": "Bell",
+      "material": [
+        "0xe44f",
+        "0xe451"
+      ]
+    },
+    {
+      "name": "phone",
+      "description": "Handset",
+      "material": [
+        "0xe4a2"
+      ]
+    },
+    {
+      "name": "pin",
+      "description": "Map pin",
+      "material": [
+        "0xe4c9"
+      ]
+    },
+    {
+      "name": "plus",
+      "description": "Plus",
+      "material": [
+        "0xe047"
+      ]
+    },
+    {
+      "name": "refresh",
+      "description": "Circular arrow",
+      "material": [
+        "0xe514"
+      ]
+    },
+    {
+      "name": "search",
+      "description": "Magnifying glass with a glint",
+      "material": [
+        "0xe567"
+      ]
+    },
+    {
+      "name": "send",
+      "description": "Paper plane",
+      "material": [
+        "0xe571"
+      ]
+    },
+    {
+      "name": "settings",
+      "description": "Eight-tooth gear",
+      "material": [
+        "0xe57f"
+      ]
+    },
+    {
+      "name": "share",
+      "description": "Three connected dots",
+      "material": [
+        "0xe593"
+      ]
+    },
+    {
+      "name": "sparkle",
+      "description": "Four-point sparkle",
+      "material": [
+        "0xe0b7"
+      ]
+    },
+    {
+      "name": "star",
+      "description": "Five-point star",
+      "material": [
+        "0xe5f9",
+        "0xe5fa"
+      ]
+    },
+    {
+      "name": "sun",
+      "description": "Sun with rays",
+      "material": [
+        "0xe6d9"
+      ]
+    },
+    {
+      "name": "unlock",
+      "description": "Open padlock",
+      "material": [
+        "0xe3b0"
+      ]
+    },
+    {
+      "name": "upload",
+      "description": "Arrow out of a tray",
+      "material": [
+        "0xe695"
+      ]
+    },
+    {
+      "name": "user",
+      "description": "Head and shoulders",
+      "material": [
+        "0xe491"
+      ]
+    },
+    {
+      "name": "warning",
+      "description": "Exclamation mark in a triangle",
+      "material": [
+        "0xe6cc"
+      ]
+    }
+  ]
+}

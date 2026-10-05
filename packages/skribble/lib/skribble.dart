@@ -26,6 +26,26 @@ library;
 export 'src/canvas/wired_canvas.dart';
 export 'src/canvas/wired_ink_splash.dart';
 export 'src/canvas/wired_painter_base.dart';
+// ---------------------------------------------------------------------------
+// COMPATIBILITY LAYER (transitional) — the sanctioned exception to the
+// no-Material/no-Cupertino rule.
+//
+// Everything above is core: it imports only flutter/widgets.dart and below.
+// The exports below live in lib/src/compat/ and may import material/cupertino
+// so that apps can migrate to Skribble incrementally: theme conversion both
+// ways, Material widgets inside a SkribbleApp, and Wired widgets inside an
+// existing Material or Cupertino app. Nothing in the core may depend on them,
+// and they must not grow Material parity.
+//
+// See docs/site/content/core/material-bridge.md.
+// Kept as a trailing group rather than interleaved alphabetically so the core
+// export list above stays easy to audit for Material/Cupertino leaks.
+export 'src/compat/compat.dart';
+// ---------------------------------------------------------------------------
+// Widgets & theme
+// ---------------------------------------------------------------------------
+
+export 'src/generated/skribble_glyphs.g.dart' show SkribbleGlyphs;
 export 'src/motion/wired_draw.dart';
 export 'src/motion/wired_ink_interaction.dart';
 export 'src/motion/wired_motion.dart';
@@ -62,11 +82,6 @@ export 'src/rough/skribble_rough.dart'
         SolidFiller,
         SvgInkOutline,
         ZigZagFiller;
-
-// ---------------------------------------------------------------------------
-// Widgets & theme
-// ---------------------------------------------------------------------------
-
 export 'src/skribble_app.dart' hide resolveWiredAppTheme;
 export 'src/skribble_icon.dart';
 export 'src/skribble_localizations.dart';
@@ -172,6 +187,8 @@ export 'src/wired_sliver_app_bar.dart';
 export 'src/wired_snack_bar.dart';
 export 'src/wired_stepper.dart';
 export 'src/wired_svg_icon_data.dart';
+export 'src/wired_svg_icon_painter.dart'
+    show WiredIconFillStyle, wiredIconWeightFactor;
 export 'src/wired_switch.dart';
 export 'src/wired_switch_list_tile.dart';
 export 'src/wired_tab_bar.dart';
@@ -183,20 +200,3 @@ export 'src/wired_time_picker.dart';
 export 'src/wired_toggle.dart';
 export 'src/wired_toggle_buttons.dart';
 export 'src/wired_tooltip.dart';
-
-// ---------------------------------------------------------------------------
-// COMPATIBILITY LAYER (transitional) — the sanctioned exception to the
-// no-Material/no-Cupertino rule.
-//
-// Everything above is core: it imports only flutter/widgets.dart and below.
-// The exports below live in lib/src/compat/ and may import material/cupertino
-// so that apps can migrate to Skribble incrementally: theme conversion both
-// ways, Material widgets inside a SkribbleApp, and Wired widgets inside an
-// existing Material or Cupertino app. Nothing in the core may depend on them,
-// and they must not grow Material parity.
-//
-// See docs/site/content/core/material-bridge.md.
-// Kept as a trailing group rather than interleaved alphabetically so the core
-// export list above stays easy to audit for Material/Cupertino leaks.
-// ignore: directives_ordering
-export 'src/compat/compat.dart';
