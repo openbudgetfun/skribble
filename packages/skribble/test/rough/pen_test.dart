@@ -264,7 +264,7 @@ void main() {
       final half = await _inkPixels(
         (canvas) => ink.paint(canvas, progress: 0.3),
       );
-      final full = await _inkPixels((canvas) => ink.paint(canvas));
+      final full = await _inkPixels(ink.paint);
       expect(none, 0);
       expect(half, greaterThan(0));
       expect(half, lessThan(full));
@@ -272,7 +272,7 @@ void main() {
 
     test('pressure reinforces the same ink', () async {
       final ink = drawing(RoughPen.brush);
-      final resting = await _inkPixels((canvas) => ink.paint(canvas));
+      final resting = await _inkPixels(ink.paint);
       final pressed = await _inkPixels(
         (canvas) => ink.paint(canvas, pressure: 1),
       );
