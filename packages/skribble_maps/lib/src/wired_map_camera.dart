@@ -185,6 +185,7 @@ class WiredMapController extends ChangeNotifier {
     _setCamera(next);
 
     final engineController = _engineController;
+
     if (engineController == null) return;
 
     await engineController.moveCamera(

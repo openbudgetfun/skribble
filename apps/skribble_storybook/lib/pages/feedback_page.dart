@@ -529,6 +529,7 @@ class _AnimatedIconDemo extends HookWidget {
             } else {
               controller.forward();
             }
+
             isForward.value = !isForward.value;
           },
           child: WiredAnimatedIcon(

@@ -62,28 +62,35 @@ final class TrueTypeFont {
   void _validateVariations(int glyphCount) {
     final data = _table('gvar');
     final reader = _Reader(data);
+
     if (reader.u16() != 1 || reader.u16() != 0) {
       throw const FormatException('Unsupported gvar version.');
     }
+
     final axes = reader.u16();
     reader
       ..u16()
       ..u32();
+
     if (reader.u16() != glyphCount) {
       throw const FormatException('gvar glyph count does not match glyf.');
     }
+
     final longOffsets = reader.u16() & 1 != 0;
     final start = reader.u32();
     final offsets = List.generate(
       glyphCount + 1,
       (_) => longOffsets ? reader.u32() : reader.u16() * 2,
     );
+
     for (var glyph = 0; glyph < glyphCount; glyph++) {
       final begin = start + offsets[glyph];
       final end = start + offsets[glyph + 1];
+
       if (begin > end || end > data.length) {
         throw const FormatException('Invalid gvar glyph range.');
       }
+
       if (begin == end) continue;
       final tuples = _Reader(Uint8List.sublistView(data, begin, end));
       final flags = tuples.u16();
@@ -97,12 +104,16 @@ final class TrueTypeFont {
             'Expand sparse gvar deltas before roughening.',
           );
         }
+
         payload++;
       }
+
       for (var tuple = 0; tuple < (flags & 0x0fff); tuple++) {
         final size = tuples.u16();
         final index = tuples.u16();
+
         if (index & 0x8000 != 0) tuples.take(axes * 2);
+
         if (index & 0x4000 != 0) tuples.take(axes * 4);
         if (payload + size > tuples.data.length ||
             (index & 0x2000 != 0 && tuples.data[payload] != 0)) {
@@ -158,6 +169,7 @@ final class TrueTypeFont {
                 (0.65 * math.sin(y / 105 + phase) +
                     0.35 * math.sin((x + y) / 57 + phase * 2)) +
             tilt * y;
+
         final dy =
             amount *
             (0.55 * math.sin(x / 125 + phase * 1.3) +
@@ -209,6 +221,7 @@ final class TrueTypeFont {
     // Edited outlines no longer share the source font's hinted side bearings.
     _writeBounds(head, 36, allPoints);
     ByteData.sublistView(_table('maxp')).setUint16(26, 0);
+
     if (weight != null && italic != null) {
       final os2 = ByteData.sublistView(_table('OS/2'));
       final bold = weight >= 700;
@@ -223,6 +236,7 @@ final class TrueTypeFont {
         );
       head.setUint16(44, (bold ? 1 : 0) | (italic ? 2 : 0));
     }
+
     _rename(family, style);
 
     [
@@ -256,6 +270,7 @@ final class TrueTypeFont {
         ..u32(checksum(table))
         ..u32(offset)
         ..u32(table.length);
+
       if (tag == 'head') headOffset = offset;
       body.add(table);
       final padding = (4 - table.length % 4) % 4;
@@ -281,6 +296,7 @@ final class TrueTypeFont {
     Set<int> visiting,
   ) {
     if (cache.containsKey(id)) return cache[id]!;
+
     if (id >= _glyphs.length || !visiting.add(id)) {
       throw const FormatException('Invalid composite glyph reference.');
     }
@@ -302,6 +318,7 @@ final class TrueTypeFont {
       } else if (component.scaledOffset) {
         final translated = component.transform(math.Point(dx, dy));
         dx = translated.x;
+
         dy = translated.y;
       }
 
@@ -346,6 +363,7 @@ final class TrueTypeFont {
       final length = reader.u16();
       final offset = reader.u16();
       var replacement = replacements[name];
+
       if (replacement == null && name >= 256) {
         final original = reader.data.sublist(
           start + offset,
@@ -357,10 +375,12 @@ final class TrueTypeFont {
                   (original[i] << 8) | original[i + 1],
               ])
             : latin1.decode(original);
+
         if (text.contains('Recursive')) {
           replacement = text.replaceAll('Recursive', family);
         }
       }
+
       final List<int> data;
 
       if (replacement == null) {
@@ -431,6 +451,7 @@ final class _Glyph {
         final dy = words
             ? (xy ? reader.i16() : reader.u16())
             : (xy ? reader.i8() : reader.u8());
+
         var a = 1.0;
         var b = 0.0;
         var c = 0.0;
@@ -444,6 +465,7 @@ final class _Glyph {
         } else if (flags & 128 != 0) {
           a = reader.i16() / 16384;
           b = reader.i16() / 16384;
+
           c = reader.i16() / 16384;
           d = reader.i16() / 16384;
         }
@@ -485,6 +507,7 @@ final class _Glyph {
     if (flags.length != pointCount) {
       throw const FormatException('Invalid glyph flags.');
     }
+
     final xs = _coordinates(reader, 2, 16);
     final ys = _coordinates(reader, 4, 32);
     points.addAll(List.generate(pointCount, (i) => math.Point(xs[i], ys[i])));
@@ -611,6 +634,7 @@ final class _Reader {
 
     final result = Uint8List.sublistView(data, position, position + length);
     position += length;
+
     return result;
   }
 }

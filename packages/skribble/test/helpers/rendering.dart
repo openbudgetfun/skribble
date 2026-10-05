@@ -16,7 +16,6 @@ import 'finders.dart';
 /// Use them alongside behavioural assertions; a widget that responds to taps
 /// but lays out at zero size, or that never reaches a painter, is still
 /// broken.
-
 /// Asserts that [finder] resolves to a laid-out box of non-zero size.
 ///
 /// Fails with the tester's usual "finder returned no widget" message when the
@@ -110,8 +109,10 @@ IconData roughIconFor(String name) {
     'star': IconData(0xe5f9, fontFamily: 'MaterialIcons'),
   };
   final icon = icons[name];
+
   if (icon == null) {
     throw ArgumentError.value(name, 'name', 'Unknown test icon');
   }
+
   return icon;
 }

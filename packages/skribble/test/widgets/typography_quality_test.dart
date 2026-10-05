@@ -35,6 +35,7 @@ void main() {
           reason: label,
         );
       }
+
       expect(tester.takeException(), isNull);
     });
   }

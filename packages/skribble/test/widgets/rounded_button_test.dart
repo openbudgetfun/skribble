@@ -37,6 +37,7 @@ void main() {
               child: const Text('Keep it'),
             ),
           };
+
           await tester.pumpWidget(
             WiredMaterialApp(
               wiredTheme: WiredThemeData(
@@ -108,6 +109,7 @@ void main() {
             onSelected: (_) => deleted = true,
           ),
         };
+
         await tester.pumpWidget(
           WiredMaterialApp(
             wiredTheme: WiredThemeData(),
@@ -122,6 +124,7 @@ void main() {
         } else {
           await tester.tap(find.byType(WiredSvgIcon).last);
         }
+
         expect(deleted, isTrue);
       },
     );

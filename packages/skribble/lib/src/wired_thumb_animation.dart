@@ -33,5 +33,6 @@ double useWiredThumbOffset({
   }, [value]);
 
   final isRtl = Directionality.of(context) == TextDirection.rtl;
+
   return isRtl ? begin + end - animation : animation;
 }

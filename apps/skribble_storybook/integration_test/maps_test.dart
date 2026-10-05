@@ -30,6 +30,7 @@ void main() {
           'The map did not retain the selected Dubai pin and night ink.',
         );
       }
+
       await $(MapDemoKeys.map)
           .scrollTo(view: $(MapDemoKeys.scroll), maxScrolls: 40);
       await $(MapDemoKeys.map).waitUntilVisible();

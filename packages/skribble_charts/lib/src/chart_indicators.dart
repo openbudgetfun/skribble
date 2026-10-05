@@ -481,13 +481,17 @@ List<double> _finiteCloses(List<WiredChartCandle> candles) {
 // only extreme magnitudes leaves ample room for squared distances and seeds.
 double _normalizeCloses(List<double> closes) {
   var magnitude = 0.0;
+
   for (final close in closes) {
     magnitude = math.max(magnitude, close.abs());
   }
+
   if (magnitude == 0 || (magnitude >= 1e-100 && magnitude <= 1e100)) return 1;
+
   for (var index = 0; index < closes.length; index++) {
     closes[index] /= magnitude;
   }
+
   return magnitude;
 }
 
@@ -498,6 +502,7 @@ List<double?> _restoreScale(List<double?> values, double scale) => scale == 1
 void _validateFiniteValues(List<double?> values, String label) {
   for (var index = 0; index < values.length; index++) {
     final value = values[index];
+
     if (value != null && !value.isFinite) {
       throw ArgumentError.value(
         value,

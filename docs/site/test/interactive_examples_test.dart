@@ -38,6 +38,7 @@ void main() {
       final span = highlightCode(code, language);
       expect(span.toPlainText(), code);
     }
+
     final coloured = highlightCode('return "hello";', 'dart');
     expect(coloured.children, isNotEmpty);
     expect(

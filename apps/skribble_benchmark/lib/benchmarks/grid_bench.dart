@@ -178,6 +178,7 @@ class GridBenchPage extends HookWidget {
     if (timer.isCollecting) {
       return 'Collecting... (${timer.timings.length}/60)';
     }
+
     return 'Measure $label';
   }
 }

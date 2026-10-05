@@ -30,9 +30,11 @@ void main() {
   Future<void> navigateTo(WidgetTester tester, String category) async {
     // Scroll category into view if needed.
     final finder = find.text(category);
+
     if (finder.evaluate().isEmpty) {
       final listFinder = find.byType(ListView).first;
       var attempts = 0;
+
       while (finder.evaluate().isEmpty && attempts < 20) {
         await tester.drag(listFinder, const Offset(0, -200));
         await tester.pump();
@@ -40,6 +42,7 @@ void main() {
         attempts++;
       }
     }
+
     await tester.tap(finder.first);
     await pumpStable(tester);
   }

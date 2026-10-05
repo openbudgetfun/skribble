@@ -105,6 +105,7 @@ class WiredSegmentedButton<T> extends HookWidget {
             ..clear()
             ..add(segment.value);
         }
+
         onSelectionChanged?.call(newSelection);
       },
       child: Container(

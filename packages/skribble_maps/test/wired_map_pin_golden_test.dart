@@ -137,10 +137,12 @@ void main() {
             if ((fill + 0.05) / (ink + 0.05) >= 4.5) darkInk.add(y * 96 + x);
           }
         }
+
         expect(halo, greaterThan(30), reason: '${icon.name} sticker edge');
         expect(darkInk.length, inInclusiveRange(20, 500), reason: icon.name);
         signatures.add(darkInk.join(','));
       }
+
       expect(signatures, hasLength(WiredMapPinIcon.values.length));
     }
   });

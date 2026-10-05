@@ -22,9 +22,11 @@ class WiredChartController extends ChangeNotifier {
     WiredChartDecimal? percentageReference,
   }) {
     _validateCount(visibleCount);
+
     if (percentageReference != null) {
       _validatePercentageReference(percentageReference);
     }
+
     _visibleCount = visibleCount;
     _candles = UnmodifiableListView(_normalize(candles));
     _percentageReference = percentageReference;
@@ -124,26 +126,32 @@ class WiredChartController extends ChangeNotifier {
 
   static List<WiredChartCandle> _normalize(Iterable<WiredChartCandle> values) {
     final byTime = <DateTime, WiredChartCandle>{};
+
     for (final candle in values) {
       final existing = byTime[candle.time];
+
       if (existing == null || candle.revision >= existing.revision) {
         byTime[candle.time] = candle;
       }
     }
+
     return byTime.values.toList()..sort((a, b) => a.time.compareTo(b.time));
   }
 
   static int _lowerBound(List<WiredChartCandle> values, DateTime time) {
     var low = 0;
     var high = values.length;
+
     while (low < high) {
       final middle = low + (high - low) ~/ 2;
+
       if (values[middle].time.isBefore(time)) {
         low = middle + 1;
       } else {
         high = middle;
       }
     }
+
     return low;
   }
 
@@ -154,19 +162,24 @@ class WiredChartController extends ChangeNotifier {
   void mergeCandles(Iterable<WiredChartCandle> updates) {
     _checkAlive();
     final incoming = _normalize(updates);
+
     if (incoming.isEmpty) return;
+
     if (incoming.length == 1) {
       _mergeOne(incoming.single);
 
       return;
     }
+
     final merged = <WiredChartCandle>[];
     var existingIndex = 0;
     var incomingIndex = 0;
+
     while (existingIndex < _candles.length && incomingIndex < incoming.length) {
       final existing = _candles[existingIndex];
       final next = incoming[incomingIndex];
       final comparison = existing.time.compareTo(next.time);
+
       if (comparison < 0) {
         merged.add(existing);
         existingIndex++;
@@ -179,6 +192,7 @@ class WiredChartController extends ChangeNotifier {
         incomingIndex++;
       }
     }
+
     merged
       ..addAll(_candles.skip(existingIndex))
       ..addAll(incoming.skip(incomingIndex));
@@ -245,6 +259,7 @@ class WiredChartController extends ChangeNotifier {
           ? index
           : null;
     }
+
     notifyListeners();
   }
 
@@ -252,15 +267,19 @@ class WiredChartController extends ChangeNotifier {
   void setViewport(double first, double count) {
     _checkAlive();
     _validateCount(count);
+
     if (!first.isFinite) {
       throw ArgumentError.value(first, 'first', 'Must be finite');
     }
+
     final clamped = first
         .clamp(0, math.max(0, _candles.length - count))
         .toDouble();
+
     if (clamped == _firstVisible && count == _visibleCount) return;
     _firstVisible = clamped;
     _visibleCount = count;
+
     notifyListeners();
   }
 
@@ -271,6 +290,7 @@ class WiredChartController extends ChangeNotifier {
   /// Zooms around [anchorFraction]. Factors above one zoom in.
   void zoom(double factor, {double anchorFraction = 0.5}) {
     _checkAlive();
+
     if (!factor.isFinite || factor <= 0) {
       throw ArgumentError.value(
         factor,
@@ -278,6 +298,7 @@ class WiredChartController extends ChangeNotifier {
         'Must be finite and positive',
       );
     }
+
     if (!anchorFraction.isFinite || anchorFraction < 0 || anchorFraction > 1) {
       throw ArgumentError.value(
         anchorFraction,
@@ -285,6 +306,7 @@ class WiredChartController extends ChangeNotifier {
         'Must be between zero and one',
       );
     }
+
     final count = (_visibleCount / factor).clamp(1, 1000000).toDouble();
     final anchor = _firstVisible + _visibleCount * anchorFraction;
     setViewport(anchor - count * anchorFraction, count);
@@ -296,9 +318,11 @@ class WiredChartController extends ChangeNotifier {
   /// Selects an existing candle or clears inspection with null.
   void selectIndex(int? index) {
     _checkAlive();
+
     if (index != null && (index < 0 || index >= _candles.length)) {
       throw RangeError.index(index, _candles, 'index');
     }
+
     if (index == _selectedIndex) return;
     _selectedIndex = index;
     notifyListeners();

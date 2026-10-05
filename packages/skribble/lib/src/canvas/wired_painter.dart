@@ -48,7 +48,9 @@ class WiredPainter extends CustomPainter {
       _drawing = painter.prepare(size, drawConfig, filler);
       _size = size;
     }
+
     final drawing = _drawing;
+
     if (drawing == null) {
       _resetRandomizers();
       painter.paintRough(canvas, size, drawConfig, filler);

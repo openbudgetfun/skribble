@@ -19,6 +19,7 @@ class WiredVariableFontsPage extends HookWidget {
     final cursive = useState(0.5);
     final level = WiredTheme.of(context).roughnessLevel;
     useListenable(sample);
+
     return WiredScaffold(
       appBar: WiredAppBar(title: const Text('Variable fonts')),
       body: ListView(

@@ -150,12 +150,15 @@ class WiredDateRangePickerDialog extends HookWidget {
     void selectDay(DateTime day) {
       final s = start.value;
       final e = end.value;
+
       if (s != null && e != null) {
         // A complete range is on display; start a new selection.
         start.value = day;
         end.value = null;
+
         return;
       }
+
       if (s == null || _dateOf(day).isBefore(_dateOf(s))) {
         start.value = day;
       } else {
@@ -382,6 +385,7 @@ class WiredDateRangePickerDialog extends HookWidget {
         7;
 
     final cells = <Widget>[];
+
     for (var week = 0; week < amountOfWeeks; week++) {
       for (var dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
         final day = DateTime.fromMillisecondsSinceEpoch(

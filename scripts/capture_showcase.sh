@@ -63,6 +63,7 @@ PAGES=(
 mkdir -p "$OUT"
 
 echo "Capturing pages from $BASE_URL"
+
 for device in "${DEVICES[@]}"; do
   name="${device%%:*}"
   sizes="${device#*:}"
@@ -70,6 +71,7 @@ for device in "${DEVICES[@]}"; do
   height="${sizes##*:}"
   device_dir="$OUT/$name"
   mkdir -p "$device_dir"
+
   for page in "${PAGES[@]}"; do
     page_name="${page%%:*}"
     route="${page#*:}"

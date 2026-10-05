@@ -87,6 +87,7 @@ void main() {
         double.parse(value),
       );
     }
+
     await tester.enterText(input, '2');
     await tester.pumpAndSettle();
     expect(tester.widget<WiredSlider>(find.byType(WiredSlider)).value, .25);

@@ -189,6 +189,7 @@ void main() {
       await tester.tap(find.text(city));
       await tester.pump();
     }
+
     await tester.pumpWidget(const SizedBox.shrink());
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);

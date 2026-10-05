@@ -50,6 +50,7 @@ void main() {
         if (mode == 'ticker') {
           content = TickerMode(enabled: false, child: content);
         }
+
         await tester.pumpWidget(_app(content));
         final initial = await _pixels(tester);
         await tester.pump(const Duration(seconds: 1));
@@ -97,6 +98,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
       expect(tester.hasRunningAnimations, i.isEven && i % 3 != 0);
     }
+
     await tester.pumpWidget(_app(const WiredLoadingIndicator()));
     expect(tester.hasRunningAnimations, isTrue);
     await tester.pumpWidget(_app(const SizedBox()));
@@ -123,6 +125,7 @@ void main() {
         expect(tester.takeException(), isNull);
       }
     }
+
     await tester.pumpWidget(
       _app(const WiredLoader(color: Color(0xffee0000), animating: false)),
     );
@@ -167,5 +170,6 @@ Future<Uint8List> _pixels(WidgetTester tester) async {
     image.dispose();
     return data!.buffer.asUint8List();
   });
+
   return pixels!;
 }

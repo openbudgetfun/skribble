@@ -37,6 +37,7 @@ class WiredCalendar extends HookWidget {
           (DateTime(date.year, date.month + 1, 0).day - dayInMonthOffset) / 7;
 
       final newWeeks = <CalendarCell>[];
+
       for (var weekIndex = 0; weekIndex < amountOfWeeks; weekIndex++) {
         for (var dayOfWeekIndex = 0; dayOfWeekIndex < 7; dayOfWeekIndex++) {
           final day = DateTime.fromMillisecondsSinceEpoch(
@@ -60,12 +61,14 @@ class WiredCalendar extends HookWidget {
           dayInMonthOffset++;
         }
       }
+
       weeks.value = newWeeks;
     }
 
     void setInitialConditions() {
       DateTime d;
       final sel = selectedDate.value;
+
       if (sel != null) {
         try {
           d = DateTime.parse(sel);
@@ -75,6 +78,7 @@ class WiredCalendar extends HookWidget {
       } else {
         d = DateTime.now();
       }
+
       firstOfMonthDate.value = DateTime(d.year, d.month, 1);
     }
 
@@ -159,6 +163,7 @@ Widget _buildWeekdaysNav({
 
 Widget _buildWeeksHeaderUI({required Color borderColor}) {
   final headers = <Widget>[];
+
   for (final weekday in _weekdaysShort) {
     headers.add(
       Expanded(
@@ -184,6 +189,7 @@ Widget _buildWeekdaysUI({
   required Color borderColor,
 }) {
   final weekdays = <Widget>[];
+
   for (final week in weeks) {
     weekdays.add(
       InkWell(

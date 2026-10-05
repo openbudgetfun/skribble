@@ -35,6 +35,7 @@ export 'package:skribble_icons_simple/src/generated/simple_icons.g.dart'
 /// [Simple Icons](https://simpleicons.org) site and its search box use.
 WiredSvgIconData? lookupSimpleIconByIdentifier(String identifier) {
   final codePoint = kSimpleIconCodePoints[identifier];
+
   if (codePoint == null) return null;
   return kSimpleIcons[codePoint];
 }

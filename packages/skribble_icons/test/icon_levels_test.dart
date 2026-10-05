@@ -35,6 +35,7 @@ void main() {
         );
       await font.load();
     }
+
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder)
       ..drawColor(const Color(0xfffffaf0), BlendMode.src);
@@ -150,9 +151,11 @@ void main() {
               Paint(),
             );
           }
+
           image.dispose();
           column++;
         }
+
         expect(
           differences[1],
           greaterThan(differences[0]),
@@ -170,6 +173,7 @@ void main() {
             48 => 48.0,
             _ => 110.0,
           };
+
           canvas.drawImageRect(
             original,
             Rect.fromLTWH(
@@ -182,10 +186,13 @@ void main() {
             Paint(),
           );
         }
+
         original.dispose();
       }
+
       row++;
     }
+
     final picture = recorder.endRecording();
     if (capture) {
       await tester.runAsync(() async {
@@ -197,14 +204,17 @@ void main() {
         image.dispose();
       });
     }
+
     picture.dispose();
   });
 }
 
 int _difference(Uint8List a, Uint8List b) {
   var total = 0;
+
   for (var i = 3; i < a.length; i += 4) {
     total += (a[i] - b[i]).abs();
   }
+
   return total;
 }

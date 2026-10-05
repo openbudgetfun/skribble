@@ -54,6 +54,7 @@ Future<WiredFinancialChart> _chart(WidgetTester tester) async {
     scrollable: _scrollable,
   );
   await tester.pumpAndSettle();
+
   return tester.widget<WiredFinancialChart>(find.byKey(_chartKey));
 }
 
@@ -64,6 +65,7 @@ Offset _plotPoint(WidgetTester tester, double x, double y) {
   );
   final scene =
       (tester.widget<CustomPaint>(finder).painter! as ChartPainter).scene;
+
   return tester.getTopLeft(finder) +
       Offset(
         scene.priceRect.left + scene.priceRect.width * x,

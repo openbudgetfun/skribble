@@ -99,11 +99,13 @@ class WiredExpansionPanelList extends HookWidget {
 
     void toggle() {
       final newExpanded = Set<int>.from(expandedPanels.value);
+
       if (isExpanded) {
         newExpanded.remove(index);
       } else {
         newExpanded.add(index);
       }
+
       expandedPanels.value = newExpanded;
       expansionCallback?.call(index, !isExpanded);
     }

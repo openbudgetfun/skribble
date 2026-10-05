@@ -72,6 +72,7 @@ void main() {
       // The curated fallback is used; nothing to verify.
       return;
     }
+
     expect(
       _bannedTypeNames().length,
       greaterThan(200),
@@ -142,6 +143,7 @@ Map<String, List<String>> _scan(
   Set<String> banned,
 ) {
   final testDir = Directory('${packageRoot.path}/test');
+
   if (!testDir.existsSync()) {
     fail('Could not find the test directory at ${testDir.path}.');
   }
@@ -156,36 +158,47 @@ Map<String, List<String>> _scan(
   );
 
   final violations = <String, List<String>>{};
+
   for (final entity in testDir.listSync(recursive: true)) {
     if (entity is! File || !entity.path.endsWith('_test.dart')) {
       continue;
     }
+
     final relative = _relativePath(packageRoot, entity);
+
     if (relative == _guardTestPath) {
       continue;
     }
+
     final source = entity.readAsStringSync();
+
     final lines = <int, Set<String>>{};
+
     for (final pattern in [findLookup, widgetLookup]) {
       for (final match in pattern.allMatches(source)) {
         final type = match.group(1)!;
+
         if (!banned.contains(type)) {
           continue;
         }
+
         final lineNumber =
             '\n'.allMatches(source.substring(0, match.start)).length + 1;
         (lines[lineNumber] ??= <String>{}).add(type);
       }
     }
+
     if (lines.isEmpty) {
       continue;
     }
+
     final sortedLines = lines.keys.toList()..sort();
     violations[relative] = [
       for (final line in sortedLines)
         'line $line: ${(lines[line]!.toList()..sort()).join(', ')}',
     ];
   }
+
   return violations;
 }
 
@@ -197,6 +210,7 @@ String _relativePath(Directory root, File file) {
   final relative = file.path.startsWith(rootPath)
       ? file.path.substring(rootPath.length)
       : file.path;
+
   return relative.replaceAll(Platform.pathSeparator, '/');
 }
 
@@ -207,23 +221,30 @@ String _relativePath(Directory root, File file) {
 /// started from the package or from the workspace root.
 Directory _packageRoot() {
   var dir = Directory.current.absolute;
+
   while (true) {
     if (_isSkribbleRoot(dir)) {
       return dir;
     }
+
     final parent = dir.parent;
+
     if (parent.path == dir.path) {
       break;
     }
+
     dir = parent;
   }
+
   final workspaceMember = Directory(
     '${Directory.current.absolute.path}'
     '${Platform.pathSeparator}packages${Platform.pathSeparator}skribble',
   );
+
   if (_isSkribbleRoot(workspaceMember)) {
     return workspaceMember;
   }
+
   fail(
     'Could not find the skribble package root near '
     '${Directory.current.path}.',
@@ -233,6 +254,7 @@ Directory _packageRoot() {
 /// Whether [dir] holds this package's `pubspec.yaml`.
 bool _isSkribbleRoot(Directory dir) {
   final pubspec = File('${dir.path}${Platform.pathSeparator}pubspec.yaml');
+
   return pubspec.existsSync() &&
       pubspec.readAsStringSync().contains('name: skribble');
 }
@@ -241,30 +263,38 @@ bool _isSkribbleRoot(Directory dir) {
 /// when available and otherwise taken from a curated list.
 Set<String> _bannedTypeNames() {
   final flutterRoot = Platform.environment['FLUTTER_ROOT'];
+
   if (flutterRoot == null) {
     return _fallbackBannedTypes;
   }
+
   final names = <String>{};
+
   for (final library in ['material', 'cupertino']) {
     final dir = Directory(
       '$flutterRoot/packages/flutter/lib/src/$library',
     );
+
     if (!dir.existsSync()) {
       continue;
     }
+
     final declaration = RegExp(
       r'^\s*(?:abstract\s+|sealed\s+|final\s+|base\s+|mixin\s+)*class\s+([A-Z][A-Za-z0-9_]*)',
       multiLine: true,
     );
+
     for (final entity in dir.listSync(recursive: true)) {
       if (entity is! File || !entity.path.endsWith('.dart')) {
         continue;
       }
+
       for (final match in declaration.allMatches(entity.readAsStringSync())) {
         names.add(match.group(1)!);
       }
     }
   }
+
   return names.isEmpty ? _fallbackBannedTypes : names;
 }
 

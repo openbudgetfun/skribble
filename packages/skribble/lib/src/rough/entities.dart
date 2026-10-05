@@ -27,11 +27,14 @@ class PointD extends Point<double> {
     if (vertices < 3) {
       return false;
     }
+
     final PointD extreme = PointD(double.maxFinite, y);
     int count = 0;
+
     for (int i = 0; i < vertices; i++) {
       final PointD current = points[i];
       final PointD next = points[(i + 1) % vertices];
+
       if (Line(current, next).intersects(Line(this, extreme))) {
         if (getOrientation(current, this, next) ==
             PointsOrientation.collinear) {
@@ -40,6 +43,7 @@ class PointD extends Point<double> {
         count++;
       }
     }
+
     return count % 2 == 1;
   }
 

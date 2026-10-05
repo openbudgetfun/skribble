@@ -52,6 +52,7 @@ void main() {
           // A loading gallery repeats until the visitor settles its motion.
           await tester.tap(find.text('Settle motion'));
         }
+
         await tester.pumpAndSettle();
         expect(tester.takeException(), isNull, reason: document.path);
         final scroll = find.byKey(const ValueKey('document-scroll'));

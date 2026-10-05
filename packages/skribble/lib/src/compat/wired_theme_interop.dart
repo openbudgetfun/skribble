@@ -147,20 +147,26 @@ double _strokeWidthOf(ThemeData theme) {
     theme.bottomSheetTheme.shape,
     theme.appBarTheme.shape,
   ];
+
   for (final shape in shapes) {
     if (shape is OutlinedBorder && shape.side.width > 0) {
       return shape.side.width;
     }
   }
+
   final inputBorder =
       theme.inputDecorationTheme.enabledBorder ??
       theme.inputDecorationTheme.border;
+
   if (inputBorder is OutlineInputBorder && inputBorder.borderSide.width > 0) {
     return inputBorder.borderSide.width;
   }
+
   final dividerThickness = theme.dividerTheme.thickness;
+
   if (dividerThickness != null && dividerThickness > 0) {
     return dividerThickness;
   }
+
   return WiredThemeData.defaultTheme.strokeWidth;
 }

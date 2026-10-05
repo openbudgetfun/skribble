@@ -103,6 +103,7 @@ class Line {
         onSegmentPoints(line.source, target, line.target)) {
       return true;
     }
+
     return false;
   }
 
@@ -115,6 +116,7 @@ class Line {
     final double lineDiff =
         lineYDiff * (line.source.x) + lineXDiff * (line.source.y);
     final double determinant = yDiff * lineXDiff - lineYDiff * xDiff;
+
     return determinant != 0
         ? PointD(
             (lineXDiff * diff - xDiff * lineDiff) / determinant,

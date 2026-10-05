@@ -36,7 +36,6 @@ export 'package:skribble_emoji/src/wired_svg_icon_data.dart'
 // ---------------------------------------------------------------------------
 // Lookup helpers
 // ---------------------------------------------------------------------------
-
 /// Returns the `WiredSvgIconData` for the emoji [name], or `null` if not
 /// found.
 ///
@@ -45,8 +44,10 @@ export 'package:skribble_emoji/src/wired_svg_icon_data.dart'
 /// ```
 WiredSvgIconData? lookupSkribbleEmojiByName(String name) {
   final codePoint = gen_cp.kSkribbleEmojiCodePoints[name];
+
   if (codePoint != null) return gen.kSkribbleEmoji[codePoint];
   final sequence = gen_cp.kSkribbleEmojiNames[name];
+
   if (sequence == null) return null;
   return sequences.kSkribbleEmojiSequences[sequence];
 }
@@ -75,9 +76,12 @@ WiredSvgIconData? lookupSkribbleEmojiBySequence(String value) {
         (point) => point.toRadixString(16).toUpperCase().padLeft(4, '0'),
       )
       .join('-');
+
   if (!sequence.contains('-')) {
     final point = int.tryParse(sequence, radix: 16);
+
     return point == null ? null : gen.kSkribbleEmoji[point];
   }
+
   return sequences.kSkribbleEmojiSequences[sequence];
 }

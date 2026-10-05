@@ -36,6 +36,7 @@ void main() {
         'ticker' => const TickerMode(enabled: false, child: block),
         _ => const WiredSkeleton(width: 80, height: 32, animating: false),
       };
+
       await tester.pumpWidget(_app(quiet));
       expect(tester.hasRunningAnimations, isFalse);
       await tester.pumpWidget(_app(block));
@@ -151,6 +152,7 @@ void main() {
           const Size.square(80),
         );
       }
+
       expect(tester.takeException(), isNull);
     },
   );

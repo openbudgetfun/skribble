@@ -31,6 +31,7 @@ void main() {
       });
     }
   }
+
   testWidgets('gallery replays, reverses, pauses, saves, and disables motion', (
     tester,
   ) async {

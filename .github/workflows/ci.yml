@@ -17,6 +17,10 @@ jobs:
     runs-on: blacksmith-2vcpu-ubuntu-2404
     steps:
       - uses: actions/checkout@v4
+      - uses: ifiokjr/monostyle@be483a75d05cdc6d64493a3dd67025e3ecd79551 # v0.3.25
+        if: always()
+        with:
+          version: 0.3.25
       - name: Keep Figma exports in release assets
         shell: bash
         run: |

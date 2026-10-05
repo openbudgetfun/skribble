@@ -122,6 +122,7 @@ class WiredCupertinoNavigationBar extends HookWidget
 
   Widget? _buildBackButton(BuildContext context) {
     final theme = WiredTheme.of(context);
+
     if (!Navigator.of(context).canPop()) return null;
     return GestureDetector(
       onTap: () => Navigator.of(context).maybePop(),
@@ -147,6 +148,7 @@ class WiredCupertinoNavigationBar extends HookWidget
   Widget? _buildTitle(BuildContext context) {
     final theme = WiredTheme.of(context);
     final route = ModalRoute.of(context);
+
     if (route?.settings.name == null) return null;
     return Text(
       route!.settings.name!,

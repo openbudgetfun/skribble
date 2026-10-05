@@ -116,6 +116,7 @@ class _DoodlePainter extends WiredPainterBase {
           Op.curveTo(point(curve.first), point(curve.second), point(curve.end)),
         ),
       );
+
       return ops;
     }
 

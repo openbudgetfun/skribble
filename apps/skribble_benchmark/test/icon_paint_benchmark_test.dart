@@ -32,6 +32,7 @@ void main() {
     }
 
     final sw = Stopwatch()..start();
+
     for (var i = 0; i < cycles; i++) {
       // Mark the render object as needing repaint
       tester.allRenderObjects.whereType<RenderCustomPaint>().forEach(
@@ -39,6 +40,7 @@ void main() {
       );
       await tester.pump(const Duration(milliseconds: 16));
     }
+
     sw.stop();
 
     return _BenchResult(
@@ -227,11 +229,13 @@ Future<_BenchResult> _measureScrollPerformance({
   // Measure scroll performance
   final sw = Stopwatch()..start();
   var frames = 0;
+
   for (var i = 0; i < 40; i++) {
     await tester.drag(find.byType(ListView), const Offset(0, -120));
     await tester.pump(const Duration(milliseconds: 16));
     frames++;
   }
+
   sw.stop();
 
   return _BenchResult(
@@ -244,7 +248,6 @@ Future<_BenchResult> _measureScrollPerformance({
 // ---------------------------------------------------------------------------
 // Pre-computed icon (simulates zero-cost paint)
 // ---------------------------------------------------------------------------
-
 class _PrecomputedIcon extends StatelessWidget {
   const _PrecomputedIcon({required this.data, this.size = 24});
 
@@ -301,7 +304,6 @@ class _PrecomputedPainter extends CustomPainter {
 // ---------------------------------------------------------------------------
 // Icon grid widget
 // ---------------------------------------------------------------------------
-
 class _IconGrid extends StatelessWidget {
   const _IconGrid({required this.icons, required this.useRuntime});
 
@@ -327,7 +329,6 @@ class _IconGrid extends StatelessWidget {
 // ---------------------------------------------------------------------------
 // Benchmark result
 // ---------------------------------------------------------------------------
-
 class _BenchResult {
   const _BenchResult({
     required this.label,

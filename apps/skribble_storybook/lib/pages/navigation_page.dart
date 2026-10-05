@@ -20,6 +20,7 @@ class NavigationPage extends HookWidget {
     final navBarIndex = useState(0);
     final railIndex = useState(0);
     final popupSelection = useState<String>('None');
+
     final cupertinoTabIndex = useState(0);
 
     return WiredScaffold(

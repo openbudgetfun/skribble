@@ -161,6 +161,7 @@ class _DocsPage extends HookWidget {
     final findController = useTextEditingController();
     final findFocus = useFocusNode();
     final pageFocus = useFocusNode();
+
     final findIndex = useState(0);
     useListenable(findController);
     final findQuery = findController.text;
@@ -219,10 +220,12 @@ class _DocsPage extends HookWidget {
           if (box.localToGlobal(Offset.zero).dy > top) break;
           active = id;
         }
+
         // The last sections of a page may never reach the top edge.
         if (scroll.position.extentAfter < 4) {
           active = document.headingIds[headings.last];
         }
+
         activeHeading.value = active;
       }
 
@@ -232,6 +235,7 @@ class _DocsPage extends HookWidget {
 
     void jump(String anchor) {
       final target = anchors[anchor]?.currentContext;
+
       if (target != null) {
         Scrollable.ensureVisible(
           target,
@@ -300,10 +304,13 @@ class _DocsPage extends HookWidget {
 
     Future<void> navigate(String href) async {
       final uri = Uri.parse(href);
+
       if (uri.hasScheme || href.startsWith('//')) {
         await launchUrl(uri);
+
         return;
       }
+
       final resolved = Uri(path: document.path).resolveUri(uri);
       if (resolved.path == '/storybook' ||
           resolved.path.startsWith('/storybook/')) {
@@ -313,6 +320,7 @@ class _DocsPage extends HookWidget {
             fragment: resolved.hasFragment ? resolved.fragment : null,
           ),
         );
+
         return;
       }
       final path = resolved.path
@@ -691,6 +699,7 @@ String _searchableBlock(md.Node node) {
   if (node is md.Text && node.textContent.trimLeft().startsWith('<!--')) {
     return '';
   }
+
   if (node is md.Element) {
     if (node.tag == 'html' ||
         (node.tag == 'pre' &&

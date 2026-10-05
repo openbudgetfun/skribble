@@ -18,6 +18,7 @@ const _kDefaultFontGeneratorExecutable = 'npx';
 const _kDefaultFontGeneratorPackage = 'fantasticon';
 const _kDefaultBrandIconsPackage = 'simple-icons';
 const _kDefaultFontName = 'material_rough_icons';
+
 const _kDefaultMapName = 'kMaterialRoughIcons';
 const _kUnresolvedBaselineOutputFormatUnresolved = 'unresolved';
 const _kUnresolvedBaselineOutputFormatCodePoints = 'codepoints';
@@ -34,13 +35,16 @@ Future<void> main(List<String> args) => runGenerateRoughIcons(args);
 
 Future<void> runGenerateRoughIcons(List<String> args) async {
   final options = _ScriptOptions.parse(args);
+
   if (options.showHelp) {
     _printUsage();
+
     return;
   }
 
   if (options.listKits) {
     _printSupportedKits();
+
     return;
   }
 
@@ -52,6 +56,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
   final declarations = await provider.loadDeclarations();
 
   final byCodePoint = SplayTreeMap<int, List<_FlutterIconDeclaration>>();
+
   for (final declaration in declarations) {
     byCodePoint
         .putIfAbsent(declaration.codePoint, () => <_FlutterIconDeclaration>[])
@@ -70,9 +75,11 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
 
     for (final declaration in declarationsForCodePoint) {
       final resolved = provider.resolveIcon(declaration);
+
       if (resolved == null) {
         continue;
       }
+
       resolvedDeclaration = declaration;
       resolvedCandidate = resolved;
       break;
@@ -93,11 +100,13 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
           inputSvgPath: resolvedCandidate.sourcePath,
         ),
       );
+
       for (final declaration in declarationsForCodePoint) {
         fontGlyphs.add(
           _FontGlyph(identifier: declaration.identifier, codePoint: entry.key),
         );
       }
+
       continue;
     }
 
@@ -173,6 +182,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     outputFile.writeAsStringSync(
       _renderFontCodePointsDart(fontName: options.fontName, glyphs: fontGlyphs),
     );
+
     if (options.formatOutput) await _formatGenerated(outputFile);
     stdout.writeln('Generated icon font Dart helpers to ${outputFile.path}');
   }
@@ -185,6 +195,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     outputFile.writeAsStringSync(
       _renderGeneratedFile(icons, mapName: options.mapName),
     );
+
     if (options.formatOutput) await _formatGenerated(outputFile);
     stdout.writeln(
       'Generated ${icons.length} rough icons to ${outputFile.path}',
@@ -261,6 +272,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
     '"${options.kit}" could not be resolved to SVGs. WiredIcon will '
     'fall back to Icon for those values.',
   );
+
   for (final item in unresolved) {
     stderr.writeln(
       '  0x${item.codePoint.toRadixString(16)}: ${item.identifiers.join(', ')}',
@@ -275,6 +287,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
       '$baselineSeverity: ${baselineDiff.length} newly unresolved '
       'codepoints compared to baseline.',
     );
+
     for (final item in baselineDiff) {
       stderr.writeln(
         '  + 0x${item.codePoint.toRadixString(16)}: '
@@ -290,6 +303,7 @@ Future<void> runGenerateRoughIcons(List<String> args) async {
         '$baselineSeverity: ${resolvedDiff.length} baseline unresolved '
         'codepoints are now resolved.',
       );
+
       for (final codePoint in resolvedDiff) {
         stderr.writeln('  - 0x${codePoint.toRadixString(16)}');
       }
@@ -366,6 +380,7 @@ a temporary directory.
 
 void _printSupportedKits() {
   stdout.writeln('Supported icon kits:');
+
   for (final entry in _kSupportedKitDescriptions.entries) {
     stdout.writeln('  - ${entry.key}: ${entry.value}');
   }
@@ -375,7 +390,9 @@ String _defaultOutputPathForKit(String kit) {
   if (kit == _kDefaultKit) {
     return 'lib/src/generated/material_rough_icons.g.dart';
   }
+
   final normalized = kit.toLowerCase().replaceAll(RegExp('[^a-z0-9_]+'), '_');
+
   return 'lib/src/generated/${normalized}_rough_icons.g.dart';
 }
 
@@ -470,6 +487,7 @@ final class _ScriptOptions {
     String? brandIconsSourcePath;
     String? supplementalManifestPath;
     String? unresolvedOutputPath;
+
     String? unresolvedBaselineOutputPath;
     var unresolvedBaselineOutputFormat =
         _kUnresolvedBaselineOutputFormatUnresolved;
@@ -499,30 +517,37 @@ final class _ScriptOptions {
 
     for (var index = 0; index < args.length; index++) {
       final argument = args[index];
+
       if (argument == '--help' || argument == '-h') {
         showHelp = true;
         continue;
       }
+
       if (argument == '--list-kits') {
         listKits = true;
         continue;
       }
+
       if (argument == '--rough-bulk') {
         roughBulk = true;
         continue;
       }
+
       if (argument == '--rough-only') {
         roughOnly = true;
         continue;
       }
+
       if (argument == '--format-output') {
         formatOutput = true;
         continue;
       }
+
       if (argument == '--fail-on-unresolved') {
         failOnUnresolved = true;
         continue;
       }
+
       if (argument == '--fail-on-new-unresolved') {
         failOnNewUnresolved = true;
         continue;
@@ -531,17 +556,21 @@ final class _ScriptOptions {
       String option;
       String value;
       final split = argument.split('=');
+
       if (split.length == 2) {
         option = split.first;
         value = split.last;
       } else {
         option = argument;
+
         if (!option.startsWith('--')) {
           throw ArgumentError('Unexpected argument: $argument');
         }
+
         if (index + 1 >= args.length) {
           throw ArgumentError('Missing value for $option');
         }
+
         value = args[++index];
       }
 
@@ -606,20 +635,24 @@ final class _ScriptOptions {
     if (maxUnresolved != null && maxUnresolved < 0) {
       throw ArgumentError('--max-unresolved must be >= 0.');
     }
+
     if (maxNewUnresolved != null && maxNewUnresolved < 0) {
       throw ArgumentError('--max-new-unresolved must be >= 0.');
     }
+
     if (failOnUnresolved && maxUnresolved != null) {
       throw ArgumentError(
         '--fail-on-unresolved cannot be combined with --max-unresolved.',
       );
     }
+
     if (failOnNewUnresolved && maxNewUnresolved != null) {
       throw ArgumentError(
         '--fail-on-new-unresolved cannot be combined with '
         '--max-new-unresolved.',
       );
     }
+
     if (!_kUnresolvedBaselineOutputFormats.contains(
       unresolvedBaselineOutputFormat,
     )) {
@@ -684,6 +717,7 @@ final class _ScriptOptions {
 
 Future<String> _discoverFlutterIconsPath() async {
   final flutterRoot = Platform.environment['FLUTTER_ROOT'];
+
   if (flutterRoot != null && flutterRoot.isNotEmpty) {
     return '$flutterRoot/packages/flutter/lib/src/material/icons.dart';
   }
@@ -692,6 +726,7 @@ Future<String> _discoverFlutterIconsPath() async {
     '--version',
     '--machine',
   ]);
+
   if (result.exitCode != 0) {
     throw StateError(
       'Unable to resolve FLUTTER_ROOT. flutter --version --machine failed:\n'
@@ -701,9 +736,11 @@ Future<String> _discoverFlutterIconsPath() async {
 
   final decoded = jsonDecode(result.stdout as String) as Map<String, dynamic>;
   final root = decoded['flutterRoot'] as String?;
+
   if (root == null || root.isEmpty) {
     throw StateError('flutter --version --machine did not return flutterRoot');
   }
+
   return '$root/packages/flutter/lib/src/material/icons.dart';
 }
 
@@ -713,9 +750,11 @@ Future<Directory> _resolvePackageRoot({
 }) async {
   if (suppliedPath != null) {
     final directory = Directory(suppliedPath);
+
     if (!directory.existsSync()) {
       throw StateError('Package source does not exist: $suppliedPath');
     }
+
     return directory;
   }
 
@@ -727,6 +766,7 @@ Future<Directory> _resolvePackageRoot({
     'pack',
     packageName,
   ], workingDirectory: tempDirectory.path);
+
   if (packResult.exitCode != 0) {
     throw StateError('npm pack $packageName failed:\n${packResult.stderr}');
   }
@@ -737,6 +777,7 @@ Future<Directory> _resolvePackageRoot({
     '-xzf',
     archivePath,
   ], workingDirectory: tempDirectory.path);
+
   if (extractResult.exitCode != 0) {
     throw StateError(
       'tar extraction for $packageName failed:\n${extractResult.stderr}',
@@ -767,6 +808,7 @@ Future<Directory?> _resolveOptionalPackageRoot({
       'Warning: Optional package "$packageName" could not be resolved. '
       'Continuing without this fallback source.\n$error',
     );
+
     return null;
   }
 }
@@ -783,11 +825,13 @@ _createProvider(_ScriptOptions options) async {
       final flutterIconsFile = File(
         options.flutterIconsPath ?? await _discoverFlutterIconsPath(),
       );
+
       if (!flutterIconsFile.existsSync()) {
         throw StateError(
           'Flutter icons file not found: ${flutterIconsFile.path}',
         );
       }
+
       final materialIconsRoot = await _resolvePackageRoot(
         packageName: '@material-design-icons/svg',
         suppliedPath: options.materialIconsSourcePath,
@@ -805,6 +849,7 @@ _createProvider(_ScriptOptions options) async {
       if (options.supplementalManifestPath
           case final supplementalManifestPath?) {
         final supplementalManifestFile = File(supplementalManifestPath);
+
         if (!supplementalManifestFile.existsSync()) {
           throw StateError(
             'Supplemental manifest file not found: '
@@ -832,10 +877,13 @@ _createProvider(_ScriptOptions options) async {
       );
     case _kManifestKit:
       final manifestPath = options.manifestPath;
+
       if (manifestPath == null) {
         throw ArgumentError('--manifest is required when --kit=$_kManifestKit');
       }
+
       final manifestFile = File(manifestPath);
+
       if (!manifestFile.existsSync()) {
         throw StateError('Manifest file not found: ${manifestFile.path}');
       }
@@ -904,6 +952,7 @@ final class _SvgManifestIconKitProvider
           declaration.identifier,
           declaration.codePoint,
         )];
+
     if (entry == null) {
       return null;
     }
@@ -929,11 +978,13 @@ List<_ManifestIconEntry> _parseSvgManifest(
     entries = decoded;
   } else if (decoded is Map<String, Object?>) {
     final icons = decoded['icons'];
+
     if (icons is! List<Object?>) {
       throw FormatException(
         'Expected top-level "icons" list in manifest JSON object.',
       );
     }
+
     entries = icons;
   } else {
     throw FormatException(
@@ -960,6 +1011,7 @@ void _validateManifestEntries(List<_ManifestIconEntry> entries) {
     if (!seenIdentifiers.add(entry.identifier)) {
       duplicateIdentifiers.add(entry.identifier);
     }
+
     if (!seenCodePoints.add(entry.codePoint)) {
       duplicateCodePoints.add(entry.codePoint);
     }
@@ -988,6 +1040,7 @@ _ManifestIconEntry _parseManifestIconEntry(
   }
 
   final identifier = item['identifier'];
+
   if (identifier is! String || identifier.isEmpty) {
     throw FormatException('Manifest entry is missing string "identifier".');
   }
@@ -995,6 +1048,7 @@ _ManifestIconEntry _parseManifestIconEntry(
   final codePoint = _parseManifestCodePoint(item['codePoint'], identifier);
 
   final svgPathValue = item['svgPath'] ?? item['svg'] ?? item['path'];
+
   if (svgPathValue is! String || svgPathValue.isEmpty) {
     throw FormatException(
       'Manifest entry "$identifier" is missing "svgPath" (or "svg").',
@@ -1005,6 +1059,7 @@ _ManifestIconEntry _parseManifestIconEntry(
     svgPathValue,
     manifestDirectory: manifestDirectory,
   );
+
   if (!svgFile.existsSync()) {
     throw StateError(
       'Manifest entry "$identifier" points to missing SVG: ${svgFile.path}',
@@ -1160,6 +1215,7 @@ List<_FlutterIconDeclaration> _parseFlutterIconDeclarationsFromSource(
             'sharp' => 'sharp',
             _ => 'outlined',
           },
+
           useSymbolFillVariant: styleTag != 'outlined',
         );
       })
@@ -1170,12 +1226,15 @@ String? _styleTagFromIdentifier(String identifier) {
   if (identifier.endsWith('_outlined')) {
     return 'outlined';
   }
+
   if (identifier.endsWith('_rounded')) {
     return 'round';
   }
+
   if (identifier.endsWith('_sharp')) {
     return 'sharp';
   }
+
   return null;
 }
 
@@ -1185,6 +1244,7 @@ String _stripStyleSuffix(String identifier) {
       return identifier.substring(0, identifier.length - suffix.length);
     }
   }
+
   return identifier;
 }
 
@@ -1207,6 +1267,7 @@ ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
     final materialIconsFile = File(
       '${materialIconsRoot.path}/${declaration.oldPackageFolder}/$candidate.svg',
     );
+
     if (materialIconsFile.existsSync()) {
       return ResolvedSvgCandidate<_GeneratedIconData>(
         data: _parseSvgIcon(materialIconsFile),
@@ -1222,6 +1283,7 @@ ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
 
     for (final path in symbolCandidates) {
       final file = File(path);
+
       if (file.existsSync()) {
         return ResolvedSvgCandidate<_GeneratedIconData>(
           data: _parseSvgIcon(file),
@@ -1232,6 +1294,7 @@ ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
 
     if (brandIconsRoot case final root?) {
       final brandFile = _resolveBrandIconSvgFile(root, candidate);
+
       if (brandFile != null && brandFile.existsSync()) {
         return ResolvedSvgCandidate<_GeneratedIconData>(
           data: _parseSvgIcon(brandFile),
@@ -1247,6 +1310,7 @@ ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
           candidate,
           declaration.codePoint,
         )];
+
     if (supplementalEntry == null) {
       continue;
     }
@@ -1263,11 +1327,13 @@ ResolvedSvgCandidate<_GeneratedIconData>? _resolveIconData(
 File? _resolveBrandIconSvgFile(Directory brandIconsRoot, String identifier) {
   final slug = _brandIconAliases[identifier] ?? identifier;
   final iconDirectoryCandidate = File('${brandIconsRoot.path}/icons/$slug.svg');
+
   if (iconDirectoryCandidate.existsSync()) {
     return iconDirectoryCandidate;
   }
 
   final rootCandidate = File('${brandIconsRoot.path}/$slug.svg');
+
   if (rootCandidate.existsSync()) {
     return rootCandidate;
   }
@@ -1361,6 +1427,7 @@ _GeneratedIconData _parseSvgIcon(File file) {
         .split(RegExp(r'[\s,]+'))
         .where((part) => part.isNotEmpty)
         .toList(growable: false);
+
     if (parts.length == 4) {
       width = double.parse(parts[2]);
       height = double.parse(parts[3]);
@@ -1394,6 +1461,7 @@ List<_PrimitiveData> _collectPrimitives(
     case 'svg':
     case 'g':
       final primitives = <_PrimitiveData>[];
+
       for (final child in element.children.whereType<XmlElement>()) {
         primitives.addAll(
           _collectPrimitives(child, inheritedFillRule: effectiveFillRule),
@@ -1404,7 +1472,9 @@ List<_PrimitiveData> _collectPrimitives(
       if (element.getAttribute('fill') == 'none') {
         return const <_PrimitiveData>[];
       }
+
       final data = element.getAttribute('d');
+
       if (data == null || data.isEmpty) {
         return const <_PrimitiveData>[];
       }
@@ -1443,12 +1513,14 @@ List<_PrimitiveData> _collectPrimitives(
 
 double _requireDouble(XmlElement element, String attributeName) {
   final value = _parseDouble(element.getAttribute(attributeName));
+
   if (value == null) {
     throw StateError(
       'Missing $attributeName on <${element.name.local}> in '
       '${element.toXmlString()}',
     );
   }
+
   return value;
 }
 
@@ -1456,10 +1528,13 @@ double? _parseDouble(String? value) {
   if (value == null || value.isEmpty) {
     return null;
   }
+
   final match = RegExp(r'-?\d+(?:\.\d+)?').firstMatch(value);
+
   if (match == null) {
     return null;
   }
+
   return double.parse(match.group(0)!);
 }
 
@@ -1516,6 +1591,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
   }
 
   final baselineFile = File(baselinePath);
+
   if (!baselineFile.existsSync()) {
     throw StateError(
       'Unresolved baseline file not found: ${baselineFile.path}',
@@ -1525,6 +1601,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
   final decoded = jsonDecode(baselineFile.readAsStringSync());
 
   List<Object?> entries;
+
   if (decoded is List<Object?>) {
     entries = decoded;
   } else if (decoded is Map<String, Object?>) {
@@ -1532,6 +1609,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
     final iconsValue = decoded['icons'];
     final unresolvedCodePointsValue = decoded['unresolvedCodePoints'];
     final unresolvedCodePointValue = decoded['unresolvedCodePoint'];
+
     final unresolvedCodepointValue = decoded['unresolvedCodepoint'];
     final unresolvedCodepointsValue = decoded['unresolvedCodepoints'];
     final unresolvedCodePointsSnakeCaseValue =
@@ -1585,6 +1663,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
       'unresolved_codepoint',
       unresolvedCodepointSnakeCaseValue,
     );
+
     addInvalidRecognizedListValue(
       'unresolved_codepoints',
       unresolvedCodepointsSnakeCaseValue,
@@ -1674,6 +1753,7 @@ Set<int>? _loadUnresolvedBaselineCodePoints(String? baselinePath) {
   }
 
   final codePoints = <int>{};
+
   for (final entry in entries) {
     if (entry is Map<Object?, Object?>) {
       codePoints.add(
@@ -1697,12 +1777,15 @@ Object _baselineEntryCodePointValue(Map<Object?, Object?> entry) {
   if (entry.containsKey('codePoint')) {
     return entry['codePoint']!;
   }
+
   if (entry.containsKey('codepoint')) {
     return entry['codepoint']!;
   }
+
   if (entry.containsKey('code_point')) {
     return entry['code_point']!;
   }
+
   if (entry.containsKey('code-point')) {
     return entry['code-point']!;
   }
@@ -1736,6 +1819,7 @@ int _parseCodePointValue(Object? value, {required String context}) {
 
 int _parseCodePointString(String value, {required String context}) {
   final normalized = value.trim().toLowerCase();
+
   if (normalized.isEmpty) {
     throw FormatException(
       'Invalid codePoint in $context. Expected decimal, 0x-prefixed hex, '
@@ -1748,6 +1832,7 @@ int _parseCodePointString(String value, {required String context}) {
 
   String digits;
   var radix = 10;
+
   if (normalized.startsWith('0x')) {
     digits = normalized.substring(2);
     radix = 16;
@@ -1793,9 +1878,11 @@ String _resolveThresholdMode({
   if (strictModeEnabled) {
     return 'strict';
   }
+
   if (thresholdOption != null) {
     return 'threshold';
   }
+
   return 'disabled';
 }
 
@@ -1888,6 +1975,7 @@ String _renderUnresolvedBaselineJson({
       if (byCodePoint != 0) {
         return byCodePoint;
       }
+
       final aIdentifier = a.identifiers.isEmpty ? '' : a.identifiers.first;
       final bIdentifier = b.identifiers.isEmpty ? '' : b.identifiers.first;
       return aIdentifier.compareTo(bIdentifier);
@@ -1935,6 +2023,7 @@ String _renderSupplementalManifestTemplateJson({
       .toList(growable: false);
 
   final manifest = <String, Object>{'icons': icons};
+
   return const JsonEncoder.withIndent('  ').convert(manifest);
 }
 
@@ -1946,6 +2035,7 @@ String renderFontCodePointsDartForTest({
   final glyphs = codePoints.entries
       .map((entry) => _FontGlyph(identifier: entry.key, codePoint: entry.value))
       .toList(growable: false);
+
   return _renderFontCodePointsDart(fontName: fontName, glyphs: glyphs);
 }
 
@@ -2001,6 +2091,7 @@ String _renderFontCodePointsDart({
 
 String _singleQuotedDartString(String value) {
   final buffer = StringBuffer("'");
+
   for (final codeUnit in value.codeUnits) {
     switch (codeUnit) {
       case 0x27: // '
@@ -2023,7 +2114,9 @@ String _singleQuotedDartString(String value) {
         }
     }
   }
+
   buffer.write("'");
+
   return buffer.toString();
 }
 
@@ -2032,6 +2125,7 @@ String _toUpperCamelIdentifier(String value) {
       .split(RegExp('[^a-zA-Z0-9]+'))
       .where((word) => word.isNotEmpty)
       .toList(growable: false);
+
   if (words.isEmpty) {
     return 'GeneratedRoughIcons';
   }
@@ -2046,6 +2140,7 @@ String _toUpperCamelIdentifier(String value) {
   if (RegExp('^[0-9]').hasMatch(transformed)) {
     return 'Font$transformed';
   }
+
   return transformed;
 }
 
@@ -2056,6 +2151,7 @@ Future<void> _formatGenerated(File file) async {
     'format',
     file.path,
   ]);
+
   if (result.exitCode != 0) {
     stderr.write(result.stderr);
     throw ProcessException(
@@ -2125,6 +2221,7 @@ Future<void> _generateRoughSvgs(
 
   try {
     final normalizedTasks = <_RoughTask>[];
+
     for (final task in tasks) {
       normalizedTasks.add(
         _RoughTask(
@@ -2216,6 +2313,7 @@ Future<void> _generateRoughSvgs(
     if (normalizedInputDir.existsSync()) {
       normalizedInputDir.deleteSync(recursive: true);
     }
+
     if (normalizedOutputDir.existsSync()) {
       normalizedOutputDir.deleteSync(recursive: true);
     }
@@ -2232,10 +2330,12 @@ Future<void> _generateIconFont({
 }) async {
   if (tasks.isEmpty) {
     stdout.writeln('No rough icons to convert into a font.');
+
     return;
   }
 
   final roughDir = Directory(roughOutputDir);
+
   if (!roughDir.existsSync()) {
     throw StateError('Rough SVG directory does not exist: $roughOutputDir');
   }
@@ -2265,6 +2365,7 @@ Future<void> _generateIconFont({
       : <String>[generatorPackage, '--config', configFile.path];
 
   final result = await Process.run(generatorExecutable, arguments);
+
   if (result.exitCode != 0) {
     final output = [
       if ((result.stdout as String?)?.trim().isNotEmpty ?? false)
@@ -2315,6 +2416,7 @@ String _normalizeSvgForRough({
   File(outputPath)
     ..createSync(recursive: true)
     ..writeAsStringSync(document.toXmlString(pretty: false));
+
   return outputPath;
 }
 
@@ -2365,11 +2467,13 @@ _ResolvedSvgSize _resolveSvgSize(XmlElement root) {
   var height = _parseDouble(root.getAttribute('height')) ?? 24;
 
   final viewBox = root.getAttribute('viewBox');
+
   if (viewBox != null) {
     final parts = viewBox
         .split(RegExp(r'[\s,]+'))
         .where((part) => part.isNotEmpty)
         .toList(growable: false);
+
     if (parts.length == 4) {
       width = double.parse(parts[2]);
       height = double.parse(parts[3]);
@@ -2564,6 +2668,7 @@ sealed class _PrimitiveData {
     if (fillRule == _SvgFillRule.nonZero) {
       return '';
     }
+
     return ', fillRule: WiredSvgFillRule.evenOdd';
   }
 }
@@ -2577,6 +2682,7 @@ final class _PathPrimitiveData extends _PrimitiveData {
   @override
   String render() {
     final escaped = data.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
+
     return "WiredSvgPrimitive.path('$escaped'${renderFillRule()})";
   }
 }

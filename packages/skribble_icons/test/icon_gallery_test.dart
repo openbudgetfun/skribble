@@ -22,6 +22,7 @@ void main() {
     if (!Platform.environment.containsKey('ICON_GALLERY')) {
       return;
     }
+
     // Material identifier lookups go through the registered catalog.
     registerSkribbleIcons();
 
@@ -154,6 +155,7 @@ void main() {
           'alt="$id"><div>$id</div></div>',
         );
       }
+
       html
         ..writeln('</div></body></html>')
         ..writeln();

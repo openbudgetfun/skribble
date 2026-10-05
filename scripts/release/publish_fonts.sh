@@ -47,11 +47,13 @@ for arg in "$@"; do
       exit 1
       ;;
     *)
+
       if [[ -n "$TAG" ]]; then
         echo "Error: tag given twice ('$TAG' and '$arg')." >&2
         exit 1
       fi
       TAG="$arg"
+
       ;;
   esac
 done
@@ -66,14 +68,17 @@ cd "$ROOT_DIR"
 if [[ -z "$TAG" ]]; then
   TAG="$(git tag --list 'v[0-9]*' --sort=-v:refname | head -n1)"
 fi
+
 if [[ -z "$TAG" ]]; then
   echo "Error: no main-group v<version> tag found. Pass a tag explicitly." >&2
   exit 1
 fi
+
 if [[ "$TAG" == */* ]]; then
   echo "Error: font assets attach to main-group v<version> tags only, not '$TAG'." >&2
   exit 1
 fi
+
 if ! git rev-parse --verify --quiet "refs/tags/$TAG" >/dev/null; then
   echo "Error: tag '$TAG' does not exist in this repository." >&2
   exit 1
@@ -84,6 +89,7 @@ if [[ "$DRY_RUN" -eq 0 ]]; then
     echo "Error: 'gh' is required but was not found on PATH." >&2
     exit 1
   }
+
   if ! gh release view "$TAG" --repo "$REPO" >/dev/null 2>&1; then
     echo "Error: no GitHub release found for tag '$TAG' in $REPO." >&2
     echo "Create it first, for example:" >&2

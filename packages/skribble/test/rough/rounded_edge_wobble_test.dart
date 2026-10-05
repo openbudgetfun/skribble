@@ -39,6 +39,7 @@ void main() {
         for (var i = 1; i < top.length - 1; i++) {
           if ((top[i] - top[i - 1]) * (top[i + 1] - top[i]) < 0) turns++;
         }
+
         expect(turns, greaterThan(4));
         expect(top.last, closeTo(first.y, 0.00001));
         expect(ops.where((op) => op.op == OpType.move), hasLength(2));

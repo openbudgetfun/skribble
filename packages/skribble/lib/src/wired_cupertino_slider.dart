@@ -181,10 +181,12 @@ class WiredCupertinoSlider extends HookWidget {
       1.0,
     );
     var newValue = min + fraction * (max - min);
+
     if (divisions != null) {
       final step = (max - min) / divisions!;
       newValue = (newValue / step).round() * step;
     }
+
     return newValue.clamp(min, max);
   }
 }

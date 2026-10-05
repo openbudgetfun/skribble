@@ -233,6 +233,7 @@ double _thumbCenterX(WidgetTester tester) {
       .toList();
 
   expect(rects, hasLength(1), reason: 'Expected exactly one square thumb.');
+
   return rects.single.center.dx;
 }
 

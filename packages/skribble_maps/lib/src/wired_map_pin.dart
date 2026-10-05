@@ -119,6 +119,7 @@ class WiredMapPin extends HookWidget {
     final iconData = icon == null
         ? null
         : lookupMaterialRoughIconByIdentifier(icon!.identifier);
+
     final pinDrawConfig = theme.drawConfig.copyWith(
       seed: seed,
       maxRandomnessOffset: math.min(theme.drawConfig.maxRandomnessOffset, 1.2),

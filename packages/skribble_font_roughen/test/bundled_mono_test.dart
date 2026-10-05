@@ -24,6 +24,7 @@ void main() {
         for (final table in ['cmap', 'GSUB', 'GPOS', 'GDEF']) {
           expect(rough.tables[table], original.tables[table], reason: table);
         }
+
         expect(rough.tables['glyf'], isNot(original.tables['glyf']));
         // Static Mono advertises fixed pitch after pinning the variable axis.
         expect(

@@ -11,17 +11,21 @@ String familyName(TrueTypeFont font) {
   final data = ByteData.sublistView(font.tables['name']!);
   final count = data.getUint16(2);
   final start = data.getUint16(4);
+
   for (var i = 0; i < count; i++) {
     final record = 6 + i * 12;
+
     if (data.getUint16(record) != 3 || data.getUint16(record + 6) != 1) {
       continue;
     }
+
     final length = data.getUint16(record + 8);
     final offset = start + data.getUint16(record + 10);
     return String.fromCharCodes([
       for (var j = 0; j < length; j += 2) data.getUint16(offset + j),
     ]);
   }
+
   throw StateError('No Windows family name');
 }
 
@@ -79,11 +83,13 @@ void main() {
             distance += before[point].distanceTo(after[point]);
           }
         }
+
         expect(distance, greaterThan(previousDistance));
         previousDistance = distance;
       }
     });
   }
+
   test(
     'custom strength and family survive a complete generator round trip',
     () async {

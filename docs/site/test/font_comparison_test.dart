@@ -67,6 +67,7 @@ void main() {
         expect(text.style!.fontWeight, FontWeight.bold);
         expect(text.style!.fontStyle, FontStyle.italic);
       }
+
       expect(tester.takeException(), isNull);
     },
   );

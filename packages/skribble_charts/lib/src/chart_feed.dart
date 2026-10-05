@@ -79,15 +79,18 @@ final class WiredChartFeed extends ChangeNotifier {
     _error = error;
     _errorStackTrace = stackTrace;
     final pending = _pendingSnapshot;
+
     if (pending != null && !pending.isCompleted) {
       pending.completeError(error, stackTrace);
     }
+
     _setStatus(WiredChartFeedStatus.failed);
   }
 
   void _interruptSnapshot() {
     final pending = _pendingSnapshot;
     _pendingSnapshot = null;
+
     if (pending != null && !pending.isCompleted) pending.complete(const []);
   }
 
@@ -96,6 +99,7 @@ final class WiredChartFeed extends ChangeNotifier {
   Future<void> _cancelActive() {
     final cancel = _cancelSubscription;
     _cancelSubscription = null;
+
     if (cancel == null) return _cancellation ?? Future<void>.value();
     final completion = Completer<void>();
     final cancellation = completion.future;
@@ -115,6 +119,7 @@ final class WiredChartFeed extends ChangeNotifier {
         onError: completion.completeError,
       ),
     );
+
     return cancellation;
   }
 
@@ -132,6 +137,7 @@ final class WiredChartFeed extends ChangeNotifier {
     final generation = ++_generation;
     _interruptSnapshot();
     final previousCancellation = _cancelActive();
+
     if (!_current(generation)) return;
     final pending = Completer<List<WiredChartCandle>>();
     _pendingSnapshot = pending;
@@ -146,6 +152,7 @@ final class WiredChartFeed extends ChangeNotifier {
 
     try {
       await previousCancellation;
+
       if (!_current(generation)) return;
       _cancelSubscription = updates
           .listen(
@@ -165,9 +172,11 @@ final class WiredChartFeed extends ChangeNotifier {
                   unawaited(_cancelReportingFailure());
                   return;
                 }
+
                 buffer.add(candle);
                 return;
               }
+
               try {
                 controller.mergeCandles([candle]);
               } on Object catch (error, stackTrace) {
@@ -202,11 +211,14 @@ final class WiredChartFeed extends ChangeNotifier {
         ),
       );
       final snapshot = await pending.future;
+
       if (!_current(generation)) return;
       _pendingSnapshot = null;
+
       if (_status == WiredChartFeedStatus.failed) {
         Error.throwWithStackTrace(_error!, _errorStackTrace!);
       }
+
       final initial = [...snapshot, ...buffer];
       buffer.clear();
       // Commit the phase before merge notifies controller listeners. A listener
@@ -216,15 +228,20 @@ final class WiredChartFeed extends ChangeNotifier {
           ? WiredChartFeedStatus.closed
           : WiredChartFeedStatus.live;
       controller.mergeCandles(initial);
+
       if (!_current(generation)) return;
+
       if (_status == WiredChartFeedStatus.failed) {
         Error.throwWithStackTrace(_error!, _errorStackTrace!);
       }
+
       notifyListeners();
     } on Object catch (error, stackTrace) {
       if (!_current(generation)) return;
       _pendingSnapshot = null;
+
       if (_status != WiredChartFeedStatus.failed) _fail(error, stackTrace);
+
       if (!_current(generation)) return;
       await _cancelReportingFailure();
       Error.throwWithStackTrace(error, stackTrace);
@@ -240,11 +257,13 @@ final class WiredChartFeed extends ChangeNotifier {
     final generation = ++_generation;
     _interruptSnapshot();
     final cancellation = _cancelActive();
+
     if (_current(generation)) {
       _error = null;
       _errorStackTrace = null;
       _setStatus(WiredChartFeedStatus.disconnected);
     }
+
     try {
       await cancellation;
     } on Object catch (error, stackTrace) {

@@ -18,7 +18,6 @@ import 'package:skribble/skribble.dart';
 /// expect(findWired<WiredCheckbox>(), findsOneWidget);
 /// expect(findWiredIn<WiredCanvas>(findWired<WiredSwitch>()), findsWidgets);
 /// ```
-
 /// Finds every widget of the public Skribble type [T].
 ///
 /// Use instead of `find.byType(T)` so the test's reliance on the public API

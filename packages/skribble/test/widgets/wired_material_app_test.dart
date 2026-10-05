@@ -528,6 +528,7 @@ class _PathTestRouterDelegate extends RouterDelegate<Object>
   Future<void> setNewRoutePath(Object configuration) {
     _currentPath = configuration as String;
     notifyListeners();
+
     return SynchronousFuture<void>(null);
   }
 

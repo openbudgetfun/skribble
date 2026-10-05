@@ -114,6 +114,7 @@ final class WiredChartWorkspace {
     final handDrawn = json['handDrawn'];
     final viewport = _object(json['viewport'], 'viewport');
     final firstVisibleTime = _nullableTime(viewport, 'time');
+
     final fraction = _number(viewport['fraction'], 'fraction');
     final visibleCount = _number(viewport['visibleCount'], 'visibleCount');
     final visibleCandleCount = viewport['visibleCandleCount'];

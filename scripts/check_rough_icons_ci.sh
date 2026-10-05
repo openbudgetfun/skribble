@@ -47,6 +47,7 @@ emit_sync_diff_if_needed() {
 
   git --no-pager diff -- "${tracked_paths[@]}" > "$diff_output_path"
   echo "Saved sync diff to $diff_output_path"
+
   return 1
 }
 
@@ -56,12 +57,14 @@ build_unresolved_threshold_args() {
   if [[ -z "$max_unresolved" ]]; then
     UNRESOLVED_THRESHOLD_ARGS=()
     UNRESOLVED_THRESHOLD_MODE_DESCRIPTION="disabled"
+
     return 0
   fi
 
   if [[ ! "$max_unresolved" =~ ^[0-9]+$ ]]; then
     echo "ROUGH_ICONS_MAX_UNRESOLVED must be a non-negative integer." >&2
     echo "Received: $max_unresolved" >&2
+
     return 1
   fi
 
@@ -75,6 +78,7 @@ build_baseline_regression_args() {
   if [[ ! "$max_new_unresolved" =~ ^[0-9]+$ ]]; then
     echo "ROUGH_ICONS_MAX_NEW_UNRESOLVED must be a non-negative integer." >&2
     echo "Received: $max_new_unresolved" >&2
+
     return 1
   fi
 

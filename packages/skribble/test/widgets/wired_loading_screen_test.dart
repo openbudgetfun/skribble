@@ -48,6 +48,7 @@ void main() {
           reason: 'Startup must not paint the yellow fallback underline',
         );
       }
+
       expect(tester.takeException(), isNull);
     }
   });
@@ -117,6 +118,7 @@ void main() {
           animating: false,
         );
       }
+
       await tester.pumpWidget(_app(screen));
       final initial = await _pixels(tester);
       await tester.pump(const Duration(seconds: 1));
@@ -254,6 +256,7 @@ Future<Uint8List> _pixels(WidgetTester tester) async {
     image.dispose();
     return data!.buffer.asUint8List();
   });
+
   return pixels!;
 }
 
@@ -272,6 +275,7 @@ Future<Color> _pixelAt(WidgetTester tester, int x, int y) async {
 int _inked(Uint8List pixels) {
   final background = pixels.sublist(0, 4);
   var count = 0;
+
   for (var i = 0; i < pixels.length; i += 4) {
     if (pixels[i] != background[0] ||
         pixels[i + 1] != background[1] ||
@@ -279,5 +283,6 @@ int _inked(Uint8List pixels) {
       count++;
     }
   }
+
   return count;
 }

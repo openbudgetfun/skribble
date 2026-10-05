@@ -208,6 +208,7 @@ final class _PrecomputedEmojiPainter extends CustomPainter {
           primitive.fillColor != null || primitive.strokeColor != null;
       final fill = hasPaint ? primitive.fillColor : color;
       final stroke = hasPaint ? primitive.strokeColor : null;
+
       if (fill != null) {
         canvas.drawPath(
           primitive.path,
@@ -217,6 +218,7 @@ final class _PrecomputedEmojiPainter extends CustomPainter {
             ..isAntiAlias = true,
         );
       }
+
       if (stroke != null) {
         canvas.drawPath(
           primitive.strokePath,
@@ -230,6 +232,7 @@ final class _PrecomputedEmojiPainter extends CustomPainter {
             ..isAntiAlias = true,
         );
       }
+
       canvas.restore();
     }
   }
@@ -270,12 +273,17 @@ class _PlaceholderCirclePainter extends CustomPainter {
 Color? _parseColor(String? value) {
   if (value == null || value == 'none') return null;
   var hex = value.replaceFirst('#', '');
+
   if (hex.length == 3) hex = hex.split('').map((c) => '$c$c').join();
+
   if (hex.length == 8) {
     final rgba = int.tryParse(hex, radix: 16);
+
     return rgba == null ? null : Color(((rgba & 255) << 24) | (rgba >> 8));
   }
+
   if (hex.length != 6) return null;
   final rgb = int.tryParse(hex, radix: 16);
+
   return rgb == null ? null : Color(0xff000000 | rgb);
 }

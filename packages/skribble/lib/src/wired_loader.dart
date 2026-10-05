@@ -167,6 +167,7 @@ class _LoaderGeometry {
           ..cubicTo(7, 86, 9 - wobble, 16, 50, 18),
       );
     }
+
     metrics = paths.expand((path) => path.computeMetrics()).toList();
     length = metrics.fold(0, (sum, metric) => sum + metric.length);
   }
@@ -193,6 +194,7 @@ class _LoaderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final side = size.shortestSide;
+
     if (side <= 0 || pen <= 0) return;
     final t = phase.value.clamp(0.0, 1.0);
     final paint = Paint()
@@ -260,6 +262,7 @@ class _LoaderPainter extends CustomPainter {
         canvas.rotate(t * math.pi * 2);
         canvas.scale(.82);
         canvas.translate(-50, -50);
+
         for (final path in geometry.paths) {
           canvas.drawPath(
             path,
@@ -271,6 +274,7 @@ class _LoaderPainter extends CustomPainter {
       case WiredLoaderStyle.mark:
         final amount = .12 + .88 * (.5 - .5 * math.cos(t * math.pi * 2));
         var remaining = geometry.length * amount;
+
         for (final metric in geometry.metrics) {
           canvas.drawPath(
             metric.extractPath(0, remaining.clamp(0, metric.length)),
@@ -279,6 +283,7 @@ class _LoaderPainter extends CustomPainter {
           remaining = math.max(0, remaining - metric.length);
         }
     }
+
     canvas.restore();
   }
 

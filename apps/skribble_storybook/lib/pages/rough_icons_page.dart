@@ -223,11 +223,14 @@ bool _matchesQuery(String identifier, int codePoint, String query) {
   if (identifier.toLowerCase().contains(query)) {
     return true;
   }
+
   final hexQuery = query.replaceFirst('0x', '');
+
   return hexQuery.isNotEmpty && codePoint.toRadixString(16).contains(hexQuery);
 }
 
 String _formatCodePoint(int codePoint) {
   final hex = codePoint.toRadixString(16);
+
   return '0x${hex.toUpperCase()}';
 }
