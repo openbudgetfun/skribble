@@ -327,7 +327,7 @@ SizedBox(
 
 ## WiredCupertinoSegmentedControl
 
-A Cupertino-style segmented control with hand-drawn segment borders and hachure selection fill.
+A Cupertino-style segmented control with hand-drawn segment borders. The selected segment is washed with the theme's `markerColor`.
 
 ```dart
 // Live example: cupertino-segmented-control

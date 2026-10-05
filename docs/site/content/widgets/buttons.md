@@ -231,7 +231,7 @@ WiredTextButton(
 
 ## WiredToggleButtons
 
-A multi-toggle button group where each button gets a sketchy rectangle border. Selected buttons receive a hachure fill; unselected buttons remain transparent.
+A multi-toggle button group where each button gets a sketchy rectangle border. Selected buttons receive the theme's `markerColor` wash; unselected buttons remain transparent.
 
 ```dart
 // Live example: toggle-buttons
@@ -266,7 +266,7 @@ HookBuilder(
 ### Notes
 
 - Asserts that `children.length == isSelected.length` at construction time.
-- Selected buttons render white text/icons over the hachure fill.
+- Selected buttons keep their ink text and icons, in a heavier weight, over the marker wash.
 
 ---
 

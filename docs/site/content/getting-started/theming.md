@@ -20,6 +20,7 @@ WiredThemeData({
   Color textColor = WiredPalette.ink,
   Color disabledTextColor = WiredPalette.mutedInk,
   Color fillColor = WiredPalette.paper,
+  Color markerColor = WiredPalette.lilac,
   double strokeWidth = 2.4,
   WiredRoughness roughnessLevel = WiredRoughness.playful,
   double? roughness,
@@ -30,17 +31,18 @@ WiredThemeData({
 
 ### Parameters
 
-| Parameter           | Type             | Default                 | Description                                                                                                                                                 |
-| ------------------- | ---------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `borderColor`       | `Color`          | `WiredPalette.ink`      | The color used for all hand-drawn borders, outlines, and strokes. Plum ink by default.                                                                      |
-| `textColor`         | `Color`          | `WiredPalette.ink`      | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`.                                                                   |
-| `disabledTextColor` | `Color`          | `WiredPalette.mutedInk` | Text color for disabled widgets. A muted plum by default.                                                                                                   |
-| `fillColor`         | `Color`          | `WiredPalette.paper`    | Background fill for cards, inputs, dialogs, and other surfaces. Warm paper by default.                                                                      |
-| `strokeWidth`       | `double`         | `2.4`                   | Width in logical pixels of the rough-drawn border strokes.                                                                                                  |
-| `roughnessLevel`    | `WiredRoughness` | `playful`               | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                          |
-| `roughness`         | `double?`        | `null` → level value    | Optional geometry amplitude override. The default playful level resolves to `1.5`; `0` removes random displacement.                                         |
-| `fontFamily`        | `String?`        | `null` → level family   | Optional font override. Bundled families resolve to the `skribble_font_recursive` package; custom families belong to the consuming app.                     |
-| `drawConfig`        | `DrawConfig?`    | `null` → level config   | Optional complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and any explicit `roughness`. |
+| Parameter           | Type             | Default                 | Description                                                                                                                                                                                                                                                                         |
+| ------------------- | ---------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderColor`       | `Color`          | `WiredPalette.ink`      | The color used for all hand-drawn borders, outlines, and strokes. Plum ink by default.                                                                                                                                                                                              |
+| `textColor`         | `Color`          | `WiredPalette.ink`      | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`.                                                                                                                                                                                           |
+| `disabledTextColor` | `Color`          | `WiredPalette.mutedInk` | Text color for disabled widgets. A muted plum by default.                                                                                                                                                                                                                           |
+| `fillColor`         | `Color`          | `WiredPalette.paper`    | Background fill for cards, inputs, dialogs, and other surfaces. Warm paper by default.                                                                                                                                                                                              |
+| `markerColor`       | `Color`          | `WiredPalette.lilac`    | The highlighter wash under selected and active things: navigation indicators, progress and slider fills, switch tracks, and selected segments and steps. Ink still draws the shape and label on top. `WiredThemeData.cuddly(brightness: Brightness.dark)` uses `WiredPalette.dusk`. |
+| `strokeWidth`       | `double`         | `2.4`                   | Width in logical pixels of the rough-drawn border strokes.                                                                                                                                                                                                                          |
+| `roughnessLevel`    | `WiredRoughness` | `playful`               | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                                                                                                                                                  |
+| `roughness`         | `double?`        | `null` → level value    | Optional geometry amplitude override. The default playful level resolves to `1.5`; `0` removes random displacement.                                                                                                                                                                 |
+| `fontFamily`        | `String?`        | `null` → level family   | Optional font override. Bundled families resolve to the `skribble_font_recursive` package; custom families belong to the consuming app.                                                                                                                                             |
+| `drawConfig`        | `DrawConfig?`    | `null` → level config   | Optional complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and any explicit `roughness`.                                                                                                                         |
 
 The defaults above are the branded warm-paper palette (`WiredThemeData.cuddly()` for light mode is the same palette with explicit light/dark switching). Reach for the `WiredPalette` constants — `ink`, `paper`, `night`, `mutedInk`, `mutedPaper`, plus the `lilac`, `peach`, `sage`, `butter`, and `coral` accent washes — so custom themes stay consistent with the kit.
 

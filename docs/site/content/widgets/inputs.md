@@ -319,7 +319,7 @@ HookBuilder(
 | --------------- | --------------------- | ------------ | ----------------------------------------------------- |
 | `value`         | `bool`                | **required** | Current on/off state.                                 |
 | `onChanged`     | `ValueChanged<bool>?` | `null`       | Called when toggled.                                  |
-| `activeColor`   | `Color?`              | `null`       | Track color when on. Defaults to `theme.borderColor`. |
+| `activeColor`   | `Color?`              | `null`       | Track color when on. Defaults to `theme.markerColor`. |
 | `inactiveColor` | `Color?`              | `null`       | Track color when off. Defaults to `theme.fillColor`.  |
 | `semanticLabel` | `String?`             | `null`       | Accessibility label.                                  |
 
@@ -328,7 +328,7 @@ HookBuilder(
 - Track dimensions: 60x24 logical pixels.
 - Thumb diameter: 24px.
 - Animation duration: 200ms with `Curves.easeInOut`.
-- The active track uses hachure fill; the inactive track has no fill.
+- The active track is washed with `markerColor`; the inactive track has no fill.
 
 ---
 
@@ -380,8 +380,8 @@ WiredSlider(
 
 ### Notes
 
-- The track is drawn with `WiredLineBase` at full width.
-- The thumb is a 24px `WiredCircleBase` with a 0.7 diameter ratio and hachure fill.
+- The track is drawn with `WiredLineBase` at full width, over a `markerColor` wash up to the value.
+- The thumb is a 24px paper `WiredCircleBase` with a 0.8 diameter ratio.
 - The `onChanged` callback returns a `bool` -- return `true` to accept the value and update the thumb position.
 - Omitting `onChanged` renders a disabled slider; previously the parameter was `required`, so callers passed `null` explicitly.
 
