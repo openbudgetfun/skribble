@@ -814,4 +814,12 @@ final Map<String, ExampleDefinition> examples = {
     source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      decoration: RoughBoxDecoration(\n        borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),\n        drawConfig: DrawConfig.build(roughness: 0.3), // very smooth\n      ),\n      child: const Text('Barely rough'),\n    );\n  },\n)",
     edits: [],
   ),
+  'pen-presets': ExampleDefinition(
+    builder: _penPresets,
+    source: "WiredTheme(\n  data: WiredThemeData(pen: settings.pen),\n  child: SizedBox(\n    width: 300,\n    child: WiredCard(\n      height: null,\n      child: Padding(\n        padding: const EdgeInsets.all(16),\n        child: Column(\n          crossAxisAlignment: CrossAxisAlignment.start,\n          mainAxisSize: MainAxisSize.min,\n          children: [\n            Text(settings.label, style: const TextStyle(fontSize: 18)),\n            const SizedBox(height: 12),\n            const WiredDivider(),\n            const SizedBox(height: 12),\n            WiredButton(onPressed: () {}, child: const Text('Ink it')),\n          ],\n        ),\n      ),\n    ),\n  ),\n)",
+    edits: [
+      ExampleEdit(40, 52, ExampleParameter.pen),
+      ExampleEdit(357, 371, ExampleParameter.label),
+    ],
+  ),
 };

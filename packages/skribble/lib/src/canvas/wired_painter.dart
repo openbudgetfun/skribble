@@ -37,8 +37,8 @@ class WiredPainter extends CustomPainter {
   /// one of them is not enough: fill randomness keeps advancing across paints
   /// and the same shape hatches differently on a rebuild than on first paint.
   void _resetRandomizers() {
-    drawConfig.randomizer?.reset();
-    filler.config?.drawConfig?.randomizer?.reset();
+    drawConfig.randomizer.reset();
+    filler.config.drawConfig.randomizer.reset();
   }
 
   @override

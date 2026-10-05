@@ -26,7 +26,10 @@ The Dart port of rough.js that generates hand-drawn paths.
 
 Key types:
 
-- `DrawConfig` — roughness, bowing, seed, and curve settings
+- `DrawConfig` — roughness, bowing, seed, curve settings, and the pen
+- `RoughPen` — how ink is laid along a line: taper, pressure, lighter partial repeat passes, and loop closure (`uniform`, `fineliner`, `ink`, `brush`)
+- `InkStroke` — pure-Dart variable-width ink sampled from rough operations; writes outlines to an `InkOutlineSink` (`PathInkOutline`, `SvgInkOutline`)
+- `DrawableInk`, `DrawableInkSet`, `InkSvgPath` — a whole drawable's ink, prepared exactly as painted, with SVG export
 - `Generator` — creates `Drawable` shapes (rectangle, circle, polygon, arc, etc.)
 - `Filler` — abstract fill pattern (HachureFiller, DotFiller, SolidFiller, etc.)
 - `FillerConfig` — gap, angle, dash settings for fillers
@@ -361,7 +364,7 @@ SVG path primitives also accept `strokeDashArray`, `strokeDashOffset`, `strokeCa
 
 ### Roughness presets
 
-`WiredRoughness.gentle`, `.playful`, and `.expressive` are public exports. Pass a level through `WiredThemeData(roughnessLevel: ...)` or `copyWith(roughnessLevel: ...)` to coordinate the font and drawing defaults. `WiredThemeData.fontPackage` resolves bundled families for standalone text styles. Explicit font and geometry overrides remain supported. `DrawConfig.lineWobble` selects the local wandering strength, with zero restoring gently bowed edges.
+`WiredRoughness.gentle`, `.playful`, and `.expressive` are public exports. Pass a level through `WiredThemeData(roughnessLevel: ...)` or `copyWith(roughnessLevel: ...)` to coordinate the font, pen, and drawing defaults; `WiredThemeData(pen: ...)` overrides only the pen. `WiredThemeData.fontPackage` resolves bundled families for standalone text styles. Explicit font and geometry overrides remain supported. `DrawConfig.lineWobble` selects the local wandering strength, with zero restoring gently bowed edges.
 
 ## Ink motion
 

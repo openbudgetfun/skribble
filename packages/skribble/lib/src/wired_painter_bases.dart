@@ -235,7 +235,7 @@ class WiredCircleBase extends _PreparedWiredPainter {
     // A thumb needs a paper centre: full card-sized jitter consumes most of a
     // 24px circle. Scale both the wobble and its inset with the available size.
     final config = drawConfig.copyWith(
-      roughness: drawConfig.roughness! * math.min(1, size.shortestSide / 48),
+      roughness: drawConfig.roughness * math.min(1, size.shortestSide / 48),
     );
     final Generator generator = Generator(config, filler);
     final rect = _inkRect(size, strokeWidth, config);
@@ -255,9 +255,9 @@ class WiredCircleBase extends _PreparedWiredPainter {
 // Keep both pen passes inside a clipped parent, including at fractional DPR.
 Rect _inkRect(Size size, double strokeWidth, DrawConfig config) {
   final bleed =
-      strokeWidth / 2 +
+      strokeWidth * config.pen.reach +
       1 +
-      (config.maxRandomnessOffset ?? 0) * (config.roughness ?? 0);
+      config.maxRandomnessOffset * config.roughness;
   return (Offset.zero & size).deflate(math.min(bleed, size.shortestSide / 2));
 }
 

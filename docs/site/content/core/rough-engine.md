@@ -11,14 +11,17 @@ skribble's hand-drawn aesthetic comes from a Dart port of [rough.js](https://rou
 
 ## Overview
 
-The engine has four core pieces:
+The engine has five core pieces:
 
-| Concept              | Purpose                                                             |
-| -------------------- | ------------------------------------------------------------------- |
-| `DrawConfig`         | Controls randomness, roughness, bowing, and curve parameters        |
-| `Generator`          | Produces `Drawable` shapes (rectangles, circles, polygons, etc.)    |
-| `Filler`             | Fills polygon interiors with patterns (hachure, dots, zigzag, etc.) |
-| `Drawable` / `OpSet` | Data structures holding drawing operations for the canvas           |
+| Concept              | Purpose                                                                  |
+| -------------------- | ------------------------------------------------------------------------ |
+| `DrawConfig`         | Controls randomness, roughness, bowing, curve parameters, and the pen    |
+| `Generator`          | Produces `Drawable` shapes (rectangles, circles, polygons, etc.)         |
+| `Filler`             | Fills polygon interiors with patterns (hachure, dots, zigzag, etc.)      |
+| `Drawable` / `OpSet` | Data structures holding drawing operations for the canvas                |
+| `RoughPen`           | Decides how wide the ink is along each line: taper, pressure, and passes |
+
+The generator decides _where_ a line goes. The pen decides _how the ink lands_ on it. Keeping the two apart means every shape, fill, and icon gets the same handwriting, and the same geometry can be inked differently without moving a single point.
 
 The typical flow is:
 
@@ -37,16 +40,20 @@ canvas.drawRough(drawable, pathPaint, fillPaint);
 
 ### Fields
 
-| Field                 | Type         | Default | Description                                                          |
-| --------------------- | ------------ | ------- | -------------------------------------------------------------------- |
-| `maxRandomnessOffset` | `double`     | `2`     | Maximum pixel offset for random jitter                               |
-| `roughness`           | `double`     | `1.8`   | Overall roughness multiplier -- higher values produce wobblier lines |
-| `bowing`              | `double`     | `1`     | How much lines bow outward at the midpoint                           |
-| `curveFitting`        | `double`     | `0.95`  | How closely curves follow the intended path (0 = loose, 1 = tight)   |
-| `curveTightness`      | `double`     | `0`     | Tension of Catmull-Rom splines                                       |
-| `curveStepCount`      | `double`     | `9`     | Number of steps when generating curved segments                      |
-| `seed`                | `int`        | `1`     | Random seed for deterministic output                                 |
-| `randomizer`          | `Randomizer` | seeded  | Pseudo-random number generator                                       |
+Every field has a value; none are nullable.
+
+| Field                 | Type         | Default        | Description                                                               |
+| --------------------- | ------------ | -------------- | ------------------------------------------------------------------------- |
+| `maxRandomnessOffset` | `double`     | `2`            | Maximum pixel offset for random jitter                                    |
+| `roughness`           | `double`     | `1.8`          | Overall roughness multiplier -- higher values produce wobblier lines      |
+| `bowing`              | `double`     | `1`            | How much lines bow outward, capped at `maxRandomnessOffset` on long edges |
+| `lineWobble`          | `double`     | `1`            | Local wandering along long edges; zero restores a single soft bow         |
+| `curveFitting`        | `double`     | `0.95`         | How closely curves follow the intended path (0 = loose, 1 = tight)        |
+| `curveTightness`      | `double`     | `0`            | Tension of Catmull-Rom splines                                            |
+| `curveStepCount`      | `double`     | `9`            | Number of steps when generating curved segments                           |
+| `seed`                | `int`        | `1`            | Random seed for deterministic output                                      |
+| `pen`                 | `RoughPen`   | `RoughPen.ink` | How ink is laid along the generated geometry; see [Pens](#pens)           |
+| `randomizer`          | `Randomizer` | seeded         | Pseudo-random number generator, fresh for every `build` and `copyWith`    |
 
 ### Creating a DrawConfig
 
@@ -100,7 +107,99 @@ randomizer.reset();
 print(randomizer.next()); // 0.548... (same as first call)
 ```
 
-The `WiredPainter` `CustomPainter` calls `drawConfig.randomizer!.reset()` before every paint, which is why shapes stay visually stable.
+The `WiredPainter` `CustomPainter` calls `drawConfig.randomizer.reset()` before preparing a shape, which is why shapes stay visually stable.
+
+## Pens
+
+A `RoughPen` turns the rough centreline into ink. Instead of one constant-width stroke, the pen touches down lightly, swells to full width, varies its pressure slowly, and thins as it lifts. Three more habits of a real hand finish the look:
+
+- **Repeat passes are lighter and partial.** The generator draws most shapes twice. The pen lays the second pass down thinner (`repeatWidth`) and inks only a seeded stretch of it (`repeatCoverage`), so some edges carry more ink than others.
+- **Loops close by overshooting.** A closed shape keeps going a little past where it started (`closure`), and the tail curls inward off the line (`closureDrift`). The seam crosses itself instead of vanishing, and because the tail curls inward it never needs extra room outside the shape.
+- **Seams move.** Each closed loop starts at a seeded point, so a card's seam is not always in the top-left corner.
+
+Switch pens below. The geometry stays identical; only the ink changes.
+
+```dart
+// Live example: pen-presets
+WiredTheme(
+  data: WiredThemeData(pen: RoughPen.ink),
+  child: SizedBox(
+    width: 300,
+    child: WiredCard(
+      height: null,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Make something lovely', style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 12),
+            const WiredDivider(),
+            const SizedBox(height: 12),
+            WiredButton(onPressed: () {}, child: const Text('Ink it')),
+          ],
+        ),
+      ),
+    ),
+  ),
+)
+```
+
+### Presets
+
+| Pen                  | Character                                      | Used by                     |
+| -------------------- | ---------------------------------------------- | --------------------------- |
+| `RoughPen.uniform`   | Constant width, round caps; the classic stroke | Opt-in; cheapest to paint   |
+| `RoughPen.fineliner` | Nearly even, slight touchdown, quiet seams     | `WiredRoughness.gentle`     |
+| `RoughPen.ink`       | Tapered ends, gentle swells, lighter repeat    | `WiredRoughness.playful`    |
+| `RoughPen.brush`     | Sharp entry and exit, strong pressure, loose   | `WiredRoughness.expressive` |
+
+Every theme picks its pen from its roughness level. Override it for a whole subtree with `WiredThemeData(pen: ...)`, or for one shape with `DrawConfig.build(pen: ...)`:
+
+```dart
+// Static example: configuration
+final calm = WiredThemeData(pen: RoughPen.fineliner);
+final bold = WiredThemeData(
+  roughnessLevel: WiredRoughness.expressive,
+  pen: RoughPen.brush.copyWith(pressure: 0.4, repeatCoverage: 0.4),
+);
+final plotted = DrawConfig.build(pen: RoughPen.uniform);
+```
+
+### Fields
+
+Widths are fractions of the stroke width, and lengths are measured in pen widths, so a pen keeps its character when the stroke gets thicker.
+
+| Field                | Default | Description                                           |
+| -------------------- | ------- | ----------------------------------------------------- |
+| `startWidth`         | `0.45`  | Width at the first touch                              |
+| `endWidth`           | `0.3`   | Width as the pen lifts                                |
+| `taperIn`            | `4`     | Distance over which the stroke reaches full width     |
+| `taperOut`           | `7`     | Distance over which the stroke thins before lifting   |
+| `pressure`           | `0.14`  | Smooth width variation along the stroke               |
+| `pressureWavelength` | `26`    | Distance between pressure swells, in logical pixels   |
+| `repeatWidth`        | `0.6`   | Width of repeat passes relative to the first          |
+| `repeatCoverage`     | `0.7`   | Share of each repeat pass that is inked               |
+| `closure`            | `2.5`   | How far a closed loop continues past its start        |
+| `closureDrift`       | `0.9`   | How far the closing stretch curls inward off the line |
+
+`RoughPen.reach` is the furthest the ink extends outward from its centreline, in stroke widths. Painters reserve `strokeWidth * pen.reach` plus the rough displacement as bleed, which is why `WiredThemeData.inkExtent` grows with the pen.
+
+### Ink outside Flutter
+
+The pen is pure Dart. `InkStroke` samples rough operations into variable-width outlines and writes them to any `InkOutlineSink`: `PathInkOutline` builds a Flutter `Path`, and `SvgInkOutline` writes SVG path data. `DrawableInk` prepares a whole `Drawable` exactly as `RoughDrawing` paints it, so design exports receive the same ink as the app:
+
+```dart
+// Static example: api
+final drawable = Generator(DrawConfig.build(seed: 3), NoFiller())
+    .roundedRectangle(4, 4, 160, 42, 6, 6, 6, 6);
+for (final path in DrawableInk(drawable, outlineWidth: 2.4, sketchWidth: 2).svgPaths()) {
+  print('<path d="${path.data}" ${path.filled ? '' : 'fill="none"'}/>');
+}
+```
+
+The design kit (`dart run packages/skribble/tool/design_kit.dart`) uses this to hand Figma filled ink shapes rather than centreline strokes.
 
 ## Generator
 
@@ -397,14 +496,17 @@ A single drawing operation -- move, lineTo, or curveTo:
 class Op {
   final OpType op;
   final List<PointD> data;
+  final int pass; // Pen pass of the contour a move starts; zero is the first
 
-  Op.move(PointD point);                                    // Move to point
+  Op.move(PointD point, {int pass = 0});                    // Start a contour
   Op.lineTo(PointD point);                                  // Line to point
   Op.curveTo(PointD control1, PointD control2, PointD end); // Cubic bezier
 }
 
 enum OpType { move, curveTo, lineTo }
 ```
+
+The generator marks the second stroke of every doubled line, ellipse, arc, and rounded rectangle with `pass: 1`, which is how the pen knows to draw it lighter and partial.
 
 ### Drawable
 
@@ -441,11 +543,13 @@ extension Rough on Canvas {
 }
 ```
 
-It iterates over each `OpSet` in the `Drawable`:
+It paints the drawable once through a `RoughDrawing`, with the drawable's pen:
 
-- **`OpSetType.path`** -- draws the outline using `pathPaint`
+- **`OpSetType.path`** -- inks the outline at `pathPaint.strokeWidth`
 - **`OpSetType.fillPath`** -- closes the path and fills it using `fillPaint` with `PaintingStyle.fill`
-- **`OpSetType.fillSketch`** -- draws the sketchy fill pattern using `fillPaint`
+- **`OpSetType.fillSketch`** -- inks the sketchy fill pattern at `fillPaint.strokeWidth`
+
+A paint whose style is `PaintingStyle.fill` keeps its plain centreline instead of being inked. When the same shape paints more than once, keep a `RoughDrawing`: it samples the pen strokes a single time.
 
 ### Full Rendering Example
 
@@ -575,7 +679,9 @@ The "double line" technique -- drawing each edge twice with slightly different r
 
 ## UI defaults and determinism
 
-The UI defaults are `roughness: 1.5`, `maxRandomnessOffset: 1.6`, and a 2.4-pixel themed pen. `WiredThemeData.roughness` feeds the default `DrawConfig`; an explicit `drawConfig` takes precedence. `copyWith(seed: ...)` constructs a randomizer for the new seed. Equality compares randomizer seeds rather than mutable object identity.
+The UI defaults are `roughness: 1.5`, `maxRandomnessOffset: 1.6`, a 2.4-pixel stroke, and `RoughPen.ink`. `WiredThemeData.roughness` and `WiredThemeData.pen` feed the default `DrawConfig`; an explicit `drawConfig` takes precedence. `copyWith` always constructs a fresh randomizer for the resulting seed. Equality compares seeds and pens rather than mutable object identity.
+
+Bowing grows with a line's length but never exceeds `maxRandomnessOffset`, so a very long edge stays inside the bleed its painter reserves.
 
 Edges at least 48 logical pixels long use two independently wandering strokes, with connected curves about every 48 pixels. The curves change direction locally instead of smoothing a whole card edge into one bow. Control points stay inside the configured jitter band, so wider layouts do not require larger insets. Zero roughness remains straight and seeds remain deterministic.
 
@@ -585,11 +691,11 @@ Icons use a smaller runtime displacement so counters remain open at 24 pixels. S
 
 ### Coordinated levels
 
-`WiredRoughness` supplies three drawing presets together with matching fonts. Gentle uses offset 1.2, roughness 1.25 and `lineWobble: 0`; playful uses 1.6, 1.5 and 0.65; expressive uses 2, 1.8 and 1. Local wandering remains bounded by the jitter band. Setting `lineWobble: 0` restores the earlier single-cubic renderer and its long-edge attenuation. Theme-derived icons scale their smaller outline deformation with the active geometry amplitude; explicit icon configurations take precedence.
+`WiredRoughness` supplies three drawing presets together with matching fonts and pens. Gentle uses offset 1.2, roughness 1.25, `lineWobble: 0`, and `RoughPen.fineliner`; playful uses 1.6, 1.5, 0.65, and `RoughPen.ink`; expressive uses 2, 1.8, 1, and `RoughPen.brush`. Local wandering remains bounded by the jitter band. Setting `lineWobble: 0` restores the earlier single-cubic renderer and its long-edge attenuation. Theme-derived icons scale their smaller outline deformation with the active geometry amplitude; explicit icon configurations take precedence.
 
 ## Drawing ink over time
 
-`RoughDrawing` snapshots generated paths and paints, then reveals cumulative pen distance across contours. It retains measured paths for replay and reverse. Solid fills remain opaque; hatch fills appear stroke by stroke. No random seeds change during animation. `RoughBoxDecoration` also caches local geometry and accepts borrowed paint animations. See [Ink motion](motion).
+`RoughDrawing` snapshots generated paths, pen outlines, and paints, then reveals cumulative pen distance across contours. A partly drawn pen stroke keeps a round, full-width tip, like a pen that has not lifted yet. It retains measured paths for replay and reverse. Solid fills remain opaque; hatch fills appear stroke by stroke. No random seeds change during animation. `RoughBoxDecoration` also caches local geometry and accepts borrowed paint animations. See [Ink motion](motion).
 
 ### Solid polygon fills
 

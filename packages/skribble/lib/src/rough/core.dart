@@ -5,16 +5,30 @@ import 'geometry.dart';
 
 /// A single drawing operation (move, lineTo, or curveTo) with point data.
 class Op {
+  /// The kind of operation.
   final OpType op;
+
+  /// The operation's points: one for move and lineTo, three for curveTo.
   final List<PointD> data;
 
-  Op.move(PointD point) : op = OpType.move, data = [point];
+  /// Which pen pass a contour belongs to, set on the move that starts it.
+  ///
+  /// Zero is the first stroke. The rough generator draws most shapes twice;
+  /// a `RoughPen` lays the later passes down lighter. Always zero for
+  /// lineTo and curveTo.
+  final int pass;
 
-  Op.lineTo(PointD point) : op = OpType.lineTo, data = [point];
+  /// Starts a new contour at [point], drawn as pen pass [pass].
+  Op.move(PointD point, {this.pass = 0}) : op = OpType.move, data = [point];
 
+  /// Draws a straight segment to [point].
+  Op.lineTo(PointD point) : op = OpType.lineTo, data = [point], pass = 0;
+
+  /// Draws a cubic Bézier segment to [destination].
   Op.curveTo(PointD control1, PointD control2, PointD destination)
     : op = OpType.curveTo,
-      data = [control1, control2, destination];
+      data = [control1, control2, destination],
+      pass = 0;
 }
 
 /// A collection of [Op] drawing operations with a [type] indicating

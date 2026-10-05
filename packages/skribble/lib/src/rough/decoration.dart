@@ -134,13 +134,13 @@ class RoughDecorationPainter extends BoxPainter {
     final DrawConfig drawConfig =
         roughDecoration.drawConfig ??
         DrawConfig.build(seed: roughDecoration.seed);
-    drawConfig.randomizer?.reset();
+    drawConfig.randomizer.reset();
     final Filler filler = roughDecoration.filler ?? NoFiller();
     final Generator generator = Generator(drawConfig, filler);
     final bleed =
-        (roughDecoration.borderStyle?.width ?? 0) / 2 +
+        (roughDecoration.borderStyle?.width ?? 0) * drawConfig.pen.reach +
         1 +
-        (drawConfig.maxRandomnessOffset ?? 0) * (drawConfig.roughness ?? 0);
+        drawConfig.maxRandomnessOffset * drawConfig.roughness;
     final Rect rect = (Offset.zero & size).deflate(
       min(bleed, size.shortestSide / 2),
     );

@@ -185,8 +185,8 @@ void main() {
     final original = DrawConfig.build(seed: 1);
     final reseeded = original.copyWith(seed: 73);
     expect(
-      reseeded.randomizer!.next(),
-      DrawConfig.build(seed: 73).randomizer!.next(),
+      reseeded.randomizer.next(),
+      DrawConfig.build(seed: 73).randomizer.next(),
     );
   });
 

@@ -7,7 +7,7 @@ void main() {
       for (var seed = 1; seed <= 20; seed++) {
         final config = WiredThemeData(roughnessLevel: level).drawConfig
             .copyWith(seed: seed);
-        final bleed = config.maxRandomnessOffset! * config.roughness!;
+        final bleed = config.maxRandomnessOffset * config.roughness;
         final drawing = Generator(
           config,
           NoFiller(),

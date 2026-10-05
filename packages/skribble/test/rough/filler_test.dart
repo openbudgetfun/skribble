@@ -205,14 +205,13 @@ void main() {
       expect(info.distance, 4.5);
     });
 
-    test('buildFillLines falls back to default config when null is passed', () {
-      final filler = HachureFiller(
-        FillerConfig.build(hachureGap: 12, hachureAngle: -90),
-      );
+    test('buildFillLines uses the configuration it is given', () {
+      final filler = HachureFiller();
+      final config = FillerConfig.build(hachureGap: 12, hachureAngle: -90);
 
       final lines = filler.buildFillLines(
         List<PointD>.from(squarePolygon),
-        null,
+        config,
       );
 
       expect(lines, isNotEmpty);
@@ -331,8 +330,8 @@ void main() {
         final FillerConfig config = FillerConfig.build(drawConfig: customDraw);
 
         expect(config.drawConfig, equals(customDraw));
-        expect(config.drawConfig!.roughness, equals(3));
-        expect(config.drawConfig!.seed, equals(99));
+        expect(config.drawConfig.roughness, equals(3));
+        expect(config.drawConfig.seed, equals(99));
       });
     });
 
@@ -387,7 +386,7 @@ void main() {
         final FillerConfig copy = original.copyWith(drawConfig: newDrawConfig);
 
         expect(copy.drawConfig, equals(newDrawConfig));
-        expect(copy.drawConfig!.roughness, equals(5));
+        expect(copy.drawConfig.roughness, equals(5));
       });
     });
   });
