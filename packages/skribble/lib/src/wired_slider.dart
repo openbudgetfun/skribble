@@ -137,11 +137,11 @@ class WiredSlider extends HookWidget {
                       : 0,
                   width: constraints.maxWidth * fraction,
                   child: SizedBox(
-                    height: 12,
+                    height: 18,
                     child: WiredCanvas(
                       painter: WiredRoundedRectangleBase(
                         strokeWidth: theme.strokeWidth,
-                        borderRadius: BorderRadius.circular(6),
+                        borderRadius: BorderRadius.circular(9),
                         fillColor: theme.markerColor,
                         borderColor: theme.markerColor,
                       ),

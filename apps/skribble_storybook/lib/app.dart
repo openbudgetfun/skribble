@@ -29,17 +29,17 @@ class SkribbleStorybookApp extends HookWidget {
   Widget build(BuildContext context) {
     final roughness = useState(WiredRoughness.playful);
     final font = useState(WiredFont.casual);
-    final wiredTheme = WiredThemeData(
+    final night = useState(false);
+    // skribble's own palette, the same one the docs and Figma kit use.
+    WiredThemeData paper(Brightness brightness) => WiredThemeData.cuddly(
+      brightness: brightness,
       roughnessLevel: roughness.value,
-      font: font.value,
-      borderColor: const Color(0xFF4A3470),
-      textColor: const Color(0xFF2A2238),
-      disabledTextColor: const Color(0xFFA39AAD),
-      fillColor: const Color(0xFFFFFCF1),
-    );
+    ).copyWith(font: font.value);
 
     return WiredMaterialApp(
-      wiredTheme: wiredTheme,
+      wiredTheme: paper(Brightness.light),
+      darkWiredTheme: paper(Brightness.dark),
+      themeMode: night.value ? ThemeMode.dark : ThemeMode.light,
       title: 'Skribble Storybook',
       initialRoute: const String.fromEnvironment(
         'STORYBOOK_ROUTE',
@@ -59,6 +59,8 @@ class SkribbleStorybookApp extends HookWidget {
               onChanged: (value) => roughness.value = value,
               font: font.value,
               onFontChanged: (value) => font.value = value,
+              night: night.value,
+              onNightChanged: (value) => night.value = value,
             ),
           ],
         ),
