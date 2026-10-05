@@ -8,10 +8,13 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_emoji/skribble_emoji.dart';
 import 'package:skribble_emoji_gen/emoji_art_compiler.dart';
 
+/// The art folder: `art`, or `EMOJI_ART` to review art kept elsewhere.
+final String _artRoot = Platform.environment['EMOJI_ART'] ?? 'art';
+
 /// Every art source, by key.
 Map<String, String> _sources() => {
   for (final file in Directory(
-    'art',
+    _artRoot,
   ).listSync(recursive: true).whereType<File>())
     if (file.path.endsWith('.svg'))
       file.uri.pathSegments.last.replaceAll('.svg', ''): file
@@ -91,7 +94,7 @@ void main() {
 
   // Contact sheets for reviewing art. A no-op unless EMOJI_GALLERY is set to
   // `all`, an art folder (`animals`), or comma-separated art keys. Sheets go
-  // to ../../.screenshots/emoji.
+  // to ../../.screenshots/emoji, or EMOJI_GALLERY_OUT.
   test('render emoji art contact sheets', () async {
     final filter = Platform.environment['EMOJI_GALLERY'];
     if (filter == null) return;
@@ -111,7 +114,7 @@ void main() {
     final compiler = EmojiArtCompiler(sources);
     final folders = {
       for (final file in Directory(
-        'art',
+        _artRoot,
       ).listSync(recursive: true).whereType<File>())
         if (file.path.endsWith('.svg'))
           file.uri.pathSegments.last.replaceAll('.svg', ''):
@@ -223,7 +226,10 @@ void main() {
         (rows * cell * scale).toInt(),
       );
       final png = await image.toByteData(format: ui.ImageByteFormat.png);
-      File('../../.screenshots/emoji/$name-${page + 1}.png')
+      final out =
+          Platform.environment['EMOJI_GALLERY_OUT'] ??
+          '../../.screenshots/emoji';
+      File('$out/$name-${page + 1}.png')
         ..createSync(recursive: true)
         ..writeAsBytesSync(png!.buffer.asUint8List());
       image.dispose();
