@@ -137,7 +137,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'emoji-animated': ExampleDefinition(
     builder: _emojiAnimated,
-    source: "Wrap(\n  spacing: 20,\n  runSpacing: 20,\n  children: [\n    for (final emoji in ['❤️', '😂', '👋', '🔥', '🎉', '🚀'])\n      WiredAnimatedEmoji(emoji, size: 56),\n  ],\n)",
+    source: "Wrap(\n  spacing: 20,\n  runSpacing: 20,\n  children: [\n    for (final emoji in ['❤️', '😂', '👋', '🔥', '🎉', '🚀'])\n      WiredAnimatedEmoji(emoji, size: 56, loops: 3),\n  ],\n)",
     edits: [],
   ),
   'circular-progress': ExampleDefinition(

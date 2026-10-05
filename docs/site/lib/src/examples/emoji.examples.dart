@@ -35,6 +35,6 @@ Widget _emojiAnimated(ExampleSettings settings) => Wrap(
   runSpacing: 20,
   children: [
     for (final emoji in ['❤️', '😂', '👋', '🔥', '🎉', '🚀'])
-      WiredAnimatedEmoji(emoji, size: 56),
+      WiredAnimatedEmoji(emoji, size: 56, loops: 3),
   ],
 );
