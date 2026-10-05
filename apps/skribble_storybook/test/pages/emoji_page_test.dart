@@ -22,7 +22,7 @@ void main() {
     await pumpPage(tester);
     expect(find.text('Hand-drawn emoji'), findsOneWidget);
     expect(
-      find.textContaining('${SkribbleEmoji.all.length} emoji'),
+      find.textContaining('3,963 emoji'),
       findsOneWidget,
     );
     expect(emoji('😀'), findsWidgets);

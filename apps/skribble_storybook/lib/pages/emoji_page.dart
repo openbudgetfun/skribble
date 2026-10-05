@@ -63,8 +63,8 @@ class EmojiPage extends HookWidget {
                 Text('Hand-drawn emoji', style: textTheme.titleLarge),
                 const SizedBox(height: 4),
                 Text(
-                  '${SkribbleEmoji.all.length} emoji, every one drawn for '
-                  'skribble and inked live with the theme pen.',
+                  '${_thousands(SkribbleEmoji.all.length)} emoji, every one '
+                  'drawn for skribble and inked live with the theme pen.',
                   style: textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 12),
@@ -269,3 +269,9 @@ class _EmojiPreview extends StatelessWidget {
     );
   }
 }
+
+/// [value] with thousands separators, such as `3,963`.
+String _thousands(int value) => value.toString().replaceAllMapped(
+  RegExp(r'\B(?=(\d{3})+(?!\d))'),
+  (_) => ',',
+);
