@@ -16,7 +16,8 @@ library;
 
 export 'src/emoji_art.dart' show EmojiArt, EmojiShape, EmojiVariant;
 export 'src/emoji_catalog.dart' show EmojiEntry, EmojiGroup, SkribbleEmoji;
-export 'src/emoji_drawing.dart' show EmojiDrawing, kEmojiArtSize;
+export 'src/emoji_drawing.dart'
+    show EmojiDrawing, EmojiVector, EmojiVectorShape, kEmojiArtSize;
 export 'src/emoji_motion.dart'
     show EmojiMotion, EmojiMove, EmojiPose, EmojiTrack;
 export 'src/emoji_motions.dart' show EmojiMotions;
