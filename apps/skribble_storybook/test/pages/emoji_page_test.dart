@@ -74,19 +74,23 @@ void main() {
     semantics.dispose();
   });
 
-  testWidgets('previews an emoji at three sizes and three weights', (
+  testWidgets('previews an emoji animated, at three sizes and weights', (
     tester,
   ) async {
     await pumpPage(tester);
     await tester.enterText(find.byType(TextField), 'popper');
     await tester.pumpAndSettle();
     await tester.tap(emoji('🎉').first);
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(seconds: 1));
     expect(find.text('party popper'), findsOneWidget);
+    await tester.ensureVisible(find.text('Close'));
+    await tester.pump();
     expect(find.text('96 px'), findsOneWidget);
+    expect(find.byType(WiredAnimatedEmoji), findsOneWidget);
     expect(find.text('Bold'), findsOneWidget);
+    // The animation loops forever, so settle by time rather than idleness.
     await tester.tap(find.text('Close'));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(seconds: 1));
     expect(find.text('Bold'), findsNothing);
   });
 }

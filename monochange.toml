@@ -248,8 +248,10 @@ steps = [
   { type = "TagRelease", name = "create and push release tags", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag }}", inputs = { from = "HEAD", push = true, format = "json" } },
   { type = "PublishRelease", name = "publish GitHub releases", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag && inputs.publish_release }}", inputs = { from-ref = "HEAD", draft = false, format = "json" } },
   # Font zips are attached by the publish workflow's `v<version>` job. Releases
-  # prepared locally bypass that job, so the assets are uploaded here instead.
+  # prepared locally bypass that job, so the assets are uploaded here instead,
+  # along with the animated emoji exported as Lottie files.
   { type = "Command", name = "attach font release assets", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag && inputs.publish_release }}", command = "devenv shell publish:fonts" },
+  { type = "Command", name = "attach animated emoji release asset", when = "{{ number_of_changesets > 0 && inputs.commit && inputs.tag && inputs.publish_release }}", command = "devenv shell publish:emoji-lottie" },
 ]
 
 # Automated releases: this is what the release workflow runs on every push to

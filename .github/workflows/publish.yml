@@ -141,6 +141,15 @@ jobs:
         run: ./scripts/release/publish_fonts.sh "$RELEASE_TAG"
         shell: devenv shell -- bash -e {0}
 
+      # The animated emoji, exported as Lottie files from the tag's sources.
+      - name: Attach the animated emoji to the release
+        if: startsWith(inputs.tag || github.ref_name, 'v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+        run: ./scripts/release/publish_emoji_lottie.sh "$RELEASE_TAG"
+        shell: devenv shell -- bash -e {0}
+
       - name: Upload Monochange publication reports
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
