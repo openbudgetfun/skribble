@@ -127,8 +127,6 @@ class WiredNavigationRail extends HookWidget {
                         : dest.icon,
                     color: selected ? theme.fillColor : theme.disabledTextColor,
                     size: 24,
-                    fillStyle: WiredIconFillStyle.solid,
-                    strokeWidth: 1.2,
                   ),
                 ],
               ),

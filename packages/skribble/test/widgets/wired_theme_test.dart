@@ -9,10 +9,10 @@ void main() {
     test('has correct default values', () {
       final theme = WiredThemeData();
 
-      expect(theme.borderColor, const Color(0xFF1A2B3C));
-      expect(theme.textColor, Colors.black);
-      expect(theme.disabledTextColor, Colors.grey);
-      expect(theme.fillColor, const Color(0xFFFEFEFE));
+      expect(theme.borderColor, WiredPalette.ink);
+      expect(theme.textColor, WiredPalette.ink);
+      expect(theme.disabledTextColor, WiredPalette.mutedInk);
+      expect(theme.fillColor, WiredPalette.paper);
       expect(theme.strokeWidth, 2.4);
       expect(theme.roughness, 1.5);
       expect(theme.fontFamily, skribbleFontFamily);
@@ -45,7 +45,7 @@ void main() {
       final defaultTheme = WiredThemeData.defaultTheme;
 
       expect(defaultTheme, isA<WiredThemeData>());
-      expect(defaultTheme.borderColor, const Color(0xFF1A2B3C));
+      expect(defaultTheme.borderColor, WiredPalette.ink);
       expect(defaultTheme.strokeWidth, 2.4);
     });
 

@@ -19,6 +19,12 @@ Add the `skribble` package to your Flutter project:
 dart pub add skribble
 ```
 
+Add the bundled hand-drawn typefaces so text renders sketchy, not in the system font. This is the step that makes a first app _look_ hand-drawn:
+
+```bash
+flutter pub add skribble_font_recursive
+```
+
 Then import it:
 
 ```dart
@@ -27,6 +33,20 @@ import 'package:skribble/skribble.dart';
 ```
 
 <!-- {/docsInstallSection} -->
+
+## Hand-drawn text: don't skip the font package
+
+`skribble` paints the wobbly borders, fills, and icons, but the **hand-drawn lettering ships in a separate package**, `skribble_font_recursive`. It is split out deliberately so the core stays ~432 KB and you only pay for the fonts when you want them — see [Upgrading to 0.2](/getting-started/upgrading-to-0-2).
+
+Without it, borders, buttons, and cards still render hand-drawn, but `Text` falls back to the platform font. Once you add `skribble_font_recursive`, Flutter registers the families from its pubspec and `WiredTheme` selects the right one automatically — no extra code. To set a family by hand (for a code block or a single `TextStyle`), qualify it with the package:
+
+```dart
+// Static example: configuration
+TextStyle(
+  fontFamily: WiredFont.mono.familyFor(WiredRoughness.playful),
+  package: 'skribble_font_recursive',
+)
+```
 
 ## Optional maps and financial charts
 

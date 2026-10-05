@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'generated/skribble_glyphs.g.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
@@ -68,12 +69,11 @@ class WiredFilterChip extends HookWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         if (selected) ...[
-                          WiredIcon(
-                            icon: Icons.check,
+                          WiredSvgIcon(
+                            data: SkribbleGlyphs.check,
                             size: 16,
                             color: theme.fillColor,
-                            fillStyle: WiredIconFillStyle.solid,
-                            strokeWidth: 1.1,
+                            weight: 300,
                           ),
                           const SizedBox(width: 4),
                         ],

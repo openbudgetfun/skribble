@@ -241,7 +241,7 @@ void main() {
       );
       await tester.pump();
 
-      expect(find.byType(WiredIcon), findsOneWidget);
+      expect(find.byType(WiredSvgIcon), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
 

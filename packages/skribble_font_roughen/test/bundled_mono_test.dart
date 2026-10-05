@@ -14,8 +14,9 @@ void main() {
               .readAsBytesSync(),
         );
         final rough = TrueTypeFont(
-          File('../skribble_font_recursive/assets/fonts/SkribbleMono$level-$style.ttf')
-              .readAsBytesSync(),
+          File(
+            '../skribble_font_recursive/assets/fonts/SkribbleMono$level-$style.ttf',
+          ).readAsBytesSync(),
         );
         expect(rough.glyphCount, original.glyphCount);
         expect(rough.tables.containsKey('fvar'), isFalse);

@@ -13,7 +13,6 @@ skribble publishes packages to pub.dev as one synchronized `main` release group:
 - `skribble_icons`
 - `skribble_icons_bxs`
 - `skribble_icons_cib`
-- `skribble_icons_curated`
 - `skribble_icons_lucide`
 - `skribble_icons_material`
 - `skribble_icons_simple`

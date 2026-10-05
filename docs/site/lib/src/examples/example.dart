@@ -17,7 +17,17 @@ enum ExampleParameter {
   fill,
   color,
   iconFill,
+  pen,
+  weight,
 }
+
+/// The pen presets a live example can switch between, with their Dart names.
+const Map<String, RoughPen> examplePens = {
+  'fineliner': RoughPen.fineliner,
+  'ink': RoughPen.ink,
+  'brush': RoughPen.brush,
+  'uniform': RoughPen.uniform,
+};
 
 /// Values shared by an example's compiled builder and generated source.
 class ExampleSettings {
@@ -48,6 +58,12 @@ class ExampleSettings {
   /// Fill strategy used by runtime rough icons.
   WiredIconFillStyle iconFill = WiredIconFillStyle.solid;
 
+  /// How ink is laid along every line in pen examples.
+  RoughPen pen = RoughPen.ink;
+
+  /// Icon weight from 100 (thin) to 700 (bold).
+  double weight = 400;
+
   /// Dart literal corresponding to the current typed parameter.
   String literal(ExampleParameter parameter) => switch (parameter) {
     ExampleParameter.label => jsonEncode(label).replaceAll(r'$', r'\$'),
@@ -59,6 +75,9 @@ class ExampleSettings {
     ExampleParameter.color =>
       'Color(0x${color.toARGB32().toRadixString(16).padLeft(8, '0')})',
     ExampleParameter.iconFill => 'WiredIconFillStyle.${iconFill.name}',
+    ExampleParameter.weight => '$weight',
+    ExampleParameter.pen =>
+      'RoughPen.${examplePens.entries.firstWhere((entry) => entry.value == pen).key}',
   };
 }
 
@@ -163,7 +182,8 @@ class LiveExample extends HookWidget {
                           SizedBox(
                             width:
                                 parameter == ExampleParameter.interaction ||
-                                    parameter == ExampleParameter.fill
+                                    parameter == ExampleParameter.fill ||
+                                    parameter == ExampleParameter.pen
                                 ? 280
                                 : 220,
                             child: _ParameterEditor(
@@ -279,6 +299,33 @@ class _ParameterEditor extends HookWidget {
       );
     }
 
+    if (parameter == ExampleParameter.pen) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            parameter.name,
+            style: const TextStyle(fontSize: 13, color: docsQuietInk),
+          ),
+          Wrap(
+            children: [
+              for (final MapEntry(key: name, value: pen) in examplePens.entries)
+                DocsAction(
+                  key: DocsKeys.choice(id, parameter.name, name),
+                  dense: true,
+                  selected: pen == settings.pen,
+                  onPressed: () {
+                    settings.pen = pen;
+                    onChanged();
+                  },
+                  child: Text(name, style: const TextStyle(fontSize: 12)),
+                ),
+            ],
+          ),
+        ],
+      );
+    }
+
     if (parameter == ExampleParameter.interaction ||
         parameter == ExampleParameter.fill ||
         parameter == ExampleParameter.iconFill) {
@@ -343,12 +390,16 @@ class _ParameterEditor extends HookWidget {
               );
             } else {
               final number = double.tryParse(value);
-              final max = parameter == ExampleParameter.radius ? 48 : 1;
+              final (min, max) = switch (parameter) {
+                ExampleParameter.radius => (0, 48),
+                ExampleParameter.weight => (100, 700),
+                _ => (0, 1),
+              };
               if (number == null ||
                   !number.isFinite ||
-                  number < 0 ||
+                  number < min ||
                   number > max) {
-                error.value = 'Enter a number from 0 to $max.';
+                error.value = 'Enter a number from $min to $max.';
                 return;
               }
               if (parameter == ExampleParameter.radius) {
@@ -356,6 +407,9 @@ class _ParameterEditor extends HookWidget {
               }
               if (parameter == ExampleParameter.amount) {
                 settings.amount = number;
+              }
+              if (parameter == ExampleParameter.weight) {
+                settings.weight = number;
               }
             }
             error.value = null;

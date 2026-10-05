@@ -5,9 +5,9 @@
 /// tech-stack sections.
 ///
 /// Artwork comes from [CoreUI Icons](https://github.com/coreui/coreui-icons)
-/// under CC0-1.0, warped through the shared skribble rough pass at generation
-/// time. Every path here is precomputed, so rendering never runs the rough
-/// engine.
+/// under CC0-1.0, gently bent through the shared skribble rough pass at
+/// generation time. At render time `WiredSvgIcon` adds the theme's wavering and
+/// honours `weight`.
 ///
 /// ```dart
 /// import 'package:skribble/skribble.dart';

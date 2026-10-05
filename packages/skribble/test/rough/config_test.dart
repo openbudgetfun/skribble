@@ -40,7 +40,7 @@ void main() {
 
         expect(config.seed, equals(42));
         expect(config.randomizer, isNotNull);
-        expect(config.randomizer!.seed, equals(42));
+        expect(config.randomizer.seed, equals(42));
       });
 
       test('overrides all values', () {
@@ -102,7 +102,7 @@ void main() {
         final DrawConfig copy = original.copyWith(roughness: 3);
 
         expect(copy.randomizer, isNotNull);
-        expect(copy.randomizer!.seed, equals(original.randomizer!.seed));
+        expect(copy.randomizer.seed, equals(original.randomizer.seed));
       });
     });
 
@@ -202,7 +202,7 @@ void main() {
         final DrawConfig copy = original.copyWith();
 
         // copyWith creates a new Randomizer with the same seed.
-        expect(copy.randomizer!.seed, equals(original.randomizer!.seed));
+        expect(copy.randomizer.seed, equals(original.randomizer.seed));
         expect(copy.seed, equals(original.seed));
       });
 

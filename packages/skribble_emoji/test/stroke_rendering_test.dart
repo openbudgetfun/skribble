@@ -60,11 +60,18 @@ void main() {
             return bytes;
           }))!;
           int alpha(int x, int y) => bytes[(y * 72 + x) * 4 + 3];
-          expect(alpha(6, 10), 255);
+          // Dash gaps survive both paths.
+          expect(alpha(8, 10), greaterThan(0));
           expect(alpha(16, 10), 0);
-          expect(alpha(22, 10), 255);
-          expect(alpha(10, 30), 255);
-          expect(alpha(8, 30), 0);
+          expect(alpha(22, 10), greaterThan(0));
+          expect(alpha(18, 30), 255);
+          if (precomputed) {
+            // Precomputed artwork keeps its authored square caps. Live icons
+            // are inked by the theme pen, which ends every stroke its own way.
+            expect(alpha(6, 10), 255);
+            expect(alpha(10, 30), 255);
+            expect(alpha(8, 30), 0);
+          }
         },
       );
     }

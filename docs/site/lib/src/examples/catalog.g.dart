@@ -218,10 +218,10 @@ final Map<String, ExampleDefinition> examples = {
     source: "const WiredSvgIcon(\n  data: WiredSvgIconData(\n    width: 24,\n    height: 24,\n    primitives: [\n      WiredSvgPrimitive.path('M12 2L2 22h20L12 2z'),\n      WiredSvgPrimitive.circle(cx: 12, cy: 16, radius: 2),\n    ],\n  ),\n  size: 64,\n  semanticLabel: 'Triangle with a circular detail',\n)",
     edits: [],
   ),
-  'custom-icons': ExampleDefinition(
-    builder: _customIcons,
-    source: "Wrap(\n  spacing: 24,\n  runSpacing: 20,\n  children: [\n    SkribbleIcon(\n      data: kSkribbleCuratedIcons[0xf001]!,\n      semanticLabel: 'Home',\n      size: 48,\n    ),\n    SkribbleIcon(\n      data: kSkribbleCuratedIcons[0xf005]!,\n      semanticLabel: 'Heart',\n      size: 48,\n    ),\n    SkribbleIcon(\n      data: kSkribbleCuratedIcons[0xf003]!,\n      semanticLabel: 'Settings',\n      size: 48,\n    ),\n  ],\n)",
-    edits: [],
+  'glyphs': ExampleDefinition(
+    builder: _glyphs,
+    source: "Wrap(\n  spacing: 20,\n  runSpacing: 20,\n  children: [\n    for (final glyph in const [\n      SkribbleGlyphs.home,\n      SkribbleGlyphs.search,\n      SkribbleGlyphs.heart,\n      SkribbleGlyphs.settings,\n      SkribbleGlyphs.mail,\n      SkribbleGlyphs.sparkle,\n    ])\n      SkribbleIcon(data: glyph, size: 48, weight: settings.weight),\n  ],\n)",
+    edits: [ExampleEdit(314, 329, ExampleParameter.weight)],
   ),
   'brand-icons': ExampleDefinition(
     builder: _brandIcons,
@@ -813,5 +813,13 @@ final Map<String, ExampleDefinition> examples = {
     builder: _themeDrawing2,
     source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      decoration: RoughBoxDecoration(\n        borderStyle: RoughDrawingStyle(width: 2, color: theme.borderColor),\n        drawConfig: DrawConfig.build(roughness: 0.3), // very smooth\n      ),\n      child: const Text('Barely rough'),\n    );\n  },\n)",
     edits: [],
+  ),
+  'pen-presets': ExampleDefinition(
+    builder: _penPresets,
+    source: "WiredTheme(\n  data: WiredThemeData(pen: settings.pen),\n  child: SizedBox(\n    width: 300,\n    child: WiredCard(\n      height: null,\n      child: Padding(\n        padding: const EdgeInsets.all(16),\n        child: Column(\n          crossAxisAlignment: CrossAxisAlignment.start,\n          mainAxisSize: MainAxisSize.min,\n          children: [\n            Text(settings.label, style: const TextStyle(fontSize: 18)),\n            const SizedBox(height: 12),\n            const WiredDivider(),\n            const SizedBox(height: 12),\n            WiredButton(onPressed: () {}, child: const Text('Ink it')),\n          ],\n        ),\n      ),\n    ),\n  ),\n)",
+    edits: [
+      ExampleEdit(40, 52, ExampleParameter.pen),
+      ExampleEdit(357, 371, ExampleParameter.label),
+    ],
   ),
 };

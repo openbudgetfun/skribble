@@ -55,6 +55,7 @@ void main() {
         curveTightness: 0,
         curveStepCount: 8,
         seed: 1,
+        pen: RoughPen.fineliner,
       );
       expect(
         gentle,
@@ -175,7 +176,10 @@ void main() {
         expect(WiredTheme.of(context).roughnessLevel, level);
       }
       final field = tester.widget<EditableText>(find.byType(EditableText));
-      expect(field.style.fontFamily, 'packages/skribble_font_recursive/${level.fontFamily}');
+      expect(
+        field.style.fontFamily,
+        'packages/skribble_font_recursive/${level.fontFamily}',
+      );
       expect(tester.takeException(), isNull);
     });
   }

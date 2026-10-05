@@ -122,12 +122,9 @@ class WiredMapPin extends HookWidget {
 
     final pinDrawConfig = theme.drawConfig.copyWith(
       seed: seed,
-      maxRandomnessOffset: math.min(
-        theme.drawConfig.maxRandomnessOffset ?? 1.2,
-        1.2,
-      ),
-      roughness: math.min(theme.drawConfig.roughness ?? 1.25, 1.25),
-      lineWobble: math.min(theme.drawConfig.lineWobble ?? 0, 0.35),
+      maxRandomnessOffset: math.min(theme.drawConfig.maxRandomnessOffset, 1.2),
+      roughness: math.min(theme.drawConfig.roughness, 1.25),
+      lineWobble: math.min(theme.drawConfig.lineWobble, 0.35),
     );
     final duration = theme.motionEnabled
         ? const Duration(milliseconds: 90)
@@ -206,7 +203,7 @@ class WiredMapPin extends HookWidget {
                                 size: iconSize,
                                 color: iconColor ?? resolvedInk,
                                 fillStyle: WiredIconFillStyle.none,
-                                strokeWidth: 1.35,
+                                weight: 300,
                                 drawConfig: pinDrawConfig.copyWith(
                                   seed: seed + 1,
                                   roughness: 1,

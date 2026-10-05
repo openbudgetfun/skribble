@@ -142,7 +142,7 @@ void main() {
       ).style;
       expect(titleStyle.fontSize, 17);
       expect(subtitleStyle.fontSize, 14);
-      expect(subtitleStyle.color, Colors.grey); // disabled grey
+      expect(subtitleStyle.color, WiredPalette.mutedInk); // disabled ink
     });
   });
 }

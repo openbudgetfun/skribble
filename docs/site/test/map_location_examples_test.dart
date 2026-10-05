@@ -36,15 +36,17 @@ void main() {
   testWidgets('compare location ink and update all previews', (tester) async {
     final font = FontLoader('packages/skribble_font_recursive/Skribble')
       ..addFont(
-        rootBundle.load('packages/skribble_font_recursive/assets/fonts/Skribble-Regular.ttf'),
-      );
-    await font.load();
-    final buttonFont = FontLoader('packages/skribble_font_recursive/SkribblePlayful')
-      ..addFont(
         rootBundle.load(
-          'packages/skribble_font_recursive/assets/fonts/SkribblePlayful-Regular.ttf',
+          'packages/skribble_font_recursive/assets/fonts/Skribble-Regular.ttf',
         ),
       );
+    await font.load();
+    final buttonFont =
+        FontLoader('packages/skribble_font_recursive/SkribblePlayful')..addFont(
+          rootBundle.load(
+            'packages/skribble_font_recursive/assets/fonts/SkribblePlayful-Regular.ttf',
+          ),
+        );
     await buttonFont.load();
     await tester.binding.setSurfaceSize(const Size(660, 500));
     addTearDown(() => tester.binding.setSurfaceSize(null));
@@ -60,7 +62,7 @@ void main() {
               child: DefaultTextStyle(
                 style: const TextStyle(
                   fontFamily: 'Skribble',
-                  package: 'skribble',
+                  package: 'skribble_font_recursive',
                   fontSize: 16,
                   color: Color(0xFF292C30),
                 ),

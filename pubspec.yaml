@@ -13,7 +13,6 @@ workspace:
   - packages/skribble_font_recursive
   - packages/skribble_font_roughen
   - packages/skribble_icons
-  - packages/skribble_icons_curated
   - packages/skribble_icons_simple
   - packages/skribble_icons_material
   - packages/skribble_icons_lucide
@@ -101,9 +100,9 @@ melos:
         --unresolved-baseline-output tool/examples/material_rough_icons.unresolved-baseline.json
         --unresolved-baseline-output-format codepoints
 
-    icons-curated:
-      description: Regenerate the curated icon catalog from its SVG manifest.
-      run: dart run packages/skribble_emoji_gen/bin/generate_icons.dart
+    glyphs:
+      description: Regenerate skribble's built-in hand-drawn glyphs from their SVG sources.
+      run: dart run packages/skribble_emoji_gen/bin/generate_glyphs.dart
 
     icons-iconify:
       description: >-

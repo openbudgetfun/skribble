@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'generated/skribble_glyphs.g.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_search_bar.dart';
@@ -220,12 +221,12 @@ class _WiredSearchView extends HookWidget {
                         GestureDetector(
                           behavior: HitTestBehavior.opaque,
                           onTap: controller.closeView,
-                          child: WiredIcon(
-                            icon: Icons.arrow_back,
+                          child: WiredSvgIcon(
+                            data: SkribbleGlyphs.arrowLeft,
+                            flipHorizontally:
+                                Directionality.of(context) == TextDirection.rtl,
                             color: theme.disabledTextColor,
                             size: 20,
-                            fillStyle: WiredIconFillStyle.solid,
-                            strokeWidth: 1.2,
                           ),
                         ),
                     trailing: trailing,

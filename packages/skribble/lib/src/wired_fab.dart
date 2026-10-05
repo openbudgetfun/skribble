@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -34,9 +35,10 @@ class WiredFloatingActionButton extends HookWidget {
     return Semantics(
       label: semanticLabel,
       button: true,
+      enabled: onPressed != null,
       child: buildWiredElement(
-        child: GestureDetector(
-          onTap: onPressed,
+        child: WiredActivatable(
+          onActivate: onPressed,
           child: SizedBox(
             width: size,
             height: size,
@@ -57,8 +59,6 @@ class WiredFloatingActionButton extends HookWidget {
                   icon: icon,
                   color: iconColor ?? theme.fillColor,
                   size: size * 0.43,
-                  fillStyle: WiredIconFillStyle.solid,
-                  strokeWidth: 1.4,
                 ),
               ],
             ),

@@ -31,7 +31,8 @@ void main() {
           style.fontFamily,
           family == skribbleFontFamily
               ? 'packages/skribble_font_recursive/SkribblePlayful'
-              : family,          reason: label,
+              : family,
+          reason: label,
         );
       }
 

@@ -265,9 +265,9 @@ Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
 
   // Use theme values for all visual properties
-  final borderColor = theme.borderColor;    // Color(0xFF1A2B3C)
-  final fillColor = theme.fillColor;        // Color(0xFFFEFEFE)
-  final textColor = theme.textColor;        // Colors.black
+  final borderColor = theme.borderColor;    // WiredPalette.ink
+  final fillColor = theme.fillColor;        // WiredPalette.paper
+  final textColor = theme.textColor;        // WiredPalette.ink
   final strokeWidth = theme.strokeWidth;    // 2.0
   final roughness = theme.roughness;        // 1.0
   // ...
@@ -544,7 +544,7 @@ testWidgets('updates when value changes', (tester) async {
 ```dart
 // Static example: test
 // WRONG — hardcoded colors
-Container(color: Color(0xFF1A2B3C))
+Container(color: WiredPalette.ink)
 
 // CORRECT — read from theme
 final theme = WiredTheme.of(context);
@@ -555,10 +555,10 @@ Container(color: theme.borderColor)
 
 | Field               | Default Value                        | Description                                         |
 | ------------------- | ------------------------------------ | --------------------------------------------------- |
-| `borderColor`       | `Color(0xFF1A2B3C)`                  | Sketchy stroke/border color                         |
-| `textColor`         | `Colors.black`                       | Primary text color                                  |
-| `disabledTextColor` | `Colors.grey`                        | Disabled state text color                           |
-| `fillColor`         | `Color(0xFFFEFEFE)`                  | Paper-like background fill                          |
+| `borderColor`       | `WiredPalette.ink`                   | Sketchy stroke/border color                         |
+| `textColor`         | `WiredPalette.ink`                   | Primary text color                                  |
+| `disabledTextColor` | `WiredPalette.mutedInk`              | Disabled state text color                           |
+| `fillColor`         | `WiredPalette.paper`                 | Paper-like background fill                          |
 | `strokeWidth`       | `2.4`                                | Default stroke thickness                            |
 | `roughnessLevel`    | `WiredRoughness.playful`             | Coordinated border, icon, and lettering preset      |
 | `roughness`         | `1.5` (resolved from the level)      | Sketch randomness (0 = smooth, 2+ = very rough)     |
@@ -895,8 +895,8 @@ These are the built-in painters agents should reuse where possible:
 ```dart
 // Static example: api
 const double kWiredButtonHeight = 42.0;
-const Color _defaultBorderColor = Color(0xFF1A2B3C);
-const Color _defaultFillColor = Color(0xFFFEFEFE);
+const Color _defaultBorderColor = WiredPalette.ink;
+const Color _defaultFillColor = WiredPalette.paper;
 ```
 
 ## Commands reference
@@ -1148,7 +1148,7 @@ melos run rough-icons-font     # SVG + TTF font + Dart helpers
 
 Each icon set ships as its own package under `packages/`. Adding a set means creating the package, pointing a generator at a pinned source, and committing the resulting `.g.dart`.
 
-- `skribble_icons_curated` regenerates from a checked-in SVG manifest.
+- `SkribbleGlyphs` (in the core package) regenerate from the stroke SVGs and `glyphs.json` in `packages/skribble/tool/glyphs` with `melos run glyphs`.
 - `skribble_icons_lucide`, `skribble_icons_bxs`, and `skribble_icons_cib` regenerate from Iconify `icons.json` payloads pinned in `tool/asset_sources.txt` by version and SHA-256.
 - `skribble_icons_material` regenerates from the Flutter SDK through `svg2roughjs`; see `docs/rough-icon-pipeline.md`.
 

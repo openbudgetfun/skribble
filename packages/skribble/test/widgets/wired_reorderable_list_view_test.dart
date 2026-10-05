@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/finders.dart';
 
-Finder findWiredIcon(IconData icon) {
-  return find.byWidgetPredicate(
-    (widget) => widget is WiredIcon && widget.icon == icon,
-    description: 'WiredIcon($icon)',
-  );
-}
+import '../helpers/pump_app.dart';
 
 void main() {
   group('WiredReorderableListView', () {
@@ -44,7 +39,7 @@ void main() {
         ),
       );
 
-      expect(findWiredIcon(Icons.drag_handle), findsNWidgets(2));
+      expect(findWiredGlyph(SkribbleGlyphs.grip), findsNWidgets(2));
     });
 
     testWidgets('hides drag handles when showDragHandle is false', (
@@ -62,7 +57,7 @@ void main() {
         ),
       );
 
-      expect(findWiredIcon(Icons.drag_handle), findsNothing);
+      expect(findWiredGlyph(SkribbleGlyphs.grip), findsNothing);
     });
 
     testWidgets('calls onReorder callback', (tester) async {
@@ -83,7 +78,7 @@ void main() {
       );
 
       // Long-press the first drag handle to start reorder
-      final firstHandle = findWiredIcon(Icons.drag_handle).first;
+      final firstHandle = findWiredGlyph(SkribbleGlyphs.grip).first;
       final center = tester.getCenter(firstHandle);
 
       // Initiate long press
@@ -147,7 +142,7 @@ void main() {
       );
 
       expect(find.text('Solo'), findsOneWidget);
-      expect(findWiredIcon(Icons.drag_handle), findsOneWidget);
+      expect(findWiredGlyph(SkribbleGlyphs.grip), findsOneWidget);
     });
   });
 }

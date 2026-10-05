@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_emoji/skribble_emoji.dart';
-import 'package:skribble_icons/skribble_icons.dart';
 import 'package:skribble_storybook/testing/quality_keys.dart';
 
 /// A working notebook for checking typography, controls, and artwork together.
@@ -256,9 +255,7 @@ class WiredStudioPage extends HookWidget {
                               'calendar',
                             ])
                               WiredSvgIcon(
-                                data: lookupSkribbleCuratedIconByIdentifier(
-                                  name,
-                                )!,
+                                data: SkribbleGlyphs.all[name]!,
                                 size: 28,
                               ),
                           ],

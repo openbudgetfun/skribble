@@ -36,10 +36,6 @@ bump_propagation = "inherit"
 path = "packages/skribble_icons"
 type = "dart"
 
-[package.skribble_icons_curated]
-path = "packages/skribble_icons_curated"
-type = "dart"
-
 [package.skribble_icons_simple]
 path = "packages/skribble_icons_simple"
 type = "dart"
@@ -102,7 +98,6 @@ version_format = "namespaced"
 packages = [
   "skribble",
   "skribble_icons",
-  "skribble_icons_curated",
   "skribble_icons_simple",
   "skribble_icons_material",
   "skribble_icons_lucide",

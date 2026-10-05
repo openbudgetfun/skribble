@@ -443,8 +443,8 @@ double _distanceToSegment(Offset point, Offset start, Offset end) {
 DrawConfig _overlayDrawConfig(DrawConfig source, {required int seed}) {
   return source.copyWith(
     seed: seed,
-    maxRandomnessOffset: math.min(source.maxRandomnessOffset ?? 1.2, 1.2),
-    roughness: math.min(source.roughness ?? 1.25, 1.25),
-    lineWobble: math.min(source.lineWobble ?? 0, 0.45),
+    maxRandomnessOffset: math.min(source.maxRandomnessOffset, 1.2),
+    roughness: math.min(source.roughness, 1.25),
+    lineWobble: math.min(source.lineWobble, 0.45),
   );
 }

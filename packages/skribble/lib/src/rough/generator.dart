@@ -12,27 +12,26 @@ import 'renderer.dart';
 /// Combines a `DrawConfig` and `Filler` to produce rectangles, circles,
 /// arcs, lines, and polygons with hand-drawn imperfections.
 class Generator {
-  final DrawConfig? drawConfig;
-  final Filler? filler;
+  /// How shapes from this generator wander and how their ink is laid down.
+  final DrawConfig drawConfig;
 
-  Generator(this.drawConfig, this.filler)
-    : assert(drawConfig != null),
-      assert(filler != null);
+  /// The fill pattern for closed shapes.
+  final Filler filler;
+
+  /// Creates a generator that draws with [drawConfig] and fills with [filler].
+  Generator(this.drawConfig, this.filler);
 
   Drawable _buildDrawable(OpSet drawSets, [List<PointD>? fillPoints]) {
     final List<OpSet> sets = [];
-
     if (fillPoints != null) {
-      sets.add(filler!.fill(fillPoints));
+      sets.add(filler.fill(fillPoints));
     }
-
     sets.add(drawSets);
-
     return Drawable(sets: sets, options: drawConfig);
   }
 
   Drawable line(double x1, double y1, double x2, double y2) {
-    return _buildDrawable(OpSetBuilder.buildLine(x1, y1, x2, y2, drawConfig!));
+    return _buildDrawable(OpSetBuilder.buildLine(x1, y1, x2, y2, drawConfig));
   }
 
   Drawable rectangle(double x, double y, double width, double height) {
@@ -42,8 +41,7 @@ class Generator {
       PointD(x + width, y + height),
       PointD(x, y + height),
     ];
-    final OpSet outline = OpSetBuilder.buildPolygon(points, drawConfig!);
-
+    final OpSet outline = OpSetBuilder.buildPolygon(points, drawConfig);
     return _buildDrawable(outline, points);
   }
 
@@ -51,9 +49,9 @@ class Generator {
     final EllipseParams ellipseParams = generateEllipseParams(
       width,
       height,
-      drawConfig!,
+      drawConfig,
     );
-    final OpSet ellipseOp = ellipseSet(x, y, drawConfig!, ellipseParams);
+    final OpSet ellipseOp = ellipseSet(x, y, drawConfig, ellipseParams);
     final List<PointD> estimatedPoints = computeEllipseAllPoints(
       increment: ellipseParams.increment!,
       cx: x,
@@ -62,9 +60,8 @@ class Generator {
       ry: ellipseParams.ry!,
       offset: 0,
       overlap: 0,
-      config: drawConfig!,
+      config: drawConfig,
     );
-
     return _buildDrawable(ellipseOp, estimatedPoints);
   }
 
@@ -73,12 +70,11 @@ class Generator {
   }
 
   Drawable linearPath(List<PointD> points) {
-    return _buildDrawable(OpSetBuilder.linearPath(points, true, drawConfig!));
+    return _buildDrawable(OpSetBuilder.linearPath(points, true, drawConfig));
   }
 
   Drawable polygon(List<PointD> points) {
-    final OpSet path = OpSetBuilder.linearPath(points, true, drawConfig!);
-
+    final OpSet path = OpSetBuilder.linearPath(points, true, drawConfig);
     return _buildDrawable(path, points);
   }
 
@@ -99,7 +95,7 @@ class Generator {
       stop,
       closed,
       true,
-      drawConfig!,
+      drawConfig,
     );
     final List<PointD> fillPoints = OpSetBuilder.arcPolygon(
       PointD(x, y),
@@ -107,14 +103,13 @@ class Generator {
       height,
       start,
       stop,
-      drawConfig!,
+      drawConfig,
     );
-
     return _buildDrawable(outline, fillPoints);
   }
 
   Drawable curvePath(List<PointD> points) {
-    return _buildDrawable(OpSetBuilder.curve(points, drawConfig!));
+    return _buildDrawable(OpSetBuilder.curve(points, drawConfig));
   }
 
   Drawable roundedRectangle(
@@ -138,8 +133,8 @@ class Generator {
     // Each pen pass follows one closed contour. Separate rough corner arcs
     // overlap at small radii and leave knots where they meet the straight edges.
     final List<Op> ops = [];
-    final config = drawConfig!;
-    final offset = min(config.maxRandomnessOffset!, min(width, height) / 16);
+    final config = drawConfig;
+    final offset = min(config.maxRandomnessOffset, min(width, height) / 16);
     const kappa = 0.5522847498307936;
 
     for (var pass = 0; pass < 2; pass++) {
@@ -150,9 +145,8 @@ class Generator {
       final top = y + dy;
       final right = x + width + dx;
       final bottom = y + height + dy;
-
       var cursor = PointD(left + tl, top);
-      ops.add(Op.move(cursor));
+      ops.add(Op.move(cursor, pass: pass));
 
       void curve(PointD first, PointD second, PointD end) {
         ops.add(Op.curveTo(first, second, end));
@@ -164,31 +158,27 @@ class Generator {
         final dx = end.x - start.x;
         final dy = end.y - start.y;
         final length = sqrt(dx * dx + dy * dy);
-
         if (length == 0) return;
 
         // The pass offset and local wobble share the reserved ink bleed.
-        final limit = offset * config.roughness! * (1 - gain);
+        final limit = offset * config.roughness * (1 - gain);
         PointD point(double t, double across) => PointD(
           start.x + dx * t - dy / length * across.clamp(-limit, limit),
           start.y + dy * t + dx / length * across.clamp(-limit, limit),
         );
-
-        if (length >= 48 && config.lineWobble! > 0) {
+        if (length >= 48 && config.lineWobble > 0) {
           final segments = max(2, (length / 48).ceil());
           final displacement = List<double>.generate(
             segments + 1,
             (i) => i == 0 || i == segments
                 ? 0
                 : config
-                      .offsetSymmetric(offset, config.lineWobble! * gain)
+                      .offsetSymmetric(offset, config.lineWobble * gain)
                       .clamp(-limit, limit),
           );
-
           for (var i = 0; i < segments; i++) {
             final before = displacement[max(0, i - 1)];
             final from = displacement[i];
-
             final to = displacement[i + 1];
             final after = displacement[min(segments, i + 2)];
             // Zero endpoint tangents join the corner arcs without knots.
@@ -200,7 +190,6 @@ class Generator {
               point((i + 1) / segments, to),
             );
           }
-
           return;
         }
 
@@ -208,11 +197,11 @@ class Generator {
         // Endpoint handles stay tangent to the rounded corners.
         final bow = config.offsetSymmetric(
           min(offset, length / 12),
-          config.bowing! * gain,
+          config.bowing * gain,
         );
         final drift = config.offsetSymmetric(
           min(offset, length / 12),
-          config.lineWobble! * gain,
+          config.lineWobble * gain,
         );
         curve(
           point(1 / 6, 0),
@@ -265,7 +254,6 @@ class Generator {
       br,
       bl,
     );
-
     return _buildDrawable(outline, fillPoints);
   }
 

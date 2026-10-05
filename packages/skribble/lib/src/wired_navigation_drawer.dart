@@ -164,8 +164,6 @@ class _WiredDrawerItem extends HookWidget {
                     icon: isSelected ? (selectedIcon ?? icon) : icon,
                     size: 22,
                     color: isSelected ? Colors.white : theme.textColor,
-                    fillStyle: WiredIconFillStyle.solid,
-                    strokeWidth: 1.2,
                   ),
                   const SizedBox(width: 12),
                   Expanded(

@@ -116,7 +116,7 @@ void main() {
         matching: find.byType(CustomPaint),
       );
       final painter = tester.widget<CustomPaint>(paint.first).painter!;
-      expect((painter as dynamic).color, const Color(0xFF1A2B3C));
+      expect((painter as dynamic).color, WiredPalette.ink);
     });
 
     testWidgets('applies the provided color', (tester) async {

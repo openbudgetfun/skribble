@@ -2,7 +2,7 @@
 
 CoreUI brand marks: 830 logos covering products, platforms, languages, and social networks, for sign-in buttons, footer links, and tech-stack sections.
 
-Part of the [skribble](https://github.com/openbudgetfun/skribble) design system. Artwork comes from **CoreUI** ([homepage](https://github.com/coreui/coreui-icons)) under **CC0-1.0**, warped through the shared skribble rough pass at generation time. Every path in the catalog is precomputed, so rendering never runs the rough engine.
+Part of the [skribble](https://github.com/openbudgetfun/skribble) design system. Artwork comes from **CoreUI** ([homepage](https://github.com/coreui/coreui-icons)) under **CC0-1.0**, gently bent through the shared skribble rough pass at generation time. At render time `WiredSvgIcon` adds the theme's wavering and inks the result with its pen, so the icons follow the active roughness level and `weight`.
 
 ## Installation
 

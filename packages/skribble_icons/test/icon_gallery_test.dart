@@ -29,8 +29,8 @@ void main() {
     const outRoot = '../../.screenshots/icons';
     Directory(outRoot).createSync(recursive: true);
 
-    const sets = <String, WiredSvgIconData? Function(String)>{
-      'curated': lookupSkribbleCuratedIconByIdentifier,
+    final sets = <String, WiredSvgIconData? Function(String)>{
+      'glyphs': (name) => SkribbleGlyphs.all[name],
       'simple': lookupSimpleIconByIdentifier,
       'lucide': lookupLucideIconByIdentifier,
       'bxs': lookupBxsIconByIdentifier,
@@ -38,7 +38,7 @@ void main() {
       'material': lookupMaterialRoughIconByIdentifier,
     };
     final totals = <String, int>{
-      'curated': skribbleCuratedIconCount,
+      'glyphs': SkribbleGlyphs.all.length,
       'simple': simpleIconCount,
       'lucide': lucideIconCount,
       'bxs': bxsIconCount,
@@ -46,7 +46,7 @@ void main() {
       'material': skribbleMaterialIconCount,
     };
     const samples = <String, int>{
-      'curated': 30,
+      'glyphs': 51,
       'simple': 144,
       'lucide': 144,
       'bxs': 144,
@@ -58,7 +58,7 @@ void main() {
       final setName = entry.key;
       final lookup = entry.value;
       final all = switch (setName) {
-        'curated' => skribbleCuratedIconIdentifiers,
+        'glyphs' => SkribbleGlyphs.all.keys.toList(),
         'simple' => simpleIconIdentifiers,
         'lucide' => lucideIconIdentifiers,
         'bxs' => bxsIconIdentifiers,
@@ -78,7 +78,8 @@ void main() {
         for (var i = 0; i < wanted; i++) resolvable[(i * step).floor()],
       ];
 
-      final setDir = Directory('$outRoot/$setName')..createSync(recursive: true);
+      final setDir = Directory('$outRoot/$setName')
+        ..createSync(recursive: true);
 
       // One pump per set; each cell carries its own RepaintBoundary so the
       // capture loop below only pays for toImage.
@@ -146,7 +147,7 @@ void main() {
           '<h1>$setName</h1><p>${identifiers.length} of '
           '${totals[setName]} identifiers, sampled evenly from the sorted '
           'list.</p><div class="grid">',
-      );
+        );
       for (final id in identifiers) {
         html.writeln(
           '<div class="card"><img src="$setName/'

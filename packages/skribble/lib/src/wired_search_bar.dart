@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'generated/skribble_glyphs.g.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -57,12 +58,10 @@ class WiredSearchBar extends HookWidget {
             child: Row(
               children: [
                 leading ??
-                    WiredIcon(
-                      icon: Icons.search,
+                    WiredSvgIcon(
+                      data: SkribbleGlyphs.search,
                       color: theme.disabledTextColor,
                       size: 20,
-                      fillStyle: WiredIconFillStyle.solid,
-                      strokeWidth: 1.2,
                     ),
                 const SizedBox(width: 8),
                 Expanded(

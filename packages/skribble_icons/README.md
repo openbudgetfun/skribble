@@ -2,11 +2,11 @@
 
 Every skribble hand-drawn icon set behind one import.
 
-The sets live in separate packages so an app only pays for the artwork it renders. This package depends on all of them, re-exports their catalogs, and adds a cross-set lookup.
+The third-party sets live in separate packages so an app only pays for the artwork it renders. skribble's own glyphs ship with the core package. This package depends on every set, re-exports their catalogs, and adds a cross-set lookup.
 
 | Set            | Package                   | Names  | Style                   | License    |
 | -------------- | ------------------------- | ------ | ----------------------- | ---------- |
-| Curated        | `skribble_icons_curated`  | 30     | app vocabulary          | Apache-2.0 |
+| Glyphs         | `skribble` (core)         | 51     | hand-drawn strokes      | MIT        |
 | Simple Icons   | `skribble_icons_simple`   | 3,472  | brand marks             | CC0-1.0    |
 | Material       | `skribble_icons_material` | 8,600+ | Flutter's `Icons`       | Apache-2.0 |
 | Lucide         | `skribble_icons_lucide`   | 2,056  | 2px open outlines       | ISC        |
@@ -54,7 +54,7 @@ The Iconify sets and the simple set need no registration — they are looked up 
 
 `lookupSkribbleIcon` searches in a fixed order and reports the winner:
 
-1. `curated` — hand-authored names that match the component library's own vocabulary
+1. `glyphs` — `SkribbleGlyphs`, drawn for skribble with names that match the component library's own vocabulary
 2. `simple` — Simple Icons brand marks, whose slugs are unambiguous (`github` always means the logo, never a UI glyph)
 3. `material` — so existing Flutter identifiers keep resolving
 4. `lucide`, then `bxs`, then `cib`
@@ -64,7 +64,7 @@ The Iconify sets and the simple set need no registration — they are looked up 
 Every set regenerates in pure Dart — no headless browser involved:
 
 ```bash
-melos run icons-curated   # the 30 curated icons
+melos run glyphs          # skribble's 51 built-in glyphs
 melos run icons-iconify   # simple, lucide, bxs, cib from pinned sources
 melos run icons-check     # verify the committed catalogs are current
 ```

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'generated/skribble_glyphs.g.dart';
 import 'motion/wired_draw.dart';
 import 'motion/wired_ink_response.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
+import 'wired_icon.dart';
 import 'wired_icon_button.dart';
 import 'wired_theme.dart';
 
@@ -134,7 +136,10 @@ class WiredExpansionPanelList extends HookWidget {
                     turns: isExpanded ? 0.5 : 0,
                     duration: const Duration(milliseconds: 200),
                     child: panel.canTapOnHeader
-                        ? Icon(Icons.expand_more, color: theme.textColor)
+                        ? WiredSvgIcon(
+                            data: SkribbleGlyphs.chevronDown,
+                            color: theme.textColor,
+                          )
                         : WiredIconButton(
                             icon: Icons.expand_more,
                             iconColor: theme.textColor,

@@ -410,7 +410,6 @@ class _WiredMapControlButton extends HookWidget {
                           ? theme.textColor
                           : theme.disabledTextColor,
                       fillStyle: WiredIconFillStyle.none,
-                      strokeWidth: 1.9,
                     ),
                   ),
               ],

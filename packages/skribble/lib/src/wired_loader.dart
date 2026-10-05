@@ -104,19 +104,19 @@ class WiredLoader extends HookWidget {
         builder: (context, phase) => SizedBox.square(
           dimension: size,
           child: CustomPaint(
-              painter: _LoaderPainter(
-                phase: phase,
-                geometry: geometry,
-                color: color ?? theme.textColor,
-                // The mark keeps the logo's proportions, so its pen is measured
-                // in drawing units; every other rhythm is measured in logical
-                // pixels at the requested size.
-                pen: style == WiredLoaderStyle.mark
-                    ? strokeWidth * 1.8
-                    : size == 0
-                    ? 0
-                    : strokeWidth * 100 / size,
-              ),
+            painter: _LoaderPainter(
+              phase: phase,
+              geometry: geometry,
+              color: color ?? theme.textColor,
+              // The mark keeps the logo's proportions, so its pen is measured
+              // in drawing units; every other rhythm is measured in logical
+              // pixels at the requested size.
+              pen: style == WiredLoaderStyle.mark
+                  ? strokeWidth * 1.8
+                  : size == 0
+                  ? 0
+                  : strokeWidth * 100 / size,
+            ),
           ),
         ),
       ),

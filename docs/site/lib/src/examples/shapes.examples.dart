@@ -404,3 +404,28 @@ Widget _themeDrawing2(ExampleSettings settings) => Builder(
     );
   },
 );
+
+/// @docs-example pen-presets
+Widget _penPresets(ExampleSettings settings) => WiredTheme(
+  data: WiredThemeData(pen: settings.pen),
+  child: SizedBox(
+    width: 300,
+    child: WiredCard(
+      height: null,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(settings.label, style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 12),
+            const WiredDivider(),
+            const SizedBox(height: 12),
+            WiredButton(onPressed: () {}, child: const Text('Ink it')),
+          ],
+        ),
+      ),
+    ),
+  ),
+);

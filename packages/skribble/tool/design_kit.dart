@@ -5,6 +5,7 @@ import 'package:skribble/src/rough/config.dart';
 import 'package:skribble/src/rough/core.dart';
 import 'package:skribble/src/rough/filler.dart';
 import 'package:skribble/src/rough/generator.dart';
+import 'package:skribble/src/rough/ink_stroke.dart';
 import 'package:skribble/src/wired_font.dart';
 import 'package:skribble/src/wired_roughness.dart';
 
@@ -13,7 +14,6 @@ Future<void> main(List<String> arguments) async {
   if (arguments.isNotEmpty) {
     stderr.writeln('Usage: dart run packages/skribble/tool/design_kit.dart');
     exitCode = 64;
-
     return;
   }
 
@@ -69,8 +69,9 @@ Future<void> exportDesignKit(
     }
   }
 
-  await File('${repository.path}/packages/skribble_font_recursive/assets/fonts/OFL.txt')
-      .copy('${fonts.path}/OFL.txt');
+  await File(
+    '${repository.path}/packages/skribble_font_recursive/assets/fonts/OFL.txt',
+  ).copy('${fonts.path}/OFL.txt');
   await File('${repository.path}/LICENSE').copy('${destination.path}/LICENSE');
   await File('${repository.path}/docs/site/content/reference/design-kit.md')
       .copy('${destination.path}/README.md');
@@ -214,11 +215,17 @@ class DesignSpecimen {
   final bool hachure;
 
   /// Generates stable editable paths using the runtime engine for [level].
+  ///
+  /// Pen-inked outlines are exported as filled shapes, exactly as the app
+  /// paints them. The pressed state reinforces those shapes with a thin
+  /// stroke, which is how the runtime adds pen pressure.
   String svg(WiredRoughness level) {
+    const strokeWidth = 2.4;
     final config = DrawConfig.build(
       roughness: level.roughness,
       maxRandomnessOffset: level.maxRandomnessOffset,
       lineWobble: level.lineWobble,
+      pen: level.pen,
       seed: 1,
     );
     final filler = hachure
@@ -226,7 +233,10 @@ class DesignSpecimen {
         : NoFiller();
     final generator = Generator(config, filler);
     // Matches WiredBase's reserved bleed; pressure changes only pen width.
-    final bleed = 2.4 / 2 + 1 + level.maxRandomnessOffset * level.roughness;
+    final bleed =
+        strokeWidth * level.pen.reach +
+        1 +
+        level.maxRandomnessOffset * level.roughness;
     final figure = generator.roundedRectangle(
       x + bleed,
       y + bleed,
@@ -238,25 +248,20 @@ class DesignSpecimen {
       radius,
     );
     final ink = StringBuffer();
+    const reinforcement = strokeWidth * 0.25;
 
-    for (final set in figure.sets!) {
-      if (set.ops!.isEmpty) continue;
-      final path = StringBuffer();
-
-      for (final op in set.ops!) {
-        final command = switch (op.op) {
-          OpType.move => 'M',
-          OpType.lineTo => 'L',
-          OpType.curveTo => 'C',
-        };
-
-        path.write('$command${op.data.map((p) => '${p.x} ${p.y}').join(' ')} ');
-      }
-
-      final stroke = set.type == OpSetType.fillSketch
-          ? 2.0
-          : (pressed ? 3.0 : 2.4);
-      ink.writeln('<path d="$path" stroke-width="$stroke"/>');
+    for (final path in DrawableInk(
+      figure,
+      outlineWidth: strokeWidth,
+      sketchWidth: 2,
+    ).svgPaths()) {
+      final outline = path.type == OpSetType.path;
+      final attributes = path.filled
+          ? (pressed && outline
+                ? 'stroke-width="$reinforcement"'
+                : 'stroke="none"')
+          : 'fill="none" stroke-width="${path.strokeWidth}"';
+      ink.writeln('<path d="${path.data}" $attributes/>');
     }
 
     return '''
@@ -264,7 +269,7 @@ class DesignSpecimen {
 <title>$name, ${level.name}</title>
 <desc>Static completed ink. Layout frame is separate from painted geometry.</desc>
 <g id="layout-bounds" fill="none" stroke="none"><rect width="$width" height="$height"/></g>
-<g id="ink" fill="none" stroke="#1a2b3c" stroke-linecap="round" stroke-linejoin="round">
+<g id="ink" fill="#1a2b3c" stroke="#1a2b3c" stroke-linecap="round" stroke-linejoin="round">
 $ink</g>
 </svg>
 ''';

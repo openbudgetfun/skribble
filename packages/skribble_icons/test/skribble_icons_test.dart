@@ -5,10 +5,11 @@ import 'package:skribble_icons/skribble_icons.dart';
 
 void main() {
   group('unified lookup', () {
-    test('prefers the curated simple set for its own names', () {
+    test("prefers skribble's own glyphs for their names", () {
       final match = lookupSkribbleIcon('home');
       expect(match, isNotNull);
-      expect(match!.set, SkribbleIconSet.curated);
+      expect(match!.set, SkribbleIconSet.glyphs);
+      expect(match.data, SkribbleGlyphs.home);
     });
 
     test('falls through to Material for Flutter identifiers', () {
@@ -38,7 +39,7 @@ void main() {
 
   group('aggregate counts', () {
     test('reports every bundled set', () {
-      expect(skribbleCuratedIconCount, 30);
+      expect(SkribbleGlyphs.all, hasLength(51));
       expect(simpleIconCount, greaterThan(3400));
       expect(lucideIconCount, greaterThan(2000));
       expect(bxsIconCount, greaterThan(600));
@@ -46,7 +47,7 @@ void main() {
       expect(skribbleMaterialIconCount, greaterThan(5000));
       expect(
         skribbleIconCount,
-        skribbleCuratedIconCount +
+        SkribbleGlyphs.all.length +
             simpleIconCount +
             lucideIconCount +
             bxsIconCount +
@@ -95,7 +96,7 @@ void main() {
       expect(find.byType(WiredSvgIcon), findsOneWidget);
     });
 
-    testWidgets('falls back to the font glyph without a catalog', (
+    testWidgets('draws a built-in glyph for common icons without a catalog', (
       tester,
     ) async {
       clearWiredIconCatalog();
@@ -104,6 +105,22 @@ void main() {
           home: WiredTheme(
             data: WiredThemeData(),
             child: const WiredIcon(icon: Icons.search),
+          ),
+        ),
+      );
+      final icon = tester.widget<WiredSvgIcon>(find.byType(WiredSvgIcon));
+      expect(icon.data, same(SkribbleGlyphs.search));
+    });
+
+    testWidgets('falls back to the font glyph for other icons', (
+      tester,
+    ) async {
+      clearWiredIconCatalog();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: WiredThemeData(),
+            child: const WiredIcon(icon: Icons.access_alarm),
           ),
         ),
       );

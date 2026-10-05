@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 import 'wired_thumb_animation.dart';
@@ -49,8 +50,9 @@ class WiredSwitch extends HookWidget {
       label: semanticLabel,
       toggled: value,
       enabled: onChanged != null,
-      child: GestureDetector(
-        onTap: onChanged == null ? null : () => onChanged!(!value),
+      child: WiredActivatable(
+        enabled: onChanged != null,
+        onActivate: onChanged == null ? null : () => onChanged!(!value),
         child: SizedBox(
           width: _trackWidth,
           height: _thumbSize,

@@ -21,9 +21,11 @@ To use Mono just for a code block, resolve its family against the surrounding th
 // Static example: configuration
 TextStyle(
   fontFamily: WiredFont.mono.familyFor(WiredTheme.of(context).roughnessLevel),
-  package: 'skribble',
+  package: 'skribble_font_recursive',
 )
 ```
+
+The bundled families live in the `skribble_font_recursive` package, so a bare `TextStyle` qualifies the family with `package: 'skribble_font_recursive'`. Add it with `flutter pub add skribble_font_recursive` first — see [Installation](/getting-started/installation).
 
 Each comparison uses the same generator, strength, weight, style, and size. Gentle uses strength 18, Playful 27, and Expressive 36 per 1,000 font units. Use **Code specimen** to compare aligned text, or type your own sample. On narrow screens the three specimens stack within each roughness level.
 
@@ -61,7 +63,7 @@ The three shared variable families, one per roughness level, contain all these w
 // Static example: configuration
 TextStyle(
   fontFamily: WiredFont.variableFamilyFor(WiredRoughness.playful),
-  package: 'skribble',
+  package: 'skribble_font_recursive',
   fontVariations: const [
     FontVariation('wght', 575),
     FontVariation('CASL', 0.7),

@@ -20,7 +20,7 @@ void main() {
               child: DefaultTextStyle(
                 style: TextStyle(
                   fontFamily: 'SkribblePlayful',
-                  package: 'skribble',
+                  package: 'skribble_font_recursive',
                 ),
                 child: FontComparison(),
               ),

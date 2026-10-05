@@ -17,7 +17,8 @@ class SkribbleIconsPage extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final searchQuery = useState('');
-    final selectedSet = useState(SkribbleIconSet.curated);
+    final selectedSet = useState(SkribbleIconSet.glyphs);
+    final weight = useState<double>(400);
     final catalog = _catalogs[selectedSet.value]!;
 
     final sortedEntries = useMemoized(() {
@@ -44,101 +45,125 @@ class SkribbleIconsPage extends HookWidget {
         leading: const BackButton(),
         title: const Text('Skribble Icons'),
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${catalog.label} hand-drawn icons',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${sortedEntries.length} icons',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      for (final entry in _catalogs.entries)
-                        WiredChoiceChip(
-                          label: Text(entry.value.label),
-                          selected: selectedSet.value == entry.key,
-                          onSelected: (_) => selectedSet.value = entry.key,
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  WiredInput(
-                    hintText: 'Search icons by name…',
-                    semanticLabel: 'Search Skribble icons',
-                    hintStyle: TextStyle(color: theme.disabledTextColor),
-                    onChanged: (value) => searchQuery.value = value,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          if (filteredEntries.isEmpty)
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Center(
-                child: Text(
-                  'No icons match "${searchQuery.value.trim()}"',
-                  style: Theme.of(context).textTheme.bodyMedium
-                      ?.copyWith(color: theme.disabledTextColor),
-                ),
-              ),
-            )
-          else
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(12, 4, 12, 24),
-              sliver: SliverGrid.builder(
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 64,
-                  mainAxisExtent:
-                      56 + MediaQuery.textScalerOf(context).scale(9) * 3,
-                ),
-                itemCount: filteredEntries.length,
-                itemBuilder: (context, index) {
-                  final entry = filteredEntries[index];
-                  return InkWell(
-                    onTap: () => _showPopup(
-                      context,
-                      entry.key,
-                      entry.value,
-                      catalog.icons[entry.value]!,
+      // Icons below read their weight from IconTheme, as Flutter's do.
+      body: IconTheme.merge(
+        data: IconThemeData(weight: weight.value),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${catalog.label} hand-drawn icons',
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    const SizedBox(height: 4),
+                    Text(
+                      '${sortedEntries.length} icons',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 12),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
                       children: [
-                        WiredSvgIcon(
-                          data: catalog.icons[entry.value]!,
-                          size: 32,
-                          semanticLabel: '${catalog.label}: ${entry.key}',
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          entry.key,
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(fontSize: 9),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        for (final entry in _catalogs.entries)
+                          WiredChoiceChip(
+                            label: Text(entry.value.label),
+                            selected: selectedSet.value == entry.key,
+                            onSelected: (_) => selectedSet.value = entry.key,
+                          ),
                       ],
                     ),
-                  );
-                },
+                    const SizedBox(height: 12),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        const Text('Weight'),
+                        for (final (label, value) in const [
+                          ('Thin', 200.0),
+                          ('Normal', 400.0),
+                          ('Bold', 650.0),
+                        ])
+                          WiredChoiceChip(
+                            key: ValueKey('icon-weight-${value.round()}'),
+                            label: Text(label),
+                            selected: weight.value == value,
+                            onSelected: (_) => weight.value = value,
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    WiredInput(
+                      hintText: 'Search icons by name…',
+                      semanticLabel: 'Search Skribble icons',
+                      hintStyle: TextStyle(color: theme.disabledTextColor),
+                      onChanged: (value) => searchQuery.value = value,
+                    ),
+                  ],
+                ),
               ),
             ),
-        ],
+            if (filteredEntries.isEmpty)
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(
+                  child: Text(
+                    'No icons match "${searchQuery.value.trim()}"',
+                    style: Theme.of(context).textTheme.bodyMedium
+                        ?.copyWith(color: theme.disabledTextColor),
+                  ),
+                ),
+              )
+            else
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(12, 4, 12, 24),
+                sliver: SliverGrid.builder(
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 64,
+                    mainAxisExtent:
+                        56 + MediaQuery.textScalerOf(context).scale(9) * 3,
+                  ),
+                  itemCount: filteredEntries.length,
+                  itemBuilder: (context, index) {
+                    final entry = filteredEntries[index];
+                    return InkWell(
+                      onTap: () => _showPopup(
+                        context,
+                        entry.key,
+                        entry.value,
+                        catalog.icons[entry.value]!,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          WiredSvgIcon(
+                            data: catalog.icons[entry.value]!,
+                            size: 32,
+                            semanticLabel: '${catalog.label}: ${entry.key}',
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            entry.key,
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(fontSize: 9),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -232,15 +257,24 @@ class SkribbleIconsPage extends HookWidget {
   }
 }
 
-const _catalogs =
+// Glyphs are keyed by name rather than codepoint, so index them to share
+// the catalog shape of the other sets.
+final Map<String, int> _glyphNames = {
+  for (final (index, name) in SkribbleGlyphs.all.keys.indexed) name: index,
+};
+final Map<int, WiredSvgIconData> _glyphIcons = {
+  for (final (index, data) in SkribbleGlyphs.all.values.indexed) index: data,
+};
+
+final _catalogs =
     <
       SkribbleIconSet,
       ({String label, Map<String, int> names, Map<int, WiredSvgIconData> icons})
     >{
-      SkribbleIconSet.curated: (
-        label: 'Curated',
-        names: kSkribbleCuratedIconCodePoints,
-        icons: kSkribbleCuratedIcons,
+      SkribbleIconSet.glyphs: (
+        label: 'Glyphs',
+        names: _glyphNames,
+        icons: _glyphIcons,
       ),
       SkribbleIconSet.material: (
         label: 'Material',

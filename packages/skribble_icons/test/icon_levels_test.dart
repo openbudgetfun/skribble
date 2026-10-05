@@ -14,7 +14,7 @@ void main() {
   ) async {
     registerSkribbleIcons();
     final samples = <String, WiredSvgIconData>{
-      'Curated home': lookupSkribbleCuratedIconByIdentifier('home')!,
+      'Glyph home': SkribbleGlyphs.home,
       'Material home': lookupMaterialRoughIconByIdentifier('home')!,
       'Lucide house': lookupLucideIconByIdentifier('house')!,
       'Simple github': lookupSimpleIconByIdentifier('github')!,
@@ -60,7 +60,10 @@ void main() {
       bool source = false,
       bool shorthand = false,
     }) async {
-      final config = source ? DrawConfig.build(roughness: 0) : null;
+      // The source keeps the level's pen, so differences measure wavering.
+      final config = source
+          ? DrawConfig.build(roughness: 0, pen: level.pen)
+          : null;
       await tester.pumpWidget(
         Directionality(
           textDirection: TextDirection.ltr,
@@ -101,10 +104,12 @@ void main() {
           size,
           source: true,
         );
-        final sourcePixels = await bytes(original);
         final differences = <int>[];
         var column = 1;
         for (final level in WiredRoughness.values) {
+          final source = await render(sample.value, level, size, source: true);
+          final sourcePixels = await bytes(source);
+          source.dispose();
           final image = await render(sample.value, level, size);
           final pixels = await bytes(image);
           differences.add(_difference(sourcePixels, pixels));

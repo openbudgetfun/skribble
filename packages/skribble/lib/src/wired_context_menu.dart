@@ -122,8 +122,6 @@ class _WiredContextMenuOverlay extends HookWidget {
                                         color: actions[i].isDestructive
                                             ? Colors.red
                                             : theme.textColor,
-                                        fillStyle: WiredIconFillStyle.solid,
-                                        strokeWidth: 1.2,
                                       ),
                                       const SizedBox(width: 10),
                                     ],

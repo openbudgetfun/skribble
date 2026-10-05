@@ -27,8 +27,9 @@ void main() {
         final name = (entry['file'] as String).split('/').last;
         expect(
           await File('${destination.path}/${entry['file']}').readAsBytes(),
-          await File('${repository.path}/packages/skribble_font_recursive/assets/fonts/$name')
-              .readAsBytes(),
+          await File(
+            '${repository.path}/packages/skribble_font_recursive/assets/fonts/$name',
+          ).readAsBytes(),
         );
       }
 
@@ -81,40 +82,42 @@ void main() {
     },
   );
 
-  test('SVG paths match the runtime button geometry and pressure changes only width', () {
+  test('SVG paths match the runtime ink and pressure only reinforces it', () {
     for (final level in WiredRoughness.values) {
       final theme = WiredThemeData(roughnessLevel: level);
       final bleed = theme.inkExtent / 2;
-      final expected = Generator(theme.drawConfig, NoFiller()).roundedRectangle(
-        bleed,
-        3 + bleed,
-        160 - 2 * bleed,
-        42 - 2 * bleed,
-        6,
-        6,
-        6,
-        6,
-      );
+      final expected = DrawableInk(
+        Generator(theme.drawConfig, NoFiller()).roundedRectangle(
+          bleed,
+          3 + bleed,
+          160 - 2 * bleed,
+          42 - 2 * bleed,
+          6,
+          6,
+          6,
+          6,
+        ),
+        outlineWidth: theme.strokeWidth,
+        sketchWidth: 2,
+      ).svgPaths();
       final rest = XmlDocument.parse(designSpecimens[0].svg(level));
       final pressed = XmlDocument.parse(designSpecimens[1].svg(level));
       final paths = rest.findAllElements('path').toList();
       expect(
         paths.map((p) => p.getAttribute('d')),
+        expected.map((path) => path.data),
+        reason: '${level.name} exports the painted ink',
+      );
+      expect(
+        paths.map((p) => p.getAttribute('d')),
         pressed.findAllElements('path').map((p) => p.getAttribute('d')),
       );
-      expect(paths.single.getAttribute('stroke-width'), '2.4');
+      expect(paths.map((p) => p.getAttribute('stroke')), everyElement('none'));
       expect(
-        pressed.findAllElements('path').single.getAttribute('stroke-width'),
-        '3.0',
-      );
-      final coordinates = RegExp(r'-?\d+(?:\.\d+)?(?:e[+-]?\d+)?')
-          .allMatches(paths.single.getAttribute('d')!)
-          .map((m) => double.parse(m.group(0)!));
-      expect(
-        coordinates,
-        expected.sets!.last.ops!.expand(
-          (op) => op.data.expand((p) => [p.x, p.y]),
-        ),
+        pressed
+            .findAllElements('path')
+            .map((p) => p.getAttribute('stroke-width')),
+        everyElement('${theme.strokeWidth * 0.25}'),
       );
       expect(designSpecimens[0].svg(level), designSpecimens[0].svg(level));
     }
@@ -128,8 +131,8 @@ void main() {
           final svg = XmlDocument.parse(specimen.svg(level));
 
           for (final path in svg.findAllElements('path')) {
-            final halfPen =
-                double.parse(path.getAttribute('stroke-width')!) / 2;
+            final width = path.getAttribute('stroke-width');
+            final halfPen = width == null ? 0.0 : double.parse(width) / 2;
             final points = RegExp(r'-?\d+(?:\.\d+)?(?:e[+-]?\d+)?')
                 .allMatches(path.getAttribute('d')!)
                 .map((m) => double.parse(m.group(0)!))

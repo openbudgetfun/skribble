@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/finders.dart';
 
-Finder findWiredIcon(IconData icon) {
-  return find.byWidgetPredicate(
-    (widget) => widget is WiredIcon && widget.icon == icon,
-    description: 'WiredIcon($icon)',
-  );
-}
+import '../helpers/pump_app.dart';
 
 void main() {
   group('WiredPopupMenuButton', () {
@@ -32,7 +27,7 @@ void main() {
         ),
       );
 
-      expect(findWiredIcon(Icons.more_vert), findsOneWidget);
+      expect(findWiredGlyph(SkribbleGlyphs.moreVertical), findsOneWidget);
     });
 
     testWidgets('renders custom icon when provided', (tester) async {
@@ -45,7 +40,7 @@ void main() {
       );
 
       expect(find.byIcon(Icons.menu), findsOneWidget);
-      expect(findWiredIcon(Icons.more_vert), findsNothing);
+      expect(findWiredGlyph(SkribbleGlyphs.moreVertical), findsNothing);
     });
 
     testWidgets('shows popup menu items on tap', (tester) async {

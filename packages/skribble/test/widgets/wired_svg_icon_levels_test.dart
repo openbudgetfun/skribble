@@ -100,7 +100,8 @@ void main() {
           tester,
           house,
           level,
-          config: DrawConfig.build(roughness: 0),
+          // Same pen, no wavering: only the displacement field may differ.
+          config: DrawConfig.build(roughness: 0, pen: level.pen),
         );
         for (final y in [40, 83]) {
           for (final from in [0, 48]) {

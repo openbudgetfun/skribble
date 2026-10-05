@@ -33,6 +33,7 @@ class WiredThemeData {
   final WiredRoughness roughnessLevel;
   final double? _roughness;
   final String? _fontFamily;
+  final RoughPen? _pen;
 
   /// Bundled typeface coordinated with [roughnessLevel].
   /// An explicit [fontFamily] overrides this choice.
@@ -40,6 +41,12 @@ class WiredThemeData {
 
   /// Geometry amplitude; an explicit constructor value overrides the level.
   double get roughness => _roughness ?? roughnessLevel.roughness;
+
+  /// How lines are inked; an explicit constructor value overrides the level.
+  ///
+  /// Gentle uses [RoughPen.fineliner], Playful [RoughPen.ink], and Expressive
+  /// [RoughPen.brush]. Pass [RoughPen.uniform] for constant-width lines.
+  RoughPen get pen => _pen ?? roughnessLevel.pen;
 
   /// Font family; an explicit constructor value overrides the level.
   String get fontFamily => _fontFamily ?? font.familyFor(roughnessLevel);
@@ -51,16 +58,17 @@ class WiredThemeData {
   WiredThemeData({
     this.motionEnabled = true,
     this.inkInteraction = WiredInkInteraction.pressure,
-    this.borderColor = const Color(0xFF1A2B3C),
-    this.textColor = Colors.black,
-    this.disabledTextColor = Colors.grey,
-    this.fillColor = const Color(0xFFFEFEFE),
+    this.borderColor = WiredPalette.ink,
+    this.textColor = WiredPalette.ink,
+    this.disabledTextColor = WiredPalette.mutedInk,
+    this.fillColor = WiredPalette.paper,
     this.strokeWidth = 2.4,
     this.roughnessLevel = WiredRoughness.playful,
     this.font = WiredFont.casual,
     this._roughness,
     this._fontFamily,
     this._drawConfig,
+    this._pen,
   });
 
   /// Warm paper and plum ink from the shared Figma library.
@@ -96,6 +104,7 @@ class WiredThemeData {
         roughness: roughness,
         maxRandomnessOffset: roughnessLevel.maxRandomnessOffset,
         lineWobble: roughnessLevel.lineWobble,
+        pen: pen,
       );
 
   static final defaultTheme = WiredThemeData();
@@ -116,7 +125,8 @@ class WiredThemeData {
           font == other.font &&
           _roughness == other._roughness &&
           _fontFamily == other._fontFamily &&
-          _drawConfig == other._drawConfig;
+          _drawConfig == other._drawConfig &&
+          _pen == other._pen;
 
   @override
   int get hashCode => Object.hash(
@@ -132,6 +142,7 @@ class WiredThemeData {
     _roughness,
     _fontFamily,
     _drawConfig,
+    _pen,
   );
 
   WiredThemeData copyWith({
@@ -147,6 +158,7 @@ class WiredThemeData {
     String? fontFamily,
     WiredRoughness? roughnessLevel,
     WiredFont? font,
+    RoughPen? pen,
   }) {
     return WiredThemeData(
       motionEnabled: motionEnabled ?? this.motionEnabled,
@@ -161,14 +173,15 @@ class WiredThemeData {
       font: font ?? this.font,
       roughness: roughness ?? _roughness,
       fontFamily: fontFamily ?? _fontFamily,
+      pen: pen ?? _pen,
     );
   }
 
   /// Space required by a divider's pen, wobble, and anti-aliased edges.
   double get inkExtent =>
-      strokeWidth +
+      strokeWidth * drawConfig.pen.reach * 2 +
       2 +
-      (drawConfig.maxRandomnessOffset ?? 2) * (drawConfig.roughness ?? 1.8) * 2;
+      drawConfig.maxRandomnessOffset * drawConfig.roughness * 2;
 
   /// A softly lifted paper tone for Material page backgrounds.
   Color get paperBackgroundColor =>

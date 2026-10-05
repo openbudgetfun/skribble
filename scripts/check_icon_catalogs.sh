@@ -23,14 +23,12 @@ fi
 
 status=0
 
-echo "Checking the curated simple catalog..."
-
-if ! "$DART" run packages/skribble_emoji_gen/bin/generate_icons.dart --check; then
+echo "Checking the built-in glyphs..."
+if ! "$DART" run packages/skribble_emoji_gen/bin/generate_glyphs.dart --check; then
   status=1
 fi
 
 echo "Checking the Iconify catalogs..."
-
 if ! "$SCRIPT_DIR/generate_iconify_sets.sh" --check; then
   status=1
 fi
@@ -38,7 +36,7 @@ fi
 if ((status != 0)); then
   echo >&2
   echo "Error: committed icon catalogs are stale." >&2
-  echo "Run 'melos run icons-curated' and 'melos run icons-iconify', then commit" >&2
+  echo "Run 'melos run glyphs' and 'melos run icons-iconify', then commit" >&2
   echo "the regenerated .g.dart files." >&2
   exit 1
 fi

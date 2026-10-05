@@ -221,6 +221,11 @@ void main() {
     await tester.pump();
 
     // Still unchecked, and still announced as disabled.
-    expectSemantics(tester, findWired<WiredCheckbox>(), isEnabled: false, isChecked: false);
+    expectSemantics(
+      tester,
+      findWired<WiredCheckbox>(),
+      isEnabled: false,
+      isChecked: false,
+    );
   });
 }

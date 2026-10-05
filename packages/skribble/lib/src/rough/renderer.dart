@@ -17,7 +17,7 @@ List<Op> _line(
   final lengthSq = pow(x1 - x2, 2) + pow(y1 - y2, 2);
   final length = sqrt(lengthSq);
 
-  if (length >= 48 && config.roughness! > 0 && config.lineWobble! > 0) {
+  if (length >= 48 && config.roughness > 0 && config.lineWobble > 0) {
     return _wanderingLine(x1, y1, x2, y2, config, overlay);
   }
 
@@ -26,19 +26,27 @@ List<Op> _line(
       : length > 500
       ? 0.4
       : (-0.0016668) * length + 1.233334;
-  double offset = config.maxRandomnessOffset!;
-
+  double offset = config.maxRandomnessOffset;
   if ((offset * offset * 100) > lengthSq) {
     offset = length / 10;
   }
 
   final halfOffset = offset / 2;
-  final divergePoint = 0.2 + config.randomizer!.next() * 0.2;
+  final divergePoint = 0.2 + config.randomizer.next() * 0.2;
 
+  // Bowing grows with length, but never past the displacement painters
+  // reserve as bleed: a very long edge would otherwise leave its card.
+  final bowLimit = config.bowing.abs() * config.maxRandomnessOffset;
   double offsetX =
-      config.bowing! * config.maxRandomnessOffset! * (y2 - y1) / 200;
+      (config.bowing * config.maxRandomnessOffset * (y2 - y1) / 200).clamp(
+        -bowLimit,
+        bowLimit,
+      );
   double offsetY =
-      config.bowing! * config.maxRandomnessOffset! * (x1 - x2) / 200;
+      (config.bowing * config.maxRandomnessOffset * (x1 - x2) / 200).clamp(
+        -bowLimit,
+        bowLimit,
+      );
   offsetX = config.offsetSymmetric(offsetX, roughnessGain);
   offsetY = config.offsetSymmetric(offsetY, roughnessGain);
 
@@ -48,7 +56,7 @@ List<Op> _line(
 
   if (move) {
     if (overlay) {
-      ops.add(Op.move(PointD(x1 + randomHalf(), y1 + randomHalf())));
+      ops.add(Op.move(PointD(x1 + randomHalf(), y1 + randomHalf()), pass: 1));
     } else {
       ops.add(
         Op.move(
@@ -60,7 +68,6 @@ List<Op> _line(
       );
     }
   }
-
   if (overlay) {
     ops.add(
       Op.curveTo(
@@ -76,7 +83,6 @@ List<Op> _line(
       ),
     );
   } else {
-
     ops.add(
       Op.curveTo(
         PointD(
@@ -91,7 +97,6 @@ List<Op> _line(
       ),
     );
   }
-
   return ops;
 }
 
@@ -110,24 +115,25 @@ List<Op> _wanderingLine(
   final dy = y2 - y1;
   final length = sqrt(dx * dx + dy * dy);
   final segments = (length / 48).ceil();
-  final limit = config.maxRandomnessOffset! * config.roughness!;
-  final offset = config.maxRandomnessOffset! * (overlay ? 0.85 : 1);
-  final bow = config.offsetSymmetric(offset) * config.bowing! * 0.3;
-
+  final limit = config.maxRandomnessOffset * config.roughness;
+  final offset = config.maxRandomnessOffset * (overlay ? 0.85 : 1);
+  final bow = config.offsetSymmetric(offset) * config.bowing * 0.3;
   final displacements = List.generate(segments + 1, (i) {
     final t = i / segments;
     final endGain = i == 0 || i == segments ? 0.45 : 1.0;
 
     return ((config.offsetSymmetric(offset) * 0.7 * endGain +
                 bow * sin(t * pi)) *
-            config.lineWobble!)
+            config.lineWobble)
         .clamp(-limit, limit);
   });
   PointD point(double t, double displacement) => PointD(
     x1 + dx * t - dy / length * displacement,
     y1 + dy * t + dx / length * displacement,
   );
-  final ops = <Op>[Op.move(point(0, displacements.first))];
+  final ops = <Op>[
+    Op.move(point(0, displacements.first), pass: overlay ? 1 : 0),
+  ];
 
   for (var i = 0; i < segments; i++) {
     final before = displacements[max(0, i - 1)];
@@ -172,7 +178,6 @@ class OpSetBuilder {
     DrawConfig config,
   ) {
     final EllipseParams params = generateEllipseParams(width, height, config);
-
     return ellipseSet(x, y, config, params);
   }
 
@@ -182,12 +187,10 @@ class OpSetBuilder {
 
   static OpSet linearPath(List<PointD> points, bool close, DrawConfig config) {
     final int len = points.length;
-
     if (len > 2) {
       // `ops += ...` copies the accumulated list on every edge, which turns a
       // polygon into quadratic work as the vertex count grows.
       final List<Op> ops = [];
-
       for (int i = 0; i < len - 1; i++) {
         ops.addAll(
           OpsGenerator.doubleLine(
@@ -199,7 +202,6 @@ class OpSetBuilder {
           ),
         );
       }
-
       if (close) {
         ops.addAll(
           OpsGenerator.doubleLine(
@@ -211,9 +213,7 @@ class OpSetBuilder {
           ),
         );
       }
-
       return OpSet(type: OpSetType.path, ops: ops);
-
     } else if (len == 2) {
       return buildLine(
         points[0].x,
@@ -245,25 +245,33 @@ class OpSetBuilder {
     rx += config.offsetSymmetric(rx * 0.01);
     ry += config.offsetSymmetric(ry * 0.01);
     double strt = start;
-
     double stp = stop;
-
     while (strt < 0) {
       strt += pi * 2;
       stp += pi * 2;
     }
-
     if ((stp - strt) > (pi * 2)) {
       strt = 0;
       stp = pi * 2;
     }
-
-    final double ellipseInc = pi * 2 / config.curveStepCount!;
+    final double ellipseInc = pi * 2 / config.curveStepCount;
     final double arcIn = min(ellipseInc / 2, (stp - strt) / 2);
     ops
       ..addAll(OpsGenerator.arc(arcIn, cx, cy, rx, ry, strt, stp, 1, config))
-      ..addAll(OpsGenerator.arc(arcIn, cx, cy, rx, ry, strt, stp, 1.5, config));
-
+      ..addAll(
+        OpsGenerator.arc(
+          arcIn,
+          cx,
+          cy,
+          rx,
+          ry,
+          strt,
+          stp,
+          1.5,
+          config,
+          pass: 1,
+        ),
+      );
     if (closed) {
       if (roughClosure) {
         ops
@@ -291,7 +299,6 @@ class OpSetBuilder {
           ..add(Op.lineTo(PointD(cx + rx * cos(strt), cy + ry * sin(strt))));
       }
     }
-
     return OpSet(type: OpSetType.path, ops: ops);
   }
 
@@ -309,22 +316,17 @@ class OpSetBuilder {
     radiusY += config.offsetSymmetric(radiusY * 0.01);
     double start = startAngle;
     double stop = stopAngle;
-
     while (start < 0) {
       start += pi * 2;
-
       stop += pi * 2;
     }
-
     if ((stop - start) > (pi * 2)) {
       start = 0;
       stop = pi * 2;
     }
-
-    final double ellipseInc = pi * 2 / config.curveStepCount!;
+    final double ellipseInc = pi * 2 / config.curveStepCount;
     final double increment = min(ellipseInc / 2, (stop - start) / 2);
     final List<PointD> points = [];
-
     for (double angle = start; angle <= stop; angle = angle + increment) {
       points.add(
         PointD(
@@ -333,28 +335,26 @@ class OpSetBuilder {
         ),
       );
     }
-
     points
       ..add(
         PointD(center.x + radiusX * cos(stop), center.y + radiusY * sin(stop)),
       )
       ..add(center);
-
     return points;
   }
 
   static OpSet curve(List<PointD> points, DrawConfig config) {
     final List<Op> op1 = OpsGenerator.curveWithOffset(
       points,
-      1 * (1 + config.roughness! * 0.2),
+      1 * (1 + config.roughness * 0.2),
       config,
     );
     final List<Op> op2 = OpsGenerator.curveWithOffset(
       points,
-      1.5 * (1 + config.roughness! * 0.2),
+      1.5 * (1 + config.roughness * 0.2),
       config,
+      pass: 1,
     );
-
     return OpSet(type: OpSetType.path, ops: op1 + op2);
   }
 }
@@ -371,22 +371,23 @@ class OpsGenerator {
   ) {
     final List<Op> o1 = _line(x1, y1, x2, y2, config, true, false);
     final List<Op> o2 = _line(x1, y1, x2, y2, config, true, true);
-
     return o1 + o2;
   }
 
-  static List<Op> curve(List<PointD> points, DrawConfig config) {
+  /// Fits a Catmull-Rom curve through [points], drawn as pen [pass].
+  static List<Op> curve(
+    List<PointD> points,
+    DrawConfig config, {
+    int pass = 0,
+  }) {
     final int len = points.length;
-
     if (len > 3) {
       final List<Op> ops = [];
-      final double s = 1 - config.curveTightness!;
-      ops.add(Op.move(points[1]));
-
+      final double s = 1 - config.curveTightness;
+      ops.add(Op.move(points[1], pass: pass));
       for (int i = 1; (i + 2) < len; i++) {
         final point = points[i];
         final next = points[i + 1];
-
         final afterNext = points[i + 2];
         final PointD previous = points[i - 1];
         final control1 = PointD(
@@ -400,10 +401,12 @@ class OpsGenerator {
         final end = PointD(next.x, next.y);
         ops.add(Op.curveTo(control1, control2, end));
       }
-
       return ops;
     } else if (len == 3) {
-      return [Op.move(points[1]), Op.curveTo(points[1], points[2], points[2])];
+      return [
+        Op.move(points[1], pass: pass),
+        Op.curveTo(points[1], points[2], points[2]),
+      ];
     } else if (len == 2) {
       return doubleLine(
         points[0].x,
@@ -413,15 +416,15 @@ class OpsGenerator {
         config,
       );
     }
-
     return [];
   }
 
   static List<Op> curveWithOffset(
     List<PointD> points,
     double offset,
-    DrawConfig config,
-  ) {
+    DrawConfig config, {
+    int pass = 0,
+  }) {
     final List<PointD> result = [
       PointD(
         points.first.x + config.offsetSymmetric(offset),
@@ -438,8 +441,7 @@ class OpsGenerator {
         points.last.y + config.offsetSymmetric(offset),
       ),
     ];
-
-    return curve(result, config);
+    return curve(result, config, pass: pass);
   }
 
   static List<Op> arc(
@@ -451,8 +453,9 @@ class OpsGenerator {
     double strt,
     double stp,
     double offset,
-    DrawConfig config,
-  ) {
+    DrawConfig config, {
+    int pass = 0,
+  }) {
     final List<PointD> points = [];
     final double radOffset = strt + config.offsetSymmetric(0.1);
     points.add(
@@ -465,7 +468,6 @@ class OpsGenerator {
             0.9 * ry * sin(radOffset - increment),
       ),
     );
-
     for (double angle = radOffset; angle <= stp; angle += increment) {
       points.add(
         PointD(
@@ -474,12 +476,10 @@ class OpsGenerator {
         ),
       );
     }
-
     points
       ..add(PointD(cx + rx * cos(stp), cy + ry * sin(stp)))
       ..add(PointD(cx + rx * cos(stp), cy + ry * sin(stp)));
-
-    return curve(points, config);
+    return curve(points, config, pass: pass);
   }
 }
 
@@ -492,11 +492,11 @@ EllipseParams generateEllipseParams(
     pi * 2 * sqrt((pow(width / 2, 2) + pow(height / 2, 2)) / 2),
   );
   final double stepCount = max(
-    config.curveStepCount!,
-    (config.curveStepCount! / sqrt(200)) * psq,
+    config.curveStepCount,
+    (config.curveStepCount / sqrt(200)) * psq,
   );
   final double increment = (pi * 2) / stepCount;
-  final double curveFitRandomness = 1 - config.curveFitting!;
+  final double curveFitRandomness = 1 - config.curveFitting;
 
   double rx = (width / 2).abs();
   double ry = (height / 2).abs();
@@ -534,8 +534,7 @@ OpSet ellipseSet(
     config: config,
   );
   final List<Op> o1 = OpsGenerator.curve(ellipsePoints1, config);
-  final List<Op> o2 = OpsGenerator.curve(ellipsePoints2, config);
-
+  final List<Op> o2 = OpsGenerator.curve(ellipsePoints2, config, pass: 1);
   return OpSet(type: OpSetType.path, ops: o1 + o2);
 }
 
@@ -604,6 +603,5 @@ List<PointD> computeEllipseAllPoints({
             0.9 * ry * sin(radOffset + overlap * 0.5),
       ),
     );
-
   return allPoints;
 }

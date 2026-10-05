@@ -16,8 +16,10 @@ void main() {
 
     test('pathPainter default color matches borderColor', () {
       final paint = WiredBase.pathPainter(2);
-      expect(paint.color.a, closeTo(1.0, 0.01));
-      expect(paint.color.r, closeTo(0.102, 0.01));
+      expect(paint.color.r, closeTo(WiredPalette.ink.r, 1e-6));
+      expect(paint.color.g, closeTo(WiredPalette.ink.g, 1e-6));
+      expect(paint.color.b, closeTo(WiredPalette.ink.b, 1e-6));
+      expect(paint.color.a, closeTo(WiredPalette.ink.a, 1e-6));
     });
 
     test('pathPainter accepts custom color', () {

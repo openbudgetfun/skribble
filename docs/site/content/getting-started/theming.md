@@ -16,10 +16,10 @@ Every Wired widget reads its visual properties from a single `WiredThemeData` ob
 ```dart
 // Static example: api
 WiredThemeData({
-  Color borderColor = const Color(0xFF1A2B3C),
-  Color textColor = Colors.black,
-  Color disabledTextColor = Colors.grey,
-  Color fillColor = const Color(0xFFFEFEFE),
+  Color borderColor = WiredPalette.ink,
+  Color textColor = WiredPalette.ink,
+  Color disabledTextColor = WiredPalette.mutedInk,
+  Color fillColor = WiredPalette.paper,
   double strokeWidth = 2.4,
   WiredRoughness roughnessLevel = WiredRoughness.playful,
   double? roughness,
@@ -30,17 +30,19 @@ WiredThemeData({
 
 ### Parameters
 
-| Parameter           | Type             | Default               | Description                                                                                                                                                 |
-| ------------------- | ---------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `borderColor`       | `Color`          | `Color(0xFF1A2B3C)`   | The color used for all hand-drawn borders, outlines, and strokes. A dark blue-gray by default.                                                              |
-| `textColor`         | `Color`          | `Colors.black`        | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`.                                                                   |
-| `disabledTextColor` | `Color`          | `Colors.grey`         | Text color for disabled widgets.                                                                                                                            |
-| `fillColor`         | `Color`          | `Color(0xFFFEFEFE)`   | Background fill for cards, inputs, dialogs, and other surfaces. Near-white by default.                                                                      |
-| `strokeWidth`       | `double`         | `2.4`                 | Width in logical pixels of the rough-drawn border strokes.                                                                                                  |
-| `roughnessLevel`    | `WiredRoughness` | `playful`             | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                          |
-| `roughness`         | `double?`        | `null` → level value  | Optional geometry amplitude override. The default playful level resolves to `1.5`; `0` removes random displacement.                                         |
-| `fontFamily`        | `String?`        | `null` → level family | Optional font override. Bundled families resolve to the `skribble` package; custom families belong to the consuming app.                                    |
-| `drawConfig`        | `DrawConfig?`    | `null` → level config | Optional complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and any explicit `roughness`. |
+| Parameter           | Type             | Default                 | Description                                                                                                                                                 |
+| ------------------- | ---------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderColor`       | `Color`          | `WiredPalette.ink`      | The color used for all hand-drawn borders, outlines, and strokes. Plum ink by default.                                                                      |
+| `textColor`         | `Color`          | `WiredPalette.ink`      | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`.                                                                   |
+| `disabledTextColor` | `Color`          | `WiredPalette.mutedInk` | Text color for disabled widgets. A muted plum by default.                                                                                                   |
+| `fillColor`         | `Color`          | `WiredPalette.paper`    | Background fill for cards, inputs, dialogs, and other surfaces. Warm paper by default.                                                                      |
+| `strokeWidth`       | `double`         | `2.4`                   | Width in logical pixels of the rough-drawn border strokes.                                                                                                  |
+| `roughnessLevel`    | `WiredRoughness` | `playful`               | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                          |
+| `roughness`         | `double?`        | `null` → level value    | Optional geometry amplitude override. The default playful level resolves to `1.5`; `0` removes random displacement.                                         |
+| `fontFamily`        | `String?`        | `null` → level family   | Optional font override. Bundled families resolve to the `skribble_font_recursive` package; custom families belong to the consuming app.                     |
+| `drawConfig`        | `DrawConfig?`    | `null` → level config   | Optional complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and any explicit `roughness`. |
+
+The defaults above are the branded warm-paper palette (`WiredThemeData.cuddly()` for light mode is the same palette with explicit light/dark switching). Reach for the `WiredPalette` constants — `ink`, `paper`, `night`, `mutedInk`, `mutedPaper`, plus the `lilac`, `peach`, `sage`, `butter`, and `coral` accent washes — so custom themes stay consistent with the kit.
 
 ### copyWith
 
@@ -152,9 +154,9 @@ skribble's core installs `WiredTheme` without touching Material. When Material w
 ```dart
 // Static example: api
 final scheme = WiredThemeData(
-  borderColor: Color(0xFF1A2B3C),
-  fillColor: Color(0xFFFEFEFE),
-  textColor: Colors.black,
+  borderColor: WiredPalette.ink,
+  fillColor: WiredPalette.paper,
+  textColor: WiredPalette.ink,
 ).toColorScheme();
 
 // scheme.primary      == borderColor
@@ -345,7 +347,7 @@ WiredMaterialApp(
 )
 ```
 
-The red-themed card and button will use `Colors.red` for borders, while everything outside that subtree keeps the default `Color(0xFF1A2B3C)` border color.
+The red-themed card and button will use `Colors.red` for borders, while everything outside that subtree keeps the default `WiredPalette.ink` border color.
 
 ## Next steps
 
@@ -357,7 +359,7 @@ The red-themed card and button will use `Colors.red` for borders, while everythi
 
 skribble's four text styles are derived from the matching **Recursive Sans Casual** static sources. `WiredMaterialApp` registers the package-qualified skribble family through its theme, so regular, bold, italic, and bold italic select the right bundled assets. Do not manually register only the regular font with `FontLoader`.
 
-For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble'`. Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.5. Local widget text styles merge with inherited typography instead of dropping the font family. The bundled Recursive Casual derivative uses deformation strength 27 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
+For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble_font_recursive'` — the bundled families ship in the `skribble_font_recursive` package (install it with `flutter pub add skribble_font_recursive`; see [Installation](/getting-started/installation)). Custom font families remain unqualified. The default pen is 2.4 logical pixels with roughness 1.5. Local widget text styles merge with inherited typography instead of dropping the font family. The bundled Recursive Casual derivative uses deformation strength 27 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
 
 ## App-wide roughness levels
 
@@ -385,7 +387,7 @@ Playful is the default. The docs toolbar switches all inherited lettering and in
 | `playful`    | An intermediate amount of wavering ink       | 1.5              | 27               | `SkribblePlayful` |
 | `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
 
-Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble'` for code-only typography. An explicit `fontFamily` takes precedence.
+Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble_font_recursive'` for code-only typography. An explicit `fontFamily` takes precedence.
 
 All levels keep the 2.4px pen. Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three typefaces bundles twelve static faces. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 

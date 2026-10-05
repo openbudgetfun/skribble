@@ -26,7 +26,10 @@ The Dart port of rough.js that generates hand-drawn paths.
 
 Key types:
 
-- `DrawConfig` — roughness, bowing, seed, and curve settings
+- `DrawConfig` — roughness, bowing, seed, curve settings, and the pen
+- `RoughPen` — how ink is laid along a line: taper, pressure, lighter partial repeat passes, and loop closure (`uniform`, `fineliner`, `ink`, `brush`)
+- `InkStroke` — pure-Dart variable-width ink sampled from rough operations; writes outlines to an `InkOutlineSink` (`PathInkOutline`, `SvgInkOutline`)
+- `DrawableInk`, `DrawableInkSet`, `InkSvgPath` — a whole drawable's ink, prepared exactly as painted, with SVG export
 - `Generator` — creates `Drawable` shapes (rectangle, circle, polygon, arc, etc.)
 - `Filler` — abstract fill pattern (HachureFiller, DotFiller, SolidFiller, etc.)
 - `FillerConfig` — gap, angle, dash settings for fillers
@@ -237,11 +240,16 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 
 #### Icons
 
-| Widget              | File                       |
-| ------------------- | -------------------------- |
-| `WiredIcon`         | `wired_icon.dart`          |
-| `WiredSvgIconData`  | `wired_svg_icon_data.dart` |
-| `WiredAnimatedIcon` | `wired_animated_icon.dart` |
+| Export                                        | File                               |
+| --------------------------------------------- | ---------------------------------- |
+| `WiredIcon`, `WiredSvgIcon`                   | `wired_icon.dart`                  |
+| `SkribbleIcon`                                | `skribble_icon.dart`               |
+| `WiredIconFillStyle`, `wiredIconWeightFactor` | `wired_svg_icon_painter.dart`      |
+| `SkribbleGlyphs`                              | `generated/skribble_glyphs.g.dart` |
+| `WiredSvgIconData`                            | `wired_svg_icon_data.dart`         |
+| `WiredAnimatedIcon`                           | `wired_animated_icon.dart`         |
+
+Every icon widget takes a `weight` from 100 to 700 (falling back to `IconTheme.weight`), and scales with the theme's `strokeWidth`. `SkribbleGlyphs` holds skribble's 51 hand-drawn stroke glyphs as named constants plus `SkribbleGlyphs.all`; `WiredIcon` uses them for common Material icons when no catalog is registered.
 
 ## Package dependencies
 
@@ -255,14 +263,19 @@ The main library depends on:
 
 ## Companion packages
 
-| Package                 | Purpose                                                           |
-| ----------------------- | ----------------------------------------------------------------- |
-| `skribble_icons`        | 30 curated hand-drawn custom icons + unified API                  |
-| `skribble_emoji`        | Hand-drawn emoji from OpenMoji + WiredEmoji widget                |
-| `skribble_maps`         | MapLibre maps with hand-drawn skribble overlays                   |
-| `skribble_charts`       | Exact OHLC data, hand-drawn charts, indicators, and drawing tools |
-| `skribble_lints`        | Shared lint rules (extends `very_good_analysis`)                  |
-| `skribble_icons_custom` | Example custom icon set with SVG-manifest pipeline                |
+| Package                   | Purpose                                                           |
+| ------------------------- | ----------------------------------------------------------------- |
+| `skribble_icons`          | Every icon set behind one import, with a unified lookup           |
+| `skribble_icons_material` | Flutter's Material icons as hand-drawable geometry                |
+| `skribble_icons_lucide`   | Lucide outline icons                                              |
+| `skribble_icons_bxs`      | Boxicons solid icons                                              |
+| `skribble_icons_simple`   | Simple Icons brand marks                                          |
+| `skribble_icons_cib`      | CoreUI brand marks                                                |
+| `skribble_emoji`          | Hand-drawn emoji + WiredEmoji widget                              |
+| `skribble_font_recursive` | The bundled hand-drawn typefaces                                  |
+| `skribble_maps`           | MapLibre maps with hand-drawn skribble overlays                   |
+| `skribble_charts`         | Exact OHLC data, hand-drawn charts, indicators, and drawing tools |
+| `skribble_lints`          | Shared lint rules (extends `very_good_analysis`)                  |
 
 ### skribble_icons
 
@@ -271,13 +284,13 @@ The main library depends on:
 import 'package:skribble_icons/skribble_icons.dart';
 ```
 
-| Export                             | Type                         | Purpose                                           |
-| ---------------------------------- | ---------------------------- | ------------------------------------------------- |
-| `kSkribbleIcons`                   | `Map<int, WiredSvgIconData>` | All custom icons keyed by codepoint               |
-| `kSkribbleIconsCodePoints`         | `Map<String, int>`           | Icon identifier to codepoint mapping              |
-| `lookupSkribbleIconByIdentifier()` | function                     | Look up custom icon data by name                  |
-| `WiredSvgIconData`                 | class                        | SVG icon data (re-exported from `skribble`)       |
-| `WiredSvgPrimitive`                | class                        | SVG primitive types (re-exported from `skribble`) |
+| Export                             | Type             | Purpose                                                |
+| ---------------------------------- | ---------------- | ------------------------------------------------------ |
+| `registerSkribbleIcons()`          | function         | Registers the Material catalog for `WiredIcon`         |
+| `lookupSkribbleIconByIdentifier()` | function         | Geometry for a name, searching glyphs first, then sets |
+| `lookupSkribbleIcon()`             | function         | The same, plus the `SkribbleIconSet` that matched      |
+| `SkribbleIconSet`                  | enum             | `glyphs`, `simple`, `material`, `lucide`, `bxs`, `cib` |
+| Each set's catalog                 | maps and lookups | Re-exported from the individual icon packages          |
 
 `WiredSvgIcon`, `WiredIcon`, and `SkribbleIcon` (from `package:skribble/skribble.dart`) inherit the theme's Gentle, Playful, or Expressive treatment. `SkribbleIcon.drawConfig` optionally overrides that treatment, including `DrawConfig.build(roughness: 0)` to draw the supplied geometry without additional wavering.
 
@@ -361,7 +374,7 @@ SVG path primitives also accept `strokeDashArray`, `strokeDashOffset`, `strokeCa
 
 ### Roughness presets
 
-`WiredRoughness.gentle`, `.playful`, and `.expressive` are public exports. Pass a level through `WiredThemeData(roughnessLevel: ...)` or `copyWith(roughnessLevel: ...)` to coordinate the font and drawing defaults. `WiredThemeData.fontPackage` resolves bundled families for standalone text styles. Explicit font and geometry overrides remain supported. `DrawConfig.lineWobble` selects the local wandering strength, with zero restoring gently bowed edges.
+`WiredRoughness.gentle`, `.playful`, and `.expressive` are public exports. Pass a level through `WiredThemeData(roughnessLevel: ...)` or `copyWith(roughnessLevel: ...)` to coordinate the font, pen, and drawing defaults; `WiredThemeData(pen: ...)` overrides only the pen. `WiredThemeData.fontPackage` resolves bundled families for standalone text styles. Explicit font and geometry overrides remain supported. `DrawConfig.lineWobble` selects the local wandering strength, with zero restoring gently bowed edges.
 
 ## Ink motion
 

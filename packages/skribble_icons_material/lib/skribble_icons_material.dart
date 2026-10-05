@@ -1,6 +1,8 @@
 /// Hand-drawn Material icon catalog for skribble.
 ///
-/// Ships precomputed rough geometry for the full Flutter Material icon set
+/// Ships the source geometry for the full Flutter Material icon set. At render
+/// time [WiredIcon] wavers each silhouette with the theme's roughness and
+/// honours `weight`.
 ///
 /// Importing this library does not activate the catalog. Call
 /// [registerSkribbleMaterialIcons] once during startup so that [WiredIcon]

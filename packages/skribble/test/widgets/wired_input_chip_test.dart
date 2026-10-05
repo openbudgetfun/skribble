@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
+import '../helpers/finders.dart';
 
-Finder findWiredIcon(IconData icon) {
-  return find.byWidgetPredicate(
-    (widget) => widget is WiredIcon && widget.icon == icon,
-    description: 'WiredIcon($icon)',
-  );
-}
+import '../helpers/pump_app.dart';
 
 void main() {
   group('WiredInputChip', () {
@@ -27,7 +22,7 @@ void main() {
           ),
         ),
       );
-      expect(findWiredIcon(Icons.close), findsOneWidget);
+      expect(findWiredGlyph(SkribbleGlyphs.close), findsOneWidget);
     });
 
     testWidgets('calls onDeleted', (tester) async {
@@ -42,7 +37,7 @@ void main() {
           ),
         ),
       );
-      await tester.tap(findWiredIcon(Icons.close));
+      await tester.tap(findWiredGlyph(SkribbleGlyphs.close));
       expect(deleted, isTrue);
     });
 

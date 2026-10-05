@@ -44,15 +44,16 @@ void deferComparisonFonts(Directory output) {
     final name = family['family'] as String;
     final fonts = (family['fonts'] as List).cast<Map<String, dynamic>>();
     final isSkribble = name.startsWith('packages/skribble_font_recursive/');
-    final isOriginal = name.startsWith('Recursive') &&
-        name.endsWith('Original');
+    final isOriginal =
+        name.startsWith('Recursive') && name.endsWith('Original');
 
     if (!isSkribble && !isOriginal) {
       startup.add(family);
       continue;
     }
 
-    final isReadingFamily = name.startsWith(
+    final isReadingFamily =
+        name.startsWith(
           'packages/skribble_font_recursive/Skribble',
         ) &&
         !name.contains('Linear') &&
@@ -67,7 +68,8 @@ void deferComparisonFonts(Directory output) {
         final italic = font['style'] == 'italic';
         return weight == 400 ||
             weight == 700 ||
-            (isCasual && !italic &&
+            (isCasual &&
+                !italic &&
                 (weight == 500 || weight == 600 || weight == 800));
       }).toList();
       startup.add({...family, 'fonts': readingFaces});

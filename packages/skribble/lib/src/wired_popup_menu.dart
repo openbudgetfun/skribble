@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'generated/skribble_glyphs.g.dart';
 import 'motion/wired_draw.dart';
 import 'motion/wired_ink_response.dart';
 import 'rough/skribble_rough.dart';
@@ -36,11 +37,9 @@ class WiredPopupMenuButton<T> extends HookWidget {
       child: PopupMenuButton<T>(
         icon:
             icon ??
-            WiredIcon(
-              icon: Icons.more_vert,
+            WiredSvgIcon(
+              data: SkribbleGlyphs.moreVertical,
               color: theme.textColor,
-              fillStyle: WiredIconFillStyle.solid,
-              strokeWidth: 1.2,
             ),
         onSelected: onSelected,
         color: theme.fillColor,

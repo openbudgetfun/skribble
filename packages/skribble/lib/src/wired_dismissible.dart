@@ -104,8 +104,6 @@ class WiredDismissible extends HookWidget {
           child: WiredIcon(
             icon: deleteIcon,
             color: Colors.white,
-            fillStyle: WiredIconFillStyle.solid,
-            strokeWidth: 1.2,
           ),
         ),
       ],
