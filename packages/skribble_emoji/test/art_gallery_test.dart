@@ -70,6 +70,8 @@ const List<EmojiPaint> _paints = [
 ];
 
 void main() {
+  filmstrips();
+
   test('every emoji token is known to the art compiler', () {
     expect(
       [for (final token in EmojiToken.values) token.artName],
@@ -235,5 +237,63 @@ void main() {
       image.dispose();
       picture.dispose();
     }
+  });
+}
+
+/// Filmstrips for reviewing motion: each emoji in `EMOJI_FILMSTRIP`
+/// (comma-separated emoji) across one loop, a row each, with its boil.
+/// Written to ../../.screenshots/emoji/filmstrip.png or EMOJI_GALLERY_OUT.
+void filmstrips() {
+  test('render emoji motion filmstrips', () async {
+    final filter = Platform.environment['EMOJI_FILMSTRIP'];
+    if (filter == null) return;
+    final entries = [
+      for (final emoji in filter.split(','))
+        ?SkribbleEmoji.lookup(emoji.trim()),
+    ];
+    const frames = 12;
+    const cell = 80.0;
+    final theme = WiredThemeData();
+    final recorder = ui.PictureRecorder();
+    final canvas = Canvas(recorder)
+      ..drawColor(const Color(0xFFFFFAF0), BlendMode.src);
+    for (final (row, entry) in entries.indexed) {
+      final motion = EmojiMotions.of(entry);
+      final config = emojiDrawConfig(theme, 64);
+      for (var frame = 0; frame < frames; frame++) {
+        final t = frame / frames;
+        final seconds =
+            t *
+            (motion?.duration ?? const Duration(seconds: 2)).inMilliseconds /
+            1000;
+        final boil = (seconds * 8).floor() % 3;
+        final drawing = EmojiDrawing(
+          entry,
+          size: 64,
+          config: config,
+          inking: boil,
+        );
+        canvas
+          ..save()
+          ..translate(frame * cell + 8, row * cell + 8);
+        if (motion == null) {
+          drawing.paint(canvas);
+        } else {
+          motion.paint(canvas, drawing, t);
+        }
+        canvas.restore();
+      }
+    }
+    final image = await recorder.endRecording().toImage(
+      (frames * cell).toInt(),
+      (entries.length * cell).toInt(),
+    );
+    final png = await image.toByteData(format: ui.ImageByteFormat.png);
+    final out =
+        Platform.environment['EMOJI_GALLERY_OUT'] ?? '../../.screenshots/emoji';
+    File('$out/filmstrip.png')
+      ..createSync(recursive: true)
+      ..writeAsBytesSync(png!.buffer.asUint8List());
+    image.dispose();
   });
 }

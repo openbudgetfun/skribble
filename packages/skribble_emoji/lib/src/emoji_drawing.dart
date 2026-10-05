@@ -31,6 +31,7 @@ final class EmojiDrawing {
     required DrawConfig config,
     EmojiPalette palette = EmojiPalette.skribble,
     double weight = 1,
+    int inking = 0,
   }) => EmojiDrawing.art(
     entry.drawing,
     size: size,
@@ -42,6 +43,7 @@ final class EmojiDrawing {
     variant: entry.variant ?? EmojiVariant.person,
     mirrored: entry.mirrored,
     seed: entry.art.hashCode,
+    inking: inking,
   );
 
   /// Prepares any [art] in skribble's emoji style, including your own.
@@ -49,6 +51,10 @@ final class EmojiDrawing {
   /// [tone] and [tone2] resolve the person tokens, [variant] picks which
   /// hair variant to draw, and [mirrored] flips the art horizontally. [seed]
   /// varies the marker registration between drawings that share a config.
+  ///
+  /// [inking] retraces the same wavering shapes by a fresh hand: the pen's
+  /// pressure and the marker's registration change, the shapes do not.
+  /// Cycling a few inkings is the "boil" of hand-drawn animation.
   factory EmojiDrawing.art(
     EmojiArt art, {
     required double size,
@@ -60,6 +66,7 @@ final class EmojiDrawing {
     EmojiVariant variant = EmojiVariant.person,
     bool mirrored = false,
     int seed = 0,
+    int inking = 0,
   }) {
     final scale = size / kEmojiArtSize;
     final matrix = Float64List(16)
@@ -69,7 +76,7 @@ final class EmojiDrawing {
       ..[12] = mirrored ? size : 0
       ..[15] = 1;
     final bounds = Offset.zero & Size.square(size);
-    final random = math.Random(config.seed * 31 + seed);
+    final random = math.Random(config.seed * 31 + seed + inking * 7);
     // Marker fills sit a little off the line, all in one direction, like a
     // second pass that never quite registers with the first.
     final angle = random.nextDouble() * math.pi * 2;
@@ -103,7 +110,11 @@ final class EmojiDrawing {
             contour.toOps(),
             width: shape.width * scale * weight,
             pen: config.pen,
-            seed: config.seed * 7919 + index * 131 + contourIndex,
+            seed:
+                config.seed * 7919 +
+                inking * 104729 +
+                index * 131 +
+                contourIndex,
           ).writeOutline(sink);
         }
         ink = sink.path;
@@ -136,6 +147,21 @@ final class EmojiDrawing {
 
   final List<_PreparedShape> _shapes;
 
+  /// The bounds of [part] in this drawing, or null when it has no such part.
+  Rect? boundsOf(String part) => _bounds.putIfAbsent(part, () {
+    Rect? bounds;
+    for (final shape in _shapes) {
+      if (shape.part != part) continue;
+      for (final path in [?shape.fill, ?shape.ink]) {
+        final rect = path.getBounds();
+        bounds = bounds == null ? rect : bounds.expandToInclude(rect);
+      }
+    }
+    return bounds;
+  });
+
+  final Map<String, Rect?> _bounds = {};
+
   /// The distinct parts in this drawing, in paint order.
   late final List<String> parts = [
     for (final part in {for (final shape in _shapes) ?shape.part}) part,
@@ -143,24 +169,34 @@ final class EmojiDrawing {
 
   /// Paints the drawing with its top-left corner at the canvas origin.
   ///
-  /// [pose] moves named parts as rigid groups; parts it does not mention stay
-  /// at rest.
-  void paint(Canvas canvas, {Map<String, Matrix4> pose = const {}}) {
+  /// [pose] moves named parts as rigid groups, and [opacity] fades them;
+  /// parts neither mentions stay at rest.
+  void paint(
+    Canvas canvas, {
+    Map<String, Matrix4> pose = const {},
+    Map<String, double> opacity = const {},
+  }) {
     for (final shape in _shapes) {
-      final transform = shape.part == null ? null : pose[shape.part];
+      final part = shape.part;
+      final transform = part == null ? null : pose[part];
+      final alpha = part == null ? 1.0 : (opacity[part] ?? 1.0);
+      if (alpha <= 0) continue;
       final clip = shape.clip;
       if (transform != null || clip != null) canvas.save();
       if (transform != null) canvas.transform(transform.storage);
       if (clip != null) canvas.clipPath(clip);
       if (shape.fill case final fill?) {
-        canvas.drawPath(fill, Paint()..color = shape.fillColor!);
+        canvas.drawPath(fill, Paint()..color = _faded(shape.fillColor!, alpha));
       }
       if (shape.ink case final ink?) {
-        canvas.drawPath(ink, Paint()..color = shape.inkColor!);
+        canvas.drawPath(ink, Paint()..color = _faded(shape.inkColor!, alpha));
       }
       if (transform != null || clip != null) canvas.restore();
     }
   }
+
+  static Color _faded(Color color, double alpha) =>
+      alpha >= 1 ? color : color.withValues(alpha: color.a * alpha);
 }
 
 final class _PreparedShape {

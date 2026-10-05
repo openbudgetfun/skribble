@@ -87,10 +87,7 @@ class WiredEmoji extends StatelessWidget {
       size: size,
       config: drawConfig ?? emojiDrawConfig(theme, size),
       palette: palette,
-      weight:
-          wiredIconWeightFactor(weight ?? IconTheme.of(context).weight ?? 400) *
-          theme.strokeWidth /
-          2.4,
+      weight: emojiPenWeight(context, theme, weight),
     );
     return Semantics(
       label: semanticLabel ?? entry.name,
@@ -104,6 +101,19 @@ class WiredEmoji extends StatelessWidget {
     );
   }
 }
+
+/// The pen width multiplier for an emoji [weight] from 100 to 700, falling
+/// back to [IconThemeData.weight] and then 400, scaled with the theme pen.
+///
+/// Not exported: `WiredEmoji` and `WiredAnimatedEmoji` share it.
+double emojiPenWeight(
+  BuildContext context,
+  WiredThemeData theme,
+  double? weight,
+) =>
+    wiredIconWeightFactor(weight ?? IconTheme.of(context).weight ?? 400) *
+    theme.strokeWidth /
+    2.4;
 
 /// The wavering and pen emoji use under [theme] at [size].
 ///
@@ -134,8 +144,9 @@ EmojiDrawing emojiDrawingFor(
   required DrawConfig config,
   EmojiPalette palette = EmojiPalette.skribble,
   double weight = 1,
+  int inking = 0,
 }) {
-  final key = (entry.emoji, size, config, palette, weight);
+  final key = (entry.emoji, size, config, palette, weight, inking);
   final cached = _cache.remove(key);
   if (cached != null) {
     _cache[key] = cached;
@@ -147,6 +158,7 @@ EmojiDrawing emojiDrawingFor(
     config: config,
     palette: palette,
     weight: weight,
+    inking: inking,
   );
   _cache[key] = drawing;
   if (_cache.length > _cacheSize) _cache.remove(_cache.keys.first);
