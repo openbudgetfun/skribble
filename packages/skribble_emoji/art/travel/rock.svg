@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="rock" stroke="ink">
+    <path d="M3.6 26.6 C3 20.6 6.4 12.6 12.6 9.6 C17.4 7.2 24.6 7.6 28.6 12.2 C32.4 16.6 33.6 23.4 32.2 27.6 C31.2 30.4 28.4 31 24.4 31 L8.6 31 C5.6 31 4 29.2 3.6 26.6 Z" fill="grey"/>
+    <path d="M28.6 12.2 C32.4 16.6 33.6 23.4 32.2 27.6 C31.2 30.4 28.4 31 24.4 31 L18 31 C24.4 29.4 28.8 26.4 29.8 21 C30.2 18 29.8 14.8 28.6 12.2 Z" fill="grey-shade" stroke="none"/>
+    <path d="M12.6 9.6 L15.4 16 L13 22.6 M15.4 16 L22.6 17.4 L25 11.8 M22.6 17.4 L23.6 23.4" fill="none" stroke-width="1.5"/>
+    <path d="M7.8 19.6 Q8.8 15.4 11.6 13.2" fill="none" stroke="silver" stroke-width="1.75"/>
+    <path d="M3.6 26.6 C3 20.6 6.4 12.6 12.6 9.6 C17.4 7.2 24.6 7.6 28.6 12.2 C32.4 16.6 33.6 23.4 32.2 27.6 C31.2 30.4 28.4 31 24.4 31 L8.6 31 C5.6 31 4 29.2 3.6 26.6 Z" fill="none"/>
+  </g>
+</svg>

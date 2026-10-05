@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The cat head from animals/cat-face.svg without its eyes and mouth:
+       ears, striped head, muzzle, and whiskers. Cat smileys include it and
+       draw their own expression on top. -->
+  <g id="ears" stroke="ink">
+    <path d="M6.4 16 L5.6 4.8 Q5.6 3.4 6.8 4 L15 9.6 Z" fill="orange"/>
+    <path d="M29.6 16 L30.4 4.8 Q30.4 3.4 29.2 4 L21 9.6 Z" fill="orange"/>
+    <path d="M8 13 L7.8 7.2 L12.4 10.4 Z" fill="pink" stroke="none"/>
+    <path d="M28 13 L28.2 7.2 L23.6 10.4 Z" fill="pink" stroke="none"/>
+  </g>
+  <g id="face" stroke="ink">
+    <path d="M18 8.6 C27.4 8.6 32.4 13.6 32.4 20.4 C32.4 27.4 26 31.6 18 31.6 C10 31.6 3.6 27.4 3.6 20.4 C3.6 13.6 8.6 8.6 18 8.6 Z" fill="orange"/>
+    <path d="M14.4 9 L15.6 13.4 M18 8.6 L18 13 M21.6 9 L20.4 13.4" fill="none" stroke="orange-shade" stroke-width="1.5"/>
+    <ellipse cx="18" cy="24.4" rx="6.4" ry="5" fill="cream" stroke="none"/>
+  </g>
+  <g id="whiskers" fill="none" stroke="ink" stroke-width="1.25">
+    <path d="M10.6 22.8 L3.2 21.8 M10.8 24.8 L3.8 25.6"/>
+    <path d="M25.4 22.8 L32.8 21.8 M25.2 24.8 L32.2 25.6"/>
+  </g>
+</svg>

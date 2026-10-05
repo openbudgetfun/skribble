@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="tile" stroke="ink">
+    <rect x="8.4" y="4.6" width="21.4" height="29" rx="3" ry="3" fill="green"/>
+    <rect x="6.6" y="3" width="21.4" height="29" rx="3" ry="3" fill="white"/>
+  </g>
+  <g id="glyph" fill="none" stroke="red">
+    <rect x="10.6" y="13" width="13.4" height="8.4" rx="1" ry="1" stroke-width="2.4"/>
+    <path d="M17.3 7.6 L17.3 27.6" stroke-width="2.6"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="potato" stroke="ink" transform="translate(0 -1)">
+    <path d="M8.4 9.6 C13.2 5.2 21.4 6.4 27.2 10 C32.4 13.2 33.8 20.2 30.6 25.4 C27.4 30.6 20.2 32.4 13.8 30.2 C7.4 28 3 22.6 3.6 16.8 C3.8 13.8 5.6 11.8 8.4 9.6 Z" fill="tan" stroke="none"/>
+    <path d="M32.2 17.4 C32.4 20.2 31.8 23 30.6 25.4 C27.4 30.6 20.2 32.4 13.8 30.2 C20.4 30.2 26.4 27.2 29 22.4 C30 20.6 30.8 18.6 32.2 17.4 Z" fill="brown" stroke="none"/>
+    <path d="M8.4 9.6 C13.2 5.2 21.4 6.4 27.2 10 C32.4 13.2 33.8 20.2 30.6 25.4 C27.4 30.6 20.2 32.4 13.8 30.2 C7.4 28 3 22.6 3.6 16.8 C3.8 13.8 5.6 11.8 8.4 9.6 Z" fill="none"/>
+    <path d="M10.6 14.6 Q11.6 15.6 12.8 14.6 M20.4 12.2 Q21.4 13.2 22.6 12.2 M14.4 22.6 Q15.4 23.6 16.6 22.6 M24 20 Q25 21 26.2 20" fill="none" stroke="brown-shade" stroke-width="1.5"/>
+  </g>
+</svg>

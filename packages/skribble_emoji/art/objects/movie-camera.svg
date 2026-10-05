@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="reel-back" stroke="ink">
+    <circle cx="25" cy="9.4" r="5.6" fill="silver"/>
+    <g fill="ink" stroke="none">
+      <circle cx="25" cy="6.6" r="1.1"/>
+      <circle cx="27.4" cy="10.8" r="1.1"/>
+      <circle cx="22.6" cy="10.8" r="1.1"/>
+    </g>
+  </g>
+  <g id="reel-front" stroke="ink">
+    <circle cx="14.2" cy="9.6" r="5.8" fill="silver"/>
+    <g fill="ink" stroke="none">
+      <circle cx="14.2" cy="6.7" r="1.1"/>
+      <circle cx="16.7" cy="11" r="1.1"/>
+      <circle cx="11.7" cy="11" r="1.1"/>
+    </g>
+  </g>
+  <g id="body" stroke="ink">
+    <rect x="29.6" y="18.6" width="3.6" height="6.4" rx="1.2" ry="1.2" fill="grey-shade" stroke-width="1.5"/>
+    <rect x="10.2" y="15" width="20.4" height="16" rx="2.8" ry="2.8" fill="grey"/>
+    <path d="M30.6 22 L30.6 28.2 Q30.6 31 27.8 31 L20 31 C25.8 29.6 29.4 26.6 30.6 22 Z" fill="grey-shade" stroke="none"/>
+    <rect x="10.2" y="15" width="20.4" height="16" rx="2.8" ry="2.8" fill="none"/>
+    <circle cx="26.6" cy="18.6" r="1.2" fill="red" stroke-width="1.25"/>
+  </g>
+  <g id="lens" stroke="ink">
+    <path d="M10.4 19.8 L4.4 16.6 Q3 16 3 17.6 L3 28.4 Q3 30 4.4 29.4 L10.4 26.2 Z" fill="silver"/>
+    <path d="M3 17.6 Q3 16 4.4 16.6 L5.2 17 L5.2 29 L4.4 29.4 Q3 30 3 28.4 Z" fill="ink" stroke="none"/>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="red-heart"/>
+  <g id="bandage" transform="rotate(-35 18 19)" stroke="ink">
+    <rect x="5.4" y="15.8" width="25.2" height="6.4" rx="3.2" ry="3.2" fill="cream" stroke-width="1.75"/>
+    <rect x="14.4" y="15.8" width="7.2" height="6.4" rx="0.8" ry="0.8" fill="tan" stroke-width="1.5"/>
+    <g fill="cream" stroke="none">
+      <circle cx="16.4" cy="17.8" r="0.5"/>
+      <circle cx="19.6" cy="17.8" r="0.5"/>
+      <circle cx="16.4" cy="20.2" r="0.5"/>
+      <circle cx="19.6" cy="20.2" r="0.5"/>
+      <circle cx="18" cy="19" r="0.5"/>
+    </g>
+  </g>
+</svg>

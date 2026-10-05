@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="brows" fill="none" stroke="ink" stroke-width="1.75">
+    <path d="M9 11 L15.2 11.8"/>
+    <path d="M19.6 7.4 Q23.4 4.2 27.4 7"/>
+  </g>
+  <g id="eyes">
+    <path d="M10.6 13.8 L14.6 14.2 Q14.4 17 12.4 16.8 Q10.4 16.6 10.6 13.8 Z" fill="ink"/>
+    <path d="M9.8 13.6 L15.4 14.2" fill="none" stroke="ink"/>
+    <ellipse cx="23.4" cy="14.2" rx="2.1" ry="2.9" fill="ink"/>
+    <circle cx="24" cy="13.1" r="0.65" fill="paper"/>
+  </g>
+  <g id="monocle" stroke="ink">
+    <path d="M26.6 18.4 Q30.2 23.6 28.6 31.2" fill="none" stroke="orange-shade" stroke-width="1.5"/>
+    <path fill-rule="evenodd" d="M23.4 9 A5.2 5.2 0 1 1 23.4 19.4 A5.2 5.2 0 1 1 23.4 9 Z M23.4 10.4 A3.8 3.8 0 1 0 23.4 18 A3.8 3.8 0 1 0 23.4 10.4 Z" fill="yellow-shade" stroke-width="1.25"/>
+  </g>
+  <path data-part="mouth" d="M13.6 25 Q17.4 23.6 21.6 24.6" fill="none" stroke="ink"/>
+</svg>

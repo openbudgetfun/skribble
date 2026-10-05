@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="chest" stroke="ink">
+    <rect x="3.4" y="16.4" width="29.2" height="16" rx="1.6" ry="1.6" fill="brown"/>
+    <path d="M32.6 22 L32.6 30.8 Q32.6 32.4 31 32.4 L20 32.4 C26.6 31 31 27.4 32.6 22 Z" fill="brown-shade" stroke="none"/>
+    <rect x="3.4" y="16.4" width="29.2" height="16" rx="1.6" ry="1.6" fill="none"/>
+    <path d="M3.4 25 L32.6 25" fill="none" stroke-width="1.25"/>
+    <rect x="6.4" y="17.6" width="3.4" height="14.8" fill="yellow" stroke-width="1.25"/>
+    <rect x="26.2" y="17.6" width="3.4" height="14.8" fill="yellow" stroke-width="1.25"/>
+  </g>
+  <g id="lid" stroke="ink">
+    <path d="M3.4 16.8 L3.4 12.4 C3.4 7 9.4 4 18 4 C26.6 4 32.6 7 32.6 12.4 L32.6 16.8 Z" fill="brown"/>
+    <path d="M6.4 7.4 Q8 6.2 9.8 5.6 L9.8 16 L6.4 16 Z M29.6 7.4 Q28 6.2 26.2 5.6 L26.2 16 L29.6 16 Z" fill="yellow" stroke-width="1.25"/>
+    <rect x="3.4" y="15.2" width="29.2" height="2.8" rx="0.6" ry="0.6" fill="yellow" stroke-width="1.25"/>
+  </g>
+  <g id="lock" stroke="ink">
+    <rect x="15" y="14" width="6" height="7.4" rx="1.2" ry="1.2" fill="yellow" stroke-width="1.5"/>
+    <circle cx="18" cy="16.8" r="0.9" fill="ink" stroke="none"/>
+    <path d="M18 17.2 L18 19.2" fill="none" stroke-width="1.25"/>
+  </g>
+  <path data-part="sparkle" d="M31.2 1.8 Q31.6 3.8 33.4 4.2 Q31.6 4.6 31.2 6.6 Q30.8 4.6 29 4.2 Q30.8 3.8 31.2 1.8 Z" fill="yellow" stroke="ink" stroke-width="1.25"/>
+</svg>

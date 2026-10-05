@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="leaves" fill="green" stroke="ink">
+    <path d="M17.6 33.4 C12.4 31.6 8.4 26 8.6 18.6 C12.6 21.2 16.4 26.4 17.6 33.4 Z"/>
+    <path d="M18.4 33.4 C23.6 31.6 27.6 26 27.4 18.6 C23.4 21.2 19.6 26.4 18.4 33.4 Z"/>
+    <path d="M27.4 18.6 C27.6 26 23.6 31.6 18.4 33.4 C21.8 30 24.6 25 25.2 20 Z" fill="green-shade" stroke="none"/>
+    <path d="M18.4 33.4 C23.6 31.6 27.6 26 27.4 18.6 C23.4 21.2 19.6 26.4 18.4 33.4 Z" fill="none"/>
+  </g>
+  <path data-part="stem" d="M16.8 18 L16.8 33.4 L19.2 33.4 L19.2 18 Z" fill="green" stroke="ink" stroke-width="1.75"/>
+  <g id="bloom" stroke="ink">
+    <path d="M10.6 7.2 L14.2 10 L18 4 L21.8 10 L25.4 7.2 C26.6 14.6 24 20.8 18 20.8 C12 20.8 9.4 14.6 10.6 7.2 Z" fill="pink"/>
+    <path d="M25.4 7.2 C26.6 14.6 24 20.8 18 20.8 C16.6 20.8 15.4 20.4 14.4 19.8 C21 19.4 24.8 14.6 24.2 8.2 Z" fill="pink-shade" stroke="none"/>
+    <path d="M10.6 7.2 L14.2 10 L18 4 L21.8 10 L25.4 7.2 C26.6 14.6 24 20.8 18 20.8 C12 20.8 9.4 14.6 10.6 7.2 Z" fill="none"/>
+    <path d="M14.2 10 C14.4 14 15.8 17.6 18 19.6 C20.2 17.6 21.6 14 21.8 10" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A loose fist with the thumb out to the upper left and the little
+       finger out to the right, like a phone. -->
+  <g id="hand" stroke="ink" transform="translate(-1 2)">
+    <rect data-part="thumb" x="-2.5" y="-6.4" width="5" height="12.8" rx="2.5" ry="2.5" fill="skin" transform="translate(10.4 9.8) rotate(-40)"/>
+    <rect data-part="pinky" x="-2.2" y="-6.4" width="4.4" height="12.8" rx="2.2" ry="2.2" fill="skin" transform="translate(26 23.4) rotate(78)"/>
+    <path d="M10.8 16.4 C10.8 13 13.4 11.4 16.6 11.4 L22.4 11.4 C25.8 11.4 27.6 13.4 27.6 16.6 L27.6 22.6 C27.6 26.4 25 28.6 21.6 28.6 L16.4 28.6 C13 28.6 10.8 26.4 10.8 22.8 Z" fill="skin" stroke="none"/>
+    <path d="M27.6 20.6 L27.6 22.6 C27.6 26.4 25 28.6 21.6 28.6 L17.6 28.6 C22 27.8 25.8 25.2 27.6 20.6 Z" fill="skin-shade" stroke="none"/>
+    <path d="M10.8 16.4 C10.8 13 13.4 11.4 16.6 11.4 L22.4 11.4 C25.8 11.4 27.6 13.4 27.6 16.6 L27.6 22.6 C27.6 26.4 25 28.6 21.6 28.6 L16.4 28.6 C13 28.6 10.8 26.4 10.8 22.8 Z" fill="none"/>
+    <path d="M18.6 15.6 L27.4 15.6 M18.6 19.8 L27.4 19.8" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

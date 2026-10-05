@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b18-button-purple"/>
+  <g data-part="glyph" fill="white" stroke="white" stroke-width="1">
+    <rect x="16.4" y="5.8" width="3.2" height="24.4" rx="0.6" ry="0.6"/>
+    <rect x="13.8" y="7.6" width="8.4" height="3" rx="0.6" ry="0.6"/>
+    <rect x="10.2" y="12.6" width="15.6" height="3.2" rx="0.6" ry="0.6"/>
+    <polygon points="12.58,24.24 22.18,19.84 23.43,22.56 13.83,26.96"/>
+  </g>
+</svg>

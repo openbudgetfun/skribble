@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="broom" stroke="ink" transform="translate(2.5 -1.6) rotate(40 18 17.5)">
+    <rect x="16.4" y="2" width="3.2" height="19" rx="1.6" ry="1.6" fill="brown" stroke-width="1.75"/>
+    <g id="bristles">
+      <path d="M13.6 21.6 L22.4 21.6 L24.6 32.4 Q24.6 33 24 33 L12 33 Q11.4 33 11.4 32.4 Z" fill="yellow" stroke="none"/>
+      <path d="M22.4 21.6 L24.6 32.4 Q24.6 33 24 33 L21.4 33 L20.4 21.6 Z" fill="yellow-shade" stroke="none"/>
+      <path d="M13.6 21.6 L22.4 21.6 L24.6 32.4 Q24.6 33 24 33 L12 33 Q11.4 33 11.4 32.4 Z" fill="none"/>
+      <path d="M15.8 24.4 L15 31.2 M18 24.4 L18 31.2 M20.2 24.4 L21 31.2" fill="none" stroke-width="1.25"/>
+    </g>
+    <rect x="13" y="19.6" width="10" height="3.4" rx="1.2" ry="1.2" fill="red" stroke-width="1.75"/>
+  </g>
+</svg>

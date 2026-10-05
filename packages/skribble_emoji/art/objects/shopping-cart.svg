@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="cart" stroke="ink">
+    <path d="M6 5.6 L9.4 10.6" fill="none"/>
+    <rect x="2.4" y="3.8" width="5.4" height="3.2" rx="1.6" ry="1.6" fill="red" stroke-width="1.75"/>
+    <path d="M8.4 10 L33.4 10 L30.4 24.4 L11.8 24.4 Z" fill="silver" stroke="none"/>
+    <path d="M33.4 10 L30.4 24.4 L22 24.4 Q29 22 30.8 10 Z" fill="grey" stroke="none"/>
+    <path d="M14.4 10 L15.6 24.4 M20.4 10 L20.8 24.4 M26.4 10 L26 24.4 M9.6 15 L32.4 15 M10.8 19.8 L31.4 19.8" fill="none" stroke-width="1.25"/>
+    <path d="M8.4 10 L33.4 10 L30.4 24.4 L11.8 24.4 Z" fill="none"/>
+    <path d="M11.8 24.4 L10.6 28.4 L30.6 28.4" fill="none"/>
+  </g>
+  <g id="wheels" stroke="ink" stroke-width="1.75">
+    <circle cx="12.8" cy="31.2" r="2.4" fill="grey"/>
+    <circle cx="28" cy="31.2" r="2.4" fill="grey"/>
+  </g>
+</svg>

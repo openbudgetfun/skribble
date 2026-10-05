@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b13-medal-straps"/>
+  <g data-include="b13-medal-disc" data-tokens="yellow:orange-shade,yellow-shade:brown"/>
+  <path data-part="glyph" d="M15.2 19.6 C16 18.6 17 18.4 18 18.4 C19.8 18.4 20.8 19.4 20.8 20.8 C20.8 22.4 19.4 23.2 17.6 23.2 C19.6 23.2 21 24.2 21 25.8 C21 27.4 19.6 28.4 17.8 28.4 C16.6 28.4 15.6 28 15 27.2" fill="none" stroke="ink" stroke-width="2"/>
+</svg>

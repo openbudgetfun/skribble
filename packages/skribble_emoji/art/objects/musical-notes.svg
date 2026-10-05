@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="note-single" stroke="ink">
+    <path d="M11.2 18 L11.2 3.8" fill="none" stroke-width="2.25"/>
+    <path d="M11.2 3.8 Q12 7.4 15 9 Q17.8 10.6 16.8 14.8 Q16.4 11.8 11.2 9.8 Z" fill="black" stroke-width="1.5"/>
+    <ellipse cx="7.6" cy="18.8" rx="4" ry="2.9" transform="rotate(-22 7.6 18.8)" fill="black" stroke-width="1.75"/>
+  </g>
+  <g id="note-pair" stroke="ink">
+    <path d="M18.4 28.2 L18.4 14 M30.6 25.2 L30.6 11" fill="none" stroke-width="2.25"/>
+    <path d="M18.4 13.6 L30.6 10.6 L30.6 14.8 L18.4 17.8 Z" fill="black" stroke-width="1.75"/>
+    <ellipse cx="14.6" cy="29.2" rx="4.4" ry="3.2" transform="rotate(-22 14.6 29.2)" fill="black"/>
+    <ellipse cx="26.8" cy="26.2" rx="4.4" ry="3.2" transform="rotate(-22 26.8 26.2)" fill="black"/>
+    <path d="M12.4 29.4 Q12.6 28 14 27.4 M24.6 26.4 Q24.8 25 26.2 24.4" fill="none" stroke="paper" stroke-width="1.25"/>
+  </g>
+</svg>

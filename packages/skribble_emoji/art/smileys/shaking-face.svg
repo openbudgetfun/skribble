@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="motion" fill="none" stroke="ink" stroke-width="1.75">
+    <path d="M3.2 11.4 Q1.4 18 3.2 24.6"/>
+    <path d="M32.8 11.4 Q34.6 18 32.8 24.6"/>
+  </g>
+  <g transform="translate(18 18) scale(0.86) translate(-18 -18)">
+    <g data-include="face"/>
+    <g id="eyes">
+      <circle cx="12.4" cy="13.4" r="3.4" fill="paper" stroke="ink" stroke-width="1.5"/>
+      <circle cx="23.6" cy="13.4" r="3.4" fill="paper" stroke="ink" stroke-width="1.5"/>
+      <circle cx="12.4" cy="13.4" r="1.5" fill="ink"/>
+      <circle cx="23.6" cy="13.4" r="1.5" fill="ink"/>
+    </g>
+    <g id="mouth">
+      <ellipse cx="18" cy="24.4" rx="4.4" ry="3.6" fill="ink"/>
+      <path d="M14.6 22.4 Q18 21 21.4 22.4 L21 23.6 Q18 22.8 15 23.6 Z" fill="paper"/>
+    </g>
+  </g>
+</svg>

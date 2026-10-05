@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="soap" stroke="ink">
+    <rect x="3" y="16.4" width="26" height="15.4" rx="5" ry="5" fill="pink" stroke="none"/>
+    <path d="M29 21.4 L29 26.8 Q29 31.8 24 31.8 L13 31.8 Q24.4 30.6 27.2 21.4 Z" fill="pink-shade" stroke="none"/>
+    <rect x="3" y="16.4" width="26" height="15.4" rx="5" ry="5" fill="none"/>
+    <rect x="6.6" y="19.2" width="18.8" height="8.4" rx="3" ry="3" fill="none" stroke="pink-shade" stroke-width="1.5"/>
+    <path d="M9 23.4 Q9.4 21.6 11.4 21.2" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+  <g id="bubbles" stroke="ink" stroke-width="1.5" fill="white">
+    <circle cx="26.2" cy="9.6" r="4.8"/>
+    <circle cx="18" cy="6.6" r="2.8"/>
+    <circle cx="31.2" cy="17.6" r="2.4"/>
+    <circle cx="10.4" cy="11.2" r="1.8"/>
+    <path d="M23.6 8.6 Q24 7 25.6 6.6 M16.8 5.8 Q17.2 5 18 4.8" fill="none" stroke="sky" stroke-width="1.5"/>
+  </g>
+</svg>

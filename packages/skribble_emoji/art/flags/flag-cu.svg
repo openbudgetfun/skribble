@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#002a8f"/>
+  <rect x="2" y="12" width="32" height="4" fill="#ffffff"/>
+  <rect x="2" y="20" width="32" height="4" fill="#ffffff"/>
+  <path d="M2 8L15.9 18L2 28Z" fill="#cf142b"/>
+  <path id="star" transform="translate(6.6 18.3) scale(2.7)" d="M0 -1L0.2245 -0.309L0.9511 -0.309L0.3633 0.118L0.5878 0.809L0 0.382L-0.5878 0.809L-0.3633 0.118L-0.9511 -0.309L-0.2245 -0.309Z" fill="#ffffff"/>
+</svg>

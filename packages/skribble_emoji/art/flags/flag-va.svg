@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <path d="M2 8H34V28H2Z" fill="#ffe000"/>
+  <path d="M18 8H34V28H18Z" fill="#ffffff"/>
+  <path d="M22 24.2 Q26 26.6 30 24.2 L30 24.9 Q26 27.3 22 24.9 Z" fill="#c8102e"/>
+  <g fill="#a8a8a8" transform="translate(30 23.8) rotate(232.6) scale(1 -1)"><path d="M-1.25 0A1.25 1.25 0 1 0 1.25 0A1.25 1.25 0 1 0 -1.25 0Z M-0.6 0A0.6 0.6 0 1 0 0.6 0A0.6 0.6 0 1 0 -0.6 0Z" fill-rule="evenodd"/><path d="M1.2 -0.32H13.8V0.32H1.2Z M11.7 0.32H12.35V1.35H11.7Z M12.65 0.32H13.45V1.35H12.65Z"/></g>
+  <g fill="#d9a404" transform="translate(22 23.8) rotate(-52.6)"><path d="M-1.25 0A1.25 1.25 0 1 0 1.25 0A1.25 1.25 0 1 0 -1.25 0Z M-0.6 0A0.6 0.6 0 1 0 0.6 0A0.6 0.6 0 1 0 -0.6 0Z" fill-rule="evenodd"/><path d="M1.2 -0.32H13.8V0.32H1.2Z M11.7 0.32H12.35V1.35H11.7Z M12.65 0.32H13.45V1.35H12.65Z"/></g>
+  <path d="M24.3 15.8 Q24 12.6 25.2 11.4 Q26 10.7 26.8 11.4 Q28 12.6 27.7 15.8 Z" fill="#d6d6d6"/>
+  <path d="M24.25 15.1H27.75V15.8H24.25ZM24.5 13.6H27.5V14.15H24.5ZM24.95 12.2H27.05V12.7H24.95Z" fill="#d9a404"/>
+  <path d="M25.8 9.6H26.2V11H25.8ZM25.45 9.95H26.55V10.3H25.45Z" fill="#d9a404"/>
+</svg>

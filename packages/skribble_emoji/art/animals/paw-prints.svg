@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="print-front" fill="brown" stroke="ink" stroke-width="1.75" transform="translate(23.4 11) rotate(20)">
+    <path d="M0 -0.6 C3 -0.6 4.8 1.8 4.8 4 C4.8 5.8 3.4 6.6 2 6.2 C1.2 6 0.6 5.6 0 5.6 C-0.6 5.6 -1.2 6 -2 6.2 C-3.4 6.6 -4.8 5.8 -4.8 4 C-4.8 1.8 -3 -0.6 0 -0.6 Z"/>
+    <ellipse cx="-5" cy="-2" rx="1.7" ry="2.1" transform="rotate(-20 -5 -2)"/>
+    <ellipse cx="-1.9" cy="-5.2" rx="1.7" ry="2.2"/>
+    <ellipse cx="1.9" cy="-5.2" rx="1.7" ry="2.2"/>
+    <ellipse cx="5" cy="-2" rx="1.7" ry="2.1" transform="rotate(20 5 -2)"/>
+  </g>
+  <g id="print-back" fill="brown" stroke="ink" stroke-width="1.75" transform="translate(12.6 25.2) rotate(20)">
+    <path d="M0 -0.6 C3 -0.6 4.8 1.8 4.8 4 C4.8 5.8 3.4 6.6 2 6.2 C1.2 6 0.6 5.6 0 5.6 C-0.6 5.6 -1.2 6 -2 6.2 C-3.4 6.6 -4.8 5.8 -4.8 4 C-4.8 1.8 -3 -0.6 0 -0.6 Z"/>
+    <ellipse cx="-5" cy="-2" rx="1.7" ry="2.1" transform="rotate(-20 -5 -2)"/>
+    <ellipse cx="-1.9" cy="-5.2" rx="1.7" ry="2.2"/>
+    <ellipse cx="1.9" cy="-5.2" rx="1.7" ry="2.2"/>
+    <ellipse cx="5" cy="-2" rx="1.7" ry="2.1" transform="rotate(20 5 -2)"/>
+  </g>
+</svg>

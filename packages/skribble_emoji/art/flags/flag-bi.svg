@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#1eb53a"/>
+  <path d="M2 8H34L18 18Z M2 28H34L18 18Z" fill="#ce1126"/>
+  <path d="M-1.2 6L37.2 30 M37.2 6L-1.2 30" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="18" cy="18" r="5.6" fill="#ffffff"/>
+  <g>
+    <path transform="translate(18 15.6) scale(1.95)" d="M0 -1L0.2887 -0.5L0.866 -0.5L0.5774 0L0.866 0.5L0.2887 0.5L0 1L-0.2887 0.5L-0.866 0.5L-0.5774 0L-0.866 -0.5L-0.2887 -0.5Z" fill="#1eb53a"/>
+    <path transform="translate(20.08 19.2) scale(1.95)" d="M0 -1L0.2887 -0.5L0.866 -0.5L0.5774 0L0.866 0.5L0.2887 0.5L0 1L-0.2887 0.5L-0.866 0.5L-0.5774 0L-0.866 -0.5L-0.2887 -0.5Z" fill="#1eb53a"/>
+    <path transform="translate(15.92 19.2) scale(1.95)" d="M0 -1L0.2887 -0.5L0.866 -0.5L0.5774 0L0.866 0.5L0.2887 0.5L0 1L-0.2887 0.5L-0.866 0.5L-0.5774 0L-0.866 -0.5L-0.2887 -0.5Z" fill="#1eb53a"/>
+    <path transform="translate(18 15.6) scale(1.5)" d="M0 -1L0.2887 -0.5L0.866 -0.5L0.5774 0L0.866 0.5L0.2887 0.5L0 1L-0.2887 0.5L-0.866 0.5L-0.5774 0L-0.866 -0.5L-0.2887 -0.5Z" fill="#ce1126"/>
+    <path transform="translate(20.08 19.2) scale(1.5)" d="M0 -1L0.2887 -0.5L0.866 -0.5L0.5774 0L0.866 0.5L0.2887 0.5L0 1L-0.2887 0.5L-0.866 0.5L-0.5774 0L-0.866 -0.5L-0.2887 -0.5Z" fill="#ce1126"/>
+    <path transform="translate(15.92 19.2) scale(1.5)" d="M0 -1L0.2887 -0.5L0.866 -0.5L0.5774 0L0.866 0.5L0.2887 0.5L0 1L-0.2887 0.5L-0.866 0.5L-0.5774 0L-0.866 -0.5L-0.2887 -0.5Z" fill="#ce1126"/>
+  </g>
+</svg>

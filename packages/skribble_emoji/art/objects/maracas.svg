@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="maraca-right" transform="translate(-4.2 0) rotate(28 18 32)" stroke="ink">
+    <rect x="16.5" y="16.6" width="3" height="16.4" rx="1.5" ry="1.5" fill="tan" stroke-width="1.5"/>
+    <ellipse cx="18" cy="11.4" rx="6.6" ry="8.2" fill="green"/>
+    <path d="M24.2 8.6 A6.6 8.2 0 0 1 16.85 19.48 C21.6 18.2 23.8 14 24.2 8.6 Z" fill="green-shade" stroke="none"/>
+    <ellipse cx="18" cy="11.4" rx="6.6" ry="8.2" fill="none"/>
+    <path d="M12.2 11 L14.1 8.8 L16 11 L18 8.8 L20 11 L21.9 8.8 L23.8 11" fill="none" stroke="yellow" stroke-width="1.75"/>
+    <path d="M13.6 6.4 Q14.6 4.6 16.6 4" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+  <g id="maraca-left" transform="translate(4.2 0) rotate(-28 18 32)" stroke="ink">
+    <rect x="16.5" y="16.6" width="3" height="16.4" rx="1.5" ry="1.5" fill="tan" stroke-width="1.5"/>
+    <ellipse cx="18" cy="11.4" rx="6.6" ry="8.2" fill="red"/>
+    <path d="M24.2 8.6 A6.6 8.2 0 0 1 16.85 19.48 C21.6 18.2 23.8 14 24.2 8.6 Z" fill="red-shade" stroke="none"/>
+    <ellipse cx="18" cy="11.4" rx="6.6" ry="8.2" fill="none"/>
+    <path d="M12.2 11 L14.1 8.8 L16 11 L18 8.8 L20 11 L21.9 8.8 L23.8 11" fill="none" stroke="yellow" stroke-width="1.75"/>
+    <path d="M13.6 6.4 Q14.6 4.6 16.6 4" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A baby: the shared face on a tiny body in a onesie and bib, with one
+       curl of hair on top. -->
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.8" y="19.4" width="4.4" height="6.6" fill="skin"/>
+    <path d="M10 34.2 C10.4 29 13.4 25.6 18 25.6 C22.6 25.6 25.6 29 26 34.2 Z" fill="sky"/>
+    <path d="M14.2 25.8 C14.2 29 15.8 30.8 18 30.8 C20.2 30.8 21.8 29 21.8 25.8 Z" fill="white" stroke-width="1.5"/>
+  </g>
+  <g data-include="b03-face"/>
+  <path data-part="hair" d="M15.8 6.6 C15.4 4.2 17.4 2.8 19.4 3.4 C21.2 4 21.4 6.2 20 6.8 C19.8 5.6 18.8 5.2 18 5.6 C17.4 5.9 17.2 6.4 17.2 6.8 Z" fill="hair" stroke="ink" stroke-width="1.5"/>
+</svg>

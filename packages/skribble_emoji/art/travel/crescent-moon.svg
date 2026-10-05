@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="crescent"><path d="M14.33 5.18 A14.4 14.4 0 1 0 30.75 22.05 A12 12 0 0 1 14.33 5.18Z"/></clipPath>
+  </defs>
+  <g id="moon">
+    <path d="M14.33 5.18 A14.4 14.4 0 1 0 30.75 22.05 A12 12 0 0 1 14.33 5.18Z" fill="yellow"/>
+    <path d="M14.33 5.18 A14.4 14.4 0 1 0 30.75 22.05 A12 12 0 0 1 14.33 5.18Z M12.53 3.58 A14.4 14.4 0 1 0 28.95 20.45 A12 12 0 0 1 12.53 3.58Z" fill="yellow-shade" fill-rule="evenodd" clip-path="url(#crescent)"/>
+    <path d="M14.33 5.18 A14.4 14.4 0 1 0 30.75 22.05 A12 12 0 0 1 14.33 5.18Z" fill="none" stroke="ink"/>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="hull-clip">
+      <path d="M2.6 18.4 L30.4 18.4 Q33.4 18.4 33.4 21.4 L33.4 22.6 Q33.4 25.4 30.4 25.4 L12 25.4 Q5.6 25.4 2.6 18.4 Z"/>
+    </clipPath>
+  </defs>
+  <g id="mast" fill="none" stroke="ink" stroke-width="1.75">
+    <path d="M23.8 11.6 L24.4 6.8 L27.8 6.8"/>
+  </g>
+  <g id="cabin" stroke="ink">
+    <path d="M11.6 18.4 L14.8 12.6 Q15.4 11.6 16.6 11.6 L28.8 11.6 Q30.4 11.6 30.4 13.2 L30.4 18.4 Z" fill="white" stroke-width="1.75"/>
+    <path d="M15 17 L17.2 13.4 L28.6 13.4 L28.6 17 Z" fill="black" stroke-width="1.5"/>
+  </g>
+  <g id="hull" stroke="ink">
+    <path d="M2.6 18.4 L30.4 18.4 Q33.4 18.4 33.4 21.4 L33.4 22.6 Q33.4 25.4 30.4 25.4 L12 25.4 Q5.6 25.4 2.6 18.4 Z" fill="white" stroke="none"/>
+    <path d="M0 21.2 L36 21.2 L36 23 L0 23 Z" fill="blue" stroke="none" clip-path="url(#hull-clip)"/>
+    <path d="M33.4 23 L33.4 22.6 Q33.4 25.4 30.4 25.4 L12 25.4 Q9 25.4 7.6 23 Z" fill="silver" stroke="none" clip-path="url(#hull-clip)"/>
+    <path d="M2.6 18.4 L30.4 18.4 Q33.4 18.4 33.4 21.4 L33.4 22.6 Q33.4 25.4 30.4 25.4 L12 25.4 Q5.6 25.4 2.6 18.4 Z" fill="none"/>
+  </g>
+  <path data-part="water" d="M4 29 Q8 27.4 12 29 Q16 30.6 20 29 Q24 27.4 28 29 Q30 29.8 32 29.4" fill="none" stroke="blue" stroke-width="1.75"/>
+</svg>

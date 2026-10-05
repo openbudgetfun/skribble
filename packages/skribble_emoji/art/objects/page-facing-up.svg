@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="page" stroke="ink">
+    <path d="M7.4 2.8 L23.4 2.8 L30 9.4 L30 31.8 Q30 33.2 28.6 33.2 L7.4 33.2 Q6 33.2 6 31.8 L6 4.2 Q6 2.8 7.4 2.8 Z" fill="white"/>
+    <path d="M30 18 L30 31.8 Q30 33.2 28.6 33.2 L18 33.2 C24.6 31.6 28.8 26 30 18 Z" fill="silver" stroke="none"/>
+    <path d="M7.4 2.8 L23.4 2.8 L30 9.4 L30 31.8 Q30 33.2 28.6 33.2 L7.4 33.2 Q6 33.2 6 31.8 L6 4.2 Q6 2.8 7.4 2.8 Z" fill="none"/>
+    <path data-part="fold" d="M23.4 2.8 L23.4 8 Q23.4 9.4 24.8 9.4 L30 9.4 Z" fill="silver" stroke-width="1.5"/>
+    <path d="M10 9 L19.6 9 M10 13.4 L26 13.4 M10 17.8 L26 17.8 M10 22.2 L26 22.2 M10 26.6 L21 26.6" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="ring" stroke="ink">
+    <path d="M3.4 18 A14.6 14.6 0 1 0 32.6 18 A14.6 14.6 0 1 0 3.4 18 Z M11.4 18 A6.6 6.6 0 1 0 24.6 18 A6.6 6.6 0 1 0 11.4 18 Z" fill="white" fill-rule="evenodd" stroke="none"/>
+    <path d="M31.4 12.3 A14.6 14.6 0 0 1 18 32.6 C25.4 30.2 30.4 22.4 31.4 12.3 Z" fill="silver" stroke="none"/>
+    <path d="M31.49 23.59 A14.6 14.6 0 0 1 23.59 31.49 L20.53 24.1 A6.6 6.6 0 0 0 24.1 20.53 Z M12.41 31.49 A14.6 14.6 0 0 1 4.51 23.59 L11.9 20.53 A6.6 6.6 0 0 0 15.47 24.1 Z M4.51 12.41 A14.6 14.6 0 0 1 12.41 4.51 L15.47 11.9 A6.6 6.6 0 0 0 11.9 15.47 Z M23.59 4.51 A14.6 14.6 0 0 1 31.49 12.41 L24.1 15.47 A6.6 6.6 0 0 0 20.53 11.9 Z" fill="red" stroke-width="1.5"/>
+    <circle cx="18" cy="18" r="14.6" fill="none"/>
+    <circle cx="18" cy="18" r="6.6" fill="none" stroke-width="1.75"/>
+  </g>
+</svg>

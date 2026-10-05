@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(0 -1.4)">
+    <g id="handles" fill="none" stroke="ink" stroke-width="2">
+      <ellipse cx="3.8" cy="19.6" rx="1.6" ry="1.4"/>
+      <ellipse cx="32.2" cy="19.6" rx="1.6" ry="1.4"/>
+    </g>
+    <g id="pan" stroke="ink">
+      <path d="M4.6 18 L4.6 20.4 C4.6 25.4 10.6 29.2 18 29.2 C25.4 29.2 31.4 25.4 31.4 20.4 L31.4 18 Z" fill="grey-shade"/>
+      <ellipse cx="18" cy="18" rx="13.4" ry="8.2" fill="grey"/>
+      <ellipse cx="18" cy="18" rx="11.4" ry="6.4" fill="yellow" stroke-width="1.5"/>
+    </g>
+    <g id="food" stroke="ink" stroke-width="1.25">
+      <g fill="coral">
+        <path transform="translate(11.8 16.4) rotate(-15)" d="M-3 1.4 C-3.4 -2 -0.8 -3.8 1.8 -3.2 C3.8 -2.6 4.4 -0.2 3 1.6 C2.4 0.4 1.4 -0.4 0.2 -0.4 C-1 -0.4 -2.2 0.4 -3 1.4 Z M-3 1.4 L-4.4 2.8 L-2.2 3 Z"/>
+        <path transform="translate(21.6 20.6) rotate(25)" d="M-3 1.4 C-3.4 -2 -0.8 -3.8 1.8 -3.2 C3.8 -2.6 4.4 -0.2 3 1.6 C2.4 0.4 1.4 -0.4 0.2 -0.4 C-1 -0.4 -2.2 0.4 -3 1.4 Z M-3 1.4 L-4.4 2.8 L-2.2 3 Z"/>
+        <path transform="translate(24.6 14.6) rotate(-160)" d="M-3 1.4 C-3.4 -2 -0.8 -3.8 1.8 -3.2 C3.8 -2.6 4.4 -0.2 3 1.6 C2.4 0.4 1.4 -0.4 0.2 -0.4 C-1 -0.4 -2.2 0.4 -3 1.4 Z M-3 1.4 L-4.4 2.8 L-2.2 3 Z"/>
+      </g>
+      <ellipse cx="17" cy="13.8" rx="2.4" ry="1.4" fill="black" transform="rotate(-20 17 13.8)"/>
+      <path d="M11.4 21 A2.8 2.8 0 0 0 17 21 Z" fill="lime"/>
+      <path d="M17.6 23 L19.8 22.4 M27 16.4 L27.8 18" fill="none" stroke="red" stroke-width="1.75"/>
+      <circle cx="19.2" cy="16.8" r="1.1" fill="green"/>
+      <circle cx="27" cy="20.6" r="1.1" fill="green"/>
+      <circle cx="9" cy="19.6" r="1.1" fill="green"/>
+    </g>
+  </g>
+</svg>

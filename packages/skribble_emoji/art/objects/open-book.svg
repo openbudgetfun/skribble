@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="cover" stroke="ink">
+    <path d="M2.4 9.4 L2.4 29 Q2.4 30.4 3.8 30.4 L14.6 30.4 Q16.6 30.4 18 32 Q19.4 30.4 21.4 30.4 L32.2 30.4 Q33.6 30.4 33.6 29 L33.6 9.4 Z" fill="blue"/>
+    <path d="M33.6 22 L33.6 29 Q33.6 30.4 32.2 30.4 L21.4 30.4 Q19.4 30.4 18 32 L18 30 C24 29.6 31 27 33.6 22 Z" fill="blue-shade" stroke="none"/>
+    <path d="M2.4 9.4 L2.4 29 Q2.4 30.4 3.8 30.4 L14.6 30.4 Q16.6 30.4 18 32 Q19.4 30.4 21.4 30.4 L32.2 30.4 Q33.6 30.4 33.6 29 L33.6 9.4" fill="none"/>
+  </g>
+  <path data-part="ribbon" d="M20.4 27.4 L20.4 33.6 L21.6 32.6 L22.8 33.6 L22.8 27.2 Z" fill="red" stroke="ink" stroke-width="1.25"/>
+  <g id="page-left" stroke="ink">
+    <path d="M18 9 C14.4 6.2 9 5.4 4.4 6.8 L4.4 27.6 C9 26.2 14.4 26.8 18 29.6 Z" fill="white" stroke-width="1.75"/>
+    <path d="M7.4 11.6 Q11.2 10.8 15 12.4 M7.4 15.6 Q11.2 14.8 15 16.4 M7.4 19.6 Q11.2 18.8 15 20.4 M7.4 23.6 Q9.8 23 12.2 23.6" fill="none" stroke="grey" stroke-width="1.5"/>
+  </g>
+  <g id="page-right" stroke="ink">
+    <path d="M18 9 C21.6 6.2 27 5.4 31.6 6.8 L31.6 27.6 C27 26.2 21.6 26.8 18 29.6 Z" fill="white" stroke-width="1.75"/>
+    <path d="M21 12.4 Q24.8 10.8 28.6 11.6 M21 16.4 Q24.8 14.8 28.6 15.6 M21 20.4 Q24.8 18.8 28.6 19.6 M21 24.4 Q23.4 23 25.8 23.4" fill="none" stroke="grey" stroke-width="1.5"/>
+  </g>
+</svg>

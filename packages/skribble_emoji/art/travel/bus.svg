@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="body" stroke="ink">
+    <path d="M6 7.4 L30.6 7.4 Q33.4 7.4 33.4 10.2 L33.4 23 Q33.4 25 31.4 25 L4.6 25 Q2.6 25 2.6 23 L2.6 11.4 Q2.6 7.4 6 7.4 Z" fill="yellow" stroke="none"/>
+    <path d="M33.4 16 L33.4 23 Q33.4 25 31.4 25 L12 25 Q28.6 24 31.8 20.4 Q33.2 18.8 33.4 16 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M10.6 19 L32.6 19" fill="none" stroke="red" stroke-width="1.75"/>
+    <path d="M6 7.4 L30.6 7.4 Q33.4 7.4 33.4 10.2 L33.4 23 Q33.4 25 31.4 25 L4.6 25 Q2.6 25 2.6 23 L2.6 11.4 Q2.6 7.4 6 7.4 Z" fill="none"/>
+    <path d="M4.4 11.6 Q4.4 9.4 6.6 9.4 L8.6 9.4 L8.6 21.6 L4.4 21.6 Z" fill="sky" stroke-width="1.5"/>
+    <rect x="10.6" y="9.4" width="20.8" height="6.4" rx="1.2" ry="1.2" fill="sky" stroke-width="1.5"/>
+    <path d="M15.8 9.4 L15.8 15.8 M21 9.4 L21 15.8 M26.2 9.4 L26.2 15.8" fill="none" stroke-width="1.5"/>
+  </g>
+  <g id="wheels">
+    <g data-include="b11-wheel" transform="translate(-9 7)"/>
+    <g data-include="b11-wheel" transform="translate(9 7)"/>
+  </g>
+</svg>

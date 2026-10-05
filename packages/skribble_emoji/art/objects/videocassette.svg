@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="cassette" stroke="ink">
+    <rect x="2.4" y="7.2" width="31.2" height="21.6" rx="2.4" ry="2.4" fill="black"/>
+    <rect x="5.8" y="9.8" width="24.4" height="6.4" rx="1" ry="1" fill="white" stroke-width="1.5"/>
+    <path d="M7.8 12.4 L28.2 12.4" fill="none" stroke="red" stroke-width="1.75"/>
+    <path d="M9.4 14.4 L18.6 14.4" fill="none" stroke-width="1.25"/>
+    <rect x="8.6" y="18.4" width="18.8" height="8" rx="1.6" ry="1.6" fill="silver" stroke-width="1.5"/>
+  </g>
+  <g id="spools" stroke="ink" stroke-width="1.25">
+    <circle cx="13.6" cy="22.4" r="3" fill="brown"/>
+    <circle cx="22.4" cy="22.4" r="2.1" fill="brown"/>
+    <circle cx="13.6" cy="22.4" r="1" fill="white"/>
+    <circle cx="22.4" cy="22.4" r="1" fill="white"/>
+  </g>
+</svg>

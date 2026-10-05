@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="tower-clip">
+      <path d="M13.8 13 L22.2 13 L24.4 30.4 L11.6 30.4 Z"/>
+    </clipPath>
+  </defs>
+  <g id="beams" fill="none" stroke="yellow-shade" stroke-width="1.75">
+    <path d="M11.4 7.6 L5 5.4 M11.4 10.4 L5 12.6 M24.6 7.6 L31 5.4 M24.6 10.4 L31 12.6"/>
+  </g>
+  <g id="tower" stroke="ink">
+    <path d="M13.8 13 L22.2 13 L24.4 30.4 L11.6 30.4 Z" fill="white" stroke="none"/>
+    <path d="M0 15.6 L36 15.6 L36 19.2 L0 19.2 Z M0 22.4 L36 22.4 L36 26 L0 26 Z" fill="red" stroke="none" clip-path="url(#tower-clip)"/>
+    <path d="M22.2 13 L24.4 30.4 L21.2 30.4 Q22.4 22 21.4 13 Z" fill="silver" stroke="none" clip-path="url(#tower-clip)"/>
+    <path d="M13.8 13 L22.2 13 L24.4 30.4 L11.6 30.4 Z" fill="none"/>
+    <path d="M16.4 30.4 L16.4 28.6 Q16.4 27 18 27 Q19.6 27 19.6 28.6 L19.6 30.4 Z" fill="brown" stroke-width="1.5"/>
+    <rect x="9.4" y="30.4" width="17.2" height="2.8" rx="1.2" ry="1.2" fill="grey" stroke-width="1.75"/>
+  </g>
+  <g id="lantern" stroke="ink">
+    <rect x="14" y="6.6" width="8" height="5" rx="0.6" ry="0.6" fill="yellow" stroke-width="1.75"/>
+    <path d="M18 6.6 L18 11.6" fill="none" stroke-width="1.5"/>
+    <path d="M13 6.8 Q13.4 2.6 18 2.6 Q22.6 2.6 23 6.8 Z" fill="red" stroke-width="1.75"/>
+    <rect x="11.6" y="11.4" width="12.8" height="2" rx="0.8" ry="0.8" fill="grey" stroke-width="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#ffffff"/>
+  <rect x="2" y="8" width="14.4" height="8.4" fill="#002d62"/>
+  <rect x="19.6" y="8" width="14.4" height="8.4" fill="#ce1126"/>
+  <rect x="2" y="19.6" width="14.4" height="8.4" fill="#ce1126"/>
+  <rect x="19.6" y="19.6" width="14.4" height="8.4" fill="#002d62"/>
+  <path d="M16.5 16.6C15.4 17.6 15.5 19.8 17.4 21C16.4 19.8 16.2 18 16.5 16.6Z" fill="#00843d"/>
+  <path d="M19.5 16.6C20.6 17.6 20.5 19.8 18.6 21C19.6 19.8 19.8 18 19.5 16.6Z" fill="#00843d"/>
+  <rect x="16.6" y="15.6" width="2.8" height="0.6" fill="#002d62"/>
+  <path d="M16.9 16.4L18 16.4L18 18.4L16.9 18.4Z" fill="#002d62"/>
+  <path d="M18 16.4L19.1 16.4L19.1 18.4L18 18.4Z" fill="#ce1126"/>
+  <path d="M18 20.5L17.85 20.48L17.71 20.44L17.57 20.37L17.45 20.27L17.33 20.14L17.22 20L17.13 19.84L17.05 19.66L16.99 19.46L16.94 19.25L16.91 19.03L16.9 18.8L16.9 18.4L18 18.4L18 20.5Z" fill="#ce1126"/>
+  <path d="M18.55 20.27L18.43 20.37L18.29 20.44L18.15 20.48L18 20.5L18 18.4L19.1 18.4L19.1 18.8L19.09 19.03L19.06 19.25L19.01 19.46L18.95 19.66L18.87 19.84L18.78 20L18.67 20.14Z" fill="#002d62"/>
+  <rect x="17.8" y="16.4" width="0.4" height="4" fill="#ffffff"/>
+  <rect x="16.9" y="18.2" width="2.2" height="0.4" fill="#ffffff"/>
+  <rect x="16.7" y="20.8" width="2.6" height="0.55" fill="#ce1126"/>
+</svg>

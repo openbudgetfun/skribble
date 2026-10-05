@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="body-shape"><path d="M2.4 19.8 C3.8 17.4 7.4 14.8 11.6 13.8 C15.4 12.8 21 12.8 24.6 13.8 C28.6 14.8 30.8 17.8 30.6 21 C30.4 24 28.2 25.6 25.2 25.6 L9 25.6 C5.6 25.6 1.8 22 2.4 19.8 Z"/></clipPath>
+  </defs>
+  <g id="tail" fill="none">
+    <path d="M29.4 22.4 C32.6 23 34 25.4 33.2 27.6 C32.4 29.8 29.2 30.4 26.6 29.4 C24.6 28.6 22.4 29.2 21 30.6" stroke="ink" stroke-width="3"/>
+    <path d="M29.4 22.4 C32.6 23 34 25.4 33.2 27.6 C32.4 29.8 29.2 30.4 26.6 29.4 C24.6 28.6 22.4 29.2 21 30.6" stroke="pink" stroke-width="1.25"/>
+  </g>
+  <g id="feet" fill="pink" stroke="ink" stroke-width="1.25">
+    <ellipse cx="11.6" cy="25.8" rx="2" ry="1.1"/>
+    <ellipse cx="23.6" cy="25.8" rx="2" ry="1.1"/>
+  </g>
+  <g id="body">
+    <path d="M2.4 19.8 C3.8 17.4 7.4 14.8 11.6 13.8 C15.4 12.8 21 12.8 24.6 13.8 C28.6 14.8 30.8 17.8 30.6 21 C30.4 24 28.2 25.6 25.2 25.6 L9 25.6 C5.6 25.6 1.8 22 2.4 19.8 Z" fill="grey-shade"/>
+    <g clip-path="url(#body-shape)">
+      <path d="M2.4 19.8 C3.8 17.4 7.4 14.8 11.6 13.8 C15.4 12.8 21 12.8 24.6 13.8 C28.6 14.8 30.8 17.8 30.6 21 C30.4 24 28.2 25.6 25.2 25.6 L9 25.6 C5.6 25.6 1.8 22 2.4 19.8 Z" transform="translate(-1.4 -1.6)" fill="grey"/>
+    </g>
+    <path d="M2.4 19.8 C3.8 17.4 7.4 14.8 11.6 13.8 C15.4 12.8 21 12.8 24.6 13.8 C28.6 14.8 30.8 17.8 30.6 21 C30.4 24 28.2 25.6 25.2 25.6 L9 25.6 C5.6 25.6 1.8 22 2.4 19.8 Z" fill="none" stroke="ink"/>
+  </g>
+  <g id="ears">
+    <circle cx="13.4" cy="13.6" r="2.8" fill="grey" stroke="ink" stroke-width="1.75"/>
+    <circle cx="13.5" cy="13.7" r="1.5" fill="pink"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="8.2" cy="17.6" rx="1.1" ry="1.5"/>
+    <circle cx="8.5" cy="17" r="0.4" fill="paper"/>
+  </g>
+  <g id="nose">
+    <circle cx="2.7" cy="19.8" r="0.9" fill="pink" stroke="ink" stroke-width="1"/>
+    <path d="M5 19.6 L2.2 18.2 M5.2 21 L2.4 21.8" fill="none" stroke="ink" stroke-width="1"/>
+  </g>
+</svg>

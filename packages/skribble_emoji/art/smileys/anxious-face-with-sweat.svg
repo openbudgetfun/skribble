@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="head"><circle cx="18" cy="18" r="15"/></clipPath>
+  </defs>
+  <g id="face">
+    <circle cx="18" cy="18" r="15" fill="yellow"/>
+    <path d="M31.7 11.9 A15 15 0 0 1 18 33 C25.6 30.4 30.6 22.6 31.7 11.9 Z" fill="yellow-shade"/>
+    <path data-part="fear" clip-path="url(#head)" d="M2 2 L34 2 L34 11.6 C29.4 13.4 24.2 10.8 18 12.4 C11.8 14 6.6 11.2 2 12.8 Z" fill="sky"/>
+    <circle cx="18" cy="18" r="15" fill="none" stroke="ink"/>
+  </g>
+  <g id="brows" fill="none" stroke="ink" stroke-width="1.75">
+    <path d="M9.4 10.4 Q12 9.8 14.4 7.8"/>
+    <path d="M27.4 10.2 Q24.6 9.6 22 7.6"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="12.6" cy="14.2" rx="1.9" ry="2.7"/>
+    <ellipse cx="23.4" cy="14.2" rx="1.9" ry="2.7"/>
+    <circle cx="13.2" cy="13.2" r="0.6" fill="paper"/>
+    <circle cx="24" cy="13.2" r="0.6" fill="paper"/>
+  </g>
+  <path data-part="mouth" d="M12.6 27.8 Q12.6 21.4 18 21.4 Q23.4 21.4 23.4 27.8 Q18 26.2 12.6 27.8 Z" fill="ink"/>
+  <path data-part="sweat" d="M5.8 3.8 C4.2 6.8 3 8.6 3 10.4 C3 12 4.2 13.2 5.8 13.2 C7.4 13.2 8.6 12 8.6 10.4 C8.6 8.6 7.4 6.8 5.8 3.8 Z" fill="sky" stroke="ink" stroke-width="1.5"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="envelope"/>
+  <g id="seal" stroke="ink">
+    <circle cx="18" cy="19.6" r="6" fill="blue" stroke-width="1.75"/>
+    <circle cx="18" cy="19.6" r="1.6" fill="none" stroke="paper" stroke-width="1.5"/>
+    <path d="M19.6 18.2 L19.6 20.6 Q19.6 21.8 20.8 21.8 Q22 21.8 22 19.6 A4 4 0 1 0 20 23.06" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A bare leg, knee bent forward to the left, foot pointing left, the
+       hem of a pair of shorts at the top. -->
+  <g id="leg" stroke="ink">
+    <path d="M19.6 4.8 L8.8 14.8 C6.6 17 6.8 20.2 8.8 21.6 L15 27 C13 27.6 10 28.2 8 28.6 C5.6 29.2 5.6 32.8 8.2 32.8 L21 32.8 C22.8 32.8 23.4 30.6 22.4 28.8 C23.8 24 23.4 19.6 18.4 16.8 L28.6 7.4 Z" fill="skin" stroke="none"/>
+    <path d="M22.4 28.8 C23.4 30.6 22.8 32.8 21 32.8 L13.2 32.8 C17 32 20.4 30.8 22.4 28.8 Z" fill="skin-shade" stroke="none"/>
+    <path d="M19.6 4.8 L8.8 14.8 C6.6 17 6.8 20.2 8.8 21.6 L15 27 C13 27.6 10 28.2 8 28.6 C5.6 29.2 5.6 32.8 8.2 32.8 L21 32.8 C22.8 32.8 23.4 30.6 22.4 28.8 C23.8 24 23.4 19.6 18.4 16.8 L28.6 7.4" fill="none"/>
+    <path d="M10.8 17.6 Q12.4 18.6 12.2 20.4" fill="none" stroke-width="1.5"/>
+    <path data-part="shorts" d="M16.6 2.6 L31.4 2.6 L31.4 8.4 C26.6 10.6 21.2 9.4 16.6 5.8 Z" fill="blue"/>
+  </g>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="coil"><circle cx="14" cy="20.4" r="10.6"/></clipPath>
+  </defs>
+  <g id="mouthpiece">
+    <path d="M6.6 13.2 L3.6 9.8" fill="none" stroke="ink" stroke-width="3.8"/>
+    <path d="M6.6 13.2 L3.6 9.8" fill="none" stroke="yellow" stroke-width="2"/>
+    <circle cx="3.2" cy="9.2" r="1.4" fill="yellow" stroke="ink" stroke-width="1.5"/>
+  </g>
+  <g id="horn" stroke="ink">
+    <path d="M21.2 13.6 L28 8.2 Q31.6 5.6 33.2 9 L33.4 18.6 Q32.6 22 29 20.2 L23.4 17.4 Z" fill="yellow"/>
+    <path d="M24.4 10.6 Q27 13 33.2 13.4 L33.4 18.6 Q32.6 22 29 20.2 L23.4 17.4 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M21.2 13.6 L28 8.2 Q31.6 5.6 33.2 9 L33.4 18.6 Q32.6 22 29 20.2 L23.4 17.4 Z" fill="none"/>
+    <ellipse cx="32.4" cy="13.8" rx="1.6" ry="5.2" fill="yellow-shade" stroke-width="1.75"/>
+    <path d="M24.6 20.4 A10.6 10.6 0 1 1 3.4 20.4 A10.6 10.6 0 1 1 24.6 20.4 Z M20.6 20.4 A6.6 6.6 0 1 0 7.4 20.4 A6.6 6.6 0 1 0 20.6 20.4 Z" fill="yellow" fill-rule="evenodd" stroke="none"/>
+    <path d="M23.2 18.4 A9.4 9.4 0 0 1 12.2 29.8" fill="none" stroke="yellow-shade" stroke-width="2" clip-path="url(#coil)"/>
+    <path d="M24.6 20.4 A10.6 10.6 0 1 1 3.4 20.4 A10.6 10.6 0 1 1 24.6 20.4 Z M20.6 20.4 A6.6 6.6 0 1 0 7.4 20.4 A6.6 6.6 0 1 0 20.6 20.4 Z" fill="none"/>
+    <path d="M6.2 17.4 Q7.6 13.4 11.6 12" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="toothbrush" stroke="ink" transform="translate(-0.5 0.8) rotate(-35 18 18)">
+    <path d="M4.4 17 L32.6 17.6 Q34.2 17.6 34.2 19.4 Q34.2 21.2 32.6 21.2 L22.4 21.2 L4.4 22.6 Q2 22.6 2 19.8 Q2 17 4.4 17 Z" fill="blue" stroke="none"/>
+    <path d="M34.2 19.6 Q34.2 21.2 32.6 21.2 L22.4 21.2 L4.4 22.6 Q2.6 22.6 2.2 21 Q3 21.4 4.4 21.2 L22.4 20 L32.6 20 Q33.8 20 34.2 19.6 Z" fill="blue-shade" stroke="none"/>
+    <path d="M4.4 17 L32.6 17.6 Q34.2 17.6 34.2 19.4 Q34.2 21.2 32.6 21.2 L22.4 21.2 L4.4 22.6 Q2 22.6 2 19.8 Q2 17 4.4 17 Z" fill="none"/>
+    <rect x="5" y="18.4" width="10" height="2.6" rx="1.3" ry="1.3" fill="sky" stroke-width="1.25"/>
+    <g id="bristles">
+      <rect x="23.4" y="11.6" width="10.2" height="6.2" rx="1" ry="1" fill="white" stroke-width="1.5"/>
+      <path d="M26.8 12.4 L26.8 17.6 M30.2 12.4 L30.2 17.6" fill="none" stroke-width="1.25"/>
+    </g>
+    <path data-part="paste" d="M23.4 11.8 Q23.2 8.6 26 9 Q27.4 7 29.6 8.6 Q32.2 7.6 33.4 10.4 Q33.8 11.8 33.4 11.8 Z" fill="mint" stroke-width="1.5"/>
+  </g>
+</svg>

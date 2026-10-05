@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.6" y="18.8" width="4.8" height="5.4" fill="skin"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="pink"/>
+    <path d="M25.4 24.8 C28.2 26.4 30 29.6 30.2 34.6 L26.8 34.6 C27 30.4 26.6 27.2 25.4 24.8 Z" fill="pink-shade" stroke="none"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="none"/>
+    <path d="M13 23.4 Q18 28.6 23 23.4" fill="skin" stroke-width="1.5"/>
+    <circle cx="18" cy="26" r="0.9" fill="yellow" stroke-width="1"/>
+  </g>
+  <g data-include="head" data-as="woman"/>
+  <g id="tiara" stroke="ink" stroke-width="1.5">
+    <path d="M12 8.4 L13.4 5.6 L15.6 7.2 L18 3.4 L20.4 7.2 L22.6 5.6 L24 8.4 Q18 9.8 12 8.4 Z" fill="yellow"/>
+    <circle cx="18" cy="6.8" r="1" fill="pink" stroke-width="1.25"/>
+  </g>
+</svg>

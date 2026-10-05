@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="dome"><path d="M8 23.6 Q7.4 9.2 19.4 8.6 Q31.2 8.6 31.8 23 Q20 26.4 8 23.6 Z"/></clipPath>
+  </defs>
+  <g id="cap" stroke="ink">
+    <path d="M8 23.6 Q7.4 9.2 19.4 8.6 Q31.2 8.6 31.8 23 Q20 26.4 8 23.6 Z" fill="blue" stroke="none"/>
+    <path d="M36 12 Q31 24 20 27 L36 28 Z" fill="blue-shade" stroke="none" clip-path="url(#dome)"/>
+    <path d="M8 23.6 Q7.4 9.2 19.4 8.6 Q31.2 8.6 31.8 23 Q20 26.4 8 23.6 Z" fill="none"/>
+    <path d="M19.4 8.8 Q15.6 14.6 15.4 24.4 M19.4 8.8 Q24.4 14.4 25.6 24.8" fill="none" stroke-width="1.5"/>
+    <circle cx="19.4" cy="8.4" r="1.4" fill="blue" stroke-width="1.25"/>
+    <path d="M11.8 13.7 L12.48 15.47 L14.37 15.57 L12.89 16.76 L13.39 18.58 L11.8 17.55 L10.21 18.58 L10.71 16.76 L9.23 15.57 L11.12 15.47 Z" fill="yellow" stroke-width="1.25"/>
+  </g>
+  <path data-part="bill" d="M10.4 22.8 Q4.4 22.4 2.6 25.6 Q2 27.4 4.6 27.8 Q12.4 29 21.2 26.2 Z" fill="blue-shade" stroke="ink"/>
+</svg>

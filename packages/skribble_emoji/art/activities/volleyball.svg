@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="blue-panel">
+      <path d="M18 18 C21 13 20 7 15.4 3.23 A15 15 0 0 1 32.1 23.13 C28 23.4 22 21 18 18 Z"/>
+    </clipPath>
+    <clipPath id="yellow-panel">
+      <path d="M18 18 C22 21 28 23.4 32.1 23.13 A15 15 0 0 1 6.51 27.64 C9 22.4 13.4 19 18 18 Z"/>
+    </clipPath>
+  </defs>
+  <g id="ball" stroke="ink">
+    <circle cx="18" cy="18" r="15" fill="white" stroke="none"/>
+    <path d="M18 18 C21 13 20 7 15.4 3.23 A15 15 0 0 1 32.1 23.13 C28 23.4 22 21 18 18 Z" fill="blue" stroke="none"/>
+    <path d="M18 18 C22 21 28 23.4 32.1 23.13 A15 15 0 0 1 6.51 27.64 C9 22.4 13.4 19 18 18 Z" fill="yellow" stroke="none"/>
+    <g clip-path="url(#blue-panel)">
+      <path d="M31.7 11.9 A15 15 0 0 1 18 33 C25.6 30.4 30.6 22.6 31.7 11.9 Z" fill="blue-shade" stroke="none"/>
+    </g>
+    <g clip-path="url(#yellow-panel)">
+      <path d="M31.7 11.9 A15 15 0 0 1 18 33 C25.6 30.4 30.6 22.6 31.7 11.9 Z" fill="yellow-shade" stroke="none"/>
+    </g>
+    <path d="M18 18 C21 13 20 7 15.4 3.23 M18 18 C22 21 28 23.4 32.1 23.13 M18 18 C13.4 19 9 22.4 6.51 27.64" fill="none" stroke-width="1.5"/>
+    <circle cx="18" cy="18" r="15" fill="none"/>
+    <path d="M7.6 13.4 Q8.4 10 11.2 7.6" fill="none" stroke="silver" stroke-width="1.75"/>
+  </g>
+</svg>

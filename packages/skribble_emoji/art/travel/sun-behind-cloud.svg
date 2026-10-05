@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="rays" d="M13.4 5 L13.4 2.4 M19.48 7.52 L21.32 5.68 M22 13.6 L24.6 13.6 M19.48 19.68 L21.32 21.52 M13.4 22.2 L13.4 24.8 M7.32 19.68 L5.48 21.52 M4.8 13.6 L2.2 13.6 M7.32 7.52 L5.48 5.68" fill="none" stroke="orange" stroke-width="2.75"/>
+  <g id="sun">
+    <circle cx="13.4" cy="13.6" r="6.8" fill="yellow"/>
+    <path d="M19.61 10.83 A6.8 6.8 0 0 1 13.4 20.4 C16.85 19.22 19.11 15.69 19.61 10.83 Z" fill="yellow-shade"/>
+    <circle cx="13.4" cy="13.6" r="6.8" fill="none" stroke="ink"/>
+  </g>
+  <defs><clipPath id="cloud-clip"><path d="M12.77 32.06A4.99 4.99 0 1 1 13.46 22.13A6.54 6.54 0 0 1 26.34 20.49A5.85 5.85 0 1 1 27.57 32.06Z"/></clipPath></defs>
+  <g id="cloud">
+    <path d="M12.77 32.06A4.99 4.99 0 1 1 13.46 22.13A6.54 6.54 0 0 1 26.34 20.49A5.85 5.85 0 1 1 27.57 32.06Z" fill="white"/>
+    <path d="M12.77 32.06A4.99 4.99 0 1 1 13.46 22.13A6.54 6.54 0 0 1 26.34 20.49A5.85 5.85 0 1 1 27.57 32.06Z M10.97 30.16A4.99 4.99 0 1 1 11.66 20.23A6.54 6.54 0 0 1 24.54 18.59A5.85 5.85 0 1 1 25.77 30.16Z" fill="silver" fill-rule="evenodd" clip-path="url(#cloud-clip)"/>
+    <path d="M12.77 32.06A4.99 4.99 0 1 1 13.46 22.13A6.54 6.54 0 0 1 26.34 20.49A5.85 5.85 0 1 1 27.57 32.06Z" fill="none" stroke="ink"/>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="horns" fill="purple" stroke="ink">
+    <path d="M8.4 10.4 C5 9 3 6.2 3.4 2.6 C6 4 9.2 4.4 12.6 5.6 Z"/>
+    <path d="M27.6 10.4 C31 9 33 6.2 32.6 2.6 C30 4 26.8 4.4 23.4 5.6 Z"/>
+  </g>
+  <g data-include="face" data-tokens="yellow:purple,yellow-shade:purple-shade"/>
+  <g id="brows" fill="none" stroke="ink">
+    <path d="M8.8 9.2 Q12 9.4 15 11.8"/>
+    <path d="M27.2 9.2 Q24 9.4 21 11.8"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="12.6" cy="14.8" rx="1.9" ry="2.4"/>
+    <ellipse cx="23.4" cy="14.8" rx="1.9" ry="2.4"/>
+    <circle cx="13.2" cy="14" r="0.6" fill="paper"/>
+    <circle cx="24" cy="14" r="0.6" fill="paper"/>
+  </g>
+  <g id="mouth">
+    <path d="M9.6 20.4 Q18 23.4 26.4 20.4 Q25.2 28.6 18 28.6 Q10.8 28.6 9.6 20.4 Z" fill="ink"/>
+    <path d="M11.2 21.6 Q18 23.6 24.8 21.6 L24.4 23.4 Q18 24.8 11.6 23.4 Z" fill="paper"/>
+  </g>
+</svg>

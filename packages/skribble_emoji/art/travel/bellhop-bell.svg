@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="ring" fill="none" stroke="yellow-shade" stroke-width="1.75">
+    <path d="M8.4 6.4 L10 8.4 M27.6 6.4 L26 8.4 M18 1.8 L18 3.4"/>
+  </g>
+  <g id="button" stroke="ink">
+    <rect x="16.6" y="8.8" width="2.8" height="4" rx="0.6" ry="0.6" fill="grey" stroke-width="1.5"/>
+    <ellipse cx="18" cy="8.4" rx="3.2" ry="1.4" fill="grey" stroke-width="1.5"/>
+  </g>
+  <g id="bell" stroke="ink">
+    <path d="M6 26 Q6 12.4 18 12.4 Q30 12.4 30 26 Z" fill="yellow" stroke="none"/>
+    <path d="M30 26 Q30 18 26.4 14.8 Q28 20.4 23.6 26 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M6 26 Q6 12.4 18 12.4 Q30 12.4 30 26 Z" fill="none"/>
+    <path d="M9.8 21.4 Q10.4 17.6 13.4 15.8" fill="none" stroke="paper" stroke-width="1.75"/>
+    <rect x="3.4" y="26" width="29.2" height="5" rx="1.8" ry="1.8" fill="brown"/>
+  </g>
+</svg>

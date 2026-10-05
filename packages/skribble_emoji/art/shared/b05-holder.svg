@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A standing person on the left half, reaching their right hand to the
+       middle (18, 21), for the holding-hands emoji. Mirror it for the
+       partner; the top is teal, recolour it through data-tokens. -->
+  <g id="legs" fill="none">
+    <path d="M9 22.6 L8.6 32.6 M12.2 22.6 L12.6 32.6" stroke="ink" stroke-width="4.8"/>
+    <path d="M9 22.6 L8.6 32.6 M12.2 22.6 L12.6 32.6" stroke="blue" stroke-width="3.2"/>
+    <path d="M7 33.2 L9.2 33.2 M12 33.2 L14.2 33.2" stroke="ink" stroke-width="2.4"/>
+  </g>
+  <path id="top" d="M6.8 23.4 L7 15.6 Q7.2 12.8 9.8 12.8 L11.4 12.8 Q14 12.8 14.2 15.6 L14.4 23.4 Z" fill="teal" stroke="ink" stroke-width="1.75"/>
+  <g id="arms" fill="none">
+    <path d="M7.8 14.8 L6 22.4 M13.4 14.8 L17.4 20.8" stroke="ink" stroke-width="4.2"/>
+    <path d="M7.8 14.8 L6 22.4 M13.4 14.8 L17.4 20.8" stroke="skin" stroke-width="2.6"/>
+  </g>
+  <g data-include="head" transform="translate(0.52 0.584) scale(0.56)"/>
+</svg>

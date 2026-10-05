@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <path d="M2 8H34V28H2Z" fill="#012169"/>
+  <g data-include="b24-union-jack"/>
+  <path d="M23.1 12.3 H28.9 V19.6 C28.9 21.8 27.5 23.1 26 23.65 C24.5 23.1 23.1 21.8 23.1 19.6 Z" fill="#ffffff"/>
+  <path d="M23.4 12.6 H28.6 V19.6 C28.6 21.6 27.3 22.8 26 23.3 C24.7 22.8 23.4 21.6 23.4 19.6 Z" fill="#00843d"/>
+  <path d="M25.4 16.3 L24.9 21.3 H27.1 L26.6 16.3 Z" fill="#ffffff"/>
+  <circle cx="26" cy="15.6" r="0.55" fill="#e0b07a"/>
+  <g fill="#fcd116">
+    <ellipse cx="27.1" cy="16.9" rx="0.42" ry="0.26"/>
+    <ellipse cx="26" cy="13.6" rx="0.42" ry="0.26"/>
+    <ellipse cx="24.25" cy="13.9" rx="0.42" ry="0.26"/><ellipse cx="24.25" cy="15.5" rx="0.42" ry="0.26"/><ellipse cx="24.25" cy="17.1" rx="0.42" ry="0.26"/><ellipse cx="24.25" cy="18.7" rx="0.42" ry="0.26"/><ellipse cx="24.35" cy="20.3" rx="0.42" ry="0.26"/>
+    <ellipse cx="27.75" cy="13.9" rx="0.42" ry="0.26"/><ellipse cx="27.75" cy="15.5" rx="0.42" ry="0.26"/><ellipse cx="27.85" cy="18.5" rx="0.42" ry="0.26"/><ellipse cx="27.75" cy="20.1" rx="0.42" ry="0.26"/><ellipse cx="26" cy="22.2" rx="0.42" ry="0.26"/>
+  </g>
+</svg>

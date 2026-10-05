@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="roof"><path d="M3.4 15.6 L16.8 5.4 Q18 4.6 19.2 5.4 L32.6 15.6 Q30.775 17.8 28.95 15.6 Q27.125 17.8 25.3 15.6 Q23.475 17.8 21.65 15.6 Q19.825 17.8 18 15.6 Q16.175 17.8 14.35 15.6 Q12.525 17.8 10.7 15.6 Q8.875 17.8 7.05 15.6 Q5.225 17.8 3.4 15.6 Z"/></clipPath>
+    <clipPath id="wall"><rect x="5.2" y="14.4" width="25.6" height="17.4"/></clipPath>
+  </defs>
+  <g id="flag" stroke="ink">
+    <path d="M18 5 L18 2.2" fill="none" stroke-width="1.5"/>
+    <path d="M18 2.2 L22.2 3.2 L18 4.2 Z" fill="yellow" stroke-width="1.25"/>
+  </g>
+  <g id="wall" stroke="ink">
+    <rect x="5.2" y="14.4" width="25.6" height="17.4" fill="white"/>
+    <path d="M8.4 14 h3.2 v18 h-3.2 Z M14.8 14 h3.2 v18 h-3.2 Z M21.2 14 h3.2 v18 h-3.2 Z M27.6 14 h3.2 v18 h-3.2 Z" fill="red" stroke="none" clip-path="url(#wall)"/>
+    <rect x="5.2" y="14.4" width="25.6" height="17.4" fill="none"/>
+    <path d="M14.2 31.8 Q15.4 24.6 18 21.8 Q20.6 24.6 21.8 31.8 Z" fill="black" stroke-width="1.5"/>
+  </g>
+  <g id="roof" stroke="ink">
+    <path d="M3.4 15.6 L16.8 5.4 Q18 4.6 19.2 5.4 L32.6 15.6 Q30.775 17.8 28.95 15.6 Q27.125 17.8 25.3 15.6 Q23.475 17.8 21.65 15.6 Q19.825 17.8 18 15.6 Q16.175 17.8 14.35 15.6 Q12.525 17.8 10.7 15.6 Q8.875 17.8 7.05 15.6 Q5.225 17.8 3.4 15.6 Z" fill="white"/>
+    <path d="M18 4.8 L3.4 18 L7.05 18 Z M18 4.8 L10.7 18 L14.35 18 Z M18 4.8 L18 18 L21.65 18 Z M18 4.8 L25.3 18 L28.95 18 Z" fill="red" stroke="none" clip-path="url(#roof)"/>
+    <path d="M3.4 15.6 L16.8 5.4 Q18 4.6 19.2 5.4 L32.6 15.6 Q30.775 17.8 28.95 15.6 Q27.125 17.8 25.3 15.6 Q23.475 17.8 21.65 15.6 Q19.825 17.8 18 15.6 Q16.175 17.8 14.35 15.6 Q12.525 17.8 10.7 15.6 Q8.875 17.8 7.05 15.6 Q5.225 17.8 3.4 15.6 Z" fill="none"/>
+  </g>
+</svg>

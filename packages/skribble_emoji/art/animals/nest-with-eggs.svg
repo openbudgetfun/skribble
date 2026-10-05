@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(0 -1.4)">
+    <g data-include="b07-nest-back"/>
+    <g id="eggs" stroke="ink">
+      <ellipse cx="12.8" cy="14.8" rx="3.6" ry="4.6" transform="rotate(-16 12.8 14.8)" fill="sky"/>
+      <ellipse cx="23.2" cy="14.8" rx="3.6" ry="4.6" transform="rotate(16 23.2 14.8)" fill="sky"/>
+      <ellipse cx="18" cy="13.4" rx="3.8" ry="4.8" fill="sky"/>
+      <path d="M16 11.6 Q16.4 10 17.8 9.4 M10.8 13 Q11 11.4 12.2 10.8 M21.4 12.2 Q21.8 10.8 23 10.4" fill="none" stroke="paper" stroke-width="1.5"/>
+    </g>
+    <g data-include="b07-nest-front"/>
+  </g>
+</svg>

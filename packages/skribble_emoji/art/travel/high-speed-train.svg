@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="body"><path d="M2.6 25 C3 20.4 8.4 13.2 16 12.4 L27.4 12.4 Q29.6 12.4 29.6 14.6 L29.6 25.4 Q29.6 27.4 27.6 27.4 L4.8 27.4 Q2.6 27.4 2.6 25 Z"/></clipPath></defs>
+  <g id="wheels" fill="grey" stroke="ink" stroke-width="1.5">
+    <circle cx="9.2" cy="28.8" r="1.9"/>
+    <circle cx="13.8" cy="28.8" r="1.9"/>
+    <circle cx="21.2" cy="28.8" r="1.9"/>
+    <circle cx="25.8" cy="28.8" r="1.9"/>
+  </g>
+  <g id="train" stroke="ink">
+    <path d="M2.6 25 C3 20.4 8.4 13.2 16 12.4 L27.4 12.4 Q29.6 12.4 29.6 14.6 L29.6 25.4 Q29.6 27.4 27.6 27.4 L4.8 27.4 Q2.6 27.4 2.6 25 Z" fill="white"/>
+    <path d="M0 24.6 h36 v4 h-36 Z" fill="silver" stroke="none" clip-path="url(#body)"/>
+    <path d="M0 20.8 h36 v2.4 h-36 Z" fill="red" stroke="none" clip-path="url(#body)"/>
+    <path d="M7.4 18 Q9.8 14.8 14.4 14 L14.4 18 Z" fill="sky" stroke-width="1.5"/>
+    <path d="M17.4 15 h2.8 v2.8 h-2.8 Z M21.6 15 h2.8 v2.8 h-2.8 Z M25.8 15 h2 v2.8 h-2 Z" fill="sky" stroke-width="1.25"/>
+    <path d="M2.6 25 C3 20.4 8.4 13.2 16 12.4 L27.4 12.4 Q29.6 12.4 29.6 14.6 L29.6 25.4 Q29.6 27.4 27.6 27.4 L4.8 27.4 Q2.6 27.4 2.6 25 Z" fill="none"/>
+    <ellipse cx="5" cy="23.8" rx="1.2" ry="0.8" fill="yellow" stroke-width="1.25"/>
+  </g>
+  <path id="motion" d="M31.4 15.4 L33.8 15.4 M31.4 19.6 L34 19.6 M31.4 23.8 L33.6 23.8" fill="none" stroke="ink" stroke-width="1.5"/>
+  <path id="rail" d="M2.4 31.8 L33.6 31.8" fill="none" stroke="ink"/>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="rays" fill="orange" stroke="ink" stroke-width="1.5">
+    <circle cx="29.2" cy="18" r="1.7"/>
+    <circle cx="25.92" cy="25.92" r="1.7"/>
+    <circle cx="18" cy="29.2" r="1.7"/>
+    <circle cx="10.08" cy="25.92" r="1.7"/>
+    <circle cx="6.8" cy="18" r="1.7"/>
+    <circle cx="10.08" cy="10.08" r="1.7"/>
+    <circle cx="18" cy="6.8" r="1.7"/>
+    <circle cx="25.92" cy="10.08" r="1.7"/>
+  </g>
+  <g id="sun">
+    <circle cx="18" cy="18" r="5.8" fill="cream"/>
+    <path d="M23.3 15.7 A5.8 5.8 0 0 1 15.7 23.3 C19.4 22.3 22.2 19.7 23.3 15.7 Z" fill="yellow"/>
+    <circle cx="18" cy="18" r="5.8" fill="none" stroke="ink"/>
+  </g>
+</svg>

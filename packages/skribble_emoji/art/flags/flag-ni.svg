@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="0" y="6" width="36" height="24" fill="#0067c6"/>
+  <rect x="0" y="14.667" width="36" height="6.667" fill="#ffffff"/>
+  <g id="emblem">
+    <path d="M21.15 18 A3.15 3.15 0 1 0 14.85 18 A3.15 3.15 0 1 0 21.15 18 Z M20.6 18 A2.6 2.6 0 1 0 15.4 18 A2.6 2.6 0 1 0 20.6 18 Z" fill="#c8a400" fill-rule="evenodd"/>
+    <polygon points="18 15.3 20.35 19.4 15.65 19.4" fill="#c8a400"/>
+    <polygon points="18 16.05 19.72 19.05 16.28 19.05" fill="#7ec8f0"/>
+    <polygon points="16.28 19.05 16.9 18.1 17.3 18.5 18 17.6 18.7 18.5 19.1 18.1 19.72 19.05" fill="#009a44"/>
+    <circle cx="18" cy="17.2" r="0.35" fill="#e2001a"/>
+  </g>
+</svg>

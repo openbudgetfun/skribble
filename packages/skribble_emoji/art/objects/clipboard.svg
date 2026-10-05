@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="board" stroke="ink">
+    <rect x="5" y="5" width="26" height="28.4" rx="2.4" ry="2.4" fill="brown" stroke="none"/>
+    <path d="M31 19 L31 31 Q31 33.4 28.6 33.4 L17 33.4 C24.6 31.6 29.4 26.4 31 19 Z" fill="brown-shade" stroke="none"/>
+    <rect x="5" y="5" width="26" height="28.4" rx="2.4" ry="2.4" fill="none"/>
+    <rect x="8.4" y="8.6" width="19.2" height="21.8" rx="1" ry="1" fill="white" stroke-width="1.5"/>
+    <path d="M11.4 15 L24.6 15 M11.4 19.4 L24.6 19.4 M11.4 23.8 L20 23.8" fill="none" stroke-width="1.5"/>
+  </g>
+  <g id="clip" stroke="ink">
+    <path d="M11.6 10.4 L11.6 6.8 Q11.6 5.4 13 5.4 L14.6 5.4 Q15 2.6 18 2.6 Q21 2.6 21.4 5.4 L23 5.4 Q24.4 5.4 24.4 6.8 L24.4 10.4 Z" fill="silver" stroke-width="1.75"/>
+    <circle cx="18" cy="5.2" r="0.9" fill="ink" stroke="none"/>
+  </g>
+</svg>

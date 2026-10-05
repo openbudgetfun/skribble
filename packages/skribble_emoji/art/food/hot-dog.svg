@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="hot-dog" stroke="ink" transform="rotate(-30 18 18)">
+    <rect x="4.6" y="10.4" width="26.8" height="9" rx="4.5" ry="4.5" fill="tan"/>
+    <rect x="1.8" y="13.6" width="32.4" height="7" rx="3.5" ry="3.5" fill="red"/>
+    <path d="M6.4 16.2 Q8.2 14.6 10 16.2 Q11.8 17.8 13.6 16.2 Q15.4 14.6 17.2 16.2 Q19 17.8 20.8 16.2 Q22.6 14.6 24.4 16.2 Q26.2 17.8 28 16.2 Q29 15.4 29.8 15.8" fill="none" stroke="yellow" stroke-width="1.75"/>
+    <rect x="4.6" y="17.4" width="26.8" height="8.6" rx="4.3" ry="4.3" fill="tan" stroke="none"/>
+    <path d="M4.8 23.4 C5.6 25 7.2 26 8.9 26 L27.1 26 C28.8 26 30.4 25 31.2 23.4 C29 23.8 26.6 23.8 24.2 23.8 L11.8 23.8 C9.4 23.8 7 23.8 4.8 23.4 Z" fill="brown" stroke="none"/>
+    <rect x="4.6" y="17.4" width="26.8" height="8.6" rx="4.3" ry="4.3" fill="none"/>
+  </g>
+</svg>

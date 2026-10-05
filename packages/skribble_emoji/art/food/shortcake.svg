@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="plate" stroke="ink">
+    <ellipse cx="18" cy="28.4" rx="15.6" ry="4.4" fill="white" stroke-width="1.75"/>
+    <ellipse cx="18" cy="28" rx="11" ry="2.6" fill="none" stroke="silver" stroke-width="1.5"/>
+  </g>
+  <g id="cake" stroke="ink">
+    <path d="M4 15.6 L27 19.4 L27 29.4 L4 25.6 Z" fill="cream" stroke="none"/>
+    <path d="M4 15.6 L27 19.4 L27 21.6 L4 17.8 Z" fill="white" stroke="none"/>
+    <path d="M4 20.2 L27 24 L27 26.2 L4 22.4 Z" fill="white" stroke="none"/>
+    <g fill="red" stroke="none">
+      <ellipse cx="9.6" cy="22.2" rx="1.8" ry="1.1" transform="rotate(9.4 9.6 22.2)"/>
+      <ellipse cx="15.6" cy="23.2" rx="1.8" ry="1.1" transform="rotate(9.4 15.6 23.2)"/>
+      <ellipse cx="21.6" cy="24.2" rx="1.8" ry="1.1" transform="rotate(9.4 21.6 24.2)"/>
+    </g>
+    <path d="M4 15.6 L27 19.4 L27 29.4 L4 25.6 Z" fill="none"/>
+    <path d="M27 19.4 L31.6 11.4 L31.6 21.4 L27 29.4 Z" fill="silver"/>
+    <path d="M4 15.6 L31.6 11.4 L27 19.4 Z" fill="white"/>
+  </g>
+  <g id="strawberry" stroke="ink">
+    <path d="M22.6 6.2 C25.6 6.2 27 8.8 25.6 11.4 C24.6 13.2 23.4 14.2 22.4 14.4 C21.4 14.2 20 13.2 19.2 11.4 C17.8 8.8 19.4 6.2 22.6 6.2 Z" fill="red" stroke-width="1.75"/>
+    <g fill="yellow" stroke="none">
+      <circle cx="21" cy="9.6" r="0.45"/>
+      <circle cx="23.8" cy="9.4" r="0.45"/>
+      <circle cx="22.4" cy="11.8" r="0.45"/>
+    </g>
+    <path d="M19.6 6.4 Q21 7.8 22.4 6.8 Q23.8 7.8 25.4 6.4 Q24 5 22.4 5.6 Q20.8 5 19.6 6.4 Z" fill="green" stroke-width="1.25"/>
+  </g>
+</svg>

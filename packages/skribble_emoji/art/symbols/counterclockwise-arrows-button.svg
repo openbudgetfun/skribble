@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b18-button-blue"/>
+  <g id="arrows" fill="none" stroke="white" stroke-width="3">
+    <path d="M26.1 19.4 A8.2 8.2 0 0 0 17.4 9.8 M19.8 6.2 L16.2 9.8 L19.8 13.4"/>
+    <path d="M9.9 16.6 A8.2 8.2 0 0 0 18.6 26.2 M16.2 22.6 L19.8 26.2 L16.2 29.8"/>
+  </g>
+</svg>

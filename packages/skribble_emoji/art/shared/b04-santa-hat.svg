@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The Claus hat, sized for the shared head (centre 18, 13.6): a red
+       cap that flops to the right, white fur trim, and a pompom. -->
+  <g id="hat" stroke="ink" stroke-width="1.75">
+    <path d="M10 10.6 C10.4 4.8 14.8 2 19.6 2.2 C25 2.4 28.6 6.4 30 11.6 C28 9.6 26.6 8.6 25.4 8.2 C25.8 9 26 9.8 26 10.6 Z" fill="red"/>
+    <path d="M22.6 2.8 C26.4 4.4 28.8 7.6 30 11.6 C28.4 10 27.4 9.2 26.4 8.6 C25.6 6.2 24.4 4.2 22.6 2.8 Z" fill="red-shade" stroke="none"/>
+    <path d="M10 10.6 C10.4 4.8 14.8 2 19.6 2.2 C25 2.4 28.6 6.4 30 11.6 C28 9.6 26.6 8.6 25.4 8.2 C25.8 9 26 9.8 26 10.6 Z" fill="none"/>
+    <path d="M9.2 10.2 Q18 7.4 26.8 10.2 Q27.6 11.8 26.8 13.2 Q18 10.4 9.2 13.2 Q8.4 11.8 9.2 10.2 Z" fill="white"/>
+    <circle cx="30" cy="12.6" r="2.2" fill="white"/>
+  </g>
+</svg>

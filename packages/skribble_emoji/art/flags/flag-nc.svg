@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="0" y="6" width="36" height="24" fill="#ed4135"/>
+  <rect x="0" y="6" width="36" height="8.667" fill="#0035ad"/>
+  <rect x="0" y="21.333" width="36" height="8.667" fill="#009543"/>
+  <circle cx="12.667" cy="18" r="6.65" fill="#000000"/>
+  <circle cx="12.667" cy="18" r="6.35" fill="#fae600"/>
+  <g id="fleche" fill="#000000">
+    <polygon points="12.667 12.2 13.1 15 12.234 15"/>
+    <path d="M10.6 14.6 Q12.667 15.8 14.734 14.6 L14.734 15.5 Q12.667 16.8 10.6 15.5 Z"/>
+    <polygon points="12.1 16.2 13.234 16.2 13.6 22.4 11.734 22.4"/>
+    <circle cx="11.2" cy="18.6" r="0.55"/>
+    <circle cx="14.134" cy="18.6" r="0.55"/>
+    <path d="M10.4 25.1 C10.4 23.2 11.4 22.1 12.667 22 C13.934 22.1 14.934 23.2 14.934 25.1 Z"/>
+  </g>
+</svg>

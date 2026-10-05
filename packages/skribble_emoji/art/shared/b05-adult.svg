@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A grown-up for family art, already sized for a family portrait: the
+       shared head at 0.62 (centre (18, 10.6)) over a torso that runs to the
+       bottom edge. Families translate it sideways and recolour the top
+       through data-tokens (blue, blue-shade). -->
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="16.3" y="13.6" width="3.4" height="5" rx="1" ry="1" fill="skin" stroke-width="1.5"/>
+    <path d="M10.2 34.4 C10 25.4 12.6 17.8 18 17.8 C23.4 17.8 26 25.4 25.8 34.4 Z" fill="blue"/>
+    <path d="M22.4 19.2 C24.8 21.4 25.9 26.6 25.8 34.4 L23.2 34.4 C23.8 28.6 23.6 23.2 22.4 19.2 Z" fill="blue-shade" stroke="none"/>
+    <path d="M10.2 34.4 C10 25.4 12.6 17.8 18 17.8 C23.4 17.8 26 25.4 25.8 34.4 Z" fill="none"/>
+    <path d="M16.2 18.2 L18 20.4 L19.8 18.2" fill="none" stroke-width="1.25"/>
+  </g>
+  <g data-include="head" transform="translate(6.84 2.168) scale(0.62)"/>
+</svg>

@@ -28,6 +28,20 @@ void main() {
   final config = DrawConfig.build(seed: 3);
 
   group('SkribbleEmoji lookups', () {
+    test('cover every fully-qualified Unicode 18 emoji with art', () {
+      expect(SkribbleEmoji.all, hasLength(3963));
+      final undrawn = [
+        for (final entry in SkribbleEmoji.all)
+          if (entry.drawing.shapes.isEmpty) entry.name,
+      ];
+      expect(undrawn, isEmpty);
+      expect(
+        {for (final entry in SkribbleEmoji.all) entry.emoji},
+        hasLength(3963),
+        reason: 'every emoji appears once',
+      );
+    });
+
     test('find an emoji by its text, with or without variation selectors', () {
       final heart = SkribbleEmoji.lookup('❤️');
       expect(heart?.name, 'red heart');

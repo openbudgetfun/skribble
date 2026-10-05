@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="coffin" stroke="ink">
+    <path d="M21.6 2.4 L24 4.4 L28.6 12.2 L25.4 33.6 L12.4 33.6 L10 31.6 L23 31.6 L26.2 10.2 Z" fill="brown-shade" stroke="none"/>
+    <path data-part="lid" d="M11.4 2.4 L21.6 2.4 L26.2 10.2 L23 31.6 L10 31.6 L6.6 10.2 Z" fill="brown" stroke="none"/>
+    <path d="M12.6 5.4 L20.4 5.4 L23.2 10.4 L20.6 28.6 L12.4 28.6 L9.8 10.4 Z" fill="none" stroke="brown-shade" stroke-width="1.5"/>
+    <path d="M9.4 11.4 L11.4 7.6" fill="none" stroke="tan" stroke-width="1.5"/>
+    <path d="M11.4 2.4 L21.6 2.4 L24 4.4 L28.6 12.2 L25.4 33.6 L12.4 33.6 L10 31.6 L6.6 10.2 Z" fill="none"/>
+    <path d="M21.6 2.4 L26.2 10.2 L23 31.6 L10 31.6 M26.2 10.2 L28.6 12.2 M23 31.6 L25.4 33.6" fill="none" stroke-width="1.5"/>
+    <rect x="26.2" y="17" width="1.4" height="4" rx="0.7" ry="0.7" fill="yellow" stroke-width="1"/>
+    <rect x="25.4" y="24.6" width="1.4" height="4" rx="0.7" ry="0.7" fill="yellow" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="speed" fill="none" stroke="ink" stroke-width="1.5">
+    <path d="M29.4 11.2 L33.6 11.2"/>
+    <path d="M30.6 14.6 L33.6 14.6"/>
+  </g>
+  <g id="rider" data-include="b05-cyclist"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="fuji"><path d="M2.4 31.4 C8.4 28 12 20 14.6 8.2 Q15 6.6 16.4 6.6 L19.6 6.6 Q21 6.6 21.4 8.2 C24 20 27.6 28 33.6 31.4 Z"/></clipPath></defs>
+  <g id="mountain" stroke="ink">
+    <path d="M2.4 31.4 C8.4 28 12 20 14.6 8.2 Q15 6.6 16.4 6.6 L19.6 6.6 Q21 6.6 21.4 8.2 C24 20 27.6 28 33.6 31.4 Z" fill="blue"/>
+    <path d="M21.4 8.2 C24 20 27.6 28 33.6 31.4 L25.4 31.4 C23.6 24.4 22.2 16 21.4 8.2 Z" fill="blue-shade" stroke="none"/>
+    <polygon points="9.6,20 13.6,3.6 22.4,3.6 26.4,20 23.6,17.4 21.4,20.2 19.4,17 18,19.6 16.6,17 14.6,20.2 12.4,17.4" fill="white" stroke-width="1.5" clip-path="url(#fuji)"/>
+    <path d="M2.4 31.4 C8.4 28 12 20 14.6 8.2 Q15 6.6 16.4 6.6 L19.6 6.6 Q21 6.6 21.4 8.2 C24 20 27.6 28 33.6 31.4 Z" fill="none"/>
+  </g>
+</svg>

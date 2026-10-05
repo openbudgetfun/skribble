@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="stem" d="M16.2 11 C16.4 7.8 15.8 5.6 14.2 3.8 L17.8 2.6 C19.6 4.8 20.2 7.6 19.8 11 Z" fill="leaf" stroke="ink" stroke-width="1.75"/>
+  <g id="pumpkin" stroke="ink">
+    <path d="M18 10.2 C24 6.8 33.4 9.6 33.4 20.4 C33.4 28.4 26.8 32.6 18 32.6 C9.2 32.6 2.6 28.4 2.6 20.4 C2.6 9.6 12 6.8 18 10.2 Z" fill="orange" stroke="none"/>
+    <path d="M32.2 14.4 C33 16.2 33.4 18.2 33.4 20.4 C33.4 28.4 26.8 32.6 18 32.6 C25.4 30.8 30.8 26.4 31.4 19.6 C31.6 17.6 31.8 15.8 32.2 14.4 Z" fill="orange-shade" stroke="none"/>
+    <path d="M12.4 9.6 C8.8 13.6 8.8 27.6 12.6 32.2 M23.6 9.6 C27.2 13.6 27.2 27.6 23.4 32.2" fill="none" stroke="orange-shade" stroke-width="1.5"/>
+    <path d="M18 10.2 C24 6.8 33.4 9.6 33.4 20.4 C33.4 28.4 26.8 32.6 18 32.6 C9.2 32.6 2.6 28.4 2.6 20.4 C2.6 9.6 12 6.8 18 10.2 Z" fill="none"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <path d="M8.8 19 L12.2 13.8 L15.4 19 Z"/>
+    <path d="M20.6 19 L23.8 13.8 L27.2 19 Z"/>
+    <path d="M16.6 22 L18 20 L19.4 22 Z"/>
+  </g>
+  <g id="mouth">
+    <path d="M7.6 22.8 Q18 26.4 28.4 22.8 Q26.6 30.2 18 30.2 Q9.4 30.2 7.6 22.8 Z" fill="ink"/>
+    <path d="M12.6 24.2 L15.4 24.8 L15.2 27.2 L12.8 26.6 Z M20.6 24.8 L23.4 24.2 L23.2 26.6 L20.8 27.2 Z" fill="orange"/>
+  </g>
+</svg>

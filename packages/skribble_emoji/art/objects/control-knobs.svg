@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="panel"><rect x="2.4" y="7" width="31.2" height="22" rx="4" ry="4"/></clipPath>
+  </defs>
+  <g id="panel" stroke="ink">
+    <rect x="2.4" y="7" width="31.2" height="22" rx="4" ry="4" fill="grey" stroke="none"/>
+    <path d="M36 12 Q32 28 12 31 L36 32 Z" fill="grey-shade" stroke="none" clip-path="url(#panel)"/>
+    <rect x="2.4" y="7" width="31.2" height="22" rx="4" ry="4" fill="none"/>
+    <rect x="6.4" y="22.6" width="23.2" height="1.8" rx="0.9" ry="0.9" fill="ink" stroke="none"/>
+  </g>
+  <g stroke="ink">
+    <g data-part="knob-1"><circle cx="9.6" cy="14.6" r="3.9" fill="red" stroke-width="1.75"/><path d="M9.6 14.6 L7.4 12" fill="none" stroke-width="1.5"/></g>
+    <g data-part="knob-2"><circle cx="18" cy="14.6" r="3.9" fill="yellow" stroke-width="1.75"/><path d="M18 14.6 L18 11" fill="none" stroke-width="1.5"/></g>
+    <g data-part="knob-3"><circle cx="26.4" cy="14.6" r="3.9" fill="blue" stroke-width="1.75"/><path d="M26.4 14.6 L29 12.2" fill="none" stroke-width="1.5"/></g>
+    <rect data-part="fader" x="19.4" y="20.6" width="3.8" height="5.8" rx="1" ry="1" fill="white" stroke-width="1.5"/>
+  </g>
+</svg>

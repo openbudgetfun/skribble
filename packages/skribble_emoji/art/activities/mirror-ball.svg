@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="string" d="M18 2 L18 6.8" fill="none" stroke="ink" stroke-width="1.5"/>
+  <g id="ball" stroke="ink">
+    <circle cx="18" cy="20" r="13.4" fill="silver" stroke="none"/>
+    <path d="M30.24 14.55 A13.4 13.4 0 0 1 18 33.4 C24.79 31.08 29.26 24.11 30.24 14.55 Z" fill="grey" stroke="none"/>
+    <path d="M9.4 10.6 L12.2 9.4 L12.4 12.6 L9.4 13.2 Z" fill="white" stroke="none"/>
+    <path d="M18.6 15.4 L23.8 15.6 L23.6 19.6 L18.6 19.6 Z" fill="sky" stroke="none"/>
+    <g fill="none" stroke="grey-shade" stroke-width="1.25">
+      <path d="M6.23 13.6 Q18 15.6 29.77 13.6 M4.6 20 Q18 22 31.4 20 M6.23 26.4 Q18 28.4 29.77 26.4 M18 6.6 L18 33.4"/>
+      <ellipse cx="18" cy="20" rx="7" ry="13.4"/>
+    </g>
+    <circle cx="18" cy="20" r="13.4" fill="none"/>
+  </g>
+  <g id="sparkles" fill="yellow" stroke="ink" stroke-width="1.25">
+    <path d="M31.4 2.6 Q31.88 5.12 34.4 5.6 Q31.88 6.08 31.4 8.6 Q30.92 6.08 28.4 5.6 Q30.92 5.12 31.4 2.6 Z"/>
+    <path d="M5 5.2 Q5.35 7.05 7.2 7.4 Q5.35 7.75 5 9.6 Q4.65 7.75 2.8 7.4 Q4.65 7.05 5 5.2 Z"/>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b18-button-purple"/>
+  <g id="atom" fill="none" stroke="white" stroke-width="1.9">
+    <ellipse cx="18" cy="18" rx="11.4" ry="4.2"/>
+    <ellipse cx="18" cy="18" rx="11.4" ry="4.2" transform="rotate(60 18 18)"/>
+    <ellipse cx="18" cy="18" rx="11.4" ry="4.2" transform="rotate(120 18 18)"/>
+    <circle data-part="nucleus" cx="18" cy="18" r="2.2" fill="white" stroke="none"/>
+  </g>
+</svg>

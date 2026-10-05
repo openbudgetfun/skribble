@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <rect data-part="stick" x="17" y="0.6" width="2" height="34.8" rx="1" ry="1" transform="rotate(25 18 18)" fill="tan" stroke="ink" stroke-width="1.25"/>
+  <g id="dango" stroke="ink">
+    <circle cx="13.77" cy="27.06" r="5" fill="green" stroke="none"/>
+    <path d="M16.69 23.00 A5 5 0 1 1 9.71 29.98 A5 5 0 0 0 16.69 23.00 Z" fill="green-shade" stroke="none"/>
+    <circle cx="13.77" cy="27.06" r="5" fill="none"/>
+    <circle cx="18" cy="18" r="5" fill="white" stroke="none"/>
+    <path d="M20.92 13.94 A5 5 0 1 1 13.94 20.92 A5 5 0 0 0 20.92 13.94 Z" fill="silver" stroke="none"/>
+    <circle cx="18" cy="18" r="5" fill="none"/>
+    <circle cx="22.23" cy="8.94" r="5" fill="pink" stroke="none"/>
+    <path d="M25.15 4.88 A5 5 0 1 1 18.17 11.86 A5 5 0 0 0 25.15 4.88 Z" fill="pink-shade" stroke="none"/>
+    <circle cx="22.23" cy="8.94" r="5" fill="none"/>
+  </g>
+</svg>

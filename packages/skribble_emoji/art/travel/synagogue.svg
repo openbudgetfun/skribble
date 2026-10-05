@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="building" stroke="ink">
+    <rect x="5" y="14.6" width="26" height="17.2" rx="0.8" ry="0.8" fill="cream"/>
+    <path d="M28.4 17 L31 17 L31 31 Q31 31.8 30.2 31.8 L28.4 31.8 Z" fill="tan" stroke="none"/>
+    <rect x="5" y="14.6" width="26" height="17.2" rx="0.8" ry="0.8" fill="none"/>
+    <path d="M3.2 15.4 L17 4.4 Q18 3.6 19 4.4 L32.8 15.4 Q33 16.6 32 16.6 L4 16.6 Q3 16.6 3.2 15.4 Z" fill="blue"/>
+    <path d="M19 4.4 L32.8 15.4 Q33 16.6 32 16.6 L26.6 16.6 Q24 9.4 19 4.4 Z" fill="blue-shade" stroke="none"/>
+    <path d="M3.2 15.4 L17 4.4 Q18 3.6 19 4.4 L32.8 15.4 Q33 16.6 32 16.6 L4 16.6 Q3 16.6 3.2 15.4 Z" fill="none"/>
+    <path d="M7.8 28 L7.8 21.6 Q7.8 19.6 9.6 19.6 Q11.4 19.6 11.4 21.6 L11.4 28 Z M24.6 28 L24.6 21.6 Q24.6 19.6 26.4 19.6 Q28.2 19.6 28.2 21.6 L28.2 28 Z" fill="sky" stroke-width="1.5"/>
+    <path d="M14.4 31.8 L14.4 24.6 Q14.4 21 18 21 Q21.6 21 21.6 24.6 L21.6 31.8 Z" fill="brown" stroke-width="1.75"/>
+    <path d="M18 21 L18 31.8" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="star" fill="yellow" stroke="ink" stroke-width="1.25">
+    <polygon points="18,7.4 21.3,13 14.7,13"/>
+    <polygon points="18,14.8 14.7,9.2 21.3,9.2"/>
+  </g>
+</svg>

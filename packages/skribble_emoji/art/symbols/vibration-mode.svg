@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b19-button-orange"/>
+  <g data-include="b19-phone"/>
+  <g id="waves" fill="none" stroke="ink" stroke-width="1.75">
+    <path d="M9.8 11.4 L7.2 14.2 L9.8 17 L7.2 19.8 L9.8 22.6"/>
+    <path d="M26.2 13.4 L28.8 16.2 L26.2 19 L28.8 21.8 L26.2 24.6"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="waffle" stroke="ink" transform="rotate(-8 18 18)">
+    <rect x="5" y="5" width="26" height="26" rx="5" ry="5" fill="orange" stroke="none"/>
+    <path d="M31 10 L31 26 Q31 31 26 31 L10 31 C10 29.4 10.4 29 12 29 L26 29 Q29 29 29 26 L29 12 C29 10.4 29.4 10 31 10 Z" fill="orange-shade" stroke="none"/>
+    <rect x="5" y="5" width="26" height="26" rx="5" ry="5" fill="none"/>
+    <path d="M8.4 8.4 L13.4 8.4 L13.4 13.4 L8.4 13.4 Z M15.5 8.4 L20.5 8.4 L20.5 13.4 L15.5 13.4 Z M22.6 8.4 L27.6 8.4 L27.6 13.4 L22.6 13.4 Z M8.4 15.5 L13.4 15.5 L13.4 20.5 L8.4 20.5 Z M15.5 15.5 L20.5 15.5 L20.5 20.5 L15.5 20.5 Z M22.6 15.5 L27.6 15.5 L27.6 20.5 L22.6 20.5 Z M8.4 22.6 L13.4 22.6 L13.4 27.6 L8.4 27.6 Z M15.5 22.6 L20.5 22.6 L20.5 27.6 L15.5 27.6 Z M22.6 22.6 L27.6 22.6 L27.6 27.6 L22.6 27.6 Z" fill="orange-shade" stroke-width="1.25"/>
+  </g>
+  <g id="butter" stroke="ink" stroke-width="1.5">
+    <rect x="14" y="13.6" width="8" height="7" rx="1.4" ry="1.4" fill="yellow" transform="rotate(10 18 17.1)"/>
+    <path d="M15.6 15.8 Q16.6 15.2 18 15.4" fill="none" stroke="paper" stroke-width="1.25" transform="rotate(10 18 17.1)"/>
+  </g>
+</svg>

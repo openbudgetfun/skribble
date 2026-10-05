@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="stand" stroke="ink">
+    <path d="M15.4 27.6 L20.6 27.6 L21.2 31 L14.8 31 Z" fill="brown" stroke-width="1.75"/>
+    <rect x="10.4" y="30.4" width="15.2" height="3.2" rx="1.6" ry="1.6" fill="brown" stroke-width="1.75"/>
+  </g>
+  <g id="mirror" stroke="ink">
+    <ellipse cx="18" cy="15.4" rx="11.2" ry="13" fill="brown" stroke="none"/>
+    <path d="M28.6 11.2 A11.2 13 0 0 1 18 28.4 Q26.6 25.6 28.6 11.2 Z" fill="brown-shade" stroke="none"/>
+    <ellipse cx="18" cy="15.4" rx="11.2" ry="13" fill="none"/>
+    <ellipse cx="18" cy="15.4" rx="8.2" ry="10" fill="sky" stroke-width="1.5"/>
+    <path data-part="glint" d="M12.4 15.6 L17.4 9.6 M13.6 20.6 L21.6 11" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="stick" stroke="ink" transform="rotate(18 18 18)">
+    <path d="M21.2 2.4 L24.6 2.4 L24.6 29.4 Q24.6 32.6 21.4 32.6 L8.8 32.6 Q6.6 32.6 6.6 30.6 Q6.6 28.6 8.8 28.6 L21.2 28.6 Z" fill="tan"/>
+    <rect x="11.6" y="28.6" width="5" height="4" fill="black" stroke-width="1.25"/>
+    <rect x="21.2" y="2.4" width="3.4" height="6" rx="1" ry="1" fill="black" stroke-width="1.5"/>
+  </g>
+  <g id="puck" stroke="ink" stroke-width="1.5">
+    <path d="M24 29.4 L24 31.2 A4.6 2 0 0 0 33.2 31.2 L33.2 29.4 Z" fill="black"/>
+    <ellipse cx="28.6" cy="29.4" rx="4.6" ry="2" fill="grey-shade"/>
+  </g>
+</svg>

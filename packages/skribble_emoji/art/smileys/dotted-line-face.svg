@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="face" d="M32.82 15.65 A15 15 0 0 1 32.82 20.35 M32 23.38 A15 15 0 0 1 29.66 27.44 M27.44 29.66 A15 15 0 0 1 23.38 32 M20.35 32.82 A15 15 0 0 1 15.65 32.82 M12.62 32 A15 15 0 0 1 8.56 29.66 M6.34 27.44 A15 15 0 0 1 4 23.38 M3.18 20.35 A15 15 0 0 1 3.18 15.65 M4 12.62 A15 15 0 0 1 6.34 8.56 M8.56 6.34 A15 15 0 0 1 12.62 4 M15.65 3.18 A15 15 0 0 1 20.35 3.18 M23.38 4 A15 15 0 0 1 27.44 6.34 M29.66 8.56 A15 15 0 0 1 32 12.62" fill="none" stroke="ink"/>
+  <g id="eyes" fill="ink">
+    <ellipse cx="12.6" cy="13.8" rx="1.9" ry="2.7"/>
+    <ellipse cx="23.4" cy="13.8" rx="1.9" ry="2.7"/>
+  </g>
+  <path data-part="mouth" d="M12.4 23.6 L13.8 23.6 M17.3 23.6 L18.7 23.6 M22.2 23.6 L23.6 23.6" fill="none" stroke="ink"/>
+</svg>

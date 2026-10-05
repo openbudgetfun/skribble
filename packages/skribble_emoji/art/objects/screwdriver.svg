@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(-1.1 1.1) rotate(45 18 18)">
+    <g id="shaft" stroke="ink">
+      <path d="M16.6 16.6 L19.4 16.6 L19.4 30.6 L20.2 34.6 Q18 35.6 15.8 34.6 L16.6 30.6 Z" fill="silver" stroke-width="1.75"/>
+    </g>
+    <g id="handle" stroke="ink">
+      <path d="M14 3 Q14 0 18 0 Q22 0 22 3 L22 12.6 Q22 14.6 20.6 15.4 L15.4 15.4 Q14 14.6 14 12.6 Z" fill="orange" stroke="none"/>
+      <path d="M22 4 L22 12.6 Q22 14.6 20.6 15.4 L19.4 15.4 Q20.4 14 20.4 12 L20.4 4 Z" fill="orange-shade" stroke="none"/>
+      <path d="M14 3 Q14 0 18 0 Q22 0 22 3 L22 12.6 Q22 14.6 20.6 15.4 L15.4 15.4 Q14 14.6 14 12.6 Z" fill="none"/>
+      <path d="M16.6 3.4 L16.6 11.8 M19.4 3.4 L19.4 11.8" fill="none" stroke-width="1.25"/>
+      <rect x="15.2" y="14.6" width="5.6" height="3" rx="0.8" ry="0.8" fill="silver" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

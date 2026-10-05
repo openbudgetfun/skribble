@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="cable" d="M2.6 7.4 L33.4 2.8" fill="none" stroke="ink" stroke-width="1.5"/>
+  <g id="cabin" stroke="ink">
+    <path d="M18 5.2 L18 9.4" fill="none" stroke-width="1.75"/>
+    <path d="M14.6 6.4 L21.4 5.4" fill="none" stroke-width="2.25"/>
+    <rect x="12.4" y="8.6" width="11.2" height="2.4" rx="1" ry="1" fill="grey" stroke-width="1.5"/>
+    <path d="M10.6 11 L25.4 11 Q28 11 28.2 13.6 L29 28.6 Q29 31.4 26.4 31.4 L9.6 31.4 Q7 31.4 7 28.6 L7.8 13.6 Q8 11 10.6 11 Z" fill="yellow" stroke="none"/>
+    <path d="M28.5 19 L29 28.6 Q29 31.4 26.4 31.4 L14 31.4 Q26.6 30 28.5 19 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M10.6 11 L25.4 11 Q28 11 28.2 13.6 L29 28.6 Q29 31.4 26.4 31.4 L9.6 31.4 Q7 31.4 7 28.6 L7.8 13.6 Q8 11 10.6 11 Z" fill="none"/>
+    <rect x="9.8" y="13.4" width="16.4" height="8" rx="1.4" ry="1.4" fill="sky" stroke-width="1.5"/>
+    <path d="M18 13.4 L18 21.4" fill="none" stroke-width="1.5"/>
+    <path d="M7.6 25.4 L28.4 25.4" fill="none" stroke="red" stroke-width="2"/>
+  </g>
+</svg>

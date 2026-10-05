@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#c4122e"/>
+  <rect x="3.8" y="9.8" width="28.4" height="16.4" fill="#00297b"/>
+  <path d="M18 10.4A11.13 11.13 0 0 1 18 25.6A11.13 11.13 0 0 1 18 10.4Z" fill="#c4122e"/>
+  <path d="M18 11.3A10.91 10.91 0 0 1 18 24.7A10.91 10.91 0 0 1 18 11.3Z" fill="#8fd0f0"/>
+  <path d="M16.06 20.79L15.93 20.23L15.83 19.68L15.79 19.4L20.21 19.4L20.17 19.68L20.07 20.23L19.94 20.79L19.82 21.2L16.18 21.2Z" fill="#2a6fbe"/>
+  <path d="M17.59 24.14L17.24 23.58L16.93 23.03L16.66 22.47L16.42 21.91L16.23 21.35L16.18 21.2L19.82 21.2L19.77 21.35L19.58 21.91L19.34 22.47L19.07 23.02L18.76 23.58L18.41 24.14L18 24.7Z" fill="#e8c98a"/>
+  <polygon points="17.25,21.2 17.55,14.9 17.95,14.9 17.75,21.2" fill="#7a4e2a"/>
+  <ellipse cx="16.7" cy="14.8" rx="1.1" ry="0.35" fill="#2e8b3a" transform="rotate(25 16.7 14.8)"/>
+  <ellipse cx="18.8" cy="14.8" rx="1.1" ry="0.35" fill="#2e8b3a" transform="rotate(-25 18.8 14.8)"/>
+  <ellipse cx="17.2" cy="14.2" rx="0.9" ry="0.3" fill="#2e8b3a" transform="rotate(-50 17.2 14.2)"/>
+  <ellipse cx="18.3" cy="14.2" rx="0.9" ry="0.3" fill="#2e8b3a" transform="rotate(50 18.3 14.2)"/>
+  <polygon points="19.1,18.2 19.1,20 20.1,19.9" fill="#ffffff"/>
+</svg>

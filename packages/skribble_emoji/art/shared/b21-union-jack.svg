@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+  <!-- The Union Jack in the canton of a flag (x 2–18, y 8–18), built on the
+       official 60 × 30 construction with the counterchanged red saltire. -->
+  <g transform="translate(2 8) scale(0.266667 0.333333)">
+    <rect x="0" y="0" width="60" height="30" fill="#012169"/>
+    <path d="M0 0L6.708 0L60 26.646L60 30L53.292 30L0 3.354Z" fill="#ffffff"/>
+    <path d="M60 0L60 3.354L6.708 30L0 30L0 26.646L53.292 0Z" fill="#ffffff"/>
+    <path d="M0 0L30 15L30 17.236L0 2.236Z M30 15L60 30L60 27.764L30 12.764Z M30 12.764L55.528 0L60 0L30 15Z M30 15L0 30L4.472 30L30 17.236Z" fill="#c8102e"/>
+    <path d="M25 0H35V10H60V20H35V30H25V20H0V10H25Z" fill="#ffffff"/>
+    <path d="M27 0H33V12H60V18H33V30H27V18H0V12H27Z" fill="#c8102e"/>
+  </g>
+</svg>

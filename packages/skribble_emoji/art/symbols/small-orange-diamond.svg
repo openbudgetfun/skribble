@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="diamond" stroke="ink">
+    <path d="M16.9 10.5 Q18 9.4 19.1 10.5 L25.5 16.9 Q26.6 18 25.5 19.1 L19.1 25.5 Q18 26.6 16.9 25.5 L10.5 19.1 Q9.4 18 10.5 16.9 Z" fill="orange" stroke="none"/>
+    <path d="M25.5 16.9 Q26.6 18 25.5 19.1 L19.1 25.5 C18.8 22.2 22.2 18.8 25.5 16.9 Z" fill="orange-shade" stroke="none"/>
+    <path d="M16.9 10.5 Q18 9.4 19.1 10.5 L25.5 16.9 Q26.6 18 25.5 19.1 L19.1 25.5 Q18 26.6 16.9 25.5 L10.5 19.1 Q9.4 18 10.5 16.9 Z" fill="none"/>
+  </g>
+</svg>

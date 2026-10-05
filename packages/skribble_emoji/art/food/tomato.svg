@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="tomato" stroke="ink">
+    <ellipse cx="18" cy="20.2" rx="14.8" ry="12.8" fill="red" stroke="none"/>
+    <path d="M31.4 14.8 A14.8 12.8 0 0 1 18 33 C25.5 30.8 30.4 24.1 31.4 14.8 Z" fill="red-shade" stroke="none"/>
+    <ellipse cx="18" cy="20.2" rx="14.8" ry="12.8" fill="none"/>
+    <path d="M7.4 19.4 Q8 15.2 11.6 13" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+  <g id="leaves" fill="green" stroke="ink" stroke-width="1.5">
+    <polygon points="10.2,12.4 15,10.6 18,14.8 21,10.6 25.8,12.4 21.8,8.8 24.8,5.6 18,7.6 11.2,5.6 14.2,8.8"/>
+    <path d="M17.2 8.4 L17.4 4 Q18 3 18.8 3.8 L19 8.4 Z"/>
+  </g>
+</svg>

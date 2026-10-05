@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="ears">
+    <circle cx="8.4" cy="9.6" r="6.2" fill="silver" stroke="ink"/>
+    <circle cx="27.6" cy="9.6" r="6.2" fill="silver" stroke="ink"/>
+    <circle cx="8.6" cy="9.8" r="3.8" fill="pink"/>
+    <circle cx="27.4" cy="9.8" r="3.8" fill="pink"/>
+  </g>
+  <g id="head">
+    <path d="M18 10.6 C25.6 10.6 30 14.8 30 20.8 C30 27 24.8 31.4 18 31.4 C11.2 31.4 6 27 6 20.8 C6 14.8 10.4 10.6 18 10.6 Z" fill="silver"/>
+    <path d="M30 20.8 C30 27 24.8 31.4 18 31.4 C23.4 29.4 27.6 25.6 27.8 20.8 C27.9 19.2 29.9 19 30 20.8 Z" fill="grey"/>
+    <path d="M18 10.6 C25.6 10.6 30 14.8 30 20.8 C30 27 24.8 31.4 18 31.4 C11.2 31.4 6 27 6 20.8 C6 14.8 10.4 10.6 18 10.6 Z" fill="none" stroke="ink"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="13.4" cy="19.4" rx="1.6" ry="2.2"/>
+    <ellipse cx="22.6" cy="19.4" rx="1.6" ry="2.2"/>
+    <circle cx="13.9" cy="18.6" r="0.55" fill="paper"/>
+    <circle cx="23.1" cy="18.6" r="0.55" fill="paper"/>
+  </g>
+  <g id="mouth" stroke="ink">
+    <circle cx="18" cy="24" r="1.7" fill="pink" stroke-width="1.25"/>
+    <path d="M18 25.7 Q17 27.4 15.4 26.8 M18 25.7 Q19 27.4 20.6 26.8" fill="none" stroke-width="1.4"/>
+  </g>
+  <g id="whiskers" fill="none" stroke="ink" stroke-width="1.25">
+    <path d="M12.6 23.8 L5.4 22.6 M12.8 25.8 L6 27"/>
+    <path d="M23.4 23.8 L30.6 22.6 M23.2 25.8 L30 27"/>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="thread-end" d="M27.2 20.6 C31.4 20.6 33.4 23.4 32.6 26.6 C32 29 30.6 30.6 32 33" fill="none" stroke="red" stroke-width="2"/>
+  <g id="spool" stroke="ink">
+    <rect x="8.8" y="8.2" width="18.4" height="19.8" fill="red" stroke="none"/>
+    <path d="M27.2 8.4 L27.2 27.8 L24.4 27.8 Q25.6 18 24.4 8.4 Z" fill="red-shade" stroke="none"/>
+    <path d="M9.4 12.4 L26.6 11.2 M9.4 16.6 L26.6 15.4 M9.4 20.8 L26.6 19.6 M9.4 25 L26.6 23.8" fill="none" stroke="red-shade" stroke-width="1.25"/>
+    <rect x="8.8" y="8.2" width="18.4" height="19.8" fill="none" stroke-width="1.75"/>
+    <rect x="6.6" y="3.6" width="22.8" height="4.8" rx="1.6" ry="1.6" fill="tan" stroke-width="1.75"/>
+    <rect x="6.6" y="27.6" width="22.8" height="4.8" rx="1.6" ry="1.6" fill="tan" stroke-width="1.75"/>
+  </g>
+</svg>

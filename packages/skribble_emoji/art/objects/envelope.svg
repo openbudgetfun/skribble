@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="envelope" stroke="ink">
+    <rect x="3" y="7.4" width="30" height="21.2" rx="2.4" ry="2.4" fill="white" stroke="none"/>
+    <path d="M33 17.4 L33 26.2 Q33 28.6 30.6 28.6 L15.6 28.6 C25 27.6 31 23.6 33 17.4 Z" fill="silver" stroke="none"/>
+    <path d="M3.8 27.6 L14.4 18.4 M32.2 27.6 L21.6 18.4" fill="none" stroke-width="1.5"/>
+    <rect x="3" y="7.4" width="30" height="21.2" rx="2.4" ry="2.4" fill="none"/>
+  </g>
+  <path data-part="flap" d="M3.6 8.2 L16.2 19.2 Q18 20.6 19.8 19.2 L32.4 8.2 Z" fill="white" stroke="ink" stroke-width="1.75"/>
+</svg>

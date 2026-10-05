@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A grey grown-up silhouette sized for family symbols (head centre
+       (18, 10.6)); translate it sideways to place it. -->
+  <g id="adult" stroke="ink" stroke-width="1.75">
+    <path d="M10.2 34.4 C10 25.6 12.8 18.4 18 18.4 C23.2 18.4 26 25.6 25.8 34.4 Z" fill="grey"/>
+    <path d="M22.4 19.8 C24.8 22 25.9 27 25.8 34.4 L23.2 34.4 C23.8 28.6 23.6 23.4 22.4 19.8 Z" fill="grey-shade" stroke="none"/>
+    <path d="M10.2 34.4 C10 25.6 12.8 18.4 18 18.4 C23.2 18.4 26 25.6 25.8 34.4 Z" fill="none"/>
+    <circle cx="18" cy="10.6" r="5.2" fill="grey"/>
+    <path d="M22.9 8.9 A5.2 5.2 0 0 1 15.4 15.1 C18.8 14.8 21.6 12.6 22.9 8.9 Z" fill="grey-shade" stroke="none"/>
+    <circle cx="18" cy="10.6" r="5.2" fill="none"/>
+  </g>
+</svg>

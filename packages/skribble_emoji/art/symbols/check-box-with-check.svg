@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="box">
+    <rect x="4.6" y="7.2" width="22.8" height="22.8" rx="3.2" ry="3.2" fill="white"/>
+    <path d="M27.4 17.4 L27.4 26.8 Q27.4 30 24.2 30 L14.6 30 C20.6 28.6 25.6 24 27.4 17.4 Z" fill="silver"/>
+    <rect x="4.6" y="7.2" width="22.8" height="22.8" rx="3.2" ry="3.2" fill="none" stroke="ink"/>
+  </g>
+  <g id="tick" transform="translate(3.5 2.36) scale(0.85)">
+    <path d="M8.4 16.65 L13.92 22.31 L27.93 6.73 A2.8 2.8 0 0 1 32.08 10.47 L16.08 28.27 A2.8 2.8 0 0 1 12 28.35 L4.4 20.55 A2.8 2.8 0 0 1 8.4 16.65 Z" fill="ink" stroke="ink" stroke-width="4.1"/>
+    <path d="M8.4 16.65 L13.92 22.31 L27.93 6.73 A2.8 2.8 0 0 1 32.08 10.47 L16.08 28.27 A2.8 2.8 0 0 1 12 28.35 L4.4 20.55 A2.8 2.8 0 0 1 8.4 16.65 Z" fill="blue"/>
+    <path d="M22.4 13.9 L25.4 10.5" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

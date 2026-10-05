@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="ears" stroke="ink">
+    <path d="M6.4 14 C5 10 5.6 5.8 8 4.8 C10.6 3.8 13.2 6.6 14.8 9.6 Z" fill="grey"/>
+    <path d="M29.6 14 C31 10 30.4 5.8 28 4.8 C25.4 3.8 22.8 6.6 21.2 9.6 Z" fill="grey"/>
+    <path d="M8 11 C7.6 9 8 7.4 9 7 C10.2 6.6 11.4 8 12.2 9.6 Z" fill="white" stroke="none"/>
+    <path d="M28 11 C28.4 9 28 7.4 27 7 C25.8 6.6 24.6 8 23.8 9.6 Z" fill="white" stroke="none"/>
+  </g>
+  <g id="head">
+    <path d="M18 8.8 C26 8.8 31.6 13.2 32 19.6 C32.4 26.2 26.4 31.4 18 31.4 C9.6 31.4 3.6 26.2 4 19.6 C4.4 13.2 10 8.8 18 8.8 Z" fill="grey"/>
+    <path d="M32 19.6 C32.4 26.2 26.4 31.4 18 31.4 C24.6 29.4 29.6 25.4 29.8 19.8 C29.9 18 31.9 17.8 32 19.6 Z" fill="grey-shade"/>
+    <path d="M18 19.6 C21.4 19.6 24.6 22.4 25 25.6 C25.2 28.6 22 31 18 31 C14 31 10.8 28.6 11 25.6 C11.4 22.4 14.6 19.6 18 19.6 Z" fill="white"/>
+    <path d="M18 9.2 L18 15.6" fill="none" stroke="black" stroke-width="1.75"/>
+    <path d="M4.6 19.4 C6.4 15.4 10.6 14.6 14.2 16.6 C15.6 17.4 16.8 18 18 18 C19.2 18 20.4 17.4 21.8 16.6 C25.4 14.6 29.6 15.4 31.4 19.4 C30.4 23 26.6 24.4 23.2 22.8 C21.2 21.8 19.6 21 18 21 C16.4 21 14.8 21.8 12.8 22.8 C9.4 24.4 5.6 23 4.6 19.4 Z" fill="black"/>
+    <path d="M8.4 14.2 Q11.6 12.2 15 14 M27.6 14.2 Q24.4 12.2 21 14" fill="none" stroke="white" stroke-width="1.75"/>
+    <path d="M18 8.8 C26 8.8 31.6 13.2 32 19.6 C32.4 26.2 26.4 31.4 18 31.4 C9.6 31.4 3.6 26.2 4 19.6 C4.4 13.2 10 8.8 18 8.8 Z" fill="none" stroke="ink"/>
+  </g>
+  <g id="eyes">
+    <circle cx="11.4" cy="19.2" r="1.7" fill="paper"/>
+    <circle cx="24.6" cy="19.2" r="1.7" fill="paper"/>
+    <circle cx="11.7" cy="19.4" r="1" fill="ink"/>
+    <circle cx="24.9" cy="19.4" r="1" fill="ink"/>
+  </g>
+  <g id="mouth" stroke="ink">
+    <path d="M16 23.4 Q18 22.8 20 23.4 Q20 25 18 25.6 Q16 25 16 23.4 Z" fill="ink" stroke-width="1.25"/>
+    <path d="M18 25.6 L18 26.8 M18 26.8 Q16.8 28.2 15.2 27.4 M18 26.8 Q19.2 28.2 20.8 27.4" fill="none" stroke-width="1.4"/>
+  </g>
+</svg>

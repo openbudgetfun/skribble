@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="tile"><rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6"/></clipPath></defs>
+  <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6" fill="orange"/>
+  <g clip-path="url(#tile)">
+    <path id="rays" d="M10.55 14.7 L8.13 13.3 M13.7 11.55 L12.3 9.13 M18 10.4 L18 7.6 M22.3 11.55 L23.7 9.13 M25.45 14.7 L27.87 13.3" fill="none" stroke="yellow" stroke-width="2"/>
+    <circle id="sun" cx="18" cy="19" r="6.6" fill="yellow" stroke="ink"/>
+    <path id="city" d="M2 21 h6.4 v13.6 h-6.4 Z M8.4 16.6 h5.2 v18 h-5.2 Z M13.6 24 h7 v10.6 h-7 Z M20.6 15 h5.4 v19.6 h-5.4 Z M26 20.6 h8 v14 h-8 Z" fill="purple-shade" stroke="ink" stroke-width="1.5"/>
+    <path id="windows" d="M4.6 23.8 h1.6 v1.6 h-1.6 Z M10.2 19.6 h1.6 v1.6 h-1.6 Z M10.2 24.4 h1.6 v1.6 h-1.6 Z M16.2 26.8 h1.6 v1.6 h-1.6 Z M22.4 18 h1.6 v1.6 h-1.6 Z M22.4 22.6 h1.6 v1.6 h-1.6 Z M28.2 23.4 h1.6 v1.6 h-1.6 Z M28.2 27.6 h1.6 v1.6 h-1.6 Z" fill="yellow"/>
+  </g>
+  <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6" fill="none" stroke="ink"/>
+</svg>

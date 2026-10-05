@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path id="lawn" d="M2.4 31.8 C2.6 28.8 6.4 27.8 18 27.8 C29.6 27.8 33.4 28.8 33.6 31.8 Z" fill="green" stroke="ink"/>
+  <g id="tree" stroke="ink">
+    <rect x="27.6" y="17.6" width="2.4" height="11.4" rx="0.6" ry="0.6" fill="brown" stroke-width="1.75"/>
+    <path d="M23.6 14.4 C23 10.8 25.6 8 28.8 8.2 C32 8.4 33.8 11.2 33.4 14.2 C33.2 17.4 30.8 19 28.6 19 C25.8 19 23.8 17 23.6 14.4 Z" fill="green"/>
+    <path d="M33.4 14.2 C33.2 17.4 30.8 19 28.6 19 C26.8 19 25.4 18.2 24.6 17 C28 17.6 31.4 15.6 32.2 11.2 C33 11.8 33.5 13 33.4 14.2 Z" fill="green-shade" stroke="none"/>
+    <path d="M23.6 14.4 C23 10.8 25.6 8 28.8 8.2 C32 8.4 33.8 11.2 33.4 14.2 C33.2 17.4 30.8 19 28.6 19 C25.8 19 23.8 17 23.6 14.4 Z" fill="none"/>
+  </g>
+  <g data-include="b10-house" transform="translate(0.2 5.8) scale(0.76)"/>
+  <g id="flowers" stroke="ink" stroke-width="1.25">
+    <circle cx="25.6" cy="30" r="1.2" fill="pink"/>
+    <circle cx="29.4" cy="30.4" r="1.2" fill="yellow"/>
+    <circle cx="32" cy="29.6" r="1" fill="pink"/>
+  </g>
+</svg>

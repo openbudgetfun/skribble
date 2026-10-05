@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- An open palm held out to the left like a tray: thumb up at the back,
+       fingertips curling up, cuff on the right. -->
+  <g id="hand" stroke="ink">
+    <rect x="27" y="14.6" width="7" height="14.6" rx="1.2" ry="1.2" fill="blue"/>
+    <path d="M27 27.4 C20.4 29.8 10.6 29 5.8 24 C3.4 21.6 2.8 18 4.6 16.6 C5.8 15.8 7.2 16.6 7.2 18 C7.6 16 10.6 16.2 10.6 18.8 C11.2 17 14 17.2 14 19.6 C14.8 19.6 15.6 19.4 16.2 19.2 L15.4 13 C15.2 10.8 18.4 10.2 18.8 12.4 L21 17.6 C23 17.8 25.2 17.2 27 16.4 Z" fill="skin" stroke="none"/>
+    <path d="M27 27.4 C20.4 29.8 10.6 29 5.8 24 C5 23.2 4.4 22.4 4 21.4 C9.6 26 19.6 26.8 27 24.8 Z" fill="skin-shade" stroke="none"/>
+    <path d="M27 27.4 C20.4 29.8 10.6 29 5.8 24 C3.4 21.6 2.8 18 4.6 16.6 C5.8 15.8 7.2 16.6 7.2 18 C7.6 16 10.6 16.2 10.6 18.8 C11.2 17 14 17.2 14 19.6 C14.8 19.6 15.6 19.4 16.2 19.2 L15.4 13 C15.2 10.8 18.4 10.2 18.8 12.4 L21 17.6 C23 17.8 25.2 17.2 27 16.4 Z" fill="none"/>
+    <path d="M7.2 18 Q7.4 20.2 9 21.4 M10.6 18.8 Q10.8 20.8 12.4 22 M16.2 22.6 Q19.8 23.4 23.4 21.6" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

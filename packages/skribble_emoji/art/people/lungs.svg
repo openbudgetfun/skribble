@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A pair of pink lungs hanging from the windpipe, airways branching
+       inside. -->
+  <g id="lungs" stroke="ink">
+    <path data-part="windpipe" d="M16.2 2.6 L19.8 2.6 L19.8 13.6 L16.2 13.6 Z" fill="pink"/>
+    <path d="M16.2 5.6 L19.8 5.6 M16.2 8.6 L19.8 8.6" fill="none" stroke-width="1.25"/>
+    <g data-part="left-lung">
+      <path d="M15.4 13.4 C11.2 11.2 6.6 13.8 5.4 19.6 C4.4 24.6 4.8 30 8.2 31.4 C11.2 32.6 14.8 31.2 15.8 28.4 C16.6 24 16.6 18.6 15.4 13.4 Z" fill="pink" stroke="none"/>
+      <path d="M16.2 22.4 C16.4 24.6 16.2 26.6 15.8 28.4 C14.8 31.2 11.2 32.6 8.2 31.4 C7.6 31.2 7.2 30.8 6.8 30.4 C10.4 30.8 13.8 29.4 14.8 26.6 C15.4 25.2 15.8 23.8 16.2 22.4 Z" fill="pink-shade" stroke="none"/>
+      <path d="M15.4 13.4 C11.2 11.2 6.6 13.8 5.4 19.6 C4.4 24.6 4.8 30 8.2 31.4 C11.2 32.6 14.8 31.2 15.8 28.4 C16.6 24 16.6 18.6 15.4 13.4 Z" fill="none"/>
+    </g>
+    <g data-part="right-lung">
+      <path d="M20.6 13.4 C24.8 11.2 29.4 13.8 30.6 19.6 C31.6 24.6 31.2 30 27.8 31.4 C24.8 32.6 21.2 31.2 20.2 28.4 C19.4 24 19.4 18.6 20.6 13.4 Z" fill="pink" stroke="none"/>
+      <path d="M30.8 21 C31.4 25.4 30.8 30 27.8 31.4 C25.8 32.2 23.6 31.8 22 30.8 C25.6 30.6 28.4 28.6 29.4 25.6 C29.9 24.2 30.4 22.6 30.8 21 Z" fill="pink-shade" stroke="none"/>
+      <path d="M20.6 13.4 C24.8 11.2 29.4 13.8 30.6 19.6 C31.6 24.6 31.2 30 27.8 31.4 C24.8 32.6 21.2 31.2 20.2 28.4 C19.4 24 19.4 18.6 20.6 13.4 Z" fill="none"/>
+    </g>
+    <path data-part="airways" d="M18 13.6 L18 15.6 M18 15.6 L12.6 18.6 L10.4 23.6 M12.6 18.6 L13.4 24 M18 15.6 L23.4 18.6 L25.6 23.6 M23.4 18.6 L22.6 24" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

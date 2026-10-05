@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="ears">
+    <circle cx="5.4" cy="17.6" r="3.8" fill="brown" stroke="ink"/>
+    <circle cx="30.6" cy="17.6" r="3.8" fill="brown" stroke="ink"/>
+    <circle cx="5.6" cy="17.8" r="2" fill="tan"/>
+    <circle cx="30.4" cy="17.8" r="2" fill="tan"/>
+  </g>
+  <g id="head">
+    <path d="M18 5.6 C25.6 5.6 30 10.2 30 16.8 C30 24.6 25.4 31.6 18 31.6 C10.6 31.6 6 24.6 6 16.8 C6 10.2 10.4 5.6 18 5.6 Z" fill="brown"/>
+    <path d="M30 16.8 C30 24.6 25.4 31.6 18 31.6 C23.4 29 27.6 23.4 27.8 17 C27.9 15.2 29.9 15 30 16.8 Z" fill="brown-shade"/>
+    <path d="M18 12.6 C19.6 10.4 22.4 9.6 24.6 10.6 C27.4 12 27.8 15.6 26.4 18.4 C28.4 20.6 28.4 24.8 26.4 27.4 C24.4 30.2 21.4 31.2 18 31.2 C14.6 31.2 11.6 30.2 9.6 27.4 C7.6 24.8 7.6 20.6 9.6 18.4 C8.2 15.6 8.6 12 11.4 10.6 C13.6 9.6 16.4 10.4 18 12.6 Z" fill="tan"/>
+    <path d="M18 5.6 C25.6 5.6 30 10.2 30 16.8 C30 24.6 25.4 31.6 18 31.6 C10.6 31.6 6 24.6 6 16.8 C6 10.2 10.4 5.6 18 5.6 Z" fill="none" stroke="ink"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="14" cy="15.8" rx="1.5" ry="2.1"/>
+    <ellipse cx="22" cy="15.8" rx="1.5" ry="2.1"/>
+    <circle cx="14.5" cy="15" r="0.5" fill="paper"/>
+    <circle cx="22.5" cy="15" r="0.5" fill="paper"/>
+  </g>
+  <g id="mouth">
+    <circle cx="16.8" cy="21.2" r="0.75" fill="ink"/>
+    <circle cx="19.2" cy="21.2" r="0.75" fill="ink"/>
+    <path d="M12.8 24.2 Q18 28.8 23.2 24.2" fill="none" stroke="ink" stroke-width="1.5"/>
+  </g>
+</svg>

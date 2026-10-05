@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="body-shape"><rect x="9.6" y="11.6" width="22" height="12" rx="5" ry="5"/></clipPath>
+  </defs>
+  <g id="tail" stroke="ink">
+    <path d="M31 13.8 C33 15.4 33.4 18.6 33 21.6" fill="none" stroke-width="1.75"/>
+    <ellipse cx="33" cy="22.6" rx="1.2" ry="1.8" fill="brown-shade" stroke-width="1.5"/>
+  </g>
+  <g id="legs" stroke="ink">
+    <rect x="13.4" y="19" width="3.8" height="11.6" rx="1.6" ry="1.6" fill="brown-shade"/>
+    <rect x="22.8" y="19" width="3.8" height="11.6" rx="1.6" ry="1.6" fill="brown-shade"/>
+    <rect x="10.2" y="19" width="3.8" height="12.4" rx="1.6" ry="1.6" fill="brown"/>
+    <rect x="26.6" y="19" width="3.8" height="12.4" rx="1.6" ry="1.6" fill="brown"/>
+    <rect x="10.2" y="29" width="3.8" height="2.4" rx="1" ry="1" fill="black" stroke-width="1.5"/>
+    <rect x="26.6" y="29" width="3.8" height="2.4" rx="1" ry="1" fill="black" stroke-width="1.5"/>
+  </g>
+  <g id="body">
+    <rect x="9.6" y="11.6" width="22" height="12" rx="5" ry="5" fill="brown-shade"/>
+    <g clip-path="url(#body-shape)">
+      <rect x="9.6" y="11.6" width="22" height="12" rx="5" ry="5" transform="translate(-1.4 -1.6)" fill="brown"/>
+    </g>
+    <rect x="9.6" y="11.6" width="22" height="12" rx="5" ry="5" fill="none" stroke="ink"/>
+  </g>
+  <g id="horns" fill="cream" stroke="ink" stroke-width="1.5">
+    <path d="M12.4 7.8 C13.6 5.8 15.8 4.8 18.2 5 C16.6 5.8 15.4 7.2 14.8 8.8 Z"/>
+    <path d="M7.6 8.6 C5.2 7.8 4 5.6 4.6 3 C5.6 4.8 7.2 5.8 9.4 6.6 Z"/>
+  </g>
+  <g id="ears" stroke="ink" stroke-width="1.75">
+    <path d="M13.4 9.4 C15.4 8.4 17.8 8.6 18.6 9.6 C17.4 11 15.2 11.6 13.6 11 Z" fill="brown"/>
+  </g>
+  <g id="head">
+    <path d="M9.4 6.8 C12.4 6.6 14.6 8.6 14.8 11.4 L15 16.2 C15 18.2 13.6 19.4 11.6 19.4 L5.8 19.4 C3.8 19.4 2.6 18.2 2.6 16.4 C2.6 14.8 3.4 13.8 4.6 13.2 L5.6 9.4 C6.2 7.8 7.6 6.8 9.4 6.8 Z" fill="brown"/>
+    <path d="M14.8 11.4 L15 16.2 C15 18.2 13.6 19.4 11.6 19.4 L10.6 19.4 C12.6 18.6 13.4 17.4 13.4 15.8 L13.4 11.6 C13.4 10.4 14.7 10.2 14.8 11.4 Z" fill="brown-shade"/>
+    <path d="M4.6 13.2 C3.4 13.8 2.6 14.8 2.6 16.4 C2.6 18.2 3.8 19.4 5.8 19.4 L8.6 19.4 C9.2 16.6 8 14.2 4.6 13.2 Z" fill="tan"/>
+    <path d="M7.4 7.6 C8.4 6.8 9.8 6.8 10.8 7.6 L9.4 9 Z" fill="brown-shade"/>
+    <path d="M9.4 6.8 C12.4 6.6 14.6 8.6 14.8 11.4 L15 16.2 C15 18.2 13.6 19.4 11.6 19.4 L5.8 19.4 C3.8 19.4 2.6 18.2 2.6 16.4 C2.6 14.8 3.4 13.8 4.6 13.2 L5.6 9.4 C6.2 7.8 7.6 6.8 9.4 6.8 Z" fill="none" stroke="ink"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="9.6" cy="11.4" rx="1.2" ry="1.7"/>
+    <circle cx="10" cy="10.8" r="0.45" fill="paper"/>
+  </g>
+  <ellipse data-part="nose" cx="4.2" cy="16" rx="0.7" ry="1" fill="ink"/>
+</svg>

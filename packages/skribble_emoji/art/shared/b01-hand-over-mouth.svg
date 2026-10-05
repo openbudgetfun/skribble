@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A yellow hand raised from the lower left with its fingers laid across
+       the mouth, shared by the hand-over-mouth faces. -->
+  <g id="hand" fill="yellow" stroke="ink" stroke-width="1.75">
+    <path d="M6.6 33.6 C6.4 29.4 8.2 25.4 11.6 22.6 L13.2 21.4 L22.6 20 C24.6 19.8 25 22.6 23 22.9 L23.8 23.1 C25.8 23.3 25.6 26.1 23.6 26.1 L22.8 26.1 C24.6 26.7 24.2 29.3 22.4 29.1 L18.4 28.7 C16.4 31.1 14.2 32.8 11.6 33.6 Z"/>
+    <path d="M17.2 22.8 L23 22.9 M17.4 26 L22.8 26.1" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

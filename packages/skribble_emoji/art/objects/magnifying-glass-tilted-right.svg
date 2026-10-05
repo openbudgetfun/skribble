@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="handle" stroke="ink">
+    <rect x="0" y="-2.8" width="11.2" height="5.6" rx="2.8" ry="2.8" transform="translate(12.4 23.6) rotate(135)" fill="brown"/>
+    <rect x="0" y="-2.1" width="4" height="4.2" rx="0.6" ry="0.6" transform="translate(14.8 21.2) rotate(135)" fill="silver" stroke-width="1.5"/>
+  </g>
+  <g id="lens" stroke="ink">
+    <circle cx="21.6" cy="14.4" r="11.2" fill="silver"/>
+    <path d="M31.83 9.85 A11.2 11.2 0 0 1 21.6 25.6 C27.27 23.66 31.01 17.83 31.83 9.85 Z" fill="grey" stroke="none"/>
+    <circle cx="21.6" cy="14.4" r="11.2" fill="none"/>
+    <circle cx="21.6" cy="14.4" r="8.2" fill="sky" stroke-width="1.5"/>
+    <path d="M16.6 13 Q17.4 9.8 20.4 8.8" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

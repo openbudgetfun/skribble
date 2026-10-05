@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="legs"><path d="M8.8 3 L27.2 3 L29.6 31.8 Q29.7 33.2 28.2 33.2 L22.2 33.2 Q21 33.2 20.9 32 L18 14.4 L15.1 32 Q15 33.2 13.8 33.2 L7.8 33.2 Q6.3 33.2 6.4 31.8 Z"/></clipPath>
+  </defs>
+  <g id="jeans" stroke="ink">
+    <path d="M8.8 3 L27.2 3 L29.6 31.8 Q29.7 33.2 28.2 33.2 L22.2 33.2 Q21 33.2 20.9 32 L18 14.4 L15.1 32 Q15 33.2 13.8 33.2 L7.8 33.2 Q6.3 33.2 6.4 31.8 Z" fill="blue" stroke="none"/>
+    <path d="M36 6 Q27.6 18 26 34 L36 34 Z" fill="blue-shade" stroke="none" clip-path="url(#legs)"/>
+    <rect x="1" y="29.4" width="34" height="6" rx="0.4" ry="0.4" fill="sky" stroke-width="1.5" clip-path="url(#legs)"/>
+    <path d="M8.8 3 L27.2 3 L29.6 31.8 Q29.7 33.2 28.2 33.2 L22.2 33.2 Q21 33.2 20.9 32 L18 14.4 L15.1 32 Q15 33.2 13.8 33.2 L7.8 33.2 Q6.3 33.2 6.4 31.8 Z" fill="none"/>
+    <path d="M9.1 6.4 L26.9 6.4 M19.8 6.4 L19.8 10.8 Q19.8 12.6 18 13.4 M12.6 6.4 Q12.4 10.2 8.6 10.8 M23.4 6.4 Q23.6 10.2 27.4 10.8" fill="none" stroke-width="1.5"/>
+    <circle cx="18" cy="4.7" r="1" fill="yellow" stroke-width="1.25"/>
+  </g>
+</svg>

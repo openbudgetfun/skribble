@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#ffffff"/>
+  <path id="island" d="M10.4 16.4L12 15.8L13.4 15.6L14.6 14.8L17 14.6L19.6 14.8L22 14.4L24.6 13.4L27 12L28.8 11.2L27.6 12.6L25.4 14.2L24.2 15.6L24.6 17.2L22.4 17.8L20.6 18.6L19.4 19.8L17.2 20.6L16.4 21.4L15.6 20.8L13.6 20.2L11.8 18.8Z" fill="#d57800"/>
+  <g fill="#4e5b31">
+    <path d="M18.8 25Q14.6 25 12 22.4 M17.2 25Q21.4 25 24 22.4" fill="none" stroke="#4e5b31" stroke-width="0.8"/>
+    <ellipse cx="13.4" cy="22.6" rx="1" ry="0.45" transform="rotate(-35 13.4 22.6)"/>
+    <ellipse cx="14.6" cy="24.6" rx="1" ry="0.45" transform="rotate(20 14.6 24.6)"/>
+    <ellipse cx="15.8" cy="23.6" rx="1" ry="0.45" transform="rotate(-20 15.8 23.6)"/>
+    <ellipse cx="22.6" cy="22.6" rx="1" ry="0.45" transform="rotate(35 22.6 22.6)"/>
+    <ellipse cx="21.4" cy="24.6" rx="1" ry="0.45" transform="rotate(-20 21.4 24.6)"/>
+    <ellipse cx="20.2" cy="23.6" rx="1" ry="0.45" transform="rotate(20 20.2 23.6)"/>
+  </g>
+</svg>

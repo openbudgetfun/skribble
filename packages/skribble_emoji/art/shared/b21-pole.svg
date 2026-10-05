@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A flagpole with a round finial for flags flown on a pole; the cloth
+       starts at the pole's right edge, x = 7.2. -->
+  <g id="pole" stroke="ink" stroke-width="1.75">
+    <rect x="3.8" y="4" width="3.4" height="29.8" rx="1.7" ry="1.7" fill="grey"/>
+    <circle cx="5.5" cy="3.4" r="2" fill="yellow"/>
+  </g>
+</svg>

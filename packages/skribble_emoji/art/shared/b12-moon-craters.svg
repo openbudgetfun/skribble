@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The moon's craters in the lit colour; phases clip them to the lit part. -->
+  <g id="moon" fill="yellow-shade">
+      <circle cx="11.8" cy="11.4" r="2.9"/>
+      <circle cx="23.6" cy="23.4" r="3.4"/>
+      <circle cx="26.4" cy="10.8" r="1.9"/>
+      <circle cx="11.4" cy="24.6" r="1.8"/>
+  </g>
+</svg>

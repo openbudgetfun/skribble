@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="palette" stroke="ink">
+    <path d="M18 4 C27 4 33.4 9.6 33.4 17 C33.4 22.4 29.8 24.4 26.6 24 C23.6 23.6 21.8 25 22.6 27.8 C23.4 30.6 21.4 32.6 17.6 32.6 C9 32.6 2.6 26 2.6 18 C2.6 9.6 9.4 4 18 4 Z" fill="tan" stroke="none"/>
+    <path d="M22.4 27 C23.4 30.4 21.4 32.6 17.6 32.6 C12 32.6 7.2 29.8 4.6 25.4 C8.4 28.8 12.6 30.4 17.4 30.4 C20.4 30.4 22 29.2 22.4 27 Z" fill="brown" stroke="none"/>
+    <path d="M18 4 C27 4 33.4 9.6 33.4 17 C33.4 22.4 29.8 24.4 26.6 24 C23.6 23.6 21.8 25 22.6 27.8 C23.4 30.6 21.4 32.6 17.6 32.6 C9 32.6 2.6 26 2.6 18 C2.6 9.6 9.4 4 18 4 Z" fill="none"/>
+    <ellipse cx="10.6" cy="22.4" rx="2.6" ry="2.2" fill="paper" stroke-width="1.5"/>
+  </g>
+  <g id="paints" stroke="ink" stroke-width="1.5">
+    <circle cx="9.6" cy="14.2" r="2.6" fill="red"/>
+    <circle cx="15.2" cy="9.2" r="2.6" fill="yellow"/>
+    <circle cx="22.4" cy="9" r="2.6" fill="blue"/>
+    <circle cx="28" cy="13.6" r="2.6" fill="green"/>
+    <circle cx="17.2" cy="26.2" r="2.4" fill="purple"/>
+  </g>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="eyes">
+    <ellipse cx="12.6" cy="13.6" rx="3" ry="3.6" fill="paper" stroke="ink" stroke-width="1.5"/>
+    <ellipse cx="23.4" cy="13.6" rx="3" ry="3.6" fill="paper" stroke="ink" stroke-width="1.5"/>
+    <circle cx="13.2" cy="11.6" r="1.6" fill="ink"/>
+    <circle cx="24" cy="11.6" r="1.6" fill="ink"/>
+  </g>
+  <path data-part="mouth" d="M13.4 24.8 Q18 23.2 22.6 24.4" fill="none" stroke="ink"/>
+</svg>

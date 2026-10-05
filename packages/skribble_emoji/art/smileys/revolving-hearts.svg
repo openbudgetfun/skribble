@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Two hearts chasing each other round one circle; the arcs are the
+       empty parts of their orbit. -->
+  <g id="orbit" fill="none" stroke="ink" stroke-width="1.5">
+    <path d="M4.1 17.4 A14 14 0 0 1 12.1 5.9"/>
+    <path d="M31.9 19.8 A14 14 0 0 1 23.9 31.3"/>
+  </g>
+  <g id="hearts">
+    <g transform="translate(24.2 12.8) scale(0.56) translate(-18 -18.9)">
+      <path d="M18 31.4 C7.2 24.6 3.2 18.4 4.2 12.4 C5.2 6.6 12 4.6 15.6 8.8 L18 11.6 L20.4 8.8 C24 4.6 30.8 6.6 31.8 12.4 C32.8 18.4 28.8 24.6 18 31.4 Z" fill="pink"/>
+      <path d="M31.8 12.4 C32.8 18.4 28.8 24.6 18 31.4 C24.4 25.2 28.4 19.6 28.6 13.4 C28.8 11.2 30.6 10.6 31.8 12.4 Z" fill="pink-shade"/>
+      <path d="M18 31.4 C7.2 24.6 3.2 18.4 4.2 12.4 C5.2 6.6 12 4.6 15.6 8.8 L18 11.6 L20.4 8.8 C24 4.6 30.8 6.6 31.8 12.4 C32.8 18.4 28.8 24.6 18 31.4 Z" fill="none" stroke="ink" stroke-width="3.12"/>
+      <path d="M8.6 12.4 Q9.2 9.6 12 9.2" fill="none" stroke="paper" stroke-width="2.68"/>
+    </g>
+    <path transform="translate(11.4 24.6) scale(0.42) translate(-18 -18.9)" d="M18 31.4 C7.2 24.6 3.2 18.4 4.2 12.4 C5.2 6.6 12 4.6 15.6 8.8 L18 11.6 L20.4 8.8 C24 4.6 30.8 6.6 31.8 12.4 C32.8 18.4 28.8 24.6 18 31.4 Z" fill="pink" stroke="ink" stroke-width="3.6"/>
+  </g>
+</svg>

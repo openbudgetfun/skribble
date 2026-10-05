@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b19-button-blue"/>
+  <g id="waves" fill="white" stroke="ink" stroke-width="1.5">
+    <path d="M13.34 19.34 A6.6 6.6 0 0 1 22.66 19.34 A1.6 1.6 0 0 1 20.4 21.6 A3.4 3.4 0 0 0 15.6 21.6 A1.6 1.6 0 0 1 13.34 19.34 Z"/>
+    <path d="M10.22 16.22 A11 11 0 0 1 25.78 16.22 A1.6 1.6 0 0 1 23.52 18.48 A7.8 7.8 0 0 0 12.48 18.48 A1.6 1.6 0 0 1 10.22 16.22 Z"/>
+    <path d="M7.1 13.1 A15.4 15.4 0 0 1 28.9 13.1 A1.6 1.6 0 0 1 26.64 15.36 A12.2 12.2 0 0 0 9.36 15.36 A1.6 1.6 0 0 1 7.1 13.1 Z"/>
+    <circle cx="18" cy="25.4" r="2.2"/>
+  </g>
+</svg>

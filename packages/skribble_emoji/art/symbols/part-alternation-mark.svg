@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="mark">
+    <g fill="ink" stroke="ink" stroke-width="3.5">
+      <rect x="-1.23" y="11.8" width="18.66" height="4.4" rx="2.2" ry="2.2" transform="rotate(-67.75 8.1 14)"/>
+      <rect x="4.08" y="12.1" width="19.45" height="4.4" rx="2.2" ry="2.2" transform="rotate(66.5 13.8 14.3)"/>
+      <rect x="9.71" y="11.5" width="20.79" height="4.4" rx="2.2" ry="2.2" transform="rotate(-66.25 20.1 13.7)"/>
+      <rect x="12.58" y="15.6" width="28.63" height="4.4" rx="2.2" ry="2.2" transform="rotate(73.21 26.9 17.8)"/>
+    </g>
+    <g fill="orange">
+      <rect x="-1.23" y="11.8" width="18.66" height="4.4" rx="2.2" ry="2.2" transform="rotate(-67.75 8.1 14)"/>
+      <rect x="4.08" y="12.1" width="19.45" height="4.4" rx="2.2" ry="2.2" transform="rotate(66.5 13.8 14.3)"/>
+      <rect x="9.71" y="11.5" width="20.79" height="4.4" rx="2.2" ry="2.2" transform="rotate(-66.25 20.1 13.7)"/>
+      <rect x="12.58" y="15.6" width="28.63" height="4.4" rx="2.2" ry="2.2" transform="rotate(73.21 26.9 17.8)"/>
+    </g>
+  </g>
+</svg>

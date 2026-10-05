@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="legs" fill="none" stroke="ink">
+    <path d="M10.6 26 L9.4 31.6 M24.6 26 L25.8 31.6 M6.6 31.8 L29.4 31.8"/>
+  </g>
+  <g id="seat" stroke="ink">
+    <path d="M21 25 L22.6 5.4 Q22.8 3 25.2 3 L27.6 3 Q30 3 29.8 5.4 L28.4 25 Z" fill="blue" stroke="none"/>
+    <path d="M29.8 5.4 L28.4 25 L25.6 25 Q27.4 16 27.4 6 Q27.6 3.6 29.8 5.4 Z" fill="blue-shade" stroke="none"/>
+    <path d="M21 25 L22.6 5.4 Q22.8 3 25.2 3 L27.6 3 Q30 3 29.8 5.4 L28.4 25 Z" fill="none"/>
+    <path d="M22.4 7.6 L22.6 5.4 Q22.8 3 25.2 3 L27.6 3 Q30 3 29.8 5.4 L29.6 7.6 Z" fill="white" stroke-width="1.5"/>
+    <rect x="6" y="20.4" width="22.4" height="5.6" rx="2.6" ry="2.6" fill="blue"/>
+    <path d="M28.4 22.6 Q28.4 26 25.6 26 L12 26 Q24 25 28.4 22.6 Z" fill="blue-shade" stroke="none"/>
+    <path d="M11.4 17.6 L11.4 20.4" fill="none" stroke-width="1.5"/>
+    <rect x="9" y="15.2" width="15" height="2.4" rx="1.2" ry="1.2" fill="grey" stroke-width="1.75"/>
+  </g>
+</svg>

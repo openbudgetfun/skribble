@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="shirt-shape"><path d="M5.6 31 L5.6 11 Q5.6 6.4 10.6 5.2 L12.8 4.6 L23.2 4.6 L25.4 5.2 Q30.4 6.4 30.4 11 L30.4 31 Q30.4 33.4 28 33.4 L8 33.4 Q5.6 33.4 5.6 31 Z"/></clipPath>
+  </defs>
+  <g id="shirt" stroke="ink">
+    <path d="M5.6 31 L5.6 11 Q5.6 6.4 10.6 5.2 L12.8 4.6 L23.2 4.6 L25.4 5.2 Q30.4 6.4 30.4 11 L30.4 31 Q30.4 33.4 28 33.4 L8 33.4 Q5.6 33.4 5.6 31 Z" fill="blue" stroke="none"/>
+    <path d="M34 8 Q29 24 24 34 L34 34 Z" fill="blue-shade" stroke="none" clip-path="url(#shirt-shape)"/>
+    <path d="M5.6 31 L5.6 11 Q5.6 6.4 10.6 5.2 L12.8 4.6 L23.2 4.6 L25.4 5.2 Q30.4 6.4 30.4 11 L30.4 31 Q30.4 33.4 28 33.4 L8 33.4 Q5.6 33.4 5.6 31 Z" fill="none"/>
+  </g>
+  <g id="tie" stroke="ink" stroke-width="1.75">
+    <path d="M16.6 12.6 L19.4 12.6 L22.2 26.8 L18 31.4 L13.8 26.8 Z" fill="red"/>
+    <path d="M19.4 12.6 L22.2 26.8 L18 31.4 Q20.4 25.4 19.4 12.6 Z" fill="red-shade" stroke="none"/>
+    <path d="M16.6 12.6 L19.4 12.6 L22.2 26.8 L18 31.4 L13.8 26.8 Z" fill="none"/>
+    <path d="M15.4 8.4 L20.6 8.4 L19.6 12.8 L16.4 12.8 Z" fill="red"/>
+  </g>
+  <g id="collar" fill="white" stroke="ink" stroke-width="1.75">
+    <path d="M18 8.4 L12.6 4.4 L10.4 11.2 L15.2 14.6 Z"/>
+    <path d="M18 8.4 L23.4 4.4 L25.6 11.2 L20.8 14.6 Z"/>
+  </g>
+</svg>

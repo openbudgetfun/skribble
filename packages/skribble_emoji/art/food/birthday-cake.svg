@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse data-part="plate" cx="18" cy="30.4" rx="15.6" ry="3.4" fill="silver" stroke="ink" stroke-width="1.75"/>
+  <g id="cake" stroke="ink">
+    <path d="M5 17.6 L5 27.4 C5 29.8 10.8 31.6 18 31.6 C25.2 31.6 31 29.8 31 27.4 L31 17.6 Z" fill="pink" stroke="none"/>
+    <path d="M31 17.6 L31 27.4 C31 29.4 27 31 21.6 31.4 C25.6 30 27.8 28.6 28 26.6 L28.4 17.6 Z" fill="pink-shade" stroke="none"/>
+    <path d="M5 17.6 L5 27.4 C5 29.8 10.8 31.6 18 31.6 C25.2 31.6 31 29.8 31 27.4 L31 17.6" fill="none"/>
+    <path d="M5 17.6 C5 15.4 10.8 13.6 18 13.6 C25.2 13.6 31 15.4 31 17.6 L31 20 Q31 21.6 29.8 21.6 Q28.6 21.6 28.6 20.2 L28.4 19.8 Q26 21 24.6 21.2 L24.6 23.2 Q24.4 24.6 23.2 24.6 Q22 24.6 21.8 23.2 L21.8 21.6 Q18 22 15.2 21.6 L15.2 22.4 Q15 23.8 13.8 23.8 Q12.6 23.8 12.4 22.4 L12.4 21.2 Q9.6 20.8 7.8 20 L7.8 21 Q7.6 22.4 6.4 22.4 Q5.2 22.4 5 21 Z" fill="white" stroke-width="1.75"/>
+  </g>
+  <g id="candles" stroke="ink" stroke-width="1.5">
+    <rect x="10.8" y="9.6" width="2.4" height="7" rx="0.6" ry="0.6" fill="sky"/>
+    <rect x="16.8" y="8.6" width="2.4" height="7" rx="0.6" ry="0.6" fill="yellow"/>
+    <rect x="22.8" y="9.6" width="2.4" height="7" rx="0.6" ry="0.6" fill="sky"/>
+    <path d="M12 9.6 L12 8.4 M18 8.6 L18 7.4 M24 9.6 L24 8.4" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="flames" fill="orange" stroke="ink" stroke-width="1.25">
+    <path d="M12 3.4 C13.6 5.2 13.8 6.6 12.8 7.4 Q12 8 11.2 7.4 C10.2 6.6 10.4 5.2 12 3.4 Z"/>
+    <path d="M18 2.4 C19.6 4.2 19.8 5.6 18.8 6.4 Q18 7 17.2 6.4 C16.2 5.6 16.4 4.2 18 2.4 Z"/>
+    <path d="M24 3.4 C25.6 5.2 25.8 6.6 24.8 7.4 Q24 8 23.2 7.4 C22.2 6.6 22.4 5.2 24 3.4 Z"/>
+  </g>
+</svg>

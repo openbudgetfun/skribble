@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Palm to the viewer: index and little fingers up as horns, the thumb
+       holding the folded middle and ring fingers. -->
+  <g id="hand" stroke="ink" transform="translate(1.4 0)">
+    <path d="M8.64 19.8 L6.64 10 C6.1 7.33 10.02 6.54 10.56 9.2 L12.27 17.6 C12.6 15.4 15.8 15.2 16 17.2 C16.2 14.8 19.4 14.8 19.5 17 L20.61 5.39 C20.89 2.41 25.27 2.83 24.99 5.81 L23.79 18.41 C25.6 19.2 26.9 21.6 26.7 24.8 C26.4 30 22.4 33 17.8 33 C13.2 33 9.8 30.2 9 25 Z" fill="skin" stroke="none"/>
+    <path d="M26.8 22.4 C26.8 23.2 26.8 24 26.7 24.8 C26.4 30 22.4 33 17.8 33 C16.2 33 14.8 32.6 13.6 32 C20 31.6 24.8 28.6 26.8 22.4 Z" fill="skin-shade" stroke="none"/>
+    <path d="M8.64 19.8 L6.64 10 C6.1 7.33 10.02 6.54 10.56 9.2 L12.27 17.6 C12.6 15.4 15.8 15.2 16 17.2 C16.2 14.8 19.4 14.8 19.5 17 L20.61 5.39 C20.89 2.41 25.27 2.83 24.99 5.81 L23.79 18.41 C25.6 19.2 26.9 21.6 26.7 24.8 C26.4 30 22.4 33 17.8 33 C13.2 33 9.8 30.2 9 25 Z" fill="none"/>
+    <path data-part="thumb" d="M26.4 20.4 C22.4 19.8 17.6 19.6 14.2 20.2 C11.6 20.6 11.8 24.8 14.4 24.8 C18.2 24.8 22.6 24.8 26.6 25.4" fill="skin" stroke-width="1.75"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="hook" stroke="ink" transform="translate(2.2 0)">
+    <path d="M20 8.4 L24 8.4 L24 23 A9 9 0 0 1 6 23 L6.6 17.6 Q7 15.4 8.6 16.8 L10 18.2 L10 23 A5 5 0 0 0 20 23 Z" fill="silver" stroke="none"/>
+    <path d="M24 11 L24 23 A9 9 0 0 1 15 32 Q21.6 30.4 22.4 23 L22.4 11 Z" fill="grey" stroke="none"/>
+    <path d="M20 8.4 L24 8.4 L24 23 A9 9 0 0 1 6 23 L6.6 17.6 Q7 15.4 8.6 16.8 L10 18.2 L10 23 A5 5 0 0 0 20 23 Z" fill="none"/>
+    <path fill-rule="evenodd" d="M26 6 A4 4 0 1 1 18 6 A4 4 0 1 1 26 6 Z M23.8 6 A1.8 1.8 0 1 0 20.2 6 A1.8 1.8 0 1 0 23.8 6 Z" fill="silver"/>
+  </g>
+</svg>

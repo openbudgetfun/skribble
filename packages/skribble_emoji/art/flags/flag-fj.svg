@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#68bfe5"/>
+  <g data-include="b22-union-jack" transform="translate(2 8) scale(0.5) translate(-2 -8)"/>
+  <path d="M23.6 13.6L28.4 13.6L28.4 18.2C28.4 19.85 27.32 21.2 26 21.2C24.68 21.2 23.6 19.85 23.6 18.2Z" fill="#ffffff"/>
+  <path d="M23.6 13.6L28.4 13.6L28.4 15.2L23.6 15.2Z" fill="#ce1126"/>
+  <ellipse cx="26.3" cy="14.45" rx="1.1" ry="0.4" fill="#fcd116"/>
+  <circle cx="25.1" cy="14.3" r="0.4" fill="#fcd116"/>
+  <rect x="25.6" y="15.2" width="0.8" height="5.7" fill="#ce1126"/>
+  <rect x="23.6" y="17.1" width="4.8" height="0.8" fill="#ce1126"/>
+  <rect x="24.4" y="15.7" width="0.3" height="1.1" fill="#3a8a2e"/>
+  <rect x="24.9" y="15.7" width="0.3" height="1.1" fill="#3a8a2e"/>
+  <ellipse cx="27.3" cy="16" rx="0.6" ry="0.35" fill="#3a8a2e"/>
+  <rect x="27.2" y="16.1" width="0.2" height="0.8" fill="#8b5a2b"/>
+  <ellipse cx="27.2" cy="19" rx="0.55" ry="0.35" fill="#d9b400" transform="rotate(30 27.2 19)"/>
+  <ellipse cx="24.8" cy="19" rx="0.55" ry="0.35" fill="#9ec8d8" transform="rotate(-20 24.8 19)"/>
+</svg>

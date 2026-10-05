@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face" data-tokens="yellow:red,yellow-shade:red-shade"/>
+  <g id="brows" fill="none" stroke="ink" stroke-width="2.25">
+    <path d="M8.6 8.4 Q12 8.4 15.2 11.2"/>
+    <path d="M27.4 8.4 Q24 8.4 20.8 11.2"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="12.6" cy="14.2" rx="1.9" ry="2.4"/>
+    <ellipse cx="23.4" cy="14.2" rx="1.9" ry="2.4"/>
+    <circle cx="13.2" cy="13.4" r="0.6" fill="paper"/>
+    <circle cx="24" cy="13.4" r="0.6" fill="paper"/>
+  </g>
+  <g id="mouth">
+    <rect x="9.6" y="20.4" width="16.8" height="7.6" rx="2.6" ry="2.6" fill="ink"/>
+    <g fill="none" stroke="paper" stroke-width="1.1">
+      <path d="M12.8 21.8 L12.2 26.6 M14.8 21.8 L14.2 26.6 M11.4 23.4 L15.6 23.4 M11.2 25.1 L15.4 25.1"/>
+      <path d="M18 21.8 L17.8 24.6"/>
+      <path d="M21.2 22.2 L21.2 26.4 M19.4 23.3 L23 25.3 M19.4 25.3 L23 23.3"/>
+      <path d="M25.2 21.8 L24 24.2 L25.4 24.2 L24.2 26.6"/>
+    </g>
+    <circle cx="17.7" cy="26.2" r="0.65" fill="paper"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="boot" stroke="ink">
+    <path d="M4.4 21.6 Q3.4 17.4 7.8 16.4 L15.6 14.6 Q17 14.2 17.2 12.6 L17.6 5.4 Q17.8 3.8 19.4 3.8 L28.6 3.8 Q30.4 3.8 30.4 5.6 L30.6 21.8 Q30.6 23 29.4 23 L5.6 23 Q4.6 23 4.4 21.6 Z" fill="pink" stroke="none"/>
+    <path d="M30.5 12 L30.6 21.8 Q30.6 23 29.4 23 L12 23 Q26 22 29.4 17.6 Q30.4 15.6 30.5 12 Z" fill="pink-shade" stroke="none"/>
+    <path d="M4.4 21.6 Q3.4 17.4 7.8 16.4 L15.6 14.6 Q17 14.2 17.2 12.6 L17.6 5.4 Q17.8 3.8 19.4 3.8 L28.6 3.8 Q30.4 3.8 30.4 5.6 L30.6 21.8 Q30.6 23 29.4 23 L5.6 23 Q4.6 23 4.4 21.6 Z" fill="none"/>
+    <rect x="16.8" y="2.8" width="14.4" height="3.8" rx="1.8" ry="1.8" fill="white" stroke-width="1.75"/>
+    <path d="M18.4 8.6 L21.4 10.6 M18.4 10.6 L21.4 8.6 M17.8 12.4 L20.8 14.4 M17.8 14.4 L20.8 12.4" fill="none" stroke="white" stroke-width="1.5"/>
+    <rect x="4.6" y="23" width="26.4" height="2.4" rx="1" ry="1" fill="silver" stroke-width="1.5"/>
+    <ellipse cx="4.6" cy="25.6" rx="1.8" ry="1.6" fill="grey-shade" stroke-width="1.5"/>
+  </g>
+  <g id="wheels" stroke="ink">
+    <circle cx="10.4" cy="28.4" r="3.4" fill="yellow"/>
+    <circle cx="10.4" cy="28.4" r="1" fill="ink" stroke="none"/>
+    <circle cx="25.6" cy="28.4" r="3.4" fill="yellow"/>
+    <circle cx="25.6" cy="28.4" r="1" fill="ink" stroke="none"/>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="rotate(25 18 19)">
+    <g id="body" stroke="ink">
+      <rect x="12.4" y="11" width="11.2" height="21.4" rx="2" ry="2" fill="red" stroke="none"/>
+      <path d="M21 11 L21.6 11 Q23.6 11 23.6 13 L23.6 30.4 Q23.6 32.4 21.6 32.4 L21 32.4 Z" fill="red-shade" stroke="none"/>
+      <path d="M12.4 14.4 L23.6 14.4 L23.6 17 L12.4 17 Z M12.4 26.4 L23.6 26.4 L23.6 29 L12.4 29 Z" fill="yellow" stroke="none"/>
+      <path d="M12.4 14.4 L23.6 14.4 M12.4 17 L23.6 17 M12.4 26.4 L23.6 26.4 M12.4 29 L23.6 29" fill="none" stroke-width="1.5"/>
+      <rect x="12.4" y="11" width="11.2" height="21.4" rx="2" ry="2" fill="none"/>
+    </g>
+    <path data-part="fuse" d="M18 11 C18 8.4 18.8 6.8 20.6 5.8" fill="none" stroke="ink" stroke-width="1.75"/>
+  </g>
+  <g id="spark" stroke="ink" stroke-width="1.25">
+    <path d="M25.94 4.34 Q26.55 7.53 29.74 8.14 Q26.55 8.75 25.94 11.94 Q25.33 8.75 22.14 8.14 Q25.33 7.53 25.94 4.34 Z" fill="yellow"/>
+    <circle cx="30.8" cy="4" r="1" fill="orange" stroke="none"/>
+    <circle cx="21.8" cy="3.8" r="0.85" fill="orange" stroke="none"/>
+    <circle cx="31.6" cy="11.6" r="0.9" fill="red" stroke="none"/>
+  </g>
+</svg>

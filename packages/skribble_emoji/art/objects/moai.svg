@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="ears" stroke="ink" stroke-width="1.75">
+    <rect x="6.6" y="12.6" width="4.6" height="12" rx="2" ry="2" fill="grey"/>
+    <rect x="25.6" y="12.6" width="4.4" height="12" rx="2" ry="2" fill="grey-shade"/>
+  </g>
+  <g id="head" stroke="ink">
+    <path d="M9.6 8.4 Q9.6 2.6 15.6 2.6 L22.4 2.6 Q28.4 2.6 28.4 8.4 L28.4 27.4 Q28.4 33.6 22 33.6 L14.6 33.6 Q9.6 33.6 9.6 28.6 Z" fill="grey" stroke="none"/>
+    <path d="M28.4 10 L28.4 27.4 Q28.4 33.6 22 33.6 L19.4 33.6 Q25.8 31.6 25.8 26 L25.8 10 Z" fill="grey-shade" stroke="none"/>
+    <path d="M9.6 8.4 Q9.6 2.6 15.6 2.6 L22.4 2.6 Q28.4 2.6 28.4 8.4 L28.4 27.4 Q28.4 33.6 22 33.6 L14.6 33.6 Q9.6 33.6 9.6 28.6 Z" fill="none"/>
+  </g>
+  <g id="face" stroke="ink">
+    <path d="M11.2 12 Q13.8 11.4 16.4 11.8 Q15.6 15.2 13.4 15.2 Q11.4 15 11.2 12 Z M20.6 11.8 Q23.4 11.4 26.2 12 Q25.8 15 23.6 15.2 Q21.4 15.2 20.6 11.8 Z" fill="grey-shade" stroke="none"/>
+    <path d="M10.4 11.4 Q18.4 9.6 27.6 11.4" fill="none"/>
+    <path d="M17 11.6 L15.6 22.4 Q15.4 24.4 17.4 24.4 L20.6 24.4 Q22.4 24.2 21.8 22.4 L20.4 11.6" fill="grey" stroke-width="1.5"/>
+    <path data-part="mouth" d="M14.8 27.6 Q18.6 26.2 22.4 27.6 M16 29.8 Q18.6 30.6 21.2 29.8" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

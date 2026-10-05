@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A white chart card with a sky grid, for the chart emoji. -->
+  <g id="card" stroke="ink">
+    <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="3.2" ry="3.2" fill="white" stroke="none"/>
+    <path d="M32.6 18 L32.6 29.4 Q32.6 32.6 29.4 32.6 L18 32.6 C25.4 30.6 30.6 25.4 32.6 18 Z" fill="silver" stroke="none"/>
+    <path d="M10.8 4.2 L10.8 31.8 M18 4.2 L18 31.8 M25.2 4.2 L25.2 31.8 M4.2 10.8 L31.8 10.8 M4.2 18 L31.8 18 M4.2 25.2 L31.8 25.2" fill="none" stroke="sky" stroke-width="1.25"/>
+    <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="3.2" ry="3.2" fill="none"/>
+  </g>
+</svg>

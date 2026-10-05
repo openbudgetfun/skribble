@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A pixel invader on an 11 by 8 cell layout; one cell is 2.8 units. -->
+  <g transform="translate(2.6 6.8) scale(2.8)" stroke-width="0.72">
+    <g id="body">
+      <path d="M3 1 L4 1 L4 2 L7 2 L7 1 L8 1 L8 2 L9 2 L9 3 L10 3 L10 4 L11 4 L11 7 L10 7 L10 5 L9 5 L9 7 L8 7 L8 6 L3 6 L3 7 L2 7 L2 5 L1 5 L1 7 L0 7 L0 4 L1 4 L1 3 L2 3 L2 2 L3 2 Z" fill="purple"/>
+      <path d="M10 4 L11 4 L11 7 L10 7 Z M8 5 L9 5 L9 7 L8 7 Z M3 5.4 L8 5.4 L8 6 L3 6 Z" fill="purple-shade"/>
+      <path d="M3 1 L4 1 L4 2 L7 2 L7 1 L8 1 L8 2 L9 2 L9 3 L10 3 L10 4 L11 4 L11 7 L10 7 L10 5 L9 5 L9 7 L8 7 L8 6 L3 6 L3 7 L2 7 L2 5 L1 5 L1 7 L0 7 L0 4 L1 4 L1 3 L2 3 L2 2 L3 2 Z" fill="none" stroke="ink"/>
+    </g>
+    <g id="antennae" fill="purple" stroke="ink">
+      <rect x="2" y="0" width="1" height="1" rx="0.15" ry="0.15"/>
+      <rect x="8" y="0" width="1" height="1" rx="0.15" ry="0.15"/>
+    </g>
+    <g id="feet" fill="purple" stroke="ink">
+      <rect x="3" y="7" width="2" height="1" rx="0.15" ry="0.15"/>
+      <rect x="6" y="7" width="2" height="1" rx="0.15" ry="0.15"/>
+    </g>
+    <g id="eyes" fill="ink">
+      <rect x="3" y="3" width="1" height="1" rx="0.1" ry="0.1"/>
+      <rect x="7" y="3" width="1" height="1" rx="0.1" ry="0.1"/>
+    </g>
+  </g>
+</svg>

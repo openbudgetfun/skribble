@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="18" cy="18" r="13" fill="white"/>
+  <g data-include="b18-litter" data-tokens="white:ink" transform="matrix(-0.72 0 0 0.72 31.54 5.04)"/>
+  <g data-include="b18-no-sign"/>
+</svg>

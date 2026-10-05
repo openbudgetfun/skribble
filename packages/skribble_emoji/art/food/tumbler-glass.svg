@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="glass-clip"><path d="M5 6.6 L31 6.6 L29.4 28.6 Q29.2 31 26.8 31 L9.2 31 Q6.8 31 6.6 28.6 Z"/></clipPath>
+  </defs>
+  <g id="glass" stroke="ink">
+    <path d="M5 6.6 L31 6.6 L29.4 28.6 Q29.2 31 26.8 31 L9.2 31 Q6.8 31 6.6 28.6 Z" fill="sky" stroke="none"/>
+    <rect data-part="ice" x="-4" y="-4" width="8" height="8" rx="1.4" ry="1.4" transform="translate(19.6 15.4) rotate(14)" fill="white" stroke-width="1.5"/>
+    <g clip-path="url(#glass-clip)" stroke="none">
+      <path d="M4 16.4 Q18 18.4 32 16.4 L32 26.6 L4 26.6 Z" fill="orange"/>
+      <path d="M32 16 L29.4 16.8 L28.6 26.6 L32 26.6 Z" fill="orange-shade"/>
+    </g>
+    <path d="M5.8 16.4 Q18 18.4 30.2 16.4" fill="none" stroke-width="1.25"/>
+    <path d="M6.4 26.6 L29.6 26.6" fill="none" stroke-width="1.5"/>
+    <path d="M5 6.6 L31 6.6 L29.4 28.6 Q29.2 31 26.8 31 L9.2 31 Q6.8 31 6.6 28.6 Z" fill="none"/>
+    <path d="M8.6 9.4 L9.2 18" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

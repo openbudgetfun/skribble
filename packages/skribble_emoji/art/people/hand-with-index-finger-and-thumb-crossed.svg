@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A fist with the thumb crossed over the bent index finger, making a
+       tiny heart. -->
+  <g id="hand" stroke="ink">
+    <rect data-part="index" x="-2.1" y="-6.4" width="4.2" height="12.8" rx="2.1" ry="2.1" fill="skin" transform="translate(13 13.4) rotate(-45)"/>
+    <path d="M12.6 21 C12.6 17.4 15.4 15.4 19 15.4 L23.4 15.4 C27.4 15.4 29.6 17.8 29.6 21.6 L29.6 25.2 C29.6 29.2 26.8 31.6 23 31.6 L18.4 31.6 C14.8 31.6 12.6 29.2 12.6 25.6 Z" fill="skin" stroke="none"/>
+    <path d="M29.6 23 L29.6 25.2 C29.6 29.2 26.8 31.6 23 31.6 L19.2 31.6 C23.8 30.6 28 27.6 29.6 23 Z" fill="skin-shade" stroke="none"/>
+    <path d="M12.6 21 C12.6 17.4 15.4 15.4 19 15.4 L23.4 15.4 C27.4 15.4 29.6 17.8 29.6 21.6 L29.6 25.2 C29.6 29.2 26.8 31.6 23 31.6 L18.4 31.6 C14.8 31.6 12.6 29.2 12.6 25.6 Z" fill="none"/>
+    <path d="M21.4 19.6 L29.4 19.6 M21.2 23.8 L29.4 23.8 M21.2 27.8 L28.2 27.8" fill="none" stroke-width="1.5"/>
+    <rect data-part="thumb" x="-2.2" y="-6.6" width="4.4" height="13.2" rx="2.2" ry="2.2" fill="skin" transform="translate(13.6 17.4) rotate(-25)"/>
+  </g>
+  <path data-part="heart" d="M23.4 11.6 C19.8 9.4 19 7.2 19.8 5.9 C20.6 4.6 22.5 4.8 23.4 6.3 C24.3 4.8 26.2 4.6 27 5.9 C27.8 7.2 27 9.4 23.4 11.6 Z" fill="red" stroke="ink" stroke-width="1.5"/>
+</svg>

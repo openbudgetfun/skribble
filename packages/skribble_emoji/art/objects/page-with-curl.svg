@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="page" stroke="ink">
+    <path d="M7.6 2.8 L28.6 2.8 Q29.8 2.8 29.8 4 L29.8 28 L6.4 28 L6.4 4 Q6.4 2.8 7.6 2.8 Z" fill="white"/>
+    <path d="M29.8 12 L29.8 28 L27.2 28 Q28.6 21 28.6 12.6 Q29.2 11.6 29.8 12 Z" fill="silver" stroke="none"/>
+    <path d="M7.6 2.8 L28.6 2.8 Q29.8 2.8 29.8 4 L29.8 28 L6.4 28 L6.4 4 Q6.4 2.8 7.6 2.8 Z" fill="none"/>
+    <path d="M10 8 L26.2 8 M10 11.8 L26.2 11.8 M10 15.6 L26.2 15.6 M10 19.4 L26.2 19.4 M10 23.2 L20.4 23.2" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="curl" stroke="ink">
+    <path d="M8.4 26 L29.8 26 L29.8 29.6 Q29.8 33.2 26.2 33.2 L8.4 33.2 Q4.8 33.2 4.8 29.6 Q4.8 26 8.4 26 Z" fill="cream"/>
+    <path d="M29.8 29.6 Q29.8 33.2 26.2 33.2 L8.4 33.2 Q11 32 24 31.6 Q28.4 31.4 29.8 29.6 Z" fill="tan" stroke="none"/>
+    <path d="M8.4 26 L29.8 26 L29.8 29.6 Q29.8 33.2 26.2 33.2 L8.4 33.2 Q4.8 33.2 4.8 29.6 Q4.8 26 8.4 26 Z" fill="none"/>
+    <path d="M10.6 29.4 Q10.4 27.8 8.6 27.8 Q6.8 27.8 6.8 29.6 Q6.8 31.4 8.6 31.4" fill="none" stroke-width="1.25"/>
+  </g>
+</svg>

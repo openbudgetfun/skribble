@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="wind" fill="none" stroke="ink" stroke-width="2">
+    <path d="M14 14.4 L6.6 14.4 C3.4 14.4 2.6 10.8 4.6 9.2 C6 8.2 8.2 9 8 11"/>
+    <path d="M7.6 23.2 L2.6 23.2"/>
+    <path d="M14 31 L6.8 31 C3.8 31 3 27.6 5 26.2 C6.4 25.2 8.4 26 8.2 27.8"/>
+  </g>
+  <defs><clipPath id="cloud-clip"><path d="M11.65 28.62A5.45 5.45 0 1 1 12.4 17.77A7.14 7.14 0 0 1 26.47 15.98A6.39 6.39 0 1 1 27.81 28.62Z"/></clipPath></defs>
+  <g id="cloud">
+    <path d="M11.65 28.62A5.45 5.45 0 1 1 12.4 17.77A7.14 7.14 0 0 1 26.47 15.98A6.39 6.39 0 1 1 27.81 28.62Z" fill="white"/>
+    <path d="M11.65 28.62A5.45 5.45 0 1 1 12.4 17.77A7.14 7.14 0 0 1 26.47 15.98A6.39 6.39 0 1 1 27.81 28.62Z M9.85 26.72A5.45 5.45 0 1 1 10.6 15.87A7.14 7.14 0 0 1 24.67 14.08A6.39 6.39 0 1 1 26.01 26.72Z" fill="silver" fill-rule="evenodd" clip-path="url(#cloud-clip)"/>
+    <path d="M11.65 28.62A5.45 5.45 0 1 1 12.4 17.77A7.14 7.14 0 0 1 26.47 15.98A6.39 6.39 0 1 1 27.81 28.62Z" fill="none" stroke="ink"/>
+  </g>
+  <g id="cheeks" fill="cheek">
+    <ellipse cx="15.8" cy="22.8" rx="1.8" ry="1.05"/>
+    <ellipse cx="27.8" cy="22.8" rx="1.8" ry="1.05"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="18" cy="18.2" rx="1.7" ry="2.4"/>
+    <ellipse cx="24.4" cy="18.2" rx="1.7" ry="2.4"/>
+    <circle cx="18.5" cy="17.3" r="0.55" fill="paper"/>
+    <circle cx="24.9" cy="17.3" r="0.55" fill="paper"/>
+  </g>
+  <ellipse data-part="mouth" cx="12.2" cy="23.4" rx="1.4" ry="1.8" fill="red" stroke="ink" stroke-width="1.5"/>
+</svg>

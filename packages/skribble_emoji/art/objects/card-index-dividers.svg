@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(0 -1)">
+  <g id="dividers" stroke="ink" stroke-width="1.75">
+    <path d="M4 31 L4 10.4 Q4 9 5.4 9 L21 9 L21 6.2 Q21 5 22.2 5 L28.8 5 Q30 5 30 6.2 L30 9 L30.6 9 Q32 9 32 10.4 L32 31 Z" fill="blue"/>
+    <path d="M4 31 L4 14.8 Q4 13.4 5.4 13.4 L13.4 13.4 L13.4 10.6 Q13.4 9.4 14.6 9.4 L21.2 9.4 Q22.4 9.4 22.4 10.6 L22.4 13.4 L30.6 13.4 Q32 13.4 32 14.8 L32 31 Z" fill="green"/>
+    <path d="M4 31 L4 15 Q4 13.8 5.2 13.8 L11.8 13.8 Q13 13.8 13 15 L13 17.8 L30.6 17.8 Q32 17.8 32 19.2 L32 31 Z" fill="orange"/>
+  </g>
+  <g id="holder" stroke="ink">
+    <rect x="3" y="22.6" width="30" height="10.6" rx="1.8" ry="1.8" fill="silver" stroke="none"/>
+    <path d="M33 26 L33 31.4 Q33 33.2 31.2 33.2 L19 33.2 C26 32.6 31 30.2 33 26 Z" fill="grey" stroke="none"/>
+    <rect x="3" y="22.6" width="30" height="10.6" rx="1.8" ry="1.8" fill="none"/>
+    <rect x="13" y="25.8" width="10" height="4" rx="0.8" ry="0.8" fill="white" stroke-width="1.25"/>
+  </g>
+  </g>
+</svg>

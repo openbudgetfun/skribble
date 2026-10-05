@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="cap" stroke="ink">
+    <path d="M8.6 16 L8.6 25 Q8.6 30.6 18 30.6 Q27.4 30.6 27.4 25 L27.4 16 Z" fill="black"/>
+    <path d="M2 11.6 L2 13.6 L18 21.8 L34 13.6 L34 11.6 L18 19.8 Z" fill="grey-shade" stroke-width="1.75"/>
+    <path d="M18 3.4 L34 11.6 L18 19.8 L2 11.6 Z" fill="black"/>
+    <path d="M6.6 11 L14.4 7.2" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+  <g id="tassel" stroke="ink">
+    <path d="M18 11.6 L29.4 14.6 L29.4 23.6" fill="none" stroke="yellow" stroke-width="1.75"/>
+    <circle cx="18" cy="11.6" r="1.4" fill="yellow" stroke-width="1.25"/>
+    <path d="M28.2 23.2 L30.6 23.2 L31.8 29.6 L27 29.6 Z" fill="yellow" stroke-width="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="hills" stroke="ink">
+    <path d="M2.6 16 L2.6 11.6 Q6.4 7.2 11 9.4 Q15 5.8 19.6 8.6 Q24.6 5.4 29 8.8 Q31.6 9.2 33.4 11.4 L33.4 16 Z" fill="leaf"/>
+  </g>
+  <g id="land" stroke="ink">
+    <path d="M2.6 28 L2.6 13.4 L33.4 13.4 L33.4 28 Q33.4 31 30.4 31 L5.6 31 Q2.6 31 2.6 28 Z" fill="green" stroke="none"/>
+    <path d="M33.4 17 L33.4 28 Q33.4 31 30.4 31 L24 31 Q32 26.4 33.4 17 Z" fill="green-shade" stroke="none"/>
+    <path d="M2.6 28 L2.6 13.4 L33.4 13.4 L33.4 28 Q33.4 31 30.4 31 L5.6 31 Q2.6 31 2.6 28 Z" fill="none"/>
+  </g>
+  <g id="road" stroke="ink">
+    <path d="M17.2 13.4 L18.8 13.4 L29.4 31 L6.6 31 Z" fill="grey" stroke-width="1.75"/>
+    <path d="M18 16 L18 17 M18 19.6 L18 21.6 M18 24.6 L18 28.4" fill="none" stroke="white" stroke-width="1.75"/>
+  </g>
+</svg>

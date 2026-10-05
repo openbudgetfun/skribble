@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Nepal's double pennant is not a rectangle, so it is drawn flat and
+       outlined here instead of being waved by data-warp. Built on the
+       official construction (60 × 80 units, from the Constitution); the
+       blue border is grown by the outline's half width so the official
+       border stays visible outside the ink. -->
+  <g id="flag" transform="translate(18 18) scale(0.312) translate(-22.16 -37.67)">
+    <polygon points="-20.78 -10.439 65.12 43.354 16.528 43.354 58.954 85.78 -20.78 85.78" fill="#003893"/>
+    <polygon points="-15 0 45 37.574 2.574 37.574 45 80 -15 80" fill="#dc143c"/>
+    <g id="moon" fill="#ffffff">
+      <path d="M-11.95 23.483 A12.84 12.84 0 0 0 11.95 23.483 A11.95 11.95 0 0 1 -11.95 23.483 Z"/>
+      <polygon points="0 29.045 -3.857 32.902 -6.421 33.336 -5.039 31.132 -7.575 30.552 -5.454 29.045 -7.575 27.538 -5.039 26.958 -6.421 24.754 -3.857 25.188 -4.291 22.624 -2.087 24.006 -1.507 21.47 0 23.591 1.507 21.47 2.087 24.006 4.291 22.624 3.857 25.188 6.421 24.754 5.039 26.958 7.575 27.538 5.454 29.045 7.575 30.552 5.039 31.132 6.421 33.336 3.857 32.902"/>
+      <circle cx="0" cy="29.045" r="5.561"/>
+    </g>
+    <g id="sun" fill="#ffffff">
+      <polygon points="0 45.947 2.036 51.189 6.42 47.667 5.562 53.225 11.12 52.367 7.598 56.751 12.84 58.787 7.598 60.823 11.12 65.207 5.562 64.349 6.42 69.907 2.036 66.385 0 71.627 -2.036 66.385 -6.42 69.907 -5.562 64.349 -11.12 65.207 -7.598 60.823 -12.84 58.787 -7.598 56.751 -11.12 52.367 -5.562 53.225 -6.42 47.667 -2.036 51.189"/>
+      <circle cx="0" cy="58.787" r="8.143"/>
+    </g>
+    <polygon points="-20.78 -10.439 65.12 43.354 16.528 43.354 58.954 85.78 -20.78 85.78" fill="none" stroke="ink" stroke-width="6.41"/>
+  </g>
+</svg>

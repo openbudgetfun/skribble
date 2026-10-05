@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A fist side on, cuff at the right, its index finger swung out at the
+       viewer: short and foreshortened, swelling to a big nailed tip. -->
+  <g transform="translate(0.4 1.6)">
+    <g id="hand" stroke="ink">
+      <rect x="26" y="8.6" width="7" height="18" rx="1.2" ry="1.2" fill="blue"/>
+      <path d="M26 9.4 C22.6 8.2 18.6 8.2 14.6 9 C11.6 9.4 10.4 11.6 10.8 14.2 L8.4 14.2 C5 14.2 5 18.8 8.4 18.8 L9 18.8 C5.8 18.8 5.8 23.2 9 23.2 L10.4 23.2 C7.6 23.2 7.6 27.2 10.4 27.2 C15.6 28.4 21.4 28.2 26 26.6 Z" fill="skin" stroke="none"/>
+      <path d="M26 26.6 C21.4 28.2 15.6 28.4 10.4 27.2 C10 27.2 9.6 27 9.4 26.8 C15 26.6 21 25.8 26 24.6 Z" fill="skin-shade" stroke="none"/>
+      <path d="M26 9.4 C22.6 8.2 18.6 8.2 14.6 9 C11.6 9.4 10.4 11.6 10.8 14.2 L8.4 14.2 C5 14.2 5 18.8 8.4 18.8 L9 18.8 C5.8 18.8 5.8 23.2 9 23.2 L10.4 23.2 C7.6 23.2 7.6 27.2 10.4 27.2 C15.6 28.4 21.4 28.2 26 26.6 Z" fill="none"/>
+      <path d="M8.4 18.8 L16 18.8 M9 23.2 L15.6 23.2" fill="none" stroke-width="1.5"/>
+    </g>
+    <g id="finger" stroke="ink">
+      <path d="M11.22 9.84 L5.65 18.42 A5.2 5.2 0 0 0 15.55 21.58 L15.98 11.36 Z" fill="skin" stroke="none"/>
+      <path d="M15.8 19.8 C15.7 20.4 15.6 21 15.55 21.58 C14.6 24.2 12 25.6 9.4 25 C12.4 24.2 14.6 22.4 15.8 19.8 Z" fill="skin-shade" stroke="none"/>
+      <path d="M11.22 9.84 L5.65 18.42 A5.2 5.2 0 0 0 15.55 21.58 L15.98 11.36" fill="none"/>
+      <path d="M8.6 14.4 Q12 16.2 15.8 15" fill="none" stroke-width="1.5"/>
+      <rect x="-1.8" y="-1.7" width="3.6" height="3.4" rx="1.4" ry="1.4" fill="none" stroke-width="1.5" transform="translate(9.93 22.09) rotate(17.7)"/>
+    </g>
+  </g>
+</svg>

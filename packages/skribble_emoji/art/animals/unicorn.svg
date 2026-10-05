@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The horse head in white, with a purple mane and a golden horn. -->
+  <g data-include="horse-face" data-tokens="brown:white,brown-shade:silver,black:purple"/>
+  <g id="horn" stroke="ink">
+    <path d="M13.4 9.2 L8.8 2.2 L17.2 6.4 Z" fill="yellow" stroke-width="1.75"/>
+    <path d="M12.3 7.4 L14.4 4.9 M10.8 5.2 L12 3.7" fill="none" stroke-width="1.25"/>
+  </g>
+</svg>

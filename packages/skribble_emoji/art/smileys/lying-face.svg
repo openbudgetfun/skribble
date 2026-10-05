@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="eyes" fill="ink">
+    <ellipse cx="11.8" cy="12.6" rx="1.8" ry="2.5"/>
+    <ellipse cx="22.6" cy="12.6" rx="1.8" ry="2.5"/>
+    <circle cx="11.4" cy="11.7" r="0.6" fill="paper"/>
+    <circle cx="22.2" cy="11.7" r="0.6" fill="paper"/>
+  </g>
+  <path data-part="mouth" d="M13.8 25.8 Q18.4 27.2 23 25" fill="none" stroke="ink"/>
+  <path data-part="nose" d="M19 16.8 L4.8 17 C3.2 17 2.6 18.2 2.6 19 C2.6 19.8 3.2 21 4.8 21 L19 21.2 C20.2 21.2 20.8 20.2 20.8 19 C20.8 17.8 20.2 16.8 19 16.8 Z" fill="yellow" stroke="ink" stroke-width="1.75"/>
+</svg>

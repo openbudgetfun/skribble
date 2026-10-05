@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="dna-over"><path d="M4 12.4 L32 12.4 L32 17 L4 17 Z M4 25.6 L32 25.6 L32 30.2 L4 30.2 Z"/></clipPath>
+  </defs>
+  <g id="helix" fill="none">
+    <path d="M13.6 4.6 L22.4 4.6 M13.4 11.4 L22.6 11.4 M13.4 18 L22.6 18 M13.4 24.6 L22.6 24.6 M13.6 31.4 L22.4 31.4" stroke="ink" stroke-width="2"/>
+    <path d="M24.6 4.6 C24.6 8 11.4 8 11.4 11.4 C11.4 14.7 24.6 14.7 24.6 18 C24.6 21.3 11.4 21.3 11.4 24.6 C11.4 28 24.6 28 24.6 31.4" stroke="ink" stroke-width="5"/>
+    <path d="M24.6 4.6 C24.6 8 11.4 8 11.4 11.4 C11.4 14.7 24.6 14.7 24.6 18 C24.6 21.3 11.4 21.3 11.4 24.6 C11.4 28 24.6 28 24.6 31.4" stroke="pink" stroke-width="2.6"/>
+    <path d="M11.4 4.6 C11.4 8 24.6 8 24.6 11.4 C24.6 14.7 11.4 14.7 11.4 18 C11.4 21.3 24.6 21.3 24.6 24.6 C24.6 28 11.4 28 11.4 31.4" stroke="ink" stroke-width="5"/>
+    <path d="M11.4 4.6 C11.4 8 24.6 8 24.6 11.4 C24.6 14.7 11.4 14.7 11.4 18 C11.4 21.3 24.6 21.3 24.6 24.6 C24.6 28 11.4 28 11.4 31.4" stroke="blue" stroke-width="2.6"/>
+    <path clip-path="url(#dna-over)" d="M24.6 4.6 C24.6 8 11.4 8 11.4 11.4 C11.4 14.7 24.6 14.7 24.6 18 C24.6 21.3 11.4 21.3 11.4 24.6 C11.4 28 24.6 28 24.6 31.4" stroke="ink" stroke-width="5"/>
+    <path clip-path="url(#dna-over)" d="M24.6 4.6 C24.6 8 11.4 8 11.4 11.4 C11.4 14.7 24.6 14.7 24.6 18 C24.6 21.3 11.4 21.3 11.4 24.6 C11.4 28 24.6 28 24.6 31.4" stroke="pink" stroke-width="2.6"/>
+  </g>
+</svg>

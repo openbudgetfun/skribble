@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="comb" d="M12.6 9.6 C11.4 6.8 12.8 4 15.4 4.2 C15.8 2.6 18.6 1.8 19.8 3.6 C21.6 2.6 24.2 3.8 23.8 6.4 C25.4 7 25.8 9 24.4 10.4 Z" fill="red" stroke="ink"/>
+  <g id="head">
+    <path d="M18 7 C25 7 29.4 12.4 29.4 19 C29.4 26.4 24.4 32 18 32 C11.6 32 6.6 26.4 6.6 19 C6.6 12.4 11 7 18 7 Z" fill="white"/>
+    <path d="M29.4 19 C29.4 26.4 24.4 32 18 32 C23.4 29.8 27 25.4 27.2 19.4 C27.3 17.4 29.3 17.2 29.4 19 Z" fill="silver"/>
+    <path d="M18 7 C25 7 29.4 12.4 29.4 19 C29.4 26.4 24.4 32 18 32 C11.6 32 6.6 26.4 6.6 19 C6.6 12.4 11 7 18 7 Z" fill="none" stroke="ink"/>
+    <ellipse cx="10.8" cy="21" rx="1.8" ry="1.1" fill="cheek"/>
+    <ellipse cx="25.2" cy="21" rx="1.8" ry="1.1" fill="cheek"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="12.8" cy="16.4" rx="1.5" ry="2"/>
+    <ellipse cx="23.2" cy="16.4" rx="1.5" ry="2"/>
+    <circle cx="13.2" cy="15.7" r="0.5" fill="paper"/>
+    <circle cx="23.6" cy="15.7" r="0.5" fill="paper"/>
+  </g>
+  <g id="beak" stroke="ink" stroke-width="1.5">
+    <path d="M16.4 22.6 C15.6 25 16 27.6 18 28.4 C20 27.6 20.4 25 19.6 22.6 Z" fill="red"/>
+    <path d="M15.8 21.4 L20.2 21.4 L18 23.8 Z" fill="yellow-shade"/>
+    <path d="M14.6 19.4 Q18 18.2 21.4 19.4 L18 22.6 Z" fill="yellow"/>
+  </g>
+</svg>

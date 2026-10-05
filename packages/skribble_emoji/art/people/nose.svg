@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A nose from the front: a narrow bridge flaring to round wings and two
+       nostrils. -->
+  <g id="nose" stroke="ink">
+    <path d="M15.8 3.6 C15.2 9 13.6 14.6 11.2 19.2 C8.4 20.6 6.4 23.2 7 26.2 C7.6 29.4 10.6 30.6 13.2 29.6 C14.6 31.4 16.4 32 18 32 C19.6 32 21.4 31.4 22.8 29.6 C25.4 30.6 28.4 29.4 29 26.2 C29.6 23.2 27.6 20.6 24.8 19.2 C22.4 14.6 20.8 9 20.2 3.6 Z" fill="skin" stroke="none"/>
+    <path d="M29 26.2 C28.4 29.4 25.4 30.6 22.8 29.6 C24.8 29.2 26.4 28 27 25.8 C27.4 24.4 27.2 22.8 26.4 21.2 C28.2 22.4 29.4 24.2 29 26.2 Z" fill="skin-shade" stroke="none"/>
+    <path d="M15.8 3.6 C15.2 9 13.6 14.6 11.2 19.2 C8.4 20.6 6.4 23.2 7 26.2 C7.6 29.4 10.6 30.6 13.2 29.6 C14.6 31.4 16.4 32 18 32 C19.6 32 21.4 31.4 22.8 29.6 C25.4 30.6 28.4 29.4 29 26.2 C29.6 23.2 27.6 20.6 24.8 19.2 C22.4 14.6 20.8 9 20.2 3.6" fill="none"/>
+    <path d="M11.2 19.2 C12.6 21 12.8 23.4 12 25.2 M24.8 19.2 C23.4 21 23.2 23.4 24 25.2" fill="none" stroke-width="1.5"/>
+    <g id="nostrils" fill="ink" stroke="none">
+      <ellipse cx="14.8" cy="27.4" rx="1.9" ry="1.1" transform="rotate(20 14.8 27.4)"/>
+      <ellipse cx="21.2" cy="27.4" rx="1.9" ry="1.1" transform="rotate(-20 21.2 27.4)"/>
+    </g>
+  </g>
+</svg>

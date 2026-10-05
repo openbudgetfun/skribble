@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A hand writing with a pencil, leaving a little squiggle at the tip. -->
+  <g transform="translate(0 2)">
+    <path data-part="writing" d="M2.6 28.8 Q4.2 26.6 5.6 28.2 Q6.8 29.6 8 27.2" fill="none" stroke="ink" stroke-width="1.5"/>
+    <g id="pencil" stroke="ink" transform="translate(17 16) rotate(40)">
+      <rect x="-2.2" y="-12" width="4.4" height="20" rx="0.6" ry="0.6" fill="green"/>
+      <path d="M-2.2 8 L2.2 8 L0 13.6 Z" fill="tan" stroke-width="1.5"/>
+      <path d="M-0.79 11.6 L0.79 11.6 L0 13.6 Z" fill="ink" stroke="none"/>
+      <rect x="-2.2" y="-15.6" width="4.4" height="3.6" rx="1.2" ry="1.2" fill="pink"/>
+    </g>
+    <g id="hand" stroke="ink">
+      <rect x="27" y="12.4" width="7" height="15" rx="1.2" ry="1.2" fill="blue"/>
+      <path d="M27 14.2 C23.6 12.6 19.6 12.8 16.6 14.8 C14.8 16 13.2 17.6 12.2 19.6 C11.4 21.2 13 22.6 14.4 21.4 C15.4 22.6 16.6 23.4 18 23.2 C18.6 24.8 20.6 25.6 22.2 24.8 C23.4 26.4 25.6 26.8 27 26 Z" fill="skin" stroke="none"/>
+      <path d="M27 26 C25.6 26.8 23.4 26.4 22.2 24.8 C24 25.2 25.6 24.8 27 23.6 Z" fill="skin-shade" stroke="none"/>
+      <path d="M27 14.2 C23.6 12.6 19.6 12.8 16.6 14.8 C14.8 16 13.2 17.6 12.2 19.6 C11.4 21.2 13 22.6 14.4 21.4 C15.4 22.6 16.6 23.4 18 23.2 C18.6 24.8 20.6 25.6 22.2 24.8 C23.4 26.4 25.6 26.8 27 26 Z" fill="none"/>
+      <path d="M14.4 21.4 L16.6 19.4 M18 23.2 L19.8 20.8 M22.2 24.8 L23.4 22.2" fill="none" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

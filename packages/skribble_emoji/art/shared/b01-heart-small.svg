@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A small red heart centred on (18, 18), about 10 units wide, for faces
+       that float or blow hearts. Include it inside a named part. -->
+  <path d="M18 22.6 C13.8 20.2 12.4 17.6 12.8 15.6 C13.2 13.4 15.8 12.8 17 14.4 L18 15.6 L19 14.4 C20.2 12.8 22.8 13.4 23.2 15.6 C23.6 17.6 22.2 20.2 18 22.6 Z" fill="red" stroke="ink" stroke-width="1.5"/>
+</svg>

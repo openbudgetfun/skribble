@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b16-chart-card"/>
+  <path data-part="glyph" d="M7.4 6.8 L10.6 11 L13.8 6.8 M10.6 11 L10.6 15.6 M8.2 12 L13 12 M8.2 14.2 L13 14.2" fill="none" stroke="ink" stroke-width="1.75"/>
+  <g id="line" fill="none" stroke="green">
+    <path d="M7.4 27.6 L13.4 21.6 L18.4 24.4 L25.6 16.2" stroke-width="3"/>
+    <path d="M29 12.1 L28 17.9 L23.4 13.9 Z" fill="green" stroke-width="1.5"/>
+  </g>
+</svg>

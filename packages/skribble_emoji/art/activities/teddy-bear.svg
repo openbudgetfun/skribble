@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="ears" stroke="ink">
+    <circle cx="11.2" cy="5.8" r="3.4" fill="brown" stroke-width="1.75"/>
+    <circle cx="24.8" cy="5.8" r="3.4" fill="brown" stroke-width="1.75"/>
+    <circle cx="11.4" cy="6" r="1.6" fill="tan" stroke="none"/>
+    <circle cx="24.6" cy="6" r="1.6" fill="tan" stroke="none"/>
+  </g>
+  <g id="body" stroke="ink">
+    <ellipse cx="18" cy="25.4" rx="8.8" ry="7.8" fill="brown" stroke="none"/>
+    <path d="M26.27 22.73 A8.8 7.8 0 0 1 18 33.2 C22.4 31.8 25.4 28.2 26.27 22.73 Z" fill="brown-shade" stroke="none"/>
+    <ellipse cx="18" cy="25.4" rx="8.8" ry="7.8" fill="none"/>
+    <ellipse cx="18" cy="26" rx="5" ry="4.8" fill="tan" stroke="none"/>
+  </g>
+  <g id="arms" fill="brown" stroke="ink" stroke-width="1.75">
+    <ellipse cx="9.4" cy="23" rx="3" ry="4.6" transform="rotate(30 9.4 23)"/>
+    <ellipse cx="26.6" cy="23" rx="3" ry="4.6" transform="rotate(-30 26.6 23)"/>
+  </g>
+  <g id="legs" stroke="ink">
+    <circle cx="11.8" cy="30.4" r="3.4" fill="brown" stroke-width="1.75"/>
+    <circle cx="24.2" cy="30.4" r="3.4" fill="brown" stroke-width="1.75"/>
+    <ellipse cx="11.8" cy="30.8" rx="1.8" ry="1.6" fill="tan" stroke="none"/>
+    <ellipse cx="24.2" cy="30.8" rx="1.8" ry="1.6" fill="tan" stroke="none"/>
+  </g>
+  <g id="head" stroke="ink">
+    <circle cx="18" cy="12.4" r="8.4" fill="brown" stroke="none"/>
+    <path d="M25.67 8.98 A8.4 8.4 0 0 1 18 20.8 C22.26 19.34 25.06 14.98 25.67 8.98 Z" fill="brown-shade" stroke="none"/>
+    <circle cx="18" cy="12.4" r="8.4" fill="none"/>
+    <ellipse cx="18" cy="15.6" rx="3.8" ry="2.8" fill="tan" stroke="none"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <circle cx="14.6" cy="11.2" r="1.1"/>
+    <circle cx="21.4" cy="11.2" r="1.1"/>
+    <circle cx="15" cy="10.8" r="0.4" fill="paper"/>
+    <circle cx="21.8" cy="10.8" r="0.4" fill="paper"/>
+  </g>
+  <g id="mouth" stroke="ink">
+    <ellipse cx="18" cy="14.4" rx="1.4" ry="1" fill="ink" stroke="none"/>
+    <path d="M18 15.4 L18 16.6 M16.6 16.8 Q18 17.8 19.4 16.8" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="bow" fill="red" stroke="ink" stroke-width="1.25">
+    <path d="M18 20.8 L14.6 19 L14.6 22.6 Z M18 20.8 L21.4 19 L21.4 22.6 Z"/>
+    <circle cx="18" cy="20.8" r="1"/>
+  </g>
+</svg>

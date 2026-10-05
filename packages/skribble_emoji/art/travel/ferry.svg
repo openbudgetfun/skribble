@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="funnel" stroke="ink" stroke-width="1.75">
+    <path d="M21.4 4 L25 4 L25 9.4 L21.4 9.4 Z" fill="yellow"/>
+    <path d="M21.4 4 L25 4 L25 5.6 L21.4 5.6 Z" fill="black" stroke-width="1.25"/>
+  </g>
+  <g id="cabin" stroke="ink" stroke-width="1.75">
+    <rect x="11.4" y="9.4" width="13.2" height="5" rx="1.2" ry="1.2" fill="white"/>
+    <rect x="13.2" y="10.8" width="9.6" height="2.2" rx="0.8" ry="0.8" fill="sky" stroke-width="1.25"/>
+    <rect x="6.4" y="14.4" width="23.2" height="7.2" rx="1.4" ry="1.4" fill="white"/>
+    <rect x="8.6" y="16.2" width="4.6" height="3.4" rx="0.8" ry="0.8" fill="sky" stroke-width="1.25"/>
+    <rect x="15.7" y="16.2" width="4.6" height="3.4" rx="0.8" ry="0.8" fill="sky" stroke-width="1.25"/>
+    <rect x="22.8" y="16.2" width="4.6" height="3.4" rx="0.8" ry="0.8" fill="sky" stroke-width="1.25"/>
+  </g>
+  <g id="hull" stroke="ink">
+    <path d="M2.6 21.6 L33.4 21.6 L31.4 28 Q31 29.6 29.4 29.6 L6.6 29.6 Q5 29.6 4.6 28 Z" fill="red" stroke="none"/>
+    <path d="M33.4 21.6 L31.4 28 Q31 29.6 29.4 29.6 L14 29.6 Q28.6 28.4 32.8 23.6 Z" fill="red-shade" stroke="none"/>
+    <path d="M2.6 21.6 L33.4 21.6 L31.4 28 Q31 29.6 29.4 29.6 L6.6 29.6 Q5 29.6 4.6 28 Z" fill="none"/>
+    <path d="M4.4 24.6 L31.6 24.6" fill="none" stroke="white" stroke-width="1.5"/>
+  </g>
+  <path data-part="water" d="M3.4 32.6 Q6.4 31 9.4 32.6 Q12.4 34.2 15.4 32.6 M20.6 32.6 Q23.6 31 26.6 32.6 Q29.6 34.2 32.6 32.6" fill="none" stroke="blue" stroke-width="1.75"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Two hands side on, palms meeting in a clap, with clap marks above. -->
+  <g id="clap" fill="none" stroke="ink" stroke-width="1.5">
+    <path d="M18 2.4 L18 5.4"/>
+    <path d="M12.4 3.6 L14.2 6.2"/>
+    <path d="M23.6 3.6 L21.8 6.2"/>
+  </g>
+  <g id="left-hand" data-include="b03-push-flip" transform="translate(-2.77 6.8) scale(0.7)"/>
+  <g id="right-hand" data-include="b03-push" transform="translate(11.26 6.8) scale(0.7)"/>
+</svg>

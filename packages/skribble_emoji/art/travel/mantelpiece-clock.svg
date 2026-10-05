@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="clock" stroke="ink">
+    <path d="M5.4 30.4 L5.4 18.4 C5.4 12.2 9.6 9 13.6 8.6 C14.6 5.8 16.2 4.4 18 4.4 C19.8 4.4 21.4 5.8 22.4 8.6 C26.4 9 30.6 12.2 30.6 18.4 L30.6 30.4 Z" fill="brown"/>
+    <path d="M30.6 18.4 L30.6 30.4 L24.6 30.4 C27.6 27.4 28.6 22.4 28.2 17 C28 14.6 27 12.6 25.8 11.2 C28.8 12.6 30.6 15 30.6 18.4 Z" fill="brown-shade" stroke="none"/>
+    <path d="M5.4 30.4 L5.4 18.4 C5.4 12.2 9.6 9 13.6 8.6 C14.6 5.8 16.2 4.4 18 4.4 C19.8 4.4 21.4 5.8 22.4 8.6 C26.4 9 30.6 12.2 30.6 18.4 L30.6 30.4 Z" fill="none"/>
+    <circle cx="18" cy="3.4" r="1.4" fill="yellow" stroke-width="1.5"/>
+    <rect x="3.4" y="29.6" width="29.2" height="4" rx="1.6" ry="1.6" fill="brown-shade"/>
+    <circle cx="18" cy="19.4" r="7.4" fill="cream" stroke-width="1.75"/>
+    <circle cx="18" cy="19.4" r="9.2" fill="none" stroke="yellow-shade" stroke-width="1.5"/>
+    <path d="M18 13 L18 14.2 M24.4 19.4 L23.2 19.4 M18 25.8 L18 24.6 M11.6 19.4 L12.8 19.4" fill="none" stroke-width="1.5"/>
+  </g>
+  <g id="hands" fill="none" stroke="ink">
+    <path d="M18 19.4 L22.85 16.6" stroke-width="1.7"/>
+    <path d="M18 19.4 L14.71 17.5" stroke-width="2.34"/>
+    <circle cx="18" cy="19.4" r="1.27" fill="ink" stroke="none"/>
+  </g>
+</svg>

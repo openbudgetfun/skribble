@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="pick" stroke="ink" transform="translate(-1.4 1.2) rotate(45 18 18)">
+    <path d="M15.8 8 L20.2 8 L20.6 31.4 Q20.6 33.6 18 33.6 Q15.4 33.6 15.4 31.4 Z" fill="tan"/>
+    <path d="M3 13.6 Q10 4.4 18 4.4 Q26 4.4 33 13.6 Q26 9.6 18 9.6 Q10 9.6 3 13.6 Z" fill="silver"/>
+    <rect x="15" y="3.4" width="6" height="7.6" rx="1.2" ry="1.2" fill="grey" stroke-width="1.75"/>
+  </g>
+</svg>

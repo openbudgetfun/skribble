@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="box" stroke="ink">
+    <path d="M3.4 22.4 L3.4 27.6 Q3.4 30.8 6.6 30.8 L29.4 30.8 Q32.6 30.8 32.6 27.6 L32.6 22.4 Z" fill="red-shade"/>
+    <rect x="3.4" y="5.2" width="29.2" height="21.8" rx="3" ry="3" fill="red"/>
+  </g>
+  <g id="rice" stroke="ink">
+    <rect x="6.2" y="8" width="11.4" height="16.2" rx="1.6" ry="1.6" fill="white" stroke-width="1.5"/>
+    <path d="M8.6 11 L9.6 11.4 M14 10.4 L15 10.6 M8.8 21.2 L9.8 21.6 M14.4 20.8 L15.2 21.4" fill="none" stroke="grey" stroke-width="1.25"/>
+    <circle cx="11.9" cy="16.1" r="2.4" fill="red" stroke-width="1.25"/>
+  </g>
+  <g id="salmon" stroke="ink">
+    <rect x="19.6" y="8" width="10.4" height="7.6" rx="1.6" ry="1.6" fill="coral" stroke-width="1.5"/>
+    <path d="M21.6 13.6 Q23.4 10.6 26.8 10.2 M24.4 14 Q25.8 12 28.4 11.6" fill="none" stroke="cream" stroke-width="1.25"/>
+  </g>
+  <g id="sides" stroke="ink">
+    <rect x="19.6" y="17.4" width="10.4" height="6.8" rx="1.6" ry="1.6" fill="green" stroke-width="1.5"/>
+    <path d="M21.2 21.6 Q22 19.6 23 21.4" fill="none" stroke="leaf" stroke-width="1.25"/>
+    <rect x="24.4" y="18.8" width="4.2" height="4" rx="0.8" ry="0.8" fill="yellow" stroke-width="1.25"/>
+  </g>
+</svg>

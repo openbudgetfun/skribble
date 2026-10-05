@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="waves" fill="none" stroke="ink" stroke-width="1.5">
+    <path d="M8.2 7.4 A3 3 0 0 1 11.36 5.2"/>
+    <path d="M5.7 6.8 A5.6 5.6 0 0 1 11.6 2.6"/>
+  </g>
+  <g id="stand" stroke="ink">
+    <path d="M21.4 24.4 L23.8 24.4 L24.4 30.6 L20.8 30.6 Z" fill="grey" stroke-width="1.75"/>
+    <path d="M13.6 33.6 Q14 30.2 17.6 30.2 L27.4 30.2 Q31 30.2 31.4 33.6 Z" fill="grey"/>
+  </g>
+  <g id="dish" stroke="ink" transform="translate(0 2) rotate(-35 18 16)">
+    <path d="M5 13 Q6 26 18 26 Q30 26 31 13 Z" fill="silver" stroke="none"/>
+    <path d="M31 13 Q30 26 18 26 Q26.4 22.4 27.6 13 Z" fill="grey" stroke="none"/>
+    <path d="M5 13 Q6 26 18 26 Q30 26 31 13" fill="none"/>
+    <ellipse cx="18" cy="13" rx="13" ry="4.4" fill="white"/>
+    <path d="M18 13 L18 5.4" fill="none" stroke-width="1.75"/>
+    <circle cx="18" cy="4.4" r="1.8" fill="red" stroke-width="1.5"/>
+  </g>
+</svg>

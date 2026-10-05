@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#f7e017"/>
+  <path d="M2 8L34 21V25.2L2 12.2Z" fill="#ffffff"/>
+  <path d="M2 12.2L34 25.2V28L2 15Z" fill="#000000"/>
+  <g fill="#cf1126">
+    <path d="M13.6 19.2A4.4 4.4 0 0 0 22.4 19.2A4.4 2.6 0 0 1 13.6 19.2Z"/>
+    <path d="M17.5 11.8H18.5V20.4H17.5Z"/>
+    <path d="M15.6 13Q18 10.2 20.4 13Z"/>
+    <path d="M17.4 17L13.2 13.4L13.8 15.2L12.8 15.4L14.2 16.6L13.4 17.4Z"/>
+    <path d="M18.6 17L22.8 13.4L22.2 15.2L23.2 15.4L21.8 16.6L22.6 17.4Z"/>
+    <ellipse cx="12.6" cy="18.2" rx="0.8" ry="1.5"/>
+    <ellipse cx="23.4" cy="18.2" rx="0.8" ry="1.5"/>
+  </g>
+</svg>

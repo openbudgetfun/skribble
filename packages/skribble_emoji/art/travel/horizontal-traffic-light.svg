@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="housing" stroke="ink">
+    <rect x="15.6" y="6.4" width="4.8" height="4.6" rx="0.8" ry="0.8" fill="grey" stroke-width="1.75"/>
+    <rect x="2.6" y="10.6" width="30.8" height="14.8" rx="4.4" ry="4.4" fill="black"/>
+  </g>
+  <g id="lights" stroke="ink" stroke-width="1.5">
+    <circle cx="9.2" cy="18" r="4.2" fill="red"/>
+    <circle cx="18" cy="18" r="4.2" fill="yellow"/>
+    <circle cx="26.8" cy="18" r="4.2" fill="green"/>
+    <g fill="paper" stroke="none">
+      <circle cx="7.8" cy="16.4" r="0.9"/>
+      <circle cx="16.6" cy="16.4" r="0.9"/>
+      <circle cx="25.4" cy="16.4" r="0.9"/>
+    </g>
+  </g>
+</svg>

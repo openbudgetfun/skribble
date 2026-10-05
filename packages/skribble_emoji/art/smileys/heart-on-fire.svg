@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="flame" stroke="ink">
+    <path d="M7.4 21 C4.4 15.6 5.4 9.8 8.8 7.4 C8.8 9.6 9.8 11.2 11.6 12 C11 7.6 13.4 3.8 17.4 2.2 C16.8 5.4 18.2 8 20.2 9.4 C20.8 7.4 22.2 6 24.2 5.4 C23.6 7.8 24.6 10.2 26.6 11.4 C27.8 10 28.4 8.4 28.2 6.6 C31.6 9.4 32.4 15.6 28.6 21 Z" fill="orange"/>
+    <path d="M9.8 20.6 C8.4 17 9.4 13.8 11.4 12.6 C11.8 14.2 12.8 15.2 14 15.6 C13.8 12.2 15.4 9.4 18 8.2 C17.8 10.8 19 12.8 20.6 13.8 C21.4 12.4 22.6 11.6 24 11.4 C23.8 13.2 24.6 14.8 26 15.6 C27 17 27.2 19 26.4 20.6 Z" fill="yellow" stroke-width="1.5"/>
+  </g>
+  <g data-include="red-heart" transform="translate(3.6 7.2) scale(0.8)"/>
+</svg>

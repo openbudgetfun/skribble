@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="18" cy="18" r="13" fill="white"/>
+  <g id="cigarette" stroke="ink" stroke-width="1.5">
+    <rect x="7.4" y="18.4" width="15.6" height="3.8" rx="0.6" ry="0.6" fill="white"/>
+    <rect x="7.4" y="18.4" width="4.6" height="3.8" rx="0.6" ry="0.6" fill="tan"/>
+    <rect x="23" y="18.4" width="3.4" height="3.8" rx="0.6" ry="0.6" fill="orange"/>
+  </g>
+  <path data-part="smoke" d="M24.8 16.4 C23.2 15 26.2 13.4 24.6 11.6" fill="none" stroke="grey" stroke-width="1.5"/>
+  <g data-include="b18-no-sign"/>
+</svg>

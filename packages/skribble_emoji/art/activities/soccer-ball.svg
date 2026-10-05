@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="ball-clip">
+      <circle cx="18" cy="18" r="15"/>
+    </clipPath>
+  </defs>
+  <g id="ball" stroke="ink">
+    <circle cx="18" cy="18" r="15" fill="white" stroke="none"/>
+    <path d="M31.7 11.9 A15 15 0 0 1 18 33 C25.6 30.4 30.6 22.6 31.7 11.9 Z" fill="silver" stroke="none"/>
+    <g clip-path="url(#ball-clip)" fill="black" stroke-width="1.25">
+      <path d="M18 7.8 L13.43 4.48 L15.18 -0.88 L20.82 -0.88 L22.57 4.48 Z"/>
+      <path d="M27.7 14.85 L29.45 9.48 L35.09 9.48 L36.84 14.85 L32.27 18.17 Z"/>
+      <path d="M24 26.26 L29.64 26.26 L31.38 31.62 L26.82 34.94 L22.25 31.62 Z"/>
+      <path d="M12 26.26 L13.75 31.62 L9.18 34.94 L4.62 31.62 L6.36 26.26 Z"/>
+      <path d="M8.3 14.85 L3.73 18.17 L-0.84 14.85 L0.91 9.48 L6.55 9.48 Z"/>
+    </g>
+    <path d="M18 12.6 L23.14 16.33 L21.17 22.37 L14.83 22.37 L12.86 16.33 Z" fill="black" stroke-width="1.25"/>
+    <path d="M18 12.6 L18 7.8 M23.14 16.33 L27.7 14.85 M21.17 22.37 L24 26.26 M14.83 22.37 L12 26.26 M12.86 16.33 L8.3 14.85" fill="none" stroke-width="1.5"/>
+    <circle cx="18" cy="18" r="15" fill="none"/>
+  </g>
+</svg>

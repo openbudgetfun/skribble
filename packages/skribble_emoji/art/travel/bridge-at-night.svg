@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="tile"><rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6"/></clipPath></defs>
+  <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6" fill="blue-shade"/>
+  <g clip-path="url(#tile)">
+    <path id="stars" d="M7.2 6 Q7.6 7.2 8.8 7.6 Q7.6 8 7.2 9.2 Q6.8 8 5.6 7.6 Q6.8 7.2 7.2 6 Z M17.6 4.8 Q17.9 5.7 18.8 6 Q17.9 6.3 17.6 7.2 Q17.3 6.3 16.4 6 Q17.3 5.7 17.6 4.8 Z M29 5.4 Q29.45 6.75 30.8 7.2 Q29.45 7.65 29 9 Q28.55 7.65 27.2 7.2 Q28.55 6.75 29 5.4 Z" fill="yellow"/>
+    <rect id="water" x="2" y="23.8" width="32" height="12" fill="black" stroke="ink" stroke-width="1.5"/>
+    <path id="reflections" d="M6 27.2 L9.4 27.2 M14.6 29 L19 29 M25.6 27.2 L29.4 27.2" fill="none" stroke="yellow" stroke-width="1.5"/>
+    <g id="bridge" stroke="ink">
+      <rect x="9.4" y="9" width="2.8" height="15" fill="red" stroke-width="1.5"/>
+      <rect x="23.8" y="9" width="2.8" height="15" fill="red" stroke-width="1.5"/>
+      <path d="M2 18.6 Q7.4 15.6 10.8 9.4 M10.8 9.4 Q18 23 25.2 9.4 M25.2 9.4 Q28.6 15.6 34 18.6" fill="none" stroke="yellow" stroke-width="1.5"/>
+      <rect x="2" y="20.6" width="32" height="2.8" fill="red" stroke-width="1.5"/>
+    </g>
+  </g>
+  <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="6" ry="6" fill="none" stroke="ink"/>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="pedestal" stroke="ink">
+    <rect x="9.4" y="27.6" width="17.2" height="4.2" rx="0.6" ry="0.6" fill="silver"/>
+    <path d="M23.6 28.2 L26.6 28.2 L26.6 31.2 Q26.6 31.8 26 31.8 L23.6 31.8 Z" fill="grey" stroke="none"/>
+    <rect x="9.4" y="27.6" width="17.2" height="4.2" rx="0.6" ry="0.6" fill="none"/>
+  </g>
+  <g id="statue" stroke="ink">
+    <path d="M13.2 16.6 Q18 14.6 22.8 16.6 L24.6 27.6 L11.4 27.6 Z" fill="teal"/>
+    <path d="M15.6 18.6 L14.6 27.4 M19.2 18 L19.6 27.4" fill="none" stroke-width="1.25"/>
+    <polygon points="21.4,18.6 25.6,17.6 26.8,23.6 22.6,24.6" fill="teal" stroke-width="1.5"/>
+    <path d="M15.2 14.6 L12.6 9.6 L15.6 10.4 L15.6 7.4 L17.6 9.6 L18.6 6.6 L19.6 9.8 L22.2 8.2 L21.2 10.8 L24 11 L21.4 13 Z" fill="teal" stroke-width="1.5"/>
+    <circle cx="18" cy="12.8" r="3.2" fill="teal" stroke-width="1.75"/>
+    <path d="M15 11.8 Q18 10.6 21 11.8" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="arm" stroke="ink">
+    <path d="M14 18.4 L9.4 9.4 L12 8.4 L16.4 16.6 Z" fill="teal" stroke-width="1.75"/>
+    <path d="M9 9 L8.6 6.6 L11.8 5.6 L12.2 8 Z" fill="yellow" stroke-width="1.5"/>
+    <path data-part="flame" d="M10.2 6.2 C8.6 5.2 8.8 3.2 10.4 2.2 C10.6 3.2 11.2 3.6 11.6 3 C12.6 3.8 12.4 5.4 11.2 6 Z" fill="orange" stroke-width="1.5"/>
+  </g>
+</svg>

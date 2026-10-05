@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="body-shape"><path d="M20.4 10.4 C26.4 10.4 30.4 14.6 30.4 20.6 C30.4 26.2 26 29.8 20.4 29.8 C14.4 29.8 10.4 26.2 10.4 21.2 C10.4 18.4 11.4 16 12.4 14.4 C14.4 11.6 17 10.4 20.4 10.4 Z"/></clipPath>
+  </defs>
+  <path data-part="tail" d="M29.2 16 C30.8 13.8 33.4 14 33.6 16.4 C32.4 15.8 31.4 16.4 31.6 17.6 C32.6 17.6 33.6 18.6 33.2 19.8 C31.8 19.4 30.6 19.4 29.8 20 Z" fill="white" stroke="ink" stroke-width="1.5"/>
+  <g id="legs" fill="none">
+    <path d="M17 29.2 L16.6 32.2 M23 29.4 L23.4 32.4" stroke="ink" stroke-width="3"/>
+    <path d="M17 29.2 L16.6 32.2 M23 29.4 L23.4 32.4" stroke="yellow" stroke-width="1.25"/>
+    <path d="M14.6 32.6 L18.2 32.4 M21.6 32.6 L25.2 32.6" stroke="ink" stroke-width="1.5"/>
+  </g>
+  <g id="body">
+    <path d="M20.4 10.4 C26.4 10.4 30.4 14.6 30.4 20.6 C30.4 26.2 26 29.8 20.4 29.8 C14.4 29.8 10.4 26.2 10.4 21.2 C10.4 18.4 11.4 16 12.4 14.4 C14.4 11.6 17 10.4 20.4 10.4 Z" fill="grey-shade"/>
+    <g clip-path="url(#body-shape)">
+      <path d="M20.4 10.4 C26.4 10.4 30.4 14.6 30.4 20.6 C30.4 26.2 26 29.8 20.4 29.8 C14.4 29.8 10.4 26.2 10.4 21.2 C10.4 18.4 11.4 16 12.4 14.4 C14.4 11.6 17 10.4 20.4 10.4 Z" transform="translate(-1.4 -1.6)" fill="grey"/>
+    </g>
+    <path d="M20.4 10.4 C26.4 10.4 30.4 14.6 30.4 20.6 C30.4 26.2 26 29.8 20.4 29.8 C14.4 29.8 10.4 26.2 10.4 21.2 C10.4 18.4 11.4 16 12.4 14.4 C14.4 11.6 17 10.4 20.4 10.4 Z" fill="none" stroke="ink"/>
+  </g>
+  <path data-part="wings" d="M19.6 18.4 C22.6 17.4 25.6 18.6 26.4 21.2 C24.4 23.2 21.4 23.4 19.8 21.8 C19 21 19 19.2 19.6 18.4 Z" fill="grey-shade" stroke="ink" stroke-width="1.75"/>
+  <g id="head">
+    <path d="M11.2 4.6 C14 4.6 16 6.6 16 9.4 C16 11.6 15.4 13.4 14.6 15.4 L10.6 16.8 C9.2 14.4 7.4 13.4 7 11.2 C6.6 7.6 8.6 4.6 11.2 4.6 Z" fill="grey" stroke="ink"/>
+  </g>
+  <g id="beak" stroke="ink" stroke-width="1.5">
+    <path d="M7.8 8.6 C5 8.4 2.8 9.8 2.6 12.4 C2.4 14 3.4 15.2 4.4 15.2 C4.6 14 5.2 13.4 6.2 13.4 L9.8 13.2 C10.2 11.4 9.8 9.4 7.8 8.6 Z" fill="yellow"/>
+    <path d="M2.6 12.4 C2.4 14 3.4 15.2 4.4 15.2 C4.6 14.2 4.2 13.2 3.2 12.6 Z" fill="grey-shade" stroke-width="1"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="11.6" cy="8.6" rx="1" ry="1.3"/>
+    <circle cx="11.8" cy="8.2" r="0.35" fill="paper"/>
+  </g>
+</svg>

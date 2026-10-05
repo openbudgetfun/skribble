@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="plate" stroke="ink">
+    <ellipse cx="18" cy="29" rx="15.6" ry="4" fill="white"/>
+  </g>
+  <g id="stack" fill="tan" stroke="ink">
+    <rect x="4.6" y="21.4" width="26.8" height="6" rx="3" ry="3"/>
+    <rect x="5.4" y="16.4" width="25.2" height="6" rx="3" ry="3"/>
+    <rect x="4.6" y="11.4" width="26.8" height="6" rx="3" ry="3"/>
+    <path d="M31.4 24.4 Q31.4 27.4 28.4 27.4 L22 27.4 Q28 26.6 30.4 22.6 Z M30.6 19.4 Q30.6 22.4 27.6 22.4 L22 22.4 Q27.6 21.6 29.6 17.6 Z" fill="brown" stroke="none"/>
+  </g>
+  <g id="syrup" stroke="ink" stroke-width="1.5">
+    <path d="M5.6 13.6 C5.6 11.6 9 11 18 11 C27 11 30.4 11.6 30.4 13.6 L30.4 15.2 Q29.4 16.6 28.4 15.2 L28.4 14.6 Q26.6 15 24.8 14.8 L24.8 19 Q23.8 20.4 22.8 19 L22.8 14.8 Q18 15.2 13.4 14.8 L13.4 16.6 Q12.4 17.8 11.4 16.6 L11.4 14.8 Q8.4 14.6 7.4 14.4 L7.4 15.6 Q6.5 16.6 5.6 15.6 Z" fill="orange-shade"/>
+    <path d="M9.6 12.6 Q12 12 14.6 12" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+  <g id="butter" stroke="ink" stroke-width="1.5">
+    <rect x="14.8" y="7.6" width="6.4" height="4" rx="1" ry="1" fill="yellow" transform="rotate(-6 18 9.6)"/>
+  </g>
+</svg>

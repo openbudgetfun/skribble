@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="rods" fill="none" stroke="ink" stroke-width="1.25">
+    <path d="M6 10.6 L30 10.6 M6 15.4 L30 15.4 M6 20.2 L30 20.2 M6 25 L30 25"/>
+  </g>
+  <g id="beads" stroke="ink" stroke-width="1.25">
+    <g fill="red">
+      <ellipse cx="8" cy="10.6" rx="1.5" ry="2.1"/>
+      <ellipse cx="11.2" cy="10.6" rx="1.5" ry="2.1"/>
+      <ellipse cx="27.6" cy="10.6" rx="1.5" ry="2.1"/>
+    </g>
+    <g fill="yellow">
+      <ellipse cx="8" cy="15.4" rx="1.5" ry="2.1"/>
+      <ellipse cx="24.4" cy="15.4" rx="1.5" ry="2.1"/>
+      <ellipse cx="27.6" cy="15.4" rx="1.5" ry="2.1"/>
+    </g>
+    <g fill="green">
+      <ellipse cx="8" cy="20.2" rx="1.5" ry="2.1"/>
+      <ellipse cx="11.2" cy="20.2" rx="1.5" ry="2.1"/>
+      <ellipse cx="14.4" cy="20.2" rx="1.5" ry="2.1"/>
+    </g>
+    <g fill="blue">
+      <ellipse cx="21.2" cy="25" rx="1.5" ry="2.1"/>
+      <ellipse cx="24.4" cy="25" rx="1.5" ry="2.1"/>
+      <ellipse cx="27.6" cy="25" rx="1.5" ry="2.1"/>
+    </g>
+  </g>
+  <g id="frame" stroke="ink">
+    <path d="M4.6 3.4 L31.4 3.4 Q33.4 3.4 33.4 5.4 L33.4 30.6 Q33.4 32.6 31.4 32.6 L4.6 32.6 Q2.6 32.6 2.6 30.6 L2.6 5.4 Q2.6 3.4 4.6 3.4 Z M6 6.8 L6 29 L30 29 L30 6.8 Z" fill="brown" fill-rule="evenodd" stroke="none"/>
+    <path d="M33.4 14 L33.4 30.6 Q33.4 32.6 31.4 32.6 L14 32.6 L14 29 L30 29 L30 14 Z" fill="brown-shade" stroke="none"/>
+    <path d="M4.6 3.4 L31.4 3.4 Q33.4 3.4 33.4 5.4 L33.4 30.6 Q33.4 32.6 31.4 32.6 L4.6 32.6 Q2.6 32.6 2.6 30.6 L2.6 5.4 Q2.6 3.4 4.6 3.4 Z M6 6.8 L6 29 L30 29 L30 6.8 Z" fill="none" stroke-width="1.75"/>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="cup-clip"><path d="M8.4 13.6 L27.6 13.6 L25.4 32 Q25.2 33.6 23.6 33.6 L12.4 33.6 Q10.8 33.6 10.6 32 Z"/></clipPath>
+  </defs>
+  <g id="cup" stroke="ink">
+    <path d="M8.4 13.6 L27.6 13.6 L25.4 32 Q25.2 33.6 23.6 33.6 L12.4 33.6 Q10.8 33.6 10.6 32 Z" fill="red" stroke="none"/>
+    <g clip-path="url(#cup-clip)" stroke="none">
+      <path d="M6 20.4 Q12 17.6 18 20.4 Q24 23.2 30 20.4 L30 24.6 Q24 27.4 18 24.6 Q12 21.8 6 24.6 Z" fill="white"/>
+      <path d="M28 13 L25.4 34 L22.4 34 L25.2 13 Z" fill="red-shade"/>
+    </g>
+    <path d="M8.4 13.6 L27.6 13.6 L25.4 32 Q25.2 33.6 23.6 33.6 L12.4 33.6 Q10.8 33.6 10.6 32 Z" fill="none"/>
+    <path d="M10 10.8 Q10.4 7.4 18 7.4 Q25.6 7.4 26 10.8 Z" fill="white" stroke-width="1.75"/>
+    <rect x="6.6" y="10.2" width="22.8" height="4" rx="1.8" ry="1.8" fill="white"/>
+  </g>
+  <path data-part="straw" d="M17.4 8.4 L19.8 3.2 Q20.4 2.2 21.4 2.2 L27.4 2.2 Q28.6 2.2 28.6 3.4 Q28.6 4.6 27.4 4.6 L22 4.6 L19.8 9.4 Z" fill="white" stroke="ink" stroke-width="1.5"/>
+</svg>

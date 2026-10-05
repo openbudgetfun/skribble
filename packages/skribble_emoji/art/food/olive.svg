@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="branch" stroke="ink">
+    <path d="M32 4.6 C26.4 8.4 19.4 11.2 10.4 12.2 M14.2 11.8 Q13.6 13.8 12.8 15.6 M22.4 9.8 Q23.4 12.2 23.6 14.8" fill="none" stroke-width="1.75"/>
+    <path d="M22.6 9.8 C19.4 5.4 14.4 3.6 9.8 4.4 C12.6 8.4 17.4 10.4 22.6 9.8 Z" fill="leaf" stroke-width="1.75"/>
+    <path d="M28.4 7.2 C31.8 9.2 33.8 12.6 33.6 16.6 C30 15 28 11.6 28.4 7.2 Z" fill="leaf" stroke-width="1.75"/>
+  </g>
+  <g id="olives" stroke="ink">
+    <g transform="rotate(-18 12.4 23.4)">
+      <ellipse cx="12.4" cy="23.4" rx="6" ry="7.8" fill="green" stroke="none"/>
+      <path d="M17.8 20.1 A6 7.8 0 0 1 12.4 31.2 C15.4 29.8 17.4 26 17.8 20.1 Z" fill="green-shade" stroke="none"/>
+      <ellipse cx="12.4" cy="23.4" rx="6" ry="7.8" fill="none"/>
+      <path d="M8.6 23 Q8.8 20 10.6 18.4" fill="none" stroke="paper" stroke-width="1.75"/>
+    </g>
+    <g transform="rotate(14 24 22.8)">
+      <ellipse cx="24" cy="22.8" rx="6" ry="7.8" fill="green" stroke="none"/>
+      <path d="M29.4 19.5 A6 7.8 0 0 1 24 30.6 C27 29.2 29 25.4 29.4 19.5 Z" fill="green-shade" stroke="none"/>
+      <ellipse cx="24" cy="22.8" rx="6" ry="7.8" fill="none"/>
+      <path d="M20.2 22.4 Q20.4 19.4 22.2 17.8" fill="none" stroke="paper" stroke-width="1.75"/>
+    </g>
+  </g>
+</svg>

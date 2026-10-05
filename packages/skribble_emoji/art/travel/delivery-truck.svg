@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="box" stroke="ink">
+    <path d="M12.4 24.4 L33 24.4" fill="none" stroke-width="2.25"/>
+    <path d="M15.4 5.4 L31.4 5.4 Q33.4 5.4 33.4 7.4 L33.4 21.4 Q33.4 23.4 31.4 23.4 L13.6 23.4 L13.6 7.2 Q13.6 5.4 15.4 5.4 Z" fill="white" stroke="none"/>
+    <path d="M33.4 13 L33.4 21.4 Q33.4 23.4 31.4 23.4 L18 23.4 Q29.4 22.4 32.2 18 Q33.2 16 33.4 13 Z" fill="silver" stroke="none"/>
+    <path d="M15.4 5.4 L31.4 5.4 Q33.4 5.4 33.4 7.4 L33.4 21.4 Q33.4 23.4 31.4 23.4 L13.6 23.4 L13.6 7.2 Q13.6 5.4 15.4 5.4 Z" fill="none"/>
+    <rect x="15.8" y="15.2" width="15.6" height="3.2" rx="1.6" ry="1.6" fill="teal" stroke-width="1.5"/>
+  </g>
+  <g id="cab" stroke="ink">
+    <path d="M4.8 25 Q3 25 3 23.2 L3 17.6 Q3 16 4 15.2 L7.4 11.4 Q8.2 10.6 9.6 10.6 L12.6 10.6 Q13.6 10.6 13.6 11.6 L13.6 25 Z" fill="teal"/>
+    <path d="M5 16.4 L8 13 Q8.4 12.6 9 12.6 L11.8 12.6 L11.8 16.4 Z" fill="sky" stroke-width="1.5"/>
+    <ellipse cx="4.6" cy="19.8" rx="1.1" ry="1" fill="yellow" stroke-width="1.25"/>
+  </g>
+  <g id="wheels">
+    <g data-include="b11-wheel" transform="translate(-9 7)"/>
+    <g data-include="b11-wheel" transform="translate(9 7)"/>
+  </g>
+</svg>

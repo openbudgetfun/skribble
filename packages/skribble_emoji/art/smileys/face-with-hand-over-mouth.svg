@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="cheeks" fill="cheek">
+    <ellipse cx="27.2" cy="19.4" rx="2.4" ry="1.4"/>
+  </g>
+  <g id="eyes" fill="none" stroke="ink" stroke-width="2">
+    <path d="M9.8 14.8 Q12.6 10.6 15.4 14.8"/>
+    <path d="M20.6 14.8 Q23.4 10.6 26.2 14.8"/>
+  </g>
+  <g data-include="b01-hand-over-mouth"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="tabs" stroke="ink" stroke-width="1.5">
+    <rect x="8.2" y="2.4" width="5.2" height="6.4" rx="1" ry="1" fill="red"/>
+    <rect x="15.4" y="2.4" width="5.2" height="6.4" rx="1" ry="1" fill="yellow"/>
+    <rect x="22.6" y="2.4" width="5.2" height="6.4" rx="1" ry="1" fill="green"/>
+  </g>
+  <g id="page" stroke="ink">
+    <rect x="4.6" y="6.4" width="26.8" height="26.8" rx="1.4" ry="1.4" fill="white"/>
+    <path d="M31.4 20 L31.4 31.8 Q31.4 33.2 30 33.2 L19 33.2 C25.6 31.6 30 27 31.4 20 Z" fill="silver" stroke="none"/>
+    <rect x="4.6" y="6.4" width="26.8" height="26.8" rx="1.4" ry="1.4" fill="none"/>
+    <path d="M8.4 12.4 L27.6 12.4 M8.4 16.6 L27.6 16.6 M8.4 20.8 L27.6 20.8 M8.4 25 L27.6 25 M8.4 29.2 L19.6 29.2" fill="none" stroke-width="1.25"/>
+  </g>
+</svg>

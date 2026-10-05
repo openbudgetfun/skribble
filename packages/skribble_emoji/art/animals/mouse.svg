@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="body-shape"><path d="M3 21.6 C3.6 19.4 6.6 15.8 11.4 13.8 C14.8 12.4 19.2 12 23 12.8 C27.8 13.8 31 17.6 31 22 C31 25.4 28.6 27.4 25.4 27.4 L8.6 27.4 C5.6 27.4 2.6 24 3 21.6 Z"/></clipPath>
+  </defs>
+  <g id="tail" fill="none">
+    <path d="M29.4 24.6 C32.6 24.6 34 27 33 29.2 C32 31.4 28.6 31.6 26 30.8" stroke="ink" stroke-width="2.6"/>
+    <path d="M29.4 24.6 C32.6 24.6 34 27 33 29.2 C32 31.4 28.6 31.6 26 30.8" stroke="pink" stroke-width="1"/>
+  </g>
+  <g id="feet" fill="pink" stroke="ink" stroke-width="1.25">
+    <ellipse cx="12.4" cy="27.6" rx="2" ry="1.1"/>
+    <ellipse cx="23.4" cy="27.6" rx="2" ry="1.1"/>
+  </g>
+  <g id="body">
+    <path d="M3 21.6 C3.6 19.4 6.6 15.8 11.4 13.8 C14.8 12.4 19.2 12 23 12.8 C27.8 13.8 31 17.6 31 22 C31 25.4 28.6 27.4 25.4 27.4 L8.6 27.4 C5.6 27.4 2.6 24 3 21.6 Z" fill="grey"/>
+    <g clip-path="url(#body-shape)">
+      <path d="M3 21.6 C3.6 19.4 6.6 15.8 11.4 13.8 C14.8 12.4 19.2 12 23 12.8 C27.8 13.8 31 17.6 31 22 C31 25.4 28.6 27.4 25.4 27.4 L8.6 27.4 C5.6 27.4 2.6 24 3 21.6 Z" transform="translate(-1.4 -1.6)" fill="silver"/>
+    </g>
+    <path d="M3 21.6 C3.6 19.4 6.6 15.8 11.4 13.8 C14.8 12.4 19.2 12 23 12.8 C27.8 13.8 31 17.6 31 22 C31 25.4 28.6 27.4 25.4 27.4 L8.6 27.4 C5.6 27.4 2.6 24 3 21.6 Z" fill="none" stroke="ink"/>
+  </g>
+  <g id="ears">
+    <circle cx="14.6" cy="12.6" r="4.2" fill="silver" stroke="ink"/>
+    <circle cx="14.8" cy="12.8" r="2.5" fill="pink"/>
+  </g>
+  <g id="eyes" fill="ink">
+    <ellipse cx="8.8" cy="18.8" rx="1.2" ry="1.6"/>
+    <circle cx="9.1" cy="18.2" r="0.4" fill="paper"/>
+  </g>
+  <g id="nose">
+    <circle cx="3.3" cy="21.4" r="1" fill="pink" stroke="ink" stroke-width="1"/>
+    <path d="M5.6 21.2 L2.4 19.8 M5.8 22.6 L2.6 23.4" fill="none" stroke="ink" stroke-width="1"/>
+  </g>
+</svg>

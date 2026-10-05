@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="nose">
+    <ellipse cx="18" cy="18" rx="14" ry="10.6" fill="pink"/>
+    <path d="M32 18 C32 23.9 25.7 28.6 18 28.6 C24.4 27 29.4 23.2 29.8 18.2 C29.9 16.4 31.9 16.2 32 18 Z" fill="pink-shade"/>
+    <ellipse cx="18" cy="18" rx="14" ry="10.6" fill="none" stroke="ink"/>
+    <path d="M8 13.6 Q9.6 10.8 13 9.8" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+  <g id="nostrils" fill="ink">
+    <ellipse cx="12.6" cy="18.4" rx="2.2" ry="4"/>
+    <ellipse cx="23.4" cy="18.4" rx="2.2" ry="4"/>
+  </g>
+</svg>

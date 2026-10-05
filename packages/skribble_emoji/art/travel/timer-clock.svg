@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="knob" stroke="ink" stroke-width="1.75">
+    <path d="M16.6 6.6 L16.6 4.6 M19.4 6.6 L19.4 4.6" fill="none"/>
+    <rect x="13.6" y="2.2" width="8.8" height="3.4" rx="1.5" ry="1.5" fill="red"/>
+  </g>
+  <g id="timer">
+    <circle cx="18" cy="19.6" r="13.6" fill="silver"/>
+    <path d="M30.42 14.06 A13.6 13.6 0 0 1 18 33.2 C24.9 30.85 29.42 23.78 30.42 14.06 Z" fill="grey"/>
+    <circle cx="18" cy="19.6" r="13.6" fill="none" stroke="ink"/>
+    <circle cx="18" cy="19.6" r="10.2" fill="white" stroke="ink" stroke-width="1.5"/>
+    <path d="M18 19.6 L18 11 A8.6 8.6 0 0 1 24.59 25.13 Z" fill="coral"/>
+    <path d="M18 10.2 L18 11.8 M27.4 19.6 L25.8 19.6 M18 29 L18 27.4 M8.6 19.6 L10.2 19.6" fill="none" stroke="ink" stroke-width="1.5"/>
+  </g>
+  <g id="hands" fill="none" stroke="ink">
+    <path d="M18 19.6 L24.43 25" stroke-width="2.25"/>
+    <circle cx="18" cy="19.6" r="1.5" fill="ink" stroke="none"/>
+  </g>
+</svg>

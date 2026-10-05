@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="panel"><rect x="3.4" y="3.4" width="29.2" height="29.2" rx="5" ry="5"/></clipPath>
+  </defs>
+  <g id="panel" stroke="ink">
+    <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="5" ry="5" fill="silver" stroke="none"/>
+    <path d="M36 10 Q32 30 10 34 L36 36 Z" fill="grey" stroke="none" clip-path="url(#panel)"/>
+    <rect x="3.4" y="3.4" width="29.2" height="29.2" rx="5" ry="5" fill="none"/>
+    <g fill="ink" stroke="none">
+      <rect x="9.5" y="7.6" width="1.8" height="20.8" rx="0.9" ry="0.9"/>
+      <rect x="17.1" y="7.6" width="1.8" height="20.8" rx="0.9" ry="0.9"/>
+      <rect x="24.7" y="7.6" width="1.8" height="20.8" rx="0.9" ry="0.9"/>
+    </g>
+  </g>
+  <g stroke="ink" stroke-width="1.75">
+    <g data-part="knob-1"><rect x="7" y="19" width="6.8" height="4.4" rx="1.2" ry="1.2" fill="red"/><path d="M8.4 21.2 L12.4 21.2" fill="none" stroke-width="1.25"/></g>
+    <g data-part="knob-2"><rect x="14.6" y="9.4" width="6.8" height="4.4" rx="1.2" ry="1.2" fill="yellow"/><path d="M16 11.6 L20 11.6" fill="none" stroke-width="1.25"/></g>
+    <g data-part="knob-3"><rect x="22.2" y="14.6" width="6.8" height="4.4" rx="1.2" ry="1.2" fill="blue"/><path d="M23.6 16.8 L27.6 16.8" fill="none" stroke-width="1.25"/></g>
+  </g>
+</svg>

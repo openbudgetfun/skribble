@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- One drop shape (radius 1, tip up) scaled three times, tips trailing
+       to the lower left as the drops fly up and right. -->
+  <g id="drops" fill="sky" stroke="ink">
+    <path transform="translate(22 12.4) rotate(-135) scale(5.4)" stroke-width="0.324" d="M0 -2.3 C0.5 -1.4 1 -0.6 1 0.2 C1 0.75 0.55 1.2 0 1.2 C-0.55 1.2 -1 0.75 -1 0.2 C-1 -0.6 -0.5 -1.4 0 -2.3 Z"/>
+    <path transform="translate(27.2 26) rotate(-135) scale(3.8)" stroke-width="0.395" d="M0 -2.3 C0.5 -1.4 1 -0.6 1 0.2 C1 0.75 0.55 1.2 0 1.2 C-0.55 1.2 -1 0.75 -1 0.2 C-1 -0.6 -0.5 -1.4 0 -2.3 Z"/>
+    <path transform="translate(8.6 12) rotate(-135) scale(3)" stroke-width="0.5" d="M0 -2.3 C0.5 -1.4 1 -0.6 1 0.2 C1 0.75 0.55 1.2 0 1.2 C-0.55 1.2 -1 0.75 -1 0.2 C-1 -0.6 -0.5 -1.4 0 -2.3 Z"/>
+    <path d="M20.2 9.2 Q21.2 7.8 22.8 7.6" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

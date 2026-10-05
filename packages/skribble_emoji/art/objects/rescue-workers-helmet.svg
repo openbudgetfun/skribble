@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="dome"><path d="M4.8 23.4 Q4.4 7 18 7 Q31.6 7 31.2 23.4 Z"/></clipPath>
+  </defs>
+  <g id="helmet" stroke="ink" transform="translate(0 2.4)">
+    <path d="M14.6 8.6 Q14.6 4 18 4 Q21.4 4 21.4 8.6 Z" fill="white" stroke-width="1.75"/>
+    <path d="M4.8 23.4 Q4.4 7 18 7 Q31.6 7 31.2 23.4 Z" fill="white" stroke="none"/>
+    <path d="M36 9 Q32 22 21 25 L36 25 Z" fill="silver" stroke="none" clip-path="url(#dome)"/>
+    <path d="M4.8 23.4 Q4.4 7 18 7 Q31.6 7 31.2 23.4 Z" fill="none"/>
+    <path d="M16.2 10.6 L19.8 10.6 L19.8 13.8 L23 13.8 L23 17.4 L19.8 17.4 L19.8 20.6 L16.2 20.6 L16.2 17.4 L13 17.4 L13 13.8 L16.2 13.8 Z" fill="red" stroke-width="1.5"/>
+    <path d="M2.4 24.6 Q2.4 22.4 4.6 22.4 L31.4 22.4 Q33.6 22.4 33.6 24.6 Q33.6 27.4 30.6 27.4 L5.4 27.4 Q2.4 27.4 2.4 24.6 Z" fill="white"/>
+  </g>
+</svg>

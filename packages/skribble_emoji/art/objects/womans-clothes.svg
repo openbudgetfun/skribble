@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="blouse"><path d="M12.6 4.2 Q18 5.6 23.4 4.2 L29.4 6.6 Q33.2 8 33.2 12.4 Q33.2 15.4 30.2 15.8 L27 16 L26.6 22.4 L28.2 31.4 Q28.4 33 26.8 33 L9.2 33 Q7.6 33 7.8 31.4 L9.4 22.4 L9 16 L5.8 15.8 Q2.8 15.4 2.8 12.4 Q2.8 8 6.6 6.6 Z"/></clipPath>
+  </defs>
+  <g id="blouse" stroke="ink">
+    <path d="M12.6 4.2 Q18 5.6 23.4 4.2 L29.4 6.6 Q33.2 8 33.2 12.4 Q33.2 15.4 30.2 15.8 L27 16 L26.6 22.4 L28.2 31.4 Q28.4 33 26.8 33 L9.2 33 Q7.6 33 7.8 31.4 L9.4 22.4 L9 16 L5.8 15.8 Q2.8 15.4 2.8 12.4 Q2.8 8 6.6 6.6 Z" fill="pink" stroke="none"/>
+    <path d="M36 11 Q29 24 25 35 L36 35 Z" fill="pink-shade" stroke="none" clip-path="url(#blouse)"/>
+    <path d="M12.6 4.2 Q18 5.6 23.4 4.2 L29.4 6.6 Q33.2 8 33.2 12.4 Q33.2 15.4 30.2 15.8 L27 16 L26.6 22.4 L28.2 31.4 Q28.4 33 26.8 33 L9.2 33 Q7.6 33 7.8 31.4 L9.4 22.4 L9 16 L5.8 15.8 Q2.8 15.4 2.8 12.4 Q2.8 8 6.6 6.6 Z" fill="none"/>
+    <path d="M9.1 15.6 Q9.8 11 8.6 7.2 M26.9 15.6 Q26.2 11 27.4 7.2 M9.3 22.4 Q18 23.8 26.7 22.4" fill="none" stroke-width="1.5"/>
+  </g>
+  <g id="collar" fill="white" stroke="ink" stroke-width="1.5">
+    <path d="M18 5.8 Q14.6 5 12.6 4.2 Q11 9.8 15.2 10.2 Q17.8 10 18 5.8 Z"/>
+    <path d="M18 5.8 Q21.4 5 23.4 4.2 Q25 9.8 20.8 10.2 Q18.2 10 18 5.8 Z"/>
+  </g>
+  <g id="buttons" fill="white" stroke="ink" stroke-width="1.25">
+    <circle cx="18" cy="13.8" r="0.95"/>
+    <circle cx="18" cy="18.2" r="0.95"/>
+    <circle cx="18" cy="27.4" r="0.95"/>
+  </g>
+</svg>

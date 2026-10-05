@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="controller" stroke="ink">
+    <path d="M10.2 8.4 L25.8 8.4 C30 8.4 32 11.6 32.6 16 L33.4 23.2 C33.8 26.6 31 28.6 28.4 26.6 L24.4 23 L11.6 23 L7.6 26.6 C5 28.6 2.2 26.6 2.6 23.2 L3.4 16 C4 11.6 6 8.4 10.2 8.4 Z" fill="grey" stroke="none"/>
+    <path d="M32.6 16 L33.4 23.2 C33.8 26.6 31 28.6 28.4 26.6 L27.4 25.6 C30.4 26 31.6 24 31.4 21.4 L31 17 C30.8 14.6 30 12.4 28.8 11 C30.8 11.8 32.2 13.6 32.6 16 Z" fill="grey-shade" stroke="none"/>
+    <path d="M10.2 8.4 L25.8 8.4 C30 8.4 32 11.6 32.6 16 L33.4 23.2 C33.8 26.6 31 28.6 28.4 26.6 L24.4 23 L11.6 23 L7.6 26.6 C5 28.6 2.2 26.6 2.6 23.2 L3.4 16 C4 11.6 6 8.4 10.2 8.4 Z" fill="none"/>
+    <path d="M16.2 13.4 L17.2 13.4 M18.8 13.4 L19.8 13.4" fill="none" stroke-width="1.5"/>
+  </g>
+  <path data-part="d-pad" d="M9.2 12.4 L12 12.4 L12 14 L13.6 14 L13.6 16.8 L12 16.8 L12 18.4 L9.2 18.4 L9.2 16.8 L7.6 16.8 L7.6 14 L9.2 14 Z" fill="black" stroke="ink" stroke-width="1.25"/>
+  <g id="buttons" stroke="ink" stroke-width="1.25">
+    <circle cx="25.4" cy="13" r="1.25" fill="yellow"/>
+    <circle cx="27.8" cy="15.4" r="1.25" fill="red"/>
+    <circle cx="25.4" cy="17.8" r="1.25" fill="blue"/>
+    <circle cx="23" cy="15.4" r="1.25" fill="green"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="tines" fill="purple" stroke="ink" stroke-width="1.5">
+    <rect x="6.5" y="18" width="2.2" height="15.4" rx="1.1" ry="1.1"/>
+    <rect x="10.7" y="18" width="2.2" height="15.4" rx="1.1" ry="1.1"/>
+    <rect x="14.9" y="18" width="2.2" height="15.4" rx="1.1" ry="1.1"/>
+    <rect x="19.1" y="18" width="2.2" height="15.4" rx="1.1" ry="1.1"/>
+    <rect x="23.3" y="18" width="2.2" height="15.4" rx="1.1" ry="1.1"/>
+    <rect x="27.5" y="18" width="2.2" height="15.4" rx="1.1" ry="1.1"/>
+  </g>
+  <g id="handle" stroke="ink">
+    <rect x="15.4" y="12.6" width="5.2" height="4" rx="0.6" ry="0.6" fill="purple" stroke-width="1.75"/>
+    <path d="M24.8 9.6 A6.8 6.8 0 1 1 11.2 9.6 A6.8 6.8 0 1 1 24.8 9.6 Z M18 12.6 C15.6 11.2 15 9.8 15.6 8.8 C16.2 7.8 17.4 8 18 8.8 C18.6 8 19.8 7.8 20.4 8.8 C21 9.8 20.4 11.2 18 12.6 Z" fill="purple" fill-rule="evenodd"/>
+    <rect x="4.4" y="15.4" width="27.2" height="4.4" rx="2.2" ry="2.2" fill="purple"/>
+    <path d="M7 17.6 L29 17.6" fill="none" stroke="purple-shade" stroke-width="1.5"/>
+    <path d="M13.6 6.6 Q14.6 4.6 16.6 4.2" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>

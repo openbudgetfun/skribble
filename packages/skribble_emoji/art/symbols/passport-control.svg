@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b18-button-blue"/>
+  <g id="passport">
+    <rect x="10.6" y="6.4" width="14.8" height="23.2" rx="1.6" ry="1.6" fill="white"/>
+    <g fill="none" stroke="blue" stroke-width="1.5">
+      <circle cx="18" cy="15.6" r="4.4"/>
+      <ellipse cx="18" cy="15.6" rx="1.8" ry="4.4"/>
+      <path d="M13.6 15.6 L22.4 15.6 M14.6 24.4 L21.4 24.4"/>
+    </g>
+  </g>
+</svg>

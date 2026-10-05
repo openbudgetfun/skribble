@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="steam" fill="none">
+    <path d="M12.2 23.4 Q9.6 20 12 16.6 Q14.4 13.2 12 9.4 M18 24.6 Q15.4 21 18 17.4 Q20.6 13.8 18 10 Q16.6 8 17.4 5.2 M23.8 23.4 Q21.2 20 23.6 16.6 Q26 13.2 23.6 9.4" stroke="ink" stroke-width="4.4"/>
+    <path d="M12.2 23.4 Q9.6 20 12 16.6 Q14.4 13.2 12 9.4 M18 24.6 Q15.4 21 18 17.4 Q20.6 13.8 18 10 Q16.6 8 17.4 5.2 M23.8 23.4 Q21.2 20 23.6 16.6 Q26 13.2 23.6 9.4" stroke="red" stroke-width="2.4"/>
+  </g>
+  <g id="spring" fill="none">
+    <path d="M8.4 21.6 Q3.4 23.8 4.4 27.6 Q6.2 31.4 18 31.4 Q29.8 31.4 31.6 27.6 Q32.6 23.8 27.6 21.6" stroke="ink" stroke-width="4.4"/>
+    <path d="M8.4 21.6 Q3.4 23.8 4.4 27.6 Q6.2 31.4 18 31.4 Q29.8 31.4 31.6 27.6 Q32.6 23.8 27.6 21.6" stroke="red" stroke-width="2.4"/>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="plate" stroke="ink">
+    <ellipse cx="18" cy="28.2" rx="15.6" ry="4.4" fill="white"/>
+    <ellipse cx="18" cy="27.8" rx="11.4" ry="2.6" fill="none" stroke="silver" stroke-width="1.5"/>
+  </g>
+  <g id="custard" stroke="ink" transform="translate(0 -1.4)">
+    <path d="M10.4 11.6 C10.4 9.6 14 8.4 18 8.4 C22 8.4 25.6 9.6 25.6 11.6 L29.6 26.6 C29.6 29 24.4 30.6 18 30.6 C11.6 30.6 6.4 29 6.4 26.6 Z" fill="yellow" stroke="none"/>
+    <path d="M25.6 11.6 L29.6 26.6 C29.6 28.6 26 30 21.6 30.4 C24.6 29.4 26.6 28 26.4 26.2 L23.8 13.4 C24.8 12.8 25.6 12.2 25.6 11.6 Z" fill="yellow-shade" stroke="none"/>
+    <path d="M10.4 11.6 C10.4 9.6 14 8.4 18 8.4 C22 8.4 25.6 9.6 25.6 11.6 L29.6 26.6 C29.6 29 24.4 30.6 18 30.6 C11.6 30.6 6.4 29 6.4 26.6 Z" fill="none"/>
+    <path d="M10.4 11.6 C10.4 9.6 14 8.4 18 8.4 C22 8.4 25.6 9.6 25.6 11.6 L26.2 14 Q26.4 15.4 25.2 15.4 Q24 15.4 23.8 14.2 Q21.2 14.8 20.4 14.8 L20.4 17 Q20.2 18.4 19 18.4 Q17.8 18.4 17.6 17 L17.6 14.8 Q14.4 14.6 12.8 14.2 Q12.4 15.6 11.2 15.4 Q10 15.2 10.1 13.8 Z" fill="brown" stroke-width="1.5"/>
+    <path d="M13.6 10.6 Q15.4 9.6 17.6 9.6" fill="none" stroke="paper" stroke-width="1.5"/>
+    <path d="M9.4 21.6 Q9 24.6 10 26.6" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

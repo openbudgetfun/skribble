@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="glove-shape"><path d="M4.4 21.6 L1.8 15.2 Q1 13 2.8 12.4 Q4.4 12 5.4 13.6 L5.8 14.6 L5.8 6.2 Q5.8 4.4 7.3 4.4 Q8.8 4.4 8.8 6.2 L8.8 4.4 Q8.8 2.6 10.3 2.6 Q11.8 2.6 11.8 4.4 L11.8 5.6 Q11.8 3.8 13.3 3.8 Q14.8 3.8 14.8 5.6 L14.8 8.6 Q14.8 7 16.1 7 Q17.4 7 17.4 8.6 L17.4 17.6 Q17.4 20.4 16.2 21.6 Z"/></clipPath>
+  </defs>
+  <g id="glove-back" stroke="ink" transform="translate(33 0.6) scale(-1 1)">
+    <path d="M4.4 21.6 L1.8 15.2 Q1 13 2.8 12.4 Q4.4 12 5.4 13.6 L5.8 14.6 L5.8 6.2 Q5.8 4.4 7.3 4.4 Q8.8 4.4 8.8 6.2 L8.8 4.4 Q8.8 2.6 10.3 2.6 Q11.8 2.6 11.8 4.4 L11.8 5.6 Q11.8 3.8 13.3 3.8 Q14.8 3.8 14.8 5.6 L14.8 8.6 Q14.8 7 16.1 7 Q17.4 7 17.4 8.6 L17.4 17.6 Q17.4 20.4 16.2 21.6 Z" fill="green-shade" stroke-width="1.75"/>
+    <path d="M8.8 6.4 L8.8 12.4 M11.8 5.8 L11.8 12.4 M14.8 8.8 L14.8 13" fill="none" stroke-width="1.25"/>
+    <rect x="3.4" y="21" width="14.2" height="6.8" rx="1.6" ry="1.6" fill="leaf" stroke-width="1.75"/>
+    <path d="M6.6 22.4 L6.6 26.4 M10.4 22.4 L10.4 26.4 M14.2 22.4 L14.2 26.4" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="glove-front" stroke="ink" transform="translate(3 5.6)">
+    <path d="M4.4 21.6 L1.8 15.2 Q1 13 2.8 12.4 Q4.4 12 5.4 13.6 L5.8 14.6 L5.8 6.2 Q5.8 4.4 7.3 4.4 Q8.8 4.4 8.8 6.2 L8.8 4.4 Q8.8 2.6 10.3 2.6 Q11.8 2.6 11.8 4.4 L11.8 5.6 Q11.8 3.8 13.3 3.8 Q14.8 3.8 14.8 5.6 L14.8 8.6 Q14.8 7 16.1 7 Q17.4 7 17.4 8.6 L17.4 17.6 Q17.4 20.4 16.2 21.6 Z" fill="green" stroke="none"/>
+    <path d="M19 9 Q16.4 18 11 22 L19 22 Z" fill="green-shade" stroke="none" clip-path="url(#glove-shape)"/>
+    <path d="M4.4 21.6 L1.8 15.2 Q1 13 2.8 12.4 Q4.4 12 5.4 13.6 L5.8 14.6 L5.8 6.2 Q5.8 4.4 7.3 4.4 Q8.8 4.4 8.8 6.2 L8.8 4.4 Q8.8 2.6 10.3 2.6 Q11.8 2.6 11.8 4.4 L11.8 5.6 Q11.8 3.8 13.3 3.8 Q14.8 3.8 14.8 5.6 L14.8 8.6 Q14.8 7 16.1 7 Q17.4 7 17.4 8.6 L17.4 17.6 Q17.4 20.4 16.2 21.6 Z" fill="none" stroke-width="1.75"/>
+    <path d="M8.8 6.4 L8.8 12.4 M11.8 5.8 L11.8 12.4 M14.8 8.8 L14.8 13" fill="none" stroke-width="1.25"/>
+    <rect x="3.4" y="21" width="14.2" height="6.8" rx="1.6" ry="1.6" fill="leaf" stroke-width="1.75"/>
+    <path d="M6.6 22.4 L6.6 26.4 M10.4 22.4 L10.4 26.4 M14.2 22.4 L14.2 26.4" fill="none" stroke-width="1.25"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="moon">
+    <circle cx="18" cy="18" r="15" fill="yellow"/>
+    <g data-include="b12-moon-craters"/>
+    <path d="M31.7 11.89 A15 15 0 0 1 18 33 C25.61 30.41 30.6 22.61 31.7 11.89 Z" fill="yellow-shade"/>
+    <circle cx="18" cy="18" r="15" fill="none" stroke="ink"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b19-button-blue"/>
+  <g id="glyph" fill="white" stroke="ink" stroke-width="1.5">
+    <path d="M7.8 11 L17.2 18 L7.8 25 Z"/>
+    <rect x="19.6" y="11" width="3" height="14" rx="1" ry="1"/>
+    <rect x="24.8" y="11" width="3" height="14" rx="1" ry="1"/>
+  </g>
+</svg>

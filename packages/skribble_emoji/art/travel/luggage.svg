@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="handle" fill="none">
+    <path d="M13.6 8.6 L13.6 6 Q13.6 4 15.6 4 L20.4 4 Q22.4 4 22.4 6 L22.4 8.6" stroke="ink" stroke-width="3.6"/>
+    <path d="M13.6 8.6 L13.6 6 Q13.6 4 15.6 4 L20.4 4 Q22.4 4 22.4 6 L22.4 8.6" stroke="brown-shade" stroke-width="1.6"/>
+  </g>
+  <g id="wheels" fill="black" stroke="ink" stroke-width="1.5">
+    <circle cx="9.4" cy="31.4" r="1.7"/>
+    <circle cx="26.6" cy="31.4" r="1.7"/>
+  </g>
+  <g id="case" stroke="ink">
+    <rect x="5" y="8.4" width="26" height="21.8" rx="3" ry="3" fill="brown" stroke="none"/>
+    <path d="M31 16 L31 27.2 Q31 30.2 28 30.2 L14 30.2 Q27.4 28.6 31 16 Z" fill="brown-shade" stroke="none"/>
+    <rect x="5" y="8.4" width="26" height="21.8" rx="3" ry="3" fill="none"/>
+    <rect x="9.4" y="8.4" width="3" height="21.8" fill="tan" stroke-width="1.5" rx="0.4" ry="0.4"/>
+    <rect x="23.6" y="8.4" width="3" height="21.8" fill="tan" stroke-width="1.5" rx="0.4" ry="0.4"/>
+    <circle cx="17.4" cy="14.6" r="2.6" fill="coral" stroke-width="1.25"/>
+    <path d="M15.6 21.4 L20.8 20.6 L21.2 24.8 L16 25.6 Z" fill="sky" stroke-width="1.25"/>
+  </g>
+</svg>

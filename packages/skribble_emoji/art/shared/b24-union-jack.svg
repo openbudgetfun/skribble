@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+  <!-- The Union Flag in a flag's canton (x 2–18, y 8–18), for the Blue
+       Ensign flags. Drawn on the official 60×30 grid, then squeezed into
+       the canton; the red saltire is counterchanged, broad white uppermost
+       at the hoist. -->
+  <g transform="translate(2 8) scale(0.266667 0.333333)">
+    <path d="M0 0H60V30H0Z" fill="#012169"/>
+    <path d="M0 0H6.708L60 26.646V30H53.292L0 3.354Z M53.292 0H60V3.354L6.708 30H0V26.646Z" fill="#ffffff"/>
+    <path d="M0 0L30 15H25.528L0 2.236Z M30 15L60 0H55.528L30 12.764Z M30 15L60 30V27.764L34.472 15Z M30 15L0 30H4.472L30 17.236Z" fill="#c8102e"/>
+    <path d="M25 0H35V30H25Z M0 10H60V20H0Z" fill="#ffffff"/>
+    <path d="M27 0H33V30H27Z M0 12H60V18H0Z" fill="#c8102e"/>
+  </g>
+</svg>

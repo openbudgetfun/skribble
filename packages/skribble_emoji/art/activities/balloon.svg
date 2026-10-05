@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="string" d="M18 27.6 C16 29.6 20 31.4 17.4 34" fill="none" stroke="ink" stroke-width="1.5"/>
+  <g id="balloon" stroke="ink">
+    <path d="M16.4 28 L18 25.4 L19.6 28 Z" fill="red" stroke-width="1.5"/>
+    <path d="M18 2.4 C24.6 2.4 28.8 7.6 28.8 13.6 C28.8 20.4 23.6 25.8 18 25.8 C12.4 25.8 7.2 20.4 7.2 13.6 C7.2 7.6 11.4 2.4 18 2.4 Z" fill="red" stroke="none"/>
+    <path d="M28.4 10.2 C28.7 11.3 28.8 12.4 28.8 13.6 C28.8 20.4 23.6 25.8 18 25.8 C23.6 23.6 27 18.6 27.2 13.8 C27.3 12.4 27.7 11.2 28.4 10.2 Z" fill="red-shade" stroke="none"/>
+    <path d="M18 2.4 C24.6 2.4 28.8 7.6 28.8 13.6 C28.8 20.4 23.6 25.8 18 25.8 C12.4 25.8 7.2 20.4 7.2 13.6 C7.2 7.6 11.4 2.4 18 2.4 Z" fill="none"/>
+    <path d="M11 10.6 Q11.8 6.8 15.4 5.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

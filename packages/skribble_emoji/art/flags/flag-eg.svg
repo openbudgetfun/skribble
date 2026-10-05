@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round" data-warp="flag">
+  <rect x="2" y="8" width="32" height="20" fill="#ce1126"/>
+  <rect x="2" y="14.67" width="32" height="13.33" fill="#ffffff"/>
+  <rect x="2" y="21.33" width="32" height="6.67" fill="#000000"/>
+  <path d="M17.3 15.9C16.2 15.8 15.2 16.3 14.9 17.2L15.1 20L15.7 19.6L16.1 20.3L16.6 19.8L17.1 20.2ZM18.7 15.9C19.8 15.8 20.8 16.3 21.1 17.2L20.9 20L20.3 19.6L19.9 20.3L19.4 19.8L18.9 20.2Z" fill="#c09300"/>
+  <path d="M17.1 15.9L18.9 15.9L18.9 19.6L18 20.4L17.1 19.6Z" fill="#c09300"/>
+  <circle cx="18" cy="15.35" r="0.65" fill="#c09300"/>
+  <polygon points="17.45,15.15 16.85,15.6 17.55,15.65" fill="#c09300"/>
+  <rect x="17.45" y="16.6" width="0.37" height="2" fill="#ce1126"/>
+  <rect x="17.82" y="16.6" width="0.36" height="2" fill="#ffffff"/>
+  <rect x="18.18" y="16.6" width="0.37" height="2" fill="#000000"/>
+  <polygon points="17.3,20.2 18.7,20.2 19.1,20.7 16.9,20.7" fill="#c09300"/>
+  <rect x="16.2" y="20.7" width="3.6" height="0.5" fill="#c09300"/>
+</svg>

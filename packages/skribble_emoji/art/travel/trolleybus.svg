@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <path data-part="wire" d="M3.4 2.8 L33.4 2.8" fill="none" stroke="ink" stroke-width="1.25"/>
+  <g id="poles" stroke="ink">
+    <path d="M20.6 9.2 L28.8 2.8 M23.8 9.2 L32 2.8" fill="none" stroke-width="1.75"/>
+    <rect x="19.4" y="8" width="6" height="1.8" rx="0.6" ry="0.6" fill="grey" stroke-width="1.5"/>
+  </g>
+  <g id="body" stroke="ink">
+    <path d="M6 9.6 L30.6 9.6 Q33.4 9.6 33.4 12.4 L33.4 24.4 Q33.4 26.4 31.4 26.4 L4.6 26.4 Q2.6 26.4 2.6 24.4 L2.6 13.6 Q2.6 9.6 6 9.6 Z" fill="green" stroke="none"/>
+    <path d="M33.4 18 L33.4 24.4 Q33.4 26.4 31.4 26.4 L12 26.4 Q28.6 25.4 31.8 22 Q33.2 20.6 33.4 18 Z" fill="green-shade" stroke="none"/>
+    <path d="M10.6 20.6 L32.6 20.6" fill="none" stroke="white" stroke-width="1.75"/>
+    <path d="M6 9.6 L30.6 9.6 Q33.4 9.6 33.4 12.4 L33.4 24.4 Q33.4 26.4 31.4 26.4 L4.6 26.4 Q2.6 26.4 2.6 24.4 L2.6 13.6 Q2.6 9.6 6 9.6 Z" fill="none"/>
+    <path d="M4.4 13.8 Q4.4 11.6 6.6 11.6 L8.6 11.6 L8.6 23.2 L4.4 23.2 Z" fill="sky" stroke-width="1.5"/>
+    <rect x="10.6" y="11.6" width="20.8" height="6" rx="1.2" ry="1.2" fill="sky" stroke-width="1.5"/>
+    <path d="M15.8 11.6 L15.8 17.6 M21 11.6 L21 17.6 M26.2 11.6 L26.2 17.6" fill="none" stroke-width="1.5"/>
+  </g>
+  <g id="wheels">
+    <g data-include="b11-wheel" transform="translate(-9 8.4)"/>
+    <g data-include="b11-wheel" transform="translate(9 8.4)"/>
+  </g>
+</svg>

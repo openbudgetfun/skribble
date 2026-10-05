@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="bat" stroke="ink" transform="rotate(40 18 18)">
+    <rect x="16.6" y="2.2" width="2.8" height="9.2" rx="1.2" ry="1.2" fill="black" stroke-width="1.5"/>
+    <path d="M13.4 14 Q13.4 11.6 15.6 11 L16.6 10.6 L19.4 10.6 L20.4 11 Q22.6 11.6 22.6 14 L22.6 30.6 Q22.6 33 20.2 33 L15.8 33 Q13.4 33 13.4 30.6 Z" fill="cream" stroke="none"/>
+    <path d="M22.6 14 L22.6 30.6 Q22.6 33 20.2 33 L19.4 33 Q21 31.6 21 29.6 L21 13.2 Q21 11.8 20.4 11 Q22.6 11.6 22.6 14 Z" fill="tan" stroke="none"/>
+    <path d="M13.4 14 Q13.4 11.6 15.6 11 L16.6 10.6 L19.4 10.6 L20.4 11 Q22.6 11.6 22.6 14 L22.6 30.6 Q22.6 33 20.2 33 L15.8 33 Q13.4 33 13.4 30.6 Z" fill="none"/>
+    <path d="M18 14 L18 29.6" fill="none" stroke="tan" stroke-width="1.5"/>
+  </g>
+  <g id="ball" stroke="ink">
+    <circle cx="27.6" cy="27.4" r="4.4" fill="red" stroke-width="1.75"/>
+    <path d="M23.8 25.4 Q27.4 28.2 31.4 25.6" fill="none" stroke="white" stroke-width="1.25"/>
+    <path d="M24.8 28.6 Q25.2 30.2 26.6 30.8" fill="none" stroke="paper" stroke-width="1.25"/>
+  </g>
+</svg>

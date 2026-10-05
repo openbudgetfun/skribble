@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="bag">
+      <path d="M4.4 12.4 A9 8 0 1 1 20.3 17.5 C18.6 22.8 15 24.6 15 28 C15 30.6 13 32.2 10.6 30.6 C6 27.6 4 20.4 4.4 12.4 Z"/>
+    </clipPath>
+  </defs>
+  <g id="net">
+    <path d="M4.4 12.4 A9 8 0 1 1 20.3 17.5 C18.6 22.8 15 24.6 15 28 C15 30.6 13 32.2 10.6 30.6 C6 27.6 4 20.4 4.4 12.4 Z" fill="white"/>
+    <path clip-path="url(#bag)" d="M2 6 L28 32 M2 12 L22 32 M2 18 L16 32 M2 24 L10 32 M6 2 L32 28 M12 2 L32 22 M18 2 L32 16 M2 30 L30 2 M2 24 L24 2 M2 18 L18 2 M2 12 L12 2 M8 32 L32 8 M14 32 L32 14" fill="none" stroke="grey" stroke-width="1.25"/>
+    <path d="M4.4 12.4 A9 8 0 1 1 20.3 17.5 C18.6 22.8 15 24.6 15 28 C15 30.6 13 32.2 10.6 30.6 C6 27.6 4 20.4 4.4 12.4 Z" fill="none" stroke="ink" stroke-width="1.75"/>
+  </g>
+  <g id="handle" stroke="ink">
+    <path d="M20.1 17.9 L33.1 30.9 Q34.2 32 33.1 33.1 Q32 34.2 30.9 33.1 L17.9 20.1 Z" fill="tan"/>
+    <path d="M27.6 25.4 L33.1 30.9 Q34.2 32 33.1 33.1 Q32 34.2 30.9 33.1 L25.4 27.6 Z" fill="red" stroke-width="1.5"/>
+  </g>
+  <g id="hoop" fill="none">
+    <ellipse cx="13.4" cy="12.4" rx="9" ry="8" stroke="ink" stroke-width="3.2"/>
+    <ellipse cx="13.4" cy="12.4" rx="9" ry="8" stroke="silver" stroke-width="1.4"/>
+  </g>
+</svg>

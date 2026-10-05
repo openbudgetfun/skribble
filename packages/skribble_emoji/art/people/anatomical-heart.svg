@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A real heart: a red muscle, the aorta arching over the top with three
+       branches, a blue artery rising in front. -->
+  <g id="heart" stroke="ink">
+    <g data-part="branches" fill="red" stroke-width="1.75">
+      <rect x="18.2" y="3.2" width="2.4" height="6" rx="1.2" ry="1.2"/>
+      <rect x="20.9" y="2.6" width="2.4" height="6" rx="1.2" ry="1.2"/>
+      <rect x="23.6" y="3.2" width="2.4" height="6" rx="1.2" ry="1.2"/>
+    </g>
+    <path data-part="aorta" d="M17.2 15.4 L17.2 11.4 C17.2 8.4 19.4 6.8 22.2 6.8 C25.2 6.8 27.6 8.6 27.8 11.6 L28.2 20 L24.8 20 L24.4 11.8 C24.4 10.8 23.4 10.2 22.2 10.2 C21.4 10.2 20.8 10.8 20.8 11.6 L20.8 15.4 Z" fill="red"/>
+    <path d="M10.2 18.4 C8 23.2 9.6 28.8 14.4 31.4 C18 33.4 22.6 33 25.8 30.4 C29.4 27.4 30.2 22 28.2 18.2 C26.6 15.2 23.4 14 20.6 14.8 C17.8 13.4 12.4 14.2 10.2 18.4 Z" fill="red" stroke="none"/>
+    <path d="M29 20.6 C29.4 24.6 28.2 28.2 25.8 30.4 C22.6 33 18 33.4 14.4 31.4 C19 31.6 23.2 30 25.6 27.2 C27.2 25.4 28.4 23.2 29 20.6 Z" fill="red-shade" stroke="none"/>
+    <path d="M10.2 18.4 C8 23.2 9.6 28.8 14.4 31.4 C18 33.4 22.6 33 25.8 30.4 C29.4 27.4 30.2 22 28.2 18.2 C26.6 15.2 23.4 14 20.6 14.8 C17.8 13.4 12.4 14.2 10.2 18.4 Z" fill="none"/>
+    <path data-part="artery" d="M11.8 19.6 L7.4 12.2 C6.6 10.8 8.4 9.4 9.6 10.6 L15.6 16.6 Z" fill="blue"/>
+    <path d="M19.4 16.2 C18 20.8 19.2 25.6 23.2 29.2 M18.8 21.8 L15 24" fill="none" stroke-width="1.5"/>
+    <path d="M12.4 22 Q12.8 20.2 14.4 19.2" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

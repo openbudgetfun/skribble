@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs><clipPath id="front"><path d="M2.4 31.4 L11 13.6 Q12 11.8 13.2 13.4 L15.6 16.4 L18.6 8.4 Q19.6 6.2 20.6 8.4 L31 31.4 Z"/></clipPath></defs>
+  <g id="back-peak" stroke="ink">
+    <path d="M17.6 31.4 L25.8 15.8 Q26.8 14 27.8 15.8 L33.6 31.4 Z" fill="tan"/>
+  </g>
+  <g id="peak" stroke="ink">
+    <path d="M2.4 31.4 L11 13.6 Q12 11.8 13.2 13.4 L15.6 16.4 L18.6 8.4 Q19.6 6.2 20.6 8.4 L31 31.4 Z" fill="brown"/>
+    <path d="M19.6 7 L31 31.4 L24 31.4 Q22.6 18.8 19.6 7 Z" fill="brown-shade" stroke="none" clip-path="url(#front)"/>
+    <path d="M18.4 9 L17.4 15.8 L19.4 20.4 M12 12.6 L11 18 M15.4 23.6 L13.8 27.4" fill="none" stroke-width="1.5"/>
+    <path d="M2.4 31.4 L11 13.6 Q12 11.8 13.2 13.4 L15.6 16.4 L18.6 8.4 Q19.6 6.2 20.6 8.4 L31 31.4 Z" fill="none"/>
+  </g>
+</svg>

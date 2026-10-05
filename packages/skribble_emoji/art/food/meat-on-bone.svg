@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="bone" stroke="ink" transform="translate(18 18) rotate(-45)">
+    <path d="M-12.4 -2 L12.4 -2 C12 -4.8 13.6 -5.8 15 -5.6 C17.2 -5.4 18.2 -2.6 16.6 0 C18.2 2.6 17.2 5.4 15 5.6 C13.6 5.8 12 4.8 12.4 2 L-12.4 2 C-12 4.8 -13.6 5.8 -15 5.6 C-17.2 5.4 -18.2 2.6 -16.6 0 C-18.2 -2.6 -17.2 -5.4 -15 -5.6 C-13.6 -5.8 -12 -4.8 -12.4 -2 Z" fill="white"/>
+  </g>
+  <g id="meat" stroke="ink" transform="translate(18 18) rotate(-45)">
+    <path d="M-11.4 0.4 C-11.8 -5.6 -6.4 -9.8 0.4 -9.6 C6.6 -9.4 11.4 -5.6 11.2 0 C11 5.8 6.2 9.8 -0.4 9.6 C-6.8 9.4 -11 6 -11.4 0.4 Z" fill="brown" stroke="none"/>
+    <path d="M10.5 3.3 A11.2 9.6 0 0 1 -7.9 6.8 C-2.4 7.6 6.2 6.6 10.5 3.3 Z" fill="brown-shade" stroke="none"/>
+    <path d="M-11.4 0.4 C-11.8 -5.6 -6.4 -9.8 0.4 -9.6 C6.6 -9.4 11.4 -5.6 11.2 0 C11 5.8 6.2 9.8 -0.4 9.6 C-6.8 9.4 -11 6 -11.4 0.4 Z" fill="none"/>
+    <path d="M-6.4 -6.2 Q-2.4 -8.4 2 -8" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="horn"><path d="M25.2 14.4 L11.4 6.2 Q9.8 5.4 9.8 7.2 L9.8 28.8 Q9.8 30.6 11.4 29.8 L25.2 21.6 Z"/></clipPath>
+  </defs>
+  <path data-part="handle" d="M25.6 22.8 L24.8 30.4 Q24.6 31.8 26 31.8 L28.4 31.8 Q29.8 31.8 29.8 30.4 L30 22.8 Z" fill="black" stroke="ink" stroke-width="1.75"/>
+  <g id="horn" stroke="ink">
+    <rect x="23.8" y="12.4" width="9.6" height="11.2" rx="2.6" ry="2.6" fill="grey"/>
+    <path d="M25.2 14.4 L11.4 6.2 Q9.8 5.4 9.8 7.2 L9.8 28.8 Q9.8 30.6 11.4 29.8 L25.2 21.6 Z" fill="silver" stroke="none"/>
+    <path d="M28 10 Q22 24 8 30 L28 32 Z" fill="grey" stroke="none" clip-path="url(#horn)"/>
+    <path d="M25.2 14.4 L11.4 6.2 Q9.8 5.4 9.8 7.2 L9.8 28.8 Q9.8 30.6 11.4 29.8 L25.2 21.6 Z" fill="none"/>
+    <ellipse cx="10" cy="18" rx="2.6" ry="11.8" fill="grey-shade"/>
+    <path d="M14.6 10.6 L19.6 13.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+  <g id="sound" fill="none" stroke="ink" stroke-width="2">
+    <path d="M5.8 10.6 L3 8.6 M5.2 18 L2.2 18 M5.8 25.4 L3 27.4"/>
+  </g>
+</svg>

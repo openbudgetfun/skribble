@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The cat in black fur, with golden eyes. -->
+  <g data-include="cat" data-tokens="orange:black,orange-shade:black,cream:black"/>
+  <g id="eyes">
+    <ellipse cx="8" cy="11" rx="1.6" ry="2" fill="yellow"/>
+    <ellipse cx="8.1" cy="11" rx="0.5" ry="1.5" fill="ink"/>
+  </g>
+</svg>

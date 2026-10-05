@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="eyes" fill="orange" stroke="ink" stroke-width="1.5">
+    <path d="M12.4 8.6 L13.8 11.9 L17.3 12.2 L14.6 14.5 L15.4 17.9 L12.4 16.1 L9.4 17.9 L10.2 14.5 L7.5 12.2 L11 11.9 Z"/>
+    <path d="M23.6 8.6 L25 11.9 L28.5 12.2 L25.8 14.5 L26.6 17.9 L23.6 16.1 L20.6 17.9 L21.4 14.5 L18.7 12.2 L22.2 11.9 Z"/>
+  </g>
+  <g id="mouth">
+    <path d="M9.4 20 Q18 21.6 26.6 20 Q25.8 29 18 29 Q10.2 29 9.4 20 Z" fill="ink"/>
+    <path d="M11 21.1 Q18 22.3 25 21.1 L24.6 23.2 Q18 24.1 11.4 23.2 Z" fill="paper"/>
+    <path d="M13.6 26.6 Q18 24.6 22.4 26.6 Q20.4 28.4 18 28.4 Q15.6 28.4 13.6 26.6 Z" fill="red"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="tail" stroke="ink">
+    <path d="M20.6 26 C17 27.4 18 31.4 13.6 31.4 C9.4 31.4 9 28.4 4.6 29.2" fill="none" stroke-width="1.5"/>
+    <path d="M16 30.8 L13.2 28.6 L13.2 33 Z M16 30.8 L18.8 28.6 L18.8 33 Z M8.8 29.8 L6 27.6 L6 32 Z M8.8 29.8 L11.6 27.6 L11.6 32 Z" fill="blue" stroke-width="1.25"/>
+  </g>
+  <g id="kite" stroke="ink">
+    <path d="M22 2.4 L21.5 10.9 L9.6 10.8 Z M21.5 10.9 L32 11 L20.6 26 Z" fill="red" stroke="none"/>
+    <path d="M22 2.4 L32 11 L21.5 10.9 Z M9.6 10.8 L21.5 10.9 L20.6 26 Z" fill="yellow" stroke="none"/>
+    <path d="M22 2.4 L20.6 26 M9.6 10.8 L32 11" fill="none" stroke-width="1.5"/>
+    <path d="M22 2.4 L32 11 L20.6 26 L9.6 10.8 Z" fill="none"/>
+  </g>
+</svg>

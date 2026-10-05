@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="red-circle"/>
+  <g id="glyph" fill="none" stroke="white" stroke-width="1.75">
+    <path d="M13.41 10.13 L14.06 11.44 M11.11 13.41 L15.7 13.41 L11.77 18.33 M14.06 16.36 L14.06 25.87 M14.39 18.33 L16.03 19.97 M18 11.11 L24.89 11.11 L24.89 17.02 L18 17.02 Z M19.64 17.02 C19.64 21.94 18.66 24.23 16.69 25.54 M22.92 17.02 L22.92 23.9 C22.92 25.22 23.58 25.54 25.54 25.22 L25.54 23.58"/>
+  </g>
+</svg>

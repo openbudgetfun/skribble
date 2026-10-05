@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="0" y="6" width="36" height="24" fill="#da2031"/>
+  <rect x="12.667" y="6" width="10.667" height="24" fill="#0066b2"/>
+  <g id="soyombo" fill="#ffd300">
+    <polygon points="5.9 12.6 6.1 11.3 6.6 11.9 7.333 9.9 8.07 11.9 8.57 11.3 8.77 12.6"/>
+    <circle cx="7.333" cy="13.65" r="0.95"/>
+    <path d="M6.052 14.173 A1.35 1.35 0 1 0 8.614 14.173 A1.3 1.3 0 0 1 6.052 14.173 Z"/>
+    <polygon points="5.83 16.6 8.83 16.6 7.333 17.9"/>
+    <rect x="5.83" y="18.25" width="3" height="0.55"/>
+    <circle cx="7.333" cy="20.35" r="1.3"/>
+    <path d="M7.333 19.3 A0.525 0.525 0 0 1 7.333 20.35 A0.525 0.525 0 0 0 7.333 21.4 A1.05 1.05 0 0 0 7.333 19.3 Z" fill="#da2031"/>
+    <rect x="5.83" y="21.9" width="3" height="0.55"/>
+    <polygon points="5.83 22.8 8.83 22.8 7.333 24.1"/>
+    <rect x="4.5" y="16.6" width="0.65" height="7.5"/>
+    <rect x="9.52" y="16.6" width="0.65" height="7.5"/>
+  </g>
+</svg>

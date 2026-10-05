@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="rays" fill="orange" stroke="ink" stroke-width="1.75">
+    <path d="M15.48 7.91 L18 2 L20.52 7.91 Z"/>
+    <path d="M23.36 9.09 L29.31 6.69 L26.91 12.64 Z"/>
+    <path d="M28.09 15.48 L34 18 L28.09 20.52 Z"/>
+    <path d="M26.91 23.36 L29.31 29.31 L23.36 26.91 Z"/>
+    <path d="M20.52 28.09 L18 34 L15.48 28.09 Z"/>
+    <path d="M12.64 26.91 L6.69 29.31 L9.09 23.36 Z"/>
+    <path d="M7.91 20.52 L2 18 L7.91 15.48 Z"/>
+    <path d="M9.09 12.64 L6.69 6.69 L12.64 9.09 Z"/>
+  </g>
+  <g id="sun">
+    <circle cx="18" cy="18" r="8.2" fill="yellow"/>
+    <path d="M25.49 14.66 A8.2 8.2 0 0 1 18 26.2 C22.16 24.78 24.89 20.52 25.49 14.66 Z" fill="yellow-shade"/>
+    <circle cx="18" cy="18" r="8.2" fill="none" stroke="ink"/>
+  </g>
+</svg>

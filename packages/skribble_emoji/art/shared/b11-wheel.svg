@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- b11: a side-view vehicle wheel centred on (18, 18), tyre radius 3.6.
+       Include it inside the vehicle's `wheels` group and translate it into
+       place, e.g. translate(-8 7) puts it at (10, 25). It carries no part of
+       its own so the wheels group names it. -->
+  <circle cx="18" cy="18" r="3.6" fill="black" stroke="ink"/>
+  <circle cx="18" cy="18" r="1.4" fill="silver" stroke="ink" stroke-width="1.25"/>
+</svg>

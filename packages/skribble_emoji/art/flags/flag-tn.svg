@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <path d="M2 8H34V28H2Z" fill="#e70013"/>
+  <circle cx="18" cy="18" r="5.16" fill="#ffffff"/>
+  <circle cx="18" cy="18" r="3.87" fill="#e70013"/>
+  <circle cx="19.07" cy="18" r="3.1" fill="#ffffff"/>
+  <path d="M16.75 18L18.353 17.479L18.353 15.794L19.344 17.157L20.947 16.636L19.956 18L20.947 19.364L19.344 18.843L18.353 20.206L18.353 18.521Z" fill="#e70013"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="top" stroke="ink">
+    <path d="M3.6 18 L18 4.6 L32.4 18 Z" fill="tan"/>
+    <path d="M7.4 18 L18 8.2 L28.6 18 Z" fill="cream" stroke="none"/>
+  </g>
+  <g id="filling" stroke="ink">
+    <path d="M3.6 18 L32.4 18 L32.4 30 Q32.4 31.6 30.8 31.6 L5.2 31.6 Q3.6 31.6 3.6 30 Z" fill="cream" stroke="none"/>
+    <path d="M2.6 21.4 L33.4 21.4 Q34 23.2 32.4 23.6 Q30.8 24.6 29.2 23.6 Q27.6 24.6 26 23.6 Q24.4 24.6 22.8 23.6 Q21.2 24.6 19.6 23.6 Q18 24.6 16.4 23.6 Q14.8 24.6 13.2 23.6 Q11.6 24.6 10 23.6 Q8.4 24.6 6.8 23.6 Q5.2 24.6 3.6 23.6 Q2 23.2 2.6 21.4 Z" fill="green" stroke-width="1.25"/>
+    <rect x="3.6" y="24.2" width="28.8" height="1.8" rx="0.4" ry="0.4" fill="red" stroke="none"/>
+    <rect x="3.6" y="26" width="28.8" height="1.6" rx="0.4" ry="0.4" fill="yellow" stroke="none"/>
+    <path d="M3.6 24.2 L32.4 24.2 M3.6 27.6 L32.4 27.6" fill="none" stroke-width="1.25"/>
+    <path d="M27.4 27.6 L32.4 27.6 L32.4 30 Q32.4 31.6 30.8 31.6 L24.4 31.6 C26.4 30.8 27.2 29.4 27.4 27.6 Z" fill="tan" stroke="none"/>
+    <path d="M3.6 18 L32.4 18 L32.4 30 Q32.4 31.6 30.8 31.6 L5.2 31.6 Q3.6 31.6 3.6 30 Z" fill="none"/>
+  </g>
+</svg>

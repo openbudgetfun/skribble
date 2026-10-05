@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="hose" stroke="ink">
+    <path d="M15.6 8.6 C8.4 7.6 5.4 11 5.6 16.6 L5.6 22" fill="none" stroke-width="3"/>
+    <path d="M4 21.6 L7.2 21.6 L7.8 26 L3.4 26 Z" fill="black" stroke-width="1.5"/>
+  </g>
+  <g id="extinguisher" stroke="ink">
+    <path d="M16.6 5.2 L28.8 3.2 Q30.4 3 30.4 4.4 Q30.4 5.4 29.2 5.6 L17.4 8 Z" fill="grey" stroke-width="1.5"/>
+    <path d="M19.6 8.2 L28.6 9.4 Q29.8 9.6 29.6 10.6 Q29.4 11.6 28.2 11.4 L19.6 10.4 Z" fill="grey" stroke-width="1.5"/>
+    <rect x="15.2" y="4.6" width="4.4" height="4.6" rx="1" ry="1" fill="silver" stroke-width="1.5"/>
+    <rect x="13.8" y="8.6" width="7.2" height="3.6" rx="1" ry="1" fill="silver" stroke-width="1.5"/>
+    <rect x="9.8" y="11.4" width="15.2" height="22" rx="5" ry="5" fill="red" stroke="none"/>
+    <path d="M25 18 L25 28.4 Q25 33.4 20 33.4 L15 33.4 Q22.6 32 22.8 25 L22.8 18 Z" fill="red-shade" stroke="none"/>
+    <rect x="9.8" y="11.4" width="15.2" height="22" rx="5" ry="5" fill="none"/>
+    <path d="M12 15.4 Q12.4 13.8 14 13.4" fill="none" stroke="paper" stroke-width="1.75"/>
+    <rect x="12.6" y="19" width="9.6" height="7.4" rx="1.2" ry="1.2" fill="white" stroke-width="1.5"/>
+  </g>
+</svg>

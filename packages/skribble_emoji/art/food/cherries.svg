@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="stems" fill="none" stroke="leaf" stroke-width="2">
+    <path d="M10.8 18.8 C11.4 12.4 15.8 7 21.6 4.6"/>
+    <path d="M24.6 17.6 C24.2 12 23 7.6 21.6 4.6"/>
+  </g>
+  <g id="leaf" stroke="ink" stroke-width="1.5">
+    <path d="M21.6 4.6 C23.6 1.8 29.2 1.4 32.4 3.8 C29.8 7.6 24.8 7.8 21.6 4.6 Z" fill="green"/>
+    <path d="M23.4 4.6 Q27 4.4 30.4 3.8" fill="none" stroke-width="1.25"/>
+  </g>
+  <g id="cherries" stroke="ink">
+    <circle cx="10.4" cy="25.4" r="7" fill="red" stroke="none"/>
+    <path d="M16.7 22.4 A7 7 0 0 1 10.4 32.4 C14 31.2 16.3 27.6 16.7 22.4 Z" fill="red-shade" stroke="none"/>
+    <circle cx="10.4" cy="25.4" r="7" fill="none"/>
+    <circle cx="24.8" cy="24.2" r="7" fill="red" stroke="none"/>
+    <path d="M31.1 21.2 A7 7 0 0 1 24.8 31.2 C28.4 30 30.7 26.4 31.1 21.2 Z" fill="red-shade" stroke="none"/>
+    <circle cx="24.8" cy="24.2" r="7" fill="none"/>
+    <path d="M6.2 24.6 Q6.6 21.8 9 20.8 M20.6 23.4 Q21 20.6 23.4 19.6" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

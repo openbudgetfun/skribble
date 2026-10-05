@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- The shared head without hair: the same face as `head`, centre
+       (18, 13.6), radius 7.4. People art that draws its own hair (babies,
+       children, curls) includes this and adds the hair on top. -->
+  <g id="head">
+    <circle cx="18" cy="13.6" r="7.4" fill="skin" stroke="ink" stroke-width="1.75"/>
+    <circle cx="15.2" cy="14.4" r="0.95" fill="ink"/>
+    <circle cx="20.8" cy="14.4" r="0.95" fill="ink"/>
+    <ellipse cx="13.4" cy="17" rx="1.3" ry="0.75" fill="cheek"/>
+    <ellipse cx="22.6" cy="17" rx="1.3" ry="0.75" fill="cheek"/>
+    <path d="M15.8 17.6 Q18 19.2 20.2 17.6" fill="none" stroke="ink" stroke-width="1.4"/>
+  </g>
+</svg>

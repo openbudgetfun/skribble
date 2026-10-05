@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.8" y="19.6" width="4.4" height="4.6" fill="skin"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="red"/>
+    <path d="M25.4 24.8 C28.2 26.4 30 29.6 30.2 34.6 L26.8 34.6 C27 30.4 26.6 27.2 25.4 24.8 Z" fill="red-shade" stroke="none"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="none"/>
+    <path d="M14.2 23.4 Q18 25.4 21.8 23.4" fill="none" stroke-width="1.5"/>
+    <circle cx="18" cy="27.6" r="0.85" fill="yellow" stroke-width="1"/>
+    <circle cx="18" cy="31" r="0.85" fill="yellow" stroke-width="1"/>
+  </g>
+  <g data-include="head" transform="translate(2.7 3.6) scale(0.85)"/>
+  <path data-part="strap" d="M12 15.8 Q12.8 21 18 21.4 Q23.2 21 24 15.8" fill="none" stroke="yellow" stroke-width="1.25"/>
+  <g id="hat" stroke="ink" stroke-width="1.75">
+    <path d="M10.8 14 C9.4 13.4 9.4 11.8 10 10.8 C9 9.6 9.4 8 10.4 7.4 C10 5.8 11 4.4 12.4 4.2 C13 2.8 14.6 2.2 15.8 2.8 C16.8 1.6 19.2 1.6 20.2 2.8 C21.4 2.2 23 2.8 23.6 4.2 C25 4.4 26 5.8 25.6 7.4 C26.6 8 27 9.6 26 10.8 C26.6 11.8 26.6 13.4 25.2 14 Q18 15.2 10.8 14 Z" fill="black"/>
+    <path d="M13.6 7.4 Q14.6 6.4 15.4 7.4 M19.4 5.4 Q20.4 4.4 21.2 5.4 M16.6 10.6 Q17.6 9.6 18.4 10.6 M21.8 9.6 Q22.8 8.6 23.6 9.6" fill="none" stroke="grey" stroke-width="1.25"/>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="camcorder" stroke="ink">
+    <path d="M12 11.6 L12 7.6 Q12 5.6 14 5.6 L26 5.6 Q28 5.6 28 7.6 L28 11.6 L25.6 11.6 L25.6 8.6 Q25.6 8 25 8 L15 8 Q14.4 8 14.4 8.6 L14.4 11.6 Z" fill="grey-shade" stroke-width="1.5"/>
+    <rect x="29.4" y="13" width="4" height="6.6" rx="1.2" ry="1.2" fill="grey-shade" stroke-width="1.5"/>
+    <rect x="9.8" y="10.8" width="20.4" height="18.2" rx="3" ry="3" fill="grey"/>
+    <path d="M30.2 20 L30.2 26 Q30.2 29 27.2 29 L19 29 C25 27.8 28.8 24.6 30.2 20 Z" fill="grey-shade" stroke="none"/>
+    <rect x="9.8" y="10.8" width="20.4" height="18.2" rx="3" ry="3" fill="none"/>
+    <rect x="15.4" y="15.4" width="11.4" height="8.6" rx="1.2" ry="1.2" fill="sky" stroke-width="1.5"/>
+    <path d="M17.6 20.4 L20.4 17.6" fill="none" stroke="paper" stroke-width="1.5"/>
+    <circle data-part="light" cx="12.8" cy="14" r="1.2" fill="red" stroke-width="1.25"/>
+  </g>
+  <g id="lens" stroke="ink">
+    <rect x="3.4" y="13.4" width="7.4" height="12" rx="1.8" ry="1.8" fill="silver"/>
+    <ellipse cx="3.8" cy="19.4" rx="1.6" ry="4.8" fill="blue" stroke-width="1.5"/>
+  </g>
+</svg>

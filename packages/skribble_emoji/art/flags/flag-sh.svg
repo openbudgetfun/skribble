@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <path d="M2 8H34V28H2Z" fill="#012169"/>
+  <g data-include="b24-union-jack"/>
+  <path d="M23.3 13.5 H28.7 V20 C28.7 21.5 27.3 22.3 26 22.7 C24.7 22.3 23.3 21.5 23.3 20 Z" fill="#2f6db5"/>
+  <path d="M23.3 16.2H28.7V20.2H23.3Z" fill="#a9cbe2"/>
+  <path d="M23.3 16.9 L24.2 17.1 L24.8 18.3 L25.3 20.2 H23.3 Z" fill="#9b7463"/>
+  <path d="M26.3 19.4 H28.4 L28.1 20 H26.6 Z" fill="#5a3d2b"/>
+  <path d="M26.6 17.6H27V19.3H26.6ZM27.2 17.1H27.6V19.3H27.2ZM27.8 17.8H28.1V19.3H27.8Z" fill="#ffffff"/>
+  <path d="M23.3 13.5H28.7V16.2H23.3Z" fill="#f2d049"/>
+  <ellipse cx="26.3" cy="15" rx="0.95" ry="0.5" fill="#8c5a3c"/>
+  <circle cx="25.3" cy="14.6" r="0.36" fill="#8c5a3c"/>
+</svg>

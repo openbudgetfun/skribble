@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="medium" stroke="ink">
+    <circle cx="26" cy="10.6" r="6.4" fill="sky" stroke="none"/>
+    <path d="M32.18 8.94 A6.4 6.4 0 0 1 24.34 16.78 Q29.85 14.45 32.18 8.94 Z" fill="lilac" stroke="none"/>
+    <circle cx="26" cy="10.6" r="6.4" fill="none" stroke-width="1.75"/>
+    <path d="M22.4 9.6 Q22.8 7.4 25 6.8" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+  <g id="small" stroke="ink">
+    <circle cx="28.4" cy="26.4" r="3.8" fill="sky" stroke-width="1.5"/>
+    <path d="M26.4 25.8 Q26.6 24.6 27.8 24.4" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+  <circle data-part="tiny" cx="8" cy="6.6" r="2.4" fill="sky" stroke="ink" stroke-width="1.5"/>
+  <g id="big" stroke="ink">
+    <circle cx="13.6" cy="21" r="10.4" fill="sky" stroke="none"/>
+    <path d="M23.65 18.31 A10.4 10.4 0 0 1 10.91 31.05 Q19.85 27.25 23.65 18.31 Z" fill="lilac" stroke="none"/>
+    <circle cx="13.6" cy="21" r="10.4" fill="none"/>
+    <path d="M7.2 19.4 Q8 15 12.2 13.6" fill="none" stroke="paper" stroke-width="1.75"/>
+    <circle cx="7.8" cy="23" r="0.9" fill="paper" stroke="none"/>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="bean" stroke="ink" transform="translate(-5.4 -5.6) rotate(-20 18 18)">
+    <path d="M8.6 17 C8.6 12.6 12.4 11 15.6 12 C17.6 12.6 20.4 12.6 22.4 11.8 C26 10.4 29.8 12.8 29.6 17.6 C29.4 22.6 24.6 25.4 19 25.4 C13 25.4 8.6 22 8.6 17 Z" fill="red-shade" stroke="none"/>
+    <path d="M29.6 17.6 C29.4 22.6 24.6 25.4 19 25.4 C23.6 23.6 26.8 21 27.8 17.4 C28.2 15.8 29.2 15.8 29.6 17.6 Z" fill="brown-shade" stroke="none"/>
+    <path d="M8.6 17 C8.6 12.6 12.4 11 15.6 12 C17.6 12.6 20.4 12.6 22.4 11.8 C26 10.4 29.8 12.8 29.6 17.6 C29.4 22.6 24.6 25.4 19 25.4 C13 25.4 8.6 22 8.6 17 Z" fill="none"/>
+    <path d="M18.2 13.8 L20 13.7" fill="none" stroke="cream" stroke-width="1.75"/>
+    <path d="M11.2 18.4 Q11 15.6 13.2 14.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+  <g id="bean2" stroke="ink" transform="translate(4.4 6.2) rotate(15 18 18)">
+    <path d="M8.6 17 C8.6 12.6 12.4 11 15.6 12 C17.6 12.6 20.4 12.6 22.4 11.8 C26 10.4 29.8 12.8 29.6 17.6 C29.4 22.6 24.6 25.4 19 25.4 C13 25.4 8.6 22 8.6 17 Z" fill="red-shade" stroke="none"/>
+    <path d="M29.6 17.6 C29.4 22.6 24.6 25.4 19 25.4 C23.6 23.6 26.8 21 27.8 17.4 C28.2 15.8 29.2 15.8 29.6 17.6 Z" fill="brown-shade" stroke="none"/>
+    <path d="M8.6 17 C8.6 12.6 12.4 11 15.6 12 C17.6 12.6 20.4 12.6 22.4 11.8 C26 10.4 29.8 12.8 29.6 17.6 C29.4 22.6 24.6 25.4 19 25.4 C13 25.4 8.6 22 8.6 17 Z" fill="none"/>
+    <path d="M18.2 13.8 L20 13.7" fill="none" stroke="cream" stroke-width="1.75"/>
+    <path d="M11.2 18.4 Q11 15.6 13.2 14.4" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

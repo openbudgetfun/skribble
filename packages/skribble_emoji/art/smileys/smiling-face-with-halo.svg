@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="eyes" fill="none" stroke="ink" stroke-width="2">
+    <path d="M9.8 14.8 Q12.6 10.6 15.4 14.8"/>
+    <path d="M20.6 14.8 Q23.4 10.6 26.2 14.8"/>
+  </g>
+  <path data-part="mouth" d="M11.4 21 Q18 27.4 24.6 21" fill="none" stroke="ink"/>
+  <path data-part="halo" fill-rule="evenodd" d="M18 1.6 C24.4 1.6 29 3.2 29 5.2 C29 7.2 24.4 8.8 18 8.8 C11.6 8.8 7 7.2 7 5.2 C7 3.2 11.6 1.6 18 1.6 Z M18 3.8 C14.2 3.8 11.4 4.4 11.4 5.2 C11.4 6 14.2 6.6 18 6.6 C21.8 6.6 24.6 6 24.6 5.2 C24.6 4.4 21.8 3.8 18 3.8 Z" fill="sky" stroke="ink" stroke-width="1.5"/>
+</svg>

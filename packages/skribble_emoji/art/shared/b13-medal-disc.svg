@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A gold medal disc centred on (18, 23.4), radius 9.4. Remap yellow and
+       yellow-shade with data-tokens for silver or bronze, then draw the
+       emblem inside the ring (radius 6.6). -->
+  <g id="medal" stroke="ink">
+    <circle cx="18" cy="23.4" r="9.4" fill="yellow" stroke="none"/>
+    <path d="M26.59 19.58 A9.4 9.4 0 0 1 18 32.8 C22.76 31.17 25.9 26.28 26.59 19.58 Z" fill="yellow-shade" stroke="none"/>
+    <circle cx="18" cy="23.4" r="9.4" fill="none"/>
+    <circle cx="18" cy="23.4" r="6.6" fill="none" stroke="yellow-shade" stroke-width="1.5"/>
+    <path d="M11.4 20.6 Q12.2 17.6 15 16.2" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

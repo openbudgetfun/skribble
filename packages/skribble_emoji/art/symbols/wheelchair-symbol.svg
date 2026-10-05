@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="b18-button-blue"/>
+  <g id="person" fill="none" stroke="white" stroke-width="2.8">
+    <circle cx="16.8" cy="8.2" r="2.4" fill="white" stroke="none"/>
+    <path d="M15.8 11.8 L16.2 19.6 L22.4 19.6 L25 26.4 L27.4 25.8"/>
+    <path d="M16 14.6 L21 14.6" stroke-width="2.4"/>
+  </g>
+  <path data-part="wheel" d="M21.2 25.6 A6.2 6.2 0 1 1 13 17.8" fill="none" stroke="white" stroke-width="2.6"/>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Two open palms held out wide, thumbs up, ready for a hug. -->
+  <g id="left-hand" data-include="b03-palm" transform="translate(10.4 18.6) rotate(-32) scale(0.64) translate(-18.5 -18.5)"/>
+  <g id="right-hand" data-include="b03-palm-flip" transform="translate(25.6 18.6) rotate(32) scale(0.64) translate(-18.5 -18.5)"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g data-include="face"/>
+  <g id="cheeks" fill="cheek">
+    <ellipse cx="8.8" cy="19.4" rx="2.4" ry="1.4"/>
+    <ellipse cx="27.2" cy="19.4" rx="2.4" ry="1.4"/>
+  </g>
+  <g id="brows" fill="none" stroke="ink" stroke-width="1.75">
+    <path d="M9.6 9 Q12.4 7.4 15 8.6"/>
+    <path d="M21 8.6 Q23.6 7.4 26.4 9"/>
+  </g>
+  <g id="eyes" fill="none" stroke="ink" stroke-width="2">
+    <path d="M10.2 14.6 Q12.6 11.4 15 14.6"/>
+    <path d="M21 14.6 Q23.4 11.4 25.8 14.6"/>
+  </g>
+  <path data-part="mouth" d="M13.2 21.6 Q18 25.6 22.8 21.6" fill="none" stroke="ink"/>
+</svg>

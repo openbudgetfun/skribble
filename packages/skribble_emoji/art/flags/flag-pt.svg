@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" data-warp="flag">
+  <rect x="0" y="6" width="36" height="24" fill="#ff0000"/>
+  <rect x="0" y="6" width="14.8" height="24" fill="#006600"/>
+  <g id="sphere" fill="#ffff00">
+    <path d="M19.8 18 A5 5 0 1 0 9.8 18 A5 5 0 1 0 19.8 18 Z M19.15 18 A4.35 4.35 0 1 0 10.45 18 A4.35 4.35 0 1 0 19.15 18 Z" fill-rule="evenodd"/>
+    <rect x="10.4" y="17.7" width="8.8" height="0.6"/>
+    <polygon points="11.02 20.48 18.84 15.96 18.54 15.44 10.72 19.96"/>
+    <polygon points="10.72 16.04 18.54 20.56 18.84 20.04 11.02 15.52"/>
+  </g>
+  <g id="shield">
+    <path d="M12.5 14.6 L17.1 14.6 L17.1 18.7 C17.1 20.3 16.1 21.2 14.8 21.6 C13.5 21.2 12.5 20.3 12.5 18.7 Z" fill="#ff0000"/>
+    <path d="M13.15 15.25 L16.45 15.25 L16.45 18.7 C16.45 19.9 15.7 20.55 14.8 20.85 C13.9 20.55 13.15 19.9 13.15 18.7 Z" fill="#ffffff"/>
+    <g fill="#003399">
+      <rect x="14.5" y="15.7" width="0.6" height="0.8"/>
+      <rect x="14.5" y="17.2" width="0.6" height="0.8"/>
+      <rect x="14.5" y="18.7" width="0.6" height="0.8"/>
+      <rect x="13.55" y="17.2" width="0.6" height="0.8"/>
+      <rect x="15.45" y="17.2" width="0.6" height="0.8"/>
+    </g>
+    <g fill="#ffff00">
+      <rect x="12.95" y="14.75" width="0.5" height="0.4"/>
+      <rect x="14.55" y="14.75" width="0.5" height="0.4"/>
+      <rect x="16.15" y="14.75" width="0.5" height="0.4"/>
+      <rect x="12.6" y="17.2" width="0.4" height="0.5"/>
+      <rect x="16.6" y="17.2" width="0.4" height="0.5"/>
+      <rect x="13.1" y="19.9" width="0.45" height="0.45"/>
+      <rect x="16.05" y="19.9" width="0.45" height="0.45"/>
+    </g>
+  </g>
+</svg>

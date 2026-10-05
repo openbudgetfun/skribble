@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="coat"><path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z"/></clipPath>
+  </defs>
+  <g id="body" stroke="ink" stroke-width="1.75">
+    <rect x="15.6" y="18.8" width="4.8" height="5.4" fill="skin"/>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="tan"/>
+    <g clip-path="url(#coat)" stroke-width="1.25">
+      <rect x="3" y="28" width="30" height="3" fill="yellow"/>
+      <rect x="3" y="29" width="30" height="1" fill="silver" stroke="none"/>
+    </g>
+    <path d="M5.8 34.6 C6.2 27 10.6 22.8 18 22.8 C25.4 22.8 29.8 27 30.2 34.6 Z" fill="none"/>
+    <path d="M13.6 22.8 L15.4 26 L18 24.4 L20.6 26 L22.4 22.8" fill="none" stroke-width="1.5"/>
+    <path d="M18 24.6 L18 28" fill="none" stroke-width="1.25"/>
+  </g>
+  <g data-include="head"/>
+  <g id="helmet" stroke="ink" stroke-width="1.75">
+    <path d="M10.2 10.4 C9.8 4.4 13.6 2.2 18 2.2 C22.4 2.2 26.2 4.4 25.8 10.4 Z" fill="red"/>
+    <path d="M23.8 3.8 C25.6 5.4 26 7.6 25.8 10.4 L22.8 10.4 C23.6 8.2 24 6 23.8 3.8 Z" fill="red-shade" stroke="none"/>
+    <path d="M10.2 10.4 C9.8 4.4 13.6 2.2 18 2.2 C22.4 2.2 26.2 4.4 25.8 10.4 Z" fill="none"/>
+    <path d="M5.8 10.8 Q18 7.6 30.2 10.8 Q30.4 12.8 28.2 12.4 Q18 10.2 7.8 12.4 Q5.6 12.8 5.8 10.8 Z" fill="red"/>
+    <path d="M15.4 4.4 L20.6 4.4 L20.6 7.2 Q18 9.4 15.4 7.2 Z" fill="yellow" stroke-width="1.25"/>
+  </g>
+</svg>

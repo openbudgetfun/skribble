@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <rect data-part="stick" x="-1.2" y="0" width="2.4" height="21.6" rx="1.2" ry="1.2" transform="translate(19.6 13.4) rotate(22.5)" fill="white" stroke="ink" stroke-width="1.5"/>
+  <g id="candy" stroke="ink">
+    <circle cx="19.6" cy="13.4" r="11" fill="pink" stroke="none"/>
+    <path d="M19.6 12.5 A1.8 1.8 0 0 1 19.6 16.1 A3.6 3.6 0 0 1 19.6 8.9 A5.4 5.4 0 0 1 19.6 19.7 A7.2 7.2 0 0 1 19.6 5.3 A9 9 0 0 1 19.6 23.3" fill="none" stroke="white" stroke-width="2.4"/>
+    <path d="M26.40 4.76 A11 11 0 1 1 10.96 20.20 A11 11 0 0 0 26.40 4.76 Z" fill="pink-shade" stroke="none"/>
+    <circle cx="19.6" cy="13.4" r="11" fill="none"/>
+    <path d="M12.2 9 Q13.4 6 16.4 4.8" fill="none" stroke="paper" stroke-width="1.75"/>
+  </g>
+</svg>

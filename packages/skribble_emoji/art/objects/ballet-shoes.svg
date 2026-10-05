@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <clipPath id="shoe"><path d="M-4.8 -8.4 Q-5 -12.2 0 -12.2 Q5 -12.2 4.8 -8.4 L4.4 8 Q4.2 12.4 0 12.4 Q-4.2 12.4 -4.4 8 Z"/></clipPath>
+  </defs>
+  <g id="ribbons" fill="none">
+    <g stroke="ink" stroke-width="3.8">
+      <path d="M11.2 11.4 Q11.4 5.6 18 5.2 Q24.6 5.6 24.8 11.4"/>
+      <path d="M18 5.2 Q13.6 1.4 13.2 4.6 Q13.4 7.2 18 5.2 Q22.4 1.4 22.8 4.6 Q22.6 7.2 18 5.2"/>
+    </g>
+    <g stroke="pink" stroke-width="2">
+      <path d="M11.2 11.4 Q11.4 5.6 18 5.2 Q24.6 5.6 24.8 11.4"/>
+      <path d="M18 5.2 Q13.6 1.4 13.2 4.6 Q13.4 7.2 18 5.2 Q22.4 1.4 22.8 4.6 Q22.6 7.2 18 5.2"/>
+    </g>
+  </g>
+  <g id="shoe-left" stroke="ink" transform="translate(11.6 21) rotate(6)">
+    <path d="M-4.8 -8.4 Q-5 -12.2 0 -12.2 Q5 -12.2 4.8 -8.4 L4.4 8 Q4.2 12.4 0 12.4 Q-4.2 12.4 -4.4 8 Z" fill="pink" stroke="none"/>
+    <path d="M7 -12 Q2.6 0 2.4 13 L7 13 Z" fill="pink-shade" stroke="none" clip-path="url(#shoe)"/>
+    <path d="M-4.8 -8.4 Q-5 -12.2 0 -12.2 Q5 -12.2 4.8 -8.4 L4.4 8 Q4.2 12.4 0 12.4 Q-4.2 12.4 -4.4 8 Z" fill="none"/>
+    <ellipse cx="0" cy="-3.4" rx="2.8" ry="6.4" fill="pink-shade" stroke-width="1.5"/>
+    <path d="M-3.8 8.2 Q0 9.8 3.8 8.2" fill="none" stroke-width="1.25"/>
+    <path d="M-3.2 3.6 L-3.2 6.2" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+  <g id="shoe-right" stroke="ink" transform="translate(24.4 21) rotate(-6)">
+    <path d="M-4.8 -8.4 Q-5 -12.2 0 -12.2 Q5 -12.2 4.8 -8.4 L4.4 8 Q4.2 12.4 0 12.4 Q-4.2 12.4 -4.4 8 Z" fill="pink" stroke="none"/>
+    <path d="M7 -12 Q2.6 0 2.4 13 L7 13 Z" fill="pink-shade" stroke="none" clip-path="url(#shoe)"/>
+    <path d="M-4.8 -8.4 Q-5 -12.2 0 -12.2 Q5 -12.2 4.8 -8.4 L4.4 8 Q4.2 12.4 0 12.4 Q-4.2 12.4 -4.4 8 Z" fill="none"/>
+    <ellipse cx="0" cy="-3.4" rx="2.8" ry="6.4" fill="pink-shade" stroke-width="1.5"/>
+    <path d="M-3.8 8.2 Q0 9.8 3.8 8.2" fill="none" stroke-width="1.25"/>
+    <path d="M-3.2 3.6 L-3.2 6.2" fill="none" stroke="paper" stroke-width="1.5"/>
+  </g>
+</svg>
