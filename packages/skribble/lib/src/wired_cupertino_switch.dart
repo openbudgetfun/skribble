@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 import 'wired_thumb_animation.dart';
@@ -61,11 +60,9 @@ class WiredCupertinoSwitch extends HookWidget {
     );
 
     final enabled = onChanged != null;
-    final effectiveActiveColor =
-        activeTrackColor ?? CupertinoColors.activeGreen;
-    final effectiveInactiveColor =
-        inactiveTrackColor ?? CupertinoColors.systemGrey4;
-    final effectiveThumbColor = thumbColor ?? const Color(0xFFFFFFFF);
+    final effectiveActiveColor = activeTrackColor ?? theme.markerColor;
+    final effectiveInactiveColor = inactiveTrackColor ?? theme.fillColor;
+    final effectiveThumbColor = thumbColor ?? theme.fillColor;
 
     return Semantics(
       label: semanticLabel,
@@ -95,10 +92,7 @@ class WiredCupertinoSwitch extends HookWidget {
                             : effectiveInactiveColor,
                         borderColor: theme.borderColor,
                       ),
-                      fillerType: value
-                          ? RoughFilter.hachureFiller
-                          : RoughFilter.noFiller,
-                      fillerConfig: FillerConfig.build(hachureGap: 2.0),
+                      fillerType: RoughFilter.solidFiller,
                     ),
                   ),
                   // Thumb
@@ -113,8 +107,7 @@ class WiredCupertinoSwitch extends HookWidget {
                           fillColor: effectiveThumbColor,
                           borderColor: theme.borderColor,
                         ),
-                        fillerType: RoughFilter.hachureFiller,
-                        fillerConfig: FillerConfig.build(hachureGap: 1.5),
+                        fillerType: RoughFilter.solidFiller,
                       ),
                     ),
                   ),

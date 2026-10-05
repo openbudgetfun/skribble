@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -47,8 +46,8 @@ class WiredCupertinoSegmentedControl<T extends Object> extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final keys = children.keys.toList();
-    final effectiveSelectedColor = selectedColor ?? CupertinoColors.activeBlue;
     final theme = WiredTheme.of(context);
+    final effectiveSelectedColor = selectedColor ?? theme.markerColor;
     final effectiveBorderColor = borderColor ?? theme.borderColor;
 
     return buildWiredElement(
@@ -144,8 +143,7 @@ class _SegmentTile<T> extends HookWidget {
                   fillColor: selectedColor,
                   borderColor: borderColor,
                 ),
-                fillerType: RoughFilter.hachureFiller,
-                fillerConfig: FillerConfig.build(hachureGap: 2.5),
+                fillerType: RoughFilter.solidFiller,
               ),
             ),
           Padding(
@@ -153,7 +151,7 @@ class _SegmentTile<T> extends HookWidget {
             child: Center(
               child: DefaultTextStyle.merge(
                 style: TextStyle(
-                  color: isSelected ? const Color(0xFFFFFFFF) : borderColor,
+                  color: borderColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -207,8 +205,8 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
     final keys = children.keys.toList();
     final selectedIndex = groupValue != null ? keys.indexOf(groupValue!) : -1;
 
-    final effectiveThumbColor = thumbColor ?? const Color(0xFFFFFFFF);
-    final effectiveBgColor = backgroundColor ?? CupertinoColors.systemGrey5;
+    final effectiveThumbColor = thumbColor ?? theme.markerColor;
+    final effectiveBgColor = backgroundColor ?? theme.fillColor;
 
     return buildWiredElement(
       child: Stack(
@@ -251,10 +249,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
                                     fillColor: effectiveThumbColor,
                                     borderColor: theme.borderColor,
                                   ),
-                                  fillerType: RoughFilter.hachureFiller,
-                                  fillerConfig: FillerConfig.build(
-                                    hachureGap: 1.5,
-                                  ),
+                                  fillerType: RoughFilter.solidFiller,
                                 ),
                               ),
                             ),

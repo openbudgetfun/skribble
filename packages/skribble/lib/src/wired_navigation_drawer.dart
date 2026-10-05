@@ -151,9 +151,10 @@ class _WiredDrawerItem extends HookWidget {
                   painter: WiredRoundedRectangleBase(
                     strokeWidth: theme.strokeWidth,
                     borderRadius: BorderRadius.circular(24),
+                    fillColor: theme.markerColor,
                     borderColor: theme.borderColor,
                   ),
-                  fillerType: RoughFilter.hachureFiller,
+                  fillerType: RoughFilter.solidFiller,
                 ),
               ),
             Padding(
@@ -163,7 +164,7 @@ class _WiredDrawerItem extends HookWidget {
                   WiredIcon(
                     icon: isSelected ? (selectedIcon ?? icon) : icon,
                     size: 22,
-                    color: isSelected ? Colors.white : theme.textColor,
+                    color: theme.textColor,
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -174,7 +175,7 @@ class _WiredDrawerItem extends HookWidget {
                         fontWeight: isSelected
                             ? FontWeight.w600
                             : FontWeight.normal,
-                        color: isSelected ? Colors.white : theme.textColor,
+                        color: theme.textColor,
                       ),
                     ),
                   ),
