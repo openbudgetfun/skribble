@@ -79,10 +79,31 @@ class _Hero extends StatelessWidget {
           spacing: 12,
           children: [
             for (final emoji in const ['✏️', '❤️', '🎉', '👋', '🚀', '✨'])
-              WiredAnimatedEmoji(emoji, size: 40),
+              _HeroEmoji(emoji),
           ],
         ),
       ],
+    );
+  }
+}
+
+/// An emoji that plays twice on arrival, then again while it is hovered.
+class _HeroEmoji extends HookWidget {
+  const _HeroEmoji(this.emoji);
+
+  final String emoji;
+
+  @override
+  Widget build(BuildContext context) {
+    final hovered = useState(false);
+    return MouseRegion(
+      onEnter: (_) => hovered.value = true,
+      onExit: (_) => hovered.value = false,
+      child: WiredAnimatedEmoji(
+        emoji,
+        size: 40,
+        loops: hovered.value ? null : 2,
+      ),
     );
   }
 }
@@ -101,7 +122,11 @@ class _Playground extends HookWidget {
 
     Widget labelled(Widget control, String label) => Row(
       mainAxisSize: MainAxisSize.min,
-      children: [control, const SizedBox(width: 8), Text(label)],
+      children: [
+        control,
+        const SizedBox(width: 8),
+        Flexible(child: Text(label)),
+      ],
     );
 
     return WiredCard(

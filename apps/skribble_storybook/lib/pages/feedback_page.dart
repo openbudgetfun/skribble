@@ -12,6 +12,7 @@ class FeedbackPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final progress = useState(.3);
+    final working = useState(false);
     final scrollbarController = useScrollController();
     final indicatorAnimating = useState(false);
     final loadingAnimating = useState(false);
@@ -90,7 +91,16 @@ class FeedbackPage extends HookWidget {
                       child: const Text('Make progress'),
                     ),
                     const SizedBox(height: 20),
-                    const WiredProgress(semanticLabel: 'Working'),
+                    // An indeterminate bar sweeps until the work is done.
+                    WiredProgress(
+                      value: working.value ? null : 1,
+                      semanticLabel: 'Working',
+                    ),
+                    const SizedBox(height: 12),
+                    WiredOutlinedButton(
+                      onPressed: () => working.value = !working.value,
+                      child: Text(working.value ? 'Finish work' : 'Start work'),
+                    ),
                   ],
                 ),
               ),

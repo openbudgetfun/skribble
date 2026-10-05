@@ -90,6 +90,8 @@ void main() {
       await tester.pumpWidget(const SkribbleStorybookApp());
       await tester.pumpAndSettle();
 
+      await tester.scrollUntilVisible(find.text('Buttons'), 200);
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Buttons'));
       await tester.pumpAndSettle();
 
