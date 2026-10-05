@@ -1,9 +1,0 @@
-{
-  "_comment": "This manifest is no longer hand-maintained. The Python script tool/generate_emoji.py reads the OpenMoji CSV catalog and SVG directory directly to produce the generated Dart files. This file is kept for reference only.",
-  "generator": "tool/generate_emoji.py",
-  "source": "OpenMoji (https://openmoji.org/) CC-BY-SA 4.0",
-  "outputs": [
-    "lib/src/generated/skribble_emoji.g.dart",
-    "lib/src/generated/skribble_emoji_codepoints.g.dart"
-  ]
-}

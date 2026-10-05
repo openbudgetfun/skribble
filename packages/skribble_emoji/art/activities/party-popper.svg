@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" stroke-linecap="round" stroke-linejoin="round">
+  <g id="cone" stroke="ink">
+    <path d="M4.2 32.6 L12 10.4 L26.4 24.8 Z" fill="yellow"/>
+    <path d="M8.6 20.2 L16.4 28 M10.6 14.6 L22 26 M6.6 26 L11.2 30.6" fill="none" stroke="red" stroke-width="2.25"/>
+    <path d="M4.2 32.6 L12 10.4 L26.4 24.8 Z" fill="none"/>
+  </g>
+  <g id="confetti" stroke="ink" stroke-width="1.5">
+    <path d="M15.6 12.4 Q17.4 8 21.4 8.4 Q24.6 8.8 25 5.4" fill="none" stroke="purple" stroke-width="2"/>
+    <path d="M23.4 20.6 Q27.6 18.8 28.6 22.6 Q29.4 25.6 32.8 25" fill="none" stroke="blue" stroke-width="2"/>
+    <circle cx="28.4" cy="9.6" r="1.6" fill="pink"/>
+    <circle cx="20.4" cy="3.6" r="1.2" fill="green"/>
+    <circle cx="32" cy="16.4" r="1.2" fill="yellow"/>
+    <path d="M27 13.4 L29.6 14.8 L28.4 17.2 L25.8 15.8 Z" fill="teal"/>
+    <path d="M14.6 4.4 L16.6 6.6" fill="none" stroke="coral" stroke-width="2"/>
+  </g>
+</svg>

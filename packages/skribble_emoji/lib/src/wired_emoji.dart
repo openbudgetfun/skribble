@@ -1,68 +1,172 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:skribble_emoji/skribble_emoji.dart';
+import 'dart:collection';
+import 'dart:math' as math;
 
-/// Renders a hand-drawn emoji from [WiredSvgIconData].
+import 'package:flutter/widgets.dart';
+import 'package:skribble/skribble.dart';
+
+import 'package:skribble_emoji/src/emoji_catalog.dart';
+import 'package:skribble_emoji/src/emoji_drawing.dart';
+import 'package:skribble_emoji/src/emoji_palette.dart';
+
+/// Draws an emoji by hand in skribble's own emoji style.
 ///
-/// When [data] is `null` (e.g. the requested emoji has not been generated yet),
-/// a placeholder is rendered: a "?" character inside a hand-drawn circle.
+/// Pass the emoji itself, exactly as you would type it:
 ///
-/// Named constructors [WiredEmoji.fromName] and [WiredEmoji.fromUnicode]
-/// provide convenient lookup-based construction.
-class WiredEmoji extends HookWidget {
-  /// Creates a [WiredEmoji] from explicit [data].
-  ///
-  /// If [data] is `null`, a placeholder is shown.
-  const WiredEmoji({
+/// ```dart
+/// const WiredEmoji('🎉')
+/// const WiredEmoji('👩🏽‍💻', size: 48)
+/// ```
+///
+/// Every fully-qualified Unicode 18 emoji is drawn, including skin tones,
+/// gendered variants, keycaps, and flags. Outlines are inked by the theme's
+/// pen and waver with its roughness level, so emoji match the rest of the
+/// interface. Text that is not a known emoji is shown as plain text.
+class WiredEmoji extends StatelessWidget {
+  /// Draws [emoji], such as `'😀'` or `'🇯🇵'`.
+  const WiredEmoji(
+    this.emoji, {
     super.key,
-    this.data,
-    this.size = 24.0,
+    this.size = 24,
     this.semanticLabel,
+    this.palette = EmojiPalette.skribble,
+    this.weight,
+    this.drawConfig,
   });
 
-  /// Creates a [WiredEmoji] by looking up the emoji [name] in
-  /// [kSkribbleEmojiCodePoints].
-  ///
-  /// If the name is not found, a placeholder is rendered.
-  WiredEmoji.fromName(
-    String name, {
-    super.key,
-    this.size = 24.0,
-    this.semanticLabel,
-  }) : data = lookupSkribbleEmojiByName(name);
+  /// Draws the emoji with Unicode short name [identifier] in snake case,
+  /// such as `'party_popper'`. Unknown names draw nothing.
+  WiredEmoji.named(
+    String identifier, {
+    Key? key,
+    double size = 24,
+    String? semanticLabel,
+    EmojiPalette palette = EmojiPalette.skribble,
+    double? weight,
+    DrawConfig? drawConfig,
+  }) : this(
+         SkribbleEmoji.named(identifier)?.emoji ?? '',
+         key: key,
+         size: size,
+         semanticLabel: semanticLabel,
+         palette: palette,
+         weight: weight,
+         drawConfig: drawConfig,
+       );
 
-  /// Creates a [WiredEmoji] by looking up the Unicode [codePoint] in
-  /// [kSkribbleEmoji].
-  ///
-  /// If the codepoint is not found, a placeholder is rendered.
-  WiredEmoji.fromUnicode(
-    int codePoint, {
-    super.key,
-    this.size = 24.0,
-    this.semanticLabel,
-  }) : data = lookupSkribbleEmojiByUnicode(codePoint);
+  /// The emoji to draw.
+  final String emoji;
 
-  /// Creates an emoji from a complete Unicode string or hexadecimal sequence.
-  WiredEmoji.fromSequence(
-    String sequence, {
-    super.key,
-    this.size = 24.0,
-    this.semanticLabel,
-  }) : data = lookupSkribbleEmojiBySequence(sequence);
-
-  /// Accessible description of the emoji, including its meaning in context.
-  final String? semanticLabel;
-
-  /// The emoji icon data to render, or `null` to show a placeholder.
-  final WiredSvgIconData? data;
-
-  /// The logical size of the emoji. Defaults to 24.0.
+  /// The side of the square the emoji fills, in logical pixels.
   final double size;
 
+  /// Accessible description. Defaults to the emoji's Unicode name.
+  final String? semanticLabel;
+
+  /// The colours the emoji is drawn with.
+  final EmojiPalette palette;
+
+  /// Pen weight from 100 to 700, as for icons. Defaults to
+  /// [IconThemeData.weight], then 400.
+  final double? weight;
+
+  /// Overrides the theme's wavering and pen.
+  final DrawConfig? drawConfig;
+
   @override
-  Widget build(BuildContext context) => PrecomputedEmoji(
-    data: data,
-    size: size,
-    semanticLabel: semanticLabel,
+  Widget build(BuildContext context) {
+    final entry = SkribbleEmoji.lookup(emoji);
+    if (entry == null) {
+      return SizedBox.square(
+        dimension: size,
+        child: FittedBox(child: Text(emoji)),
+      );
+    }
+    final theme = WiredTheme.of(context);
+    final drawing = emojiDrawingFor(
+      entry,
+      size: size,
+      config: drawConfig ?? emojiDrawConfig(theme, size),
+      palette: palette,
+      weight:
+          wiredIconWeightFactor(weight ?? IconTheme.of(context).weight ?? 400) *
+          theme.strokeWidth /
+          2.4,
+    );
+    return Semantics(
+      label: semanticLabel ?? entry.name,
+      image: true,
+      child: SizedBox.square(
+        dimension: size,
+        child: RepaintBoundary(
+          child: CustomPaint(painter: _EmojiPainter(drawing)),
+        ),
+      ),
+    );
+  }
+}
+
+/// The wavering and pen emoji use under [theme] at [size].
+///
+/// Small drawings need more separation between roughness levels than
+/// borders do, the same treatment icons receive.
+DrawConfig emojiDrawConfig(WiredThemeData theme, double size) {
+  final config = theme.drawConfig;
+  return DrawConfig.build(
+    maxRandomnessOffset:
+        config.maxRandomnessOffset *
+        (1 + 1.5 * config.lineWobble) *
+        math.min(2.0, size / 24),
+    roughness: config.roughness,
+    lineWobble: config.lineWobble,
+    seed: config.seed,
+    pen: config.pen,
   );
+}
+
+/// A prepared drawing for [entry], shared with every other widget asking for
+/// the same emoji, size, configuration, palette, and weight.
+///
+/// Preparing an emoji parses, wavers, and inks every shape, so pickers and
+/// chat lists reuse recent drawings from a small least-recently-used cache.
+EmojiDrawing emojiDrawingFor(
+  EmojiEntry entry, {
+  required double size,
+  required DrawConfig config,
+  EmojiPalette palette = EmojiPalette.skribble,
+  double weight = 1,
+}) {
+  final key = (entry.emoji, size, config, palette, weight);
+  final cached = _cache.remove(key);
+  if (cached != null) {
+    _cache[key] = cached;
+    return cached;
+  }
+  final drawing = EmojiDrawing(
+    entry,
+    size: size,
+    config: config,
+    palette: palette,
+    weight: weight,
+  );
+  _cache[key] = drawing;
+  if (_cache.length > _cacheSize) _cache.remove(_cache.keys.first);
+  return drawing;
+}
+
+const int _cacheSize = 512;
+
+final LinkedHashMap<Object, EmojiDrawing> _cache =
+    LinkedHashMap<Object, EmojiDrawing>();
+
+class _EmojiPainter extends CustomPainter {
+  _EmojiPainter(this.drawing);
+
+  final EmojiDrawing drawing;
+
+  @override
+  void paint(Canvas canvas, Size size) => drawing.paint(canvas);
+
+  @override
+  bool shouldRepaint(_EmojiPainter oldDelegate) =>
+      !identical(oldDelegate.drawing, drawing);
 }
