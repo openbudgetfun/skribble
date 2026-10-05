@@ -72,6 +72,25 @@ void main() {
       expect(MatrixUtils.transformPoint(matrix, pivot), pivot);
     });
 
+    test('compares by value', () {
+      final combined =
+          const EmojiPose(dx: 1) + const EmojiPose(rotation: .5, opacity: .5);
+      const same = EmojiPose(dx: 1, rotation: .5, opacity: .5);
+      expect(combined, same);
+      expect(combined.hashCode, same.hashCode);
+      expect(combined.toString(), contains('opacity: 0.5'));
+      for (final other in const [
+        EmojiPose(dx: 2, rotation: .5, opacity: .5),
+        EmojiPose(dx: 1, dy: 1, rotation: .5, opacity: .5),
+        EmojiPose(dx: 1, opacity: .5),
+        EmojiPose(dx: 1, rotation: .5, scaleX: 2, opacity: .5),
+        EmojiPose(dx: 1, rotation: .5, scaleY: 2, opacity: .5),
+        EmojiPose(dx: 1, rotation: .5),
+      ]) {
+        expect(combined, isNot(other));
+      }
+    });
+
     test('moves in art units', () {
       final matrix = const EmojiPose(dx: 1, dy: -2).toMatrix(Offset.zero, 3);
       expect(
@@ -167,6 +186,21 @@ void main() {
       );
       expect(faded, isNot(still));
       expect(faded, hidden);
+    });
+
+    test('fades the whole emoji', () async {
+      final drawing = EmojiDrawing(heart, size: 48, config: config);
+      const gone = EmojiMotion([EmojiTrack(null, _Vanish())]);
+      const goneWhileBeating = EmojiMotion([
+        EmojiTrack(null, EmojiMove.beat()),
+        EmojiTrack(null, _Vanish()),
+      ]);
+      final still = await _pixels(drawing.paint, 48);
+      expect(still.any((byte) => byte != 0), isTrue);
+      for (final motion in [gone, goneWhileBeating]) {
+        final faded = await _pixels((c) => motion.paint(c, drawing, .08), 48);
+        expect(faded.every((byte) => byte == 0), isTrue);
+      }
     });
 
     test('measures parts so they move around their own pivot', () {

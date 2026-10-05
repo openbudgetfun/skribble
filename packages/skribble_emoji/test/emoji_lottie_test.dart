@@ -70,6 +70,22 @@ void main() {
     expect(opacity['a'], 1);
   });
 
+  test('masks clipped shapes with their clip path', () {
+    final socks = layers(export('🧦', inkings: 1));
+    final masked = [
+      for (final layer in socks)
+        if (layer['hasMask'] == true) layer,
+    ];
+    expect(masked, isNotEmpty);
+    for (final layer in masked) {
+      final masks = (layer['masksProperties']! as List)
+          .cast<Map<String, Object?>>();
+      expect(masks, isNotEmpty);
+      expect(masks.first['mode'], 'a', reason: 'clips add, they never cut');
+      expect((masks.first['pt']! as Map)['k'], isA<Map<String, Object?>>());
+    }
+  });
+
   // Writes Lottie files for review when EMOJI_LOTTIE_OUT is set, for the
   // comma-separated emoji in EMOJI_LOTTIE (default: every choreographed one).
   test('export Lottie files', () {
