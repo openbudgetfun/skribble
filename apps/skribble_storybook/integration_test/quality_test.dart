@@ -70,6 +70,9 @@ void main() {
       ($) async {
         await $.platform.web.resizeWindow(size: Size(width, 1100));
         await $.pumpWidget(const SkribbleStorybookApp());
+        // The hero, the playground, and the reel sit above these cards on
+        // the home page, so scroll each one into view before tapping it.
+        await $('The sketchbook').scrollTo();
         await $('The sketchbook').tap();
         await $(QualityKeys.input).scrollTo();
         await $(QualityKeys.input).enterText('Keep my café sketch');
@@ -97,6 +100,7 @@ void main() {
         await $(ValueKey('roughness-gentle')).tap();
         await $('All components').scrollTo();
         await $('All components').tap();
+        await $('Buttons').scrollTo();
         await $('Buttons').tap();
         await $('Click Me').waitUntilVisible();
         final buttonTheme = WiredTheme.of($.tester.element($('Click Me')));
