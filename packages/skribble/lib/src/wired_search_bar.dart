@@ -67,8 +67,15 @@ class WiredSearchBar extends HookWidget {
                 Expanded(
                   child: TextField(
                     controller: controller,
+                    // Every border and the fill are spelled out: the Material
+                    // bridge theme supplies outlined, filled defaults that
+                    // would otherwise draw a second box inside the ink.
                     decoration: InputDecoration(
+                      filled: false,
                       border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
                       hintText: hintText ?? 'Search...',
                       hintStyle: TextStyle(color: theme.disabledTextColor),
                       isDense: true,

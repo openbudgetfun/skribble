@@ -435,7 +435,11 @@ class WiredDropdownMenu<T> extends HookWidget {
             label: label != null ? Text(label!) : null,
             width: width,
             inputDecorationTheme: const InputDecorationTheme(
+              filled: false,
               border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(horizontal: 12),
             ),
           ),

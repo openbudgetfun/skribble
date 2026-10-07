@@ -301,3 +301,15 @@ Run `dart run tool/font_specimen.dart` from the root to generate self-contained 
 Archived input captures can predate the Recursive font repair and contain missing-glyph boxes. Do not reuse them as current product evidence. Prefer the live documentation font comparison or a newly captured notebook with the current theme and loaded fonts. Inspect accents, currency, all four font styles, stroke clipping, and the settled first frame. Record the revision and viewport alongside exported captures.
 
 For editable design handoff, use the [design kit](../reference/design-kit). Its font preview and SVG pen specimens can be regenerated from the current source; a screenshot does not preserve editable geometry or target dimensions.
+
+## The promo reel
+
+skribble's promotional video is drawn with skribble itself. `PromoReel` in the storybook (`apps/skribble_storybook/lib/promo/promo_reel.dart`) is a 34-second script, written as a pure function of time. It covers the logo, the components inking in and responding, the three ink styles, the emoji, animated emoji, and day and night paper. The storybook plays it live at `/promo`, as "The reel" on the home page.
+
+To render it to video:
+
+```bash
+./scripts/render_promo.sh
+```
+
+The script renders 1,020 frames at 1080×1080 on the Flutter test clock (`tool/render_promo_test.dart`), so every run produces the same frames, then encodes them with ffmpeg to `.screenshots/promo/skribble-promo.mp4`. Pass another path to write elsewhere. Like screenshots, the video stays out of Git: attach it to a release or pull request instead. Re-render after visual changes, so the reel always shows the current design.

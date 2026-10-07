@@ -373,7 +373,47 @@ void main() {
       final nav = await pumpSettings(tester);
 
       expect(find.text('Dark Mode'), findsOneWidget);
-      expect(find.text('Toggle dark theme'), findsOneWidget);
+      expect(find.text('Write on night parchment'), findsOneWidget);
+
+      await popSettings(tester, nav);
+    });
+
+    testWidgets('dark mode redraws the whole app on night parchment', (
+      tester,
+    ) async {
+      final nav = await pumpSettings(tester);
+      final day = WiredTheme.of(tester.element(find.text('Dark Mode')));
+      expect(find.text('Warm parchment'), findsOneWidget);
+
+      await tester.tap(find.byType(WiredSwitch));
+      for (var i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
+
+      final night = WiredTheme.of(tester.element(find.text('Dark Mode')));
+      expect(night.fillColor, isNot(day.fillColor));
+      expect(night.textColor, const Color(0xFFF5ECD7));
+      expect(find.text('Night parchment'), findsOneWidget);
+
+      // The home page underneath is on night parchment too.
+      await popSettings(tester, nav);
+      expect(
+        WiredTheme.of(tester.element(find.byType(Scaffold).first)).fillColor,
+        night.fillColor,
+      );
+    });
+
+    testWidgets('the roughness slider changes the app theme', (tester) async {
+      final nav = await pumpSettings(tester);
+      final slider = tester.getRect(find.byType(WiredSlider));
+      await tester.tapAt(Offset(slider.right - 14, slider.center.dy));
+      for (var i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
+
+      final theme = WiredTheme.of(tester.element(find.text('Dark Mode')));
+      expect(theme.roughness, greaterThan(2));
+      expect(find.text('Roughness: 1.2'), findsNothing);
 
       await popSettings(tester, nav);
     });

@@ -296,6 +296,12 @@ class _Category {
 
 const _categories = [
   _Category(
+    title: 'The reel',
+    description: 'skribble in 34 seconds, drawn with its own widgets.',
+    route: '/promo',
+    emoji: '🎞️',
+  ),
+  _Category(
     title: 'The sketchbook',
     description: 'A working notebook in morning paper and evening ink.',
     route: '/studio',

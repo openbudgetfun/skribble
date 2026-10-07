@@ -1,11 +1,11 @@
 {
-  "name": "skribble_storybook",
-  "short_name": "skribble_storybook",
+  "name": "skribble storybook",
+  "short_name": "skribble",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0175C2",
-  "theme_color": "#0175C2",
-  "description": "A new Flutter project.",
+  "background_color": "#FFFAF0",
+  "theme_color": "#FFFAF0",
+  "description": "Every skribble component, hand-drawn and interactive: change the ink, typeface, and paper and watch it all redraw.",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [

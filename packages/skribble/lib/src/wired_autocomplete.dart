@@ -71,7 +71,11 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                             controller: textEditingController,
                             focusNode: focusNode,
                             decoration: InputDecoration(
+                              filled: false,
                               border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
                               hintText: hintText ?? 'Start typing...',
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 8,
