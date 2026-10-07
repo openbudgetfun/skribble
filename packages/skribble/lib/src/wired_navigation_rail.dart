@@ -96,10 +96,15 @@ class WiredNavigationRail extends HookWidget {
       child: GestureDetector(
         onTap: onTap,
         behavior: HitTestBehavior.opaque,
-        child: SizedBox(
-          width: 72,
-          height: 56,
+        // At least 56 tall, and taller when the label grows.
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: 72,
+            maxWidth: 72,
+            minHeight: 56,
+          ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(
@@ -108,11 +113,11 @@ class WiredNavigationRail extends HookWidget {
                   if (selected)
                     SizedBox(
                       width: 56,
-                      height: 34,
+                      height: 40,
                       child: WiredCanvas(
                         painter: WiredRoundedRectangleBase(
                           strokeWidth: theme.strokeWidth,
-                          borderRadius: BorderRadius.circular(17),
+                          borderRadius: BorderRadius.circular(20),
                           fillColor: theme.markerColor,
                           borderColor: theme.borderColor,
                         ),

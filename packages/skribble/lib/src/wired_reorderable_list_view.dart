@@ -105,6 +105,8 @@ class _WiredReorderableItem extends HookWidget {
     return SizedBox(
       height: height,
       child: Stack(
+        // The row sits in the middle of the item, clear of the ink.
+        alignment: AlignmentDirectional.centerStart,
         children: [
           Positioned.fill(
             child: WiredCanvas(
@@ -116,22 +118,28 @@ class _WiredReorderableItem extends HookWidget {
               fillerType: RoughFilter.noFiller,
             ),
           ),
-          Row(
-            children: [
-              if (showDragHandle)
-                ReorderableDragStartListener(
-                  index: index,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: WiredSvgIcon(
-                      data: SkribbleGlyphs.grip,
-                      color: theme.textColor,
-                      size: 20,
+          Padding(
+            padding: EdgeInsetsDirectional.only(
+              start: showDragHandle ? 4 : 12,
+              end: 12,
+            ),
+            child: Row(
+              children: [
+                if (showDragHandle)
+                  ReorderableDragStartListener(
+                    index: index,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: WiredSvgIcon(
+                        data: SkribbleGlyphs.grip,
+                        color: theme.textColor,
+                        size: 20,
+                      ),
                     ),
                   ),
-                ),
-              Expanded(child: child),
-            ],
+                Expanded(child: child),
+              ],
+            ),
           ),
         ],
       ),

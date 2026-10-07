@@ -11,5 +11,11 @@
 library;
 
 export 'wired_element.dart';
-export 'wired_paint.dart' show WiredBase, kWiredButtonHeight;
+export 'wired_paint.dart'
+    show
+        WiredBase,
+        kWiredButtonHeight,
+        kWiredButtonPadding,
+        kWiredChipHeight,
+        kWiredInkPadding;
 export 'wired_painter_bases.dart';

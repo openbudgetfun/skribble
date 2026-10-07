@@ -175,6 +175,8 @@ const WiredDataTable(
 
 A step-by-step wizard with hand-drawn circles for step indicators and sketchy connecting lines.
 
+Step circles are at least 36 pixels and grow with the text scale.
+
 ```dart
 // Live example: stepper
 HookBuilder(
@@ -303,6 +305,8 @@ SizedBox(
 
 A reorderable list with hand-drawn drag handles and separator lines. Items can be dragged to reorder.
 
+Each item centres its row vertically and keeps 12 pixels between its content and the ink.
+
 ```dart
 // Live example: reorderable-list-view
 HookBuilder(
@@ -399,6 +403,8 @@ WiredUserAccountsDrawerHeader(
 ## WiredAvatar
 
 A hand-drawn circular avatar. Displays an image, icon, or initials inside a sketchy circle border with optional hachure fill.
+
+Initials scale down to stay inside the circle, even with the platform text scale turned up.
 
 ```dart
 // Live example: avatar

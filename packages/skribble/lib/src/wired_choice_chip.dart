@@ -40,8 +40,8 @@ class WiredChoiceChip extends HookWidget {
         child: GestureDetector(
           onTap: () => onSelected?.call(!selected),
           child: IntrinsicWidth(
-            child: SizedBox(
-              height: 32,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: kWiredChipHeight),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -62,7 +62,7 @@ class WiredChoiceChip extends HookWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: kWiredButtonPadding,
                     child: DefaultTextStyle.merge(
                       style: TextStyle(
                         color: selected ? theme.fillColor : theme.textColor,

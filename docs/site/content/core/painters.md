@@ -650,7 +650,7 @@ class WiredButton extends HookWidget {
     final theme = WiredTheme.of(context);
     return buildWiredElement(
       child: Container(
-        height: kWiredButtonHeight,
+        constraints: const BoxConstraints(minHeight: kWiredButtonHeight),
         decoration: RoughBoxDecoration(
           shape: RoughBoxShape.rectangle,
           borderStyle: RoughDrawingStyle(width: 1, color: theme.borderColor),

@@ -38,8 +38,10 @@ class WiredSearchBar extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return SizedBox(
-      height: 48,
+    // A pill at least 48 pixels tall that grows with its text, with room
+    // for the curve at each end.
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 48),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -54,7 +56,7 @@ class WiredSearchBar extends HookWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
                 leading ??

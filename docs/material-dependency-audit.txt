@@ -1,7 +1,7 @@
 Material dependency audit — 81 core files and 4 compat files import material/cupertino
 
-  skin     (wraps a Material/Cupertino widget): 66
-  helpers  (constants/theme only):              15
+  skin     (wraps a Material/Cupertino widget): 67
+  helpers  (constants/theme only):              14
   compat   (sanctioned interop layer):          4
   core total (target: 0):                       81
 
@@ -33,7 +33,7 @@ skin      material         packages/skribble/lib/src/wired_context_menu.dart
 helpers   material+cupertino packages/skribble/lib/src/wired_cupertino_action_sheet.dart
 skin      material+cupertino packages/skribble/lib/src/wired_cupertino_alert_dialog.dart
 helpers   cupertino        packages/skribble/lib/src/wired_cupertino_button.dart
-helpers   cupertino        packages/skribble/lib/src/wired_cupertino_date_picker.dart
+skin      cupertino        packages/skribble/lib/src/wired_cupertino_date_picker.dart
 skin      cupertino        packages/skribble/lib/src/wired_cupertino_navigation_bar.dart
 helpers   cupertino        packages/skribble/lib/src/wired_cupertino_picker.dart
 skin      material         packages/skribble/lib/src/wired_cupertino_scaffold.dart

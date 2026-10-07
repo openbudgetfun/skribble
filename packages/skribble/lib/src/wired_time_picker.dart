@@ -118,26 +118,30 @@ class _TimeField extends HookWidget {
           onChanged((value - 1 + max + 1) % (max + 1));
         }
       },
-      child: SizedBox(
-        width: 64,
-        height: 48,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: 72, minHeight: 56),
         child: Stack(
           alignment: Alignment.center,
           children: [
-            WiredCanvas(
-              painter: WiredRectangleBase(
-                strokeWidth: theme.strokeWidth,
-                fillColor: theme.fillColor,
-                borderColor: theme.borderColor,
+            Positioned.fill(
+              child: WiredCanvas(
+                painter: WiredRectangleBase(
+                  strokeWidth: theme.strokeWidth,
+                  fillColor: theme.fillColor,
+                  borderColor: theme.borderColor,
+                ),
+                fillerType: RoughFilter.noFiller,
               ),
-              fillerType: RoughFilter.noFiller,
             ),
-            Text(
-              value.toString().padLeft(2, '0'),
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: theme.textColor,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                value.toString().padLeft(2, '0'),
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: theme.textColor,
+                ),
               ),
             ),
           ],

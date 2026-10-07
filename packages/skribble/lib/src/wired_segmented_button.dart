@@ -41,45 +41,50 @@ class WiredSegmentedButton<T> extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     return buildWiredElement(
-      child: SizedBox(
-        height: kWiredButtonHeight,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: WiredCanvas(
-                painter: WiredRoundedRectangleBase(
-                  strokeWidth: theme.strokeWidth,
-                  borderRadius: BorderRadius.circular(8),
-                  borderColor: theme.borderColor,
+      // At least a button's height, and taller when the labels are.
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: kWiredButtonHeight),
+        child: IntrinsicHeight(
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: WiredCanvas(
+                  painter: WiredRoundedRectangleBase(
+                    strokeWidth: theme.strokeWidth,
+                    borderRadius: BorderRadius.circular(8),
+                    borderColor: theme.borderColor,
+                  ),
+                  fillerType: RoughFilter.noFiller,
                 ),
-                fillerType: RoughFilter.noFiller,
               ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                for (int i = 0; i < segments.length; i++) ...[
-                  if (i > 0)
-                    SizedBox(
-                      width: 2,
-                      height: kWiredButtonHeight,
-                      child: WiredCanvas(
-                        painter: WiredLineBase(
-                          strokeWidth: theme.strokeWidth,
-                          x1: 0,
-                          y1: 0,
-                          x2: 0,
-                          y2: 42.0,
-                          borderColor: theme.borderColor,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (int i = 0; i < segments.length; i++) ...[
+                    if (i > 0)
+                      SizedBox(
+                        width: 2,
+                        // The line clamps to its box, so it spans whatever
+                        // height the labels give the button.
+                        child: WiredCanvas(
+                          painter: WiredLineBase(
+                            strokeWidth: theme.strokeWidth,
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: double.infinity,
+                            borderColor: theme.borderColor,
+                          ),
+                          fillerType: RoughFilter.noFiller,
                         ),
-                        fillerType: RoughFilter.noFiller,
                       ),
-                    ),
-                  _buildSegment(context, segments[i], theme),
+                    _buildSegment(context, segments[i], theme),
+                  ],
                 ],
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -109,7 +114,7 @@ class WiredSegmentedButton<T> extends HookWidget {
         onSelectionChanged?.call(newSelection);
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: kWiredButtonPadding,
         decoration: isSelected
             ? RoughBoxDecoration(
                 progress: WiredDrawTransition.progressOf(context),

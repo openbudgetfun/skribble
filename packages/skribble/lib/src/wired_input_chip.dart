@@ -64,8 +64,8 @@ class WiredInputChip extends HookWidget {
           child: Opacity(
             opacity: enabled ? 1.0 : 0.5,
             child: IntrinsicWidth(
-              child: SizedBox(
-                height: 32,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: kWiredChipHeight),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -82,7 +82,7 @@ class WiredInputChip extends HookWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      padding: kWiredInkPadding,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -166,8 +166,8 @@ class WiredActionChip extends HookWidget {
         child: GestureDetector(
           onTap: onPressed,
           child: IntrinsicWidth(
-            child: SizedBox(
-              height: 32,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: kWiredChipHeight),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -182,7 +182,7 @@ class WiredActionChip extends HookWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: kWiredInkPadding,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

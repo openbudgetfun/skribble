@@ -131,16 +131,18 @@ Verify the widget has the expected size and respects custom dimensions:
 
 ```dart
 // Static example: test
-testWidgets('renders with correct height (42.0)', (tester) async {
+testWidgets('is at least kWiredButtonHeight tall', (tester) async {
   await pumpApp(
     tester,
     WiredButton(onPressed: () {}, child: const Text('Height test')),
   );
 
   final buttonSize = tester.getSize(find.byType(WiredButton));
-  expect(buttonSize.height, 42.0);
+  expect(buttonSize.height, kWiredButtonHeight);
 });
 ```
+
+Buttons, chips, and fields grow with their text, so test the minimum at the default size and the growth with a larger font or text scale.
 
 ### 3. Interaction
 
@@ -422,6 +424,33 @@ void main() {
   });
 }
 ```
+
+## Check the ink's breathing room
+
+`package:skribble/testing.dart` reads a laid-out render tree and reports layout that crowds the ink, so a screen can be checked at every size it supports:
+
+```dart
+// Static example: test
+import 'package:skribble/testing.dart';
+
+testWidgets('the settings screen keeps the ink padding', (tester) async {
+  tester.view.physicalSize = const Size(360, 2400);
+  tester.view.devicePixelRatio = 1;
+  tester.platformDispatcher.textScaleFactorTestValue = 1.3;
+  addTearDown(tester.view.reset);
+  addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+
+  await tester.pumpWidget(const SettingsApp());
+  final root = tester.binding.renderViews.first;
+  expect(crampedText(root), isEmpty);
+  expect(squeezedText(root), isEmpty);
+});
+```
+
+- `crampedText` finds text closer than `kWiredInkPadding` to the hand-drawn rectangle, rounded rectangle, or circle around it, or spilling past it. Gaps are measured in the content's own size, so a scaled-down preview is judged by its proportions, and text or ink hidden by scrolling and clips is ignored. Badges and other pills under 24 pixels keep their own tight fit.
+- `squeezedText` finds paragraphs wrapped into four or more lines in under 140 pixels, the sign of a layout that should reflow on a phone.
+
+The storybook, the docs site, and the example app run these checks on every page and example at 360, 768, and 1280 pixels, and at 1.3× text.
 
 ## Running tests
 

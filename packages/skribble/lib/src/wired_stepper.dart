@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -49,7 +51,7 @@ class WiredStepper extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           for (int i = 0; i < steps.length; i++) ...[
-            _buildStep(i, steps[i], theme),
+            _buildStep(i, steps[i], theme, MediaQuery.textScalerOf(context)),
             if (i < steps.length - 1)
               Padding(
                 padding: const EdgeInsets.only(left: 16),
@@ -75,7 +77,12 @@ class WiredStepper extends HookWidget {
     );
   }
 
-  Widget _buildStep(int index, WiredStep step, WiredThemeData theme) {
+  Widget _buildStep(
+    int index,
+    WiredStep step,
+    WiredThemeData theme,
+    TextScaler textScaler,
+  ) {
     final isActive = index == currentStep;
     final isCompleted = index < currentStep;
 
@@ -85,9 +92,12 @@ class WiredStepper extends HookWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: 32,
-            height: 32,
+          SizedBox.square(
+            // The circle keeps the ink's breathing room as text grows.
+            dimension: math.max(
+              36,
+              textScaler.scale(14) + 22,
+            ),
             child: Stack(
               alignment: Alignment.center,
               children: [

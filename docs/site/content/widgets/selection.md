@@ -13,6 +13,8 @@ skribble provides selection widgets for choices, filtering, date/time picking, a
 
 A chip with a hand-drawn pill-shaped border (16px radius). Supports an optional avatar and delete action.
 
+Every chip (`WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`, `WiredActionChip`) is at least `kWiredChipHeight` (36) tall and grows with its label, keeping 8 pixels above and below it.
+
 ```dart
 // Live example: chip
 WiredChip(label: Text('Make something lovely'))
@@ -237,6 +239,8 @@ Builder(
 
 A time picker with hand-drawn clock face, clock hands, and drag-to-adjust hour/minute fields. The inline widget streams changes through `onTimeSelected`.
 
+Each hour and minute cell is at least 72 by 56 pixels and grows with its numerals, so they never touch the ink.
+
 ```dart
 // Live example: time-picker
 Builder(
@@ -293,6 +297,8 @@ HookBuilder(
 
 Mouse and touch dragging both scroll the wheel. The picker adds mouse support to the surrounding scroll configuration without replacing its other settings. Labels inherit the active Wired theme's font family and roughness variant, including the asset package for bundled fonts. An explicit child text style still overrides those defaults.
 
+Rows default to 40 pixels, and the hand-drawn band is drawn a little taller than a row so its lines sit around the selection. The wheel holds its text at the size it was designed for, as iOS pickers do, since rows cannot grow.
+
 A Cupertino-style scrolling picker wheel with hand-drawn selection highlight. Mirrors the `CupertinoPicker` API.
 
 ```dart
@@ -311,6 +317,8 @@ SizedBox(
 ## WiredCupertinoDatePicker
 
 A Cupertino-style date picker with hand-drawn wheel columns. Mirrors the `CupertinoDatePicker` API.
+
+The wheels write in the theme's typeface, with one hand-drawn band in place of Cupertino's grey one. Rows default to 40 pixels. Cupertino needs a minimum width for its columns (about 370 pixels for date and time), so a narrower picker scales its wheels down to fit instead of failing.
 
 ```dart
 // Live example: cupertino-date-picker

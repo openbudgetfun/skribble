@@ -370,6 +370,8 @@ HookBuilder(
 
 A banner with a hand-drawn border displayed at the top of the scaffold. Contains a message and action buttons.
 
+Under 480 pixels wide the actions move below the message, so it keeps room to read instead of wrapping into a narrow column. `forceActionsBelow` puts them below at any width.
+
 ```dart
 // Live example: material-banner
 HookBuilder(

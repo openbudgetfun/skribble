@@ -61,10 +61,11 @@ class WiredCupertinoPicker extends HookWidget {
                 fillerType: RoughFilter.noFiller,
               ),
             ),
-            // Selection highlight at center
+            // The selected row's band. The ink sits inside its box, so the
+            // box is a little taller than a row to draw its lines around it.
             Center(
               child: SizedBox(
-                height: itemExtent,
+                height: itemExtent + 8,
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
                     strokeWidth: theme.strokeWidth,
@@ -75,37 +76,41 @@ class WiredCupertinoPicker extends HookWidget {
                 ),
               ),
             ),
-            ScrollConfiguration(
-              behavior: ScrollConfiguration.of(context).copyWith(
-                dragDevices: {
-                  ...ScrollConfiguration.of(context).dragDevices,
-                  PointerDeviceKind.mouse,
-                },
-              ),
-              child: CupertinoPicker(
-                scrollController: controller,
-                itemExtent: itemExtent,
-                onSelectedItemChanged: onSelectedItemChanged,
-                selectionOverlay: const SizedBox.shrink(),
-                backgroundColor: const Color(0x00000000),
-                children: [
-                  for (final child in children)
-                    Center(
-                      child: DefaultTextStyle.merge(
-                        style: TextStyle(
-                          color: theme.textColor,
-                          fontSize: 16,
-                          // Qualify the family without inheriting a package
-                          // prefix into a child's explicit custom font.
-                          fontFamily: TextStyle(
-                            fontFamily: theme.fontFamily,
-                            package: theme.fontPackage,
-                          ).fontFamily,
+            // Rows have a fixed height, so the wheel holds its text at the
+            // size it was designed for, as iOS pickers do.
+            MediaQuery.withNoTextScaling(
+              child: ScrollConfiguration(
+                behavior: ScrollConfiguration.of(context).copyWith(
+                  dragDevices: {
+                    ...ScrollConfiguration.of(context).dragDevices,
+                    PointerDeviceKind.mouse,
+                  },
+                ),
+                child: CupertinoPicker(
+                  scrollController: controller,
+                  itemExtent: itemExtent,
+                  onSelectedItemChanged: onSelectedItemChanged,
+                  selectionOverlay: const SizedBox.shrink(),
+                  backgroundColor: const Color(0x00000000),
+                  children: [
+                    for (final child in children)
+                      Center(
+                        child: DefaultTextStyle.merge(
+                          style: TextStyle(
+                            color: theme.textColor,
+                            fontSize: 16,
+                            // Qualify the family without inheriting a package
+                            // prefix into a child's explicit custom font.
+                            fontFamily: TextStyle(
+                              fontFamily: theme.fontFamily,
+                              package: theme.fontPackage,
+                            ).fontFamily,
+                          ),
+                          child: child,
                         ),
-                        child: child,
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

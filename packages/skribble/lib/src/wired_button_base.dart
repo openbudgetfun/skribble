@@ -13,6 +13,14 @@ import 'wired_paint.dart';
 /// barrel. It carries the fields every button exposes and builds the common
 /// `WiredInkResponse` > `Semantics` > `RepaintBoundary` chrome so each public
 /// button only has to describe its ink decoration and label style.
+/// The padding every rectangular skribble button shares. The surface around
+/// the button owns the minimum height, so the ink's own inset is included.
+final ButtonStyle _layout = TextButton.styleFrom(
+  padding: kWiredButtonPadding,
+  minimumSize: const Size(64, 0),
+  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+);
+
 abstract class WiredButtonBase extends HookWidget {
   /// Creates a button base with the family's shared parameters.
   const WiredButtonBase({
@@ -55,17 +63,16 @@ abstract class WiredButtonBase extends HookWidget {
     return WiredInkResponse(
       interaction: inkInteraction,
       builder: (context, states) {
+        // The button is at least kWiredButtonHeight tall and grows with its
+        // label, so larger text never crowds the ink.
         final surface = Container(
-          height: kWiredButtonHeight,
+          constraints: const BoxConstraints(minHeight: kWiredButtonHeight),
           decoration: decorationBuilder(context),
-          child: SizedBox(
-            height: double.infinity,
-            child: TextButton(
-              statesController: states,
-              style: textStyle,
-              onPressed: onPressed,
-              child: child,
-            ),
+          child: TextButton(
+            statesController: states,
+            style: textStyle.merge(_layout),
+            onPressed: onPressed,
+            child: child,
           ),
         );
         final background = backgroundBuilder?.call(context);

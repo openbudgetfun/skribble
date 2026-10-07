@@ -238,7 +238,7 @@ class _CategoryCard extends HookWidget {
         onHover: (value) => active.value = value,
         onFocusChange: (value) => active.value = value,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
           child: Row(
             children: [
               // The title names the category; the emoji is decoration.

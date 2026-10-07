@@ -141,6 +141,8 @@ HookBuilder(
 
 A vertical navigation rail with hand-drawn rounded rectangle selection indicators. Best for desktop and tablet layouts.
 
+The selection indicator is 56 by 40, leaving 8 pixels around the icon, and each destination grows with its label.
+
 ```dart
 // Live example: navigation-rail
 HookBuilder(
@@ -196,6 +198,8 @@ HookBuilder(
 ## WiredNavigationDrawer
 
 A side navigation drawer with a hand-drawn border. Displays a list of navigation destinations with sketchy selection indicators.
+
+Destinations are at least 48 pixels tall, grow with their label, and keep it centred, clear of the selection ink.
 
 ```dart
 // Live example: navigation-drawer

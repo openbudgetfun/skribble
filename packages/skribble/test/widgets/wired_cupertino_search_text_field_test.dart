@@ -170,17 +170,10 @@ void main() {
 
     testWidgets('honors a custom height', (tester) async {
       await pumpSubject(tester, height: 52, autofocus: false);
-      final sized = tester.widget<SizedBox>(
-        find
-            .descendant(
-              of: find.byType(WiredCupertinoSearchTextField),
-              matching: find.byWidgetPredicate(
-                (w) => w is SizedBox && w.height == 52,
-              ),
-            )
-            .first,
+      expect(
+        tester.getSize(find.byType(WiredCupertinoSearchTextField)).height,
+        52,
       );
-      expect(sized.height, 52);
     });
 
     testWidgets('sets textField semantics with a semantic label', (

@@ -120,6 +120,8 @@ WiredCupertinoListTile(
 
 A stadium-shaped search input equivalent to `CupertinoSearchTextField`. It has a hand-drawn rounded border, a sketchy rough magnifier prefix glyph, placeholder support, and submit handling. Built on `EditableText` (flutter/widgets only).
 
+`height` defaults to 40 and is a minimum: the field grows with larger text, with 12 pixels between the pill and its contents.
+
 ```dart
 // Live example: cupertino-search-text-field
 WiredCupertinoSearchTextField(
@@ -155,6 +157,8 @@ WiredCupertinoSearchTextField(
 
 Drag either wheel with a mouse or touch to change its value, or click a nearby row. Wheel labels use the active Wired font and its Gentle, Playful, or Expressive variant. The same input and typography behavior applies to `WiredCupertinoPicker` wherever it is used.
 
+`itemExtent` defaults to 40, so each row clears the hand-drawn selection band.
+
 An iOS timer picker built by composing hour / minute / second wheels on top of `WiredCupertinoPicker`, so the sketches on the borders and center highlight come straight from the picker internals. Modes: `hm` (default), `hms`, and `ms`. Wheel granularity is controlled with `minuteInterval` / `secondInterval` (both must evenly divide 60).
 
 ```dart
@@ -182,6 +186,8 @@ WiredCupertinoTimerPicker(
 ## WiredCupertinoFormSection
 
 A grouped form-section wrapper equivalent to `CupertinoFormSection.insetGrouped`. Children sit in one hand-drawn rounded rectangle with sketchy dividers between rows, plus optional header/footer text. Unlike `WiredCupertinoListSection`, the group is left unfilled so nested inputs keep a clean paper background.
+
+Rows sit `kWiredInkPadding` inside the section border.
 
 ```dart
 // Live example: cupertino-form-section

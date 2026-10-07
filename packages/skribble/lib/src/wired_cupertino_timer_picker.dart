@@ -63,7 +63,7 @@ class WiredCupertinoTimerPicker extends HookWidget {
     this.minuteInterval = 1,
     this.secondInterval = 1,
     required this.onTimerDurationChanged,
-    this.itemExtent = 32,
+    this.itemExtent = 40,
     this.height = 216,
   }) : assert(
          minuteInterval > 0 && 60 % minuteInterval == 0,

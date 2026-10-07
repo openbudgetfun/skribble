@@ -126,7 +126,7 @@ class NavigationPage extends HookWidget {
                 title: 'Navigation Rail',
                 description: 'Vertical navigation.',
                 child: SizedBox(
-                  height: 200,
+                  height: 240,
                   child: WiredNavigationRail(
                     selectedIndex: railIndex.value,
                     onDestinationSelected: (i) => railIndex.value = i,

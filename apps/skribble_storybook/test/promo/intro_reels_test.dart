@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble/testing.dart';
 import 'package:skribble_storybook/promo/intro_reels.dart';
 
 import '../support/skribble_fonts.dart';
@@ -47,6 +48,12 @@ void main() {
         for (var t = 0.0; t < seconds; t += .5) {
           await tester.pumpWidget(reel.build(t));
           expect(tester.takeException(), isNull, reason: '${reel.slug} at $t');
+          // Every frame keeps the ink padding, so no label crowds its line.
+          expect(
+            crampedText(tester.binding.renderViews.first),
+            isEmpty,
+            reason: '${reel.slug} at $t',
+          );
         }
         for (final MapEntry(key: t, value: line) in _lines[reel]!.entries) {
           await tester.pumpWidget(reel.build(t));

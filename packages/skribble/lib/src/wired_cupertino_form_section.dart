@@ -86,14 +86,18 @@ class WiredCupertinoFormSection extends HookWidget {
                   fillerType: RoughFilter.noFiller,
                 ),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  for (var i = 0; i < children.length; i++) ...[
-                    children[i],
-                    if (i < children.length - 1) _buildDivider(theme),
+              // Rows keep the ink's breathing room from the section border.
+              Padding(
+                padding: kWiredInkPadding,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (var i = 0; i < children.length; i++) ...[
+                      children[i],
+                      if (i < children.length - 1) _buildDivider(theme),
+                    ],
                   ],
-                ],
+                ),
               ),
             ],
           ),

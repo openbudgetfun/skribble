@@ -8,7 +8,12 @@ Widget _inkReveal(ExampleSettings settings) => HookBuilder(
       children: [
         WiredDraw(
           key: ValueKey(replay.value),
-          child: WiredCard(child: Text(settings.label)),
+          child: WiredCard(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(settings.label),
+            ),
+          ),
         ),
         const SizedBox(height: 16),
         WiredOutlinedButton(
@@ -23,12 +28,23 @@ Widget _inkReveal(ExampleSettings settings) => HookBuilder(
 /// @docs-example ink-progress
 Widget _inkProgress(ExampleSettings settings) => WiredDrawTransition(
   progress: AlwaysStoppedAnimation(settings.amount),
-  child: WiredCard(child: Text(settings.label)),
+  child: WiredCard(
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Text(settings.label),
+    ),
+  ),
 );
 
 /// @docs-example ink-basic
-Widget _inkBasic(ExampleSettings settings) =>
-    WiredDraw(child: WiredCard(child: Text(settings.label)));
+Widget _inkBasic(ExampleSettings settings) => WiredDraw(
+  child: WiredCard(
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Text(settings.label),
+    ),
+  ),
+);
 
 /// @docs-example redraw-button
 Widget _redrawButton(ExampleSettings settings) => WiredFilledButton(

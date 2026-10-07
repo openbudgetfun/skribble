@@ -428,8 +428,8 @@ class FeedbackPage extends HookWidget {
                       itemCount: 20,
                       itemBuilder: (_, i) => Padding(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 4,
-                          horizontal: 8,
+                          vertical: 6,
+                          horizontal: 12,
                         ),
                         child: Text('Scrollbar item $i'),
                       ),

@@ -141,9 +141,12 @@ class _WiredDrawerItem extends HookWidget {
     final theme = WiredTheme.of(context);
     return GestureDetector(
       onTap: onTap,
-      child: SizedBox(
-        height: 48,
+      // At least 48 tall, taller with larger text, and the label always in
+      // the middle, clear of the selection's ink.
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 48),
         child: Stack(
+          alignment: AlignmentDirectional.centerStart,
           children: [
             if (isSelected)
               Positioned.fill(
@@ -158,7 +161,7 @@ class _WiredDrawerItem extends HookWidget {
                 ),
               ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 children: [
                   WiredIcon(

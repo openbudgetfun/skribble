@@ -50,6 +50,8 @@ WiredInput(
 
 A multi-line text input with a hand-drawn rectangle border. The border fills behind the text area using `Positioned.fill`.
 
+Text sits 12 pixels from the side ink and 10 from the top.
+
 ```dart
 // Live example: text-area
 WiredTextArea(
@@ -79,6 +81,8 @@ WiredTextArea(
 ## WiredSearchBar
 
 A search input with a pill-shaped hand-drawn border (24px border radius). Includes a leading search icon and optional trailing widget.
+
+The pill is at least 48 pixels tall, grows with its text, and leaves 16 pixels at each curved end.
 
 ```dart
 // Live example: search-bar
@@ -484,6 +488,8 @@ WiredForm(
 ## WiredAutocomplete
 
 A hand-drawn autocomplete field that displays suggestions in a sketchy dropdown as the user types. Wraps Flutter's `Autocomplete` widget.
+
+The field is at least 48 pixels tall and keeps 12 pixels between the ink and the text.
 
 ```dart
 // Live example: autocomplete

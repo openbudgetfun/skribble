@@ -250,8 +250,9 @@ class LayoutPage extends HookWidget {
                         Text('Use this as the default Material page shell.'),
                         SizedBox(height: 12),
                         WiredCard(
+                          height: null,
                           child: Padding(
-                            padding: EdgeInsets.all(12),
+                            padding: EdgeInsets.all(16),
                             child: Text(
                               'Body content keeps the light paper tone.',
                             ),
@@ -437,7 +438,7 @@ class _MergeableShowcase extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(16),
             child: Text(
               'Mergeable slices expand and collapse with a hand-drawn divider '
               'that animates open and closed.',
@@ -464,7 +465,7 @@ class _MergeableShowcase extends HookWidget {
                   const WiredMaterialSlice(
                     key: ValueKey('extra'),
                     child: Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(16),
                       child: Text('Second slice'),
                     ),
                   ),

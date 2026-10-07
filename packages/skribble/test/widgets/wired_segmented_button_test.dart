@@ -185,22 +185,15 @@ void main() {
       );
     });
 
-    testWidgets('has correct height of 42', (tester) async {
+    testWidgets('is at least kWiredButtonHeight tall', (tester) async {
       await pumpApp(
         tester,
         WiredSegmentedButton<String>(segments: segments, selected: const {'a'}),
       );
-
-      final sizedBox = tester.widget<SizedBox>(
-        find
-            .descendant(
-              of: find.byType(WiredSegmentedButton<String>),
-              matching: find.byType(SizedBox),
-            )
-            .first,
+      expect(
+        tester.getSize(find.byType(WiredSegmentedButton<String>)).height,
+        kWiredButtonHeight,
       );
-
-      expect(sizedBox.height, 42.0);
     });
 
     testWidgets('contains WiredCanvas for the outer border', (tester) async {

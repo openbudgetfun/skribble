@@ -109,8 +109,8 @@ Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
 
   return Container(
-    height: height,
-    padding: const EdgeInsets.all(12),
+    constraints: BoxConstraints(minHeight: height),
+    padding: kWiredInkPadding,
     decoration: RoughBoxDecoration(
       shape: RoughBoxShape.rectangle,
       borderStyle: RoughDrawingStyle(
@@ -132,6 +132,14 @@ Widget build(BuildContext context) {
   );
 }
 ```
+
+### Give the ink room to breathe
+
+Hand-drawn lines wobble and have width, so content needs more space from a sketched border than from a straight one. Every skribble control keeps at least `kWiredInkPadding` between its ink and its content: 8 pixels above and below, 12 at the sides. Buttons and chips use `kWiredButtonPadding`, which is 16 at the sides.
+
+Use heights as minimums, never as fixed sizes. Write `constraints: BoxConstraints(minHeight: kWiredButtonHeight)` rather than `height: kWiredButtonHeight`, so the control grows when its label does: a larger font, a longer translation, or the platform's text scaling. A fixed height squeezes the text against the line instead.
+
+`package:skribble/testing.dart` checks this for you; see [Testing](testing#check-the-inks-breathing-room).
 
 ## Step 5: Wrap with buildWiredElement()
 
@@ -436,6 +444,7 @@ Before submitting your widget:
 - [ ] Widget extends `HookWidget` (not `StatefulWidget`)
 - [ ] Theme read via `WiredTheme.of(context)`
 - [ ] `RoughBoxDecoration` used for sketchy borders
+- [ ] Content keeps `kWiredInkPadding` from the ink, and heights are minimums so the widget grows with its text
 - [ ] `buildWiredElement()` wraps the tree for repaint isolation
 - [ ] `semanticLabel` parameter and `Semantics` wrapper included
 - [ ] Exported from `packages/skribble/lib/skribble.dart`

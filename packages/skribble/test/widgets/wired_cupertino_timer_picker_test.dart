@@ -73,7 +73,7 @@ void main() {
       await pumpSubject(tester);
 
       // Scroll the minutes wheel up by exactly one item.
-      await tester.drag(find.text('00 minutes'), const Offset(0, -32));
+      await tester.drag(find.text('00 minutes'), const Offset(0, -40));
       await tester.pumpAndSettle();
       expect(durations.last, const Duration(minutes: 1));
     });
@@ -81,7 +81,7 @@ void main() {
     testWidgets('reports hour wheel changes via callback', (tester) async {
       await pumpSubject(tester);
 
-      await tester.drag(find.text('00 hours'), const Offset(0, -3 * 32));
+      await tester.drag(find.text('00 hours'), const Offset(0, -3 * 40));
       await tester.pumpAndSettle();
       expect(durations.last, const Duration(hours: 3, minutes: 0));
     });
@@ -95,7 +95,7 @@ void main() {
       expect(find.text('07 minutes'), findsNothing);
 
       // Scrolling one item moves 15 minutes.
-      await tester.drag(find.text('00 minutes'), const Offset(0, -32));
+      await tester.drag(find.text('00 minutes'), const Offset(0, -40));
       await tester.pumpAndSettle();
       expect(durations.last, const Duration(minutes: 15));
     });
@@ -106,8 +106,8 @@ void main() {
         mode: WiredCupertinoTimerPickerMode.hms,
         secondInterval: 10,
       );
-      expect(find.text('50 seconds'), findsOneWidget);
       expect(find.text('10 seconds'), findsOneWidget);
+      expect(find.text('20 seconds'), findsOneWidget);
       expect(find.text('11 seconds'), findsNothing);
     });
 
@@ -140,7 +140,7 @@ void main() {
       final picker = tester.widget<WiredCupertinoPicker>(
         find.byType(WiredCupertinoPicker).first,
       );
-      expect(picker.itemExtent, 32);
+      expect(picker.itemExtent, 40);
       expect(picker.height, 216);
     });
 
