@@ -1,6 +1,43 @@
+import 'dart:ui' as ui;
+
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble/src/canvas/wired_painter.dart';
+
+/// The colour of the logo's pixel at [point] in its 100-unit design space.
+Future<Color> _pixel(WidgetTester tester, Offset point) async {
+  final boundary = tester.renderObject<RenderRepaintBoundary>(
+    find
+        .descendant(
+          of: find.byType(WiredLogo),
+          matching: find.byType(RepaintBoundary),
+        )
+        .first,
+  );
+  final size = boundary.size;
+  final x = (point.dx * size.width / 100).round();
+  final y = (point.dy * size.height / 100).round();
+  final bytes = (await tester.runAsync(() async {
+    final image = await boundary.toImage();
+    final data = await image.toByteData();
+    image.dispose();
+    return data;
+  }))!;
+  final offset = (y * size.width.round() + x) * 4;
+  return Color.fromARGB(
+    bytes.getUint8(offset + 3),
+    bytes.getUint8(offset),
+    bytes.getUint8(offset + 1),
+    bytes.getUint8(offset + 2),
+  );
+}
+
+Finder _layers() => find.descendant(
+  of: find.byType(WiredLogo),
+  matching: find.byType(WiredCanvas),
+);
 
 void main() {
   testWidgets('uses the default 48 px square', (tester) async {
@@ -48,6 +85,131 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('inks a marker face and rosy cheeks', (tester) async {
+    await tester.pumpWidget(_app(const WiredLogo(size: 100)));
+    expect(_layers(), findsNWidgets(3));
+    // Between the eyes, the face shows the theme's marker colour.
+    expect(await _pixel(tester, const Offset(50, 40)), WiredPalette.lilac);
+    // The cheek beside the smile is blush.
+    expect(await _pixel(tester, const Offset(33.5, 55)), WiredPalette.blush);
+  });
+
+  testWidgets('takes its colours from the theme at night', (tester) async {
+    await tester.pumpWidget(
+      _app(
+        WiredTheme(
+          data: WiredThemeData.cuddly(brightness: Brightness.dark),
+          child: const WiredLogo(size: 100),
+        ),
+      ),
+    );
+    expect(await _pixel(tester, const Offset(50, 40)), WiredPalette.dusk);
+    // The left bracket is inked in the night text colour.
+    expect(await _pixel(tester, const Offset(9.5, 50)), WiredPalette.paper);
+  });
+
+  testWidgets('transparent face and cheeks leave a single-colour mark', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _app(
+        const WiredLogo(
+          size: 100,
+          color: WiredPalette.coral,
+          faceColor: Color(0x00000000),
+          cheekColor: Color(0x00000000),
+        ),
+      ),
+    );
+    expect(_layers(), findsOneWidget);
+    expect(await _pixel(tester, const Offset(9.5, 50)), WiredPalette.coral);
+    expect((await _pixel(tester, const Offset(50, 40))).a, 0);
+  });
+
+  testWidgets('draws itself in under a draw transition', (tester) async {
+    final progress = ValueNotifier<double>(0);
+    addTearDown(progress.dispose);
+    await tester.pumpWidget(
+      _app(
+        ValueListenableBuilder<double>(
+          valueListenable: progress,
+          builder: (context, value, _) => WiredDrawTransition(
+            progress: AlwaysStoppedAnimation(value),
+            child: const WiredLogo(size: 100),
+          ),
+        ),
+      ),
+    );
+    // Before the pen moves, the bracket is still blank paper.
+    expect((await _pixel(tester, const Offset(9.5, 50))).a, 0);
+    progress.value = 1;
+    await tester.pump();
+    expect(await _pixel(tester, const Offset(9.5, 50)), WiredPalette.ink);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('equal colours make equal painters, so geometry is reused', (
+    tester,
+  ) async {
+    List<WiredPainterBase> painters() => [
+      for (final paint in tester.widgetList<CustomPaint>(
+        find.descendant(
+          of: find.byType(WiredLogo),
+          matching: find.byType(CustomPaint),
+        ),
+      ))
+        if (paint.painter case final WiredPainter painter) painter.painter,
+    ];
+    await tester.pumpWidget(
+      _app(const WiredLogo(key: ValueKey(1), size: 100)),
+    );
+    final first = painters();
+    expect(first, hasLength(3));
+    await tester.pumpWidget(
+      _app(const WiredLogo(key: ValueKey(2), size: 100)),
+    );
+    final second = painters();
+    expect(second, first);
+    expect(
+      second.map((painter) => painter.hashCode),
+      first.map((painter) => painter.hashCode),
+    );
+    await tester.pumpWidget(
+      _app(const WiredLogo(size: 100, color: WiredPalette.coral)),
+    );
+    expect(painters().last, isNot(first.last));
+  });
+
+  testWidgets('paints the same outside a canvas', (tester) async {
+    await tester.pumpWidget(_app(const WiredLogo(size: 100)));
+    final ink = tester
+        .widgetList<CustomPaint>(
+          find.descendant(
+            of: find.byType(WiredLogo),
+            matching: find.byType(CustomPaint),
+          ),
+        )
+        .map((paint) => (paint.painter! as WiredPainter).painter)
+        .last;
+    final recorder = ui.PictureRecorder();
+    ink.paintRough(
+      Canvas(recorder),
+      const Size.square(100),
+      DrawConfig.build(),
+      NoFiller(FillerConfig.defaultConfig),
+    );
+    final bytes = (await tester.runAsync(() async {
+      final image = await recorder.endRecording().toImage(100, 100);
+      final data = await image.toByteData();
+      image.dispose();
+      return data;
+    }))!;
+    // The left bracket at (9.5, 50) is inked; the paper beside it is not.
+    int alphaAt(int x, int y) => bytes.getUint8((y * 100 + x) * 4 + 3);
+    expect(alphaAt(10, 50), 255);
+    expect(alphaAt(2, 50), 0);
+  });
+
   testWidgets('zero size and rapid theme changes remain still', (tester) async {
     await tester.pumpWidget(_app(const WiredLogo(size: 0)));
     expect(tester.getSize(find.byType(WiredLogo)), Size.zero);
@@ -72,5 +234,8 @@ void main() {
 
 Widget _app(Widget child) => Directionality(
   textDirection: TextDirection.ltr,
-  child: Center(child: child),
+  child: WiredTheme(
+    data: WiredThemeData.cuddly(),
+    child: Center(child: child),
+  ),
 );

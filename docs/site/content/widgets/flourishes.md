@@ -46,9 +46,29 @@ Stack(
 
 Wrap a drawing in `WiredDraw` for a one-time entrance, or use `WiredDrawTransition` with an animation you own. Reduced-motion preferences take precedence. Ordinary drawings have no ticker and never move by themselves.
 
-## The bracketed smile
+## The logo: inked brackets
 
-`WiredLogo(size: 48)` renders the skribble logo in the surrounding text color. Set `semanticLabel: null` when nearby text already identifies the brand. The mark has fixed geometry and does not change with roughness or seed.
+`WiredLogo(size: 48)` renders the skribble logo: a smiling face in square brackets, inked with a fineliner over a marker-filled face with rosy cheeks. The ink is the theme's text colour and the face its marker colour, so the logo reads on day and night paper. The outlines have fixed geometry and ink the same way at every roughness, so the mark stays recognisable everywhere.
+
+```dart
+// Static example: api
+
+// The full-colour mark.
+const WiredLogo(size: 96)
+
+// A single-colour mark, such as for a stamp or a watermark.
+const WiredLogo(
+  size: 96,
+  color: WiredPalette.coral,
+  faceColor: Color(0x00000000),
+  cheekColor: Color(0x00000000),
+)
+
+// Watch the pen draw it.
+WiredDrawTransition(progress: animation, child: const WiredLogo(size: 96))
+```
+
+Set `semanticLabel: null` when nearby text already identifies the brand. `cheekColor` defaults to `WiredPalette.blush`. The `mark` loader style sketches the same outlines with the same pen weight, so a splash hands over to `WiredLogo` without the mark jumping.
 
 ## Figma and downloads
 

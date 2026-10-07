@@ -112,7 +112,7 @@ class WiredLoader extends HookWidget {
               // in drawing units; every other rhythm is measured in logical
               // pixels at the requested size.
               pen: style == WiredLoaderStyle.mark
-                  ? strokeWidth * 1.8
+                  ? strokeWidth * 2.6
                   : size == 0
                   ? 0
                   : strokeWidth * 100 / size,

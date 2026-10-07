@@ -32,7 +32,7 @@ Verify the uploaded asset size and SHA-256 digest before sharing the download li
 
 ## Brand and flourishes
 
-The refined logo preserves Ifiok Jr.'s smile inside square brackets. It uses fewer overlapping strokes, round pen endings, and generous space around the face. Light, dark, lilac, and transparent SVG variants live in `assets/brand`. The browser favicon has a stronger pen for small sizes.
+The logo is the **inked brackets**: Ifiok Jr.'s smile inside square brackets, inked with a fineliner over a marker-filled face with rosy cheeks. The brackets say code, the face says fun. The face is the marker colour of its paper (lilac `#E5DDF4` by day, dusk `#4A3B5E` by night, paper on lilac), offset a little from its outline the way every skribble fill misses the line, and the cheeks are blush `#F59C9C`. Light, dark, lilac, and transparent SVG variants live in `assets/brand`; the docs and storybook favicons and the storybook's web app icons (including a maskable one) are written by the same tool, with a stronger pen for small sizes. `WiredLogo` draws the same paths in Flutter.
 
 Nineteen flourishes have three exported seed samples each. Flutter accepts any integer seed. The same pure Dart cubic geometry produces both the widget paths and the SVG artwork. Scribbles vary their angle and loop count with the seed; the other marks keep their silhouette while receiving a smooth, repeatable ink wobble:
 

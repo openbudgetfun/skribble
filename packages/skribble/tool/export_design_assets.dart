@@ -15,21 +15,19 @@ void main() {
   Directory('assets/brand').createSync(recursive: true);
   Directory('assets/flourishes').createSync(recursive: true);
 
+  // The face takes the theme's marker colour on day and night paper, and
+  // paper on lilac, where a lilac face would vanish.
   for (final variant in [
-    (name: 'light', ink: '#34283F', paper: '#FFFAF0'),
-    (name: 'dark', ink: '#FFFAF0', paper: '#292331'),
-    (name: 'lilac', ink: '#34283F', paper: '#E5DDF4'),
+    (name: 'light', ink: '#34283F', face: '#E5DDF4', paper: '#FFFAF0'),
+    (name: 'dark', ink: '#FFFAF0', face: '#4A3B5E', paper: '#292331'),
+    (name: 'lilac', ink: '#34283F', face: '#FFFAF0', paper: '#E5DDF4'),
   ]) {
-    final svg = _svg(
-      logoGeometry(),
-      variant.ink,
-      background: variant.paper,
-      width: 3.6,
+    File('assets/brand/skribble-${variant.name}.svg').writeAsStringSync(
+      _logoSvg(ink: variant.ink, face: variant.face, background: variant.paper),
     );
-    File('assets/brand/skribble-${variant.name}.svg').writeAsStringSync(svg);
     File(
       'assets/brand/skribble-${variant.name}-transparent.svg',
-    ).writeAsStringSync(_svg(logoGeometry(), variant.ink, width: 3.6));
+    ).writeAsStringSync(_logoSvg(ink: variant.ink, face: variant.face));
   }
 
   for (final kind in WiredDoodleKind.values) {
@@ -40,8 +38,30 @@ void main() {
     }
   }
 
-  File('docs/site/web/favicon.svg').writeAsStringSync(
-    _svg(logoGeometry(), '#34283F', background: '#FFFAF0', width: 5),
+  // Browsers show favicons tiny, so they get a stronger pen.
+  final favicon = _logoSvg(
+    ink: '#34283F',
+    face: '#E5DDF4',
+    background: '#FFFAF0',
+    width: 6,
+  );
+  File('docs/site/web/favicon.svg').writeAsStringSync(favicon);
+  File('apps/skribble_storybook/web/favicon.svg').writeAsStringSync(favicon);
+  Directory('apps/skribble_storybook/web/icons').createSync(recursive: true);
+  File('apps/skribble_storybook/web/icons/skribble.svg').writeAsStringSync(
+    favicon,
+  );
+  // Maskable icons fill the square and keep the mark in the central safe zone.
+  File(
+    'apps/skribble_storybook/web/icons/skribble-maskable.svg',
+  ).writeAsStringSync(
+    _logoSvg(
+      ink: '#34283F',
+      face: '#E5DDF4',
+      background: '#FFFAF0',
+      width: 6,
+      bleed: true,
+    ),
   );
 
   final shapes = <String, Object>{};
@@ -190,6 +210,45 @@ String _svgOps(List<Op> ops) => ops
       }} $points';
     })
     .join(' ');
+
+/// The logo: a marker-filled face with rosy cheeks, inked in brackets.
+///
+/// Mirrors `WiredLogo`: the face sits a little off its outline, the way
+/// every skribble marker fill does. [bleed] fills the whole square and
+/// shrinks the mark into the safe zone of a maskable app icon.
+String _logoSvg({
+  required String ink,
+  required String face,
+  String? background,
+  double width = 5.2,
+  bool bleed = false,
+}) {
+  final rect = background == null
+      ? ''
+      : bleed
+      ? '<rect width="100" height="100" fill="$background"/>'
+      : '<rect width="100" height="100" rx="20" fill="$background"/>';
+  final cheeks = logoCheekGeometry()
+      .map((cheek) => '<path d="${cheek.svgPath}"/>')
+      .join('\n');
+  final strokes = logoGeometry()
+      .map((stroke) => '<path d="${stroke.svgPath}"/>')
+      .join('\n');
+  return '''
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
+$rect
+<g${bleed ? ' transform="translate(15 15) scale(.7)"' : ''}>
+<path d="${logoFaceGeometry().svgPath}" fill="$face" transform="translate(1.4 1.2)"/>
+<g fill="#F59C9C">
+$cheeks
+</g>
+<g stroke="$ink" stroke-width="$width" stroke-linecap="round" stroke-linejoin="round">
+$strokes
+</g>
+</g>
+</svg>
+''';
+}
 
 String _svg(
   List<DoodleStroke> strokes,
