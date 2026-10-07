@@ -19,6 +19,7 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 | `textColor`         | `Color`          | `WiredPalette.ink`                           | Primary text color                                                              |
 | `disabledTextColor` | `Color`          | `WiredPalette.mutedInk`                      | Text color for disabled states                                                  |
 | `fillColor`         | `Color`          | `WiredPalette.paper`                         | Interior fill color for shapes                                                  |
+| `markerColor`       | `Color`          | `WiredPalette.lilac`                         | Highlighter wash under selected and active things, with ink on top              |
 | `strokeWidth`       | `double`         | `2.4`                                        | Default border stroke width                                                     |
 | `roughnessLevel`    | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, pens, and lettering                    |
 | `pen`               | `RoughPen`       | Level pen (`RoughPen.ink` for playful)       | How lines are inked; an explicit constructor value overrides the preset         |
@@ -180,17 +181,19 @@ ColorScheme toColorScheme({Brightness brightness = Brightness.light})
 
 The method uses `ColorScheme.fromSeed` with `borderColor` as the seed, then overrides key slots:
 
-| ColorScheme slot | Mapped from                                          |
-| ---------------- | ---------------------------------------------------- |
-| `primary`        | `borderColor`                                        |
-| `onPrimary`      | Best contrast against `borderColor` (white or black) |
-| `secondary`      | `textColor`                                          |
-| `onSecondary`    | Best contrast against `textColor`                    |
-| `surface`        | `fillColor`                                          |
-| `onSurface`      | `textColor`                                          |
-| `outline`        | `borderColor` at 70% opacity                         |
-| `surfaceTint`    | `borderColor`                                        |
-| `shadow`         | `borderColor` at 12% opacity                         |
+| ColorScheme slot                             | Mapped from                                          |
+| -------------------------------------------- | ---------------------------------------------------- |
+| `primary`                                    | `borderColor`                                        |
+| `onPrimary`                                  | Best contrast against `borderColor` (white or black) |
+| `secondary`                                  | `textColor`                                          |
+| `onSecondary`                                | Best contrast against `textColor`                    |
+| `primaryContainer`, `secondaryContainer`     | `markerColor`                                        |
+| `onPrimaryContainer`, `onSecondaryContainer` | `textColor`                                          |
+| `surface`                                    | `fillColor`                                          |
+| `onSurface`                                  | `textColor`                                          |
+| `outline`                                    | `borderColor` at 70% opacity                         |
+| `surfaceTint`                                | `borderColor`                                        |
+| `shadow`                                     | `borderColor` at 12% opacity                         |
 
 ```dart
 // Static example: api

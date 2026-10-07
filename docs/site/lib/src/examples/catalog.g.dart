@@ -202,8 +202,8 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'progress': ExampleDefinition(
     builder: _linearProgress,
-    source: "HookBuilder(\n  builder: (context) {\n    final controller = useAnimationController(\n      duration: const Duration(milliseconds: 600),\n      initialValue: 1,\n    );\n    return WiredProgress(controller: controller, value: settings.amount);\n  },\n)",
-    edits: [ExampleEdit(220, 235, ExampleParameter.amount)],
+    source: "WiredProgress(value: settings.amount, semanticLabel: 'Uploading')",
+    edits: [ExampleEdit(21, 36, ExampleParameter.amount)],
   ),
   'animated-icon': ExampleDefinition(
     builder: _animatedIcon,

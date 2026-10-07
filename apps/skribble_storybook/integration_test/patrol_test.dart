@@ -21,7 +21,7 @@ void main() {
   patrolTest('navigates to Buttons page and displays components', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
-    await $('Buttons').tap();
+    await _open($, 'Buttons');
 
     for (final label in [
       'WiredButton',
@@ -44,7 +44,7 @@ void main() {
   patrolTest('navigates to Buttons page and back', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
-    await $('Buttons').tap();
+    await _open($, 'Buttons');
     expect($('WiredButton'), findsOneWidget);
 
     await $(BackButton).tap();
@@ -54,7 +54,7 @@ void main() {
   patrolTest('navigates to Inputs page and displays components', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
-    await $('Inputs').tap();
+    await _open($, 'Inputs');
 
     expect($('WiredInput'), findsOneWidget);
     await $('WiredCheckbox').scrollTo();
@@ -64,7 +64,7 @@ void main() {
   patrolTest('navigates to Navigation page', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
-    await $('Navigation').tap();
+    await _open($, 'Navigation');
 
     expect($('WiredAppBar'), findsOneWidget);
   });
@@ -72,8 +72,7 @@ void main() {
   patrolTest('navigates to Selection page', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
-    await $.scrollUntilVisible(finder: $('Selection'));
-    await $('Selection').tap();
+    await _open($, 'Selection');
 
     expect($('WiredChip'), findsOneWidget);
   });
@@ -81,8 +80,7 @@ void main() {
   patrolTest('navigates to Feedback page', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
-    await $.scrollUntilVisible(finder: $('Feedback'));
-    await $('Feedback').tap();
+    await _open($, 'Feedback');
 
     expect($('WiredProgress'), findsOneWidget);
   });
@@ -90,8 +88,7 @@ void main() {
   patrolTest('navigates to Layout page', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
-    await $.scrollUntilVisible(finder: $('Layout'));
-    await $('Layout').tap();
+    await _open($, 'Layout');
 
     expect($('WiredCard'), findsOneWidget);
   });
@@ -99,8 +96,7 @@ void main() {
   patrolTest('navigates to Data Display page', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
-    await $.scrollUntilVisible(finder: $('Data Display'));
-    await $('Data Display').tap();
+    await _open($, 'Data Display');
 
     expect($('WiredCalendar'), findsOneWidget);
   });
@@ -108,7 +104,7 @@ void main() {
   patrolTest('button interaction works on Buttons page', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
-    await $('Buttons').tap();
+    await _open($, 'Buttons');
 
     // Verify the basic button is tappable.
     await $('Click Me').tap();
@@ -117,7 +113,7 @@ void main() {
   patrolTest('segmented button toggles selection', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
-    await $('Buttons').tap();
+    await _open($, 'Buttons');
 
     // Scroll to the segmented button section.
     await $('Week').scrollTo(step: 250, maxScrolls: 50);
@@ -133,4 +129,12 @@ void main() {
       {'week'},
     );
   });
+}
+
+/// Opens a storybook category from the home page. The hero and the
+/// playground sit above the category grid, so the card is scrolled into view
+/// before it is tapped.
+Future<void> _open(PatrolIntegrationTester $, String category) async {
+  await $.scrollUntilVisible(finder: $(category));
+  await $(category).tap();
 }

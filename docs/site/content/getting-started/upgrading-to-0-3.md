@@ -138,3 +138,27 @@ SkribbleEmoji.search('cat');
 | `WiredSvgIconData` re-exports                        | import them from `package:skribble/skribble.dart` instead |
 
 Snake-case identifiers now come from the Unicode short name, so OpenMoji's own extra, non-Unicode emoji and their names are gone. New in 0.3 are `WiredEmojiText` for emoji inside text, skin tones through `SkribbleEmoji.withTone`, and poseable parts through `EmojiDrawing.paint(canvas, pose: ...)`. See [Emoji](/widgets/emoji).
+
+## Selection is marked, not inverted
+
+`WiredThemeData` has a new colour role, `markerColor`: a highlighter wash under selected and active things, with ink still drawing the shape and label on top. Navigation bar and rail indicators, navigation drawer selections, progress and slider fills, switch tracks, toggle buttons, stepper circles, and the Cupertino segmented control, switch, and slider now use it in place of dense ink hatching or white text. Labels on selected items stay in `textColor`, so they are readable on every paper.
+
+It defaults to `WiredPalette.lilac` on day paper and `WiredPalette.dusk` on night paper. Set your own with `WiredThemeData(markerColor: ...)`.
+
+The Cupertino controls also stop defaulting to iOS system colours: their selected, active, and thumb colours come from the theme unless you pass one, and `WiredCupertinoSlider.thumbColor` is now nullable.
+
+## `WiredProgress` takes a value
+
+`WiredProgress` no longer needs an `AnimationController`. Give it the progress, and it glides to each new value; leave the value out for an indeterminate sweep:
+
+```dart
+// Static example: api
+// Before
+WiredProgress(controller: controller, value: 0.3);
+
+// After
+WiredProgress(value: uploaded / total, semanticLabel: 'Uploading');
+const WiredProgress(); // indeterminate
+```
+
+It no longer wraps a Material `LinearProgressIndicator`, and reports its percentage to screen readers.

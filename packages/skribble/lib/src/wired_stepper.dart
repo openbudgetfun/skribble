@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'generated/skribble_glyphs.g.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -96,28 +95,25 @@ class WiredStepper extends HookWidget {
                   painter: WiredCircleBase(
                     strokeWidth: theme.strokeWidth,
                     diameterRatio: 0.85,
-                    fillColor: isCompleted || isActive
-                        ? theme.borderColor
-                        : theme.fillColor,
+                    fillColor: theme.markerColor,
                     borderColor: theme.borderColor,
                   ),
                   fillerType: isCompleted || isActive
-                      ? RoughFilter.hachureFiller
+                      ? RoughFilter.solidFiller
                       : RoughFilter.noFiller,
-                  fillerConfig: FillerConfig.build(hachureGap: 2.0),
                 ),
                 if (isCompleted)
                   WiredSvgIcon(
                     data: SkribbleGlyphs.check,
                     size: 16,
-                    color: theme.fillColor,
-                    weight: 300,
+                    color: theme.textColor,
+                    weight: 500,
                   )
                 else
                   Text(
                     '${index + 1}',
                     style: TextStyle(
-                      color: isActive ? theme.fillColor : theme.textColor,
+                      color: theme.textColor,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),

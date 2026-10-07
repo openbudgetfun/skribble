@@ -26,6 +26,14 @@ class WiredThemeData {
   final Color textColor;
   final Color disabledTextColor;
   final Color fillColor;
+
+  /// The highlighter wash under selected and active things: navigation
+  /// indicators, progress and slider fills, switch tracks, and selected
+  /// segments.
+  ///
+  /// Ink still draws the shape and the label on top, so selection never
+  /// relies on this colour alone.
+  final Color markerColor;
   final double strokeWidth;
   final DrawConfig? _drawConfig;
 
@@ -62,6 +70,7 @@ class WiredThemeData {
     this.textColor = WiredPalette.ink,
     this.disabledTextColor = WiredPalette.mutedInk,
     this.fillColor = WiredPalette.paper,
+    this.markerColor = WiredPalette.lilac,
     this.strokeWidth = 2.4,
     this.roughnessLevel = WiredRoughness.playful,
     this.font = WiredFont.casual,
@@ -91,6 +100,9 @@ class WiredThemeData {
     fillColor: brightness == Brightness.dark
         ? WiredPalette.night
         : WiredPalette.paper,
+    markerColor: brightness == Brightness.dark
+        ? WiredPalette.dusk
+        : WiredPalette.lilac,
     roughnessLevel: roughnessLevel,
   );
 
@@ -120,6 +132,7 @@ class WiredThemeData {
           textColor == other.textColor &&
           disabledTextColor == other.disabledTextColor &&
           fillColor == other.fillColor &&
+          markerColor == other.markerColor &&
           strokeWidth == other.strokeWidth &&
           roughnessLevel == other.roughnessLevel &&
           font == other.font &&
@@ -136,6 +149,7 @@ class WiredThemeData {
     textColor,
     disabledTextColor,
     fillColor,
+    markerColor,
     strokeWidth,
     roughnessLevel,
     font,
@@ -152,6 +166,7 @@ class WiredThemeData {
     Color? textColor,
     Color? disabledTextColor,
     Color? fillColor,
+    Color? markerColor,
     double? strokeWidth,
     DrawConfig? drawConfig,
     double? roughness,
@@ -167,6 +182,7 @@ class WiredThemeData {
       textColor: textColor ?? this.textColor,
       disabledTextColor: disabledTextColor ?? this.disabledTextColor,
       fillColor: fillColor ?? this.fillColor,
+      markerColor: markerColor ?? this.markerColor,
       strokeWidth: strokeWidth ?? this.strokeWidth,
       drawConfig: drawConfig ?? _drawConfig,
       roughnessLevel: roughnessLevel ?? this.roughnessLevel,
@@ -200,6 +216,10 @@ class WiredThemeData {
       onPrimary: _bestContrastingColor(borderColor),
       secondary: textColor,
       onSecondary: _bestContrastingColor(textColor),
+      primaryContainer: markerColor,
+      onPrimaryContainer: textColor,
+      secondaryContainer: markerColor,
+      onSecondaryContainer: textColor,
       surface: fillColor,
       onSurface: textColor,
       outline: borderColor.withValues(alpha: 0.7),

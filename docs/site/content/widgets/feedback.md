@@ -122,27 +122,35 @@ WiredTooltip(
 
 ## WiredProgress
 
-A hand-drawn linear progress bar. Renders a sketchy rectangle track with a hachure-filled progress region that animates via an `AnimationController`.
+A hand-drawn linear progress bar. Give it a `value` from 0 to 1 and the marker fill glides to it; leave the value out while the amount is unknown and a stretch of marker sweeps along the track.
 
 ```dart
 // Live example: progress
-HookBuilder(
-  builder: (context) {
-    final controller = useAnimationController(
-      duration: const Duration(milliseconds: 600),
-      initialValue: 1,
-    );
-    return WiredProgress(controller: controller, value: .6);
-  },
-)
+WiredProgress(value: .6, semanticLabel: 'Uploading')
+```
+
+Leave the value out while the amount of work is unknown:
+
+```dart
+// Static example: api
+const WiredProgress(semanticLabel: 'Working');
 ```
 
 ### Constructor parameters
 
-| Parameter    | Type                  | Default      | Description                          |
-| ------------ | --------------------- | ------------ | ------------------------------------ |
-| `controller` | `AnimationController` | **required** | Drives the progress animation.       |
-| `value`      | `double`              | `0.0`        | Initial progress value (0.0 to 1.0). |
+| Parameter       | Type      | Default | Description                                    |
+| --------------- | --------- | ------- | ---------------------------------------------- |
+| `value`         | `double?` | `null`  | Progress from 0 to 1, or null when unknown.    |
+| `height`        | `double`  | `20`    | Track height in logical pixels.                |
+| `semanticLabel` | `String?` | `null`  | Accessible description, read with the percent. |
+
+### Notes
+
+- The fill is the theme's `markerColor` under an ink outline.
+- The glide is decorative and settles immediately when `WiredMotion` or the platform turns motion off. The indeterminate sweep keeps moving, like Flutter's own indicators, because it tells people work is happening.
+- Values outside 0 to 1 are clamped. Right-to-left text fills from the right.
+
+------------ | --------------------- | ------------ | ------------------------------------ | | `controller` | `AnimationController` | **required** | Drives the progress animation. | | `value` | `double` | `0.0` | Initial progress value (0.0 to 1.0). |
 
 ### Notes
 

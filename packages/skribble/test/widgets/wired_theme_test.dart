@@ -13,6 +13,7 @@ void main() {
       expect(theme.textColor, WiredPalette.ink);
       expect(theme.disabledTextColor, WiredPalette.mutedInk);
       expect(theme.fillColor, WiredPalette.paper);
+      expect(theme.markerColor, WiredPalette.lilac);
       expect(theme.strokeWidth, 2.4);
       expect(theme.roughness, 1.5);
       expect(theme.fontFamily, skribbleFontFamily);
@@ -74,6 +75,21 @@ void main() {
 
       expect(theme.paperBackgroundColor, isNot(theme.fillColor));
       expect(theme.paperBackgroundColor.alpha, 0xFF);
+    });
+
+    test('the marker is a deep plum wash at night', () {
+      final night = WiredThemeData.cuddly(brightness: Brightness.dark);
+      expect(night.markerColor, WiredPalette.dusk);
+      expect(WiredThemeData.cuddly().markerColor, WiredPalette.lilac);
+    });
+
+    test('toColorScheme maps the marker to the container colours', () {
+      final scheme = WiredThemeData(
+        markerColor: WiredPalette.sage,
+      ).toColorScheme();
+      expect(scheme.primaryContainer, WiredPalette.sage);
+      expect(scheme.secondaryContainer, WiredPalette.sage);
+      expect(scheme.onPrimaryContainer, WiredPalette.ink);
     });
 
     test('toColorScheme maps Skribble palette to Material colors', () {
@@ -179,6 +195,15 @@ void main() {
         final copied = original.copyWith(fillColor: Colors.cyan);
 
         expect(copied.fillColor, Colors.cyan);
+      });
+
+      test('returns new instance with updated markerColor', () {
+        final original = WiredThemeData();
+        final copied = original.copyWith(markerColor: WiredPalette.butter);
+
+        expect(copied.markerColor, WiredPalette.butter);
+        expect(copied, isNot(original));
+        expect(copied, original.copyWith(markerColor: WiredPalette.butter));
       });
 
       test('returns new instance with updated strokeWidth', () {

@@ -14,6 +14,11 @@ void main() {
       addTearDown(clearWiredIconCatalog);
       storybook.main();
       await tester.pumpAndSettle();
+      // The home page is drawn with emoji; the navigation demos carry icons.
+      tester
+          .state<NavigatorState>(find.byType(Navigator).first)
+          .pushNamed('/navigation');
+      await tester.pumpAndSettle();
       final icons = find.byType(WiredIcon);
       expect(icons, findsWidgets);
       for (final icon in icons.evaluate()) {

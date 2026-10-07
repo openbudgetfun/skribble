@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -38,8 +37,8 @@ class WiredCupertinoSlider extends HookWidget {
   /// The inactive color of the track.
   final Color? inactiveColor;
 
-  /// The color of the thumb.
-  final Color thumbColor;
+  /// The color of the thumb. Defaults to the theme's paper.
+  final Color? thumbColor;
 
   static const double _trackHeight = 4.0;
   static const double _thumbSize = 28.0;
@@ -56,14 +55,14 @@ class WiredCupertinoSlider extends HookWidget {
     this.divisions,
     this.activeColor,
     this.inactiveColor,
-    this.thumbColor = CupertinoColors.white,
+    this.thumbColor,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final enabled = onChanged != null;
-    final effectiveActiveColor = activeColor ?? CupertinoColors.activeBlue;
+    final effectiveActiveColor = activeColor ?? theme.markerColor;
     final effectiveInactiveColor = inactiveColor ?? CupertinoColors.systemGrey4;
 
     return buildWiredElement(
@@ -143,8 +142,7 @@ class WiredCupertinoSlider extends HookWidget {
                             fillColor: effectiveActiveColor,
                             borderColor: theme.borderColor,
                           ),
-                          fillerType: RoughFilter.hachureFiller,
-                          fillerConfig: FillerConfig.build(hachureGap: 1.5),
+                          fillerType: RoughFilter.solidFiller,
                         ),
                       ),
                     ),
@@ -157,11 +155,10 @@ class WiredCupertinoSlider extends HookWidget {
                         child: WiredCanvas(
                           painter: WiredCircleBase(
                             strokeWidth: theme.strokeWidth,
-                            fillColor: thumbColor,
+                            fillColor: thumbColor ?? theme.fillColor,
                             borderColor: theme.borderColor,
                           ),
-                          fillerType: RoughFilter.hachureFiller,
-                          fillerConfig: FillerConfig.build(hachureGap: 1.5),
+                          fillerType: RoughFilter.solidFiller,
                         ),
                       ),
                     ),

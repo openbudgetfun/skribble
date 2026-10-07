@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
@@ -43,7 +42,7 @@ class WiredSwitch extends HookWidget {
       end: _trackWidth - _thumbSize,
     );
 
-    final effectiveActiveColor = activeColor ?? theme.borderColor;
+    final effectiveActiveColor = activeColor ?? theme.markerColor;
     final effectiveInactiveColor = inactiveColor ?? theme.fillColor;
     return Semantics(
       container: true,
@@ -73,9 +72,8 @@ class WiredSwitch extends HookWidget {
                     borderColor: theme.borderColor,
                   ),
                   fillerType: value
-                      ? RoughFilter.hachureFiller
+                      ? RoughFilter.solidFiller
                       : RoughFilter.noFiller,
-                  fillerConfig: FillerConfig.build(hachureGap: 2.0),
                 ),
               ),
               Positioned(

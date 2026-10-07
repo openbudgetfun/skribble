@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
-/// Changes the storybook's app-wide border and lettering level.
+/// Changes the storybook's app-wide ink, typeface, and paper.
 class WiredRoughnessPicker extends HookWidget {
   /// Creates a picker that reports a level without owning application state.
   const WiredRoughnessPicker({
@@ -10,6 +10,8 @@ class WiredRoughnessPicker extends HookWidget {
     required this.onChanged,
     this.font = WiredFont.casual,
     this.onFontChanged,
+    this.night = false,
+    this.onNightChanged,
     super.key,
   });
 
@@ -24,6 +26,12 @@ class WiredRoughnessPicker extends HookWidget {
 
   /// Called when a different bundled font is selected.
   final ValueChanged<WiredFont>? onFontChanged;
+
+  /// Whether the storybook is drawn on night paper.
+  final bool night;
+
+  /// Called when day or night paper is chosen.
+  final ValueChanged<bool>? onNightChanged;
 
   @override
   Widget build(BuildContext context) => ColoredBox(
@@ -59,6 +67,19 @@ class WiredRoughnessPicker extends HookWidget {
 
                   selected: family == font,
                   onSelected: (_) => onFontChanged!(family),
+                ),
+            ],
+            if (onNightChanged != null) ...[
+              const Text('Paper', style: TextStyle(fontSize: 14)),
+              for (final (value, label) in const [
+                (false, 'Day'),
+                (true, 'Night'),
+              ])
+                WiredChoiceChip(
+                  key: ValueKey('paper-$label'),
+                  label: Text(label),
+                  selected: value == night,
+                  onSelected: (_) => onNightChanged!(value),
                 ),
             ],
           ],

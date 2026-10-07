@@ -120,7 +120,6 @@ const Set<String> _migrationBacklog = <String>{
   'test/widgets/wired_navigation_drawer_test.dart', // Drawer, Scaffold
   'test/widgets/wired_navigation_rail_test.dart', // FloatingActionButton
   'test/widgets/wired_popup_menu_test.dart', // PopupMenuButton
-  'test/widgets/wired_progress_test.dart', // LinearProgressIndicator
   'test/widgets/wired_radio_list_tile_test.dart', // InkWell, Radio
   'test/widgets/wired_scaffold_test.dart', // Scaffold
   'test/widgets/wired_scrollbar_test.dart', // Scrollbar

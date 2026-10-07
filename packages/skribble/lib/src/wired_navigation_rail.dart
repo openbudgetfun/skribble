@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -108,24 +107,23 @@ class WiredNavigationRail extends HookWidget {
                 children: [
                   if (selected)
                     SizedBox(
-                      width: 48,
-                      height: 28,
+                      width: 56,
+                      height: 34,
                       child: WiredCanvas(
                         painter: WiredRoundedRectangleBase(
                           strokeWidth: theme.strokeWidth,
-                          borderRadius: BorderRadius.circular(14),
-                          fillColor: theme.borderColor,
+                          borderRadius: BorderRadius.circular(17),
+                          fillColor: theme.markerColor,
                           borderColor: theme.borderColor,
                         ),
-                        fillerType: RoughFilter.hachureFiller,
-                        fillerConfig: FillerConfig.build(hachureGap: 2.0),
+                        fillerType: RoughFilter.solidFiller,
                       ),
                     ),
                   WiredIcon(
                     icon: selected
                         ? (dest.selectedIcon ?? dest.icon)
                         : dest.icon,
-                    color: selected ? theme.fillColor : theme.disabledTextColor,
+                    color: selected ? theme.textColor : theme.disabledTextColor,
                     size: 24,
                   ),
                 ],

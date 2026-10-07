@@ -11,9 +11,8 @@ class FeedbackPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progressController = useAnimationController(
-      duration: const Duration(seconds: 3),
-    );
+    final progress = useState(.3);
+    final working = useState(false);
     final scrollbarController = useScrollController();
     final indicatorAnimating = useState(false);
     final loadingAnimating = useState(false);
@@ -75,17 +74,32 @@ class FeedbackPage extends HookWidget {
             children: [
               ComponentShowcase(
                 title: 'Linear Progress',
-                description: 'Hand-drawn progress bar with hachure fill.',
+                description:
+                    'A marker fill that glides to each new value. Without a '
+                    'value it sweeps, for work of unknown length.',
                 child: Column(
                   children: [
-                    WiredProgress(controller: progressController, value: 0.3),
+                    WiredProgress(
+                      value: progress.value,
+                      semanticLabel: 'Example progress',
+                    ),
                     const SizedBox(height: 12),
                     WiredButton(
-                      onPressed: () {
-                        progressController.reset();
-                        progressController.forward();
-                      },
-                      child: const Text('Animate'),
+                      onPressed: () => progress.value = progress.value >= 1
+                          ? 0
+                          : progress.value + .25,
+                      child: const Text('Make progress'),
+                    ),
+                    const SizedBox(height: 20),
+                    // An indeterminate bar sweeps until the work is done.
+                    WiredProgress(
+                      value: working.value ? null : 1,
+                      semanticLabel: 'Working',
+                    ),
+                    const SizedBox(height: 12),
+                    WiredOutlinedButton(
+                      onPressed: () => working.value = !working.value,
+                      child: Text(working.value ? 'Finish work' : 'Start work'),
                     ),
                   ],
                 ),

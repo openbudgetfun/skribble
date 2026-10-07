@@ -132,7 +132,7 @@ HookBuilder(
 ### Notes
 
 - Height is 80px plus a 2px top border line.
-- The selection indicator is a 56x28 rounded rectangle with hachure fill (gap: 2.0).
+- The selection indicator is a 64x34 rounded rectangle washed with `markerColor`, with the icon in ink on top.
 - Selected labels use bold weight; unselected labels use `theme.disabledTextColor`.
 
 ---
@@ -188,7 +188,7 @@ HookBuilder(
 ### Notes
 
 - Rail width is 72px with a 2px vertical divider line on the right edge.
-- The selection indicator is a 48x28 rounded rectangle with hachure fill.
+- The selection indicator is a 56x34 rounded rectangle washed with `markerColor`, with the icon in ink on top.
 - Each destination is 56px tall with 4px vertical spacing.
 
 ---

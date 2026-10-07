@@ -7,10 +7,15 @@ import 'package:skribble_storybook/app.dart';
 const Key _chartKey = ValueKey<String>('storybook-financial-chart');
 const Key _scrollKey = ValueKey<String>('charts-page-scroll');
 
-Finder _label(String text) => find.textContaining(
-  RegExp(
-    '^(?:✓ )?${RegExp.escape(text)}'
-    r'$',
+/// A chart control's label, within the chart page's scroll view so the
+/// storybook toolbar's own choices (such as "Night") never match.
+Finder _label(String text) => find.descendant(
+  of: find.byKey(_scrollKey),
+  matching: find.textContaining(
+    RegExp(
+      '^(?:✓ )?${RegExp.escape(text)}'
+      r'$',
+    ),
   ),
 );
 Finder get _scrollable => find

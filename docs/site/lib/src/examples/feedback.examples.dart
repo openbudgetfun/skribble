@@ -180,15 +180,8 @@ Widget _cupertinoActionSheet(ExampleSettings settings) => Builder(
 );
 
 /// @docs-example progress
-Widget _linearProgress(ExampleSettings settings) => HookBuilder(
-  builder: (context) {
-    final controller = useAnimationController(
-      duration: const Duration(milliseconds: 600),
-      initialValue: 1,
-    );
-    return WiredProgress(controller: controller, value: settings.amount);
-  },
-);
+Widget _linearProgress(ExampleSettings settings) =>
+    WiredProgress(value: settings.amount, semanticLabel: 'Uploading');
 
 /// @docs-example animated-icon
 Widget _animatedIcon(ExampleSettings settings) => HookBuilder(

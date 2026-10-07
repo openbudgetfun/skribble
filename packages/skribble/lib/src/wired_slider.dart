@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -131,6 +130,25 @@ class WiredSlider extends HookWidget {
               clipBehavior: Clip.none,
               alignment: Alignment.center,
               children: [
+                // The marker wash under the chosen part of the track.
+                Positioned(
+                  left: Directionality.of(context) == TextDirection.rtl
+                      ? constraints.maxWidth * visualFraction
+                      : 0,
+                  width: constraints.maxWidth * fraction,
+                  child: SizedBox(
+                    height: 18,
+                    child: WiredCanvas(
+                      painter: WiredRoundedRectangleBase(
+                        strokeWidth: theme.strokeWidth,
+                        borderRadius: BorderRadius.circular(9),
+                        fillColor: theme.markerColor,
+                        borderColor: theme.markerColor,
+                      ),
+                      fillerType: RoughFilter.solidFiller,
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: theme.inkExtent,
                   width: double.infinity,
@@ -154,12 +172,11 @@ class WiredSlider extends HookWidget {
                     child: WiredCanvas(
                       painter: WiredCircleBase(
                         strokeWidth: theme.strokeWidth,
-                        diameterRatio: .7,
-                        fillColor: theme.textColor,
+                        diameterRatio: .8,
+                        fillColor: theme.fillColor,
                         borderColor: theme.borderColor,
                       ),
-                      fillerType: RoughFilter.hachureFiller,
-                      fillerConfig: FillerConfig.build(hachureGap: 1.0),
+                      fillerType: RoughFilter.solidFiller,
                     ),
                   ),
                 ),

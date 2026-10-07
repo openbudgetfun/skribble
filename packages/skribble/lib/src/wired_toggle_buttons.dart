@@ -86,11 +86,11 @@ class _WiredToggleButton extends HookWidget {
               child: WiredCanvas(
                 painter: WiredRectangleBase(
                   strokeWidth: theme.strokeWidth,
-                  fillColor: theme.fillColor,
+                  fillColor: theme.markerColor,
                   borderColor: theme.borderColor,
                 ),
                 fillerType: selected
-                    ? RoughFilter.hachureFiller
+                    ? RoughFilter.solidFiller
                     : RoughFilter.noFiller,
               ),
             ),
@@ -99,12 +99,13 @@ class _WiredToggleButton extends HookWidget {
               child: Center(
                 child: DefaultTextStyle.merge(
                   style: TextStyle(
-                    color: selected ? Colors.white : theme.textColor,
+                    color: theme.textColor,
                     fontSize: 14,
+                    fontWeight: selected ? FontWeight.w600 : null,
                   ),
                   child: IconTheme(
                     data: IconThemeData(
-                      color: selected ? Colors.white : theme.textColor,
+                      color: theme.textColor,
                       size: 20,
                     ),
                     child: child,

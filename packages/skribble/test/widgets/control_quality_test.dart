@@ -26,10 +26,13 @@ void main() {
     );
     final slider = tester.getRect(find.byType(WiredSlider));
     final thumb = tester.getRect(
-      find.descendant(
-        of: find.byType(Positioned),
-        matching: find.byType(WiredCanvas),
-      ),
+      // The thumb paints last, above the marker wash.
+      find
+          .descendant(
+            of: find.byType(Positioned),
+            matching: find.byType(WiredCanvas),
+          )
+          .last,
     );
     expect(thumb.center.dx, closeTo(slider.right - 12, 0.01));
   });
@@ -55,10 +58,13 @@ void main() {
       );
       final slider = tester.getRect(find.byType(WiredSlider));
       final thumb = tester.getRect(
-        find.descendant(
-          of: find.byType(Positioned),
-          matching: find.byType(WiredCanvas),
-        ),
+        // The thumb paints last, above the marker wash.
+        find
+            .descendant(
+              of: find.byType(Positioned),
+              matching: find.byType(WiredCanvas),
+            )
+            .last,
       );
       expect(
         thumb.center.dx,

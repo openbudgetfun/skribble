@@ -52,6 +52,31 @@ void main() {
       expect(find.byIcon(Icons.format_italic), findsOneWidget);
     });
 
+    testWidgets('labels selected buttons in ink on the marker wash', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredToggleButtons(
+          isSelected: const [true, false],
+          children: const [Text('On'), Text('Off')],
+        ),
+      );
+      TextStyle style(String text) => tester
+          .widget<RichText>(
+            find.descendant(
+              of: find.text(text),
+              matching: find.byType(RichText),
+            ),
+          )
+          .text
+          .style!;
+      final ink = WiredThemeData().textColor;
+      expect(style('On').color, ink);
+      expect(style('On').fontWeight, FontWeight.w600);
+      expect(style('Off').color, ink);
+    });
+
     testWidgets('supports icons as children', (tester) async {
       await pumpApp(
         tester,
