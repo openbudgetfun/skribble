@@ -55,6 +55,66 @@ void main() {
       expect(crampedText(_root(tester), horizontal: 40), isNotEmpty);
     });
 
+    testWidgets('measures text inside drawn rectangles, pills, and circles', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        const Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              WiredCard(
+                height: null,
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text('A roomy card'),
+                ),
+              ),
+              WiredChoiceChip(label: Text('A chip')),
+              WiredAvatar(radius: 28, child: Text('AB')),
+            ],
+          ),
+        ),
+      );
+      expect(crampedText(_root(tester)), isEmpty);
+
+      await pumpApp(
+        tester,
+        const Center(
+          child: WiredCard(
+            height: 30,
+            child: Center(
+              child: Text('Squeezed', style: TextStyle(fontSize: 24)),
+            ),
+          ),
+        ),
+      );
+      expect(
+        crampedText(_root(tester)).map((cramped) => cramped.text),
+        ['Squeezed'],
+      );
+    });
+
+    testWidgets('measures text against the nearest shape around it', (
+      tester,
+    ) async {
+      // A roomy chip inside a card: the chip's own ink is what counts.
+      await pumpApp(
+        tester,
+        const Center(
+          child: WiredCard(
+            height: null,
+            child: Padding(
+              padding: EdgeInsets.all(4),
+              child: WiredChoiceChip(label: Text('Nested')),
+            ),
+          ),
+        ),
+      );
+      expect(crampedText(_root(tester)), isEmpty);
+    });
+
     testWidgets('ignores text scrolled out of view', (tester) async {
       await pumpApp(
         tester,
