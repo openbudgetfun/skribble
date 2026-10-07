@@ -1,7 +1,10 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble/src/canvas/wired_painter.dart';
 
 /// The colour of the logo's pixel at [point] in its 100-unit design space.
 Future<Color> _pixel(WidgetTester tester, Offset point) async {
@@ -143,6 +146,68 @@ void main() {
     await tester.pump();
     expect(await _pixel(tester, const Offset(9.5, 50)), WiredPalette.ink);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('equal colours make equal painters, so geometry is reused', (
+    tester,
+  ) async {
+    List<WiredPainterBase> painters() => [
+      for (final paint in tester.widgetList<CustomPaint>(
+        find.descendant(
+          of: find.byType(WiredLogo),
+          matching: find.byType(CustomPaint),
+        ),
+      ))
+        if (paint.painter case final WiredPainter painter) painter.painter,
+    ];
+    await tester.pumpWidget(
+      _app(const WiredLogo(key: ValueKey(1), size: 100)),
+    );
+    final first = painters();
+    expect(first, hasLength(3));
+    await tester.pumpWidget(
+      _app(const WiredLogo(key: ValueKey(2), size: 100)),
+    );
+    final second = painters();
+    expect(second, first);
+    expect(
+      second.map((painter) => painter.hashCode),
+      first.map((painter) => painter.hashCode),
+    );
+    await tester.pumpWidget(
+      _app(const WiredLogo(size: 100, color: WiredPalette.coral)),
+    );
+    expect(painters().last, isNot(first.last));
+  });
+
+  testWidgets('paints the same outside a canvas', (tester) async {
+    await tester.pumpWidget(_app(const WiredLogo(size: 100)));
+    final ink = tester
+        .widgetList<CustomPaint>(
+          find.descendant(
+            of: find.byType(WiredLogo),
+            matching: find.byType(CustomPaint),
+          ),
+        )
+        .map((paint) => (paint.painter! as WiredPainter).painter)
+        .last;
+    final recorder = ui.PictureRecorder();
+    ink.paintRough(
+      Canvas(recorder),
+      const Size.square(100),
+      DrawConfig.build(),
+      NoFiller(FillerConfig.defaultConfig),
+    );
+    final bytes = (await tester.runAsync(() async {
+      final image = await recorder.endRecording().toImage(100, 100);
+      final data = await image.toByteData();
+      image.dispose();
+      return data;
+    }))!;
+    // The left bracket at (9.5, 50) is inked; the paper beside it is not.
+    int alphaAt(int x, int y) => bytes.getUint8((y * 100 + x) * 4 + 3);
+    expect(alphaAt(10, 50), 255);
+    expect(alphaAt(2, 50), 0);
   });
 
   testWidgets('zero size and rapid theme changes remain still', (tester) async {
