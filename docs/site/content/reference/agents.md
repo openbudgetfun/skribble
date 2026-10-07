@@ -1209,31 +1209,31 @@ WiredIcon.svg(iconData: myCustomIconData)
 
 ## Workspace commands quick reference
 
-| Command                          | What it does                                                                                        |
-| -------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `melos run analyze`              | Dart analyze across all packages                                                                    |
-| `melos run flutter-test`         | Run Flutter widget tests                                                                            |
-| `melos run format`               | Format all Dart code                                                                                |
-| `melos run screenshot`           | Capture component screenshots                                                                       |
-| `melos run rough-icons`          | Generate rough Material icon SVGs                                                                   |
-| `melos run rough-icons-font`     | Generate icon font + Dart helpers                                                                   |
-| `melos run rough-icons-ci-check` | CI-equivalent Material icon checks                                                                  |
-| `melos run icons-simple`         | Regenerate the curated simple icon catalog                                                          |
-| `melos run icons-iconify`        | Regenerate the Lucide, Boxicons Solid, and CoreUI Brands catalogs                                   |
-| `melos run icons-check`          | Verify every icon catalog matches its generator                                                     |
-| `melos run package-sizes`        | Verify each publishable package stays inside its compressed-size budget                             |
-| `lint:all`                       | All lint checks (format + analyze)                                                                  |
-| `lint:push`                      | CI lint checks before `git push`                                                                    |
-| `test:all`                       | All unit and widget tests                                                                           |
-| `fix:all`                        | Auto-fix format + lint issues                                                                       |
-| `docs:site:serve`                | Serve docs site locally                                                                             |
-| `docs:site:build`                | Build static docs for deployment                                                                    |
-| `monochange step validate`       | Validate release configuration                                                                      |
-| `monochange check`               | Validate and lint config, changesets, manifests                                                     |
-| `monochange run release-pr`      | Prepare, commit, and open or refresh the release PR (the workflow has no push trigger; dispatch it) |
-| `monochange run release`         | Prepare a local release (plan, format, commit, tag, publish the GitHub release)                     |
-| `monochange run publish`         | Publish the packages in the current release                                                         |
-| `publish:owned <tag>`            | Publish the packages a tag owns, one at a time, then verify the registry                            |
+| Command                          | What it does                                                                                                    |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `melos run analyze`              | Dart analyze across all packages                                                                                |
+| `melos run flutter-test`         | Run Flutter widget tests                                                                                        |
+| `melos run format`               | Format all Dart code                                                                                            |
+| `melos run screenshot`           | Capture component screenshots                                                                                   |
+| `melos run rough-icons`          | Generate rough Material icon SVGs                                                                               |
+| `melos run rough-icons-font`     | Generate icon font + Dart helpers                                                                               |
+| `melos run rough-icons-ci-check` | CI-equivalent Material icon checks                                                                              |
+| `melos run icons-simple`         | Regenerate the curated simple icon catalog                                                                      |
+| `melos run icons-iconify`        | Regenerate the Lucide, Boxicons Solid, and CoreUI Brands catalogs                                               |
+| `melos run icons-check`          | Verify every icon catalog matches its generator                                                                 |
+| `melos run package-sizes`        | Verify each publishable package stays inside its compressed-size budget                                         |
+| `lint:all`                       | All lint checks (format + analyze)                                                                              |
+| `lint:push`                      | CI lint checks before `git push`                                                                                |
+| `test:all`                       | All unit and widget tests                                                                                       |
+| `fix:all`                        | Auto-fix format + lint issues                                                                                   |
+| `docs:site:serve`                | Serve docs site locally                                                                                         |
+| `docs:site:build`                | Build static docs for deployment                                                                                |
+| `monochange step validate`       | Validate release configuration                                                                                  |
+| `monochange check`               | Validate and lint config, changesets, manifests                                                                 |
+| `monochange run release-pr`      | Prepare, commit, and open or refresh the release PR (the `Release PR` workflow runs it on every push to `main`) |
+| `monochange run release`         | Prepare a local release (plan, format, commit, tag, publish the GitHub release)                                 |
+| `monochange run publish`         | Publish the packages in the current release                                                                     |
+| `publish:owned <tag>`            | Publish the packages a tag owns, one at a time, then verify the registry                                        |
 
 ## Changeset lint rules
 
