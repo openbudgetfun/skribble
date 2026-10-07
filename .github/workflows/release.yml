@@ -1,10 +1,12 @@
 name: Release PR
 
-# Releases are prepared and published from a local checkout (`monochange run
-# release`), so no release pull request is opened or refreshed automatically.
-# This workflow is kept for manual dispatch when an automated release is
-# wanted again; re-add the `push` trigger below to restore the release PR.
+# Every push to main opens or refreshes the release pull request from the
+# pending changesets. Merging that pull request is a release commit, which the
+# `tag` job tags so the publish workflow releases it. `monochange run release`
+# remains available for a release from a local checkout.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -81,17 +83,40 @@ jobs:
           fi
         shell: bash
 
-      - name: Configure GitHub authentication
-        if: steps.release_record.outputs.is_release_commit != 'true'
+      - name: Require the release PR token
+        if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_PR_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
+        run: |
+          if [ -z "$RELEASE_PR_TOKEN" ]; then
+            echo "::error::RELEASE_PR_TOKEN is not configured. See docs/site/content/reference/releasing.md."
+            exit 1
+          fi
+        shell: bash
+
+      # GitHub runs no workflows for pushes or pull requests made with
+      # GITHUB_TOKEN, so the release branch is pushed and the pull request
+      # opened with a repository-scoped PAT. That way CI runs on the release
+      # pull request like any other.
+      - name: Configure GitHub authentication
+        if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
         run: gh auth setup-git
+        shell: bash
+
+      # A release branch left from an earlier pull request must be known
+      # locally, or the force-with-lease push that refreshes it is rejected as
+      # stale.
+      - name: Fetch existing release branches
+        if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
+        run: git fetch --force origin '+refs/heads/chore/release/*:refs/remotes/origin/chore/release/*'
         shell: bash
 
       - name: Open or refresh the release PR
         if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
         run: |
           set -euo pipefail
           # A changeset that only bumps `none` produces no releaseable
@@ -108,6 +133,35 @@ jobs:
           fi
           printf '%s\n' "$output"
         shell: devenv shell -- bash -e {0}
+
+      - name: Add release PR attribution
+        if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
+        run: |
+          set -euo pipefail
+          pr_number="$(
+            gh pr list \
+              --base main \
+              --state open \
+              --json headRefName,number \
+              --jq '[.[] | select(.headRefName | startswith("chore/release"))][0].number'
+          )"
+          if [ -z "$pr_number" ] || [ "$pr_number" = "null" ]; then
+            echo "No open release PR to attribute."
+            exit 0
+          fi
+
+          body="$(gh api "repos/$GITHUB_REPOSITORY/pulls/$pr_number" --jq .body)"
+          attribution='Created on behalf of Ifiok Jr. (`@ifiokjr`) by the Release PR workflow, set up with Claude Opus 5.5 (medium thinking).'
+          if ! grep -Fq "$attribution" <<<"$body"; then
+            gh api \
+              --method PATCH \
+              "repos/$GITHUB_REPOSITORY/pulls/$pr_number" \
+              --field body="${body}"$'\n\n'"${attribution}" \
+              >/dev/null
+          fi
+        shell: bash
 
   tag:
     if: github.repository == 'openbudgetfun/skribble' && needs.update.outputs.is_release_commit == 'true'
@@ -165,21 +219,21 @@ jobs:
       # pub.dev only allows automated publishing from GitHub Actions runs that
       # were triggered by pushing a git tag, and pushes made with GITHUB_TOKEN
       # do not fire workflow events. The publish runs must therefore be real
-      # tag-push events, so the tags are pushed with the RELEASES_GITHUB_TOKEN
-      # fine-grained PAT (contents: read and write on this repository only).
+      # tag-push events, so the tags are pushed with the same repository-scoped
+      # RELEASE_PR_TOKEN that opens the release pull request.
       - name: Install the release tag push token
         if: steps.tagged.outputs.tagged != 'true'
         env:
-          RELEASES_GITHUB_TOKEN: ${{ secrets.RELEASES_GITHUB_TOKEN }}
+          RELEASE_PR_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
         run: |
           set -euo pipefail
-          if [ -z "$RELEASES_GITHUB_TOKEN" ]; then
-            echo "::error::RELEASES_GITHUB_TOKEN is not configured; automated releases cannot push tags."
+          if [ -z "$RELEASE_PR_TOKEN" ]; then
+            echo "::error::RELEASE_PR_TOKEN is not configured; automated releases cannot push tags."
             exit 1
           fi
           git config --local \
             http."https://github.com/".extraheader \
-            "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$RELEASES_GITHUB_TOKEN" | base64 -w0)"
+            "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$RELEASE_PR_TOKEN" | base64 -w0)"
         shell: bash
 
       - name: Create release tags

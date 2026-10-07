@@ -256,15 +256,18 @@ steps = [
 
 # Automated releases: this is what the release workflow runs on every push to
 # main. It prepares the release, commits it on the `chore/release` branch, and
-# opens or refreshes the release pull request. Merging that pull request is a
-# release commit, which the release workflow tags and publishes.
+# opens or refreshes the release pull request. Both commits stage every
+# workspace change (`stage_all`): staging release files only left the
+# changelogs, versions, and consumed changesets out of the release commit.
+# Merging that pull request is a release commit, which the release workflow
+# tags and publishes.
 [cli.release-pr]
 help_text = "Prepare, commit, and open or refresh the automated release pull request"
 steps = [
   { type = "PrepareRelease", name = "prepare release", allow_empty_changesets = true, inputs = { format = "json" } },
   { type = "Command", name = "format release files", when = "{{ number_of_changesets > 0 }}", command = "fix:format", shell = true },
-  { type = "CommitRelease", name = "commit release", when = "{{ number_of_changesets > 0 }}", inputs = { no_verify = true } },
-  { type = "OpenReleaseRequest", name = "open release request", when = "{{ number_of_changesets > 0 }}", inputs = { no_verify = true } },
+  { type = "CommitRelease", name = "commit release", when = "{{ number_of_changesets > 0 }}", inputs = { no_verify = true, stage_all = true } },
+  { type = "OpenReleaseRequest", name = "open release request", when = "{{ number_of_changesets > 0 }}", inputs = { no_verify = true, stage_all = true } },
 ]
 
 [cli.publish]
