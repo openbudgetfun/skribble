@@ -313,3 +313,22 @@ To render it to video:
 ```
 
 The script renders 1,020 frames at 1080×1080 on the Flutter test clock (`tool/render_promo_test.dart`), so every run produces the same frames, then encodes them with ffmpeg to `.screenshots/promo/skribble-promo.mp4`. Pass another path to write elsewhere. Like screenshots, the video stays out of Git: attach it to a release or pull request instead. Re-render after visual changes, so the reel always shows the current design.
+
+## The intro reels
+
+Four short intro videos explain what skribble is about: hand-drawn design that makes apps fun again. Each one is drawn with skribble, as a pure function of time, and lays itself out for portrait (1080×1920, for Reels, Shorts, and TikTok) and landscape (1920×1080) screens. They live in `apps/skribble_storybook/lib/promo/reels/`, listed in `IntroReel`, with shared pieces (captions with a marker swipe, the pencil, the end card) in `reel_kit.dart`.
+
+| Reel             | Length | Story                                                                                       |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------- |
+| `fun-again`      | 23 s   | A grey, generic app is scribbled out and redrawn by hand, then it comes alive.              |
+| `drawn-by-a-pen` | 22 s   | A pencil draws an app outline by outline; the ink up close; three roughnesses; night paper. |
+| `emoji-party`    | 20 s   | Emoji on the beat, a wall of 3,963, every skin tone, and emoji in a chat.                   |
+| `make-it-yours`  | 22 s   | One app restyled live: its ink, handwriting, marker colour, and paper.                      |
+
+To render one:
+
+```bash
+./scripts/render_reel.sh fun-again portrait
+```
+
+The second argument is `portrait`, `landscape`, or `square`. The script renders the frames on the Flutter test clock (`tool/render_reel_test.dart`, which loads the bundled fonts), then encodes them with ffmpeg to `.screenshots/promo/skribble-<reel>-<aspect>.mp4`. Pass a third argument to write elsewhere. To check a reel's layout without rendering every frame, run the tool directly with `--dart-define=REEL_STILLS=2.0,9.5,20.0` to save only those seconds. The videos stay out of Git: attach them to a release or pull request instead.
