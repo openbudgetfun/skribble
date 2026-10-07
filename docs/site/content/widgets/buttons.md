@@ -38,7 +38,7 @@ WiredButton(
 
 ### Notes
 
-- The button uses `kWiredButtonHeight` for consistent sizing across all rectangular buttons.
+- Rectangular buttons are at least `kWiredButtonHeight` (42) tall and grow with their label, keeping `kWiredButtonPadding` (16 at the sides, 8 above and below) between the ink and the text at any font size or text scale.
 - The border is drawn with a `RoughBoxDecoration` using the theme's `borderColor`.
 - Text color inherits from `theme.textColor`.
 - Pass `onPressed: null` to disable the button. Taps are ignored and the label renders with `theme.disabledTextColor`, matching `WiredFilledButton` and the other rectangular button variants.

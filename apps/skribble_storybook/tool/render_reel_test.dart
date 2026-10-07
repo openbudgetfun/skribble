@@ -37,8 +37,12 @@ void main() {
     final reel = IntroReel.values.firstWhere((reel) => reel.slug == _reel);
     final size = switch (_aspect) {
       'landscape' => const Size(960, 540),
-      'square' => const Size(540, 540),
-      _ => const Size(540, 960),
+      'portrait' => const Size(540, 960),
+      _ => throw ArgumentError.value(
+        _aspect,
+        'ASPECT',
+        'portrait or landscape',
+      ),
     };
     await tester.runAsync(loadSkribbleFonts);
     tester.view

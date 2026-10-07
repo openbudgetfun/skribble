@@ -9,7 +9,14 @@ Wrap a group of Wired widgets to draw its ink into place. Text, icons, layout, s
 
 ```dart
 // Live example: ink-basic
-WiredDraw(child: WiredCard(child: Text('Make something lovely')))
+WiredDraw(
+  child: WiredCard(
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Text('Make something lovely'),
+    ),
+  ),
+)
 ```
 
 `WiredDraw` plays once on mount, over 650 milliseconds. Give it a new key to replay. Entrances are opt-in, so scrolling a normal list does not animate every card. Set `duration` and `curve` when the occasion needs a different pace.
@@ -27,7 +34,12 @@ HookBuilder(
       children: [
         WiredDraw(
           key: ValueKey(replay.value),
-          child: WiredCard(child: Text('Make something lovely')),
+          child: WiredCard(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text('Make something lovely'),
+            ),
+          ),
         ),
         const SizedBox(height: 16),
         WiredOutlinedButton(
@@ -44,7 +56,12 @@ HookBuilder(
 // Live example: ink-progress
 WiredDrawTransition(
   progress: AlwaysStoppedAnimation(.6),
-  child: WiredCard(child: Text('Make something lovely')),
+  child: WiredCard(
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Text('Make something lovely'),
+    ),
+  ),
 )
 ```
 
@@ -70,7 +87,12 @@ class NoteState extends State<Note> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) => WiredDrawTransition(
     progress: ink,
-    child: WiredCard(child: Text('Hello, tomorrow.')),
+    child: WiredCard(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text('Hello, tomorrow.'),
+      ),
+    ),
   );
 
   @override

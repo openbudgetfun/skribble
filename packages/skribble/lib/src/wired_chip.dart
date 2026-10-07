@@ -38,8 +38,8 @@ class WiredChip extends HookWidget {
       onTap: onDeleted,
       child: buildWiredElement(
         child: IntrinsicWidth(
-          child: SizedBox(
-            height: 32,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: kWiredChipHeight),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -54,7 +54,7 @@ class WiredChip extends HookWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  padding: kWiredInkPadding,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

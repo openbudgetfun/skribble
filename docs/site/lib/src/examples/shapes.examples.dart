@@ -326,7 +326,7 @@ Widget _decorationUsage8(ExampleSettings settings) => Builder(
   builder: (context) {
     final theme = WiredTheme.of(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: kWiredInkPadding,
       decoration: RoughBoxDecoration(
         drawConfig: theme.drawConfig,
         shape: RoughBoxShape.roundedRectangle,

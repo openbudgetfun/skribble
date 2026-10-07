@@ -110,12 +110,17 @@ class WiredAvatar extends HookWidget {
               DefaultTextStyle.merge(
                 style: TextStyle(
                   color: fgColor,
-                  fontSize: effectiveRadius * 0.7,
+                  fontSize: effectiveRadius * 0.6,
                   fontWeight: FontWeight.w600,
                 ),
                 child: IconTheme(
                   data: IconThemeData(color: fgColor, size: effectiveRadius),
-                  child: child!,
+                  // Initials shrink to stay inside the circle, even with
+                  // the platform's text scaling turned up.
+                  child: Padding(
+                    padding: EdgeInsets.all(effectiveRadius * .5),
+                    child: FittedBox(fit: BoxFit.scaleDown, child: child),
+                  ),
                 ),
               ),
           ],

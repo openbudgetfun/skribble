@@ -82,20 +82,12 @@ void main() {
       expect(deleted, isTrue);
     });
 
-    testWidgets('has correct height of 32', (tester) async {
+    testWidgets('is at least kWiredChipHeight tall', (tester) async {
       await pumpApp(tester, WiredChip(label: const Text('Chip')));
-
-      // The SizedBox inside WiredChip has a fixed height of 32.
-      final sizedBox = tester.widget<SizedBox>(
-        find
-            .descendant(
-              of: find.byType(WiredChip),
-              matching: find.byType(SizedBox),
-            )
-            .first,
+      expect(
+        tester.getSize(find.byType(WiredChip)).height,
+        kWiredChipHeight,
       );
-
-      expect(sizedBox.height, 32);
     });
 
     testWidgets('contains WiredCanvas for the rounded rectangle border', (

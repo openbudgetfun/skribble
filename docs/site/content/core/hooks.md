@@ -276,7 +276,10 @@ class WiredUserProfile extends HookConsumerWidget {
     final isEditing = useState(false);
 
     return WiredCard(
-      child: Text(user.name),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text(user.name),
+      ),
     );
   }
 }
@@ -332,7 +335,7 @@ class WiredButton extends HookWidget {
 
     return buildWiredElement(
       child: Container(
-        height: kWiredButtonHeight,
+        constraints: const BoxConstraints(minHeight: kWiredButtonHeight),
         decoration: RoughBoxDecoration(
           shape: RoughBoxShape.rectangle,
           borderStyle: RoughDrawingStyle(

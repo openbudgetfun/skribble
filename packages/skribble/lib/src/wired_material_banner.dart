@@ -31,7 +31,8 @@ class WiredMaterialBanner extends HookWidget {
   /// Padding around the leading widget.
   final EdgeInsetsGeometry? leadingPadding;
 
-  /// Whether to force actions below the content.
+  /// Whether to force actions below the content. Narrow banners, under 480
+  /// pixels wide, always put their actions below.
   final bool forceActionsBelow;
 
   /// Called when the banner is dismissed via overscroll.
@@ -104,8 +105,21 @@ class WiredMaterialBanner extends HookWidget {
     );
   }
 
-  Widget _buildLayout(WiredThemeData theme) {
-    if (forceActionsBelow) {
+  /// Below this width, actions move under the message so it keeps room to
+  /// read instead of wrapping into a narrow column.
+  static const double _actionsBelowWidth = 480;
+
+  Widget _buildLayout(WiredThemeData theme) => LayoutBuilder(
+    builder: (context, box) => _layout(
+      theme,
+      below:
+          forceActionsBelow ||
+          (actions.isNotEmpty && box.maxWidth < _actionsBelowWidth),
+    ),
+  );
+
+  Widget _layout(WiredThemeData theme, {required bool below}) {
+    if (below) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

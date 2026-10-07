@@ -331,4 +331,4 @@ To render one:
 ./scripts/render_reel.sh fun-again portrait
 ```
 
-The second argument is `portrait`, `landscape`, or `square`. The script renders the frames on the Flutter test clock (`tool/render_reel_test.dart`, which loads the bundled fonts), then encodes them with ffmpeg to `.screenshots/promo/skribble-<reel>-<aspect>.mp4`. Pass a third argument to write elsewhere. To check a reel's layout without rendering every frame, run the tool directly with `--dart-define=REEL_STILLS=2.0,9.5,20.0` to save only those seconds. The videos stay out of Git: attach them to a release or pull request instead.
+The second argument is `portrait` or `landscape`; the square reel is `render_promo.sh`. The script renders the frames on the Flutter test clock (`tool/render_reel_test.dart`, which loads the bundled fonts), then encodes them with ffmpeg to `.screenshots/promo/skribble-<reel>-<aspect>.mp4`. Pass a third argument to write elsewhere. To check a reel's layout without rendering every frame, run the tool directly with `--dart-define=REEL_STILLS=2.0,9.5,20.0` to save only those seconds. The videos stay out of Git: attach them to a release or pull request instead.

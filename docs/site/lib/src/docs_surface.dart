@@ -104,9 +104,10 @@ class DocsAction extends HookWidget {
           onTap: onPressed,
           child: Container(
             constraints: BoxConstraints(minHeight: dense ? 36 : 44),
+            // skribble's ink padding: 8 above and below, 12 at the sides.
             padding: EdgeInsets.symmetric(
-              horizontal: dense ? 10 : 12,
-              vertical: dense ? 6 : 9,
+              horizontal: 12,
+              vertical: dense ? 8 : 9,
             ),
             decoration: selected == true || hovered.value || focused.value
                 ? docsSurface(

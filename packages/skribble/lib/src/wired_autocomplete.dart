@@ -53,8 +53,8 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                     const SizedBox(width: 10),
                   ],
                   Expanded(
-                    child: SizedBox(
-                      height: 48,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 48),
                       child: Stack(
                         children: [
                           Positioned.fill(
@@ -78,7 +78,7 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                               disabledBorder: InputBorder.none,
                               hintText: hintText ?? 'Start typing...',
                               contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 8,
+                                horizontal: 12,
                                 vertical: 12,
                               ),
                             ),

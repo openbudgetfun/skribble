@@ -113,19 +113,12 @@ void main() {
       );
     });
 
-    testWidgets('has correct height of 32', (tester) async {
+    testWidgets('is at least kWiredChipHeight tall', (tester) async {
       await pumpApp(tester, WiredFilterChip(label: const Text('Filter')));
-
-      final sizedBox = tester.widget<SizedBox>(
-        find
-            .descendant(
-              of: find.byType(WiredFilterChip),
-              matching: find.byType(SizedBox),
-            )
-            .first,
+      expect(
+        tester.getSize(find.byType(WiredFilterChip)).height,
+        kWiredChipHeight,
       );
-
-      expect(sizedBox.height, 32);
     });
 
     testWidgets('contains GestureDetector for tap handling', (tester) async {

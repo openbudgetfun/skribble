@@ -65,7 +65,10 @@ class WiredTextArea extends HookWidget {
               border: InputBorder.none,
               hintText: hintText,
               hintStyle: hintStyle,
-              contentPadding: const EdgeInsets.all(8.0),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 10,
+              ),
             ),
             onChanged: onChanged,
           ),

@@ -254,6 +254,10 @@ When adding a new widget, update the docs site:
 
 ## Widget implementation patterns
 
+### Breathing room
+
+Content keeps at least `kWiredInkPadding` (8 pixels above and below, 12 at the sides) from any hand-drawn line around it, and buttons and chips use `kWiredButtonPadding` (16 at the sides). Heights are minimums, never fixed: write `BoxConstraints(minHeight: kWiredButtonHeight)` so a control grows with larger fonts and the platform's text scaling instead of squeezing its text against the ink. Check screens with `crampedText` and `squeezedText` from `package:skribble/testing.dart`; the storybook, docs site, and example app run them on every page and example at 360, 768, and 1280 pixels and at 1.3× text.
+
 ### Reading theme values
 
 Every widget must read colors and config from the theme — never hardcode:
@@ -894,7 +898,10 @@ These are the built-in painters agents should reuse where possible:
 
 ```dart
 // Static example: api
-const double kWiredButtonHeight = 42.0;
+const double kWiredButtonHeight = 42.0; // a minimum: buttons grow with text
+const double kWiredChipHeight = 36.0; // a minimum: chips grow with text
+const EdgeInsets kWiredInkPadding = EdgeInsets.symmetric(horizontal: 12, vertical: 8);
+const EdgeInsets kWiredButtonPadding = EdgeInsets.symmetric(horizontal: 16, vertical: 8);
 const Color _defaultBorderColor = WiredPalette.ink;
 const Color _defaultFillColor = WiredPalette.paper;
 ```

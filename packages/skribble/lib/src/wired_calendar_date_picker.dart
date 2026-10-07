@@ -60,7 +60,7 @@ class WiredCalendarDatePicker extends HookWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(12),
             child: CalendarDatePicker(
               initialDate: initialDate,
               firstDate: firstDate,

@@ -265,7 +265,12 @@ HookBuilder(
       children: [
         WiredDraw(
           key: ValueKey(replay.value),
-          child: WiredCard(child: Text('Make something lovely')),
+          child: WiredCard(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text('Make something lovely'),
+            ),
+          ),
         ),
         const SizedBox(height: 16),
         WiredOutlinedButton(

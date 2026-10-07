@@ -2,13 +2,13 @@
 # Render one of skribble's intro reels to an MP4.
 #
 # Usage:
-#   ./scripts/render_reel.sh <reel> <portrait|landscape|square> [output.mp4]
+#   ./scripts/render_reel.sh <reel> <portrait|landscape> [output.mp4]
 #
 # Reels: fun-again, drawn-by-a-pen, emoji-party, make-it-yours.
 #
 # Renders the reel frame by frame on the Flutter test clock (identical on
 # every run), then encodes H.264 at 30 frames a second with ffmpeg: 1080x1920
-# for portrait, 1920x1080 for landscape, 1080x1080 for square. The default
+# for portrait and 1920x1080 for landscape. The default
 # output is .screenshots/promo/skribble-<reel>-<aspect>.mp4, which is
 # gitignored: share videos on a release or a pull request, never commit them.
 set -euo pipefail

@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -53,10 +55,17 @@ class WiredCupertinoDatePicker extends HookWidget {
     this.maximumYear,
     this.mode = CupertinoDatePickerMode.dateAndTime,
     this.use24hFormat = false,
-    this.itemExtent = 32,
+    this.itemExtent = 40,
     this.height = 216,
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
   });
+
+  /// The narrowest width Cupertino lays out this mode's columns in.
+  double get _minimumWidth => switch (mode) {
+    CupertinoDatePickerMode.time => 220,
+    CupertinoDatePickerMode.dateAndTime => 370,
+    _ => 300,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -77,10 +86,11 @@ class WiredCupertinoDatePicker extends HookWidget {
                 fillerType: RoughFilter.noFiller,
               ),
             ),
-            // Selection highlight at center
+            // The selected row's band. The ink sits inside its box, so the
+            // box is a little taller than a row to draw its lines around it.
             Center(
               child: SizedBox(
-                height: itemExtent,
+                height: itemExtent + 8,
                 child: WiredCanvas(
                   painter: WiredRectangleBase(
                     strokeWidth: theme.strokeWidth,
@@ -91,20 +101,60 @@ class WiredCupertinoDatePicker extends HookWidget {
                 ),
               ),
             ),
-            // The actual Cupertino picker
+            // The wheels, inside the ink. Cupertino needs a minimum width for
+            // its columns, so a narrow picker scales down instead of failing.
             ClipRRect(
               borderRadius: borderRadius,
-              child: CupertinoDatePicker(
-                mode: mode,
-                onDateTimeChanged: onDateTimeChanged,
-                initialDateTime: initialDateTime,
-                minimumDate: minimumDate,
-                maximumDate: maximumDate,
-                minimumYear: minimumYear,
-                maximumYear: maximumYear,
-                use24hFormat: use24hFormat,
-                itemExtent: itemExtent,
-                backgroundColor: Color(0x00000000),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: LayoutBuilder(
+                  // Centred, so a scaled-down wheel keeps its selected row
+                  // in the band.
+                  builder: (context, box) => Center(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: SizedBox(
+                        width: math.max(box.maxWidth, _minimumWidth),
+                        height: box.maxHeight,
+                        // The wheels write in the theme's hand, at the size
+                        // their rows were designed for.
+                        child: MediaQuery.withNoTextScaling(
+                          child: CupertinoTheme(
+                            data: CupertinoThemeData(
+                              textTheme: CupertinoTextThemeData(
+                                dateTimePickerTextStyle: TextStyle(
+                                  fontFamily: theme.fontFamily,
+                                  package: theme.fontPackage,
+                                  fontSize: 21,
+                                  color: theme.textColor,
+                                ),
+                              ),
+                            ),
+                            child: CupertinoDatePicker(
+                              mode: mode,
+                              onDateTimeChanged: onDateTimeChanged,
+                              initialDateTime: initialDateTime,
+                              minimumDate: minimumDate,
+                              maximumDate: maximumDate,
+                              minimumYear: minimumYear,
+                              maximumYear: maximumYear,
+                              use24hFormat: use24hFormat,
+                              itemExtent: itemExtent,
+                              backgroundColor: const Color(0x00000000),
+                              // The hand-drawn band replaces Cupertino's grey
+                              // one.
+                              selectionOverlayBuilder: (
+                                context, {
+                                required columnCount,
+                                required selectedIndex,
+                              }) => null,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

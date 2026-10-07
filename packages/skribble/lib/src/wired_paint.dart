@@ -14,8 +14,30 @@ const Color kWiredDefaultBorderColor = WiredPalette.ink;
 /// the public barrel. Matches the warm paper of [WiredPalette.paper].
 const Color kWiredDefaultFillColor = WiredPalette.paper;
 
-/// Standard height for skribble button widgets (matches Material default).
+/// The least height of a skribble button. Buttons grow past it when their
+/// label does, such as with a larger font or the platform's text scaling.
 const double kWiredButtonHeight = 42.0;
+
+/// The least height of a skribble chip. Chips grow past it with their label.
+const double kWiredChipHeight = 36.0;
+
+/// The least space between a hand-drawn line and the content inside it.
+///
+/// Ink wobbles and has width, so content needs more room from a sketched
+/// border than from a straight one: 8 pixels above and below and 12 at the
+/// sides. Every skribble control keeps at least this much space around its
+/// content and grows to keep it as the content grows.
+const EdgeInsets kWiredInkPadding = EdgeInsets.symmetric(
+  horizontal: 12,
+  vertical: 8,
+);
+
+/// The space inside a button or a chip: [kWiredInkPadding], a little wider
+/// so a label reads as something to press.
+const EdgeInsets kWiredButtonPadding = EdgeInsets.symmetric(
+  horizontal: 16,
+  vertical: 8,
+);
 
 /// Utility class with default Paint objects for wired widgets.
 class WiredBase {

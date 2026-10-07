@@ -65,7 +65,9 @@ class WiredCupertinoSearchTextField extends HookWidget {
   /// Text input action. Defaults to `TextInputAction.search`.
   final TextInputAction? textInputAction;
 
-  /// Height of the field. Defaults to 36 like the iOS search field.
+  /// The least height of the field. Defaults to 40, a little taller than
+  /// the iOS search field so the text clears the hand-drawn pill, and the
+  /// field grows past it with larger text.
   final double height;
 
   /// Border radius of the field. Defaults to a stadium shape matching
@@ -92,7 +94,7 @@ class WiredCupertinoSearchTextField extends HookWidget {
     this.autofocus = false,
     this.focusNode,
     this.textInputAction,
-    this.height = 36,
+    this.height = 40,
     this.borderRadius,
     this.semanticLabel,
   });
@@ -134,49 +136,46 @@ class WiredCupertinoSearchTextField extends HookWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: SizedBox(
-                  height: height,
+                padding: kWiredInkPadding,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: height - 16),
                   child: Row(
                     children: [
                       prefixWidget ?? const _SearchGlyph(),
                       const SizedBox(width: 6),
                       Expanded(
-                        child: SizedBox(
-                          height: height - 10,
-                          child: Stack(
-                            alignment: Alignment.centerLeft,
-                            children: [
-                              if (showPlaceholder)
-                                Text(
-                                  placeholder!,
-                                  style:
-                                      placeholderStyle ??
-                                      TextStyle(
-                                        color: theme.disabledTextColor,
-                                        fontSize: 17,
-                                      ),
-                                ),
-                              EditableText(
-                                controller: effectiveController,
-                                focusNode: effectiveFocusNode,
-                                autofocus: autofocus,
-                                readOnly: !enabled,
+                        child: Stack(
+                          alignment: Alignment.centerLeft,
+                          children: [
+                            if (showPlaceholder)
+                              Text(
+                                placeholder!,
                                 style:
-                                    style ??
+                                    placeholderStyle ??
                                     TextStyle(
-                                      color: theme.textColor,
+                                      color: theme.disabledTextColor,
                                       fontSize: 17,
                                     ),
-                                cursorColor: theme.borderColor,
-                                backgroundCursorColor: theme.disabledTextColor,
-                                onChanged: enabled ? onChanged : null,
-                                onSubmitted: enabled ? onSubmitted : null,
-                                textInputAction:
-                                    textInputAction ?? TextInputAction.search,
                               ),
-                            ],
-                          ),
+                            EditableText(
+                              controller: effectiveController,
+                              focusNode: effectiveFocusNode,
+                              autofocus: autofocus,
+                              readOnly: !enabled,
+                              style:
+                                  style ??
+                                  TextStyle(
+                                    color: theme.textColor,
+                                    fontSize: 17,
+                                  ),
+                              cursorColor: theme.borderColor,
+                              backgroundCursorColor: theme.disabledTextColor,
+                              onChanged: enabled ? onChanged : null,
+                              onSubmitted: enabled ? onSubmitted : null,
+                              textInputAction:
+                                  textInputAction ?? TextInputAction.search,
+                            ),
+                          ],
                         ),
                       ),
                       if (suffixWidget != null) ...[

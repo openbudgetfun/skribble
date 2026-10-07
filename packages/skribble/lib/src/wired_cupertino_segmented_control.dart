@@ -196,7 +196,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
     required this.onValueChanged,
     this.backgroundColor,
     this.thumbColor,
-    this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
   });
 
   @override

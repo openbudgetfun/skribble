@@ -469,21 +469,21 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'ink-reveal': ExampleDefinition(
     builder: _inkReveal,
-    source: "HookBuilder(\n  builder: (context) {\n    final replay = useState(0);\n    return Column(\n      children: [\n        WiredDraw(\n          key: ValueKey(replay.value),\n          child: WiredCard(child: Text(settings.label)),\n        ),\n        const SizedBox(height: 16),\n        WiredOutlinedButton(\n          onPressed: () => replay.value++,\n          child: const Text('Draw again'),\n        ),\n      ],\n    );\n  },\n)",
-    edits: [ExampleEdit(202, 216, ExampleParameter.label)],
+    source: "HookBuilder(\n  builder: (context) {\n    final replay = useState(0);\n    return Column(\n      children: [\n        WiredDraw(\n          key: ValueKey(replay.value),\n          child: WiredCard(\n            child: Padding(\n              padding: const EdgeInsets.all(16),\n              child: Text(settings.label),\n            ),\n          ),\n        ),\n        const SizedBox(height: 16),\n        WiredOutlinedButton(\n          onPressed: () => replay.value++,\n          child: const Text('Draw again'),\n        ),\n      ],\n    );\n  },\n)",
+    edits: [ExampleEdit(294, 308, ExampleParameter.label)],
   ),
   'ink-progress': ExampleDefinition(
     builder: _inkProgress,
-    source: "WiredDrawTransition(\n  progress: AlwaysStoppedAnimation(settings.amount),\n  child: WiredCard(child: Text(settings.label)),\n)",
+    source: "WiredDrawTransition(\n  progress: AlwaysStoppedAnimation(settings.amount),\n  child: WiredCard(\n    child: Padding(\n      padding: const EdgeInsets.all(16),\n      child: Text(settings.label),\n    ),\n  ),\n)",
     edits: [
       ExampleEdit(56, 71, ExampleParameter.amount),
-      ExampleEdit(105, 119, ExampleParameter.label),
+      ExampleEdit(173, 187, ExampleParameter.label),
     ],
   ),
   'ink-basic': ExampleDefinition(
     builder: _inkBasic,
-    source: "WiredDraw(child: WiredCard(child: Text(settings.label)))",
-    edits: [ExampleEdit(39, 53, ExampleParameter.label)],
+    source: "WiredDraw(\n  child: WiredCard(\n    child: Padding(\n      padding: const EdgeInsets.all(16),\n      child: Text(settings.label),\n    ),\n  ),\n)",
+    edits: [ExampleEdit(110, 124, ExampleParameter.label)],
   ),
   'redraw-button': ExampleDefinition(
     builder: _redrawButton,
@@ -806,7 +806,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'decoration-usage-8': ExampleDefinition(
     builder: _decorationUsage8,
-    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),\n      decoration: RoughBoxDecoration(\n        drawConfig: theme.drawConfig,\n        shape: RoughBoxShape.roundedRectangle,\n        borderStyle: const RoughDrawingStyle(\n          width: 1,\n          color: Color(0xff456c5c),\n        ),\n        fillStyle: const RoughDrawingStyle(\n          width: 0.5,\n          color: Color(0xffeef1df),\n        ),\n        filler: SolidFiller(FillerConfig.defaultConfig),\n        borderRadius: BorderRadius.circular(20),\n      ),\n      child: const Text(\n        'flutter',\n        style: TextStyle(color: Color(0xff456c5c), fontSize: 12),\n      ),\n    );\n  },\n)",
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Container(\n      padding: kWiredInkPadding,\n      decoration: RoughBoxDecoration(\n        drawConfig: theme.drawConfig,\n        shape: RoughBoxShape.roundedRectangle,\n        borderStyle: const RoughDrawingStyle(\n          width: 1,\n          color: Color(0xff456c5c),\n        ),\n        fillStyle: const RoughDrawingStyle(\n          width: 0.5,\n          color: Color(0xffeef1df),\n        ),\n        filler: SolidFiller(FillerConfig.defaultConfig),\n        borderRadius: BorderRadius.circular(20),\n      ),\n      child: const Text(\n        'flutter',\n        style: TextStyle(color: Color(0xff456c5c), fontSize: 12),\n      ),\n    );\n  },\n)",
     edits: [],
   ),
   'decoration-usage-9': ExampleDefinition(

@@ -70,7 +70,10 @@ Key types:
 - `WiredRepaintMixin` — mixin for RepaintBoundary wrapping
 - `buildWiredElement()` — standalone helper function
 - `WiredRectangleBase`, `WiredCircleBase`, `WiredLineBase`, `WiredRoundedRectangleBase`, `WiredInvertedTriangleBase` — concrete painters
-- `kWiredButtonHeight` — standard button height (42.0)
+- `kWiredButtonHeight` — the least height of a button (42.0); buttons grow with their label
+- `kWiredChipHeight` — the least height of a chip (36.0)
+- `kWiredInkPadding` — the least space between the ink and the content inside it: 8 above and below, 12 at the sides
+- `kWiredButtonPadding` — the space inside buttons and chips: 8 above and below, 16 at the sides
 
 ### 4. Theme and app shell
 
@@ -251,6 +254,15 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredAnimatedIcon`                           | `wired_animated_icon.dart`         |
 
 Every icon widget takes a `weight` from 100 to 700 (falling back to `IconTheme.weight`), and scales with the theme's `strokeWidth`. `SkribbleGlyphs` holds skribble's 51 hand-drawn stroke glyphs as named constants plus `SkribbleGlyphs.all`; `WiredIcon` uses them for common Material icons when no catalog is registered.
+
+## Testing library
+
+`package:skribble/testing.dart` checks laid-out screens for the ink's breathing room, in widget tests and with no extra dependencies:
+
+- `crampedText(root)` — text closer than `kWiredInkPadding` to the hand-drawn shape around it, as `CrampedText` reports
+- `squeezedText(root)` — paragraphs wrapped into a narrow column on a small screen
+
+See [Testing](../guides/testing#check-the-inks-breathing-room).
 
 ## Package dependencies
 
