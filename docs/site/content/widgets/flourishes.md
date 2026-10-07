@@ -51,6 +51,8 @@ Wrap a drawing in `WiredDraw` for a one-time entrance, or use `WiredDrawTransiti
 `WiredLogo(size: 48)` renders the skribble logo: a smiling face in square brackets, inked with a fineliner over a marker-filled face with rosy cheeks. The ink is the theme's text colour and the face its marker colour, so the logo reads on day and night paper. The outlines have fixed geometry and ink the same way at every roughness, so the mark stays recognisable everywhere.
 
 ```dart
+// Static example: api
+
 // The full-colour mark.
 const WiredLogo(size: 96)
 
