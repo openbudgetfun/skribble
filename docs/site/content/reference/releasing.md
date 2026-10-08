@@ -40,9 +40,13 @@ monochange check
 
 ## The release pull request
 
-Every push to `main` runs the `Release PR` workflow. When changesets are pending, it runs `monochange run release-pr`: Monochange plans the version bumps, updates the changelogs and versioned files, formats them, commits the result on the `chore/release/release-pr` branch, and opens or refreshes the `chore(release): prepare release` pull request. CI runs on it like on any other pull request. Review the planned versions and changelogs there, then merge it once every check is green: the merged commit is the release commit, and the workflow's `tag` job tags and publishes it (see [Publish a release](#publish-a-release)).
+Every push to `main` runs the `Release PR` workflow. When changesets are pending, it runs `monochange run release-pr`: Monochange plans the version bumps, updates the changelogs and versioned files, formats them, commits the result on the `chore/release/release-pr` branch, and opens or refreshes the `chore(release): prepare release` pull request. Review the planned versions and changelogs there, then merge it once every check is green: the merged commit is the release commit, which you tag to publish it (see [Publish a release](#publish-a-release)).
 
-The release branch is pushed and the pull request opened with the `RELEASE_PR_TOKEN` secret (see [Prerequisites](#prerequisites-for-automated-publishing)). GitHub runs no workflows for pushes or pull requests made with `GITHUB_TOKEN`, so without the token CI would never run on the release pull request.
+The workflow pushes the release branch and opens the pull request with its own `GITHUB_TOKEN`, and GitHub starts no workflows for that token's pushes or pull requests. CI therefore does not run on the release pull request by itself. Close and reopen it to start CI, and do it again whenever the workflow refreshes the branch:
+
+```bash
+gh pr close <number> && gh pr reopen <number>
+```
 
 To open or refresh the release pull request by hand, dispatch the workflow (`gh workflow run release.yml`), or run the same command locally inside the devenv shell with a GitHub token that can push branches and open pull requests:
 
@@ -70,7 +74,16 @@ The shared CI setup restores `.fvmrc` after FVM selects the pinned SDK, and the 
 
 ## Publish a release
 
-The `Release PR` workflow pushes the release tags once a release commit lands on `main` — `v<version>` for the main group, plus the namespaced maps or charts tag when that package is included. The tags are pushed one at a time with the `RELEASE_PR_TOKEN` fine-grained PAT, and each push is a real workflow event that fires the publish workflow:
+Once the release pull request merges, push the release commit's tags from a local checkout — `v<version>` for the main group, plus the namespaced maps or charts tag when that package is included. Tags pushed with the workflow's `GITHUB_TOKEN` would start no publish run, so they are pushed with your own credentials, and each push is a real workflow event that fires the publish workflow:
+
+```bash
+git fetch origin && git switch --detach origin/main
+publish:tags
+```
+
+`publish:tags` (`scripts/release/push_release_tags.sh`) creates the tags from the release record, pushes them one at a time, and watches each publish run to completion. Run it again after a failed publish: tags already on origin are not pushed twice, and their publish runs are watched again. The `Release PR` workflow leaves a notice on the release commit's run as a reminder.
+
+The publish workflow then runs for each tag:
 
 1. The publish workflow checks out the tag and verifies it matches a commit reachable from `main`.
 2. Monochange checks publish readiness for the packages in the release record.
@@ -105,9 +118,9 @@ pub.dev's automated publishing only accepts GitHub Actions runs triggered by pus
 
 ### Prerequisites for automated publishing
 
-Two repository-side settings make the automated path work. A release from a local checkout needs neither.
+Two repository-side settings make the automated path work. A release from a local checkout needs only the second.
 
-- **`RELEASE_PR_TOKEN` secret** — a fine-grained PAT for this repository only, with `Contents: read and write` and `Pull requests: read and write`. GitHub runs no workflows for branches, pull requests, or tags pushed with `GITHUB_TOKEN`, and deploy keys are disabled on this repository, so the release workflow needs this token to push the release branch and open the release pull request (so CI runs on it), and to push the tags that fire the publish workflow. Create it under _Settings → Developer settings → Fine-grained tokens_ with the resource owner `openbudgetfun` and only `openbudgetfun/skribble` selected, then add it with `gh secret set RELEASE_PR_TOKEN --repo openbudgetfun/skribble`.
+- **GitHub Actions can open pull requests** — _Settings → Actions → General → Allow GitHub Actions to create and approve pull requests_ must stay enabled, at the organization and repository level, or the release workflow cannot open the release pull request with `GITHUB_TOKEN`.
 - **pub.dev automated publishing** — configured per package in the package's Admin tab: repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, and the tag pattern for that package (`v{{version}}`, `skribble_maps/v{{version}}`, or `skribble_charts/v{{version}}`). pub.dev rejects a tagged publish whose configuration does not match.
 
   This is per package and cannot be verified from the repository: `monochange step publish-readiness` reports `manual_verification_required` for every existing package because it cannot read trusted-publisher entries without registry credentials. A package whose rule is missing or mismatched fails at publish time with `The calling GitHub Action is not allowed to publish, because: publishing from github is not enabled`, and no workflow change can fix it — only the Admin tab can. Both v0.2.0 and v0.2.1 failed exactly this way on `skribble_font_recursive` while its sibling packages published normally.
@@ -201,7 +214,7 @@ Before rerunning, check which packages are actually missing rather than assuming
 
 A recovery run is the one case where the publish workflow reads a file from `main` rather than from the tag: the publish script is loaded from `origin/main`, because every tag cut before it existed predates the file. Everything else — the release record, package manifests, and versions — still comes from the tag, so the release being published is the tag's. The same applies to `scripts/release/package_fonts.sh`, which is why [Font release assets](#font-release-assets) notes that a script fix reaches only new tags.
 
-When the release tags already exist on the release commit, the `tag` job of the `Release PR` workflow reruns cleanly without `RELEASE_PR_TOKEN`: it skips token installation and tag creation, leaves the existing tags untouched, and only watches the publish runs to completion. The token is still required to push any new tag.
+When the release tags already exist on the release commit, `publish:tags` reruns cleanly: it leaves the existing tags untouched and only watches their publish runs to completion. To publish again after fixing a registry rule, rerun the failed publish run from the Actions tab, which keeps its tag-push event.
 
 Each run uploads its readiness and publication reports for 14 days. Read those artifacts before retrying. Keep the original release tag on the release-record commit.
 

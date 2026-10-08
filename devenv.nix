@@ -347,5 +347,16 @@ in
       description = "Publish the packages a release tag owns in dependency order (<tag> [--dry-run]).";
       binary = "bash";
     };
+    # Tags pushed by the Release PR workflow's GITHUB_TOKEN start no publish
+    # run, so a maintainer pushes them from the merged release commit.
+    "publish:tags" = {
+      exec = ''
+        set -e
+        cd "$DEVENV_ROOT"
+        ./scripts/release/push_release_tags.sh "$@"
+      '';
+      description = "Tag the release commit at HEAD and push its tags one at a time, watching each publish run.";
+      binary = "bash";
+    };
   };
 }

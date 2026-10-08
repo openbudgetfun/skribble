@@ -113,4 +113,7 @@ publish:fonts
 
 # Publish the packages a release tag owns, then verify the registry
 publish:owned v<version>
+
+# Tag the merged release commit at HEAD and push its tags, watching each publish
+publish:tags
 ```

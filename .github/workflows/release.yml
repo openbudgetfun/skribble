@@ -1,9 +1,16 @@
 name: Release PR
 
 # Every push to main opens or refreshes the release pull request from the
-# pending changesets. Merging that pull request is a release commit, which the
-# `tag` job tags so the publish workflow releases it. `monochange run release`
-# remains available for a release from a local checkout.
+# pending changesets. Merging that pull request is a release commit, which a
+# maintainer tags with `publish:tags` so the publish workflow releases it.
+# `monochange run release` remains available for a release from a local
+# checkout.
+#
+# The workflow pushes and opens the pull request with GITHUB_TOKEN, and GitHub
+# starts no workflows for that token's pushes, pull requests, or tags: close
+# and reopen the release pull request to run CI on it, and push the release
+# tags from a local checkout. A credential whose pushes do start workflows
+# would let this workflow do both.
 on:
   push:
     branches: [main]
@@ -24,8 +31,6 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    outputs:
-      is_release_commit: ${{ steps.release_record.outputs.is_release_commit }}
     steps:
       - name: Check out repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
@@ -72,6 +77,14 @@ jobs:
           echo "is_release_commit=false" >>"$GITHUB_OUTPUT"
         shell: devenv shell -- bash -e {0}
 
+      - name: Point at the release tags
+        if: steps.release_record.outputs.is_release_commit == 'true'
+        run: |
+          message="Release commit: push its tags with publish:tags from a checkout of this commit to publish it."
+          echo "::notice title=Release commit::${message}"
+          echo "${message}" >>"$GITHUB_STEP_SUMMARY"
+        shell: bash
+
       - name: Detect pending changesets
         id: changesets
         if: steps.release_record.outputs.is_release_commit != 'true'
@@ -83,25 +96,10 @@ jobs:
           fi
         shell: bash
 
-      - name: Require the release PR token
-        if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
-        env:
-          RELEASE_PR_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
-        run: |
-          if [ -z "$RELEASE_PR_TOKEN" ]; then
-            echo "::error::RELEASE_PR_TOKEN is not configured. See docs/site/content/reference/releasing.md."
-            exit 1
-          fi
-        shell: bash
-
-      # GitHub runs no workflows for pushes or pull requests made with
-      # GITHUB_TOKEN, so the release branch is pushed and the pull request
-      # opened with a repository-scoped PAT. That way CI runs on the release
-      # pull request like any other.
       - name: Configure GitHub authentication
         if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh auth setup-git
         shell: bash
 
@@ -116,7 +114,7 @@ jobs:
       - name: Open or refresh the release PR
         if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           # A changeset that only bumps `none` produces no releaseable
@@ -137,7 +135,7 @@ jobs:
       - name: Add release PR attribution
         if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           pr_number="$(
@@ -162,143 +160,3 @@ jobs:
               >/dev/null
           fi
         shell: bash
-
-  tag:
-    if: github.repository == 'openbudgetfun/skribble' && needs.update.outputs.is_release_commit == 'true'
-    needs: update
-    environment: publisher
-    runs-on: ubuntu-latest
-    timeout-minutes: 90
-    permissions:
-      actions: read
-      contents: write
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-        with:
-          fetch-depth: 0
-          fetch-tags: true
-          persist-credentials: false
-
-      - name: Set up toolchains
-        uses: ./.github/actions/devenv
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Configure release identity
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        shell: bash
-
-      # A rerun after the release tags were already pushed (a retried or
-      # recovered release) still has to watch the publish runs to completion,
-      # but nothing is left to push: the token is not needed there, and
-      # monochange treats a same-commit tag rerun as already up to date.
-      - name: Detect an already tagged release
-        id: tagged
-        run: |
-          set -euo pipefail
-          existing="$(
-            git tag --points-at HEAD \
-              --list 'v[0-9]*' \
-              --list 'skribble_maps/v[0-9]*' \
-              --list 'skribble_charts/v[0-9]*' \
-              | sort | tr '\n' ' '
-          )"
-          if [ -n "$existing" ]; then
-            echo "tagged=true" >>"$GITHUB_OUTPUT"
-            echo "preexisting=$existing" >>"$GITHUB_OUTPUT"
-            echo "Release tags already exist at HEAD; skipping tagging."
-          else
-            echo "tagged=false" >>"$GITHUB_OUTPUT"
-          fi
-        shell: bash
-
-      # pub.dev only allows automated publishing from GitHub Actions runs that
-      # were triggered by pushing a git tag, and pushes made with GITHUB_TOKEN
-      # do not fire workflow events. The publish runs must therefore be real
-      # tag-push events, so the tags are pushed with the same repository-scoped
-      # RELEASE_PR_TOKEN that opens the release pull request.
-      - name: Install the release tag push token
-        if: steps.tagged.outputs.tagged != 'true'
-        env:
-          RELEASE_PR_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
-        run: |
-          set -euo pipefail
-          if [ -z "$RELEASE_PR_TOKEN" ]; then
-            echo "::error::RELEASE_PR_TOKEN is not configured; automated releases cannot push tags."
-            exit 1
-          fi
-          git config --local \
-            http."https://github.com/".extraheader \
-            "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$RELEASE_PR_TOKEN" | base64 -w0)"
-        shell: bash
-
-      - name: Create release tags
-        if: steps.tagged.outputs.tagged != 'true'
-        run: |
-          set -euo pipefail
-          # Tags are created locally and pushed by the next step so every tag
-          # produces its own push event, which is what fires publish.yml.
-          monochange step tag-release --from HEAD --push=false --format json
-        shell: devenv shell -- bash -e {0}
-
-      # The tags are pushed one at a time and each publish run is watched to
-      # completion before the next tag is pushed: companion packages depend on
-      # the main group, and pub.dev only accepts a package's own tag pattern,
-      # so the main release has to land before the companions publish.
-      - name: Push tags and watch the publish runs
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PREEXISTING_TAGS: ${{ steps.tagged.outputs.preexisting }}
-        run: |
-          set -euo pipefail
-          mapfile -t main_tags < <(git tag --points-at HEAD --list 'v[0-9]*')
-          mapfile -t maps_tags < <(git tag --points-at HEAD --list 'skribble_maps/v[0-9]*')
-          mapfile -t charts_tags < <(git tag --points-at HEAD --list 'skribble_charts/v[0-9]*')
-          release_tags=("${main_tags[@]}" "${maps_tags[@]}" "${charts_tags[@]}")
-          if [ "${#release_tags[@]}" -eq 0 ]; then
-            echo "::error::Expected at least one release tag at HEAD."
-            exit 1
-          fi
-
-          release_commit="$(git rev-parse HEAD)"
-          for release_tag in "${release_tags[@]}"; do
-            case " $PREEXISTING_TAGS " in
-              *" $release_tag "*)
-                # The tag came with the checkout, so it is already on origin
-                # and pushing it again needs no release token.
-                echo "$release_tag already exists on origin; not pushing again"
-                ;;
-              *)
-                echo "pushing $release_tag"
-                git push origin "refs/tags/$release_tag"
-                ;;
-            esac
-
-            run_id=""
-            for _ in {1..30}; do
-              run_id="$(
-                gh run list \
-                  --workflow publish.yml \
-                  --event push \
-                  --branch "$release_tag" \
-                  --limit 10 \
-                  --json databaseId,headSha \
-                  --jq "[.[] | select(.headSha == \"$release_commit\")][0].databaseId // empty"
-              )"
-              if [ -n "$run_id" ]; then
-                break
-              fi
-              sleep 2
-            done
-            if [ -z "$run_id" ]; then
-              echo "::error::Could not find the publish run for $release_tag."
-              exit 1
-            fi
-
-            gh run watch "$run_id" --exit-status
-          done
-        shell: devenv shell -- bash -e {0}
