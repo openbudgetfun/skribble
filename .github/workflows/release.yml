@@ -7,9 +7,10 @@ name: Release PR
 # checkout.
 #
 # The workflow pushes and opens the pull request with GITHUB_TOKEN, and GitHub
-# starts no workflows for that token's pushes, pull requests, or tags: close
-# and reopen the release pull request to run CI on it, and push the release
-# tags from a local checkout. A credential whose pushes do start workflows
+# starts no workflows for that token's pushes, pull requests, or tags. Approve
+# only the newest held run of each workflow (an older duplicate is cancelled
+# by the newer one), or close and reopen the release pull request, to run CI
+# on it, and push the release tags from a local checkout. A credential whose pushes do start workflows
 # would let this workflow do both.
 on:
   push:

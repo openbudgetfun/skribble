@@ -42,11 +42,14 @@ monochange check
 
 Every push to `main` runs the `Release PR` workflow. When changesets are pending, it runs `monochange run release-pr`: Monochange plans the version bumps, updates the changelogs and versioned files, formats them, commits the result on the `chore/release/release-pr` branch, and opens or refreshes the `chore(release): prepare release` pull request. Review the planned versions and changelogs there, then merge it once every check is green: the merged commit is the release commit, which you tag to publish it (see [Publish a release](#publish-a-release)).
 
-The workflow pushes the release branch and opens the pull request with its own `GITHUB_TOKEN`, and GitHub starts no workflows for that token's pushes or pull requests. CI therefore does not run on the release pull request by itself. Close and reopen it to start CI, and do it again whenever the workflow refreshes the branch:
+The workflow pushes the release branch and opens the pull request with its own `GITHUB_TOKEN`. GitHub does not start workflows for that token's pushes or pull requests: it holds the runs as _action required_ until a maintainer approves them, so CI never starts on the release pull request by itself. After every refresh, start CI one of two ways:
 
-```bash
-gh pr close <number> && gh pr reopen <number>
-```
+- **Approve only the newest run of each workflow** (CI, Changeset policy, and PR Review). One refresh can queue two runs of a workflow for the same commit, and each workflow cancels older runs on the same branch, so approving both makes the newer cancel the older straight away. Re-running a cancelled duplicate then cancels the run that survived, so leave cancelled duplicates alone: the surviving runs are the checks that count.
+- **Close and reopen the pull request**, which starts one fresh set of runs under your name:
+
+  ```bash
+  gh pr close <number> && gh pr reopen <number>
+  ```
 
 To open or refresh the release pull request by hand, dispatch the workflow (`gh workflow run release.yml`), or run the same command locally inside the devenv shell with a GitHub token that can push branches and open pull requests:
 
