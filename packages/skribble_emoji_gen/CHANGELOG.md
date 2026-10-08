@@ -2,6 +2,53 @@
 
 Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).
 
+## [0.3.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.0) (2026-10-08)
+
+### Breaking changes
+
+#### Draw icons with the pen and give them a weight
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #229](https://github.com/openbudgetfun/skribble/pull/229) · _Related issues:_ [#130](https://github.com/openbudgetfun/skribble/issues/130)
+
+Icons now honour a `weight` from 100 to 700 on Flutter's icon weight scale, falling back to `IconTheme.weight`, and scale with the theme's `strokeWidth`. Stroke artwork is inked by the theme's `RoughPen`; silhouettes grow or shrink evenly, and `WiredIconFillStyle.none` draws them as inked outlines. `strokeWidth` and `sampleDistance` are removed from `WiredIcon` and `WiredSvgIcon`:
+
+```dart
+// Before
+WiredIcon(icon: Icons.search, strokeWidth: 1.2);
+
+// After
+WiredIcon(icon: Icons.search, weight: 300);
+SkribbleIcon(data: SkribbleGlyphs.sparkle, weight: 600);
+```
+
+The core package ships `SkribbleGlyphs`, 51 stroke drawings made for skribble, generated from SVGs in `packages/skribble/tool/glyphs` by `generate_glyphs.dart`, which replaces `generate_icons.dart`. They replace `skribble_icons_curated`, which is retired; `SkribbleIconSet.curated` becomes `SkribbleIconSet.glyphs`. Wired widgets draw their own chrome with the glyphs, and without a registered catalog `WiredIcon` draws the matching glyph for about sixty common Material icons instead of the font glyph.
+
+#### skribble draws its own emoji
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #230](https://github.com/openbudgetfun/skribble/pull/230)
+
+`skribble_emoji` no longer converts OpenMoji. Every fully-qualified emoji in Unicode Emoji 18.0 (3,963, including skin tones, gendered variants, families, keycaps, and flags) is drawn for skribble as SVG art in one style and inked at runtime by the theme pen, so emoji follow the theme's roughness, pen, and `weight`. The art is MIT.
+
+```dart
+// Before
+WiredEmoji.fromName('grinning_face', size: 32);
+PrecomputedEmoji.fromSequence('🇬🇧', size: 32);
+lookupSkribbleEmojiByName('red_heart');
+EmojiSearch.search('cat');
+
+// After
+const WiredEmoji('😀', size: 32);
+const WiredEmoji('🇬🇧', size: 32);
+SkribbleEmoji.named('red_heart');
+SkribbleEmoji.search('cat');
+```
+
+`SkribbleEmoji` is the catalog (`all`, `defaults`, `lookup`, `named`, `inGroup`, `search`, `withTone`), and `EmojiEntry` carries each emoji's name, group, subgroup, and art. `WiredEmojiText` draws emoji inside text. `EmojiPalette` restyles every emoji by colour role and compares by value; `EmojiDrawing` prepares an emoji for custom painters with named parts that a pose can move. `PrecomputedEmoji`, `EmojiSearch`, `EmojiSearchResult`, the `kSkribbleEmoji*` maps, the `lookupSkribbleEmojiBy*` functions, and the `WiredSvgIconData` re-exports are removed.
+
+`skribble_emoji_gen` replaces the OpenMoji conversion with `EmojiArtCompiler`, which enforces the authoring rules in `art/STYLE.md`, and `parseEmojiTest` and `planEmoji`, which plan the pinned Unicode list onto art. `generate_emoji.dart` takes `--art`, `--output`, `--unicode`, `--report`, `--allow-missing`, and `--check`, and `update_assets.dart` no longer downloads OpenMoji.
+
+`skribble` exports `waverPath`, `waveredPolygons`, and `WaveredContour`, the smooth wavering that icons and emoji share.
+
 ## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)
 
 ### Fixes

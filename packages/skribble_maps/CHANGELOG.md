@@ -103,6 +103,46 @@ _Owner:_ Ifiok Jr. · _Introduced in:_ [77bb664](https://github.com/openbudgetfu
 
 - **No package-specific changes were recorded; `skribble_maps` was updated to 0.2.1.**
 
+## skribble_maps [0.3.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.3.0) (2026-10-08)
+
+### Fixes
+
+#### Ink every line with a pressure-sensitive pen
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #228](https://github.com/openbudgetfun/skribble/pull/228)
+
+The rough engine now separates where a line goes from how its ink lands. A new `RoughPen` turns each rough centreline into a variable-width stroke: a light touchdown that swells to full width, slow pressure changes, a thinner lift, lighter and partial repeat passes, and closed loops that overshoot their start and curl inward. Each `WiredRoughness` level brings a pen (`fineliner`, `ink`, `brush`), and `WiredThemeData(pen: RoughPen.uniform)` restores constant-width lines.
+
+`DrawConfig`, `FillerConfig`, `Filler.config`, and `Generator` lost their nullable fields, `Op.move` records the pen pass, and `Canvas.drawRough` paints through `RoughDrawing` so it inks with the drawable's pen:
+
+```dart
+// Before
+final amplitude = config.roughness! * (config.maxRandomnessOffset ?? 1);
+
+// After
+final amplitude = config.roughness * config.maxRandomnessOffset;
+final theme = WiredThemeData(pen: RoughPen.brush);
+```
+
+The pen is pure Dart: `InkStroke` and `DrawableInk` export the painted ink as SVG path data, and the design kit now hands Figma filled ink outlines. Long-edge bowing is capped at `maxRandomnessOffset` so wide cards stay inside their reserved bleed.
+
+#### Draw icons with the pen and give them a weight
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #229](https://github.com/openbudgetfun/skribble/pull/229) · _Related issues:_ [#130](https://github.com/openbudgetfun/skribble/issues/130)
+
+Icons now honour a `weight` from 100 to 700 on Flutter's icon weight scale, falling back to `IconTheme.weight`, and scale with the theme's `strokeWidth`. Stroke artwork is inked by the theme's `RoughPen`; silhouettes grow or shrink evenly, and `WiredIconFillStyle.none` draws them as inked outlines. `strokeWidth` and `sampleDistance` are removed from `WiredIcon` and `WiredSvgIcon`:
+
+```dart
+// Before
+WiredIcon(icon: Icons.search, strokeWidth: 1.2);
+
+// After
+WiredIcon(icon: Icons.search, weight: 300);
+SkribbleIcon(data: SkribbleGlyphs.sparkle, weight: 600);
+```
+
+The core package ships `SkribbleGlyphs`, 51 stroke drawings made for skribble, generated from SVGs in `packages/skribble/tool/glyphs` by `generate_glyphs.dart`, which replaces `generate_icons.dart`. They replace `skribble_icons_curated`, which is retired; `SkribbleIconSet.curated` becomes `SkribbleIconSet.glyphs`. Wired widgets draw their own chrome with the glyphs, and without a registered catalog `WiredIcon` draws the matching glyph for about sixty common Material icons instead of the font glyph.
+
 ## 0.0.1
 
 - Add the initial hand-drawn vector map viewport, renderer, providers, styles, overlays, controls, documentation, and tests.
