@@ -14,6 +14,47 @@ void main() {
       expectPaints(findWired<WiredSwitch>());
     });
 
+    testWidgets('rebuilding a disabled switch leaves its focus node alone', (
+      tester,
+    ) async {
+      // The focus node of a control that cannot be activated has two
+      // writers: the hook that creates it and the detector that makes it
+      // unfocusable. When they disagree, every rebuild flips the node and
+      // notifies its listeners, which schedules another frame, and a screen
+      // that rebuilds in response never settles.
+      final rebuilds = ValueNotifier<int>(0);
+      addTearDown(rebuilds.dispose);
+      await pumpWired(
+        tester,
+        ValueListenableBuilder<int>(
+          valueListenable: rebuilds,
+          // A new label each time makes every rebuild a new widget.
+          builder: (context, count, _) =>
+              WiredSwitch(value: true, semanticLabel: 'Share $count'),
+        ),
+      );
+      final node = tester
+          .widgetList<Focus>(
+            find.descendant(
+              of: find.byType(WiredSwitch),
+              matching: find.byType(Focus),
+            ),
+          )
+          .map((focus) => focus.focusNode)
+          .nonNulls
+          .single;
+      var notifications = 0;
+      node.addListener(() => notifications++);
+
+      rebuilds.value++;
+      await tester.pump();
+      await tester.pump();
+
+      expect(node.canRequestFocus, isFalse);
+      expect(notifications, 0);
+      expect(tester.binding.hasScheduledFrame, isFalse);
+    });
+
     testWidgets('activates from the keyboard (Space) when focused', (
       tester,
     ) async {
