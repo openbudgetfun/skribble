@@ -25,6 +25,10 @@
 #
 # The final verification reads the registry API directly rather than reusing a
 # readiness report, so it stays correct whether or not one was supplied.
+# pub.dev accepts an upload before its API lists the new version ("it may take
+# up-to 10 minutes"), so a version this run just uploaded is polled for up to
+# 10 minutes before it counts as missing. A package whose publish failed is
+# reported at once.
 #
 # Usage:
 #   ./scripts/release/publish_owned_packages.sh <tag> [--dry-run] [--readiness <path>]
@@ -171,6 +175,7 @@ sed 's/^/  /' "$scratch/ordered.txt"
 echo
 
 failed=""
+uploaded=""
 
 while IFS= read -r package; do
 	[[ -n "$package" ]] || continue
@@ -182,7 +187,11 @@ while IFS= read -r package; do
 		set --
 	fi
 
-	if ! monochange step publish-packages --package "$package" --stream-output --format json "$@"; then
+	if monochange step publish-packages --package "$package" --stream-output --format json "$@"; then
+		if [[ "$DRY_RUN" -eq 0 ]]; then
+			uploaded="$uploaded $package "
+		fi
+	else
 		echo "::warning::$package failed to publish; continuing with the remaining packages" >&2
 		failed="$failed $package"
 	fi
@@ -195,6 +204,15 @@ done <"$scratch/ordered.txt"
 # did, so a re-run of a partial publish reports success.
 echo "=== verifying every package $TAG owns is on the registry ==="
 missing=""
+deadline=$((SECONDS + 600))
+
+# Whether pub.dev lists $1 at version $2. Sets `code` to the HTTP status.
+on_registry() {
+	code="$(curl -s -o "$scratch/pkg.json" -w '%{http_code}' \
+		"https://pub.dev/api/packages/$1" || true)"
+	[[ "$code" == "200" ]] &&
+		[[ "$(jq -r --arg v "$2" '[.versions[]?.version] | index($v) != null' "$scratch/pkg.json" 2>/dev/null)" == "true" ]]
+}
 
 while IFS= read -r package; do
 	[[ -n "$package" ]] || continue
@@ -207,19 +225,28 @@ while IFS= read -r package; do
 		continue
 	fi
 
-	code="$(curl -s -o "$scratch/pkg.json" -w '%{http_code}' \
-		"https://pub.dev/api/packages/$package" || true)"
+	present=0
+	waited=0
+	while :; do
+		if on_registry "$package" "$version"; then
+			present=1
+			break
+		fi
+		if [[ "$uploaded" != *" $package "* || $SECONDS -ge $deadline ]]; then
+			break
+		fi
+		if [[ "$waited" -eq 0 ]]; then
+			printf '  waiting     %s (%s was uploaded; pub.dev has not listed it yet)\n' "$package" "$version"
+			waited=1
+		fi
+		sleep 15
+	done
 
-	if [[ "$code" != "200" ]]; then
+	if [[ "$present" -eq 1 ]]; then
+		printf '  ok          %s (%s)\n' "$package" "$version"
+	elif [[ "$code" != "200" ]]; then
 		printf '  MISSING     %s (registry returned HTTP %s)\n' "$package" "${code:-none}"
 		missing="$missing $package"
-		continue
-	fi
-
-	published="$(jq -r --arg v "$version" '[.versions[]?.version] | index($v) != null' "$scratch/pkg.json" 2>/dev/null)"
-
-	if [[ "$published" == "true" ]]; then
-		printf '  ok          %s (%s)\n' "$package" "$version"
 	else
 		printf '  MISSING     %s (%s is not on the registry)\n' "$package" "$version"
 		missing="$missing $package"
