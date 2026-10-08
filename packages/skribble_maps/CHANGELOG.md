@@ -143,6 +143,12 @@ SkribbleIcon(data: SkribbleGlyphs.sparkle, weight: 600);
 
 The core package ships `SkribbleGlyphs`, 51 stroke drawings made for skribble, generated from SVGs in `packages/skribble/tool/glyphs` by `generate_glyphs.dart`, which replaces `generate_icons.dart`. They replace `skribble_icons_curated`, which is retired; `SkribbleIconSet.curated` becomes `SkribbleIconSet.glyphs`. Wired widgets draw their own chrome with the glyphs, and without a registered catalog `WiredIcon` draws the matching glyph for about sixty common Material icons instead of the font glyph.
 
+## skribble_maps [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.3.1) (2026-10-08)
+
+### Changed
+
+- **No package-specific changes were recorded; `skribble_maps` was updated to 0.3.1.**
+
 ## 0.0.1
 
 - Add the initial hand-drawn vector map viewport, renderer, providers, styles, overlays, controls, documentation, and tests.

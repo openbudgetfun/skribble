@@ -1,7 +1,7 @@
 name: skribble
 description: |
   Hand-drawn UI components for Flutter. 80+ sketchy widgets with familiar Material and Cupertino APIs — buttons, inputs, navigation, dialogs, and more, all with a hand-drawn aesthetic.
-version: 0.3.0
+version: 0.3.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble
 documentation: https://openbudgetfun.github.io/skribble/
@@ -26,7 +26,7 @@ dev_dependencies:
     sdk: flutter
   skribble_font_recursive:
     path: ../skribble_font_recursive
-  skribble_lints: ^0.3.0
+  skribble_lints: ^0.3.1
   xml: ^6.6.1
 flutter:
   uses-material-design: true

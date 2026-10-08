@@ -1,6 +1,6 @@
 name: skribble_emoji_gen
 description: Compile skribble's hand-drawn emoji and glyph art, and pinned icon sets, into Dart catalogs.
-version: 0.3.0
+version: 0.3.1
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_emoji_gen
 issue_tracker: https://github.com/openbudgetfun/skribble/issues
