@@ -86,6 +86,8 @@ publish:tags
 
 `publish:tags` (`scripts/release/push_release_tags.sh`) creates the tags from the release record, pushes them one at a time, and watches each publish run to completion. Run it again after a failed publish: tags already on origin are not pushed twice, and their publish runs are watched again. The `Release PR` workflow leaves a notice on the release commit's run as a reminder.
 
+The main tag's publish run creates every GitHub release in the release record, and with it each companion tag that has not been pushed yet. That tag comes from the workflow's `GITHUB_TOKEN`, so it fires no publish run, as happened to `skribble_maps/v0.3.1` and `skribble_charts/v0.3.1`. `publish:tags` therefore publishes a tag that is already on origin without a publish run from your checkout, with `publish_owned_packages.sh` and your pub.dev credentials.
+
 The publish workflow then runs for each tag:
 
 1. The publish workflow checks out the tag and verifies it matches a commit reachable from `main`.
@@ -228,7 +230,7 @@ Before rerunning, check which packages are actually missing rather than assuming
 
 A recovery run is the one case where the publish workflow reads a file from `main` rather than from the tag: the publish script is loaded from `origin/main`, because every tag cut before it existed predates the file. Everything else — the release record, package manifests, and versions — still comes from the tag, so the release being published is the tag's. The same applies to `scripts/release/package_fonts.sh`, which is why [Font release assets](#font-release-assets) notes that a script fix reaches only new tags.
 
-When the release tags already exist on the release commit, `publish:tags` reruns cleanly: it leaves the existing tags untouched and only watches their publish runs to completion. To publish again after fixing a registry rule, rerun the failed publish run from the Actions tab, which keeps its tag-push event.
+When the release tags already exist on the release commit, `publish:tags` reruns cleanly: it leaves the existing tags untouched, watches their publish runs to completion, and publishes any tag that has no run from your checkout, skipping versions already on pub.dev. To publish again after fixing a registry rule, rerun the failed publish run from the Actions tab, which keeps its tag-push event.
 
 Each run uploads its readiness and publication reports for 14 days. Read those artifacts before retrying. Keep the original release tag on the release-record commit.
 
