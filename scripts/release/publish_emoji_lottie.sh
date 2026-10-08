@@ -96,8 +96,12 @@ echo "Exporting animated emoji from $TAG..."
   cd "$scratch/src"
   flutter pub get >/dev/null
   cd packages/skribble_emoji
-  EMOJI_LOTTIE_OUT="$scratch/lottie" flutter test test/emoji_lottie_test.dart \
-    --plain-name 'export Lottie files' >/dev/null
+  if ! EMOJI_LOTTIE_OUT="$scratch/lottie" flutter test test/emoji_lottie_test.dart \
+    --plain-name 'export Lottie files' >"$scratch/export.log" 2>&1; then
+    cat "$scratch/export.log" >&2
+    echo "Error: the Lottie export failed; its output is above." >&2
+    exit 1
+  fi
 )
 cp "$scratch/src/LICENSE" "$scratch/lottie/LICENSE"
 (cd "$scratch/lottie" && zip -q -r "$scratch/$ASSET" .)

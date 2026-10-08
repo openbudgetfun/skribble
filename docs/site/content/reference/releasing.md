@@ -157,6 +157,17 @@ publish:fonts v0.2.0 --dry-run   # package and list the uploads without sending 
 
 The command packages the fonts committed at the tag (`git archive`, not the working tree), so the archives always describe the release they are attached to, and it fails if the GitHub release object does not exist yet.
 
+### Animated emoji release asset
+
+The `v<version>` publish run also attaches `skribble-emoji-lottie.zip`: every animated emoji exported as a Lottie file, plus the license. `scripts/release/publish_emoji_lottie.sh` checks the tag out in a temporary worktree and runs the `export Lottie files` test in `packages/skribble_emoji`, so the zip always describes the release it is attached to, and the upload replaces a same-named asset on a re-run. When the export fails, the script prints the test's output before exiting.
+
+```bash
+publish:emoji-lottie                    # newest main-group v<version> tag
+publish:emoji-lottie v0.3.0 --dry-run   # export and report without uploading
+```
+
+The export passes `--plain-name 'export Lottie files'` through the devenv `flutter` script, which forwards its arguments quoted. The v0.3.0 run failed here because the script used to forward them unquoted, splitting the test name into three paths.
+
 pub.dev's automated publisher requires the tag push event, so the publish workflow only listens for `v*`, `skribble_maps/v*`, and `skribble_charts/v*` tag pushes. A `workflow_dispatch` with an explicit `tag` input exists for re-running the non-registry steps, but pub.dev rejects the publish itself on dispatch runs.
 
 The pub.dev automated publisher for `skribble_maps` uses repository `openbudgetfun/skribble`, workflow `publish.yml`, GitHub environment `publisher`, and tag pattern `skribble_maps/v{{version}}`. Its `0.0.0` placeholder was published with Monochange before the automated publisher was registered.
