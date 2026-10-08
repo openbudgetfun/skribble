@@ -1234,6 +1234,7 @@ WiredIcon.svg(iconData: myCustomIconData)
 | `monochange run release`         | Prepare a local release (plan, format, commit, tag, publish the GitHub release)                                 |
 | `monochange run publish`         | Publish the packages in the current release                                                                     |
 | `publish:owned <tag>`            | Publish the packages a tag owns, one at a time, then verify the registry                                        |
+| `publish:tags`                   | Tag the merged release commit at HEAD and push its tags one at a time, watching each publish run                |
 
 ## Changeset lint rules
 
