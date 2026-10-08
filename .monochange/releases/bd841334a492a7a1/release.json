@@ -1,0 +1,840 @@
+{
+  "schema_version": "0.9",
+  "kind": "monochange.releaseRecord",
+  "created_at": "2026-10-08T18:37:34Z",
+  "command": "release-pr",
+  "version": "0.3.1",
+  "versions": {
+    "main": "0.3.1",
+    "skribble_charts": "0.3.1",
+    "skribble_maps": "0.3.1"
+  },
+  "release_targets": [
+    {
+      "id": "main",
+      "kind": "group",
+      "version": "0.3.1",
+      "version_format": "primary",
+      "tag": true,
+      "release": true,
+      "tag_name": "v0.3.1",
+      "rendered_title": "v0.3.1 (2026-10-08)",
+      "rendered_changelog_title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+      "members": [
+        "skribble",
+        "skribble_icons",
+        "skribble_icons_simple",
+        "skribble_icons_material",
+        "skribble_icons_lucide",
+        "skribble_icons_bxs",
+        "skribble_icons_cib",
+        "skribble_emoji",
+        "skribble_emoji_gen",
+        "skribble_font_recursive",
+        "skribble_font_roughen",
+        "skribble_lints"
+      ]
+    },
+    {
+      "id": "skribble_charts",
+      "kind": "package",
+      "version": "0.3.1",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_charts/v0.3.1",
+      "rendered_title": "skribble_charts v0.3.1 (2026-10-08)",
+      "rendered_changelog_title": "skribble_charts [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.3.1) (2026-10-08)",
+      "members": [
+        "skribble_charts"
+      ]
+    },
+    {
+      "id": "skribble_maps",
+      "kind": "package",
+      "version": "0.3.1",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_maps/v0.3.1",
+      "rendered_title": "skribble_maps v0.3.1 (2026-10-08)",
+      "rendered_changelog_title": "skribble_maps [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.3.1) (2026-10-08)",
+      "members": [
+        "skribble_maps"
+      ]
+    }
+  ],
+  "released_packages": [
+    "skribble",
+    "skribble_charts",
+    "skribble_emoji",
+    "skribble_emoji_gen",
+    "skribble_font_recursive",
+    "skribble_font_roughen",
+    "skribble_icons",
+    "skribble_icons_bxs",
+    "skribble_icons_cib",
+    "skribble_icons_lucide",
+    "skribble_icons_material",
+    "skribble_icons_simple",
+    "skribble_lints",
+    "skribble_maps"
+  ],
+  "changed_files": [
+    "CHANGELOG.md",
+    "apps/skribble_benchmark/pubspec.yaml",
+    "apps/skribble_example/pubspec.yaml",
+    "apps/skribble_storybook/pubspec.yaml",
+    "docs/site/pubspec.yaml",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble/pubspec.yaml",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_charts/pubspec.yaml",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji/pubspec.yaml",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_emoji_gen/pubspec.yaml",
+    "packages/skribble_font_recursive/CHANGELOG.md",
+    "packages/skribble_font_recursive/pubspec.yaml",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_font_roughen/pubspec.yaml",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons/pubspec.yaml",
+    "packages/skribble_icons_bxs/CHANGELOG.md",
+    "packages/skribble_icons_bxs/pubspec.yaml",
+    "packages/skribble_icons_cib/CHANGELOG.md",
+    "packages/skribble_icons_cib/pubspec.yaml",
+    "packages/skribble_icons_lucide/CHANGELOG.md",
+    "packages/skribble_icons_lucide/pubspec.yaml",
+    "packages/skribble_icons_material/CHANGELOG.md",
+    "packages/skribble_icons_material/pubspec.yaml",
+    "packages/skribble_icons_simple/CHANGELOG.md",
+    "packages/skribble_icons_simple/pubspec.yaml",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_lints/pubspec.yaml",
+    "packages/skribble_maps/CHANGELOG.md",
+    "packages/skribble_maps/pubspec.yaml",
+    "pubspec.yaml"
+  ],
+  "package_publications": [
+    {
+      "package": "skribble",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_charts",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji_gen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_recursive",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_roughen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_bxs",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_cib",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_lucide",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_material",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_simple",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_lints",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_maps",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    }
+  ],
+  "updated_changelogs": [
+    "CHANGELOG.md",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_font_recursive/CHANGELOG.md",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons_bxs/CHANGELOG.md",
+    "packages/skribble_icons_cib/CHANGELOG.md",
+    "packages/skribble_icons_lucide/CHANGELOG.md",
+    "packages/skribble_icons_material/CHANGELOG.md",
+    "packages/skribble_icons_simple/CHANGELOG.md",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_maps/CHANGELOG.md"
+  ],
+  "deleted_changesets": [
+    ".changeset/settled-disabled-controls.md"
+  ],
+  "changesets": [
+    {
+      "path": ".changeset/settled-disabled-controls.md",
+      "summary": "Disabled switches, toggles, and action buttons settle again",
+      "details": "A switch, toggle, or floating action button that could not be activated changed its focus node every time it rebuilt: the hook that created the node made it focusable again, and the keyboard layer added in 0.3.0 made it unfocusable. Each flip notified the node's listeners and scheduled another frame, so a screen that rebuilt in response, such as one locking a settings switch while it records, never settled and `pumpAndSettle` timed out in its tests.\n\nThe keyboard layer now owns whether the node can take focus, and rebuilding a control that cannot be activated leaves its focus node untouched.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "e9b53b8e09eac8ef35da7d645d8d33ecbd6db419",
+            "short_sha": "e9b53b8",
+            "url": "https://github.com/openbudgetfun/skribble/commit/e9b53b8e09eac8ef35da7d645d8d33ecbd6db419",
+            "authored_at": "2026-10-08T19:19:20+01:00",
+            "committed_at": "2026-10-08T19:19:20+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#242",
+            "title": "fix(skribble): stop disabled controls flipping their focus node",
+            "url": "https://github.com/openbudgetfun/skribble/pull/242",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "e9b53b8e09eac8ef35da7d645d8d33ecbd6db419",
+            "short_sha": "e9b53b8",
+            "url": "https://github.com/openbudgetfun/skribble/commit/e9b53b8e09eac8ef35da7d645d8d33ecbd6db419",
+            "authored_at": "2026-10-08T19:19:20+01:00",
+            "committed_at": "2026-10-08T19:19:20+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#242",
+            "title": "fix(skribble): stop disabled controls flipping their focus node",
+            "url": "https://github.com/openbudgetfun/skribble/pull/242",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    }
+  ],
+  "changelogs": [
+    {
+      "owner_id": "main",
+      "owner_kind": "group",
+      "output": "default",
+      "stream": "default",
+      "path": "CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [
+          "Grouped release for `main`."
+        ],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Disabled switches, toggles, and action buttons settle again\n\n_Packages:_ 🟢 _skribble_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #242](https://github.com/openbudgetfun/skribble/pull/242)\n\nA switch, toggle, or floating action button that could not be activated changed its focus node every time it rebuilt: the hook that created the node made it focusable again, and the keyboard layer added in 0.3.0 made it unfocusable. Each flip notified the node's listeners and scheduled another frame, so a screen that rebuilt in response, such as one locking a settings switch while it records, never settled and `pumpAndSettle` timed out in its tests.\n\nThe keyboard layer now owns whether the node can take focus, and rebuilding a control that cannot be activated leaves its focus node untouched."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\nGrouped release for `main`.\n\n### Fixes\n\n#### Disabled switches, toggles, and action buttons settle again\n\n_Packages:_ 🟢 _skribble_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #242](https://github.com/openbudgetfun/skribble/pull/242)\n\nA switch, toggle, or floating action button that could not be activated changed its focus node every time it rebuilt: the hook that created the node made it focusable again, and the keyboard layer added in 0.3.0 made it unfocusable. Each flip notified the node's listeners and scheduled another frame, so a screen that rebuilt in response, such as one locking a settings switch while it records, never settled and `pumpAndSettle` timed out in its tests.\n\nThe keyboard layer now owns whether the node can take focus, and rebuilding a control that cannot be activated leaves its focus node untouched."
+    },
+    {
+      "owner_id": "skribble",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Disabled switches, toggles, and action buttons settle again\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #242](https://github.com/openbudgetfun/skribble/pull/242)\n\nA switch, toggle, or floating action button that could not be activated changed its focus node every time it rebuilt: the hook that created the node made it focusable again, and the keyboard layer added in 0.3.0 made it unfocusable. Each flip notified the node's listeners and scheduled another frame, so a screen that rebuilt in response, such as one locking a settings switch while it records, never settled and `pumpAndSettle` timed out in its tests.\n\nThe keyboard layer now owns whether the node can take focus, and rebuilding a control that cannot be activated leaves its focus node untouched."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Fixes\n\n#### Disabled switches, toggles, and action buttons settle again\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #242](https://github.com/openbudgetfun/skribble/pull/242)\n\nA switch, toggle, or floating action button that could not be activated changed its focus node every time it rebuilt: the hook that created the node made it focusable again, and the keyboard layer added in 0.3.0 made it unfocusable. Each flip notified the node's listeners and scheduled another frame, so a screen that rebuilt in response, such as one locking a settings switch while it records, never settled and `pumpAndSettle` timed out in its tests.\n\nThe keyboard layer now owns whether the node can take focus, and rebuilding a control that cannot be activated leaves its focus node untouched."
+    },
+    {
+      "owner_id": "skribble_charts",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_charts/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_charts [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_charts` was updated to 0.3.1.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_charts [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_charts` was updated to 0.3.1.**"
+    },
+    {
+      "owner_id": "skribble_emoji",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_emoji` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_emoji` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_emoji_gen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji_gen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_emoji_gen` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_emoji_gen` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_recursive",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_recursive/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_roughen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_roughen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_bxs",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_bxs/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_bxs` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_bxs` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_cib",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_cib/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_cib` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_cib` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_lucide",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_lucide/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_lucide` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_lucide` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_material",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_material/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_material` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_material` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_simple",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_simple/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_simple` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_simple` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_lints",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_lints/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_lints` was updated to 0.3.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_lints` was updated to 0.3.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_maps",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_maps/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_maps [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.3.1) (2026-10-08)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_maps` was updated to 0.3.1.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_maps [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.3.1) (2026-10-08)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_maps` was updated to 0.3.1.**"
+    }
+  ],
+  "provider": {
+    "kind": "github",
+    "owner": "openbudgetfun",
+    "repo": "skribble",
+    "host": null
+  }
+}

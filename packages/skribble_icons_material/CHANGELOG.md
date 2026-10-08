@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/monochange/monochange).
 
+## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)
+
+### Changed
+
+- **No package-specific changes were recorded; `skribble_icons_material` was updated to 0.3.1 as part of group `main`.**
+
 ## [0.3.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.0) (2026-10-08)
 
 ### Fixes
