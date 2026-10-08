@@ -44,7 +44,15 @@ class WiredActivatable extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final resolvedNode = focusNode ?? useFocusNode();
+    final canActivate = enabled && onActivate != null;
+    // The detector below owns `canRequestFocus`. `useFocusNode` would reset it
+    // on every rebuild, so a control that cannot be activated would flip its
+    // node on each rebuild and notify listeners, scheduling another frame.
+    final ownNode = useMemoized(
+      () => FocusNode(debugLabel: 'WiredActivatable'),
+    );
+    useEffect(() => ownNode.dispose, [ownNode]);
+    final resolvedNode = focusNode ?? ownNode;
     final isFocused = useState(false);
     final isHovered = useState(false);
 
@@ -55,8 +63,6 @@ class WiredActivatable extends HookWidget {
       resolvedNode.addListener(listener);
       return () => resolvedNode.removeListener(listener);
     }, [resolvedNode]);
-
-    final canActivate = enabled && onActivate != null;
 
     return FocusableActionDetector(
       enabled: canActivate,
