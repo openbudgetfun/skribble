@@ -2,6 +2,12 @@
 
 Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).
 
+## [0.3.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.0) (2026-10-08)
+
+### Changed
+
+#### No package-specific changes were recorded; `skribble_lints` was updated to 0.3.0 as part of group `main`.
+
 ## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)
 
 ### Changed

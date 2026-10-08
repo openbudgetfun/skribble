@@ -4,6 +4,172 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/monochange/monochange).
 
+## [0.3.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.0) (2026-10-08)
+
+Grouped release for `main`.
+
+### Breaking changes
+
+#### Ink every line with a pressure-sensitive pen
+
+_Packages:_ 🔴 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #228](https://github.com/openbudgetfun/skribble/pull/228)
+
+The rough engine now separates where a line goes from how its ink lands. A new `RoughPen` turns each rough centreline into a variable-width stroke: a light touchdown that swells to full width, slow pressure changes, a thinner lift, lighter and partial repeat passes, and closed loops that overshoot their start and curl inward. Each `WiredRoughness` level brings a pen (`fineliner`, `ink`, `brush`), and `WiredThemeData(pen: RoughPen.uniform)` restores constant-width lines.
+
+`DrawConfig`, `FillerConfig`, `Filler.config`, and `Generator` lost their nullable fields, `Op.move` records the pen pass, and `Canvas.drawRough` paints through `RoughDrawing` so it inks with the drawable's pen:
+
+```dart
+// Before
+final amplitude = config.roughness! * (config.maxRandomnessOffset ?? 1);
+
+// After
+final amplitude = config.roughness * config.maxRandomnessOffset;
+final theme = WiredThemeData(pen: RoughPen.brush);
+```
+
+The pen is pure Dart: `InkStroke` and `DrawableInk` export the painted ink as SVG path data, and the design kit now hands Figma filled ink outlines. Long-edge bowing is capped at `maxRandomnessOffset` so wide cards stay inside their reserved bleed.
+
+#### Mark selections with a marker wash, and give progress a value
+
+_Packages:_ 🔴 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #232](https://github.com/openbudgetfun/skribble/pull/232)
+
+`WiredThemeData` gains `markerColor`, a highlighter wash under selected and active things with ink still drawing the shape and label on top. It defaults to `WiredPalette.lilac`, and `WiredThemeData.cuddly(brightness: Brightness.dark)` uses the new `WiredPalette.dusk`. The Material bridge maps it to the primary and secondary container colours.
+
+Navigation bar and rail indicators, navigation drawer selections, progress and slider fills, switch tracks, toggle buttons, and stepper circles now use the marker instead of dense ink hatching, which buried icons and hid white or paper labels. Selected toggle-button labels were invisible before; they now stay in ink. The Cupertino segmented control, switch, and slider take their colours from the theme instead of iOS system blue and green, and `WiredCupertinoSlider.thumbColor` is now nullable.
+
+`WiredProgress` is driven by a value and no longer wraps a Material `LinearProgressIndicator`:
+
+```dart
+// Before
+WiredProgress(controller: controller, value: 0.3);
+
+// After
+WiredProgress(value: uploaded / total, semanticLabel: 'Uploading');
+const WiredProgress(); // indeterminate
+```
+
+The fill glides to each new value (settling at once when motion is off), an absent value sweeps, values are clamped, right-to-left text fills from the right, and the percentage is reported to screen readers.
+
+#### Draw icons with the pen and give them a weight
+
+_Packages:_ 🔴 _skribble_, 🔴 _skribble_icons_, 🔴 _skribble_emoji_gen_, 🟢 _skribble_icons_simple_, 🟢 _skribble_icons_material_, 🟢 _skribble_icons_lucide_, 🟢 _skribble_icons_bxs_, 🟢 _skribble_icons_cib_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #229](https://github.com/openbudgetfun/skribble/pull/229) · _Related issues:_ [#130](https://github.com/openbudgetfun/skribble/issues/130)
+
+Icons now honour a `weight` from 100 to 700 on Flutter's icon weight scale, falling back to `IconTheme.weight`, and scale with the theme's `strokeWidth`. Stroke artwork is inked by the theme's `RoughPen`; silhouettes grow or shrink evenly, and `WiredIconFillStyle.none` draws them as inked outlines. `strokeWidth` and `sampleDistance` are removed from `WiredIcon` and `WiredSvgIcon`:
+
+```dart
+// Before
+WiredIcon(icon: Icons.search, strokeWidth: 1.2);
+
+// After
+WiredIcon(icon: Icons.search, weight: 300);
+SkribbleIcon(data: SkribbleGlyphs.sparkle, weight: 600);
+```
+
+The core package ships `SkribbleGlyphs`, 51 stroke drawings made for skribble, generated from SVGs in `packages/skribble/tool/glyphs` by `generate_glyphs.dart`, which replaces `generate_icons.dart`. They replace `skribble_icons_curated`, which is retired; `SkribbleIconSet.curated` becomes `SkribbleIconSet.glyphs`. Wired widgets draw their own chrome with the glyphs, and without a registered catalog `WiredIcon` draws the matching glyph for about sixty common Material icons instead of the font glyph.
+
+#### skribble draws its own emoji
+
+_Packages:_ 🟠 _skribble_, 🔴 _skribble_emoji_, 🔴 _skribble_emoji_gen_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #230](https://github.com/openbudgetfun/skribble/pull/230)
+
+`skribble_emoji` no longer converts OpenMoji. Every fully-qualified emoji in Unicode Emoji 18.0 (3,963, including skin tones, gendered variants, families, keycaps, and flags) is drawn for skribble as SVG art in one style and inked at runtime by the theme pen, so emoji follow the theme's roughness, pen, and `weight`. The art is MIT.
+
+```dart
+// Before
+WiredEmoji.fromName('grinning_face', size: 32);
+PrecomputedEmoji.fromSequence('🇬🇧', size: 32);
+lookupSkribbleEmojiByName('red_heart');
+EmojiSearch.search('cat');
+
+// After
+const WiredEmoji('😀', size: 32);
+const WiredEmoji('🇬🇧', size: 32);
+SkribbleEmoji.named('red_heart');
+SkribbleEmoji.search('cat');
+```
+
+`SkribbleEmoji` is the catalog (`all`, `defaults`, `lookup`, `named`, `inGroup`, `search`, `withTone`), and `EmojiEntry` carries each emoji's name, group, subgroup, and art. `WiredEmojiText` draws emoji inside text. `EmojiPalette` restyles every emoji by colour role and compares by value; `EmojiDrawing` prepares an emoji for custom painters with named parts that a pose can move. `PrecomputedEmoji`, `EmojiSearch`, `EmojiSearchResult`, the `kSkribbleEmoji*` maps, the `lookupSkribbleEmojiBy*` functions, and the `WiredSvgIconData` re-exports are removed.
+
+`skribble_emoji_gen` replaces the OpenMoji conversion with `EmojiArtCompiler`, which enforces the authoring rules in `art/STYLE.md`, and `parseEmojiTest` and `planEmoji`, which plan the pinned Unicode list onto art. `generate_emoji.dart` takes `--art`, `--output`, `--unicode`, `--report`, `--allow-missing`, and `--check`, and `update_assets.dart` no longer downloads OpenMoji.
+
+`skribble` exports `waverPath`, `waveredPolygons`, and `WaveredContour`, the smooth wavering that icons and emoji share.
+
+### Features
+
+#### Brand-aligned defaults, keyboard-accessible controls, and clearer first-run setup
+
+_Packages:_ 🟠 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #227](https://github.com/openbudgetfun/skribble/pull/227) · _Related issues:_ [#226](https://github.com/openbudgetfun/skribble/issues/226)
+
+Make the default `WiredThemeData` use the branded warm-paper / plum-ink palette (`WiredPalette.paper` / `ink` / `mutedInk`) instead of the generic navy-on-white, so a default `SkribbleApp` matches the documented identity, and add a `WiredPalette.coral` accent token. `WiredThemeData.cuddly()` remains the light/dark switcher.
+
+Give `WiredFloatingActionButton`, `WiredSwitch`, and `WiredToggle` real keyboard, focus, and hover support via a new internal `WiredActivatable` wrapper: Space/Enter now activate them and focus traversal reaches them, which they previously lacked because they were built on a bare `GestureDetector`.
+
+Fix inaccurate consumer docs: correct the bundled-font package references to `skribble_font_recursive` (was wrongly `skribble`), make the hand-drawn-font install step explicit, fix migration-guide widget names (`WiredFloatingActionButton`, `WiredBottomNavigationBar`, `showWiredSnackBar()`), and lead the README with `SkribbleApp` plus the live storybook link.
+
+Memoize the filler and painter in `WiredCanvas` and give `FillerConfig` value equality, so ancestor rebuilds reuse the cached drawing geometry instead of repainting the rough paths every frame.
+
+#### The ink gets room to breathe
+
+_Packages:_ 🟠 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #236](https://github.com/openbudgetfun/skribble/pull/236)
+
+Hand-drawn lines wobble and have width, so text that fits a straight border can look crushed against a sketched one. Every control now keeps at least 8 pixels above and below its content and 12 at the sides, and grows with its text instead of squeezing it.
+
+- New constants: `kWiredInkPadding` (8 above and below, 12 at the sides), `kWiredButtonPadding` (16 at the sides), and `kWiredChipHeight` (36). `kWiredButtonHeight` is now a minimum.
+- Buttons, segmented buttons, chips, autocomplete and search fields, Cupertino search fields, time-picker cells, stepper circles, and drawer and rail destinations grow with larger fonts and the platform's text scaling instead of clipping or crowding their labels.
+- Chips are 36 pixels tall (were 32). Cupertino date and timer picker rows default to 40 pixels (were 32), and the Cupertino search field defaults to 40 (was 36).
+- `WiredCupertinoDatePicker` writes its wheels in the theme's typeface under a single hand-drawn band, and on a narrow screen scales its wheels down instead of throwing.
+- `WiredMaterialBanner` moves its actions below the message when it is under 480 pixels wide.
+- Fixed: `WiredNavigationDrawer` destinations and `WiredReorderableListView` items now centre their content instead of pinning it to the top edge. `WiredCupertinoFormSection` pads its rows, and `WiredAvatar` initials shrink to stay inside the circle.
+- New `package:skribble/testing.dart`: `crampedText` and `squeezedText` check a laid-out screen for text that crowds the ink or wraps into a narrow column, with no extra dependencies.
+
+#### The logo is the inked brackets
+
+_Packages:_ 🟠 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #234](https://github.com/openbudgetfun/skribble/pull/234)
+
+`WiredLogo` keeps the smile in square brackets and gives it colour: a fineliner inks the outlines over a marker-filled face with rosy cheeks. The ink follows the theme's text colour and the face its marker colour, so the mark reads on day and night paper, and it now draws itself in under `WiredDrawTransition`.
+
+- `WiredLogo.faceColor` (default: the theme's marker colour) and `WiredLogo.cheekColor` (default: the new `WiredPalette.blush`) set the fills. Make both transparent for a single-colour mark.
+- The outlines are bolder, so the `mark` loader style's pen grew to match and still hands over to `WiredLogo` without the mark jumping.
+- The brand SVGs in `assets/brand`, the docs and storybook favicons, and the storybook's web app icons are regenerated from the same paths.
+
+#### Animated emoji, and emoji outside Flutter
+
+_Packages:_ 🟠 _skribble_emoji_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #231](https://github.com/openbudgetfun/skribble/pull/231)
+
+`WiredAnimatedEmoji` brings an emoji to life: its parts move and its lines boil, retraced eight times a second by a fresh hand like a hand-drawn cartoon. The most-used emoji have their own choreography (a heart beats, a hand waves around its wrist, a flame flickers, tears fall and fade), and every other emoji moves with its family. Motion follows `WiredMotion`, the platform's reduced-motion setting, and `TickerMode`, showing the emoji at rest when motion is off, and `loops` plays a reaction a set number of times before it rests.
+
+```dart
+const WiredAnimatedEmoji('❤️', size: 48);
+
+const wave = EmojiMotion([
+  EmojiTrack('hand', EmojiMove.wave(swings: 3), pivot: Alignment(0, .8)),
+]);
+const WiredAnimatedEmoji('👋', motion: wave);
+```
+
+`EmojiMotion`, `EmojiTrack`, `EmojiMove`, and `EmojiPose` describe motion, and `EmojiMotions.of` gives skribble's own. `EmojiDrawing` gains `inking` (a retraced inking of the same shapes), `boundsOf(part)`, and per-part `opacity` when painting.
+
+`EmojiVector` exposes the same inked geometry as SVG path data, with `toSvg()`, and `package:skribble_emoji/lottie.dart` exports `emojiLottie`, which builds a Lottie animation of an emoji's motion and boil for lottie-web and the iOS and Android players. Releases attach the choreographed emoji as `skribble-emoji-lottie.zip`.
+
+### Fixes
+
+- **Search bars and text fields draw only their ink border.** Under `WiredMaterialApp`, the Material bridge theme gives inputs an outlined, filled decoration. `WiredSearchBar`, `WiredAutocomplete`, `WiredCupertinoTextField`, and `WiredMenuBar`'s field hid only the default border, so the theme's enabled and focused borders and its fill drew a second box inside the hand-drawn one. They now clear every border and the fill, as `WiredInput` and `WiredTextArea` already did. _Packages:_ 🟢 _skribble_ _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #233](https://github.com/openbudgetfun/skribble/pull/233) · _Related issues:_ [#175](https://github.com/openbudgetfun/skribble/issues/175), [#224](https://github.com/openbudgetfun/skribble/issues/224)
+
 ## [0.2.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.2.1) (2026-09-22)
 
 Grouped release for `main`.

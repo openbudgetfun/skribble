@@ -24,6 +24,12 @@
 
 - **No package-specific changes were recorded; `skribble_charts` was updated to 0.2.1.**
 
+## skribble_charts [0.3.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.3.0) (2026-10-08)
+
+### Changed
+
+#### No package-specific changes were recorded; `skribble_charts` was updated to 0.3.0.
+
 ## 0.0.1
 
 Initial development of precise hand-drawn financial charts for Flutter.
