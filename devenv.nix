@@ -103,14 +103,14 @@ in
         unset LD_LIBRARY_PATH LD_DYLD_PATH
         unset cmakeFlags
         set -e
-        fvm flutter $@
+        fvm flutter "$@"
       '';
       description = "Run flutter commands.";
     };
     "dart" = {
       exec = ''
         set -e
-        fvm dart $@
+        fvm dart "$@"
       '';
       description = "Run dart commands.";
     };
@@ -123,7 +123,7 @@ in
         # "auto" makes Melos use the dart/flutter already resolved on PATH
         # (the profile scripts pin fvm's SDK).
         export MELOS_SDK_PATH=auto
-        dart run melos $@
+        dart run melos "$@"
       '';
       description = "Run the melos cli.";
     };
@@ -133,7 +133,7 @@ in
     "dartfmt" = {
       exec = ''
         set -e
-        dart format -o show $@ | head -n -1
+        dart format -o show "$@" | head -n -1
       '';
       description = "The dart format executable for formatting the workspace.";
       binary = "bash";
