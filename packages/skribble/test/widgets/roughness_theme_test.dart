@@ -2,7 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
-import 'package:skribble/src/rough/renderer.dart';
+import 'package:skribble_rough/skribble_rough.dart';
 
 void main() {
   testWidgets(

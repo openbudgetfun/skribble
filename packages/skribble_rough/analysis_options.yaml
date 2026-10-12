@@ -1,0 +1,29 @@
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
+include: package:skribble_lints/analysis_options.yaml
+
+linter:
+  rules:
+    unnecessary_library_directive: false
+    # The engine is a port of rough.js and keeps its relative imports,
+    # explicit local types, and field-first class layout.
+    always_use_package_imports: false
+    omit_local_variable_types: false
+    sort_constructors_first: false
+    avoid_equals_and_hash_code_on_mutable_classes: false
+    prefer_constructors_over_static_methods: false
+    prefer_int_literals: false
+    avoid_positional_boolean_parameters: false
+    always_put_required_named_parameters_first: false
+    cascade_invocations: false
+    avoid_redundant_argument_values: false
+    use_is_even_rather_than_modulo: false
+    always_declare_return_types: false
+    document_ignores: false

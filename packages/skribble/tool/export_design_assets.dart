@@ -3,12 +3,9 @@ import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:skribble/src/doodles/doodle_geometry.dart';
-import 'package:skribble/src/rough/config.dart';
-import 'package:skribble/src/rough/core.dart';
-import 'package:skribble/src/rough/filler.dart';
-import 'package:skribble/src/rough/generator.dart';
 import 'package:skribble/src/wired_doodle_kind.dart';
 import 'package:skribble/src/wired_roughness.dart';
+import 'package:skribble_rough/skribble_rough.dart';
 
 /// Exports the same curves used by Flutter for Figma, GitHub, and browsers.
 void main() {

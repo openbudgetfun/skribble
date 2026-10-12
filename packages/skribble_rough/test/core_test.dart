@@ -1,6 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:skribble/skribble.dart';
-import 'package:skribble/src/rough/core.dart';
+import 'package:skribble_rough/skribble_rough.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Op', () {

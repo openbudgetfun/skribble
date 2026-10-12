@@ -65,15 +65,16 @@ Painting           WiredCanvas, WiredPainter, WiredPainterBase
 and composition    wired_base.dart (WiredBase, WiredBaseWidget, WiredRepaintMixin,
                    buildWiredElement, concrete shape painters)
       |
-Rough engine       lib/src/rough (Generator, Filler, Drawable, DrawConfig,
-                   RoughBoxDecoration, renderer, geometry)
+Rough engine       package:skribble_rough (Generator, Filler, Drawable, DrawConfig,
+                   RoughPen, renderer, geometry, SVG output) + lib/src/rough
+                   (RoughDrawing, RoughBoxDecoration: the dart:ui painting layer)
 ```
 
 Motion (`lib/src/motion`) is cross-cutting: it sits beside painting rather than above it, owns animation lifecycle, and is consumed by widgets through `WiredDraw`, `WiredInkResponse`, and `WiredMotion`.
 
-### 1. Rough engine (`lib/src/rough`)
+### 1. Rough engine (`package:skribble_rough` and `lib/src/rough`)
 
-The foundation is a Dart port of [rough.js](https://roughjs.com/). It imports only `dart:ui`, `package:flutter/animation.dart`, and `package:flutter/painting.dart` — no widgets, no Material. It provides:
+The foundation is a Dart port of [rough.js](https://roughjs.com/), split in two. The pure-Dart `skribble_rough` package generates the geometry and has no Flutter dependency, which lets the same engine draw [Jaspr](../guides/jaspr) components on a server. `lib/src/rough` paints that geometry and imports only `dart:ui`, `package:flutter/animation.dart`, and `package:flutter/painting.dart` — no widgets, no Material. Together they provide:
 
 - `DrawConfig` for roughness, bowing, and seeded randomness
 - `Generator` for producing `Drawable` shapes (rectangle, circle, polygon, arc, and more)

@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:flutter_test/flutter_test.dart';
-import 'package:skribble/skribble.dart';
-import 'package:skribble/src/rough/renderer.dart';
+import 'package:skribble_rough/skribble_rough.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('long edges change direction locally instead of bowing once', () {
