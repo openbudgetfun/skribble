@@ -65,6 +65,8 @@ Use `WiredThemeData.cuddly()` for warm paper and plum ink, or pass `brightness: 
 | -------------------------------------------- | ---------------------------------------------------------- |
 | [`skribble`](packages/skribble/)             | Main UI library (Wired widgets, rough engine, and exports) |
 | [`skribble_maps`](packages/skribble_maps/)   | MapLibre maps with hand-drawn overlays and controls        |
+| [`skribble_rough`](packages/skribble_rough/) | The pure-Dart rough engine, with SVG path output           |
+| [`skribble_jaspr`](packages/skribble_jaspr/) | Server-rendered hand-drawn components for Jaspr sites      |
 | [`skribble_lints`](packages/skribble_lints/) | Shared lint rules                                          |
 
 ## Apps

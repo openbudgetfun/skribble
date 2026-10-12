@@ -59,6 +59,10 @@ flutter pub add skribble_charts
 
 [Maps](/widgets/maps) combines a MapLibre basemap with hand-drawn pins, routes, and areas. [Charts](/widgets/charts) supports candlesticks, indicators, and editable drawings. Both pages include interactive examples; Storybook includes larger demonstrations under Maps and Financial charts.
 
+## Jaspr websites
+
+skribble's hand-drawn look also works on [Jaspr](https://jaspr.site) sites without Flutter. `skribble_jaspr` renders rough borders, highlights, and doodles on the server with zero client JavaScript. See [Using skribble on Jaspr](../guides/jaspr) for installation and the stylesheet.
+
 ## Workspace contribution setup
 
 <!-- {=docsSetupSection} -->
