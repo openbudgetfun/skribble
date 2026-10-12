@@ -20,6 +20,7 @@ Brief description of the changes.
 - [ ] New public APIs have `///` doc comments
 - [ ] Uses `HookWidget` (not `StatefulWidget` / `StatelessWidget`)
 - [ ] Border colors read from `WiredTheme.of(context)`, not hardcoded
+- [ ] Design changes include before and after screenshots, uploaded with `gh pr create/edit --attach` (not committed)
 
 ## Related Issues
 

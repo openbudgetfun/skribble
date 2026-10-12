@@ -1283,3 +1283,9 @@ Every Dart fence requires an explicit classification. Standalone widget expressi
 Keep image files out of Git, including screenshots, design exports, and golden snapshots. Store generated images in gitignored local output directories. Upload review images with `gh pr create/edit/comment --attach`, or upload them to external file storage, then reference the resulting URL in a PR or README. Inspect images before uploading so they do not expose secrets or personal data.
 
 Check both staged additions and the task branch's commits before pushing. Remove newly introduced images from an unmerged branch's history, not just its latest checkout. Prefer pixel assertions against in-memory renders when a visual test can express the expected behavior without a committed image.
+
+### Screenshots for design changes
+
+A pull request that changes what skribble draws or how it lays out must show the change. That covers widget appearance, the rough engine, pens and fillers, icons and emoji, fonts, theme defaults, spacing, and the storybook or docs visuals. Capture before and after screenshots from the same harness (the storybook, `melos run screenshot`, or an in-memory render), in light and dark themes, and at narrow and wide widths when layout changes.
+
+Upload the screenshots to the pull request with the GitHub CLI's `--attach` flag rather than committing them: `gh pr create --attach './before.png#Before' --attach './after.png#After'`, or `gh pr edit <n> --attach` and `gh pr comment <n> --attach` for later captures. Text after `#` is the alt text, and a local path already referenced in the body (`![Before](./before.png)`) is replaced with the uploaded URL. Put the images in a collapsible `<details>` section and say what the captures do not cover.
