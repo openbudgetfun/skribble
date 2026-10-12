@@ -9,6 +9,19 @@ import '../helpers/pump_app.dart';
 Finder _markerOf(Finder progress) =>
     find.descendant(of: progress, matching: findWiredCanvas).first;
 
+/// The pen's reserve across both edges of the bar.
+double _inkExtent(WidgetTester tester) =>
+    WiredTheme.of(tester.element(find.byType(WiredProgress))).inkExtent;
+
+/// The width the marker actually paints: its box less the ink it insets.
+double _paintedFill(WidgetTester tester) =>
+    tester.getSize(_markerOf(find.byType(WiredProgress))).width -
+    _inkExtent(tester);
+
+/// The track's interior, inside its ink.
+double _interior(WidgetTester tester) =>
+    tester.getSize(find.byType(WiredProgress)).width - _inkExtent(tester);
+
 void main() {
   group('WiredProgress', () {
     const size = Size(300, 40);
@@ -22,10 +35,7 @@ void main() {
       await tester.pumpAndSettle();
       final track = tester.getSize(find.byType(WiredProgress));
       expect(track.height, 20);
-      expect(
-        tester.getSize(_markerOf(find.byType(WiredProgress))).width,
-        closeTo(track.width * .25, .01),
-      );
+      expect(_paintedFill(tester), closeTo(_interior(tester) * .25, .01));
     });
 
     testWidgets('glides to a new value', (tester) async {
@@ -58,11 +68,7 @@ void main() {
         surfaceSize: size,
       );
       await tester.pump();
-      final width = tester.getSize(find.byType(WiredProgress)).width;
-      expect(
-        tester.getSize(_markerOf(find.byType(WiredProgress))).width,
-        closeTo(width / 2, .01),
-      );
+      expect(_paintedFill(tester), closeTo(_interior(tester) / 2, .01));
     });
 
     testWidgets('clamps values outside 0 to 1', (tester) async {
@@ -117,6 +123,48 @@ void main() {
         matchesSemantics(label: 'Uploading', value: '42%'),
       );
       semantics.dispose();
+    });
+
+    testWidgets('a short bar keeps a visible band inside its ink', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        const WiredProgress(value: .5, height: 12),
+        surfaceSize: size,
+      );
+      await tester.pumpAndSettle();
+      final bar = tester.getSize(find.byType(WiredProgress));
+      // The ink takes about 11 units of a 12-unit box, which used to leave a
+      // hairline; the box grows to fit the ink plus a band instead.
+      expect(bar.height, greaterThanOrEqualTo(_inkExtent(tester) + 6));
+    });
+
+    testWidgets('a small value still paints its share of the track', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        const WiredProgress(value: .02),
+        surfaceSize: size,
+      );
+      await tester.pumpAndSettle();
+      // The marker used to inset its own ink from a box only 2% wide, which
+      // painted nothing at all for small values.
+      expect(_paintedFill(tester), greaterThan(0));
+      expect(_paintedFill(tester), closeTo(_interior(tester) * .02, .01));
+    });
+
+    testWidgets('an empty bar draws no marker', (tester) async {
+      await pumpWired(tester, const WiredProgress(value: 0), surfaceSize: size);
+      await tester.pumpAndSettle();
+      expect(
+        find.descendant(
+          of: find.byType(WiredProgress),
+          matching: findWiredCanvas,
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('isolates repaints', (tester) async {

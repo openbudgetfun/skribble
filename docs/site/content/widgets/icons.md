@@ -134,6 +134,8 @@ WiredSvgIcon(
 - SVG data is scaled to fit the target size while maintaining aspect ratio.
 - Scaled geometry and the painter are memoized. The painter caches its wavered contours and pen outlines, so repaints and rebuilds with the same inputs reuse them.
 - Supports `flipHorizontally` for RTL icon rendering.
+- Like Flutter's `Icon`, the drawing is centred in a box larger than `size`, such as an input decoration slot or a fixed-size badge.
+- `semanticLabel` is a plain label, as `Icon` gives. Inside a parent that merges its descendants, such as a card or a button, it joins the parent's label instead of turning the whole parent into an image.
 
 ---
 
