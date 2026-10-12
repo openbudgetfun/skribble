@@ -2,11 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/animation.dart';
 import 'package:flutter/painting.dart';
+import 'package:skribble_rough/skribble_rough.dart';
 
-import 'config.dart';
-import 'entities.dart';
-import 'filler.dart';
-import 'generator.dart';
 import 'rough_drawing.dart';
 
 /// Style configuration for rough-drawn strokes and fills.

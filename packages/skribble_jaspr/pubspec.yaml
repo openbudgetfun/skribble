@@ -1,0 +1,25 @@
+name: skribble_jaspr
+description: |
+  Hand-drawn Jaspr components from the skribble design system. Rough SVG borders, fills, highlights, and doodles that render on the server with zero client JavaScript.
+version: 0.3.1
+homepage: https://github.com/openbudgetfun/skribble
+repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_jaspr
+documentation: https://openbudgetfun.github.io/skribble/guides/jaspr
+issue_tracker: https://github.com/openbudgetfun/skribble/issues
+topics:
+  - jaspr
+  - web
+  - hand-drawn
+  - design-system
+  - sketch
+environment:
+  sdk: ^3.13.0
+resolution: workspace
+dependencies:
+  jaspr: ^0.23.4
+  skribble_rough: ^0.3.1
+dev_dependencies:
+  html: ^0.15.0
+  jaspr_test: ^0.23.4
+  skribble_lints: ^0.3.1
+  test: ^1.24.0

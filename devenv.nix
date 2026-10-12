@@ -249,8 +249,11 @@ in
       exec = ''
         set -e
         melos exec --dir-exists=test --depends-on=flutter --concurrency=1 -- flutter test --concurrency=4
+        # Pure-Dart packages that ship to apps and sites. The font and emoji
+        # generators run their own suites in dedicated CI jobs.
+        melos exec --scope=skribble_rough --scope=skribble_jaspr -- dart test
       '';
-      description = "Run all unit and widget tests in Flutter packages.";
+      description = "Run all unit and widget tests in Flutter packages, plus the rough engine and Jaspr suites.";
       binary = "bash";
     };
     "test:coverage" = {

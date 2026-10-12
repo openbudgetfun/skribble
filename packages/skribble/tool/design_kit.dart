@@ -1,13 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:skribble/src/rough/config.dart';
-import 'package:skribble/src/rough/core.dart';
-import 'package:skribble/src/rough/filler.dart';
-import 'package:skribble/src/rough/generator.dart';
-import 'package:skribble/src/rough/ink_stroke.dart';
 import 'package:skribble/src/wired_font.dart';
 import 'package:skribble/src/wired_roughness.dart';
+import 'package:skribble_rough/skribble_rough.dart';
 
 /// Exports the bundled fonts and editable pen specimens from repository root.
 Future<void> main(List<String> arguments) async {

@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter_test/flutter_test.dart';
-import 'package:skribble/skribble.dart';
+import 'package:skribble_rough/skribble_rough.dart';
+import 'package:test/test.dart';
 
 void main() {
   late DrawConfig config;

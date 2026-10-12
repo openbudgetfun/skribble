@@ -7,6 +7,8 @@ description: Use skribble fonts and editable pen specimens outside Flutter, with
 
 skribble is becoming a standalone Flutter design system. Its font files and static pen geometry can already be used in other design tools and platforms. Start with the [design kit](design-kit) for Figma installation, font names, tokens, editable SVG specimens, and motion rules.
 
+For websites built with [Jaspr](https://jaspr.site), `skribble_jaspr` renders hand-drawn components on the server, and the pure-Dart `skribble_rough` engine writes rough shapes as SVG path data anywhere Dart runs. See [Using skribble on Jaspr](../guides/jaspr).
+
 ## Use the bundled fonts
 
 The kit includes the actual Regular, Bold, Italic, and Bold Italic faces for every bundled family. For a web page using the default Expressive Casual family:

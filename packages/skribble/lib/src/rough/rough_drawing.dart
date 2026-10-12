@@ -1,8 +1,6 @@
 import 'dart:ui';
 
-import 'core.dart';
-import 'entities.dart';
-import 'ink_stroke.dart';
+import 'package:skribble_rough/skribble_rough.dart';
 
 /// A snapshot of generated ink, reusable across animation frames.
 ///

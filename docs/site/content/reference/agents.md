@@ -24,7 +24,7 @@ skribble/
 │   │   ├── skribble.dart           # Public barrel export (add new widgets here)
 │   │   └── src/
 │   │       ├── canvas/             # WiredCanvas, WiredPainter, WiredPainterBase
-│   │       ├── rough/              # Rough drawing engine (Dart port of rough.js)
+│   │       ├── rough/              # dart:ui painting layer over package:skribble_rough
 │   │       ├── compat/             # Transitional Material/Cupertino interop (see below)
 │   │       ├── generated/          # Generated icon font + map files
 │   │       ├── wired_*.dart        # Widget implementations
@@ -42,6 +42,8 @@ skribble/
 │   │   ├── tool/                   # Guards, e.g. no Material test coupling
 │   │   └── helpers/                # pumpWired host, finders, semantics, rendering
 │   └── tool/                       # Icon generation CLI
+├── packages/skribble_rough/        # Pure-Dart rough engine + SVG output (no Flutter)
+├── packages/skribble_jaspr/        # Server-rendered Jaspr components (rough SVG + CSS)
 ├── packages/skribble_lints/        # Shared lint rules (very_good_analysis based)
 ├── packages/skribble_icons_custom/ # Custom SVG-based icon package example
 ├── apps/skribble_storybook/        # Interactive demo app
@@ -1052,6 +1054,19 @@ DrawConfig(seed: 42, roughness: 1)
 
 Without a fixed seed, rough drawings will vary between renders, which can cause flaky visual regression tests.
 
+### Where engine code lives
+
+The engine is split across two packages. Geometry, fillers, pens, ink sampling, and SVG output belong in `packages/skribble_rough`, which must stay free of Flutter and `dart:ui` so servers and `skribble_jaspr` can use it; its tests use `package:test`. Anything that touches `Canvas`, `Paint`, or `Path` stays in `packages/skribble/lib/src/rough/`. When you add a public engine type that Flutter apps need, add it to the `show` list in `packages/skribble/lib/skribble.dart` too.
+
+### Jaspr components
+
+`packages/skribble_jaspr` holds `StatelessComponent`s that render on the server with zero client JavaScript. Follow its conventions:
+
+- Draw ink with the helpers in `lib/src/ink.dart`: a nominal `InkCanvas`, a seeded generator per shape and fill, and a decorative overlay (`aria-hidden="true"`, `preserveAspectRatio="none"`, `vector-effect="non-scaling-stroke"`).
+- Never use randomness outside the seed, so static builds stay byte-stable.
+- Every new class name needs rules in `skribbleCss`, including `prefers-reduced-motion` handling for any motion.
+- Test with `jaspr_test`'s `testServer`: structure, accessibility attributes, and identical markup for identical seeds. `test:all` runs these suites with `dart test`.
+
 ## Documentation update requirements
 
 **Every change to the codebase must have corresponding documentation updates.** This is a hard rule, not a suggestion. No PR should be merged without documentation for what changed.
@@ -1224,7 +1239,7 @@ WiredIcon.svg(iconData: myCustomIconData)
 | `melos run package-sizes`        | Verify each publishable package stays inside its compressed-size budget                                         |
 | `lint:all`                       | All lint checks (format + analyze)                                                                              |
 | `lint:push`                      | CI lint checks before `git push`                                                                                |
-| `test:all`                       | All unit and widget tests                                                                                       |
+| `test:all`                       | All Flutter unit and widget tests, plus the `skribble_rough` and `skribble_jaspr` suites                        |
 | `fix:all`                        | Auto-fix format + lint issues                                                                                   |
 | `docs:site:serve`                | Serve docs site locally                                                                                         |
 | `docs:site:build`                | Build static docs for deployment                                                                                |

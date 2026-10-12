@@ -1,15 +1,148 @@
 ---
 title: Using skribble on Jaspr (Web)
-description: Hand-drawn aesthetics in Jaspr sites — skribble webfont, rough SVG borders, and the planned skribble_jaspr package.
+description: Server-rendered hand-drawn components for Jaspr sites with skribble_jaspr — zero client JavaScript, seeded ink, and CSS theming.
 ---
 
 # Using skribble on Jaspr (Web)
 
-skribble's Flutter packages target Flutter apps, but the hand-drawn aesthetic works on the web today — you can self-host its fonts and reproduce rough-line motifs in a Jaspr app. This documentation site itself now uses Flutter and the actual Wired components.
+[`skribble_jaspr`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_jaspr) brings skribble's hand-drawn look to [Jaspr](https://jaspr.site) sites. Its components draw rough borders, sketched fills, highlights, and doodles while Jaspr renders HTML, so static and server-rendered pages ship plain SVG and **no client JavaScript**.
 
-## 1. The skribble webfont
+The ink comes from [`skribble_rough`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_rough), the same pure-Dart [rough engine](../core/rough-engine) the Flutter widgets paint with. The same seed always draws the same shape, so a static build produces identical markup every time.
 
-The bundled fonts live in [`packages/skribble_font_recursive/assets/fonts/`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_recursive/assets/fonts) (OFL license). Self-host them with `@font-face`:
+## 1. Install
+
+Until the packages are published to pub.dev, depend on them from Git. `skribble_jaspr` depends on `skribble_rough` from the same repository, so override it to the same ref:
+
+```yaml
+dependencies:
+  jaspr: ^0.23.4
+  skribble_jaspr:
+    git:
+      url: https://github.com/openbudgetfun/skribble.git
+      path: packages/skribble_jaspr
+      ref: main
+
+dependency_overrides:
+  skribble_rough:
+    git:
+      url: https://github.com/openbudgetfun/skribble.git
+      path: packages/skribble_rough
+      ref: main
+```
+
+Pin both `ref` values to one commit SHA for reproducible builds.
+
+## 2. Add the stylesheet
+
+`skribbleCss` is a `String` constant. It positions every ink overlay, maps the ink to theme custom properties, and adds hover, focus, and reduced-motion behaviour. Inline it in the document head, or write it to a file in `web/` during your build:
+
+```dart
+// Static example: setup
+import 'package:jaspr/dom.dart';
+import 'package:jaspr/server.dart';
+import 'package:skribble_jaspr/skribble_jaspr.dart';
+
+Document(
+  title: 'Sketchbook',
+  head: [
+    Component.element(tag: 'style', children: [RawText(skribbleCss)]),
+  ],
+  body: App(),
+)
+```
+
+Add `class="skribble-page"` to `<body>` for the paper background, ink colour, and casual font.
+
+## 3. Use the components
+
+```dart
+// Static example: api
+Component.fragment([
+  Component.element(tag: 'h1', children: [
+    Component.text('Draw it '),
+    WiredHighlight(
+      kind: WiredHighlightKind.circle,
+      seed: 3,
+      child: Component.text('differently'),
+    ),
+  ]),
+  WiredButton(href: '/start', child: Component.text('Start sketching')),
+  WiredButton(
+    variant: WiredButtonVariant.secondary,
+    seed: 4,
+    child: Component.text('Read the docs'),
+  ),
+  const WiredDivider(seed: 2),
+  WiredCard(
+    seed: 5,
+    fillStyle: RoughFillStyle.hachure,
+    fill: '#ffe08a',
+    child: Component.text('A hatched card'),
+  ),
+])
+```
+
+| Component        | Renders                                                                                                  |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `WiredBox`       | Any element (`tag`, `classes`, `attributes`) with a rough rectangle behind its child                     |
+| `WiredCard`      | A padded `WiredBox` for grouped content                                                                  |
+| `WiredCircle`    | A rough ellipse around its child, for badges and step numbers                                            |
+| `WiredButton`    | `<a>` when `href` is set, otherwise `<button type="button">`; `primary` (accent fill) or `secondary`     |
+| `WiredHighlight` | An inline `underline`, `circle`, `marker`, `strikethrough`, or `box` around text, coloured by `color`    |
+| `WiredDivider`   | A rough horizontal rule with `role="separator"`                                                          |
+| `WiredSketch`    | A doodle at an explicit size: `.rectangle`, `.ellipse`, `.line`, `.polygon`, `.curve` (with `arrowhead`) |
+
+Closed shapes accept a `RoughFillStyle`: `none`, `hachure`, `crossHatch`, `zigzag`, `dashed`, `dots`, or `solid`. Give neighbouring components different seeds so their wobbles differ. `WiredButton.attributes` passes through extras such as `type="submit"` or `target`.
+
+### Doodles
+
+`WiredSketch` draws standalone annotations. Points are `(x, y)` records in the sketch's own coordinates:
+
+```dart
+// Static example: api
+WiredSketch.curve(
+  width: 160,
+  height: 80,
+  points: [(6, 70), (50, 20), (110, 60), (154, 14)],
+  arrowhead: true,
+  label: 'Points to the sign-up form',
+)
+```
+
+A sketch without a `label` is decorative and hidden from assistive technology; with one it becomes `role="img"`.
+
+## 4. Theme with CSS
+
+Every colour and width is a custom property, so theming needs no Dart:
+
+```css
+:root {
+  --skribble-ink: #2b2a33;
+  --skribble-accent: #9ad1d4;
+  --skribble-stroke-width: 2.5px;
+}
+
+.pricing .skribble-card {
+  --skribble-ink: #c92a2a;
+}
+```
+
+| Property                  | Used for                                |
+| ------------------------- | --------------------------------------- |
+| `--skribble-ink`          | Outlines, pen highlights, button labels |
+| `--skribble-paper`        | The `.skribble-page` background         |
+| `--skribble-accent`       | Default fills, primary buttons, markers |
+| `--skribble-on-accent`    | Text on accent fills                    |
+| `--skribble-stroke-width` | Outline width at every size             |
+| `--skribble-font`         | Button labels and `.skribble-page`      |
+| `--skribble-fill`         | Set by a component's `fill` argument    |
+| `--skribble-highlight`    | Set by `WiredHighlight.color`           |
+
+Defaults are declared with `:where(:root)`, so any rule of yours overrides them. A dark palette applies under `prefers-color-scheme: dark`; override the properties inside your own dark-mode selector to change it. Add the `skribble-wobble` class to a `WiredBox` or `WiredCard` to give it the button's hover tilt.
+
+## 5. The skribble webfont
+
+The stylesheet loads no fonts. The bundled faces live in [`packages/skribble_font_recursive/assets/fonts/`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_recursive/assets/fonts) (OFL license). Self-host them and declare the `Skribble` family, which `--skribble-font` lists first:
 
 ```css
 @font-face {
@@ -23,31 +156,45 @@ The bundled fonts live in [`packages/skribble_font_recursive/assets/fonts/`](htt
   font-weight: 700;
 }
 /* + Skribble-Italic.ttf (style: italic), Skribble-BoldItalic.ttf */
-body { font-family: 'Skribble', 'Comic Sans MS', cursive; }
 ```
 
-## 2. Rough borders without Flutter
+## How it works
 
-Two options for the sketchy chrome:
+A server cannot measure an element before the browser lays it out. Each component therefore draws into a nominal `viewBox` sized near its usual proportions, and an absolutely positioned `<svg>` stretches to the element with `preserveAspectRatio="none"`. `vector-effect="non-scaling-stroke"` keeps every stroke at its CSS width at any size. The SVG sits behind the content (`z-index: -1` inside an isolated stacking context), so it never intercepts clicks or covers text.
 
-1. **rough.js** (JS, ~10 kB) draws hand-drawn rectangles, ellipses and hachure fills on any canvas/SVG:
+Paths carry `currentColor` presentation attributes, so the shapes still draw without the stylesheet. The stylesheet then maps them to the custom properties.
 
-```js
-import rough from 'roughjs';
-const rc = rough.svg(document.querySelector('svg'));
-const node = rc.rectangle(10, 10, 200, 100, {
-  roughness: 1.5, bowing: 1, fill: '#fffbe6', fillStyle: 'hachure',
-  strokeWidth: 1.5, seed: 42,   // seed ⇒ deterministic like Skribble
-});
+Accessibility comes from the HTML, not the ink:
+
+- Ink overlays are `aria-hidden="true"` and `focusable="false"`.
+- `WiredButton` renders a native `<a>` or `<button>`, labelled by its child, with a dashed `:focus-visible` ring outside the ink.
+- `WiredDivider` is `role="separator"`. `WiredHighlight` is visual only: wrap its child in `<em>`, `<strong>`, `<mark>`, or `<del>` when the emphasis carries meaning.
+- Hover tilts the ink, and buttons flip between two drawings from neighbouring seeds, the "line boil" of hand-drawn animation. Both effects are pure CSS, only apply to hover-capable pointers, and stop under `prefers-reduced-motion: reduce`.
+
+### Limits
+
+- The ink is generated once on the server. Components register no event handlers; add your own behaviour around them if you hydrate on the client.
+- Elements much wider or taller than a component's nominal canvas stretch the wobble with them. Prefer `WiredSketch` at an explicit size when the proportions matter.
+- Output is byte-stable for a given seed on the same Dart SDK. The engine's random stream comes from `dart:math`, which the SDK does not promise to keep identical across releases.
+
+## Drawing with the engine directly
+
+For shapes the components do not cover, use `skribble_rough` and write the SVG yourself:
+
+```dart
+// Static example: api
+import 'package:skribble_rough/skribble_rough.dart';
+
+final drawable = Generator(
+  DrawConfig.build(seed: 7),
+  RoughFillStyle.dots.filler(
+    FillerConfig.build(drawConfig: DrawConfig.build(seed: 7)),
+  ),
+).circle(50, 50, 80);
+final paths = RoughSvg.fromDrawable(drawable).toPathElements(
+  stroke: 'currentColor',
+  fill: 'var(--skribble-accent)',
+);
 ```
 
-2. **Pre-generated rough SVG paths** — the skribble engine produces the same primitives deterministically; you can extract path data for a fixed geometry once and inline it (zero drawing-engine runtime cost).
-
-## 3. Live examples in this ecosystem
-
-- **Storybook on the web** — https://openbudgetfun.github.io/skribble/storybook/ (the Flutter storybook compiled to web — every widget rendered with the rough engine in the browser)
-- **This documentation site** — Flutter + the actual Wired component library
-
-## 4. `skribble_jaspr` (planned)
-
-A Jaspr component package (`ScribbleButton`, `ScribbleCard`, `ScribbleDivider`, `ScribbleTextField`) with rough SVG chrome and the skribble fonts as assets. Scoped in PLANNING.md under "Beyond Flutter" — design is a direct port of the rough engine's constants (roughness, bowing, stroke widths, hachure angles) to JS/SVG generators.
+See [Rough engine](../core/rough-engine#scalable-svg-centrelines) for the serializer and [Beyond Flutter](../reference/beyond-flutter) for the design kit and icon exports.

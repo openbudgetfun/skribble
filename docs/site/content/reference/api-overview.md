@@ -18,11 +18,11 @@ The public API is organized into six layers, from lowest to highest. Everything 
 
 ### 1. Rough engine
 
-The Dart port of rough.js that generates hand-drawn paths.
+The Dart port of rough.js that generates hand-drawn paths. The geometry lives in the pure-Dart [`skribble_rough`](#skribble_rough) package; `package:skribble` re-exports the same names below and adds the `dart:ui` painting layer (`Rough`, `RoughDrawing`, `RoughBoxDecoration`).
 
-| Export                | Purpose                     |
-| --------------------- | --------------------------- |
-| `skribble_rough.dart` | Full rough engine re-export |
+| Export                | Purpose                                                           |
+| --------------------- | ----------------------------------------------------------------- |
+| `skribble_rough.dart` | Rough engine re-export (from `package:skribble_rough`) + painting |
 
 Key types:
 
@@ -268,11 +268,12 @@ See [Testing](../guides/testing#check-the-inks-breathing-room).
 
 The main library depends on:
 
-| Package         | Version   | Purpose                                   |
-| --------------- | --------- | ----------------------------------------- |
-| `flutter`       | SDK       | Core Flutter framework                    |
-| `flutter_hooks` | `^0.21.3` | HookWidget, useState, useEffect, etc.     |
-| `path_parsing`  | `^1.1.0`  | SVG path parsing for rough icon rendering |
+| Package          | Version   | Purpose                                   |
+| ---------------- | --------- | ----------------------------------------- |
+| `flutter`        | SDK       | Core Flutter framework                    |
+| `flutter_hooks`  | `^0.21.3` | HookWidget, useState, useEffect, etc.     |
+| `path_parsing`   | `^1.1.0`  | SVG path parsing for rough icon rendering |
+| `skribble_rough` | `^0.3.1`  | The pure-Dart rough engine it re-exports  |
 
 ## Companion packages
 
@@ -288,6 +289,8 @@ The main library depends on:
 | `skribble_font_recursive` | The bundled hand-drawn typefaces                                  |
 | `skribble_maps`           | MapLibre maps with hand-drawn skribble overlays                   |
 | `skribble_charts`         | Exact OHLC data, hand-drawn charts, indicators, and drawing tools |
+| `skribble_rough`          | The pure-Dart rough engine, with SVG path output                  |
+| `skribble_jaspr`          | Server-rendered hand-drawn components for Jaspr sites             |
 | `skribble_lints`          | Shared lint rules (extends `very_good_analysis`)                  |
 
 ### skribble_icons
@@ -370,6 +373,42 @@ import 'package:skribble_charts/skribble_charts.dart';
 | `WiredChartWorkspace`                                                  | Versioned chart settings and annotation persistence                          |
 
 Hosts own and dispose controllers and feeds. The chart owns an annotation editor only when none is supplied. See [Charts](/widgets/charts) for the live example, numeric guarantees, and supported interactions.
+
+### skribble_rough
+
+```dart
+// Static example: api
+import 'package:skribble_rough/skribble_rough.dart';
+```
+
+The Flutter-free engine: `DrawConfig`, `Generator`, the `Filler` family, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set types. It depends only on the Dart SDK.
+
+| Export           | Purpose                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| `opSetToSvgPath` | One `OpSet` as an SVG `d` attribute (solid fills closed with `Z`)                      |
+| `RoughSvg`       | A `Drawable` split into `outline`, `sketch`, and `solid` path data; `toPathElements()` |
+| `RoughFillStyle` | Named fill patterns; `filler(config)` builds the matching `Filler`                     |
+
+See [Rough engine](/core/rough-engine#scalable-svg-centrelines).
+
+### skribble_jaspr
+
+```dart
+// Static example: api
+import 'package:skribble_jaspr/skribble_jaspr.dart';
+```
+
+| Export                                 | Purpose                                                             |
+| -------------------------------------- | ------------------------------------------------------------------- |
+| `WiredBox`, `WiredCard`, `WiredCircle` | Content wrapped in a rough rectangle or ellipse, optionally filled  |
+| `WiredButton`, `WiredButtonVariant`    | A rough `<a>` or `<button>`; `primary` or `secondary`               |
+| `WiredHighlight`, `WiredHighlightKind` | Inline underline, circle, marker, strikethrough, or box around text |
+| `WiredDivider`                         | A rough horizontal rule                                             |
+| `WiredSketch`, `SketchPoint`           | Standalone doodles at an explicit size, with optional arrowheads    |
+| `skribbleCss`                          | The base stylesheet: positioning, custom properties, motion, focus  |
+| `RoughFillStyle`                       | Re-exported from `skribble_rough`                                   |
+
+Components render on the server with zero client JavaScript. See [Using skribble on Jaspr](/guides/jaspr).
 
 ## API documentation
 

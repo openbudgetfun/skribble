@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'entities.dart';
+import 'package:skribble_rough/skribble_rough.dart';
+
 import 'rough_drawing.dart';
 
 /// Extension on Canvas for drawing rough/hand-drawn shapes.

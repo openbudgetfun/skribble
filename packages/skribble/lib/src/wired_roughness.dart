@@ -1,4 +1,4 @@
-import 'rough/pen.dart';
+import 'package:skribble_rough/skribble_rough.dart' show RoughPen;
 
 /// Coordinated icon, border, pen, and lettering presets for a Wired theme.
 ///

@@ -7,7 +7,7 @@ description: Complete guide to skribble's Dart port of rough.js -- DrawConfig, G
 
 Rounded rectangles use two continuous closed pen contours. Long edges can bow and wander according to the theme; each corner joins the adjacent edge without overlapping independent arc fragments. This prevents tangled ink at small button and checkbox radii. Fill polygons retain their nominal rounded perimeter.
 
-skribble's hand-drawn aesthetic comes from a Dart port of [rough.js](https://roughjs.com/). The engine lives in `packages/skribble/lib/src/rough/`; its consumer-facing surface (configuration, generator, fillers, and drawing data structures) is re-exported through `package:skribble/skribble.dart`, while pure engine internals stay under `src/`. Every wobbly border, hachure fill, and imperfect line in skribble passes through this engine.
+skribble's hand-drawn aesthetic comes from a Dart port of [rough.js](https://roughjs.com/). The Flutter-free engine (configuration, generator, fillers, pens, geometry, and drawing data structures) lives in the pure-Dart package [`skribble_rough`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_rough), so command-line tools, servers, and web frameworks such as [Jaspr](../guides/jaspr) can use it without Flutter. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `packages/skribble/lib/src/rough/`. `package:skribble/skribble.dart` re-exports the same engine names it always has, so Flutter apps keep a single import. Every wobbly border, hachure fill, and imperfect line in skribble passes through this engine.
 
 ## Overview
 
@@ -200,6 +200,24 @@ for (final path in DrawableInk(drawable, outlineWidth: 2.4, sketchWidth: 2).svgP
 ```
 
 The design kit (`dart run packages/skribble/tool/design_kit.dart`) uses this to hand Figma filled ink shapes rather than centreline strokes.
+
+### Scalable SVG centrelines
+
+`DrawableInk` bakes the pen's widths into filled outlines, which only look right at the size they were generated for. When an SVG has to stretch with its container, such as a border drawn behind an HTML element, export centrelines instead and let the browser stroke them:
+
+```dart
+// Static example: api
+final drawable = Generator(
+  DrawConfig.build(seed: 3),
+  RoughFillStyle.hachure.filler(
+    FillerConfig.build(drawConfig: DrawConfig.build(seed: 3)),
+  ),
+).rectangle(4, 4, 192, 92);
+final svg = RoughSvg.fromDrawable(drawable);
+print(svg.toPathElements(stroke: 'currentColor', nonScalingStroke: true));
+```
+
+`RoughSvg` groups the op sets the way `RoughDrawing` paints them: `outline` is stroked with the border colour, `sketch` (hachure, zig-zag, dots, dashes) is stroked with the fill colour, and `solid` is filled with the fill colour. `opSetToSvgPath` converts a single `OpSet`. `RoughFillStyle` names the fill patterns and creates the matching `Filler`; it requires a `FillerConfig` so every fill owns a seeded random stream. Coordinates keep two decimals, so the same seed produces byte-identical markup. [skribble_jaspr](../guides/jaspr) uses these helpers to render components on the server.
 
 ## Generator
 

@@ -1,15 +1,12 @@
 /// Hand-drawn rendering engine for skribble.
 ///
-/// This provides the rough/sketchy drawing primitives used by all Wired widgets.
+/// This provides the rough/sketchy drawing primitives used by all Wired
+/// widgets. The Flutter-free engine lives in `package:skribble_rough`; this
+/// library adds the `dart:ui` painting layer on top of it.
 library;
 
-export 'config.dart';
-export 'core.dart';
+export 'package:skribble_rough/skribble_rough.dart';
+
 export 'decoration.dart';
-export 'entities.dart';
-export 'filler.dart';
-export 'generator.dart';
-export 'ink_stroke.dart';
-export 'pen.dart';
 export 'rough.dart';
 export 'rough_drawing.dart';

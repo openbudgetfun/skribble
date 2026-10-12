@@ -1,8 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:skribble/skribble.dart';
-import 'package:skribble/src/rough/core.dart';
-import 'package:skribble/src/rough/filler.dart';
-import 'package:skribble/src/rough/geometry.dart';
+import 'package:skribble_rough/skribble_rough.dart';
+import 'package:test/test.dart';
 
 void main() {
   /// A simple square polygon used across multiple filler tests.
