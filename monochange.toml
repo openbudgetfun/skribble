@@ -80,6 +80,10 @@ type = "dart"
 path = "packages/skribble_rough"
 type = "dart"
 
+[package.skribble_jaspr]
+path = "packages/skribble_jaspr"
+type = "dart"
+
 [package.skribble_maps]
 path = "packages/skribble_maps"
 type = "dart"
@@ -113,6 +117,7 @@ packages = [
   "skribble_font_roughen",
   "skribble_lints",
   "skribble_rough",
+  "skribble_jaspr",
 ]
 tag = true
 release = true
