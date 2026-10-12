@@ -48,6 +48,16 @@ skribble's endgame is a **standalone design system library** — a peer of `pack
 - **Keep image files out of Git**, including screenshots, design exports, and golden snapshots. Save them in gitignored local output directories, upload review images with `gh pr create/edit/comment --attach`, or use external file storage. Put the resulting attachment or download URL in the PR or a README.
 - Before pushing, check staged additions and the branch's commits for image files. Remove newly introduced images from an unmerged branch's history before publishing the corrected branch; deleting them only in a later commit still leaves the repository bloated.
 
+### Design changes ship with screenshots on the pull request
+
+- Every pull request that changes what skribble draws or how it lays out must show the change. That covers widget appearance, the rough engine, pens and fillers, icons and emoji, fonts, theme defaults, spacing, and the storybook or docs visuals.
+- Capture **before and after** screenshots from the same harness: the storybook, `melos run screenshot`, or an in-memory render. Include both light and dark themes, and narrow and wide widths when layout changes.
+- Upload them to the pull request itself with the GitHub CLI's `--attach` flag, never by committing them:
+  - when opening: `gh pr create --attach './before.png#Before' --attach './after.png#After'`;
+  - later captures: `gh pr edit <n> --attach ...` or `gh pr comment <n> --attach ...`.
+- Text after `#` is the image's alt text. A local path already referenced in the body (`![Before](./before.png)`) is replaced with the uploaded URL; anything else is appended.
+- Put the images in a collapsible `<details>` section of the description, and say what the captures do not cover. Inspect every image first so it exposes no secrets or personal data.
+
 ### Documentation
 
 - **Figma exports belong on the latest GitHub release, never in Git.** Save `.fig` files outside the checkout and publish them as `skribble-design-system.fig`. Follow `docs/design/README.md` for upload and verification. Link downloads through `releases/latest/download/skribble-design-system.fig`.
