@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -36,7 +38,11 @@ class WiredProgress extends HookWidget {
   /// How far along, from 0 to 1, or null when unknown.
   final double? value;
 
-  /// The height of the track in logical pixels.
+  /// The height of the bar in logical pixels, including its ink.
+  ///
+  /// The pen's line and wobble sit inside this box, so a bar is never drawn
+  /// shorter than its ink plus a visible band; smaller values are raised to
+  /// that minimum.
   final double height;
 
   /// Accessible description, such as "Uploading photos".
@@ -76,24 +82,36 @@ class WiredProgress extends HookWidget {
       fillerType: RoughFilter.solidFiller,
     );
 
+    // The track's ink sits half an ink extent inside every edge, and the fill
+    // is drawn the same way, so the fill is laid out against the track's
+    // interior: its painted edges then land exactly on the value.
+    final inkExtent = theme.inkExtent;
+    final boxHeight = math.max(height, inkExtent + _minimumBand);
+
     return Semantics(
       label: semanticLabel,
       value: indeterminate ? null : '${(value!.clamp(0, 1) * 100).round()}%',
       child: buildWiredElement(
         child: SizedBox(
-          height: height,
+          height: boxHeight,
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final width = constraints.maxWidth;
+              final interior = math.max(0.0, constraints.maxWidth - inkExtent);
               final rtl = Directionality.of(context) == TextDirection.rtl;
-              Widget fill(double start, double fraction) => Positioned(
-                left: rtl ? null : width * start,
-                right: rtl ? width * start : null,
-                top: 0,
-                bottom: 0,
-                width: width * fraction,
-                child: marker,
-              );
+              Widget fill(double start, double fraction) {
+                if (fraction <= 0) return const SizedBox.shrink();
+                return Positioned(
+                  left: rtl ? null : interior * start,
+                  right: rtl ? interior * start : null,
+                  top: 0,
+                  bottom: 0,
+                  // The marker insets itself by the same ink, so its box is
+                  // widened by one extent to paint exactly `fraction`.
+                  width: interior * fraction + inkExtent,
+                  child: marker,
+                );
+              }
+
               return ClipRect(
                 child: Stack(
                   children: [
@@ -104,9 +122,7 @@ class WiredProgress extends HookWidget {
                           // A third of the track sweeps in from the start and
                           // out past the end, easing at both.
                           final t = Curves.easeInOut.transform(sweep.value);
-                          return Stack(
-                            children: [fill(t * 1.4 - .4, .4)],
-                          );
+                          return Stack(children: [fill(t * 1.4 - .4, .4)]);
                         },
                       )
                     else
@@ -116,9 +132,8 @@ class WiredProgress extends HookWidget {
                             ? const Duration(milliseconds: 320)
                             : Duration.zero,
                         curve: Curves.easeOutCubic,
-                        builder: (context, fraction, _) => Stack(
-                          children: [fill(0, fraction)],
-                        ),
+                        builder: (context, fraction, _) =>
+                            Stack(children: [fill(0, fraction)]),
                       ),
                     Positioned.fill(child: track),
                   ],
@@ -131,3 +146,6 @@ class WiredProgress extends HookWidget {
     );
   }
 }
+
+/// The thinnest band of fill a bar keeps visible inside its ink.
+const double _minimumBand = 6;

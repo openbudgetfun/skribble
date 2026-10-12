@@ -92,11 +92,7 @@ class WiredSvgIcon extends HookWidget {
         drawConfig ?? _iconDrawConfig(wiredTheme, effectiveSize);
 
     final primitives = useMemoized(
-      () => prepareIconPrimitives(
-        data,
-        effectiveSize,
-        flip: flipHorizontally,
-      ),
+      () => prepareIconPrimitives(data, effectiveSize, flip: flipHorizontally),
       [data, effectiveSize, flipHorizontally],
     );
     // The painter caches its wavered contours and pen outlines, so keep the
@@ -122,15 +118,29 @@ class WiredSvgIcon extends HookWidget {
       ],
     );
 
+    // Like Flutter's Icon, the drawing is centred in its square, so a parent
+    // that forces a larger box (an input decoration slot, a fixed-size
+    // badge) keeps the icon in the middle rather than in its top-left corner.
     Widget child = buildWiredElement(
       child: SizedBox.square(
         dimension: effectiveSize,
-        child: CustomPaint(painter: painter),
+        child: Center(
+          child: SizedBox.square(
+            dimension: effectiveSize,
+            child: CustomPaint(painter: painter),
+          ),
+        ),
       ),
     );
 
+    // A plain label, as Icon gives: an image flag would merge into any
+    // ancestor that merges its descendants and turn a whole card or button
+    // into one image for assistive technology.
     if (semanticLabel case final label? when label.isNotEmpty) {
-      child = Semantics(label: label, image: true, child: child);
+      child = Semantics(
+        label: label,
+        child: ExcludeSemantics(child: child),
+      );
     }
 
     return child;

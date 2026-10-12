@@ -248,9 +248,7 @@ void main() {
     });
   });
 
-  testWidgets('a semantic label describes the icon as an image', (
-    tester,
-  ) async {
+  testWidgets('a semantic label describes the icon', (tester) async {
     final semantics = tester.ensureSemantics();
     await _render(
       tester,
@@ -258,5 +256,71 @@ void main() {
     );
     expect(find.bySemanticsLabel('Liked'), findsOneWidget);
     semantics.dispose();
+  });
+
+  testWidgets('a labelled icon never turns a merged parent into an image', (
+    tester,
+  ) async {
+    final semantics = tester.ensureSemantics();
+    await tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: WiredThemeScope(
+          data: WiredThemeData(),
+          child: Center(
+            child: MergeSemantics(
+              key: _key,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  WiredSvgIcon(
+                    data: SkribbleGlyphs.heart,
+                    semanticLabel: 'Liked',
+                  ),
+                  Text('Ten squats'),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    // A card merges its icon and text into one node; the icon's label joins
+    // it as text, as Icon's does, rather than marking the card an image.
+    final node = tester.getSemantics(find.byKey(_key));
+    expect(node.label, 'Liked\nTen squats');
+    expect(node.flagsCollection.isImage, isFalse);
+    semantics.dispose();
+  });
+
+  testWidgets('centres its drawing in a box larger than its size', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: WiredThemeScope(
+          data: WiredThemeData(),
+          child: Center(
+            child: SizedBox.square(
+              key: _key,
+              dimension: 48,
+              child: const WiredSvgIcon(data: SkribbleGlyphs.heart, size: 24),
+            ),
+          ),
+        ),
+      ),
+    );
+    // Input decoration slots and badges force a larger box; the drawing
+    // stays the icon's size and sits in the middle, as Icon's glyph does.
+    final box = tester.getRect(find.byKey(_key));
+    final drawing = tester.getRect(
+      find.descendant(
+        of: find.byType(WiredSvgIcon),
+        matching: find.byType(CustomPaint),
+      ),
+    );
+    expect(drawing.size, const Size.square(24));
+    expect(drawing.center, box.center);
   });
 }

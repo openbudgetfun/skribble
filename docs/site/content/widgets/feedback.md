@@ -141,7 +141,7 @@ const WiredProgress(semanticLabel: 'Working');
 | Parameter       | Type      | Default | Description                                    |
 | --------------- | --------- | ------- | ---------------------------------------------- |
 | `value`         | `double?` | `null`  | Progress from 0 to 1, or null when unknown.    |
-| `height`        | `double`  | `20`    | Track height in logical pixels.                |
+| `height`        | `double`  | `20`    | Bar height in logical pixels, ink included.    |
 | `semanticLabel` | `String?` | `null`  | Accessible description, read with the percent. |
 
 ### Notes
@@ -149,15 +149,8 @@ const WiredProgress(semanticLabel: 'Working');
 - The fill is the theme's `markerColor` under an ink outline.
 - The glide is decorative and settles immediately when `WiredMotion` or the platform turns motion off. The indeterminate sweep keeps moving, like Flutter's own indicators, because it tells people work is happening.
 - Values outside 0 to 1 are clamped. Right-to-left text fills from the right.
-
------------- | --------------------- | ------------ | ------------------------------------ | | `controller` | `AnimationController` | **required** | Drives the progress animation. | | `value` | `double` | `0.0` | Initial progress value (0.0 to 1.0). |
-
-### Notes
-
-- Progress bar height is 20px.
-- The filled portion uses hachure fill with `theme.borderColor` (gap: 1.5).
-- The track border uses `theme.borderColor` with no fill.
-- The widget measures its own width after layout to compute the fill extent.
+- The fill is laid out inside the track's ink, so its painted edge lands exactly on the value and even a small value shows.
+- The pen's line and wobble sit inside `height`. A bar shorter than the theme's `inkExtent` plus a 6-pixel band is raised to that height rather than drawn as a hairline.
 
 ---
 
