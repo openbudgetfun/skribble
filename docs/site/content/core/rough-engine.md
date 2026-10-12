@@ -201,6 +201,24 @@ for (final path in DrawableInk(drawable, outlineWidth: 2.4, sketchWidth: 2).svgP
 
 The design kit (`dart run packages/skribble/tool/design_kit.dart`) uses this to hand Figma filled ink shapes rather than centreline strokes.
 
+### Scalable SVG centrelines
+
+`DrawableInk` bakes the pen's widths into filled outlines, which only look right at the size they were generated for. When an SVG has to stretch with its container, such as a border drawn behind an HTML element, export centrelines instead and let the browser stroke them:
+
+```dart
+// Static example: api
+final drawable = Generator(
+  DrawConfig.build(seed: 3),
+  RoughFillStyle.hachure.filler(
+    FillerConfig.build(drawConfig: DrawConfig.build(seed: 3)),
+  ),
+).rectangle(4, 4, 192, 92);
+final svg = RoughSvg.fromDrawable(drawable);
+print(svg.toPathElements(stroke: 'currentColor', nonScalingStroke: true));
+```
+
+`RoughSvg` groups the op sets the way `RoughDrawing` paints them: `outline` is stroked with the border colour, `sketch` (hachure, zig-zag, dots, dashes) is stroked with the fill colour, and `solid` is filled with the fill colour. `opSetToSvgPath` converts a single `OpSet`. `RoughFillStyle` names the fill patterns and creates the matching `Filler`; it requires a `FillerConfig` so every fill owns a seeded random stream. Coordinates keep two decimals, so the same seed produces byte-identical markup. [skribble_jaspr](../guides/jaspr) uses these helpers to render components on the server.
+
 ## Generator
 
 `Generator` is the main entry point for producing rough shapes. It takes a `DrawConfig` and a `Filler`, and exposes methods for every supported shape.
