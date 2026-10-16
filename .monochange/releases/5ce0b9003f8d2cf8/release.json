@@ -1,0 +1,1384 @@
+{
+  "schema_version": "0.9",
+  "kind": "monochange.releaseRecord",
+  "created_at": "2026-10-16T20:32:30Z",
+  "command": "release-pr",
+  "version": "0.3.2",
+  "versions": {
+    "main": "0.3.2",
+    "skribble_charts": "0.3.2",
+    "skribble_maps": "0.3.2"
+  },
+  "release_targets": [
+    {
+      "id": "main",
+      "kind": "group",
+      "version": "0.3.2",
+      "version_format": "primary",
+      "tag": true,
+      "release": true,
+      "tag_name": "v0.3.2",
+      "rendered_title": "v0.3.2 (2026-10-16)",
+      "rendered_changelog_title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+      "members": [
+        "skribble",
+        "skribble_icons",
+        "skribble_icons_simple",
+        "skribble_icons_material",
+        "skribble_icons_lucide",
+        "skribble_icons_bxs",
+        "skribble_icons_cib",
+        "skribble_emoji",
+        "skribble_emoji_gen",
+        "skribble_font_recursive",
+        "skribble_font_roughen",
+        "skribble_lints",
+        "skribble_rough",
+        "skribble_jaspr"
+      ]
+    },
+    {
+      "id": "skribble_charts",
+      "kind": "package",
+      "version": "0.3.2",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_charts/v0.3.2",
+      "rendered_title": "skribble_charts v0.3.2 (2026-10-16)",
+      "rendered_changelog_title": "skribble_charts [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.3.2) (2026-10-16)",
+      "members": [
+        "skribble_charts"
+      ]
+    },
+    {
+      "id": "skribble_maps",
+      "kind": "package",
+      "version": "0.3.2",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_maps/v0.3.2",
+      "rendered_title": "skribble_maps v0.3.2 (2026-10-16)",
+      "rendered_changelog_title": "skribble_maps [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.3.2) (2026-10-16)",
+      "members": [
+        "skribble_maps"
+      ]
+    }
+  ],
+  "released_packages": [
+    "skribble",
+    "skribble_charts",
+    "skribble_emoji",
+    "skribble_emoji_gen",
+    "skribble_font_recursive",
+    "skribble_font_roughen",
+    "skribble_icons",
+    "skribble_icons_bxs",
+    "skribble_icons_cib",
+    "skribble_icons_lucide",
+    "skribble_icons_material",
+    "skribble_icons_simple",
+    "skribble_jaspr",
+    "skribble_lints",
+    "skribble_maps",
+    "skribble_rough"
+  ],
+  "changed_files": [
+    "CHANGELOG.md",
+    "apps/skribble_benchmark/pubspec.yaml",
+    "apps/skribble_example/pubspec.yaml",
+    "apps/skribble_storybook/pubspec.yaml",
+    "docs/site/pubspec.yaml",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble/pubspec.yaml",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_charts/pubspec.yaml",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji/pubspec.yaml",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_emoji_gen/pubspec.yaml",
+    "packages/skribble_font_recursive/CHANGELOG.md",
+    "packages/skribble_font_recursive/pubspec.yaml",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_font_roughen/pubspec.yaml",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons/pubspec.yaml",
+    "packages/skribble_icons_bxs/CHANGELOG.md",
+    "packages/skribble_icons_bxs/pubspec.yaml",
+    "packages/skribble_icons_cib/CHANGELOG.md",
+    "packages/skribble_icons_cib/pubspec.yaml",
+    "packages/skribble_icons_lucide/CHANGELOG.md",
+    "packages/skribble_icons_lucide/pubspec.yaml",
+    "packages/skribble_icons_material/CHANGELOG.md",
+    "packages/skribble_icons_material/pubspec.yaml",
+    "packages/skribble_icons_simple/CHANGELOG.md",
+    "packages/skribble_icons_simple/pubspec.yaml",
+    "packages/skribble_jaspr/CHANGELOG.md",
+    "packages/skribble_jaspr/pubspec.yaml",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_lints/pubspec.yaml",
+    "packages/skribble_maps/CHANGELOG.md",
+    "packages/skribble_maps/pubspec.yaml",
+    "packages/skribble_rough/CHANGELOG.md",
+    "packages/skribble_rough/pubspec.yaml",
+    "pubspec.yaml"
+  ],
+  "package_publications": [
+    {
+      "package": "skribble",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_charts",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji_gen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_recursive",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_roughen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_bxs",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_cib",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_lucide",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_material",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_simple",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_jaspr",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_lints",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_maps",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_rough",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.3.2",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    }
+  ],
+  "updated_changelogs": [
+    "CHANGELOG.md",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_font_recursive/CHANGELOG.md",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons_bxs/CHANGELOG.md",
+    "packages/skribble_icons_cib/CHANGELOG.md",
+    "packages/skribble_icons_lucide/CHANGELOG.md",
+    "packages/skribble_icons_material/CHANGELOG.md",
+    "packages/skribble_icons_simple/CHANGELOG.md",
+    "packages/skribble_jaspr/CHANGELOG.md",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_maps/CHANGELOG.md",
+    "packages/skribble_rough/CHANGELOG.md"
+  ],
+  "deleted_changesets": [
+    ".changeset/icon-and-progress-geometry.md",
+    ".changeset/icon-ink-reuse.md",
+    ".changeset/jaspr-components.md",
+    ".changeset/rough-engine-package.md",
+    ".changeset/rough-svg-output.md"
+  ],
+  "changesets": [
+    {
+      "path": ".changeset/icon-and-progress-geometry.md",
+      "summary": "Icons centre and label like Icon, and short progress bars stay visible",
+      "details": "`WiredSvgIcon`, and so `SkribbleIcon` and `WiredIcon`, drew its glyph in the top-left corner whenever a parent forced a box larger than its size, as an input decoration's prefix and suffix slots and fixed-size badges do. The drawing is now centred, as Flutter's `Icon` centres its glyph.\n\nAn icon's `semanticLabel` also carried an image flag. Inside a parent that merges its descendants, such as a card, that flag spread to the whole merged node, so assistive technology announced the card as one image and lost its group and name. The label is now plain, as `Icon`'s is, and joins the parent's label as text.\n\n`WiredProgress` inset its marker by the pen's ink inside a box that had already been inset by the same amount. At a 12- or 14-pixel height the bar became a hairline, and a small value painted nothing. The marker is now laid out against the track's interior, so its painted edge lands exactly on the value, and a bar shorter than its ink plus a 6-pixel band is raised to that height.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "f8cc6543291d1c6de419a9f140dcffb4b2779616",
+            "short_sha": "f8cc654",
+            "url": "https://github.com/openbudgetfun/skribble/commit/f8cc6543291d1c6de419a9f140dcffb4b2779616",
+            "authored_at": "2026-10-12T16:54:21+01:00",
+            "committed_at": "2026-10-12T16:54:21+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#248",
+            "title": "fix(skribble): centre and label icons like Icon, and keep short progress bars visible",
+            "url": "https://github.com/openbudgetfun/skribble/pull/248",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "f8cc6543291d1c6de419a9f140dcffb4b2779616",
+            "short_sha": "f8cc654",
+            "url": "https://github.com/openbudgetfun/skribble/commit/f8cc6543291d1c6de419a9f140dcffb4b2779616",
+            "authored_at": "2026-10-12T16:54:21+01:00",
+            "committed_at": "2026-10-12T16:54:21+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#248",
+            "title": "fix(skribble): centre and label icons like Icon, and keep short progress bars visible",
+            "url": "https://github.com/openbudgetfun/skribble/pull/248",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": [
+          {
+            "provider": "github",
+            "host": "github.com",
+            "id": "#246",
+            "title": null,
+            "url": "https://github.com/openbudgetfun/skribble/issues/246",
+            "relationship": "closed_by_review_request"
+          }
+        ]
+      }
+    },
+    {
+      "path": ".changeset/icon-ink-reuse.md",
+      "summary": "Icons reuse prepared ink, so scrolling lists of them stop dropping frames",
+      "details": "Every `WiredSvgIcon` that appeared — including a list item scrolling back into view seconds after it was first drawn — re-parsed its SVG paths, re-wavered every contour, and re-inked every pen outline before it could paint. The benchmark app measured a 200-item icon list at 34 ms per frame, more than twice the frame budget and 3.6 times the cost of drawing precomputed paths.\n\nIcons with the same geometry, size, colour, weight, fill style, and draw config now share one painter through a bounded cache (256 entries, least-recently-used evicted), so a revisited icon paints at precomputed-path cost and no visible detail changes: the shared painter holds exactly the ink the fresh one would have rebuilt from the same seed. Each path primitive's SVG data is also parsed once per primitive instead of once per appearance, which helps beyond the cache's horizon in the large Material and Simple Icons catalogs. A probe of the 200-item scroll found all 51 distinct icons prepared exactly once, and zero preparations on the return scroll.\n\n`RoughDrawing` and the icon painter also stopped allocating `Paint` objects on every frame while animating progress or pressure; every constant paint is prepared once with the ink it belongs to.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "1a7014c031df31ac40e11fdd09d23ed27042af92",
+            "short_sha": "1a7014c",
+            "url": "https://github.com/openbudgetfun/skribble/commit/1a7014c031df31ac40e11fdd09d23ed27042af92",
+            "authored_at": "2026-10-16T21:29:56+01:00",
+            "committed_at": "2026-10-16T21:29:56+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#251",
+            "title": "perf(skribble): reuse prepared icon ink and skip analyzing generated catalogs",
+            "url": "https://github.com/openbudgetfun/skribble/pull/251",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "1a7014c031df31ac40e11fdd09d23ed27042af92",
+            "short_sha": "1a7014c",
+            "url": "https://github.com/openbudgetfun/skribble/commit/1a7014c031df31ac40e11fdd09d23ed27042af92",
+            "authored_at": "2026-10-16T21:29:56+01:00",
+            "committed_at": "2026-10-16T21:29:56+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#251",
+            "title": "perf(skribble): reuse prepared icon ink and skip analyzing generated catalogs",
+            "url": "https://github.com/openbudgetfun/skribble/pull/251",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/jaspr-components.md",
+      "summary": "Add hand-drawn Jaspr components that render with zero client JavaScript",
+      "details": "The new `skribble_jaspr` package brings skribble to Jaspr sites. `WiredBox`, `WiredCard`, `WiredCircle`, `WiredButton`, `WiredHighlight`, `WiredDivider`, and `WiredSketch` draw their rough ink on the server into inline SVG, so static and server-rendered pages ship no drawing JavaScript and the same `seed` always produces the same markup.\n\nEach overlay stretches to its element with `preserveAspectRatio=\"none\"` and keeps strokes crisp with `vector-effect=\"non-scaling-stroke\"`. The `skribbleCss` stylesheet themes everything through CSS custom properties (`--skribble-ink`, `--skribble-paper`, `--skribble-accent`, `--skribble-stroke-width`, `--skribble-font`), switches palettes for dark mode, draws a dashed keyboard focus ring, and adds a hover tilt and two-frame \"line boil\" on buttons that stop under `prefers-reduced-motion`. Ink is decorative and hidden from assistive technology; buttons and links keep native semantics.",
+      "targets": [
+        {
+          "id": "skribble_jaspr",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "short_sha": "c556448",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "authored_at": "2026-10-12T16:53:04+01:00",
+            "committed_at": "2026-10-12T16:53:04+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#247",
+            "title": "feat: add Jaspr support with skribble_jaspr and the pure-Dart skribble_rough engine",
+            "url": "https://github.com/openbudgetfun/skribble/pull/247",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "short_sha": "c556448",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "authored_at": "2026-10-12T16:53:04+01:00",
+            "committed_at": "2026-10-12T16:53:04+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#247",
+            "title": "feat: add Jaspr support with skribble_jaspr and the pure-Dart skribble_rough engine",
+            "url": "https://github.com/openbudgetfun/skribble/pull/247",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/rough-engine-package.md",
+      "summary": "Move the rough engine into the pure-Dart skribble_rough package",
+      "details": "The Flutter-free half of the rough engine (`DrawConfig`, `Generator`, the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set data structures) now lives in the new `skribble_rough` package, which depends on nothing but the Dart SDK. Command-line tools, servers, and web frameworks can draw the same seeded shapes as the Flutter widgets without pulling in Flutter.\n\n`skribble` depends on `skribble_rough` and re-exports exactly the names it exported before, so `import 'package:skribble/skribble.dart'` keeps working unchanged. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `skribble`. Code that imported the engine's private `package:skribble/src/rough/...` files should import `package:skribble_rough/skribble_rough.dart` instead.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        },
+        {
+          "id": "skribble_rough",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "short_sha": "c556448",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "authored_at": "2026-10-12T16:53:04+01:00",
+            "committed_at": "2026-10-12T16:53:04+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#247",
+            "title": "feat: add Jaspr support with skribble_jaspr and the pure-Dart skribble_rough engine",
+            "url": "https://github.com/openbudgetfun/skribble/pull/247",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "short_sha": "c556448",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "authored_at": "2026-10-12T16:53:04+01:00",
+            "committed_at": "2026-10-12T16:53:04+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#247",
+            "title": "feat: add Jaspr support with skribble_jaspr and the pure-Dart skribble_rough engine",
+            "url": "https://github.com/openbudgetfun/skribble/pull/247",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/rough-svg-output.md",
+      "summary": "Serialize rough drawables to scalable SVG path data",
+      "details": "`skribble_rough` adds `opSetToSvgPath`, which writes one `OpSet` as an SVG `d` attribute, and `RoughSvg.fromDrawable`, which splits a `Drawable` into the three groups the Flutter painter uses: the stroked outline, the stroked sketch fill, and the filled solid polygon. `RoughSvg.toPathElements` renders them as `<path>` elements, optionally with `vector-effect=\"non-scaling-stroke\"` so strokes stay crisp when the SVG stretches. The new `RoughFillStyle` enum names each fill pattern and builds its `Filler` from a seeded `FillerConfig`.\n\nCoordinates are rounded to two decimals, so the same seed always produces the same markup and server-rendered pages stay byte-stable between builds.",
+      "targets": [
+        {
+          "id": "skribble_rough",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "short_sha": "c556448",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "authored_at": "2026-10-12T16:53:04+01:00",
+            "committed_at": "2026-10-12T16:53:04+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#247",
+            "title": "feat: add Jaspr support with skribble_jaspr and the pure-Dart skribble_rough engine",
+            "url": "https://github.com/openbudgetfun/skribble/pull/247",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "short_sha": "c556448",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c556448d3b2f5b8c37ed56e1ca541b585de17a29",
+            "authored_at": "2026-10-12T16:53:04+01:00",
+            "committed_at": "2026-10-12T16:53:04+01:00",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#247",
+            "title": "feat: add Jaspr support with skribble_jaspr and the pure-Dart skribble_rough engine",
+            "url": "https://github.com/openbudgetfun/skribble/pull/247",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    }
+  ],
+  "changelogs": [
+    {
+      "owner_id": "main",
+      "owner_kind": "group",
+      "output": "default",
+      "stream": "default",
+      "path": "CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [
+          "Grouped release for `main`."
+        ],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Move the rough engine into the pure-Dart skribble_rough package\n\n_Packages:_ 🟢 _skribble_, 🟠 _skribble_rough_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\nThe Flutter-free half of the rough engine (`DrawConfig`, `Generator`, the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set data structures) now lives in the new `skribble_rough` package, which depends on nothing but the Dart SDK. Command-line tools, servers, and web frameworks can draw the same seeded shapes as the Flutter widgets without pulling in Flutter.\n\n`skribble` depends on `skribble_rough` and re-exports exactly the names it exported before, so `import 'package:skribble/skribble.dart'` keeps working unchanged. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `skribble`. Code that imported the engine's private `package:skribble/src/rough/...` files should import `package:skribble_rough/skribble_rough.dart` instead.",
+              "#### Serialize rough drawables to scalable SVG path data\n\n_Packages:_ 🟠 _skribble_rough_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\n`skribble_rough` adds `opSetToSvgPath`, which writes one `OpSet` as an SVG `d` attribute, and `RoughSvg.fromDrawable`, which splits a `Drawable` into the three groups the Flutter painter uses: the stroked outline, the stroked sketch fill, and the filled solid polygon. `RoughSvg.toPathElements` renders them as `<path>` elements, optionally with `vector-effect=\"non-scaling-stroke\"` so strokes stay crisp when the SVG stretches. The new `RoughFillStyle` enum names each fill pattern and builds its `Filler` from a seeded `FillerConfig`.\n\nCoordinates are rounded to two decimals, so the same seed always produces the same markup and server-rendered pages stay byte-stable between builds.",
+              "#### Add hand-drawn Jaspr components that render with zero client JavaScript\n\n_Packages:_ 🟠 _skribble_jaspr_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\nThe new `skribble_jaspr` package brings skribble to Jaspr sites. `WiredBox`, `WiredCard`, `WiredCircle`, `WiredButton`, `WiredHighlight`, `WiredDivider`, and `WiredSketch` draw their rough ink on the server into inline SVG, so static and server-rendered pages ship no drawing JavaScript and the same `seed` always produces the same markup.\n\nEach overlay stretches to its element with `preserveAspectRatio=\"none\"` and keeps strokes crisp with `vector-effect=\"non-scaling-stroke\"`. The `skribbleCss` stylesheet themes everything through CSS custom properties (`--skribble-ink`, `--skribble-paper`, `--skribble-accent`, `--skribble-stroke-width`, `--skribble-font`), switches palettes for dark mode, draws a dashed keyboard focus ring, and adds a hover tilt and two-frame \"line boil\" on buttons that stop under `prefers-reduced-motion`. Ink is decorative and hidden from assistive technology; buttons and links keep native semantics."
+            ]
+          },
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Icons centre and label like Icon, and short progress bars stay visible\n\n_Packages:_ 🟢 _skribble_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #248](https://github.com/openbudgetfun/skribble/pull/248) · _Closed issues:_ [#246](https://github.com/openbudgetfun/skribble/issues/246)\n\n`WiredSvgIcon`, and so `SkribbleIcon` and `WiredIcon`, drew its glyph in the top-left corner whenever a parent forced a box larger than its size, as an input decoration's prefix and suffix slots and fixed-size badges do. The drawing is now centred, as Flutter's `Icon` centres its glyph.\n\nAn icon's `semanticLabel` also carried an image flag. Inside a parent that merges its descendants, such as a card, that flag spread to the whole merged node, so assistive technology announced the card as one image and lost its group and name. The label is now plain, as `Icon`'s is, and joins the parent's label as text.\n\n`WiredProgress` inset its marker by the pen's ink inside a box that had already been inset by the same amount. At a 12- or 14-pixel height the bar became a hairline, and a small value painted nothing. The marker is now laid out against the track's interior, so its painted edge lands exactly on the value, and a bar shorter than its ink plus a 6-pixel band is raised to that height.",
+              "#### Icons reuse prepared ink, so scrolling lists of them stop dropping frames\n\n_Packages:_ 🟢 _skribble_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #251](https://github.com/openbudgetfun/skribble/pull/251)\n\nEvery `WiredSvgIcon` that appeared — including a list item scrolling back into view seconds after it was first drawn — re-parsed its SVG paths, re-wavered every contour, and re-inked every pen outline before it could paint. The benchmark app measured a 200-item icon list at 34 ms per frame, more than twice the frame budget and 3.6 times the cost of drawing precomputed paths.\n\nIcons with the same geometry, size, colour, weight, fill style, and draw config now share one painter through a bounded cache (256 entries, least-recently-used evicted), so a revisited icon paints at precomputed-path cost and no visible detail changes: the shared painter holds exactly the ink the fresh one would have rebuilt from the same seed. Each path primitive's SVG data is also parsed once per primitive instead of once per appearance, which helps beyond the cache's horizon in the large Material and Simple Icons catalogs. A probe of the 200-item scroll found all 51 distinct icons prepared exactly once, and zero preparations on the return scroll.\n\n`RoughDrawing` and the icon painter also stopped allocating `Paint` objects on every frame while animating progress or pressure; every constant paint is prepared once with the ink it belongs to."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\nGrouped release for `main`.\n\n### Features\n\n#### Move the rough engine into the pure-Dart skribble_rough package\n\n_Packages:_ 🟢 _skribble_, 🟠 _skribble_rough_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\nThe Flutter-free half of the rough engine (`DrawConfig`, `Generator`, the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set data structures) now lives in the new `skribble_rough` package, which depends on nothing but the Dart SDK. Command-line tools, servers, and web frameworks can draw the same seeded shapes as the Flutter widgets without pulling in Flutter.\n\n`skribble` depends on `skribble_rough` and re-exports exactly the names it exported before, so `import 'package:skribble/skribble.dart'` keeps working unchanged. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `skribble`. Code that imported the engine's private `package:skribble/src/rough/...` files should import `package:skribble_rough/skribble_rough.dart` instead.\n\n#### Serialize rough drawables to scalable SVG path data\n\n_Packages:_ 🟠 _skribble_rough_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\n`skribble_rough` adds `opSetToSvgPath`, which writes one `OpSet` as an SVG `d` attribute, and `RoughSvg.fromDrawable`, which splits a `Drawable` into the three groups the Flutter painter uses: the stroked outline, the stroked sketch fill, and the filled solid polygon. `RoughSvg.toPathElements` renders them as `<path>` elements, optionally with `vector-effect=\"non-scaling-stroke\"` so strokes stay crisp when the SVG stretches. The new `RoughFillStyle` enum names each fill pattern and builds its `Filler` from a seeded `FillerConfig`.\n\nCoordinates are rounded to two decimals, so the same seed always produces the same markup and server-rendered pages stay byte-stable between builds.\n\n#### Add hand-drawn Jaspr components that render with zero client JavaScript\n\n_Packages:_ 🟠 _skribble_jaspr_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\nThe new `skribble_jaspr` package brings skribble to Jaspr sites. `WiredBox`, `WiredCard`, `WiredCircle`, `WiredButton`, `WiredHighlight`, `WiredDivider`, and `WiredSketch` draw their rough ink on the server into inline SVG, so static and server-rendered pages ship no drawing JavaScript and the same `seed` always produces the same markup.\n\nEach overlay stretches to its element with `preserveAspectRatio=\"none\"` and keeps strokes crisp with `vector-effect=\"non-scaling-stroke\"`. The `skribbleCss` stylesheet themes everything through CSS custom properties (`--skribble-ink`, `--skribble-paper`, `--skribble-accent`, `--skribble-stroke-width`, `--skribble-font`), switches palettes for dark mode, draws a dashed keyboard focus ring, and adds a hover tilt and two-frame \"line boil\" on buttons that stop under `prefers-reduced-motion`. Ink is decorative and hidden from assistive technology; buttons and links keep native semantics.\n\n### Fixes\n\n#### Icons centre and label like Icon, and short progress bars stay visible\n\n_Packages:_ 🟢 _skribble_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #248](https://github.com/openbudgetfun/skribble/pull/248) · _Closed issues:_ [#246](https://github.com/openbudgetfun/skribble/issues/246)\n\n`WiredSvgIcon`, and so `SkribbleIcon` and `WiredIcon`, drew its glyph in the top-left corner whenever a parent forced a box larger than its size, as an input decoration's prefix and suffix slots and fixed-size badges do. The drawing is now centred, as Flutter's `Icon` centres its glyph.\n\nAn icon's `semanticLabel` also carried an image flag. Inside a parent that merges its descendants, such as a card, that flag spread to the whole merged node, so assistive technology announced the card as one image and lost its group and name. The label is now plain, as `Icon`'s is, and joins the parent's label as text.\n\n`WiredProgress` inset its marker by the pen's ink inside a box that had already been inset by the same amount. At a 12- or 14-pixel height the bar became a hairline, and a small value painted nothing. The marker is now laid out against the track's interior, so its painted edge lands exactly on the value, and a bar shorter than its ink plus a 6-pixel band is raised to that height.\n\n#### Icons reuse prepared ink, so scrolling lists of them stop dropping frames\n\n_Packages:_ 🟢 _skribble_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #251](https://github.com/openbudgetfun/skribble/pull/251)\n\nEvery `WiredSvgIcon` that appeared — including a list item scrolling back into view seconds after it was first drawn — re-parsed its SVG paths, re-wavered every contour, and re-inked every pen outline before it could paint. The benchmark app measured a 200-item icon list at 34 ms per frame, more than twice the frame budget and 3.6 times the cost of drawing precomputed paths.\n\nIcons with the same geometry, size, colour, weight, fill style, and draw config now share one painter through a bounded cache (256 entries, least-recently-used evicted), so a revisited icon paints at precomputed-path cost and no visible detail changes: the shared painter holds exactly the ink the fresh one would have rebuilt from the same seed. Each path primitive's SVG data is also parsed once per primitive instead of once per appearance, which helps beyond the cache's horizon in the large Material and Simple Icons catalogs. A probe of the 200-item scroll found all 51 distinct icons prepared exactly once, and zero preparations on the return scroll.\n\n`RoughDrawing` and the icon painter also stopped allocating `Paint` objects on every frame while animating progress or pressure; every constant paint is prepared once with the ink it belongs to."
+    },
+    {
+      "owner_id": "skribble",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Icons centre and label like Icon, and short progress bars stay visible\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #248](https://github.com/openbudgetfun/skribble/pull/248) · _Closed issues:_ [#246](https://github.com/openbudgetfun/skribble/issues/246)\n\n`WiredSvgIcon`, and so `SkribbleIcon` and `WiredIcon`, drew its glyph in the top-left corner whenever a parent forced a box larger than its size, as an input decoration's prefix and suffix slots and fixed-size badges do. The drawing is now centred, as Flutter's `Icon` centres its glyph.\n\nAn icon's `semanticLabel` also carried an image flag. Inside a parent that merges its descendants, such as a card, that flag spread to the whole merged node, so assistive technology announced the card as one image and lost its group and name. The label is now plain, as `Icon`'s is, and joins the parent's label as text.\n\n`WiredProgress` inset its marker by the pen's ink inside a box that had already been inset by the same amount. At a 12- or 14-pixel height the bar became a hairline, and a small value painted nothing. The marker is now laid out against the track's interior, so its painted edge lands exactly on the value, and a bar shorter than its ink plus a 6-pixel band is raised to that height.",
+              "#### Icons reuse prepared ink, so scrolling lists of them stop dropping frames\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #251](https://github.com/openbudgetfun/skribble/pull/251)\n\nEvery `WiredSvgIcon` that appeared — including a list item scrolling back into view seconds after it was first drawn — re-parsed its SVG paths, re-wavered every contour, and re-inked every pen outline before it could paint. The benchmark app measured a 200-item icon list at 34 ms per frame, more than twice the frame budget and 3.6 times the cost of drawing precomputed paths.\n\nIcons with the same geometry, size, colour, weight, fill style, and draw config now share one painter through a bounded cache (256 entries, least-recently-used evicted), so a revisited icon paints at precomputed-path cost and no visible detail changes: the shared painter holds exactly the ink the fresh one would have rebuilt from the same seed. Each path primitive's SVG data is also parsed once per primitive instead of once per appearance, which helps beyond the cache's horizon in the large Material and Simple Icons catalogs. A probe of the 200-item scroll found all 51 distinct icons prepared exactly once, and zero preparations on the return scroll.\n\n`RoughDrawing` and the icon painter also stopped allocating `Paint` objects on every frame while animating progress or pressure; every constant paint is prepared once with the ink it belongs to.",
+              "#### Move the rough engine into the pure-Dart skribble_rough package\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\nThe Flutter-free half of the rough engine (`DrawConfig`, `Generator`, the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set data structures) now lives in the new `skribble_rough` package, which depends on nothing but the Dart SDK. Command-line tools, servers, and web frameworks can draw the same seeded shapes as the Flutter widgets without pulling in Flutter.\n\n`skribble` depends on `skribble_rough` and re-exports exactly the names it exported before, so `import 'package:skribble/skribble.dart'` keeps working unchanged. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `skribble`. Code that imported the engine's private `package:skribble/src/rough/...` files should import `package:skribble_rough/skribble_rough.dart` instead."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Fixes\n\n#### Icons centre and label like Icon, and short progress bars stay visible\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #248](https://github.com/openbudgetfun/skribble/pull/248) · _Closed issues:_ [#246](https://github.com/openbudgetfun/skribble/issues/246)\n\n`WiredSvgIcon`, and so `SkribbleIcon` and `WiredIcon`, drew its glyph in the top-left corner whenever a parent forced a box larger than its size, as an input decoration's prefix and suffix slots and fixed-size badges do. The drawing is now centred, as Flutter's `Icon` centres its glyph.\n\nAn icon's `semanticLabel` also carried an image flag. Inside a parent that merges its descendants, such as a card, that flag spread to the whole merged node, so assistive technology announced the card as one image and lost its group and name. The label is now plain, as `Icon`'s is, and joins the parent's label as text.\n\n`WiredProgress` inset its marker by the pen's ink inside a box that had already been inset by the same amount. At a 12- or 14-pixel height the bar became a hairline, and a small value painted nothing. The marker is now laid out against the track's interior, so its painted edge lands exactly on the value, and a bar shorter than its ink plus a 6-pixel band is raised to that height.\n\n#### Icons reuse prepared ink, so scrolling lists of them stop dropping frames\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #251](https://github.com/openbudgetfun/skribble/pull/251)\n\nEvery `WiredSvgIcon` that appeared — including a list item scrolling back into view seconds after it was first drawn — re-parsed its SVG paths, re-wavered every contour, and re-inked every pen outline before it could paint. The benchmark app measured a 200-item icon list at 34 ms per frame, more than twice the frame budget and 3.6 times the cost of drawing precomputed paths.\n\nIcons with the same geometry, size, colour, weight, fill style, and draw config now share one painter through a bounded cache (256 entries, least-recently-used evicted), so a revisited icon paints at precomputed-path cost and no visible detail changes: the shared painter holds exactly the ink the fresh one would have rebuilt from the same seed. Each path primitive's SVG data is also parsed once per primitive instead of once per appearance, which helps beyond the cache's horizon in the large Material and Simple Icons catalogs. A probe of the 200-item scroll found all 51 distinct icons prepared exactly once, and zero preparations on the return scroll.\n\n`RoughDrawing` and the icon painter also stopped allocating `Paint` objects on every frame while animating progress or pressure; every constant paint is prepared once with the ink it belongs to.\n\n#### Move the rough engine into the pure-Dart skribble_rough package\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\nThe Flutter-free half of the rough engine (`DrawConfig`, `Generator`, the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set data structures) now lives in the new `skribble_rough` package, which depends on nothing but the Dart SDK. Command-line tools, servers, and web frameworks can draw the same seeded shapes as the Flutter widgets without pulling in Flutter.\n\n`skribble` depends on `skribble_rough` and re-exports exactly the names it exported before, so `import 'package:skribble/skribble.dart'` keeps working unchanged. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `skribble`. Code that imported the engine's private `package:skribble/src/rough/...` files should import `package:skribble_rough/skribble_rough.dart` instead."
+    },
+    {
+      "owner_id": "skribble_charts",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_charts/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_charts [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_charts` was updated to 0.3.2.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_charts [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_charts` was updated to 0.3.2.**"
+    },
+    {
+      "owner_id": "skribble_emoji",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_emoji` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_emoji` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_emoji_gen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji_gen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_emoji_gen` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_emoji_gen` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_recursive",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_recursive/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_roughen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_roughen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_bxs",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_bxs/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_bxs` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_bxs` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_cib",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_cib/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_cib` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_cib` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_lucide",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_lucide/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_lucide` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_lucide` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_material",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_material/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_material` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_material` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_simple",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_simple/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_simple` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_simple` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_jaspr",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_jaspr/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Add hand-drawn Jaspr components that render with zero client JavaScript\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\nThe new `skribble_jaspr` package brings skribble to Jaspr sites. `WiredBox`, `WiredCard`, `WiredCircle`, `WiredButton`, `WiredHighlight`, `WiredDivider`, and `WiredSketch` draw their rough ink on the server into inline SVG, so static and server-rendered pages ship no drawing JavaScript and the same `seed` always produces the same markup.\n\nEach overlay stretches to its element with `preserveAspectRatio=\"none\"` and keeps strokes crisp with `vector-effect=\"non-scaling-stroke\"`. The `skribbleCss` stylesheet themes everything through CSS custom properties (`--skribble-ink`, `--skribble-paper`, `--skribble-accent`, `--skribble-stroke-width`, `--skribble-font`), switches palettes for dark mode, draws a dashed keyboard focus ring, and adds a hover tilt and two-frame \"line boil\" on buttons that stop under `prefers-reduced-motion`. Ink is decorative and hidden from assistive technology; buttons and links keep native semantics."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Features\n\n#### Add hand-drawn Jaspr components that render with zero client JavaScript\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\nThe new `skribble_jaspr` package brings skribble to Jaspr sites. `WiredBox`, `WiredCard`, `WiredCircle`, `WiredButton`, `WiredHighlight`, `WiredDivider`, and `WiredSketch` draw their rough ink on the server into inline SVG, so static and server-rendered pages ship no drawing JavaScript and the same `seed` always produces the same markup.\n\nEach overlay stretches to its element with `preserveAspectRatio=\"none\"` and keeps strokes crisp with `vector-effect=\"non-scaling-stroke\"`. The `skribbleCss` stylesheet themes everything through CSS custom properties (`--skribble-ink`, `--skribble-paper`, `--skribble-accent`, `--skribble-stroke-width`, `--skribble-font`), switches palettes for dark mode, draws a dashed keyboard focus ring, and adds a hover tilt and two-frame \"line boil\" on buttons that stop under `prefers-reduced-motion`. Ink is decorative and hidden from assistive technology; buttons and links keep native semantics."
+    },
+    {
+      "owner_id": "skribble_lints",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_lints/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_lints` was updated to 0.3.2 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_lints` was updated to 0.3.2 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_maps",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_maps/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_maps [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_maps` was updated to 0.3.2.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_maps [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.3.2) (2026-10-16)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_maps` was updated to 0.3.2.**"
+    },
+    {
+      "owner_id": "skribble_rough",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_rough/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Move the rough engine into the pure-Dart skribble_rough package\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\nThe Flutter-free half of the rough engine (`DrawConfig`, `Generator`, the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set data structures) now lives in the new `skribble_rough` package, which depends on nothing but the Dart SDK. Command-line tools, servers, and web frameworks can draw the same seeded shapes as the Flutter widgets without pulling in Flutter.\n\n`skribble` depends on `skribble_rough` and re-exports exactly the names it exported before, so `import 'package:skribble/skribble.dart'` keeps working unchanged. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `skribble`. Code that imported the engine's private `package:skribble/src/rough/...` files should import `package:skribble_rough/skribble_rough.dart` instead.",
+              "#### Serialize rough drawables to scalable SVG path data\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\n`skribble_rough` adds `opSetToSvgPath`, which writes one `OpSet` as an SVG `d` attribute, and `RoughSvg.fromDrawable`, which splits a `Drawable` into the three groups the Flutter painter uses: the stroked outline, the stroked sketch fill, and the filled solid polygon. `RoughSvg.toPathElements` renders them as `<path>` elements, optionally with `vector-effect=\"non-scaling-stroke\"` so strokes stay crisp when the SVG stretches. The new `RoughFillStyle` enum names each fill pattern and builds its `Filler` from a seeded `FillerConfig`.\n\nCoordinates are rounded to two decimals, so the same seed always produces the same markup and server-rendered pages stay byte-stable between builds."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)\n\n### Features\n\n#### Move the rough engine into the pure-Dart skribble_rough package\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\nThe Flutter-free half of the rough engine (`DrawConfig`, `Generator`, the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set data structures) now lives in the new `skribble_rough` package, which depends on nothing but the Dart SDK. Command-line tools, servers, and web frameworks can draw the same seeded shapes as the Flutter widgets without pulling in Flutter.\n\n`skribble` depends on `skribble_rough` and re-exports exactly the names it exported before, so `import 'package:skribble/skribble.dart'` keeps working unchanged. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `skribble`. Code that imported the engine's private `package:skribble/src/rough/...` files should import `package:skribble_rough/skribble_rough.dart` instead.\n\n#### Serialize rough drawables to scalable SVG path data\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)\n\n`skribble_rough` adds `opSetToSvgPath`, which writes one `OpSet` as an SVG `d` attribute, and `RoughSvg.fromDrawable`, which splits a `Drawable` into the three groups the Flutter painter uses: the stroked outline, the stroked sketch fill, and the filled solid polygon. `RoughSvg.toPathElements` renders them as `<path>` elements, optionally with `vector-effect=\"non-scaling-stroke\"` so strokes stay crisp when the SVG stretches. The new `RoughFillStyle` enum names each fill pattern and builds its `Filler` from a seeded `FillerConfig`.\n\nCoordinates are rounded to two decimals, so the same seed always produces the same markup and server-rendered pages stay byte-stable between builds."
+    }
+  ],
+  "provider": {
+    "kind": "github",
+    "owner": "openbudgetfun",
+    "repo": "skribble",
+    "host": null
+  }
+}

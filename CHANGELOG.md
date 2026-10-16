@@ -4,6 +4,68 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/monochange/monochange).
 
+## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)
+
+Grouped release for `main`.
+
+### Features
+
+#### Move the rough engine into the pure-Dart skribble_rough package
+
+_Packages:_ 🟢 _skribble_, 🟠 _skribble_rough_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)
+
+The Flutter-free half of the rough engine (`DrawConfig`, `Generator`, the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set data structures) now lives in the new `skribble_rough` package, which depends on nothing but the Dart SDK. Command-line tools, servers, and web frameworks can draw the same seeded shapes as the Flutter widgets without pulling in Flutter.
+
+`skribble` depends on `skribble_rough` and re-exports exactly the names it exported before, so `import 'package:skribble/skribble.dart'` keeps working unchanged. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `skribble`. Code that imported the engine's private `package:skribble/src/rough/...` files should import `package:skribble_rough/skribble_rough.dart` instead.
+
+#### Serialize rough drawables to scalable SVG path data
+
+_Packages:_ 🟠 _skribble_rough_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)
+
+`skribble_rough` adds `opSetToSvgPath`, which writes one `OpSet` as an SVG `d` attribute, and `RoughSvg.fromDrawable`, which splits a `Drawable` into the three groups the Flutter painter uses: the stroked outline, the stroked sketch fill, and the filled solid polygon. `RoughSvg.toPathElements` renders them as `<path>` elements, optionally with `vector-effect="non-scaling-stroke"` so strokes stay crisp when the SVG stretches. The new `RoughFillStyle` enum names each fill pattern and builds its `Filler` from a seeded `FillerConfig`.
+
+Coordinates are rounded to two decimals, so the same seed always produces the same markup and server-rendered pages stay byte-stable between builds.
+
+#### Add hand-drawn Jaspr components that render with zero client JavaScript
+
+_Packages:_ 🟠 _skribble_jaspr_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)
+
+The new `skribble_jaspr` package brings skribble to Jaspr sites. `WiredBox`, `WiredCard`, `WiredCircle`, `WiredButton`, `WiredHighlight`, `WiredDivider`, and `WiredSketch` draw their rough ink on the server into inline SVG, so static and server-rendered pages ship no drawing JavaScript and the same `seed` always produces the same markup.
+
+Each overlay stretches to its element with `preserveAspectRatio="none"` and keeps strokes crisp with `vector-effect="non-scaling-stroke"`. The `skribbleCss` stylesheet themes everything through CSS custom properties (`--skribble-ink`, `--skribble-paper`, `--skribble-accent`, `--skribble-stroke-width`, `--skribble-font`), switches palettes for dark mode, draws a dashed keyboard focus ring, and adds a hover tilt and two-frame "line boil" on buttons that stop under `prefers-reduced-motion`. Ink is decorative and hidden from assistive technology; buttons and links keep native semantics.
+
+### Fixes
+
+#### Icons centre and label like Icon, and short progress bars stay visible
+
+_Packages:_ 🟢 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #248](https://github.com/openbudgetfun/skribble/pull/248) · _Closed issues:_ [#246](https://github.com/openbudgetfun/skribble/issues/246)
+
+`WiredSvgIcon`, and so `SkribbleIcon` and `WiredIcon`, drew its glyph in the top-left corner whenever a parent forced a box larger than its size, as an input decoration's prefix and suffix slots and fixed-size badges do. The drawing is now centred, as Flutter's `Icon` centres its glyph.
+
+An icon's `semanticLabel` also carried an image flag. Inside a parent that merges its descendants, such as a card, that flag spread to the whole merged node, so assistive technology announced the card as one image and lost its group and name. The label is now plain, as `Icon`'s is, and joins the parent's label as text.
+
+`WiredProgress` inset its marker by the pen's ink inside a box that had already been inset by the same amount. At a 12- or 14-pixel height the bar became a hairline, and a small value painted nothing. The marker is now laid out against the track's interior, so its painted edge lands exactly on the value, and a bar shorter than its ink plus a 6-pixel band is raised to that height.
+
+#### Icons reuse prepared ink, so scrolling lists of them stop dropping frames
+
+_Packages:_ 🟢 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #251](https://github.com/openbudgetfun/skribble/pull/251)
+
+Every `WiredSvgIcon` that appeared — including a list item scrolling back into view seconds after it was first drawn — re-parsed its SVG paths, re-wavered every contour, and re-inked every pen outline before it could paint. The benchmark app measured a 200-item icon list at 34 ms per frame, more than twice the frame budget and 3.6 times the cost of drawing precomputed paths.
+
+Icons with the same geometry, size, colour, weight, fill style, and draw config now share one painter through a bounded cache (256 entries, least-recently-used evicted), so a revisited icon paints at precomputed-path cost and no visible detail changes: the shared painter holds exactly the ink the fresh one would have rebuilt from the same seed. Each path primitive's SVG data is also parsed once per primitive instead of once per appearance, which helps beyond the cache's horizon in the large Material and Simple Icons catalogs. A probe of the 200-item scroll found all 51 distinct icons prepared exactly once, and zero preparations on the return scroll.
+
+`RoughDrawing` and the icon painter also stopped allocating `Paint` objects on every frame while animating progress or pressure; every constant paint is prepared once with the ink it belongs to.
+
 ## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)
 
 Grouped release for `main`.
