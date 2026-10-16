@@ -51,8 +51,8 @@ void main() {
     // Warm cache on the same painter: reused contours must draw identically.
     expect(await raster(painter), equals(cold));
 
-    // A rebuild replaces the painter, so its contours are displaced again.
-    // That fresh work must also land on the same ink.
+    // A rebuild with the same inputs reuses the shared painter, so an icon
+    // revisited while scrolling lists paints at precomputed-path cost.
     await tester.pumpWidget(const SizedBox.shrink());
     await tester.pumpWidget(
       Directionality(
@@ -68,7 +68,26 @@ void main() {
     );
     await tester.pumpAndSettle();
     final rebuilt = painterFromTree();
-    expect(identical(rebuilt, painter), isFalse);
+    expect(identical(rebuilt, painter), isTrue);
     expect(await raster(rebuilt), equals(cold));
+
+    // Different drawing inputs get their own painter and their own ink.
+    await tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: Center(
+          child: WiredSvgIcon(
+            data: WiredBrandIcon.figma.data,
+            size: 64,
+            color: const ui.Color(0xff0000ff),
+            fillStyle: WiredIconFillStyle.crossHatch,
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final recolored = painterFromTree();
+    expect(identical(recolored, painter), isFalse);
+    expect(await raster(recolored), isNot(equals(cold)));
   });
 }

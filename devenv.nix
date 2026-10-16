@@ -248,7 +248,9 @@ in
     "test:all" = {
       exec = ''
         set -e
-        melos exec --dir-exists=test --depends-on=flutter --concurrency=1 -- flutter test --concurrency=4
+        # One package at a time keeps CI's 2-vCPU runners stable; local machines
+        # can parallelize packages with MELOS_TEST_CONCURRENCY=<cores>.
+        melos exec --dir-exists=test --depends-on=flutter --concurrency="''${MELOS_TEST_CONCURRENCY:-1}" -- flutter test --concurrency=4
         # Pure-Dart packages that ship to apps and sites. The font and emoji
         # generators run their own suites in dedicated CI jobs.
         melos exec --scope=skribble_rough --scope=skribble_jaspr -- dart test

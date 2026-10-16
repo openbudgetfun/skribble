@@ -32,6 +32,13 @@ class RoughDrawing {
   final Paint _fillPaint;
   final List<_InkSet> _sets;
 
+  /// The fill paints as fill-style versions of the stroke paints, prepared
+  /// once so animating progress does not allocate per frame.
+  late final Paint _borderInk = Paint.from(_borderPaint)
+    ..style = PaintingStyle.fill;
+  late final Paint _fillInk = Paint.from(_fillPaint)
+    ..style = PaintingStyle.fill;
+
   /// Draws an outline, followed by overlapping strokes of patterned fill.
   ///
   /// [progress] is clamped to 0–1. Solid backgrounds remain opaque to preserve
@@ -43,7 +50,7 @@ class RoughDrawing {
     final emphasis = pressure.isFinite ? pressure.clamp(0.0, 1.0) : 0.0;
     final outlineProgress = (t / 0.65).clamp(0.0, 1.0);
     final fillProgress = ((t - 0.3) / 0.7).clamp(0.0, 1.0);
-    for (final type in [
+    for (final type in const [
       OpSetType.fillPath,
       OpSetType.fillSketch,
       OpSetType.path,
@@ -52,6 +59,7 @@ class RoughDrawing {
       final isOutline = type == OpSetType.path;
       final fraction = isOutline ? outlineProgress : fillProgress;
       final paint = isOutline ? _borderPaint : _fillPaint;
+      final ink = isOutline ? _borderInk : _fillInk;
       // Metrics are lazy, so ordinary static painting never measures paths.
       var remaining =
           fraction == 1 || fraction == 0 || type == OpSetType.fillPath
@@ -59,16 +67,14 @@ class RoughDrawing {
           : sets.fold(0.0, (sum, set) => sum + set.length) * fraction;
       for (final set in sets) {
         if (type == OpSetType.fillPath) {
-          canvas.drawPath(
-            set.centreline,
-            Paint.from(_fillPaint)..style = PaintingStyle.fill,
-          );
+          canvas.drawPath(set.centreline, _fillInk);
           continue;
         }
         if (fraction == 0) continue;
         set.paint(
           canvas,
           paint,
+          ink,
           distance: fraction == 1 ? double.infinity : remaining,
           emphasis: isOutline ? emphasis : 0,
         );
@@ -108,7 +114,8 @@ class _InkSet {
 
   void paint(
     Canvas canvas,
-    Paint paint, {
+    Paint paint,
+    Paint inkPaint, {
     required double distance,
     required double emphasis,
   }) {
@@ -125,7 +132,6 @@ class _InkSet {
       return;
     }
 
-    final ink = Paint.from(paint)..style = PaintingStyle.fill;
     // Stroking an outline grows it evenly on both sides, which reinforces
     // the pen without rebuilding the tapered geometry.
     final reinforce = emphasis == 0
@@ -138,7 +144,7 @@ class _InkSet {
     for (final stroke in strokes) {
       if (remaining <= 0) break;
       final outline = stroke.prefix(remaining);
-      canvas.drawPath(outline, ink);
+      canvas.drawPath(outline, inkPaint);
       if (reinforce != null) canvas.drawPath(outline, reinforce);
       remaining -= stroke.length;
     }

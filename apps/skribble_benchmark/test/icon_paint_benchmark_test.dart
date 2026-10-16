@@ -226,7 +226,8 @@ Future<_BenchResult> _measureScrollPerformance({
   );
   await tester.pumpAndSettle();
 
-  // Measure scroll performance
+  // Scroll down through unseen items (cold: every item prepares its ink),
+  // then back up through the same items (warm: prepared ink is reused).
   final sw = Stopwatch()..start();
   var frames = 0;
 
@@ -237,11 +238,23 @@ Future<_BenchResult> _measureScrollPerformance({
   }
 
   sw.stop();
+  final coldMicroseconds = sw.elapsedMicroseconds;
+
+  sw
+    ..reset()
+    ..start();
+  for (var i = 0; i < 40; i++) {
+    await tester.drag(find.byType(ListView), const Offset(0, 120));
+    await tester.pump(const Duration(milliseconds: 16));
+    frames++;
+  }
+  sw.stop();
 
   return _BenchResult(
     label: label,
     cycles: frames,
-    totalMicroseconds: sw.elapsedMicroseconds,
+    totalMicroseconds: coldMicroseconds + sw.elapsedMicroseconds,
+    warmMicroseconds: sw.elapsedMicroseconds,
   );
 }
 
@@ -334,16 +347,21 @@ class _BenchResult {
     required this.label,
     required this.cycles,
     required this.totalMicroseconds,
+    this.warmMicroseconds,
   });
 
   final String label;
   final int cycles;
   final int totalMicroseconds;
 
+  /// Time for the return (warm) scroll leg, when the benchmark measures one.
+  final int? warmMicroseconds;
+
   double get avgMicroseconds => totalMicroseconds / cycles;
   double get avgMilliseconds => avgMicroseconds / 1000;
 
   void print() {
+    final warm = warmMicroseconds;
     final buffer = StringBuffer()
       ..writeln('╔══════════════════════════════════════════════╗')
       ..writeln('║ BENCHMARK: $label')
@@ -351,7 +369,13 @@ class _BenchResult {
       ..writeln(
         '║ Total: ${(totalMicroseconds / 1000).toStringAsFixed(1)}ms',
       )
-      ..writeln('║ Avg/frame: ${avgMilliseconds.toStringAsFixed(2)}ms')
+      ..writeln('║ Avg/frame: ${avgMilliseconds.toStringAsFixed(2)}ms');
+    if (warm != null) {
+      buffer.writeln(
+        '║ Warm leg avg/frame: ${(warm / 40 / 1000).toStringAsFixed(2)}ms',
+      );
+    }
+    buffer
       ..writeln(
         '║ Budget: ${avgMilliseconds < 16.0 ? "✅ UNDER 16ms" : "❌ OVER 16ms"}',
       )

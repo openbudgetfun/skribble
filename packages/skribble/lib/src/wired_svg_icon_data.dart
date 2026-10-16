@@ -174,6 +174,15 @@ sealed class WiredSvgPrimitive {
   }
 }
 
+/// Parses each path primitive's SVG data once, however often the primitive is
+/// prepared.
+///
+/// Primitives are canonical const instances shared by every widget drawing the
+/// same icon, so keying on the instance lets a revisit (an icon at a new size
+/// or colour, or beyond the painter cache's horizon) skip re-parsing the same
+/// string. The returned paths are shared: treat them as read-only.
+final Expando<Path> _parsedPathData = Expando<Path>('svg path data');
+
 final class WiredSvgPathPrimitive extends WiredSvgPrimitive {
   const WiredSvgPathPrimitive(
     this.data, {
@@ -193,6 +202,10 @@ final class WiredSvgPathPrimitive extends WiredSvgPrimitive {
 
   @override
   Path buildPath() {
+    return _parsedPathData[this] ??= _parse();
+  }
+
+  Path _parse() {
     final path = createPath();
     writeSvgPathDataToPath(data, _FlutterPathProxy(path));
 

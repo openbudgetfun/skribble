@@ -245,6 +245,8 @@ dart analyze --fatal-infos .
 cd packages/skribble && flutter test test/
 ```
 
+The icon and emoji packages exclude `lib/src/generated/**` from analysis: their catalogs are megabytes of machine-written Dart whose coverage comes from CI regenerating and diffing them (`icon-catalogs-sync`, `visual-assets-sync`) and from the test suites that compile them. Hand-written changes in those packages are still analyzed; changes to a generated catalog belong in the generator, not the file.
+
 ### Step 7: Update documentation
 
 When adding a new widget, update the docs site:
@@ -1239,7 +1241,7 @@ WiredIcon.svg(iconData: myCustomIconData)
 | `melos run package-sizes`        | Verify each publishable package stays inside its compressed-size budget                                         |
 | `lint:all`                       | All lint checks (format + analyze)                                                                              |
 | `lint:push`                      | CI lint checks before `git push`                                                                                |
-| `test:all`                       | All Flutter unit and widget tests, plus the `skribble_rough` and `skribble_jaspr` suites                        |
+| `test:all`                       | All Flutter and pure-Dart tests; `MELOS_TEST_CONCURRENCY` parallelizes packages locally                         |
 | `fix:all`                        | Auto-fix format + lint issues                                                                                   |
 | `docs:site:serve`                | Serve docs site locally                                                                                         |
 | `docs:site:build`                | Build static docs for deployment                                                                                |
