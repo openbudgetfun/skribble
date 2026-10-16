@@ -2,6 +2,12 @@
 
 Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).
 
+## [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.2) (2026-10-16)
+
+### Changed
+
+- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.3.2 as part of group `main`.**
+
 ## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)
 
 ### Changed

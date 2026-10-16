@@ -149,6 +149,12 @@ The core package ships `SkribbleGlyphs`, 51 stroke drawings made for skribble, g
 
 - **No package-specific changes were recorded; `skribble_maps` was updated to 0.3.1.**
 
+## skribble_maps [0.3.2](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.3.2) (2026-10-16)
+
+### Changed
+
+- **No package-specific changes were recorded; `skribble_maps` was updated to 0.3.2.**
+
 ## 0.0.1
 
 - Add the initial hand-drawn vector map viewport, renderer, providers, styles, overlays, controls, documentation, and tests.
