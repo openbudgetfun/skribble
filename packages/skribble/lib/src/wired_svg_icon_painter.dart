@@ -253,25 +253,47 @@ final class _PrimitiveInk {
   late final Path _hachure = _hachureInk(painter.hachureAngle);
   late final Path _crossHatch = _hachureInk(painter.hachureAngle + 90);
 
+  // Painters are shared and long-lived (see the cache in wired_icon.dart), so
+  // every paint the output depends on is built once instead of per frame.
+  late final Paint _ambientSolid = _solid(painter.color);
+  late final Paint _ownFillSolid = _solid(primitive.fillColor ?? painter.color);
+  late final Paint _ownStrokeSolid = _solid(
+    primitive.strokeColor ?? painter.color,
+  );
+
+  /// How much the weight grows (positive) or shrinks (negative) the
+  /// silhouette, in rendered pixels.
+  late final double _weightChange =
+      _silhouettePen * primitive.scale * (painter.weight - 1);
+
+  late final Paint? _growEdge = _weightChange >= 0.05
+      ? _edge(painter.color, _weightChange)
+      : null;
+
+  late final Paint? _shrinkEdge = _weightChange <= -0.05
+      ? (_edge(const Color(0xff000000), -_weightChange)
+          ..blendMode = BlendMode.dstOut)
+      : null;
+
+  late final Paint _layerPaint = Paint();
+
   void paint(Canvas canvas) {
     canvas.save();
     primitive.clips.forEach(canvas.clipPath);
-    final ambient = painter.color;
 
     if (primitive.hasOwnPaint) {
       // Per-primitive colours (from source artwork) override the ambient
       // colour. `currentColor` means "use whatever colour the caller asked
       // for", which is how outline sets like Lucide stay themeable.
       if (primitive.fills) {
-        final fill = primitive.fillColor ?? ambient;
         if (primitive.fillIsAmbient && !primitive.strokes) {
-          _paintWeightedFill(canvas, fill);
+          _paintWeightedFill(canvas);
         } else {
-          canvas.drawPath(_fill, _solid(fill));
+          canvas.drawPath(_fill, _ownFillSolid);
         }
       }
       if (primitive.strokes) {
-        canvas.drawPath(_strokeInk, _solid(primitive.strokeColor ?? ambient));
+        canvas.drawPath(_strokeInk, _ownStrokeSolid);
       }
       canvas.restore();
       return;
@@ -279,24 +301,24 @@ final class _PrimitiveInk {
 
     switch (painter.fillStyle) {
       case WiredIconFillStyle.none:
-        canvas.drawPath(_outlineInk, _solid(ambient));
+        canvas.drawPath(_outlineInk, _ambientSolid);
       case WiredIconFillStyle.solid:
-        _paintWeightedFill(canvas, ambient);
+        _paintWeightedFill(canvas);
       case WiredIconFillStyle.hachure:
         canvas
           ..save()
           ..clipPath(_fill)
-          ..drawPath(_hachure, _solid(ambient))
+          ..drawPath(_hachure, _ambientSolid)
           ..restore()
-          ..drawPath(_outlineInk, _solid(ambient));
+          ..drawPath(_outlineInk, _ambientSolid);
       case WiredIconFillStyle.crossHatch:
         canvas
           ..save()
           ..clipPath(_fill)
-          ..drawPath(_hachure, _solid(ambient))
-          ..drawPath(_crossHatch, _solid(ambient))
+          ..drawPath(_hachure, _ambientSolid)
+          ..drawPath(_crossHatch, _ambientSolid)
           ..restore()
-          ..drawPath(_outlineInk, _solid(ambient));
+          ..drawPath(_outlineInk, _ambientSolid);
     }
     canvas.restore();
   }
@@ -306,25 +328,22 @@ final class _PrimitiveInk {
   /// A stroke along the outline in the same colour grows every edge evenly.
   /// Shrinking erases the same band from inside a layer, which keeps narrow
   /// counters open instead of filling them.
-  void _paintWeightedFill(Canvas canvas, Color fill) {
-    final change = _silhouettePen * primitive.scale * (painter.weight - 1);
+  void _paintWeightedFill(Canvas canvas) {
+    final change = _weightChange;
     if (change.abs() < 0.05) {
-      canvas.drawPath(_fill, _solid(fill));
+      canvas.drawPath(_fill, _ambientSolid);
       return;
     }
     if (change > 0) {
       canvas
-        ..drawPath(_fill, _solid(fill))
-        ..drawPath(_fill, _edge(fill, change));
+        ..drawPath(_fill, _ambientSolid)
+        ..drawPath(_fill, _growEdge!);
       return;
     }
     canvas
-      ..saveLayer(_fill.getBounds().inflate(2), Paint())
-      ..drawPath(_fill, _solid(fill))
-      ..drawPath(
-        _fill,
-        _edge(const Color(0xff000000), -change)..blendMode = BlendMode.dstOut,
-      )
+      ..saveLayer(_fill.getBounds().inflate(2), _layerPaint)
+      ..drawPath(_fill, _ambientSolid)
+      ..drawPath(_fill, _shrinkEdge!)
       ..restore();
   }
 

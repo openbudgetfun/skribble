@@ -1,5 +1,10 @@
+# The generated catalog is machine-written and regenerated (and diffed)
+# by CI's icon-catalog/visual-asset sync jobs, and every test suite still
+# compiles it. Analyzing 1-10 MB of generated Dart per package cost the
+# lint job most of its wall time for coverage regeneration already gives.
 analyzer:
   exclude:
+    - lib/src/generated/**
     - build/**
     - android/**
     - ios/**

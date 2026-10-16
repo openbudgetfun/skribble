@@ -15,6 +15,71 @@ import 'wired_theme.dart';
 /// pen draws proportionally bolder icons.
 const double _referenceInkWidth = 2.4;
 
+/// How many distinct icon painters to keep prepared for reuse.
+///
+/// Prepared ink is pure geometry derived from immutable inputs, so a painter
+/// prepared for one [WiredSvgIcon] is exactly what another icon with the same
+/// inputs would draw. Scrolling lists rebuild their items constantly, and
+/// re-preparing the wavered contours and pen outlines of an icon drawn moments
+/// earlier is what pushed icon lists past the frame budget; a bounded cache
+/// keeps revisited icons at precomputed-path cost.
+const int _kIconPainterCacheCapacity = 256;
+
+final Map<_IconPainterKey, WiredSvgIconPainter> _iconPainterCache =
+    <_IconPainterKey, WiredSvgIconPainter>{};
+
+/// The inputs a [WiredSvgIconPainter]'s ink depends on.
+typedef _IconPainterKey = (
+  WiredSvgIconData data,
+  double size,
+  bool flip,
+  Color color,
+  WiredIconFillStyle fillStyle,
+  double weight,
+  DrawConfig drawConfig,
+  double hachureGap,
+  double hachureAngle,
+);
+
+/// Returns a painter for the given inputs, reusing a previously prepared one
+/// when the key matches.
+///
+/// Painters are stateless views of their geometry, so one instance can be
+/// shared by every icon drawing the same thing. Eviction drops only the
+/// cache's reference: painters still attached to live widgets keep painting.
+WiredSvgIconPainter _iconPainter(_IconPainterKey key) {
+  final cached = _iconPainterCache.remove(key);
+  if (cached != null) {
+    _iconPainterCache[key] = cached;
+    return cached;
+  }
+  final (
+    data,
+    size,
+    flip,
+    color,
+    fillStyle,
+    weight,
+    drawConfig,
+    hachureGap,
+    hachureAngle,
+  ) = key;
+  final painter = WiredSvgIconPainter(
+    primitives: prepareIconPrimitives(data, size, flip: flip),
+    color: color,
+    fillStyle: fillStyle,
+    weight: weight,
+    drawConfig: drawConfig,
+    hachureGap: hachureGap,
+    hachureAngle: hachureAngle,
+  );
+  _iconPainterCache[key] = painter;
+  if (_iconPainterCache.length > _kIconPainterCacheCapacity) {
+    _iconPainterCache.remove(_iconPainterCache.keys.first);
+  }
+  return painter;
+}
+
 /// Renders hand-drawn icon geometry with the theme's pen.
 ///
 /// Strokes in the source artwork (Lucide and the curated set) are inked by
@@ -91,31 +156,21 @@ class WiredSvgIcon extends HookWidget {
     final effectiveDrawConfig =
         drawConfig ?? _iconDrawConfig(wiredTheme, effectiveSize);
 
-    final primitives = useMemoized(
-      () => prepareIconPrimitives(data, effectiveSize, flip: flipHorizontally),
-      [data, effectiveSize, flipHorizontally],
-    );
-    // The painter caches its wavered contours and pen outlines, so keep the
-    // same instance until something it draws with changes.
-    final painter = useMemoized(
-      () => WiredSvgIconPainter(
-        primitives: primitives,
-        color: effectiveColor,
-        fillStyle: fillStyle,
-        weight: effectiveWeight,
-        drawConfig: effectiveDrawConfig,
-        hachureGap: hachureGap,
-        hachureAngle: hachureAngle,
-      ),
-      [
-        primitives,
+    // The shared cache hands back a painter that already holds the wavered
+    // contours and pen outlines for these inputs, so a revisited icon paints
+    // at precomputed-path cost.
+    final painter = _iconPainter(
+      (
+        data,
+        effectiveSize,
+        flipHorizontally,
         effectiveColor,
         fillStyle,
         effectiveWeight,
         effectiveDrawConfig,
         hachureGap,
         hachureAngle,
-      ],
+      ),
     );
 
     // Like Flutter's Icon, the drawing is centred in its square, so a parent
