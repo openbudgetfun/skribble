@@ -16,12 +16,15 @@
 ///   `WiredThemeFromCupertino`.
 /// * Converting theme objects both ways: `WiredThemeInterop`.
 /// * Keeping `MaterialApp` while migrating: `WiredMaterialApp`.
+/// * Hand-drawn text field outlines in Material themes: `RoughInputBorder`
+///   (its core sibling, `RoughOutlinedBorder`, needs no Material).
 ///
 /// Nothing in the core may depend on this group, and this group's job is
 /// interop and migration -- not Material parity expansion. See
 /// `docs/site/content/core/material-bridge.md` for the migration path.
 library;
 
+export 'rough_input_border.dart';
 export 'wired_material_app.dart';
 export 'wired_material_theme.dart';
 export 'wired_theme_adapters.dart';

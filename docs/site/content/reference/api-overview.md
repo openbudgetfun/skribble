@@ -36,9 +36,10 @@ Key types:
 - `RoughFilter` — enum mapping to filler types
 - `Drawable` — output of Generator, contains OpSets for rendering
 - `PointD` — 2D point with double precision
-- `RoughBoxDecoration` — drop-in `BoxDecoration` replacement
-- `RoughDrawingStyle` — stroke/fill style for decorations
+- `RoughBoxDecoration` — drop-in `BoxDecoration` replacement with a level `color` fill, `inkInset`, clipping, value equality, and `lerp`
+- `RoughDrawingStyle` — stroke/fill style for decorations, with value equality and `lerp`
 - `RoughBoxShape` — shape enum (rectangle, roundedRectangle, circle, ellipse)
+- `RoughOutlinedBorder` — hand-drawn rounded-rectangle `OutlinedBorder` for `ShapeDecoration` and themed control shapes
 
 ### 2. Canvas and painting
 
@@ -101,6 +102,7 @@ Sourced from `lib/src/compat/` and exported as a trailing group. These are the o
 
 | Export                      | Purpose                                                                    |
 | --------------------------- | -------------------------------------------------------------------------- |
+| `rough_input_border.dart`   | `RoughInputBorder` — hand-drawn `InputBorder` for Material text fields     |
 | `wired_material_app.dart`   | `WiredMaterialApp` — transitional `MaterialApp` bridge                     |
 | `wired_material_theme.dart` | `WiredMaterialTheme` — Material theme + localizations inside `SkribbleApp` |
 | `wired_theme_adapters.dart` | `WiredThemeFromMaterial`, `WiredThemeFromCupertino`                        |

@@ -79,6 +79,7 @@ export 'src/rough/skribble_rough.dart'
         RoughBoxShape,
         RoughDrawing,
         RoughDrawingStyle,
+        RoughOutlinedBorder,
         RoughPen,
         SolidFiller,
         SvgInkOutline,

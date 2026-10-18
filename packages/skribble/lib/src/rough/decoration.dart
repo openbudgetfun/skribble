@@ -1,9 +1,11 @@
 import 'dart:math';
+import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/animation.dart';
 import 'package:flutter/painting.dart';
 import 'package:skribble_rough/skribble_rough.dart';
 
+import 'rough_border.dart';
 import 'rough_drawing.dart';
 
 /// Style configuration for rough-drawn strokes and fills.
@@ -22,6 +24,36 @@ class RoughDrawingStyle {
     this.gradient,
     this.blendMode,
   });
+
+  /// Interpolates between two styles, so a [RoughBoxDecoration] can animate
+  /// its pen weight and ink.
+  ///
+  /// [width] and [color] interpolate; [gradient] and [blendMode] switch at
+  /// the midpoint. Either end may be null.
+  static RoughDrawingStyle? lerp(
+    RoughDrawingStyle? a,
+    RoughDrawingStyle? b,
+    double t,
+  ) {
+    if (identical(a, b)) return a;
+    return RoughDrawingStyle(
+      width: lerpDouble(a?.width, b?.width, t),
+      color: Color.lerp(a?.color, b?.color, t),
+      gradient: Gradient.lerp(a?.gradient, b?.gradient, t),
+      blendMode: t < 0.5 ? a?.blendMode : b?.blendMode,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      other is RoughDrawingStyle &&
+      other.width == width &&
+      other.color == color &&
+      other.gradient == gradient &&
+      other.blendMode == blendMode;
+
+  @override
+  int get hashCode => Object.hash(width, color, gradient, blendMode);
 }
 
 /// The shape painted by a [RoughBoxDecoration].
@@ -31,6 +63,18 @@ enum RoughBoxShape { rectangle, roundedRectangle, circle, ellipse }
 ///
 /// Supports rectangle, rounded rectangle, circle, and ellipse shapes
 /// with configurable border and fill styles.
+///
+/// Set [color] for a level fill under the hand-drawn outline, the way a
+/// `BoxDecoration` paints its colour. The fill, and any clip taken from this
+/// decoration (`Container(clipBehavior: ...)`), stop at the centre of the
+/// pen line, so neither pokes out past the outline.
+///
+/// Two decorations with the same values are equal, so a parent that rebuilds
+/// with an equal decoration keeps the prepared drawing instead of preparing a
+/// new one. [drawConfig], [filler], [progress], and [pressure] compare by
+/// identity: pass a shared instance, such as the theme's `drawConfig`.
+/// Decorations of the same [shape] interpolate, so an `AnimatedContainer`
+/// can move between two hand-drawn states.
 class RoughBoxDecoration extends Decoration {
   /// Optional pen progress. Resolve ambient motion policy before supplying it.
   /// See WiredDrawTransition.progressOf for context-aware integration.
@@ -40,6 +84,13 @@ class RoughBoxDecoration extends Decoration {
   final Animation<double>? pressure;
 
   final RoughBoxShape shape;
+
+  /// A level fill painted beneath the outline, inset to the pen's centre.
+  ///
+  /// Unlike [fillStyle], which inks the [filler]'s strokes, this is a flat
+  /// field that text and artwork can sit on. Null paints no level fill.
+  final Color? color;
+
   final RoughDrawingStyle? borderStyle;
   final DrawConfig? drawConfig;
   final RoughDrawingStyle? fillStyle;
@@ -63,16 +114,110 @@ class RoughBoxDecoration extends Decoration {
     this.filler,
     this.borderRadius,
     this.seed = 1,
+    this.color,
   });
+
+  /// How far inside the box the centre of the outline lands.
+  ///
+  /// The outline keeps its whole line, including its wobble and the pen's
+  /// widest point, inside the box. A fill or clip inset by this much meets
+  /// the line at its centre. Boxes too small for the full inset use half
+  /// their shortest side instead.
+  double get inkInset => roughInkInset(borderStyle?.width ?? 0, drawConfig);
 
   @override
   EdgeInsetsGeometry get padding =>
       EdgeInsets.all(max(0.1, (borderStyle?.width ?? 0.1) / 2));
 
   @override
+  Path getClipPath(Rect rect, TextDirection textDirection) =>
+      _shapePath(rect.deflate(min(inkInset, rect.shortestSide / 2)));
+
+  Path _shapePath(Rect rect) {
+    final path = Path();
+    switch (shape) {
+      case RoughBoxShape.rectangle:
+        path.addRect(rect);
+      case RoughBoxShape.roundedRectangle:
+        path.addRRect((borderRadius ?? BorderRadius.zero).toRRect(rect));
+      case RoughBoxShape.circle:
+        path.addOval(
+          Rect.fromCircle(center: rect.center, radius: rect.shortestSide / 2),
+        );
+      case RoughBoxShape.ellipse:
+        path.addOval(rect);
+    }
+    return path;
+  }
+
+  @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
     return RoughDecorationPainter(this, onChanged);
   }
+
+  /// Interpolates between two decorations of the same [shape].
+  ///
+  /// Colours, pen styles, and corner radii interpolate. The seed, draw
+  /// config, filler, and animations switch at the midpoint, so the outline
+  /// re-rolls its wobble at most once. Returns null when the shapes differ,
+  /// which makes `Decoration.lerp` cross over at the midpoint instead.
+  static RoughBoxDecoration? lerp(
+    RoughBoxDecoration? a,
+    RoughBoxDecoration? b,
+    double t,
+  ) {
+    if (identical(a, b)) return a;
+    if (a == null || b == null || a.shape != b.shape) return null;
+    final RoughBoxDecoration near = t < 0.5 ? a : b;
+    return RoughBoxDecoration(
+      progress: near.progress,
+      pressure: near.pressure,
+      shape: b.shape,
+      color: Color.lerp(a.color, b.color, t),
+      borderStyle: RoughDrawingStyle.lerp(a.borderStyle, b.borderStyle, t),
+      fillStyle: RoughDrawingStyle.lerp(a.fillStyle, b.fillStyle, t),
+      borderRadius: BorderRadius.lerp(a.borderRadius, b.borderRadius, t),
+      drawConfig: near.drawConfig,
+      filler: near.filler,
+      seed: near.seed,
+    );
+  }
+
+  @override
+  Decoration? lerpFrom(Decoration? a, double t) =>
+      a is RoughBoxDecoration ? lerp(a, this, t) : super.lerpFrom(a, t);
+
+  @override
+  Decoration? lerpTo(Decoration? b, double t) =>
+      b is RoughBoxDecoration ? lerp(this, b, t) : super.lerpTo(b, t);
+
+  @override
+  bool operator ==(Object other) =>
+      other is RoughBoxDecoration &&
+      identical(other.progress, progress) &&
+      identical(other.pressure, pressure) &&
+      other.shape == shape &&
+      other.color == color &&
+      other.borderStyle == borderStyle &&
+      identical(other.drawConfig, drawConfig) &&
+      other.fillStyle == fillStyle &&
+      identical(other.filler, filler) &&
+      other.borderRadius == borderRadius &&
+      other.seed == seed;
+
+  @override
+  int get hashCode => Object.hash(
+    progress,
+    pressure,
+    shape,
+    color,
+    borderStyle,
+    drawConfig,
+    fillStyle,
+    filler,
+    borderRadius,
+    seed,
+  );
 }
 
 /// The `BoxPainter` implementation for `RoughBoxDecoration`.
@@ -97,6 +242,8 @@ class RoughDecorationPainter extends BoxPainter {
   };
   Size? _size;
   late RoughDrawing _drawing;
+  Path? _fill;
+  late final Paint _fillPaint = Paint()..color = roughDecoration.color!;
 
   @override
   void dispose() {
@@ -115,10 +262,19 @@ class RoughDecorationPainter extends BoxPainter {
     if (size == null || size.isEmpty) return;
     if (_size != size) {
       _drawing = _prepare(size);
+      _fill = roughDecoration.color == null
+          ? null
+          : roughDecoration.getClipPath(
+              Offset.zero & size,
+              configuration.textDirection ?? TextDirection.ltr,
+            );
       _size = size;
     }
     canvas.save();
     canvas.translate(offset.dx, offset.dy);
+    if (_fill case final fill?) {
+      canvas.drawPath(fill, _fillPaint);
+    }
     _drawing.paint(
       canvas,
       progress: roughDecoration.progress?.value ?? 1,
@@ -134,12 +290,8 @@ class RoughDecorationPainter extends BoxPainter {
     drawConfig.randomizer.reset();
     final Filler filler = roughDecoration.filler ?? NoFiller();
     final Generator generator = Generator(drawConfig, filler);
-    final bleed =
-        (roughDecoration.borderStyle?.width ?? 0) * drawConfig.pen.reach +
-        1 +
-        drawConfig.maxRandomnessOffset * drawConfig.roughness;
     final Rect rect = (Offset.zero & size).deflate(
-      min(bleed, size.shortestSide / 2),
+      min(roughDecoration.inkInset, size.shortestSide / 2),
     );
 
     final Paint borderPaint = _buildDrawPaint(

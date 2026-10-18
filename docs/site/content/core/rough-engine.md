@@ -671,6 +671,36 @@ Controls the paint properties for borders and fills:
 | `gradient`  | `Gradient?`  | Gradient shader (overrides color) |
 | `blendMode` | `BlendMode?` | Blend mode for the paint          |
 
+`RoughDrawingStyle` compares by value, and `RoughDrawingStyle.lerp` interpolates `width` and `color` (and the gradient) between two styles.
+
+### Level fills, clipping, and animation
+
+`fillStyle` inks the filler's strokes. For a flat field that text and artwork can sit on, the way `BoxDecoration.color` works, set `color` instead. The level fill sits under the outline and stops at the centre of the pen line, so it never pokes out past the wobble:
+
+```dart
+// Static example: configuration
+Container(
+  clipBehavior: Clip.antiAlias, // clips the child at the pen's centre line
+  decoration: RoughBoxDecoration(
+    shape: RoughBoxShape.roundedRectangle,
+    borderRadius: BorderRadius.circular(16),
+    borderStyle: RoughDrawingStyle(width: 2.4, color: theme.borderColor),
+    color: theme.fillColor,
+    seed: 7, // a fixed seed per surface keeps its wobble on every frame
+  ),
+  child: child,
+)
+```
+
+- **`inkInset`** is the distance from the box edge to the centre of the outline: pen width times the pen's reach, plus the jitter band and one pixel for anti-aliasing. The outline, the level fill, and the clip all use it, so content laid out against it lines up with the ink.
+- **`getClipPath`** returns the decoration's shape inset by `inkInset`, so `Container(clipBehavior: ...)` and `ClipPath.shape`-style clipping work with rough decorations.
+- **Equality.** Decorations with the same values are equal. A parent that rebuilds with an equal decoration keeps the prepared drawing instead of generating the outline again. `drawConfig`, `filler`, `progress`, and `pressure` compare by identity, so pass shared instances (for example the theme's `drawConfig`) rather than building new ones in `build`.
+- **Interpolation.** Two decorations of the same `shape` interpolate their `color`, pen styles, and `borderRadius`, so `AnimatedContainer` can move between hand-drawn states. The seed, draw config, filler, and animations switch at the midpoint, so the outline re-rolls its wobble at most once. Different shapes cross over at the midpoint.
+
+### RoughOutlinedBorder
+
+`RoughOutlinedBorder` draws the same rough rounded rectangle as an `OutlinedBorder`, for a `ShapeDecoration` or the `shape` of a themed control. It inks only its `side`, keeps a fixed `seed`, and shares prepared outlines through a bounded cache, so it is cheap to repaint every frame. Its outer path stops at the centre of the pen line, like `RoughBoxDecoration`'s level fill. See [Material bridge](material-bridge) for theming Material controls with it and its text-field sibling, `RoughInputBorder`.
+
 ## Low-Level Internals
 
 ### OpSetBuilder

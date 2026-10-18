@@ -295,14 +295,15 @@ Container(
       width: theme.strokeWidth,
       color: theme.borderColor,
     ),
-    fillStyle: RoughDrawingStyle(
-      color: theme.fillColor,
-    ),
+    color: theme.fillColor,  // level fill, inset to the pen's centre line
     borderRadius: BorderRadius.circular(8),  // only for roundedRectangle
+    seed: 7,  // fixed per surface so the wobble never re-rolls
   ),
   child: child,
 )
 ```
+
+Use `fillStyle` with a `filler` for a sketched (hachure, zigzag, dots) fill, and `color` for a flat field under text. Decorations compare by value and interpolate, so keep `drawConfig` a shared instance and they stay cheap to rebuild and work inside `AnimatedContainer`. `Container(clipBehavior: ...)` clips at the pen's centre line.
 
 Available `RoughBoxShape` values:
 

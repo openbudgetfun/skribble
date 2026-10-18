@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble/src/rough/decoration.dart';
@@ -351,6 +352,329 @@ void main() {
 
         expect(tester.takeException(), isNull);
       });
+    });
+
+    group('level fill', () {
+      testWidgets('paints color beneath the outline', (tester) async {
+        const fill = Color(0xFFFFE066);
+        await tester.pumpWidget(
+          const Center(
+            child: DecoratedBox(
+              decoration: RoughBoxDecoration(
+                shape: RoughBoxShape.roundedRectangle,
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                borderStyle: RoughDrawingStyle(width: 2, color: Colors.black),
+                color: fill,
+              ),
+              child: SizedBox(width: 120, height: 60),
+            ),
+          ),
+        );
+
+        expect(
+          tester.renderObject(find.byType(DecoratedBox)),
+          paints..path(color: fill),
+        );
+      });
+
+      testWidgets('paints nothing extra without a color', (tester) async {
+        const fill = Color(0xFFFFE066);
+        await tester.pumpWidget(
+          const Center(
+            child: DecoratedBox(
+              decoration: RoughBoxDecoration(
+                borderStyle: RoughDrawingStyle(width: 2, color: Colors.black),
+              ),
+              child: SizedBox(width: 120, height: 60),
+            ),
+          ),
+        );
+
+        expect(
+          tester.renderObject(find.byType(DecoratedBox)),
+          isNot(paints..path(color: fill)),
+        );
+      });
+
+      test('stores color', () {
+        const decoration = RoughBoxDecoration(color: Colors.amber);
+        expect(decoration.color, Colors.amber);
+        expect(const RoughBoxDecoration().color, isNull);
+      });
+    });
+
+    group('inkInset', () {
+      test('grows with the pen width', () {
+        const thin = RoughBoxDecoration(
+          borderStyle: RoughDrawingStyle(width: 1),
+        );
+        const thick = RoughBoxDecoration(
+          borderStyle: RoughDrawingStyle(width: 4),
+        );
+        expect(thin.inkInset, greaterThan(1));
+        expect(thick.inkInset, greaterThan(thin.inkInset));
+      });
+
+      test('follows the draw config roughness', () {
+        final calm = RoughBoxDecoration(
+          borderStyle: const RoughDrawingStyle(width: 2),
+          drawConfig: DrawConfig.build(roughness: 0),
+        );
+        final rough = RoughBoxDecoration(
+          borderStyle: const RoughDrawingStyle(width: 2),
+          drawConfig: DrawConfig.build(roughness: 3),
+        );
+        expect(rough.inkInset, greaterThan(calm.inkInset));
+      });
+    });
+
+    group('getClipPath()', () {
+      const box = Rect.fromLTWH(0, 0, 100, 60);
+      const pen = RoughDrawingStyle(width: 2);
+
+      for (final shape in RoughBoxShape.values) {
+        test('$shape stops at the centre of the pen line', () {
+          final decoration = RoughBoxDecoration(
+            shape: shape,
+            borderStyle: pen,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          );
+          final path = decoration.getClipPath(box, TextDirection.ltr);
+          final inset = decoration.inkInset;
+
+          expect(path.contains(box.center), isTrue);
+          expect(path.contains(const Offset(0.5, 30)), isFalse);
+          expect(path.getBounds().left, greaterThanOrEqualTo(inset - 0.01));
+          expect(path.getBounds().top, greaterThanOrEqualTo(inset - 0.01));
+        });
+      }
+
+      test('never inverts a box smaller than the inset', () {
+        const decoration = RoughBoxDecoration(
+          borderStyle: RoughDrawingStyle(width: 8),
+        );
+        final path = decoration.getClipPath(
+          const Rect.fromLTWH(0, 0, 4, 4),
+          TextDirection.ltr,
+        );
+        expect(path.getBounds().width, greaterThanOrEqualTo(0));
+      });
+
+      testWidgets('lets a Container clip its child to the outline', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          Center(
+            child: Container(
+              width: 120,
+              height: 80,
+              clipBehavior: Clip.antiAlias,
+              decoration: const RoughBoxDecoration(
+                shape: RoughBoxShape.roundedRectangle,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderStyle: RoughDrawingStyle(width: 2, color: Colors.black),
+                color: Colors.white,
+              ),
+              child: const ColoredBox(color: Colors.red),
+            ),
+          ),
+        );
+
+        expect(tester.takeException(), isNull);
+        expect(find.byType(ClipPath), findsOneWidget);
+      });
+    });
+
+    group('equality', () {
+      test('equal values make equal decorations', () {
+        const a = RoughBoxDecoration(
+          shape: RoughBoxShape.roundedRectangle,
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderStyle: RoughDrawingStyle(width: 2, color: Colors.black),
+          fillStyle: RoughDrawingStyle(color: Colors.blue),
+          color: Colors.white,
+          seed: 4,
+        );
+        const b = RoughBoxDecoration(
+          shape: RoughBoxShape.roundedRectangle,
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderStyle: RoughDrawingStyle(width: 2, color: Colors.black),
+          fillStyle: RoughDrawingStyle(color: Colors.blue),
+          color: Colors.white,
+          seed: 4,
+        );
+        expect(a, b);
+        expect(a.hashCode, b.hashCode);
+      });
+
+      test('a different seed, color, or style is a different decoration', () {
+        const base = RoughBoxDecoration(
+          borderStyle: RoughDrawingStyle(width: 2),
+        );
+        expect(
+          base,
+          isNot(
+            const RoughBoxDecoration(
+              borderStyle: RoughDrawingStyle(width: 2),
+              seed: 2,
+            ),
+          ),
+        );
+        expect(
+          base,
+          isNot(
+            const RoughBoxDecoration(
+              borderStyle: RoughDrawingStyle(width: 2),
+              color: Colors.white,
+            ),
+          ),
+        );
+        expect(
+          base,
+          isNot(
+            const RoughBoxDecoration(borderStyle: RoughDrawingStyle(width: 3)),
+          ),
+        );
+      });
+
+      test('draw configs compare by identity', () {
+        final config = DrawConfig.build(seed: 3);
+        expect(
+          RoughBoxDecoration(drawConfig: config),
+          RoughBoxDecoration(drawConfig: config),
+        );
+        expect(
+          RoughBoxDecoration(drawConfig: DrawConfig.build(seed: 3)),
+          isNot(RoughBoxDecoration(drawConfig: DrawConfig.build(seed: 3))),
+        );
+      });
+
+      testWidgets('a rebuild with an equal decoration keeps the drawing', (
+        tester,
+      ) async {
+        Widget build() => const Center(
+          child: DecoratedBox(
+            decoration: RoughBoxDecoration(
+              borderStyle: RoughDrawingStyle(width: 2, color: Colors.black),
+              seed: 9,
+            ),
+            child: SizedBox(width: 80, height: 40),
+          ),
+        );
+        await tester.pumpWidget(build());
+        final render = tester.renderObject<RenderDecoratedBox>(
+          find.byType(DecoratedBox),
+        );
+        final first = render.decoration;
+
+        // A new but equal instance, as a rebuilding parent would create.
+        await tester.pumpWidget(
+          Center(
+            child: DecoratedBox(
+              decoration: RoughBoxDecoration(
+                borderStyle: const RoughDrawingStyle(
+                  width: 2,
+                  color: Colors.black,
+                ),
+                seed: 3 * 3,
+              ),
+              child: const SizedBox(width: 80, height: 40),
+            ),
+          ),
+        );
+
+        expect(identical(render.decoration, first), isTrue);
+      });
+    });
+
+    group('lerp', () {
+      const from = RoughBoxDecoration(
+        shape: RoughBoxShape.roundedRectangle,
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+        borderStyle: RoughDrawingStyle(width: 2, color: Color(0xFF000000)),
+        color: Color(0xFF000000),
+        seed: 1,
+      );
+      const to = RoughBoxDecoration(
+        shape: RoughBoxShape.roundedRectangle,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderStyle: RoughDrawingStyle(width: 4, color: Color(0xFFFFFFFF)),
+        color: Color(0xFFFFFFFF),
+        seed: 2,
+      );
+
+      test('interpolates colours, pen width, and radius', () {
+        final mid = RoughBoxDecoration.lerp(from, to, 0.5)!;
+        expect(mid.color, Color.lerp(from.color, to.color, 0.5));
+        expect(mid.borderStyle!.width, 3);
+        expect(mid.borderRadius, const BorderRadius.all(Radius.circular(8)));
+      });
+
+      test('switches the seed at the midpoint', () {
+        expect(RoughBoxDecoration.lerp(from, to, 0.4)!.seed, 1);
+        expect(RoughBoxDecoration.lerp(from, to, 0.6)!.seed, 2);
+      });
+
+      test('returns null across shapes', () {
+        const circle = RoughBoxDecoration(shape: RoughBoxShape.circle);
+        expect(RoughBoxDecoration.lerp(from, circle, 0.5), isNull);
+        expect(Decoration.lerp(from, circle, 0.25), from);
+        expect(Decoration.lerp(from, circle, 0.75), circle);
+      });
+
+      test('Decoration.lerp uses it', () {
+        final mid = Decoration.lerp(from, to, 0.5)! as RoughBoxDecoration;
+        expect(mid.borderStyle!.width, 3);
+      });
+
+      test('RoughDrawingStyle.lerp handles a null end', () {
+        final style = RoughDrawingStyle.lerp(
+          null,
+          const RoughDrawingStyle(width: 4, color: Color(0xFF000000)),
+          0.5,
+        )!;
+        expect(style.width, 2);
+        expect(style.color!.a, closeTo(0.5, 0.01));
+      });
+
+      testWidgets('animates inside an AnimatedContainer', (tester) async {
+        Widget build(RoughBoxDecoration decoration) => Center(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            width: 100,
+            height: 50,
+            decoration: decoration,
+          ),
+        );
+        await tester.pumpWidget(build(from));
+        await tester.pumpWidget(build(to));
+        await tester.pump(const Duration(milliseconds: 100));
+
+        final mid =
+            tester
+                    .widget<DecoratedBox>(
+                      find.descendant(
+                        of: find.byType(AnimatedContainer),
+                        matching: find.byType(DecoratedBox),
+                      ),
+                    )
+                    .decoration
+                as RoughBoxDecoration;
+        expect(mid.borderStyle!.width, closeTo(3, 0.5));
+
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+      });
+    });
+  });
+
+  group('RoughDrawingStyle equality', () {
+    test('equal values are equal', () {
+      const a = RoughDrawingStyle(width: 2, color: Colors.black);
+      const b = RoughDrawingStyle(width: 2, color: Colors.black);
+      expect(a, b);
+      expect(a.hashCode, b.hashCode);
+      expect(a, isNot(const RoughDrawingStyle(width: 3, color: Colors.black)));
     });
   });
 }

@@ -616,6 +616,41 @@ WiredMaterialApp(
 
 Both sets of widgets produce the same hand-drawn aesthetic -- wobbly borders, hachure fills, and sketchy strokes -- regardless of whether the underlying API follows Material or Cupertino conventions.
 
+## Hand-drawn edges on Material controls
+
+An app that still renders Material buttons, cards, chips, dialogs, and text fields can give them skribble's rough edge from its `ThemeData`, without wrapping each one:
+
+```dart
+// Static example: configuration
+const pen = BorderSide(color: Color(0xFF1A2B3C), width: 2.4);
+
+ThemeData(
+  cardTheme: const CardThemeData(
+    shape: RoughOutlinedBorder(side: pen, seed: 7),
+  ),
+  filledButtonTheme: FilledButtonThemeData(
+    style: FilledButton.styleFrom(
+      shape: const RoughOutlinedBorder(seed: 11),
+      side: pen,
+    ),
+  ),
+  inputDecorationTheme: const InputDecorationTheme(
+    border: RoughInputBorder(borderSide: pen),
+    enabledBorder: RoughInputBorder(borderSide: pen),
+    focusedBorder: RoughInputBorder(
+      borderSide: BorderSide(color: Color(0xFF1A2B3C), width: 3),
+    ),
+  ),
+)
+```
+
+- **`RoughOutlinedBorder`** is a core `OutlinedBorder` (it needs only `flutter/painting.dart`), so it also works in `ShapeDecoration` and anywhere else a `ShapeBorder` goes. It inks only the side; the control paints its own fill, which stops at the centre of the pen line.
+- **`RoughInputBorder`** is the text-field version and lives in the compatibility layer because `InputBorder` is a Material type. A rough line cannot leave a clean gap for a floating label, so it reports `isOutline: false` and Material floats the label inside the field.
+- Both keep a fixed `seed`, so a control never re-rolls its wobble while it is pressed, focused, or rebuilt. Prepared outlines are shared through one bounded cache (256 entries), so a list of equal-sized cards prepares its outline once. Give neighbouring surfaces different seeds when identical wobbles would show.
+- Both compare by value and interpolate their side and corners, so Material's state animations between enabled, focused, and pressed shapes stay smooth.
+
+These are opt-in. `WiredThemeData.toThemeData` still produces Material's own borders.
+
 ## Compatibility widgets and converters
 
 | Export                    | Purpose                                                                          |
@@ -627,5 +662,6 @@ Both sets of widgets produce the same hand-drawn aesthetic -- wobbly borders, ha
 | `WiredThemeFromCupertino` | Wired tokens derived from an ambient Cupertino theme                             |
 | `WiredThemeInterop`       | `fromThemeData`, `fromColorScheme`, `fromCupertinoTheme`, `toCupertinoThemeData` |
 | `WiredThemeModeInterop`   | `SkribbleThemeMode` ⇄ Material `ThemeMode`                                       |
+| `RoughInputBorder`        | Hand-drawn `InputBorder` for Material text fields                                |
 
 `WiredThemeScope` is the widgets-only theme boundary behind both `SkribbleApp` and `WiredTheme`. `WiredTheme.of(context)` finds either, so widget code does not need to know which one is installed.
