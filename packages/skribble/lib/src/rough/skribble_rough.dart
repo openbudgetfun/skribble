@@ -9,4 +9,5 @@ export 'package:skribble_rough/skribble_rough.dart';
 
 export 'decoration.dart';
 export 'rough.dart';
+export 'rough_border.dart';
 export 'rough_drawing.dart';

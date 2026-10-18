@@ -697,6 +697,10 @@ Container(
 - **Equality.** Decorations with the same values are equal. A parent that rebuilds with an equal decoration keeps the prepared drawing instead of generating the outline again. `drawConfig`, `filler`, `progress`, and `pressure` compare by identity, so pass shared instances (for example the theme's `drawConfig`) rather than building new ones in `build`.
 - **Interpolation.** Two decorations of the same `shape` interpolate their `color`, pen styles, and `borderRadius`, so `AnimatedContainer` can move between hand-drawn states. The seed, draw config, filler, and animations switch at the midpoint, so the outline re-rolls its wobble at most once. Different shapes cross over at the midpoint.
 
+### RoughOutlinedBorder
+
+`RoughOutlinedBorder` draws the same rough rounded rectangle as an `OutlinedBorder`, for a `ShapeDecoration` or the `shape` of a themed control. It inks only its `side`, keeps a fixed `seed`, and shares prepared outlines through a bounded cache, so it is cheap to repaint every frame. Its outer path stops at the centre of the pen line, like `RoughBoxDecoration`'s level fill. See [Material bridge](material-bridge) for theming Material controls with it and its text-field sibling, `RoughInputBorder`.
+
 ## Low-Level Internals
 
 ### OpSetBuilder

@@ -5,6 +5,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/painting.dart';
 import 'package:skribble_rough/skribble_rough.dart';
 
+import 'rough_border.dart';
 import 'rough_drawing.dart';
 
 /// Style configuration for rough-drawn strokes and fills.
@@ -122,12 +123,7 @@ class RoughBoxDecoration extends Decoration {
   /// widest point, inside the box. A fill or clip inset by this much meets
   /// the line at its centre. Boxes too small for the full inset use half
   /// their shortest side instead.
-  double get inkInset {
-    final config = drawConfig ?? DrawConfig.defaultValues;
-    return (borderStyle?.width ?? 0) * config.pen.reach +
-        1 +
-        config.maxRandomnessOffset * config.roughness;
-  }
+  double get inkInset => roughInkInset(borderStyle?.width ?? 0, drawConfig);
 
   @override
   EdgeInsetsGeometry get padding =>
