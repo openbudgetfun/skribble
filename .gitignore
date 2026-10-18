@@ -53,7 +53,9 @@ rough-icons-baseline-sync.diff
 
 
 # /.pi
-/.claude
+/.claude/*
+!/.claude/settings.json
+!/.claude/hooks/
 
 # Flutter documentation browser tests
 docs/site/test_bundle.dart

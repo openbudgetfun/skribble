@@ -247,6 +247,8 @@ cd packages/skribble && flutter test test/
 
 The icon and emoji packages exclude `lib/src/generated/**` from analysis: their catalogs are megabytes of machine-written Dart whose coverage comes from CI regenerating and diffing them (`icon-catalogs-sync`, `visual-assets-sync`) and from the test suites that compile them. Hand-written changes in those packages are still analyzed; changes to a generated catalog belong in the generator, not the file.
 
+In a Claude Code cloud session, `.claude/hooks/session-start.sh` prepares these gates before the session starts: it installs the Flutter SDK pinned in `.fvmrc` at `.fvm/flutter_sdk` (the path melos and CI use), puts it on `PATH`, and runs `dart pub get` for the workspace. It skips devenv and Nix, so devenv-only tools such as `mdt`, `monochange`, `dprint` and `shfmt` are not installed there. The hook does nothing outside cloud sessions, and a warm container reuses the downloaded SDK.
+
 ### Step 7: Update documentation
 
 When adding a new widget, update the docs site:
