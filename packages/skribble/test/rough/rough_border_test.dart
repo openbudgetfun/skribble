@@ -197,6 +197,52 @@ void main() {
       expect(mid.borderRadius, const BorderRadius.all(Radius.circular(8)));
     });
 
+    test('lerpTo and lerpFrom interpolate in both directions', () {
+      const a = RoughOutlinedBorder(
+        side: BorderSide(color: _ink, width: 2),
+        seed: 1,
+      );
+      const b = RoughOutlinedBorder(
+        side: BorderSide(color: _ink, width: 4),
+        seed: 2,
+      );
+      final to = a.lerpTo(b, 0.75)! as RoughOutlinedBorder;
+      final from = b.lerpFrom(a, 0.25)! as RoughOutlinedBorder;
+      expect(to.side.width, 3.5);
+      expect(to.seed, 2);
+      expect(from.side.width, 2.5);
+      expect(from.seed, 1);
+    });
+
+    test('reports the pen as its dimensions', () {
+      expect(
+        const RoughOutlinedBorder(side: _side).dimensions,
+        EdgeInsets.all(_side.strokeInset),
+      );
+    });
+
+    test('describes itself', () {
+      expect(
+        const RoughOutlinedBorder(seed: 4).toString(),
+        contains('seed: 4'),
+      );
+    });
+
+    test('keeps painting after the shared cache evicts', () {
+      const border = RoughOutlinedBorder(side: _side);
+      final canvas = TestRecordingCanvas();
+      for (var width = 20; width < 300; width++) {
+        border.paint(canvas, Rect.fromLTWH(0, 0, width.toDouble(), 40));
+      }
+      border.paint(canvas, const Rect.fromLTWH(0, 0, 20, 40));
+      expect(
+        canvas.invocations.where(
+          (call) => call.invocation.memberName == #drawPath,
+        ),
+        isNotEmpty,
+      );
+    });
+
     test('lerps with other borders without throwing', () {
       const rough = RoughOutlinedBorder(side: _side);
       const plain = RoundedRectangleBorder(side: _side);

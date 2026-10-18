@@ -118,6 +118,41 @@ void main() {
       );
     });
 
+    test('inner path sits inside the outer path', () {
+      const border = RoughInputBorder(borderSide: _side);
+      const rect = Rect.fromLTWH(0, 0, 200, 56);
+      final outer = border.getOuterPath(rect).getBounds();
+      final inner = border.getInnerPath(rect).getBounds();
+      expect(inner.left, greaterThan(outer.left));
+      expect(inner.right, lessThan(outer.right));
+      expect(border.dimensions, EdgeInsets.all(_side.strokeInset));
+    });
+
+    test('copyWith keeps the side when only the seed changes', () {
+      const border = RoughInputBorder(borderSide: _side, seed: 2);
+      final copy = border.copyWith(seed: 5);
+      expect(copy.borderSide, _side);
+      expect(copy.seed, 5);
+    });
+
+    test('lerpTo interpolates and other borders still lerp', () {
+      const a = RoughInputBorder(
+        borderSide: BorderSide(color: _ink, width: 2),
+        seed: 1,
+      );
+      const b = RoughInputBorder(
+        borderSide: BorderSide(color: _ink, width: 4),
+        seed: 2,
+      );
+      final to = a.lerpTo(b, 0.75)! as RoughInputBorder;
+      expect(to.borderSide.width, 3.5);
+      expect(to.seed, 2);
+
+      const plain = OutlineInputBorder(borderSide: _side);
+      expect(a.lerpTo(plain, 0.5), anyOf(isNull, isA<ShapeBorder>()));
+      expect(a.lerpFrom(plain, 0.5), anyOf(isNull, isA<ShapeBorder>()));
+    });
+
     test('lerps between rough input borders', () {
       const a = RoughInputBorder(
         borderSide: BorderSide(color: _ink, width: 2),
