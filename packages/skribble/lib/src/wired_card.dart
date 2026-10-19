@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -9,8 +10,14 @@ import 'wired_theme.dart';
 ///
 /// Reads fill color from the nearest [WiredTheme] ancestor.
 class WiredCard extends HookWidget {
+  /// The card's content.
   final Widget? child;
+
+  /// Whether to colour the card in with close, even pencil strokes of the
+  /// theme's `fillColor`. Wrap the card in a [WiredTheme] to choose a tint.
   final bool fill;
+
+  /// Fixed height, or null to size to [child].
   final double? height;
 
   /// Soft corners for the paper outline. Use [BorderRadius.zero] for square ink.
@@ -21,7 +28,7 @@ class WiredCard extends HookWidget {
     this.child,
     this.fill = false,
     this.height = 130.0,
-    this.borderRadius = const BorderRadius.all(Radius.circular(12)),
+    this.borderRadius = const BorderRadius.all(Radius.circular(16)),
   });
 
   @override
@@ -38,6 +45,11 @@ class WiredCard extends HookWidget {
               borderColor: theme.borderColor,
             ),
             fillerType: fill ? RoughFilter.hachureFiller : RoughFilter.noFiller,
+            // Close, even strokes read as a page coloured in with a pencil.
+            fillerConfig: FillerConfig.build(
+              drawConfig: theme.drawConfig.copyWith(),
+              hachureGap: 7,
+            ),
           ),
         ),
         if (height != null)

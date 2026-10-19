@@ -20,6 +20,7 @@ void main() {
               child: WiredSvgIcon(
                 data: WiredBrandIcon.figma.data,
                 size: 28,
+                fillStyle: WiredIconFillStyle.solid,
                 drawConfig: DrawConfig.build(seed: seed, roughness: roughness),
               ),
             ),
@@ -120,7 +121,13 @@ void main() {
         int alpha(double x, double y) =>
             bytes[((y * size).toInt() * width + (x * size).toInt()) * 4 + 3];
         expect(alpha(0.5, 0.5), 0, reason: 'the counter must stay transparent');
-        expect(alpha(0.2, 0.5), 255, reason: 'the surrounding shape is filled');
+        // The default marker fill is translucent where its strokes do not
+        // overlap, so the surrounding shape is coloured in but not flat.
+        expect(
+          alpha(0.2, 0.5),
+          greaterThan(150),
+          reason: 'the surrounding shape is coloured in',
+        );
       }
     });
   }

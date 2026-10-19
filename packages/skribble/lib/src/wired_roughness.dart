@@ -6,21 +6,22 @@ import 'package:skribble_rough/skribble_rough.dart' show RoughPen;
 /// pen its lines are inked with. Borders remain seed-stable; changing levels
 /// does not randomize the drawing.
 enum WiredRoughness {
-  /// The gentler original lettering and softly bowed borders.
+  /// The gentler original lettering and tidy, softly bowed borders.
   gentle(
     fontFamily: 'SkribbleGentle',
-    roughness: 1.25,
-    maxRandomnessOffset: 1.2,
+    roughness: 0.9,
+    maxRandomnessOffset: 1,
     lineWobble: 0,
     pen: RoughPen.fineliner,
   ),
 
-  /// An intermediate amount of wavering ink and lettering.
+  /// The default: neat, lightly wavering ink, like a careful drawing in a
+  /// notebook, with playful lettering.
   playful(
     fontFamily: 'SkribblePlayful',
-    roughness: 1.5,
-    maxRandomnessOffset: 1.6,
-    lineWobble: 0.65,
+    roughness: 1.1,
+    maxRandomnessOffset: 1.2,
+    lineWobble: 0.35,
     pen: RoughPen.ink,
   ),
 

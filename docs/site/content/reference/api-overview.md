@@ -74,6 +74,7 @@ Key types:
 - `kWiredButtonHeight` — the least height of a button (42.0); buttons grow with their label
 - `kWiredChipHeight` — the least height of a chip (36.0)
 - `kWiredInkPadding` — the least space between the ink and the content inside it: 8 above and below, 12 at the sides
+- `kWiredStrokeWidth` — the default pen width, 1.6 logical pixels: what `WiredThemeData.strokeWidth` and the painter bases start from
 - `kWiredButtonPadding` — the space inside buttons and chips: 8 above and below, 16 at the sides
 
 ### 4. Theme and app shell
@@ -432,7 +433,7 @@ Full dartdoc API reference is available at:
 
 ## Hand-drawn quality additions
 
-- `WiredThemeData.inkExtent`: pen-and-wobble space for dividers; default `strokeWidth` is 2.4 and `roughness` is 1.5.
+- `WiredThemeData.inkExtent`: pen-and-wobble space for dividers; default `strokeWidth` is `kWiredStrokeWidth` (1.6) and `roughness` is 1.1.
 - `WiredSvgPrimitive.path(clipPaths: ...)`: SVG clipping paths in primitive coordinates; source colors support optional alpha.
 - `skribble_font_roughen` exports `VisualDiff` and `DiffResult` for HTML specimens and outline-change statistics; these are not pixel comparisons.
 

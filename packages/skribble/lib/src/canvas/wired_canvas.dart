@@ -39,15 +39,24 @@ class WiredCanvas extends HookWidget {
     // discard the painter's cached geometry. Memoize on the identity of the
     // config inputs so a stable painter keeps its prepared RoughDrawing across
     // rebuilds.
-    final effectiveFillerConfig = fillerConfig ?? FillerConfig.defaultConfig;
-    final Filler filler = useMemoized(
-      () => _filters[fillerType]!.call(effectiveFillerConfig),
-      [fillerType, effectiveFillerConfig],
-    );
     // The theme's DrawConfig is a stable per-theme instance (see
     // WiredThemeData.drawConfig), so this read is cheap; memoizing the painter
     // on it (not on context) keeps the same WiredPainter across rebuilds.
     final resolvedDrawConfig = drawConfig ?? WiredTheme.of(context).drawConfig;
+    // Fill strokes follow the outline's hand unless a config says otherwise,
+    // so hachure is as tidy as the border around it and stays inside it. The
+    // copy owns its random stream, so the fill never depends on how much of
+    // the outline's stream another shape used first.
+    final effectiveFillerConfig = useMemoized(
+      () =>
+          fillerConfig ??
+          FillerConfig.build(drawConfig: resolvedDrawConfig.copyWith()),
+      [fillerConfig, resolvedDrawConfig],
+    );
+    final Filler filler = useMemoized(
+      () => _filters[fillerType]!.call(effectiveFillerConfig),
+      [fillerType, effectiveFillerConfig],
+    );
     final progress = WiredDrawTransition.progressOf(context);
     final pressure = WiredInkResponse.pressureOf(context);
     final wiredPainter = useMemoized(

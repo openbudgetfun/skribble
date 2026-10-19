@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'motion/wired_ink_interaction.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_font.dart';
+import 'wired_paint.dart';
 import 'wired_palette.dart';
 import 'wired_roughness.dart';
 import 'wired_theme_scope.dart';
@@ -71,7 +72,7 @@ class WiredThemeData {
     this.disabledTextColor = WiredPalette.mutedInk,
     this.fillColor = WiredPalette.paper,
     this.markerColor = WiredPalette.lilac,
-    this.strokeWidth = 2.4,
+    this.strokeWidth = kWiredStrokeWidth,
     this.roughnessLevel = WiredRoughness.playful,
     this.font = WiredFont.casual,
     this._roughness,

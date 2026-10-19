@@ -7,10 +7,10 @@ import 'package:skribble_example/models/note.dart';
 /// Color options available for notes.
 const _colorOptions = <Color>[
   Color(0xFFF5ECD7), // Parchment (default)
-  Color(0xFFE8F5E9), // Soft green
-  Color(0xFFE3F2FD), // Soft blue
-  Color(0xFFFFF3E0), // Soft orange
-  Color(0xFFF3E5F5), // Soft purple
+  Color(0xFFDCEBD5), // Soft green
+  Color(0xFFD9E7F5), // Soft blue
+  Color(0xFFF8E1CC), // Soft orange
+  Color(0xFFE8DEF3), // Soft purple
 ];
 
 const _colorLabels = <String>[
@@ -95,7 +95,7 @@ class EditPage extends HookWidget {
                         color: color,
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: const Color(0xFF5C3D2E),
+                          color: WiredTheme.of(context).borderColor,
                           width: isSelected ? 2 : 1,
                         ),
                       ),
@@ -113,7 +113,7 @@ class EditPage extends HookWidget {
               }),
             ),
             const SizedBox(height: 24),
-            WiredButton(
+            WiredFilledButton(
               onPressed: () {
                 final note = isNew
                     ? Note.create(

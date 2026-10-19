@@ -62,7 +62,7 @@ class WiredInput extends HookWidget {
     this.hintStyle,
     this.onChanged,
     this.obscureText = false,
-    this.borderRadius = const BorderRadius.all(Radius.circular(8)),
+    this.borderRadius = const BorderRadius.all(Radius.circular(12)),
     this.semanticLabel,
   });
 

@@ -6,7 +6,7 @@ import 'rough/skribble_rough.dart';
 import 'wired_button_base.dart';
 import 'wired_theme.dart';
 
-/// An elevated button with hand-drawn fill and slight offset shadow.
+/// An elevated button: a paper face over a lightly pencilled offset shadow.
 class WiredElevatedButton extends WiredButtonBase {
   /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
   /// for square corners.
@@ -20,7 +20,7 @@ class WiredElevatedButton extends WiredButtonBase {
     super.onPressed,
     super.semanticLabel,
     super.inkInteraction,
-    this.borderRadius = const BorderRadius.all(Radius.circular(6)),
+    this.borderRadius = const BorderRadius.all(Radius.circular(10)),
   });
 
   @override
@@ -44,10 +44,12 @@ class WiredElevatedButton extends WiredButtonBase {
             borderRadius: borderRadius,
             borderStyle: RoughDrawingStyle(
               width: 0.5,
-              color: theme.borderColor,
+              color: theme.borderColor.withValues(alpha: 0.4),
             ),
-            fillStyle: RoughDrawingStyle(color: theme.borderColor),
-            filler: HachureFiller(FillerConfig.build(hachureGap: 2)),
+            fillStyle: RoughDrawingStyle(
+              color: theme.borderColor.withValues(alpha: 0.4),
+            ),
+            filler: HachureFiller(FillerConfig.build(hachureGap: 3)),
           ),
         ),
       ),
@@ -64,7 +66,7 @@ class WiredElevatedButton extends WiredButtonBase {
           color: theme.borderColor,
         ),
         fillStyle: RoughDrawingStyle(color: theme.fillColor),
-        filler: HachureFiller(FillerConfig.build(hachureGap: 3)),
+        filler: SolidFiller(FillerConfig.build(drawConfig: theme.drawConfig)),
       ),
       textStyle: TextButton.styleFrom(foregroundColor: theme.textColor),
     );
