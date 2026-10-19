@@ -255,6 +255,16 @@ use = ["changesets/recommended", "dart/recommended"]
 "dart/assets-sorted" = "error"
 "dart/workspace-internal-version-consistency" = "error"
 "dart/no-unexpected-dependency-overrides" = "warning"
+# The npm packages in js/ deliberately differ from three npm defaults:
+# - internal dependencies are plain ranges that monochange rewrites, because
+#   `npm publish` ships a `workspace:` range unchanged;
+# - `repository` stays an object with `directory`, the form npm provenance
+#   checks against this repository, which the rule reads as empty;
+# - each framework is both a peer dependency and a dev dependency, so the
+#   package tests against the framework it declares.
+"npm/workspace-protocol" = "off"
+"npm/manifest-repository" = "off"
+"npm/no-duplicate-dependencies" = "off"
 "changesets/duplicate" = "error"
 "changesets/no_section_headings" = "error"
 "changesets/summary" = { level = "error", required = true, heading_level = 1, min_length = 8, max_length = 90, forbid_trailing_period = true, forbid_conventional_commit_prefix = true }
