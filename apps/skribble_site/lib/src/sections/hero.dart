@@ -72,11 +72,7 @@ class Hero extends StatelessComponent {
             {'id': 'hero-title'},
           ),
           para(
-            'skribble is a Flutter design system where every border, fill, '
-            'icon, and letter comes from a seeded pen. More than a hundred '
-            'Wired widgets, three pens, hand-lettered fonts, and thousands of '
-            'rough icons give your app a sketchbook feel that stays '
-            'accessible and fast.',
+            'Every border, fill, icon, and letter, drawn by a seeded pen.',
             classes: 'hero-lede',
           ),
           el('div', [
@@ -111,7 +107,7 @@ class Hero extends StatelessComponent {
                   Mark(arrow, width: 2.2),
               ],
             ),
-            t('Real controls. Tap them, then drag the pen slider.'),
+            t('Tap it. Then drag the pen.'),
           ], 'hero-note'),
         ], 'hero-stage'),
       ],

@@ -102,6 +102,17 @@ main {
   overflow-x: clip;
 }
 
+/* While the page's fonts load (at most 3 seconds, see page.dart), keep
+   the paper and hide what is on it, so the first paint is already in
+   skribble's hand instead of a fallback font that reflows. */
+.inking body > * {
+  opacity: 0;
+}
+
+body > * {
+  transition: opacity 0.3s ease-out;
+}
+
 body.skribble-page {
   margin: 0;
   overflow-x: hidden;
@@ -1430,25 +1441,35 @@ svg {
   font-family: "SkribbleMonoPlayful", var(--font-mono);
 }
 
+.font-lab:has(.control[value="SkribbleNoto"]:checked) .specimen :is(.specimen-text, .specimen-glyphs) {
+  font-family: "SkribbleNoto", var(--font-body);
+}
+
+.font-lab:has(.control[value="SkribbleNotoSketch"]:checked) .specimen :is(.specimen-text, .specimen-glyphs) {
+  font-family: "SkribbleNotoSketch", var(--font-body);
+}
+
+.font-lab:has(.control[value="SkribbleNotoLively"]:checked) .specimen :is(.specimen-text, .specimen-glyphs) {
+  font-family: "SkribbleNotoLively", var(--font-body);
+}
+
+/* Skribble Noto has one weight. Show it as drawn rather than letting the
+   browser fake bold, and set the weight slider aside. */
+.font-lab:has(.control[data-package^="skribble_font_noto"]:checked) .specimen-text {
+  font-weight: 400;
+  font-synthesis: none;
+}
+
+.font-lab:has(.control[data-package^="skribble_font_noto"]:checked) .font-weight {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 .specimen-glyphs {
   margin-top: 18px;
   color: var(--quiet);
   font-size: clamp(1.2rem, 3vw, 1.7rem);
   overflow-wrap: anywhere;
-}
-
-.font-notes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-  gap: 14px 28px;
-  margin: 28px 0 0;
-  padding: 18px 0 0;
-  border-top: 1.5px dashed var(--rule);
-  list-style: none;
-}
-
-.font-note span {
-  color: var(--quiet);
 }
 
 /* ---------- Art ---------- */
@@ -1591,31 +1612,47 @@ svg {
   color: var(--tok-a);
 }
 
-.perks {
+.app-preview-figure {
   display: grid;
-  gap: 24px;
+  gap: 12px;
   margin: 0;
+}
+
+.app-preview {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 300px;
   padding: 0;
-  list-style: none;
 }
 
-.perks li {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
+.app-preview-bar {
+  position: relative;
+  padding: 18px 22px 16px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
-.perks .ink {
-  flex: none;
-  margin-top: 2px;
+.app-preview-rule {
+  position: absolute;
+  right: 10px;
+  bottom: -4px;
+  left: 10px;
+  width: calc(100% - 20px);
+  max-width: none;
+  height: 10px;
 }
 
-.perks h3 {
-  font-size: 1.3rem;
+.app-preview-body {
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
 }
 
-.perks p {
+.app-preview-figure figcaption {
   color: var(--quiet);
+  font-size: 0.95rem;
+  text-align: center;
 }
 
 /* ---------- Beyond ---------- */

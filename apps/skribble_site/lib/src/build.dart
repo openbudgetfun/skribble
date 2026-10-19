@@ -127,7 +127,13 @@ SiteAssets loadSiteAssets(Directory root) {
     emojiCount: _emojiCount(root),
     icons: _lucideIcons(root, featuredIcons),
     iconCount: _lucideCount(root),
-    fonts: fontFamilies,
+    // A family whose package is not in this checkout yet is left out, so
+    // the page can ship before every font package lands.
+    fonts: [
+      for (final family in fontFamilies)
+        if (Directory('${root.path}/packages/${family.package}').existsSync())
+          family,
+    ],
   );
 }
 
@@ -236,6 +242,40 @@ IconArt _lucideIcon(String source, String name) {
   return IconArt(name: name, paths: paths);
 }
 
+/// The characters the web fonts keep: Basic Latin, Latin-1, Latin
+/// Extended-A, and common punctuation and symbols. Anything else falls back
+/// to the next font in the stack.
+const webFontUnicodes =
+    'U+0000-017F,U+0192,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,'
+    'U+2074,U+20AC,U+2122,U+2190-2199,U+2212,U+2215,U+FEFF,U+FFFD';
+
+/// Writes [source] to [destination] as a WOFF web font that keeps only
+/// [webFontUnicodes], using `pyftsubset` from fontTools (in `devenv shell`).
+///
+/// A subset WOFF is about a quarter of the TrueType file, so the page's
+/// first paint is not held up by font downloads.
+Future<void> writeWebFont(File source, File destination) async {
+  final ProcessResult result;
+  try {
+    result = await Process.run('pyftsubset', [
+      source.path,
+      '--unicodes=$webFontUnicodes',
+      '--layout-features=*',
+      '--flavor=woff',
+      '--output-file=${destination.path}',
+    ]);
+  } on ProcessException catch (error) {
+    throw StateError(
+      'pyftsubset is needed to build web fonts. Run the build inside '
+      '`devenv shell`, or install fontTools (pip install fonttools). '
+      '${error.message}',
+    );
+  }
+  if (result.exitCode != 0) {
+    throw StateError('pyftsubset failed for ${source.path}:\n${result.stderr}');
+  }
+}
+
 /// Renders the site for [config] into [output], using the workspace at
 /// [root] for assets.
 Future<void> buildSite({
@@ -269,14 +309,21 @@ Future<void> buildSite({
       .copySync('${output.path}/favicon.svg');
 
   final fonts = Directory('${output.path}/fonts')..createSync();
-  final fontSource =
-      '${root.path}/packages/skribble_font_recursive/assets/fonts';
-  for (final family in assets.fonts) {
-    for (final face in family.faces) {
-      File('$fontSource/${face.file}').copySync('${fonts.path}/${face.file}');
-    }
+  await Future.wait([
+    for (final family in assets.fonts)
+      for (final face in family.faces)
+        writeWebFont(
+          File(
+            '${root.path}/packages/${family.package}/assets/fonts/${face.file}',
+          ),
+          File('${fonts.path}/${face.webFile}'),
+        ),
+  ]);
+  for (final package in {for (final family in assets.fonts) family.package}) {
+    File(
+      '${root.path}/packages/$package/assets/fonts/OFL.txt',
+    ).copySync('${fonts.path}/${licenceFile(package)}');
   }
-  File('$fontSource/OFL.txt').copySync('${fonts.path}/OFL.txt');
 
   final emoji = Directory('${output.path}/emoji')..createSync();
   for (final art in assets.emoji) {

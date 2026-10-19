@@ -46,7 +46,7 @@ final class LetteringFamily {
   const LetteringFamily({
     required this.label,
     required this.family,
-    required this.description,
+    required this.package,
     required this.faces,
   });
 
@@ -56,8 +56,10 @@ final class LetteringFamily {
   /// The CSS and Flutter family name, such as `SkribblePlayful`.
   final String family;
 
-  /// One line on when to use it.
-  final String description;
+  /// The workspace package that bundles the family, such as
+  /// `skribble_font_recursive`. Its `assets/fonts` folder holds the faces
+  /// and the licence.
+  final String package;
 
   /// The faces served for this family.
   final List<LetteringFace> faces;
@@ -72,8 +74,13 @@ final class LetteringFace {
     this.italic = false,
   });
 
-  /// The TrueType file name, such as `SkribblePlayful-Bold.ttf`.
+  /// The TrueType file name in the package, such as
+  /// `SkribblePlayful-Bold.ttf`.
   final String file;
+
+  /// The web font the site serves for this face, such as
+  /// `SkribblePlayful-Bold.woff`.
+  String get webFile => '${file.substring(0, file.lastIndexOf('.'))}.woff';
 
   /// The CSS `font-weight`.
   final int weight;
@@ -101,33 +108,49 @@ List<LetteringFace> facesFor(String family) => [
   LetteringFace(file: '$family-Italic.ttf', weight: 400, italic: true),
 ];
 
+/// The package that bundles the Recursive-based families.
+const recursivePackage = 'skribble_font_recursive';
+
 /// The lettering families the page uses and shows off.
-final fontFamilies = [
-  LetteringFamily(
-    label: 'Playful',
-    family: 'SkribblePlayful',
-    description: 'The default hand, for body text and controls.',
-    faces: facesFor('SkribblePlayful'),
-  ),
-  LetteringFamily(
-    label: 'Gentle',
-    family: 'SkribbleGentle',
-    description: 'A steadier hand for long reading.',
-    faces: facesFor('SkribbleGentle'),
-  ),
-  LetteringFamily(
-    label: 'Expressive',
-    family: 'Skribble',
-    description: 'The loosest hand, for headlines and games.',
-    faces: facesFor('Skribble'),
-  ),
-  LetteringFamily(
-    label: 'Mono',
-    family: 'SkribbleMonoPlayful',
-    description: 'Monospaced, for code and tabular numbers.',
-    faces: facesFor('SkribbleMonoPlayful'),
-  ),
+final List<LetteringFamily> fontFamilies = [
+  for (final (label, family) in const [
+    ('Playful', 'SkribblePlayful'),
+    ('Gentle', 'SkribbleGentle'),
+    ('Expressive', 'Skribble'),
+    ('Mono', 'SkribbleMonoPlayful'),
+  ])
+    LetteringFamily(
+      label: label,
+      family: family,
+      package: recursivePackage,
+      faces: facesFor(family),
+    ),
+  for (final (label, family, package) in const [
+    ('Noto', 'SkribbleNoto', 'skribble_font_noto'),
+    ('Noto Sketch', 'SkribbleNotoSketch', 'skribble_font_noto_sketch'),
+    ('Noto Lively', 'SkribbleNotoLively', 'skribble_font_noto_lively'),
+  ])
+    LetteringFamily(
+      label: label,
+      family: family,
+      package: package,
+      faces: [LetteringFace(file: '$family-Regular.ttf', weight: 400)],
+    ),
 ];
+
+/// The faces every page needs before it shows: body text, bold labels,
+/// headings, and code. The page preloads them and waits for them, so the
+/// first paint is already in skribble's hand.
+const criticalFaces = [
+  ('SkribblePlayful', 'SkribblePlayful-Regular.woff', 400),
+  ('SkribblePlayful', 'SkribblePlayful-Bold.woff', 700),
+  ('Skribble', 'Skribble-ExtraBold.woff', 800),
+  ('SkribbleMonoPlayful', 'SkribbleMonoPlayful-Regular.woff', 400),
+];
+
+/// The published licence for fonts from [package], under `fonts/`.
+String licenceFile(String package) =>
+    package == recursivePackage ? 'OFL.txt' : '$package-OFL.txt';
 
 /// `@font-face` rules for [families], served from `fonts/`.
 String fontFaceCss(List<LetteringFamily> families) {
@@ -137,7 +160,7 @@ String fontFaceCss(List<LetteringFamily> families) {
     for (final face in family.faces) {
       css
         ..write('@font-face{font-family:"${family.family}";')
-        ..write('src:url("fonts/${face.file}") format("truetype");')
+        ..write('src:url("fonts/${face.webFile}") format("woff");')
         ..write('font-weight:${face.weight};')
         ..write('font-style:${face.italic ? 'italic' : 'normal'};')
         ..write('font-display:swap}\n');

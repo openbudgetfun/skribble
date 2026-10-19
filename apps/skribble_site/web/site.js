@@ -13,7 +13,9 @@
     element.classList.add("is-in");
   }
 
-  // Reveal sections and draw their ink as they scroll into view.
+  // Reveal sections and draw their ink as they scroll into view, once the
+  // page's fonts are in (see the inline script in <head>).
+  function startReveals() {
   var targets = document.querySelectorAll(".draw, .reveal");
   if ("IntersectionObserver" in window) {
     var observer = new IntersectionObserver(
@@ -33,6 +35,12 @@
     targets.forEach(function (target) {
       target.classList.add("is-in");
     });
+  }
+  }
+  if (root.classList.contains("inking")) {
+    document.addEventListener("skribble:inked", startReveals, { once: true });
+  } else {
+    startReveals();
   }
 
   // Light and dark paper, remembered per browser.
@@ -100,6 +108,16 @@
       redraw(phone);
     });
   }
+
+  // The install command follows the chosen font family's package.
+  var fontInstall = document.querySelector("[data-font-install]");
+  document.querySelectorAll('input[name="font-family"]').forEach(function (input) {
+    input.addEventListener("change", function () {
+      if (fontInstall && input.checked) {
+        fontInstall.textContent = "flutter pub add " + input.dataset.package;
+      }
+    });
+  });
 
   // The specimen's weight slider.
   var weight = document.getElementById("font-weight");

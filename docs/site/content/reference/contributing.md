@@ -223,4 +223,6 @@ Preserve ordinary text selection when changing the article renderer. Copy button
 
 The skribble.dev landing page lives in `apps/skribble_site`. It is a [Jaspr](https://jaspr.site) app rendered to static HTML with `skribble_jaspr`, so the page ships hand-drawn SVG and a small enhancement script rather than a Flutter canvas. Run `site:serve` to build it and open `http://localhost:8080/`, or `site:build --base-path=/skribble/` to build for a sub-path.
 
+The build turns each font into a Latin-subset WOFF with `pyftsubset` from fontTools, which `devenv shell` provides; outside it, `pip install fonttools`.
+
 `dart test` in `apps/skribble_site` checks accessibility attributes, stable markup, and that every `docs/...` link has a page here. Check visual changes in light and dark at 360, 768, and 1280 pixels, with reduced motion on and off.

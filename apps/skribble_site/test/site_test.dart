@@ -147,6 +147,52 @@ void main() {
       expect(styles, ['site.css']);
     });
 
+    test('preloads the fonts it waits for before showing', () {
+      final preloads = page
+          .querySelectorAll('link[rel="preload"][as="font"]')
+          .map((link) => link.attributes['href']);
+      final inline = page
+          .querySelectorAll('head script:not([src])')
+          .map((script) => script.text)
+          .join();
+
+      expect(preloads, [
+        for (final (_, file, _) in criticalFaces) 'fonts/$file',
+      ]);
+      for (final (family, _, weight) in criticalFaces) {
+        expect(inline, contains('$weight 1em $family'), reason: family);
+      }
+      expect(inline, contains('inking'));
+      expect(inline, contains('setTimeout(show, 3000)'));
+    });
+
+    test('serves every font face as a web font', () {
+      final css = page
+          .querySelectorAll('head style')
+          .map((style) => style.text)
+          .join();
+
+      expect(css, isNot(contains('.ttf')));
+      for (final family in _assets.fonts) {
+        expect(css, contains('font-family:"${family.family}"'));
+        for (final face in family.faces) {
+          expect(css, contains('fonts/${face.webFile}'), reason: face.file);
+        }
+      }
+    });
+
+    test('offers every font family in the tester', () {
+      final picks = page
+          .querySelectorAll('input[name="font-family"]')
+          .map((input) => input.attributes['value']);
+
+      expect(picks, [for (final family in _assets.fonts) family.family]);
+      expect(
+        page.querySelector('[data-font-install]')?.text,
+        'flutter pub add skribble_font_recursive',
+      );
+    });
+
     test('keeps internal links relative so the base path applies', () {
       for (final link in page.querySelectorAll('a[href]')) {
         final href = link.attributes['href']!;
@@ -249,10 +295,9 @@ void main() {
     });
 
     test('ships font files that exist', () {
-      final fonts =
-          '${_root.path}/packages/skribble_font_recursive/assets/fonts';
-
       for (final family in _assets.fonts) {
+        final fonts = '${_root.path}/packages/${family.package}/assets/fonts';
+
         for (final face in family.faces) {
           expect(
             File('$fonts/${face.file}').existsSync(),
@@ -260,6 +305,32 @@ void main() {
             reason: face.file,
           );
         }
+        expect(File('$fonts/OFL.txt').existsSync(), isTrue);
+      }
+    });
+
+    test('shows the Recursive families and every Noto level it can find', () {
+      final families = _assets.fonts.map((family) => family.family).toList();
+
+      expect(
+        families,
+        containsAll([
+          'SkribblePlayful',
+          'SkribbleGentle',
+          'Skribble',
+          'SkribbleMonoPlayful',
+        ]),
+      );
+      for (final family in fontFamilies) {
+        final present = Directory(
+          '${_root.path}/packages/${family.package}',
+        ).existsSync();
+
+        expect(
+          families.contains(family.family),
+          present,
+          reason: family.family,
+        );
       }
     });
 
@@ -293,7 +364,8 @@ void main() {
       'favicon.svg',
       'robots.txt',
       'fonts/OFL.txt',
-      'fonts/SkribblePlayful-Regular.ttf',
+      'fonts/SkribblePlayful-Regular.woff',
+      for (final (_, file, _) in criticalFaces) 'fonts/$file',
       'emoji/rocket.svg',
     ]) {
       expect(File('${output.path}/$file').existsSync(), isTrue, reason: file);

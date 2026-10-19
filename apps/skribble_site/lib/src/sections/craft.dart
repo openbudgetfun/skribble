@@ -29,11 +29,7 @@ class Lettering extends StatelessComponent {
         ),
         t(' built in'),
       ],
-      lede:
-          'skribble bundles hand-lettered families with seven weights and '
-          'italics each, roughened from Recursive so letters wobble like the '
-          'ink around them. They are free under the SIL Open Font License, '
-          'for apps, sites, and print.',
+      lede: 'Free under the SIL Open Font License. Type something.',
       children: [
         el('div', [
           el('div', [
@@ -48,6 +44,7 @@ class Lettering extends StatelessComponent {
                         'type': 'radio',
                         'name': 'font-family',
                         'value': font.family,
+                        'data-package': font.package,
                         if (index == 0) 'checked': '',
                       }),
                       el('span', [t(font.label)], 'font-pick-label'),
@@ -113,18 +110,6 @@ class Lettering extends StatelessComponent {
               el('p', [
                 t('Aa Bb Cc Dd Ee Ff Gg 0123456789 & ? ! @ ( )'),
               ], 'specimen-glyphs'),
-              el('ul', [
-                for (final font in fonts)
-                  el(
-                    'li',
-                    [
-                      el('strong', [t(font.label)]),
-                      el('span', [t(' ${font.family}. ${font.description}')]),
-                    ],
-                    'font-note',
-                    {'style': 'font-family:"${font.family}"'},
-                  ),
-              ], 'font-notes'),
             ]),
           ),
         ], 'font-lab reveal'),
@@ -133,8 +118,22 @@ class Lettering extends StatelessComponent {
             SiteLinks.fontSource,
             [t('Download the font files')],
           ),
-          el('code', [t('flutter pub add skribble_font_recursive')]),
-          anchor('fonts/OFL.txt', [t('Read the licence')]),
+          el(
+            'code',
+            [t('flutter pub add ${fonts.first.package}')],
+            null,
+            {
+              'data-font-install': '',
+              'aria-live': 'polite',
+            },
+          ),
+          anchor('fonts/${licenceFile(recursivePackage)}', [
+            t('Recursive licence'),
+          ]),
+          if (fonts.any((font) => font.package != recursivePackage))
+            anchor('fonts/${licenceFile('skribble_font_noto')}', [
+              t('Noto licence'),
+            ]),
         ], 'section-actions'),
       ],
     );
@@ -156,9 +155,8 @@ class ArtWall extends StatelessComponent {
       eyebrow: 'Icons and emoji',
       title: [t('A whole sketchbook of artwork')],
       lede:
-          '${_count(assets.emojiCount)} hand-drawn emoji with skin tones '
-          'and gentle motion, plus ${_count(assets.iconCount)} rough Lucide '
-          'icons and more icon sets that slot into any Wired widget.',
+          '${_count(assets.emojiCount)} emoji. '
+          '${_count(assets.iconCount)} icons. All hand-drawn.',
       children: [
         el('ul', [
           for (final (index, art) in assets.emoji.indexed)
@@ -274,10 +272,6 @@ class CodeSample extends StatelessComponent {
       id: 'code',
       eyebrow: 'Start in minutes',
       title: [t('A whole app in a handful of lines')],
-      lede:
-          'SkribbleApp is a Material-free app shell built on WidgetsApp. '
-          'Drop in Wired widgets, or bridge an existing MaterialApp while '
-          'you migrate.',
       children: [
         el('div', [
           WiredCard(
@@ -299,52 +293,7 @@ class CodeSample extends StatelessComponent {
               {'aria-label': 'main.dart', 'tabindex': '0'},
             ),
           ),
-          el('ul', [
-            for (final (seed, title, body) in const [
-              (
-                420,
-                'Accessible by default',
-                'Semantics, focus, and text scaling on every widget, checked at three widths.',
-              ),
-              (
-                421,
-                'Light, dark, high contrast',
-                'Theme variants and three pens, swapped in one place.',
-              ),
-              (
-                422,
-                'Motion that respects users',
-                'Ink draws on and boils, and stops when reduced motion is on.',
-              ),
-              (
-                423,
-                'Material bridge',
-                'WiredMaterialApp keeps an existing app running while you move over.',
-              ),
-            ])
-              el('li', [
-                doodle(
-                  width: 34,
-                  height: 34,
-                  classes: 'draw',
-                  marks: [
-                    Mark(
-                      roughStar(
-                        Pen.playful.generator(seed, fill: RoughFillStyle.solid),
-                        17,
-                        17,
-                        14,
-                      ),
-                      fill: Tone.sun,
-                    ),
-                  ],
-                ),
-                el('div', [
-                  el('h3', [t(title)]),
-                  para(body),
-                ]),
-              ]),
-          ], 'perks reveal'),
+          const _AppPreview(),
         ], 'code-grid'),
         el('div', [
           WiredButton(
@@ -359,6 +308,45 @@ class CodeSample extends StatelessComponent {
   }
 }
 
+/// What the code sample draws: an app bar and a button on sketch paper.
+class _AppPreview extends StatelessComponent {
+  const _AppPreview();
+
+  @override
+  Component build(BuildContext context) {
+    return el('figure', [
+      WiredCard(
+        seed: 415,
+        classes: 'app-preview',
+        child: Component.fragment([
+          el('div', [
+            t('Hello'),
+            doodle(
+              width: 300,
+              height: 10,
+              stretch: true,
+              classes: 'app-preview-rule',
+              marks: [
+                Mark(
+                  roughCurve(Pen.playful.generator(416), [
+                    (2, 5),
+                    (150, 6),
+                    (298, 4),
+                  ]),
+                ),
+              ],
+            ),
+          ], 'app-preview-bar'),
+          el('div', [
+            WiredButton(seed: 417, child: t('Press me')),
+          ], 'app-preview-body'),
+        ]),
+      ),
+      el('figcaption', [t('What it draws')]),
+    ], 'app-preview-figure reveal');
+  }
+}
+
 /// Where skribble goes beyond Flutter: this page, design files, and the
 /// engine itself.
 class BeyondFlutter extends StatelessComponent {
@@ -369,25 +357,22 @@ class BeyondFlutter extends StatelessComponent {
   Component build(BuildContext context) {
     final cards = [
       (
-        'This page is a demo',
-        'Every line here was drawn on the server by skribble_jaspr and '
-            'shipped as plain SVG. The controls work without JavaScript.',
+        'This page',
+        'Drawn on the server with skribble_jaspr.',
         SiteLinks.jaspr,
         'Build with Jaspr',
         Tone.coral,
       ),
       (
-        'A pure Dart engine',
-        'skribble_rough turns shapes into seeded SVG paths anywhere Dart '
-            'runs: servers, CLIs, and build scripts.',
+        'skribble_rough',
+        'Seeded SVG anywhere Dart runs.',
         SiteLinks.roughEngine,
         'Meet the engine',
         Tone.mint,
       ),
       (
-        'Design in Figma',
-        'Components, colours, and flourishes in an editable Figma file that '
-            'mirrors the Flutter widgets.',
+        'Figma kit',
+        'Every widget, ready to remix.',
         SiteLinks.designKit,
         'Open the design kit',
         Tone.lilac,
@@ -453,10 +438,6 @@ class Closing extends StatelessComponent {
           ],
         ),
         el('h2', [t('Grab a pen.')], null, {'id': 'closing-title'}),
-        para(
-          'Add skribble to a Flutter app and give it a hand-drawn look '
-          'people remember.',
-        ),
         el('div', [
           WiredButton(
             href: SiteLinks.install,

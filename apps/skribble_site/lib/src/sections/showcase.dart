@@ -101,11 +101,7 @@ class FillGallery extends StatelessComponent {
           child: Component.text('hand-drawn'),
         ),
       ],
-      lede:
-          'skribble draws each outline and fill with a seeded pen. The same '
-          'seed always makes the same sketch, so screenshots, golden tests, '
-          'and static builds stay stable. Change the seed and the hand moves '
-          'differently.',
+      lede: 'Same seed, same sketch. New seed, new hand.',
       children: [
         el(
           'div',
@@ -216,22 +212,13 @@ class PenComparison extends StatelessComponent {
   /// Creates the comparison.
   const PenComparison({super.key});
 
-  static const Map<Pen, String> _copy = {
-    Pen.gentle: 'Calm lines for dense screens and long reading.',
-    Pen.playful: 'The default: lively, tidy, and friendly.',
-    Pen.expressive: 'Loose and loud, for games and splash screens.',
-  };
-
   @override
   Component build(BuildContext context) {
     return pageSection(
       id: 'pens',
       eyebrow: 'Themes',
       title: [t('Three pens, one design system')],
-      lede:
-          'A pen sets how rough every border, fill, and letter is. Switch it '
-          'in one place and the whole app redraws: Gentle, Playful, or '
-          'Expressive, in light or dark paper.',
+      lede: 'One setting redraws the whole app.',
       children: [
         el('div', [
           for (final (index, pen) in Pen.values.indexed)
@@ -246,7 +233,6 @@ class PenComparison extends StatelessComponent {
                   marks: [Mark(roughBox(pen.generator(140 + index), 320, 300))],
                 ),
                 el('h3', [t(_title(pen))]),
-                para(_copy[pen]!),
                 el('div', [
                   el('span', [
                     doodle(
@@ -376,10 +362,7 @@ class Playground extends StatelessComponent {
           child: Component.text('ink'),
         ),
       ],
-      lede:
-          'These are native HTML controls under server-drawn ink, so they '
-          'work with a keyboard and a screen reader. In Flutter, the Wired '
-          'widgets do the same with semantics, focus, and text scaling built in.',
+      lede: 'Real inputs. Go on, poke them.',
       children: [
         el('div', [
           card(201, 'WiredCheckbox', 'docs/widgets/selection', [

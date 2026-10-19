@@ -34,6 +34,15 @@ void main() {
       expect(reduced, contains('transition: none'));
     });
 
+    test('keeps overlays wider than their box under an svg reset', () {
+      final ink = skribbleCss.substring(
+        skribbleCss.indexOf('.skribble-ink {'),
+        skribbleCss.indexOf('}', skribbleCss.indexOf('.skribble-ink {')),
+      );
+
+      expect(ink, contains('max-width: none'));
+    });
+
     test('draws a visible keyboard focus ring', () {
       expect(skribbleCss, contains('.skribble-button:focus-visible'));
       expect(skribbleCss, contains('outline: 2px dashed'));

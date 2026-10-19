@@ -21,7 +21,11 @@ dart run apps/skribble_site/bin/build.dart \
   --site-url=https://skribble.dev
 ```
 
-The build writes `index.html`, `404.html`, `site.css`, `site.js`, the favicon, the font faces the page uses (from `packages/skribble_font_recursive`), and the featured emoji (from `packages/skribble_emoji/art`, with palette tokens resolved).
+The build writes `index.html`, `404.html`, `site.css`, `site.js`, the favicon, the fonts, and the featured emoji (from `packages/skribble_emoji/art`, with palette tokens resolved).
+
+Fonts come from the font packages: the Recursive families from `packages/skribble_font_recursive`, and Skribble Noto at each level from `packages/skribble_font_noto`, `skribble_font_noto_sketch`, and `skribble_font_noto_lively`. A family is left out until its package is in the workspace. Each face is written as a WOFF holding Latin, Latin-1, and Latin Extended-A, with `pyftsubset` from [fontTools](https://fonttools.readthedocs.io/en/latest/subset/) (in `devenv shell`, or `pip install fonttools`). That is about a quarter of the TrueType size.
+
+The page preloads the faces it uses above the fold (`criticalFaces` in `lib/src/assets.dart`) and stays hidden until they load, for at most 3 seconds, so it never paints in a fallback font and then reflows. Without JavaScript, nothing is hidden.
 
 ## How it fits together
 

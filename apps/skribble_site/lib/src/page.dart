@@ -75,13 +75,14 @@ class SitePage extends StatelessComponent {
           'href': 'favicon.svg',
           'type': 'image/svg+xml',
         }),
-        el('link', const [], null, {
-          'rel': 'preload',
-          'href': 'fonts/SkribblePlayful-Regular.ttf',
-          'as': 'font',
-          'type': 'font/ttf',
-          'crossorigin': '',
-        }),
+        for (final (_, file, _) in criticalFaces)
+          el('link', const [], null, {
+            'rel': 'preload',
+            'href': 'fonts/$file',
+            'as': 'font',
+            'type': 'font/woff',
+            'crossorigin': '',
+          }),
         for (final (property, content) in [
           ('og:type', 'website'),
           ('og:title', title),
@@ -100,6 +101,7 @@ class SitePage extends StatelessComponent {
         el('script', const [RawText(_bootScript)]),
         if (headScript case final script?) el('script', [RawText(script)]),
         el('style', [RawText(fontFaceCss(assets.fonts))]),
+        el('script', [RawText(_inkReadyScript)]),
         el('style', [const RawText(skribbleCss)]),
         el('style', [
           RawText(':root{--slider-thumb:${sliderThumbDataUri()}}'),
@@ -121,6 +123,32 @@ class SitePage extends StatelessComponent {
     );
   }
 }
+
+/// Holds the page back until the [criticalFaces] load, for at most 3
+/// seconds, so it never paints in a fallback font and then reflows.
+///
+/// It runs after the `@font-face` rules so `document.fonts.load` can find
+/// them. The stylesheet hides the page while the root has `inking`, and
+/// `site.js` starts its reveals on the `skribble:inked` event. Without
+/// JavaScript or the Font Loading API nothing is hidden.
+final _inkReadyScript =
+    '''
+(function (root) {
+  if (!document.fonts || !document.fonts.load) return;
+  root.classList.add("inking");
+  var done = false;
+  function show() {
+    if (done) return;
+    done = true;
+    root.classList.remove("inking");
+    document.dispatchEvent(new Event("skribble:inked"));
+  }
+  var faces = [${criticalFaces.map((face) => '"${face.$3} 1em ${face.$1}"').join(', ')}];
+  Promise.all(faces.map(function (face) {
+    return document.fonts.load(face);
+  })).then(show, show);
+  setTimeout(show, 3000);
+})(document.documentElement);''';
 
 /// SVG filters that make clean artwork wobble like a hand-drawn line.
 ///
