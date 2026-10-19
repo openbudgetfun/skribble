@@ -32,7 +32,7 @@ Future<void> exportDesignKit(
   await fonts.create(recursive: true);
   await specimens.create(recursive: true);
 
-  for (final font in WiredFont.values) {
+  for (final font in WiredFont.recursiveFonts) {
     for (final level in WiredRoughness.values) {
       final family = font.familyFor(level);
 

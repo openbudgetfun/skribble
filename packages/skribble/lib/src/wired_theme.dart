@@ -60,8 +60,10 @@ class WiredThemeData {
   String get fontFamily => _fontFamily ?? font.familyFor(roughnessLevel);
 
   /// Asset package for bundled fonts, or null for an app-provided family.
-  String? get fontPackage =>
-      WiredFont.isBundled(fontFamily) ? 'skribble_font_recursive' : null;
+  ///
+  /// Recursive families resolve to `skribble_font_recursive`; Skribble Noto
+  /// families resolve to their own `skribble_font_noto*` package.
+  String? get fontPackage => WiredFont.packageFor(fontFamily);
 
   WiredThemeData({
     this.motionEnabled = true,

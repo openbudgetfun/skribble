@@ -9,7 +9,7 @@ flutter pub get
 flutter run -d chrome   # or any device
 ```
 
-The toolbar changes the bundled Casual, Linear, or Mono font and the Gentle, Playful, or Expressive ink style across every page. The app depends explicitly on `skribble_font_recursive` so release builds include the same fonts as the docs.
+The toolbar changes the bundled Casual, Linear, or Mono font, the three Skribble Noto levels (Noto, Noto Sketch, Noto Lively), and the Gentle, Playful, or Expressive ink style across every page. The app depends explicitly on `skribble_font_recursive` and the three `skribble_font_noto*` packages so release builds include the same fonts as the docs.
 
 ## What's inside
 

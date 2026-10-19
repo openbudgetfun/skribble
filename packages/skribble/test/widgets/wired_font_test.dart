@@ -22,15 +22,79 @@ void main() {
           roughnessLevel: level,
         );
         expect(theme.fontFamily, font.familyFor(level));
-        expect(theme.fontPackage, 'skribble_font_recursive');
+        expect(theme.fontPackage, font.package);
         expect(theme.roughness, level.roughness);
         expect(theme.copyWith(strokeWidth: 3).font, font);
         expect(
           theme.toThemeData().textTheme.bodyMedium!.fontFamily,
-          'packages/skribble_font_recursive/${font.familyFor(level)}',
+          'packages/${font.package}/${font.familyFor(level)}',
         );
       }
     }
+  });
+
+  test('recursive typefaces follow the roughness from one package', () {
+    expect(WiredFont.recursiveFonts, [
+      WiredFont.casual,
+      WiredFont.linear,
+      WiredFont.mono,
+    ]);
+    for (final font in WiredFont.recursiveFonts) {
+      expect(font.followsRoughness, isTrue);
+      expect(font.package, 'skribble_font_recursive');
+      final families = {
+        for (final level in WiredRoughness.values) font.familyFor(level),
+      };
+      expect(families, hasLength(WiredRoughness.values.length));
+    }
+  });
+
+  test('Skribble Noto levels are fixed families in their own packages', () {
+    expect(WiredFont.notoFonts, [
+      WiredFont.noto,
+      WiredFont.notoSketch,
+      WiredFont.notoLively,
+    ]);
+    const expected = {
+      WiredFont.noto: ('SkribbleNoto', 'skribble_font_noto'),
+      WiredFont.notoSketch: ('SkribbleNotoSketch', 'skribble_font_noto_sketch'),
+      WiredFont.notoLively: ('SkribbleNotoLively', 'skribble_font_noto_lively'),
+    };
+    for (final MapEntry(key: font, value: (family, package))
+        in expected.entries) {
+      expect(font.followsRoughness, isFalse);
+      expect(font.package, package);
+      for (final level in WiredRoughness.values) {
+        expect(font.familyFor(level), family);
+      }
+      expect(WiredFont.isBundled(family), isTrue);
+      expect(WiredFont.packageFor(family), package);
+      expect(WiredThemeData(fontFamily: family).fontPackage, package);
+    }
+  });
+
+  test('Skribble Noto keeps the theme ink while changing the lettering', () {
+    final theme = WiredThemeData(
+      font: WiredFont.notoSketch,
+      roughnessLevel: WiredRoughness.expressive,
+    );
+    expect(theme.fontFamily, 'SkribbleNotoSketch');
+    expect(theme.fontPackage, 'skribble_font_noto_sketch');
+    expect(theme.roughness, WiredRoughness.expressive.roughness);
+    expect(
+      theme.copyWith(font: WiredFont.noto).fontFamily,
+      'SkribbleNoto',
+    );
+    expect(
+      theme.copyWith(font: WiredFont.casual).fontPackage,
+      'skribble_font_recursive',
+    );
+  });
+
+  test('unknown families resolve to no package', () {
+    expect(WiredFont.packageFor('Noto Sans'), isNull);
+    expect(WiredFont.packageFor(''), isNull);
+    expect(WiredFont.isBundled('SkribbleNotoSoft'), isFalse);
   });
 
   test('explicit font overrides survive family and roughness changes', () {

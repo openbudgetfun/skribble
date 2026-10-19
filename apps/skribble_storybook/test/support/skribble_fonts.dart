@@ -6,7 +6,18 @@ import 'package:flutter/services.dart';
 /// tests and rendered frames uses the real typefaces instead of the test
 /// font. Run from a package two levels below the repository root.
 Future<void> loadSkribbleFonts() async {
-  const root = '../../packages/skribble_font_recursive';
+  for (final package in const [
+    'skribble_font_recursive',
+    'skribble_font_noto',
+    'skribble_font_noto_sketch',
+    'skribble_font_noto_lively',
+  ]) {
+    await _loadPackageFonts(package);
+  }
+}
+
+Future<void> _loadPackageFonts(String package) async {
+  final root = '../../packages/$package';
   String? family;
   final families = <String, List<String>>{};
   for (final line in File('$root/pubspec.yaml').readAsLinesSync()) {
@@ -20,7 +31,7 @@ Future<void> loadSkribbleFonts() async {
     if (asset != null && family != null) families[family]!.add(asset.group(1)!);
   }
   for (final MapEntry(key: name, value: assets) in families.entries) {
-    final loader = FontLoader('packages/skribble_font_recursive/$name');
+    final loader = FontLoader('packages/$package/$name');
     for (final asset in assets) {
       final bytes = File('$root/$asset').readAsBytesSync();
       loader.addFont(Future.value(ByteData.sublistView(bytes)));
