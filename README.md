@@ -74,6 +74,7 @@ Use `WiredThemeData.cuddly()` for warm paper and plum ink, or pass `brightness: 
 | App                                              | Description                             |
 | ------------------------------------------------ | --------------------------------------- |
 | [`skribble_storybook`](apps/skribble_storybook/) | Interactive demo showcasing all widgets |
+| [`skribble_site`](apps/skribble_site/)           | The skribble.dev landing page (Jaspr)   |
 
 ## Quick Start
 

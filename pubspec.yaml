@@ -25,6 +25,7 @@ workspace:
   - apps/skribble_storybook
   - apps/skribble_benchmark
   - apps/skribble_example
+  - apps/skribble_site
 
 dev_dependencies:
   melos: ^7.4.0

@@ -213,8 +213,14 @@ melos run rough-icons-ci-check
 
 The documentation app belongs to the Dart workspace and renders the canonical Markdown under `docs/site/content/`. Add a Markdown file in an existing content directory and it appears in the catalog automatically. For a new directory, also add its asset path to the docs pubspec. Shared MDT content still comes from `templates/*.t.md`.
 
-Run `docs:site:serve --web-port=4178` to preview the app. `docs:site:build --base-href=/skribble/` produces `docs/site/build/web/`, including per-route entrypoints for direct GitHub Pages reloads. The Pages workflow bundles the separate storybook under `/storybook/`.
+Run `docs:site:serve --web-port=4178` to preview the app. `docs:site:build --base-href=/skribble/docs/` produces `docs/site/build/web/`, including per-route entrypoints for direct GitHub Pages reloads. The Pages workflow serves the docs under `docs/`, beneath the [landing page](#develop-the-landing-page), and bundles the separate storybook under `docs/storybook/`.
 
 Widget tests render and scroll every page at mobile and desktop widths. Patrol browser journeys exercise live examples, responsive navigation, and real clipboard access. Run them from `docs/site` with `patrol test --device chrome --target integration_test/docs_test.dart --web-headless`.
 
 Preserve ordinary text selection when changing the article renderer. Copy buttons complement selection; they do not replace it. Cache parsing outside scrolling, avoid rebuilding the article on animation ticks, and inspect a release build before claiming a scrolling improvement.
+
+## Develop the landing page
+
+The skribble.dev landing page lives in `apps/skribble_site`. It is a [Jaspr](https://jaspr.site) app rendered to static HTML with `skribble_jaspr`, so the page ships hand-drawn SVG and a small enhancement script rather than a Flutter canvas. Run `site:serve` to build it and open `http://localhost:8080/`, or `site:build --base-path=/skribble/` to build for a sub-path.
+
+`dart test` in `apps/skribble_site` checks accessibility attributes, stable markup, and that every `docs/...` link has a page here. Check visual changes in light and dark at 360, 768, and 1280 pixels, with reduced motion on and off.
