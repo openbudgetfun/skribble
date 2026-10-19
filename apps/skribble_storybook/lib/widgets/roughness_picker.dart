@@ -64,8 +64,8 @@ class WiredRoughnessPicker extends HookWidget {
                     WiredFont.linear => 'Linear',
                     WiredFont.mono => 'Mono',
                     WiredFont.noto => 'Noto',
-                    WiredFont.notoSketch => 'Noto Sketch',
-                    WiredFont.notoLively => 'Noto Lively',
+                    WiredFont.notoSketch => 'Sketch',
+                    WiredFont.notoLively => 'Lively',
                   }),
 
                   selected: family == font,
