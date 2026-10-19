@@ -57,10 +57,10 @@ Points are `[x, y]` pairs or `{ x, y }` objects. Pass an array of shapes to draw
 | Option                | Default        | What it does                                                                  |
 | --------------------- | -------------- | ----------------------------------------------------------------------------- |
 | `seed`                | `1`            | Chooses the wobble. The same seed always draws the same shape.                |
-| `roughness`           | `1.8`          | Scales every random displacement.                                             |
+| `roughness`           | `1.1`          | Scales every random displacement.                                             |
 | `bowing`              | `1`            | How far straight edges bow away from their chord.                             |
-| `lineWobble`          | `1`            | Local wandering along long edges; `0` keeps softly bowed lines.               |
-| `maxRandomnessOffset` | `2`            | Largest endpoint displacement before roughness.                               |
+| `lineWobble`          | `0.35`         | Local wandering along long edges; `0` keeps softly bowed lines.               |
+| `maxRandomnessOffset` | `1.2`          | Largest endpoint displacement before roughness.                               |
 | `curveFitting`        | `0.95`         | How closely ellipses follow their ideal radius.                               |
 | `curveTightness`      | `0`            | Catmull-Rom tension for curves.                                               |
 | `curveStepCount`      | `9`            | Minimum points used for a full ellipse.                                       |
@@ -98,7 +98,7 @@ What is different:
 - **Deterministic by default.** Shapes without a `seed` take consecutive seeds (1, 2, 3, ...) instead of random ones, so a page draws the same way on every load and on the server.
 - **Ink, not strokes.** Outlines are drawn as filled pen shapes with tapered ends and a lighter second pass. Pass `pen: "uniform"` (or `ink: false`) for rough.js-style constant-width strokes.
 - **Fill options.** The width of hachure lines is `sketchWidth`; `fillWeight` sizes dots and solid-fill wander instead. `zigzag-line` fills and `path()` from SVG path data are not available yet.
-- **Defaults** follow skribble: `roughness` 1.8, `hachureAngle` 320, `hachureGap` 8, `strokeWidth` 1.5, and `currentColor` for every colour. Canvas resolves `currentColor` from the canvas element's CSS `color`.
+- **Defaults** follow skribble: `roughness` 1.1, `hachureAngle` 320, `hachureGap` 8, `strokeWidth` 1.5, and `currentColor` for every colour. Canvas resolves `currentColor` from the canvas element's CSS `color`.
 - **`linearPath`** is open, as in rough.js. The low-level `Generator.linearPath` closes the path by default to match the Dart engine.
 
 ## Paint anywhere

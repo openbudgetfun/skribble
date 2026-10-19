@@ -142,7 +142,12 @@ export abstract class Filler {
           if ((edges[i] as Edge).yMin > y) break;
           ix = i;
         }
-        activeEdges.push(...edges.splice(0, ix + 1));
+        // An edge that starts between scanlines joins at this one, so its
+        // intercept moves along the edge to y. Starting it at yMin pushed lines
+        // past short, shallow edges such as rounded corners.
+        for (const edge of edges.splice(0, ix + 1)) {
+          activeEdges.push({ ...edge, x: edge.x + (y - edge.yMin) * edge.slope });
+        }
       }
       activeEdges = activeEdges.filter((edge) => edge.yMax > y);
       dartSort(activeEdges, (a, b) => compareDoubles(a.x, b.x));

@@ -26,10 +26,10 @@ export interface DrawConfigOptions {
 type ResolvedDrawConfig = Required<DrawConfigOptions>;
 
 const defaults: ResolvedDrawConfig = {
-  maxRandomnessOffset: 2,
-  roughness: 1.8,
+  maxRandomnessOffset: 1.2,
+  roughness: 1.1,
   bowing: 1,
-  lineWobble: 1,
+  lineWobble: 0.35,
   curveFitting: 0.95,
   curveTightness: 0,
   curveStepCount: 9,

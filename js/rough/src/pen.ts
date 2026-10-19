@@ -61,8 +61,8 @@ export class RoughPen {
     this.taperOut = options.taperOut ?? 7;
     this.pressure = options.pressure ?? 0.14;
     this.pressureWavelength = options.pressureWavelength ?? 26;
-    this.repeatWidth = options.repeatWidth ?? 0.6;
-    this.repeatCoverage = options.repeatCoverage ?? 0.7;
+    this.repeatWidth = options.repeatWidth ?? 0.5;
+    this.repeatCoverage = options.repeatCoverage ?? 0.45;
     this.closure = options.closure ?? 2.5;
     this.closureDrift = options.closureDrift ?? 0.9;
   }
