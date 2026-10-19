@@ -11,7 +11,7 @@ skribble provides layout and structural widgets that form the scaffolding of you
 
 ## WiredCard
 
-Card outlines use 12 px corners by default. The `borderRadius` parameter accepts custom or square corners. Two continuous pen passes keep the corners soft while retaining the selected roughness.
+Card outlines use 16 px corners by default. The `borderRadius` parameter accepts custom or square corners. Two continuous pen passes keep the corners soft while retaining the selected roughness.
 
 A card with a hand-drawn rectangle border. Supports optional hachure fill for a more prominent appearance.
 
@@ -25,16 +25,16 @@ WiredCard(
 
 ### Constructor parameters
 
-| Parameter | Type      | Default | Description                                           |
-| --------- | --------- | ------- | ----------------------------------------------------- |
-| `child`   | `Widget?` | `null`  | The card content.                                     |
-| `fill`    | `bool`    | `false` | Whether to apply hachure fill to the card background. |
-| `height`  | `double?` | `130.0` | Card height. Set to `null` for intrinsic sizing.      |
+| Parameter | Type      | Default | Description                                                                   |
+| --------- | --------- | ------- | ----------------------------------------------------------------------------- |
+| `child`   | `Widget?` | `null`  | The card content.                                                             |
+| `fill`    | `bool`    | `false` | Whether to colour the card in with close pencil strokes of `theme.fillColor`. |
+| `height`  | `double?` | `130.0` | Card height. Set to `null` for intrinsic sizing.                              |
 
 ### Notes
 
 - The border uses `WiredRectangleBase` with `theme.fillColor` and `theme.borderColor`.
-- When `fill` is `true`, the card gets a `RoughFilter.hachureFiller` background.
+- When `fill` is `true`, the card is coloured in with even hachure strokes 7 px apart, drawn with the theme's hand so they stay inside the outline. Wrap the card in a `WiredTheme` with a pastel `fillColor` to tint it.
 - When `height` is `null`, the card uses `IntrinsicHeight` to size itself to its content.
 - The internal `Card` has transparent color and shadow so the hand-drawn border is the only visible chrome.
 
@@ -607,7 +607,7 @@ HookBuilder(
 
 ## Shared ink and typography
 
-Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.
+Borders in this category now use the nearest `WiredThemeData.strokeWidth` (1.6 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.
 
 <!-- {/docsWidgetInkSection} -->
 

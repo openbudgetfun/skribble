@@ -44,7 +44,7 @@ class WiredCheckbox extends HookWidget {
     required this.value,
     this.onChanged,
     this.semanticLabel,
-    this.borderRadius = const BorderRadius.all(Radius.circular(4)),
+    this.borderRadius = const BorderRadius.all(Radius.circular(6)),
   });
 
   @override

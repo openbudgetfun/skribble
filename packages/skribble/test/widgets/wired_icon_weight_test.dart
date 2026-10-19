@@ -169,6 +169,75 @@ void main() {
       expect(_ink(pixels), greaterThan(0));
     });
 
+    test('icons default to a marker fill', () {
+      expect(
+        const WiredIcon(icon: IconData(0xe156)).fillStyle,
+        WiredIconFillStyle.marker,
+      );
+      expect(
+        const WiredSvgIcon(data: _frame).fillStyle,
+        WiredIconFillStyle.marker,
+      );
+      expect(
+        const SkribbleIcon(data: _frame).fillStyle,
+        WiredIconFillStyle.marker,
+      );
+    });
+
+    testWidgets('marker colours a silhouette in with a visible grain', (
+      tester,
+    ) async {
+      final pixels = await _render(
+        tester,
+        const WiredSvgIcon(
+          data: WiredSvgIconData(
+            width: 24,
+            height: 24,
+            primitives: [WiredSvgPrimitive.path('M2 2H22V22H2Z')],
+          ),
+          size: 48,
+          color: Color(0xff000000),
+        ),
+      );
+      // Sample the middle of the 96px render, well inside the outline.
+      final alphas = <int>{
+        for (var y = 32; y < 64; y++)
+          for (var x = 32; x < 64; x++) pixels[(y * 96 + x) * 4 + 3],
+      };
+      final lightest = alphas.reduce((a, b) => a < b ? a : b);
+      final darkest = alphas.reduce((a, b) => a > b ? a : b);
+      expect(lightest, greaterThan(150), reason: 'coloured in, no gaps');
+      expect(
+        darkest - lightest,
+        greaterThan(20),
+        reason: 'overlapping strokes darken, so the fill is not flat',
+      );
+    });
+
+    testWidgets('currentColor silhouettes follow the fill style', (
+      tester,
+    ) async {
+      final pixels = await _render(
+        tester,
+        const WiredSvgIcon(
+          data: WiredSvgIconData(
+            width: 24,
+            height: 24,
+            primitives: [
+              WiredSvgPrimitive.path(
+                'M2 2H22V22H2Z',
+                fillColor: 'currentColor',
+              ),
+            ],
+          ),
+          size: 48,
+          fillStyle: WiredIconFillStyle.none,
+        ),
+      );
+      expect(pixels[(48 * 96 + 48) * 4 + 3], 0, reason: 'outline only');
+      expect(_ink(pixels), greaterThan(0));
+    });
+
     testWidgets('every fill style paints without errors', (tester) async {
       for (final style in WiredIconFillStyle.values) {
         final pixels = await _render(

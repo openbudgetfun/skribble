@@ -23,6 +23,11 @@ enum WiredIconFillStyle {
 
   /// Two crossing sets of pen strokes inside the silhouette, plus its outline.
   crossHatch,
+
+  /// Coloured in with broad, overlapping marker strokes, then outlined with
+  /// the theme pen, the way a filled shape is drawn by hand. The strokes
+  /// darken where they overlap, so the fill keeps a visible grain.
+  marker,
 }
 
 /// Converts a Flutter icon weight (100–700, normal 400) into a pen multiplier.
@@ -38,6 +43,11 @@ double wiredIconWeightFactor(double weight) {
 /// source units. Silhouette icons are drawn as if their strokes were this
 /// wide, which is what most 24-unit icon grids use.
 const double _silhouettePen = 2;
+
+/// How far a filled shape's edges waver, relative to [waverPath]'s default.
+/// Filled shapes have no pen stroke to carry the hand, so their outline has
+/// to wander visibly for the icon to read as drawn.
+const double _silhouetteWaver = 0.2;
 
 /// Icon geometry scaled into a square of the rendered size.
 final class PreparedIconPrimitive {
@@ -224,6 +234,7 @@ final class _PrimitiveInk {
   late final List<WaveredContour> _fillContours = waverPath(
     primitive.path,
     _config,
+    amplitude: _silhouetteWaver,
   );
 
   late final Path _fill = waveredPolygons(
@@ -251,6 +262,21 @@ final class _PrimitiveInk {
   );
 
   late final Path _hachure = _hachureInk(painter.hachureAngle);
+
+  /// Marker strokes are a little wider than their spacing, so neighbours
+  /// overlap. Alternate strokes go in separate paths: each path paints once
+  /// with a translucent marker, and the overlaps between the two darken.
+  late final double _markerWidth = 2.2 * primitive.scale;
+  late final (Path, Path) _marker = _markerInk(painter.hachureAngle);
+  Path get _markerEven => _marker.$1;
+  Path get _markerOdd => _marker.$2;
+  late final Paint _markerPaint = Paint()
+    ..color = painter.color.withValues(alpha: painter.color.a * 0.72)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = _markerWidth
+    ..strokeCap = StrokeCap.round
+    ..strokeJoin = StrokeJoin.round
+    ..isAntiAlias = true;
   late final Path _crossHatch = _hachureInk(painter.hachureAngle + 90);
 
   // Painters are shared and long-lived (see the cache in wired_icon.dart), so
@@ -287,7 +313,10 @@ final class _PrimitiveInk {
       // for", which is how outline sets like Lucide stay themeable.
       if (primitive.fills) {
         if (primitive.fillIsAmbient && !primitive.strokes) {
-          _paintWeightedFill(canvas);
+          // A `currentColor` silhouette (brand marks, for instance) is the
+          // same as one with no paint at all: drawn in the ambient colour,
+          // in the requested fill style.
+          _paintSilhouette(canvas);
         } else {
           canvas.drawPath(_fill, _ownFillSolid);
         }
@@ -299,6 +328,12 @@ final class _PrimitiveInk {
       return;
     }
 
+    _paintSilhouette(canvas);
+    canvas.restore();
+  }
+
+  /// Draws an ambient silhouette in the painter's fill style.
+  void _paintSilhouette(Canvas canvas) {
     switch (painter.fillStyle) {
       case WiredIconFillStyle.none:
         canvas.drawPath(_outlineInk, _ambientSolid);
@@ -311,6 +346,14 @@ final class _PrimitiveInk {
           ..drawPath(_hachure, _ambientSolid)
           ..restore()
           ..drawPath(_outlineInk, _ambientSolid);
+      case WiredIconFillStyle.marker:
+        canvas
+          ..save()
+          ..clipPath(_fill)
+          ..drawPath(_markerEven, _markerPaint)
+          ..drawPath(_markerOdd, _markerPaint)
+          ..restore()
+          ..drawPath(_outlineInk, _ambientSolid);
       case WiredIconFillStyle.crossHatch:
         canvas
           ..save()
@@ -320,7 +363,6 @@ final class _PrimitiveInk {
           ..restore()
           ..drawPath(_outlineInk, _ambientSolid);
     }
-    canvas.restore();
   }
 
   /// Fills the silhouette, growing or shrinking it to the requested weight.
@@ -372,6 +414,35 @@ final class _PrimitiveInk {
       ).writeOutline(sink);
     }
     return sink.path;
+  }
+
+  (Path, Path) _markerInk(double angleDegrees) {
+    final bounds = _fill.getBounds();
+    if (bounds.isEmpty) return (Path(), Path());
+    final gap = _markerWidth * 0.7;
+    final radians = angleDegrees * (math.pi / 180);
+    final direction = Offset(math.cos(radians), math.sin(radians));
+    final normal = Offset(-direction.dy, direction.dx);
+    final reach = bounds.longestSide;
+    final span =
+        bounds.width * normal.dx.abs() + bounds.height * normal.dy.abs();
+    final count = (span / gap / 2).ceil() + 1;
+    final bow = 0.35 * primitive.scale * _config.roughness;
+    final even = Path();
+    final odd = Path();
+    for (var i = -count; i <= count; i++) {
+      final base = bounds.center + normal * (gap * i);
+      final start = base - direction * reach;
+      final end = base + direction * reach;
+      // Each stroke bows a little, by a seeded amount, like a quick pass of
+      // a hand-held marker.
+      final control =
+          base + normal * (bow * math.sin(i * 1.7 + _config.seed + index));
+      (i.isEven ? even : odd)
+        ..moveTo(start.dx, start.dy)
+        ..quadraticBezierTo(control.dx, control.dy, end.dx, end.dy);
+    }
+    return (even, odd);
   }
 
   Path _hachureInk(double angleDegrees) {

@@ -2,13 +2,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
 
-/// A floating action button with a hand-drawn circle.
+/// A floating action button: a hand-drawn circle washed with the theme's
+/// `markerColor`, with its icon in the theme's text colour.
 class WiredFloatingActionButton extends HookWidget {
   final IconData icon;
   final VoidCallback? onPressed;
@@ -49,15 +49,14 @@ class WiredFloatingActionButton extends HookWidget {
                   painter: WiredCircleBase(
                     strokeWidth: theme.strokeWidth,
                     diameterRatio: 0.9,
-                    fillColor: theme.borderColor,
+                    fillColor: theme.markerColor,
                     borderColor: theme.borderColor,
                   ),
-                  fillerType: RoughFilter.hachureFiller,
-                  fillerConfig: FillerConfig.build(hachureGap: 2.0),
+                  fillerType: RoughFilter.solidFiller,
                 ),
                 WiredIcon(
                   icon: icon,
-                  color: iconColor ?? theme.fillColor,
+                  color: iconColor ?? theme.textColor,
                   size: size * 0.43,
                 ),
               ],

@@ -1,18 +1,26 @@
-import 'dart:math' as math;
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
-/// A badge overlay with a hand-drawn circle indicator.
+/// A badge overlay: a hand-drawn dot, or a pill around a short [label].
+///
+/// The badge is washed with the theme's `markerColor` and inked like the
+/// rest of the interface, with the label in the theme's text colour.
 class WiredBadge extends HookWidget {
+  /// The widget the badge sits on.
   final Widget child;
+
+  /// Short text in the badge, such as a count or "new". Null draws a dot.
   final String? label;
+
+  /// Whether the badge is shown.
   final bool isVisible;
+
+  /// Wash behind the badge. Defaults to the theme's `markerColor`; pick a
+  /// colour that keeps the theme's text colour legible on it.
   final Color? backgroundColor;
 
   const WiredBadge({
@@ -26,6 +34,7 @@ class WiredBadge extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
+    final fill = backgroundColor ?? theme.markerColor;
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -34,36 +43,53 @@ class WiredBadge extends HookWidget {
           Positioned(
             right: -6,
             top: -6,
-            child: SizedBox(
-              width: label == null
-                  ? 16
-                  : math.max(16.0, label!.length * 8.0 + 8.0),
-              height: 16,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  WiredCanvas(
-                    painter: WiredCircleBase(
-                      strokeWidth: theme.strokeWidth,
-                      fillColor: backgroundColor ?? theme.borderColor,
-                      diameterRatio: 0.9,
-                      borderColor: theme.borderColor,
-                    ),
-                    fillerType: RoughFilter.hachureFiller,
-                    fillerConfig: FillerConfig.build(hachureGap: 1.0),
-                  ),
-                  if (label != null)
-                    Text(
-                      label!,
-                      style: const TextStyle(
-                        color: Color(0xFFFFFFFF),
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
+            child: label == null
+                ? SizedBox.square(
+                    dimension: 16,
+                    child: WiredCanvas(
+                      painter: WiredCircleBase(
+                        strokeWidth: theme.strokeWidth,
+                        fillColor: fill,
+                        diameterRatio: 0.9,
+                        borderColor: theme.borderColor,
                       ),
+                      fillerType: RoughFilter.solidFiller,
                     ),
-                ],
-              ),
-            ),
+                  )
+                // A label sits in a pill that grows with it, so the text
+                // never spills past the ink.
+                : Stack(
+                    children: [
+                      Positioned.fill(
+                        child: WiredCanvas(
+                          painter: WiredRoundedRectangleBase(
+                            strokeWidth: theme.strokeWidth,
+                            fillColor: fill,
+                            borderColor: theme.borderColor,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(9),
+                            ),
+                          ),
+                          fillerType: RoughFilter.solidFiller,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
+                        child: Text(
+                          label!,
+                          style: TextStyle(
+                            color: theme.textColor,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            height: 1.2,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
           ),
       ],
     );

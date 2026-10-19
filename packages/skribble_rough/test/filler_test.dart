@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:skribble_rough/skribble_rough.dart';
 import 'package:test/test.dart';
 
@@ -35,6 +37,39 @@ void main() {
   });
 
   group('HachureFiller', () {
+    test('lines stay inside a polygon with short, shallow edges', () {
+      // A rounded rectangle sampled the way Generator.roundedRectangle samples
+      // its corners: many short edges that start between scanlines.
+      const left = 3.0;
+      const top = 3.0;
+      const right = 256.0;
+      const bottom = 96.0;
+      const r = 16.0;
+      final polygon = <PointD>[];
+      void corner(double cx, double cy, double from) {
+        for (var i = 0; i <= 8; i++) {
+          final a = from + pi / 2 * i / 8;
+          polygon.add(PointD(cx + r * cos(a), cy + r * sin(a)));
+        }
+      }
+
+      corner(left + r, top + r, pi);
+      corner(right - r, top + r, -pi / 2);
+      corner(right - r, bottom - r, 0);
+      corner(left + r, bottom - r, pi / 2);
+
+      final filler = HachureFiller(FillerConfig.build(hachureGap: 15));
+      final lines = filler.buildFillLines(polygon, filler.config);
+
+      expect(lines, isNotEmpty);
+      for (final line in lines) {
+        for (final point in [line.source, line.target]) {
+          expect(point.x, inInclusiveRange(left - 1, right + 1));
+          expect(point.y, inInclusiveRange(top - 1, bottom + 1));
+        }
+      }
+    });
+
     test('fill() returns non-empty ops for a square polygon', () {
       final HachureFiller filler = HachureFiller();
       final OpSet result = filler.fill(squarePolygon);

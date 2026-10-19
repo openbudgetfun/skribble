@@ -79,14 +79,13 @@ class ButtonsPage extends HookWidget {
           ShowcaseSection(
             title: 'WiredIcon',
             children: [
-              for (final fill in [
-                WiredIconFillStyle.solid,
-                WiredIconFillStyle.hachure,
+              for (final (fill, label) in [
+                (WiredIconFillStyle.marker, 'coloured in with marker'),
+                (WiredIconFillStyle.solid, 'solid ink'),
+                (WiredIconFillStyle.hachure, 'pencil shading'),
               ])
                 ComponentShowcase(
-                  title: fill == WiredIconFillStyle.solid
-                      ? 'Material Icons · solid ink'
-                      : 'Material Icons · pencil shading',
+                  title: 'Material Icons · $label',
                   description: 'Smoothly wandering contours at everyday sizes.',
                   child: Wrap(
                     spacing: 20,
@@ -121,11 +120,14 @@ class ButtonsPage extends HookWidget {
                 ),
               ComponentShowcase(
                 title: 'Simple Icons · brand marks',
-                description: 'GitHub, Dart, Flutter, and Figma in solid ink and pencil shading.',
+                description:
+                    'GitHub, Dart, Flutter, and Figma coloured in with marker, '
+                    'in solid ink, and in pencil shading.',
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     for (final fill in [
+                      WiredIconFillStyle.marker,
                       WiredIconFillStyle.solid,
                       WiredIconFillStyle.hachure,
                     ])
