@@ -48,6 +48,21 @@ TextStyle(
 )
 ```
 
+### Skribble Noto, for every language
+
+Skribble Noto is a second hand-drawn typeface, redrawn from [Google Noto](https://fonts.google.com/noto) with a round marker pen. It comes at three levels, each its own package: `skribble_font_noto` (Soft, the calm default), `skribble_font_noto_sketch`, and `skribble_font_noto_lively`. Install the level you want and select it:
+
+```bash
+flutter pub add skribble_font_noto
+```
+
+```dart
+// Static example: configuration
+WiredThemeData(font: WiredFont.noto)
+```
+
+The packages bundle Latin, Greek, and Cyrillic. Every other script Noto covers, including Arabic, Hebrew, Devanagari, Thai, Chinese, Japanese, and Korean, is in the Skribble Noto font kit on each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest). Add the scripts you need as your own font families and list them in `WiredThemeData.fontFamilyFallback`; [Compare the lettering](/core/font-comparison#skribble-noto) shows how.
+
 ## Optional maps and financial charts
 
 Install either companion package when your app needs it:

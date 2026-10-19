@@ -64,6 +64,18 @@ type = "dart"
 path = "packages/skribble_emoji_gen"
 type = "dart"
 
+[package.skribble_font_noto]
+path = "packages/skribble_font_noto"
+type = "dart"
+
+[package.skribble_font_noto_sketch]
+path = "packages/skribble_font_noto_sketch"
+type = "dart"
+
+[package.skribble_font_noto_lively]
+path = "packages/skribble_font_noto_lively"
+type = "dart"
+
 [package.skribble_font_recursive]
 path = "packages/skribble_font_recursive"
 type = "dart"
@@ -113,6 +125,9 @@ packages = [
   "skribble_icons_cib",
   "skribble_emoji",
   "skribble_emoji_gen",
+  "skribble_font_noto",
+  "skribble_font_noto_sketch",
+  "skribble_font_noto_lively",
   "skribble_font_recursive",
   "skribble_font_roughen",
   "skribble_lints",

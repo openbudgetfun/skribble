@@ -8,6 +8,9 @@ skribble publishes packages to pub.dev as one synchronized `main` release group:
 - `skribble`
 - `skribble_emoji`
 - `skribble_emoji_gen`
+- `skribble_font_noto`
+- `skribble_font_noto_lively`
+- `skribble_font_noto_sketch`
 - `skribble_font_recursive`
 - `skribble_font_roughen`
 - `skribble_icons`
@@ -158,6 +161,28 @@ publish:fonts v0.2.0 --dry-run   # package and list the uploads without sending 
 ```
 
 The command packages the fonts committed at the tag (`git archive`, not the working tree), so the archives always describe the release they are attached to, and it fails if the GitHub release object does not exist yet.
+
+### Skribble Noto fonts and kit
+
+`publish:fonts` also packages the three Skribble Noto packages: `SkribbleNoto-<tag>.zip`, `SkribbleNotoSketch-<tag>.zip`, and `SkribbleNotoLively-<tag>.zip`, each with its Latin, Greek, and Cyrillic Regular face and `OFL.txt`. A package that does not exist at an older tag is skipped.
+
+The three Noto packages are new to pub.dev. Before the first release that includes them, reserve their names with the one-time `0.0.0` placeholder and register each automated publisher (repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, tag pattern `v{{version}}`), as described in [Placeholder publish](#two-things-that-bite-during-a-bootstrap) below. Until then, `publish:owned` reports those three as unpublished while the rest of the group publishes normally:
+
+```bash
+monochange step placeholder-publish --package skribble_font_noto
+monochange step placeholder-publish --package skribble_font_noto_sketch
+monochange step placeholder-publish --package skribble_font_noto_lively
+```
+
+The all-scripts kit is too large to commit, so it is built on a developer machine with `tool/skribble_noto/build.py` (see `tool/skribble_noto/README.md`) and uploaded by hand, one zip per level:
+
+```bash
+python3 tool/skribble_noto/build.py gf/ofl build/noto
+./scripts/release/publish_noto_kit.sh build/noto v0.4.0 --dry-run
+./scripts/release/publish_noto_kit.sh build/noto v0.4.0
+```
+
+That attaches `SkribbleNoto-Kit-<tag>.zip`, `SkribbleNotoSketch-Kit-<tag>.zip`, and `SkribbleNotoLively-Kit-<tag>.zip`, each with every script's Regular file, `OFL.txt`, and the kit README (`tool/skribble_noto/KIT.md`, shipped as `README.md`). The script checks that the tag and its GitHub release exist before uploading. Rebuild the kit when the generator or the pinned Noto sources change; otherwise re-upload the previous kit to the new tag.
 
 ### Animated emoji release asset
 

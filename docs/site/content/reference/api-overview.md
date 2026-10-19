@@ -280,21 +280,24 @@ The main library depends on:
 
 ## Companion packages
 
-| Package                   | Purpose                                                           |
-| ------------------------- | ----------------------------------------------------------------- |
-| `skribble_icons`          | Every icon set behind one import, with a unified lookup           |
-| `skribble_icons_material` | Flutter's Material icons as hand-drawable geometry                |
-| `skribble_icons_lucide`   | Lucide outline icons                                              |
-| `skribble_icons_bxs`      | Boxicons solid icons                                              |
-| `skribble_icons_simple`   | Simple Icons brand marks                                          |
-| `skribble_icons_cib`      | CoreUI brand marks                                                |
-| `skribble_emoji`          | skribble's own hand-drawn emoji for every Unicode emoji           |
-| `skribble_font_recursive` | The bundled hand-drawn typefaces                                  |
-| `skribble_maps`           | MapLibre maps with hand-drawn skribble overlays                   |
-| `skribble_charts`         | Exact OHLC data, hand-drawn charts, indicators, and drawing tools |
-| `skribble_rough`          | The pure-Dart rough engine, with SVG path output                  |
-| `skribble_jaspr`          | Server-rendered hand-drawn components for Jaspr sites             |
-| `skribble_lints`          | Shared lint rules (extends `very_good_analysis`)                  |
+| Package                     | Purpose                                                            |
+| --------------------------- | ------------------------------------------------------------------ |
+| `skribble_icons`            | Every icon set behind one import, with a unified lookup            |
+| `skribble_icons_material`   | Flutter's Material icons as hand-drawable geometry                 |
+| `skribble_icons_lucide`     | Lucide outline icons                                               |
+| `skribble_icons_bxs`        | Boxicons solid icons                                               |
+| `skribble_icons_simple`     | Simple Icons brand marks                                           |
+| `skribble_icons_cib`        | CoreUI brand marks                                                 |
+| `skribble_emoji`            | skribble's own hand-drawn emoji for every Unicode emoji            |
+| `skribble_font_recursive`   | The bundled hand-drawn typefaces                                   |
+| `skribble_font_noto`        | Skribble Noto (Soft): hand-drawn Google Noto, Latin/Greek/Cyrillic |
+| `skribble_font_noto_sketch` | Skribble Noto Sketch: the livelier marker level                    |
+| `skribble_font_noto_lively` | Skribble Noto Lively: the most playful level                       |
+| `skribble_maps`             | MapLibre maps with hand-drawn skribble overlays                    |
+| `skribble_charts`           | Exact OHLC data, hand-drawn charts, indicators, and drawing tools  |
+| `skribble_rough`            | The pure-Dart rough engine, with SVG path output                   |
+| `skribble_jaspr`            | Server-rendered hand-drawn components for Jaspr sites              |
+| `skribble_lints`            | Shared lint rules (extends `very_good_analysis`)                   |
 
 ### skribble_icons
 
@@ -461,7 +464,7 @@ These constructors preserve the original constructors and avoid requiring Materi
 
 `WiredLogo` draws the skribble logo, the inked brackets: a smiling face in square brackets over a marker-filled face with rosy cheeks (`faceColor`, `cheekColor`). `WiredDoodle` adds seeded butterflies, hearts, smiles, flowers, sparkles, scribbles, and leaves through `WiredDoodleKind`. `WiredPalette` and `WiredThemeData.cuddly()` share the design kit's light/dark palette. See [Flourishes and logo](/widgets/flourishes).
 
-`WiredFont` selects bundled Casual, Sans Linear, or Mono typography, with dedicated upright and italic weights 300–900. `WiredFont.variableFamilyFor` resolves a shared variable font for each roughness level; use `FontVariation` values for continuous weight, casualness, monospace, and slant, plus cursive letterform selection. `WiredThemeData.font` follows the inherited roughness; `fontFamily` remains the explicit string override. `WiredBrandIcon` exposes curated Simple Icons vector artwork through `.data` for `WiredSvgIcon`.
+`WiredFont` selects bundled Casual, Sans Linear, or Mono typography, with dedicated upright and italic weights 300–900. `WiredFont.variableFamilyFor` resolves a shared variable font for each roughness level; use `FontVariation` values for continuous weight, casualness, monospace, and slant, plus cursive letterform selection. `WiredThemeData.font` follows the inherited roughness; `fontFamily` remains the explicit string override. `WiredFont.noto`, `notoSketch`, and `notoLively` select the fixed-level Skribble Noto families. `WiredFont.package` and `WiredFont.packageFor(family)` name the package that ships a family, `WiredFont.recursiveFonts` and `WiredFont.notoFonts` group the values, and `WiredThemeData.fontPackage` resolves through `packageFor`. `WiredBrandIcon` exposes curated Simple Icons vector artwork through `.data` for `WiredSvgIcon`.
 
 ### Map location indicators
 

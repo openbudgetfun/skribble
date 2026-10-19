@@ -1,6 +1,6 @@
 ---
 title: Compare the lettering
-description: Compare original and roughened Recursive Casual, Sans Linear, and Mono at real reading sizes.
+description: Compare original and roughened Recursive Casual, Sans Linear, and Mono at real reading sizes, and meet Skribble Noto.
 ---
 
 # Three kinds of lettering
@@ -36,6 +36,54 @@ The docs site loads the additional original, Linear, and variable specimens when
 The generator reads the actual TrueType glyph outlines and moves their points with smooth waves and a small, deterministic tilt. Nearby points move together, preserving the relationship between a stroke and its counter. This changes the letter shapes themselves. It does not add a blur or a raster texture. Repeated occurrences of a character use the same outline.
 
 Character mappings, advance widths, kerning, and shaping tables are retained. The original row loads untouched fonts with their hinting; roughened fonts have new outlines and remove obsolete source hinting. Both changes contribute to the visual difference.
+
+## Skribble Noto
+
+Skribble Noto is a second hand-drawn typeface, redrawn from [Google Noto](https://fonts.google.com/noto) so the lettering can eventually cover every language Noto does. Where the Recursive families warp the original outlines, Skribble Noto redraws each glyph: it finds the stroke's centre line and traces it again with a round pen of one constant width, the soft marker look of [Short Stack](https://fonts.google.com/specimen/Short+Stack) on Noto's proportions. A smooth, seeded wobble then moves the line.
+
+It comes at three levels, each in its own package:
+
+| Value                  | Family               | Package                     | Character                                                           |
+| ---------------------- | -------------------- | --------------------------- | ------------------------------------------------------------------- |
+| `WiredFont.noto`       | `SkribbleNoto`       | `skribble_font_noto`        | Soft: round pen, gentle wobble. The default level.                  |
+| `WiredFont.notoSketch` | `SkribbleNotoSketch` | `skribble_font_noto_sketch` | Sketch: stronger wobble, slight bounce, three drawings of each a–z. |
+| `WiredFont.notoLively` | `SkribbleNotoLively` | `skribble_font_noto_lively` | Lively: wider pen, strongest wobble and bounce, roomier spacing.    |
+
+```dart
+// Static example: configuration
+WiredThemeData(
+  font: WiredFont.notoSketch,
+  roughnessLevel: WiredRoughness.gentle,
+)
+```
+
+The levels are fixed: `roughnessLevel` still sets the borders and icons, but not this lettering, so calm ink with livelier lettering works. A bare `TextStyle` uses `WiredFont.notoSketch.package` as its `package`.
+
+In Sketch and Lively, the contextual alternates feature (`calt`) cycles three drawings of each basic Latin letter (a–z and A–Z), so doubled letters never look stamped. Greek and Cyrillic letters have one drawing. Stylistic set 1 (`ss01`) swaps in a single-storey `a` at every level. Each package ships one Regular face; Flutter synthesises bold.
+
+### Every other script
+
+The packages bundle Latin, Greek, and Cyrillic. The Skribble Noto font kit on each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest) adds one file per level for each of Noto's other scripts: Arabic, Hebrew, Devanagari, Bengali, Tamil, Thai, Ethiopic, Chinese (simplified, traditional, and Hong Kong), Japanese, Korean, and about 150 more. Download the level you use, add the scripts your app needs, and list them in `WiredThemeData.fontFamilyFallback`:
+
+```yaml
+flutter:
+  fonts:
+    - family: SkribbleNotoJP
+      fonts:
+        - asset: fonts/SkribbleNotoJP-Regular.ttf
+```
+
+```dart
+// Static example: configuration
+WiredThemeData(
+  font: WiredFont.noto,
+  fontFamilyFallback: const ['SkribbleNotoJP', 'SkribbleNotoArabic'],
+)
+```
+
+The theme applies the packaged family by its full asset name, `WiredThemeData.qualifiedFontFamily` (`packages/skribble_font_noto/SkribbleNoto`), and keeps fallbacks as written. Avoid setting `package:` on a `TextStyle` that lists app fallbacks: Flutter prefixes every fallback with that package, and your own families would stop resolving.
+
+Outside Latin and CJK, the wobble fades out near each glyph's sides so joining scripts such as Arabic still connect. Shaping tables come from Noto unchanged. The generator, its sources, and how to rebuild are in `tool/skribble_noto/README.md`.
 
 ## Experimental lettering
 

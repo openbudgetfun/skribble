@@ -66,3 +66,6 @@ docs/site/playwright-report/
 # fantasticon writes its codepoint map beside the working directory when the
 # rough icon font is regenerated; it is a build artifact, not package source.
 packages/skribble/material_rough_icons_codepoints.json
+
+# Python bytecode from tool/ generators
+__pycache__/
