@@ -1,5 +1,5 @@
 {
-  "name": "@skribble/rough",
+  "name": "@skribble.dev/rough",
   "version": "0.1.0",
   "private": true,
   "description": "skribble's hand-drawn rendering engine for JavaScript: seeded rough shapes, sketched fills, and pen-shaped ink for SVG, canvas, and any framework. A modern replacement for rough.js.",

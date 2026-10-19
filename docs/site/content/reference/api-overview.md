@@ -416,13 +416,13 @@ Components render on the server with zero client JavaScript. See [Using skribble
 
 The `js/` workspace publishes skribble's rough engine to npm. See [Using skribble from JavaScript](/guides/javascript).
 
-| Package                  | Main exports                                                                                                            |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `@skribble/rough`        | `sketch`, `toSvgString`, `rough` (`canvas`, `svg`, `generator`), `drawOnCanvas`, `Generator`, `RoughPen`, `DrawableInk` |
-| `@skribble/react`        | `Sketch`, `useSketch`                                                                                                   |
-| `@skribble/react-native` | `Sketch`, `useSketch`                                                                                                   |
-| `@skribble/vue`          | `Sketch`, `useSketch`                                                                                                   |
-| `@skribble/svelte`       | `Sketch`, `sketch`                                                                                                      |
+| Package                      | Main exports                                                                                                            |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `@skribble.dev/rough`        | `sketch`, `toSvgString`, `rough` (`canvas`, `svg`, `generator`), `drawOnCanvas`, `Generator`, `RoughPen`, `DrawableInk` |
+| `@skribble.dev/react`        | `Sketch`, `useSketch`                                                                                                   |
+| `@skribble.dev/react-native` | `Sketch`, `useSketch`                                                                                                   |
+| `@skribble.dev/vue`          | `Sketch`, `useSketch`                                                                                                   |
+| `@skribble.dev/svelte`       | `Sketch`, `sketch`                                                                                                      |
 
 ## API documentation
 

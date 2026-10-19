@@ -88,7 +88,7 @@ skribble/
   packages/skribble_lints/   # Shared lint rules
   apps/skribble_storybook/   # Demo/showcase app
   docs/site/                 # Documentation site (Flutter)
-  js/                        # npm packages: @skribble/rough + React, React Native, Vue, Svelte
+  js/                        # npm packages: @skribble.dev/rough + React, React Native, Vue, Svelte
 ```
 
 ### Commands
@@ -131,6 +131,6 @@ publish:tags
 # Build, typecheck, and test the npm packages in js/
 pnpm install && pnpm run check
 
-# Regenerate the Dart parity fixtures for @skribble/rough
+# Regenerate the Dart parity fixtures for @skribble.dev/rough
 dart run packages/skribble_rough/tool/js_parity_fixtures.dart > js/rough/test/fixtures/dart-parity.json
 ```

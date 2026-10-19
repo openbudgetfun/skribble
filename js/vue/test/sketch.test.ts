@@ -1,4 +1,4 @@
-import { sketch, toSvgString } from "@skribble/rough";
+import { sketch, toSvgString } from "@skribble.dev/rough";
 import { describe, expect, it } from "vitest";
 import { createSSRApp, h, nextTick, ref } from "vue";
 import { renderToString } from "vue/server-renderer";

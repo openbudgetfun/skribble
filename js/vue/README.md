@@ -1,16 +1,16 @@
-# @skribble/vue
+# @skribble.dev/vue
 
-Hand-drawn SVG sketches for Vue 3, drawn by [`@skribble/rough`](https://github.com/openbudgetfun/skribble/tree/main/js/rough), skribble's rough engine. Sketches use a fixed seed, so server rendering and hydration agree.
+Hand-drawn SVG sketches for Vue 3, drawn by [`@skribble.dev/rough`](https://github.com/openbudgetfun/skribble/tree/main/js/rough), skribble's rough engine. Sketches use a fixed seed, so server rendering and hydration agree.
 
 ```bash
-npm install @skribble/vue
+npm install @skribble.dev/vue
 ```
 
 ## `<Sketch>`
 
 ```html
 <script setup>
-import { Sketch } from "@skribble/vue";
+import { Sketch } from "@skribble.dev/vue";
 </script>
 
 <template>
@@ -24,7 +24,7 @@ import { Sketch } from "@skribble/vue";
 </template>
 ```
 
-- `shape` is any [`@skribble/rough` shape](https://github.com/openbudgetfun/skribble/tree/main/js/rough#sketch-a-shape), or an array of them.
+- `shape` is any [`@skribble.dev/rough` shape](https://github.com/openbudgetfun/skribble/tree/main/js/rough#sketch-a-shape), or an array of them.
 - `width` and `height` set the intrinsic size and the `viewBox`.
 - Every [sketch option](https://github.com/openbudgetfun/skribble/tree/main/js/rough#options) is a prop (`seed`, `pen`, `fill`, `fill-style`, ...).
 - Colours default to `currentColor`. Without a `label` the sketch is decorative; with one it is `role="img"`.

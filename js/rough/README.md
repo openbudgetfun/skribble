@@ -1,4 +1,4 @@
-# @skribble/rough
+# @skribble.dev/rough
 
 The hand-drawn rendering engine behind [skribble](https://openbudgetfun.github.io/skribble/), for every JavaScript runtime. It turns ideal geometry into lines that wobble like they were drawn by hand, fills shapes with sketched hachure, dots, dashes, or zig-zags, and lays the result down as pen-shaped ink with tapered ends. It has no dependencies and runs in browsers, Node, Deno, Bun, workers, and React Native.
 
@@ -6,17 +6,17 @@ It is a TypeScript port of the Dart package [`skribble_rough`](https://github.co
 
 Framework bindings build on it:
 
-| Package                                                                                         | For                                   |
-| ----------------------------------------------------------------------------------------------- | ------------------------------------- |
-| [`@skribble/react`](https://github.com/openbudgetfun/skribble/tree/main/js/react)               | React and React DOM, including SSR    |
-| [`@skribble/react-native`](https://github.com/openbudgetfun/skribble/tree/main/js/react-native) | React Native through react-native-svg |
-| [`@skribble/vue`](https://github.com/openbudgetfun/skribble/tree/main/js/vue)                   | Vue 3, including SSR                  |
-| [`@skribble/svelte`](https://github.com/openbudgetfun/skribble/tree/main/js/svelte)             | Svelte 5, including SSR               |
+| Package                                                                                             | For                                   |
+| --------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| [`@skribble.dev/react`](https://github.com/openbudgetfun/skribble/tree/main/js/react)               | React and React DOM, including SSR    |
+| [`@skribble.dev/react-native`](https://github.com/openbudgetfun/skribble/tree/main/js/react-native) | React Native through react-native-svg |
+| [`@skribble.dev/vue`](https://github.com/openbudgetfun/skribble/tree/main/js/vue)                   | Vue 3, including SSR                  |
+| [`@skribble.dev/svelte`](https://github.com/openbudgetfun/skribble/tree/main/js/svelte)             | Svelte 5, including SSR               |
 
 ## Install
 
 ```bash
-npm install @skribble/rough
+npm install @skribble.dev/rough
 ```
 
 The package is ESM-only and ships its TypeScript types.
@@ -26,7 +26,7 @@ The package is ESM-only and ships its TypeScript types.
 `sketch()` describes a drawing as data that any renderer can paint: one entry per SVG `<path>`, with its colours and widths.
 
 ```js
-import { sketch, toSvgString } from "@skribble/rough";
+import { sketch, toSvgString } from "@skribble.dev/rough";
 
 const box = sketch(
   { type: "rectangle", x: 4, y: 4, width: 192, height: 92 },
@@ -83,7 +83,7 @@ Points are `[x, y]` pairs or `{ x, y }` objects. Pass an array of shapes to draw
 `rough.canvas()`, `rough.svg()`, and `rough.generator()` work the way they do in rough.js:
 
 ```js
-import rough from "@skribble/rough";
+import rough from "@skribble.dev/rough";
 
 const rc = rough.canvas(document.querySelector("canvas"));
 rc.rectangle(10, 10, 200, 100, { fill: "red" });
@@ -113,7 +113,7 @@ What is different:
 The Dart engine's classes are exported unchanged in spirit: `DrawConfig`, `Generator`, `FillerConfig` and the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, `opSetToSvgPath`, and `toSvgPaths`/`toPathElements` (Dart's `RoughSvg`).
 
 ```js
-import { DrawConfig, FillerConfig, Generator, createFiller, toPathElements, toSvgPaths } from "@skribble/rough";
+import { DrawConfig, FillerConfig, Generator, createFiller, toPathElements, toSvgPaths } from "@skribble.dev/rough";
 
 const config = () => DrawConfig.build({ seed: 7, roughness: 1.2 });
 const generator = new Generator(config(), createFiller("hachure", FillerConfig.build({ drawConfig: config() })));

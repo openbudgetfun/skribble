@@ -94,7 +94,7 @@ jobs:
       - name: test
         run: test:all
         shell: devenv shell -- bash -e {0}
-      # @skribble/rough must draw byte-identical SVG to skribble_rough. Its
+      # @skribble.dev/rough must draw byte-identical SVG to skribble_rough. Its
       # fixtures come from the Dart engine, so they go stale when it changes.
       - name: npm parity fixtures match the Dart engine
         run: |
@@ -102,7 +102,7 @@ jobs:
           git diff --exit-code -- js/rough/test/fixtures
         shell: devenv shell -- bash -e {0}
 
-  # The npm packages in js/: @skribble/rough and its framework bindings.
+  # The npm packages in js/: @skribble.dev/rough and its framework bindings.
   npm-packages:
     runs-on: blacksmith-2vcpu-ubuntu-2404
     steps:

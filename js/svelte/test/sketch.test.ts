@@ -1,4 +1,4 @@
-import { sketch, toSvgString } from "@skribble/rough";
+import { sketch, toSvgString } from "@skribble.dev/rough";
 import { render } from "svelte/server";
 import { describe, expect, it } from "vitest";
 import { Sketch } from "../src/lib/index.js";

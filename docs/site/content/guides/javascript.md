@@ -1,21 +1,21 @@
 ---
 title: Using skribble from JavaScript
-description: Draw skribble's hand-drawn shapes in browsers, Node, React, React Native, Vue, and Svelte with the @skribble npm packages, a modern replacement for rough.js.
+description: Draw skribble's hand-drawn shapes in browsers, Node, React, React Native, Vue, and Svelte with the @skribble.dev npm packages, a modern replacement for rough.js.
 ---
 
 # Using skribble from JavaScript
 
-The `@skribble` npm packages bring skribble's rough engine to the JavaScript ecosystem. [`@skribble/rough`](https://github.com/openbudgetfun/skribble/tree/main/js/rough) is a TypeScript port of the pure-Dart [rough engine](../core/rough-engine), with no dependencies. The same seed draws the same SVG path data as the Flutter widgets and the [Jaspr components](jaspr), so a design reads the same on every platform.
+The `@skribble.dev` npm packages bring skribble's rough engine to the JavaScript ecosystem. [`@skribble.dev/rough`](https://github.com/openbudgetfun/skribble/tree/main/js/rough) is a TypeScript port of the pure-Dart [rough engine](../core/rough-engine), with no dependencies. The same seed draws the same SVG path data as the Flutter widgets and the [Jaspr components](jaspr), so a design reads the same on every platform.
 
 It also replaces [rough.js](https://github.com/rough-stuff/rough), whose last release was in 2023. The API keeps rough.js's `rough.canvas()`, `rough.svg()`, and `rough.generator()` entry points, and adds pen-shaped ink, rounded rectangles, arrowheads, and deterministic output.
 
-| Package                  | Use it for                                         |
-| ------------------------ | -------------------------------------------------- |
-| `@skribble/rough`        | Plain browsers, Node, workers, canvas, SVG strings |
-| `@skribble/react`        | React and React DOM, including server rendering    |
-| `@skribble/react-native` | React Native, painted with `react-native-svg`      |
-| `@skribble/vue`          | Vue 3, including server rendering                  |
-| `@skribble/svelte`       | Svelte 5, including server rendering               |
+| Package                      | Use it for                                         |
+| ---------------------------- | -------------------------------------------------- |
+| `@skribble.dev/rough`        | Plain browsers, Node, workers, canvas, SVG strings |
+| `@skribble.dev/react`        | React and React DOM, including server rendering    |
+| `@skribble.dev/react-native` | React Native, painted with `react-native-svg`      |
+| `@skribble.dev/vue`          | Vue 3, including server rendering                  |
+| `@skribble.dev/svelte`       | Svelte 5, including server rendering               |
 
 The packages live in the repository's `js/` folder and are not on npm yet.
 
@@ -24,7 +24,7 @@ The packages live in the repository's `js/` folder and are not on npm yet.
 `sketch()` returns the paths that paint a shape. `toSvgString()` wraps them in an `<svg>`:
 
 ```js
-import { sketch, toSvgString } from "@skribble/rough";
+import { sketch, toSvgString } from "@skribble.dev/rough";
 
 const box = sketch(
   { type: "rectangle", x: 4, y: 4, width: 192, height: 92 },
@@ -41,7 +41,7 @@ Every option from the [rough engine](../core/rough-engine) is available: `seed`,
 ## Draw on a canvas or migrate from rough.js
 
 ```js
-import rough from "@skribble/rough";
+import rough from "@skribble.dev/rough";
 
 const rc = rough.canvas(document.querySelector("canvas"));
 rc.rectangle(10, 10, 200, 100, { fill: "red" });
@@ -60,7 +60,7 @@ Existing rough.js calls mostly work unchanged. The differences:
 Each framework package exports a `<Sketch>` component that takes a `shape`, an intrinsic `width` and `height`, and any option as a prop. Without a `label` a sketch is decorative and hidden from assistive technology; with one it is an image with that name.
 
 ```jsx
-import { Sketch } from "@skribble/react";
+import { Sketch } from "@skribble.dev/react";
 
 <Sketch
   width={120}
@@ -80,7 +80,7 @@ Ink is drawn at a fixed size. For drawings that stretch with their container, pa
 
 ## Parity with Dart
 
-`@skribble/rough` reproduces the Dart VM's seeded random stream bit for bit and follows the Dart engine operation for operation. Its tests replay fixtures written by `packages/skribble_rough/tool/js_parity_fixtures.dart` and expect byte-identical SVG for every shape, fill style, and pen. When the Dart engine changes, regenerate the fixtures:
+`@skribble.dev/rough` reproduces the Dart VM's seeded random stream bit for bit and follows the Dart engine operation for operation. Its tests replay fixtures written by `packages/skribble_rough/tool/js_parity_fixtures.dart` and expect byte-identical SVG for every shape, fill style, and pen. When the Dart engine changes, regenerate the fixtures:
 
 ```bash
 dart run packages/skribble_rough/tool/js_parity_fixtures.dart > js/rough/test/fixtures/dart-parity.json

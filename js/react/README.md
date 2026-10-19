@@ -1,15 +1,15 @@
-# @skribble/react
+# @skribble.dev/react
 
-Hand-drawn SVG sketches for React, drawn by [`@skribble/rough`](https://github.com/openbudgetfun/skribble/tree/main/js/rough), skribble's rough engine. Sketches are drawn during render from a fixed seed, so server rendering and hydration produce the same markup.
+Hand-drawn SVG sketches for React, drawn by [`@skribble.dev/rough`](https://github.com/openbudgetfun/skribble/tree/main/js/rough), skribble's rough engine. Sketches are drawn during render from a fixed seed, so server rendering and hydration produce the same markup.
 
 ```bash
-npm install @skribble/react
+npm install @skribble.dev/react
 ```
 
 ## `<Sketch>`
 
 ```jsx
-import { Sketch } from "@skribble/react";
+import { Sketch } from "@skribble.dev/react";
 
 export function Callout() {
   return (
@@ -24,7 +24,7 @@ export function Callout() {
 }
 ```
 
-- `shape` is any [`@skribble/rough` shape](https://github.com/openbudgetfun/skribble/tree/main/js/rough#sketch-a-shape), or an array of them, in the sketch's own coordinates.
+- `shape` is any [`@skribble.dev/rough` shape](https://github.com/openbudgetfun/skribble/tree/main/js/rough#sketch-a-shape), or an array of them, in the sketch's own coordinates.
 - `width` and `height` set the intrinsic size and the `viewBox`, so CSS can resize the sketch.
 - Every [sketch option](https://github.com/openbudgetfun/skribble/tree/main/js/rough#options) is a prop: `seed`, `roughness`, `pen`, `fill`, `fillStyle`, `stroke`, `strokeWidth`, and the rest.
 - Colours default to `currentColor`, so CSS `color` themes the ink.

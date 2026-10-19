@@ -1,5 +1,5 @@
 {
-  "name": "@skribble/svelte",
+  "name": "@skribble.dev/svelte",
   "version": "0.1.0",
   "private": true,
   "description": "Hand-drawn SVG sketches for Svelte, drawn by skribble's rough engine. Server-renders the same markup on every build.",
@@ -44,7 +44,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@skribble/rough": "workspace:^"
+    "@skribble.dev/rough": "workspace:^"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"

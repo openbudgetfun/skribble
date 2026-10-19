@@ -65,7 +65,7 @@ skribble's hand-drawn look also works on [Jaspr](https://jaspr.site) sites witho
 
 ## JavaScript and TypeScript
 
-The `@skribble` npm packages draw the same hand-drawn shapes in plain browsers, Node, React, React Native, Vue, and Svelte, and replace rough.js. See [Using skribble from JavaScript](../guides/javascript).
+The `@skribble.dev` npm packages draw the same hand-drawn shapes in plain browsers, Node, React, React Native, Vue, and Svelte, and replace rough.js. See [Using skribble from JavaScript](../guides/javascript).
 
 ## Workspace contribution setup
 

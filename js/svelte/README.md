@@ -1,16 +1,16 @@
-# @skribble/svelte
+# @skribble.dev/svelte
 
-Hand-drawn SVG sketches for Svelte 5, drawn by [`@skribble/rough`](https://github.com/openbudgetfun/skribble/tree/main/js/rough), skribble's rough engine. Sketches use a fixed seed, so server rendering and hydration agree.
+Hand-drawn SVG sketches for Svelte 5, drawn by [`@skribble.dev/rough`](https://github.com/openbudgetfun/skribble/tree/main/js/rough), skribble's rough engine. Sketches use a fixed seed, so server rendering and hydration agree.
 
 ```bash
-npm install @skribble/svelte
+npm install @skribble.dev/svelte
 ```
 
 ## `<Sketch>`
 
 ```html
 <script>
-  import { Sketch } from "@skribble/svelte";
+  import { Sketch } from "@skribble.dev/svelte";
 </script>
 
 <Sketch
@@ -22,7 +22,7 @@ npm install @skribble/svelte
 />
 ```
 
-- `shape` is any [`@skribble/rough` shape](https://github.com/openbudgetfun/skribble/tree/main/js/rough#sketch-a-shape), or an array of them.
+- `shape` is any [`@skribble.dev/rough` shape](https://github.com/openbudgetfun/skribble/tree/main/js/rough#sketch-a-shape), or an array of them.
 - `width` and `height` set the intrinsic size and the `viewBox`.
 - Every [sketch option](https://github.com/openbudgetfun/skribble/tree/main/js/rough#options) is a prop. Props are reactive: change `seed` or `shape` and the sketch redraws.
 - Colours default to `currentColor`. Without a `label` the sketch is decorative; with one it is `role="img"`.

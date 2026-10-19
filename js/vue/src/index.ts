@@ -18,10 +18,10 @@ import {
   type Shape,
   type Sketch as SketchResult,
   type SketchOptions,
-} from "@skribble/rough";
+} from "@skribble.dev/rough";
 import { computed, defineComponent, h, toValue, type ComputedRef, type MaybeRefOrGetter, type PropType } from "vue";
 
-export type { PointLike, RoughFillStyle, RoughPenName, Shape, SketchOptions, SketchPath } from "@skribble/rough";
+export type { PointLike, RoughFillStyle, RoughPenName, Shape, SketchOptions, SketchPath } from "@skribble.dev/rough";
 
 /** Sketches [shape] with [options] as a computed ref that follows both. */
 export function useSketch(

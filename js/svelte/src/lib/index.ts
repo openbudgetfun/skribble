@@ -8,5 +8,5 @@
  * @packageDocumentation
  */
 export { default as Sketch } from "./Sketch.svelte";
-export { sketch } from "@skribble/rough";
-export type { PointLike, RoughFillStyle, RoughPenName, Shape, SketchOptions, SketchPath } from "@skribble/rough";
+export { sketch } from "@skribble.dev/rough";
+export type { PointLike, RoughFillStyle, RoughPenName, Shape, SketchOptions, SketchPath } from "@skribble.dev/rough";

@@ -1,8 +1,8 @@
-// Writes the fixtures that keep the npm package `@skribble/rough` drawing the
-// same ink as this engine. The TypeScript tests replay every case and expect
-// byte-identical SVG. Outputs are stored as FNV-1a hashes with their lengths,
-// which keeps the fixture small; one case is stored in full for readable
-// diffs.
+// Writes the fixtures that keep the npm package `@skribble.dev/rough` drawing
+// the same ink as this engine. The TypeScript tests replay every case and
+// expect byte-identical SVG. Outputs are stored as FNV-1a hashes with their
+// lengths, which keeps the fixture small; one case is stored in full for
+// readable diffs.
 //
 //   dart run packages/skribble_rough/tool/js_parity_fixtures.dart \
 //     > js/rough/test/fixtures/dart-parity.json

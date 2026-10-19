@@ -14,7 +14,7 @@
   ```
 -->
 <script lang="ts">
-  import { sketch, splitSketchOptions, type Shape, type SketchOptions } from "@skribble/rough";
+  import { sketch, splitSketchOptions, type Shape, type SketchOptions } from "@skribble.dev/rough";
   import type { SVGAttributes } from "svelte/elements";
 
   interface Props

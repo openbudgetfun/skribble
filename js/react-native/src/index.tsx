@@ -7,11 +7,11 @@
  *
  * @packageDocumentation
  */
-import { sketch, sketchKey, splitSketchOptions, type Shape, type Sketch as SketchResult, type SketchOptions } from "@skribble/rough";
+import { sketch, sketchKey, splitSketchOptions, type Shape, type Sketch as SketchResult, type SketchOptions } from "@skribble.dev/rough";
 import { useMemo } from "react";
 import { Path, Svg, type SvgProps } from "react-native-svg";
 
-export type { PointLike, RoughFillStyle, RoughPenName, Shape, SketchOptions, SketchPath } from "@skribble/rough";
+export type { PointLike, RoughFillStyle, RoughPenName, Shape, SketchOptions, SketchPath } from "@skribble.dev/rough";
 
 /**
  * Sketches [shape] with [options], recomputing only when what they draw

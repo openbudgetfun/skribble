@@ -10,7 +10,7 @@ importers:
 
   js/react:
     dependencies:
-      '@skribble/rough':
+      '@skribble.dev/rough':
         specifier: workspace:^
         version: link:../rough
     devDependencies:
@@ -38,7 +38,7 @@ importers:
 
   js/react-native:
     dependencies:
-      '@skribble/rough':
+      '@skribble.dev/rough':
         specifier: workspace:^
         version: link:../rough
     devDependencies:
@@ -84,7 +84,7 @@ importers:
 
   js/svelte:
     dependencies:
-      '@skribble/rough':
+      '@skribble.dev/rough':
         specifier: workspace:^
         version: link:../rough
     devDependencies:
@@ -112,7 +112,7 @@ importers:
 
   js/vue:
     dependencies:
-      '@skribble/rough':
+      '@skribble.dev/rough':
         specifier: workspace:^
         version: link:../rough
     devDependencies:

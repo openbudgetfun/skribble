@@ -1,4 +1,4 @@
-import { sketch, toSvgString } from "@skribble/rough";
+import { sketch, toSvgString } from "@skribble.dev/rough";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { Sketch, useSketch } from "../src/index.js";
