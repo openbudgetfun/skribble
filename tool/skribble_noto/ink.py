@@ -104,6 +104,16 @@ def to_float(ipolys):
     return [[(x / SCALE, y / SCALE) for x, y in p] for p in ipolys]
 
 
+def compact(ipolys):
+    """Integer polygons as int32 arrays: a tenth of the memory of nested lists,
+    which matters when a CJK family holds 30,000 glyphs at once."""
+    return [np.asarray(p, dtype=np.int32).reshape(-1, 2) for p in ipolys]
+
+
+def _paths(ipolys):
+    return [p.tolist() if isinstance(p, np.ndarray) else p for p in ipolys]
+
+
 def union(ipolys, fill=pyclipper.PFT_NONZERO):
     if not ipolys:
         return []
@@ -116,7 +126,7 @@ def offset(ipolys, r):
     if not ipolys:
         return []
     o = pyclipper.PyclipperOffset(arc_tolerance=0.15 * SCALE)
-    o.AddPaths(ipolys, pyclipper.JT_ROUND, pyclipper.ET_CLOSEDPOLYGON)
+    o.AddPaths(_paths(ipolys), pyclipper.JT_ROUND, pyclipper.ET_CLOSEDPOLYGON)
     return o.Execute(r * SCALE)
 
 
@@ -259,7 +269,8 @@ class Field:
 
 
 def resample(poly, spacing):
-    pts = np.asarray(poly + [poly[0]], dtype=float)
+    pts = np.asarray(poly, dtype=float)
+    pts = np.vstack([pts, pts[:1]])  # close the ring (works for lists and arrays alike)
     seg = np.hypot(*np.diff(pts, axis=0).T)
     cum = np.concatenate([[0], np.cumsum(seg)])
     total = cum[-1]
@@ -271,8 +282,9 @@ def resample(poly, spacing):
 def wobble(ipolys, name, variant, cfg, xheight, advance):
     """Step 4. Returns dense float polygons (numpy arrays)."""
     # light smoothing removes the pixel ripple the raster skeleton leaves behind
-    polys = [ndimage.gaussian_filter1d(resample(p, 4.0), 2.5, axis=0, mode="wrap")
-             for p in to_float(ipolys) if len(p) > 2]
+    polys = [ndimage.gaussian_filter1d(resample(np.asarray(p, dtype=float) / SCALE, 4.0), 2.5,
+                                       axis=0, mode="wrap")
+             for p in ipolys if len(p) > 2]
     if not polys or not (cfg["wobble"] or cfg["bounce"]):
         return polys
     rng = rng_for(cfg["seed"], name, variant)

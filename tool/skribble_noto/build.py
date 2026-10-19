@@ -121,10 +121,10 @@ def _base_task(args):
         polys = ink.flatten(_W["gs"], name)
         if not polys:
             return name, []
-        return name, ink.ink_base(polys, pen, r_out, res, dot_area)
+        return name, ink.compact(ink.ink_base(polys, pen, r_out, res, dot_area))
     except Exception as e:  # keep the source outline rather than fail the build
         print(f"  ! {name}: {e}", file=sys.stderr)
-        return name, ink.union(ink.to_int(ink.flatten(_W["gs"], name)))
+        return name, ink.compact(ink.union(ink.to_int(ink.flatten(_W["gs"], name))))
 
 
 def _stem_task(name):
@@ -194,12 +194,11 @@ def build_family(src, family_key, out_dir, levels, manifest, workers):
             ratio = min(max((stem or latin) / latin, 0.55), 1.15)
         r_out = params["r_out"] * k * min(1.0, ratio)
         dot_area = LATIN_DOT_AREA * k * k * ratio * ratio
-        bases = {}
         pen = round(LATIN_PEN * k * ratio * params.get("pen", 1.0), 1)
         cache = os.path.join(cache_dir, f"{family_key}-pen{pen}.pkl.gz")
         if os.path.exists(cache):
             with gzip.open(cache, "rb") as f:
-                base = pickle.load(f)
+                base = {n: ink.compact(p) for n, p in pickle.load(f).items()}
         else:
             tasks = [(n, pen, r_out, params["res"], dot_area) for n in simple]
             base = dict(pool.imap_unordered(_base_task, tasks, chunksize=8))
@@ -207,14 +206,14 @@ def build_family(src, family_key, out_dir, levels, manifest, workers):
                 pickle.dump(base, f)
             print(f"  {family_key}: re-stroked {len(simple)} glyphs, pen {pen} ({time.time() - t0:.0f}s)",
                   file=sys.stderr)
-        for pen_scale in {LEVELS[l]["pen"] for l in levels}:
-            # a wider pen is the same skeleton drawn wider: grow the outline instead of re-stroking
-            grow = (pen_scale - 1) * pen
-            bases[pen_scale] = base if not grow else {n: ink.offset(p, grow) for n, p in base.items()}
-
         for level in levels:
-            write_level(pool, src, family_key, cat, params, level, script, bases[LEVELS[level]["pen"]],
+            # a wider pen is the same skeleton drawn wider: grow the outline instead of re-stroking
+            grow = (LEVELS[level]["pen"] - 1) * pen
+            level_base = base if not grow else {n: ink.compact(ink.offset(p, grow))
+                                                for n, p in base.items()}
+            write_level(pool, src, family_key, cat, params, level, script, level_base,
                         xheight, k, out_dir)
+            del level_base
             print(f"  {family_key}: {level} done ({time.time() - t0:.0f}s)", file=sys.stderr)
     os.unlink(tmp.name)
 
@@ -256,11 +255,11 @@ def write_level(pool, src, family_key, cat, params, level, script, base, xheight
     tasks = []
     for name in order:
         b, v = (name.rsplit(".ink", 1)[0], int(name.rsplit(".ink", 1)[1])) if ".ink" in name else (name, 0)
-        if b in base and base[b]:
+        if b in base and len(base[b]):
             tasks.append((b, base[b], v, cfg, xheight, hmtx[b][0], params["tol"] * k))
     drawn = {}
     for b, v, ctrls in pool.imap_unordered(_level_task, tasks, chunksize=8):
-        drawn[alt_names[(b, v)] if v else b] = ctrls
+        drawn[alt_names[(b, v)] if v else b] = [np.asarray(c) for c in ctrls]
 
     zero_width = {n for n in order if hmtx[n][0] == 0}
     for name in order:
@@ -269,7 +268,7 @@ def write_level(pool, src, family_key, cat, params, level, script, base, xheight
         shift = 0 if name in zero_width else track
         if name in drawn:
             pen = TTGlyphPen(None)
-            ink.draw_glyph(pen, [np.asarray(c) for c in drawn[name]], 0,
+            ink.draw_glyph(pen, drawn[name], 0,
                            lambda x, y: (round(x * sx + shift), round(y)), fitted=True)
             glyf[name] = pen.glyph()
         elif g.isComposite():
