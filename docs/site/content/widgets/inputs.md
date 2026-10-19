@@ -105,7 +105,7 @@ WiredSearchBar(hintText: 'Make something lovely')
 ### Notes
 
 - Fixed height of 48px.
-- The default leading icon uses `WiredIcon` with `WiredIconFillStyle.solid`.
+- The default leading icon uses `WiredIcon` with its default `WiredIconFillStyle.marker`.
 - The hint color uses `theme.disabledTextColor`.
 
 ---

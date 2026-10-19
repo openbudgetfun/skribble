@@ -16,3 +16,5 @@ skribble now draws like a careful notebook drawing instead of a heavy marker ske
 - **Labelled badges fit their text.** A `WiredBadge` with a label draws a pill that grows with it, so "new" no longer spills past a 16 px circle.
 
 To return to the heavier look, set `strokeWidth: 2.4` and `roughnessLevel: WiredRoughness.expressive` on `WiredThemeData`, or pass explicit `roughness` and `pen` values.
+
+Icons look drawn, too. Filled icons (Material, Boxicons and brand marks such as GitHub, Dart, Flutter and Figma) used to paint as smooth stock silhouettes. They now default to the new `WiredIconFillStyle.marker`: coloured in with broad, overlapping marker strokes that darken where they cross, then outlined with the theme pen along an edge that wavers visibly. Brand marks that fill with `currentColor` now follow `fillStyle` like every other silhouette, so `hachure` and `none` work on them as well. Pass `fillStyle: WiredIconFillStyle.solid` for the previous flat fill.

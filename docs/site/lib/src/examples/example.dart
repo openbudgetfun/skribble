@@ -56,7 +56,7 @@ class ExampleSettings {
   Color color = const Color(0xffe8957d);
 
   /// Fill strategy used by runtime rough icons.
-  WiredIconFillStyle iconFill = WiredIconFillStyle.solid;
+  WiredIconFillStyle iconFill = WiredIconFillStyle.marker;
 
   /// How ink is laid along every line in pen examples.
   RoughPen pen = RoughPen.ink;

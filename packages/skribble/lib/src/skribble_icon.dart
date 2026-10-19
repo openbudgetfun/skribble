@@ -20,7 +20,7 @@ class SkribbleIcon extends StatelessWidget {
     this.color,
     this.weight,
     this.semanticLabel,
-    this.fillStyle = WiredIconFillStyle.solid,
+    this.fillStyle = WiredIconFillStyle.marker,
     this.drawConfig,
   });
 
