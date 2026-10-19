@@ -2,11 +2,11 @@
 
 Builds the Skribble Noto typefaces: every [Google Noto](https://fonts.google.com/noto) script redrawn with a round pen, at three levels of hand-drawn character.
 
-| Level  | Family                 | Package                     | What changes                                                                      |
-| ------ | ---------------------- | --------------------------- | --------------------------------------------------------------------------------- |
-| Soft   | `Skribble Noto`        | `skribble_font_noto`        | Round pen, gentle wobble. The default.                                            |
-| Sketch | `Skribble Noto Sketch` | `skribble_font_noto_sketch` | Stronger wobble, slight bounce, three alternating drawings of every Latin letter. |
-| Lively | `Skribble Noto Lively` | `skribble_font_noto_lively` | Wider pen, strongest wobble and bounce, roomier spacing.                          |
+| Level  | Family                 | Package                     | What changes                                                                    |
+| ------ | ---------------------- | --------------------------- | ------------------------------------------------------------------------------- |
+| Soft   | `Skribble Noto`        | `skribble_font_noto`        | Round pen, gentle wobble. The default.                                          |
+| Sketch | `Skribble Noto Sketch` | `skribble_font_noto_sketch` | Stronger wobble, slight bounce, three alternating drawings of each a–z and A–Z. |
+| Lively | `Skribble Noto Lively` | `skribble_font_noto_lively` | Wider pen, strongest wobble and bounce, roomier spacing.                        |
 
 The pub packages ship Latin, Greek and Cyrillic (the `Noto Sans` file). Every other script is a separate file per level in the Skribble Noto kit, attached to each GitHub release by `scripts/release/publish_noto_kit.sh`. [`KIT.md`](KIT.md) is the README that ships inside the kit.
 
@@ -15,9 +15,9 @@ The pub packages ship Latin, Greek and Cyrillic (the `Noto Sans` file). Every ot
 1. **Instance.** The variable Noto source is pinned at one weight (`wght` 480 for Latin, 450 elsewhere) with fontTools' [instancer](https://fonttools.readthedocs.io/en/latest/varLib/instancer.html), unhinted, keeping every glyph and layout table.
 2. **Open.** A morphological opening ([pyclipper](https://github.com/fonttools/pyclipper) offsets) rounds every corner and terminal.
 3. **Re-stroke.** The glyph is rasterised, reduced to its medial skeleton ([scikit-image `skeletonize`](https://scikit-image.org/docs/stable/api/skimage.morphology.html#skimage.morphology.skeletonize)), pruned of short spurs, and redrawn with a round pen of one constant width: the monoline marker look of [Short Stack](https://fonts.google.com/specimen/Short+Stack), on Noto's proportions. Dots and small marks keep their rounded Noto shape. The pen width scales with each script's own stem width, so dense scripts are not clogged.
-4. **Wobble.** A smooth field of plane waves, seeded by a SHA-256 hash of the level, family and glyph name, nudges every point. Sketch and Lively also rotate and lift each glyph slightly. Outside Latin and CJK, the wobble fades to zero near the sidebearings, so joining scripts such as Arabic, Syriac, N'Ko and Mongolian still connect.
+4. **Wobble.** A smooth field of plane waves, seeded by a SHA-256 hash of the glyph name and drawing variant, nudges every point. Sketch and Lively also rotate and lift each glyph slightly. Outside Latin and CJK, the wobble fades to zero near the sidebearings, so joining scripts such as Arabic, Syriac, N'Ko and Mongolian still connect.
 5. **Fit.** Each contour is fitted with a periodic quadratic B-spline (all off-curve TrueType points), so curves stay smooth and files stay small.
-6. **Layout.** Character maps, GSUB and GPOS are kept. For Latin, Greek and Cyrillic the build adds two more drawings of every letter, cycled by a `calt` lookup, a single-storey `a` under `ss01`, and rescales kerning and mark anchors to the new spacing.
+6. **Layout.** Character maps, GSUB and GPOS are kept. For Latin, Greek and Cyrillic the build rescales kerning and mark anchors to the new spacing. Sketch and Lively also add two more drawings of each basic Latin letter (a–z, A–Z, and the single-storey `ɑ`), cycled by a `calt` lookup, and every level maps a single-storey `a` under `ss01`.
 
 ## Run it
 
@@ -41,7 +41,7 @@ python3 tool/skribble_noto/build.py gf/ofl build/noto
 ./scripts/release/publish_noto_kit.sh build/noto v<version> --dry-run
 ```
 
-`--only` takes family keys from [`families.json`](families.json); `--levels` takes `soft,sketch,lively`. Re-stroked outlines are cached in `<out>/.cache`, so Soft and Sketch share one re-stroke and Lively widens it with an offset.
+`--only` takes family keys from [`families.json`](families.json); `--levels` takes `soft,sketch,lively`. Re-stroked outlines are cached in `<out>/.cache`, so Soft and Sketch share one re-stroke and Lively widens it with an offset. The cache is keyed only by family and pen width, and finished fonts are skipped, so after changing a source, a pen or any re-stroke parameter, delete `<out>/.cache` and the affected outputs (or use a fresh `<out>`).
 
 `families.json` lists all 167 families: one per script, preferring Noto Sans and falling back to Noto Serif where a script has no sans. CJK and other very dense scripts (`cjk` and `dense` categories) use a finer raster and a lighter wobble so their strokes stay legible.
 

@@ -3,8 +3,8 @@
 #
 # Covers every font package: skribble_font_recursive and the three Skribble
 # Noto packages (skribble_font_noto, skribble_font_noto_sketch,
-# skribble_font_noto_lively). A package missing at the tag is skipped, so older
-# tags still re-attach. The all-scripts Skribble Noto kit is attached separately
+# skribble_font_noto_lively). skribble_font_recursive must exist at the tag; a
+# Noto package missing at the tag is skipped, so older tags still re-attach. The all-scripts Skribble Noto kit is attached separately
 # by scripts/release/publish_noto_kit.sh.
 #
 # Local replacement for the "Attach the font zips to the release" step of
@@ -39,7 +39,7 @@ TAG=""
 DRY_RUN=0
 
 usage() {
-  sed -n '2,26p' "$0" | sed 's/^# \{0,1\}//'
+  sed -n '2,23p' "$0" | sed 's/^# \{0,1\}//'
 }
 
 for arg in "$@"; do
@@ -116,6 +116,10 @@ for package in "${FONT_PACKAGES[@]}"; do
   pubspec_path="packages/$package/pubspec.yaml"
 
   if ! git cat-file -e "$TAG:$fonts_path" 2>/dev/null; then
+    if [[ "$package" == skribble_font_recursive ]]; then
+      echo "Error: $fonts_path is missing at $TAG." >&2
+      exit 1
+    fi
     echo "Skipping $package: not present at $TAG."
     continue
   fi

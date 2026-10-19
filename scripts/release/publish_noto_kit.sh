@@ -6,7 +6,8 @@
 # are tens of megabytes per level), so it is built on a developer machine and
 # uploaded here, the same way the Figma export is published.
 #
-# One zip per level, each holding that level's TTFs, OFL.txt and README.md:
+# One zip per level, each holding that level's TTFs, OFL.txt and README.md
+# (tool/skribble_noto/KIT.md):
 #
 #   SkribbleNoto-Kit-<tag>.zip        (Soft, the default level)
 #   SkribbleNotoSketch-Kit-<tag>.zip
@@ -33,7 +34,7 @@ TAG=""
 DRY_RUN=0
 
 usage() {
-  sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'
+  sed -n '2,21p' "$0" | sed 's/^# \{0,1\}//'
 }
 
 for arg in "$@"; do
@@ -81,8 +82,29 @@ if [[ -z "$TAG" ]]; then
   exit 1
 fi
 
+if ! git rev-parse --verify --quiet "refs/tags/$TAG" >/dev/null; then
+  echo "Error: tag '$TAG' does not exist in this repository." >&2
+  exit 1
+fi
+
+if [[ "$DRY_RUN" -eq 0 ]]; then
+  command -v gh >/dev/null || {
+    echo "Error: 'gh' is required but was not found on PATH." >&2
+    exit 1
+  }
+
+  if ! gh release view "$TAG" --repo "$REPO" >/dev/null 2>&1; then
+    echo "Error: no GitHub release found for tag '$TAG' in $REPO." >&2
+    exit 1
+  fi
+fi
+
 scratch="$(mktemp -d)"
 trap 'rm -rf "$scratch"' EXIT
+
+# The kit README is KIT.md in the repository and README.md inside each zip.
+mkdir "$scratch/docs"
+cp "$README" "$scratch/docs/README.md"
 
 for level in soft:SkribbleNoto sketch:SkribbleNotoSketch lively:SkribbleNotoLively; do
   dir="$KIT_DIR/${level%%:*}"
@@ -104,7 +126,7 @@ for level in soft:SkribbleNoto sketch:SkribbleNotoSketch lively:SkribbleNotoLive
     exit 1
   fi
 
-  zip -j -q -X "$archive" "${ttf_files[@]}" "$LICENSE" "$README"
+  zip -j -q -X "$archive" "${ttf_files[@]}" "$LICENSE" "$scratch/docs/README.md"
   echo "Packaged $(basename "$archive") (${#ttf_files[@]} faces)"
 done
 
@@ -114,11 +136,6 @@ if [[ "$DRY_RUN" -eq 1 ]]; then
   find "$scratch" -maxdepth 1 -type f -name '*.zip' -exec basename {} \; | sort
   exit 0
 fi
-
-command -v gh >/dev/null || {
-  echo "Error: 'gh' is required but was not found on PATH." >&2
-  exit 1
-}
 
 gh release upload "$TAG" "$scratch"/*.zip --clobber --repo "$REPO"
 gh release view "$TAG" --repo "$REPO" --json assets -q '.assets[].name' | sort

@@ -23,7 +23,7 @@ body { font-family: "Skribble Noto", "Skribble Noto JP", sans-serif; }
 
 ## In Flutter
 
-The `skribble_font_noto`, `skribble_font_noto_sketch` and `skribble_font_noto_lively` packages already bundle Latin, Greek and Cyrillic. Add only the scripts your app needs, as your own font families, and list them as fallbacks:
+The `skribble_font_noto`, `skribble_font_noto_sketch` and `skribble_font_noto_lively` packages already bundle Latin, Greek and Cyrillic. Add only the scripts your app needs, as your own font families, and list them in the theme's `fontFamilyFallback`:
 
 ```yaml
 flutter:
@@ -35,13 +35,15 @@ flutter:
 
 ```dart
 WiredTheme(
-  data: WiredThemeData(font: WiredFont.noto),
-  child: DefaultTextStyle.merge(
-    style: const TextStyle(fontFamilyFallback: ['SkribbleNotoJP']),
-    child: const MyApp(),
+  data: WiredThemeData(
+    font: WiredFont.noto,
+    fontFamilyFallback: const ['SkribbleNotoJP'],
   ),
+  child: const MyApp(),
 )
 ```
+
+The theme applies the packaged family by its full asset name (`packages/skribble_font_noto/SkribbleNoto`) and keeps your fallbacks as written. Avoid setting `package:` on a `TextStyle` that lists app fallbacks: Flutter would prefix them with that package too, and they would stop resolving.
 
 Chinese, Japanese and Korean files are large (15 to 27 MB each), so bundle only the ones you ship.
 

@@ -34,7 +34,7 @@ The face is Regular (400) only. Flutter synthesises bold where a style asks for 
 
 ## More scripts
 
-Download `SkribbleNotoLively-Kit-<version>.zip` from the release, copy the scripts you need into your app, declare them as font families, and add them to `fontFamilyFallback`:
+Download `SkribbleNotoLively-Kit-<version>.zip` from the release, copy the scripts you need into your app, declare them as font families, and list them in the theme's `fontFamilyFallback`:
 
 ```yaml
 flutter:
@@ -45,8 +45,13 @@ flutter:
 ```
 
 ```dart
-const TextStyle(fontFamilyFallback: ['SkribbleNotoLivelyJP'])
+WiredThemeData(
+  font: WiredFont.notoLively,
+  fontFamilyFallback: const ['SkribbleNotoLivelyJP'],
+)
 ```
+
+Keep app fallbacks off a `TextStyle` that sets `package:`, since Flutter would prefix them with this package.
 
 The kit's own README lists every file. Chinese, Japanese and Korean files are 15 to 27 MB each, so bundle only the ones you ship.
 

@@ -13,20 +13,22 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 
 ### Fields
 
-| Field               | Type             | Default                                      | Description                                                                     |
-| ------------------- | ---------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
-| `borderColor`       | `Color`          | `WiredPalette.ink`                           | Border stroke color for all shapes                                              |
-| `textColor`         | `Color`          | `WiredPalette.ink`                           | Primary text color                                                              |
-| `disabledTextColor` | `Color`          | `WiredPalette.mutedInk`                      | Text color for disabled states                                                  |
-| `fillColor`         | `Color`          | `WiredPalette.paper`                         | Interior fill color for shapes                                                  |
-| `markerColor`       | `Color`          | `WiredPalette.lilac`                         | Highlighter wash under selected and active things, with ink on top              |
-| `strokeWidth`       | `double`         | `2.4`                                        | Default border stroke width                                                     |
-| `roughnessLevel`    | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, pens, and lettering                    |
-| `pen`               | `RoughPen`       | Level pen (`RoughPen.ink` for playful)       | How lines are inked; an explicit constructor value overrides the preset         |
-| `roughness`         | `double`         | Level value (`1.5` for playful)              | Resolved amplitude; an explicit constructor value overrides the preset          |
-| `fontFamily`        | `String`         | Level family (`SkribblePlayful` for playful) | Resolved bundled or custom family                                               |
-| `fontPackage`       | `String?`        | `skribble` for bundled families              | Asset package; null for custom app fonts                                        |
-| `drawConfig`        | `DrawConfig`     | Derived from the level and amplitude         | Resolved drawing configuration; an explicit constructor config takes precedence |
+| Field                 | Type             | Default                                      | Description                                                                     |
+| --------------------- | ---------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
+| `borderColor`         | `Color`          | `WiredPalette.ink`                           | Border stroke color for all shapes                                              |
+| `textColor`           | `Color`          | `WiredPalette.ink`                           | Primary text color                                                              |
+| `disabledTextColor`   | `Color`          | `WiredPalette.mutedInk`                      | Text color for disabled states                                                  |
+| `fillColor`           | `Color`          | `WiredPalette.paper`                         | Interior fill color for shapes                                                  |
+| `markerColor`         | `Color`          | `WiredPalette.lilac`                         | Highlighter wash under selected and active things, with ink on top              |
+| `strokeWidth`         | `double`         | `2.4`                                        | Default border stroke width                                                     |
+| `roughnessLevel`      | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, pens, and lettering                    |
+| `pen`                 | `RoughPen`       | Level pen (`RoughPen.ink` for playful)       | How lines are inked; an explicit constructor value overrides the preset         |
+| `roughness`           | `double`         | Level value (`1.5` for playful)              | Resolved amplitude; an explicit constructor value overrides the preset          |
+| `fontFamily`          | `String`         | Level family (`SkribblePlayful` for playful) | Resolved bundled or custom family                                               |
+| `fontPackage`         | `String?`        | Font package for bundled families            | Asset package (`WiredFont.packageFor`); null for custom app fonts               |
+| `qualifiedFontFamily` | `String`         | `packages/<fontPackage>/<fontFamily>`        | Full asset name the theme applies, with no `package:` on its text styles        |
+| `fontFamilyFallback`  | `List<String>?`  | `null`                                       | App font families tried after the main family, used as written                  |
+| `drawConfig`          | `DrawConfig`     | Derived from the level and amplitude         | Resolved drawing configuration; an explicit constructor config takes precedence |
 
 ### Creating a Theme
 

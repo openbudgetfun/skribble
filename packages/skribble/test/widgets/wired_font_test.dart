@@ -138,4 +138,70 @@ void main() {
     expect(outer.fontFamily, 'SkribbleGentle');
     expect(inner.roughness, outer.roughness);
   });
+
+  testWidgets('kit fallbacks keep their own names under a packaged family', (
+    tester,
+  ) async {
+    late TextStyle themed;
+    late TextStyle merged;
+    await tester.pumpWidget(
+      WiredTheme(
+        data: WiredThemeData(
+          font: WiredFont.noto,
+          fontFamilyFallback: const ['SkribbleNotoJP'],
+        ),
+        child: Builder(
+          builder: (context) {
+            themed = DefaultTextStyle.of(context).style;
+            return DefaultTextStyle.merge(
+              style: const TextStyle(
+                fontFamilyFallback: ['SkribbleNotoArabic'],
+              ),
+              child: Builder(
+                builder: (context) {
+                  merged = DefaultTextStyle.of(context).style;
+                  return const SizedBox();
+                },
+              ),
+            );
+          },
+        ),
+      ),
+    );
+    expect(themed.fontFamily, 'packages/skribble_font_noto/SkribbleNoto');
+    expect(themed.fontFamilyFallback, ['SkribbleNotoJP']);
+    expect(merged.fontFamily, 'packages/skribble_font_noto/SkribbleNoto');
+    expect(merged.fontFamilyFallback, ['SkribbleNotoArabic']);
+  });
+
+  test('font fallbacks survive copyWith and take part in equality', () {
+    final theme = WiredThemeData(fontFamilyFallback: const ['SkribbleNotoKR']);
+    expect(theme.copyWith(font: WiredFont.notoLively).fontFamilyFallback, [
+      'SkribbleNotoKR',
+    ]);
+    expect(
+      theme,
+      WiredThemeData(fontFamilyFallback: const ['SkribbleNotoKR']),
+    );
+    expect(
+      theme.hashCode,
+      WiredThemeData(fontFamilyFallback: const ['SkribbleNotoKR']).hashCode,
+    );
+    expect(theme == WiredThemeData(), isFalse);
+    expect(
+      theme.toThemeData().textTheme.bodyMedium!.fontFamilyFallback,
+      ['SkribbleNotoKR'],
+    );
+  });
+
+  test('qualified family carries the package only for bundled fonts', () {
+    expect(
+      WiredThemeData(font: WiredFont.notoSketch).qualifiedFontFamily,
+      'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
+    );
+    expect(
+      WiredThemeData(fontFamily: 'MyFont').qualifiedFontFamily,
+      'MyFont',
+    );
+  });
 }

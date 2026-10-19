@@ -61,7 +61,7 @@ flutter pub add skribble_font_noto
 WiredThemeData(font: WiredFont.noto)
 ```
 
-The packages bundle Latin, Greek, and Cyrillic. Every other script Noto covers, including Arabic, Hebrew, Devanagari, Thai, Chinese, Japanese, and Korean, is in the Skribble Noto font kit on each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest). Add the scripts you need as your own font families and list them in `fontFamilyFallback`; [Compare the lettering](/core/font-comparison#skribble-noto) shows how.
+The packages bundle Latin, Greek, and Cyrillic. Every other script Noto covers, including Arabic, Hebrew, Devanagari, Thai, Chinese, Japanese, and Korean, is in the Skribble Noto font kit on each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest). Add the scripts you need as your own font families and list them in `WiredThemeData.fontFamilyFallback`; [Compare the lettering](/core/font-comparison#skribble-noto) shows how.
 
 ## Optional maps and financial charts
 

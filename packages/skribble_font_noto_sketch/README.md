@@ -1,6 +1,6 @@
 # skribble_font_noto_sketch
 
-Skribble Noto Sketch: a hand-drawn typeface generated from [Google Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans), at the Sketch level, a marker on paper: a stronger wobble, a slight bounce, and three drawings of every Latin letter that take turns.
+Skribble Noto Sketch: a hand-drawn typeface generated from [Google Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans), at the Sketch level, a marker on paper: a stronger wobble, a slight bounce, and three drawings of each basic Latin letter that take turns.
 
 This package bundles Latin, Greek and Cyrillic. Every other Noto script, including Arabic, Devanagari, Thai, Chinese, Japanese and Korean, is in the Skribble Noto Sketch font kit attached to each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest).
 
@@ -34,7 +34,7 @@ The face is Regular (400) only. Flutter synthesises bold where a style asks for 
 
 ## More scripts
 
-Download `SkribbleNotoSketch-Kit-<version>.zip` from the release, copy the scripts you need into your app, declare them as font families, and add them to `fontFamilyFallback`:
+Download `SkribbleNotoSketch-Kit-<version>.zip` from the release, copy the scripts you need into your app, declare them as font families, and list them in the theme's `fontFamilyFallback`:
 
 ```yaml
 flutter:
@@ -45,8 +45,13 @@ flutter:
 ```
 
 ```dart
-const TextStyle(fontFamilyFallback: ['SkribbleNotoSketchJP'])
+WiredThemeData(
+  font: WiredFont.notoSketch,
+  fontFamilyFallback: const ['SkribbleNotoSketchJP'],
+)
 ```
+
+Keep app fallbacks off a `TextStyle` that sets `package:`, since Flutter would prefix them with this package.
 
 The kit's own README lists every file. Chinese, Japanese and Korean files are 15 to 27 MB each, so bundle only the ones you ship.
 

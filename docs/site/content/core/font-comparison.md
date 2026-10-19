@@ -43,11 +43,11 @@ Skribble Noto is a second hand-drawn typeface, redrawn from [Google Noto](https:
 
 It comes at three levels, each in its own package:
 
-| Value                  | Family               | Package                     | Character                                                              |
-| ---------------------- | -------------------- | --------------------------- | ---------------------------------------------------------------------- |
-| `WiredFont.noto`       | `SkribbleNoto`       | `skribble_font_noto`        | Soft: round pen, gentle wobble. The default level.                     |
-| `WiredFont.notoSketch` | `SkribbleNotoSketch` | `skribble_font_noto_sketch` | Sketch: stronger wobble, slight bounce, three drawings of each letter. |
-| `WiredFont.notoLively` | `SkribbleNotoLively` | `skribble_font_noto_lively` | Lively: wider pen, strongest wobble and bounce, roomier spacing.       |
+| Value                  | Family               | Package                     | Character                                                           |
+| ---------------------- | -------------------- | --------------------------- | ------------------------------------------------------------------- |
+| `WiredFont.noto`       | `SkribbleNoto`       | `skribble_font_noto`        | Soft: round pen, gentle wobble. The default level.                  |
+| `WiredFont.notoSketch` | `SkribbleNotoSketch` | `skribble_font_noto_sketch` | Sketch: stronger wobble, slight bounce, three drawings of each a–z. |
+| `WiredFont.notoLively` | `SkribbleNotoLively` | `skribble_font_noto_lively` | Lively: wider pen, strongest wobble and bounce, roomier spacing.    |
 
 ```dart
 // Static example: configuration
@@ -59,11 +59,11 @@ WiredThemeData(
 
 The levels are fixed: `roughnessLevel` still sets the borders and icons, but not this lettering, so calm ink with livelier lettering works. A bare `TextStyle` uses `WiredFont.notoSketch.package` as its `package`.
 
-In Sketch and Lively, the contextual alternates feature (`calt`) cycles three drawings of every Latin, Greek, and Cyrillic letter, so doubled letters never look stamped. Stylistic set 1 (`ss01`) swaps in a single-storey `a`. Each package ships one Regular face; Flutter synthesises bold.
+In Sketch and Lively, the contextual alternates feature (`calt`) cycles three drawings of each basic Latin letter (a–z and A–Z), so doubled letters never look stamped. Greek and Cyrillic letters have one drawing. Stylistic set 1 (`ss01`) swaps in a single-storey `a` at every level. Each package ships one Regular face; Flutter synthesises bold.
 
 ### Every other script
 
-The packages bundle Latin, Greek, and Cyrillic. The Skribble Noto font kit on each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest) adds one file per level for each of Noto's other scripts: Arabic, Hebrew, Devanagari, Bengali, Tamil, Thai, Ethiopic, Chinese (simplified, traditional, and Hong Kong), Japanese, Korean, and about 150 more. Download the level you use, add the scripts your app needs, and list them as fallbacks:
+The packages bundle Latin, Greek, and Cyrillic. The Skribble Noto font kit on each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest) adds one file per level for each of Noto's other scripts: Arabic, Hebrew, Devanagari, Bengali, Tamil, Thai, Ethiopic, Chinese (simplified, traditional, and Hong Kong), Japanese, Korean, and about 150 more. Download the level you use, add the scripts your app needs, and list them in `WiredThemeData.fontFamilyFallback`:
 
 ```yaml
 flutter:
@@ -75,8 +75,13 @@ flutter:
 
 ```dart
 // Static example: configuration
-const TextStyle(fontFamilyFallback: ['SkribbleNotoJP', 'SkribbleNotoArabic'])
+WiredThemeData(
+  font: WiredFont.noto,
+  fontFamilyFallback: const ['SkribbleNotoJP', 'SkribbleNotoArabic'],
+)
 ```
+
+The theme applies the packaged family by its full asset name, `WiredThemeData.qualifiedFontFamily` (`packages/skribble_font_noto/SkribbleNoto`), and keeps fallbacks as written. Avoid setting `package:` on a `TextStyle` that lists app fallbacks: Flutter prefixes every fallback with that package, and your own families would stop resolving.
 
 Outside Latin and CJK, the wobble fades out near each glyph's sides so joining scripts such as Arabic still connect. Shaping tables come from Noto unchanged. The generator, its sources, and how to rebuild are in `tool/skribble_noto/README.md`.
 
