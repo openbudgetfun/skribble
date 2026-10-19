@@ -5,7 +5,7 @@ description: Hand-drawn form controls, text fields, toggles, and sliders in the 
 
 # Inputs
 
-Input borders inherit the shared roughness of 1.8 and 2.4-pixel pen. Long outlines use two locally wandering strokes. Small circular switch and slider thumbs reduce their jitter with their size, preserving a visible paper centre under the stronger theme.
+Input borders inherit the theme's roughness (1.1 by default) and its 1.6-pixel pen. Long outlines use two gently wandering strokes. Small circular switch and slider thumbs reduce their jitter with their size, preserving a visible paper centre under the stronger theme.
 
 skribble replaces standard form controls with sketchy, hand-drawn equivalents. All input widgets read their palette from `WiredTheme.of(context)` and extend `HookWidget`.
 
@@ -13,7 +13,7 @@ skribble replaces standard form controls with sketchy, hand-drawn equivalents. A
 
 ## WiredInput
 
-The default ink corners have an 8 px radius. Set `borderRadius: BorderRadius.zero` for square corners or supply another `BorderRadius`. Focus adds 0.6 px to the pen without adding a second field border.
+The default ink corners have a 12 px radius. Set `borderRadius: BorderRadius.zero` for square corners or supply another `BorderRadius`. Focus adds 0.6 px to the pen without adding a second field border.
 
 A single-line text field wrapped in a hand-drawn rectangle border. Supports labels, hints, and password masking.
 
@@ -48,7 +48,7 @@ WiredInput(
 
 ## WiredTextArea
 
-A multi-line text input with a hand-drawn rectangle border. The border fills behind the text area using `Positioned.fill`.
+A multi-line text input with a hand-drawn rounded border, using the same 12 px corners as `WiredInput`. The border fills behind the text area using `Positioned.fill`.
 
 Text sits 12 pixels from the side ink and 10 from the top.
 
@@ -159,7 +159,7 @@ Also exported: `WiredSearchController` (a `TextEditingController` plus `openView
 
 ## WiredCheckbox
 
-The 27 px visual now uses 4 px rounded ink corners. Override `borderRadius` when needed; compose it with a label and a larger touch area for small-screen use.
+The 27 px visual uses 6 px rounded ink corners. Override `borderRadius` when needed; compose it with a label and a larger touch area for small-screen use.
 
 A hand-drawn checkbox with a sketchy rectangle border. The checkmark is rendered by an underlying transparent `Checkbox` widget, scaled up for visual presence.
 
@@ -223,7 +223,7 @@ HookBuilder(
 
 ## WiredRadio
 
-A hand-drawn radio button with a sketchy circle border. When selected, the inner circle fills with a hachure pattern.
+A hand-drawn radio button with a sketchy circle border. When selected, a neat solid dot is inked in the middle.
 
 ```dart
 // Live example: radio
@@ -261,7 +261,7 @@ HookBuilder(
 ### Notes
 
 - The outer circle is 48x48px using `WiredCircleBase` with a 0.7 diameter ratio.
-- The inner selection indicator is 24x24px with a hachure fill (gap: 1.0).
+- The inner selection indicator is a solid dot in a 24x24px box with a 0.6 diameter ratio.
 - An underlying `Radio` with transparent fill handles hit testing.
 
 ---

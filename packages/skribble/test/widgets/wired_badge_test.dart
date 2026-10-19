@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -217,6 +218,72 @@ void main() {
       expect(find.text('3'), findsOneWidget);
       expect(find.text('99+'), findsOneWidget);
       expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('a label sits in a marker pill that fits its text', (
+      tester,
+    ) async {
+      final theme = WiredThemeData();
+      await pumpWired(
+        tester,
+        Center(
+          child: WiredBadge(
+            label: 'new',
+            child: const SizedBox(width: 120, height: 48),
+          ),
+        ),
+        theme: theme,
+      );
+
+      final canvas = tester.widget<WiredCanvas>(findWiredCanvas);
+      final pill = canvas.painter as WiredRoundedRectangleBase;
+      expect(pill.fillColor, theme.markerColor);
+      expect(canvas.fillerType, RoughFilter.solidFiller);
+
+      final label = tester.getRect(find.text('new'));
+      final ink = tester.getRect(findWiredCanvas);
+      expect(ink.left, lessThan(label.left));
+      expect(ink.right, greaterThan(label.right));
+      expect(
+        tester
+            .renderObject<RenderParagraph>(find.text('new'))
+            .text
+            .style!
+            .color,
+        theme.textColor,
+      );
+    });
+
+    testWidgets('a dot badge is a solid marker circle', (tester) async {
+      final theme = WiredThemeData();
+      await pumpWired(
+        tester,
+        Center(child: WiredBadge(child: const SizedBox(width: 48, height: 48))),
+        theme: theme,
+      );
+
+      final canvas = tester.widget<WiredCanvas>(findWiredCanvas);
+      expect((canvas.painter as WiredCircleBase).fillColor, theme.markerColor);
+      expect(tester.getSize(findWiredCanvas), const Size.square(16));
+    });
+
+    testWidgets('backgroundColor overrides the marker wash', (tester) async {
+      await pumpApp(
+        tester,
+        Center(
+          child: WiredBadge(
+            label: '3',
+            backgroundColor: WiredPalette.coral,
+            child: const SizedBox(width: 48, height: 48),
+          ),
+        ),
+      );
+
+      final canvas = tester.widget<WiredCanvas>(findWiredCanvas);
+      expect(
+        (canvas.painter as WiredRoundedRectangleBase).fillColor,
+        WiredPalette.coral,
+      );
     });
   });
 }

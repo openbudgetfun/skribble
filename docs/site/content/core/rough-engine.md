@@ -727,7 +727,7 @@ The "double line" technique -- drawing each edge twice with slightly different r
 
 ## UI defaults and determinism
 
-The UI defaults are `roughness: 1.5`, `maxRandomnessOffset: 1.6`, a 2.4-pixel stroke, and `RoughPen.ink`. `WiredThemeData.roughness` and `WiredThemeData.pen` feed the default `DrawConfig`; an explicit `drawConfig` takes precedence. `copyWith` always constructs a fresh randomizer for the resulting seed. Equality compares seeds and pens rather than mutable object identity.
+The UI defaults are `roughness: 1.1`, `maxRandomnessOffset: 1.2`, a 1.6-pixel stroke (`kWiredStrokeWidth`), and `RoughPen.ink`; `DrawConfig.defaultValues` uses the same playful geometry. `WiredThemeData.roughness` and `WiredThemeData.pen` feed the default `DrawConfig`; an explicit `drawConfig` takes precedence. `copyWith` always constructs a fresh randomizer for the resulting seed. Equality compares seeds and pens rather than mutable object identity.
 
 Bowing grows with a line's length but never exceeds `maxRandomnessOffset`, so a very long edge stays inside the bleed its painter reserves.
 
@@ -739,7 +739,7 @@ Icons use a smaller runtime displacement so counters remain open at 24 pixels. S
 
 ### Coordinated levels
 
-`WiredRoughness` supplies three drawing presets together with matching fonts and pens. Gentle uses offset 1.2, roughness 1.25, `lineWobble: 0`, and `RoughPen.fineliner`; playful uses 1.6, 1.5, 0.65, and `RoughPen.ink`; expressive uses 2, 1.8, 1, and `RoughPen.brush`. Local wandering remains bounded by the jitter band. Setting `lineWobble: 0` restores the earlier single-cubic renderer and its long-edge attenuation. Theme-derived icons scale their smaller outline deformation with the active geometry amplitude; explicit icon configurations take precedence.
+`WiredRoughness` supplies three drawing presets together with matching fonts and pens. Gentle uses offset 1, roughness 0.9, `lineWobble: 0`, and `RoughPen.fineliner`; playful uses 1.2, 1.1, 0.35, and `RoughPen.ink`; expressive uses 2, 1.8, 1, and `RoughPen.brush`. Local wandering remains bounded by the jitter band. Setting `lineWobble: 0` restores the earlier single-cubic renderer and its long-edge attenuation. Theme-derived icons scale their smaller outline deformation with the active geometry amplitude; explicit icon configurations take precedence.
 
 ## Drawing ink over time
 

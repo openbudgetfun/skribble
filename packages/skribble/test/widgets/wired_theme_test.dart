@@ -14,8 +14,9 @@ void main() {
       expect(theme.disabledTextColor, WiredPalette.mutedInk);
       expect(theme.fillColor, WiredPalette.paper);
       expect(theme.markerColor, WiredPalette.lilac);
-      expect(theme.strokeWidth, 2.4);
-      expect(theme.roughness, 1.5);
+      expect(theme.strokeWidth, kWiredStrokeWidth);
+      expect(theme.strokeWidth, 1.6);
+      expect(theme.roughness, 1.1);
       expect(theme.fontFamily, skribbleFontFamily);
     });
 
@@ -27,7 +28,7 @@ void main() {
       final theme = WiredThemeData();
 
       expect(theme.roughnessLevel, WiredRoughness.playful);
-      expect(theme.drawConfig.roughness, 1.5);
+      expect(theme.drawConfig.roughness, 1.1);
       expect(
         theme.drawConfig.maxRandomnessOffset,
         WiredRoughness.playful.maxRandomnessOffset,
@@ -47,7 +48,7 @@ void main() {
 
       expect(defaultTheme, isA<WiredThemeData>());
       expect(defaultTheme.borderColor, WiredPalette.ink);
-      expect(defaultTheme.strokeWidth, 2.4);
+      expect(defaultTheme.strokeWidth, kWiredStrokeWidth);
     });
 
     test('accepts custom values', () {

@@ -279,5 +279,37 @@ void main() {
 
       expect(find.bySemanticsLabel('Add new item'), findsOneWidget);
     });
+
+    testWidgets('is washed with the marker and inked with the text colour', (
+      tester,
+    ) async {
+      final theme = WiredThemeData();
+      await pumpWired(
+        tester,
+        WiredFloatingActionButton(icon: Icons.add, onPressed: () {}),
+        theme: theme,
+      );
+
+      final circle =
+          tester
+                  .widget<WiredCanvas>(
+                    find.descendant(
+                      of: find.byType(WiredFloatingActionButton),
+                      matching: findWiredCanvas,
+                    ),
+                  )
+                  .painter
+              as WiredCircleBase;
+
+      expect(circle.fillColor, theme.markerColor);
+      expect(
+        tester.widget<WiredCanvas>(findWiredCanvas.first).fillerType,
+        RoughFilter.solidFiller,
+      );
+      expect(
+        tester.widget<WiredIcon>(find.byType(WiredIcon)).color,
+        theme.textColor,
+      );
+    });
   });
 }

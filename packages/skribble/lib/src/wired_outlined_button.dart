@@ -20,7 +20,7 @@ class WiredOutlinedButton extends WiredButtonBase {
     super.onPressed,
     super.semanticLabel,
     super.inkInteraction,
-    this.borderRadius = const BorderRadius.all(Radius.circular(6)),
+    this.borderRadius = const BorderRadius.all(Radius.circular(10)),
   });
 
   @override

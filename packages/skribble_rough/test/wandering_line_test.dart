@@ -5,7 +5,13 @@ import 'package:test/test.dart';
 
 void main() {
   test('long edges change direction locally instead of bowing once', () {
-    final ops = OpsGenerator.doubleLine(0, 0, 960, 0, DrawConfig.build());
+    final ops = OpsGenerator.doubleLine(
+      0,
+      0,
+      960,
+      0,
+      DrawConfig.build(maxRandomnessOffset: 2, roughness: 1.8, lineWobble: 1),
+    );
     final firstPass = ops.skip(1).takeWhile((op) => op.op != OpType.move);
     final heights = firstPass.map((op) => op.data.last.y).toList();
     var turns = 0;

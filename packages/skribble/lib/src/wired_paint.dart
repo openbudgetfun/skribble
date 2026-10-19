@@ -14,6 +14,13 @@ const Color kWiredDefaultBorderColor = WiredPalette.ink;
 /// the public barrel. Matches the warm paper of [WiredPalette.paper].
 const Color kWiredDefaultFillColor = WiredPalette.paper;
 
+/// The default pen width of skribble's outlines, in logical pixels.
+///
+/// A fine, even line, like a gel pen in a tidy notebook. Themes set their own
+/// width through `WiredThemeData.strokeWidth`; this is the value they start
+/// from and the width painters use when no theme is involved.
+const double kWiredStrokeWidth = 1.6;
+
 /// The least height of a skribble button. Buttons grow past it when their
 /// label does, such as with a larger font or the platform's text scaling.
 const double kWiredButtonHeight = 42.0;

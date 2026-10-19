@@ -112,8 +112,8 @@ Mirror the theme in Figma so both sides stay in sync:
 | Ink outline `#1A2B3C`             | Color variable `ink/outline`                                                             |
 | Paper fill `#FEFEFE`              | Color variable `ink/paper`                                                               |
 | Text black                        | Color variable `ink/text`                                                                |
-| Pen width 2.4 px                  | Number variable `ink/pen` (bind to stroke weights)                                       |
-| Reserved bleed 3.7 / 4.6 / 5.8 px | Number variables `ink/bleed-gentle` / `-playful` / `-expressive`                         |
+| Pen width 1.6 px                  | Number variable `ink/pen` (bind to stroke weights)                                       |
+| Reserved bleed 2.7 / 3.1 / 5.4 px | Number variables `ink/bleed-gentle` / `-playful` / `-expressive`                         |
 | Roughness preset                  | String variable `ink/roughness`; it selects which specimen set a component imports       |
 | Typeface families and styles      | Text styles named `Skribble/Regular`, `Skribble-Bold`, and so on for every loaded family |
 

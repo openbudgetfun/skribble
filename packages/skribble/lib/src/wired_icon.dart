@@ -90,9 +90,10 @@ WiredSvgIconPainter _iconPainter(_IconPainterKey key) {
 /// [weight] follows Flutter's icon weight scale from 100 to 700 and defaults
 /// to [IconThemeData.weight], or 400 when no theme sets one. It applies to
 /// every set: strokes are inked thinner or bolder, and silhouettes grow or
-/// shrink evenly along their edges. A theme whose `strokeWidth` is wider than
-/// 2.4 scales icon ink in proportion, so one setting controls the weight of
-/// borders and icons together.
+/// shrink evenly along their edges. Icon ink also follows the theme's
+/// `strokeWidth`, in proportion to 2.4: the default fine pen draws icons a
+/// little lighter than that, and a wider pen draws them bolder, so one
+/// setting controls the weight of borders and icons together.
 class WiredSvgIcon extends HookWidget {
   /// Creates an icon from precomputed geometry.
   const WiredSvgIcon({

@@ -128,6 +128,41 @@ void main() {
       expectPaints(findWired<WiredFilledButton>());
       expect(tester.takeException(), isNull);
     });
+
+    testWidgets('defaults to a marker wash under the theme text colour', (
+      tester,
+    ) async {
+      final theme = WiredThemeData();
+      await pumpWired(
+        tester,
+        WiredFilledButton(onPressed: () {}, child: const Text('Shop')),
+        theme: theme,
+      );
+
+      final paragraph = tester.renderObject<RenderParagraph>(
+        find.text('Shop'),
+      );
+      expect(paragraph.text.style!.color, theme.textColor);
+      expectPaints(findWired<WiredFilledButton>());
+    });
+
+    testWidgets('a dark fill takes the paper colour for its label', (
+      tester,
+    ) async {
+      final theme = WiredThemeData();
+      await pumpWired(
+        tester,
+        WiredFilledButton(
+          onPressed: () {},
+          fillColor: theme.borderColor,
+          child: const Text('Go'),
+        ),
+        theme: theme,
+      );
+
+      final paragraph = tester.renderObject<RenderParagraph>(find.text('Go'));
+      expect(paragraph.text.style!.color, theme.fillColor);
+    });
   });
 
   for (final fill in [const Color(0xFF4A3470), const Color(0xFFFFFCF1)]) {
