@@ -39,7 +39,7 @@
   ],
   "scripts": {
     "build": "svelte-package --input src/lib --output dist",
-    "prepack": "pnpm run build",
+    "prepack": "pnpm --filter \"$npm_package_name...\" run build",
     "typecheck": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
     "test": "vitest run"
   },

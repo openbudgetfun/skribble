@@ -39,7 +39,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "prepack": "pnpm run build",
+    "prepack": "pnpm --filter \"$npm_package_name...\" run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run"
   },
