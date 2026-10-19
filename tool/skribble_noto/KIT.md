@@ -43,7 +43,7 @@ WiredTheme(
 )
 ```
 
-CJK files are large (several megabytes each), so bundle only the ones you ship.
+Chinese, Japanese and Korean files are large (15 to 27 MB each), so bundle only the ones you ship.
 
 ## Licence
 

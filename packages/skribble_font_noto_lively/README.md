@@ -48,7 +48,7 @@ flutter:
 const TextStyle(fontFamilyFallback: ['SkribbleNotoLivelyJP'])
 ```
 
-The kit's own README lists every file. CJK files are several megabytes each, so bundle only the ones you ship.
+The kit's own README lists every file. Chinese, Japanese and Korean files are 15 to 27 MB each, so bundle only the ones you ship.
 
 ## Provenance
 

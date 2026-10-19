@@ -35,7 +35,8 @@ cp build/noto/soft/SkribbleNoto-Regular.ttf packages/skribble_font_noto/assets/f
 cp build/noto/sketch/SkribbleNotoSketch-Regular.ttf packages/skribble_font_noto_sketch/assets/fonts/
 cp build/noto/lively/SkribbleNotoLively-Regular.ttf packages/skribble_font_noto_lively/assets/fonts/
 
-# Every script at every level (hours; resumable, skips finished files).
+# Every script at every level (about 6 hours on 4 cores;
+# resumable, skips finished files).
 python3 tool/skribble_noto/build.py gf/ofl build/noto
 ./scripts/release/publish_noto_kit.sh build/noto v<version> --dry-run
 ```
