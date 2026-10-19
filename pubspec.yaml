@@ -10,6 +10,9 @@ workspace:
   - packages/skribble_charts
   - packages/skribble_emoji
   - packages/skribble_emoji_gen
+  - packages/skribble_font_noto
+  - packages/skribble_font_noto_lively
+  - packages/skribble_font_noto_sketch
   - packages/skribble_font_recursive
   - packages/skribble_font_roughen
   - packages/skribble_icons

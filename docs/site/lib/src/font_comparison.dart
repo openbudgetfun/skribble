@@ -99,7 +99,7 @@ class FontComparison extends HookWidget {
           LayoutBuilder(
             builder: (context, constraints) {
               final specimens = [
-                for (final font in WiredFont.values)
+                for (final font in WiredFont.recursiveFonts)
                   _Specimen(
                     font: font,
                     level: level,
@@ -135,6 +135,18 @@ class FontComparison extends HookWidget {
   }
 }
 
+const Map<WiredFont, String> _originals = {
+  WiredFont.casual: 'RecursiveCasualOriginal',
+  WiredFont.linear: 'RecursiveLinearOriginal',
+  WiredFont.mono: 'RecursiveMonoOriginal',
+};
+
+const Map<WiredFont, String> _labels = {
+  WiredFont.casual: 'Sans Casual',
+  WiredFont.linear: 'Sans Linear',
+  WiredFont.mono: 'Mono Linear',
+};
+
 class _Specimen extends HookWidget {
   const _Specimen({
     required this.font,
@@ -153,13 +165,8 @@ class _Specimen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final family = level == null
-        ? switch (font) {
-            WiredFont.casual => 'RecursiveCasualOriginal',
-            WiredFont.linear => 'RecursiveLinearOriginal',
-            WiredFont.mono => 'RecursiveMonoOriginal',
-          }
-        : font.familyFor(level!);
+    final original = level == null ? _originals[font] : null;
+    final family = original ?? font.familyFor(level ?? WiredRoughness.gentle);
 
     return Padding(
       padding: const EdgeInsets.only(right: 16, bottom: 12),
@@ -167,11 +174,7 @@ class _Specimen extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            switch (font) {
-              WiredFont.casual => 'Sans Casual',
-              WiredFont.linear => 'Sans Linear',
-              WiredFont.mono => 'Mono Linear',
-            },
+            _labels[font] ?? font.name,
             style: const TextStyle(fontSize: 13, color: Color(0xff716275)),
           ),
           const SizedBox(height: 8),
@@ -182,7 +185,7 @@ class _Specimen extends HookWidget {
               inherit: false,
               color: const Color(0xff34283f),
               fontFamily: family,
-              package: level != null ? 'skribble_font_recursive' : null,
+              package: original == null ? font.package : null,
               fontSize: size,
               fontWeight: bold ? FontWeight.bold : FontWeight.normal,
               fontStyle: italic ? FontStyle.italic : FontStyle.normal,

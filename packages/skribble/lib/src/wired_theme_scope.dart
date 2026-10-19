@@ -44,9 +44,11 @@ class WiredThemeScope extends HookWidget {
     return _WiredThemeScope(
       data: data,
       child: DefaultTextStyle.merge(
+        // Qualified family, no package: a package here would also prefix any
+        // fontFamilyFallback merged in below, hiding the app's own fonts.
         style: TextStyle(
-          fontFamily: data.fontFamily,
-          package: data.fontPackage,
+          fontFamily: data.qualifiedFontFamily,
+          fontFamilyFallback: data.fontFamilyFallback,
           color: data.textColor,
         ),
         child: WiredMotion(enabled: data.motionEnabled, child: child),

@@ -40,7 +40,7 @@ void main() {
           expect(
             families,
             contains(
-              'packages/skribble_font_recursive/${font.familyFor(roughness)}',
+              'packages/${font.package}/${font.familyFor(roughness)}',
             ),
           );
         }

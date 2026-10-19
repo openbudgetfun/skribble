@@ -111,8 +111,8 @@ extension WiredThemeInterop on WiredThemeData {
       textTheme: CupertinoTextThemeData(
         textStyle: TextStyle(
           color: textColor,
-          fontFamily: fontFamily,
-          package: fontPackage,
+          fontFamily: qualifiedFontFamily,
+          fontFamilyFallback: fontFamilyFallback,
         ),
       ),
     );

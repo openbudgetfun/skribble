@@ -18,6 +18,11 @@ skribble 10
 # mostly measures the family itself. `packages/skribble/.pubignore` keeps the
 # 8 MiB of `tool/font` regeneration sources out of the core package.
 skribble_font_recursive 40
+# The Skribble Noto packages each ship one Latin, Greek and Cyrillic face
+# (about 1 MiB). Every other script is in the release kit, not on pub.dev.
+skribble_font_noto 3
+skribble_font_noto_sketch 3
+skribble_font_noto_lively 3
 skribble_emoji 15
 skribble_maps 5
 skribble_charts 5

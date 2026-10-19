@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -61,8 +62,27 @@ class WiredThemeData {
   String get fontFamily => _fontFamily ?? font.familyFor(roughnessLevel);
 
   /// Asset package for bundled fonts, or null for an app-provided family.
-  String? get fontPackage =>
-      WiredFont.isBundled(fontFamily) ? 'skribble_font_recursive' : null;
+  ///
+  /// Recursive families resolve to `skribble_font_recursive`; Skribble Noto
+  /// families resolve to their own `skribble_font_noto*` package.
+  String? get fontPackage => WiredFont.packageFor(fontFamily);
+
+  /// App font families to try for characters [fontFamily] lacks, such as the
+  /// Skribble Noto kit scripts an app registers itself (`SkribbleNotoJP`).
+  ///
+  /// Names are used as written: they are never prefixed with [fontPackage].
+  final List<String>? fontFamilyFallback;
+
+  /// [fontFamily] already qualified with [fontPackage]
+  /// (`packages/<package>/<family>`), or [fontFamily] itself for an
+  /// app-provided family.
+  ///
+  /// The theme applies this name with no `TextStyle.package`, so fallback
+  /// families merged in below the theme keep their own, unprefixed names.
+  String get qualifiedFontFamily {
+    final package = fontPackage;
+    return package == null ? fontFamily : 'packages/$package/$fontFamily';
+  }
 
   WiredThemeData({
     this.motionEnabled = true,
@@ -75,6 +95,7 @@ class WiredThemeData {
     this.strokeWidth = kWiredStrokeWidth,
     this.roughnessLevel = WiredRoughness.playful,
     this.font = WiredFont.casual,
+    this.fontFamilyFallback,
     this._roughness,
     this._fontFamily,
     this._drawConfig,
@@ -139,6 +160,7 @@ class WiredThemeData {
           font == other.font &&
           _roughness == other._roughness &&
           _fontFamily == other._fontFamily &&
+          listEquals(fontFamilyFallback, other.fontFamilyFallback) &&
           _drawConfig == other._drawConfig &&
           _pen == other._pen;
 
@@ -156,6 +178,7 @@ class WiredThemeData {
     font,
     _roughness,
     _fontFamily,
+    fontFamilyFallback == null ? null : Object.hashAll(fontFamilyFallback!),
     _drawConfig,
     _pen,
   );
@@ -174,6 +197,7 @@ class WiredThemeData {
     String? fontFamily,
     WiredRoughness? roughnessLevel,
     WiredFont? font,
+    List<String>? fontFamilyFallback,
     RoughPen? pen,
   }) {
     return WiredThemeData(
@@ -188,6 +212,7 @@ class WiredThemeData {
       drawConfig: drawConfig ?? _drawConfig,
       roughnessLevel: roughnessLevel ?? this.roughnessLevel,
       font: font ?? this.font,
+      fontFamilyFallback: fontFamilyFallback ?? this.fontFamilyFallback,
       roughness: roughness ?? _roughness,
       fontFamily: fontFamily ?? _fontFamily,
       pen: pen ?? _pen,
@@ -241,8 +266,8 @@ class WiredThemeData {
         ThemeData(brightness: brightness, useMaterial3: useMaterial3).textTheme;
     final themedTextTheme = baseTextTheme
         .apply(
-          fontFamily: fontFamily,
-          package: fontPackage,
+          fontFamily: qualifiedFontFamily,
+          fontFamilyFallback: fontFamilyFallback,
         )
         .apply(bodyColor: textColor, displayColor: textColor);
 
@@ -250,8 +275,8 @@ class WiredThemeData {
       brightness: brightness,
       useMaterial3: useMaterial3,
       colorScheme: colorScheme,
-      fontFamily: fontFamily,
-      package: fontPackage,
+      fontFamily: qualifiedFontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       scaffoldBackgroundColor: paperBackgroundColor,
       canvasColor: fillColor,
       dividerColor: borderColor.withValues(alpha: 0.35),
@@ -355,8 +380,8 @@ class WiredTheme extends HookWidget {
     // Text, so local font overrides reach existing Material-backed controls.
     final parent = Theme.of(context);
     TextTheme apply(TextTheme value) => value.apply(
-      fontFamily: data.fontFamily,
-      package: data.fontPackage,
+      fontFamily: data.qualifiedFontFamily,
+      fontFamilyFallback: data.fontFamilyFallback,
       bodyColor: data.textColor,
       displayColor: data.textColor,
     );

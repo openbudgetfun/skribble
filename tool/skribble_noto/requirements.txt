@@ -1,0 +1,9 @@
+# Pinned so the generator stays deterministic: the same Noto sources and these
+# versions rebuild byte-identical fonts.
+fonttools==4.67.0
+brotli==1.2.0
+numpy==2.5.3
+pillow==12.3.0
+pyclipper==1.4.0
+scikit-image==0.26.0
+scipy==1.18.1
