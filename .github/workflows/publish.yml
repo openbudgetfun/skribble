@@ -6,6 +6,7 @@ on:
       - "v*"
       - "skribble_maps/v*"
       - "skribble_charts/v*"
+      - "js/v*"
   # pub.dev only accepts automated publishing from runs triggered by a tag
   # push, so a dispatch cannot publish packages. Keep it for re-running the
   # non-registry repair steps (GitHub releases and font assets) at an existing
@@ -62,6 +63,25 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      # The npm packages build in their `prepack` script, which both the
+      # readiness dry runs and the real `npm publish` call.
+      - name: Install npm workspace dependencies
+        run: pnpm install --frozen-lockfile
+        shell: devenv shell -- bash -e {0}
+
+      # npm trusted publishing (OIDC, through the `id-token: write` permission)
+      # needs npm 11.5.1 or newer.
+      - name: Check the npm version for trusted publishing
+        if: startsWith(inputs.tag || github.ref_name, 'js/')
+        run: |
+          version="$(npm --version)"
+          if [ "$(printf '%s\n' 11.5.1 "$version" | sort -V | head -n1)" != 11.5.1 ]; then
+            echo "::error::npm $version cannot use trusted publishing; it needs 11.5.1 or newer."
+            exit 1
+          fi
+          echo "npm $version"
+        shell: devenv shell -- bash -e {0}
+
       - name: Check Monochange publish readiness
         run: |
           monochange step publish-readiness \
@@ -82,8 +102,9 @@ jobs:
 
       # pub.dev configures automated publishing per package, and each package
       # only accepts its own tag pattern, so every tag publishes just the
-      # release targets it owns: the main group for `v<version>`, and the
-      # single companion package for its namespaced tag. Re-runs skip versions
+      # release targets it owns: the main group for `v<version>`, the single
+      # companion package for its namespaced tag, and the npm packages for
+      # `js/v<version>`. Re-runs skip versions
       # that already exist on pub.dev.
       #
       # The script publishes one package per invocation because monochange

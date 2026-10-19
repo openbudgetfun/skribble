@@ -1083,7 +1083,9 @@ The engine is split across two packages. Geometry, fillers, pens, ink sampling, 
 - `@skribble.dev/rough` follows the Dart engine operation for operation, including Dart's `Random(seed)` stream, rounding, and sort order. When you change `packages/skribble_rough`, regenerate `js/rough/test/fixtures/dart-parity.json` with `dart run packages/skribble_rough/tool/js_parity_fixtures.dart` and port the change until the parity tests pass.
 - Framework packages stay thin: they map `SketchPath` entries from `sketch()` to their own path elements and add nothing the core could hold.
 - Run `pnpm install && pnpm run check` (build, typecheck, test). The `npm-packages` CI job runs the same.
-- Never publish to npm from a branch; publishing waits for an explicit release decision.
+- Internal dependencies use plain semver ranges (`"@skribble.dev/rough": "^0.1.0"`), never the `workspace:` protocol. monochange rewrites those ranges on every release, and `npm publish`, which trusted publishing uses, would ship a `workspace:` range unchanged. `pnpm-workspace.yaml` sets `linkWorkspacePackages`, `preferWorkspacePackages`, and `saveWorkspaceProtocol: false`, so pnpm still links the local packages and `pnpm add` writes plain ranges.
+- monochange owns the versions. The five packages form the `js` group in `monochange.toml`, share one version, and release under a `js/v<version>` tag. Changes under `js/` need a changeset for them, like any Dart package.
+- Never publish to npm from a branch. The publish workflow publishes a `js/v<version>` tag with npm trusted publishing, and each package's `prepack` script builds it first.
 
 ## Documentation update requirements
 

@@ -98,6 +98,29 @@ tag = true
 release = true
 version_format = "namespaced"
 
+# The npm packages in js/. Their internal dependencies are plain semver ranges
+# ("^0.1.0") that monochange rewrites on each release; see
+# pnpm-workspace.yaml for how pnpm still links them locally.
+[package."@skribble.dev/rough"]
+path = "js/rough"
+type = "npm"
+
+[package."@skribble.dev/react"]
+path = "js/react"
+type = "npm"
+
+[package."@skribble.dev/react-native"]
+path = "js/react-native"
+type = "npm"
+
+[package."@skribble.dev/vue"]
+path = "js/vue"
+type = "npm"
+
+[package."@skribble.dev/svelte"]
+path = "js/svelte"
+type = "npm"
+
 # =============================================================================
 # [group.*] — version groups that share a single release identity
 # =============================================================================
@@ -131,6 +154,22 @@ changelog = { path = "CHANGELOG.md" }
 bump_propagation = "inherit"
 bump_propagation_max = "major"
 
+# The npm packages share one version and release under their own `js/v<version>`
+# tag, so a JavaScript release never waits on, or forces, a Dart release.
+[group.js]
+packages = [
+  "@skribble.dev/rough",
+  "@skribble.dev/react",
+  "@skribble.dev/react-native",
+  "@skribble.dev/vue",
+  "@skribble.dev/svelte",
+]
+tag = true
+release = true
+version_format = "namespaced"
+release_title = "npm packages v{{ version }} ({{ date }})"
+changelog = { path = "js/CHANGELOG.md" }
+
 # =============================================================================
 # [ecosystems.*] — per-ecosystem discovery and publishing settings
 # =============================================================================
@@ -148,6 +187,15 @@ publish.trusted_publishing = { enabled = true, mode = "preferred", repository = 
 versioned_files = [
   { path = "**/pubspec.yaml", type = "dart", fields = ["dependencies", "dev_dependencies"] },
 ]
+
+[ecosystems.npm]
+enabled = true
+# Refresh pnpm-lock.yaml after monochange rewrites versions and internal ranges.
+lockfile_commands = [{ command = "pnpm install --lockfile-only" }]
+publish.enabled = true
+publish.mode = "builtin"
+publish.registry = "npm"
+publish.trusted_publishing = { enabled = true, repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
 
 # =============================================================================
 # [source] — repository host for release automation

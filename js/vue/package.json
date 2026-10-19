@@ -1,7 +1,6 @@
 {
   "name": "@skribble.dev/vue",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.0",
   "description": "Hand-drawn SVG sketches for Vue, drawn by skribble's rough engine. Server-renders the same markup on every build.",
   "license": "MIT",
   "author": "Ifiok Jr.",
@@ -40,11 +39,12 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "prepack": "pnpm run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run"
   },
   "dependencies": {
-    "@skribble.dev/rough": "workspace:^"
+    "@skribble.dev/rough": "^0.0.0"
   },
   "peerDependencies": {
     "vue": ">=3.3"

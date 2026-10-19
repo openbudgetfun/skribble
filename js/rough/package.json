@@ -1,7 +1,6 @@
 {
   "name": "@skribble.dev/rough",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.0",
   "description": "skribble's hand-drawn rendering engine for JavaScript: seeded rough shapes, sketched fills, and pen-shaped ink for SVG, canvas, and any framework. A modern replacement for rough.js.",
   "license": "MIT",
   "author": "Ifiok Jr.",
@@ -40,6 +39,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "prepack": "pnpm run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run"
   },

@@ -207,7 +207,16 @@ missing=""
 deadline=$((SECONDS + 600))
 
 # Whether pub.dev lists $1 at version $2. Sets `code` to the HTTP status.
+# Scoped names (`@skribble.dev/rough`) are npm packages; everything else is on
+# pub.dev.
 on_registry() {
+	if [[ "$1" == @* ]]; then
+		code="$(curl -s -o "$scratch/pkg.json" -w '%{http_code}' \
+			"https://registry.npmjs.org/${1/\//%2f}" || true)"
+		[[ "$code" == "200" ]] &&
+			[[ "$(jq -r --arg v "$2" '.versions | has($v)' "$scratch/pkg.json" 2>/dev/null)" == "true" ]]
+		return
+	fi
 	code="$(curl -s -o "$scratch/pkg.json" -w '%{http_code}' \
 		"https://pub.dev/api/packages/$1" || true)"
 	[[ "$code" == "200" ]] &&

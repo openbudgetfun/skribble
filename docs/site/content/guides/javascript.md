@@ -17,7 +17,7 @@ It also replaces [rough.js](https://github.com/rough-stuff/rough), whose last re
 | `@skribble.dev/vue`          | Vue 3, including server rendering                  |
 | `@skribble.dev/svelte`       | Svelte 5, including server rendering               |
 
-The packages live in the repository's `js/` folder and are not on npm yet.
+The packages live in the repository's `js/` folder. They share one version and are released together with monochange under a `js/v<version>` tag.
 
 ## Draw in a plain browser
 
