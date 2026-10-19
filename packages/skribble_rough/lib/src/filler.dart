@@ -179,7 +179,15 @@ abstract class Filler {
           edges.removeRange(0, ix + 1);
           // ignore: prefer_final_in_for_each
           for (Edge edge in removed) {
-            activeEdges.add(ActiveEdge(y, edge));
+            // An edge that starts between scanlines joins at this one, so
+            // its intercept moves along the edge to y. Starting it at yMin
+            // pushed lines past short, shallow edges such as rounded corners.
+            activeEdges.add(
+              ActiveEdge(
+                y,
+                edge.copyWith(x: edge.x! + (y - edge.yMin!) * edge.slope!),
+              ),
+            );
           }
         }
         activeEdges = activeEdges.where((ae) => ae.edge.yMax! > y).toList();

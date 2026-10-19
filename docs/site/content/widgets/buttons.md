@@ -29,12 +29,12 @@ WiredButton(
 
 ### Constructor parameters
 
-| Parameter       | Type               | Default                                | Description                                                     |
-| --------------- | ------------------ | -------------------------------------- | --------------------------------------------------------------- |
-| `borderRadius`  | `BorderRadius`     | `BorderRadius.all(Radius.circular(6))` | Rough corner radii; use zero for square corners.                |
-| `child`         | `Widget`           | **required**                           | The button label.                                               |
-| `onPressed`     | `void Function()?` | `null`                                 | Callback when the button is tapped; `null` disables the button. |
-| `semanticLabel` | `String?`          | `null`                                 | Accessibility label exposed to screen readers.                  |
+| Parameter       | Type               | Default                                 | Description                                                     |
+| --------------- | ------------------ | --------------------------------------- | --------------------------------------------------------------- |
+| `borderRadius`  | `BorderRadius`     | `BorderRadius.all(Radius.circular(10))` | Rough corner radii; use zero for square corners.                |
+| `child`         | `Widget`           | **required**                            | The button label.                                               |
+| `onPressed`     | `void Function()?` | `null`                                  | Callback when the button is tapped; `null` disables the button. |
+| `semanticLabel` | `String?`          | `null`                                  | Accessibility label exposed to screen readers.                  |
 
 ### Notes
 
@@ -47,7 +47,7 @@ WiredButton(
 
 ## WiredElevatedButton
 
-An elevated variant with a slight offset shadow layer rendered behind the main button face. Both the shadow and the face use hachure fills for a tactile, layered look.
+An elevated variant: a solid paper face over a lightly pencilled offset shadow. The shadow's hachure is drawn at 40% of the border colour, so the button lifts without a heavy dark slab.
 
 ```dart
 // Live example: elevated-button
@@ -61,12 +61,12 @@ WiredElevatedButton(
 
 ### Constructor parameters
 
-| Parameter       | Type            | Default                                | Description                                       |
-| --------------- | --------------- | -------------------------------------- | ------------------------------------------------- |
-| `borderRadius`  | `BorderRadius`  | `BorderRadius.all(Radius.circular(6))` | Rough corner radii; use zero for square corners.  |
-| `child`         | `Widget`        | **required**                           | The button label.                                 |
-| `onPressed`     | `VoidCallback?` | `null`                                 | Callback when tapped. `null` disables the button. |
-| `semanticLabel` | `String?`       | `null`                                 | Accessibility label.                              |
+| Parameter       | Type            | Default                                 | Description                                       |
+| --------------- | --------------- | --------------------------------------- | ------------------------------------------------- |
+| `borderRadius`  | `BorderRadius`  | `BorderRadius.all(Radius.circular(10))` | Rough corner radii; use zero for square corners.  |
+| `child`         | `Widget`        | **required**                            | The button label.                                 |
+| `onPressed`     | `VoidCallback?` | `null`                                  | Callback when tapped. `null` disables the button. |
+| `semanticLabel` | `String?`       | `null`                                  | Accessibility label.                              |
 
 ### Notes
 
@@ -77,7 +77,7 @@ WiredElevatedButton(
 
 ## WiredFilledButton
 
-A solid button with a dense hachure fill, analogous to Material's `FilledButton`. Good for primary call-to-action placement.
+A button coloured in with the theme's highlighter, analogous to Material's `FilledButton`. Good for primary call-to-action placement. By default it is washed with `theme.markerColor` and labelled in `theme.textColor`, like a button coloured in with a marker; pass `fillColor` for a stronger or branded colour.
 
 ```dart
 // Live example: filled-button
@@ -92,25 +92,25 @@ WiredFilledButton(
 
 ### Constructor parameters
 
-| Parameter         | Type            | Default                                | Description                                              |
-| ----------------- | --------------- | -------------------------------------- | -------------------------------------------------------- |
-| `borderRadius`    | `BorderRadius`  | `BorderRadius.all(Radius.circular(6))` | Rough corner radii; use zero for square corners.         |
-| `child`           | `Widget`        | **required**                           | The button label.                                        |
-| `onPressed`       | `VoidCallback?` | `null`                                 | Callback when tapped.                                    |
-| `fillColor`       | `Color?`        | `null`                                 | Custom fill color. Defaults to `theme.borderColor`.      |
-| `foregroundColor` | `Color?`        | `null`                                 | Text/icon color. Defaults to contrasting black or white. |
-| `semanticLabel`   | `String?`       | `null`                                 | Accessibility label.                                     |
+| Parameter         | Type            | Default                                 | Description                                                                                            |
+| ----------------- | --------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `borderRadius`    | `BorderRadius`  | `BorderRadius.all(Radius.circular(10))` | Rough corner radii; use zero for square corners.                                                       |
+| `child`           | `Widget`        | **required**                            | The button label.                                                                                      |
+| `onPressed`       | `VoidCallback?` | `null`                                  | Callback when tapped.                                                                                  |
+| `fillColor`       | `Color?`        | `null`                                  | Custom fill color. Defaults to `theme.markerColor`.                                                    |
+| `foregroundColor` | `Color?`        | `null`                                  | Text/icon color. Defaults to the theme's text or paper colour, whichever contrasts more with the fill. |
+| `semanticLabel`   | `String?`       | `null`                                  | Accessibility label.                                                                                   |
 
 ### Notes
 
 - The solid fill keeps the label readable and retains a small, uneven overlap along the outline.
-- When `fillColor` is not provided the button uses `theme.borderColor` for a high-contrast filled look.
+- When `fillColor` is not provided the button uses `theme.markerColor`, a soft wash under ink text. Earlier versions filled it with `theme.borderColor`; pass `fillColor: theme.borderColor` to keep that heavier look.
 
 ---
 
 ## WiredFloatingActionButton
 
-A circular floating action button with a hand-drawn circle border and hachure fill. Designed for primary screen actions.
+A circular floating action button: a hand-drawn circle washed with `theme.markerColor`, with its icon in `theme.textColor`. Designed for primary screen actions.
 
 ```dart
 // Live example: floating-button
@@ -128,7 +128,7 @@ WiredFloatingActionButton(
 | `icon`          | `IconData`      | **required** | The icon displayed in the center.                   |
 | `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped.                               |
 | `size`          | `double`        | `56.0`       | Diameter of the FAB.                                |
-| `iconColor`     | `Color?`        | `null`       | Icon color override. Defaults to `theme.fillColor`. |
+| `iconColor`     | `Color?`        | `null`       | Icon color override. Defaults to `theme.textColor`. |
 | `semanticLabel` | `String?`       | `null`       | Accessibility label.                                |
 
 ### Notes
@@ -187,12 +187,12 @@ WiredOutlinedButton(
 
 ### Constructor parameters
 
-| Parameter       | Type            | Default                                | Description                                      |
-| --------------- | --------------- | -------------------------------------- | ------------------------------------------------ |
-| `borderRadius`  | `BorderRadius`  | `BorderRadius.all(Radius.circular(6))` | Rough corner radii; use zero for square corners. |
-| `child`         | `Widget`        | **required**                           | The button label.                                |
-| `onPressed`     | `VoidCallback?` | `null`                                 | Callback when tapped.                            |
-| `semanticLabel` | `String?`       | `null`                                 | Accessibility label.                             |
+| Parameter       | Type            | Default                                 | Description                                      |
+| --------------- | --------------- | --------------------------------------- | ------------------------------------------------ |
+| `borderRadius`  | `BorderRadius`  | `BorderRadius.all(Radius.circular(10))` | Rough corner radii; use zero for square corners. |
+| `child`         | `Widget`        | **required**                            | The button label.                                |
+| `onPressed`     | `VoidCallback?` | `null`                                  | Callback when tapped.                            |
+| `semanticLabel` | `String?`       | `null`                                  | Accessibility label.                             |
 
 ### Notes
 
@@ -357,11 +357,11 @@ WiredCupertinoButton(
 
 ## Shared ink and typography
 
-Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.
+Borders in this category now use the nearest `WiredThemeData.strokeWidth` (1.6 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.
 
 <!-- {/docsWidgetInkSection} -->
 
-`WiredFilledButton` uses an opaque rough fill so its label stays readable. Without an explicit foreground color, it selects black or white for contrast with the chosen fill.
+`WiredFilledButton` uses an opaque rough fill so its label stays readable. Without an explicit foreground color, it picks the theme's text or paper colour, whichever contrasts more with the fill.
 
 ## Ink motion
 
@@ -375,7 +375,7 @@ The six standard Wired button variants accept `inkInteraction`. Leave it unset t
 
 ## Rough rounded corners
 
-`WiredButton`, `WiredFilledButton`, `WiredElevatedButton`, and `WiredOutlinedButton` now use a small 6 px corner radius. Their `borderRadius` parameter accepts a `BorderRadius`, including `BorderRadius.zero` for square corners. Both the straight segments and corner arcs use the nearest theme's roughness; a radius does not introduce a smooth, machine-drawn outline.
+`WiredButton`, `WiredFilledButton`, `WiredElevatedButton`, and `WiredOutlinedButton` use a soft 10 px corner radius. Their `borderRadius` parameter accepts a `BorderRadius`, including `BorderRadius.zero` for square corners. Both the straight segments and corner arcs use the nearest theme's roughness; a radius does not introduce a smooth, machine-drawn outline.
 
 Change **radius** beside a live example to compare square, softly rounded, and rounder shapes. The fill follows the same rough contour, retaining a little marker overlap.
 

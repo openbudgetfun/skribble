@@ -47,8 +47,8 @@ void main() {
 
       final gentle = await pixels(WiredRoughness.gentle);
       final expectedGentle = DrawConfig.build(
-        maxRandomnessOffset: 2.4,
-        roughness: 1.25,
+        maxRandomnessOffset: 2,
+        roughness: 0.9,
         lineWobble: 0,
         bowing: 0.8,
         curveFitting: 0.9,
@@ -110,7 +110,7 @@ void main() {
     final original = WiredThemeData(borderColor: const Color(0xff123456));
     final gentle = original.copyWith(roughnessLevel: WiredRoughness.gentle);
     expect(gentle.fontFamily, 'SkribbleGentle');
-    expect(gentle.roughness, 1.25);
+    expect(gentle.roughness, 0.9);
     expect(gentle.borderColor, original.borderColor);
     final explicit = original.copyWith(
       fontFamily: 'MyInk',

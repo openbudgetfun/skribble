@@ -171,7 +171,7 @@ List<Note> _sampleNotes() {
       id: 'sample-2',
       title: 'Shopping List',
       content: 'Milk, eggs, bread, butter, coffee beans, sketchbook',
-      color: const Color(0xFFE8F5E9),
+      color: const Color(0xFFDCEBD5),
       createdAt: DateTime.now().subtract(const Duration(days: 1)),
       updatedAt: DateTime.now().subtract(const Duration(days: 1)),
     ),
@@ -181,7 +181,7 @@ List<Note> _sampleNotes() {
       content:
           'Build a weather app with hand-drawn clouds and sunshine '
           'animations. Use the Skribble canvas for custom drawings.',
-      color: const Color(0xFFE3F2FD),
+      color: const Color(0xFFD9E7F5),
       createdAt: DateTime.now().subtract(const Duration(hours: 3)),
       updatedAt: DateTime.now(),
     ),

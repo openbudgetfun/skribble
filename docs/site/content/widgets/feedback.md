@@ -181,7 +181,7 @@ WiredCircularProgress(value: .6)
 
 ## WiredBadge
 
-A badge overlay that positions a hand-drawn circle indicator at the top-right corner of its child. Supports optional text labels.
+A badge overlay that positions a hand-drawn dot, or a pill around a short label, at the top-right corner of its child.
 
 ```dart
 // Live example: badge
@@ -199,13 +199,13 @@ WiredBadge(
 | `child`           | `Widget`  | **required** | The widget to badge.                             |
 | `label`           | `String?` | `null`       | Text inside the badge. When `null`, shows a dot. |
 | `isVisible`       | `bool`    | `true`       | Whether the badge is shown.                      |
-| `backgroundColor` | `Color?`  | `null`       | Badge color. Defaults to `theme.borderColor`.    |
+| `backgroundColor` | `Color?`  | `null`       | Badge color. Defaults to `theme.markerColor`.    |
 
 ### Notes
 
 - The badge is positioned at `right: -6, top: -6`.
-- Dot badges are 16px; labeled badges auto-size based on text length.
-- Uses `WiredCircleBase` with hachure fill (gap: 1.0) and white bold text at 10px.
+- Dot badges are a 16px circle; labeled badges are a rounded pill that grows with the label, so the text never spills past the ink.
+- Both are washed solid with the background colour, and labels use bold 10px text in `theme.textColor`.
 
 ---
 
@@ -460,7 +460,7 @@ Builder(
 
 ## Shared ink and typography
 
-Borders in this category now use the nearest `WiredThemeData.strokeWidth` (2.4 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.
+Borders in this category now use the nearest `WiredThemeData.strokeWidth` (1.6 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.
 
 <!-- {/docsWidgetInkSection} -->
 

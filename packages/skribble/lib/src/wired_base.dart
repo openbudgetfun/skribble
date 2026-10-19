@@ -17,5 +17,6 @@ export 'wired_paint.dart'
         kWiredButtonHeight,
         kWiredButtonPadding,
         kWiredChipHeight,
-        kWiredInkPadding;
+        kWiredInkPadding,
+        kWiredStrokeWidth;
 export 'wired_painter_bases.dart';

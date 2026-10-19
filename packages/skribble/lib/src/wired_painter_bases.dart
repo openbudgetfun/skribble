@@ -29,7 +29,7 @@ class WiredRectangleBase extends _PreparedWiredPainter {
     this.rightIndent = 0.0,
     this.fillColor = kWiredDefaultFillColor,
     this.borderColor = kWiredDefaultBorderColor,
-    this.strokeWidth = 2.4,
+    this.strokeWidth = kWiredStrokeWidth,
   });
 
   @override
@@ -65,7 +65,7 @@ class WiredInvertedTriangleBase extends _PreparedWiredPainter {
   /// Creates an inverted triangle painter.
   WiredInvertedTriangleBase({
     this.borderColor = kWiredDefaultBorderColor,
-    this.strokeWidth = 2.4,
+    this.strokeWidth = kWiredStrokeWidth,
   });
 
   @override
@@ -172,10 +172,10 @@ class WiredRoundedRectangleBase extends _PreparedWiredPainter {
 
   /// Creates a rounded rectangle painter.
   WiredRoundedRectangleBase({
-    this.borderRadius = const BorderRadius.all(Radius.circular(12)),
+    this.borderRadius = const BorderRadius.all(Radius.circular(16)),
     this.fillColor = kWiredDefaultFillColor,
     this.borderColor = kWiredDefaultBorderColor,
-    this.strokeWidth = 2.4,
+    this.strokeWidth = kWiredStrokeWidth,
   });
 
   @override
@@ -223,7 +223,7 @@ class WiredCircleBase extends _PreparedWiredPainter {
     this.diameterRatio = 1,
     this.fillColor = kWiredDefaultFillColor,
     this.borderColor = kWiredDefaultBorderColor,
-    this.strokeWidth = 2.4,
+    this.strokeWidth = kWiredStrokeWidth,
   });
 
   @override

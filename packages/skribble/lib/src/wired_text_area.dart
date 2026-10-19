@@ -45,7 +45,9 @@ class WiredTextArea extends HookWidget {
         children: [
           Positioned.fill(
             child: WiredCanvas(
-              painter: WiredRectangleBase(
+              painter: WiredRoundedRectangleBase(
+                // The same soft corners as a single-line WiredInput.
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
                 strokeWidth: theme.strokeWidth,
                 fillColor: theme.fillColor,
                 borderColor: theme.borderColor,

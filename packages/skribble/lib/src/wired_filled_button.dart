@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import 'motion/wired_draw.dart';
@@ -8,12 +10,15 @@ import 'wired_theme.dart';
 
 /// A hand-drawn filled button, corresponding to Flutter's [FilledButton].
 ///
-/// The button has an opaque ink fill with a sketchy hand-drawn border.
+/// The button is washed with the theme's highlighter, its `markerColor`,
+/// inside a sketchy hand-drawn border, like a button coloured in with a
+/// marker. Pass [fillColor] for a stronger or branded colour.
 class WiredFilledButton extends WiredButtonBase {
-  /// Fill color. Defaults to `borderColor`.
+  /// Fill color. Defaults to the theme's `markerColor`.
   final Color? fillColor;
 
-  /// Text/icon color. Defaults to black or white for contrast with the fill.
+  /// Text/icon color. Defaults to whichever of the theme's text and paper
+  /// colours contrasts more with the fill.
   final Color? foregroundColor;
 
   /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
@@ -30,16 +35,15 @@ class WiredFilledButton extends WiredButtonBase {
     this.foregroundColor,
     super.semanticLabel,
     super.inkInteraction,
-    this.borderRadius = const BorderRadius.all(Radius.circular(6)),
+    this.borderRadius = const BorderRadius.all(Radius.circular(10)),
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final fill = fillColor ?? theme.borderColor;
+    final fill = fillColor ?? theme.markerColor;
     final fg =
-        foregroundColor ??
-        (fill.computeLuminance() > 0.179 ? Colors.black : Colors.white);
+        foregroundColor ?? _contrasting(fill, theme.textColor, theme.fillColor);
 
     return buildWiredButton(
       decorationBuilder: (context) => RoughBoxDecoration(
@@ -63,4 +67,15 @@ class WiredFilledButton extends WiredButtonBase {
       ),
     );
   }
+}
+
+/// Whichever of [a] and [b] has the higher contrast ratio against [fill].
+Color _contrasting(Color fill, Color a, Color b) {
+  double ratio(Color c) {
+    final l1 = fill.computeLuminance();
+    final l2 = c.computeLuminance();
+    return (math.max(l1, l2) + 0.05) / (math.min(l1, l2) + 0.05);
+  }
+
+  return ratio(a) >= ratio(b) ? a : b;
 }

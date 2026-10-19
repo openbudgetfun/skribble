@@ -197,7 +197,7 @@ When a Material icon exists in the generated `kMaterialRoughIcons` map, `WiredIc
 
 ### Fill styles
 
-`WiredIcon` supports four fill styles:
+`WiredIcon` supports five fill styles: `marker` (the default, coloured in with marker strokes under a pen outline), `none`, `solid`, `hachure` and `crossHatch`:
 
 ```dart
 // Live example: svg-icon
@@ -205,7 +205,7 @@ WiredSvgIcon(
   data: exampleIcon('favorite'),
   size: 64,
   color: const Color(0xffe8957d),
-  fillStyle: WiredIconFillStyle.solid,
+  fillStyle: WiredIconFillStyle.marker,
   semanticLabel: 'Favourite',
 )
 ```

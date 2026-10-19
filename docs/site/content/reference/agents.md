@@ -571,9 +571,9 @@ Container(color: theme.borderColor)
 | `textColor`         | `WiredPalette.ink`                   | Primary text color                                  |
 | `disabledTextColor` | `WiredPalette.mutedInk`              | Disabled state text color                           |
 | `fillColor`         | `WiredPalette.paper`                 | Paper-like background fill                          |
-| `strokeWidth`       | `2.4`                                | Default stroke thickness                            |
+| `strokeWidth`       | `kWiredStrokeWidth` (1.6)            | Default stroke thickness                            |
 | `roughnessLevel`    | `WiredRoughness.playful`             | Coordinated border, icon, and lettering preset      |
-| `roughness`         | `1.5` (resolved from the level)      | Sketch randomness (0 = smooth, 2+ = very rough)     |
+| `roughness`         | `1.1` (resolved from the level)      | Sketch randomness (0 = smooth, 2+ = very rough)     |
 | `fontFamily`        | `SkribblePlayful` (resolved)         | Level family unless explicitly overridden           |
 | `motionEnabled`     | `true`                               | Decorative ink motion; platform reduced motion wins |
 | `inkInteraction`    | `WiredInkInteraction.pressure`       | Default decorative feedback for buttons             |
