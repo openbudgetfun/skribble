@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn radio button, corresponding to Flutter's `Radio`.
 ///
 /// Draws a sketchy circle border. When [value] equals [groupValue],
-/// the interior is filled with a hachure pattern.
+/// a neat inked dot is drawn in the middle.
 ///
 /// The radio button is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the selected state.
@@ -67,12 +66,11 @@ class WiredRadio<T> extends HookWidget {
                 child: WiredCanvas(
                   painter: WiredCircleBase(
                     strokeWidth: theme.strokeWidth,
-                    diameterRatio: .7,
+                    diameterRatio: .6,
                     fillColor: theme.textColor,
                     borderColor: theme.borderColor,
                   ),
-                  fillerType: RoughFilter.hachureFiller,
-                  fillerConfig: FillerConfig.build(hachureGap: 1.0),
+                  fillerType: RoughFilter.solidFiller,
                 ),
               ),
             SizedBox(

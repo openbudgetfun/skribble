@@ -208,5 +208,77 @@ void main() {
 
       expect(p1.shouldRepaint(p2), isTrue);
     });
+
+    testWidgets('fills with the theme hand and its own random stream', (
+      tester,
+    ) async {
+      final theme = WiredThemeData();
+      await pumpWired(
+        tester,
+        SizedBox(
+          width: 120,
+          height: 60,
+          child: WiredCanvas(
+            painter: WiredRectangleBase(),
+            fillerType: RoughFilter.hachureFiller,
+          ),
+        ),
+        theme: theme,
+      );
+
+      final painter =
+          tester
+                  .widget<CustomPaint>(
+                    find.descendant(
+                      of: findWiredCanvas,
+                      matching: findCustomPaint,
+                    ),
+                  )
+                  .painter!
+              as WiredPainter;
+      final fill = painter.filler.config.drawConfig;
+
+      expect(fill, equals(theme.drawConfig));
+      expect(fill.roughness, theme.roughness);
+      expect(fill.lineWobble, theme.drawConfig.lineWobble);
+      expect(
+        identical(fill.randomizer, theme.drawConfig.randomizer),
+        isFalse,
+        reason: "the fill replays its own stream, not the outline's",
+      );
+    });
+
+    testWidgets('an explicit filler config keeps its own hand', (
+      tester,
+    ) async {
+      final config = FillerConfig.build(
+        drawConfig: DrawConfig.build(roughness: 2.5),
+      );
+      await pumpApp(
+        tester,
+        SizedBox(
+          width: 120,
+          height: 60,
+          child: WiredCanvas(
+            painter: WiredRectangleBase(),
+            fillerType: RoughFilter.hachureFiller,
+            fillerConfig: config,
+          ),
+        ),
+      );
+
+      final painter =
+          tester
+                  .widget<CustomPaint>(
+                    find.descendant(
+                      of: findWiredCanvas,
+                      matching: findCustomPaint,
+                    ),
+                  )
+                  .painter!
+              as WiredPainter;
+
+      expect(painter.filler.config, same(config));
+    });
   });
 }

@@ -51,16 +51,16 @@ One SVG unit corresponds to one Flutter logical pixel. These are defaults, not r
 
 | Token                   | Value or rule                                                                                                        |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Pen                     | 2.4 px; round caps and joins                                                                                         |
+| Pen                     | 1.6 px; round caps and joins                                                                                         |
 | Default outline         | `#1A2B3C`                                                                                                            |
 | Default fill            | `#FEFEFE`; specimens leave unfilled interiors transparent                                                            |
 | Default text            | Black                                                                                                                |
 | Stable geometry         | Seed 1; reset the generator for each drawing. Keep seed and bounds fixed across repaints and press states            |
-| Gentle                  | Roughness 1.25; offset 1.2; line wobble 0; font deformation strength 18 at 1,000 units/em                            |
-| Playful                 | Roughness 1.5; offset 1.6; line wobble 0.65; font deformation strength 27 at 1,000 units/em                          |
-| Expressive, default     | Roughness 1.8; offset 2; line wobble 1; font deformation strength 36 at 1,000 units/em                               |
-| Reserved bleed per edge | `strokeWidth / 2 + 1 + maxRandomnessOffset * roughness`: 3.7 / 4.6 / 5.8 px for the three presets                    |
-| Divider ink extent      | Twice the bleed: 7.4 / 9.2 / 11.6 px                                                                                 |
+| Gentle                  | Roughness 0.9; offset 1; line wobble 0; font deformation strength 18 at 1,000 units/em                               |
+| Playful, default        | Roughness 1.1; offset 1.2; line wobble 0.35; font deformation strength 27 at 1,000 units/em                          |
+| Expressive              | Roughness 1.8; offset 2; line wobble 1; font deformation strength 36 at 1,000 units/em                               |
+| Reserved bleed per edge | `strokeWidth / 2 + 1 + maxRandomnessOffset * roughness`: 2.7 / 3.1 / 5.4 px for the three presets                    |
+| Divider ink extent      | Twice the bleed: 5.4 / 6.2 / 10.8 px                                                                                 |
 | Lettering               | Static outlines. Repeated letters retain the same shape; geometry roughness and font deformation use different units |
 
 See the [theme system](https://openbudgetfun.github.io/skribble/core/theme-system) for overrides and the [motion guide](https://openbudgetfun.github.io/skribble/core/motion) for animation ownership.

@@ -135,18 +135,18 @@ $preview
 
 /// Fixed design examples. Layout sizes are handoff choices, not widget minima.
 const designSpecimens = [
-  DesignSpecimen('button', 160, 48, y: 3, inkHeight: 42, radius: 6),
+  DesignSpecimen('button', 160, 48, y: 3, inkHeight: 42, radius: 10),
   DesignSpecimen(
     'button-pressed',
     160,
     48,
     y: 3,
     inkHeight: 42,
-    radius: 6,
+    radius: 10,
     pressed: true,
   ),
-  DesignSpecimen('field', 280, 56),
-  DesignSpecimen('card', 280, 130),
+  DesignSpecimen('field', 280, 56, radius: 12),
+  DesignSpecimen('card', 280, 130, radius: 16),
   DesignSpecimen('focus-ring', 168, 56, radius: 8),
   DesignSpecimen(
     'navigation-selected',
@@ -216,7 +216,9 @@ class DesignSpecimen {
   /// paints them. The pressed state reinforces those shapes with a thin
   /// stroke, which is how the runtime adds pen pressure.
   String svg(WiredRoughness level) {
-    const strokeWidth = 2.4;
+    // The theme's default pen, kWiredStrokeWidth. This tool runs on the plain
+    // Dart VM, so it cannot import that Flutter library.
+    const strokeWidth = 1.6;
     final config = DrawConfig.build(
       roughness: level.roughness,
       maxRandomnessOffset: level.maxRandomnessOffset,

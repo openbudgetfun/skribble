@@ -7,7 +7,8 @@ import 'package:skribble_example/models/note.dart';
 /// A reusable card widget for displaying a note preview in the list.
 ///
 /// Shows the note title in bold, a content preview (first 50 characters),
-/// and the date. Displays a [WiredBadge] if the note was updated today.
+/// and the date, on a card coloured in with the note's pastel. Displays a
+/// [WiredBadge] if the note was updated today.
 class NoteCard extends HookWidget {
   const NoteCard({
     required this.note,
@@ -33,39 +34,45 @@ class NoteCard extends HookWidget {
     final dateString =
         '${note.updatedAt.month}/${note.updatedAt.day}/${note.updatedAt.year}';
 
-    final card = WiredCard(
-      height: null,
-      child: WiredListTile(
-        onTap: onTap,
-        showDivider: false,
-        leading: Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(
-            color: note.color,
-            shape: BoxShape.circle,
-            border: Border.all(color: const Color(0xFF5C3D2E)),
-          ),
-        ),
-        title: Text(
-          note.title.isEmpty ? 'Untitled' : note.title,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (contentPreview.isNotEmpty)
-              Text(
-                contentPreview,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            const SizedBox(height: 4),
-            Text(
-              dateString,
-              style: const TextStyle(fontSize: 12),
+    final theme = WiredTheme.of(context);
+    // Each note is coloured in with its own pastel, like a sticky note.
+    final card = WiredTheme(
+      data: theme.copyWith(fillColor: note.color),
+      child: WiredCard(
+        fill: true,
+        height: null,
+        child: WiredListTile(
+          onTap: onTap,
+          showDivider: false,
+          leading: Container(
+            width: 12,
+            height: 12,
+            decoration: BoxDecoration(
+              color: note.color,
+              shape: BoxShape.circle,
+              border: Border.all(color: theme.borderColor),
             ),
-          ],
+          ),
+          title: Text(
+            note.title.isEmpty ? 'Untitled' : note.title,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (contentPreview.isNotEmpty)
+                Text(
+                  contentPreview,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              const SizedBox(height: 4),
+              Text(
+                dateString,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
         ),
       ),
     );

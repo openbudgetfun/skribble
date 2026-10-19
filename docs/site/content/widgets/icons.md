@@ -48,7 +48,7 @@ const Wrap(
 | `color`         | `Color?`             | `null`       | Icon color. Defaults to `IconTheme.of(context).color` or `theme.textColor`.    |
 | `weight`        | `double?`            | `null`       | Pen weight from 100 to 700. Defaults to `IconTheme.of(context).weight` or 400. |
 | `semanticLabel` | `String?`            | `null`       | Accessibility label.                                                           |
-| `fillStyle`     | `WiredIconFillStyle` | `.solid`     | How ambient silhouettes are filled. Stroke artwork ignores it.                 |
+| `fillStyle`     | `WiredIconFillStyle` | `.marker`    | How ambient silhouettes are filled. Stroke artwork ignores it.                 |
 | `drawConfig`    | `DrawConfig?`        | `null`       | Overrides the theme's wavering and pen.                                        |
 | `hachureGap`    | `double`             | `2.25`       | Gap between hachure strokes.                                                   |
 | `hachureAngle`  | `double`             | `320`        | Angle of hachure strokes in degrees.                                           |
@@ -59,7 +59,7 @@ const Wrap(
 
 - **Strokes** (Lucide, `SkribbleGlyphs`) are inked thinner or bolder by the theme pen.
 - **Silhouettes** (Material, Boxicons, brand marks) grow or shrink evenly along their edges. Shrinking keeps narrow counters open; very bold weights fill the smallest gaps, as a bold typeface does.
-- **The theme's ink weight** scales icons too: a `WiredThemeData` with `strokeWidth: 3.6` draws icons half again as bold as the 2.4 default, so one setting controls borders and icons together.
+- **The theme's ink weight** scales icons too, in proportion to a 2.4 pen: the default 1.6 pen (`kWiredStrokeWidth`) draws them a little lighter, and `strokeWidth: 3.6` draws them half again as bold as 2.4, so one setting controls borders and icons together.
 
 ```dart
 // Live example: glyphs
@@ -82,14 +82,17 @@ Wrap(
 
 ### Fill styles
 
-The `WiredIconFillStyle` enum controls how ambient silhouettes are filled. Stroke artwork and multi-coloured artwork keep their authored paint.
+The `WiredIconFillStyle` enum controls how ambient silhouettes are filled: filled shapes such as Material, Boxicons and brand marks, including artwork filled with `currentColor`. Stroke artwork and multi-coloured artwork keep their authored paint.
 
-| Style        | Description                                                    |
-| ------------ | -------------------------------------------------------------- |
-| `none`       | The silhouette's outline only, inked with the theme pen.       |
-| `solid`      | Solid fill (default), grown or shrunk to the requested weight. |
-| `hachure`    | Pen strokes at the configured angle and gap, plus the outline. |
-| `crossHatch` | Two crossing sets of pen strokes, plus the outline.            |
+| Style        | Description                                                                                                                 |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `marker`     | Default. Coloured in with broad, overlapping marker strokes that darken where they cross, then outlined with the theme pen. |
+| `none`       | The silhouette's outline only, inked with the theme pen.                                                                    |
+| `solid`      | A flat fill, grown or shrunk to the requested weight, for the crispest small icons.                                         |
+| `hachure`    | Pen strokes at the configured angle and gap, plus the outline.                                                              |
+| `crossHatch` | Two crossing sets of pen strokes, plus the outline.                                                                         |
+
+Filled shapes have no pen stroke to carry the hand, so their edges waver more than stroke artwork does, and every style but `solid` traces them with the pen. That is what keeps a brand mark or a Material silhouette from looking like the stock icon. Choose `solid` when an icon must read at very small sizes.
 
 ### Notes
 
@@ -109,7 +112,7 @@ WiredSvgIcon(
   data: exampleIcon('favorite'),
   size: 64,
   color: const Color(0xffe8957d),
-  fillStyle: WiredIconFillStyle.solid,
+  fillStyle: WiredIconFillStyle.marker,
   semanticLabel: 'Favourite',
 )
 ```
@@ -123,7 +126,7 @@ WiredSvgIcon(
 | `color`            | `Color?`             | `null`       | Icon color.                                                                    |
 | `weight`           | `double?`            | `null`       | Pen weight from 100 to 700. Defaults to `IconTheme.of(context).weight` or 400. |
 | `semanticLabel`    | `String?`            | `null`       | Accessibility label.                                                           |
-| `fillStyle`        | `WiredIconFillStyle` | `.solid`     | How ambient silhouettes are filled.                                            |
+| `fillStyle`        | `WiredIconFillStyle` | `.marker`    | How ambient silhouettes are filled.                                            |
 | `drawConfig`       | `DrawConfig?`        | `null`       | Overrides the theme's wavering and pen.                                        |
 | `flipHorizontally` | `bool`               | `false`      | Mirror the icon horizontally.                                                  |
 | `hachureGap`       | `double`             | `2.25`       | Hachure stroke gap.                                                            |
@@ -455,7 +458,7 @@ Wrap(
         data: brand.data,
         size: 48,
         color: const Color(0xffe8957d),
-        fillStyle: WiredIconFillStyle.solid,
+        fillStyle: WiredIconFillStyle.marker,
         semanticLabel: brand.name,
       ),
   ],

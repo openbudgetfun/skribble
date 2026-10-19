@@ -42,10 +42,10 @@ class DrawConfig {
 
   /// The library defaults: playful roughness drawn with [RoughPen.ink].
   static final DrawConfig defaultValues = DrawConfig._(
-    maxRandomnessOffset: 2,
-    roughness: 1.8,
+    maxRandomnessOffset: 1.2,
+    roughness: 1.1,
     bowing: 1,
-    lineWobble: 1,
+    lineWobble: 0.35,
     curveFitting: 0.95,
     curveTightness: 0,
     curveStepCount: 9,

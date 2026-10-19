@@ -7,6 +7,10 @@ import 'package:skribble/src/wired_doodle_kind.dart';
 import 'package:skribble/src/wired_roughness.dart';
 import 'package:skribble_rough/skribble_rough.dart';
 
+/// The theme's default pen, `kWiredStrokeWidth`. That constant lives in a
+/// Flutter library, and this tool runs on the plain Dart VM.
+const double _strokeWidth = 1.6;
+
 /// Exports the same curves used by Flutter for Figma, GitHub, and browsers.
 void main() {
   Directory('assets/brand').createSync(recursive: true);
@@ -64,15 +68,15 @@ void main() {
   final shapes = <String, Object>{};
 
   for (final spec in [
-    (name: 'button', width: 160.0, height: 42.0, radius: 6.0),
-    (name: 'input', width: 320.0, height: 56.0, radius: 8.0),
-    (name: 'card', width: 320.0, height: 160.0, radius: 12.0),
-    (name: 'checkbox', width: 27.0, height: 27.0, radius: 4.0),
+    (name: 'button', width: 160.0, height: 42.0, radius: 10.0),
+    (name: 'input', width: 320.0, height: 56.0, radius: 12.0),
+    (name: 'card', width: 320.0, height: 160.0, radius: 16.0),
+    (name: 'checkbox', width: 27.0, height: 27.0, radius: 6.0),
     (name: 'switch', width: 60.0, height: 24.0, radius: 12.0),
     (name: 'chip', width: 112.0, height: 32.0, radius: 16.0),
     (name: 'swatch', width: 94.0, height: 72.0, radius: 12.0),
     (name: 'dialog', width: 400.0, height: 240.0, radius: 0.0),
-    (name: 'text-area', width: 320.0, height: 120.0, radius: 0.0),
+    (name: 'text-area', width: 320.0, height: 120.0, radius: 12.0),
     (name: 'snack-bar', width: 400.0, height: 56.0, radius: 0.0),
     (name: 'tooltip', width: 160.0, height: 32.0, radius: 0.0),
     (name: 'menu', width: 240.0, height: 160.0, radius: 0.0),
@@ -89,7 +93,8 @@ void main() {
         ),
         SolidFiller(FillerConfig.defaultConfig),
       );
-      final inset = 2.4 / 2 + 1 + level.maxRandomnessOffset * level.roughness;
+      final inset =
+          _strokeWidth / 2 + 1 + level.maxRandomnessOffset * level.roughness;
       final drawing = spec.radius == 0
           ? generator.rectangle(
               inset,
@@ -141,7 +146,8 @@ void main() {
   ]) {
     for (final level in WiredRoughness.values) {
       final roughness = level.roughness * math.min(1.0, spec.size / 48);
-      final inset = 2.4 / 2 + 1 + level.maxRandomnessOffset * roughness;
+      final inset =
+          _strokeWidth / 2 + 1 + level.maxRandomnessOffset * roughness;
       final generator = Generator(
         DrawConfig.build(
           roughness: roughness,

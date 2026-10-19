@@ -22,8 +22,8 @@ final class RoughPen {
     this.taperOut = 7,
     this.pressure = 0.14,
     this.pressureWavelength = 26,
-    this.repeatWidth = 0.6,
-    this.repeatCoverage = 0.7,
+    this.repeatWidth = 0.5,
+    this.repeatCoverage = 0.45,
     this.closure = 2.5,
     this.closureDrift = 0.9,
   });
