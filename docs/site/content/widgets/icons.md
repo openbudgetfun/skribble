@@ -84,13 +84,13 @@ Wrap(
 
 The `WiredIconFillStyle` enum controls how ambient silhouettes are filled: filled shapes such as Material, Boxicons and brand marks, including artwork filled with `currentColor`. Stroke artwork and multi-coloured artwork keep their authored paint.
 
-| Style        | Description                                                                                                                  |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| Style        | Description                                                                                                                 |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------- |
 | `marker`     | Default. Coloured in with broad, overlapping marker strokes that darken where they cross, then outlined with the theme pen. |
-| `none`       | The silhouette's outline only, inked with the theme pen.                                                                     |
+| `none`       | The silhouette's outline only, inked with the theme pen.                                                                    |
 | `solid`      | A flat fill, grown or shrunk to the requested weight, for the crispest small icons.                                         |
-| `hachure`    | Pen strokes at the configured angle and gap, plus the outline.                                                               |
-| `crossHatch` | Two crossing sets of pen strokes, plus the outline.                                                                          |
+| `hachure`    | Pen strokes at the configured angle and gap, plus the outline.                                                              |
+| `crossHatch` | Two crossing sets of pen strokes, plus the outline.                                                                         |
 
 Filled shapes have no pen stroke to carry the hand, so their edges waver more than stroke artwork does, and every style but `solid` traces them with the pen. That is what keeps a brand mark or a Material silhouette from looking like the stock icon. Choose `solid` when an icon must read at very small sizes.
 
