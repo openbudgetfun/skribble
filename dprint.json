@@ -46,7 +46,11 @@
     "**/*.dart",
     "**/*.nix",
     "**/*.sh",
-    "**/.monochange/**"
+    "**/.monochange/**",
+    "**/node_modules/**",
+    "js/*/dist/**",
+    "js/rough/test/fixtures/**",
+    "pnpm-lock.yaml"
   ],
   "plugins": [
     "https://plugins.dprint.dev/json-0.23.0.wasm",

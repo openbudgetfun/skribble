@@ -1,0 +1,60 @@
+{
+  "name": "@skribble/react",
+  "version": "0.1.0",
+  "description": "Hand-drawn SVG sketches for React, drawn by skribble's rough engine. Server-renders the same markup on every build.",
+  "license": "MIT",
+  "author": "Ifiok Jr.",
+  "homepage": "https://openbudgetfun.github.io/skribble/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openbudgetfun/skribble.git",
+    "directory": "js/react"
+  },
+  "bugs": "https://github.com/openbudgetfun/skribble/issues",
+  "keywords": [
+    "hand-drawn",
+    "sketch",
+    "rough",
+    "roughjs",
+    "svg",
+    "react",
+    "skribble"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@skribble/rough": "workspace:^"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.12"
+  }
+}

@@ -63,6 +63,10 @@ flutter pub add skribble_charts
 
 skribble's hand-drawn look also works on [Jaspr](https://jaspr.site) sites without Flutter. `skribble_jaspr` renders rough borders, highlights, and doodles on the server with zero client JavaScript. See [Using skribble on Jaspr](../guides/jaspr) for installation and the stylesheet.
 
+## JavaScript and TypeScript
+
+The `@skribble` npm packages draw the same hand-drawn shapes in plain browsers, Node, React, React Native, Vue, and Svelte, and replace rough.js. See [Using skribble from JavaScript](../guides/javascript).
+
 ## Workspace contribution setup
 
 <!-- {=docsSetupSection} -->
@@ -122,6 +126,9 @@ melos run rough-icons-custom
 
 # Run CI-equivalent rough icon checks
 melos run rough-icons-ci-check
+
+# Build, typecheck, and test the npm packages in js/
+pnpm install && pnpm run check
 ```
 
 <!-- {/docsCommandsSection} -->

@@ -28,5 +28,7 @@ patterns = [
   "**/coverage/**",
   "**/.git/**",
   "**/.claude/**",
+  "**/node_modules/**",
+  "js/*/dist/**",
 ]
 markdown_codeblocks = true

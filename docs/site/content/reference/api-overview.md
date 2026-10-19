@@ -412,6 +412,18 @@ import 'package:skribble_jaspr/skribble_jaspr.dart';
 
 Components render on the server with zero client JavaScript. See [Using skribble on Jaspr](/guides/jaspr).
 
+## npm packages
+
+The `js/` workspace publishes skribble's rough engine to npm. See [Using skribble from JavaScript](/guides/javascript).
+
+| Package                  | Main exports                                                                                                            |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `@skribble/rough`        | `sketch`, `toSvgString`, `rough` (`canvas`, `svg`, `generator`), `drawOnCanvas`, `Generator`, `RoughPen`, `DrawableInk` |
+| `@skribble/react`        | `Sketch`, `useSketch`                                                                                                   |
+| `@skribble/react-native` | `Sketch`, `useSketch`                                                                                                   |
+| `@skribble/vue`          | `Sketch`, `useSketch`                                                                                                   |
+| `@skribble/svelte`       | `Sketch`, `sketch`                                                                                                      |
+
 ## API documentation
 
 Full dartdoc API reference is available at:

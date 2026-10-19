@@ -44,6 +44,7 @@ skribble/
 │   └── tool/                       # Icon generation CLI
 ├── packages/skribble_rough/        # Pure-Dart rough engine + SVG output (no Flutter)
 ├── packages/skribble_jaspr/        # Server-rendered Jaspr components (rough SVG + CSS)
+├── js/                             # npm packages (pnpm workspace): @skribble/rough + framework bindings
 ├── packages/skribble_lints/        # Shared lint rules (very_good_analysis based)
 ├── packages/skribble_icons_custom/ # Custom SVG-based icon package example
 ├── apps/skribble_storybook/        # Interactive demo app
@@ -950,6 +951,9 @@ melos run rough-icons-custom
 
 # Run CI-equivalent rough icon checks
 melos run rough-icons-ci-check
+
+# Build, typecheck, and test the npm packages in js/
+pnpm install && pnpm run check
 ```
 
 <!-- {/docsCommandsSection} -->
@@ -1071,6 +1075,15 @@ The engine is split across two packages. Geometry, fillers, pens, ink sampling, 
 - Never use randomness outside the seed, so static builds stay byte-stable.
 - Every new class name needs rules in `skribbleCss`, including `prefers-reduced-motion` handling for any motion.
 - Test with `jaspr_test`'s `testServer`: structure, accessibility attributes, and identical markup for identical seeds. `test:all` runs these suites with `dart test`.
+
+### npm packages
+
+`js/` is a pnpm workspace of TypeScript packages: `@skribble/rough` (a port of `skribble_rough`) and its React, React Native, Vue, and Svelte bindings. Follow its conventions:
+
+- `@skribble/rough` follows the Dart engine operation for operation, including Dart's `Random(seed)` stream, rounding, and sort order. When you change `packages/skribble_rough`, regenerate `js/rough/test/fixtures/dart-parity.json` with `dart run packages/skribble_rough/tool/js_parity_fixtures.dart` and port the change until the parity tests pass.
+- Framework packages stay thin: they map `SketchPath` entries from `sketch()` to their own path elements and add nothing the core could hold.
+- Run `pnpm install && pnpm run check` (build, typecheck, test). The `npm-packages` CI job runs the same.
+- Never publish to npm from a branch; publishing waits for an explicit release decision.
 
 ## Documentation update requirements
 
