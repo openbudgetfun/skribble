@@ -1,6 +1,7 @@
 {
   "name": "@skribble/vue",
   "version": "0.1.0",
+  "private": true,
   "description": "Hand-drawn SVG sketches for Vue, drawn by skribble's rough engine. Server-renders the same markup on every build.",
   "license": "MIT",
   "author": "Ifiok Jr.",

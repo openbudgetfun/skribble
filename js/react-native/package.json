@@ -1,6 +1,7 @@
 {
   "name": "@skribble/react-native",
   "version": "0.1.0",
+  "private": true,
   "description": "Hand-drawn sketches for React Native, drawn by skribble's rough engine and painted with react-native-svg.",
   "license": "MIT",
   "author": "Ifiok Jr.",
