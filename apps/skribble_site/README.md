@@ -44,6 +44,8 @@ Controls are real `<input>` elements, so they work with a keyboard, a screen rea
 
 The `Docs Pages` workflow publishes one GitHub Pages site: this page at the root, the Flutter documentation under `docs/`, and the storybook under `docs/storybook/`. It reads the base path and URL from the repository's Pages settings, so the same workflow serves `https://openbudgetfun.github.io/skribble/` and, once the custom domain is set, `https://skribble.dev/`.
 
+The website deploys with releases, not with every push to `main`. This package is in `monochange.toml` with publishing turned off: a release tags it `skribble_site/v<version>` and gives it a GitHub release, and every release (of the website or the packages) dispatches the deploy. Describe changes here with a changeset. `feat` and `fix` go to this package's `CHANGELOG.md`, and `user_feat` and `user_fix` go to the `user` stream, which monochange writes to the docs' [What's new](../../docs/site/content/reference/whats-new.md) page, linked from the footer. See [Releasing](../../docs/site/content/reference/releasing.md#the-website).
+
 GitHub Pages serves only the root `404.html`. Before this page existed the documentation lived at the root, so the not-found page first retries a missing path under `docs/`, and sends links from the old skribble.dev font shop (`/monospace`, `/downloads`, and so on) to the lettering section.
 
 ## Tests

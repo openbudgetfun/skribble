@@ -336,6 +336,7 @@ class SiteFooter extends StatelessComponent {
           (SiteLinks.github, 'GitHub'),
           (SiteLinks.pub, 'pub.dev'),
           (SiteLinks.figma, 'Figma'),
+          (SiteLinks.whatsNew, "What's new"),
           ('${SiteLinks.github}/issues', 'Report an issue'),
         ]),
         el('div', [

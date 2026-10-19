@@ -63,6 +63,9 @@ abstract final class SiteLinks {
   /// The theme guide.
   static const theming = 'docs/getting-started/theming';
 
+  /// What changed on skribble.dev, from the website's user-facing changesets.
+  static const whatsNew = 'docs/reference/whats-new';
+
   /// The live Flutter storybook.
   static const storybook = 'docs/storybook/';
 
