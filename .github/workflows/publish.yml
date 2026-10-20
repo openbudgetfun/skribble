@@ -115,7 +115,7 @@ jobs:
       - name: Check Monochange publish readiness
         if: steps.owned.outputs.registry == 'true'
         run: |
-          monochange step publish-readiness \
+          monochange publish readiness \
             --from HEAD \
             --output "$RUNNER_TEMP/publish-readiness.json" \
             --format json

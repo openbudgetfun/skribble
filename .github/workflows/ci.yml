@@ -367,7 +367,7 @@ jobs:
       # pub.dev and `npm publish --dry-run` for every npm package, the same
       # validation the publish workflow performs before each real publish.
       - name: Dry-run package publishing
-        run: monochange step publish-packages --dry-run --all --format json
+        run: monochange publish packages --dry-run --all --format json
         shell: devenv shell -- bash -e {0}
 
   # Validates the release path on every pull request and every push to main:
@@ -421,8 +421,8 @@ jobs:
         shell: devenv shell -- bash -e {0}
       - name: Check publish readiness on the release commit
         if: steps.release_commit.outputs.created == 'true'
-        run: monochange step publish-readiness --from HEAD --format json
+        run: monochange publish readiness --from HEAD --format json
         shell: devenv shell -- bash -e {0}
       - name: Dry-run package publishing on the release commit
-        run: monochange step publish-packages --dry-run --format json
+        run: monochange publish packages --dry-run --format json
         shell: devenv shell -- bash -e {0}
