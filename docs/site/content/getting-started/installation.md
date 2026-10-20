@@ -19,10 +19,10 @@ Add the `skribble` package to your Flutter project:
 dart pub add skribble
 ```
 
-Add the bundled hand-drawn typefaces so text renders sketchy, not in the system font. This is the step that makes a first app _look_ hand-drawn:
+Add the default hand-drawn typeface, Skribble Noto Sketch, so text renders sketchy, not in the system font. This is the step that makes a first app _look_ hand-drawn:
 
 ```bash
-flutter pub add skribble_font_recursive
+flutter pub add skribble_font_noto_sketch
 ```
 
 Then import it:
@@ -36,32 +36,34 @@ import 'package:skribble/skribble.dart';
 
 ## Hand-drawn text: don't skip the font package
 
-`skribble` paints the wobbly borders, fills, and icons, but the **hand-drawn lettering ships in a separate package**, `skribble_font_recursive`. It is split out deliberately so the core stays ~432 KB and you only pay for the fonts when you want them — see [Upgrading to 0.2](/getting-started/upgrading-to-0-2).
+`skribble` paints the wobbly borders, fills, and icons, but the **hand-drawn lettering ships in separate packages**. They are split out deliberately so the core stays small and you only pay for the fonts you use — see [Upgrading to 0.2](/getting-started/upgrading-to-0-2).
 
-Without it, borders, buttons, and cards still render hand-drawn, but `Text` falls back to the platform font. Once you add `skribble_font_recursive`, Flutter registers the families from its pubspec and `WiredTheme` selects the right one automatically — no extra code. To set a family by hand (for a code block or a single `TextStyle`), qualify it with the package:
+The default and recommended typeface is **Skribble Noto Sketch**, from `skribble_font_noto_sketch`. It is redrawn from [Google Noto](https://fonts.google.com/noto) with a round marker pen, a slight bounce, and three alternating drawings of every Latin letter, so repeated letters never look stamped. It is also the lightest download: one Regular face of under 1 MB, from which Flutter synthesizes bold and italic.
+
+Without a font package, borders, buttons, and cards still render hand-drawn, but `Text` falls back to the platform font. Once you add `skribble_font_noto_sketch`, Flutter registers the family from its pubspec and `WiredTheme` uses it automatically — no extra code. To set the family by hand on a single `TextStyle`, qualify it with the package:
 
 ```dart
 // Static example: configuration
 TextStyle(
-  fontFamily: WiredFont.mono.familyFor(WiredRoughness.playful),
-  package: 'skribble_font_recursive',
+  fontFamily: skribbleFontFamily, // 'SkribbleNotoSketch'
+  package: 'skribble_font_noto_sketch',
 )
 ```
 
-### Skribble Noto, for every language
+### Other typefaces
 
-Skribble Noto is a second hand-drawn typeface, redrawn from [Google Noto](https://fonts.google.com/noto) with a round marker pen. It comes at three levels, each its own package: `skribble_font_noto` (Soft, the calm default), `skribble_font_noto_sketch`, and `skribble_font_noto_lively`. Install the level you want and select it:
+Skribble Noto comes at two more levels, each its own package: `skribble_font_noto` (Soft, the calmest) and `skribble_font_noto_lively` (the most playful). The packages bundle Latin, Greek, and Cyrillic. Every other script Noto covers, including Arabic, Hebrew, Devanagari, Thai, Chinese, Japanese, and Korean, is in the Skribble Noto font kit on each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest). Add the scripts you need as your own font families and list them in `WiredThemeData.fontFamilyFallback`; [Compare the lettering](/core/font-comparison#skribble-noto) shows how.
+
+`skribble_font_recursive` holds the roughened Recursive typefaces: Casual, Linear, and Mono, in four weights with italics, each redrawn at the Gentle, Playful, and Expressive roughness levels so the lettering follows the theme. It was the previous default, and it is the right choice for code (`WiredFont.mono`) or when you need real bold and italic faces. Install the package you want and select it:
 
 ```bash
-flutter pub add skribble_font_noto
+flutter pub add skribble_font_recursive
 ```
 
 ```dart
 // Static example: configuration
-WiredThemeData(font: WiredFont.noto)
+WiredThemeData(font: WiredFont.casual) // or .linear, .mono, .noto, .notoLively
 ```
-
-The packages bundle Latin, Greek, and Cyrillic. Every other script Noto covers, including Arabic, Hebrew, Devanagari, Thai, Chinese, Japanese, and Korean, is in the Skribble Noto font kit on each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest). Add the scripts you need as your own font families and list them in `WiredThemeData.fontFamilyFallback`; [Compare the lettering](/core/font-comparison#skribble-noto) shows how.
 
 ## Optional maps and financial charts
 

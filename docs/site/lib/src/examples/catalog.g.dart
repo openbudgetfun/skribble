@@ -626,7 +626,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'lettering-pattern': ExampleDefinition(
     builder: _letteringPattern,
-    source: "Text(\n  settings.label,\n  style: const TextStyle(\n    fontFamily: skribbleFontFamily,\n    package: 'skribble_font_recursive',\n    fontSize: 24,\n  ),\n)",
+    source: "Text(\n  settings.label,\n  style: const TextStyle(\n    fontFamily: skribbleFontFamily,\n    package: 'skribble_font_noto_sketch',\n    fontSize: 24,\n  ),\n)",
     edits: [ExampleEdit(8, 22, ExampleParameter.label)],
   ),
   'accessible-inputs': ExampleDefinition(

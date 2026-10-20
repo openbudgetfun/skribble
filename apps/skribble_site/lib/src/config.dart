@@ -75,9 +75,9 @@ abstract final class SiteLinks {
   /// The main package on pub.dev.
   static const pub = 'https://pub.dev/packages/skribble';
 
-  /// The bundled fonts' source folder.
+  /// Every font family as a zip, attached to the latest GitHub release.
   static const fontSource =
-      'https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_recursive/assets/fonts';
+      'https://github.com/openbudgetfun/skribble/releases/latest';
 
   /// The editable Figma design system.
   static const figma =

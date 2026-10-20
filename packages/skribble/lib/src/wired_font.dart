@@ -13,7 +13,8 @@ import 'wired_roughness.dart';
 /// Latin, Greek, and Cyrillic; every other Noto script is in the Skribble Noto
 /// font kit attached to each release.
 enum WiredFont {
-  /// Recursive Sans Casual, the default handwriting.
+  /// Recursive Sans Casual, a warped handwriting that follows the roughness
+  /// level. Requires the `skribble_font_recursive` package.
   casual,
 
   /// Recursive Sans Linear, with simpler shapes before roughening.
@@ -26,8 +27,8 @@ enum WiredFont {
   /// Requires the `skribble_font_noto` package.
   noto,
 
-  /// Skribble Noto Sketch: a stronger wobble, a slight bounce, and three
-  /// alternating drawings of every Latin letter. Requires the
+  /// Skribble Noto Sketch, the default: a stronger wobble, a slight bounce,
+  /// and three alternating drawings of every Latin letter. Requires the
   /// `skribble_font_noto_sketch` package.
   notoSketch,
 

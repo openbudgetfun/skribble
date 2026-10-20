@@ -24,17 +24,17 @@ Widget build(BuildContext context) {
 <!-- Level table + bundled-font sizing note. -->
 <!-- {@docsRoughnessLevelTable} -->
 
-Playful is the default. The docs toolbar switches all inherited lettering and ink between Gentle, Playful, and Expressive, without resetting the current page. [Compare the original and roughened Casual, Linear, and Mono fonts](/core/font-comparison).
+Playful is the default. The docs toolbar switches the ink between Gentle, Playful, and Expressive without resetting the current page; the default Noto Sketch lettering stays the same at every level. [Compare the original and roughened Casual, Linear, and Mono fonts](/core/font-comparison).
 
-| Level        | Appearance                                   | Border amplitude | Font deformation | Bundled family    |
+| Level        | Appearance                                   | Border amplitude | Font deformation | Casual family     |
 | ------------ | -------------------------------------------- | ---------------- | ---------------- | ----------------- |
 | `gentle`     | Softer handwriting and gently bowed edges    | 0.9              | 18               | `SkribbleGentle`  |
 | `playful`    | Neat, lightly wavering notebook ink          | 1.1              | 27               | `SkribblePlayful` |
 | `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
 
-Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble_font_recursive'` for code-only typography. `WiredFont.noto`, `WiredFont.notoSketch`, and `WiredFont.notoLively` select Skribble Noto, hand-drawn from Google Noto; each is a fixed level from its own package and does not follow the roughness (see [Compare the lettering](/core/font-comparison#skribble-noto)). An explicit `fontFamily` takes precedence.
+The default typeface is `WiredFont.notoSketch`, Skribble Noto Sketch from the `skribble_font_noto_sketch` package. It is hand-drawn from Google Noto and keeps the same lettering at every roughness level, as do `WiredFont.noto` and `WiredFont.notoLively` (see [Compare the lettering](/core/font-comparison#skribble-noto)). Set `font: WiredFont.casual`, `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData` for the Recursive typefaces from `skribble_font_recursive`, which follow the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble_font_recursive'` for code-only typography. An explicit `fontFamily` takes precedence.
 
-All levels keep the 1.6px pen (`kWiredStrokeWidth`). Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three typefaces bundles twelve static faces. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
+All levels keep the 1.6px pen (`kWiredStrokeWidth`). The Recursive Regular, Bold, Italic, and Bold Italic faces retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three Recursive typefaces bundles twelve static faces. Skribble Noto ships one Regular face per level, and Flutter synthesizes bold and italic from it. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 
 <!-- {/docsRoughnessLevelTable} -->
 

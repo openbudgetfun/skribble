@@ -26,7 +26,7 @@ void main() {
         DefaultTextStyle.of(tester.element(find.text('Ink style')))
             .style
             .fontFamily,
-        'packages/skribble_font_recursive/SkribblePlayful',
+        'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
       );
       await tester.tap(find.text('Expressive'));
       await tester.pumpAndSettle();
@@ -34,7 +34,8 @@ void main() {
         DefaultTextStyle.of(tester.element(find.text('Ink style')))
             .style
             .fontFamily,
-        'packages/skribble_font_recursive/Skribble',
+        // Noto Sketch is a fixed level: the ink changes, the lettering stays.
+        'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
       );
       expect(tester.takeException(), isNull);
     } finally {

@@ -223,7 +223,6 @@ class _Wall extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 96,
                           fontWeight: FontWeight.w800,
-                          height: 1,
                         ),
                       ),
                       const SizedBox(height: 8),
