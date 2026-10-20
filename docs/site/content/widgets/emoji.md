@@ -109,12 +109,12 @@ Wrap(
   runSpacing: 20,
   children: [
     for (final emoji in ['❤️', '😂', '👋', '🔥', '🎉', '🚀'])
-      WiredAnimatedEmoji(emoji, size: 56, loops: 3),
+      WiredAnimatedEmoji(emoji, size: 56),
   ],
 )
 ```
 
-The 140-odd most-used emoji have their own choreography, and every other emoji moves with its family: faces blink, hearts beat, hands wave, flowers sway, weather floats. Emoji without a natural motion, such as flags, only boil. Turn the boil off with `boil: false`, stop everything with `animating: false`, or play a reaction a set number of times with `loops: 1`: the emoji comes to rest afterwards and plays again when it changes or is animated again.
+The 140-odd most-used emoji have their own choreography, and every other emoji moves with its family: faces blink, hearts beat, hands wave, flowers sway, weather floats. Emoji without a natural motion, such as flags, only boil. An animated emoji loops for as long as it is shown, which is what you get when you leave `loops` out (or pass `null`). Play a reaction a set number of times with `loops: 1`: the emoji comes to rest afterwards and plays again when it changes or is animated again. Turn the boil off with `boil: false`, or stop everything with `animating: false`.
 
 Animation follows [skribble's motion policy](/core/motion): a `WiredMotion(enabled: false)` ancestor, the platform's reduced-motion setting, or a muted `TickerMode` shows the emoji at rest, exactly as `WiredEmoji` draws it.
 

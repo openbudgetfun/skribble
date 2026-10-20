@@ -9,6 +9,8 @@ import 'package:skribble_docs_site/src/document.dart';
 import 'package:skribble_docs_site/src/examples/catalog.dart';
 import 'package:skribble_docs_site/src/examples/example.dart';
 
+import 'support/endless_motion.dart';
+
 void main() {
   testWidgets('code typography uses Mono and follows inherited roughness', (
     tester,
@@ -80,9 +82,14 @@ void main() {
             initialLocation: '/widgets/example',
           ),
         );
-        await tester.pumpAndSettle();
+        // Endless motion never settles, so it pumps a few seconds instead.
+        Future<void> settle() => endlessExamples.contains(entry.key)
+            ? pumpFrames(tester)
+            : tester.pumpAndSettle();
+
+        await settle();
         await tester.tap(find.byKey(ValueKey('docs-roughness-${level.name}')));
-        await tester.pumpAndSettle();
+        await settle();
         expect(
           tester.takeException(),
           isNull,
