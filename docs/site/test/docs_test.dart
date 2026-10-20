@@ -6,6 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble_docs_site/src/app.dart';
 import 'package:skribble_docs_site/src/document.dart';
 
+import 'support/endless_motion.dart';
+
 void main() {
   final documents = Directory('content')
       .listSync(recursive: true)
@@ -53,11 +55,16 @@ void main() {
           await tester.tap(find.text('Settle motion'));
         }
 
-        await tester.pumpAndSettle();
+        // Endless motion never settles, so its pages pump a few seconds.
+        final endless = endlessPages.contains(document.path);
+        Future<void> settle() =>
+            endless ? pumpFrames(tester) : tester.pumpAndSettle();
+
+        await settle();
         expect(tester.takeException(), isNull, reason: document.path);
         final scroll = find.byKey(const ValueKey('document-scroll'));
         await tester.drag(scroll, const Offset(0, -650));
-        await tester.pumpAndSettle();
+        await settle();
         expect(
           tester.takeException(),
           isNull,
