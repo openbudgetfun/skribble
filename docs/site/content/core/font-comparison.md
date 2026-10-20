@@ -29,7 +29,7 @@ The bundled families live in the `skribble_font_recursive` package, so a bare `T
 
 Each comparison uses the same generator, strength, weight, style, and size. Gentle uses strength 18, Playful 27, and Expressive 36 per 1,000 font units. Use **Code specimen** to compare aligned text, or type your own sample. On narrow screens the three specimens stack within each roughness level.
 
-The docs site loads the additional original, Linear, and variable specimens when you open this comparison. Normal article reading only downloads the Casual and Mono faces it uses, so the full font catalog does not delay the first page.
+The docs site loads the additional original, Linear, and variable specimens when you open this comparison. Normal article reading only downloads Noto Sketch and the Mono faces it uses for code, so the full font catalog does not delay the first page.
 
 ## How the handwriting is made
 

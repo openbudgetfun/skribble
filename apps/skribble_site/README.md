@@ -27,6 +27,12 @@ Fonts come from the font packages: the Recursive families from `packages/skribbl
 
 The page preloads the faces it uses above the fold (`criticalFaces` in `lib/src/assets.dart`) and stays hidden until they load, for at most 3 seconds, so it never paints in a fallback font and then reflows. Without JavaScript, nothing is hidden.
 
+The page is lettered in Skribble Noto Sketch, skribble's default typeface, with Recursive Mono for code. Noto Sketch has one Regular face, so browsers synthesise the bold headings. The other families only appear in the font tester.
+
+## Link previews
+
+Every page carries Open Graph and Twitter card tags (`summary_large_image`) with its title and description. The image is `docs/share-card.png`, which the docs build renders from `docs/site/lib/src/share_card.dart` in Noto Sketch, so it never goes stale and is never committed. Check a preview after a deploy with a card validator such as [opengraph.xyz](https://www.opengraph.xyz/).
+
 ## How it fits together
 
 | Path                      | What it holds                                                                          |

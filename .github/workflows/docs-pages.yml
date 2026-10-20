@@ -89,6 +89,8 @@ jobs:
       # it relative to its own base).
       - name: Build docs site
         run: docs:site:build --base-href=${{ steps.base.outputs.base_path }}docs/
+        env:
+          DOCS_SITE_URL: ${{ steps.base.outputs.site_url }}
         shell: devenv shell -- bash -e {0}
       - name: Build storybook web preview
         run: |

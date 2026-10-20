@@ -140,13 +140,12 @@ final List<LetteringFamily> fontFamilies = [
     ),
 ];
 
-/// The faces every page needs before it shows: body text, bold labels,
-/// headings, and code. The page preloads them and waits for them, so the
+/// The faces every page needs before it shows: Noto Sketch for the text,
+/// headings, and labels (bold is synthesised from its one face), and Mono
+/// for code. The page preloads them and waits for them, so the
 /// first paint is already in skribble's hand.
 const criticalFaces = [
-  ('SkribblePlayful', 'SkribblePlayful-Regular.woff', 400),
-  ('SkribblePlayful', 'SkribblePlayful-Bold.woff', 700),
-  ('Skribble', 'Skribble-ExtraBold.woff', 800),
+  ('SkribbleNotoSketch', 'SkribbleNotoSketch-Regular.woff', 400),
   ('SkribbleMonoPlayful', 'SkribbleMonoPlayful-Regular.woff', 400),
 ];
 

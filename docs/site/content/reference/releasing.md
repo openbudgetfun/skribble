@@ -350,7 +350,7 @@ A `200` means the name is reserved.
 
 ## The website
 
-The website is the skribble.dev landing page (`apps/skribble_site`) with the documentation under `docs/` and the storybook under `docs/storybook/`. It deploys with releases, not with every push to `main`, so the docs always describe packages you can install.
+The website is the skribble.dev landing page (`apps/skribble_site`) with the documentation under `docs/` and the storybook under `docs/storybook/`. It deploys with releases, not with every push to `main`, so the docs always describe packages you can install. Each deploy also renders the link-preview image, `docs/share-card.png`, that every page's Open Graph and Twitter card tags point at.
 
 `skribble_site` is a monochange package with `publish = { enabled = false }`: it gets a version, a changelog (`apps/skribble_site/CHANGELOG.md`), a `skribble_site/v<version>` tag, and a GitHub release titled `skribble.dev v<version>`, but nothing is sent to pub.dev. Its publish run skips the registry steps and only creates the GitHub release.
 

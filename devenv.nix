@@ -317,8 +317,9 @@ in
         dart pub get
         flutter build web --release --no-web-resources-cdn --no-tree-shake-icons --pwa-strategy=none --dart-define=DOCS_DEFER_FONTS=true "$@"
         dart run tool/prepare_pages.dart --defer-fonts
+        flutter test tool/share_card_test.dart --dart-define=SHARE_CARD_OUT=build/web/share-card.png
       '';
-      description = "Build static docs output for GitHub Pages.";
+      description = "Build static docs output for GitHub Pages, with its link-preview image. Set DOCS_SITE_URL for share links (default https://skribble.dev).";
       binary = "bash";
     };
     "site:build" = {
