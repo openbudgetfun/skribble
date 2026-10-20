@@ -190,7 +190,7 @@ That attaches `SkribbleNoto-Kit-<tag>.zip`, `SkribbleNotoSketch-Kit-<tag>.zip`, 
 
 Internal dependencies are plain ranges such as `"@skribble.dev/rough": "^0.1.0"`. Monochange rewrites them with each release and refreshes `pnpm-lock.yaml` with `pnpm install --lockfile-only`. They are never `workspace:` ranges, because trusted publishing runs plain `npm publish`, which would upload a `workspace:` range unchanged. `pnpm-workspace.yaml` keeps pnpm linking the local packages.
 
-The publish workflow installs the workspace with `pnpm install --frozen-lockfile`, checks that npm is at least 11.5.1 (the first version with trusted publishing), and publishes each package with `npm publish --access public`. Every package's `prepack` script builds it and its workspace dependencies first. The final registry check reads `registry.npmjs.org` for scoped names and pub.dev for everything else.
+When the release record includes npm packages, the publish workflow installs the workspace with `pnpm install --frozen-lockfile`, because the readiness check dry-runs `npm publish` for them whichever tag is being published. A Dart-only release skips the install. For a `js/v*` tag the workflow also checks that npm is at least 11.5.1 (the first version with trusted publishing), and publishes each package with `npm publish --access public`. Every package's `prepack` script builds it and its workspace dependencies first. The final registry check reads `registry.npmjs.org` for scoped names and pub.dev for everything else.
 
 **Before the first `js/v*` tag**, bootstrap npm once. npm only accepts a trusted publisher for a package that already exists, so the first publish cannot come from the workflow:
 
