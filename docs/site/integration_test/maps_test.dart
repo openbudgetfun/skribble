@@ -33,6 +33,13 @@ void main() {
       );
       await $(DocsKeys.mapOnlineToggle).tap();
       final map = $.tester.widget<WiredMap>($(DocsKeys.map));
+      // The embed grows the example, which re-centres the button; on a
+      // narrow window that can leave it under the top edge.
+      await $(DocsKeys.mapOnlineToggle).scrollTo(
+        view: $(DocsKeys.documentScroll),
+        scrollDirection: AxisDirection.up,
+        maxScrolls: 60,
+      );
       await $(DocsKeys.mapOnlineToggle).tap();
       if (selected != 'Selected: Weekend market' ||
           gallery != 'Selected: Local gallery' ||
