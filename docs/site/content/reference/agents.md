@@ -1259,34 +1259,38 @@ WiredIcon.svg(iconData: myCustomIconData)
 
 ## Workspace commands quick reference
 
-| Command                          | What it does                                                                                                    |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `melos run analyze`              | Dart analyze across all packages                                                                                |
-| `melos run flutter-test`         | Run Flutter widget tests                                                                                        |
-| `melos run format`               | Format all Dart code                                                                                            |
-| `melos run screenshot`           | Capture component screenshots                                                                                   |
-| `melos run rough-icons`          | Generate rough Material icon SVGs                                                                               |
-| `melos run rough-icons-font`     | Generate icon font + Dart helpers                                                                               |
-| `melos run rough-icons-ci-check` | CI-equivalent Material icon checks                                                                              |
-| `melos run icons-simple`         | Regenerate the curated simple icon catalog                                                                      |
-| `melos run icons-iconify`        | Regenerate the Lucide, Boxicons Solid, and CoreUI Brands catalogs                                               |
-| `melos run icons-check`          | Verify every icon catalog matches its generator                                                                 |
-| `melos run package-sizes`        | Verify each publishable package stays inside its compressed-size budget                                         |
-| `lint:all`                       | All lint checks (format + analyze)                                                                              |
-| `lint:push`                      | CI lint checks before `git push`                                                                                |
-| `test:all`                       | All Flutter and pure-Dart tests; `MELOS_TEST_CONCURRENCY` parallelizes packages locally                         |
-| `fix:all`                        | Auto-fix format + lint issues                                                                                   |
-| `docs:site:serve`                | Serve docs site locally                                                                                         |
-| `docs:site:build`                | Build static docs for deployment                                                                                |
-| `site:build`                     | Build the skribble.dev landing page into `apps/skribble_site/build/web`                                         |
-| `site:serve`                     | Build the landing page and serve it on `PORT` (default 8080)                                                    |
-| `monochange step validate`       | Validate release configuration                                                                                  |
-| `monochange check`               | Validate and lint config, changesets, manifests                                                                 |
-| `monochange run release-pr`      | Prepare, commit, and open or refresh the release PR (the `Release PR` workflow runs it on every push to `main`) |
-| `monochange run release`         | Prepare a local release (plan, format, commit, tag, publish the GitHub release)                                 |
-| `monochange run publish`         | Publish the packages in the current release                                                                     |
-| `publish:owned <tag>`            | Publish the packages a tag owns, one at a time, then verify the registry                                        |
-| `publish:tags`                   | Tag the merged release commit at HEAD and push its tags one at a time, watching each publish run                |
+| Command                                           | What it does                                                                                                    |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `melos run analyze`                               | Dart analyze across all packages                                                                                |
+| `melos run flutter-test`                          | Run Flutter widget tests                                                                                        |
+| `melos run format`                                | Format all Dart code                                                                                            |
+| `melos run screenshot`                            | Capture component screenshots                                                                                   |
+| `melos run rough-icons`                           | Generate rough Material icon SVGs                                                                               |
+| `melos run rough-icons-font`                      | Generate icon font + Dart helpers                                                                               |
+| `melos run rough-icons-ci-check`                  | CI-equivalent Material icon checks                                                                              |
+| `melos run icons-simple`                          | Regenerate the curated simple icon catalog                                                                      |
+| `melos run icons-iconify`                         | Regenerate the Lucide, Boxicons Solid, and CoreUI Brands catalogs                                               |
+| `melos run icons-check`                           | Verify every icon catalog matches its generator                                                                 |
+| `melos run package-sizes`                         | Verify each publishable package stays inside its compressed-size budget                                         |
+| `lint:all`                                        | All lint checks (format + analyze)                                                                              |
+| `lint:push`                                       | CI lint checks before `git push`                                                                                |
+| `test:all`                                        | All Flutter and pure-Dart tests; `MELOS_TEST_CONCURRENCY` parallelizes packages locally                         |
+| `fix:all`                                         | Auto-fix format + lint issues                                                                                   |
+| `docs:site:serve`                                 | Serve docs site locally                                                                                         |
+| `docs:site:build`                                 | Build static docs for deployment                                                                                |
+| `site:build`                                      | Build the skribble.dev landing page into `apps/skribble_site/build/web`                                         |
+| `site:serve`                                      | Build the landing page and serve it on `PORT` (default 8080)                                                    |
+| `monochange step validate`                        | Validate release configuration                                                                                  |
+| `monochange check`                                | Validate and lint config, changesets, manifests                                                                 |
+| `monochange run release-pr`                       | Prepare, commit, and open or refresh the release PR (the `Release PR` workflow runs it on every push to `main`) |
+| `monochange run release`                          | Prepare a local release (plan, format, commit, tag, publish the GitHub release)                                 |
+| `monochange run publish`                          | Publish the packages in the current release                                                                     |
+| `monochange publish readiness --from HEAD`        | Check registry readiness and publish order without publishing                                                   |
+| `monochange publish placeholder --package <name>` | Reserve a new package name with a `0.0.0` placeholder; add `--otp <CODE>` when npm asks for one                 |
+| `publish:owned <tag>`                             | Publish the packages a tag owns, one at a time, then verify the registry                                        |
+| `publish:tags`                                    | Tag the merged release commit at HEAD and push its tags one at a time, watching each publish run                |
+
+For publish tasks, use the `monochange publish packages`, `monochange publish readiness`, and `monochange publish placeholder` commands in docs, scripts, workflows, and suggestions. The `monochange step publish-packages`, `monochange step publish-readiness`, and `monochange step placeholder-publish` forms run the same steps but are only a fallback, even where an older monochange error hint still prints them. See [Releasing](/reference/releasing#publish-commands).
 
 ## Changeset lint rules
 

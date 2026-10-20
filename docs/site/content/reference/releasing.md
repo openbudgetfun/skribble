@@ -131,13 +131,27 @@ The same tag-scoped publish is available as a script, which is what the workflow
 ./scripts/release/publish_owned_packages.sh v<version> --dry-run
 ```
 
-It resolves the packages the tag owns from the release record, publishes each in its own `monochange step publish-packages` invocation in dependency order, and then verifies every one of them is on the registry. Publishing one package at a time is deliberate: monochange aborts the rest of a batch when any package fails, so a single rejected publish would otherwise leave every package behind it unpublished. A package that fails is reported by name and the script exits non-zero.
+It resolves the packages the tag owns from the release record, publishes each in its own `monochange publish packages` invocation in dependency order, and then verifies every one of them is on the registry. Publishing one package at a time is deliberate: monochange aborts the rest of a batch when any package fails, so a single rejected publish would otherwise leave every package behind it unpublished. A package that fails is reported by name and the script exits non-zero.
 
-Dependency order comes from a `monochange step publish-readiness` report. The script computes one when it needs to, but the workflow passes its own with `--readiness`: that step dry-runs `pub publish` for every package, which resolves dependencies, and a publish-scoped pub.dev credential breaks resolution. In the workflow the report is therefore computed before setup-dart registers the credential and handed to the script rather than recomputed after it. The final registry check reads the pub.dev API directly, so it does not depend on that report. pub.dev accepts an upload before its API lists the new version, so the check polls a version the run just uploaded for up to 10 minutes before reporting it missing. A package whose publish failed is reported at once.
+Dependency order comes from a `monochange publish readiness` report. The script computes one when it needs to, but the workflow passes its own with `--readiness`: that step dry-runs `pub publish` for every package, which resolves dependencies, and a publish-scoped pub.dev credential breaks resolution. In the workflow the report is therefore computed before setup-dart registers the credential and handed to the script rather than recomputed after it. The final registry check reads the pub.dev API directly, so it does not depend on that report. pub.dev accepts an upload before its API lists the new version, so the check polls a version the run just uploaded for up to 10 minutes before reporting it missing. A package whose publish failed is reported at once.
 
 `monochange run release --commit --push --tag --publish-release` runs both for a local release. Font zips are attached by the publish workflow's `v<version>` job; a release published locally uses `publish:fonts` to upload the same archives.
 
 pub.dev's automated publishing only accepts GitHub Actions runs triggered by pushing a git tag. `workflow_dispatch` runs — even against a tag ref — are rejected, so publish from tag pushes. The publish workflow's dispatch input exists only for re-running the GitHub release and font repair steps.
+
+### Publish commands
+
+Use the `monochange publish` commands for every publish task:
+
+```bash
+monochange publish packages      # publish package versions from the release record
+monochange publish readiness     # check registry readiness without publishing
+monochange publish placeholder   # reserve new package names with a 0.0.0 placeholder
+```
+
+Each runs the same built-in step as `monochange step publish-packages`, `monochange step publish-readiness`, or `monochange step placeholder-publish` and accepts exactly that step's flags (`--package`, `--dry-run`, `--format`, `--output`, and so on). These docs, the workflows, and the release scripts use the `monochange publish` form. Treat the `monochange step` names as a fallback only, even where an older monochange error hint still prints them.
+
+When npm asks for a one-time password (`EOTP`), get the current code from your authenticator and rerun the same command with it, for example `monochange publish placeholder --otp <CODE>`. `monochange publish packages` has no `--otp` flag; set `NPM_CONFIG_OTP=<CODE>` for that command instead.
 
 ### Prerequisites for automated publishing
 
@@ -146,7 +160,7 @@ Two repository-side settings make the automated path work. A release from a loca
 - **GitHub Actions can open pull requests** — _Settings → Actions → General → Allow GitHub Actions to create and approve pull requests_ must stay enabled, at the organization and repository level, or the release workflow cannot open the release pull request with `GITHUB_TOKEN`.
 - **pub.dev automated publishing** — configured per package in the package's Admin tab: repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, and the tag pattern for that package (`v{{version}}`, `skribble_maps/v{{version}}`, or `skribble_charts/v{{version}}`). pub.dev rejects a tagged publish whose configuration does not match.
 
-  This is per package and cannot be verified from the repository: `monochange step publish-readiness` reports `manual_verification_required` for every existing package because it cannot read trusted-publisher entries without registry credentials. A package whose rule is missing or mismatched fails at publish time with `The calling GitHub Action is not allowed to publish, because: publishing from github is not enabled`, and no workflow change can fix it — only the Admin tab can. Both v0.2.0 and v0.2.1 failed exactly this way on `skribble_font_recursive` while its sibling packages published normally.
+  This is per package and cannot be verified from the repository: `monochange publish readiness` reports `manual_verification_required` for every existing package because it cannot read trusted-publisher entries without registry credentials. A package whose rule is missing or mismatched fails at publish time with `The calling GitHub Action is not allowed to publish, because: publishing from github is not enabled`, and no workflow change can fix it — only the Admin tab can. Both v0.2.0 and v0.2.1 failed exactly this way on `skribble_font_recursive` while its sibling packages published normally.
 
 `publish.trusted_publishing` in `monochange.toml` sets `mode = "preferred"`. When a verifiable GitHub Actions identity is present the publish still uses trusted publishing and still verifies the configured repository, workflow, and environment, so the automated path is unchanged. Without that identity — a local run, for example — publishing falls back to standard credentials instead of failing before the first registry call. The default mode, `required`, rejects any publish not backed by a CI identity, which makes trusted publishing mandatory in every environment.
 
@@ -184,9 +198,9 @@ The command packages the fonts committed at the tag (`git archive`, not the work
 The three Noto packages are new to pub.dev. Before the first release that includes them, reserve their names with the one-time `0.0.0` placeholder and register each automated publisher (repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, tag pattern `v{{version}}`), as described in [Placeholder publish](#two-things-that-bite-during-a-bootstrap) below. Until then, `publish:owned` reports those three as unpublished while the rest of the group publishes normally:
 
 ```bash
-monochange step placeholder-publish --package skribble_font_noto
-monochange step placeholder-publish --package skribble_font_noto_sketch
-monochange step placeholder-publish --package skribble_font_noto_lively
+monochange publish placeholder --package skribble_font_noto
+monochange publish placeholder --package skribble_font_noto_sketch
+monochange publish placeholder --package skribble_font_noto_lively
 ```
 
 The all-scripts kit is too large to commit, so it is built on a developer machine with `tool/skribble_noto/build.py` (see `tool/skribble_noto/README.md`) and uploaded by hand, one zip per level:
@@ -213,15 +227,17 @@ When the release record includes npm packages, the publish workflow installs the
 2. Reserve each name with a `0.0.0` placeholder:
 
    ```bash
-   monochange step placeholder-publish --package @skribble.dev/rough --dry-run
-   monochange step placeholder-publish --package @skribble.dev/rough
-   monochange step placeholder-publish --package @skribble.dev/react
-   monochange step placeholder-publish --package @skribble.dev/react-native
-   monochange step placeholder-publish --package @skribble.dev/vue
-   monochange step placeholder-publish --package @skribble.dev/svelte
+   monochange publish placeholder --package @skribble.dev/rough --dry-run
+   monochange publish placeholder --package @skribble.dev/rough
+   monochange publish placeholder --package @skribble.dev/react
+   monochange publish placeholder --package @skribble.dev/react-native
+   monochange publish placeholder --package @skribble.dev/vue
+   monochange publish placeholder --package @skribble.dev/svelte
    ```
 
-3. On npmjs.com, open each package's _Settings → Trusted publishing_ and add a GitHub Actions publisher: repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`. A recent npm CLI can do the same from the command line, for example `npm trust github @skribble.dev/rough --file publish.yml --repo openbudgetfun/skribble --env publisher --yes`; `monochange step publish-packages --dry-run` prints this command for every npm package.
+   npm asks for a one-time password on each publish when the account uses two-factor authentication. Add `--otp <CODE>` with the current code from your authenticator, for example `monochange publish placeholder --package @skribble.dev/rough --otp <CODE>`.
+
+3. On npmjs.com, open each package's _Settings → Trusted publishing_ and add a GitHub Actions publisher: repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`. A recent npm CLI can do the same from the command line, for example `npm trust github @skribble.dev/rough --file publish.yml --repo openbudgetfun/skribble --env publisher --yes`; `monochange publish packages --dry-run` prints this command for every npm package.
 4. Check that every name is reserved:
 
    ```bash
@@ -278,8 +294,8 @@ The [Figma workflow guide](../guides/figma) documents how agents and designers c
 
 CI validates publishing before anything is released. Two jobs in the `CI` workflow run on every pull request and every push to `main`:
 
-- **`publish-check`** validates the pull request as-is. `monochange step publish-packages --dry-run --all` runs `dart pub publish --dry-run` (or `flutter pub publish --dry-run` for Flutter packages) for every Dart package against pub.dev and `npm publish --dry-run` for every npm package, the same validation the publish workflow performs before a real publish.
-- **`release-publish`** validates the release commit. When the branch carries at least one pending changeset it runs `monochange step prepare-release --release-json` and `monochange step commit-release --no-verify` locally — the same version bumps, changelog updates, and release record `monochange run release` will produce — then checks `monochange step publish-readiness` and repeats the publish dry-run against that commit. Nothing is pushed, tagged, or published.
+- **`publish-check`** validates the pull request as-is. `monochange publish packages --dry-run --all` runs `dart pub publish --dry-run` (or `flutter pub publish --dry-run` for Flutter packages) for every Dart package against pub.dev and `npm publish --dry-run` for every npm package, the same validation the publish workflow performs before a real publish.
+- **`release-publish`** validates the release commit. When the branch carries at least one pending changeset it runs `monochange step prepare-release --release-json` and `monochange step commit-release --no-verify` locally — the same version bumps, changelog updates, and release record `monochange run release` will produce — then checks `monochange publish readiness` and repeats the publish dry-run against that commit. Nothing is pushed, tagged, or published.
 
   The `MIN_CHANGESETS` job-level environment variable sets the threshold, currently `1`: every releasable change is validated before it merges, and only a branch with nothing to release skips. The step prints the pending count against the threshold, so a skip explains itself.
 
@@ -316,13 +332,13 @@ monochange step prepare-release --dry-run --diff
 monochange run publish --dry-run
 ```
 
-`placeholder-publish` is only for the one-time `0.0.0` registry bootstrap needed before pub.dev automated publishing can be enabled. It is not part of normal releases. Select a single package with `--package <name>` when bootstrapping a newly independent package.
+`monochange publish placeholder` is only for the one-time `0.0.0` registry bootstrap needed before pub.dev automated publishing can be enabled. It is not part of normal releases. Select a single package with `--package <name>` when bootstrapping a newly independent package.
 
 For `skribble_charts`, bootstrap after its implementation merges:
 
 ```bash
-monochange step placeholder-publish --package skribble_charts --dry-run
-monochange step placeholder-publish --package skribble_charts
+monochange publish placeholder --package skribble_charts --dry-run
+monochange publish placeholder --package skribble_charts
 ```
 
 Then configure its pub.dev automated publisher with repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, and tag pattern `skribble_charts/v{{version}}`. Allow both `push` and `workflow_dispatch`. The placeholder reserves the package name; the subsequent release publishes the chart implementation.
@@ -334,7 +350,7 @@ Then configure its pub.dev automated publisher with repository `openbudgetfun/sk
 ```bash
 devenv shell bash -c '
   export PATH="$PWD/.fvm/flutter_sdk/bin:$PATH"
-  monochange step placeholder-publish
+  monochange publish placeholder
 '
 ```
 
