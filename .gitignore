@@ -67,5 +67,10 @@ docs/site/playwright-report/
 # rough icon font is regenerated; it is a build artifact, not package source.
 packages/skribble/material_rough_icons_codepoints.json
 
+# npm workspace
+node_modules/
+js/*/dist/
+js/*/.svelte-kit/
+
 # Python bytecode from tool/ generators
 __pycache__/

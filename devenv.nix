@@ -30,6 +30,8 @@ in
       harfbuzz.dev
       libiconv
       nixfmt
+      nodejs_24
+      pnpm
       ripgrep
       shfmt
     ]

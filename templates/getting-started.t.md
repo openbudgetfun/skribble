@@ -98,6 +98,9 @@ melos run rough-icons-custom
 
 # Run CI-equivalent rough icon checks
 melos run rough-icons-ci-check
+
+# Build, typecheck, and test the npm packages in js/
+pnpm install && pnpm run check
 ```
 
 <!-- {/docsCommandsSection} -->

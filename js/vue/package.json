@@ -1,0 +1,58 @@
+{
+  "name": "@skribble.dev/vue",
+  "version": "0.0.1",
+  "description": "Hand-drawn SVG sketches for Vue, drawn by skribble's rough engine. Server-renders the same markup on every build.",
+  "license": "MIT",
+  "author": "Ifiok Jr.",
+  "homepage": "https://openbudgetfun.github.io/skribble/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openbudgetfun/skribble.git",
+    "directory": "js/vue"
+  },
+  "bugs": "https://github.com/openbudgetfun/skribble/issues",
+  "keywords": [
+    "hand-drawn",
+    "sketch",
+    "rough",
+    "roughjs",
+    "svg",
+    "vue",
+    "skribble"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "pnpm --filter \"$npm_package_name...\" run build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@skribble.dev/rough": "^0.0.1"
+  },
+  "peerDependencies": {
+    "vue": ">=3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.12",
+    "vue": "^3.5.44"
+  }
+}

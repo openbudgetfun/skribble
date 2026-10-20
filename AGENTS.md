@@ -89,6 +89,7 @@ skribble/
   apps/skribble_storybook/   # Demo/showcase app
   apps/skribble_site/        # skribble.dev landing page (Jaspr, static HTML)
   docs/site/                 # Documentation site (Flutter)
+  js/                        # npm packages: @skribble.dev/rough + React, React Native, Vue, Svelte
 ```
 
 ### Commands
@@ -131,4 +132,10 @@ publish:owned v<version>
 
 # Tag the merged release commit at HEAD and push its tags, watching each publish
 publish:tags
+
+# Build, typecheck, and test the npm packages in js/
+pnpm install && pnpm run check
+
+# Regenerate the Dart parity fixtures for @skribble.dev/rough
+dart run packages/skribble_rough/tool/js_parity_fixtures.dart > js/rough/test/fixtures/dart-parity.json
 ```

@@ -125,6 +125,29 @@ publish = { enabled = false }
 release_title = "skribble.dev v{{ version }} ({{ date }})"
 changelog_version_title = "[{{ version }}]({{ tag_url }}) ({{ date }})"
 
+# The npm packages in js/. Their internal dependencies are plain semver ranges
+# ("^0.1.0") that monochange rewrites on each release; see
+# pnpm-workspace.yaml for how pnpm still links them locally.
+[package."@skribble.dev/rough"]
+path = "js/rough"
+type = "npm"
+
+[package."@skribble.dev/react"]
+path = "js/react"
+type = "npm"
+
+[package."@skribble.dev/react-native"]
+path = "js/react-native"
+type = "npm"
+
+[package."@skribble.dev/vue"]
+path = "js/vue"
+type = "npm"
+
+[package."@skribble.dev/svelte"]
+path = "js/svelte"
+type = "npm"
+
 # =============================================================================
 # [group.*] — version groups that share a single release identity
 # =============================================================================
@@ -160,6 +183,22 @@ changelog = { path = "CHANGELOG.md" }
 # `group.main` left dependents on stale dependency ranges behind a patch.
 bump_propagation = "inherit"
 bump_propagation_max = "major"
+
+# The npm packages share one version and release under their own `js/v<version>`
+# tag, so a JavaScript release never waits on, or forces, a Dart release.
+[group.js]
+packages = [
+  "@skribble.dev/rough",
+  "@skribble.dev/react",
+  "@skribble.dev/react-native",
+  "@skribble.dev/vue",
+  "@skribble.dev/svelte",
+]
+tag = true
+release = true
+version_format = "namespaced"
+release_title = "npm packages v{{ version }} ({{ date }})"
+changelog = { path = "js/CHANGELOG.md" }
 
 # =============================================================================
 # [changelog.*] — audience streams
@@ -210,6 +249,17 @@ publish.trusted_publishing = { enabled = true, mode = "preferred", repository = 
 versioned_files = [
   { path = "**/pubspec.yaml", type = "dart", fields = ["dependencies", "dev_dependencies"] },
 ]
+
+[ecosystems.npm]
+enabled = true
+# Refresh pnpm-lock.yaml after monochange rewrites versions and internal ranges.
+lockfile_commands = [{ command = "pnpm install --lockfile-only" }]
+publish.enabled = true
+publish.mode = "builtin"
+publish.registry = "npm"
+# `preferred`, as for Dart: CI publishes with trusted publishing, while the
+# one-time local placeholder publish can still use an `npm login` session.
+publish.trusted_publishing = { enabled = true, mode = "preferred", repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
 
 # =============================================================================
 # [source] — repository host for release automation
@@ -269,6 +319,16 @@ use = ["changesets/recommended", "dart/recommended"]
 "dart/assets-sorted" = "error"
 "dart/workspace-internal-version-consistency" = "error"
 "dart/no-unexpected-dependency-overrides" = "warning"
+# The npm packages in js/ deliberately differ from three npm defaults:
+# - internal dependencies are plain ranges that monochange rewrites, because
+#   `npm publish` ships a `workspace:` range unchanged;
+# - `repository` stays an object with `directory`, the form npm provenance
+#   checks against this repository, which the rule reads as empty;
+# - each framework is both a peer dependency and a dev dependency, so the
+#   package tests against the framework it declares.
+"npm/workspace-protocol" = "off"
+"npm/manifest-repository" = "off"
+"npm/no-duplicate-dependencies" = "off"
 "changesets/duplicate" = "error"
 "changesets/no_section_headings" = "error"
 "changesets/summary" = { level = "error", required = true, heading_level = 1, min_length = 8, max_length = 90, forbid_trailing_period = true, forbid_conventional_commit_prefix = true }

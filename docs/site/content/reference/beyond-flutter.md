@@ -9,6 +9,8 @@ skribble is becoming a standalone Flutter design system. Its font files and stat
 
 For websites built with [Jaspr](https://jaspr.site), `skribble_jaspr` renders hand-drawn components on the server, and the pure-Dart `skribble_rough` engine writes rough shapes as SVG path data anywhere Dart runs. See [Using skribble on Jaspr](../guides/jaspr).
 
+For JavaScript projects, `@skribble.dev/rough` is a TypeScript port of the same engine that draws byte-identical SVG, with components for React, React Native, Vue, and Svelte. See [Using skribble from JavaScript](../guides/javascript).
+
 ## Use the bundled fonts
 
 The kit includes the actual Regular, Bold, Italic, and Bold Italic faces for every bundled family. For a web page using the default Expressive Casual family:

@@ -1,0 +1,11 @@
+packages:
+  - js/*
+
+# Internal dependencies use plain semver ranges ("^0.1.0") rather than the
+# `workspace:` protocol, because monochange rewrites those ranges on every
+# release and `npm publish` (which trusted publishing uses) would ship a
+# `workspace:` range unchanged. These settings keep pnpm resolving those
+# ranges to the local packages instead of the registry.
+linkWorkspacePackages: true
+preferWorkspacePackages: true
+saveWorkspaceProtocol: false

@@ -94,6 +94,33 @@ jobs:
       - name: test
         run: test:all
         shell: devenv shell -- bash -e {0}
+      # @skribble.dev/rough must draw byte-identical SVG to skribble_rough. Its
+      # fixtures come from the Dart engine, so they go stale when it changes.
+      - name: npm parity fixtures match the Dart engine
+        run: |
+          dart run packages/skribble_rough/tool/js_parity_fixtures.dart > js/rough/test/fixtures/dart-parity.json
+          git diff --exit-code -- js/rough/test/fixtures
+        shell: devenv shell -- bash -e {0}
+
+  # The npm packages in js/: @skribble.dev/rough and its framework bindings.
+  npm-packages:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: install
+        run: pnpm install --frozen-lockfile
+      - name: build, typecheck, and test
+        run: pnpm run check
+      - name: check package manifests
+        run: |
+          for package in js/*/; do
+            (cd "$package" && pnpm dlx publint@0.3.25 --strict)
+          done
 
   rough-icons-regression:
     runs-on: blacksmith-2vcpu-ubuntu-2404
@@ -331,9 +358,14 @@ jobs:
       - uses: ./.github/actions/devenv
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      # Runs `flutter/dart pub publish --dry-run` for every package against
-      # pub.dev, the same validation the publish workflow performs before
-      # each real publish.
+      # The npm packages build in their `prepack` script, which the npm dry
+      # run below calls, so their dependencies have to be installed first.
+      - name: Install npm workspace dependencies
+        run: pnpm install --frozen-lockfile
+        shell: devenv shell -- bash -e {0}
+      # Runs `flutter/dart pub publish --dry-run` for every Dart package against
+      # pub.dev and `npm publish --dry-run` for every npm package, the same
+      # validation the publish workflow performs before each real publish.
       - name: Dry-run package publishing
         run: monochange step publish-packages --dry-run --all --format json
         shell: devenv shell -- bash -e {0}
@@ -382,6 +414,10 @@ jobs:
           monochange step prepare-release --release-json --format json
           monochange step commit-release --no-verify
           echo "created=true" >>"$GITHUB_OUTPUT"
+        shell: devenv shell -- bash -e {0}
+      # npm packages build in `prepack` during the dry runs below.
+      - name: Install npm workspace dependencies
+        run: pnpm install --frozen-lockfile
         shell: devenv shell -- bash -e {0}
       - name: Check publish readiness on the release commit
         if: steps.release_commit.outputs.created == 'true'

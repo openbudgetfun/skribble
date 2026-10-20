@@ -46,7 +46,7 @@ monochange step tag-release --from HEAD --push=false --format json >/dev/null
 
 release_commit="$(git rev-parse HEAD)"
 release_tags=()
-for pattern in 'v[0-9]*' 'skribble_maps/v[0-9]*' 'skribble_charts/v[0-9]*' 'skribble_site/v[0-9]*'; do
+for pattern in 'v[0-9]*' 'skribble_maps/v[0-9]*' 'skribble_charts/v[0-9]*' 'skribble_site/v[0-9]*' 'js/v[0-9]*'; do
 	while IFS= read -r release_tag; do
 		release_tags+=("$release_tag")
 	done < <(git tag --points-at HEAD --list "$pattern")
