@@ -10,7 +10,7 @@ Hand-drawn UI components for Flutter — every widget looks like it was sketched
 
 ```bash
 dart pub add skribble
-flutter pub add skribble_font_recursive   # hand-drawn text (borders look sketchy without it, text won't)
+flutter pub add skribble_font_noto_sketch   # hand-drawn text (borders look sketchy without it, text won't)
 ```
 
 ```dart
@@ -284,10 +284,10 @@ MIT — see [LICENSE](../../LICENSE) for details.
 
 ### Choose the amount of hand-drawn ink
 
-Set `WiredThemeData(roughnessLevel: WiredRoughness.gentle)` on your `WiredMaterialApp`. The `gentle`, `playful`, and `expressive` presets coordinate borders, rough icons, and all four bundled font styles. Playful is the default. Nested `WiredTheme` scopes can select another level while retaining the parent palette through `copyWith`; explicit fonts and drawing configurations remain overrides. See the [theming guide](../../docs/site/content/getting-started/theming.md) for custom font generation and inheritance details.
+Set `WiredThemeData(roughnessLevel: WiredRoughness.gentle)` on your `WiredMaterialApp`. The `gentle`, `playful`, and `expressive` presets coordinate borders, rough icons, and the Recursive font styles. Playful is the default. Nested `WiredTheme` scopes can select another level while retaining the parent palette through `copyWith`; explicit fonts and drawing configurations remain overrides. See the [theming guide](../../docs/site/content/getting-started/theming.md) for custom font generation and inheritance details.
 
 ### Typeface choices and brand icons
 
-Set `font: WiredFont.casual`, `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. Each choice follows the inherited roughness. Mono retains equal character spacing for code. These are static fonts with four genuine faces (400/700, upright/italic); they do not contain a variable-weight axis. [Compare all three families](../../docs/site/content/core/font-comparison.md).
+The default typeface is Skribble Noto Sketch (`WiredFont.notoSketch`, from `skribble_font_noto_sketch`): hand-drawn from Google Noto, with three alternating drawings of every Latin letter and the same lettering at every roughness level. `WiredFont.noto` and `WiredFont.notoLively` are the calmer and livelier levels. Set `font: WiredFont.casual`, `WiredFont.linear`, or `WiredFont.mono` for the Recursive typefaces from `skribble_font_recursive`, which follow the inherited roughness; Mono retains equal character spacing for code. [Compare the lettering](../../docs/site/content/core/font-comparison.md).
 
 Use `WiredSvgIcon(data: WiredBrandIcon.github.data)` for a curated Simple Icons brand mark. GitHub, Dart, Flutter, and Figma support solid and hatched ink through the same vector renderer as Material icons. [See the examples and generation command](../../docs/site/content/widgets/icons.md).

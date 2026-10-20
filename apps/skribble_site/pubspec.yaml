@@ -2,6 +2,7 @@ name: skribble_site
 description: >
   The skribble.dev landing page, server-rendered with Jaspr and skribble_jaspr
   into static HTML.
+version: 0.0.0
 publish_to: none
 
 environment:

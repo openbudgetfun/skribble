@@ -14,7 +14,7 @@ void main() {
     }
   });
   test('each bundled typeface follows the roughness and copyWith', () {
-    expect(WiredThemeData().font, WiredFont.casual);
+    expect(WiredThemeData().font, WiredFont.notoSketch);
     for (final font in WiredFont.values) {
       for (final level in WiredRoughness.values) {
         final theme = WiredThemeData().copyWith(
@@ -114,7 +114,10 @@ void main() {
     late WiredThemeData inner;
     Future<void> render(WiredFont font) => tester.pumpWidget(
       WiredTheme(
-        data: WiredThemeData(roughnessLevel: WiredRoughness.gentle),
+        data: WiredThemeData(
+          roughnessLevel: WiredRoughness.gentle,
+          font: WiredFont.casual,
+        ),
         child: Builder(
           builder: (context) {
             outer = WiredTheme.of(context);

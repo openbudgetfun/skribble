@@ -30,7 +30,7 @@ void main() {
         expect(
           style.fontFamily,
           family == skribbleFontFamily
-              ? 'packages/skribble_font_recursive/SkribblePlayful'
+              ? 'packages/skribble_font_noto_sketch/SkribbleNotoSketch'
               : family,
           reason: label,
         );

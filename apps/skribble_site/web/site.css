@@ -1420,13 +1420,17 @@ svg {
 }
 
 .specimen-text {
-  font-family: "SkribblePlayful", var(--font-body);
+  font-family: "SkribbleNotoSketch", var(--font-body);
   font-size: clamp(2.2rem, 7vw, 5.2rem);
   font-weight: var(--specimen-weight);
   line-height: 1.08;
   outline: none;
   overflow-wrap: anywhere;
   transition: font-weight 0.2s;
+}
+
+.font-lab:has(.control[value="SkribblePlayful"]:checked) .specimen :is(.specimen-text, .specimen-glyphs) {
+  font-family: "SkribblePlayful", var(--font-body);
 }
 
 .font-lab:has(.control[value="SkribbleGentle"]:checked) .specimen :is(.specimen-text, .specimen-glyphs) {

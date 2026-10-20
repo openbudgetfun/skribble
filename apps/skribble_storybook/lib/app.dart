@@ -29,7 +29,7 @@ class SkribbleStorybookApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final roughness = useState(WiredRoughness.playful);
-    final font = useState(WiredFont.casual);
+    final font = useState(WiredFont.notoSketch);
     final night = useState(false);
     // skribble's own palette, the same one the docs and Figma kit use.
     WiredThemeData paper(Brightness brightness) => WiredThemeData.cuddly(

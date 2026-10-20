@@ -8,7 +8,7 @@ class WiredRoughnessPicker extends HookWidget {
   const WiredRoughnessPicker({
     required this.value,
     required this.onChanged,
-    this.font = WiredFont.casual,
+    this.font = WiredFont.notoSketch,
     this.onFontChanged,
     this.night = false,
     this.onNightChanged,

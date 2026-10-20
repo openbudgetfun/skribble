@@ -1,18 +1,24 @@
 name: Docs Pages
 
+# The website (the landing page, the docs under docs/, and the storybook
+# under docs/storybook/) deploys with releases, not with every push to main.
+# The publish workflow dispatches this workflow on `main` with the release tag,
+# because the github-pages environment only accepts deployments from `main`:
+# a run started by the tag push itself could not deploy. Dispatch it by hand
+# with no tag to redeploy the tip of main.
 on:
   workflow_dispatch:
     inputs:
+      release_tag:
+        description: Release tag to build (for example v0.4.0 or skribble_site/v1.1.0); empty builds the dispatched branch
+        required: false
+        default: ""
+        type: string
       base_path:
         description: Optional base path override for GitHub Pages (for example /skribble/ or /)
         required: false
         default: ""
         type: string
-  # GitHub Pages environment deployment is restricted to the `main` branch,
-  # so release-tag runs cannot complete the deploy job.
-  push:
-    branches:
-      - main
 
 permissions:
   contents: read
@@ -28,6 +34,22 @@ jobs:
     runs-on: blacksmith-2vcpu-ubuntu-2404
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_tag || github.sha }}
+          fetch-depth: 0
+      - name: Verify the release tag is on main
+        if: inputs.release_tag != ''
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          set -euo pipefail
+          git fetch --force origin main:refs/remotes/origin/main
+          if ! git merge-base --is-ancestor "$(git rev-list -n1 "refs/tags/$RELEASE_TAG")" refs/remotes/origin/main; then
+            echo "::error::$RELEASE_TAG is not reachable from main."
+            exit 1
+          fi
+          echo "Deploying the website at $RELEASE_TAG" >>"$GITHUB_STEP_SUMMARY"
+        shell: bash
       - uses: ./.github/actions/devenv
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

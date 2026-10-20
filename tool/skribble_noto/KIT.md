@@ -2,7 +2,7 @@
 
 Every [Google Noto](https://fonts.google.com/noto) script, redrawn by hand with a round pen. One zip per level:
 
-- `SkribbleNoto-Kit-<version>.zip`: Soft, the calm default.
+- `SkribbleNoto-Kit-<version>.zip`: Soft, the calmest.
 - `SkribbleNotoSketch-Kit-<version>.zip`: Sketch, a marker on paper.
 - `SkribbleNotoLively-Kit-<version>.zip`: Lively, the most playful.
 

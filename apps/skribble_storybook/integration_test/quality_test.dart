@@ -87,7 +87,7 @@ void main() {
           final field = $.tester.widget<EditableText>($(EditableText));
           if (theme.roughnessLevel != level ||
               field.style.fontFamily !=
-                  'packages/skribble_font_recursive/${level.fontFamily}') {
+                  'packages/skribble_font_noto_sketch/SkribbleNotoSketch') {
             throw StateError(
               'The app level did not cascade to the notebook and input.',
             );

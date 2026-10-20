@@ -25,6 +25,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  skribble_font_noto_sketch:
+    path: ../skribble_font_noto_sketch
   skribble_font_recursive:
     path: ../skribble_font_recursive
   skribble_lints: ^0.3.1

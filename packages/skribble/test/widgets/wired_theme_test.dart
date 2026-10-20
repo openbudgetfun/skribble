@@ -20,8 +20,8 @@ void main() {
       expect(theme.fontFamily, skribbleFontFamily);
     });
 
-    test('skribbleFontFamily constant is SkribblePlayful', () {
-      expect(skribbleFontFamily, 'SkribblePlayful');
+    test('skribbleFontFamily constant is SkribbleNotoSketch', () {
+      expect(skribbleFontFamily, 'SkribbleNotoSketch');
     });
 
     test('drawConfig uses the playful geometry when not provided', () {
@@ -141,19 +141,19 @@ void main() {
 
       expect(
         materialTheme.textTheme.bodyLarge?.fontFamily,
-        'packages/skribble_font_recursive/SkribblePlayful',
+        'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
       );
       expect(
         materialTheme.textTheme.bodyMedium?.fontFamily,
-        'packages/skribble_font_recursive/SkribblePlayful',
+        'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
       );
       expect(
         materialTheme.textTheme.headlineMedium?.fontFamily,
-        'packages/skribble_font_recursive/SkribblePlayful',
+        'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
       );
       expect(
         materialTheme.textTheme.titleLarge?.fontFamily,
-        'packages/skribble_font_recursive/SkribblePlayful',
+        'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
       );
     });
 

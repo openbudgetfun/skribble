@@ -110,6 +110,21 @@ tag = true
 release = true
 version_format = "namespaced"
 
+# The website: the skribble.dev landing page, which also carries the docs and
+# the storybook when it deploys. It is never published to a registry. Its
+# release tag, `skribble_site/v<version>`, gets a GitHub release, and every
+# release deploys the website (scripts/release/deploy_website.sh). Notes for
+# people who visit the site use the `user` stream below.
+[package.skribble_site]
+path = "apps/skribble_site"
+type = "dart"
+tag = true
+release = true
+version_format = "namespaced"
+publish = { enabled = false }
+release_title = "skribble.dev v{{ version }} ({{ date }})"
+changelog_version_title = "[{{ version }}]({{ tag_url }}) ({{ date }})"
+
 # =============================================================================
 # [group.*] — version groups that share a single release identity
 # =============================================================================
@@ -145,6 +160,38 @@ changelog = { path = "CHANGELOG.md" }
 # `group.main` left dependents on stale dependency ranges behind a patch.
 bump_propagation = "inherit"
 bump_propagation_max = "major"
+
+# =============================================================================
+# [changelog.*] — audience streams
+# =============================================================================
+
+# The `default` stream is the developer changelog every package keeps. The
+# `user` stream is for people visiting skribble.dev: what they can see or do
+# that they could not before. A changeset picks its stream through its type,
+# so `skribble_site: user_feat` lands in the user notes and
+# `skribble_site: fix` in the site's developer changelog. Write one file per
+# audience when a change needs both.
+[changelog.streams.user]
+description = "What visitors to skribble.dev notice: new pages, demos, and fixes they can see"
+
+[changelog.types.user_feat]
+bump = "minor"
+section = "feat"
+stream = "user"
+description = "Something new that visitors to skribble.dev can see or try"
+
+[changelog.types.user_fix]
+bump = "patch"
+section = "fix"
+stream = "user"
+description = "A problem visitors to skribble.dev could see, now fixed"
+
+[changelog.outputs.user]
+stream = "user"
+targets = ["skribble_site"]
+format = "keep_a_changelog"
+mode = "append"
+path = "docs/site/content/reference/whats-new.md"
 
 # =============================================================================
 # [ecosystems.*] — per-ecosystem discovery and publishing settings

@@ -111,8 +111,21 @@ List<LetteringFace> facesFor(String family) => [
 /// The package that bundles the Recursive-based families.
 const recursivePackage = 'skribble_font_recursive';
 
-/// The lettering families the page uses and shows off.
+/// The lettering families the page uses and shows off, the default first:
+/// Skribble Noto Sketch, then the other Noto levels and the Recursive
+/// families.
 final List<LetteringFamily> fontFamilies = [
+  for (final (label, family, package) in const [
+    ('Noto Sketch', 'SkribbleNotoSketch', 'skribble_font_noto_sketch'),
+    ('Noto', 'SkribbleNoto', 'skribble_font_noto'),
+    ('Noto Lively', 'SkribbleNotoLively', 'skribble_font_noto_lively'),
+  ])
+    LetteringFamily(
+      label: label,
+      family: family,
+      package: package,
+      faces: [LetteringFace(file: '$family-Regular.ttf', weight: 400)],
+    ),
   for (final (label, family) in const [
     ('Playful', 'SkribblePlayful'),
     ('Gentle', 'SkribbleGentle'),
@@ -124,17 +137,6 @@ final List<LetteringFamily> fontFamilies = [
       family: family,
       package: recursivePackage,
       faces: facesFor(family),
-    ),
-  for (final (label, family, package) in const [
-    ('Noto', 'SkribbleNoto', 'skribble_font_noto'),
-    ('Noto Sketch', 'SkribbleNotoSketch', 'skribble_font_noto_sketch'),
-    ('Noto Lively', 'SkribbleNotoLively', 'skribble_font_noto_lively'),
-  ])
-    LetteringFamily(
-      label: label,
-      family: family,
-      package: package,
-      faces: [LetteringFace(file: '$family-Regular.ttf', weight: 400)],
     ),
 ];
 

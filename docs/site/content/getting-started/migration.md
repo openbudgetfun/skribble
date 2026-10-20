@@ -26,12 +26,12 @@ Add the skribble package to your `pubspec.yaml`:
 ```yaml
 dependencies:
   skribble: ^0.2.1
-  skribble_font_recursive: ^0.2.1 # Hand-drawn text (recommended)
+  skribble_font_noto_sketch: ^0.3.1 # Hand-drawn text (recommended)
   skribble_icons: ^0.2.1 # Optional: for hand-drawn icons
   skribble_emoji: ^0.2.1 # Optional: for hand-drawn emoji
 ```
 
-Run `dart pub get` to install the packages. Add `skribble_font_recursive` whenever you want `Text` to render in the hand-drawn typefaces; without it, borders and shapes still look sketched but text falls back to the platform font.
+Run `dart pub get` to install the packages. Add `skribble_font_noto_sketch`, the default typeface, whenever you want `Text` to render hand-drawn; without it, borders and shapes still look sketched but text falls back to the platform font.
 
 ## Step 2: Adopt the palette
 
@@ -380,26 +380,26 @@ Text(
   'Make something lovely',
   style: const TextStyle(
     fontFamily: skribbleFontFamily,
-    package: 'skribble_font_recursive',
+    package: 'skribble_font_noto_sketch',
     fontSize: 24,
   ),
 )
 ```
 
-Or let the theme pick the family from the roughness level — this is the recipe to reach for first:
+Or let the theme pick the family — this is the recipe to reach for first:
 
 ```dart
 // Static example: pseudocode
 SkribbleApp(
   wiredTheme: WiredThemeData(
-    font: WiredFont.casual, // default; .linear or .mono for other styles
+    font: WiredFont.notoSketch, // default; .casual, .linear, or .mono follow the roughness
     roughnessLevel: WiredRoughness.playful,
     // ... other properties
   ),
 )
 ```
 
-A bare `TextStyle` qualifies the bundled family with `package: 'skribble_font_recursive'` (install that package first). Inside a themed app you rarely need this — the theme's `font` + `roughnessLevel` resolve the right family everywhere.
+A bare `TextStyle` qualifies the bundled family with `package: 'skribble_font_noto_sketch'` (install that package first). Inside a themed app you rarely need this — the theme's `font` resolves the right family everywhere.
 
 ## Step 7: Add Accessibility
 

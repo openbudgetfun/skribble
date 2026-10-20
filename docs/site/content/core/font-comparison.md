@@ -5,7 +5,7 @@ description: Compare original and roughened Recursive Casual, Sans Linear, and M
 
 # Three kinds of lettering
 
-Choose `WiredFont.casual`, `WiredFont.linear`, or `WiredFont.mono` in `WiredThemeData`. Casual remains the default. All three follow the inherited Gentle, Playful, or Expressive setting. Mono Linear provides equal character advances for code; the docs use it for syntax-highlighted examples.
+Choose `WiredFont.casual`, `WiredFont.linear`, or `WiredFont.mono` in `WiredThemeData` for the Recursive lettering; the default is Skribble Noto Sketch, [below](#skribble-noto). All three Recursive typefaces follow the inherited Gentle, Playful, or Expressive setting. Mono Linear provides equal character advances for code; the docs use it for syntax-highlighted examples.
 
 ```dart
 // Static example: configuration
@@ -43,11 +43,11 @@ Skribble Noto is a second hand-drawn typeface, redrawn from [Google Noto](https:
 
 It comes at three levels, each in its own package:
 
-| Value                  | Family               | Package                     | Character                                                           |
-| ---------------------- | -------------------- | --------------------------- | ------------------------------------------------------------------- |
-| `WiredFont.noto`       | `SkribbleNoto`       | `skribble_font_noto`        | Soft: round pen, gentle wobble. The default level.                  |
-| `WiredFont.notoSketch` | `SkribbleNotoSketch` | `skribble_font_noto_sketch` | Sketch: stronger wobble, slight bounce, three drawings of each a–z. |
-| `WiredFont.notoLively` | `SkribbleNotoLively` | `skribble_font_noto_lively` | Lively: wider pen, strongest wobble and bounce, roomier spacing.    |
+| Value                  | Family               | Package                     | Character                                                            |
+| ---------------------- | -------------------- | --------------------------- | -------------------------------------------------------------------- |
+| `WiredFont.noto`       | `SkribbleNoto`       | `skribble_font_noto`        | Soft: round pen, the calmest wobble.                                 |
+| `WiredFont.notoSketch` | `SkribbleNotoSketch` | `skribble_font_noto_sketch` | Sketch, the default: stronger wobble, bounce, three drawings of a–z. |
+| `WiredFont.notoLively` | `SkribbleNotoLively` | `skribble_font_noto_lively` | Lively: wider pen, strongest wobble and bounce, roomier spacing.     |
 
 ```dart
 // Static example: configuration
