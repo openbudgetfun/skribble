@@ -187,9 +187,16 @@ void main() {
           .map((input) => input.attributes['value']);
 
       expect(picks, [for (final family in _assets.fonts) family.family]);
+      expect(picks.first, 'SkribbleNotoSketch');
+      expect(
+        page
+            .querySelector('input[name="font-family"][checked]')
+            ?.attributes['value'],
+        'SkribbleNotoSketch',
+      );
       expect(
         page.querySelector('[data-font-install]')?.text,
-        'flutter pub add skribble_font_recursive',
+        'flutter pub add skribble_font_noto_sketch',
       );
     });
 

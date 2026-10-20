@@ -188,9 +188,11 @@ List<CrampedText> crampedText(
           inside.width * inside.height < bounds.width * bounds.height / 2) {
         continue;
       }
-      // The smallest border around the text is the one it lives in.
+      // The smallest border around the text is the one it lives in. Of
+      // two the same size, the later one paints over the earlier, the way
+      // an elevated button's face covers its offset shadow.
       if (border == null ||
-          candidate.width * candidate.height < border.width * border.height) {
+          candidate.width * candidate.height <= border.width * border.height) {
         border = candidate;
         whole = uncut;
         owner = name;

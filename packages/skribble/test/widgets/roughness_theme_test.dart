@@ -72,9 +72,24 @@ void main() {
     },
   );
 
-  test('levels coordinate typography, geometry, and package resolution', () {
+  test('the default Noto Sketch lettering stays put at every level', () {
     for (final level in WiredRoughness.values) {
       final theme = WiredThemeData(roughnessLevel: level);
+      expect(theme.fontFamily, 'SkribbleNotoSketch');
+      expect(theme.fontPackage, 'skribble_font_noto_sketch');
+      expect(
+        theme.toThemeData().textTheme.bodyMedium!.fontFamily,
+        'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
+      );
+    }
+  });
+
+  test('levels coordinate typography, geometry, and package resolution', () {
+    for (final level in WiredRoughness.values) {
+      final theme = WiredThemeData(
+        roughnessLevel: level,
+        font: WiredFont.casual,
+      );
       expect(theme.fontFamily, level.fontFamily);
       expect(theme.fontPackage, 'skribble_font_recursive');
       expect(theme.drawConfig.roughness, level.roughness);
@@ -107,7 +122,10 @@ void main() {
   });
 
   test('copyWith changes level defaults and retains palette and overrides', () {
-    final original = WiredThemeData(borderColor: const Color(0xff123456));
+    final original = WiredThemeData(
+      borderColor: const Color(0xff123456),
+      font: WiredFont.casual,
+    );
     final gentle = original.copyWith(roughnessLevel: WiredRoughness.gentle);
     expect(gentle.fontFamily, 'SkribbleGentle');
     expect(gentle.roughness, 0.9);
@@ -143,7 +161,10 @@ void main() {
     ) async {
       await tester.pumpWidget(
         WiredMaterialApp(
-          wiredTheme: WiredThemeData(roughnessLevel: level),
+          wiredTheme: WiredThemeData(
+            roughnessLevel: level,
+            font: WiredFont.casual,
+          ),
           home: WiredScaffold(
             body: Column(
               children: [
@@ -191,7 +212,7 @@ void main() {
       addTearDown(level.dispose);
       await tester.pumpWidget(
         WiredMaterialApp(
-          wiredTheme: WiredThemeData(),
+          wiredTheme: WiredThemeData(font: WiredFont.casual),
           home: WiredScaffold(
             body: Column(
               children: [

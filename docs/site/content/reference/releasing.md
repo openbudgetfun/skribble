@@ -21,7 +21,7 @@ skribble publishes packages to pub.dev as one synchronized `main` release group:
 - `skribble_icons_simple`
 - `skribble_lints`
 
-Those packages use the same version and the release tag `v<version>`. `skribble_maps` and `skribble_charts` release independently, with tags `skribble_maps/v<version>` and `skribble_charts/v<version>`. Neither belongs to the `main` group. The five npm packages in `js/` form the `js` group and release to npm under `js/v<version>`; see [npm packages](#npm-packages). Applications, the workspace root, and the documentation site remain private.
+Those packages use the same version and the release tag `v<version>`. `skribble_maps` and `skribble_charts` release independently, with tags `skribble_maps/v<version>` and `skribble_charts/v<version>`. Neither belongs to the `main` group. The website, `skribble_site`, releases on its own too, with tags `skribble_site/v<version>`, but is never published to a registry (see [The website](#the-website)). The five npm packages in `js/` form the `js` group and release to npm under `js/v<version>`; see [npm packages](#npm-packages). Other applications, the workspace root, and the documentation app remain private.
 
 Both companion packages depend on `skribble`, so Monochange propagates the core package's release severity to them. A breaking core change produces a breaking companion change. Changes confined to maps or charts can release without forcing a release of the main group.
 
@@ -37,9 +37,23 @@ monochange step validate
 monochange check
 ```
 
+Website changes target `skribble_site` and pick their audience with the change type. Use `feat`, `fix`, and the other usual types for the website's developer changelog (build, tooling, deployment), and `user_feat` or `user_fix` for what people visiting skribble.dev can now see or try. Those two types belong to the `user` stream, which is written to the docs' [What's new](/reference/whats-new) page. When a change matters to both audiences, write one changeset for each:
+
+```md
+---
+skribble_site: user_fix
+---
+
+# Highlights cover their whole word on every browser
+
+Circles and marker strokes on the landing page no longer stop short of the word they highlight.
+```
+
+`monochange step validate` and `monochange check` do not catch a changeset whose targets mix streams; `monochange step prepare-release --dry-run` does.
+
 ### Changeset lint rules
 
-`monochange check` lints every changeset, and the CI `lint` job fails a pull request that violates the policy. Each changeset needs exactly one H1 summary heading of 8–90 characters that does not end with a period and does not use a Conventional Commit prefix (`feat:`, `fix(scope):`, …). The first description sentence must add information beyond the heading instead of restating it, and the body needs at least 80 characters of explanation — 120 plus a code block for `major` bumps — so the generated changelog stays meaningful. Change entries stay in the inline `target: type` form, change types never appear as section headings (`## Breaking`), and two changesets cannot target the same package. The lint rules also cover manifest hygiene: dependencies and assets stay alphabetically sorted, internal dependency versions match the workspace, publishable packages declare required metadata and an SDK constraint, and unmanaged packages declare `publish_to: none`. Run `monochange check --fix` to auto-fix the style rules (`prefer-inline`, sorting); everything else needs a manual edit.
+`monochange check` lints every changeset, and the CI `lint` job fails a pull request that violates the policy. Each changeset needs exactly one H1 summary heading of 8–90 characters that does not end with a period and does not use a Conventional Commit prefix (`feat:`, `fix(scope):`, …). The first description sentence must add information beyond the heading instead of restating it, and the body needs at least 80 characters of explanation — 120 plus a code block for `major` bumps — so the generated changelog stays meaningful. Change entries stay in the inline `target: type` form, change types never appear as section headings (`## Breaking`), and each changeset covers one concern; two files target the same package only when a website change needs a note for each audience (see above). The lint rules also cover manifest hygiene: dependencies and assets stay alphabetically sorted, internal dependency versions match the workspace, publishable packages declare required metadata and an SDK constraint, and unmanaged packages declare `publish_to: none`. Run `monochange check --fix` to auto-fix the style rules (`prefer-inline`, sorting); everything else needs a manual edit.
 
 ## The release pull request
 
@@ -97,8 +111,9 @@ The publish workflow then runs for each tag:
 2. Monochange checks publish readiness for the packages in the release record.
 3. setup-dart registers the pub.dev credential, and the publish step resolves the packages this tag owns from the release record and publishes them in dependency order. Re-runs skip versions that already exist on pub.dev, so a recovered publish is safe to repeat.
 4. The workflow publishes the GitHub release objects from the release record.
-5. For the main `v<version>` tag, the workflow packages every bundled font family as a zip and uploads the archives to the GitHub release.
-6. For the main `v<version>` tag, refresh the design handover manually as described in [Publish the Figma handover](#publish-the-figma-handover).
+5. A separate `website` job deploys the website (see [The website](#the-website)). It does not wait for the registry publish.
+6. For the main `v<version>` tag, the workflow packages every bundled font family as a zip and uploads the archives to the GitHub release.
+7. For the main `v<version>` tag, refresh the design handover manually as described in [Publish the Figma handover](#publish-the-figma-handover).
 
 Companion tags are pushed only after the main group's publish run succeeds, because `skribble_maps` and `skribble_charts` depend on `skribble`.
 
@@ -228,7 +243,7 @@ publish:emoji-lottie v0.3.0 --dry-run   # export and report without uploading
 
 The export passes `--plain-name 'export Lottie files'` through the devenv `flutter` script, which forwards its arguments quoted. The v0.3.0 run failed here because the script used to forward them unquoted, splitting the test name into three paths.
 
-pub.dev's automated publisher requires the tag push event, so the publish workflow only listens for `v*`, `skribble_maps/v*`, `skribble_charts/v*`, and `js/v*` tag pushes. A `workflow_dispatch` with an explicit `tag` input exists for re-running the non-registry steps, but pub.dev rejects the publish itself on dispatch runs.
+pub.dev's automated publisher requires the tag push event, so the publish workflow only listens for `v*`, `skribble_maps/v*`, `skribble_charts/v*`, `skribble_site/v*`, and `js/v*` tag pushes. A `workflow_dispatch` with an explicit `tag` input exists for re-running the non-registry steps, but pub.dev rejects the publish itself on dispatch runs.
 
 The pub.dev automated publisher for `skribble_maps` uses repository `openbudgetfun/skribble`, workflow `publish.yml`, GitHub environment `publisher`, and tag pattern `skribble_maps/v{{version}}`. Its `0.0.0` placeholder was published with Monochange before the automated publisher was registered.
 
@@ -332,3 +347,31 @@ done
 ```
 
 A `200` means the name is reserved.
+
+## The website
+
+The website is the skribble.dev landing page (`apps/skribble_site`) with the documentation under `docs/` and the storybook under `docs/storybook/`. It deploys with releases, not with every push to `main`, so the docs always describe packages you can install.
+
+`skribble_site` is a monochange package with `publish = { enabled = false }`: it gets a version, a changelog (`apps/skribble_site/CHANGELOG.md`), a `skribble_site/v<version>` tag, and a GitHub release titled `skribble.dev v<version>`, but nothing is sent to pub.dev. Its publish run skips the registry steps and only creates the GitHub release.
+
+Every release deploys the website once. The publish workflow's `website` job runs `scripts/release/deploy_website.sh` with its tag, and only the first release tag at the commit, in the order `publish:tags` pushes them (`v*`, then maps, charts, site, and the npm packages' `js/v*`), dispatches the `Docs Pages` workflow. That workflow runs on `main`, because the `github-pages` environment only accepts deployments from `main`, and builds the tagged commit. A dispatch is one of the few events the workflow's `GITHUB_TOKEN` may start, so a release always deploys, including a site-only release.
+
+### What's new
+
+Changesets with the `user_feat` and `user_fix` types belong to the `user` stream. monochange appends them to [What's new](/reference/whats-new) (`docs/site/content/reference/whats-new.md`) when it prepares a website release, so the page ships in the same deploy. Preview the next entry without changing anything:
+
+```bash
+monochange notes --output user --target skribble_site
+```
+
+### Deploy by hand
+
+Nothing deploys between releases, so if skribble.dev still shows the previous release after a publish run, its `website` job failed or never ran: redeploy that release's tag by hand. Prefer the tag over the tip of `main`, which may document changes that are not released yet.
+
+Redeploy a release, or deploy the tip of `main` between releases, by dispatching `Docs Pages` on `main`:
+
+```bash
+gh workflow run docs-pages.yml --ref main -f release_tag=v0.4.0   # a release
+gh workflow run docs-pages.yml --ref main                        # the tip of main
+./scripts/release/deploy_website.sh v0.4.0 --dry-run              # which tag owns a release's deploy
+```

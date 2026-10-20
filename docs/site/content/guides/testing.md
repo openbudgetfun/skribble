@@ -447,7 +447,7 @@ testWidgets('the settings screen keeps the ink padding', (tester) async {
 });
 ```
 
-- `crampedText` finds text closer than `kWiredInkPadding` to the hand-drawn rectangle, rounded rectangle, or circle around it, or spilling past it. Gaps are measured in the content's own size, so a scaled-down preview is judged by its proportions, and text or ink hidden by scrolling and clips is ignored. Badges and other pills under 24 pixels keep their own tight fit.
+- `crampedText` finds text closer than `kWiredInkPadding` to the hand-drawn rectangle, rounded rectangle, or circle around it, or spilling past it. Gaps are measured in the content's own size, so a scaled-down preview is judged by its proportions, and text or ink hidden by scrolling and clips is ignored. Badges and other pills under 24 pixels keep their own tight fit. When two borders of the same size overlap, such as an elevated button's face and its offset shadow, the label is measured against the one painted on top.
 - `squeezedText` finds paragraphs wrapped into four or more lines in under 140 pixels, the sign of a layout that should reflow on a phone.
 
 The storybook, the docs site, and the example app run these checks on every page and example at 360, 768, and 1280 pixels, and at 1.3× text.

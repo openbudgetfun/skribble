@@ -1,6 +1,6 @@
 # skribble_font_recursive
 
-The bundled skribble typefaces as a standalone package.
+The roughened Recursive typefaces (Casual, Linear, and Mono) as a standalone package. Each is redrawn at the Gentle, Playful, and Expressive roughness levels and follows the theme's level. skribble's default typeface is Skribble Noto Sketch (`skribble_font_noto_sketch`); select these with `WiredThemeData(font: WiredFont.casual)`, `.linear`, or `.mono`.
 
 ## Provenance
 

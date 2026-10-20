@@ -34,6 +34,25 @@ void main() {
       expect(crampedText(_root(tester)), isEmpty);
     });
 
+    testWidgets('measures a face against itself, not the shadow under it', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        Center(
+          child: WiredElevatedButton(
+            onPressed: () {},
+            child: const Text('Elevated'),
+          ),
+        ),
+      );
+      // An impossible minimum reports every gap; the face centres its label,
+      // while the shadow, drawn 2 pixels down and right, would not.
+      final gaps = crampedText(_root(tester), vertical: 100).single.gaps;
+      expect(gaps.top, closeTo(gaps.bottom, 1));
+      expect(gaps.left, closeTo(gaps.right, 1));
+    });
+
     testWidgets('finds text that crowds its line', (tester) async {
       await pumpApp(
         tester,

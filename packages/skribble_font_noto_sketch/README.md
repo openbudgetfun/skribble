@@ -13,7 +13,7 @@ dependencies:
   skribble_font_noto_sketch: ^0.3.1
 ```
 
-No code is required: Flutter registers the `SkribbleNotoSketch` family from this package's pubspec. Select it through core's theme:
+This is skribble's default typeface. No code is required: Flutter registers the `SkribbleNotoSketch` family from this package's pubspec, and `WiredThemeData` uses it unless you choose another font. Select it explicitly when a parent theme chose a different one:
 
 ```dart
 import 'package:skribble/skribble.dart';

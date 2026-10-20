@@ -1100,6 +1100,8 @@ The engine is split across two packages. Geometry, fillers, pens, ink sampling, 
 
 The `Docs Pages` workflow publishes one GitHub Pages site: the landing page at the root, the Flutter docs under `docs/`, and the storybook under `docs/storybook/`. Pages serves only the root `404.html`, which sends links from before the move (the docs used to live at the root) on to `docs/`.
 
+The website deploys with releases, not with every push to `main`. `skribble_site` is a monochange package that is never published to a registry: it is tagged `skribble_site/v<version>`, and the publish workflow's `website` job dispatches `Docs Pages` once per release (`scripts/release/deploy_website.sh`). Changes under `apps/skribble_site` need a changeset like any package. Use `feat`/`fix` for developer notes and `user_feat`/`user_fix` for what visitors notice; those land on the docs' What's new page (`docs/site/content/reference/whats-new.md`, written by monochange, so never edit its entries by hand). See [Releasing](/reference/releasing#the-website).
+
 ## Documentation update requirements
 
 **Every change to the codebase must have corresponding documentation updates.** This is a hard rule, not a suggestion. No PR should be merged without documentation for what changed.
@@ -1294,7 +1296,7 @@ Changesets are linted by `monochange check`, which the CI `lint` job runs on eve
 - The first description sentence must add information beyond the heading, not restate it.
 - At least 80 characters of body prose (120 plus a code block for `major` bumps).
 - Keep entries in the inline `target: type` form; never use change types as section headings (`## Breaking`).
-- One changeset file per concern; duplicate targets across files are rejected.
+- One changeset file per concern. The only reason to give one change two files is a second audience: a `skribble_site` change visitors notice gets a `user_feat` or `user_fix` file for the What's new page next to its developer note, and every target in one file must share a stream.
 
 Run `monochange check --fix` to auto-fix the style rules; everything else needs a manual edit. The full policy is documented in `docs/site/content/reference/releasing.md` under "Changeset lint rules".
 

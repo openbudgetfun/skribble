@@ -63,6 +63,9 @@ abstract final class SiteLinks {
   /// The theme guide.
   static const theming = 'docs/getting-started/theming';
 
+  /// What changed on skribble.dev, from the website's user-facing changesets.
+  static const whatsNew = 'docs/reference/whats-new';
+
   /// The live Flutter storybook.
   static const storybook = 'docs/storybook/';
 
@@ -72,9 +75,9 @@ abstract final class SiteLinks {
   /// The main package on pub.dev.
   static const pub = 'https://pub.dev/packages/skribble';
 
-  /// The bundled fonts' source folder.
+  /// Every font family as a zip, attached to the latest GitHub release.
   static const fontSource =
-      'https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_recursive/assets/fonts';
+      'https://github.com/openbudgetfun/skribble/releases/latest';
 
   /// The editable Figma design system.
   static const figma =

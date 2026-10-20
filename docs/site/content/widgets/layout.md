@@ -202,7 +202,7 @@ HookBuilder(
 
 ## WiredCalendar
 
-A standalone calendar widget with hand-drawn day cells and month navigation. Days are rendered within sketchy rectangle cells.
+A standalone calendar widget with hand-drawn day cells and month navigation. Days are rendered within sketchy rectangle cells, and the selected day is circled. Day numbers are 18 pixels, small enough that the circle keeps its ink padding with the default Noto Sketch lettering.
 
 ```dart
 // Live example: calendar

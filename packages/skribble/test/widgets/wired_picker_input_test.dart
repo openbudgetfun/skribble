@@ -118,7 +118,7 @@ void main() {
         );
         expect(
           paragraph.text.style!.fontFamily,
-          'packages/skribble_font_recursive/${theme.fontFamily}',
+          'packages/${theme.fontPackage}/${theme.fontFamily}',
         );
       },
     );

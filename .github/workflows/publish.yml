@@ -7,6 +7,7 @@ on:
       - "skribble_maps/v*"
       - "skribble_charts/v*"
       - "js/v*"
+      - "skribble_site/v*"
   # pub.dev only accepts automated publishing from runs triggered by a tag
   # push, so a dispatch cannot publish packages. Keep it for re-running the
   # non-registry repair steps (GitHub releases and font assets) at an existing
@@ -63,11 +64,29 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      # The website's `skribble_site/v*` tag owns no package that goes to a
+      # registry, so its run skips straight to the GitHub release.
+      - name: Find the packages this tag publishes
+        id: owned
+        env:
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+          members="$(monochange step release-record --from HEAD --format json |
+            jq -c --arg tag "$RELEASE_TAG" '[.record.release_targets[] | select(.tag_name == $tag) | .members[]]')"
+          publishable="$(monochange step config --format json |
+            jq -c '[.config.packages[] | select(.publish.enabled != false) | .id]')"
+          count="$(jq -n --argjson members "$members" --argjson publishable "$publishable" \
+            '[$members[] | select(. as $member | $publishable | index($member))] | length')"
+          echo "registry=$([ "$count" -gt 0 ] && echo true || echo false)" >>"$GITHUB_OUTPUT"
+        shell: devenv shell -- bash -e {0}
+
       # Readiness dry-runs `npm publish` for every npm package in the release
       # record, whichever tag is being published, and each dry run builds the
       # package in its `prepack` script. A release commit without npm packages
       # needs none of this, so a Dart-only release skips the install.
       - name: Check whether the release includes npm packages
+        if: steps.owned.outputs.registry == 'true'
         id: npm
         run: |
           count="$(monochange step release-record --from HEAD --format json |
@@ -76,7 +95,7 @@ jobs:
         shell: devenv shell -- bash -e {0}
 
       - name: Install npm workspace dependencies
-        if: steps.npm.outputs.packages != '0'
+        if: steps.owned.outputs.registry == 'true' && steps.npm.outputs.packages != '0'
         run: pnpm install --frozen-lockfile
         shell: devenv shell -- bash -e {0}
 
@@ -94,6 +113,7 @@ jobs:
         shell: devenv shell -- bash -e {0}
 
       - name: Check Monochange publish readiness
+        if: steps.owned.outputs.registry == 'true'
         run: |
           monochange step publish-readiness \
             --from HEAD \
@@ -109,14 +129,15 @@ jobs:
       # check above both resolve packages, so this step belongs directly before
       # the publishes it authenticates.
       - name: Set up Dart trusted publishing
+        if: steps.owned.outputs.registry == 'true'
         uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
 
       # pub.dev configures automated publishing per package, and each package
       # only accepts its own tag pattern, so every tag publishes just the
       # release targets it owns: the main group for `v<version>`, the single
       # companion package for its namespaced tag, and the npm packages for
-      # `js/v<version>`. Re-runs skip versions
-      # that already exist on pub.dev.
+      # `js/v<version>`. Re-runs skip versions that already exist on the
+      # registry.
       #
       # The script publishes one package per invocation because monochange
       # aborts the whole batch on the first failure. That is how v0.2.0 and
@@ -142,6 +163,7 @@ jobs:
       # release record and package manifests from the working tree, so the
       # release it publishes is still the tag's, not main's.
       - name: Publish the packages this tag owns
+        if: steps.owned.outputs.registry == 'true'
         env:
           RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
         run: |
@@ -192,3 +214,37 @@ jobs:
             ${{ runner.temp }}/publish-release.json
           if-no-files-found: ignore
           retention-days: 14
+
+  # Every release deploys the website: the landing page, the docs, and the
+  # storybook. This job does not wait for the registry publish, so a pub.dev
+  # rejection never holds back the site. Only one tag per release commit
+  # dispatches the deploy; see scripts/release/deploy_website.sh.
+  website:
+    if: github.repository == 'openbudgetfun/skribble'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Check out release tag
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Read from `origin/main` for the same reason as the publish script:
+      # tags cut before the script existed do not carry it.
+      - name: Deploy the website
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+          git fetch --force origin main:refs/remotes/origin/main
+          runner="$RUNNER_TEMP/deploy_website.sh"
+          git show origin/main:scripts/release/deploy_website.sh >"$runner"
+          chmod +x "$runner"
+          "$runner" "$RELEASE_TAG"
+        shell: bash

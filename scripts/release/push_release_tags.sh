@@ -18,6 +18,11 @@
 # that is already on origin with no publish run is published from this
 # checkout with publish_owned_packages.sh instead.
 #
+# The website's `skribble_site/v*` tag publishes no package. Its run only
+# creates the GitHub release, and the first tag pushed for a release commit
+# deploys the website (deploy_website.sh), so a site-only release still
+# deploys.
+#
 # Tags that already exist on origin are not pushed again, but their publish
 # runs are still watched, so a rerun after a partial release is safe.
 #
@@ -41,7 +46,7 @@ monochange step tag-release --from HEAD --push=false --format json >/dev/null
 
 release_commit="$(git rev-parse HEAD)"
 release_tags=()
-for pattern in 'v[0-9]*' 'skribble_maps/v[0-9]*' 'skribble_charts/v[0-9]*' 'js/v[0-9]*'; do
+for pattern in 'v[0-9]*' 'skribble_maps/v[0-9]*' 'skribble_charts/v[0-9]*' 'skribble_site/v[0-9]*' 'js/v[0-9]*'; do
 	while IFS= read -r release_tag; do
 		release_tags+=("$release_tag")
 	done < <(git tag --points-at HEAD --list "$pattern")

@@ -34,7 +34,8 @@
 #   ./scripts/release/publish_owned_packages.sh <tag> [--dry-run] [--readiness <path>]
 #
 # Exit codes:
-#   0 — every package this tag owns exists on its registry
+#   0 — every package this tag owns exists on its registry, or the tag owns
+#       none that are published to one (the website)
 #   1 — setup error, or at least one package was not published
 
 set -uo pipefail
@@ -133,6 +134,26 @@ if [[ -z "$members" ]]; then
 	exit 1
 fi
 
+# Packages with `publish = { enabled = false }` (the website) are released and
+# tagged but never sent to a registry, so a tag that owns only those has
+# nothing to publish.
+if ! config="$(monochange step config --format json 2>"$scratch/config.err")"; then
+	echo "Error: could not read the monochange configuration." >&2
+	cat "$scratch/config.err" >&2
+	exit 1
+fi
+
+members_json="$(printf '%s' "$record" | jq -c --arg tag "$TAG" \
+	'[.record.release_targets[]? | select(.tag_name == $tag) | .members[]]')"
+members_json="$(printf '%s' "$config" | jq -c --argjson members "$members_json" \
+	'[.config.packages[] | select(.publish.enabled != false) | .id] as $publishable
+	| [$members[] | select(. as $member | $publishable | index($member))]')"
+
+if [[ "$members_json" == "[]" ]]; then
+	echo "Tag $TAG owns no package that is published to a registry; nothing to publish."
+	exit 0
+fi
+
 # Dependency order. The release record lists a target's members in declaration
 # order, which is not safe to publish in: `skribble` declares a hosted
 # constraint on `skribble_lints`, so publishing `skribble` first would fail to
@@ -156,8 +177,6 @@ else
 	fi
 fi
 
-members_json="$(printf '%s' "$record" | jq -c --arg tag "$TAG" \
-	'[.record.release_targets[]? | select(.tag_name == $tag) | .members[]]')"
 ordered="$(jq -rn --argjson members "$members_json" \
 	--argjson order "$(printf '%s' "$order_json" | jq '.publish_order')" \
 	'$order[] as $p | select($members | index($p)) | $p')"

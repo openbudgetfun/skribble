@@ -1,6 +1,6 @@
 # skribble_font_noto
 
-Skribble Noto: a hand-drawn typeface generated from [Google Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans), at the Soft level, the calm default: a round pen with a gentle wobble.
+Skribble Noto: a hand-drawn typeface generated from [Google Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans), at the Soft level, the calmest: a round pen with a gentle wobble.
 
 This package bundles Latin, Greek and Cyrillic. Every other Noto script, including Arabic, Devanagari, Thai, Chinese, Japanese and Korean, is in the Skribble Noto font kit attached to each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest).
 

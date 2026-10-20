@@ -213,7 +213,7 @@ Widget _buildCell(
   double width = 45.0,
   double height = 50.0,
   FontWeight fontWeight = FontWeight.w500,
-  double fontSize = 20.0,
+  double fontSize = 18.0,
   Color? color,
   required Color borderColor,
 }) {
