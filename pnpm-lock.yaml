@@ -11,7 +11,7 @@ importers:
   js/react:
     dependencies:
       '@skribble.dev/rough':
-        specifier: ^0.0.0
+        specifier: ^0.0.1
         version: link:../rough
     devDependencies:
       '@types/node':
@@ -39,7 +39,7 @@ importers:
   js/react-native:
     dependencies:
       '@skribble.dev/rough':
-        specifier: ^0.0.0
+        specifier: ^0.0.1
         version: link:../rough
     devDependencies:
       '@types/node':
@@ -85,7 +85,7 @@ importers:
   js/svelte:
     dependencies:
       '@skribble.dev/rough':
-        specifier: ^0.0.0
+        specifier: ^0.0.1
         version: link:../rough
     devDependencies:
       '@sveltejs/package':
@@ -113,7 +113,7 @@ importers:
   js/vue:
     dependencies:
       '@skribble.dev/rough':
-        specifier: ^0.0.0
+        specifier: ^0.0.1
         version: link:../rough
     devDependencies:
       '@types/node':

@@ -1,9 +1,19 @@
 ---
-"@skribble.dev/rough": minor
-"@skribble.dev/react": minor
-"@skribble.dev/react-native": minor
-"@skribble.dev/vue": minor
-"@skribble.dev/svelte": minor
+"@skribble.dev/rough":
+  bump: major
+  version: "0.1.0"
+"@skribble.dev/react":
+  bump: major
+  version: "0.1.0"
+"@skribble.dev/react-native":
+  bump: major
+  version: "0.1.0"
+"@skribble.dev/vue":
+  bump: major
+  version: "0.1.0"
+"@skribble.dev/svelte":
+  bump: major
+  version: "0.1.0"
 ---
 
 # Draw skribble's hand-drawn shapes from JavaScript

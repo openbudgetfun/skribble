@@ -210,7 +210,9 @@ lockfile_commands = [{ command = "pnpm install --lockfile-only" }]
 publish.enabled = true
 publish.mode = "builtin"
 publish.registry = "npm"
-publish.trusted_publishing = { enabled = true, repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
+# `preferred`, as for Dart: CI publishes with trusted publishing, while the
+# one-time local placeholder publish can still use an `npm login` session.
+publish.trusted_publishing = { enabled = true, mode = "preferred", repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
 
 # =============================================================================
 # [source] — repository host for release automation

@@ -1,6 +1,6 @@
 {
   "name": "@skribble.dev/react-native",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Hand-drawn sketches for React Native, drawn by skribble's rough engine and painted with react-native-svg.",
   "license": "MIT",
   "author": "Ifiok Jr.",
@@ -45,7 +45,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@skribble.dev/rough": "^0.0.0"
+    "@skribble.dev/rough": "^0.0.1"
   },
   "peerDependencies": {
     "react": ">=18",

@@ -1,6 +1,6 @@
 {
   "name": "@skribble.dev/react",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Hand-drawn SVG sketches for React, drawn by skribble's rough engine. Server-renders the same markup on every build.",
   "license": "MIT",
   "author": "Ifiok Jr.",
@@ -44,7 +44,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@skribble.dev/rough": "^0.0.0"
+    "@skribble.dev/rough": "^0.0.1"
   },
   "peerDependencies": {
     "react": ">=18"

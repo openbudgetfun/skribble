@@ -21,7 +21,7 @@ skribble publishes packages to pub.dev as one synchronized `main` release group:
 - `skribble_icons_simple`
 - `skribble_lints`
 
-Those packages use the same version and the release tag `v<version>`. `skribble_maps` and `skribble_charts` release independently, with tags `skribble_maps/v<version>` and `skribble_charts/v<version>`. Neither belongs to the `main` group. Applications, the workspace root, and the documentation site remain private.
+Those packages use the same version and the release tag `v<version>`. `skribble_maps` and `skribble_charts` release independently, with tags `skribble_maps/v<version>` and `skribble_charts/v<version>`. Neither belongs to the `main` group. The five npm packages in `js/` form the `js` group and release to npm under `js/v<version>`; see [npm packages](#npm-packages). Applications, the workspace root, and the documentation site remain private.
 
 Both companion packages depend on `skribble`, so Monochange propagates the core package's release severity to them. A breaking core change produces a breaking companion change. Changes confined to maps or charts can release without forcing a release of the main group.
 
@@ -184,6 +184,39 @@ python3 tool/skribble_noto/build.py gf/ofl build/noto
 
 That attaches `SkribbleNoto-Kit-<tag>.zip`, `SkribbleNotoSketch-Kit-<tag>.zip`, and `SkribbleNotoLively-Kit-<tag>.zip`, each with every script's Regular file, `OFL.txt`, and the kit README (`tool/skribble_noto/KIT.md`, shipped as `README.md`). The script checks that the tag and its GitHub release exist before uploading. Rebuild the kit when the generator or the pinned Noto sources change; otherwise re-upload the previous kit to the new tag.
 
+### npm packages
+
+`@skribble.dev/rough`, `@skribble.dev/react`, `@skribble.dev/react-native`, `@skribble.dev/vue`, and `@skribble.dev/svelte` share one version as the `js` group and release under `js/v<version>`. A JavaScript release never forces a Dart release, and the reverse. They follow the same baseline as the Dart packages: manifests sit at the unpublished `0.0.1` development version after the `0.0.0` registry placeholders, and the first release is pinned to `0.1.0`.
+
+Internal dependencies are plain ranges such as `"@skribble.dev/rough": "^0.1.0"`. Monochange rewrites them with each release and refreshes `pnpm-lock.yaml` with `pnpm install --lockfile-only`. They are never `workspace:` ranges, because trusted publishing runs plain `npm publish`, which would upload a `workspace:` range unchanged. `pnpm-workspace.yaml` keeps pnpm linking the local packages.
+
+The publish workflow installs the workspace with `pnpm install --frozen-lockfile`, checks that npm is at least 11.5.1 (the first version with trusted publishing), and publishes each package with `npm publish --access public`. Every package's `prepack` script builds it and its workspace dependencies first. The final registry check reads `registry.npmjs.org` for scoped names and pub.dev for everything else.
+
+**Before the first `js/v*` tag**, bootstrap npm once. npm only accepts a trusted publisher for a package that already exists, so the first publish cannot come from the workflow:
+
+1. Sign in with an npm account that can publish to the `@skribble.dev` organization (`npm login`).
+2. Reserve each name with a `0.0.0` placeholder:
+
+   ```bash
+   monochange step placeholder-publish --package @skribble.dev/rough --dry-run
+   monochange step placeholder-publish --package @skribble.dev/rough
+   monochange step placeholder-publish --package @skribble.dev/react
+   monochange step placeholder-publish --package @skribble.dev/react-native
+   monochange step placeholder-publish --package @skribble.dev/vue
+   monochange step placeholder-publish --package @skribble.dev/svelte
+   ```
+
+3. On npmjs.com, open each package's _Settings → Trusted publishing_ and add a GitHub Actions publisher: repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`. A recent npm CLI can do the same from the command line, for example `npm trust github @skribble.dev/rough --file publish.yml --repo openbudgetfun/skribble --env publisher --yes`; `monochange step publish-packages --dry-run` prints this command for every npm package.
+4. Check that every name is reserved:
+
+   ```bash
+   for p in rough react react-native vue svelte; do
+     curl -s -o /dev/null -w "%{http_code} @skribble.dev/$p\n" "https://registry.npmjs.org/@skribble.dev%2f$p"
+   done
+   ```
+
+A package without a trusted publisher fails at publish time, while its siblings that have one publish normally, the same way `skribble_font_recursive` failed v0.2.0 on pub.dev.
+
 ### Animated emoji release asset
 
 The `v<version>` publish run also attaches `skribble-emoji-lottie.zip`: every animated emoji exported as a Lottie file, plus the license. `scripts/release/publish_emoji_lottie.sh` checks the tag out in a temporary worktree and runs the `export Lottie files` test in `packages/skribble_emoji`, so the zip always describes the release it is attached to, and the upload replaces a same-named asset on a re-run. When the export fails, the script prints the test's output before exiting.
@@ -195,7 +228,7 @@ publish:emoji-lottie v0.3.0 --dry-run   # export and report without uploading
 
 The export passes `--plain-name 'export Lottie files'` through the devenv `flutter` script, which forwards its arguments quoted. The v0.3.0 run failed here because the script used to forward them unquoted, splitting the test name into three paths.
 
-pub.dev's automated publisher requires the tag push event, so the publish workflow only listens for `v*`, `skribble_maps/v*`, and `skribble_charts/v*` tag pushes. A `workflow_dispatch` with an explicit `tag` input exists for re-running the non-registry steps, but pub.dev rejects the publish itself on dispatch runs.
+pub.dev's automated publisher requires the tag push event, so the publish workflow only listens for `v*`, `skribble_maps/v*`, `skribble_charts/v*`, and `js/v*` tag pushes. A `workflow_dispatch` with an explicit `tag` input exists for re-running the non-registry steps, but pub.dev rejects the publish itself on dispatch runs.
 
 The pub.dev automated publisher for `skribble_maps` uses repository `openbudgetfun/skribble`, workflow `publish.yml`, GitHub environment `publisher`, and tag pattern `skribble_maps/v{{version}}`. Its `0.0.0` placeholder was published with Monochange before the automated publisher was registered.
 
@@ -230,7 +263,7 @@ The [Figma workflow guide](../guides/figma) documents how agents and designers c
 
 CI validates publishing before anything is released. Two jobs in the `CI` workflow run on every pull request and every push to `main`:
 
-- **`publish-check`** validates the pull request as-is. `monochange step publish-packages --dry-run --all` runs `dart pub publish --dry-run` (or `flutter pub publish --dry-run` for Flutter packages) for every package against pub.dev, the same validation the publish workflow performs before a real publish.
+- **`publish-check`** validates the pull request as-is. `monochange step publish-packages --dry-run --all` runs `dart pub publish --dry-run` (or `flutter pub publish --dry-run` for Flutter packages) for every Dart package against pub.dev and `npm publish --dry-run` for every npm package, the same validation the publish workflow performs before a real publish.
 - **`release-publish`** validates the release commit. When the branch carries at least one pending changeset it runs `monochange step prepare-release --release-json` and `monochange step commit-release --no-verify` locally — the same version bumps, changelog updates, and release record `monochange run release` will produce — then checks `monochange step publish-readiness` and repeats the publish dry-run against that commit. Nothing is pushed, tagged, or published.
 
   The `MIN_CHANGESETS` job-level environment variable sets the threshold, currently `1`: every releasable change is validated before it merges, and only a branch with nothing to release skips. The step prints the pending count against the threshold, so a skip explains itself.
