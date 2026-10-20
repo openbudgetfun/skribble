@@ -321,7 +321,7 @@ The website is the skribble.dev landing page (`apps/skribble_site`) with the doc
 
 `skribble_site` is a monochange package with `publish = { enabled = false }`: it gets a version, a changelog (`apps/skribble_site/CHANGELOG.md`), a `skribble_site/v<version>` tag, and a GitHub release titled `skribble.dev v<version>`, but nothing is sent to pub.dev. Its publish run skips the registry steps and only creates the GitHub release.
 
-Every release deploys the website once. The publish workflow's `website` job runs `scripts/release/deploy_website.sh` with its tag, and only the first release tag at the commit, in the order `publish:tags` pushes them (`v*`, then maps, charts, and site), dispatches the `Docs Pages` workflow. That workflow runs on `main`, because the `github-pages` environment only accepts deployments from `main`, and builds the tagged commit. A dispatch is one of the few events the workflow's `GITHUB_TOKEN` may start, so a release always deploys, including a site-only release.
+Every release deploys the website once. The publish workflow's `website` job runs `scripts/release/deploy_website.sh` with its tag, and only the first release tag at the commit, in the order `publish:tags` pushes them (`v*`, then maps, charts, site, and the npm packages' `js/v*`), dispatches the `Docs Pages` workflow. That workflow runs on `main`, because the `github-pages` environment only accepts deployments from `main`, and builds the tagged commit. A dispatch is one of the few events the workflow's `GITHUB_TOKEN` may start, so a release always deploys, including a site-only release.
 
 ### What's new
 
@@ -332,6 +332,8 @@ monochange notes --output user --target skribble_site
 ```
 
 ### Deploy by hand
+
+Nothing deploys between releases, so if skribble.dev still shows the previous release after a publish run, its `website` job failed or never ran: redeploy that release's tag by hand. Prefer the tag over the tip of `main`, which may document changes that are not released yet.
 
 Redeploy a release, or deploy the tip of `main` between releases, by dispatching `Docs Pages` on `main`:
 
