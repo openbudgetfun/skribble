@@ -13,20 +13,22 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 
 ### Fields
 
-| Field               | Type             | Default                                      | Description                                                                     |
-| ------------------- | ---------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
-| `borderColor`       | `Color`          | `WiredPalette.ink`                           | Border stroke color for all shapes                                              |
-| `textColor`         | `Color`          | `WiredPalette.ink`                           | Primary text color                                                              |
-| `disabledTextColor` | `Color`          | `WiredPalette.mutedInk`                      | Text color for disabled states                                                  |
-| `fillColor`         | `Color`          | `WiredPalette.paper`                         | Interior fill color for shapes                                                  |
-| `markerColor`       | `Color`          | `WiredPalette.lilac`                         | Highlighter wash under selected and active things, with ink on top              |
-| `strokeWidth`       | `double`         | `1.6` (`kWiredStrokeWidth`)                  | Default border stroke width                                                     |
-| `roughnessLevel`    | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, pens, and lettering                    |
-| `pen`               | `RoughPen`       | Level pen (`RoughPen.ink` for playful)       | How lines are inked; an explicit constructor value overrides the preset         |
-| `roughness`         | `double`         | Level value (`1.5` for playful)              | Resolved amplitude; an explicit constructor value overrides the preset          |
-| `fontFamily`        | `String`         | Level family (`SkribblePlayful` for playful) | Resolved bundled or custom family                                               |
-| `fontPackage`       | `String?`        | `skribble` for bundled families              | Asset package; null for custom app fonts                                        |
-| `drawConfig`        | `DrawConfig`     | Derived from the level and amplitude         | Resolved drawing configuration; an explicit constructor config takes precedence |
+| Field                 | Type             | Default                                      | Description                                                                     |
+| --------------------- | ---------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
+| `borderColor`         | `Color`          | `WiredPalette.ink`                           | Border stroke color for all shapes                                              |
+| `textColor`           | `Color`          | `WiredPalette.ink`                           | Primary text color                                                              |
+| `disabledTextColor`   | `Color`          | `WiredPalette.mutedInk`                      | Text color for disabled states                                                  |
+| `fillColor`           | `Color`          | `WiredPalette.paper`                         | Interior fill color for shapes                                                  |
+| `markerColor`         | `Color`          | `WiredPalette.lilac`                         | Highlighter wash under selected and active things, with ink on top              |
+| `strokeWidth`         | `double`         | `1.6` (`kWiredStrokeWidth`)                  | Default border stroke width                                                     |
+| `roughnessLevel`      | `WiredRoughness` | `playful`                                    | Coordinated defaults for borders, icons, pens, and lettering                    |
+| `pen`                 | `RoughPen`       | Level pen (`RoughPen.ink` for playful)       | How lines are inked; an explicit constructor value overrides the preset         |
+| `roughness`           | `double`         | Level value (`1.5` for playful)              | Resolved amplitude; an explicit constructor value overrides the preset          |
+| `fontFamily`          | `String`         | Level family (`SkribblePlayful` for playful) | Resolved bundled or custom family                                               |
+| `fontPackage`         | `String?`        | Font package for bundled families            | Asset package (`WiredFont.packageFor`); null for custom app fonts               |
+| `qualifiedFontFamily` | `String`         | `packages/<fontPackage>/<fontFamily>`        | Full asset name the theme applies, with no `package:` on its text styles        |
+| `fontFamilyFallback`  | `List<String>?`  | `null`                                       | App font families tried after the main family, used as written                  |
+| `drawConfig`          | `DrawConfig`     | Derived from the level and amplitude         | Resolved drawing configuration; an explicit constructor config takes precedence |
 
 ### Creating a Theme
 
@@ -559,7 +561,7 @@ Playful is the default. The docs toolbar switches all inherited lettering and in
 | `playful`    | Neat, lightly wavering notebook ink          | 1.1              | 27               | `SkribblePlayful` |
 | `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
 
-Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble_font_recursive'` for code-only typography. An explicit `fontFamily` takes precedence.
+Set `font: WiredFont.casual` (the default), `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData`. The chosen typeface follows the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble_font_recursive'` for code-only typography. `WiredFont.noto`, `WiredFont.notoSketch`, and `WiredFont.notoLively` select Skribble Noto, hand-drawn from Google Noto; each is a fixed level from its own package and does not follow the roughness (see [Compare the lettering](/core/font-comparison#skribble-noto)). An explicit `fontFamily` takes precedence.
 
 All levels keep the 1.6px pen (`kWiredStrokeWidth`). Regular, Bold, Italic, and Bold Italic retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three typefaces bundles twelve static faces. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 

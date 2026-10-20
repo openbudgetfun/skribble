@@ -158,6 +158,10 @@ The stylesheet loads no fonts. The bundled faces live in [`packages/skribble_fon
 /* + Skribble-Italic.ttf (style: italic), Skribble-BoldItalic.ttf */
 ```
 
+## A complete example
+
+The skribble.dev landing page is built this way. Its source in [`apps/skribble_site`](https://github.com/openbudgetfun/skribble/tree/main/apps/skribble_site) renders pages with Jaspr's `renderComponent` from a plain Dart build script, mixes `skribble_jaspr` components with doodles drawn straight from `skribble_rough`, and turns native checkboxes, radios, and range inputs into hand-drawn controls with CSS alone.
+
 ## How it works
 
 A server cannot measure an element before the browser lays it out. Each component therefore draws into a nominal `viewBox` sized near its usual proportions, and an absolutely positioned `<svg>` stretches to the element with `preserveAspectRatio="none"`. `vector-effect="non-scaling-stroke"` keeps every stroke at its CSS width at any size. The SVG sits behind the content (`z-index: -1` inside an isolated stacking context), so it never intercepts clicks or covers text.

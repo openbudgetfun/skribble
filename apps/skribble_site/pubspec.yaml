@@ -1,0 +1,24 @@
+name: skribble_site
+description: >
+  The skribble.dev landing page, server-rendered with Jaspr and skribble_jaspr
+  into static HTML.
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+
+resolution: workspace
+
+dependencies:
+  jaspr: ^0.23.4
+  skribble_jaspr:
+    path: ../../packages/skribble_jaspr
+  skribble_rough:
+    path: ../../packages/skribble_rough
+
+dev_dependencies:
+  html: ^0.15.0
+  jaspr_test: ^0.23.4
+  skribble_lints:
+    path: ../../packages/skribble_lints
+  test: ^1.24.0

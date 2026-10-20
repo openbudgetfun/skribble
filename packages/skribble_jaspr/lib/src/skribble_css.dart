@@ -65,12 +65,15 @@ const String skribbleCss = '''
 }
 
 /* An absolutely positioned <svg> is a replaced element: it ignores
-   left/right stretching, so every overlay states its width and height. */
+   left/right stretching, so every overlay states its width and height.
+   Overlays such as the circle and marker are wider than their box, so a
+   page reset like `svg { max-width: 100% }` must not cap them. */
 .skribble-ink {
   position: absolute;
   inset: 0;
   z-index: -1;
   width: 100%;
+  max-width: none;
   height: 100%;
   overflow: visible;
   pointer-events: none;

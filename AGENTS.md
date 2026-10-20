@@ -87,6 +87,7 @@ skribble/
   packages/skribble/         # Main UI component library
   packages/skribble_lints/   # Shared lint rules
   apps/skribble_storybook/   # Demo/showcase app
+  apps/skribble_site/        # skribble.dev landing page (Jaspr, static HTML)
   docs/site/                 # Documentation site (Flutter)
   js/                        # npm packages: @skribble.dev/rough + React, React Native, Vue, Svelte
 ```
@@ -111,6 +112,10 @@ docs:site:serve
 
 # Build docs site for deployment
 docs:site:build
+
+# Build or serve the skribble.dev landing page (Jaspr)
+site:build
+site:serve
 
 # Validate release configuration and changesets
 monochange step validate

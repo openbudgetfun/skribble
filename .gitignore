@@ -71,3 +71,6 @@ packages/skribble/material_rough_icons_codepoints.json
 node_modules/
 js/*/dist/
 js/*/.svelte-kit/
+
+# Python bytecode from tool/ generators
+__pycache__/

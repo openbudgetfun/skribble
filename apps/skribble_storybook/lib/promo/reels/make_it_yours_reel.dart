@@ -305,11 +305,14 @@ class _Controls extends StatelessWidget {
               }, selected: style.level == level),
           ]),
           group('Handwriting', [
-            for (final font in WiredFont.values)
+            for (final font in WiredFont.recursiveFonts)
               chip(switch (font) {
                 WiredFont.casual => 'Casual',
                 WiredFont.linear => 'Linear',
                 WiredFont.mono => 'Mono',
+                WiredFont.noto => 'Noto',
+                WiredFont.notoSketch => 'Noto Sketch',
+                WiredFont.notoLively => 'Noto Lively',
               }, selected: style.font == font),
           ]),
           group('Marker', [

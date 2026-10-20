@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       base_path:
-        description: Optional base path override for GitHub Pages (for example /skribble/)
+        description: Optional base path override for GitHub Pages (for example /skribble/ or /)
         required: false
         default: ""
         type: string
@@ -33,20 +33,23 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - id: pages
         uses: actions/configure-pages@v6
-      - name: Resolve docs base path
+      - name: Resolve the site base path and URL
         id: base
         run: |
           input_base='${{ inputs.base_path }}'
+          configured_url='${{ steps.pages.outputs.base_url }}'
           configured_base='${{ steps.pages.outputs.base_path }}'
 
+          # configure-pages reports an empty base path for a custom domain
+          # (https://skribble.dev), so trust it whenever it reported a URL.
           if [[ -n "$input_base" ]]; then
             base_path="$input_base"
-          elif [[ -n "$configured_base" ]]; then
-            base_path="$configured_base"
+          elif [[ -n "$configured_url" ]]; then
+            base_path="${configured_base:-/}"
           elif [[ "${GITHUB_REPOSITORY#*/}" == "${GITHUB_REPOSITORY_OWNER}.github.io" ]]; then
             base_path='/'
           else
-            base_path='/${GITHUB_REPOSITORY#*/}/'
+            base_path="/${GITHUB_REPOSITORY#*/}/"
           fi
 
           if [[ "$base_path" != "/" ]]; then
@@ -54,28 +57,41 @@ jobs:
             [[ "$base_path" != */ ]] && base_path="$base_path/"
           fi
 
+          site_url="${configured_url:-https://${GITHUB_REPOSITORY_OWNER}.github.io${base_path%/}}"
+
           echo "base_path=$base_path" >> "$GITHUB_OUTPUT"
-          echo "Using DOCS_BASE_PATH=$base_path"
+          echo "site_url=$site_url" >> "$GITHUB_OUTPUT"
+          echo "Using base path $base_path for $site_url"
+      # Layout: the Jaspr landing page at the root, the Flutter docs under
+      # docs/, and the storybook under docs/storybook/ (the docs app opens
+      # it relative to its own base).
       - name: Build docs site
-        run: docs:site:build --base-href=${{ steps.base.outputs.base_path }}
+        run: docs:site:build --base-href=${{ steps.base.outputs.base_path }}docs/
         shell: devenv shell -- bash -e {0}
       - name: Build storybook web preview
         run: |
           # --no-tree-shake-icons: the icon galleries render runtime
           # codepoints (thousands of them), which the const-arg shaker
           # cannot evaluate.
-          flutter build web --release --no-web-resources-cdn --no-tree-shake-icons --base-href "${{ steps.base.outputs.base_path }}storybook/" --pwa-strategy=none
+          flutter build web --release --no-web-resources-cdn --no-tree-shake-icons --base-href "${{ steps.base.outputs.base_path }}docs/storybook/" --pwa-strategy=none
         working-directory: apps/skribble_storybook
         shell: devenv shell -- bash -e {0}
-      - name: Bundle storybook into docs artifact
+      - name: Build the landing page
+        run: dart run apps/skribble_site/bin/build.dart --output=build/pages --base-path=${{ steps.base.outputs.base_path }} --site-url=${{ steps.base.outputs.site_url }}
+        shell: devenv shell -- bash -e {0}
+      - name: Assemble the Pages artifact
         run: |
-          mkdir -p docs/site/build/web/storybook
-          cp -R apps/skribble_storybook/build/web/. docs/site/build/web/storybook/
+          mkdir -p build/pages/docs/storybook
+          cp -R docs/site/build/web/. build/pages/docs/
+          cp -R apps/skribble_storybook/build/web/. build/pages/docs/storybook/
+          # GitHub Pages serves only the root 404.html; the landing page's
+          # sends old documentation links on to docs/.
+          rm -f build/pages/docs/404.html
         shell: bash
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: docs/site/build/web
+          path: build/pages
 
   deploy:
     environment:

@@ -50,6 +50,7 @@ skribble/
 ├── apps/skribble_storybook/        # Interactive demo app
 │   ├── lib/pages/                  # Storybook category pages
 │   └── integration_test/           # Screenshot capture tests
+├── apps/skribble_site/             # skribble.dev landing page (Jaspr, static HTML)
 └── docs/site/                      # This documentation site (Flutter)
 ```
 
@@ -1087,6 +1088,18 @@ The engine is split across two packages. Geometry, fillers, pens, ink sampling, 
 - monochange owns the versions. The five packages form the `js` group in `monochange.toml`, share one version, and release under a `js/v<version>` tag. Changes under `js/` need a changeset for them, like any Dart package.
 - Never publish to npm from a branch. The publish workflow publishes a `js/v<version>` tag with npm trusted publishing, and each package's `prepack` script builds it first.
 
+### The skribble.dev landing page
+
+`apps/skribble_site` is the landing page, rendered with Jaspr into static HTML by `bin/build.dart` (`site:build`, or `site:serve` to preview). It uses `skribble_jaspr` components and its own seeded doodles from `skribble_rough`, so treat it like a Jaspr package:
+
+- Seed every drawing. Stroked doodle paths carry `pathLength="1"` so `web/site.css` can draw them on; `web/site.js` only adds enhancements (reveals, theme toggle, copy buttons, slider values, seed shuffling). Every control is a native input that works without it.
+- Respect `prefers-reduced-motion` for any new animation, and keep both the light and dark palettes in `web/site.css` in step.
+- Load nothing from other origins. Fonts, emoji, and icons come from the workspace at build time (`lib/src/build.dart`); image files stay out of Git.
+- Fonts ship as Latin-subset WOFF files made by `pyftsubset` (fontTools, in `devenv shell`) at build time, about a quarter of the TrueType size. A family in `fontFamilies` (`lib/src/assets.dart`) appears once its package is in the workspace. The faces in `criticalFaces` are preloaded, and the page stays hidden until they load (at most 3 seconds) so it never paints in a fallback font. Add a face there only if text above the fold uses it.
+- Link to documentation with relative `docs/...` paths. `test/site_test.dart` fails when a link has no page under `docs/site/content/`.
+
+The `Docs Pages` workflow publishes one GitHub Pages site: the landing page at the root, the Flutter docs under `docs/`, and the storybook under `docs/storybook/`. Pages serves only the root `404.html`, which sends links from before the move (the docs used to live at the root) on to `docs/`.
+
 ## Documentation update requirements
 
 **Every change to the codebase must have corresponding documentation updates.** This is a hard rule, not a suggestion. No PR should be merged without documentation for what changed.
@@ -1263,6 +1276,8 @@ WiredIcon.svg(iconData: myCustomIconData)
 | `fix:all`                        | Auto-fix format + lint issues                                                                                   |
 | `docs:site:serve`                | Serve docs site locally                                                                                         |
 | `docs:site:build`                | Build static docs for deployment                                                                                |
+| `site:build`                     | Build the skribble.dev landing page into `apps/skribble_site/build/web`                                         |
+| `site:serve`                     | Build the landing page and serve it on `PORT` (default 8080)                                                    |
 | `monochange step validate`       | Validate release configuration                                                                                  |
 | `monochange check`               | Validate and lint config, changesets, manifests                                                                 |
 | `monochange run release-pr`      | Prepare, commit, and open or refresh the release PR (the `Release PR` workflow runs it on every push to `main`) |
