@@ -1282,8 +1282,8 @@ WiredIcon.svg(iconData: myCustomIconData)
 | `site:serve`                     | Build the landing page and serve it on `PORT` (default 8080)                                                    |
 | `monochange step validate`       | Validate release configuration                                                                                  |
 | `monochange check`               | Validate and lint config, changesets, manifests                                                                 |
-| `monochange run release-pr`      | Prepare, commit, and open or refresh the release PR (the `Release PR` workflow runs it on every push to `main`) |
-| `monochange run release`         | Prepare a local release (plan, format, commit, tag, publish the GitHub release)                                 |
+| `monochange run release`         | Prepare, commit, and open or refresh the release PR (the `Release PR` workflow runs it on every push to `main`) |
+| `monochange run release-local`   | Prepare a local release (plan, format, commit, tag, publish the GitHub release)                                 |
 | `monochange run publish`         | Publish the packages in the current release                                                                     |
 | `publish:owned <tag>`            | Publish the packages a tag owns, one at a time, then verify the registry                                        |
 | `publish:tags`                   | Tag the merged release commit at HEAD and push its tags one at a time, watching each publish run                |

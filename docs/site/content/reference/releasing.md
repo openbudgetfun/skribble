@@ -57,21 +57,14 @@ Circles and marker strokes on the landing page no longer stop short of the word 
 
 ## The release pull request
 
-Every push to `main` runs the `Release PR` workflow. When changesets are pending, it runs `monochange run release-pr`: Monochange plans the version bumps, updates the changelogs and versioned files, formats them, commits the result on the `chore/release/release-pr` branch, and opens or refreshes the `chore(release): prepare release` pull request. Review the planned versions and changelogs there, then merge it once every check is green: the merged commit is the release commit, which you tag to publish it (see [Publish a release](#publish-a-release)).
+Every push to `main` runs the `Release PR` workflow. When changesets are pending, it runs `monochange run release` with `MONOCHANGE_RELEASE_BACKEND=hosted`: Monochange plans the version bumps, updates the changelogs and versioned files, and formats them, then the monochange GitHub App on monochange.dev commits the result on the `chore/release/release` branch and opens or refreshes the `chore(release): prepare release` pull request. Review the planned versions and changelogs there, then merge it once every check is green: the merged commit is the release commit, which you tag to publish it (see [Publish a release](#publish-a-release)).
 
-The workflow pushes the release branch and opens the pull request with its own `GITHUB_TOKEN`. GitHub does not start workflows for that token's pushes or pull requests: it holds the runs as _action required_ until a maintainer approves them, so CI never starts on the release pull request by itself. After every refresh, start CI one of two ways:
+The release commit is verified and the pull request is opened by the monochange bot, so CI starts on the release pull request by itself; no run needs approving.
 
-- **Approve only the newest run of each workflow** (CI, Changeset policy, and PR Review). One refresh can queue two runs of a workflow for the same commit, and each workflow cancels older runs on the same branch, so approving both makes the newer cancel the older straight away. Re-running a cancelled duplicate then cancels the run that survived, so leave cancelled duplicates alone: the surviving runs are the checks that count.
-- **Close and reopen the pull request**, which starts one fresh set of runs under your name:
-
-  ```bash
-  gh pr close <number> && gh pr reopen <number>
-  ```
-
-To open or refresh the release pull request by hand, dispatch the workflow (`gh workflow run release.yml`), or run the same command locally inside the devenv shell with a GitHub token that can push branches and open pull requests:
+To open or refresh the release pull request by hand, dispatch the workflow:
 
 ```bash
-monochange run release-pr
+gh workflow run release.yml
 ```
 
 ## Release from a local checkout
@@ -79,11 +72,11 @@ monochange run release-pr
 A release can also be prepared and published from a local checkout, without the release pull request. Run it inside the devenv shell so the pinned SDK is used:
 
 ```bash
-monochange run release --diff            # preview planned versions and files
-monochange run release                   # prepare versions and changelogs only
-monochange run release --commit          # prepare and commit
-monochange run release --commit --push --tag          # prepare, commit, push, and push tags
-monochange run release --commit --push --tag --publish-release  # also publish the GitHub releases and font assets
+monochange run release-local --diff      # preview planned versions and files
+monochange run release-local             # prepare versions and changelogs only
+monochange run release-local --commit    # prepare and commit
+monochange run release-local --commit --push --tag    # prepare, commit, push, and push tags
+monochange run release-local --commit --push --tag --publish-release  # also publish the GitHub releases and font assets
 ```
 
 `--diff` is not a dry run: it renders the plan and leaves the planned version bumps, changelog entries, and a release manifest in the working tree. Restore the tree with `git checkout -- .` afterwards, or preview read-only with `monochange step prepare-release --dry-run --diff`.
@@ -135,7 +128,7 @@ It resolves the packages the tag owns from the release record, publishes each in
 
 Dependency order comes from a `monochange step publish-readiness` report. The script computes one when it needs to, but the workflow passes its own with `--readiness`: that step dry-runs `pub publish` for every package, which resolves dependencies, and a publish-scoped pub.dev credential breaks resolution. In the workflow the report is therefore computed before setup-dart registers the credential and handed to the script rather than recomputed after it. The final registry check reads the pub.dev API directly, so it does not depend on that report. pub.dev accepts an upload before its API lists the new version, so the check polls a version the run just uploaded for up to 10 minutes before reporting it missing. A package whose publish failed is reported at once.
 
-`monochange run release --commit --push --tag --publish-release` runs both for a local release. Font zips are attached by the publish workflow's `v<version>` job; a release published locally uses `publish:fonts` to upload the same archives.
+`monochange run release-local --commit --push --tag --publish-release` runs both for a local release. Font zips are attached by the publish workflow's `v<version>` job; a release published locally uses `publish:fonts` to upload the same archives.
 
 pub.dev's automated publishing only accepts GitHub Actions runs triggered by pushing a git tag. `workflow_dispatch` runs — even against a tag ref — are rejected, so publish from tag pushes. The publish workflow's dispatch input exists only for re-running the GitHub release and font repair steps.
 

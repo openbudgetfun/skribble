@@ -361,7 +361,7 @@ steps = [
   { type = "Command", name = "format with dart format", command = "dart format ." },
 ]
 
-[cli.release]
+[cli.release-local]
 help_text = "Prepare a local release: plan bumps, sync files, format, then commit, tag, and publish the GitHub release"
 inputs = [
   { name = "format", type = "choice", choices = ["text", "json", "markdown"], default = "markdown" },
@@ -387,13 +387,15 @@ steps = [
 ]
 
 # Automated releases: this is what the release workflow runs on every push to
-# main. It prepares the release, commits it on the `chore/release` branch, and
-# opens or refreshes the release pull request. Both commits stage every
-# workspace change (`stage_all`): staging release files only left the
-# changelogs, versions, and consumed changesets out of the release commit.
-# Merging that pull request is a release commit, which the release workflow
-# tags and publishes.
-[cli.release-pr]
+# main, with MONOCHANGE_RELEASE_BACKEND=hosted. It prepares the release, and
+# the monochange GitHub App commits it on the `chore/release/release` branch
+# and opens or refreshes the release pull request. The command must be named
+# `release`: monochange.dev only replaces a release branch named
+# `<branch_prefix>/release`. Both commits stage every workspace change
+# (`stage_all`): staging release files only left the changelogs, versions, and
+# consumed changesets out of the release commit. Merging that pull request is
+# a release commit, which a maintainer tags with `publish:tags`.
+[cli.release]
 help_text = "Prepare, commit, and open or refresh the automated release pull request"
 steps = [
   { type = "PrepareRelease", name = "prepare release", allow_empty_changesets = true, inputs = { format = "json" } },

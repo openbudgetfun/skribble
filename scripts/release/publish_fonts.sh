@@ -103,7 +103,7 @@ if [[ "$DRY_RUN" -eq 0 ]]; then
   if ! gh release view "$TAG" --repo "$REPO" >/dev/null 2>&1; then
     echo "Error: no GitHub release found for tag '$TAG' in $REPO." >&2
     echo "Create it first, for example:" >&2
-    echo "  monochange run release --commit --push --tag --publish-release" >&2
+    echo "  monochange run release-local --commit --push --tag --publish-release" >&2
     exit 1
   fi
 fi
