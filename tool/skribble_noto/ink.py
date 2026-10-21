@@ -5,7 +5,8 @@ Every simple glyph goes through the same steps, in font units:
 1. flatten the outline to polygons and union them;
 2. round the outer corners with a morphological opening;
 3. re-draw the medial skeleton with a round pen of constant radius, so the
-   letter reads as one drawn line (small marks keep their rounded shape);
+   letter reads as one drawn line (small marks and solid blobs such as
+   bullets keep their rounded shape);
 4. push every point through a smooth displacement field and give the glyph a
    small rotation and baseline shift (the hand-drawn wobble and bounce);
 5. fit a uniform quadratic B-spline, which TrueType stores as a contour of
@@ -130,8 +131,19 @@ def offset(ipolys, r):
     return o.Execute(r * SCALE)
 
 
+# A solid component at least this round (4 pi area / perimeter^2; a disc is 1,
+# a square 0.79) is a blob such as a bullet, not a stroke. Re-stroking would
+# shrink it to a pen-sized dot, so it keeps its shape like a small mark.
+BLOB_COMPACTNESS = 0.75
+
+
+def compactness(poly):
+    perimeter = sum(math.dist(poly[i - 1], poly[i]) for i in range(len(poly)))
+    return 4 * math.pi * abs(pyclipper.Area(poly)) / perimeter**2 if perimeter else 0.0
+
+
 def split_small(ipolys, max_area):
-    """Split polygons into small components (with their holes) and the rest."""
+    """Split polygons into small components or solid blobs (with their holes) and the rest."""
     outers = [p for p in ipolys if pyclipper.Orientation(p)]
     holes = [p for p in ipolys if not pyclipper.Orientation(p)]
     owner = {}
@@ -147,7 +159,8 @@ def split_small(ipolys, max_area):
     for oi, o in enumerate(outers):
         mine = [holes[hi] for hi, b in owner.items() if b == oi]
         net = abs(pyclipper.Area(o)) - sum(abs(pyclipper.Area(h)) for h in mine)
-        (small if net < max_area else big).extend([o] + mine)
+        blob = not mine and compactness(o) >= BLOB_COMPACTNESS
+        (small if net < max_area or blob else big).extend([o] + mine)
     return small, big
 
 

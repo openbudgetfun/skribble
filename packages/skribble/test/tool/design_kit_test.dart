@@ -21,17 +21,27 @@ void main() {
       final firstManifest = await manifestFile.readAsString();
       final manifest = jsonDecode(firstManifest) as Map<String, dynamic>;
       final fonts = manifest['fonts'] as List<dynamic>;
-      expect(fonts, hasLength(36));
+      expect(fonts, hasLength(39));
+      final first = fonts.first as Map<String, dynamic>;
+      expect(first['family'], skribbleFontFamily);
+      expect(first['default'], isTrue);
 
       for (final entry in fonts.cast<Map<String, dynamic>>()) {
         final name = (entry['file'] as String).split('/').last;
+        final package = WiredFont.packageFor(entry['family'] as String);
         expect(
           await File('${destination.path}/${entry['file']}').readAsBytes(),
           await File(
-            '${repository.path}/packages/skribble_font_recursive/assets/fonts/$name',
+            '${repository.path}/packages/$package/assets/fonts/$name',
           ).readAsBytes(),
         );
       }
+      expect(
+        await File('${destination.path}/fonts/OFL-Noto.txt').readAsString(),
+        await File(
+          '${repository.path}/packages/skribble_font_noto_sketch/assets/fonts/OFL.txt',
+        ).readAsString(),
+      );
 
       final notice = await File(
         '${repository.path}/packages/skribble/tool/font/RECURSIVE-OFL.txt',

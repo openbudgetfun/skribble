@@ -109,8 +109,8 @@ class WiredLoadingScreen extends HookWidget {
                       style: TextStyle(
                         // Startup may precede the page's default text style.
                         inherit: false,
-                        fontFamily: theme.fontFamily,
-                        package: theme.fontPackage,
+                        fontFamily: theme.qualifiedFontFamily,
+                        fontFamilyFallback: theme.fontFamilyFallback,
                         color: ink.withValues(alpha: .72),
                         fontSize: 17,
                         height: 1.4,

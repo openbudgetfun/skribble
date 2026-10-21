@@ -22,16 +22,18 @@ The exporter copies the committed fonts without modifying or regenerating them. 
 
 ## Fonts for Figma
 
-The default family is `Skribble`, derived from Recursive Sans Casual. All families include these four real styles:
+The default family is `SkribbleNotoSketch` (installed name "Skribble Noto Sketch", PostScript name `SkribbleNotoSketch-Regular`), Google Noto redrawn with a round marker pen. It and the other Skribble Noto levels, `SkribbleNoto` (Soft) and `SkribbleNotoLively`, have one Regular face each and keep the same lettering at every roughness level; let Figma synthesise bold. They cover Latin, Greek, and Cyrillic. For other scripts, install files from the Skribble Noto font kit on the [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest), such as `SkribbleNotoSketchJP-Regular.ttf`. Their notice is `fonts/OFL-Noto.txt`.
 
-| Style       | Filename suffix   | Weight | PostScript name for the default family |
-| ----------- | ----------------- | ------ | -------------------------------------- |
-| Regular     | `-Regular.ttf`    | 400    | `Skribble-Regular`                     |
-| Bold        | `-Bold.ttf`       | 700    | `Skribble-Bold`                        |
-| Italic      | `-Italic.ttf`     | 400    | `Skribble-Italic`                      |
-| Bold Italic | `-BoldItalic.ttf` | 700    | `Skribble-BoldItalic`                  |
+The Recursive families include these four real styles:
 
-The kit includes 36 files, covering the current Casual, Linear, and Mono families at all three roughness levels. Install all four styles of each family you use. Do not simulate bold or italic from the regular face.
+| Style       | Filename suffix   | Weight | PostScript name for Expressive Casual |
+| ----------- | ----------------- | ------ | ------------------------------------- |
+| Regular     | `-Regular.ttf`    | 400    | `Skribble-Regular`                    |
+| Bold        | `-Bold.ttf`       | 700    | `Skribble-Bold`                       |
+| Italic      | `-Italic.ttf`     | 400    | `Skribble-Italic`                     |
+| Bold Italic | `-BoldItalic.ttf` | 700    | `Skribble-BoldItalic`                 |
+
+The kit includes 39 files: the three Noto levels, plus the Casual, Linear, and Mono families at all three roughness levels. Install all four styles of each Recursive family you use. Do not simulate bold or italic from a Recursive regular face.
 
 | Typeface | Gentle                 | Playful                 | Expressive                 |
 | -------- | ---------------------- | ----------------------- | -------------------------- |

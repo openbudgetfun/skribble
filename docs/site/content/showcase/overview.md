@@ -49,4 +49,4 @@ Static screenshots of every widget are captured by the integration-test pipeline
 
 ## The sketchbook
 
-Open **The sketchbook** on the storybook home page (`/#/studio` on web). This working notebook combines the four-style Recursive Casual derivative, ink borders, colored emoji, and curated icons. Try entering an idea, marking a task, resetting the page, and switching to evening ink. Its scrollable layout is tested at 320–1,440 pixels. The palette switch preserves your note.
+Open **The sketchbook** on the storybook home page (`/#/studio` on web). This working notebook combines the theme's lettering (Skribble Noto Sketch by default), ink borders, colored emoji, and curated icons. Try entering an idea, marking a task, resetting the page, and switching to evening ink. Its scrollable layout is tested at 320–1,440 pixels. The palette switch preserves your note.

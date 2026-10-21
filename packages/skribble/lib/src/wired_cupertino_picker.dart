@@ -101,10 +101,8 @@ class WiredCupertinoPicker extends HookWidget {
                             fontSize: 16,
                             // Qualify the family without inheriting a package
                             // prefix into a child's explicit custom font.
-                            fontFamily: TextStyle(
-                              fontFamily: theme.fontFamily,
-                              package: theme.fontPackage,
-                            ).fontFamily,
+                            fontFamily: theme.qualifiedFontFamily,
+                            fontFamilyFallback: theme.fontFamilyFallback,
                           ),
                           child: child,
                         ),

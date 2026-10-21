@@ -123,8 +123,8 @@ class WiredCupertinoDatePicker extends HookWidget {
                             data: CupertinoThemeData(
                               textTheme: CupertinoTextThemeData(
                                 dateTimePickerTextStyle: TextStyle(
-                                  fontFamily: theme.fontFamily,
-                                  package: theme.fontPackage,
+                                  fontFamily: theme.qualifiedFontFamily,
+                                  fontFamilyFallback: theme.fontFamilyFallback,
                                   fontSize: 21,
                                   color: theme.textColor,
                                 ),

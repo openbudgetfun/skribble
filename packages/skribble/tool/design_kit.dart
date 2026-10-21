@@ -32,6 +32,37 @@ Future<void> exportDesignKit(
   await fonts.create(recursive: true);
   await specimens.create(recursive: true);
 
+  // The default lettering comes first: Noto Sketch, then the other levels.
+  for (final font in [
+    WiredFont.notoSketch,
+    WiredFont.noto,
+    WiredFont.notoLively,
+  ]) {
+    final family = font.familyFor(WiredRoughness.playful);
+    final filename = '$family-Regular.ttf';
+    await File(
+      '${repository.path}/packages/${font.package}/assets/fonts/$filename',
+    ).copy('${fonts.path}/$filename');
+    fontRecords.add({
+      'file': 'fonts/$filename',
+      'family': family,
+      'style': 'Regular',
+      'postScriptName': '$family-Regular',
+      'weight': 400,
+      'italic': false,
+      'default': font == WiredFont.notoSketch,
+    });
+    css.writeln('''
+@font-face { font-family: '$family'; src: url('fonts/$filename');
+  font-weight: 400; font-style: normal; }
+''');
+    preview.writeln('''
+<section style="font-family: '$family'"><h2>$family</h2>
+<p>Little plans, big days. Café, piñata, £12.50, €42. Ελληνικά, кириллица.</p>
+<p>Regular 400 only: Noto levels have one face.</p></section>
+''');
+  }
+
   for (final font in WiredFont.recursiveFonts) {
     for (final level in WiredRoughness.values) {
       final family = font.familyFor(level);
@@ -68,6 +99,9 @@ Future<void> exportDesignKit(
   await File(
     '${repository.path}/packages/skribble_font_recursive/assets/fonts/OFL.txt',
   ).copy('${fonts.path}/OFL.txt');
+  await File(
+    '${repository.path}/packages/skribble_font_noto_sketch/assets/fonts/OFL.txt',
+  ).copy('${fonts.path}/OFL-Noto.txt');
   await File('${repository.path}/LICENSE').copy('${destination.path}/LICENSE');
   await File('${repository.path}/docs/site/content/reference/design-kit.md')
       .copy('${destination.path}/README.md');

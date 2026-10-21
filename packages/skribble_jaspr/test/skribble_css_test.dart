@@ -20,6 +20,16 @@ void main() {
       }
     });
 
+    test('letters pages in Skribble Noto Sketch first', () {
+      expect(
+        skribbleCss,
+        contains(
+          '--skribble-font: "SkribbleNotoSketch", "Skribble Noto Sketch", '
+          '"Skribble",',
+        ),
+      );
+    });
+
     test('switches palettes for dark mode', () {
       expect(skribbleCss, contains('@media (prefers-color-scheme: dark)'));
     });

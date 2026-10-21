@@ -109,6 +109,35 @@ void main() {
       expect(find.byType(WiredCupertinoPicker), findsOneWidget);
     });
 
+    testWidgets('rows use the theme font and its kit fallbacks', (
+      tester,
+    ) async {
+      final theme = WiredThemeData(
+        fontFamilyFallback: const ['SkribbleNotoSketchKR'],
+      );
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: theme,
+            child: Scaffold(
+              body: SizedBox(
+                height: 200,
+                child: WiredCupertinoPicker(
+                  itemExtent: 32,
+                  onSelectedItemChanged: (_) {},
+                  children: const [Text('하나'), Text('둘')],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      final style = DefaultTextStyle.of(tester.element(find.text('하나'))).style;
+
+      expect(style.fontFamily, theme.qualifiedFontFamily);
+      expect(style.fontFamilyFallback, ['SkribbleNotoSketchKR']);
+    });
+
     testWidgets('renders within WiredTheme', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
