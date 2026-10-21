@@ -15,6 +15,11 @@ const _description =
     'skribble is a hand-drawn design system for Flutter: more than a hundred '
     'Wired widgets, three pens, hand-lettered fonts, rough icons, and emoji.';
 
+/// Describes the link-preview image for screen readers and when it fails
+/// to load.
+const shareImageAlt =
+    'skribble: hand-drawn widgets for Flutter, lettered in Noto Sketch.';
+
 /// The document every page shares: metadata, styles, header, and footer.
 class SitePage extends StatelessComponent {
   /// Creates a page with [body] between the header and footer.
@@ -57,6 +62,7 @@ class SitePage extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final canonical = config.absolute(path);
+    final shareImage = config.absolute(SiteLinks.shareImage);
 
     return Document(
       title: title,
@@ -89,15 +95,24 @@ class SitePage extends StatelessComponent {
           ('og:description', description),
           ('og:url', canonical),
           ('og:site_name', 'skribble'),
+          ('og:image', shareImage),
+          ('og:image:type', 'image/png'),
+          ('og:image:width', '1200'),
+          ('og:image:height', '630'),
+          ('og:image:alt', shareImageAlt),
         ])
           el('meta', const [], null, {
             'property': property,
             'content': content,
           }),
-        el('meta', const [], null, {
-          'name': 'twitter:card',
-          'content': 'summary',
-        }),
+        for (final (name, content) in [
+          ('twitter:card', 'summary_large_image'),
+          ('twitter:title', title),
+          ('twitter:description', description),
+          ('twitter:image', shareImage),
+          ('twitter:image:alt', shareImageAlt),
+        ])
+          el('meta', const [], null, {'name': name, 'content': content}),
         el('script', const [RawText(_bootScript)]),
         if (headScript case final script?) el('script', [RawText(script)]),
         el('style', [RawText(fontFaceCss(assets.fonts))]),

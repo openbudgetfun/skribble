@@ -76,8 +76,9 @@ class DocsApp extends HookWidget {
       wiredTheme: WiredThemeData.cuddly(roughnessLevel: roughness.value),
       builder: (context, child) => DefaultTextStyle(
         style: TextStyle(
-          fontFamily: WiredTheme.of(context).fontFamily,
-          package: 'skribble_font_recursive',
+          // The theme's typeface by its full asset name, whichever package
+          // bundles it (Noto Sketch by default).
+          fontFamily: WiredTheme.of(context).qualifiedFontFamily,
           color: _ink,
           fontSize: 16,
           height: 1.65,

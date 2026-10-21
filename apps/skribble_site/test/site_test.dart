@@ -62,6 +62,34 @@ void main() {
       );
     });
 
+    test('previews as a large card when the link is shared', () {
+      String? meta(String key) =>
+          (page.querySelector('meta[property="$key"]') ??
+                  page.querySelector('meta[name="$key"]'))
+              ?.attributes['content'];
+
+      expect(meta('og:image'), 'https://skribble.dev/docs/share-card.png');
+      expect(meta('og:image:width'), '1200');
+      expect(meta('og:image:height'), '630');
+      expect(meta('og:image:alt'), contains('Noto Sketch'));
+      expect(meta('og:title'), page.querySelector('title')?.text);
+      expect(meta('og:description'), meta('description'));
+      expect(meta('twitter:card'), 'summary_large_image');
+      expect(meta('twitter:image'), meta('og:image'));
+      expect(meta('twitter:title'), meta('og:title'));
+      expect(meta('twitter:description'), meta('og:description'));
+      expect(meta('twitter:image:alt'), meta('og:image:alt'));
+    });
+
+    test('letters the page in Noto Sketch', () {
+      final css = File('${_root.path}/apps/skribble_site/web/site.css')
+          .readAsStringSync();
+
+      expect(criticalFaces.first.$1, 'SkribbleNotoSketch');
+      expect(css, contains('--font-body: "SkribbleNotoSketch"'));
+      expect(css, contains('--font-display: var(--font-body);'));
+    });
+
     test('has one h1 and labelled sections', () {
       expect(page.querySelectorAll('h1'), hasLength(1));
 

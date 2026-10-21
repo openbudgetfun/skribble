@@ -21,7 +21,7 @@ void main() {
     expect(
       shell,
       contains(
-        'assets/packages/skribble_font_recursive/assets/fonts/SkribblePlayful-Regular.ttf',
+        'assets/packages/skribble_font_noto_sketch/assets/fonts/SkribbleNotoSketch-Regular.ttf',
       ),
     );
   });

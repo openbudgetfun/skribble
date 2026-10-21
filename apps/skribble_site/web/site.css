@@ -21,8 +21,10 @@
   --tok-f: #9c482b;
   --tok-a: #6f6273;
 
-  --font-body: "SkribblePlayful", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
-  --font-display: "Skribble", var(--font-body);
+  /* Skribble Noto Sketch letters everything but code. It has one Regular
+     face; browsers synthesise the bold headings and labels. */
+  --font-body: "SkribbleNotoSketch", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  --font-display: var(--font-body);
   --font-mono: "SkribbleMonoPlayful", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --page: min(1180px, 100% - 32px);
 
@@ -1239,16 +1241,6 @@ svg {
 
 .pen-card {
   padding: 28px 28px 24px;
-}
-
-.pen-card--gentle {
-  --font-display: "SkribbleGentle", var(--font-body);
-  font-family: "SkribbleGentle", var(--font-body);
-}
-
-.pen-card--expressive {
-  --font-display: "Skribble", var(--font-body);
-  font-family: "Skribble", var(--font-body);
 }
 
 .pen-card h3 {

@@ -66,6 +66,10 @@ abstract final class SiteLinks {
   /// What changed on skribble.dev, from the website's user-facing changesets.
   static const whatsNew = 'docs/reference/whats-new';
 
+  /// The link-preview image every page shares, rendered in Noto Sketch by
+  /// the docs build (`docs/site/tool/share_card_test.dart`).
+  static const shareImage = 'docs/share-card.png';
+
   /// The live Flutter storybook.
   static const storybook = 'docs/storybook/';
 
