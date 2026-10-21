@@ -3,15 +3,13 @@ name: Release PR
 # Every push to main opens or refreshes the release pull request from the
 # pending changesets. Merging that pull request is a release commit, which a
 # maintainer tags with `publish:tags` so the publish workflow releases it.
-# `monochange run release` remains available for a release from a local
+# `monochange run release-local` remains available for a release from a local
 # checkout.
 #
-# The workflow pushes and opens the pull request with GITHUB_TOKEN, and GitHub
-# starts no workflows for that token's pushes, pull requests, or tags. Approve
-# only the newest held run of each workflow (an older duplicate is cancelled
-# by the newer one), or close and reopen the release pull request, to run CI
-# on it, and push the release tags from a local checkout. A credential whose pushes do start workflows
-# would let this workflow do both.
+# The release commit and pull request come from the monochange GitHub App on
+# monochange.dev (MONOCHANGE_RELEASE_BACKEND=hosted), so CI starts on the
+# release pull request by itself. Tags are still pushed from a local checkout:
+# a tag pushed with GITHUB_TOKEN starts no publish run.
 on:
   push:
     branches: [main]
@@ -30,8 +28,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
+      # Upload the release files as git blobs and a tree. This pushes no
+      # branch; the monochange GitHub App writes the release commit and pull
+      # request on monochange.dev, and this run proves its repository with an
+      # OIDC token.
       contents: write
+      # Add the attribution line to the release pull request body.
       pull-requests: write
+      id-token: write
     steps:
       - name: Check out repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
@@ -44,12 +48,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Configure release identity
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch --force --tags origin
+      - name: Fetch release tags
+        run: git fetch --force --tags origin
         shell: bash
 
       - name: Detect a merged release commit
@@ -97,32 +97,21 @@ jobs:
           fi
         shell: bash
 
-      - name: Configure GitHub authentication
-        if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh auth setup-git
-        shell: bash
-
-      # A release branch left from an earlier pull request must be known
-      # locally, or the force-with-lease push that refreshes it is rejected as
-      # stale.
-      - name: Fetch existing release branches
-        if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
-        run: git fetch --force origin '+refs/heads/chore/release/*:refs/remotes/origin/chore/release/*'
-        shell: bash
-
       - name: Open or refresh the release PR
         if: steps.release_record.outputs.is_release_commit != 'true' && steps.changesets.outputs.present == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # monochange.dev's GitHub App creates a verified release commit and
+          # opens the release pull request as the monochange bot, so the pull
+          # request's own workflows run without a personal access token.
+          MONOCHANGE_RELEASE_BACKEND: hosted
         run: |
           set -euo pipefail
           # A changeset that only bumps `none` produces no releaseable
           # packages; monochange exits non-zero with that message. Treat that
           # specific case as "nothing to release" rather than failing the
           # workflow. Any other failure is re-raised.
-          if ! output="$(monochange run release-pr 2>&1)"; then
+          if ! output="$(monochange run release 2>&1)"; then
             if printf '%s\n' "$output" | grep -q 'no releaseable packages were found in discovered changesets'; then
               echo "No releaseable packages in current changesets; skipping release PR refresh."
               exit 0

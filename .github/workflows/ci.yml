@@ -371,7 +371,7 @@ jobs:
         shell: devenv shell -- bash -e {0}
 
   # Validates the release path on every pull request and every push to main:
-  # build the release commit a local `monochange run release` would produce,
+  # build the release commit a local `monochange run release-local` would produce,
   # then dry-run the publish against it. Nothing is pushed, tagged, or
   # published.
   #
