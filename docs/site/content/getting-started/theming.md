@@ -361,7 +361,7 @@ The red-themed card and button will use `Colors.red` for borders, while everythi
 
 ## The bundled handwriting
 
-skribble's four text styles are derived from the matching **Recursive Sans Casual** static sources. `WiredMaterialApp` registers the package-qualified skribble family through its theme, so regular, bold, italic, and bold italic select the right bundled assets. Do not manually register only the regular font with `FontLoader`.
+The default lettering, **Skribble Noto Sketch**, is Google Noto redrawn with a round marker pen. It has one Regular face, and Flutter synthesizes bold and italic. `WiredThemeScope` and `WiredMaterialApp` apply the package-qualified family through the theme, so text resolves the bundled asset. The Recursive typefaces have four real styles derived from Recursive Sans Casual. Do not manually register only the regular font with `FontLoader`.
 
 For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble_font_noto_sketch'` — the default family ships in the `skribble_font_noto_sketch` package (install it with `flutter pub add skribble_font_noto_sketch`; see [Installation](/getting-started/installation)). The Recursive families ship in `skribble_font_recursive`. Custom font families remain unqualified. The default pen is 1.6 logical pixels (`kWiredStrokeWidth`) with roughness 1.1. Local widget text styles merge with inherited typography instead of dropping the font family. The Recursive Casual derivative uses deformation strength 27 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
 

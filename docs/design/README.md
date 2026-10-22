@@ -40,7 +40,7 @@ Nineteen flourishes have three exported seed samples each. Flutter accepts any i
 devenv shell dart run packages/skribble/tool/export_design_assets.dart
 ```
 
-`geometry.json` contains control outlines exported from the actual rough engine, with gentle, playful, and expressive settings. Figma paths are editable. Figma's text styles use the original Recursive Sans Casual source face; the Flutter families contain generated outline variation. Install the bundled fonts when preparing final text assets where that variation matters.
+`geometry.json` contains control outlines exported from the actual rough engine, with gentle, playful, and expressive settings. Figma paths are editable. Figma's text styles in the published file use the original Recursive Sans Casual source face; the Flutter default is now Skribble Noto Sketch. Install `SkribbleNotoSketch-Regular.ttf` from the design kit and switch the text styles to it when preparing final text assets.
 
 ## Theme and component feedback
 

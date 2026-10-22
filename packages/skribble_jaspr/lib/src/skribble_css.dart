@@ -28,10 +28,12 @@
 /// declared with `:where(:root)`, so any rule of yours overrides them, and
 /// switch to a dark palette under `prefers-color-scheme: dark`.
 ///
-/// The stylesheet loads no fonts. Self-host the skribble font files and
-/// declare `@font-face` for the `Skribble` family to use the bundled
-/// lettering; otherwise the font stack falls back to the system's casual
-/// faces.
+/// The stylesheet loads no fonts. Self-host `SkribbleNotoSketch-Regular.ttf`
+/// from `skribble_font_noto_sketch` and declare `@font-face` for the
+/// `SkribbleNotoSketch` family to use the default lettering. A locally
+/// installed "Skribble Noto Sketch", then a self-hosted Recursive `Skribble`
+/// family, are used next; otherwise the stack falls back to the system's
+/// casual faces.
 const String skribbleCss = '''
 :where(:root) {
   --skribble-ink: #1f1d1a;
@@ -39,7 +41,7 @@ const String skribbleCss = '''
   --skribble-accent: #ffd43b;
   --skribble-on-accent: #1f1d1a;
   --skribble-stroke-width: 2px;
-  --skribble-font: "Skribble", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  --skribble-font: "SkribbleNotoSketch", "Skribble Noto Sketch", "Skribble", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
 }
 
 @media (prefers-color-scheme: dark) {

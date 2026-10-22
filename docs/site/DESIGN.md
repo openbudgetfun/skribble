@@ -21,32 +21,32 @@ colors:
   syntax-type: "#315c83"
 typography:
   headline:
-    fontFamily: SkribblePlayful
+    fontFamily: SkribbleNotoSketch
     fontSize: "42px"
     fontWeight: 700
     lineHeight: 1.25
   section:
-    fontFamily: SkribblePlayful
+    fontFamily: SkribbleNotoSketch
     fontSize: "29px"
     fontWeight: 700
     lineHeight: 1.25
   subsection:
-    fontFamily: SkribblePlayful
+    fontFamily: SkribbleNotoSketch
     fontSize: "23px"
     fontWeight: 700
     lineHeight: 1.25
   body:
-    fontFamily: SkribblePlayful
+    fontFamily: SkribbleNotoSketch
     fontSize: "16px"
     lineHeight: 1.65
   navigation:
-    fontFamily: SkribblePlayful
+    fontFamily: SkribbleNotoSketch
     fontSize: "13px"
   label:
-    fontFamily: SkribblePlayful
+    fontFamily: SkribbleNotoSketch
     fontSize: "12px"
   code:
-    fontFamily: SkribblePlayful
+    fontFamily: SkribbleMonoPlayful
     fontSize: "14px"
     lineHeight: 1.7
 rounded:
@@ -100,7 +100,7 @@ components:
 
 **Creative North Star: "A little ink. A lot of possibility."**
 
-The documentation is a working expression of the Wired identity: warm paper, hand-lettered plum text, rough outlines, restrained marker overlap, and coloured hatching. Playful is the default. The Pen picker offers Gentle, Playful, and Expressive, changing inherited lettering and rough geometry throughout the site.
+The documentation is a working expression of the Wired identity: warm paper, hand-lettered plum text, rough outlines, restrained marker overlap, and coloured hatching. Playful is the default. The Pen picker offers Gentle, Playful, and Expressive, changing the rough geometry and code lettering throughout the site; prose stays in Noto Sketch.
 
 Reading space stays calm around the interactive ink. Examples use real Wired controls, and decorative movement leaves text and layout available. The binding product constraints are readable, selectable documentation on phones and desktops, keyboard navigation, accessible controls, and reduced-motion support; see [PRODUCT.md](PRODUCT.md).
 
@@ -146,7 +146,7 @@ Syntax colours distinguish keywords and literals in purple, strings in green, nu
 
 ## Typography
 
-SkribblePlayful is the bundled default, derived from Recursive Casual with warped outlines. Headings, body, navigation, and code inherit the selected preset's handwriting. Gentle uses SkribbleGentle and Expressive uses skribble. Emphasis comes from weight, scale, and spacing; syntax colouring does not introduce a separate monospace family.
+SkribbleNotoSketch is the bundled default: Google Noto redrawn with a round marker pen, the same lettering at every preset. Headings, body, and navigation use it; Noto Sketch has one Regular face, so bold headings are synthesised. Code uses the Recursive Mono family for the selected preset (SkribbleMonoPlayful by default) so columns stay aligned. Emphasis comes from weight, scale, and spacing.
 
 The frontmatter records the recurring article hierarchy. Lower heading levels continue at 20 and 18 logical pixels. Heading line height is compact; paragraph line height is more open. Selection separators are supplied by the selection delegate, not extra blank lines in rendered text.
 

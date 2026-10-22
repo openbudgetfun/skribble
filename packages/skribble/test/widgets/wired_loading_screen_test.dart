@@ -53,6 +53,32 @@ void main() {
     }
   });
 
+  testWidgets('status letters in the theme font with its kit fallbacks', (
+    tester,
+  ) async {
+    final theme = WiredThemeData(
+      fontFamilyFallback: const ['SkribbleNotoSketchJP'],
+    );
+    await tester.pumpWidget(
+      SkribbleApp(
+        wiredTheme: theme,
+        home: const WiredLoadingScreen(message: '準備中', animating: false),
+      ),
+    );
+    final style = tester
+        .renderObject<RenderParagraph>(
+          find.descendant(
+            of: find.text('準備中'),
+            matching: find.byType(RichText),
+          ),
+        )
+        .text
+        .style!;
+
+    expect(style.fontFamily, theme.qualifiedFontFamily);
+    expect(style.fontFamilyFallback, ['SkribbleNotoSketchJP']);
+  });
+
   testWidgets('renders the brand mark on paper', (tester) async {
     await tester.pumpWidget(_app(const WiredLoadingScreen()));
 

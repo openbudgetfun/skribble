@@ -51,7 +51,7 @@ Document(
 )
 ```
 
-Add `class="skribble-page"` to `<body>` for the paper background, ink colour, and casual font.
+Add `class="skribble-page"` to `<body>` for the paper background, ink colour, and hand-drawn font.
 
 ## 3. Use the components
 
@@ -142,21 +142,17 @@ Defaults are declared with `:where(:root)`, so any rule of yours overrides them.
 
 ## 5. The skribble webfont
 
-The stylesheet loads no fonts. The bundled faces live in [`packages/skribble_font_recursive/assets/fonts/`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_recursive/assets/fonts) (OFL license). Self-host them and declare the `Skribble` family, which `--skribble-font` lists first:
+The stylesheet loads no fonts. The default lettering, Skribble Noto Sketch, is [`packages/skribble_font_noto_sketch/assets/fonts/SkribbleNotoSketch-Regular.ttf`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_noto_sketch/assets/fonts) (OFL license). Self-host it and declare the `SkribbleNotoSketch` family, which `--skribble-font` lists first. It has one Regular face; browsers synthesise bold and italic.
 
 ```css
 @font-face {
-  font-family: 'Skribble';
-  src: url('/fonts/Skribble-Regular.ttf') format('truetype');
+  font-family: 'SkribbleNotoSketch';
+  src: url('/fonts/SkribbleNotoSketch-Regular.ttf') format('truetype');
   font-weight: 400;
 }
-@font-face {
-  font-family: 'Skribble';
-  src: url('/fonts/Skribble-Bold.ttf') format('truetype');
-  font-weight: 700;
-}
-/* + Skribble-Italic.ttf (style: italic), Skribble-BoldItalic.ttf */
 ```
+
+For other scripts, add files from the Skribble Noto Sketch font kit on the [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest) and list them after it, for example `--skribble-font: "SkribbleNotoSketch", "SkribbleNotoSketchJP", cursive;`. A self-hosted Recursive `Skribble` family from `skribble_font_recursive` is still picked up next in the default stack.
 
 ## A complete example
 

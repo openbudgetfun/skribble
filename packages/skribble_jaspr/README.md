@@ -87,14 +87,14 @@ Give neighbouring components different seeds so their wobbles differ.
 
 ## Theming
 
-| Property                  | Default (light / dark)                 | Used for                                |
-| ------------------------- | -------------------------------------- | --------------------------------------- |
-| `--skribble-ink`          | `#1f1d1a` / `#f2efe6`                  | Outlines, pen highlights, button labels |
-| `--skribble-paper`        | `#fffdf6` / `#1b1a17`                  | The `.skribble-page` background         |
-| `--skribble-accent`       | `#ffd43b` / `#e3b62f`                  | Default fills, primary buttons, markers |
-| `--skribble-on-accent`    | `#1f1d1a` / `#1b1a17`                  | Text on accent fills                    |
-| `--skribble-stroke-width` | `2px`                                  | Outline width at every size             |
-| `--skribble-font`         | `"Skribble"`, then casual system faces | Button labels and `.skribble-page`      |
+| Property                  | Default (light / dark)                           | Used for                                |
+| ------------------------- | ------------------------------------------------ | --------------------------------------- |
+| `--skribble-ink`          | `#1f1d1a` / `#f2efe6`                            | Outlines, pen highlights, button labels |
+| `--skribble-paper`        | `#fffdf6` / `#1b1a17`                            | The `.skribble-page` background         |
+| `--skribble-accent`       | `#ffd43b` / `#e3b62f`                            | Default fills, primary buttons, markers |
+| `--skribble-on-accent`    | `#1f1d1a` / `#1b1a17`                            | Text on accent fills                    |
+| `--skribble-stroke-width` | `2px`                                            | Outline width at every size             |
+| `--skribble-font`         | `"SkribbleNotoSketch"`, then casual system faces | Button labels and `.skribble-page`      |
 
 Defaults use `:where(:root)`, so any rule of yours wins. The `fill` and `color` arguments set `--skribble-fill` and `--skribble-highlight` on the element.
 

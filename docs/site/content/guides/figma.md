@@ -23,7 +23,7 @@ devenv shell dart run packages/skribble/tool/design_kit.dart
 
 The kit lands in `build/design-kit/` and contains:
 
-- 36 TTF files — the Casual, Linear, and Mono families at all three roughness levels, four styles each — plus `fonts/OFL.txt`
+- 39 TTF files — Skribble Noto Sketch (the default), Skribble Noto, and Skribble Noto Lively, plus the Casual, Linear, and Mono families at all three roughness levels, four styles each — with `fonts/OFL.txt` and `fonts/OFL-Noto.txt`
 - 18 editable SVG pen specimens — six per roughness level
 - `manifest.json` listing every font, specimen, layout frame, and the motion timings
 - `README.md` (a copy of the [design kit](../reference/design-kit) page), `LICENSE`, and an offline `index.html` preview

@@ -13,44 +13,24 @@ For JavaScript projects, `@skribble.dev/rough` is a TypeScript port of the same 
 
 ## Use the bundled fonts
 
-The kit includes the actual Regular, Bold, Italic, and Bold Italic faces for every bundled family. For a web page using the default Expressive Casual family:
+The kit includes the default Skribble Noto Sketch face, the Soft and Lively Noto levels, and the Regular, Bold, Italic, and Bold Italic faces of every Recursive family. For a web page using the default Noto Sketch lettering:
 
 ```css
 @font-face {
-  font-family: 'Skribble';
-  src: url('fonts/Skribble-Regular.ttf') format('truetype');
+  font-family: 'SkribbleNotoSketch';
+  src: url('fonts/SkribbleNotoSketch-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-}
-
-@font-face {
-  font-family: 'Skribble';
-  src: url('fonts/Skribble-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Skribble';
-  src: url('fonts/Skribble-Italic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Skribble';
-  src: url('fonts/Skribble-BoldItalic.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
 }
 
 body {
-  font-family: 'Skribble', sans-serif;
-  font-synthesis: none;
+  font-family: 'SkribbleNotoSketch', sans-serif;
 }
 ```
 
-Native platforms can bundle the same TTF files. Use the PostScript names in the kit's `manifest.json` where the platform requires them, such as `Skribble-Regular` for `UIFont`. Keep all four faces together and retain the OFL notice.
+Noto Sketch has one Regular face, so leave `font-synthesis` on for bold and italic. It covers Latin, Greek, and Cyrillic; add files from the Skribble Noto Sketch font kit on the [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest) for other scripts, such as `SkribbleNotoSketchJP` or `SkribbleNotoSketchArabic`, and list them after it in `font-family`.
+
+Native platforms can bundle the same TTF files. Use the PostScript names in the kit's `manifest.json` where the platform requires them, such as `SkribbleNotoSketch-Regular` for `UIFont`. For a Recursive family, keep all four faces together, set `font-synthesis: none`, and retain the OFL notice.
 
 ## Generate a derived font
 
