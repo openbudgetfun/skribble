@@ -3,6 +3,8 @@ title: Releasing
 description: How Monochange prepares, validates, and publishes skribble packages.
 ---
 
+The development shell pins monochange 0.21.0 through `devenv.lock`. Run `devenv shell monochange --version` to verify the CLI before preparing a release.
+
 skribble publishes packages to pub.dev as one synchronized `main` release group:
 
 - `skribble`
