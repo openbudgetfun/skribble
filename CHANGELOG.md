@@ -4,6 +4,185 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/monochange/monochange).
 
+## [0.4.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.0) (2026-10-23)
+
+Grouped release for `main`.
+
+### Breaking changes
+
+#### Skribble Noto Sketch is the default typeface
+
+_Packages:_ 🔴 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #259](https://github.com/openbudgetfun/skribble/pull/259)
+
+`WiredThemeData.font` now defaults to `WiredFont.notoSketch`, and `skribbleFontFamily` is `'SkribbleNotoSketch'`, registered by the `skribble_font_noto_sketch` package. Noto Sketch keeps the same lettering at every roughness level and draws each Latin letter three ways so repeated letters never look stamped. An app that only installed `skribble_font_recursive` would fall back to the platform font, so install the new package, or keep the Recursive lettering explicitly:
+
+```dart
+// Install the new default:
+//   flutter pub add skribble_font_noto_sketch
+
+// Or keep the previous Recursive Casual lettering, which follows roughness:
+WiredThemeData(font: WiredFont.casual)
+
+// A bare TextStyle using skribbleFontFamily now needs the Noto Sketch package:
+TextStyle(fontFamily: skribbleFontFamily, package: 'skribble_font_noto_sketch')
+```
+
+### Features
+
+#### Noto Sketch is the default lettering outside Flutter too
+
+_Packages:_ 🟢 _skribble_, 🟠 _skribble_jaspr_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #263](https://github.com/openbudgetfun/skribble/pull/263)
+
+`skribbleCss` now lists `SkribbleNotoSketch` first in `--skribble-font`, then a locally installed "Skribble Noto Sketch", then the previous Recursive `Skribble` family, so pages that self-host only the old font keep working. Self-host `SkribbleNotoSketch-Regular.ttf` from `skribble_font_noto_sketch` to use the default.
+
+`WiredLoadingScreen`, `WiredCupertinoPicker`, and `WiredCupertinoDatePicker` now pass the theme's `fontFamilyFallback` through with the qualified family, so kit scripts such as Japanese or Korean render in Noto Sketch there as well. The design kit exported by `packages/skribble/tool/design_kit.dart` includes the three Skribble Noto faces, with Noto Sketch marked as the default.
+
+#### `RoughBoxDecoration` fills, clips, animates, and keeps its drawing across rebuilds
+
+_Packages:_ 🟠 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #252](https://github.com/openbudgetfun/skribble/pull/252) · _Related issues:_ [#226](https://github.com/openbudgetfun/skribble/issues/226)
+
+`RoughBoxDecoration` can now replace a `BoxDecoration` that has a colour, a rounded corner, and a border, without app-side wrappers:
+
+- **`color`** paints a level fill under the hand-drawn outline. It stops at the centre of the pen line, so it never pokes out past the wobble. `fillStyle` and `filler` still draw sketched fills.
+- **`inkInset`** reports how far inside the box the outline's centre lands. The outline, the level fill, and the clip all use it.
+- **`getClipPath`** returns the shape at that inset, so `Container(clipBehavior: Clip.antiAlias)` clips a child to the outline instead of throwing.
+- **Value equality.** Equal decorations compare equal, so a parent that rebuilds with an equal decoration keeps the prepared drawing instead of generating the outline again. `drawConfig`, `filler`, `progress`, and `pressure` compare by identity.
+- **Interpolation.** `RoughBoxDecoration.lerp` and `RoughDrawingStyle.lerp` interpolate colours, pen widths, and corner radii between decorations of the same shape, so `AnimatedContainer` can move between hand-drawn states. The seed switches at the midpoint.
+
+Nothing changes for existing decorations: without `color`, the outline, padding, and hit testing draw and behave as before.
+
+#### Move the rough engine into the pure-Dart skribble_rough package
+
+_Packages:_ 🟢 _skribble_, 🟠 _skribble_rough_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)
+
+The Flutter-free half of the rough engine (`DrawConfig`, `Generator`, the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set data structures) now lives in the new `skribble_rough` package, which depends on nothing but the Dart SDK. Command-line tools, servers, and web frameworks can draw the same seeded shapes as the Flutter widgets without pulling in Flutter.
+
+`skribble` depends on `skribble_rough` and re-exports exactly the names it exported before, so `import 'package:skribble/skribble.dart'` keeps working unchanged. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `skribble`. Code that imported the engine's private `package:skribble/src/rough/...` files should import `package:skribble_rough/skribble_rough.dart` instead.
+
+#### Hand-drawn borders for Material controls and text fields
+
+_Packages:_ 🟠 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #252](https://github.com/openbudgetfun/skribble/pull/252) · _Related issues:_ [#226](https://github.com/openbudgetfun/skribble/issues/226)
+
+Apps that still render Material widgets can now give them skribble's rough edge from their `ThemeData` instead of writing their own `ShapeBorder`:
+
+- **`RoughOutlinedBorder`** is an `OutlinedBorder` that inks its `side` as a rough rounded rectangle. Use it as the `shape` of cards, buttons, chips, dialogs, and sheets, or in a `ShapeDecoration`. It lives in the core and imports only `flutter/painting.dart`.
+- **`RoughInputBorder`** is the `InputBorder` for text fields, in the compatibility layer. It reports `isOutline: false`, so Material floats the label inside the field instead of cutting a gap the rough line cannot leave.
+
+Both keep a fixed `seed`, so a control keeps its wobble while it is pressed, focused, or rebuilt. Their fill stops at the centre of the pen line, they compare by value, and they interpolate their side and corners. Prepared outlines are shared through one bounded cache (256 entries, least recently used evicted), so many equal-sized controls prepare their outline once.
+
+`RoughBoxDecoration.inkInset` now uses the same inset helper, with no change in value. The compatibility layer grows from four files to five for `RoughInputBorder`, and the Material debt baseline records that.
+
+#### Skribble Noto: hand-drawn Google Noto in three packages, plus an all-scripts kit
+
+_Packages:_ 🟠 _skribble_, 🟠 _skribble_font_noto_, 🟠 _skribble_font_noto_sketch_, 🟠 _skribble_font_noto_lively_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #256](https://github.com/openbudgetfun/skribble/pull/256)
+
+Three new font packages redraw [Google Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans) with a round pen at three levels of hand-drawn character: `skribble_font_noto` (Soft, the calmest), `skribble_font_noto_sketch` (Sketch, with alternating letter drawings and a slight bounce), and `skribble_font_noto_lively` (Lively, with a wider pen and the strongest wobble). Each bundles Latin, Greek and Cyrillic. Every other Noto script, from Arabic and Devanagari to Chinese, Japanese and Korean, ships in a per-level font kit attached to the GitHub release by `scripts/release/publish_noto_kit.sh`.
+
+`WiredFont` gains `noto`, `notoSketch` and `notoLively`. Unlike the Recursive families they are fixed levels, so `familyFor` ignores the roughness. `WiredFont.package`, `WiredFont.packageFor` and the `recursiveFonts` and `notoFonts` lists say which package ships a family, and `WiredThemeData.fontPackage` now resolves each family to its own package instead of always `skribble_font_recursive`. The default font is unchanged.
+
+`WiredThemeData.fontFamilyFallback` lists app fonts, such as kit scripts, tried after the main family. The theme scope and the Material and Cupertino text themes now apply the bundled family by its full asset name, `WiredThemeData.qualifiedFontFamily` (for example `packages/skribble_font_recursive/SkribblePlayful`), with no `package` on the style, so app fallbacks are no longer prefixed with the font package and keep resolving. Code that compares a themed `TextStyle.fontFamily` with the bare family name should compare with `qualifiedFontFamily` instead.
+
+An exhaustive `switch` over `WiredFont` in app code needs cases for the three new values.
+
+The generator lives in `tool/skribble_noto/` (Python: fontTools, pyclipper, scikit-image) and rebuilds byte-identical fonts from pinned Noto sources.
+
+#### Softer, lighter ink by default
+
+_Packages:_ 🟠 _skribble_, 🟠 _skribble_rough_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #255](https://github.com/openbudgetfun/skribble/pull/255)
+
+skribble now draws like a careful notebook drawing instead of a heavy marker sketch. Apps that keep the default theme see the change without touching their code:
+
+- **A finer pen.** `WiredThemeData.strokeWidth` defaults to the new `kWiredStrokeWidth`, 1.6 logical pixels instead of 2.4. Icons follow the theme pen, so they lighten in proportion.
+- **Neater lines.** Playful, the default level, wavers less: roughness 1.1, offset 1.2, and line wobble 0.35 (was 1.5, 1.6, and 0.65). Gentle is tidier still at roughness 0.9 and offset 1. `DrawConfig.defaultValues` uses the playful geometry, so fills and standalone drawings match the borders around them.
+- **A lighter second pass.** `RoughPen.ink` retraces less of each shape (`repeatWidth` 0.5 and `repeatCoverage` 0.45, was 0.6 and 0.7), so outlines read as one confident line with an occasional retrace.
+- **Rounder corners.** Buttons default to 10 px corners (was 6), cards 16 (was 12), text fields 12 (was 8), checkboxes 6 (was 4), and `WiredTextArea` now has the same rounded corners as `WiredInput`.
+- **Colour instead of ink slabs.** `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` are washed with `markerColor` under ink text instead of being filled with `borderColor`. Pass `fillColor` or `backgroundColor` to keep a darker fill. A selected `WiredRadio` shows a neat solid dot, and `WiredElevatedButton` has a paper face over a light pencil shadow.
+- **Colouring stays inside the lines.** Hachure no longer spills past rounded corners: the scanline fill in `skribble_rough` now starts a shallow edge at the scanline it joins. `WiredCanvas` draws fills with the theme's hand unless a `fillerConfig` says otherwise, and `WiredCard(fill: true)` colours in with even strokes 7 px apart.
+- **Labelled badges fit their text.** A `WiredBadge` with a label draws a pill that grows with it, so "new" no longer spills past a 16 px circle.
+
+To return to the heavier look, set `strokeWidth: 2.4` and `roughnessLevel: WiredRoughness.expressive` on `WiredThemeData`, or pass explicit `roughness` and `pen` values.
+
+Icons look drawn, too. Filled icons (Material, Boxicons and brand marks such as GitHub, Dart, Flutter and Figma) used to paint as smooth stock silhouettes. They now default to the new `WiredIconFillStyle.marker`: coloured in with broad, overlapping marker strokes that darken where they cross, then outlined with the theme pen along an edge that wavers visibly. Brand marks that fill with `currentColor` now follow `fillStyle` like every other silhouette, so `hachure` and `none` work on them as well. Pass `fillStyle: WiredIconFillStyle.solid` for the previous flat fill.
+
+#### Serialize rough drawables to scalable SVG path data
+
+_Packages:_ 🟠 _skribble_rough_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)
+
+`skribble_rough` adds `opSetToSvgPath`, which writes one `OpSet` as an SVG `d` attribute, and `RoughSvg.fromDrawable`, which splits a `Drawable` into the three groups the Flutter painter uses: the stroked outline, the stroked sketch fill, and the filled solid polygon. `RoughSvg.toPathElements` renders them as `<path>` elements, optionally with `vector-effect="non-scaling-stroke"` so strokes stay crisp when the SVG stretches. The new `RoughFillStyle` enum names each fill pattern and builds its `Filler` from a seeded `FillerConfig`.
+
+Coordinates are rounded to two decimals, so the same seed always produces the same markup and server-rendered pages stay byte-stable between builds.
+
+#### Add hand-drawn Jaspr components that render with zero client JavaScript
+
+_Packages:_ 🟠 _skribble_jaspr_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)
+
+The new `skribble_jaspr` package brings skribble to Jaspr sites. `WiredBox`, `WiredCard`, `WiredCircle`, `WiredButton`, `WiredHighlight`, `WiredDivider`, and `WiredSketch` draw their rough ink on the server into inline SVG, so static and server-rendered pages ship no drawing JavaScript and the same `seed` always produces the same markup.
+
+Each overlay stretches to its element with `preserveAspectRatio="none"` and keeps strokes crisp with `vector-effect="non-scaling-stroke"`. The `skribbleCss` stylesheet themes everything through CSS custom properties (`--skribble-ink`, `--skribble-paper`, `--skribble-accent`, `--skribble-stroke-width`, `--skribble-font`), switches palettes for dark mode, draws a dashed keyboard focus ring, and adds a hover tilt and two-frame "line boil" on buttons that stop under `prefers-reduced-motion`. Ink is decorative and hidden from assistive technology; buttons and links keep native semantics.
+
+### Fixes
+
+- **Calendar day numbers fit inside the selection circle.** `WiredCalendar` draws its day numbers at 18 pixels instead of 20, so the circle around the selected day keeps its ink padding with taller typefaces such as the new default, Noto Sketch. _Packages:_ 🟢 _skribble_ _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #259](https://github.com/openbudgetfun/skribble/pull/259)
+- **`crampedText` measures a label against the border painted over it.** When two hand-drawn borders of the same size surround a label, `crampedText` now measures against the later one, which paints over the first. An elevated button's label is measured from its paper face instead of the offset shadow underneath, so it no longer reports a 2-pixel shortfall that nobody can see. _Packages:_ 🟢 _skribble_ _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #259](https://github.com/openbudgetfun/skribble/pull/259)
+
+#### Icons centre and label like Icon, and short progress bars stay visible
+
+_Packages:_ 🟢 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #248](https://github.com/openbudgetfun/skribble/pull/248) · _Closed issues:_ [#246](https://github.com/openbudgetfun/skribble/issues/246)
+
+`WiredSvgIcon`, and so `SkribbleIcon` and `WiredIcon`, drew its glyph in the top-left corner whenever a parent forced a box larger than its size, as an input decoration's prefix and suffix slots and fixed-size badges do. The drawing is now centred, as Flutter's `Icon` centres its glyph.
+
+An icon's `semanticLabel` also carried an image flag. Inside a parent that merges its descendants, such as a card, that flag spread to the whole merged node, so assistive technology announced the card as one image and lost its group and name. The label is now plain, as `Icon`'s is, and joins the parent's label as text.
+
+`WiredProgress` inset its marker by the pen's ink inside a box that had already been inset by the same amount. At a 12- or 14-pixel height the bar became a hairline, and a small value painted nothing. The marker is now laid out against the track's interior, so its painted edge lands exactly on the value, and a bar shorter than its ink plus a 6-pixel band is raised to that height.
+
+#### Icons reuse prepared ink, so scrolling lists of them stop dropping frames
+
+_Packages:_ 🟢 _skribble_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #251](https://github.com/openbudgetfun/skribble/pull/251)
+
+Every `WiredSvgIcon` that appeared — including a list item scrolling back into view seconds after it was first drawn — re-parsed its SVG paths, re-wavered every contour, and re-inked every pen outline before it could paint. The benchmark app measured a 200-item icon list at 34 ms per frame, more than twice the frame budget and 3.6 times the cost of drawing precomputed paths.
+
+Icons with the same geometry, size, colour, weight, fill style, and draw config now share one painter through a bounded cache (256 entries, least-recently-used evicted), so a revisited icon paints at precomputed-path cost and no visible detail changes: the shared painter holds exactly the ink the fresh one would have rebuilt from the same seed. Each path primitive's SVG data is also parsed once per primitive instead of once per appearance, which helps beyond the cache's horizon in the large Material and Simple Icons catalogs. A probe of the 200-item scroll found all 51 distinct icons prepared exactly once, and zero preparations on the return scroll.
+
+`RoughDrawing` and the icon painter also stopped allocating `Paint` objects on every frame while animating progress or pressure; every constant paint is prepared once with the ink it belongs to.
+
+#### Bullets keep their round shape in Skribble Noto
+
+_Packages:_ 🟢 _skribble_font_noto_, 🟢 _skribble_font_noto_sketch_, 🟢 _skribble_font_noto_lively_
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #263](https://github.com/openbudgetfun/skribble/pull/263)
+
+The generator re-stroked every large solid shape into a pen-width line, so a bullet (•), the triangular bullet (‣), and the Latin sinological dot (ꞏ) came out as tiny dots. Solid round shapes now keep their Noto outline, like the dots on i and j. No other letters change.
+
+The all-scripts font kit also gains Mende Kikakui and Znamenny Musical Notation, the two Noto scripts it was missing, so it now has 169 files per level. `tool/skribble_noto/coverage.py` checks a built level against every Noto source.
+
+- **Circle and marker highlights cover their whole word under an `svg` reset.** Many sites reset `svg { max-width: 100% }`. That capped the ink of a `WiredHighlight` at the width of its text, so a circle was drawn to the left of its word and a marker stopped short of the last letter. `skribbleCss` now gives every ink overlay `max-width: none`, so highlights keep their margin around the text whatever the page's own resets. _Packages:_ 🟢 _skribble_jaspr_ _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #257](https://github.com/openbudgetfun/skribble/pull/257)
+
+### Other
+
+- **Add parity fixtures for the npm rough engine.** `tool/js_parity_fixtures.dart` writes hashed SVG output for every shape, fill style, and pen, plus Dart's `Random(seed)` stream. The new `@skribble.dev/rough` npm package replays these fixtures in its tests and must draw byte-identical SVG, so the JavaScript port and this engine stay in step. The package's public API is unchanged. _Packages:_ ⚪ _skribble_rough_ _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #254](https://github.com/openbudgetfun/skribble/pull/254)
+
 ## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)
 
 Grouped release for `main`.
