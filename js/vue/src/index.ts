@@ -3,14 +3,16 @@
  *
  * `<Sketch>` draws one shape (or several) with skribble's rough engine into
  * an inline `<svg>`, and `useSketch` exposes the same drawing as a computed
- * ref. Drawing uses a fixed seed, so server rendering and hydration agree.
+ * ref. Drawing uses a fixed seed, so server rendering and hydration agree,
+ * and a sketch only recomputes when the shape or an option changes — not
+ * when presentational attributes do.
  *
  * @packageDocumentation
  */
 import {
+  pickSketchOptions,
   sketch,
   sketchOptionKeys,
-  splitSketchOptions,
   type RoughFillStyle,
   type RoughPen,
   type RoughPenName,
@@ -33,7 +35,7 @@ export function useSketch(
 
 const numberProp = { type: Number, default: undefined };
 
-/** Props of every sketch option, all optional. */
+/** Sketch options, all optional, for the {@link Sketch} props declaration. */
 const optionProps = {
   maxRandomnessOffset: numberProp,
   roughness: numberProp,
@@ -60,6 +62,36 @@ const optionProps = {
 } satisfies Record<(typeof sketchOptionKeys)[number], unknown>;
 
 /**
+ * Props of {@link Sketch}: a `shape` at a `width` and `height`, every sketch
+ * option, and the accessibility props below. Other attributes fall through
+ * to the `<svg>`.
+ */
+export interface SketchProps extends SketchOptions {
+  /** What to draw, in the sketch's own coordinates. */
+  shape: Shape | readonly Shape[];
+  /** Intrinsic width and `viewBox` width. */
+  width: number;
+  /** Intrinsic height and `viewBox` height. */
+  height: number;
+  /**
+   * The SVG viewport, `"minX minY width height"`. Defaults to
+   * `"0 0 width height"`; set it to crop, zoom, or draw shapes with
+   * coordinates outside the positive quadrant.
+   */
+  viewBox?: string;
+  /** An accessible description. Without one the sketch is decorative. */
+  label?: string;
+  /**
+   * An accessible name rendered as a `<title>` element, which browsers also
+   * show as a hover tooltip. Without it or a `label` the sketch is
+   * decorative.
+   */
+  title?: string;
+  /** A longer accessible description rendered as a `<desc>` element. */
+  description?: string;
+}
+
+/**
  * A standalone hand-drawn doodle at an explicit size.
  *
  * ```vue
@@ -72,7 +104,7 @@ const optionProps = {
  * ```
  *
  * Colours default to `currentColor`, so CSS `color` themes the ink. Other
- * attributes fall through to the `<svg>`.
+ * attributes fall through to the `<svg>` without redrawing the sketch.
  */
 export const Sketch = defineComponent({
   name: "SkribbleSketch",
@@ -83,42 +115,62 @@ export const Sketch = defineComponent({
     width: { type: Number, required: true },
     /** Intrinsic height and `viewBox` height. */
     height: { type: Number, required: true },
+    /**
+     * The SVG viewport, `"minX minY width height"`. Defaults to
+     * `"0 0 width height"`; set it to crop, zoom, or draw shapes with
+     * coordinates outside the positive quadrant.
+     */
+    viewBox: { type: String, default: undefined },
     /** An accessible description. Without one the sketch is decorative. */
     label: { type: String, default: undefined },
+    /**
+     * An accessible name rendered as a `<title>` element, which browsers
+     * also show as a hover tooltip. Without it or a `label` the sketch is
+     * decorative.
+     */
+    title: { type: String, default: undefined },
+    /** A longer accessible description rendered as a `<desc>` element. */
+    description: { type: String, default: undefined },
     ...optionProps,
   },
   setup(props) {
+    // Only the option keys are read here, so changing a presentational prop
+    // (class, style, handlers) never recomputes the drawing.
     const drawing = useSketch(
       () => props.shape,
-      () => splitSketchOptions(props)[0],
+      () => pickSketchOptions(props),
     );
     return () => {
-      const a11y =
-        props.label === undefined
-          ? { "aria-hidden": "true", focusable: "false" }
-          : { role: "img", "aria-label": props.label };
+      const named = props.label !== undefined || props.title !== undefined || props.description !== undefined;
+      const a11y = named
+        ? { role: "img", ...(props.label === undefined ? {} : { "aria-label": props.label }) }
+        : { "aria-hidden": "true", focusable: "false" };
       return h(
         "svg",
         {
           xmlns: "http://www.w3.org/2000/svg",
           width: props.width,
           height: props.height,
-          viewBox: `0 0 ${props.width} ${props.height}`,
+          viewBox: props.viewBox ?? `0 0 ${props.width} ${props.height}`,
           ...a11y,
         },
-        drawing.value.paths.map((path) =>
-          path.stroke === "none"
-            ? h("path", { key: path.key, d: path.d, fill: path.fill, stroke: "none" })
-            : h("path", {
-                key: path.key,
-                d: path.d,
-                fill: path.fill,
-                stroke: path.stroke,
-                "stroke-width": path.strokeWidth,
-                "stroke-linecap": "round",
-                "stroke-linejoin": "round",
-              }),
-        ),
+        [
+          ...(props.title === undefined ? [] : [h("title", props.title)]),
+          ...(props.description === undefined ? [] : [h("desc", props.description)]),
+          ...drawing.value.paths.map((path) =>
+            path.stroke === "none"
+              ? h("path", { key: path.key, d: path.d, fill: path.fill, stroke: "none" })
+              : h("path", {
+                  key: path.key,
+                  d: path.d,
+                  fill: path.fill,
+                  stroke: path.stroke,
+                  "stroke-width": path.strokeWidth,
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                }),
+          ),
+        ],
       );
     };
   },

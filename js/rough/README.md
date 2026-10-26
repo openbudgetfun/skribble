@@ -103,10 +103,13 @@ What is different:
 
 ## Paint anywhere
 
-- **SVG strings:** `toSvgString(sketch, { width, height })`, or `pathsToSvgElements(paths)` for just the `<path>` elements.
+- **SVG strings:** `toSvgString(sketch, { width, height })` — with optional `label`, `title`, `description` (rendered as `aria-label`, `<title>`, and `<desc>`), and `className` — or `pathsToSvgElements(paths)` for just the `<path>` elements.
 - **DOM:** `createSvgGroup(paths, document)` returns an SVG `<g>`.
 - **Canvas:** `drawOnCanvas(ctx, drawable, style)` paints on any 2D context, including `OffscreenCanvas` and Node canvas libraries.
 - **Your own renderer:** every `SketchPath` has `d`, `fill`, `stroke`, and `strokeWidth`, so a framework only maps it to its own path element. That is all the React, React Native, Vue, and Svelte packages do.
+- **Framework helpers:** `splitSketchOptions(props)` separates sketch options from passthrough props, `pickSketchOptions(props)` reads **only** the option keys — so reactive frameworks (Vue, Svelte) track nothing else — and `sketchKey(shape, options)` is a value key for memoising `sketch`.
+
+Path data is validated before it is interpolated into an SVG string: `assertSafePathData` (called by `pathsToSvgElements`, `toPathElements`, and `toSvgString`) rejects anything beyond SVG commands and numbers, so hand-assembled path data can never smuggle markup into a document.
 
 ## The low-level engine
 
@@ -121,7 +124,7 @@ const svg = toSvgPaths(generator.rectangle(4, 4, 192, 92));
 console.log(toPathElements(svg, { stroke: "#1f1f1f", fill: "#f4c542" }));
 ```
 
-Build a fresh `DrawConfig` for every shape and for its filler: each owns a random stream, and sharing one advances it across shapes.
+Build a fresh `DrawConfig` for every shape and for its filler: each owns a random stream, and sharing one advances it across shapes. A filler constructed without a configuration gets a fresh default stream of its own, so identical calls draw identically regardless of order.
 
 `InkStroke.writeOutline(sink, distance)` draws only the first `distance` of a stroke, which is how skribble animates ink being drawn on. `canvasInkSink(ctx)` adapts a canvas context or `Path2D` as the sink.
 

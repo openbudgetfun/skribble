@@ -116,6 +116,11 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: build, typecheck, and test
         run: pnpm run check
+      # Informational: records the engine's hot-path numbers on every PR so a
+      # performance regression is visible in the logs. The hard gates are the
+      # call-count regression tests in each package's suite.
+      - name: benchmark the rough engine
+        run: pnpm --filter @skribble.dev/rough run bench
       - name: check package manifests
         run: |
           for package in js/*/; do

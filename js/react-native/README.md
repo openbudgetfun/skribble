@@ -26,10 +26,14 @@ export function Badge() {
 }
 ```
 
-- `shape`, `width`, `height`, and every [sketch option](https://github.com/openbudgetfun/skribble/tree/main/js/rough#options) work as in [`@skribble.dev/react`](https://github.com/openbudgetfun/skribble/tree/main/js/react).
+- `shape`, `width`, `height`, and every [sketch option](https://github.com/openbudgetfun/skribble/tree/main/js/rough#options) work as in [`@skribble.dev/react`](https://github.com/openbudgetfun/skribble/tree/main/js/react), including the memoisation: re-rendering a parent costs nothing until the drawing or the `<Svg>` props change.
+- `viewBox` overrides the default `"0 0 width height"` viewport, to crop, zoom, or draw shapes with coordinates outside the positive quadrant.
 - Ink and fill default to `currentColor`. Set the `color` prop to theme them, or pass `stroke` and `fill`.
-- Without a `label` the sketch is hidden from screen readers. With one it is an accessible image with that label.
+- Without a `label` the sketch is hidden from screen readers. With one it is an accessible image with that label. (`react-native-svg` has no `<title>` element, so keep the description inside `label`.)
 - Other `react-native-svg` props (`style`, `testID`, `onPress`) pass through to the `<Svg>`.
+
+Requires React 19 or newer on React Native 0.76 or newer.
+
 - `useSketch(shape, options)` returns the drawing if you want to paint the paths yourself.
 
 ## License

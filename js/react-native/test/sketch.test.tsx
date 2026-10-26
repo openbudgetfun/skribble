@@ -47,4 +47,10 @@ describe("<Sketch> on React Native", () => {
     renderToStaticMarkup(<Probe />);
     expect(result?.paths).toEqual(sketch(shape, { seed: 9 }).paths);
   });
+
+  it("crops and zooms through a custom viewBox", () => {
+    const html = renderToStaticMarkup(<Sketch shape={shape} width={100} height={50} viewBox="-10 -5 60 30" />);
+    expect(html).toContain('viewBox="-10 -5 60 30"');
+    expect(html).toContain('width="100"');
+  });
 });

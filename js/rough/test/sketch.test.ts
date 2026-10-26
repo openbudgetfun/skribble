@@ -177,6 +177,29 @@ describe("toSvgString", () => {
     expect(svg).toContain('class="doodle"');
     expect(svg).toContain('fill="a&quot;b"');
   });
+
+  it("renders a title and description before the paths", () => {
+    const svg = toSvgString(sketch(rectangle, { ink: false }), {
+      width: 10,
+      height: 10,
+      title: "A box",
+      description: "A wobbling rectangle",
+    });
+    expect(svg).toContain('role="img"><title>A box</title><desc>A wobbling rectangle</desc><path');
+    expect(svg).not.toContain("aria-label");
+    expect(svg).not.toContain("aria-hidden");
+  });
+
+  it("escapes titles and descriptions", () => {
+    const svg = toSvgString(sketch(rectangle, { ink: false }), {
+      width: 10,
+      height: 10,
+      title: 'Fish & <chips "a">',
+      description: "<script>",
+    });
+    expect(svg).toContain("<title>Fish &amp; &lt;chips &quot;a&quot;&gt;</title>");
+    expect(svg).toContain("<desc>&lt;script&gt;</desc>");
+  });
 });
 
 describe("pens", () => {
@@ -317,5 +340,73 @@ describe("framework helpers", () => {
     expect(sketchKey(rectangle, { seed: 1 })).not.toBe(sketchKey(rectangle, { seed: 2 }));
     expect(sketchKey(rectangle, { seed: 2n })).toContain('"2n"');
     expect(sketchKey(rectangle, { pen: RoughPen.brush })).not.toBe(sketchKey(rectangle, { pen: RoughPen.ink }));
+  });
+
+  it("picks sketch options without reading any other prop", async () => {
+    const { pickSketchOptions } = await import("../src/index.js");
+    const read: string[] = [];
+    const props = new Proxy(
+      { seed: 3, fill: "red", roughness: undefined, className: "x", style: { color: "red" } },
+      {
+        get(target, key) {
+          read.push(String(key));
+          return (target as Record<string, unknown>)[key as string];
+        },
+      },
+    );
+    expect(pickSketchOptions(props)).toEqual({ seed: 3, fill: "red" });
+    expect(read).not.toContain("className");
+    expect(read).not.toContain("style");
+    expect(read.filter((key) => key === "seed")).toHaveLength(1);
+  });
+});
+
+describe("safe path data", () => {
+  it("rejects markup smuggled into a path's d attribute", async () => {
+    const { pathsToSvgElements, assertSafePathData } = await import("../src/index.js");
+    const hostile = {
+      key: "outline",
+      part: "outline" as const,
+      d: 'M0 0"><script>alert(1)</script>',
+      fill: "none",
+      stroke: "red",
+      strokeWidth: 1,
+    };
+    expect(() => pathsToSvgElements([hostile])).toThrow();
+    expect(() => assertSafePathData('M0 0L1 "1"')).toThrow();
+  });
+
+  it("accepts everything the engine generates", async () => {
+    const { assertSafePathData, toPathElements, toSvgPaths } = await import("../src/index.js");
+    const shapes: Shape[] = [
+      rectangle,
+      { type: "ellipse", x: 50, y: 50, width: 80, height: 40 },
+      { type: "polygon", points: [[0, 0], [90, 10], [70, 80]] },
+    ];
+    for (const shape of shapes) {
+      for (const ink of [true, false]) {
+        const drawing = sketch(shape, { seed: 7, ink, fill: "gold" });
+        for (const path of drawing.paths) expect(() => assertSafePathData(path.d)).not.toThrow();
+        expect(() => toPathElements(toSvgPaths(drawing.drawable))).not.toThrow();
+      }
+    }
+    expect(() => toPathElements({ outline: "M1 1", sketch: "", solid: 'M0 0"><x>' })).toThrow();
+  });
+});
+
+describe("bare fillers", () => {
+  it("each owns its random stream, so identical calls draw identically", async () => {
+    const { HachureFiller, DotFiller } = await import("../src/index.js");
+    const square = [
+      { x: 0, y: 0 },
+      { x: 100, y: 0 },
+      { x: 100, y: 100 },
+      { x: 0, y: 100 },
+    ];
+    const first = JSON.stringify(new HachureFiller().fill(square));
+    const second = JSON.stringify(new HachureFiller().fill(square));
+    const dots = JSON.stringify(new DotFiller().fill(square));
+    expect(first).toBe(second);
+    expect(first).not.toBe(dots);
   });
 });
