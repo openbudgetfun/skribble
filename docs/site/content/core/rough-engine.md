@@ -473,7 +473,7 @@ Usage with `WiredCanvas`:
 // Live example: painter-usage-6
 Builder(
   builder: (context) {
-    return SizedBox(
+    return const SizedBox(
       width: 200,
       height: 100,
       child: WiredCanvas(

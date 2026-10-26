@@ -597,6 +597,7 @@ Deliberate deviations, documented rather than silently changed because fixing th
 Every widget that paints its own rough shape takes a `seed`: `WiredCard`, `WiredChip`, `WiredChoiceChip`, `WiredBadge`, `WiredInput`, `WiredToggle`, `WiredRadio`, and `WiredOutlinedButton`. The same seed always draws the same wobble, so a column of same-sized controls needs different seeds to stop them reading as photocopies of each other; null keeps the theme's seed.
 
 ```dart
+// Static example: api
 WiredCard(seed: 3, child: ...),
 WiredCard(seed: 7, child: ...),
 ```

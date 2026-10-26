@@ -184,6 +184,7 @@ WiredCircularProgress(value: .6)
 `WiredRefreshIndicator` wraps Flutter's `RefreshIndicator` with the skribble aesthetic, and `WiredCustomRefreshIndicator` shows a `WiredLoadingIndicator` while an overscroll-triggered refresh runs.
 
 ```dart
+// Static example: api
 WiredRefreshIndicator(
   onRefresh: () async {
     await fetchLatest();

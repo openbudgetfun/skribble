@@ -5,7 +5,6 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
-import '../helpers/pump_app.dart';
 import '../helpers/skribble_test_support.dart';
 
 /// Dispatches an overscroll past the refresh threshold from inside [child],

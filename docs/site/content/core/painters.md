@@ -207,13 +207,13 @@ Usage:
 // Live example: painter-usage-2
 Builder(
   builder: (context) {
-    return SizedBox(
+    return const SizedBox(
       width: 80,
       height: 80,
       child: WiredCanvas(
         painter: WiredCircleBase(
           diameterRatio: 0.9,
-          fillColor: const Color(0xffebc569),
+          fillColor: Color(0xffebc569),
         ),
         fillerType: RoughFilter.solidFiller,
       ),
@@ -343,16 +343,16 @@ Usage:
 // Live example: painter-usage-4
 Builder(
   builder: (context) {
-    return SizedBox(
+    return const SizedBox(
       width: 240,
       height: 140,
       child: WiredCanvas(
         painter: WiredRoundedRectangleBase(
-          borderRadius: const BorderRadius.only(
+          borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             bottomRight: Radius.circular(20),
           ),
-          fillColor: const Color(0xFFF5F0E1),
+          fillColor: Color(0xFFF5F0E1),
         ),
         fillerType: RoughFilter.noFiller,
       ),
@@ -475,7 +475,7 @@ class WiredCanvas extends HookWidget {
 // Live example: painter-usage-6
 Builder(
   builder: (context) {
-    return SizedBox(
+    return const SizedBox(
       width: 200,
       height: 100,
       child: WiredCanvas(
