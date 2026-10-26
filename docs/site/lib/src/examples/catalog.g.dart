@@ -281,7 +281,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'radio': ExampleDefinition(
     builder: _radio,
-    source: "HookBuilder(\n  builder: (context) {\n    final selected = useState('paper');\n    return Wrap(\n      children: [\n        for (final value in ['paper', 'ink'])\n          WiredRadio<String>(\n            value: value,\n            groupValue: selected.value,\n            semanticLabel: value,\n            onChanged: settings.enabled\n                ? (value) {\n                    selected.value = value!;\n                    return true;\n                  }\n                : null,\n          ),\n      ],\n    );\n  },\n)",
+    source: "HookBuilder(\n  builder: (context) {\n    final selected = useState('paper');\n    return Wrap(\n      children: [\n        for (final value in ['paper', 'ink'])\n          WiredRadio<String>(\n            value: value,\n            groupValue: selected.value,\n            semanticLabel: value,\n            onChanged: settings.enabled\n                ? (value) => selected.value = value!\n                : null,\n          ),\n      ],\n    );\n  },\n)",
     edits: [ExampleEdit(310, 326, ExampleParameter.enabled)],
   ),
   'radio-list-tile': ExampleDefinition(
@@ -296,7 +296,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'toggle': ExampleDefinition(
     builder: _toggle,
-    source: "HookBuilder(\n  builder: (context) {\n    final enabled = useState(false);\n    return WiredToggle(\n      value: enabled.value,\n      semanticLabel: 'Ink enabled',\n      onChange: (value) {\n        enabled.value = value;\n        return true;\n      },\n    );\n  },\n)",
+    source: "HookBuilder(\n  builder: (context) {\n    final enabled = useState(false);\n    return WiredToggle(\n      value: enabled.value,\n      semanticLabel: 'Ink enabled',\n      onChanged: (v) => enabled.value = v,\n    );\n  },\n)",
     edits: [],
   ),
   'autocomplete': ExampleDefinition(

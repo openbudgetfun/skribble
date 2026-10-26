@@ -61,39 +61,44 @@ bool onSegmentPoints(PointD source, PointD point, PointD target) =>
 /// Pre-computed points along an ellipse path, split into core and
 /// all (interpolated) points for rendering.
 class ComputedEllipsePoints {
-  List<PointD>? corePoints;
-  List<PointD>? allPoints;
+  final List<PointD> corePoints;
+  final List<PointD> allPoints;
 
-  ComputedEllipsePoints({this.corePoints, this.allPoints});
+  ComputedEllipsePoints({required this.corePoints, required this.allPoints});
 }
 
 /// Parameters for ellipse generation — radii and angular increment.
 class EllipseParams {
-  final double? rx;
-  final double? ry;
-  final double? increment;
+  final double rx;
+  final double ry;
+  final double increment;
 
-  EllipseParams({this.rx, this.ry, this.increment});
+  EllipseParams({required this.rx, required this.ry, required this.increment});
 }
 
 /// The result of generating an ellipse — the `OpSet` for rendering
 /// and estimated boundary points.
 class EllipseResult {
-  OpSet? opSet;
-  List<PointD>? estimatedPoints;
+  final OpSet opSet;
+  final List<PointD> estimatedPoints;
 
-  EllipseResult({this.opSet, this.estimatedPoints});
+  EllipseResult({required this.opSet, required this.estimatedPoints});
 }
 
 /// A polygon edge used in scan-line fill algorithms, tracking
 /// y-range, x-intercept, and slope.
 class Edge {
-  double? yMin;
-  double? yMax;
-  double? x;
-  double? slope;
+  final double yMin;
+  final double yMax;
+  final double x;
+  final double slope;
 
-  Edge({this.yMin, this.yMax, this.x, this.slope});
+  Edge({
+    required this.yMin,
+    required this.yMax,
+    required this.x,
+    required this.slope,
+  });
 
   Edge copyWith({double? yMin, double? yMax, double? x, double? slope}) => Edge(
     yMin: yMin ?? this.yMin,

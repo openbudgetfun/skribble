@@ -13,7 +13,7 @@ void main() {
           child: SizedBox(
             width: 120,
             height: 100,
-            child: WiredToggle(value: false, onChange: (v) => true),
+            child: WiredToggle(value: false, onChanged: (v) {}),
           ),
         ),
       );
@@ -25,7 +25,7 @@ void main() {
     testWidgets('reports its toggled state to assistive technology', (
       tester,
     ) async {
-      await pumpWired(tester, WiredToggle(value: true, onChange: (v) => true));
+      await pumpWired(tester, WiredToggle(value: true, onChanged: (v) {}));
 
       expectSemantics(
         tester,
@@ -35,7 +35,7 @@ void main() {
         hasTapAction: true,
       );
 
-      await pumpWired(tester, WiredToggle(value: false, onChange: (v) => true));
+      await pumpWired(tester, WiredToggle(value: false, onChanged: (v) {}));
 
       expectSemantics(
         tester,
@@ -50,7 +50,7 @@ void main() {
         tester,
         WiredToggle(
           value: true,
-          onChange: (v) => true,
+          onChanged: (v) {},
           semanticLabel: 'Dark mode',
         ),
       );
@@ -65,7 +65,7 @@ void main() {
 
       await pumpWired(
         tester,
-        WiredToggle(value: false, onChange: (v) => receivedValue = v),
+        WiredToggle(value: false, onChanged: (v) => receivedValue = v),
       );
 
       await tapWired(tester, findWired<WiredToggle>());
@@ -78,7 +78,7 @@ void main() {
 
       await pumpWired(
         tester,
-        WiredToggle(value: false, onChange: (v) => receivedValue = v),
+        WiredToggle(value: false, onChanged: (v) => receivedValue = v),
       );
 
       await semanticTapWired(tester, findWired<WiredToggle>());
@@ -95,6 +95,8 @@ void main() {
         tester,
         WiredToggle(
           value: false,
+          // The veto contract is preserved for the deprecated parameter.
+          // ignore: deprecated_member_use_from_same_package
           onChange: (v) {
             callCount++;
             return false;
@@ -133,7 +135,7 @@ void main() {
     testWidgets('has documented thumb radius defaults', (tester) async {
       const toggle = WiredToggle(value: false);
       expect(toggle.thumbRadius, 24.0);
-      expect(toggle.onChange, isNull);
+      expect(toggle.onChanged, isNull);
       expect(toggle.semanticLabel, isNull);
 
       await pumpWired(
@@ -149,24 +151,24 @@ void main() {
     });
 
     testWidgets('mirrors the thumb travel in RTL', (tester) async {
-      await pumpWired(tester, WiredToggle(value: false, onChange: (v) => true));
+      await pumpWired(tester, WiredToggle(value: false, onChanged: (v) {}));
       await tester.pumpAndSettle();
       final ltrOff = _thumbCenterX(tester) - _toggleCenterX(tester);
 
-      await pumpWired(tester, WiredToggle(value: true, onChange: (v) => true));
+      await pumpWired(tester, WiredToggle(value: true, onChanged: (v) {}));
       await tester.pumpAndSettle();
       final ltrOn = _thumbCenterX(tester) - _toggleCenterX(tester);
 
       await pumpWiredRtl(
         tester,
-        WiredToggle(value: false, onChange: (v) => true),
+        WiredToggle(value: false, onChanged: (v) {}),
       );
       await tester.pumpAndSettle();
       final rtlOff = _thumbCenterX(tester) - _toggleCenterX(tester);
 
       await pumpWiredRtl(
         tester,
-        WiredToggle(value: true, onChange: (v) => true),
+        WiredToggle(value: true, onChanged: (v) {}),
       );
       await tester.pumpAndSettle();
       final rtlOn = _thumbCenterX(tester) - _toggleCenterX(tester);
@@ -186,7 +188,7 @@ void main() {
     ) async {
       await pumpWired(
         tester,
-        WiredToggle(value: true, onChange: (v) => true),
+        WiredToggle(value: true, onChanged: (v) {}),
         surfaceSize: const Size(60, 24),
       );
       expectRenders(tester, findWired<WiredToggle>());
@@ -194,7 +196,7 @@ void main() {
 
       await pumpWired(
         tester,
-        WiredToggle(value: true, onChange: (v) => true),
+        WiredToggle(value: true, onChanged: (v) {}),
         surfaceSize: Size.zero,
       );
       expect(tester.takeException(), isNull);
@@ -203,7 +205,7 @@ void main() {
     testWidgets('is unaffected by doubled text scale', (tester) async {
       await pumpWiredScaled(
         tester,
-        WiredToggle(value: true, onChange: (v) => true),
+        WiredToggle(value: true, onChanged: (v) {}),
       );
 
       expectSemantics(tester, findWired<WiredToggle>(), isToggled: true);

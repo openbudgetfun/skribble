@@ -18,7 +18,13 @@ import 'wired_theme.dart';
 class WiredRadio<T> extends HookWidget {
   final T value;
   final T? groupValue;
-  final bool Function(T? value)? onChanged;
+
+  /// Called with the radio's value when it is tapped.
+  ///
+  /// Null disables the radio, matching the framework convention. The value is
+  /// never null from this widget; the nullable parameter type keeps lambdas
+  /// written for `Radio.onChanged` assignable.
+  final void Function(T? value)? onChanged;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
@@ -29,9 +35,16 @@ class WiredRadio<T> extends HookWidget {
     super.key,
     required this.value,
     required this.groupValue,
-    required this.onChanged,
+    this.onChanged,
     this.semanticLabel,
+    this.seed,
   });
+
+  /// Varies the hand behind this widget's ink. The same seed always draws
+  /// the same wobble, so neighbouring shapes of the same size need different
+  /// seeds to stop them reading as copies of each other. Null keeps the
+  /// theme's seed.
+  final int? seed;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +69,7 @@ class WiredRadio<T> extends HookWidget {
                   diameterRatio: .7,
                   borderColor: theme.borderColor,
                 ),
+                seed: seed,
                 fillerType: RoughFilter.noFiller,
               ),
             ),
@@ -70,6 +84,7 @@ class WiredRadio<T> extends HookWidget {
                     fillColor: theme.textColor,
                     borderColor: theme.borderColor,
                   ),
+                  seed: seed,
                   fillerType: RoughFilter.solidFiller,
                 ),
               ),

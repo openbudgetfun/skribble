@@ -132,7 +132,7 @@ class _ExamplePage extends StatelessWidget {
                 SizedBox(
                   width: 80,
                   height: 40,
-                  child: WiredToggle(value: true, onChange: (_) => true),
+                  child: const WiredToggle(value: true),
                 ),
                 const SizedBox(width: 24),
                 WiredSwitch(value: true, onChanged: (_) {}),

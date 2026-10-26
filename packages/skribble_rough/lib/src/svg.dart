@@ -12,7 +12,7 @@ import 'filler.dart';
 ///
 /// Returns an empty string when [set] has no operations.
 String opSetToSvgPath(OpSet set) {
-  final ops = set.ops ?? const <Op>[];
+  final ops = set.ops;
 
   if (ops.isEmpty) {
     return '';
@@ -111,8 +111,8 @@ final class RoughSvg {
     final sketch = StringBuffer();
     final solid = StringBuffer();
 
-    for (final set in drawable.sets ?? const <OpSet>[]) {
-      final target = switch (set.type ?? OpSetType.path) {
+    for (final set in drawable.sets) {
+      final target = switch (set.type) {
         OpSetType.path => outline,
         OpSetType.fillSketch => sketch,
         OpSetType.fillPath => solid,

@@ -112,7 +112,7 @@ void main() {
               spec.radius,
               spec.radius,
             );
-      final path = drawing.sets!.last.ops!
+      final path = drawing.sets.last.ops
           .map((op) {
             final points = op.data
                 .map(
@@ -131,7 +131,7 @@ void main() {
         'width': spec.width,
         'height': spec.height,
         'path': path,
-        'fillPath': _svgOps(drawing.sets!.first.ops!),
+        'fillPath': _svgOps(drawing.sets.first.ops),
       };
     }
   }
@@ -161,7 +161,7 @@ void main() {
         spec.size / 2,
         (spec.size - 2 * inset) * spec.ratio,
       );
-      final path = drawing.sets!.last.ops!
+      final path = drawing.sets.last.ops
           .map((op) {
             final points = op.data
                 .map(
@@ -179,7 +179,7 @@ void main() {
         'width': spec.size,
         'height': spec.size,
         'path': path,
-        'fillPath': _svgOps(drawing.sets!.first.ops!),
+        'fillPath': _svgOps(drawing.sets.first.ops),
       };
     }
   }

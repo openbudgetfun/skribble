@@ -29,6 +29,10 @@ class WiredThemeData {
   final Color borderColor;
   final Color textColor;
   final Color disabledTextColor;
+
+  /// Ink for errors: the border of an input with error text and the error
+  /// text itself.
+  final Color errorColor;
   final Color fillColor;
 
   /// The highlighter wash under selected and active things: navigation
@@ -94,6 +98,7 @@ class WiredThemeData {
     this.borderColor = WiredPalette.ink,
     this.textColor = WiredPalette.ink,
     this.disabledTextColor = WiredPalette.mutedInk,
+    this.errorColor = WiredPalette.coral,
     this.fillColor = WiredPalette.paper,
     this.markerColor = WiredPalette.lilac,
     this.strokeWidth = kWiredStrokeWidth,
@@ -123,6 +128,7 @@ class WiredThemeData {
     disabledTextColor: brightness == Brightness.dark
         ? WiredPalette.mutedPaper
         : WiredPalette.mutedInk,
+    errorColor: WiredPalette.coral,
     fillColor: brightness == Brightness.dark
         ? WiredPalette.night
         : WiredPalette.paper,
@@ -157,6 +163,7 @@ class WiredThemeData {
           borderColor == other.borderColor &&
           textColor == other.textColor &&
           disabledTextColor == other.disabledTextColor &&
+          errorColor == other.errorColor &&
           fillColor == other.fillColor &&
           markerColor == other.markerColor &&
           strokeWidth == other.strokeWidth &&
@@ -175,6 +182,7 @@ class WiredThemeData {
     borderColor,
     textColor,
     disabledTextColor,
+    errorColor,
     fillColor,
     markerColor,
     strokeWidth,
@@ -193,6 +201,7 @@ class WiredThemeData {
     Color? borderColor,
     Color? textColor,
     Color? disabledTextColor,
+    Color? errorColor,
     Color? fillColor,
     Color? markerColor,
     double? strokeWidth,
@@ -210,6 +219,7 @@ class WiredThemeData {
       borderColor: borderColor ?? this.borderColor,
       textColor: textColor ?? this.textColor,
       disabledTextColor: disabledTextColor ?? this.disabledTextColor,
+      errorColor: errorColor ?? this.errorColor,
       fillColor: fillColor ?? this.fillColor,
       markerColor: markerColor ?? this.markerColor,
       strokeWidth: strokeWidth ?? this.strokeWidth,

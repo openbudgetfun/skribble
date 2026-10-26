@@ -15,14 +15,14 @@ void main() {
     test('line produces a Drawable with ops', () {
       final drawable = generator.line(0, 0, 10, 10);
       expect(drawable.sets, isNotEmpty);
-      expect(drawable.sets!.first.ops, isNotEmpty);
+      expect(drawable.sets.first.ops, isNotEmpty);
     });
 
     test('rectangle produces a Drawable with ops', () {
       final drawable = generator.rectangle(0, 0, 50, 30);
       expect(drawable.sets, isNotEmpty);
       // Rectangle has fill set + outline set; outline ops are non-empty
-      expect(drawable.sets!.last.ops, isNotEmpty);
+      expect(drawable.sets.last.ops, isNotEmpty);
     });
 
     test('circle produces a Drawable with ops', () {
@@ -77,7 +77,7 @@ void main() {
       final hGen = Generator(config, HachureFiller(FillerConfig.defaultConfig));
       final drawable = hGen.rectangle(0, 0, 50, 30);
       // Rectangle with fill has ≥2 sets (fill + outline)
-      expect(drawable.sets!.length, greaterThanOrEqualTo(2));
+      expect(drawable.sets.length, greaterThanOrEqualTo(2));
     });
 
     test('works with custom roughness', () {

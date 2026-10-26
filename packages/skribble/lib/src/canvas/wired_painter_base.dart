@@ -11,6 +11,8 @@ import '../rough/skribble_rough.dart';
 ///  * `WiredRectangleBase`, `WiredCircleBase`, `WiredLineBase` in
 ///    `wired_base.dart`.
 abstract class WiredPainterBase {
+  const WiredPainterBase();
+
   /// Prepares stable ink for paint-only animation. Legacy custom painters may
   /// leave this null and continue to implement [paintRough] with static output.
   RoughDrawing? prepare(Size size, DrawConfig drawConfig, Filler filler) =>

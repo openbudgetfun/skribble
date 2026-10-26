@@ -3,11 +3,14 @@ import 'package:test/test.dart';
 
 void main() {
   group('Drawable', () {
-    test('creates with default null fields', () {
-      final drawable = Drawable();
+    test('creates without a shape name', () {
+      final drawable = Drawable(
+        options: DrawConfig.defaultValues,
+        sets: const [],
+      );
       expect(drawable.shape, isNull);
-      expect(drawable.options, isNull);
-      expect(drawable.sets, isNull);
+      expect(drawable.options, isNotNull);
+      expect(drawable.sets, isEmpty);
     });
 
     test('creates with all fields', () {
@@ -18,7 +21,7 @@ void main() {
       );
       expect(drawable.shape, 'rectangle');
       expect(drawable.options, isNotNull);
-      expect(drawable.sets!.length, 1);
+      expect(drawable.sets.length, 1);
     });
   });
 

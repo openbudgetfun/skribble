@@ -109,12 +109,7 @@ void main() {
       expect(computed.allPoints, hasLength(1));
     });
 
-    test('EllipseParams supports nullable and explicit values', () {
-      final defaults = EllipseParams();
-      expect(defaults.rx, isNull);
-      expect(defaults.ry, isNull);
-      expect(defaults.increment, isNull);
-
+    test('EllipseParams keeps its radii and increment', () {
       final params = EllipseParams(rx: 10, ry: 8, increment: 0.15);
       expect(params.rx, 10);
       expect(params.ry, 8);
@@ -130,8 +125,8 @@ void main() {
 
       expect(result.opSet, same(opSet));
       expect(result.estimatedPoints, hasLength(1));
-      expect(result.estimatedPoints!.first.x, 3);
-      expect(result.estimatedPoints!.first.y, 4);
+      expect(result.estimatedPoints.first.x, 3);
+      expect(result.estimatedPoints.first.y, 4);
     });
 
     test('Edge copyWith overrides selected fields and preserves others', () {

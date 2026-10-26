@@ -27,7 +27,14 @@ class WiredChip extends HookWidget {
     this.avatar,
     this.onDeleted,
     this.semanticLabel,
+    this.seed,
   });
+
+  /// Varies the hand behind this widget's ink. The same seed always draws
+  /// the same wobble, so neighbouring shapes of the same size need different
+  /// seeds to stop them reading as copies of each other. Null keeps the
+  /// theme's seed.
+  final int? seed;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +57,7 @@ class WiredChip extends HookWidget {
                       borderRadius: BorderRadius.circular(16),
                       borderColor: theme.borderColor,
                     ),
+                    seed: seed,
                     fillerType: RoughFilter.noFiller,
                   ),
                 ),

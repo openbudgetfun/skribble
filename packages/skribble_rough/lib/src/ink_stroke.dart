@@ -594,14 +594,14 @@ final class DrawableInk {
     bool inkSketch,
     bool inkUniform,
   ) {
-    final pen = drawable.options?.pen ?? RoughPen.uniform;
-    final seed = drawable.options?.seed ?? 1;
+    final pen = drawable.options.pen;
+    final seed = drawable.options.seed;
     var index = 0;
     return [
-      for (final set in drawable.sets ?? const <OpSet>[])
+      for (final set in drawable.sets)
         () {
-          final type = set.type ?? OpSetType.path;
-          final ops = set.ops ?? const <Op>[];
+          final type = set.type;
+          final ops = set.ops;
           final width = type == OpSetType.path ? outlineWidth : sketchWidth;
           final inked =
               (inkUniform || !pen.isUniform) &&

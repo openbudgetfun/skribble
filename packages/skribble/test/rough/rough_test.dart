@@ -157,7 +157,7 @@ void main() {
     });
 
     testWidgets('drawRough handles empty drawable', (tester) async {
-      final drawable = Drawable(sets: []);
+      final drawable = Drawable(options: DrawConfig.defaultValues, sets: []);
 
       await tester.pumpWidget(
         MaterialApp(
@@ -174,7 +174,7 @@ void main() {
     });
 
     testWidgets('drawRough handles null sets', (tester) async {
-      final drawable = Drawable();
+      final drawable = Drawable(options: DrawConfig.defaultValues, sets: []);
 
       await tester.pumpWidget(
         MaterialApp(
@@ -198,10 +198,11 @@ void main() {
         Op.lineTo(PointD(10, 10)),
       ];
       final drawable = Drawable(
+        options: DrawConfig.defaultValues,
         sets: [OpSet(type: OpSetType.fillPath, ops: ops)],
       );
-      expect(drawable.sets!.first.type, OpSetType.fillPath);
-      expect(drawable.sets!.first.ops!.length, 3);
+      expect(drawable.sets.first.type, OpSetType.fillPath);
+      expect(drawable.sets.first.ops.length, 3);
     });
   });
 }

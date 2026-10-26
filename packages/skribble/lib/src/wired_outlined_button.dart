@@ -21,6 +21,7 @@ class WiredOutlinedButton extends WiredButtonBase {
     super.semanticLabel,
     super.inkInteraction,
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
+    super.seed,
   });
 
   @override
@@ -29,6 +30,7 @@ class WiredOutlinedButton extends WiredButtonBase {
 
     return buildWiredButton(
       decorationBuilder: (context) => RoughBoxDecoration(
+        seed: seed ?? 1,
         progress: WiredDrawTransition.progressOf(context),
         pressure: WiredInkResponse.pressureOf(context),
         drawConfig: theme.drawConfig,

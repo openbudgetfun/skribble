@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
@@ -167,6 +168,32 @@ void main() {
         ),
       );
       expect(find.text('Long press me'), findsOneWidget);
+    });
+
+    testWidgets('ignores a long press that arrives after unmounting', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        WiredContextMenu(
+          actions: const [WiredContextMenuAction(label: 'Copy')],
+          child: const Text('target'),
+        ),
+      );
+
+      final gesture = tester.widget<GestureDetector>(
+        find.descendant(
+          of: find.byType(WiredContextMenu),
+          matching: find.byType(GestureDetector),
+        ),
+      );
+      await tester.pumpWidget(const MaterialApp(home: Scaffold()));
+
+      // The captured long-press closure runs with a defunct context; the
+      // guard must return instead of throwing.
+      gesture.onLongPress?.call();
+      await tester.pump();
+      expect(tester.takeException(), isNull);
     });
   });
 }

@@ -23,6 +23,12 @@ class WiredCanvas extends HookWidget {
   final RoughFilter fillerType;
   final Size? size;
 
+  /// Varies the hand behind this shape's ink: the same seed always draws the
+  /// same wobble, so neighbouring shapes of the same size need different
+  /// seeds to stop them reading as copies of each other. Null keeps the
+  /// theme's seed.
+  final int? seed;
+
   const WiredCanvas({
     super.key,
     required this.painter,
@@ -30,6 +36,7 @@ class WiredCanvas extends HookWidget {
     this.drawConfig,
     this.fillerConfig,
     this.size,
+    this.seed,
   });
 
   @override
@@ -42,7 +49,14 @@ class WiredCanvas extends HookWidget {
     // The theme's DrawConfig is a stable per-theme instance (see
     // WiredThemeData.drawConfig), so this read is cheap; memoizing the painter
     // on it (not on context) keeps the same WiredPainter across rebuilds.
-    final resolvedDrawConfig = drawConfig ?? WiredTheme.of(context).drawConfig;
+    final themeDrawConfig = drawConfig ?? WiredTheme.of(context).drawConfig;
+    // A seeded copy is built once per (theme config, seed) pair: rebuilding
+    // with the same seed must reuse the prepared geometry, not redraw it.
+    final resolvedDrawConfig = useMemoized(
+      () =>
+          seed == null ? themeDrawConfig : themeDrawConfig.copyWith(seed: seed),
+      [themeDrawConfig, seed],
+    );
     // Fill strokes follow the outline's hand unless a config says otherwise,
     // so hachure is as tidy as the border around it and stays inside it. The
     // copy owns its random stream, so the fill never depends on how much of

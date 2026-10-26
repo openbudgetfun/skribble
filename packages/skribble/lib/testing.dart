@@ -15,5 +15,8 @@
 /// ```
 library;
 
+export 'src/canvas/rough_generation_counter.dart' show RoughGenerationCounter;
 export 'src/testing/breathing_room.dart'
     show CrampedText, crampedText, squeezedText;
+export 'src/wired_icon.dart'
+    show debugIconPainterGenerations, debugResetIconPainterCacheStats;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show TextInputFormatter;
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
@@ -7,9 +8,10 @@ import 'wired_theme.dart';
 
 /// A hand-drawn text field, corresponding to Flutter's `TextField`.
 ///
-/// Wraps a `TextField` with a sketchy rectangle border drawn using
-/// `WiredRectangleBase`. Supports label, hint, prefix/suffix icons,
-/// and all standard text input callbacks.
+/// Wraps a `TextField` with a sketchy rounded-rectangle border drawn using
+/// `WiredRoundedRectangleBase`. Supports a wrapping label, a hint,
+/// prefix and suffix widgets and icons, error text, input formatters,
+/// keyboard configuration, and the common text input callbacks.
 ///
 /// The text field is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the field label and current value.
@@ -40,6 +42,43 @@ class WiredInput extends HookWidget {
   /// Called when the user edits the value.
   final void Function(String)? onChanged;
 
+  /// Called when the user submits the field.
+  final ValueChanged<String>? onSubmitted;
+
+  /// Input formatters applied to every edit, such as deny-listing characters.
+  final List<TextInputFormatter>? inputFormatters;
+
+  /// The keyboard's input type, such as `TextInputType.emailAddress`.
+  final TextInputType? keyboardType;
+
+  /// The keyboard's action button, such as `TextInputAction.search`.
+  final TextInputAction? textInputAction;
+
+  /// Limits the value's length when set.
+  final int? maxLength;
+
+  /// Whether the field accepts input; disabled fields draw dimmed ink.
+  final bool enabled;
+
+  /// Grabs focus as soon as the field appears.
+  final bool autofocus;
+
+  /// Widget placed before the editable value, inside the ink.
+  final Widget? prefix;
+
+  /// Widget placed after the editable value, inside the ink.
+  final Widget? suffix;
+
+  /// Icon placed before the editable value, inside the ink.
+  final Widget? prefixIcon;
+
+  /// Icon placed after the editable value, inside the ink.
+  final Widget? suffixIcon;
+
+  /// Error text placed under the ink; the border is drawn from the error
+  /// color while it is set.
+  final String? errorText;
+
   /// Whether to conceal the entered text.
   final bool obscureText;
 
@@ -51,7 +90,8 @@ class WiredInput extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
-  /// Creates an input with a single sketch border and an optional label.
+  /// Creates an input with a single sketch border, an optional label, and the
+  /// common `TextField` parameters.
   const WiredInput({
     super.key,
     this.controller,
@@ -61,16 +101,41 @@ class WiredInput extends HookWidget {
     this.hintText,
     this.hintStyle,
     this.onChanged,
+    this.onSubmitted,
+    this.inputFormatters,
+    this.keyboardType,
+    this.textInputAction,
+    this.maxLength,
+    this.enabled = true,
+    this.autofocus = false,
+    this.prefix,
+    this.suffix,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.errorText,
     this.obscureText = false,
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
     this.semanticLabel,
+    this.seed,
   });
+
+  /// Varies the hand behind this widget's ink. The same seed always draws
+  /// the same wobble, so neighbouring shapes of the same size need different
+  /// seeds to stop them reading as copies of each other. Null keeps the
+  /// theme's seed.
+  final int? seed;
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final focus = useFocusNode();
     useListenable(focus);
+    final hasError = errorText != null;
+    final inkColor = !enabled
+        ? theme.disabledTextColor
+        : hasError
+        ? theme.errorColor
+        : theme.borderColor;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -87,9 +152,10 @@ class WiredInput extends HookWidget {
                 painter: WiredRoundedRectangleBase(
                   borderRadius: borderRadius,
                   fillColor: theme.fillColor,
-                  borderColor: theme.borderColor,
+                  borderColor: inkColor,
                   strokeWidth: theme.strokeWidth + (focus.hasFocus ? 0.6 : 0),
                 ),
+                seed: seed,
                 fillerType: RoughFilter.noFiller,
               ),
             ),
@@ -100,7 +166,14 @@ class WiredInput extends HookWidget {
                 controller: controller,
                 focusNode: focus,
                 style: style,
+                enabled: enabled,
+                autofocus: autofocus,
                 obscureText: obscureText,
+                keyboardType: keyboardType,
+                textInputAction: textInputAction,
+                maxLength: maxLength,
+                inputFormatters: inputFormatters,
+                onSubmitted: onSubmitted,
                 decoration: InputDecoration(
                   filled: false,
                   border: InputBorder.none,
@@ -108,8 +181,16 @@ class WiredInput extends HookWidget {
                   focusedBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
                   hintText: hintText,
-                  hintStyle: TextStyle(color: theme.disabledTextColor)
-                      .merge(hintStyle),
+                  hintStyle: TextStyle(
+                    color: theme.disabledTextColor,
+                  ).merge(hintStyle),
+                  prefix: prefix,
+                  suffix: suffix,
+                  prefixIcon: prefixIcon,
+                  suffixIcon: suffixIcon,
+                  errorText: errorText,
+                  errorStyle: TextStyle(color: theme.errorColor),
+                  counterText: maxLength == null ? '' : null,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 14,

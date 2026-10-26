@@ -12,7 +12,7 @@ void main() {
           config,
           NoFiller(),
         ).roundedRectangle(0, 0, 960, 100, 12, 12, 12, 12);
-        for (final point in drawing.sets!.last.ops!.expand((op) => op.data)) {
+        for (final point in drawing.sets.last.ops.expand((op) => op.data)) {
           expect(point.x, inInclusiveRange(-bleed, 960 + bleed));
           expect(point.y, inInclusiveRange(-bleed, 100 + bleed));
         }
@@ -28,7 +28,7 @@ void main() {
           WiredThemeData(roughnessLevel: level).drawConfig,
           NoFiller(),
         ).roundedRectangle(0, 0, 960, 100, 12, 12, 12, 12);
-        final ops = drawing.sets!.last.ops!;
+        final ops = drawing.sets.last.ops;
         final first = ops.first.data.single;
         final top = ops
             .skip(1)

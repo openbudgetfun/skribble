@@ -51,7 +51,7 @@ Every field has a value; none are nullable.
 | `curveFitting`        | `double`     | `0.95`         | How closely curves follow the intended path (0 = loose, 1 = tight)        |
 | `curveTightness`      | `double`     | `0`            | Tension of Catmull-Rom splines                                            |
 | `curveStepCount`      | `double`     | `9`            | Number of steps when generating curved segments                           |
-| `seed`                | `int`        | `1`            | Random seed for deterministic output                                      |
+| `seed`                | `int`        | `1`            | Random seed for deterministic output; widgets that paint rough shapes expose it directly as a `seed` parameter |
 | `pen`                 | `RoughPen`   | `RoughPen.ink` | How ink is laid along the generated geometry; see [Pens](#pens)           |
 | `randomizer`          | `Randomizer` | seeded         | Pseudo-random number generator, fresh for every `build` and `copyWith`    |
 
