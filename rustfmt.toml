@@ -1,0 +1,8 @@
+# Stable rustfmt options only, so `cargo fmt` gives the same result on every
+# toolchain the workspace supports.
+edition = "2024"
+style_edition = "2024"
+hard_tabs = true
+max_width = 100
+newline_style = "Unix"
+use_field_init_shorthand = true

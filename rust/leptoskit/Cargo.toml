@@ -1,0 +1,33 @@
+[package]
+name = "skribble_leptoskit"
+version.workspace = true
+authors.workspace = true
+categories = ["gui", "wasm", "web-programming"]
+edition.workspace = true
+homepage.workspace = true
+keywords = ["hand-drawn", "sketch", "leptoskit", "leptos", "skribble"]
+license.workspace = true
+# leptoskit is not on crates.io yet, so neither is this crate.
+publish = false
+readme = "README.md"
+repository.workspace = true
+rust-version.workspace = true
+description = "Hand-drawn leptoskit components from the skribble design system: rough borders, sketched fills, pen marks, and doodles."
+
+[dependencies]
+leptoskit = { workspace = true }
+skribble_rough = { workspace = true }
+
+[dev-dependencies]
+leptos = { workspace = true, features = ["ssr"] }
+leptoskit_native = { workspace = true, features = ["web"] }
+leptoskit_testing = { workspace = true }
+
+[features]
+default = []
+# Draws the ink as SVG images for leptoskit's web renderer. Turn it on in your
+# app's web build; native builds leave it off.
+web = []
+
+[lints]
+workspace = true

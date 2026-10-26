@@ -84,6 +84,10 @@ skribble's hand-drawn look also works on [Jaspr](https://jaspr.site) sites witho
 
 The `@skribble.dev` npm packages draw the same hand-drawn shapes in plain browsers, Node, React, React Native, Vue, and Svelte, and replace rough.js. See [Using skribble from JavaScript](../guides/javascript).
 
+## Rust and leptoskit
+
+`skribble_leptoskit` brings the hand-drawn components to [leptoskit](https://github.com/ifiokjr/leptoskit) apps written once in Rust, with rough ink on the web and the same components on macOS, iOS, Android, Windows, and Linux. `skribble_rough` is the Rust port of the rough engine underneath. See [Using skribble with leptoskit](../guides/leptoskit).
+
 ## Workspace contribution setup
 
 <!-- {=docsSetupSection} -->

@@ -1,0 +1,21 @@
+[package]
+name = "skribble_rough"
+version.workspace = true
+authors.workspace = true
+categories = ["graphics", "rendering", "wasm"]
+edition.workspace = true
+homepage.workspace = true
+keywords = ["hand-drawn", "sketch", "rough", "svg", "skribble"]
+license.workspace = true
+# Held back from crates.io until skribble_leptoskit can be published too.
+publish = false
+readme = "README.md"
+repository.workspace = true
+rust-version.workspace = true
+description = "skribble's hand-drawn rendering engine for Rust: seeded rough shapes, sketched fills, and pen-shaped ink as SVG. Draws the same output as skribble's Dart and TypeScript engines."
+
+[dev-dependencies]
+serde_json = { workspace = true }
+
+[lints]
+workspace = true

@@ -69,6 +69,14 @@ Use `WiredThemeData.cuddly()` for warm paper and plum ink, or pass `brightness: 
 | [`skribble_jaspr`](packages/skribble_jaspr/) | Server-rendered hand-drawn components for Jaspr sites      |
 | [`skribble_lints`](packages/skribble_lints/) | Shared lint rules                                          |
 
+## Beyond Dart
+
+| Package                                        | Description                                                                                         |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| [`@skribble.dev/rough`](js/rough/)             | The rough engine for JavaScript, with React, React Native, Vue, and Svelte bindings in [`js/`](js/) |
+| [`skribble_rough`](rust/rough/) (Rust)         | The rough engine for Rust, drawing byte-identical SVG                                               |
+| [`skribble_leptoskit`](rust/leptoskit/) (Rust) | Hand-drawn components for leptoskit apps on the web and native                                      |
+
 ## Apps
 
 | App                                              | Description                             |

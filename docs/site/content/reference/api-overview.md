@@ -428,6 +428,15 @@ The `js/` workspace publishes skribble's rough engine to npm. See [Using skribbl
 | `@skribble.dev/vue`          | `Sketch`, `useSketch`                                                                                                   |
 | `@skribble.dev/svelte`       | `Sketch`, `sketch`                                                                                                      |
 
+## Rust crates
+
+The `rust/` workspace ports the rough engine to Rust and builds leptoskit components on it. Both crates install from Git until leptoskit is published. See [Using skribble with leptoskit](/guides/leptoskit).
+
+| Crate                | Main exports                                                                                                                                                                                                                             |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `skribble_rough`     | `sketch`, `Shape`, `SketchOptions`, `Generator`, `DrawConfig`, `Filler`, `FillStyle`, `RoughPen`, `DrawableInk`, `InkStroke`, `RoughSvgPaths`                                                                                            |
+| `skribble_leptoskit` | `SkribblePage`, `WiredBox`, `WiredCard`, `WiredCircle`, `WiredBadge`, `WiredButton`, `WiredInput`, `WiredCheckbox`, `WiredRadio`, `WiredSwitch`, `WiredProgress`, `WiredHighlight`, `WiredDivider`, `Sketch`, `Theme`, `Palette`, `Tone` |
+
 ## API documentation
 
 Full dartdoc API reference is available at:
