@@ -17,7 +17,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const packageDir = join(here, "..", process.argv[2] ?? "");
+const packageDir = join(here, "..", "js", process.argv[2] ?? "");
 const manifest = JSON.parse(readFileSync(join(packageDir, "package.json"), "utf8"));
 
 // The workspace-local compiler, the same one `pnpm run typecheck` uses.

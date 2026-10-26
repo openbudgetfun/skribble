@@ -44,7 +44,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "node ../scripts/build-dual.mjs vue",
+    "build": "node ../../scripts/build-dual.mjs vue",
     "prepack": "pnpm --filter \"$npm_package_name...\" run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run"

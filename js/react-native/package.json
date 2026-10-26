@@ -45,7 +45,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "node ../scripts/build-dual.mjs react-native",
+    "build": "node ../../scripts/build-dual.mjs react-native",
     "prepack": "pnpm --filter \"$npm_package_name...\" run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run"
