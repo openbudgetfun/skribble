@@ -74,25 +74,45 @@ void main() {
     testWidgets('equal painters compare equal across every shape kind', (
       tester,
     ) async {
-      expect(
-        const WiredRectangleBase(leftIndent: 2, strokeWidth: 3),
-        const WiredRectangleBase(leftIndent: 2, strokeWidth: 3),
-      );
-      expect(
-        const WiredLineBase(x1: 0, y1: 0, x2: 10, y2: 10),
-        isNot(const WiredLineBase(x1: 0, y1: 0, x2: 11, y2: 10)),
-      );
-      expect(
-        const WiredCircleBase(diameterRatio: 0.7),
-        const WiredCircleBase(diameterRatio: 0.7),
-      );
-      expect(
-        const WiredCircleBase(diameterRatio: 0.7).hashCode,
-        const WiredCircleBase(diameterRatio: 0.7).hashCode,
-      );
+      const rectangle = WiredRectangleBase(leftIndent: 2, strokeWidth: 3);
+      const rectangleAgain = WiredRectangleBase(leftIndent: 2, strokeWidth: 3);
+      const line = WiredLineBase(x1: 0, y1: 0, x2: 10, y2: 10);
+      const circle = WiredCircleBase(diameterRatio: 0.7);
       const rounded = WiredRoundedRectangleBase();
-      const square = WiredRectangleBase();
-      expect(rounded, isNot(square));
+      const triangle = WiredInvertedTriangleBase();
+      const roundedOther = WiredRoundedRectangleBase(
+        borderRadius: BorderRadius.zero,
+      );
+
+      expect(rectangle, rectangleAgain);
+      expect(rectangle.hashCode, rectangleAgain.hashCode);
+      expect(rectangle, isNot(const WiredRectangleBase(leftIndent: 3)));
+
+      expect(line, const WiredLineBase(x1: 0, y1: 0, x2: 10, y2: 10));
+      expect(
+        line.hashCode,
+        const WiredLineBase(x1: 0, y1: 0, x2: 10, y2: 10).hashCode,
+      );
+      expect(line, isNot(const WiredLineBase(x1: 0, y1: 0, x2: 11, y2: 10)));
+
+      expect(circle, const WiredCircleBase(diameterRatio: 0.7));
+      expect(
+        circle.hashCode,
+        const WiredCircleBase(diameterRatio: 0.7).hashCode,
+      );
+      expect(circle, isNot(const WiredCircleBase(diameterRatio: 0.6)));
+
+      expect(rounded, const WiredRoundedRectangleBase());
+      expect(rounded.hashCode, const WiredRoundedRectangleBase().hashCode);
+      expect(rounded, isNot(roundedOther));
+
+      expect(triangle, const WiredInvertedTriangleBase());
+      expect(triangle.hashCode, const WiredInvertedTriangleBase().hashCode);
+      expect(triangle, isNot(const WiredInvertedTriangleBase(strokeWidth: 4)));
+
+      // Different kinds never compare equal, whatever their fields.
+      expect(rounded, isNot(const WiredRectangleBase()));
+      expect(circle, isNot(rectangle));
     });
 
     testWidgets(

@@ -7,9 +7,7 @@
 /// animation or a parent rebuild is a caching regression.
 ///
 /// Exposed through `package:skribble/testing.dart`.
-final class RoughGenerationCounter {
-  RoughGenerationCounter._();
-
+abstract final class RoughGenerationCounter {
   static int _generations = 0;
 
   /// How many times rough geometry has been generated since the last

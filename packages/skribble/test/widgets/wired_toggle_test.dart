@@ -115,6 +115,25 @@ void main() {
       );
     });
 
+    testWidgets('the deprecated onChange still accepts a toggle it approves', (
+      tester,
+    ) async {
+      var accepted = false;
+
+      await pumpWired(
+        tester,
+        // The return-style contract is preserved for the deprecated parameter.
+        // ignore: deprecated_member_use_from_same_package
+        WiredToggle(value: false, onChange: (v) => accepted = v),
+      );
+
+      await tapWired(tester, findWired<WiredToggle>());
+      await tester.pumpAndSettle();
+
+      // The widget is controlled: the parent would rebuild with value: true.
+      expect(accepted, isTrue);
+    });
+
     testWidgets('disabled toggle reports disabled and is not tappable', (
       tester,
     ) async {
