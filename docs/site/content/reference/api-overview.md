@@ -145,7 +145,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredSlider`                   | `wired_slider.dart`                      |
 | `WiredRangeSlider`              | `wired_range_slider.dart`                |
 | `WiredToggle`                   | `wired_toggle.dart`                      |
-| `WiredRefreshIndicator`         | `wired_refresh_indicator.dart`          |
+| `WiredRefreshIndicator`         | `wired_refresh_indicator.dart`           |
 | `WiredForm`                     | `wired_form.dart`                        |
 | `WiredAutocomplete`             | `wired_autocomplete.dart`                |
 | `WiredCupertinoTextField`       | `wired_cupertino_text_field.dart`        |
