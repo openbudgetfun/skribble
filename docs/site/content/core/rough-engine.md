@@ -42,18 +42,18 @@ canvas.drawRough(drawable, pathPaint, fillPaint);
 
 Every field has a value; none are nullable.
 
-| Field                 | Type         | Default        | Description                                                               |
-| --------------------- | ------------ | -------------- | ------------------------------------------------------------------------- |
-| `maxRandomnessOffset` | `double`     | `2`            | Maximum pixel offset for random jitter                                    |
-| `roughness`           | `double`     | `1.8`          | Overall roughness multiplier -- higher values produce wobblier lines      |
-| `bowing`              | `double`     | `1`            | How much lines bow outward, capped at `maxRandomnessOffset` on long edges |
-| `lineWobble`          | `double`     | `1`            | Local wandering along long edges; zero restores a single soft bow         |
-| `curveFitting`        | `double`     | `0.95`         | How closely curves follow the intended path (0 = loose, 1 = tight)        |
-| `curveTightness`      | `double`     | `0`            | Tension of Catmull-Rom splines                                            |
-| `curveStepCount`      | `double`     | `9`            | Number of steps when generating curved segments                           |
+| Field                 | Type         | Default        | Description                                                                                                    |
+| --------------------- | ------------ | -------------- | -------------------------------------------------------------------------------------------------------------- |
+| `maxRandomnessOffset` | `double`     | `2`            | Maximum pixel offset for random jitter                                                                         |
+| `roughness`           | `double`     | `1.8`          | Overall roughness multiplier -- higher values produce wobblier lines                                           |
+| `bowing`              | `double`     | `1`            | How much lines bow outward, capped at `maxRandomnessOffset` on long edges                                      |
+| `lineWobble`          | `double`     | `1`            | Local wandering along long edges; zero restores a single soft bow                                              |
+| `curveFitting`        | `double`     | `0.95`         | How closely curves follow the intended path (0 = loose, 1 = tight)                                             |
+| `curveTightness`      | `double`     | `0`            | Tension of Catmull-Rom splines                                                                                 |
+| `curveStepCount`      | `double`     | `9`            | Number of steps when generating curved segments                                                                |
 | `seed`                | `int`        | `1`            | Random seed for deterministic output; widgets that paint rough shapes expose it directly as a `seed` parameter |
-| `pen`                 | `RoughPen`   | `RoughPen.ink` | How ink is laid along the generated geometry; see [Pens](#pens)           |
-| `randomizer`          | `Randomizer` | seeded         | Pseudo-random number generator, fresh for every `build` and `copyWith`    |
+| `pen`                 | `RoughPen`   | `RoughPen.ink` | How ink is laid along the generated geometry; see [Pens](#pens)                                                |
+| `randomizer`          | `Randomizer` | seeded         | Pseudo-random number generator, fresh for every `build` and `copyWith`                                         |
 
 ### Creating a DrawConfig
 
