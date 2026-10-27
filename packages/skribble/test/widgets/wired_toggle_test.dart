@@ -155,6 +155,9 @@ void main() {
       const toggle = WiredToggle(value: false);
       expect(toggle.thumbRadius, 24.0);
       expect(toggle.onChanged, isNull);
+      // The deprecated getter still reports its (unset) veto callback.
+      // ignore: deprecated_member_use_from_same_package
+      expect(toggle.onChange, isNull);
       expect(toggle.semanticLabel, isNull);
 
       await pumpWired(
