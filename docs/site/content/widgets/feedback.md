@@ -179,6 +179,25 @@ WiredCircularProgress(value: .6)
 
 ---
 
+## WiredRefreshIndicator
+
+`WiredRefreshIndicator` wraps Flutter's `RefreshIndicator` with the skribble aesthetic, and `WiredCustomRefreshIndicator` shows a `WiredLoadingIndicator` while an overscroll-triggered refresh runs.
+
+```dart
+// Static example: api
+WiredRefreshIndicator(
+  onRefresh: () async {
+    await fetchLatest();
+  },
+  semanticLabel: 'Refreshing content',
+  child: listView,
+);
+```
+
+The custom variant clears its spinner whether the refresh succeeds or fails, so an erroring refresh can no longer wedge the spinner on screen, and the `semanticLabel` is announced once — as the label, not also as the value.
+
+---
+
 ## WiredBadge
 
 A badge overlay that positions a hand-drawn dot, or a pill around a short label, at the top-right corner of its child.

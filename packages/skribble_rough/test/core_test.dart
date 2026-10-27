@@ -28,13 +28,13 @@ void main() {
     test('creates with type and ops', () {
       final opSet = OpSet(type: OpSetType.path, ops: [Op.move(PointD(0, 0))]);
       expect(opSet.type, OpSetType.path);
-      expect(opSet.ops!.length, 1);
+      expect(opSet.ops.length, 1);
     });
 
-    test('creates empty with null fields', () {
-      final opSet = OpSet();
-      expect(opSet.type, isNull);
-      expect(opSet.ops, isNull);
+    test('creates empty and keeps its fields', () {
+      final opSet = OpSet(type: OpSetType.path, ops: const <Op>[]);
+      expect(opSet.type, OpSetType.path);
+      expect(opSet.ops, isEmpty);
     });
 
     test('supports all OpSetType values', () {

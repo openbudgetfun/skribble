@@ -41,7 +41,10 @@ void main() {
   group('opSetToSvgPath', () {
     test('returns an empty string for an empty set', () {
       expect(opSetToSvgPath(OpSet(type: OpSetType.path, ops: [])), isEmpty);
-      expect(opSetToSvgPath(OpSet(type: OpSetType.path)), isEmpty);
+      expect(
+        opSetToSvgPath(OpSet(type: OpSetType.path, ops: const <Op>[])),
+        isEmpty,
+      );
     });
 
     test('writes move, line, and curve commands', () {
@@ -156,7 +159,9 @@ void main() {
     });
 
     test('an empty drawable is empty and renders nothing', () {
-      final svg = RoughSvg.fromDrawable(Drawable());
+      final svg = RoughSvg.fromDrawable(
+        Drawable(options: DrawConfig.defaultValues, sets: const []),
+      );
 
       expect(svg.isEmpty, isTrue);
       expect(svg.toPathElements(), isEmpty);

@@ -25,8 +25,33 @@ const double _referenceInkWidth = 2.4;
 /// keeps revisited icons at precomputed-path cost.
 const int _kIconPainterCacheCapacity = 256;
 
-final Map<_IconPainterKey, WiredSvgIconPainter> _iconPainterCache =
-    <_IconPainterKey, WiredSvgIconPainter>{};
+final Map<_IconPainterKey, WiredSvgPainterEntry> _iconPainterCache =
+    <_IconPainterKey, WiredSvgPainterEntry>{};
+
+/// One prepared painter plus the generation counter at its creation.
+///
+/// The counter exists so tests can assert that equal-valued icon data reuses
+/// a cached painter instead of preparing a new one.
+final class WiredSvgPainterEntry {
+  WiredSvgPainterEntry(this.painter) : generation = _iconPainterGenerations++;
+
+  final WiredSvgIconPainter painter;
+  final int generation;
+}
+
+int _iconPainterGenerations = 0;
+
+/// How many distinct painters the cache has prepared since the last
+/// [debugResetIconPainterCacheStats], for cache regression tests.
+@visibleForTesting
+int get debugIconPainterGenerations => _iconPainterGenerations;
+
+/// Returns the painter-generation counters to zero. Test-only.
+@visibleForTesting
+void debugResetIconPainterCacheStats() {
+  _iconPainterCache.clear();
+  _iconPainterGenerations = 0;
+}
 
 /// The inputs a [WiredSvgIconPainter]'s ink depends on.
 typedef _IconPainterKey = (
@@ -51,7 +76,7 @@ WiredSvgIconPainter _iconPainter(_IconPainterKey key) {
   final cached = _iconPainterCache.remove(key);
   if (cached != null) {
     _iconPainterCache[key] = cached;
-    return cached;
+    return cached.painter;
   }
   final (
     data,
@@ -73,7 +98,7 @@ WiredSvgIconPainter _iconPainter(_IconPainterKey key) {
     hachureGap: hachureGap,
     hachureAngle: hachureAngle,
   );
-  _iconPainterCache[key] = painter;
+  _iconPainterCache[key] = WiredSvgPainterEntry(painter);
   if (_iconPainterCache.length > _kIconPainterCacheCapacity) {
     _iconPainterCache.remove(_iconPainterCache.keys.first);
   }

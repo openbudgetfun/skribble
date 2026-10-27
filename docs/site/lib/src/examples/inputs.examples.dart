@@ -80,10 +80,7 @@ Widget _radio(ExampleSettings settings) => HookBuilder(
             groupValue: selected.value,
             semanticLabel: value,
             onChanged: settings.enabled
-                ? (value) {
-                    selected.value = value!;
-                    return true;
-                  }
+                ? (value) => selected.value = value!
                 : null,
           ),
       ],
@@ -135,10 +132,7 @@ Widget _toggle(ExampleSettings settings) => HookBuilder(
     return WiredToggle(
       value: enabled.value,
       semanticLabel: 'Ink enabled',
-      onChange: (value) {
-        enabled.value = value;
-        return true;
-      },
+      onChanged: (v) => enabled.value = v,
     );
   },
 );

@@ -29,6 +29,7 @@ abstract class WiredButtonBase extends HookWidget {
     this.onPressed,
     this.semanticLabel,
     this.inkInteraction,
+    this.seed,
   });
 
   /// The button label.
@@ -47,6 +48,12 @@ abstract class WiredButtonBase extends HookWidget {
 
   /// Overrides the theme’s decorative ink feedback for this control.
   final WiredInkInteraction? inkInteraction;
+
+  /// Varies the hand behind this button's ink. The same seed always draws
+  /// the same wobble, so a row of same-sized buttons needs different seeds to
+  /// stop them reading as copies of each other. Null uses the decoration
+  /// default.
+  final int? seed;
 
   /// Builds the shared button chrome around [decorationBuilder].
   ///

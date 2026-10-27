@@ -513,22 +513,22 @@ OpSet ellipseSet(
   EllipseParams ellipseParams,
 ) {
   final List<PointD> ellipsePoints1 = computeEllipseAllPoints(
-    increment: ellipseParams.increment!,
+    increment: ellipseParams.increment,
     cx: x,
     cy: y,
-    rx: ellipseParams.rx!,
-    ry: ellipseParams.ry!,
+    rx: ellipseParams.rx,
+    ry: ellipseParams.ry,
     offset: 1,
     overlap:
-        ellipseParams.increment! * config.offset(0.1, config.offset(0.4, 1)),
+        ellipseParams.increment * config.offset(0.1, config.offset(0.4, 1)),
     config: config,
   );
   final List<PointD> ellipsePoints2 = computeEllipseAllPoints(
-    increment: ellipseParams.increment!,
+    increment: ellipseParams.increment,
     cx: x,
     cy: y,
-    rx: ellipseParams.rx!,
-    ry: ellipseParams.ry!,
+    rx: ellipseParams.rx,
+    ry: ellipseParams.ry,
     offset: 1.5,
     overlap: 0,
     config: config,

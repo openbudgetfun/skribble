@@ -29,7 +29,14 @@ class WiredCard extends HookWidget {
     this.fill = false,
     this.height = 130.0,
     this.borderRadius = const BorderRadius.all(Radius.circular(16)),
+    this.seed,
   });
+
+  /// Varies the hand behind this widget's ink. The same seed always draws
+  /// the same wobble, so neighbouring shapes of the same size need different
+  /// seeds to stop them reading as copies of each other. Null keeps the
+  /// theme's seed.
+  final int? seed;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +52,7 @@ class WiredCard extends HookWidget {
               borderColor: theme.borderColor,
             ),
             fillerType: fill ? RoughFilter.hachureFiller : RoughFilter.noFiller,
+            seed: seed,
             // Close, even strokes read as a page coloured in with a pencil.
             fillerConfig: FillerConfig.build(
               drawConfig: theme.drawConfig.copyWith(),

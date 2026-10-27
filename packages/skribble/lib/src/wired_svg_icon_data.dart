@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:path_parsing/path_parsing.dart';
 
 /// Fill rules supported by [WiredSvgPrimitive].
@@ -16,6 +17,21 @@ final class WiredSvgIconData {
   final double width;
   final double height;
   final List<WiredSvgPrimitive> primitives;
+
+  /// Structural equality: the icon painter cache keys on its data, so
+  /// equal-valued data built at runtime (rather than shared const glyphs)
+  /// still hits the cache instead of re-wavering every contour on each
+  /// rebuild.
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredSvgIconData &&
+          width == other.width &&
+          height == other.height &&
+          listEquals(primitives, other.primitives);
+
+  @override
+  int get hashCode => Object.hash(width, height, Object.hashAll(primitives));
 }
 
 /// A single drawable SVG primitive.
@@ -163,6 +179,33 @@ sealed class WiredSvgPrimitive {
     return dashed;
   }
 
+  /// Field equality shared by every primitive kind, for [operator ==].
+  bool matchesBase(WiredSvgPrimitive other) =>
+      fillRule == other.fillRule &&
+      fillColor == other.fillColor &&
+      strokeColor == other.strokeColor &&
+      strokeWidth == other.strokeWidth &&
+      listEquals(clipPaths, other.clipPaths) &&
+      listEquals(strokeDashArray, other.strokeDashArray) &&
+      strokeDashOffset == other.strokeDashOffset &&
+      strokeCap == other.strokeCap &&
+      strokeJoin == other.strokeJoin &&
+      strokeMiterLimit == other.strokeMiterLimit;
+
+  /// Field hash shared by every primitive kind, for [hashCode].
+  int get baseHash => Object.hash(
+    fillRule,
+    fillColor,
+    strokeColor,
+    strokeWidth,
+    Object.hashAll(clipPaths),
+    Object.hashAll(strokeDashArray),
+    strokeDashOffset,
+    strokeCap,
+    strokeJoin,
+    strokeMiterLimit,
+  );
+
   Path buildPath();
 
   Path createPath() {
@@ -201,6 +244,16 @@ final class WiredSvgPathPrimitive extends WiredSvgPrimitive {
   final String data;
 
   @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredSvgPathPrimitive &&
+          data == other.data &&
+          matchesBase(other);
+
+  @override
+  int get hashCode => Object.hash(data, baseHash);
+
+  @override
   Path buildPath() {
     return _parsedPathData[this] ??= _parse();
   }
@@ -229,6 +282,18 @@ final class WiredSvgCirclePrimitive extends WiredSvgPrimitive {
   final double radius;
 
   @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredSvgCirclePrimitive &&
+          cx == other.cx &&
+          cy == other.cy &&
+          radius == other.radius &&
+          matchesBase(other);
+
+  @override
+  int get hashCode => Object.hash(cx, cy, radius, baseHash);
+
+  @override
   Path buildPath() {
     return createPath()..addOval(
       Rect.fromCircle(
@@ -255,6 +320,19 @@ final class WiredSvgEllipsePrimitive extends WiredSvgPrimitive {
   final double cy;
   final double radiusX;
   final double radiusY;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredSvgEllipsePrimitive &&
+          cx == other.cx &&
+          cy == other.cy &&
+          radiusX == other.radiusX &&
+          radiusY == other.radiusY &&
+          matchesBase(other);
+
+  @override
+  int get hashCode => Object.hash(cx, cy, radiusX, radiusY, baseHash);
 
   @override
   Path buildPath() {

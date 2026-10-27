@@ -77,7 +77,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 2. ~~`WiredDropdownMenu`~~ — ✅ Already exists (added in earlier PR)
 3. ~~`WiredExpansionPanelList`~~ — ✅ Multiple expansion panels (MEDIUM - implemented)
 4. ~~`WiredPaginatedDataTable`~~ — ✅ Paginated table (MEDIUM - implemented)
-5. `WiredRefreshIndicator` — ⚠️ **not shipped.** The file exists at `packages/skribble/lib/src/wired_refresh_indicator.dart` (165 lines), but it is not exported from `packages/skribble/lib/skribble.dart` and is referenced nowhere else in the repository — no tests, no storybook entry. It is dead code, not a delivered pull-to-refresh widget. Either finish it (export, tests, storybook, docs, catalog entry) or delete it.
+5. `WiredRefreshIndicator` — ✅ **shipped.** Exported from `packages/skribble/lib/skribble.dart` with tests and a catalog entry; `WiredCustomRefreshIndicator` clears its spinner when a refresh fails, and its `semanticLabel` is no longer forwarded as the semantics value.
 6. `WiredCarouselView` — M3 carousel (LOW - new M3 component)
 7. `WiredDatePickerDialog` — Date picker dialog (already have calendar/date_picker)
 8. `WiredDateRangePickerDialog` — Date range picker (LOW)
@@ -92,7 +92,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 **Priority ranking:**
 
-- HIGH: RefreshIndicator — ⚠️ implemented but unexported and unused (dead code; see above)
+- HIGH: RefreshIndicator — ✅ exported, tested, and documented
 - MEDIUM: ExpansionPanelList, PaginatedDataTable, SearchAnchor
 - LOW: Everything else
 
@@ -139,7 +139,7 @@ All 24 widgets identified as missing Semantics support DO have existing test fil
 
 - ✅ `WiredPaginatedDataTable`
 - ✅ `WiredExpansionPanelList`
-- ⚠️ `WiredRefreshIndicator` — file exists but is dead code, not exported (see Phase 1.1)
+- ✅ `WiredRefreshIndicator` — exported, tested, and documented (see Phase 1.1)
 - ⬜ `WiredSnackBar` animation improvements
 - ⬜ Other gaps TBD from audit
 

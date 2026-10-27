@@ -72,10 +72,12 @@ class FillerConfig {
     zigzagOffset: zigzagOffset,
   );
 
-  /// The configuration used when a filler is created without one.
-  static FillerConfig defaultConfig = FillerConfig.build(
-    drawConfig: DrawConfig.defaultValues,
-  );
+  /// A fresh configuration a filler built without one draws with.
+  ///
+  /// The `Filler` base constructs its own [FillerConfig.build] rather than
+  /// using this instance, so no two fillers ever advance one shared random
+  /// stream.
+  static final FillerConfig defaultConfig = FillerConfig.build();
 
   /// Returns a copy with the given values replaced.
   FillerConfig copyWith({
@@ -125,8 +127,9 @@ class FillerConfig {
 /// Subclasses implement [fill] to produce an `OpSet` of drawing
 /// operations that fill the given polygon points.
 abstract class Filler {
-  /// Creates a filler drawing with [config], or [FillerConfig.defaultConfig].
-  Filler(FillerConfig? config) : config = config ?? FillerConfig.defaultConfig;
+  /// Creates a filler drawing with [config], or a fresh
+  /// [FillerConfig.build] whose random stream no other filler shares.
+  Filler(FillerConfig? config) : config = config ?? FillerConfig.build();
 
   /// Configuration this filler draws with.
   final FillerConfig config;
@@ -165,12 +168,12 @@ abstract class Filler {
         return lines;
       }
       List<ActiveEdge> activeEdges = [];
-      double y = edges[0].yMin!;
+      double y = edges[0].yMin;
       while (activeEdges.isNotEmpty || edges.isNotEmpty) {
         if (edges.isNotEmpty) {
           int ix = -1;
           for (int i = 0; i < edges.length; i++) {
-            if (edges[i].yMin! > y) {
+            if (edges[i].yMin > y) {
               break;
             }
             ix = i;
@@ -185,14 +188,14 @@ abstract class Filler {
             activeEdges.add(
               ActiveEdge(
                 y,
-                edge.copyWith(x: edge.x! + (y - edge.yMin!) * edge.slope!),
+                edge.copyWith(x: edge.x + (y - edge.yMin) * edge.slope),
               ),
             );
           }
         }
-        activeEdges = activeEdges.where((ae) => ae.edge.yMax! > y).toList();
+        activeEdges = activeEdges.where((ae) => ae.edge.yMax > y).toList();
 
-        activeEdges.sort((ae1, ae2) => ae1.edge.x!.compareTo(ae2.edge.x!));
+        activeEdges.sort((ae1, ae2) => ae1.edge.x.compareTo(ae2.edge.x));
 
         if (activeEdges.length > 1) {
           for (int i = 0; i < activeEdges.length; i = i + 2) {
@@ -204,8 +207,8 @@ abstract class Filler {
             final Edge ne = activeEdges[next].edge;
             lines.add(
               Line(
-                PointD(ce.x!.roundToDouble(), y),
-                PointD(ne.x!.roundToDouble(), y),
+                PointD(ce.x.roundToDouble(), y),
+                PointD(ne.x.roundToDouble(), y),
               ),
             );
           }
@@ -215,7 +218,7 @@ abstract class Filler {
         activeEdges = activeEdges.map((ae) {
           return ActiveEdge(
             ae.s,
-            ae.edge.copyWith(x: ae.edge.x! + (gap * ae.edge.slope!)),
+            ae.edge.copyWith(x: ae.edge.x + (gap * ae.edge.slope)),
           );
         }).toList();
       }
@@ -245,19 +248,19 @@ abstract class Filler {
   }
 
   int edgeSorter(Edge e1, Edge e2) {
-    if (e1.yMin! < e2.yMin!) {
+    if (e1.yMin < e2.yMin) {
       return -1;
     }
-    if (e1.yMin! > e2.yMin!) {
+    if (e1.yMin > e2.yMin) {
       return 1;
     }
-    if (e1.x! < e2.x!) {
+    if (e1.x < e2.x) {
       return -1;
     }
-    if (e1.x! > e2.x!) {
+    if (e1.x > e2.x) {
       return 1;
     }
-    return e1.yMax!.compareTo(e2.yMax!);
+    return e1.yMax.compareTo(e2.yMax);
   }
 
   OpSet fillPolygon(
@@ -356,7 +359,7 @@ abstract class Filler {
           line.target.x,
           line.target.y,
           config.drawConfig,
-        ).ops!,
+        ).ops,
       );
     }
     return ops;
@@ -404,7 +407,7 @@ class HatchFiller extends Filler {
       hachureAngle: config.hachureAngle + 90,
     );
     final OpSet set2 = fillPolygon(points, rotated, false);
-    return OpSet(type: OpSetType.fillSketch, ops: set1.ops! + set2.ops!);
+    return OpSet(type: OpSetType.fillSketch, ops: set1.ops + set2.ops);
   }
 }
 
@@ -515,7 +518,7 @@ class DotFiller extends Filler {
           fWeight,
           config.drawConfig,
         );
-        ops.addAll(el.ops!);
+        ops.addAll(el.ops);
       }
     }
     return OpSet(type: OpSetType.fillSketch, ops: ops);

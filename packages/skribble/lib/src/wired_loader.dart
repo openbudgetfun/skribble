@@ -191,18 +191,23 @@ class _LoaderPainter extends CustomPainter {
   final Color color;
   final double pen;
 
+  // Loaders animate continuously, so both paints are built once and mutated
+  // in place per frame instead of allocating fresh Paints on every tick.
+  late final Paint stroke = Paint()
+    ..color = color
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = pen
+    ..strokeCap = StrokeCap.round
+    ..strokeJoin = StrokeJoin.round;
+  late final Paint fill = Paint()..color = color;
+
   @override
   void paint(Canvas canvas, Size size) {
     final side = size.shortestSide;
 
     if (side <= 0 || pen <= 0) return;
     final t = phase.value.clamp(0.0, 1.0);
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = pen
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round;
+    final paint = stroke;
     canvas.save();
     canvas.translate((size.width - side) / 2, (size.height - side) / 2);
     canvas.scale(side / 100);
@@ -216,7 +221,7 @@ class _LoaderPainter extends CustomPainter {
         final metric = geometry.metrics.single;
         canvas.drawPath(metric.extractPath(0, metric.length * .76), paint);
         final tip = metric.getTangentForOffset(metric.length * .76)!.position;
-        canvas.drawCircle(tip, pen * 1.4, Paint()..color = color);
+        canvas.drawCircle(tip, pen * 1.4, fill);
       case WiredLoaderStyle.dots:
         for (var i = 0; i < 3; i++) {
           final hop = math.max(0.0, math.sin((t - i * .16) * math.pi * 2));
@@ -225,8 +230,7 @@ class _LoaderPainter extends CustomPainter {
           canvas.scale(.26);
           canvas.drawPath(
             geometry.paths.single,
-            Paint()
-              ..color = color.withValues(alpha: color.a * (.45 + .55 * hop)),
+            fill..color = color.withValues(alpha: color.a * (.45 + .55 * hop)),
           );
           canvas.restore();
         }
@@ -266,7 +270,7 @@ class _LoaderPainter extends CustomPainter {
         for (final path in geometry.paths) {
           canvas.drawPath(
             path,
-            Paint()..color = color.withValues(alpha: color.a * .10),
+            fill..color = color.withValues(alpha: color.a * .10),
           );
           canvas.drawPath(path, paint);
         }

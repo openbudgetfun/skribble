@@ -53,11 +53,11 @@ class Generator {
     );
     final OpSet ellipseOp = ellipseSet(x, y, drawConfig, ellipseParams);
     final List<PointD> estimatedPoints = computeEllipseAllPoints(
-      increment: ellipseParams.increment!,
+      increment: ellipseParams.increment,
       cx: x,
       cy: y,
-      rx: ellipseParams.rx!,
-      ry: ellipseParams.ry!,
+      rx: ellipseParams.rx,
+      ry: ellipseParams.ry,
       offset: 0,
       overlap: 0,
       config: drawConfig,

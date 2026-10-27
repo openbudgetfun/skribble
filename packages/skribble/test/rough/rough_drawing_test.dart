@@ -91,6 +91,7 @@ void main() {
   }
 
   final twoLines = Drawable(
+    options: DrawConfig.defaultValues,
     sets: [
       OpSet(
         type: OpSetType.path,
@@ -121,6 +122,7 @@ void main() {
     'hatching starts after the outline and scribbles sequentially',
     () async {
       final drawable = Drawable(
+        options: DrawConfig.defaultValues,
         sets: [
           OpSet(
             type: OpSetType.fillSketch,
@@ -131,7 +133,7 @@ void main() {
               Op.lineTo(PointD(110, 100)),
             ],
           ),
-          twoLines.sets!.single,
+          twoLines.sets.single,
         ],
       );
       final drawing = RoughDrawing(drawable, border, fill);
@@ -181,7 +183,7 @@ void main() {
     final paint = pen(const Color(0xff112233));
     final drawing = RoughDrawing(drawable, paint, paint);
     final original = await pixels(drawing.paint);
-    drawable.sets!.clear();
+    drawable.sets.clear();
     paint.color = const Color(0xffff0000);
     expect(await pixels(drawing.paint), original);
   });
@@ -198,7 +200,11 @@ void main() {
   );
 
   test('empty operations are paintable at every phase', () async {
-    final drawing = RoughDrawing(Drawable(sets: []), border, fill);
+    final drawing = RoughDrawing(
+      Drawable(options: DrawConfig.defaultValues, sets: []),
+      border,
+      fill,
+    );
     for (final value in [0.0, .5, 1.0]) {
       expect(
         inkCount(await pixels((c) => drawing.paint(c, progress: value))),

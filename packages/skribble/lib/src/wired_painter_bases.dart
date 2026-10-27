@@ -24,13 +24,30 @@ class WiredRectangleBase extends _PreparedWiredPainter {
   final double strokeWidth;
 
   /// Creates a rectangle painter.
-  WiredRectangleBase({
+  const WiredRectangleBase({
     this.leftIndent = 0.0,
     this.rightIndent = 0.0,
     this.fillColor = kWiredDefaultFillColor,
     this.borderColor = kWiredDefaultBorderColor,
     this.strokeWidth = kWiredStrokeWidth,
   });
+
+  /// Value equality: WiredCanvas memoizes its painter and skips repainting
+  /// only when equal-valued delegates compare equal, so callers may construct
+  /// painters inline in build.
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredRectangleBase &&
+          leftIndent == other.leftIndent &&
+          rightIndent == other.rightIndent &&
+          fillColor == other.fillColor &&
+          borderColor == other.borderColor &&
+          strokeWidth == other.strokeWidth;
+
+  @override
+  int get hashCode =>
+      Object.hash(leftIndent, rightIndent, fillColor, borderColor, strokeWidth);
 
   @override
   RoughDrawing prepare(
@@ -63,10 +80,23 @@ class WiredInvertedTriangleBase extends _PreparedWiredPainter {
   final double strokeWidth;
 
   /// Creates an inverted triangle painter.
-  WiredInvertedTriangleBase({
+  const WiredInvertedTriangleBase({
     this.borderColor = kWiredDefaultBorderColor,
     this.strokeWidth = kWiredStrokeWidth,
   });
+
+  /// Value equality: WiredCanvas memoizes its painter and skips repainting
+  /// only when equal-valued delegates compare equal, so callers may construct
+  /// painters inline in build.
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredInvertedTriangleBase &&
+          borderColor == other.borderColor &&
+          strokeWidth == other.strokeWidth;
+
+  @override
+  int get hashCode => Object.hash(borderColor, strokeWidth);
 
   @override
   RoughDrawing prepare(
@@ -111,7 +141,7 @@ class WiredLineBase extends _PreparedWiredPainter {
   final double strokeWidth;
 
   /// Creates a line painter from two local-space points.
-  WiredLineBase({
+  const WiredLineBase({
     required this.x1,
     required this.y1,
     required this.x2,
@@ -119,6 +149,23 @@ class WiredLineBase extends _PreparedWiredPainter {
     this.borderColor = kWiredDefaultBorderColor,
     this.strokeWidth = 1,
   });
+
+  /// Value equality: WiredCanvas memoizes its painter and skips repainting
+  /// only when equal-valued delegates compare equal, so callers may construct
+  /// painters inline in build.
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredLineBase &&
+          x1 == other.x1 &&
+          y1 == other.y1 &&
+          x2 == other.x2 &&
+          y2 == other.y2 &&
+          borderColor == other.borderColor &&
+          strokeWidth == other.strokeWidth;
+
+  @override
+  int get hashCode => Object.hash(x1, y1, x2, y2, borderColor, strokeWidth);
 
   @override
   RoughDrawing prepare(
@@ -171,12 +218,28 @@ class WiredRoundedRectangleBase extends _PreparedWiredPainter {
   final double strokeWidth;
 
   /// Creates a rounded rectangle painter.
-  WiredRoundedRectangleBase({
+  const WiredRoundedRectangleBase({
     this.borderRadius = const BorderRadius.all(Radius.circular(16)),
     this.fillColor = kWiredDefaultFillColor,
     this.borderColor = kWiredDefaultBorderColor,
     this.strokeWidth = kWiredStrokeWidth,
   });
+
+  /// Value equality: WiredCanvas memoizes its painter and skips repainting
+  /// only when equal-valued delegates compare equal, so callers may construct
+  /// painters inline in build.
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredRoundedRectangleBase &&
+          borderRadius == other.borderRadius &&
+          fillColor == other.fillColor &&
+          borderColor == other.borderColor &&
+          strokeWidth == other.strokeWidth;
+
+  @override
+  int get hashCode =>
+      Object.hash(borderRadius, fillColor, borderColor, strokeWidth);
 
   @override
   RoughDrawing prepare(
@@ -219,12 +282,28 @@ class WiredCircleBase extends _PreparedWiredPainter {
   final double strokeWidth;
 
   /// Creates a circle painter.
-  WiredCircleBase({
+  const WiredCircleBase({
     this.diameterRatio = 1,
     this.fillColor = kWiredDefaultFillColor,
     this.borderColor = kWiredDefaultBorderColor,
     this.strokeWidth = kWiredStrokeWidth,
   });
+
+  /// Value equality: WiredCanvas memoizes its painter and skips repainting
+  /// only when equal-valued delegates compare equal, so callers may construct
+  /// painters inline in build.
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredCircleBase &&
+          diameterRatio == other.diameterRatio &&
+          fillColor == other.fillColor &&
+          borderColor == other.borderColor &&
+          strokeWidth == other.strokeWidth;
+
+  @override
+  int get hashCode =>
+      Object.hash(diameterRatio, fillColor, borderColor, strokeWidth);
 
   @override
   RoughDrawing prepare(
@@ -263,6 +342,7 @@ Rect _inkRect(Size size, double strokeWidth, DrawConfig config) {
 
 // Preserve the imperative public painter protocol for existing consumers.
 abstract class _PreparedWiredPainter extends WiredPainterBase {
+  const _PreparedWiredPainter();
   @override
   RoughDrawing prepare(Size size, DrawConfig drawConfig, Filler filler);
 

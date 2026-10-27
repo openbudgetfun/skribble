@@ -22,13 +22,40 @@ class WiredToggle extends HookWidget {
   const WiredToggle({
     super.key,
     required this.value,
-    this.onChange,
+    this.onChanged,
+    @Deprecated(
+      'Use onChanged, which follows the framework convention of a '
+      'void callback where null disables the toggle',
+    )
+    bool Function(bool)? onChange,
     this.thumbRadius = 24.0,
     this.semanticLabel,
-  });
+    this.seed,
+  }) : _legacyOnChange = onChange;
+
+  /// Varies the hand behind this widget's ink. The same seed always draws
+  /// the same wobble, so neighbouring shapes of the same size need different
+  /// seeds to stop them reading as copies of each other. Null keeps the
+  /// theme's seed.
+  final int? seed;
 
   final bool value;
-  final bool Function(bool)? onChange;
+
+  /// Called when the thumb settles on a new side.
+  ///
+  /// Null disables the toggle. Return-style vetoes belong to the deprecated
+  /// onChange parameter.
+  final void Function(bool)? onChanged;
+
+  /// Called when the thumb settles on a new side; returning false vetoes the
+  /// change.
+  @Deprecated(
+    'Use onChanged, which follows the framework convention of a '
+    'void callback where null disables the toggle',
+  )
+  bool Function(bool)? get onChange => _legacyOnChange;
+
+  final bool Function(bool)? _legacyOnChange;
   final double thumbRadius;
 
   /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
@@ -43,11 +70,15 @@ class WiredToggle extends HookWidget {
     final controller = useAnimationController(
       duration: const Duration(milliseconds: 250),
     );
-    final animation = useAnimation(
-      Tween<double>(
+    // The thumb position animates inside an AnimatedBuilder around a
+    // prebuilt child, so a tick repositions the thumb without rebuilding the
+    // toggle or regenerating any rough geometry.
+    final thumbTravel = useMemoized(
+      () => Tween<double>(
         begin: -thumbRadius,
         end: thumbRadius * 1.5,
-      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeIn)),
+      ).chain(CurveTween(curve: Curves.easeIn)),
+      [thumbRadius],
     );
     final toggle = useCallback(() {
       unawaited(isSwitched.value ? controller.forward() : controller.reverse());
@@ -62,45 +93,60 @@ class WiredToggle extends HookWidget {
     }, [value]);
 
     final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final enabled = onChanged != null || _legacyOnChange != null;
+    final thumb = SizedBox(
+      height: thumbRadius * 2,
+      width: thumbRadius * 2,
+      child: WiredCanvas(
+        painter: WiredCircleBase(
+          strokeWidth: theme.strokeWidth,
+          diameterRatio: .7,
+          fillColor: theme.textColor,
+          borderColor: theme.borderColor,
+        ),
+        seed: seed,
+        fillerType: RoughFilter.hachureFiller,
+        fillerConfig: FillerConfig.build(hachureGap: 1.0),
+      ),
+    );
 
     return Semantics(
       label: semanticLabel,
       toggled: value,
-      enabled: onChange != null,
+      enabled: enabled,
       child: buildWiredElement(
         child: WiredActivatable(
-          enabled: onChange != null,
-          onActivate: onChange == null
-              ? null
-              : () {
+          enabled: enabled,
+          onActivate: enabled
+              ? () {
                   final nextValue = !isSwitched.value;
-                  final result = onChange?.call(nextValue) ?? false;
+                  bool accepted;
+                  if (_legacyOnChange != null) {
+                    accepted = _legacyOnChange(nextValue);
+                  } else {
+                    onChanged?.call(nextValue);
+                    accepted = true;
+                  }
 
-                  if (result) {
+                  if (accepted) {
                     isSwitched.value = nextValue;
                     toggle();
                   }
-                },
+                }
+              : null,
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              Positioned(
-                // Mirror the thumb travel so "on" sits at the inline end.
-                left: isRtl ? thumbRadius * 0.5 - animation : animation,
-                top: -thumbRadius / 2,
-                child: SizedBox(
-                  height: thumbRadius * 2,
-                  width: thumbRadius * 2,
-                  child: WiredCanvas(
-                    painter: WiredCircleBase(
-                      strokeWidth: theme.strokeWidth,
-                      diameterRatio: .7,
-                      fillColor: theme.textColor,
-                      borderColor: theme.borderColor,
-                    ),
-                    fillerType: RoughFilter.hachureFiller,
-                    fillerConfig: FillerConfig.build(hachureGap: 1.0),
-                  ),
+              AnimatedBuilder(
+                animation: controller,
+                child: thumb,
+                builder: (context, child) => Positioned(
+                  // Mirror the thumb travel so "on" sits at the inline end.
+                  left: isRtl
+                      ? thumbRadius * 0.5 - thumbTravel.evaluate(controller)
+                      : thumbTravel.evaluate(controller),
+                  top: -thumbRadius / 2,
+                  child: child!,
                 ),
               ),
               SizedBox(
@@ -112,6 +158,7 @@ class WiredToggle extends HookWidget {
                     fillColor: theme.fillColor,
                     borderColor: theme.borderColor,
                   ),
+                  seed: seed,
                   fillerType: RoughFilter.noFiller,
                   fillerConfig: FillerConfig.build(fillWeight: 3.0),
                 ),

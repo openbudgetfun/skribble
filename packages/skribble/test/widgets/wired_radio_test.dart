@@ -79,7 +79,6 @@ void main() {
           groupValue: 'b',
           onChanged: (value) {
             changedValue = value;
-            return true;
           },
         ),
       );
@@ -99,7 +98,6 @@ void main() {
           groupValue: 'b',
           onChanged: (value) {
             selected = true;
-            return true;
           },
         ),
       );
@@ -141,7 +139,6 @@ void main() {
             groupValue: groupValue,
             onChanged: (value) {
               selected = value;
-              return true;
             },
           ),
           WiredRadio<int>(
@@ -149,7 +146,6 @@ void main() {
             groupValue: groupValue,
             onChanged: (value) {
               selected = value;
-              return true;
             },
           ),
         ],
@@ -242,6 +238,24 @@ void main() {
         size: const Size(48, 48),
       );
       expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('a null onChanged disables the radio', (tester) async {
+      await pumpWired(
+        tester,
+        const WiredRadio<String>(value: 'a', groupValue: 'a'),
+      );
+
+      expectSemantics(
+        tester,
+        findWired<WiredRadio<String>>(),
+        isEnabled: false,
+        isChecked: true,
+        hasTapAction: false,
+        reason:
+            'A radio without onChanged follows the framework convention '
+            'of nullability meaning disabled.',
+      );
     });
   });
 }

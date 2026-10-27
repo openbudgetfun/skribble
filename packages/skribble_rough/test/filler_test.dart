@@ -84,7 +84,7 @@ void main() {
       final OpSet result = filler.fill(squarePolygon);
 
       expect(result.ops, isNotNull);
-      expect(result.ops!.length, greaterThan(1));
+      expect(result.ops.length, greaterThan(1));
     });
 
     test('fill() works with custom FillerConfig', () {
@@ -120,8 +120,8 @@ void main() {
 
       // ZigZag connects line ends, so it should have at least as many ops.
       expect(
-        zigzagResult.ops!.length,
-        greaterThanOrEqualTo(hachureResult.ops!.length),
+        zigzagResult.ops.length,
+        greaterThanOrEqualTo(hachureResult.ops.length),
       );
     });
   });
@@ -144,7 +144,7 @@ void main() {
       final OpSet hachureResult = hachure.fill(squarePolygon);
 
       // Hatch fills in two directions, so should have roughly double the ops.
-      expect(hatchResult.ops!.length, greaterThan(hachureResult.ops!.length));
+      expect(hatchResult.ops.length, greaterThan(hachureResult.ops.length));
     });
   });
 

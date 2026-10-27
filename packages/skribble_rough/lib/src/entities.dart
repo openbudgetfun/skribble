@@ -7,11 +7,17 @@ import 'geometry.dart';
 /// The output of a rough drawing generation — a shape with its
 /// operation sets and configuration.
 class Drawable {
-  String? shape;
-  DrawConfig? options;
-  List<OpSet>? sets;
+  /// The shape this drawable was generated as, when the generator named
+  /// it; groupings built by hand may leave it unset.
+  final String? shape;
 
-  Drawable({this.shape, this.options, this.sets});
+  /// The configuration the shape was generated with.
+  final DrawConfig options;
+
+  /// The operation sets that draw the shape, in paint order.
+  final List<OpSet> sets;
+
+  Drawable({this.shape, required this.options, required this.sets});
 }
 
 /// A 2D point with double-precision coordinates.

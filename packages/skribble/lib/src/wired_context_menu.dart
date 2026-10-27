@@ -33,8 +33,14 @@ class WiredContextMenu extends HookWidget {
   }
 
   void _showMenu(BuildContext context) {
+    // The long-press can land after the widget has been unmounted; there is
+    // nothing to anchor a menu to in that case.
+    if (!context.mounted) return;
     final overlay = Overlay.of(context);
-    final renderBox = context.findRenderObject()! as RenderBox;
+    final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
+    if (renderBox == null || !renderBox.attached) {
+      return;
+    }
     final offset = renderBox.localToGlobal(Offset.zero);
 
     late OverlayEntry entry;

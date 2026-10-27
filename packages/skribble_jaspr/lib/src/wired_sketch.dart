@@ -294,8 +294,8 @@ Drawable _withArrowhead(
   return Drawable(
     options: shaft.options,
     sets: [
-      ...?shaft.sets,
-      for (final barb in barbs) ...?barb.sets,
+      ...shaft.sets,
+      for (final barb in barbs) ...barb.sets,
     ],
   );
 }

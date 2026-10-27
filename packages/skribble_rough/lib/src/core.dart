@@ -34,10 +34,13 @@ class Op {
 /// A collection of [Op] drawing operations with a [type] indicating
 /// whether it represents a path outline, fill path, or fill sketch.
 class OpSet {
-  OpSetType? type;
-  List<Op>? ops;
+  /// Whether this set is an outline path, a fill path, or a fill sketch.
+  final OpSetType type;
 
-  OpSet({this.type, this.ops});
+  /// The operations that draw the set.
+  final List<Op> ops;
+
+  OpSet({required this.type, required this.ops});
 }
 
 /// The type of a single drawing operation.

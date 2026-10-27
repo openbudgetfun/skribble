@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 
 import '../rough/skribble_rough.dart';
+import 'rough_generation_counter.dart';
 import 'wired_painter_base.dart';
 
 /// Paints stable rough geometry, listening directly to borrowed animations.
@@ -46,6 +47,7 @@ class WiredPainter extends CustomPainter {
     if (_size != size) {
       _resetRandomizers();
       _drawing = painter.prepare(size, drawConfig, filler);
+      RoughGenerationCounter.record();
       _size = size;
     }
 
@@ -53,6 +55,7 @@ class WiredPainter extends CustomPainter {
 
     if (drawing == null) {
       _resetRandomizers();
+      RoughGenerationCounter.record();
       painter.paintRough(canvas, size, drawConfig, filler);
     } else {
       drawing.paint(

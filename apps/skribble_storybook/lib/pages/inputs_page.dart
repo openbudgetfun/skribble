@@ -173,7 +173,6 @@ class InputsPage extends HookWidget {
                             groupValue: radioValue.value,
                             onChanged: (v) {
                               if (v != null) radioValue.value = v;
-                              return true;
                             },
                           ),
                           const SizedBox(width: 8),
@@ -193,10 +192,7 @@ class InputsPage extends HookWidget {
                 description: 'Animated toggle switch.',
                 child: WiredToggle(
                   value: toggleValue.value,
-                  onChange: (v) {
-                    toggleValue.value = v;
-                    return true;
-                  },
+                  onChanged: (v) => toggleValue.value = v,
                 ),
               ),
             ],

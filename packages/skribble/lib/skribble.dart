@@ -174,6 +174,7 @@ export 'src/wired_progress.dart';
 export 'src/wired_radio.dart';
 export 'src/wired_radio_list_tile.dart';
 export 'src/wired_range_slider.dart';
+export 'src/wired_refresh_indicator.dart';
 export 'src/wired_reorderable_list_view.dart';
 export 'src/wired_roughness.dart';
 export 'src/wired_scaffold.dart';

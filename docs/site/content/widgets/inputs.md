@@ -238,10 +238,7 @@ HookBuilder(
             groupValue: selected.value,
             semanticLabel: value,
             onChanged: true
-                ? (value) {
-                    selected.value = value!;
-                    return true;
-                  }
+                ? (value) => selected.value = value!
                 : null,
           ),
       ],
@@ -429,10 +426,7 @@ HookBuilder(
     return WiredToggle(
       value: enabled.value,
       semanticLabel: 'Ink enabled',
-      onChange: (value) {
-        enabled.value = value;
-        return true;
-      },
+      onChanged: (v) => enabled.value = v,
     );
   },
 )
@@ -580,14 +574,30 @@ Give `WiredCalendar` a bounded height, for example `SizedBox(height: 360, child:
 
 ---
 
+## WiredInput parameters
+
+`WiredInput` wraps the common `TextField` surface: `controller`, `style`, `labelText`/`labelStyle`, `hintText`/`hintStyle`, `onChanged`, `onSubmitted`, `inputFormatters`, `keyboardType`, `textInputAction`, `maxLength`, `enabled`, `autofocus`, `obscureText`, `prefix`/`suffix`, `prefixIcon`/`suffixIcon`, `errorText`, `borderRadius`, and `semanticLabel`. While `errorText` is set the ink border and the message draw in the theme's `errorColor`; a disabled input draws dimmed ink.
+
+---
+
 ## API consistency with Material
 
 The boolean inputs and sliders were audited against their Material counterparts. What matches: `value`/`groupValue` shapes, nullable `onChanged` meaning "disabled", `semanticLabel`, and the `showDivider` layout extension on the list-tile variants. `WiredCheckbox`, `WiredCheckboxListTile`, `WiredSlider`, and `WiredRangeSlider` now make `onChanged` optional, matching Material's nullability; omitting it disables the control and drops its tap action (and for the list tiles, the tile's).
 
+`WiredRadio.onChanged` and `WiredToggle` follow the same convention now: `WiredRadio.onChanged` is an optional `ValueChanged<T?>?` (null disables the radio), and `WiredToggle` takes `onChanged` — the old boolean-returning `onChange` still works for one migration window but is deprecated.
+
 Deliberate deviations, documented rather than silently changed because fixing them is source-breaking:
 
-- `WiredRadio.onChanged` and `WiredRadioListTile.onChanged` are `bool Function(T?)?` instead of Material's `ValueChanged<T?>?`, and remain required so a radio cannot yet be disabled. Returning `true` accepts the selection.
-- `WiredToggle.onChange` uses `onChange`, not `onChanged`, and returns `bool`.
 - `WiredSlider.onChanged` and `WiredRangeSlider.onChanged` return `bool` so a controlled caller can reject a value; `Slider.onChanged` returns `void`.
 - `WiredInputChip.enabled` mirrors Material's `isEnabled` concept under a shorter name.
 - `WiredSwitchListTile` and `WiredRadioListTile` expose the common tile subset (`title`, `subtitle`, `showDivider`, `semanticLabel`) rather than every `ListTile` knob.
+
+## Varying the hand-drawn wobble
+
+Every widget that paints its own rough shape takes a `seed`: `WiredCard`, `WiredChip`, `WiredChoiceChip`, `WiredBadge`, `WiredInput`, `WiredToggle`, `WiredRadio`, and `WiredOutlinedButton`. The same seed always draws the same wobble, so a column of same-sized controls needs different seeds to stop them reading as photocopies of each other; null keeps the theme's seed.
+
+```dart
+// Static example: api
+WiredCard(seed: 3, child: ...),
+WiredCard(seed: 7, child: ...),
+```

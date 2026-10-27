@@ -134,6 +134,15 @@ class _SkeletonPainter extends CustomPainter {
   Size? _cachedSize;
   Path _hatching = Path();
 
+  // Skeletons pulse continuously, so both paints are built once and mutated
+  // in place per frame instead of allocating fresh Paints on every tick.
+  late final Paint wash = Paint()
+    ..color = color.withValues(alpha: color.a * .055);
+  late final Paint hatch = Paint()
+    ..strokeWidth = 1.2
+    ..style = PaintingStyle.stroke
+    ..strokeCap = StrokeCap.round;
+
   @override
   void paint(Canvas canvas, Size size) {
     if (size.isEmpty) return;
@@ -158,18 +167,11 @@ class _SkeletonPainter extends CustomPainter {
     final shape = borderRadius.toRRect(Offset.zero & size);
     canvas.save();
     canvas.clipRRect(shape);
-    canvas.drawRRect(
-      shape,
-      Paint()..color = color.withValues(alpha: color.a * .055),
-    );
+    canvas.drawRRect(shape, wash);
 
     canvas.drawPath(
       _hatching,
-      Paint()
-        ..color = color.withValues(alpha: color.a * (.09 + .07 * pulse))
-        ..strokeWidth = 1.2
-        ..style = PaintingStyle.stroke
-        ..strokeCap = StrokeCap.round,
+      hatch..color = color.withValues(alpha: color.a * (.09 + .07 * pulse)),
     );
     canvas.restore();
   }

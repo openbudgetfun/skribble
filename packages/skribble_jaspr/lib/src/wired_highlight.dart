@@ -109,10 +109,10 @@ class WiredHighlight extends StatelessComponent {
       seed: seed,
       fillStyle: RoughFillStyle.solid,
     ).rectangle(2, 6, 96, 30);
-    final solid = (drawable.sets ?? const <OpSet>[]).where(
-      (set) => set.type == OpSetType.fillPath,
-    );
+    final solid = drawable.sets.where((set) => set.type == OpSetType.fillPath);
 
-    return RoughSvg.fromDrawable(Drawable(sets: solid.toList()));
+    return RoughSvg.fromDrawable(
+      Drawable(options: drawable.options, sets: solid.toList()),
+    );
   }
 }

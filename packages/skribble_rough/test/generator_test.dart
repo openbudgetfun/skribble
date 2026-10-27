@@ -21,7 +21,7 @@ void main() {
         expect(drawable.sets, isNotEmpty);
         expect(drawable.options, equals(config));
 
-        final OpSet opSet = drawable.sets!.first;
+        final OpSet opSet = drawable.sets.first;
         expect(opSet.type, equals(OpSetType.path));
         expect(opSet.ops, isNotNull);
         expect(opSet.ops, isNotEmpty);
@@ -31,16 +31,16 @@ void main() {
         final Drawable drawable = generator.line(0, 0, 200, 0);
 
         expect(drawable.sets, isNotNull);
-        expect(drawable.sets!.length, equals(1));
-        expect(drawable.sets!.first.ops, isNotEmpty);
+        expect(drawable.sets.length, equals(1));
+        expect(drawable.sets.first.ops, isNotEmpty);
       });
 
       test('produces ops for a vertical line', () {
         final Drawable drawable = generator.line(0, 0, 0, 200);
 
         expect(drawable.sets, isNotNull);
-        expect(drawable.sets!.length, equals(1));
-        expect(drawable.sets!.first.ops, isNotEmpty);
+        expect(drawable.sets.length, equals(1));
+        expect(drawable.sets.first.ops, isNotEmpty);
       });
 
       test('produces ops for a zero-length line', () {
@@ -56,14 +56,14 @@ void main() {
         final Drawable drawable = generator.rectangle(10, 10, 100, 50);
 
         expect(drawable.sets, isNotNull);
-        expect(drawable.sets!.length, equals(2));
+        expect(drawable.sets.length, equals(2));
 
         // First set is the fill (from NoFiller, so fillSketch with empty ops).
-        final OpSet fillSet = drawable.sets![0];
+        final OpSet fillSet = drawable.sets[0];
         expect(fillSet.type, equals(OpSetType.fillSketch));
 
         // Second set is the outline path.
-        final OpSet pathSet = drawable.sets![1];
+        final OpSet pathSet = drawable.sets[1];
         expect(pathSet.type, equals(OpSetType.path));
         expect(pathSet.ops, isNotEmpty);
       });
@@ -71,18 +71,18 @@ void main() {
       test('produces non-empty path ops for the outline', () {
         final Drawable drawable = generator.rectangle(0, 0, 200, 100);
 
-        final OpSet pathSet = drawable.sets!.last;
+        final OpSet pathSet = drawable.sets.last;
         expect(pathSet.type, equals(OpSetType.path));
-        expect(pathSet.ops!.length, greaterThan(0));
+        expect(pathSet.ops.length, greaterThan(0));
       });
 
       test('with HachureFiller produces non-empty fill ops', () {
         final Generator filledGenerator = Generator(config, HachureFiller());
         final Drawable drawable = filledGenerator.rectangle(0, 0, 100, 100);
 
-        expect(drawable.sets!.length, equals(2));
+        expect(drawable.sets.length, equals(2));
 
-        final OpSet fillSet = drawable.sets![0];
+        final OpSet fillSet = drawable.sets[0];
         expect(fillSet.type, equals(OpSetType.fillSketch));
         expect(fillSet.ops, isNotEmpty);
       });
@@ -96,13 +96,13 @@ void main() {
         expect(drawable.sets, isNotEmpty);
 
         // Should have fill + outline.
-        expect(drawable.sets!.length, equals(2));
+        expect(drawable.sets.length, equals(2));
       });
 
       test('outline ops are non-empty', () {
         final Drawable drawable = generator.ellipse(100, 100, 80, 40);
 
-        final OpSet pathSet = drawable.sets!.last;
+        final OpSet pathSet = drawable.sets.last;
         expect(pathSet.type, equals(OpSetType.path));
         expect(pathSet.ops, isNotEmpty);
       });
@@ -112,7 +112,7 @@ void main() {
 
         expect(drawable.sets, isNotNull);
         expect(drawable.sets, isNotEmpty);
-        expect(drawable.sets!.last.ops, isNotEmpty);
+        expect(drawable.sets.last.ops, isNotEmpty);
       });
     });
 
@@ -122,7 +122,7 @@ void main() {
 
         expect(drawable.sets, isNotNull);
         expect(drawable.sets, isNotEmpty);
-        expect(drawable.sets!.length, equals(2));
+        expect(drawable.sets.length, equals(2));
       });
 
       test('produces same number of OpSets as equivalent ellipse', () {
@@ -137,8 +137,8 @@ void main() {
         final Drawable ellipseDrawable = gen2.ellipse(50, 50, 100, 100);
 
         expect(
-          circleDrawable.sets!.length,
-          equals(ellipseDrawable.sets!.length),
+          circleDrawable.sets.length,
+          equals(ellipseDrawable.sets.length),
         );
       });
     });
@@ -155,14 +155,14 @@ void main() {
 
         expect(drawable.sets, isNotNull);
         // polygon uses _buildDrawable with fillPoints, so 2 sets.
-        expect(drawable.sets!.length, equals(2));
+        expect(drawable.sets.length, equals(2));
 
         // First set is fill.
-        expect(drawable.sets![0].type, equals(OpSetType.fillSketch));
+        expect(drawable.sets[0].type, equals(OpSetType.fillSketch));
 
         // Second set is path outline.
-        expect(drawable.sets![1].type, equals(OpSetType.path));
-        expect(drawable.sets![1].ops, isNotEmpty);
+        expect(drawable.sets[1].type, equals(OpSetType.path));
+        expect(drawable.sets[1].ops, isNotEmpty);
       });
 
       test('triangle polygon produces non-empty outline', () {
@@ -173,7 +173,7 @@ void main() {
         ];
         final Drawable drawable = generator.polygon(triangle);
 
-        expect(drawable.sets!.last.ops, isNotEmpty);
+        expect(drawable.sets.last.ops, isNotEmpty);
       });
     });
 
@@ -183,7 +183,7 @@ void main() {
 
         expect(drawable.sets, isNotNull);
         expect(drawable.sets, isNotEmpty);
-        expect(drawable.sets!.length, equals(2));
+        expect(drawable.sets.length, equals(2));
       });
 
       test('produces Drawable for a half arc', () {
@@ -225,7 +225,7 @@ void main() {
             range[0],
             range[1],
           );
-          expect(drawable.sets!.last.ops, isNotEmpty);
+          expect(drawable.sets.last.ops, isNotEmpty);
         }
       });
     });
@@ -237,7 +237,7 @@ void main() {
             DrawConfig.build(seed: 8),
             NoFiller(),
           ).roundedRectangle(0, 0, side, side, 4, 4, 4, 4);
-          final ops = drawing.sets!.last.ops!;
+          final ops = drawing.sets.last.ops;
           expect(ops.where((op) => op.op == OpType.move), hasLength(2));
           PointD? start;
           PointD? end;
@@ -278,7 +278,7 @@ void main() {
 
         expect(drawable.sets, isNotNull);
         expect(drawable.sets, isNotEmpty);
-        expect(drawable.sets!.length, equals(2));
+        expect(drawable.sets.length, equals(2));
       });
 
       test(
@@ -302,7 +302,7 @@ void main() {
           );
           final Drawable rect = gen2.rectangle(10, 10, 200, 100);
 
-          expect(roundedRect.sets!.length, equals(rect.sets!.length));
+          expect(roundedRect.sets.length, equals(rect.sets.length));
         },
       );
 
@@ -323,8 +323,8 @@ void main() {
         expect(drawable.sets, isNotNull);
         expect(drawable.sets, isNotEmpty);
         // Should not throw and should produce a valid drawable.
-        expect(drawable.sets!.last.type, equals(OpSetType.path));
-        expect(drawable.sets!.last.ops, isNotEmpty);
+        expect(drawable.sets.last.type, equals(OpSetType.path));
+        expect(drawable.sets.last.ops, isNotEmpty);
       });
 
       test('outline is path type', () {
@@ -339,7 +339,7 @@ void main() {
           15,
         );
 
-        final OpSet outline = drawable.sets!.last;
+        final OpSet outline = drawable.sets.last;
         expect(outline.type, equals(OpSetType.path));
       });
 
@@ -356,8 +356,8 @@ void main() {
         );
 
         expect(drawable.sets, isNotNull);
-        expect(drawable.sets!.length, equals(2));
-        expect(drawable.sets!.last.ops, isNotEmpty);
+        expect(drawable.sets.length, equals(2));
+        expect(drawable.sets.last.ops, isNotEmpty);
       });
     });
 
@@ -367,8 +367,8 @@ void main() {
         final Drawable drawable = generator.linearPath(points);
 
         expect(drawable.sets, isNotNull);
-        expect(drawable.sets!.length, equals(1));
-        expect(drawable.sets!.first.ops, isNotEmpty);
+        expect(drawable.sets.length, equals(1));
+        expect(drawable.sets.first.ops, isNotEmpty);
       });
 
       test('works with three points', () {
@@ -380,7 +380,7 @@ void main() {
         final Drawable drawable = generator.linearPath(points);
 
         expect(drawable.sets, isNotNull);
-        expect(drawable.sets!.first.ops, isNotEmpty);
+        expect(drawable.sets.first.ops, isNotEmpty);
       });
 
       test('works with many points', () {
@@ -391,7 +391,7 @@ void main() {
         final Drawable drawable = generator.linearPath(points);
 
         expect(drawable.sets, isNotNull);
-        expect(drawable.sets!.first.ops, isNotEmpty);
+        expect(drawable.sets.first.ops, isNotEmpty);
       });
 
       test('single point returns empty ops', () {
@@ -399,7 +399,7 @@ void main() {
         final Drawable drawable = generator.linearPath(points);
 
         expect(drawable.sets, isNotNull);
-        expect(drawable.sets!.first.ops, isEmpty);
+        expect(drawable.sets.first.ops, isEmpty);
       });
     });
 
@@ -415,9 +415,9 @@ void main() {
         final Drawable drawable = generator.curvePath(points);
 
         expect(drawable.sets, isNotNull);
-        expect(drawable.sets!.length, equals(1));
-        expect(drawable.sets!.first.type, equals(OpSetType.path));
-        expect(drawable.sets!.first.ops, isNotEmpty);
+        expect(drawable.sets.length, equals(1));
+        expect(drawable.sets.first.type, equals(OpSetType.path));
+        expect(drawable.sets.first.ops, isNotEmpty);
       });
 
       test('works with four points', () {
@@ -430,7 +430,7 @@ void main() {
         final Drawable drawable = generator.curvePath(points);
 
         expect(drawable.sets, isNotNull);
-        expect(drawable.sets!.first.ops, isNotEmpty);
+        expect(drawable.sets.first.ops, isNotEmpty);
       });
     });
   });

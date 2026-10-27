@@ -127,6 +127,7 @@ class _DoodlePainter extends WiredPainterBase {
 
     return RoughDrawing(
       Drawable(
+        options: drawConfig,
         sets: [
           if (fillColor != null)
             for (var i = 0; i < strokes.length; i++)

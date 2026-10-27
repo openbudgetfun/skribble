@@ -281,7 +281,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'radio': ExampleDefinition(
     builder: _radio,
-    source: "HookBuilder(\n  builder: (context) {\n    final selected = useState('paper');\n    return Wrap(\n      children: [\n        for (final value in ['paper', 'ink'])\n          WiredRadio<String>(\n            value: value,\n            groupValue: selected.value,\n            semanticLabel: value,\n            onChanged: settings.enabled\n                ? (value) {\n                    selected.value = value!;\n                    return true;\n                  }\n                : null,\n          ),\n      ],\n    );\n  },\n)",
+    source: "HookBuilder(\n  builder: (context) {\n    final selected = useState('paper');\n    return Wrap(\n      children: [\n        for (final value in ['paper', 'ink'])\n          WiredRadio<String>(\n            value: value,\n            groupValue: selected.value,\n            semanticLabel: value,\n            onChanged: settings.enabled\n                ? (value) => selected.value = value!\n                : null,\n          ),\n      ],\n    );\n  },\n)",
     edits: [ExampleEdit(310, 326, ExampleParameter.enabled)],
   ),
   'radio-list-tile': ExampleDefinition(
@@ -296,7 +296,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'toggle': ExampleDefinition(
     builder: _toggle,
-    source: "HookBuilder(\n  builder: (context) {\n    final enabled = useState(false);\n    return WiredToggle(\n      value: enabled.value,\n      semanticLabel: 'Ink enabled',\n      onChange: (value) {\n        enabled.value = value;\n        return true;\n      },\n    );\n  },\n)",
+    source: "HookBuilder(\n  builder: (context) {\n    final enabled = useState(false);\n    return WiredToggle(\n      value: enabled.value,\n      semanticLabel: 'Ink enabled',\n      onChanged: (v) => enabled.value = v,\n    );\n  },\n)",
     edits: [],
   ),
   'autocomplete': ExampleDefinition(
@@ -741,7 +741,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'painter-usage-2': ExampleDefinition(
     builder: _painterUsage2,
-    source: "Builder(\n  builder: (context) {\n    return SizedBox(\n      width: 80,\n      height: 80,\n      child: WiredCanvas(\n        painter: WiredCircleBase(\n          diameterRatio: 0.9,\n          fillColor: const Color(0xffebc569),\n        ),\n        fillerType: RoughFilter.solidFiller,\n      ),\n    );\n  },\n)",
+    source: "Builder(\n  builder: (context) {\n    return const SizedBox(\n      width: 80,\n      height: 80,\n      child: WiredCanvas(\n        painter: WiredCircleBase(\n          diameterRatio: 0.9,\n          fillColor: Color(0xffebc569),\n        ),\n        fillerType: RoughFilter.solidFiller,\n      ),\n    );\n  },\n)",
     edits: [],
   ),
   'painter-usage-3': ExampleDefinition(
@@ -751,7 +751,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'painter-usage-4': ExampleDefinition(
     builder: _painterUsage4,
-    source: "Builder(\n  builder: (context) {\n    return SizedBox(\n      width: 240,\n      height: 140,\n      child: WiredCanvas(\n        painter: WiredRoundedRectangleBase(\n          borderRadius: const BorderRadius.only(\n            topLeft: Radius.circular(20),\n            bottomRight: Radius.circular(20),\n          ),\n          fillColor: const Color(0xFFF5F0E1),\n        ),\n        fillerType: RoughFilter.noFiller,\n      ),\n    );\n  },\n)",
+    source: "Builder(\n  builder: (context) {\n    return const SizedBox(\n      width: 240,\n      height: 140,\n      child: WiredCanvas(\n        painter: WiredRoundedRectangleBase(\n          borderRadius: BorderRadius.only(\n            topLeft: Radius.circular(20),\n            bottomRight: Radius.circular(20),\n          ),\n          fillColor: Color(0xFFF5F0E1),\n        ),\n        fillerType: RoughFilter.noFiller,\n      ),\n    );\n  },\n)",
     edits: [],
   ),
   'painter-usage-5': ExampleDefinition(
@@ -761,7 +761,7 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'painter-usage-6': ExampleDefinition(
     builder: _painterUsage6,
-    source: "Builder(\n  builder: (context) {\n    return SizedBox(\n      width: 200,\n      height: 100,\n      child: WiredCanvas(\n        painter: WiredRectangleBase(),\n        fillerType: RoughFilter.hachureFiller,\n      ),\n    );\n  },\n)",
+    source: "Builder(\n  builder: (context) {\n    return const SizedBox(\n      width: 200,\n      height: 100,\n      child: WiredCanvas(\n        painter: WiredRectangleBase(),\n        fillerType: RoughFilter.hachureFiller,\n      ),\n    );\n  },\n)",
     edits: [],
   ),
   'painter-usage-7': ExampleDefinition(

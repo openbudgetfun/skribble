@@ -73,7 +73,6 @@ class WiredRefreshIndicator extends HookWidget {
       color: effectiveColor,
       backgroundColor: effectiveBgColor,
       semanticsLabel: semanticLabel,
-      semanticsValue: semanticLabel,
       child: child,
     );
   }
@@ -134,8 +133,10 @@ class WiredCustomRefreshIndicator extends HookWidget {
             notification.overscroll < -50 &&
             !isRefreshing.value) {
           isRefreshing.value = true;
+          // whenComplete resets the spinner whether the refresh succeeds or
+          // fails; the error itself still propagates to the zone.
           unawaited(
-            onRefresh().then((_) {
+            onRefresh().whenComplete(() {
               isRefreshing.value = false;
             }),
           );
