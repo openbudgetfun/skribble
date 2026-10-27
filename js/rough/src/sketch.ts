@@ -4,7 +4,7 @@ import { Generator } from "./generator.js";
 import { DrawableInk } from "./ink.js";
 import { formatNumber } from "./math.js";
 import { RoughPen, resolvePen, type RoughPenName, type RoughPenOptions } from "./pen.js";
-import { escapeAttribute, opSetToSvgPath, toSvgPaths } from "./svg.js";
+import { assertSafePathData, escapeAttribute, opSetToSvgPath, toSvgPaths } from "./svg.js";
 import type { Drawable, Point } from "./types.js";
 
 /** A point as `[x, y]` or `{ x, y }`. */
@@ -331,6 +331,14 @@ export interface SvgStringOptions {
   height: number;
   /** An accessible description; without one the SVG is decorative. */
   label?: string;
+  /**
+   * An accessible name rendered as a `<title>` element, which browsers also
+   * show as a hover tooltip. Without it or a {@link label} the SVG is
+   * decorative.
+   */
+  title?: string;
+  /** A longer accessible description rendered as a `<desc>` element. */
+  description?: string;
   /** A `class` attribute for the `<svg>`. */
   className?: string;
 }
@@ -339,6 +347,7 @@ export interface SvgStringOptions {
 export function pathsToSvgElements(paths: readonly SketchPath[]): string {
   return paths
     .map((path) => {
+      assertSafePathData(path.d);
       const stroke =
         path.stroke === "none"
           ? ' stroke="none"'
@@ -352,13 +361,17 @@ export function pathsToSvgElements(paths: readonly SketchPath[]): string {
 export function toSvgString(value: Sketch, options: SvgStringOptions): string {
   const width = formatNumber(options.width, 2);
   const height = formatNumber(options.height, 2);
-  const a11y =
-    options.label === undefined
-      ? ' aria-hidden="true" focusable="false"'
-      : ` role="img" aria-label="${escapeAttribute(options.label)}"`;
+  const named = options.label !== undefined || options.title !== undefined || options.description !== undefined;
+  const a11y = named
+    ? ` role="img"${options.label === undefined ? "" : ` aria-label="${escapeAttribute(options.label)}"`}`
+    : ' aria-hidden="true" focusable="false"';
   const className = options.className === undefined ? "" : ` class="${escapeAttribute(options.className)}"`;
+  const described =
+    (options.title === undefined ? "" : `<title>${escapeAttribute(options.title)}</title>`) +
+    (options.description === undefined ? "" : `<desc>${escapeAttribute(options.description)}</desc>`);
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"${className}${a11y}>` +
+    described +
     pathsToSvgElements(value.paths) +
     "</svg>"
   );
@@ -407,6 +420,27 @@ export function splitSketchOptions<T extends object>(
     }
   }
   return [options as SketchOptions, rest as Omit<T, (typeof sketchOptionKeys)[number]>];
+}
+
+/**
+ * The sketch options in [props], reading nothing else from it.
+ *
+ * Reactive frameworks track every property a computation reads, so a derived
+ * sketch built from `splitSketchOptions(props)` redraws when any prop
+ * changes. This helper reads only the option keys, leaving presentational
+ * props (`class`, `style`, handlers) free to change without regenerating
+ * geometry.
+ */
+export function pickSketchOptions<T extends object>(props: T): SketchOptions {
+  const source = props as Partial<Record<(typeof sketchOptionKeys)[number], unknown>>;
+  const options: Record<string, unknown> = {};
+  for (const key of sketchOptionKeys) {
+    if (key in props) {
+      const value = source[key];
+      if (value !== undefined) options[key] = value;
+    }
+  }
+  return options as SketchOptions;
 }
 
 /**

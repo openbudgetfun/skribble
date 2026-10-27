@@ -50,6 +50,7 @@ export {
 } from "./types.js";
 export {
   escapeAttribute,
+  assertSafePathData,
   opSetToSvgPath,
   toPathElements,
   toSvgPaths,
@@ -73,6 +74,7 @@ export {
   drawShape,
   drawablePaths,
   pathsToSvgElements,
+  pickSketchOptions,
   resolveStyle,
   sketch,
   sketchKey,

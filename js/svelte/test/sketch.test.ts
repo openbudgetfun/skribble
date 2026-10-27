@@ -42,4 +42,24 @@ describe("<Sketch> for Svelte", () => {
     expect(body).toContain('class="doodle"');
     expect(body).toContain('data-x="1"');
   });
+
+  it("crops and zooms through a custom viewBox", () => {
+    const body = html({ shape, width: 100, height: 50, viewBox: "-10 -5 60 30" });
+    expect(body).toContain('viewBox="-10 -5 60 30"');
+    expect(body).toContain('width="100"');
+  });
+
+  it("renders a title and description", () => {
+    const body = html({ shape, width: 10, height: 10, title: "A box", description: "A wobbling rectangle" });
+    expect(body).toContain("<title>A box</title>");
+    expect(body).toContain("<desc>A wobbling rectangle</desc>");
+    expect(body).toContain('role="img"');
+    expect(body).not.toContain("aria-hidden");
+  });
+
+  it("keeps a label as the accessible name beside a title", () => {
+    const body = html({ shape, width: 10, height: 10, label: "Named", title: "Hovered" });
+    expect(body).toContain('aria-label="Named"');
+    expect(body).toContain("<title>Hovered</title>");
+  });
 });

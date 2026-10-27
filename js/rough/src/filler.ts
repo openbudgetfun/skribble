@@ -60,13 +60,6 @@ export class FillerConfig {
     });
   }
 
-  /**
-   * The configuration used when a filler is created without one. It shares
-   * {@link DrawConfig.defaultValues}' random stream across every shape, so
-   * pass a fresh configuration whenever output must be reproducible.
-   */
-  static readonly defaultConfig: FillerConfig = FillerConfig.build({ drawConfig: DrawConfig.defaultValues });
-
   /** Returns a copy with the given values replaced. */
   copyWith(options: FillerConfigOptions): FillerConfig {
     return new FillerConfig({
@@ -103,7 +96,10 @@ export abstract class Filler {
   readonly config: FillerConfig;
 
   constructor(config?: FillerConfig) {
-    this.config = config ?? FillerConfig.defaultConfig;
+    // A fresh default, never a shared instance: two fillers built without a
+    // configuration each own their random stream, so output never depends on
+    // the order they are used in.
+    this.config = config ?? FillerConfig.build();
   }
 
   /** Returns the fill operations for the polygon through [points]. */
@@ -409,9 +405,9 @@ export const roughFillStyles: readonly RoughFillStyle[] = [
 /**
  * Creates the filler for [style], drawing with [config].
  *
- * Pass a fresh configuration built from a seed: the shared
- * {@link FillerConfig.defaultConfig} advances one random stream across every
- * shape that uses it.
+ * Pass a configuration built from a seed when output must be reproducible;
+ * a filler built without one draws from the default seed, from a stream only
+ * it owns.
  */
 export function createFiller(style: RoughFillStyle, config: FillerConfig): Filler {
   switch (style) {

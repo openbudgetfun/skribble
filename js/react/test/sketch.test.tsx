@@ -65,6 +65,32 @@ describe("<Sketch>", () => {
     const b = renderToStaticMarkup(<Sketch shape={shape} width={100} height={50} seed={2} />);
     expect(a).not.toBe(b);
   });
+
+  it("crops and zooms through a custom viewBox", () => {
+    const html = renderToStaticMarkup(
+      <Sketch shape={shape} width={100} height={50} viewBox="-10 -5 60 30" />,
+    );
+    expect(html).toContain('viewBox="-10 -5 60 30"');
+    expect(html).toContain('width="100"');
+  });
+
+  it("renders a title and description", () => {
+    const html = renderToStaticMarkup(
+      <Sketch shape={shape} width={100} height={50} title="A box" description="A wobbling rectangle" />,
+    );
+    expect(html).toContain('<title>A box</title>');
+    expect(html).toContain('<desc>A wobbling rectangle</desc>');
+    expect(html).toContain('role="img"');
+    expect(html).not.toContain("aria-hidden");
+  });
+
+  it("keeps a label as the accessible name beside a title", () => {
+    const html = renderToStaticMarkup(
+      <Sketch shape={shape} width={100} height={50} label="Named" title="Hovered" />,
+    );
+    expect(html).toContain('aria-label="Named"');
+    expect(html).toContain('<title>Hovered</title>');
+  });
 });
 
 describe("useSketch", () => {

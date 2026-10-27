@@ -72,6 +72,9 @@ export interface PathElementOptions {
  * attribute-escaped. Byte-identical to `RoughSvg.toPathElements` in Dart.
  */
 export function toPathElements(paths: RoughSvgPaths, options: PathElementOptions = {}): string {
+  assertSafePathData(paths.solid);
+  assertSafePathData(paths.sketch);
+  assertSafePathData(paths.outline);
   const effect = options.nonScalingStroke ? ' vector-effect="non-scaling-stroke"' : "";
   const ink = escapeAttribute(options.stroke ?? "currentColor");
   const paint = escapeAttribute(options.fill ?? "currentColor");
@@ -97,4 +100,24 @@ export function toPathElements(paths: RoughSvgPaths, options: PathElementOptions
 /** Escapes [value] for use inside a double-quoted XML attribute. */
 export function escapeAttribute(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/**
+ * The characters this engine's path data is built from: the commands it emits
+ * (`M`, `L`, `C`, `Q`, `Z`) and numeric coordinates in any casing or format.
+ */
+const pathDataPattern = /^[MLCQZmlcqz\s0-9.,eE+-]*$/;
+
+/**
+ * Rejects path data this engine could not have generated.
+ *
+ * Path data is interpolated into `d` attributes unescaped, which is safe only
+ * while it stays engine-built numbers. Callers that assemble
+ * {@link RoughSvgPaths} or {@link SketchPath} themselves go through this
+ * check, so a stray `<` or quote can never reach an SVG document as markup.
+ */
+export function assertSafePathData(data: string): void {
+  if (!pathDataPattern.test(data)) {
+    throw new Error("Path data contains characters beyond SVG commands and numbers");
+  }
 }
