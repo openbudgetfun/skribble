@@ -7,6 +7,7 @@ import 'package:skribble_site/src/config.dart';
 import 'package:skribble_site/src/controls.dart';
 import 'package:skribble_site/src/html.dart';
 import 'package:skribble_site/src/ink.dart';
+import 'package:skribble_site/src/sections/companions.dart';
 import 'package:skribble_site/src/sections/craft.dart';
 import 'package:skribble_site/src/sections/hero.dart';
 import 'package:skribble_site/src/sections/showcase.dart';
@@ -420,6 +421,7 @@ class LandingPage extends StatelessComponent {
         const FillGallery(),
         const PenComparison(),
         const Playground(),
+        const ChartsAndMaps(),
         Lettering(fonts: assets.fonts),
         ArtWall(assets: assets),
         const CodeSample(),

@@ -60,6 +60,12 @@ abstract final class SiteLinks {
   /// The rough engine explainer.
   static const roughEngine = 'docs/core/rough-engine';
 
+  /// The financial charts page, with a live chart to pan and zoom.
+  static const charts = 'docs/widgets/charts';
+
+  /// The maps page, with a live OpenFreeMap map.
+  static const maps = 'docs/widgets/maps';
+
   /// The theme guide.
   static const theming = 'docs/getting-started/theming';
 
