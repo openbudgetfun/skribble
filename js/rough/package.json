@@ -47,12 +47,12 @@
     "build": "node ../../scripts/build-dual.mjs rough",
     "prepack": "pnpm --filter \"$npm_package_name...\" run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "bench": "vitest bench --run"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",
     "typescript": "^5.9.3",
     "vitest": "^4.1.11"
-  },
-  "bench": "vitest bench --run"
+  }
 }
