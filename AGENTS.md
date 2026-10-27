@@ -90,6 +90,7 @@ skribble/
   apps/skribble_site/        # skribble.dev landing page (Jaspr, static HTML)
   docs/site/                 # Documentation site (Flutter)
   js/                        # npm packages: @skribble.dev/rough + React, React Native, Vue, Svelte
+  rust/                      # Cargo workspace: skribble_rough (Rust engine) + skribble_leptoskit components
 ```
 
 ### Commands
@@ -136,6 +137,9 @@ publish:tags
 # Build, typecheck, and test the npm packages in js/
 pnpm install && pnpm run check
 
-# Regenerate the Dart parity fixtures for @skribble.dev/rough
+# Regenerate the Dart parity fixtures for @skribble.dev/rough and the Rust skribble_rough
 dart run packages/skribble_rough/tool/js_parity_fixtures.dart > js/rough/test/fixtures/dart-parity.json
+
+# Format, lint, and test the Rust crates in rust/
+cargo fmt --all && cargo clippy --workspace --all-targets --all-features -- -D warnings && cargo test --workspace --all-features
 ```

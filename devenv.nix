@@ -33,6 +33,8 @@ in
       nodejs_24
       pnpm
       ripgrep
+      # Reads rust-toolchain.toml for the Rust crates in rust/.
+      rustup
       shfmt
     ]
     ++ lib.optionals stdenv.isDarwin [

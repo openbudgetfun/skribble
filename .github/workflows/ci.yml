@@ -127,6 +127,27 @@ jobs:
             (cd "$package" && pnpm dlx publint@0.3.25 --strict)
           done
 
+  # The Rust crates in rust/: skribble_rough and skribble_leptoskit. The
+  # toolchain comes from rust-toolchain.toml. Both ink builds are tested: plain
+  # views for native, and SVG images with the `web` feature.
+  rust-crates:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - uses: actions/checkout@v4
+      - name: install the pinned toolchain
+        run: rustup toolchain install
+      - uses: Swatinem/rust-cache@v2
+      - name: format
+        run: cargo fmt --all --check
+      - name: lint
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+      - name: test with native ink
+        run: cargo test --workspace
+      - name: test with web ink
+        run: cargo test --workspace --all-features
+      - name: build for WebAssembly, as leptoskit apps do
+        run: cargo check --workspace --target wasm32-unknown-unknown --features skribble_leptoskit/web
+
   rough-icons-regression:
     runs-on: blacksmith-2vcpu-ubuntu-2404
     env:

@@ -45,6 +45,7 @@ skribble/
 ├── packages/skribble_rough/        # Pure-Dart rough engine + SVG output (no Flutter)
 ├── packages/skribble_jaspr/        # Server-rendered Jaspr components (rough SVG + CSS)
 ├── js/                             # npm packages (pnpm workspace): @skribble.dev/rough + framework bindings
+├── rust/                           # Cargo workspace: skribble_rough (Rust engine) + skribble_leptoskit
 ├── packages/skribble_lints/        # Shared lint rules (very_good_analysis based)
 ├── packages/skribble_icons_custom/ # Custom SVG-based icon package example
 ├── apps/skribble_storybook/        # Interactive demo app
@@ -1087,6 +1088,16 @@ The engine is split across two packages. Geometry, fillers, pens, ink sampling, 
 - Internal dependencies use plain semver ranges (`"@skribble.dev/rough": "^0.1.0"`), never the `workspace:` protocol. monochange rewrites those ranges on every release, and `npm publish`, which trusted publishing uses, would ship a `workspace:` range unchanged. `pnpm-workspace.yaml` sets `linkWorkspacePackages`, `preferWorkspacePackages`, and `saveWorkspaceProtocol: false`, so pnpm still links the local packages and `pnpm add` writes plain ranges.
 - monochange owns the versions. The five packages form the `js` group in `monochange.toml`, share one version, and release under a `js/v<version>` tag. Changes under `js/` need a changeset for them, like any Dart package.
 - Never publish to npm from a branch. The publish workflow publishes a `js/v<version>` tag with npm trusted publishing, and each package's `prepack` script builds it first.
+
+### Rust crates
+
+`rust/` holds a Cargo workspace (its manifest is the root `Cargo.toml`): `skribble_rough` (`rust/rough`, a port of `skribble_rough`) and `skribble_leptoskit` (`rust/leptoskit`, leptoskit components). Follow its conventions:
+
+- `skribble_rough` follows the Dart engine operation for operation, like `@skribble.dev/rough`, and its `tests/parity.rs` replays the same `js/rough/test/fixtures/dart-parity.json`. When you change `packages/skribble_rough`, regenerate the fixtures and port the change to both the TypeScript and the Rust engines until both parity suites pass.
+- leptoskit is not on crates.io yet. The root `Cargo.toml` pins one leptoskit commit for every crate; bump that `rev` in one place, and keep both crates `publish = false` until leptoskit is released.
+- In `skribble_leptoskit`, components describe their drawing as an `Ink` and add `Ink::layer()` as their first child. Only `src/ink/` knows how ink is drawn: SVG images with the `web` feature, plain views without it. Keep it that way, so a native drawing primitive in leptoskit can replace the plain views without touching any component.
+- Components are `#[component]` functions returning `Element`, with a `seed`, an optional `theme`, and an optional `class`. Controls are controlled: they take a value and a callback that proposes a change. Never use randomness outside the seed.
+- Run `cargo fmt --all`, `cargo clippy --workspace --all-targets --all-features -- -D warnings`, `cargo test --workspace`, and `cargo test --workspace --all-features`. The `rust-crates` CI job runs the same. `cargo run -p skribble_leptoskit --example notebook --features web -- notebook.html` renders every component for a visual check, in light and dark mode.
 
 ### The skribble.dev landing page
 
