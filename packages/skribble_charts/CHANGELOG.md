@@ -1,5 +1,11 @@
 # Changelog
 
+## skribble_charts [0.4.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.4.0) (2026-10-27)
+
+### Changed
+
+#### No package-specific changes were recorded; `skribble_charts` was updated to 0.4.0.
+
 ## skribble_charts [0.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.1.0) (2026-09-11)
 
 ### Features

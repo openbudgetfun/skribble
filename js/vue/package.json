@@ -1,6 +1,6 @@
 {
   "name": "@skribble.dev/vue",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Hand-drawn SVG sketches for Vue, drawn by skribble's rough engine. Server-renders the same markup on every build.",
   "license": "MIT",
   "author": "Ifiok Jr.",
@@ -50,7 +50,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@skribble.dev/rough": "^0.0.1"
+    "@skribble.dev/rough": "^0.1.0"
   },
   "peerDependencies": {
     "vue": ">=3.3"
