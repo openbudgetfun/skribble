@@ -90,6 +90,36 @@ void main() {
       expect(css, contains('--font-display: var(--font-body);'));
     });
 
+    test('letters headings in Noto Sketch without a faux bold', () {
+      final css = File('${_root.path}/apps/skribble_site/web/site.css')
+          .readAsStringSync();
+      final headings = RegExp(r'h1,\s*h2,\s*h3\s*\{([^}]*)\}').firstMatch(css);
+
+      expect(headings, isNotNull);
+      expect(headings![1], contains('font-family: var(--font-display);'));
+      expect(css, contains('font-synthesis: none;'));
+    });
+
+    test('shows what the chart and map packages draw', () {
+      final section = page.getElementById('charts-maps')!;
+      final widgets = section.querySelectorAll('h3 code').map((c) => c.text);
+      final links = section
+          .querySelectorAll('a')
+          .map((a) => a.attributes['href']);
+      final drawings = section.querySelectorAll('svg[role="img"]');
+
+      expect(widgets, ['WiredFinancialChart', 'WiredMap']);
+      expect(links, containsAll([SiteLinks.charts, SiteLinks.maps]));
+      expect(drawings, hasLength(2));
+      expect(
+        drawings.map((svg) => svg.attributes['aria-label']),
+        everyElement(isNotEmpty),
+      );
+      expect(section.text, contains('flutter pub add skribble_charts'));
+      expect(section.text, contains('flutter pub add skribble_maps'));
+      expect(section.querySelector('.chart-price--mark')?.text, '145.00');
+    });
+
     test('has one h1 and labelled sections', () {
       expect(page.querySelectorAll('h1'), hasLength(1));
 

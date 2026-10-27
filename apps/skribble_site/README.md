@@ -27,7 +27,7 @@ Fonts come from the font packages: the Recursive families from `packages/skribbl
 
 The page preloads the faces it uses above the fold (`criticalFaces` in `lib/src/assets.dart`) and stays hidden until they load, for at most 3 seconds, so it never paints in a fallback font and then reflows. Without JavaScript, nothing is hidden.
 
-The page is lettered in Skribble Noto Sketch, skribble's default typeface, with Recursive Mono for code. Noto Sketch has one Regular face, so browsers synthesise the bold headings. The other families only appear in the font tester.
+The page is lettered in Skribble Noto Sketch, skribble's default typeface, with Recursive Mono for code. Headings use it too. It has one Regular face, and the stylesheet turns `font-synthesis` off, so headings keep that face rather than a synthesised bold. The other families only appear in the font tester.
 
 ## Link previews
 
@@ -35,14 +35,14 @@ Every page carries Open Graph and Twitter card tags (`summary_large_image`) with
 
 ## How it fits together
 
-| Path                      | What it holds                                                                          |
-| ------------------------- | -------------------------------------------------------------------------------------- |
-| `lib/src/page.dart`       | The document shell, header, footer, landing page, and not-found page                   |
-| `lib/src/sections/`       | One file per group of page sections                                                    |
-| `lib/src/ink.dart`        | `doodle()` and `penDoodle()`: seeded rough SVG that can draw itself on                 |
-| `lib/src/controls.dart`   | Hand-drawn checkboxes, switches, radios, chips, fields, and sliders over native inputs |
-| `lib/src/build.dart`      | Reads workspace assets and writes the static site                                      |
-| `web/site.css`, `site.js` | Layout, both palettes, motion, and progressive enhancement                             |
+| Path                      | What it holds                                                                           |
+| ------------------------- | --------------------------------------------------------------------------------------- |
+| `lib/src/page.dart`       | The document shell, header, footer, landing page, and not-found page                    |
+| `lib/src/sections/`       | One file per group of page sections; `companions.dart` draws the chart and map examples |
+| `lib/src/ink.dart`        | `doodle()` and `penDoodle()`: seeded rough SVG that can draw itself on                  |
+| `lib/src/controls.dart`   | Hand-drawn checkboxes, switches, radios, chips, fields, and sliders over native inputs  |
+| `lib/src/build.dart`      | Reads workspace assets and writes the static site                                       |
+| `web/site.css`, `site.js` | Layout, both palettes, motion, and progressive enhancement                              |
 
 Controls are real `<input>` elements, so they work with a keyboard, a screen reader, and without JavaScript; CSS draws their state. `site.js` adds scroll reveals, the theme toggle, copy buttons, live slider values, the phone's pen switch, and seed shuffling. All motion stops under `prefers-reduced-motion: reduce`.
 

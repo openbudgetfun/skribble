@@ -90,7 +90,16 @@ enum Tone {
   pink,
 
   /// The page's paper colour.
-  paper;
+  paper,
+
+  /// Quiet rules: chart grids and volume bars.
+  rule,
+
+  /// A rising candle's green.
+  rise,
+
+  /// A falling candle's red.
+  fall;
 
   /// The CSS custom property holding this tone.
   String get paint => 'var(--$name)';
