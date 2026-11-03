@@ -33,6 +33,59 @@ void main() {
     }
   });
 
+  test('Noto Sketch is the default at every roughness and brightness', () {
+    expect(WiredThemeData.defaultTheme.font, WiredFont.notoSketch);
+
+    for (final level in WiredRoughness.values) {
+      final direct = WiredThemeData(roughnessLevel: level);
+      final rebuilt = WiredThemeData().copyWith(roughnessLevel: level);
+
+      for (final theme in [direct, rebuilt]) {
+        expect(theme.font, WiredFont.notoSketch);
+        expect(theme.fontFamily, 'SkribbleNotoSketch');
+        expect(theme.fontPackage, 'skribble_font_noto_sketch');
+        expect(
+          theme.toThemeData().textTheme.bodyMedium!.fontFamily,
+          'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
+        );
+      }
+
+      for (final brightness in Brightness.values) {
+        final cuddly = WiredThemeData.cuddly(
+          brightness: brightness,
+          roughnessLevel: level,
+        );
+
+        expect(cuddly.font, WiredFont.notoSketch);
+        expect(cuddly.fontFamily, 'SkribbleNotoSketch');
+        expect(cuddly.fontPackage, 'skribble_font_noto_sketch');
+      }
+    }
+  });
+
+  test('explicit Recursive fonts still resolve from light and dark themes', () {
+    for (final brightness in Brightness.values) {
+      for (final font in WiredFont.recursiveFonts) {
+        for (final level in WiredRoughness.values) {
+          final theme = WiredThemeData.cuddly(brightness: brightness)
+              .copyWith(font: font, roughnessLevel: level);
+
+          expect(theme.font, font);
+          expect(theme.fontFamily, font.familyFor(level));
+          expect(theme.fontPackage, 'skribble_font_recursive');
+          expect(
+            theme
+                .toThemeData(brightness: brightness)
+                .textTheme
+                .bodyMedium!
+                .fontFamily,
+            'packages/skribble_font_recursive/${font.familyFor(level)}',
+          );
+        }
+      }
+    }
+  });
+
   test('recursive typefaces follow the roughness from one package', () {
     expect(WiredFont.recursiveFonts, [
       WiredFont.casual,
@@ -81,10 +134,7 @@ void main() {
     expect(theme.fontFamily, 'SkribbleNotoSketch');
     expect(theme.fontPackage, 'skribble_font_noto_sketch');
     expect(theme.roughness, WiredRoughness.expressive.roughness);
-    expect(
-      theme.copyWith(font: WiredFont.noto).fontFamily,
-      'SkribbleNoto',
-    );
+    expect(theme.copyWith(font: WiredFont.noto).fontFamily, 'SkribbleNoto');
     expect(
       theme.copyWith(font: WiredFont.casual).fontPackage,
       'skribble_font_recursive',
@@ -182,19 +232,15 @@ void main() {
     expect(theme.copyWith(font: WiredFont.notoLively).fontFamilyFallback, [
       'SkribbleNotoKR',
     ]);
-    expect(
-      theme,
-      WiredThemeData(fontFamilyFallback: const ['SkribbleNotoKR']),
-    );
+    expect(theme, WiredThemeData(fontFamilyFallback: const ['SkribbleNotoKR']));
     expect(
       theme.hashCode,
       WiredThemeData(fontFamilyFallback: const ['SkribbleNotoKR']).hashCode,
     );
     expect(theme == WiredThemeData(), isFalse);
-    expect(
-      theme.toThemeData().textTheme.bodyMedium!.fontFamilyFallback,
-      ['SkribbleNotoKR'],
-    );
+    expect(theme.toThemeData().textTheme.bodyMedium!.fontFamilyFallback, [
+      'SkribbleNotoKR',
+    ]);
   });
 
   test('qualified family carries the package only for bundled fonts', () {
@@ -202,9 +248,30 @@ void main() {
       WiredThemeData(font: WiredFont.notoSketch).qualifiedFontFamily,
       'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
     );
+    expect(WiredThemeData(fontFamily: 'MyFont').qualifiedFontFamily, 'MyFont');
+  });
+
+  testWidgets('a Skribble app starts on Noto Sketch without a theme', (
+    tester,
+  ) async {
+    late WiredThemeData theme;
+    late TextStyle textStyle;
+    await tester.pumpWidget(
+      SkribbleApp(
+        home: Builder(
+          builder: (context) {
+            theme = WiredTheme.of(context);
+            textStyle = DefaultTextStyle.of(context).style;
+            return const Text('Hello');
+          },
+        ),
+      ),
+    );
+
+    expect(theme.font, WiredFont.notoSketch);
     expect(
-      WiredThemeData(fontFamily: 'MyFont').qualifiedFontFamily,
-      'MyFont',
+      textStyle.fontFamily,
+      'packages/skribble_font_noto_sketch/SkribbleNotoSketch',
     );
   });
 }

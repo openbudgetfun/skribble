@@ -58,12 +58,12 @@ One SVG unit corresponds to one Flutter logical pixel. These are defaults, not r
 | Default fill            | `#FEFEFE`; specimens leave unfilled interiors transparent                                                            |
 | Default text            | Black                                                                                                                |
 | Stable geometry         | Seed 1; reset the generator for each drawing. Keep seed and bounds fixed across repaints and press states            |
-| Gentle                  | Roughness 0.9; offset 1; line wobble 0; font deformation strength 18 at 1,000 units/em                               |
-| Playful, default        | Roughness 1.1; offset 1.2; line wobble 0.35; font deformation strength 27 at 1,000 units/em                          |
-| Expressive              | Roughness 1.8; offset 2; line wobble 1; font deformation strength 36 at 1,000 units/em                               |
+| Gentle                  | Roughness 0.9; offset 1; line wobble 0; Recursive font deformation strength 6 at 1,000 units/em                      |
+| Playful, default        | Roughness 1.1; offset 1.2; line wobble 0.35; Recursive font deformation strength 10 at 1,000 units/em                |
+| Expressive              | Roughness 1.8; offset 2; line wobble 1; Recursive font deformation strength 14 at 1,000 units/em                     |
 | Reserved bleed per edge | `strokeWidth / 2 + 1 + maxRandomnessOffset * roughness`: 2.7 / 3.1 / 5.4 px for the three presets                    |
 | Divider ink extent      | Twice the bleed: 5.4 / 6.2 / 10.8 px                                                                                 |
-| Lettering               | Static outlines. Repeated letters retain the same shape; geometry roughness and font deformation use different units |
+| Lettering               | Noto Sketch stays fixed with Latin alternates; Recursive follows roughness with repeated letters retaining one shape |
 
 See the [theme system](https://openbudgetfun.github.io/skribble/core/theme-system) for overrides and the [motion guide](https://openbudgetfun.github.io/skribble/core/motion) for animation ownership.
 

@@ -27,13 +27,13 @@ TextStyle(
 
 The bundled families live in the `skribble_font_recursive` package, so a bare `TextStyle` qualifies the family with `package: 'skribble_font_recursive'`. Add it with `flutter pub add skribble_font_recursive` first — see [Installation](/getting-started/installation).
 
-Each comparison uses the same generator, strength, weight, style, and size. Gentle uses strength 18, Playful 27, and Expressive 36 per 1,000 font units. Use **Code specimen** to compare aligned text, or type your own sample. On narrow screens the three specimens stack within each roughness level.
+Each comparison uses the same generator, strength, weight, style, and size. Gentle uses strength 6, Playful 10, and Expressive 14 per 1,000 font units. These quieter levels keep body text readable while retaining the source's character. Use **Code specimen** to compare aligned text, or type your own sample. On narrow screens the three specimens stack within each roughness level.
 
 The docs site loads the additional original, Linear, and variable specimens when you open this comparison. Normal article reading only downloads Noto Sketch and the Mono faces it uses for code, so the full font catalog does not delay the first page.
 
 ## How the handwriting is made
 
-The generator reads the actual TrueType glyph outlines and moves their points with smooth waves and a small, deterministic tilt. Nearby points move together, preserving the relationship between a stroke and its counter. This changes the letter shapes themselves. It does not add a blur or a raster texture. Repeated occurrences of a character use the same outline.
+The generator reads the actual TrueType glyph outlines and moves their points with broad, low-amplitude waves. It keeps the original letter angles instead of tilting every glyph independently. Vertical movement is one fifth of the strength and fades to zero at the base outline's top and bottom, with still less movement for short punctuation. Nearby points move together, preserving the relationship between a stroke and its counter. Repeated occurrences of a character use the same outline.
 
 Character mappings, advance widths, kerning, and shaping tables are retained. The original row loads untouched fonts with their hinting; roughened fonts have new outlines and remove obsolete source hinting. Both changes contribute to the visual difference.
 
@@ -138,3 +138,12 @@ dart run tool/docs_font_comparison.dart
 ```
 
 Add `--check` to either command to verify without writing. All 126 static faces and three variable fonts live in the skribble package. The docs keep only the 12 unmodified originals for comparison; modified Linear files are no longer duplicated there. These are vector font files, but adding families still increases the package asset size. The OFL license and pinned Recursive 1.085 source provenance are retained with the fonts.
+
+To capture the bundled fonts at 14, 16, and 24 pixels in light and dark, at 360 and 1280 pixels wide:
+
+```bash
+cd packages/skribble
+flutter test tool/recursive_font_specimen_test.dart --dart-define=FONT_SPECIMEN_OUT=../../.screenshots/fonts/after
+```
+
+Run the same command before changing the fonts with an output directory ending in `before`. The in-memory specimen includes every Recursive family and roughness level, regular, bold, and italic text, and Noto Sketch as the default. It does not capture app interactions or every weight and variable-axis combination. Images stay in the gitignored `.screenshots/` directory.
