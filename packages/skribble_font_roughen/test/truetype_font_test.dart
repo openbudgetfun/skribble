@@ -77,12 +77,12 @@ void main() {
     });
 
     test(
-      '$suffix doubles the previous deformation without changing spacing',
+      '$suffix scales deformation without changing spacing',
       () {
         final bytes = source.readAsBytesSync();
         final original = TrueTypeFont(bytes);
-        final previous = TrueTypeFont(bytes)..roughen(18);
-        final current = TrueTypeFont(bytes)..roughen(36);
+        final previous = TrueTypeFont(bytes)..roughen(7);
+        final current = TrueTypeFont(bytes)..roughen(14);
         var oldDistance = 0.0;
         var newDistance = 0.0;
 
@@ -99,9 +99,46 @@ void main() {
 
         expect(newDistance / oldDistance, closeTo(2, 0.02));
         expect(current.tables['hmtx'], original.tables['hmtx']);
-        expect(FontRoughener(inputPath: '', outputPath: '').jitterAmount, 36);
+        expect(FontRoughener(inputPath: '', outputPath: '').jitterAmount, 14);
       },
     );
+
+    test('$suffix keeps vertical bounds and limits body-text wobble', () {
+      final bytes = source.readAsBytesSync();
+      final original = TrueTypeFont(bytes);
+      final edited = TrueTypeFont(bytes)..roughen(14);
+      final scale = original.unitsPerEm / 1000;
+
+      for (var id = 0; id < original.glyphCount; id++) {
+        final before = original.glyphPoints(id);
+        final after = edited.glyphPoints(id);
+
+        if (before.isEmpty) continue;
+
+        final bottom = before.map((p) => p.y).reduce((a, b) => a < b ? a : b);
+        final top = before.map((p) => p.y).reduce((a, b) => a > b ? a : b);
+
+        for (var i = 0; i < before.length; i++) {
+          expect(
+            (after[i].x - before[i].x).abs(),
+            lessThanOrEqualTo(14 * scale + 0.5),
+          );
+          expect(
+            (after[i].y - before[i].y).abs(),
+            lessThanOrEqualTo(2.8 * scale + 0.5),
+          );
+          expect(
+            after[i].y,
+            inInclusiveRange(bottom, top),
+            reason: 'glyph $id',
+          );
+
+          if (before[i].y == bottom || before[i].y == top) {
+            expect(after[i].y, before[i].y, reason: 'extremum in glyph $id');
+          }
+        }
+      }
+    });
   }
 
   test(

@@ -145,8 +145,9 @@ final class TrueTypeFont {
 
   /// Moves neighbouring points together so strokes bend without torn contours.
   ///
-  /// [amount] is measured at 1000 units per em. A per-glyph tilt and two smooth
-  /// waves vary stems and bowls while preserving counters and curve continuity.
+  /// [amount] is measured at 1000 units per em. Broad horizontal waves soften
+  /// stems without tilting each letter. Vertical movement is smaller and tapers
+  /// to zero at the glyph's top and bottom to keep a steady reading rhythm.
   /// Zero is an outline-preserving control for comparisons.
   int roughen(double amount) {
     if (!amount.isFinite || amount < 0 || amount > 50) {
@@ -158,7 +159,19 @@ final class TrueTypeFont {
     for (var id = 0; id < _glyphs.length; id++) {
       final glyph = _glyphs[id];
       final phase = (id * 0.61803398875 % 1) * math.pi * 2;
-      final tilt = math.sin(phase * 1.7) * amount * 0.0014;
+      var bottom = 0;
+      var top = 0;
+
+      if (glyph.points.isNotEmpty) {
+        bottom = top = glyph.points.first.y;
+
+        for (final point in glyph.points) {
+          bottom = math.min(bottom, point.y);
+          top = math.max(top, point.y);
+        }
+      }
+
+      final height = (top - bottom) * 1000 / unitsPerEm;
 
       for (var i = 0; i < glyph.points.length; i++) {
         final point = glyph.points[i];
@@ -166,14 +179,18 @@ final class TrueTypeFont {
         final y = point.y * 1000 / unitsPerEm;
         final dx =
             amount *
-                (0.65 * math.sin(y / 105 + phase) +
-                    0.35 * math.sin((x + y) / 57 + phase * 2)) +
-            tilt * y;
+            (0.8 * math.sin(y / 250 + phase) +
+                0.2 * math.sin((x + y) / 400 + phase * 2));
 
+        final envelope = top == bottom
+            ? 0.0
+            : math.sin(math.pi * (point.y - bottom) / (top - bottom));
         final dy =
             amount *
-            (0.55 * math.sin(x / 125 + phase * 1.3) +
-                0.25 * math.sin((y - x) / 83 + phase));
+            0.2 *
+            math.min(1, height / 200) *
+            envelope *
+            math.sin(x / 280 + phase);
         glyph.points[i] = math.Point(
           (point.x + dx * unitsPerEm / 1000).round(),
           (point.y + dy * unitsPerEm / 1000).round(),

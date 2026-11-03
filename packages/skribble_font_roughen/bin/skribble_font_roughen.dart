@@ -12,7 +12,7 @@ import 'package:skribble_font_roughen/skribble_font_roughen.dart';
 ///   dart run skribble_font_roughen `<input.ttf> <output.ttf>` `[options]`
 ///
 /// Options:
-///   --jitter, -j    Deformation strength per 1000 units per em (default: 36)
+///   --jitter, -j    Deformation strength per 1000 units per em (default: 14)
 ///   --variant, -v   Font variant: regular, bold, italic, boldItalic (default: regular)
 ///   --family       Output family name (default: skribble)
 ///   --help, -h      Show help message
@@ -22,7 +22,7 @@ void main(List<String> arguments) async {
       'jitter',
       abbr: 'j',
       help: 'Deformation strength per 1000 units per em',
-      defaultsTo: '36',
+      defaultsTo: '14',
     )
     ..addOption(
       'variant',

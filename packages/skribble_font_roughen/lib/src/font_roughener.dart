@@ -13,7 +13,7 @@ class FontRoughener {
   FontRoughener({
     required this.inputPath,
     required this.outputPath,
-    this.jitterAmount = 36,
+    this.jitterAmount = 14,
     this.familyName = 'Skribble',
     this.variant = FontVariant.regular,
   }) {
