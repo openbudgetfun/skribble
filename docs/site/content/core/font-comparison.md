@@ -27,13 +27,13 @@ TextStyle(
 
 The bundled families live in the `skribble_font_recursive` package, so a bare `TextStyle` qualifies the family with `package: 'skribble_font_recursive'`. Add it with `flutter pub add skribble_font_recursive` first — see [Installation](/getting-started/installation).
 
-Each comparison uses the same generator, strength, weight, style, and size. Gentle uses strength 6, Playful 10, and Expressive 14 per 1,000 font units. These quieter levels keep body text readable while retaining the source's character. Use **Code specimen** to compare aligned text, or type your own sample. On narrow screens the three specimens stack within each roughness level.
+Each comparison uses the same generator, strength, weight, style, and size. Gentle uses strength 12, Playful 20, and Expressive 28 per 1,000 font units. These levels keep body text readable while retaining the source's character. Use **Code specimen** to compare aligned text, or type your own sample. On narrow screens the three specimens stack within each roughness level.
 
 The docs site loads the additional original, Linear, and variable specimens when you open this comparison. Normal article reading only downloads Noto Sketch and the Mono faces it uses for code, so the full font catalog does not delay the first page.
 
 ## How the handwriting is made
 
-The generator reads the actual TrueType glyph outlines and moves their points with broad, low-amplitude waves. It keeps the original letter angles instead of tilting every glyph independently. Vertical movement is one fifth of the strength and fades to zero at the base outline's top and bottom, with still less movement for short punctuation. Nearby points move together, preserving the relationship between a stroke and its counter. Repeated occurrences of a character use the same outline.
+The Recursive families use the **Gentle lean** treatment. The generator reads the actual TrueType glyph outlines and moves their points with shorter, smooth waves. It adds a deterministic per-glyph lean of at most 0.045 degrees per strength unit, with maxima of 0.54, 0.9, and 1.26 degrees at Gentle, Playful, and Expressive. Vertical movement is 0.3 of the strength and fades to zero at the base outline's top and bottom, with still less movement for short punctuation and no whole-glyph baseline bounce. Nearby points move together, preserving the relationship between a stroke and its counter. Repeated occurrences of a character use the same outline.
 
 Character mappings, advance widths, kerning, and shaping tables are retained. The original row loads untouched fonts with their hinting; roughened fonts have new outlines and remove obsolete source hinting. Both changes contribute to the visual difference.
 

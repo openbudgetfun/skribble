@@ -70,7 +70,7 @@ footer{font-size:12px;color:#65715f;margin:30px 0}a{color:#355733}button{cursor:
 <section id="casual"><h2>01 / Casual lettering</h2><p class="section-intro">Same text, size, weight and color. Petal uses single-storey a/g, a new looped l, gentle bounce and new joined text ligatures. Swashes are optional.</p>
 <div class="grid">
 ${_casualCard('original', 'Upstream', 'Recursive Sans Casual', 'Untouched source · no standard text ligatures in Regular.')}
-${_casualCard('current', 'Currently shipped', 'Skribble Expressive', 'Broad outline waves · strength 14.')}
+${_casualCard('current', 'Currently shipped', 'Skribble Expressive', 'Shorter, smooth waves · strength 28.')}
 ${_casualCard('petal', 'New experiment', 'Skribble Petal', 'New letterforms + five standard and three decorative text joins.', fresh: true)}
 </div>
 <div class="mini"><div><span class="label">Petal / plain letters</span><div class="font petal" style="font-feature-settings:'liga' 0,'dlig' 0,'swsh' 0">affinity · fluffy · little · stay</div></div>

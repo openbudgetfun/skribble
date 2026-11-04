@@ -46,9 +46,9 @@ Future<void> main(List<String> arguments) async {
     );
     final jobs = <Future<void> Function()>[];
     for (final level in [
-      (name: 'Gentle', strength: 6.0),
-      (name: 'Playful', strength: 10.0),
-      (name: 'Expressive', strength: 14.0),
+      (name: 'Gentle', strength: 12.0),
+      (name: 'Playful', strength: 20.0),
+      (name: 'Expressive', strength: 28.0),
     ]) {
       final variableFamily = 'SkribbleVariable${level.name}';
       final variable = '${scratch.path}/$variableFamily-Regular.ttf';

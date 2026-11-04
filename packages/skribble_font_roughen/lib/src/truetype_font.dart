@@ -145,9 +145,10 @@ final class TrueTypeFont {
 
   /// Moves neighbouring points together so strokes bend without torn contours.
   ///
-  /// [amount] is measured at 1000 units per em. Broad horizontal waves soften
-  /// stems without tilting each letter. Vertical movement is smaller and tapers
-  /// to zero at the glyph's top and bottom to keep a steady reading rhythm.
+  /// [amount] is measured at 1000 units per em. Smooth waves and a restrained
+  /// per-glyph lean give the lettering character. The lean is at most 0.045
+  /// degrees per unit (0.9 degrees at strength 20). Vertical movement is smaller
+  /// and tapers to zero at the glyph's top and bottom, keeping a steady baseline.
   /// Zero is an outline-preserving control for comparisons.
   int roughen(double amount) {
     if (!amount.isFinite || amount < 0 || amount > 50) {
@@ -159,6 +160,7 @@ final class TrueTypeFont {
     for (var id = 0; id < _glyphs.length; id++) {
       final glyph = _glyphs[id];
       final phase = (id * 0.61803398875 % 1) * math.pi * 2;
+      final tilt = math.sin(phase * 1.7) * amount * math.pi / 4000;
       var bottom = 0;
       var top = 0;
 
@@ -179,18 +181,19 @@ final class TrueTypeFont {
         final y = point.y * 1000 / unitsPerEm;
         final dx =
             amount *
-            (0.8 * math.sin(y / 250 + phase) +
-                0.2 * math.sin((x + y) / 400 + phase * 2));
+                (0.8 * math.sin(y / 200 + phase) +
+                    0.2 * math.sin((x + y) / 320 + phase * 2)) +
+            tilt * y;
 
         final envelope = top == bottom
             ? 0.0
             : math.sin(math.pi * (point.y - bottom) / (top - bottom));
         final dy =
             amount *
-            0.2 *
+            0.3 *
             math.min(1, height / 200) *
             envelope *
-            math.sin(x / 280 + phase);
+            math.sin(x / 224 + phase);
         glyph.points[i] = math.Point(
           (point.x + dx * unitsPerEm / 1000).round(),
           (point.y + dy * unitsPerEm / 1000).round(),

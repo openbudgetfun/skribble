@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:skribble_font_roughen/skribble_font_roughen.dart';
@@ -81,8 +82,8 @@ void main() {
       () {
         final bytes = source.readAsBytesSync();
         final original = TrueTypeFont(bytes);
-        final previous = TrueTypeFont(bytes)..roughen(7);
-        final current = TrueTypeFont(bytes)..roughen(14);
+        final previous = TrueTypeFont(bytes)..roughen(10);
+        final current = TrueTypeFont(bytes)..roughen(20);
         var oldDistance = 0.0;
         var newDistance = 0.0;
 
@@ -99,15 +100,21 @@ void main() {
 
         expect(newDistance / oldDistance, closeTo(2, 0.02));
         expect(current.tables['hmtx'], original.tables['hmtx']);
-        expect(FontRoughener(inputPath: '', outputPath: '').jitterAmount, 14);
+        expect(FontRoughener(inputPath: '', outputPath: '').jitterAmount, 20);
       },
     );
 
-    test('$suffix keeps vertical bounds and limits body-text wobble', () {
+    test('$suffix keeps vertical bounds with a restrained lean', () {
       final bytes = source.readAsBytesSync();
       final original = TrueTypeFont(bytes);
-      final edited = TrueTypeFont(bytes)..roughen(14);
+      final edited = TrueTypeFont(bytes)..roughen(20);
       final scale = original.unitsPerEm / 1000;
+      final bounds = ByteData.sublistView(original.tables['head']!);
+      final maxY = math.max(
+        bounds.getInt16(38).abs(),
+        bounds.getInt16(42).abs(),
+      );
+      const maxLean = 0.9 * math.pi / 180;
 
       for (var id = 0; id < original.glyphCount; id++) {
         final before = original.glyphPoints(id);
@@ -121,11 +128,11 @@ void main() {
         for (var i = 0; i < before.length; i++) {
           expect(
             (after[i].x - before[i].x).abs(),
-            lessThanOrEqualTo(14 * scale + 0.5),
+            lessThanOrEqualTo(20 * scale + maxY * maxLean + 0.5),
           );
           expect(
             (after[i].y - before[i].y).abs(),
-            lessThanOrEqualTo(2.8 * scale + 0.5),
+            lessThanOrEqualTo(6 * scale + 0.5),
           );
           expect(
             after[i].y,
