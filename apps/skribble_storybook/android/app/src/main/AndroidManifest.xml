@@ -1,10 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- MapLibre fetches its public map style, fonts, sprites, and tiles. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- enableOnBackInvokedCallback opts into predictive back on Android 13
+         to 15; apps that target Android 16 get it by default. -->
     <application
-        android:label="skribble_storybook"
+        android:label="Skribble Storybook"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:enableOnBackInvokedCallback="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -6,7 +6,7 @@
   "background_color": "#FFFAF0",
   "theme_color": "#FFFAF0",
   "description": "Every skribble component, hand-drawn and interactive: change the ink, typeface, and paper and watch it all redraw.",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "prefer_related_applications": false,
   "icons": [
     {

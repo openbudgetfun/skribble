@@ -4,10 +4,14 @@ The interactive showcase app for [skribble](https://pub.dev/packages/skribble) �
 
 ## Run it
 
+From `apps/skribble_storybook`, inside `devenv shell` so the Flutter version matches `.fvmrc`:
+
 ```bash
 flutter pub get
-flutter run -d chrome   # or any device
+flutter run -d chrome   # or -d macos, or a simulator or emulator ID from `flutter devices`
 ```
+
+The storybook ships runners for web, Android, iOS, and macOS. The maps page draws real MapLibre maps on Android, iOS, and web. MapLibre has no macOS renderer, so on macOS that page shows the plugin's "not yet supported" message. Android requests the internet permission for the map tiles; the other pages work offline. The macOS window opens at 800 × 600 and won't shrink below 360 × 480, the narrowest layout the tests check.
 
 The toolbar starts on Skribble Noto Sketch, the default, and changes between the bundled Casual, Linear, or Mono font, the three Skribble Noto levels (chips Noto, Sketch, and Lively), and the Gentle, Playful, or Expressive ink style across every page. The app depends explicitly on `skribble_font_recursive` and the three `skribble_font_noto*` packages so release builds include the same fonts as the docs.
 
