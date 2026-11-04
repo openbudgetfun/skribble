@@ -148,6 +148,56 @@ void main() {
     );
   });
 
+  group('doodles and the logo', () {
+    testWidgets('an ancestor rebuild redraws no doodle or logo geometry', (
+      tester,
+    ) async {
+      // Fresh, equal-valued widgets each pump, as a parent's build makes.
+      // ignore: prefer_const_constructors
+      Widget page() => Center(
+        // ignore: prefer_const_constructors
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // ignore: prefer_const_constructors
+            WiredDoodle(kind: WiredDoodleKind.butterfly, seed: 3),
+            // ignore: prefer_const_constructors
+            WiredDoodle(
+              kind: WiredDoodleKind.heart,
+              fillColor: const Color(0xFFF6DFD5),
+            ),
+            // ignore: prefer_const_constructors
+            WiredLogo(),
+          ],
+        ),
+      );
+      RoughGenerationCounter.reset();
+      await pumpWired(tester, page());
+      final settled = RoughGenerationCounter.generations;
+      expect(settled, greaterThan(0));
+
+      await pumpWired(tester, page());
+      await pumpWired(tester, page());
+      expect(
+        RoughGenerationCounter.generations,
+        settled,
+        reason: 'an unchanged doodle must keep its prepared ink',
+      );
+
+      await pumpWired(
+        tester,
+        const Center(
+          child: WiredDoodle(kind: WiredDoodleKind.butterfly, seed: 4),
+        ),
+      );
+      expect(
+        RoughGenerationCounter.generations,
+        greaterThan(settled),
+        reason: 'a new seed must redraw the doodle',
+      );
+    });
+  });
+
   group('WiredToggle animation', () {
     testWidgets('the thumb travel regenerates no rough geometry', (
       tester,
