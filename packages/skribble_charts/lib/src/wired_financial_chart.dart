@@ -92,9 +92,19 @@ class WiredFinancialChart extends HookWidget {
     useListenable(controller);
     final index = controller.selectedIndex;
     final selected = index == null ? null : controller.candles[index];
+    final instrument = controller.instrument.id;
+    final candles = controller.candles;
     final description = selected == null
-        ? '${controller.instrument.id}. ${controller.candles.length} candles.'
-        : _describeCandle(controller.instrument.id, selected);
+        ? '$instrument. ${candles.length} candles.'
+        : _describeCandle(instrument, selected);
+    // Screen readers get whole words instead of the compact O/H/L/C labels,
+    // and the latest close when nothing is selected.
+    final spoken = selected != null
+        ? _speakCandle(instrument, selected)
+        : candles.isEmpty
+        ? '$instrument. No market data.'
+        : '$instrument. ${candles.length} candles. Latest close '
+              '${candles.last.close} at ${_formatTime(candles.last.time)}.';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -113,18 +123,26 @@ class WiredFinancialChart extends HookWidget {
                 chart: this,
                 editor: editor,
                 size: constraints.biggest,
-                description: description,
+                description: spoken,
               );
             },
           ),
         ),
         if (showSelectionDetails)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              description,
-              key: const ValueKey('chart-selection-details'),
-              style: TextStyle(color: style.foreground, fontSize: 12),
+          // The details sit on the chart's own paper, so a night palette in a
+          // light app, or the reverse, keeps its foreground readable.
+          ColoredBox(
+            color: style.background,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+              // The chart's semantic value already announces the selection.
+              child: ExcludeSemantics(
+                child: Text(
+                  description,
+                  key: const ValueKey('chart-selection-details'),
+                  style: TextStyle(color: style.foreground, fontSize: 12),
+                ),
+              ),
             ),
           ),
       ],
@@ -191,6 +209,11 @@ class _ChartCanvas extends HookWidget {
       [editor.annotations, preview.value, chart.scale],
     );
     final textStyle = DefaultTextStyle.of(context).style;
+    // Axis labels follow the reader's text size up to double, where the
+    // measured gutters still leave most of the chart for prices.
+    final textScaler = MediaQuery.textScalerOf(
+      context,
+    ).clamp(maxScaleFactor: 2);
     final scene = useMemoized(
       () => ChartScene(
         candles: controller.candles,
@@ -206,6 +229,7 @@ class _ChartCanvas extends HookWidget {
         panes: chart.panes,
         annotations: drawings,
         textStyle: textStyle,
+        textScaler: textScaler,
       ),
       [
         controller,
@@ -221,6 +245,7 @@ class _ChartCanvas extends HookWidget {
         chart.panes,
         drawings,
         textStyle,
+        textScaler,
       ],
     );
     // Gesture recognition begins after touch slop. Keep the actual initial
@@ -450,9 +475,7 @@ class _ChartCanvas extends HookWidget {
             });
           },
           child: MouseRegion(
-            cursor: chart.tool == WiredChartDrawingTool.none
-                ? SystemMouseCursors.precise
-                : SystemMouseCursors.precise,
+            cursor: SystemMouseCursors.precise,
             onHover: (event) {
               if (scene.priceRect.contains(event.localPosition)) {
                 inspect(event.localPosition.dx);
@@ -603,8 +626,33 @@ class _ChartHandleDragGestureRecognizer extends PanGestureRecognizer {
 }
 
 String _describeCandle(String instrument, WiredChartCandle candle) =>
-    '$instrument · ${candle.time.toIso8601String()} · '
+    '$instrument · ${_formatTime(candle.time)} · '
     'O ${candle.open}  H ${candle.high}  L ${candle.low}  C ${candle.close}  V ${candle.volume}';
+
+String _speakCandle(String instrument, WiredChartCandle candle) =>
+    '$instrument, ${_formatTime(candle.time)}. Open ${candle.open}, '
+    'high ${candle.high}, low ${candle.low}, close ${candle.close}, '
+    'volume ${candle.volume}.';
+
+/// Formats a candle time as `2026-09-10 12:30 UTC`, adding seconds and a
+/// fraction only when the timestamp has them.
+String _formatTime(DateTime time) {
+  String two(int value) => value.toString().padLeft(2, '0');
+  final utc = time.toUtc();
+  final date =
+      '${utc.year.toString().padLeft(4, '0')}-${two(utc.month)}-${two(utc.day)}';
+  final fraction = utc.millisecond * 1000 + utc.microsecond;
+  final buffer = StringBuffer('$date ${two(utc.hour)}:${two(utc.minute)}');
+
+  if (utc.second != 0 || fraction != 0) buffer.write(':${two(utc.second)}');
+
+  if (fraction != 0) {
+    final digits = fraction.toString().padLeft(6, '0');
+    buffer.write('.${digits.replaceFirst(RegExp(r'0+$'), '')}');
+  }
+
+  return '$buffer UTC';
+}
 
 WiredChartAnnotation _newDrawing(
   WiredChartDrawingTool tool,
@@ -743,7 +791,7 @@ class _InteractionPainter extends CustomPainter {
         canvas
           ..drawLine(
             Offset(x, scene.priceRect.top),
-            Offset(x, size.height - 24),
+            Offset(x, scene.plotBottom),
             paint,
           )
           ..save()
