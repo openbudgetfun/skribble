@@ -127,7 +127,7 @@ All of these must pass for a PR to be merged:
 <!-- {=docsContribQualityGatesSection} -->
 
 ```bash
-# Zero issues (including info-level)
+# Zero issues (including info-level, such as an undocumented public member)
 dart analyze --fatal-infos .
 
 # Zero format drift

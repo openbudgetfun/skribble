@@ -1032,7 +1032,7 @@ Before marking any widget task as complete, verify:
 4. **Skipping tests** — minimum 6 `testWidgets` per widget, no exceptions
 5. **Wrong test helper** — use `pumpApp()`, not raw `tester.pumpWidget()`
 6. **Missing barrel export** — widget must be exported from `skribble.dart`
-7. **Missing dartdoc** — every public class and parameter needs `///` comments
+7. **Missing dartdoc** — every public class and parameter needs `///` comments; the shared `public_member_api_docs` lint fails `dart analyze --fatal-infos` on any undocumented public member
 8. **Missing semantic label** — interactive widgets need a `semanticLabel` parameter
 9. **Not updating docs** — when APIs change, update the docs site content
 10. **Using `const` constructors for Wired widgets in tests** — many Wired widgets contain mutable rough drawing state, so tests may need non-const instances
