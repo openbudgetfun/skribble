@@ -141,6 +141,9 @@ class WiredCupertinoTextField extends HookWidget {
                         style ??
                         TextStyle(color: theme.textColor, fontSize: 16),
                     decoration: InputDecoration(
+                      // Desktop's compact density would take 4 pixels off each side of
+                      // the padding, bringing text within the ink's breathing room.
+                      visualDensity: VisualDensity.standard,
                       hintText: placeholder,
                       hintStyle:
                           placeholderStyle ??

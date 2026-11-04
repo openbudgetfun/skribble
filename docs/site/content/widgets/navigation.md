@@ -32,7 +32,7 @@ WiredAppBar(title: Text('Make something lovely'))
 
 - The bottom border is a 2px `WiredLineBase` spanning full width.
 - Title text uses `theme.textColor` at 20px bold, stays on one line, and ends with an ellipsis when it does not fit.
-- Like Material's `AppBar`, the title follows the platform's text scaling up to 1.34 times, so a large setting cannot push it out of the bar's fixed height.
+- Like Material's `AppBar`, the title follows the platform's text scaling up to 1.34 times, so a large setting cannot push it out of the bar's fixed height. `leading` and `actions` share the limit, so a text button there keeps its ink padding.
 - Screen readers hear the title as a header.
 - Wrapped in `SafeArea(bottom: false)` to respect system UI.
 
@@ -264,7 +264,7 @@ HookBuilder(
 - `WiredTabBar` is controlled: pass `selectedIndex` and update it from `onTap`. Pair it with an `IndexedStack` or a `PageView` for the content.
 - The active tab indicator is a hand-drawn line using `WiredLineBase`, drawn below the label so it never crosses its letters.
 - Labels stay on one line and end with an ellipsis when narrow screens or large text leave too little room.
-- The bar is exactly `height` tall, so it fits an app bar's `bottom` slot.
+- The bar is at least `height` tall and grows with large text, keeping 8 pixels between each label and its underline. In a fixed slot, such as an app bar's `bottom`, it is exactly `height` tall.
 - Tabs take keyboard focus: the arrow keys move between them and Enter or Space selects one. Screen readers hear each tab as a selectable button with its position, such as `Sketches, tab 2 of 3`.
 
 ---

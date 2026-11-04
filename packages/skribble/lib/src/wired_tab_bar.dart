@@ -11,7 +11,10 @@ import 'wired_theme.dart';
 /// A tab bar with hand-drawn underline indicators.
 ///
 /// Each label stays on one line, with an ellipsis when it does not fit, and
-/// the selected tab's underline sits below it, clear of its letters. Tabs
+/// the selected tab's underline sits below it, clear of its letters. The
+/// bar is at least [height] tall and grows with large text, keeping the
+/// ink padding between each label and its underline; inside a slot with a
+/// fixed height, such as an app bar's `bottom`, it is exactly that tall. Tabs
 /// take keyboard focus: the arrow keys move between them and Enter or Space
 /// selects one. Screen readers hear each tab as a selectable button, such
 /// as `Reviews, tab 2 of 4`.
@@ -25,7 +28,8 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
   /// Called with a tab's index when it is tapped or activated.
   final ValueChanged<int>? onTap;
 
-  /// The bar's height, including its ink line.
+  /// The bar's least height, including its ink line. It is also the
+  /// [preferredSize] an app bar's `bottom` slot reserves.
   final double height;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -53,17 +57,24 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            // The ink line below takes the rest, so the bar is exactly
-            // [preferredSize] tall, as an app bar's `bottom` must be.
-            height: math.max(0, height - theme.inkExtent),
-            child: Row(
-              children: [
-                for (int i = 0; i < tabs.length; i++)
-                  Expanded(
-                    child: _buildTab(tabs[i], i == selectedIndex, i, theme),
-                  ),
-              ],
+          ConstrainedBox(
+            // The ink line below takes the rest, so the bar is at least
+            // [preferredSize] tall, and exactly that in a fixed slot.
+            constraints: BoxConstraints(
+              minHeight: math.max(0, height - theme.inkExtent),
+            ),
+            // The tallest label sets the row's height, and every tab
+            // stretches to it, so their underlines line up.
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (int i = 0; i < tabs.length; i++)
+                    Expanded(
+                      child: _buildTab(tabs[i], i == selectedIndex, i, theme),
+                    ),
+                ],
+              ),
             ),
           ),
           SizedBox(
@@ -109,7 +120,15 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
               Expanded(
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    // The ink padding above the selected tab's underline;
+                    // nothing is drawn above the label, so less room
+                    // there keeps a one-line bar at its usual height.
+                    padding: EdgeInsets.fromLTRB(
+                      8,
+                      4,
+                      8,
+                      kWiredInkPadding.bottom,
+                    ),
                     // The tab's label above already says this, with the
                     // tab's position.
                     child: ExcludeSemantics(

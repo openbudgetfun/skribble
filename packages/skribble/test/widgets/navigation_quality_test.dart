@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble/testing.dart';
 
 /// Layout, safe-area, keyboard, and semantics checks shared by the
 /// navigation widgets: app bar, tab bar, bottom navigation, navigation bar,
@@ -58,6 +59,26 @@ void main() {
       expect(bar.contains(tester.getRect(title).bottomCenter), isTrue);
     });
 
+    testWidgets('a text button in leading keeps its padding at 2x text', (
+      tester,
+    ) async {
+      useScreen(tester, width: 800, textScale: 2);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            appBar: WiredAppBar(
+              leading: WiredButton(onPressed: () {}, child: const Text('Back')),
+              title: const Text('Financial charts'),
+            ),
+          ),
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      final root = tester.binding.renderViews.first;
+      expect(crampedText(root, lines: true), isEmpty);
+    });
+
     testWidgets('announces its title as a header', (tester) async {
       final semantics = tester.ensureSemantics();
       await tester.pumpWidget(
@@ -100,7 +121,30 @@ void main() {
       }
     });
 
-    testWidgets('is exactly its preferred height', (tester) async {
+    testWidgets('grows with large text outside a fixed slot', (tester) async {
+      useScreen(tester, textScale: 2);
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(body: WiredTabBar(tabs: tabs)),
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      final bar = tester.getRect(find.byType(WiredTabBar));
+      expect(bar.height, greaterThan(48));
+      for (final label in tabs) {
+        // The ink padding between every label and the underline below it.
+        expect(
+          bar.bottom - tester.getRect(find.text(label)).bottom,
+          greaterThanOrEqualTo(8),
+          reason: label,
+        );
+      }
+    });
+
+    testWidgets('is exactly its preferred height in an app bar', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

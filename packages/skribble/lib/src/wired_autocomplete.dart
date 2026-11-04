@@ -88,6 +88,9 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                             style: TextStyle(color: theme.textColor),
                             cursorColor: theme.borderColor,
                             decoration: InputDecoration(
+                              // Desktop's compact density would take 4 pixels off each side of
+                              // the padding, bringing text within the ink's breathing room.
+                              visualDensity: VisualDensity.standard,
                               filled: false,
                               border: InputBorder.none,
                               enabledBorder: InputBorder.none,

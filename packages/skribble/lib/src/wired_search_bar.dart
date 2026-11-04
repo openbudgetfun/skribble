@@ -73,6 +73,9 @@ class WiredSearchBar extends HookWidget {
                     // bridge theme supplies outlined, filled defaults that
                     // would otherwise draw a second box inside the ink.
                     decoration: InputDecoration(
+                      // Desktop's compact density would take 4 pixels off each side of
+                      // the padding, bringing text within the ink's breathing room.
+                      visualDensity: VisualDensity.standard,
                       filled: false,
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,

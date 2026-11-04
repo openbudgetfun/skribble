@@ -40,6 +40,7 @@ WiredInput(
 
 ### Notes
 
+- The text keeps the same padding from the ink on every platform: like the buttons, skribble's fields opt out of Material's compact desktop density, which would take 4 pixels off each side on macOS, Windows, and Linux. The same holds for `WiredTextArea`, `WiredAutocomplete`, `WiredSearchBar`, and `WiredCupertinoTextField`.
 - The border is a `WiredRoundedRectangleBase` around the editable line only.
 - When `labelText` is set, the label sits 8px above the field.
 - `errorText` and the `maxLength` counter are written below the ink, 6px clear of it and 12px in from the side, so they never touch the hand-drawn line. The error is announced as a live region.

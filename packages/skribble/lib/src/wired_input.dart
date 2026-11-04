@@ -185,6 +185,9 @@ class WiredInput extends HookWidget {
                 inputFormatters: inputFormatters,
                 onSubmitted: onSubmitted,
                 decoration: InputDecoration(
+                  // Desktop's compact density would take 4 pixels off each side of
+                  // the padding, bringing text within the ink's breathing room.
+                  visualDensity: VisualDensity.standard,
                   filled: false,
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
