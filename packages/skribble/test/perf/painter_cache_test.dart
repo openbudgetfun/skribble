@@ -153,20 +153,18 @@ void main() {
       tester,
     ) async {
       // Fresh, equal-valued widgets each pump, as a parent's build makes.
-      // ignore: prefer_const_constructors
       Widget page() => Center(
-        // ignore: prefer_const_constructors
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          // A const list would hand back the same widgets and skip the
+          // rebuild under test.
+          // ignore: prefer_const_literals_to_create_immutables
           children: [
-            // ignore: prefer_const_constructors
             WiredDoodle(kind: WiredDoodleKind.butterfly, seed: 3),
-            // ignore: prefer_const_constructors
             WiredDoodle(
               kind: WiredDoodleKind.heart,
               fillColor: const Color(0xFFF6DFD5),
             ),
-            // ignore: prefer_const_constructors
             WiredLogo(),
           ],
         ),
