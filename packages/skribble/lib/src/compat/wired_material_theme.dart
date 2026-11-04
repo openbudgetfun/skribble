@@ -3,6 +3,8 @@
 // See `wired_theme_interop.dart` and docs/site/content/core/material-bridge.md
 // for why this directory is the one place allowed to import Material.
 
+import 'package:flutter/cupertino.dart'
+    show CupertinoLocalizations, DefaultCupertinoLocalizations;
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -23,8 +25,13 @@ import 'wired_theme_interop.dart';
 ///
 /// * it installs a Material `Theme` built from the active
 ///   [WiredThemeData] with [WiredThemeData.toThemeData];
-/// * it installs `DefaultMaterialLocalizations` when no Material
-///   localizations are present yet, so widgets such as `Scaffold` render;
+/// * it installs `DefaultMaterialLocalizations` and
+///   `DefaultCupertinoLocalizations` when none are present yet, so widgets
+///   such as `Scaffold`, `TextField`, and `CupertinoDatePicker` render;
+/// * it adds a transparent `Material` when there is none above it, so
+///   Material-backed skribble widgets (`WiredInput`, `WiredCheckbox`,
+///   `WiredListTile`, and the others still built on Material) find the
+///   ancestor they assert on, on every page of the app;
 /// * it does not touch the Wired theme itself -- the surrounding
 ///   `SkribbleApp` already installed it, and [data] can override it for this
 ///   subtree.
@@ -79,20 +86,46 @@ class WiredMaterialTheme extends HookWidget {
       <Object?>[wiredTheme, resolvedBrightness],
     );
     Widget result = Theme(data: material, child: child);
-    if (Localizations.of<MaterialLocalizations>(
+    // A transparent Material above the app's Navigator is an ancestor of
+    // every route, which is all `debugCheckHasMaterial` looks for.
+    if (context.findAncestorWidgetOfExactType<Material>() == null) {
+      result = Material(type: MaterialType.transparency, child: result);
+    }
+    final needsMaterial =
+        Localizations.of<MaterialLocalizations>(
           context,
           MaterialLocalizations,
         ) ==
-        null) {
-      result = Localizations(
-        locale:
-            Localizations.maybeLocaleOf(context) ?? const Locale('en', 'US'),
-        delegates: const <LocalizationsDelegate<dynamic>>[
-          DefaultMaterialLocalizations.delegate,
-          SkribbleLocalizationsDelegate(),
-        ],
-        child: result,
-      );
+        null;
+    final needsCupertino =
+        Localizations.of<CupertinoLocalizations>(
+          context,
+          CupertinoLocalizations,
+        ) ==
+        null;
+    if (needsMaterial || needsCupertino) {
+      final missing = <LocalizationsDelegate<dynamic>>[
+        if (needsMaterial) DefaultMaterialLocalizations.delegate,
+        if (needsCupertino) DefaultCupertinoLocalizations.delegate,
+      ];
+      // Inside an app, Localizations.override keeps the app's own delegates
+      // (skribble's included) and adds only the missing defaults. Outside
+      // one, a fresh scope supplies everything.
+      result = Localizations.maybeLocaleOf(context) == null
+          ? Localizations(
+              locale: const Locale('en', 'US'),
+              delegates: <LocalizationsDelegate<dynamic>>[
+                DefaultWidgetsLocalizations.delegate,
+                ...missing,
+                const SkribbleLocalizationsDelegate(),
+              ],
+              child: result,
+            )
+          : Localizations.override(
+              context: context,
+              delegates: missing,
+              child: result,
+            );
     }
 
     return result;
