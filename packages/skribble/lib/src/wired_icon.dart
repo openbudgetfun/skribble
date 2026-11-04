@@ -163,10 +163,14 @@ class WiredSvgIcon extends HookWidget {
   /// Mirrors the icon, for directional icons in right-to-left layouts.
   final bool flipHorizontally;
 
+  /// <!-- {=dartHachureGap|trim|linePrefix:"  /// "} -->
   /// Distance between hachure strokes, in logical pixels.
+  /// <!-- {/dartHachureGap} -->
   final double hachureGap;
 
+  /// <!-- {=dartHachureAngle|trim|linePrefix:"  /// "} -->
   /// Angle of hachure strokes, in degrees.
+  /// <!-- {/dartHachureAngle} -->
   final double hachureAngle;
 
   @override
@@ -295,10 +299,14 @@ class WiredIcon extends StatelessWidget {
   /// Overrides theme-driven wavering and pen.
   final DrawConfig? drawConfig;
 
+  /// <!-- {=dartHachureGap|trim|linePrefix:"  /// "} -->
   /// Distance between hachure strokes, in logical pixels.
+  /// <!-- {/dartHachureGap} -->
   final double hachureGap;
 
+  /// <!-- {=dartHachureAngle|trim|linePrefix:"  /// "} -->
   /// Angle of hachure strokes, in degrees.
+  /// <!-- {/dartHachureAngle} -->
   final double hachureAngle;
 
   @override

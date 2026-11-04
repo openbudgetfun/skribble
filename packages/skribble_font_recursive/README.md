@@ -28,9 +28,8 @@ Generation is deterministic. Each glyph's index sets the phase of smooth coordin
 
 ## Usage
 
-```yaml
-dependencies:
-  skribble_font_recursive: ^0.3.1
+```bash
+flutter pub add skribble_font_recursive
 ```
 
 No code is required — Flutter registers the families from this package's pubspec. Then select them through core's theme:

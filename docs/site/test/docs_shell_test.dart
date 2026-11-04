@@ -51,6 +51,25 @@ void main() {
     expect(docsNavigationTitle(install), 'Installation');
   });
 
+  test('frontmatter order sorts a group and unordered pages follow', () {
+    DocDocument page(String name, [int? order]) => DocDocument.parse(
+      'content/getting-started/$name.md',
+      '---\ntitle: $name\n${order == null ? '' : 'order: $order\n'}---\n# $name',
+    );
+    final examples = page('code-examples');
+    final firstWidget = page('first-widget', 3);
+    final installation = page('installation', 1);
+    final migration = page('migration');
+    final quick = page('quick-start', 2);
+
+    expect(installation.order, 1);
+    expect(examples.order, isNull);
+    expect(
+      docsReadingOrder([examples, firstWidget, installation, migration, quick]),
+      [installation, quick, firstWidget, examples, migration],
+    );
+  });
+
   group('pager', () {
     testWidgets('links to both neighbours and navigates on tap', (
       tester,

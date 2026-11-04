@@ -1,15 +1,21 @@
-<!-- Shared content for the getting-started docs pages.
-     Providers here are consumed by installation, quick-start, and
-     first-widget pages plus the agents reference commands section. -->
+<!-- Shared content for the getting-started docs pages, the READMEs, and
+     the contributor guides. Run `mdt list` to see every consumer. -->
+
+<!-- Version requirement read from packages/skribble/pubspec.yaml through
+     mdt.toml `[data]`, so it changes when the manifest does. -->
+<!-- {@docsRequirements} -->
+
+skribble needs Flutter {{ skribble.environment.flutter | replace(">=", "") }} or later (Dart {{ skribble.environment.sdk | replace("^", "") }} or later). Run `flutter --version` to check yours.
+
+<!-- {/docsRequirements} -->
+
 <!-- {@docsQuickInstallSection} -->
 
 ```bash
-dart pub add skribble
-# Hand-drawn text: add the default typeface, Skribble Noto Sketch (see Installation)
-flutter pub add skribble_font_noto_sketch
+flutter pub add skribble skribble_font_noto_sketch
 ```
 
-Then import it in your application code:
+`skribble` draws the widgets; `skribble_font_noto_sketch` adds the default hand-drawn lettering. Without the font package, borders still look sketchy but text falls back to the system font. Then import the library:
 
 ```dart
 // Static example: setup
@@ -22,19 +28,15 @@ import 'package:skribble/skribble.dart';
 
 ## Install in an app
 
-Add the `skribble` package to your Flutter project:
+From your Flutter app's directory, add the library and its default typeface in one step:
 
 ```bash
-dart pub add skribble
+flutter pub add skribble skribble_font_noto_sketch
 ```
 
-Add the default hand-drawn typeface, Skribble Noto Sketch, so text renders sketchy, not in the system font. This is the step that makes a first app _look_ hand-drawn:
+`skribble` paints the hand-drawn borders, fills, and icons. `skribble_font_noto_sketch` adds Skribble Noto Sketch, the default lettering: it is the step that makes text _look_ hand-drawn too. There is nothing else to set up: no font registration, no assets to copy, and no Material app.
 
-```bash
-flutter pub add skribble_font_noto_sketch
-```
-
-Then import it:
+Then import the library in your Dart files:
 
 ```dart
 // Static example: setup
@@ -50,60 +52,104 @@ import 'package:skribble/skribble.dart';
 git clone https://github.com/openbudgetfun/skribble.git
 cd skribble
 
-# If using devenv
-direnv allow
+# With devenv (recommended): provides flutter, melos, mdt, dprint, and the git hooks
+devenv shell
 
-# If not using devenv
+# Without devenv: install the pinned Flutter {{ fvm.flutter }} with FVM
 fvm install
 fvm use --force
 
-# Install dependencies
+# Install dependencies for the whole workspace
 flutter pub get
 ```
 
 <!-- {/docsSetupSection} -->
 
+<!-- Everyday workspace commands. `lint:*`, `fix:*`, `test:*`, `docs:*`,
+     and `site:*` are devenv scripts (devenv.nix); `melos run <name>`
+     scripts live in the root pubspec.yaml. -->
 <!-- {@docsCommandsSection} -->
 
 ```bash
 # Install dependencies
 flutter pub get
 
-# Run all lint checks (format + analyze + docs)
+# Run every lint check: dprint formatting, dart analyze, MDT docs sync, and monochange
 lint:all
 
-# Run dart analyze across all packages
+# Fix everything fixable: MDT docs sync, dprint formatting, then dart fix
+fix:all
+
+# Sync the shared MDT documentation blocks, or check that they are in sync
+fix:docs
+lint:docs
+
+# Run dart analyze across all packages (infos are fatal)
 melos run analyze
 
-# Run Flutter widget tests
+# Run the Flutter widget tests
 melos run flutter-test
 
-# Format all Dart code
-dart format .
+# Run every Flutter and pure-Dart test suite, or collect merged coverage
+test:all
+test:coverage
 
-# Fix all fixable lint, format, and docs issues
-fix:all
+# Format all Dart code
+melos run format
 
 # Capture component screenshots
 melos run screenshot
 
-# Generate rough Material icon SVGs
-melos run rough-icons
+# Serve or build the documentation site
+docs:site:serve
+docs:site:build
 
-# Generate rough icon font (TTF + Dart helpers)
+# Build or serve the skribble.dev landing page (Jaspr)
+site:build
+site:serve
+
+# Generate rough Material icon SVGs, or the icon font (TTF + Dart helpers)
+melos run rough-icons
 melos run rough-icons-font
 
-# Generate custom icon artifacts from SVG manifest
-melos run rough-icons-custom
-
-# Run CI-equivalent rough icon checks
+# Run the CI rough icon checks, or verify every committed icon catalog
 melos run rough-icons-ci-check
+melos run icons-check
 
 # Build, typecheck, and test the npm packages in js/
 pnpm install && pnpm run check
+
+# Format, lint, and test the Rust crates in rust/
+cargo fmt --all && cargo clippy --workspace --all-targets --all-features -- -D warnings && cargo test --workspace --all-features
 ```
 
 <!-- {/docsCommandsSection} -->
+
+<!-- Release and cross-engine maintenance commands. -->
+<!-- {@docsReleaseCommandsSection} -->
+
+```bash
+# Validate release configuration and changesets
+monochange step validate
+monochange check
+
+# Preview release files without changing the workspace
+monochange step prepare-release --dry-run --diff
+
+# Attach the bundled font zips to a GitHub release (--dry-run to preview)
+publish:fonts
+
+# Publish the packages a release tag owns, then verify the registry
+publish:owned v<version>
+
+# Tag the merged release commit at HEAD and push its tags, watching each publish
+publish:tags
+
+# Regenerate the Dart parity fixtures for @skribble.dev/rough and the Rust skribble_rough
+dart run packages/skribble_rough/tool/js_parity_fixtures.dart > js/rough/test/fixtures/dart-parity.json
+```
+
+<!-- {/docsReleaseCommandsSection} -->
 
 <!-- {@docsMinimalAppSection} -->
 
@@ -116,6 +162,9 @@ void main() {
   runApp(
     SkribbleApp(
       title: 'My sketchy app',
+      // Supplies the Material theme and localizations that some Wired
+      // widgets, such as WiredInput, still need while they wrap Material.
+      builder: (context, child) => WiredMaterialTheme(child: child!),
       home: WiredScaffold(
         appBar: WiredAppBar(title: Text('My sketchy app')),
         body: Center(
@@ -159,7 +208,13 @@ void main() {
       ),
       themeMode: SkribbleThemeMode.system,
       title: 'My sketchy app',
-      home: MyHomePage(),
+      builder: (context, child) => WiredMaterialTheme(child: child!),
+      home: WiredScaffold(
+        appBar: WiredAppBar(title: Text('Plum ink, day and night')),
+        body: Center(
+          child: WiredButton(onPressed: () {}, child: Text('Press me')),
+        ),
+      ),
     ),
   );
 }

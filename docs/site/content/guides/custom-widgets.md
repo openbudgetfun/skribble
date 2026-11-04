@@ -135,9 +135,13 @@ Widget build(BuildContext context) {
 
 ### Give the ink room to breathe
 
-Hand-drawn lines wobble and have width, so content needs more space from a sketched border than from a straight one. Every skribble control keeps at least `kWiredInkPadding` between its ink and its content: 8 pixels above and below, 12 at the sides. Buttons and chips use `kWiredButtonPadding`, which is 16 at the sides.
+Hand-drawn lines wobble and have width, so content needs more space from a sketched border than from a straight one. A fixed height squeezes the text against the ink when the label grows with a larger font, a longer translation, or text scaling.
 
-Use heights as minimums, never as fixed sizes. Write `constraints: BoxConstraints(minHeight: kWiredButtonHeight)` rather than `height: kWiredButtonHeight`, so the control grows when its label does: a larger font, a longer translation, or the platform's text scaling. A fixed height squeezes the text against the line instead.
+<!-- {=docsInkPaddingRule} -->
+
+Give the ink room to breathe. Content keeps at least `kWiredInkPadding` (8 pixels above and below, 12 at the sides) from any hand-drawn line around it; buttons and chips use `kWiredButtonPadding` (16 at the sides). Heights are minimums (`BoxConstraints(minHeight: kWiredButtonHeight)`), never fixed, so controls grow with larger fonts and text scaling instead of squeezing their text against the ink. `package:skribble/testing.dart` (`crampedText`, `squeezedText`) checks this, and the storybook, docs, and example app run it on every page and example at 360, 768, and 1280 pixels and at 1.3× text.
+
+<!-- {/docsInkPaddingRule} -->
 
 `package:skribble/testing.dart` checks this for you; see [Testing](testing#check-the-inks-breathing-room).
 

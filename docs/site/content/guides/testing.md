@@ -1,11 +1,13 @@
 ---
 title: Testing Widgets
-description: Comprehensive guide to testing skribble widgets, including the pumpApp helper, required test categories, full example test files, and coverage tracking.
+description: Comprehensive guide to testing skribble widgets, including the pumpWired test host, required test categories, full example test files, and coverage tracking.
 ---
 
 # Testing Widgets
 
 Every skribble widget ships with comprehensive widget tests. This guide covers the test structure, the `pumpWired()` test host, required test categories, and how to run and track tests.
+
+This guide is for contributors testing skribble's own widgets; its helpers live in the repository, not in the published package. To test an app built with skribble, the standard `flutter_test` finders work on Wired widgets (see [Test it](/getting-started/quick-start#test-it) in the Quick Start), and `package:skribble/testing.dart` adds the [breathing-room checks](#check-the-inks-breathing-room) you can run on your own screens.
 
 ## Test file structure
 

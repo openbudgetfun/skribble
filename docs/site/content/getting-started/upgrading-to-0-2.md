@@ -1,6 +1,7 @@
 ---
 title: Upgrading to 0.2
 description: How to migrate an app to skribble 0.2, where icon catalogs and typefaces moved into their own packages.
+order: 8
 ---
 
 # Upgrading to 0.2

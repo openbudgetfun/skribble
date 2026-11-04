@@ -2,7 +2,7 @@
 
 Every visual asset in this repository — icon catalogs, emoji, and the bundled typefaces — is generated, and nothing regenerates differently twice. Third-party sources are pinned by exact version and checksum. skribble's own art (the built-in glyphs and the emoji) is hand-written SVG checked into the repository, so its source of truth is reviewed like code. Generated catalogs are never hand-edited.
 
-The registry lives in [`tool/asset_sources.txt`](../../tool/asset_sources.txt). Each package's README repeats the rows relevant to it.
+The registry lives in [`tool/asset_sources.txt`](../tool/asset_sources.txt). Each package's README repeats the rows relevant to it.
 
 ## Why this matters
 

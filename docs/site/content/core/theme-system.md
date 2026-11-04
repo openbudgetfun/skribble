@@ -557,13 +557,13 @@ Playful is the default. The docs toolbar switches the ink between Gentle, Playfu
 
 | Level        | Appearance                                   | Border amplitude | Font deformation | Casual family     |
 | ------------ | -------------------------------------------- | ---------------- | ---------------- | ----------------- |
-| `gentle`     | Softer handwriting and gently bowed edges    | 0.9              | 18               | `SkribbleGentle`  |
-| `playful`    | Neat, lightly wavering notebook ink          | 1.1              | 27               | `SkribblePlayful` |
-| `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
+| `gentle`     | Softer handwriting and gently bowed edges    | 0.9              | 12               | `SkribbleGentle`  |
+| `playful`    | Neat, lightly wavering notebook ink          | 1.1              | 20               | `SkribblePlayful` |
+| `expressive` | Strong lettering and locally wandering edges | 1.8              | 28               | `Skribble`        |
 
 The default typeface is `WiredFont.notoSketch`, Skribble Noto Sketch from the `skribble_font_noto_sketch` package. It is hand-drawn from Google Noto and keeps the same lettering at every roughness level, as do `WiredFont.noto` and `WiredFont.notoLively` (see [Compare the lettering](/core/font-comparison#skribble-noto)). Set `font: WiredFont.casual`, `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData` for the Recursive typefaces from `skribble_font_recursive`, which follow the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble_font_recursive'` for code-only typography. An explicit `fontFamily` takes precedence.
 
-All levels keep the 1.6px pen (`kWiredStrokeWidth`). The Recursive Regular, Bold, Italic, and Bold Italic faces retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three Recursive typefaces bundles twelve static faces. Skribble Noto ships one Regular face per level, and Flutter synthesizes bold and italic from it. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
+All levels keep the 1.6px pen width (`kWiredStrokeWidth`). Every Recursive face, in all seven weights and their italics, retains the source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three Recursive typefaces bundles 42 static faces: seven weights, upright and italic, at each of the three levels. Font deformation is the roughening strength per 1,000 units per em. Skribble Noto ships one Regular face per level, and Flutter synthesizes bold and italic from it. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 
 <!-- {/docsRoughnessLevelTable} -->
 

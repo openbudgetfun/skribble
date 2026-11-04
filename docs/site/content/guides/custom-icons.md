@@ -224,7 +224,7 @@ WiredSvgIcon(
   color: Colors.blue,
   semanticLabel: 'Custom icon',
   fillStyle: WiredIconFillStyle.hachure,
-  strokeWidth: 1.6,
+  weight: 300,
   hachureGap: 2.25,
   hachureAngle: 320,
 )

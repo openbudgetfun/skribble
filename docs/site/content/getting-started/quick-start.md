@@ -1,17 +1,28 @@
 ---
 title: Quick Start
-description: Build a minimal Flutter app with SkribbleApp and a handful of hand-drawn widgets.
+description: Build, run, and test a minimal Flutter app with SkribbleApp and a handful of hand-drawn widgets.
+order: 2
 ---
 
 # Quick Start
 
-This page walks you through a minimal skribble app. By the end you will have a running Flutter app with a hand-drawn app bar, button, text input, and checkbox -- all styled by a single `WiredThemeData`.
+This page walks you through a minimal skribble app. By the end you will have a running Flutter app with a hand-drawn app bar, button, text input, and checkbox -- all styled by a single `WiredThemeData` -- and a widget test for it.
 
-## Prerequisites
+## Create the app
 
-Make sure you have [installed skribble](/getting-started/installation) in your Flutter project.
+Start from any Flutter app. To make a new one and add skribble with its default hand-drawn typeface:
+
+```bash
+flutter create --empty my_sketchy_app
+cd my_sketchy_app
+flutter pub add skribble skribble_font_noto_sketch
+```
+
+[Installation](/getting-started/installation) covers the requirements, other typefaces, and optional packages.
 
 ## Minimal app
+
+Replace the contents of `lib/main.dart` with:
 
 <!-- {=docsMinimalAppSection} -->
 
@@ -24,6 +35,9 @@ void main() {
   runApp(
     SkribbleApp(
       title: 'My sketchy app',
+      // Supplies the Material theme and localizations that some Wired
+      // widgets, such as WiredInput, still need while they wrap Material.
+      builder: (context, child) => WiredMaterialTheme(child: child!),
       home: WiredScaffold(
         appBar: WiredAppBar(title: Text('My sketchy app')),
         body: Center(
@@ -40,6 +54,10 @@ void main() {
 
 <!-- {/docsMinimalAppSection} -->
 
+Run it with `flutter run` and pick a device. You should see a sketchy app bar and a wobbly button, lettered in Skribble Noto Sketch. If the text is in the system font, see [Troubleshooting](/getting-started/installation#troubleshooting).
+
+`SkribbleApp` is the recommended app shell for new apps. Keeping an existing `MaterialApp` is covered [below](#already-using-materialapp).
+
 ## How SkribbleApp works
 
 `SkribbleApp` is an app shell built on Flutter's widgets-layer `WidgetsApp`. It does three things automatically:
@@ -50,7 +68,9 @@ void main() {
 
 3. **Localizes sensibly** -- it installs a widgets-only localization delegate that resolves left-to-right and right-to-left text direction. Add `flutter_localizations` delegates if you need translated Material or Cupertino strings; see [App shell](../core/app-shell#localization).
 
-The app supports multiple theme variants:
+The `builder` line is the one piece of Material the minimal app still carries. Several Wired widgets, `WiredInput` among them, wrap a Material control while skribble rewrites them on `flutter/widgets`, and those controls need a Material theme and localizations above them. `WiredMaterialTheme` supplies both from your Wired theme without a `MaterialApp`, and your own code still imports only `package:flutter/widgets.dart`. Leave it out and a screen with a text field fails with `No MaterialLocalizations found`.
+
+The app supports multiple theme variants. In this fragment, `lightTheme`, `darkTheme`, `highContrastTheme`, and `hcDarkTheme` stand for `WiredThemeData` values you define, and `MyHomePage` for your own page widget ([Theming](/getting-started/theming) builds a complete example):
 
 ```dart
 // Static example: setup
@@ -68,7 +88,7 @@ If you omit `wiredTheme`, `WiredThemeData.defaultTheme` is used. If you omit `da
 
 ### Router variant
 
-For apps using `go_router` or another `RouterConfig`, use the `.router` constructor:
+For apps using `go_router` or another `RouterConfig`, use the `.router` constructor. Here `goRouter` is your app's `RouterConfig<Object>`:
 
 ```dart
 // Static example: setup
@@ -84,7 +104,13 @@ Keep it while you migrate and use `WiredMaterialApp`, the transitional compatibi
 
 ## Adding more widgets
 
-Now let's build a more complete page. Replace the `home` parameter with a dedicated page widget:
+Now let's build a more complete page. It keeps its form state in [flutter_hooks](https://pub.dev/packages/flutter_hooks), the same hooks skribble's widgets use, so add that package first:
+
+```bash
+flutter pub add flutter_hooks
+```
+
+Then replace `lib/main.dart` with a dedicated page widget:
 
 ```dart
 // Static example: setup
@@ -92,13 +118,21 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
-void main() {
-  runApp(
-    SkribbleApp(
-      wiredTheme: WiredThemeData(),
+void main() => runApp(const SketchyApp());
+
+class SketchyApp extends StatelessWidget {
+  const SketchyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SkribbleApp(
+      title: 'Sketchy form',
+      // Supplies the Material theme and localizations that some Wired
+      // widgets, such as WiredInput, still need while they wrap Material.
+      builder: (context, child) => WiredMaterialTheme(child: child!),
       home: const SketchyHomePage(),
-    ),
-  );
+    );
+  }
 }
 
 class SketchyHomePage extends HookWidget {
@@ -149,6 +183,7 @@ class SketchyHomePage extends HookWidget {
                           onChanged: (value) {
                             isAgreed.value = value ?? false;
                           },
+                          semanticLabel: 'I agree to the terms',
                         ),
                         const SizedBox(width: 8),
                         const Text('I agree to the terms'),
@@ -185,6 +220,38 @@ This gives you:
 
 All four widgets read their colors from `WiredTheme.of(context)` automatically. Change the theme in one place and every widget updates.
 
+## Test it
+
+Wired widgets work with the standard `flutter_test` finders. Save this as `test/widget_test.dart` and run `flutter test`:
+
+```dart
+// Static example: test
+import 'package:flutter/widgets.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:my_sketchy_app/main.dart';
+import 'package:skribble/skribble.dart';
+
+void main() {
+  testWidgets('the sign-up form takes a name and an agreement', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const SketchyApp());
+
+    await tester.enterText(find.byType(EditableText), 'Ada');
+    await tester.tap(find.byType(WiredCheckbox));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Ada'), findsOneWidget);
+    expect(
+      tester.widget<WiredCheckbox>(find.byType(WiredCheckbox)).value,
+      isTrue,
+    );
+  });
+}
+```
+
+Replace `my_sketchy_app` with your app's package name from `pubspec.yaml`. The [Testing guide](/guides/testing) covers skribble's own test helpers, semantics checks, and screenshot tests.
+
 ## What each widget does under the hood
 
 Every Wired widget follows the same pattern:
@@ -198,7 +265,7 @@ Every Wired widget follows the same pattern:
 
 - [Your First Widget](/getting-started/first-widget) -- deeper dive into individual widgets and event handling
 - [Theming](/getting-started/theming) -- change colors, stroke width, and roughness
-- [Widget Reference](/widgets) -- browse the full catalog of 80+ widgets
+- [Widget Reference](/widgets/buttons) -- browse the full catalog of more than 100 widgets
 
 ## Bring the ink to life
 

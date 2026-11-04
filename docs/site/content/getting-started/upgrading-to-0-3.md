@@ -1,6 +1,7 @@
 ---
 title: Upgrading to 0.3
 description: How to migrate an app to skribble 0.3, where every line is inked by a pen, icons take a weight, skribble ships its own glyphs, and the rough engine's configuration types lost their nullable fields.
+order: 7
 ---
 
 # Upgrading to 0.3

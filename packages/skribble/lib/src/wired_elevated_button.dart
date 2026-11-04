@@ -8,8 +8,10 @@ import 'wired_theme.dart';
 
 /// An elevated button: a paper face over a lightly pencilled offset shadow.
 class WiredElevatedButton extends WiredButtonBase {
+  /// <!-- {=dartRoughBorderRadius|trim|linePrefix:"  /// "} -->
   /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
   /// for square corners.
+  /// <!-- {/dartRoughBorderRadius} -->
   final BorderRadius borderRadius;
 
   /// Creates an elevated button. See [WiredButtonBase] for the shared

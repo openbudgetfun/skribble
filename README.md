@@ -43,7 +43,62 @@
 
 <br />
 
-A hand-drawn design system for Flutter. skribble gives your app a unique, informal aesthetic — with familiar Material and Cupertino APIs.
+A hand-drawn design system for Flutter. skribble gives your app a unique, informal aesthetic, with widget APIs that feel familiar if you know Material and Cupertino.
+
+## Get started
+
+<!-- {=docsRequirements} -->
+
+skribble needs Flutter 3.47.0 or later (Dart 3.13.0 or later). Run `flutter --version` to check yours.
+
+<!-- {/docsRequirements} -->
+
+<!-- {=docsQuickInstallSection|replace:"// Static example: setup\n":""} -->
+
+```bash
+flutter pub add skribble skribble_font_noto_sketch
+```
+
+`skribble` draws the widgets; `skribble_font_noto_sketch` adds the default hand-drawn lettering. Without the font package, borders still look sketchy but text falls back to the system font. Then import the library:
+
+```dart
+import 'package:skribble/skribble.dart';
+```
+
+<!-- {/docsQuickInstallSection} -->
+
+Replace `lib/main.dart` with a minimal app and run it with `flutter run`:
+
+<!-- {=docsMinimalAppSection|replace:"// Static example: setup\n":""} -->
+
+```dart
+import 'package:flutter/widgets.dart';
+import 'package:skribble/skribble.dart';
+
+void main() {
+  runApp(
+    SkribbleApp(
+      title: 'My sketchy app',
+      // Supplies the Material theme and localizations that some Wired
+      // widgets, such as WiredInput, still need while they wrap Material.
+      builder: (context, child) => WiredMaterialTheme(child: child!),
+      home: WiredScaffold(
+        appBar: WiredAppBar(title: Text('My sketchy app')),
+        body: Center(
+          child: WiredButton(
+            onPressed: () {},
+            child: Text('Press me'),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+```
+
+<!-- {/docsMinimalAppSection} -->
+
+The [Quick Start](https://openbudgetfun.github.io/skribble/getting-started/quick-start) builds a full form and a widget test from here, and [Installation](https://openbudgetfun.github.io/skribble/getting-started/installation) covers other typefaces, icons, maps, and charts.
 
 ## Design with skribble
 
@@ -61,13 +116,31 @@ Use `WiredThemeData.cuddly()` for warm paper and plum ink, or pass `brightness: 
 
 ## Packages
 
-| Package                                      | Description                                                |
-| -------------------------------------------- | ---------------------------------------------------------- |
-| [`skribble`](packages/skribble/)             | Main UI library (Wired widgets, rough engine, and exports) |
-| [`skribble_maps`](packages/skribble_maps/)   | MapLibre maps with hand-drawn overlays and controls        |
-| [`skribble_rough`](packages/skribble_rough/) | The pure-Dart rough engine, with SVG path output           |
-| [`skribble_jaspr`](packages/skribble_jaspr/) | Server-rendered hand-drawn components for Jaspr sites      |
-| [`skribble_lints`](packages/skribble_lints/) | Shared lint rules                                          |
+<!-- {=docsPackageCatalog} -->
+
+| Package                                                                           | What it adds                                                                                 |
+| --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [`skribble`](https://pub.dev/packages/skribble)                                   | The Wired widgets, `SkribbleApp`, the theme, and the Flutter painting layer. Start here.     |
+| [`skribble_font_noto_sketch`](https://pub.dev/packages/skribble_font_noto_sketch) | Skribble Noto Sketch, the default hand-drawn lettering                                       |
+| [`skribble_font_noto`](https://pub.dev/packages/skribble_font_noto)               | Skribble Noto Soft, the calmest Noto level                                                   |
+| [`skribble_font_noto_lively`](https://pub.dev/packages/skribble_font_noto_lively) | Skribble Noto Lively, the most playful Noto level                                            |
+| [`skribble_font_recursive`](https://pub.dev/packages/skribble_font_recursive)     | Roughened Recursive Casual, Linear, and Mono, which follow the roughness level               |
+| [`skribble_icons`](https://pub.dev/packages/skribble_icons)                       | Every icon set behind one import, with a unified lookup                                      |
+| [`skribble_icons_material`](https://pub.dev/packages/skribble_icons_material)     | Flutter's Material icons as hand-drawable geometry                                           |
+| [`skribble_icons_lucide`](https://pub.dev/packages/skribble_icons_lucide)         | Lucide outline icons                                                                         |
+| [`skribble_icons_bxs`](https://pub.dev/packages/skribble_icons_bxs)               | Boxicons Solid icons                                                                         |
+| [`skribble_icons_simple`](https://pub.dev/packages/skribble_icons_simple)         | Simple Icons brand marks                                                                     |
+| [`skribble_icons_cib`](https://pub.dev/packages/skribble_icons_cib)               | CoreUI Brands marks                                                                          |
+| [`skribble_emoji`](https://pub.dev/packages/skribble_emoji)                       | skribble's own hand-drawn emoji for every Unicode emoji                                      |
+| [`skribble_maps`](https://pub.dev/packages/skribble_maps)                         | MapLibre maps with hand-drawn pins, routes, areas, and controls                              |
+| [`skribble_charts`](https://pub.dev/packages/skribble_charts)                     | Exact OHLC data, hand-drawn financial charts, indicators, and drawing tools                  |
+| [`skribble_rough`](https://pub.dev/packages/skribble_rough)                       | The pure-Dart rough engine, with SVG path output and no Flutter dependency                   |
+| [`skribble_jaspr`](https://pub.dev/packages/skribble_jaspr)                       | Server-rendered hand-drawn components for Jaspr sites                                        |
+| [`skribble_font_roughen`](https://pub.dev/packages/skribble_font_roughen)         | A command-line tool that roughens your own fonts                                             |
+| [`skribble_emoji_gen`](https://pub.dev/packages/skribble_emoji_gen)               | The generator that compiles emoji, glyph art, and icon sets into Dart catalogs (maintainers) |
+| [`skribble_lints`](https://pub.dev/packages/skribble_lints)                       | Shared lint rules, extending `very_good_analysis`                                            |
+
+<!-- {/docsPackageCatalog} -->
 
 ## Beyond Dart
 
@@ -79,37 +152,38 @@ Use `WiredThemeData.cuddly()` for warm paper and plum ink, or pass `brightness: 
 
 ## Apps
 
-| App                                              | Description                             |
-| ------------------------------------------------ | --------------------------------------- |
-| [`skribble_storybook`](apps/skribble_storybook/) | Interactive demo showcasing all widgets |
-| [`skribble_site`](apps/skribble_site/)           | The skribble.dev landing page (Jaspr)   |
-
-## Quick Start
-
-```bash
-# Install dependencies
-dart pub get
-
-# Run analysis (zero issues required)
-melos analyze
-
-# Run all tests
-melos flutter-test
-
-# Format
-melos format
-```
+| App                                              | Description                                |
+| ------------------------------------------------ | ------------------------------------------ |
+| [`skribble_storybook`](apps/skribble_storybook/) | Interactive demo showcasing all widgets    |
+| [`skribble_example`](apps/skribble_example/)     | A hand-drawn notes app built with skribble |
+| [`skribble_benchmark`](apps/skribble_benchmark/) | Rendering benchmarks                       |
+| [`skribble_site`](apps/skribble_site/)           | The skribble.dev landing page (Jaspr)      |
 
 ## Development
 
-This project uses [devenv](https://devenv.sh) for reproducible environments and [melos](https://melos.invertase.dev) for monorepo management.
+This project uses [devenv](https://devenv.sh) for reproducible environments and [melos](https://melos.invertase.dev) for monorepo management:
+
+<!-- {=docsSetupSection} -->
 
 ```bash
-devenv shell    # Enter dev environment
-lint:all        # Analyze + format
-test:all        # Run all tests
-test:coverage   # Generate lcov coverage
+# Clone the repository
+git clone https://github.com/openbudgetfun/skribble.git
+cd skribble
+
+# With devenv (recommended): provides flutter, melos, mdt, dprint, and the git hooks
+devenv shell
+
+# Without devenv: install the pinned Flutter 3.47.0 with FVM
+fvm install
+fvm use --force
+
+# Install dependencies for the whole workspace
+flutter pub get
 ```
+
+<!-- {/docsSetupSection} -->
+
+[CONTRIBUTING.md](CONTRIBUTING.md) lists every workspace command, the conventions, and the quality gates.
 
 ## Quality
 
