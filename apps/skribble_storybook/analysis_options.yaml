@@ -13,9 +13,6 @@ linter:
     cascade_invocations: false
 
 analyzer:
-  errors:
-    # Deprecated Radio API usage until migration
-    deprecated_member_use: ignore
   exclude:
     - build/**
     - android/**

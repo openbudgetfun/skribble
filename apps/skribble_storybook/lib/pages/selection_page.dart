@@ -270,7 +270,7 @@ class SelectionPage extends HookWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '#${pickedColor.value.value.toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
+                          '#${pickedColor.value.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
                         ),
                       ],
                     ),
