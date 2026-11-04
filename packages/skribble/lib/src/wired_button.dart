@@ -11,8 +11,10 @@ import 'wired_theme.dart';
 /// Reads colors from the nearest [WiredTheme] ancestor, falling back
 /// to the default constants when no theme is provided.
 class WiredButton extends WiredButtonBase {
+  /// <!-- {=dartRoughBorderRadius|trim|linePrefix:"  /// "} -->
   /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
   /// for square corners.
+  /// <!-- {/dartRoughBorderRadius} -->
   final BorderRadius borderRadius;
 
   /// Creates a sketchy button. See [WiredButtonBase] for the shared

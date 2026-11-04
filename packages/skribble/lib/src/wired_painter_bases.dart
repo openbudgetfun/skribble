@@ -32,9 +32,11 @@ class WiredRectangleBase extends _PreparedWiredPainter {
     this.strokeWidth = kWiredStrokeWidth,
   });
 
+  /// <!-- {=dartPainterValueEquality|trim|linePrefix:"  /// "} -->
   /// Value equality: WiredCanvas memoizes its painter and skips repainting
   /// only when equal-valued delegates compare equal, so callers may construct
   /// painters inline in build.
+  /// <!-- {/dartPainterValueEquality} -->
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -85,9 +87,11 @@ class WiredInvertedTriangleBase extends _PreparedWiredPainter {
     this.strokeWidth = kWiredStrokeWidth,
   });
 
+  /// <!-- {=dartPainterValueEquality|trim|linePrefix:"  /// "} -->
   /// Value equality: WiredCanvas memoizes its painter and skips repainting
   /// only when equal-valued delegates compare equal, so callers may construct
   /// painters inline in build.
+  /// <!-- {/dartPainterValueEquality} -->
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -150,9 +154,11 @@ class WiredLineBase extends _PreparedWiredPainter {
     this.strokeWidth = 1,
   });
 
+  /// <!-- {=dartPainterValueEquality|trim|linePrefix:"  /// "} -->
   /// Value equality: WiredCanvas memoizes its painter and skips repainting
   /// only when equal-valued delegates compare equal, so callers may construct
   /// painters inline in build.
+  /// <!-- {/dartPainterValueEquality} -->
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -225,9 +231,11 @@ class WiredRoundedRectangleBase extends _PreparedWiredPainter {
     this.strokeWidth = kWiredStrokeWidth,
   });
 
+  /// <!-- {=dartPainterValueEquality|trim|linePrefix:"  /// "} -->
   /// Value equality: WiredCanvas memoizes its painter and skips repainting
   /// only when equal-valued delegates compare equal, so callers may construct
   /// painters inline in build.
+  /// <!-- {/dartPainterValueEquality} -->
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -289,9 +297,11 @@ class WiredCircleBase extends _PreparedWiredPainter {
     this.strokeWidth = kWiredStrokeWidth,
   });
 
+  /// <!-- {=dartPainterValueEquality|trim|linePrefix:"  /// "} -->
   /// Value equality: WiredCanvas memoizes its painter and skips repainting
   /// only when equal-valued delegates compare equal, so callers may construct
   /// painters inline in build.
+  /// <!-- {/dartPainterValueEquality} -->
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

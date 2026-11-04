@@ -188,10 +188,14 @@ final class WiredSvgIconPainter extends CustomPainter {
   /// Wavering amplitude, seed, and pen.
   final DrawConfig drawConfig;
 
+  /// <!-- {=dartHachureGap|trim|linePrefix:"  /// "} -->
   /// Distance between hachure strokes, in logical pixels.
+  /// <!-- {/dartHachureGap} -->
   final double hachureGap;
 
+  /// <!-- {=dartHachureAngle|trim|linePrefix:"  /// "} -->
   /// Angle of hachure strokes, in degrees.
+  /// <!-- {/dartHachureAngle} -->
   final double hachureAngle;
 
   late final List<_PrimitiveInk> _ink = [

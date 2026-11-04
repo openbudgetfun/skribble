@@ -21,8 +21,10 @@ class WiredFilledButton extends WiredButtonBase {
   /// colours contrasts more with the fill.
   final Color? foregroundColor;
 
+  /// <!-- {=dartRoughBorderRadius|trim|linePrefix:"  /// "} -->
   /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
   /// for square corners.
+  /// <!-- {/dartRoughBorderRadius} -->
   final BorderRadius borderRadius;
 
   /// Creates a filled button. See [WiredButtonBase] for the shared

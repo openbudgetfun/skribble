@@ -33,10 +33,12 @@ class WiredToggle extends HookWidget {
     this.seed,
   }) : _legacyOnChange = onChange;
 
+  /// <!-- {=dartInkSeed|trim|linePrefix:"  /// "} -->
   /// Varies the hand behind this widget's ink. The same seed always draws
   /// the same wobble, so neighbouring shapes of the same size need different
   /// seeds to stop them reading as copies of each other. Null keeps the
   /// theme's seed.
+  /// <!-- {/dartInkSeed} -->
   final int? seed;
 
   final bool value;
