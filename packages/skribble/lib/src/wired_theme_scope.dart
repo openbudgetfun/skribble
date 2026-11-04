@@ -9,7 +9,8 @@ import 'wired_theme.dart';
 /// This is the Material-free half of [WiredTheme]. It cascades the palette,
 /// font, and motion policy to every descendant without depending on
 /// `package:flutter/material.dart`, which makes it the theme boundary used by
-/// `SkribbleApp`.
+/// `SkribbleApp`. It also sets the default text style (the theme's font and
+/// `textColor`) and the icon colour (`textColor`) for its subtree.
 ///
 /// Use `WiredTheme` instead when the subtree also hosts Material widgets and
 /// their `ThemeData` must stay in sync with the Skribble palette. A
@@ -51,7 +52,13 @@ class WiredThemeScope extends HookWidget {
           fontFamilyFallback: data.fontFamilyFallback,
           color: data.textColor,
         ),
-        child: WiredMotion(enabled: data.motionEnabled, child: child),
+        // Icons follow the ink as text does. Without this, an icon with no
+        // colour of its own is drawn in IconThemeData.fallback's black,
+        // which vanishes on dark paper.
+        child: IconTheme.merge(
+          data: IconThemeData(color: data.textColor),
+          child: WiredMotion(enabled: data.motionEnabled, child: child),
+        ),
       ),
     );
   }

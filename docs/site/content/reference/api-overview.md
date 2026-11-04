@@ -81,12 +81,12 @@ Key types:
 
 Colors, roughness, and the widgets-based application root.
 
-| Export                        | Purpose                                                   |
-| ----------------------------- | --------------------------------------------------------- |
-| `wired_theme.dart`            | WiredThemeData + WiredTheme (Material sync)               |
-| `wired_theme_scope.dart`      | WiredThemeScope (widgets-only theme boundary)             |
-| `skribble_app.dart`           | SkribbleApp / SkribbleApp.router, SkribbleThemeMode       |
-| `skribble_localizations.dart` | SkribbleLocalizationsDelegate (widgets-only localization) |
+| Export                        | Purpose                                                                     |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| `wired_theme.dart`            | WiredThemeData + WiredTheme (Material sync)                                 |
+| `wired_theme_scope.dart`      | WiredThemeScope (widgets-only theme boundary)                               |
+| `skribble_app.dart`           | SkribbleApp / SkribbleApp.router, SkribbleThemeMode, SkribbleScrollBehavior |
+| `skribble_localizations.dart` | SkribbleLocalizationsDelegate (widgets-only localization)                   |
 
 Key types:
 
@@ -95,6 +95,7 @@ Key types:
 - `WiredThemeScope` — the Material-free half of `WiredTheme`; what `SkribbleApp` installs
 - `SkribbleApp` — widgets-based app shell (home/routes, router, theme, localization, shortcuts); see [App shell](../core/app-shell)
 - `SkribbleThemeMode` — `system`/`light`/`dark` without importing Material's `ThemeMode`
+- `SkribbleScrollBehavior` — `SkribbleApp`'s default scrolling: stretch overscroll on Android and an ink-coloured desktop scrollbar
 - `SkribbleLocalizations`, `SkribbleLocalizationsDelegate` — English widgets labels and right-to-left text direction
 
 ### 5. Compatibility layer (transitional)
