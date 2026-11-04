@@ -241,7 +241,7 @@ Styles with the same settings compare equal, so building one in `build` does not
 
 ## Labels and text size
 
-Axis, pane, and drawing labels use the ambient `DefaultTextStyle` and follow the reader's text size up to double. The right gutter widens to fit the widest price or pane scale label, up to 40% of the chart width. The time axis grows to fit its labels. When labels would touch, the chart drops alternate price labels and time labels. A lower pane too short for its title or for both scale labels leaves them out rather than overlapping them. Very long prices switch to four significant digits in scientific notation, such as `1.234e11`.
+Axis, pane, and drawing labels use the ambient `DefaultTextStyle` and follow the reader's text size up to double. The right gutter widens to fit the widest price or pane scale label, up to 40% of the chart width. The time axis grows to fit its labels. When labels would touch, the chart shows fewer price ticks and time labels. A lower pane too short for its title or for both scale labels leaves them out rather than overlapping them. Very long prices switch to four significant digits in scientific notation, such as `1.234e11`.
 
 ## Accessibility
 
