@@ -264,7 +264,7 @@ Every icon widget takes a `weight` from 100 to 700 (falling back to `IconTheme.w
 
 `package:skribble/testing.dart` checks laid-out screens for the ink's breathing room, in widget tests and with no extra dependencies:
 
-- `crampedText(root)` — text closer than `kWiredInkPadding` to the hand-drawn shape around it, as `CrampedText` reports
+- `crampedText(root)` — text closer than `kWiredInkPadding` to the hand-drawn shape around it, as `CrampedText` reports; `lines: true` and `icons: true` also report lines crossing text and icons crowding their shape, tagged with `CrampedInk`
 - `RoughGenerationCounter` — how many times rough geometry has been generated since `RoughGenerationCounter.reset()`; cache regression tests assert it does not climb on rebuilds with equal-valued painters. `debugIconPainterGenerations` / `debugResetIconPainterCacheStats()` do the same for the icon painter cache.
 - `squeezedText(root)` — paragraphs wrapped into a narrow column on a small screen
 
