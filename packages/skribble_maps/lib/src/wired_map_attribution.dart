@@ -14,10 +14,13 @@ class WiredMapAttribution extends HookWidget {
     super.key,
     this.onTap,
     this.semanticLabel,
-    this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+    this.padding = kWiredInkPadding,
   });
 
   /// The visible provider and data attribution.
+  ///
+  /// It wraps onto as many lines as it needs; constrain the badge's width to
+  /// choose where it breaks.
   final String text;
 
   /// Called when the badge is activated.
@@ -26,18 +29,22 @@ class WiredMapAttribution extends HookWidget {
   /// An optional accessibility label that replaces [text].
   final String? semanticLabel;
 
-  /// Space around the attribution text.
+  /// Space between the attribution text and the hand-drawn outline.
+  ///
+  /// Defaults to [kWiredInkPadding], the breathing room every skribble
+  /// control keeps between its content and its ink.
   final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
+    final focused = useState(false);
     final content = Padding(
       padding: padding,
+      // Providers require the whole credit, so it wraps instead of being
+      // cut short with an ellipsis.
       child: Text(
         text,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: theme.textColor,
@@ -54,26 +61,47 @@ class WiredMapAttribution extends HookWidget {
         label: semanticLabel ?? text,
         link: onTap != null,
         button: onTap != null,
+        // The gesture detector's tap action is excluded with its subtree, so
+        // screen readers activate the badge through this one.
+        onTap: onTap,
         excludeSemantics: true,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: onTap,
-          child: Stack(
-            fit: StackFit.passthrough,
-            children: [
-              Positioned.fill(
-                child: WiredCanvas(
-                  fillerType: RoughFilter.solidFiller,
-                  painter: WiredRoundedRectangleBase(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    fillColor: theme.fillColor.withValues(alpha: 0.9),
-                    borderColor: theme.borderColor.withValues(alpha: 0.65),
-                    strokeWidth: 1,
+        child: FocusableActionDetector(
+          enabled: onTap != null,
+          mouseCursor: onTap != null
+              ? SystemMouseCursors.click
+              : SystemMouseCursors.basic,
+          onShowFocusHighlight: (value) => focused.value = value,
+          actions: <Type, Action<Intent>>{
+            ActivateIntent: CallbackAction<ActivateIntent>(
+              onInvoke: (_) {
+                onTap?.call();
+                return null;
+              },
+            ),
+          },
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onTap,
+            child: Stack(
+              fit: StackFit.passthrough,
+              children: [
+                Positioned.fill(
+                  child: WiredCanvas(
+                    fillerType: RoughFilter.solidFiller,
+                    painter: WiredRoundedRectangleBase(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      fillColor: theme.fillColor.withValues(alpha: 0.9),
+                      // A keyboard-focused badge draws a full-strength line.
+                      borderColor: focused.value
+                          ? theme.borderColor
+                          : theme.borderColor.withValues(alpha: 0.65),
+                      strokeWidth: focused.value ? 2.5 : 1,
+                    ),
                   ),
                 ),
-              ),
-              content,
-            ],
+                content,
+              ],
+            ),
           ),
         ),
       ),

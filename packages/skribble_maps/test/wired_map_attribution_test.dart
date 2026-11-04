@@ -1,5 +1,8 @@
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble/testing.dart';
 import 'package:skribble_maps/skribble_maps.dart';
 
 import 'helpers/pump_map.dart';
@@ -88,6 +91,67 @@ void main() {
         ),
         findsWidgets,
       );
+    });
+
+    testWidgets('keeps the ink padding around its text by default', (
+      tester,
+    ) async {
+      await pumpMapApp(
+        tester,
+        const Center(
+          child: SizedBox(
+            width: 200,
+            child: WiredMapAttribution(
+              text: '© OpenStreetMap contributors · OpenFreeMap · MapLibre',
+            ),
+          ),
+        ),
+      );
+
+      // Two lines are too tall to count as a micro badge, so the badge's
+      // own ink is held to the full padding.
+      final text = tester.renderObject<RenderParagraph>(
+        find.textContaining('OpenStreetMap'),
+      );
+      expect(text.size.height, greaterThan(20));
+      expect(text.didExceedMaxLines, isFalse);
+      expect(crampedText(tester.binding.renderViews.first), isEmpty);
+    });
+
+    testWidgets('screen readers and keyboards can open a linked source', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
+      var opened = 0;
+      await tester.pumpWidget(
+        WidgetsApp(
+          color: const Color(0xFFFFFFFF),
+          pageRouteBuilder: <T>(settings, builder) => PageRouteBuilder<T>(
+            settings: settings,
+            pageBuilder: (context, _, _) => builder(context),
+          ),
+          home: Center(
+            child: WiredMapAttribution(
+              text: '© OpenStreetMap',
+              onTap: () => opened++,
+            ),
+          ),
+        ),
+      );
+
+      final node = tester.getSemantics(
+        find.bySemanticsLabel('© OpenStreetMap'),
+      );
+      expect(node.getSemanticsData().hasAction(SemanticsAction.tap), isTrue);
+      expect(node.flagsCollection.isLink, isTrue);
+      tester.semantics.tap(find.semantics.byLabel('© OpenStreetMap'));
+      expect(opened, 1);
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      expect(opened, 2);
+      semantics.dispose();
     });
   });
 }
