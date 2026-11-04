@@ -238,7 +238,10 @@ Builder(
 - Prefer `showWiredDateRangePicker`, which pops the completed `DateTimeRange<DateTime>` (or `null` when cancelled) through the route.
 - The month grid follows the `WiredCalendar` pattern: month navigation via hand-drawn `<<` / `>>` controls, clamped to `firstDate`..`lastDate`.
 - The month shown on open defaults to the month of `initialDateRange` (or of `firstDate` when no range is given).
-- Day cells expose `Semantics` with labels like `Select Jan 20, 2026`.
+- Day cells expose `Semantics` with labels like `Select Jan 20, 2026`; the two range endpoints also report that they are selected.
+- The endpoint circles and the hatched days between them are inked in the theme's `borderColor`, so they show in dark themes.
+- Weekday names and the month title shrink to one line on narrow screens or with large text, and Cancel and OK stack when they do not fit side by side.
+- Days are counted on the calendar, not in 24-hour steps, so months that cross a daylight-saving change list every day once.
 
 ---
 
@@ -262,6 +265,9 @@ Builder(
 
 - `showWiredTimePicker` opens a dialog containing `WiredTimePicker` plus hand-drawn Cancel/OK buttons; it returns the selected `TimeOfDay`, or `null` when cancelled or dismissed.
 - Hours wrap modulo 24 (23 → 00) and minutes modulo 60 (00 → 59) when dragged.
+- Each field can also be focused with Tab and changed with the up and down arrow keys; a focused field draws a heavier pen.
+- Screen readers announce the fields as `Hour` and `Minute` with their values and can raise or lower them with their adjust gestures.
+- With large text the hour and minute fields shrink to fit the picker instead of running past its edge, and the digits keep `kWiredInkPadding` from the field's ink.
 
 ---
 
@@ -297,6 +303,11 @@ HookBuilder(
   },
 )
 ```
+
+### Notes
+
+- `crossAxisCount` (5 by default) is the most swatches in a row; narrower spaces wrap to fewer.
+- Swatches take keyboard focus and are chosen with Enter or Space. Screen readers hear each as a button named by its hex value, such as `Color #E8957D`, with its selected state.
 
 ---
 

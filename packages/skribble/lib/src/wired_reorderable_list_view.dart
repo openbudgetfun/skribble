@@ -21,7 +21,8 @@ class WiredReorderableListView extends HookWidget {
   /// Padding around the entire list.
   final EdgeInsets padding;
 
-  /// Height of the hand-drawn border for each item.
+  /// The least height of each item's hand-drawn border. Items grow when
+  /// their content or large text needs more room.
   final double itemHeight;
 
   /// Border radius of item cards.
@@ -102,8 +103,8 @@ class _WiredReorderableItem extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return SizedBox(
-      height: height,
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: height),
       child: Stack(
         // The row sits in the middle of the item, clear of the ink.
         alignment: AlignmentDirectional.centerStart,
@@ -119,9 +120,12 @@ class _WiredReorderableItem extends HookWidget {
             ),
           ),
           Padding(
+            // The content keeps the ink's breathing room from the border.
             padding: EdgeInsetsDirectional.only(
               start: showDragHandle ? 4 : 12,
               end: 12,
+              top: 8,
+              bottom: 8,
             ),
             child: Row(
               children: [

@@ -170,5 +170,32 @@ void main() {
 
       expect(find.byType(WiredCircularProgress), findsOneWidget);
     });
+
+    testWidgets('stops scheduling frames once a value arrives', (
+      tester,
+    ) async {
+      await pumpWired(tester, const WiredCircularProgress());
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(tester.binding.hasScheduledFrame, isTrue);
+
+      await pumpWired(tester, const WiredCircularProgress(value: .6));
+      // pumpAndSettle times out while the spinner keeps repeating.
+      await tester.pumpAndSettle();
+      expect(tester.binding.hasScheduledFrame, isFalse);
+    });
+
+    testWidgets('announces its label and percentage', (tester) async {
+      final semantics = tester.ensureSemantics();
+      await pumpWired(
+        tester,
+        const WiredCircularProgress(value: .25, semanticLabel: 'Syncing'),
+      );
+
+      expect(
+        tester.getSemantics(find.byType(WiredCircularProgress)),
+        matchesSemantics(label: 'Syncing', value: '25%'),
+      );
+      semantics.dispose();
+    });
   });
 }

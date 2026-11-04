@@ -54,7 +54,11 @@ class WiredStepper extends HookWidget {
             _buildStep(i, steps[i], theme, MediaQuery.textScalerOf(context)),
             if (i < steps.length - 1)
               Padding(
-                padding: const EdgeInsets.only(left: 16),
+                // The connector runs from the middle of the circle above,
+                // however large the circle has grown.
+                padding: EdgeInsetsDirectional.only(
+                  start: _circleSize(MediaQuery.textScalerOf(context)) / 2 - 1,
+                ),
                 child: SizedBox(
                   width: 2,
                   height: 24,
@@ -94,10 +98,7 @@ class WiredStepper extends HookWidget {
         children: [
           SizedBox.square(
             // The circle keeps the ink's breathing room as text grows.
-            dimension: math.max(
-              36,
-              textScaler.scale(14) + 22,
-            ),
+            dimension: _circleSize(textScaler),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -165,3 +166,8 @@ class WiredStepper extends HookWidget {
     );
   }
 }
+
+/// The step circle's diameter: 36 pixels, or enough for its number and the
+/// ink's breathing room when the text is scaled up.
+double _circleSize(TextScaler textScaler) =>
+    math.max(36, textScaler.scale(14) * 1.5 + 15);

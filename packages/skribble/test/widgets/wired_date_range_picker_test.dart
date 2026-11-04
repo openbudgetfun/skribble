@@ -278,5 +278,97 @@ void main() {
 
       handle.dispose();
     });
+
+    // Run with TZ=America/New_York (or any zone with daylight saving) to
+    // exercise the clock change; the expectations hold in every zone.
+    testWidgets('lists every November day once across the clock change', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      await pumpDialog(
+        tester,
+        initialDateRangeStart: DateTime(2026, 11, 3),
+        first: DateTime(2026, 11, 1),
+        last: DateTime(2026, 11, 30),
+      );
+
+      expect(find.text('November 2026'), findsOneWidget);
+      expect(find.text('30'), findsOneWidget);
+      expect(find.bySemanticsLabel('Select Nov 30, 2026'), findsOneWidget);
+      // Nov 1 2026 is a Sunday: the grid shows Nov 1 and Dec 1 only.
+      expect(find.text('1'), findsNWidgets(2));
+      handle.dispose();
+    });
+
+    testWidgets('marks the range endpoints as selected', (tester) async {
+      final handle = tester.ensureSemantics();
+      await pumpDialog(
+        tester,
+        initialDateRangeStart: DateTime(2026, 1, 5),
+        initialDateRangeEnd: DateTime(2026, 1, 12),
+      );
+
+      expect(
+        tester.getSemantics(find.bySemanticsLabel('Select Jan 5, 2026')),
+        matchesSemantics(
+          label: 'Select Jan 5, 2026',
+          isButton: true,
+          hasSelectedState: true,
+          isSelected: true,
+          hasTapAction: true,
+        ),
+      );
+      handle.dispose();
+    });
+
+    testWidgets('inks the selection with the theme in dark themes', (
+      tester,
+    ) async {
+      final dark = WiredThemeData.cuddly(brightness: Brightness.dark);
+      await pumpWired(
+        tester,
+        WiredDateRangePickerDialog(
+          initialDateRange: initialRange,
+          firstDate: firstDate,
+          lastDate: lastDate,
+        ),
+        theme: dark,
+      );
+
+      final painters = tester
+          .widgetList<WiredCanvas>(find.byType(WiredCanvas))
+          .map((canvas) => canvas.painter)
+          .toList();
+      final circles = painters.whereType<WiredCircleBase>().toList();
+      final range = painters
+          .whereType<WiredRectangleBase>()
+          .where((r) => r.fillColor != dark.fillColor)
+          .toList();
+      expect(circles, hasLength(2));
+      expect(circles.every((c) => c.borderColor == dark.borderColor), isTrue);
+      expect(range, isNotEmpty);
+      expect(range.every((r) => r.borderColor == dark.borderColor), isTrue);
+    });
+
+    testWidgets('weekday names stay on one line at 320 pixels', (
+      tester,
+    ) async {
+      tester.view
+        ..physicalSize = const Size(320, 800)
+        ..devicePixelRatio = 1;
+      tester.platformDispatcher.textScaleFactorTestValue = 1.3;
+      addTearDown(tester.view.reset);
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+
+      await pumpDialog(tester, initialDateRangeStart: DateTime(2026, 1, 5));
+
+      expect(tester.takeException(), isNull);
+      final number = tester.getSize(find.text('15'));
+      for (final name in ['Mon', 'Wed', 'Sat']) {
+        // A wrapped name is two lines tall; a fitted one is at most one.
+        final size = tester.getSize(find.text(name));
+        expect(size.height, lessThan(number.height * 1.5), reason: name);
+      }
+    });
   });
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -286,6 +288,92 @@ void main() {
 
       expect((secondPainter as dynamic).shouldRepaint(firstPainter), isTrue);
       expect((secondPainter as dynamic).shouldRepaint(secondPainter), isFalse);
+    });
+
+    testWidgets('screen readers can read and adjust each field', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
+      TimeOfDay? selected;
+      await tester.pumpWidget(
+        buildTimePicker(
+          initialTime: const TimeOfDay(hour: 23, minute: 5),
+          onTimeSelected: (value) => selected = value,
+        ),
+      );
+
+      expect(
+        tester.getSemantics(find.bySemanticsLabel('Hour')),
+        matchesSemantics(
+          label: 'Hour',
+          value: '23',
+          increasedValue: '00',
+          decreasedValue: '22',
+          hasIncreaseAction: true,
+          hasDecreaseAction: true,
+        ),
+      );
+
+      final minute = tester.getSemantics(find.bySemanticsLabel('Minute'));
+      tester.binding.pipelineOwner.semanticsOwner!.performAction(
+        minute.id,
+        SemanticsAction.decrease,
+      );
+      await tester.pump();
+
+      expect(selected, const TimeOfDay(hour: 23, minute: 4));
+      expect(find.text('04'), findsOneWidget);
+      semantics.dispose();
+    });
+
+    testWidgets('arrow keys change the focused field', (tester) async {
+      TimeOfDay? selected;
+      await tester.pumpWidget(
+        buildTimePicker(
+          initialTime: const TimeOfDay(hour: 10, minute: 30),
+          onTimeSelected: (value) => selected = value,
+        ),
+      );
+
+      // Tab moves focus to the hour field first.
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.arrowUp);
+      await tester.pump();
+      expect(selected, const TimeOfDay(hour: 11, minute: 30));
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
+      await tester.pump();
+      expect(selected, const TimeOfDay(hour: 11, minute: 29));
+    });
+
+    testWidgets('large digits keep the ink padding at 2x text', (
+      tester,
+    ) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      await tester.pumpWidget(
+        buildTimePicker(initialTime: const TimeOfDay(hour: 10, minute: 30)),
+      );
+
+      expect(tester.takeException(), isNull);
+      // The fields fit inside the picker, scaled down if they must be...
+      final picker = tester.getRect(find.byType(WiredTimePicker));
+      expect(
+        picker.contains(tester.getRect(find.text('30')).bottomRight),
+        isTrue,
+      );
+      // ...and keep the ink's breathing room in their own proportions.
+      final fieldFinder = find
+          .ancestor(of: find.text('10'), matching: find.byType(Stack))
+          .first;
+      final field = tester.getRect(fieldFinder);
+      final scale = field.width / tester.getSize(fieldFinder).width;
+      final digits = tester.getRect(find.text('10'));
+      expect((digits.left - field.left) / scale, greaterThanOrEqualTo(11.5));
+      expect((field.right - digits.right) / scale, greaterThanOrEqualTo(11.5));
     });
 
     testWidgets('renders with midnight time (00:00)', (tester) async {

@@ -31,7 +31,9 @@ WiredAppBar(title: Text('Make something lovely'))
 ### Notes
 
 - The bottom border is a 2px `WiredLineBase` spanning full width.
-- Title text uses `theme.textColor` at 20px bold.
+- Title text uses `theme.textColor` at 20px bold, stays on one line, and ends with an ellipsis when it does not fit.
+- Like Material's `AppBar`, the title follows the platform's text scaling up to 1.34 times, so a large setting cannot push it out of the bar's fixed height.
+- Screen readers hear the title as a header.
 - Wrapped in `SafeArea(bottom: false)` to respect system UI.
 
 ---
@@ -80,9 +82,11 @@ HookBuilder(
 
 ### Notes
 
-- Height is 60px plus a 2px top border line.
+- At least 60px tall plus the top border line, and taller when large text needs it.
+- Pads itself above the home indicator and other bottom insets of notched phones.
 - Selected items show a 32px `WiredCircleBase` behind the icon.
 - Unselected items use `theme.disabledTextColor`.
+- Each item takes keyboard focus (Enter or Space selects it) and is announced as a selectable button with its label.
 
 ---
 
@@ -131,9 +135,11 @@ HookBuilder(
 
 ### Notes
 
-- Height is 80px plus a 2px top border line.
+- At least 80px tall plus the top border line, and taller when large text needs it.
+- Pads itself above the home indicator and other bottom insets of notched phones.
 - The selection indicator is a 64x34 rounded rectangle washed with `markerColor`, with the icon in ink on top.
 - Selected labels use bold weight; unselected labels use `theme.disabledTextColor`.
+- Each destination takes keyboard focus and is announced as a selectable button with its label.
 
 ---
 
@@ -192,6 +198,7 @@ HookBuilder(
 - Rail width is 72px with a 2px vertical divider line on the right edge.
 - The selection indicator is a 56x34 rounded rectangle washed with `markerColor`, with the icon in ink on top.
 - Each destination is 56px tall with 4px vertical spacing.
+- Destinations take keyboard focus: the arrow keys move between them and Enter or Space selects one. Screen readers hear each as a selectable button.
 
 ---
 
@@ -199,7 +206,7 @@ HookBuilder(
 
 A side navigation drawer with a hand-drawn border. Displays a list of navigation destinations with sketchy selection indicators.
 
-Destinations are at least 48 pixels tall, grow with their label, and keep it centred, clear of the selection ink.
+Destinations are at least 48 pixels tall, grow with their label, and keep it centred, clear of the selection ink. Each takes keyboard focus and is announced as a selectable button.
 
 ```dart
 // Live example: navigation-drawer
@@ -254,9 +261,11 @@ HookBuilder(
 
 ### Notes
 
-- Works with a standard `TabController`.
-- The active tab indicator is a hand-drawn line using `WiredLineBase`.
-- Pair with `TabBarView` for content switching.
+- `WiredTabBar` is controlled: pass `selectedIndex` and update it from `onTap`. Pair it with an `IndexedStack` or a `PageView` for the content.
+- The active tab indicator is a hand-drawn line using `WiredLineBase`, drawn below the label so it never crosses its letters.
+- Labels stay on one line and end with an ellipsis when narrow screens or large text leave too little room.
+- The bar is exactly `height` tall, so it fits an app bar's `bottom` slot.
+- Tabs take keyboard focus: the arrow keys move between them and Enter or Space selects one. Screen readers hear each tab as a selectable button with its position, such as `Sketches, tab 2 of 3`.
 
 ---
 

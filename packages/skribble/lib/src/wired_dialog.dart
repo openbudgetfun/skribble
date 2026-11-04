@@ -7,7 +7,9 @@ import 'wired_theme.dart';
 
 /// A dialog with a hand-drawn rectangle border.
 ///
-/// Reads fill color from the nearest [WiredTheme] ancestor.
+/// Reads fill color from the nearest [WiredTheme] ancestor. The dialog hugs
+/// its [child]: the border is drawn around the content, never stretched to
+/// the height of the screen.
 class WiredDialog extends HookWidget {
   /// The content of the dialog.
   final Widget child;
@@ -24,15 +26,20 @@ class WiredDialog extends HookWidget {
     return Dialog(
       child: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: WiredCanvas(
-              painter: WiredRectangleBase(
-                strokeWidth: theme.strokeWidth,
-                fillColor: theme.fillColor,
-                borderColor: theme.borderColor,
+          // The border follows the content's size. As a sizing child, a
+          // canvas takes all the room it is offered, which is the whole
+          // screen inside a dialog route.
+          Positioned.fill(
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: WiredCanvas(
+                painter: WiredRectangleBase(
+                  strokeWidth: theme.strokeWidth,
+                  fillColor: theme.fillColor,
+                  borderColor: theme.borderColor,
+                ),
+                fillerType: RoughFilter.noFiller,
               ),
-              fillerType: RoughFilter.noFiller,
             ),
           ),
           Padding(padding: padding ?? const EdgeInsets.all(20.0), child: child),

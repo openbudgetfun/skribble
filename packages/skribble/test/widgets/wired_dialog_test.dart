@@ -131,5 +131,53 @@ void main() {
       );
       expect(find.text('themed'), findsOneWidget);
     });
+
+    testWidgets('hugs its content inside a dialog route', (tester) async {
+      tester.view
+        ..physicalSize = const Size(360, 800)
+        ..devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) => TextButton(
+              onPressed: () => showDialog<void>(
+                context: context,
+                builder: (_) => const WiredDialog(child: Text('Short')),
+              ),
+              child: const Text('Open'),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+
+      expect(tester.takeException(), isNull);
+      final dialog = tester.getSize(
+        find.descendant(
+          of: find.byType(WiredDialog),
+          matching: findWiredCanvas,
+        ),
+      );
+      // A single line of text and the 20 pixel padding, not the full screen.
+      expect(dialog.height, lessThan(150));
+    });
+
+    testWidgets('lays out inside unbounded height', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              child: WiredDialog(child: Text('Scrolling')),
+            ),
+          ),
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      expect(find.text('Scrolling'), findsOneWidget);
+    });
   });
 }

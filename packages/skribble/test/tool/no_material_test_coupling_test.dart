@@ -108,7 +108,6 @@ const Set<String> _migrationBacklog = <String>{
   'test/widgets/wired_data_table_test.dart', // InkWell
   'test/widgets/wired_date_picker_test.dart', // Dialog
   'test/widgets/wired_dialog_test.dart', // Dialog
-  'test/widgets/wired_divider_test.dart', // Divider
   'test/widgets/wired_drawer_test.dart', // Drawer, Scaffold
   'test/widgets/wired_expansion_tile_test.dart', // InkWell
   'test/widgets/wired_form_test.dart', // TextFormField

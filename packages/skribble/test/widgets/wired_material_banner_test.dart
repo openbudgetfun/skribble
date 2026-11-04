@@ -124,6 +124,7 @@ void main() {
     ) async {
       ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>?
       controller;
+      var visibleCalls = 0;
 
       await tester.pumpWidget(
         MaterialApp(
@@ -133,7 +134,15 @@ void main() {
                 onPressed: () {
                   controller = showWiredMaterialBanner(
                     context,
-                    content: const Text('ignored by helper placeholder'),
+                    content: const Text('Saved to your sketchbook'),
+                    leading: const Icon(Icons.info),
+                    actions: [
+                      WiredTextButton(
+                        onPressed: () {},
+                        child: const Text('Undo'),
+                      ),
+                    ],
+                    onVisible: () => visibleCalls++,
                   );
                 },
                 child: const Text('Show Banner'),
@@ -148,6 +157,18 @@ void main() {
 
       expect(controller, isNotNull);
       expect(find.byType(MaterialBanner), findsOneWidget);
+      // The helper shows the caller's banner, not an empty placeholder.
+      expect(find.byType(WiredMaterialBanner), findsOneWidget);
+      expect(find.text('Saved to your sketchbook'), findsOneWidget);
+      expect(find.byIcon(Icons.info), findsOneWidget);
+      expect(find.text('Undo'), findsOneWidget);
+
+      await tester.pumpAndSettle();
+      expect(visibleCalls, 1);
+
+      controller!.close();
+      await tester.pumpAndSettle();
+      expect(find.byType(WiredMaterialBanner), findsNothing);
     });
   });
 }

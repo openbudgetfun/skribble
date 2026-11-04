@@ -177,5 +177,85 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(WiredLoadingIndicator), findsNothing);
     });
+
+    for (final physics in const [
+      ClampingScrollPhysics(),
+      BouncingScrollPhysics(),
+    ]) {
+      testWidgets('refreshes after a real pull with ${physics.runtimeType}', (
+        tester,
+      ) async {
+        var refreshes = 0;
+        await pumpApp(
+          tester,
+          WiredCustomRefreshIndicator(
+            onRefresh: () async {
+              refreshes++;
+              await Future<void>.delayed(const Duration(milliseconds: 50));
+            },
+            child: ListView(
+              physics: AlwaysScrollableScrollPhysics(parent: physics),
+              children: const [SizedBox(height: 80, child: Text('row'))],
+            ),
+          ),
+        );
+
+        // A drag delivers many small steps, none of them 50 pixels alone.
+        await tester.timedDrag(
+          find.text('row'),
+          const Offset(0, 200),
+          const Duration(milliseconds: 400),
+        );
+        await tester.pump();
+        expect(refreshes, 1);
+
+        await tester.pumpAndSettle();
+        expect(find.byType(WiredLoadingIndicator), findsNothing);
+      });
+    }
+
+    testWidgets('a short pull does not refresh', (tester) async {
+      var refreshes = 0;
+      await pumpApp(
+        tester,
+        WiredCustomRefreshIndicator(
+          onRefresh: () async => refreshes++,
+          child: ListView(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: ClampingScrollPhysics(),
+            ),
+            children: const [SizedBox(height: 80, child: Text('row'))],
+          ),
+        ),
+      );
+
+      await tester.drag(find.text('row'), const Offset(0, 20));
+      await tester.pumpAndSettle();
+      await tester.drag(find.text('row'), const Offset(0, 20));
+      await tester.pumpAndSettle();
+
+      expect(refreshes, 0);
+    });
+
+    testWidgets('finishing a refresh after unmounting does not throw', (
+      tester,
+    ) async {
+      final pending = Completer<void>();
+      await pumpApp(
+        tester,
+        WiredCustomRefreshIndicator(
+          onRefresh: () => pending.future,
+          child: const Text('list body'),
+        ),
+      );
+      await overscrollPastThreshold(tester, find.text('list body'));
+      expect(find.byType(WiredLoadingIndicator), findsOneWidget);
+
+      await tester.pumpWidget(const SizedBox());
+      pending.complete();
+      await tester.pump();
+
+      expect(tester.takeException(), isNull);
+    });
   });
 }

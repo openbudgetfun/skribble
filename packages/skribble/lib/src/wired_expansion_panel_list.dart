@@ -57,6 +57,7 @@ class WiredExpansionPanelList extends HookWidget {
 
     return Semantics(
       label: semanticLabel ?? 'Expansion panel list',
+      container: true,
       child: Column(
         children: [
           for (int i = 0; i < children.length; i++) ...[
@@ -123,33 +124,38 @@ class WiredExpansionPanelList extends HookWidget {
       ),
       child: Column(
         children: [
-          InkWell(
-            onTap: panel.canTapOnHeader ? toggle : null,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: panel.headerBuilder(context, isExpanded),
-                  ),
-                  AnimatedRotation(
-                    turns: isExpanded ? 0.5 : 0,
-                    duration: const Duration(milliseconds: 200),
-                    child: panel.canTapOnHeader
-                        ? WiredSvgIcon(
-                            data: SkribbleGlyphs.chevronDown,
-                            color: theme.textColor,
-                          )
-                        : WiredIconButton(
-                            icon: Icons.expand_more,
-                            iconColor: theme.textColor,
-                            onPressed: toggle,
-                            semanticLabel: isExpanded
-                                ? 'Collapse panel'
-                                : 'Expand panel',
-                          ),
-                  ),
-                ],
+          Semantics(
+            container: true,
+            button: panel.canTapOnHeader,
+            expanded: isExpanded,
+            child: InkWell(
+              onTap: panel.canTapOnHeader ? toggle : null,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: panel.headerBuilder(context, isExpanded),
+                    ),
+                    AnimatedRotation(
+                      turns: isExpanded ? 0.5 : 0,
+                      duration: const Duration(milliseconds: 200),
+                      child: panel.canTapOnHeader
+                          ? WiredSvgIcon(
+                              data: SkribbleGlyphs.chevronDown,
+                              color: theme.textColor,
+                            )
+                          : WiredIconButton(
+                              icon: Icons.expand_more,
+                              iconColor: theme.textColor,
+                              onPressed: toggle,
+                              semanticLabel: isExpanded
+                                  ? 'Collapse panel'
+                                  : 'Expand panel',
+                            ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -90,7 +90,7 @@ class WiredGridTileBar extends HookWidget {
   /// Background color of the bar. Defaults to a translucent paper tone.
   final Color? backgroundColor;
 
-  /// Bar height.
+  /// The bar's least height. It grows when large text needs more room.
   final double height;
 
   /// Spacing between the [leading], [title] and [trailing] widgets.
@@ -125,9 +125,10 @@ class WiredGridTileBar extends HookWidget {
     final theme = WiredTheme.of(context);
     final barColor = backgroundColor ?? theme.fillColor.withValues(alpha: 0.85);
 
-    return SizedBox(
-      height: height,
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: height),
       child: Stack(
+        alignment: Alignment.center,
         children: [
           Positioned.fill(child: ColoredBox(color: barColor)),
           // Hand-drawn edge so the bar reads as sketched, not machine-cut.
@@ -150,54 +151,53 @@ class WiredGridTileBar extends HookWidget {
               ),
             ),
           ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                children: [
-                  if (leading != null) ...[
-                    leading!,
-                    SizedBox(width: titleSpacing),
-                  ],
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (title != null)
-                          DefaultTextStyle.merge(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: color ?? theme.textColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            child: title!,
-                          ),
-                        if (subtitle != null) ...[
-                          const SizedBox(height: 2),
-                          DefaultTextStyle.merge(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color:
-                                  color ??
-                                  theme.textColor.withValues(alpha: 0.7),
-                              fontSize: 12,
-                            ),
-                            child: subtitle!,
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                  if (trailing != null) ...[
-                    SizedBox(width: titleSpacing),
-                    trailing!,
-                  ],
+          // The Stack centres the row and grows with it, so the bar is at
+          // least [height] tall and taller when large text needs it.
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Row(
+              children: [
+                if (leading != null) ...[
+                  leading!,
+                  SizedBox(width: titleSpacing),
                 ],
-              ),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (title != null)
+                        DefaultTextStyle.merge(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: color ?? theme.textColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          child: title!,
+                        ),
+                      if (subtitle != null) ...[
+                        const SizedBox(height: 2),
+                        DefaultTextStyle.merge(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color:
+                                color ?? theme.textColor.withValues(alpha: 0.7),
+                            fontSize: 12,
+                          ),
+                          child: subtitle!,
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                if (trailing != null) ...[
+                  SizedBox(width: titleSpacing),
+                  trailing!,
+                ],
+              ],
             ),
           ),
         ],

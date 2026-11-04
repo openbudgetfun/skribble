@@ -182,4 +182,49 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('First content'), findsOneWidget);
   });
+
+  testWidgets('headers report their expanded state', (tester) async {
+    final semantics = tester.ensureSemantics();
+    await pumpApp(
+      tester,
+      SingleChildScrollView(
+        child: WiredExpansionPanelList(
+          children: [
+            WiredExpansionPanel(
+              headerBuilder: (_, _) => const Text('Header'),
+              body: const Text('Body'),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    expect(
+      tester.getSemantics(find.text('Header')),
+      matchesSemantics(
+        label: 'Header',
+        isButton: true,
+        hasExpandedState: true,
+        hasTapAction: true,
+        hasFocusAction: true,
+        isFocusable: true,
+      ),
+    );
+
+    await tester.tap(find.text('Header'));
+    await tester.pumpAndSettle();
+    expect(
+      tester.getSemantics(find.text('Header')),
+      matchesSemantics(
+        label: 'Header',
+        isButton: true,
+        hasExpandedState: true,
+        isExpanded: true,
+        hasTapAction: true,
+        hasFocusAction: true,
+        isFocusable: true,
+      ),
+    );
+    semantics.dispose();
+  });
 }

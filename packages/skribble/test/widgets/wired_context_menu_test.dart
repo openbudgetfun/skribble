@@ -1,7 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
+import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
 
 Finder findWiredIcon(IconData icon) {
@@ -193,6 +196,176 @@ void main() {
       gesture.onLongPress?.call();
       await tester.pump();
       expect(tester.takeException(), isNull);
+    });
+
+    Future<void> openMenu(
+      WidgetTester tester, {
+      Alignment alignment = Alignment.center,
+      WiredThemeData? theme,
+      List<WiredContextMenuAction>? actions,
+    }) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: theme ?? WiredThemeData(),
+            child: Scaffold(
+              body: Align(
+                alignment: alignment,
+                child: WiredContextMenu(
+                  actions:
+                      actions ??
+                      const [
+                        WiredContextMenuAction(label: 'Copy'),
+                        WiredContextMenuAction(label: 'Share'),
+                        WiredContextMenuAction(
+                          label: 'Delete',
+                          isDestructive: true,
+                        ),
+                      ],
+                  child: const SizedBox(
+                    width: 80,
+                    height: 40,
+                    child: Center(child: Text('Anchor')),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.longPress(find.text('Anchor'));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('opens on a right-click', (tester) async {
+      await pumpApp(
+        tester,
+        Center(
+          child: WiredContextMenu(
+            actions: const [WiredContextMenuAction(label: 'Rename')],
+            child: const SizedBox(
+              width: 100,
+              height: 50,
+              child: Center(child: Text('Desktop')),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Desktop'), buttons: kSecondaryButton);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Rename'), findsOneWidget);
+    });
+
+    testWidgets('closes with the Escape key', (tester) async {
+      await openMenu(tester);
+      expect(find.text('Copy'), findsOneWidget);
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Copy'), findsNothing);
+    });
+
+    testWidgets('closes with the back button', (tester) async {
+      await openMenu(tester);
+
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+
+      expect(find.text('Copy'), findsNothing);
+      expect(find.text('Anchor'), findsOneWidget);
+    });
+
+    testWidgets('activates the focused item with Enter', (tester) async {
+      var copied = 0;
+      await openMenu(
+        tester,
+        actions: [
+          WiredContextMenuAction(label: 'Copy', onPressed: () => copied++),
+        ],
+      );
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      await tester.pumpAndSettle();
+
+      expect(copied, 1);
+      expect(find.text('Copy'), findsNothing);
+    });
+
+    for (final alignment in [Alignment.bottomRight, Alignment.bottomLeft]) {
+      testWidgets('stays on screen when anchored at $alignment', (
+        tester,
+      ) async {
+        tester.view
+          ..physicalSize = const Size(320, 640)
+          ..devicePixelRatio = 1;
+        addTearDown(tester.view.reset);
+
+        await openMenu(tester, alignment: alignment);
+
+        final screen = Offset.zero & const Size(320, 640);
+        for (final label in ['Copy', 'Share', 'Delete']) {
+          final rect = tester.getRect(find.text(label));
+          expect(screen.contains(rect.topLeft), isTrue, reason: label);
+          expect(screen.contains(rect.bottomRight), isTrue, reason: label);
+        }
+        // There is no room below the anchor, so the menu opens above it.
+        expect(
+          tester.getRect(find.text('Delete')).bottom,
+          lessThan(tester.getRect(find.text('Anchor')).top),
+        );
+      });
+    }
+
+    testWidgets('keeps clear of the notch and home indicator', (tester) async {
+      tester.view
+        ..physicalSize = const Size(360, 640)
+        ..devicePixelRatio = 1
+        ..padding = const FakeViewPadding(top: 48, bottom: 34);
+      addTearDown(tester.view.reset);
+
+      await openMenu(tester, alignment: Alignment.bottomCenter);
+
+      expect(
+        tester.getRect(find.text('Delete')).bottom,
+        lessThanOrEqualTo(640 - 34),
+      );
+    });
+
+    testWidgets('names its route for screen readers', (tester) async {
+      final semantics = tester.ensureSemantics();
+      await openMenu(tester);
+
+      expect(
+        tester.getSemantics(find.bySemanticsLabel('Menu')),
+        matchesSemantics(
+          label: 'Menu',
+          scopesRoute: true,
+          namesRoute: true,
+        ),
+      );
+      semantics.dispose();
+    });
+
+    testWidgets('draws on the theme paper and inks destructive items in the '
+        'error colour', (tester) async {
+      final dark = WiredThemeData.cuddly(brightness: Brightness.dark);
+      await openMenu(tester, theme: dark);
+
+      final delete = tester.widget<Text>(find.text('Delete'));
+      expect(delete.style?.color, dark.errorColor);
+      final copy = tester.widget<Text>(find.text('Copy'));
+      expect(copy.style?.color, dark.textColor);
+
+      final paper = tester
+          .widgetList<WiredCanvas>(findWiredCanvas)
+          .map((canvas) => canvas.painter)
+          .whereType<WiredRoundedRectangleBase>()
+          .single;
+      expect(paper.fillColor, dark.fillColor);
+      expect(paper.borderColor, dark.borderColor);
     });
   });
 }

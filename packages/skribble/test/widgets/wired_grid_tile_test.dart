@@ -309,5 +309,44 @@ void main() {
       expect(findWiredCanvas, findsOneWidget);
       expect(findRepaintBoundary, findsWidgets);
     });
+
+    testWidgets('bar grows with 2x text instead of overflowing', (
+      tester,
+    ) async {
+      await pumpWiredScaled(
+        tester,
+        const SizedBox(
+          width: 200,
+          height: 200,
+          child: WiredGridTile(
+            footer: WiredGridTileBar(
+              title: Text('Gallery item'),
+              subtitle: Text('Subtitle'),
+            ),
+            child: ColoredBox(color: Color(0xFFDDDDDD)),
+          ),
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      expect(
+        tester.getSize(find.byType(WiredGridTileBar)).height,
+        greaterThan(56),
+      );
+    });
+
+    testWidgets('bar keeps its least height for short content', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        const SizedBox(
+          width: 200,
+          child: WiredGridTileBar(title: Text('Short')),
+        ),
+      );
+
+      expect(tester.getSize(find.byType(WiredGridTileBar)).height, 56);
+    });
   });
 }

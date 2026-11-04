@@ -48,7 +48,8 @@ class WiredLoadingIndicator extends HookWidget {
 
 /// A hand-drawn circular progress indicator.
 ///
-/// Displays a sketchy circular progress that fills based on [value].
+/// Displays a sketchy circular progress that fills based on [value], or a
+/// sweeping arc while [value] is null. The sweep stops once a value arrives.
 ///
 /// ## Example
 ///
@@ -74,6 +75,9 @@ class WiredCircularProgressIndicator extends HookWidget {
   /// The stroke width of the hand-drawn circle.
   final double strokeWidth;
 
+  /// Accessible description, such as "Uploading photos".
+  final String? semanticLabel;
+
   /// Creates a hand-drawn circular progress indicator.
   const WiredCircularProgressIndicator({
     super.key,
@@ -82,6 +86,7 @@ class WiredCircularProgressIndicator extends HookWidget {
     this.color,
     this.backgroundColor,
     this.strokeWidth = 3.0,
+    this.semanticLabel,
   });
 
   @override
@@ -94,14 +99,19 @@ class WiredCircularProgressIndicator extends HookWidget {
       duration: const Duration(milliseconds: 1200),
     );
 
+    final indeterminate = value == null;
     useEffect(() {
-      if (value == null) {
+      // Only the indeterminate sweep moves; a value stops the clock so the
+      // indicator stops scheduling frames.
+      if (indeterminate) {
         controller.repeat();
+      } else {
+        controller.stop();
       }
       return null;
-    }, [value]);
+    }, [indeterminate]);
 
-    return AnimatedBuilder(
+    final indicator = AnimatedBuilder(
       animation: controller,
       builder: (context, child) {
         return SizedBox(
@@ -113,11 +123,17 @@ class WiredCircularProgressIndicator extends HookWidget {
               color: effectiveColor,
               backgroundColor: effectiveBgColor,
               strokeWidth: strokeWidth,
-              isIndeterminate: value == null,
+              isIndeterminate: indeterminate,
             ),
           ),
         );
       },
+    );
+
+    return Semantics(
+      label: semanticLabel,
+      value: indeterminate ? null : '${(value!.clamp(0, 1) * 100).round()}%',
+      child: indicator,
     );
   }
 }
