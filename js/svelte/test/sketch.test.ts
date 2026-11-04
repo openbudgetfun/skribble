@@ -1,7 +1,7 @@
 import { sketch, toSvgString } from "@skribble.dev/rough";
 import { render } from "svelte/server";
 import { describe, expect, it } from "vitest";
-import { Sketch } from "../src/lib/index.js";
+import { Sketch, type SketchProps } from "../src/lib/index.js";
 
 const shape = { type: "rectangle", x: 4, y: 4, width: 92, height: 42 } as const;
 
@@ -11,6 +11,11 @@ function html(props: Record<string, unknown>): string {
 }
 
 describe("<Sketch> for Svelte", () => {
+  it("exports its props type for wrapper components", () => {
+    const props: SketchProps = { shape, width: 100, height: 50, seed: 3, label: "A box", class: "box" };
+    expect(render(Sketch, { props }).body).toContain('aria-label="A box"');
+  });
+
   it("paints the core sketch's paths", () => {
     const body = html({ shape, width: 100, height: 50, seed: 3, ink: false, fillStyle: "hachure", fill: "gold" });
     const expected = toSvgString(sketch(shape, { seed: 3, ink: false, fillStyle: "hachure", fill: "gold" }), {

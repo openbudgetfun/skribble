@@ -281,8 +281,11 @@ class InkContour {
     random: Randomizer,
     coverage: number,
   ): InkContour | null {
-    if (polyline.isEmpty || width <= 0) return null;
+    if (polyline.isEmpty || !Number.isFinite(width) || width <= 0) return null;
     const contourLength = polyline.length;
+    // Ink is sampled along the contour's length, so an infinite or NaN one
+    // has no samples to take.
+    if (!Number.isFinite(contourLength)) return null;
     const startToEnd = distanceBetween(
       polyline.xs[0] as number,
       polyline.ys[0] as number,

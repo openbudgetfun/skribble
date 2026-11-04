@@ -36,6 +36,8 @@ document.querySelector("#hero").innerHTML = toSvgString(box, { width: 200, heigh
 
 Shapes are plain objects: `rectangle`, `roundedRectangle`, `ellipse`, `circle`, `line`, `linearPath`, `polygon`, `arc`, and `curve`. Lines and curves take `arrowhead: true`. Pass an array to draw several shapes from one random stream.
 
+An arc whose `stop` is not after its `start`, such as a progress ring at zero, draws nothing, as does an arc with angles that are not finite; a negative `roundedRectangle` keeps square corners. A shape with an infinite coordinate finishes too, without ink or fill for it. A `"dashed"` fill whose `dashOffset` and `dashGap` add up to less than 0.1 draws undashed hachure lines.
+
 Every option from the [rough engine](../core/rough-engine) is available: `seed`, `roughness`, `bowing`, `lineWobble`, `pen`, `fillStyle`, `hachureGap`, `hachureAngle`, and the rest. Colours default to `currentColor`, so CSS `color` themes the ink.
 
 ## Draw on a canvas or migrate from rough.js
@@ -70,7 +72,9 @@ import { Sketch } from "@skribble.dev/react";
 />;
 ```
 
-The React Native component has the same props and paints with `react-native-svg`; set its `color` prop to theme `currentColor`. The Vue and Svelte components take the same props in their own syntax. React and React Native also export a `useSketch` hook, and Vue a `useSketch` composable, for painting the paths yourself.
+The React Native component has the same props and paints with `react-native-svg`; set its `color` prop to theme `currentColor`. The Vue and Svelte components take the same props in their own syntax. React and React Native also export a `useSketch` hook, and Vue a `useSketch` composable, for painting the paths yourself. Every package exports a `SketchProps` type for wrapper components.
+
+All four memoise on what a sketch draws, not on object identity: an inline `shape` or option object that is rebuilt on every render does not redraw, and neither does a change to `class`, `style`, or a label. Vue needs 3.4 or newer for this.
 
 ## Pens and ink
 

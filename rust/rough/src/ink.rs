@@ -339,11 +339,16 @@ impl InkContour {
 		random: &mut Randomizer,
 		coverage: f64,
 	) -> Option<Self> {
-		if polyline.is_empty() || width <= 0.0 {
+		if polyline.is_empty() || !width.is_finite() || width <= 0.0 {
 			return None;
 		}
 
 		let contour_length = polyline.length();
+		// Ink is sampled along the contour's length, so an infinite or NaN
+		// one has no samples to take.
+		if !contour_length.is_finite() {
+			return None;
+		}
 		let (start_x, start_y) = (polyline.xs[0], polyline.ys[0]);
 		let (end_x, end_y) = polyline.last_point();
 		let start_to_end = distance_between(start_x, start_y, end_x, end_y);

@@ -192,7 +192,7 @@ Leave out `--features web` to see what native builds draw, through the same rend
 
 ## Drawing with the engine directly
 
-`skribble_rough` works anywhere Rust does, including servers and `wasm32`. `sketch` returns SVG paths with their colours and widths; the lower-level `Generator`, `Filler`, `RoughPen`, and `DrawableInk` mirror the Dart engine. See its [README](https://github.com/openbudgetfun/skribble/tree/main/rust/rough).
+`skribble_rough` works anywhere Rust does, including servers and `wasm32`. `sketch` returns SVG paths with their colours and widths, or an error for a shape it cannot draw; the lower-level `Generator`, `Filler`, `RoughPen`, and `DrawableInk` mirror the Dart engine and finish on degenerate input, drawing nothing for an empty or reversed arc. See its [README](https://github.com/openbudgetfun/skribble/tree/main/rust/rough).
 
 ```rust
 use skribble_rough::{sketch, Shape, SketchOptions};

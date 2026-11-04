@@ -51,9 +51,9 @@ export interface SketchProps
    */
   viewBox?: string;
   /**
-   * An accessible description. Without one the sketch is hidden from screen
-   * readers. `react-native-svg` has no `<title>` element, so description
-   * belongs in `label`.
+   * An accessible name, set as `accessibilityLabel`. Without one the sketch
+   * is hidden from screen readers. `react-native-svg` has no `<title>`
+   * element, so put the description in `label` too.
    */
   label?: string;
 }

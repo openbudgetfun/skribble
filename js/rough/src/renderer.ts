@@ -14,7 +14,9 @@ function line(
   const lengthSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
   const length = Math.sqrt(lengthSq);
 
-  if (length >= 48 && config.roughness > 0 && config.lineWobble > 0) {
+  // An infinite edge has no segments to wander over: drawn piecewise, it
+  // would never finish.
+  if (length >= 48 && Number.isFinite(length) && config.roughness > 0 && config.lineWobble > 0) {
     return wanderingLine(x1, y1, x2, y2, config, overlay);
   }
 
@@ -118,6 +120,39 @@ function wanderingLine(
   return ops;
 }
 
+/**
+ * The most points one arc pass samples. An ordinary arc takes a few dozen;
+ * the cap only binds for a sweep so small, or a step count so large, that
+ * the sampler would otherwise run for minutes or run out of memory.
+ */
+const maxArcSamples = 4096;
+
+/**
+ * Moves an arc's sweep into `[0, ∞)` and caps it at one full turn.
+ *
+ * Returns `null` when there is no arc to draw: a sweep that is empty,
+ * reversed, or not finite. The arc samplers step by half the sweep, so a
+ * zero sweep would never advance and a reversed one would walk away from
+ * its stop forever. Mirrors `_arcSweep` in the Dart engine.
+ */
+function arcSweep(start: number, stop: number): [number, number] | null {
+  if (!Number.isFinite(start) || !Number.isFinite(stop) || !(stop > start)) return null;
+  let from = start;
+  let to = stop;
+  if (to - from > Math.PI * 2) return [0, Math.PI * 2];
+  if (from < -Math.PI * 2 * 1024) {
+    // Stepping a turn at a time is exact for ordinary angles but would take
+    // forever for a far-off start.
+    const turns = Math.ceil(-from / (Math.PI * 2)) * Math.PI * 2;
+    return [from + turns, to + turns];
+  }
+  while (from < 0) {
+    from += Math.PI * 2;
+    to += Math.PI * 2;
+  }
+  return [from, to];
+}
+
 /** Parameters for ellipse generation: radii and angular increment. */
 export interface EllipseParams {
   readonly rx: number;
@@ -177,22 +212,15 @@ export const OpSetBuilder = {
     config: DrawConfig,
   ): OpSet {
     const ops: Op[] = [];
+    const sweep = arcSweep(start, stop);
+    if (sweep === null) return { type: "path", ops };
     const cx = center.x;
     const cy = center.y;
     let rx = Math.abs(width / 2);
     let ry = Math.abs(height / 2);
     rx += config.offsetSymmetric(rx * 0.01);
     ry += config.offsetSymmetric(ry * 0.01);
-    let strt = start;
-    let stp = stop;
-    while (strt < 0) {
-      strt += Math.PI * 2;
-      stp += Math.PI * 2;
-    }
-    if (stp - strt > Math.PI * 2) {
-      strt = 0;
-      stp = Math.PI * 2;
-    }
+    const [strt, stp] = sweep;
     const ellipseInc = (Math.PI * 2) / config.curveStepCount;
     const arcIn = Math.min(ellipseInc / 2, (stp - strt) / 2);
     ops.push(
@@ -223,24 +251,19 @@ export const OpSetBuilder = {
     stopAngle: number,
     config: DrawConfig,
   ): Point[] {
+    const sweep = arcSweep(startAngle, stopAngle);
+    if (sweep === null) return [center];
     let radiusX = Math.abs(width / 2);
     let radiusY = Math.abs(height / 2);
     radiusX += config.offsetSymmetric(radiusX * 0.01);
     radiusY += config.offsetSymmetric(radiusY * 0.01);
-    let start = startAngle;
-    let stop = stopAngle;
-    while (start < 0) {
-      start += Math.PI * 2;
-      stop += Math.PI * 2;
-    }
-    if (stop - start > Math.PI * 2) {
-      start = 0;
-      stop = Math.PI * 2;
-    }
+    const [start, stop] = sweep;
     const ellipseInc = (Math.PI * 2) / config.curveStepCount;
     const increment = Math.min(ellipseInc / 2, (stop - start) / 2);
     const points: Point[] = [];
-    for (let angle = start; angle <= stop; angle = angle + increment) {
+    // A step count of zero or less gives no forward step, so the samples
+    // stop at the cap instead of never reaching the stop angle.
+    for (let angle = start, n = 0; increment > 0 && angle <= stop && n < maxArcSamples; angle += increment, n++) {
       points.push({ x: center.x + radiusX * Math.cos(angle), y: center.y + radiusY * Math.sin(angle) });
     }
     points.push({ x: center.x + radiusX * Math.cos(stop), y: center.y + radiusY * Math.sin(stop) }, center);
@@ -303,6 +326,7 @@ export const OpsGenerator = {
       x: p.x + config.offsetSymmetric(offset),
       y: p.y + config.offsetSymmetric(offset),
     });
+    if (points.length === 0) return [];
     const result: Point[] = [jitter(points[0] as Point)];
     for (const p of points) result.push(jitter(p));
     result.push(jitter(points[points.length - 1] as Point));
@@ -327,7 +351,7 @@ export const OpsGenerator = {
       x: config.offsetSymmetric(offset) + cx + 0.9 * rx * Math.cos(radOffset - increment),
       y: config.offsetSymmetric(offset) + cy + 0.9 * ry * Math.sin(radOffset - increment),
     });
-    for (let angle = radOffset; angle <= stp; angle += increment) {
+    for (let angle = radOffset, n = 0; increment > 0 && angle <= stp && n < maxArcSamples; angle += increment, n++) {
       points.push({
         x: config.offsetSymmetric(offset) + cx + rx * Math.cos(angle),
         y: config.offsetSymmetric(offset) + cy + ry * Math.sin(angle),
@@ -400,7 +424,14 @@ export function computeEllipseAllPoints(args: {
     x: config.offsetSymmetric(offset) + cx + 0.9 * rx * Math.cos(radOffset - increment),
     y: config.offsetSymmetric(offset) + cy + 0.9 * ry * Math.sin(radOffset - increment),
   });
-  for (let angle = radOffset; angle < Math.PI * 2 + radOffset - 0.01; angle = angle + increment) {
+  // A step that is not positive, or too small to move the angle (an
+  // infinite size or a huge step count), would never finish the turn.
+  for (
+    let angle = radOffset;
+    increment > 0 && angle < Math.PI * 2 + radOffset - 0.01;
+    angle = angle + increment
+  ) {
+    if (angle + increment === angle) break;
     allPoints.push({
       x: config.offsetSymmetric(offset) + cx + rx * Math.cos(angle),
       y: config.offsetSymmetric(offset) + cy + ry * Math.sin(angle),

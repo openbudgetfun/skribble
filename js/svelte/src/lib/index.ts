@@ -7,6 +7,16 @@
  *
  * @packageDocumentation
  */
-export { default as Sketch } from "./Sketch.svelte";
+import type { ComponentProps } from "svelte";
+import Sketch from "./Sketch.svelte";
+
+export { Sketch };
 export { sketch } from "@skribble.dev/rough";
+
+/**
+ * Props of {@link Sketch}: a `shape` at a `width` and `height`, every sketch
+ * option, the accessibility props, and any other `<svg>` attribute. Use it
+ * to type wrapper components.
+ */
+export type SketchProps = ComponentProps<typeof Sketch>;
 export type { PointLike, RoughFillStyle, RoughPenName, Shape, SketchOptions, SketchPath } from "@skribble.dev/rough";
