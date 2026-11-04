@@ -228,9 +228,65 @@ void main() {
           expect(drawable.sets.last.ops, isNotEmpty);
         }
       });
+
+      // An empty or reversed sweep has no arc to draw. The sampling loops
+      // step by half the sweep, so a zero sweep used to never advance and a
+      // reversed one walked away from its stop forever.
+      test(
+        'returns empty ink for empty, reversed, and non-finite sweeps',
+        () {
+          for (final (start, stop) in [
+            (1.0, 1.0),
+            (1.0, 0.99),
+            (pi, 0.0),
+            (double.negativeInfinity, 1.0),
+            (0.0, double.infinity),
+            (double.nan, 1.0),
+          ]) {
+            for (final closed in [false, true]) {
+              final drawable = Generator(
+                DrawConfig.build(seed: 3),
+                HachureFiller(),
+              ).arc(50, 50, 100, 100, start, stop, closed);
+              expect(
+                drawable.sets.last.ops,
+                isEmpty,
+                reason: 'sweep $start to $stop',
+              );
+            }
+          }
+        },
+        timeout: const Timeout(Duration(seconds: 10)),
+      );
+
+      test('keeps the geometry of an ordinary sweep', () {
+        Drawable draw() => Generator(
+          DrawConfig.build(seed: 5),
+          NoFiller(),
+        ).arc(100, 100, 160, 120, 0.3, pi * 1.4, true);
+        final first = draw().sets.last.ops;
+        final second = draw().sets.last.ops;
+        expect(first, isNotEmpty);
+        expect(
+          [for (final op in first) op.data],
+          [for (final op in second) op.data],
+        );
+      });
     });
 
     group('roundedRectangle()', () {
+      test('draws a negative size without throwing', () {
+        // Clamping each radius, and the wobble, to a negative side threw
+        // ArgumentError.
+        for (final (width, height) in [(-10.0, 20.0), (20.0, -10.0)]) {
+          final drawing = Generator(
+            DrawConfig.build(seed: 2),
+            NoFiller(),
+          ).roundedRectangle(0, 0, width, height, 4, 4, 4, 4);
+          expect(drawing.sets.last.ops, isNotEmpty);
+        }
+      });
+
       test('small rounded outlines are two continuous closed pen passes', () {
         for (final side in [0.0, 1.0, 12.0, 27.0, 42.0]) {
           final drawing = Generator(
