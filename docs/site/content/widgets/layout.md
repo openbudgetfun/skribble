@@ -447,7 +447,8 @@ const WiredAvatar(
 - When `backgroundImage` is provided, the hachure fill is disabled to show the image.
 - If the image fails to load, falls back to the child or a `WiredIcon(Icons.person)`.
 - Text content is sized at 70% of the radius; icon content matches the radius.
-- The circle border is always drawn with `WiredCircleBase` using `theme.borderColor`.
+- The circle border is always drawn with `WiredCircleBase` using `theme.borderColor`, on top of a background or foreground image so a photo never hides the ink.
+- The fallback icon follows the clamped radius when `minRadius` or `maxRadius` applies.
 
 ---
 
