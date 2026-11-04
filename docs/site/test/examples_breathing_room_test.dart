@@ -41,7 +41,8 @@ void main() {
 
         expect(tester.takeException(), isNull);
         final root = tester.binding.renderViews.first;
-        expect(crampedText(root), isEmpty);
+        // Lines must not cross text, and icons keep clear of their shapes.
+        expect(crampedText(root, lines: true, icons: true), isEmpty);
         expect(squeezedText(root), isEmpty);
 
         // Let looping examples and their timers wind down.

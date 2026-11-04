@@ -554,7 +554,7 @@ WiredGridTileBar(
 
 ### Notes
 
-- The bottom edge of the bar is closed with a rough `WiredLineBase` line so it reads as sketched, not machine-cut.
+- The bottom edge of the bar is closed with a rough `WiredLineBase` line so it reads as sketched, not machine-cut. The title and subtitle keep `kWiredInkPadding` from it, even when large text makes the bar grow.
 - Use inside `WiredGridTile.header` or `.footer`; standalone usage also renders correctly.
 
 ---

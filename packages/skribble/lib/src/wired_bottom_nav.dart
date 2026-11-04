@@ -112,13 +112,15 @@ class WiredBottomNavigationBar extends HookWidget {
                   alignment: Alignment.center,
                   children: [
                     if (selected)
+                      // Wide enough that the ring keeps clear of the
+                      // 24-pixel icon's corners, not just its sides.
                       SizedBox(
-                        width: 32,
-                        height: 32,
+                        width: 36,
+                        height: 36,
                         child: WiredCanvas(
                           painter: WiredCircleBase(
                             strokeWidth: theme.strokeWidth,
-                            diameterRatio: 0.9,
+                            diameterRatio: 0.95,
                             borderColor: theme.borderColor,
                           ),
                           fillerType: RoughFilter.noFiller,

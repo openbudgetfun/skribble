@@ -153,8 +153,10 @@ class WiredGridTileBar extends HookWidget {
           ),
           // The Stack centres the row and grows with it, so the bar is at
           // least [height] tall and taller when large text needs it.
+          // The ink padding keeps the title and subtitle clear of the
+          // hand-drawn edge, even when large text makes the bar grow.
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: kWiredInkPadding,
             child: Row(
               children: [
                 if (leading != null) ...[

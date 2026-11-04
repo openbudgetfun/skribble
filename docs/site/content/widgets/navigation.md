@@ -339,12 +339,24 @@ WiredMenuBar(
 
 ## WiredBottomAppBar
 
-A bottom app bar with a hand-drawn top border. Can contain actions and an optional notch for a FAB.
+A bottom app bar with a hand-drawn top border. Its content is centred inside the ink padding, and the bar stays above the home indicator on notched phones.
 
 ```dart
 // Live example: bottom-app-bar
 WiredBottomAppBar(child: Text('Make something lovely'))
 ```
+
+### Constructor parameters
+
+| Parameter     | Type                  | Default                                             | Description                                                         |
+| ------------- | --------------------- | --------------------------------------------------- | ------------------------------------------------------------------- |
+| `child`       | `Widget?`             | `null`                                              | The bar's content, usually a `Row` of buttons. Centred vertically.  |
+| `color`       | `Color?`              | `null`                                              | Background; falls back to `theme.fillColor`.                        |
+| `height`      | `double?`             | `56`                                                | Least bar height; the bar grows when its content needs more room.   |
+| `padding`     | `EdgeInsetsGeometry?` | `EdgeInsets.symmetric(horizontal: 16, vertical: 8)` | Space between the hand-drawn line and `child`.                      |
+| `elevation`   | `double?`             | `null`                                              | Kept for parity with `BottomAppBar`; the bar draws no shadow.       |
+| `shape`       | `NotchedShape?`       | `null`                                              | Kept for parity with `BottomAppBar`; no notch is cut for a FAB yet. |
+| `notchMargin` | `double`              | `4`                                                 | Kept for parity with `BottomAppBar`; see `shape`.                   |
 
 ---
 
