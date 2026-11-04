@@ -4,6 +4,7 @@
 // for why this directory is the one place allowed to import Material.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../skribble_localizations.dart';
 import '../wired_theme.dart';
@@ -40,7 +41,7 @@ import 'wired_theme_interop.dart';
 /// Do not use it inside an existing `MaterialApp`: the app's own `ThemeData`
 /// is already there, and this widget would replace it for the subtree. Use
 /// `WiredThemeFromMaterial` instead.
-class WiredMaterialTheme extends StatelessWidget {
+class WiredMaterialTheme extends HookWidget {
   /// Creates a Material theme boundary derived from [data].
   const WiredMaterialTheme({
     super.key,
@@ -70,10 +71,14 @@ class WiredMaterialTheme extends StatelessWidget {
         brightness ??
         ThemeData.estimateBrightnessForColor(wiredTheme.fillColor);
 
-    Widget result = Theme(
-      data: wiredTheme.toThemeData(brightness: resolvedBrightness),
-      child: child,
+    // The conversion runs ColorScheme.fromSeed and builds a whole ThemeData.
+    // As a SkribbleApp builder this widget rebuilds with the app, so keep
+    // the result for as long as its inputs are equal.
+    final material = useMemoized(
+      () => wiredTheme.toThemeData(brightness: resolvedBrightness),
+      <Object?>[wiredTheme, resolvedBrightness],
     );
+    Widget result = Theme(data: material, child: child);
     if (Localizations.of<MaterialLocalizations>(
           context,
           MaterialLocalizations,
