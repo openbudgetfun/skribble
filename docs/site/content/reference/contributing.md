@@ -20,14 +20,14 @@ Thanks for your interest in contributing to skribble! This guide covers the work
 git clone https://github.com/openbudgetfun/skribble.git
 cd skribble
 
-# If using devenv
-direnv allow
+# With devenv (recommended): provides flutter, melos, mdt, dprint, and the git hooks
+devenv shell
 
-# If not using devenv
+# Without devenv: install the pinned Flutter 3.47.0 with FVM
 fvm install
 fvm use --force
 
-# Install dependencies
+# Install dependencies for the whole workspace
 flutter pub get
 ```
 

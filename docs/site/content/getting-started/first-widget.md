@@ -1,6 +1,7 @@
 ---
 title: Your First Widget
 description: Add WiredButton, WiredInput, and WiredCard to your app step by step. Learn how widgets read from the theme and handle events.
+order: 3
 ---
 
 # Your First Widget
@@ -9,23 +10,46 @@ This guide walks through adding individual skribble widgets to your app, one at 
 
 ## Before you start
 
-Make sure you have a working `WiredMaterialApp` shell. If not, follow the [Quick Start](/getting-started/quick-start) guide first.
+Make sure you have a working `SkribbleApp`. If not, follow the [Quick Start](/getting-started/quick-start) first. The examples use `HookBuilder`, so add [flutter_hooks](https://pub.dev/packages/flutter_hooks) if you have not yet:
 
-All examples below assume this outer structure:
+```bash
+flutter pub add flutter_hooks
+```
+
+Each example below is a widget expression. Paste it in place of the `WiredButton` in this page, which is a complete `lib/main.dart`:
 
 ```dart
 // Static example: setup
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
   runApp(
-    WiredMaterialApp(
-      wiredTheme: WiredThemeData(),
+    SkribbleApp(
+      title: 'My first widgets',
+      builder: (context, child) => WiredMaterialTheme(child: child!),
       home: const ExamplePage(),
     ),
   );
+}
+
+class ExamplePage extends StatelessWidget {
+  const ExamplePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return WiredScaffold(
+      appBar: WiredAppBar(title: Text('My first widgets')),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          // Replace this button with any example below.
+          child: WiredButton(onPressed: () {}, child: Text('Hello')),
+        ),
+      ),
+    );
+  }
 }
 ```
 
@@ -166,5 +190,5 @@ When you build your own custom Wired widgets later, you will follow this same pa
 ## Next steps
 
 - [Theming](/getting-started/theming) -- customize colors, stroke width, roughness, and dark mode support
-- [Widget Reference](/widgets) -- browse the full catalog with API details
+- [Widget Reference](/widgets/buttons) -- browse the full catalog with API details
 - [Custom Widgets](/guides/custom-widgets) -- build your own hand-drawn widgets

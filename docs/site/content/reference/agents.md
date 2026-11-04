@@ -924,38 +924,53 @@ const Color _defaultFillColor = WiredPalette.paper;
 # Install dependencies
 flutter pub get
 
-# Run all lint checks (format + analyze + docs)
+# Run every lint check: dprint formatting, dart analyze, MDT docs sync, and monochange
 lint:all
 
-# Run dart analyze across all packages
+# Fix everything fixable: MDT docs sync, dprint formatting, then dart fix
+fix:all
+
+# Sync the shared MDT documentation blocks, or check that they are in sync
+fix:docs
+lint:docs
+
+# Run dart analyze across all packages (infos are fatal)
 melos run analyze
 
-# Run Flutter widget tests
+# Run the Flutter widget tests
 melos run flutter-test
 
-# Format all Dart code
-dart format .
+# Run every Flutter and pure-Dart test suite, or collect merged coverage
+test:all
+test:coverage
 
-# Fix all fixable lint, format, and docs issues
-fix:all
+# Format all Dart code
+melos run format
 
 # Capture component screenshots
 melos run screenshot
 
-# Generate rough Material icon SVGs
-melos run rough-icons
+# Serve or build the documentation site
+docs:site:serve
+docs:site:build
 
-# Generate rough icon font (TTF + Dart helpers)
+# Build or serve the skribble.dev landing page (Jaspr)
+site:build
+site:serve
+
+# Generate rough Material icon SVGs, or the icon font (TTF + Dart helpers)
+melos run rough-icons
 melos run rough-icons-font
 
-# Generate custom icon artifacts from SVG manifest
-melos run rough-icons-custom
-
-# Run CI-equivalent rough icon checks
+# Run the CI rough icon checks, or verify every committed icon catalog
 melos run rough-icons-ci-check
+melos run icons-check
 
 # Build, typecheck, and test the npm packages in js/
 pnpm install && pnpm run check
+
+# Format, lint, and test the Rust crates in rust/
+cargo fmt --all && cargo clippy --workspace --all-targets --all-features -- -D warnings && cargo test --workspace --all-features
 ```
 
 <!-- {/docsCommandsSection} -->

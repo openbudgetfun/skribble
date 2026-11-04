@@ -5,9 +5,17 @@ after = 0
 [templates]
 paths = ["templates"]
 
+# Values providers can render, so version requirements are read from the
+# manifests instead of being typed into the docs. With `[data]` configured,
+# providers are minijinja templates: wrap a literal `{{` in
+# `{% raw %}...{% endraw %}`.
+[data]
+skribble = "packages/skribble/pubspec.yaml" # {{ skribble.environment.flutter }}
+fvm = { path = ".fvmrc", format = "json" } # {{ fvm.flutter }}
+
 [include]
-# Dart sources are not scanned by default; include the library and test
-# helpers so shared dartdoc blocks can be synced from the templates.
+# Make sure the library sources and test helpers are scanned so shared
+# dartdoc blocks can be synced from the templates.
 patterns = [
   "packages/skribble/lib/**/*.dart",
   "packages/skribble/test/helpers/*.dart",
@@ -21,7 +29,8 @@ patterns = ["**/*.md", "**/*.t.md"]
 
 [exclude]
 patterns = [
-  "AGENTS.md",
+  # CLAUDE.md is a symlink to AGENTS.md; scan the real file once.
+  "CLAUDE.md",
   "docs/agents/**",
   "**/.dart_tool/**",
   "**/build/**",

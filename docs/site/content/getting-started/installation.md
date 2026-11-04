@@ -1,31 +1,36 @@
 ---
 title: Installation
-description: Add skribble to a Flutter app or set up the full workspace for contributing.
+description: Add skribble and its default hand-drawn typeface to a Flutter app, then pick optional fonts, icons, maps, and charts.
+order: 1
 ---
 
 # Installation
 
-There are two ways to get started with skribble: add it to an existing app as a dependency, or clone the workspace to contribute.
+Adding skribble to a Flutter app takes one command. If you want to work on skribble itself, skip to [Contribute to skribble](#contribute-to-skribble).
 
-## App usage
+## Requirements
+
+<!-- {=docsRequirements} -->
+
+skribble needs Flutter 3.47.0 or later (Dart 3.13.0 or later). Run `flutter --version` to check yours.
+
+<!-- {/docsRequirements} -->
+
+Any Flutter app works, including one made with `flutter create`. skribble supports every Flutter platform: Android, iOS, web, macOS, Windows, and Linux.
 
 <!-- {=docsInstallSection} -->
 
 ## Install in an app
 
-Add the `skribble` package to your Flutter project:
+From your Flutter app's directory, add the library and its default typeface in one step:
 
 ```bash
-dart pub add skribble
+flutter pub add skribble skribble_font_noto_sketch
 ```
 
-Add the default hand-drawn typeface, Skribble Noto Sketch, so text renders sketchy, not in the system font. This is the step that makes a first app _look_ hand-drawn:
+`skribble` paints the hand-drawn borders, fills, and icons. `skribble_font_noto_sketch` adds Skribble Noto Sketch, the default lettering: it is the step that makes text _look_ hand-drawn too. There is nothing else to set up: no font registration, no assets to copy, and no Material app.
 
-```bash
-flutter pub add skribble_font_noto_sketch
-```
-
-Then import it:
+Then import the library in your Dart files:
 
 ```dart
 // Static example: setup
@@ -34,13 +39,37 @@ import 'package:skribble/skribble.dart';
 
 <!-- {/docsInstallSection} -->
 
-## Hand-drawn text: don't skip the font package
+That is the whole setup. Continue with the [Quick Start](/getting-started/quick-start) to build and run your first hand-drawn screen.
 
-`skribble` paints the wobbly borders, fills, and icons, but the **hand-drawn lettering ships in separate packages**. They are split out deliberately so the core stays small and you only pay for the fonts you use — see [Upgrading to 0.2](/getting-started/upgrading-to-0-2).
+## Choose another typeface
 
-The default and recommended typeface is **Skribble Noto Sketch**, from `skribble_font_noto_sketch`. It is redrawn from [Google Noto](https://fonts.google.com/noto) with a round marker pen, a slight bounce, and three alternating drawings of every Latin letter, so repeated letters never look stamped. It is also the lightest download: one Regular face of under 1 MB, from which Flutter synthesizes bold and italic.
+Skribble Noto Sketch is the recommended lettering, and you need no code to use it. To pick another one, install its package and select it on the theme:
 
-Without a font package, borders, buttons, and cards still render hand-drawn, but `Text` falls back to the platform font. Once you add `skribble_font_noto_sketch`, Flutter registers the family from its pubspec and `WiredTheme` uses it automatically — no extra code. To set the family by hand on a single `TextStyle`, qualify it with the package:
+<!-- {=docsTypefaceTable} -->
+
+| Typeface                                  | Package                     | Select with                                                  | Follows the roughness level |
+| ----------------------------------------- | --------------------------- | ------------------------------------------------------------ | --------------------------- |
+| Skribble Noto Sketch (default)            | `skribble_font_noto_sketch` | nothing: it is the default, or `WiredFont.notoSketch`        | No                          |
+| Skribble Noto Soft                        | `skribble_font_noto`        | `WiredThemeData(font: WiredFont.noto)`                       | No                          |
+| Skribble Noto Lively                      | `skribble_font_noto_lively` | `WiredThemeData(font: WiredFont.notoLively)`                 | No                          |
+| Recursive Casual, Linear, and Mono (code) | `skribble_font_recursive`   | `WiredThemeData(font: WiredFont.casual)`, `.linear`, `.mono` | Yes                         |
+
+Install the package for each typeface you select; every package bundles its own font files, so it works offline. The Skribble Noto packages cover Latin, Greek, and Cyrillic in one Regular face, and Flutter synthesizes bold and italic. Recursive has seven real weights with italics. An explicit `fontFamily` on `WiredThemeData` overrides the choice.
+
+<!-- {/docsTypefaceTable} -->
+
+For example, the Recursive typefaces are the right choice for code (`WiredFont.mono`) or when you need real bold and italic faces:
+
+```bash
+flutter pub add skribble_font_recursive
+```
+
+```dart
+// Static example: configuration
+WiredThemeData(font: WiredFont.casual)
+```
+
+To use the default family on a single `TextStyle` outside the theme, qualify it with its package:
 
 ```dart
 // Static example: configuration
@@ -50,45 +79,38 @@ TextStyle(
 )
 ```
 
-### Other typefaces
+Every other script Noto covers, including Arabic, Hebrew, Devanagari, Thai, Chinese, Japanese, and Korean, is in the Skribble Noto font kit on each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest). Add the scripts you need as your own font families and list them in `WiredThemeData.fontFamilyFallback`; [Compare the lettering](/core/font-comparison#skribble-noto) shows how. The fonts live in separate packages so the core stays small and an app ships only the lettering it uses; see [Upgrading to 0.2](/getting-started/upgrading-to-0-2).
 
-Skribble Noto comes at two more levels, each its own package: `skribble_font_noto` (Soft, the calmest) and `skribble_font_noto_lively` (the most playful). The packages bundle Latin, Greek, and Cyrillic. Every other script Noto covers, including Arabic, Hebrew, Devanagari, Thai, Chinese, Japanese, and Korean, is in the Skribble Noto font kit on each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest). Add the scripts you need as your own font families and list them in `WiredThemeData.fontFamilyFallback`; [Compare the lettering](/core/font-comparison#skribble-noto) shows how.
+## Troubleshooting
 
-`skribble_font_recursive` holds the roughened Recursive typefaces: Casual, Linear, and Mono, in four weights with italics, each redrawn at the Gentle, Playful, and Expressive roughness levels so the lettering follows the theme. It was the previous default, and it is the right choice for code (`WiredFont.mono`) or when you need real bold and italic faces. Install the package you want and select it:
+**Text is drawn in the system font.** Borders, buttons, and cards render hand-drawn without a font package, but text needs one. Check that `skribble_font_noto_sketch` (or the package for the typeface you selected) is listed under `dependencies` in your `pubspec.yaml`, then stop the app and run it again: a hot reload does not load newly added font assets.
 
-```bash
-flutter pub add skribble_font_recursive
-```
+**pub resolved `skribble_font_noto_sketch 0.0.0`.** Version `0.0.0` only reserves the package name and contains no fonts. These docs follow the `main` branch, so a package they describe can reach pub.dev with the next release. Until it does, keep the lettering of the latest published release with `flutter pub add skribble_font_recursive`; the Recursive Casual face is that release's default.
 
-```dart
-// Static example: configuration
-WiredThemeData(font: WiredFont.casual) // or .linear, .mono, .noto, .notoLively
-```
+**Version solving failed.** Check the [requirements](#requirements) with `flutter --version`, and run `flutter upgrade` if your Flutter is older.
 
-## Optional maps and financial charts
+## Optional packages
 
-Install either companion package when your app needs it:
+Install a companion package when your app needs it:
 
 ```bash
-flutter pub add skribble_maps
-flutter pub add skribble_charts
+flutter pub add skribble_icons   # Material, Lucide, Boxicons, and brand icons
+flutter pub add skribble_emoji   # hand-drawn emoji for every Unicode emoji
+flutter pub add skribble_maps    # MapLibre maps with hand-drawn overlays
+flutter pub add skribble_charts  # hand-drawn financial charts
 ```
 
-[Maps](/widgets/maps) combines a MapLibre basemap with hand-drawn pins, routes, and areas. [Charts](/widgets/charts) supports candlesticks, indicators, and editable drawings. Both pages include interactive examples; Storybook includes larger demonstrations under Maps and Financial charts.
+[Icons](/widgets/icons), [Emoji](/widgets/emoji), [Maps](/widgets/maps), and [Charts](/widgets/charts) document each one with interactive examples. The core package already draws 51 of its own glyphs (`SkribbleGlyphs`) for checkboxes, chevrons, and close buttons, so you only need `skribble_icons` for larger icon sets. Every published package is listed in the [API overview](/reference/api-overview#companion-packages).
 
-## Jaspr websites
+## Beyond Flutter
 
-skribble's hand-drawn look also works on [Jaspr](https://jaspr.site) sites without Flutter. `skribble_jaspr` renders rough borders, highlights, and doodles on the server with zero client JavaScript. See [Using skribble on Jaspr](../guides/jaspr) for installation and the stylesheet.
+- **Jaspr websites.** `skribble_jaspr` renders rough borders, highlights, and doodles on the server with zero client JavaScript. See [Using skribble on Jaspr](../guides/jaspr).
+- **JavaScript and TypeScript.** The `@skribble.dev` npm packages draw the same hand-drawn shapes in plain browsers, Node, React, React Native, Vue, and Svelte, and replace rough.js. See [Using skribble from JavaScript](../guides/javascript).
+- **Rust and leptoskit.** `skribble_leptoskit` brings the hand-drawn components to [leptoskit](https://github.com/ifiokjr/leptoskit) apps written once in Rust, on the web and natively. `skribble_rough` is the Rust port of the rough engine underneath. See [Using skribble with leptoskit](../guides/leptoskit).
 
-## JavaScript and TypeScript
+## Contribute to skribble
 
-The `@skribble.dev` npm packages draw the same hand-drawn shapes in plain browsers, Node, React, React Native, Vue, and Svelte, and replace rough.js. See [Using skribble from JavaScript](../guides/javascript).
-
-## Rust and leptoskit
-
-`skribble_leptoskit` brings the hand-drawn components to [leptoskit](https://github.com/ifiokjr/leptoskit) apps written once in Rust, with rough ink on the web and the same components on macOS, iOS, Android, Windows, and Linux. `skribble_rough` is the Rust port of the rough engine underneath. See [Using skribble with leptoskit](../guides/leptoskit).
-
-## Workspace contribution setup
+To work on skribble itself, clone the workspace:
 
 <!-- {=docsSetupSection} -->
 
@@ -97,65 +119,23 @@ The `@skribble.dev` npm packages draw the same hand-drawn shapes in plain browse
 git clone https://github.com/openbudgetfun/skribble.git
 cd skribble
 
-# If using devenv
-direnv allow
+# With devenv (recommended): provides flutter, melos, mdt, dprint, and the git hooks
+devenv shell
 
-# If not using devenv
+# Without devenv: install the pinned Flutter 3.47.0 with FVM
 fvm install
 fvm use --force
 
-# Install dependencies
+# Install dependencies for the whole workspace
 flutter pub get
 ```
 
 <!-- {/docsSetupSection} -->
 
-## Development commands
-
-<!-- {=docsCommandsSection} -->
-
-```bash
-# Install dependencies
-flutter pub get
-
-# Run all lint checks (format + analyze + docs)
-lint:all
-
-# Run dart analyze across all packages
-melos run analyze
-
-# Run Flutter widget tests
-melos run flutter-test
-
-# Format all Dart code
-dart format .
-
-# Fix all fixable lint, format, and docs issues
-fix:all
-
-# Capture component screenshots
-melos run screenshot
-
-# Generate rough Material icon SVGs
-melos run rough-icons
-
-# Generate rough icon font (TTF + Dart helpers)
-melos run rough-icons-font
-
-# Generate custom icon artifacts from SVG manifest
-melos run rough-icons-custom
-
-# Run CI-equivalent rough icon checks
-melos run rough-icons-ci-check
-
-# Build, typecheck, and test the npm packages in js/
-pnpm install && pnpm run check
-```
-
-<!-- {/docsCommandsSection} -->
+The [Contributing](/reference/contributing) guide lists the workspace commands, conventions, and quality gates.
 
 ## Next steps
 
-- [Quick Start](/getting-started/quick-start) -- build your first skribble app
-- [Your First Widget](/getting-started/first-widget) -- add buttons, inputs, and cards
+- [Quick Start](/getting-started/quick-start) -- build and run your first skribble app
+- [Your First Widget](/getting-started/first-widget) -- add buttons, inputs, cards, and checkboxes
 - [Theming](/getting-started/theming) -- customize the hand-drawn palette

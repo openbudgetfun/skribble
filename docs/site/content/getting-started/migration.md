@@ -1,6 +1,7 @@
 ---
 title: Migration Guide
 description: How to migrate an existing Flutter app from Material Design to skribble's hand-drawn aesthetic.
+order: 6
 ---
 
 # Migration Guide
