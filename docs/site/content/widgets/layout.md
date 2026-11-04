@@ -220,6 +220,14 @@ HookBuilder(
 )
 ```
 
+### Notes
+
+- `selected` accepts any date `DateTime.tryParse` reads, such as `20260909` or `2026-09-09`; `onSelected` reports `YYYYMMDD`.
+- The calendar follows `selected`: a new value from the parent moves the circle and shows that date's month.
+- Every day is a button for screen readers, named by its full date (`Wednesday, September 9, 2026`) and reporting whether it is selected. The `<<` and `>>` controls are announced as `Previous month` and `Next month`.
+- Days are counted on the calendar, not in 24-hour steps, so months that cross a daylight-saving change list every day once and keep their selection circled.
+- Text and the selection circle use the theme's `textColor` and `borderColor`, and the widget no longer needs a Material ancestor.
+
 ---
 
 ## WiredScrollbar
