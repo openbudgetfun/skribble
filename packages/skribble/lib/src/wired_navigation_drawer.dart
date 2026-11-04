@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -9,7 +10,9 @@ import 'wired_theme.dart';
 /// A hand-drawn M3-style navigation drawer with destination items.
 ///
 /// Corresponds to Flutter's [NavigationDrawer]. Provides a list of
-/// selectable destinations with hand-drawn selection indicators.
+/// selectable destinations with hand-drawn selection indicators. Each
+/// destination takes keyboard focus and is announced as a selectable
+/// button.
 class WiredNavigationDrawer extends HookWidget {
   /// The list of destinations to show.
   final List<WiredNavigationDrawerDestination> destinations;
@@ -110,8 +113,13 @@ class WiredNavigationDrawer extends HookWidget {
 
 /// A destination item for [WiredNavigationDrawer].
 class WiredNavigationDrawerDestination {
+  /// The destination's icon.
   final IconData icon;
+
+  /// The icon shown while the destination is selected. Defaults to [icon].
   final IconData? selectedIcon;
+
+  /// The destination's label, also read by screen readers.
   final String label;
 
   const WiredNavigationDrawerDestination({
@@ -139,53 +147,66 @@ class _WiredDrawerItem extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return GestureDetector(
-      onTap: onTap,
-      // At least 48 tall, taller with larger text, and the label always in
-      // the middle, clear of the selection's ink.
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: 48),
-        child: Stack(
-          alignment: AlignmentDirectional.centerStart,
-          children: [
-            if (isSelected)
-              Positioned.fill(
-                child: WiredCanvas(
-                  painter: WiredRoundedRectangleBase(
-                    strokeWidth: theme.strokeWidth,
-                    borderRadius: BorderRadius.circular(24),
-                    fillColor: theme.markerColor,
-                    borderColor: theme.borderColor,
-                  ),
-                  fillerType: RoughFilter.solidFiller,
-                ),
-              ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                children: [
-                  WiredIcon(
-                    icon: isSelected ? (selectedIcon ?? icon) : icon,
-                    size: 22,
-                    color: theme.textColor,
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      label,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: isSelected
-                            ? FontWeight.w600
-                            : FontWeight.normal,
-                        color: theme.textColor,
+    return Semantics(
+      container: true,
+      button: true,
+      selected: isSelected,
+      inMutuallyExclusiveGroup: true,
+      child: WiredActivatable(
+        onActivate: onTap,
+        // Transparent paint makes the whole row respond to a tap.
+        child: ColoredBox(
+          color: const Color(0x00000000),
+          // At least 48 tall, taller with larger text, and the label always in
+          // the middle, clear of the selection's ink.
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 48),
+            child: Stack(
+              alignment: AlignmentDirectional.centerStart,
+              children: [
+                if (isSelected)
+                  Positioned.fill(
+                    child: WiredCanvas(
+                      painter: WiredRoundedRectangleBase(
+                        strokeWidth: theme.strokeWidth,
+                        borderRadius: BorderRadius.circular(24),
+                        fillColor: theme.markerColor,
+                        borderColor: theme.borderColor,
                       ),
+                      fillerType: RoughFilter.solidFiller,
                     ),
                   ),
-                ],
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: Row(
+                    children: [
+                      WiredIcon(
+                        icon: isSelected ? (selectedIcon ?? icon) : icon,
+                        size: 22,
+                        color: theme.textColor,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          label,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.normal,
+                            color: theme.textColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

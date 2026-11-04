@@ -6,11 +6,25 @@ import 'wired_base.dart';
 import 'wired_theme.dart';
 
 /// An app bar with a hand-drawn bottom border.
+///
+/// The [title] stays on one line and ends with an ellipsis when it does not
+/// fit. Like Material's app bar, its text grows with the platform's text
+/// scaling up to 1.34 times, so a large setting cannot push the title out
+/// of the bar's fixed [height]. Screen readers hear the title as a header.
 class WiredAppBar extends HookWidget implements PreferredSizeWidget {
+  /// The primary content, usually a [Text].
   final Widget? title;
+
+  /// A widget before the title, such as a menu or back button.
   final Widget? leading;
+
+  /// Widgets after the title, such as icon buttons.
   final List<Widget>? actions;
+
+  /// The bar's height below the status bar, including its ink line.
   final double height;
+
+  /// The bar's background. Defaults to transparent.
   final Color? backgroundColor;
 
   const WiredAppBar({
@@ -45,13 +59,22 @@ class WiredAppBar extends HookWidget implements PreferredSizeWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: DefaultTextStyle.merge(
-                        style: TextStyle(
-                          color: theme.textColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      child: MediaQuery.withClampedTextScaling(
+                        maxScaleFactor: _kMaxTitleTextScaleFactor,
+                        child: Semantics(
+                          header: true,
+                          child: DefaultTextStyle.merge(
+                            style: TextStyle(
+                              color: theme.textColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            child: title!,
+                          ),
                         ),
-                        child: title!,
                       ),
                     ),
                   )
@@ -80,3 +103,7 @@ class WiredAppBar extends HookWidget implements PreferredSizeWidget {
     );
   }
 }
+
+/// The largest text scale an app bar title follows, as in Material's
+/// `AppBar`: past it, the title would not fit the bar's fixed height.
+const double _kMaxTitleTextScaleFactor = 1.34;
