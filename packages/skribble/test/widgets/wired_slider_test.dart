@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
@@ -205,6 +206,31 @@ void main() {
 
       expectSemantics(tester, findWired<WiredSlider>(), isSlider: true);
       expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('leaves no timer or animation running, so a frame settles', (
+      tester,
+    ) async {
+      // An early slider rebuilt itself on a zero-length future every build,
+      // which kept pumpAndSettle from ever finishing.
+      await pumpWired(
+        tester,
+        SizedBox(
+          width: 300,
+          child: WiredSlider(
+            value: 0.5,
+            divisions: 4,
+            label: 'Half',
+            onChanged: (v) => true,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await dragWired(tester, findWired<WiredSlider>(), const Offset(40, 0));
+      await tester.pumpAndSettle();
+
+      expect(tester.binding.hasScheduledFrame, isFalse);
     });
   });
 

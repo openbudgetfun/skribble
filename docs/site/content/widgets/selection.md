@@ -22,18 +22,25 @@ WiredChip(label: Text('Make something lovely'))
 
 ### Constructor parameters
 
-| Parameter   | Type            | Default      | Description                                                        |
-| ----------- | --------------- | ------------ | ------------------------------------------------------------------ |
-| `label`     | `Widget`        | **required** | The chip label.                                                    |
-| `avatar`    | `Widget?`       | `null`       | Widget displayed before the label.                                 |
-| `onDeleted` | `VoidCallback?` | `null`       | Called when the delete icon is tapped. Adds a close icon when set. |
+| Parameter                   | Type            | Default      | Description                                                        |
+| --------------------------- | --------------- | ------------ | ------------------------------------------------------------------ |
+| `label`                     | `Widget`        | **required** | The chip label.                                                    |
+| `avatar`                    | `Widget?`       | `null`       | Widget displayed before the label.                                 |
+| `onDeleted`                 | `VoidCallback?` | `null`       | Called when the delete icon is tapped. Adds a close icon when set. |
+| `deleteButtonSemanticLabel` | `String?`       | `null`       | Label read for the close icon's button. Defaults to `Delete`.      |
 
 ### Notes
 
-- Fixed height of 32px.
+- At least `kWiredChipHeight` (36) tall, growing with the label.
+- The label keeps `kWiredButtonPadding` (16 at the sides, 8 above and below) from the ink, like every chip.
 - The border uses `WiredRoundedRectangleBase` with `RoughFilter.noFiller`.
-- The delete icon is a 16px `WiredIcon` with `Icons.close`.
+- The delete icon is a 16px hand-drawn close glyph (`SkribbleGlyphs.close`).
 - Text uses `theme.textColor` at 13px.
+- The chip itself is not a button. Its close icon is a separate, labelled button that can be focused and activated with Enter or Space.
+
+### Keyboard and semantics for every chip
+
+`WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`, and `WiredActionChip` join focus traversal while they can be activated, toggle or fire with a tap, Enter, or Space, and draw a sketchy focus outline in the theme's `borderColor` just outside their own ink. Each reports a button with its selected and enabled state. A chip without a callback (`onSelected: null`, `onPressed: null`, or `enabled: false` on an input chip) is disabled: it ignores taps and keys, leaves focus traversal, and offers no tap action to assistive technology.
 
 ---
 
@@ -84,7 +91,7 @@ HookBuilder(
 
 ## WiredInputChip
 
-A chip representing a piece of user input (e.g., a tag or email address). Supports avatar, delete, and tap actions. Its selected state uses the same solid ink fill as choice and filter chips.
+A chip representing a piece of user input (e.g., a tag or email address). Supports avatar, delete, and tap actions. Its selected state uses the same solid ink fill as choice and filter chips, with the label and close icon in the theme's paper colour so they read in light and dark themes. Pass `deleteButtonSemanticLabel` to change the close button's spoken label.
 
 ```dart
 // Live example: input-chip
@@ -335,7 +342,7 @@ SizedBox(
 
 ## WiredCupertinoSegmentedControl
 
-A Cupertino-style segmented control with hand-drawn segment borders. The selected segment is washed with the theme's `markerColor`.
+A Cupertino-style segmented control with hand-drawn segment borders. The selected segment is washed with the theme's `markerColor`. Each segment, here and in `WiredSlidingSegmentedControl`, is a focusable button that reports whether it is selected and activates with a tap, Enter, or Space; `onValueChanged: null` disables them.
 
 ```dart
 // Live example: cupertino-segmented-control

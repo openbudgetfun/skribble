@@ -10,12 +10,26 @@ import 'wired_theme.dart';
 /// The text area is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the field label and current value.
 class WiredTextArea extends HookWidget {
+  /// Controller for the editable value. An internal controller is used if
+  /// absent.
   final TextEditingController? controller;
+
+  /// Text style for the value, merged over the theme's text colour.
   final TextStyle? style;
+
+  /// Hint displayed while the area is empty.
   final String? hintText;
+
+  /// Style for the hint, merged over the theme's disabled text colour.
   final TextStyle? hintStyle;
+
+  /// Called when the user edits the value.
   final void Function(String)? onChanged;
+
+  /// The most lines shown before the area scrolls.
   final int maxLines;
+
+  /// The fewest lines the area is tall.
   final int minLines;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -57,16 +71,21 @@ class WiredTextArea extends HookWidget {
           ),
           TextField(
             controller: controller,
-            style: style,
+            // The theme's ink, so the value stays readable on dark paper.
+            style: TextStyle(color: theme.textColor).merge(style),
+            cursorColor: theme.borderColor,
             maxLines: maxLines,
             minLines: minLines,
             decoration: InputDecoration(
               filled: false,
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
               border: InputBorder.none,
               hintText: hintText,
-              hintStyle: hintStyle,
+              hintStyle: TextStyle(
+                color: theme.disabledTextColor,
+              ).merge(hintStyle),
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 12,
                 vertical: 10,

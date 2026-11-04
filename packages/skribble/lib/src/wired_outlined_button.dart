@@ -43,7 +43,10 @@ class WiredOutlinedButton extends WiredButtonBase {
           color: theme.borderColor,
         ),
       ),
-      textStyle: TextButton.styleFrom(foregroundColor: theme.textColor),
+      textStyle: TextButton.styleFrom(
+        foregroundColor: theme.textColor,
+        disabledForegroundColor: theme.disabledTextColor,
+      ),
     );
   }
 }

@@ -20,6 +20,7 @@ class WiredElevatedButton extends WiredButtonBase {
     super.onPressed,
     super.semanticLabel,
     super.inkInteraction,
+    super.seed,
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
   });
 
@@ -35,6 +36,7 @@ class WiredElevatedButton extends WiredButtonBase {
         bottom: -2,
         child: Container(
           decoration: RoughBoxDecoration(
+            seed: seed ?? 1,
             progress: WiredDrawTransition.progressOf(context),
             pressure: WiredInkResponse.pressureOf(context),
             drawConfig: theme.drawConfig,
@@ -54,6 +56,7 @@ class WiredElevatedButton extends WiredButtonBase {
         ),
       ),
       decorationBuilder: (context) => RoughBoxDecoration(
+        seed: seed ?? 1,
         progress: WiredDrawTransition.progressOf(context),
         pressure: WiredInkResponse.pressureOf(context),
         drawConfig: theme.drawConfig,
@@ -68,7 +71,10 @@ class WiredElevatedButton extends WiredButtonBase {
         fillStyle: RoughDrawingStyle(color: theme.fillColor),
         filler: SolidFiller(FillerConfig.build(drawConfig: theme.drawConfig)),
       ),
-      textStyle: TextButton.styleFrom(foregroundColor: theme.textColor),
+      textStyle: TextButton.styleFrom(
+        foregroundColor: theme.textColor,
+        disabledForegroundColor: theme.disabledTextColor,
+      ),
     );
   }
 }

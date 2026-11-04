@@ -147,7 +147,7 @@ WiredCupertinoSearchTextField(
 | `autofocus`        | `bool`                   | `false`                   | Requests focus on first build.                      |
 | `focusNode`        | `FocusNode?`             | `null` — creates one      | Focus node for the field.                           |
 | `textInputAction`  | `TextInputAction?`       | `.search`                 | Keyboard submit action.                             |
-| `height`           | `double`                 | `36`                      | Field height.                                       |
+| `height`           | `double`                 | `40`                      | Least field height; grows with larger text.         |
 | `borderRadius`     | `BorderRadius?`          | stadium matching `height` | Hand-drawn border radius.                           |
 | `semanticLabel`    | `String?`                | `null`                    | Optional semantic label.                            |
 
@@ -224,12 +224,24 @@ The widgets below were part of earlier releases and keep their individual APIs:
 | `WiredCupertinoPicker`           | `CupertinoPicker`           | Selection page  |
 | `WiredCupertinoDatePicker`       | `CupertinoDatePicker`       | Selection page  |
 | `WiredCupertinoSegmentedControl` | `CupertinoSegmentedControl` | Selection page  |
-| `WiredCupertinoSwitch`           | `CupertinoSwitch`           | Selection page  |
+| `WiredCupertinoSwitch`           | `CupertinoSwitch`           | Inputs page     |
 | `WiredCupertinoNavigationBar`    | `CupertinoNavigationBar`    | Navigation page |
 | `WiredCupertinoTabBar`           | `CupertinoTabBar`           | Navigation page |
 | `WiredCupertinoScaffold`         | `CupertinoPageScaffold`     | Layout page     |
 | `WiredCupertinoAlertDialog`      | `CupertinoAlertDialog`      | Feedback page   |
 | `WiredCupertinoActionSheet`      | `CupertinoActionSheet`      | Feedback page   |
+
+## Keyboard, focus, and large text
+
+Every interactive Cupertino widget can be reached with Tab and activated with Enter or Space: `WiredCupertinoButton`, `WiredCupertinoSwitch`, each segment of `WiredCupertinoSegmentedControl` and `WiredSlidingSegmentedControl`, each tab of `WiredCupertinoTabBar`, `WiredCupertinoDialogAction`, `WiredCupertinoActionSheetAction`, and the navigation bar's back button. A focused control draws a sketchy outline just outside its ink in the theme's `borderColor`. Each reports its role (button, toggled switch, selected segment or tab) and enabled state, and a disabled control leaves focus traversal.
+
+- `WiredCupertinoSlider` reports a slider with increase and decrease actions; see the Inputs page.
+- `WiredCupertinoTabBar.height` is a minimum: the bar grows with larger text instead of overflowing.
+- `WiredCupertinoAlertDialog` stacks its actions one per row when there are more than two or the text is scaled past 1.5×, so no label breaks mid-word.
+- `WiredCupertinoAlertDialog` and `WiredCupertinoActionSheet` sit on the theme's `fillColor` with the sketchy outline drawn over it, so their text keeps its contrast in dark themes.
+- The navigation bar's back button is read as the previous page's title, or `Back`.
+- `WiredCupertinoSearchTextField` keeps its placeholder at the start of the line under right-to-left text, and accepts a `focusNode` supplied after the first build.
+- Section headers and footers in `WiredCupertinoListSection` and `WiredCupertinoFormSection` are indented from the start edge, mirrored under right-to-left text.
 
 ## Building the font and icon sets
 

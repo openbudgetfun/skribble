@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'generated/skribble_glyphs.g.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -124,23 +125,34 @@ class WiredCupertinoNavigationBar extends HookWidget
     final theme = WiredTheme.of(context);
 
     if (!Navigator.of(context).canPop()) return null;
-    return GestureDetector(
-      onTap: () => Navigator.of(context).maybePop(),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          WiredSvgIcon(
-            data: SkribbleGlyphs.chevronLeft,
-            color: theme.borderColor,
-            size: 22,
-            flipHorizontally: Directionality.of(context) == TextDirection.rtl,
-          ),
-          if (previousPageTitle != null)
-            Text(
-              previousPageTitle!,
-              style: TextStyle(color: theme.borderColor, fontSize: 16),
+    void back() => Navigator.of(context).maybePop();
+    // A labelled, focusable button that Enter and Space also activate.
+    return Semantics(
+      container: true,
+      button: true,
+      enabled: true,
+      // The previous page's title, as iOS reads it, or "Back".
+      label: previousPageTitle ?? 'Back',
+      onTap: back,
+      excludeSemantics: true,
+      child: WiredActivatable(
+        onActivate: back,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            WiredSvgIcon(
+              data: SkribbleGlyphs.chevronLeft,
+              color: theme.borderColor,
+              size: 22,
+              flipHorizontally: Directionality.of(context) == TextDirection.rtl,
             ),
-        ],
+            if (previousPageTitle != null)
+              Text(
+                previousPageTitle!,
+                style: TextStyle(color: theme.borderColor, fontSize: 16),
+              ),
+          ],
+        ),
       ),
     );
   }

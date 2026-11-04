@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_bottom_nav.dart';
 import 'wired_theme.dart';
@@ -17,7 +18,8 @@ class WiredCupertinoTabBar extends HookWidget {
   /// The currently selected tab index.
   final int currentIndex;
 
-  /// Called when a tab is tapped.
+  /// Called with a tab's index when it is tapped or activated with Enter or
+  /// Space. Null disables the tabs.
   final ValueChanged<int>? onTap;
 
   /// The active icon/label color.
@@ -29,7 +31,8 @@ class WiredCupertinoTabBar extends HookWidget {
   /// Background color of the tab bar.
   final Color? backgroundColor;
 
-  /// Height of the tab bar.
+  /// The least height of the tab bar, above the bottom safe area. The bar
+  /// grows past it when larger text needs the room.
   final double height;
 
   /// The size of tab bar icons.
@@ -80,50 +83,66 @@ class WiredCupertinoTabBar extends HookWidget {
     final bgColor = backgroundColor ?? theme.fillColor;
 
     return buildWiredElement(
-      child: SizedBox(
-        height: height + MediaQuery.of(context).padding.bottom,
-        child: Stack(
-          children: [
-            // Background
-            Positioned.fill(child: Container(color: bgColor)),
-            // Top border line (sketchy)
-            Positioned(
-              left: 0,
-              right: 0,
-              top: 0,
-              height: theme.inkExtent,
-              child: WiredCanvas(
-                painter: WiredLineBase(
-                  strokeWidth: theme.strokeWidth,
-                  x1: 0,
-                  y1: 1,
-                  x2: double.maxFinite,
-                  y2: 1,
-                  borderColor: theme.borderColor,
+      // The background reaches down through the bottom safe area.
+      child: ColoredBox(
+        color: bgColor,
+        child: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.paddingOf(context).bottom,
+          ),
+          child: Stack(
+            children: [
+              // Top border line (sketchy)
+              Positioned(
+                left: 0,
+                right: 0,
+                top: 0,
+                height: theme.inkExtent,
+                child: WiredCanvas(
+                  painter: WiredLineBase(
+                    strokeWidth: theme.strokeWidth,
+                    x1: 0,
+                    y1: 1,
+                    x2: double.maxFinite,
+                    y2: 1,
+                    borderColor: theme.borderColor,
+                  ),
+                  fillerType: RoughFilter.noFiller,
                 ),
-                fillerType: RoughFilter.noFiller,
               ),
-            ),
-            // Tab items
-            Positioned(
-              left: 0,
-              right: 0,
-              top: 0,
-              height: height,
-              child: Row(
-                children: [
-                  for (var i = 0; i < items.length; i++)
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => onTap?.call(i),
-                        behavior: HitTestBehavior.opaque,
-                        child: _buildTabItem(i),
-                      ),
-                    ),
-                ],
+              // Tab items. The bar is at least [height] tall and grows with
+              // larger text instead of overflowing.
+              ConstrainedBox(
+                constraints: BoxConstraints(minHeight: height),
+                child: IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      for (var i = 0; i < items.length; i++)
+                        Expanded(
+                          child: Semantics(
+                            container: true,
+                            button: true,
+                            selected: i == currentIndex,
+                            inMutuallyExclusiveGroup: true,
+                            enabled: onTap != null,
+                            child: WiredActivatable(
+                              onActivate: onTap == null
+                                  ? null
+                                  : () => onTap!(i),
+                              child: GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                child: _buildTabItem(i),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -138,6 +157,7 @@ class WiredCupertinoTabBar extends HookWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const SizedBox(height: 4),
         IconTheme(
           data: IconThemeData(color: color, size: iconSize),
           child: icon,
@@ -152,6 +172,7 @@ class WiredCupertinoTabBar extends HookWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
+        const SizedBox(height: 4),
       ],
     );
   }

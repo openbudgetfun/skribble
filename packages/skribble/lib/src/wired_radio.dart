@@ -16,7 +16,11 @@ import 'wired_theme.dart';
 /// See also:
 ///  * `WiredRadioListTile`, which combines this with a label.
 class WiredRadio<T> extends HookWidget {
+  /// The value this radio represents.
   final T value;
+
+  /// The currently selected value of the group. The radio is selected when
+  /// it equals [value].
   final T? groupValue;
 
   /// Called with the radio's value when it is tapped.
@@ -51,56 +55,62 @@ class WiredRadio<T> extends HookWidget {
     final theme = WiredTheme.of(context);
     final isSelected = value == groupValue;
 
-    return Semantics(
-      label: semanticLabel,
-      checked: isSelected,
-      enabled: onChanged != null,
-      onTap: onChanged == null ? null : () => onChanged?.call(value),
-      child: buildWiredElement(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              height: 48.0,
-              width: 48.0,
-              child: WiredCanvas(
-                painter: WiredCircleBase(
-                  strokeWidth: theme.strokeWidth,
-                  diameterRatio: .7,
-                  borderColor: theme.borderColor,
-                ),
-                seed: seed,
-                fillerType: RoughFilter.noFiller,
-              ),
-            ),
-            if (isSelected)
+    // One node: the label and state here merge with the inner control's
+    // focus and tap actions.
+    return MergeSemantics(
+      child: Semantics(
+        label: semanticLabel,
+        checked: isSelected,
+        inMutuallyExclusiveGroup: true,
+        enabled: onChanged != null,
+        child: buildWiredElement(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
               SizedBox(
-                height: 24.0,
-                width: 24.0,
+                height: 48.0,
+                width: 48.0,
                 child: WiredCanvas(
                   painter: WiredCircleBase(
                     strokeWidth: theme.strokeWidth,
-                    diameterRatio: .6,
-                    fillColor: theme.textColor,
+                    diameterRatio: .7,
                     borderColor: theme.borderColor,
                   ),
                   seed: seed,
-                  fillerType: RoughFilter.solidFiller,
+                  fillerType: RoughFilter.noFiller,
                 ),
               ),
-            SizedBox(
-              height: 48.0,
-              width: 48.0,
-              child: Radio<T>(
-                value: value,
-                groupValue: groupValue,
-                fillColor: WidgetStateProperty.all(Colors.transparent),
-                onChanged: (newValue) {
-                  onChanged?.call(newValue);
-                },
+              if (isSelected)
+                SizedBox(
+                  height: 24.0,
+                  width: 24.0,
+                  child: WiredCanvas(
+                    painter: WiredCircleBase(
+                      strokeWidth: theme.strokeWidth,
+                      diameterRatio: .6,
+                      fillColor: theme.textColor,
+                      borderColor: theme.borderColor,
+                    ),
+                    seed: seed,
+                    fillerType: RoughFilter.solidFiller,
+                  ),
+                ),
+              SizedBox(
+                height: 48.0,
+                width: 48.0,
+                child: Radio<T>(
+                  value: value,
+                  groupValue: groupValue,
+                  fillColor: WidgetStateProperty.all(Colors.transparent),
+                  // Null when disabled, so the inner control leaves focus
+                  // traversal and reports itself disabled too.
+                  onChanged: onChanged == null
+                      ? null
+                      : (newValue) => onChanged!(newValue),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

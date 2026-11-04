@@ -29,16 +29,19 @@ WiredButton(
 
 ### Constructor parameters
 
-| Parameter       | Type               | Default                                 | Description                                                     |
-| --------------- | ------------------ | --------------------------------------- | --------------------------------------------------------------- |
-| `borderRadius`  | `BorderRadius`     | `BorderRadius.all(Radius.circular(10))` | Rough corner radii; use zero for square corners.                |
-| `child`         | `Widget`           | **required**                            | The button label.                                               |
-| `onPressed`     | `void Function()?` | `null`                                  | Callback when the button is tapped; `null` disables the button. |
-| `semanticLabel` | `String?`          | `null`                                  | Accessibility label exposed to screen readers.                  |
+| Parameter       | Type               | Default                                 | Description                                                      |
+| --------------- | ------------------ | --------------------------------------- | ---------------------------------------------------------------- |
+| `borderRadius`  | `BorderRadius`     | `BorderRadius.all(Radius.circular(10))` | Rough corner radii; use zero for square corners.                 |
+| `child`         | `Widget`           | **required**                            | The button label.                                                |
+| `onPressed`     | `void Function()?` | `null`                                  | Callback when the button is tapped; `null` disables the button.  |
+| `semanticLabel` | `String?`          | `null`                                  | Accessibility label exposed to screen readers.                   |
+| `seed`          | `int?`             | `null`                                  | Varies the hand behind the ink; give neighbours different seeds. |
 
 ### Notes
 
-- Rectangular buttons are at least `kWiredButtonHeight` (42) tall and grow with their label, keeping `kWiredButtonPadding` (16 at the sides, 8 above and below) between the ink and the text at any font size or text scale.
+- Rectangular buttons are at least `kWiredButtonHeight` (42) tall and grow with their label, keeping `kWiredButtonPadding` (16 at the sides, 8 above and below) between the ink and the text at any font size or text scale. The padding is the same on every platform: Material's compact desktop density no longer takes 8 pixels off it on macOS, Windows, and Linux.
+- Every button is one semantics node: a button with its enabled state, tap and focus actions, and a label. `semanticLabel` replaces the label text rather than being read alongside it.
+- `WiredElevatedButton` and `WiredFilledButton` take the same `seed`, as `WiredOutlinedButton` already did.
 - The border is drawn with a `RoughBoxDecoration` using the theme's `borderColor`.
 - Text color inherits from `theme.textColor`.
 - Pass `onPressed: null` to disable the button. Taps are ignored and the label renders with `theme.disabledTextColor`, matching `WiredFilledButton` and the other rectangular button variants.
@@ -168,6 +171,7 @@ WiredIconButton(
 
 - The inner icon renders at `iconSize`, which defaults to 50% of `size`.
 - The circle uses `RoughFilter.noFiller` so only the hand-drawn border is visible.
+- With `onPressed: null` and no explicit `color` or `iconColor`, the glyph uses `theme.disabledTextColor`.
 
 ---
 
@@ -226,6 +230,7 @@ WiredTextButton(
 - The underline is drawn with `WiredLineBase` spanning the intrinsic width of the child.
 - Good for inline-style links within paragraphs of text.
 - There is deliberately no `borderRadius`: the text button draws a line, not a box.
+- The label keeps `kWiredInkPadding` (12 at the sides, 8 above and below) at every text scale and on every platform, so the underline never touches it. A disabled label uses `theme.disabledTextColor`.
 
 ---
 
@@ -255,18 +260,20 @@ HookBuilder(
 
 ### Constructor parameters
 
-| Parameter           | Type                 | Default      | Description                                               |
-| ------------------- | -------------------- | ------------ | --------------------------------------------------------- |
-| `children`          | `List<Widget>`       | **required** | Button labels.                                            |
-| `isSelected`        | `List<bool>`         | **required** | Selection state per button. Must match `children` length. |
-| `onPressed`         | `ValueChanged<int>?` | `null`       | Called with the tapped index.                             |
-| `height`            | `double`             | `42`         | Height of each toggle button.                             |
-| `horizontalPadding` | `double`             | `16`         | Horizontal padding inside each button.                    |
+| Parameter           | Type                 | Default      | Description                                                    |
+| ------------------- | -------------------- | ------------ | -------------------------------------------------------------- |
+| `children`          | `List<Widget>`       | **required** | Button labels.                                                 |
+| `isSelected`        | `List<bool>`         | **required** | Selection state per button. Must match `children` length.      |
+| `onPressed`         | `ValueChanged<int>?` | `null`       | Called with the tapped index.                                  |
+| `height`            | `double`             | `42`         | Least height of each toggle button; it grows with larger text. |
+| `horizontalPadding` | `double`             | `16`         | Horizontal padding inside each button.                         |
 
 ### Notes
 
 - Asserts that `children.length == isSelected.length` at construction time.
 - Selected buttons keep their ink text and icons, in a heavier weight, over the marker wash.
+- Labels keep 8 pixels above and below; every button in the group matches the tallest label.
+- Each button is focusable, activates with Enter or Space, and reports a button with its toggled state. `onPressed: null` disables every button and takes them out of focus traversal.
 
 ---
 
@@ -315,7 +322,9 @@ HookBuilder(
 
 - The outer container uses `WiredRoundedRectangleBase` with 8px border radius.
 - Vertical divider lines between segments are drawn with `WiredLineBase`.
-- Selected segments receive a hachure fill via `RoughBoxDecoration`.
+- Selected segments are washed with the theme's `markerColor` via `RoughBoxDecoration`. (They used a hachure fill, whose lines ran through the label.)
+- Segment labels use `theme.textColor`.
+- Each segment is focusable, activates with Enter or Space, and reports a button with its selected state. `onSelectionChanged: null` disables every segment.
 
 ---
 
@@ -352,6 +361,11 @@ WiredCupertinoButton(
 - Uses a `useState` hook for tracking press state and `AnimatedOpacity` for the press feedback.
 - The filled variant sets `color` to `CupertinoColors.activeBlue` and uses hachure fill.
 - Disabled buttons render at 40% opacity.
+- The button reports a button role and its enabled state, joins focus traversal while enabled, and activates with Enter or Space.
+
+## Keyboard and focus
+
+Every button, chip, segment, and Cupertino control on this page can be reached with Tab and activated with Enter or Space. A focused control draws a sketchy outline a few pixels outside its own ink, in the theme's `borderColor`, so it shows on dark paper as well as light. The Material-backed buttons (`WiredButton`, `WiredElevatedButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredTextButton`, `WiredIconButton`) mark focus by thickening their own ink instead. A disabled control leaves focus traversal and reports itself disabled.
 
 <!-- {=docsWidgetInkSection} -->
 
