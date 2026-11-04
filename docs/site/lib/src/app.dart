@@ -732,8 +732,23 @@ String _groupOf(DocDocument document) =>
 /// previous and next links walk through.
 List<DocDocument> docsReadingOrder(List<DocDocument> documents) => [
   for (final group in _groups.keys)
-    ...documents.where((document) => _groupOf(document) == group),
+    ..._inPageOrder(
+      documents.where((document) => _groupOf(document) == group),
+    ),
 ];
+
+/// Orders one sidebar group by frontmatter `order`, keeping the incoming order
+/// for pages that tie or have none.
+List<DocDocument> _inPageOrder(Iterable<DocDocument> pages) {
+  final indexed = pages.indexed.toList()
+    ..sort((a, b) {
+      final byOrder = (a.$2.order ?? double.infinity).compareTo(
+        b.$2.order ?? double.infinity,
+      );
+      return byOrder != 0 ? byOrder : a.$1.compareTo(b.$1);
+    });
+  return [for (final (_, page) in indexed) page];
+}
 
 /// Short label used for a document in the sidebar and the pager.
 String docsNavigationTitle(DocDocument document) => document.path == '/'
