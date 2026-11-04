@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_icons/skribble_icons.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// Searchable gallery of every bundled icon set, with size and ink comparisons.
 ///
@@ -42,7 +43,7 @@ class SkribbleIconsPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('Skribble Icons'),
       ),
       // Icons below read their weight from IconTheme, as Flutter's do.

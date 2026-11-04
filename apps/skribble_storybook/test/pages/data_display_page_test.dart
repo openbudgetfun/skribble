@@ -4,6 +4,7 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/app.dart';
 import 'package:skribble_storybook/components/component_showcase.dart';
 import 'package:skribble_storybook/pages/data_display_page.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 void main() {
   group('DataDisplayPage', () {
@@ -28,7 +29,7 @@ void main() {
 
     testWidgets('has back button', (tester) async {
       await navigateToDataDisplay(tester);
-      expect(find.byType(BackButton), findsOneWidget);
+      expect(find.byType(StorybookBackButton), findsOneWidget);
     });
 
     testWidgets('renders WiredAppBar', (tester) async {
@@ -56,7 +57,7 @@ void main() {
 
     testWidgets('navigates back to home', (tester) async {
       await navigateToDataDisplay(tester);
-      await tester.tap(find.byType(BackButton));
+      await tester.tap(find.byType(StorybookBackButton));
       await tester.pumpAndSettle();
       expect(find.text('Skribble Storybook'), findsOneWidget);
     });

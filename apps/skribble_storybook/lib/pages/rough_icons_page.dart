@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_icons/skribble_icons.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// Lazy-rendered gallery of every precomputed roughened Material icon.
 ///
@@ -44,7 +45,7 @@ class RoughIconsPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('Rough Icons'),
       ),
       body: Column(

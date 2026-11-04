@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/promo/promo_reel.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// Plays skribble's promotional reel on a loop, scaled to fit the screen.
 class PromoPage extends HookWidget {
@@ -18,7 +19,7 @@ class PromoPage extends HookWidget {
         kPromoDuration.inMicroseconds / Duration.microsecondsPerSecond;
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('The reel'),
       ),
       body: Center(

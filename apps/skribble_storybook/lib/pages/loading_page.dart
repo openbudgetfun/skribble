@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// Loading rhythms, progress, and placeholders with live motion controls.
 class WiredLoadingPage extends HookWidget {
@@ -13,7 +14,10 @@ class WiredLoadingPage extends HookWidget {
     final loading = useState(true);
     final progress = useState(0.6);
     return WiredScaffold(
-      appBar: WiredAppBar(title: const Text('Loading and skeletons')),
+      appBar: WiredAppBar(
+        leading: const StorybookBackButton(),
+        title: const Text('Loading and skeletons'),
+      ),
       body: WiredMotion(
         enabled: moving.value,
         child: ListView(

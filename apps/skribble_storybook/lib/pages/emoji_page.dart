@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_emoji/skribble_emoji.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// The emoji each group tab shows.
 const Map<EmojiGroup, String> _groupIcons = {
@@ -50,7 +51,7 @@ class EmojiPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('Emoji'),
       ),
       body: Column(
