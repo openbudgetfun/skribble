@@ -111,7 +111,13 @@ pub fn settings(dark: &Arc<AtomicBool>, rebuild: impl Fn() + Send + Sync + 'stat
 }
 ```
 
-The label is visible and names the control for screen readers, and the whole row responds to a press. Put the radios of one choice in a `View` with `role=Role::RadioGroup` and an `aria_label`, so screen readers announce them as a set. Buttons and controls are at least 44 pixels tall and grow with their text.
+The label is visible and names the control for screen readers, and the whole row responds to a press. Put the radios of one choice in a `View` with `role=Role::RadioGroup` and an `aria_label`, so screen readers announce them as a set.
+
+<!-- {=leptoskitInkRoom} -->
+
+Buttons and controls are at least 44 pixels tall and grow with their text. Content keeps at least 12 pixels from the ink at the sides and 8 above and below. The padding also covers the few pixels the outline sits inside its component, which grow as the ink stretches, so `WiredBox` pads 20 at the sides and 12 above and below, and buttons and fields pad 12 above and below.
+
+<!-- {/leptoskitInkRoom} -->
 
 ### Doodles
 

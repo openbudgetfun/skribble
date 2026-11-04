@@ -70,7 +70,7 @@ pub fn WiredInput(
 	};
 
 	let frame = View()
-		.class("justify-center min-h-11 px-3 py-2")
+		.class("justify-center min-h-11 px-4 py-3")
 		.child(ink.layer())
 		.child(field);
 	with_class(frame, class)

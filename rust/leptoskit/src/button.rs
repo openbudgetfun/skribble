@@ -75,7 +75,7 @@ pub fn WiredButton(
 		.filled(fill_style, theme.accent());
 
 	let button = Pressable(label.clone())
-		.class("self-start items-center justify-center min-h-11 px-5 py-2")
+		.class("self-start items-center justify-center min-h-11 px-5 py-3")
 		.class(tone_class("text", text))
 		.enabled(!disabled)
 		.child(ink.layer())

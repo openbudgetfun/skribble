@@ -129,8 +129,46 @@ fn content_keeps_its_distance_from_the_ink() {
 	let text = tester
 		.find(&Finder::text("Breathing room"))
 		.expect("the content");
-	// The box starts at 16 from the padding; content starts 12 and 8 inside.
-	assert_eq!((text.frame.x, text.frame.y), (28.0, 24.0));
+	// The box starts at 16 from the padding. Content starts 20 and 12
+	// inside, which leaves 12 and 8 past the outline and its wobble.
+	assert_eq!((text.frame.x, text.frame.y), (36.0, 28.0));
+}
+
+#[test]
+fn button_labels_and_typed_text_keep_clear_of_the_ink() {
+	let tester = mount(|| {
+		view! {
+			<View class="w-full p-4 gap-4">
+				<WiredButton label="Go" on_press=|| {} />
+				<WiredInput label="Name" value="Ada" on_change=|_: &str| {} />
+			</View>
+		}
+	});
+	let button = tester
+		.find(&Finder::aria_role(Role::Button, "Go"))
+		.expect("one button");
+	let label = tester.find(&Finder::text("Go")).expect("the label");
+	// 12 above and below and 20 beside, past the outline's few pixels of
+	// inset: 8 and 16 from the line itself, like skribble's buttons.
+	assert!(
+		label.frame.y - button.frame.y >= 12.0,
+		"{label:?} in {button:?}"
+	);
+	assert!(
+		label.frame.x - button.frame.x >= 20.0,
+		"{label:?} in {button:?}"
+	);
+	let below = button.frame.y + button.frame.height - label.frame.y - label.frame.height;
+	assert!(below >= 12.0, "{label:?} in {button:?}");
+
+	let surface = tester.surface();
+	let root = surface.root().expect("a committed root");
+	// The root is the column; the field's frame is its second child.
+	let frame = surface.children(root)[1];
+	let frame = surface.frame(frame).expect("the field frame is laid out");
+	let field = tester.find(&Finder::label("Name")).expect("the text field");
+	assert!(field.frame.x - frame.x >= 16.0, "{field:?} in {frame:?}");
+	assert!(field.frame.y - frame.y >= 12.0, "{field:?} in {frame:?}");
 }
 
 #[test]
