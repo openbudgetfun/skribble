@@ -4,7 +4,9 @@ import 'package:skribble/skribble.dart';
 
 import 'package:skribble_storybook/components/component_showcase.dart';
 
+/// Gallery of cards, list tiles, scaffolds and other layout widgets.
 class LayoutPage extends HookWidget {
+  /// Creates the page.
   const LayoutPage({super.key});
 
   @override

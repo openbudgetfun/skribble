@@ -6,6 +6,7 @@ import 'package:skribble_storybook/testing/quality_keys.dart';
 
 /// A working notebook for checking typography, controls, and artwork together.
 class WiredStudioPage extends HookWidget {
+  /// Creates the page.
   const WiredStudioPage({super.key});
 
   @override

@@ -8,6 +8,7 @@ import 'package:skribble_storybook/testing/map_keys.dart';
 /// The storybook's front page: what skribble is, a few controls to play
 /// with, and a door into every category.
 class HomePage extends HookWidget {
+  /// Creates the page.
   const HomePage({super.key});
 
   @override

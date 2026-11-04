@@ -4,7 +4,9 @@ import 'package:skribble/skribble.dart';
 
 import 'package:skribble_storybook/components/component_showcase.dart';
 
+/// Gallery of the button family, from [WiredButton] to [WiredSegmentedButton].
 class ButtonsPage extends HookWidget {
+  /// Creates the page.
   const ButtonsPage({super.key});
 
   @override

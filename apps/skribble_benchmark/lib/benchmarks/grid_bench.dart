@@ -18,6 +18,7 @@ const _gridCounts = [10, 30, 50, 100, 200];
 
 /// Benchmark page that renders a grid of N icons with each approach.
 class GridBenchPage extends HookWidget {
+  /// Creates the grid benchmark page.
   const GridBenchPage({super.key});
 
   @override

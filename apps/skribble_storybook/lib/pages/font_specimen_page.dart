@@ -9,6 +9,7 @@ import 'package:skribble/skribble.dart';
 /// symbols. Characters are rendered with the `skribble` family and fall back
 /// to the platform font for anything the roughened font does not contain.
 class FontSpecimenPage extends HookWidget {
+  /// Creates the page.
   const FontSpecimenPage({super.key});
 
   /// Latin alphabet, digits, punctuation, currency, math, and common symbols.
@@ -22,6 +23,7 @@ class FontSpecimenPage extends HookWidget {
     'Symbols': '©®™°µ¶¼½¾¹²³⁴←↑→↓↔↕↖↗↘↙⌘⌥⇧⌃⏎⌫␣',
   };
 
+  /// Font sizes offered as choice chips, in logical pixels.
   static const sizes = <double>[12, 16, 24, 36, 48];
 
   @override

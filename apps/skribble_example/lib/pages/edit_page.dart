@@ -26,6 +26,7 @@ const _colorLabels = <String>[
 /// Uses [WiredInput] for the title, [WiredTextArea] for content, and a
 /// row of [WiredChip] widgets for color label selection.
 class EditPage extends HookWidget {
+  /// Creates the note editor page.
   const EditPage({super.key});
 
   @override

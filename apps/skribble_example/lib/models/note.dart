@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 /// A simple note model for the Sketch Notes app.
 class Note {
+  /// Creates a note from all of its fields.
   Note({
     required this.id,
     required this.title,
@@ -29,11 +30,22 @@ class Note {
     );
   }
 
+  /// Unique identifier for the note.
   final String id;
+
+  /// Title shown on the note card.
   final String title;
+
+  /// Body text of the note.
   final String content;
+
+  /// Pastel colour the note card is filled with.
   final Color color;
+
+  /// When the note was first created.
   final DateTime createdAt;
+
+  /// When the note was last edited.
   final DateTime updatedAt;
 
   /// Returns a copy with the given fields replaced.

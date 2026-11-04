@@ -12,6 +12,7 @@ import 'package:skribble_example/widgets/note_card.dart';
 /// [WiredSearchBar] for filtering, a [WiredFloatingActionButton] for
 /// creating new notes, and a [WiredDrawer] accessible via the app bar.
 class HomePage extends HookWidget {
+  /// Creates the notes list page.
   const HomePage({super.key});
 
   @override

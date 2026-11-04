@@ -5,6 +5,7 @@ import '../testing/motion_keys.dart';
 
 /// An interactive pen study driven entirely by standard Flutter animations.
 class WiredMotionPage extends StatefulWidget {
+  /// Creates the page.
   const WiredMotionPage({super.key});
 
   @override

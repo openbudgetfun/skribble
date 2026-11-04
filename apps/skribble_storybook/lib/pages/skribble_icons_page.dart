@@ -11,6 +11,7 @@ import 'package:skribble_icons/skribble_icons.dart';
 /// search bar filtering by identifier and tappable cells that open a preview
 /// dialog showing each roughness level at 24/48/96 px.
 class SkribbleIconsPage extends HookWidget {
+  /// Creates the page.
   const SkribbleIconsPage({super.key});
 
   @override

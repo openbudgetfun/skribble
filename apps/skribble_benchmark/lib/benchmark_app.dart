@@ -7,6 +7,7 @@ import 'package:skribble_benchmark/benchmarks/single_icon_bench.dart';
 
 /// Root widget for the skribble icon rendering benchmark app.
 class BenchmarkApp extends HookWidget {
+  /// Creates the benchmark app.
   const BenchmarkApp({super.key});
 
   @override

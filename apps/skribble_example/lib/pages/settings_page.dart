@@ -9,6 +9,7 @@ import 'package:skribble_example/models/sketch_settings.dart';
 /// and [showWiredAboutDialog] in a cohesive settings layout. The switch and
 /// slider change the whole app through [SketchSettingsScope].
 class SettingsPage extends HookWidget {
+  /// Creates the settings page.
   const SettingsPage({super.key});
 
   @override

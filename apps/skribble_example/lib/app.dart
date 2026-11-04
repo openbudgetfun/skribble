@@ -13,6 +13,7 @@ import 'package:skribble_example/pages/settings_page.dart';
 /// to give the whole app a cohesive hand-drawn feel. The settings page
 /// changes the paper and the roughness through [SketchSettingsScope].
 class SketchNotesApp extends HookWidget {
+  /// Creates the Sketch Notes app.
   const SketchNotesApp({super.key});
 
   @override

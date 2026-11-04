@@ -12,6 +12,7 @@ import 'package:skribble_icons/skribble_icons.dart';
 /// tappable and open a hand-drawn preview dialog with the icon drawn at
 /// 24/48/96 px alongside its identifier.
 class RoughIconsPage extends HookWidget {
+  /// Creates the page.
   const RoughIconsPage({super.key});
 
   @override

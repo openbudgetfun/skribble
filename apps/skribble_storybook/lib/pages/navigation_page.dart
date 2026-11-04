@@ -7,7 +7,9 @@ import 'package:skribble/skribble.dart';
 
 import 'package:skribble_storybook/components/component_showcase.dart';
 
+/// Gallery of app bars, tab bars, navigation bars, menus and drawers.
 class NavigationPage extends HookWidget {
+  /// Creates the page.
   const NavigationPage({super.key});
 
   @override

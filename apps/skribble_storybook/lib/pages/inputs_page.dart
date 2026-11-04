@@ -6,7 +6,9 @@ import 'package:skribble_storybook/components/component_showcase.dart';
 
 String _displayOption(String option) => option;
 
+/// Gallery of text fields, forms, checkboxes, switches, sliders and other input widgets.
 class InputsPage extends HookWidget {
+  /// Creates the page.
   const InputsPage({super.key});
 
   @override

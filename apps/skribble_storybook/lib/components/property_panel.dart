@@ -3,8 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 /// A panel for interactive property editors in the storybook.
 class PropertyPanel extends HookWidget {
+  /// The property editors to list, one per row.
   final List<PropertyItem> properties;
 
+  /// Creates a panel listing [properties].
   const PropertyPanel({required this.properties, super.key});
 
   @override
@@ -34,9 +36,13 @@ class PropertyPanel extends HookWidget {
 
 /// A single property item widget.
 class PropertyItem extends HookWidget {
+  /// Name of the property, shown before the control.
   final String label;
+
+  /// The editor widget that changes the property.
   final Widget control;
 
+  /// Creates a row pairing [label] with [control].
   const PropertyItem({required this.label, required this.control, super.key});
 
   @override
