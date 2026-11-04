@@ -30,10 +30,13 @@ class Generator {
     return Drawable(sets: sets, options: drawConfig);
   }
 
+  /// Draws a rough line from ([x1], [y1]) to ([x2], [y2]).
   Drawable line(double x1, double y1, double x2, double y2) {
     return _buildDrawable(OpSetBuilder.buildLine(x1, y1, x2, y2, drawConfig));
   }
 
+  /// Draws a rough rectangle with its top-left corner at ([x], [y]), filled
+  /// with [filler].
   Drawable rectangle(double x, double y, double width, double height) {
     final List<PointD> points = [
       PointD(x, y),
@@ -45,6 +48,8 @@ class Generator {
     return _buildDrawable(outline, points);
   }
 
+  /// Draws a rough ellipse centred on ([x], [y]), [width] across and
+  /// [height] tall, filled with [filler].
   Drawable ellipse(double x, double y, double width, double height) {
     final EllipseParams ellipseParams = generateEllipseParams(
       width,
@@ -65,19 +70,30 @@ class Generator {
     return _buildDrawable(ellipseOp, estimatedPoints);
   }
 
+  /// Draws a rough circle centred on ([x], [y]) with the given [diameter],
+  /// filled with [filler].
   Drawable circle(double x, double y, double diameter) {
     return ellipse(x, y, diameter, diameter);
   }
 
+  /// Draws rough straight segments through [points], closing back to the
+  /// first point. The path is not filled.
   Drawable linearPath(List<PointD> points) {
     return _buildDrawable(OpSetBuilder.linearPath(points, true, drawConfig));
   }
 
+  /// Draws a rough closed polygon through [points], filled with [filler].
   Drawable polygon(List<PointD> points) {
     final OpSet path = OpSetBuilder.linearPath(points, true, drawConfig);
     return _buildDrawable(path, points);
   }
 
+  /// Draws a rough elliptical arc centred on ([x], [y]), [width] across and
+  /// [height] tall, from angle [start] to [stop] in radians, filled with
+  /// [filler].
+  ///
+  /// When [closed] is true, which it is not by default, rough lines join
+  /// both ends of the arc to the centre, like a pie slice.
   Drawable arc(
     double x,
     double y,
@@ -108,10 +124,17 @@ class Generator {
     return _buildDrawable(outline, fillPoints);
   }
 
+  /// Draws a rough smooth curve through [points]. The curve is not filled.
   Drawable curvePath(List<PointD> points) {
     return _buildDrawable(OpSetBuilder.curve(points, drawConfig));
   }
 
+  /// Draws a rough rectangle with its top-left corner at ([x], [y]) and
+  /// rounded corners, filled with [filler].
+  ///
+  /// Each corner radius is clamped between zero and half the shorter side.
+  /// Each pen pass is one closed contour, so the corners join the edges
+  /// without knots.
   Drawable roundedRectangle(
     double x,
     double y,

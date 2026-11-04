@@ -157,6 +157,7 @@ List<Op> _wanderingLine(
 /// Builds `OpSet` instances for rough shapes — lines, rectangles,
 /// ellipses, arcs, and curves.
 class OpSetBuilder {
+  /// Builds a rough line from ([x1], [y1]) to ([x2], [y2]), drawn twice.
   static OpSet buildLine(
     double x1,
     double y1,
@@ -170,6 +171,8 @@ class OpSetBuilder {
     );
   }
 
+  /// Builds a rough ellipse centred on ([x], [y]), [width] across and
+  /// [height] tall.
   static OpSet ellipse(
     double x,
     double y,
@@ -181,10 +184,15 @@ class OpSetBuilder {
     return ellipseSet(x, y, config, params);
   }
 
+  /// Builds a rough closed polygon through [points].
   static OpSet buildPolygon(List<PointD> points, DrawConfig config) {
     return linearPath(points, true, config);
   }
 
+  /// Builds rough straight segments through [points], joining the last
+  /// point back to the first when [close] is true.
+  ///
+  /// Two points draw a single line, and fewer draw nothing.
   static OpSet linearPath(List<PointD> points, bool close, DrawConfig config) {
     final int len = points.length;
     if (len > 2) {
@@ -227,6 +235,13 @@ class OpSetBuilder {
     }
   }
 
+  /// Builds a rough elliptical arc around [center], [width] across and
+  /// [height] tall, from angle [start] to [stop] in radians.
+  ///
+  /// Angles are moved to be non-negative, and a sweep over a full turn
+  /// draws the whole ellipse. When [closed] is true, both ends join the
+  /// centre: with rough lines when [roughClosure] is true, otherwise with
+  /// plain ones.
   static OpSet arc(
     PointD center,
     double width,
@@ -302,6 +317,8 @@ class OpSetBuilder {
     return OpSet(type: OpSetType.path, ops: ops);
   }
 
+  /// Returns the outline of the arc pie slice for filling: points along the
+  /// arc from [startAngle] to [stopAngle] in radians, then [center].
   static List<PointD> arcPolygon(
     PointD center,
     double width,
@@ -343,6 +360,8 @@ class OpSetBuilder {
     return points;
   }
 
+  /// Builds a rough smooth curve through [points], drawn twice with
+  /// different jitter.
   static OpSet curve(List<PointD> points, DrawConfig config) {
     final List<Op> op1 = OpsGenerator.curveWithOffset(
       points,
@@ -362,6 +381,8 @@ class OpSetBuilder {
 /// Low-level generator of `Op` lists for individual line strokes
 /// with hand-drawn jitter applied via `DrawConfig`.
 class OpsGenerator {
+  /// Draws a rough line from ([x1], [y1]) to ([x2], [y2]) twice, as two pen
+  /// passes.
   static List<Op> doubleLine(
     double x1,
     double y1,
@@ -419,6 +440,10 @@ class OpsGenerator {
     return [];
   }
 
+  /// Jitters each of [points] by up to [offset] in x and y, then fits a
+  /// curve through them as pen [pass].
+  ///
+  /// The first and last points are repeated so the curve runs end to end.
   static List<Op> curveWithOffset(
     List<PointD> points,
     double offset,
@@ -444,6 +469,11 @@ class OpsGenerator {
     return curve(result, config, pass: pass);
   }
 
+  /// Draws one rough pass of an elliptical arc centred on ([cx], [cy]) with
+  /// radii [rx] and [ry], from [strt] to [stp] in radians.
+  ///
+  /// Points are spaced [increment] radians apart and jittered by up to
+  /// [offset]; the curve is drawn as pen [pass].
   static List<Op> arc(
     double increment,
     double cx,
@@ -483,6 +513,11 @@ class OpsGenerator {
   }
 }
 
+/// Works out the jittered radii and point spacing for a rough ellipse
+/// [width] across and [height] tall.
+///
+/// Larger ellipses get more points, never fewer than
+/// [DrawConfig.curveStepCount].
 EllipseParams generateEllipseParams(
   double width,
   double height,
@@ -506,6 +541,8 @@ EllipseParams generateEllipseParams(
   return EllipseParams(increment: increment, rx: rx, ry: ry);
 }
 
+/// Builds the two pen passes of a rough ellipse centred on ([x], [y]) from
+/// [ellipseParams].
 OpSet ellipseSet(
   double x,
   double y,
@@ -538,6 +575,12 @@ OpSet ellipseSet(
   return OpSet(type: OpSetType.path, ops: o1 + o2);
 }
 
+/// Returns jittered points around an ellipse centred on ([cx], [cy]) with
+/// radii [rx] and [ry], spaced [increment] radians apart.
+///
+/// Each point moves by up to [offset] in x and y. The closing points run
+/// [overlap] radians past the start so the stroke overlaps itself, as a
+/// hand-drawn loop does.
 List<PointD> computeEllipseAllPoints({
   required double increment,
   required double cx,

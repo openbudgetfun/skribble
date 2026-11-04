@@ -40,35 +40,65 @@ class OpSet {
   /// The operations that draw the set.
   final List<Op> ops;
 
+  /// Creates a set of [ops] of the given [type].
   OpSet({required this.type, required this.ops});
 }
 
 /// The type of a single drawing operation.
-enum OpType { move, curveTo, lineTo }
+enum OpType {
+  /// Lifts the pen and starts a new contour at a point.
+  move,
+
+  /// Draws a cubic Bézier segment through two control points.
+  curveTo,
+
+  /// Draws a straight segment to a point.
+  lineTo,
+}
 
 /// Classifies an [OpSet] as an outline path, a fill path, or a
 /// sketchy fill pattern.
-enum OpSetType { path, fillPath, fillSketch }
+enum OpSetType {
+  /// A stroked outline.
+  path,
+
+  /// A closed path filled with a solid colour.
+  fillPath,
+
+  /// Stroked fill lines, such as hachure, hatch, or dots.
+  fillSketch,
+}
 
 /// A line segment between [source] and [target] points.
 ///
 /// Provides geometric helpers for [length], segment containment,
 /// and intersection testing used by the fill algorithms.
 class Line {
+  /// The point the segment starts at.
   PointD source;
+
+  /// The point the segment ends at.
   PointD target;
 
+  /// Creates a segment from [source] to [target].
   Line(this.source, this.target);
 
+  /// The distance from [source] to [target], in the points' units.
   double get length =>
       sqrt(pow(source.x - target.x, 2) + pow(source.y - target.y, 2));
 
+  /// Whether [point] lies inside the bounding box of this segment.
+  ///
+  /// Only meaningful for a [point] already known to be collinear with the
+  /// segment, where it means the point lies on the segment.
   bool onSegment(PointD point) =>
       point.x <= max(source.x, target.x) &&
       point.x >= min(source.x, target.x) &&
       point.y <= max(source.y, target.y) &&
       point.y >= min(source.y, target.y);
 
+  /// Whether this segment and [line] touch or cross, including when they
+  /// overlap or share an end point.
   bool intersects(Line line) {
     final PointsOrientation o1 = getOrientation(source, target, line.source);
     final PointsOrientation o2 = getOrientation(source, target, line.target);
@@ -110,6 +140,10 @@ class Line {
     return false;
   }
 
+  /// The point where the infinite lines through this segment and [line]
+  /// cross, or null when they are parallel.
+  ///
+  /// The point may lie outside either segment; check [intersects] first.
   PointD? intersectionWith(Line line) {
     final double yDiff = target.y - source.y;
     final double xDiff = source.x - target.x;
@@ -128,6 +162,7 @@ class Line {
         : null;
   }
 
+  /// Whether the midpoint of this segment lies inside [polygon].
   bool isMidPointInPolygon(List<PointD> polygon) {
     return PointD(
       (source.x + target.x) / 2,
