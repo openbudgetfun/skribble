@@ -29,17 +29,15 @@ Future<void> _pumpUnderSkribbleApp(
   await tester.pumpAndSettle();
 }
 
-/// Tracks what Sketch Notes needs before it can move from WiredMaterialApp to
-/// SkribbleApp, the shell AGENTS.md asks new skribble apps to use.
+/// Sketch Notes runs in [SkribbleApp], the shell AGENTS.md asks new
+/// skribble apps to use, with a [WiredMaterialTheme] builder.
 ///
-/// Each skipped test names what breaks today. When the core fix lands, drop
-/// its `skip` and the test becomes a regression check. Once every test here
-/// passes, `lib/app.dart` can switch shells.
-///
-/// Without the [WiredMaterialTheme] builder every screen fails with "No
-/// MaterialLocalizations found": the text fields inside [WiredInput],
-/// [WiredSearchBar], and [WiredTextArea] need them, and so does the drawer
-/// controller inside [WiredScaffold].
+/// Without that builder every screen fails with "No MaterialLocalizations
+/// found" or "No Material widget found": the text fields inside
+/// [WiredInput], [WiredSearchBar], and [WiredTextArea] need them, the
+/// drawer controller inside [WiredScaffold] needs them, and
+/// `showWiredSnackBar` needs a `ScaffoldMessenger`. These tests keep every
+/// screen working in that shell.
 void main() {
   group('Sketch Notes under SkribbleApp', () {
     testWidgets('the settings page renders', (tester) async {
@@ -104,10 +102,6 @@ void main() {
         expect(tester.takeException(), isNull);
         expect(find.text('Note deleted'), findsOneWidget);
       },
-      // showWiredSnackBar calls ScaffoldMessenger.of, and only MaterialApp
-      // provides a ScaffoldMessenger. Neither SkribbleApp nor
-      // WiredMaterialTheme installs one.
-      skip: true,
     );
 
     testWidgets('the about dialog opens', (tester) async {

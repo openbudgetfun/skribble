@@ -45,7 +45,7 @@ MaterialApp(
 )
 ```
 
-The opposite direction matters just as much: a `SkribbleApp` has no `MaterialApp` ancestor, so Material widgets — your own or a third-party package's — would otherwise fall back to `ThemeData.fallback()` and, for widgets such as `Scaffold`, fail their localization assertions. `WiredMaterialTheme` fills that gap. It installs a Material `Theme` built from the active Wired tokens, `DefaultMaterialLocalizations` and `DefaultCupertinoLocalizations` when they are missing, and a transparent `Material` when there is none above it. As the app's `builder`, it sits above the `Navigator`, so every page gets all three. Skribble widgets that still wrap Material, such as `WiredInput`, `WiredCheckbox`, `WiredSlider`, `WiredListTile`, and `WiredDataTable`, need it until they are rewritten on `flutter/widgets`:
+The opposite direction matters just as much: a `SkribbleApp` has no `MaterialApp` ancestor, so Material widgets — your own or a third-party package's — would otherwise fall back to `ThemeData.fallback()` and, for widgets such as `Scaffold`, fail their localization assertions. `WiredMaterialTheme` fills that gap. It installs a Material `Theme` built from the active Wired tokens, `DefaultMaterialLocalizations` and `DefaultCupertinoLocalizations` when they are missing, a `ScaffoldMessenger` for snack bars and banners, and a transparent `Material` when there is none above it. As the app's `builder`, it sits above the `Navigator`, so every page gets all of them. Skribble widgets that still wrap Material, such as `WiredInput`, `WiredCheckbox`, `WiredSlider`, `WiredListTile`, and `WiredDataTable`, need it until they are rewritten on `flutter/widgets`:
 
 ```dart
 // Static example: setup

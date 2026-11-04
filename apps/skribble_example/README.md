@@ -44,9 +44,16 @@ flutter test
 ```
 
 - `test/app_test.dart` drives every page: writing, editing, searching, deleting and undoing, and each setting.
-- `test/breathing_room_test.dart` checks every page with `crampedText` and `squeezedText` from `package:skribble/testing.dart` at 360, 768, and 1280 pixels and at 1.3× text.
-- `test/skribble_app_test.dart` runs the app under `SkribbleApp`, the Material-free shell, to track what it still needs before it can leave `WiredMaterialApp`. Each skipped test there says what breaks.
+- `test/breathing_room_test.dart` checks every page with `crampedText` (including lines through text and crowded icons) and `squeezedText` from `package:skribble/testing.dart` at 360, 768, and 1280 pixels and at 1.3× text.
+- `test/skribble_app_test.dart` runs each screen in the app's real shell, `SkribbleApp`, with its `WiredMaterialTheme` bridge.
 
-## Why `WiredMaterialApp`?
+## Why `SkribbleApp` and `WiredMaterialTheme`?
 
-New skribble apps use `SkribbleApp`, which is built on `WidgetsApp` and has no Material ancestor. Sketch Notes still uses the `WiredMaterialApp` bridge because some of its widgets wrap Material ones: `WiredInput` and `WiredSearchBar` use a Material text field, and `showWiredSnackBar` needs a `ScaffoldMessenger`. Both shells take the same themes and the same `sketchNotesRoutes`. Swapping them is a one-line change once `test/skribble_app_test.dart` passes without skips.
+New skribble apps use `SkribbleApp`, which is built on `WidgetsApp` and has no Material ancestor. Some skribble widgets still wrap Material ones while they are rewritten: `WiredInput` and `WiredSearchBar` use a Material text field, and `showWiredSnackBar` needs a `ScaffoldMessenger`. One line in `lib/app.dart` covers all of them:
+
+```dart
+// Static example: setup
+builder: (context, child) => WiredMaterialTheme(child: child!),
+```
+
+`WiredMaterialTheme` supplies the Material theme, localizations, `Material` ancestor, and `ScaffoldMessenger` those widgets need, built from the app's own skribble theme.

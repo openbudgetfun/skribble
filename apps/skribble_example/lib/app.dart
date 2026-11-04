@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
@@ -56,19 +56,21 @@ class SketchNotesApp extends HookWidget {
 
     return SketchSettingsScope(
       notifier: settings,
-      // WiredMaterialApp is the bridge for apps that still sit on
-      // MaterialApp: the notes app uses WiredInput, which wraps a Material
-      // text field. New apps without Material widgets use SkribbleApp, which
-      // takes the same themes and routes; test/skribble_app_test.dart tracks
-      // what this app still needs before it can switch.
-      child: WiredMaterialApp(
+      // SkribbleApp is built on WidgetsApp, with no MaterialApp above it.
+      // A few skribble widgets still wrap Material ones (WiredInput's text
+      // field, the snack bar's ScaffoldMessenger), and WiredMaterialTheme
+      // gives them the theme, localizations, and ancestors they need.
+      child: SkribbleApp(
         title: 'Sketch Notes',
         wiredTheme: dayParchment(roughness: current.roughness),
         darkWiredTheme: nightParchment(roughness: current.roughness),
         // The app's own switch decides, rather than the system brightness.
-        themeMode: current.night ? ThemeMode.dark : ThemeMode.light,
-        builder: (context, child) =>
-            NoteTextSizeScope(size: current.textSize, child: child!),
+        themeMode: current.night
+            ? SkribbleThemeMode.dark
+            : SkribbleThemeMode.light,
+        builder: (context, child) => WiredMaterialTheme(
+          child: NoteTextSizeScope(size: current.textSize, child: child!),
+        ),
         routes: sketchNotesRoutes,
       ),
     );

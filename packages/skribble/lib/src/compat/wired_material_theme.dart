@@ -28,6 +28,8 @@ import 'wired_theme_interop.dart';
 /// * it installs `DefaultMaterialLocalizations` and
 ///   `DefaultCupertinoLocalizations` when none are present yet, so widgets
 ///   such as `Scaffold`, `TextField`, and `CupertinoDatePicker` render;
+/// * it adds a `ScaffoldMessenger` when there is none above it, so
+///   `showWiredSnackBar` and `showWiredMaterialBanner` work;
 /// * it adds a transparent `Material` when there is none above it, so
 ///   Material-backed skribble widgets (`WiredInput`, `WiredCheckbox`,
 ///   `WiredListTile`, and the others still built on Material) find the
@@ -85,7 +87,14 @@ class WiredMaterialTheme extends HookWidget {
       () => wiredTheme.toThemeData(brightness: resolvedBrightness),
       <Object?>[wiredTheme, resolvedBrightness],
     );
-    Widget result = Theme(data: material, child: child);
+    Widget result = Theme(
+      data: material,
+      // Snack bars and banners are shown through a ScaffoldMessenger, which
+      // a MaterialApp provides and a SkribbleApp does not.
+      child: ScaffoldMessenger.maybeOf(context) == null
+          ? ScaffoldMessenger(child: child)
+          : child,
+    );
     // A transparent Material above the app's Navigator is an ancestor of
     // every route, which is all `debugCheckHasMaterial` looks for.
     if (context.findAncestorWidgetOfExactType<Material>() == null) {
