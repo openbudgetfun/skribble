@@ -27,7 +27,12 @@ class WiredCupertinoNavigationBar extends HookWidget
   /// a previous route.
   final bool automaticallyImplyLeading;
 
-  /// Whether to show a middle widget when [middle] is null.
+  /// Whether to show the route's title when [middle] is null.
+  ///
+  /// Like `CupertinoNavigationBar`, the title comes from a
+  /// [CupertinoPageRoute]'s `title`. Other routes, and routes without a
+  /// title, show nothing: a route's name, such as `/settings`, is an address
+  /// and not something to read.
   final bool automaticallyImplyMiddle;
 
   /// Previous page title for the back button label.
@@ -160,10 +165,11 @@ class WiredCupertinoNavigationBar extends HookWidget
   Widget? _buildTitle(BuildContext context) {
     final theme = WiredTheme.of(context);
     final route = ModalRoute.of(context);
+    final title = route is CupertinoRouteTransitionMixin ? route.title : null;
 
-    if (route?.settings.name == null) return null;
+    if (title == null || title.isEmpty) return null;
     return Text(
-      route!.settings.name!,
+      title,
       style: TextStyle(
         color: theme.textColor,
         fontSize: 18,

@@ -44,7 +44,7 @@ class WiredPopupMenuButton<T> extends HookWidget {
         onSelected: onSelected,
         color: theme.fillColor,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: theme.borderColor, width: 1.5),
+          side: BorderSide(color: theme.borderColor, width: theme.strokeWidth),
         ),
         itemBuilder: (context) => items.map((item) {
           return PopupMenuItem<T>(
@@ -60,7 +60,8 @@ class WiredPopupMenuButton<T> extends HookWidget {
                   color: theme.borderColor,
                 ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              // The ink padding inside each item's hand-drawn box.
+              padding: kWiredInkPadding,
               child: item.child,
             ),
           );

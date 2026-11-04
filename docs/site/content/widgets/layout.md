@@ -375,6 +375,10 @@ HookBuilder(
 )
 ```
 
+### Notes
+
+- The default delete background is washed in the theme's `errorColor`, or `deleteColor` when set. Its icon is drawn in the theme's ink or paper, whichever stands out more on that wash.
+
 ---
 
 ## WiredSelectableText

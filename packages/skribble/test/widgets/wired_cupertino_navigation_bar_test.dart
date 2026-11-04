@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart' show CupertinoPageRoute;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
@@ -105,18 +106,44 @@ void main() {
       expect(padding.padding, customPadding);
     });
 
-    testWidgets('auto-implies middle title from route name when enabled', (
+    testWidgets('never shows a route name as the title', (tester) async {
+      await pumpSubject(tester);
+      expect(find.text('/'), findsNothing);
+    });
+
+    Future<void> pushTitledRoute(
+      WidgetTester tester, {
+      bool automaticallyImplyMiddle = true,
+    }) async {
+      await pumpApp(tester, const SizedBox());
+      final navigator = tester.state<NavigatorState>(
+        find.byType(Navigator).first,
+      );
+      navigator.push(
+        CupertinoPageRoute<void>(
+          title: 'Settings',
+          settings: const RouteSettings(name: '/settings'),
+          builder: (_) => WiredCupertinoNavigationBar(
+            automaticallyImplyMiddle: automaticallyImplyMiddle,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets("implies the middle from a Cupertino route's title", (
       tester,
     ) async {
-      await pumpSubject(tester);
-      expect(find.text('/'), findsOneWidget);
+      await pushTitledRoute(tester);
+      expect(find.text('Settings'), findsOneWidget);
+      expect(find.text('/settings'), findsNothing);
     });
 
     testWidgets('does not auto-imply middle title when disabled', (
       tester,
     ) async {
-      await pumpSubject(tester, automaticallyImplyMiddle: false);
-      expect(find.text('/'), findsNothing);
+      await pushTitledRoute(tester, automaticallyImplyMiddle: false);
+      expect(find.text('Settings'), findsNothing);
     });
 
     testWidgets('renders all three slots together', (tester) async {

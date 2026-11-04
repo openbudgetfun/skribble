@@ -146,5 +146,31 @@ void main() {
       );
       expect(find.byType(WiredDismissible), findsOneWidget);
     });
+
+    testWidgets('the default delete background uses the theme error color', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        WiredDismissible(
+          dismissKey: const Key('note'),
+          child: const SizedBox(height: 56, child: Text('Note')),
+        ),
+      );
+      final theme = WiredTheme.of(tester.element(find.text('Note')));
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.text('Note')),
+      );
+      await gesture.moveBy(const Offset(120, 0));
+      await tester.pump();
+
+      final washes = tester
+          .widgetList<Container>(find.byType(Container))
+          .map((container) => container.color)
+          .whereType<Color>();
+      expect(washes, contains(theme.errorColor.withValues(alpha: 0.9)));
+      await gesture.up();
+      await tester.pumpAndSettle();
+    });
   });
 }

@@ -41,8 +41,9 @@ class WiredDismissible extends HookWidget {
   /// The dismiss threshold fraction.
   final Map<DismissDirection, double>? dismissThresholds;
 
-  /// Color for the default delete background.
-  final Color deleteColor;
+  /// Color for the default delete background. Defaults to the theme's
+  /// `errorColor`, so the swipe reads as a warning in every theme.
+  final Color? deleteColor;
 
   /// Icon for the default delete background.
   final IconData deleteIcon;
@@ -59,7 +60,7 @@ class WiredDismissible extends HookWidget {
     this.resizeDuration = const Duration(milliseconds: 300),
     this.movementDuration = const Duration(milliseconds: 200),
     this.dismissThresholds,
-    this.deleteColor = Colors.red,
+    this.deleteColor,
     this.deleteIcon = Icons.delete,
   });
 
@@ -84,13 +85,27 @@ class WiredDismissible extends HookWidget {
   }
 
   Widget _buildDefaultBackground(bool isSecondary, WiredThemeData theme) {
+    final wash = deleteColor ?? theme.errorColor;
+    // The theme's ink or its paper, whichever stands out more on the wash,
+    // so the icon reads in light and dark themes alike.
+    double contrast(Color a, Color b) {
+      final (light, dark) = a.computeLuminance() > b.computeLuminance()
+          ? (a, b)
+          : (b, a);
+      return (light.computeLuminance() + .05) / (dark.computeLuminance() + .05);
+    }
+
+    final iconColor =
+        contrast(theme.textColor, wash) >= contrast(theme.fillColor, wash)
+        ? theme.textColor
+        : theme.fillColor;
     return Stack(
       children: [
         Positioned.fill(
           child: WiredCanvas(
             painter: WiredRectangleBase(
               strokeWidth: theme.strokeWidth,
-              fillColor: deleteColor,
+              fillColor: wash,
               borderColor: theme.borderColor,
             ),
             fillerType: RoughFilter.hachureFiller,
@@ -98,12 +113,12 @@ class WiredDismissible extends HookWidget {
           ),
         ),
         Container(
-          color: deleteColor.withValues(alpha: 0.9),
+          color: wash.withValues(alpha: 0.9),
           alignment: isSecondary ? Alignment.centerRight : Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: WiredIcon(
             icon: deleteIcon,
-            color: Colors.white,
+            color: iconColor,
           ),
         ),
       ],

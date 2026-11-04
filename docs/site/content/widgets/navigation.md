@@ -314,6 +314,10 @@ HookBuilder(
 )
 ```
 
+### Notes
+
+- The menu's outline uses the theme's `strokeWidth`, and each item keeps `kWiredInkPadding` inside its hand-drawn box.
+
 ---
 
 ## WiredMenuBar
@@ -399,6 +403,10 @@ A Cupertino-style navigation bar with hand-drawn borders. Mirrors the `Cupertino
 // Live example: cupertino-navigation-bar
 WiredCupertinoNavigationBar(middle: Text('Make something lovely'))
 ```
+
+### Notes
+
+- With `middle` unset and `automaticallyImplyMiddle` on (the default), the bar shows a `CupertinoPageRoute`'s `title`, as `CupertinoNavigationBar` does. It never shows a route's name, such as `/settings`.
 
 ---
 
