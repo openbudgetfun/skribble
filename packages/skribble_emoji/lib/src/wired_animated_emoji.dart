@@ -53,6 +53,9 @@ class WiredAnimatedEmoji extends StatefulWidget {
   final double size;
 
   /// Accessible description. Defaults to the emoji's Unicode name.
+  ///
+  /// Pass an empty string for a decorative emoji to leave it out of
+  /// semantics.
   final String? semanticLabel;
 
   /// The colours the emoji is drawn with.
@@ -183,9 +186,8 @@ class _WiredAnimatedEmojiState extends State<WiredAnimatedEmoji>
           inking: inking,
         ),
     ];
-    return Semantics(
+    return emojiSemantics(
       label: widget.semanticLabel ?? entry.name,
-      image: true,
       child: SizedBox.square(
         dimension: widget.size,
         child: RepaintBoundary(

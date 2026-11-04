@@ -48,12 +48,14 @@ Variation selectors are optional: `'❤'` and `'❤️'` draw the same heart. Te
 | --------------- | -------------- | ----------------------- | ----------------------------------------------------------- |
 | `emoji`         | `String`       | required                | The emoji to draw, such as `'🎉'` or `'👩🏽‍💻'`.                |
 | `size`          | `double`       | `24`                    | The side of the square, in logical pixels.                  |
-| `semanticLabel` | `String?`      | the Unicode name        | Accessible description.                                     |
+| `semanticLabel` | `String?`      | the Unicode name        | Accessible description. `''` marks the emoji decorative.    |
 | `palette`       | `EmojiPalette` | `EmojiPalette.skribble` | The colours the emoji is drawn with.                        |
 | `weight`        | `double?`      | `IconTheme` weight, 400 | Pen weight from 100 to 700, as for [icons](/widgets/icons). |
 | `drawConfig`    | `DrawConfig?`  | from the theme          | Overrides the theme's wavering and pen for this emoji only. |
 
 `WiredEmoji.named('red_heart')` looks an emoji up by its snake-case Unicode name instead.
+
+Screen readers hear the Unicode name, such as "party popper", unless you pass a `semanticLabel`. Pass `semanticLabel: ''` when the emoji only decorates text that already says the same thing; it is then left out of semantics. Text that falls back to plain text keeps a custom label too.
 
 Prepared drawings are cached by emoji, size, theme, palette, and weight, so a chat list that shows the same reaction a hundred times prepares it once.
 
