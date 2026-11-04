@@ -50,8 +50,8 @@ export interface SketchProps
    */
   viewBox?: string;
   /**
-   * An accessible description. Without one the sketch is decorative and
-   * hidden from assistive technology.
+   * An accessible name, set as `aria-label`. Without one the sketch is
+   * decorative and hidden from assistive technology.
    */
   label?: string;
   /**

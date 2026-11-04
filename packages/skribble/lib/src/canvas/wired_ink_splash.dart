@@ -57,32 +57,18 @@ class WiredInkSplash extends InteractiveInkFeature {
     super.onRemoved,
     this._radius,
   }) {
+    // One clock drives both the growing radius and the fading ink.
     _controller =
         AnimationController(
             duration: const Duration(milliseconds: 400),
             vsync: controller.vsync,
           )
           ..addListener(_handleAnimationUpdate)
-          ..addStatusListener(_handleAnimationStatus);
-
-    _radiusController = AnimationController(
-      duration: const Duration(milliseconds: 400),
-      vsync: controller.vsync,
-    );
-
-    _controller.forward();
-    _radiusController.forward();
-
-    _alphaController = AnimationController(
-      duration: const Duration(milliseconds: 400),
-      vsync: controller.vsync,
-    );
-    _alphaController.forward();
+          ..addStatusListener(_handleAnimationStatus)
+          ..forward();
   }
 
   late final AnimationController _controller;
-  late final AnimationController _radiusController;
-  late final AnimationController _alphaController;
 
   /// The stored position of the splash.
   final Offset _position;
@@ -118,20 +104,16 @@ class WiredInkSplash extends InteractiveInkFeature {
   @override
   void dispose() {
     _controller.dispose();
-    _radiusController.dispose();
-    _alphaController.dispose();
     super.dispose();
   }
 
   @override
   void paintFeature(Canvas canvas, Matrix4 transform) {
-    final Paint paint = Paint()..color = color.withValues(alpha: 0.2);
+    final Paint paint = Paint();
 
     final double progress = _controller.value;
     final double radius = _targetRadius * progress;
     final int alpha = (255 * (1.0 - progress)).round();
-
-    paint.color = color.withValues(alpha: alpha / 255.0);
 
     // Draw rough circles for hand-drawn effect
     final Offset center = _position;

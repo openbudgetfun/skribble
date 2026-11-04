@@ -366,57 +366,131 @@ class _WiredMapControlButton extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final pressed = useState(false);
+    final focused = useState(false);
     final enabled = onTap != null;
     final icon = lookupMaterialRoughIconByIdentifier(iconIdentifier);
+    final ink = enabled ? theme.textColor : theme.disabledTextColor;
 
     return Semantics(
       label: semanticLabel,
       button: true,
       enabled: enabled,
+      // The gesture detector's own tap action is excluded with its subtree,
+      // so screen readers activate the control through this one.
+      onTap: onTap,
       excludeSemantics: true,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: onTap,
-        onTapDown: enabled ? (_) => pressed.value = true : null,
-        onTapUp: enabled ? (_) => pressed.value = false : null,
-        onTapCancel: enabled ? () => pressed.value = false : null,
-        child: AnimatedScale(
-          duration: theme.motionEnabled
-              ? const Duration(milliseconds: 80)
-              : Duration.zero,
-          scale: pressed.value ? 0.92 : 1,
-          child: SizedBox.square(
-            dimension: 44,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                WiredCanvas(
-                  fillerType: RoughFilter.solidFiller,
-                  painter: WiredRoundedRectangleBase(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    fillColor: theme.fillColor.withValues(alpha: 0.94),
-                    borderColor: enabled
-                        ? theme.borderColor
-                        : theme.disabledTextColor,
-                    strokeWidth: theme.strokeWidth,
-                  ),
-                ),
-                if (icon != null)
-                  Center(
-                    child: WiredSvgIcon(
-                      data: icon,
-                      size: 22,
-                      color: enabled
-                          ? theme.textColor
+      child: FocusableActionDetector(
+        enabled: enabled,
+        mouseCursor: enabled
+            ? SystemMouseCursors.click
+            : SystemMouseCursors.basic,
+        onShowFocusHighlight: (value) => focused.value = value,
+        actions: <Type, Action<Intent>>{
+          ActivateIntent: CallbackAction<ActivateIntent>(
+            onInvoke: (_) {
+              onTap?.call();
+              return null;
+            },
+          ),
+        },
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onTap,
+          onTapDown: enabled ? (_) => pressed.value = true : null,
+          onTapUp: enabled ? (_) => pressed.value = false : null,
+          onTapCancel: enabled ? () => pressed.value = false : null,
+          child: AnimatedScale(
+            duration: theme.motionEnabled
+                ? const Duration(milliseconds: 80)
+                : Duration.zero,
+            scale: pressed.value ? 0.92 : 1,
+            child: SizedBox.square(
+              dimension: 44,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  WiredCanvas(
+                    fillerType: RoughFilter.solidFiller,
+                    painter: WiredRoundedRectangleBase(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      fillColor: theme.fillColor.withValues(alpha: 0.94),
+                      borderColor: enabled
+                          ? theme.borderColor
                           : theme.disabledTextColor,
-                      fillStyle: WiredIconFillStyle.none,
+                      // A keyboard-focused control draws a heavier line.
+                      strokeWidth: focused.value
+                          ? theme.strokeWidth * 2 + 1
+                          : theme.strokeWidth,
                     ),
                   ),
-              ],
+                  Center(
+                    child: icon != null
+                        ? WiredSvgIcon(
+                            data: icon,
+                            size: 22,
+                            color: ink,
+                            fillStyle: WiredIconFillStyle.none,
+                          )
+                        // Without a registered icon catalog, or with one that
+                        // names these glyphs differently, draw them directly.
+                        : CustomPaint(
+                            size: const Size.square(22),
+                            painter: _ZoomGlyphPainter(
+                              plus: iconIdentifier == 'add',
+                              color: ink,
+                              strokeWidth: theme.strokeWidth + 0.5,
+                            ),
+                          ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
+}
+
+/// A plus or minus sign for zoom controls when no icon catalog supplies one.
+class _ZoomGlyphPainter extends CustomPainter {
+  const _ZoomGlyphPainter({
+    required this.plus,
+    required this.color,
+    required this.strokeWidth,
+  });
+
+  final bool plus;
+  final Color color;
+  final double strokeWidth;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+    final center = size.center(Offset.zero);
+    final arm = size.shortestSide * 0.32;
+
+    canvas.drawLine(
+      center - Offset(arm, 0),
+      center + Offset(arm, 0),
+      paint,
+    );
+
+    if (plus) {
+      canvas.drawLine(
+        center - Offset(0, arm),
+        center + Offset(0, arm),
+        paint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_ZoomGlyphPainter oldDelegate) =>
+      plus != oldDelegate.plus ||
+      color != oldDelegate.color ||
+      strokeWidth != oldDelegate.strokeWidth;
 }

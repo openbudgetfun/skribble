@@ -329,7 +329,7 @@ export interface SvgStringOptions {
   width: number;
   /** Intrinsic height and `viewBox` height. */
   height: number;
-  /** An accessible description; without one the SVG is decorative. */
+  /** An accessible name, set as `aria-label`; without one the SVG is decorative. */
   label?: string;
   /**
    * An accessible name rendered as a `<title>` element, which browsers also

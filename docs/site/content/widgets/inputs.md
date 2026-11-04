@@ -15,7 +15,7 @@ skribble replaces standard form controls with sketchy, hand-drawn equivalents. A
 
 The default ink corners have a 12 px radius. Set `borderRadius: BorderRadius.zero` for square corners or supply another `BorderRadius`. Focus adds 0.6 px to the pen without adding a second field border.
 
-A single-line text field wrapped in a hand-drawn rectangle border. Supports labels, hints, and password masking.
+A single-line text field wrapped in a hand-drawn rounded border. Supports labels, hints, error text, a length counter, and password masking.
 
 ```dart
 // Live example: input
@@ -27,21 +27,24 @@ WiredInput(
 
 ### Constructor parameters
 
-| Parameter     | Type                     | Default | Description                               |
-| ------------- | ------------------------ | ------- | ----------------------------------------- |
-| `controller`  | `TextEditingController?` | `null`  | External text controller.                 |
-| `style`       | `TextStyle?`             | `null`  | Text style for the input value.           |
-| `labelText`   | `String?`                | `null`  | Label displayed to the left of the field. |
-| `labelStyle`  | `TextStyle?`             | `null`  | Style for the label text.                 |
-| `hintText`    | `String?`                | `null`  | Placeholder text inside the field.        |
-| `hintStyle`   | `TextStyle?`             | `null`  | Style for the hint text.                  |
-| `onChanged`   | `void Function(String)?` | `null`  | Called on every text change.              |
-| `obscureText` | `bool`                   | `false` | Hides input for passwords.                |
+| Parameter     | Type                     | Default | Description                                       |
+| ------------- | ------------------------ | ------- | ------------------------------------------------- |
+| `controller`  | `TextEditingController?` | `null`  | External text controller.                         |
+| `style`       | `TextStyle?`             | `null`  | Text style for the value, over `theme.textColor`. |
+| `labelText`   | `String?`                | `null`  | Label displayed above the field.                  |
+| `labelStyle`  | `TextStyle?`             | `null`  | Style for the label text.                         |
+| `hintText`    | `String?`                | `null`  | Placeholder text inside the field.                |
+| `hintStyle`   | `TextStyle?`             | `null`  | Style for the hint text.                          |
+| `onChanged`   | `void Function(String)?` | `null`  | Called on every text change.                      |
+| `obscureText` | `bool`                   | `false` | Hides input for passwords.                        |
 
 ### Notes
 
-- The field is 48px tall with a `WiredRectangleBase` border.
-- When `labelText` is set, the label and field are arranged in a `Row` with 10px spacing.
+- The text keeps the same padding from the ink on every platform: like the buttons, skribble's fields opt out of Material's compact desktop density, which would take 4 pixels off each side on macOS, Windows, and Linux. The same holds for `WiredTextArea`, `WiredAutocomplete`, `WiredSearchBar`, and `WiredCupertinoTextField`.
+- The border is a `WiredRoundedRectangleBase` around the editable line only.
+- When `labelText` is set, the label sits 8px above the field.
+- `errorText` and the `maxLength` counter are written below the ink, 6px clear of it and 12px in from the side, so they never touch the hand-drawn line. The error is announced as a live region.
+- The value is written in `theme.textColor` and the cursor in `theme.borderColor`, so the field reads on dark paper.
 - Uses `InputBorder.none` internally since the sketchy border replaces the standard decoration.
 
 ---
@@ -73,8 +76,9 @@ WiredTextArea(
 
 ### Notes
 
-- Content padding is 8px on all sides.
+- Content padding is 12px at the sides and 10px above and below.
 - The sketchy border scales automatically with the text area height.
+- The value uses `theme.textColor`, the hint `theme.disabledTextColor`, and the cursor `theme.borderColor`.
 
 ---
 
@@ -195,8 +199,8 @@ HookBuilder(
 
 - The checkbox is 27x27 logical pixels.
 - The underlying `Checkbox` uses transparent fill with `theme.borderColor` for the check color.
-- Internal state is managed with `useState` for immediate visual feedback.
-- Passing `null` for `onChanged` disables the checkbox the Material way: it renders in the disabled state and advertises no tap action to assistive technology.
+- The checkbox is controlled, like Material's: it always shows `value`, and a tap only reports the new value through `onChanged`. Rebuild it with that value to check it; a parent that ignores the change keeps it as it was.
+- Passing `null` for `onChanged` disables the checkbox the Material way: the box and its check are drawn in `theme.disabledTextColor`, and no tap action is advertised to assistive technology.
 
 ---
 
@@ -259,7 +263,7 @@ HookBuilder(
 
 - The outer circle is 48x48px using `WiredCircleBase` with a 0.7 diameter ratio.
 - The inner selection indicator is a solid dot in a 24x24px box with a 0.6 diameter ratio.
-- An underlying `Radio` with transparent fill handles hit testing.
+- An underlying `Radio` with transparent fill handles hit testing and keyboard focus. The radio is one semantics node in a mutually exclusive group. With `onChanged: null` it is disabled: it leaves focus traversal and offers no tap action. `WiredRadioListTile` and `WiredSwitchListTile` likewise disable the whole row when `onChanged` is null.
 
 ---
 
@@ -329,7 +333,7 @@ HookBuilder(
 - Track dimensions: 60x24 logical pixels.
 - Thumb diameter: 24px.
 - Animation duration: 200ms with `Curves.easeInOut`.
-- The active track is washed with `markerColor`; the inactive track has no fill.
+- The active track is washed with `markerColor`; the inactive track has no fill unless `inactiveColor` is set, which is then painted.
 
 ---
 
@@ -483,7 +487,7 @@ WiredForm(
 
 A hand-drawn autocomplete field that displays suggestions in a sketchy dropdown as the user types. Wraps Flutter's `Autocomplete` widget.
 
-The field is at least 48 pixels tall and keeps 12 pixels between the ink and the text.
+The field is at least 48 pixels tall and keeps 12 pixels between the ink and the text. The value is written in `theme.textColor`, and the suggestions sit on the theme's paper so the page beneath does not show through them.
 
 ```dart
 // Live example: autocomplete
@@ -499,7 +503,7 @@ WiredAutocomplete<String>(
 
 ## WiredCupertinoTextField
 
-A Cupertino-styled text field with a hand-drawn rounded rectangle border. Mirrors the `CupertinoTextField` API.
+A Cupertino-styled text field with a hand-drawn rounded rectangle border. Mirrors the `CupertinoTextField` API. The `prefix` and `suffix` keep 12px from the ink at the start and end, mirrored under right-to-left text.
 
 ```dart
 // Live example: cupertino-text-field
@@ -515,6 +519,8 @@ WiredCupertinoTextField(
 ## WiredCupertinoSlider
 
 A Cupertino-styled slider with a sketchy track and thumb. Mirrors the `CupertinoSlider` API.
+
+It reports a slider role, its value, and increase and decrease actions (one division, or a tenth of the range when continuous) to assistive technology, and accepts an optional `semanticLabel`. Divisions are counted from `min`, so a 1–4 range in two steps lands on 1, 2.5, and 4. Under right-to-left text the minimum sits at the right. A range whose `min` equals `max` keeps the thumb at the start.
 
 ```dart
 // Live example: cupertino-slider
@@ -534,6 +540,8 @@ HookBuilder(
 ## WiredCupertinoSwitch
 
 A Cupertino-styled toggle switch with hand-drawn track and thumb. Mirrors the `CupertinoSwitch` API.
+
+It joins focus traversal while enabled, toggles with a tap, Enter, or Space, and reports its toggled and enabled state. `applyTheme` is accepted for parity but has no effect; colours come from `WiredTheme`.
 
 ```dart
 // Live example: cupertino-switch

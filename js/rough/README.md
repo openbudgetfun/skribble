@@ -19,7 +19,7 @@ Framework bindings build on it:
 npm install @skribble.dev/rough
 ```
 
-The package is ESM-only and ships its TypeScript types.
+The package ships ES modules, a CommonJS build for `require()`, and its TypeScript types.
 
 ## Sketch a shape
 
@@ -52,6 +52,8 @@ Shapes are plain objects:
 
 Points are `[x, y]` pairs or `{ x, y }` objects. Pass an array of shapes to draw several from one random stream.
 
+Degenerate shapes draw nothing instead of hanging or throwing: an arc whose `stop` is not after its `start` (a progress ring at zero, say) or whose angles are not finite, and a negative `roundedRectangle`, which keeps square corners. A shape with an infinite coordinate finishes too, without ink or fill for it. Only a curve through fewer than two points throws.
+
 ## Options
 
 | Option                | Default        | What it does                                                                  |
@@ -75,7 +77,7 @@ Points are `[x, y]` pairs or `{ x, y }` objects. Pass an array of shapes to draw
 | `hachureGap`          | `8`            | Distance between hachure lines.                                               |
 | `fillWeight`          | `1`            | Dot diameter, and how far solid fill corners wander.                          |
 | `dashOffset`          | `15`           | Dash length in dashed fills.                                                  |
-| `dashGap`             | `2`            | Gap between dashes.                                                           |
+| `dashGap`             | `2`            | Gap between dashes. Under 0.1 with `dashOffset`, lines are drawn undashed.    |
 | `zigzagOffset`        | `5`            | Offset of zig-zag turns.                                                      |
 
 ## Coming from rough.js

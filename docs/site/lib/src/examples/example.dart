@@ -9,15 +9,34 @@ import 'package:skribble_docs_site/src/docs_surface.dart';
 
 /// The typed parameters supported by executable documentation examples.
 enum ExampleParameter {
+  /// Edits [ExampleSettings.label].
   label,
+
+  /// Edits [ExampleSettings.enabled].
   enabled,
+
+  /// Edits [ExampleSettings.radius].
   radius,
+
+  /// Edits [ExampleSettings.amount].
   amount,
+
+  /// Edits [ExampleSettings.interaction].
   interaction,
+
+  /// Edits [ExampleSettings.fill].
   fill,
+
+  /// Edits [ExampleSettings.color].
   color,
+
+  /// Edits [ExampleSettings.iconFill].
   iconFill,
+
+  /// Edits [ExampleSettings.pen].
   pen,
+
+  /// Edits [ExampleSettings.weight].
   weight,
 }
 

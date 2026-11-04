@@ -25,6 +25,7 @@ class DocDocument {
       description: metadata is YamlMap
           ? metadata['description'] as String? ?? ''
           : '',
+      order: metadata is YamlMap ? metadata['order'] as num? : null,
       source: body,
       nodes: md.Document(
         extensionSet: md.ExtensionSet.gitHubWeb,
@@ -37,6 +38,7 @@ class DocDocument {
     required this.path,
     required this.title,
     required this.description,
+    required this.order,
     required this.source,
     required this.nodes,
   }) {
@@ -62,6 +64,12 @@ class DocDocument {
 
   /// Short description of the document.
   final String description;
+
+  /// Frontmatter `order`: the page's position within its sidebar group.
+  ///
+  /// Pages with an order come first, lowest first; the rest follow in path
+  /// order.
+  final num? order;
 
   /// Original Markdown without frontmatter, available to copy.
   final String source;

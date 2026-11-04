@@ -21,8 +21,10 @@ class WiredFilledButton extends WiredButtonBase {
   /// colours contrasts more with the fill.
   final Color? foregroundColor;
 
+  /// <!-- {=dartRoughBorderRadius|trim|linePrefix:"  /// "} -->
   /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
   /// for square corners.
+  /// <!-- {/dartRoughBorderRadius} -->
   final BorderRadius borderRadius;
 
   /// Creates a filled button. See [WiredButtonBase] for the shared
@@ -35,6 +37,7 @@ class WiredFilledButton extends WiredButtonBase {
     this.foregroundColor,
     super.semanticLabel,
     super.inkInteraction,
+    super.seed,
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
   });
 
@@ -47,6 +50,7 @@ class WiredFilledButton extends WiredButtonBase {
 
     return buildWiredButton(
       decorationBuilder: (context) => RoughBoxDecoration(
+        seed: seed ?? 1,
         progress: WiredDrawTransition.progressOf(context),
         pressure: WiredInkResponse.pressureOf(context),
         drawConfig: theme.drawConfig,

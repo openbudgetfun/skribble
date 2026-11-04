@@ -13,11 +13,21 @@ import 'rough_drawing.dart';
 /// Controls [width], [color], [gradient], and [blendMode] of
 /// border and fill paints in a `RoughBoxDecoration`.
 class RoughDrawingStyle {
+  /// The stroke width in logical pixels. Null draws a 0.1 pixel hairline.
   final double? width;
+
+  /// The ink colour. Null paints transparent ink, so set this or [gradient].
   final Color? color;
+
+  /// A gradient shader for the ink, sized to the painted box. Null uses
+  /// [color] alone.
   final Gradient? gradient;
+
+  /// How the ink blends with what is beneath it. Null keeps the paint's
+  /// default, [BlendMode.srcOver].
   final BlendMode? blendMode;
 
+  /// Creates a stroke and fill style. Every field is optional.
   const RoughDrawingStyle({
     this.width,
     this.color,
@@ -57,7 +67,19 @@ class RoughDrawingStyle {
 }
 
 /// The shape painted by a [RoughBoxDecoration].
-enum RoughBoxShape { rectangle, roundedRectangle, circle, ellipse }
+enum RoughBoxShape {
+  /// A rectangle that fills the box.
+  rectangle,
+
+  /// A rectangle with corners rounded by [RoughBoxDecoration.borderRadius].
+  roundedRectangle,
+
+  /// A circle centred in the box, with a diameter of its shortest side.
+  circle,
+
+  /// An ellipse that fills the box.
+  ellipse,
+}
 
 /// A `Decoration` that paints a hand-drawn box using the rough engine.
 ///
@@ -83,6 +105,8 @@ class RoughBoxDecoration extends Decoration {
   /// Optional pen pressure for interaction feedback, from zero to one.
   final Animation<double>? pressure;
 
+  /// The outline drawn around the box. Defaults to
+  /// [RoughBoxShape.rectangle].
   final RoughBoxShape shape;
 
   /// A level fill painted beneath the outline, inset to the pen's centre.
@@ -91,11 +115,23 @@ class RoughBoxDecoration extends Decoration {
   /// field that text and artwork can sit on. Null paints no level fill.
   final Color? color;
 
+  /// The pen width, colour and gradient of the outline. Null draws a
+  /// transparent 0.1 pixel hairline, so the outline is invisible.
   final RoughDrawingStyle? borderStyle;
+
+  /// The rough engine settings for the outline and fill. Null builds a
+  /// default config from [seed].
   final DrawConfig? drawConfig;
+
+  /// The style of the [filler]'s strokes. Null reuses [borderStyle].
   final RoughDrawingStyle? fillStyle;
+
+  /// The pattern that inks the inside of the shape, such as hachure. Null
+  /// draws no fill strokes.
   final Filler? filler;
 
+  /// The corner radii for [RoughBoxShape.roundedRectangle]. Null means
+  /// square corners. Ignored by the other shapes.
   final BorderRadius? borderRadius;
 
   /// A fixed seed for deterministic rough shapes. The same seed always
@@ -104,6 +140,8 @@ class RoughBoxDecoration extends Decoration {
   /// for variety, or pass a random value for full randomness. Defaults to 1.
   final int seed;
 
+  /// Creates a hand-drawn box decoration. With no arguments it draws an
+  /// invisible rectangle, so set [borderStyle] for an outline.
   const RoughBoxDecoration({
     this.progress,
     this.pressure,
@@ -225,8 +263,13 @@ class RoughBoxDecoration extends Decoration {
 /// Generates rough shapes via `Generator` and paints them onto
 /// the canvas with the configured styles.
 class RoughDecorationPainter extends BoxPainter {
+  /// The decoration this painter draws.
   final RoughBoxDecoration roughDecoration;
 
+  /// Creates a painter for [roughDecoration].
+  ///
+  /// When [onChanged] is given, it is called whenever the decoration's
+  /// progress or pressure animation ticks, so the box repaints.
   RoughDecorationPainter(this.roughDecoration, [VoidCallback? onChanged])
     : super(onChanged) {
     if (onChanged != null) {
@@ -289,6 +332,10 @@ class RoughDecorationPainter extends BoxPainter {
         DrawConfig.build(seed: roughDecoration.seed);
     drawConfig.randomizer.reset();
     final Filler filler = roughDecoration.filler ?? NoFiller();
+    // The filler draws from its own stream. A filler shared between
+    // decorations would otherwise continue where the last shape stopped and
+    // hatch every box, and every resize, differently.
+    filler.config.drawConfig.randomizer.reset();
     final Generator generator = Generator(drawConfig, filler);
     final Rect rect = (Offset.zero & size).deflate(
       min(roughDecoration.inkInset, size.shortestSide / 2),

@@ -1,110 +1,276 @@
 # Contributing to skribble
 
-Thanks for your interest in contributing! This guide covers the workflow, conventions, and quality gates you should know before submitting a PR.
+Thanks for your interest in contributing! This guide covers the workflow, conventions, and quality gates you should know before submitting a pull request. The same guide, with more detail on the docs site and landing page, is on the [documentation site](https://openbudgetfun.github.io/skribble/reference/contributing). AI coding agents should also read [`AGENTS.md`](AGENTS.md) and the [agents reference](https://openbudgetfun.github.io/skribble/reference/agents).
+
+Just want to use skribble in an app? See [Installation](https://openbudgetfun.github.io/skribble/getting-started/installation) instead.
 
 ## Prerequisites
 
-- [Flutter SDK](https://flutter.dev/docs/get-started/install) ≥ 3.41
-- [Melos](https://melos.invertase.dev/) for monorepo commands
-- (Optional) [devenv](https://devenv.sh/) — the CI uses it; you can use plain Flutter locally
+<!-- {=docsContribPrerequisites} -->
 
-## Repository Layout
+- [devenv](https://devenv.sh/) (recommended). `devenv shell` provides the pinned Flutter and Dart, melos, `mdt`, `dprint`, `monochange`, and the git hooks. CI runs every check through it.
+- Without devenv: [FVM](https://fvm.app/) with the Flutter version pinned in `.fvmrc` (currently 3.47.0), plus `mdt` and `dprint` on your `PATH` for the documentation checks.
+- For the npm packages in `js/`: Node.js and pnpm. For the Rust crates in `rust/`: the toolchain pinned in `rust-toolchain.toml`.
+
+<!-- {/docsContribPrerequisites} -->
+
+## Clone and set up
+
+<!-- {=docsSetupSection} -->
+
+```bash
+# Clone the repository
+git clone https://github.com/openbudgetfun/skribble.git
+cd skribble
+
+# With devenv (recommended): provides flutter, melos, mdt, dprint, and the git hooks
+devenv shell
+
+# Without devenv: install the pinned Flutter 3.47.0 with FVM
+fvm install
+fvm use --force
+
+# Install dependencies for the whole workspace
+flutter pub get
+```
+
+<!-- {/docsSetupSection} -->
+
+## Repository layout
+
+<!-- {=docsRepoLayout} -->
 
 ```
 skribble/
-├── packages/skribble/          # Main UI component library
-│   ├── lib/src/                # Widget & rough-engine source
-│   ├── test/                   # Widget + rough-engine tests
-│   └── example/                # pub.dev example app
-├── packages/skribble_lints/    # Shared lint rules
-└── apps/skribble_storybook/    # Demo / showcase app
+├── packages/
+│   ├── skribble/              # Main UI library: Wired widgets, SkribbleApp, theme, painting layer
+│   │   ├── lib/src/           # Widget, theme, and rough painting source (lib/src/compat/ holds the Material bridge)
+│   │   ├── test/              # Widget tests in test/widgets/, engine tests in test/rough/, helpers in test/helpers/
+│   │   ├── example/           # pub.dev example
+│   │   └── tool/              # Icon generation, design kit, and audit tools
+│   ├── skribble_rough/        # Pure-Dart rough engine with SVG output (no Flutter)
+│   ├── skribble_font_*/       # Hand-drawn fonts (Noto Sketch, Noto, Noto Lively, Recursive) and the font roughener
+│   ├── skribble_icons*/       # Icon sets (Material, Lucide, Boxicons, Simple Icons, CoreUI) and the umbrella package
+│   ├── skribble_emoji*/       # Hand-drawn emoji and the catalog generator
+│   ├── skribble_maps/         # MapLibre maps with hand-drawn overlays
+│   ├── skribble_charts/       # Hand-drawn financial charts
+│   ├── skribble_jaspr/        # Server-rendered components for Jaspr sites
+│   └── skribble_lints/        # Shared lint rules
+├── apps/
+│   ├── skribble_storybook/    # Interactive demo of every widget, plus screenshot integration tests
+│   ├── skribble_example/      # A hand-drawn notes app
+│   ├── skribble_benchmark/    # Rendering benchmarks
+│   └── skribble_site/         # skribble.dev landing page (Jaspr, static HTML)
+├── docs/site/                 # Documentation site (Flutter); pages live in docs/site/content/
+├── templates/                 # MDT providers for documentation shared across files
+├── js/                        # npm packages: @skribble.dev/rough + React, React Native, Vue, Svelte
+└── rust/                      # Cargo workspace: skribble_rough (Rust engine) + skribble_leptoskit components
 ```
 
-## Getting Started
+<!-- {/docsRepoLayout} -->
+
+## Workspace commands
+
+<!-- {=docsCommandsSection} -->
 
 ```bash
 # Install dependencies
 flutter pub get
 
-# Verify everything builds
+# Run every lint check: dprint formatting, dart analyze, MDT docs sync, and monochange
+lint:all
+
+# Fix everything fixable: MDT docs sync, dprint formatting, then dart fix
+fix:all
+
+# Sync the shared MDT documentation blocks, or check that they are in sync
+fix:docs
+lint:docs
+
+# Run dart analyze across all packages (infos are fatal)
 melos run analyze
+
+# Run the Flutter widget tests
 melos run flutter-test
+
+# Run every Flutter and pure-Dart test suite, or collect merged coverage
+test:all
+test:coverage
+
+# Format all Dart code
+melos run format
+
+# Capture component screenshots
+melos run screenshot
+
+# Serve or build the documentation site
+docs:site:serve
+docs:site:build
+
+# Build or serve the skribble.dev landing page (Jaspr)
+site:build
+site:serve
+
+# Generate rough Material icon SVGs, or the icon font (TTF + Dart helpers)
+melos run rough-icons
+melos run rough-icons-font
+
+# Run the CI rough icon checks, or verify every committed icon catalog
+melos run rough-icons-ci-check
+melos run icons-check
+
+# Build, typecheck, and test the npm packages in js/
+pnpm install && pnpm run check
+
+# Format, lint, and test the Rust crates in rust/
+cargo fmt --all && cargo clippy --workspace --all-targets --all-features -- -D warnings && cargo test --workspace --all-features
 ```
 
-## Development Workflow
+<!-- {/docsCommandsSection} -->
 
-1. **Create a branch** from `main`:
-   ```bash
-   git checkout -b pr/my-feature main
-   ```
-2. **Make changes** — follow the conventions below.
-3. **Run checks** before committing:
-   ```bash
-   dart format .
-   dart analyze --fatal-infos .
-   cd packages/skribble && flutter test test/
-   ```
-4. **Open a PR** against `main`.
+## Development workflow
 
-## Widget Conventions
+<!-- {=docsContribWorkflow} -->
 
-- Every widget **must** use `HookWidget` (or `HookConsumerWidget`). No `StatefulWidget` or `StatelessWidget`.
-- All widgets use the `Wired` prefix (e.g., `WiredButton`, `WiredAppBar`).
-- Read border/fill colors from `WiredTheme.of(context)` — never hardcode.
-- Wrap with `RepaintBoundary` via `WiredBaseWidget`.
+1. **Create a branch** from `main`, for example `git switch -c pr/my-feature main`.
+2. **Make changes**, following the conventions below. Update the documentation in the same pull request: every change is documented.
+3. **Run the quality gates** before pushing. The pre-push hook runs the lint gates for you inside devenv.
+4. **Add a changeset** in `.changeset/` for any change to a published package (see the releasing reference), then open a pull request against `main`.
 
-## Testing Requirements
+<!-- {/docsContribWorkflow} -->
 
-Every widget test file must have **≥ 6 `testWidgets`** covering:
+## Widget conventions
 
-| Category      | Example                                       |
-| ------------- | --------------------------------------------- |
-| Rendering     | Renders without error, renders child content  |
-| Dimensions    | Correct size, respects custom height/width    |
-| Interaction   | Responds to tap, calls `onChanged`            |
-| State         | Rebuilds on value change, animations complete |
-| Edge cases    | Null values, rapid interactions               |
-| Accessibility | Semantic labels where applicable              |
+<!-- {=docsWidgetConventions} -->
 
-### Test helpers
+- UI components use `HookWidget` (or `HookConsumerWidget` when Riverpod is needed). Motion lifecycle code in `packages/skribble/lib/src/motion/` uses standard Flutter `State` and ticker providers instead, and its public API accepts `Animation<double>`; see `docs/site/content/core/motion.md`.
+- Every widget name starts with `Wired`, for example `WiredButton` and `WiredAppBar`.
+- Read colors, stroke width, and roughness from `WiredTheme.of(context)`; never hardcode them.
+- Isolate repaints with `buildWiredElement(child: ...)` or by extending `WiredBaseWidget`.
+- New code imports `package:flutter/widgets.dart` and below, never `package:flutter/material.dart` or `package:flutter/cupertino.dart`. Only `packages/skribble/lib/src/compat/` may import them.
+- Interactive widgets take a `semanticLabel`, and every public class and parameter has a `///` dartdoc comment. Reuse the shared wording in `templates/dart.t.md` where it fits.
 
-Use `pumpApp()` from `test/helpers/pump_app.dart`:
+<!-- {/docsWidgetConventions} -->
+
+<!-- {=docsInkPaddingRule} -->
+
+Give the ink room to breathe. Content keeps at least `kWiredInkPadding` (8 pixels above and below, 12 at the sides) from any hand-drawn line around it; buttons and chips use `kWiredButtonPadding` (16 at the sides). Heights are minimums (`BoxConstraints(minHeight: kWiredButtonHeight)`), never fixed, so controls grow with larger fonts and text scaling instead of squeezing their text against the ink. `package:skribble/testing.dart` (`crampedText`, `squeezedText`) checks this; `crampedText(root, lines: true, icons: true)` also catches a hand-drawn line crossing text and an icon crowding its circle. The storybook and example app run all three checks on every page at 360, 768, and 1280 pixels and at 1.3× text, and the docs site runs them on every example at 340 and 720 pixels.
+
+<!-- {/docsInkPaddingRule} -->
+
+## Testing requirements
+
+<!-- {=docsTestingRequirements} -->
+
+Every widget test file has at least 6 `testWidgets`, written against skribble's public API, covering:
+
+1. **Rendering**: renders without error, child content appears, rough paint is reached.
+2. **Dimensions**: correct default size, custom size respected, sensible non-zero size.
+3. **Interaction**: taps and input fire callbacks; a disabled widget ignores them.
+4. **State**: rebuilds when values change; animations settle.
+5. **Edge cases**: null values, empty strings, rapid interactions, overflow, and large, zero, or small constraints.
+6. **Accessibility and direction**: semantic label, role, and state where applicable; RTL layout; scaled text.
+
+Widget tests go in `packages/skribble/test/`, with one `test/widgets/wired_<name>_test.dart` per widget. Integration tests go in `apps/skribble_storybook/integration_test/`. Never assert on the Material or Cupertino control a widget currently wraps; `test/tool/no_material_test_coupling_test.dart` enforces this.
+
+<!-- {/docsTestingRequirements} -->
+
+### Test host and helpers
+
+<!-- {=docsTestHelpers|replace:"// Static example: test\n":""} -->
+
+New and converted tests use the `pumpWired()` host and the public-API helpers from one barrel:
 
 ```dart
-import '../helpers/pump_app.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble/skribble.dart';
 
-// Body slot (default)
-await pumpApp(tester, WiredButton(child: Text('Hi'), onPressed: () {}));
+import '../helpers/skribble_test_support.dart';
 
-// AppBar slot
-await pumpApp(tester, WiredAppBar(title: Text('T')), asAppBar: true);
-
-// BottomNavigationBar slot
-await pumpApp(tester, myNavBar, asBottomNav: true);
-
-// Drawer slot
-await pumpApp(tester, WiredDrawer(child: Text('X')), asDrawer: true);
+void main() {
+  testWidgets('calls onPressed when tapped', (tester) async {
+    var tapped = false;
+    await pumpWired(
+      tester,
+      WiredButton(onPressed: () => tapped = true, child: const Text('Hi')),
+    );
+    await tapWired(tester, findWired<WiredButton>());
+    expect(tapped, isTrue);
+  });
+}
 ```
 
-## Code Quality Gates
+`pumpWiredRtl` and `pumpWiredScaled` are the same host with right-to-left text or a scaled `TextScaler`. `packages/skribble/test/helpers/README.md` lists every helper and the migration pattern. `pumpApp()` from `test/helpers/pump_app.dart` remains only for files not yet migrated; it exposes Material slots new tests should not depend on.
 
-All of these must pass for a PR to be merged:
+<!-- {/docsTestHelpers} -->
+
+## Code quality gates
+
+All of these must pass for a pull request to be merged:
+
+<!-- {=docsContribQualityGatesSection} -->
 
 ```bash
-# Zero issues (including info-level)
-dart analyze --fatal-infos .
+# Every lint check CI runs: dprint formatting, dart analyze with fatal infos
+# (an undocumented public member fails it),
+# MDT documentation sync, and monochange changeset and manifest rules
+lint:all
 
-# Zero format drift
-dart format --set-exit-if-changed .
+# Zero Dart format drift
+dart format --set-exit-if-changed -o none .
 
-# All tests green
-flutter test
-
-# Zero dartdoc warnings
-dart doc --dry-run .
+# Every Flutter and pure-Dart test suite
+test:all
 ```
 
-## Git Hooks
+While iterating on one package, `dart analyze --fatal-infos .` and `flutter test --concurrency=2` from its directory are quicker. Changes under `js/` also need `pnpm install && pnpm run check`, and changes under `rust/` need the `cargo fmt`, `cargo clippy`, and `cargo test` commands from the commands list.
+
+<!-- {/docsContribQualityGatesSection} -->
+
+## Shared documentation with MDT
+
+<!-- {=docsMdtWorkflow|replace:"// Static example: pseudocode\n":""} -->
+
+Text that appears in more than one place, such as the install snippet, the minimal app, the commands list, these contributor rules, and repeated dartdoc, is written once as an [MDT](https://github.com/ifiokjr/mdt) **provider** in `templates/*.t.md` and copied into every **consumer** block. Never edit the text between a consumer's tags: `mdt update` overwrites it.
+
+A provider lives only in a `templates/*.t.md` file:
+
+```markdown
+<!-- {@docsExampleSnippet} -->
+
+The shared text, in Markdown.
+
+<!-- {/docsExampleSnippet} -->
+```
+
+A consumer can sit in any scanned Markdown file, including READMEs, docs pages, `CONTRIBUTING.md`, and `AGENTS.md`:
+
+```markdown
+<!-- {=docsExampleSnippet} -->
+<!-- {/docsExampleSnippet} -->
+```
+
+In Dart, the tags go inside `///` comments, and a `linePrefix` transformer re-adds the comment prefix, at the member's indentation, to each synced line:
+
+```dart
+class WiredExample extends HookWidget {
+  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
+  /// <!-- {/dartSemanticLabel} -->
+  final String? semanticLabel;
+}
+```
+
+- **Look before adding.** Run `mdt list` to see every provider and where it is consumed, and reuse one before writing a near-duplicate. Name new providers `docs<Topic>` for Markdown and `dart<Topic>` for dartdoc.
+- **Add a provider** only for text that appears in at least two places. Write it in a `templates/*.t.md` file, replace each copy with a consumer block, then run `mdt update`.
+- **Render values from manifests.** `mdt.toml` declares `[data]` sources (the skribble pubspec and `.fvmrc`), so a provider can write `{{ skribble.environment.flutter }}` instead of a hand-typed version. Providers are therefore [minijinja](https://docs.rs/minijinja) templates: text that needs literal double braces goes inside a raw block.
+- **Reach a new file type.** Markdown and Dart are scanned already; add other files to `[include] patterns` in `mdt.toml`.
+- **Sync and check.** `fix:docs` runs `mdt update` and `lint:docs` runs `mdt check`; `fix:all` and `lint:all` include them, and CI fails when a consumer is stale. mdt formats synced Markdown with dprint, so run `dprint fmt` (or `fix:format`) after editing a template.
+
+<!-- {/docsMdtWorkflow} -->
+
+## Git hooks
+
+<!-- {=docsGitHooksTable} -->
 
 Git hooks are managed by devenv and driven by [prek](https://github.com/j178/prek). They install automatically the first time you enter the devenv shell (`devenv shell`); the generated config lives at `.pre-commit-config.yaml` (gitignored).
 
@@ -115,26 +281,58 @@ Git hooks are managed by devenv and driven by [prek](https://github.com/j178/pre
 | `lint:push`      | pre-push   | CI lint parity: dependency refresh, `lint:all`, and `monochange step validate` |
 | `secrets:push`   | pre-push   | gitleaks scan of the full git history                                          |
 
-Hooks call devenv profile scripts by absolute path, so they work from plain `git` calls outside the devenv shell. Run them on demand with `prek run` (pre-commit) or `prek run --hook-type pre-push`, or skip them for a single commit with `git commit --no-verify` — CI still enforces every check.
+Hooks call devenv profile scripts by absolute path, so they work from plain `git` calls outside the devenv shell. Run them on demand with `prek run` (pre-commit) or `prek run --hook-type pre-push`, or skip them for a single commit with `git commit --no-verify`; CI still enforces every check.
 
-## Commit Messages
+<!-- {/docsGitHooksTable} -->
+
+## Commit messages
+
+<!-- {=docsCommitConventions} -->
 
 Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
 feat: add WiredAvatar widget
 fix: correct WiredSlider thumb offset
-refactor: migrate test files to pumpApp
+refactor: migrate WiredChip tests to pumpWired
 test: add Generator.arc tests
-docs: update parity matrix
-chore: bump version to 0.3.1
+docs: share the install snippet through mdt
+chore: bump pnpm
 ```
 
-## Adding a New Widget
+<!-- {/docsCommitConventions} -->
 
-1. Create `lib/src/wired_<name>.dart` using `HookWidget`.
-2. Export from `lib/skribble.dart`.
-3. Add `test/widgets/wired_<name>_test.dart` with ≥ 6 tests.
-4. Add a showcase entry in the storybook app.
-5. Add a `///` doc comment on the public class.
-6. Run all quality gates.
+## Adding a new widget
+
+<!-- {=docsNewWidgetChecklist} -->
+
+1. Create `packages/skribble/lib/src/wired_<name>.dart` as a `HookWidget`, following the widget conventions.
+2. Export it from `packages/skribble/lib/skribble.dart`.
+3. Add `packages/skribble/test/widgets/wired_<name>_test.dart` with at least 6 tests covering the testing requirements.
+4. Add a showcase entry to the matching page in `apps/skribble_storybook/lib/pages/`.
+5. Add `///` dartdoc comments on the class and every public parameter.
+6. Document it on the matching `docs/site/content/widgets/<category>.md` page and in `docs/site/content/reference/api-overview.md`.
+7. Add a changeset, then run the quality gates.
+
+<!-- {/docsNewWidgetChecklist} -->
+
+## Screenshots and images
+
+<!-- {=docsImagesOutOfGit} -->
+
+- **Keep image files out of Git**, including screenshots, design exports, and golden snapshots. Save them in gitignored local output directories, upload review images with `gh pr create/edit/comment --attach`, or use external file storage. Put the resulting attachment or download URL in the PR or a README. Prefer pixel assertions against in-memory renders when a visual test can express the expected behavior without a committed image.
+- Before pushing, check staged additions and the branch's commits for image files. Remove newly introduced images from an unmerged branch's history before publishing the corrected branch; deleting them only in a later commit still leaves the repository bloated.
+
+<!-- {/docsImagesOutOfGit} -->
+
+<!-- {=docsDesignScreenshotsRule} -->
+
+- Every pull request that changes what skribble draws or how it lays out must show the change. That covers widget appearance, the rough engine, pens and fillers, icons and emoji, fonts, theme defaults, spacing, and the storybook or docs visuals.
+- Capture **before and after** screenshots from the same harness: the storybook, `melos run screenshot`, or an in-memory render. Include both light and dark themes, and narrow and wide widths when layout changes.
+- Upload them to the pull request itself with the GitHub CLI's `--attach` flag, never by committing them:
+  - when opening: `gh pr create --attach './before.png#Before' --attach './after.png#After'`;
+  - later captures: `gh pr edit <n> --attach ...` or `gh pr comment <n> --attach ...`.
+- Text after `#` is the image's alt text. A local path already referenced in the body (`![Before](./before.png)`) is replaced with the uploaded URL; anything else is appended.
+- Put the images in a collapsible `<details>` section of the description, and say what the captures do not cover. Inspect every image first so it exposes no secrets or personal data.
+
+<!-- {/docsDesignScreenshotsRule} -->

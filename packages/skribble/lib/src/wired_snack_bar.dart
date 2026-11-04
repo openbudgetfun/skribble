@@ -32,7 +32,10 @@ void showWiredSnackBar(
 /// The snack bar content is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the content and action information.
 class WiredSnackBarContent extends HookWidget {
+  /// The message, drawn at 14 logical pixels in the theme's text color.
   final Widget child;
+
+  /// Optional widget shown after the message, such as a button.
   final Widget? action;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -40,6 +43,7 @@ class WiredSnackBarContent extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates snack bar content with a hand-drawn border around [child].
   const WiredSnackBarContent({
     super.key,
     required this.child,

@@ -38,7 +38,9 @@ class WiredControlListTile extends StatelessWidget {
   /// Whether to draw the hand-drawn divider under the row.
   final bool showDivider;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
   /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
   @override

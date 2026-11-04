@@ -58,6 +58,7 @@ Future<void> _pumpChart(
   double textScale = 1,
   String annotationLabel = '',
   bool showDetails = true,
+  WiredChartStyle style = const WiredChartStyle(),
   ValueChanged<WiredChartCandle?>? onSelected,
 }) async {
   await tester.pumpWidget(
@@ -81,6 +82,7 @@ Future<void> _pumpChart(
                 annotationLabel: annotationLabel,
                 semanticLabel: 'SOL price in US dollars',
                 showSelectionDetails: showDetails,
+                style: style,
                 onCandleSelected: onSelected,
               ),
             ),
@@ -101,6 +103,14 @@ Offset _point(WidgetTester tester, double x, double y) {
 
   return tester.getTopLeft(find.byKey(_plotKey)) +
       Offset(rect.left + rect.width * x, rect.top + rect.height * y);
+}
+
+/// The readable UTC time the chart shows for a whole-minute candle.
+String _shown(DateTime time) {
+  String two(int value) => value.toString().padLeft(2, '0');
+  final utc = time.toUtc();
+  return '${utc.year}-${two(utc.month)}-${two(utc.day)} '
+      '${two(utc.hour)}:${two(utc.minute)} UTC';
 }
 
 String _details(WidgetTester tester) =>
@@ -229,7 +239,7 @@ void main() {
       await tester.tapAt(_point(tester, .25, .5));
       await tester.pump();
       expect(selected?.time, _epoch.add(const Duration(minutes: 90)));
-      expect(_details(tester), contains(selected!.time.toIso8601String()));
+      expect(_details(tester), contains(_shown(selected!.time)));
       final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
       await mouse.addPointer(location: _point(tester, .25, .5));
       await mouse.moveTo(_point(tester, .75, .5));
@@ -241,7 +251,7 @@ void main() {
               find.bySemanticsLabel(RegExp('SOL price in US dollars')),
             )
             .value,
-        contains(selected!.time.toIso8601String()),
+        contains(_shown(selected!.time)),
       );
       await mouse.removePointer();
       semantics.dispose();
@@ -261,7 +271,7 @@ void main() {
       await tester.pump();
       expect(
         _details(tester),
-        contains(_epoch.add(const Duration(minutes: 110)).toIso8601String()),
+        contains(_shown(_epoch.add(const Duration(minutes: 110)))),
       );
       await gesture.up();
     },
@@ -347,7 +357,7 @@ void main() {
       await tester.pump();
       expect(
         _details(tester),
-        contains(_epoch.add(const Duration(minutes: 39)).toIso8601String()),
+        contains(_shown(_epoch.add(const Duration(minutes: 39)))),
       );
       await tester.sendKeyEvent(LogicalKeyboardKey.arrowRight);
       await tester.sendKeyEvent(LogicalKeyboardKey.equal);
@@ -360,7 +370,7 @@ void main() {
       expect(controller.isFollowingLatest, isTrue);
       expect(
         _details(tester),
-        contains(_epoch.add(const Duration(minutes: 40)).toIso8601String()),
+        contains(_shown(_epoch.add(const Duration(minutes: 40)))),
       );
     },
   );
@@ -647,7 +657,7 @@ void main() {
         ]);
         await tester.pump();
         expect(controller.candles[controller.selectedIndex!].time, selected);
-        expect(_details(tester), contains(selected.toIso8601String()));
+        expect(_details(tester), contains(_shown(selected)));
         expect(editor.canUndo, isFalse);
       }
 
@@ -672,7 +682,7 @@ void main() {
               find.bySemanticsLabel(RegExp('SOL price in US dollars')),
             )
             .value,
-        contains('C 102'),
+        contains('close 102'),
       );
       semantics.dispose();
     },
@@ -788,4 +798,74 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+
+  testWidgets(
+    'unselected charts announce the latest close and empty charts say so',
+    (tester) async {
+      final semantics = tester.ensureSemantics();
+      final controller = _controller();
+      final empty = _controller(length: 0);
+      addTearDown(controller.dispose);
+      addTearDown(empty.dispose);
+      String value() => tester
+          .getSemantics(
+            find.bySemanticsLabel(RegExp('SOL price in US dollars')),
+          )
+          .value;
+
+      await _pumpChart(tester, controller);
+      expect(
+        value(),
+        startsWith(
+          'SOL/USD. 120 candles. Latest close 121 at 2026-01-01 01:59 UTC.',
+        ),
+      );
+      await _pumpChart(tester, empty);
+      expect(value(), startsWith('SOL/USD. No market data.'));
+      semantics.dispose();
+    },
+  );
+
+  testWidgets(
+    'selection details sit on the chart paper and are announced only once',
+    (tester) async {
+      final semantics = tester.ensureSemantics();
+      final controller = _controller();
+      addTearDown(controller.dispose);
+      const night = WiredChartStyle(
+        background: Color(0xFF20292C),
+        foreground: Color(0xFFF7EFDB),
+      );
+      await _pumpChart(tester, controller, style: night);
+      await tester.tapAt(_point(tester, .5, .5));
+      await tester.pump();
+
+      final paper = tester.widget<ColoredBox>(
+        find
+            .ancestor(
+              of: find.byKey(_detailsKey),
+              matching: find.byType(ColoredBox),
+            )
+            .first,
+      );
+      expect(paper.color, night.background);
+      expect(
+        tester.widget<Text>(find.byKey(_detailsKey)).style?.color,
+        night.foreground,
+      );
+      expect(find.bySemanticsLabel(RegExp('O 100  H 105')), findsNothing);
+      semantics.dispose();
+    },
+  );
+
+  testWidgets('axis labels follow the reader text size up to double', (
+    tester,
+  ) async {
+    final controller = _controller();
+    addTearDown(controller.dispose);
+    await _pumpChart(tester, controller, textScale: 1.5);
+    expect(_scene(tester).textScaler.scale(10), 15);
+    await _pumpChart(tester, controller, textScale: 3);
+    expect(_scene(tester).textScaler.scale(10), 20);
+  });
 }

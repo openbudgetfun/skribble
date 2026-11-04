@@ -40,9 +40,28 @@ enum SkribbleThemeMode {
 /// * A widgets-only localization default ([SkribbleLocalizationsDelegate])
 ///   that resolves text direction for right-to-left locales. See
 ///   [localizationsDelegates] for how to opt into `flutter_localizations`.
+/// * Text and icons in the theme's ink: the [WiredThemeScope] sets the
+///   default text style (the theme's font and `textColor`) and the icon
+///   colour, so plain `Text` and `Icon` widgets read on light and dark paper.
+/// * Text selection in the theme's ink: a [DefaultSelectionStyle] whose
+///   cursor is the theme's `borderColor` and whose highlight is a translucent
+///   wash of its `textColor`, which keeps selected text readable in both
+///   brightnesses.
+/// * Scrolling that suits the paper: [scrollBehavior], which defaults to
+///   [SkribbleScrollBehavior].
 /// * The debugging and configuration switches a real app expects:
 ///   [showPerformanceOverlay], [showSemanticsDebugger], [shortcuts],
 ///   [actions], and [restorationScopeId].
+///
+/// Text scaling is not clamped: the platform's text scale reaches every
+/// `Text` unchanged, and skribble controls grow with it (their heights are
+/// minimums). Wrap [builder]'s child in a `MediaQuery.withClampedTextScaling`
+/// if your layout needs a ceiling.
+///
+/// The light and dark themes resolve the way `MaterialApp`'s do: without a
+/// [darkWiredTheme], a dark platform keeps the light [wiredTheme]. Pass
+/// `WiredThemeData.cuddly(brightness: Brightness.dark)` for skribble's night
+/// paper.
 ///
 /// Navigation transitions are plain widgets-layer fades because the shell
 /// cannot use `MaterialPageRoute`. Override [pageRouteBuilder] to customize
@@ -94,6 +113,8 @@ class SkribbleApp extends StatelessWidget {
     this.shortcuts,
     this.actions,
     this.restorationScopeId,
+    this.scrollBehavior = const SkribbleScrollBehavior(),
+    this.onNavigationNotification,
     this.debugShowCheckedModeBanner = false,
     this.showPerformanceOverlay = false,
     this.showSemanticsDebugger = false,
@@ -127,6 +148,8 @@ class SkribbleApp extends StatelessWidget {
     this.shortcuts,
     this.actions,
     this.restorationScopeId,
+    this.scrollBehavior = const SkribbleScrollBehavior(),
+    this.onNavigationNotification,
     this.debugShowCheckedModeBanner = false,
     this.showPerformanceOverlay = false,
     this.showSemanticsDebugger = false,
@@ -162,8 +185,9 @@ class SkribbleApp extends StatelessWidget {
   /// default theme.
   final WiredThemeData? highContrastWiredTheme;
 
-  /// The high-contrast dark theme. Falls back through [darkWiredTheme],
-  /// [wiredTheme], then the default theme.
+  /// The high-contrast dark theme. Falls back to [darkWiredTheme], then
+  /// [highContrastWiredTheme], then [wiredTheme], then the default theme,
+  /// matching how `MaterialApp` resolves its high-contrast dark theme.
   final WiredThemeData? highContrastDarkWiredTheme;
 
   /// Which theme variant to install. See [SkribbleThemeMode].
@@ -251,6 +275,21 @@ class SkribbleApp extends StatelessWidget {
   /// Identifies the app's state-restoration bucket.
   final String? restorationScopeId;
 
+  /// How scrollable widgets in the app behave: drag devices, scrollbars,
+  /// and overscroll.
+  ///
+  /// Defaults to [SkribbleScrollBehavior]. Pass null to use Flutter's plain
+  /// [ScrollBehavior], or `const SkribbleScrollBehavior().copyWith(...)` to
+  /// change one aspect, for example to let a mouse drag lists on desktop.
+  final ScrollBehavior? scrollBehavior;
+
+  /// Called when a navigation notification bubbles up to the app, for
+  /// example to tell the platform whether a back gesture can pop a route.
+  ///
+  /// See [WidgetsApp.onNavigationNotification].
+  final NotificationListenerCallback<NavigationNotification>?
+  onNavigationNotification;
+
   /// Whether to show the debug-mode banner. Defaults to false so a Skribble
   /// app starts clean; set true while debugging.
   final bool debugShowCheckedModeBanner;
@@ -293,62 +332,73 @@ class SkribbleApp extends StatelessWidget {
       themeMode: themeMode,
     );
 
+    final app =
+        routerConfig != null ||
+            routerDelegate != null ||
+            routeInformationProvider != null ||
+            routeInformationParser != null ||
+            backButtonDispatcher != null
+        ? WidgetsApp.router(
+            routeInformationProvider: routeInformationProvider,
+            routeInformationParser: routeInformationParser,
+            routerDelegate: routerDelegate,
+            routerConfig: routerConfig,
+            backButtonDispatcher: backButtonDispatcher,
+            builder: builder,
+            title: title,
+            onGenerateTitle: onGenerateTitle,
+            onNavigationNotification: onNavigationNotification,
+            color: color ?? theme.borderColor,
+            locale: locale,
+            localizationsDelegates: _effectiveLocalizationsDelegates,
+            localeListResolutionCallback: localeListResolutionCallback,
+            localeResolutionCallback: localeResolutionCallback,
+            supportedLocales: supportedLocales,
+            showPerformanceOverlay: showPerformanceOverlay,
+            showSemanticsDebugger: showSemanticsDebugger,
+            debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+            shortcuts: shortcuts,
+            actions: actions,
+            restorationScopeId: restorationScopeId,
+          )
+        : WidgetsApp(
+            navigatorKey: navigatorKey,
+            onGenerateRoute: onGenerateRoute,
+            onGenerateInitialRoutes: onGenerateInitialRoutes,
+            onUnknownRoute: onUnknownRoute,
+            navigatorObservers: navigatorObservers,
+            initialRoute: initialRoute,
+            pageRouteBuilder: pageRouteBuilder ?? _defaultPageRouteBuilder,
+            home: home,
+            routes: routes,
+            builder: builder,
+            title: title,
+            onGenerateTitle: onGenerateTitle,
+            onNavigationNotification: onNavigationNotification,
+            color: color ?? theme.borderColor,
+            locale: locale,
+            localizationsDelegates: _effectiveLocalizationsDelegates,
+            localeListResolutionCallback: localeListResolutionCallback,
+            localeResolutionCallback: localeResolutionCallback,
+            supportedLocales: supportedLocales,
+            showPerformanceOverlay: showPerformanceOverlay,
+            showSemanticsDebugger: showSemanticsDebugger,
+            debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+            shortcuts: shortcuts,
+            actions: actions,
+            restorationScopeId: restorationScopeId,
+          );
+
+    final behavior = scrollBehavior;
     return WiredThemeScope(
       data: theme,
-      child:
-          routerConfig != null ||
-              routerDelegate != null ||
-              routeInformationProvider != null ||
-              routeInformationParser != null ||
-              backButtonDispatcher != null
-          ? WidgetsApp.router(
-              routeInformationProvider: routeInformationProvider,
-              routeInformationParser: routeInformationParser,
-              routerDelegate: routerDelegate,
-              routerConfig: routerConfig,
-              backButtonDispatcher: backButtonDispatcher,
-              builder: builder,
-              title: title,
-              onGenerateTitle: onGenerateTitle,
-              color: color ?? theme.borderColor,
-              locale: locale,
-              localizationsDelegates: _effectiveLocalizationsDelegates,
-              localeListResolutionCallback: localeListResolutionCallback,
-              localeResolutionCallback: localeResolutionCallback,
-              supportedLocales: supportedLocales,
-              showPerformanceOverlay: showPerformanceOverlay,
-              showSemanticsDebugger: showSemanticsDebugger,
-              debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-              shortcuts: shortcuts,
-              actions: actions,
-              restorationScopeId: restorationScopeId,
-            )
-          : WidgetsApp(
-              navigatorKey: navigatorKey,
-              onGenerateRoute: onGenerateRoute,
-              onGenerateInitialRoutes: onGenerateInitialRoutes,
-              onUnknownRoute: onUnknownRoute,
-              navigatorObservers: navigatorObservers,
-              initialRoute: initialRoute,
-              pageRouteBuilder: pageRouteBuilder ?? _defaultPageRouteBuilder,
-              home: home,
-              routes: routes,
-              builder: builder,
-              title: title,
-              onGenerateTitle: onGenerateTitle,
-              color: color ?? theme.borderColor,
-              locale: locale,
-              localizationsDelegates: _effectiveLocalizationsDelegates,
-              localeListResolutionCallback: localeListResolutionCallback,
-              localeResolutionCallback: localeResolutionCallback,
-              supportedLocales: supportedLocales,
-              showPerformanceOverlay: showPerformanceOverlay,
-              showSemanticsDebugger: showSemanticsDebugger,
-              debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-              shortcuts: shortcuts,
-              actions: actions,
-              restorationScopeId: restorationScopeId,
-            ),
+      child: DefaultSelectionStyle(
+        cursorColor: theme.borderColor,
+        selectionColor: theme.textColor.withValues(alpha: 0.25),
+        child: behavior == null
+            ? app
+            : ScrollConfiguration(behavior: behavior, child: app),
+      ),
     );
   }
 
@@ -366,7 +416,9 @@ class SkribbleApp extends StatelessWidget {
 /// Shared by [SkribbleApp] and the compatibility layer's `WiredMaterialApp` so
 /// both resolve light, dark, and high-contrast variants identically. Reads
 /// through [MediaQuery] so a platform brightness or accessibility change
-/// rebuilds the shell.
+/// rebuilds the shell. It depends only on those two aspects: insets, size,
+/// and text scale change every frame while a keyboard opens or a window
+/// resizes, and must not rebuild the whole app.
 @internal
 WiredThemeData resolveWiredAppTheme({
   required BuildContext context,
@@ -376,12 +428,11 @@ WiredThemeData resolveWiredAppTheme({
   required WiredThemeData highContrastDark,
   required SkribbleThemeMode themeMode,
 }) {
-  final mediaQuery = MediaQuery.maybeOf(context);
-  final platformDispatcher =
+  PlatformDispatcher platformDispatcher() =>
       View.maybeOf(context)?.platformDispatcher ?? PlatformDispatcher.instance;
   final isHighContrast =
-      mediaQuery?.highContrast ??
-      platformDispatcher.accessibilityFeatures.highContrast;
+      MediaQuery.maybeHighContrastOf(context) ??
+      platformDispatcher().accessibilityFeatures.highContrast;
 
   switch (themeMode) {
     case SkribbleThemeMode.light:
@@ -390,8 +441,8 @@ WiredThemeData resolveWiredAppTheme({
       return isHighContrast ? highContrastDark : dark;
     case SkribbleThemeMode.system:
       final isDark =
-          (mediaQuery?.platformBrightness ??
-              platformDispatcher.platformBrightness) ==
+          (MediaQuery.maybePlatformBrightnessOf(context) ??
+              platformDispatcher().platformBrightness) ==
           Brightness.dark;
 
       if (isDark) {
@@ -412,4 +463,72 @@ PageRoute<T> _defaultPageRouteBuilder<T>(
     transitionsBuilder: (context, animation, secondaryAnimation, child) =>
         FadeTransition(opacity: animation, child: child),
   );
+}
+
+/// The scroll behaviour [SkribbleApp] installs by default.
+///
+/// Flutter's plain [ScrollBehavior] paints a white overscroll glow on
+/// Android, which disappears on light paper and flares on dark paper, and a
+/// grey desktop scrollbar. This behaviour keeps the rest of
+/// [ScrollBehavior] and changes those two:
+///
+/// * On Android and Fuchsia, overscroll stretches the content, which needs
+///   no colour, instead of painting a glow.
+/// * On desktop the scrollbar thumb is a translucent wash of the theme's
+///   `textColor`, so it reads on light and dark paper alike.
+///
+/// Like `MaterialApp`, it does not let a mouse drag a list: that would make
+/// selecting text inside scrollables difficult. Opt in with
+/// `const SkribbleScrollBehavior().copyWith(dragDevices: {...})`.
+class SkribbleScrollBehavior extends ScrollBehavior {
+  /// Creates the default skribble scroll behaviour.
+  const SkribbleScrollBehavior();
+
+  @override
+  Widget buildOverscrollIndicator(
+    BuildContext context,
+    Widget child,
+    ScrollableDetails details,
+  ) {
+    switch (getPlatform(context)) {
+      case TargetPlatform.android:
+      case TargetPlatform.fuchsia:
+        return StretchingOverscrollIndicator(
+          axisDirection: details.direction,
+          clipBehavior: details.decorationClipBehavior ?? Clip.hardEdge,
+          child: child,
+        );
+      case TargetPlatform.iOS:
+      case TargetPlatform.linux:
+      case TargetPlatform.macOS:
+      case TargetPlatform.windows:
+        return child;
+    }
+  }
+
+  @override
+  Widget buildScrollbar(
+    BuildContext context,
+    Widget child,
+    ScrollableDetails details,
+  ) {
+    switch (getPlatform(context)) {
+      case TargetPlatform.linux:
+      case TargetPlatform.macOS:
+      case TargetPlatform.windows:
+        assert(details.controller != null);
+        return RawScrollbar(
+          controller: details.controller,
+          thumbColor: WiredThemeScope.of(
+            context,
+          ).textColor.withValues(alpha: 0.4),
+          radius: const Radius.circular(4),
+          child: child,
+        );
+      case TargetPlatform.android:
+      case TargetPlatform.fuchsia:
+      case TargetPlatform.iOS:
+        return child;
+    }
+  }
 }

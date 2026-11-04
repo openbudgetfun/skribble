@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:flutter/rendering.dart';
@@ -12,11 +13,22 @@ import 'helpers/pump_map.dart';
 void main() {
   setUpAll(registerSkribbleMaterialIcons);
 
-  for (final roughness in [0.0, 8.0]) {
-    testWidgets('route geometry is exact at roughness $roughness', (
-      tester,
-    ) async {
-      const key = Key('route');
+  testWidgets('route geometry is exact and ignores roughness', (
+    tester,
+  ) async {
+    const key = Key('route');
+    const size = Size(360, 240);
+    const route = Color(0xFF376D7B);
+    const points = [
+      LatLng(-2, -3),
+      LatLng(-2, -1),
+      LatLng(2, -1),
+      LatLng(2, -1),
+      LatLng(0, 1),
+      LatLng(0, 3),
+    ];
+
+    Future<ByteData> render(double roughness) async {
       await pumpMapApp(
         tester,
         RepaintBoundary(
@@ -29,15 +41,8 @@ void main() {
               WiredMapFeatureLayer(
                 features: [
                   WiredMapPolyline(
-                    points: const [
-                      LatLng(-2, -3),
-                      LatLng(-2, -1),
-                      LatLng(2, -1),
-                      LatLng(2, -1),
-                      LatLng(0, 1),
-                      LatLng(0, 3),
-                    ],
-                    color: const Color(0xFF376D7B),
+                    points: points,
+                    color: route,
                     strokeWidth: 5,
                     seed: roughness.toInt() + 1,
                   ),
@@ -46,7 +51,7 @@ void main() {
             ],
           ),
         ),
-        size: const Size(360, 240),
+        size: size,
         theme: WiredThemeData(
           drawConfig: DrawConfig.build(
             roughness: roughness,
@@ -55,13 +60,83 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
+      return (await tester.runAsync(() async {
+        final image = await tester
+            .renderObject<RenderRepaintBoundary>(find.byKey(key))
+            .toImage();
+        final bytes = (await image.toByteData())!;
+        image.dispose();
+        return bytes;
+      }))!;
+    }
 
-      await expectLater(
-        find.byKey(key),
-        matchesGoldenFile('goldens/map-route.png'),
+    final smooth = await render(0);
+    final rough = await render(8);
+
+    // Roughness and seed never move a route: both renders match exactly.
+    expect(rough.buffer.asUint8List(), smooth.buffer.asUint8List());
+
+    const camera = WiredMapCamera(
+      center: LatLng(0, 0),
+      zoom: 5,
+      viewportSize: size,
+      minimumZoom: 0,
+      maximumZoom: 20,
+    );
+    final projected = [for (final point in points) camera.project(point)];
+    double distanceToRoute(Offset pixel) {
+      var nearest = double.infinity;
+      for (var index = 1; index < projected.length; index++) {
+        final start = projected[index - 1];
+        final span = projected[index] - start;
+        final length = span.distanceSquared;
+        final along = length == 0
+            ? 0.0
+            : (((pixel - start).dx * span.dx + (pixel - start).dy * span.dy) /
+                      length)
+                  .clamp(0.0, 1.0);
+        nearest = math.min(nearest, (pixel - (start + span * along)).distance);
+      }
+      return nearest;
+    }
+
+    int pixelAt(Offset point) =>
+        smooth.getUint32((point.dy.floor() * 360 + point.dx.floor()) * 4);
+    final ink = (route.toARGB32() << 8 | 0xff) & 0xffffffff;
+    final paper = (const Color(0xFFF3F0E8).toARGB32() << 8 | 0xff) & 0xffffffff;
+
+    // Every segment, including the turns, is solid route ink at its centre.
+    for (var index = 1; index < projected.length; index++) {
+      if (projected[index] == projected[index - 1]) continue;
+      expect(
+        pixelAt((projected[index - 1] + projected[index]) / 2),
+        ink,
+        reason: 'segment $index',
       );
-    });
-  }
+    }
+
+    var inked = 0;
+    for (var y = 0; y < size.height; y++) {
+      for (var x = 0; x < size.width; x++) {
+        final pixel = smooth.getUint32((y * 360 + x) * 4);
+        if (pixel == paper) continue;
+        // Only the stroke, half its width plus antialiasing, leaves paper.
+        expect(
+          distanceToRoute(Offset(x + 0.5, y + 0.5)),
+          lessThanOrEqualTo(2.5 + 1.5),
+          reason: 'ink at ($x, $y)',
+        );
+        if (pixel == ink) inked++;
+      }
+    }
+
+    // The round-capped stroke covers about its width times its length.
+    var length = 0.0;
+    for (var index = 1; index < projected.length; index++) {
+      length += (projected[index] - projected[index - 1]).distance;
+    }
+    expect(inked, inInclusiveRange(length * 3, length * 6));
+  });
 
   testWidgets('category pins stay legible on paper and dark maps', (
     tester,

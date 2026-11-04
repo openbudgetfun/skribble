@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// Every bundled doodle and fill pattern with stable, changeable seeds.
 class WiredDrawingPage extends HookWidget {
@@ -11,7 +12,10 @@ class WiredDrawingPage extends HookWidget {
   Widget build(BuildContext context) {
     final seed = useState(1);
     return WiredScaffold(
-      appBar: WiredAppBar(title: const Text('Doodles and fills')),
+      appBar: WiredAppBar(
+        leading: const StorybookBackButton(),
+        title: const Text('Doodles and fills'),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [

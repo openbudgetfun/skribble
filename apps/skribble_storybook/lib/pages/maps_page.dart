@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_maps/skribble_maps.dart';
 import 'package:skribble_storybook/testing/map_keys.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 enum _MapInk { paper, night }
 
@@ -68,7 +69,7 @@ class MapsPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const _MapBackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('A little wander'),
       ),
       body: Padding(
@@ -400,29 +401,6 @@ const _places = <_MapCity, _MapPlaces>{
     ],
   ),
 };
-
-class _MapBackButton extends HookWidget {
-  const _MapBackButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: 'Back',
-      button: true,
-      excludeSemantics: true,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () => Navigator.maybePop(context),
-        child: const SizedBox.square(
-          dimension: 44,
-          child: Center(
-            child: Text('‹', style: TextStyle(fontSize: 34, height: 1)),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _MapStatus extends HookWidget {
   const _MapStatus({required this.text});

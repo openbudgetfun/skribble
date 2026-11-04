@@ -8,8 +8,10 @@ import 'wired_theme.dart';
 
 /// An outlined button with a thick hand-drawn border and no fill.
 class WiredOutlinedButton extends WiredButtonBase {
+  /// <!-- {=dartRoughBorderRadius|trim|linePrefix:"  /// "} -->
   /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
   /// for square corners.
+  /// <!-- {/dartRoughBorderRadius} -->
   final BorderRadius borderRadius;
 
   /// Creates an outlined button. See [WiredButtonBase] for the shared
@@ -43,7 +45,10 @@ class WiredOutlinedButton extends WiredButtonBase {
           color: theme.borderColor,
         ),
       ),
-      textStyle: TextButton.styleFrom(foregroundColor: theme.textColor),
+      textStyle: TextButton.styleFrom(
+        foregroundColor: theme.textColor,
+        disabledForegroundColor: theme.disabledTextColor,
+      ),
     );
   }
 }

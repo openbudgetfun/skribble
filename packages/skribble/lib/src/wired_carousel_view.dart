@@ -64,6 +64,7 @@ class WiredCarouselView extends HookWidget {
   /// Optional semantic label describing the carousel for accessibility.
   final String? semanticLabel;
 
+  /// Creates a hand-drawn carousel of [children].
   const WiredCarouselView({
     super.key,
     required this.children,

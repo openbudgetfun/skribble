@@ -23,7 +23,9 @@ import 'package:skribble_storybook/pages/studio_page.dart';
 import 'package:skribble_storybook/pages/variable_fonts_page.dart';
 import 'package:skribble_storybook/widgets/roughness_picker.dart';
 
+/// Root widget of the skribble storybook, which routes to every gallery page.
 class SkribbleStorybookApp extends HookWidget {
+  /// Creates the storybook app.
   const SkribbleStorybookApp({super.key});
 
   @override
@@ -54,7 +56,15 @@ class SkribbleStorybookApp extends HookWidget {
           verticalDirection: VerticalDirection.up,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(child: child ?? const SizedBox.shrink()),
+            // The toolbar above already keeps clear of the status bar, so
+            // the pages below must not inset for it a second time.
+            Expanded(
+              child: MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: child ?? const SizedBox.shrink(),
+              ),
+            ),
             WiredRoughnessPicker(
               value: roughness.value,
               onChanged: (value) => roughness.value = value,

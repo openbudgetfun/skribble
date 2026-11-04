@@ -170,6 +170,7 @@ class DrawConfig {
 /// Reset via [reset] to replay the same random sequence, ensuring
 /// consistent sketchy output across rebuilds.
 class Randomizer {
+  /// Creates a stream seeded with [seed], which defaults to 0.
   Randomizer({int seed = 0}) : _seed = seed, _random = Random(seed);
 
   final int _seed;

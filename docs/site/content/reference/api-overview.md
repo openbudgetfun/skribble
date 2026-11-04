@@ -81,12 +81,12 @@ Key types:
 
 Colors, roughness, and the widgets-based application root.
 
-| Export                        | Purpose                                                   |
-| ----------------------------- | --------------------------------------------------------- |
-| `wired_theme.dart`            | WiredThemeData + WiredTheme (Material sync)               |
-| `wired_theme_scope.dart`      | WiredThemeScope (widgets-only theme boundary)             |
-| `skribble_app.dart`           | SkribbleApp / SkribbleApp.router, SkribbleThemeMode       |
-| `skribble_localizations.dart` | SkribbleLocalizationsDelegate (widgets-only localization) |
+| Export                        | Purpose                                                                     |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| `wired_theme.dart`            | WiredThemeData + WiredTheme (Material sync)                                 |
+| `wired_theme_scope.dart`      | WiredThemeScope (widgets-only theme boundary)                               |
+| `skribble_app.dart`           | SkribbleApp / SkribbleApp.router, SkribbleThemeMode, SkribbleScrollBehavior |
+| `skribble_localizations.dart` | SkribbleLocalizationsDelegate (widgets-only localization)                   |
 
 Key types:
 
@@ -95,6 +95,7 @@ Key types:
 - `WiredThemeScope` — the Material-free half of `WiredTheme`; what `SkribbleApp` installs
 - `SkribbleApp` — widgets-based app shell (home/routes, router, theme, localization, shortcuts); see [App shell](../core/app-shell)
 - `SkribbleThemeMode` — `system`/`light`/`dark` without importing Material's `ThemeMode`
+- `SkribbleScrollBehavior` — `SkribbleApp`'s default scrolling: stretch overscroll on Android and an ink-coloured desktop scrollbar
 - `SkribbleLocalizations`, `SkribbleLocalizationsDelegate` — English widgets labels and right-to-left text direction
 
 ### 5. Compatibility layer (transitional)
@@ -263,7 +264,7 @@ Every icon widget takes a `weight` from 100 to 700 (falling back to `IconTheme.w
 
 `package:skribble/testing.dart` checks laid-out screens for the ink's breathing room, in widget tests and with no extra dependencies:
 
-- `crampedText(root)` — text closer than `kWiredInkPadding` to the hand-drawn shape around it, as `CrampedText` reports
+- `crampedText(root)` — text closer than `kWiredInkPadding` to the hand-drawn shape around it, as `CrampedText` reports; `lines: true` and `icons: true` also report lines crossing text and icons crowding their shape, tagged with `CrampedInk`
 - `RoughGenerationCounter` — how many times rough geometry has been generated since `RoughGenerationCounter.reset()`; cache regression tests assert it does not climb on rebuilds with equal-valued painters. `debugIconPainterGenerations` / `debugResetIconPainterCacheStats()` do the same for the icon painter cache.
 - `squeezedText(root)` — paragraphs wrapped into a narrow column on a small screen
 
@@ -282,24 +283,31 @@ The main library depends on:
 
 ## Companion packages
 
-| Package                     | Purpose                                                            |
-| --------------------------- | ------------------------------------------------------------------ |
-| `skribble_icons`            | Every icon set behind one import, with a unified lookup            |
-| `skribble_icons_material`   | Flutter's Material icons as hand-drawable geometry                 |
-| `skribble_icons_lucide`     | Lucide outline icons                                               |
-| `skribble_icons_bxs`        | Boxicons solid icons                                               |
-| `skribble_icons_simple`     | Simple Icons brand marks                                           |
-| `skribble_icons_cib`        | CoreUI brand marks                                                 |
-| `skribble_emoji`            | skribble's own hand-drawn emoji for every Unicode emoji            |
-| `skribble_font_recursive`   | Roughened Recursive Casual, Linear, and Mono, following roughness  |
-| `skribble_font_noto`        | Skribble Noto (Soft): hand-drawn Google Noto, Latin/Greek/Cyrillic |
-| `skribble_font_noto_sketch` | Skribble Noto Sketch: the default and recommended typeface         |
-| `skribble_font_noto_lively` | Skribble Noto Lively: the most playful level                       |
-| `skribble_maps`             | MapLibre maps with hand-drawn skribble overlays                    |
-| `skribble_charts`           | Exact OHLC data, hand-drawn charts, indicators, and drawing tools  |
-| `skribble_rough`            | The pure-Dart rough engine, with SVG path output                   |
-| `skribble_jaspr`            | Server-rendered hand-drawn components for Jaspr sites              |
-| `skribble_lints`            | Shared lint rules (extends `very_good_analysis`)                   |
+<!-- {=docsPackageCatalog} -->
+
+| Package                                                                           | What it adds                                                                                 |
+| --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [`skribble`](https://pub.dev/packages/skribble)                                   | The Wired widgets, `SkribbleApp`, the theme, and the Flutter painting layer. Start here.     |
+| [`skribble_font_noto_sketch`](https://pub.dev/packages/skribble_font_noto_sketch) | Skribble Noto Sketch, the default hand-drawn lettering                                       |
+| [`skribble_font_noto`](https://pub.dev/packages/skribble_font_noto)               | Skribble Noto Soft, the calmest Noto level                                                   |
+| [`skribble_font_noto_lively`](https://pub.dev/packages/skribble_font_noto_lively) | Skribble Noto Lively, the most playful Noto level                                            |
+| [`skribble_font_recursive`](https://pub.dev/packages/skribble_font_recursive)     | Roughened Recursive Casual, Linear, and Mono, which follow the roughness level               |
+| [`skribble_icons`](https://pub.dev/packages/skribble_icons)                       | Every icon set behind one import, with a unified lookup                                      |
+| [`skribble_icons_material`](https://pub.dev/packages/skribble_icons_material)     | Flutter's Material icons as hand-drawable geometry                                           |
+| [`skribble_icons_lucide`](https://pub.dev/packages/skribble_icons_lucide)         | Lucide outline icons                                                                         |
+| [`skribble_icons_bxs`](https://pub.dev/packages/skribble_icons_bxs)               | Boxicons Solid icons                                                                         |
+| [`skribble_icons_simple`](https://pub.dev/packages/skribble_icons_simple)         | Simple Icons brand marks                                                                     |
+| [`skribble_icons_cib`](https://pub.dev/packages/skribble_icons_cib)               | CoreUI Brands marks                                                                          |
+| [`skribble_emoji`](https://pub.dev/packages/skribble_emoji)                       | skribble's own hand-drawn emoji for every Unicode emoji                                      |
+| [`skribble_maps`](https://pub.dev/packages/skribble_maps)                         | MapLibre maps with hand-drawn pins, routes, areas, and controls                              |
+| [`skribble_charts`](https://pub.dev/packages/skribble_charts)                     | Exact OHLC data, hand-drawn financial charts, indicators, and drawing tools                  |
+| [`skribble_rough`](https://pub.dev/packages/skribble_rough)                       | The pure-Dart rough engine, with SVG path output and no Flutter dependency                   |
+| [`skribble_jaspr`](https://pub.dev/packages/skribble_jaspr)                       | Server-rendered hand-drawn components for Jaspr sites                                        |
+| [`skribble_font_roughen`](https://pub.dev/packages/skribble_font_roughen)         | A command-line tool that roughens your own fonts                                             |
+| [`skribble_emoji_gen`](https://pub.dev/packages/skribble_emoji_gen)               | The generator that compiles emoji, glyph art, and icon sets into Dart catalogs (maintainers) |
+| [`skribble_lints`](https://pub.dev/packages/skribble_lints)                       | Shared lint rules, extending `very_good_analysis`                                            |
+
+<!-- {/docsPackageCatalog} -->
 
 ### skribble_icons
 

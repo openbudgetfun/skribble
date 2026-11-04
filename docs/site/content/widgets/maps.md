@@ -21,6 +21,8 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_maps/skribble_maps.dart';
 ```
 
+`WiredMapPin` category glyphs come from the rough Material icon catalog. Add `skribble_icons_material` and call `registerSkribbleMaterialIcons()` once at startup, or a pin's `icon` draws nothing. The zoom buttons draw their own plus and minus when no catalog provides them.
+
 ## Create a map
 
 The default paper style is OpenFreeMap Positron. These are real OpenStreetMap-derived streets, buildings, and labels, not a mock map. It is global and does not need an API key. Select Load OpenFreeMap to start the live map. Once loaded, drag and zoom inside the map; scroll the document outside it or close the map to resume reading.
@@ -198,7 +200,7 @@ Pins default to 52 by 64 logical pixels with a 28-pixel vector icon. Seeded pen 
 
 Each category has a pastel fill and dark brown ink by default, including on dark maps. Override `fillColor`, `inkColor`, or `iconColor` to match your app. Keep the glyph as well as the color so categories remain distinguishable without color vision. A pin's seed varies its shoulders while its bottom-center anchor stays fixed.
 
-Pin rendering tests check visible, distinct category glyphs with 4.5:1 ink contrast, complete cream sticker edges, and stable pixels across fresh renders on paper and dark backgrounds. These checks allow intentional improvements to icon contours without committing bitmap snapshots.
+Pin rendering tests check visible, distinct category glyphs with 4.5:1 ink contrast, complete cream sticker edges, and stable pixels across fresh renders on paper and dark backgrounds. These checks allow intentional improvements to icon contours without committing bitmap snapshots. Route tests likewise check that every inked pixel lies within the stroke of the projected polyline and that smooth and rough themes render identical routes.
 
 Roads and labels retain MapLibre's exact geometry. `WiredMapPolyline` also follows its supplied points exactly, with continuous round joins and caps. Theme roughness does not distort routes, and the existing polyline `seed` parameter is retained for compatibility without affecting the stroke. `WiredMapPolygon` keeps a sketch outline and light hatching for area annotations. Its default hatch opacity is 22 percent to leave underlying labels visible.
 
@@ -333,6 +335,8 @@ The Storybook Maps page opens the same map package as a full-screen example. Swi
 | `WiredMapFeatureLayer` | Draw tappable app-owned routes and polygons                |
 | `WiredMapAttribution`  | Optional hand-drawn provider attribution badge             |
 | `WiredMapZoomControls` | Accessible hand-drawn zoom controls                        |
+
+The zoom buttons and a linked `WiredMapAttribution` are keyboard-focusable, activate with Enter or Space, and expose a tap action to screen readers. A focused control draws a heavier line. A zoom button at its limit is disabled and leaves the focus order. The attribution badge pads its text by `kWiredInkPadding` so the provider credit keeps clear of its outline, and wraps the whole credit rather than cutting it short.
 
 ## Why maps stay flat
 

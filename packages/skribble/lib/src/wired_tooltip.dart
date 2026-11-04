@@ -8,11 +8,19 @@ import 'wired_theme.dart';
 
 /// A tooltip with a hand-drawn border.
 class WiredTooltip extends HookWidget {
+  /// The widget the tooltip is attached to.
   final Widget child;
+
+  /// The text shown in the tooltip.
   final String message;
+
+  /// See [Tooltip.waitDuration].
   final Duration? waitDuration;
+
+  /// See [Tooltip.showDuration].
   final Duration? showDuration;
 
+  /// Creates a hand-drawn tooltip showing [message] for [child].
   const WiredTooltip({
     super.key,
     required this.child,

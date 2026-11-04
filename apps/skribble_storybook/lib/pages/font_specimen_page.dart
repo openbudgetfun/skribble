@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// Font specimen page — every renderable character of the bundled skribble
 /// font family, across weights and sizes.
@@ -9,6 +10,7 @@ import 'package:skribble/skribble.dart';
 /// symbols. Characters are rendered with the `skribble` family and fall back
 /// to the platform font for anything the roughened font does not contain.
 class FontSpecimenPage extends HookWidget {
+  /// Creates the page.
   const FontSpecimenPage({super.key});
 
   /// Latin alphabet, digits, punctuation, currency, math, and common symbols.
@@ -22,6 +24,7 @@ class FontSpecimenPage extends HookWidget {
     'Symbols': '©®™°µ¶¼½¾¹²³⁴←↑→↓↔↕↖↗↘↙⌘⌥⇧⌃⏎⌫␣',
   };
 
+  /// Font sizes offered as choice chips, in logical pixels.
   static const sizes = <double>[12, 16, 24, 36, 48];
 
   @override
@@ -41,7 +44,10 @@ class FontSpecimenPage extends HookWidget {
     final size = useState<double>(24);
 
     return WiredScaffold(
-      appBar: WiredAppBar(title: const Text('Font Specimen')),
+      appBar: WiredAppBar(
+        leading: const StorybookBackButton(),
+        title: const Text('Font Specimen'),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

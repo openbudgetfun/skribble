@@ -51,7 +51,7 @@ Document(
 )
 ```
 
-Add `class="skribble-page"` to `<body>` for the paper background, ink colour, and hand-drawn font.
+Add `class="skribble-page"` to `<body>` for the paper background, ink colour, and hand-drawn font. From a component, `const Document.body(attributes: {'class': 'skribble-page'})` sets it.
 
 ## 3. Use the components
 
@@ -82,17 +82,23 @@ Component.fragment([
 ])
 ```
 
-| Component        | Renders                                                                                                  |
-| ---------------- | -------------------------------------------------------------------------------------------------------- |
-| `WiredBox`       | Any element (`tag`, `classes`, `attributes`) with a rough rectangle behind its child                     |
-| `WiredCard`      | A padded `WiredBox` for grouped content                                                                  |
-| `WiredCircle`    | A rough ellipse around its child, for badges and step numbers                                            |
-| `WiredButton`    | `<a>` when `href` is set, otherwise `<button type="button">`; `primary` (accent fill) or `secondary`     |
-| `WiredHighlight` | An inline `underline`, `circle`, `marker`, `strikethrough`, or `box` around text, coloured by `color`    |
-| `WiredDivider`   | A rough horizontal rule with `role="separator"`                                                          |
-| `WiredSketch`    | A doodle at an explicit size: `.rectangle`, `.ellipse`, `.line`, `.polygon`, `.curve` (with `arrowhead`) |
+| Component        | Renders                                                                                                      |
+| ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| `WiredBox`       | Any element (`tag`, `classes`, `attributes`) with a rough rectangle behind its child                         |
+| `WiredCard`      | A padded `WiredBox` for grouped content                                                                      |
+| `WiredCircle`    | A rough ellipse around its child, for badges and step numbers                                                |
+| `WiredButton`    | `<a>` when `href` is set, otherwise `<button type="button">`; `primary` (accent fill) or `secondary`         |
+| `WiredHighlight` | An inline `underline`, `circle`, `marker`, `strikethrough`, or `box` around text, coloured by `color`        |
+| `WiredDivider`   | A rough horizontal rule with `role="separator"`                                                              |
+| `WiredSketch`    | A doodle at an explicit size: `.rectangle`, `.ellipse`, `.polygon`, and `.line` or `.curve` with `arrowhead` |
 
-Closed shapes accept a `RoughFillStyle`: `none`, `hachure`, `crossHatch`, `zigzag`, `dashed`, `dots`, or `solid`. Give neighbouring components different seeds so their wobbles differ. `WiredButton.attributes` passes through extras such as `type="submit"` or `target`.
+Closed shapes accept a `RoughFillStyle`: `none`, `hachure`, `crossHatch`, `zigzag`, `dashed`, `dots`, or `solid`. Give neighbouring components different seeds so their wobbles differ.
+
+`WiredButton.attributes`, `WiredBox.attributes`, and `WiredCircle.attributes` pass through extras such as `id`, `type="submit"`, `target`, or `aria-label`. A `class` entry is added to the component's own classes and a `style` entry follows its `--skribble-fill`, so the element never repeats either attribute. The `fill` and `color` arguments take one CSS value, such as `#ffe08a` or `var(--brand)`; a value containing `;`, `{`, or `}` fails the build (Jaspr answers with status 500 and logs an `ArgumentError`) rather than injecting other declarations.
+
+### Room around the content
+
+Content keeps at least 8px above and below and 12px at the sides from the drawn line, the same rule the Flutter widgets follow with `kWiredInkPadding`. `WiredBox` pads `0.75rem 1.25rem` through a zero-specificity `:where(.skribble-box)` rule, so any class of yours replaces it. `WiredCard` pads `1.25rem 1.5rem`, `WiredCircle` `1em 1.25em`, and `WiredButton` `0.7em 1.3em` with a `2.75rem` minimum height that grows with the label and text scaling.
 
 ### Doodles
 
@@ -140,6 +146,8 @@ Every colour and width is a custom property, so theming needs no Dart:
 
 Defaults are declared with `:where(:root)`, so any rule of yours overrides them. A dark palette applies under `prefers-color-scheme: dark`; override the properties inside your own dark-mode selector to change it. Add the `skribble-wobble` class to a `WiredBox` or `WiredCard` to give it the button's hover tilt.
 
+Under `forced-colors: active` (Windows High Contrast, for example) the stylesheet draws outlines in `CanvasText` (`ButtonText` on buttons), hatching in `GrayText`, and the marker in `Highlight` with `HighlightText` text, and drops solid fills so forced text never lands on the accent colour.
+
 ## 5. The skribble webfont
 
 The stylesheet loads no fonts. The default lettering, Skribble Noto Sketch, is [`packages/skribble_font_noto_sketch/assets/fonts/SkribbleNotoSketch-Regular.ttf`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_noto_sketch/assets/fonts) (OFL license). Self-host it and declare the `SkribbleNotoSketch` family, which `--skribble-font` lists first. It has one Regular face; browsers synthesise bold and italic.
@@ -167,14 +175,14 @@ Paths carry `currentColor` presentation attributes, so the shapes still draw wit
 Accessibility comes from the HTML, not the ink:
 
 - Ink overlays are `aria-hidden="true"` and `focusable="false"`.
-- `WiredButton` renders a native `<a>` or `<button>`, labelled by its child, with a dashed `:focus-visible` ring outside the ink.
+- `WiredButton` renders a native `<a>` or `<button>`, labelled by its child, with a dashed `:focus-visible` ring outside the ink. Give an icon-only button `attributes: {'aria-label': '…'}`. `disabled` or `aria-disabled="true"` dims it and stops its hover and press motion.
 - `WiredDivider` is `role="separator"`. `WiredHighlight` is visual only: wrap its child in `<em>`, `<strong>`, `<mark>`, or `<del>` when the emphasis carries meaning.
-- Hover tilts the ink, and buttons flip between two drawings from neighbouring seeds, the "line boil" of hand-drawn animation. Both effects are pure CSS, only apply to hover-capable pointers, and stop under `prefers-reduced-motion: reduce`.
+- Hover tilts the ink, and buttons flip between two drawings from neighbouring seeds, the "line boil" of hand-drawn animation. Both effects are pure CSS, only apply to hover-capable pointers, and live behind `prefers-reduced-motion: no-preference`, so they never run when the reader asks for reduced motion.
 
 ### Limits
 
 - The ink is generated once on the server. Components register no event handlers; add your own behaviour around them if you hydrate on the client.
-- Elements much wider or taller than a component's nominal canvas stretch the wobble with them. Prefer `WiredSketch` at an explicit size when the proportions matter.
+- Elements much wider or taller than a component's nominal canvas stretch the wobble with them, and the line moves further in from the edge. The default padding clears the line at about the nominal size (240 by 120 for a box, 320 by 200 for a card); give very large boxes more padding, or prefer `WiredSketch` at an explicit size when the proportions matter.
 - Output is byte-stable for a given seed on the same Dart SDK. The engine's random stream comes from `dart:math`, which the SDK does not promise to keep identical across releases.
 
 ## Drawing with the engine directly

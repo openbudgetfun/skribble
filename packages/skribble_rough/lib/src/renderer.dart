@@ -17,7 +17,12 @@ List<Op> _line(
   final lengthSq = pow(x1 - x2, 2) + pow(y1 - y2, 2);
   final length = sqrt(lengthSq);
 
-  if (length >= 48 && config.roughness > 0 && config.lineWobble > 0) {
+  // An infinite edge has no segments to wander over: drawn piecewise, it
+  // would never finish.
+  if (length >= 48 &&
+      length.isFinite &&
+      config.roughness > 0 &&
+      config.lineWobble > 0) {
     return _wanderingLine(x1, y1, x2, y2, config, overlay);
   }
 
@@ -154,9 +159,42 @@ List<Op> _wanderingLine(
   return ops;
 }
 
+/// The most points one arc pass samples.
+///
+/// An ordinary arc takes a few dozen; the cap only binds for a sweep so
+/// small, or a step count so large, that the sampler would otherwise run for
+/// minutes or run out of memory. Matches `maxArcSamples` in the JavaScript
+/// engine and `MAX_ARC_SAMPLES` in the Rust one.
+const int _maxArcSamples = 4096;
+
+/// Moves an arc's sweep into `[0, ∞)` and caps it at one full turn.
+///
+/// Returns null when there is no arc to draw: a sweep that is empty,
+/// reversed, or not finite. The arc samplers step by half the sweep, so a
+/// zero sweep would never advance and a reversed one would walk away from
+/// its stop forever.
+(double, double)? _arcSweep(double start, double stop) {
+  if (!start.isFinite || !stop.isFinite || !(stop > start)) return null;
+  var from = start;
+  var to = stop;
+  if ((to - from) > (pi * 2)) return (0, pi * 2);
+  if (from < -pi * 2 * 1024) {
+    // Stepping a turn at a time is exact for ordinary angles but would take
+    // forever for a far-off start.
+    final turns = (-from / (pi * 2)).ceilToDouble() * pi * 2;
+    return (from + turns, to + turns);
+  }
+  while (from < 0) {
+    from += pi * 2;
+    to += pi * 2;
+  }
+  return (from, to);
+}
+
 /// Builds `OpSet` instances for rough shapes — lines, rectangles,
 /// ellipses, arcs, and curves.
 class OpSetBuilder {
+  /// Builds a rough line from ([x1], [y1]) to ([x2], [y2]), drawn twice.
   static OpSet buildLine(
     double x1,
     double y1,
@@ -170,6 +208,8 @@ class OpSetBuilder {
     );
   }
 
+  /// Builds a rough ellipse centred on ([x], [y]), [width] across and
+  /// [height] tall.
   static OpSet ellipse(
     double x,
     double y,
@@ -181,10 +221,15 @@ class OpSetBuilder {
     return ellipseSet(x, y, config, params);
   }
 
+  /// Builds a rough closed polygon through [points].
   static OpSet buildPolygon(List<PointD> points, DrawConfig config) {
     return linearPath(points, true, config);
   }
 
+  /// Builds rough straight segments through [points], joining the last
+  /// point back to the first when [close] is true.
+  ///
+  /// Two points draw a single line, and fewer draw nothing.
   static OpSet linearPath(List<PointD> points, bool close, DrawConfig config) {
     final int len = points.length;
     if (len > 2) {
@@ -227,6 +272,13 @@ class OpSetBuilder {
     }
   }
 
+  /// Builds a rough elliptical arc around [center], [width] across and
+  /// [height] tall, from angle [start] to [stop] in radians.
+  ///
+  /// Angles are moved to be non-negative, and a sweep over a full turn
+  /// draws the whole ellipse. When [closed] is true, both ends join the
+  /// centre: with rough lines when [roughClosure] is true, otherwise with
+  /// plain ones.
   static OpSet arc(
     PointD center,
     double width,
@@ -238,22 +290,15 @@ class OpSetBuilder {
     DrawConfig config,
   ) {
     final List<Op> ops = [];
+    final sweep = _arcSweep(start, stop);
+    if (sweep == null) return OpSet(type: OpSetType.path, ops: ops);
     final double cx = center.x;
     final double cy = center.y;
     double rx = (width / 2).abs();
     double ry = (height / 2).abs();
     rx += config.offsetSymmetric(rx * 0.01);
     ry += config.offsetSymmetric(ry * 0.01);
-    double strt = start;
-    double stp = stop;
-    while (strt < 0) {
-      strt += pi * 2;
-      stp += pi * 2;
-    }
-    if ((stp - strt) > (pi * 2)) {
-      strt = 0;
-      stp = pi * 2;
-    }
+    final (strt, stp) = sweep;
     final double ellipseInc = pi * 2 / config.curveStepCount;
     final double arcIn = min(ellipseInc / 2, (stp - strt) / 2);
     ops
@@ -302,6 +347,8 @@ class OpSetBuilder {
     return OpSet(type: OpSetType.path, ops: ops);
   }
 
+  /// Returns the outline of the arc pie slice for filling: points along the
+  /// arc from [startAngle] to [stopAngle] in radians, then [center].
   static List<PointD> arcPolygon(
     PointD center,
     double width,
@@ -310,24 +357,23 @@ class OpSetBuilder {
     double stopAngle,
     DrawConfig config,
   ) {
+    final sweep = _arcSweep(startAngle, stopAngle);
+    if (sweep == null) return [center];
     double radiusX = (width / 2).abs();
     double radiusY = (height / 2).abs();
     radiusX += config.offsetSymmetric(radiusX * 0.01);
     radiusY += config.offsetSymmetric(radiusY * 0.01);
-    double start = startAngle;
-    double stop = stopAngle;
-    while (start < 0) {
-      start += pi * 2;
-      stop += pi * 2;
-    }
-    if ((stop - start) > (pi * 2)) {
-      start = 0;
-      stop = pi * 2;
-    }
+    final (start, stop) = sweep;
     final double ellipseInc = pi * 2 / config.curveStepCount;
     final double increment = min(ellipseInc / 2, (stop - start) / 2);
     final List<PointD> points = [];
-    for (double angle = start; angle <= stop; angle = angle + increment) {
+    // A step count of zero or less gives no forward step, so the samples
+    // stop at the cap instead of never reaching the stop angle.
+    for (
+      var angle = start, n = 0;
+      increment > 0 && angle <= stop && n < _maxArcSamples;
+      angle = angle + increment, n++
+    ) {
       points.add(
         PointD(
           center.x + radiusX * cos(angle),
@@ -343,6 +389,8 @@ class OpSetBuilder {
     return points;
   }
 
+  /// Builds a rough smooth curve through [points], drawn twice with
+  /// different jitter.
   static OpSet curve(List<PointD> points, DrawConfig config) {
     final List<Op> op1 = OpsGenerator.curveWithOffset(
       points,
@@ -362,6 +410,8 @@ class OpSetBuilder {
 /// Low-level generator of `Op` lists for individual line strokes
 /// with hand-drawn jitter applied via `DrawConfig`.
 class OpsGenerator {
+  /// Draws a rough line from ([x1], [y1]) to ([x2], [y2]) twice, as two pen
+  /// passes.
   static List<Op> doubleLine(
     double x1,
     double y1,
@@ -419,12 +469,17 @@ class OpsGenerator {
     return [];
   }
 
+  /// Jitters each of [points] by up to [offset] in x and y, then fits a
+  /// curve through them as pen [pass].
+  ///
+  /// The first and last points are repeated so the curve runs end to end.
   static List<Op> curveWithOffset(
     List<PointD> points,
     double offset,
     DrawConfig config, {
     int pass = 0,
   }) {
+    if (points.isEmpty) return [];
     final List<PointD> result = [
       PointD(
         points.first.x + config.offsetSymmetric(offset),
@@ -444,6 +499,11 @@ class OpsGenerator {
     return curve(result, config, pass: pass);
   }
 
+  /// Draws one rough pass of an elliptical arc centred on ([cx], [cy]) with
+  /// radii [rx] and [ry], from [strt] to [stp] in radians.
+  ///
+  /// Points are spaced [increment] radians apart and jittered by up to
+  /// [offset]; the curve is drawn as pen [pass].
   static List<Op> arc(
     double increment,
     double cx,
@@ -468,7 +528,11 @@ class OpsGenerator {
             0.9 * ry * sin(radOffset - increment),
       ),
     );
-    for (double angle = radOffset; angle <= stp; angle += increment) {
+    for (
+      var angle = radOffset, n = 0;
+      increment > 0 && angle <= stp && n < _maxArcSamples;
+      angle += increment, n++
+    ) {
       points.add(
         PointD(
           config.offsetSymmetric(offset) + cx + rx * cos(angle),
@@ -483,6 +547,11 @@ class OpsGenerator {
   }
 }
 
+/// Works out the jittered radii and point spacing for a rough ellipse
+/// [width] across and [height] tall.
+///
+/// Larger ellipses get more points, never fewer than
+/// [DrawConfig.curveStepCount].
 EllipseParams generateEllipseParams(
   double width,
   double height,
@@ -506,6 +575,8 @@ EllipseParams generateEllipseParams(
   return EllipseParams(increment: increment, rx: rx, ry: ry);
 }
 
+/// Builds the two pen passes of a rough ellipse centred on ([x], [y]) from
+/// [ellipseParams].
 OpSet ellipseSet(
   double x,
   double y,
@@ -538,6 +609,12 @@ OpSet ellipseSet(
   return OpSet(type: OpSetType.path, ops: o1 + o2);
 }
 
+/// Returns jittered points around an ellipse centred on ([cx], [cy]) with
+/// radii [rx] and [ry], spaced [increment] radians apart.
+///
+/// Each point moves by up to [offset] in x and y. The closing points run
+/// [overlap] radians past the start so the stroke overlaps itself, as a
+/// hand-drawn loop does.
 List<PointD> computeEllipseAllPoints({
   required double increment,
   required double cx,
@@ -560,11 +637,14 @@ List<PointD> computeEllipseAllPoints({
           0.9 * ry * sin(radOffset - increment),
     ),
   );
+  // A step that is not positive, or too small to move the angle (an
+  // infinite size or a huge step count), would never finish the turn.
   for (
     double angle = radOffset;
-    angle < (pi * 2 + radOffset - 0.01);
+    increment > 0 && angle < (pi * 2 + radOffset - 0.01);
     angle = angle + increment
   ) {
+    if (angle + increment == angle) break;
     allPoints.add(
       PointD(
         config.offsetSymmetric(offset) + cx + rx * cos(angle),

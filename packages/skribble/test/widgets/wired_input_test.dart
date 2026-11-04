@@ -186,8 +186,53 @@ void main() {
       await pumpApp(tester, WiredInput(errorText: 'Required'));
 
       expect(find.text('Required'), findsOneWidget);
+      final painter = tester.widget<WiredCanvas>(
+        find.descendant(
+          of: find.byType(WiredInput),
+          matching: find.byType(WiredCanvas),
+        ),
+      );
+      expect(
+        (painter.painter as WiredRoundedRectangleBase).borderColor,
+        WiredThemeData().errorColor,
+      );
+    });
+
+    testWidgets('writes the error and counter below the ink, clear of it', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        const SizedBox(
+          width: 300,
+          child: WiredInput(errorText: 'Required', maxLength: 8),
+        ),
+      );
+
+      final ink = tester.getRect(
+        find.descendant(
+          of: find.byType(WiredInput),
+          matching: find.byType(WiredCanvas),
+        ),
+      );
+      final error = tester.getRect(find.text('Required'));
+      final counter = tester.getRect(find.text('0/8'));
+
+      expect(error.top, greaterThan(ink.bottom));
+      expect(counter.top, greaterThan(ink.bottom));
+      expect(error.left - ink.left, greaterThanOrEqualTo(12));
+    });
+
+    testWidgets('writes the value in the theme text colour', (tester) async {
+      const ink = Color(0xFFEEE8DD);
+      await pumpWired(
+        tester,
+        const SizedBox(width: 300, child: WiredInput()),
+        theme: WiredThemeData(textColor: ink),
+      );
+
       final field = tester.widget<TextField>(find.byType(TextField));
-      expect(field.decoration?.errorText, 'Required');
+      expect(field.style?.color, ink);
     });
 
     testWidgets('autofocuses when requested', (tester) async {

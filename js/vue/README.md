@@ -33,7 +33,7 @@ import { Sketch } from "@skribble.dev/vue";
 
 ## `useSketch`
 
-`useSketch(shape, options)` takes values, refs, or getters and returns a computed ref of the drawing.
+`useSketch(shape, options)` takes values, refs, or getters and returns a computed ref of the drawing. It redraws only when what the inputs draw changes, so a getter that returns a fresh but equal object, such as an inline `:shape` literal, does not redraw on every render. That needs Vue 3.4 or newer; on 3.3 it redraws whenever an input is replaced.
 
 ```js
 const seed = ref(1);

@@ -8,6 +8,7 @@ import 'package:skribble_storybook/testing/map_keys.dart';
 /// The storybook's front page: what skribble is, a few controls to play
 /// with, and a door into every category.
 class HomePage extends HookWidget {
+  /// Creates the page.
   const HomePage({super.key});
 
   @override
@@ -225,54 +226,63 @@ class _CategoryCard extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final active = useState(false);
-    return WiredCard(
-      height: null,
-      child: InkWell(
-        key: switch (category.route) {
-          '/charts' => ChartDemoKeys.category,
-          '/maps' => MapDemoKeys.category,
-          _ => null,
-        },
-        onTap: () => Navigator.pushNamed(context, category.route),
-        onHover: (value) => active.value = value,
-        onFocusChange: (value) => active.value = value,
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            children: [
-              // The title names the category; the emoji is decoration.
-              ExcludeSemantics(
-                child: WiredAnimatedEmoji(
-                  category.emoji,
-                  size: 40,
-                  animating: active.value,
+    final hovered = useState(false);
+    final focused = useState(false);
+    // A keyboard user needs to see which card Tab reached, so the focused
+    // card is washed in the theme's marker colour.
+    return WiredTheme(
+      data: focused.value
+          ? theme.copyWith(fillColor: theme.markerColor)
+          : theme,
+      child: WiredCard(
+        height: null,
+        fill: focused.value,
+        child: InkWell(
+          key: switch (category.route) {
+            '/charts' => ChartDemoKeys.category,
+            '/maps' => MapDemoKeys.category,
+            _ => null,
+          },
+          onTap: () => Navigator.pushNamed(context, category.route),
+          onHover: (value) => hovered.value = value,
+          onFocusChange: (value) => focused.value = value,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              children: [
+                // The title names the category; the emoji is decoration.
+                ExcludeSemantics(
+                  child: WiredAnimatedEmoji(
+                    category.emoji,
+                    size: 40,
+                    animating: hovered.value || focused.value,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      category.title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        category.title,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      category.description,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: theme.disabledTextColor,
+                      const SizedBox(height: 4),
+                      Text(
+                        category.description,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: theme.disabledTextColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

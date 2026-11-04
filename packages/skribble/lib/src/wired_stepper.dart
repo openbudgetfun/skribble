@@ -11,10 +11,16 @@ import 'wired_theme.dart';
 
 /// A step in [WiredStepper].
 class WiredStep {
+  /// The step's title, shown next to its numbered circle.
   final Widget title;
+
+  /// Optional text shown below [title].
   final Widget? subtitle;
+
+  /// The step's body, shown only while this is the current step.
   final Widget content;
 
+  /// Creates a step with a [title] and [content].
   const WiredStep({required this.title, this.subtitle, required this.content});
 }
 
@@ -23,8 +29,14 @@ class WiredStep {
 /// The stepper is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the current step information.
 class WiredStepper extends HookWidget {
+  /// The steps shown from top to bottom.
   final List<WiredStep> steps;
+
+  /// The index of the active step in [steps]. Earlier steps are drawn as
+  /// completed. Defaults to 0.
   final int currentStep;
+
+  /// Called with the index of a step when its header is tapped.
   final ValueChanged<int>? onStepTapped;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -32,6 +44,7 @@ class WiredStepper extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a vertical stepper from [steps].
   const WiredStepper({
     super.key,
     required this.steps,
@@ -54,7 +67,11 @@ class WiredStepper extends HookWidget {
             _buildStep(i, steps[i], theme, MediaQuery.textScalerOf(context)),
             if (i < steps.length - 1)
               Padding(
-                padding: const EdgeInsets.only(left: 16),
+                // The connector runs from the middle of the circle above,
+                // however large the circle has grown.
+                padding: EdgeInsetsDirectional.only(
+                  start: _circleSize(MediaQuery.textScalerOf(context)) / 2 - 1,
+                ),
                 child: SizedBox(
                   width: 2,
                   height: 24,
@@ -94,10 +111,7 @@ class WiredStepper extends HookWidget {
         children: [
           SizedBox.square(
             // The circle keeps the ink's breathing room as text grows.
-            dimension: math.max(
-              36,
-              textScaler.scale(14) + 22,
-            ),
+            dimension: _circleSize(textScaler),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -165,3 +179,8 @@ class WiredStepper extends HookWidget {
     );
   }
 }
+
+/// The step circle's diameter: 36 pixels, or enough for its number and the
+/// ink's breathing room when the text is scaled up.
+double _circleSize(TextScaler textScaler) =>
+    math.max(36, textScaler.scale(14) * 1.5 + 15);

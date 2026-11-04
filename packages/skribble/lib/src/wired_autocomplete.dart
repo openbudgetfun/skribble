@@ -7,15 +7,31 @@ import 'wired_theme.dart';
 
 /// A hand-drawn wrapper around Flutter's [Autocomplete].
 class WiredAutocomplete<T extends Object> extends HookWidget {
+  /// Every option the field can suggest.
   final List<T> options;
+
+  /// The text shown for, and matched against, each option.
   final String Function(T option) displayStringForOption;
+
+  /// Called with the option the user picks.
   final ValueChanged<T>? onSelected;
+
+  /// The field's starting text.
   final TextEditingValue? initialValue;
+
+  /// Hint shown while the field is empty. Defaults to `Start typing...`.
   final String? hintText;
+
+  /// A label written before the field.
   final String? labelText;
+
+  /// The tallest the options list grows before it scrolls.
   final double optionsMaxHeight;
+
+  /// The width of the options list.
   final double optionsWidth;
 
+  /// Creates a hand-drawn autocomplete field.
   const WiredAutocomplete({
     super.key,
     required this.options,
@@ -70,13 +86,21 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                           TextField(
                             controller: textEditingController,
                             focusNode: focusNode,
+                            style: TextStyle(color: theme.textColor),
+                            cursorColor: theme.borderColor,
                             decoration: InputDecoration(
+                              // Desktop's compact density would take 4 pixels off each side of
+                              // the padding, bringing text within the ink's breathing room.
+                              visualDensity: VisualDensity.standard,
                               filled: false,
                               border: InputBorder.none,
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               disabledBorder: InputBorder.none,
                               hintText: hintText ?? 'Start typing...',
+                              hintStyle: TextStyle(
+                                color: theme.disabledTextColor,
+                              ),
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 12,
                                 vertical: 12,
@@ -104,6 +128,16 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
                 constraints: BoxConstraints(maxHeight: optionsMaxHeight),
                 child: Stack(
                   children: [
+                    // The options float over the page, so they sit on the
+                    // theme's paper instead of showing what is beneath.
+                    Positioned.fill(
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: theme.fillColor,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
                     Positioned.fill(
                       child: WiredCanvas(
                         painter: WiredRoundedRectangleBase(

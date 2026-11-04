@@ -3,16 +3,28 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
 /// A choice chip with a hand-drawn border and selection state.
 ///
 /// The choice chip is wrapped in [Semantics] for accessibility, providing
-/// screen readers with the selected state information.
+/// screen readers with the selected and enabled state. It joins focus
+/// traversal while enabled and toggles with a tap, Enter, or Space.
 class WiredChoiceChip extends HookWidget {
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
+
+  /// Whether the chip is selected.
   final bool selected;
+
+  /// Called with the toggled selection when the chip is activated.
+  ///
+  /// Null disables the chip: it ignores taps and keys, leaves focus
+  /// traversal, and reports itself disabled.
   final ValueChanged<bool>? onSelected;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -20,6 +32,7 @@ class WiredChoiceChip extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a choice chip with a hand-drawn border.
   const WiredChoiceChip({
     super.key,
     required this.label,
@@ -29,23 +42,26 @@ class WiredChoiceChip extends HookWidget {
     this.seed,
   });
 
+  /// <!-- {=dartInkSeed|trim|linePrefix:"  /// "} -->
   /// Varies the hand behind this widget's ink. The same seed always draws
   /// the same wobble, so neighbouring shapes of the same size need different
   /// seeds to stop them reading as copies of each other. Null keeps the
   /// theme's seed.
+  /// <!-- {/dartInkSeed} -->
   final int? seed;
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
+    final onActivate = onSelected == null ? null : () => onSelected!(!selected);
     return Semantics(
       label: semanticLabel,
       selected: selected,
       button: true,
-      onTap: () => onSelected?.call(!selected),
+      enabled: onActivate != null,
       child: buildWiredElement(
-        child: GestureDetector(
-          onTap: () => onSelected?.call(!selected),
+        child: WiredActivatable(
+          onActivate: onActivate,
           child: IntrinsicWidth(
             child: ConstrainedBox(
               constraints: const BoxConstraints(minHeight: kWiredChipHeight),
@@ -76,7 +92,10 @@ class WiredChoiceChip extends HookWidget {
                         color: selected ? theme.fillColor : theme.textColor,
                         fontSize: 13,
                       ),
-                      child: label,
+                      // A semantic label replaces the label's own text, not joins it.
+                      child: semanticLabel == null
+                          ? label
+                          : ExcludeSemantics(child: label),
                     ),
                   ),
                 ],

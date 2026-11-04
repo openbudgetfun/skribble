@@ -114,6 +114,39 @@ void main() {
       expect(single(body, '.skribble-box').attributes['style'], isNull);
     });
 
+    testServer('merges class and style attributes instead of repeating them', (
+      tester,
+    ) async {
+      final markup = await renderMarkup(
+        tester,
+        const WiredBox(
+          fill: 'pink',
+          fillStyle: RoughFillStyle.hachure,
+          classes: 'tier',
+          attributes: {'class': 'pro', 'style': 'max-width: 20rem;'},
+          child: Component.text('Pro'),
+        ),
+      );
+      final tag = RegExp('<div [^>]*>').firstMatch(markup)![0]!;
+
+      // Browsers keep only the first copy of a repeated attribute.
+      expect(' class='.allMatches(tag), hasLength(1), reason: tag);
+      expect(' style='.allMatches(tag), hasLength(1), reason: tag);
+      expect(tag, contains('class="skribble-box tier pro"'));
+      expect(tag, contains('style="--skribble-fill: pink; max-width: 20rem"'));
+    });
+
+    testServer('rejects a fill that would inject declarations', (
+      tester,
+    ) async {
+      for (final fill in ['red; background: url(x)', 'red} a {', '{']) {
+        await expectBuildError(
+          tester,
+          WiredBox(fill: fill, child: const Component.text('x')),
+        );
+      }
+    });
+
     testServer('renders identical markup for the same seed', (tester) async {
       Component box() => const WiredBox(
         seed: 12,

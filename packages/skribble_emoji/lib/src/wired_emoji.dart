@@ -60,6 +60,9 @@ class WiredEmoji extends StatelessWidget {
   final double size;
 
   /// Accessible description. Defaults to the emoji's Unicode name.
+  ///
+  /// Pass an empty string for a decorative emoji, such as one beside text
+  /// that already says the same thing, to leave it out of semantics.
   final String? semanticLabel;
 
   /// The colours the emoji is drawn with.
@@ -76,10 +79,18 @@ class WiredEmoji extends StatelessWidget {
   Widget build(BuildContext context) {
     final entry = SkribbleEmoji.lookup(emoji);
     if (entry == null) {
-      return SizedBox.square(
+      final text = SizedBox.square(
         dimension: size,
         child: FittedBox(child: Text(emoji)),
       );
+      return switch (semanticLabel) {
+        null => text,
+        '' => ExcludeSemantics(child: text),
+        final label => Semantics(
+          label: label,
+          child: ExcludeSemantics(child: text),
+        ),
+      };
     }
     final theme = WiredTheme.of(context);
     final drawing = emojiDrawingFor(
@@ -89,9 +100,8 @@ class WiredEmoji extends StatelessWidget {
       palette: palette,
       weight: emojiPenWeight(context, theme, weight),
     );
-    return Semantics(
+    return emojiSemantics(
       label: semanticLabel ?? entry.name,
-      image: true,
       child: SizedBox.square(
         dimension: size,
         child: RepaintBoundary(
@@ -101,6 +111,15 @@ class WiredEmoji extends StatelessWidget {
     );
   }
 }
+
+/// Labels a drawn emoji as an image, or leaves it out of semantics when
+/// [label] is empty.
+///
+/// Not exported: `WiredEmoji` and `WiredAnimatedEmoji` share it.
+Widget emojiSemantics({required String label, required Widget child}) =>
+    label.isEmpty
+    ? ExcludeSemantics(child: child)
+    : Semantics(label: label, image: true, child: child);
 
 /// The pen width multiplier for an emoji [weight] from 100 to 700, falling
 /// back to [IconThemeData.weight] and then 400, scaled with the theme pen.

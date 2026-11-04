@@ -50,8 +50,6 @@ const List<String> _weekdaysShort = [
   'Sat',
 ];
 
-const int _cDay = 24 * 60 * 60 * 1000;
-
 const double _kCellWidth = 45.0;
 
 DateTime _dateOf(DateTime d) => DateTime(d.year, d.month, d.day);
@@ -109,6 +107,7 @@ class WiredDateRangePickerDialog extends HookWidget {
   /// Optional semantic label describing the dialog for accessibility.
   final String? semanticLabel;
 
+  /// Creates a hand-drawn date range picker dialog.
   const WiredDateRangePickerDialog({
     super.key,
     this.initialDateRange,
@@ -185,7 +184,11 @@ class WiredDateRangePickerDialog extends HookWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10),
+                // At least the ink's breathing room from the border.
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 10,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -225,14 +228,18 @@ class WiredDateRangePickerDialog extends HookWidget {
                       onSelect: selectDay,
                     ),
                     const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    // The actions stack, end-aligned, when a narrow screen or
+                    // large text leaves no room for them side by side.
+                    OverflowBar(
+                      alignment: MainAxisAlignment.end,
+                      overflowAlignment: OverflowBarAlignment.end,
+                      spacing: 8,
+                      overflowSpacing: 8,
                       children: [
                         WiredButton(
                           onPressed: () => Navigator.of(context).pop(),
                           child: const Text('Cancel'),
                         ),
-                        const SizedBox(width: 8),
                         if (start.value != null && end.value != null)
                           WiredButton(
                             onPressed: () => Navigator.of(context).pop(
@@ -327,14 +334,18 @@ class WiredDateRangePickerDialog extends HookWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         navButton('<<', canGoPrev, onPrev),
+        // The month shrinks to one line rather than stacking its words.
         Flexible(
-          child: Text(
-            monthYear,
-            textAlign: TextAlign.center,
-            style: _wiredTextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: theme.textColor,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              monthYear,
+              textAlign: TextAlign.center,
+              style: _wiredTextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: theme.textColor,
+              ),
             ),
           ),
         ),
@@ -350,13 +361,18 @@ class WiredDateRangePickerDialog extends HookWidget {
       children: [
         for (final weekday in _weekdaysShort)
           Expanded(
-            child: Text(
-              weekday,
-              textAlign: TextAlign.center,
-              style: _wiredTextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: theme.textColor,
+            // A narrow screen or large text shrinks the name rather than
+            // breaking it over two lines.
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                weekday,
+                textAlign: TextAlign.center,
+                style: _wiredTextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: theme.textColor,
+                ),
               ),
             ),
           ),
@@ -388,8 +404,12 @@ class WiredDateRangePickerDialog extends HookWidget {
 
     for (var week = 0; week < amountOfWeeks; week++) {
       for (var dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-        final day = DateTime.fromMillisecondsSinceEpoch(
-          firstDayInMonth.millisecondsSinceEpoch + _cDay * dayOffset,
+        // Calendar arithmetic, not milliseconds: adding 24-hour steps
+        // across a daylight-saving change lands on the wrong date.
+        final day = DateTime(
+          firstDayInMonth.year,
+          firstDayInMonth.month,
+          1 + dayOffset,
         );
         cells.add(
           _buildDayCell(
@@ -441,7 +461,11 @@ class WiredDateRangePickerDialog extends HookWidget {
 
     return Semantics(
       button: enabled,
+      selected: isSelected,
       label: 'Select ${_formatShort(day)}',
+      // The label already says the date; the digit inside is not read again.
+      excludeSemantics: true,
+      onTap: enabled ? () => onSelect(day) : null,
       child: InkWell(
         onTap: enabled ? () => onSelect(day) : null,
         child: Stack(
@@ -454,7 +478,8 @@ class WiredDateRangePickerDialog extends HookWidget {
                   child: WiredCanvas(
                     painter: WiredRectangleBase(
                       strokeWidth: theme.strokeWidth,
-                      fillColor: Colors.transparent,
+                      fillColor: theme.borderColor.withValues(alpha: .35),
+                      borderColor: theme.borderColor,
                     ),
                     fillerType: RoughFilter.hachureFiller,
                   ),
@@ -467,16 +492,22 @@ class WiredDateRangePickerDialog extends HookWidget {
                     strokeWidth: theme.strokeWidth,
                     diameterRatio: 0.8,
                     fillColor: Colors.transparent,
+                    borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.noFiller,
                 ),
               ),
+            // The number shrinks rather than wrapping when a narrow dialog
+            // or large text leaves the cell too small for it.
             Center(
-              child: Text(
-                '${day.day}',
-                textAlign: TextAlign.center,
-                style: _wiredTextStyle(
-                  color: dimmed ? theme.disabledTextColor : theme.textColor,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  '${day.day}',
+                  textAlign: TextAlign.center,
+                  style: _wiredTextStyle(
+                    color: dimmed ? theme.disabledTextColor : theme.textColor,
+                  ),
                 ),
               ),
             ),

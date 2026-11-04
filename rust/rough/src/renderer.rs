@@ -13,6 +13,11 @@ use crate::math::clamp;
 /// Edges at least this long wander locally instead of bowing as one curve.
 const WANDER_LENGTH: f64 = 48.0;
 
+/// The most points one arc pass samples. An ordinary arc takes a few dozen;
+/// the cap only binds for a sweep so small, or a step count so large, that
+/// the sampler would otherwise run for minutes or run out of memory.
+const MAX_ARC_SAMPLES: usize = 4096;
+
 /// One rough stroke from (`x1`, `y1`) to (`x2`, `y2`). The `overlay` stroke is
 /// the lighter second pass.
 fn line(
@@ -28,7 +33,13 @@ fn line(
 	let length_sq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
 	let length = length_sq.sqrt();
 
-	if length >= WANDER_LENGTH && options.roughness > 0.0 && options.line_wobble > 0.0 {
+	// An infinite edge has no segments to wander over: drawn piecewise, it
+	// would never finish.
+	if length >= WANDER_LENGTH
+		&& length.is_finite()
+		&& options.roughness > 0.0
+		&& options.line_wobble > 0.0
+	{
 		return wandering_line(x1, y1, x2, y2, config, overlay);
 	}
 
@@ -250,15 +261,17 @@ fn arc_ops(
 		config.offset_symmetric(offset, 1.0) + center.x + 0.9 * rx * (rad_offset - increment).cos(),
 		config.offset_symmetric(offset, 1.0) + center.y + 0.9 * ry * (rad_offset - increment).sin(),
 	));
-	// An arc with no sweep has a zero step, which would never reach `stop`;
-	// the other engines hang on it, so it draws only its end points here.
+	// A step count of zero or less gives no forward step, so the samples
+	// stop at the cap instead of never reaching `stop`.
 	let mut angle = rad_offset;
-	while increment > 0.0 && angle <= stop {
+	let mut samples = 0;
+	while increment > 0.0 && angle <= stop && samples < MAX_ARC_SAMPLES {
 		points.push(Point::new(
 			config.offset_symmetric(offset, 1.0) + center.x + rx * angle.cos(),
 			config.offset_symmetric(offset, 1.0) + center.y + ry * angle.sin(),
 		));
 		angle += increment;
+		samples += 1;
 	}
 	let end = Point::new(center.x + rx * stop.cos(), center.y + ry * stop.sin());
 	points.push(end);
@@ -313,8 +326,13 @@ pub(crate) fn ellipse_points(
 
 	let mut points = vec![jittered(rad_offset - increment, 0.9)];
 	let mut angle = rad_offset;
+	// A step that is not positive, or too small to move the angle (an
+	// infinite size or a huge step count), would never finish the turn.
 	while increment > 0.0 && angle < PI * 2.0 + rad_offset - 0.01 {
 		points.push(jittered(angle, 1.0));
+		if angle + increment == angle {
+			break;
+		}
 		angle += increment;
 	}
 	points.push(jittered(rad_offset + PI * 2.0 + overlap * 0.5, 1.0));
@@ -367,19 +385,32 @@ pub(crate) fn linear_path(points: &[Point], close: bool, config: &mut DrawConfig
 	}
 }
 
-/// Normalises an arc's angles the way rough.js does: positive, and never
-/// more than one full turn.
-fn normalised_angles(start: f64, stop: f64) -> (f64, f64) {
+/// Moves an arc's sweep into `[0, ∞)` and caps it at one full turn, the
+/// way rough.js does.
+///
+/// Returns `None` when there is no arc to draw: a sweep that is empty,
+/// reversed, or not finite. The arc samplers step by half the sweep, so a
+/// zero sweep would never advance and a reversed one would walk away from
+/// its stop. Mirrors `_arcSweep` in the Dart engine.
+fn arc_sweep(start: f64, stop: f64) -> Option<(f64, f64)> {
+	if !start.is_finite() || !stop.is_finite() || stop <= start {
+		return None;
+	}
+	if stop - start > TAU {
+		return Some((0.0, TAU));
+	}
+	if start < -TAU * 1024.0 {
+		// Stepping a turn at a time is exact for ordinary angles but would
+		// take forever for a far-off start.
+		let turns = (-start / TAU).ceil() * TAU;
+		return Some((start + turns, stop + turns));
+	}
 	let (mut start, mut stop) = (start, stop);
 	while start < 0.0 {
 		start += TAU;
 		stop += TAU;
 	}
-	if stop - start > TAU {
-		(0.0, TAU)
-	} else {
-		(start, stop)
-	}
+	Some((start, stop))
 }
 
 /// The outline of an elliptical arc, as a pie slice when `closed`.
@@ -393,11 +424,13 @@ pub(crate) fn arc(
 	rough_closure: bool,
 	config: &mut DrawConfig,
 ) -> OpSet {
+	let Some((start, stop)) = arc_sweep(start, stop) else {
+		return OpSet::path(Vec::new());
+	};
 	let mut rx = (width / 2.0).abs();
 	let mut ry = (height / 2.0).abs();
 	rx += config.offset_symmetric(rx * 0.01, 1.0);
 	ry += config.offset_symmetric(ry * 0.01, 1.0);
-	let (start, stop) = normalised_angles(start, stop);
 	let ellipse_increment = PI * 2.0 / config.options.curve_step_count;
 	let increment = (ellipse_increment / 2.0).min((stop - start) / 2.0);
 
@@ -440,17 +473,19 @@ pub(crate) fn arc_polygon(
 	stop: f64,
 	config: &mut DrawConfig,
 ) -> Vec<Point> {
+	let Some((start, stop)) = arc_sweep(start, stop) else {
+		return vec![center];
+	};
 	let mut rx = (width / 2.0).abs();
 	let mut ry = (height / 2.0).abs();
 	rx += config.offset_symmetric(rx * 0.01, 1.0);
 	ry += config.offset_symmetric(ry * 0.01, 1.0);
-	let (start, stop) = normalised_angles(start, stop);
 	let ellipse_increment = PI * 2.0 / config.options.curve_step_count;
 	let increment = (ellipse_increment / 2.0).min((stop - start) / 2.0);
 
 	let mut points = Vec::new();
 	let mut angle = start;
-	while increment > 0.0 && angle <= stop {
+	while increment > 0.0 && angle <= stop && points.len() < MAX_ARC_SAMPLES {
 		points.push(Point::new(
 			center.x + rx * angle.cos(),
 			center.y + ry * angle.sin(),

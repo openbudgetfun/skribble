@@ -17,7 +17,10 @@ export interface FillerConfigOptions {
   hachureGap?: number;
   /** Length of each dash in a dashed fill. */
   dashOffset?: number;
-  /** Gap between dashes in a dashed fill. */
+  /**
+   * Gap between dashes in a dashed fill. When `dashOffset + dashGap` is
+   * under 0.1 the lines are drawn undashed.
+   */
   dashGap?: number;
   /** Offset of zig-zag turns from the hachure line. */
   zigzagOffset?: number;
@@ -124,6 +127,11 @@ export abstract class Filler {
     const last = vertices[vertices.length - 1] as Point;
     if (first.x !== last.x || first.y !== last.y) vertices.push(first);
     if (vertices.length <= 2) return lines;
+    // A scan line never reaches an infinite edge's end. NaN coordinates
+    // already end the scan, so only infinities need turning away.
+    if (vertices.some((p) => p.x === Infinity || p.x === -Infinity || p.y === Infinity || p.y === -Infinity)) {
+      return lines;
+    }
 
     const gap = Math.max(this.config.hachureGap, 0.1);
     const edges = this.createSortedEdges(vertices);
@@ -297,6 +305,13 @@ export class HatchFiller extends Filler {
   }
 }
 
+/**
+ * The shortest dash pattern ({@link FillerConfig.dashOffset} plus
+ * {@link FillerConfig.dashGap}) that is dashed. Shorter patterns, including
+ * zero and negative ones, draw undashed hachure lines.
+ */
+const minDashPeriod = 0.1;
+
 /** Fills a polygon with dashed hachure lines. */
 export class DashedFiller extends Filler {
   fill(points: readonly Point[]): OpSet {
@@ -308,7 +323,16 @@ export class DashedFiller extends Filler {
     const offset = config.dashOffset;
     const gap = config.dashGap;
     const ops: Op[] = [];
+    const period = offset + gap;
     for (const line of lines) {
+      // A pattern too short to see, or with no length at all, would split
+      // the line into countless dashes. Draw the line whole instead.
+      if (!(period >= minDashPeriod) || !Number.isFinite(period)) {
+        ops.push(
+          ...OpsGenerator.doubleLine(line.source.x, line.source.y, line.target.x, line.target.y, config.drawConfig),
+        );
+        continue;
+      }
       const length = line.length;
       const count = Math.floor(length / (offset + gap));
       const lineOffset = (length + gap - count * (offset + gap)) / 2;

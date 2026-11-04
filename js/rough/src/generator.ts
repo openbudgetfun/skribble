@@ -87,6 +87,9 @@ export class Generator {
   arc(x: number, y: number, width: number, height: number, start: number, stop: number, closed = false): Drawable {
     const center = { x, y };
     const outline = OpSetBuilder.arc(center, width, height, start, stop, closed, true, this.drawConfig);
+    // An empty, reversed, or non-finite sweep draws nothing, and has no area
+    // for a filler to work on.
+    if (outline.ops.length === 0) return this.build(outline, undefined, "arc");
     const fillPoints = OpSetBuilder.arcPolygon(center, width, height, start, stop, this.drawConfig);
     return this.build(outline, fillPoints, "arc");
   }
@@ -110,7 +113,9 @@ export class Generator {
     bottomRight = topLeft,
     bottomLeft = topLeft,
   ): Drawable {
-    const maxRadius = Math.min(width / 2, height / 2);
+    // Clamp radii to half of the smallest side. A negative side leaves no
+    // room for a corner, rather than an upper bound below the lower one.
+    const maxRadius = Math.max(0, Math.min(width, height) / 2);
     const tl = clamp(topLeft, 0, maxRadius);
     const tr = clamp(topRight, 0, maxRadius);
     const br = clamp(bottomRight, 0, maxRadius);
@@ -118,7 +123,7 @@ export class Generator {
 
     const ops: Op[] = [];
     const config = this.drawConfig;
-    const offset = Math.min(config.maxRandomnessOffset, Math.min(width, height) / 16);
+    const offset = Math.max(0, Math.min(config.maxRandomnessOffset, Math.min(width, height) / 16));
 
     for (let pass = 0; pass < 2; pass++) {
       const gain = pass === 0 ? 0.45 : 0.7;

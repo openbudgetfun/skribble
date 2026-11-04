@@ -1,20 +1,20 @@
 ---
 title: skribble — Hand-Drawn Flutter Design System
-description: A standalone Flutter design system that renders every widget with a hand-drawn, sketchy aesthetic. 80+ widgets, full theming, and a migration bridge for existing Material and Cupertino apps.
+description: A standalone Flutter design system that renders every widget with a hand-drawn, sketchy aesthetic. More than 100 widgets, full theming, and a migration bridge for existing Material and Cupertino apps.
 ---
 
 # skribble
 
 skribble is a standalone Flutter design system that replaces polished, pixel-perfect surfaces with a hand-drawn, sketchy aesthetic. It is a peer of `package:material_ui` / `package:cupertino_ui`, not a theme or a skin over either. Every widget renders with wobbly borders, hachure fills, and imperfect lines -- giving your app the feel of a whiteboard prototype that actually works.
 
-The library ships 80+ production-ready widgets, each built on `HookWidget` and prefixed with `Wired`. Drop them into any Flutter project and get a cohesive hand-drawn look without writing custom painting code.
+The library ships more than 100 production-ready widgets, each prefixed with `Wired`. Drop them into any Flutter project and get a cohesive hand-drawn look without writing custom painting code.
 
 ## What makes skribble different
 
 - **Hand-drawn rendering** -- borders wobble, corners overshoot, fills use hachure strokes. The rough-drawing engine is deterministic (seeded RNG), so output is consistent across rebuilds while still looking hand-sketched.
-- **80+ widgets** -- buttons, inputs, cards, dialogs, navigation bars, sliders, steppers, date pickers, data tables, and more. Material and Cupertino variants are both covered.
-- **HookWidget-based widget layer** -- every widget uses `HookWidget` (or `HookConsumerWidget` for Riverpod). The motion layer uses standard Flutter state and tickers by design; see [Architecture](/core/architecture).
-- **Standalone dependency rule** -- `packages/skribble/lib` imports `flutter/widgets` and below, never Material or Cupertino. A [transitional Material bridge](/core/material-bridge) exists so existing apps can adopt skribble incrementally, and it will remain a compatibility layer while the decoupling finishes.
+- **More than 100 widgets** -- buttons, inputs, cards, dialogs, navigation bars, sliders, steppers, date pickers, data tables, and more. Material and Cupertino variants are both covered.
+- **HookWidget-based widget layer** -- UI widgets use `HookWidget` (or `HookConsumerWidget` for Riverpod). The motion layer uses standard Flutter state and tickers by design; see [Architecture](/core/architecture).
+- **Standalone dependency rule** -- new code in `packages/skribble/lib` imports `flutter/widgets` and below, never Material or Cupertino; the remaining Material wrappers are [tracked debt](/core/architecture) being rewritten. A [transitional Material bridge](/core/material-bridge) exists so existing apps can adopt skribble incrementally, and it will remain a compatibility layer while the decoupling finishes.
 - **A widgets-based app shell** -- `SkribbleApp` builds on `WidgetsApp`, so a skribble app needs no Material ancestor. The quarantined compatibility layer (`WiredMaterialApp`, `WiredMaterialTheme`, `WiredThemeFromMaterial`) keeps Material and Cupertino adoption incremental.
 - **Centralized theming** -- one `WiredThemeData` object controls border color, fill color, stroke width, roughness, and text colors across every widget via `WiredTheme.of(context)`.
 
@@ -23,12 +23,10 @@ The library ships 80+ production-ready widgets, each built on `HookWidget` and p
 <!-- {=docsQuickInstallSection} -->
 
 ```bash
-dart pub add skribble
-# Hand-drawn text: add the default typeface, Skribble Noto Sketch (see Installation)
-flutter pub add skribble_font_noto_sketch
+flutter pub add skribble skribble_font_noto_sketch
 ```
 
-Then import it in your application code:
+`skribble` draws the widgets; `skribble_font_noto_sketch` adds the default hand-drawn lettering. Without the font package, borders still look sketchy but text falls back to the system font. Then import the library:
 
 ```dart
 // Static example: setup
@@ -64,28 +62,28 @@ Use `WiredPainterBase` for the rough shape, `WiredCanvas` to compose painters wi
 
 ### Use hand-drawn icons
 
-skribble includes a generated rough icon font based on Material Icons. Use `WiredIcon` with `MaterialRoughIcons` for icon data. See [Icons](/guides/icons) for details.
+`WiredIcon` draws a Flutter `IconData` by hand, and the core package ships 51 of its own glyphs (`SkribbleGlyphs`). Add `skribble_icons` for the full Material, Lucide, Boxicons, and brand catalogs. See [Icons](/widgets/icons) for details.
 
 ## Widget catalog
 
-skribble organizes its 80+ widgets into categories:
+skribble organizes its widgets into categories:
 
-| Category        | Widgets                                                                                                                                                                                                                                                                                                                            |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Buttons**     | `WiredButton`, `WiredElevatedButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredTextButton`, `WiredIconButton`, `WiredFloatingActionButton`                                                                                                                                                                                |
-| **Inputs**      | `WiredInput`, `WiredTextArea`, `WiredSearchBar`, `WiredAutocomplete`, `WiredCombo`                                                                                                                                                                                                                                                 |
-| **Selection**   | `WiredCheckbox`, `WiredRadio`, `WiredSwitch`, `WiredToggle`, `WiredToggleButtons`, `WiredSlider`, `WiredRangeSlider`                                                                                                                                                                                                               |
-| **Layout**      | `WiredCard`, `WiredDivider`, `WiredListTile`, `WiredExpansionTile`, `WiredStepper`, `WiredReorderableListView`                                                                                                                                                                                                                     |
-| **Navigation**  | `WiredAppBar`, `WiredSliverAppBar`, `WiredBottomNavigationBar`, `WiredBottomAppBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredNavigationDrawer`, `WiredDrawer`, `WiredTabBar`                                                                                                                                            |
-| **Feedback**    | `WiredDialog`, `WiredSnackBarContent` + `showWiredSnackBar()`, `WiredTooltip`, `WiredProgress`, `WiredCircularProgress`, `WiredBadge`, `WiredMaterialBanner`                                                                                                                                                                       |
-| **Surfaces**    | `WiredScaffold`, `WiredBottomSheet`, `WiredPopupMenu`, `WiredContextMenu`, `WiredMenuBar`                                                                                                                                                                                                                                          |
-| **Date & Time** | `WiredDatePicker`, `WiredCalendar`, `WiredCalendarDatePicker`, `WiredTimePicker`                                                                                                                                                                                                                                                   |
-| **Chips**       | `WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`                                                                                                                                                                                                                                                                |
-| **Data**        | `WiredDataTable`                                                                                                                                                                                                                                                                                                                   |
-| **Maps**        | `WiredMap`, `WiredMapController`, `WiredMapMarkerLayer`, `WiredMapPin`, `WiredMapFeatureLayer`                                                                                                                                                                                                                                     |
-| **Cupertino**   | `WiredCupertinoButton`, `WiredCupertinoTextField`, `WiredCupertinoSwitch`, `WiredCupertinoSlider`, `WiredCupertinoNavigationBar`, `WiredCupertinoTabBar`, `WiredCupertinoDatePicker`, `WiredCupertinoPicker`, `WiredCupertinoActionSheet`, `WiredCupertinoAlertDialog`, `WiredCupertinoSegmentedControl`, `WiredCupertinoScaffold` |
+| Category        | Widgets                                                                                                                                                                                                                                                                                                                                           |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Buttons**     | `WiredButton`, `WiredElevatedButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredTextButton`, `WiredIconButton`, `WiredFloatingActionButton`                                                                                                                                                                                               |
+| **Inputs**      | `WiredInput`, `WiredTextArea`, `WiredSearchBar`, `WiredAutocomplete`, `WiredCombo`                                                                                                                                                                                                                                                                |
+| **Selection**   | `WiredCheckbox`, `WiredRadio`, `WiredSwitch`, `WiredToggle`, `WiredToggleButtons`, `WiredSlider`, `WiredRangeSlider`                                                                                                                                                                                                                              |
+| **Layout**      | `WiredCard`, `WiredDivider`, `WiredListTile`, `WiredExpansionTile`, `WiredStepper`, `WiredReorderableListView`                                                                                                                                                                                                                                    |
+| **Navigation**  | `WiredAppBar`, `WiredSliverAppBar`, `WiredBottomNavigationBar`, `WiredBottomAppBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredNavigationDrawer`, `WiredDrawer`, `WiredTabBar`                                                                                                                                                           |
+| **Feedback**    | `WiredDialog`, `WiredSnackBarContent` + `showWiredSnackBar()`, `WiredTooltip`, `WiredProgress`, `WiredCircularProgress`, `WiredBadge`, `WiredMaterialBanner`                                                                                                                                                                                      |
+| **Surfaces**    | `WiredScaffold`, `WiredBottomSheet`, `WiredPopupMenuButton`, `WiredContextMenu`, `WiredMenuBar`                                                                                                                                                                                                                                                   |
+| **Date & Time** | `WiredDatePicker`, `WiredCalendar`, `WiredCalendarDatePicker`, `WiredTimePicker`                                                                                                                                                                                                                                                                  |
+| **Chips**       | `WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`                                                                                                                                                                                                                                                                               |
+| **Data**        | `WiredDataTable`                                                                                                                                                                                                                                                                                                                                  |
+| **Maps**        | `WiredMap`, `WiredMapController`, `WiredMapMarkerLayer`, `WiredMapPin`, `WiredMapFeatureLayer`                                                                                                                                                                                                                                                    |
+| **Cupertino**   | `WiredCupertinoButton`, `WiredCupertinoTextField`, `WiredCupertinoSwitch`, `WiredCupertinoSlider`, `WiredCupertinoNavigationBar`, `WiredCupertinoTabBar`, `WiredCupertinoDatePicker`, `WiredCupertinoPicker`, `WiredCupertinoActionSheet`, `WiredCupertinoAlertDialog`, `WiredCupertinoSegmentedControl`, `WiredPageScaffold`, `WiredTabScaffold` |
 
-Browse the full [widget reference](/widgets) for API details and live examples.
+Browse the full [widget reference](/widgets/buttons) for API details and live examples.
 
 ## Contributor resources
 

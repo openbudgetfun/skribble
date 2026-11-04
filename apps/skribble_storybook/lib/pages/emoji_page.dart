@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_emoji/skribble_emoji.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// The emoji each group tab shows.
 const Map<EmojiGroup, String> _groupIcons = {
@@ -24,6 +25,7 @@ const Map<EmojiGroup, String> _groupIcons = {
 /// Tapping an emoji opens a preview: animated, at several sizes, and at
 /// several pen weights.
 class EmojiPage extends HookWidget {
+  /// Creates the page.
   const EmojiPage({super.key});
 
   @override
@@ -50,97 +52,108 @@ class EmojiPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('Emoji'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
+      // One scroll view, so the header scrolls away with the grid and the
+      // page still fits a phone at large text sizes.
+      body: CustomScrollView(
+        slivers: [
+          SliverPadding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Hand-drawn emoji', style: textTheme.titleLarge),
-                const SizedBox(height: 4),
-                Text(
-                  '${_thousands(SkribbleEmoji.all.length)} emoji, every one '
-                  'drawn for skribble and inked live with the theme pen.',
-                  style: textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 12),
-                WiredInput(
-                  hintText: 'Search emoji by name…',
-                  semanticLabel: 'Search hand-drawn emoji',
-                  hintStyle: TextStyle(color: theme.disabledTextColor),
-                  onChanged: (value) => query.value = value,
-                ),
-                const SizedBox(height: 12),
-                _ToneRow(
-                  tone: tone.value,
-                  onChanged: (value) => tone.value = value,
-                ),
-              ],
-            ),
-          ),
-          if (query.value.trim().isEmpty) ...[
-            SizedBox(
-              height: 52,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (final MapEntry(key: value, value: icon)
-                      in _groupIcons.entries)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 3),
-                      child: WiredChoiceChip(
-                        selected: group.value == value,
-                        onSelected: (_) => group.value = value,
-                        semanticLabel: value.label,
-                        label: WiredEmoji(icon, semanticLabel: value.label),
-                      ),
-                    ),
+                  Text('Hand-drawn emoji', style: textTheme.titleLarge),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${_thousands(SkribbleEmoji.all.length)} emoji, every one '
+                    'drawn for skribble and inked live with the theme pen.',
+                    style: textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  WiredInput(
+                    hintText: 'Search emoji by name…',
+                    semanticLabel: 'Search hand-drawn emoji',
+                    hintStyle: TextStyle(color: theme.disabledTextColor),
+                    onChanged: (value) => query.value = value,
+                  ),
+                  const SizedBox(height: 12),
+                  _ToneRow(
+                    tone: tone.value,
+                    onChanged: (value) => tone.value = value,
+                  ),
                 ],
               ),
             ),
-            Padding(
+          ),
+          if (query.value.trim().isEmpty) ...[
+            SliverToBoxAdapter(
+              // Sized by its chips, which grow with the text.
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Row(
+                  children: [
+                    for (final MapEntry(key: value, value: icon)
+                        in _groupIcons.entries)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 3,
+                          vertical: 4,
+                        ),
+                        child: WiredChoiceChip(
+                          selected: group.value == value,
+                          onSelected: (_) => group.value = value,
+                          semanticLabel: value.label,
+                          label: WiredEmoji(icon, semanticLabel: value.label),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+            SliverPadding(
               padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
-              child: Text(group.value.label, style: textTheme.titleMedium),
+              sliver: SliverToBoxAdapter(
+                child: Text(group.value.label, style: textTheme.titleMedium),
+              ),
             ),
           ],
-          Expanded(
-            child: entries.isEmpty
-                ? Center(
-                    child: Text(
-                      'No emoji match "${query.value.trim()}"',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: theme.disabledTextColor,
-                      ),
-                    ),
-                  )
-                : GridView.builder(
-                    padding: const EdgeInsets.fromLTRB(12, 8, 12, 24),
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 56,
-                        ),
-                    itemCount: entries.length,
-                    itemBuilder: (context, index) {
-                      final entry = entries[index];
-                      return Tooltip(
-                        message: entry.name,
-                        child: InkWell(
-                          customBorder: const CircleBorder(),
-                          onTap: () => _showPreview(context, entry),
-                          child: Center(
-                            child: WiredEmoji(entry.emoji, size: 36),
-                          ),
-                        ),
-                      );
-                    },
+          if (entries.isEmpty)
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Center(
+                child: Text(
+                  'No emoji match "${query.value.trim()}"',
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: theme.disabledTextColor,
                   ),
-          ),
+                ),
+              ),
+            )
+          else
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(12, 8, 12, 24),
+              sliver: SliverGrid.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 56,
+                ),
+                itemCount: entries.length,
+                itemBuilder: (context, index) {
+                  final entry = entries[index];
+                  return Tooltip(
+                    message: entry.name,
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () => _showPreview(context, entry),
+                      child: Center(child: WiredEmoji(entry.emoji, size: 36)),
+                    ),
+                  );
+                },
+              ),
+            ),
         ],
       ),
     );

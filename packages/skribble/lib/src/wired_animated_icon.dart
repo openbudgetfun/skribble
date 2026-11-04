@@ -27,6 +27,7 @@ class WiredAnimatedIcon extends HookWidget {
   /// Text direction for the icon.
   final TextDirection? textDirection;
 
+  /// Creates an animated icon that morphs [icon] as [progress] runs.
   const WiredAnimatedIcon({
     super.key,
     required this.icon,

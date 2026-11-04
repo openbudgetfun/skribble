@@ -4,13 +4,12 @@ Skribble Noto Lively: a hand-drawn typeface generated from [Google Noto Sans](ht
 
 This package bundles Latin, Greek and Cyrillic. Every other Noto script, including Arabic, Devanagari, Thai, Chinese, Japanese and Korean, is in the Skribble Noto Lively font kit attached to each [GitHub release](https://github.com/openbudgetfun/skribble/releases/latest).
 
-The other levels are [`skribble_font_noto`](../skribble_font_noto) (Soft) and [`skribble_font_noto_sketch`](../skribble_font_noto_sketch) (Sketch). Each level is its own package so an app ships only the one it uses.
+The other levels are [`skribble_font_noto`](https://pub.dev/packages/skribble_font_noto) (Soft) and [`skribble_font_noto_sketch`](https://pub.dev/packages/skribble_font_noto_sketch) (Sketch). Each level is its own package so an app ships only the one it uses.
 
 ## Usage
 
-```yaml
-dependencies:
-  skribble_font_noto_lively: ^0.3.1
+```bash
+flutter pub add skribble_font_noto_lively
 ```
 
 No code is required: Flutter registers the `SkribbleNotoLively` family from this package's pubspec. Select it through core's theme:

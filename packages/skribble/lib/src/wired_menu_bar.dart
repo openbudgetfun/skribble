@@ -19,6 +19,7 @@ class WiredMenuBar extends HookWidget {
   /// Padding around the menu bar content.
   final EdgeInsets padding;
 
+  /// Creates a hand-drawn menu bar, 48 logical pixels tall.
   const WiredMenuBar({
     super.key,
     required this.children,
@@ -68,9 +69,14 @@ class WiredMenuBar extends HookWidget {
 
 /// A hand-drawn submenu button for use in [WiredMenuBar].
 class WiredSubmenuButton extends HookWidget {
+  /// The button label shown in the menu bar.
   final Widget child;
+
+  /// The items shown when the submenu opens, typically
+  /// [WiredMenuItemButton]s.
   final List<Widget> menuChildren;
 
+  /// Creates a submenu button.
   const WiredSubmenuButton({
     super.key,
     required this.child,
@@ -92,10 +98,16 @@ class WiredSubmenuButton extends HookWidget {
 
 /// A hand-drawn menu item button for use inside [WiredSubmenuButton].
 class WiredMenuItemButton extends HookWidget {
+  /// The item label.
   final Widget child;
+
+  /// Called when the item is activated. When null, the item is disabled.
   final VoidCallback? onPressed;
+
+  /// An optional widget shown before [child].
   final Widget? leadingIcon;
 
+  /// Creates a menu item button.
   const WiredMenuItemButton({
     super.key,
     required this.child,
@@ -152,6 +164,7 @@ class WiredCheckboxMenuButton extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a checkbox menu item.
   const WiredCheckboxMenuButton({
     super.key,
     required this.value,
@@ -235,6 +248,7 @@ class WiredRadioMenuButton<T> extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a radio menu item.
   const WiredRadioMenuButton({
     super.key,
     required this.value,
@@ -394,13 +408,26 @@ class _WiredMenuRadioIcon<T> extends HookWidget {
 ///
 /// Wraps Flutter's [DropdownMenu] with hand-drawn borders.
 class WiredDropdownMenu<T> extends HookWidget {
+  /// See [DropdownMenu.dropdownMenuEntries].
   final List<DropdownMenuEntry<T>> dropdownMenuEntries;
+
+  /// See [DropdownMenu.initialSelection].
   final T? initialSelection;
+
+  /// See [DropdownMenu.onSelected].
   final ValueChanged<T?>? onSelected;
+
+  /// See [DropdownMenu.hintText].
   final String? hintText;
+
+  /// Text for the field's floating label, shown as a [Text]. Null shows no
+  /// label.
   final String? label;
+
+  /// See [DropdownMenu.width].
   final double? width;
 
+  /// Creates a hand-drawn dropdown menu.
   const WiredDropdownMenu({
     super.key,
     required this.dropdownMenuEntries,

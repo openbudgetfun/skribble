@@ -33,9 +33,13 @@ final Map<_IconPainterKey, WiredSvgPainterEntry> _iconPainterCache =
 /// The counter exists so tests can assert that equal-valued icon data reuses
 /// a cached painter instead of preparing a new one.
 final class WiredSvgPainterEntry {
+  /// Wraps [painter] and stamps it with the next generation number.
   WiredSvgPainterEntry(this.painter) : generation = _iconPainterGenerations++;
 
+  /// The prepared painter shared by every icon with the same inputs.
   final WiredSvgIconPainter painter;
+
+  /// The value of [debugIconPainterGenerations] when [painter] was prepared.
   final int generation;
 }
 
@@ -163,10 +167,14 @@ class WiredSvgIcon extends HookWidget {
   /// Mirrors the icon, for directional icons in right-to-left layouts.
   final bool flipHorizontally;
 
+  /// <!-- {=dartHachureGap|trim|linePrefix:"  /// "} -->
   /// Distance between hachure strokes, in logical pixels.
+  /// <!-- {/dartHachureGap} -->
   final double hachureGap;
 
+  /// <!-- {=dartHachureAngle|trim|linePrefix:"  /// "} -->
   /// Angle of hachure strokes, in degrees.
+  /// <!-- {/dartHachureAngle} -->
   final double hachureAngle;
 
   @override
@@ -295,10 +303,14 @@ class WiredIcon extends StatelessWidget {
   /// Overrides theme-driven wavering and pen.
   final DrawConfig? drawConfig;
 
+  /// <!-- {=dartHachureGap|trim|linePrefix:"  /// "} -->
   /// Distance between hachure strokes, in logical pixels.
+  /// <!-- {/dartHachureGap} -->
   final double hachureGap;
 
+  /// <!-- {=dartHachureAngle|trim|linePrefix:"  /// "} -->
   /// Angle of hachure strokes, in degrees.
+  /// <!-- {/dartHachureAngle} -->
   final double hachureAngle;
 
   @override

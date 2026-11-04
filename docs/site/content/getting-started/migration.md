@@ -1,6 +1,7 @@
 ---
 title: Migration Guide
 description: How to migrate an existing Flutter app from Material Design to skribble's hand-drawn aesthetic.
+order: 6
 ---
 
 # Migration Guide
@@ -21,17 +22,14 @@ You can stay on `WiredMaterialApp` (the transitional bridge over `MaterialApp`) 
 
 ## Step 1: Add skribble
 
-Add the skribble package to your `pubspec.yaml`:
+Add skribble and its default hand-drawn typeface, plus the optional icon and emoji packages if you want them. `flutter pub add` picks the latest compatible versions:
 
-```yaml
-dependencies:
-  skribble: ^0.2.1
-  skribble_font_noto_sketch: ^0.3.1 # Hand-drawn text (recommended)
-  skribble_icons: ^0.2.1 # Optional: for hand-drawn icons
-  skribble_emoji: ^0.2.1 # Optional: for hand-drawn emoji
+```bash
+flutter pub add skribble skribble_font_noto_sketch
+flutter pub add skribble_icons skribble_emoji # optional
 ```
 
-Run `dart pub get` to install the packages. Add `skribble_font_noto_sketch`, the default typeface, whenever you want `Text` to render hand-drawn; without it, borders and shapes still look sketched but text falls back to the platform font.
+Add `skribble_font_noto_sketch`, the default typeface, whenever you want `Text` to render hand-drawn; without it, borders and shapes still look sketched but text falls back to the platform font.
 
 ## Step 2: Adopt the palette
 
@@ -191,7 +189,7 @@ Scaffold(
 WiredScaffold(
   appBar: WiredAppBar(title: Text('My App')),
   body: MyContent(),
-  bottomNavigationBar: WiredBottomNav(
+  bottomNavigationBar: WiredBottomNavigationBar(
     items: [...],
   ),
 )

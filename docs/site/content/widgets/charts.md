@@ -225,9 +225,27 @@ Removing or replacing a drawing, selecting another drawing, or replacing its ann
 
 `WiredChartWorkspace.capture` records the instrument, viewport, selection, series, scale, exact percentage reference, actual visible candle count, indicators, panes, drawing state, and ink mode. Store its `encode()` string wherever your app stores preferences. `decode()` validates before restoring. Restore the returned widget options as well as calling `restore` on the controllers. Unknown formats, mismatched instruments, disposed controllers, and unavailable saved history fail without partially applying the document. Load missing history and retry when needed. A previously full viewport cannot restore with fewer visible candles, even when its anchor is the first loaded candle. Sparse captures can restore the candles they originally contained. A saved null percentage reference retains the target's baseline established during data loading. Custom theme colors belong to the host theme and are not saved by the workspace.
 
+## Palette and dark themes
+
+`WiredChartStyle` is explicit: the default is a light paper palette whatever the app theme. To match the app, build the style from the theme. On a dark theme, rising, falling, and indicator inks switch to lighter tones that keep at least 3:1 contrast against the night paper.
+
+```dart
+// Static example: configuration
+WiredFinancialChart(
+  controller: controller,
+  style: WiredChartStyle.fromTheme(WiredTheme.of(context)),
+)
+```
+
+Styles with the same settings compare equal, so building one in `build` does not force the chart to lay out again. The selected-candle details strip beneath the plot uses the chart's own paper and ink, so a night chart in a light app stays readable.
+
+## Labels and text size
+
+Axis, pane, and drawing labels use the ambient `DefaultTextStyle` and follow the reader's text size up to double. The right gutter widens to fit the widest price or pane scale label, up to 40% of the chart width. The time axis grows to fit its labels. When labels would touch, the chart shows fewer price ticks and time labels. A lower pane too short for its title or for both scale labels leaves them out rather than overlapping them. Very long prices switch to four significant digits in scientific notation, such as `1.234e11`.
+
 ## Accessibility
 
-Selected OHLC and volume appear as text beneath the chart. Keyboard arrows move selection, plus/minus zoom, and End returns to the latest candle. Ctrl/Cmd+Z and Ctrl/Cmd+Shift+Z undo and redo drawings. Delete removes the selected drawing; Escape cancels a pending drawing or edit. Screen-reader increase/decrease actions adjust zoom. Supply `semanticLabel` with the instrument and price units.
+Selected OHLC and volume appear as text beneath the chart, with the time as `2026-09-10 12:30 UTC`. Screen readers hear the same values in words ("open 142.50, high 143.12, …") as the chart's value, and, with nothing selected, the candle count and the latest close. The visual strip is excluded from semantics so it is not read twice. Keyboard arrows move selection, plus/minus zoom, and End returns to the latest candle. Ctrl/Cmd+Z and Ctrl/Cmd+Shift+Z undo and redo drawings. Delete removes the selected drawing; Escape cancels a pending drawing or edit. Screen-reader increase/decrease actions adjust zoom. Supply `semanticLabel` with the instrument and price units.
 
 Chart geometry does not animate between prices. Repeated paints and live updates retain stable candle texture. At narrow candle widths the renderer removes interior detail to preserve legibility.
 

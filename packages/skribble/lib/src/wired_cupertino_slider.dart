@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -9,11 +11,17 @@ import 'wired_theme.dart';
 ///
 /// Provides the same API as [CupertinoSlider] with a sketchy hand-drawn
 /// track and rounded thumb.
+///
+/// The slider reports a slider role, its value, and increase and decrease
+/// actions to assistive technology. Each action moves one division, or a
+/// tenth of the range when [divisions] is null. Under right-to-left text the
+/// minimum sits at the right.
 class WiredCupertinoSlider extends HookWidget {
-  /// The currently selected value.
+  /// The currently selected value, between [min] and [max].
   final double value;
 
-  /// Called during a drag when the value changes.
+  /// Called during a drag, a tap, or an accessibility action when the value
+  /// changes. Null disables the slider.
   final ValueChanged<double>? onChanged;
 
   /// Called when the user starts dragging.
@@ -40,10 +48,16 @@ class WiredCupertinoSlider extends HookWidget {
   /// The color of the thumb. Defaults to the theme's paper.
   final Color? thumbColor;
 
+  /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
+  /// Optional semantic label for accessibility.
+  /// <!-- {/dartSemanticLabelOptional} -->
+  final String? semanticLabel;
+
   static const double _trackHeight = 4.0;
   static const double _thumbSize = 28.0;
   static const double _sliderHeight = 36.0;
 
+  /// Creates a hand-drawn Cupertino-style slider.
   const WiredCupertinoSlider({
     super.key,
     required this.value,
@@ -56,6 +70,7 @@ class WiredCupertinoSlider extends HookWidget {
     this.activeColor,
     this.inactiveColor,
     this.thumbColor,
+    this.semanticLabel,
   });
 
   @override
@@ -64,124 +79,168 @@ class WiredCupertinoSlider extends HookWidget {
     final enabled = onChanged != null;
     final effectiveActiveColor = activeColor ?? theme.markerColor;
     final effectiveInactiveColor = inactiveColor ?? CupertinoColors.systemGrey4;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    // A one-value range has nowhere to travel; keep the thumb at the start
+    // instead of dividing by zero.
+    final fraction = max > min
+        ? ((value - min) / (max - min)).clamp(0.0, 1.0)
+        : 0.0;
+    final step = _step;
 
-    return buildWiredElement(
-      child: AnimatedOpacity(
-        opacity: enabled ? 1.0 : 0.4,
-        duration: const Duration(milliseconds: 150),
-        child: SizedBox(
-          height: _sliderHeight,
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final trackWidth = constraints.maxWidth;
-              final fraction = (value - min) / (max - min);
-              final thumbLeft = fraction * (trackWidth - _thumbSize);
+    void nudge(double delta) {
+      final next = (value + delta).clamp(min, max);
+      if (next != value) onChanged!(next);
+    }
 
-              return GestureDetector(
-                onHorizontalDragStart: enabled
-                    ? (details) {
-                        final newValue = _valueFromPosition(
-                          details.localPosition.dx,
-                          trackWidth,
-                        );
-                        onChangeStart?.call(newValue);
-                        onChanged!(newValue);
-                      }
-                    : null,
-                onHorizontalDragUpdate: enabled
-                    ? (details) {
-                        final newValue = _valueFromPosition(
-                          details.localPosition.dx,
-                          trackWidth,
-                        );
-                        onChanged!(newValue);
-                      }
-                    : null,
-                onHorizontalDragEnd: enabled
-                    ? (_) => onChangeEnd?.call(value)
-                    : null,
-                onTapDown: enabled
-                    ? (details) {
-                        final newValue = _valueFromPosition(
-                          details.localPosition.dx,
-                          trackWidth,
-                        );
-                        onChanged!(newValue);
-                      }
-                    : null,
-                child: Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    // Inactive track
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      child: SizedBox(
-                        height: _trackHeight,
-                        child: WiredCanvas(
-                          painter: WiredRoundedRectangleBase(
-                            strokeWidth: theme.strokeWidth,
-                            borderRadius: BorderRadius.circular(2),
-                            fillColor: effectiveInactiveColor,
-                            borderColor: theme.borderColor,
+    return Semantics(
+      container: true,
+      slider: true,
+      label: semanticLabel,
+      enabled: enabled,
+      value: _describe(value),
+      increasedValue: _describe((value + step).clamp(min, max)),
+      decreasedValue: _describe((value - step).clamp(min, max)),
+      onIncrease: enabled ? () => nudge(step) : null,
+      onDecrease: enabled ? () => nudge(-step) : null,
+      child: buildWiredElement(
+        child: AnimatedOpacity(
+          opacity: enabled ? 1.0 : 0.4,
+          duration: const Duration(milliseconds: 150),
+          child: SizedBox(
+            height: _sliderHeight,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final trackWidth = constraints.maxWidth;
+                final travel = math.max(0.0, trackWidth - _thumbSize);
+                // Under right-to-left text the minimum sits at the right.
+                final thumbLeft = (isRtl ? 1 - fraction : fraction) * travel;
+                final activeLeft = isRtl ? thumbLeft + _thumbSize / 2 : 0.0;
+                final activeWidth = isRtl
+                    ? math.max(0.0, trackWidth - activeLeft)
+                    : thumbLeft + _thumbSize / 2;
+
+                return GestureDetector(
+                  onHorizontalDragStart: enabled
+                      ? (details) {
+                          final newValue = _valueFromPosition(
+                            details.localPosition.dx,
+                            trackWidth,
+                            isRtl: isRtl,
+                          );
+                          onChangeStart?.call(newValue);
+                          onChanged!(newValue);
+                        }
+                      : null,
+                  onHorizontalDragUpdate: enabled
+                      ? (details) {
+                          final newValue = _valueFromPosition(
+                            details.localPosition.dx,
+                            trackWidth,
+                            isRtl: isRtl,
+                          );
+                          onChanged!(newValue);
+                        }
+                      : null,
+                  onHorizontalDragEnd: enabled
+                      ? (_) => onChangeEnd?.call(value)
+                      : null,
+                  onTapDown: enabled
+                      ? (details) {
+                          final newValue = _valueFromPosition(
+                            details.localPosition.dx,
+                            trackWidth,
+                            isRtl: isRtl,
+                          );
+                          onChanged!(newValue);
+                        }
+                      : null,
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      // Inactive track
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        child: SizedBox(
+                          height: _trackHeight,
+                          child: WiredCanvas(
+                            painter: WiredRoundedRectangleBase(
+                              strokeWidth: theme.strokeWidth,
+                              borderRadius: BorderRadius.circular(2),
+                              fillColor: effectiveInactiveColor,
+                              borderColor: theme.borderColor,
+                            ),
+                            fillerType: RoughFilter.noFiller,
                           ),
-                          fillerType: RoughFilter.noFiller,
                         ),
                       ),
-                    ),
-                    // Active track
-                    Positioned(
-                      left: 0,
-                      width: thumbLeft + _thumbSize / 2,
-                      child: SizedBox(
-                        height: _trackHeight,
-                        child: WiredCanvas(
-                          painter: WiredRoundedRectangleBase(
-                            strokeWidth: theme.strokeWidth,
-                            borderRadius: BorderRadius.circular(2),
-                            fillColor: effectiveActiveColor,
-                            borderColor: theme.borderColor,
+                      // Active track
+                      Positioned(
+                        left: activeLeft,
+                        width: activeWidth,
+                        child: SizedBox(
+                          height: _trackHeight,
+                          child: WiredCanvas(
+                            painter: WiredRoundedRectangleBase(
+                              strokeWidth: theme.strokeWidth,
+                              borderRadius: BorderRadius.circular(2),
+                              fillColor: effectiveActiveColor,
+                              borderColor: theme.borderColor,
+                            ),
+                            fillerType: RoughFilter.solidFiller,
                           ),
-                          fillerType: RoughFilter.solidFiller,
                         ),
                       ),
-                    ),
-                    // Thumb
-                    Positioned(
-                      left: thumbLeft,
-                      child: SizedBox(
-                        width: _thumbSize,
-                        height: _thumbSize,
-                        child: WiredCanvas(
-                          painter: WiredCircleBase(
-                            strokeWidth: theme.strokeWidth,
-                            fillColor: thumbColor ?? theme.fillColor,
-                            borderColor: theme.borderColor,
+                      // Thumb
+                      Positioned(
+                        left: thumbLeft,
+                        child: SizedBox(
+                          width: _thumbSize,
+                          height: _thumbSize,
+                          child: WiredCanvas(
+                            painter: WiredCircleBase(
+                              strokeWidth: theme.strokeWidth,
+                              fillColor: thumbColor ?? theme.fillColor,
+                              borderColor: theme.borderColor,
+                            ),
+                            fillerType: RoughFilter.solidFiller,
                           ),
-                          fillerType: RoughFilter.solidFiller,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),
     );
   }
 
-  double _valueFromPosition(double dx, double trackWidth) {
-    final fraction = ((dx - _thumbSize / 2) / (trackWidth - _thumbSize)).clamp(
-      0.0,
-      1.0,
-    );
+  /// The distance one keyboard or assistive-technology step moves: one
+  /// division, or a tenth of the range when continuous.
+  double get _step => (max - min) / (divisions ?? 10);
+
+  String _describe(double v) => v.toStringAsFixed(1);
+
+  double _valueFromPosition(
+    double dx,
+    double trackWidth, {
+    required bool isRtl,
+  }) {
+    final travel = trackWidth - _thumbSize;
+    if (travel <= 0 || max <= min) return min;
+
+    var fraction = ((dx - _thumbSize / 2) / travel).clamp(0.0, 1.0);
+    if (isRtl) fraction = 1 - fraction;
     var newValue = min + fraction * (max - min);
 
-    if (divisions != null) {
+    if (divisions != null && divisions! > 0) {
+      // Snap to the nearest division counted from [min], not from zero, so
+      // a range such as 1–4 in two steps lands on 1, 2.5, and 4.
       final step = (max - min) / divisions!;
-      newValue = (newValue / step).round() * step;
+      newValue = min + ((newValue - min) / step).round() * step;
     }
 
     return newValue.clamp(min, max);

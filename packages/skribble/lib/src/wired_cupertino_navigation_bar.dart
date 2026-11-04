@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'generated/skribble_glyphs.g.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
@@ -26,7 +27,12 @@ class WiredCupertinoNavigationBar extends HookWidget
   /// a previous route.
   final bool automaticallyImplyLeading;
 
-  /// Whether to show a middle widget when [middle] is null.
+  /// Whether to show the route's title when [middle] is null.
+  ///
+  /// Like `CupertinoNavigationBar`, the title comes from a
+  /// [CupertinoPageRoute]'s `title`. Other routes, and routes without a
+  /// title, show nothing: a route's name, such as `/settings`, is an address
+  /// and not something to read.
   final bool automaticallyImplyMiddle;
 
   /// Previous page title for the back button label.
@@ -41,6 +47,7 @@ class WiredCupertinoNavigationBar extends HookWidget
   /// Border — not used since we draw a sketchy border.
   final Border? border;
 
+  /// Creates a hand-drawn navigation bar.
   const WiredCupertinoNavigationBar({
     super.key,
     this.leading,
@@ -124,23 +131,34 @@ class WiredCupertinoNavigationBar extends HookWidget
     final theme = WiredTheme.of(context);
 
     if (!Navigator.of(context).canPop()) return null;
-    return GestureDetector(
-      onTap: () => Navigator.of(context).maybePop(),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          WiredSvgIcon(
-            data: SkribbleGlyphs.chevronLeft,
-            color: theme.borderColor,
-            size: 22,
-            flipHorizontally: Directionality.of(context) == TextDirection.rtl,
-          ),
-          if (previousPageTitle != null)
-            Text(
-              previousPageTitle!,
-              style: TextStyle(color: theme.borderColor, fontSize: 16),
+    void back() => Navigator.of(context).maybePop();
+    // A labelled, focusable button that Enter and Space also activate.
+    return Semantics(
+      container: true,
+      button: true,
+      enabled: true,
+      // The previous page's title, as iOS reads it, or "Back".
+      label: previousPageTitle ?? 'Back',
+      onTap: back,
+      excludeSemantics: true,
+      child: WiredActivatable(
+        onActivate: back,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            WiredSvgIcon(
+              data: SkribbleGlyphs.chevronLeft,
+              color: theme.borderColor,
+              size: 22,
+              flipHorizontally: Directionality.of(context) == TextDirection.rtl,
             ),
-        ],
+            if (previousPageTitle != null)
+              Text(
+                previousPageTitle!,
+                style: TextStyle(color: theme.borderColor, fontSize: 16),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -148,10 +166,11 @@ class WiredCupertinoNavigationBar extends HookWidget
   Widget? _buildTitle(BuildContext context) {
     final theme = WiredTheme.of(context);
     final route = ModalRoute.of(context);
+    final title = route is CupertinoRouteTransitionMixin ? route.title : null;
 
-    if (route?.settings.name == null) return null;
+    if (title == null || title.isEmpty) return null;
     return Text(
-      route!.settings.name!,
+      title,
       style: TextStyle(
         color: theme.textColor,
         fontSize: 18,

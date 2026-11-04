@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_icons/skribble_icons.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// Searchable gallery of every bundled icon set, with size and ink comparisons.
 ///
@@ -11,10 +13,12 @@ import 'package:skribble_icons/skribble_icons.dart';
 /// search bar filtering by identifier and tappable cells that open a preview
 /// dialog showing each roughness level at 24/48/96 px.
 class SkribbleIconsPage extends HookWidget {
+  /// Creates the page.
   const SkribbleIconsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final labelSize = MediaQuery.textScalerOf(context).scale(9);
     final theme = WiredTheme.of(context);
     final searchQuery = useState('');
     final selectedSet = useState(SkribbleIconSet.glyphs);
@@ -42,7 +46,7 @@ class SkribbleIconsPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('Skribble Icons'),
       ),
       // Icons below read their weight from IconTheme, as Flutter's do.
@@ -124,10 +128,12 @@ class SkribbleIconsPage extends HookWidget {
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(12, 4, 12, 24),
                 sliver: SliverGrid.builder(
+                  // Tiles grow with the label's text size, so at large text
+                  // a name such as "download" keeps its word whole and both
+                  // of its lines fit under the icon.
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 64,
-                    mainAxisExtent:
-                        56 + MediaQuery.textScalerOf(context).scale(9) * 3,
+                    maxCrossAxisExtent: math.max(64, labelSize * 7),
+                    mainAxisExtent: 48 + labelSize * 2 * 1.9,
                   ),
                   itemCount: filteredEntries.length,
                   itemBuilder: (context, index) {
@@ -139,24 +145,37 @@ class SkribbleIconsPage extends HookWidget {
                         entry.value,
                         catalog.icons[entry.value]!,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          WiredSvgIcon(
-                            data: catalog.icons[entry.value]!,
-                            size: 32,
-                            semanticLabel: '${catalog.label}: ${entry.key}',
+                      // Platforms set their own line heights, so if a
+                      // label is taller than the estimate above, the tile
+                      // shrinks its content rather than overflowing.
+                      child: LayoutBuilder(
+                        builder: (context, tile) => FittedBox(
+                          fit: BoxFit.scaleDown,
+                          // The tile's width, so the label still wraps.
+                          child: SizedBox(
+                            width: tile.maxWidth,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                WiredSvgIcon(
+                                  data: catalog.icons[entry.value]!,
+                                  size: 32,
+                                  semanticLabel:
+                                      '${catalog.label}: ${entry.key}',
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  entry.key,
+                                  style: Theme.of(context).textTheme.bodySmall
+                                      ?.copyWith(fontSize: 9),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            entry.key,
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(fontSize: 9),
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+                        ),
                       ),
                     );
                   },

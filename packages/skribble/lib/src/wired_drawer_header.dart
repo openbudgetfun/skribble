@@ -26,6 +26,7 @@ class WiredDrawerHeader extends HookWidget {
   /// Margin around the header.
   final EdgeInsetsGeometry? margin;
 
+  /// Creates a hand-drawn drawer header.
   const WiredDrawerHeader({
     super.key,
     required this.child,
@@ -125,6 +126,7 @@ class WiredUserAccountsDrawerHeader extends HookWidget {
   /// Margin around the header.
   final EdgeInsetsGeometry margin;
 
+  /// Creates a hand-drawn user accounts drawer header.
   const WiredUserAccountsDrawerHeader({
     super.key,
     this.currentAccountPicture,

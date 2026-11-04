@@ -8,6 +8,8 @@
 /// displacement value is produced. This ensures that the same font with
 /// the same configuration always produces the same output.
 class JitterAlgorithm {
+  /// Creates a jitter algorithm that moves points by up to [jitterAmount]
+  /// font units, 48 by default.
   const JitterAlgorithm({this.jitterAmount = 48.0});
 
   /// The maximum displacement in font units.
@@ -19,6 +21,11 @@ class JitterAlgorithm {
   /// Fraction of the on-curve jitter applied to off-curve control points.
   static const double _offCurveFraction = 0.7;
 
+  /// Returns the displacement for point [index] of a glyph seeded with
+  /// [seed], in font units, between -[jitterAmount] and [jitterAmount].
+  ///
+  /// The same inputs always give the same value. A different [offset] gives
+  /// an independent value for the same point, such as its y displacement.
   double jitterValue(int seed, int index, {int offset = 0}) {
     const hashA = 2654435761;
     const hashB = 40503;
@@ -27,6 +34,11 @@ class JitterAlgorithm {
     return ((h % 1000) / 500.0 - 1.0) * jitterAmount;
   }
 
+  /// Returns a copy of [points] with each point moved by its jitter for
+  /// [seed].
+  ///
+  /// On-curve points move by up to [jitterAmount] in x and y; off-curve
+  /// control points move by 70% of that, so curves stay smooth.
   List<Point> applyJitter(List<Point> points, int seed) {
     final result = <Point>[];
     var index = 0;

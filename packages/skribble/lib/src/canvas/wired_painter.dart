@@ -20,8 +20,13 @@ class WiredPainter extends CustomPainter {
     this.pressure,
   }) : super(repaint: Listenable.merge({?progress, ?pressure}.toList()));
 
+  /// The pen settings used to draw the outline.
   final DrawConfig drawConfig;
+
+  /// The filler that draws the shape's fill strokes.
   final Filler filler;
+
+  /// The shape delegate that prepares or paints the rough geometry.
   final WiredPainterBase painter;
 
   /// Optional pen reveal, borrowed from its owner.

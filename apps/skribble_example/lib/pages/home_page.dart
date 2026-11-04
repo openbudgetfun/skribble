@@ -11,29 +11,79 @@ import 'package:skribble_example/widgets/note_card.dart';
 /// Displays all notes as [WiredCard] items in a scrollable list with a
 /// [WiredSearchBar] for filtering, a [WiredFloatingActionButton] for
 /// creating new notes, and a [WiredDrawer] accessible via the app bar.
+/// Swiping a note away deletes it, and the snack bar offers to undo.
+///
+/// The notes live in this page's state, so they last as long as the app
+/// runs. A real app would load and save them through a repository.
 class HomePage extends HookWidget {
+  /// Creates the notes list page.
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final notes = useState<List<Note>>(_sampleNotes());
+    // useMemoized builds the sample notes once, not on every rebuild.
+    final notes = useState(useMemoized(_sampleNotes));
     final searchQuery = useState('');
     final searchController = useTextEditingController();
 
-    final filteredNotes = useMemoized(
-      () {
-        if (searchQuery.value.isEmpty) return notes.value;
-        final query = searchQuery.value.toLowerCase();
-        return notes.value.where((note) {
-          return note.title.toLowerCase().contains(query) ||
-              note.content.toLowerCase().contains(query);
-        }).toList();
-      },
-      [notes.value, searchQuery.value],
-    );
+    final filteredNotes = useMemoized(() {
+      if (searchQuery.value.isEmpty) return notes.value;
+      final query = searchQuery.value.toLowerCase();
+      return notes.value.where((note) {
+        return note.title.toLowerCase().contains(query) ||
+            note.content.toLowerCase().contains(query);
+      }).toList();
+    }, [notes.value, searchQuery.value]);
+
+    Future<void> createNote() async {
+      final result = await Navigator.pushNamed(context, '/edit');
+      if (result is Note) notes.value = [...notes.value, result];
+    }
+
+    Future<void> editNote(Note note) async {
+      final result = await Navigator.pushNamed(
+        context,
+        '/edit',
+        arguments: note,
+      );
+      if (result is Note) {
+        notes.value = [
+          for (final n in notes.value)
+            if (n.id == result.id) result else n,
+        ];
+      }
+    }
+
+    void deleteNote(Note note) {
+      final index = notes.value.indexWhere((n) => n.id == note.id);
+      notes.value = [
+        for (final n in notes.value)
+          if (n.id != note.id) n,
+      ];
+
+      // Look the messenger up now: the dismissed card's context is gone by
+      // the time anyone taps "Undo".
+      final messenger = ScaffoldMessenger.of(context);
+      showWiredSnackBar(
+        context,
+        content: WiredSnackBarContent(
+          action: WiredTextButton(
+            onPressed: () {
+              notes.value = [...notes.value]
+                ..insert(index.clamp(0, notes.value.length), note);
+              messenger.hideCurrentSnackBar();
+            },
+            child: const Text('UNDO'),
+          ),
+          child: const Text('Note deleted'),
+        ),
+      );
+    }
 
     return WiredScaffold(
       appBar: WiredAppBar(
+        // The Builder's context sits below the scaffold, which
+        // Scaffold.of needs to find the drawer.
         leading: Builder(
           builder: (context) => WiredIconButton(
             icon: Icons.menu,
@@ -48,12 +98,7 @@ class HomePage extends HookWidget {
       floatingActionButton: WiredFloatingActionButton(
         icon: Icons.add,
         semanticLabel: 'Create new note',
-        onPressed: () async {
-          final result = await Navigator.pushNamed(context, '/edit');
-          if (result is Note) {
-            notes.value = [...notes.value, result];
-          }
-        },
+        onPressed: createNote,
       ),
       body: Column(
         children: [
@@ -68,13 +113,17 @@ class HomePage extends HookWidget {
           Expanded(
             child: filteredNotes.isEmpty
                 ? Center(
-                    child: Text(
-                      searchQuery.value.isEmpty
-                          ? 'No notes yet. Tap + to create one!'
-                          : 'No notes match your search.',
-                      style: TextStyle(
-                        color: WiredTheme.of(context).disabledTextColor,
-                        fontSize: 16,
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Text(
+                        searchQuery.value.isEmpty
+                            ? 'No notes yet. Tap + to create one!'
+                            : 'No notes match your search.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: WiredTheme.of(context).disabledTextColor,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   )
@@ -90,60 +139,10 @@ class HomePage extends HookWidget {
                       return WiredDismissible(
                         dismissKey: ValueKey(note.id),
                         direction: DismissDirection.endToStart,
-                        onDismissed: (_) {
-                          final removedNote = note;
-                          final removedIndex = notes.value.indexWhere(
-                            (n) => n.id == note.id,
-                          );
-                          notes.value = notes.value
-                              .where((n) => n.id != note.id)
-                              .toList();
-
-                          showWiredSnackBar(
-                            context,
-                            content: WiredSnackBarContent(
-                              action: GestureDetector(
-                                onTap: () {
-                                  final restored = List<Note>.from(notes.value);
-                                  if (removedIndex >= 0 &&
-                                      removedIndex <= restored.length) {
-                                    restored.insert(removedIndex, removedNote);
-                                  } else {
-                                    restored.add(removedNote);
-                                  }
-                                  notes.value = restored;
-                                  ScaffoldMessenger.of(
-                                    context,
-                                  ).hideCurrentSnackBar();
-                                },
-                                child: Text(
-                                  'UNDO',
-                                  style: TextStyle(
-                                    color: WiredTheme.of(context).borderColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              child: const Text('Note deleted'),
-                            ),
-                          );
-                        },
+                        onDismissed: (_) => deleteNote(note),
                         child: NoteCard(
                           note: note,
-                          onTap: () async {
-                            final result = await Navigator.pushNamed(
-                              context,
-                              '/edit',
-                              arguments: note,
-                            );
-                            if (result is Note) {
-                              notes.value = notes.value
-                                  .map(
-                                    (n) => n.id == result.id ? result : n,
-                                  )
-                                  .toList();
-                            }
-                          },
+                          onTap: () => editNote(note),
                         ),
                       );
                     },
@@ -155,7 +154,9 @@ class HomePage extends HookWidget {
   }
 }
 
+/// The notes a first launch starts with.
 List<Note> _sampleNotes() {
+  final now = DateTime.now();
   return [
     Note(
       id: 'sample-1',
@@ -164,16 +165,16 @@ List<Note> _sampleNotes() {
           'This is a hand-drawn notes app built with the Skribble design '
           'system. Every element you see has a sketchy, hand-drawn feel!',
       color: const Color(0xFFF5ECD7),
-      createdAt: DateTime.now().subtract(const Duration(days: 2)),
-      updatedAt: DateTime.now().subtract(const Duration(days: 2)),
+      createdAt: now.subtract(const Duration(days: 2)),
+      updatedAt: now.subtract(const Duration(days: 2)),
     ),
     Note(
       id: 'sample-2',
       title: 'Shopping List',
       content: 'Milk, eggs, bread, butter, coffee beans, sketchbook',
       color: const Color(0xFFDCEBD5),
-      createdAt: DateTime.now().subtract(const Duration(days: 1)),
-      updatedAt: DateTime.now().subtract(const Duration(days: 1)),
+      createdAt: now.subtract(const Duration(days: 1)),
+      updatedAt: now.subtract(const Duration(days: 1)),
     ),
     Note(
       id: 'sample-3',
@@ -182,8 +183,8 @@ List<Note> _sampleNotes() {
           'Build a weather app with hand-drawn clouds and sunshine '
           'animations. Use the Skribble canvas for custom drawings.',
       color: const Color(0xFFD9E7F5),
-      createdAt: DateTime.now().subtract(const Duration(hours: 3)),
-      updatedAt: DateTime.now(),
+      createdAt: now.subtract(const Duration(hours: 3)),
+      updatedAt: now,
     ),
   ];
 }

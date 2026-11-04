@@ -224,6 +224,9 @@ class WiredSketch extends StatelessComponent {
   final double roughness;
 
   /// The fill colour, as any CSS colour. Only closed shapes are filled.
+  ///
+  /// Rendering throws an [ArgumentError] when [fill] or [color] contains
+  /// `;`, `{`, or `}`, which would inject other declarations.
   final String? fill;
 
   /// The fill pattern for closed shapes.
@@ -249,10 +252,12 @@ class WiredSketch extends StatelessComponent {
       fillStyle: fillStyle,
     );
     final label = this.label;
-    final style = [
-      if (color case final color?) '--skribble-ink: $color',
-      if (fill case final fill?) '--skribble-fill: $fill',
-    ].join('; ');
+    final style = joinStyles([
+      if (color case final color?)
+        customProperty('--skribble-ink', color, 'color'),
+      if (fill case final fill?)
+        customProperty('--skribble-fill', fill, 'fill'),
+    ]);
 
     return inkSvg(
       RoughSvg.fromDrawable(_draw(generator)),

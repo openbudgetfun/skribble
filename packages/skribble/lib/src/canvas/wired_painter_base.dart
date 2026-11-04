@@ -11,6 +11,7 @@ import '../rough/skribble_rough.dart';
 ///  * `WiredRectangleBase`, `WiredCircleBase`, `WiredLineBase` in
 ///    `wired_base.dart`.
 abstract class WiredPainterBase {
+  /// Allows subclasses to have const constructors.
   const WiredPainterBase();
 
   /// Prepares stable ink for paint-only animation. Legacy custom painters may
@@ -18,6 +19,10 @@ abstract class WiredPainterBase {
   RoughDrawing? prepare(Size size, DrawConfig drawConfig, Filler filler) =>
       null;
 
+  /// Draws the shape onto [canvas] at [size] with [drawConfig] for the
+  /// outline and [filler] for the fill.
+  ///
+  /// `WiredPainter` calls this whenever [prepare] returns null.
   void paintRough(
     Canvas canvas,
     Size size,

@@ -46,14 +46,16 @@ How it works:
 3. Falls back to `simple-icons` for brand/social icons not covered by Material SVG packages
 4. Generates the `material_rough_icons.g.dart` catalog and optional icon font
 
+The Material catalog ships in `skribble_icons_material`, not in the core package, so point both Dart outputs there. The tool's default `--output` is still `lib/src/generated/` inside `packages/skribble`.
+
 ```bash
 cd packages/skribble
 dart run tool/generate_rough_icons.dart \
   --kit flutter-material \
-  --output lib/src/generated/material_rough_icons.g.dart \
+  --output ../skribble_icons_material/lib/src/generated/material_rough_icons.g.dart \
   --rough-output-dir tool/icon_exports/material-rough-svg \
   --font-output-dir tool/icon_exports/material-rough-font \
-  --font-dart-output lib/src/generated/material_rough_icon_font.g.dart
+  --font-dart-output ../skribble_icons_material/lib/src/generated/material_rough_icon_font.g.dart
 ```
 
 ### svg-manifest kit
@@ -222,7 +224,7 @@ WiredSvgIcon(
   color: Colors.blue,
   semanticLabel: 'Custom icon',
   fillStyle: WiredIconFillStyle.hachure,
-  strokeWidth: 1.6,
+  weight: 300,
   hachureGap: 2.25,
   hachureAngle: 320,
 )
@@ -364,7 +366,7 @@ The rough icon generator requires these tools on PATH:
 
 1. Draw it with `fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"` on the root element, keeping two units of margin.
 2. Add an entry to `glyphs.json` with a short description and any Material codepoints it should stand in for when no catalog is registered.
-3. Run `melos run glyphs` (or `dart run packages/skribble_emoji_gen/bin/generate_glyphs.dart`) and commit `lib/src/generated/skribble_glyphs.g.dart`.
+3. Run `melos run glyphs` (or `dart run packages/skribble_emoji_gen/bin/generate_glyphs.dart`) and commit `packages/skribble/lib/src/generated/skribble_glyphs.g.dart`.
 
 The pure Dart generator preserves the view box and applies a small smooth pen warp. Render with `SkribbleIcon(data: SkribbleGlyphs.yourGlyph)`. `melos run icons-check` fails when the committed glyphs are stale.
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -30,6 +31,7 @@ class WiredCupertinoActionSheet extends HookWidget {
   /// Scroll controller for the message section.
   final ScrollController? messageScrollController;
 
+  /// Creates a hand-drawn action sheet.
   const WiredCupertinoActionSheet({
     super.key,
     this.title,
@@ -53,22 +55,13 @@ class WiredCupertinoActionSheet extends HookWidget {
               // Main section: title + message + actions
               Stack(
                 children: [
-                  Positioned.fill(
-                    child: WiredCanvas(
-                      painter: WiredRoundedRectangleBase(
-                        strokeWidth: theme.strokeWidth,
-                        borderRadius: BorderRadius.circular(14),
-                        borderColor: theme.borderColor,
-                      ),
-                      fillerType: RoughFilter.noFiller,
-                    ),
+                  ..._paperAndInk(
+                    theme.fillColor,
+                    theme.borderColor,
+                    theme.strokeWidth,
                   ),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.95),
-                      borderRadius: BorderRadius.circular(14),
-                    ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -153,24 +146,12 @@ class WiredCupertinoActionSheet extends HookWidget {
                 const SizedBox(height: 8),
                 Stack(
                   children: [
-                    Positioned.fill(
-                      child: WiredCanvas(
-                        painter: WiredRoundedRectangleBase(
-                          strokeWidth: theme.strokeWidth,
-                          borderRadius: BorderRadius.circular(14),
-                          borderColor: theme.borderColor,
-                        ),
-                        fillerType: RoughFilter.noFiller,
-                      ),
+                    ..._paperAndInk(
+                      theme.fillColor,
+                      theme.borderColor,
+                      theme.strokeWidth,
                     ),
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.95),
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: cancelButton,
-                    ),
+                    SizedBox(width: double.infinity, child: cancelButton),
                   ],
                 ),
               ],
@@ -180,6 +161,29 @@ class WiredCupertinoActionSheet extends HookWidget {
       ),
     );
   }
+
+  /// The theme's paper with the sketchy outline drawn over it, so the whole
+  /// line shows and the text keeps its contrast in dark themes.
+  List<Widget> _paperAndInk(Color paper, Color ink, double strokeWidth) => [
+    Positioned.fill(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: paper,
+          borderRadius: BorderRadius.circular(14),
+        ),
+      ),
+    ),
+    Positioned.fill(
+      child: WiredCanvas(
+        painter: WiredRoundedRectangleBase(
+          strokeWidth: strokeWidth,
+          borderRadius: BorderRadius.circular(14),
+          borderColor: ink,
+        ),
+        fillerType: RoughFilter.noFiller,
+      ),
+    ),
+  ];
 }
 
 /// An action button for [WiredCupertinoActionSheet],
@@ -197,6 +201,7 @@ class WiredCupertinoActionSheetAction extends HookWidget {
   /// Whether this is a destructive (red) action.
   final bool isDestructiveAction;
 
+  /// Creates an action button for a [WiredCupertinoActionSheet].
   const WiredCupertinoActionSheetAction({
     super.key,
     required this.child,
@@ -207,21 +212,30 @@ class WiredCupertinoActionSheetAction extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 14),
-        child: Center(
-          child: DefaultTextStyle.merge(
-            style: TextStyle(
-              color: isDestructiveAction
-                  ? Colors.red
-                  : CupertinoColors.activeBlue,
-              fontSize: 20,
-              fontWeight: isDefaultAction ? FontWeight.w600 : FontWeight.w400,
+    return Semantics(
+      button: true,
+      enabled: true,
+      child: WiredActivatable(
+        onActivate: onPressed,
+        // Opaque, so the whole action is tappable, not just its label.
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            child: Center(
+              child: DefaultTextStyle.merge(
+                style: TextStyle(
+                  color: isDestructiveAction
+                      ? Colors.red
+                      : CupertinoColors.activeBlue,
+                  fontSize: 20,
+                  fontWeight: isDefaultAction
+                      ? FontWeight.w600
+                      : FontWeight.w400,
+                ),
+                child: child,
+              ),
             ),
-            child: child,
           ),
         ),
       ),

@@ -1,45 +1,85 @@
 # skribble
 
-[![CI](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml/badge.svg)](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml) [![License](https://img.shields.io/github/license/openbudgetfun/skribble)](LICENSE) [![Flutter](https://img.shields.io/badge/Flutter-%E2%89%A53.41-blue?logo=flutter)](https://flutter.dev)
+[![CI](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml/badge.svg)](https://github.com/openbudgetfun/skribble/actions/workflows/ci.yml) [![License](https://img.shields.io/github/license/openbudgetfun/skribble)](LICENSE) [![Flutter](https://img.shields.io/badge/Flutter-%E2%89%A53.47-blue?logo=flutter)](https://flutter.dev)
 
-Hand-drawn UI components for Flutter — every widget looks like it was sketched by hand, with drop-in familiar Material and Cupertino APIs.
+Hand-drawn UI components for Flutter. Every widget looks like it was sketched by hand, with APIs that feel familiar if you know Material and Cupertino.
 
-**[Live demo](https://openbudgetfun.github.io/skribble/storybook/)** · **[Docs](https://openbudgetfun.github.io/skribble/)** · **[Pub](https://pub.dev/packages/skribble)**
+**[Live demo](https://openbudgetfun.github.io/skribble/storybook/)** · **[Docs](https://openbudgetfun.github.io/skribble/)** · **[Quick Start](https://openbudgetfun.github.io/skribble/getting-started/quick-start)** · **[Pub](https://pub.dev/packages/skribble)**
 
 ## Getting Started
 
+<!-- {=docsRequirements} -->
+
+skribble needs Flutter 3.47.0 or later (Dart 3.13.0 or later). Run `flutter --version` to check yours.
+
+<!-- {/docsRequirements} -->
+
+<!-- {=docsQuickInstallSection|replace:"// Static example: setup\n":""} -->
+
 ```bash
-dart pub add skribble
-flutter pub add skribble_font_noto_sketch   # hand-drawn text (borders look sketchy without it, text won't)
+flutter pub add skribble skribble_font_noto_sketch
 ```
+
+`skribble` draws the widgets; `skribble_font_noto_sketch` adds the default hand-drawn lettering. Without the font package, borders still look sketchy but text falls back to the system font. Then import the library:
 
 ```dart
 import 'package:skribble/skribble.dart';
 ```
 
+<!-- {/docsQuickInstallSection} -->
+
 Wrap your app in `SkribbleApp`. It installs the Wired theme, needs no Material ancestor, and every sketchy widget reads its colors from it:
 
-```dart
-final wiredTheme = WiredThemeData(
-  borderColor: WiredPalette.ink,      // Sketchy border color (plum ink)
-  textColor: WiredPalette.ink,
-  fillColor: WiredPalette.paper,      // Warm paper background
-  strokeWidth: 2.4,
-  roughnessLevel: WiredRoughness.playful,
-);
+<!-- {=docsMinimalAppSection|replace:"// Static example: setup\n":""} -->
 
+```dart
+import 'package:flutter/widgets.dart';
+import 'package:skribble/skribble.dart';
+
+void main() {
+  runApp(
+    SkribbleApp(
+      title: 'My sketchy app',
+      // Supplies the Material theme and localizations that some Wired
+      // widgets, such as WiredInput, still need while they wrap Material.
+      builder: (context, child) => WiredMaterialTheme(child: child!),
+      home: WiredScaffold(
+        appBar: WiredAppBar(title: Text('My sketchy app')),
+        body: Center(
+          child: WiredButton(
+            onPressed: () {},
+            child: Text('Press me'),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+```
+
+<!-- {/docsMinimalAppSection} -->
+
+Customize the look with a `WiredThemeData`:
+
+```dart
 SkribbleApp(
-  wiredTheme: wiredTheme,
-  home: const WiredScaffold(/* ... */),
+  wiredTheme: WiredThemeData(
+    borderColor: WiredPalette.ink, // sketchy border color (plum ink)
+    fillColor: WiredPalette.paper, // warm paper background
+    strokeWidth: 2.4,
+    roughnessLevel: WiredRoughness.gentle,
+  ),
+  builder: (context, child) => WiredMaterialTheme(child: child!),
+  home: const MyHomePage(),
 );
 ```
 
-Already have a `MaterialApp` you're not ready to replace? Keep it and use `WiredMaterialApp` — the transitional bridge that wraps `MaterialApp` and syncs the Wired palette into `ThemeData`:
+Already have a `MaterialApp` you're not ready to replace? Keep it and use `WiredMaterialApp`, the transitional bridge that wraps `MaterialApp` and syncs the Wired palette into `ThemeData`:
 
 ```dart
 WiredMaterialApp(
-  wiredTheme: wiredTheme,
-  home: const WiredScaffold(/* ... */),
+  wiredTheme: WiredThemeData(),
+  home: const MyHomePage(),
 );
 ```
 
@@ -47,10 +87,53 @@ Router-based apps are supported too, on both shells:
 
 ```dart
 SkribbleApp.router(
-  wiredTheme: wiredTheme,
+  wiredTheme: WiredThemeData(),
   routerConfig: appRouter,
 );
 ```
+
+### Typefaces
+
+<!-- {=docsTypefaceTable} -->
+
+| Typeface                                  | Package                     | Select with                                                  | Follows the roughness level |
+| ----------------------------------------- | --------------------------- | ------------------------------------------------------------ | --------------------------- |
+| Skribble Noto Sketch (default)            | `skribble_font_noto_sketch` | nothing: it is the default, or `WiredFont.notoSketch`        | No                          |
+| Skribble Noto Soft                        | `skribble_font_noto`        | `WiredThemeData(font: WiredFont.noto)`                       | No                          |
+| Skribble Noto Lively                      | `skribble_font_noto_lively` | `WiredThemeData(font: WiredFont.notoLively)`                 | No                          |
+| Recursive Casual, Linear, and Mono (code) | `skribble_font_recursive`   | `WiredThemeData(font: WiredFont.casual)`, `.linear`, `.mono` | Yes                         |
+
+Install the package for each typeface you select; every package bundles its own font files, so it works offline. The Skribble Noto packages cover Latin, Greek, and Cyrillic in one Regular face, and Flutter synthesizes bold and italic. Recursive has seven real weights with italics. An explicit `fontFamily` on `WiredThemeData` overrides the choice.
+
+<!-- {/docsTypefaceTable} -->
+
+### Companion packages
+
+<!-- {=docsPackageCatalog} -->
+
+| Package                                                                           | What it adds                                                                                 |
+| --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [`skribble`](https://pub.dev/packages/skribble)                                   | The Wired widgets, `SkribbleApp`, the theme, and the Flutter painting layer. Start here.     |
+| [`skribble_font_noto_sketch`](https://pub.dev/packages/skribble_font_noto_sketch) | Skribble Noto Sketch, the default hand-drawn lettering                                       |
+| [`skribble_font_noto`](https://pub.dev/packages/skribble_font_noto)               | Skribble Noto Soft, the calmest Noto level                                                   |
+| [`skribble_font_noto_lively`](https://pub.dev/packages/skribble_font_noto_lively) | Skribble Noto Lively, the most playful Noto level                                            |
+| [`skribble_font_recursive`](https://pub.dev/packages/skribble_font_recursive)     | Roughened Recursive Casual, Linear, and Mono, which follow the roughness level               |
+| [`skribble_icons`](https://pub.dev/packages/skribble_icons)                       | Every icon set behind one import, with a unified lookup                                      |
+| [`skribble_icons_material`](https://pub.dev/packages/skribble_icons_material)     | Flutter's Material icons as hand-drawable geometry                                           |
+| [`skribble_icons_lucide`](https://pub.dev/packages/skribble_icons_lucide)         | Lucide outline icons                                                                         |
+| [`skribble_icons_bxs`](https://pub.dev/packages/skribble_icons_bxs)               | Boxicons Solid icons                                                                         |
+| [`skribble_icons_simple`](https://pub.dev/packages/skribble_icons_simple)         | Simple Icons brand marks                                                                     |
+| [`skribble_icons_cib`](https://pub.dev/packages/skribble_icons_cib)               | CoreUI Brands marks                                                                          |
+| [`skribble_emoji`](https://pub.dev/packages/skribble_emoji)                       | skribble's own hand-drawn emoji for every Unicode emoji                                      |
+| [`skribble_maps`](https://pub.dev/packages/skribble_maps)                         | MapLibre maps with hand-drawn pins, routes, areas, and controls                              |
+| [`skribble_charts`](https://pub.dev/packages/skribble_charts)                     | Exact OHLC data, hand-drawn financial charts, indicators, and drawing tools                  |
+| [`skribble_rough`](https://pub.dev/packages/skribble_rough)                       | The pure-Dart rough engine, with SVG path output and no Flutter dependency                   |
+| [`skribble_jaspr`](https://pub.dev/packages/skribble_jaspr)                       | Server-rendered hand-drawn components for Jaspr sites                                        |
+| [`skribble_font_roughen`](https://pub.dev/packages/skribble_font_roughen)         | A command-line tool that roughens your own fonts                                             |
+| [`skribble_emoji_gen`](https://pub.dev/packages/skribble_emoji_gen)               | The generator that compiles emoji, glyph art, and icon sets into Dart catalogs (maintainers) |
+| [`skribble_lints`](https://pub.dev/packages/skribble_lints)                       | Shared lint rules, extending `very_good_analysis`                                            |
+
+<!-- {/docsPackageCatalog} -->
 
 ## Widget Catalog
 
@@ -158,7 +241,7 @@ SkribbleApp.router(
 | `WiredStepper`                                        | Step-by-step indicator with `WiredStep`            |
 | `WiredCalendar`                                       | Full calendar with sketchy cells                   |
 | `WiredScrollbar`                                      | Styled scrollbar with sketchy colors               |
-| `WiredScaffold`                                       | Material page shell with paper-like background     |
+| `WiredScaffold`                                       | Page shell with a paper-like background            |
 | `WiredReorderableListView`                            | Reorderable list with sketchy items                |
 | `WiredDismissible`                                    | Swipe-to-dismiss with sketchy background           |
 | `WiredSelectableText`                                 | Selectable text with skribble styling              |
@@ -170,7 +253,7 @@ SkribbleApp.router(
 
 | Widget                         | Description                                          |
 | ------------------------------ | ---------------------------------------------------- |
-| `WiredTheme`                   | `InheritedWidget` providing theme to descendants     |
+| `WiredTheme`                   | Scope that provides the theme to descendants         |
 | `WiredThemeData`               | Border, text, fill colors + stroke width, roughness  |
 | `WiredThemeData.toThemeData()` | Material `ThemeData` bridge for app-level theming    |
 | `WiredMaterialApp`             | Material app wrapper that syncs `WiredTheme` + theme |
@@ -183,111 +266,35 @@ All skribble widgets follow familiar Flutter conventions:
 
 - **`Wired*` prefix** mirrors the Flutter widget it replaces
 - **Same constructor params**: `child`, `onPressed`, `onChanged`, `value`, `selectedIndex`
-- **`HookWidget` only** — no `StatefulWidget` or `StatelessWidget`
+- **Hooks for UI state**: interactive widgets are `HookWidget`s; the motion layer uses standard Flutter `State` and tickers
 - **`WiredTheme.of(context)`** for runtime color customization
-- **`RepaintBoundary`** wraps every widget for render isolation
+- **`RepaintBoundary`** isolates each widget's rough painting
+
+### Choose the amount of hand-drawn ink
+
+Set `WiredThemeData(roughnessLevel: WiredRoughness.gentle)` on your `SkribbleApp`. The `gentle`, `playful`, and `expressive` presets coordinate borders, rough icons, pens, and the Recursive lettering; Skribble Noto lettering stays the same at every level. Playful is the default. Nested `WiredTheme` scopes can select another level while retaining the parent palette through `copyWith`; explicit fonts and drawing configurations remain overrides. See the [theming guide](https://openbudgetfun.github.io/skribble/getting-started/theming) for custom font generation and inheritance details.
+
+### Brand icons
+
+Use `WiredSvgIcon(data: WiredBrandIcon.github.data)` for a curated Simple Icons brand mark. GitHub, Dart, Flutter, and Figma support solid and hatched ink through the same vector renderer as Material icons. Add `skribble_icons` for the full Material, Lucide, Boxicons, and brand catalogs. [See the examples](https://openbudgetfun.github.io/skribble/widgets/icons).
 
 ## Quality
 
 - `dart analyze --fatal-infos .` passes with zero issues.
 - Widget, rough-engine, tool, and storybook suites are validated in CI.
-- Screenshot artifacts are tracked in `docs/ui-snapshots/screenshot-manifest.txt`.
-
-## Rough Icon Generation Pipeline
-
-Generate/refresh rough Material icons:
-
-```bash
-# Optional: pre-fetch Deno deps for faster first run
-cd packages/skribble
-deno cache tool/deno/svg2roughjs_cli.ts
-
-dart run tool/generate_rough_icons.dart \
-  --kit flutter-material \
-  --rough-output-dir tool/icon_exports/rough-svg \
-  --font-output-dir tool/icon_exports/font \
-  --font-dart-output lib/src/generated/material_rough_icon_font.g.dart
-```
-
-Workspace shortcuts:
-
-```bash
-melos run rough-icons
-melos run rough-icons-font
-melos run rough-icons-baseline
-melos run rough-icons-ci-check
-```
-
-`rough-icons` and `rough-icons-font` both apply the committed supplemental manifest (`tool/examples/material_rough_icons.supplemental.manifest.json`) and enforce unresolved regression gating via `--unresolved-baseline tool/examples/material_rough_icons.unresolved-baseline.json` plus `--max-new-unresolved 0` (strict-mode equivalent). Use `rough-icons-baseline` to refresh that committed `codePoints[]` baseline file after intentional changes.
-
-`rough-icons-ci-check` runs the same rough icon regression/sync checks enforced by CI via `./scripts/check_rough_icons_ci.sh all`.
-
-For targeted local debugging, run an individual CI-equivalent check:
-
-- `./scripts/check_rough_icons_ci.sh regression`
-- `./scripts/check_rough_icons_ci.sh baseline-sync`
-- `./scripts/check_rough_icons_ci.sh generated-sync`
-
-On sync-check failures, the script prints `git diff` output and writes:
-
-- `rough-icons-baseline-sync.diff`
-- `rough-icons-generated-sync.diff`
-
-`regression` cleans up `packages/skribble/unresolved-report.json` after a successful local run. Set `ROUGH_ICONS_KEEP_UNRESOLVED_REPORT=1` to keep it. Set `ROUGH_ICONS_MAX_UNRESOLVED=<int>` to enable total unresolved gating via `--max-unresolved` (default: disabled). By default, regression/generated-sync checks use `--max-new-unresolved 0` (strict-mode equivalent). Set `ROUGH_ICONS_MAX_NEW_UNRESOLVED=<int>` to relax or tighten that threshold.
-
-Pull-request CI explicitly sets `ROUGH_ICONS_MAX_NEW_UNRESOLVED=0` for those checks to keep workflow configuration aligned with local defaults.
-
-Pull-request CI also runs the unresolved gate in `--rough-only` mode, uploads a `rough-icons-unresolved-report` artifact for diagnostics, verifies the committed baseline file is up to date, checks that generated rough icon catalog files are committed/synced, and uploads diff artifacts (`rough-icons-baseline-sync-diff`, `rough-icons-generated-sync-diff`) when those sync checks fail.
-
-Useful flags:
-
-- `--list-kits` to print available icon-kit providers.
-- `--kit svg-manifest --manifest <path>` to rough non-Material icon sets from JSON manifests (unique `identifier`/`codePoint` required; `codePoint` supports int, decimal string, `0x` hex, bare hex, and `U+` hex forms).
-- `--rough-only` to skip Dart map generation and emit rough SVGs only.
-- `--rough-normalize-viewbox 128` to upscale SVG geometry before roughing.
-- `--brand-icons-source <path>` to provide a local `simple-icons` package as fallback for brand identifiers missing in Material SVG packages.
-- `--supplemental-manifest <path>` to provide custom SVGs for unresolved `flutter-material` identifiers/codepoints (workspace defaults use `tool/examples/material_rough_icons.supplemental.manifest.json`).
-- `--unresolved-output <path>` to emit unresolved icon codepoints/identifiers as JSON for follow-up manifest authoring (includes `unresolved[]` plus `unresolvedCodePoints[]`, baseline-diff summary arrays when enabled, gate mode metadata, threshold metadata fields when unresolved gating thresholds are configured, a `wouldFail` summary boolean, per-gate failure booleans, an `activeGates[]` configured-gates summary list, and a `failedGates[]` summary list).
-- `--unresolved-baseline-output <path>` to emit a normalized unresolved baseline for regression gating (defaults to `unresolved[]`).
-- `--unresolved-baseline-output-format <unresolved|codepoints>` to choose unresolved baseline output shape (`unresolved[]` or `codePoints[]`; workspace defaults use `codepoints`).
-- `--supplemental-manifest-output <path>` to emit a starter supplemental manifest template for unresolved icons.
-- `--unresolved-baseline <path>` to compare unresolved output against a baseline report (`unresolved[]`), manifest (`icons[]`), or minimal baseline (`unresolvedCodePoints[]`/`unresolvedCodePoint[]`/`unresolvedCodepoint[]`/`unresolvedCodepoints[]`/`unresolved_code_points[]`/`unresolved_codepoint[]`/`unresolved_codepoints[]`/`unresolved-code-points[]`/`unresolved-codepoints[]`/`codePoints[]`, also accepts `codePoint[]`/`codepoints[]`/`codepoint[]`/`code_points[]`/`code-points[]`), including `newUnresolved` and `resolvedSinceBaseline` report fields. For object entries in `unresolved[]`/`icons[]`, the code point field may be `codePoint`, `codepoint`, `code_point`, or `code-point`. String code points accept decimal, `0x` hex, bare hex, and `U+` hex forms.
-- `--max-unresolved <int>` to allow a bounded unresolved count before failing.
-- `--fail-on-unresolved` to make the command exit non-zero if unresolved icons remain (cannot be combined with `--max-unresolved`).
-- `--max-new-unresolved <int>` to allow a bounded number of newly unresolved entries versus baseline before failing (requires `--unresolved-baseline`).
-- `--fail-on-new-unresolved` to fail only when unresolved entries regress versus baseline (cannot be combined with `--max-new-unresolved`).
-- `--font-name skribble_rough_icons` to customize generated font family name.
-- `--font-dart-output <path>` to emit Dart lookup helpers for generated font codepoints.
-- `CHROME_PATH=/path/to/chrome` if Chromium/Chrome is not in a standard location.
-
-Runtime helpers exposed by `wired_icon.dart`:
-
-- `lookupMaterialRoughIconByIdentifier('search')` → `WiredSvgIconData?`
-- `lookupMaterialRoughFontIcon('search')` → `IconData?` for generated font usage
-- `materialRoughIconIdentifiers` / `materialRoughFontCodePoints` (includes legacy alias identifiers that share codepoints)
-- `materialRoughFontFamily`
+- Screenshot artifacts are tracked in the repository's [screenshot manifest](https://github.com/openbudgetfun/skribble/blob/main/docs/ui-snapshots/screenshot-manifest.txt).
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for development setup, widget conventions, testing requirements, and quality gates.
+See [CONTRIBUTING.md](https://github.com/openbudgetfun/skribble/blob/main/CONTRIBUTING.md) for development setup, widget conventions, testing requirements, and quality gates. The rough Material icon pipeline (`melos run rough-icons`, `rough-icons-font`, `rough-icons-baseline`, and `rough-icons-ci-check`) is documented in [the rough icon pipeline guide](https://github.com/openbudgetfun/skribble/blob/main/docs/rough-icon-pipeline.md).
 
 ## Docs
 
-- [Parity Matrix](docs/ui-snapshots/parity-matrix.md) — coverage vs Flutter defaults
-- [Screenshot Manifest](docs/ui-snapshots/screenshot-manifest.txt) — all visual snapshots
-- [Rough Icon Pipeline](../../docs/rough-icon-pipeline.md) — icon generation and font tooling
+- [Documentation site](https://openbudgetfun.github.io/skribble/) — guides, the widget catalog, and live examples
+- [Parity Matrix](https://github.com/openbudgetfun/skribble/blob/main/docs/ui-snapshots/parity-matrix.md) — coverage vs Flutter defaults
+- [Rough Icon Pipeline](https://github.com/openbudgetfun/skribble/blob/main/docs/rough-icon-pipeline.md) — icon generation and font tooling
 - [CHANGELOG](CHANGELOG.md) — release history
 
 ## License
 
-MIT — see [LICENSE](../../LICENSE) for details.
-
-### Choose the amount of hand-drawn ink
-
-Set `WiredThemeData(roughnessLevel: WiredRoughness.gentle)` on your `WiredMaterialApp`. The `gentle`, `playful`, and `expressive` presets coordinate borders, rough icons, and the Recursive font styles. Playful is the default. Nested `WiredTheme` scopes can select another level while retaining the parent palette through `copyWith`; explicit fonts and drawing configurations remain overrides. See the [theming guide](../../docs/site/content/getting-started/theming.md) for custom font generation and inheritance details.
-
-### Typeface choices and brand icons
-
-The default typeface is Skribble Noto Sketch (`WiredFont.notoSketch`, from `skribble_font_noto_sketch`): hand-drawn from Google Noto, with three alternating drawings of every Latin letter and the same lettering at every roughness level. `WiredFont.noto` and `WiredFont.notoLively` are the calmer and livelier levels. Set `font: WiredFont.casual`, `WiredFont.linear`, or `WiredFont.mono` for the Recursive typefaces from `skribble_font_recursive`, which follow the inherited roughness; Mono retains equal character spacing for code. [Compare the lettering](../../docs/site/content/core/font-comparison.md).
-
-Use `WiredSvgIcon(data: WiredBrandIcon.github.data)` for a curated Simple Icons brand mark. GitHub, Dart, Flutter, and Figma support solid and hatched ink through the same vector renderer as Material icons. [See the examples and generation command](../../docs/site/content/widgets/icons.md).
+MIT — see [LICENSE](LICENSE) for details.

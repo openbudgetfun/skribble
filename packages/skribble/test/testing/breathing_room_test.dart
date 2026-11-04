@@ -101,11 +101,12 @@ void main() {
       await pumpApp(
         tester,
         const Center(
+          // A card keeps its padding and grows to fit, so take the padding
+          // away to put the text against the ink.
           child: WiredCard(
-            height: 30,
-            child: Center(
-              child: Text('Squeezed', style: TextStyle(fontSize: 24)),
-            ),
+            height: null,
+            padding: EdgeInsets.zero,
+            child: Text('Squeezed', style: TextStyle(fontSize: 24)),
           ),
         ),
       );
@@ -169,6 +170,111 @@ void main() {
         ),
       );
       expect(crampedText(_root(tester)), isEmpty);
+    });
+  });
+
+  group('crampedText lines', () {
+    Widget struck({required double y}) => Center(
+      child: SizedBox(
+        width: 160,
+        height: 40,
+        child: Stack(
+          children: [
+            const Positioned(
+              left: 20,
+              top: 10,
+              child: Text('Struck', style: TextStyle(fontSize: 16)),
+            ),
+            Positioned.fill(
+              child: WiredCanvas(
+                painter: WiredLineBase(x1: 0, y1: y, x2: 160, y2: y),
+                fillerType: RoughFilter.noFiller,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    testWidgets('reports a line through text only when asked', (
+      tester,
+    ) async {
+      await pumpApp(tester, struck(y: 20));
+      expect(crampedText(_root(tester)), isEmpty);
+
+      final hits = crampedText(_root(tester), lines: true);
+      expect(hits, hasLength(1));
+      expect(hits.single.ink, CrampedInk.line);
+      expect(hits.single.text, 'Struck');
+      expect(hits.single.toString(), contains('a line crosses "Struck"'));
+    });
+
+    testWidgets('passes a line that clears the text', (tester) async {
+      await pumpApp(tester, struck(y: 39));
+      expect(crampedText(_root(tester), lines: true), isEmpty);
+    });
+  });
+
+  group('crampedText icons', () {
+    Widget button(double iconSize) => Center(
+      child: WiredIconButton(
+        icon: Icons.home,
+        iconSize: iconSize,
+        onPressed: () {},
+      ),
+    );
+
+    testWidgets('passes an icon with room inside its circle', (tester) async {
+      await pumpApp(tester, button(24));
+      expect(crampedText(_root(tester), icons: true), isEmpty);
+    });
+
+    testWidgets('reports an icon crowding its circle only when asked', (
+      tester,
+    ) async {
+      await pumpApp(tester, button(44));
+      expect(crampedText(_root(tester)), isEmpty);
+
+      final hits = crampedText(_root(tester), icons: true);
+      expect(hits, hasLength(1));
+      expect(hits.single.ink, CrampedInk.icon);
+      expect(hits.single.gaps.top, lessThan(4));
+      expect(hits.single.toString(), contains('icon in 48×48'));
+    });
+  });
+
+  group('crampedText clipped icons', () {
+    testWidgets('ignores the side of a shape scrolled out of view', (
+      tester,
+    ) async {
+      final controller = ScrollController(initialScrollOffset: 30);
+      addTearDown(controller.dispose);
+      await pumpApp(
+        tester,
+        Center(
+          child: SizedBox(
+            height: 120,
+            child: ListView(
+              controller: controller,
+              children: [
+                const SizedBox(height: 10),
+                Center(
+                  child: WiredButton(
+                    onPressed: () {},
+                    child: const WiredIcon(icon: Icons.home),
+                  ),
+                ),
+                const SizedBox(height: 200),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      // The button's top 20 pixels are scrolled above the viewport, so its
+      // icon pokes past the visible edge of the outline. That side is cut,
+      // not crowded.
+      expect(crampedText(_root(tester), icons: true), isEmpty);
     });
   });
 

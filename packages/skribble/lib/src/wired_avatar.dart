@@ -36,6 +36,7 @@ class WiredAvatar extends HookWidget {
   /// Maximum radius constraint.
   final double? maxRadius;
 
+  /// Creates a hand-drawn circular avatar.
   const WiredAvatar({
     super.key,
     this.backgroundImage,
@@ -92,7 +93,8 @@ class WiredAvatar extends HookWidget {
                   child: Image(
                     image: backgroundImage!,
                     fit: BoxFit.cover,
-                    errorBuilder: (_, _, _) => _buildFallback(fgColor),
+                    errorBuilder: (_, _, _) =>
+                        _buildFallback(fgColor, effectiveRadius),
                   ),
                 ),
               ),
@@ -103,6 +105,19 @@ class WiredAvatar extends HookWidget {
                   width: size - 4,
                   height: size - 4,
                   child: Image(image: foregroundImage!, fit: BoxFit.cover),
+                ),
+              ),
+            // Images would hide the ink below them, so the outline is drawn
+            // again on top.
+            if (backgroundImage != null || foregroundImage != null)
+              Positioned.fill(
+                child: WiredCanvas(
+                  painter: WiredCircleBase(
+                    strokeWidth: theme.strokeWidth,
+                    fillColor: bgColor,
+                    borderColor: theme.borderColor,
+                  ),
+                  fillerType: RoughFilter.noFiller,
                 ),
               ),
             // Child (initials or icon)
@@ -129,7 +144,7 @@ class WiredAvatar extends HookWidget {
     );
   }
 
-  Widget _buildFallback(Color fgColor) {
+  Widget _buildFallback(Color fgColor, double radius) {
     return Center(
       child:
           child ??

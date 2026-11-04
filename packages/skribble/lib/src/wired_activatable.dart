@@ -2,6 +2,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'canvas/wired_canvas.dart';
+import 'wired_base.dart';
+import 'wired_theme.dart';
+
 /// Keyboard, focus, and hover chrome for hand-rolled tappable controls.
 ///
 /// Material controls (which `WiredButtonBase` wraps) get focus, keyboard
@@ -95,12 +99,21 @@ class WiredActivatable extends HookWidget {
         onTap: canActivate ? onActivate : null,
         // Decorative overlay only; the actual control paints beneath it.
         child: Stack(
+          // The wrapper is transparent to layout: the control receives the
+          // same constraints it would without it, so a row can stretch it.
+          fit: StackFit.passthrough,
           clipBehavior: Clip.none,
           children: [
             child,
             if (isFocused.value)
-              Positioned.fill(
-                child: IgnorePointer(child: _FocusRing(color: _ringColor)),
+              // Drawn just outside the control so it never sits on top of
+              // the control's own outline.
+              const Positioned(
+                left: -_ringGap,
+                top: -_ringGap,
+                right: -_ringGap,
+                bottom: -_ringGap,
+                child: IgnorePointer(child: WiredFocusRing()),
               ),
           ],
         ),
@@ -109,22 +122,31 @@ class WiredActivatable extends HookWidget {
   }
 }
 
-/// Ink color for the focus ring. Kept theme-independent so the wrapper never
-/// rebuilds against theme churn; the ring reads as a pen outline regardless.
-const Color _ringColor = Color(0xCC34283F);
+/// How far the focus ring sits outside the focused control.
+const double _ringGap = 4;
 
-class _FocusRing extends StatelessWidget {
-  const _FocusRing({required this.color});
-
-  final Color color;
+/// The hand-drawn outline that marks keyboard focus on a skribble control.
+///
+/// Internal to the library. It is a sketchy rounded rectangle in the theme's
+/// border colour, so it stays visible on dark paper as well as light, and
+/// reads as the same pen as the control it surrounds. Size it with a
+/// `Positioned` a few pixels outside the control.
+class WiredFocusRing extends StatelessWidget {
+  /// Creates a focus ring.
+  const WiredFocusRing({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color, width: 2),
+    final theme = WiredTheme.of(context);
+    return WiredCanvas(
+      painter: WiredRoundedRectangleBase(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        strokeWidth: theme.strokeWidth,
+        borderColor: theme.borderColor,
       ),
+      // Its own wobble, so the ring does not trace the control's outline.
+      seed: 7,
+      fillerType: RoughFilter.noFiller,
     );
   }
 }

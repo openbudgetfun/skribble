@@ -457,9 +457,11 @@ void main() {
       }
     });
 
-    test('candles, indicators, volume, and drawings match golden', () async {
-      final image = await _image(
-        _scene(
+    test(
+      'candles, indicators, volume, and drawings paint in their panes',
+      () async {
+        const style = WiredChartStyle();
+        final scene = _scene(
           size: const Size(960, 640),
           overlays: const [
             WiredSma(period: 5),
@@ -470,14 +472,156 @@ void main() {
             WiredIndicatorPane(indicator: WiredRsi(period: 8)),
           ],
           annotations: _annotations(),
-        ),
-      );
-      await expectLater(
-        image,
-        matchesGoldenFile('goldens/financial_chart.png'),
-      );
-      image.dispose();
-    });
+        );
+        final pixels = await _pixels(scene);
+        expect(pixels, orderedEquals(await _pixels(scene)));
+        final width = scene.size.width.toInt();
+        // The same candles alone, so overlays and drawings cannot hide wicks.
+        final plain = _scene(size: scene.size);
+        final plainPixels = await _pixels(plain);
+
+        Color read(List<int> source, int x, int y) {
+          final offset = (y * width + x) * 4;
+          return Color.fromARGB(
+            source[offset + 3],
+            source[offset],
+            source[offset + 1],
+            source[offset + 2],
+          );
+        }
+
+        Color at(int x, int y) => read(pixels, x, y);
+
+        bool near(Color a, Color b) =>
+            ((a.r - b.r).abs() + (a.g - b.g).abs() + (a.b - b.b).abs()) * 255 <
+            36;
+
+        int count(Rect rect, Color color) {
+          var total = 0;
+          for (var y = rect.top.ceil(); y < rect.bottom.floor(); y++) {
+            for (var x = rect.left.ceil(); x < rect.right.floor(); x++) {
+              if (near(at(x, y), color)) total++;
+            }
+          }
+          return total;
+        }
+
+        Color wash(Color ink, double alpha) =>
+            Color.alphaBlend(ink.withValues(alpha: alpha), style.background);
+
+        final price = scene.priceRect;
+        final volume = scene.paneRects[0];
+        final rsi = scene.paneRects[1];
+
+        double distance(Color a, Color b) =>
+            ((a.r - b.r).abs() + (a.g - b.g).abs() + (a.b - b.b).abs()) * 255;
+
+        // How far [pixel] is from any blend of [ink] over the paper.
+        double residual(Color pixel, Color ink) {
+          final paper = style.background;
+          final dr = ink.r - paper.r;
+          final dg = ink.g - paper.g;
+          final db = ink.b - paper.b;
+          final t =
+              (((pixel.r - paper.r) * dr +
+                          (pixel.g - paper.g) * dg +
+                          (pixel.b - paper.b) * db) /
+                      (dr * dr + dg * dg + db * db))
+                  .clamp(0.0, 1.0);
+          return distance(
+            pixel,
+            Color.from(
+              alpha: 1,
+              red: paper.r + dr * t,
+              green: paper.g + dg * t,
+              blue: paper.b + db * t,
+            ),
+          );
+        }
+
+        // Antialiased ink: clearly off the paper, and a blend of [ink] rather
+        // than of the opposite direction's ink.
+        bool tinted(Color pixel, Color ink, Color other) =>
+            distance(pixel, style.background) > 40 &&
+            residual(pixel, ink) < residual(pixel, other);
+
+        // Every visible candle draws its wick from exact high to exact low
+        // in its own direction's ink, centred on its slot.
+        for (var index = plain.start; index < plain.end; index++) {
+          final candle = plain.candles[index];
+          final x = plain.xForIndex(index.toDouble()).floor();
+          final ink = candle.isBullish ? style.rise : style.fall;
+          final other = candle.isBullish ? style.fall : style.rise;
+          final high = plain.yForPrice(candle.high);
+          final low = plain.yForPrice(candle.low);
+          final inked = [
+            for (var y = high.ceil(); y < low.floor(); y++)
+              if (tinted(read(plainPixels, x, y), ink, other) ||
+                  tinted(read(plainPixels, x + 1, y), ink, other))
+                y,
+          ];
+          expect(inked, isNotEmpty, reason: 'wick $index');
+          expect(inked.first, lessThanOrEqualTo(high.ceil() + 1));
+          expect(inked.last, greaterThanOrEqualTo(low.floor() - 2));
+        }
+
+        // Rising and falling candles, and both overlay indicators, are drawn
+        // in the price pane and nowhere else.
+        expect(count(price, style.rise), greaterThan(200));
+        expect(count(price, style.fall), greaterThan(200));
+        expect(count(price, style.indicatorColor(0)), greaterThan(150));
+        expect(count(price, style.indicatorColor(1)), greaterThan(150));
+        expect(count(volume, style.indicatorColor(0)), 0);
+
+        // Volume bars use translucent direction washes inside their pane.
+        expect(count(volume, wash(style.rise, 0.4)), greaterThan(400));
+        expect(count(volume, wash(style.fall, 0.4)), greaterThan(400));
+
+        // The RSI line has its own scale in the lowest pane.
+        expect(count(rsi, style.indicatorColor(0)), greaterThan(150));
+
+        // The horizontal level spans the plot at its exact price.
+        final level = scene.yForPrice(WiredChartDecimal.parse('124')).floor();
+        bool annotationInk(Color pixel) =>
+            distance(pixel, style.background) > 40 &&
+            residual(pixel, style.foreground) < 24;
+        var levelRun = 0;
+        for (var x = price.left.ceil(); x < price.right.floor(); x++) {
+          if (annotationInk(at(x, level)) || annotationInk(at(x, level + 1))) {
+            levelRun++;
+          }
+        }
+        expect(levelRun, greaterThan(price.width * 0.6));
+
+        // Axis labels are painted in the gutters, outside every pane.
+        final gutter = Rect.fromLTRB(
+          price.right + 4,
+          0,
+          scene.size.width,
+          scene.size.height,
+        );
+        final axis = Rect.fromLTRB(
+          0,
+          scene.plotBottom + 2,
+          price.right,
+          scene.size.height,
+        );
+        // Count any blend of the ink over the paper, so the check holds
+        // however the platform anti-aliases glyph edges.
+        int inked(Rect rect) {
+          var total = 0;
+          for (var y = rect.top.ceil(); y < rect.bottom.floor(); y++) {
+            for (var x = rect.left.ceil(); x < rect.right.floor(); x++) {
+              if (annotationInk(at(x, y))) total++;
+            }
+          }
+          return total;
+        }
+
+        expect(inked(gutter), greaterThan(60));
+        expect(inked(axis), greaterThan(60));
+      },
+    );
 
     test('same scene avoids repaint but a changed viewport repaints', () {
       final scene = _scene();

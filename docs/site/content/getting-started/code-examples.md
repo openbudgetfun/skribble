@@ -1,11 +1,12 @@
 ---
 title: Code Examples
 description: Common patterns and code examples for building apps with skribble's hand-drawn design system.
+order: 5
 ---
 
 # Code Examples
 
-This page provides code examples for common patterns when building apps with skribble. Each example runs the Flutter expression shown below it. Place the expression inside a `WiredMaterialApp` widget tree. Import `package:flutter/widgets.dart`, `package:flutter_hooks/flutter_hooks.dart`, and `package:skribble/skribble.dart`. These examples use local sample data; forms do not submit information and loading does not contact a service.
+This page provides code examples for common patterns when building apps with skribble. Each example runs the Flutter expression shown below it. Place the expression inside the page from [Your First Widget](/getting-started/first-widget), a `SkribbleApp` with the `WiredMaterialTheme` builder. Import `package:flutter/widgets.dart`, `package:flutter_hooks/flutter_hooks.dart`, and `package:skribble/skribble.dart`. These examples use local sample data; forms do not submit information and loading does not contact a service.
 
 ## Basic App Structure
 

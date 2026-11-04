@@ -1,6 +1,7 @@
 ---
 title: Theming
 description: Customize skribble's hand-drawn look with WiredThemeData. Control colors, stroke width, roughness, and dark mode across every widget.
+order: 4
 ---
 
 # Theming
@@ -16,35 +17,51 @@ Every Wired widget reads its visual properties from a single `WiredThemeData` ob
 ```dart
 // Static example: api
 WiredThemeData({
+  bool motionEnabled = true,
+  WiredInkInteraction inkInteraction = WiredInkInteraction.pressure,
   Color borderColor = WiredPalette.ink,
   Color textColor = WiredPalette.ink,
   Color disabledTextColor = WiredPalette.mutedInk,
+  Color errorColor = WiredPalette.coral,
   Color fillColor = WiredPalette.paper,
   Color markerColor = WiredPalette.lilac,
   double strokeWidth = kWiredStrokeWidth, // 1.6
   WiredRoughness roughnessLevel = WiredRoughness.playful,
+  WiredFont font = WiredFont.notoSketch,
+  List<String>? fontFamilyFallback,
   double? roughness,
   String? fontFamily,
-  List<String>? fontFamilyFallback,
   DrawConfig? drawConfig,
+  RoughPen? pen,
 })
 ```
 
 ### Parameters
 
-| Parameter            | Type             | Default                 | Description                                                                                                                                                                                                                                                                         |
-| -------------------- | ---------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `borderColor`        | `Color`          | `WiredPalette.ink`      | The color used for all hand-drawn borders, outlines, and strokes. Plum ink by default.                                                                                                                                                                                              |
-| `textColor`          | `Color`          | `WiredPalette.ink`      | Primary text color. Applied to labels, button text, and synced to Material's `onSurface`.                                                                                                                                                                                           |
-| `disabledTextColor`  | `Color`          | `WiredPalette.mutedInk` | Text color for disabled widgets. A muted plum by default.                                                                                                                                                                                                                           |
-| `fillColor`          | `Color`          | `WiredPalette.paper`    | Background fill for cards, inputs, dialogs, and other surfaces. Warm paper by default.                                                                                                                                                                                              |
-| `markerColor`        | `Color`          | `WiredPalette.lilac`    | The highlighter wash under selected and active things: navigation indicators, progress and slider fills, switch tracks, and selected segments and steps. Ink still draws the shape and label on top. `WiredThemeData.cuddly(brightness: Brightness.dark)` uses `WiredPalette.dusk`. |
-| `strokeWidth`        | `double`         | `1.6`                   | Width in logical pixels of the rough-drawn border strokes.                                                                                                                                                                                                                          |
-| `roughnessLevel`     | `WiredRoughness` | `playful`               | Coordinated border, icon, and font defaults: `gentle`, `playful`, or `expressive`.                                                                                                                                                                                                  |
-| `roughness`          | `double?`        | `null` → level value    | Optional geometry amplitude override. The default playful level resolves to `1.5`; `0` removes random displacement.                                                                                                                                                                 |
-| `fontFamily`         | `String?`        | `null` → level family   | Optional font override. Bundled families resolve to their font package (`WiredFont.packageFor`); custom families belong to the consuming app.                                                                                                                                       |
-| `fontFamilyFallback` | `List<String>?`  | `null`                  | App font families tried after the main family, such as Skribble Noto kit scripts. Used as written, never prefixed with a package.                                                                                                                                                   |
-| `drawConfig`         | `DrawConfig?`    | `null` → level config   | Optional complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and any explicit `roughness`.                                                                                                                         |
+<!-- {=docsWiredThemeDataParameters} -->
+
+| Parameter            | Type                  | Default                                              | Description                                                                                                                                                |
+| -------------------- | --------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderColor`        | `Color`               | `WiredPalette.ink`                                   | The color of every hand-drawn border, outline, and stroke. Plum ink by default.                                                                            |
+| `textColor`          | `Color`               | `WiredPalette.ink`                                   | Primary text color for labels and button text.                                                                                                             |
+| `disabledTextColor`  | `Color`               | `WiredPalette.mutedInk`                              | Text color for disabled widgets. A muted plum by default.                                                                                                  |
+| `errorColor`         | `Color`               | `WiredPalette.coral`                                 | Ink for errors: the border of an input with error text and the error text itself.                                                                          |
+| `fillColor`          | `Color`               | `WiredPalette.paper`                                 | Background fill for cards, inputs, dialogs, and other surfaces. Warm paper by default.                                                                     |
+| `markerColor`        | `Color`               | `WiredPalette.lilac`                                 | The highlighter wash under selected and active things: navigation indicators, progress and slider fills, switch tracks, and selected segments.             |
+| `strokeWidth`        | `double`              | `kWiredStrokeWidth` (1.6)                            | Width in logical pixels of the rough-drawn strokes.                                                                                                        |
+| `roughnessLevel`     | `WiredRoughness`      | `WiredRoughness.playful`                             | Coordinated border, icon, pen, and Recursive lettering defaults: `gentle`, `playful`, or `expressive`.                                                     |
+| `font`               | `WiredFont`           | `WiredFont.notoSketch`                               | The bundled typeface. Install the package that ships it.                                                                                                   |
+| `fontFamilyFallback` | `List<String>?`       | `null`                                               | App font families tried after the main family, such as Skribble Noto kit scripts. Used as written, never prefixed with a package.                          |
+| `roughness`          | `double?`             | `null`: the level's amplitude (1.1 for playful)      | Geometry amplitude override; `0` removes random displacement.                                                                                              |
+| `fontFamily`         | `String?`             | `null`: the `font` family                            | Font override. Bundled families resolve to their font package (`WiredFont.packageFor`); custom families belong to the app.                                 |
+| `drawConfig`         | `DrawConfig?`         | `null`: derived from the level                       | A complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and the amplitude.                  |
+| `pen`                | `RoughPen?`           | `null`: the level's pen (`RoughPen.ink` for playful) | How lines are inked. `RoughPen.uniform` draws constant-width lines.                                                                                        |
+| `motionEnabled`      | `bool`                | `true`                                               | Whether decorative ink motion is allowed. The platform's reduced-motion setting still wins.                                                                |
+| `inkInteraction`     | `WiredInkInteraction` | `WiredInkInteraction.pressure`                       | Default decorative feedback for buttons: `none`, `pressure` (reinforces strokes on hover, focus, and press), or `redraw` (redraws outlines on each press). |
+
+<!-- {/docsWiredThemeDataParameters} -->
+
+`WiredThemeData.cuddly(brightness: Brightness.dark)` switches the palette to night paper and uses `WiredPalette.dusk` for the marker.
 
 The defaults above are the branded warm-paper palette (`WiredThemeData.cuddly()` for light mode is the same palette with explicit light/dark switching). Reach for the `WiredPalette` constants — `ink`, `paper`, `night`, `mutedInk`, `mutedPaper`, plus the `lilac`, `peach`, `sage`, `butter`, and `coral` accent washes, `dusk` for night markers, and `blush` for the logo's cheeks — so custom themes stay consistent with the kit.
 
@@ -73,16 +90,16 @@ Wrap any subtree in a `WiredTheme` to override the theme for descendant widgets:
 // Static example: setup
 WiredTheme(
   data: WiredThemeData(
-    borderColor: Colors.deepPurple,
+    borderColor: Color(0xFF6A1B9A), // deep purple
     fillColor: Color(0xFFF3E5F5),
   ),
-  child: MyWidget(),
+  child: MyWidget(), // any subtree
 )
 ```
 
 ### Reading the theme
 
-Inside any widget's `build` method:
+Inside any widget's `build` method (here `child` is a field of your widget):
 
 ```dart
 // Static example: custom-class
@@ -139,7 +156,13 @@ void main() {
       ),
       themeMode: SkribbleThemeMode.system,
       title: 'My sketchy app',
-      home: MyHomePage(),
+      builder: (context, child) => WiredMaterialTheme(child: child!),
+      home: WiredScaffold(
+        appBar: WiredAppBar(title: Text('Plum ink, day and night')),
+        body: Center(
+          child: WiredButton(onPressed: () {}, child: Text('Press me')),
+        ),
+      ),
     ),
   );
 }
@@ -232,40 +255,42 @@ The `seed` parameter is important: the same seed produces the same wobbly lines 
 
 ## Custom theme example
 
-Here is a complete example with a purple sketchy palette:
+Here is a complete `lib/main.dart` with a purple sketchy palette and a dark variant:
 
 ```dart
 // Static example: setup
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
   // Define a custom purple theme
   final purpleTheme = WiredThemeData(
-    borderColor: Color(0xFF6A1B9A),    // deep purple
-    textColor: Color(0xFF4A148C),       // darker purple for text
+    borderColor: Color(0xFF6A1B9A), // deep purple
+    textColor: Color(0xFF4A148C), // darker purple for text
     disabledTextColor: Color(0xFFCE93D8), // light purple for disabled
-    fillColor: Color(0xFFF3E5F5),       // very light purple surface
-    strokeWidth: 2.5,                    // slightly thicker strokes
-    roughness: 1.2,                      // gentler than the default
+    fillColor: Color(0xFFF3E5F5), // very light purple surface
+    strokeWidth: 2.5, // slightly thicker strokes
+    roughness: 1.2, // a little rougher than the default
   );
 
   // Dark variant
   final purpleDarkTheme = WiredThemeData(
-    borderColor: Color(0xFFCE93D8),    // light purple borders on dark
-    textColor: Color(0xFFE1BEE7),       // light purple text
+    borderColor: Color(0xFFCE93D8), // light purple borders on dark
+    textColor: Color(0xFFE1BEE7), // light purple text
     disabledTextColor: Color(0xFF7B1FA2),
-    fillColor: Color(0xFF1A0A2E),       // very dark purple surface
+    fillColor: Color(0xFF1A0A2E), // very dark purple surface
     strokeWidth: 2.5,
     roughness: 1.2,
   );
 
   runApp(
-    WiredMaterialApp(
+    SkribbleApp(
+      title: 'Purple Sketch',
       wiredTheme: purpleTheme,
       darkWiredTheme: purpleDarkTheme,
-      themeMode: ThemeMode.system,
-      home: PurpleDemo(),
+      themeMode: SkribbleThemeMode.system,
+      builder: (context, child) => WiredMaterialTheme(child: child!),
+      home: const PurpleDemo(),
     ),
   );
 }
@@ -275,7 +300,7 @@ class PurpleDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WiredScaffold(
       appBar: WiredAppBar(title: const Text('Purple Sketch')),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -290,9 +315,7 @@ class PurpleDemo extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            WiredInput(
-              hintText: 'Type something purple...',
-            ),
+            WiredInput(hintText: 'Type something purple...'),
             const SizedBox(height: 16),
             WiredButton(
               onPressed: () {},
@@ -308,76 +331,87 @@ class PurpleDemo extends StatelessWidget {
 
 ## Nested theme overrides
 
-You can nest `WiredTheme` widgets to override the theme for specific subtrees. This is useful for sections that need a different color treatment:
+You can nest `WiredTheme` widgets to override the theme for specific subtrees. This is useful for sections that need a different color treatment. Use this as the `home` of a `SkribbleApp`:
 
 ```dart
 // Static example: setup
-WiredMaterialApp(
-  wiredTheme: WiredThemeData(), // default theme for most of the app
-  home: Scaffold(
-    body: Column(
-      children: [
-        // Uses the default theme
-        WiredButton(
-          onPressed: () {},
-          child: Text('Default colors'),
-        ),
+WiredScaffold(
+  body: Column(
+    children: [
+      // Uses the app's theme
+      WiredButton(
+        onPressed: () {},
+        child: Text('Default colors'),
+      ),
 
-        // Override just for this section
-        WiredTheme(
-          data: WiredThemeData(
-            borderColor: Colors.red,
-            fillColor: Color(0xFFFFEBEE),
-          ),
-          child: WiredCard(
-            height: null,
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Text('This section uses red borders'),
-                  WiredButton(
-                    onPressed: () {},
-                    child: Text('Red button'),
-                  ),
-                ],
-              ),
+      // Override just for this section
+      WiredTheme(
+        data: WiredThemeData(
+          borderColor: Color(0xFFC62828), // red ink
+          fillColor: Color(0xFFFFEBEE),
+        ),
+        child: WiredCard(
+          height: null,
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text('This section uses red borders'),
+                WiredButton(
+                  onPressed: () {},
+                  child: Text('Red button'),
+                ),
+              ],
             ),
           ),
         ),
-      ],
-    ),
+      ),
+    ],
   ),
 )
 ```
 
-The red-themed card and button will use `Colors.red` for borders, while everything outside that subtree keeps the default `WiredPalette.ink` border color.
+The red-themed card and button draw with the red ink, while everything outside that subtree keeps the app's border color (`WiredPalette.ink` by default). A fresh `WiredThemeData` resets every other value to its default; use `WiredTheme.of(context).copyWith(...)` to inherit the rest of the parent theme instead.
 
 ## Next steps
 
-- [Widget Reference](/widgets) -- browse the full catalog with API details
+- [Widget Reference](/widgets/buttons) -- browse the full catalog with API details
 - [Custom Widgets](/guides/custom-widgets) -- build your own Wired widgets using the rough-drawing engine
-- [Icons](/guides/icons) -- use the hand-drawn icon set
+- [Icons](/widgets/icons) -- use the hand-drawn icon sets
 
 ## The bundled handwriting
 
-The default lettering, **Skribble Noto Sketch**, is Google Noto redrawn with a round marker pen. It has one Regular face, and Flutter synthesizes bold and italic. `WiredThemeScope` and `WiredMaterialApp` apply the package-qualified family through the theme, so text resolves the bundled asset. The Recursive typefaces have four real styles derived from Recursive Sans Casual. Do not manually register only the regular font with `FontLoader`.
+The default lettering, **Skribble Noto Sketch**, is Google Noto redrawn with a round marker pen. `SkribbleApp`, `WiredTheme`, and `WiredMaterialApp` apply the package-qualified family through the theme, so text resolves the bundled asset with no code. Do not register the fonts yourself with `FontLoader`.
 
-For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble_font_noto_sketch'` — the default family ships in the `skribble_font_noto_sketch` package (install it with `flutter pub add skribble_font_noto_sketch`; see [Installation](/getting-started/installation)). The Recursive families ship in `skribble_font_recursive`. Custom font families remain unqualified. The default pen is 1.6 logical pixels (`kWiredStrokeWidth`) with roughness 1.1. Local widget text styles merge with inherited typography instead of dropping the font family. The Recursive Casual derivative uses deformation strength 27 across Regular, Bold, Italic, and Bold Italic, preserving the source's spacing and shaping.
+<!-- {=docsTypefaceTable} -->
+
+| Typeface                                  | Package                     | Select with                                                  | Follows the roughness level |
+| ----------------------------------------- | --------------------------- | ------------------------------------------------------------ | --------------------------- |
+| Skribble Noto Sketch (default)            | `skribble_font_noto_sketch` | nothing: it is the default, or `WiredFont.notoSketch`        | No                          |
+| Skribble Noto Soft                        | `skribble_font_noto`        | `WiredThemeData(font: WiredFont.noto)`                       | No                          |
+| Skribble Noto Lively                      | `skribble_font_noto_lively` | `WiredThemeData(font: WiredFont.notoLively)`                 | No                          |
+| Recursive Casual, Linear, and Mono (code) | `skribble_font_recursive`   | `WiredThemeData(font: WiredFont.casual)`, `.linear`, `.mono` | Yes                         |
+
+Install the package for each typeface you select; every package bundles its own font files, so it works offline. The Skribble Noto packages cover Latin, Greek, and Cyrillic in one Regular face, and Flutter synthesizes bold and italic. Recursive has seven real weights with italics. An explicit `fontFamily` on `WiredThemeData` overrides the choice.
+
+<!-- {/docsTypefaceTable} -->
+
+For a bare `TextStyle` outside the app theme, use `fontFamily: skribbleFontFamily, package: 'skribble_font_noto_sketch'`; see [Installation](/getting-started/installation#choose-another-typeface). Custom font families remain unqualified. Local widget text styles merge with inherited typography instead of dropping the font family. The default pen is 1.6 logical pixels (`kWiredStrokeWidth`) with roughness 1.1.
 
 ## App-wide roughness levels
 
-Choose a level once at the app root. The theme coordinates borders, rough icons, and all four lettering styles:
+Choose a level once at the app root. The theme coordinates borders, rough icons, pens, and the Recursive lettering:
 
 ```dart
 // Static example: setup
-WiredMaterialApp(
+SkribbleApp(
   wiredTheme: WiredThemeData(
     roughnessLevel: WiredRoughness.gentle,
     borderColor: const Color(0xFF624079),
     fillColor: const Color(0xFFFFFBEF),
   ),
-  home: const MyHomePage(),
+  builder: (context, child) => WiredMaterialTheme(child: child!),
+  home: const MyHomePage(), // your own page widget
 )
 ```
 
@@ -387,13 +421,13 @@ Playful is the default. The docs toolbar switches the ink between Gentle, Playfu
 
 | Level        | Appearance                                   | Border amplitude | Font deformation | Casual family     |
 | ------------ | -------------------------------------------- | ---------------- | ---------------- | ----------------- |
-| `gentle`     | Softer handwriting and gently bowed edges    | 0.9              | 18               | `SkribbleGentle`  |
-| `playful`    | Neat, lightly wavering notebook ink          | 1.1              | 27               | `SkribblePlayful` |
-| `expressive` | Strong lettering and locally wandering edges | 1.8              | 36               | `Skribble`        |
+| `gentle`     | Softer handwriting and gently bowed edges    | 0.9              | 12               | `SkribbleGentle`  |
+| `playful`    | Neat, lightly wavering notebook ink          | 1.1              | 20               | `SkribblePlayful` |
+| `expressive` | Strong lettering and locally wandering edges | 1.8              | 28               | `Skribble`        |
 
 The default typeface is `WiredFont.notoSketch`, Skribble Noto Sketch from the `skribble_font_noto_sketch` package. It is hand-drawn from Google Noto and keeps the same lettering at every roughness level, as do `WiredFont.noto` and `WiredFont.notoLively` (see [Compare the lettering](/core/font-comparison#skribble-noto)). Set `font: WiredFont.casual`, `WiredFont.linear`, or `WiredFont.mono` on `WiredThemeData` for the Recursive typefaces from `skribble_font_recursive`, which follow the roughness level; the table lists the Casual family names. Use `WiredFont.mono.familyFor(level)` with `package: 'skribble_font_recursive'` for code-only typography. An explicit `fontFamily` takes precedence.
 
-All levels keep the 1.6px pen (`kWiredStrokeWidth`). The Recursive Regular, Bold, Italic, and Bold Italic faces retain the same source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three Recursive typefaces bundles twelve static faces. Skribble Noto ships one Regular face per level, and Flutter synthesizes bold and italic from it. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
+All levels keep the 1.6px pen width (`kWiredStrokeWidth`). Every Recursive face, in all seven weights and their italics, retains the source character coverage, advance widths, and shaping tables, so level changes do not intentionally reflow text. The fonts are bundled and work offline. Each of the three Recursive typefaces bundles 42 static faces: seven weights, upright and italic, at each of the three levels. Font deformation is the roughening strength per 1,000 units per em. Skribble Noto ships one Regular face per level, and Flutter synthesizes bold and italic from it. These are three static font levels, not a continuous variable-font axis; repeated occurrences of a character use the same outline.
 
 <!-- {/docsRoughnessLevelTable} -->
 

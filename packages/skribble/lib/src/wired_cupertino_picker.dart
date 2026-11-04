@@ -28,6 +28,7 @@ class WiredCupertinoPicker extends HookWidget {
   /// Initial selected item index.
   final int initialItem;
 
+  /// Creates a hand-drawn picker wheel.
   const WiredCupertinoPicker({
     super.key,
     required this.children,

@@ -22,18 +22,25 @@ WiredChip(label: Text('Make something lovely'))
 
 ### Constructor parameters
 
-| Parameter   | Type            | Default      | Description                                                        |
-| ----------- | --------------- | ------------ | ------------------------------------------------------------------ |
-| `label`     | `Widget`        | **required** | The chip label.                                                    |
-| `avatar`    | `Widget?`       | `null`       | Widget displayed before the label.                                 |
-| `onDeleted` | `VoidCallback?` | `null`       | Called when the delete icon is tapped. Adds a close icon when set. |
+| Parameter                   | Type            | Default      | Description                                                        |
+| --------------------------- | --------------- | ------------ | ------------------------------------------------------------------ |
+| `label`                     | `Widget`        | **required** | The chip label.                                                    |
+| `avatar`                    | `Widget?`       | `null`       | Widget displayed before the label.                                 |
+| `onDeleted`                 | `VoidCallback?` | `null`       | Called when the delete icon is tapped. Adds a close icon when set. |
+| `deleteButtonSemanticLabel` | `String?`       | `null`       | Label read for the close icon's button. Defaults to `Delete`.      |
 
 ### Notes
 
-- Fixed height of 32px.
+- At least `kWiredChipHeight` (36) tall, growing with the label.
+- The label keeps `kWiredButtonPadding` (16 at the sides, 8 above and below) from the ink, like every chip.
 - The border uses `WiredRoundedRectangleBase` with `RoughFilter.noFiller`.
-- The delete icon is a 16px `WiredIcon` with `Icons.close`.
+- The delete icon is a 16px hand-drawn close glyph (`SkribbleGlyphs.close`).
 - Text uses `theme.textColor` at 13px.
+- The chip itself is not a button. Its close icon is a separate, labelled button that can be focused and activated with Enter or Space.
+
+### Keyboard and semantics for every chip
+
+`WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`, and `WiredActionChip` join focus traversal while they can be activated, toggle or fire with a tap, Enter, or Space, and draw a sketchy focus outline in the theme's `borderColor` just outside their own ink. Each reports a button with its selected and enabled state. A chip without a callback (`onSelected: null`, `onPressed: null`, or `enabled: false` on an input chip) is disabled: it ignores taps and keys, leaves focus traversal, and offers no tap action to assistive technology.
 
 ---
 
@@ -84,7 +91,7 @@ HookBuilder(
 
 ## WiredInputChip
 
-A chip representing a piece of user input (e.g., a tag or email address). Supports avatar, delete, and tap actions. Its selected state uses the same solid ink fill as choice and filter chips.
+A chip representing a piece of user input (e.g., a tag or email address). Supports avatar, delete, and tap actions. Its selected state uses the same solid ink fill as choice and filter chips, with the label and close icon in the theme's paper colour so they read in light and dark themes. Pass `deleteButtonSemanticLabel` to change the close button's spoken label.
 
 ```dart
 // Live example: input-chip
@@ -231,7 +238,10 @@ Builder(
 - Prefer `showWiredDateRangePicker`, which pops the completed `DateTimeRange<DateTime>` (or `null` when cancelled) through the route.
 - The month grid follows the `WiredCalendar` pattern: month navigation via hand-drawn `<<` / `>>` controls, clamped to `firstDate`..`lastDate`.
 - The month shown on open defaults to the month of `initialDateRange` (or of `firstDate` when no range is given).
-- Day cells expose `Semantics` with labels like `Select Jan 20, 2026`.
+- Day cells expose `Semantics` with labels like `Select Jan 20, 2026`; the two range endpoints also report that they are selected.
+- The endpoint circles and the hatched days between them are inked in the theme's `borderColor`, so they show in dark themes.
+- Weekday names and the month title shrink to one line on narrow screens or with large text, and Cancel and OK stack when they do not fit side by side.
+- Days are counted on the calendar, not in 24-hour steps, so months that cross a daylight-saving change list every day once.
 
 ---
 
@@ -255,6 +265,9 @@ Builder(
 
 - `showWiredTimePicker` opens a dialog containing `WiredTimePicker` plus hand-drawn Cancel/OK buttons; it returns the selected `TimeOfDay`, or `null` when cancelled or dismissed.
 - Hours wrap modulo 24 (23 → 00) and minutes modulo 60 (00 → 59) when dragged.
+- Each field can also be focused with Tab and changed with the up and down arrow keys; a focused field draws a heavier pen.
+- Screen readers announce the fields as `Hour` and `Minute` with their values and can raise or lower them with their adjust gestures.
+- With large text the hour and minute fields shrink to fit the picker instead of running past its edge, and the digits keep `kWiredInkPadding` from the field's ink.
 
 ---
 
@@ -290,6 +303,11 @@ HookBuilder(
   },
 )
 ```
+
+### Notes
+
+- `crossAxisCount` (5 by default) is the most swatches in a row; narrower spaces wrap to fewer.
+- Swatches take keyboard focus and are chosen with Enter or Space. Screen readers hear each as a button named by its hex value, such as `Color #E8957D`, with its selected state.
 
 ---
 
@@ -335,7 +353,7 @@ SizedBox(
 
 ## WiredCupertinoSegmentedControl
 
-A Cupertino-style segmented control with hand-drawn segment borders. The selected segment is washed with the theme's `markerColor`.
+A Cupertino-style segmented control with hand-drawn segment borders. The selected segment is washed with the theme's `markerColor`. Each segment, here and in `WiredSlidingSegmentedControl`, is a focusable button that reports whether it is selected and activates with a tap, Enter, or Space; `onValueChanged: null` disables them.
 
 ```dart
 // Live example: cupertino-segmented-control

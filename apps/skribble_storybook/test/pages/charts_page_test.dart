@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble_charts/skribble_charts.dart';
 import 'package:skribble_charts/src/chart_painter.dart';
 import 'package:skribble_storybook/app.dart';
+import 'package:skribble_storybook/pages/home_page.dart';
 
 const Key _chartKey = ValueKey<String>('storybook-financial-chart');
 const Key _scrollKey = ValueKey<String>('charts-page-scroll');
@@ -28,7 +29,17 @@ Finder get _scrollable => find
 Future<void> _openCharts(WidgetTester tester) async {
   await tester.pumpWidget(const SkribbleStorybookApp());
   await tester.pumpAndSettle();
-  await tester.scrollUntilVisible(find.text('Financial charts'), 250);
+  // With large text the toolbar scrolls too, so name the page's list.
+  await tester.scrollUntilVisible(
+    find.text('Financial charts'),
+    250,
+    scrollable: find
+        .descendant(
+          of: find.byType(HomePage),
+          matching: find.byType(Scrollable),
+        )
+        .first,
+  );
   await tester.pumpAndSettle();
   await tester.tap(find.text('Financial charts'));
   await tester.pumpAndSettle();

@@ -1,10 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 import '../testing/motion_keys.dart';
 
 /// An interactive pen study driven entirely by standard Flutter animations.
 class WiredMotionPage extends StatefulWidget {
+  /// Creates the page.
   const WiredMotionPage({super.key});
 
   @override
@@ -39,7 +41,10 @@ class _WiredMotionPageState extends State<WiredMotionPage>
     return WiredMotion(
       enabled: _enabled,
       child: WiredScaffold(
-        appBar: WiredAppBar(title: const Text('Ink in motion')),
+        appBar: WiredAppBar(
+          leading: const StorybookBackButton(),
+          title: const Text('Ink in motion'),
+        ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
           child: Center(

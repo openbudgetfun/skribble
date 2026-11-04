@@ -78,7 +78,9 @@ pub fn SkribblePage(
 /// sketched pattern.
 ///
 /// The border stretches with the box, so the box can be any size. Content
-/// keeps 12 pixels from the ink at the sides and 8 above and below.
+/// keeps at least 12 pixels from the ink at the sides and 8 above and below:
+/// the padding also covers the few pixels the outline sits inside the box,
+/// which grow as the border stretches.
 ///
 /// ```
 /// use leptoskit::prelude::*;
@@ -115,7 +117,7 @@ pub fn WiredBox(
 ) -> Element {
 	let ink = Ink::outline(InkShape::Rectangle, BOX_CANVAS, seed, theme)
 		.filled(fill_style, fill.unwrap_or(theme.accent()));
-	inked(ink, "px-3 py-2", class, children)
+	inked(ink, "px-5 py-3", class, children)
 }
 
 /// A hand-drawn card: a roomy box for grouping related content.

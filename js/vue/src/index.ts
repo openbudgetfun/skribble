@@ -12,6 +12,7 @@
 import {
   pickSketchOptions,
   sketch,
+  sketchKey,
   sketchOptionKeys,
   type RoughFillStyle,
   type RoughPen,
@@ -25,12 +26,31 @@ import { computed, defineComponent, h, toValue, type ComputedRef, type MaybeRefO
 
 export type { PointLike, RoughFillStyle, RoughPenName, Shape, SketchOptions, SketchPath } from "@skribble.dev/rough";
 
-/** Sketches [shape] with [options] as a computed ref that follows both. */
+/**
+ * Sketches [shape] with [options] as a computed ref that follows both.
+ *
+ * The drawing is keyed on what the inputs draw, not on their identity, so a
+ * getter that builds a fresh but equal shape or options object on every
+ * render (an inline object in a template) does not redraw. Value keying
+ * needs Vue 3.4 or newer, where a computed that returns an equal value
+ * leaves its dependents alone.
+ */
 export function useSketch(
   shape: MaybeRefOrGetter<Shape | readonly Shape[]>,
   options: MaybeRefOrGetter<SketchOptions> = {},
 ): ComputedRef<SketchResult> {
-  return computed(() => sketch(toValue(shape), toValue(options)));
+  let latest: [Shape | readonly Shape[], SketchOptions] | undefined;
+  const key = computed(() => {
+    latest = [toValue(shape), toValue(options)];
+    return sketchKey(...latest);
+  });
+  return computed(() => {
+    // Reading the key is the only dependency; it changes only when the
+    // drawing would, and reading it refreshes `latest`.
+    void key.value;
+    const [currentShape, currentOptions] = latest as [Shape | readonly Shape[], SketchOptions];
+    return sketch(currentShape, currentOptions);
+  });
 }
 
 const numberProp = { type: Number, default: undefined };
@@ -79,7 +99,7 @@ export interface SketchProps extends SketchOptions {
    * coordinates outside the positive quadrant.
    */
   viewBox?: string;
-  /** An accessible description. Without one the sketch is decorative. */
+  /** An accessible name, set as `aria-label`. Without one the sketch is decorative. */
   label?: string;
   /**
    * An accessible name rendered as a `<title>` element, which browsers also
@@ -121,7 +141,7 @@ export const Sketch = defineComponent({
      * coordinates outside the positive quadrant.
      */
     viewBox: { type: String, default: undefined },
-    /** An accessible description. Without one the sketch is decorative. */
+    /** An accessible name, set as `aria-label`. Without one the sketch is decorative. */
     label: { type: String, default: undefined },
     /**
      * An accessible name rendered as a `<title>` element, which browsers

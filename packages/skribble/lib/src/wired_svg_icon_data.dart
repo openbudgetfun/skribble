@@ -4,18 +4,34 @@ import 'package:flutter/foundation.dart';
 import 'package:path_parsing/path_parsing.dart';
 
 /// Fill rules supported by [WiredSvgPrimitive].
-enum WiredSvgFillRule { nonZero, evenOdd }
+enum WiredSvgFillRule {
+  /// SVG `fill-rule="nonzero"`: a point is inside when the winding count of
+  /// the contours around it is not zero.
+  nonZero,
+
+  /// SVG `fill-rule="evenodd"`: a point is inside when a ray from it crosses
+  /// the contours an odd number of times, so nested contours cut holes.
+  evenOdd,
+}
 
 /// A pre-parsed SVG icon description for rough icon rendering.
 final class WiredSvgIconData {
+  /// Creates icon data from its viewBox size and drawable [primitives].
   const WiredSvgIconData({
     required this.width,
     required this.height,
     required this.primitives,
   });
 
+  /// Width of the source SVG viewBox, in SVG user units.
+  ///
+  /// The painter scales the primitives from this box to the icon's size.
   final double width;
+
+  /// Height of the source SVG viewBox, in SVG user units.
   final double height;
+
+  /// The shapes that make up the icon, in paint order.
   final List<WiredSvgPrimitive> primitives;
 
   /// Structural equality: the icon painter cache keys on its data, so
@@ -55,6 +71,7 @@ sealed class WiredSvgPrimitive {
     this.strokeMiterLimit = 4,
   });
 
+  /// A shape described by an SVG path `d` attribute in [data].
   const factory WiredSvgPrimitive.path(
     String data, {
     WiredSvgFillRule fillRule,
@@ -69,6 +86,7 @@ sealed class WiredSvgPrimitive {
     double strokeMiterLimit,
   }) = WiredSvgPathPrimitive;
 
+  /// A circle centred on ([cx], [cy]) with the given [radius].
   const factory WiredSvgPrimitive.circle({
     required double cx,
     required double cy,
@@ -79,6 +97,7 @@ sealed class WiredSvgPrimitive {
     double? strokeWidth,
   }) = WiredSvgCirclePrimitive;
 
+  /// An ellipse centred on ([cx], [cy]) with radii [radiusX] and [radiusY].
   const factory WiredSvgPrimitive.ellipse({
     required double cx,
     required double cy,
@@ -90,6 +109,8 @@ sealed class WiredSvgPrimitive {
     double? strokeWidth,
   }) = WiredSvgEllipsePrimitive;
 
+  /// A polygon or polyline whose points are already written as SVG path
+  /// [data], so it shares [WiredSvgPathPrimitive].
   const factory WiredSvgPrimitive.polygon(
     String data, {
     WiredSvgFillRule fillRule,
@@ -98,6 +119,8 @@ sealed class WiredSvgPrimitive {
     double? strokeWidth,
   }) = WiredSvgPathPrimitive;
 
+  /// How overlapping contours decide what is inside the shape. Defaults to
+  /// [WiredSvgFillRule.nonZero], the SVG default.
   final WiredSvgFillRule fillRule;
 
   /// Paint colour for the enclosed area as `#RRGGBB`, or null when the
@@ -206,8 +229,11 @@ sealed class WiredSvgPrimitive {
     strokeMiterLimit,
   );
 
+  /// Builds the primitive's outline in source SVG coordinates.
   Path buildPath();
 
+  /// Returns an empty [Path] whose fill type matches [fillRule], for
+  /// subclasses to draw into from [buildPath].
   Path createPath() {
     return Path()
       ..fillType = switch (fillRule) {
@@ -226,7 +252,11 @@ sealed class WiredSvgPrimitive {
 /// string. The returned paths are shared: treat them as read-only.
 final Expando<Path> _parsedPathData = Expando<Path>('svg path data');
 
+/// A primitive drawn from SVG path data, also used for polygons and
+/// polylines.
 final class WiredSvgPathPrimitive extends WiredSvgPrimitive {
+  /// Creates a path primitive from SVG path [data]. A null [strokeWidth]
+  /// means 1.
   const WiredSvgPathPrimitive(
     this.data, {
     super.clipPaths,
@@ -241,6 +271,7 @@ final class WiredSvgPathPrimitive extends WiredSvgPrimitive {
     double? strokeWidth,
   }) : super(strokeWidth: strokeWidth ?? 1.0);
 
+  /// The SVG path `d` attribute, parsed once and cached per instance.
   final String data;
 
   @override
@@ -266,7 +297,10 @@ final class WiredSvgPathPrimitive extends WiredSvgPrimitive {
   }
 }
 
+/// A circle primitive from an SVG `<circle>` element.
 final class WiredSvgCirclePrimitive extends WiredSvgPrimitive {
+  /// Creates a circle centred on ([cx], [cy]) with the given [radius]. A null
+  /// [strokeWidth] means 1.
   const WiredSvgCirclePrimitive({
     required this.cx,
     required this.cy,
@@ -277,8 +311,13 @@ final class WiredSvgCirclePrimitive extends WiredSvgPrimitive {
     double? strokeWidth,
   }) : super(strokeWidth: strokeWidth ?? 1.0);
 
+  /// Horizontal centre, in SVG user units.
   final double cx;
+
+  /// Vertical centre, in SVG user units.
   final double cy;
+
+  /// Radius, in SVG user units.
   final double radius;
 
   @override
@@ -304,7 +343,10 @@ final class WiredSvgCirclePrimitive extends WiredSvgPrimitive {
   }
 }
 
+/// An ellipse primitive from an SVG `<ellipse>` element.
 final class WiredSvgEllipsePrimitive extends WiredSvgPrimitive {
+  /// Creates an ellipse centred on ([cx], [cy]) with radii [radiusX] and
+  /// [radiusY]. A null [strokeWidth] means 1.
   const WiredSvgEllipsePrimitive({
     required this.cx,
     required this.cy,
@@ -316,9 +358,16 @@ final class WiredSvgEllipsePrimitive extends WiredSvgPrimitive {
     double? strokeWidth,
   }) : super(strokeWidth: strokeWidth ?? 1.0);
 
+  /// Horizontal centre, in SVG user units.
   final double cx;
+
+  /// Vertical centre, in SVG user units.
   final double cy;
+
+  /// Horizontal radius (`rx`), in SVG user units.
   final double radiusX;
+
+  /// Vertical radius (`ry`), in SVG user units.
   final double radiusY;
 
   @override

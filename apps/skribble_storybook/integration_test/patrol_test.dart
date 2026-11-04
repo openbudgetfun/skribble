@@ -1,21 +1,26 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/app.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 void main() {
   patrolTest('home page renders all category cards', ($) async {
     await $.pumpWidget(const SkribbleStorybookApp());
 
     expect($('Skribble Storybook'), findsOneWidget);
-    expect($('Buttons'), findsOneWidget);
-    expect($('Inputs'), findsOneWidget);
-    expect($('Navigation'), findsOneWidget);
 
-    // Scroll to reveal remaining categories.
-    await $.scrollUntilVisible(finder: $('Data Display'));
-    expect($('Data Display'), findsOneWidget);
+    // The cards below the introduction are built as they scroll into view,
+    // so scroll to each one, whatever the window size.
+    for (final category in [
+      'Buttons',
+      'Inputs',
+      'Navigation',
+      'Data Display',
+    ]) {
+      await $.scrollUntilVisible(finder: $(category));
+      expect($(category), findsOneWidget);
+    }
   });
 
   patrolTest('navigates to Buttons page and displays components', ($) async {
@@ -47,7 +52,7 @@ void main() {
     await _open($, 'Buttons');
     expect($('WiredButton'), findsOneWidget);
 
-    await $(BackButton).tap();
+    await $(StorybookBackButton).tap();
     expect($('Skribble Storybook'), findsOneWidget);
   });
 

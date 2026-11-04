@@ -62,8 +62,13 @@ pub fn welcome(on_start: impl Fn() + Send + Sync + 'static) -> Element {
 - Every component takes a `seed`. Give neighbours different seeds so their wobbles differ.
 - Every component takes an optional `theme` and extra Tailwind `class`es. `Theme::SKRIBBLE` is the default: dark ink on warm paper with a yellow accent, and chalk on charcoal in dark mode.
 - Controls follow leptoskit's controlled pattern: they show a value and propose changes through `on_toggle`, `on_select`, or `on_change`, and you rebuild with the value you accept.
-- Buttons and controls are at least 44 pixels tall and grow with their text. Content keeps 12 pixels from the ink at the sides and 8 above and below.
 - Ink is decorative and hidden from assistive technology. Buttons are real buttons; checkboxes, radios, switches, progress bars, and dividers carry their ARIA roles and states.
+
+<!-- {=leptoskitInkRoom} -->
+
+Buttons and controls are at least 44 pixels tall and grow with their text. Content keeps at least 12 pixels from the ink at the sides and 8 above and below. The padding also covers the few pixels the outline sits inside its component, which grow as the ink stretches, so `WiredBox` pads 20 at the sides and 12 above and below, and buttons and fields pad 12 above and below.
+
+<!-- {/leptoskitInkRoom} -->
 
 ## Platforms
 

@@ -61,11 +61,9 @@ class WiredDoodle extends WiredBaseWidget {
           dimension: size,
           child: WiredCanvas(
             painter: _DoodlePainter(
-              strokes: doodleGeometry(
-                kind,
-                seed: seed,
-                amplitude: theme.roughness.clamp(0, 3).toDouble(),
-              ),
+              kind: kind,
+              seed: seed,
+              amplitude: theme.roughness.clamp(0, 3).toDouble(),
               color: color ?? theme.textColor,
               fillColor: fillColor,
               strokeWidth: strokeWidth,
@@ -84,23 +82,54 @@ class WiredDoodle extends WiredBaseWidget {
 }
 
 /// Converts shared cubic geometry to the existing cached ink renderer.
+///
+/// Compares by value, like the painter bases: `WiredCanvas` keeps its
+/// prepared ink only while an equal painter arrives, and a doodle is rebuilt
+/// with a fresh painter whenever its parent rebuilds.
 class _DoodlePainter extends WiredPainterBase {
-  _DoodlePainter({
-    required this.strokes,
+  const _DoodlePainter({
+    required this.kind,
+    required this.seed,
+    required this.amplitude,
     required this.color,
     required this.fillColor,
     required this.strokeWidth,
     required this.referenceSize,
   });
 
-  final List<DoodleStroke> strokes;
+  final WiredDoodleKind kind;
+  final int seed;
+  final double amplitude;
   final Color color;
   final Color? fillColor;
   final double strokeWidth;
   final double referenceSize;
 
   @override
+  bool operator ==(Object other) =>
+      other is _DoodlePainter &&
+      other.kind == kind &&
+      other.seed == seed &&
+      other.amplitude == amplitude &&
+      other.color == color &&
+      other.fillColor == fillColor &&
+      other.strokeWidth == strokeWidth &&
+      other.referenceSize == referenceSize;
+
+  @override
+  int get hashCode => Object.hash(
+    kind,
+    seed,
+    amplitude,
+    color,
+    fillColor,
+    strokeWidth,
+    referenceSize,
+  );
+
+  @override
   RoughDrawing prepare(Size size, DrawConfig drawConfig, Filler filler) {
+    final strokes = doodleGeometry(kind, seed: seed, amplitude: amplitude);
     final side = math.min(size.width, size.height);
     final scale = side / 100;
     final offset = Offset((size.width - side) / 2, (size.height - side) / 2);

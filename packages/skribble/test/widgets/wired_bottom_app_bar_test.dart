@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble/testing.dart';
 
 import '../helpers/pump_app.dart';
 
@@ -45,17 +46,56 @@ void main() {
       expect(find.byIcon(Icons.search), findsOneWidget);
     });
 
-    testWidgets('has default height of 56', (tester) async {
-      await pumpSubject(tester);
-      expect(find.byType(WiredBottomAppBar), findsOneWidget);
+    testWidgets('is at least 56 pixels tall by default', (tester) async {
+      await pumpSubject(tester, child: const Text('Draft'));
+      expect(tester.getSize(find.byType(WiredBottomAppBar)).height, 56);
     });
 
-    testWidgets('respects custom height', (tester) async {
+    testWidgets('treats a custom height as a minimum', (tester) async {
       await pumpSubject(tester, height: 80);
-      final bar = tester.widget<WiredBottomAppBar>(
-        find.byType(WiredBottomAppBar),
+      expect(tester.getSize(find.byType(WiredBottomAppBar)).height, 80);
+
+      await pumpSubject(
+        tester,
+        height: 40,
+        child: const SizedBox(height: 60, width: 10),
       );
-      expect(bar.height, 80);
+      // 60 of content plus 8 of ink padding above and below.
+      expect(tester.getSize(find.byType(WiredBottomAppBar)).height, 76);
+    });
+
+    testWidgets('keeps text clear of its top line', (tester) async {
+      await pumpSubject(tester, child: const Text('Make something lovely'));
+      final root = tester.binding.renderViews.first;
+      expect(crampedText(root, lines: true), isEmpty);
+
+      final bar = tester.getRect(find.byType(WiredBottomAppBar));
+      final text = tester.getRect(find.text('Make something lovely'));
+      expect(text.top - bar.top, greaterThanOrEqualTo(8));
+      // Centred, not pinned to the top.
+      expect(
+        (text.center.dy - bar.center.dy).abs(),
+        lessThan(1),
+      );
+    });
+
+    testWidgets('stays above the bottom inset on notched phones', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        MediaQuery(
+          data: const MediaQueryData(padding: EdgeInsets.only(bottom: 34)),
+          child: Builder(
+            builder: (context) => const WiredBottomAppBar(child: Text('Home')),
+          ),
+        ),
+        asBottomNav: true,
+      );
+      final bar = tester.getRect(find.byType(WiredBottomAppBar));
+      final text = tester.getRect(find.text('Home'));
+      expect(bar.height, 56 + 34);
+      expect(bar.bottom - text.bottom, greaterThan(34));
     });
 
     testWidgets('renders with custom color', (tester) async {

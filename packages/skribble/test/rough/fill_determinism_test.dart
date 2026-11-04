@@ -67,4 +67,43 @@ void main() {
 
     expect(second, equals(first));
   });
+  testWidgets('a decoration with a shared filler hatches the same way twice', (
+    tester,
+  ) async {
+    // One filler instance shared by every box, as an app would keep in a
+    // constant or a theme. Its random stream must be replayed before each
+    // shape, or each box hatches differently from the last.
+    final filler = HachureFiller(
+      FillerConfig.build(drawConfig: DrawConfig.build(seed: 4)),
+    );
+    final decoration = RoughBoxDecoration(
+      filler: filler,
+      borderStyle: const RoughDrawingStyle(width: 2, color: Color(0xFF000000)),
+      fillStyle: const RoughDrawingStyle(width: 1, color: Color(0xFF000000)),
+    );
+    final first = GlobalKey();
+    final second = GlobalKey();
+    Widget box(Key key) => RepaintBoundary(
+      key: key,
+      child: SizedBox(
+        width: 120,
+        height: 80,
+        child: DecoratedBox(decoration: decoration),
+      ),
+    );
+
+    await tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [box(first), box(second)],
+          ),
+        ),
+      ),
+    );
+
+    expect(await pixels(tester, second), equals(await pixels(tester, first)));
+  });
 }

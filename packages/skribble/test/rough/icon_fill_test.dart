@@ -131,4 +131,65 @@ void main() {
       }
     });
   }
+
+  testWidgets('hachure ink does not depend on what else shared its config', (
+    tester,
+  ) async {
+    // An app can hand one DrawConfig to many icons. Each painter must draw
+    // its hachure from its own copy of the stream, or an icon's strokes
+    // change with whichever icon happened to paint first.
+    final shared = DrawConfig.build(seed: 6);
+    final key = GlobalKey();
+    Future<Uint8List> pixels(Color color) async {
+      debugResetIconPainterCacheStats();
+      await tester.pumpWidget(
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Center(
+            child: RepaintBoundary(
+              key: key,
+              child: WiredSvgIcon(
+                data: WiredBrandIcon.github.data,
+                size: 48,
+                color: color,
+                fillStyle: WiredIconFillStyle.crossHatch,
+                drawConfig: shared,
+              ),
+            ),
+          ),
+        ),
+      );
+      return (await tester.runAsync(() async {
+        final image =
+            await (key.currentContext!.findRenderObject()!
+                    as RenderRepaintBoundary)
+                .toImage();
+        final bytes = (await image.toByteData())!.buffer.asUint8List();
+        image.dispose();
+        return bytes;
+      }))!;
+    }
+
+    final first = await pixels(const Color(0xFF223344));
+    await pixels(const Color(0xFF884422));
+    expect(await pixels(const Color(0xFF223344)), first);
+  });
+
+  testWidgets('a zero or negative hachure gap still paints', (tester) async {
+    for (final gap in [0.0, -2.0]) {
+      await tester.pumpWidget(
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Center(
+            child: WiredSvgIcon(
+              data: WiredBrandIcon.github.data,
+              fillStyle: WiredIconFillStyle.hachure,
+              hachureGap: gap,
+            ),
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull, reason: 'gap $gap');
+    }
+  });
 }

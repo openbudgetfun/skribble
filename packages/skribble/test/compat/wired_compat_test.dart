@@ -143,6 +143,31 @@ void main() {
       );
     });
 
+    testWidgets('WiredMaterialTheme keeps its Material theme across rebuilds', (
+      tester,
+    ) async {
+      final themes = <ThemeData>[];
+      Widget app() => SkribbleApp(
+        // A fresh, equal theme each pump, as a parent's build makes.
+        wiredTheme: WiredThemeData(borderColor: const Color(0xFF283593)),
+        builder: (context, child) => WiredMaterialTheme(child: child!),
+        home: Builder(
+          builder: (context) {
+            themes.add(Theme.of(context));
+            return const SizedBox();
+          },
+        ),
+      );
+
+      await tester.pumpWidget(app());
+      await tester.pumpWidget(app());
+
+      expect(themes, hasLength(2));
+      // Rebuilding ColorScheme.fromSeed and a ThemeData on every rebuild
+      // would hand descendants a new theme each time.
+      expect(themes.last, same(themes.first));
+    });
+
     testWidgets('Material theme is only installed when requested', (
       tester,
     ) async {

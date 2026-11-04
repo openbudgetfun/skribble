@@ -50,7 +50,8 @@
     "**/node_modules/**",
     "js/*/dist/**",
     "js/rough/test/fixtures/**",
-    "pnpm-lock.yaml"
+    "pnpm-lock.yaml",
+    "templates/dart.t.md"
   ],
   "plugins": [
     "https://plugins.dprint.dev/json-0.23.0.wasm",

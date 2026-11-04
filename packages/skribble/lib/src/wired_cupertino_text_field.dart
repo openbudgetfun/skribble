@@ -71,6 +71,7 @@ class WiredCupertinoTextField extends HookWidget {
   /// Whether to autofocus.
   final bool autofocus;
 
+  /// Creates a hand-drawn Cupertino-style text field.
   const WiredCupertinoTextField({
     super.key,
     this.controller,
@@ -117,7 +118,10 @@ class WiredCupertinoTextField extends HookWidget {
             Row(
               children: [
                 if (prefix case final p?)
-                  Padding(padding: const EdgeInsets.only(left: 12), child: p),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 12),
+                    child: p,
+                  ),
                 Expanded(
                   child: TextField(
                     controller: controller,
@@ -133,10 +137,14 @@ class WiredCupertinoTextField extends HookWidget {
                     textInputAction: textInputAction,
                     onChanged: onChanged,
                     onSubmitted: onSubmitted,
+                    cursorColor: theme.borderColor,
                     style:
                         style ??
                         TextStyle(color: theme.textColor, fontSize: 16),
                     decoration: InputDecoration(
+                      // Desktop's compact density would take 4 pixels off each side of
+                      // the padding, bringing text within the ink's breathing room.
+                      visualDensity: VisualDensity.standard,
                       hintText: placeholder,
                       hintStyle:
                           placeholderStyle ??
@@ -156,7 +164,10 @@ class WiredCupertinoTextField extends HookWidget {
                   ),
                 ),
                 if (suffix case final s?)
-                  Padding(padding: const EdgeInsets.only(right: 12), child: s),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(end: 12),
+                    child: s,
+                  ),
               ],
             ),
           ],

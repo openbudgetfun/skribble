@@ -98,6 +98,9 @@ void main() {
       150,
       scrollable: find.byType(Scrollable).first,
     );
+    // Large-text tiles are wider; bring the whole tile on screen to tap it.
+    await tester.ensureVisible(home);
+    await tester.pumpAndSettle();
     await tester.tap(home);
     await tester.pumpAndSettle();
     expect(find.text('Gentle'), findsOneWidget);

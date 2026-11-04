@@ -7,9 +7,13 @@ import 'wired_theme.dart';
 
 /// A drawer with a hand-drawn border on the right edge.
 class WiredDrawer extends HookWidget {
+  /// The drawer's content, usually a list of navigation items.
   final Widget child;
+
+  /// The width of the drawer, in logical pixels. Defaults to 304.
   final double width;
 
+  /// Creates a drawer with a hand-drawn right edge.
   const WiredDrawer({super.key, required this.child, this.width = 304.0});
 
   @override

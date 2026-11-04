@@ -3,10 +3,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
 import 'package:skribble_storybook/components/component_showcase.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 String _displayOption(String option) => option;
 
+/// Gallery of text fields, forms, checkboxes, switches, sliders and other input widgets.
 class InputsPage extends HookWidget {
+  /// Creates the page.
   const InputsPage({super.key});
 
   @override
@@ -27,7 +30,7 @@ class InputsPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('Inputs'),
       ),
       body: ListView(
@@ -119,7 +122,12 @@ class InputsPage extends HookWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Row(
+                    // The status moves below the button when large text
+                    // leaves no room beside it, rather than squeezing.
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 8,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         WiredButton(
                           onPressed: () {
@@ -131,8 +139,7 @@ class InputsPage extends HookWidget {
                           },
                           child: const Text('Validate Form'),
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(child: Text(formStatus.value)),
+                        Text(formStatus.value),
                       ],
                     ),
                   ],

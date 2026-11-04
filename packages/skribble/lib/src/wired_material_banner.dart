@@ -35,9 +35,10 @@ class WiredMaterialBanner extends HookWidget {
   /// pixels wide, always put their actions below.
   final bool forceActionsBelow;
 
-  /// Called when the banner is dismissed via overscroll.
+  /// Called once, after the banner is first built.
   final VoidCallback? onVisible;
 
+  /// Creates a hand-drawn banner showing [content] with optional [actions].
   const WiredMaterialBanner({
     super.key,
     required this.content,
@@ -175,6 +176,11 @@ class WiredMaterialBanner extends HookWidget {
 }
 
 /// Shows a [WiredMaterialBanner] using [ScaffoldMessenger].
+///
+/// The banner carries [content], [leading], [actions], and
+/// [backgroundColor]; [onVisible] runs once the banner has finished sliding
+/// in. Close it with the returned controller or
+/// `ScaffoldMessenger.of(context).hideCurrentMaterialBanner()`.
 ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>
 showWiredMaterialBanner(
   BuildContext context, {
@@ -186,12 +192,24 @@ showWiredMaterialBanner(
 }) {
   return ScaffoldMessenger.of(context).showMaterialBanner(
     MaterialBanner(
-      content: const SizedBox.shrink(),
+      // The hand-drawn banner lays out its own message and actions; the
+      // Material banner only hosts it, so it keeps no padding, colour,
+      // divider, or action bar of its own.
+      content: WiredMaterialBanner(
+        content: content,
+        leading: leading,
+        actions: actions,
+        backgroundColor: backgroundColor,
+      ),
       actions: const [SizedBox.shrink()],
+      forceActionsBelow: true,
+      minActionBarHeight: 0,
       backgroundColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
+      dividerColor: Colors.transparent,
       elevation: 0,
       padding: EdgeInsets.zero,
-      overflowAlignment: OverflowBarAlignment.end,
+      onVisible: onVisible,
     ),
   );
 }

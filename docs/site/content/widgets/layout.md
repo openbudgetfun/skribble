@@ -25,17 +25,20 @@ WiredCard(
 
 ### Constructor parameters
 
-| Parameter | Type      | Default | Description                                                                   |
-| --------- | --------- | ------- | ----------------------------------------------------------------------------- |
-| `child`   | `Widget?` | `null`  | The card content.                                                             |
-| `fill`    | `bool`    | `false` | Whether to colour the card in with close pencil strokes of `theme.fillColor`. |
-| `height`  | `double?` | `130.0` | Card height. Set to `null` for intrinsic sizing.                              |
+| Parameter      | Type                 | Default            | Description                                                                           |
+| -------------- | -------------------- | ------------------ | ------------------------------------------------------------------------------------- |
+| `child`        | `Widget?`            | `null`             | The card content.                                                                     |
+| `fill`         | `bool`               | `false`            | Whether to colour the card in with close pencil strokes of `theme.fillColor`.         |
+| `height`       | `double?`            | `130.0`            | Least card height; the card grows with its content. Set to `null` to fit `child`.     |
+| `padding`      | `EdgeInsetsGeometry` | `kWiredInkPadding` | Space between the outline and `child`. Pass `EdgeInsets.zero` if `child` pads itself. |
+| `borderRadius` | `BorderRadius`       | 16 px corners      | Soft corners for the outline; `BorderRadius.zero` for square ink.                     |
+| `seed`         | `int?`               | `null`             | Varies the hand behind the outline; null keeps the theme's seed.                      |
 
 ### Notes
 
 - The border uses `WiredRectangleBase` with `theme.fillColor` and `theme.borderColor`.
 - When `fill` is `true`, the card is coloured in with even hachure strokes 7 px apart, drawn with the theme's hand so they stay inside the outline. Wrap the card in a `WiredTheme` with a pastel `fillColor` to tint it.
-- When `height` is `null`, the card uses `IntrinsicHeight` to size itself to its content.
+- `child` sits `kWiredInkPadding` (8 pixels above and below, 12 at the sides) inside the outline, so plain text never touches the ink. Taller content grows the card past `height` instead of being squeezed; with `height: null`, the card is exactly as tall as its padded content. A card with a `height` spans the width it is given; with `height: null` it wraps its child's width, and in a horizontally scrolling list it always does.
 - The internal `Card` has transparent color and shadow so the hand-drawn border is the only visible chrome.
 
 ---
@@ -94,8 +97,8 @@ None. `WiredDivider` has no configurable parameters beyond the inherited `key`.
 ### Notes
 
 - The line is drawn with `WiredLineBase` using `theme.borderColor`.
-- A transparent `Divider` is stacked beneath to maintain standard spacing.
-- Fixed height of 1 logical pixel for the drawn line.
+- The divider takes 16 logical pixels of height, like Material's `Divider`, with the line in the middle, so the space above and below it is even.
+- It needs no Material ancestor.
 
 ---
 
@@ -169,13 +172,19 @@ const WiredDataTable(
 )
 ```
 
+### Notes
+
+- A column with `WiredDataColumn.width` keeps that width; the others share the rest, each at least `minColumnWidth` (96 by default).
+- When the columns need more room than the table has, as on a narrow phone, the table scrolls sideways instead of squeezing each column's text into a thin stack of lines.
+- Column labels are announced as headers by screen readers.
+
 ---
 
 ## WiredStepper
 
 A step-by-step wizard with hand-drawn circles for step indicators and sketchy connecting lines.
 
-Step circles are at least 36 pixels and grow with the text scale.
+Step circles are at least 36 pixels and grow with the text scale, keeping the ink's breathing room around the step number; the connecting line stays under the middle of the circle as it grows.
 
 ```dart
 // Live example: stepper
@@ -219,6 +228,14 @@ HookBuilder(
   },
 )
 ```
+
+### Notes
+
+- `selected` accepts any date `DateTime.tryParse` reads, such as `20260909` or `2026-09-09`; `onSelected` reports `YYYYMMDD`.
+- The calendar follows `selected`: a new value from the parent moves the circle and shows that date's month.
+- Every day is a button for screen readers, named by its full date (`Wednesday, September 9, 2026`) and reporting whether it is selected. The `<<` and `>>` controls are announced as `Previous month` and `Next month`.
+- Days are counted on the calendar, not in 24-hour steps, so months that cross a daylight-saving change list every day once and keep their selection circled.
+- Text and the selection circle use the theme's `textColor` and `borderColor`, and the widget no longer needs a Material ancestor.
 
 ---
 
@@ -305,7 +322,7 @@ SizedBox(
 
 A reorderable list with hand-drawn drag handles and separator lines. Items can be dragged to reorder.
 
-Each item centres its row vertically and keeps 12 pixels between its content and the ink.
+Each item centres its row vertically and keeps 12 pixels between its content and the ink at the sides and 8 above and below. `itemHeight` is a minimum: items grow when their content or large text needs more room.
 
 ```dart
 // Live example: reorderable-list-view
@@ -357,6 +374,10 @@ HookBuilder(
   },
 )
 ```
+
+### Notes
+
+- The default delete background is washed in the theme's `errorColor`, or `deleteColor` when set. Its icon is drawn in the theme's ink or paper, whichever stands out more on that wash.
 
 ---
 
@@ -433,7 +454,8 @@ const WiredAvatar(
 - When `backgroundImage` is provided, the hachure fill is disabled to show the image.
 - If the image fails to load, falls back to the child or a `WiredIcon(Icons.person)`.
 - Text content is sized at 70% of the radius; icon content matches the radius.
-- The circle border is always drawn with `WiredCircleBase` using `theme.borderColor`.
+- The circle border is always drawn with `WiredCircleBase` using `theme.borderColor`, on top of a background or foreground image so a photo never hides the ink.
+- The fallback icon follows the clamped radius when `minRadius` or `maxRadius` applies.
 
 ---
 
@@ -530,7 +552,7 @@ WiredGridTileBar(
 | ----------------- | --------- | ------- | ----------------------------------------------------------------- |
 | `color`           | `Color?`  | `null`  | Foreground color for text/icons; falls back to `theme.textColor`. |
 | `backgroundColor` | `Color?`  | `null`  | Bar background; falls back to a translucent `theme.fillColor`.    |
-| `height`          | `double`  | `56`    | Bar height.                                                       |
+| `height`          | `double`  | `56`    | Least bar height; the bar grows when large text needs more room.  |
 | `titleSpacing`    | `double`  | `16`    | Spacing between leading, title and trailing.                      |
 | `leading`         | `Widget?` | `null`  | Widget shown at the start of the bar.                             |
 | `title`           | `Widget?` | `null`  | Primary text of the bar.                                          |
@@ -539,7 +561,7 @@ WiredGridTileBar(
 
 ### Notes
 
-- The bottom edge of the bar is closed with a rough `WiredLineBase` line so it reads as sketched, not machine-cut.
+- The bottom edge of the bar is closed with a rough `WiredLineBase` line so it reads as sketched, not machine-cut. The title and subtitle keep `kWiredInkPadding` from it, even when large text makes the bar grow.
 - Use inside `WiredGridTile.header` or `.footer`; standalone usage also renders correctly.
 
 ---

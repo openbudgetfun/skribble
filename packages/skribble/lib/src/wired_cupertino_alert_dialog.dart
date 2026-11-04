@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn alert dialog corresponding to [CupertinoAlertDialog].
 ///
 /// Provides the same title/content/actions API as [CupertinoAlertDialog]
-/// with a sketchy hand-drawn rounded rectangle border.
+/// with a sketchy hand-drawn rounded rectangle border on the theme's paper.
+///
+/// Up to two actions share a row. More than two, or text scaled past 1.5×,
+/// stacks them one per row, as iOS does, so no label breaks mid-word.
 class WiredCupertinoAlertDialog extends HookWidget {
   /// The title of the dialog.
   final Widget? title;
@@ -26,6 +30,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
   /// Scroll controller for the actions.
   final ScrollController? actionScrollController;
 
+  /// Creates a hand-drawn alert dialog.
   const WiredCupertinoAlertDialog({
     super.key,
     this.title,
@@ -38,12 +43,25 @@ class WiredCupertinoAlertDialog extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
+    final stackActions =
+        actions.length > 2 ||
+        MediaQuery.textScalerOf(context).scale(17) > 17 * 1.5;
     return buildWiredElement(
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 270, minWidth: 270),
           child: Stack(
             children: [
+              // The theme's paper sits under the ink, so the whole line shows
+              // and the text keeps its contrast in dark themes.
+              Positioned.fill(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: theme.fillColor,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                ),
+              ),
               // Sketchy border
               Positioned.fill(
                 child: WiredCanvas(
@@ -56,88 +74,109 @@ class WiredCupertinoAlertDialog extends HookWidget {
                 ),
               ),
               // Content
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.95),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Title + content
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Title + content
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (title != null)
+                          DefaultTextStyle.merge(
+                            style: TextStyle(
+                              color: theme.textColor,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            textAlign: TextAlign.center,
+                            child: title!,
+                          ),
+                        if (title != null && content != null)
+                          const SizedBox(height: 4),
+                        if (content != null)
+                          DefaultTextStyle.merge(
+                            style: TextStyle(
+                              color: theme.textColor.withValues(alpha: 0.7),
+                              fontSize: 13,
+                            ),
+                            textAlign: TextAlign.center,
+                            child: content!,
+                          ),
+                      ],
+                    ),
+                  ),
+                  // Separator
+                  if (actions.isNotEmpty)
+                    SizedBox(
+                      height: theme.inkExtent,
+                      child: WiredCanvas(
+                        painter: WiredLineBase(
+                          strokeWidth: theme.strokeWidth,
+                          x1: 0,
+                          y1: 1,
+                          x2: double.maxFinite,
+                          y2: 1,
+                          borderColor: theme.borderColor,
+                        ),
+                        fillerType: RoughFilter.noFiller,
+                      ),
+                    ),
+                  // Actions: stacked, one per row, like iOS, when there are
+                  // more than two or the text is too large to share a row
+                  // without breaking a word.
+                  if (actions.isNotEmpty && stackActions)
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        for (var i = 0; i < actions.length; i++) ...[
+                          if (i > 0)
+                            SizedBox(
+                              height: theme.inkExtent,
+                              child: WiredCanvas(
+                                painter: WiredLineBase(
+                                  strokeWidth: theme.strokeWidth,
+                                  x1: 0,
+                                  y1: 1,
+                                  x2: double.maxFinite,
+                                  y2: 1,
+                                  borderColor: theme.borderColor,
+                                ),
+                                fillerType: RoughFilter.noFiller,
+                              ),
+                            ),
+                          actions[i],
+                        ],
+                      ],
+                    )
+                  else if (actions.isNotEmpty)
+                    IntrinsicHeight(
+                      child: Row(
                         children: [
-                          if (title != null)
-                            DefaultTextStyle.merge(
-                              style: TextStyle(
-                                color: theme.textColor,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
+                          for (var i = 0; i < actions.length; i++) ...[
+                            if (i > 0)
+                              SizedBox(
+                                width: theme.inkExtent,
+                                child: WiredCanvas(
+                                  painter: WiredLineBase(
+                                    strokeWidth: theme.strokeWidth,
+                                    x1: 1,
+                                    y1: 0,
+                                    x2: 1,
+                                    y2: double.maxFinite,
+                                    borderColor: theme.borderColor,
+                                  ),
+                                  fillerType: RoughFilter.noFiller,
+                                ),
                               ),
-                              textAlign: TextAlign.center,
-                              child: title!,
-                            ),
-                          if (title != null && content != null)
-                            const SizedBox(height: 4),
-                          if (content != null)
-                            DefaultTextStyle.merge(
-                              style: TextStyle(
-                                color: theme.textColor.withValues(alpha: 0.7),
-                                fontSize: 13,
-                              ),
-                              textAlign: TextAlign.center,
-                              child: content!,
-                            ),
+                            Expanded(child: actions[i]),
+                          ],
                         ],
                       ),
                     ),
-                    // Separator
-                    if (actions.isNotEmpty)
-                      SizedBox(
-                        height: theme.inkExtent,
-                        child: WiredCanvas(
-                          painter: WiredLineBase(
-                            strokeWidth: theme.strokeWidth,
-                            x1: 0,
-                            y1: 1,
-                            x2: double.maxFinite,
-                            y2: 1,
-                            borderColor: theme.borderColor,
-                          ),
-                          fillerType: RoughFilter.noFiller,
-                        ),
-                      ),
-                    // Actions
-                    if (actions.isNotEmpty)
-                      IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            for (var i = 0; i < actions.length; i++) ...[
-                              if (i > 0)
-                                SizedBox(
-                                  width: theme.inkExtent,
-                                  child: WiredCanvas(
-                                    painter: WiredLineBase(
-                                      strokeWidth: theme.strokeWidth,
-                                      x1: 1,
-                                      y1: 0,
-                                      x2: 1,
-                                      y2: double.maxFinite,
-                                      borderColor: theme.borderColor,
-                                    ),
-                                    fillerType: RoughFilter.noFiller,
-                                  ),
-                                ),
-                              Expanded(child: actions[i]),
-                            ],
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
+                ],
               ),
             ],
           ),
@@ -163,6 +202,7 @@ class WiredCupertinoDialogAction extends HookWidget {
   /// Whether this is a destructive (red) action.
   final bool isDestructiveAction;
 
+  /// Creates an action button for a [WiredCupertinoAlertDialog].
   const WiredCupertinoDialogAction({
     super.key,
     required this.child,
@@ -173,21 +213,30 @@ class WiredCupertinoDialogAction extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Center(
-          child: DefaultTextStyle.merge(
-            style: TextStyle(
-              color: isDestructiveAction
-                  ? Colors.red
-                  : CupertinoColors.activeBlue,
-              fontSize: 17,
-              fontWeight: isDefaultAction ? FontWeight.w600 : FontWeight.w400,
+    return Semantics(
+      button: true,
+      enabled: onPressed != null,
+      child: WiredActivatable(
+        onActivate: onPressed,
+        // Opaque, so the whole action is tappable, not just its label.
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: Center(
+              child: DefaultTextStyle.merge(
+                style: TextStyle(
+                  color: isDestructiveAction
+                      ? Colors.red
+                      : CupertinoColors.activeBlue,
+                  fontSize: 17,
+                  fontWeight: isDefaultAction
+                      ? FontWeight.w600
+                      : FontWeight.w400,
+                ),
+                child: child,
+              ),
             ),
-            child: child,
           ),
         ),
       ),

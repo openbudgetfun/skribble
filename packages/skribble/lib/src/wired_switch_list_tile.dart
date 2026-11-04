@@ -9,10 +9,23 @@ import 'wired_switch.dart';
 /// Combines `WiredListTile` with [WiredSwitch] for a labeled switch.
 /// The combined widget is wrapped in [Semantics] for accessibility.
 class WiredSwitchListTile extends HookWidget {
+  /// Whether the switch is on.
   final bool value;
+
+  /// Called with the new value when the switch or the tile is tapped.
+  ///
+  /// Null disables both the switch and the tile.
   final ValueChanged<bool>? onChanged;
+
+  /// The primary content of the tile.
   final Widget? title;
+
+  /// Additional content displayed below [title].
   final Widget? subtitle;
+
+  /// <!-- {=dartTileShowDivider|trim|linePrefix:"  /// "} -->
+  /// Whether a hand-drawn line is drawn below the tile. Defaults to true.
+  /// <!-- {/dartTileShowDivider} -->
   final bool showDivider;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -20,6 +33,7 @@ class WiredSwitchListTile extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a list tile with a trailing hand-drawn switch.
   const WiredSwitchListTile({
     super.key,
     required this.value,
@@ -38,7 +52,7 @@ class WiredSwitchListTile extends HookWidget {
       subtitle: subtitle,
       showDivider: showDivider,
       trailing: WiredSwitch(value: value, onChanged: onChanged),
-      onTap: () => onChanged?.call(!value),
+      onTap: onChanged == null ? null : () => onChanged!(!value),
     );
   }
 }

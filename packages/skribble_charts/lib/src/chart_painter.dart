@@ -21,7 +21,9 @@ final class ChartScene {
   /// [firstVisible] and [visibleCount] are candle-index coordinates. [size] is
   /// finite and nonnegative. Indicators in [overlays] share the price scale;
   /// indicators in [panes] have independent scales. [annotations] use market
-  /// coordinates. [textStyle] customizes readable axis labels.
+  /// coordinates. [textStyle] customizes readable axis labels, and
+  /// [textScaler] applies the reader's text size to them. The right and bottom
+  /// gutters grow to fit the measured labels.
   factory ChartScene({
     required List<WiredChartCandle> candles,
     required WiredChartInstrument instrument,
@@ -36,6 +38,7 @@ final class ChartScene {
     List<WiredChartPane> panes = const [],
     List<WiredChartAnnotation> annotations = const [],
     TextStyle? textStyle,
+    TextScaler textScaler = TextScaler.noScaling,
   }) {
     if (!size.width.isFinite ||
         !size.height.isFinite ||
@@ -68,37 +71,22 @@ final class ChartScene {
       }
     }
 
-    final plotWidth = math.max<double>(
+    final labelStyle = textStyle ?? const TextStyle(fontSize: 11);
+    final hasAxes = size.width >= 180 && size.height >= 80;
+    // Buckets only reduce density. The extremes they keep do not depend on the
+    // plot width, so a provisional width can size the price labels first.
+    var plotWidth = math.max<double>(
       1,
       size.width - (size.width >= 180 ? 82 : 12),
     );
-    final plotHeight = math.max<double>(
-      1,
-      size.height - (size.height >= 80 ? 28 : 4),
-    );
-    final left = size.width >= 180 ? 10.0 : 0.0;
-    final top = size.height >= 80 ? 12.0 : 0.0;
-    final usableHeight = math.max<double>(1, plotHeight - top);
-    final mainHeight = panes.isEmpty ? usableHeight : usableHeight * 0.65;
-    final priceRect = Rect.fromLTWH(left, top, plotWidth, mainHeight);
-    final paneRects = <Rect>[];
-    final weight = panes.fold<double>(0, (total, pane) => total + pane.weight);
-    var paneTop = priceRect.bottom;
-
-    for (final pane in panes) {
-      final height = usableHeight * 0.35 * pane.weight / weight;
-      paneRects.add(Rect.fromLTWH(left, paneTop, plotWidth, height));
-      paneTop += height;
-    }
-
-    final viewport = WiredChartViewport(
+    var viewport = WiredChartViewport(
       firstVisible: firstVisible,
       visibleCount: visibleCount,
       width: plotWidth,
     );
     final start = math.max(0, firstVisible.floor());
     final end = math.min(candles.length, (firstVisible + visibleCount).ceil());
-    final buckets = _visibleBuckets(candles, start, end, plotWidth);
+    var buckets = _visibleBuckets(candles, start, end, plotWidth);
     final cache = _indicatorCache[candles] ??=
         <WiredChartIndicator, WiredIndicatorResult>{};
     final results = <WiredChartIndicator, WiredIndicatorResult>{};
@@ -153,6 +141,68 @@ final class ChartScene {
       );
     }
 
+    final reference = candles.isEmpty
+        ? WiredChartDecimal.fromInt(1)
+        : percentageReference;
+    final left = size.width >= 180 ? 10.0 : 0.0;
+    final top = size.height >= 80 ? 12.0 : 0.0;
+    var bottomGutter = size.height >= 80 ? 28.0 : 4.0;
+
+    if (hasAxes) {
+      // Reserve the measured width of the widest price or pane label, so long
+      // prices, large text, and wide fonts stay inside the chart.
+      String priceLabel(WiredChartDecimal price) =>
+          scale == WiredChartPriceScale.percentage && reference != null
+          ? _formatPercentage(price.relativeChangeFrom(reference) * 100)
+          : _formatPrice(price, instrument.priceDecimals);
+      final labelWidth = [
+        _measure(priceLabel(minPrice), labelStyle, textScaler).width,
+        _measure(priceLabel(maxPrice), labelStyle, textScaler).width,
+        if (panes.isNotEmpty)
+          _measure(
+            '-888.8k',
+            labelStyle.copyWith(fontSize: _paneFontSize),
+            textScaler,
+          ).width,
+      ].reduce(math.max);
+      final gutter = (labelWidth.ceilToDouble() + _labelGap + 2).clamp(
+        72.0,
+        math.max(72.0, size.width * 0.4),
+      );
+      final measuredWidth = math.max<double>(1, size.width - left - gutter);
+
+      if (measuredWidth != plotWidth) {
+        plotWidth = measuredWidth;
+        buckets = _visibleBuckets(candles, start, end, plotWidth);
+        viewport = WiredChartViewport(
+          firstVisible: firstVisible,
+          visibleCount: visibleCount,
+          width: plotWidth,
+        );
+      }
+
+      final timeHeight = _measure(
+        '00:00',
+        labelStyle.copyWith(fontSize: _timeFontSize),
+        textScaler,
+      ).height;
+      bottomGutter = math.max(bottomGutter, (timeHeight + 16).ceilToDouble());
+    }
+
+    final plotHeight = math.max<double>(1, size.height - bottomGutter);
+    final usableHeight = math.max<double>(1, plotHeight - top);
+    final mainHeight = panes.isEmpty ? usableHeight : usableHeight * 0.65;
+    final priceRect = Rect.fromLTWH(left, top, plotWidth, mainHeight);
+    final paneRects = <Rect>[];
+    final weight = panes.fold<double>(0, (total, pane) => total + pane.weight);
+    var paneTop = priceRect.bottom;
+
+    for (final pane in panes) {
+      final height = usableHeight * 0.35 * pane.weight / weight;
+      paneRects.add(Rect.fromLTWH(left, paneTop, plotWidth, height));
+      paneTop += height;
+    }
+
     // Add breathing room in pixels rather than extending decimal bounds.
     // Even source prices at the maximum supported precision remain drawable.
     final inset = priceRect.height * (0.06 / 1.12);
@@ -162,9 +212,7 @@ final class ChartScene {
       top: priceRect.top + inset,
       bottom: priceRect.bottom - inset,
       scale: scale,
-      reference: candles.isEmpty
-          ? WiredChartDecimal.fromInt(1)
-          : percentageReference,
+      reference: reference,
     );
 
     return ChartScene._(
@@ -180,7 +228,8 @@ final class ChartScene {
       overlays: overlays,
       panes: panes,
       annotations: annotations,
-      textStyle: textStyle ?? const TextStyle(fontSize: 11),
+      textStyle: labelStyle,
+      textScaler: textScaler,
       results: results,
       start: start,
       end: end,
@@ -203,6 +252,7 @@ final class ChartScene {
     required this.panes,
     required this.annotations,
     required this.textStyle,
+    required this.textScaler,
     required this.results,
     required this.start,
     required this.end,
@@ -270,6 +320,32 @@ final class ChartScene {
 
   /// Typography for axes and drawing labels.
   final TextStyle textStyle;
+
+  /// Reader text scaling applied to axes and drawing labels.
+  final TextScaler textScaler;
+
+  /// Bottom edge of the lowest pane, directly above the time axis.
+  double get plotBottom =>
+      paneRects.isEmpty ? priceRect.bottom : paneRects.last.bottom;
+
+  /// Number of time labels, and of vertical grid intervals, across the plot.
+  ///
+  /// Each interval is at least 105 logical pixels and wide enough for the
+  /// longest time label at the current font and text scale.
+  late final int timeTickCount = math.max(
+    1,
+    (priceRect.width /
+            math.max(
+              105,
+              _measure(
+                    '00/00 00:00',
+                    textStyle.copyWith(fontSize: _timeFontSize),
+                    textScaler,
+                  ).width +
+                  16,
+            ))
+        .floor(),
+  );
 
   /// Indicator results cached for this immutable snapshot.
   final Map<WiredChartIndicator, WiredIndicatorResult> results;
@@ -432,7 +508,9 @@ final class ChartPainter extends CustomPainter {
       _text(
         canvas,
         'No market data',
-        Offset(scene.priceRect.center.dx - 44, scene.priceRect.center.dy - 8),
+        scene.priceRect.center,
+        maxWidth: scene.priceRect.width,
+        align: Alignment.center,
       );
     }
   }
@@ -453,10 +531,8 @@ final class ChartPainter extends CustomPainter {
       );
     }
 
-    final bottom = scene.paneRects.isEmpty
-        ? scene.priceRect.bottom
-        : scene.paneRects.last.bottom;
-    final count = math.max(1, (scene.priceRect.width / 105).floor());
+    final bottom = scene.plotBottom;
+    final count = scene.timeTickCount;
 
     for (var step = 0; step <= count; step++) {
       final x = scene.priceRect.left + scene.priceRect.width * step / count;
@@ -677,6 +753,7 @@ final class ChartPainter extends CustomPainter {
   void _pane(Canvas canvas, int index) {
     final pane = scene.panes[index];
     final rect = scene.paneRects[index];
+    String title;
     String upperLabel;
     String lowerLabel;
     canvas
@@ -689,9 +766,15 @@ final class ChartPainter extends CustomPainter {
       )
       ..save()
       ..clipRect(rect);
+    // Keep the pane title above the plotted values, at any text scale.
+    final labelHeight = _measure(
+      '0',
+      scene.textStyle.copyWith(fontSize: _paneFontSize),
+      scene.textScaler,
+    ).height;
     final content = Rect.fromLTRB(
       rect.left,
-      rect.top + math.min(20, rect.height * 0.25),
+      rect.top + math.min(labelHeight + 6, rect.height * 0.35),
       rect.right,
       rect.bottom - math.min(5, rect.height * 0.1),
     );
@@ -699,16 +782,11 @@ final class ChartPainter extends CustomPainter {
     switch (pane) {
       case WiredVolumePane():
         final maximum = _volume(canvas, content);
-        upperLabel = _compactNumber(maximum.toDouble());
+        upperLabel = compactChartNumber(maximum.toDouble());
         lowerLabel = '0';
-        _text(
-          canvas,
-          scene.visibleBucketCount < scene.end - scene.start
-              ? 'Volume · peak'
-              : 'Volume',
-          rect.topLeft + const Offset(4, 3),
-          fontSize: 10,
-        );
+        title = scene.visibleBucketCount < scene.end - scene.start
+            ? 'Volume · peak'
+            : 'Volume';
       case WiredIndicatorPane():
         final result = scene.results[pane.indicator]!;
         final samples = <double>[
@@ -729,8 +807,8 @@ final class ChartPainter extends CustomPainter {
           max = math.max(0, max);
         }
 
-        upperLabel = _compactNumber(max);
-        lowerLabel = _compactNumber(min);
+        upperLabel = compactChartNumber(max);
+        lowerLabel = compactChartNumber(min);
         final magnitude = math.max(min.abs(), max.abs());
         final normalizedMin = magnitude == 0 ? 0.0 : min / magnitude;
         final normalizedMax = magnitude == 0 ? 0.0 : max / magnitude;
@@ -777,31 +855,46 @@ final class ChartPainter extends CustomPainter {
           );
         }
 
-        _text(
-          canvas,
-          pane.indicator.label,
-          rect.topLeft + const Offset(4, 3),
-          fontSize: 10,
-        );
+        title = pane.indicator.label;
+    }
+
+    // A pane shorter than its title stays untitled rather than letting the
+    // title spill into the pane below.
+    if (rect.height >= labelHeight + 4) {
+      _text(
+        canvas,
+        title,
+        rect.topLeft + const Offset(4, 3),
+        fontSize: _paneFontSize,
+        maxWidth: math.max(0, rect.width - 8),
+      );
     }
 
     canvas.restore();
 
-    if (scene.size.width >= 180 && rect.height >= 35) {
-      final maxWidth = math.max<double>(0, scene.size.width - rect.right - 9);
+    // Both scale labels need their own line; a pane too short for two is
+    // left unlabelled rather than drawing one over the other.
+    if (scene.size.width >= 180 &&
+        scene.size.height >= 80 &&
+        rect.bottom - 1 - content.top >= labelHeight * 2 + 2) {
+      final maxWidth = math.max<double>(
+        0,
+        scene.size.width - rect.right - _labelGap - 2,
+      );
       _text(
         canvas,
         upperLabel,
-        Offset(rect.right + 7, content.top),
-        fontSize: 10,
+        Offset(rect.right + _labelGap, content.top),
+        fontSize: _paneFontSize,
         maxWidth: maxWidth,
       );
       _text(
         canvas,
         lowerLabel,
-        Offset(rect.right + 7, content.bottom - 10),
-        fontSize: 10,
+        Offset(rect.right + _labelGap, rect.bottom - 1),
+        fontSize: _paneFontSize,
         maxWidth: maxWidth,
+        align: Alignment.bottomLeft,
       );
     }
   }
@@ -840,21 +933,6 @@ final class ChartPainter extends CustomPainter {
     }
 
     return maximum;
-  }
-
-  String _compactNumber(double value) {
-    if (!value.isFinite) return '—';
-
-    if (value.abs() >= 1e9) return value.toStringAsExponential(2);
-
-    if (value.abs() >= 1000000) {
-      return '${(value / 1000000).toStringAsFixed(1)}M';
-    }
-
-    if (value.abs() >= 1000) return '${(value / 1000).toStringAsFixed(1)}k';
-
-    if (value != 0 && value.abs() < 0.01) return value.toStringAsExponential(2);
-    return value.toStringAsFixed(2);
   }
 
   void _annotation(Canvas canvas, WiredChartAnnotation annotation) {
@@ -911,43 +989,62 @@ final class ChartPainter extends CustomPainter {
           _text(
             canvas,
             '${(level * 100).toStringAsFixed(1)}%',
-            Offset(left + 3, y - 12),
+            Offset(left + 3, y - 1),
             fontSize: 9,
+            align: Alignment.bottomLeft,
           );
         }
     }
 
     if (annotation.label.isNotEmpty) {
-      _text(canvas, annotation.label, points[0] + const Offset(4, -16));
+      _text(
+        canvas,
+        annotation.label,
+        points[0] + const Offset(4, -2),
+        align: Alignment.bottomLeft,
+      );
     }
   }
 
   void _axes(Canvas canvas) {
     if (scene.size.width < 180 || scene.size.height < 80) return;
+    final labelHeight = _measure('0', scene.textStyle, scene.textScaler).height;
+    final spacing = (scene.transform.bottom - scene.transform.top) / 4;
+    final labelWidth = math.max<double>(
+      0,
+      scene.size.width - scene.priceRect.right - _labelGap - 2,
+    );
+    // Thin out the five price ticks until neighbouring labels have room.
+    var stride = 1;
+
+    while (stride < 4 && spacing * stride < labelHeight + 2) {
+      stride *= 2;
+    }
+
+    final centreOnly =
+        scene.transform.min == scene.transform.max ||
+        spacing * stride < labelHeight + 2;
 
     for (var step = 0; step <= 4; step++) {
-      if (scene.transform.min == scene.transform.max && step != 2) continue;
-      final y =
-          scene.transform.top +
-          (scene.transform.bottom - scene.transform.top) * step / 4;
+      if (centreOnly ? step != 2 : step % stride != 0) continue;
+      final y = scene.transform.top + spacing * step;
       final price = scene.priceForY(y);
       final label = scene.scale == WiredChartPriceScale.percentage
-          ? '${scene.transform.valueForPrice(price).toStringAsFixed(2)}%'
-          : _formatPrice(price);
+          ? _formatPercentage(scene.transform.valueForPrice(price))
+          : _formatPrice(price, scene.instrument.priceDecimals);
 
       _text(
         canvas,
         label,
-        Offset(scene.priceRect.right + 7, y - 6),
-        maxWidth: math.max(0, scene.size.width - scene.priceRect.right - 9),
+        Offset(scene.priceRect.right + _labelGap, y),
+        maxWidth: labelWidth,
+        align: Alignment.centerLeft,
       );
     }
 
     if (scene.candles.isEmpty) return;
-    final count = math.max(1, (scene.priceRect.width / 105).floor());
-    final bottom = scene.paneRects.isEmpty
-        ? scene.priceRect.bottom
-        : scene.paneRects.last.bottom;
+    final count = scene.timeTickCount;
+    final bottom = scene.plotBottom;
     final interval = scene.candles.length < 2
         ? Duration.zero
         : scene.candles.last.time.difference(scene.candles.first.time) ~/
@@ -958,10 +1055,10 @@ final class ChartPainter extends CustomPainter {
         firstTime.year != lastTime.year ||
         firstTime.month != lastTime.month ||
         firstTime.day != lastTime.day;
+    final slot = scene.priceRect.width / count;
 
     for (var step = 0; step < count; step++) {
-      final x =
-          scene.priceRect.left + scene.priceRect.width * (step + 0.5) / count;
+      final x = scene.priceRect.left + slot * (step + 0.5);
       final time = scene.timeForX(x);
       final date =
           '${time.day.toString().padLeft(2, '0')}/${time.month.toString().padLeft(2, '0')}';
@@ -975,51 +1072,46 @@ final class ChartPainter extends CustomPainter {
       _text(
         canvas,
         label,
-        Offset(x - (label.length > 5 ? 32 : 16), bottom + 8),
-        fontSize: 10,
+        Offset(x, bottom + 8),
+        fontSize: _timeFontSize,
+        maxWidth: slot,
+        align: Alignment.topCenter,
       );
     }
 
     _text(
       canvas,
       'UTC',
-      Offset(scene.priceRect.right + 7, bottom + 8),
+      Offset(scene.priceRect.right + _labelGap, bottom + 8),
       fontSize: 9,
+      maxWidth: labelWidth,
     );
   }
 
-  String _formatPrice(WiredChartDecimal price) {
-    final fixed = price.toStringAsFixed(scene.instrument.priceDecimals);
-
-    if (fixed.length <= 11) return fixed;
-    final digits = price.coefficient.abs().toString();
-    final significant = digits.padRight(4, '0').substring(0, 4);
-    final exponent = digits.length - price.scale - 1;
-
-    return '${price.isNegative ? '-' : ''}${significant[0]}.${significant.substring(1)}e$exponent';
-  }
-
+  /// Paints one line of label text with [align] of its box at [position].
   void _text(
     Canvas canvas,
     String text,
     Offset position, {
     double? fontSize,
     double maxWidth = double.infinity,
+    Alignment align = Alignment.topLeft,
   }) {
-    TextPainter(
-        text: TextSpan(
-          text: text,
-          style: scene.textStyle.copyWith(
-            color: scene.style.foreground,
-            fontSize: fontSize,
-          ),
+    final painter = TextPainter(
+      text: TextSpan(
+        text: text,
+        style: scene.textStyle.copyWith(
+          color: scene.style.foreground,
+          fontSize: fontSize,
         ),
-        textDirection: TextDirection.ltr,
-        maxLines: 1,
-        ellipsis: '…',
-      )
-      ..layout(maxWidth: maxWidth)
-      ..paint(canvas, position)
+      ),
+      textDirection: TextDirection.ltr,
+      textScaler: scene.textScaler,
+      maxLines: 1,
+      ellipsis: '…',
+    )..layout(maxWidth: maxWidth);
+    painter
+      ..paint(canvas, position - align.alongSize(painter.size))
       ..dispose();
   }
 
@@ -1036,6 +1128,64 @@ final class ChartPainter extends CustomPainter {
   @override
   bool shouldRepaint(ChartPainter oldDelegate) =>
       !identical(scene, oldDelegate.scene);
+}
+
+/// Lower-pane title and scale label size before text scaling.
+const double _paneFontSize = 10;
+
+/// Time axis label size before text scaling.
+const double _timeFontSize = 10;
+
+/// Gap between the plot's right edge and its axis labels.
+const double _labelGap = 7;
+
+/// Measures one line of [text] as the painter would lay it out.
+Size _measure(String text, TextStyle style, TextScaler textScaler) {
+  final painter = TextPainter(
+    text: TextSpan(text: text, style: style),
+    textDirection: TextDirection.ltr,
+    textScaler: textScaler,
+    maxLines: 1,
+  )..layout();
+  final size = painter.size;
+  painter.dispose();
+
+  return size;
+}
+
+/// Formats a price axis value to the instrument's decimals, switching to
+/// four significant digits in scientific notation when that would be long.
+String _formatPrice(WiredChartDecimal price, int decimals) {
+  final fixed = price.toStringAsFixed(decimals);
+
+  if (fixed.length <= 11) return fixed;
+  final digits = price.coefficient.abs().toString();
+  final significant = digits.padRight(4, '0').substring(0, 4);
+  final exponent = digits.length - price.scale - 1;
+
+  return '${price.isNegative ? '-' : ''}${significant[0]}.${significant.substring(1)}e$exponent';
+}
+
+String _formatPercentage(double value) => '${value.toStringAsFixed(2)}%';
+
+/// Formats a pane scale value in at most about seven characters.
+@visibleForTesting
+String compactChartNumber(double value) {
+  if (!value.isFinite) return '—';
+
+  final magnitude = value.abs();
+
+  if (magnitude >= 999.95e6) return value.toStringAsExponential(2);
+
+  // Round before choosing the unit so 999,999 reads 1.0M rather than 1000.0k.
+  if (magnitude >= 999950) {
+    return '${(value / 1000000).toStringAsFixed(1)}M';
+  }
+
+  if (magnitude >= 999.995) return '${(value / 1000).toStringAsFixed(1)}k';
+
+  if (value != 0 && magnitude < 0.01) return value.toStringAsExponential(2);
+  return value.toStringAsFixed(2);
 }
 
 // Cache aligned power-of-two intervals, so panning normally only scans new

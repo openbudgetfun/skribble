@@ -9,8 +9,10 @@ import 'wired_theme.dart';
 /// A bottom sheet with a hand-drawn top border and rounded corners.
 ///
 /// The bottom sheet is wrapped in [Semantics] for accessibility, providing
-/// screen readers with the sheet label and content.
+/// screen readers with the sheet label and content. Its [child] is padded
+/// above the bottom safe area, clear of the home indicator.
 class WiredBottomSheet extends HookWidget {
+  /// The sheet's content.
   final Widget child;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -18,6 +20,7 @@ class WiredBottomSheet extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn bottom sheet around [child].
   const WiredBottomSheet({super.key, required this.child, this.semanticLabel});
 
   @override
@@ -61,7 +64,8 @@ class WiredBottomSheet extends HookWidget {
               ),
             ),
           ),
-          child,
+          // The content stays above the home indicator of notched phones.
+          SafeArea(top: false, child: child),
         ],
       ),
     );

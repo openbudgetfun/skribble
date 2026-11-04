@@ -32,6 +32,7 @@ class WiredCalendarDatePicker extends HookWidget {
   /// Optional predicate to control which dates are selectable.
   final bool Function(DateTime)? selectableDayPredicate;
 
+  /// Creates a hand-drawn calendar date picker.
   const WiredCalendarDatePicker({
     super.key,
     required this.initialDate,

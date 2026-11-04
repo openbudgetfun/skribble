@@ -61,7 +61,7 @@ Constrain the chart's width and height. The application owns and disposes its co
 
 Drag to pan, pinch or scroll to zoom, and tap/long press to inspect. Keyboard arrows select candles, plus/minus zoom, and End returns to the latest candle. Ctrl/Cmd+Z undoes drawing edits, Ctrl/Cmd+Shift+Z redoes, Delete removes the selected drawing, and Escape cancels an unfinished edit. Screen-reader zoom actions expose their next values. Selected OHLC values remain visible as text.
 
-Price boundaries and wick endpoints do not move with roughness. Candle textures have stable seeds and reduce detail at dense zoom levels. Price geometry does not animate. `WiredChartStyle` supplies paper, ink, up/down, grid, and indicator colors independently of the host's theme.
+Price boundaries and wick endpoints do not move with roughness. Candle textures have stable seeds and reduce detail at dense zoom levels. Price geometry does not animate. `WiredChartStyle` supplies paper, ink, up/down, grid, and indicator colors independently of the host's theme; `WiredChartStyle.fromTheme(theme)` derives them from a skribble theme, including dark ones.
 
 ## History, streams, and intervals
 

@@ -3,8 +3,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
 import 'package:skribble_storybook/components/component_showcase.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
+/// Gallery of the button family, from [WiredButton] to [WiredSegmentedButton].
 class ButtonsPage extends HookWidget {
+  /// Creates the page.
   const ButtonsPage({super.key});
 
   @override
@@ -14,7 +17,7 @@ class ButtonsPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('Buttons'),
       ),
       body: ListView(

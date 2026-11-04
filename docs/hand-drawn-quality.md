@@ -1,6 +1,6 @@
 # Hand-drawn quality work
 
-> **Superseded for emoji.** The OpenMoji pipeline this report describes has been replaced by skribble's own hand-drawn emoji, compiled from SVG art in `packages/skribble_emoji/art` and inked at runtime by the theme pen. See `docs/site/content/widgets/emoji.md`. The font and pen notes below still apply.
+> **Superseded for emoji.** The OpenMoji pipeline this report describes has been replaced by skribble's own hand-drawn emoji, compiled from SVG art in `packages/skribble_emoji/art` and inked at runtime by the theme pen. See `docs/site/content/widgets/emoji.md`. The font and pen notes below record the work as it was done; the numbers have moved since. Today the default pen is 1.6 logical pixels (`kWiredStrokeWidth`) with playful roughness 1.1, the default lettering is Skribble Noto Sketch, and the Recursive faces are roughened at strengths 12, 20, and 28 (see `docs/site/content/getting-started/theming.md`).
 
 skribble now uses a real outline-derived Recursive Casual family, a broader rounded pen for UI borders, and complete OpenMoji 17 artwork. The storybook's **The sketchbook** page combines those pieces in an interactive notebook with morning and evening palettes.
 

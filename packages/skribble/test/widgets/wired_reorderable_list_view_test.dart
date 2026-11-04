@@ -107,16 +107,13 @@ void main() {
         ),
       );
 
-      final sizedBox = tester.widget<SizedBox>(
+      final item = tester.getSize(
         find
-            .ancestor(
-              of: find.text('Tall item'),
-              matching: find.byType(SizedBox),
-            )
+            .ancestor(of: find.text('Tall item'), matching: find.byType(Stack))
             .first,
       );
 
-      expect(sizedBox.height, 80);
+      expect(item.height, 80);
     });
 
     testWidgets('renders with custom padding', (tester) async {
@@ -143,6 +140,39 @@ void main() {
 
       expect(find.text('Solo'), findsOneWidget);
       expect(findWiredGlyph(SkribbleGlyphs.grip), findsOneWidget);
+    });
+
+    testWidgets('items grow past itemHeight for tall content', (tester) async {
+      await pumpWiredScaled(
+        tester,
+        SizedBox(
+          width: 320,
+          height: 400,
+          child: WiredReorderableListView(
+            onReorder: (_, _) {},
+            children: const [
+              Text(
+                'A long task name that wraps over a few lines on a phone',
+                key: ValueKey('long'),
+              ),
+            ],
+          ),
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      final text = tester.getRect(find.textContaining('A long task'));
+      final ink = tester.getRect(
+        find
+            .ancestor(
+              of: find.textContaining('A long task'),
+              matching: find.byType(Stack),
+            )
+            .first,
+      );
+      // The text keeps the ink's breathing room above and below.
+      expect(text.top - ink.top, greaterThanOrEqualTo(8));
+      expect(ink.bottom - text.bottom, greaterThanOrEqualTo(8));
     });
   });
 }

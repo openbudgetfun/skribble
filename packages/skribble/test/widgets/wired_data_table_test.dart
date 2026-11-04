@@ -449,6 +449,121 @@ void main() {
         findsOneWidget,
       );
     });
+
+    group('at narrow widths', () {
+      const columns = [
+        WiredDataColumn(label: Text('Name')),
+        WiredDataColumn(label: Text('Email address')),
+        WiredDataColumn(label: Text('Role')),
+        WiredDataColumn(label: Text('Status')),
+      ];
+      const rows = [
+        WiredDataRow(
+          cells: [
+            Text('Ada'),
+            Text('ada@example.com'),
+            Text('Admin'),
+            Text('Active'),
+          ],
+        ),
+      ];
+
+      testWidgets('scrolls sideways instead of squeezing columns', (
+        tester,
+      ) async {
+        tester.view
+          ..physicalSize = const Size(320, 600)
+          ..devicePixelRatio = 1;
+        addTearDown(tester.view.reset);
+
+        await pumpApp(
+          tester,
+          const WiredDataTable(columns: columns, rows: rows),
+        );
+
+        expect(tester.takeException(), isNull);
+        expect(
+          find.descendant(
+            of: find.byType(WiredDataTable),
+            matching: find.byType(SingleChildScrollView),
+          ),
+          findsOneWidget,
+        );
+        // Every flexible column keeps its least width.
+        expect(
+          tester.getSize(find.text('Email address')).width,
+          lessThanOrEqualTo(96),
+        );
+        expect(
+          tester.getRect(find.text('Status')).left -
+              tester.getRect(find.text('Role')).left,
+          moreOrLessEquals(96, epsilon: .5),
+        );
+      });
+
+      testWidgets('fills the width without scrolling when there is room', (
+        tester,
+      ) async {
+        tester.view
+          ..physicalSize = const Size(1280, 600)
+          ..devicePixelRatio = 1;
+        addTearDown(tester.view.reset);
+
+        await pumpApp(
+          tester,
+          const WiredDataTable(columns: columns, rows: rows),
+        );
+
+        expect(
+          find.descendant(
+            of: find.byType(WiredDataTable),
+            matching: find.byType(SingleChildScrollView),
+          ),
+          findsNothing,
+        );
+        expect(tester.getSize(find.byType(WiredDataTable)).width, 1280);
+      });
+    });
+
+    testWidgets('honours a fixed column width', (tester) async {
+      await pumpApp(
+        tester,
+        const WiredDataTable(
+          columns: [
+            WiredDataColumn(label: Text('Id'), width: 60),
+            WiredDataColumn(label: Text('Name')),
+          ],
+          rows: [
+            WiredDataRow(cells: [Text('1'), Text('Ada')]),
+          ],
+        ),
+      );
+
+      expect(
+        tester.getRect(find.text('Name')).left -
+            tester.getRect(find.text('Id')).left,
+        moreOrLessEquals(60, epsilon: .5),
+      );
+    });
+
+    testWidgets('marks column labels as headers', (tester) async {
+      final semantics = tester.ensureSemantics();
+      await pumpApp(
+        tester,
+        const WiredDataTable(
+          columns: [WiredDataColumn(label: Text('Sketch'))],
+          rows: [
+            WiredDataRow(cells: [Text('Boats')]),
+          ],
+        ),
+      );
+
+      expect(
+        tester.getSemantics(find.text('Sketch')),
+        matchesSemantics(label: 'Sketch', isHeader: true),
+      );
+      semantics.dispose();
+    });
   });
 }
 

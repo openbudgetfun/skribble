@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
@@ -8,7 +9,11 @@ import 'wired_theme.dart';
 
 /// A card with a hand-drawn rectangle border.
 ///
-/// Reads fill color from the nearest [WiredTheme] ancestor.
+/// Reads fill color from the nearest [WiredTheme] ancestor. Its [child]
+/// sits [padding] inside the ink, [kWiredInkPadding] by default, and the
+/// card is at least [height] tall, growing when its content needs more
+/// room. With a [height] it spans the width it is given; with a null
+/// [height] it wraps [child].
 class WiredCard extends HookWidget {
   /// The card's content.
   final Widget? child;
@@ -17,31 +22,45 @@ class WiredCard extends HookWidget {
   /// theme's `fillColor`. Wrap the card in a [WiredTheme] to choose a tint.
   final bool fill;
 
-  /// Fixed height, or null to size to [child].
+  /// The card's least height, or null to size it to [child]. The card grows
+  /// past it when its content is taller, so text never presses against the
+  /// ink.
   final double? height;
+
+  /// The space between the hand-drawn outline and [child]. Defaults to
+  /// [kWiredInkPadding], 8 pixels above and below and 12 at the sides; pass
+  /// [EdgeInsets.zero] when the child brings its own.
+  final EdgeInsetsGeometry padding;
 
   /// Soft corners for the paper outline. Use [BorderRadius.zero] for square ink.
   final BorderRadius borderRadius;
 
+  /// Creates a hand-drawn card.
   const WiredCard({
     super.key,
     this.child,
     this.fill = false,
     this.height = 130.0,
+    this.padding = kWiredInkPadding,
     this.borderRadius = const BorderRadius.all(Radius.circular(16)),
     this.seed,
   });
 
+  /// <!-- {=dartInkSeed|trim|linePrefix:"  /// "} -->
   /// Varies the hand behind this widget's ink. The same seed always draws
   /// the same wobble, so neighbouring shapes of the same size need different
   /// seeds to stop them reading as copies of each other. Null keeps the
   /// theme's seed.
+  /// <!-- {/dartInkSeed} -->
   final int? seed;
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final stack = Stack(
+    final card = Stack(
+      // The card's constraints, its least height included, reach the
+      // content, which the outline then frames.
+      fit: StackFit.passthrough,
       children: [
         Positioned.fill(
           child: WiredCanvas(
@@ -60,34 +79,61 @@ class WiredCard extends HookWidget {
             ),
           ),
         ),
-        if (height != null)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: Card(
-                  color: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  child: child,
-                ),
-              ),
-            ],
-          )
-        else
-          Card(
-            color: Colors.transparent,
-            shadowColor: Colors.transparent,
-            child: child,
-          ),
+        // A transparent Material surface, so ink-based children such as
+        // list tiles have one to draw on.
+        Card(
+          color: Colors.transparent,
+          shadowColor: Colors.transparent,
+          margin: EdgeInsets.zero,
+          child: Padding(padding: padding, child: child),
+        ),
       ],
     );
 
-    return Container(
-      color: Colors.transparent,
-      padding: EdgeInsets.zero,
-      margin: EdgeInsets.zero,
-      height: height,
-      child: stack,
-    );
+    final least = height;
+    // A card with a height spans the width it is given, as a sheet of paper
+    // would; one sized to its child wraps it.
+    return least == null
+        ? card
+        : _SpanBoundedWidth(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: least),
+              child: card,
+            ),
+          );
+  }
+}
+
+/// Stretches its child across a bounded width and leaves it at its own
+/// width when the width is unbounded, as in a horizontal scroll view.
+class _SpanBoundedWidth extends SingleChildRenderObjectWidget {
+  const _SpanBoundedWidth({required super.child});
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderSpanBoundedWidth();
+}
+
+class _RenderSpanBoundedWidth extends RenderProxyBox {
+  @override
+  void performLayout() {
+    final child = this.child;
+    if (child == null) {
+      size = constraints.smallest;
+      return;
+    }
+    final span = constraints.hasBoundedWidth
+        ? constraints.copyWith(minWidth: constraints.maxWidth)
+        : constraints;
+    child.layout(span, parentUsesSize: true);
+    size = constraints.constrain(child.size);
+  }
+
+  @override
+  Size computeDryLayout(BoxConstraints constraints) {
+    final span = constraints.hasBoundedWidth
+        ? constraints.copyWith(minWidth: constraints.maxWidth)
+        : constraints;
+    return constraints.constrain(child?.getDryLayout(span) ?? Size.zero);
   }
 }

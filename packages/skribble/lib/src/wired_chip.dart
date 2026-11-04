@@ -2,18 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
-import 'generated/skribble_glyphs.g.dart';
 import 'wired_base.dart';
-import 'wired_icon.dart';
+import 'wired_chip_delete_button.dart';
 import 'wired_theme.dart';
 
 /// A chip with a hand-drawn rounded rectangle border.
 ///
-/// The chip is wrapped in [Semantics] for accessibility, providing
-/// screen readers with the label and delete action when applicable.
+/// The chip is wrapped in [Semantics] for accessibility. The chip itself is
+/// not a button; when [onDeleted] is set, its close mark is a separate,
+/// focusable button labelled [deleteButtonSemanticLabel].
 class WiredChip extends HookWidget {
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
+
+  /// A widget shown before the label, such as an avatar.
   final Widget? avatar;
+
+  /// Called when the close mark is tapped or activated with Enter or Space.
+  /// Adds the close mark when set.
   final VoidCallback? onDeleted;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -21,6 +29,10 @@ class WiredChip extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// The label read for the close mark's button. Defaults to `Delete`.
+  final String? deleteButtonSemanticLabel;
+
+  /// Creates a chip with a hand-drawn border.
   const WiredChip({
     super.key,
     required this.label,
@@ -28,21 +40,23 @@ class WiredChip extends HookWidget {
     this.onDeleted,
     this.semanticLabel,
     this.seed,
+    this.deleteButtonSemanticLabel,
   });
 
+  /// <!-- {=dartInkSeed|trim|linePrefix:"  /// "} -->
   /// Varies the hand behind this widget's ink. The same seed always draws
   /// the same wobble, so neighbouring shapes of the same size need different
   /// seeds to stop them reading as copies of each other. Null keeps the
   /// theme's seed.
+  /// <!-- {/dartInkSeed} -->
   final int? seed;
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     return Semantics(
+      container: true,
       label: semanticLabel,
-      button: true,
-      onTap: onDeleted,
       child: buildWiredElement(
         child: IntrinsicWidth(
           child: ConstrainedBox(
@@ -62,7 +76,7 @@ class WiredChip extends HookWidget {
                   ),
                 ),
                 Padding(
-                  padding: kWiredInkPadding,
+                  padding: kWiredButtonPadding,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -78,19 +92,18 @@ class WiredChip extends HookWidget {
                             color: theme.textColor,
                             fontSize: 13,
                           ),
-                          child: label,
+                          // A semantic label replaces the label's own text, not joins it.
+                          child: semanticLabel == null
+                              ? label
+                              : ExcludeSemantics(child: label),
                         ),
                       ),
                       if (onDeleted != null) ...[
                         const SizedBox(width: 4),
-                        GestureDetector(
-                          onTap: onDeleted,
-                          child: WiredSvgIcon(
-                            data: SkribbleGlyphs.close,
-                            size: 16,
-                            color: theme.textColor,
-                            weight: 300,
-                          ),
+                        WiredChipDeleteButton(
+                          onDeleted: onDeleted!,
+                          color: theme.textColor,
+                          semanticLabel: deleteButtonSemanticLabel,
                         ),
                       ],
                     ],

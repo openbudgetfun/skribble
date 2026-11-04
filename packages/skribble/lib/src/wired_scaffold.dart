@@ -10,6 +10,7 @@ import 'wired_theme.dart';
 /// This gives apps a lightweight architectural shell that matches the
 /// hand-drawn widgets while keeping the familiar Material scaffold API.
 class WiredScaffold extends HookWidget {
+  /// Creates a scaffold with skribble's paper background and drawer scrim.
   const WiredScaffold({
     super.key,
     this.appBar,
@@ -37,28 +38,77 @@ class WiredScaffold extends HookWidget {
     this.primary = true,
   });
 
+  /// See [Scaffold.appBar].
   final PreferredSizeWidget? appBar;
+
+  /// See [Scaffold.body].
   final Widget? body;
+
+  /// The page colour behind [body].
+  ///
+  /// Defaults to [WiredThemeData.paperBackgroundColor].
   final Color? backgroundColor;
+
+  /// Padding inserted around [body]. Null adds none.
   final EdgeInsetsGeometry? bodyPadding;
+
+  /// Whether to wrap [body] in a [SafeArea]. Defaults to false.
   final bool applySafeArea;
+
+  /// See [Scaffold.floatingActionButton].
   final Widget? floatingActionButton;
+
+  /// See [Scaffold.floatingActionButtonAnimator].
   final FloatingActionButtonAnimator? floatingActionButtonAnimator;
+
+  /// See [Scaffold.floatingActionButtonLocation].
   final FloatingActionButtonLocation? floatingActionButtonLocation;
+
+  /// See [Scaffold.drawer].
   final Widget? drawer;
+
+  /// See [Scaffold.endDrawer].
   final Widget? endDrawer;
+
+  /// The colour that dims the page while a drawer is open.
+  ///
+  /// Defaults to the theme border colour at 12% opacity.
   final Color? drawerScrimColor;
+
+  /// See [Scaffold.drawerEdgeDragWidth].
   final double? drawerEdgeDragWidth;
+
+  /// See [Scaffold.drawerEnableOpenDragGesture].
   final bool drawerEnableOpenDragGesture;
+
+  /// See [Scaffold.endDrawerEnableOpenDragGesture].
   final bool endDrawerEnableOpenDragGesture;
+
+  /// See [Scaffold.drawerDragStartBehavior].
   final DragStartBehavior drawerDragStartBehavior;
+
+  /// See [Scaffold.bottomNavigationBar].
   final Widget? bottomNavigationBar;
+
+  /// See [Scaffold.bottomSheet].
   final Widget? bottomSheet;
+
+  /// See [Scaffold.persistentFooterButtons].
   final List<Widget>? persistentFooterButtons;
+
+  /// See [Scaffold.persistentFooterAlignment].
   final AlignmentDirectional persistentFooterAlignment;
+
+  /// See [Scaffold.resizeToAvoidBottomInset].
   final bool? resizeToAvoidBottomInset;
+
+  /// See [Scaffold.extendBody].
   final bool extendBody;
+
+  /// See [Scaffold.extendBodyBehindAppBar].
   final bool extendBodyBehindAppBar;
+
+  /// See [Scaffold.primary].
   final bool primary;
 
   @override

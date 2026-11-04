@@ -18,7 +18,17 @@ import 'wired_theme_scope.dart';
 /// when using this name in a bare `TextStyle`.
 const String skribbleFontFamily = 'SkribbleNotoSketch';
 
-/// Theme data for Wired widgets.
+/// Theme data for Wired widgets: the palette, the pen, the roughness level,
+/// the typeface, and the motion policy.
+///
+/// The defaults are skribble's light theme: plum [WiredPalette.ink] on warm
+/// [WiredPalette.paper]. [WiredThemeData.cuddly] builds the matching dark
+/// theme with `brightness: Brightness.dark`. Install a theme with
+/// `SkribbleApp`, [WiredThemeScope], or [WiredTheme], and read it with
+/// [WiredTheme.of].
+///
+/// Two themes with the same values are equal, so rebuilding with an equal
+/// theme does not notify dependants.
 class WiredThemeData {
   /// Whether decorative ink motion is permitted. Reduced motion still wins.
   final bool motionEnabled;
@@ -26,13 +36,21 @@ class WiredThemeData {
   /// Default decorative feedback for buttons in this theme.
   final WiredInkInteraction inkInteraction;
 
+  /// Ink for outlines: the hand-drawn border of every control and surface.
   final Color borderColor;
+
+  /// Ink for text and, through [WiredThemeScope], for icons without a colour
+  /// of their own.
   final Color textColor;
+
+  /// Ink for the labels of disabled controls.
   final Color disabledTextColor;
 
   /// Ink for errors: the border of an input with error text and the error
   /// text itself.
   final Color errorColor;
+
+  /// The paper: the fill inside controls and surfaces.
   final Color fillColor;
 
   /// The highlighter wash under selected and active things: navigation
@@ -42,6 +60,9 @@ class WiredThemeData {
   /// Ink still draws the shape and the label on top, so selection never
   /// relies on this colour alone.
   final Color markerColor;
+
+  /// The pen width of outlines, in logical pixels. Icons scale their ink
+  /// with it too. Defaults to [kWiredStrokeWidth].
   final double strokeWidth;
   final DrawConfig? _drawConfig;
 
@@ -92,6 +113,10 @@ class WiredThemeData {
     return package == null ? fontFamily : 'packages/$package/$fontFamily';
   }
 
+  /// Creates a theme. Every value has a default; see the fields.
+  ///
+  /// `roughness`, `fontFamily`, `drawConfig`, and `pen` override what
+  /// [roughnessLevel] and [font] would choose.
   WiredThemeData({
     this.motionEnabled = true,
     this.inkInteraction = WiredInkInteraction.pressure,
@@ -151,6 +176,7 @@ class WiredThemeData {
         pen: pen,
       );
 
+  /// The theme used where none is installed: `WiredThemeData()`.
   static final defaultTheme = WiredThemeData();
 
   @override
@@ -195,6 +221,11 @@ class WiredThemeData {
     _pen,
   );
 
+  /// Returns a copy with the given values replaced.
+  ///
+  /// Explicit `roughness`, `fontFamily`, `drawConfig`, and `pen` overrides
+  /// carry over, including when [roughnessLevel] changes. A null argument
+  /// keeps the current value, so a copy cannot clear an override.
   WiredThemeData copyWith({
     bool? motionEnabled,
     WiredInkInteraction? inkInteraction,
@@ -262,6 +293,8 @@ class WiredThemeData {
       onSecondaryContainer: textColor,
       surface: fillColor,
       onSurface: textColor,
+      error: errorColor,
+      onError: _bestContrastingColor(errorColor),
       outline: borderColor.withValues(alpha: 0.7),
       surfaceTint: borderColor,
       shadow: borderColor.withValues(alpha: 0.12),

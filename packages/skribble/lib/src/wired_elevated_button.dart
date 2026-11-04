@@ -8,8 +8,10 @@ import 'wired_theme.dart';
 
 /// An elevated button: a paper face over a lightly pencilled offset shadow.
 class WiredElevatedButton extends WiredButtonBase {
+  /// <!-- {=dartRoughBorderRadius|trim|linePrefix:"  /// "} -->
   /// Corner radii drawn with the theme's roughness. Use [BorderRadius.zero]
   /// for square corners.
+  /// <!-- {/dartRoughBorderRadius} -->
   final BorderRadius borderRadius;
 
   /// Creates an elevated button. See [WiredButtonBase] for the shared
@@ -20,6 +22,7 @@ class WiredElevatedButton extends WiredButtonBase {
     super.onPressed,
     super.semanticLabel,
     super.inkInteraction,
+    super.seed,
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
   });
 
@@ -35,6 +38,7 @@ class WiredElevatedButton extends WiredButtonBase {
         bottom: -2,
         child: Container(
           decoration: RoughBoxDecoration(
+            seed: seed ?? 1,
             progress: WiredDrawTransition.progressOf(context),
             pressure: WiredInkResponse.pressureOf(context),
             drawConfig: theme.drawConfig,
@@ -54,6 +58,7 @@ class WiredElevatedButton extends WiredButtonBase {
         ),
       ),
       decorationBuilder: (context) => RoughBoxDecoration(
+        seed: seed ?? 1,
         progress: WiredDrawTransition.progressOf(context),
         pressure: WiredInkResponse.pressureOf(context),
         drawConfig: theme.drawConfig,
@@ -68,7 +73,10 @@ class WiredElevatedButton extends WiredButtonBase {
         fillStyle: RoughDrawingStyle(color: theme.fillColor),
         filler: SolidFiller(FillerConfig.build(drawConfig: theme.drawConfig)),
       ),
-      textStyle: TextButton.styleFrom(foregroundColor: theme.textColor),
+      textStyle: TextButton.styleFrom(
+        foregroundColor: theme.textColor,
+        disabledForegroundColor: theme.disabledTextColor,
+      ),
     );
   }
 }

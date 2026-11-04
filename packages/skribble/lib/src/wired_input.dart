@@ -24,7 +24,7 @@ class WiredInput extends HookWidget {
   /// Controller for the editable value. An internal controller is used if absent.
   final TextEditingController? controller;
 
-  /// Text style merged with the app typography.
+  /// Text style for the value, merged over the theme's text colour.
   final TextStyle? style;
 
   /// Wrapping label placed above the field.
@@ -54,7 +54,8 @@ class WiredInput extends HookWidget {
   /// The keyboard's action button, such as `TextInputAction.search`.
   final TextInputAction? textInputAction;
 
-  /// Limits the value's length when set.
+  /// Limits the value's length when set, and shows a `length/maxLength`
+  /// counter below the ink.
   final int? maxLength;
 
   /// Whether the field accepts input; disabled fields draw dimmed ink.
@@ -75,8 +76,9 @@ class WiredInput extends HookWidget {
   /// Icon placed after the editable value, inside the ink.
   final Widget? suffixIcon;
 
-  /// Error text placed under the ink; the border is drawn from the error
-  /// color while it is set.
+  /// Error text written below the ink, outside the hand-drawn border, and
+  /// announced as a live region; the border is drawn from the error color
+  /// while it is set.
   final String? errorText;
 
   /// Whether to conceal the entered text.
@@ -119,10 +121,12 @@ class WiredInput extends HookWidget {
     this.seed,
   });
 
+  /// <!-- {=dartInkSeed|trim|linePrefix:"  /// "} -->
   /// Varies the hand behind this widget's ink. The same seed always draws
   /// the same wobble, so neighbouring shapes of the same size need different
   /// seeds to stop them reading as copies of each other. Null keeps the
   /// theme's seed.
+  /// <!-- {/dartInkSeed} -->
   final int? seed;
 
   @override
@@ -130,6 +134,10 @@ class WiredInput extends HookWidget {
     final theme = WiredTheme.of(context);
     final focus = useFocusNode();
     useListenable(focus);
+    // The counter below the ink reads the length from whichever controller
+    // the field uses.
+    final ownedController = useTextEditingController();
+    final effectiveController = controller ?? ownedController;
     final hasError = errorText != null;
     final inkColor = !enabled
         ? theme.disabledTextColor
@@ -163,9 +171,11 @@ class WiredInput extends HookWidget {
               container: true,
               label: semanticLabel ?? labelText,
               child: TextField(
-                controller: controller,
+                controller: effectiveController,
                 focusNode: focus,
-                style: style,
+                // The theme's ink, so the value stays readable on dark paper.
+                style: TextStyle(color: theme.textColor).merge(style),
+                cursorColor: theme.borderColor,
                 enabled: enabled,
                 autofocus: autofocus,
                 obscureText: obscureText,
@@ -175,6 +185,9 @@ class WiredInput extends HookWidget {
                 inputFormatters: inputFormatters,
                 onSubmitted: onSubmitted,
                 decoration: InputDecoration(
+                  // Desktop's compact density would take 4 pixels off each side of
+                  // the padding, bringing text within the ink's breathing room.
+                  visualDensity: VisualDensity.standard,
                   filled: false,
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
@@ -188,9 +201,10 @@ class WiredInput extends HookWidget {
                   suffix: suffix,
                   prefixIcon: prefixIcon,
                   suffixIcon: suffixIcon,
-                  errorText: errorText,
-                  errorStyle: TextStyle(color: theme.errorColor),
-                  counterText: maxLength == null ? '' : null,
+                  // The error and the counter are written below the ink
+                  // (see the end of this column), so they never crowd the
+                  // hand-drawn line.
+                  counterText: '',
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 14,
@@ -201,6 +215,43 @@ class WiredInput extends HookWidget {
             ),
           ],
         ),
+        if (hasError || maxLength != null)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 6, 12, 0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: hasError
+                      ? Semantics(
+                          liveRegion: true,
+                          child: Text(
+                            errorText!,
+                            style: TextStyle(
+                              color: theme.errorColor,
+                              fontSize: 12,
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ),
+                if (maxLength != null)
+                  ValueListenableBuilder<TextEditingValue>(
+                    valueListenable: effectiveController,
+                    builder: (context, value, _) => Padding(
+                      padding: const EdgeInsetsDirectional.only(start: 12),
+                      child: Text(
+                        '${value.text.characters.length}/$maxLength',
+                        style: TextStyle(
+                          color: theme.disabledTextColor,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
       ],
     );
   }

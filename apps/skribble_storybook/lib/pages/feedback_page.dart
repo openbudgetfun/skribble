@@ -5,8 +5,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
 import 'package:skribble_storybook/components/component_showcase.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
+/// Gallery of progress indicators, dialogs, snack bars, tooltips and other feedback widgets.
 class FeedbackPage extends HookWidget {
+  /// Creates the page.
   const FeedbackPage({super.key});
 
   @override
@@ -19,7 +22,7 @@ class FeedbackPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('Feedback'),
       ),
       body: ListView(

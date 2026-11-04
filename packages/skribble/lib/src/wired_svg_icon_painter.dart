@@ -188,11 +188,23 @@ final class WiredSvgIconPainter extends CustomPainter {
   /// Wavering amplitude, seed, and pen.
   final DrawConfig drawConfig;
 
+  /// <!-- {=dartHachureGap|trim|linePrefix:"  /// "} -->
   /// Distance between hachure strokes, in logical pixels.
+  /// <!-- {/dartHachureGap} -->
+  ///
+  /// Gaps below half a pixel draw at half a pixel.
   final double hachureGap;
 
+  /// <!-- {=dartHachureAngle|trim|linePrefix:"  /// "} -->
   /// Angle of hachure strokes, in degrees.
+  /// <!-- {/dartHachureAngle} -->
   final double hachureAngle;
+
+  /// The random stream this painter's hachure lines are jittered with.
+  ///
+  /// A private copy of [drawConfig]'s, so an icon's strokes never depend on
+  /// how much of a shared config's stream another painter used first.
+  late final DrawConfig _hachureConfig = drawConfig.copyWith();
 
   late final List<_PrimitiveInk> _ink = [
     for (final (index, primitive) in primitives.indexed)
@@ -448,7 +460,8 @@ final class _PrimitiveInk {
   Path _hachureInk(double angleDegrees) {
     final bounds = _fill.getBounds();
     if (bounds.isEmpty) return Path();
-    final gap = painter.hachureGap;
+    // A zero or negative gap would ask for infinitely many strokes.
+    final gap = math.max(painter.hachureGap, 0.5);
     final radians = angleDegrees * (math.pi / 180);
     final direction = Offset(math.cos(radians), math.sin(radians));
     final normal = Offset(-direction.dy, direction.dx);
@@ -457,7 +470,7 @@ final class _PrimitiveInk {
         bounds.width * normal.dx.abs() + bounds.height * normal.dy.abs();
     final count = (span / gap / 2).ceil() + 1;
     final sink = PathInkOutline();
-    final generator = Generator(_config, NoFiller());
+    final generator = Generator(painter._hachureConfig, NoFiller());
     final width = math.max(0.6, _silhouetteWidth * 0.4);
     for (var i = -count; i <= count; i++) {
       final base = bounds.center + normal * (gap * i);

@@ -78,17 +78,37 @@ SkribbleApp.router(
 
 ## Theme
 
-| Parameter                    | Default                    | Purpose                   |
-| ---------------------------- | -------------------------- | ------------------------- |
-| `wiredTheme`                 | `WiredThemeData()`         | Light theme               |
-| `darkWiredTheme`             | `wiredTheme`               | Dark theme                |
-| `highContrastWiredTheme`     | `wiredTheme`               | High-contrast light theme |
-| `highContrastDarkWiredTheme` | `darkWiredTheme`           | High-contrast dark theme  |
-| `themeMode`                  | `SkribbleThemeMode.system` | Which variant to install  |
+| Parameter                    | Default                                         | Purpose                   |
+| ---------------------------- | ----------------------------------------------- | ------------------------- |
+| `wiredTheme`                 | `WiredThemeData()`                              | Light theme               |
+| `darkWiredTheme`             | `wiredTheme`                                    | Dark theme                |
+| `highContrastWiredTheme`     | `wiredTheme`                                    | High-contrast light theme |
+| `highContrastDarkWiredTheme` | `darkWiredTheme`, then `highContrastWiredTheme` | High-contrast dark theme  |
+| `themeMode`                  | `SkribbleThemeMode.system`                      | Which variant to install  |
 
 `themeMode` is a `SkribbleThemeMode` rather than Material's `ThemeMode` because `ThemeMode` lives in `package:flutter/material.dart`. The compatibility layer converts between the two (`SkribbleThemeMode.dark.toThemeMode` and `WiredThemeModeInterop.fromThemeMode`), so a value can move between `SkribbleApp` and `WiredMaterialApp`.
 
-High-contrast variants are selected from the platform accessibility features, and the platform brightness is read through `MediaQuery`, so a system appearance change rebuilds the shell.
+High-contrast variants are selected from the platform accessibility features, and the platform brightness is read through `MediaQuery`, so a system appearance change rebuilds the shell. The shell depends on those two aspects only, so a keyboard opening or a window resizing does not rebuild the whole app.
+
+The fallbacks match `MaterialApp`. Without a `darkWiredTheme`, a dark platform keeps the light `wiredTheme`; pass `WiredThemeData.cuddly(brightness: Brightness.dark)` for skribble's night paper. `WiredMaterialApp` resolves the same way, and its Material `ThemeData` is only dark when it comes from a dark Wired theme.
+
+## What the shell sets up for you
+
+- **Text and icons.** The `WiredThemeScope` sets the default text style (the theme's font and `textColor`) and the icon colour (`textColor`), so a plain `Text` or `Icon` reads on light and dark paper without a colour of its own.
+- **Text selection.** A `DefaultSelectionStyle` uses the theme's `borderColor` for the cursor and a translucent wash of its `textColor` for the highlight, which keeps selected text readable in both brightnesses.
+- **Scrolling.** `scrollBehavior` defaults to `SkribbleScrollBehavior`. On Android, overscroll stretches the content instead of painting Flutter's white glow, which vanishes on light paper and flares on dark paper. On desktop, the scrollbar thumb is a translucent wash of the theme's `textColor`. Like `MaterialApp`, a mouse does not drag lists, because that makes selecting text inside them hard; opt in with `const SkribbleScrollBehavior().copyWith(dragDevices: {...})`, or pass `null` for Flutter's plain `ScrollBehavior`.
+- **Text scaling.** The shell does not clamp the platform's text scale. skribble controls grow with larger text, since their heights are minimums. If a layout needs a ceiling, clamp it in `builder`:
+
+```dart
+// Static example: setup
+SkribbleApp(
+  builder: (context, child) => MediaQuery.withClampedTextScaling(
+    maxScaleFactor: 2,
+    child: child!,
+  ),
+  home: MyHomePage(),
+)
+```
 
 ## App-level parameters
 
@@ -99,6 +119,8 @@ High-contrast variants are selected from the platform accessibility features, an
 | `locale` / `supportedLocales` / `localizationsDelegates` / locale callbacks     | Localization                                                |
 | `shortcuts` / `actions`                                                         | App-level keyboard shortcuts and intents                    |
 | `restorationScopeId`                                                            | State-restoration bucket                                    |
+| `scrollBehavior`                                                                | Scrolling behaviour (defaults to `SkribbleScrollBehavior`)  |
+| `onNavigationNotification`                                                      | Receives navigation notifications, as in `WidgetsApp`       |
 | `showPerformanceOverlay`, `showSemanticsDebugger`, `debugShowCheckedModeBanner` | Debugging switches                                          |
 
 `WiredThemeScope` is also public: it is the widgets-only theme boundary behind both `SkribbleApp` and `WiredTheme`, and it is the right tool for a nested theme override that must not touch Material theming.

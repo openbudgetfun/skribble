@@ -299,8 +299,11 @@ final class _InkContour {
     math.Random random,
     double coverage,
   ) {
-    if (polyline.isEmpty || width <= 0) return null;
+    if (polyline.isEmpty || !width.isFinite || width <= 0) return null;
     final contourLength = polyline.length;
+    // Ink is sampled along the contour's length, so an infinite or NaN one
+    // has no samples to take.
+    if (!contourLength.isFinite) return null;
     final startToEnd = _distance(
       polyline.xs.first,
       polyline.ys.first,

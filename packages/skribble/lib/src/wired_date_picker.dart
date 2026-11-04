@@ -8,10 +8,14 @@ import 'wired_theme.dart';
 
 /// A date picker dialog with hand-drawn styling, extending the calendar pattern.
 ///
-/// The date picker is wrapped in [Semantics] for accessibility, providing
-/// screen readers with the selected date information.
+/// The date picker is a labelled [Semantics] container; each day inside it
+/// is a button that reports whether it is selected.
 class WiredDatePicker extends HookWidget {
+  /// The date selected when the picker opens. Only the year, month, and day
+  /// are used. Null selects nothing and shows the current month.
   final DateTime? initialDate;
+
+  /// Called with the date the user taps, at midnight local time.
   final void Function(DateTime)? onDateSelected;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -19,6 +23,7 @@ class WiredDatePicker extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn date picker.
   const WiredDatePicker({
     super.key,
     this.initialDate,
@@ -35,7 +40,7 @@ class WiredDatePicker extends HookWidget {
 
     return Semantics(
       label: semanticLabel ?? 'Date picker',
-      button: true,
+      container: true,
       child: buildWiredElement(
         child: SizedBox(
           width: 320,

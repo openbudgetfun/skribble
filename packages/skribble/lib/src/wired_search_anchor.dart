@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'generated/skribble_glyphs.g.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_search_bar.dart';
@@ -37,6 +38,8 @@ typedef WiredSuggestionsBuilder = List<Widget> Function(
 /// controller.closeView('Selected tip'); // populate the field and close
 /// ```
 class WiredSearchController extends TextEditingController {
+  /// Creates a search controller with an optional initial [text]. The view
+  /// starts closed.
   WiredSearchController({super.text});
 
   bool _isOpen = false;
@@ -119,6 +122,8 @@ class WiredSearchAnchor extends HookWidget {
   /// Widget shown when [suggestionsBuilder] returns an empty list.
   final Widget? viewEmptyWidget;
 
+  /// Creates a search anchor from a collapsed [builder] and a
+  /// [suggestionsBuilder].
   const WiredSearchAnchor({
     super.key,
     this.searchController,
@@ -218,15 +223,22 @@ class _WiredSearchView extends HookWidget {
                     hintText: hintText ?? 'Search...',
                     leading:
                         leading ??
-                        GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          onTap: controller.closeView,
-                          child: WiredSvgIcon(
-                            data: SkribbleGlyphs.arrowLeft,
-                            flipHorizontally:
-                                Directionality.of(context) == TextDirection.rtl,
-                            color: theme.disabledTextColor,
-                            size: 20,
+                        // A labelled, focusable button that closes the view.
+                        Semantics(
+                          container: true,
+                          button: true,
+                          enabled: true,
+                          label: 'Back',
+                          child: WiredActivatable(
+                            onActivate: controller.closeView,
+                            child: WiredSvgIcon(
+                              data: SkribbleGlyphs.arrowLeft,
+                              flipHorizontally:
+                                  Directionality.of(context) ==
+                                  TextDirection.rtl,
+                              color: theme.disabledTextColor,
+                              size: 20,
+                            ),
                           ),
                         ),
                     trailing: trailing,

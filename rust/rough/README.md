@@ -41,7 +41,7 @@ let svg = card.to_svg_string(200.0, 100.0, Some("A sketched box"));
 | `Arc`              | An elliptical arc between two angles, optionally closed as a pie slice   |
 | `Curve`            | A smooth curve through at least two points, optionally with an arrowhead |
 
-Pass several shapes to draw them from one random stream. `sketch` returns an error for a shape it cannot draw: a NaN or infinite number, an arc whose stop angle is not after its start, or a curve with fewer than two points. `Shape::validate` checks one shape without drawing it.
+Pass several shapes to draw them from one random stream. `sketch` returns an error for a shape it cannot draw: a NaN or infinite number, an arc whose stop angle is not after its start, or a curve with fewer than two points. `Shape::validate` checks one shape without drawing it. A `Generator` called directly still finishes on such input: an empty, reversed, or non-finite arc draws nothing, a negative rounded rectangle keeps square corners, and an infinite edge gets no ink or fill.
 
 ## Options
 
@@ -62,7 +62,7 @@ Pass several shapes to draw them from one random stream. `sketch` returns an err
 | `pattern.hachure_gap`        | `8`             | Distance between hachure lines.                                                  |
 | `pattern.fill_weight`        | `1`             | Dot diameter, and how far solid fill corners wander.                             |
 | `pattern.dash_offset`        | `15`            | Dash length in dashed fills.                                                     |
-| `pattern.dash_gap`           | `2`             | Gap between dashes.                                                              |
+| `pattern.dash_gap`           | `2`             | Gap between dashes. Under 0.1 with `dash_offset`, lines are drawn undashed.      |
 | `pattern.zigzag_offset`      | `5`             | Offset of zig-zag turns.                                                         |
 | `fill_style`                 | `None`          | The `FillStyle`; `None` picks hachure when `fill` is set, and no fill otherwise. |
 | `fill`                       | `None`          | Fill colour, as any SVG paint; `None` paints `currentColor`.                     |

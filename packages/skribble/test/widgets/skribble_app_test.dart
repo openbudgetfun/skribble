@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart' as widgets;
@@ -425,6 +426,189 @@ void main() {
       );
     });
 
+    testWidgets('colours icons and text with the theme ink', (tester) async {
+      final night = WiredThemeData.cuddly(brightness: Brightness.dark);
+      late IconThemeData icons;
+      late TextStyle text;
+
+      await tester.pumpWidget(
+        SkribbleApp(
+          themeMode: SkribbleThemeMode.dark,
+          darkWiredTheme: night,
+          home: Builder(
+            builder: (context) {
+              icons = IconTheme.of(context);
+              text = DefaultTextStyle.of(context).style;
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+
+      // Without this an uncoloured icon falls back to black on night paper.
+      expect(icons.color, night.textColor);
+      expect(text.color, night.textColor);
+    });
+
+    testWidgets('installs theme-coloured text selection', (tester) async {
+      final theme = WiredThemeData(borderColor: const Color(0xFF4A3470));
+      late DefaultSelectionStyle selection;
+
+      await tester.pumpWidget(
+        SkribbleApp(
+          wiredTheme: theme,
+          home: Builder(
+            builder: (context) {
+              selection = DefaultSelectionStyle.of(context);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+
+      expect(selection.cursorColor, theme.borderColor);
+      expect(
+        selection.selectionColor,
+        theme.textColor.withValues(alpha: 0.25),
+      );
+    });
+
+    testWidgets('a keyboard opening does not rebuild the app', (tester) async {
+      addTearDown(tester.view.reset);
+      var builds = 0;
+
+      await tester.pumpWidget(
+        SkribbleApp(
+          builder: (context, child) {
+            builds++;
+            return child!;
+          },
+          home: const SizedBox(),
+        ),
+      );
+      final settled = builds;
+
+      // Insets change on every frame of a keyboard animation.
+      tester.view.viewInsets = const FakeViewPadding(bottom: 300);
+      await tester.pump();
+      tester.view.physicalSize = const Size(1000, 1200);
+      await tester.pump();
+
+      expect(builds, settled);
+
+      // Brightness still reaches the shell.
+      addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
+      tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
+      await tester.pump();
+      expect(builds, greaterThan(settled));
+    });
+
+    testWidgets('high-contrast dark falls back to the high-contrast theme', (
+      tester,
+    ) async {
+      addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
+      addTearDown(
+        tester.platformDispatcher.clearAccessibilityFeaturesTestValue,
+      );
+      tester.platformDispatcher
+        ..platformBrightnessTestValue = Brightness.dark
+        ..accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(
+          highContrast: true,
+        );
+      final highContrast = WiredThemeData(
+        borderColor: const Color(0xFF000000),
+      );
+      late WiredThemeData captured;
+
+      await tester.pumpWidget(
+        SkribbleApp(
+          highContrastWiredTheme: highContrast,
+          home: Builder(
+            builder: (context) {
+              captured = WiredTheme.of(context);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+
+      expect(captured, highContrast);
+    });
+
+    testWidgets('forwards onNavigationNotification', (tester) async {
+      bool onNotification(NavigationNotification notification) => true;
+
+      await tester.pumpWidget(
+        SkribbleApp(
+          onNavigationNotification: onNotification,
+          home: const SizedBox(),
+        ),
+      );
+
+      expect(
+        tester
+            .widget<widgets.WidgetsApp>(find.byType(widgets.WidgetsApp))
+            .onNavigationNotification,
+        same(onNotification),
+      );
+    });
+
+    group('scrollBehavior', () {
+      Widget list({ScrollBehavior? behavior, bool useDefault = true}) =>
+          useDefault
+          ? SkribbleApp(home: _list())
+          : SkribbleApp(scrollBehavior: behavior, home: _list());
+
+      testWidgets('defaults to SkribbleScrollBehavior', (tester) async {
+        await tester.pumpWidget(list());
+        final context = tester.element(find.byType(ListView));
+        expect(ScrollConfiguration.of(context), isA<SkribbleScrollBehavior>());
+      });
+
+      testWidgets('null keeps the plain widgets behaviour', (tester) async {
+        await tester.pumpWidget(list(useDefault: false));
+        final context = tester.element(find.byType(ListView));
+        expect(
+          ScrollConfiguration.of(context),
+          isNot(isA<SkribbleScrollBehavior>()),
+        );
+      });
+
+      testWidgets('stretches instead of glowing on Android', (tester) async {
+        debugDefaultTargetPlatformOverride = TargetPlatform.android;
+        addTearDown(() => debugDefaultTargetPlatformOverride = null);
+        await tester.pumpWidget(list());
+
+        expect(find.byType(StretchingOverscrollIndicator), findsOneWidget);
+        expect(find.byType(GlowingOverscrollIndicator), findsNothing);
+        debugDefaultTargetPlatformOverride = null;
+      });
+
+      testWidgets('inks the desktop scrollbar with the theme', (tester) async {
+        debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
+        addTearDown(() => debugDefaultTargetPlatformOverride = null);
+        await tester.pumpWidget(list());
+
+        final scrollbar = tester.widget<RawScrollbar>(
+          find.byType(RawScrollbar),
+        );
+        expect(
+          scrollbar.thumbColor,
+          WiredThemeData.defaultTheme.textColor.withValues(alpha: 0.4),
+        );
+        debugDefaultTargetPlatformOverride = null;
+      });
+
+      testWidgets('keeps mouse drags for text selection', (tester) async {
+        await tester.pumpWidget(list());
+        final context = tester.element(find.byType(ListView));
+        expect(
+          ScrollConfiguration.of(context).dragDevices,
+          isNot(contains(PointerDeviceKind.mouse)),
+        );
+      });
+    });
+
     testWidgets('renders Wired widgets without a Material ancestor', (
       tester,
     ) async {
@@ -449,6 +633,12 @@ void main() {
     });
   });
 }
+
+Widget _list() => ListView(
+  children: [
+    for (var i = 0; i < 40; i++) SizedBox(height: 40, child: Text('$i')),
+  ],
+);
 
 class _TestNavigatorObserver extends NavigatorObserver {
   int pushes = 0;

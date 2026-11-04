@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble/testing.dart';
 
 import '../helpers/finders.dart';
 
@@ -60,6 +61,24 @@ void main() {
 
       expect(find.text('Item A'), findsOneWidget);
       expect(find.text('Item B'), findsOneWidget);
+    });
+
+    testWidgets('items keep the ink padding inside their boxes', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        WiredPopupMenuButton<String>(
+          items: const [
+            WiredPopupMenuItem(value: 'a', child: Text('Item A')),
+            WiredPopupMenuItem(value: 'b', child: Text('Item B')),
+          ],
+        ),
+      );
+      await tester.tap(find.byType(PopupMenuButton<String>));
+      await tester.pumpAndSettle();
+
+      expect(crampedText(tester.binding.renderViews.first), isEmpty);
     });
 
     testWidgets('calls onSelected when item is tapped', (tester) async {

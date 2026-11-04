@@ -10,8 +10,10 @@
 /// )
 /// ```
 ///
-/// It positions the SVG ink behind each component, maps the ink to theme
-/// custom properties, and adds hover, focus, and reduced-motion behaviour.
+/// It positions the SVG ink behind each component, pads content clear of
+/// the ink, maps the ink to theme custom properties, and adds hover, focus,
+/// reduced-motion, and forced-colors behaviour. Hover and press motion only
+/// runs under `prefers-reduced-motion: no-preference`.
 /// Theme a page, or any subtree, by overriding the properties:
 ///
 /// | Property                  | Used for                                   |
@@ -66,6 +68,14 @@ const String skribbleCss = '''
   isolation: isolate;
 }
 
+/* Keep content at least 8px above and below and 12px beside the drawn
+   line, which sits a few nominal units inside the box and wobbles. Cards,
+   circles, and buttons set their own padding; :where() lets any rule of
+   yours override this one. */
+:where(.skribble-box) {
+  padding: 0.75rem 1.25rem;
+}
+
 /* An absolutely positioned <svg> is a replaced element: it ignores
    left/right stretching, so every overlay states its width and height.
    Overlays such as the circle and marker are wider than their box, so a
@@ -112,7 +122,7 @@ const String skribbleCss = '''
   gap: 0.5em;
   min-height: 2.75rem;
   margin: 0;
-  padding: 0.55em 1.3em;
+  padding: 0.7em 1.3em;
   border: 0;
   background: none;
   color: var(--skribble-ink);
@@ -150,26 +160,34 @@ const String skribbleCss = '''
 
 .skribble-wobble > .skribble-ink {
   transform-origin: 50% 50%;
-  transition: transform 0.18s ease-out;
 }
 
-@media (hover: hover) {
-  .skribble-wobble:hover > .skribble-ink {
+/* All motion lives behind no-preference, so prefers-reduced-motion: reduce
+   stops it whatever the specificity of a page's own rules. Disabled
+   buttons and links stay still. */
+@media (prefers-reduced-motion: no-preference) {
+  .skribble-wobble > .skribble-ink {
+    transition: transform 0.18s ease-out;
+  }
+
+  .skribble-button:not(:disabled):not([aria-disabled="true"]):active > .skribble-ink,
+  .skribble-button:not(:disabled):not([aria-disabled="true"]):active > .skribble-button__label {
+    transform: translate(1px, 1px);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .skribble-wobble:not(:disabled):not([aria-disabled="true"]):hover > .skribble-ink {
     transform: rotate(-1deg) scale(1.02);
   }
 
-  .skribble-button:not(:disabled):hover > .skribble-ink {
+  .skribble-button:not(:disabled):not([aria-disabled="true"]):hover > .skribble-ink {
     animation: skribble-boil-a 0.36s steps(1, end) infinite;
   }
 
-  .skribble-button:not(:disabled):hover > .skribble-ink + .skribble-ink {
+  .skribble-button:not(:disabled):not([aria-disabled="true"]):hover > .skribble-ink + .skribble-ink {
     animation-name: skribble-boil-b;
   }
-}
-
-.skribble-button:active > .skribble-ink,
-.skribble-button:active > .skribble-button__label {
-  transform: translate(1px, 1px);
 }
 
 @keyframes skribble-boil-a {
@@ -254,19 +272,35 @@ const String skribbleCss = '''
   vertical-align: middle;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .skribble-wobble > .skribble-ink {
-    transition: none;
+/* Forced palettes such as Windows High Contrast repaint text but not SVG
+   paint, which would leave forced text on the accent fill. Draw the ink in
+   system colours instead. */
+@media (forced-colors: active) {
+  .skribble-ink-outline,
+  .skribble-highlight .skribble-ink-outline {
+    stroke: CanvasText;
   }
 
-  .skribble-wobble:hover > .skribble-ink,
-  .skribble-button:active > .skribble-ink,
-  .skribble-button:active > .skribble-button__label {
-    transform: none;
+  .skribble-button .skribble-ink-outline {
+    stroke: ButtonText;
   }
 
-  .skribble-button:hover > .skribble-ink {
-    animation: none;
+  .skribble-ink-hatch {
+    stroke: GrayText;
+  }
+
+  .skribble-ink-solid {
+    fill: none;
+  }
+
+  .skribble-highlight--marker {
+    forced-color-adjust: none;
+    color: HighlightText;
+  }
+
+  .skribble-highlight--marker .skribble-ink-solid {
+    fill: Highlight;
+    opacity: 1;
   }
 }
 ''';

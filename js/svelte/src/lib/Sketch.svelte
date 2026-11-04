@@ -33,7 +33,7 @@
      * coordinates outside the positive quadrant.
      */
     viewBox?: string;
-    /** An accessible description. Without one the sketch is decorative. */
+    /** An accessible name, set as `aria-label`. Without one the sketch is decorative. */
     label?: string;
     /**
      * An accessible name rendered as a `<title>` element, which browsers also

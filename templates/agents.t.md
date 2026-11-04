@@ -180,17 +180,18 @@ await pumpApp(
 <!-- {@docsContribQualityGatesSection} -->
 
 ```bash
-# Zero issues (including info-level)
-dart analyze --fatal-infos .
+# Every lint check CI runs: dprint formatting, dart analyze with fatal infos
+# (an undocumented public member fails it),
+# MDT documentation sync, and monochange changeset and manifest rules
+lint:all
 
-# Zero format drift
-dart format --set-exit-if-changed .
+# Zero Dart format drift
+dart format --set-exit-if-changed -o none .
 
-# All tests green
-flutter test
-
-# Zero dartdoc warnings
-dart doc --dry-run .
+# Every Flutter and pure-Dart test suite
+test:all
 ```
+
+While iterating on one package, `dart analyze --fatal-infos .` and `flutter test --concurrency=2` from its directory are quicker. Changes under `js/` also need `pnpm install && pnpm run check`, and changes under `rust/` need the `cargo fmt`, `cargo clippy`, and `cargo test` commands from the commands list.
 
 <!-- {/docsContribQualityGatesSection} -->

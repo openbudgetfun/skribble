@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble/testing.dart';
 
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
@@ -308,6 +309,67 @@ void main() {
       // The bar paints a rough line via WiredCanvas.
       expect(findWiredCanvas, findsOneWidget);
       expect(findRepaintBoundary, findsWidgets);
+    });
+
+    testWidgets('bar grows with 2x text instead of overflowing', (
+      tester,
+    ) async {
+      await pumpWiredScaled(
+        tester,
+        const SizedBox(
+          width: 200,
+          height: 200,
+          child: WiredGridTile(
+            footer: WiredGridTileBar(
+              title: Text('Gallery item'),
+              subtitle: Text('Subtitle'),
+            ),
+            child: ColoredBox(color: Color(0xFFDDDDDD)),
+          ),
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      expect(
+        tester.getSize(find.byType(WiredGridTileBar)).height,
+        greaterThan(56),
+      );
+    });
+
+    testWidgets('bar keeps its least height for short content', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        const SizedBox(
+          width: 200,
+          child: WiredGridTileBar(title: Text('Short')),
+        ),
+      );
+
+      expect(tester.getSize(find.byType(WiredGridTileBar)).height, 56);
+    });
+
+    testWidgets('bar keeps its text clear of the line at large text', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        const SizedBox(
+          width: 200,
+          child: WiredGridTileBar(
+            title: Text('Footer'),
+            subtitle: Text('Footer with subtitle'),
+          ),
+        ),
+        textScaler: const TextScaler.linear(1.3),
+      );
+
+      final bar = tester.getRect(find.byType(WiredGridTileBar));
+      final subtitle = tester.getRect(find.text('Footer with subtitle'));
+      expect(bar.bottom - subtitle.bottom, greaterThanOrEqualTo(8));
+      final root = tester.binding.renderViews.first;
+      expect(crampedText(root, lines: true), isEmpty);
     });
   });
 }

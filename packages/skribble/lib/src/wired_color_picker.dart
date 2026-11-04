@@ -4,13 +4,17 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'generated/skribble_glyphs.g.dart';
 import 'rough/skribble_rough.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn color picker with a grid of selectable color swatches.
 ///
-/// Each swatch is rendered as a sketchy circle with hachure fill.
+/// Each swatch is rendered as a sketchy circle with hachure fill. Swatches
+/// take keyboard focus, activate with Enter or Space, and are announced as
+/// buttons named by their hex value, such as `Color #2196F3`, with their
+/// selected state.
 class WiredColorPicker extends HookWidget {
   /// The currently selected color.
   final Color selectedColor;
@@ -33,9 +37,10 @@ class WiredColorPicker extends HookWidget {
   /// Spacing between swatches.
   final double spacing;
 
-  /// Number of swatches per row.
+  /// The most swatches in a row. Narrower spaces wrap to fewer.
   final int crossAxisCount;
 
+  /// Creates a hand-drawn colour picker.
   const WiredColorPicker({
     super.key,
     required this.selectedColor,
@@ -86,20 +91,27 @@ class WiredColorPicker extends HookWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(12),
-            child: Wrap(
-              spacing: spacing,
-              runSpacing: spacing,
-              children: [
-                for (final color in colors)
-                  _ColorSwatch(
-                    color: color,
-                    isSelected: color.value == selectedColor.value,
-                    size: swatchSize,
-                    onTap: onColorChanged != null
-                        ? () => onColorChanged!(color)
-                        : null,
-                  ),
-              ],
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth:
+                    crossAxisCount * swatchSize +
+                    (crossAxisCount - 1) * spacing,
+              ),
+              child: Wrap(
+                spacing: spacing,
+                runSpacing: spacing,
+                children: [
+                  for (final color in colors)
+                    _ColorSwatch(
+                      color: color,
+                      isSelected: color.toARGB32() == selectedColor.toARGB32(),
+                      size: swatchSize,
+                      onTap: onColorChanged != null
+                          ? () => onColorChanged!(color)
+                          : null,
+                    ),
+                ],
+              ),
             ),
           ),
         ],
@@ -124,32 +136,41 @@ class _ColorSwatch extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        width: size,
-        height: size,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // Sketchy circle swatch
-            WiredCanvas(
-              painter: WiredCircleBase(
-                fillColor: color,
-                strokeWidth: isSelected ? 3 : 1.5,
-                borderColor: theme.borderColor,
+    final hex = (color.toARGB32() & 0xFFFFFF)
+        .toRadixString(16)
+        .padLeft(6, '0')
+        .toUpperCase();
+    return Semantics(
+      button: true,
+      selected: isSelected,
+      label: 'Color #$hex',
+      child: WiredActivatable(
+        onActivate: onTap,
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Sketchy circle swatch
+              WiredCanvas(
+                painter: WiredCircleBase(
+                  fillColor: color,
+                  strokeWidth: isSelected ? 3 : 1.5,
+                  borderColor: theme.borderColor,
+                ),
+                fillerType: RoughFilter.hachureFiller,
+                fillerConfig: FillerConfig.build(hachureGap: 2.0),
               ),
-              fillerType: RoughFilter.hachureFiller,
-              fillerConfig: FillerConfig.build(hachureGap: 2.0),
-            ),
-            // Check mark for selected
-            if (isSelected)
-              WiredSvgIcon(
-                data: SkribbleGlyphs.check,
-                color: _contrastColor(color),
-                size: size * 0.5,
-              ),
-          ],
+              // Check mark for selected
+              if (isSelected)
+                WiredSvgIcon(
+                  data: SkribbleGlyphs.check,
+                  color: _contrastColor(color),
+                  size: size * 0.5,
+                ),
+            ],
+          ),
         ),
       ),
     );

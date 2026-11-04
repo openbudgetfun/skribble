@@ -22,20 +22,29 @@ class WiredTextButton extends WiredButtonBase {
     final theme = WiredTheme.of(context);
     return WiredInkResponse(
       interaction: inkInteraction,
-      builder: (context, states) => Semantics(
+      builder: (context, states) => wiredButtonSemantics(
         label: semanticLabel,
-        button: true,
         enabled: onPressed != null,
-        child: buildWiredElement(
+        labelChild: child,
+        control: (label) => buildWiredElement(
           child: IntrinsicWidth(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextButton(
                   statesController: states,
-                  style: TextButton.styleFrom(foregroundColor: theme.textColor),
+                  style: TextButton.styleFrom(
+                    foregroundColor: theme.textColor,
+                    disabledForegroundColor: theme.disabledTextColor,
+                    // The same room around the label on every platform and
+                    // at every text scale, so the underline never touches
+                    // it. (Material shrinks its own padding to nothing at
+                    // large text scales and on desktop densities.)
+                    padding: kWiredInkPadding,
+                    visualDensity: VisualDensity.standard,
+                  ),
                   onPressed: onPressed,
-                  child: child,
+                  child: label,
                 ),
                 SizedBox(
                   height: theme.inkExtent,

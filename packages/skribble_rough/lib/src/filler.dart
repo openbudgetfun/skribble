@@ -9,14 +9,25 @@ import 'renderer.dart';
 /// Result of a line-segment intersection test, holding the
 /// intersection [point] and [distance] from the line start.
 class IntersectionInfo {
+  /// Where the segments cross, or null when unknown.
   PointD? point;
+
+  /// Distance from the start of the tested segment to [point], or null when
+  /// unknown.
   double? distance;
 
+  /// Creates an intersection result at [point], [distance] along the line.
   IntersectionInfo({this.point, this.distance});
 }
 
 /// Whether a filler produces a solid fill path or a sketchy pattern.
-enum FillStyle { fill, sketch }
+enum FillStyle {
+  /// A solid fill path.
+  fill,
+
+  /// A pattern of stroked fill lines.
+  sketch,
+}
 
 /// Configuration for polygon fill algorithms — controls hachure angle,
 /// gap, dash offsets, and other fill-specific parameters.
@@ -36,7 +47,8 @@ class FillerConfig {
   /// Length of each dash in a dashed fill.
   final double dashOffset;
 
-  /// Gap between dashes in a dashed fill.
+  /// Gap between dashes in a dashed fill. When [dashOffset] plus [dashGap]
+  /// is under 0.1 the lines are drawn undashed.
   final double dashGap;
 
   /// Offset of zig-zag turns from the hachure line.
@@ -161,6 +173,11 @@ abstract class Filler {
       vertices.add(vertices[0]);
     }
     if (vertices.length > 2) {
+      // A scan line never reaches an infinite edge's end. NaN coordinates
+      // already end the scan, so only infinities need turning away.
+      if (vertices.any((p) => p.x.isInfinite || p.y.isInfinite)) {
+        return lines;
+      }
       final double gap = max(config.hachureGap, 0.1);
 
       final List<Edge> edges = createdSortedEdges(vertices);
@@ -226,6 +243,10 @@ abstract class Filler {
     return lines;
   }
 
+  /// Builds the non-horizontal edges of the closed ring [vertices], sorted by
+  /// [edgeSorter] for the scanline fill.
+  ///
+  /// Horizontal edges are dropped because no scanline crosses them.
   List<Edge> createdSortedEdges(List<PointD> vertices) {
     final List<Edge> edges = [];
     for (int i = 0; i < vertices.length - 1; i++) {
@@ -247,6 +268,8 @@ abstract class Filler {
     return edges;
   }
 
+  /// Orders edges by [Edge.yMin], then [Edge.x], then [Edge.yMax], for use
+  /// with [List.sort].
   int edgeSorter(Edge e1, Edge e2) {
     if (e1.yMin < e2.yMin) {
       return -1;
@@ -263,6 +286,11 @@ abstract class Filler {
     return e1.yMax.compareTo(e2.yMax);
   }
 
+  /// Fills the polygon through [points] with rough hachure lines drawn with
+  /// [config].
+  ///
+  /// When [connectEnds] is true, neighbouring lines are joined end to end
+  /// inside the polygon, giving a zig-zag.
   OpSet fillPolygon(
     List<PointD> points,
     FillerConfig config,
@@ -277,6 +305,10 @@ abstract class Filler {
     return OpSet(type: OpSetType.fillSketch, ops: ops);
   }
 
+  /// Returns the segments that join each line in [lines] to the one before
+  /// it, clipped to [polygon].
+  ///
+  /// Lines shorter than 3 units are skipped.
   List<Line> connectLines(List<PointD> polygon, List<Line> lines) {
     final List<Line> result = [];
     if (lines.length > 1) {
@@ -296,6 +328,10 @@ abstract class Filler {
     return result;
   }
 
+  /// Clips [segment] to [polygon], returning the pieces that lie inside it.
+  ///
+  /// Crossings within 5 units, or a tenth of the segment's length if that is
+  /// more, of either end are ignored.
   List<Line> splitOnIntersections(List<PointD> polygon, Line segment) {
     final double error = max(5, segment.length * 0.1);
     final List<IntersectionInfo> intersections = [];
@@ -349,6 +385,7 @@ abstract class Filler {
     }
   }
 
+  /// Draws each of [lines] as a rough stroke with [config]'s draw settings.
   List<Op> renderLines(List<Line> lines, FillerConfig config) {
     final List<Op> ops = [];
     for (final Line line in lines) {
@@ -368,6 +405,7 @@ abstract class Filler {
 
 /// A no-op filler that produces no fill operations.
 class NoFiller extends Filler {
+  /// Creates a filler that draws nothing.
   NoFiller([super.config]);
 
   @override
@@ -378,6 +416,7 @@ class NoFiller extends Filler {
 
 /// Fills a polygon with parallel hachure lines at a configurable angle.
 class HachureFiller extends Filler {
+  /// Creates a hachure filler drawing with [config].
   HachureFiller([super.config]);
 
   @override
@@ -388,6 +427,7 @@ class HachureFiller extends Filler {
 
 /// Fills a polygon with connected zig-zag lines.
 class ZigZagFiller extends Filler {
+  /// Creates a zig-zag filler drawing with [config].
   ZigZagFiller([super.config]);
 
   @override
@@ -398,6 +438,7 @@ class ZigZagFiller extends Filler {
 
 /// Fills a polygon with cross-hatching (two perpendicular hachure passes).
 class HatchFiller extends Filler {
+  /// Creates a cross-hatch filler drawing with [config].
   HatchFiller([super.config]);
 
   @override
@@ -411,8 +452,17 @@ class HatchFiller extends Filler {
   }
 }
 
+/// The shortest dash pattern ([FillerConfig.dashOffset] plus
+/// [FillerConfig.dashGap]) that is dashed.
+///
+/// Shorter patterns, including zero, negative, and non-finite ones, draw
+/// undashed hachure lines. Matches `minDashPeriod` in the JavaScript engine
+/// and `MIN_DASH_PERIOD` in the Rust one.
+const double _minDashPeriod = 0.1;
+
 /// Fills a polygon with dashed line segments.
 class DashedFiller extends Filler {
+  /// Creates a dashed filler drawing with [config].
   DashedFiller([super.config]);
 
   @override
@@ -421,11 +471,29 @@ class DashedFiller extends Filler {
     return OpSet(type: OpSetType.fillSketch, ops: dashedLines(lines, config));
   }
 
+  /// Breaks each of [lines] into dashes [FillerConfig.dashOffset] long with
+  /// [FillerConfig.dashGap] between them, centred on the line, and draws
+  /// each dash as a rough double stroke.
   List<Op> dashedLines(List<Line> lines, FillerConfig config) {
     final double offset = config.dashOffset;
     final double gap = config.dashGap;
     final List<Op> ops = [];
+    final double period = offset + gap;
     for (final Line line in lines) {
+      // A pattern too short to see, or with no length at all, would split
+      // the line into countless dashes. Draw the line whole instead.
+      if (!(period >= _minDashPeriod) || !period.isFinite) {
+        ops.addAll(
+          OpsGenerator.doubleLine(
+            line.source.x,
+            line.source.y,
+            line.target.x,
+            line.target.y,
+            config.drawConfig,
+          ),
+        );
+        continue;
+      }
       final double length = line.length;
       final int count = (length / (offset + gap)).floor();
       final double lineOffset = (length + gap - (count * (offset + gap))) / 2;
@@ -480,6 +548,7 @@ class DashedFiller extends Filler {
 
 /// Fills a polygon with scattered dots (small ellipses).
 class DotFiller extends Filler {
+  /// Creates a dot filler drawing with [config].
   DotFiller([super.config]);
 
   @override
@@ -495,6 +564,9 @@ class DotFiller extends Filler {
     return dotsOnLines(lines, dotConfig);
   }
 
+  /// Places rough dots [FillerConfig.hachureGap] apart along each of
+  /// [lines], each [FillerConfig.fillWeight] across and jittered by up to a
+  /// quarter of the gap.
   OpSet dotsOnLines(List<Line> lines, FillerConfig config) {
     final List<Op> ops = [];
     final double gap = max(config.hachureGap, 0.1);
@@ -527,6 +599,7 @@ class DotFiller extends Filler {
 
 /// Fills a polygon with a solid path (no hatching pattern).
 class SolidFiller extends Filler {
+  /// Creates a solid filler drawing with [config].
   SolidFiller([super.config]);
 
   @override

@@ -1,4 +1,3 @@
-import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:skribble_jaspr/src/ink.dart';
 import 'package:skribble_rough/skribble_rough.dart';
@@ -59,7 +58,8 @@ class WiredHighlight extends StatelessComponent {
   /// The ink colour, as any CSS colour.
   ///
   /// Sets `--skribble-highlight` on the span. When null, pen marks use
-  /// `--skribble-ink` and the marker uses `--skribble-accent`.
+  /// `--skribble-ink` and the marker uses `--skribble-accent`. Rendering
+  /// throws an [ArgumentError] when the value contains `;`, `{`, or `}`.
   final String? color;
 
   @override
@@ -69,9 +69,9 @@ class WiredHighlight extends StatelessComponent {
     return Component.element(
       tag: 'span',
       classes: 'skribble-highlight skribble-highlight--${kind.name}',
-      styles: color == null
+      attributes: color == null
           ? null
-          : Styles(raw: {'--skribble-highlight': color}),
+          : {'style': customProperty('--skribble-highlight', color, 'color')},
       children: [child, _ink()],
     );
   }

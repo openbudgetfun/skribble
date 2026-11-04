@@ -111,7 +111,13 @@ pub fn settings(dark: &Arc<AtomicBool>, rebuild: impl Fn() + Send + Sync + 'stat
 }
 ```
 
-The label is visible and names the control for screen readers, and the whole row responds to a press. Put the radios of one choice in a `View` with `role=Role::RadioGroup` and an `aria_label`, so screen readers announce them as a set. Buttons and controls are at least 44 pixels tall and grow with their text.
+The label is visible and names the control for screen readers, and the whole row responds to a press. Put the radios of one choice in a `View` with `role=Role::RadioGroup` and an `aria_label`, so screen readers announce them as a set.
+
+<!-- {=leptoskitInkRoom} -->
+
+Buttons and controls are at least 44 pixels tall and grow with their text. Content keeps at least 12 pixels from the ink at the sides and 8 above and below. The padding also covers the few pixels the outline sits inside its component, which grow as the ink stretches, so `WiredBox` pads 20 at the sides and 12 above and below, and buttons and fields pad 12 above and below.
+
+<!-- {/leptoskitInkRoom} -->
 
 ### Doodles
 
@@ -192,7 +198,7 @@ Leave out `--features web` to see what native builds draw, through the same rend
 
 ## Drawing with the engine directly
 
-`skribble_rough` works anywhere Rust does, including servers and `wasm32`. `sketch` returns SVG paths with their colours and widths; the lower-level `Generator`, `Filler`, `RoughPen`, and `DrawableInk` mirror the Dart engine. See its [README](https://github.com/openbudgetfun/skribble/tree/main/rust/rough).
+`skribble_rough` works anywhere Rust does, including servers and `wasm32`. `sketch` returns SVG paths with their colours and widths, or an error for a shape it cannot draw; the lower-level `Generator`, `Filler`, `RoughPen`, and `DrawableInk` mirror the Dart engine and finish on degenerate input, drawing nothing for an empty or reversed arc. See its [README](https://github.com/openbudgetfun/skribble/tree/main/rust/rough).
 
 ```rust
 use skribble_rough::{sketch, Shape, SketchOptions};

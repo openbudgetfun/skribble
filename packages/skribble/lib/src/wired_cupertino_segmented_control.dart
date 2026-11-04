@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -32,6 +33,7 @@ class WiredCupertinoSegmentedControl<T extends Object> extends HookWidget {
   /// Padding inside each segment.
   final EdgeInsetsGeometry padding;
 
+  /// Creates a hand-drawn segmented control.
   const WiredCupertinoSegmentedControl({
     super.key,
     required this.children,
@@ -130,9 +132,9 @@ class _SegmentTile<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return _SegmentSemantics(
+      selected: isSelected,
       onTap: onTap,
-      behavior: HitTestBehavior.opaque,
       child: Stack(
         children: [
           if (isSelected)
@@ -165,6 +167,37 @@ class _SegmentTile<T> extends HookWidget {
   }
 }
 
+/// One segment's accessibility and input chrome, shared by both segmented
+/// controls: a selected, mutually exclusive button that joins focus
+/// traversal and activates with a tap, Enter, or Space while [onTap] is set.
+class _SegmentSemantics extends StatelessWidget {
+  const _SegmentSemantics({
+    required this.selected,
+    required this.onTap,
+    required this.child,
+  });
+
+  final bool selected;
+  final VoidCallback? onTap;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      container: true,
+      button: true,
+      selected: selected,
+      inMutuallyExclusiveGroup: true,
+      enabled: onTap != null,
+      child: WiredActivatable(
+        onActivate: onTap,
+        // Opaque, so the whole segment is tappable, not just its label.
+        child: GestureDetector(behavior: HitTestBehavior.opaque, child: child),
+      ),
+    );
+  }
+}
+
 /// A hand-drawn sliding segmented control corresponding to
 /// [CupertinoSlidingSegmentedControl].
 ///
@@ -189,6 +222,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
   /// Padding inside each segment.
   final EdgeInsetsGeometry padding;
 
+  /// Creates a hand-drawn sliding segmented control.
   const WiredSlidingSegmentedControl({
     super.key,
     required this.children,
@@ -230,11 +264,11 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
               children: [
                 for (var i = 0; i < keys.length; i++)
                   Expanded(
-                    child: GestureDetector(
+                    child: _SegmentSemantics(
+                      selected: i == selectedIndex,
                       onTap: onValueChanged != null
                           ? () => onValueChanged!(keys[i])
                           : null,
-                      behavior: HitTestBehavior.opaque,
                       child: Stack(
                         children: [
                           if (i == selectedIndex)
