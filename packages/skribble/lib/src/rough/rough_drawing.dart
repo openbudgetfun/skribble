@@ -56,7 +56,32 @@ class RoughDrawing {
   /// label contrast. [pressure] reinforces the existing pen up to 25 percent,
   /// without moving the outline or changing its seed. Non-finite progress
   /// settles the drawing; non-finite pressure uses the resting pen.
-  void paint(Canvas canvas, {double progress = 1, double pressure = 0}) {
+  ///
+  /// [outlineColor], when given, inks the outline in that color for this
+  /// paint only. One prepared drawing can then follow a color animation,
+  /// such as a focus fade, without regenerating its geometry.
+  void paint(
+    Canvas canvas, {
+    double progress = 1,
+    double pressure = 0,
+    Color? outlineColor,
+  }) {
+    if (outlineColor == null || outlineColor == _borderPaint.color) {
+      _paint(canvas, progress, pressure);
+      return;
+    }
+    final resting = _borderPaint.color;
+    _borderPaint.color = outlineColor;
+    _borderInk.color = outlineColor;
+    try {
+      _paint(canvas, progress, pressure);
+    } finally {
+      _borderPaint.color = resting;
+      _borderInk.color = resting;
+    }
+  }
+
+  void _paint(Canvas canvas, double progress, double pressure) {
     final t = progress.isFinite ? progress.clamp(0.0, 1.0) : 1.0;
     final emphasis = pressure.isFinite ? pressure.clamp(0.0, 1.0) : 0.0;
     final outlineProgress = (t / 0.65).clamp(0.0, 1.0);

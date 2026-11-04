@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/painting.dart';
 import 'package:skribble_rough/skribble_rough.dart';
 
+import '../canvas/rough_generation_counter.dart';
 import 'rough_drawing.dart';
 
 /// How far inside its box the centre of a rough outline drawn with a pen of
@@ -25,6 +26,8 @@ double roughInkInset(double strokeWidth, [DrawConfig? config]) {
 /// that shapes them, so a border repainted every frame, or the same border on
 /// many controls, prepares its outline once. The seed is part of the key, so
 /// a control keeps the same wobble while it is pressed, focused, or rebuilt.
+/// The color is not: it is applied as the outline is painted, so a focus or
+/// hover color fade reuses one outline instead of preparing one per frame.
 void paintRoughOutline(
   Canvas canvas,
   Rect rect, {
@@ -41,13 +44,13 @@ void paintRoughOutline(
   }
   final size = rect.size;
   final drawing = _RoughOutlineCache.resolve(
-    (size, side.color, side.width, borderRadius, seed, drawConfig),
+    (size, side.width, borderRadius, seed, drawConfig),
     () => _prepare(size, side, borderRadius, seed, drawConfig),
   );
   canvas
     ..save()
     ..translate(rect.left, rect.top);
-  drawing.paint(canvas);
+  drawing.paint(canvas, outlineColor: side.color);
   canvas.restore();
 }
 
@@ -58,6 +61,7 @@ RoughDrawing _prepare(
   int seed,
   DrawConfig? drawConfig,
 ) {
+  RoughGenerationCounter.record();
   final config = drawConfig ?? DrawConfig.build(seed: seed);
   config.randomizer.reset();
   final inset = min(roughInkInset(side.width, config), size.shortestSide / 2);
