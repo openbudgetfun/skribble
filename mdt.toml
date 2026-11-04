@@ -12,6 +12,7 @@ paths = ["templates"]
 [data]
 skribble = "packages/skribble/pubspec.yaml" # {{ skribble.environment.flutter }}
 fvm = { path = ".fvmrc", format = "json" } # {{ fvm.flutter }}
+materialDebt = "docs/material-dependency-baseline.json" # {{ materialDebt.skin }}
 
 [include]
 # Make sure the library sources and test helpers are scanned so shared

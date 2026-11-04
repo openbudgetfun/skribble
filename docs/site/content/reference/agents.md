@@ -31,7 +31,6 @@ skribble/
 │   │       ├── skribble_app.dart   # SkribbleApp widgets-based shell
 │   │       ├── skribble_localizations.dart  # Widgets-only localization delegate
 │   │       ├── wired_theme.dart    # WiredThemeData + WiredTheme inherited scope
-│   │       ├── compat/             # Quarantined Material/Cupertino interop (transitional)
 │   │       ├── wired_base.dart     # Re-exports the three base libraries below
 │   │       ├── wired_paint.dart    # WiredBase paint factories + constants
 │   │       ├── wired_element.dart  # RepaintBoundary helpers
@@ -47,7 +46,7 @@ skribble/
 ├── js/                             # npm packages (pnpm workspace): @skribble.dev/rough + framework bindings
 ├── rust/                           # Cargo workspace: skribble_rough (Rust engine) + skribble_leptoskit
 ├── packages/skribble_lints/        # Shared lint rules (very_good_analysis based)
-├── packages/skribble_icons_custom/ # Custom SVG-based icon package example
+├── packages/skribble_*/            # Fonts, icon sets, emoji, maps, and charts (see CONTRIBUTING.md)
 ├── apps/skribble_storybook/        # Interactive demo app
 │   ├── lib/pages/                  # Storybook category pages
 │   └── integration_test/           # Screenshot capture tests
@@ -242,11 +241,23 @@ Every public class and constructor parameter must have a `///` doc comment. The 
 
 ### Step 6: Run quality gates
 
+<!-- {=docsContribQualityGatesSection} -->
+
 ```bash
-dart format .
-dart analyze --fatal-infos .
-cd packages/skribble && flutter test test/
+# Every lint check CI runs: dprint formatting, dart analyze with fatal infos,
+# MDT documentation sync, and monochange changeset and manifest rules
+lint:all
+
+# Zero Dart format drift
+dart format --set-exit-if-changed -o none .
+
+# Every Flutter and pure-Dart test suite
+test:all
 ```
+
+While iterating on one package, `dart analyze --fatal-infos .` and `flutter test --concurrency=2` from its directory are quicker. Changes under `js/` also need `pnpm install && pnpm run check`, and changes under `rust/` need the `cargo fmt`, `cargo clippy`, and `cargo test` commands from the commands list.
+
+<!-- {/docsContribQualityGatesSection} -->
 
 The icon and emoji packages exclude `lib/src/generated/**` from analysis: their catalogs are megabytes of machine-written Dart whose coverage comes from CI regenerating and diffing them (`icon-catalogs-sync`, `visual-assets-sync`) and from the test suites that compile them. Hand-written changes in those packages are still analyzed; changes to a generated catalog belong in the generator, not the file.
 
@@ -257,19 +268,25 @@ In a Claude Code cloud session, `.claude/hooks/session-start.sh` prepares these 
 When adding a new widget, update the docs site:
 
 1. Add the widget to the appropriate `docs/site/content/widgets/<category>.md` page
-2. If adding a new widget category, create a new page and add it to the sidebar in `docs/site/lib/components/site_sidebar.dart`
-3. Update any MDT template blocks if the widget introduces a reusable pattern
+2. If adding a new widget category, create a new page in `docs/site/content/widgets/`; the sidebar discovers it automatically, and an `order:` frontmatter key positions it within its group
+3. Update any MDT template blocks if the widget introduces a reusable pattern (see [Shared documentation with MDT](#shared-documentation-with-mdt))
 4. Run `mdt update` if MDT blocks were modified
 
 ## Widget implementation patterns
 
 ### Breathing room
 
-Content keeps at least `kWiredInkPadding` (8 pixels above and below, 12 at the sides) from any hand-drawn line around it, and buttons and chips use `kWiredButtonPadding` (16 at the sides). Heights are minimums, never fixed: write `BoxConstraints(minHeight: kWiredButtonHeight)` so a control grows with larger fonts and the platform's text scaling instead of squeezing its text against the ink. Check screens with `crampedText` and `squeezedText` from `package:skribble/testing.dart`; the storybook, docs site, and example app run them on every page and example at 360, 768, and 1280 pixels and at 1.3× text.
+<!-- {=docsInkPaddingRule} -->
+
+Give the ink room to breathe. Content keeps at least `kWiredInkPadding` (8 pixels above and below, 12 at the sides) from any hand-drawn line around it; buttons and chips use `kWiredButtonPadding` (16 at the sides). Heights are minimums (`BoxConstraints(minHeight: kWiredButtonHeight)`), never fixed, so controls grow with larger fonts and text scaling instead of squeezing their text against the ink. `package:skribble/testing.dart` (`crampedText`, `squeezedText`) checks this, and the storybook, docs, and example app run it on every page and example at 360, 768, and 1280 pixels and at 1.3× text.
+
+<!-- {/docsInkPaddingRule} -->
 
 ### Reading theme values
 
-Every widget must read colors and config from the theme — never hardcode:
+Every widget must read colors and config from the theme — never hardcode. The defaults are listed in [WiredThemeData defaults](#wiredthemedata-defaults-reference):
+
+<!-- {=docsThemeReadPattern} -->
 
 ```dart
 // Static example: custom-class
@@ -278,14 +295,18 @@ Widget build(BuildContext context) {
   final theme = WiredTheme.of(context);
 
   // Use theme values for all visual properties
-  final borderColor = theme.borderColor;    // WiredPalette.ink
-  final fillColor = theme.fillColor;        // WiredPalette.paper
-  final textColor = theme.textColor;        // WiredPalette.ink
-  final strokeWidth = theme.strokeWidth;    // 2.0
-  final roughness = theme.roughness;        // 1.0
+  final borderColor = theme.borderColor;
+  final fillColor = theme.fillColor;
+  final textColor = theme.textColor;
+  final strokeWidth = theme.strokeWidth;
+  final roughness = theme.roughness;
+  final drawConfig = theme.drawConfig;
+  final inkExtent = theme.inkExtent;
   // ...
 }
 ```
+
+<!-- {/docsThemeReadPattern} -->
 
 ### Using RoughBoxDecoration
 
@@ -517,14 +538,20 @@ await pumpApp(
 
 ### Minimum 6 tests per widget
 
-Every widget test file must have at least 6 `testWidgets` covering:
+<!-- {=docsTestingRequirements} -->
 
-1. **Rendering** — widget renders without error, child content appears, rough paint is reached
-2. **Dimensions** — correct default size, custom size respected, sensible non-zero size
-3. **Interaction** — taps fire callbacks, state changes work, disabled state ignores taps
-4. **State** — rebuilds when values change, animations settle
-5. **Edge cases** — null values, empty strings, rapid interactions, large/zero/small constraints
-6. **Accessibility and direction** — semantic label/role/state, RTL layout, doubled text scale
+Every widget test file has at least 6 `testWidgets`, written against skribble's public API, covering:
+
+1. **Rendering**: renders without error, child content appears, rough paint is reached.
+2. **Dimensions**: correct default size, custom size respected, sensible non-zero size.
+3. **Interaction**: taps and input fire callbacks; a disabled widget ignores them.
+4. **State**: rebuilds when values change; animations settle.
+5. **Edge cases**: null values, empty strings, rapid interactions, overflow, and large, zero, or small constraints.
+6. **Accessibility and direction**: semantic label, role, and state where applicable; RTL layout; scaled text.
+
+Widget tests go in `packages/skribble/test/`, with one `test/widgets/wired_<name>_test.dart` per widget. Integration tests go in `apps/skribble_storybook/integration_test/`. Never assert on the Material or Cupertino control a widget currently wraps; `test/tool/no_material_test_coupling_test.dart` enforces this.
+
+<!-- {/docsTestingRequirements} -->
 
 ### Testing value-driven widgets
 
@@ -567,19 +594,30 @@ Container(color: theme.borderColor)
 
 ### WiredThemeData defaults (reference)
 
-| Field               | Default Value                        | Description                                         |
-| ------------------- | ------------------------------------ | --------------------------------------------------- |
-| `borderColor`       | `WiredPalette.ink`                   | Sketchy stroke/border color                         |
-| `textColor`         | `WiredPalette.ink`                   | Primary text color                                  |
-| `disabledTextColor` | `WiredPalette.mutedInk`              | Disabled state text color                           |
-| `fillColor`         | `WiredPalette.paper`                 | Paper-like background fill                          |
-| `strokeWidth`       | `kWiredStrokeWidth` (1.6)            | Default stroke thickness                            |
-| `roughnessLevel`    | `WiredRoughness.playful`             | Coordinated border, icon, and lettering preset      |
-| `roughness`         | `1.1` (resolved from the level)      | Sketch randomness (0 = smooth, 2+ = very rough)     |
-| `fontFamily`        | `SkribblePlayful` (resolved)         | Level family unless explicitly overridden           |
-| `motionEnabled`     | `true`                               | Decorative ink motion; platform reduced motion wins |
-| `inkInteraction`    | `WiredInkInteraction.pressure`       | Default decorative feedback for buttons             |
-| `drawConfig`        | Derived from the level and amplitude | Advanced rough engine config; explicit value wins   |
+<!-- {=docsWiredThemeDataParameters} -->
+
+| Parameter            | Type                  | Default                                              | Description                                                                                                                                                |
+| -------------------- | --------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderColor`        | `Color`               | `WiredPalette.ink`                                   | The color of every hand-drawn border, outline, and stroke. Plum ink by default.                                                                            |
+| `textColor`          | `Color`               | `WiredPalette.ink`                                   | Primary text color for labels and button text.                                                                                                             |
+| `disabledTextColor`  | `Color`               | `WiredPalette.mutedInk`                              | Text color for disabled widgets. A muted plum by default.                                                                                                  |
+| `errorColor`         | `Color`               | `WiredPalette.coral`                                 | Ink for errors: the border of an input with error text and the error text itself.                                                                          |
+| `fillColor`          | `Color`               | `WiredPalette.paper`                                 | Background fill for cards, inputs, dialogs, and other surfaces. Warm paper by default.                                                                     |
+| `markerColor`        | `Color`               | `WiredPalette.lilac`                                 | The highlighter wash under selected and active things: navigation indicators, progress and slider fills, switch tracks, and selected segments.             |
+| `strokeWidth`        | `double`              | `kWiredStrokeWidth` (1.6)                            | Width in logical pixels of the rough-drawn strokes.                                                                                                        |
+| `roughnessLevel`     | `WiredRoughness`      | `WiredRoughness.playful`                             | Coordinated border, icon, pen, and Recursive lettering defaults: `gentle`, `playful`, or `expressive`.                                                     |
+| `font`               | `WiredFont`           | `WiredFont.notoSketch`                               | The bundled typeface. Install the package that ships it.                                                                                                   |
+| `fontFamilyFallback` | `List<String>?`       | `null`                                               | App font families tried after the main family, such as Skribble Noto kit scripts. Used as written, never prefixed with a package.                          |
+| `roughness`          | `double?`             | `null`: the level's amplitude (1.1 for playful)      | Geometry amplitude override; `0` removes random displacement.                                                                                              |
+| `fontFamily`         | `String?`             | `null`: the `font` family                            | Font override. Bundled families resolve to their font package (`WiredFont.packageFor`); custom families belong to the app.                                 |
+| `drawConfig`         | `DrawConfig?`         | `null`: derived from the level                       | A complete drawing override. Otherwise the configuration derives its roughness, offset, and line wobble from the level and the amplitude.                  |
+| `pen`                | `RoughPen?`           | `null`: the level's pen (`RoughPen.ink` for playful) | How lines are inked. `RoughPen.uniform` draws constant-width lines.                                                                                        |
+| `motionEnabled`      | `bool`                | `true`                                               | Whether decorative ink motion is allowed. The platform's reduced-motion setting still wins.                                                                |
+| `inkInteraction`     | `WiredInkInteraction` | `WiredInkInteraction.pressure`                       | Default decorative feedback for buttons: `none`, `pressure` (reinforces strokes on hover, focus, and press), or `redraw` (redraws outlines on each press). |
+
+<!-- {/docsWiredThemeDataParameters} -->
+
+New apps install the theme with `SkribbleApp`; see the [minimal app](/getting-started/quick-start#minimal-app). The `WiredMaterialApp` setup below is for apps that still need `MaterialApp`.
 
 ### WiredMaterialApp theme setup
 
@@ -869,7 +907,7 @@ generator.linearPath([PointD(x1, y1), PointD(x2, y2), ...]);
 
 ```dart
 // Static example: configuration
-DrawConfig(
+DrawConfig.build(
   maxRandomnessOffset: 2,    // Max random offset per point
   roughness: 1,              // 0 = smooth, 1 = standard, 2+ = very rough
   bowing: 1,                 // Arc bowing factor
@@ -887,8 +925,8 @@ DrawConfig(
 final drawable = generator.rectangle(0, 0, 100, 50);
 canvas.drawRough(
   drawable,
-  WiredBase.pathPainter(2, color: Colors.black),   // stroke paint
-  WiredBase.fillPainter(Colors.white),              // fill paint
+  WiredBase.pathPainter(2, color: theme.borderColor), // stroke paint
+  WiredBase.fillPainter(theme.fillColor),             // fill paint
 );
 ```
 
@@ -977,16 +1015,20 @@ cargo fmt --all && cargo clippy --workspace --all-targets --all-features -- -D w
 
 ## Commit message conventions
 
+<!-- {=docsCommitConventions} -->
+
 Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
-feat: add WiredInfoBox widget
+feat: add WiredAvatar widget
 fix: correct WiredSlider thumb offset
-refactor: migrate test files to pumpApp
-test: add WiredCheckbox rapid-tap test
-docs: update button catalog page
-chore: bump version to 0.3.5
+refactor: migrate WiredChip tests to pumpWired
+test: add Generator.arc tests
+docs: share the install snippet through mdt
+chore: bump pnpm
 ```
+
+<!-- {/docsCommitConventions} -->
 
 ## File naming conventions
 
@@ -1000,9 +1042,15 @@ chore: bump version to 0.3.5
 
 ## Brand and casing
 
-The product name is always lowercase **skribble** in prose: READMEs, docs site pages, page frontmatter, and source comments (`/// skribble's bracketed smile`). Sentence position does not change it — a heading reads `# skribble`, and a page title reads `title: skribble — Hand-Drawn Flutter Design System`.
+<!-- {=docsBrandCasingRules} -->
 
-Code and names that must stay machine-readable keep their existing casing:
+- The brand word is always lowercase **skribble** — in READMEs, docs site pages and frontmatter, and source comments. Sentence position does not change it: a heading reads `# skribble`, and a page title reads `title: skribble — Hand-Drawn Flutter Design System`.
+- Keep machine-readable names as they are: identifiers (`SkribbleIcons`), bundled font families (`Skribble`, `SkribbleGentle`), asset names (`Skribble-Bold.ttf`), the Figma URL slug (`Skribble-Design-System`), and runtime strings such as app titles, page names, and semantic labels.
+- The root `README.md` keeps a centered header: the logo (240px, linked to the docs site), `<h1 align="center">skribble</h1>`, a one-line tagline, centered links into the documentation, then the badges. Those links point at `https://openbudgetfun.github.io/skribble/`.
+
+<!-- {/docsBrandCasingRules} -->
+
+More examples of names that stay machine-readable and keep their existing casing:
 
 | Kind                    | Examples                                                        |
 | ----------------------- | --------------------------------------------------------------- |
@@ -1014,7 +1062,47 @@ Code and names that must stay machine-readable keep their existing casing:
 
 The font-family column in the theming tables therefore keeps `Skribble` even though the surrounding prose is lowercase: it names a bundled family a consumer passes to Flutter.
 
-The root `README.md` opens with a centered header modeled on the docs site: the logo at 240px linked to the documentation, a centered `<h1>`, a one-line tagline, centered links into the docs, and the badges underneath. Documentation links point at <https://openbudgetfun.github.io/skribble/>.
+## Shared documentation with MDT
+
+<!-- {=docsMdtWorkflow} -->
+
+Text that appears in more than one place, such as the install snippet, the minimal app, the commands list, these contributor rules, and repeated dartdoc, is written once as an [MDT](https://github.com/ifiokjr/mdt) **provider** in `templates/*.t.md` and copied into every **consumer** block. Never edit the text between a consumer's tags: `mdt update` overwrites it.
+
+A provider lives only in a `templates/*.t.md` file:
+
+```markdown
+<!-- {@docsExampleSnippet} -->
+
+The shared text, in Markdown.
+
+<!-- {/docsExampleSnippet} -->
+```
+
+A consumer can sit in any scanned Markdown file, including READMEs, docs pages, `CONTRIBUTING.md`, and `AGENTS.md`:
+
+```markdown
+<!-- {=docsExampleSnippet} -->
+<!-- {/docsExampleSnippet} -->
+```
+
+In Dart, the tags go inside `///` comments, and a `linePrefix` transformer re-adds the comment prefix, at the member's indentation, to each synced line:
+
+```dart
+// Static example: pseudocode
+class WiredExample extends HookWidget {
+  /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
+  /// <!-- {/dartSemanticLabel} -->
+  final String? semanticLabel;
+}
+```
+
+- **Look before adding.** Run `mdt list` to see every provider and where it is consumed, and reuse one before writing a near-duplicate. Name new providers `docs<Topic>` for Markdown and `dart<Topic>` for dartdoc.
+- **Add a provider** only for text that appears in at least two places. Write it in a `templates/*.t.md` file, replace each copy with a consumer block, then run `mdt update`.
+- **Render values from manifests.** `mdt.toml` declares `[data]` sources (the skribble pubspec and `.fvmrc`), so a provider can write `{{ skribble.environment.flutter }}` instead of a hand-typed version. Providers are therefore [minijinja](https://docs.rs/minijinja) templates: text that needs literal double braces goes inside a raw block.
+- **Reach a new file type.** Markdown and Dart are scanned already; add other files to `[include] patterns` in `mdt.toml`.
+- **Sync and check.** `fix:docs` runs `mdt update` and `lint:docs` runs `mdt check`; `fix:all` and `lint:all` include them, and CI fails when a consumer is stale. mdt formats synced Markdown with dprint, so run `dprint fmt` (or `fix:format`) after editing a template.
+
+<!-- {/docsMdtWorkflow} -->
 
 ## Checklist for agents
 
@@ -1030,7 +1118,7 @@ Before marking any widget task as complete, verify:
 - [ ] Exported from `packages/skribble/lib/skribble.dart`
 - [ ] Test file at `packages/skribble/test/widgets/wired_<name>_test.dart`
 - [ ] Test file has 6+ `testWidgets` covering all categories
-- [ ] Tests use `pumpApp()` helper
+- [ ] Tests use the `pumpWired()` host and public-API helpers
 - [ ] Storybook entry added
 - [ ] `dart format .` passes
 - [ ] `dart analyze --fatal-infos .` passes
@@ -1045,7 +1133,7 @@ Before marking any widget task as complete, verify:
 2. **Forgetting `RepaintBoundary`** — every widget must isolate repaints
 3. **Hardcoding colors** — always read from `WiredTheme.of(context)`
 4. **Skipping tests** — minimum 6 `testWidgets` per widget, no exceptions
-5. **Wrong test helper** — use `pumpApp()`, not raw `tester.pumpWidget()`
+5. **Wrong test helper** — use `pumpWired()`, not raw `tester.pumpWidget()` or the legacy `pumpApp()`
 6. **Missing barrel export** — widget must be exported from `skribble.dart`
 7. **Missing dartdoc** — every public class and parameter needs `///` comments
 8. **Missing semantic label** — interactive widgets need a `semanticLabel` parameter
@@ -1075,7 +1163,7 @@ For consistent visual output in tests and screenshots, use a fixed seed:
 
 ```dart
 // Static example: configuration
-DrawConfig(seed: 42, roughness: 1)
+DrawConfig.build(seed: 42, roughness: 1)
 ```
 
 Without a fixed seed, rough drawings will vary between renders, which can cause flaky visual regression tests.
@@ -1165,7 +1253,7 @@ The website deploys with releases, not with every push to `main`. `skribble_site
 
 1. Update `docs/site/content/core/theme-system.md`
 2. Update the theming getting-started page
-3. Update the WiredThemeData defaults table in this document
+3. Update the `docsWiredThemeDataParameters` table in `templates/theme.t.md`, which this page and the theming guide share
 4. Update the theming MDT template block in `templates/theme.t.md`
 
 **When you modify tests or testing infrastructure:**
@@ -1181,7 +1269,7 @@ The website deploys with releases, not with every push to `main`. `skribble_site
 
 **When you add or modify devenv scripts:**
 
-1. Update the commands section in AGENTS.md (root)
+1. Update `docsCommandsSection` (or `docsReleaseCommandsSection`) in `templates/getting-started.t.md`, which `AGENTS.md`, `CONTRIBUTING.md`, the root README, and the contributing page share, then run `mdt update`
 2. Update the workspace commands table at the bottom of this agents.md
 
 **When you modify the docs site itself:**
@@ -1280,7 +1368,7 @@ dart run tool/generate_rough_icons.dart \
 WiredIcon(icon: Icons.home)
 
 // Custom SVG icon
-WiredIcon.svg(iconData: myCustomIconData)
+WiredSvgIcon(data: myCustomIconData)
 ```
 
 ## Workspace commands quick reference
@@ -1294,14 +1382,14 @@ WiredIcon.svg(iconData: myCustomIconData)
 | `melos run rough-icons`          | Generate rough Material icon SVGs                                                                               |
 | `melos run rough-icons-font`     | Generate icon font + Dart helpers                                                                               |
 | `melos run rough-icons-ci-check` | CI-equivalent Material icon checks                                                                              |
-| `melos run icons-simple`         | Regenerate the curated simple icon catalog                                                                      |
-| `melos run icons-iconify`        | Regenerate the Lucide, Boxicons Solid, and CoreUI Brands catalogs                                               |
+| `melos run icons-iconify`        | Regenerate the Simple Icons, Lucide, Boxicons Solid, and CoreUI Brands catalogs                                 |
 | `melos run icons-check`          | Verify every icon catalog matches its generator                                                                 |
 | `melos run package-sizes`        | Verify each publishable package stays inside its compressed-size budget                                         |
-| `lint:all`                       | All lint checks (format + analyze)                                                                              |
+| `lint:all`                       | All lint checks: dprint, dart analyze, `mdt check`, and `monochange check`                                      |
 | `lint:push`                      | CI lint checks before `git push`                                                                                |
 | `test:all`                       | All Flutter and pure-Dart tests; `MELOS_TEST_CONCURRENCY` parallelizes packages locally                         |
-| `fix:all`                        | Auto-fix format + lint issues                                                                                   |
+| `fix:all`                        | Auto-fix docs (`mdt update`), formatting, and lint issues                                                       |
+| `fix:docs` / `lint:docs`         | Sync or check the shared MDT documentation blocks                                                               |
 | `docs:site:serve`                | Serve docs site locally                                                                                         |
 | `docs:site:build`                | Build static docs for deployment                                                                                |
 | `site:build`                     | Build the skribble.dev landing page into `apps/skribble_site/build/web`                                         |
@@ -1328,7 +1416,13 @@ Run `monochange check --fix` to auto-fix the style rules; everything else needs 
 
 ## Visual asset checks
 
-Figma exports are downloadable release assets. Never commit `.fig` files, including renamed or archived copies. Export `skribble-design-system.fig` outside the checkout, attach it to the release marked Latest, and verify its size and SHA-256 digest. Use `https://github.com/openbudgetfun/skribble/releases/latest/download/skribble-design-system.fig` for downloads. See [the design-kit publishing instructions](https://github.com/openbudgetfun/skribble/blob/main/docs/design/README.md#publishing-a-figma-export). The `design-asset-policy` CI job rejects tracked Figma exports.
+<!-- {=docsFigmaReleaseRule} -->
+
+**Figma exports belong on the latest GitHub release, never in Git**, including renamed or archived copies. Save `.fig` files outside the checkout, publish them as `skribble-design-system.fig` on the release marked Latest, and verify the uploaded size and SHA-256 digest; `docs/design/README.md` describes the upload and verification. Link downloads through `releases/latest/download/skribble-design-system.fig`. The `design-asset-policy` CI job rejects tracked Figma exports.
+
+<!-- {/docsFigmaReleaseRule} -->
+
+See [the design-kit publishing instructions](https://github.com/openbudgetfun/skribble/blob/main/docs/design/README.md#publishing-a-figma-export).
 
 When checking the Figma guide, inspect each complete page with component masters visible. Confirm that masters are children of the paper-backed guide, no sibling boards overlap, long text wraps within its container, and selected-state labels contrast with their backgrounds. Inspect old archive pages too, keeping intentional overlap within illustrations intact.
 
@@ -1358,12 +1452,23 @@ Every Dart fence requires an explicit classification. Standalone widget expressi
 
 ### Image storage
 
-Keep image files out of Git, including screenshots, design exports, and golden snapshots. Store generated images in gitignored local output directories. Upload review images with `gh pr create/edit/comment --attach`, or upload them to external file storage, then reference the resulting URL in a PR or README. Inspect images before uploading so they do not expose secrets or personal data.
+<!-- {=docsImagesOutOfGit} -->
 
-Check both staged additions and the task branch's commits before pushing. Remove newly introduced images from an unmerged branch's history, not just its latest checkout. Prefer pixel assertions against in-memory renders when a visual test can express the expected behavior without a committed image.
+- **Keep image files out of Git**, including screenshots, design exports, and golden snapshots. Save them in gitignored local output directories, upload review images with `gh pr create/edit/comment --attach`, or use external file storage. Put the resulting attachment or download URL in the PR or a README. Prefer pixel assertions against in-memory renders when a visual test can express the expected behavior without a committed image.
+- Before pushing, check staged additions and the branch's commits for image files. Remove newly introduced images from an unmerged branch's history before publishing the corrected branch; deleting them only in a later commit still leaves the repository bloated.
+
+<!-- {/docsImagesOutOfGit} -->
 
 ### Screenshots for design changes
 
-A pull request that changes what skribble draws or how it lays out must show the change. That covers widget appearance, the rough engine, pens and fillers, icons and emoji, fonts, theme defaults, spacing, and the storybook or docs visuals. Capture before and after screenshots from the same harness (the storybook, `melos run screenshot`, or an in-memory render), in light and dark themes, and at narrow and wide widths when layout changes.
+<!-- {=docsDesignScreenshotsRule} -->
 
-Upload the screenshots to the pull request with the GitHub CLI's `--attach` flag rather than committing them: `gh pr create --attach './before.png#Before' --attach './after.png#After'`, or `gh pr edit <n> --attach` and `gh pr comment <n> --attach` for later captures. Text after `#` is the alt text, and a local path already referenced in the body (`![Before](./before.png)`) is replaced with the uploaded URL. Put the images in a collapsible `<details>` section and say what the captures do not cover.
+- Every pull request that changes what skribble draws or how it lays out must show the change. That covers widget appearance, the rough engine, pens and fillers, icons and emoji, fonts, theme defaults, spacing, and the storybook or docs visuals.
+- Capture **before and after** screenshots from the same harness: the storybook, `melos run screenshot`, or an in-memory render. Include both light and dark themes, and narrow and wide widths when layout changes.
+- Upload them to the pull request itself with the GitHub CLI's `--attach` flag, never by committing them:
+  - when opening: `gh pr create --attach './before.png#Before' --attach './after.png#After'`;
+  - later captures: `gh pr edit <n> --attach ...` or `gh pr comment <n> --attach ...`.
+- Text after `#` is the image's alt text. A local path already referenced in the body (`![Before](./before.png)`) is replaced with the uploaded URL; anything else is appended.
+- Put the images in a collapsible `<details>` section of the description, and say what the captures do not cover. Inspect every image first so it exposes no secrets or personal data.
+
+<!-- {/docsDesignScreenshotsRule} -->
