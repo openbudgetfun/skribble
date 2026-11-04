@@ -8,7 +8,7 @@ Material dependency audit — 78 core files and 5 compat files import material/c
 skin      material         packages/skribble/lib/src/canvas/wired_ink_splash.dart
 compat    material         packages/skribble/lib/src/compat/rough_input_border.dart
 compat    material         packages/skribble/lib/src/compat/wired_material_app.dart
-compat    material         packages/skribble/lib/src/compat/wired_material_theme.dart
+compat    material+cupertino packages/skribble/lib/src/compat/wired_material_theme.dart
 compat    material+cupertino packages/skribble/lib/src/compat/wired_theme_adapters.dart
 compat    material+cupertino packages/skribble/lib/src/compat/wired_theme_interop.dart
 skin      material         packages/skribble/lib/src/wired_about_dialog.dart
