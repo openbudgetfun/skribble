@@ -140,6 +140,11 @@ impl Generator {
 			true,
 			&mut self.draw,
 		);
+		// An empty, reversed, or non-finite sweep draws nothing, and has no
+		// area for a filler to work on.
+		if outline.ops.is_empty() {
+			return self.build(outline, None);
+		}
 		let fill = renderer::arc_polygon(center, width, height, start, stop, &mut self.draw);
 		self.build(outline, Some(&fill))
 	}
@@ -162,13 +167,16 @@ impl Generator {
 		height: f64,
 		radii: [f64; 4],
 	) -> Drawable {
-		let max_radius = (width / 2.0).min(height / 2.0);
+		// Clamp radii to half of the smallest side. A negative side leaves no
+		// room for a corner, rather than an upper bound below the lower one.
+		let max_radius = (width.min(height) / 2.0).max(0.0);
 		let [tl, tr, br, bl] = radii.map(|radius| clamp(radius, 0.0, max_radius));
 		let offset = self
 			.draw
 			.options
 			.max_randomness_offset
-			.min(width.min(height) / 16.0);
+			.min(width.min(height) / 16.0)
+			.max(0.0);
 
 		let mut contour = Contour {
 			ops: Vec::new(),

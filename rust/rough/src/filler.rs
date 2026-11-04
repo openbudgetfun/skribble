@@ -103,7 +103,8 @@ pub struct FillOptions {
 	pub hachure_gap: f64,
 	/// Length of each dash in a dashed fill.
 	pub dash_offset: f64,
-	/// Gap between dashes in a dashed fill.
+	/// Gap between dashes in a dashed fill. When `dash_offset + dash_gap` is
+	/// under 0.1 the lines are drawn undashed.
 	pub dash_gap: f64,
 	/// Offset of zig-zag turns from the hachure line.
 	pub zigzag_offset: f64,
@@ -234,6 +235,14 @@ fn scan_lines(mut vertices: Vec<Point>, gap: f64) -> Vec<Line> {
 		vertices.push(first);
 	}
 	if vertices.len() <= 2 {
+		return lines;
+	}
+	// A scan line never reaches an infinite edge's end. NaN coordinates
+	// already end the scan, so only infinities need turning away.
+	if vertices
+		.iter()
+		.any(|p| p.x.is_infinite() || p.y.is_infinite())
+	{
 		return lines;
 	}
 
@@ -386,12 +395,30 @@ fn split_on_intersections(polygon: &[Point], segment: Line) -> Vec<Line> {
 		.collect()
 }
 
+/// The shortest dash pattern ([`FillOptions::dash_offset`] plus
+/// [`FillOptions::dash_gap`]) that is dashed. Shorter patterns, including
+/// zero and negative ones, draw undashed hachure lines.
+const MIN_DASH_PERIOD: f64 = 0.1;
+
 /// Dashes along every line.
 fn dashed_lines(lines: &[Line], options: FillOptions, draw: &mut DrawConfig) -> Vec<Op> {
 	let dash = options.dash_offset;
 	let gap = options.dash_gap;
+	let period = dash + gap;
 	let mut ops = Vec::new();
 	for line in lines {
+		// A pattern too short to see, or with no length at all, would split
+		// the line into countless dashes. Draw the line whole instead.
+		if !period.is_finite() || period < MIN_DASH_PERIOD {
+			ops.extend(renderer::double_line(
+				line.source.x,
+				line.source.y,
+				line.target.x,
+				line.target.y,
+				draw,
+			));
+			continue;
+		}
 		let length = line.length();
 		let count = (length / (dash + gap)).floor();
 		let line_offset = (length + gap - count * (dash + gap)) / 2.0;
