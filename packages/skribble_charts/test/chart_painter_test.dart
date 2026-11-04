@@ -606,8 +606,20 @@ void main() {
           price.right,
           scene.size.height,
         );
-        expect(count(gutter, style.foreground), greaterThan(60));
-        expect(count(axis, style.foreground), greaterThan(60));
+        // Count any blend of the ink over the paper, so the check holds
+        // however the platform anti-aliases glyph edges.
+        int inked(Rect rect) {
+          var total = 0;
+          for (var y = rect.top.ceil(); y < rect.bottom.floor(); y++) {
+            for (var x = rect.left.ceil(); x < rect.right.floor(); x++) {
+              if (annotationInk(at(x, y))) total++;
+            }
+          }
+          return total;
+        }
+
+        expect(inked(gutter), greaterThan(60));
+        expect(inked(axis), greaterThan(60));
       },
     );
 
