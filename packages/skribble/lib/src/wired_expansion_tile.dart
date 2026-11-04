@@ -40,6 +40,7 @@ class WiredExpansionTile extends HookWidget {
 
     return Semantics(
       label: semanticLabel,
+      button: true,
       expanded: isExpanded.value,
       onTap: () => isExpanded.value = !isExpanded.value,
       child: Column(

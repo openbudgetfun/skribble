@@ -202,5 +202,34 @@ void main() {
 
       expect(find.text('Dismissible'), findsNothing);
     });
+
+    testWidgets('keeps its content above the home indicator', (tester) async {
+      tester.view
+        ..physicalSize = const Size(360, 800)
+        ..devicePixelRatio = 1
+        ..padding = const FakeViewPadding(bottom: 34);
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) => TextButton(
+              onPressed: () => showWiredBottomSheet<void>(
+                context: context,
+                builder: (_) => const Text('Sheet body'),
+              ),
+              child: const Text('Open'),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+
+      expect(
+        tester.getRect(find.text('Sheet body')).bottom,
+        lessThanOrEqualTo(800 - 34),
+      );
+    });
   });
 }

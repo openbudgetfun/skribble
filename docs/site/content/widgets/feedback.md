@@ -235,6 +235,8 @@ WiredBadge(
 
 ## WiredBottomSheet
 
+The sheet pads its content above the bottom safe area, so it stays clear of the home indicator of notched phones.
+
 A bottom sheet with a hand-drawn top border. Can be shown as a modal or persistent sheet.
 
 ```dart

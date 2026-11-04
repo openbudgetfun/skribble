@@ -13,29 +13,42 @@ void main() {
       expect(find.byType(WiredDivider), findsOneWidget);
     });
 
-    testWidgets('contains Divider widget', (tester) async {
+    testWidgets('takes 16 pixels like a Material divider', (tester) async {
       await pumpApp(tester, const WiredDivider());
 
-      expect(
-        find.descendant(
-          of: find.byType(WiredDivider),
-          matching: find.byType(Divider),
-        ),
-        findsOneWidget,
-      );
+      expect(tester.getSize(find.byType(WiredDivider)).height, 16);
     });
 
-    testWidgets('has transparent divider color', (tester) async {
-      await pumpApp(tester, const WiredDivider());
+    testWidgets('draws its line in the middle of its height', (tester) async {
+      await pumpApp(tester, const Center(child: WiredDivider()));
 
-      final divider = tester.widget<Divider>(
+      final divider = tester.getRect(find.byType(WiredDivider));
+      final line = tester.getRect(
         find.descendant(
           of: find.byType(WiredDivider),
-          matching: find.byType(Divider),
+          matching: findWiredCanvas,
         ),
       );
+      expect(line.center.dy, moreOrLessEquals(divider.center.dy));
+    });
 
-      expect(divider.color, Colors.transparent);
+    testWidgets('inks the line with the theme border colour', (tester) async {
+      await pumpWired(
+        tester,
+        const SizedBox(width: 200, child: WiredDivider()),
+        theme: WiredThemeData(borderColor: const Color(0xFF00AA00)),
+      );
+
+      final canvas = tester.widget<WiredCanvas>(
+        find.descendant(
+          of: find.byType(WiredDivider),
+          matching: findWiredCanvas,
+        ),
+      );
+      expect(
+        (canvas.painter as WiredLineBase).borderColor,
+        const Color(0xFF00AA00),
+      );
     });
 
     testWidgets('contains WiredCanvas for line', (tester) async {

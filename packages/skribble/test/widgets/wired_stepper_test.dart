@@ -223,5 +223,60 @@ void main() {
       );
       expect(connectors, findsNothing);
     });
+
+    testWidgets('the connector starts under the middle of a grown circle', (
+      tester,
+    ) async {
+      await pumpWiredScaled(
+        tester,
+        const SizedBox(
+          width: 360,
+          child: WiredStepper(
+            steps: [
+              WiredStep(title: Text('One'), content: Text('a')),
+              WiredStep(title: Text('Two'), content: Text('b')),
+            ],
+          ),
+        ),
+      );
+
+      final canvases = find.descendant(
+        of: find.byType(WiredStepper),
+        matching: findWiredCanvas,
+      );
+      final circle = tester.getRect(canvases.first);
+      final connector = tester
+          .widgetList<WiredCanvas>(canvases)
+          .toList()
+          .indexWhere((c) => c.painter is WiredLineBase);
+      final line = tester.getRect(canvases.at(connector));
+      expect(line.center.dx, moreOrLessEquals(circle.center.dx, epsilon: 1));
+    });
+
+    testWidgets('the step number keeps its ink padding at 2x text', (
+      tester,
+    ) async {
+      await pumpWiredScaled(
+        tester,
+        const SizedBox(
+          width: 360,
+          child: WiredStepper(
+            steps: [WiredStep(title: Text('One'), content: Text('a'))],
+          ),
+        ),
+      );
+
+      final number = tester.getRect(find.text('1'));
+      final circle = tester.getRect(
+        find
+            .descendant(
+              of: find.byType(WiredStepper),
+              matching: findWiredCanvas,
+            )
+            .first,
+      );
+      expect(number.top - circle.top, greaterThanOrEqualTo(8));
+      expect(circle.bottom - number.bottom, greaterThanOrEqualTo(8));
+    });
   });
 }

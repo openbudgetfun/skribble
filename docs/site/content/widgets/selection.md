@@ -297,6 +297,11 @@ HookBuilder(
 )
 ```
 
+### Notes
+
+- `crossAxisCount` (5 by default) is the most swatches in a row; narrower spaces wrap to fewer.
+- Swatches take keyboard focus and are chosen with Enter or Space. Screen readers hear each as a button named by its hex value, such as `Color #E8957D`, with its selected state.
+
 ---
 
 ## WiredCupertinoPicker
