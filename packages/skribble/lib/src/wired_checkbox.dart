@@ -12,6 +12,10 @@ import 'wired_theme.dart';
 /// Draws a sketchy square border with a checkmark when [value] is `true`.
 /// A `null` value is treated as unchecked; tapping toggles between false and true.
 ///
+/// The checkbox is controlled: it shows [value] and reports taps through
+/// [onChanged], and only checks once its parent rebuilds it with the new
+/// value, as Material's `Checkbox` does.
+///
 /// Passing `null` for [onChanged] disables the checkbox, matching Material's
 /// `Checkbox.onChanged == null` convention: the box renders disabled and no tap
 /// action is advertised to assistive technology.
@@ -27,8 +31,8 @@ class WiredCheckbox extends HookWidget {
 
   /// Called with the new value when the box is toggled.
   ///
-  /// Null disables the checkbox: taps are ignored and the box renders in the
-  /// Material disabled state.
+  /// Null disables the checkbox: taps are ignored and the box and its check
+  /// are drawn in the theme's disabled color.
   final ValueChanged<bool?>? onChanged;
 
   /// Soft corners for the box. Use [BorderRadius.zero] for square ink.
@@ -50,26 +54,17 @@ class WiredCheckbox extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final isChecked = useState(value ?? false);
+    final checked = value ?? false;
     final enabled = onChanged != null;
-    useEffect(() {
-      isChecked.value = value ?? false;
-      return null;
-    }, [value]);
+    final ink = enabled ? theme.borderColor : theme.disabledTextColor;
 
     return Semantics(
       container: true,
       excludeSemantics: true,
       label: semanticLabel,
-      checked: isChecked.value,
+      checked: checked,
       enabled: enabled,
-      onTap: !enabled
-          ? null
-          : () {
-              final newValue = !isChecked.value;
-              isChecked.value = newValue;
-              onChanged!(newValue);
-            },
+      onTap: !enabled ? null : () => onChanged!(!checked),
       child: buildWiredElement(
         child: Container(
           padding: EdgeInsets.zero,
@@ -83,7 +78,7 @@ class WiredCheckbox extends HookWidget {
             borderRadius: borderRadius,
             borderStyle: RoughDrawingStyle(
               width: theme.strokeWidth,
-              color: theme.borderColor,
+              color: ink,
             ),
           ),
           child: SizedBox(
@@ -93,14 +88,9 @@ class WiredCheckbox extends HookWidget {
               child: Checkbox(
                 side: BorderSide.none,
                 fillColor: WidgetStateProperty.all(Colors.transparent),
-                checkColor: theme.borderColor,
-                onChanged: !enabled
-                    ? null
-                    : (newValue) {
-                        isChecked.value = newValue ?? false;
-                        onChanged!(newValue);
-                      },
-                value: isChecked.value,
+                checkColor: ink,
+                onChanged: !enabled ? null : onChanged,
+                value: checked,
               ),
             ),
           ),

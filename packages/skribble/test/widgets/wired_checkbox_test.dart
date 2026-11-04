@@ -104,9 +104,11 @@ void main() {
 
       await pumpWired(
         tester,
-        WiredCheckbox(
-          value: false,
-          onChanged: (value) => receivedValue = value,
+        StatefulBuilder(
+          builder: (context, setState) => WiredCheckbox(
+            value: receivedValue ?? false,
+            onChanged: (value) => setState(() => receivedValue = value),
+          ),
         ),
       );
 
@@ -117,7 +119,29 @@ void main() {
         tester,
         findWired<WiredCheckbox>(),
         isChecked: true,
-        reason: 'The semantics tap must move the widget to checked.',
+        reason: 'The parent took the new value, so the box shows it.',
+      );
+    });
+
+    testWidgets('stays unchecked when its parent rejects the change', (
+      tester,
+    ) async {
+      var requests = 0;
+      await pumpWired(
+        tester,
+        WiredCheckbox(value: false, onChanged: (_) => requests++),
+      );
+
+      await tester.tap(findWired<WiredCheckbox>());
+      await tester.pump();
+      await semanticTapWired(tester, findWired<WiredCheckbox>());
+
+      expect(requests, 2);
+      expectSemantics(
+        tester,
+        findWired<WiredCheckbox>(),
+        isChecked: false,
+        reason: 'A controlled checkbox only shows the value it is given.',
       );
     });
 

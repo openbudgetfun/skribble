@@ -199,8 +199,8 @@ HookBuilder(
 
 - The checkbox is 27x27 logical pixels.
 - The underlying `Checkbox` uses transparent fill with `theme.borderColor` for the check color.
-- Internal state is managed with `useState` for immediate visual feedback.
-- Passing `null` for `onChanged` disables the checkbox the Material way: it renders in the disabled state and advertises no tap action to assistive technology.
+- The checkbox is controlled, like Material's: it always shows `value`, and a tap only reports the new value through `onChanged`. Rebuild it with that value to check it; a parent that ignores the change keeps it as it was.
+- Passing `null` for `onChanged` disables the checkbox the Material way: the box and its check are drawn in `theme.disabledTextColor`, and no tap action is advertised to assistive technology.
 
 ---
 
