@@ -9,3 +9,8 @@ packages:
 linkWorkspacePackages: true
 preferWorkspacePackages: true
 saveWorkspaceProtocol: false
+
+# Keep pnpm-lock.yaml a single YAML document so GitHub's dependency graph can
+# read it for Dependabot alerts. CI still installs the exact version from
+# packageManager via pnpm/action-setup.
+pmOnFail: ignore
