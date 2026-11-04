@@ -11,10 +11,16 @@ import 'wired_theme.dart';
 
 /// A segment in a segmented button.
 class WiredButtonSegment<T> {
+  /// The value this segment stands for in [WiredSegmentedButton.selected].
   final T value;
+
+  /// The segment's label, usually a [Text].
   final Widget label;
+
+  /// Optional icon shown before the [label], 18 logical pixels in size.
   final IconData? icon;
 
+  /// Creates a segment for a [WiredSegmentedButton].
   const WiredButtonSegment({
     required this.value,
     required this.label,
@@ -24,11 +30,22 @@ class WiredButtonSegment<T> {
 
 /// A segmented button with hand-drawn connected rounded rectangles.
 class WiredSegmentedButton<T> extends HookWidget {
+  /// The segments shown side by side, separated by hand-drawn lines.
   final List<WiredButtonSegment<T>> segments;
+
+  /// The values of the selected segments. Selected segments get a hachure
+  /// fill.
   final Set<T> selected;
+
+  /// Called with the new selection when a segment is tapped. The widget does
+  /// not keep its own selection, so rebuild it with the new [selected] set.
   final void Function(Set<T>)? onSelectionChanged;
+
+  /// Whether several segments can be selected at once. When false, tapping a
+  /// segment selects only that segment. Defaults to false.
   final bool multiSelectionEnabled;
 
+  /// Creates a segmented button from [segments] and the [selected] values.
   const WiredSegmentedButton({
     super.key,
     required this.segments,

@@ -12,8 +12,17 @@ import 'wired_theme.dart';
 /// The chip is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the label and delete action when applicable.
 class WiredChip extends HookWidget {
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
+
+  /// A widget shown before the label, such as a `WiredAvatar` or an icon.
   final Widget? avatar;
+
+  /// Called when the user taps the delete icon.
+  ///
+  /// When null, the chip shows no delete icon.
   final VoidCallback? onDeleted;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -21,6 +30,7 @@ class WiredChip extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a chip with a hand-drawn border.
   const WiredChip({
     super.key,
     required this.label,

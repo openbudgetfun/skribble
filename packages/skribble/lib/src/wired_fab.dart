@@ -10,9 +10,18 @@ import 'wired_theme.dart';
 /// A floating action button: a hand-drawn circle washed with the theme's
 /// `markerColor`, with its icon in the theme's text colour.
 class WiredFloatingActionButton extends HookWidget {
+  /// The icon drawn in the middle of the button, at 43% of [size].
   final IconData icon;
+
+  /// Called when the button is tapped or activated from the keyboard.
+  ///
+  /// When null, the button is disabled.
   final VoidCallback? onPressed;
+
+  /// The width and height of the button, in logical pixels. Defaults to 56.
   final double size;
+
+  /// The colour of [icon]. Null uses the theme's text colour.
   final Color? iconColor;
 
   /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
@@ -20,6 +29,7 @@ class WiredFloatingActionButton extends HookWidget {
   /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn floating action button.
   const WiredFloatingActionButton({
     super.key,
     required this.icon,

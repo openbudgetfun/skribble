@@ -16,7 +16,11 @@ import 'wired_theme.dart';
 /// See also:
 ///  * `WiredRadioListTile`, which combines this with a label.
 class WiredRadio<T> extends HookWidget {
+  /// The value this radio represents.
   final T value;
+
+  /// The currently selected value of the group. The radio is selected when
+  /// this equals [value].
   final T? groupValue;
 
   /// Called with the radio's value when it is tapped.
@@ -31,6 +35,7 @@ class WiredRadio<T> extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn radio button.
   const WiredRadio({
     super.key,
     required this.value,

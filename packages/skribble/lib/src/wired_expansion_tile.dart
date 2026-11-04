@@ -12,10 +12,22 @@ import 'wired_theme.dart';
 /// The expansion tile is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the expanded state information.
 class WiredExpansionTile extends HookWidget {
+  /// The tile's primary content, usually a [Text].
   final Widget title;
+
+  /// Secondary content shown below [title].
   final Widget? subtitle;
+
+  /// A widget shown before the title, such as an icon.
   final Widget? leading;
+
+  /// The widgets revealed when the tile is expanded. Defaults to none.
   final List<Widget> children;
+
+  /// Whether the tile starts expanded. Defaults to false.
+  ///
+  /// Only read on the first build; afterwards the tile tracks its own
+  /// expanded state.
   final bool initiallyExpanded;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -23,6 +35,7 @@ class WiredExpansionTile extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates an expandable tile with a hand-drawn border.
   const WiredExpansionTile({
     super.key,
     required this.title,

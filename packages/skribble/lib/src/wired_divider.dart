@@ -11,6 +11,7 @@ import 'wired_theme.dart';
 /// Renders a sketchy line using `WiredLineBase` with the border color
 /// from the nearest `WiredTheme` ancestor.
 class WiredDivider extends HookWidget {
+  /// Creates a hand-drawn horizontal divider.
   const WiredDivider({super.key});
 
   @override

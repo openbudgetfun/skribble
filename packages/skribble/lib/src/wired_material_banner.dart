@@ -38,6 +38,7 @@ class WiredMaterialBanner extends HookWidget {
   /// Called when the banner is dismissed via overscroll.
   final VoidCallback? onVisible;
 
+  /// Creates a hand-drawn banner showing [content] with optional [actions].
   const WiredMaterialBanner({
     super.key,
     required this.content,

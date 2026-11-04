@@ -11,18 +11,29 @@ import 'wired_theme.dart';
 
 /// A popup menu item for [WiredPopupMenuButton].
 class WiredPopupMenuItem<T> {
+  /// The value passed to [WiredPopupMenuButton.onSelected] when this item is
+  /// chosen.
   final T value;
+
+  /// The item's content, usually a [Text].
   final Widget child;
 
+  /// Creates a popup menu item.
   const WiredPopupMenuItem({required this.value, required this.child});
 }
 
 /// A popup menu button with hand-drawn menu items.
 class WiredPopupMenuButton<T> extends HookWidget {
+  /// The items shown in the menu, in order.
   final List<WiredPopupMenuItem<T>> items;
+
+  /// Called with the chosen item's [WiredPopupMenuItem.value].
   final void Function(T)? onSelected;
+
+  /// The button's icon. Defaults to a hand-drawn vertical ellipsis.
   final Widget? icon;
 
+  /// Creates a popup menu button for [items].
   const WiredPopupMenuButton({
     super.key,
     required this.items,

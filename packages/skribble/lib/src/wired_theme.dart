@@ -26,13 +26,23 @@ class WiredThemeData {
   /// Default decorative feedback for buttons in this theme.
   final WiredInkInteraction inkInteraction;
 
+  /// Ink for outlines: borders, dividers, and the strokes of hand-drawn
+  /// shapes. Defaults to [WiredPalette.ink].
   final Color borderColor;
+
+  /// Ink for labels and body text. Defaults to [WiredPalette.ink].
   final Color textColor;
+
+  /// Ink for the labels of disabled controls. Defaults to
+  /// [WiredPalette.mutedInk].
   final Color disabledTextColor;
 
   /// Ink for errors: the border of an input with error text and the error
   /// text itself.
   final Color errorColor;
+
+  /// The paper behind the ink: surfaces, cards, and control backgrounds.
+  /// Defaults to [WiredPalette.paper].
   final Color fillColor;
 
   /// The highlighter wash under selected and active things: navigation
@@ -42,6 +52,9 @@ class WiredThemeData {
   /// Ink still draws the shape and the label on top, so selection never
   /// relies on this colour alone.
   final Color markerColor;
+
+  /// Base width of a pen line, in logical pixels. Defaults to
+  /// [kWiredStrokeWidth] (1.6).
   final double strokeWidth;
   final DrawConfig? _drawConfig;
 
@@ -92,6 +105,12 @@ class WiredThemeData {
     return package == null ? fontFamily : 'packages/$package/$fontFamily';
   }
 
+  /// Creates a theme. Every value has a default, so `WiredThemeData()` is the
+  /// stock skribble look.
+  ///
+  /// `roughness`, `fontFamily`, and `pen` override what [roughnessLevel] and
+  /// [font] would pick. `drawConfig` replaces the whole resolved
+  /// [drawConfig].
   WiredThemeData({
     this.motionEnabled = true,
     this.inkInteraction = WiredInkInteraction.pressure,
@@ -151,6 +170,7 @@ class WiredThemeData {
         pen: pen,
       );
 
+  /// The stock theme, equal to `WiredThemeData()`.
   static final defaultTheme = WiredThemeData();
 
   @override
@@ -195,6 +215,7 @@ class WiredThemeData {
     _pen,
   );
 
+  /// Returns a copy of this theme with the given values replaced.
   WiredThemeData copyWith({
     bool? motionEnabled,
     WiredInkInteraction? inkInteraction,

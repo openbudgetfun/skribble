@@ -7,12 +7,23 @@ import 'wired_theme.dart';
 
 /// An app bar with a hand-drawn bottom border.
 class WiredAppBar extends HookWidget implements PreferredSizeWidget {
+  /// The primary content, usually a [Text], shown in bold 20 pixel text.
   final Widget? title;
+
+  /// A widget shown before the [title], such as a menu or back button.
   final Widget? leading;
+
+  /// Widgets shown in a row after the [title], such as icon buttons.
   final List<Widget>? actions;
+
+  /// The total height in logical pixels, including the hand-drawn bottom
+  /// line. Defaults to 56.
   final double height;
+
+  /// The colour behind the bar's content. Null leaves it transparent.
   final Color? backgroundColor;
 
+  /// Creates a hand-drawn app bar.
   const WiredAppBar({
     super.key,
     this.title,

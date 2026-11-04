@@ -47,6 +47,7 @@ class WiredDismissible extends HookWidget {
   /// Icon for the default delete background.
   final IconData deleteIcon;
 
+  /// Creates a dismissible wrapper with a hand-drawn swipe background.
   const WiredDismissible({
     super.key,
     required this.dismissKey,

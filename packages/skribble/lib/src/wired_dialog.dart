@@ -15,6 +15,7 @@ class WiredDialog extends HookWidget {
   /// Padding around the content.
   final EdgeInsetsGeometry? padding;
 
+  /// Creates a dialog with a hand-drawn border.
   const WiredDialog({super.key, required this.child, this.padding});
 
   @override

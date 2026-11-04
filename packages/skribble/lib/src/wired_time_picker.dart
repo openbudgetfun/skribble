@@ -13,7 +13,10 @@ import 'wired_theme.dart';
 /// The time picker is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the selected time information.
 class WiredTimePicker extends HookWidget {
+  /// The time shown first. Defaults to the current time.
   final TimeOfDay? initialTime;
+
+  /// Called with the new time whenever the hour or minute changes.
   final ValueChanged<TimeOfDay>? onTimeSelected;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -21,6 +24,7 @@ class WiredTimePicker extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a time picker with a hand-drawn clock face.
   const WiredTimePicker({
     super.key,
     this.initialTime,

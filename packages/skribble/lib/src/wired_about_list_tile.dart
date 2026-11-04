@@ -46,6 +46,7 @@ class WiredAboutListTile extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a list tile that opens a hand-drawn about dialog when tapped.
   const WiredAboutListTile({
     super.key,
     this.icon,

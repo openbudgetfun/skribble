@@ -45,6 +45,7 @@ class WiredIconButton extends HookWidget {
   /// Overrides the theme’s decorative ink feedback for this control.
   final WiredInkInteraction? inkInteraction;
 
+  /// Creates an icon button. The circle frame defaults to 48 logical pixels.
   const WiredIconButton({
     super.key,
     required this.icon,

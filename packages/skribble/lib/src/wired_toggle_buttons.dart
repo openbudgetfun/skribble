@@ -26,6 +26,9 @@ class WiredToggleButtons extends HookWidget {
   /// Horizontal padding inside each button.
   final double horizontalPadding;
 
+  /// Creates a toggle button group. [children] and [isSelected] must have
+  /// the same length. [height] defaults to 42 and [horizontalPadding] to 16
+  /// logical pixels.
   const WiredToggleButtons({
     super.key,
     required this.children,

@@ -23,6 +23,7 @@ class WiredBadge extends HookWidget {
   /// colour that keeps the theme's text colour legible on it.
   final Color? backgroundColor;
 
+  /// Creates a hand-drawn badge over [child].
   const WiredBadge({
     super.key,
     required this.child,

@@ -39,6 +39,7 @@ class WiredCheckbox extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn checkbox.
   const WiredCheckbox({
     super.key,
     required this.value,

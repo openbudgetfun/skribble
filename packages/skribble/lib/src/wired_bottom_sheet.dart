@@ -11,6 +11,7 @@ import 'wired_theme.dart';
 /// The bottom sheet is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the sheet label and content.
 class WiredBottomSheet extends HookWidget {
+  /// The sheet's content, shown below the drag handle.
   final Widget child;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -18,6 +19,7 @@ class WiredBottomSheet extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn bottom sheet around [child].
   const WiredBottomSheet({super.key, required this.child, this.semanticLabel});
 
   @override

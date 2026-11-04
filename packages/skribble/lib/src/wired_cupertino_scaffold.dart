@@ -19,6 +19,7 @@ class WiredPageScaffold extends HookWidget {
   /// Background color. Defaults to the skribble cream background.
   final Color? backgroundColor;
 
+  /// Creates a hand-drawn page scaffold.
   const WiredPageScaffold({
     super.key,
     this.navigationBar,
@@ -58,6 +59,7 @@ class WiredTabScaffold extends HookWidget {
   /// Initial tab index.
   final int initialIndex;
 
+  /// Creates a hand-drawn tab scaffold.
   const WiredTabScaffold({
     super.key,
     required this.tabs,
@@ -137,8 +139,12 @@ class WiredTabScaffold extends HookWidget {
 
 /// A tab item definition for [WiredTabScaffold].
 class WiredTabItem {
+  /// The icon drawn for this tab in the bottom tab bar.
   final IconData icon;
+
+  /// The text shown under [icon] in the bottom tab bar.
   final String label;
 
+  /// Creates a tab item with an [icon] and a [label].
   const WiredTabItem({required this.icon, required this.label});
 }

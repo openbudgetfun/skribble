@@ -41,6 +41,7 @@ class WiredRangeSlider extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a range slider. [min] defaults to 0 and [max] to 1.
   const WiredRangeSlider({
     super.key,
     required this.values,

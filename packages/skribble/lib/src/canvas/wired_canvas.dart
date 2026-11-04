@@ -17,10 +17,22 @@ import 'wired_painter_base.dart';
 ///  * `WiredPainter`, the `CustomPainter` that drives the rendering.
 ///  * `WiredPainterBase`, the abstract class painters implement.
 class WiredCanvas extends HookWidget {
+  /// The shape to draw, such as a rectangle, circle or line painter.
   final WiredPainterBase painter;
+
+  /// The pen settings for the outline. Null uses the theme's
+  /// [WiredThemeData.drawConfig].
   final DrawConfig? drawConfig;
+
+  /// The settings for the fill strokes. Null derives them from the resolved
+  /// [drawConfig], so the fill follows the outline's hand.
   final FillerConfig? fillerConfig;
+
+  /// The fill pattern drawn inside the shape.
   final RoughFilter fillerType;
+
+  /// The size of the canvas in logical pixels. Null fills the incoming
+  /// constraints.
   final Size? size;
 
   /// Varies the hand behind this shape's ink: the same seed always draws the
@@ -29,6 +41,7 @@ class WiredCanvas extends HookWidget {
   /// theme's seed.
   final int? seed;
 
+  /// Creates a canvas that draws [painter] with the [fillerType] fill.
   const WiredCanvas({
     super.key,
     required this.painter,
@@ -105,11 +118,24 @@ final Map<RoughFilter, Filler Function(FillerConfig)> _filters =
 ///
 /// Each value maps to a [Filler] subclass in the rough engine.
 enum RoughFilter {
+  /// No fill; only the outline is drawn.
   noFiller,
+
+  /// Parallel hachure lines at an angle.
   hachureFiller,
+
+  /// Connected zig-zag lines.
   zigZagFiller,
+
+  /// Cross-hatching from two perpendicular hachure passes.
   hatchFiller,
+
+  /// Scattered dots.
   dotFiller,
+
+  /// Dashed line segments.
   dashedFiller,
+
+  /// A solid fill with no hatching pattern.
   solidFiller,
 }

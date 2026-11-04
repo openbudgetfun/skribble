@@ -9,11 +9,22 @@ import 'wired_theme.dart';
 
 /// A search bar with a hand-drawn rounded rectangle border.
 class WiredSearchBar extends HookWidget {
+  /// Controls the text being edited. When null, the field manages its own.
   final TextEditingController? controller;
+
+  /// Hint shown while the field is empty. Defaults to 'Search...'.
   final String? hintText;
+
+  /// Called with the new text whenever it changes.
   final ValueChanged<String>? onChanged;
+
+  /// Called with the text when the user submits the search.
   final ValueChanged<String>? onSubmitted;
+
+  /// Widget shown before the field. Defaults to a hand-drawn search icon.
   final Widget? leading;
+
+  /// Optional widget shown after the field.
   final Widget? trailing;
 
   /// Called when the search bar is tapped. Use with `WiredSearchAnchor` to
@@ -23,6 +34,7 @@ class WiredSearchBar extends HookWidget {
   /// Whether the internal text field should request focus on first build.
   final bool autoFocus;
 
+  /// Creates a hand-drawn search bar.
   const WiredSearchBar({
     super.key,
     this.controller,

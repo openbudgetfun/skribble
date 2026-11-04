@@ -7,15 +7,36 @@ import 'wired_theme.dart';
 
 /// A hand-drawn wrapper around Flutter's [Autocomplete].
 class WiredAutocomplete<T extends Object> extends HookWidget {
+  /// Every option the field can suggest.
+  ///
+  /// An option is suggested when its display string contains the typed text,
+  /// ignoring case. Nothing is suggested while the field is empty.
   final List<T> options;
+
+  /// Turns an option into the text that is matched and shown in the list.
   final String Function(T option) displayStringForOption;
+
+  /// Called with the option the user picks.
   final ValueChanged<T>? onSelected;
+
+  /// The text the field starts with. See [Autocomplete.initialValue].
   final TextEditingValue? initialValue;
+
+  /// Placeholder text shown while the field is empty. Defaults to
+  /// 'Start typing...'.
   final String? hintText;
+
+  /// A label shown before the field. Null shows no label.
   final String? labelText;
+
+  /// The tallest the options list grows, in logical pixels, before it
+  /// scrolls. Defaults to 220.
   final double optionsMaxHeight;
+
+  /// The width of the options list in logical pixels. Defaults to 320.
   final double optionsWidth;
 
+  /// Creates a hand-drawn autocomplete field.
   const WiredAutocomplete({
     super.key,
     required this.options,

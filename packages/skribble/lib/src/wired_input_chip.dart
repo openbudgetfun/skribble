@@ -15,12 +15,31 @@ import 'wired_theme.dart';
 /// The input chip is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the selected state and delete action.
 class WiredInputChip extends HookWidget {
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
+  ///
+  /// Shown on one line, clipped with an ellipsis.
   final Widget label;
+
+  /// Optional widget shown before the [label], such as a WiredAvatar.
   final Widget? avatar;
+
+  /// Whether the chip is selected. Selected chips are filled with ink and draw
+  /// their label in white. Defaults to false.
   final bool selected;
+
+  /// Whether the chip responds to taps. Disabled chips are drawn at half
+  /// opacity. Defaults to true.
   final bool enabled;
+
+  /// Called with the opposite of [selected] when the chip is tapped.
   final ValueChanged<bool>? onSelected;
+
+  /// Called when the delete icon is tapped. When null, no delete icon is shown.
   final VoidCallback? onDeleted;
+
+  /// Called when the chip is tapped, before [onSelected].
   final VoidCallback? onPressed;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -28,6 +47,7 @@ class WiredInputChip extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn input chip.
   const WiredInputChip({
     super.key,
     required this.label,
@@ -138,8 +158,15 @@ class WiredInputChip extends HookWidget {
 /// The action chip is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the tap action.
 class WiredActionChip extends HookWidget {
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
+
+  /// Optional widget shown before the [label], such as a WiredAvatar.
   final Widget? avatar;
+
+  /// Called when the chip is tapped.
   final VoidCallback? onPressed;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -147,6 +174,7 @@ class WiredActionChip extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn action chip.
   const WiredActionChip({
     super.key,
     required this.label,

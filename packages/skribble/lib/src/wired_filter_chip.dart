@@ -13,8 +13,15 @@ import 'wired_theme.dart';
 /// The filter chip is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the selected state information.
 class WiredFilterChip extends HookWidget {
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
+
+  /// Whether the chip is selected and shows a checkmark. Defaults to false.
   final bool selected;
+
+  /// Called with the opposite of [selected] when the user taps the chip.
   final ValueChanged<bool>? onSelected;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -22,6 +29,7 @@ class WiredFilterChip extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a filter chip with a hand-drawn border.
   const WiredFilterChip({
     super.key,
     required this.label,

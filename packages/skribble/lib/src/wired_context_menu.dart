@@ -16,6 +16,8 @@ class WiredContextMenu extends HookWidget {
   /// The action items shown in the context menu.
   final List<WiredContextMenuAction> actions;
 
+  /// Creates a context menu that opens [actions] when [child] is
+  /// long-pressed.
   const WiredContextMenu({
     super.key,
     required this.child,
@@ -169,11 +171,20 @@ class _WiredContextMenuOverlay extends HookWidget {
 
 /// An action item for [WiredContextMenu].
 class WiredContextMenuAction {
+  /// The text shown for the action.
   final String label;
+
+  /// An optional icon drawn before [label] at 18 logical pixels.
   final IconData? icon;
+
+  /// Called after the menu closes when the action is tapped.
   final VoidCallback? onPressed;
+
+  /// Whether the action is destructive. Destructive actions draw their
+  /// label and icon in red. Defaults to false.
   final bool isDestructive;
 
+  /// Creates a context menu action.
   const WiredContextMenuAction({
     required this.label,
     this.icon,

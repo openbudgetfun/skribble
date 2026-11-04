@@ -26,6 +26,7 @@ class WiredNavigationDrawer extends HookWidget {
   /// Width of the drawer.
   final double width;
 
+  /// Creates a navigation drawer. [width] defaults to 304 logical pixels.
   const WiredNavigationDrawer({
     super.key,
     required this.destinations,
@@ -110,10 +111,20 @@ class WiredNavigationDrawer extends HookWidget {
 
 /// A destination item for [WiredNavigationDrawer].
 class WiredNavigationDrawerDestination {
+  /// <!-- {=dartDestinationIcon|trim|linePrefix:"  /// "} -->
+  /// The icon shown when this destination is not selected.
+  /// <!-- {/dartDestinationIcon} -->
   final IconData icon;
+
+  /// <!-- {=dartDestinationSelectedIcon|trim|linePrefix:"  /// "} -->
+  /// The icon shown when this destination is selected. Defaults to [icon].
+  /// <!-- {/dartDestinationSelectedIcon} -->
   final IconData? selectedIcon;
+
+  /// The text shown next to the icon.
   final String label;
 
+  /// Creates a navigation drawer destination.
   const WiredNavigationDrawerDestination({
     required this.icon,
     this.selectedIcon,

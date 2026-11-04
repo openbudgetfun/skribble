@@ -9,10 +9,20 @@ import 'wired_theme.dart';
 
 /// A circular progress indicator with a hand-drawn arc.
 class WiredCircularProgress extends HookWidget {
+  /// The progress from 0 to 1, clamped to that range.
+  ///
+  /// When null, the indicator is indeterminate: a fixed arc spins once every
+  /// two seconds.
   final double? value;
+
+  /// The width and height of the indicator, in logical pixels. Defaults to 48.
   final double size;
+
+  /// The width of the progress arc, in logical pixels. Defaults to 3. The
+  /// background circle is drawn at half this width.
   final double strokeWidth;
 
+  /// Creates a hand-drawn circular progress indicator.
   const WiredCircularProgress({
     super.key,
     this.value,

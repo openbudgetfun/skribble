@@ -9,9 +9,20 @@ import 'wired_thumb_animation.dart';
 
 /// A switch widget with a hand-drawn appearance, mirroring Flutter's Switch API.
 class WiredSwitch extends HookWidget {
+  /// Whether the switch is on.
   final bool value;
+
+  /// Called with the new value when the switch is toggled. Null disables the
+  /// switch.
   final ValueChanged<bool>? onChanged;
+
+  /// Track fill color while [value] is true. Defaults to the theme's marker
+  /// color.
   final Color? activeColor;
+
+  /// Track fill color while [value] is false. Defaults to the theme's fill
+  /// color. The off track is drawn as an outline with no fill, so this
+  /// currently has no visible effect.
   final Color? inactiveColor;
 
   /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
@@ -19,6 +30,7 @@ class WiredSwitch extends HookWidget {
   /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn switch, 60 by 24 logical pixels.
   const WiredSwitch({
     super.key,
     required this.value,

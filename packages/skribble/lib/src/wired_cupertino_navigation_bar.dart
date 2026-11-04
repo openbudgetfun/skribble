@@ -41,6 +41,7 @@ class WiredCupertinoNavigationBar extends HookWidget
   /// Border — not used since we draw a sketchy border.
   final Border? border;
 
+  /// Creates a hand-drawn navigation bar.
   const WiredCupertinoNavigationBar({
     super.key,
     this.leading,

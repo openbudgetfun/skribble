@@ -38,6 +38,7 @@ class WiredCupertinoSwitch extends HookWidget {
   static const double _trackHeight = 32.0;
   static const double _thumbSize = 28.0;
 
+  /// Creates a hand-drawn Cupertino-style switch.
   const WiredCupertinoSwitch({
     super.key,
     required this.value,

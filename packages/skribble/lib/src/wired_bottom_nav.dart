@@ -8,18 +8,30 @@ import 'wired_theme.dart';
 
 /// A bottom navigation bar item.
 class WiredBottomNavItem {
+  /// The icon drawn for this destination, at 24 logical pixels.
   final IconData icon;
+
+  /// The text shown under the icon.
   final String label;
 
+  /// Creates a bottom navigation bar item.
   const WiredBottomNavItem({required this.icon, required this.label});
 }
 
 /// A bottom navigation bar with hand-drawn selection indicator.
 class WiredBottomNavigationBar extends HookWidget {
+  /// The destinations, laid out evenly from start to end.
   final List<WiredBottomNavItem> items;
+
+  /// The index into [items] of the selected destination, which gets a
+  /// hand-drawn circle. Defaults to 0.
   final int currentIndex;
+
+  /// Called with the index of the tapped item. The bar does not change
+  /// [currentIndex] itself; rebuild with the new index.
   final ValueChanged<int>? onTap;
 
+  /// Creates a hand-drawn bottom navigation bar.
   const WiredBottomNavigationBar({
     super.key,
     required this.items,

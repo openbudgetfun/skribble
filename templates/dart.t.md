@@ -15,3 +15,27 @@ Optional semantic label for accessibility.
 Semantic label for accessibility.
 
 <!-- {/dartSemanticLabel} -->
+
+<!-- {@dartChipLabel} -->
+
+The chip's label, usually a [Text].
+
+<!-- {/dartChipLabel} -->
+
+<!-- {@dartTileShowDivider} -->
+
+Whether a hand-drawn line is drawn below the tile. Defaults to true.
+
+<!-- {/dartTileShowDivider} -->
+
+<!-- {@dartDestinationIcon} -->
+
+The icon shown when this destination is not selected.
+
+<!-- {/dartDestinationIcon} -->
+
+<!-- {@dartDestinationSelectedIcon} -->
+
+The icon shown when this destination is selected. Defaults to [icon].
+
+<!-- {/dartDestinationSelectedIcon} -->

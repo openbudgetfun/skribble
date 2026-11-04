@@ -32,6 +32,7 @@ class WiredBottomAppBar extends HookWidget {
   /// Height of the bar.
   final double? height;
 
+  /// Creates a hand-drawn bottom app bar.
   const WiredBottomAppBar({
     super.key,
     this.child,

@@ -23,6 +23,8 @@ class WiredScrollbar extends HookWidget {
   /// Radius of the scrollbar thumb corners.
   final Radius? radius;
 
+  /// Creates a hand-drawn scrollbar around [child]. [thickness] defaults to 6
+  /// logical pixels.
   const WiredScrollbar({
     super.key,
     required this.child,

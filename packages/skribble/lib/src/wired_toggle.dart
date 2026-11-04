@@ -19,6 +19,8 @@ import 'wired_theme.dart';
 ///  * `WiredSwitch`, which wraps Flutter's `Switch`.
 ///  * `WiredCupertinoSwitch`, for Cupertino styling.
 class WiredToggle extends HookWidget {
+  /// Creates a hand-drawn toggle. [thumbRadius] defaults to 24 logical
+  /// pixels.
   const WiredToggle({
     super.key,
     required this.value,
@@ -39,6 +41,8 @@ class WiredToggle extends HookWidget {
   /// theme's seed.
   final int? seed;
 
+  /// Whether the toggle is on. The thumb moves when the parent rebuilds with
+  /// a new value.
   final bool value;
 
   /// Called when the thumb settles on a new side.
@@ -56,6 +60,9 @@ class WiredToggle extends HookWidget {
   bool Function(bool)? get onChange => _legacyOnChange;
 
   final bool Function(bool)? _legacyOnChange;
+
+  /// Radius of the thumb in logical pixels. The track is `2.5 * thumbRadius`
+  /// wide and `thumbRadius` tall.
   final double thumbRadius;
 
   /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->

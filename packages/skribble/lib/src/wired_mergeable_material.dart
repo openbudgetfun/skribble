@@ -31,6 +31,7 @@ class WiredMaterialSlice extends WiredMergeableMaterialItem {
   /// Optional fill color override for this slice's background.
   final Color? color;
 
+  /// Creates a slice of content identified by [key].
   const WiredMaterialSlice({
     required LocalKey key,
     required this.child,
@@ -47,6 +48,7 @@ class WiredMaterialGap extends WiredMergeableMaterialItem {
   /// Size of the gap in logical pixels along the main axis.
   final double size;
 
+  /// Creates a gap identified by [key]. [size] defaults to 16 logical pixels.
   const WiredMaterialGap({required LocalKey key, this.size = 16.0})
     : super(key);
 }
@@ -102,6 +104,8 @@ class WiredMergeableMaterial extends HookWidget {
   /// Curve used for gap grow/collapse animations.
   final Curve animationCurve;
 
+  /// Creates a group of slices and gaps. Gap size changes animate over
+  /// [animationDuration], which defaults to 300 milliseconds.
   const WiredMergeableMaterial({
     super.key,
     required this.children,

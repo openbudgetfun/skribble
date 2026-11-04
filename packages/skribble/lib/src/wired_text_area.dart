@@ -10,12 +10,25 @@ import 'wired_theme.dart';
 /// The text area is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the field label and current value.
 class WiredTextArea extends HookWidget {
+  /// Controls the text being edited. When null, the field manages its own.
   final TextEditingController? controller;
+
+  /// Style for the entered text.
   final TextStyle? style;
+
+  /// Hint shown while the field is empty.
   final String? hintText;
+
+  /// Style for [hintText].
   final TextStyle? hintStyle;
+
+  /// Called with the new text whenever it changes.
   final void Function(String)? onChanged;
+
+  /// The most lines shown before the field scrolls. Defaults to 5.
   final int maxLines;
+
+  /// The fewest lines of height the field takes up. Defaults to 3.
   final int minLines;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -23,6 +36,7 @@ class WiredTextArea extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a multi-line text area with a hand-drawn border.
   const WiredTextArea({
     super.key,
     this.controller,

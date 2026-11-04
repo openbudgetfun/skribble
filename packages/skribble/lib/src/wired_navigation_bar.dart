@@ -8,10 +8,20 @@ import 'wired_theme.dart';
 
 /// A navigation bar destination.
 class WiredNavigationDestination {
+  /// <!-- {=dartDestinationIcon|trim|linePrefix:"  /// "} -->
+  /// The icon shown when this destination is not selected.
+  /// <!-- {/dartDestinationIcon} -->
   final IconData icon;
+
+  /// <!-- {=dartDestinationSelectedIcon|trim|linePrefix:"  /// "} -->
+  /// The icon shown when this destination is selected. Defaults to [icon].
+  /// <!-- {/dartDestinationSelectedIcon} -->
   final IconData? selectedIcon;
+
+  /// The text shown below the icon.
   final String label;
 
+  /// Creates a navigation bar destination.
   const WiredNavigationDestination({
     required this.icon,
     this.selectedIcon,
@@ -24,8 +34,13 @@ class WiredNavigationDestination {
 /// The navigation bar is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the selected destination information.
 class WiredNavigationBar extends HookWidget {
+  /// The destinations shown across the bar, from start to end.
   final List<WiredNavigationDestination> destinations;
+
+  /// The index of the selected destination in [destinations]. Defaults to 0.
   final int selectedIndex;
+
+  /// Called with the index of a destination when it is tapped.
   final ValueChanged<int>? onDestinationSelected;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -33,6 +48,7 @@ class WiredNavigationBar extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a navigation bar with hand-drawn selection indicators.
   const WiredNavigationBar({
     super.key,
     required this.destinations,

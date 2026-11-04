@@ -14,9 +14,18 @@ import 'wired_theme.dart';
 ///  * `WiredCalendarDatePicker`, which wraps Flutter's `CalendarDatePicker`.
 ///  * `WiredDatePicker`, which shows a date picker dialog.
 class WiredCalendar extends HookWidget {
+  /// The initially selected date as a `yyyyMMdd` string, such as
+  /// `'20240131'`.
+  ///
+  /// The calendar opens on this date's month. Null selects nothing and opens
+  /// on the current month.
   final String? selected;
+
+  /// Called with the new date as a `yyyyMMdd` string when the user taps a
+  /// day other than the selected one.
   final void Function(String selected)? onSelected;
 
+  /// Creates a hand-drawn month calendar.
   const WiredCalendar({super.key, this.selected, this.onSelected});
 
   @override
@@ -305,13 +314,26 @@ const int _cDay = _cHour * 24;
 /// Each cell has a display [text], a [value] for selection callbacks,
 /// and flags for [selected], [dimmed], and [disabled] states.
 class CalendarCell {
+  /// The cell's date as a `yyyyMMdd` string, passed to
+  /// `WiredCalendar.onSelected`.
   final String value;
+
+  /// The label drawn in the cell, usually the day of the month.
   final String text;
+
+  /// Whether this cell is the selected date and gets the hand-drawn circle.
   final bool selected;
+
+  /// Whether the date falls outside the month being shown.
   final bool dimmed;
+
+  /// Whether the date can't be selected. Defaults to false.
   final bool disabled;
+
+  /// The colour of the cell's text. Null uses the ambient text style.
   final Color? color;
 
+  /// Creates a calendar cell.
   CalendarCell({
     required this.value,
     required this.text,

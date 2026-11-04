@@ -30,6 +30,8 @@ class WiredReorderableListView extends HookWidget {
   /// Whether to show the drag handle on each item.
   final bool showDragHandle;
 
+  /// Creates a reorderable list. [itemHeight] defaults to 56 and
+  /// [borderRadius] to 8 logical pixels.
   const WiredReorderableListView({
     super.key,
     required this.children,

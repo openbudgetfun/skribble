@@ -10,9 +10,17 @@ import 'wired_theme.dart';
 /// The tab bar is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the selected tab information.
 class WiredTabBar extends HookWidget implements PreferredSizeWidget {
+  /// The tab labels, shown in equal-width slots across the bar.
   final List<String> tabs;
+
+  /// The index of the selected tab in [tabs]. Defaults to 0.
   final int selectedIndex;
+
+  /// Called with the index of a tab when it is tapped.
   final ValueChanged<int>? onTap;
+
+  /// The bar's height in logical pixels, including the hand-drawn baseline.
+  /// Defaults to 48.
   final double height;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -20,6 +28,7 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a tab bar from [tabs].
   const WiredTabBar({
     super.key,
     required this.tabs,

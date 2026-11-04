@@ -37,6 +37,8 @@ typedef WiredSuggestionsBuilder = List<Widget> Function(
 /// controller.closeView('Selected tip'); // populate the field and close
 /// ```
 class WiredSearchController extends TextEditingController {
+  /// Creates a search controller with an optional initial [text]. The view
+  /// starts closed.
   WiredSearchController({super.text});
 
   bool _isOpen = false;
@@ -119,6 +121,8 @@ class WiredSearchAnchor extends HookWidget {
   /// Widget shown when [suggestionsBuilder] returns an empty list.
   final Widget? viewEmptyWidget;
 
+  /// Creates a search anchor from a collapsed [builder] and a
+  /// [suggestionsBuilder].
   const WiredSearchAnchor({
     super.key,
     this.searchController,

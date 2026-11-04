@@ -7,25 +7,42 @@ import 'wired_theme.dart';
 
 /// A column definition for [WiredDataTable].
 class WiredDataColumn {
+  /// The column heading, drawn in bold.
   final Widget label;
+
+  /// A preferred width for the column, in logical pixels.
+  ///
+  /// Not applied yet: every column currently takes an equal share of the
+  /// table's width.
   final double? width;
 
+  /// Creates a column definition.
   const WiredDataColumn({required this.label, this.width});
 }
 
 /// A row of data for [WiredDataTable].
 class WiredDataRow {
+  /// The row's cells, one per column, in column order.
+  ///
+  /// Cells beyond the number of columns are not shown.
   final List<Widget> cells;
+
+  /// Called when the user taps the row. Null makes the row inert.
   final VoidCallback? onTap;
 
+  /// Creates a row of data.
   const WiredDataRow({required this.cells, this.onTap});
 }
 
 /// A data table with hand-drawn grid lines.
 class WiredDataTable extends HookWidget {
+  /// The columns, which share the table's width equally.
   final List<WiredDataColumn> columns;
+
+  /// The data rows, separated by hand-drawn lines.
   final List<WiredDataRow> rows;
 
+  /// Creates a data table with hand-drawn grid lines.
   const WiredDataTable({super.key, required this.columns, required this.rows});
 
   @override

@@ -23,6 +23,7 @@ class WiredCard extends HookWidget {
   /// Soft corners for the paper outline. Use [BorderRadius.zero] for square ink.
   final BorderRadius borderRadius;
 
+  /// Creates a card with a hand-drawn border.
   const WiredCard({
     super.key,
     this.child,

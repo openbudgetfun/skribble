@@ -11,8 +11,16 @@ import 'wired_theme.dart';
 /// The choice chip is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the selected state information.
 class WiredChoiceChip extends HookWidget {
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
+
+  /// Whether the chip is selected and drawn with a hachure fill. Defaults to
+  /// false.
   final bool selected;
+
+  /// Called with the opposite of [selected] when the user taps the chip.
   final ValueChanged<bool>? onSelected;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -20,6 +28,7 @@ class WiredChoiceChip extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a choice chip with a hand-drawn border.
   const WiredChoiceChip({
     super.key,
     required this.label,

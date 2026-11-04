@@ -71,6 +71,7 @@ class WiredCupertinoTextField extends HookWidget {
   /// Whether to autofocus.
   final bool autofocus;
 
+  /// Creates a hand-drawn Cupertino-style text field.
   const WiredCupertinoTextField({
     super.key,
     this.controller,

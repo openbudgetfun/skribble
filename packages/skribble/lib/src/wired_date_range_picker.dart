@@ -109,6 +109,7 @@ class WiredDateRangePickerDialog extends HookWidget {
   /// Optional semantic label describing the dialog for accessibility.
   final String? semanticLabel;
 
+  /// Creates a hand-drawn date range picker dialog.
   const WiredDateRangePickerDialog({
     super.key,
     this.initialDateRange,

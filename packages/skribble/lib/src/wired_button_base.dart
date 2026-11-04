@@ -7,12 +7,6 @@ import 'rough/skribble_rough.dart';
 import 'wired_element.dart';
 import 'wired_paint.dart';
 
-/// Shared construction for the Skribble button family.
-///
-/// Internal to the library and deliberately not exported from the package
-/// barrel. It carries the fields every button exposes and builds the common
-/// `WiredInkResponse` > `Semantics` > `RepaintBoundary` chrome so each public
-/// button only has to describe its ink decoration and label style.
 /// The padding every rectangular skribble button shares. The surface around
 /// the button owns the minimum height, so the ink's own inset is included.
 final ButtonStyle _layout = TextButton.styleFrom(
@@ -21,6 +15,12 @@ final ButtonStyle _layout = TextButton.styleFrom(
   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
 );
 
+/// Shared construction for the skribble button family.
+///
+/// Internal to the library and deliberately not exported from the package
+/// barrel. It carries the fields every button exposes and builds the common
+/// `WiredInkResponse` > `Semantics` > `RepaintBoundary` chrome so each public
+/// button only has to describe its ink decoration and label style.
 abstract class WiredButtonBase extends HookWidget {
   /// Creates a button base with the family's shared parameters.
   const WiredButtonBase({
