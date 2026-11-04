@@ -2,175 +2,74 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:skribble_icons/skribble_icons.dart';
 import 'package:skribble_storybook/app.dart';
 
-/// Visual review test — renders each storybook page as a golden file PNG.
+import 'support/skribble_fonts.dart';
+
+/// Where the review captures live, relative to this file:
+/// `.screenshots/review/` at the repository root, which Git ignores.
+const _reviewDirectory = '../../../.screenshots/review';
+
+/// The pages to review, in the order the captures are numbered.
+const List<({String route, String capture})> _pages = [
+  (route: '/', capture: '01-home.png'),
+  (route: '/buttons', capture: '02-buttons.png'),
+  (route: '/inputs', capture: '03-inputs.png'),
+  (route: '/navigation', capture: '04-navigation.png'),
+  (route: '/selection', capture: '05-selection.png'),
+  (route: '/feedback', capture: '06-feedback.png'),
+  (route: '/layout', capture: '07-layout.png'),
+  (route: '/data-display', capture: '08-data-display.png'),
+  (route: '/rough-icons', capture: '09-rough-icons.png'),
+];
+
+/// Renders storybook pages, with the real fonts and hand-drawn icons, into
+/// `.screenshots/review/` for a visual pass. The images stay out of Git.
 ///
-/// Run with: flutter test --update-goldens test/visual_review_test.dart
-/// Then inspect .screenshots/review/ for visual quality.
+/// Capture them, from `apps/skribble_storybook`:
 ///
-/// NOTE: Uses `pump()` with explicit durations instead of `pumpAndSettle()`
-/// because WiredSlider creates a repeating timer that prevents
-/// `pumpAndSettle` from ever completing.
+/// ```bash
+/// flutter test --update-goldens test/visual_review_test.dart
+/// ```
+///
+/// Later runs without `--update-goldens` compare against those captures. A
+/// page is skipped until its capture exists, and every page is skipped on CI,
+/// so the regular suite never depends on local images.
 void main() {
   final runningInCi = Platform.environment['CI'] == 'true';
 
-  bool hasGolden(String relativePath) {
-    return File('${Directory.current.path}/$relativePath').existsSync();
-  }
+  setUpAll(() async {
+    registerSkribbleIcons();
+    await loadSkribbleFonts();
+  });
 
-  /// Pumps the widget tree enough to render without waiting for all
-  /// animations to settle (avoids WiredSlider timer hang).
-  Future<void> pumpStable(WidgetTester tester) async {
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 100));
-    await tester.pump(const Duration(milliseconds: 200));
-  }
+  group('Visual review', () {
+    for (final page in _pages) {
+      final golden = '$_reviewDirectory/${page.capture}';
+      // `flutter test` runs from the package root; goldens resolve from
+      // this file's directory.
+      final captured = File('test/$golden').existsSync();
 
-  Future<void> navigateTo(WidgetTester tester, String category) async {
-    // Scroll category into view if needed.
-    final finder = find.text(category);
+      testWidgets(
+        '${page.route} matches its review capture',
+        (tester) async {
+          await tester.pumpWidget(const SkribbleStorybookApp());
+          await tester.pumpAndSettle();
+          if (page.route != '/') {
+            tester
+                .state<NavigatorState>(find.byType(Navigator).first)
+                .pushNamedAndRemoveUntil(page.route, (_) => false);
+            await tester.pumpAndSettle();
+          }
 
-    if (finder.evaluate().isEmpty) {
-      final listFinder = find.byType(ListView).first;
-      var attempts = 0;
-
-      while (finder.evaluate().isEmpty && attempts < 20) {
-        await tester.drag(listFinder, const Offset(0, -200));
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 50));
-        attempts++;
-      }
+          await expectLater(
+            find.byType(MaterialApp),
+            matchesGoldenFile(golden),
+          );
+        },
+        skip: runningInCi || !(captured || autoUpdateGoldenFiles),
+      );
     }
-
-    await tester.tap(finder.first);
-    await pumpStable(tester);
-  }
-
-  void goldenTest(
-    String description,
-    String goldenPath,
-    WidgetTesterCallback body,
-  ) {
-    testWidgets(
-      description,
-      body,
-      skip: runningInCi || !hasGolden(goldenPath),
-    );
-  }
-
-  group('Visual Review', () {
-    goldenTest('home page', '../../.screenshots/review/01-home.png', (
-      tester,
-    ) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await pumpStable(tester);
-      await expectLater(
-        find.byType(MaterialApp),
-        matchesGoldenFile('../../.screenshots/review/01-home.png'),
-      );
-    });
-
-    goldenTest('buttons page', '../../.screenshots/review/02-buttons.png', (
-      tester,
-    ) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await pumpStable(tester);
-      await navigateTo(tester, 'Buttons');
-      await expectLater(
-        find.byType(MaterialApp),
-        matchesGoldenFile('../../.screenshots/review/02-buttons.png'),
-      );
-    });
-
-    goldenTest('inputs page', '../../.screenshots/review/03-inputs.png', (
-      tester,
-    ) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await pumpStable(tester);
-      await navigateTo(tester, 'Inputs');
-      await expectLater(
-        find.byType(MaterialApp),
-        matchesGoldenFile('../../.screenshots/review/03-inputs.png'),
-      );
-    });
-
-    goldenTest(
-      'navigation page',
-      '../../.screenshots/review/04-navigation.png',
-      (tester) async {
-        await tester.pumpWidget(const SkribbleStorybookApp());
-        await pumpStable(tester);
-        await navigateTo(tester, 'Navigation');
-        await expectLater(
-          find.byType(MaterialApp),
-          matchesGoldenFile('../../.screenshots/review/04-navigation.png'),
-        );
-      },
-    );
-
-    goldenTest('selection page', '../../.screenshots/review/05-selection.png', (
-      tester,
-    ) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await pumpStable(tester);
-      await navigateTo(tester, 'Selection');
-      await expectLater(
-        find.byType(MaterialApp),
-        matchesGoldenFile('../../.screenshots/review/05-selection.png'),
-      );
-    });
-
-    goldenTest('feedback page', '../../.screenshots/review/06-feedback.png', (
-      tester,
-    ) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await pumpStable(tester);
-      await navigateTo(tester, 'Feedback');
-      await expectLater(
-        find.byType(MaterialApp),
-        matchesGoldenFile('../../.screenshots/review/06-feedback.png'),
-      );
-    });
-
-    goldenTest('layout page', '../../.screenshots/review/07-layout.png', (
-      tester,
-    ) async {
-      await tester.pumpWidget(const SkribbleStorybookApp());
-      await pumpStable(tester);
-      await navigateTo(tester, 'Layout');
-      await expectLater(
-        find.byType(MaterialApp),
-        matchesGoldenFile('../../.screenshots/review/07-layout.png'),
-      );
-    });
-
-    goldenTest(
-      'data display page',
-      '../../.screenshots/review/08-data-display.png',
-      (tester) async {
-        await tester.pumpWidget(const SkribbleStorybookApp());
-        await pumpStable(tester);
-        await navigateTo(tester, 'Data Display');
-        await expectLater(
-          find.byType(MaterialApp),
-          matchesGoldenFile('../../.screenshots/review/08-data-display.png'),
-        );
-      },
-    );
-
-    goldenTest(
-      'rough icons page',
-      '../../.screenshots/review/09-rough-icons.png',
-      (tester) async {
-        await tester.pumpWidget(const SkribbleStorybookApp());
-        await pumpStable(tester);
-        await navigateTo(tester, 'Rough Icons');
-        await expectLater(
-          find.byType(MaterialApp),
-          matchesGoldenFile('../../.screenshots/review/09-rough-icons.png'),
-        );
-      },
-    );
   });
 }
