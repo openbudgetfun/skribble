@@ -20,6 +20,11 @@ void main() {
           hasSelectedState: true,
           isSelected: true,
           hasTapAction: true,
+          // Chips are keyboard-focusable and report their enabled state.
+          hasFocusAction: true,
+          isFocusable: true,
+          hasEnabledState: true,
+          isEnabled: true,
         ),
       );
       expect(
@@ -125,6 +130,11 @@ void main() {
           isSelected: true,
           hasSelectedState: true,
           hasTapAction: true,
+          // Chips are keyboard-focusable and report their enabled state.
+          hasFocusAction: true,
+          isFocusable: true,
+          hasEnabledState: true,
+          isEnabled: true,
           label: 'Gentle',
         ),
       );
