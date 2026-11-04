@@ -72,7 +72,9 @@ import { Sketch } from "@skribble.dev/react";
 />;
 ```
 
-The React Native component has the same props and paints with `react-native-svg`; set its `color` prop to theme `currentColor`. The Vue and Svelte components take the same props in their own syntax. React and React Native also export a `useSketch` hook, and Vue a `useSketch` composable, for painting the paths yourself.
+The React Native component has the same props and paints with `react-native-svg`; set its `color` prop to theme `currentColor`. The Vue and Svelte components take the same props in their own syntax. React and React Native also export a `useSketch` hook, and Vue a `useSketch` composable, for painting the paths yourself. Every package exports a `SketchProps` type for wrapper components.
+
+All four memoise on what a sketch draws, not on object identity: an inline `shape` or option object that is rebuilt on every render does not redraw, and neither does a change to `class`, `style`, or a label. Vue needs 3.4 or newer for this.
 
 ## Pens and ink
 

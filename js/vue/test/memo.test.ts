@@ -54,6 +54,30 @@ describe("<Sketch> for Vue reactivity", () => {
     app.unmount();
   });
 
+  it("does not redraw an inline shape that is rebuilt on every render", async () => {
+    const klass = ref("a");
+    const Host = defineComponent({
+      // A fresh but equal shape object on every render, as a template literal gives.
+      render: () =>
+        h(Sketch as never, {
+          shape: { type: "circle", x: 50, y: 25, diameter: 40 },
+          width: 100,
+          height: 50,
+          class: klass.value,
+        }),
+    });
+    const app = createApp(Host);
+    app.mount(container);
+    expect(sketchSpy.mock.calls.length).toBe(1);
+
+    klass.value = "b";
+    await nextTick();
+    expect(container.querySelector("svg")?.getAttribute("class")).toBe("b");
+    expect(sketchSpy.mock.calls.length).toBe(1);
+
+    app.unmount();
+  });
+
   it("does not redraw when only the label changes", async () => {
     const label = ref("One");
     const Host = defineComponent({

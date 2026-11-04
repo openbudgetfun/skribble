@@ -27,6 +27,7 @@ npm install @skribble.dev/svelte
 - Every [sketch option](https://github.com/openbudgetfun/skribble/tree/main/js/rough#options) is a prop. Props are reactive: change `seed` or `shape` and the sketch redraws — while changes to presentational attributes such as `class` and `style` pass through without redrawing.
 - Colours default to `currentColor`. Without a `label`, `title`, or `description` the sketch is decorative; otherwise it is `role="img"` — `label` sets `aria-label`, `title` renders a `<title>` element (the browser's hover tooltip), and `description` renders a `<desc>`.
 - Other attributes pass through to the `<svg>`.
+- The `SketchProps` type is exported for wrapper components.
 
 The package also re-exports `sketch()` for drawing paths yourself.
 
