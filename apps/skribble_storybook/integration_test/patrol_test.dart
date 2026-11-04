@@ -9,13 +9,18 @@ void main() {
     await $.pumpWidget(const SkribbleStorybookApp());
 
     expect($('Skribble Storybook'), findsOneWidget);
-    expect($('Buttons'), findsOneWidget);
-    expect($('Inputs'), findsOneWidget);
-    expect($('Navigation'), findsOneWidget);
 
-    // Scroll to reveal remaining categories.
-    await $.scrollUntilVisible(finder: $('Data Display'));
-    expect($('Data Display'), findsOneWidget);
+    // The cards below the introduction are built as they scroll into view,
+    // so scroll to each one, whatever the window size.
+    for (final category in [
+      'Buttons',
+      'Inputs',
+      'Navigation',
+      'Data Display',
+    ]) {
+      await $.scrollUntilVisible(finder: $(category));
+      expect($(category), findsOneWidget);
+    }
   });
 
   patrolTest('navigates to Buttons page and displays components', ($) async {
