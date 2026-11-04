@@ -8,8 +8,8 @@ import 'wired_theme.dart';
 
 /// A date picker dialog with hand-drawn styling, extending the calendar pattern.
 ///
-/// The date picker is wrapped in [Semantics] for accessibility, providing
-/// screen readers with the selected date information.
+/// The date picker is a labelled [Semantics] container; each day inside it
+/// is a button that reports whether it is selected.
 class WiredDatePicker extends HookWidget {
   final DateTime? initialDate;
   final void Function(DateTime)? onDateSelected;
@@ -35,7 +35,7 @@ class WiredDatePicker extends HookWidget {
 
     return Semantics(
       label: semanticLabel ?? 'Date picker',
-      button: true,
+      container: true,
       child: buildWiredElement(
         child: SizedBox(
           width: 320,

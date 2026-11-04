@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
@@ -10,8 +11,9 @@ import 'wired_theme.dart';
 
 /// A time picker with a hand-drawn clock face.
 ///
-/// The time picker is wrapped in [Semantics] for accessibility, providing
-/// screen readers with the selected time information.
+/// Drag the hour or minute field up or down to change it, or focus it and
+/// press the up and down arrow keys. Screen readers announce each field by
+/// name and value and can raise or lower it with their adjust gestures.
 class WiredTimePicker extends HookWidget {
   final TimeOfDay? initialTime;
   final ValueChanged<TimeOfDay>? onTimeSelected;
@@ -35,50 +37,56 @@ class WiredTimePicker extends HookWidget {
 
     return Semantics(
       label: semanticLabel ?? 'Time picker',
-      button: true,
+      container: true,
       child: buildWiredElement(
         child: SizedBox(
           width: 280,
           height: 340,
           child: Column(
             children: [
-              // Time display
+              // Time display. Large text shrinks the fields to fit the
+              // picker's width instead of pushing them past its edge.
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _TimeField(
-                      value: time.value.hour,
-                      onChanged: (h) {
-                        time.value = TimeOfDay(
-                          hour: h,
-                          minute: time.value.minute,
-                        );
-                        onTimeSelected?.call(time.value);
-                      },
-                      max: 23,
-                    ),
-                    Text(
-                      ' : ',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: theme.textColor,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _TimeField(
+                        value: time.value.hour,
+                        onChanged: (h) {
+                          time.value = TimeOfDay(
+                            hour: h,
+                            minute: time.value.minute,
+                          );
+                          onTimeSelected?.call(time.value);
+                        },
+                        max: 23,
+                        label: 'Hour',
                       ),
-                    ),
-                    _TimeField(
-                      value: time.value.minute,
-                      onChanged: (m) {
-                        time.value = TimeOfDay(
-                          hour: time.value.hour,
-                          minute: m,
-                        );
-                        onTimeSelected?.call(time.value);
-                      },
-                      max: 59,
-                    ),
-                  ],
+                      Text(
+                        ' : ',
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: theme.textColor,
+                        ),
+                      ),
+                      _TimeField(
+                        value: time.value.minute,
+                        onChanged: (m) {
+                          time.value = TimeOfDay(
+                            hour: time.value.hour,
+                            minute: m,
+                          );
+                          onTimeSelected?.call(time.value);
+                        },
+                        max: 59,
+                        label: 'Minute',
+                      ),
+                    ],
+                  ),
                 ),
               ),
               // Clock face
@@ -101,54 +109,100 @@ class _TimeField extends HookWidget {
   final ValueChanged<int> onChanged;
   final int max;
 
+  /// The field's name for screen readers, such as `Hour`.
+  final String label;
+
   const _TimeField({
     required this.value,
     required this.onChanged,
     required this.max,
+    required this.label,
   });
+
+  int _stepped(int delta) => (value + delta + max + 1) % (max + 1);
+
+  static String _digits(int value) => value.toString().padLeft(2, '0');
 
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    return GestureDetector(
-      onVerticalDragUpdate: (details) {
-        if (details.delta.dy < -2) {
-          onChanged((value + 1) % (max + 1));
-        } else if (details.delta.dy > 2) {
-          onChanged((value - 1 + max + 1) % (max + 1));
-        }
-      },
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minWidth: 72, minHeight: 56),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Positioned.fill(
-              child: WiredCanvas(
-                painter: WiredRectangleBase(
-                  strokeWidth: theme.strokeWidth,
-                  fillColor: theme.fillColor,
-                  borderColor: theme.borderColor,
+    final focused = useState(false);
+    void step(int delta) => onChanged(_stepped(delta));
+
+    return Semantics(
+      label: label,
+      value: _digits(value),
+      increasedValue: _digits(_stepped(1)),
+      decreasedValue: _digits(_stepped(-1)),
+      onIncrease: () => step(1),
+      onDecrease: () => step(-1),
+      excludeSemantics: true,
+      child: FocusableActionDetector(
+        onShowFocusHighlight: (value) => focused.value = value,
+        shortcuts: const {
+          SingleActivator(LogicalKeyboardKey.arrowUp): _StepIntent(1),
+          SingleActivator(LogicalKeyboardKey.arrowDown): _StepIntent(-1),
+        },
+        actions: {
+          _StepIntent: CallbackAction<_StepIntent>(
+            onInvoke: (intent) {
+              step(intent.delta);
+              return null;
+            },
+          ),
+        },
+        child: GestureDetector(
+          onVerticalDragUpdate: (details) {
+            if (details.delta.dy < -2) {
+              step(1);
+            } else if (details.delta.dy > 2) {
+              step(-1);
+            }
+          },
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 72, minHeight: 56),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned.fill(
+                  child: WiredCanvas(
+                    painter: WiredRectangleBase(
+                      // A keyboard focus shows as a heavier pen.
+                      strokeWidth: focused.value
+                          ? theme.strokeWidth * 2
+                          : theme.strokeWidth,
+                      fillColor: theme.fillColor,
+                      borderColor: theme.borderColor,
+                    ),
+                    fillerType: RoughFilter.noFiller,
+                  ),
                 ),
-                fillerType: RoughFilter.noFiller,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                value.toString().padLeft(2, '0'),
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: theme.textColor,
+                // The digits keep the ink's breathing room as text grows.
+                Padding(
+                  padding: kWiredInkPadding,
+                  child: Text(
+                    _digits(value),
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: theme.textColor,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
+}
+
+/// Moves a time field by [delta].
+class _StepIntent extends Intent {
+  const _StepIntent(this.delta);
+
+  final int delta;
 }
 
 class _ClockFace extends HookWidget {
