@@ -122,7 +122,12 @@ class InputsPage extends HookWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Row(
+                    // The status moves below the button when large text
+                    // leaves no room beside it, rather than squeezing.
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 8,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         WiredButton(
                           onPressed: () {
@@ -134,8 +139,7 @@ class InputsPage extends HookWidget {
                           },
                           child: const Text('Validate Form'),
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(child: Text(formStatus.value)),
+                        Text(formStatus.value),
                       ],
                     ),
                   ],

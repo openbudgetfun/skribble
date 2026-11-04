@@ -145,24 +145,37 @@ class SkribbleIconsPage extends HookWidget {
                         entry.value,
                         catalog.icons[entry.value]!,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          WiredSvgIcon(
-                            data: catalog.icons[entry.value]!,
-                            size: 32,
-                            semanticLabel: '${catalog.label}: ${entry.key}',
+                      // Platforms set their own line heights, so if a
+                      // label is taller than the estimate above, the tile
+                      // shrinks its content rather than overflowing.
+                      child: LayoutBuilder(
+                        builder: (context, tile) => FittedBox(
+                          fit: BoxFit.scaleDown,
+                          // The tile's width, so the label still wraps.
+                          child: SizedBox(
+                            width: tile.maxWidth,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                WiredSvgIcon(
+                                  data: catalog.icons[entry.value]!,
+                                  size: 32,
+                                  semanticLabel:
+                                      '${catalog.label}: ${entry.key}',
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  entry.key,
+                                  style: Theme.of(context).textTheme.bodySmall
+                                      ?.copyWith(fontSize: 9),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            entry.key,
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(fontSize: 9),
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+                        ),
                       ),
                     );
                   },
