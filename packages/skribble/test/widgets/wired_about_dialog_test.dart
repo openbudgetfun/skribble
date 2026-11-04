@@ -130,7 +130,7 @@ void main() {
       await tester.tap(find.text('VIEW LICENSES'));
       await tester.pumpAndSettle();
 
-      expect(find.byType(LicensePage), findsOneWidget);
+      expect(find.byType(WiredLicensePage), findsOneWidget);
     });
 
     testWidgets('renders all elements together', (tester) async {
@@ -150,6 +150,64 @@ void main() {
       expect(find.text('0.1.0'), findsOneWidget);
       expect(find.text('© Test'), findsOneWidget);
       expect(find.byType(FlutterLogo), findsOneWidget);
+    });
+
+    testWidgets('uses a SkribbleApp title when name is omitted', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        const SkribbleApp(
+          title: 'Skribble Title',
+          home: WiredMaterialTheme(child: WiredAboutDialog()),
+        ),
+      );
+
+      expect(find.text('Skribble Title'), findsOneWidget);
+    });
+
+    for (final width in [320.0, 360.0]) {
+      testWidgets('actions fit at $width pixels with 2x text', (tester) async {
+        tester.view
+          ..physicalSize = Size(width, 800)
+          ..devicePixelRatio = 1;
+        tester.platformDispatcher.textScaleFactorTestValue = 2;
+        addTearDown(tester.view.reset);
+        addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+
+        await tester.pumpWidget(
+          const MaterialApp(
+            home: Scaffold(
+              body: WiredAboutDialog(
+                applicationName: 'Sketchbook',
+                applicationVersion: '1.2.3',
+              ),
+            ),
+          ),
+        );
+
+        expect(tester.takeException(), isNull);
+        expect(find.text('VIEW LICENSES'), findsOneWidget);
+        expect(find.text('CLOSE'), findsOneWidget);
+      });
+    }
+
+    testWidgets('paints its paper with the theme fill in dark themes', (
+      tester,
+    ) async {
+      final dark = WiredThemeData.cuddly(brightness: Brightness.dark);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: WiredTheme(
+            data: dark,
+            child: const Scaffold(
+              body: WiredAboutDialog(applicationName: 'Night'),
+            ),
+          ),
+        ),
+      );
+
+      final dialog = tester.widget<Dialog>(find.byType(Dialog));
+      expect(dialog.backgroundColor, dark.fillColor);
     });
   });
 }
