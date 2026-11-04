@@ -23,6 +23,7 @@ class WiredButton extends WiredButtonBase {
     super.onPressed,
     super.semanticLabel,
     super.inkInteraction,
+    super.seed,
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
   });
 
@@ -32,6 +33,7 @@ class WiredButton extends WiredButtonBase {
 
     return buildWiredButton(
       decorationBuilder: (context) => RoughBoxDecoration(
+        seed: seed ?? 1,
         progress: WiredDrawTransition.progressOf(context),
         pressure: WiredInkResponse.pressureOf(context),
         drawConfig: theme.drawConfig,

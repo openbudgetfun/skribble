@@ -5,6 +5,7 @@ import 'canvas/wired_canvas.dart';
 import 'motion/wired_ink_interaction.dart';
 import 'motion/wired_ink_response.dart';
 import 'wired_base.dart';
+import 'wired_button_base.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
 
@@ -18,7 +19,8 @@ class WiredIconButton extends HookWidget {
   /// The icon to draw.
   final IconData icon;
 
-  /// Called when the button is tapped. Null disables the button.
+  /// Called when the button is tapped. Null disables the button: it leaves
+  /// focus traversal, reports itself disabled, and dims its default glyph.
   final VoidCallback? onPressed;
 
   /// The width and height of the hand-drawn circle frame.
@@ -29,7 +31,8 @@ class WiredIconButton extends HookWidget {
   /// Mirrors Material's `IconButton.iconSize`.
   final double? iconSize;
 
-  /// The glyph color. Defaults to [color], then to the theme's text color.
+  /// The glyph color. Defaults to [color], then to the theme's text color,
+  /// or its disabled text color when [onPressed] is null.
   final Color? iconColor;
 
   /// The glyph color, mirroring Material's `IconButton.color`.
@@ -61,14 +64,23 @@ class WiredIconButton extends HookWidget {
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
     final effectiveIconSize = iconSize ?? size * 0.5;
-    final effectiveIconColor = color ?? iconColor ?? theme.textColor;
+    // Without an explicit colour, a disabled glyph dims like the other
+    // buttons' labels.
+    final effectiveIconColor =
+        color ??
+        iconColor ??
+        (onPressed == null ? theme.disabledTextColor : theme.textColor);
     return WiredInkResponse(
       interaction: inkInteraction,
-      builder: (context, states) => Semantics(
+      builder: (context, states) => wiredButtonSemantics(
         label: semanticLabel,
-        button: true,
         enabled: onPressed != null,
-        child: buildWiredElement(
+        labelChild: WiredIcon(
+          icon: icon,
+          color: effectiveIconColor,
+          size: effectiveIconSize,
+        ),
+        control: (glyph) => buildWiredElement(
           child: SizedBox(
             width: size,
             height: size,
@@ -85,11 +97,7 @@ class WiredIconButton extends HookWidget {
                 ),
                 IconButton(
                   statesController: states,
-                  icon: WiredIcon(
-                    icon: icon,
-                    color: effectiveIconColor,
-                    size: effectiveIconSize,
-                  ),
+                  icon: glyph,
                   onPressed: onPressed,
                   iconSize: effectiveIconSize,
                   padding: EdgeInsets.zero,
