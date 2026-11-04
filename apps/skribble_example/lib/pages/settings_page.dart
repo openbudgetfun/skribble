@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+
 import 'package:skribble_example/models/sketch_settings.dart';
+import 'package:skribble_example/widgets/sketch_notes_about.dart';
 
 /// The settings page for the Sketch Notes app.
 ///
-/// Demonstrates [WiredSwitchListTile], [WiredSlider], [WiredDivider],
-/// and [showWiredAboutDialog] in a cohesive settings layout. The switch and
-/// slider change the whole app through [SketchSettingsScope].
+/// Demonstrates [WiredSwitchListTile], [WiredSlider],
+/// [WiredSegmentedButton], [WiredDivider], and [showWiredAboutDialog] in a
+/// settings layout. Every control writes through [SketchSettingsScope], so
+/// the whole app redraws as you change it.
 class SettingsPage extends HookWidget {
   const SettingsPage({super.key});
 
@@ -15,6 +18,7 @@ class SettingsPage extends HookWidget {
   Widget build(BuildContext context) {
     final settings = SketchSettingsScope.of(context);
     final current = useValueListenable(settings);
+    final theme = WiredTheme.of(context);
 
     return WiredScaffold(
       appBar: WiredAppBar(
@@ -29,24 +33,15 @@ class SettingsPage extends HookWidget {
       body: ListView(
         children: [
           const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text(
-              'Appearance',
-              style: TextStyle(
-                color: WiredTheme.of(context).borderColor,
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
+          const _SectionHeader('Appearance'),
           WiredSwitchListTile(
             value: current.night,
             onChanged: (value) =>
                 settings.value = current.copyWith(night: value),
             title: const Text('Dark Mode'),
-            subtitle: const Text('Write on night parchment'),
+            subtitle: Text(
+              current.night ? 'Night parchment' : 'Warm parchment',
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -55,16 +50,13 @@ class SettingsPage extends HookWidget {
               children: [
                 Text(
                   'Roughness: ${current.roughness.toStringAsFixed(1)}',
-                  style: TextStyle(
-                    color: WiredTheme.of(context).textColor,
-                    fontSize: 16,
-                  ),
+                  style: TextStyle(color: theme.textColor, fontSize: 16),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   'Adjust the sketchiness of drawn elements',
                   style: TextStyle(
-                    color: WiredTheme.of(context).disabledTextColor,
+                    color: theme.disabledTextColor,
                     fontSize: 14,
                   ),
                 ),
@@ -74,6 +66,7 @@ class SettingsPage extends HookWidget {
                   min: 0.5,
                   max: 2.5,
                   semanticLabel: 'Roughness',
+                  // Returning true lets the slider move to the new value.
                   onChanged: (value) {
                     settings.value = current.copyWith(roughness: value);
                     return true;
@@ -82,70 +75,64 @@ class SettingsPage extends HookWidget {
               ],
             ),
           ),
-          const WiredDivider(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text(
-              'General',
-              style: TextStyle(
-                color: WiredTheme.of(context).borderColor,
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Text Size',
+                  style: TextStyle(color: theme.textColor, fontSize: 16),
+                ),
+                const SizedBox(height: 8),
+                WiredSegmentedButton<NoteTextSize>(
+                  segments: [
+                    for (final size in NoteTextSize.values)
+                      WiredButtonSegment(value: size, label: Text(size.label)),
+                  ],
+                  selected: {current.textSize},
+                  onSelectionChanged: (selection) => settings.value = current
+                      .copyWith(textSize: selection.single),
+                ),
+              ],
             ),
-          ),
-          WiredListTile(
-            leading: const WiredIcon(
-              icon: Icons.palette,
-              size: 22,
-            ),
-            title: const Text('Theme'),
-            subtitle: Text(
-              current.night ? 'Night parchment' : 'Warm parchment',
-            ),
-          ),
-          WiredListTile(
-            leading: const WiredIcon(
-              icon: Icons.text_fields,
-              size: 22,
-            ),
-            title: const Text('Font Size'),
-            subtitle: const Text('Medium'),
           ),
           const WiredDivider(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text(
-              'Information',
-              style: TextStyle(
-                color: WiredTheme.of(context).borderColor,
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
+          const _SectionHeader('Information'),
           WiredListTile(
-            leading: const WiredIcon(
-              icon: Icons.info_outline,
-              size: 22,
-            ),
+            leading: const WiredIcon(icon: Icons.info_outline, size: 22),
             title: const Text('About'),
-            subtitle: const Text('Version 1.0.0'),
+            subtitle: const Text('Version $sketchNotesVersion'),
             showDivider: false,
-            onTap: () async {
-              await showWiredAboutDialog(
-                context: context,
-                applicationName: 'Sketch Notes',
-                applicationVersion: '1.0.0',
-                applicationLegalese:
-                    'A hand-drawn notes app built with the Skribble '
-                    'design system.\n\nMade with sketchy love.',
-              );
-            },
+            onTap: () => showSketchNotesAbout(context),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// A small heading in the ink colour above a group of settings.
+class _SectionHeader extends HookWidget {
+  const _SectionHeader(this.label);
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Semantics(
+        header: true,
+        child: Text(
+          label,
+          style: TextStyle(
+            color: WiredTheme.of(context).borderColor,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
       ),
     );
   }

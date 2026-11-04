@@ -4,27 +4,21 @@ import 'package:skribble/skribble.dart';
 
 import 'package:skribble_example/models/note.dart';
 
-/// Color options available for notes.
-const _colorOptions = <Color>[
-  Color(0xFFF5ECD7), // Parchment (default)
-  Color(0xFFDCEBD5), // Soft green
-  Color(0xFFD9E7F5), // Soft blue
-  Color(0xFFF8E1CC), // Soft orange
-  Color(0xFFE8DEF3), // Soft purple
-];
-
-const _colorLabels = <String>[
-  'Parchment',
-  'Green',
-  'Blue',
-  'Orange',
-  'Purple',
+/// The pastels a note can be coloured in with. The first is the default.
+const _noteColors = <({String name, Color color})>[
+  (name: 'Parchment', color: Color(0xFFF5ECD7)),
+  (name: 'Green', color: Color(0xFFDCEBD5)),
+  (name: 'Blue', color: Color(0xFFD9E7F5)),
+  (name: 'Orange', color: Color(0xFFF8E1CC)),
+  (name: 'Purple', color: Color(0xFFE8DEF3)),
 ];
 
 /// The note editing page.
 ///
 /// Uses [WiredInput] for the title, [WiredTextArea] for content, and a
-/// row of [WiredChip] widgets for color label selection.
+/// row of [WiredChoiceChip] widgets for the note's colour. Opened with a
+/// [Note] as the route argument it edits that note; opened without one it
+/// writes a new note. Either way it pops with the saved note.
 class EditPage extends HookWidget {
   const EditPage({super.key});
 
@@ -33,6 +27,7 @@ class EditPage extends HookWidget {
     final existingNote = ModalRoute.of(context)?.settings.arguments as Note?;
     final isNew = existingNote == null;
 
+    // Hooks own the controllers, so they are disposed with the page.
     final titleController = useTextEditingController(
       text: existingNote?.title ?? '',
     );
@@ -40,8 +35,24 @@ class EditPage extends HookWidget {
       text: existingNote?.content ?? '',
     );
     final selectedColor = useState(
-      existingNote?.color ?? _colorOptions.first,
+      existingNote?.color ?? _noteColors.first.color,
     );
+    final theme = WiredTheme.of(context);
+
+    void save() {
+      final note = isNew
+          ? Note.create(
+              title: titleController.text,
+              content: contentController.text,
+              color: selectedColor.value,
+            )
+          : existingNote.copyWith(
+              title: titleController.text,
+              content: contentController.text,
+              color: selectedColor.value,
+            );
+      Navigator.pop(context, note);
+    }
 
     return WiredScaffold(
       appBar: WiredAppBar(
@@ -73,7 +84,7 @@ class EditPage extends HookWidget {
             Text(
               'Label color',
               style: TextStyle(
-                color: WiredTheme.of(context).textColor,
+                color: theme.textColor,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
@@ -82,52 +93,36 @@ class EditPage extends HookWidget {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List.generate(_colorOptions.length, (index) {
-                final color = _colorOptions[index];
-                final isSelected = selectedColor.value == color;
-                return GestureDetector(
-                  onTap: () => selectedColor.value = color,
-                  child: WiredChip(
-                    avatar: Container(
-                      width: 14,
-                      height: 14,
-                      decoration: BoxDecoration(
-                        color: color,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: WiredTheme.of(context).borderColor,
-                          width: isSelected ? 2 : 1,
+              children: [
+                for (final (index, option) in _noteColors.indexed)
+                  WiredChoiceChip(
+                    // Neighbouring chips of the same size get their own
+                    // seeds, so their wobbles don't read as copies.
+                    seed: index + 1,
+                    selected: selectedColor.value == option.color,
+                    onSelected: (_) => selectedColor.value = option.color,
+                    label: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 14,
+                          height: 14,
+                          decoration: BoxDecoration(
+                            color: option.color,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: theme.borderColor),
+                          ),
                         ),
-                      ),
-                    ),
-                    label: Text(
-                      _colorLabels[index],
-                      style: TextStyle(
-                        fontWeight: isSelected
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                      ),
+                        const SizedBox(width: 6),
+                        Text(option.name),
+                      ],
                     ),
                   ),
-                );
-              }),
+              ],
             ),
             const SizedBox(height: 24),
             WiredFilledButton(
-              onPressed: () {
-                final note = isNew
-                    ? Note.create(
-                        title: titleController.text,
-                        content: contentController.text,
-                        color: selectedColor.value,
-                      )
-                    : existingNote.copyWith(
-                        title: titleController.text,
-                        content: contentController.text,
-                        color: selectedColor.value,
-                      );
-                Navigator.pop(context, note);
-              },
+              onPressed: save,
               child: Text(isNew ? 'Create Note' : 'Save Changes'),
             ),
           ],

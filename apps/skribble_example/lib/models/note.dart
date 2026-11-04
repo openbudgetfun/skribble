@@ -1,8 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-/// A simple note model for the Sketch Notes app.
+/// A note in the Sketch Notes app.
+///
+/// Notes are immutable: editing one produces a copy with [copyWith], and the
+/// home page swaps the copy into its list.
+@immutable
 class Note {
-  Note({
+  const Note({
     required this.id,
     required this.title,
     required this.content,
@@ -29,14 +33,26 @@ class Note {
     );
   }
 
+  /// Identifies the note across edits, so the list can replace it in place.
   final String id;
+
+  /// The heading; the card shows "Untitled" while it is empty.
   final String title;
+
+  /// The body text.
   final String content;
+
+  /// The pastel the note's card is coloured in with.
   final Color color;
+
+  /// When the note was first written.
   final DateTime createdAt;
+
+  /// When the note last changed; the card shows a "new" badge on the same day.
   final DateTime updatedAt;
 
-  /// Returns a copy with the given fields replaced.
+  /// Returns a copy with the given fields replaced. [updatedAt] defaults to
+  /// now, because every copy is an edit.
   Note copyWith({
     String? title,
     String? content,
