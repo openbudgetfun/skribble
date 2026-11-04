@@ -17,7 +17,12 @@ List<Op> _line(
   final lengthSq = pow(x1 - x2, 2) + pow(y1 - y2, 2);
   final length = sqrt(lengthSq);
 
-  if (length >= 48 && config.roughness > 0 && config.lineWobble > 0) {
+  // An infinite edge has no segments to wander over: drawn piecewise, it
+  // would never finish.
+  if (length >= 48 &&
+      length.isFinite &&
+      config.roughness > 0 &&
+      config.lineWobble > 0) {
     return _wanderingLine(x1, y1, x2, y2, config, overlay);
   }
 
@@ -153,6 +158,14 @@ List<Op> _wanderingLine(
 
   return ops;
 }
+
+/// The most points one arc pass samples.
+///
+/// An ordinary arc takes a few dozen; the cap only binds for a sweep so
+/// small, or a step count so large, that the sampler would otherwise run for
+/// minutes or run out of memory. Matches `maxArcSamples` in the JavaScript
+/// engine and `MAX_ARC_SAMPLES` in the Rust one.
+const int _maxArcSamples = 4096;
 
 /// Moves an arc's sweep into `[0, ∞)` and caps it at one full turn.
 ///
@@ -337,7 +350,13 @@ class OpSetBuilder {
     final double ellipseInc = pi * 2 / config.curveStepCount;
     final double increment = min(ellipseInc / 2, (stop - start) / 2);
     final List<PointD> points = [];
-    for (double angle = start; angle <= stop; angle = angle + increment) {
+    // A step count of zero or less gives no forward step, so the samples
+    // stop at the cap instead of never reaching the stop angle.
+    for (
+      var angle = start, n = 0;
+      increment > 0 && angle <= stop && n < _maxArcSamples;
+      angle = angle + increment, n++
+    ) {
       points.add(
         PointD(
           center.x + radiusX * cos(angle),
@@ -435,6 +454,7 @@ class OpsGenerator {
     DrawConfig config, {
     int pass = 0,
   }) {
+    if (points.isEmpty) return [];
     final List<PointD> result = [
       PointD(
         points.first.x + config.offsetSymmetric(offset),
@@ -478,7 +498,11 @@ class OpsGenerator {
             0.9 * ry * sin(radOffset - increment),
       ),
     );
-    for (double angle = radOffset; angle <= stp; angle += increment) {
+    for (
+      var angle = radOffset, n = 0;
+      increment > 0 && angle <= stp && n < _maxArcSamples;
+      angle += increment, n++
+    ) {
       points.add(
         PointD(
           config.offsetSymmetric(offset) + cx + rx * cos(angle),
@@ -570,11 +594,14 @@ List<PointD> computeEllipseAllPoints({
           0.9 * ry * sin(radOffset - increment),
     ),
   );
+  // A step that is not positive, or too small to move the angle (an
+  // infinite size or a huge step count), would never finish the turn.
   for (
     double angle = radOffset;
-    angle < (pi * 2 + radOffset - 0.01);
+    increment > 0 && angle < (pi * 2 + radOffset - 0.01);
     angle = angle + increment
   ) {
+    if (angle + increment == angle) break;
     allPoints.add(
       PointD(
         config.offsetSymmetric(offset) + cx + rx * cos(angle),

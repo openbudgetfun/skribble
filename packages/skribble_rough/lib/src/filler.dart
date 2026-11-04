@@ -36,7 +36,8 @@ class FillerConfig {
   /// Length of each dash in a dashed fill.
   final double dashOffset;
 
-  /// Gap between dashes in a dashed fill.
+  /// Gap between dashes in a dashed fill. When [dashOffset] plus [dashGap]
+  /// is under 0.1 the lines are drawn undashed.
   final double dashGap;
 
   /// Offset of zig-zag turns from the hachure line.
@@ -161,6 +162,11 @@ abstract class Filler {
       vertices.add(vertices[0]);
     }
     if (vertices.length > 2) {
+      // A scan line never reaches an infinite edge's end. NaN coordinates
+      // already end the scan, so only infinities need turning away.
+      if (vertices.any((p) => p.x.isInfinite || p.y.isInfinite)) {
+        return lines;
+      }
       final double gap = max(config.hachureGap, 0.1);
 
       final List<Edge> edges = createdSortedEdges(vertices);
@@ -411,6 +417,14 @@ class HatchFiller extends Filler {
   }
 }
 
+/// The shortest dash pattern ([FillerConfig.dashOffset] plus
+/// [FillerConfig.dashGap]) that is dashed.
+///
+/// Shorter patterns, including zero, negative, and non-finite ones, draw
+/// undashed hachure lines. Matches `minDashPeriod` in the JavaScript engine
+/// and `MIN_DASH_PERIOD` in the Rust one.
+const double _minDashPeriod = 0.1;
+
 /// Fills a polygon with dashed line segments.
 class DashedFiller extends Filler {
   DashedFiller([super.config]);
@@ -425,7 +439,22 @@ class DashedFiller extends Filler {
     final double offset = config.dashOffset;
     final double gap = config.dashGap;
     final List<Op> ops = [];
+    final double period = offset + gap;
     for (final Line line in lines) {
+      // A pattern too short to see, or with no length at all, would split
+      // the line into countless dashes. Draw the line whole instead.
+      if (!(period >= _minDashPeriod) || !period.isFinite) {
+        ops.addAll(
+          OpsGenerator.doubleLine(
+            line.source.x,
+            line.source.y,
+            line.target.x,
+            line.target.y,
+            config.drawConfig,
+          ),
+        );
+        continue;
+      }
       final double length = line.length;
       final int count = (length / (offset + gap)).floor();
       final double lineOffset = (length + gap - (count * (offset + gap))) / 2;
