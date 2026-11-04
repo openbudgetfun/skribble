@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 
@@ -73,53 +74,68 @@ class WiredCupertinoButton extends HookWidget {
     final hasFill = effectiveFill != null;
     final effectiveRadius = borderRadius ?? BorderRadius.circular(8);
 
-    return buildWiredElement(
-      child: GestureDetector(
-        onTapDown: enabled ? (_) => isPressed.value = true : null,
-        onTapUp: enabled ? (_) => isPressed.value = false : null,
-        onTapCancel: enabled ? () => isPressed.value = false : null,
-        onTap: onPressed,
-        child: AnimatedOpacity(
-          opacity: !enabled
-              ? 0.4
-              : isPressed.value
-              ? pressedOpacity
-              : 1.0,
-          duration: const Duration(milliseconds: 100),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: minSize, minWidth: minSize),
-            child: Stack(
-              alignment: alignment,
-              children: [
-                Positioned.fill(
-                  child: WiredCanvas(
-                    painter: WiredRoundedRectangleBase(
-                      strokeWidth: theme.strokeWidth,
-                      borderRadius: effectiveRadius,
-                      fillColor: hasFill ? effectiveFill : theme.fillColor,
-                      borderColor: theme.borderColor,
-                    ),
-                    fillerType: hasFill
-                        ? RoughFilter.hachureFiller
-                        : RoughFilter.noFiller,
-                    fillerConfig: FillerConfig.build(hachureGap: 2.5),
-                  ),
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      child: buildWiredElement(
+        // Focus, taps, the Enter and Space keys, and the hand-drawn focus
+        // ring. The listener inside only fades the button while a pointer is
+        // down, so it never competes with the tap.
+        child: WiredActivatable(
+          onActivate: onPressed,
+          child: Listener(
+            onPointerDown: enabled ? (_) => isPressed.value = true : null,
+            onPointerUp: enabled ? (_) => isPressed.value = false : null,
+            onPointerCancel: enabled ? (_) => isPressed.value = false : null,
+            child: AnimatedOpacity(
+              opacity: !enabled
+                  ? 0.4
+                  : isPressed.value
+                  ? pressedOpacity
+                  : 1.0,
+              duration: const Duration(milliseconds: 100),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: minSize,
+                  minWidth: minSize,
                 ),
-                Padding(
-                  padding:
-                      padding ??
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  child: DefaultTextStyle.merge(
-                    style: TextStyle(
-                      color: hasFill
-                          ? const Color(0xFFFFFFFF)
-                          : theme.borderColor,
-                      fontSize: 16,
+                child: Stack(
+                  alignment: alignment,
+                  children: [
+                    Positioned.fill(
+                      child: WiredCanvas(
+                        painter: WiredRoundedRectangleBase(
+                          strokeWidth: theme.strokeWidth,
+                          borderRadius: effectiveRadius,
+                          fillColor: hasFill ? effectiveFill : theme.fillColor,
+                          borderColor: theme.borderColor,
+                        ),
+                        fillerType: hasFill
+                            ? RoughFilter.hachureFiller
+                            : RoughFilter.noFiller,
+                        fillerConfig: FillerConfig.build(hachureGap: 2.5),
+                      ),
                     ),
-                    child: child,
-                  ),
+                    Padding(
+                      padding:
+                          padding ??
+                          const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
+                      child: DefaultTextStyle.merge(
+                        style: TextStyle(
+                          color: hasFill
+                              ? const Color(0xFFFFFFFF)
+                              : theme.borderColor,
+                          fontSize: 16,
+                        ),
+                        child: child,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

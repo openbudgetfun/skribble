@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
+import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
 import 'wired_thumb_animation.dart';
@@ -26,7 +27,9 @@ class WiredCupertinoSwitch extends HookWidget {
   /// The color of the thumb.
   final Color? thumbColor;
 
-  /// Whether to apply Cupertino haptic feedback on toggle.
+  /// Accepted for parity with `CupertinoSwitch.applyTheme`; currently has no
+  /// effect, because the switch always takes its colours from the nearest
+  /// `WiredTheme`.
   final bool applyTheme;
 
   /// <!-- {=dartSemanticLabel|trim|linePrefix:"  /// "} -->
@@ -65,10 +68,12 @@ class WiredCupertinoSwitch extends HookWidget {
     final effectiveThumbColor = thumbColor ?? theme.fillColor;
 
     return Semantics(
+      container: true,
       label: semanticLabel,
       toggled: value,
-      child: GestureDetector(
-        onTap: enabled ? () => onChanged!(!value) : null,
+      enabled: enabled,
+      child: WiredActivatable(
+        onActivate: enabled ? () => onChanged!(!value) : null,
         child: buildWiredElement(
           child: AnimatedOpacity(
             opacity: enabled ? 1.0 : 0.4,
