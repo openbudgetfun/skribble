@@ -293,6 +293,8 @@ class WiredThemeData {
       onSecondaryContainer: textColor,
       surface: fillColor,
       onSurface: textColor,
+      error: errorColor,
+      onError: _bestContrastingColor(errorColor),
       outline: borderColor.withValues(alpha: 0.7),
       surfaceTint: borderColor,
       shadow: borderColor.withValues(alpha: 0.12),

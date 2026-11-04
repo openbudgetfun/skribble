@@ -5,6 +5,20 @@ import 'package:skribble/skribble.dart';
 
 void main() {
   group('WiredThemeInterop.fromThemeData', () {
+    test('round-trips the error and marker colors', () {
+      final original = WiredThemeData.cuddly();
+      final material = original.toThemeData();
+      expect(material.colorScheme.error, original.errorColor);
+
+      final back = WiredThemeInterop.fromThemeData(material);
+      expect(back.errorColor, original.errorColor);
+      expect(back.markerColor, original.markerColor);
+      expect(
+        WiredThemeInterop.fromColorScheme(material.colorScheme).errorColor,
+        original.errorColor,
+      );
+    });
+
     test('maps Material color roles onto Skribble tokens', () {
       final theme = ThemeData(
         colorScheme: ColorScheme.fromSeed(

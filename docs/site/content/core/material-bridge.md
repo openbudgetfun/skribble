@@ -68,7 +68,7 @@ final fromScheme = WiredThemeInterop.fromColorScheme(colorScheme);
 final fromCupertino = WiredThemeInterop.fromCupertinoTheme(CupertinoTheme.of(context));
 ```
 
-`fromThemeData` maps `colorScheme.primary` to `borderColor`, `onSurface` to `textColor`, `surface` to `fillColor`, `ThemeData.disabledColor` to `disabledTextColor`, the first non-zero border width in the card/dialog/sheet/input/divider shape language to `strokeWidth`, and `textTheme.bodyMedium` to `fontFamily`. Roughness and motion are not expressible in `ThemeData`, so they keep the Skribble defaults and can be overridden with `copyWith`.
+`fromThemeData` maps `colorScheme.primary` to `borderColor`, `onSurface` to `textColor`, `surface` to `fillColor`, `error` to `errorColor`, `primaryContainer` to `markerColor`, `ThemeData.disabledColor` to `disabledTextColor`, the first non-zero border width in the card/dialog/sheet/input/divider shape language to `strokeWidth`, and `textTheme.bodyMedium` to `fontFamily`. Roughness and motion are not expressible in `ThemeData`, so they keep the Skribble defaults and can be overridden with `copyWith`.
 
 Back out to Cupertino:
 

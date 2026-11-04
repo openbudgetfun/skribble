@@ -41,6 +41,8 @@ extension WiredThemeInterop on WiredThemeData {
   /// * `borderColor` from `colorScheme.primary`
   /// * `textColor` from `colorScheme.onSurface`
   /// * `fillColor` from `colorScheme.surface`
+  /// * `errorColor` from `colorScheme.error`
+  /// * `markerColor` from `colorScheme.primaryContainer`
   /// * `disabledTextColor` from [ThemeData.disabledColor]
   /// * `strokeWidth` from the first non-zero border width found in the
   ///   card, dialog, bottom-sheet, input, or divider themes
@@ -54,6 +56,8 @@ extension WiredThemeInterop on WiredThemeData {
       borderColor: colorScheme.primary,
       textColor: colorScheme.onSurface,
       fillColor: colorScheme.surface,
+      errorColor: colorScheme.error,
+      markerColor: colorScheme.primaryContainer,
       disabledTextColor: theme.disabledColor,
       strokeWidth: _strokeWidthOf(theme),
       fontFamily: theme.textTheme.bodyMedium?.fontFamily,
@@ -69,6 +73,8 @@ extension WiredThemeInterop on WiredThemeData {
       borderColor: colorScheme.primary,
       textColor: colorScheme.onSurface,
       fillColor: colorScheme.surface,
+      errorColor: colorScheme.error,
+      markerColor: colorScheme.primaryContainer,
       disabledTextColor: colorScheme.onSurface.withValues(alpha: 0.38),
     );
   }
