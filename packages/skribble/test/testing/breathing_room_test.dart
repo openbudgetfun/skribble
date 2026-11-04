@@ -243,6 +243,41 @@ void main() {
     });
   });
 
+  group('crampedText clipped icons', () {
+    testWidgets('ignores the side of a shape scrolled out of view', (
+      tester,
+    ) async {
+      final controller = ScrollController(initialScrollOffset: 30);
+      addTearDown(controller.dispose);
+      await pumpApp(
+        tester,
+        Center(
+          child: SizedBox(
+            height: 120,
+            child: ListView(
+              controller: controller,
+              children: [
+                const SizedBox(height: 10),
+                Center(
+                  child: WiredButton(
+                    onPressed: () {},
+                    child: const WiredIcon(icon: Icons.home),
+                  ),
+                ),
+                const SizedBox(height: 200),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      // The button's top 20 pixels are scrolled above the viewport, so its
+      // icon pokes past the visible edge of the outline. That side is cut,
+      // not crowded.
+      expect(crampedText(_root(tester), icons: true), isEmpty);
+    });
+  });
+
   group('squeezedText', () {
     testWidgets('finds a paragraph squeezed into a narrow column', (
       tester,

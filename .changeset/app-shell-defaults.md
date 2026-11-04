@@ -2,7 +2,7 @@
 skribble: minor
 ---
 
-# `SkribbleApp` sets up icons, selection, and scrolling, and stops rebuilding on every inset change
+# `SkribbleApp` sets up icons, selection, and scrolling, and rebuilds less
 
 - `WiredThemeScope`, which `SkribbleApp` and `WiredTheme` install, now sets the icon colour to the theme's `textColor`, as it already did for text. An `Icon` or `WiredIcon` with no colour of its own was drawn in `IconThemeData.fallback`'s black, which vanished on dark paper.
 - `SkribbleApp` installs a `DefaultSelectionStyle` from the theme: the cursor in `borderColor` and the highlight in a translucent wash of `textColor`.

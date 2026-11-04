@@ -502,11 +502,21 @@ List<CrampedText> crampedText(
           (radius - farthest - icon.reach * icon.scale) / icon.scale,
         );
       } else {
+        // As for text, a side of the shape that a clip has cut off, such as
+        // a chip scrolled half under an app bar, shows nothing to crowd.
+        double gap(double value, {required bool cut}) =>
+            cut ? double.infinity : value / icon.scale;
         gaps = EdgeInsets.fromLTRB(
-          (bounds.left - border.left) / icon.scale,
-          (bounds.top - border.top) / icon.scale,
-          (border.right - bounds.right) / icon.scale,
-          (border.bottom - bounds.bottom) / icon.scale,
+          gap(bounds.left - border.left, cut: border.left > whole.left + .5),
+          gap(bounds.top - border.top, cut: border.top > whole.top + .5),
+          gap(
+            border.right - bounds.right,
+            cut: border.right < whole.right - .5,
+          ),
+          gap(
+            border.bottom - bounds.bottom,
+            cut: border.bottom < whole.bottom - .5,
+          ),
         );
       }
       final least = [
