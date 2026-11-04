@@ -27,4 +27,19 @@ The toolbar starts on Skribble Noto Sketch, the default, and changes between the
 
 The entry point registers the rough Material catalog before creating the app. Component examples use `WiredIcon` so their artwork matches the library.
 
+Every page pushed over the home page starts its app bar with `StorybookBackButton`, skribble's own hand-drawn arrow, because `WiredAppBar` adds no back button and a desktop window has no back gesture. On a narrow screen with large text, the ink, typeface, and paper toolbar stops at half the height and scrolls. A category card on the home page fills with the marker colour while the keyboard focuses it.
+
 Browser journeys scroll to the actual chart drawing point before tapping it, keeping the drawing interaction reachable with the bundled fonts at phone widths.
+
+## Test it
+
+From `apps/skribble_storybook`:
+
+```bash
+flutter test                                                    # widget tests
+flutter test integration_test/navigation_test.dart -d <device>  # on a device
+```
+
+`test/breathing_room_test.dart` checks every page for cramped and squeezed text at 360, 768, and 1280 pixels and at 1.3× text. `test/navigation_access_test.dart` checks the back button on every page, the toolbar at 320 pixels with 2× text, and the keyboard focus on the home page.
+
+For a visual pass, `flutter test --update-goldens test/visual_review_test.dart` renders nine pages with the real fonts into `.screenshots/review/` at the repository root. Later runs compare against those captures until you capture again. They are local only: CI skips them, and Git ignores both the captures and the `test/failures/` diffs a mismatch writes.

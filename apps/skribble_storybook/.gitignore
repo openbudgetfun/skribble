@@ -33,6 +33,10 @@ migrate_working_dir/
 /build/
 /coverage/
 
+# A failed golden comparison (test/visual_review_test.dart) writes its diff
+# images beside the test. Images stay out of Git.
+/test/failures/
+
 # Symbolication related
 app.*.symbols
 
