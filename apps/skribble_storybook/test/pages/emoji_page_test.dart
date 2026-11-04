@@ -37,7 +37,7 @@ void main() {
     final food = SkribbleEmoji.inGroup(EmojiGroup.foodAndDrink);
     expect(
       find.descendant(
-        of: find.byType(GridView),
+        of: find.byType(SliverGrid),
         matching: emoji(food.first.emoji),
       ),
       findsOneWidget,

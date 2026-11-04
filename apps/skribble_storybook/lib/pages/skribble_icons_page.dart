@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -16,6 +17,7 @@ class SkribbleIconsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final labelSize = MediaQuery.textScalerOf(context).scale(9);
     final theme = WiredTheme.of(context);
     final searchQuery = useState('');
     final selectedSet = useState(SkribbleIconSet.glyphs);
@@ -125,10 +127,12 @@ class SkribbleIconsPage extends HookWidget {
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(12, 4, 12, 24),
                 sliver: SliverGrid.builder(
+                  // Tiles grow with the label's text size, so at large text
+                  // a name such as "download" keeps its word whole and both
+                  // of its lines fit under the icon.
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 64,
-                    mainAxisExtent:
-                        56 + MediaQuery.textScalerOf(context).scale(9) * 3,
+                    maxCrossAxisExtent: math.max(64, labelSize * 7),
+                    mainAxisExtent: 48 + labelSize * 2 * 1.9,
                   ),
                   itemCount: filteredEntries.length,
                   itemBuilder: (context, index) {

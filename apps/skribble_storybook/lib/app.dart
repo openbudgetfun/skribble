@@ -54,7 +54,15 @@ class SkribbleStorybookApp extends HookWidget {
           verticalDirection: VerticalDirection.up,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(child: child ?? const SizedBox.shrink()),
+            // The toolbar above already keeps clear of the status bar, so
+            // the pages below must not inset for it a second time.
+            Expanded(
+              child: MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: child ?? const SizedBox.shrink(),
+              ),
+            ),
             WiredRoughnessPicker(
               value: roughness.value,
               onChanged: (value) => roughness.value = value,
