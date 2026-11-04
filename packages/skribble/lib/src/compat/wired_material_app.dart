@@ -191,10 +191,15 @@ class WiredMaterialApp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The same fallbacks as SkribbleApp and MaterialApp: with no dark theme
+    // a dark platform keeps the light one, and the high-contrast dark theme
+    // falls back to the dark theme, then to the high-contrast light theme.
     final effectiveDarkTheme = darkWiredTheme ?? wiredTheme;
     final effectiveHighContrastTheme = highContrastWiredTheme ?? wiredTheme;
     final effectiveHighContrastDarkTheme =
-        highContrastDarkWiredTheme ?? darkWiredTheme ?? wiredTheme;
+        highContrastDarkWiredTheme ??
+        darkWiredTheme ??
+        effectiveHighContrastTheme;
     final effectiveWiredTheme = resolveWiredAppTheme(
       context: context,
       light: wiredTheme,
@@ -213,9 +218,14 @@ class WiredMaterialApp extends HookWidget {
       wiredTheme.toThemeData,
       <Object?>[wiredTheme],
     );
+    // A Material theme is only dark when it was built from a dark Wired
+    // theme. Converting the light palette with a dark brightness gave
+    // Material widgets dark menus, fields, and text styles on light paper.
+    ThemeData convert(WiredThemeData data, ThemeData? light) =>
+        light ?? data.toThemeData(brightness: Brightness.dark);
     final darkTheme = useMemoized(
-      () => effectiveDarkTheme.toThemeData(brightness: Brightness.dark),
-      <Object?>[effectiveDarkTheme],
+      () => convert(effectiveDarkTheme, darkWiredTheme == null ? theme : null),
+      <Object?>[effectiveDarkTheme, theme, darkWiredTheme == null],
     );
     final highContrastTheme = useMemoized(
       effectiveHighContrastTheme.toThemeData,
@@ -223,10 +233,17 @@ class WiredMaterialApp extends HookWidget {
     );
 
     final highContrastDarkTheme = useMemoized(
-      () => effectiveHighContrastDarkTheme.toThemeData(
-        brightness: Brightness.dark,
+      () => convert(
+        effectiveHighContrastDarkTheme,
+        highContrastDarkWiredTheme == null && darkWiredTheme == null
+            ? highContrastTheme
+            : null,
       ),
-      <Object?>[effectiveHighContrastDarkTheme],
+      <Object?>[
+        effectiveHighContrastDarkTheme,
+        highContrastTheme,
+        highContrastDarkWiredTheme == null && darkWiredTheme == null,
+      ],
     );
 
     return WiredTheme(

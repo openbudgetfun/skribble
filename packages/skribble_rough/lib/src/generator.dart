@@ -97,6 +97,9 @@ class Generator {
       true,
       drawConfig,
     );
+    // An empty, reversed, or non-finite sweep draws nothing, and has no
+    // area for a filler to work on.
+    if (outline.ops.isEmpty) return _buildDrawable(outline);
     final List<PointD> fillPoints = OpSetBuilder.arcPolygon(
       PointD(x, y),
       width,
@@ -122,19 +125,22 @@ class Generator {
     double bottomRight,
     double bottomLeft,
   ) {
-    // Clamp radii to half of the smallest side
-    final maxRadiusH = width / 2;
-    final maxRadiusV = height / 2;
-    final tl = topLeft.clamp(0, min(maxRadiusH, maxRadiusV)).toDouble();
-    final tr = topRight.clamp(0, min(maxRadiusH, maxRadiusV)).toDouble();
-    final br = bottomRight.clamp(0, min(maxRadiusH, maxRadiusV)).toDouble();
-    final bl = bottomLeft.clamp(0, min(maxRadiusH, maxRadiusV)).toDouble();
+    // Clamp radii to half of the smallest side. A negative side leaves no
+    // room for a corner, rather than an upper bound below the lower one.
+    final maxRadius = max(0.0, min(width, height) / 2);
+    final tl = topLeft.clamp(0, maxRadius).toDouble();
+    final tr = topRight.clamp(0, maxRadius).toDouble();
+    final br = bottomRight.clamp(0, maxRadius).toDouble();
+    final bl = bottomLeft.clamp(0, maxRadius).toDouble();
 
     // Each pen pass follows one closed contour. Separate rough corner arcs
     // overlap at small radii and leave knots where they meet the straight edges.
     final List<Op> ops = [];
     final config = drawConfig;
-    final offset = min(config.maxRandomnessOffset, min(width, height) / 16);
+    final offset = max(
+      0.0,
+      min(config.maxRandomnessOffset, min(width, height) / 16),
+    );
     const kappa = 0.5522847498307936;
 
     for (var pass = 0; pass < 2; pass++) {

@@ -172,6 +172,76 @@ void main() {
     });
   });
 
+  group('crampedText lines', () {
+    Widget struck({required double y}) => Center(
+      child: SizedBox(
+        width: 160,
+        height: 40,
+        child: Stack(
+          children: [
+            const Positioned(
+              left: 20,
+              top: 10,
+              child: Text('Struck', style: TextStyle(fontSize: 16)),
+            ),
+            Positioned.fill(
+              child: WiredCanvas(
+                painter: WiredLineBase(x1: 0, y1: y, x2: 160, y2: y),
+                fillerType: RoughFilter.noFiller,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    testWidgets('reports a line through text only when asked', (
+      tester,
+    ) async {
+      await pumpApp(tester, struck(y: 20));
+      expect(crampedText(_root(tester)), isEmpty);
+
+      final hits = crampedText(_root(tester), lines: true);
+      expect(hits, hasLength(1));
+      expect(hits.single.ink, CrampedInk.line);
+      expect(hits.single.text, 'Struck');
+      expect(hits.single.toString(), contains('a line crosses "Struck"'));
+    });
+
+    testWidgets('passes a line that clears the text', (tester) async {
+      await pumpApp(tester, struck(y: 39));
+      expect(crampedText(_root(tester), lines: true), isEmpty);
+    });
+  });
+
+  group('crampedText icons', () {
+    Widget button(double iconSize) => Center(
+      child: WiredIconButton(
+        icon: Icons.home,
+        iconSize: iconSize,
+        onPressed: () {},
+      ),
+    );
+
+    testWidgets('passes an icon with room inside its circle', (tester) async {
+      await pumpApp(tester, button(24));
+      expect(crampedText(_root(tester), icons: true), isEmpty);
+    });
+
+    testWidgets('reports an icon crowding its circle only when asked', (
+      tester,
+    ) async {
+      await pumpApp(tester, button(44));
+      expect(crampedText(_root(tester)), isEmpty);
+
+      final hits = crampedText(_root(tester), icons: true);
+      expect(hits, hasLength(1));
+      expect(hits.single.ink, CrampedInk.icon);
+      expect(hits.single.gaps.top, lessThan(4));
+      expect(hits.single.toString(), contains('icon in 48×48'));
+    });
+  });
+
   group('squeezedText', () {
     testWidgets('finds a paragraph squeezed into a narrow column', (
       tester,

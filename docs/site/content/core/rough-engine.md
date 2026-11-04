@@ -297,6 +297,8 @@ final drawable = generator.arc(100, 100, 80, 80, 0, pi);
 final drawable = generator.arc(100, 100, 80, 80, 0, pi, true);
 ```
 
+Angles are radians from `start` to `stop`. A sweep longer than a full turn draws the whole ellipse. A sweep that is empty (`start == stop`), reversed (`stop < start`), or not finite draws nothing: the drawable has an empty outline and no fill.
+
 #### linearPath
 
 Draws an open path through a series of points (not closed like `polygon`).

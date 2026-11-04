@@ -354,7 +354,7 @@ WiredTheme.of(context)           <- individual widgets read here
 
 ### Level 1: The app shell
 
-`SkribbleApp` accepts a `wiredTheme` parameter and installs a `WiredThemeScope` above its `WidgetsApp`. `WiredTheme` is the Material-syncing variant of that boundary: it installs the same scope and also rewrites the surrounding Material text theme, which is what `WiredMaterialApp` uses. See [App shell](../core/app-shell).
+`SkribbleApp` accepts a `wiredTheme` parameter and installs a `WiredThemeScope` above its `WidgetsApp`. The scope also sets the default text style (the theme's font and `textColor`) and the icon colour (`textColor`) for its subtree, so plain `Text` and `Icon` widgets follow the ink. `WiredTheme` is the Material-syncing variant of that boundary: it installs the same scope and also rewrites the surrounding Material text theme, which is what `WiredMaterialApp` uses. See [App shell](../core/app-shell).
 
 ### Level 2: Nested WiredTheme
 

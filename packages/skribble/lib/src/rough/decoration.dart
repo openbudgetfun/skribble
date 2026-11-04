@@ -289,6 +289,10 @@ class RoughDecorationPainter extends BoxPainter {
         DrawConfig.build(seed: roughDecoration.seed);
     drawConfig.randomizer.reset();
     final Filler filler = roughDecoration.filler ?? NoFiller();
+    // The filler draws from its own stream. A filler shared between
+    // decorations would otherwise continue where the last shape stopped and
+    // hatch every box, and every resize, differently.
+    filler.config.drawConfig.randomizer.reset();
     final Generator generator = Generator(drawConfig, filler);
     final Rect rect = (Offset.zero & size).deflate(
       min(roughDecoration.inkInset, size.shortestSide / 2),

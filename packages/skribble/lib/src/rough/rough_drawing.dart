@@ -32,6 +32,17 @@ class RoughDrawing {
   final Paint _fillPaint;
   final List<_InkSet> _sets;
 
+  /// The sets in paint order (solid fill, patterned fill, outline), grouped
+  /// once so painting every frame of an animation filters nothing.
+  late final List<(OpSetType, List<_InkSet>)> _layers = [
+    for (final type in const [
+      OpSetType.fillPath,
+      OpSetType.fillSketch,
+      OpSetType.path,
+    ])
+      (type, _sets.where((set) => set.type == type).toList(growable: false)),
+  ];
+
   /// The fill paints as fill-style versions of the stroke paints, prepared
   /// once so animating progress does not allocate per frame.
   late final Paint _borderInk = Paint.from(_borderPaint)
@@ -50,12 +61,8 @@ class RoughDrawing {
     final emphasis = pressure.isFinite ? pressure.clamp(0.0, 1.0) : 0.0;
     final outlineProgress = (t / 0.65).clamp(0.0, 1.0);
     final fillProgress = ((t - 0.3) / 0.7).clamp(0.0, 1.0);
-    for (final type in const [
-      OpSetType.fillPath,
-      OpSetType.fillSketch,
-      OpSetType.path,
-    ]) {
-      final sets = _sets.where((set) => set.type == type);
+    for (final (type, sets) in _layers) {
+      if (sets.isEmpty) continue;
       final isOutline = type == OpSetType.path;
       final fraction = isOutline ? outlineProgress : fillProgress;
       final paint = isOutline ? _borderPaint : _fillPaint;

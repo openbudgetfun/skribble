@@ -459,6 +459,71 @@ void main() {
         throwsA(isA<AssertionError>()),
       );
     });
+
+    testWidgets('keeps a light Material theme on a dark platform without a '
+        'dark Wired theme', (tester) async {
+      addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
+      tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
+      final light = WiredThemeData();
+      late ThemeData material;
+      late WiredThemeData wired;
+
+      await tester.pumpWidget(
+        WiredMaterialApp(
+          wiredTheme: light,
+          home: Builder(
+            builder: (context) {
+              material = Theme.of(context);
+              wired = WiredTheme.of(context);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+
+      // Like MaterialApp without a darkTheme, the light theme stays: the
+      // Wired palette and the Material brightness must agree.
+      expect(wired, light);
+      expect(material.brightness, Brightness.light);
+      expect(material.colorScheme.surface, light.fillColor);
+    });
+
+    testWidgets('high-contrast dark falls back to the high-contrast theme', (
+      tester,
+    ) async {
+      addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
+      addTearDown(
+        tester.platformDispatcher.clearAccessibilityFeaturesTestValue,
+      );
+      tester.platformDispatcher
+        ..platformBrightnessTestValue = Brightness.dark
+        ..accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(
+          highContrast: true,
+        );
+      final highContrast = WiredThemeData(
+        borderColor: const Color(0xFF000000),
+      );
+      late ThemeData material;
+      late WiredThemeData wired;
+
+      await tester.pumpWidget(
+        WiredMaterialApp(
+          wiredTheme: WiredThemeData(),
+          highContrastWiredTheme: highContrast,
+          home: Builder(
+            builder: (context) {
+              material = Theme.of(context);
+              wired = WiredTheme.of(context);
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+
+      expect(wired, highContrast);
+      expect(material.brightness, Brightness.light);
+      expect(material.colorScheme.primary, highContrast.borderColor);
+    });
   });
 }
 

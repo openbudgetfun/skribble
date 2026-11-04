@@ -154,6 +154,30 @@ List<Op> _wanderingLine(
   return ops;
 }
 
+/// Moves an arc's sweep into `[0, ∞)` and caps it at one full turn.
+///
+/// Returns null when there is no arc to draw: a sweep that is empty,
+/// reversed, or not finite. The arc samplers step by half the sweep, so a
+/// zero sweep would never advance and a reversed one would walk away from
+/// its stop forever.
+(double, double)? _arcSweep(double start, double stop) {
+  if (!start.isFinite || !stop.isFinite || !(stop > start)) return null;
+  var from = start;
+  var to = stop;
+  if ((to - from) > (pi * 2)) return (0, pi * 2);
+  if (from < -pi * 2 * 1024) {
+    // Stepping a turn at a time is exact for ordinary angles but would take
+    // forever for a far-off start.
+    final turns = (-from / (pi * 2)).ceilToDouble() * pi * 2;
+    return (from + turns, to + turns);
+  }
+  while (from < 0) {
+    from += pi * 2;
+    to += pi * 2;
+  }
+  return (from, to);
+}
+
 /// Builds `OpSet` instances for rough shapes — lines, rectangles,
 /// ellipses, arcs, and curves.
 class OpSetBuilder {
@@ -238,22 +262,15 @@ class OpSetBuilder {
     DrawConfig config,
   ) {
     final List<Op> ops = [];
+    final sweep = _arcSweep(start, stop);
+    if (sweep == null) return OpSet(type: OpSetType.path, ops: ops);
     final double cx = center.x;
     final double cy = center.y;
     double rx = (width / 2).abs();
     double ry = (height / 2).abs();
     rx += config.offsetSymmetric(rx * 0.01);
     ry += config.offsetSymmetric(ry * 0.01);
-    double strt = start;
-    double stp = stop;
-    while (strt < 0) {
-      strt += pi * 2;
-      stp += pi * 2;
-    }
-    if ((stp - strt) > (pi * 2)) {
-      strt = 0;
-      stp = pi * 2;
-    }
+    final (strt, stp) = sweep;
     final double ellipseInc = pi * 2 / config.curveStepCount;
     final double arcIn = min(ellipseInc / 2, (stp - strt) / 2);
     ops
@@ -310,20 +327,13 @@ class OpSetBuilder {
     double stopAngle,
     DrawConfig config,
   ) {
+    final sweep = _arcSweep(startAngle, stopAngle);
+    if (sweep == null) return [center];
     double radiusX = (width / 2).abs();
     double radiusY = (height / 2).abs();
     radiusX += config.offsetSymmetric(radiusX * 0.01);
     radiusY += config.offsetSymmetric(radiusY * 0.01);
-    double start = startAngle;
-    double stop = stopAngle;
-    while (start < 0) {
-      start += pi * 2;
-      stop += pi * 2;
-    }
-    if ((stop - start) > (pi * 2)) {
-      start = 0;
-      stop = pi * 2;
-    }
+    final (start, stop) = sweep;
     final double ellipseInc = pi * 2 / config.curveStepCount;
     final double increment = min(ellipseInc / 2, (stop - start) / 2);
     final List<PointD> points = [];

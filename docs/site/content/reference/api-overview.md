@@ -81,12 +81,12 @@ Key types:
 
 Colors, roughness, and the widgets-based application root.
 
-| Export                        | Purpose                                                   |
-| ----------------------------- | --------------------------------------------------------- |
-| `wired_theme.dart`            | WiredThemeData + WiredTheme (Material sync)               |
-| `wired_theme_scope.dart`      | WiredThemeScope (widgets-only theme boundary)             |
-| `skribble_app.dart`           | SkribbleApp / SkribbleApp.router, SkribbleThemeMode       |
-| `skribble_localizations.dart` | SkribbleLocalizationsDelegate (widgets-only localization) |
+| Export                        | Purpose                                                                     |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| `wired_theme.dart`            | WiredThemeData + WiredTheme (Material sync)                                 |
+| `wired_theme_scope.dart`      | WiredThemeScope (widgets-only theme boundary)                               |
+| `skribble_app.dart`           | SkribbleApp / SkribbleApp.router, SkribbleThemeMode, SkribbleScrollBehavior |
+| `skribble_localizations.dart` | SkribbleLocalizationsDelegate (widgets-only localization)                   |
 
 Key types:
 
@@ -95,6 +95,7 @@ Key types:
 - `WiredThemeScope` — the Material-free half of `WiredTheme`; what `SkribbleApp` installs
 - `SkribbleApp` — widgets-based app shell (home/routes, router, theme, localization, shortcuts); see [App shell](../core/app-shell)
 - `SkribbleThemeMode` — `system`/`light`/`dark` without importing Material's `ThemeMode`
+- `SkribbleScrollBehavior` — `SkribbleApp`'s default scrolling: stretch overscroll on Android and an ink-coloured desktop scrollbar
 - `SkribbleLocalizations`, `SkribbleLocalizationsDelegate` — English widgets labels and right-to-left text direction
 
 ### 5. Compatibility layer (transitional)
@@ -263,7 +264,7 @@ Every icon widget takes a `weight` from 100 to 700 (falling back to `IconTheme.w
 
 `package:skribble/testing.dart` checks laid-out screens for the ink's breathing room, in widget tests and with no extra dependencies:
 
-- `crampedText(root)` — text closer than `kWiredInkPadding` to the hand-drawn shape around it, as `CrampedText` reports
+- `crampedText(root)` — text closer than `kWiredInkPadding` to the hand-drawn shape around it, as `CrampedText` reports; `lines: true` and `icons: true` also report lines crossing text and icons crowding their shape, tagged with `CrampedInk`
 - `RoughGenerationCounter` — how many times rough geometry has been generated since `RoughGenerationCounter.reset()`; cache regression tests assert it does not climb on rebuilds with equal-valued painters. `debugIconPainterGenerations` / `debugResetIconPainterCacheStats()` do the same for the icon painter cache.
 - `squeezedText(root)` — paragraphs wrapped into a narrow column on a small screen
 
