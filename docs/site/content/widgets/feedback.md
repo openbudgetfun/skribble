@@ -51,6 +51,7 @@ Builder(
 - The background uses `WiredRectangleBase` with `theme.fillColor` and `theme.borderColor`.
 - The border is drawn with 5px inset from the dialog edge for a natural offset.
 - No fill is applied (uses `RoughFilter.noFiller`), keeping a clean background.
+- The dialog hugs its content: the border is drawn around the child, so a short message gets a short dialog rather than one as tall as the screen.
 
 ---
 
@@ -277,6 +278,13 @@ Builder(
 )
 ```
 
+### Notes
+
+- The dialog is drawn on the theme's `fillColor`, so its text stays readable in dark themes.
+- When `applicationName` is null, the dialog shows the app's title from the nearest `MaterialApp`, `SkribbleApp`, or other `WidgetsApp`.
+- **VIEW LICENSES** opens `WiredLicensePage` through `showWiredLicensePage`; **CLOSE** pops the dialog. On narrow screens or with large text, the two actions stack at the end instead of overflowing.
+- Content scrolls when the screen is too short to show all of it.
+
 ---
 
 ## WiredLicensePage / showWiredLicensePage
@@ -315,7 +323,7 @@ Also exported: `loadWiredLicenses()` and `WiredLicenseLibrary` for callers that 
 
 ## WiredContextMenu
 
-A context menu with hand-drawn borders, triggered by long-press or right-click. Menu items appear in a sketchy bordered overlay.
+A context menu with hand-drawn borders, triggered by long-press or right-click. Menu items appear on the theme's paper inside a sketchy rounded border.
 
 ```dart
 // Live example: context-menu
@@ -330,6 +338,20 @@ WiredContextMenu(
   ),
 )
 ```
+
+### Notes
+
+- The menu opens below the long-pressed widget, or above it when there is no room below, and always stays inside the screen's safe area, clear of notches and the home indicator.
+- It is a modal route: focus moves to the first action and stays in the menu, and a tap outside, the Escape key, or the system back gesture closes it. Enter or Space activates the focused action.
+- Activating an action closes the menu, then calls its `onPressed`.
+- Screen readers announce the menu by `semanticLabel`, which defaults to `Menu`.
+- Destructive actions (`isDestructive: true`) are drawn in the theme's `errorColor`.
+
+| Parameter       | Type                           | Default      | Description                                |
+| --------------- | ------------------------------ | ------------ | ------------------------------------------ |
+| `child`         | `Widget`                       | **required** | The widget that opens the menu.            |
+| `actions`       | `List<WiredContextMenuAction>` | **required** | The menu's items, in order.                |
+| `semanticLabel` | `String?`                      | `null`       | Name of the open menu. Defaults to `Menu`. |
 
 ---
 
@@ -383,6 +405,8 @@ HookBuilder(
 A banner with a hand-drawn border displayed at the top of the scaffold. Contains a message and action buttons.
 
 Under 480 pixels wide the actions move below the message, so it keeps room to read instead of wrapping into a narrow column. `forceActionsBelow` puts them below at any width.
+
+`showWiredMaterialBanner(context, content: ..., leading: ..., actions: [...])` shows the banner at the top of the nearest `Scaffold` through `ScaffoldMessenger` and returns its controller. `onVisible` runs once the banner has slid in.
 
 ```dart
 // Live example: material-banner
