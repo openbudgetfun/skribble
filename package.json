@@ -4,7 +4,7 @@
   "description": "npm packages for skribble: the hand-drawn rough engine and its React, React Native, Vue, and Svelte bindings.",
   "license": "MIT",
   "type": "module",
-  "packageManager": "pnpm@10.28.0",
+  "packageManager": "pnpm@12.16.1",
   "engines": {
     "node": ">=20"
   },
