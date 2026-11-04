@@ -47,6 +47,7 @@ WiredThemeData nightParchment({required double roughness}) => WiredThemeData(
 /// change: day or night parchment, the roughness of the ink, and the text
 /// size.
 class SketchNotesApp extends HookWidget {
+  /// Creates the Sketch Notes app.
   const SketchNotesApp({super.key});
 
   @override

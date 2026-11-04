@@ -25,6 +25,7 @@ class WiredCircularProgress extends HookWidget {
   /// Accessible description, such as "Uploading photos".
   final String? semanticLabel;
 
+  /// Creates a hand-drawn circular progress indicator.
   const WiredCircularProgress({
     super.key,
     this.value,

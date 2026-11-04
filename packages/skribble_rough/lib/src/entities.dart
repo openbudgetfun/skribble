@@ -17,6 +17,8 @@ class Drawable {
   /// The operation sets that draw the shape, in paint order.
   final List<OpSet> sets;
 
+  /// Creates a drawable from its operation [sets] and the [options] that
+  /// produced them.
   Drawable({this.shape, required this.options, required this.sets});
 }
 
@@ -25,8 +27,14 @@ class Drawable {
 /// Extends `Point<double>` with polygon containment testing via
 /// [isInPolygon].
 class PointD extends Point<double> {
+  /// Creates a point at ([x], [y]).
   PointD(super.x, super.y);
 
+  /// Whether this point lies inside the polygon whose vertices are
+  /// [points], by ray casting.
+  ///
+  /// A point on an edge counts as inside. Returns false for fewer than
+  /// three vertices.
   bool isInPolygon(List<PointD> points) {
     final int vertices = points.length;
 

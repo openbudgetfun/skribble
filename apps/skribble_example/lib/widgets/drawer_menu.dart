@@ -9,6 +9,7 @@ import 'package:skribble_example/widgets/sketch_notes_about.dart';
 /// Shows a hand-drawn header with the app title and avatar, followed by
 /// navigation items for "All Notes", "Settings", and "About".
 class DrawerMenu extends HookWidget {
+  /// Creates the navigation drawer.
   const DrawerMenu({super.key});
 
   @override

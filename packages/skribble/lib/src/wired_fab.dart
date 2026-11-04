@@ -28,6 +28,7 @@ class WiredFloatingActionButton extends HookWidget {
   /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn floating action button.
   const WiredFloatingActionButton({
     super.key,
     required this.icon,

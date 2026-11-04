@@ -12,6 +12,7 @@ import 'package:skribble_example/widgets/sketch_notes_about.dart';
 /// settings layout. Every control writes through [SketchSettingsScope], so
 /// the whole app redraws as you change it.
 class SettingsPage extends HookWidget {
+  /// Creates the settings page.
   const SettingsPage({super.key});
 
   @override

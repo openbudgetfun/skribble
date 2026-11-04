@@ -12,6 +12,7 @@ List<WiredSvgIconData> _getIconDataList() {
 /// Benchmark page that renders a single icon with each approach and measures
 /// build + paint time over 100 consecutive frames.
 class SingleIconBenchPage extends HookWidget {
+  /// Creates the single icon benchmark page.
   const SingleIconBenchPage({super.key});
 
   @override

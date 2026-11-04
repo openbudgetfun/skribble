@@ -9,6 +9,7 @@ import 'package:skribble/skribble.dart';
 /// rough-engine computation. This represents the performance ceiling of
 /// pre-computed paths.
 class PrecomputedIcon extends HookWidget {
+  /// Creates an icon that paints the paths in [data] at [size].
   const PrecomputedIcon({
     required this.data,
     super.key,
@@ -16,8 +17,14 @@ class PrecomputedIcon extends HookWidget {
     this.color,
   });
 
+  /// The parsed SVG paths to draw.
   final WiredSvgIconData data;
+
+  /// Width and height of the icon, in logical pixels. Defaults to 24.
   final double size;
+
+  /// Stroke colour. Null falls back to the ambient [IconTheme] colour, then
+  /// black.
   final Color? color;
 
   @override

@@ -33,9 +33,13 @@ final Map<_IconPainterKey, WiredSvgPainterEntry> _iconPainterCache =
 /// The counter exists so tests can assert that equal-valued icon data reuses
 /// a cached painter instead of preparing a new one.
 final class WiredSvgPainterEntry {
+  /// Wraps [painter] and stamps it with the next generation number.
   WiredSvgPainterEntry(this.painter) : generation = _iconPainterGenerations++;
 
+  /// The prepared painter shared by every icon with the same inputs.
   final WiredSvgIconPainter painter;
+
+  /// The value of [debugIconPainterGenerations] when [painter] was prepared.
   final int generation;
 }
 

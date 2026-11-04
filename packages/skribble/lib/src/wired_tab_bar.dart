@@ -37,6 +37,7 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a tab bar from [tabs].
   const WiredTabBar({
     super.key,
     required this.tabs,

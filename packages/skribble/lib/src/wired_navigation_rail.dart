@@ -9,15 +9,20 @@ import 'wired_theme.dart';
 
 /// A destination for the navigation rail.
 class WiredNavigationRailDestination {
-  /// The destination's icon.
+  /// <!-- {=dartDestinationIcon|trim|linePrefix:"  /// "} -->
+  /// The icon shown when this destination is not selected.
+  /// <!-- {/dartDestinationIcon} -->
   final IconData icon;
 
-  /// The icon shown while the destination is selected. Defaults to [icon].
+  /// <!-- {=dartDestinationSelectedIcon|trim|linePrefix:"  /// "} -->
+  /// The icon shown when this destination is selected. Defaults to [icon].
+  /// <!-- {/dartDestinationSelectedIcon} -->
   final IconData? selectedIcon;
 
   /// The destination's label, also read by screen readers.
   final String label;
 
+  /// Creates a navigation rail destination.
   const WiredNavigationRailDestination({
     required this.icon,
     this.selectedIcon,
@@ -46,6 +51,7 @@ class WiredNavigationRail extends HookWidget {
   /// A widget at the bottom of the rail.
   final Widget? trailing;
 
+  /// Creates a vertical navigation rail, 72 logical pixels wide.
   const WiredNavigationRail({
     super.key,
     required this.destinations,

@@ -9,15 +9,20 @@ import 'wired_theme.dart';
 
 /// A navigation bar destination.
 class WiredNavigationDestination {
-  /// The destination's icon.
+  /// <!-- {=dartDestinationIcon|trim|linePrefix:"  /// "} -->
+  /// The icon shown when this destination is not selected.
+  /// <!-- {/dartDestinationIcon} -->
   final IconData icon;
 
-  /// The icon shown while the destination is selected. Defaults to [icon].
+  /// <!-- {=dartDestinationSelectedIcon|trim|linePrefix:"  /// "} -->
+  /// The icon shown when this destination is selected. Defaults to [icon].
+  /// <!-- {/dartDestinationSelectedIcon} -->
   final IconData? selectedIcon;
 
   /// The destination's label, also read by screen readers.
   final String label;
 
+  /// Creates a navigation bar destination.
   const WiredNavigationDestination({
     required this.icon,
     this.selectedIcon,
@@ -45,6 +50,7 @@ class WiredNavigationBar extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a navigation bar with hand-drawn selection indicators.
   const WiredNavigationBar({
     super.key,
     required this.destinations,

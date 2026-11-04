@@ -27,7 +27,9 @@ class WiredRadioListTile<T> extends HookWidget {
   /// Additional content displayed below [title].
   final Widget? subtitle;
 
-  /// Whether to draw the hand-drawn divider below the tile.
+  /// <!-- {=dartTileShowDivider|trim|linePrefix:"  /// "} -->
+  /// Whether a hand-drawn line is drawn below the tile. Defaults to true.
+  /// <!-- {/dartTileShowDivider} -->
   final bool showDivider;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -35,6 +37,7 @@ class WiredRadioListTile<T> extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a list tile with a leading hand-drawn radio button.
   const WiredRadioListTile({
     super.key,
     required this.value,

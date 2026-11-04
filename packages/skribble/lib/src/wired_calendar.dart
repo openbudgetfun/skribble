@@ -26,6 +26,7 @@ class WiredCalendar extends HookWidget {
   /// Called with the tapped date as `YYYYMMDD`.
   final void Function(String selected)? onSelected;
 
+  /// Creates a hand-drawn month calendar.
   const WiredCalendar({super.key, this.selected, this.onSelected});
 
   @override
@@ -366,6 +367,7 @@ class CalendarCell {
   /// Null falls back to [text].
   final String? semanticLabel;
 
+  /// Creates a cell for the day [text], selected by [value].
   CalendarCell({
     required this.value,
     required this.text,

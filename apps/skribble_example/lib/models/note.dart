@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 /// home page swaps the copy into its list.
 @immutable
 class Note {
+  /// Creates a note from all of its fields.
   const Note({
     required this.id,
     required this.title,

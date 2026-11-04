@@ -33,6 +33,7 @@ class WiredCupertinoSegmentedControl<T extends Object> extends HookWidget {
   /// Padding inside each segment.
   final EdgeInsetsGeometry padding;
 
+  /// Creates a hand-drawn segmented control.
   const WiredCupertinoSegmentedControl({
     super.key,
     required this.children,
@@ -221,6 +222,7 @@ class WiredSlidingSegmentedControl<T extends Object> extends HookWidget {
   /// Padding inside each segment.
   final EdgeInsetsGeometry padding;
 
+  /// Creates a hand-drawn sliding segmented control.
   const WiredSlidingSegmentedControl({
     super.key,
     required this.children,

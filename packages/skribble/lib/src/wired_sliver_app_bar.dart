@@ -50,6 +50,7 @@ class WiredSliverAppBar extends HookWidget {
   /// The bottom widget, typically a [TabBar].
   final PreferredSizeWidget? bottom;
 
+  /// Creates a hand-drawn sliver app bar for use in a [CustomScrollView].
   const WiredSliverAppBar({
     super.key,
     this.title,

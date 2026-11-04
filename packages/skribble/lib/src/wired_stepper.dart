@@ -11,10 +11,16 @@ import 'wired_theme.dart';
 
 /// A step in [WiredStepper].
 class WiredStep {
+  /// The step's title, shown next to its numbered circle.
   final Widget title;
+
+  /// Optional text shown below [title].
   final Widget? subtitle;
+
+  /// The step's body, shown only while this is the current step.
   final Widget content;
 
+  /// Creates a step with a [title] and [content].
   const WiredStep({required this.title, this.subtitle, required this.content});
 }
 
@@ -23,8 +29,14 @@ class WiredStep {
 /// The stepper is wrapped in [Semantics] for accessibility, providing
 /// screen readers with the current step information.
 class WiredStepper extends HookWidget {
+  /// The steps shown from top to bottom.
   final List<WiredStep> steps;
+
+  /// The index of the active step in [steps]. Earlier steps are drawn as
+  /// completed. Defaults to 0.
   final int currentStep;
+
+  /// Called with the index of a step when its header is tapped.
   final ValueChanged<int>? onStepTapped;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -32,6 +44,7 @@ class WiredStepper extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a vertical stepper from [steps].
   const WiredStepper({
     super.key,
     required this.steps,

@@ -7,7 +7,9 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/components/component_showcase.dart';
 import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
+/// Gallery of progress indicators, dialogs, snack bars, tooltips and other feedback widgets.
 class FeedbackPage extends HookWidget {
+  /// Creates the page.
   const FeedbackPage({super.key});
 
   @override

@@ -37,6 +37,7 @@ class WiredTextArea extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a multi-line text area with a hand-drawn border.
   const WiredTextArea({
     super.key,
     this.controller,

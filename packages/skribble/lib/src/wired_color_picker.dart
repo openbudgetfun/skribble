@@ -40,6 +40,7 @@ class WiredColorPicker extends HookWidget {
   /// The most swatches in a row. Narrower spaces wrap to fewer.
   final int crossAxisCount;
 
+  /// Creates a hand-drawn colour picker.
   const WiredColorPicker({
     super.key,
     required this.selectedColor,

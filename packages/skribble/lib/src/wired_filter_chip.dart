@@ -15,7 +15,9 @@ import 'wired_theme.dart';
 /// screen readers with the selected and enabled state. It joins focus
 /// traversal while enabled and toggles with a tap, Enter, or Space.
 class WiredFilterChip extends HookWidget {
-  /// The chip label.
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
 
   /// Whether the filter is on. A selected chip shows a checkmark.
@@ -32,6 +34,7 @@ class WiredFilterChip extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a filter chip with a hand-drawn border.
   const WiredFilterChip({
     super.key,
     required this.label,

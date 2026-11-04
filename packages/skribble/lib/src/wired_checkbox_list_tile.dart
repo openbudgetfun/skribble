@@ -34,6 +34,7 @@ class WiredCheckboxListTile extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a list tile with a hand-drawn checkbox.
   const WiredCheckboxListTile({
     super.key,
     required this.value,

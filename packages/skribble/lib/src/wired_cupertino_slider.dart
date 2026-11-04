@@ -57,6 +57,7 @@ class WiredCupertinoSlider extends HookWidget {
   static const double _thumbSize = 28.0;
   static const double _sliderHeight = 36.0;
 
+  /// Creates a hand-drawn Cupertino-style slider.
   const WiredCupertinoSlider({
     super.key,
     required this.value,

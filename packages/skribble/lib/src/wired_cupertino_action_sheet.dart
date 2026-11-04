@@ -31,6 +31,7 @@ class WiredCupertinoActionSheet extends HookWidget {
   /// Scroll controller for the message section.
   final ScrollController? messageScrollController;
 
+  /// Creates a hand-drawn action sheet.
   const WiredCupertinoActionSheet({
     super.key,
     this.title,
@@ -200,6 +201,7 @@ class WiredCupertinoActionSheetAction extends HookWidget {
   /// Whether this is a destructive (red) action.
   final bool isDestructiveAction;
 
+  /// Creates an action button for a [WiredCupertinoActionSheet].
   const WiredCupertinoActionSheetAction({
     super.key,
     required this.child,

@@ -40,6 +40,7 @@ class WiredGridTile extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a grid tile around [child] with optional [header] and [footer] bars.
   const WiredGridTile({
     super.key,
     required this.child,
@@ -108,6 +109,8 @@ class WiredGridTileBar extends HookWidget {
   /// Widget shown at the end of the bar.
   final Widget? trailing;
 
+  /// Creates a grid tile bar. [height] defaults to 56 and [titleSpacing] to 16
+  /// logical pixels.
   const WiredGridTileBar({
     super.key,
     this.color,

@@ -12,6 +12,7 @@ import 'wired_theme.dart';
 /// `WiredLineBase` across the middle of them in the border color of the
 /// nearest `WiredTheme`, so the space above and below the line is even.
 class WiredDivider extends HookWidget {
+  /// Creates a hand-drawn horizontal divider.
   const WiredDivider({super.key});
 
   /// The height the divider takes, line included.

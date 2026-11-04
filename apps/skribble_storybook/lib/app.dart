@@ -23,7 +23,9 @@ import 'package:skribble_storybook/pages/studio_page.dart';
 import 'package:skribble_storybook/pages/variable_fonts_page.dart';
 import 'package:skribble_storybook/widgets/roughness_picker.dart';
 
+/// Root widget of the skribble storybook, which routes to every gallery page.
 class SkribbleStorybookApp extends HookWidget {
+  /// Creates the storybook app.
   const SkribbleStorybookApp({super.key});
 
   @override

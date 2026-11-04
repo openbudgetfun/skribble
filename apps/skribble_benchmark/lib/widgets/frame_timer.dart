@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 /// Collected frame timing statistics.
 class FrameTimingStats {
+  /// Creates frame timing statistics from precomputed values.
   const FrameTimingStats({
     required this.frameCount,
     required this.avgBuildMicros,
@@ -19,30 +20,76 @@ class FrameTimingStats {
     required this.jankFrames,
   });
 
+  /// Number of frames measured.
   final int frameCount;
+
+  /// Mean UI-thread build time per frame, in microseconds.
   final double avgBuildMicros;
+
+  /// Mean raster-thread time per frame, in microseconds.
   final double avgRasterMicros;
+
+  /// Median build time, in microseconds.
   final double p50BuildMicros;
+
+  /// 95th percentile build time, in microseconds.
   final double p95BuildMicros;
+
+  /// 99th percentile build time, in microseconds.
   final double p99BuildMicros;
+
+  /// Slowest build time, in microseconds.
   final double maxBuildMicros;
+
+  /// Median raster time, in microseconds.
   final double p50RasterMicros;
+
+  /// 95th percentile raster time, in microseconds.
   final double p95RasterMicros;
+
+  /// 99th percentile raster time, in microseconds.
   final double p99RasterMicros;
+
+  /// Slowest raster time, in microseconds.
   final double maxRasterMicros;
+
+  /// Number of frames whose build plus raster time exceeded 16 milliseconds.
   final int jankFrames;
 
+  /// [avgBuildMicros] in milliseconds.
   double get avgBuildMs => avgBuildMicros / 1000;
+
+  /// [avgRasterMicros] in milliseconds.
   double get avgRasterMs => avgRasterMicros / 1000;
+
+  /// [p50BuildMicros] in milliseconds.
   double get p50BuildMs => p50BuildMicros / 1000;
+
+  /// [p95BuildMicros] in milliseconds.
   double get p95BuildMs => p95BuildMicros / 1000;
+
+  /// [p99BuildMicros] in milliseconds.
   double get p99BuildMs => p99BuildMicros / 1000;
+
+  /// [maxBuildMicros] in milliseconds.
   double get maxBuildMs => maxBuildMicros / 1000;
+
+  /// [p50RasterMicros] in milliseconds.
   double get p50RasterMs => p50RasterMicros / 1000;
+
+  /// [p95RasterMicros] in milliseconds.
   double get p95RasterMs => p95RasterMicros / 1000;
+
+  /// [p99RasterMicros] in milliseconds.
   double get p99RasterMs => p99RasterMicros / 1000;
+
+  /// [maxRasterMicros] in milliseconds.
   double get maxRasterMs => maxRasterMicros / 1000;
+
+  /// Mean build plus raster time per frame, in milliseconds.
   double get avgTotalMs => avgBuildMs + avgRasterMs;
+
+  /// Sum of the 95th percentile build and raster times, in milliseconds.
   double get p95TotalMs => p95BuildMs + p95RasterMs;
 }
 
@@ -184,13 +231,17 @@ useFrameTimer({int maxFrames = 120}) {
 
 /// A card widget that displays [FrameTimingStats].
 class FrameTimingStatsCard extends HookWidget {
+  /// Creates a card that shows [stats] under [title].
   const FrameTimingStatsCard({
     required this.title,
     required this.stats,
     super.key,
   });
 
+  /// Heading shown above the statistics.
   final String title;
+
+  /// The statistics to display.
   final FrameTimingStats stats;
 
   @override

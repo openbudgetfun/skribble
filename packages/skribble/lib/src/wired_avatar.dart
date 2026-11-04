@@ -36,6 +36,7 @@ class WiredAvatar extends HookWidget {
   /// Maximum radius constraint.
   final double? maxRadius;
 
+  /// Creates a hand-drawn circular avatar.
   const WiredAvatar({
     super.key,
     this.backgroundImage,

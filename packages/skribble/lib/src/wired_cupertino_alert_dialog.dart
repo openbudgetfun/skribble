@@ -30,6 +30,7 @@ class WiredCupertinoAlertDialog extends HookWidget {
   /// Scroll controller for the actions.
   final ScrollController? actionScrollController;
 
+  /// Creates a hand-drawn alert dialog.
   const WiredCupertinoAlertDialog({
     super.key,
     this.title,
@@ -201,6 +202,7 @@ class WiredCupertinoDialogAction extends HookWidget {
   /// Whether this is a destructive (red) action.
   final bool isDestructiveAction;
 
+  /// Creates an action button for a [WiredCupertinoAlertDialog].
   const WiredCupertinoDialogAction({
     super.key,
     required this.child,

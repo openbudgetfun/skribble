@@ -12,7 +12,9 @@ import 'wired_theme.dart';
 /// not a button; when [onDeleted] is set, its close mark is a separate,
 /// focusable button labelled [deleteButtonSemanticLabel].
 class WiredChip extends HookWidget {
-  /// The chip label.
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
 
   /// A widget shown before the label, such as an avatar.
@@ -30,6 +32,7 @@ class WiredChip extends HookWidget {
   /// The label read for the close mark's button. Defaults to `Delete`.
   final String? deleteButtonSemanticLabel;
 
+  /// Creates a chip with a hand-drawn border.
   const WiredChip({
     super.key,
     required this.label,

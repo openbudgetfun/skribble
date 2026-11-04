@@ -38,6 +38,7 @@ class WiredCupertinoTabBar extends HookWidget {
   /// The size of tab bar icons.
   final double iconSize;
 
+  /// Creates a hand-drawn tab bar.
   const WiredCupertinoTabBar({
     super.key,
     required this.items,

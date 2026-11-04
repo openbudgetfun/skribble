@@ -15,6 +15,7 @@ class WiredBottomNavItem {
   /// The item's label, also read by screen readers.
   final String label;
 
+  /// Creates a bottom navigation bar item.
   const WiredBottomNavItem({required this.icon, required this.label});
 }
 
@@ -33,6 +34,7 @@ class WiredBottomNavigationBar extends HookWidget {
   /// Called with an item's index when it is tapped or activated.
   final ValueChanged<int>? onTap;
 
+  /// Creates a hand-drawn bottom navigation bar.
   const WiredBottomNavigationBar({
     super.key,
     required this.items,

@@ -35,6 +35,7 @@ class WiredRadio<T> extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn radio button.
   const WiredRadio({
     super.key,
     required this.value,

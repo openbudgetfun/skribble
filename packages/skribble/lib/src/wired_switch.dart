@@ -28,6 +28,7 @@ class WiredSwitch extends HookWidget {
   /// <!-- {/dartSemanticLabel} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn switch, 60 by 24 logical pixels.
   const WiredSwitch({
     super.key,
     required this.value,

@@ -6,6 +6,7 @@ import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// Plays skribble's promotional reel on a loop, scaled to fit the screen.
 class PromoPage extends HookWidget {
+  /// Creates the page.
   const PromoPage({super.key});
 
   @override

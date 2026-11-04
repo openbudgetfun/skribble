@@ -38,6 +38,7 @@ class WiredMaterialBanner extends HookWidget {
   /// Called once, after the banner is first built.
   final VoidCallback? onVisible;
 
+  /// Creates a hand-drawn banner showing [content] with optional [actions].
   const WiredMaterialBanner({
     super.key,
     required this.content,

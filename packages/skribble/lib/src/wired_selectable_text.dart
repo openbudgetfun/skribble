@@ -47,6 +47,8 @@ class WiredSelectableText extends HookWidget {
   /// Semantic label.
   final String? semanticsLabel;
 
+  /// Creates selectable text showing [data]. [cursorWidth] defaults to 2
+  /// logical pixels.
   const WiredSelectableText(
     this.data, {
     super.key,

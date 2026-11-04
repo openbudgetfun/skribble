@@ -59,3 +59,27 @@ Distance between hachure strokes, in logical pixels.
 Angle of hachure strokes, in degrees.
 
 <!-- {/dartHachureAngle} -->
+
+<!-- {@dartChipLabel} -->
+
+The chip's label, usually a [Text].
+
+<!-- {/dartChipLabel} -->
+
+<!-- {@dartTileShowDivider} -->
+
+Whether a hand-drawn line is drawn below the tile. Defaults to true.
+
+<!-- {/dartTileShowDivider} -->
+
+<!-- {@dartDestinationIcon} -->
+
+The icon shown when this destination is not selected.
+
+<!-- {/dartDestinationIcon} -->
+
+<!-- {@dartDestinationSelectedIcon} -->
+
+The icon shown when this destination is selected. Defaults to [icon].
+
+<!-- {/dartDestinationSelectedIcon} -->

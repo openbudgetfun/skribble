@@ -10,13 +10,17 @@ import 'package:skribble_example/models/note.dart';
 /// and the date, on a card coloured in with the note's pastel. Displays a
 /// [WiredBadge] if the note was updated today.
 class NoteCard extends HookWidget {
+  /// Creates a card for [note].
   const NoteCard({
     required this.note,
     super.key,
     this.onTap,
   });
 
+  /// The note to show.
   final Note note;
+
+  /// Called when the card is tapped.
   final VoidCallback? onTap;
 
   @override

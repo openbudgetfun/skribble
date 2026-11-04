@@ -7,7 +7,9 @@ import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 String _displayOption(String option) => option;
 
+/// Gallery of text fields, forms, checkboxes, switches, sliders and other input widgets.
 class InputsPage extends HookWidget {
+  /// Creates the page.
   const InputsPage({super.key});
 
   @override

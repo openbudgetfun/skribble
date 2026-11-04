@@ -39,7 +39,16 @@ List<Line> rotateLines(List<Line> lines, PointD center, double degrees) => lines
     .toList();
 
 /// The orientation of three ordered points — used for intersection tests.
-enum PointsOrientation { collinear, clockwise, counterclockwise }
+enum PointsOrientation {
+  /// The three points lie on one line.
+  collinear,
+
+  /// The points turn clockwise.
+  clockwise,
+
+  /// The points turn counterclockwise.
+  counterclockwise,
+}
 
 /// Returns the orientation of the ordered triplet (p, q, r).
 PointsOrientation getOrientation(PointD p, PointD q, PointD r) {
@@ -61,38 +70,60 @@ bool onSegmentPoints(PointD source, PointD point, PointD target) =>
 /// Pre-computed points along an ellipse path, split into core and
 /// all (interpolated) points for rendering.
 class ComputedEllipsePoints {
+  /// The points on the ellipse itself.
   final List<PointD> corePoints;
+
+  /// [corePoints] plus the extra points that close and overlap the curve.
   final List<PointD> allPoints;
 
+  /// Creates a set of computed ellipse points.
   ComputedEllipsePoints({required this.corePoints, required this.allPoints});
 }
 
 /// Parameters for ellipse generation — radii and angular increment.
 class EllipseParams {
+  /// The horizontal radius, after rough jitter.
   final double rx;
+
+  /// The vertical radius, after rough jitter.
   final double ry;
+
+  /// The angle between neighbouring points on the ellipse, in radians.
   final double increment;
 
+  /// Creates ellipse parameters with radii [rx] and [ry].
   EllipseParams({required this.rx, required this.ry, required this.increment});
 }
 
 /// The result of generating an ellipse — the `OpSet` for rendering
 /// and estimated boundary points.
 class EllipseResult {
+  /// The operations that draw the ellipse outline.
   final OpSet opSet;
+
+  /// Points around the ellipse, for filling it.
   final List<PointD> estimatedPoints;
 
+  /// Creates an ellipse result.
   EllipseResult({required this.opSet, required this.estimatedPoints});
 }
 
 /// A polygon edge used in scan-line fill algorithms, tracking
 /// y-range, x-intercept, and slope.
 class Edge {
+  /// The smaller y of the edge's two end points.
   final double yMin;
+
+  /// The larger y of the edge's two end points.
   final double yMax;
+
+  /// The edge's x at the current scanline; at [yMin] when first built.
   final double x;
+
+  /// How far x moves for each unit of y along the edge.
   final double slope;
 
+  /// Creates an edge spanning [yMin] to [yMax].
   Edge({
     required this.yMin,
     required this.yMax,
@@ -100,6 +131,7 @@ class Edge {
     required this.slope,
   });
 
+  /// Returns a copy with the given values replaced.
   Edge copyWith({double? yMin, double? yMax, double? x, double? slope}) => Edge(
     yMin: yMin ?? this.yMin,
     yMax: yMax ?? this.yMax,
@@ -113,11 +145,15 @@ class Edge {
   }
 }
 
-/// An active edge in the scan-line fill algorithm with its current
-/// x-intercept position [s].
+/// An active edge in the scan-line fill algorithm, crossing the
+/// scanline [s].
 class ActiveEdge {
+  /// The y of the scanline where the edge became active.
   double s;
+
+  /// The edge, with [Edge.x] at the current scanline.
   Edge edge;
 
+  /// Creates an active edge that joined at scanline [s].
   ActiveEdge(this.s, this.edge);
 }

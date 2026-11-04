@@ -25,6 +25,10 @@ import '../wired_theme.dart';
 /// `WiredMaterialTheme`; to adapt an existing Material app's palette for Wired
 /// widgets, use `WiredThemeFromMaterial`.
 class WiredMaterialApp extends HookWidget {
+  /// Creates a [MaterialApp] that uses a [Navigator] and keeps [WiredTheme]
+  /// in sync with the Material theme.
+  ///
+  /// See [MaterialApp.new].
   const WiredMaterialApp({
     super.key,
     required this.wiredTheme,
@@ -78,6 +82,12 @@ class WiredMaterialApp extends HookWidget {
        backButtonDispatcher = null,
        _useRouter = false;
 
+  /// Creates a [MaterialApp] that uses a [Router] and keeps [WiredTheme] in
+  /// sync with the Material theme.
+  ///
+  /// Either [routerDelegate] or [routerConfig] must be provided.
+  ///
+  /// See [MaterialApp.router].
   const WiredMaterialApp.router({
     super.key,
     required this.wiredTheme,
@@ -135,46 +145,134 @@ class WiredMaterialApp extends HookWidget {
          'Either routerDelegate or routerConfig must be provided.',
        );
 
+  /// The light (primary) skribble theme.
+  ///
+  /// It is also converted to the Material [MaterialApp.theme].
   final WiredThemeData wiredTheme;
+
+  /// The dark skribble theme. Falls back to [wiredTheme].
+  ///
+  /// It is also converted to the Material [MaterialApp.darkTheme].
   final WiredThemeData? darkWiredTheme;
+
+  /// The high-contrast light skribble theme. Falls back to [wiredTheme].
+  ///
+  /// It is also converted to the Material [MaterialApp.highContrastTheme].
   final WiredThemeData? highContrastWiredTheme;
+
+  /// The high-contrast dark skribble theme. Falls back through
+  /// [darkWiredTheme], then [wiredTheme].
+  ///
+  /// It is also converted to the Material
+  /// [MaterialApp.highContrastDarkTheme].
   final WiredThemeData? highContrastDarkWiredTheme;
+
+  /// Which theme to use. Defaults to [ThemeMode.system].
+  ///
+  /// It picks both the skribble theme and the Material theme.
+  /// See [MaterialApp.themeMode].
   final ThemeMode themeMode;
+
+  /// See [MaterialApp.title].
   final String title;
+
+  /// See [MaterialApp.onGenerateTitle].
   final GenerateAppTitle? onGenerateTitle;
+
+  /// See [MaterialApp.onNavigationNotification].
   final NotificationListenerCallback<NavigationNotification>?
   onNavigationNotification;
+
+  /// See [MaterialApp.color].
   final Color? color;
+
+  /// See [MaterialApp.home].
   final Widget? home;
+
+  /// See [MaterialApp.routes].
   final Map<String, WidgetBuilder> routes;
+
+  /// See [MaterialApp.initialRoute].
   final String? initialRoute;
+
+  /// See [MaterialApp.onGenerateRoute].
   final RouteFactory? onGenerateRoute;
+
+  /// See [MaterialApp.onGenerateInitialRoutes].
   final InitialRouteListFactory? onGenerateInitialRoutes;
+
+  /// See [MaterialApp.onUnknownRoute].
   final RouteFactory? onUnknownRoute;
+
+  /// See [MaterialApp.navigatorKey].
   final GlobalKey<NavigatorState>? navigatorKey;
+
+  /// See [MaterialApp.navigatorObservers].
   final List<NavigatorObserver> navigatorObservers;
+
+  /// See [MaterialApp.builder].
   final TransitionBuilder? builder;
+
+  /// See [MaterialApp.locale].
   final Locale? locale;
+
+  /// See [MaterialApp.localizationsDelegates].
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
+
+  /// See [MaterialApp.localeListResolutionCallback].
   final LocaleListResolutionCallback? localeListResolutionCallback;
+
+  /// See [MaterialApp.localeResolutionCallback].
   final LocaleResolutionCallback? localeResolutionCallback;
+
+  /// See [MaterialApp.supportedLocales].
   final Iterable<Locale> supportedLocales;
+
+  /// See [MaterialApp.scaffoldMessengerKey].
   final GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey;
+
+  /// See [MaterialApp.scrollBehavior].
   final ScrollBehavior? scrollBehavior;
+
+  /// See [MaterialApp.restorationScopeId].
   final String? restorationScopeId;
+
+  /// See [MaterialApp.shortcuts].
   final Map<ShortcutActivator, Intent>? shortcuts;
+
+  /// See [MaterialApp.actions].
   final Map<Type, Action<Intent>>? actions;
+
+  /// See [MaterialApp.themeAnimationDuration].
   final Duration themeAnimationDuration;
+
+  /// See [MaterialApp.themeAnimationCurve].
   final Curve themeAnimationCurve;
+
+  /// See [MaterialApp.themeAnimationStyle].
   final AnimationStyle? themeAnimationStyle;
+
+  /// See [MaterialApp.debugShowMaterialGrid].
   final bool debugShowMaterialGrid;
+
+  /// See [MaterialApp.showPerformanceOverlay].
   final bool showPerformanceOverlay;
+
+  /// See [MaterialApp.checkerboardRasterCacheImages].
   final bool checkerboardRasterCacheImages;
+
+  /// See [MaterialApp.checkerboardOffscreenLayers].
   final bool checkerboardOffscreenLayers;
+
+  /// See [MaterialApp.showSemanticsDebugger].
   final bool showSemanticsDebugger;
+
+  /// Defaults to false, unlike [MaterialApp].
+  /// See [MaterialApp.debugShowCheckedModeBanner].
   final bool debugShowCheckedModeBanner;
 
-  // Kept for MaterialApp parity; removing it is a breaking change.
+  /// Ignored. Kept for [MaterialApp] parity; removing it is a breaking
+  /// change.
   @Deprecated(
     'Remove this parameter as it is now ignored. '
     'MaterialApp never introduces its own MediaQuery; the View widget takes '
@@ -182,10 +280,19 @@ class WiredMaterialApp extends HookWidget {
   )
   final bool useInheritedMediaQuery;
 
+  /// See [MaterialApp.routeInformationProvider].
   final RouteInformationProvider? routeInformationProvider;
+
+  /// See [MaterialApp.routeInformationParser].
   final RouteInformationParser<Object>? routeInformationParser;
+
+  /// See [MaterialApp.routerDelegate].
   final RouterDelegate<Object>? routerDelegate;
+
+  /// See [MaterialApp.routerConfig].
   final RouterConfig<Object>? routerConfig;
+
+  /// See [MaterialApp.backButtonDispatcher].
   final BackButtonDispatcher? backButtonDispatcher;
   final bool _useRouter;
 

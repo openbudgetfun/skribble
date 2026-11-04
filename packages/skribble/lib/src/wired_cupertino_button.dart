@@ -39,6 +39,7 @@ class WiredCupertinoButton extends HookWidget {
   /// Alignment of the child within the button.
   final AlignmentGeometry alignment;
 
+  /// Creates a hand-drawn Cupertino-style button.
   const WiredCupertinoButton({
     super.key,
     required this.child,

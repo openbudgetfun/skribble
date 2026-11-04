@@ -47,6 +47,7 @@ class WiredSlider extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn slider. [min] defaults to 0 and [max] to 1.
   const WiredSlider({
     super.key,
     required this.value,

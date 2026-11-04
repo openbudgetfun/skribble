@@ -20,6 +20,7 @@ const _noteColors = <({String name, Color color})>[
 /// [Note] as the route argument it edits that note; opened without one it
 /// writes a new note. Either way it pops with the saved note.
 class EditPage extends HookWidget {
+  /// Creates the note editor page.
   const EditPage({super.key});
 
   @override

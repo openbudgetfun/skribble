@@ -13,6 +13,7 @@ import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 /// search bar filtering by identifier and tappable cells that open a preview
 /// dialog showing each roughness level at 24/48/96 px.
 class SkribbleIconsPage extends HookWidget {
+  /// Creates the page.
   const SkribbleIconsPage({super.key});
 
   @override

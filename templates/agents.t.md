@@ -180,7 +180,8 @@ await pumpApp(
 <!-- {@docsContribQualityGatesSection} -->
 
 ```bash
-# Every lint check CI runs: dprint formatting, dart analyze with fatal infos,
+# Every lint check CI runs: dprint formatting, dart analyze with fatal infos
+# (an undocumented public member fails it),
 # MDT documentation sync, and monochange changeset and manifest rules
 lint:all
 

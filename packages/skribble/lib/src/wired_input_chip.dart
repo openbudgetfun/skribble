@@ -18,7 +18,9 @@ import 'wired_theme.dart';
 /// Enter, or Space. The close mark is a separate, focusable button labelled
 /// [deleteButtonSemanticLabel].
 class WiredInputChip extends HookWidget {
-  /// The chip label.
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
 
   /// A widget shown before the label, such as an avatar.
@@ -49,6 +51,7 @@ class WiredInputChip extends HookWidget {
   /// The label read for the close mark's button. Defaults to `Delete`.
   final String? deleteButtonSemanticLabel;
 
+  /// Creates a hand-drawn input chip.
   const WiredInputChip({
     super.key,
     required this.label,
@@ -166,7 +169,9 @@ class WiredInputChip extends HookWidget {
 /// screen readers with the tap action and enabled state. It joins focus
 /// traversal while enabled and activates with a tap, Enter, or Space.
 class WiredActionChip extends HookWidget {
-  /// The chip label.
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
 
   /// A widget shown before the label, such as an icon.
@@ -180,6 +185,7 @@ class WiredActionChip extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn action chip.
   const WiredActionChip({
     super.key,
     required this.label,

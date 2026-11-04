@@ -31,6 +31,7 @@ class WiredAboutDialog extends HookWidget {
   /// Additional children below the about information.
   final List<Widget>? children;
 
+  /// Creates a hand-drawn about dialog.
   const WiredAboutDialog({
     super.key,
     this.applicationName,

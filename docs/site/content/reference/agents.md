@@ -244,7 +244,8 @@ Every public class and constructor parameter must have a `///` doc comment. The 
 <!-- {=docsContribQualityGatesSection} -->
 
 ```bash
-# Every lint check CI runs: dprint formatting, dart analyze with fatal infos,
+# Every lint check CI runs: dprint formatting, dart analyze with fatal infos
+# (an undocumented public member fails it),
 # MDT documentation sync, and monochange changeset and manifest rules
 lint:all
 
@@ -1135,7 +1136,7 @@ Before marking any widget task as complete, verify:
 4. **Skipping tests** — minimum 6 `testWidgets` per widget, no exceptions
 5. **Wrong test helper** — use `pumpWired()`, not raw `tester.pumpWidget()` or the legacy `pumpApp()`
 6. **Missing barrel export** — widget must be exported from `skribble.dart`
-7. **Missing dartdoc** — every public class and parameter needs `///` comments
+7. **Missing dartdoc** — every public class and parameter needs `///` comments; the shared `public_member_api_docs` lint fails `dart analyze --fatal-infos` on any undocumented public member
 8. **Missing semantic label** — interactive widgets need a `semanticLabel` parameter
 9. **Not updating docs** — when APIs change, update the docs site content
 10. **Using `const` constructors for Wired widgets in tests** — many Wired widgets contain mutable rough drawing state, so tests may need non-const instances

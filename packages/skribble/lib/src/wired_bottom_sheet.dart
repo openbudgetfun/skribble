@@ -20,6 +20,7 @@ class WiredBottomSheet extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a hand-drawn bottom sheet around [child].
   const WiredBottomSheet({super.key, required this.child, this.semanticLabel});
 
   @override

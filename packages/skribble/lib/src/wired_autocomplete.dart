@@ -31,6 +31,7 @@ class WiredAutocomplete<T extends Object> extends HookWidget {
   /// The width of the options list.
   final double optionsWidth;
 
+  /// Creates a hand-drawn autocomplete field.
   const WiredAutocomplete({
     super.key,
     required this.options,

@@ -13,7 +13,9 @@ import 'wired_theme.dart';
 /// screen readers with the selected and enabled state. It joins focus
 /// traversal while enabled and toggles with a tap, Enter, or Space.
 class WiredChoiceChip extends HookWidget {
-  /// The chip label.
+  /// <!-- {=dartChipLabel|trim|linePrefix:"  /// "} -->
+  /// The chip's label, usually a [Text].
+  /// <!-- {/dartChipLabel} -->
   final Widget label;
 
   /// Whether the chip is selected.
@@ -30,6 +32,7 @@ class WiredChoiceChip extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a choice chip with a hand-drawn border.
   const WiredChoiceChip({
     super.key,
     required this.label,

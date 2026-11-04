@@ -4,11 +4,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'wired_cupertino_picker.dart';
 
 /// The wheels shown by a `WiredCupertinoTimerPicker`.
-///
-/// * `hm` — hours and minutes.
-/// * `hms` — hours, minutes, and seconds.
-/// * `ms` — minutes and seconds.
-enum WiredCupertinoTimerPickerMode { hm, hms, ms }
+enum WiredCupertinoTimerPickerMode {
+  /// Hours and minutes.
+  hm,
+
+  /// Hours, minutes, and seconds.
+  hms,
+
+  /// Minutes and seconds.
+  ms,
+}
 
 /// A hand-drawn timer picker corresponding to Flutter's
 /// `CupertinoTimerPicker`.

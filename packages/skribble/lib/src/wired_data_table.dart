@@ -14,6 +14,7 @@ class WiredDataColumn {
   /// remaining width with the other flexible columns.
   final double? width;
 
+  /// Creates a column definition.
   const WiredDataColumn({required this.label, this.width});
 }
 
@@ -25,6 +26,7 @@ class WiredDataRow {
   /// Called when the row is tapped.
   final VoidCallback? onTap;
 
+  /// Creates a row of data.
   const WiredDataRow({required this.cells, this.onTap});
 }
 
@@ -44,6 +46,7 @@ class WiredDataTable extends HookWidget {
   /// The least width of a column without a fixed width.
   final double minColumnWidth;
 
+  /// Creates a data table with hand-drawn grid lines.
   const WiredDataTable({
     super.key,
     required this.columns,

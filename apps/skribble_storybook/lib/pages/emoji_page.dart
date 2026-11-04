@@ -25,6 +25,7 @@ const Map<EmojiGroup, String> _groupIcons = {
 /// Tapping an emoji opens a preview: animated, at several sizes, and at
 /// several pen weights.
 class EmojiPage extends HookWidget {
+  /// Creates the page.
   const EmojiPage({super.key});
 
   @override

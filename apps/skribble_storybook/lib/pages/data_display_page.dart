@@ -5,7 +5,9 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/components/component_showcase.dart';
 import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
+/// Gallery of calendars, pickers, steppers, tables and other data display widgets.
 class DataDisplayPage extends HookWidget {
+  /// Creates the page.
   const DataDisplayPage({super.key});
 
   @override

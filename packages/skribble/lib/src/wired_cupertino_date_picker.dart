@@ -45,6 +45,7 @@ class WiredCupertinoDatePicker extends HookWidget {
   /// Border radius of the outer container.
   final BorderRadius borderRadius;
 
+  /// Creates a hand-drawn date picker.
   const WiredCupertinoDatePicker({
     super.key,
     required this.onDateTimeChanged,

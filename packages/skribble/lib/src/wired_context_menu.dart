@@ -28,6 +28,8 @@ class WiredContextMenu extends HookWidget {
   /// Name of the open menu for screen readers. Defaults to `Menu`.
   final String? semanticLabel;
 
+  /// Creates a context menu that opens [actions] when [child] is
+  /// long-pressed.
   const WiredContextMenu({
     super.key,
     required this.child,

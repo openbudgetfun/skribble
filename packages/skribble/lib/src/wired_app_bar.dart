@@ -29,6 +29,7 @@ class WiredAppBar extends HookWidget implements PreferredSizeWidget {
   /// The bar's background. Defaults to transparent.
   final Color? backgroundColor;
 
+  /// Creates a hand-drawn app bar.
   const WiredAppBar({
     super.key,
     this.title,

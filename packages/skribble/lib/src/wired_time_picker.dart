@@ -15,7 +15,10 @@ import 'wired_theme.dart';
 /// press the up and down arrow keys. Screen readers announce each field by
 /// name and value and can raise or lower it with their adjust gestures.
 class WiredTimePicker extends HookWidget {
+  /// The time shown first. Defaults to the current time.
   final TimeOfDay? initialTime;
+
+  /// Called with the new time whenever the hour or minute changes.
   final ValueChanged<TimeOfDay>? onTimeSelected;
 
   /// <!-- {=dartSemanticLabelOptional|trim|linePrefix:"  /// "} -->
@@ -23,6 +26,7 @@ class WiredTimePicker extends HookWidget {
   /// <!-- {/dartSemanticLabelOptional} -->
   final String? semanticLabel;
 
+  /// Creates a time picker with a hand-drawn clock face.
   const WiredTimePicker({
     super.key,
     this.initialTime,

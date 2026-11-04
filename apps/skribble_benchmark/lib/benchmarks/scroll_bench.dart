@@ -52,6 +52,7 @@ const _itemCount = 500;
 
 /// Benchmark page with a scrolling list of 500 icon+text items.
 class ScrollBenchPage extends HookWidget {
+  /// Creates the scroll benchmark page.
   const ScrollBenchPage({super.key});
 
   @override

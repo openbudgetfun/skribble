@@ -16,6 +16,7 @@ import 'package:skribble_example/widgets/note_card.dart';
 /// The notes live in this page's state, so they last as long as the app
 /// runs. A real app would load and save them through a repository.
 class HomePage extends HookWidget {
+  /// Creates the notes list page.
   const HomePage({super.key});
 
   @override
