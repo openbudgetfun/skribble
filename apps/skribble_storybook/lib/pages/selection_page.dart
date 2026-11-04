@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
 import 'package:skribble_storybook/components/component_showcase.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 class SelectionPage extends HookWidget {
   const SelectionPage({super.key});
@@ -21,7 +22,7 @@ class SelectionPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('Selection'),
       ),
       body: ListView(
@@ -270,7 +271,7 @@ class SelectionPage extends HookWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '#${pickedColor.value.value.toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
+                          '#${pickedColor.value.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
                         ),
                       ],
                     ),

@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
 
 import 'package:skribble_example/app.dart';
 import 'package:skribble_example/models/note.dart';
+import 'package:skribble_example/models/sketch_settings.dart';
 import 'package:skribble_example/pages/edit_page.dart';
 import 'package:skribble_example/widgets/drawer_menu.dart';
 import 'package:skribble_example/widgets/note_card.dart';
 
-/// Helper to wrap a widget in a [WiredMaterialApp] with a theme.
+/// Wraps [child] in a [WiredMaterialApp] on day parchment.
 Widget _wrapInApp(Widget child) {
   return WiredMaterialApp(
-    wiredTheme: WiredThemeData(
-      borderColor: const Color(0xFF5C3D2E),
-      textColor: const Color(0xFF2E2E2E),
-      disabledTextColor: const Color(0xFFA89888),
-      fillColor: const Color(0xFFF5ECD7),
-      roughness: 1.2,
-    ),
+    wiredTheme: dayParchment(roughness: 1.2),
     home: child,
   );
 }
@@ -28,7 +24,6 @@ Note _sampleNote({
   String title = 'Test Title',
   String content = 'Test content for the note.',
   Color color = const Color(0xFFF5ECD7),
-  DateTime? createdAt,
   DateTime? updatedAt,
 }) {
   final now = DateTime.now();
@@ -37,73 +32,104 @@ Note _sampleNote({
     title: title,
     content: content,
     color: color,
-    createdAt: createdAt ?? now,
+    createdAt: now,
     updatedAt: updatedAt ?? now,
   );
 }
 
+/// Pumps the whole app and pushes [route] over the notes list.
+Future<NavigatorState> _pumpAppAt(WidgetTester tester, String route) async {
+  await tester.pumpWidget(const SketchNotesApp());
+  await tester.pumpAndSettle();
+  final navigator = tester.state<NavigatorState>(find.byType(Navigator));
+  if (route != '/') {
+    navigator.pushNamed(route);
+    await tester.pumpAndSettle();
+  }
+  return navigator;
+}
+
+/// Writes a note on the edit page and saves it.
+Future<void> _writeNote(WidgetTester tester, String title) async {
+  await tester.tap(find.bySemanticsLabel('Create new note'));
+  await tester.pumpAndSettle();
+  await tester.enterText(find.byType(TextField).first, title);
+  await tester.tap(find.text('Create Note'));
+  await tester.pumpAndSettle();
+}
+
+/// The settings the app is drawn with right now.
+SketchSettings _settings(WidgetTester tester) =>
+    SketchSettingsScope.of(tester.element(find.byType(Navigator))).value;
+
 void main() {
   group('SketchNotesApp', () {
-    testWidgets('renders without error', (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
-      await tester.pumpAndSettle();
-      expect(find.byType(SketchNotesApp), findsOneWidget);
-    });
+    testWidgets('home page shows the title and the sample notes', (
+      tester,
+    ) async {
+      await _pumpAppAt(tester, '/');
 
-    testWidgets('home page shows "Sketch Notes" title', (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
-      await tester.pumpAndSettle();
       expect(find.text('Sketch Notes'), findsOneWidget);
-    });
-
-    testWidgets('sample notes are visible', (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
-      await tester.pumpAndSettle();
       expect(find.text('Welcome to Sketch Notes'), findsOneWidget);
       expect(find.text('Shopping List'), findsOneWidget);
       expect(find.text('Project Ideas'), findsOneWidget);
+      expect(find.bySemanticsLabel('Create new note'), findsOneWidget);
     });
 
-    testWidgets('FAB is present', (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
-      await tester.pumpAndSettle();
-      expect(
-        find.bySemanticsLabel('Create new note'),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('tapping FAB navigates to edit page', (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
-      await tester.pumpAndSettle();
+    testWidgets('the FAB opens a blank edit page', (tester) async {
+      await _pumpAppAt(tester, '/');
 
       await tester.tap(find.bySemanticsLabel('Create new note'));
       await tester.pumpAndSettle();
 
       expect(find.text('New Note'), findsOneWidget);
+      expect(find.text('Create Note'), findsOneWidget);
     });
 
-    testWidgets('settings page renders', (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
+    testWidgets('a new note joins the list', (tester) async {
+      await _pumpAppAt(tester, '/');
+
+      await _writeNote(tester, 'Buy ink');
+
+      expect(find.text('Buy ink'), findsOneWidget);
+      expect(find.text('New Note'), findsNothing);
+    });
+
+    testWidgets('tapping a note edits it in place', (tester) async {
+      await _pumpAppAt(tester, '/');
+
+      await tester.tap(find.text('Shopping List'));
+      await tester.pumpAndSettle();
+      expect(find.text('Edit Note'), findsOneWidget);
+
+      await tester.enterText(find.byType(TextField).first, 'Groceries');
+      await tester.tap(find.text('Save Changes'));
       await tester.pumpAndSettle();
 
-      // Navigate to settings via the Navigator.
-      final navigator = tester.state<NavigatorState>(
-        find.byType(Navigator),
-      );
-      navigator.pushNamed('/settings');
-      // WiredSlider schedules a zero-duration Future on each build,
-      // so we pump enough frames for the route transition to complete.
-      for (var i = 0; i < 10; i++) {
-        await tester.pump(const Duration(milliseconds: 50));
-      }
+      expect(find.text('Groceries'), findsOneWidget);
+      expect(find.text('Shopping List'), findsNothing);
+    });
 
-      expect(find.text('Dark Mode'), findsOneWidget);
+    testWidgets('swiping a note away deletes it, and undo restores it', (
+      tester,
+    ) async {
+      await _pumpAppAt(tester, '/');
 
-      // Pop back to home so the WiredSlider's pending timer is
-      // disposed before the test ends.
-      navigator.pop();
+      await tester.drag(find.text('Shopping List'), const Offset(-600, 0));
       await tester.pumpAndSettle();
+      expect(find.text('Shopping List'), findsNothing);
+      expect(find.text('Note deleted'), findsOneWidget);
+
+      await tester.tap(find.text('UNDO'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Shopping List'), findsOneWidget);
+      // It returns to its old place, between the other two.
+      final welcome = tester.getTopLeft(find.text('Welcome to Sketch Notes'));
+      final shopping = tester.getTopLeft(find.text('Shopping List'));
+      final ideas = tester.getTopLeft(find.text('Project Ideas'));
+      expect(welcome.dy, lessThan(shopping.dy));
+      expect(shopping.dy, lessThan(ideas.dy));
     });
   });
 
@@ -114,15 +140,16 @@ void main() {
       expect(note1.id, isNot(equals(note2.id)));
     });
 
-    test('copyWith updates fields', () {
-      final note = Note.create(title: 'Original', content: 'Content');
-      final updated = note.copyWith(title: 'Updated');
-      expect(updated.title, 'Updated');
-      expect(updated.content, 'Content');
-      expect(updated.id, note.id);
+    test('Note.create defaults to parchment and stamps both times', () {
+      final before = DateTime.now();
+      final note = Note.create(title: 'Defaults');
+      expect(note.color, const Color(0xFFF5ECD7));
+      expect(note.content, isEmpty);
+      expect(note.createdAt.isBefore(before), isFalse);
+      expect(note.updatedAt, note.createdAt);
     });
 
-    test('copyWith preserves all unchanged fields', () {
+    test('copyWith replaces only the given fields and keeps the identity', () {
       final note = Note.create(
         title: 'Title',
         content: 'Content',
@@ -136,29 +163,6 @@ void main() {
       expect(updated.createdAt, note.createdAt);
     });
 
-    test('Note.create default color is parchment (0xFFF5ECD7)', () {
-      final note = Note.create(title: 'Default color test');
-      expect(note.color, const Color(0xFFF5ECD7));
-    });
-
-    test('Note.create sets createdAt and updatedAt to now', () {
-      final before = DateTime.now();
-      final note = Note.create(title: 'Time test');
-      final after = DateTime.now();
-      expect(
-        note.createdAt.isAfter(before.subtract(const Duration(seconds: 1))),
-        isTrue,
-      );
-      expect(
-        note.createdAt.isBefore(after.add(const Duration(seconds: 1))),
-        isTrue,
-      );
-      expect(
-        note.updatedAt.isAfter(before.subtract(const Duration(seconds: 1))),
-        isTrue,
-      );
-    });
-
     test('copyWith with color changes only the color', () {
       final note = Note.create(title: 'A', content: 'B');
       final updated = note.copyWith(color: const Color(0xFFE3F2FD));
@@ -168,53 +172,46 @@ void main() {
     });
   });
 
+  group('SketchSettings', () {
+    test('defaults to day parchment, gentle wobble, and medium text', () {
+      const settings = SketchSettings();
+      expect(settings.night, isFalse);
+      expect(settings.roughness, 1.2);
+      expect(settings.textSize, NoteTextSize.medium);
+    });
+
+    test('copyWith and equality cover every field', () {
+      const settings = SketchSettings();
+      final changed = settings.copyWith(textSize: NoteTextSize.large);
+      expect(changed, isNot(settings));
+      expect(changed.copyWith(textSize: NoteTextSize.medium), settings);
+      expect(
+        settings.copyWith(night: true).hashCode,
+        isNot(settings.hashCode),
+      );
+    });
+  });
+
   group('Home page', () {
     testWidgets('search bar is present with hint text', (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
-      await tester.pumpAndSettle();
+      await _pumpAppAt(tester, '/');
       expect(find.text('Search notes...'), findsOneWidget);
     });
 
     testWidgets('search filters notes by title', (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
-      await tester.pumpAndSettle();
+      await _pumpAppAt(tester, '/');
 
-      // All three notes visible initially.
-      expect(find.text('Welcome to Sketch Notes'), findsOneWidget);
-      expect(find.text('Shopping List'), findsOneWidget);
-      expect(find.text('Project Ideas'), findsOneWidget);
-
-      // Type into the search bar. WiredSearchBar wraps a TextField.
       await tester.enterText(find.byType(TextField).first, 'Shopping');
       await tester.pumpAndSettle();
 
-      // Only Shopping List should remain visible.
       expect(find.text('Shopping List'), findsOneWidget);
       expect(find.text('Welcome to Sketch Notes'), findsNothing);
       expect(find.text('Project Ideas'), findsNothing);
     });
 
-    testWidgets(
-      'search filtering shows "No notes match" when nothing matches',
-      (tester) async {
-        await tester.pumpWidget(const SketchNotesApp());
-        await tester.pumpAndSettle();
-
-        await tester.enterText(
-          find.byType(TextField).first,
-          'xyznonexistent',
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.text('No notes match your search.'), findsOneWidget);
-      },
-    );
-
     testWidgets('search filters notes by content', (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
-      await tester.pumpAndSettle();
+      await _pumpAppAt(tester, '/');
 
-      // Search for content present only in the Shopping List note.
       await tester.enterText(find.byType(TextField).first, 'coffee beans');
       await tester.pumpAndSettle();
 
@@ -223,17 +220,63 @@ void main() {
       expect(find.text('Project Ideas'), findsNothing);
     });
 
-    testWidgets('drawer opens when tapping menu button', (tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
+    testWidgets('a search that matches nothing says so', (tester) async {
+      await _pumpAppAt(tester, '/');
+
+      await tester.enterText(find.byType(TextField).first, 'xyznonexistent');
       await tester.pumpAndSettle();
 
-      // Tap the menu icon button.
+      expect(find.text('No notes match your search.'), findsOneWidget);
+    });
+
+    testWidgets('the menu button opens the drawer', (tester) async {
+      await _pumpAppAt(tester, '/');
+
       await tester.tap(find.bySemanticsLabel('Open menu'));
       await tester.pumpAndSettle();
 
-      // Drawer should now be visible with its contents.
       expect(find.text('All Notes'), findsOneWidget);
       expect(find.text('Settings'), findsOneWidget);
+    });
+
+    testWidgets('"All Notes" closes the drawer and keeps new notes', (
+      tester,
+    ) async {
+      await _pumpAppAt(tester, '/');
+      await _writeNote(tester, 'Keep me');
+
+      await tester.tap(find.bySemanticsLabel('Open menu'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('All Notes'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('All Notes'), findsNothing);
+      expect(find.text('Keep me'), findsOneWidget);
+    });
+
+    testWidgets('the drawer opens settings and the about dialog', (
+      tester,
+    ) async {
+      final navigator = await _pumpAppAt(tester, '/');
+
+      await tester.tap(find.bySemanticsLabel('Open menu'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Settings'));
+      await tester.pumpAndSettle();
+      expect(find.text('Dark Mode'), findsOneWidget);
+
+      navigator.pop();
+      await tester.pumpAndSettle();
+      await tester.tap(find.bySemanticsLabel('Open menu'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('About'));
+      await tester.pumpAndSettle();
+      expect(
+        find.text(
+          'A hand-drawn notes app built with the skribble design system.',
+        ),
+        findsOneWidget,
+      );
     });
   });
 
@@ -244,20 +287,11 @@ void main() {
       await tester.pumpWidget(_wrapInApp(const EditPage()));
       await tester.pumpAndSettle();
 
-      // "New Note" title in the app bar.
       expect(find.text('New Note'), findsOneWidget);
-      // Hint texts for the input fields.
       expect(find.text('Note title...'), findsOneWidget);
       expect(find.text('Write your thoughts...'), findsOneWidget);
-    });
-
-    testWidgets('save button shows "Create Note" for new notes', (
-      tester,
-    ) async {
-      await tester.pumpWidget(_wrapInApp(const EditPage()));
-      await tester.pumpAndSettle();
-
       expect(find.text('Create Note'), findsOneWidget);
+      expect(find.bySemanticsLabel('Go back'), findsOneWidget);
     });
 
     testWidgets('color chips are displayed with all labels', (tester) async {
@@ -265,11 +299,41 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Label color'), findsOneWidget);
-      expect(find.text('Parchment'), findsOneWidget);
-      expect(find.text('Green'), findsOneWidget);
-      expect(find.text('Blue'), findsOneWidget);
-      expect(find.text('Orange'), findsOneWidget);
-      expect(find.text('Purple'), findsOneWidget);
+      for (final name in ['Parchment', 'Green', 'Blue', 'Orange', 'Purple']) {
+        expect(find.text(name), findsOneWidget);
+      }
+    });
+
+    testWidgets('choosing a colour selects its chip and saves it', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
+      await _pumpAppAt(tester, '/');
+      await tester.tap(find.bySemanticsLabel('Create new note'));
+      await tester.pumpAndSettle();
+
+      SemanticsNode chip(String name) => tester.getSemantics(
+        find.ancestor(
+          of: find.text(name),
+          matching: find.byType(WiredChoiceChip),
+        ),
+      );
+      expect(chip('Parchment'), isSemantics(isSelected: true));
+
+      await tester.tap(find.text('Blue'));
+      await tester.pump();
+      expect(chip('Blue'), isSemantics(isSelected: true));
+      expect(chip('Parchment'), isSemantics(isSelected: false));
+
+      await tester.enterText(find.byType(TextField).first, 'Sky');
+      await tester.tap(find.text('Create Note'));
+      await tester.pumpAndSettle();
+
+      final card = tester.widget<NoteCard>(
+        find.ancestor(of: find.text('Sky'), matching: find.byType(NoteCard)),
+      );
+      expect(card.note.color, const Color(0xFFD9E7F5));
+      semantics.dispose();
     });
 
     testWidgets(
@@ -280,115 +344,67 @@ void main() {
           content: 'Existing content here.',
         );
 
-        // Build an app that navigates to EditPage with the note as argument.
         await tester.pumpWidget(
           WiredMaterialApp(
-            wiredTheme: WiredThemeData(
-              borderColor: const Color(0xFF5C3D2E),
-              textColor: const Color(0xFF2E2E2E),
-              disabledTextColor: const Color(0xFFA89888),
-              fillColor: const Color(0xFFF5ECD7),
-              roughness: 1.2,
+            wiredTheme: dayParchment(roughness: 1.2),
+            onGenerateRoute: (settings) => MaterialPageRoute(
+              settings: RouteSettings(arguments: existingNote),
+              builder: (_) => const EditPage(),
             ),
-            initialRoute: '/',
-            onGenerateRoute: (settings) {
-              if (settings.name == '/') {
-                return MaterialPageRoute(
-                  builder: (_) => Builder(
-                    builder: (context) {
-                      // Navigate immediately.
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        Navigator.pushNamed(
-                          context,
-                          '/edit',
-                          arguments: existingNote,
-                        );
-                      });
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                );
-              }
-              if (settings.name == '/edit') {
-                return MaterialPageRoute(
-                  settings: settings,
-                  builder: (_) => const EditPage(),
-                );
-              }
-              return null;
-            },
           ),
         );
         await tester.pumpAndSettle();
 
         expect(find.text('Edit Note'), findsOneWidget);
         expect(find.text('Save Changes'), findsOneWidget);
-
-        // Verify the text controllers are pre-filled.
-        final titleField = tester.widgetList<EditableText>(
-          find.byType(EditableText),
-        );
-        // The first EditableText should have the title, the second the content.
-        final texts = titleField.map((e) => e.controller.text).toList();
+        final texts = tester
+            .widgetList<EditableText>(find.byType(EditableText))
+            .map((e) => e.controller.text);
         expect(texts, contains('My Existing Note'));
         expect(texts, contains('Existing content here.'));
       },
     );
-
-    testWidgets('back button exists with semantic label', (tester) async {
-      await tester.pumpWidget(_wrapInApp(const EditPage()));
-      await tester.pumpAndSettle();
-
-      expect(find.bySemanticsLabel('Go back'), findsOneWidget);
-    });
   });
 
   group('Settings page', () {
-    // Helper: navigate to settings page and return the NavigatorState so
-    // the caller can pop back (required to dispose WiredSlider's timer).
-    Future<NavigatorState> pumpSettings(WidgetTester tester) async {
-      await tester.pumpWidget(const SketchNotesApp());
-      await tester.pumpAndSettle();
+    testWidgets('renders its sections and controls', (tester) async {
+      await _pumpAppAt(tester, '/settings');
 
-      final navigator = tester.state<NavigatorState>(
-        find.byType(Navigator),
-      );
-      navigator.pushNamed('/settings');
-      for (var i = 0; i < 10; i++) {
-        await tester.pump(const Duration(milliseconds: 50));
-      }
-      return navigator;
-    }
-
-    /// Pop the settings page so WiredSlider's pending timer is disposed.
-    Future<void> popSettings(
-      WidgetTester tester,
-      NavigatorState navigator,
-    ) async {
-      navigator.pop();
-      await tester.pumpAndSettle();
-    }
-
-    testWidgets('dark mode switch is present', (tester) async {
-      final nav = await pumpSettings(tester);
-
+      expect(find.text('Appearance'), findsOneWidget);
+      expect(find.text('Information'), findsOneWidget);
       expect(find.text('Dark Mode'), findsOneWidget);
-      expect(find.text('Write on night parchment'), findsOneWidget);
+      expect(find.text('Warm parchment'), findsOneWidget);
+      expect(find.text('Roughness: 1.2'), findsOneWidget);
+      expect(
+        find.text('Adjust the sketchiness of drawn elements'),
+        findsOneWidget,
+      );
+      expect(find.byType(WiredSlider), findsOneWidget);
+      expect(find.text('Text Size'), findsOneWidget);
+      expect(find.text('Version 1.0.0'), findsOneWidget);
+    });
 
-      await popSettings(tester, nav);
+    testWidgets('section titles are headings for screen readers', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
+      await _pumpAppAt(tester, '/settings');
+
+      expect(
+        tester.getSemantics(find.text('Appearance')),
+        isSemantics(label: 'Appearance', isHeader: true),
+      );
+      semantics.dispose();
     });
 
     testWidgets('dark mode redraws the whole app on night parchment', (
       tester,
     ) async {
-      final nav = await pumpSettings(tester);
+      final navigator = await _pumpAppAt(tester, '/settings');
       final day = WiredTheme.of(tester.element(find.text('Dark Mode')));
-      expect(find.text('Warm parchment'), findsOneWidget);
 
       await tester.tap(find.byType(WiredSwitch));
-      for (var i = 0; i < 10; i++) {
-        await tester.pump(const Duration(milliseconds: 50));
-      }
+      await tester.pumpAndSettle();
 
       final night = WiredTheme.of(tester.element(find.text('Dark Mode')));
       expect(night.fillColor, isNot(day.fillColor));
@@ -396,7 +412,8 @@ void main() {
       expect(find.text('Night parchment'), findsOneWidget);
 
       // The home page underneath is on night parchment too.
-      await popSettings(tester, nav);
+      navigator.pop();
+      await tester.pumpAndSettle();
       expect(
         WiredTheme.of(tester.element(find.byType(Scaffold).first)).fillColor,
         night.fillColor,
@@ -404,81 +421,60 @@ void main() {
     });
 
     testWidgets('the roughness slider changes the app theme', (tester) async {
-      final nav = await pumpSettings(tester);
+      await _pumpAppAt(tester, '/settings');
       final slider = tester.getRect(find.byType(WiredSlider));
       await tester.tapAt(Offset(slider.right - 14, slider.center.dy));
-      for (var i = 0; i < 10; i++) {
-        await tester.pump(const Duration(milliseconds: 50));
-      }
+      await tester.pumpAndSettle();
 
       final theme = WiredTheme.of(tester.element(find.text('Dark Mode')));
       expect(theme.roughness, greaterThan(2));
       expect(find.text('Roughness: 1.2'), findsNothing);
-
-      await popSettings(tester, nav);
     });
 
-    testWidgets('roughness slider renders with initial value', (tester) async {
-      final nav = await pumpSettings(tester);
+    testWidgets('text size scales the text across the app', (tester) async {
+      await _pumpAppAt(tester, '/settings');
+      double scale() => MediaQuery.textScalerOf(
+        tester.element(find.text('Dark Mode')),
+      ).scale(14);
+      expect(scale(), 14);
 
-      expect(find.text('Roughness: 1.2'), findsOneWidget);
-      expect(
-        find.text('Adjust the sketchiness of drawn elements'),
-        findsOneWidget,
+      await tester.tap(find.text('Large'));
+      await tester.pumpAndSettle();
+      expect(_settings(tester).textSize, NoteTextSize.large);
+      expect(scale(), closeTo(14 * 1.3, 0.01));
+
+      await tester.tap(find.text('Small'));
+      await tester.pumpAndSettle();
+      expect(scale(), closeTo(14 * 0.9, 0.01));
+    });
+
+    testWidgets('text size multiplies the system text size', (tester) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      await _pumpAppAt(tester, '/settings');
+
+      await tester.tap(find.text('Large'));
+      await tester.pumpAndSettle();
+
+      final scaler = MediaQuery.textScalerOf(
+        tester.element(find.text('Dark Mode')),
       );
-      expect(find.byType(WiredSlider), findsOneWidget);
-
-      await popSettings(tester, nav);
+      expect(scaler.scale(14), closeTo(14 * 2 * 1.3, 0.01));
     });
 
-    testWidgets('about list tile triggers about dialog', (tester) async {
-      final nav = await pumpSettings(tester);
+    testWidgets('the about tile opens the about dialog', (tester) async {
+      await _pumpAppAt(tester, '/settings');
 
-      expect(find.text('About'), findsOneWidget);
-      expect(find.text('Version 1.0.0'), findsOneWidget);
-
-      // Tap the About tile.
       await tester.tap(find.text('About'));
-      for (var i = 0; i < 10; i++) {
-        await tester.pump(const Duration(milliseconds: 50));
-      }
+      await tester.pumpAndSettle();
 
-      // The about dialog should be visible.
       expect(find.text('Sketch Notes'), findsWidgets);
       expect(
-        find.textContaining('hand-drawn notes app'),
+        find.text(
+          'A hand-drawn notes app built with the skribble design system.',
+        ),
         findsOneWidget,
       );
-
-      // Dismiss the dialog first, then pop settings.
-      // The dialog has a close/back button or we can pop it.
-      nav.pop(); // pop dialog
-      for (var i = 0; i < 10; i++) {
-        await tester.pump(const Duration(milliseconds: 50));
-      }
-
-      await popSettings(tester, nav);
-    });
-
-    testWidgets('renders section headers', (tester) async {
-      final nav = await pumpSettings(tester);
-
-      expect(find.text('Appearance'), findsOneWidget);
-      expect(find.text('General'), findsOneWidget);
-      expect(find.text('Information'), findsOneWidget);
-
-      await popSettings(tester, nav);
-    });
-
-    testWidgets('theme and font size tiles are rendered', (tester) async {
-      final nav = await pumpSettings(tester);
-
-      expect(find.text('Theme'), findsOneWidget);
-      expect(find.text('Warm parchment'), findsOneWidget);
-      expect(find.text('Font Size'), findsOneWidget);
-      expect(find.text('Medium'), findsOneWidget);
-
-      await popSettings(tester, nav);
     });
   });
 
@@ -492,9 +488,7 @@ void main() {
     });
 
     testWidgets('shows content preview', (tester) async {
-      final note = _sampleNote(
-        content: 'Short content.',
-      );
+      final note = _sampleNote(content: 'Short content.');
       await tester.pumpWidget(_wrapInApp(NoteCard(note: note)));
       await tester.pumpAndSettle();
 
@@ -504,12 +498,10 @@ void main() {
     testWidgets('truncates long content with ellipsis indicator', (
       tester,
     ) async {
-      final longContent = 'A' * 80; // Longer than 50 chars.
-      final note = _sampleNote(content: longContent);
+      final note = _sampleNote(content: 'A' * 80);
       await tester.pumpWidget(_wrapInApp(NoteCard(note: note)));
       await tester.pumpAndSettle();
 
-      // The preview should be first 50 chars + '...'
       expect(find.text('${'A' * 50}...'), findsOneWidget);
     });
 
@@ -518,20 +510,15 @@ void main() {
       await tester.pumpWidget(_wrapInApp(NoteCard(note: note)));
       await tester.pumpAndSettle();
 
-      // Find the colored circle Container by its decoration.
-      final container = tester
-          .widgetList<Container>(
-            find.byType(Container),
-          )
-          .where((c) {
-            final decoration = c.decoration;
-            if (decoration is BoxDecoration) {
-              return decoration.color == const Color(0xFFE8F5E9) &&
-                  decoration.shape == BoxShape.circle;
-            }
-            return false;
-          });
-      expect(container, isNotEmpty);
+      final dots = tester.widgetList<Container>(find.byType(Container)).where((
+        c,
+      ) {
+        final decoration = c.decoration;
+        return decoration is BoxDecoration &&
+            decoration.color == const Color(0xFFE8F5E9) &&
+            decoration.shape == BoxShape.circle;
+      });
+      expect(dots, isNotEmpty);
     });
 
     testWidgets('shows "Untitled" when title is empty', (tester) async {
@@ -543,20 +530,15 @@ void main() {
     });
 
     testWidgets('shows "new" badge when updated today', (tester) async {
-      final note = _sampleNote(
-        updatedAt: DateTime.now(), // Updated today.
-      );
+      final note = _sampleNote(updatedAt: DateTime.now());
       await tester.pumpWidget(_wrapInApp(NoteCard(note: note)));
       await tester.pumpAndSettle();
 
-      // The WiredBadge should show the 'new' label.
       expect(find.byType(WiredBadge), findsOneWidget);
     });
 
     testWidgets('does not show badge when updated in the past', (tester) async {
-      final note = _sampleNote(
-        updatedAt: DateTime(2020), // Far in the past.
-      );
+      final note = _sampleNote(updatedAt: DateTime(2020));
       await tester.pumpWidget(_wrapInApp(NoteCard(note: note)));
       await tester.pumpAndSettle();
 
@@ -564,9 +546,7 @@ void main() {
     });
 
     testWidgets('displays formatted date', (tester) async {
-      final note = _sampleNote(
-        updatedAt: DateTime(2025, 3, 15),
-      );
+      final note = _sampleNote(updatedAt: DateTime(2025, 3, 15));
       await tester.pumpWidget(_wrapInApp(NoteCard(note: note)));
       await tester.pumpAndSettle();
 
@@ -589,14 +569,14 @@ void main() {
   });
 
   group('DrawerMenu widget', () {
-    testWidgets('renders "All Notes" item', (tester) async {
-      // DrawerMenu needs to be inside a Scaffold drawer slot.
+    /// Pumps a scaffold with the drawer and opens it.
+    Future<void> pumpOpenDrawer(WidgetTester tester) async {
       await tester.pumpWidget(
         _wrapInApp(
           WiredScaffold(
             drawer: const DrawerMenu(),
             body: Builder(
-              builder: (context) => ElevatedButton(
+              builder: (context) => WiredButton(
                 onPressed: () => Scaffold.of(context).openDrawer(),
                 child: const Text('Open'),
               ),
@@ -605,101 +585,18 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-
-      // Open the drawer.
       await tester.tap(find.text('Open'));
       await tester.pumpAndSettle();
+    }
 
-      expect(find.text('All Notes'), findsOneWidget);
-    });
+    testWidgets('renders the header and every item', (tester) async {
+      await pumpOpenDrawer(tester);
 
-    testWidgets('renders "Settings" item', (tester) async {
-      await tester.pumpWidget(
-        _wrapInApp(
-          WiredScaffold(
-            drawer: const DrawerMenu(),
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                child: const Text('Open'),
-              ),
-            ),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Open'));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Settings'), findsOneWidget);
-    });
-
-    testWidgets('renders "About" item', (tester) async {
-      await tester.pumpWidget(
-        _wrapInApp(
-          WiredScaffold(
-            drawer: const DrawerMenu(),
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                child: const Text('Open'),
-              ),
-            ),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Open'));
-      await tester.pumpAndSettle();
-
-      expect(find.text('About'), findsOneWidget);
-    });
-
-    testWidgets('renders avatar with edit icon', (tester) async {
-      await tester.pumpWidget(
-        _wrapInApp(
-          WiredScaffold(
-            drawer: const DrawerMenu(),
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                child: const Text('Open'),
-              ),
-            ),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Open'));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(WiredAvatar), findsOneWidget);
-    });
-
-    testWidgets('drawer header shows "Sketch Notes" text', (tester) async {
-      await tester.pumpWidget(
-        _wrapInApp(
-          WiredScaffold(
-            drawer: const DrawerMenu(),
-            body: Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                child: const Text('Open'),
-              ),
-            ),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('Open'));
-      await tester.pumpAndSettle();
-
-      // "Sketch Notes" appears in the drawer header.
       expect(find.text('Sketch Notes'), findsOneWidget);
+      expect(find.byType(WiredAvatar), findsOneWidget);
+      expect(find.text('All Notes'), findsOneWidget);
+      expect(find.text('Settings'), findsOneWidget);
+      expect(find.text('About'), findsOneWidget);
     });
   });
 }

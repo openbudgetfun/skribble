@@ -4,6 +4,7 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/app.dart';
 import 'package:skribble_storybook/components/component_showcase.dart';
 import 'package:skribble_storybook/pages/layout_page.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 void main() {
   group('LayoutPage', () {
@@ -28,7 +29,7 @@ void main() {
 
     testWidgets('has back button', (tester) async {
       await navigateToLayout(tester);
-      expect(find.byType(BackButton), findsOneWidget);
+      expect(find.byType(StorybookBackButton), findsOneWidget);
     });
 
     testWidgets('renders WiredAppBar', (tester) async {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// Font specimen page — every renderable character of the bundled skribble
 /// font family, across weights and sizes.
@@ -41,7 +42,10 @@ class FontSpecimenPage extends HookWidget {
     final size = useState<double>(24);
 
     return WiredScaffold(
-      appBar: WiredAppBar(title: const Text('Font Specimen')),
+      appBar: WiredAppBar(
+        leading: const StorybookBackButton(),
+        title: const Text('Font Specimen'),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

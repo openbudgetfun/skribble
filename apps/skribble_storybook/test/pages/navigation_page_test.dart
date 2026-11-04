@@ -4,6 +4,7 @@ import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/app.dart';
 import 'package:skribble_storybook/components/component_showcase.dart';
 import 'package:skribble_storybook/pages/navigation_page.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 void main() {
   group('NavigationPage', () {
@@ -32,7 +33,7 @@ void main() {
 
     testWidgets('has back button', (tester) async {
       await navigateToNavigation(tester);
-      expect(find.byType(BackButton), findsOneWidget);
+      expect(find.byType(StorybookBackButton), findsOneWidget);
     });
 
     testWidgets('shows WiredPopupMenuButton section and interactions', (
@@ -80,7 +81,7 @@ void main() {
     testWidgets('navigates back to home', (tester) async {
       await navigateToNavigation(tester);
 
-      await tester.tap(find.byType(BackButton));
+      await tester.tap(find.byType(StorybookBackButton));
       await tester.pumpAndSettle();
 
       expect(find.byType(NavigationPage), findsNothing);

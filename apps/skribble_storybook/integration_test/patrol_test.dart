@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';
 import 'package:skribble/skribble.dart';
 import 'package:skribble_storybook/app.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 void main() {
   patrolTest('home page renders all category cards', ($) async {
@@ -47,7 +47,7 @@ void main() {
     await _open($, 'Buttons');
     expect($('WiredButton'), findsOneWidget);
 
-    await $(BackButton).tap();
+    await $(StorybookBackButton).tap();
     expect($('Skribble Storybook'), findsOneWidget);
   });
 

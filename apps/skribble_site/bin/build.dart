@@ -19,6 +19,18 @@ Future<void> main(List<String> args) async {
     return;
   }
 
+  // A misspelled option would otherwise build with the default silently,
+  // for example a site for `/` when `--basepath=/skribble/` was meant.
+  const options = ['--output=', '--base-path=', '--site-url='];
+  final unknown = args.where((arg) => !options.any(arg.startsWith));
+  if (unknown.isNotEmpty) {
+    stderr
+      ..writeln('Unknown option: ${unknown.join(' ')}')
+      ..write(_usage);
+    exitCode = 64;
+    return;
+  }
+
   String option(String name, String fallback) {
     final prefix = '--$name=';
     final value = args.where((arg) => arg.startsWith(prefix)).lastOrNull;

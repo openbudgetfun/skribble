@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
+import 'package:skribble_example/widgets/sketch_notes_about.dart';
+
 /// The drawer menu for the Sketch Notes app.
 ///
 /// Shows a hand-drawn header with the app title and avatar, followed by
@@ -15,6 +17,8 @@ class DrawerMenu extends HookWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
+          // A drawer header fills the height it is given, and a list gives
+          // none, so the header sets one. It leaves room for larger text.
           SizedBox(
             height: 170,
             child: WiredDrawerHeader(
@@ -22,10 +26,7 @@ class DrawerMenu extends HookWidget {
                 children: [
                   const WiredAvatar(
                     radius: 28,
-                    child: WiredIcon(
-                      icon: Icons.edit,
-                      size: 24,
-                    ),
+                    child: WiredIcon(icon: Icons.edit, size: 24),
                   ),
                   const SizedBox(width: 16),
                   Flexible(
@@ -44,22 +45,15 @@ class DrawerMenu extends HookWidget {
             ),
           ),
           WiredListTile(
-            leading: const WiredIcon(
-              icon: Icons.notes,
-              size: 22,
-            ),
+            leading: const WiredIcon(icon: Icons.notes, size: 22),
             title: const Text('All Notes'),
-            onTap: () async {
-              Navigator.pop(context);
-              await Navigator.pushReplacementNamed(context, '/');
-            },
+            // The drawer opens over the notes list, so closing it is enough.
+            // Replacing the route would build a fresh list and lose the notes.
+            onTap: () => Navigator.pop(context),
           ),
           const WiredDivider(),
           WiredListTile(
-            leading: const WiredIcon(
-              icon: Icons.settings,
-              size: 22,
-            ),
+            leading: const WiredIcon(icon: Icons.settings, size: 22),
             title: const Text('Settings'),
             onTap: () async {
               Navigator.pop(context);
@@ -67,21 +61,12 @@ class DrawerMenu extends HookWidget {
             },
           ),
           WiredListTile(
-            leading: const WiredIcon(
-              icon: Icons.info_outline,
-              size: 22,
-            ),
+            leading: const WiredIcon(icon: Icons.info_outline, size: 22),
             title: const Text('About'),
             showDivider: false,
             onTap: () async {
               Navigator.pop(context);
-              await showWiredAboutDialog(
-                context: context,
-                applicationName: 'Sketch Notes',
-                applicationVersion: '1.0.0',
-                applicationLegalese:
-                    'Built with the Skribble hand-drawn design system.',
-              );
+              await showSketchNotesAbout(context);
             },
           ),
         ],

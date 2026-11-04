@@ -1,0 +1,9 @@
+# The platform runners are generated on demand with `flutter create --empty`
+# (see README.md), so they never go stale or ship the default launcher icons.
+/android/
+/ios/
+/macos/
+/web/
+/windows/
+/linux/
+/.metadata

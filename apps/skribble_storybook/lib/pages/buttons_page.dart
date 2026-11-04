@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
 
 import 'package:skribble_storybook/components/component_showcase.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 class ButtonsPage extends HookWidget {
   const ButtonsPage({super.key});
@@ -14,7 +15,7 @@ class ButtonsPage extends HookWidget {
 
     return WiredScaffold(
       appBar: WiredAppBar(
-        leading: const BackButton(),
+        leading: const StorybookBackButton(),
         title: const Text('Buttons'),
       ),
       body: ListView(

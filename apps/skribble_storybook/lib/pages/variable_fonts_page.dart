@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble_storybook/widgets/storybook_back_button.dart';
 
 /// Interactive controls for every axis of the bundled variable font.
 class WiredVariableFontsPage extends HookWidget {
@@ -21,7 +22,10 @@ class WiredVariableFontsPage extends HookWidget {
     useListenable(sample);
 
     return WiredScaffold(
-      appBar: WiredAppBar(title: const Text('Variable fonts')),
+      appBar: WiredAppBar(
+        leading: const StorybookBackButton(),
+        title: const Text('Variable fonts'),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
