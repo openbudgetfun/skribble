@@ -81,7 +81,9 @@ class WiredRefreshIndicator extends HookWidget {
 /// A hand-drawn refresh indicator with custom loading animation.
 ///
 /// This variant uses the [WiredLoadingIndicator] for a more
-/// hand-drawn feel during the refresh operation.
+/// hand-drawn feel during the refresh operation. Pulling the scrollable
+/// [child] more than 50 pixels past its top calls [onRefresh], with
+/// clamping (Android) and bouncing (iOS) scroll physics alike.
 ///
 /// ## Example
 ///
@@ -125,21 +127,50 @@ class WiredCustomRefreshIndicator extends HookWidget {
     final theme = WiredTheme.of(context);
     final effectiveColor = color ?? theme.borderColor;
     final isRefreshing = useState(false);
+    final isMounted = useIsMounted();
+    // A pull arrives as many small overscroll steps, so they are added up
+    // until the drag ends.
+    final pulled = useRef(0.0);
+    // One pull refreshes once: the next refresh waits for a new drag.
+    final armed = useRef(true);
+
+    void refresh() {
+      isRefreshing.value = true;
+      pulled.value = 0;
+      armed.value = false;
+      // whenComplete resets the spinner whether the refresh succeeds or
+      // fails; the error itself still propagates to the zone. The widget may
+      // be gone by then, and a disposed state must not be written.
+      unawaited(
+        onRefresh().whenComplete(() {
+          if (isMounted()) isRefreshing.value = false;
+        }),
+      );
+    }
 
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
-        // Handle overscroll to trigger refresh
-        if (notification is OverscrollNotification &&
-            notification.overscroll < -50 &&
-            !isRefreshing.value) {
-          isRefreshing.value = true;
-          // whenComplete resets the spinner whether the refresh succeeds or
-          // fails; the error itself still propagates to the zone.
-          unawaited(
-            onRefresh().whenComplete(() {
-              isRefreshing.value = false;
-            }),
-          );
+        if (notification.depth != 0) return false;
+        switch (notification) {
+          case ScrollStartNotification():
+          case ScrollEndNotification():
+            pulled.value = 0;
+            armed.value = true;
+          // Clamping physics, as on Android, report the pull as overscroll.
+          case OverscrollNotification(:final overscroll) when overscroll < 0:
+            pulled.value += -overscroll;
+          // Bouncing physics, as on iOS, scroll past the top instead.
+          case ScrollUpdateNotification(:final metrics, :final dragDetails)
+              when dragDetails != null &&
+                  metrics.pixels < metrics.minScrollExtent:
+            pulled.value = metrics.minScrollExtent - metrics.pixels;
+          default:
+            break;
+        }
+        if (!isRefreshing.value &&
+            armed.value &&
+            pulled.value > _kPullToRefreshDistance) {
+          refresh();
           return true;
         }
         return false;
@@ -164,3 +195,6 @@ class WiredCustomRefreshIndicator extends HookWidget {
     );
   }
 }
+
+/// How far, in logical pixels, a list is pulled past its top to refresh.
+const double _kPullToRefreshDistance = 50;

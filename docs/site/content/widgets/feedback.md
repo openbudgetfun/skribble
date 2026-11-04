@@ -166,15 +166,17 @@ WiredCircularProgress(value: .6)
 
 ### Constructor parameters
 
-| Parameter     | Type      | Default | Description                                              |
-| ------------- | --------- | ------- | -------------------------------------------------------- |
-| `value`       | `double?` | `null`  | Progress from 0.0 to 1.0. `null` for indeterminate mode. |
-| `size`        | `double`  | `48.0`  | Diameter of the indicator.                               |
-| `strokeWidth` | `double`  | `3`     | Width of the progress arc.                               |
+| Parameter       | Type      | Default | Description                                              |
+| --------------- | --------- | ------- | -------------------------------------------------------- |
+| `value`         | `double?` | `null`  | Progress from 0.0 to 1.0. `null` for indeterminate mode. |
+| `size`          | `double`  | `48.0`  | Diameter of the indicator.                               |
+| `strokeWidth`   | `double`  | `3`     | Width of the progress arc.                               |
+| `semanticLabel` | `String?` | `null`  | Accessible description, such as "Uploading photos".      |
 
 ### Notes
 
-- In indeterminate mode, the arc rotates continuously with a 2-second cycle.
+- In indeterminate mode, the arc rotates continuously with a 2-second cycle. It stops as soon as `value` is set, so a finished indicator no longer schedules frames.
+- Screen readers hear `semanticLabel` and, when determinate, the percentage, like `WiredProgress`. `WiredCircularProgressIndicator` takes the same `semanticLabel` and also stops its sweep once it has a value.
 - The background circle uses `WiredCircleBase` with 0.9 diameter ratio.
 - The progress arc is rendered by a custom `_ArcPainter` with `StrokeCap.round`.
 
@@ -196,6 +198,8 @@ WiredRefreshIndicator(
 ```
 
 The custom variant clears its spinner whether the refresh succeeds or fails, so an erroring refresh can no longer wedge the spinner on screen, and the `semanticLabel` is announced once — as the label, not also as the value.
+
+`WiredCustomRefreshIndicator` refreshes once the list is pulled more than 50 pixels past its top, adding up the many small steps of a real drag. It works with clamping (Android) and bouncing (iOS) scroll physics, refreshes once per pull, and is safe to remove while a refresh is still running.
 
 ---
 
