@@ -104,7 +104,10 @@ class WiredCupertinoSearchTextField extends HookWidget {
     final theme = WiredTheme.of(context);
     final ownedController = useTextEditingController();
     final effectiveController = controller ?? ownedController;
-    final effectiveFocusNode = focusNode ?? useFocusNode();
+    // Always call the hook, so supplying or dropping [focusNode] between
+    // builds keeps the hook order stable.
+    final ownedFocusNode = useFocusNode();
+    final effectiveFocusNode = focusNode ?? ownedFocusNode;
     final effectiveBorderRadius =
         borderRadius ?? BorderRadius.circular(height / 2);
 
@@ -117,76 +120,83 @@ class WiredCupertinoSearchTextField extends HookWidget {
     return Semantics(
       label: semanticLabel,
       textField: true,
+      enabled: enabled,
       child: AnimatedOpacity(
         opacity: enabled ? 1.0 : 0.4,
         duration: const Duration(milliseconds: 150),
-        child: IgnorePointer(
-          ignoring: !enabled,
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: WiredCanvas(
-                  painter: WiredRoundedRectangleBase(
-                    strokeWidth: theme.strokeWidth,
-                    borderRadius: effectiveBorderRadius,
-                    fillColor: theme.fillColor,
-                    borderColor: theme.borderColor,
+        // A disabled field takes neither pointer input nor keyboard focus.
+        child: ExcludeFocus(
+          excluding: !enabled,
+          child: IgnorePointer(
+            ignoring: !enabled,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: WiredCanvas(
+                    painter: WiredRoundedRectangleBase(
+                      strokeWidth: theme.strokeWidth,
+                      borderRadius: effectiveBorderRadius,
+                      fillColor: theme.fillColor,
+                      borderColor: theme.borderColor,
+                    ),
+                    fillerType: RoughFilter.noFiller,
                   ),
-                  fillerType: RoughFilter.noFiller,
                 ),
-              ),
-              Padding(
-                padding: kWiredInkPadding,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: height - 16),
-                  child: Row(
-                    children: [
-                      prefixWidget ?? const _SearchGlyph(),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Stack(
-                          alignment: Alignment.centerLeft,
-                          children: [
-                            if (showPlaceholder)
-                              Text(
-                                placeholder!,
+                Padding(
+                  padding: kWiredInkPadding,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: height - 16),
+                    child: Row(
+                      children: [
+                        prefixWidget ?? const _SearchGlyph(),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Stack(
+                            // The placeholder starts where typed text starts,
+                            // including under right-to-left text.
+                            alignment: AlignmentDirectional.centerStart,
+                            children: [
+                              if (showPlaceholder)
+                                Text(
+                                  placeholder!,
+                                  style:
+                                      placeholderStyle ??
+                                      TextStyle(
+                                        color: theme.disabledTextColor,
+                                        fontSize: 17,
+                                      ),
+                                ),
+                              EditableText(
+                                controller: effectiveController,
+                                focusNode: effectiveFocusNode,
+                                autofocus: autofocus,
+                                readOnly: !enabled,
                                 style:
-                                    placeholderStyle ??
+                                    style ??
                                     TextStyle(
-                                      color: theme.disabledTextColor,
+                                      color: theme.textColor,
                                       fontSize: 17,
                                     ),
+                                cursorColor: theme.borderColor,
+                                backgroundCursorColor: theme.disabledTextColor,
+                                onChanged: enabled ? onChanged : null,
+                                onSubmitted: enabled ? onSubmitted : null,
+                                textInputAction:
+                                    textInputAction ?? TextInputAction.search,
                               ),
-                            EditableText(
-                              controller: effectiveController,
-                              focusNode: effectiveFocusNode,
-                              autofocus: autofocus,
-                              readOnly: !enabled,
-                              style:
-                                  style ??
-                                  TextStyle(
-                                    color: theme.textColor,
-                                    fontSize: 17,
-                                  ),
-                              cursorColor: theme.borderColor,
-                              backgroundCursorColor: theme.disabledTextColor,
-                              onChanged: enabled ? onChanged : null,
-                              onSubmitted: enabled ? onSubmitted : null,
-                              textInputAction:
-                                  textInputAction ?? TextInputAction.search,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      if (suffixWidget != null) ...[
-                        const SizedBox(width: 6),
-                        suffixWidget!,
+                        if (suffixWidget != null) ...[
+                          const SizedBox(width: 6),
+                          suffixWidget!,
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

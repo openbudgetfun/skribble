@@ -69,7 +69,7 @@ class WiredCupertinoListSection extends HookWidget {
         children: [
           if (header != null)
             Padding(
-              padding: const EdgeInsets.only(left: 16, bottom: 6),
+              padding: const EdgeInsetsDirectional.only(start: 16, bottom: 6),
               child: DefaultTextStyle.merge(
                 style: TextStyle(
                   color: theme.disabledTextColor,
@@ -104,7 +104,7 @@ class WiredCupertinoListSection extends HookWidget {
           ),
           if (footer != null)
             Padding(
-              padding: const EdgeInsets.only(left: 16, top: 6),
+              padding: const EdgeInsetsDirectional.only(start: 16, top: 6),
               child: DefaultTextStyle.merge(
                 style: TextStyle(
                   color: theme.disabledTextColor,
