@@ -25,17 +25,20 @@ WiredCard(
 
 ### Constructor parameters
 
-| Parameter | Type      | Default | Description                                                                   |
-| --------- | --------- | ------- | ----------------------------------------------------------------------------- |
-| `child`   | `Widget?` | `null`  | The card content.                                                             |
-| `fill`    | `bool`    | `false` | Whether to colour the card in with close pencil strokes of `theme.fillColor`. |
-| `height`  | `double?` | `130.0` | Card height. Set to `null` for intrinsic sizing.                              |
+| Parameter      | Type                 | Default            | Description                                                                           |
+| -------------- | -------------------- | ------------------ | ------------------------------------------------------------------------------------- |
+| `child`        | `Widget?`            | `null`             | The card content.                                                                     |
+| `fill`         | `bool`               | `false`            | Whether to colour the card in with close pencil strokes of `theme.fillColor`.         |
+| `height`       | `double?`            | `130.0`            | Least card height; the card grows with its content. Set to `null` to fit `child`.     |
+| `padding`      | `EdgeInsetsGeometry` | `kWiredInkPadding` | Space between the outline and `child`. Pass `EdgeInsets.zero` if `child` pads itself. |
+| `borderRadius` | `BorderRadius`       | 16 px corners      | Soft corners for the outline; `BorderRadius.zero` for square ink.                     |
+| `seed`         | `int?`               | `null`             | Varies the hand behind the outline; null keeps the theme's seed.                      |
 
 ### Notes
 
 - The border uses `WiredRectangleBase` with `theme.fillColor` and `theme.borderColor`.
 - When `fill` is `true`, the card is coloured in with even hachure strokes 7 px apart, drawn with the theme's hand so they stay inside the outline. Wrap the card in a `WiredTheme` with a pastel `fillColor` to tint it.
-- When `height` is `null`, the card uses `IntrinsicHeight` to size itself to its content.
+- `child` sits `kWiredInkPadding` (8 pixels above and below, 12 at the sides) inside the outline, so plain text never touches the ink. Taller content grows the card past `height` instead of being squeezed; with `height: null`, the card is exactly as tall as its padded content.
 - The internal `Card` has transparent color and shadow so the hand-drawn border is the only visible chrome.
 
 ---

@@ -101,11 +101,12 @@ void main() {
       await pumpApp(
         tester,
         const Center(
+          // A card keeps its padding and grows to fit, so take the padding
+          // away to put the text against the ink.
           child: WiredCard(
-            height: 30,
-            child: Center(
-              child: Text('Squeezed', style: TextStyle(fontSize: 24)),
-            ),
+            height: null,
+            padding: EdgeInsets.zero,
+            child: Text('Squeezed', style: TextStyle(fontSize: 24)),
           ),
         ),
       );

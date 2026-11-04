@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
+import 'package:skribble/testing.dart';
 
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
@@ -109,6 +110,50 @@ void main() {
 
       expect(find.byType(WiredCard), findsOneWidget);
       expect(find.text('No fill'), findsOneWidget);
+    });
+
+    testWidgets('keeps its text the ink padding from the outline', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        const Padding(
+          padding: EdgeInsets.all(16),
+          child: WiredCard(child: Text('Hello from a card')),
+        ),
+      );
+
+      final card = tester.getRect(find.byType(WiredCard));
+      final text = tester.getRect(find.text('Hello from a card'));
+      expect(text.left - card.left, 12);
+      expect(text.top - card.top, 8);
+      expect(crampedText(tester.binding.renderViews.first), isEmpty);
+    });
+
+    testWidgets('grows past its height for taller content', (tester) async {
+      await pumpApp(
+        tester,
+        const WiredCard(child: SizedBox(height: 200, width: 100)),
+      );
+
+      // 200 of content and 8 of ink padding above and below.
+      expect(tester.getSize(find.byType(WiredCard)).height, 216);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('padding can be removed for a child with its own', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        const Padding(
+          padding: EdgeInsets.all(16),
+          child: WiredCard(padding: EdgeInsets.zero, child: Text('Flush')),
+        ),
+      );
+
+      final card = tester.getRect(find.byType(WiredCard));
+      expect(tester.getRect(find.text('Flush')).topLeft, card.topLeft);
     });
   });
 }
