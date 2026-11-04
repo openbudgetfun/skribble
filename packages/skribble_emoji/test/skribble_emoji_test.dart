@@ -301,6 +301,39 @@ void main() {
       semantics.dispose();
     });
 
+    testWidgets('an empty label leaves a decorative emoji out of semantics', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
+      await pump(
+        tester,
+        const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            WiredEmoji('🎉', semanticLabel: ''),
+            Text('Party'),
+          ],
+        ),
+      );
+      expect(find.bySemanticsLabel('party popper'), findsNothing);
+      expect(find.bySemanticsLabel('Party'), findsOneWidget);
+      await pump(tester, const WiredAnimatedEmoji('🎉', semanticLabel: ''));
+      expect(find.bySemanticsLabel('party popper'), findsNothing);
+      semantics.dispose();
+    });
+
+    testWidgets('unknown text keeps a custom semantic label', (tester) async {
+      final semantics = tester.ensureSemantics();
+      await pump(tester, const WiredEmoji(':)', semanticLabel: 'Smile'));
+      expect(find.bySemanticsLabel('Smile'), findsOneWidget);
+      expect(find.bySemanticsLabel(':)'), findsNothing);
+      await pump(tester, const WiredEmoji(':)', semanticLabel: ''));
+      expect(find.bySemanticsLabel(':)'), findsNothing);
+      await pump(tester, const WiredEmoji(':)'));
+      expect(find.bySemanticsLabel(':)'), findsOneWidget);
+      semantics.dispose();
+    });
+
     testWidgets('looks emoji up by name', (tester) async {
       await pump(tester, WiredEmoji.named('red_heart'));
       expect(find.byType(CustomPaint), findsWidgets);

@@ -11,7 +11,7 @@ The bundled typefaces are generated, never hand-tuned. Every face descends from 
 | Source typeface  | [Recursive](https://recursive.design) `1.085` by Arrow Type        |
 | Upstream commit  | `6d491202cea5cf6a493ef710cbef2527b9b08939`                         |
 | Source SHA-256   | `653221ca467f4732fe6856ac493f6c409e9f56a7674abe36b2364acc89796f7c` |
-| License          | SIL OFL 1.1 (`RECURSIVE-OFL.txt` ships alongside the faces)        |
+| License          | SIL OFL 1.1 (`assets/fonts/OFL.txt` ships alongside the faces)     |
 | Roughness levels | Gentle 12.0, Playful 20.0, Expressive 28.0 (per 1,000 units)       |
 | Families         | Casual, Linear, Mono Linear × 3 roughness levels                   |
 | Static faces     | 126 (7 weights × 2 italics × 3 levels × 3 spacing styles)          |
@@ -30,7 +30,7 @@ Generation is deterministic. Each glyph's index sets the phase of smooth coordin
 
 ```yaml
 dependencies:
-  skribble_font_recursive: ^0.1.1
+  skribble_font_recursive: ^0.3.1
 ```
 
 No code is required — Flutter registers the families from this package's pubspec. Then select them through core's theme:

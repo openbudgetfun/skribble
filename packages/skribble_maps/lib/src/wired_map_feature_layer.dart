@@ -108,12 +108,7 @@ class WiredMapFeatureLayer extends HookWidget {
   @override
   Widget build(BuildContext context) {
     assert(
-      features.every(
-        (feature) => switch (feature) {
-          WiredMapPolyline() => feature.points.length >= 2,
-          WiredMapPolygon() => feature.points.length >= 3,
-        },
-      ),
+      features.every(_hasEnoughPoints),
       'Polylines require two points and polygons require three points',
     );
     final camera = wiredMapCameraOf(context);
@@ -167,9 +162,11 @@ class _WiredMapFeaturePainter extends CustomPainter {
   final double hitTolerance;
   final TextDirection textDirection;
 
+  // Release builds skip, rather than crash on, features the assert rejects.
   late final List<_ProjectedFeature> _projected = [
     for (final feature in features)
-      _ProjectedFeature(feature, _project(feature.points)),
+      if (_hasEnoughPoints(feature))
+        _ProjectedFeature(feature, _project(feature.points)),
   ];
 
   @override
@@ -401,6 +398,12 @@ class _WiredMapFeaturePainter extends CustomPainter {
   bool shouldRebuildSemantics(_WiredMapFeaturePainter oldDelegate) =>
       shouldRepaint(oldDelegate);
 }
+
+/// Whether [feature] has the points its shape needs to be drawn.
+bool _hasEnoughPoints(WiredMapFeature feature) => switch (feature) {
+  WiredMapPolyline() => feature.points.length >= 2,
+  WiredMapPolygon() => feature.points.length >= 3,
+};
 
 class _ProjectedFeature {
   const _ProjectedFeature(this.feature, this.points);

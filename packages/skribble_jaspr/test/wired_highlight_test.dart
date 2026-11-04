@@ -73,6 +73,18 @@ void main() {
       );
     });
 
+    testServer('rejects a colour that would inject declarations', (
+      tester,
+    ) async {
+      await expectBuildError(
+        tester,
+        const WiredHighlight(
+          color: 'red; display: none',
+          child: Component.text('word'),
+        ),
+      );
+    });
+
     testServer('keeps semantic children intact', (tester) async {
       final body = await renderBody(
         tester,

@@ -3,6 +3,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_test/server_test.dart';
 import 'package:skribble_jaspr/skribble_jaspr.dart';
 
+import 'helpers/css.dart';
 import 'helpers/render.dart';
 
 void main() {
@@ -34,14 +35,84 @@ void main() {
       expect(skribbleCss, contains('@media (prefers-color-scheme: dark)'));
     });
 
-    test('turns motion off when the reader asks for less', () {
-      final reduced = skribbleCss.substring(
-        skribbleCss.indexOf('@media (prefers-reduced-motion: reduce)'),
-      );
+    test('only moves when the reader has not asked for less motion', () {
+      // A reduce block can lose to the motion rules on specificity, so every
+      // moving declaration must sit behind no-preference instead.
+      final moving = [
+        for (final rule in cssRules(skribbleCss))
+          if (!rule.atRules.any((at) => at.startsWith('@keyframes')))
+            for (final MapEntry(:key, :value) in rule.declarations.entries)
+              if (const {
+                    'animation',
+                    'animation-name',
+                    'transition',
+                    'transform',
+                  }.contains(key) &&
+                  value != 'none')
+                rule,
+      ];
 
-      expect(reduced, contains('animation: none'));
-      expect(reduced, contains('transform: none'));
-      expect(reduced, contains('transition: none'));
+      expect(moving, hasLength(greaterThanOrEqualTo(4)));
+
+      for (final rule in moving) {
+        expect(
+          rule.atRules,
+          contains(contains('(prefers-reduced-motion: no-preference)')),
+          reason: rule.selector,
+        );
+      }
+    });
+
+    test('keeps disabled buttons and links still', () {
+      for (final rule in cssRules(skribbleCss)) {
+        final moves = rule.declarations.keys.any(
+          const {'animation', 'animation-name', 'transform'}.contains,
+        );
+
+        if (!moves || !rule.selector.contains(RegExp(':hover|:active'))) {
+          continue;
+        }
+
+        for (final selector in rule.selector.split(',')) {
+          expect(
+            selector,
+            contains(':not(:disabled):not([aria-disabled="true"])'),
+            reason: selector,
+          );
+        }
+      }
+    });
+
+    test('draws the ink in system colours under forced colours', () {
+      final forced = {
+        for (final rule in cssRules(skribbleCss))
+          if (rule.atRules.contains('@media (forced-colors: active)'))
+            rule.selector: rule.declarations,
+      };
+
+      expect(
+        forced['.skribble-ink-outline,\n  .skribble-highlight .skribble-ink-outline'],
+        {'stroke': 'CanvasText'},
+      );
+      expect(forced['.skribble-button .skribble-ink-outline'], {
+        'stroke': 'ButtonText',
+      });
+      // Forced text over the accent fill would be unreadable.
+      expect(forced['.skribble-ink-solid'], {'fill': 'none'});
+      expect(
+        forced['.skribble-highlight--marker .skribble-ink-solid'],
+        containsPair('fill', 'Highlight'),
+      );
+      expect(
+        forced['.skribble-highlight--marker'],
+        containsPair('color', 'HighlightText'),
+      );
+    });
+
+    test('pads boxes with a rule any page style overrides', () {
+      expect(ruleFor(skribbleCss, ':where(.skribble-box)'), {
+        'padding': '0.75rem 1.25rem',
+      });
     });
 
     test('keeps overlays wider than their box under an svg reset', () {

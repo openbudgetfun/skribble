@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter/widgets.dart';
+import 'package:skribble/skribble.dart' show WiredThemeData;
 import 'package:skribble_charts/src/chart_indicators.dart';
 
 /// The price representation used by a financial chart.
@@ -45,6 +47,42 @@ final class WiredChartStyle {
          'Roughness must be between zero and two.',
        );
 
+  /// Creates a palette that matches a skribble [theme].
+  ///
+  /// Paper and ink come from the theme's fill and text colors, and the grid
+  /// blends the two. On a dark theme, rising, falling, and indicator inks
+  /// switch to lighter tones that keep their contrast against night paper.
+  factory WiredChartStyle.fromTheme(
+    WiredThemeData theme, {
+    bool handDrawn = true,
+    double roughness = 0.35,
+  }) {
+    final dark = theme.fillColor.computeLuminance() < 0.18;
+
+    return WiredChartStyle(
+      background: theme.fillColor,
+      foreground: theme.textColor,
+      grid: Color.lerp(theme.fillColor, theme.textColor, 0.16)!,
+      rise: dark ? const Color(0xFF85C7A0) : const Color(0xFF267755),
+      fall: dark ? const Color(0xFFE39A87) : const Color(0xFFBA4945),
+      indicatorColors: dark
+          ? const [
+              Color(0xFF9FBEEB),
+              Color(0xFFDEC18C),
+              Color(0xFFD1A9E8),
+              Color(0xFF84CBD1),
+            ]
+          : const [
+              Color(0xFF4864A4),
+              Color(0xFFB47627),
+              Color(0xFF845596),
+              Color(0xFF31818A),
+            ],
+      handDrawn: handDrawn,
+      roughness: roughness,
+    );
+  }
+
   /// Background paper color.
   final Color background;
 
@@ -73,6 +111,33 @@ final class WiredChartStyle {
   Color indicatorColor(int index) => indicatorColors.isEmpty
       ? foreground
       : indicatorColors[index % indicatorColors.length];
+
+  // Value equality lets a style rebuilt with the same settings, such as one
+  // from [WiredChartStyle.fromTheme], reuse the laid-out chart scene.
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WiredChartStyle &&
+          background == other.background &&
+          foreground == other.foreground &&
+          grid == other.grid &&
+          rise == other.rise &&
+          fall == other.fall &&
+          listEquals(indicatorColors, other.indicatorColors) &&
+          handDrawn == other.handDrawn &&
+          roughness == other.roughness;
+
+  @override
+  int get hashCode => Object.hash(
+    background,
+    foreground,
+    grid,
+    rise,
+    fall,
+    Object.hashAll(indicatorColors),
+    handDrawn,
+    roughness,
+  );
 }
 
 /// A pane below the main price chart with the same horizontal time scale.

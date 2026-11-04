@@ -62,6 +62,12 @@ class WiredButton extends StatelessComponent {
 
   /// Extra HTML attributes, such as `type`, `name`, `target`, or
   /// `aria-label`. They override the component's defaults.
+  ///
+  /// Give an icon-only button an `aria-label` so it keeps an accessible
+  /// name. A `class` entry is added to the component's classes and a
+  /// `style` entry is kept as is, rather than repeating either attribute.
+  /// Set `aria-disabled="true"` (or `disabled` on a `<button>`) to dim the
+  /// button and stop its hover motion.
   final Map<String, String>? attributes;
 
   @override
@@ -89,19 +95,22 @@ class WiredButton extends StatelessComponent {
       children: [child],
     );
 
-    return Component.element(
-      tag: href == null ? 'button' : 'a',
-      classes: joinClasses([
+    final merged = mergeAttributes(
+      classes: [
         'skribble-box',
         'skribble-button',
         'skribble-button--${variant.name}',
         'skribble-wobble',
         classes,
-      ]),
-      attributes: {
-        if (href == null) 'type': 'button' else 'href': href,
-        ...?attributes,
-      },
+      ],
+      defaults: {if (href == null) 'type': 'button' else 'href': href},
+      attributes: attributes,
+    );
+
+    return Component.element(
+      tag: href == null ? 'button' : 'a',
+      classes: merged.classes,
+      attributes: merged.attributes,
       children: [...frames, label],
     );
   }

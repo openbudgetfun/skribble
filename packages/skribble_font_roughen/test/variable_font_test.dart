@@ -96,9 +96,11 @@ void main() {
         }
       }
 
+      // Pass code points, not text: hb-shape decodes argument text with the
+      // shell's locale, so "é" fails under a non-UTF-8 locale such as C.
       final shaped = await Process.run('hb-shape', [
         afterPath,
-        'Hamburgefontsiv café ffi 0123456789',
+        '--unicodes=${'Hamburgefontsiv café ffi 0123456789'.runes.map((rune) => rune.toRadixString(16)).join(',')}',
       ]);
       expect(shaped.exitCode, 0, reason: '${shaped.stderr}');
       expect(shaped.stdout.toString(), isNot(contains('.notdef')));

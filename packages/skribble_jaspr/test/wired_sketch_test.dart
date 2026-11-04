@@ -130,6 +130,17 @@ void main() {
       expect(svg.querySelectorAll('.skribble-ink-hatch'), hasLength(1));
     });
 
+    testServer('rejects colours that would inject declarations', (
+      tester,
+    ) async {
+      for (final sketch in [
+        WiredSketch.ellipse(width: 10, height: 10, color: 'red; opacity: 0'),
+        WiredSketch.ellipse(width: 10, height: 10, fill: 'gold}'),
+      ]) {
+        await expectBuildError(tester, sketch);
+      }
+    });
+
     test('a curve needs at least two points', () {
       expect(
         () => WiredSketch.curve(width: 10, height: 10, points: const [(1, 1)]),

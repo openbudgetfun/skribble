@@ -1,4 +1,3 @@
-import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:skribble_jaspr/src/ink.dart';
 import 'package:skribble_rough/skribble_rough.dart';
@@ -52,7 +51,8 @@ class WiredBox extends StatelessComponent {
   ///
   /// Sets the `--skribble-fill` custom property on the element. When null,
   /// fills use `--skribble-accent`. Only visible when [fillStyle] is not
-  /// [RoughFillStyle.none].
+  /// [RoughFillStyle.none]. Rendering throws an [ArgumentError] when the
+  /// value contains `;`, `{`, or `}`, which would inject other declarations.
   final String? fill;
 
   /// The fill pattern drawn inside the border.
@@ -66,6 +66,10 @@ class WiredBox extends StatelessComponent {
 
   /// Extra HTML attributes for the wrapping element, such as `id` or
   /// `aria-label`.
+  ///
+  /// A `class` entry is added to the component's classes and a `style`
+  /// entry is appended after the `--skribble-fill` declaration, so neither
+  /// replaces what the component renders.
   final Map<String, String>? attributes;
 
   @override
@@ -180,7 +184,8 @@ class WiredCircle extends StatelessComponent {
   /// Extra CSS classes, added after `skribble-circle`.
   final String? classes;
 
-  /// Extra HTML attributes for the wrapping element.
+  /// Extra HTML attributes for the wrapping element. See
+  /// [WiredBox.attributes].
   final Map<String, String>? attributes;
 
   @override
@@ -222,12 +227,18 @@ Component _inkBox({
     roughness: roughness,
     fillStyle: fillStyle,
   );
+  final merged = mergeAttributes(
+    classes: [baseClass, classes],
+    styles: [
+      if (fill != null) customProperty('--skribble-fill', fill, 'fill'),
+    ],
+    attributes: attributes,
+  );
 
   return Component.element(
     tag: tag,
-    classes: joinClasses([baseClass, classes]),
-    styles: fill == null ? null : Styles(raw: {'--skribble-fill': fill}),
-    attributes: attributes,
+    classes: merged.classes,
+    attributes: merged.attributes,
     children: [inkSvg(ink, canvas), child],
   );
 }
