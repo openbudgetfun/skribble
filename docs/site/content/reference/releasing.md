@@ -21,7 +21,9 @@ skribble publishes packages to pub.dev as one synchronized `main` release group:
 - `skribble_icons_lucide`
 - `skribble_icons_material`
 - `skribble_icons_simple`
+- `skribble_jaspr`
 - `skribble_lints`
+- `skribble_rough`
 
 Those packages use the same version and the release tag `v<version>`. `skribble_maps` and `skribble_charts` release independently, with tags `skribble_maps/v<version>` and `skribble_charts/v<version>`. Neither belongs to the `main` group. The website, `skribble_site`, releases on its own too, with tags `skribble_site/v<version>`, but is never published to a registry (see [The website](#the-website)). The five npm packages in `js/` form the `js` group and release to npm under `js/v<version>`; see [npm packages](#npm-packages). Other applications, the workspace root, and the documentation app remain private.
 

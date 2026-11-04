@@ -192,7 +192,7 @@ Scaffold(
 WiredScaffold(
   appBar: WiredAppBar(title: Text('My App')),
   body: MyContent(),
-  bottomNavigationBar: WiredBottomNav(
+  bottomNavigationBar: WiredBottomNavigationBar(
     items: [...],
   ),
 )
