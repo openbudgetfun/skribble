@@ -18,6 +18,17 @@ Future<html.Element> renderBody(
   return response.document!.body!;
 }
 
+/// Asserts that rendering [component] fails its build.
+///
+/// Jaspr catches the error, logs it to stderr, and answers with status 500,
+/// so a static build reports it instead of shipping the bad markup.
+Future<void> expectBuildError(ServerTester tester, Component component) async {
+  tester.pumpComponent(component);
+  final response = await tester.request('/');
+
+  expect(response.statusCode, 500);
+}
+
 /// Server-renders [component] and returns the `<body>` markup.
 Future<String> renderMarkup(ServerTester tester, Component component) async {
   final body = await renderBody(tester, component);

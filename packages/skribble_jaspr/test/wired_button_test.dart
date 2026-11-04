@@ -105,6 +105,47 @@ void main() {
       expect(button.classes, contains('cta'));
     });
 
+    testServer('merges a class attribute instead of repeating it', (
+      tester,
+    ) async {
+      final markup = await renderMarkup(
+        tester,
+        const WiredButton(
+          classes: 'cta',
+          attributes: {'class': 'wide', 'aria-disabled': 'true'},
+          child: Component.text('Soon'),
+        ),
+      );
+      final tag = RegExp('<button [^>]*>').firstMatch(markup)![0]!;
+
+      expect(' class='.allMatches(tag), hasLength(1), reason: tag);
+      expect(tag, contains('cta wide"'));
+      expect(tag, contains('aria-disabled="true"'));
+    });
+
+    testServer('lets an aria-label name an icon-only button', (tester) async {
+      final body = await renderBody(
+        tester,
+        WiredButton(
+          attributes: const {'aria-label': 'Next page'},
+          child: WiredSketch.line(
+            width: 24,
+            height: 24,
+            from: (2, 12),
+            to: (22, 12),
+            arrowhead: true,
+          ),
+        ),
+      );
+      final button = single(body, 'button');
+
+      expect(button.attributes['aria-label'], 'Next page');
+      // Every svg inside, including the icon, is hidden from the a11y tree.
+      for (final svg in button.querySelectorAll('svg')) {
+        expect(svg.attributes['aria-hidden'], 'true');
+      }
+    });
+
     testServer('renders identical markup for the same seed', (tester) async {
       Component button() => const WiredButton(
         seed: 8,

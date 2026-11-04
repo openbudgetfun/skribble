@@ -136,6 +136,64 @@ String joinClasses(Iterable<String?> classes) => classes
     .where((value) => value.trim().isNotEmpty)
     .join(' ');
 
+/// Joins inline CSS [declarations] into one `style` value, skipping null and
+/// empty entries and the trailing `;` of each.
+String joinStyles(Iterable<String?> declarations) => declarations
+    .whereType<String>()
+    .map((value) => value.trim())
+    .map(
+      (value) =>
+          value.endsWith(';') ? value.substring(0, value.length - 1) : value,
+    )
+    .map((value) => value.trim())
+    .where((value) => value.isNotEmpty)
+    .join('; ');
+
+/// A custom property declaration such as `--skribble-fill: pink`.
+///
+/// [value] is a caller's CSS value, such as a colour. It is rejected with an
+/// [ArgumentError] naming [argument] when it contains `;`, `{`, or `}`,
+/// which would end the declaration and let the value inject other
+/// declarations into the inline style.
+String customProperty(String property, String value, String argument) {
+  if (value.contains(RegExp('[;{}]'))) {
+    throw ArgumentError.value(
+      value,
+      argument,
+      'must be a single CSS value without ";", "{", or "}"',
+    );
+  }
+
+  return '$property: $value';
+}
+
+/// Merges caller-supplied [attributes] with a component's own [classes],
+/// [styles], and [defaults].
+///
+/// A `class` entry is added after [classes] and a `style` entry after
+/// [styles], so the element never repeats an attribute (browsers keep only
+/// the first copy) and the caller's declarations win. Every other entry
+/// overrides the matching [defaults] entry.
+({String classes, Map<String, String> attributes}) mergeAttributes({
+  required Iterable<String?> classes,
+  Iterable<String?> styles = const [],
+  Map<String, String> defaults = const {},
+  Map<String, String>? attributes,
+}) {
+  final extra = {...?attributes};
+  final className = extra.remove('class');
+  final style = joinStyles([...styles, extra.remove('style')]);
+
+  return (
+    classes: joinClasses([...classes, className]),
+    attributes: {
+      if (style.isNotEmpty) 'style': style,
+      ...defaults,
+      ...extra,
+    },
+  );
+}
+
 Component _path(
   String classes,
   String data, {
