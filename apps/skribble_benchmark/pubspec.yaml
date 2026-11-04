@@ -1,4 +1,7 @@
 name: skribble_benchmark
+description: >
+  Measures what it costs to draw skribble icons, roughened at runtime or
+  painted from pre-computed paths.
 publish_to: none
 environment:
   sdk: ^3.13.0
