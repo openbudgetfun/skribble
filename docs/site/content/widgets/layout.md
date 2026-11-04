@@ -38,7 +38,7 @@ WiredCard(
 
 - The border uses `WiredRectangleBase` with `theme.fillColor` and `theme.borderColor`.
 - When `fill` is `true`, the card is coloured in with even hachure strokes 7 px apart, drawn with the theme's hand so they stay inside the outline. Wrap the card in a `WiredTheme` with a pastel `fillColor` to tint it.
-- `child` sits `kWiredInkPadding` (8 pixels above and below, 12 at the sides) inside the outline, so plain text never touches the ink. Taller content grows the card past `height` instead of being squeezed; with `height: null`, the card is exactly as tall as its padded content.
+- `child` sits `kWiredInkPadding` (8 pixels above and below, 12 at the sides) inside the outline, so plain text never touches the ink. Taller content grows the card past `height` instead of being squeezed; with `height: null`, the card is exactly as tall as its padded content. A card with a `height` spans the width it is given; with `height: null` it wraps its child's width, and in a horizontally scrolling list it always does.
 - The internal `Card` has transparent color and shadow so the hand-drawn border is the only visible chrome.
 
 ---

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
@@ -11,7 +12,8 @@ import 'wired_theme.dart';
 /// Reads fill color from the nearest [WiredTheme] ancestor. Its [child]
 /// sits [padding] inside the ink, [kWiredInkPadding] by default, and the
 /// card is at least [height] tall, growing when its content needs more
-/// room.
+/// room. With a [height] it spans the width it is given; with a null
+/// [height] it wraps [child].
 class WiredCard extends HookWidget {
   /// The card's content.
   final Widget? child;
@@ -89,11 +91,49 @@ class WiredCard extends HookWidget {
     );
 
     final least = height;
+    // A card with a height spans the width it is given, as a sheet of paper
+    // would; one sized to its child wraps it.
     return least == null
         ? card
-        : ConstrainedBox(
-            constraints: BoxConstraints(minHeight: least),
-            child: card,
+        : _SpanBoundedWidth(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: least),
+              child: card,
+            ),
           );
+  }
+}
+
+/// Stretches its child across a bounded width and leaves it at its own
+/// width when the width is unbounded, as in a horizontal scroll view.
+class _SpanBoundedWidth extends SingleChildRenderObjectWidget {
+  const _SpanBoundedWidth({required super.child});
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderSpanBoundedWidth();
+}
+
+class _RenderSpanBoundedWidth extends RenderProxyBox {
+  @override
+  void performLayout() {
+    final child = this.child;
+    if (child == null) {
+      size = constraints.smallest;
+      return;
+    }
+    final span = constraints.hasBoundedWidth
+        ? constraints.copyWith(minWidth: constraints.maxWidth)
+        : constraints;
+    child.layout(span, parentUsesSize: true);
+    size = constraints.constrain(child.size);
+  }
+
+  @override
+  Size computeDryLayout(BoxConstraints constraints) {
+    final span = constraints.hasBoundedWidth
+        ? constraints.copyWith(minWidth: constraints.maxWidth)
+        : constraints;
+    return constraints.constrain(child?.getDryLayout(span) ?? Size.zero);
   }
 }

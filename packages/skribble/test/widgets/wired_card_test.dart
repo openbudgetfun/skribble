@@ -38,6 +38,38 @@ void main() {
   );
 
   group('WiredCard', () {
+    testWidgets('spans a bounded width and wraps an unbounded one', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        Column(
+          children: [
+            SizedBox(width: 300, child: WiredCard(child: const Text('Wide'))),
+            SizedBox(
+              height: 140,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: const [WiredCard(child: Text('Narrow'))],
+              ),
+            ),
+            SizedBox(
+              width: 300,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: WiredCard(height: null, child: const Text('Hugged')),
+              ),
+            ),
+          ],
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      expect(tester.getSize(find.byType(WiredCard).at(0)).width, 300);
+      expect(tester.getSize(find.byType(WiredCard).at(1)).width, lessThan(300));
+      expect(tester.getSize(find.byType(WiredCard).at(2)).width, lessThan(300));
+    });
+
     testWidgets('renders child widget', (tester) async {
       await pumpApp(tester, WiredCard(child: const Text('Card content')));
 
