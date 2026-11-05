@@ -2,6 +2,38 @@
 
 Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).
 
+## [0.4.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.0) (2026-11-05)
+
+### Features
+
+#### Calm the Recursive lettering and protect the Noto Sketch default
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #273](https://github.com/openbudgetfun/skribble/pull/273)
+
+Regenerate all Recursive Casual, Linear, and Mono faces with broader outline waves, no independent letter tilt, and smaller vertical movement that keeps base-outline extrema steady. Gentle, Playful, and Expressive now use strengths 6, 10, and 14 instead of 18, 27, and 36. Font names, coverage, advance widths, shaping features, and variable axes stay compatible.
+
+The roughener CLI and `FontRoughener` now default to strength 14. Noto Sketch remains the default across light and dark themes and all roughness levels, with regression coverage for app startup and explicit Recursive selection. A reproducible specimen harness captures the bundled faces at reading sizes in both themes and narrow and wide layouts.
+
+#### Give the Recursive lettering a gentle lean
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #274](https://github.com/openbudgetfun/skribble/pull/274)
+
+Regenerate all 126 static faces and three variable faces with shorter, smooth waves and a deterministic per-glyph lean of at most 0.045 degrees per strength unit. Gentle, Playful, and Expressive now use strengths 12, 20, and 28, with maximum leans of 0.54, 0.9, and 1.26 degrees. Vertical movement is 0.3 of the strength, fades to zero at the base outline's top and bottom, and is reduced for short punctuation; there is no baseline bounce. Font names, coverage, advance widths, shaping, and variation axes stay compatible.
+
+`FontRoughener` and the standalone CLI now default to strength 20 (Playful). The legacy Expressive tool and storybook copies are synchronized with the regenerated faces. Noto Sketch remains the system default, and no Noto font changed.
+
+### Fixes
+
+#### The package READMEs start with a working app
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+The `skribble` README on pub.dev now opens with the Flutter and Dart minimums, one `flutter pub add skribble skribble_font_noto_sketch` command, and the same minimal `SkribbleApp` the docs use, including the `WiredMaterialTheme` builder that `WiredInput` and the other Material-wrapping widgets need. It adds the typeface table and the package catalog, drops the contributor-only rough icon pipeline flags (they live in `docs/rough-icon-pipeline.md`), and fixes links that pointed at files outside the package.
+
+The font package READMEs install with `flutter pub add` instead of a pinned version; `skribble_font_recursive` still asked for `^0.1.1`.
+
+- **The Recursive README names the right licence file and version.** The install snippet asked for `skribble_font_recursive: ^0.1.1`, which never resolves to a current release, and the licence row named a `RECURSIVE-OFL.txt` that the package does not ship. It now asks for `^0.3.1` and points at `assets/fonts/OFL.txt`. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
 ## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)
 
 ### Changed
