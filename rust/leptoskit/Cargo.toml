@@ -8,7 +8,7 @@ homepage.workspace = true
 keywords = ["hand-drawn", "sketch", "leptoskit", "leptos", "skribble"]
 license.workspace = true
 readme = "README.md"
-repository.workspace = true
+repository = "https://github.com/openbudgetfun/skribble/tree/main/rust/leptoskit"
 rust-version.workspace = true
 description = "Hand-drawn leptoskit components from the skribble design system: rough borders, sketched fills, pen marks, and doodles."
 

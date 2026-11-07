@@ -88,7 +88,9 @@ type = "dart"
 path = "packages/skribble_lints"
 type = "dart"
 
-[package.skribble_rough]
+# The id differs from the pub.dev name because the Rust crate in rust/rough is
+# also called skribble_rough; changesets name this package skribble_rough_dart.
+[package.skribble_rough_dart]
 path = "packages/skribble_rough"
 type = "dart"
 
@@ -124,6 +126,17 @@ version_format = "namespaced"
 publish = { enabled = false }
 release_title = "skribble.dev v{{ version }} ({{ date }})"
 changelog_version_title = "[{{ version }}]({{ tag_url }}) ({{ date }})"
+
+# The Rust crates in rust/. They share the workspace version, so they release
+# together in the `rust` group under `rust/v<version>` tags. The ids carry a
+# `_rs` suffix to keep them apart from the Dart engine.
+[package.skribble_rough_rs]
+path = "rust/rough"
+type = "cargo"
+
+[package.skribble_leptoskit]
+path = "rust/leptoskit"
+type = "cargo"
 
 # The npm packages in js/. Their internal dependencies are plain semver ranges
 # ("^0.1.0") that monochange rewrites on each release; see
@@ -169,7 +182,7 @@ packages = [
   "skribble_font_recursive",
   "skribble_font_roughen",
   "skribble_lints",
-  "skribble_rough",
+  "skribble_rough_dart",
   "skribble_jaspr",
 ]
 tag = true
@@ -232,6 +245,13 @@ format = "keep_a_changelog"
 mode = "append"
 path = "docs/site/content/reference/whats-new.md"
 
+[group.rust]
+packages = ["skribble_rough_rs", "skribble_leptoskit"]
+tag = true
+release = true
+version_format = "namespaced"
+changelog = { path = "rust/CHANGELOG.md" }
+
 # =============================================================================
 # [ecosystems.*] — per-ecosystem discovery and publishing settings
 # =============================================================================
@@ -249,6 +269,16 @@ publish.trusted_publishing = { enabled = true, mode = "preferred", repository = 
 versioned_files = [
   { path = "**/pubspec.yaml", type = "dart", fields = ["dependencies", "dev_dependencies"] },
 ]
+
+[ecosystems.cargo]
+enabled = true
+publish.enabled = true
+publish.mode = "builtin"
+publish.registry = "crates_io"
+publish.trusted_publishing = { enabled = true, mode = "preferred", repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
+versioned_files = ["Cargo.toml"]
+# Refresh Cargo.lock after monochange rewrites the workspace version.
+lockfile_commands = [{ command = "cargo update --workspace" }]
 
 [ecosystems.npm]
 enabled = true

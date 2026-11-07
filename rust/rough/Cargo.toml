@@ -8,7 +8,7 @@ homepage.workspace = true
 keywords = ["hand-drawn", "sketch", "rough", "svg", "skribble"]
 license.workspace = true
 readme = "README.md"
-repository.workspace = true
+repository = "https://github.com/openbudgetfun/skribble/tree/main/rust/rough"
 rust-version.workspace = true
 description = "skribble's hand-drawn rendering engine for Rust: seeded rough shapes, sketched fills, and pen-shaped ink as SVG. Draws the same output as skribble's Dart and TypeScript engines."
 

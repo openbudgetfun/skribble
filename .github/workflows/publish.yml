@@ -7,6 +7,7 @@ on:
       - "skribble_maps/v*"
       - "skribble_charts/v*"
       - "js/v*"
+      - "rust/v*"
       - "skribble_site/v*"
   # pub.dev only accepts automated publishing from runs triggered by a tag
   # push, so a dispatch cannot publish packages. Keep it for re-running the

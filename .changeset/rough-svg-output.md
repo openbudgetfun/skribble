@@ -1,5 +1,5 @@
 ---
-skribble_rough: minor
+skribble_rough_dart: minor
 ---
 
 # Serialize rough drawables to scalable SVG path data
