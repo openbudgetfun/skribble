@@ -290,8 +290,9 @@ publish.mode = "builtin"
 publish.registry = "crates_io"
 publish.trusted_publishing = { enabled = true, mode = "preferred", repository = "openbudgetfun/skribble", workflow = "publish.yml", environment = "publisher" }
 versioned_files = ["Cargo.toml"]
-# Refresh Cargo.lock after monochange rewrites the workspace version.
-lockfile_commands = [{ command = "cargo update --workspace" }]
+# Pin the internal path dependencies to the workspace version and refresh
+# Cargo.lock after monochange rewrites versions; see the script for why.
+lockfile_commands = [{ command = "scripts/release/sync_rust_versions.sh" }]
 
 [ecosystems.npm]
 enabled = true
