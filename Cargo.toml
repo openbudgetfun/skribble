@@ -12,8 +12,8 @@ repository = "https://github.com/openbudgetfun/skribble"
 rust-version = "1.88.0"
 
 [workspace.dependencies]
-skribble_rough = { path = "rust/rough", version = "0.0.1" }
 skribble_leptoskit = { path = "rust/leptoskit", version = "0.0.1" }
+skribble_rough = { path = "rust/rough", version = "0.0.1" }
 
 leptos = { version = "0.9.0-rc1", default-features = false }
 leptoskit = { version = "0.3.0", default-features = false }

@@ -11,10 +11,10 @@ The ink comes from [`skribble_rough`](https://github.com/openbudgetfun/skribble/
 
 ## What you get on each platform
 
-| Platform                            | What the components draw                                                                     |
-| ----------------------------------- | -------------------------------------------------------------------------------------------- |
+| Platform                            | What the components draw                                                                          |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------- |
 | Web                                 | Rough ink, drawn as inline SVG. Dark mode follows the browser, as leptoskit's `dark:` classes do. |
-| macOS, iOS, Android, Windows, Linux | The same rough ink, drawn with the platform's own path API.                                  |
+| macOS, iOS, Android, Windows, Linux | The same rough ink, drawn with the platform's own path API.                                       |
 
 The components draw their ink with leptoskit's `Vector` element, which every backend draws natively, so your code and its drawing are the same on every platform.
 

@@ -51,12 +51,12 @@ let candle = Candle::new(1_789_000_000, 142.5, 143.125, 141.875, 142.9875, 1_234
 
 `kind` chooses what the price pane draws:
 
-| `SeriesKind` | Draws                                                       |
-| ------------ | ----------------------------------------------------------- |
-| `Candles`    | Open and close bodies with exact high and low wicks         |
-| `Ohlc`       | A high-to-low wick with open and close ticks                |
-| `Line`       | A line through closing prices                               |
-| `Area`       | A line through closing prices, hatched to the plot floor    |
+| `SeriesKind` | Draws                                                    |
+| ------------ | -------------------------------------------------------- |
+| `Candles`    | Open and close bodies with exact high and low wicks      |
+| `Ohlc`       | A high-to-low wick with open and close ticks             |
+| `Line`       | A line through closing prices                            |
+| `Area`       | A line through closing prices, hatched to the plot floor |
 
 ### Overlays
 
@@ -112,13 +112,13 @@ fn small_charts() -> Element {
 
 The `indicators` module is pure and unit-tested. Every result lines up with its input slot; warm-up slots and non-finite inputs are `None`. The arithmetic follows `packages/skribble_charts`, so ordinary market data produces the same numbers as skribble's Flutter charts.
 
-| Function                          | Returns                                                   |
-| --------------------------------- | --------------------------------------------------------- |
-| `indicators::sma(values, period)` | A simple moving average over `period` closes              |
-| `indicators::ema(values, period)` | An exponential average seeded by an SMA                   |
-| `indicators::bollinger(values, period, deviations)` | Middle, upper, and lower bands     |
-| `indicators::rsi(values, period)` | Wilder's relative strength index                          |
-| `indicators::macd(values, fast, slow, signal)` | The MACD line, signal line, and histogram   |
+| Function                                            | Returns                                      |
+| --------------------------------------------------- | -------------------------------------------- |
+| `indicators::sma(values, period)`                   | A simple moving average over `period` closes |
+| `indicators::ema(values, period)`                   | An exponential average seeded by an SMA      |
+| `indicators::bollinger(values, period, deviations)` | Middle, upper, and lower bands               |
+| `indicators::rsi(values, period)`                   | Wilder's relative strength index             |
+| `indicators::macd(values, fast, slow, signal)`      | The MACD line, signal line, and histogram    |
 
 ```rust
 use skribble_leptoskit_charts::indicators;

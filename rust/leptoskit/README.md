@@ -72,7 +72,7 @@ Buttons and controls are at least 44 pixels tall and grow with their text. Conte
 | Where                               | What draws                                                                                                                                        |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web                                 | Rough ink as inline SVG. Dark mode follows `prefers-color-scheme`, as leptoskit's `dark:` classes do. Server rendering is byte-stable for a seed. |
-| macOS, iOS, Android, Windows, Linux | The same rough ink, drawn with each platform's own path API through leptoskit's `Vector` element. `Sketch` draws its doodles natively too.      |
+| macOS, iOS, Android, Windows, Linux | The same rough ink, drawn with each platform's own path API through leptoskit's `Vector` element. `Sketch` draws its doodles natively too.        |
 
 The ink is a set of leptoskit `Vector` elements painted with the element's text colour, so `dark:` classes recolour it on every platform.
 
