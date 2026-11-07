@@ -8,7 +8,7 @@ homepage.workspace = true
 keywords = ["hand-drawn", "sketch", "leptoskit", "maps", "skribble"]
 license.workspace = true
 readme = "README.md"
-repository.workspace = true
+repository = "https://github.com/openbudgetfun/skribble/tree/main/rust/leptoskit_maps"
 rust-version.workspace = true
 description = "Hand-drawn vector maps for leptoskit apps from the skribble design system: sketched areas, routes, pins, and zoom controls."
 

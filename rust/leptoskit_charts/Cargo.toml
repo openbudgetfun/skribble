@@ -8,7 +8,7 @@ homepage.workspace = true
 keywords = ["hand-drawn", "charts", "leptoskit", "leptos", "skribble"]
 license.workspace = true
 readme = "README.md"
-repository.workspace = true
+repository = "https://github.com/openbudgetfun/skribble/tree/main/rust/leptoskit_charts"
 rust-version.workspace = true
 description = "Hand-drawn financial charts for leptoskit: candlesticks, lines, bars, volume, and technical indicators."
 

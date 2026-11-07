@@ -138,6 +138,14 @@ type = "cargo"
 path = "rust/leptoskit"
 type = "cargo"
 
+[package.skribble_leptoskit_charts]
+path = "rust/leptoskit_charts"
+type = "cargo"
+
+[package.skribble_leptoskit_maps]
+path = "rust/leptoskit_maps"
+type = "cargo"
+
 # The npm packages in js/. Their internal dependencies are plain semver ranges
 # ("^0.1.0") that monochange rewrites on each release; see
 # pnpm-workspace.yaml for how pnpm still links them locally.
@@ -246,7 +254,12 @@ mode = "append"
 path = "docs/site/content/reference/whats-new.md"
 
 [group.rust]
-packages = ["skribble_rough_rs", "skribble_leptoskit"]
+packages = [
+  "skribble_rough_rs",
+  "skribble_leptoskit",
+  "skribble_leptoskit_charts",
+  "skribble_leptoskit_maps",
+]
 tag = true
 release = true
 version_format = "namespaced"
