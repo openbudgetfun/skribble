@@ -1,6 +1,5 @@
-//! What the components server-render on the web, where the `web` feature
-//! draws their ink as SVG images.
-#![cfg(feature = "web")]
+//! What the components server-render on the web, where leptoskit draws their
+//! ink as inline SVG.
 
 use leptos::prelude::RenderHtml;
 use leptoskit::prelude::*;
@@ -11,32 +10,14 @@ fn html(element: Element) -> String {
 	render(element).to_html()
 }
 
-/// The decoded SVG of every ink image in `html`.
-fn ink_images(html: &str) -> Vec<String> {
-	html.split("src=\"data:image/svg+xml,")
-		.skip(1)
-		.map(|rest| {
-			let encoded = &rest[..rest.find('"').expect("a closed src attribute")];
-			percent_decode(encoded)
+/// Every inline ink drawing in `html`, as its `<svg>` markup.
+fn ink_svgs(html: &str) -> Vec<&str> {
+	html.match_indices("<svg ")
+		.map(|(start, _)| {
+			let end = start + html[start..].find("</svg>").expect("a closed svg") + 6;
+			&html[start..end]
 		})
 		.collect()
-}
-
-fn percent_decode(encoded: &str) -> String {
-	let bytes = encoded.as_bytes();
-	let mut decoded = Vec::with_capacity(bytes.len());
-	let mut index = 0;
-	while index < bytes.len() {
-		if bytes[index] == b'%' {
-			let hex = std::str::from_utf8(&bytes[index + 1..index + 3]).expect("ASCII escapes");
-			decoded.push(u8::from_str_radix(hex, 16).expect("a hex escape"));
-			index += 3;
-		} else {
-			decoded.push(bytes[index]);
-			index += 1;
-		}
-	}
-	String::from_utf8(decoded).expect("UTF-8 markup")
 }
 
 #[test]
@@ -44,32 +25,27 @@ fn a_button_is_a_real_button_with_decorative_ink() {
 	let html = html(view! { <WiredButton label="Save" on_press=|| {} /> });
 	assert!(html.contains("<button"), "{html}");
 	assert!(html.contains("aria-label=\"Save\""), "{html}");
-	assert!(html.contains("aria-hidden=\"true\""), "{html}");
-	assert!(html.contains("alt=\"\""), "{html}");
 
-	let images = ink_images(&html);
-	assert_eq!(images.len(), 1);
-	let svg = &images[0];
+	let svgs = ink_svgs(&html);
+	assert_eq!(svgs.len(), 2, "a fill and an outline: {html}");
+	for svg in &svgs {
+		assert!(svg.contains("aria-hidden=\"true\""), "{svg}");
+		assert!(svg.contains("preserveAspectRatio=\"none\""), "{svg}");
+	}
+	assert!(svgs[0].contains("fill=\"currentColor\""), "{}", svgs[0]);
 	assert!(
-		svg.starts_with("<svg xmlns='http://www.w3.org/2000/svg'"),
-		"{svg}"
+		html.contains("text-[#ffd43b]"),
+		"the primary button is filled: {html}"
 	);
-	assert!(
-		svg.contains("fill='#ffd43b'"),
-		"the primary button is filled: {svg}"
-	);
-	assert!(svg.contains("vector-effect='non-scaling-stroke'"), "{svg}");
+	assert!(svgs[1].contains("stroke=\"currentColor\""), "{}", svgs[1]);
 }
 
 #[test]
-fn ink_follows_dark_mode_inside_the_image() {
+fn ink_follows_dark_mode_through_its_text_colour() {
 	let html = html(view! { <WiredBox><Text>"Box"</Text></WiredBox> });
-	let svg = &ink_images(&html)[0];
-	assert!(svg.contains("stroke='#1f1d1a'"), "{svg}");
-	assert!(
-		svg.contains("@media (prefers-color-scheme:dark){.d0{stroke:#f2efe6}}"),
-		"{svg}"
-	);
+	assert!(ink_svgs(&html)[0].contains("currentColor"), "{html}");
+	assert!(html.contains("text-[#1f1d1a]"), "{html}");
+	assert!(html.contains("dark:text-[#f2efe6]"), "{html}");
 }
 
 #[test]
@@ -99,8 +75,8 @@ fn controls_render_their_aria_roles_and_states() {
 fn a_ticked_checkbox_draws_the_tick_as_ink() {
 	let unticked = html(view! { <WiredCheckbox label="A" checked=false on_toggle=|_: bool| {} /> });
 	let ticked = html(view! { <WiredCheckbox label="A" checked=true on_toggle=|_: bool| {} /> });
-	assert_eq!(ink_images(&unticked).len(), 1);
-	assert_eq!(ink_images(&ticked).len(), 2);
+	assert_eq!(ink_svgs(&unticked).len(), 1);
+	assert_eq!(ink_svgs(&ticked).len(), 2);
 	assert!(!ticked.contains('✓'));
 }
 
@@ -115,14 +91,11 @@ fn a_sketch_keeps_its_own_size_and_pen_ink() {
 		/>
 	});
 	assert!(html.contains("aria-label=\"An arrow\""), "{html}");
-	let svg = &ink_images(&html)[0];
-	assert!(
-		svg.contains("width='120' height='60' viewBox='0 0 120 60'"),
-		"{svg}"
-	);
-	// Pen ink is filled outlines rather than strokes.
-	assert!(svg.contains("stroke='none'"), "{svg}");
-	assert!(!svg.contains("preserveAspectRatio"), "{svg}");
+	let svg = ink_svgs(&html)[0];
+	assert!(svg.contains("viewBox=\"0 0 120 60\""), "{svg}");
+	// Pen ink is filled outlines rather than strokes, drawn at its own size.
+	assert!(svg.contains("fill=\"currentColor\""), "{svg}");
+	assert!(!svg.contains("preserveAspectRatio=\"none\""), "{svg}");
 }
 
 #[test]
@@ -142,10 +115,10 @@ fn server_rendering_is_byte_stable() {
 #[test]
 fn progress_hachure_keeps_its_density_at_every_value() {
 	let quarter = html(view! { <WiredProgress label="Upload" value=0.25 /> });
-	let images = ink_images(&quarter);
-	assert_eq!(images.len(), 2, "a filling and a track");
+	let svgs = ink_svgs(&quarter);
+	assert_eq!(svgs.len(), 2, "a filling and a track");
 	// The filling's canvas is a quarter of the 240-unit track, so it stretches
 	// by the same factor as the track does.
-	assert!(images[0].contains("viewBox='0 0 60 24'"), "{}", images[0]);
-	assert!(images[1].contains("viewBox='0 0 240 24'"), "{}", images[1]);
+	assert!(svgs[0].contains("viewBox=\"0 0 60 24\""), "{}", svgs[0]);
+	assert!(svgs[1].contains("viewBox=\"0 0 240 24\""), "{}", svgs[1]);
 }

@@ -2,27 +2,18 @@
 //!
 //! A component describes its ink as an [`Ink`] and puts [`Ink::layer`] first
 //! among its children, so its content paints on top. The layer fills its
-//! parent and draws one of two ways:
-//!
-//! - With the `web` feature, as a decorative SVG image of rough strokes from
-//!   [`skribble_rough`], which leptoskit's web renderer shows as an `<img>`.
-//! - Without it, as plain views with borders and backgrounds in the same
-//!   colours, because native leptoskit can show images only from files and
-//!   has no way to draw paths yet.
-//!
-//! Only this module knows the difference, so a future leptoskit drawing
-//! primitive can bring the rough strokes to native without touching any
-//! component.
+//! parent with rough strokes from [`skribble_rough`], drawn as leptoskit
+//! `Vector` elements, which the web and every native backend draw the same
+//! way.
 
-mod plain;
-mod svg;
+mod vector;
 
 use leptoskit::native::Element;
 use skribble_rough::FillStyle;
 
-pub(crate) use self::svg::SvgImage;
-pub(crate) use self::svg::SvgPaint;
-pub(crate) use self::svg::SvgPath;
+pub(crate) use self::vector::InkDrawing;
+pub(crate) use self::vector::InkPaint;
+pub(crate) use self::vector::InkPath;
 use crate::Theme;
 use crate::Tone;
 
@@ -102,24 +93,6 @@ pub(crate) struct Ink {
 	pub(crate) theme: Theme,
 }
 
-/// How the current build draws ink.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum InkTarget {
-	/// Rough strokes in an SVG image, for leptoskit's web renderer.
-	SvgImage,
-	/// Borders and backgrounds on plain views, for native.
-	PlainViews,
-}
-
-impl InkTarget {
-	/// The target this build was compiled for.
-	pub(crate) const ACTIVE: Self = if cfg!(feature = "web") {
-		Self::SvgImage
-	} else {
-		Self::PlainViews
-	};
-}
-
 impl Ink {
 	/// An outline in the theme's ink, without a fill.
 	pub(crate) fn outline(shape: InkShape, canvas: Canvas, seed: i64, theme: Theme) -> Self {
@@ -151,14 +124,6 @@ impl Ink {
 	/// The decorative layer that draws this ink behind its parent's content.
 	/// Put it first among the parent's children.
 	pub(crate) fn layer(&self) -> Element {
-		self.layer_for(InkTarget::ACTIVE)
-	}
-
-	/// The layer as `target` draws it.
-	pub(crate) fn layer_for(&self, target: InkTarget) -> Element {
-		match target {
-			InkTarget::SvgImage => svg::layer(self),
-			InkTarget::PlainViews => plain::layer(self),
-		}
+		vector::drawing(self).layer()
 	}
 }

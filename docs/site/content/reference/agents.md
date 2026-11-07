@@ -1198,10 +1198,10 @@ The engine is split across two packages. Geometry, fillers, pens, ink sampling, 
 `rust/` holds a Cargo workspace (its manifest is the root `Cargo.toml`): `skribble_rough` (`rust/rough`, a port of `skribble_rough`) and `skribble_leptoskit` (`rust/leptoskit`, leptoskit components). Follow its conventions:
 
 - `skribble_rough` follows the Dart engine operation for operation, like `@skribble.dev/rough`, and its `tests/parity.rs` replays the same `js/rough/test/fixtures/dart-parity.json`. When you change `packages/skribble_rough`, regenerate the fixtures and port the change to both the TypeScript and the Rust engines until both parity suites pass.
-- leptoskit is not on crates.io yet. The root `Cargo.toml` pins one leptoskit commit for every crate; bump that `rev` in one place, and keep both crates `publish = false` until leptoskit is released.
-- In `skribble_leptoskit`, components describe their drawing as an `Ink` and add `Ink::layer()` as their first child. Only `src/ink/` knows how ink is drawn: SVG images with the `web` feature, plain views without it. Keep it that way, so a native drawing primitive in leptoskit can replace the plain views without touching any component.
+- The root `Cargo.toml` pins leptoskit (currently 0.3) and its matching leptos release for every crate; bump them there, in one place.
+- In `skribble_leptoskit`, components describe their drawing as an `Ink` and add `Ink::layer()` as their first child. Only `src/ink/` knows how ink is drawn: leptoskit `Vector` elements painted with `currentColor`, one per tone, so `dark:` text classes recolour them on every backend. Keep it that way.
 - Components are `#[component]` functions returning `Element`, with a `seed`, an optional `theme`, and an optional `class`. Controls are controlled: they take a value and a callback that proposes a change. Never use randomness outside the seed.
-- Run `cargo fmt --all`, `cargo clippy --workspace --all-targets --all-features -- -D warnings`, `cargo test --workspace`, and `cargo test --workspace --all-features`. The `rust-crates` CI job runs the same. `cargo run -p skribble_leptoskit --example notebook --features web -- notebook.html` renders every component for a visual check, in light and dark mode.
+- Run `cargo fmt --all`, `cargo clippy --workspace --all-targets --all-features -- -D warnings`, `cargo test --workspace`, and `cargo test --workspace --all-features`. The `rust-crates` CI job runs the same. `cargo run -p skribble_leptoskit --example notebook -- notebook.html` renders every component for a visual check, in light and dark mode.
 
 ### The skribble.dev landing page
 

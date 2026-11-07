@@ -14,12 +14,10 @@ rust-version = "1.88.0"
 [workspace.dependencies]
 skribble_rough = { path = "rust/rough", version = "0.0.1" }
 
-leptos = { version = "0.8", default-features = false }
-# leptoskit is not on crates.io yet, so every crate in the workspace pins the
-# same commit. Bump `rev` here, and only here, to follow leptoskit's `main`.
-leptoskit = { git = "https://github.com/ifiokjr/leptoskit", rev = "ad19e75ab44b4d93807c5be1e565c769269d87d8", default-features = false }
-leptoskit_native = { git = "https://github.com/ifiokjr/leptoskit", rev = "ad19e75ab44b4d93807c5be1e565c769269d87d8", default-features = false }
-leptoskit_testing = { git = "https://github.com/ifiokjr/leptoskit", rev = "ad19e75ab44b4d93807c5be1e565c769269d87d8" }
+leptos = { version = "0.9.0-rc1", default-features = false }
+leptoskit = { version = "0.3.0", default-features = false }
+leptoskit_native = { version = "0.3.0", default-features = false }
+leptoskit_testing = { version = "0.3.0" }
 serde_json = { version = "1", features = ["float_roundtrip"] }
 
 [workspace.lints.rust]

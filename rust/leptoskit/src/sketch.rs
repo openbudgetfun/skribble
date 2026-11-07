@@ -15,10 +15,9 @@ use skribble_rough::sketch;
 use crate::Theme;
 use crate::Tone;
 use crate::container::with_class;
-use crate::ink::InkTarget;
-use crate::ink::SvgImage;
-use crate::ink::SvgPaint;
-use crate::ink::SvgPath;
+use crate::ink::InkDrawing;
+use crate::ink::InkPaint;
+use crate::ink::InkPath;
 use crate::theme::css_hex;
 
 /// A hand-drawn doodle: arrows, scribbles, and annotations the other
@@ -30,10 +29,6 @@ use crate::theme::css_hex;
 ///
 /// A sketch is decorative and hidden from assistive technology unless it has
 /// a `label`, which makes it an image with that name.
-///
-/// On the web (the `web` feature) the sketch is drawn as an SVG image. Native
-/// leptoskit cannot draw paths yet, so there the sketch keeps its size and
-/// accessible name but draws nothing.
 ///
 /// # Panics
 ///
@@ -92,8 +87,6 @@ pub fn Sketch(
 	#[prop(optional, into)]
 	class: Option<String>,
 ) -> Element {
-	// Check the shapes on every target, so a mistake fails on native as well
-	// as on the web.
 	assert!(
 		width.is_finite() && width > 0.0 && height.is_finite() && height > 0.0,
 		"a sketch needs a positive, finite size, found {width} by {height}"
@@ -120,10 +113,7 @@ pub fn Sketch(
 		theme,
 	};
 
-	let element = match InkTarget::ACTIVE {
-		InkTarget::SvgImage => Image(drawing.image().data_uri()),
-		InkTarget::PlainViews => View(),
-	};
+	let element = View().children(drawing.drawing().vectors());
 	let element = match label {
 		Some(label) => element.role(Role::Img).aria_label(label),
 		None => element.aria_hidden(true),
@@ -149,8 +139,8 @@ pub(crate) struct SketchDrawing {
 }
 
 impl SketchDrawing {
-	/// The drawing as an SVG image at its own size.
-	pub(crate) fn image(&self) -> SvgImage {
+	/// The paths at the sketch's own size.
+	pub(crate) fn drawing(&self) -> InkDrawing {
 		let options = SketchOptions {
 			draw: DrawOptions {
 				seed: self.seed,
@@ -176,21 +166,21 @@ impl SketchDrawing {
 					SketchPart::Sketch | SketchPart::Solid => self.fill,
 				};
 				let paint = if path.stroke == "none" {
-					SvgPaint::Fill(tone)
+					InkPaint::Fill(tone)
 				} else {
-					SvgPaint::Stroke {
+					InkPaint::Stroke {
 						tone,
 						width: path.stroke_width as f32,
 					}
 				};
-				SvgPath {
+				InkPath {
 					data: path.d,
 					paint,
 				}
 			})
 			.collect();
 
-		SvgImage {
+		InkDrawing {
 			width: f64::from(self.width),
 			height: f64::from(self.height),
 			stretch: false,

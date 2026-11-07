@@ -7,8 +7,6 @@ edition.workspace = true
 homepage.workspace = true
 keywords = ["hand-drawn", "sketch", "rough", "svg", "skribble"]
 license.workspace = true
-# Held back from crates.io until skribble_leptoskit can be published too.
-publish = false
 readme = "README.md"
 repository.workspace = true
 rust-version.workspace = true

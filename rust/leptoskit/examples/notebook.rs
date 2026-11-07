@@ -2,13 +2,12 @@
 //! HTML file.
 //!
 //! ```sh
-//! cargo run -p skribble_leptoskit --example notebook --features web -- notebook.html
+//! cargo run -p skribble_leptoskit --example notebook -- notebook.html
 //! ```
 //!
 //! Open the file in a browser. It is the same `Element` tree a native app
 //! commits, rendered by leptoskit's web renderer, so it doubles as a visual
-//! check of the ink in light and dark mode. Leave out `--features web` to see
-//! the straight-line drawing native builds use, through the same renderer.
+//! check of the ink in light and dark mode.
 
 use std::path::PathBuf;
 
