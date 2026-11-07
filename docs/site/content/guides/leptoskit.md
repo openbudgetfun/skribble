@@ -198,3 +198,7 @@ let options = SketchOptions { fill: Some("#ffd43b".to_owned()), ..SketchOptions:
 let badge = sketch(&[Shape::ellipse(50.0, 50.0, 90.0, 90.0)], &options)?;
 let svg = badge.to_svg_string(100.0, 100.0, Some("A sketched badge"));
 ```
+
+## Charts
+
+[`skribble_leptoskit_charts`](https://github.com/openbudgetfun/skribble/tree/main/rust/leptoskit_charts) adds hand-drawn financial charts to leptoskit: candlesticks, OHLC bars, lines, areas, volume bars, SMA, EMA, Bollinger Bands, RSI, and MACD. Price geometry stays exact, and the chart ink follows the same light and dark theme as the components. See [skribble charts for leptoskit](/guides/leptoskit-charts).
