@@ -1501,6 +1501,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "skribble_leptoskit_charts"
+version = "0.0.1"
+dependencies = [
+ "leptos",
+ "leptoskit",
+ "leptoskit_native",
+ "leptoskit_testing",
+ "skribble_leptoskit",
+ "skribble_rough",
+]
+
+[[package]]
 name = "skribble_rough"
 version = "0.0.1"
 dependencies = [
