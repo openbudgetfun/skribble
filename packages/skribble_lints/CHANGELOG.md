@@ -2,6 +2,18 @@
 
 Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).
 
+## [0.4.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.0) (2026-11-07)
+
+### Fixes
+
+#### Every public member is documented
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+Every public class, member, and parameter in `skribble`, `skribble_rough`, and `skribble_font_roughen` now has a `///` doc comment that says what it does, its default, and its units. Parameters that pass straight through to Flutter, such as the `MaterialApp` options on `WiredMaterialApp`, link to the Flutter member they mirror.
+
+`skribble_lints` now turns on `public_member_api_docs`, so `dart analyze --fatal-infos` fails on any undocumented public member in a package that includes it. It also drops the dead `missing_return` entry; the analyzer reports a missing return as the `body_might_complete_normally` compile error.
+
 ## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)
 
 ### Changed
