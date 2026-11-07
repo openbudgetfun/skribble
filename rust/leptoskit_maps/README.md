@@ -95,7 +95,7 @@ let cafe = MapPin::new(LatLng::new(51.5074, -0.1278), "Favourite cafe")
 
 ## Paper and zoom
 
-`MapStyle` picks the background: `PAPER` is warm paper with a faint graticule, `DARK` is charcoal with chalk lines, and `PLAIN` has no grid. A map without a `background` uses `PAPER`, and every preset has a light and a dark appearance.
+`MapStyle` picks the background: `PAPER` is warm paper with a faint graticule, `DARK` is charcoal with chalk lines, and `PLAIN` has no grid. A map without a `background` uses `PAPER`, and every preset has a light and a dark appearance. A style can also carry its own `ink` for routes, outlines, and pin labels: `DARK` draws them in chalk so they read on charcoal, and the others use the theme's ink.
 
 Zoom controls follow leptoskit's controlled pattern: they show the zoom you pass and propose a new one.
 

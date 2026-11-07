@@ -1,6 +1,8 @@
 //! Map backgrounds: the paper behind the ink and its faint graticule.
 
 use leptoskit::native::Color;
+use skribble_leptoskit::Palette;
+use skribble_leptoskit::Theme;
 use skribble_leptoskit::Tone;
 use skribble_rough::DrawConfig;
 use skribble_rough::DrawOptions;
@@ -31,6 +33,7 @@ use crate::paint::MapDrawing;
 /// pub const BLUE: MapStyle = MapStyle {
 /// 	paper: Tone::fixed(Palette::LIGHT.accent),
 /// 	graticule: None,
+/// 	ink: None,
 /// };
 /// assert!(BLUE.graticule.is_none());
 /// ```
@@ -40,6 +43,10 @@ pub struct MapStyle {
 	pub paper: Tone,
 	/// The colour of the hand-drawn graticule, or `None` for plain paper.
 	pub graticule: Option<Tone>,
+	/// The ink for routes, outlines, points, and pin labels on this paper, or
+	/// `None` for the theme's ink. Dark paper needs light ink in both
+	/// appearances.
+	pub ink: Option<Tone>,
 }
 
 impl MapStyle {
@@ -53,6 +60,7 @@ impl MapStyle {
 			light: Color::rgba(0x1f, 0x1d, 0x1a, 0x24),
 			dark: Color::rgba(0xf2, 0xef, 0xe6, 0x28),
 		}),
+		ink: None,
 	};
 
 	/// Charcoal paper with a chalk graticule, the low-light preset.
@@ -65,6 +73,7 @@ impl MapStyle {
 			light: Color::rgba(0xf2, 0xef, 0xe6, 0x38),
 			dark: Color::rgba(0xf2, 0xef, 0xe6, 0x30),
 		}),
+		ink: Some(Tone::fixed(Color::rgba(0xf2, 0xef, 0xe6, 0xff))),
 	};
 
 	/// Paper with nothing sketched over it.
@@ -74,7 +83,28 @@ impl MapStyle {
 			dark: Color::rgba(0x1b, 0x1a, 0x17, 0xff),
 		},
 		graticule: None,
+		ink: None,
 	};
+}
+
+impl MapStyle {
+	/// `theme` with this style's ink, when it has one.
+	pub(crate) fn inked(self, theme: Theme) -> Theme {
+		match self.ink {
+			Some(ink) => Theme {
+				light: Palette {
+					ink: ink.light,
+					..theme.light
+				},
+				dark: Palette {
+					ink: ink.dark,
+					..theme.dark
+				},
+				..theme
+			},
+			None => theme,
+		}
+	}
 }
 
 impl Default for MapStyle {
@@ -245,5 +275,20 @@ mod tests {
 		assert!(MapStyle::PAPER.graticule.is_some());
 		assert!(MapStyle::DARK.graticule.is_some());
 		assert_eq!(MapStyle::default(), MapStyle::PAPER);
+	}
+}
+
+#[cfg(test)]
+mod ink_tests {
+	use super::*;
+
+	#[test]
+	fn dark_paper_inks_in_chalk_and_paper_keeps_the_theme() {
+		let theme = Theme::SKRIBBLE;
+		let chalk = MapStyle::DARK.inked(theme).ink();
+		assert_eq!(chalk, MapStyle::DARK.ink.expect("dark paper has ink"));
+		assert_ne!(chalk, theme.ink());
+		assert_eq!(MapStyle::PAPER.inked(theme), theme);
+		assert_eq!(MapStyle::PLAIN.inked(theme), theme);
 	}
 }

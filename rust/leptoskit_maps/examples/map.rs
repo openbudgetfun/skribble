@@ -88,15 +88,20 @@ fn pins() -> Vec<MapPin> {
 
 fn map_paper() -> Element {
 	view! {
-		<WiredCard seed=11 class="flex-1 min-w-[320px]">
+		<WiredCard seed=11 class="flex-1 min-w-[320px] overflow-hidden">
 			<View class="flex-row items-center justify-between">
 				<Heading aria_level=2 class="text-xl font-bold">"Paper with a graticule"</Heading>
 				<WiredBadge seed=12><Text>"MapStyle::PAPER"</Text></WiredBadge>
 			</View>
 			<WiredMap
-				camera=Camera::new(START, 14.0)
-				width=520.0
-				height=360.0
+				camera=Camera::fit(
+					LatLngBounds::new(LatLng::new(51.5040, -0.1400), FINISH),
+					480.0,
+					330.0,
+					72.0,
+				)
+				width=480.0
+				height=330.0
 				features=vec![park(), route(), MapFeature::point(FINISH)]
 				pins=pins()
 				theme=MEADOW
@@ -108,20 +113,20 @@ fn map_paper() -> Element {
 
 fn map_night() -> Element {
 	view! {
-		<WiredCard seed=21 class="flex-1 min-w-[320px]">
+		<WiredCard seed=21 class="flex-1 min-w-[320px] overflow-hidden">
 			<View class="flex-row items-center justify-between">
 				<Heading aria_level=2 class="text-xl font-bold">"Charcoal paper"</Heading>
 				<WiredBadge seed=22><Text>"MapStyle::DARK"</Text></WiredBadge>
 			</View>
 			<WiredMap
 				camera=Camera::fit(
-					LatLngBounds::new(LatLng::new(51.5000, -0.1400), LatLng::new(51.5300, -0.0900)),
-					520.0,
-					360.0,
-					24.0,
+					LatLngBounds::new(START, FINISH),
+					480.0,
+					330.0,
+					72.0,
 				)
-				width=520.0
-				height=360.0
+				width=480.0
+				height=330.0
 				features=vec![route()]
 				pins=pins()
 				background=MapStyle::DARK

@@ -94,6 +94,7 @@ pub fn WiredMap(
 	);
 
 	let style = background.unwrap_or(MapStyle::PAPER);
+	let theme = style.inked(theme);
 	let mut map = View()
 		.class("relative overflow-hidden")
 		.class(tone_class("bg", style.paper))
