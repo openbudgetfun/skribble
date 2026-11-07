@@ -1,5 +1,5 @@
 ---
-skribble_rough_dart: patch
+dart:skribble_rough: patch
 skribble: patch
 ---
 

@@ -1,5 +1,5 @@
 ---
-skribble_rough_dart: none
+dart:skribble_rough: none
 ---
 
 # Add parity fixtures for the npm rough engine

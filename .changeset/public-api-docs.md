@@ -1,6 +1,6 @@
 ---
 skribble: patch
-skribble_rough_dart: patch
+dart:skribble_rough: patch
 skribble_font_roughen: patch
 skribble_lints: patch
 ---

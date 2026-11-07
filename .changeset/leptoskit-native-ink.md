@@ -1,6 +1,6 @@
 ---
 skribble_leptoskit: minor
-skribble_rough_rs: minor
+rust:skribble_rough: minor
 ---
 
 # Draw skribble_leptoskit ink natively on leptoskit 0.3

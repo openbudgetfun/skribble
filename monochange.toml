@@ -88,9 +88,9 @@ type = "dart"
 path = "packages/skribble_lints"
 type = "dart"
 
-# The id differs from the pub.dev name because the Rust crate in rust/rough is
-# also called skribble_rough; changesets name this package skribble_rough_dart.
-[package.skribble_rough_dart]
+# The Rust crate in rust/rough is also called skribble_rough, so the ids carry
+# their ecosystem: changesets name this package dart:skribble_rough.
+[package."dart:skribble_rough"]
 path = "packages/skribble_rough"
 type = "dart"
 
@@ -128,9 +128,9 @@ release_title = "skribble.dev v{{ version }} ({{ date }})"
 changelog_version_title = "[{{ version }}]({{ tag_url }}) ({{ date }})"
 
 # The Rust crates in rust/. They share the workspace version, so they release
-# together in the `rust` group under `rust/v<version>` tags. The ids carry a
-# `_rs` suffix to keep them apart from the Dart engine.
-[package.skribble_rough_rs]
+# together in the `rust` group under `rust/v<version>` tags. The engine's id,
+# rust:skribble_rough, keeps it apart from the Dart engine of the same name.
+[package."rust:skribble_rough"]
 path = "rust/rough"
 type = "cargo"
 
@@ -190,7 +190,7 @@ packages = [
   "skribble_font_recursive",
   "skribble_font_roughen",
   "skribble_lints",
-  "skribble_rough_dart",
+  "dart:skribble_rough",
   "skribble_jaspr",
 ]
 tag = true
@@ -255,7 +255,7 @@ path = "docs/site/content/reference/whats-new.md"
 
 [group.rust]
 packages = [
-  "skribble_rough_rs",
+  "rust:skribble_rough",
   "skribble_leptoskit",
   "skribble_leptoskit_charts",
   "skribble_leptoskit_maps",
