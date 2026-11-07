@@ -6,18 +6,15 @@ The ink comes from [`skribble_rough`](https://github.com/openbudgetfun/skribble/
 
 ## Install
 
-Neither leptoskit nor this crate is on crates.io yet. Depend on both from Git, and pin this crate to a commit of skribble whose workspace pins the same leptoskit commit as your app (see `Cargo.toml` at the repository root):
+The crate builds on leptoskit 0.3:
 
 ```toml
 [dependencies]
-leptoskit = { git = "https://github.com/ifiokjr/leptoskit", rev = "ad19e75ab44b4d93807c5be1e565c769269d87d8" }
-skribble_leptoskit = { git = "https://github.com/openbudgetfun/skribble", rev = "<commit>" }
-
-[features]
-web = ["leptoskit/web", "skribble_leptoskit/web"]
+leptoskit = "0.3"
+skribble_leptoskit = "0.1"
 ```
 
-Turn on `skribble_leptoskit/web` in the feature your web build uses, as above. It draws the ink as SVG images, which leptoskit's web renderer shows. Native builds leave it off.
+There is no feature to turn on: the same build draws the ink on the web and on every native platform.
 
 ## Use the components
 
@@ -74,10 +71,10 @@ Buttons and controls are at least 44 pixels tall and grow with their text. Conte
 
 | Where                               | What draws                                                                                                                                        |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web, with the `web` feature         | Rough ink as SVG images. Dark mode follows `prefers-color-scheme`, as leptoskit's `dark:` classes do. Server rendering is byte-stable for a seed. |
-| macOS, iOS, Android, Windows, Linux | The same components, layout, colours, and line weight, with straight borders and flat fills. `Sketch` keeps its size and name but draws nothing.  |
+| Web                                 | Rough ink as inline SVG. Dark mode follows `prefers-color-scheme`, as leptoskit's `dark:` classes do. Server rendering is byte-stable for a seed. |
+| macOS, iOS, Android, Windows, Linux | The same rough ink, drawn with each platform's own path API through leptoskit's `Vector` element. `Sketch` draws its doodles natively too.        |
 
-Native leptoskit shows images only from files and has no way to draw paths yet. The difference lives in one internal module, so a future leptoskit drawing primitive brings the rough ink to native without changing any component.
+The ink is a set of leptoskit `Vector` elements painted with the element's text colour, so `dark:` classes recolour it on every platform.
 
 leptoskit has no font-family utility yet either, so the components use the platform's system font. On the web you can letter a page in Skribble Noto Sketch with your own CSS; the [leptoskit guide](https://openbudgetfun.github.io/skribble/guides/leptoskit) shows how.
 
@@ -86,10 +83,8 @@ leptoskit has no font-family utility yet either, so the components use the platf
 `examples/notebook.rs` server-renders every component to a static page:
 
 ```bash
-cargo run -p skribble_leptoskit --example notebook --features web -- notebook.html
+cargo run -p skribble_leptoskit --example notebook -- notebook.html
 ```
-
-Leave out `--features web` to see the native drawing through the same renderer.
 
 ## License
 

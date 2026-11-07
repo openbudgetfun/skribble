@@ -144,11 +144,12 @@ Use `WiredThemeData.cuddly()` for warm paper and plum ink, or pass `brightness: 
 
 ## Beyond Dart
 
-| Package                                        | Description                                                                                         |
-| ---------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| [`@skribble.dev/rough`](js/rough/)             | The rough engine for JavaScript, with React, React Native, Vue, and Svelte bindings in [`js/`](js/) |
-| [`skribble_rough`](rust/rough/) (Rust)         | The rough engine for Rust, drawing byte-identical SVG                                               |
-| [`skribble_leptoskit`](rust/leptoskit/) (Rust) | Hand-drawn components for leptoskit apps on the web and native                                      |
+| Package                                                  | Description                                                                                         |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| [`@skribble.dev/rough`](js/rough/)                       | The rough engine for JavaScript, with React, React Native, Vue, and Svelte bindings in [`js/`](js/) |
+| [`skribble_rough`](rust/rough/) (Rust)                   | The rough engine for Rust, drawing byte-identical SVG                                               |
+| [`skribble_leptoskit`](rust/leptoskit/) (Rust)           | Hand-drawn components for leptoskit apps on the web and native                                      |
+| [`skribble_leptoskit_maps`](rust/leptoskit_maps/) (Rust) | Hand-drawn maps for leptoskit apps: rough areas, routes, pins, and zoom controls                    |
 
 ## Apps
 

@@ -54,15 +54,12 @@
 //!
 //! # Platforms
 //!
-//! Turn on the `web` feature in your app's web build. The ink is then drawn
-//! as decorative SVG images, which leptoskit's web renderer shows, with dark
-//! colours following `prefers-color-scheme`.
-//!
-//! Native leptoskit shows images only from files and cannot draw paths yet,
-//! so without the `web` feature the components keep their layout, colours,
-//! and line weight but draw straight borders and flat fills, and
-//! [`Sketch`](fn@Sketch) draws nothing. The components and their behaviour are
-//! the same either way.
+//! The ink is drawn as leptoskit `Vector` elements, which the web renderer
+//! shows as inline SVG and every native backend (macOS, iOS, Android,
+//! Windows, Linux) draws through its own path API. Every platform gets the
+//! same rough strokes and sketched fills. Ink paints with the element's text
+//! colour, so dark mode follows leptoskit's `dark:` classes everywhere, and
+//! no feature needs turning on.
 
 mod button;
 mod container;

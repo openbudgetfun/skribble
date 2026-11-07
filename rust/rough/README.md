@@ -6,11 +6,9 @@ It is a Rust port of the Dart package [`skribble_rough`](https://github.com/open
 
 ## Install
 
-The crate is not on crates.io yet. Depend on it from Git, pinned to a commit:
-
 ```toml
 [dependencies]
-skribble_rough = { git = "https://github.com/openbudgetfun/skribble", rev = "<commit>" }
+skribble_rough = "0.1"
 ```
 
 ## Sketch a shape

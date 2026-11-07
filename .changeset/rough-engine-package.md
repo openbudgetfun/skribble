@@ -1,6 +1,6 @@
 ---
 skribble: patch
-skribble_rough: minor
+dart:skribble_rough: minor
 ---
 
 # Move the rough engine into the pure-Dart skribble_rough package

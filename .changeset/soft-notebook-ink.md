@@ -1,6 +1,6 @@
 ---
 skribble: minor
-skribble_rough: minor
+dart:skribble_rough: minor
 ---
 
 # Softer, lighter ink by default

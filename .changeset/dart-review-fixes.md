@@ -1,6 +1,6 @@
 ---
 skribble: minor
-skribble_rough: minor
+dart:skribble_rough: minor
 skribble_jaspr: patch
 skribble_site: none
 ---

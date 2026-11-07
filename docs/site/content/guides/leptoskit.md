@@ -1,6 +1,6 @@
 ---
 title: Using skribble with leptoskit (Rust)
-description: Hand-drawn components for leptoskit apps written once in Rust, with rough ink on the web and the same components on macOS, iOS, Android, Windows, and Linux.
+description: Hand-drawn components for leptoskit apps written once in Rust, with the same rough ink on the web, macOS, iOS, Android, Windows, and Linux.
 ---
 
 # Using skribble with leptoskit (Rust)
@@ -11,31 +11,24 @@ The ink comes from [`skribble_rough`](https://github.com/openbudgetfun/skribble/
 
 ## What you get on each platform
 
-| Platform                            | What the components draw                                                                                                |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Web                                 | Rough ink, drawn as SVG images. Dark mode follows the browser, as leptoskit's `dark:` classes do.                       |
-| macOS, iOS, Android, Windows, Linux | The same components with the same layout, colours, and line weight, but straight borders and flat fills instead of ink. |
+| Platform                            | What the components draw                                                                          |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Web                                 | Rough ink, drawn as inline SVG. Dark mode follows the browser, as leptoskit's `dark:` classes do. |
+| macOS, iOS, Android, Windows, Linux | The same rough ink, drawn with the platform's own path API.                                       |
 
-leptoskit's native renderers can show images only from files and cannot draw paths yet, so native apps get the plain version for now. Your code is the same on every platform: a screen built from these components works everywhere, and gets the rough ink natively as soon as leptoskit can draw it.
+The components draw their ink with leptoskit's `Vector` element, which every backend draws natively, so your code and its drawing are the same on every platform.
 
 ## 1. Install
 
-leptoskit is not on crates.io yet, so neither is `skribble_leptoskit`. Depend on both from Git. Each skribble commit pins one leptoskit commit in its root `Cargo.toml`; use that commit for `leptoskit` so your app and the components build against the same version:
+`skribble_leptoskit` builds on leptoskit 0.3:
 
 ```toml
 [dependencies]
-leptoskit = { git = "https://github.com/ifiokjr/leptoskit", rev = "ad19e75ab44b4d93807c5be1e565c769269d87d8" }
-skribble_leptoskit = { git = "https://github.com/openbudgetfun/skribble", rev = "<skribble commit>" }
+leptoskit = "0.3"
+skribble_leptoskit = "0.1"
 ```
 
-Then turn on the crate's `web` feature in your app's web build. If your app has a `web` feature, add it there:
-
-```toml
-[features]
-web = ["leptoskit/web", "skribble_leptoskit/web"]
-```
-
-Without the feature, the components draw their native version, which is what you want in native builds.
+There is no feature to turn on: web and native builds draw the same ink.
 
 ## 2. Build a screen
 
@@ -182,19 +175,17 @@ The rule targets every element because leptoskit sets the system font on its roo
 
 ## How the web ink works
 
-Components cannot measure themselves, so each draws its ink into a box near its usual proportions and stretches it to fit, with strokes kept at their width. Very wide or tall components stretch the wobble with them. The ink is a decorative image (`aria-hidden`, empty `alt`); names and states come from the components themselves.
+Components cannot measure themselves, so each draws its ink into a box near its usual proportions and stretches it to fit, with strokes kept at their width. Very wide or tall components stretch the wobble with them. The ink is decorative (`aria-hidden`); names and states come from the components themselves.
 
-Each image carries its dark colours in a `prefers-color-scheme` rule, so the ink switches with the page and needs no JavaScript.
+The ink paints with its element's text colour, set by a `text-[…] dark:text-[…]` class, so it switches with the theme on every platform and needs no JavaScript on the web.
 
 ## See every component
 
 The crate's `notebook` example server-renders every component to a static page:
 
 ```bash
-cargo run -p skribble_leptoskit --example notebook --features web -- notebook.html
+cargo run -p skribble_leptoskit --example notebook -- notebook.html
 ```
-
-Leave out `--features web` to see what native builds draw, through the same renderer.
 
 ## Drawing with the engine directly
 
@@ -207,3 +198,7 @@ let options = SketchOptions { fill: Some("#ffd43b".to_owned()), ..SketchOptions:
 let badge = sketch(&[Shape::ellipse(50.0, 50.0, 90.0, 90.0)], &options)?;
 let svg = badge.to_svg_string(100.0, 100.0, Some("A sketched badge"));
 ```
+
+## Charts
+
+[`skribble_leptoskit_charts`](https://github.com/openbudgetfun/skribble/tree/main/rust/leptoskit_charts) adds hand-drawn financial charts to leptoskit: candlesticks, OHLC bars, lines, areas, volume bars, SMA, EMA, Bollinger Bands, RSI, and MACD. Price geometry stays exact, and the chart ink follows the same light and dark theme as the components. See [skribble charts for leptoskit](/guides/leptoskit-charts).
