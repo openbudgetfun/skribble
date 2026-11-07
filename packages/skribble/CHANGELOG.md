@@ -2,6 +2,359 @@
 
 Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).
 
+## [0.4.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.0) (2026-11-07)
+
+### Breaking changes
+
+#### Skribble Noto Sketch is the default typeface
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #259](https://github.com/openbudgetfun/skribble/pull/259)
+
+`WiredThemeData.font` now defaults to `WiredFont.notoSketch`, and `skribbleFontFamily` is `'SkribbleNotoSketch'`, registered by the `skribble_font_noto_sketch` package. Noto Sketch keeps the same lettering at every roughness level and draws each Latin letter three ways so repeated letters never look stamped. An app that only installed `skribble_font_recursive` would fall back to the platform font, so install the new package, or keep the Recursive lettering explicitly:
+
+```dart
+// Install the new default:
+//   flutter pub add skribble_font_noto_sketch
+
+// Or keep the previous Recursive Casual lettering, which follows roughness:
+WiredThemeData(font: WiredFont.casual)
+
+// A bare TextStyle using skribbleFontFamily now needs the Noto Sketch package:
+TextStyle(fontFamily: skribbleFontFamily, package: 'skribble_font_noto_sketch')
+```
+
+### Features
+
+#### `SkribbleApp` sets up icons, selection, and scrolling, and rebuilds less
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+- `WiredThemeScope`, which `SkribbleApp` and `WiredTheme` install, now sets the icon colour to the theme's `textColor`, as it already did for text. An `Icon` or `WiredIcon` with no colour of its own was drawn in `IconThemeData.fallback`'s black, which vanished on dark paper.
+- `SkribbleApp` installs a `DefaultSelectionStyle` from the theme: the cursor in `borderColor` and the highlight in a translucent wash of `textColor`.
+- New `SkribbleApp.scrollBehavior`, defaulting to the new `SkribbleScrollBehavior`: overscroll stretches on Android instead of Flutter's white glow, and the desktop scrollbar thumb is a wash of the theme's `textColor`. Pass `null` for Flutter's plain `ScrollBehavior`.
+- New `SkribbleApp.onNavigationNotification`, forwarded to `WidgetsApp`.
+- `SkribbleApp` and `WiredMaterialApp` depend only on the platform brightness and high-contrast setting from `MediaQuery`. Before, they depended on the whole `MediaQueryData`, so every frame of a keyboard animation or window resize rebuilt the app shell.
+- `WiredMaterialApp` with no `darkWiredTheme` keeps a light Material `ThemeData` on a dark platform, as `MaterialApp` does without a `darkTheme`. Before, it converted the light palette with a dark brightness, giving Material widgets dark menus and fields on light paper. Its high-contrast dark theme now falls back to `highContrastWiredTheme` before `wiredTheme`, matching `SkribbleApp` and `MaterialApp`.
+- The `SkribbleApp` docs now describe the high-contrast dark fallback correctly and state the text-scaling policy: the shell does not clamp the platform's text scale.
+
+#### WiredCard keeps its content the ink padding from its outline
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+`WiredCard` has a new `padding` parameter, `kWiredInkPadding` by default, and no longer adds Material's 4-pixel card margin. Before, `WiredCard(child: Text('Hello'))` put the text 4 pixels from the hand-drawn line; it now sits 12 pixels in from the sides and 8 from the top and bottom. `height` is now a minimum, so taller content grows the card instead of being squeezed into 130 pixels. A card with a `height` still spans the width it is given, and inside a horizontal scroll view it wraps its content.
+
+If your card's child already adds its own padding, pass `padding: EdgeInsets.zero` to keep the old spacing.
+
+#### `crampedText` can check lines and icons too
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+`crampedText` takes two new switches, both off by default:
+
+- `lines: true` reports a hand-drawn line (a `WiredLineBase` divider, underline, or tab indicator) whose ink crosses or touches a text's glyph box.
+- `icons: true` reports a hand-drawn icon whose ink comes within `iconGap` pixels (4 by default) of the shape around it, such as an icon button's circle. Circles are measured along their curve, so a round icon is not penalised for its bounding box.
+
+Each `CrampedText` now carries an `ink` field, a new `CrampedInk` value, saying which check found it.
+
+#### Cached rough geometry, per-widget seeds, a shipped refresh indicator
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #271](https://github.com/openbudgetfun/skribble/pull/271)
+
+##### Performance, held by regression gates
+
+Every shape painter (`WiredRectangleBase`, `WiredCircleBase`, `WiredLineBase`, `WiredRoundedRectangleBase`, `WiredInvertedTriangleBase`) now has a const constructor and value equality, so the 128 call sites that build painters inline in `build` reuse their prepared rough geometry across ancestor rebuilds instead of re-running the generator, filler, and ink sampler. `WiredToggle`'s 250 ms thumb travel animates inside an `AnimatedBuilder` around a prebuilt child: a tick repositions the thumb and regenerates nothing. Icons whose `WiredSvgIconData` is built at runtime compare structurally, so they hit the icon painter cache that only const glyphs hit before. Loaders and skeletons stopped allocating `Paint` objects on every frame.
+
+`package:skribble/testing.dart` ships `RoughGenerationCounter` and icon-cache stats so widget tests can pin all of this: rebuilding with an equal painter, a stable seed, or a runtime-equal icon must not move the counter, and a toggle animation must hold it flat. Those gates live in `test/perf/`.
+
+##### Per-widget seeds
+
+Same-sized shapes of the same kind drew identical wobbles — a column of cards read as photocopies. `WiredCard`, `WiredChip`, `WiredChoiceChip`, `WiredBadge`, `WiredInput`, `WiredToggle`, `WiredRadio`, and `WiredOutlinedButton` now take a `seed` (null keeps the theme's), and `WiredCanvas` derives a memoised seeded config from it.
+
+##### WiredInput grows the common TextField surface
+
+`enabled`, `keyboardType`, `textInputAction`, `inputFormatters`, `onSubmitted`, `maxLength`, `autofocus`, `prefix`/`suffix`, `prefixIcon`/`suffixIcon`, and `errorText` (which draws the ink and the message in the new `WiredThemeData.errorColor`); the doc comment no longer overstates the surface.
+
+##### Callbacks follow the framework convention
+
+`WiredRadio.onChanged` is now an optional `ValueChanged<T?>` — null disables the radio — and `WiredToggle` takes `onChanged`; the boolean-returning `onChange` is deprecated but keeps its veto semantics for one migration window.
+
+##### WiredRefreshIndicator ships
+
+Exported, tested, and documented. `WiredCustomRefreshIndicator` clears its spinner when a refresh fails (it wedged forever before), no longer announces its label twice, and `WiredContextMenu` ignores a long press that arrives after unmounting instead of throwing.
+
+##### Engine types stop lying about null
+
+`OpSet`, `Drawable`, `EllipseParams`, `EllipseResult`, `ComputedEllipsePoints`, and `Edge` have required, non-nullable fields (breaking in the pre-1.0 sense), and a filler built without a configuration owns a fresh default random stream instead of advancing one shared global stream — identical calls now draw identically regardless of construction order. The Dart-to-JS parity fixtures are unchanged.
+
+#### `RoughBoxDecoration` fills, clips, animates, and keeps its drawing across rebuilds
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #252](https://github.com/openbudgetfun/skribble/pull/252) · _Related issues:_ [#226](https://github.com/openbudgetfun/skribble/issues/226)
+
+`RoughBoxDecoration` can now replace a `BoxDecoration` that has a colour, a rounded corner, and a border, without app-side wrappers:
+
+- **`color`** paints a level fill under the hand-drawn outline. It stops at the centre of the pen line, so it never pokes out past the wobble. `fillStyle` and `filler` still draw sketched fills.
+- **`inkInset`** reports how far inside the box the outline's centre lands. The outline, the level fill, and the clip all use it.
+- **`getClipPath`** returns the shape at that inset, so `Container(clipBehavior: Clip.antiAlias)` clips a child to the outline instead of throwing.
+- **Value equality.** Equal decorations compare equal, so a parent that rebuilds with an equal decoration keeps the prepared drawing instead of generating the outline again. `drawConfig`, `filler`, `progress`, and `pressure` compare by identity.
+- **Interpolation.** `RoughBoxDecoration.lerp` and `RoughDrawingStyle.lerp` interpolate colours, pen widths, and corner radii between decorations of the same shape, so `AnimatedContainer` can move between hand-drawn states. The seed switches at the midpoint.
+
+Nothing changes for existing decorations: without `color`, the outline, padding, and hit testing draw and behave as before.
+
+#### Hand-drawn borders for Material controls and text fields
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #252](https://github.com/openbudgetfun/skribble/pull/252) · _Related issues:_ [#226](https://github.com/openbudgetfun/skribble/issues/226)
+
+Apps that still render Material widgets can now give them skribble's rough edge from their `ThemeData` instead of writing their own `ShapeBorder`:
+
+- **`RoughOutlinedBorder`** is an `OutlinedBorder` that inks its `side` as a rough rounded rectangle. Use it as the `shape` of cards, buttons, chips, dialogs, and sheets, or in a `ShapeDecoration`. It lives in the core and imports only `flutter/painting.dart`.
+- **`RoughInputBorder`** is the `InputBorder` for text fields, in the compatibility layer. It reports `isOutline: false`, so Material floats the label inside the field instead of cutting a gap the rough line cannot leave.
+
+Both keep a fixed `seed`, so a control keeps its wobble while it is pressed, focused, or rebuilt. Their fill stops at the centre of the pen line, they compare by value, and they interpolate their side and corners. Prepared outlines are shared through one bounded cache (256 entries, least recently used evicted), so many equal-sized controls prepare their outline once.
+
+`RoughBoxDecoration.inkInset` now uses the same inset helper, with no change in value. The compatibility layer grows from four files to five for `RoughInputBorder`, and the Material debt baseline records that.
+
+#### Skribble Noto: hand-drawn Google Noto in three packages, plus an all-scripts kit
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #256](https://github.com/openbudgetfun/skribble/pull/256)
+
+Three new font packages redraw [Google Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans) with a round pen at three levels of hand-drawn character: `skribble_font_noto` (Soft, the calmest), `skribble_font_noto_sketch` (Sketch, with alternating letter drawings and a slight bounce), and `skribble_font_noto_lively` (Lively, with a wider pen and the strongest wobble). Each bundles Latin, Greek and Cyrillic. Every other Noto script, from Arabic and Devanagari to Chinese, Japanese and Korean, ships in a per-level font kit attached to the GitHub release by `scripts/release/publish_noto_kit.sh`.
+
+`WiredFont` gains `noto`, `notoSketch` and `notoLively`. Unlike the Recursive families they are fixed levels, so `familyFor` ignores the roughness. `WiredFont.package`, `WiredFont.packageFor` and the `recursiveFonts` and `notoFonts` lists say which package ships a family, and `WiredThemeData.fontPackage` now resolves each family to its own package instead of always `skribble_font_recursive`. The default font is unchanged.
+
+`WiredThemeData.fontFamilyFallback` lists app fonts, such as kit scripts, tried after the main family. The theme scope and the Material and Cupertino text themes now apply the bundled family by its full asset name, `WiredThemeData.qualifiedFontFamily` (for example `packages/skribble_font_recursive/SkribblePlayful`), with no `package` on the style, so app fallbacks are no longer prefixed with the font package and keep resolving. Code that compares a themed `TextStyle.fontFamily` with the bare family name should compare with `qualifiedFontFamily` instead.
+
+An exhaustive `switch` over `WiredFont` in app code needs cases for the three new values.
+
+The generator lives in `tool/skribble_noto/` (Python: fontTools, pyclipper, scikit-image) and rebuilds byte-identical fonts from pinned Noto sources.
+
+#### Softer, lighter ink by default
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #255](https://github.com/openbudgetfun/skribble/pull/255)
+
+skribble now draws like a careful notebook drawing instead of a heavy marker sketch. Apps that keep the default theme see the change without touching their code:
+
+- **A finer pen.** `WiredThemeData.strokeWidth` defaults to the new `kWiredStrokeWidth`, 1.6 logical pixels instead of 2.4. Icons follow the theme pen, so they lighten in proportion.
+- **Neater lines.** Playful, the default level, wavers less: roughness 1.1, offset 1.2, and line wobble 0.35 (was 1.5, 1.6, and 0.65). Gentle is tidier still at roughness 0.9 and offset 1. `DrawConfig.defaultValues` uses the playful geometry, so fills and standalone drawings match the borders around them.
+- **A lighter second pass.** `RoughPen.ink` retraces less of each shape (`repeatWidth` 0.5 and `repeatCoverage` 0.45, was 0.6 and 0.7), so outlines read as one confident line with an occasional retrace.
+- **Rounder corners.** Buttons default to 10 px corners (was 6), cards 16 (was 12), text fields 12 (was 8), checkboxes 6 (was 4), and `WiredTextArea` now has the same rounded corners as `WiredInput`.
+- **Colour instead of ink slabs.** `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` are washed with `markerColor` under ink text instead of being filled with `borderColor`. Pass `fillColor` or `backgroundColor` to keep a darker fill. A selected `WiredRadio` shows a neat solid dot, and `WiredElevatedButton` has a paper face over a light pencil shadow.
+- **Colouring stays inside the lines.** Hachure no longer spills past rounded corners: the scanline fill in `skribble_rough` now starts a shallow edge at the scanline it joins. `WiredCanvas` draws fills with the theme's hand unless a `fillerConfig` says otherwise, and `WiredCard(fill: true)` colours in with even strokes 7 px apart.
+- **Labelled badges fit their text.** A `WiredBadge` with a label draws a pill that grows with it, so "new" no longer spills past a 16 px circle.
+
+To return to the heavier look, set `strokeWidth: 2.4` and `roughnessLevel: WiredRoughness.expressive` on `WiredThemeData`, or pass explicit `roughness` and `pen` values.
+
+Icons look drawn, too. Filled icons (Material, Boxicons and brand marks such as GitHub, Dart, Flutter and Figma) used to paint as smooth stock silhouettes. They now default to the new `WiredIconFillStyle.marker`: coloured in with broad, overlapping marker strokes that darken where they cross, then outlined with the theme pen along an edge that wavers visibly. Brand marks that fill with `currentColor` now follow `fillStyle` like every other silhouette, so `hachure` and `none` work on them as well. Pass `fillStyle: WiredIconFillStyle.solid` for the previous flat fill.
+
+### Fixes
+
+- **About dialog fits phones and dark themes.** `WiredAboutDialog` covered its paper with a hard-coded white sheet, which hid the pale text of dark themes, and its two actions overflowed on 320 and 360 pixel screens and with larger text. The dialog now uses the theme's `fillColor`, stacks its actions when they do not fit side by side, and scrolls on short screens. **VIEW LICENSES** opens `WiredLicensePage` instead of Material's `LicensePage`, the actions are `WiredTextButton`s, and the fallback name comes from any app's title, including `SkribbleApp`. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **Avatar outlines stay visible over photos.** `WiredAvatar` painted its photo on top of its hand-drawn circle, hiding most of the ink. The outline is now drawn over background and foreground images, and the fallback icon follows the radius after `minRadius` and `maxRadius` clamp it. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+#### Bars keep their content clear of the hand-drawn line
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+`WiredBottomAppBar` centres its content inside 8 pixels of ink padding, so plain text no longer sits on its top line. Its `height` is now a minimum, so the bar grows with large text, and it stays above the home indicator on notched phones. A bar holding 48-pixel buttons is now 64 pixels tall instead of 56. `WiredGridTileBar` uses `kWiredInkPadding`, so a subtitle no longer touches its bottom line at large text sizes. The selected item in `WiredBottomNavigationBar` has a slightly larger ring, so the ring keeps clear of the icon's corners.
+
+`crampedText(root, lines: true, icons: true)` now runs on every storybook page, example app screen, and docs example.
+
+- **Calendar day numbers fit inside the selection circle.** `WiredCalendar` draws its day numbers at 18 pixels instead of 20, so the circle around the selected day keeps its ink padding with taller typefaces such as the new default, Noto Sketch. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #259](https://github.com/openbudgetfun/skribble/pull/259)
+
+#### Calendars count days correctly across clock changes
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+`WiredCalendar` and `WiredDateRangePickerDialog` built their grids by adding 24-hour steps, so in time zones with daylight saving a month that crossed a clock change showed one day twice, lost its last day, or stopped circling the selected date. Days are now counted on the calendar.
+
+`WiredCalendar` also follows a new `selected` value from its parent, names every day for screen readers (`Monday, June 15, 2026`, with its selected state), announces its `<<` and `>>` controls, inks its titles and circle with the theme, shrinks weekday names and the month title to one line instead of wrapping them, and no longer needs a Material ancestor. The range picker inks its selection with the theme's `borderColor`, so it shows in dark themes, makes the hatching between the endpoints visible, marks the endpoints as selected for screen readers, and stacks Cancel and OK when they do not fit.
+
+#### Calm the Recursive lettering and protect the Noto Sketch default
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #273](https://github.com/openbudgetfun/skribble/pull/273)
+
+Regenerate all Recursive Casual, Linear, and Mono faces with broader outline waves, no independent letter tilt, and smaller vertical movement that keeps base-outline extrema steady. Gentle, Playful, and Expressive now use strengths 6, 10, and 14 instead of 18, 27, and 36. Font names, coverage, advance widths, shaping features, and variable axes stay compatible.
+
+The roughener CLI and `FontRoughener` now default to strength 14. Noto Sketch remains the default across light and dark themes and all roughness levels, with regression coverage for app startup and explicit Recursive selection. A reproducible specimen harness captures the bundled faces at reading sizes in both themes and narrow and wide layouts.
+
+- **WiredCheckbox shows the value it is given.** `WiredCheckbox` no longer keeps its own copy of `value`. Before, a tap checked the box even when the parent ignored `onChanged`, so the box could disagree with the app's state. It now behaves like Material's `Checkbox`: a tap reports the new value, and the box changes when the parent rebuilds it. A disabled checkbox is now drawn in the theme's disabled color instead of looking enabled. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **Circular progress stops spinning once it has a value.** `WiredCircularProgress` and `WiredCircularProgressIndicator` kept their animation controllers repeating after `value` went from null to a number, scheduling a frame every tick for an indicator that no longer moves and making `pumpAndSettle` time out. They now stop when determinate and restart when the value goes back to null. Both take a new `semanticLabel` and announce the percentage, like `WiredProgress`. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **Context menus stay on screen and close like menus.** `WiredContextMenu` now opens as a modal route. The menu stays inside the screen's safe area, opens above its anchor when there is no room below, traps focus, and closes on a tap outside, the Escape key, or the back gesture. Enter and Space activate the focused item, a right-click opens the menu on desktop, and screen readers hear it named by the new `semanticLabel`, which defaults to `Menu`. It is drawn on the theme's paper instead of a hard-coded white sheet that hid its border and dark-theme text, destructive items use the theme's `errorColor`, and the widget no longer imports Material. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **crampedText ignores the clipped side of an icon's shape.** `crampedText(root, icons: true)` no longer reports an icon whose shape is partly scrolled out of view or clipped, such as a chip half under an app bar. As with text, a side that a clip has cut off shows nothing to crowd. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **`crampedText` measures a label against the border painted over it.** When two hand-drawn borders of the same size surround a label, `crampedText` now measures against the later one, which paints over the first. An elevated button's label is measured from its paper face instead of the offset shadow underneath, so it no longer reports a 2-pixel shortfall that nobody can see. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #259](https://github.com/openbudgetfun/skribble/pull/259)
+
+#### Cupertino slider semantics and search field fixes
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+`WiredCupertinoSlider` now reports a slider with its value and increase and decrease actions, and accepts `semanticLabel`. It no longer fails to lay out when `min` equals `max`, snaps divisions from `min` rather than from zero (a 1–4 range in two steps lands on 1, 2.5, and 4), and puts the minimum at the right under right-to-left text.
+
+`WiredCupertinoSearchTextField` no longer throws when a `focusNode` is supplied after the first build, keeps its placeholder at the start of the line under right-to-left text, and leaves focus traversal while disabled. `WiredCupertinoTextField` and the section headers of `WiredCupertinoListSection` and `WiredCupertinoFormSection` mirror their start and end spacing under right-to-left text.
+
+- **Pull to refresh works with a real drag.** `WiredCustomRefreshIndicator` only refreshed when a single overscroll step passed 50 pixels, which a real drag almost never does, and never on iOS, where lists bounce instead of reporting overscroll. It now adds up the pull across the drag, handles clamping and bouncing physics, refreshes once per pull, and no longer writes to its state when a refresh finishes after the widget is gone. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **Dialogs hug their content.** `WiredDialog` drew its border as a sizing child, and a canvas takes all the room it is offered, so every dialog stretched to the full height of the screen. The border now follows the content, and the dialog also lays out inside unbounded height. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **`WiredDoodle` keeps its ink when its parent rebuilds.** `WiredDoodle`'s painter now compares by value, like the painter bases and `WiredLogo`. Before, every parent rebuild handed `WiredCanvas` a new painter, which regenerated the doodle's curves and pen strokes and repainted it. The doodle geometry is also generated only when the canvas prepares its ink, not on every build. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **The example app runs on SkribbleApp.** Sketch Notes, the example app, now uses `SkribbleApp` with a `WiredMaterialTheme` builder, the setup the getting-started guide teaches, instead of the `WiredMaterialApp` bridge. Its tests cover every screen in that shell. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+#### Give the Recursive lettering a gentle lean
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #274](https://github.com/openbudgetfun/skribble/pull/274)
+
+Regenerate all 126 static faces and three variable faces with shorter, smooth waves and a deterministic per-glyph lean of at most 0.045 degrees per strength unit. Gentle, Playful, and Expressive now use strengths 12, 20, and 28, with maximum leans of 0.54, 0.9, and 1.26 degrees. Vertical movement is 0.3 of the strength, fades to zero at the base outline's top and bottom, and is reduced for short punctuation; there is no baseline bounce. Font names, coverage, advance widths, shaping, and variation axes stay compatible.
+
+`FontRoughener` and the standalone CLI now default to strength 20 (Playful). The legacy Expressive tool and storybook copies are synchronized with the regenerated faces. Noto Sketch remains the system default, and no Noto font changed.
+
+#### Icons centre and label like Icon, and short progress bars stay visible
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #248](https://github.com/openbudgetfun/skribble/pull/248) · _Closed issues:_ [#246](https://github.com/openbudgetfun/skribble/issues/246)
+
+`WiredSvgIcon`, and so `SkribbleIcon` and `WiredIcon`, drew its glyph in the top-left corner whenever a parent forced a box larger than its size, as an input decoration's prefix and suffix slots and fixed-size badges do. The drawing is now centred, as Flutter's `Icon` centres its glyph.
+
+An icon's `semanticLabel` also carried an image flag. Inside a parent that merges its descendants, such as a card, that flag spread to the whole merged node, so assistive technology announced the card as one image and lost its group and name. The label is now plain, as `Icon`'s is, and joins the parent's label as text.
+
+`WiredProgress` inset its marker by the pen's ink inside a box that had already been inset by the same amount. At a 12- or 14-pixel height the bar became a hairline, and a small value painted nothing. The marker is now laid out against the track's interior, so its painted edge lands exactly on the value, and a bar shorter than its ink plus a 6-pixel band is raised to that height.
+
+#### Hatched icons draw the same strokes wherever they appear
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+`WiredSvgIconPainter` jitters its hachure and cross-hatch lines from a private copy of its `DrawConfig`'s random stream. Icons that share one `DrawConfig`, such as an app passing the same `drawConfig` to every `WiredSvgIcon`, used to continue each other's stream, so an icon's strokes changed with whichever icon happened to paint first. Icons with the theme's own config draw exactly as before.
+
+A `hachureGap` of zero or less no longer throws `UnsupportedError`; gaps below half a pixel draw at half a pixel.
+
+#### Icons reuse prepared ink, so scrolling lists of them stop dropping frames
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #251](https://github.com/openbudgetfun/skribble/pull/251)
+
+Every `WiredSvgIcon` that appeared — including a list item scrolling back into view seconds after it was first drawn — re-parsed its SVG paths, re-wavered every contour, and re-inked every pen outline before it could paint. The benchmark app measured a 200-item icon list at 34 ms per frame, more than twice the frame budget and 3.6 times the cost of drawing precomputed paths.
+
+Icons with the same geometry, size, colour, weight, fill style, and draw config now share one painter through a bounded cache (256 entries, least-recently-used evicted), so a revisited icon paints at precomputed-path cost and no visible detail changes: the shared painter holds exactly the ink the fresh one would have rebuilt from the same seed. Each path primitive's SVG data is also parsed once per primitive instead of once per appearance, which helps beyond the cache's horizon in the large Material and Simple Icons catalogs. A probe of the 200-item scroll found all 51 distinct icons prepared exactly once, and zero preparations on the return scroll.
+
+`RoughDrawing` and the icon painter also stopped allocating `Paint` objects on every frame while animating progress or pressure; every constant paint is prepared once with the ink it belongs to.
+
+#### Layout widgets make room for their content
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+- `WiredDataTable` honours `WiredDataColumn.width`, which it used to ignore, gives other columns at least the new `minColumnWidth` (96 by default), and scrolls sideways on narrow screens instead of squeezing each column into a thin stack of lines. Column labels are announced as headers.
+- `WiredDivider` draws its line in the middle of its 16 pixels instead of along the top, and no longer needs Material.
+- `WiredGridTileBar.height` and `WiredReorderableListView.itemHeight` are minimums: the bar and the items grow with large text instead of overflowing or clipping, and list items keep 8 pixels above and below their content.
+- `WiredStepper` circles grow enough to keep the ink's breathing room around the step number at large text, and the connecting line stays under the middle of the circle.
+- `WiredColorPicker` honours `crossAxisCount`, which it used to ignore, and its swatches take keyboard focus and are announced as buttons named by their hex value with their selected state.
+- `WiredBottomSheet` keeps its content above the home indicator.
+- `WiredExpansionPanelList` headers and `WiredExpansionTile` report themselves as buttons with their expanded state.
+
+#### Buttons are one labelled node and keep their padding everywhere
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+`WiredButton`, `WiredElevatedButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredTextButton`, and `WiredIconButton` now expose a single semantics node: a button with its enabled state, tap and focus actions, and its label. They used to add an empty button node around the real one, and `semanticLabel` left the inner node unlabelled. A `semanticLabel` now replaces the label text instead of being read alongside it.
+
+A disabled `WiredElevatedButton`, `WiredOutlinedButton`, or `WiredTextButton` writes its label in `theme.disabledTextColor`, as the docs already promised. It used Material's default disabled grey, which vanished on dark paper. A disabled `WiredIconButton` dims its default glyph the same way.
+
+The rectangular buttons keep `kWiredButtonPadding` on macOS, Windows, and Linux, where Material's compact desktop density took 8 pixels off it and left large text touching the ink. `WiredTextButton` keeps `kWiredInkPadding` at every text scale, so its underline never touches the label.
+
+`WiredButton`, `WiredElevatedButton`, and `WiredFilledButton` accept `seed`, as `WiredOutlinedButton` already did.
+
+#### Keyboard focus and Enter/Space for every leaf control
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+Chips (`WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`, `WiredActionChip`), `WiredToggleButtons`, `WiredSegmentedButton`, `WiredCupertinoButton`, `WiredCupertinoSwitch`, the segments of `WiredCupertinoSegmentedControl` and `WiredSlidingSegmentedControl`, the tabs of `WiredCupertinoTabBar`, Cupertino dialog and action sheet actions, and the back buttons of `WiredCupertinoNavigationBar` and `WiredSearchAnchor` can now be reached with Tab and activated with Enter or Space. Each reports its role and enabled state, and selected or toggled state where it has one.
+
+The focus outline is drawn by hand in the theme's `borderColor`, a few pixels outside the control. It was a straight, fixed dark ring that disappeared on dark paper.
+
+Disabled controls no longer take focus or offer a tap action: a `WiredRadio` without `onChanged` kept its inner control enabled and focusable, chips without a callback still offered a tap, and `WiredRadioListTile` and `WiredSwitchListTile` stayed tappable when disabled.
+
+`WiredChip` is no longer announced as a button; its close icon is a separate, labelled button. `WiredChip` and `WiredInputChip` gain `deleteButtonSemanticLabel` to change that label from `Delete`.
+
+#### Leaf controls stay readable in dark themes and at large text
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+- A selected `WiredInputChip` is filled with ink and writes its label in the paper colour, like the other chips. It wrote white text on a paper fill.
+- Every chip keeps `kWiredButtonPadding` around its label.
+- A selected `WiredSegmentedButton` segment is washed with `markerColor`; its hachure lines ran through the label. Segment labels use `theme.textColor`.
+- `WiredInput` writes `errorText` and the `maxLength` counter below the ink, where they no longer touch the border, and writes its value in `theme.textColor`. `WiredTextArea` and `WiredAutocomplete` also write in the theme's colours, and the autocomplete suggestions sit on the theme's paper instead of showing the page through them.
+- `WiredCupertinoAlertDialog` and `WiredCupertinoActionSheet` sit on the theme's `fillColor` with the ink drawn over it. They painted a white box over the outline, which hid half the line and made light text unreadable in dark themes. The dialog stacks its actions one per row when there are more than two or the text is scaled past 1.5×, so labels no longer break mid-word.
+- `WiredToggleButtons.height` and `WiredCupertinoTabBar.height` are minimums, so larger text grows the control instead of clipping or overflowing it.
+- `WiredSwitch` paints `inactiveColor` when it is set; it was ignored.
+
+- **showWiredMaterialBanner shows your banner.** `showWiredMaterialBanner` ignored its arguments and showed an empty strip with a Material divider. It now shows a `WiredMaterialBanner` with the given `content`, `leading`, `actions`, and `backgroundColor`, and calls `onVisible` once the banner has slid in. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **`WiredMaterialTheme` keeps its Material theme across rebuilds.** `WiredMaterialTheme` converts its Wired theme to a Material `ThemeData` once per distinct theme and brightness, instead of on every build. Used as a `SkribbleApp` builder it rebuilt with the app, each time running `ColorScheme.fromSeed` and handing every Material descendant a new theme. `WiredThemeData` also gains dartdoc for its colours, stroke width, constructor, `defaultTheme`, and `copyWith`. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+#### Popup menus, Cupertino navigation bars, and swipe-to-delete follow the theme
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+- `WiredPopupMenuButton` items keep `kWiredInkPadding` inside their hand-drawn boxes, instead of 4 pixels above and below. The menu outline uses the theme's `strokeWidth` instead of a fixed 1.5.
+- `WiredCupertinoNavigationBar` no longer shows the route's name, such as `/` or `/settings`, as its title. Like `CupertinoNavigationBar`, it implies the title from a `CupertinoPageRoute`'s `title`.
+- `WiredDismissible`'s default delete background uses the theme's `errorColor` instead of Material red, and its icon is drawn in whichever of the theme's ink or paper stands out more. `deleteColor` is now nullable, and null means the theme's error color.
+
+#### Navigation fits narrow phones, notches, and keyboards
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+- `WiredAppBar` keeps its title on one line with an ellipsis, follows text scaling up to 1.34 times like Material's app bar, and marks the title as a header. Long titles used to wrap and be cut off.
+- `WiredTabBar` keeps each label on one line with an ellipsis and a little side padding, so neighbouring labels no longer run together or get cut mid-word, and its underline stays below the letters. The bar is now exactly its `height`, which an app bar's `bottom` slot requires.
+- `WiredBottomNavigationBar` and `WiredNavigationBar` pad themselves above the home indicator of notched phones, and grow with large text instead of overflowing.
+- Tabs, bottom navigation items, navigation bar and rail destinations, and navigation drawer destinations take keyboard focus, activate with Enter or Space, and are announced as selectable buttons with their selected state. Tabs also announce their position, such as `Reviews, tab 3 of 4`.
+
+#### Noto Sketch is the default lettering outside Flutter too
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #263](https://github.com/openbudgetfun/skribble/pull/263)
+
+`skribbleCss` now lists `SkribbleNotoSketch` first in `--skribble-font`, then a locally installed "Skribble Noto Sketch", then the previous Recursive `Skribble` family, so pages that self-host only the old font keep working. Self-host `SkribbleNotoSketch-Regular.ttf` from `skribble_font_noto_sketch` to use the default.
+
+`WiredLoadingScreen`, `WiredCupertinoPicker`, and `WiredCupertinoDatePicker` now pass the theme's `fontFamilyFallback` through with the qualified family, so kit scripts such as Japanese or Korean render in Noto Sketch there as well. The design kit exported by `packages/skribble/tool/design_kit.dart` includes the three Skribble Noto faces, with Noto Sketch marked as the default.
+
+#### Every public member is documented
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+Every public class, member, and parameter in `skribble`, `skribble_rough`, and `skribble_font_roughen` now has a `///` doc comment that says what it does, its default, and its units. Parameters that pass straight through to Flutter, such as the `MaterialApp` options on `WiredMaterialApp`, link to the Flutter member they mirror.
+
+`skribble_lints` now turns on `public_member_api_docs`, so `dart analyze --fatal-infos` fails on any undocumented public member in a package that includes it. It also drops the dead `missing_return` entry; the analyzer reports a missing return as the `body_might_complete_normally` compile error.
+
+#### The package READMEs start with a working app
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+The `skribble` README on pub.dev now opens with the Flutter and Dart minimums, one `flutter pub add skribble skribble_font_noto_sketch` command, and the same minimal `SkribbleApp` the docs use, including the `WiredMaterialTheme` builder that `WiredInput` and the other Material-wrapping widgets need. It adds the typeface table and the package catalog, drops the contributor-only rough icon pipeline flags (they live in `docs/rough-icon-pipeline.md`), and fixes links that pointed at files outside the package.
+
+The font package READMEs install with `flutter pub add` instead of a pinned version; `skribble_font_recursive` still asked for `^0.1.1`.
+
+#### Empty arcs and negative boxes no longer hang or throw
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+`Generator.arc`, `OpSetBuilder.arc`, and `OpSetBuilder.arcPolygon` return empty ink for a sweep that is empty (`start == stop`), reversed, or not finite. Before, the arc samplers stepped by half the sweep, so a zero sweep never advanced and a reversed one walked away from its stop, hanging the isolate while it ran out of memory. A start angle far below zero is also normalised in one step instead of a turn at a time. Ordinary arcs draw exactly as before; the JavaScript parity fixtures are unchanged.
+
+`Generator.roundedRectangle` no longer throws `ArgumentError` for a negative width or height.
+
+- **`RoughBoxDecoration` hatches the same way with a shared filler.** A `RoughBoxDecoration` now replays its filler's random stream before it prepares a shape, as `WiredCanvas` already did. A `filler` instance shared between decorations, or kept in a constant, used to carry on from wherever the previous box stopped, so two equal boxes hatched differently and a box re-hatched itself whenever it was resized. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+#### Move the rough engine into the pure-Dart skribble_rough package
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #247](https://github.com/openbudgetfun/skribble/pull/247)
+
+The Flutter-free half of the rough engine (`DrawConfig`, `Generator`, the fillers, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set data structures) now lives in the new `skribble_rough` package, which depends on nothing but the Dart SDK. Command-line tools, servers, and web frameworks can draw the same seeded shapes as the Flutter widgets without pulling in Flutter.
+
+`skribble` depends on `skribble_rough` and re-exports exactly the names it exported before, so `import 'package:skribble/skribble.dart'` keeps working unchanged. The `dart:ui` painting layer (`RoughDrawing`, the `Rough` canvas extension, and `RoughBoxDecoration`) stays in `skribble`. Code that imported the engine's private `package:skribble/src/rough/...` files should import `package:skribble_rough/skribble_rough.dart` instead.
+
+- **Rough borders reuse their outline through color animations.** `RoughOutlinedBorder` and the rough input border cached a prepared outline for every color they were painted in, so Material's focus and hover color fades regenerated the hand-drawn outline on every frame and filled the shared cache. The cache now keys outlines by their geometry only, and the color is applied as the outline is painted: a 20-step fade prepares one outline instead of 21. `RoughDrawing.paint` takes a new optional `outlineColor` for the same purpose. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **Material-backed widgets work in a SkribbleApp.** `WiredMaterialTheme` now adds a transparent `Material` and a `ScaffoldMessenger` when there are none above it, and adds Cupertino localizations next to the Material ones. Used as `SkribbleApp(builder: (context, child) => WiredMaterialTheme(child: child!))`, it lets every skribble widget that still wraps Material run without a `MaterialApp`. Before, `WiredInput`, `WiredCheckbox`, `WiredSlider`, list tiles, drawers, menus, data tables, `showWiredSnackBar`, and the Cupertino date picker threw "No Material widget found" or a missing-localizations error. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+#### Fields, tab bars, and app bars keep text clear of the ink
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
+- `WiredInput`, `WiredTextArea`, `WiredAutocomplete`, `WiredSearchBar`, and `WiredCupertinoTextField` keep the standard density on desktop. Material's compact density had taken 4 pixels off each side, so on macOS a text area's hint sat 6 pixels from its border.
+- `WiredTabBar`'s `height` is now a minimum. The bar grows with large text and keeps 8 pixels between each label and its underline, and it stays exactly `height` tall in an app bar's `bottom` slot.
+- `WiredAppBar` applies its 1.34× text-scale limit to `leading` and `actions` as well as the title, so a text button in the fixed-height bar no longer presses against its line at 2× text.
+
+- **Material themes keep skribble's error and marker colors.** `WiredThemeData.toColorScheme` (and so `toThemeData`, `WiredMaterialTheme`, and `WiredMaterialApp`) now sets Material's `error` to the theme's `errorColor`, so Material error text and outlines match skribble's instead of a red derived from the seed color. `WiredThemeInterop.fromThemeData` and `fromColorScheme` read `errorColor` from `colorScheme.error` and `markerColor` from `colorScheme.primaryContainer`, so a round trip keeps both. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+- **Time picker works from the keyboard and screen readers.** `WiredTimePicker` could only be changed by dragging. Its hour and minute fields now take focus, step with the up and down arrow keys, and are announced as `Hour` and `Minute` with values screen readers can raise and lower. With large text the fields shrink to fit the picker instead of overflowing it, and the digits keep `kWiredInkPadding` from the ink. `WiredTimePicker` and `WiredDatePicker` are no longer announced as buttons. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #276](https://github.com/openbudgetfun/skribble/pull/276)
+
 ## [0.3.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.3.1) (2026-10-08)
 
 ### Fixes

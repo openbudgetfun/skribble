@@ -3,7 +3,7 @@ description: |
   Skribble Noto: a hand-drawn typeface generated from Google Noto Sans (Soft
   level), for Latin, Greek and Cyrillic. Every other Noto script is in the
   Skribble Noto font kit.
-version: 0.3.1
+version: 0.4.0
 homepage: https://github.com/openbudgetfun/skribble
 repository: https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_font_noto
 documentation: https://github.com/openbudgetfun/skribble/blob/main/packages/skribble_font_noto/README.md
