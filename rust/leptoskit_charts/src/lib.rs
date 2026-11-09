@@ -1,7 +1,7 @@
 //! Hand-drawn financial charts for leptoskit apps.
 //!
 //! Candlesticks, OHLC bars, lines, areas, volume bars, and technical overlays
-//! for apps written once with [leptoskit](https://github.com/ifiokjr/leptoskit).
+//! for apps written once with [leptoskit](https://github.com/leptoskit/leptoskit).
 //! The ink comes from [`skribble_rough`](https://github.com/openbudgetfun/skribble/tree/main/rust/rough),
 //! the same engine skribble's Flutter and Jaspr charts paint with, so a seed
 //! wobbles the same everywhere.

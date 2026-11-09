@@ -16,10 +16,26 @@ skribble_leptoskit = { path = "rust/leptoskit", version = "0.1.0" }
 skribble_rough = { path = "rust/rough", version = "0.1.0" }
 
 leptos = { version = "0.9.0-rc1", default-features = false }
+# The leptoskit requirements stay crates.io ranges so consumers stay free to
+# choose their own leptoskit commit. This workspace's own builds and tests
+# follow leptoskit's `main`, which is ahead of the published 0.3 releases,
+# through the `[patch.crates-io]` section below; bump `rev` there, and only
+# there, to follow leptoskit's `main`. Consumers add the same entries to
+# their own root manifest; see `rust/leptoskit/README.md`.
 leptoskit = { version = "0.3.0", default-features = false }
 leptoskit_native = { version = "0.3.0", default-features = false }
 leptoskit_testing = { version = "0.3.0" }
 serde_json = { version = "1", features = ["float_roundtrip"] }
+
+# `[patch]` sections apply only from the workspace root, so these entries
+# reach this repository's own builds but not a consumer's;
+# `rust/leptoskit/README.md` documents the entries a consumer adds. Keep
+# every entry at the same rev, and the same rev for any leptoskit crate you
+# depend on directly, so the graph holds one leptoskit checkout.
+[patch.crates-io]
+leptoskit = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit_native = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit_testing = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
 
 [workspace.lints.rust]
 rust_2024_compatibility = { level = "deny", priority = -1 }

@@ -1,18 +1,29 @@
 # skribble_leptoskit
 
-Hand-drawn [leptoskit](https://github.com/ifiokjr/leptoskit) components from the [skribble](https://openbudgetfun.github.io/skribble/) design system: rough borders, sketched fills, pen marks, and doodles for an interface you write once in Rust and ship to the web and to native platforms.
+Hand-drawn [leptoskit](https://github.com/leptoskit/leptoskit) components from the [skribble](https://openbudgetfun.github.io/skribble/) design system: rough borders, sketched fills, pen marks, and doodles for an interface you write once in Rust and ship to the web and to native platforms.
 
 The ink comes from [`skribble_rough`](https://github.com/openbudgetfun/skribble/tree/main/rust/rough), the Rust port of the engine skribble's Flutter widgets paint with, so the same seed draws the same wobble everywhere.
 
 ## Install
-
-The crate builds on leptoskit 0.3:
 
 ```toml
 [dependencies]
 leptoskit = "0.3"
 skribble_leptoskit = "0.1"
 ```
+
+<!-- {=leptoskitPatch} -->
+
+The leptoskit requirements above stay crates.io ranges so you stay free to choose your own leptoskit commit, but the skribble Rust crates build and test against leptoskit's `main`, which runs ahead of the 0.3 releases on crates.io. Bring the same commit into your build with a `[patch.crates-io]` section in your root `Cargo.toml`: cargo applies `[patch]` sections only from the workspace root, so a patch inside a dependency never reaches you. Keep every entry at the same rev, in step with the rev pinned in [`Cargo.toml`](https://github.com/openbudgetfun/skribble/blob/main/Cargo.toml) at the root of the skribble repository at the commit you depend on, and give any leptoskit crate you depend on directly that same rev, so the graph holds one leptoskit checkout. The rev below needs Rust 1.95 or later.
+
+```toml
+[patch.crates-io]
+leptoskit = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit_native = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit_testing = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+```
+
+<!-- {/leptoskitPatch} -->
 
 There is no feature to turn on: the same build draws the ink on the web and on every native platform.
 

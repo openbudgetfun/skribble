@@ -4,6 +4,9 @@
 use leptos::prelude::RenderHtml;
 use leptoskit::prelude::*;
 use leptoskit_native::web::render;
+// leptoskit grew a `Camera` widget of its own, so the glob alone would leave
+// the name ambiguous; the explicit import keeps this crate's projection type.
+use skribble_leptoskit_maps::Camera;
 use skribble_leptoskit_maps::*;
 
 fn html(element: Element) -> String {

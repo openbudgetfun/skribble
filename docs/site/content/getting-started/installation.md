@@ -106,7 +106,7 @@ flutter pub add skribble_charts  # hand-drawn financial charts
 
 - **Jaspr websites.** `skribble_jaspr` renders rough borders, highlights, and doodles on the server with zero client JavaScript. See [Using skribble on Jaspr](../guides/jaspr).
 - **JavaScript and TypeScript.** The `@skribble.dev` npm packages draw the same hand-drawn shapes in plain browsers, Node, React, React Native, Vue, and Svelte, and replace rough.js. See [Using skribble from JavaScript](../guides/javascript).
-- **Rust and leptoskit.** `skribble_leptoskit` brings the hand-drawn components to [leptoskit](https://github.com/ifiokjr/leptoskit) apps written once in Rust, on the web and natively. `skribble_rough` is the Rust port of the rough engine underneath. See [Using skribble with leptoskit](../guides/leptoskit).
+- **Rust and leptoskit.** `skribble_leptoskit` brings the hand-drawn components to [leptoskit](https://github.com/leptoskit/leptoskit) apps written once in Rust, on the web and natively. `skribble_rough` is the Rust port of the rough engine underneath. See [Using skribble with leptoskit](../guides/leptoskit).
 
 ## Contribute to skribble
 
