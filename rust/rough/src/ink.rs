@@ -67,6 +67,172 @@ impl InkOutlineSink for SvgInkOutline {
 	}
 }
 
+/// Writes an [`InkStroke`] outline as compact SVG path data, for drawings
+/// that ship to a browser or over the air.
+///
+/// The pen samples a stroke every pen width or so, which keeps the taper
+/// smooth but writes far more points than a screen can show. This sink drops
+/// the samples that lie within `tolerance` of the line through their
+/// neighbours, then draws through the rest with the same midpoint curves, and
+/// writes two decimals with no spare spaces. The outline moves by at most
+/// about `tolerance`; [`SvgInkOutline`] keeps every sample, for parity with
+/// the other engines.
+#[derive(Debug, Clone, PartialEq)]
+pub struct CompactSvgInkOutline {
+	tolerance: f64,
+	commands: Vec<OutlineCommand>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+enum OutlineCommand {
+	Move(f64, f64),
+	Line(f64, f64),
+	Quadratic(f64, f64, f64, f64),
+	Close,
+}
+
+impl CompactSvgInkOutline {
+	/// A sink that keeps the outline within `tolerance` of the pen's samples.
+	/// A tolerance of zero, or one that isn't finite, keeps every sample.
+	pub fn new(tolerance: f64) -> Self {
+		Self {
+			tolerance: if tolerance.is_finite() {
+				tolerance.max(0.0)
+			} else {
+				0.0
+			},
+			commands: Vec::new(),
+		}
+	}
+
+	/// The compacted path data.
+	pub fn into_string(self) -> String {
+		let mut data = String::new();
+		let commands = &self.commands;
+		let mut index = 0;
+		while index < commands.len() {
+			// A smoothed side is a line to its first sample, a curve through
+			// each sample with the midpoint after it as its end, and a line to
+			// its last sample. Its samples are the line ends and the controls.
+			if let OutlineCommand::Line(x, y) = commands[index] {
+				let mut end = index + 1;
+				let mut samples = vec![(x, y)];
+				while let Some(OutlineCommand::Quadratic(cx, cy, ..)) = commands.get(end) {
+					samples.push((*cx, *cy));
+					end += 1;
+				}
+				if end > index + 1
+					&& let Some(OutlineCommand::Line(lx, ly)) = commands.get(end)
+				{
+					samples.push((*lx, *ly));
+					let kept = simplify(&samples, self.tolerance);
+					write_command(&mut data, 'L', &[kept[0].0, kept[0].1]);
+					for pair in kept[1..].windows(2) {
+						let ((x, y), (next_x, next_y)) = (pair[0], pair[1]);
+						write_command(
+							&mut data,
+							'Q',
+							&[x, y, (x + next_x) / 2.0, (y + next_y) / 2.0],
+						);
+					}
+					let (last_x, last_y) = kept[kept.len() - 1];
+					write_command(&mut data, 'L', &[last_x, last_y]);
+					index = end + 1;
+					continue;
+				}
+			}
+			match commands[index] {
+				OutlineCommand::Move(x, y) => write_command(&mut data, 'M', &[x, y]),
+				OutlineCommand::Line(x, y) => write_command(&mut data, 'L', &[x, y]),
+				OutlineCommand::Quadratic(cx, cy, x, y) => {
+					write_command(&mut data, 'Q', &[cx, cy, x, y]);
+				}
+				OutlineCommand::Close => data.push('Z'),
+			}
+			index += 1;
+		}
+		data
+	}
+}
+
+impl Default for CompactSvgInkOutline {
+	/// A quarter of a logical pixel: invisible at any zoom a screen uses.
+	fn default() -> Self {
+		Self::new(0.25)
+	}
+}
+
+impl InkOutlineSink for CompactSvgInkOutline {
+	fn move_to(&mut self, x: f64, y: f64) {
+		self.commands.push(OutlineCommand::Move(x, y));
+	}
+
+	fn line_to(&mut self, x: f64, y: f64) {
+		self.commands.push(OutlineCommand::Line(x, y));
+	}
+
+	fn quadratic_to(&mut self, cx: f64, cy: f64, x: f64, y: f64) {
+		self.commands.push(OutlineCommand::Quadratic(cx, cy, x, y));
+	}
+
+	fn close(&mut self) {
+		self.commands.push(OutlineCommand::Close);
+	}
+}
+
+/// Appends `command` and its values with two decimals, separated only
+/// where a value doesn't already start with a minus sign.
+fn write_command(data: &mut String, command: char, values: &[f64]) {
+	data.push(command);
+	for (index, value) in values.iter().enumerate() {
+		let number = format_number(*value, 2);
+		if index > 0 && !number.starts_with('-') {
+			data.push(' ');
+		}
+		data.push_str(&number);
+	}
+}
+
+/// The points of `polyline` that keep every dropped point within `tolerance`
+/// of the line between the points kept on either side of it
+/// (Ramer–Douglas–Peucker). The first and last points always stay.
+fn simplify(polyline: &[(f64, f64)], tolerance: f64) -> Vec<(f64, f64)> {
+	if polyline.len() < 3 || tolerance <= 0.0 {
+		return polyline.to_vec();
+	}
+	let mut keep = vec![false; polyline.len()];
+	keep[0] = true;
+	keep[polyline.len() - 1] = true;
+	let mut spans = vec![(0, polyline.len() - 1)];
+	while let Some((first, last)) = spans.pop() {
+		let (ax, ay) = polyline[first];
+		let (bx, by) = polyline[last];
+		let (dx, dy) = (bx - ax, by - ay);
+		let length = dx.hypot(dy);
+		let mut farthest = (0.0, first);
+		for (index, &(px, py)) in polyline.iter().enumerate().take(last).skip(first + 1) {
+			let distance = if length == 0.0 {
+				(px - ax).hypot(py - ay)
+			} else {
+				((px - ax) * dy - (py - ay) * dx).abs() / length
+			};
+			if distance > farthest.0 {
+				farthest = (distance, index);
+			}
+		}
+		if farthest.0 > tolerance {
+			keep[farthest.1] = true;
+			spans.push((first, farthest.1));
+			spans.push((farthest.1, last));
+		}
+	}
+	polyline
+		.iter()
+		.zip(keep)
+		.filter_map(|(point, kept)| kept.then_some(*point))
+		.collect()
+}
+
 /// How one [`InkStroke`] is laid down.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct InkStrokeOptions {
@@ -132,6 +298,15 @@ impl InkStroke {
 	/// The outline of the whole stroke as SVG path data, to be filled.
 	pub fn svg_path_data(&self) -> String {
 		let mut sink = SvgInkOutline::default();
+		self.write_outline(&mut sink, f64::INFINITY);
+		sink.into_string()
+	}
+
+	/// The outline of the whole stroke as compact SVG path data, within
+	/// `tolerance` of [`InkStroke::svg_path_data`]: see
+	/// [`CompactSvgInkOutline`].
+	pub fn compact_svg_path_data(&self, tolerance: f64) -> String {
+		let mut sink = CompactSvgInkOutline::new(tolerance);
 		self.write_outline(&mut sink, f64::INFINITY);
 		sink.into_string()
 	}
@@ -654,12 +829,26 @@ pub struct DrawableInkSet {
 impl DrawableInkSet {
 	/// This set as SVG paths.
 	pub fn svg_paths(&self) -> Vec<InkSvgPath> {
+		self.paths(None)
+	}
+
+	/// This set as compact SVG paths, within `tolerance` of
+	/// [`DrawableInkSet::svg_paths`]: pen strokes go through
+	/// [`CompactSvgInkOutline`] and centrelines keep two decimals.
+	pub fn compact_svg_paths(&self, tolerance: f64) -> Vec<InkSvgPath> {
+		self.paths(Some(tolerance))
+	}
+
+	fn paths(&self, compact: Option<f64>) -> Vec<InkSvgPath> {
 		if let Some(strokes) = &self.strokes {
 			return strokes
 				.iter()
 				.map(|stroke| InkSvgPath {
 					kind: self.kind,
-					data: stroke.svg_path_data(),
+					data: match compact {
+						Some(tolerance) => stroke.compact_svg_path_data(tolerance),
+						None => stroke.svg_path_data(),
+					},
 					filled: true,
 					stroke_width: 0.0,
 				})
@@ -667,6 +856,27 @@ impl DrawableInkSet {
 		}
 		if self.ops.is_empty() {
 			return Vec::new();
+		}
+
+		let filled = self.kind == OpSetKind::FillPath;
+		if compact.is_some() {
+			let mut data = String::new();
+			for op in &self.ops {
+				let values = op
+					.points()
+					.flat_map(|point| [point.x, point.y])
+					.collect::<Vec<_>>();
+				write_command(&mut data, op.command(), &values);
+			}
+			if filled {
+				data.push('Z');
+			}
+			return vec![InkSvgPath {
+				kind: self.kind,
+				data,
+				filled,
+				stroke_width: if filled { 0.0 } else { self.width },
+			}];
 		}
 
 		let mut data = String::new();
@@ -685,7 +895,6 @@ impl DrawableInkSet {
 			}
 			data.push(' ');
 		}
-		let filled = self.kind == OpSetKind::FillPath;
 		let mut data = data.trim_end().to_owned();
 		if filled {
 			data.push_str(" Z");
@@ -789,13 +998,23 @@ impl DrawableInk {
 	/// The ink as SVG paths, in paint order: solid fills, sketched fills, then
 	/// outlines.
 	pub fn svg_paths(&self) -> Vec<InkSvgPath> {
+		self.paths(None)
+	}
+
+	/// The ink as compact SVG paths, in paint order, within `tolerance` of
+	/// [`DrawableInk::svg_paths`]. See [`DrawableInkSet::compact_svg_paths`].
+	pub fn compact_svg_paths(&self, tolerance: f64) -> Vec<InkSvgPath> {
+		self.paths(Some(tolerance))
+	}
+
+	fn paths(&self, compact: Option<f64>) -> Vec<InkSvgPath> {
 		[OpSetKind::FillPath, OpSetKind::FillSketch, OpSetKind::Path]
 			.into_iter()
 			.flat_map(|kind| {
 				self.sets
 					.iter()
 					.filter(move |set| set.kind == kind)
-					.flat_map(DrawableInkSet::svg_paths)
+					.flat_map(move |set| set.paths(compact))
 			})
 			.collect()
 	}
@@ -871,5 +1090,217 @@ mod tests {
 		assert_eq!(contours.len(), 2);
 		assert_eq!(contours[0].1, 0);
 		assert_eq!(contours[1].1, 1);
+	}
+
+	fn count(data: &str, command: char) -> usize {
+		data.chars().filter(|c| *c == command).count()
+	}
+
+	/// Every number in `data`, in order.
+	fn numbers(data: &str) -> Vec<f64> {
+		let mut out = Vec::new();
+		let mut current = String::new();
+		for c in data.chars() {
+			if c.is_ascii_digit() || c == '.' || (c == '-' && current.is_empty()) {
+				current.push(c);
+			} else {
+				if !current.is_empty() {
+					out.push(current.parse().unwrap());
+					current.clear();
+				}
+				if c == '-' {
+					current.push(c);
+				}
+			}
+		}
+		if !current.is_empty() {
+			out.push(current.parse().unwrap());
+		}
+		out
+	}
+
+	fn curve() -> Vec<Op> {
+		vec![
+			Op::move_to(Point::new(0.0, 20.0)),
+			Op::CurveTo {
+				control1: Point::new(30.0, -10.0),
+				control2: Point::new(70.0, 50.0),
+				end: Point::new(100.0, 20.0),
+			},
+		]
+	}
+
+	#[test]
+	fn compact_ink_keeps_far_fewer_samples_than_exact_ink() {
+		let stroke = InkStroke::new(&curve(), InkStrokeOptions::new(2.0, RoughPen::INK));
+		let exact = stroke.svg_path_data();
+		let compact = stroke.compact_svg_path_data(0.25);
+		assert!(
+			compact.len() * 3 < exact.len(),
+			"{} vs {}",
+			compact.len(),
+			exact.len()
+		);
+		assert!(count(&compact, 'Q') * 3 < count(&exact, 'Q'));
+		// The contour still starts, closes, and caps the same way.
+		assert!(compact.starts_with('M'));
+		assert!(compact.ends_with('Z'));
+		assert_eq!(count(&compact, 'M'), count(&exact, 'M'));
+		assert_eq!(count(&compact, 'Z'), count(&exact, 'Z'));
+	}
+
+	#[test]
+	fn compact_ink_stays_inside_the_exact_outline_box() {
+		let stroke = InkStroke::new(&curve(), InkStrokeOptions::new(3.0, RoughPen::BRUSH));
+		let bounds = |data: &str| {
+			let values = numbers(data);
+			let xs = values.iter().step_by(2).copied().collect::<Vec<_>>();
+			let ys = values
+				.iter()
+				.skip(1)
+				.step_by(2)
+				.copied()
+				.collect::<Vec<_>>();
+			(
+				xs.iter().copied().fold(f64::INFINITY, f64::min),
+				xs.iter().copied().fold(f64::NEG_INFINITY, f64::max),
+				ys.iter().copied().fold(f64::INFINITY, f64::min),
+				ys.iter().copied().fold(f64::NEG_INFINITY, f64::max),
+			)
+		};
+		let exact = bounds(&stroke.svg_path_data());
+		let compact = bounds(&stroke.compact_svg_path_data(0.25));
+		for (a, b) in [
+			(exact.0, compact.0),
+			(exact.1, compact.1),
+			(exact.2, compact.2),
+			(exact.3, compact.3),
+		] {
+			assert!((a - b).abs() <= 0.26, "{a} vs {b}");
+		}
+	}
+
+	#[test]
+	fn zero_or_unusable_tolerance_keeps_every_sample() {
+		let stroke = InkStroke::new(&curve(), InkStrokeOptions::new(2.0, RoughPen::INK));
+		let exact = count(&stroke.svg_path_data(), 'Q');
+		for tolerance in [0.0, -1.0, f64::NAN, f64::INFINITY] {
+			let kept = count(&stroke.compact_svg_path_data(tolerance), 'Q');
+			assert_eq!(kept, exact, "tolerance {tolerance}");
+		}
+	}
+
+	#[test]
+	fn the_default_compact_sink_allows_a_quarter_pixel() {
+		assert_eq!(
+			CompactSvgInkOutline::default(),
+			CompactSvgInkOutline::new(0.25)
+		);
+	}
+
+	#[test]
+	fn commands_outside_a_smoothed_side_pass_through() {
+		let mut sink = CompactSvgInkOutline::new(1.0);
+		sink.move_to(0.0, 0.0);
+		sink.quadratic_to(1.0, 1.0, 2.0, -2.5);
+		sink.line_to(3.0, 3.0);
+		sink.line_to(-4.125, 5.0);
+		sink.close();
+		assert_eq!(sink.into_string(), "M0 0Q1 1 2-2.5L3 3L-4.13 5Z");
+	}
+
+	#[test]
+	fn a_line_with_no_curves_after_it_is_written_as_it_is() {
+		let mut sink = CompactSvgInkOutline::new(1.0);
+		sink.move_to(0.0, 0.0);
+		sink.line_to(1.0, 0.0);
+		sink.quadratic_to(2.0, 0.0, 3.0, 0.0);
+		sink.close();
+		assert_eq!(sink.into_string(), "M0 0L1 0Q2 0 3 0Z");
+	}
+
+	#[test]
+	fn simplify_drops_points_on_the_line_and_keeps_corners() {
+		let line = [(0.0, 0.0), (1.0, 0.01), (2.0, 0.0), (3.0, 2.0), (4.0, 4.0)];
+		assert_eq!(
+			simplify(&line, 0.1),
+			vec![(0.0, 0.0), (2.0, 0.0), (4.0, 4.0)]
+		);
+		assert_eq!(simplify(&line, 0.0), line.to_vec());
+		assert_eq!(simplify(&line[..2], 5.0), line[..2].to_vec());
+	}
+
+	#[test]
+	fn simplify_measures_from_the_point_when_a_span_closes_on_itself() {
+		let loop_ = [(0.0, 0.0), (0.05, 0.0), (3.0, 0.0), (0.0, 0.0)];
+		assert_eq!(
+			simplify(&loop_, 0.5),
+			vec![(0.0, 0.0), (3.0, 0.0), (0.0, 0.0)]
+		);
+	}
+
+	#[test]
+	fn compact_paths_write_centrelines_with_two_decimals() {
+		let ops = vec![
+			Op::move_to(Point::new(0.123_456, 1.0)),
+			Op::LineTo(Point::new(10.987_654, -2.5)),
+		];
+		let drawable = Drawable {
+			sets: vec![
+				crate::OpSet {
+					kind: OpSetKind::Path,
+					ops: ops.clone(),
+				},
+				crate::OpSet {
+					kind: OpSetKind::FillPath,
+					ops,
+				},
+			],
+			seed: 1,
+			pen: RoughPen::UNIFORM,
+		};
+		let ink = DrawableInk::new(&drawable, DrawableInkOptions::new(2.0, 1.0));
+		let paths = ink.compact_svg_paths(0.25);
+		assert_eq!(paths.len(), 2);
+		assert_eq!(paths[0].data, "M0.12 1L10.99-2.5Z");
+		assert!(paths[0].filled);
+		assert_eq!(paths[1].data, "M0.12 1L10.99-2.5");
+		assert!(!paths[1].filled);
+		assert_eq!(paths[1].stroke_width, 2.0);
+		// The exact paths are unchanged.
+		assert!(ink.svg_paths()[1].data.contains("0.123456"));
+	}
+
+	#[test]
+	fn compact_paths_ink_pen_strokes() {
+		let drawable = Drawable {
+			sets: vec![crate::OpSet {
+				kind: OpSetKind::Path,
+				ops: curve(),
+			}],
+			seed: 3,
+			pen: RoughPen::INK,
+		};
+		let ink = DrawableInk::new(&drawable, DrawableInkOptions::new(2.0, 1.0));
+		let exact = ink.svg_paths();
+		let compact = ink.compact_svg_paths(0.25);
+		assert_eq!(exact.len(), compact.len());
+		assert!(compact[0].filled);
+		assert!(compact[0].data.len() * 3 < exact[0].data.len());
+		assert_eq!(compact, ink.sets[0].compact_svg_paths(0.25));
+	}
+
+	#[test]
+	fn empty_sets_have_no_compact_paths() {
+		let drawable = Drawable {
+			sets: vec![crate::OpSet {
+				kind: OpSetKind::Path,
+				ops: Vec::new(),
+			}],
+			seed: 1,
+			pen: RoughPen::UNIFORM,
+		};
+		let ink = DrawableInk::new(&drawable, DrawableInkOptions::new(2.0, 1.0));
+		assert!(ink.compact_svg_paths(0.25).is_empty());
 	}
 }
