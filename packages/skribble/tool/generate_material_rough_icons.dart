@@ -2055,6 +2055,7 @@ String _renderFontCodePointsDart({
   final upperCamelName = _toUpperCamelIdentifier(fontName);
   final familyConstName = 'k${upperCamelName}FontFamily';
   final codePointsConstName = 'k${upperCamelName}CodePoints';
+  final iconsConstName = 'k${upperCamelName}ByIdentifier';
   final lookupFunctionName = 'lookup${upperCamelName}IconData';
 
   final buffer = StringBuffer()
@@ -2078,13 +2079,30 @@ String _renderFontCodePointsDart({
   buffer
     ..writeln('};')
     ..writeln()
-    ..writeln('IconData? $lookupFunctionName(String identifier) {')
-    ..writeln('  final codePoint = $codePointsConstName[identifier];')
-    ..writeln('  if (codePoint == null) {')
-    ..writeln('    return null;')
-    ..writeln('  }')
-    ..writeln('  return IconData(codePoint, fontFamily: $familyConstName);')
-    ..writeln('}');
+    ..writeln('// Const so `flutter build web` can tree-shake icon fonts.')
+    ..writeln(
+      '// Building IconData from a runtime code point fails that build.',
+    )
+    ..writeln('// dart format off')
+    ..writeln(
+      'const Map<String, IconData> $iconsConstName = <String, IconData>{',
+    );
+
+  for (final glyph in sortedGlyphs) {
+    buffer.writeln(
+      '  ${_singleQuotedDartString(glyph.identifier)}: '
+      'IconData(0x${glyph.codePoint.toRadixString(16)}, '
+      'fontFamily: $familyConstName),',
+    );
+  }
+
+  buffer
+    ..writeln('};')
+    ..writeln('// dart format on')
+    ..writeln()
+    ..writeln('IconData? $lookupFunctionName(String identifier) =>')
+    ..writeln('    $iconsConstName[identifier];')
+    ..writeln();
 
   return buffer.toString();
 }

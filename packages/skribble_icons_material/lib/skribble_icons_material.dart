@@ -28,6 +28,7 @@ import 'package:skribble_icons_material/src/generated/material_rough_icons.g.dar
 
 export 'package:skribble_icons_material/src/generated/material_rough_icon_font.g.dart'
     show
+        kMaterialRoughIconsByIdentifier,
         kMaterialRoughIconsCodePoints,
         kMaterialRoughIconsFontFamily,
         lookupMaterialRoughIconsIconData;
