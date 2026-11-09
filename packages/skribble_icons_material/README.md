@@ -51,6 +51,7 @@ final data = lookupMaterialRoughIconByIdentifier('search');
 | `lookupMaterialRoughIconByIdentifier` | `WiredSvgIconData? Function` | Geometry for a Material identifier.           |
 | `kMaterialRoughIcons`                 | `Map<int, WiredSvgIconData>` | Geometry keyed by codepoint.                  |
 | `kMaterialRoughIconsCodePoints`       | `Map<String, int>`           | Identifiers to codepoints, including aliases. |
+| `kMaterialRoughIconsByIdentifier`     | `Map<String, IconData>`      | Const `IconData` for each identifier.         |
 | `kMaterialRoughIconsFontFamily`       | `String`                     | Family name of the generated icon font.       |
 | `lookupMaterialRoughIconsIconData`    | `IconData? Function`         | Font-backed `IconData` for an identifier.     |
 
