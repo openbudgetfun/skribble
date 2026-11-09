@@ -8,13 +8,19 @@ use std::sync::atomic::AtomicBool;
 use std::sync::atomic::AtomicUsize;
 use std::sync::atomic::Ordering;
 
+use leptoskit::native::Drawing;
 use leptoskit::native::Element;
+use leptoskit::native::NativeKind;
 use leptoskit::native::Role;
 use leptoskit::native::Tristate;
+use leptoskit::native::VectorScaling;
 use leptoskit::prelude::*;
 use leptoskit_testing::Finder;
 use leptoskit_testing::Widget;
 use leptoskit_testing::WidgetTester;
+// leptoskit grew a `Theme` of its own, so the glob alone would leave the name
+// ambiguous; the explicit import keeps skribble's colours.
+use skribble_leptoskit::Theme;
 use skribble_leptoskit::*;
 
 const PHONE: (f32, f32) = (390.0, 844.0);
@@ -25,6 +31,25 @@ fn mount(render: impl FnMut() -> Element + 'static) -> WidgetTester {
 
 fn checked(widget: &Widget) -> Option<Tristate> {
 	widget.props.aria().checked
+}
+
+/// The ink a `WiredBox` commits at `seed`, as the native renderer drew it.
+fn box_ink(seed: i64) -> Drawing {
+	let tester = mount(move || {
+		view! {
+			<View class="w-full p-4">
+				<WiredBox seed=seed>
+					<Text>"Box"</Text>
+				</WiredBox>
+			</View>
+		}
+	});
+	let surface = tester.surface();
+	let root = surface.root().expect("a committed root");
+	let ink = surface.children(root)[0];
+	let ink = surface.children(ink)[0];
+	assert_eq!(surface.kind(ink), NativeKind::Vector, "ink is a vector");
+	surface.props(ink).drawing.clone().expect("a drawing")
 }
 
 #[test]
@@ -113,6 +138,22 @@ fn ink_covers_its_component_and_is_hidden_from_assistive_technology() {
 		"{ink_frame:?} in {card_frame:?}"
 	);
 	assert_eq!(surface.props(ink).aria().hidden, Some(true));
+}
+
+#[test]
+fn native_ink_commits_a_stretched_vector_of_the_rough_path_for_a_seed() {
+	let first = box_ink(7);
+	let again = box_ink(7);
+	let other = box_ink(8);
+
+	assert_eq!(first.vector_scaling(), VectorScaling::Stretch);
+	let outline = first.paths().first().expect("an outline path");
+	let stroke = outline.stroke_style().expect("a stroked outline");
+	assert_eq!(stroke.width(), Theme::SKRIBBLE.stroke_width);
+	assert!(!outline.data().is_empty(), "the rough engine drew a path");
+
+	assert_eq!(first.paths(), again.paths(), "a seed repeats its wobble");
+	assert_ne!(first.paths(), other.paths(), "another seed wobbles anew");
 }
 
 #[test]
@@ -411,6 +452,48 @@ fn an_unlabelled_sketch_is_decorative() {
 	let surface = tester.surface();
 	let sketch = surface.root().expect("a committed root");
 	assert_eq!(surface.props(sketch).aria().hidden, Some(true));
+}
+
+#[test]
+fn a_sketch_draws_its_doodle_on_native() {
+	let tester = mount(|| {
+		view! {
+			<View class="items-start p-4">
+				<Sketch
+					width=120.0
+					height=60.0
+					seed=9
+					shapes=vec![Shape::line((4.0, 30.0), (116.0, 30.0)).with_arrowhead()]
+				/>
+			</View>
+		}
+	});
+	let surface = tester.surface();
+	let root = surface.root().expect("a committed root");
+	let sketch = surface.children(root)[0];
+	assert_eq!(surface.children(sketch).len(), 1, "one drawing");
+	let vector = surface.children(sketch)[0];
+	assert_eq!(
+		surface.kind(vector),
+		NativeKind::Vector,
+		"the doodle is a vector"
+	);
+	let drawing = surface.props(vector).drawing.as_ref().expect("a drawing");
+	assert_eq!(drawing.vector_scaling(), VectorScaling::Fit);
+	assert!(
+		!drawing.paths().is_empty(),
+		"the sketch is not empty on native"
+	);
+	// The default INK pen shapes its tapered strokes as filled outlines, so a
+	// path is drawn when it paints either way.
+	assert!(
+		drawing
+			.paths()
+			.iter()
+			.all(|path| path.fill_paint().is_some() || path.stroke_style().is_some()),
+		"every part of the doodle paints: {:?} paths",
+		drawing.paths().len()
+	);
 }
 
 #[test]

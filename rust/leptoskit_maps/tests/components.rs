@@ -12,6 +12,9 @@ use leptoskit::native::Role;
 use leptoskit::prelude::*;
 use leptoskit_testing::Finder;
 use leptoskit_testing::WidgetTester;
+// leptoskit grew a `Camera` widget of its own, so the glob alone would leave
+// the name ambiguous; the explicit import keeps this crate's projection type.
+use skribble_leptoskit_maps::Camera;
 use skribble_leptoskit_maps::*;
 
 const SCREEN: (f32, f32) = (390.0, 844.0);

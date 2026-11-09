@@ -1,6 +1,6 @@
 # skribble charts for leptoskit
 
-Hand-drawn financial charts for Rust apps written with [leptoskit](https://github.com/ifiokjr/leptoskit): candlesticks, OHLC bars, lines, areas, volume, and technical overlays.
+Hand-drawn financial charts for Rust apps written with [leptoskit](https://github.com/leptoskit/leptoskit): candlesticks, OHLC bars, lines, areas, volume, and technical overlays.
 
 Candle bodies and wicks keep their exact open, high, low, and close positions; the texture and line wobble come from [`skribble_rough`](../rough), the same engine skribble's Flutter and Jaspr charts paint with. The ink is drawn with leptoskit `Vector` elements, so the web gets inline SVG and every native backend draws the same paths natively.
 
@@ -11,6 +11,19 @@ Candle bodies and wicks keep their exact open, high, low, and close positions; t
 leptoskit = "0.3"
 skribble_leptoskit_charts = "0.1"
 ```
+
+<!-- {=leptoskitPatch} -->
+
+The leptoskit requirements above stay crates.io ranges so you stay free to choose your own leptoskit commit, but the skribble Rust crates build and test against leptoskit's `main`, which runs ahead of the 0.3 releases on crates.io. Bring the same commit into your build with a `[patch.crates-io]` section in your root `Cargo.toml`: cargo applies `[patch]` sections only from the workspace root, so a patch inside a dependency never reaches you. Keep every entry at the same rev, in step with the rev pinned in [`Cargo.toml`](https://github.com/openbudgetfun/skribble/blob/main/Cargo.toml) at the root of the skribble repository at the commit you depend on, and give any leptoskit crate you depend on directly that same rev, so the graph holds one leptoskit checkout. The rev below needs Rust 1.95 or later.
+
+```toml
+[patch.crates-io]
+leptoskit = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit_native = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit_testing = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+```
+
+<!-- {/leptoskitPatch} -->
 
 There is no feature to turn on. Dark mode follows leptoskit's `dark:` classes on the web and the host's appearance on native platforms.
 

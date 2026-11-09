@@ -11,7 +11,7 @@ For websites built with [Jaspr](https://jaspr.site), `skribble_jaspr` renders ha
 
 For JavaScript projects, `@skribble.dev/rough` is a TypeScript port of the same engine that draws byte-identical SVG, with components for React, React Native, Vue, and Svelte. See [Using skribble from JavaScript](../guides/javascript).
 
-For Rust, `skribble_rough` is a port of the same engine that draws byte-identical SVG, and `skribble_leptoskit` builds hand-drawn components on it for [leptoskit](https://github.com/ifiokjr/leptoskit) apps on the web and native platforms. See [Using skribble with leptoskit](../guides/leptoskit).
+For Rust, `skribble_rough` is a port of the same engine that draws byte-identical SVG, and `skribble_leptoskit` builds hand-drawn components on it for [leptoskit](https://github.com/leptoskit/leptoskit) apps on the web and native platforms. See [Using skribble with leptoskit](../guides/leptoskit).
 
 ## Use the bundled fonts
 

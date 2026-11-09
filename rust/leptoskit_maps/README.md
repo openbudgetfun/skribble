@@ -1,6 +1,6 @@
 # skribble_leptoskit_maps
 
-Hand-drawn maps for [leptoskit](https://github.com/ifiokjr/leptoskit) apps, from the [skribble](https://openbudgetfun.github.io/skribble/) design system: rough areas with hachure fills, round-capped routes, pastel pins, and sketched zoom controls.
+Hand-drawn maps for [leptoskit](https://github.com/leptoskit/leptoskit) apps, from the [skribble](https://openbudgetfun.github.io/skribble/) design system: rough areas with hachure fills, round-capped routes, pastel pins, and sketched zoom controls.
 
 leptoskit has no vector map engine, so this crate draws the map itself. There are no tiles, no network requests, and no map service to configure: a flat Web Mercator camera projects geographic coordinates into pixels, and [`skribble_rough`](https://github.com/openbudgetfun/skribble/tree/main/rust/rough) inks them as leptoskit `Vector` elements. The same tree renders on the web as inline SVG and on every native platform through its own path API.
 
@@ -14,6 +14,19 @@ leptoskit = "0.3"
 skribble_leptoskit = "0.1"
 skribble_leptoskit_maps = "0.1"
 ```
+
+<!-- {=leptoskitPatch} -->
+
+The leptoskit requirements above stay crates.io ranges so you stay free to choose your own leptoskit commit, but the skribble Rust crates build and test against leptoskit's `main`, which runs ahead of the 0.3 releases on crates.io. Bring the same commit into your build with a `[patch.crates-io]` section in your root `Cargo.toml`: cargo applies `[patch]` sections only from the workspace root, so a patch inside a dependency never reaches you. Keep every entry at the same rev, in step with the rev pinned in [`Cargo.toml`](https://github.com/openbudgetfun/skribble/blob/main/Cargo.toml) at the root of the skribble repository at the commit you depend on, and give any leptoskit crate you depend on directly that same rev, so the graph holds one leptoskit checkout. The rev below needs Rust 1.95 or later.
+
+```toml
+[patch.crates-io]
+leptoskit = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit_native = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit_testing = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+```
+
+<!-- {/leptoskitPatch} -->
 
 ## Use it
 

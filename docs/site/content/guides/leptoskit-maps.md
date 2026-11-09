@@ -5,7 +5,7 @@ description: Vector maps with rough areas, routes, pins, and zoom controls for l
 
 # Hand-drawn maps with skribble and leptoskit (Rust)
 
-[`skribble_leptoskit_maps`](https://github.com/openbudgetfun/skribble/tree/main/rust/leptoskit_maps) adds maps to [leptoskit](https://github.com/ifiokjr/leptoskit) apps: rough areas with hachure fills, round-capped routes, pastel pins, and hand-drawn zoom controls.
+[`skribble_leptoskit_maps`](https://github.com/openbudgetfun/skribble/tree/main/rust/leptoskit_maps) adds maps to [leptoskit](https://github.com/leptoskit/leptoskit) apps: rough areas with hachure fills, round-capped routes, pastel pins, and hand-drawn zoom controls.
 
 leptoskit has no vector map engine, so this crate draws the map itself. There are no tiles, no network requests, and no map service to configure. A flat Web Mercator camera turns geographic coordinates into pixels, and [`skribble_rough`](https://github.com/openbudgetfun/skribble/tree/main/rust/rough) inks them as leptoskit `Vector` elements, so the same tree renders on the web and on every native platform.
 
@@ -28,6 +28,19 @@ leptoskit = "0.3"
 skribble_leptoskit = "0.1"
 skribble_leptoskit_maps = "0.1"
 ```
+
+<!-- {=leptoskitPatch} -->
+
+The leptoskit requirements above stay crates.io ranges so you stay free to choose your own leptoskit commit, but the skribble Rust crates build and test against leptoskit's `main`, which runs ahead of the 0.3 releases on crates.io. Bring the same commit into your build with a `[patch.crates-io]` section in your root `Cargo.toml`: cargo applies `[patch]` sections only from the workspace root, so a patch inside a dependency never reaches you. Keep every entry at the same rev, in step with the rev pinned in [`Cargo.toml`](https://github.com/openbudgetfun/skribble/blob/main/Cargo.toml) at the root of the skribble repository at the commit you depend on, and give any leptoskit crate you depend on directly that same rev, so the graph holds one leptoskit checkout. The rev below needs Rust 1.95 or later.
+
+```toml
+[patch.crates-io]
+leptoskit = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit_native = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit_testing = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+```
+
+<!-- {/leptoskitPatch} -->
 
 ## 2. Draw a map
 
