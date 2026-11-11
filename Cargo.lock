@@ -868,8 +868,7 @@ dependencies = [
 [[package]]
 name = "leptoskit"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "598c5cad1cb289130092138e7448de56a29a89ebbaf7d62ede2334fe8845b22a"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
 dependencies = [
  "leptoskit_config",
  "leptoskit_macros",
@@ -877,13 +876,27 @@ dependencies = [
  "leptoskit_plugin",
  "leptoskit_yoga",
  "monosecret",
+ "reactive_stores",
 ]
+
+[[package]]
+name = "leptoskit_3d"
+version = "0.3.0"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
+dependencies = [
+ "leptoskit_log",
+ "log",
+]
+
+[[package]]
+name = "leptoskit_animation"
+version = "0.3.0"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
 
 [[package]]
 name = "leptoskit_config"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e24d2fec8cb06e34e3a301a4c780b30ab9d0bc75ca3f828871e0e2dc0a9381c7"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
 dependencies = [
  "semver",
  "serde",
@@ -894,10 +907,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "leptoskit_log"
+version = "0.3.0"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
+dependencies = [
+ "cc",
+ "log",
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
 name = "leptoskit_macros"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "26ae80a00a985eb6619f0d05f97f04e91e749796dc323e12b0093d5481ca0d4b"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
 dependencies = [
  "proc-macro2",
  "proc-macro2-diagnostics",
@@ -909,13 +932,16 @@ dependencies = [
 [[package]]
 name = "leptoskit_native"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "01d1e9bd2a36e5bd6a8780599c811e01f39ff961e0e834952e19c4909cf66244"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
 dependencies = [
  "leptos",
+ "leptoskit_3d",
+ "leptoskit_animation",
+ "leptoskit_log",
  "leptoskit_rive",
  "leptoskit_yoga",
  "reactive_graph",
+ "reactive_stores",
  "sha2",
  "wasm-bindgen",
  "web-sys",
@@ -924,8 +950,7 @@ dependencies = [
 [[package]]
 name = "leptoskit_plugin"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "912ab60fa681a5ea70eca0cd3b380e59d60491b6cc693faebc01571af3fee655"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
 dependencies = [
  "leptoskit_config",
  "serde",
@@ -937,8 +962,7 @@ dependencies = [
 [[package]]
 name = "leptoskit_rive"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ad45bb7caba5f579f3b606975e4df6236c84abf2bb349064c7f70f8f666c52e4"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
 dependencies = [
  "cc",
  "thiserror",
@@ -947,8 +971,7 @@ dependencies = [
 [[package]]
 name = "leptoskit_testing"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "45d754e9105b940f789d685a9de2eb59e66a225f03dcf01e34d116850cc0eb37"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
 dependencies = [
  "leptoskit_native",
  "leptoskit_yoga",
@@ -959,8 +982,7 @@ dependencies = [
 [[package]]
 name = "leptoskit_yoga"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a868758f37467088383f1ad02f3455a8ba7be4527059bda6a4aa5aac08eeb077"
+source = "git+https://github.com/leptoskit/leptoskit?rev=1f7f1462a17a9a33eccb933909f6cdae20d03052#1f7f1462a17a9a33eccb933909f6cdae20d03052"
 
 [[package]]
 name = "libc"
@@ -973,6 +995,12 @@ name = "litemap"
 version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "47d9d19d1d6efa0109d2f65ff4c85cddd50bd572e5a00127ab10987290bcefae"
+
+[[package]]
+name = "log"
+version = "0.4.35"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5d15f86d12da44cd8d4ec3c73984537eb7f4cadcb9776a575a0a8a05ca11005c"
 
 [[package]]
 name = "manyhow"

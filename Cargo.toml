@@ -16,13 +16,13 @@ skribble_leptoskit = { path = "rust/leptoskit", version = "0.1.0" }
 skribble_rough = { path = "rust/rough", version = "0.1.0" }
 
 leptos = { version = "0.9.0-rc1", default-features = false }
-# LeptosKit 0.3.0 is published on crates.io from tag v0.3.0
-# (2e575b1e7e8100910667e7c2e1472a792d569c95). These three crates are the
-# ones this workspace uses. The exact requirement is the pin; bump them
-# together, and only here. See `rust/leptoskit/README.md`.
-leptoskit = { version = "=0.3.0", default-features = false }
-leptoskit_native = { version = "=0.3.0", default-features = false }
-leptoskit_testing = { version = "=0.3.0" }
+# LeptosKit main, commit "feat: adopt Exact's performance budgets (#770)"
+# (10 Nov 2026). These three crates are the ones this workspace uses.
+# The git rev is the pin; bump them together, and only here. There is no
+# `[patch]` override. See `rust/leptoskit/README.md`.
+leptoskit = { git = "https://github.com/leptoskit/leptoskit", rev = "1f7f1462a17a9a33eccb933909f6cdae20d03052", default-features = false }
+leptoskit_native = { git = "https://github.com/leptoskit/leptoskit", rev = "1f7f1462a17a9a33eccb933909f6cdae20d03052", default-features = false }
+leptoskit_testing = { git = "https://github.com/leptoskit/leptoskit", rev = "1f7f1462a17a9a33eccb933909f6cdae20d03052" }
 serde_json = { version = "1", features = ["float_roundtrip"] }
 
 [workspace.lints.rust]
