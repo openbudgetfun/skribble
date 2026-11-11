@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../motion/wired_boil.dart';
 import '../motion/wired_draw.dart';
 import '../motion/wired_ink_response.dart';
 import '../rough/skribble_rough.dart';
@@ -65,10 +66,13 @@ class WiredCanvas extends HookWidget {
     final themeDrawConfig = drawConfig ?? WiredTheme.of(context).drawConfig;
     // A seeded copy is built once per (theme config, seed) pair: rebuilding
     // with the same seed must reuse the prepared geometry, not redraw it.
+    // Inside a WiredBoil, an explicit seed boils along with the theme's.
+    final boil = seed == null ? 0 : WiredBoil.seedOffsetOf(context);
     final resolvedDrawConfig = useMemoized(
-      () =>
-          seed == null ? themeDrawConfig : themeDrawConfig.copyWith(seed: seed),
-      [themeDrawConfig, seed],
+      () => seed == null
+          ? themeDrawConfig
+          : themeDrawConfig.copyWith(seed: seed! + boil),
+      [themeDrawConfig, seed, boil],
     );
     // Fill strokes follow the outline's hand unless a config says otherwise,
     // so hachure is as tidy as the border around it and stays inside it. The

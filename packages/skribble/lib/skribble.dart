@@ -47,7 +47,10 @@ export 'src/compat/compat.dart';
 // ---------------------------------------------------------------------------
 
 export 'src/generated/skribble_glyphs.g.dart' show SkribbleGlyphs;
+export 'src/motion/wired_boil.dart';
+export 'src/motion/wired_curves.dart';
 export 'src/motion/wired_draw.dart';
+export 'src/motion/wired_entrance.dart';
 export 'src/motion/wired_ink_interaction.dart';
 export 'src/motion/wired_motion.dart';
 export 'src/rough/skribble_rough.dart'
@@ -149,6 +152,7 @@ export 'src/wired_filter_chip.dart';
 export 'src/wired_font.dart';
 export 'src/wired_form.dart';
 export 'src/wired_grid_tile.dart';
+export 'src/wired_highlight.dart';
 export 'src/wired_icon.dart';
 export 'src/wired_icon_button.dart';
 export 'src/wired_icon_registry.dart';

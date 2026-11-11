@@ -134,6 +134,107 @@ return WiredDrawTransition(progress: controller, child: notebook);
 
 Let the hook dispose its controller. Do not call `forward` directly during every build, and do not manually dispose a hooks-owned controller.
 
+## Spring entrances
+
+`WiredEntrance` brings its child onto the page like a sticker pressed onto paper: it springs up from a little below, small and slightly tilted, fades in, and its ink draws itself on as it lands. `WiredCascade` lays out a column or row of children and brings them in one after another, 70 milliseconds apart.
+
+```dart
+// Live example: entrance-cascade
+HookBuilder(
+  builder: (context) {
+    final replay = useState(0);
+    final theme = WiredTheme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        WiredCascade(
+          key: ValueKey(replay.value),
+          spacing: 12,
+          children: [
+            for (final (i, plant) in const ['Fern', 'Cactus', 'Basil'].indexed)
+              WiredCard(
+                height: null,
+                color: theme.accentAt(i),
+                child: Text(plant),
+              ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: WiredOutlinedButton(
+            onPressed: () => replay.value++,
+            child: const Text('Again!'),
+          ),
+        ),
+      ],
+    );
+  },
+)
+```
+
+For a lazily built list, wrap each item in `WiredEntrance.staggered(index: i, child: ...)`. Items past the tenth start together, so a long list never keeps its reader waiting. Tune an entrance with `delay`, `duration` (720 milliseconds), `curve` (`WiredCurves.springy`), the starting `offset` (18 pixels below; the x offset flips in RTL), `scale` (0.92), and `turns` (a small anticlockwise tilt), or pass `drawInk: false` to keep the ink still. Layout, semantics, and hit testing never wait: the child has its full size from the first frame and only its paint moves, so taps land even while it is arriving.
+
+## Boiling lines
+
+Hand-drawn animation redraws every frame, so its lines shimmer, or "boil". `WiredBoil` does the same to every Wired outline, hatch, and doodle below it: it redraws them eight times a second, cycling through three drawings of the same shape. Text, layout, and state stay put.
+
+```dart
+// Live example: boil-doodle
+const WiredBoil(
+  child: Row(
+    mainAxisSize: MainAxisSize.min,
+    spacing: 16,
+    children: [
+      WiredDoodle(
+        kind: WiredDoodleKind.sun,
+        size: 72,
+        fillColor: WiredPalette.sunshine,
+      ),
+      WiredDoodle(
+        kind: WiredDoodleKind.heart,
+        size: 72,
+        fillColor: WiredPalette.bubblegum,
+      ),
+      WiredDoodle(
+        kind: WiredDoodleKind.sparkle,
+        size: 72,
+        fillColor: WiredPalette.sky,
+      ),
+    ],
+  ),
+)
+```
+
+Every boiling frame rebuilds the subtree's ink, so boil a few focal drawings, such as a logo, an empty state, or a celebration, not a whole screen. Set `framesPerSecond` (12 is livelier) and `drawings`, or toggle `enabled` to boil only while something is hovered or focused. Shapes that choose their own `seed` boil too: `WiredBoil.seedOffsetOf(context)` is the offset they add. Because a boil never ends, tests that use one pump frames for a while instead of `pumpAndSettle`.
+
+## Motion curves
+
+`WiredCurves` holds skribble's timing, for its own widgets and yours:
+
+| Curve                 | Feel                                                                   |
+| --------------------- | ---------------------------------------------------------------------- |
+| `WiredCurves.pen`     | A hand drawing a line: a quick start, a long glide, and a soft landing |
+| `WiredCurves.snappy`  | A firm spring that barely overshoots, for toggles and small controls   |
+| `WiredCurves.springy` | A lively spring with a visible overshoot; the entrance default         |
+| `WiredCurves.bouncy`  | A playful spring that bounces past its target, for celebrations        |
+
+```dart
+// Static example: configuration
+AnimatedContainer(
+  duration: const Duration(milliseconds: 500),
+  curve: WiredCurves.springy,
+  height: expanded ? 240 : 120,
+  child: card,
+)
+```
+
+The springs are `WiredSpringCurve`s: the step response of a damped spring, tuned to settle exactly at one when the animation ends, so the same spring feels right at any duration. Make your own with `WiredSpringCurve(bounce: 0.25)`. Springs overshoot one on the way, so use them for position, size, scale, and rotation, not opacity.
+
+## Highlights
+
+`WiredHighlight` swipes a highlighter behind a word, or draws a pen stroke under it, and draws itself on when it appears. See [Vivid and alive](/guides/vivid-design#highlight-what-matters) for a live example. Its child is inked to stay legible on the swipe in light and dark themes. Inside a `WiredEntrance` or `WiredDraw`, pass `animate: false` to follow their timing.
+
 ## Turn motion off
 
 At the app root:
@@ -153,7 +254,7 @@ For one section:
 WiredMotion(enabled: false, child: notebook)
 ```
 
-A disabled ancestor wins over nested enabled scopes. The platform's `MediaQuery.disableAnimations` also settles ink immediately. Turning motion back on does not replay an implicit entrance that has already settled. This setting controls skribble's decorative ink. Consumer animations and existing functional animations such as progress indicators keep their own policies.
+A disabled ancestor wins over nested enabled scopes. The platform's `MediaQuery.disableAnimations` also settles ink immediately: entrances appear in place, boiling stops on the usual drawing, and highlights are drawn at once. Turning motion back on does not replay an implicit entrance that has already settled. This setting controls skribble's decorative ink. Consumer animations and existing functional animations such as progress indicators keep their own policies.
 
 `TickerMode` mutes owned tickers. Paint listeners detach from external animations while the subtree is muted, then resume at the caller's current value. skribble does not pause the caller's controller.
 
@@ -197,7 +298,7 @@ A button can override the surrounding theme:
 // Live example: redraw-button
 WiredFilledButton(
   inkInteraction: WiredInkInteraction.redraw,
-  fillColor: const Color(0xffe8957d),
+  fillColor: const Color(0xffff6b4a),
   borderRadius: BorderRadius.circular(8),
   onPressed: () {},
   child: Text('Make something lovely'),

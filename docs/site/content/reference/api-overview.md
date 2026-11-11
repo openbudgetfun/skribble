@@ -475,6 +475,11 @@ SVG path primitives also accept `strokeDashArray`, `strokeDashOffset`, `strokeCa
 - `WiredThemeData.motionEnabled`: app-level ink motion preference.
 - `RoughDrawing`: prepared geometry with measured reveal and pen pressure.
 - `WiredPainterBase.prepare`: optional animation support for custom painters.
+- `WiredEntrance`: a spring entrance that lifts, fades, and settles its child while its ink draws on; `WiredEntrance.staggered(index: i, ...)` offsets lazily built list items.
+- `WiredCascade`: a column or row whose children spring in one after another.
+- `WiredBoil`: redraws its subtree's seeded ink a few times a second, like hand-drawn animation.
+- `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve`: motion curves that overshoot and settle exactly on 1.
+- `WiredHighlight` and `WiredHighlightStyle`: a marker swipe or underline that draws itself on behind a phrase.
 
 See [Ink motion](../core/motion) for examples and supported components.
 
@@ -495,7 +500,7 @@ These constructors preserve the original constructors and avoid requiring Materi
 
 ## Typeface and brand choices
 
-`WiredLogo` draws the skribble logo, the inked brackets: a smiling face in square brackets over a marker-filled face with rosy cheeks (`faceColor`, `cheekColor`). `WiredDoodle` adds seeded butterflies, hearts, smiles, flowers, sparkles, scribbles, and leaves through `WiredDoodleKind`. `WiredPalette` and `WiredThemeData.cuddly()` share the design kit's light/dark palette. See [Flourishes and logo](/widgets/flourishes).
+`WiredLogo` draws the skribble logo, the inked brackets: a smiling face in square brackets over a marker-filled face with rosy cheeks (`faceColor`, `cheekColor`). `WiredDoodle` adds seeded butterflies, hearts, smiles, flowers, sparkles, scribbles, and leaves through `WiredDoodleKind`. `WiredPalette` holds the design kit's colours, including the vivid washes (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`). `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, `quiet`) and `WiredThemeData.colorway(...)` build a light or dark theme from one of them; `WiredThemeData.cuddly()` is the sunny colourway. Themes carry `accentColor` and `accents`, with `accentAt(index)`, `onColor(wash)`, `onMarkerColor`, `onAccentColor`, and `inkOn(wash)` keeping labels at 4.5:1 contrast. See [Vivid and alive](/guides/vivid-design). See [Flourishes and logo](/widgets/flourishes).
 
 `WiredFont` selects bundled Casual, Sans Linear, or Mono typography, with dedicated upright and italic weights 300–900. `WiredFont.variableFamilyFor` resolves a shared variable font for each roughness level; use `FontVariation` values for continuous weight, casualness, monospace, and slant, plus cursive letterform selection. `WiredThemeData.font` defaults to `WiredFont.notoSketch`; the Recursive values follow the inherited roughness, and `fontFamily` remains the explicit string override. `WiredFont.noto`, `notoSketch`, and `notoLively` select the fixed-level Skribble Noto families. `skribbleFontFamily` is `'SkribbleNotoSketch'`, registered by `skribble_font_noto_sketch`. `WiredFont.package` and `WiredFont.packageFor(family)` name the package that ships a family, `WiredFont.recursiveFonts` and `WiredFont.notoFonts` group the values, and `WiredThemeData.fontPackage` resolves through `packageFor`. `WiredBrandIcon` exposes curated Simple Icons vector artwork through `.data` for `WiredSvgIcon`.
 

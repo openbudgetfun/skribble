@@ -8,7 +8,7 @@ import 'wired_icon.dart';
 import 'wired_theme.dart';
 
 /// A floating action button: a hand-drawn circle washed with the theme's
-/// `markerColor`, with its icon in the theme's text colour.
+/// `accentColor`, with its icon in the theme's `onAccentColor`.
 class WiredFloatingActionButton extends HookWidget {
   /// The icon drawn in the middle of the button.
   final IconData icon;
@@ -58,14 +58,14 @@ class WiredFloatingActionButton extends HookWidget {
                   painter: WiredCircleBase(
                     strokeWidth: theme.strokeWidth,
                     diameterRatio: 0.9,
-                    fillColor: theme.markerColor,
+                    fillColor: theme.accentColor,
                     borderColor: theme.borderColor,
                   ),
                   fillerType: RoughFilter.solidFiller,
                 ),
                 WiredIcon(
                   icon: icon,
-                  color: iconColor ?? theme.textColor,
+                  color: iconColor ?? theme.onAccentColor,
                   size: size * 0.43,
                 ),
               ],

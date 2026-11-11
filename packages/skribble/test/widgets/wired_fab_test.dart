@@ -280,7 +280,7 @@ void main() {
       expect(find.bySemanticsLabel('Add new item'), findsOneWidget);
     });
 
-    testWidgets('is washed with the marker and inked with the text colour', (
+    testWidgets('is washed with the accent and inked to read on it', (
       tester,
     ) async {
       final theme = WiredThemeData();
@@ -301,14 +301,14 @@ void main() {
                   .painter
               as WiredCircleBase;
 
-      expect(circle.fillColor, theme.markerColor);
+      expect(circle.fillColor, theme.accentColor);
       expect(
         tester.widget<WiredCanvas>(findWiredCanvas.first).fillerType,
         RoughFilter.solidFiller,
       );
       expect(
         tester.widget<WiredIcon>(find.byType(WiredIcon)).color,
-        theme.textColor,
+        theme.onAccentColor,
       );
     });
   });

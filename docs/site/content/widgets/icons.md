@@ -111,7 +111,7 @@ Draws `WiredSvgIconData` by hand. `WiredIcon` and `SkribbleIcon` both render thr
 WiredSvgIcon(
   data: exampleIcon('favorite'),
   size: 64,
-  color: const Color(0xffe8957d),
+  color: const Color(0xffff6b4a),
   fillStyle: WiredIconFillStyle.marker,
   semanticLabel: 'Favourite',
 )
@@ -457,7 +457,7 @@ Wrap(
       WiredSvgIcon(
         data: brand.data,
         size: 48,
-        color: const Color(0xffe8957d),
+        color: const Color(0xffff6b4a),
         fillStyle: WiredIconFillStyle.marker,
         semanticLabel: brand.name,
       ),

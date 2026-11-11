@@ -6,10 +6,13 @@ import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
 import 'wired_theme.dart';
+import 'wired_theme_scope.dart';
 
 /// A card with a hand-drawn rectangle border.
 ///
-/// Reads fill color from the nearest [WiredTheme] ancestor. Its [child]
+/// Reads its ink from the nearest [WiredTheme] ancestor. Give it a [color]
+/// to colour it in, such as `WiredTheme.of(context).accentAt(index)` to
+/// colour-code a list of cards. Its [child]
 /// sits [padding] inside the ink, [kWiredInkPadding] by default, and the
 /// card is at least [height] tall, growing when its content needs more
 /// room. With a [height] it spans the width it is given; with a null
@@ -18,9 +21,17 @@ class WiredCard extends HookWidget {
   /// The card's content.
   final Widget? child;
 
-  /// Whether to colour the card in with close, even pencil strokes of the
-  /// theme's `fillColor`. Wrap the card in a [WiredTheme] to choose a tint.
+  /// Whether to colour the card in with close, even pencil strokes: of
+  /// [color] when it is set, otherwise of the theme's `fillColor`.
   final bool fill;
+
+  /// The card's wash: a solid fill of this colour, or, with [fill], close
+  /// pencil strokes of it. Null leaves the paper showing through.
+  ///
+  /// On a solid wash, the [child] is inked with
+  /// the theme's `inkOn`, so its text and icons stay legible on any
+  /// colour in light and dark themes.
+  final Color? color;
 
   /// The card's least height, or null to size it to [child]. The card grows
   /// past it when its content is taller, so text never presses against the
@@ -40,6 +51,7 @@ class WiredCard extends HookWidget {
     super.key,
     this.child,
     this.fill = false,
+    this.color,
     this.height = 130.0,
     this.padding = kWiredInkPadding,
     this.borderRadius = const BorderRadius.all(Radius.circular(16)),
@@ -57,6 +69,13 @@ class WiredCard extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
+    final wash = color;
+    final solid = wash != null && !fill;
+    final ink = solid ? theme.inkOn(wash) : theme;
+    Widget content = Padding(padding: padding, child: child);
+    if (!identical(ink, theme)) {
+      content = WiredThemeScope(data: ink, child: content);
+    }
     final card = Stack(
       // The card's constraints, its least height included, reach the
       // content, which the outline then frames.
@@ -67,10 +86,14 @@ class WiredCard extends HookWidget {
             painter: WiredRoundedRectangleBase(
               borderRadius: borderRadius,
               strokeWidth: theme.strokeWidth,
-              fillColor: theme.fillColor,
+              fillColor: wash ?? theme.fillColor,
               borderColor: theme.borderColor,
             ),
-            fillerType: fill ? RoughFilter.hachureFiller : RoughFilter.noFiller,
+            fillerType: fill
+                ? RoughFilter.hachureFiller
+                : solid
+                ? RoughFilter.solidFiller
+                : RoughFilter.noFiller,
             seed: seed,
             // Close, even strokes read as a page coloured in with a pencil.
             fillerConfig: FillerConfig.build(
@@ -85,7 +108,7 @@ class WiredCard extends HookWidget {
           color: Colors.transparent,
           shadowColor: Colors.transparent,
           margin: EdgeInsets.zero,
-          child: Padding(padding: padding, child: child),
+          child: content,
         ),
       ],
     );

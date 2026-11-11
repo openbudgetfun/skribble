@@ -67,7 +67,7 @@ class WiredFilterChip extends HookWidget {
                         strokeWidth: theme.strokeWidth,
                         borderRadius: BorderRadius.circular(16),
                         fillColor: selected
-                            ? theme.borderColor
+                            ? theme.markerColor
                             : theme.fillColor,
                         borderColor: theme.borderColor,
                       ),
@@ -86,7 +86,7 @@ class WiredFilterChip extends HookWidget {
                           WiredSvgIcon(
                             data: SkribbleGlyphs.check,
                             size: 16,
-                            color: theme.fillColor,
+                            color: theme.onMarkerColor,
                             weight: 300,
                           ),
                           const SizedBox(width: 4),
@@ -97,7 +97,7 @@ class WiredFilterChip extends HookWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               color: selected
-                                  ? theme.fillColor
+                                  ? theme.onMarkerColor
                                   : theme.textColor,
                               fontSize: 13,
                             ),

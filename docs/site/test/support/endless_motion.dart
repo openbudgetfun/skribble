@@ -2,10 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// Live examples whose motion loops for as long as they are shown, so
 /// `pumpAndSettle` never returns while they are on screen.
-const endlessExamples = {'emoji-animated'};
+const endlessExamples = {'emoji-animated', 'boil-doodle'};
 
 /// Pages that show an endless example.
-const endlessPages = {'/widgets/emoji'};
+const endlessPages = {'/widgets/emoji', '/core/motion'};
 
 /// Pumps frames for [duration], for when endless motion is on screen.
 ///

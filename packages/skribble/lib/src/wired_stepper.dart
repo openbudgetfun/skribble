@@ -130,14 +130,14 @@ class WiredStepper extends HookWidget {
                   WiredSvgIcon(
                     data: SkribbleGlyphs.check,
                     size: 16,
-                    color: theme.textColor,
+                    color: theme.onMarkerColor,
                     weight: 500,
                   )
                 else
                   Text(
                     '${index + 1}',
                     style: TextStyle(
-                      color: theme.textColor,
+                      color: isActive ? theme.onMarkerColor : theme.textColor,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),

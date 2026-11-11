@@ -44,7 +44,7 @@ Builder(
       child: WiredCanvas(
         painter: WiredCircleBase(
           borderColor: theme.borderColor,
-          fillColor: const Color(0xffe8957d),
+          fillColor: const Color(0xffff6b4a),
           strokeWidth: theme.strokeWidth,
         ),
         fillerType: RoughFilter.hachureFiller,

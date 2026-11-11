@@ -237,7 +237,7 @@ void main() {
 
       final canvas = tester.widget<WiredCanvas>(findWiredCanvas);
       final pill = canvas.painter as WiredRoundedRectangleBase;
-      expect(pill.fillColor, theme.markerColor);
+      expect(pill.fillColor, theme.accentColor);
       expect(canvas.fillerType, RoughFilter.solidFiller);
 
       final label = tester.getRect(find.text('new'));
@@ -263,7 +263,7 @@ void main() {
       );
 
       final canvas = tester.widget<WiredCanvas>(findWiredCanvas);
-      expect((canvas.painter as WiredCircleBase).fillColor, theme.markerColor);
+      expect((canvas.painter as WiredCircleBase).fillColor, theme.accentColor);
       expect(tester.getSize(findWiredCanvas), const Size.square(16));
     });
 

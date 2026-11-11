@@ -161,7 +161,7 @@ class WiredNavigationRail extends HookWidget {
                             ? (dest.selectedIcon ?? dest.icon)
                             : dest.icon,
                         color: selected
-                            ? theme.textColor
+                            ? theme.onMarkerColor
                             : theme.disabledTextColor,
                         size: 24,
                       ),

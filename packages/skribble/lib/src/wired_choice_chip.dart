@@ -74,7 +74,7 @@ class WiredChoiceChip extends HookWidget {
                         strokeWidth: theme.strokeWidth,
                         borderRadius: BorderRadius.circular(16),
                         fillColor: selected
-                            ? theme.borderColor
+                            ? theme.markerColor
                             : theme.fillColor,
                         borderColor: theme.borderColor,
                       ),
@@ -89,7 +89,7 @@ class WiredChoiceChip extends HookWidget {
                     padding: kWiredButtonPadding,
                     child: DefaultTextStyle.merge(
                       style: TextStyle(
-                        color: selected ? theme.fillColor : theme.textColor,
+                        color: selected ? theme.onMarkerColor : theme.textColor,
                         fontSize: 13,
                       ),
                       // A semantic label replaces the label's own text, not joins it.

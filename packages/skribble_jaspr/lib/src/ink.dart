@@ -212,6 +212,8 @@ Component _path(
       if (stroked) 'stroke-width': '2',
       if (stroked) 'stroke-linecap': 'round',
       if (stroked) 'stroke-linejoin': 'round',
+      // One dash covers the whole path, for the `skribble-draw` reveal.
+      if (stroked) 'pathLength': '1',
       if (stroked) 'vector-effect': 'non-scaling-stroke',
     },
   );

@@ -189,30 +189,24 @@ import 'package:flutter/widgets.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
-  final wiredTheme = WiredThemeData(
-    borderColor: Color(0xFF4A3470),
-    textColor: Color(0xFF2A2238),
-    disabledTextColor: Color(0xFFA39AAD),
-    fillColor: Color(0xFFFFFCF1),
-    roughness: 1.15,
-  );
-
   runApp(
     SkribbleApp(
-      wiredTheme: wiredTheme,
-      darkWiredTheme: WiredThemeData(
-        borderColor: Color(0xFFB09BDC),
-        textColor: Color(0xFFF0EBF5),
-        fillColor: Color(0xFF1E1A26),
-        roughness: 1.15,
+      // Plum ink on warm paper, with a vivid marker, accent, and washes.
+      wiredTheme: WiredThemeData.colorway(WiredColorway.sunny),
+      darkWiredTheme: WiredThemeData.colorway(
+        WiredColorway.sunny,
+        brightness: Brightness.dark,
       ),
       themeMode: SkribbleThemeMode.system,
       title: 'My sketchy app',
       builder: (context, child) => WiredMaterialTheme(child: child!),
       home: WiredScaffold(
-        appBar: WiredAppBar(title: Text('Plum ink, day and night')),
+        appBar: WiredAppBar(title: Text('Bright ink, day and night')),
         body: Center(
-          child: WiredButton(onPressed: () {}, child: Text('Press me')),
+          child: WiredFilledButton(
+            onPressed: () {},
+            child: Text('Press me'),
+          ),
         ),
       ),
     ),
@@ -253,6 +247,7 @@ WiredInput(
 ```dart
 // Live example: card
 WiredCard(
+  color: const Color(0xffff6b4a),
   fill: true,
   child: Center(child: Text('Make something lovely')),
 )

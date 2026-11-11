@@ -343,10 +343,11 @@ final Map<String, ExampleDefinition> examples = {
   ),
   'card': ExampleDefinition(
     builder: _card,
-    source: "WiredCard(\n  fill: settings.enabled,\n  child: Center(child: Text(settings.label)),\n)",
+    source: "WiredCard(\n  color: settings.color,\n  fill: settings.enabled,\n  child: Center(child: Text(settings.label)),\n)",
     edits: [
-      ExampleEdit(19, 35, ExampleParameter.enabled),
-      ExampleEdit(65, 79, ExampleParameter.label),
+      ExampleEdit(20, 34, ExampleParameter.color),
+      ExampleEdit(44, 60, ExampleParameter.enabled),
+      ExampleEdit(90, 104, ExampleParameter.label),
     ],
   ),
   'list-tile': ExampleDefinition(
@@ -493,6 +494,21 @@ final Map<String, ExampleDefinition> examples = {
       ExampleEdit(132, 147, ExampleParameter.radius),
       ExampleEdit(184, 198, ExampleParameter.label),
     ],
+  ),
+  'entrance-cascade': ExampleDefinition(
+    builder: _entranceCascade,
+    source: "HookBuilder(\n  builder: (context) {\n    final replay = useState(0);\n    final theme = WiredTheme.of(context);\n    return Column(\n      crossAxisAlignment: CrossAxisAlignment.stretch,\n      children: [\n        WiredCascade(\n          key: ValueKey(replay.value),\n          spacing: 12,\n          children: [\n            for (final (i, plant) in const ['Fern', 'Cactus', 'Basil'].indexed)\n              WiredCard(\n                height: null,\n                color: theme.accentAt(i),\n                child: Text(plant),\n              ),\n          ],\n        ),\n        const SizedBox(height: 16),\n        Align(\n          alignment: AlignmentDirectional.centerStart,\n          child: WiredOutlinedButton(\n            onPressed: () => replay.value++,\n            child: const Text('Again!'),\n          ),\n        ),\n      ],\n    );\n  },\n)",
+    edits: [],
+  ),
+  'boil-doodle': ExampleDefinition(
+    builder: _boilDoodle,
+    source: "const WiredBoil(\n  child: Row(\n    mainAxisSize: MainAxisSize.min,\n    spacing: 16,\n    children: [\n      WiredDoodle(\n        kind: WiredDoodleKind.sun,\n        size: 72,\n        fillColor: WiredPalette.sunshine,\n      ),\n      WiredDoodle(\n        kind: WiredDoodleKind.heart,\n        size: 72,\n        fillColor: WiredPalette.bubblegum,\n      ),\n      WiredDoodle(\n        kind: WiredDoodleKind.sparkle,\n        size: 72,\n        fillColor: WiredPalette.sky,\n      ),\n    ],\n  ),\n)",
+    edits: [],
+  ),
+  'highlight-marker': ExampleDefinition(
+    builder: _highlightMarker,
+    source: "Builder(\n  builder: (context) {\n    final theme = WiredTheme.of(context);\n    return Text.rich(\n      TextSpan(\n        children: [\n          const TextSpan(text: 'Ink that '),\n          const WidgetSpan(\n            alignment: PlaceholderAlignment.middle,\n            child: WiredHighlight(child: Text('pops')),\n          ),\n          const TextSpan(text: ' off the '),\n          WidgetSpan(\n            alignment: PlaceholderAlignment.middle,\n            child: WiredHighlight(\n              style: WiredHighlightStyle.underline,\n              color: theme.accentAt(1),\n              delay: const Duration(milliseconds: 400),\n              child: const Text('page'),\n            ),\n          ),\n        ],\n      ),\n      style: const TextStyle(fontSize: 24),\n    );\n  },\n)",
+    edits: [],
   ),
   'app-bar': ExampleDefinition(
     builder: _appBar,

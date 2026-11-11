@@ -67,9 +67,74 @@ void main() {
     final night = WiredThemeData.cuddly(brightness: Brightness.dark);
     expect(day.fillColor, WiredPalette.paper);
     expect(day.textColor, WiredPalette.ink);
-    expect(day.markerColor, WiredPalette.lilac);
+    expect(day.markerColor, WiredPalette.sunshine);
+    expect(day.accentColor, WiredPalette.tomato);
     expect(night.fillColor, WiredPalette.night);
     expect(night.textColor, WiredPalette.paper);
-    expect(night.markerColor, WiredPalette.dusk);
+    expect(night.markerColor, WiredPalette.sunshine);
+    expect(night.errorColor, WiredPalette.cherryGlow);
+  });
+  double contrast(Color a, Color b) {
+    final la = a.computeLuminance();
+    final lb = b.computeLuminance();
+    return la > lb ? (la + 0.05) / (lb + 0.05) : (lb + 0.05) / (la + 0.05);
+  }
+
+  test('every vivid wash reads with ink and night lettering', () {
+    for (final colorway in WiredColorway.values) {
+      if (colorway == WiredColorway.quiet) continue;
+      for (final wash in [
+        colorway.marker,
+        colorway.accent,
+        ...colorway.accents,
+      ]) {
+        expect(
+          contrast(wash, WiredPalette.ink),
+          greaterThanOrEqualTo(4.5),
+          reason: '$colorway $wash on ink',
+        );
+        expect(
+          contrast(wash, WiredPalette.night),
+          greaterThanOrEqualTo(4.5),
+          reason: '$colorway $wash on night',
+        );
+      }
+    }
+  });
+
+  test('error ink reads on its paper', () {
+    expect(
+      contrast(WiredPalette.cherry, WiredPalette.paper),
+      greaterThanOrEqualTo(4.5),
+    );
+    expect(
+      contrast(WiredPalette.cherryGlow, WiredPalette.night),
+      greaterThanOrEqualTo(4.5),
+    );
+  });
+
+  test('a colourway builds a theme for each brightness', () {
+    for (final colorway in WiredColorway.values) {
+      final day = WiredThemeData.colorway(colorway);
+      final night = WiredThemeData.colorway(
+        colorway,
+        brightness: Brightness.dark,
+      );
+      expect(day.markerColor, colorway.marker);
+      expect(day.accentColor, colorway.accent);
+      expect(day.accents, colorway.accents);
+      expect(day.fillColor, WiredPalette.paper);
+      expect(night.fillColor, WiredPalette.night);
+      expect(night.markerColor, colorway.markerFor(Brightness.dark));
+      expect(night.accents, isNotEmpty);
+    }
+    expect(
+      WiredColorway.quiet.markerFor(Brightness.dark),
+      WiredPalette.dusk,
+    );
+    expect(
+      WiredColorway.sunny.markerFor(Brightness.dark),
+      WiredPalette.sunshine,
+    );
   });
 }

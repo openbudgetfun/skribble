@@ -206,7 +206,7 @@ When a Material icon exists in the generated `kMaterialRoughIcons` map, `WiredIc
 WiredSvgIcon(
   data: exampleIcon('favorite'),
   size: 64,
-  color: const Color(0xffe8957d),
+  color: const Color(0xffff6b4a),
   fillStyle: WiredIconFillStyle.marker,
   semanticLabel: 'Favourite',
 )

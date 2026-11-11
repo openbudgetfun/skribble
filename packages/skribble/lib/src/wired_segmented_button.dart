@@ -164,7 +164,9 @@ class WiredSegmentedButton<T> extends HookWidget {
               : null,
           alignment: Alignment.center,
           child: DefaultTextStyle.merge(
-            style: TextStyle(color: theme.textColor),
+            style: TextStyle(
+              color: isSelected ? theme.onMarkerColor : theme.textColor,
+            ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -172,7 +174,7 @@ class WiredSegmentedButton<T> extends HookWidget {
                   WiredIcon(
                     icon: segment.icon!,
                     size: 18,
-                    color: theme.textColor,
+                    color: isSelected ? theme.onMarkerColor : theme.textColor,
                   ),
                   const SizedBox(width: 8),
                 ],

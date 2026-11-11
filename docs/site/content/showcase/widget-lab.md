@@ -85,6 +85,7 @@ WiredTextArea(
 ```dart
 // Live example: card
 WiredCard(
+  color: const Color(0xffff6b4a),
   fill: true,
   child: Center(child: Text('Make something lovely')),
 )

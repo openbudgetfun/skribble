@@ -7,8 +7,9 @@ import 'wired_theme.dart';
 
 /// A badge overlay: a hand-drawn dot, or a pill around a short [label].
 ///
-/// The badge is washed with the theme's `markerColor` and inked like the
-/// rest of the interface, with the label in the theme's text colour.
+/// The badge is washed with the theme's `accentColor` and inked like the
+/// rest of the interface, with the label in whichever of the theme's text
+/// and paper colours reads better on the wash.
 class WiredBadge extends HookWidget {
   /// The widget the badge sits on.
   final Widget child;
@@ -19,8 +20,8 @@ class WiredBadge extends HookWidget {
   /// Whether the badge is shown.
   final bool isVisible;
 
-  /// Wash behind the badge. Defaults to the theme's `markerColor`; pick a
-  /// colour that keeps the theme's text colour legible on it.
+  /// Wash behind the badge. Defaults to the theme's `accentColor`. The
+  /// label switches to the theme's paper colour on a dark wash.
   final Color? backgroundColor;
 
   /// Creates a hand-drawn badge over [child].
@@ -44,7 +45,7 @@ class WiredBadge extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final fill = backgroundColor ?? theme.markerColor;
+    final fill = backgroundColor ?? theme.accentColor;
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -93,7 +94,7 @@ class WiredBadge extends HookWidget {
                         child: Text(
                           label!,
                           style: TextStyle(
-                            color: theme.textColor,
+                            color: theme.onColor(fill),
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
                             height: 1.2,

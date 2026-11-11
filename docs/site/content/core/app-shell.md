@@ -37,8 +37,11 @@ The shell installs a `WiredThemeScope` around `WidgetsApp`, so `WiredTheme.of(co
 ```dart
 // Static example: setup
 SkribbleApp(
-  wiredTheme: WiredThemeData(borderColor: Color(0xFF4A3470)),
-  darkWiredTheme: WiredThemeData.cuddly(brightness: Brightness.dark),
+  wiredTheme: WiredThemeData.colorway(WiredColorway.sunny),
+  darkWiredTheme: WiredThemeData.colorway(
+    WiredColorway.sunny,
+    brightness: Brightness.dark,
+  ),
   themeMode: SkribbleThemeMode.system,
   home: MyHomePage(),
 )
@@ -90,7 +93,7 @@ SkribbleApp.router(
 
 High-contrast variants are selected from the platform accessibility features, and the platform brightness is read through `MediaQuery`, so a system appearance change rebuilds the shell. The shell depends on those two aspects only, so a keyboard opening or a window resizing does not rebuild the whole app.
 
-The fallbacks match `MaterialApp`. Without a `darkWiredTheme`, a dark platform keeps the light `wiredTheme`; pass `WiredThemeData.cuddly(brightness: Brightness.dark)` for skribble's night paper. `WiredMaterialApp` resolves the same way, and its Material `ThemeData` is only dark when it comes from a dark Wired theme.
+The fallbacks match `MaterialApp`. Without a `darkWiredTheme`, a dark platform keeps the light `wiredTheme`; pass `WiredThemeData.colorway(WiredColorway.sunny, brightness: Brightness.dark)`, or the dark version of your colourway, for skribble's night paper. `WiredMaterialApp` resolves the same way, and its Material `ThemeData` is only dark when it comes from a dark Wired theme.
 
 ## What the shell sets up for you
 
