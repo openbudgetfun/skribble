@@ -7,18 +7,11 @@ Buttons and controls are at least 44 pixels tall and grow with their text. Conte
 
 <!-- {/leptoskitInkRoom} -->
 
-<!-- The pinned rev below must stay in step with the `[patch.crates-io]`
-      section in the root `Cargo.toml`; bump both together. -->
+<!-- The git rev below must stay in step with `[workspace.dependencies]`
+      in the root `Cargo.toml`; bump both together. -->
 
 <!-- {@leptoskitPatch} -->
 
-The leptoskit requirements above stay crates.io ranges so you stay free to choose your own leptoskit commit, but the skribble Rust crates build and test against leptoskit's `main`, which runs ahead of the 0.3 releases on crates.io. Bring the same commit into your build with a `[patch.crates-io]` section in your root `Cargo.toml`: cargo applies `[patch]` sections only from the workspace root, so a patch inside a dependency never reaches you. Keep every entry at the same rev, in step with the rev pinned in [`Cargo.toml`](https://github.com/openbudgetfun/skribble/blob/main/Cargo.toml) at the root of the skribble repository at the commit you depend on, and give any leptoskit crate you depend on directly that same rev, so the graph holds one leptoskit checkout. The rev below needs Rust 1.95 or later.
-
-```toml
-[patch.crates-io]
-leptoskit = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
-leptoskit_native = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
-leptoskit_testing = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
-```
+These crates build and test against leptoskit `main` at `1f7f1462a17a9a33eccb933909f6cdae20d03052` (`feat: adopt Exact's performance budgets`). The pin is a git dependency on `leptoskit`, `leptoskit_native`, and `leptoskit_testing` in `[workspace.dependencies]` in the root [`Cargo.toml`](https://github.com/openbudgetfun/skribble/blob/main/Cargo.toml), not a `[patch]` override. Use that same rev for any of those crates you depend on directly so the graph stays on one checkout. It needs Rust 1.95 or later.
 
 <!-- {/leptoskitPatch} -->
