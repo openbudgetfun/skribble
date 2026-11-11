@@ -2,6 +2,7 @@ part of 'catalog.dart';
 
 /// @docs-example card
 Widget _card(ExampleSettings settings) => WiredCard(
+  color: settings.color,
   fill: settings.enabled,
   child: Center(child: Text(settings.label)),
 );

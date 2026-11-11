@@ -13,7 +13,8 @@ This document is the authoritative reference for AI coding agents (Claude, Copil
 4. **Every widget wraps its output with `RepaintBoundary`.** Use `buildWiredElement(child: ...)` or extend `WiredBaseWidget`.
 5. **Every widget has 6+ tests, written against Skribble's public API.** Cover rendering, dimensions, interaction, state, edge cases, semantics, RTL, and text scaling. Never assert on the Material/Cupertino control the implementation currently wraps — see [Durable widget tests](#durable-widget-tests).
 6. **Documentation must be updated when APIs change or features are added.** This includes the docs site content, dartdoc comments, and MDT template blocks.
-7. **No new Material or Cupertino imports in library code.** `packages/skribble/lib` may import `package:flutter/widgets.dart` and below, never `package:flutter/material.dart` or `package:flutter/cupertino.dart`. Read [Architecture](/core/architecture) before touching a file that currently imports either; the audit is a migration tracker, not a precedent.
+7. **Design vivid and alive.** Start from a `WiredColorway`, colour-code content with `theme.accentAt(i)`, and bring screens in with `WiredCascade` and `WiredEntrance`. Muted, grey, single-hue screens are a bug. See [Designing with skribble](#designing-with-skribble).
+8. **No new Material or Cupertino imports in library code.** `packages/skribble/lib` may import `package:flutter/widgets.dart` and below, never `package:flutter/material.dart` or `package:flutter/cupertino.dart`. Read [Architecture](/core/architecture) before touching a file that currently imports either; the audit is a migration tracker, not a precedent.
 
 ## Project structure
 
@@ -579,6 +580,97 @@ testWidgets('updates when value changes', (tester) async {
 });
 ```
 
+## Designing with skribble
+
+These rules apply to everything an agent builds with skribble, inside this repository (the storybook, the example app, docs examples, the sites) or in an app that depends on it. [Vivid and alive](/guides/vivid-design) has live examples.
+
+<!-- {=docsVividDesignRules} -->
+
+skribble is a sticker book, not a pencil sketch on grey paper. Whether you are a person or an agent, build with colour and motion by default, and tone it down only when the brief asks for calm.
+
+**Colour**
+
+- Start from a colourway: `WiredThemeData.colorway(WiredColorway.sunny)` (the default), `berry`, `ocean`, or `citrus`, and pass the same colourway with `brightness: Brightness.dark` as the dark theme. Use `WiredColorway.quiet` only when the brief asks for a calm, muted look.
+- Give each screen one loud action: `WiredFilledButton` fills with the theme's `accentColor`. Secondary actions use `WiredOutlinedButton` or `WiredTextButton`.
+- Colour-code content. Cards, chips, tags, and chart series take `theme.accentAt(index)`, as in `WiredCard(color: theme.accentAt(i), ...)`. Five cards should be five colours, not five beige boxes.
+- Mark the words that matter with `WiredHighlight`, and fill empty space with a `WiredDoodle` (sun, sparkle, rainbow, confetti) in an accent colour.
+- Keep plum ink on paper for running text, and put the colour in fills, washes, highlights, and doodles. Labels on a wash use `theme.onColor(wash)`, or `theme.inkOn(wash)` for a whole subtree, which keeps 4.5:1 contrast in light and dark themes.
+- Don't reach for greys, beiges, or washed-out pastels to look tasteful, and don't hardcode hex colours: use the theme and `WiredPalette`.
+
+**Motion**
+
+- Bring screens in. `WiredCascade` springs a column of cards in one after another, `WiredEntrance.staggered(index: i, ...)` does the same for lazily built list items, and `WiredEntrance` brings in a single hero. Their ink draws itself on as they land.
+- Let a few focal drawings boil with `WiredBoil`: a logo, an empty-state doodle, a celebration. Wrap a handful of elements, never a whole screen.
+- Time your own animations with `WiredCurves.springy`, `snappy`, or `bouncy`, and anything that draws with `WiredCurves.pen`: `AnimatedContainer(curve: WiredCurves.springy, ...)`.
+- Give the one or two most important buttons `inkInteraction: WiredInkInteraction.redraw`.
+- Motion is decoration, so never hide content behind it. skribble settles everything when motion is off or the platform asks for reduced motion; check `WiredMotion.enabledOf(context)` in animations of your own.
+
+**On the web**, `skribble_jaspr`'s stylesheet uses the same sunny colours. Colour-code boxes with the `skribble-wash-1` to `skribble-wash-6` classes, stagger entrances with `skribble-pop` and an inline `--i`, draw ink on with `skribble-draw`, and lift cards on hover with `skribble-lift`.
+
+<!-- {/docsVividDesignRules} -->
+
+<!-- {=docsVividThemeExample} -->
+
+```dart
+// Static example: setup
+SkribbleApp(
+  wiredTheme: WiredThemeData.colorway(WiredColorway.berry),
+  darkWiredTheme: WiredThemeData.colorway(
+    WiredColorway.berry,
+    brightness: Brightness.dark,
+  ),
+  home: const Garden(),
+)
+
+class Garden extends StatelessWidget {
+  const Garden({super.key});
+
+  static const plants = ['Fern', 'Cactus', 'Basil', 'Monstera'];
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
+    return WiredScaffold(
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          WiredEntrance(
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  const TextSpan(text: 'Your garden is '),
+                  WidgetSpan(child: WiredHighlight(child: Text('thriving'))),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          WiredCascade(
+            spacing: 12,
+            children: [
+              for (final (i, plant) in plants.indexed)
+                WiredCard(
+                  height: null,
+                  color: theme.accentAt(i),
+                  child: Text(plant),
+                ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          WiredFilledButton(
+            inkInteraction: WiredInkInteraction.redraw,
+            onPressed: () {},
+            child: const Text('Water everything'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+<!-- {/docsVividThemeExample} -->
+
 ## Theming rules for agents
 
 ### Never hardcode visual values
@@ -602,9 +694,11 @@ Container(color: theme.borderColor)
 | `borderColor`        | `Color`               | `WiredPalette.ink`                                   | The color of every hand-drawn border, outline, and stroke. Plum ink by default.                                                                            |
 | `textColor`          | `Color`               | `WiredPalette.ink`                                   | Primary text color for labels and button text.                                                                                                             |
 | `disabledTextColor`  | `Color`               | `WiredPalette.mutedInk`                              | Text color for disabled widgets. A muted plum by default.                                                                                                  |
-| `errorColor`         | `Color`               | `WiredPalette.coral`                                 | Ink for errors: the border of an input with error text and the error text itself.                                                                          |
+| `errorColor`         | `Color`               | `WiredPalette.cherry`                                | Ink for errors: the border of an input with error text and the error text itself.                                                                          |
 | `fillColor`          | `Color`               | `WiredPalette.paper`                                 | Background fill for cards, inputs, dialogs, and other surfaces. Warm paper by default.                                                                     |
-| `markerColor`        | `Color`               | `WiredPalette.lilac`                                 | The highlighter wash under selected and active things: navigation indicators, progress and slider fills, switch tracks, and selected segments.             |
+| `markerColor`        | `Color`               | `WiredPalette.sunshine`                              | The highlighter wash under selected and active things: navigation indicators, progress and slider fills, switch tracks, selected chips, and segments.      |
+| `accentColor`        | `Color`               | `WiredPalette.tomato`                                | The fill of primary actions: `WiredFilledButton`, the floating action button, and badges. Labels on it use `onAccentColor`.                                |
+| `accents`            | `List<Color>?`        | `null`: the `WiredColorway.sunny` washes             | Vivid washes for colour-coding cards, chips, tags, and chart series. Read one with `theme.accentAt(index)`, which cycles through the list.                 |
 | `strokeWidth`        | `double`              | `kWiredStrokeWidth` (1.6)                            | Width in logical pixels of the rough-drawn strokes.                                                                                                        |
 | `roughnessLevel`     | `WiredRoughness`      | `WiredRoughness.playful`                             | Coordinated border, icon, pen, and Recursive lettering defaults: `gentle`, `playful`, or `expressive`.                                                     |
 | `font`               | `WiredFont`           | `WiredFont.notoSketch`                               | The bundled typeface. Install the package that ships it.                                                                                                   |

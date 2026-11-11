@@ -19,7 +19,10 @@ Every Wired widget reads its colors, stroke width, and roughness from a shared t
 | `textColor`           | `Color`          | `WiredPalette.ink`                     | Primary text color                                                              |
 | `disabledTextColor`   | `Color`          | `WiredPalette.mutedInk`                | Text color for disabled states                                                  |
 | `fillColor`           | `Color`          | `WiredPalette.paper`                   | Interior fill color for shapes                                                  |
-| `markerColor`         | `Color`          | `WiredPalette.lilac`                   | Highlighter wash under selected and active things, with ink on top              |
+| `markerColor`         | `Color`          | `WiredPalette.sunshine`                | Highlighter wash under selected and active things, with ink on top              |
+| `accentColor`         | `Color`          | `WiredPalette.tomato`                  | Fill of primary actions: filled buttons, the FAB, and badges                    |
+| `accents`             | `List<Color>`    | The `WiredColorway.sunny` washes       | Vivid washes for colour-coding content; read one with `accentAt(index)`         |
+| `errorColor`          | `Color`          | `WiredPalette.cherry`                  | Ink for errors, 4.8:1 on paper                                                  |
 | `strokeWidth`         | `double`         | `1.6` (`kWiredStrokeWidth`)            | Default border stroke width                                                     |
 | `roughnessLevel`      | `WiredRoughness` | `playful`                              | Coordinated defaults for borders, icons, pens, and lettering                    |
 | `pen`                 | `RoughPen`       | Level pen (`RoughPen.ink` for playful) | How lines are inked; an explicit constructor value overrides the preset         |
@@ -47,18 +50,31 @@ final theme = WiredThemeData(
 );
 ```
 
-### Cuddly palette
+### Colourways
 
-`WiredThemeData.cuddly()` pairs warm paper with plum ink and defaults to the playful pen. Pass `brightness: Brightness.dark` for dark plum paper and pale ink, or choose any `WiredRoughness` level independently.
+skribble's colour lives in its colourways. Each keeps plum ink on warm paper, or paper ink on night, and adds a vivid marker for selection, an accent for primary actions, and a run of washes for colour-coding content.
+
+| Colourway | Marker      | Accent      | Washes                                            | Mood                         |
+| --------- | ----------- | ----------- | ------------------------------------------------- | ---------------------------- |
+| `sunny`   | `sunshine`  | `tomato`    | sunshine, sky, bubblegum, mint, grape, tangerine  | The default: bright and warm |
+| `berry`   | `bubblegum` | `grape`     | bubblegum, grape, tangerine, aqua, sunshine, mint | Sweet and playful            |
+| `ocean`   | `aqua`      | `cobalt`    | aqua, cobalt, mint, tangerine, lime, grape        | Fresh and cool               |
+| `citrus`  | `lime`      | `tangerine` | lime, tangerine, sunshine, bubblegum, sky, mint   | Loud and zesty               |
+| `quiet`   | `lilac`     | `lilac`     | lilac, peach, sage, butter (dusk on night)        | Calm: the earlier default    |
 
 ```dart
 // Static example: configuration
-final theme = WiredThemeData.cuddly(
+final day = WiredThemeData.colorway(WiredColorway.ocean);
+final night = WiredThemeData.colorway(
+  WiredColorway.ocean,
+  brightness: Brightness.dark,
   roughnessLevel: WiredRoughness.gentle,
 );
 ```
 
-`WiredPalette` exposes the same paper, night, ink, lilac, peach, sage, butter, and muted colors as the Figma kit. Accent washes are intended for decoration and backgrounds; use ink for readable text on pale accents.
+Every vivid wash reads with plum or night lettering at 4.5:1 or better, so the same colours glow on night paper. Widgets put their labels in `theme.onColor(wash)`: plum on a wash in a light theme, night on a wash in a dark one. `theme.onMarkerColor` and `theme.onAccentColor` are the shortcuts, and `theme.inkOn(wash)` returns a whole theme for content on a coloured surface, which `WiredCard(color: ...)` and `WiredHighlight` apply for you.
+
+`WiredThemeData.cuddly(brightness: ...)` is the sunny colourway at either brightness. `WiredPalette` exposes every colour by name: the paper, night, ink, and muted inks, the vivid sunshine, tomato, tangerine, sky, aqua, mint, lime, bubblegum, grape, cobalt, and cherry, and the quiet lilac, peach, sage, butter, and dusk washes from the Figma kit. See [Vivid and alive](/guides/vivid-design) for how to use them.
 
 ### copyWith
 

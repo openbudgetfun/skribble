@@ -89,7 +89,7 @@ void main() {
     await tester.pumpWidget(_app(const WiredLogo(size: 100)));
     expect(_layers(), findsNWidgets(3));
     // Between the eyes, the face shows the theme's marker colour.
-    expect(await _pixel(tester, const Offset(50, 40)), WiredPalette.lilac);
+    expect(await _pixel(tester, const Offset(50, 40)), WiredPalette.sunshine);
     // The cheek beside the smile is blush.
     expect(await _pixel(tester, const Offset(33.5, 55)), WiredPalette.blush);
   });
@@ -98,7 +98,10 @@ void main() {
     await tester.pumpWidget(
       _app(
         WiredTheme(
-          data: WiredThemeData.cuddly(brightness: Brightness.dark),
+          data: WiredThemeData.colorway(
+            WiredColorway.quiet,
+            brightness: Brightness.dark,
+          ),
           child: const WiredLogo(size: 100),
         ),
       ),

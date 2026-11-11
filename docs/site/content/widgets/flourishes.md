@@ -16,7 +16,7 @@ WiredDoodle(
   seed: 8,
   size: 96,
   color: WiredPalette.ink,
-  fillColor: WiredPalette.peach,
+  fillColor: WiredPalette.sunshine,
 )
 ```
 
@@ -45,6 +45,25 @@ Stack(
 ## Reveal the ink
 
 Wrap a drawing in `WiredDraw` for a one-time entrance, or use `WiredDrawTransition` with an animation you own. Reduced-motion preferences take precedence. Ordinary drawings have no ticker and never move by themselves.
+
+## Make it boil
+
+Wrap a focal drawing, such as an empty-state doodle or the logo, in `WiredBoil` to redraw it a few times a second with a slightly different hand, the way hand-drawn animation wriggles. Keep it to a handful of drawings per screen. The boil rests on the usual drawing when motion is off.
+
+```dart
+// Static example: api
+WiredBoil(
+  child: WiredDoodle(
+    kind: WiredDoodleKind.sun,
+    size: 96,
+    fillColor: WiredTheme.of(context).accentAt(0),
+  ),
+)
+```
+
+## Mark the words that matter
+
+`WiredHighlight` swipes the theme's marker behind a word or phrase, or underlines it in the accent with `style: WiredHighlightStyle.underline`, and draws itself on when it appears. See [Ink motion](/core/motion#highlights) and [Vivid and alive](/guides/vivid-design).
 
 ## The logo: inked brackets
 

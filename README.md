@@ -112,7 +112,20 @@ Butterflies, hearts, smiles, flowers, sparkles, scribbles, leaves, clouds, suns,
 WiredDoodle(kind: WiredDoodleKind.butterfly, seed: 8)
 ```
 
-Use `WiredThemeData.cuddly()` for warm paper and plum ink, or pass `brightness: Brightness.dark` for dark paper. The gentle, playful, and expressive roughness presets work with either palette.
+skribble is meant to look like a sticker book: bright washes, one loud button, highlighted words, and ink that draws itself on and wriggles. Start from a colourway (`sunny` is the default, then `berry`, `ocean`, `citrus`, and the calm `quiet`) and colour-code content with `theme.accentAt(index)`:
+
+```dart
+SkribbleApp(
+  wiredTheme: WiredThemeData.colorway(WiredColorway.ocean),
+  darkWiredTheme: WiredThemeData.colorway(
+    WiredColorway.ocean,
+    brightness: Brightness.dark,
+  ),
+  home: const Home(),
+)
+```
+
+`WiredCascade`, `WiredEntrance`, `WiredBoil`, `WiredHighlight`, and the `WiredCurves` springs bring screens to life, and all of it settles when the platform asks for reduced motion. [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) has the design rules, written so coding agents can follow them too. The gentle, playful, and expressive roughness presets work with every colourway.
 
 ## Packages
 

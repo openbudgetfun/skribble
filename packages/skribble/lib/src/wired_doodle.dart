@@ -6,6 +6,7 @@ import 'canvas/wired_canvas.dart';
 import 'canvas/wired_painter_base.dart';
 import 'doodles/doodle_geometry.dart';
 import 'doodles/doodle_raster.dart';
+import 'motion/wired_boil.dart';
 import 'motion/wired_draw.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_base.dart';
@@ -62,7 +63,7 @@ class WiredDoodle extends WiredBaseWidget {
           child: WiredCanvas(
             painter: _DoodlePainter(
               kind: kind,
-              seed: seed,
+              seed: seed + WiredBoil.seedOffsetOf(context),
               amplitude: theme.roughness.clamp(0, 3).toDouble(),
               color: color ?? theme.textColor,
               fillColor: fillColor,

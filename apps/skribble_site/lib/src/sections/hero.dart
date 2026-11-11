@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:jaspr/jaspr.dart';
 import 'package:skribble_jaspr/skribble_jaspr.dart';
 import 'package:skribble_rough/skribble_rough.dart';
@@ -19,7 +21,12 @@ class Hero extends StatelessComponent {
       'section',
       [
         el('div', [
-          el('p', [t('A hand-drawn design system for Flutter')], 'eyebrow'),
+          el(
+            'p',
+            [t('A hand-drawn design system for Flutter')],
+            'eyebrow pop',
+            {'style': '--i:0'},
+          ),
           el(
             'h1',
             [
@@ -68,27 +75,34 @@ class Hero extends StatelessComponent {
               ], 'hero-highlight'),
               t('.'),
             ],
-            'hero-title',
-            {'id': 'hero-title'},
+            'hero-title pop',
+            {'id': 'hero-title', 'style': '--i:1'},
           ),
-          para(
-            'Every border, fill, icon, and letter, drawn by a seeded pen.',
-            classes: 'hero-lede',
+          el(
+            'p',
+            [t('Every border, fill, icon, and letter, drawn by a seeded pen.')],
+            'hero-lede pop',
+            {'style': '--i:2'},
           ),
-          el('div', [
-            WiredButton(
-              href: SiteLinks.install,
-              seed: 7,
-              child: t('Get started'),
-            ),
-            WiredButton(
-              href: SiteLinks.storybook,
-              variant: WiredButtonVariant.secondary,
-              seed: 12,
-              child: t('Play with every widget'),
-            ),
-          ], 'hero-actions'),
-          const InstallCommand(),
+          el(
+            'div',
+            [
+              WiredButton(
+                href: SiteLinks.install,
+                seed: 7,
+                child: t('Get started'),
+              ),
+              WiredButton(
+                href: SiteLinks.storybook,
+                variant: WiredButtonVariant.secondary,
+                seed: 12,
+                child: t('Play with every widget'),
+              ),
+            ],
+            'hero-actions pop',
+            {'style': '--i:3'},
+          ),
+          el('div', [const InstallCommand()], 'pop', {'style': '--i:4'}),
         ], 'hero-copy'),
         el('div', [
           const Phone(),
@@ -110,6 +124,7 @@ class Hero extends StatelessComponent {
             t('Tap it. Then drag the pen.'),
           ], 'hero-note'),
         ], 'hero-stage'),
+        const HeroConfetti(),
       ],
       'hero',
       {'aria-labelledby': 'hero-title'},
@@ -325,3 +340,206 @@ class Phone extends StatelessComponent {
     );
   }
 }
+
+/// Bright doodles scattered around the hero. Each is drawn twice with
+/// different seeds and the two drawings take turns, so the lines boil like
+/// hand-drawn animation; the doodles also drift, and lean towards the
+/// pointer. All of it is decoration, hidden from assistive technology, and
+/// still under reduced motion.
+class HeroConfetti extends StatelessComponent {
+  /// Creates the confetti.
+  const HeroConfetti({super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return el(
+      'div',
+      [
+        for (final (index, piece) in _pieces.indexed)
+          el(
+            'span',
+            [
+              doodle(
+                width: piece.width,
+                height: piece.height,
+                marks: [
+                  for (final (frame, seed) in [
+                    (0, 900 + index * 7),
+                    (1, 950 + index * 7),
+                  ])
+                    for (final mark in piece.draw(
+                      Pen.expressive,
+                      seed,
+                    ))
+                      Mark(
+                        mark.drawable,
+                        stroke: mark.stroke,
+                        fill: mark.fill,
+                        width: mark.width,
+                        fillWidth: mark.fillWidth,
+                        classes: frame == 0 ? 'boil-a' : 'boil-b',
+                      ),
+                ],
+              ),
+            ],
+            'confetti confetti--${index + 1}',
+            {'style': '--z:${piece.depth};--i:$index'},
+          ),
+      ],
+      'hero-confetti',
+      {'aria-hidden': 'true'},
+    );
+  }
+}
+
+typedef _Piece = ({
+  double width,
+  double height,
+  double depth,
+  List<Mark> Function(Pen pen, int seed) draw,
+});
+
+List<PointD> _star(double cx, double cy, double outer, double inner, int n) => [
+  for (var i = 0; i < n * 2; i++)
+    PointD(
+      cx + (i.isEven ? outer : inner) * math.cos(math.pi * i / n - math.pi / 2),
+      cy + (i.isEven ? outer : inner) * math.sin(math.pi * i / n - math.pi / 2),
+    ),
+];
+
+final List<_Piece> _pieces = [
+  // A four-point sparkle.
+  (
+    width: 64,
+    height: 64,
+    depth: 18,
+    draw: (pen, seed) => [
+      Mark(
+        pen
+            .generator(seed, fill: RoughFillStyle.solid)
+            .polygon(_star(32, 32, 28, 9, 4)),
+        fill: Tone.sun,
+        width: 2.4,
+      ),
+    ],
+  ),
+  // A five-point star.
+  (
+    width: 56,
+    height: 56,
+    depth: -14,
+    draw: (pen, seed) => [
+      Mark(
+        pen
+            .generator(seed, fill: RoughFillStyle.solid)
+            .polygon(_star(28, 30, 24, 11, 5)),
+        fill: Tone.pink,
+        width: 2.4,
+      ),
+    ],
+  ),
+  // A loose squiggle.
+  (
+    width: 120,
+    height: 40,
+    depth: 10,
+    draw: (pen, seed) => [
+      Mark(
+        roughCurve(pen.generator(seed), [
+          (6, 26),
+          (26, 10),
+          (46, 30),
+          (66, 10),
+          (86, 30),
+          (112, 12),
+        ]),
+        stroke: Tone.sky,
+        width: 5,
+      ),
+    ],
+  ),
+  // A ring.
+  (
+    width: 52,
+    height: 52,
+    depth: -20,
+    draw: (pen, seed) => [
+      Mark(
+        roughOval(pen.generator(seed), 52, 52, inset: 6),
+        stroke: Tone.mint,
+        width: 5,
+      ),
+    ],
+  ),
+  // A tilted triangle.
+  (
+    width: 54,
+    height: 54,
+    depth: 16,
+    draw: (pen, seed) => [
+      Mark(
+        pen.generator(seed, fill: RoughFillStyle.hachure, gap: 5).polygon([
+          PointD(8, 44),
+          PointD(28, 6),
+          PointD(48, 46),
+        ]),
+        fill: Tone.lilac,
+        width: 2.4,
+        fillWidth: 2.2,
+      ),
+    ],
+  ),
+  // A zigzag.
+  (
+    width: 90,
+    height: 34,
+    depth: -10,
+    draw: (pen, seed) => [
+      for (var i = 0; i < 5; i++)
+        Mark(
+          pen
+              .generator(seed + i)
+              .line(
+                4 + i * 16.4,
+                i.isEven ? 26 : 8,
+                4 + (i + 1) * 16.4,
+                i.isEven ? 8 : 26,
+              ),
+          stroke: Tone.coral,
+          width: 4.5,
+        ),
+    ],
+  ),
+  // A sunny dot.
+  (
+    width: 36,
+    height: 36,
+    depth: 24,
+    draw: (pen, seed) => [
+      Mark(
+        roughOval(
+          pen.generator(seed, fill: RoughFillStyle.solid),
+          36,
+          36,
+          inset: 4,
+        ),
+        fill: Tone.sun,
+        width: 2.2,
+      ),
+    ],
+  ),
+  // A plus.
+  (
+    width: 40,
+    height: 40,
+    depth: -18,
+    draw: (pen, seed) => [
+      Mark(pen.generator(seed).line(20, 5, 20, 35), stroke: Tone.sky, width: 5),
+      Mark(
+        pen.generator(seed + 1).line(5, 20, 35, 20),
+        stroke: Tone.sky,
+        width: 5,
+      ),
+    ],
+  ),
+];

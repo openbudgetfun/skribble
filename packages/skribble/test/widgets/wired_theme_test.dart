@@ -13,7 +13,10 @@ void main() {
       expect(theme.textColor, WiredPalette.ink);
       expect(theme.disabledTextColor, WiredPalette.mutedInk);
       expect(theme.fillColor, WiredPalette.paper);
-      expect(theme.markerColor, WiredPalette.lilac);
+      expect(theme.markerColor, WiredPalette.sunshine);
+      expect(theme.accentColor, WiredPalette.tomato);
+      expect(theme.accents, WiredColorway.sunny.accents);
+      expect(theme.errorColor, WiredPalette.cherry);
       expect(theme.strokeWidth, kWiredStrokeWidth);
       expect(theme.strokeWidth, 1.6);
       expect(theme.roughness, 1.1);
@@ -78,10 +81,16 @@ void main() {
       expect(theme.paperBackgroundColor.alpha, 0xFF);
     });
 
-    test('the marker is a deep plum wash at night', () {
-      final night = WiredThemeData.cuddly(brightness: Brightness.dark);
+    test('the quiet colourway keeps the deep plum wash at night', () {
+      final night = WiredThemeData.colorway(
+        WiredColorway.quiet,
+        brightness: Brightness.dark,
+      );
       expect(night.markerColor, WiredPalette.dusk);
-      expect(WiredThemeData.cuddly().markerColor, WiredPalette.lilac);
+      expect(
+        WiredThemeData.colorway(WiredColorway.quiet).markerColor,
+        WiredPalette.lilac,
+      );
     });
 
     test('toColorScheme maps the marker to the container colours', () {
@@ -553,6 +562,67 @@ void main() {
       );
 
       expect(capturedTheme.fontFamily, skribbleFontFamily);
+    });
+  });
+  group('WiredThemeData colour', () {
+    test('accentAt cycles through the washes in both directions', () {
+      final theme = WiredThemeData(
+        accents: const [WiredPalette.sky, WiredPalette.mint],
+      );
+      expect(theme.accentAt(0), WiredPalette.sky);
+      expect(theme.accentAt(1), WiredPalette.mint);
+      expect(theme.accentAt(2), WiredPalette.sky);
+      expect(theme.accentAt(-1), WiredPalette.mint);
+    });
+
+    test('empty accents fall back to the sunny washes', () {
+      expect(
+        WiredThemeData(accents: const []).accents,
+        WiredColorway.sunny.accents,
+      );
+    });
+
+    test('onColor picks the ink that reads on a wash', () {
+      final day = WiredThemeData();
+      final night = WiredThemeData.cuddly(brightness: Brightness.dark);
+      expect(day.onColor(WiredPalette.sunshine), WiredPalette.ink);
+      expect(night.onColor(WiredPalette.sunshine), WiredPalette.night);
+      expect(night.onColor(WiredPalette.dusk), WiredPalette.paper);
+      expect(day.onMarkerColor, WiredPalette.ink);
+      expect(night.onAccentColor, WiredPalette.night);
+    });
+
+    test('inkOn swaps ink and paper only when it must', () {
+      final day = WiredThemeData();
+      expect(day.inkOn(WiredPalette.sky), same(day));
+      final night = WiredThemeData.cuddly(brightness: Brightness.dark);
+      final onWash = night.inkOn(WiredPalette.sky);
+      expect(onWash.textColor, WiredPalette.night);
+      expect(onWash.borderColor, WiredPalette.night);
+      expect(onWash.fillColor, WiredPalette.paper);
+    });
+
+    test('copyWith and equality cover accents', () {
+      final theme = WiredThemeData();
+      final changed = theme.copyWith(
+        accentColor: WiredPalette.grape,
+        accents: const [WiredPalette.lime],
+      );
+      expect(changed.accentColor, WiredPalette.grape);
+      expect(changed.accents, const [WiredPalette.lime]);
+      expect(changed, isNot(theme));
+      expect(theme.copyWith(), theme);
+      expect(theme.copyWith().hashCode, theme.hashCode);
+      expect(
+        WiredThemeData(accents: const [WiredPalette.sky]),
+        WiredThemeData(accents: const [WiredPalette.sky]),
+      );
+    });
+
+    test('the Material scheme carries the accent as tertiary', () {
+      final scheme = WiredThemeData().toColorScheme();
+      expect(scheme.tertiary, WiredPalette.tomato);
+      expect(scheme.onTertiary, WiredPalette.ink);
     });
   });
 }

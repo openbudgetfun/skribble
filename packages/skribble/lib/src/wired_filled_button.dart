@@ -10,11 +10,12 @@ import 'wired_theme.dart';
 
 /// A hand-drawn filled button, corresponding to Flutter's [FilledButton].
 ///
-/// The button is washed with the theme's highlighter, its `markerColor`,
-/// inside a sketchy hand-drawn border, like a button coloured in with a
-/// marker. Pass [fillColor] for a stronger or branded colour.
+/// The button is coloured in with the theme's `accentColor` inside a sketchy
+/// hand-drawn border, like a sticker stamped with a bold marker: the one
+/// thing on the screen to press. Pass [fillColor] for another colour, such
+/// as `theme.accentAt(2)`.
 class WiredFilledButton extends WiredButtonBase {
-  /// Fill color. Defaults to the theme's `markerColor`.
+  /// Fill color. Defaults to the theme's `accentColor`.
   final Color? fillColor;
 
   /// Text/icon color. Defaults to whichever of the theme's text and paper
@@ -44,7 +45,7 @@ class WiredFilledButton extends WiredButtonBase {
   @override
   Widget build(BuildContext context) {
     final theme = WiredTheme.of(context);
-    final fill = fillColor ?? theme.markerColor;
+    final fill = fillColor ?? theme.accentColor;
     final fg =
         foregroundColor ?? _contrasting(fill, theme.textColor, theme.fillColor);
 

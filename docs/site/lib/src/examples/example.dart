@@ -72,7 +72,7 @@ class ExampleSettings {
   RoughFilter fill = RoughFilter.hachureFiller;
 
   /// Opaque marker colour, edited as a six-digit RGB value.
-  Color color = const Color(0xffe8957d);
+  Color color = const Color(0xffff6b4a);
 
   /// Fill strategy used by runtime rough icons.
   WiredIconFillStyle iconFill = WiredIconFillStyle.marker;

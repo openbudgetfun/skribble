@@ -76,7 +76,7 @@ Component.fragment([
   WiredCard(
     seed: 5,
     fillStyle: RoughFillStyle.hachure,
-    fill: '#ffe08a',
+    fill: 'var(--skribble-wash-2)',
     child: Component.text('A hatched card'),
   ),
 ])
@@ -137,14 +137,50 @@ Every colour and width is a custom property, so theming needs no Dart:
 | ------------------------- | --------------------------------------- |
 | `--skribble-ink`          | Outlines, pen highlights, button labels |
 | `--skribble-paper`        | The `.skribble-page` background         |
-| `--skribble-accent`       | Default fills, primary buttons, markers |
+| `--skribble-accent`       | Default fills and primary buttons       |
 | `--skribble-on-accent`    | Text on accent fills                    |
+| `--skribble-marker`       | Marker highlights                       |
+| `--skribble-on-marker`    | Text on a marker highlight              |
+| `--skribble-wash-1` … `6` | Vivid washes for colour-coding content  |
 | `--skribble-stroke-width` | Outline width at every size             |
 | `--skribble-font`         | Button labels and `.skribble-page`      |
 | `--skribble-fill`         | Set by a component's `fill` argument    |
 | `--skribble-highlight`    | Set by `WiredHighlight.color`           |
 
-Defaults are declared with `:where(:root)`, so any rule of yours overrides them. A dark palette applies under `prefers-color-scheme: dark`; override the properties inside your own dark-mode selector to change it. Add the `skribble-wobble` class to a `WiredBox` or `WiredCard` to give it the button's hover tilt.
+The defaults are skribble's sunny colourway, the same colours as `WiredColorway.sunny` in Flutter: plum ink on warm paper, a tomato accent, a highlighter-yellow marker, and sky, bubblegum, mint, grape, and tangerine washes. Every wash reads with plum text in light mode and night text in dark mode. Defaults are declared with `:where(:root)`, so any rule of yours overrides them. A dark palette applies under `prefers-color-scheme: dark`; override the properties inside your own dark-mode selector to change it. Add the `skribble-wobble` class to a `WiredBox` or `WiredCard` to give it the button's hover tilt.
+
+### Colour and motion classes
+
+Colour-code a set of boxes with `skribble-wash-1` to `skribble-wash-6`, which set `--skribble-fill` to one of the washes. Three motion classes bring a page to life:
+
+| Class           | Effect                                                                                    |
+| --------------- | ----------------------------------------------------------------------------------------- |
+| `skribble-draw` | Outlines and hatching inside draw on with the pen, fills fade in, and highlights swipe in |
+| `skribble-pop`  | Springs up into place, small and tilted, like a sticker                                   |
+| `skribble-lift` | Lifts and tilts on hover with a spring                                                    |
+
+Stagger `skribble-draw` and `skribble-pop` with an inline `--i` (the item's index, 70ms apart) or `--skribble-delay`, and add the classes when an element scrolls into view to play them there. All three stay still under `prefers-reduced-motion: reduce`, and `skribble-lift` skips disabled elements.
+
+```dart
+// Static example: api
+Component.element(
+  tag: 'div',
+  classes: 'features',
+  children: [
+    for (final (i, feature) in features.indexed)
+      WiredBox(
+        seed: i + 1,
+        fillStyle: RoughFillStyle.solid,
+        classes:
+            'skribble-wash-${i % 6 + 1} skribble-pop skribble-draw skribble-lift',
+        attributes: {'style': '--i: $i'},
+        child: Component.text(feature),
+      ),
+  ],
+)
+```
+
+See [Vivid and alive](/guides/vivid-design) for the design rules behind these classes.
 
 Under `forced-colors: active` (Windows High Contrast, for example) the stylesheet draws outlines in `CanvasText` (`ButtonText` on buttons), hatching in `GrayText`, and the marker in `Highlight` with `HighlightText` text, and drops solid fills so forced text never lands on the accent colour.
 

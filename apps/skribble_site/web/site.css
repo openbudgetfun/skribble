@@ -1,4 +1,5 @@
-/* skribble.dev: paper, plum ink, and marker colours, matching the docs. */
+/* skribble.dev: paper, plum ink, and skribble's vivid sunny colourway,
+   matching the Flutter theme (WiredColorway.sunny). */
 
 :root {
   --paper: #fffaf0;
@@ -6,12 +7,14 @@
   --paper-3: #f6dfd5;
   --ink: #34283f;
   --quiet: #6f6273;
-  --coral: #e87960;
-  --sun: #ffcc4d;
-  --lilac: #9c7bd4;
-  --mint: #3fb3a4;
-  --sky: #4e8fda;
-  --pink: #e57aa0;
+  --coral: #ff6b4a;
+  --coral-text: #c2381c;
+  --sun: #ffd43b;
+  --lilac: #a98bff;
+  --mint: #3ddc97;
+  --sky: #4cc3ff;
+  --pink: #ff85c0;
+  --tangerine: #ff9f1c;
   --rule: #d9cdc1;
   --rise: #267755;
   --fall: #ba4945;
@@ -35,6 +38,10 @@
   --skribble-paper: var(--paper);
   --skribble-accent: var(--coral);
   --skribble-on-accent: var(--on-coral);
+  --skribble-marker: var(--sun);
+  --skribble-on-marker: var(--on-coral);
+  --spring: linear(0, 0.0314, 0.1111, 0.2202, 0.3438, 0.4702, 0.5911, 0.701, 0.7965, 0.8762, 0.94, 0.9887, 1.0238, 1.0473, 1.0611, 1.0673, 1.0676, 1.0639, 1.0574, 1.0495, 1.0409, 1.0324, 1.0244, 1.0174, 1.0113, 1.0064, 1.0025, 0.9996, 0.9976, 0.9963, 0.9956, 0.9954, 0.9958, 0.9969, 0.998, 0.999, 1);
+  --bounce: linear(0, 0.0651, 0.2261, 0.4354, 0.6529, 0.8497, 1.0074, 1.1182, 1.1821, 1.2049, 1.1959, 1.1654, 1.1234, 1.0786, 1.0371, 1.0032, 0.9788, 0.9642, 0.9582, 0.9591, 0.9648, 0.9731, 0.9824, 0.991, 0.9983, 1.0037, 1.007, 1.0085, 1.0058, 1.0021, 0.9994, 0.9983, 0.9987, 1);
   --skribble-font: var(--font-body);
   --skribble-stroke-width: 2px;
 
@@ -48,12 +55,14 @@
     --paper-3: #3a2c3b;
     --ink: #f3ebdf;
     --quiet: #bcb0bf;
-    --coral: #f08e76;
-    --sun: #f2c14e;
-    --lilac: #b89ce6;
-    --mint: #5cc8b8;
-    --sky: #79aef0;
-    --pink: #f09bbb;
+    --coral: #ff6b4a;
+    --coral-text: #ff8f75;
+    --sun: #ffd43b;
+    --lilac: #a98bff;
+    --mint: #3ddc97;
+    --sky: #4cc3ff;
+    --pink: #ff85c0;
+    --tangerine: #ff9f1c;
     --rule: #4a4050;
     --rise: #5fbf8f;
     --fall: #ec857c;
@@ -74,12 +83,14 @@
   --paper-3: #3a2c3b;
   --ink: #f3ebdf;
   --quiet: #bcb0bf;
-  --coral: #f08e76;
-  --sun: #f2c14e;
-  --lilac: #b89ce6;
-  --mint: #5cc8b8;
-  --sky: #79aef0;
-  --pink: #f09bbb;
+  --coral: #ff6b4a;
+  --coral-text: #ff8f75;
+  --sun: #ffd43b;
+  --lilac: #a98bff;
+  --mint: #3ddc97;
+  --sky: #4cc3ff;
+  --pink: #ff85c0;
+  --tangerine: #ff9f1c;
   --rule: #4a4050;
   --rise: #5fbf8f;
   --fall: #ec857c;
@@ -158,7 +169,7 @@ a {
 }
 
 a:hover {
-  color: var(--coral);
+  color: var(--coral-text);
 }
 
 a:focus-visible,
@@ -306,11 +317,33 @@ svg {
 
 .js .reveal {
   opacity: 0;
-  transform: translateY(22px) rotate(-0.4deg);
+  transform: translateY(28px) scale(0.96) rotate(-0.8deg);
   transition:
-    opacity 0.7s ease-out,
-    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transition-delay: calc(var(--d, 0) * 80ms);
+    opacity 0.5s ease-out,
+    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.9s var(--spring);
+  transition-delay: calc(var(--d, 0) * 90ms);
+}
+
+/* The hero's copy springs in one line after another, like stickers
+   pressed onto the page. */
+.js .pop {
+  animation: pop 0.8s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  animation: pop 0.8s var(--spring) both;
+  animation-delay: calc(0.1s + var(--i, 0) * 90ms);
+}
+
+.inking .pop {
+  animation-play-state: paused;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.94) rotate(-1.5deg);
+  }
 }
 
 .js .reveal.is-in {
@@ -483,13 +516,28 @@ svg {
 }
 
 .eyebrow {
-  margin-bottom: 10px;
-  color: var(--coral);
-  font-size: 0.95rem;
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 4px 14px 3px;
+  border: 2px solid var(--ink);
+  /* A wobbly, hand-cut sticker edge. */
+  border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+  background: var(--sticker, var(--sun));
+  box-shadow: 3px 3px 0 var(--ink);
+  color: var(--on-coral);
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  transform: rotate(-2deg);
 }
+
+.section:nth-of-type(6n + 1) .eyebrow { --sticker: var(--pink); }
+.section:nth-of-type(6n + 2) .eyebrow { --sticker: var(--sky); transform: rotate(1.5deg); }
+.section:nth-of-type(6n + 3) .eyebrow { --sticker: var(--mint); }
+.section:nth-of-type(6n + 4) .eyebrow { --sticker: var(--lilac); transform: rotate(2deg); }
+.section:nth-of-type(6n + 5) .eyebrow { --sticker: var(--tangerine); }
+.section:nth-of-type(6n) .eyebrow { --sticker: var(--sun); transform: rotate(1deg); }
 
 .section h2 {
   font-size: clamp(2.1rem, 5vw, 3.4rem);
@@ -519,6 +567,8 @@ svg {
 /* ---------- Hero ---------- */
 
 .hero {
+  position: relative;
+  isolation: isolate;
   display: grid;
   gap: clamp(40px, 6vw, 72px);
   align-items: center;
@@ -540,6 +590,8 @@ svg {
 
 .hero-highlight {
   position: relative;
+  /* Dark lettering on the marker in both themes. */
+  color: var(--on-coral);
   isolation: isolate;
   display: inline-block;
   padding-inline: 0.08em;
@@ -753,7 +805,7 @@ svg {
 
 .pen-name {
   justify-self: end;
-  color: var(--coral);
+  color: var(--coral-text);
   font-weight: 700;
 }
 
@@ -980,7 +1032,7 @@ svg {
 }
 
 .slider-value {
-  color: var(--coral);
+  color: var(--coral-text);
   font-family: var(--font-mono);
   font-weight: 700;
 }
@@ -1137,8 +1189,9 @@ svg {
   overflow: hidden;
   margin-block: 24px 0;
   padding-block: 14px;
-  background: var(--ink);
-  color: var(--paper);
+  border-block: 2.5px solid var(--on-coral);
+  background: var(--sun);
+  color: var(--on-coral);
   transform: rotate(-1.4deg) scale(1.03);
 }
 
@@ -1166,8 +1219,11 @@ svg {
 }
 
 .marquee .ink {
-  --ink: var(--paper);
+  --ink: var(--on-coral);
 }
+
+.marquee li:nth-child(3n + 1) .ink { --sun: var(--coral); }
+.marquee li:nth-child(3n + 2) .ink { --sun: var(--paper); }
 
 @keyframes marquee {
   to {
@@ -1794,10 +1850,6 @@ svg {
   padding: 28px;
 }
 
-.beyond-card .skribble-ink-hatch {
-  opacity: 0.35;
-}
-
 .beyond-card h3 {
   font-size: 1.6rem;
   font-weight: 800;
@@ -1828,8 +1880,8 @@ svg {
   text-align: center;
 }
 
-.closing-ink .ink-hatch {
-  opacity: 0.55;
+.closing-ink .ink-solid {
+  opacity: 1;
 }
 
 .closing h2 {
@@ -1881,7 +1933,7 @@ svg {
 }
 
 .footer-grid a:hover {
-  color: var(--coral);
+  color: var(--coral-text);
   text-decoration: underline wavy var(--coral) 2px;
 }
 
@@ -1913,6 +1965,165 @@ svg {
   justify-content: center;
 }
 
+/* ---------- Confetti ---------- */
+
+/* Bright doodles around the hero and the closing call. Each is two
+   drawings of one shape that take turns (line boil), drifting slowly and
+   leaning towards the pointer (site.js sets --mx and --my). */
+.hero-confetti {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.confetti {
+  position: absolute;
+  display: block;
+  transform: translate(
+    calc(var(--mx, 0) * var(--z, 0) * 1px),
+    calc(var(--my, 0) * var(--z, 0) * 1px)
+  );
+  transition: transform 0.9s var(--spring);
+}
+
+.confetti .ink {
+  display: block;
+  overflow: visible;
+}
+
+.confetti .boil-b {
+  visibility: hidden;
+}
+
+.confetti--1 { top: -2%; left: 44%; }
+.confetti--2 { top: 4%; right: -1%; }
+.confetti--3 { bottom: 4%; left: 30%; }
+.confetti--4 { top: 80%; left: -2%; }
+.confetti--5 { bottom: 14%; right: 36%; }
+.confetti--6 { top: 0; left: 4%; }
+.confetti--7 { bottom: 30%; right: -2%; }
+.confetti--8 { top: 74%; left: 50%; }
+
+.closing .confetti--1 { top: -6%; left: 8%; }
+.closing .confetti--2 { top: 10%; right: 6%; }
+.closing .confetti--3 { bottom: -4%; left: 58%; }
+.closing .confetti--4 { top: 54%; left: 3%; }
+.closing .confetti--5 { bottom: 8%; right: 12%; }
+.closing .confetti--6 { top: -4%; left: 46%; }
+.closing .confetti--7 { top: 40%; right: -2%; }
+.closing .confetti--8 { bottom: 10%; left: 22%; }
+
+@media (max-width: 700px) {
+  .confetti { scale: 0.7; }
+
+  .hero .confetti--3,
+  .hero .confetti--4,
+  .hero .confetti--5,
+  .hero .confetti--8 {
+    display: none;
+  }
+
+  .hero .confetti--1 { top: -1%; left: auto; right: 14%; }
+  .hero .confetti--2 { top: 27%; right: -2%; }
+  .hero .confetti--6 { top: -1%; left: -2%; }
+  .hero .confetti--7 { top: 55%; right: -3%; bottom: auto; }
+
+  .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .confetti .ink {
+    animation: drift 7s ease-in-out infinite alternate;
+    animation-delay: calc(var(--i, 0) * -0.9s);
+  }
+
+  .js .confetti .boil-a {
+    animation: skribble-boil-a 0.375s steps(1, end) infinite;
+  }
+
+  .js .confetti .boil-b {
+    animation: skribble-boil-b 0.375s steps(1, end) infinite;
+  }
+}
+
+@keyframes drift {
+  from {
+    translate: 0 6px;
+    rotate: -8deg;
+  }
+
+  to {
+    translate: 0 -8px;
+    rotate: 8deg;
+  }
+}
+
+/* ---------- Lively cards ---------- */
+
+/* Cards lift and tilt on a spring under the pointer. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  :is(.play-card, .pen-card, .beyond-card, .fill-card, .companion-card):is(.is-in, :not(.reveal)):hover {
+    transform: translateY(-6px) rotate(-0.8deg);
+    transition: transform 0.6s var(--bounce);
+  }
+
+  :is(.play-card, .pen-card, .beyond-card, .fill-card, .companion-card):nth-child(even):is(.is-in, :not(.reveal)):hover {
+    transform: translateY(-6px) rotate(0.8deg);
+  }
+}
+
+/* Each widget card wears its name on a colourful sticker. */
+.play-head h3 {
+  padding: 2px 10px;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: var(--sticker, var(--sun));
+  color: var(--on-coral);
+  transform: rotate(-1.5deg);
+}
+
+.play-card:nth-child(6n + 2) .play-head h3 { --sticker: var(--sky); transform: rotate(1deg); }
+.play-card:nth-child(6n + 3) .play-head h3 { --sticker: var(--pink); }
+.play-card:nth-child(6n + 4) .play-head h3 { --sticker: var(--mint); transform: rotate(1.5deg); }
+.play-card:nth-child(6n + 5) .play-head h3 { --sticker: var(--lilac); }
+.play-card:nth-child(6n) .play-head h3 { --sticker: var(--tangerine); transform: rotate(-1deg); }
+
+.pen-card:nth-child(1) h3 { text-decoration: underline wavy var(--mint) 3px; text-underline-offset: 8px; }
+.pen-card:nth-child(2) h3 { text-decoration: underline wavy var(--sun) 3px; text-underline-offset: 8px; }
+.pen-card:nth-child(3) h3 { text-decoration: underline wavy var(--pink) 3px; text-underline-offset: 8px; }
+
+/* Vivid washes keep dark lettering in both themes. */
+.beyond-card,
+.closing {
+  --ink: var(--on-coral);
+  --skribble-ink: var(--on-coral);
+  color: var(--on-coral);
+}
+
+.beyond-card:nth-child(2) { --d: 1; }
+.beyond-card:nth-child(3) { --d: 2; }
+
+.beyond-card .skribble-ink-solid {
+  opacity: 1;
+}
+
+.closing {
+  position: relative;
+  isolation: isolate;
+}
+
+.closing .hero-confetti {
+  z-index: 0;
+}
+
+.closing > :not(.closing-ink, .hero-confetti) {
+  position: relative;
+  z-index: 1;
+}
+
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1929,8 +2140,13 @@ svg {
     transition-duration: 0.001ms !important;
   }
 
-  .js .reveal {
+  .js .reveal,
+  .js .pop {
     opacity: 1;
+    transform: none;
+  }
+
+  .confetti {
     transform: none;
   }
 

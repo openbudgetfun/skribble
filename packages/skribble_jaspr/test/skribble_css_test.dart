@@ -14,6 +14,9 @@ void main() {
         '--skribble-paper',
         '--skribble-accent',
         '--skribble-on-accent',
+        '--skribble-marker',
+        '--skribble-on-marker',
+        for (var i = 1; i <= 6; i++) '--skribble-wash-$i',
         '--skribble-stroke-width',
         '--skribble-font',
       ]) {
@@ -166,6 +169,49 @@ void main() {
       String tokens(String css) => css.split(RegExp(r'\s+')).join(' ').trim();
 
       expect(tokens(single(body, 'style').text), tokens(skribbleCss));
+    });
+    test('defaults to the sunny colourway', () {
+      final root = ruleFor(skribbleCss, ':where(:root)');
+      expect(root['--skribble-ink'], '#34283f');
+      expect(root['--skribble-accent'], '#ff6b4a');
+      expect(root['--skribble-marker'], '#ffd43b');
+    });
+
+    test('wash classes colour-code a fill', () {
+      for (var i = 1; i <= 6; i++) {
+        expect(
+          ruleFor(skribbleCss, '.skribble-wash-$i'),
+          {'--skribble-fill': 'var(--skribble-wash-$i)'},
+        );
+      }
+    });
+
+    test('draws ink on, pops, and lifts only with motion allowed', () {
+      final moving = {
+        for (final rule in cssRules(skribbleCss))
+          if (rule.selector.contains(
+            RegExp(r'skribble-(draw|pop|lift)\b'),
+          ))
+            rule.selector: rule.atRules,
+      };
+      expect(moving.keys, contains(contains('.skribble-pop')));
+      expect(moving.keys, contains(contains('.skribble-draw')));
+      expect(moving.keys, contains(contains('.skribble-lift')));
+      for (final MapEntry(:key, :value) in moving.entries) {
+        expect(
+          value,
+          contains(contains('(prefers-reduced-motion: no-preference)')),
+          reason: key,
+        );
+      }
+    });
+
+    test('springs with a linear() easing and a cubic fallback', () {
+      expect(skribbleCss, contains('animation: skribble-pop 0.72s linear(0,'));
+      expect(
+        skribbleCss,
+        contains('animation: skribble-pop 0.72s cubic-bezier('),
+      );
     });
   });
 }

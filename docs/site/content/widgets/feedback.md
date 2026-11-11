@@ -218,12 +218,12 @@ WiredBadge(
 
 ### Constructor parameters
 
-| Parameter         | Type      | Default      | Description                                      |
-| ----------------- | --------- | ------------ | ------------------------------------------------ |
-| `child`           | `Widget`  | **required** | The widget to badge.                             |
-| `label`           | `String?` | `null`       | Text inside the badge. When `null`, shows a dot. |
-| `isVisible`       | `bool`    | `true`       | Whether the badge is shown.                      |
-| `backgroundColor` | `Color?`  | `null`       | Badge color. Defaults to `theme.markerColor`.    |
+| Parameter         | Type      | Default      | Description                                                                            |
+| ----------------- | --------- | ------------ | -------------------------------------------------------------------------------------- |
+| `child`           | `Widget`  | **required** | The widget to badge.                                                                   |
+| `label`           | `String?` | `null`       | Text inside the badge. When `null`, shows a dot.                                       |
+| `isVisible`       | `bool`    | `true`       | Whether the badge is shown.                                                            |
+| `backgroundColor` | `Color?`  | `null`       | Badge color. Defaults to `theme.accentColor`, with the label in `theme.onColor(fill)`. |
 
 ### Notes
 

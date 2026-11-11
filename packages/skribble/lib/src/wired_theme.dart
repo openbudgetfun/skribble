@@ -22,8 +22,11 @@ const String skribbleFontFamily = 'SkribbleNotoSketch';
 /// the typeface, and the motion policy.
 ///
 /// The defaults are skribble's light theme: plum [WiredPalette.ink] on warm
-/// [WiredPalette.paper]. [WiredThemeData.cuddly] builds the matching dark
-/// theme with `brightness: Brightness.dark`. Install a theme with
+/// [WiredPalette.paper], with the vivid [WiredColorway.sunny] colours: a
+/// highlighter-yellow [markerColor], a tomato [accentColor] on primary
+/// actions, and a run of [accents] for colour-coding content.
+/// [WiredThemeData.colorway] picks another colourway and brightness, and
+/// [WiredThemeData.cuddly] builds the sunny theme for either brightness. Install a theme with
 /// `SkribbleApp`, [WiredThemeScope], or [WiredTheme], and read it with
 /// [WiredTheme.of].
 ///
@@ -60,6 +63,18 @@ class WiredThemeData {
   /// Ink still draws the shape and the label on top, so selection never
   /// relies on this colour alone.
   final Color markerColor;
+
+  /// The fill of primary actions: `WiredFilledButton`s, the floating action
+  /// button, and badges. Defaults to [WiredPalette.tomato].
+  ///
+  /// Labels on it use [onAccentColor], so any accent stays legible.
+  final Color accentColor;
+
+  /// Vivid washes for colour-coding content: cards, chips, tags, and chart
+  /// series. Read one with [accentAt], which cycles through the list.
+  ///
+  /// Defaults to the [WiredColorway.sunny] washes. Never empty.
+  final List<Color> accents;
 
   /// The pen width of outlines, in logical pixels. Icons scale their ink
   /// with it too. Defaults to [kWiredStrokeWidth].
@@ -123,9 +138,11 @@ class WiredThemeData {
     this.borderColor = WiredPalette.ink,
     this.textColor = WiredPalette.ink,
     this.disabledTextColor = WiredPalette.mutedInk,
-    this.errorColor = WiredPalette.coral,
+    this.errorColor = WiredPalette.cherry,
     this.fillColor = WiredPalette.paper,
-    this.markerColor = WiredPalette.lilac,
+    this.markerColor = WiredPalette.sunshine,
+    this.accentColor = WiredPalette.tomato,
+    List<Color>? accents,
     this.strokeWidth = kWiredStrokeWidth,
     this.roughnessLevel = WiredRoughness.playful,
     this.font = WiredFont.notoSketch,
@@ -134,34 +151,56 @@ class WiredThemeData {
     this._fontFamily,
     this._drawConfig,
     this._pen,
-  });
+  }) : accents = accents == null || accents.isEmpty
+           ? WiredColorway.sunny.accents
+           : List.unmodifiable(accents);
 
-  /// Warm paper and plum ink from the shared Figma library.
+  /// Warm paper and plum ink with the default [WiredColorway.sunny]
+  /// colours, for either [brightness].
   ///
-  /// Keeps the existing roughness presets independent of color and supports
-  /// both light and dark surfaces. Accent washes live in [WiredPalette].
+  /// `WiredThemeData.cuddly(brightness: Brightness.dark)` is skribble's night
+  /// theme: paper ink on [WiredPalette.night], with the same vivid marker
+  /// and accent glowing on the dark paper.
   factory WiredThemeData.cuddly({
     Brightness brightness = Brightness.light,
     WiredRoughness roughnessLevel = WiredRoughness.playful,
-  }) => WiredThemeData(
-    borderColor: brightness == Brightness.dark
-        ? WiredPalette.paper
-        : WiredPalette.ink,
-    textColor: brightness == Brightness.dark
-        ? WiredPalette.paper
-        : WiredPalette.ink,
-    disabledTextColor: brightness == Brightness.dark
-        ? WiredPalette.mutedPaper
-        : WiredPalette.mutedInk,
-    errorColor: WiredPalette.coral,
-    fillColor: brightness == Brightness.dark
-        ? WiredPalette.night
-        : WiredPalette.paper,
-    markerColor: brightness == Brightness.dark
-        ? WiredPalette.dusk
-        : WiredPalette.lilac,
+  }) => WiredThemeData.colorway(
+    WiredColorway.sunny,
+    brightness: brightness,
     roughnessLevel: roughnessLevel,
   );
+
+  /// Warm paper and plum ink (or paper ink on night) in one of skribble's
+  /// [WiredColorway]s.
+  ///
+  /// ```dart
+  /// SkribbleApp(
+  ///   wiredTheme: WiredThemeData.colorway(WiredColorway.berry),
+  ///   darkWiredTheme: WiredThemeData.colorway(
+  ///     WiredColorway.berry,
+  ///     brightness: Brightness.dark,
+  ///   ),
+  ///   home: const Home(),
+  /// )
+  /// ```
+  factory WiredThemeData.colorway(
+    WiredColorway colorway, {
+    Brightness brightness = Brightness.light,
+    WiredRoughness roughnessLevel = WiredRoughness.playful,
+  }) {
+    final dark = brightness == Brightness.dark;
+    return WiredThemeData(
+      borderColor: dark ? WiredPalette.paper : WiredPalette.ink,
+      textColor: dark ? WiredPalette.paper : WiredPalette.ink,
+      disabledTextColor: dark ? WiredPalette.mutedPaper : WiredPalette.mutedInk,
+      errorColor: dark ? WiredPalette.cherryGlow : WiredPalette.cherry,
+      fillColor: dark ? WiredPalette.night : WiredPalette.paper,
+      markerColor: colorway.markerFor(brightness),
+      accentColor: colorway.accentFor(brightness),
+      accents: colorway.accentsFor(brightness),
+      roughnessLevel: roughnessLevel,
+    );
+  }
 
   /// Resolved drawing configuration, built once per theme instance.
   ///
@@ -192,6 +231,8 @@ class WiredThemeData {
           errorColor == other.errorColor &&
           fillColor == other.fillColor &&
           markerColor == other.markerColor &&
+          accentColor == other.accentColor &&
+          listEquals(accents, other.accents) &&
           strokeWidth == other.strokeWidth &&
           roughnessLevel == other.roughnessLevel &&
           font == other.font &&
@@ -211,6 +252,8 @@ class WiredThemeData {
     errorColor,
     fillColor,
     markerColor,
+    accentColor,
+    Object.hashAll(accents),
     strokeWidth,
     roughnessLevel,
     font,
@@ -235,6 +278,8 @@ class WiredThemeData {
     Color? errorColor,
     Color? fillColor,
     Color? markerColor,
+    Color? accentColor,
+    List<Color>? accents,
     double? strokeWidth,
     DrawConfig? drawConfig,
     double? roughness,
@@ -253,6 +298,8 @@ class WiredThemeData {
       errorColor: errorColor ?? this.errorColor,
       fillColor: fillColor ?? this.fillColor,
       markerColor: markerColor ?? this.markerColor,
+      accentColor: accentColor ?? this.accentColor,
+      accents: accents ?? this.accents,
       strokeWidth: strokeWidth ?? this.strokeWidth,
       drawConfig: drawConfig ?? _drawConfig,
       roughnessLevel: roughnessLevel ?? this.roughnessLevel,
@@ -263,6 +310,44 @@ class WiredThemeData {
       pen: pen ?? _pen,
     );
   }
+
+  /// The wash at [index] in [accents], cycling past the end, so a list of
+  /// any length can colour-code its items: `theme.accentAt(i)`.
+  ///
+  /// Negative indexes count back from the end.
+  Color accentAt(int index) => accents[index % accents.length];
+
+  /// Whichever of [textColor] and [fillColor] reads better on [background]:
+  /// the colour for a label, icon, or number drawn on a wash.
+  Color onColor(Color background) =>
+      _contrastRatio(background, textColor) >=
+          _contrastRatio(background, fillColor)
+      ? textColor
+      : fillColor;
+
+  /// This theme with its ink swapped for one that reads on [wash], for
+  /// content drawn on a coloured surface such as a card washed with
+  /// [accentAt].
+  ///
+  /// Returns this theme when [textColor] already reads better on [wash] than
+  /// [fillColor]: plum ink on any vivid wash in light themes. On night paper,
+  /// where the ink is light, it swaps ink and paper, so text, icons, and
+  /// outlines inside a sunshine card turn dark.
+  WiredThemeData inkOn(Color wash) {
+    if (onColor(wash) == textColor) return this;
+    return copyWith(
+      borderColor: fillColor,
+      textColor: fillColor,
+      fillColor: textColor,
+      disabledTextColor: fillColor.withValues(alpha: 0.7),
+    );
+  }
+
+  /// The ink for labels and icons on [markerColor].
+  Color get onMarkerColor => onColor(markerColor);
+
+  /// The ink for labels and icons on [accentColor].
+  Color get onAccentColor => onColor(accentColor);
 
   /// Space required by a divider's pen, wobble, and anti-aliased edges.
   double get inkExtent =>
@@ -288,9 +373,13 @@ class WiredThemeData {
       secondary: textColor,
       onSecondary: _bestContrastingColor(textColor),
       primaryContainer: markerColor,
-      onPrimaryContainer: textColor,
+      onPrimaryContainer: onMarkerColor,
       secondaryContainer: markerColor,
-      onSecondaryContainer: textColor,
+      onSecondaryContainer: onMarkerColor,
+      tertiary: accentColor,
+      onTertiary: onAccentColor,
+      tertiaryContainer: accentColor,
+      onTertiaryContainer: onAccentColor,
       surface: fillColor,
       onSurface: textColor,
       error: errorColor,
@@ -380,6 +469,12 @@ class WiredThemeData {
       ),
     );
   }
+}
+
+double _contrastRatio(Color a, Color b) {
+  final la = a.computeLuminance();
+  final lb = b.computeLuminance();
+  return la > lb ? (la + 0.05) / (lb + 0.05) : (lb + 0.05) / (la + 0.05);
 }
 
 Color _bestContrastingColor(Color color) {

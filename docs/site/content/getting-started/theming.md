@@ -22,9 +22,11 @@ WiredThemeData({
   Color borderColor = WiredPalette.ink,
   Color textColor = WiredPalette.ink,
   Color disabledTextColor = WiredPalette.mutedInk,
-  Color errorColor = WiredPalette.coral,
+  Color errorColor = WiredPalette.cherry,
   Color fillColor = WiredPalette.paper,
-  Color markerColor = WiredPalette.lilac,
+  Color markerColor = WiredPalette.sunshine,
+  Color accentColor = WiredPalette.tomato,
+  List<Color>? accents, // the WiredColorway.sunny washes
   double strokeWidth = kWiredStrokeWidth, // 1.6
   WiredRoughness roughnessLevel = WiredRoughness.playful,
   WiredFont font = WiredFont.notoSketch,
@@ -36,6 +38,10 @@ WiredThemeData({
 })
 ```
 
+### Colourways
+
+Most apps start from a colourway instead of the constructor: `WiredThemeData.colorway(WiredColorway.sunny)` (the default colours), `berry`, `ocean`, `citrus`, or the calm `quiet`, each for light or dark paper. See the [colourway table](/core/theme-system#colourways) and [Vivid and alive](/guides/vivid-design).
+
 ### Parameters
 
 <!-- {=docsWiredThemeDataParameters} -->
@@ -45,9 +51,11 @@ WiredThemeData({
 | `borderColor`        | `Color`               | `WiredPalette.ink`                                   | The color of every hand-drawn border, outline, and stroke. Plum ink by default.                                                                            |
 | `textColor`          | `Color`               | `WiredPalette.ink`                                   | Primary text color for labels and button text.                                                                                                             |
 | `disabledTextColor`  | `Color`               | `WiredPalette.mutedInk`                              | Text color for disabled widgets. A muted plum by default.                                                                                                  |
-| `errorColor`         | `Color`               | `WiredPalette.coral`                                 | Ink for errors: the border of an input with error text and the error text itself.                                                                          |
+| `errorColor`         | `Color`               | `WiredPalette.cherry`                                | Ink for errors: the border of an input with error text and the error text itself.                                                                          |
 | `fillColor`          | `Color`               | `WiredPalette.paper`                                 | Background fill for cards, inputs, dialogs, and other surfaces. Warm paper by default.                                                                     |
-| `markerColor`        | `Color`               | `WiredPalette.lilac`                                 | The highlighter wash under selected and active things: navigation indicators, progress and slider fills, switch tracks, and selected segments.             |
+| `markerColor`        | `Color`               | `WiredPalette.sunshine`                              | The highlighter wash under selected and active things: navigation indicators, progress and slider fills, switch tracks, selected chips, and segments.      |
+| `accentColor`        | `Color`               | `WiredPalette.tomato`                                | The fill of primary actions: `WiredFilledButton`, the floating action button, and badges. Labels on it use `onAccentColor`.                                |
+| `accents`            | `List<Color>?`        | `null`: the `WiredColorway.sunny` washes             | Vivid washes for colour-coding cards, chips, tags, and chart series. Read one with `theme.accentAt(index)`, which cycles through the list.                 |
 | `strokeWidth`        | `double`              | `kWiredStrokeWidth` (1.6)                            | Width in logical pixels of the rough-drawn strokes.                                                                                                        |
 | `roughnessLevel`     | `WiredRoughness`      | `WiredRoughness.playful`                             | Coordinated border, icon, pen, and Recursive lettering defaults: `gentle`, `playful`, or `expressive`.                                                     |
 | `font`               | `WiredFont`           | `WiredFont.notoSketch`                               | The bundled typeface. Install the package that ships it.                                                                                                   |
@@ -137,30 +145,24 @@ import 'package:flutter/widgets.dart';
 import 'package:skribble/skribble.dart';
 
 void main() {
-  final wiredTheme = WiredThemeData(
-    borderColor: Color(0xFF4A3470),
-    textColor: Color(0xFF2A2238),
-    disabledTextColor: Color(0xFFA39AAD),
-    fillColor: Color(0xFFFFFCF1),
-    roughness: 1.15,
-  );
-
   runApp(
     SkribbleApp(
-      wiredTheme: wiredTheme,
-      darkWiredTheme: WiredThemeData(
-        borderColor: Color(0xFFB09BDC),
-        textColor: Color(0xFFF0EBF5),
-        fillColor: Color(0xFF1E1A26),
-        roughness: 1.15,
+      // Plum ink on warm paper, with a vivid marker, accent, and washes.
+      wiredTheme: WiredThemeData.colorway(WiredColorway.sunny),
+      darkWiredTheme: WiredThemeData.colorway(
+        WiredColorway.sunny,
+        brightness: Brightness.dark,
       ),
       themeMode: SkribbleThemeMode.system,
       title: 'My sketchy app',
       builder: (context, child) => WiredMaterialTheme(child: child!),
       home: WiredScaffold(
-        appBar: WiredAppBar(title: Text('Plum ink, day and night')),
+        appBar: WiredAppBar(title: Text('Bright ink, day and night')),
         body: Center(
-          child: WiredButton(onPressed: () {}, child: Text('Press me')),
+          child: WiredFilledButton(
+            onPressed: () {},
+            child: Text('Press me'),
+          ),
         ),
       ),
     ),
@@ -255,74 +257,70 @@ The `seed` parameter is important: the same seed produces the same wobbly lines 
 
 ## Custom theme example
 
-Here is a complete `lib/main.dart` with a purple sketchy palette and a dark variant:
+Here is a complete `lib/main.dart` that starts from the berry colourway, swaps in its own run of washes, and colour-codes a list. Change colours on top of a colourway rather than building a palette from greys: the colourway keeps ink, paper, and contrast right in both themes.
 
 ```dart
 // Static example: setup
 import 'package:flutter/widgets.dart';
 import 'package:skribble/skribble.dart';
 
+const washes = [
+  WiredPalette.bubblegum,
+  WiredPalette.sky,
+  WiredPalette.lime,
+  WiredPalette.tangerine,
+];
+
 void main() {
-  // Define a custom purple theme
-  final purpleTheme = WiredThemeData(
-    borderColor: Color(0xFF6A1B9A), // deep purple
-    textColor: Color(0xFF4A148C), // darker purple for text
-    disabledTextColor: Color(0xFFCE93D8), // light purple for disabled
-    fillColor: Color(0xFFF3E5F5), // very light purple surface
-    strokeWidth: 2.5, // slightly thicker strokes
-    roughness: 1.2, // a little rougher than the default
-  );
-
-  // Dark variant
-  final purpleDarkTheme = WiredThemeData(
-    borderColor: Color(0xFFCE93D8), // light purple borders on dark
-    textColor: Color(0xFFE1BEE7), // light purple text
-    disabledTextColor: Color(0xFF7B1FA2),
-    fillColor: Color(0xFF1A0A2E), // very dark purple surface
-    strokeWidth: 2.5,
-    roughness: 1.2,
-  );
-
   runApp(
     SkribbleApp(
-      title: 'Purple Sketch',
-      wiredTheme: purpleTheme,
-      darkWiredTheme: purpleDarkTheme,
+      title: 'Berry Sketch',
+      wiredTheme: WiredThemeData.colorway(
+        WiredColorway.berry,
+      ).copyWith(accents: washes),
+      darkWiredTheme: WiredThemeData.colorway(
+        WiredColorway.berry,
+        brightness: Brightness.dark,
+      ).copyWith(accents: washes),
       themeMode: SkribbleThemeMode.system,
       builder: (context, child) => WiredMaterialTheme(child: child!),
-      home: const PurpleDemo(),
+      home: const BerryDemo(),
     ),
   );
 }
 
-class PurpleDemo extends StatelessWidget {
-  const PurpleDemo({super.key});
+class BerryDemo extends StatelessWidget {
+  const BerryDemo({super.key});
+
+  static const tasks = ['Pick berries', 'Bake a pie', 'Share a slice'];
 
   @override
   Widget build(BuildContext context) {
+    final theme = WiredTheme.of(context);
     return WiredScaffold(
-      appBar: WiredAppBar(title: const Text('Purple Sketch')),
-      body: Padding(
+      appBar: WiredAppBar(title: const Text('Berry Sketch')),
+      body: ListView(
         padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            WiredCard(
-              height: null,
-              fill: true,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text('Everything is purple and hand-drawn.'),
-              ),
-            ),
-            const SizedBox(height: 16),
-            WiredInput(hintText: 'Type something purple...'),
-            const SizedBox(height: 16),
-            WiredButton(
-              onPressed: () {},
-              child: const Text('Purple Button'),
-            ),
-          ],
-        ),
+        children: [
+          WiredCascade(
+            spacing: 12,
+            children: [
+              for (final (i, task) in tasks.indexed)
+                WiredCard(
+                  height: null,
+                  color: theme.accentAt(i),
+                  child: Text(task),
+                ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          WiredInput(hintText: 'Add something sweet...'),
+          const SizedBox(height: 16),
+          WiredFilledButton(
+            onPressed: () {},
+            child: const Text('Add it'),
+          ),
+        ],
       ),
     );
   }

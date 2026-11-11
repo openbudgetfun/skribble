@@ -13,11 +13,12 @@ skribble provides layout and structural widgets that form the scaffolding of you
 
 Card outlines use 16 px corners by default. The `borderRadius` parameter accepts custom or square corners. Two continuous pen passes keep the corners soft while retaining the selected roughness.
 
-A card with a hand-drawn rectangle border. Supports optional hachure fill for a more prominent appearance.
+A card with a hand-drawn rectangle border. Give it a `color` to wash it in a colour, and colour-code a set of cards with `theme.accentAt(index)`; `fill: true` colours it in with hachure strokes instead.
 
 ```dart
 // Live example: card
 WiredCard(
+  color: const Color(0xffff6b4a),
   fill: true,
   child: Center(child: Text('Make something lovely')),
 )
@@ -28,7 +29,8 @@ WiredCard(
 | Parameter      | Type                 | Default            | Description                                                                           |
 | -------------- | -------------------- | ------------------ | ------------------------------------------------------------------------------------- |
 | `child`        | `Widget?`            | `null`             | The card content.                                                                     |
-| `fill`         | `bool`               | `false`            | Whether to colour the card in with close pencil strokes of `theme.fillColor`.         |
+| `color`        | `Color?`             | `null`             | Washes the card in this colour; with `fill: true`, the hachure strokes use it.        |
+| `fill`         | `bool`               | `false`            | Whether to colour the card in with close pencil strokes of `color` or `fillColor`.    |
 | `height`       | `double?`            | `130.0`            | Least card height; the card grows with its content. Set to `null` to fit `child`.     |
 | `padding`      | `EdgeInsetsGeometry` | `kWiredInkPadding` | Space between the outline and `child`. Pass `EdgeInsets.zero` if `child` pads itself. |
 | `borderRadius` | `BorderRadius`       | 16 px corners      | Soft corners for the outline; `BorderRadius.zero` for square ink.                     |
@@ -37,7 +39,8 @@ WiredCard(
 ### Notes
 
 - The border uses `WiredRectangleBase` with `theme.fillColor` and `theme.borderColor`.
-- When `fill` is `true`, the card is coloured in with even hachure strokes 7 px apart, drawn with the theme's hand so they stay inside the outline. Wrap the card in a `WiredTheme` with a pastel `fillColor` to tint it.
+- When `fill` is `true`, the card is coloured in with even hachure strokes 7 px apart, drawn with the theme's hand so they stay inside the outline. Pass `color` to tint them.
+- A card with a solid `color` inks its content with `theme.inkOn(color)`, so text and icons switch to paper when ink would not reach 4.5:1 contrast on the wash.
 - `child` sits `kWiredInkPadding` (8 pixels above and below, 12 at the sides) inside the outline, so plain text never touches the ink. Taller content grows the card past `height` instead of being squeezed; with `height: null`, the card is exactly as tall as its padded content. A card with a `height` spans the width it is given; with `height: null` it wraps its child's width, and in a horizontally scrolling list it always does.
 - The internal `Card` has transparent color and shadow so the hand-drawn border is the only visible chrome.
 

@@ -43,6 +43,30 @@
     startReveals();
   }
 
+  // Confetti leans towards the pointer: each piece moves by its own depth,
+  // so the doodles drift apart like layers of paper. Only for a fine
+  // pointer, and never when the reader asked for less motion.
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+  document.querySelectorAll(".hero, .closing").forEach(function (stage) {
+    var frame = 0;
+    stage.addEventListener("pointermove", function (event) {
+      if (still.matches || !fine.matches || frame) return;
+      frame = requestAnimationFrame(function () {
+        frame = 0;
+        var box = stage.getBoundingClientRect();
+        var x = ((event.clientX - box.left) / box.width) * 2 - 1;
+        var y = ((event.clientY - box.top) / box.height) * 2 - 1;
+        stage.style.setProperty("--mx", x.toFixed(3));
+        stage.style.setProperty("--my", y.toFixed(3));
+      });
+    });
+    stage.addEventListener("pointerleave", function () {
+      stage.style.setProperty("--mx", "0");
+      stage.style.setProperty("--my", "0");
+    });
+  });
+
   // Light and dark paper, remembered per browser.
   var toggle = document.querySelector(".theme-toggle");
   if (toggle) {

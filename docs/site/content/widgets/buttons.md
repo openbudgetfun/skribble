@@ -80,14 +80,14 @@ WiredElevatedButton(
 
 ## WiredFilledButton
 
-A button coloured in with the theme's highlighter, analogous to Material's `FilledButton`. Good for primary call-to-action placement. By default it is washed with `theme.markerColor` and labelled in `theme.textColor`, like a button coloured in with a marker; pass `fillColor` for a stronger or branded colour.
+A button coloured in with the theme's highlighter, analogous to Material's `FilledButton`. Good for primary call-to-action placement. By default it is filled with the theme's `accentColor` (tomato in the sunny colourway), the one loud thing on the screen to press, and labelled in whichever of ink or paper reads better on it. Pass `fillColor` for another colour, such as `theme.accentAt(2)`.
 
 ```dart
 // Live example: filled-button
 WiredFilledButton(
   borderRadius: BorderRadius.circular(8),
   onPressed: true ? () {} : null,
-  fillColor: const Color(0xffe8957d),
+  fillColor: const Color(0xffff6b4a),
   inkInteraction: WiredInkInteraction.pressure,
   child: Text('Make something lovely'),
 )
@@ -100,20 +100,21 @@ WiredFilledButton(
 | `borderRadius`    | `BorderRadius`  | `BorderRadius.all(Radius.circular(10))` | Rough corner radii; use zero for square corners.                                                       |
 | `child`           | `Widget`        | **required**                            | The button label.                                                                                      |
 | `onPressed`       | `VoidCallback?` | `null`                                  | Callback when tapped.                                                                                  |
-| `fillColor`       | `Color?`        | `null`                                  | Custom fill color. Defaults to `theme.markerColor`.                                                    |
+| `fillColor`       | `Color?`        | `null`                                  | Custom fill color. Defaults to `theme.accentColor`.                                                    |
 | `foregroundColor` | `Color?`        | `null`                                  | Text/icon color. Defaults to the theme's text or paper colour, whichever contrasts more with the fill. |
 | `semanticLabel`   | `String?`       | `null`                                  | Accessibility label.                                                                                   |
 
 ### Notes
 
 - The solid fill keeps the label readable and retains a small, uneven overlap along the outline.
-- When `fillColor` is not provided the button uses `theme.markerColor`, a soft wash under ink text. Earlier versions filled it with `theme.borderColor`; pass `fillColor: theme.borderColor` to keep that heavier look.
+- When `fillColor` is not provided the button uses `theme.accentColor`. Earlier versions washed it with `theme.markerColor`; pass `fillColor: theme.markerColor` to keep that softer look.
+- Give each screen one filled button, and use `WiredOutlinedButton` or `WiredTextButton` for the rest. See [Vivid and alive](/guides/vivid-design).
 
 ---
 
 ## WiredFloatingActionButton
 
-A circular floating action button: a hand-drawn circle washed with `theme.markerColor`, with its icon in `theme.textColor`. Designed for primary screen actions.
+A circular floating action button: a hand-drawn circle filled with `theme.accentColor`, with its icon in `theme.onAccentColor`. Designed for primary screen actions.
 
 ```dart
 // Live example: floating-button
@@ -126,13 +127,13 @@ WiredFloatingActionButton(
 
 ### Constructor parameters
 
-| Parameter       | Type            | Default      | Description                                         |
-| --------------- | --------------- | ------------ | --------------------------------------------------- |
-| `icon`          | `IconData`      | **required** | The icon displayed in the center.                   |
-| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped.                               |
-| `size`          | `double`        | `56.0`       | Diameter of the FAB.                                |
-| `iconColor`     | `Color?`        | `null`       | Icon color override. Defaults to `theme.textColor`. |
-| `semanticLabel` | `String?`       | `null`       | Accessibility label.                                |
+| Parameter       | Type            | Default      | Description                                             |
+| --------------- | --------------- | ------------ | ------------------------------------------------------- |
+| `icon`          | `IconData`      | **required** | The icon displayed in the center.                       |
+| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped.                                   |
+| `size`          | `double`        | `56.0`       | Diameter of the FAB.                                    |
+| `iconColor`     | `Color?`        | `null`       | Icon color override. Defaults to `theme.onAccentColor`. |
+| `semanticLabel` | `String?`       | `null`       | Accessibility label.                                    |
 
 ### Notes
 

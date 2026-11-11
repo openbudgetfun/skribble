@@ -5,6 +5,7 @@ import 'package:skribble_site/src/assets.dart';
 import 'package:skribble_site/src/config.dart';
 import 'package:skribble_site/src/html.dart';
 import 'package:skribble_site/src/ink.dart';
+import 'package:skribble_site/src/sections/hero.dart';
 
 /// The lettering showcase: a type tester over the bundled families.
 class Lettering extends StatelessComponent {
@@ -361,21 +362,21 @@ class BeyondFlutter extends StatelessComponent {
         'Drawn on the server with skribble_jaspr.',
         SiteLinks.jaspr,
         'Build with Jaspr',
-        Tone.coral,
+        Tone.sun,
       ),
       (
         'skribble_rough',
         'Seeded SVG anywhere Dart runs.',
         SiteLinks.roughEngine,
         'Meet the engine',
-        Tone.mint,
+        Tone.sky,
       ),
       (
         'Figma kit',
         'Every widget, ready to remix.',
         SiteLinks.designKit,
         'Open the design kit',
-        Tone.lilac,
+        Tone.pink,
       ),
     ];
 
@@ -389,7 +390,7 @@ class BeyondFlutter extends StatelessComponent {
               in cards.indexed)
             WiredCard(
               seed: 500 + index,
-              fillStyle: RoughFillStyle.hachure,
+              fillStyle: RoughFillStyle.solid,
               fill: tone.paint,
               classes: 'beyond-card skribble-wobble reveal',
               child: Component.fragment([
@@ -422,11 +423,7 @@ class Closing extends StatelessComponent {
           marks: [
             Mark(
               roughBox(
-                Pen.expressive.generator(
-                  600,
-                  fill: RoughFillStyle.hachure,
-                  gap: 14,
-                ),
+                Pen.expressive.generator(600, fill: RoughFillStyle.solid),
                 900,
                 300,
                 inset: 8,
@@ -437,6 +434,7 @@ class Closing extends StatelessComponent {
             ),
           ],
         ),
+        const HeroConfetti(),
         el('h2', [t('Grab a pen.')], null, {'id': 'closing-title'}),
         el('div', [
           WiredButton(

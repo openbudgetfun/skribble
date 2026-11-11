@@ -74,6 +74,20 @@ void main() {
       }
     });
 
+    testServer('gives stroked paths a unit length for draw-on', (
+      tester,
+    ) async {
+      final body = await renderBody(
+        tester,
+        const WiredBox(child: Component.text('Drawn')),
+      );
+      final outline = single(body, '.skribble-ink-outline');
+      expect(
+        outline.attributes['pathLength'] ?? outline.attributes['pathlength'],
+        '1',
+      );
+    });
+
     testServer('draws solid fills as a filled path', (tester) async {
       final body = await renderBody(
         tester,

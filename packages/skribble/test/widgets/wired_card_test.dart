@@ -187,5 +187,61 @@ void main() {
       final card = tester.getRect(find.byType(WiredCard));
       expect(tester.getRect(find.text('Flush')).topLeft, card.topLeft);
     });
+    testWidgets('a colour washes the card with a solid fill', (tester) async {
+      await pumpWired(
+        tester,
+        const SizedBox(
+          width: 200,
+          child: WiredCard(color: WiredPalette.sky, child: Text('Wash')),
+        ),
+      );
+      final canvas = tester.widget<WiredCanvas>(
+        find.descendant(
+          of: find.byType(WiredCard),
+          matching: find.byType(WiredCanvas),
+        ),
+      );
+      expect(canvas.fillerType, RoughFilter.solidFiller);
+      expect(
+        (canvas.painter as WiredRoundedRectangleBase).fillColor,
+        WiredPalette.sky,
+      );
+    });
+
+    testWidgets('a colour with fill hatches the card in that colour', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        const SizedBox(
+          width: 200,
+          child: WiredCard(color: WiredPalette.mint, fill: true),
+        ),
+      );
+      final canvas = tester.widget<WiredCanvas>(
+        find.descendant(
+          of: find.byType(WiredCard),
+          matching: find.byType(WiredCanvas),
+        ),
+      );
+      expect(canvas.fillerType, RoughFilter.hachureFiller);
+      expect(
+        (canvas.painter as WiredRoundedRectangleBase).fillColor,
+        WiredPalette.mint,
+      );
+    });
+
+    testWidgets('content on a vivid wash turns dark at night', (tester) async {
+      await pumpWired(
+        tester,
+        const SizedBox(
+          width: 200,
+          child: WiredCard(color: WiredPalette.sunshine, child: Text('Glow')),
+        ),
+        theme: WiredThemeData.cuddly(brightness: Brightness.dark),
+      );
+      final style = DefaultTextStyle.of(tester.element(find.text('Glow')));
+      expect(style.style.color, WiredPalette.night);
+    });
   });
 }

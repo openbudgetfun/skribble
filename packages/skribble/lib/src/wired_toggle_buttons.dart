@@ -122,13 +122,13 @@ class _WiredToggleButton extends HookWidget {
                 ),
                 child: DefaultTextStyle.merge(
                   style: TextStyle(
-                    color: theme.textColor,
+                    color: selected ? theme.onMarkerColor : theme.textColor,
                     fontSize: 14,
                     fontWeight: selected ? FontWeight.w600 : null,
                   ),
                   child: IconTheme(
                     data: IconThemeData(
-                      color: theme.textColor,
+                      color: selected ? theme.onMarkerColor : theme.textColor,
                       size: 20,
                     ),
                     child: child,

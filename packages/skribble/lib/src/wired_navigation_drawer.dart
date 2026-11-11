@@ -192,7 +192,9 @@ class _WiredDrawerItem extends HookWidget {
                       WiredIcon(
                         icon: isSelected ? (selectedIcon ?? icon) : icon,
                         size: 22,
-                        color: theme.textColor,
+                        color: isSelected
+                            ? theme.onMarkerColor
+                            : theme.textColor,
                       ),
                       const SizedBox(width: 12),
                       Expanded(
@@ -203,7 +205,9 @@ class _WiredDrawerItem extends HookWidget {
                             fontWeight: isSelected
                                 ? FontWeight.w600
                                 : FontWeight.normal,
-                            color: theme.textColor,
+                            color: isSelected
+                                ? theme.onMarkerColor
+                                : theme.textColor,
                           ),
                         ),
                       ),
