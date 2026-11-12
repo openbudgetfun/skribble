@@ -18,9 +18,9 @@ The leptoskit requirements above stay crates.io ranges so you stay free to choos
 
 ```toml
 [patch.crates-io]
-leptoskit = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
-leptoskit_native = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
-leptoskit_testing = { git = "https://github.com/leptoskit/leptoskit", rev = "c0c5013b708e17723cb48062036b40f22f694a57" }
+leptoskit = { git = "https://github.com/leptoskit/leptoskit", rev = "a93214edc8e5f6c7999c628285093f15cf188639" }
+leptoskit_native = { git = "https://github.com/leptoskit/leptoskit", rev = "a93214edc8e5f6c7999c628285093f15cf188639" }
+leptoskit_testing = { git = "https://github.com/leptoskit/leptoskit", rev = "a93214edc8e5f6c7999c628285093f15cf188639" }
 ```
 
 <!-- {/leptoskitPatch} -->

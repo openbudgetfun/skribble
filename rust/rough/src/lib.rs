@@ -66,6 +66,7 @@ pub use geometry::Line;
 pub use geometry::Orientation;
 pub use geometry::Point;
 pub use geometry::is_in_polygon;
+pub use ink::CompactSvgInkOutline;
 pub use ink::DrawableInk;
 pub use ink::DrawableInkOptions;
 pub use ink::DrawableInkSet;

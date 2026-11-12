@@ -20,6 +20,9 @@ use crate::ink::InkPaint;
 use crate::ink::InkPath;
 use crate::theme::css_hex;
 
+/// How far a sketch's ink may stray from the pen's samples, in logical pixels.
+const INK_TOLERANCE: f64 = 0.25;
+
 /// A hand-drawn doodle: arrows, scribbles, and annotations the other
 /// components do not cover.
 ///
@@ -153,6 +156,9 @@ impl SketchDrawing {
 			stroke: css_hex(self.stroke.light),
 			stroke_width: f64::from(self.theme.stroke_width),
 			sketch_width: f64::from(self.theme.stroke_width) * 0.75,
+			// Ink ships to browsers and over the air: a quarter of a logical
+			// pixel is invisible, and drops most of the pen's samples.
+			tolerance: INK_TOLERANCE,
 			..SketchOptions::default()
 		};
 		let drawn = sketch(&self.shapes, &options).expect("the component validated its shapes");

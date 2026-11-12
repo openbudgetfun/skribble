@@ -333,6 +333,12 @@ pub struct SketchOptions {
 	/// always use plain strokes. Turn it off for drawings that stretch with
 	/// their container.
 	pub ink: bool,
+	/// How far compact ink may stray from the pen's samples, in the sketch's
+	/// units. Above zero, pen-shaped ink is written with
+	/// [`crate::CompactSvgInkOutline`] and two decimals, for drawings that
+	/// ship to a browser. Zero, the default, writes every sample, as the other
+	/// engines do.
+	pub tolerance: f64,
 }
 
 impl Default for SketchOptions {
@@ -349,6 +355,7 @@ impl Default for SketchOptions {
 			stroke_width: 1.5,
 			sketch_width: 1.0,
 			ink: true,
+			tolerance: 0.0,
 		}
 	}
 }
@@ -664,8 +671,12 @@ pub fn drawable_paths(drawable: &Drawable, options: &SketchOptions) -> Vec<Sketc
 		drawable,
 		DrawableInkOptions::new(options.stroke_width, options.sketch_width),
 	);
-	let inked = ink
-		.svg_paths()
+	let inked = if options.tolerance > 0.0 {
+		ink.compact_svg_paths(options.tolerance)
+	} else {
+		ink.svg_paths()
+	};
+	let inked = inked
 		.into_iter()
 		.filter(|path| path.kind != OpSetKind::FillPath && !path.data.is_empty());
 	for (index, path) in inked.enumerate() {
@@ -804,5 +815,32 @@ mod tests {
 		assert!(decorative.contains(r#"aria-hidden="true""#));
 		let labelled = drawn.to_svg_string(40.0, 40.0, Some(r#"A "loop""#));
 		assert!(labelled.contains(r#"role="img" aria-label="A &quot;loop&quot;""#));
+	}
+
+	#[test]
+	fn a_tolerance_writes_compact_ink() {
+		let shapes = [Shape::curve([
+			(4.0, 40.0),
+			(40.0, 4.0),
+			(80.0, 36.0),
+			(116.0, 8.0),
+		])];
+		let exact = sketch(&shapes, &SketchOptions::default()).unwrap();
+		let compact = sketch(
+			&shapes,
+			&SketchOptions {
+				tolerance: 0.25,
+				..SketchOptions::default()
+			},
+		)
+		.unwrap();
+		let size = |drawn: &Sketch| drawn.paths.iter().map(|path| path.d.len()).sum::<usize>();
+		assert_eq!(exact.paths.len(), compact.paths.len());
+		assert!(
+			size(&compact) * 3 < size(&exact),
+			"{} vs {}",
+			size(&compact),
+			size(&exact)
+		);
 	}
 }
