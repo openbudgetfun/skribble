@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/monochange/monochange).
 
+## [1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-12)
+
+### Changed
+
+- **No package-specific changes were recorded; `skribble_site` was updated to 1.1.0.**
+
 ## [1.0.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.0.0) (2026-11-07)
 
 ### Features

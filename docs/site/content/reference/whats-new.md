@@ -7,6 +7,12 @@ description: What changed on skribble.dev, release by release.
 
 What changed on skribble.dev, newest first. These notes come from the website's user-facing changesets and are added when the website is released. The packages keep their own changelogs: see the [releases on GitHub](https://github.com/openbudgetfun/skribble/releases).
 
+## [1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-12)
+
+### Features
+
+- **skribble.dev is brighter and moves.** The landing page uses the new sunny colours: sticker-chip section labels, a highlighter-yellow marquee and closing, and colour-coded cards. The hero copy springs in line by line, hand-drawn confetti boils around the headline and drifts with the pointer, and cards lift on hover. Everything stays still when your device asks for reduced motion. _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)
+
 ## [1.0.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.0.0) (2026-11-07)
 
 ### Features

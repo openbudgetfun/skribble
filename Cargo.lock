@@ -1519,7 +1519,7 @@ checksum = "3a219298ac11a56ea9a6d2120044824d6f01aeb034955e7af7bc16858527deea"
 
 [[package]]
 name = "skribble_leptoskit"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "leptos",
  "leptoskit",
@@ -1530,7 +1530,7 @@ dependencies = [
 
 [[package]]
 name = "skribble_leptoskit_charts"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "leptos",
  "leptoskit",
@@ -1542,7 +1542,7 @@ dependencies = [
 
 [[package]]
 name = "skribble_leptoskit_maps"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "leptos",
  "leptoskit",
@@ -1554,7 +1554,7 @@ dependencies = [
 
 [[package]]
 name = "skribble_rough"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde_json",
 ]

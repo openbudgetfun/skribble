@@ -1,0 +1,1819 @@
+{
+  "schema_version": "0.10",
+  "kind": "monochange.releaseRecord",
+  "created_at": "2026-11-12T21:49:04Z",
+  "command": "release",
+  "version": null,
+  "versions": {
+    "main": "0.4.1",
+    "rust": "0.1.1",
+    "skribble_charts": "0.4.1",
+    "skribble_maps": "0.4.1",
+    "skribble_site": "1.1.0"
+  },
+  "release_targets": [
+    {
+      "id": "main",
+      "kind": "group",
+      "version": "0.4.1",
+      "version_format": "primary",
+      "tag": true,
+      "release": true,
+      "tag_name": "v0.4.1",
+      "rendered_title": "v0.4.1 (2026-11-12)",
+      "rendered_changelog_title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+      "members": [
+        "skribble",
+        "skribble_icons",
+        "skribble_icons_simple",
+        "skribble_icons_material",
+        "skribble_icons_lucide",
+        "skribble_icons_bxs",
+        "skribble_icons_cib",
+        "skribble_emoji",
+        "skribble_emoji_gen",
+        "skribble_font_noto",
+        "skribble_font_noto_sketch",
+        "skribble_font_noto_lively",
+        "skribble_font_recursive",
+        "skribble_font_roughen",
+        "skribble_lints",
+        "dart:skribble_rough",
+        "skribble_jaspr"
+      ]
+    },
+    {
+      "id": "rust",
+      "kind": "group",
+      "version": "0.1.1",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "rust/v0.1.1",
+      "rendered_title": "rust v0.1.1 (2026-11-12)",
+      "rendered_changelog_title": "rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)",
+      "members": [
+        "rust:skribble_rough",
+        "skribble_leptoskit",
+        "skribble_leptoskit_charts",
+        "skribble_leptoskit_maps"
+      ]
+    },
+    {
+      "id": "skribble_charts",
+      "kind": "package",
+      "version": "0.4.1",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_charts/v0.4.1",
+      "rendered_title": "skribble_charts v0.4.1 (2026-11-12)",
+      "rendered_changelog_title": "skribble_charts [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.4.1) (2026-11-12)",
+      "members": [
+        "skribble_charts"
+      ]
+    },
+    {
+      "id": "skribble_maps",
+      "kind": "package",
+      "version": "0.4.1",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_maps/v0.4.1",
+      "rendered_title": "skribble_maps v0.4.1 (2026-11-12)",
+      "rendered_changelog_title": "skribble_maps [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.4.1) (2026-11-12)",
+      "members": [
+        "skribble_maps"
+      ]
+    },
+    {
+      "id": "skribble_site",
+      "kind": "package",
+      "version": "1.1.0",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_site/v1.1.0",
+      "rendered_title": "skribble.dev v1.1.0 (2026-11-12)",
+      "rendered_changelog_title": "[1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-12)",
+      "members": [
+        "skribble_site"
+      ]
+    }
+  ],
+  "released_packages": [
+    "skribble",
+    "skribble_charts",
+    "skribble_emoji",
+    "skribble_emoji_gen",
+    "skribble_font_noto",
+    "skribble_font_noto_lively",
+    "skribble_font_noto_sketch",
+    "skribble_font_recursive",
+    "skribble_font_roughen",
+    "skribble_icons",
+    "skribble_icons_bxs",
+    "skribble_icons_cib",
+    "skribble_icons_lucide",
+    "skribble_icons_material",
+    "skribble_icons_simple",
+    "skribble_jaspr",
+    "skribble_leptoskit",
+    "skribble_leptoskit_charts",
+    "skribble_leptoskit_maps",
+    "skribble_lints",
+    "skribble_maps",
+    "skribble_rough",
+    "skribble_site"
+  ],
+  "changed_files": [
+    "CHANGELOG.md",
+    "Cargo.lock",
+    "Cargo.toml",
+    "apps/skribble_benchmark/pubspec.yaml",
+    "apps/skribble_example/pubspec.yaml",
+    "apps/skribble_site/CHANGELOG.md",
+    "apps/skribble_site/pubspec.yaml",
+    "apps/skribble_storybook/pubspec.yaml",
+    "docs/site/content/reference/whats-new.md",
+    "docs/site/pubspec.yaml",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble/pubspec.yaml",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_charts/pubspec.yaml",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji/pubspec.yaml",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_emoji_gen/pubspec.yaml",
+    "packages/skribble_font_noto/CHANGELOG.md",
+    "packages/skribble_font_noto/pubspec.yaml",
+    "packages/skribble_font_noto_lively/CHANGELOG.md",
+    "packages/skribble_font_noto_lively/pubspec.yaml",
+    "packages/skribble_font_noto_sketch/CHANGELOG.md",
+    "packages/skribble_font_noto_sketch/pubspec.yaml",
+    "packages/skribble_font_recursive/CHANGELOG.md",
+    "packages/skribble_font_recursive/pubspec.yaml",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_font_roughen/pubspec.yaml",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons/pubspec.yaml",
+    "packages/skribble_icons_bxs/CHANGELOG.md",
+    "packages/skribble_icons_bxs/pubspec.yaml",
+    "packages/skribble_icons_cib/CHANGELOG.md",
+    "packages/skribble_icons_cib/pubspec.yaml",
+    "packages/skribble_icons_lucide/CHANGELOG.md",
+    "packages/skribble_icons_lucide/pubspec.yaml",
+    "packages/skribble_icons_material/CHANGELOG.md",
+    "packages/skribble_icons_material/pubspec.yaml",
+    "packages/skribble_icons_simple/CHANGELOG.md",
+    "packages/skribble_icons_simple/pubspec.yaml",
+    "packages/skribble_jaspr/CHANGELOG.md",
+    "packages/skribble_jaspr/pubspec.yaml",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_lints/pubspec.yaml",
+    "packages/skribble_maps/CHANGELOG.md",
+    "packages/skribble_maps/pubspec.yaml",
+    "packages/skribble_rough/CHANGELOG.md",
+    "packages/skribble_rough/pubspec.yaml",
+    "pubspec.yaml",
+    "rust/CHANGELOG.md",
+    "rust/leptoskit/CHANGELOG.md",
+    "rust/leptoskit/Cargo.toml",
+    "rust/leptoskit_charts/CHANGELOG.md",
+    "rust/leptoskit_charts/Cargo.toml",
+    "rust/leptoskit_maps/CHANGELOG.md",
+    "rust/leptoskit_maps/Cargo.toml",
+    "rust/rough/CHANGELOG.md",
+    "rust/rough/Cargo.toml"
+  ],
+  "package_publications": [
+    {
+      "package": "dart:skribble_rough",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "rust:skribble_rough",
+      "ecosystem": "cargo",
+      "registry": "crates_io",
+      "version": "0.1.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      }
+    },
+    {
+      "package": "skribble",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_charts",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji_gen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_noto",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_noto_lively",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_noto_sketch",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_recursive",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_roughen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_bxs",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_cib",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_lucide",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_material",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_simple",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_jaspr",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_leptoskit",
+      "ecosystem": "cargo",
+      "registry": "crates_io",
+      "version": "0.1.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      }
+    },
+    {
+      "package": "skribble_leptoskit_charts",
+      "ecosystem": "cargo",
+      "registry": "crates_io",
+      "version": "0.1.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      }
+    },
+    {
+      "package": "skribble_leptoskit_maps",
+      "ecosystem": "cargo",
+      "registry": "crates_io",
+      "version": "0.1.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      }
+    },
+    {
+      "package": "skribble_lints",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_maps",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    }
+  ],
+  "updated_changelogs": [
+    "CHANGELOG.md",
+    "apps/skribble_site/CHANGELOG.md",
+    "docs/site/content/reference/whats-new.md",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_font_noto/CHANGELOG.md",
+    "packages/skribble_font_noto_lively/CHANGELOG.md",
+    "packages/skribble_font_noto_sketch/CHANGELOG.md",
+    "packages/skribble_font_recursive/CHANGELOG.md",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons_bxs/CHANGELOG.md",
+    "packages/skribble_icons_cib/CHANGELOG.md",
+    "packages/skribble_icons_lucide/CHANGELOG.md",
+    "packages/skribble_icons_material/CHANGELOG.md",
+    "packages/skribble_icons_simple/CHANGELOG.md",
+    "packages/skribble_jaspr/CHANGELOG.md",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_maps/CHANGELOG.md",
+    "packages/skribble_rough/CHANGELOG.md",
+    "rust/CHANGELOG.md",
+    "rust/leptoskit/CHANGELOG.md",
+    "rust/leptoskit_charts/CHANGELOG.md",
+    "rust/leptoskit_maps/CHANGELOG.md",
+    "rust/rough/CHANGELOG.md"
+  ],
+  "deleted_changesets": [
+    ".changeset/compact-ink.md",
+    ".changeset/leptoskit-main-pin.md",
+    ".changeset/leptoskit-rev-a93214e.md",
+    ".changeset/site-vivid.md",
+    ".changeset/vivid-and-alive.md"
+  ],
+  "changesets": [
+    {
+      "path": ".changeset/compact-ink.md",
+      "summary": "Compact ink for drawings that ship to a browser",
+      "details": "`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_leptoskit`'s `Sketch` now draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of their old size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB.",
+      "targets": [
+        {
+          "id": "rust:skribble_rough",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        },
+        {
+          "id": "skribble_leptoskit",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "68ce259313522092bc277a90f7f4890a2dd57184",
+            "short_sha": "68ce259",
+            "url": "https://github.com/openbudgetfun/skribble/commit/68ce259313522092bc277a90f7f4890a2dd57184",
+            "authored_at": "2026-11-12T21:45:46Z",
+            "committed_at": "2026-11-12T21:45:46Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#278",
+            "title": "feat(rust): write compact ink for drawings that ship to a browser",
+            "url": "https://github.com/openbudgetfun/skribble/pull/278",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "68ce259313522092bc277a90f7f4890a2dd57184",
+            "short_sha": "68ce259",
+            "url": "https://github.com/openbudgetfun/skribble/commit/68ce259313522092bc277a90f7f4890a2dd57184",
+            "authored_at": "2026-11-12T21:45:46Z",
+            "committed_at": "2026-11-12T21:45:46Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#278",
+            "title": "feat(rust): write compact ink for drawings that ship to a browser",
+            "url": "https://github.com/openbudgetfun/skribble/pull/278",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/leptoskit-main-pin.md",
+      "summary": "Build and test the Rust crates against leptoskit main",
+      "details": "The Rust crates keep their crates.io version requirements for leptoskit, so consumers stay free to choose their own leptoskit commit, but the workspace now pins the leptoskit crates it uses to a `main` commit through a `[patch.crates-io]` section in the root `Cargo.toml`, and its builds and tests run against that commit. `main` is ahead of the published 0.3 releases: new widgets and exports there collided with names these crates also export through glob imports (`Camera`, `Theme`), so tests and examples now import the skribble names explicitly, and everything builds and passes against the pinned rev.\n\nThe patch lives in the workspace root, and cargo applies `[patch]` sections only from the workspace root, so the pinned commit does not follow a consumer's build on its own. Every install section now documents the `[patch.crates-io]` entries a consumer adds to their own root manifest, shared through one MDT block: `leptoskit`, `leptoskit_native`, and `leptoskit_testing` at the same rev the skribble commit they depend on pins. The stale `ifiokjr/leptoskit` links are replaced with the repository's new `leptoskit/leptoskit` home.\n\nNew tests cover the native drawing path through leptoskit's real renderer: a `WiredBox` commits a stretched `Vector` whose rough path repeats for a seed and changes with it, and a `Sketch` commits a fitted `Vector` drawing its doodle, so it is no longer empty on native.",
+      "targets": [
+        {
+          "id": "skribble_leptoskit",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        },
+        {
+          "id": "skribble_leptoskit_charts",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        },
+        {
+          "id": "skribble_leptoskit_maps",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "46b8e635b1d983f92054d13fcc0bc513e7b9a43c",
+            "short_sha": "46b8e63",
+            "url": "https://github.com/openbudgetfun/skribble/commit/46b8e635b1d983f92054d13fcc0bc513e7b9a43c",
+            "authored_at": "2026-11-09T09:25:55Z",
+            "committed_at": "2026-11-09T09:25:55Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#279",
+            "title": "fix(rust): build and test against leptoskit main",
+            "url": "https://github.com/openbudgetfun/skribble/pull/279",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "46b8e635b1d983f92054d13fcc0bc513e7b9a43c",
+            "short_sha": "46b8e63",
+            "url": "https://github.com/openbudgetfun/skribble/commit/46b8e635b1d983f92054d13fcc0bc513e7b9a43c",
+            "authored_at": "2026-11-09T09:25:55Z",
+            "committed_at": "2026-11-09T09:25:55Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#279",
+            "title": "fix(rust): build and test against leptoskit main",
+            "url": "https://github.com/openbudgetfun/skribble/pull/279",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/leptoskit-rev-a93214e.md",
+      "summary": "Build against leptoskit a93214e",
+      "details": "The workspace's `[patch.crates-io]` pin, and the entries the install sections tell consumers to add, move to leptoskit `a93214edc8e5f6c7999c628285093f15cf188639`, the commit Verily pins, so an app using both holds one leptoskit checkout.",
+      "targets": [
+        {
+          "id": "skribble_leptoskit",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        },
+        {
+          "id": "skribble_leptoskit_charts",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        },
+        {
+          "id": "skribble_leptoskit_maps",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "68ce259313522092bc277a90f7f4890a2dd57184",
+            "short_sha": "68ce259",
+            "url": "https://github.com/openbudgetfun/skribble/commit/68ce259313522092bc277a90f7f4890a2dd57184",
+            "authored_at": "2026-11-12T21:45:46Z",
+            "committed_at": "2026-11-12T21:45:46Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#278",
+            "title": "feat(rust): write compact ink for drawings that ship to a browser",
+            "url": "https://github.com/openbudgetfun/skribble/pull/278",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "68ce259313522092bc277a90f7f4890a2dd57184",
+            "short_sha": "68ce259",
+            "url": "https://github.com/openbudgetfun/skribble/commit/68ce259313522092bc277a90f7f4890a2dd57184",
+            "authored_at": "2026-11-12T21:45:46Z",
+            "committed_at": "2026-11-12T21:45:46Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#278",
+            "title": "feat(rust): write compact ink for drawings that ship to a browser",
+            "url": "https://github.com/openbudgetfun/skribble/pull/278",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/site-vivid.md",
+      "summary": "skribble.dev is brighter and moves",
+      "details": "The landing page uses the new sunny colours: sticker-chip section labels, a highlighter-yellow marquee and closing, and colour-coded cards. The hero copy springs in line by line, hand-drawn confetti boils around the headline and drifts with the pointer, and cards lift on hover. Everything stays still when your device asks for reduced motion.",
+      "targets": [
+        {
+          "id": "skribble_site",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "user_feat"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c913920910f875f1289169f7f786b8c82fd09147",
+            "short_sha": "c913920",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c913920910f875f1289169f7f786b8c82fd09147",
+            "authored_at": "2026-11-11T20:01:33Z",
+            "committed_at": "2026-11-11T20:01:33Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#283",
+            "title": "feat: vivid colourways and lively motion by default",
+            "url": "https://github.com/openbudgetfun/skribble/pull/283",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c913920910f875f1289169f7f786b8c82fd09147",
+            "short_sha": "c913920",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c913920910f875f1289169f7f786b8c82fd09147",
+            "authored_at": "2026-11-11T20:01:33Z",
+            "committed_at": "2026-11-11T20:01:33Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#283",
+            "title": "feat: vivid colourways and lively motion by default",
+            "url": "https://github.com/openbudgetfun/skribble/pull/283",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/vivid-and-alive.md",
+      "summary": "Vivid colourways and lively motion by default",
+      "details": "skribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        },
+        {
+          "id": "skribble_jaspr",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c913920910f875f1289169f7f786b8c82fd09147",
+            "short_sha": "c913920",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c913920910f875f1289169f7f786b8c82fd09147",
+            "authored_at": "2026-11-11T20:01:33Z",
+            "committed_at": "2026-11-11T20:01:33Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#283",
+            "title": "feat: vivid colourways and lively motion by default",
+            "url": "https://github.com/openbudgetfun/skribble/pull/283",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c913920910f875f1289169f7f786b8c82fd09147",
+            "short_sha": "c913920",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c913920910f875f1289169f7f786b8c82fd09147",
+            "authored_at": "2026-11-11T20:01:33Z",
+            "committed_at": "2026-11-11T20:01:33Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#283",
+            "title": "feat: vivid colourways and lively motion by default",
+            "url": "https://github.com/openbudgetfun/skribble/pull/283",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    }
+  ],
+  "changelogs": [
+    {
+      "owner_id": "main",
+      "owner_kind": "group",
+      "output": "default",
+      "stream": "default",
+      "path": "CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [
+          "Grouped release for `main`."
+        ],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Vivid colourways and lively motion by default\n\n_Packages:_ 🟠 _skribble_, 🟠 _skribble_jaspr_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\nGrouped release for `main`.\n\n### Features\n\n#### Vivid colourways and lively motion by default\n\n_Packages:_ 🟠 _skribble_, 🟠 _skribble_jaspr_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page."
+    },
+    {
+      "owner_id": "skribble_site",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "apps/skribble_site/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_site` was updated to 1.1.0.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_site` was updated to 1.1.0.**"
+    },
+    {
+      "owner_id": "skribble_site",
+      "owner_kind": "package",
+      "output": "user",
+      "stream": "user",
+      "path": "docs/site/content/reference/whats-new.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "- **skribble.dev is brighter and moves.** The landing page uses the new sunny colours: sticker-chip section labels, a highlighter-yellow marquee and closing, and colour-coded cards. The hero copy springs in line by line, hand-drawn confetti boils around the headline and drifts with the pointer, and cards lift on hover. Everything stays still when your device asks for reduced motion.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-12)\n\n### Features\n\n- **skribble.dev is brighter and moves.** The landing page uses the new sunny colours: sticker-chip section labels, a highlighter-yellow marquee and closing, and colour-coded cards. The hero copy springs in line by line, hand-drawn confetti boils around the headline and drifts with the pointer, and cards lift on hover. Everything stays still when your device asks for reduced motion.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)"
+    },
+    {
+      "owner_id": "skribble",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Vivid colourways and lively motion by default\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Features\n\n#### Vivid colourways and lively motion by default\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page."
+    },
+    {
+      "owner_id": "skribble_charts",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_charts/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_charts [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_charts` was updated to 0.4.1.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_charts [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_charts` was updated to 0.4.1.**"
+    },
+    {
+      "owner_id": "skribble_emoji",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_emoji` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_emoji` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_emoji_gen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji_gen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_emoji_gen` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_emoji_gen` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_noto",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_noto/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_noto` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_noto` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_noto_lively",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_noto_lively/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_noto_lively` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_noto_lively` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_noto_sketch",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_noto_sketch/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_noto_sketch` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_noto_sketch` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_recursive",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_recursive/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_roughen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_roughen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_bxs",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_bxs/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_bxs` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_bxs` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_cib",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_cib/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_cib` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_cib` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_lucide",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_lucide/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_lucide` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_lucide` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_material",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_material/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_material` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_material` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_simple",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_simple/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_simple` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_simple` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_jaspr",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_jaspr/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Vivid colourways and lively motion by default\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Features\n\n#### Vivid colourways and lively motion by default\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page."
+    },
+    {
+      "owner_id": "skribble_lints",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_lints/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_lints` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_lints` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_maps",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_maps/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_maps [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_maps` was updated to 0.4.1.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_maps [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_maps` was updated to 0.4.1.**"
+    },
+    {
+      "owner_id": "dart:skribble_rough",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_rough/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_rough` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-12)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_rough` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "rust",
+      "owner_kind": "group",
+      "output": "default",
+      "stream": "default",
+      "path": "rust/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)",
+        "summary": [
+          "Grouped release for `rust`."
+        ],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Compact ink for drawings that ship to a browser\n\n_Packages:_ 🟠 _rust:skribble_rough_, 🟢 _skribble_leptoskit_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)\n\n`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_leptoskit`'s `Sketch` now draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of their old size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB."
+            ]
+          },
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Build and test the Rust crates against leptoskit main\n\n_Packages:_ 🟢 _skribble_leptoskit_, 🟢 _skribble_leptoskit_charts_, 🟢 _skribble_leptoskit_maps_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #279](https://github.com/openbudgetfun/skribble/pull/279)\n\nThe Rust crates keep their crates.io version requirements for leptoskit, so consumers stay free to choose their own leptoskit commit, but the workspace now pins the leptoskit crates it uses to a `main` commit through a `[patch.crates-io]` section in the root `Cargo.toml`, and its builds and tests run against that commit. `main` is ahead of the published 0.3 releases: new widgets and exports there collided with names these crates also export through glob imports (`Camera`, `Theme`), so tests and examples now import the skribble names explicitly, and everything builds and passes against the pinned rev.\n\nThe patch lives in the workspace root, and cargo applies `[patch]` sections only from the workspace root, so the pinned commit does not follow a consumer's build on its own. Every install section now documents the `[patch.crates-io]` entries a consumer adds to their own root manifest, shared through one MDT block: `leptoskit`, `leptoskit_native`, and `leptoskit_testing` at the same rev the skribble commit they depend on pins. The stale `ifiokjr/leptoskit` links are replaced with the repository's new `leptoskit/leptoskit` home.\n\nNew tests cover the native drawing path through leptoskit's real renderer: a `WiredBox` commits a stretched `Vector` whose rough path repeats for a seed and changes with it, and a `Sketch` commits a fitted `Vector` drawing its doodle, so it is no longer empty on native.",
+              "- **Build against leptoskit a93214e.** The workspace's `[patch.crates-io]` pin, and the entries the install sections tell consumers to add, move to leptoskit `a93214edc8e5f6c7999c628285093f15cf188639`, the commit Verily pins, so an app using both holds one leptoskit checkout.\n  _Packages:_ 🟢 _skribble_leptoskit_, 🟢 _skribble_leptoskit_charts_, 🟢 _skribble_leptoskit_maps_\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)\n\nGrouped release for `rust`.\n\n### Features\n\n#### Compact ink for drawings that ship to a browser\n\n_Packages:_ 🟠 _rust:skribble_rough_, 🟢 _skribble_leptoskit_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)\n\n`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_leptoskit`'s `Sketch` now draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of their old size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB.\n\n### Fixes\n\n#### Build and test the Rust crates against leptoskit main\n\n_Packages:_ 🟢 _skribble_leptoskit_, 🟢 _skribble_leptoskit_charts_, 🟢 _skribble_leptoskit_maps_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #279](https://github.com/openbudgetfun/skribble/pull/279)\n\nThe Rust crates keep their crates.io version requirements for leptoskit, so consumers stay free to choose their own leptoskit commit, but the workspace now pins the leptoskit crates it uses to a `main` commit through a `[patch.crates-io]` section in the root `Cargo.toml`, and its builds and tests run against that commit. `main` is ahead of the published 0.3 releases: new widgets and exports there collided with names these crates also export through glob imports (`Camera`, `Theme`), so tests and examples now import the skribble names explicitly, and everything builds and passes against the pinned rev.\n\nThe patch lives in the workspace root, and cargo applies `[patch]` sections only from the workspace root, so the pinned commit does not follow a consumer's build on its own. Every install section now documents the `[patch.crates-io]` entries a consumer adds to their own root manifest, shared through one MDT block: `leptoskit`, `leptoskit_native`, and `leptoskit_testing` at the same rev the skribble commit they depend on pins. The stale `ifiokjr/leptoskit` links are replaced with the repository's new `leptoskit/leptoskit` home.\n\nNew tests cover the native drawing path through leptoskit's real renderer: a `WiredBox` commits a stretched `Vector` whose rough path repeats for a seed and changes with it, and a `Sketch` commits a fitted `Vector` drawing its doodle, so it is no longer empty on native.\n\n- **Build against leptoskit a93214e.** The workspace's `[patch.crates-io]` pin, and the entries the install sections tell consumers to add, move to leptoskit `a93214edc8e5f6c7999c628285093f15cf188639`, the commit Verily pins, so an app using both holds one leptoskit checkout.\n  _Packages:_ 🟢 _skribble_leptoskit_, 🟢 _skribble_leptoskit_charts_, 🟢 _skribble_leptoskit_maps_\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)"
+    },
+    {
+      "owner_id": "skribble_leptoskit",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "rust/leptoskit/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Compact ink for drawings that ship to a browser\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)\n\n`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_leptoskit`'s `Sketch` now draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of their old size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB.",
+              "#### Build and test the Rust crates against leptoskit main\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #279](https://github.com/openbudgetfun/skribble/pull/279)\n\nThe Rust crates keep their crates.io version requirements for leptoskit, so consumers stay free to choose their own leptoskit commit, but the workspace now pins the leptoskit crates it uses to a `main` commit through a `[patch.crates-io]` section in the root `Cargo.toml`, and its builds and tests run against that commit. `main` is ahead of the published 0.3 releases: new widgets and exports there collided with names these crates also export through glob imports (`Camera`, `Theme`), so tests and examples now import the skribble names explicitly, and everything builds and passes against the pinned rev.\n\nThe patch lives in the workspace root, and cargo applies `[patch]` sections only from the workspace root, so the pinned commit does not follow a consumer's build on its own. Every install section now documents the `[patch.crates-io]` entries a consumer adds to their own root manifest, shared through one MDT block: `leptoskit`, `leptoskit_native`, and `leptoskit_testing` at the same rev the skribble commit they depend on pins. The stale `ifiokjr/leptoskit` links are replaced with the repository's new `leptoskit/leptoskit` home.\n\nNew tests cover the native drawing path through leptoskit's real renderer: a `WiredBox` commits a stretched `Vector` whose rough path repeats for a seed and changes with it, and a `Sketch` commits a fitted `Vector` drawing its doodle, so it is no longer empty on native.",
+              "- **Build against leptoskit a93214e.** The workspace's `[patch.crates-io]` pin, and the entries the install sections tell consumers to add, move to leptoskit `a93214edc8e5f6c7999c628285093f15cf188639`, the commit Verily pins, so an app using both holds one leptoskit checkout.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)\n\n### Fixes\n\n#### Compact ink for drawings that ship to a browser\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)\n\n`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_leptoskit`'s `Sketch` now draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of their old size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB.\n\n#### Build and test the Rust crates against leptoskit main\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #279](https://github.com/openbudgetfun/skribble/pull/279)\n\nThe Rust crates keep their crates.io version requirements for leptoskit, so consumers stay free to choose their own leptoskit commit, but the workspace now pins the leptoskit crates it uses to a `main` commit through a `[patch.crates-io]` section in the root `Cargo.toml`, and its builds and tests run against that commit. `main` is ahead of the published 0.3 releases: new widgets and exports there collided with names these crates also export through glob imports (`Camera`, `Theme`), so tests and examples now import the skribble names explicitly, and everything builds and passes against the pinned rev.\n\nThe patch lives in the workspace root, and cargo applies `[patch]` sections only from the workspace root, so the pinned commit does not follow a consumer's build on its own. Every install section now documents the `[patch.crates-io]` entries a consumer adds to their own root manifest, shared through one MDT block: `leptoskit`, `leptoskit_native`, and `leptoskit_testing` at the same rev the skribble commit they depend on pins. The stale `ifiokjr/leptoskit` links are replaced with the repository's new `leptoskit/leptoskit` home.\n\nNew tests cover the native drawing path through leptoskit's real renderer: a `WiredBox` commits a stretched `Vector` whose rough path repeats for a seed and changes with it, and a `Sketch` commits a fitted `Vector` drawing its doodle, so it is no longer empty on native.\n\n- **Build against leptoskit a93214e.** The workspace's `[patch.crates-io]` pin, and the entries the install sections tell consumers to add, move to leptoskit `a93214edc8e5f6c7999c628285093f15cf188639`, the commit Verily pins, so an app using both holds one leptoskit checkout.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)"
+    },
+    {
+      "owner_id": "skribble_leptoskit_charts",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "rust/leptoskit_charts/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Build and test the Rust crates against leptoskit main\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #279](https://github.com/openbudgetfun/skribble/pull/279)\n\nThe Rust crates keep their crates.io version requirements for leptoskit, so consumers stay free to choose their own leptoskit commit, but the workspace now pins the leptoskit crates it uses to a `main` commit through a `[patch.crates-io]` section in the root `Cargo.toml`, and its builds and tests run against that commit. `main` is ahead of the published 0.3 releases: new widgets and exports there collided with names these crates also export through glob imports (`Camera`, `Theme`), so tests and examples now import the skribble names explicitly, and everything builds and passes against the pinned rev.\n\nThe patch lives in the workspace root, and cargo applies `[patch]` sections only from the workspace root, so the pinned commit does not follow a consumer's build on its own. Every install section now documents the `[patch.crates-io]` entries a consumer adds to their own root manifest, shared through one MDT block: `leptoskit`, `leptoskit_native`, and `leptoskit_testing` at the same rev the skribble commit they depend on pins. The stale `ifiokjr/leptoskit` links are replaced with the repository's new `leptoskit/leptoskit` home.\n\nNew tests cover the native drawing path through leptoskit's real renderer: a `WiredBox` commits a stretched `Vector` whose rough path repeats for a seed and changes with it, and a `Sketch` commits a fitted `Vector` drawing its doodle, so it is no longer empty on native.",
+              "- **Build against leptoskit a93214e.** The workspace's `[patch.crates-io]` pin, and the entries the install sections tell consumers to add, move to leptoskit `a93214edc8e5f6c7999c628285093f15cf188639`, the commit Verily pins, so an app using both holds one leptoskit checkout.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)\n\n### Fixes\n\n#### Build and test the Rust crates against leptoskit main\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #279](https://github.com/openbudgetfun/skribble/pull/279)\n\nThe Rust crates keep their crates.io version requirements for leptoskit, so consumers stay free to choose their own leptoskit commit, but the workspace now pins the leptoskit crates it uses to a `main` commit through a `[patch.crates-io]` section in the root `Cargo.toml`, and its builds and tests run against that commit. `main` is ahead of the published 0.3 releases: new widgets and exports there collided with names these crates also export through glob imports (`Camera`, `Theme`), so tests and examples now import the skribble names explicitly, and everything builds and passes against the pinned rev.\n\nThe patch lives in the workspace root, and cargo applies `[patch]` sections only from the workspace root, so the pinned commit does not follow a consumer's build on its own. Every install section now documents the `[patch.crates-io]` entries a consumer adds to their own root manifest, shared through one MDT block: `leptoskit`, `leptoskit_native`, and `leptoskit_testing` at the same rev the skribble commit they depend on pins. The stale `ifiokjr/leptoskit` links are replaced with the repository's new `leptoskit/leptoskit` home.\n\nNew tests cover the native drawing path through leptoskit's real renderer: a `WiredBox` commits a stretched `Vector` whose rough path repeats for a seed and changes with it, and a `Sketch` commits a fitted `Vector` drawing its doodle, so it is no longer empty on native.\n\n- **Build against leptoskit a93214e.** The workspace's `[patch.crates-io]` pin, and the entries the install sections tell consumers to add, move to leptoskit `a93214edc8e5f6c7999c628285093f15cf188639`, the commit Verily pins, so an app using both holds one leptoskit checkout.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)"
+    },
+    {
+      "owner_id": "skribble_leptoskit_maps",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "rust/leptoskit_maps/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Build and test the Rust crates against leptoskit main\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #279](https://github.com/openbudgetfun/skribble/pull/279)\n\nThe Rust crates keep their crates.io version requirements for leptoskit, so consumers stay free to choose their own leptoskit commit, but the workspace now pins the leptoskit crates it uses to a `main` commit through a `[patch.crates-io]` section in the root `Cargo.toml`, and its builds and tests run against that commit. `main` is ahead of the published 0.3 releases: new widgets and exports there collided with names these crates also export through glob imports (`Camera`, `Theme`), so tests and examples now import the skribble names explicitly, and everything builds and passes against the pinned rev.\n\nThe patch lives in the workspace root, and cargo applies `[patch]` sections only from the workspace root, so the pinned commit does not follow a consumer's build on its own. Every install section now documents the `[patch.crates-io]` entries a consumer adds to their own root manifest, shared through one MDT block: `leptoskit`, `leptoskit_native`, and `leptoskit_testing` at the same rev the skribble commit they depend on pins. The stale `ifiokjr/leptoskit` links are replaced with the repository's new `leptoskit/leptoskit` home.\n\nNew tests cover the native drawing path through leptoskit's real renderer: a `WiredBox` commits a stretched `Vector` whose rough path repeats for a seed and changes with it, and a `Sketch` commits a fitted `Vector` drawing its doodle, so it is no longer empty on native.",
+              "- **Build against leptoskit a93214e.** The workspace's `[patch.crates-io]` pin, and the entries the install sections tell consumers to add, move to leptoskit `a93214edc8e5f6c7999c628285093f15cf188639`, the commit Verily pins, so an app using both holds one leptoskit checkout.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)"
+            ]
+          }
+        ]
+      },
+      "rendered": "## rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)\n\n### Fixes\n\n#### Build and test the Rust crates against leptoskit main\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #279](https://github.com/openbudgetfun/skribble/pull/279)\n\nThe Rust crates keep their crates.io version requirements for leptoskit, so consumers stay free to choose their own leptoskit commit, but the workspace now pins the leptoskit crates it uses to a `main` commit through a `[patch.crates-io]` section in the root `Cargo.toml`, and its builds and tests run against that commit. `main` is ahead of the published 0.3 releases: new widgets and exports there collided with names these crates also export through glob imports (`Camera`, `Theme`), so tests and examples now import the skribble names explicitly, and everything builds and passes against the pinned rev.\n\nThe patch lives in the workspace root, and cargo applies `[patch]` sections only from the workspace root, so the pinned commit does not follow a consumer's build on its own. Every install section now documents the `[patch.crates-io]` entries a consumer adds to their own root manifest, shared through one MDT block: `leptoskit`, `leptoskit_native`, and `leptoskit_testing` at the same rev the skribble commit they depend on pins. The stale `ifiokjr/leptoskit` links are replaced with the repository's new `leptoskit/leptoskit` home.\n\nNew tests cover the native drawing path through leptoskit's real renderer: a `WiredBox` commits a stretched `Vector` whose rough path repeats for a seed and changes with it, and a `Sketch` commits a fitted `Vector` drawing its doodle, so it is no longer empty on native.\n\n- **Build against leptoskit a93214e.** The workspace's `[patch.crates-io]` pin, and the entries the install sections tell consumers to add, move to leptoskit `a93214edc8e5f6c7999c628285093f15cf188639`, the commit Verily pins, so an app using both holds one leptoskit checkout.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)"
+    },
+    {
+      "owner_id": "rust:skribble_rough",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "rust/rough/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Compact ink for drawings that ship to a browser\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)\n\n`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_leptoskit`'s `Sketch` now draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of their old size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB."
+            ]
+          }
+        ]
+      },
+      "rendered": "## rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-12)\n\n### Features\n\n#### Compact ink for drawings that ship to a browser\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)\n\n`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_leptoskit`'s `Sketch` now draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of their old size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB."
+    }
+  ],
+  "provider": {
+    "kind": "github",
+    "owner": "openbudgetfun",
+    "repo": "skribble",
+    "host": null
+  }
+}
