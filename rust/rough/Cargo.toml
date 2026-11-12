@@ -1,6 +1,6 @@
 [package]
 name = "skribble_rough"
-version = "0.1.0"
+version = "0.1.1"
 authors.workspace = true
 categories = ["graphics", "rendering", "wasm"]
 edition.workspace = true

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/ifiokjr/monochange).
 
+## skribble_maps [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.4.1) (2026-11-12)
+
+### Changed
+
+- **No package-specific changes were recorded; `skribble_maps` was updated to 0.4.1.**
+
 ## skribble_maps [0.4.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.4.0) (2026-11-07)
 
 ### Fixes
