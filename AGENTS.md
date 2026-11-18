@@ -260,3 +260,21 @@ dart run packages/skribble_rough/tool/js_parity_fixtures.dart > js/rough/test/fi
 ```
 
 <!-- {/docsReleaseCommandsSection} -->
+
+## Cursor cloud agents
+
+<!-- {=docsCloudAgentSetup} -->
+
+Cursor cloud agents install this repo with `.cursor/install.sh` (wired from `.cursor/environment.json`). The script is idempotent. It installs single-user Nix with `nix-command` and `flakes` (the VM has no systemd, so a multi-user daemon is not used), puts `nix` and `devenv` on the default `PATH` for login and non-login shells, configures the public `devenv.cachix.org` binary cache, and evaluates `devenv shell` once so the Nix store is warm. Inside that shell it installs the Flutter SDK pinned in `.fvmrc`, then resolves the pub workspace, the pnpm workspace, and the Cargo lockfile. CI's `lint:all` and `test:all` are devenv scripts, so run them the same way:
+
+```bash
+devenv shell -- lint:all
+devenv shell -- dart format --set-exit-if-changed -o none .
+devenv shell -- test:all
+devenv shell -- pnpm run check
+devenv shell -- bash -lc 'cargo fmt --all --check && cargo clippy --workspace --all-targets --all-features -- -D warnings && cargo test --workspace --all-features'
+```
+
+macOS and iOS builds cannot run on that VM. Linux desktop, web, widget tests, the npm packages, and the Rust crates can.
+
+<!-- {/docsCloudAgentSetup} -->
