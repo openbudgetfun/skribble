@@ -7,14 +7,14 @@
 # target from the release record keeps a run from attempting packages another
 # tag owns.
 #
-# Each package is published in its own `monochange step publish-packages`
+# Each package is published in its own `monochange publish packages`
 # invocation. Monochange aborts the remaining batch once any package fails,
 # which is how the v0.2.0 and v0.2.1 releases left 11 of the group's 13
 # packages unpublished behind a single registry rejection. Per-package
 # invocations isolate that failure and let the remaining packages publish; the
 # run still exits non-zero so the failure is not hidden.
 #
-# Dependency order comes from `monochange step publish-readiness`, which is
+# Dependency order comes from `monochange publish readiness`, which is
 # also where this differs from the workflow's own step ordering: that step
 # dry-runs `pub publish` for every package, which resolves dependencies, and a
 # publish-scoped pub.dev credential breaks resolution. In the publish workflow
@@ -169,7 +169,7 @@ if [[ -n "$READINESS" ]]; then
 	order_json="$(cat "$READINESS")"
 else
 
-	if ! order_json="$(monochange step publish-readiness --from HEAD --format json 2>"$scratch/readiness.err")"; then
+	if ! order_json="$(monochange publish readiness --from HEAD --format json 2>"$scratch/readiness.err")"; then
 		echo "Error: could not read publish readiness at HEAD." >&2
 
 		cat "$scratch/readiness.err" >&2
@@ -206,7 +206,7 @@ while IFS= read -r package; do
 		set --
 	fi
 
-	if monochange step publish-packages --package "$package" --stream-output --format json "$@"; then
+	if monochange publish packages --package "$package" --stream-output --format json "$@"; then
 		if [[ "$DRY_RUN" -eq 0 ]]; then
 			uploaded="$uploaded $package "
 		fi

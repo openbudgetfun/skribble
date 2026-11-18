@@ -136,6 +136,13 @@ monochange check
 # Preview release files without changing the workspace
 monochange step prepare-release --dry-run --diff
 
+# Publish commands: always use the `monochange publish` parent
+# (packages | readiness | placeholder). The `monochange step publish-packages`,
+# `monochange step publish-readiness`, and `monochange step placeholder-publish`
+# forms are a fallback only, including where an older error hint still prints them.
+monochange publish readiness --from HEAD
+monochange publish placeholder --package <name> --otp <CODE>   # one-time 0.0.0 bootstrap
+
 # Attach the bundled font zips to a GitHub release (--dry-run to preview)
 publish:fonts
 
