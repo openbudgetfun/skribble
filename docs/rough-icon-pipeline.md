@@ -215,8 +215,8 @@ CI also verifies the committed baseline file is up to date by regenerating `pack
 
 CI additionally verifies generated rough icon catalogs are committed and up to date by regenerating:
 
-- `packages/skribble/lib/src/generated/material_rough_icons.g.dart`
-- `packages/skribble/lib/src/generated/material_rough_icon_font.g.dart`
+- `packages/skribble_icons_material/lib/src/generated/material_rough_icons.g.dart`
+- `packages/skribble_icons_material/lib/src/generated/material_rough_icon_font.g.dart`
 
 On generated-sync failures, CI uploads a `rough-icons-generated-sync-diff` artifact with catalog diffs.
 

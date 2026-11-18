@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skribble/skribble.dart';
@@ -104,6 +106,24 @@ void main() {
     test('returns null for unknown identifiers', () {
       expect(lookupMaterialRoughIconByIdentifier('does_not_exist'), isNull);
       expect(lookupMaterialRoughFontIcon('does_not_exist'), isNull);
+    });
+
+    test('font IconData values are compile-time constants', () {
+      final source = File(
+        'lib/src/generated/material_rough_icon_font.g.dart',
+      ).readAsStringSync();
+
+      expect(
+        source,
+        contains(
+          'const Map<String, IconData> kMaterialRoughIconsByIdentifier',
+        ),
+      );
+      expect(source, isNot(contains('IconData(codePoint')));
+      expect(
+        lookupMaterialRoughIconsIconData('search'),
+        kMaterialRoughIconsByIdentifier['search'],
+      );
     });
   });
 }

@@ -3097,7 +3097,22 @@ class Icons {
       );
       expect(
         rendered,
-        contains('IconData? lookupMyRoughIconsIconData(String identifier) {'),
+        contains(
+          'const Map<String, IconData> kMyRoughIconsByIdentifier = <String, IconData>{',
+        ),
+      );
+      expect(
+        rendered,
+        contains(
+          "'alpha': IconData(0xe100, fontFamily: kMyRoughIconsFontFamily),",
+        ),
+      );
+      expect(rendered, isNot(contains('IconData(codePoint')));
+      expect(
+        rendered,
+        contains(
+          'IconData? lookupMyRoughIconsIconData(String identifier) =>',
+        ),
       );
 
       final alphaIndex = rendered.indexOf("'alpha': 0xe100");

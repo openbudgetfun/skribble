@@ -249,11 +249,11 @@ The pipeline consists of two tooling packages:
 
 ### Generated files
 
-The build pipeline produces two files in `packages/skribble/lib/src/generated/`:
+The build pipeline produces two files in `packages/skribble_icons_material/lib/src/generated/`:
 
 - **`material_rough_icons.g.dart`** -- A `Map<int, WiredSvgIconData>` keyed by icon code point, containing the SVG primitive data for every supported Material icon.
 
-- **`material_rough_icon_font.g.dart`** -- Code point lookup tables and a custom font family constant for the rough icon font.
+- **`material_rough_icon_font.g.dart`** -- Code point lookup tables, a custom font family constant, and `kMaterialRoughIconsByIdentifier`, a const map of `IconData`. The lookup indexes that map. A runtime `IconData(codePoint, ...)` makes `flutter build web --release` fail icon tree-shaking, including for apps that never draw a rough glyph.
 
 ### Using generated icon maps
 
