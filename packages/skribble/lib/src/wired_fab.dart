@@ -261,7 +261,7 @@ Widget _withTooltip(String? message, Widget child) =>
     message == null ? child : WiredTooltip(message: message, child: child);
 
 /// The pill face of an extended floating action button.
-class _ExtendedFace extends StatelessWidget {
+class _ExtendedFace extends HookWidget {
   const _ExtendedFace({
     required this.icon,
     required this.label,

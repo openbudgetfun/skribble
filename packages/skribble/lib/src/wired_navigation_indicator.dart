@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'canvas/wired_canvas.dart';
 import 'motion/wired_curves.dart';
@@ -17,7 +18,7 @@ const Duration kWiredNavigationIndicatorDuration = Duration(milliseconds: 420);
 /// spring and its outline draws itself on, unless motion is off. [child]
 /// (the icon, or the icon and label of an extended rail) sits on top and
 /// stays put while the wash animates.
-class WiredNavigationIndicator extends StatelessWidget {
+class WiredNavigationIndicator extends HookWidget {
   /// Creates an indicator around [child].
   const WiredNavigationIndicator({
     super.key,
@@ -113,7 +114,7 @@ class WiredNavigationIndicator extends StatelessWidget {
 /// draws a pill around it. Like Material's navigation badges, the badge
 /// starts near the icon's end edge and grows away from it, so a long count
 /// never covers the glyph.
-class WiredNavigationIcon extends StatelessWidget {
+class WiredNavigationIcon extends HookWidget {
   /// Creates a destination icon.
   const WiredNavigationIcon({
     super.key,
@@ -158,7 +159,7 @@ class WiredNavigationIcon extends StatelessWidget {
 
 /// The hand-drawn dot or pill of a destination badge, washed with the
 /// theme's `accentColor` like `WiredBadge`.
-class _NavigationBadge extends StatelessWidget {
+class _NavigationBadge extends HookWidget {
   const _NavigationBadge({required this.label});
 
   final String? label;
