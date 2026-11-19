@@ -40,7 +40,7 @@ pub struct Rgba {
 
 impl Rgba {
 	/// A colour from its four channels.
-	pub const fn rgba(red: u8, green: u8, blue: u8, alpha: u8) -> Self {
+	pub const fn new(red: u8, green: u8, blue: u8, alpha: u8) -> Self {
 		Self {
 			red,
 			green,
@@ -49,10 +49,10 @@ impl Rgba {
 		}
 	}
 
-	/// An opaque colour from a `0xRRGGBB` literal, such as
-	/// `Rgba::hex(0xffd43b)`.
+	/// An opaque colour from a `0xRR_GG_BB` literal, such as
+	/// `Rgba::hex(0xff_d4_3b)`.
 	pub const fn hex(rgb: u32) -> Self {
-		Self::rgba((rgb >> 16) as u8, (rgb >> 8) as u8, rgb as u8, 0xff)
+		Self::new((rgb >> 16) as u8, (rgb >> 8) as u8, rgb as u8, 0xff)
 	}
 
 	/// This colour as a CSS hex colour, such as `#ffd43b`, with an alpha pair
@@ -116,55 +116,55 @@ pub mod swatch {
 	use super::Rgba;
 
 	/// Warm paper: the light page and the dark appearance's ink.
-	pub const PAPER: Rgba = Rgba::hex(0xfffaf0);
+	pub const PAPER: Rgba = Rgba::hex(0xff_fa_f0);
 	/// A deep plum night: the dark page.
-	pub const NIGHT: Rgba = Rgba::hex(0x292331);
+	pub const NIGHT: Rgba = Rgba::hex(0x29_23_31);
 	/// Plum ink: outlines and running text on paper.
-	pub const INK: Rgba = Rgba::hex(0x34283f);
+	pub const INK: Rgba = Rgba::hex(0x34_28_3f);
 	/// Faded plum ink, for disabled labels on paper.
-	pub const MUTED_INK: Rgba = Rgba::hex(0x736678);
+	pub const MUTED_INK: Rgba = Rgba::hex(0x73_66_78);
 	/// Faded paper, for disabled labels on night.
-	pub const MUTED_PAPER: Rgba = Rgba::hex(0xb9acbf);
+	pub const MUTED_PAPER: Rgba = Rgba::hex(0xb9_ac_bf);
 
 	/// A pale purple wash: the quiet colourway's marker.
-	pub const LILAC: Rgba = Rgba::hex(0xe5ddf4);
+	pub const LILAC: Rgba = Rgba::hex(0xe5_dd_f4);
 	/// A pale peach wash.
-	pub const PEACH: Rgba = Rgba::hex(0xf6dfd5);
+	pub const PEACH: Rgba = Rgba::hex(0xf6_df_d5);
 	/// A pale sage wash.
-	pub const SAGE: Rgba = Rgba::hex(0xddead9);
+	pub const SAGE: Rgba = Rgba::hex(0xdd_ea_d9);
 	/// A pale butter wash.
-	pub const BUTTER: Rgba = Rgba::hex(0xf6e8af);
+	pub const BUTTER: Rgba = Rgba::hex(0xf6_e8_af);
 	/// A deep plum wash: the quiet colourway's marker on night.
-	pub const DUSK: Rgba = Rgba::hex(0x4a3b5e);
+	pub const DUSK: Rgba = Rgba::hex(0x4a_3b_5e);
 	/// A soft coral.
-	pub const CORAL: Rgba = Rgba::hex(0xe87960);
+	pub const CORAL: Rgba = Rgba::hex(0xe8_79_60);
 	/// A soft blush pink.
-	pub const BLUSH: Rgba = Rgba::hex(0xf59c9c);
+	pub const BLUSH: Rgba = Rgba::hex(0xf5_9c_9c);
 
 	/// Highlighter yellow: the default marker.
-	pub const SUNSHINE: Rgba = Rgba::hex(0xffd43b);
+	pub const SUNSHINE: Rgba = Rgba::hex(0xff_d4_3b);
 	/// A juicy tomato red: the default accent on primary actions.
-	pub const TOMATO: Rgba = Rgba::hex(0xff6b4a);
+	pub const TOMATO: Rgba = Rgba::hex(0xff_6b_4a);
 	/// A bright tangerine orange.
-	pub const TANGERINE: Rgba = Rgba::hex(0xff9f1c);
+	pub const TANGERINE: Rgba = Rgba::hex(0xff_9f_1c);
 	/// A clear sky blue.
-	pub const SKY: Rgba = Rgba::hex(0x4cc3ff);
+	pub const SKY: Rgba = Rgba::hex(0x4c_c3_ff);
 	/// A glowing aqua.
-	pub const AQUA: Rgba = Rgba::hex(0x6be3f2);
+	pub const AQUA: Rgba = Rgba::hex(0x6b_e3_f2);
 	/// A fresh mint green.
-	pub const MINT: Rgba = Rgba::hex(0x3ddc97);
+	pub const MINT: Rgba = Rgba::hex(0x3d_dc_97);
 	/// An acid lime.
-	pub const LIME: Rgba = Rgba::hex(0xc4f04d);
+	pub const LIME: Rgba = Rgba::hex(0xc4_f0_4d);
 	/// A bubblegum pink.
-	pub const BUBBLEGUM: Rgba = Rgba::hex(0xff85c0);
+	pub const BUBBLEGUM: Rgba = Rgba::hex(0xff_85_c0);
 	/// A grape violet.
-	pub const GRAPE: Rgba = Rgba::hex(0xa98bff);
+	pub const GRAPE: Rgba = Rgba::hex(0xa9_8b_ff);
 	/// A cornflower cobalt blue.
-	pub const COBALT: Rgba = Rgba::hex(0x6aa6ff);
+	pub const COBALT: Rgba = Rgba::hex(0x6a_a6_ff);
 	/// A cherry red for errors on paper.
-	pub const CHERRY: Rgba = Rgba::hex(0xd61f45);
+	pub const CHERRY: Rgba = Rgba::hex(0xd6_1f_45);
 	/// A glowing cherry for errors on night.
-	pub const CHERRY_GLOW: Rgba = Rgba::hex(0xff6b81);
+	pub const CHERRY_GLOW: Rgba = Rgba::hex(0xff_6b_81);
 }
 
 /// Light or dark: which page a colour is drawn on.
@@ -330,15 +330,15 @@ mod tests {
 
 	#[test]
 	fn hex_unpacks_channels() {
-		assert_eq!(swatch::TOMATO, Rgba::rgba(0xff, 0x6b, 0x4a, 0xff));
-		assert_eq!(Rgba::rgba(1, 2, 3, 0x80).css_hex(), "#01020380");
+		assert_eq!(swatch::TOMATO, Rgba::new(0xff, 0x6b, 0x4a, 0xff));
+		assert_eq!(Rgba::new(1, 2, 3, 0x80).css_hex(), "#01020380");
 		assert_eq!(swatch::INK.css_hex(), "#34283f");
 	}
 
 	#[test]
 	fn contrast_matches_wcag() {
 		let black = Rgba::hex(0);
-		let white = Rgba::hex(0xffffff);
+		let white = Rgba::hex(0xff_ff_ff);
 		assert!((black.contrast(white) - 21.0).abs() < 1e-9);
 		assert!((white.contrast(white) - 1.0).abs() < 1e-9);
 		assert_eq!(black.contrast(white), white.contrast(black));

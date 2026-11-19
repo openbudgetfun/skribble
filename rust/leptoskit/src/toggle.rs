@@ -163,7 +163,7 @@ pub fn WiredRadio(
 	with_class(row, class)
 }
 
-/// A switch drawn by hand: a rough capsule that fills with the accent, and a
+/// A switch drawn by hand: a rough capsule that fills with the marker, and a
 /// knob that slides to the end.
 ///
 /// ```
@@ -203,7 +203,7 @@ pub fn WiredSwitch(
 		FillStyle::None
 	};
 	let track = Ink::outline(InkShape::Capsule, TRACK_CANVAS, seed, theme)
-		.filled(track_fill, theme.accent());
+		.filled(track_fill, theme.marker());
 	let knob = Ink::outline(InkShape::Ellipse, KNOB_CANVAS, seed.wrapping_add(1), theme)
 		.filled(FillStyle::Solid, theme.paper());
 	let knob_position = if on { "left-[28px]" } else { "left-[4px]" };

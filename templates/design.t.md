@@ -26,6 +26,8 @@ skribble is a sticker book, not a pencil sketch on grey paper. Whether you are a
 
 **On the web**, `skribble_jaspr`'s stylesheet uses the same sunny colours. Colour-code boxes with the `skribble-wash-1` to `skribble-wash-6` classes, stagger entrances with `skribble-pop` and an inline `--i`, draw ink on with `skribble-draw`, and lift cards on hover with `skribble-lift`.
 
+**In Rust**, `skribble_leptoskit`'s default `Theme` is the same sunny colourway. Colour-code cards with `fill=theme.accent_at(i)`, keep `ButtonVariant::Primary` for the one loud action, and pick another colourway with `Theme::colorway(Colorway::Berry)`.
+
 <!-- {/docsVividDesignRules} -->
 
 <!-- {@docsVividThemeExample} -->
