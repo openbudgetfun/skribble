@@ -249,16 +249,15 @@ class _RenderFitLine extends RenderProxyBox {
   Size _scaled(Size childSize, double scale, BoxConstraints constraints) =>
       constraints.constrain(childSize * scale);
 
-  @override
-  double computeMinIntrinsicWidth(double height) =>
-      child == null ? 0 : _naturalWidth * _minScale;
+  // _FitLine always has a child, so the methods below lean on it.
 
   @override
-  double computeMaxIntrinsicWidth(double height) =>
-      child == null ? 0 : _naturalWidth;
+  double computeMinIntrinsicWidth(double height) => _naturalWidth * _minScale;
+
+  @override
+  double computeMaxIntrinsicWidth(double height) => _naturalWidth;
 
   double _intrinsicHeight(double width) {
-    if (child == null) return 0;
     final fit = _fit(width);
     return child!.getMaxIntrinsicHeight(fit.childConstraints.maxWidth) *
         fit.scale;
@@ -272,7 +271,6 @@ class _RenderFitLine extends RenderProxyBox {
 
   @override
   Size computeDryLayout(covariant BoxConstraints constraints) {
-    if (child == null) return constraints.smallest;
     final fit = _fit(constraints.maxWidth);
     final childSize = child!.getDryLayout(fit.childConstraints);
     return _scaled(childSize, fit.scale, constraints);
@@ -283,7 +281,6 @@ class _RenderFitLine extends RenderProxyBox {
     covariant BoxConstraints constraints,
     TextBaseline baseline,
   ) {
-    if (child == null) return null;
     final fit = _fit(constraints.maxWidth);
     final childBaseline = child!.getDryBaseline(fit.childConstraints, baseline);
     if (childBaseline == null) return null;
@@ -297,12 +294,6 @@ class _RenderFitLine extends RenderProxyBox {
 
   @override
   void performLayout() {
-    if (child == null) {
-      _scale = 1;
-      _offset = Offset.zero;
-      size = constraints.smallest;
-      return;
-    }
     final fit = _fit(constraints.maxWidth);
     child!.layout(fit.childConstraints, parentUsesSize: true);
     _scale = fit.scale;
@@ -315,15 +306,14 @@ class _RenderFitLine extends RenderProxyBox {
 
   @override
   double? computeDistanceToActualBaseline(TextBaseline baseline) {
-    final childBaseline = child?.getDistanceToActualBaseline(baseline);
+    final childBaseline = child!.getDistanceToActualBaseline(baseline);
     if (childBaseline == null) return null;
     return childBaseline * _scale + _offset.dy;
   }
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    final child = this.child;
-    if (child == null) return;
+    final child = this.child!;
     if (_scale == 1) {
       _transformLayer.layer = null;
       context.paintChild(child, offset + _offset);
@@ -340,8 +330,7 @@ class _RenderFitLine extends RenderProxyBox {
 
   @override
   bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
-    final child = this.child;
-    if (child == null) return false;
+    final child = this.child!;
     return result.addWithPaintTransform(
       transform: _transform,
       position: position,
@@ -364,8 +353,9 @@ class _RenderFitLine extends RenderProxyBox {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DoubleProperty('minScale', _minScale))
+      ..add(DoubleProperty('minScale', minScale))
       ..add(DoubleProperty('scale', _scale))
-      ..add(DiagnosticsProperty<AlignmentGeometry>('alignment', _alignment));
+      ..add(DiagnosticsProperty<AlignmentGeometry>('alignment', alignment))
+      ..add(EnumProperty<TextDirection>('textDirection', textDirection));
   }
 }

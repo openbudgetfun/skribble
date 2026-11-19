@@ -221,6 +221,101 @@ void main() {
       });
     });
 
+    group('layout protocol', () {
+      testWidgets('reports a scaled height to IntrinsicHeight', (
+        tester,
+      ) async {
+        final natural = await _natural(tester, _label);
+        await pumpWired(
+          tester,
+          _inWidth(1000, const WiredFitText(_label, style: _style)),
+        );
+        final fullHeight = tester.getSize(find.byType(WiredFitText)).height;
+
+        await pumpWired(
+          tester,
+          _inWidth(
+            natural * 0.8,
+            const IntrinsicHeight(child: WiredFitText(_label, style: _style)),
+          ),
+        );
+
+        final box = tester.renderObject<RenderBox>(find.byType(WiredFitText));
+        expect(box.getMinIntrinsicWidth(100), closeTo(natural * 0.75, 0.01));
+        expect(
+          box.getMaxIntrinsicHeight(natural * 0.8),
+          closeTo(fullHeight * 0.8, 0.01),
+        );
+        expect(
+          box.getMinIntrinsicHeight(natural * 0.5),
+          closeTo(fullHeight * 0.75, 0.01),
+        );
+        expect(
+          tester.getSize(find.byType(WiredFitText)).height,
+          closeTo(fullHeight * 0.8, 0.01),
+        );
+      });
+
+      testWidgets('dry layout and dry baseline match the real layout', (
+        tester,
+      ) async {
+        final natural = await _natural(tester, _label);
+        final width = natural * 0.8;
+        await pumpWired(
+          tester,
+          _inWidth(width, const WiredFitText(_label, style: _style)),
+        );
+
+        final box = tester.renderObject<RenderBox>(find.byType(WiredFitText));
+        final constraints = BoxConstraints(maxWidth: width);
+        expect(box.getDryLayout(constraints), box.size);
+
+        final dryBaseline = box.getDryBaseline(
+          constraints,
+          TextBaseline.alphabetic,
+        );
+        final painter = TextPainter(
+          text: _paragraph(tester, _label).text,
+          textDirection: TextDirection.ltr,
+        )..layout();
+        final baseline = painter.computeDistanceToActualBaseline(
+          TextBaseline.alphabetic,
+        );
+        painter.dispose();
+        expect(dryBaseline, closeTo(baseline * 0.8, 0.01));
+
+        // A tight width wider than the label centres it vertically and
+        // starts it at the left.
+        final tight = BoxConstraints.tight(Size(natural + 40, 100));
+        expect(box.getDryLayout(tight), Size(natural + 40, 100));
+        final tightBaseline = box.getDryBaseline(
+          tight,
+          TextBaseline.alphabetic,
+        )!;
+        expect(tightBaseline, greaterThan(baseline));
+      });
+
+      testWidgets('describes its scale and floor for debugging', (
+        tester,
+      ) async {
+        await pumpWired(
+          tester,
+          _inWidth(
+            await _natural(tester, _label) * 0.9,
+            const WiredFitText(_label, style: _style),
+          ),
+        );
+
+        final description = tester
+            .renderObject(find.byType(WiredFitText))
+            .toStringShallow();
+        expect(description, contains('minScale: 0.8'));
+        expect(description, contains('scale: 0.9'));
+        expect(description, contains('alignment: AlignmentDirectional'));
+        expect(description, contains('textDirection: ltr'));
+      });
+    });
+
     group('interaction', () {
       testWidgets('a shrunk label still takes taps across its painted area', (
         tester,
@@ -286,6 +381,45 @@ void main() {
         expect(
           tester.getRect(find.text('Inboxes')).width,
           lessThanOrEqualTo(width + 0.01),
+        );
+      });
+
+      testWidgets('follows a new alignment and text direction', (
+        tester,
+      ) async {
+        Widget host(TextDirection direction, AlignmentGeometry alignment) =>
+            Directionality(
+              textDirection: direction,
+              child: SizedBox(
+                width: 400,
+                child: WiredFitText(
+                  'Hi',
+                  style: _style,
+                  alignment: alignment,
+                ),
+              ),
+            );
+
+        await pumpWired(
+          tester,
+          host(TextDirection.ltr, AlignmentDirectional.centerStart),
+        );
+        final box = tester.getRect(find.byType(WiredFitText));
+        expect(tester.getRect(find.text('Hi')).left, closeTo(box.left, 0.01));
+
+        await pumpWired(
+          tester,
+          host(TextDirection.rtl, AlignmentDirectional.centerStart),
+        );
+        expect(
+          tester.getRect(find.text('Hi')).right,
+          closeTo(box.right, 0.01),
+        );
+
+        await pumpWired(tester, host(TextDirection.rtl, Alignment.center));
+        expect(
+          tester.getRect(find.text('Hi')).center.dx,
+          closeTo(box.center.dx, 0.01),
         );
       });
 
