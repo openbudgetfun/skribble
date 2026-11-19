@@ -95,13 +95,15 @@ WiredMaterialApp(
 
 ### Buttons
 
-| Material               | skribble                    |
-| ---------------------- | --------------------------- |
-| `ElevatedButton`       | `WiredElevatedButton`       |
-| `TextButton`           | `WiredTextButton`           |
-| `OutlinedButton`       | `WiredOutlinedButton`       |
-| `IconButton`           | `WiredIconButton`           |
-| `FloatingActionButton` | `WiredFloatingActionButton` |
+| Material                                            | skribble                                                 |
+| --------------------------------------------------- | -------------------------------------------------------- |
+| `ElevatedButton`                                    | `WiredElevatedButton`                                    |
+| `TextButton`                                        | `WiredTextButton`                                        |
+| `OutlinedButton`                                    | `WiredOutlinedButton`                                    |
+| `IconButton`                                        | `WiredIconButton`                                        |
+| `IconButton.filled`, `.filledTonal`, `.outlined`    | `WiredIconButton.filled`, `.filledTonal`, `.outlined`    |
+| `FloatingActionButton`                              | `WiredFloatingActionButton`                              |
+| `FloatingActionButton.small`, `.large`, `.extended` | `WiredFloatingActionButton.small`, `.large`, `.extended` |
 
 **Before:**
 
@@ -160,14 +162,18 @@ WiredInput(
 
 ### Navigation
 
-| Material              | skribble                   |
-| --------------------- | -------------------------- |
-| `AppBar`              | `WiredAppBar`              |
-| `NavigationBar`       | `WiredNavigationBar`       |
-| `NavigationRail`      | `WiredNavigationRail`      |
-| `Drawer`              | `WiredDrawer`              |
-| `BottomNavigationBar` | `WiredBottomNavigationBar` |
-| `TabBar`              | `WiredTabBar`              |
+| Material                             | skribble                                  |
+| ------------------------------------ | ----------------------------------------- |
+| `AppBar`                             | `WiredAppBar`                             |
+| `NavigationBar`                      | `WiredNavigationBar`                      |
+| `NavigationRail`                     | `WiredNavigationRail`                     |
+| `NavigationDestinationLabelBehavior` | `WiredNavigationDestinationLabelBehavior` |
+| `NavigationRailLabelType`            | `WiredNavigationRailLabelType`            |
+| `Drawer`                             | `WiredDrawer`                             |
+| `BottomNavigationBar`                | `WiredBottomNavigationBar`                |
+| `TabBar`                             | `WiredTabBar`                             |
+
+Material destinations take an icon widget, so a badge is `Badge(child: Icon(...))`. skribble destinations take `IconData` and draw the badge themselves from a `badge` string: `'3'` for a count, `''` for a dot. A rail destination's `label` is a `String` rather than a widget.
 
 **Before:**
 

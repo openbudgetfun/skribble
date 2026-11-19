@@ -4,6 +4,7 @@ import 'package:skribble/skribble.dart';
 
 import '../helpers/finders.dart';
 import '../helpers/pump_app.dart';
+import '../helpers/semantics.dart';
 
 Finder findWiredIcon(IconData icon) {
   return find.byWidgetPredicate(
@@ -372,6 +373,295 @@ void main() {
       // The rail main column is 72px wide, plus space for the themed pen.
       final railSize = tester.getSize(find.byType(WiredNavigationRail));
       expect(railSize.width, 72 + WiredThemeData.defaultTheme.inkExtent);
+    });
+  });
+
+  group('WiredNavigationRail parity', () {
+    final theme = WiredThemeData();
+    const destinations = [
+      WiredNavigationRailDestination(icon: Icons.inbox, label: 'Inbox'),
+      WiredNavigationRailDestination(icon: Icons.send, label: 'Sent'),
+      WiredNavigationRailDestination(icon: Icons.drafts, label: 'Drafts'),
+    ];
+
+    List<Color> washes(WidgetTester tester) => [
+      for (final canvas in tester.widgetList<WiredCanvas>(
+        find.descendant(
+          of: find.byType(WiredNavigationRail),
+          matching: findWiredCanvas,
+        ),
+      ))
+        if (canvas.painter case final WiredRoundedRectangleBase wash)
+          wash.fillColor,
+    ];
+
+    Widget host(Widget rail, {double height = 400}) => WiredTheme(
+      data: theme,
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: SizedBox(
+          height: height,
+          child: Row(
+            children: [
+              rail,
+              const Expanded(child: SizedBox()),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    testWidgets('extended springs wider and puts labels beside icons', (
+      tester,
+    ) async {
+      Widget build(bool extended) => host(
+        WiredNavigationRail(destinations: destinations, extended: extended),
+      );
+
+      await pumpApp(tester, build(false));
+      expect(
+        tester.getSize(find.byType(WiredNavigationRail)).width,
+        72 + theme.inkExtent,
+      );
+
+      await pumpApp(tester, build(true));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(tester.hasRunningAnimations, isTrue);
+      await tester.pumpAndSettle();
+
+      expect(
+        tester.getSize(find.byType(WiredNavigationRail)).width,
+        256 + theme.inkExtent,
+      );
+      final icon = tester.getCenter(find.byType(WiredIcon).first);
+      final label = tester.getCenter(find.text('Inbox'));
+      expect(label.dx, greaterThan(icon.dx));
+      expect(label.dy, closeTo(icon.dy, 4));
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('labelType none and selected hide labels but announce them', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
+      await pumpApp(
+        tester,
+        host(
+          const WiredNavigationRail(
+            destinations: destinations,
+            labelType: WiredNavigationRailLabelType.none,
+          ),
+        ),
+      );
+      expect(find.byType(Text), findsNothing);
+      expect(
+        tester.getSemantics(find.bySemanticsLabel('Sent')).tooltip,
+        'Sent',
+      );
+
+      await pumpApp(
+        tester,
+        host(
+          const WiredNavigationRail(
+            destinations: destinations,
+            selectedIndex: 1,
+            labelType: WiredNavigationRailLabelType.selected,
+          ),
+        ),
+      );
+      expect(find.text('Sent'), findsOneWidget);
+      expect(find.text('Inbox'), findsNothing);
+      semantics.dispose();
+    });
+
+    testWidgets('a null selectedIndex selects nothing', (tester) async {
+      await pumpApp(
+        tester,
+        host(
+          const WiredNavigationRail(
+            destinations: destinations,
+            selectedIndex: null,
+          ),
+        ),
+      );
+
+      expect(washes(tester), isEmpty);
+    });
+
+    testWidgets('useIndicator false drops the wash; colorCoded recolours it', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        host(
+          const WiredNavigationRail(
+            destinations: destinations,
+            useIndicator: false,
+          ),
+        ),
+      );
+      expect(washes(tester), isEmpty);
+
+      await pumpApp(
+        tester,
+        host(
+          const WiredNavigationRail(
+            destinations: destinations,
+            selectedIndex: 2,
+            colorCoded: true,
+          ),
+        ),
+      );
+      expect(washes(tester), [theme.accentAt(2)]);
+    });
+
+    testWidgets('a disabled destination ignores taps', (tester) async {
+      final semantics = tester.ensureSemantics();
+      final selected = <int>[];
+      await pumpApp(
+        tester,
+        host(
+          WiredNavigationRail(
+            onDestinationSelected: selected.add,
+            destinations: const [
+              WiredNavigationRailDestination(icon: Icons.inbox, label: 'Inbox'),
+              WiredNavigationRailDestination(
+                icon: Icons.lock,
+                label: 'Locked',
+                disabled: true,
+              ),
+            ],
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Locked'));
+      await tester.tap(find.text('Inbox'));
+      expect(selected, [0]);
+      expectSemantics(
+        tester,
+        find.bySemanticsLabel('Locked'),
+        isEnabled: false,
+        hasTapAction: false,
+      );
+      semantics.dispose();
+    });
+
+    testWidgets('groupAlignment centres or sinks the destinations', (
+      tester,
+    ) async {
+      Future<double> topOfInbox(double alignment) async {
+        await pumpApp(
+          tester,
+          host(
+            WiredNavigationRail(
+              destinations: destinations,
+              groupAlignment: alignment,
+            ),
+          ),
+        );
+        return tester.getTopLeft(find.text('Inbox')).dy;
+      }
+
+      final top = await topOfInbox(-1);
+      final centre = await topOfInbox(0);
+      final bottom = await topOfInbox(1);
+      expect(centre, greaterThan(top));
+      expect(bottom, greaterThan(centre));
+    });
+
+    testWidgets('scrollable rails fit many destinations in a short space', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        host(
+          WiredNavigationRail(
+            scrollable: true,
+            destinations: [
+              for (var i = 0; i < 12; i++)
+                WiredNavigationRailDestination(
+                  icon: Icons.label,
+                  label: 'Label $i',
+                ),
+            ],
+          ),
+          height: 300,
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      await tester.drag(find.text('Label 2'), const Offset(0, -1200));
+      await tester.pumpAndSettle();
+      expect(find.text('Label 11').hitTestable(), findsOneWidget);
+    });
+
+    testWidgets('extended rail mirrors in RTL and survives large text', (
+      tester,
+    ) async {
+      await pumpWiredRtl(
+        tester,
+        const SizedBox(
+          height: 400,
+          child: Row(
+            children: [
+              WiredNavigationRail(destinations: destinations, extended: true),
+              Expanded(child: SizedBox()),
+            ],
+          ),
+        ),
+        textScaler: const TextScaler.linear(1.6),
+      );
+      await tester.pumpAndSettle();
+
+      expect(tester.takeException(), isNull);
+      final icon = tester.getCenter(find.byType(WiredIcon).first);
+      final label = tester.getCenter(find.text('Inbox'));
+      expect(label.dx, lessThan(icon.dx));
+    });
+
+    testWidgets('an extended label on the wash takes the wash ink in dark', (
+      tester,
+    ) async {
+      final dark = WiredThemeData.colorway(
+        WiredColorway.sunny,
+        brightness: Brightness.dark,
+      );
+      await pumpWired(
+        tester,
+        const SizedBox(
+          height: 400,
+          child: WiredNavigationRail(
+            destinations: destinations,
+            extended: true,
+          ),
+        ),
+        theme: dark,
+      );
+      await tester.pumpAndSettle();
+
+      expect(
+        tester.widget<Text>(find.text('Inbox')).style!.color,
+        dark.onColor(dark.markerColor),
+      );
+      expect(
+        tester.widget<Text>(find.text('Sent')).style!.color,
+        dark.disabledTextColor,
+      );
+    });
+
+    testWidgets('a custom minWidth sizes the compact rail', (tester) async {
+      await pumpApp(
+        tester,
+        host(
+          const WiredNavigationRail(destinations: destinations, minWidth: 88),
+        ),
+      );
+
+      expect(
+        tester.getSize(find.byType(WiredNavigationRail)).width,
+        88 + theme.inkExtent,
+      );
     });
   });
 }

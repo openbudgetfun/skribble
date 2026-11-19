@@ -62,6 +62,38 @@ final Map<String, ExampleDefinition> examples = {
     source: "WiredIconButton(\n  icon: const IconData(0xe25b, fontFamily: 'MaterialIcons'),\n  semanticLabel: 'Favourite',\n  onPressed: settings.enabled ? () {} : null,\n)",
     edits: [ExampleEdit(121, 137, ExampleParameter.enabled)],
   ),
+  'floating-button-sizes': ExampleDefinition(
+    builder: _floatingSizes,
+    source: "Wrap(\n  spacing: 16,\n  runSpacing: 16,\n  crossAxisAlignment: WrapCrossAlignment.center,\n  children: [\n    WiredFloatingActionButton.small(\n      icon: const IconData(0xe047, fontFamily: 'MaterialIcons'),\n      tooltip: 'Add',\n      onPressed: settings.enabled ? () {} : null,\n    ),\n    WiredFloatingActionButton(\n      icon: const IconData(0xe047, fontFamily: 'MaterialIcons'),\n      tooltip: 'Add',\n      onPressed: settings.enabled ? () {} : null,\n    ),\n    WiredFloatingActionButton.large(\n      icon: const IconData(0xe047, fontFamily: 'MaterialIcons'),\n      tooltip: 'Add',\n      onPressed: settings.enabled ? () {} : null,\n    ),\n  ],\n)",
+    edits: [
+      ExampleEdit(243, 259, ExampleParameter.enabled),
+      ExampleEdit(418, 434, ExampleParameter.enabled),
+      ExampleEdit(599, 615, ExampleParameter.enabled),
+    ],
+  ),
+  'floating-button-extended': ExampleDefinition(
+    builder: _floatingExtended,
+    source: "HookBuilder(\n  builder: (context) {\n    final extended = useState(true);\n    return WiredFloatingActionButton.extended(\n      icon: const IconData(0xe21a, fontFamily: 'MaterialIcons'),\n      label: Text(settings.label),\n      isExtended: extended.value,\n      onPressed: settings.enabled\n          ? () => extended.value = !extended.value\n          : null,\n    );\n  },\n)",
+    edits: [
+      ExampleEdit(203, 217, ExampleParameter.label),
+      ExampleEdit(271, 287, ExampleParameter.enabled),
+    ],
+  ),
+  'icon-button-variants': ExampleDefinition(
+    builder: _iconVariants,
+    source: "Wrap(\n  spacing: 12,\n  runSpacing: 12,\n  children: [\n    WiredIconButton(\n      icon: const IconData(0xe25b, fontFamily: 'MaterialIcons'),\n      tooltip: 'Favourite',\n      onPressed: settings.enabled ? () {} : null,\n    ),\n    WiredIconButton.filled(\n      icon: const IconData(0xe571, fontFamily: 'MaterialIcons'),\n      tooltip: 'Send',\n      onPressed: settings.enabled ? () {} : null,\n    ),\n    WiredIconButton.filledTonal(\n      icon: const IconData(0xe593, fontFamily: 'MaterialIcons'),\n      tooltip: 'Share',\n      onPressed: settings.enabled ? () {} : null,\n    ),\n    WiredIconButton.outlined(\n      icon: const IconData(0xe21a, fontFamily: 'MaterialIcons'),\n      tooltip: 'Edit',\n      onPressed: settings.enabled ? () {} : null,\n    ),\n  ],\n)",
+    edits: [
+      ExampleEdit(184, 200, ExampleParameter.enabled),
+      ExampleEdit(357, 373, ExampleParameter.enabled),
+      ExampleEdit(536, 552, ExampleParameter.enabled),
+      ExampleEdit(711, 727, ExampleParameter.enabled),
+    ],
+  ),
+  'icon-button-toggle': ExampleDefinition(
+    builder: _iconToggle,
+    source: "HookBuilder(\n  builder: (context) {\n    final saved = useState(false);\n    return WiredIconButton(\n      icon: const IconData(0xe0f4, fontFamily: 'MaterialIcons'),\n      selectedIcon: const IconData(0xe0f1, fontFamily: 'MaterialIcons'),\n      isSelected: saved.value,\n      tooltip: saved.value ? 'Remove bookmark' : 'Bookmark',\n      onPressed: settings.enabled ? () => saved.value = !saved.value : null,\n    );\n  },\n)",
+    edits: [ExampleEdit(346, 362, ExampleParameter.enabled)],
+  ),
   'cupertino-button': ExampleDefinition(
     builder: _cupertino,
     source: "WiredCupertinoButton(\n  onPressed: settings.enabled ? () {} : null,\n  color: const Color(0xffe8957d),\n  borderRadius: BorderRadius.circular(settings.radius),\n  child: Text(settings.label),\n)",
@@ -567,6 +599,16 @@ final Map<String, ExampleDefinition> examples = {
     builder: _sliverAppBar,
     source: "SizedBox(\n  height: 240,\n  child: CustomScrollView(\n    slivers: [\n      WiredSliverAppBar(\n        title: Text(settings.label),\n        expandedHeight: 120,\n        pinned: true,\n      ),\n      SliverList.list(\n        children: [\n          for (var index = 0; index < 8; index++)\n            Padding(\n              padding: const EdgeInsets.all(16),\n              child: Text('Sketch \${index + 1}'),\n            ),\n        ],\n      ),\n    ],\n  ),\n)",
     edits: [ExampleEdit(112, 126, ExampleParameter.label)],
+  ),
+  'navigation-bar-vivid': ExampleDefinition(
+    builder: _navigationBarVivid,
+    source: "HookBuilder(\n  builder: (context) {\n    final selected = useState(0);\n    return WiredNavigationBar(\n      selectedIndex: selected.value,\n      onDestinationSelected: (index) => selected.value = index,\n      colorCoded: true,\n      labelBehavior: WiredNavigationDestinationLabelBehavior.onlyShowSelected,\n      destinations: const [\n        WiredNavigationDestination(\n          icon: IconData(0xe248, fontFamily: 'MaterialIcons'),\n          label: 'Discover',\n        ),\n        WiredNavigationDestination(\n          icon: IconData(0xe3c3, fontFamily: 'MaterialIcons'),\n          label: 'Inbox',\n          badge: '3',\n        ),\n        WiredNavigationDestination(\n          icon: IconData(0xe44f, fontFamily: 'MaterialIcons'),\n          label: 'Alerts',\n          badge: '',\n        ),\n        WiredNavigationDestination(\n          icon: IconData(0xe0b7, fontFamily: 'MaterialIcons'),\n          label: 'Create',\n          isPrimaryAction: true,\n        ),\n      ],\n    );\n  },\n)",
+    edits: [],
+  ),
+  'navigation-rail-extended': ExampleDefinition(
+    builder: _navigationRailExtended,
+    source: "HookBuilder(\n  builder: (context) {\n    final selected = useState(0);\n    final extended = useState(true);\n    return SizedBox(\n      height: 300,\n      child: WiredNavigationRail(\n        extended: extended.value,\n        colorCoded: true,\n        selectedIndex: selected.value,\n        onDestinationSelected: (index) => selected.value = index,\n        leading: WiredIconButton(\n          icon: const IconData(0xe3dc, fontFamily: 'MaterialIcons'),\n          tooltip: extended.value ? 'Collapse' : 'Expand',\n          onPressed: () => extended.value = !extended.value,\n        ),\n        destinations: const [\n          WiredNavigationRailDestination(\n            icon: IconData(0xe33a, fontFamily: 'MaterialIcons'),\n            label: 'Inbox',\n            badge: '12',\n          ),\n          WiredNavigationRailDestination(\n            icon: IconData(0xe571, fontFamily: 'MaterialIcons'),\n            label: 'Sent',\n          ),\n          WiredNavigationRailDestination(\n            icon: IconData(0xe205, fontFamily: 'MaterialIcons'),\n            label: 'Drafts',\n          ),\n        ],\n      ),\n    );\n  },\n)",
+    edits: [],
   ),
   'cupertino-navigation-bar': ExampleDefinition(
     builder: _cupertinoNavigationBar,

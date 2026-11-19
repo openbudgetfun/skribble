@@ -114,7 +114,7 @@ WiredFilledButton(
 
 ## WiredFloatingActionButton
 
-A circular floating action button: a hand-drawn circle filled with `theme.accentColor`, with its icon in `theme.onAccentColor`. Designed for primary screen actions.
+A circular floating action button: a hand-drawn circle filled with `theme.accentColor`, with its icon in `theme.onAccentColor`. Designed for primary screen actions. Mirrors Material's `FloatingActionButton`, including the small, large, and extended forms.
 
 ```dart
 // Live example: floating-button
@@ -125,27 +125,90 @@ WiredFloatingActionButton(
 )
 ```
 
+### Sizes
+
+`WiredFloatingActionButton.small` is 40px and `WiredFloatingActionButton.large` is 96px, matching Material.
+
+```dart
+// Live example: floating-button-sizes
+Wrap(
+  spacing: 16,
+  runSpacing: 16,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    WiredFloatingActionButton.small(
+      icon: const IconData(0xe047, fontFamily: 'MaterialIcons'),
+      tooltip: 'Add',
+      onPressed: true ? () {} : null,
+    ),
+    WiredFloatingActionButton(
+      icon: const IconData(0xe047, fontFamily: 'MaterialIcons'),
+      tooltip: 'Add',
+      onPressed: true ? () {} : null,
+    ),
+    WiredFloatingActionButton.large(
+      icon: const IconData(0xe047, fontFamily: 'MaterialIcons'),
+      tooltip: 'Add',
+      onPressed: true ? () {} : null,
+    ),
+  ],
+)
+```
+
+### Extended
+
+`WiredFloatingActionButton.extended` draws a hand-drawn pill around an optional icon and a label. Turn `isExtended` off, for example while a list scrolls, and it springs back to a circle around the icon. Tap the example to try it.
+
+```dart
+// Live example: floating-button-extended
+HookBuilder(
+  builder: (context) {
+    final extended = useState(true);
+    return WiredFloatingActionButton.extended(
+      icon: const IconData(0xe21a, fontFamily: 'MaterialIcons'),
+      label: Text('Make something lovely'),
+      isExtended: extended.value,
+      onPressed: true
+          ? () => extended.value = !extended.value
+          : null,
+    );
+  },
+)
+```
+
 ### Constructor parameters
 
-| Parameter       | Type            | Default      | Description                                             |
-| --------------- | --------------- | ------------ | ------------------------------------------------------- |
-| `icon`          | `IconData`      | **required** | The icon displayed in the center.                       |
-| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped.                                   |
-| `size`          | `double`        | `56.0`       | Diameter of the FAB.                                    |
-| `iconColor`     | `Color?`        | `null`       | Icon color override. Defaults to `theme.onAccentColor`. |
-| `semanticLabel` | `String?`       | `null`       | Accessibility label.                                    |
+| Parameter                  | Type                   | Default      | Description                                                                                   |
+| -------------------------- | ---------------------- | ------------ | --------------------------------------------------------------------------------------------- |
+| `icon`                     | `IconData`             | **required** | The icon in the center. Optional for `.extended`.                                             |
+| `label`                    | `Widget`               | **required** | `.extended` only: the label beside the icon.                                                  |
+| `onPressed`                | `VoidCallback?`        | `null`       | Callback when tapped. Null disables the button.                                               |
+| `size`                     | `double`               | `56.0`       | Diameter of the FAB, or the minimum height of an extended one.                                |
+| `iconSize`                 | `double?`              | `null`       | Glyph size. Defaults to 43% of `size` (20 for `.small`, 36 for `.large`, 24 for `.extended`). |
+| `backgroundColor`          | `Color?`               | `null`       | The wash, such as `theme.accentAt(2)`. Defaults to `theme.accentColor`.                       |
+| `foregroundColor`          | `Color?`               | `null`       | Icon and label color. Defaults to `theme.onColor(backgroundColor)`.                           |
+| `iconColor`                | `Color?`               | `null`       | Icon color override; wins over `foregroundColor` for the icon.                                |
+| `tooltip`                  | `String?`              | `null`       | Hand-drawn tooltip on long press or hover, also read by screen readers.                       |
+| `heroTag`                  | `Object?`              | `null`       | Wraps the button in a `Hero`. Null adds none, so several FABs never clash.                    |
+| `inkInteraction`           | `WiredInkInteraction?` | `null`       | Overrides the theme's ink feedback on press.                                                  |
+| `autofocus`                | `bool`                 | `false`      | Focuses the button when nothing else is focused.                                              |
+| `focusNode`                | `FocusNode?`           | `null`       | An optional focus node.                                                                       |
+| `semanticLabel`            | `String?`              | `null`       | Accessibility label.                                                                          |
+| `isExtended`               | `bool`                 | `true`       | `.extended` only: shows the label, or collapses to a circle when false.                       |
+| `extendedIconLabelSpacing` | `double`               | `8`          | `.extended` only: space between the icon and the label.                                       |
+| `extendedPadding`          | `EdgeInsetsGeometry?`  | `null`       | `.extended` only: padding inside the pill. Defaults to 16 at the sides.                       |
 
 ### Notes
 
-- Uses `WiredCircleBase` with a 0.9 diameter ratio for the outer circle.
-- The icon is rendered with `WiredIcon` at 43% of the FAB size, using solid fill style.
-- Typically placed in `WiredScaffold.floatingActionButton`.
+- The circular forms use `WiredCircleBase` with a 0.9 diameter ratio; the extended form uses a pill-shaped `RoughBoxDecoration` at least 56px tall, which grows with larger text.
+- Taps, hover, keyboard focus, and Enter or Space activation are handled without a Material ancestor, and pressing presses the ink like the other buttons.
+- Typically placed in `WiredScaffold.floatingActionButton`, or as the `leading` widget of a `WiredNavigationRail`.
 
 ---
 
 ## WiredIconButton
 
-An icon button enclosed in a hand-drawn circle border with no fill. Ideal for toolbar actions and compact controls.
+An icon button enclosed in a hand-drawn circle border with no fill. Ideal for toolbar actions and compact controls. Mirrors Material's `IconButton`, including its filled, tonal, and outlined forms and its toggle behaviour.
 
 ```dart
 // Live example: icon-button
@@ -156,23 +219,85 @@ WiredIconButton(
 )
 ```
 
+### Variants
+
+`WiredIconButton.filled` washes the circle with `theme.accentColor`, for the one loud action in a toolbar. `WiredIconButton.filledTonal` washes it with `theme.markerColor`. `WiredIconButton.outlined` matches the default look, since every skribble icon button already draws its ring, and exists so Material code ports unchanged. Pass `fillColor: theme.accentAt(i)` to colour-code a row of them.
+
+```dart
+// Live example: icon-button-variants
+Wrap(
+  spacing: 12,
+  runSpacing: 12,
+  children: [
+    WiredIconButton(
+      icon: const IconData(0xe25b, fontFamily: 'MaterialIcons'),
+      tooltip: 'Favourite',
+      onPressed: true ? () {} : null,
+    ),
+    WiredIconButton.filled(
+      icon: const IconData(0xe571, fontFamily: 'MaterialIcons'),
+      tooltip: 'Send',
+      onPressed: true ? () {} : null,
+    ),
+    WiredIconButton.filledTonal(
+      icon: const IconData(0xe593, fontFamily: 'MaterialIcons'),
+      tooltip: 'Share',
+      onPressed: true ? () {} : null,
+    ),
+    WiredIconButton.outlined(
+      icon: const IconData(0xe21a, fontFamily: 'MaterialIcons'),
+      tooltip: 'Edit',
+      onPressed: true ? () {} : null,
+    ),
+  ],
+)
+```
+
+### Toggle
+
+Pass `isSelected` and `selectedIcon` to make a toggle. A selected button draws `selectedIcon` on a wash and is announced as selected; an unselected filled or tonal toggle keeps only its ring.
+
+```dart
+// Live example: icon-button-toggle
+HookBuilder(
+  builder: (context) {
+    final saved = useState(false);
+    return WiredIconButton(
+      icon: const IconData(0xe0f4, fontFamily: 'MaterialIcons'),
+      selectedIcon: const IconData(0xe0f1, fontFamily: 'MaterialIcons'),
+      isSelected: saved.value,
+      tooltip: saved.value ? 'Remove bookmark' : 'Bookmark',
+      onPressed: true ? () => saved.value = !saved.value : null,
+    );
+  },
+)
+```
+
 ### Constructor parameters
 
-| Parameter       | Type            | Default      | Description                                                        |
-| --------------- | --------------- | ------------ | ------------------------------------------------------------------ |
-| `icon`          | `IconData`      | **required** | The icon to display.                                               |
-| `onPressed`     | `VoidCallback?` | `null`       | Callback when tapped. Null disables the button.                    |
-| `size`          | `double`        | `48.0`       | Overall width and height of the hand-drawn frame.                  |
-| `iconSize`      | `double?`       | `null`       | Glyph size; mirrors `IconButton.iconSize`. Defaults to `size / 2`. |
-| `iconColor`     | `Color?`        | `null`       | Glyph color override. Defaults to `theme.textColor`.               |
-| `color`         | `Color?`        | `null`       | Glyph color; mirrors `IconButton.color` and wins over `iconColor`. |
-| `semanticLabel` | `String?`       | `null`       | Accessibility label.                                               |
+| Parameter        | Type                   | Default      | Description                                                                     |
+| ---------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------- |
+| `icon`           | `IconData`             | **required** | The icon to display.                                                            |
+| `onPressed`      | `VoidCallback?`        | `null`       | Callback when tapped. Null disables the button.                                 |
+| `size`           | `double`               | `48.0`       | Overall width and height of the hand-drawn frame.                               |
+| `iconSize`       | `double?`              | `null`       | Glyph size; mirrors `IconButton.iconSize`. Defaults to `size / 2`.              |
+| `iconColor`      | `Color?`               | `null`       | Glyph color override. Defaults to the ink that reads on the wash.               |
+| `color`          | `Color?`               | `null`       | Glyph color; mirrors `IconButton.color` and wins over `iconColor`.              |
+| `fillColor`      | `Color?`               | `null`       | The wash of a filled, tonal, or selected button, such as `theme.accentAt(3)`.   |
+| `isSelected`     | `bool?`                | `null`       | Toggle state, mirroring `IconButton.isSelected`. Null makes an ordinary button. |
+| `selectedIcon`   | `IconData?`            | `null`       | Icon drawn while `isSelected` is true. Falls back to `icon`.                    |
+| `tooltip`        | `String?`              | `null`       | Hand-drawn tooltip on long press or hover, also read by screen readers.         |
+| `inkInteraction` | `WiredInkInteraction?` | `null`       | Overrides the theme's ink feedback on press.                                    |
+| `autofocus`      | `bool`                 | `false`      | Focuses the button when nothing else is focused.                                |
+| `focusNode`      | `FocusNode?`           | `null`       | An optional focus node.                                                         |
+| `semanticLabel`  | `String?`              | `null`       | Accessibility label.                                                            |
 
 ### Notes
 
 - The inner icon renders at `iconSize`, which defaults to 50% of `size`.
-- The circle uses `RoughFilter.noFiller` so only the hand-drawn border is visible.
-- With `onPressed: null` and no explicit `color` or `iconColor`, the glyph uses `theme.disabledTextColor`.
+- The standard and outlined circles use `RoughFilter.noFiller` so only the hand-drawn border is visible.
+- With `onPressed: null` and no explicit `color` or `iconColor`, the glyph uses `theme.disabledTextColor`, and a filled or tonal wash fades to 35%.
+- Built on `package:flutter/widgets.dart` alone: no Material `IconButton` underneath, so it works in a `SkribbleApp` without a Material ancestor.
 
 ---
 
@@ -391,7 +516,7 @@ Row(
 
 ## Keyboard and focus
 
-Every button, chip, segment, and Cupertino control on this page can be reached with Tab and activated with Enter or Space. A focused control draws a sketchy outline a few pixels outside its own ink, in the theme's `borderColor`, so it shows on dark paper as well as light. The Material-backed buttons (`WiredButton`, `WiredElevatedButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredTextButton`, `WiredIconButton`) mark focus by thickening their own ink instead. A disabled control leaves focus traversal and reports itself disabled.
+Every button, chip, segment, and Cupertino control on this page can be reached with Tab and activated with Enter or Space. A focused control draws a sketchy outline a few pixels outside its own ink, in the theme's `borderColor`, so it shows on dark paper as well as light. The Material-backed buttons (`WiredButton`, `WiredElevatedButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredTextButton`) mark focus by thickening their own ink instead. A disabled control leaves focus traversal and reports itself disabled.
 
 <!-- {=docsWidgetInkSection} -->
 

@@ -92,7 +92,7 @@ HookBuilder(
 
 ## WiredNavigationBar
 
-A Material 3 style navigation bar with hand-drawn rounded rectangle selection indicators and support for `selectedIcon`.
+A Material 3 style navigation bar with hand-drawn rounded rectangle selection indicators, mirroring Material's `NavigationBar`: `selectedIcon`, label behaviour, badges, disabled destinations, and colour-coded washes.
 
 ```dart
 // Live example: navigation-bar
@@ -117,35 +117,88 @@ HookBuilder(
 )
 ```
 
+### Labels, badges, and colour
+
+Give each destination its own wash with `colorCoded`, hide the quieter labels on a crowded phone with `labelBehavior`, put counts on icons with `badge`, and keep one loud "create" destination with `isPrimaryAction`.
+
+```dart
+// Live example: navigation-bar-vivid
+HookBuilder(
+  builder: (context) {
+    final selected = useState(0);
+    return WiredNavigationBar(
+      selectedIndex: selected.value,
+      onDestinationSelected: (index) => selected.value = index,
+      colorCoded: true,
+      labelBehavior: WiredNavigationDestinationLabelBehavior.onlyShowSelected,
+      destinations: const [
+        WiredNavigationDestination(
+          icon: IconData(0xe248, fontFamily: 'MaterialIcons'),
+          label: 'Discover',
+        ),
+        WiredNavigationDestination(
+          icon: IconData(0xe3c3, fontFamily: 'MaterialIcons'),
+          label: 'Inbox',
+          badge: '3',
+        ),
+        WiredNavigationDestination(
+          icon: IconData(0xe44f, fontFamily: 'MaterialIcons'),
+          label: 'Alerts',
+          badge: '',
+        ),
+        WiredNavigationDestination(
+          icon: IconData(0xe0b7, fontFamily: 'MaterialIcons'),
+          label: 'Create',
+          isPrimaryAction: true,
+        ),
+      ],
+    );
+  },
+)
+```
+
 ### WiredNavigationDestination parameters
 
-| Parameter      | Type        | Default      | Description                                     |
-| -------------- | ----------- | ------------ | ----------------------------------------------- |
-| `icon`         | `IconData`  | **required** | Default icon.                                   |
-| `selectedIcon` | `IconData?` | `null`       | Icon shown when selected. Falls back to `icon`. |
-| `label`        | `String`    | **required** | Text label below the icon.                      |
+| Parameter         | Type        | Default      | Description                                                                        |
+| ----------------- | ----------- | ------------ | ---------------------------------------------------------------------------------- |
+| `icon`            | `IconData`  | **required** | Default icon.                                                                      |
+| `selectedIcon`    | `IconData?` | `null`       | Icon shown when selected. Falls back to `icon`.                                    |
+| `label`           | `String`    | **required** | Text label below the icon, also read by screen readers.                            |
+| `tooltip`         | `String?`   | `null`       | Tooltip for screen readers. Defaults to `label` when the label is hidden.          |
+| `enabled`         | `bool`      | `true`       | A disabled destination dims, ignores taps, and leaves focus traversal.             |
+| `badge`           | `String?`   | `null`       | A hand-drawn badge on the icon: `'3'` for a count, `''` for a dot.                 |
+| `color`           | `Color?`    | `null`       | This destination's wash when selected, such as `theme.accentAt(i)`.                |
+| `isPrimaryAction` | `bool`      | `false`      | Keeps the icon on a wash of `color` or the theme's `accentColor`, selected or not. |
 
 ### WiredNavigationBar parameters
 
-| Parameter               | Type                               | Default      | Description                           |
-| ----------------------- | ---------------------------------- | ------------ | ------------------------------------- |
-| `destinations`          | `List<WiredNavigationDestination>` | **required** | Navigation destinations.              |
-| `selectedIndex`         | `int`                              | `0`          | Currently selected destination index. |
-| `onDestinationSelected` | `ValueChanged<int>?`               | `null`       | Called when a destination is tapped.  |
+| Parameter               | Type                                      | Default      | Description                                                                     |
+| ----------------------- | ----------------------------------------- | ------------ | ------------------------------------------------------------------------------- |
+| `destinations`          | `List<WiredNavigationDestination>`        | **required** | Navigation destinations.                                                        |
+| `selectedIndex`         | `int`                                     | `0`          | Currently selected destination index.                                           |
+| `onDestinationSelected` | `ValueChanged<int>?`                      | `null`       | Called when a destination is tapped.                                            |
+| `labelBehavior`         | `WiredNavigationDestinationLabelBehavior` | `alwaysShow` | `alwaysShow`, `onlyShowSelected`, or `alwaysHide`, as in Material.              |
+| `height`                | `double`                                  | `80`         | Minimum height, not counting the top line or bottom safe area.                  |
+| `backgroundColor`       | `Color?`                                  | `null`       | Paper behind the bar. Defaults to transparent.                                  |
+| `indicatorColor`        | `Color?`                                  | `null`       | Wash behind the selected destination. Defaults to `markerColor`.                |
+| `colorCoded`            | `bool`                                    | `false`      | Washes each destination with `theme.accentAt(index)` when it is selected.       |
+| `animationDuration`     | `Duration`                                | `420ms`      | How long the wash takes to pop in and draw. `Duration.zero` switches instantly. |
+| `semanticLabel`         | `String?`                                 | `null`       | Label for the bar as a whole. Defaults to "Navigation bar".                     |
 
 ### Notes
 
-- At least 80px tall plus the top border line, and taller when large text needs it.
+- At least `height` (80px) tall plus the top border line, and taller when large text needs it.
+- Destinations share the bar's width equally, as Material's do.
 - Pads itself above the home indicator and other bottom insets of notched phones.
-- The selection indicator is a 64x34 rounded rectangle washed with `markerColor`, with the icon in ink on top.
+- The selection indicator is a 64x34 rounded rectangle washed with `markerColor` (or the destination's colour), with the icon in `theme.onColor(wash)` on top. It pops in on a spring while its ink draws on, and appears at once when motion is off.
 - Selected labels use bold weight; unselected labels use `theme.disabledTextColor`.
-- Each destination takes keyboard focus and is announced as a selectable button with its label.
+- Each destination takes keyboard focus and is announced as a selectable button with its label. A hidden label is still announced, with the label as its tooltip.
 
 ---
 
 ## WiredNavigationRail
 
-A vertical navigation rail with hand-drawn rounded rectangle selection indicators. Best for desktop and tablet layouts.
+A vertical navigation rail with hand-drawn rounded rectangle selection indicators, mirroring Material's `NavigationRail`. Best for desktop and tablet layouts.
 
 The selection indicator is 56 by 40, leaving 8 pixels around the icon, and each destination grows with its label.
 
@@ -175,30 +228,90 @@ HookBuilder(
 )
 ```
 
+### Extended rail
+
+Set `extended` to spring the rail open to `minExtendedWidth`, with each label beside its icon. Tap the menu button to fold it back.
+
+```dart
+// Live example: navigation-rail-extended
+HookBuilder(
+  builder: (context) {
+    final selected = useState(0);
+    final extended = useState(true);
+    return SizedBox(
+      height: 300,
+      child: WiredNavigationRail(
+        extended: extended.value,
+        colorCoded: true,
+        selectedIndex: selected.value,
+        onDestinationSelected: (index) => selected.value = index,
+        leading: WiredIconButton(
+          icon: const IconData(0xe3dc, fontFamily: 'MaterialIcons'),
+          tooltip: extended.value ? 'Collapse' : 'Expand',
+          onPressed: () => extended.value = !extended.value,
+        ),
+        destinations: const [
+          WiredNavigationRailDestination(
+            icon: IconData(0xe33a, fontFamily: 'MaterialIcons'),
+            label: 'Inbox',
+            badge: '12',
+          ),
+          WiredNavigationRailDestination(
+            icon: IconData(0xe571, fontFamily: 'MaterialIcons'),
+            label: 'Sent',
+          ),
+          WiredNavigationRailDestination(
+            icon: IconData(0xe205, fontFamily: 'MaterialIcons'),
+            label: 'Drafts',
+          ),
+        ],
+      ),
+    );
+  },
+)
+```
+
 ### WiredNavigationRailDestination parameters
 
-| Parameter      | Type        | Default      | Description                               |
-| -------------- | ----------- | ------------ | ----------------------------------------- |
-| `icon`         | `IconData`  | **required** | Default icon.                             |
-| `selectedIcon` | `IconData?` | `null`       | Icon when selected. Falls back to `icon`. |
-| `label`        | `String`    | **required** | Text label below the icon.                |
+| Parameter      | Type        | Default      | Description                                                               |
+| -------------- | ----------- | ------------ | ------------------------------------------------------------------------- |
+| `icon`         | `IconData`  | **required** | Default icon.                                                             |
+| `selectedIcon` | `IconData?` | `null`       | Icon when selected. Falls back to `icon`.                                 |
+| `label`        | `String`    | **required** | Text label, also read by screen readers.                                  |
+| `tooltip`      | `String?`   | `null`       | Tooltip for screen readers. Defaults to `label` when the label is hidden. |
+| `disabled`     | `bool`      | `false`      | A disabled destination dims, ignores taps, and leaves focus traversal.    |
+| `badge`        | `String?`   | `null`       | A hand-drawn badge on the icon: `'12'` for a count, `''` for a dot.       |
+| `color`        | `Color?`    | `null`       | This destination's wash when selected, such as `theme.accentAt(i)`.       |
 
 ### WiredNavigationRail parameters
 
-| Parameter               | Type                                   | Default      | Description                                          |
-| ----------------------- | -------------------------------------- | ------------ | ---------------------------------------------------- |
-| `destinations`          | `List<WiredNavigationRailDestination>` | **required** | Rail destinations.                                   |
-| `selectedIndex`         | `int`                                  | `0`          | Currently selected destination index.                |
-| `onDestinationSelected` | `ValueChanged<int>?`                   | `null`       | Called when a destination is tapped.                 |
-| `leading`               | `Widget?`                              | `null`       | Widget above the destinations (e.g., FAB).           |
-| `trailing`              | `Widget?`                              | `null`       | Widget below the destinations, pushed to the bottom. |
+| Parameter               | Type                                   | Default      | Description                                                                    |
+| ----------------------- | -------------------------------------- | ------------ | ------------------------------------------------------------------------------ |
+| `destinations`          | `List<WiredNavigationRailDestination>` | **required** | Rail destinations.                                                             |
+| `selectedIndex`         | `int?`                                 | `0`          | Currently selected destination index, or `null` for none.                      |
+| `onDestinationSelected` | `ValueChanged<int>?`                   | `null`       | Called when a destination is tapped.                                           |
+| `leading`               | `Widget?`                              | `null`       | Widget above the destinations (e.g., a FAB or menu button).                    |
+| `trailing`              | `Widget?`                              | `null`       | Widget below the destinations, pushed to the bottom.                           |
+| `extended`              | `bool`                                 | `false`      | Springs the rail to `minExtendedWidth` with labels beside the icons.           |
+| `labelType`             | `WiredNavigationRailLabelType`         | `all`        | `none`, `selected`, or `all` labels under the icons of a compact rail.         |
+| `groupAlignment`        | `double`                               | `-1`         | Where the destinations sit: -1 top, 0 centre, 1 bottom.                        |
+| `minWidth`              | `double`                               | `72`         | Width of a compact rail.                                                       |
+| `minExtendedWidth`      | `double`                               | `256`        | Width of an extended rail.                                                     |
+| `backgroundColor`       | `Color?`                               | `null`       | Paper behind the rail. Defaults to transparent.                                |
+| `indicatorColor`        | `Color?`                               | `null`       | Wash behind the selected destination. Defaults to `markerColor`.               |
+| `useIndicator`          | `bool`                                 | `true`       | When false, only the ink and bold label mark the selection.                    |
+| `colorCoded`            | `bool`                                 | `false`      | Washes each destination with `theme.accentAt(index)` when it is selected.      |
+| `animationDuration`     | `Duration`                             | `420ms`      | How long the wash and the width change take. `Duration.zero` switches at once. |
+| `scrollable`            | `bool`                                 | `false`      | Scrolls the destinations when they do not fit, instead of overflowing.         |
+| `semanticLabel`         | `String?`                              | `null`       | Label for the rail as a whole.                                                 |
 
 ### Notes
 
-- Rail width is 72px with a 2px vertical divider line on the right edge.
-- The selection indicator is a 56x34 rounded rectangle washed with `markerColor`, with the icon in ink on top.
-- Each destination is 56px tall with 4px vertical spacing.
-- Destinations take keyboard focus: the arrow keys move between them and Enter or Space selects one. Screen readers hear each as a selectable button.
+- A compact rail is `minWidth` (72px) wide with a hand-drawn vertical divider line on the right edge.
+- The compact selection indicator is a 56x40 rounded rectangle washed with `markerColor` (or the destination's colour), with the icon in `theme.onColor(wash)`. An extended rail washes the whole row, label included.
+- Each compact destination is at least 56px tall with 4px vertical spacing.
+- While the rail springs open it keeps the compact layout until there is room for a label beside the icon, so nothing overflows mid-animation.
+- Destinations take keyboard focus: the arrow keys move between them and Enter or Space selects one. Screen readers hear each as a selectable button, including hidden labels.
 
 ---
 
@@ -568,4 +681,4 @@ Borders in this category now use the nearest `WiredThemeData.strokeWidth` (1.6 l
 
 <!-- {/docsWidgetInkSection} -->
 
-Item labels in `WiredBottomNavigationBar`, `WiredNavigationBar`, `WiredNavigationRail`, and `WiredTabBar` stay on one line and fit their item with [`WiredFitText`](layout#wiredfittext): a label too wide for its item shrinks, to no less than three quarters of its size or 9 px, before it ends in an ellipsis. Screen readers still hear the full label.
+Shown item labels in `WiredBottomNavigationBar`, `WiredNavigationBar`, `WiredNavigationRail` (beside the icon too, when extended), and `WiredTabBar` stay on one line and fit their item with [`WiredFitText`](layout#wiredfittext): a label too wide for its item shrinks, to no less than three quarters of its size or 9 px, before it ends in an ellipsis. Screen readers still hear the full label.
