@@ -2,6 +2,62 @@
 
 Earlier unpublished versions are documented in [the pre-release development history](PRE_RELEASE_HISTORY.md).
 
+## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-19)
+
+### Features
+
+#### Shrink long labels to fit on one line
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #286](https://github.com/openbudgetfun/skribble/pull/286)
+
+`WiredFitText` draws one line of text that shrinks to fit the width it is given, instead of clipping, wrapping, or overflowing. A label that fits is drawn at full size. A longer one is scaled down until it fits, but never below `minScale` (`kWiredFitTextMinScale`, three quarters of its size) or `minFontSize` (`kWiredFitTextMinFontSize`, 9 px), whichever is larger, and only past that floor does it end in an ellipsis. It scales the laid-out line, so it works with any font, including the default Noto Sketch, keeps the reader's text scale, and adds no dependency. `WiredFitText.wrap` fits a label widget you already have.
+
+Chip labels (`WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`) and navigation item labels (`WiredBottomNavigationBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredTabBar`) now fit this way: a label such as "Notifications" in a 72 px navigation item shrinks a little rather than reading "Notifica…". A `WiredChoiceChip` label also stays on one line now instead of wrapping. Buttons keep wrapping by default; pass `WiredFitText` as a button's `child` to keep its label on one line.
+
+#### Navigation bar, rail, and action button parity with Material
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #288](https://github.com/openbudgetfun/skribble/pull/288)
+
+`WiredNavigationBar`, `WiredNavigationRail`, `WiredFloatingActionButton`, and `WiredIconButton` now cover the parts of Material's `NavigationBar`, `NavigationRail`, `FloatingActionButton`, and `IconButton` that apps reach for, so a Material screen ports without a hand-rolled replacement.
+
+**Navigation bar.** `labelBehavior` (`WiredNavigationDestinationLabelBehavior.alwaysShow`, `onlyShowSelected`, `alwaysHide`), `height`, `backgroundColor`, `indicatorColor`, `colorCoded` (each destination takes `theme.accentAt(index)`), and `animationDuration`. Destinations gain `tooltip`, `enabled`, `badge` (`'3'` for a count, `''` for a dot), `color`, and `isPrimaryAction`, which keeps one destination washed with the accent as the bar's loud action. Destinations now share the bar's width equally instead of sitting 72 pixels apart.
+
+**Navigation rail.** `extended` springs the rail between `minWidth` (72) and `minExtendedWidth` (256) with each label beside its icon. Also `labelType` (`WiredNavigationRailLabelType.none`, `selected`, `all`), `groupAlignment`, `backgroundColor`, `indicatorColor`, `useIndicator`, `colorCoded`, `animationDuration`, `scrollable`, `semanticLabel`, and a nullable `selectedIndex`. Destinations gain `tooltip`, `disabled`, `badge`, and `color`.
+
+Both pop the selected destination's wash in on a spring while its ink draws on, and settle at once when motion is off. Hidden labels are still read by screen readers, with the label as the tooltip.
+
+**Floating action button.** `WiredFloatingActionButton.small` (40), `.large` (96), and `.extended`, a hand-drawn pill with an optional icon and a label that springs back to a circle when `isExtended` turns off. Every form takes `backgroundColor`, `foregroundColor`, `iconSize`, `tooltip`, `heroTag`, `inkInteraction`, `autofocus`, and `focusNode`.
+
+**Icon button.** `WiredIconButton.filled` (accent wash), `.filledTonal` (marker wash), and `.outlined`, plus Material's toggle behaviour through `isSelected` and `selectedIcon`, `fillColor` for colour-coding, `tooltip`, `autofocus`, and `focusNode`. A disabled filled button keeps a faded wash.
+
+`WiredIconButton` no longer wraps Material's `IconButton`, and the navigation bar and rail no longer import Material, so three files leave the Material dependency audit.
+
+#### Vivid colourways and lively motion by default
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)
+
+skribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.
+
+**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.
+
+The defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.
+
+**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.
+
+**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength="1"` so they can draw on.
+
+The new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page.
+
+### Fixes
+
+#### Keep rough icon font lookups constant
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #281](https://github.com/openbudgetfun/skribble/pull/281) · _Closed issues:_ [#198](https://github.com/openbudgetfun/skribble/issues/198)
+
+`flutter build web --release` rejects an app that depends on `skribble_icons_material` (including through `skribble_icons`) because `lookupMaterialRoughIconsIconData` constructed `IconData` from a code point read at runtime. Icon tree-shaking requires every `IconData` it can see to be a constant, and it aborts rather than guessing which glyphs to keep.
+
+The generator now emits `kMaterialRoughIconsByIdentifier`, a const map of `IconData`, and the lookup indexes that map. Apps that register the Material catalog still ship the whole rough icon font, because a const map keeps every entry alive. Named `static const` fields would let unused glyphs drop out, and that remains a follow-up. The storybook icon gallery still builds `IconData` from a runtime code point on purpose, so its web release build keeps `--no-tree-shake-icons`.
+
 ## [0.4.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.0) (2026-11-07)
 
 ### Breaking changes

@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/monochange/monochange).
 
+## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-19)
+
+### Fixes
+
+#### Keep rough icon font lookups constant
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #281](https://github.com/openbudgetfun/skribble/pull/281) · _Closed issues:_ [#198](https://github.com/openbudgetfun/skribble/issues/198)
+
+`flutter build web --release` rejects an app that depends on `skribble_icons_material` (including through `skribble_icons`) because `lookupMaterialRoughIconsIconData` constructed `IconData` from a code point read at runtime. Icon tree-shaking requires every `IconData` it can see to be a constant, and it aborts rather than guessing which glyphs to keep.
+
+The generator now emits `kMaterialRoughIconsByIdentifier`, a const map of `IconData`, and the lookup indexes that map. Apps that register the Material catalog still ship the whole rough icon font, because a const map keeps every entry alive. Named `static const` fields would let unused glyphs drop out, and that remains a follow-up. The storybook icon gallery still builds `IconData` from a runtime code point on purpose, so its web release build keeps `--no-tree-shake-icons`.
+
 ## [0.4.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.0) (2026-11-07)
 
 ### Changed
