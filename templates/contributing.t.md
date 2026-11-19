@@ -37,7 +37,7 @@ skribble/
 ├── docs/site/                 # Documentation site (Flutter); pages live in docs/site/content/
 ├── templates/                 # MDT providers for documentation shared across files
 ├── js/                        # npm packages: @skribble.dev/rough + React, React Native, Vue, Svelte
-└── rust/                      # Cargo workspace: skribble_rough (Rust engine) + skribble_leptoskit components
+└── rust/                      # Cargo workspace: skribble_rough (Rust engine) + skribble_core (framework-free design system)
 ```
 
 <!-- {/docsRepoLayout} -->

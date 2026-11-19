@@ -440,14 +440,12 @@ The `js/` workspace publishes skribble's rough engine to npm. See [Using skribbl
 
 ## Rust crates
 
-The `rust/` workspace ports the rough engine to Rust and builds leptoskit components, charts, and maps on it. See [Using skribble with leptoskit](/guides/leptoskit) and [skribble charts for leptoskit](/guides/leptoskit-charts), and [skribble maps for leptoskit](/guides/leptoskit-maps).
+The `rust/` workspace ports the rough engine to Rust (`skribble_rough`) and builds `skribble_core` on it: colourways, component ink, scribbles, charts, and maps with no UI framework. See [skribble for Rust](/guides/rust). leptoskit's `leptoskit_skribble` crate turns them into leptoskit components; see [Using skribble with leptoskit](/guides/leptoskit).
 
-| Crate                       | Main exports                                                                                                                                                                                                                             |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `skribble_rough`            | `sketch`, `Shape`, `SketchOptions`, `Generator`, `DrawConfig`, `Filler`, `FillStyle`, `RoughPen`, `DrawableInk`, `InkStroke`, `RoughSvgPaths`                                                                                            |
-| `skribble_leptoskit`        | `SkribblePage`, `WiredBox`, `WiredCard`, `WiredCircle`, `WiredBadge`, `WiredButton`, `WiredInput`, `WiredCheckbox`, `WiredRadio`, `WiredSwitch`, `WiredProgress`, `WiredHighlight`, `WiredDivider`, `Sketch`, `Theme`, `Palette`, `Tone` |
-| `skribble_leptoskit_charts` | `WiredCandlestickChart`, `WiredLineChart`, `WiredBarChart`, `Candle`, `SeriesKind`, `Overlay`, `LineSeries`, `ChartTheme`, `indicators`, `geometry`                                                                                      |
-| `skribble_leptoskit_maps`   | `WiredMap`, `WiredMapZoomControls`, `Camera`, `LatLng`, `LatLngBounds`, `MapFeature`, `MapPin`, `PinCategory`, `MapStyle`                                                                                                                |
+| Crate            | Main exports                                                                                                                                                                                                                                                                                 |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `skribble_rough` | `sketch`, `Shape`, `SketchOptions`, `Generator`, `DrawConfig`, `Filler`, `FillStyle`, `RoughPen`, `DrawableInk`, `InkStroke`, `RoughSvgPaths`                                                                                                                                                |
+| `skribble_core`  | `Theme`, `Palette`, `Tone`, `colorway` (`Rgba`, `Colorway`, `Appearance`, `swatch`), `components`, `Ink`, `InkDrawing`, `Scribble`, `charts` (`CandlestickChart`, `LineChart`, `BarChart`, `ChartTheme`, `indicators`), `maps` (`Camera`, `LatLng`, `MapFeature`, `MapStyle`, `PinCategory`) |
 
 ## API documentation
 

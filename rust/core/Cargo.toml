@@ -1,0 +1,19 @@
+[package]
+name = "skribble_core"
+version = "0.1.0"
+authors.workspace = true
+categories = ["graphics", "gui", "rendering", "wasm"]
+edition.workspace = true
+homepage.workspace = true
+keywords = ["hand-drawn", "sketch", "design-system", "svg", "skribble"]
+license.workspace = true
+readme = "README.md"
+repository = "https://github.com/openbudgetfun/skribble/tree/main/rust/core"
+rust-version.workspace = true
+description = "skribble's hand-drawn design system for Rust, free of any UI framework: colourways and themes, component ink, sketches, charts, and maps as plain path data that any renderer can draw."
+
+[dependencies]
+skribble_rough = { workspace = true }
+
+[lints]
+workspace = true
