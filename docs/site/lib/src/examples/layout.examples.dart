@@ -50,6 +50,15 @@ Widget _gridTile(ExampleSettings settings) => SizedBox(
 Widget _selectableText(ExampleSettings settings) =>
     WiredSelectableText(settings.label);
 
+/// @docs-example fit-text
+Widget _fitText(ExampleSettings settings) => SizedBox(
+  width: 150,
+  child: WiredFilledButton(
+    onPressed: settings.enabled ? () {} : null,
+    child: WiredFitText(settings.label),
+  ),
+);
+
 /// @docs-example carousel-view
 Widget _carousel(ExampleSettings settings) => WiredCarouselView(
   borderRadius: BorderRadius.circular(settings.radius),

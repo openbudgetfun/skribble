@@ -233,6 +233,34 @@ void main() {
       expect(find.text('Home'), findsOneWidget);
       expect(find.text('Settings'), findsOneWidget);
     });
+
+    testWidgets('shrinks a long label to fit its cell before cutting it', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        SizedBox(
+          width: 200,
+          child: WiredNavigationBar(
+            destinations: const [
+              WiredNavigationDestination(icon: Icons.home, label: 'Home'),
+              WiredNavigationDestination(
+                icon: Icons.notifications,
+                label: 'Notifications',
+              ),
+            ],
+          ),
+        ),
+      );
+
+      final label = find.text('Notifications');
+      final painted = tester.getRect(label);
+      final bar = tester.getRect(find.byType(WiredNavigationBar));
+      expect(painted.width, lessThan(tester.getSize(label).width));
+      expect(painted.left, greaterThanOrEqualTo(bar.center.dx));
+      expect(painted.right, lessThanOrEqualTo(bar.right));
+      expect(find.byType(WiredFitText), findsNWidgets(2));
+    });
   });
 
   group('WiredNavigationBar parity', () {

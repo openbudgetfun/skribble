@@ -200,5 +200,30 @@ void main() {
         findsNWidgets(3),
       );
     });
+
+    testWidgets('fits each label inside its item', (tester) async {
+      await pumpWired(
+        tester,
+        SizedBox(
+          width: 240,
+          child: WiredBottomNavigationBar(
+            items: const [
+              WiredBottomNavItem(icon: Icons.home, label: 'Home'),
+              WiredBottomNavItem(
+                icon: Icons.notifications,
+                label: 'Notifications and alerts',
+              ),
+            ],
+          ),
+        ),
+      );
+
+      expect(find.byType(WiredFitText), findsNWidgets(2));
+      final bar = tester.getRect(find.byType(WiredBottomNavigationBar));
+      final label = tester.getRect(find.text('Notifications and alerts'));
+      expect(label.left, greaterThanOrEqualTo(bar.left));
+      expect(label.right, lessThanOrEqualTo(bar.right));
+      expect(tester.takeException(), isNull);
+    });
   });
 }

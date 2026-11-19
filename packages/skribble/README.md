@@ -245,6 +245,7 @@ Install the package for each typeface you select; every package bundles its own 
 | `WiredReorderableListView`                            | Reorderable list with sketchy items                |
 | `WiredDismissible`                                    | Swipe-to-dismiss with sketchy background           |
 | `WiredSelectableText`                                 | Selectable text with skribble styling              |
+| `WiredFitText`                                        | One line of text that shrinks to fit its width     |
 | `WiredDrawerHeader` / `WiredUserAccountsDrawerHeader` | Drawer headers                                     |
 | `WiredAvatar`                                         | Hand-drawn circle avatar                           |
 | `WiredPageScaffold` / `WiredTabScaffold`              | Cupertino scaffold layouts                         |

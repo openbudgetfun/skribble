@@ -6,6 +6,7 @@ import 'motion/wired_curves.dart';
 import 'motion/wired_motion.dart';
 import 'wired_activatable.dart';
 import 'wired_base.dart';
+import 'wired_fit_text.dart';
 import 'wired_navigation_indicator.dart';
 import 'wired_theme.dart';
 
@@ -303,7 +304,7 @@ class WiredNavigationRail extends HookWidget {
             };
 
         // A label on the wash of an extended rail takes the wash's ink.
-        Widget label(double fontSize, {bool onWash = false}) => Text(
+        Widget label(double fontSize, {bool onWash = false}) => WiredFitText(
           dest.label,
           style: TextStyle(
             fontSize: fontSize,
@@ -312,8 +313,6 @@ class WiredNavigationRail extends HookWidget {
                 : labelColor,
             fontWeight: selected ? FontWeight.bold : FontWeight.normal,
           ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
         );
 
         final Widget content;

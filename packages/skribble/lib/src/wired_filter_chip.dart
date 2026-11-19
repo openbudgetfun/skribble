@@ -6,6 +6,7 @@ import 'generated/skribble_glyphs.g.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_activatable.dart';
 import 'wired_base.dart';
+import 'wired_fit_text.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
 
@@ -92,9 +93,7 @@ class WiredFilterChip extends HookWidget {
                           const SizedBox(width: 4),
                         ],
                         Flexible(
-                          child: DefaultTextStyle.merge(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          child: WiredFitText.wrap(
                             style: TextStyle(
                               color: selected
                                   ? theme.onMarkerColor

@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'wired_activatable.dart';
 import 'wired_base.dart';
+import 'wired_fit_text.dart';
 import 'wired_navigation_indicator.dart';
 import 'wired_theme.dart';
 
@@ -272,7 +273,7 @@ class WiredNavigationBar extends HookWidget {
                 const SizedBox(height: 4),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Text(
+                  child: WiredFitText(
                     dest.label,
                     style: TextStyle(
                       fontSize: 12,
@@ -281,8 +282,6 @@ class WiredNavigationBar extends HookWidget {
                           ? FontWeight.bold
                           : FontWeight.normal,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const SizedBox(height: 8),

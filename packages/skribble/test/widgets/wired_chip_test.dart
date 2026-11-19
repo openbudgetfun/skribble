@@ -138,5 +138,31 @@ void main() {
       expect(chip.avatar, isNull);
       expect(chip.onDeleted, isNull);
     });
+
+    testWidgets('shrinks a long label to fit a narrow chip', (tester) async {
+      await pumpWired(
+        tester,
+        SizedBox(
+          width: 140,
+          child: WiredChip(label: const Text('Very long chip label')),
+        ),
+      );
+
+      final label = find.text('Very long chip label');
+      final chip = tester.getRect(find.byType(WiredChip));
+      expect(
+        tester.getRect(label).width,
+        lessThan(tester.getSize(label).width),
+      );
+      // The label keeps the button padding from the ink on both sides.
+      expect(
+        tester.getRect(label).left - chip.left,
+        greaterThanOrEqualTo(kWiredButtonPadding.left - 0.01),
+      );
+      expect(
+        chip.right - tester.getRect(label).right,
+        greaterThanOrEqualTo(kWiredButtonPadding.right - 0.01),
+      );
+    });
   });
 }

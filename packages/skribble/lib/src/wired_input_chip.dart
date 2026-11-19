@@ -5,6 +5,7 @@ import 'canvas/wired_canvas.dart';
 import 'wired_activatable.dart';
 import 'wired_base.dart';
 import 'wired_chip_delete_button.dart';
+import 'wired_fit_text.dart';
 import 'wired_theme.dart';
 
 /// A hand-drawn input chip, corresponding to Flutter's [InputChip].
@@ -120,9 +121,7 @@ class WiredInputChip extends HookWidget {
                             const SizedBox(width: 6),
                           ],
                           Flexible(
-                            child: DefaultTextStyle.merge(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            child: WiredFitText.wrap(
                               style: TextStyle(
                                 color: foreground,
                                 fontSize: 13,
@@ -230,9 +229,7 @@ class WiredActionChip extends HookWidget {
                           const SizedBox(width: 6),
                         ],
                         Flexible(
-                          child: DefaultTextStyle.merge(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          child: WiredFitText.wrap(
                             style: TextStyle(
                               color: theme.textColor,
                               fontSize: 13,

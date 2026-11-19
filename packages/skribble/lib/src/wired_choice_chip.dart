@@ -5,6 +5,7 @@ import 'canvas/wired_canvas.dart';
 import 'rough/skribble_rough.dart';
 import 'wired_activatable.dart';
 import 'wired_base.dart';
+import 'wired_fit_text.dart';
 import 'wired_theme.dart';
 
 /// A choice chip with a hand-drawn border and selection state.
@@ -87,7 +88,7 @@ class WiredChoiceChip extends HookWidget {
                   ),
                   Padding(
                     padding: kWiredButtonPadding,
-                    child: DefaultTextStyle.merge(
+                    child: WiredFitText.wrap(
                       style: TextStyle(
                         color: selected ? theme.onMarkerColor : theme.textColor,
                         fontSize: 13,

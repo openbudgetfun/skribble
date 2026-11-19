@@ -415,6 +415,14 @@ final Map<String, ExampleDefinition> examples = {
     source: "WiredSelectableText(settings.label)",
     edits: [ExampleEdit(20, 34, ExampleParameter.label)],
   ),
+  'fit-text': ExampleDefinition(
+    builder: _fitText,
+    source: "SizedBox(\n  width: 150,\n  child: WiredFilledButton(\n    onPressed: settings.enabled ? () {} : null,\n    child: WiredFitText(settings.label),\n  ),\n)",
+    edits: [
+      ExampleEdit(67, 83, ExampleParameter.enabled),
+      ExampleEdit(124, 138, ExampleParameter.label),
+    ],
+  ),
   'carousel-view': ExampleDefinition(
     builder: _carousel,
     source: "WiredCarouselView(\n  borderRadius: BorderRadius.circular(settings.radius),\n  children: [\n    for (final label in ['Little plans', 'Bright ideas', 'Happy accidents'])\n      Center(child: Text(label)),\n  ],\n)",
