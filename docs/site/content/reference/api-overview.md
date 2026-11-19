@@ -443,7 +443,7 @@ The `js/` workspace publishes skribble's rough engine to npm. See [Using skribbl
 
 ## Rust crates
 
-The `rust/` workspace ports the rough engine to Rust (`skribble_rough`) and builds `skribble_core` on it: colourways, component ink, scribbles, charts, and maps with no UI framework. See [skribble for Rust](/guides/rust). leptoskit's `leptoskit_skribble` crate turns them into leptoskit components; see [Using skribble with leptoskit](/guides/leptoskit).
+The `rust/` workspace ports the rough engine to Rust (`skribble_rough`) and builds `skribble_core` on it: colourways, component ink, scribbles, charts, and maps with no UI framework. See [skribble for Rust](/guides/rust). leptoskit's [`leptoskit_skribble`](https://github.com/leptoskit/leptoskit/tree/main/crates/leptoskit_skribble) crate turns them into leptoskit components; see [Using skribble with leptoskit](/guides/leptoskit).
 
 | Crate            | Main exports                                                                                                                                                                                                                                                                                 |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

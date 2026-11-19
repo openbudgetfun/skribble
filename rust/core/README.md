@@ -76,7 +76,7 @@ Buttons and controls are at least 44 pixels tall and grow with their text. Conte
 
 <!-- {/rustInkRoom} -->
 
-[leptoskit](https://github.com/leptoskit/leptoskit) apps get skribble through leptoskit's own `leptoskit_skribble` crate, which draws these primitives as leptoskit `Vector` elements on the web, macOS, iOS, Android, Windows, and Linux.
+[leptoskit](https://github.com/leptoskit/leptoskit) apps get skribble through leptoskit's own [`leptoskit_skribble`](https://github.com/leptoskit/leptoskit/tree/main/crates/leptoskit_skribble) crate, which draws these primitives as leptoskit `Vector` elements on the web, macOS, iOS, Android, Windows, and Linux.
 
 ## License
 
