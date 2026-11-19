@@ -29,7 +29,8 @@
 //!
 //! skribble does not ship UI components for a Rust framework itself; each
 //! framework integrates these primitives on its own schedule. leptoskit's
-//! integration lives in the leptoskit repository as `leptoskit_skribble`.
+//! integration lives in the leptoskit repository as
+//! [`leptoskit_skribble`](https://github.com/leptoskit/leptoskit/tree/main/crates/leptoskit_skribble).
 //! An adapter usually needs three things:
 //!
 //! - a way to paint an [`InkDrawing`]: one vector element per
