@@ -57,8 +57,9 @@ pub fn WiredHighlight(
 	/// The mark to draw.
 	#[prop(optional)]
 	kind: HighlightKind,
-	/// The mark's colour. Defaults to the ink for pen marks and the accent for
-	/// the marker.
+	/// The mark's colour. Defaults to the ink for pen marks and the theme's
+	/// marker for [`HighlightKind::Marker`]; pass `theme.accent_at(i)` for a
+	/// run of colourful highlights.
 	#[prop(optional, into)]
 	color: Option<Tone>,
 	/// Chooses the wobble. The same seed always draws the same mark.
@@ -101,9 +102,9 @@ pub fn WiredHighlight(
 		HighlightKind::Marker => (
 			Ink::outline(InkShape::Rectangle, LOOP_CANVAS, seed, theme)
 				.without_outline()
-				.filled(FillStyle::Solid, color.unwrap_or(theme.accent())),
+				.filled(FillStyle::Solid, color.unwrap_or(theme.marker())),
 			"px-1 py-0.5",
-			theme.on_accent(),
+			theme.on(color.unwrap_or(theme.marker())),
 		),
 	};
 

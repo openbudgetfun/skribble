@@ -16,14 +16,12 @@ const CARD_CANVAS: Canvas = Canvas::new(320.0, 200.0).gap(10.0);
 const CIRCLE_CANVAS: Canvas = Canvas::new(120.0, 120.0).inset(4.0);
 const BADGE_CANVAS: Canvas = Canvas::new(96.0, 32.0).inset(2.5).gap(5.0);
 
-/// A column with `ink` behind `children`. Text is in the theme's ink, or in its
-/// on-accent colour over a solid fill.
+/// A column with `ink` behind `children`. Text is in the theme's ink, or in
+/// whichever of its ink and paper reads on a solid fill.
 pub(crate) fn inked(ink: Ink, layout: &str, class: Option<String>, children: Children) -> Element {
-	let solid = ink.fill.is_some_and(|fill| fill.style == FillStyle::Solid);
-	let text = if solid {
-		ink.theme.on_accent()
-	} else {
-		ink.theme.ink()
+	let text = match ink.fill {
+		Some(fill) if fill.style == FillStyle::Solid => ink.theme.on(fill.tone),
+		_ => ink.theme.ink(),
 	};
 	let element = View()
 		.class(layout)
@@ -103,7 +101,8 @@ pub fn WiredBox(
 	/// The pattern drawn inside the border.
 	#[prop(optional)]
 	fill_style: FillStyle,
-	/// The fill colour. Defaults to the theme's accent.
+	/// The fill colour. Defaults to the theme's marker; pass
+	/// `theme.accent_at(i)` to colour-code a run of them.
 	#[prop(optional, into)]
 	fill: Option<Tone>,
 	/// The colours to draw with.
@@ -116,7 +115,7 @@ pub fn WiredBox(
 	children: Children,
 ) -> Element {
 	let ink = Ink::outline(InkShape::Rectangle, BOX_CANVAS, seed, theme)
-		.filled(fill_style, fill.unwrap_or(theme.accent()));
+		.filled(fill_style, fill.unwrap_or(theme.marker()));
 	inked(ink, "px-5 py-3", class, children)
 }
 
@@ -131,7 +130,8 @@ pub fn WiredCard(
 	/// The pattern drawn inside the border.
 	#[prop(optional)]
 	fill_style: FillStyle,
-	/// The fill colour. Defaults to the theme's accent.
+	/// The fill colour. Defaults to the theme's marker; pass
+	/// `theme.accent_at(i)` to colour-code a run of them.
 	#[prop(optional, into)]
 	fill: Option<Tone>,
 	/// The colours to draw with.
@@ -144,7 +144,7 @@ pub fn WiredCard(
 	children: Children,
 ) -> Element {
 	let ink = Ink::outline(InkShape::Rectangle, CARD_CANVAS, seed, theme)
-		.filled(fill_style, fill.unwrap_or(theme.accent()));
+		.filled(fill_style, fill.unwrap_or(theme.marker()));
 	inked(ink, "gap-3 px-6 py-5", class, children)
 }
 
@@ -160,7 +160,8 @@ pub fn WiredCircle(
 	/// The pattern drawn inside the ellipse.
 	#[prop(optional)]
 	fill_style: FillStyle,
-	/// The fill colour. Defaults to the theme's accent.
+	/// The fill colour. Defaults to the theme's marker; pass
+	/// `theme.accent_at(i)` to colour-code a run of them.
 	#[prop(optional, into)]
 	fill: Option<Tone>,
 	/// The colours to draw with.
@@ -173,7 +174,7 @@ pub fn WiredCircle(
 	children: Children,
 ) -> Element {
 	let ink = Ink::outline(InkShape::Ellipse, CIRCLE_CANVAS, seed, theme)
-		.filled(fill_style, fill.unwrap_or(theme.accent()));
+		.filled(fill_style, fill.unwrap_or(theme.marker()));
 	inked(
 		ink,
 		"items-center justify-center px-5 py-4",
@@ -183,7 +184,8 @@ pub fn WiredCircle(
 }
 
 /// A small hand-drawn capsule for a status or count, filled with the accent
-/// like a sticker.
+/// like a sticker. Its text takes whichever of the ink and paper reads on the
+/// fill.
 ///
 /// Screen readers read its text where it appears, so keep it meaningful on its
 /// own, such as "3 new" rather than "3".

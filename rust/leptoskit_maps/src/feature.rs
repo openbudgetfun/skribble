@@ -40,7 +40,7 @@ pub enum MapFeature {
 	Area {
 		/// The ring of geographic points that closes the area.
 		ring: Vec<LatLng>,
-		/// The hachure colour. Defaults to the theme's accent.
+		/// The hachure colour. Defaults to the theme's marker.
 		tone: Option<Tone>,
 	},
 	/// A route through ordered points, drawn as a round-capped line with a
@@ -55,13 +55,13 @@ pub enum MapFeature {
 	Point {
 		/// Where the dot sits.
 		position: LatLng,
-		/// The dot's fill colour. Defaults to the theme's accent.
+		/// The dot's fill colour. Defaults to the theme's marker.
 		tone: Option<Tone>,
 	},
 }
 
 impl MapFeature {
-	/// A closed area with a hachure fill in the theme's accent.
+	/// A closed area with a hachure fill in the theme's marker.
 	#[must_use]
 	pub fn area(ring: impl Into<Vec<LatLng>>) -> Self {
 		Self::Area {
@@ -79,7 +79,7 @@ impl MapFeature {
 		}
 	}
 
-	/// A small dot filled with the theme's accent.
+	/// A small dot filled with the theme's marker.
 	#[must_use]
 	pub fn point(position: LatLng) -> Self {
 		Self::Point {
@@ -140,7 +140,7 @@ pub(crate) fn drawing(
 				let paths = RoughSvgPaths::from_drawable(&generator.polygon(&points));
 				drawing.push_stroke(
 					paths.sketch,
-					tone.unwrap_or(theme.accent()),
+					tone.unwrap_or(theme.marker()),
 					sketch_weight(theme),
 				);
 				drawing.push_stroke(paths.outline, theme.ink(), theme.stroke_width);
@@ -170,7 +170,7 @@ pub(crate) fn drawing(
 				let mut generator = generator(feature_seed, theme, FillStyle::Solid);
 				let paths =
 					RoughSvgPaths::from_drawable(&generator.ellipse(point.x, point.y, 10.0, 10.0));
-				drawing.push_fill(paths.solid, tone.unwrap_or(theme.accent()));
+				drawing.push_fill(paths.solid, tone.unwrap_or(theme.marker()));
 				drawing.push_stroke(paths.outline, theme.ink(), theme.stroke_width);
 			}
 		}
@@ -289,7 +289,7 @@ mod tests {
 		let drawing = drawing(camera(), SIZE.0, SIZE.1, &[park()], Theme::SKRIBBLE, 3);
 		assert!(!drawing.is_empty());
 		let tones: Vec<_> = drawing.paths.iter().map(|path| path.paint.tone()).collect();
-		assert_eq!(tones, vec![Theme::SKRIBBLE.accent(), Theme::SKRIBBLE.ink()]);
+		assert_eq!(tones, vec![Theme::SKRIBBLE.marker(), Theme::SKRIBBLE.ink()]);
 		assert!(matches!(drawing.paths[0].paint, MapPaint::Stroke { .. }));
 	}
 
@@ -304,7 +304,7 @@ mod tests {
 		assert_eq!(drawing.paths[0].paint, {
 			MapPaint::Stroke {
 				tone: Theme::SKRIBBLE.ink(),
-				width: 3.0,
+				width: Theme::SKRIBBLE.stroke_width + 1.0,
 			}
 		});
 	}
@@ -359,7 +359,7 @@ mod tests {
 
 	#[test]
 	fn a_named_tone_replaces_the_theme_default() {
-		let tone = Tone::fixed(Palette::LIGHT.accent);
+		let tone = Tone::fixed(Palette::LIGHT.marker);
 		let drawing = drawing(
 			camera(),
 			SIZE.0,

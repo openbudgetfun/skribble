@@ -68,7 +68,7 @@ pub fn WiredButton(
 	class: Option<String>,
 ) -> Element {
 	let (fill_style, text) = match variant {
-		ButtonVariant::Primary => (FillStyle::Solid, theme.on_accent()),
+		ButtonVariant::Primary => (FillStyle::Solid, theme.on(theme.accent())),
 		ButtonVariant::Secondary => (FillStyle::None, theme.ink()),
 	};
 	let ink = Ink::outline(InkShape::Rectangle, BUTTON_CANVAS, seed, theme)
