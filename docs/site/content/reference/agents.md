@@ -45,7 +45,7 @@ skribble/
 ├── packages/skribble_rough/        # Pure-Dart rough engine + SVG output (no Flutter)
 ├── packages/skribble_jaspr/        # Server-rendered Jaspr components (rough SVG + CSS)
 ├── js/                             # npm packages (pnpm workspace): @skribble.dev/rough + framework bindings
-├── rust/                           # Cargo workspace: skribble_rough (Rust engine) + skribble_leptoskit
+├── rust/                           # Cargo workspace: skribble_rough (Rust engine) + skribble_core (design system)
 ├── packages/skribble_lints/        # Shared lint rules (very_good_analysis based)
 ├── packages/skribble_*/            # Fonts, icon sets, emoji, maps, and charts (see CONTRIBUTING.md)
 ├── apps/skribble_storybook/        # Interactive demo app
@@ -623,7 +623,7 @@ skribble is a sticker book, not a pencil sketch on grey paper. Whether you are a
 
 **On the web**, `skribble_jaspr`'s stylesheet uses the same sunny colours. Colour-code boxes with the `skribble-wash-1` to `skribble-wash-6` classes, stagger entrances with `skribble-pop` and an inline `--i`, draw ink on with `skribble-draw`, and lift cards on hover with `skribble-lift`.
 
-**In Rust**, `skribble_leptoskit`'s default `Theme` is the same sunny colourway. Colour-code cards with `fill=theme.accent_at(i)`, keep `ButtonVariant::Primary` for the one loud action, and pick another colourway with `Theme::colorway(Colorway::Berry)`.
+**In Rust**, `skribble_core`'s default `Theme` is the same sunny colourway, and leptoskit's `leptoskit_skribble` draws with it. Colour-code cards with `theme.accent_at(i)`, keep `ButtonVariant::Primary` for the one loud action, and pick another colourway with `Theme::colorway(Colorway::Berry)`.
 
 <!-- {/docsVividDesignRules} -->
 
@@ -1307,15 +1307,14 @@ The engine is split across two packages. Geometry, fillers, pens, ink sampling, 
 
 ### Rust crates
 
-`rust/` holds a Cargo workspace (its manifest is the root `Cargo.toml`): `skribble_rough` (`rust/rough`, a port of `skribble_rough`) and `skribble_leptoskit` (`rust/leptoskit`, leptoskit components). Follow its conventions:
+`rust/` holds a Cargo workspace (its manifest is the root `Cargo.toml`): `skribble_rough` (`rust/rough`, a port of `skribble_rough`) and `skribble_core` (`rust/core`, skribble's design system for Rust with no UI framework). Follow its conventions:
 
 - `skribble_rough` follows the Dart engine operation for operation, like `@skribble.dev/rough`, and its `tests/parity.rs` replays the same `js/rough/test/fixtures/dart-parity.json`. When you change `packages/skribble_rough`, regenerate the fixtures and port the change to both the TypeScript and the Rust engines until both parity suites pass.
-- The root `Cargo.toml` pins leptoskit (currently 0.3) and its matching leptos release for every crate; bump them there, in one place.
+- `skribble_core` depends on nothing but `skribble_rough`. Never add a UI framework to it: it holds the primitives (the `colorway` tokens, `Theme`, the `components` ink recipes, `Scribble`, `charts`, and `maps`) and every recipe ends in an `InkDrawing` of path data and light/dark `Tone`s. Framework integrations live with the framework: leptoskit's is `leptoskit_skribble` in the leptoskit repository, which pins a `skribble_core` commit and moves on its own schedule.
+- Keep `rust/core/src/colorway.rs` in step with Flutter's `WiredPalette` and `WiredColorway` and the sunny stylesheet in `skribble_jaspr`. When a component's ink changes in Flutter, change its recipe in `components.rs` so every Rust renderer follows.
 - The Rust crates release together as the monochange `rust` group (`rust/v<version>` tags, published to crates.io). In changesets, name the Rust engine `rust:skribble_rough` and the Dart engine `dart:skribble_rough`: both packages are called `skribble_rough`, so a bare `skribble_rough:` is ambiguous and fails `monochange check`.
-- In `skribble_leptoskit`, components describe their drawing as an `Ink` and add `Ink::layer()` as their first child. Only `src/ink/` knows how ink is drawn: leptoskit `Vector` elements painted with `currentColor`, one per tone, so `dark:` text classes recolour them on every backend. Keep it that way.
-- `skribble_leptoskit_maps` (`rust/leptoskit_maps`, `skribble_leptoskit_maps`) draws its own tiles-free vector maps on the same pattern: a flat Web Mercator `Camera` projects coordinates, and rough paths become `Vector` elements, one per tone, painted with `currentColor`. It depends on `skribble_leptoskit` for the theme, so never duplicate the tone-class or path-painting helpers it uses. Maps take an explicit size, cull off-screen features and pins, and follow the controlled pattern for zoom.
-- Components are `#[component]` functions returning `Element`, with a `seed`, an optional `theme`, and an optional `class`. Controls are controlled: they take a value and a callback that proposes a change. Never use randomness outside the seed.
-- Run `cargo fmt --all`, `cargo clippy --workspace --all-targets --all-features -- -D warnings`, `cargo test --workspace`, and `cargo test --workspace --all-features`. The `rust-crates` CI job runs the same. `cargo run -p skribble_leptoskit --example notebook -- notebook.html` renders every component for a visual check, in light and dark mode.
+- Recipes take a `seed` and a `Theme`. Never use randomness outside the seed.
+- Run `cargo fmt --all`, `cargo clippy --workspace --all-targets --all-features -- -D warnings`, `cargo test --workspace`, and `cargo check --workspace --target wasm32-unknown-unknown`. The `rust-crates` CI job runs the same.
 
 ### The skribble.dev landing page
 

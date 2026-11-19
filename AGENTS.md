@@ -58,7 +58,7 @@ skribble is a sticker book, not a pencil sketch on grey paper. Whether you are a
 
 **On the web**, `skribble_jaspr`'s stylesheet uses the same sunny colours. Colour-code boxes with the `skribble-wash-1` to `skribble-wash-6` classes, stagger entrances with `skribble-pop` and an inline `--i`, draw ink on with `skribble-draw`, and lift cards on hover with `skribble-lift`.
 
-**In Rust**, `skribble_leptoskit`'s default `Theme` is the same sunny colourway. Colour-code cards with `fill=theme.accent_at(i)`, keep `ButtonVariant::Primary` for the one loud action, and pick another colourway with `Theme::colorway(Colorway::Berry)`.
+**In Rust**, `skribble_core`'s default `Theme` is the same sunny colourway, and leptoskit's `leptoskit_skribble` draws with it. Colour-code cards with `theme.accent_at(i)`, keep `ButtonVariant::Primary` for the one loud action, and pick another colourway with `Theme::colorway(Colorway::Berry)`.
 
 <!-- {/docsVividDesignRules} -->
 
@@ -172,7 +172,7 @@ skribble/
 ├── docs/site/                 # Documentation site (Flutter); pages live in docs/site/content/
 ├── templates/                 # MDT providers for documentation shared across files
 ├── js/                        # npm packages: @skribble.dev/rough + React, React Native, Vue, Svelte
-└── rust/                      # Cargo workspace: skribble_rough (Rust engine) + skribble_leptoskit components
+└── rust/                      # Cargo workspace: skribble_rough (Rust engine) + skribble_core (framework-free design system)
 ```
 
 <!-- {/docsRepoLayout} -->

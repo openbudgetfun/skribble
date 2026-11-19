@@ -134,16 +134,8 @@ changelog_version_title = "[{{ version }}]({{ tag_url }}) ({{ date }})"
 path = "rust/rough"
 type = "cargo"
 
-[package.skribble_leptoskit]
-path = "rust/leptoskit"
-type = "cargo"
-
-[package.skribble_leptoskit_charts]
-path = "rust/leptoskit_charts"
-type = "cargo"
-
-[package.skribble_leptoskit_maps]
-path = "rust/leptoskit_maps"
+[package.skribble_core]
+path = "rust/core"
 type = "cargo"
 
 # The npm packages in js/. Their internal dependencies are plain semver ranges
@@ -256,9 +248,7 @@ path = "docs/site/content/reference/whats-new.md"
 [group.rust]
 packages = [
   "rust:skribble_rough",
-  "skribble_leptoskit",
-  "skribble_leptoskit_charts",
-  "skribble_leptoskit_maps",
+  "skribble_core",
 ]
 tag = true
 release = true
