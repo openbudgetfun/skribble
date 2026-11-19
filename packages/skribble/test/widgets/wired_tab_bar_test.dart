@@ -222,5 +222,25 @@ void main() {
       final unselectedText = tester.widget<Text>(find.text('Tab 1'));
       expect(unselectedText.style?.fontWeight, FontWeight.normal);
     });
+
+    testWidgets('shrinks a long tab label to fit its tab', (tester) async {
+      await pumpWired(
+        tester,
+        SizedBox(
+          width: 240,
+          child: WiredTabBar(tabs: const ['All', 'Recently updated']),
+        ),
+      );
+
+      final label = find.text('Recently updated');
+      expect(
+        tester.getRect(label).width,
+        lessThan(tester.getSize(label).width),
+      );
+      expect(
+        tester.getRect(label).right,
+        lessThanOrEqualTo(tester.getRect(find.byType(WiredTabBar)).right),
+      );
+    });
   });
 }

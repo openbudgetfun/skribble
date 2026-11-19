@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'wired_activatable.dart';
 import 'wired_base.dart';
+import 'wired_fit_text.dart';
 import 'wired_theme.dart';
 
 /// A tab bar with hand-drawn underline indicators.
@@ -133,11 +134,8 @@ class WiredTabBar extends HookWidget implements PreferredSizeWidget {
                     // The tab's label above already says this, with the
                     // tab's position.
                     child: ExcludeSemantics(
-                      child: Text(
+                      child: WiredFitText(
                         label,
-                        maxLines: 1,
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: selected
                               ? theme.textColor

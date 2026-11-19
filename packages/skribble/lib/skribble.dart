@@ -149,6 +149,7 @@ export 'src/wired_expansion_tile.dart';
 export 'src/wired_fab.dart';
 export 'src/wired_filled_button.dart';
 export 'src/wired_filter_chip.dart';
+export 'src/wired_fit_text.dart';
 export 'src/wired_font.dart';
 export 'src/wired_form.dart';
 export 'src/wired_grid_tile.dart';

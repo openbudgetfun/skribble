@@ -216,7 +216,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredCupertinoAlertDialog`       | `wired_cupertino_alert_dialog.dart`       |
 | `WiredCupertinoActionSheet`       | `wired_cupertino_action_sheet.dart`       |
 
-#### Layout (25)
+#### Layout (26)
 
 | Widget                      | File                                |
 | --------------------------- | ----------------------------------- |
@@ -240,6 +240,7 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredGridTileBar`          | `wired_grid_tile.dart`              |
 | `WiredMergeableMaterial`    | `wired_mergeable_material.dart`     |
 | `WiredSelectableText`       | `wired_selectable_text.dart`        |
+| `WiredFitText`              | `wired_fit_text.dart`               |
 | `WiredDrawerHeader`         | `wired_drawer_header.dart`          |
 | `WiredAvatar`               | `wired_avatar.dart`                 |
 | `WiredPageScaffold`         | `wired_cupertino_scaffold.dart`     |

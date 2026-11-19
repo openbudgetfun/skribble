@@ -364,6 +364,31 @@ WiredCupertinoButton(
 - Disabled buttons render at 40% opacity.
 - The button reports a button role and its enabled state, joins focus traversal while enabled, and activates with Enter or Space.
 
+## Long labels on one line
+
+A button label wraps onto a second line when the button is too narrow for it, and the button grows taller to keep it clear of the ink. To keep a label on one line instead, as in a row of equal-width buttons on a phone, pass a [`WiredFitText`](layout#wiredfittext) as the `child`. It shrinks the label to fit, to no less than three quarters of its size or 9 px, then ends it with an ellipsis.
+
+```dart
+// Static example: setup
+Row(
+  children: [
+    Expanded(
+      child: WiredOutlinedButton(
+        onPressed: () {},
+        child: WiredFitText('Save for later'),
+      ),
+    ),
+    const SizedBox(width: 12),
+    Expanded(
+      child: WiredFilledButton(
+        onPressed: () {},
+        child: WiredFitText('Save and continue'),
+      ),
+    ),
+  ],
+)
+```
+
 ## Keyboard and focus
 
 Every button, chip, segment, and Cupertino control on this page can be reached with Tab and activated with Enter or Space. A focused control draws a sketchy outline a few pixels outside its own ink, in the theme's `borderColor`, so it shows on dark paper as well as light. The Material-backed buttons (`WiredButton`, `WiredElevatedButton`, `WiredFilledButton`, `WiredOutlinedButton`, `WiredTextButton`, `WiredIconButton`) mark focus by thickening their own ink instead. A disabled control leaves focus traversal and reports itself disabled.

@@ -232,5 +232,28 @@ void main() {
       expect(find.text('Home'), findsOneWidget);
       expect(find.text('Settings'), findsOneWidget);
     });
+
+    testWidgets('shrinks a long label to fit its cell before cutting it', (
+      tester,
+    ) async {
+      await pumpWired(
+        tester,
+        WiredNavigationBar(
+          destinations: const [
+            WiredNavigationDestination(icon: Icons.home, label: 'Home'),
+            WiredNavigationDestination(
+              icon: Icons.notifications,
+              label: 'Notifications',
+            ),
+          ],
+        ),
+      );
+
+      final label = find.text('Notifications');
+      final painted = tester.getRect(label);
+      expect(painted.width, lessThan(tester.getSize(label).width));
+      expect(painted.width, lessThanOrEqualTo(72));
+      expect(find.byType(WiredFitText), findsNWidgets(2));
+    });
   });
 }

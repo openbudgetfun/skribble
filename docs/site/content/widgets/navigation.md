@@ -263,7 +263,7 @@ HookBuilder(
 
 - `WiredTabBar` is controlled: pass `selectedIndex` and update it from `onTap`. Pair it with an `IndexedStack` or a `PageView` for the content.
 - The active tab indicator is a hand-drawn line using `WiredLineBase`, drawn below the label so it never crosses its letters.
-- Labels stay on one line and end with an ellipsis when narrow screens or large text leave too little room.
+- Labels stay on one line. When narrow screens or large text leave too little room, a label shrinks to fit and ends with an ellipsis only past its floor.
 - The bar is at least `height` tall and grows with large text, keeping 8 pixels between each label and its underline. In a fixed slot, such as an app bar's `bottom`, it is exactly `height` tall.
 - Tabs take keyboard focus: the arrow keys move between them and Enter or Space selects one. Screen readers hear each tab as a selectable button with its position, such as `Sketches, tab 2 of 3`.
 
@@ -567,3 +567,5 @@ WiredAboutListTile(
 Borders in this category now use the nearest `WiredThemeData.strokeWidth` (1.6 logical pixels by default) and drawing configuration. Rounded pen caps and joins, bleed insets, and sufficient divider space keep the stroke visible. Labels that apply a local text style retain the inherited font family. Theme changes repaint the updated color and width. See [Theme System](../core/theme-system) for configuration and [the quality report](https://github.com/openbudgetfun/skribble/blob/main/docs/hand-drawn-quality.md) for the rendering checks.
 
 <!-- {/docsWidgetInkSection} -->
+
+Item labels in `WiredBottomNavigationBar`, `WiredNavigationBar`, `WiredNavigationRail`, and `WiredTabBar` stay on one line and fit their item with [`WiredFitText`](layout#wiredfittext): a label too wide for its item shrinks, to no less than three quarters of its size or 9 px, before it ends in an ellipsis. Screen readers still hear the full label.

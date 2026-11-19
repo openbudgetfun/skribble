@@ -395,6 +395,52 @@ WiredSelectableText('Make something lovely')
 
 ---
 
+## WiredFitText
+
+One line of text that shrinks to fit the width it is given. A label that fits is drawn at full size. A label that is too wide is scaled down until it fits, but never below `minScale` (three quarters) of its size or below `minFontSize` (9 px), whichever is larger. Past that floor it stays at the floor and ends in an ellipsis, so it never clips, wraps onto a second line, or overflows.
+
+```dart
+// Live example: fit-text
+SizedBox(
+  width: 150,
+  child: WiredFilledButton(
+    onPressed: true ? () {} : null,
+    child: WiredFitText('Make something lovely'),
+  ),
+)
+```
+
+Use `WiredFitText.wrap` to fit a label widget you already have, such as a `Text` or a row of an icon and text. Its `style` is merged into the `DefaultTextStyle` the child inherits.
+
+```dart
+// Static example: api
+WiredFitText.wrap(
+  style: TextStyle(fontSize: 13),
+  child: Text('Recently updated'),
+)
+```
+
+### Constructor parameters
+
+| Parameter        | Type                | Default                            | Description                                                                     |
+| ---------------- | ------------------- | ---------------------------------- | ------------------------------------------------------------------------------- |
+| `data`           | `String`            | **required**                       | The text to show. `WiredFitText.wrap` takes a `child` widget instead.           |
+| `style`          | `TextStyle?`        | `null`                             | Merged over the ambient `DefaultTextStyle`.                                     |
+| `semanticsLabel` | `String?`           | `null`                             | Read by screen readers in place of `data`. Not on `.wrap`.                      |
+| `minScale`       | `double`            | `kWiredFitTextMinScale` (0.75)     | The least fraction of its size the label shrinks to. `1` never shrinks.         |
+| `minFontSize`    | `double`            | `kWiredFitTextMinFontSize` (9)     | The smallest font size, in logical pixels after text scaling, it shrinks to.    |
+| `alignment`      | `AlignmentGeometry` | `AlignmentDirectional.centerStart` | Where the label sits when given more room than it needs, such as a tight width. |
+
+### Notes
+
+- Shrinking scales the laid-out line, glyphs and line height together, so it works with any font, including the default Noto Sketch, and adds no dependency.
+- The reader's text scale is kept: with 2× text a 14 px label starts at 28 px and shrinks to no less than 21 px. A label already at or below `minFontSize` never shrinks; it is only cut short.
+- The box reports its full-size width to `IntrinsicWidth` and its scaled baseline to baseline-aligned rows.
+- The full text stays available to screen readers, even when the ellipsis cuts what is drawn.
+- Chips (`WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`) and navigation items (`WiredBottomNavigationBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredTabBar`) fit their labels this way already. Buttons keep wrapping by default; pass `WiredFitText` as a button's `child` to keep its label on one line.
+
+---
+
 ## WiredDrawerHeader
 
 A drawer header area with a hand-drawn bottom border. Typically placed at the top of a `WiredDrawer`.

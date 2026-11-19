@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'wired_base.dart';
 import 'wired_chip_delete_button.dart';
+import 'wired_fit_text.dart';
 import 'wired_theme.dart';
 
 /// A chip with a hand-drawn rounded rectangle border.
@@ -85,9 +86,7 @@ class WiredChip extends HookWidget {
                         const SizedBox(width: 8),
                       ],
                       Flexible(
-                        child: DefaultTextStyle.merge(
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        child: WiredFitText.wrap(
                           style: TextStyle(
                             color: theme.textColor,
                             fontSize: 13,

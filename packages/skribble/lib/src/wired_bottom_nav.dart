@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'canvas/wired_canvas.dart';
 import 'wired_activatable.dart';
 import 'wired_base.dart';
+import 'wired_fit_text.dart';
 import 'wired_icon.dart';
 import 'wired_theme.dart';
 
@@ -138,14 +139,12 @@ class WiredBottomNavigationBar extends HookWidget {
                   ],
                 ),
                 const SizedBox(height: 2),
-                Text(
+                WiredFitText(
                   item.label,
                   style: TextStyle(
                     fontSize: 10,
                     color: selected ? theme.textColor : theme.disabledTextColor,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 4),
               ],

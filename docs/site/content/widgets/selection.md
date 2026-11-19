@@ -35,7 +35,7 @@ WiredChip(label: Text('Make something lovely'))
 - The label keeps `kWiredButtonPadding` (16 at the sides, 8 above and below) from the ink, like every chip.
 - The border uses `WiredRoundedRectangleBase` with `RoughFilter.noFiller`.
 - The delete icon is a 16px hand-drawn close glyph (`SkribbleGlyphs.close`).
-- Text uses `theme.textColor` at 13px.
+- Text uses `theme.textColor` at 13px. A label too wide for the chip shrinks to fit before it ends in an ellipsis; see [`WiredFitText`](layout#wiredfittext).
 - The chip itself is not a button. Its close icon is a separate, labelled button that can be focused and activated with Enter or Space.
 
 ### Keyboard and semantics for every chip
@@ -379,4 +379,4 @@ Borders in this category now use the nearest `WiredThemeData.strokeWidth` (1.6 l
 
 `WiredCheckbox` is a binary checkbox: `null` is displayed as unchecked, and taps toggle false/true. Parent value changes reset its local visual state.
 
-Chip labels in `WiredChip`, `WiredFilterChip`, and `WiredInputChip` now fit the available width. Long labels use an ellipsis while retaining their full text for accessibility, leaving room for checkmarks and delete actions.
+Chip labels in `WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, and `WiredInputChip` stay on one line and fit the available width with [`WiredFitText`](layout#wiredfittext): a long label shrinks, to no less than three quarters of its size or 9 px, before it ends in an ellipsis. Labels keep their full text for accessibility and leave room for checkmarks and delete actions.
