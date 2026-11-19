@@ -1,9 +1,9 @@
-Material dependency audit — 78 core files and 5 compat files import material/cupertino
+Material dependency audit — 75 core files and 5 compat files import material/cupertino
 
-  skin     (wraps a Material/Cupertino widget): 65
+  skin     (wraps a Material/Cupertino widget): 62
   helpers  (constants/theme only):              13
   compat   (sanctioned interop layer):          5
-  core total (target: 0):                       78
+  core total (target: 0):                       75
 
 skin      material         packages/skribble/lib/src/canvas/wired_ink_splash.dart
 compat    material         packages/skribble/lib/src/compat/rough_input_border.dart
@@ -53,7 +53,6 @@ skin      material         packages/skribble/lib/src/wired_expansion_tile.dart
 skin      material         packages/skribble/lib/src/wired_filled_button.dart
 skin      material         packages/skribble/lib/src/wired_filter_chip.dart
 skin      material         packages/skribble/lib/src/wired_grid_tile.dart
-skin      material         packages/skribble/lib/src/wired_icon_button.dart
 skin      material         packages/skribble/lib/src/wired_input.dart
 skin      material         packages/skribble/lib/src/wired_input_chip.dart
 skin      material         packages/skribble/lib/src/wired_license_page.dart
@@ -61,9 +60,7 @@ skin      material         packages/skribble/lib/src/wired_list_tile.dart
 skin      material         packages/skribble/lib/src/wired_material_banner.dart
 skin      material         packages/skribble/lib/src/wired_menu_bar.dart
 skin      material         packages/skribble/lib/src/wired_mergeable_material.dart
-skin      material         packages/skribble/lib/src/wired_navigation_bar.dart
 helpers   material         packages/skribble/lib/src/wired_navigation_drawer.dart
-skin      material         packages/skribble/lib/src/wired_navigation_rail.dart
 skin      material         packages/skribble/lib/src/wired_outlined_button.dart
 skin      material         packages/skribble/lib/src/wired_paginated_data_table.dart
 skin      material         packages/skribble/lib/src/wired_popup_menu.dart

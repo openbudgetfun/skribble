@@ -176,6 +176,8 @@ All widgets follow the `Wired*` naming convention and extend `HookWidget`.
 | `WiredCupertinoNavigationBar` | `wired_cupertino_navigation_bar.dart` |
 | `WiredCupertinoTabBar`        | `wired_cupertino_tab_bar.dart`        |
 
+The navigation bar and rail take `WiredNavigationDestination` and `WiredNavigationRailDestination` items, and the `WiredNavigationDestinationLabelBehavior` and `WiredNavigationRailLabelType` enums choose which labels show.
+
 #### Selection (13)
 
 | Widget                           | File                                     |
