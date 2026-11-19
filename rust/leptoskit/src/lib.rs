@@ -62,6 +62,7 @@
 //! no feature needs turning on.
 
 mod button;
+pub mod colorway;
 mod container;
 mod divider;
 mod highlight;
