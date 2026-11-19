@@ -14,6 +14,8 @@ class ButtonsPage extends HookWidget {
   Widget build(BuildContext context) {
     final segmentSelected = useState<Set<String>>({'day'});
     final toggleSelected = useState([true, false, false]);
+    final bookmarked = useState(false);
+    final fabExtended = useState(true);
 
     return WiredScaffold(
       appBar: WiredAppBar(
@@ -171,6 +173,54 @@ class ButtonsPage extends HookWidget {
                   ],
                 ),
               ),
+              ComponentShowcase(
+                title: 'Filled, tonal, and outlined',
+                description:
+                    'Accent and marker washes, a colour-coded fill, and a '
+                    'disabled filled button.',
+                child: Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  children: [
+                    WiredIconButton.filled(
+                      icon: Icons.send,
+                      tooltip: 'Send',
+                      onPressed: () {},
+                    ),
+                    WiredIconButton.filledTonal(
+                      icon: Icons.share,
+                      tooltip: 'Share',
+                      onPressed: () {},
+                    ),
+                    WiredIconButton.outlined(
+                      icon: Icons.edit,
+                      tooltip: 'Edit',
+                      onPressed: () {},
+                    ),
+                    WiredIconButton.filled(
+                      icon: Icons.palette,
+                      fillColor: WiredTheme.of(context).accentAt(3),
+                      tooltip: 'Colour',
+                      onPressed: () {},
+                    ),
+                    const WiredIconButton.filled(
+                      icon: Icons.delete,
+                      tooltip: 'Delete',
+                    ),
+                  ],
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Toggle',
+                description: 'isSelected swaps the icon and adds a wash.',
+                child: WiredIconButton(
+                  icon: Icons.bookmark_border,
+                  selectedIcon: Icons.bookmark,
+                  isSelected: bookmarked.value,
+                  tooltip: bookmarked.value ? 'Remove bookmark' : 'Bookmark',
+                  onPressed: () => bookmarked.value = !bookmarked.value,
+                ),
+              ),
             ],
           ),
           ShowcaseSection(
@@ -182,6 +232,44 @@ class ButtonsPage extends HookWidget {
                 child: WiredFloatingActionButton(
                   icon: Icons.add,
                   onPressed: () {},
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Small, regular, and large',
+                description: '40, 56, and 96 pixels, as in Material.',
+                child: Wrap(
+                  spacing: 16,
+                  runSpacing: 16,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    WiredFloatingActionButton.small(
+                      icon: Icons.add,
+                      tooltip: 'Add',
+                      onPressed: () {},
+                    ),
+                    WiredFloatingActionButton(
+                      icon: Icons.add,
+                      tooltip: 'Add',
+                      onPressed: () {},
+                    ),
+                    WiredFloatingActionButton.large(
+                      icon: Icons.add,
+                      tooltip: 'Add',
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Extended',
+                description:
+                    'A pill with an icon and label. Tap it to spring back '
+                    'to a circle.',
+                child: WiredFloatingActionButton.extended(
+                  icon: Icons.edit,
+                  label: const Text('Compose'),
+                  isExtended: fabExtended.value,
+                  onPressed: () => fabExtended.value = !fabExtended.value,
                 ),
               ),
             ],

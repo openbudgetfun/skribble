@@ -54,6 +54,87 @@ Widget _icon(ExampleSettings settings) => WiredIconButton(
   onPressed: settings.enabled ? () {} : null,
 );
 
+/// @docs-example floating-button-sizes
+Widget _floatingSizes(ExampleSettings settings) => Wrap(
+  spacing: 16,
+  runSpacing: 16,
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: [
+    WiredFloatingActionButton.small(
+      icon: const IconData(0xe047, fontFamily: 'MaterialIcons'),
+      tooltip: 'Add',
+      onPressed: settings.enabled ? () {} : null,
+    ),
+    WiredFloatingActionButton(
+      icon: const IconData(0xe047, fontFamily: 'MaterialIcons'),
+      tooltip: 'Add',
+      onPressed: settings.enabled ? () {} : null,
+    ),
+    WiredFloatingActionButton.large(
+      icon: const IconData(0xe047, fontFamily: 'MaterialIcons'),
+      tooltip: 'Add',
+      onPressed: settings.enabled ? () {} : null,
+    ),
+  ],
+);
+
+/// @docs-example floating-button-extended
+Widget _floatingExtended(ExampleSettings settings) => HookBuilder(
+  builder: (context) {
+    final extended = useState(true);
+    return WiredFloatingActionButton.extended(
+      icon: const IconData(0xe21a, fontFamily: 'MaterialIcons'),
+      label: Text(settings.label),
+      isExtended: extended.value,
+      onPressed: settings.enabled
+          ? () => extended.value = !extended.value
+          : null,
+    );
+  },
+);
+
+/// @docs-example icon-button-variants
+Widget _iconVariants(ExampleSettings settings) => Wrap(
+  spacing: 12,
+  runSpacing: 12,
+  children: [
+    WiredIconButton(
+      icon: const IconData(0xe25b, fontFamily: 'MaterialIcons'),
+      tooltip: 'Favourite',
+      onPressed: settings.enabled ? () {} : null,
+    ),
+    WiredIconButton.filled(
+      icon: const IconData(0xe571, fontFamily: 'MaterialIcons'),
+      tooltip: 'Send',
+      onPressed: settings.enabled ? () {} : null,
+    ),
+    WiredIconButton.filledTonal(
+      icon: const IconData(0xe593, fontFamily: 'MaterialIcons'),
+      tooltip: 'Share',
+      onPressed: settings.enabled ? () {} : null,
+    ),
+    WiredIconButton.outlined(
+      icon: const IconData(0xe21a, fontFamily: 'MaterialIcons'),
+      tooltip: 'Edit',
+      onPressed: settings.enabled ? () {} : null,
+    ),
+  ],
+);
+
+/// @docs-example icon-button-toggle
+Widget _iconToggle(ExampleSettings settings) => HookBuilder(
+  builder: (context) {
+    final saved = useState(false);
+    return WiredIconButton(
+      icon: const IconData(0xe0f4, fontFamily: 'MaterialIcons'),
+      selectedIcon: const IconData(0xe0f1, fontFamily: 'MaterialIcons'),
+      isSelected: saved.value,
+      tooltip: saved.value ? 'Remove bookmark' : 'Bookmark',
+      onPressed: settings.enabled ? () => saved.value = !saved.value : null,
+    );
+  },
+);
+
 /// @docs-example cupertino-button
 Widget _cupertino(ExampleSettings settings) => WiredCupertinoButton(
   onPressed: settings.enabled ? () {} : null,

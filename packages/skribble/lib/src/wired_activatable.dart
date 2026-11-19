@@ -29,7 +29,13 @@ class WiredActivatable extends HookWidget {
     this.enabled = true,
     this.autofocus = false,
     this.focusNode,
+    this.states,
   });
+
+  /// Receives the control's pressed, hovered, focused, and disabled states,
+  /// so a `WiredInkResponse` can drive pen pressure without a Material
+  /// control underneath.
+  final WidgetStatesController? states;
 
   /// The control being wrapped.
   final Widget child;
@@ -68,6 +74,14 @@ class WiredActivatable extends HookWidget {
       return () => resolvedNode.removeListener(listener);
     }, [resolvedNode]);
 
+    useEffect(() {
+      states?.update(WidgetState.disabled, !canActivate);
+      if (!canActivate) states?.update(WidgetState.pressed, false);
+      return null;
+    }, [states, canActivate]);
+
+    void setPressed(bool value) => states?.update(WidgetState.pressed, value);
+
     return FocusableActionDetector(
       enabled: canActivate,
       focusNode: resolvedNode,
@@ -75,8 +89,14 @@ class WiredActivatable extends HookWidget {
       mouseCursor: canActivate
           ? SystemMouseCursors.click
           : SystemMouseCursors.basic,
-      onShowFocusHighlight: (v) => isFocused.value = v,
-      onShowHoverHighlight: (v) => isHovered.value = v,
+      onShowFocusHighlight: (v) {
+        isFocused.value = v;
+        states?.update(WidgetState.focused, v);
+      },
+      onShowHoverHighlight: (v) {
+        isHovered.value = v;
+        states?.update(WidgetState.hovered, v);
+      },
       actions: <Type, Action<Intent>>{
         ActivateIntent: CallbackAction<ActivateIntent>(
           onInvoke: (intent) {
@@ -97,6 +117,15 @@ class WiredActivatable extends HookWidget {
       },
       child: GestureDetector(
         onTap: canActivate ? onActivate : null,
+        onTapDown: canActivate && states != null
+            ? (_) => setPressed(true)
+            : null,
+        onTapUp: canActivate && states != null
+            ? (_) => setPressed(false)
+            : null,
+        onTapCancel: canActivate && states != null
+            ? () => setPressed(false)
+            : null,
         // Decorative overlay only; the actual control paints beneath it.
         child: Stack(
           // The wrapper is transparent to layout: the control receives the
