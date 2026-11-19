@@ -83,3 +83,48 @@ The icon shown when this destination is not selected.
 The icon shown when this destination is selected. Defaults to [icon].
 
 <!-- {/dartDestinationSelectedIcon} -->
+
+<!-- {@dartDestinationTooltip} -->
+
+Read by screen readers as the destination's tooltip. Defaults to
+[label] when the label is hidden, so an icon-only destination still
+says what it is.
+
+<!-- {/dartDestinationTooltip} -->
+
+<!-- {@dartDestinationBadge} -->
+
+A hand-drawn badge over the icon's top corner: `''` draws a dot, and
+any other text, such as a count, draws a pill around it. Null shows
+no badge.
+
+<!-- {/dartDestinationBadge} -->
+
+<!-- {@dartDestinationColor} -->
+
+The wash behind this destination's icon when it is selected, such as
+`theme.accentAt(i)`. Wins over the bar's indicator colour.
+
+<!-- {/dartDestinationColor} -->
+
+<!-- {@dartNavigationIndicatorColor} -->
+
+The wash behind the selected destination. Defaults to the theme's
+`markerColor`, or to `theme.accentAt(index)` when [colorCoded] is
+true.
+
+<!-- {/dartNavigationIndicatorColor} -->
+
+<!-- {@dartNavigationColorCoded} -->
+
+Gives each destination its own wash from the theme's accents, so the
+indicator changes colour as it moves: `theme.accentAt(index)`.
+
+<!-- {/dartNavigationColorCoded} -->
+
+<!-- {@dartNavigationAnimationDuration} -->
+
+How long a newly selected destination's wash takes to pop in and draw
+its ink. [Duration.zero] switches instantly.
+
+<!-- {/dartNavigationAnimationDuration} -->

@@ -156,6 +156,77 @@ Widget _sliverAppBar(ExampleSettings settings) => SizedBox(
   ),
 );
 
+/// @docs-example navigation-bar-vivid
+Widget _navigationBarVivid(ExampleSettings settings) => HookBuilder(
+  builder: (context) {
+    final selected = useState(0);
+    return WiredNavigationBar(
+      selectedIndex: selected.value,
+      onDestinationSelected: (index) => selected.value = index,
+      colorCoded: true,
+      labelBehavior: WiredNavigationDestinationLabelBehavior.onlyShowSelected,
+      destinations: const [
+        WiredNavigationDestination(
+          icon: IconData(0xe248, fontFamily: 'MaterialIcons'),
+          label: 'Discover',
+        ),
+        WiredNavigationDestination(
+          icon: IconData(0xe3c3, fontFamily: 'MaterialIcons'),
+          label: 'Inbox',
+          badge: '3',
+        ),
+        WiredNavigationDestination(
+          icon: IconData(0xe44f, fontFamily: 'MaterialIcons'),
+          label: 'Alerts',
+          badge: '',
+        ),
+        WiredNavigationDestination(
+          icon: IconData(0xe0b7, fontFamily: 'MaterialIcons'),
+          label: 'Create',
+          isPrimaryAction: true,
+        ),
+      ],
+    );
+  },
+);
+
+/// @docs-example navigation-rail-extended
+Widget _navigationRailExtended(ExampleSettings settings) => HookBuilder(
+  builder: (context) {
+    final selected = useState(0);
+    final extended = useState(true);
+    return SizedBox(
+      height: 300,
+      child: WiredNavigationRail(
+        extended: extended.value,
+        colorCoded: true,
+        selectedIndex: selected.value,
+        onDestinationSelected: (index) => selected.value = index,
+        leading: WiredIconButton(
+          icon: const IconData(0xe3dc, fontFamily: 'MaterialIcons'),
+          tooltip: extended.value ? 'Collapse' : 'Expand',
+          onPressed: () => extended.value = !extended.value,
+        ),
+        destinations: const [
+          WiredNavigationRailDestination(
+            icon: IconData(0xe33a, fontFamily: 'MaterialIcons'),
+            label: 'Inbox',
+            badge: '12',
+          ),
+          WiredNavigationRailDestination(
+            icon: IconData(0xe571, fontFamily: 'MaterialIcons'),
+            label: 'Sent',
+          ),
+          WiredNavigationRailDestination(
+            icon: IconData(0xe205, fontFamily: 'MaterialIcons'),
+            label: 'Drafts',
+          ),
+        ],
+      ),
+    );
+  },
+);
+
 /// @docs-example cupertino-navigation-bar
 Widget _cupertinoNavigationBar(ExampleSettings settings) =>
     WiredCupertinoNavigationBar(middle: Text(settings.label));

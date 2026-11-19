@@ -22,6 +22,8 @@ class NavigationPage extends HookWidget {
     final tabIndex = useState(0);
     final navBarIndex = useState(0);
     final railIndex = useState(0);
+    final vividBarIndex = useState(0);
+    final railExtended = useState(true);
     final popupSelection = useState<String>('None');
 
     final cupertinoTabIndex = useState(0);
@@ -120,6 +122,47 @@ class NavigationPage extends HookWidget {
                   ],
                 ),
               ),
+              ComponentShowcase(
+                title: 'Colour-coded, badges, primary action',
+                description:
+                    'Each tab takes its own accent wash, only the selected '
+                    'label shows, and Create stays loud.',
+                child: WiredNavigationBar(
+                  selectedIndex: vividBarIndex.value,
+                  onDestinationSelected: (i) => vividBarIndex.value = i,
+                  colorCoded: true,
+                  labelBehavior:
+                      WiredNavigationDestinationLabelBehavior.onlyShowSelected,
+                  destinations: const [
+                    WiredNavigationDestination(
+                      icon: Icons.home,
+                      label: 'Home',
+                    ),
+                    WiredNavigationDestination(
+                      icon: Icons.mail_outline,
+                      selectedIcon: Icons.mail,
+                      label: 'Inbox',
+                      badge: '3',
+                    ),
+                    WiredNavigationDestination(
+                      icon: Icons.notifications_none,
+                      selectedIcon: Icons.notifications,
+                      label: 'Alerts',
+                      badge: '',
+                    ),
+                    WiredNavigationDestination(
+                      icon: Icons.lock_outline,
+                      label: 'Vault',
+                      enabled: false,
+                    ),
+                    WiredNavigationDestination(
+                      icon: Icons.auto_awesome,
+                      label: 'Create',
+                      isPrimaryAction: true,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           ShowcaseSection(
@@ -145,6 +188,52 @@ class NavigationPage extends HookWidget {
                       WiredNavigationRailDestination(
                         icon: Icons.drafts,
                         label: 'Drafts',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              ComponentShowcase(
+                title: 'Extended Navigation Rail',
+                description:
+                    'Labels beside the icons. The menu button springs it '
+                    'open and closed.',
+                child: SizedBox(
+                  height: 320,
+                  child: Row(
+                    children: [
+                      WiredNavigationRail(
+                        extended: railExtended.value,
+                        minExtendedWidth: 220,
+                        colorCoded: true,
+                        selectedIndex: railIndex.value,
+                        onDestinationSelected: (i) => railIndex.value = i,
+                        leading: WiredIconButton(
+                          icon: Icons.menu,
+                          tooltip: railExtended.value ? 'Collapse' : 'Expand',
+                          onPressed: () =>
+                              railExtended.value = !railExtended.value,
+                        ),
+                        destinations: const [
+                          WiredNavigationRailDestination(
+                            icon: Icons.inbox,
+                            label: 'Inbox',
+                            badge: '12',
+                          ),
+                          WiredNavigationRailDestination(
+                            icon: Icons.send,
+                            label: 'Sent',
+                          ),
+                          WiredNavigationRailDestination(
+                            icon: Icons.drafts,
+                            label: 'Drafts',
+                          ),
+                          WiredNavigationRailDestination(
+                            icon: Icons.archive,
+                            label: 'Archive',
+                            disabled: true,
+                          ),
+                        ],
                       ),
                     ],
                   ),
