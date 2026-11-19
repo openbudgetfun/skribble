@@ -77,7 +77,7 @@ pub fn Sketch(
 	/// set, and to no fill otherwise.
 	#[prop(optional)]
 	fill_style: Option<FillStyle>,
-	/// The fill colour. Defaults to the theme's accent.
+	/// The fill colour. Defaults to the theme's marker.
 	#[prop(optional, into)]
 	fill: Option<Tone>,
 	/// The ink colour. Defaults to the theme's ink.
@@ -111,7 +111,7 @@ pub fn Sketch(
 		} else {
 			FillStyle::None
 		}),
-		fill: fill.unwrap_or(theme.accent()),
+		fill: fill.unwrap_or(theme.marker()),
 		stroke: stroke.unwrap_or(theme.ink()),
 		theme,
 	};

@@ -62,6 +62,7 @@
 //! no feature needs turning on.
 
 mod button;
+pub mod colorway;
 mod container;
 mod divider;
 mod highlight;
@@ -93,6 +94,7 @@ pub use skribble_rough::Shape;
 pub use theme::Palette;
 pub use theme::Theme;
 pub use theme::Tone;
+pub use theme::color;
 pub use toggle::WiredCheckbox;
 pub use toggle::WiredRadio;
 pub use toggle::WiredSwitch;

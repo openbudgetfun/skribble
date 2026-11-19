@@ -154,8 +154,8 @@ pub(crate) fn css_hex(color: Color) -> String {
 	}
 }
 
-/// A Tailwind utility for `tone`, such as `text-[#1f1d1a]
-/// dark:text-[#f2efe6]`.
+/// A Tailwind utility for `tone`, such as `text-[#34283f]
+/// dark:text-[#fffaf0]`.
 pub(crate) fn tone_class(utility: &str, tone: Tone) -> String {
 	let light = format!("{utility}-[{}]", css_hex(tone.light));
 	if tone.light == tone.dark {
@@ -175,7 +175,7 @@ mod tests {
 
 	fn drawing() -> MapDrawing {
 		let mut drawing = MapDrawing::new(100.0, 50.0);
-		drawing.push_fill("M0 0 L10 0 L10 10 Z".to_owned(), Theme::SKRIBBLE.accent());
+		drawing.push_fill("M0 0 L10 0 L10 10 Z".to_owned(), Theme::SKRIBBLE.marker());
 		drawing.push_stroke(
 			"M0 0 L10 10".to_owned(),
 			Theme::SKRIBBLE.ink(),
@@ -226,13 +226,13 @@ mod tests {
 	fn a_fixed_tone_needs_no_dark_class() {
 		assert_eq!(
 			tone_class("text", Tone::fixed(Palette::LIGHT.ink)),
-			"text-[#1f1d1a]"
+			"text-[#34283f]"
 		);
 	}
 
 	#[test]
 	fn translucent_colours_keep_their_alpha() {
-		assert_eq!(css_hex(Palette::LIGHT.accent), "#ffd43b");
+		assert_eq!(css_hex(Palette::LIGHT.marker), "#ffd43b");
 		assert_eq!(css_hex(Color::rgba(1, 2, 3, 0x80)), "#01020380");
 	}
 

@@ -4,6 +4,7 @@
 use leptos::prelude::RenderHtml;
 use leptoskit::prelude::*;
 use leptoskit_native::web::render;
+use skribble_leptoskit::Theme;
 use skribble_leptoskit::*;
 
 fn html(element: Element) -> String {
@@ -34,8 +35,8 @@ fn a_button_is_a_real_button_with_decorative_ink() {
 	}
 	assert!(svgs[0].contains("fill=\"currentColor\""), "{}", svgs[0]);
 	assert!(
-		html.contains("text-[#ffd43b]"),
-		"the primary button is filled: {html}"
+		svgs[0].contains("fill=\"currentColor\"") && html.contains("text-[#ff6b4a]"),
+		"the primary button is filled with the tomato accent: {html}"
 	);
 	assert!(svgs[1].contains("stroke=\"currentColor\""), "{}", svgs[1]);
 }
@@ -44,8 +45,82 @@ fn a_button_is_a_real_button_with_decorative_ink() {
 fn ink_follows_dark_mode_through_its_text_colour() {
 	let html = html(view! { <WiredBox><Text>"Box"</Text></WiredBox> });
 	assert!(ink_svgs(&html)[0].contains("currentColor"), "{html}");
-	assert!(html.contains("text-[#1f1d1a]"), "{html}");
-	assert!(html.contains("dark:text-[#f2efe6]"), "{html}");
+	assert!(html.contains("text-[#34283f]"), "plum ink: {html}");
+	assert!(
+		html.contains("dark:text-[#fffaf0]"),
+		"paper ink on night: {html}"
+	);
+}
+
+#[test]
+fn the_page_is_warm_paper_and_a_plum_night() {
+	let html = html(view! { <SkribblePage><Text>"Hi"</Text></SkribblePage> });
+	assert!(html.contains("bg-[#fffaf0]"), "{html}");
+	assert!(html.contains("dark:bg-[#292331]"), "{html}");
+}
+
+#[test]
+fn a_primary_label_flips_to_dark_on_the_accent_at_night() {
+	let html = html(view! { <WiredButton label="Go" on_press=|| {} /> });
+	assert!(
+		html.contains("text-[#34283f]") && html.contains("dark:text-[#292331]"),
+		"plum on tomato by day, night on tomato after dark: {html}"
+	);
+}
+
+#[test]
+fn marks_and_switches_use_the_sunshine_marker() {
+	for element in [
+		view! { <WiredHighlight kind=HighlightKind::Marker><Text>"Hi"</Text></WiredHighlight> },
+		view! { <WiredSwitch label="On" on=true on_toggle=|_: bool| {} /> },
+		view! { <WiredProgress label="Half" value=0.5 /> },
+		view! { <WiredBox fill_style=FillStyle::Hachure><Text>"Box"</Text></WiredBox> },
+	] {
+		let html = html(element);
+		assert!(html.contains("text-[#ffd43b]"), "{html}");
+	}
+}
+
+#[test]
+fn colour_coded_cards_take_their_wash_and_readable_ink() {
+	let theme = Theme::SKRIBBLE;
+	let washes: Vec<String> = (0..6)
+		.map(|index| {
+			html(view! {
+				<WiredCard seed=index as i64 fill_style=FillStyle::Solid fill=theme.accent_at(index)>
+					<Text>"Card"</Text>
+				</WiredCard>
+			})
+		})
+		.collect();
+	for (index, html) in washes.iter().enumerate() {
+		let wash = theme.accent_at(index).light;
+		let hex = format!(
+			"text-[#{:02x}{:02x}{:02x}]",
+			wash.red(),
+			wash.green(),
+			wash.blue()
+		);
+		assert!(
+			html.contains(&hex),
+			"card {index} is washed with {hex}: {html}"
+		);
+		assert!(
+			html.contains("dark:text-[#292331]"),
+			"dark labels on a vivid wash at night: {html}"
+		);
+	}
+}
+
+#[test]
+fn another_colourway_recolours_every_component() {
+	let theme = Theme::colorway(colorway::Colorway::Ocean);
+	let html = html(view! { <WiredButton label="Dive" on_press=|| {} theme=theme /> });
+	assert!(html.contains("text-[#6aa6ff]"), "a cobalt primary: {html}");
+	let html = self::html(view! {
+		<WiredHighlight kind=HighlightKind::Marker theme=theme><Text>"Sea"</Text></WiredHighlight>
+	});
+	assert!(html.contains("text-[#6be3f2]"), "an aqua marker: {html}");
 }
 
 #[test]
