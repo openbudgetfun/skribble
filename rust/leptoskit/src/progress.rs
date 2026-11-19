@@ -60,7 +60,7 @@ pub fn WiredProgress(
 		};
 		let ink = Ink::outline(InkShape::Rectangle, canvas, seed.wrapping_add(1), theme)
 			.without_outline()
-			.filled(FillStyle::Hachure, theme.accent());
+			.filled(FillStyle::Hachure, theme.marker());
 		View()
 			.class("absolute top-0 left-0 h-full")
 			.with_style(|style| style.width = Dimension::Percent(done as f32))

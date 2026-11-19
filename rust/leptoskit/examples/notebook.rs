@@ -15,6 +15,7 @@ use leptos::prelude::RenderHtml;
 use leptoskit::native::Role;
 use leptoskit::prelude::*;
 use leptoskit_native::web::render;
+use skribble_leptoskit::Theme;
 use skribble_leptoskit::*;
 
 /// A numbered section heading, with the number circled by hand.
@@ -85,10 +86,13 @@ fn fills() -> Element {
 	]
 	.into_iter()
 	.zip(30..)
-	.map(|((style, name), seed)| {
+	.enumerate()
+	.map(|(index, ((style, name), seed))| {
+		// Colour-code the swatches: six boxes, six washes.
+		let wash = Theme::SKRIBBLE.accent_at(index);
 		view! {
 			<View class="items-center gap-1">
-				<WiredBox seed=seed fill_style=style class="w-[104px] h-[64px]"><></></WiredBox>
+				<WiredBox seed=seed fill_style=style fill=wash class="w-[104px] h-[64px]"><></></WiredBox>
 				<Text class="text-sm">{name}</Text>
 			</View>
 		}

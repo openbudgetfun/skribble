@@ -68,7 +68,7 @@ pub fn welcome(on_start: impl Fn() + Send + Sync + 'static) -> Element {
 | `Sketch`         | Any `Shape` at an explicit size: arrows, scribbles, annotations      |
 
 - Every component takes a `seed`. Give neighbours different seeds so their wobbles differ.
-- Every component takes an optional `theme` and extra Tailwind `class`es. `Theme::SKRIBBLE` is the default: dark ink on warm paper with a yellow accent, and chalk on charcoal in dark mode.
+- Every component takes an optional `theme` and extra Tailwind `class`es. `Theme::SKRIBBLE` is the default, the sunny colourway shared with skribble's Flutter widgets: plum ink on warm paper (paper ink on a plum night in dark mode), a sunshine marker for highlights, switches, and progress, a tomato accent for the primary button and badges, and six washes to colour-code content with `theme.accent_at(i)`. `Theme::colorway` picks `Berry`, `Ocean`, `Citrus`, or the calm `Quiet` instead, and `skribble_leptoskit::colorway` holds the same colours with no leptoskit types.
 - Controls follow leptoskit's controlled pattern: they show a value and propose changes through `on_toggle`, `on_select`, or `on_change`, and you rebuild with the value you accept.
 - Ink is decorative and hidden from assistive technology. Buttons are real buttons; checkboxes, radios, switches, progress bars, and dividers carry their ARIA roles and states.
 

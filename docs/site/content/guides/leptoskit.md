@@ -89,7 +89,7 @@ pub fn welcome(name: &str, on_start: impl Fn() + Send + Sync + 'static) -> Eleme
 | `WiredDivider`   | Separating sections with a rough rule                                                   |
 | `Sketch`         | Arrows, scribbles, and annotations: any shape from the rough engine at an explicit size |
 
-Closed shapes take a `fill_style`: `Hachure`, `CrossHatch`, `ZigZag`, `Dashed`, `Dots`, or `Solid`. On native, sketched patterns become a light tint of the fill colour and `Solid` stays solid.
+Closed shapes take a `fill_style`: `Hachure`, `CrossHatch`, `ZigZag`, `Dashed`, `Dots`, or `Solid`, drawn the same on the web and on native. Boxes, cards, and circles fill with the theme's marker unless you pass a `fill`; badges fill with the accent. A solid fill picks whichever of the ink and paper reads on it for the text inside, so labels stay at 4.5:1 or better in both appearances.
 
 ### Controls hold no state
 
@@ -145,30 +145,61 @@ pub fn arrow() -> Element {
 }
 ```
 
-Without a `label`, a sketch is decorative and hidden from screen readers. On native it keeps its size and label but draws nothing yet.
+Without a `label`, a sketch is decorative and hidden from screen readers. It draws the same doodle on the web and on every native platform.
 
-## 4. Theme it
+## 4. Colour it
 
-Every component takes a `theme`. A `Theme` has a light and a dark `Palette` (`ink`, `paper`, `accent`, `on_accent`), a `stroke_width`, and a `roughness`. Start from skribble's and change what you need:
+skribble is a sticker book, not a pencil sketch on grey paper (see [Vivid and alive](vivid-design)). The default `Theme` is the sunny colourway, the same one the Flutter widgets and `skribble_jaspr` use: plum ink on warm paper, paper ink on a plum night in dark mode, a sunshine marker, a tomato accent, and six washes for colour-coding content. Outlines are 1.6 pixels wide with playful roughness.
+
+| Role        | Used by                                                                                       |
+| ----------- | --------------------------------------------------------------------------------------------- |
+| `ink`       | Outlines, running text, pen marks                                                             |
+| `paper`     | `SkribblePage`'s background                                                                   |
+| `marker`    | Marker highlights, switch tracks, progress, and the default fill of boxes, cards, and circles |
+| `accent`    | The primary `WiredButton` and `WiredBadge`: the one loud action on a screen                   |
+| `washes`    | Colour-coding, read with `theme.accent_at(index)`                                             |
+| `muted_ink` | Disabled labels                                                                               |
+
+Give each screen one primary button, and colour-code runs of content with `accent_at`, so five cards are five colours:
 
 ```rust
-use leptoskit::native::Color;
-use skribble_leptoskit::{Palette, Theme};
+use leptoskit::prelude::*;
+use skribble_leptoskit::{FillStyle, Theme, WiredCard};
 
-pub const MINT: Theme = Theme {
-	light: Palette {
-		accent: Color::rgba(0x8c, 0xe9, 0xc2, 0xff),
-		..Palette::LIGHT
-	},
-	dark: Palette {
-		accent: Color::rgba(0x4f, 0xb2, 0x8a, 0xff),
-		..Palette::DARK
-	},
+fn cards(titles: &[&'static str]) -> Fragment {
+	let theme = Theme::SKRIBBLE;
+	titles
+		.iter()
+		.enumerate()
+		.map(|(index, title)| view! {
+			<WiredCard seed=index as i64 fill_style=FillStyle::Solid fill=theme.accent_at(index)>
+				<Text class="text-lg font-bold">{*title}</Text>
+			</WiredCard>
+		})
+		.collect()
+}
+```
+
+Labels on a wash use `theme.on(wash)`, which picks the ink or paper with the better contrast in each appearance. Components do this for you on solid fills.
+
+Pick another colourway with `Theme::colorway`: `Sunny` (the default), `Berry`, `Ocean`, `Citrus`, or `Quiet` for briefs that ask for calm. Every component takes a `theme`, and a `Theme` is a light and a dark `Palette`, a `stroke_width`, and a `roughness`, so you can also start from one and change what you need:
+
+```rust
+use skribble_leptoskit::colorway::{Colorway, swatch};
+use skribble_leptoskit::{Palette, Theme, color};
+
+pub const BERRY: Theme = Theme::colorway(Colorway::Berry);
+
+pub const MINT_ACTIONS: Theme = Theme {
+	light: Palette { accent: color(swatch::MINT), ..Palette::LIGHT },
+	dark: Palette { accent: color(swatch::MINT), ..Palette::DARK },
 	..Theme::SKRIBBLE
 };
 ```
 
-Pass it as `theme=MINT`. Fill colours (`fill=`) and highlight colours (`color=`) take a `Color` for both appearances or a `Tone` with one colour for each.
+Pass it as `theme=BERRY`. Fill colours (`fill=`) and highlight colours (`color=`) take a `Color` for both appearances or a `Tone` with one colour for each.
+
+The colours themselves live in `skribble_leptoskit::colorway`, which has no leptoskit types: an `Rgba` colour, the named `swatch`es (the same values as Flutter's `WiredPalette`), the `Colorway`s, and WCAG contrast helpers. `color(rgba)` turns one into a leptoskit `Color`.
 
 ## 5. Letter it in Noto Sketch (web)
 
