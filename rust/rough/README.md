@@ -2,7 +2,7 @@
 
 The hand-drawn rendering engine behind [skribble](https://openbudgetfun.github.io/skribble/), for Rust. It turns ideal geometry into lines that wobble like they were drawn by hand, fills shapes with sketched hachure, dots, dashes, or zig-zags, and lays the result down as pen-shaped ink with tapered ends. It has no dependencies and builds for every target, including `wasm32-unknown-unknown`.
 
-It is a Rust port of the Dart package [`skribble_rough`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_rough), so **the same seed draws the same SVG path data** as skribble's Flutter widgets, its Jaspr components, and the [`@skribble.dev/rough`](https://github.com/openbudgetfun/skribble/tree/main/js/rough) npm package. [`skribble_leptoskit`](https://github.com/openbudgetfun/skribble/tree/main/rust/leptoskit) draws its components with it.
+It is a Rust port of the Dart package [`skribble_rough`](https://github.com/openbudgetfun/skribble/tree/main/packages/skribble_rough), so **the same seed draws the same SVG path data** as skribble's Flutter widgets, its Jaspr components, and the [`@skribble.dev/rough`](https://github.com/openbudgetfun/skribble/tree/main/js/rough) npm package. [`skribble_core`](https://github.com/openbudgetfun/skribble/tree/main/rust/core) builds skribble's colours, component ink, charts, and maps on it.
 
 ## Install
 

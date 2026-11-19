@@ -157,12 +157,13 @@ SkribbleApp(
 
 ## Beyond Dart
 
-| Package                                                  | Description                                                                                         |
-| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| [`@skribble.dev/rough`](js/rough/)                       | The rough engine for JavaScript, with React, React Native, Vue, and Svelte bindings in [`js/`](js/) |
-| [`skribble_rough`](rust/rough/) (Rust)                   | The rough engine for Rust, drawing byte-identical SVG                                               |
-| [`skribble_leptoskit`](rust/leptoskit/) (Rust)           | Hand-drawn components for leptoskit apps on the web and native                                      |
-| [`skribble_leptoskit_maps`](rust/leptoskit_maps/) (Rust) | Hand-drawn maps for leptoskit apps: rough areas, routes, pins, and zoom controls                    |
+| Package                                | Description                                                                                                         |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| [`@skribble.dev/rough`](js/rough/)     | The rough engine for JavaScript, with React, React Native, Vue, and Svelte bindings in [`js/`](js/)                 |
+| [`skribble_rough`](rust/rough/) (Rust) | The rough engine for Rust, drawing byte-identical SVG                                                               |
+| [`skribble_core`](rust/core/) (Rust)   | skribble's design system for Rust, free of any UI framework: colourways, component ink, scribbles, charts, and maps |
+
+leptoskit apps get skribble through leptoskit's own [`leptoskit_skribble`](https://github.com/leptoskit/leptoskit/tree/main/crates/leptoskit_skribble) crate, built on `skribble_core`.
 
 ## Apps
 
