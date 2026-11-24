@@ -88,7 +88,7 @@ RoughSvg drawInkShape(
   return RoughSvg.fromDrawable(drawable);
 }
 
-/// Renders [ink] as a decorative `<svg>`.
+/// Renders [rough] as a decorative `<svg>`.
 ///
 /// With [stretch] the SVG fills its positioned parent and distorts to fit,
 /// while `vector-effect="non-scaling-stroke"` keeps every stroke at its CSS
@@ -97,8 +97,11 @@ RoughSvg drawInkShape(
 /// The paths carry `currentColor` presentation attributes so they still draw
 /// without `skribbleCss`; the stylesheet then maps them to the theme's
 /// custom properties.
+///
+/// Path data is written with [RoughSvg.compact]: the same shape in about a
+/// fifth fewer bytes, so server-rendered pages stay light.
 Component inkSvg(
-  RoughSvg ink,
+  RoughSvg rough,
   InkCanvas canvas, {
   String classes = 'skribble-ink',
   bool stretch = true,
@@ -114,6 +117,7 @@ Component inkSvg(
     'focusable': 'false',
     ...attributes,
   };
+  final ink = rough.compact();
 
   return Component.element(
     tag: 'svg',

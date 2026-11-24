@@ -1,3 +1,4 @@
+import 'compact_path.dart';
 import 'core.dart';
 import 'entities.dart';
 import 'filler.dart';
@@ -139,6 +140,18 @@ final class RoughSvg {
 
   /// Whether every group is empty.
   bool get isEmpty => outline.isEmpty && sketch.isEmpty && solid.isEmpty;
+
+  /// This drawing with every group rewritten by [compactSvgPath]: relative
+  /// commands and no redundant characters, at [fractionDigits] decimals.
+  ///
+  /// The default of two decimals keeps exactly the shape [RoughSvg.fromDrawable]
+  /// writes and ships about a fifth fewer bytes. One decimal is invisible for
+  /// drawings shown near their own size and saves more.
+  RoughSvg compact({int fractionDigits = 2}) => RoughSvg._(
+    outline: compactSvgPath(outline, fractionDigits: fractionDigits),
+    sketch: compactSvgPath(sketch, fractionDigits: fractionDigits),
+    solid: compactSvgPath(solid, fractionDigits: fractionDigits),
+  );
 
   /// Renders the non-empty groups as SVG `<path>` elements, in paint order:
   /// solid fill, sketched fill, then outline.

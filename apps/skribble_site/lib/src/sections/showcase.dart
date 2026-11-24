@@ -73,9 +73,58 @@ class Marquee extends StatelessComponent {
 }
 
 /// Six fill styles, each pre-drawn from three seeds, with a shuffle button.
+///
+/// The page carries only the first seed's drawings. The other two are
+/// [shuffleSeeds], a fragment the build writes to [shuffleSeedsFile] and
+/// `site.js` fetches as the gallery nears the viewport, so the first load
+/// skips a sixth of the page's markup. Shuffling needs that script anyway.
 class FillGallery extends StatelessComponent {
   /// Creates the fill gallery.
   const FillGallery({super.key});
+
+  /// Where the build writes [shuffleSeeds], relative to the site root.
+  static const shuffleSeedsFile = 'fills.html';
+
+  /// The drawings for every seed after the first: one `<div data-card>` per
+  /// card, holding that card's drawings in seed order.
+  static Component shuffleSeeds() => Component.fragment([
+    for (final index in _fills.indexed.map((entry) => entry.$1))
+      el(
+        'div',
+        [
+          for (var seedIndex = 1; seedIndex < _seeds.length; seedIndex++)
+            _art(index, seedIndex),
+        ],
+        null,
+        {'data-card': '$index'},
+      ),
+  ]);
+
+  /// Card [index]'s drawing from its [seedIndex]th seed.
+  static Component _art(int index, int seedIndex) {
+    final (_, style, tone, shape) = _fills[index];
+    final seed = _seeds[seedIndex];
+
+    return doodle(
+      width: 220,
+      height: 150,
+      classes: 'seed seed--$seedIndex',
+      marks: [
+        Mark(
+          shape.draw(
+            Pen.playful.generator(
+              seed + index,
+              fill: style,
+              gap: style == RoughFillStyle.dots ? 15 : 8,
+            ),
+          ),
+          fill: tone,
+          width: 2.2,
+          fillWidth: style == RoughFillStyle.dots ? 2.4 : 1.6,
+        ),
+      ],
+    );
+  }
 
   static const _seeds = [7, 23, 58];
 
@@ -106,31 +155,12 @@ class FillGallery extends StatelessComponent {
         el(
           'div',
           [
-            for (final (index, (name, style, tone, shape)) in _fills.indexed)
+            for (final (index, (name, _, _, _)) in _fills.indexed)
               el(
                 'figure',
                 [
                   el('div', [
-                    for (final (seedIndex, seed) in _seeds.indexed)
-                      doodle(
-                        width: 220,
-                        height: 150,
-                        classes: 'seed seed--$seedIndex',
-                        marks: [
-                          Mark(
-                            shape.draw(
-                              Pen.playful.generator(
-                                seed + index,
-                                fill: style,
-                                gap: style == RoughFillStyle.dots ? 15 : 8,
-                              ),
-                            ),
-                            fill: tone,
-                            width: 2.2,
-                            fillWidth: style == RoughFillStyle.dots ? 2.4 : 1.6,
-                          ),
-                        ],
-                      ),
+                    _art(index, 0),
                   ], 'fill-art'),
                   el('figcaption', [
                     el('code', [t('RoughFillStyle.$name')]),
@@ -147,7 +177,7 @@ class FillGallery extends StatelessComponent {
               ),
           ],
           'fill-grid',
-          {'data-seed': '0'},
+          {'data-seed': '0', 'data-more': FillGallery.shuffleSeedsFile},
         ),
         el('div', [
           WiredButton(

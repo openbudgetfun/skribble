@@ -1567,6 +1567,12 @@ svg {
   cursor: pointer;
 }
 
+/* With the script running, each pick keeps the page lettering until the
+   tester comes near (site.js adds faces-in), so its face loads late. */
+.js .font-lab:not(.faces-in) .font-pick {
+  font-family: var(--font-body);
+}
+
 .font-pick-ink .ink-hatch {
   opacity: 0;
   transition: opacity 0.25s;
@@ -2163,4 +2169,18 @@ svg {
     animation: none !important;
     filter: none;
   }
+}
+
+/* ---------- Rendering budget ---------- */
+
+/* Sections below the hero skip style, layout, and paint (and their
+   looping animations and font loads) until they come near the viewport.
+   The remembered size keeps the scrollbar steady once a section has been
+   seen. Paint containment would clip doodles that hang over a section's
+   edge, so the clip margin gives them room. */
+.section,
+.closing {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1100px;
+  overflow-clip-margin: 64px;
 }

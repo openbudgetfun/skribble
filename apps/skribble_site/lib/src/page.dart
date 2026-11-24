@@ -87,7 +87,7 @@ class SitePage extends StatelessComponent {
             'rel': 'preload',
             'href': 'fonts/$file',
             'as': 'font',
-            'type': 'font/woff',
+            'type': 'font/woff2',
             'crossorigin': '',
           }),
         for (final (property, content) in [
@@ -118,11 +118,11 @@ class SitePage extends StatelessComponent {
         if (headScript case final script?) el('script', [RawText(script)]),
         el('style', [RawText(fontFaceCss(assets.fonts))]),
         el('script', [RawText(_inkReadyScript)]),
-        el('style', [const RawText(skribbleCss)]),
+        el('style', [RawText(_skribbleCss)]),
         el('style', [
           RawText(':root{--slider-thumb:${sliderThumbDataUri()}}'),
         ]),
-        el('link', const [], null, {'rel': 'stylesheet', 'href': 'site.css'}),
+        el('style', [RawText(assets.css)]),
         el('script', const [], null, {'src': 'site.js', 'defer': ''}),
       ],
       body: Component.fragment([
@@ -546,3 +546,6 @@ const notFoundRedirect = r'''
   }
 })();
 ''';
+
+/// skribble_jaspr's stylesheet without its comments and indentation.
+final String _skribbleCss = minifyCss(skribbleCss);

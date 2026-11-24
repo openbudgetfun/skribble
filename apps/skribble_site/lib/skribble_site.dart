@@ -11,4 +11,6 @@ import 'package:skribble_site/src/page.dart' show LandingPage, NotFoundPage;
 export 'src/assets.dart';
 export 'src/build.dart';
 export 'src/config.dart';
+export 'src/html.dart' show minifyCss;
 export 'src/page.dart' show LandingPage, NotFoundPage, notFoundRedirect;
+export 'src/sections/showcase.dart' show FillGallery;

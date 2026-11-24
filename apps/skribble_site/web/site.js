@@ -152,13 +152,73 @@
     });
   }
 
-  // Shuffle the fill gallery through its pre-drawn seeds.
+  // Shuffle the fill gallery through its pre-drawn seeds. The page holds
+  // the first seed; the others arrive from data-more as the gallery comes
+  // near, or on the first shuffle.
   var gallery = document.querySelector(".fill-grid");
   var shuffle = document.querySelector("[data-shuffle]");
   if (gallery && shuffle) {
+    var more = null;
+    var loadMore = function () {
+      if (more) return more;
+      more = fetch(gallery.dataset.more)
+        .then(function (response) {
+          if (!response.ok) throw new Error(response.statusText);
+          return response.text();
+        })
+        .then(function (html) {
+          var holder = document.createElement("template");
+          holder.innerHTML = html;
+          var arts = gallery.querySelectorAll(".fill-art");
+          holder.content.querySelectorAll("[data-card]").forEach(function (card) {
+            var art = arts[Number(card.dataset.card)];
+            if (art) art.append.apply(art, Array.from(card.children));
+          });
+        })
+        .catch(function () {
+          more = null;
+        });
+      return more;
+    };
+    if ("IntersectionObserver" in window) {
+      var near = new IntersectionObserver(
+        function (entries) {
+          if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+          near.disconnect();
+          loadMore();
+        },
+        { rootMargin: "600px 0px" },
+      );
+      near.observe(gallery);
+    }
     shuffle.addEventListener("click", function () {
-      gallery.dataset.seed = String((Number(gallery.dataset.seed) + 1) % 3);
-      gallery.querySelectorAll(".fill-card").forEach(redraw);
+      loadMore().then(function () {
+        if (gallery.querySelectorAll(".seed--1").length === 0) return;
+        gallery.dataset.seed = String((Number(gallery.dataset.seed) + 1) % 3);
+        gallery.querySelectorAll(".fill-card").forEach(redraw);
+      });
     });
+  }
+
+  // The font tester shows each family's name in its own lettering. Those
+  // faces load only once the tester comes near, so the first visit does
+  // not download six fonts it cannot see yet.
+  if (lab) {
+    var showFaces = function () {
+      lab.classList.add("faces-in");
+    };
+    if ("IntersectionObserver" in window) {
+      var labNear = new IntersectionObserver(
+        function (entries) {
+          if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+          labNear.disconnect();
+          showFaces();
+        },
+        { rootMargin: "800px 0px" },
+      );
+      labNear.observe(lab);
+    } else {
+      showFaces();
+    }
   }
 })();
