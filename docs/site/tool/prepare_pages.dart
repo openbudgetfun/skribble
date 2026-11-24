@@ -1,12 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math' as math;
 
 /// Adds static entrypoints so GitHub Pages can reload extensionless routes.
-void main(List<String> args) {
+Future<void> main(List<String> args) async {
   final output = Directory('build/web');
 
   if (args.contains('--defer-fonts')) {
     deferComparisonFonts(output);
+  }
+
+  if (args.contains('--subset-fonts')) {
+    await subsetFonts(output);
   }
 
   final bootstrap = File('${output.path}/index.html').readAsStringSync();
@@ -145,18 +150,18 @@ void deferComparisonFonts(Directory output) {
     }
 
     // Articles are lettered in Noto Sketch, which loads with the other
-    // startup families. From Recursive they only need the Mono faces for
-    // code; the comparison page loads everything else when it opens.
+    // startup families. From Recursive they only need upright Mono for code
+    // in the default playful pen (about 300 KB); the pen picker loads the
+    // gentle and expressive Mono when chosen, and the comparison page loads
+    // everything else when it opens.
     final isReadingFamily =
-        name.startsWith(
-          'packages/skribble_font_recursive/SkribbleMono',
-        ) &&
-        !name.contains('Linear');
+        name == 'packages/skribble_font_recursive/SkribbleMonoPlayful';
 
     if (isReadingFamily) {
       final readingFaces = fonts.where((font) {
         final weight = font['weight'];
-        return weight == 400 || weight == 700;
+        return (weight == null || weight == 400 || weight == 700) &&
+            font['style'] != 'italic';
       }).toList();
       startup.add({...family, 'fonts': readingFaces});
       final remainingFaces = fonts
@@ -175,4 +180,63 @@ void deferComparisonFonts(Directory output) {
 
   manifest.writeAsStringSync(jsonEncode(startup));
   deferred.writeAsStringSync(jsonEncode(comparison));
+}
+
+/// The characters the docs' font files keep: Latin, IPA, Greek, and
+/// Cyrillic, punctuation, currency, letterlike symbols, arrows, maths
+/// operators, box drawing, and geometric shapes. Anything else falls back to
+/// Flutter's Noto fonts.
+const docsFontUnicodes =
+    'U+0000-052F,U+1E00-1EFF,U+2000-206F,U+20A0-20CF,U+2100-214F,'
+    'U+2190-21FF,U+2200-22FF,U+2500-25FF,U+FB00-FB06,U+FEFF,U+FFFD';
+
+/// Rewrites every skribble and Recursive font in [output] with only
+/// [docsFontUnicodes] and the OpenType features Flutter applies by default,
+/// using `pyftsubset` from fontTools (in `devenv shell`).
+///
+/// The docs never show other scripts or ask for stylistic sets, so this cuts
+/// Noto Sketch, which letters every article, from 550 KB to 240 KB over the
+/// wire, and the Mono code faces by about half.
+Future<void> subsetFonts(Directory output) async {
+  final assets = Directory('${output.path}/assets');
+  final fonts = [
+    for (final entity in assets.listSync(recursive: true))
+      if (entity is File &&
+          entity.path.endsWith('.ttf') &&
+          (entity.path.contains('/packages/skribble_font_') ||
+              entity.path.contains('/assets/fonts/Recursive')))
+        entity,
+  ];
+  final queue = fonts.iterator;
+
+  Future<void> worker() async {
+    while (queue.moveNext()) {
+      final font = queue.current;
+      final subset = File('${font.path}.subset');
+      final ProcessResult result;
+      try {
+        result = await Process.run('pyftsubset', [
+          font.path,
+          '--unicodes=$docsFontUnicodes',
+          '--output-file=${subset.path}',
+        ]);
+      } on ProcessException catch (error) {
+        throw StateError(
+          'pyftsubset is needed to subset the docs fonts. Run the build '
+          'inside `devenv shell`, or install fontTools (pip install '
+          'fonttools). ${error.message}',
+        );
+      }
+      if (result.exitCode != 0) {
+        throw StateError(
+          'pyftsubset failed for ${font.path}:\n${result.stderr}',
+        );
+      }
+      subset.renameSync(font.path);
+    }
+  }
+
+  await Future.wait([
+    for (var i = 0; i < math.max(1, Platform.numberOfProcessors); i++) worker(),
+  ]);
 }

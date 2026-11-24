@@ -290,7 +290,9 @@ class _DeferredLiveExample extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final library = useMemoized(catalog.loadLibrary);
+    final library = useMemoized(
+      () => catalog.loadLibrary().then((_) => catalog.registerExampleIcons()),
+    );
     final load = useFuture(library);
 
     if (load.hasError) {

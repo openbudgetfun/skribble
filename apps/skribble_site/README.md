@@ -21,11 +21,13 @@ dart run apps/skribble_site/bin/build.dart \
   --site-url=https://skribble.dev
 ```
 
-The build writes `index.html`, `404.html`, `site.css`, `site.js`, the favicon, the fonts, and the featured emoji (from `packages/skribble_emoji/art`, with palette tokens resolved).
+The build writes `index.html`, `404.html`, `site.js`, `fills.html` (the fill gallery's extra seeds, which `site.js` fetches as the gallery comes near), the favicon, the fonts, and the featured emoji (from `packages/skribble_emoji/art`, with palette tokens resolved). `web/site.css` is minified and inlined into each page, so the first paint waits on no stylesheet request.
 
-Fonts come from the font packages: the Recursive families from `packages/skribble_font_recursive`, and Skribble Noto at each level from `packages/skribble_font_noto`, `skribble_font_noto_sketch`, and `skribble_font_noto_lively`. A family is left out until its package is in the workspace. Each face is written as a WOFF holding Latin, Latin-1, and Latin Extended-A, with `pyftsubset` from [fontTools](https://fonttools.readthedocs.io/en/latest/subset/) (in `devenv shell`, or `pip install fonttools`). That is about a quarter of the TrueType size.
+Fonts come from the font packages: the Recursive families from `packages/skribble_font_recursive`, and Skribble Noto at each level from `packages/skribble_font_noto`, `skribble_font_noto_sketch`, and `skribble_font_noto_lively`. A family is left out until its package is in the workspace. Each face is written as four WOFF2 slices (`WebFontSubset` in `lib/src/assets.dart`: ASCII and common punctuation, other symbols, accented Latin-1 letters, and Latin Extended-A), with `pyftsubset` from [fontTools](https://fonttools.readthedocs.io/en/latest/subset/) (in `devenv shell`, or `pip install fonttools brotli`). Each slice has its own `@font-face` with a [`unicode-range`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range), so English copy downloads only the core slice: 27 KB for Noto Sketch, against 73 KB for the whole range as WOFF. Only the OpenType features browsers apply by default are kept.
 
-The page preloads the faces it uses above the fold (`criticalFaces` in `lib/src/assets.dart`) and stays hidden until they load, for at most 3 seconds, so it never paints in a fallback font and then reflows. Without JavaScript, nothing is hidden.
+The page preloads the core slices of the faces it uses above the fold (`criticalFaces` in `lib/src/assets.dart`) and stays hidden until they load, for at most 3 seconds, so it never paints in a fallback font and then reflows. Without JavaScript, nothing is hidden. The font tester's other families load only as the tester comes near.
+
+Sections below the hero use [`content-visibility: auto`](https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility), so the browser skips their layout, paint, and looping animations until they come near the viewport.
 
 The page is lettered in Skribble Noto Sketch, skribble's default typeface, with Recursive Mono for code. Headings use it too. It has one Regular face, and the stylesheet turns `font-synthesis` off, so headings keep that face rather than a synthesised bold. The other families only appear in the font tester.
 

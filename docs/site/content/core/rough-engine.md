@@ -217,7 +217,7 @@ final svg = RoughSvg.fromDrawable(drawable);
 print(svg.toPathElements(stroke: 'currentColor', nonScalingStroke: true));
 ```
 
-`RoughSvg` groups the op sets the way `RoughDrawing` paints them: `outline` is stroked with the border colour, `sketch` (hachure, zig-zag, dots, dashes) is stroked with the fill colour, and `solid` is filled with the fill colour. `opSetToSvgPath` converts a single `OpSet`. `RoughFillStyle` names the fill patterns and creates the matching `Filler`; it requires a `FillerConfig` so every fill owns a seeded random stream. Coordinates keep two decimals, so the same seed produces byte-identical markup. [skribble_jaspr](../guides/jaspr) uses these helpers to render components on the server.
+`RoughSvg` groups the op sets the way `RoughDrawing` paints them: `outline` is stroked with the border colour, `sketch` (hachure, zig-zag, dots, dashes) is stroked with the fill colour, and `solid` is filled with the fill colour. `opSetToSvgPath` converts a single `OpSet`. `RoughFillStyle` names the fill patterns and creates the matching `Filler`; it requires a `FillerConfig` so every fill owns a seeded random stream. Coordinates keep two decimals, so the same seed produces byte-identical markup. `svg.compact()` rewrites all three groups with `compactSvgPath`: relative commands, implicit repeats, and no redundant zeros or separators. At its default of two decimals it draws exactly the same shape in about a fifth fewer bytes; `compact(fractionDigits: 1)` saves more for drawings shown near their own size. Rounding happens on absolute coordinates, so long paths never drift. [skribble_jaspr](../guides/jaspr) uses these helpers to render components on the server.
 
 ## Generator
 
