@@ -24,6 +24,8 @@ in
       dprint
       fontforge
       python3Packages.fonttools
+      # WOFF2 output for the landing page fonts.
+      python3Packages.brotli
       fvm
       gitleaks
       # hb-shape is in dev. The ICU variant removes its core library on Linux.
@@ -317,8 +319,8 @@ in
         set -e
         cd "$DEVENV_ROOT/docs/site"
         dart pub get
-        flutter build web --release --no-web-resources-cdn --no-tree-shake-icons --pwa-strategy=none --dart-define=DOCS_DEFER_FONTS=true "$@"
-        dart run tool/prepare_pages.dart --defer-fonts
+        flutter build web --release --no-web-resources-cdn --pwa-strategy=none --dart-define=DOCS_DEFER_FONTS=true "$@"
+        dart run tool/prepare_pages.dart --defer-fonts --subset-fonts
         flutter test tool/share_card_test.dart --dart-define=SHARE_CARD_OUT=build/web/share-card.png
       '';
       description = "Build static docs output for GitHub Pages, with its link-preview image. Set DOCS_SITE_URL for share links (default https://skribble.dev).";

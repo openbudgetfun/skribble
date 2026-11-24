@@ -180,10 +180,10 @@ Component doodle({
   svg.write('>');
 
   for (final (index, mark) in marks.indexed) {
-    final ink = RoughSvg.fromDrawable(mark.drawable);
-    final solid = _compact(ink.solid);
-    final sketch = _compact(ink.sketch);
-    final outline = _compact(ink.outline);
+    final ink = RoughSvg.fromDrawable(mark.drawable).compact(fractionDigits: 1);
+    final solid = ink.solid;
+    final sketch = ink.sketch;
+    final outline = ink.outline;
     final group = ['mark', ?mark.classes].join(' ');
     svg.write('<g class="$group" style="--i:$index">');
 
@@ -343,18 +343,6 @@ Drawable roughSquiggle(
       PointD(4 + i * step * 0.96, i.isEven ? height * 0.7 : height * 0.3),
   ]);
 }
-
-/// Rounds path coordinates to one decimal place. Doodles are drawn at
-/// roughly their on-screen size, so tenths of a pixel are invisible, and
-/// the page ships a third less markup.
-String _compact(String path) => path.replaceAllMapped(
-  _longNumber,
-  (match) =>
-      double.parse(match[0]!).toStringAsFixed(1).replaceFirst(_zeroTenth, ''),
-);
-
-final _longNumber = RegExp(r'-?\d+\.\d{2,}');
-final _zeroTenth = RegExp(r'\.0$');
 
 String _n(double value) => value == value.roundToDouble()
     ? '${value.toInt()}'

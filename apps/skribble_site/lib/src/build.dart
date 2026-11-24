@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:jaspr/server.dart';
 import 'package:skribble_site/src/assets.dart';
 import 'package:skribble_site/src/config.dart';
+import 'package:skribble_site/src/html.dart';
 import 'package:skribble_site/src/page.dart';
+import 'package:skribble_site/src/sections/showcase.dart';
 
 /// Emoji shown on the landing page, by art file name.
 const featuredEmoji = [
@@ -119,6 +121,9 @@ SiteAssets loadSiteAssets(Directory root) {
       .readAsStringSync();
 
   return SiteAssets(
+    css: minifyCss(
+      File('${root.path}/apps/skribble_site/web/site.css').readAsStringSync(),
+    ),
     logoSvg: inlineLogo(logo),
     emoji: [
       for (final name in featuredEmoji)
@@ -242,33 +247,32 @@ IconArt _lucideIcon(String source, String name) {
   return IconArt(name: name, paths: paths);
 }
 
-/// The characters the web fonts keep: Basic Latin, Latin-1, Latin
-/// Extended-A, and common punctuation and symbols. Anything else falls back
-/// to the next font in the stack.
-const webFontUnicodes =
-    'U+0000-017F,U+0192,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,'
-    'U+2074,U+20AC,U+2122,U+2190-2199,U+2212,U+2215,U+FEFF,U+FFFD';
-
-/// Writes [source] to [destination] as a WOFF web font that keeps only
-/// [webFontUnicodes], using `pyftsubset` from fontTools (in `devenv shell`).
+/// Writes [subset] of [source] to [destination] as a WOFF2 web font, using
+/// `pyftsubset` from fontTools (in `devenv shell`, with Brotli).
 ///
-/// A subset WOFF is about a quarter of the TrueType file, so the page's
-/// first paint is not held up by font downloads.
-Future<void> writeWebFont(File source, File destination) async {
+/// Only the OpenType features browsers turn on by default (kerning,
+/// ligatures, contextual alternates, marks) are kept: the small caps,
+/// fractions, and stylistic sets the page never asks for would double the
+/// file. The core slice of Noto Sketch is about 27 KB, against 73 KB for the
+/// whole Latin range as WOFF.
+Future<void> writeWebFont(
+  File source,
+  File destination, {
+  WebFontSubset subset = WebFontSubset.core,
+}) async {
   final ProcessResult result;
   try {
     result = await Process.run('pyftsubset', [
       source.path,
-      '--unicodes=$webFontUnicodes',
-      '--layout-features=*',
-      '--flavor=woff',
+      '--unicodes=${subset.unicodeRange}',
+      '--flavor=woff2',
       '--output-file=${destination.path}',
     ]);
   } on ProcessException catch (error) {
     throw StateError(
       'pyftsubset is needed to build web fonts. Run the build inside '
-      '`devenv shell`, or install fontTools (pip install fonttools). '
-      '${error.message}',
+      '`devenv shell`, or install fontTools with Brotli '
+      '(pip install fonttools brotli). ${error.message}',
     );
   }
   if (result.exitCode != 0) {
@@ -298,10 +302,17 @@ Future<void> buildSite({
 
   await page('index.html', LandingPage(config: config, assets: assets));
   await page('404.html', NotFoundPage(config: config, assets: assets));
+  File('${output.path}/${FillGallery.shuffleSeedsFile}').writeAsBytesSync(
+    (await renderComponent(
+      FillGallery.shuffleSeeds(),
+      standalone: true,
+    )).body,
+  );
 
+  // site.css is inlined into every page; only the script ships as a file.
   for (final file in Directory(
     '${site.path}/web',
-  ).listSync().whereType<File>()) {
+  ).listSync().whereType<File>().where((file) => !file.path.endsWith('.css'))) {
     file.copySync('${output.path}/${file.uri.pathSegments.last}');
   }
 
@@ -309,15 +320,18 @@ Future<void> buildSite({
       .copySync('${output.path}/favicon.svg');
 
   final fonts = Directory('${output.path}/fonts')..createSync();
-  await Future.wait([
+  await _inParallel([
     for (final family in assets.fonts)
       for (final face in family.faces)
-        writeWebFont(
-          File(
-            '${root.path}/packages/${family.package}/assets/fonts/${face.file}',
+        for (final subset in WebFontSubset.values)
+          () => writeWebFont(
+            File(
+              '${root.path}/packages/${family.package}/assets/fonts/'
+              '${face.file}',
+            ),
+            File('${fonts.path}/${face.webFileFor(subset)}'),
+            subset: subset,
           ),
-          File('${fonts.path}/${face.webFile}'),
-        ),
   ]);
   for (final package in {for (final family in assets.fonts) family.package}) {
     File(
@@ -333,4 +347,19 @@ Future<void> buildSite({
   File('${output.path}/robots.txt').writeAsStringSync(
     'User-agent: *\nAllow: /\n',
   );
+}
+
+/// Runs [tasks] with at most one per processor at a time, so the font build
+/// does not start a hundred `pyftsubset` processes at once.
+Future<void> _inParallel(List<Future<void> Function()> tasks) async {
+  final queue = tasks.iterator;
+  Future<void> worker() async {
+    while (queue.moveNext()) {
+      await queue.current();
+    }
+  }
+
+  await Future.wait([
+    for (var i = 0; i < Platform.numberOfProcessors; i++) worker(),
+  ]);
 }

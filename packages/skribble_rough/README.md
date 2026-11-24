@@ -36,7 +36,8 @@ void main() {
 ## SVG output
 
 - `opSetToSvgPath(set)` writes one `OpSet` as an SVG `d` attribute. Solid fills are closed with `Z`.
-- `RoughSvg.fromDrawable(drawable)` splits a drawable the way the Flutter painter paints it: `outline` (stroked with the ink colour), `sketch` (sketched fills, stroked with the fill colour), and `solid` (filled with the fill colour). `toPathElements()` renders the non-empty groups as `<path>` elements in paint order.
+- `RoughSvg.fromDrawable(drawable)` splits a drawable the way the Flutter painter paints it: `outline` (stroked with the ink colour), `sketch` (sketched fills, stroked with the fill colour), and `solid` (filled with the fill colour). `toPathElements()` renders the non-empty groups as `<path>` elements in paint order, and `compact()` rewrites them in the smallest equivalent path data.
+- `compactSvgPath(data, fractionDigits: 1)` rewrites any SVG path data with relative commands, implicit repeats, and no redundant zeros or separators, rounding absolute coordinates so the shape never drifts. A server-rendered page of sketches ships about a quarter less markup after gzip.
 - `DrawableInk(drawable, ...).svgPaths()` exports the pen's tapered ink as filled outlines instead. Use it for fixed-size artwork; use `RoughSvg` when the SVG stretches with its container.
 
 ## Determinism

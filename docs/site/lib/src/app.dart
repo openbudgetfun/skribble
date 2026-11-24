@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:skribble/skribble.dart';
 import 'package:skribble_docs_site/src/article.dart';
+import 'package:skribble_docs_site/src/comparison_fonts.dart';
 import 'package:skribble_docs_site/src/docs_keys.dart';
 import 'package:skribble_docs_site/src/docs_surface.dart';
 import 'package:skribble_docs_site/src/document.dart';
@@ -73,12 +75,18 @@ class DocsApp extends HookWidget {
     return WiredMaterialApp.router(
       routerConfig: router,
       title: 'skribble — make something delightful',
-      wiredTheme: WiredThemeData.cuddly(roughnessLevel: roughness.value),
+      // Noto Sketch has no arrows (the "Next →" links, the find buttons), so
+      // they come from the Mono face that is already loaded for code instead
+      // of a 380 KB symbols font downloaded from Google Fonts.
+      wiredTheme: WiredThemeData.cuddly(
+        roughnessLevel: roughness.value,
+      ).copyWith(fontFamilyFallback: const [_arrowFallback]),
       builder: (context, child) => DefaultTextStyle(
         style: TextStyle(
           // The theme's typeface by its full asset name, whichever package
           // bundles it (Noto Sketch by default).
           fontFamily: WiredTheme.of(context).qualifiedFontFamily,
+          fontFamilyFallback: const [_arrowFallback],
           color: _ink,
           fontSize: 16,
           height: 1.65,
@@ -88,6 +96,9 @@ class DocsApp extends HookWidget {
     );
   }
 }
+
+/// The loaded font that draws the arrows Noto Sketch lacks.
+const _arrowFallback = 'packages/skribble_font_recursive/SkribbleMonoPlayful';
 
 class _DocsRoughness extends InheritedWidget {
   const _DocsRoughness({required this.value, required super.child});
@@ -128,7 +139,10 @@ class _RoughnessPicker extends StatelessWidget {
                 key: DocsKeys.roughness(level.name),
                 dense: true,
                 selected: WiredTheme.of(context).roughnessLevel == level,
-                onPressed: () => state.value.value = level,
+                onPressed: () {
+                  state.value.value = level;
+                  unawaited(loadMonoFontsFor(level));
+                },
                 child: Text(
                   '${level.name[0].toUpperCase()}${level.name.substring(1)}',
                   style: const TextStyle(fontSize: 13),

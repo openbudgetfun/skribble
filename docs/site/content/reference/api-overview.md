@@ -402,11 +402,12 @@ import 'package:skribble_rough/skribble_rough.dart';
 
 The Flutter-free engine: `DrawConfig`, `Generator`, the `Filler` family, `RoughPen`, `InkStroke`, `DrawableInk`, geometry, and the op-set types. It depends only on the Dart SDK.
 
-| Export           | Purpose                                                                                |
-| ---------------- | -------------------------------------------------------------------------------------- |
-| `opSetToSvgPath` | One `OpSet` as an SVG `d` attribute (solid fills closed with `Z`)                      |
-| `RoughSvg`       | A `Drawable` split into `outline`, `sketch`, and `solid` path data; `toPathElements()` |
-| `RoughFillStyle` | Named fill patterns; `filler(config)` builds the matching `Filler`                     |
+| Export           | Purpose                                                                                             |
+| ---------------- | --------------------------------------------------------------------------------------------------- |
+| `opSetToSvgPath` | One `OpSet` as an SVG `d` attribute (solid fills closed with `Z`)                                   |
+| `RoughSvg`       | A `Drawable` split into `outline`, `sketch`, and `solid` path data; `toPathElements()`, `compact()` |
+| `compactSvgPath` | Any SVG path data rewritten in its smallest equivalent form, at a chosen precision                  |
+| `RoughFillStyle` | Named fill patterns; `filler(config)` builds the matching `Filler`                                  |
 
 See [Rough engine](/core/rough-engine#scalable-svg-centrelines).
 

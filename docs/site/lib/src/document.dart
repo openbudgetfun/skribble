@@ -27,10 +27,6 @@ class DocDocument {
           : '',
       order: metadata is YamlMap ? metadata['order'] as num? : null,
       source: body,
-      nodes: md.Document(
-        extensionSet: md.ExtensionSet.gitHubWeb,
-        encodeHtml: false,
-      ).parseLines(body.split('\n')),
     );
   }
 
@@ -40,21 +36,7 @@ class DocDocument {
     required this.description,
     required this.order,
     required this.source,
-    required this.nodes,
-  }) {
-    final counts = <String, int>{};
-
-    for (final node in nodes.whereType<md.Element>()) {
-      if (!RegExp(r'^h[1-6]$').hasMatch(node.tag)) continue;
-      final slug = headingSlug(node.textContent);
-      final occurrence = counts.update(
-        slug,
-        (value) => value + 1,
-        ifAbsent: () => 0,
-      );
-      headingIds[node] = occurrence == 0 ? slug : '$slug-$occurrence';
-    }
-  }
+  });
 
   /// Extensionless route relative to the deployment base.
   final String path;
@@ -75,10 +57,34 @@ class DocDocument {
   final String source;
 
   /// Cached Markdown syntax tree.
-  final List<md.Node> nodes;
+  ///
+  /// Parsed on first use, so startup only reads every page's frontmatter for
+  /// the navigation and parses just the page being shown.
+  late final List<md.Node> nodes = md.Document(
+    extensionSet: md.ExtensionSet.gitHubWeb,
+    encodeHtml: false,
+  ).parseLines(source.split('\n'));
 
   /// Stable, unique fragment identifiers, including repeated heading names.
-  final Map<md.Element, String> headingIds = {};
+  late final Map<md.Element, String> headingIds = _headingIds(nodes);
+}
+
+Map<md.Element, String> _headingIds(List<md.Node> nodes) {
+  final ids = <md.Element, String>{};
+  final counts = <String, int>{};
+
+  for (final node in nodes.whereType<md.Element>()) {
+    if (!RegExp(r'^h[1-6]$').hasMatch(node.tag)) continue;
+    final slug = headingSlug(node.textContent);
+    final occurrence = counts.update(
+      slug,
+      (value) => value + 1,
+      ifAbsent: () => 0,
+    );
+    ids[node] = occurrence == 0 ? slug : '$slug-$occurrence';
+  }
+
+  return ids;
 }
 
 /// Loads all documentation from Flutter's generated asset manifest.

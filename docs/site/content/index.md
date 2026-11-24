@@ -37,7 +37,7 @@ import 'package:skribble/skribble.dart';
 
 ## Start here
 
-Use **Find** in the header, or press ⌘F on macOS or Ctrl+F elsewhere, to search the current article. The find bar marks matching text and moves between matching sections. The sidebar search finds pages across the whole documentation site.
+Use **Find** in the header, or press Command-F on macOS or Ctrl+F elsewhere, to search the current article. The find bar marks matching text and moves between matching sections. The sidebar search finds pages across the whole documentation site.
 
 Work through these pages in order to go from zero to a fully themed skribble app:
 

@@ -23,6 +23,7 @@
 /// ```
 library;
 
+export 'src/compact_path.dart';
 export 'src/config.dart';
 export 'src/core.dart';
 export 'src/entities.dart';

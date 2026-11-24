@@ -43,9 +43,17 @@ bool _iconsRegistered = false;
 /// registration happens on first use and the example keeps an expression body
 /// (which `tool/generate_examples.dart` requires).
 WiredSvgIconData exampleIcon(String identifier) {
-  if (!_iconsRegistered) {
-    registerSkribbleIcons();
-    _iconsRegistered = true;
-  }
+  registerExampleIcons();
   return lookupMaterialRoughIconByIdentifier(identifier)!;
+}
+
+/// Registers skribble's icon catalogs once, so a `WiredIcon` of a Material
+/// `Icons` constant draws its hand-drawn shape.
+///
+/// The site calls this when the deferred examples library loads, which keeps
+/// the Material catalog's path data out of the startup script.
+void registerExampleIcons() {
+  if (_iconsRegistered) return;
+  registerSkribbleIcons();
+  _iconsRegistered = true;
 }

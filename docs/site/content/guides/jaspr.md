@@ -235,10 +235,12 @@ final drawable = Generator(
     FillerConfig.build(drawConfig: DrawConfig.build(seed: 7)),
   ),
 ).circle(50, 50, 80);
-final paths = RoughSvg.fromDrawable(drawable).toPathElements(
+final paths = RoughSvg.fromDrawable(drawable).compact().toPathElements(
   stroke: 'currentColor',
   fill: 'var(--skribble-accent)',
 );
 ```
+
+`compact()` writes the same shape in about a fifth fewer bytes. The components already do this: every ink overlay ships compact path data.
 
 See [Rough engine](../core/rough-engine#scalable-svg-centrelines) for the serializer and [Beyond Flutter](../reference/beyond-flutter) for the design kit and icon exports.

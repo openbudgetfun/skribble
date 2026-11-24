@@ -202,7 +202,12 @@ void main() {
           .map((link) => link.attributes['href']);
 
       expect(scripts, ['site.js']);
-      expect(styles, ['site.css']);
+      // site.css is inlined, so the first paint waits on no request.
+      expect(styles, isEmpty);
+      expect(
+        page.querySelectorAll('head style').map((style) => style.text).join(),
+        contains('.skribble-page'),
+      );
     });
 
     test('preloads the fonts it waits for before showing', () {
@@ -424,17 +429,83 @@ void main() {
     for (final file in [
       'index.html',
       '404.html',
-      'site.css',
       'site.js',
       'favicon.svg',
       'robots.txt',
       'fonts/OFL.txt',
-      'fonts/SkribblePlayful-Regular.woff',
+      'fonts/SkribblePlayful-Regular.woff2',
+      'fonts/SkribblePlayful-Regular-ext.woff2',
       for (final (_, file, _) in criticalFaces) 'fonts/$file',
       'emoji/rocket.svg',
+      FillGallery.shuffleSeedsFile,
     ]) {
       expect(File('${output.path}/$file').existsSync(), isTrue, reason: file);
     }
+    expect(File('${output.path}/site.css').existsSync(), isFalse);
+
+    final seeds = parser.parseFragment(
+      File('${output.path}/${FillGallery.shuffleSeedsFile}').readAsStringSync(),
+    );
+    final cards = seeds.querySelectorAll('[data-card]');
+    expect(cards, hasLength(6));
+    for (final card in cards) {
+      expect(card.querySelectorAll('svg.seed--1'), hasLength(1));
+      expect(card.querySelectorAll('svg.seed--2'), hasLength(1));
+    }
+  });
+
+  group('page weight', () {
+    late html.Document page;
+
+    setUpAll(() async {
+      page = await _render(
+        LandingPage(config: const SiteConfig(), assets: _assets),
+      );
+    });
+
+    test('carries only the first seed of the fill gallery', () {
+      final grid = page.querySelector('.fill-grid')!;
+
+      expect(grid.attributes['data-more'], FillGallery.shuffleSeedsFile);
+      expect(grid.querySelectorAll('svg.seed--0'), hasLength(6));
+      expect(grid.querySelectorAll('svg.seed--1, svg.seed--2'), isEmpty);
+    });
+
+    test('writes path data compactly', () {
+      for (final path in page.querySelectorAll('svg.ink path')) {
+        final data = path.attributes['d']!;
+        expect(data, isNot(contains(RegExp(r'\d\.\d\d'))), reason: data);
+        expect(data, isNot(contains(RegExp('[LC]'))), reason: data);
+      }
+    });
+
+    test('splits every web font by unicode-range', () {
+      final css = page
+          .querySelectorAll('head style')
+          .map((style) => style.text)
+          .join();
+
+      for (final subset in WebFontSubset.values) {
+        expect(css, contains('unicode-range:${subset.unicodeRange}'));
+      }
+      expect(css, isNot(contains('.woff"')));
+    });
+  });
+
+  group('minifyCss', () {
+    test('drops comments and spare whitespace', () {
+      expect(
+        minifyCss('/* note */\n.a  .b ,\n.c > d {\n  color: red;\n}\n'),
+        '.a .b,.c > d{color:red}',
+      );
+    });
+
+    test('keeps descendant pseudo-classes and strings intact', () {
+      expect(
+        minifyCss('.lab :is(.x) { content: "  a ; b  "; }'),
+        '.lab :is(.x){content:"  a ; b  "}',
+      );
+    });
   });
 }
 

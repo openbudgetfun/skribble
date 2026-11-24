@@ -6,7 +6,7 @@ import 'package:skribble_jaspr/skribble_jaspr.dart';
 import 'helpers/render.dart';
 
 /// Counts the subpaths (pen strokes) in an SVG path.
-int _strokes(String data) => 'M'.allMatches(data).length;
+int _strokes(String data) => 'M'.allMatches(absolutePath(data)).length;
 
 void main() {
   group('WiredSketch', () {

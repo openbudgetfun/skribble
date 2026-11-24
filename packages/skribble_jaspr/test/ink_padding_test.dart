@@ -23,7 +23,9 @@ const _horizontal = 12.0;
   final width = box[2];
   final height = box[3];
   final numbers = RegExp(r'-?\d+(?:\.\d+)?')
-      .allMatches(single(svg, '.skribble-ink-outline').attributes['d']!)
+      .allMatches(
+        absolutePath(single(svg, '.skribble-ink-outline').attributes['d']!),
+      )
       .map((match) => double.parse(match[0]!))
       .toList();
   var x = 0.0;

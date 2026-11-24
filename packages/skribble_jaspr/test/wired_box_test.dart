@@ -100,7 +100,7 @@ void main() {
 
       expect(solid.attributes['fill'], 'currentColor');
       expect(solid.attributes['stroke'], 'none');
-      expect(solid.attributes['d'], endsWith('Z'));
+      expect(absolutePath(solid.attributes['d']!), endsWith('Z'));
     });
 
     testServer('exposes the fill colour as a custom property', (tester) async {
@@ -275,8 +275,8 @@ void main() {
       );
       final outline = single(body, '.skribble-ink-outline');
 
-      expect(outline.attributes['d'], contains('C'));
-      expect(outline.attributes['d'], isNot(contains('L')));
+      expect(absolutePath(outline.attributes['d']!), contains('C'));
+      expect(absolutePath(outline.attributes['d']!), isNot(contains('L')));
     });
   });
 }

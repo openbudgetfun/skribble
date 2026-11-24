@@ -35,6 +35,7 @@ void main() {
         family('MaterialIcons', variable: true),
         family('packages/skribble_font_recursive/SkribblePlayful'),
         family('packages/skribble_font_recursive/SkribbleMonoPlayful'),
+        family('packages/skribble_font_recursive/SkribbleMonoGentle'),
         family('packages/skribble_font_recursive/SkribbleLinearPlayful'),
         family(
           'packages/skribble_font_recursive/SkribbleVariablePlayful',
@@ -56,18 +57,19 @@ void main() {
     ]);
     expect(
       startup.skip(1).map((family) => (family['fonts'] as List).length),
-      [4],
+      [2],
     );
     expect(comparison.map((family) => family['family']), [
       'packages/skribble_font_recursive/SkribblePlayful',
       'packages/skribble_font_recursive/SkribbleMonoPlayful',
+      'packages/skribble_font_recursive/SkribbleMonoGentle',
       'packages/skribble_font_recursive/SkribbleLinearPlayful',
       'packages/skribble_font_recursive/SkribbleVariablePlayful',
       'RecursiveCasualOriginal',
     ]);
     expect(
       comparison.map((family) => (family['fonts'] as List).length),
-      [14, 10, 14, 1, 14],
+      [14, 12, 14, 14, 1, 14],
     );
 
     final before = deferred.readAsStringSync();

@@ -78,15 +78,62 @@ final class LetteringFace {
   /// `SkribblePlayful-Bold.ttf`.
   final String file;
 
-  /// The web font the site serves for this face, such as
-  /// `SkribblePlayful-Bold.woff`.
-  String get webFile => '${file.substring(0, file.lastIndexOf('.'))}.woff';
+  /// The web font the site serves for this face's [WebFontSubset.core]
+  /// characters, such as `SkribblePlayful-Bold.woff2`.
+  String get webFile => webFileFor(WebFontSubset.core);
+
+  /// The web font the site serves for [subset] of this face, such as
+  /// `SkribblePlayful-Bold-ext.woff2`.
+  String webFileFor(WebFontSubset subset) =>
+      '${file.substring(0, file.lastIndexOf('.'))}${subset.suffix}.woff2';
 
   /// The CSS `font-weight`.
   final int weight;
 
   /// Whether this is an italic face.
   final bool italic;
+}
+
+/// A slice of the Latin characters, served as its own WOFF2 file.
+///
+/// Each face is split the way Google Fonts splits its Latin fonts: the
+/// browser downloads a slice only when the page shows a character in its
+/// [unicodeRange], so English copy costs one small file per face instead of
+/// every accented letter and symbol.
+enum WebFontSubset {
+  /// ASCII and the punctuation English copy uses: curly quotes, dashes,
+  /// the ellipsis, the bullet, the middle dot, the right arrow that ends
+  /// the page's links, and the é of café.
+  core(
+    '',
+    'U+0000-007F,U+00A0,U+00B7,U+2013-2014,U+2018-201A,U+201C-201E,'
+        'U+00E9,U+2022,U+2026,U+2192',
+  ),
+
+  /// Other symbols and punctuation: Latin-1 signs, arrows, the euro sign,
+  /// and the rest of the General Punctuation block.
+  symbols(
+    '-symbols',
+    'U+0080-009F,U+00A1-00B6,U+00B8-00BF,U+00D7,U+00F7,U+0192,U+02BB-02BC,'
+        'U+02C6,U+02DA,U+02DC,U+2000-2012,U+2015-2017,U+201B,U+201F-2021,'
+        'U+2023-2025,U+2027-206F,U+2074,U+20AC,U+2122,U+2190-2191,U+2193-2199,'
+        'U+2212,U+2215,U+FEFF,U+FFFD',
+  ),
+
+  /// Accented Latin-1 letters, such as ü and ñ.
+  latin1('-latin1', 'U+00C0-00D6,U+00D8-00E8,U+00EA-00F6,U+00F8-00FF'),
+
+  /// Latin Extended-A letters, such as ł and ő.
+  extended('-ext', 'U+0100-017F');
+
+  const WebFontSubset(this.suffix, this.unicodeRange);
+
+  /// Added to the face's file name, before `.woff2`.
+  final String suffix;
+
+  /// The characters this slice keeps, as a CSS `unicode-range` and a
+  /// `pyftsubset --unicodes` value.
+  final String unicodeRange;
 }
 
 /// The weights bundled for every family, by their file-name suffix.
@@ -144,9 +191,12 @@ final List<LetteringFamily> fontFamilies = [
 /// headings, and labels (its one Regular face, with no synthesised bold),
 /// and Mono for code. The page preloads them and waits for them, so the
 /// first paint is already in skribble's hand.
+///
+/// Only the [WebFontSubset.core] slice is preloaded and waited for: about
+/// 27 KB for Noto Sketch and 16 KB for Mono.
 const criticalFaces = [
-  ('SkribbleNotoSketch', 'SkribbleNotoSketch-Regular.woff', 400),
-  ('SkribbleMonoPlayful', 'SkribbleMonoPlayful-Regular.woff', 400),
+  ('SkribbleNotoSketch', 'SkribbleNotoSketch-Regular.woff2', 400),
+  ('SkribbleMonoPlayful', 'SkribbleMonoPlayful-Regular.woff2', 400),
 ];
 
 /// The published licence for fonts from [package], under `fonts/`.
@@ -159,12 +209,16 @@ String fontFaceCss(List<LetteringFamily> families) {
 
   for (final family in families) {
     for (final face in family.faces) {
-      css
-        ..write('@font-face{font-family:"${family.family}";')
-        ..write('src:url("fonts/${face.webFile}") format("woff");')
-        ..write('font-weight:${face.weight};')
-        ..write('font-style:${face.italic ? 'italic' : 'normal'};')
-        ..write('font-display:swap}\n');
+      for (final subset in WebFontSubset.values) {
+        css
+          ..write('@font-face{font-family:"${family.family}";')
+          ..write('src:url("fonts/${face.webFileFor(subset)}") ')
+          ..write('format("woff2");')
+          ..write('font-weight:${face.weight};')
+          ..write('font-style:${face.italic ? 'italic' : 'normal'};')
+          ..write('font-display:swap;')
+          ..write('unicode-range:${subset.unicodeRange}}\n');
+      }
     }
   }
 
@@ -181,7 +235,12 @@ final class SiteAssets {
     required this.icons,
     required this.iconCount,
     required this.fonts,
+    this.css = '',
   });
+
+  /// The site stylesheet (`web/site.css`), minified, inlined into every
+  /// page so the first paint waits on no stylesheet request.
+  final String css;
 
   /// The bracketed-smile logo, recoloured to `currentColor`.
   final String logoSvg;
