@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 This changelog is managed by [monochange](https://github.com/monochange/monochange).
 
+## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)
+
+### Features
+
+#### Smaller SVG path data for server-rendered sketches
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #290](https://github.com/openbudgetfun/skribble/pull/290)
+
+`compactSvgPath` rewrites SVG path data in its smallest equivalent form: relative commands, implicit command repeats, no leading zeros, and no separator where a minus sign or second decimal point already starts the next number. It rounds absolute coordinates to the precision you ask for (one decimal by default) and writes the deltas in whole units of that precision, so a long path never drifts. Every path command is understood, including arcs with packed flags; data it cannot parse comes back unchanged.
+
+`RoughSvg.compact()` applies it to all three groups. At its default of two decimals it draws exactly the shape `RoughSvg.fromDrawable` writes, in about a fifth fewer bytes.
+
+`skribble_jaspr` components now write compact path data in every ink overlay, with no change to what they draw.
+
 ## [0.4.0](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.0) (2026-11-07)
 
 ### Features
