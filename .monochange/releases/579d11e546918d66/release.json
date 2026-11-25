@@ -1,0 +1,2168 @@
+{
+  "schema_version": "0.10",
+  "kind": "monochange.releaseRecord",
+  "created_at": "2026-11-25T20:12:56Z",
+  "command": "release",
+  "version": null,
+  "versions": {
+    "main": "0.4.1",
+    "rust": "0.1.1",
+    "skribble_charts": "0.4.1",
+    "skribble_maps": "0.4.1",
+    "skribble_site": "1.1.0"
+  },
+  "release_targets": [
+    {
+      "id": "main",
+      "kind": "group",
+      "version": "0.4.1",
+      "version_format": "primary",
+      "tag": true,
+      "release": true,
+      "tag_name": "v0.4.1",
+      "rendered_title": "v0.4.1 (2026-11-25)",
+      "rendered_changelog_title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+      "members": [
+        "skribble",
+        "skribble_icons",
+        "skribble_icons_simple",
+        "skribble_icons_material",
+        "skribble_icons_lucide",
+        "skribble_icons_bxs",
+        "skribble_icons_cib",
+        "skribble_emoji",
+        "skribble_emoji_gen",
+        "skribble_font_noto",
+        "skribble_font_noto_sketch",
+        "skribble_font_noto_lively",
+        "skribble_font_recursive",
+        "skribble_font_roughen",
+        "skribble_lints",
+        "dart:skribble_rough",
+        "skribble_jaspr"
+      ]
+    },
+    {
+      "id": "rust",
+      "kind": "group",
+      "version": "0.1.1",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "rust/v0.1.1",
+      "rendered_title": "rust v0.1.1 (2026-11-25)",
+      "rendered_changelog_title": "rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-25)",
+      "members": [
+        "rust:skribble_rough",
+        "skribble_core"
+      ]
+    },
+    {
+      "id": "skribble_charts",
+      "kind": "package",
+      "version": "0.4.1",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_charts/v0.4.1",
+      "rendered_title": "skribble_charts v0.4.1 (2026-11-25)",
+      "rendered_changelog_title": "skribble_charts [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.4.1) (2026-11-25)",
+      "members": [
+        "skribble_charts"
+      ]
+    },
+    {
+      "id": "skribble_maps",
+      "kind": "package",
+      "version": "0.4.1",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_maps/v0.4.1",
+      "rendered_title": "skribble_maps v0.4.1 (2026-11-25)",
+      "rendered_changelog_title": "skribble_maps [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.4.1) (2026-11-25)",
+      "members": [
+        "skribble_maps"
+      ]
+    },
+    {
+      "id": "skribble_site",
+      "kind": "package",
+      "version": "1.1.0",
+      "version_format": "namespaced",
+      "tag": true,
+      "release": true,
+      "tag_name": "skribble_site/v1.1.0",
+      "rendered_title": "skribble.dev v1.1.0 (2026-11-25)",
+      "rendered_changelog_title": "[1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-25)",
+      "members": [
+        "skribble_site"
+      ]
+    }
+  ],
+  "released_packages": [
+    "skribble",
+    "skribble_charts",
+    "skribble_core",
+    "skribble_emoji",
+    "skribble_emoji_gen",
+    "skribble_font_noto",
+    "skribble_font_noto_lively",
+    "skribble_font_noto_sketch",
+    "skribble_font_recursive",
+    "skribble_font_roughen",
+    "skribble_icons",
+    "skribble_icons_bxs",
+    "skribble_icons_cib",
+    "skribble_icons_lucide",
+    "skribble_icons_material",
+    "skribble_icons_simple",
+    "skribble_jaspr",
+    "skribble_lints",
+    "skribble_maps",
+    "skribble_rough",
+    "skribble_site"
+  ],
+  "changed_files": [
+    "CHANGELOG.md",
+    "Cargo.lock",
+    "Cargo.toml",
+    "apps/skribble_benchmark/pubspec.yaml",
+    "apps/skribble_example/pubspec.yaml",
+    "apps/skribble_site/CHANGELOG.md",
+    "apps/skribble_site/pubspec.yaml",
+    "apps/skribble_storybook/pubspec.yaml",
+    "docs/site/content/reference/whats-new.md",
+    "docs/site/pubspec.yaml",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble/pubspec.yaml",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_charts/pubspec.yaml",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji/pubspec.yaml",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_emoji_gen/pubspec.yaml",
+    "packages/skribble_font_noto/CHANGELOG.md",
+    "packages/skribble_font_noto/pubspec.yaml",
+    "packages/skribble_font_noto_lively/CHANGELOG.md",
+    "packages/skribble_font_noto_lively/pubspec.yaml",
+    "packages/skribble_font_noto_sketch/CHANGELOG.md",
+    "packages/skribble_font_noto_sketch/pubspec.yaml",
+    "packages/skribble_font_recursive/CHANGELOG.md",
+    "packages/skribble_font_recursive/pubspec.yaml",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_font_roughen/pubspec.yaml",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons/pubspec.yaml",
+    "packages/skribble_icons_bxs/CHANGELOG.md",
+    "packages/skribble_icons_bxs/pubspec.yaml",
+    "packages/skribble_icons_cib/CHANGELOG.md",
+    "packages/skribble_icons_cib/pubspec.yaml",
+    "packages/skribble_icons_lucide/CHANGELOG.md",
+    "packages/skribble_icons_lucide/pubspec.yaml",
+    "packages/skribble_icons_material/CHANGELOG.md",
+    "packages/skribble_icons_material/pubspec.yaml",
+    "packages/skribble_icons_simple/CHANGELOG.md",
+    "packages/skribble_icons_simple/pubspec.yaml",
+    "packages/skribble_jaspr/CHANGELOG.md",
+    "packages/skribble_jaspr/pubspec.yaml",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_lints/pubspec.yaml",
+    "packages/skribble_maps/CHANGELOG.md",
+    "packages/skribble_maps/pubspec.yaml",
+    "packages/skribble_rough/CHANGELOG.md",
+    "packages/skribble_rough/pubspec.yaml",
+    "pubspec.yaml",
+    "rust/CHANGELOG.md",
+    "rust/core/CHANGELOG.md",
+    "rust/core/Cargo.toml",
+    "rust/rough/CHANGELOG.md",
+    "rust/rough/Cargo.toml"
+  ],
+  "package_publications": [
+    {
+      "package": "dart:skribble_rough",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "rust:skribble_rough",
+      "ecosystem": "cargo",
+      "registry": "crates_io",
+      "version": "0.1.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      }
+    },
+    {
+      "package": "skribble",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_charts",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_core",
+      "ecosystem": "cargo",
+      "registry": "crates_io",
+      "version": "0.1.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      }
+    },
+    {
+      "package": "skribble_emoji",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_emoji_gen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_noto",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_noto_lively",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_noto_sketch",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_recursive",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_font_roughen",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_bxs",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_cib",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_lucide",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_material",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_icons_simple",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_jaspr",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_lints",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    },
+    {
+      "package": "skribble_maps",
+      "ecosystem": "dart",
+      "registry": "pub_dev",
+      "version": "0.4.1",
+      "mode": "builtin",
+      "trusted_publishing": {
+        "enabled": true,
+        "mode": "preferred",
+        "repository": "openbudgetfun/skribble",
+        "workflow": "publish.yml",
+        "environment": "publisher"
+      },
+      "timeout": {
+        "timeout_seconds": 600,
+        "retries": 1
+      }
+    }
+  ],
+  "updated_changelogs": [
+    "CHANGELOG.md",
+    "apps/skribble_site/CHANGELOG.md",
+    "docs/site/content/reference/whats-new.md",
+    "packages/skribble/CHANGELOG.md",
+    "packages/skribble_charts/CHANGELOG.md",
+    "packages/skribble_emoji/CHANGELOG.md",
+    "packages/skribble_emoji_gen/CHANGELOG.md",
+    "packages/skribble_font_noto/CHANGELOG.md",
+    "packages/skribble_font_noto_lively/CHANGELOG.md",
+    "packages/skribble_font_noto_sketch/CHANGELOG.md",
+    "packages/skribble_font_recursive/CHANGELOG.md",
+    "packages/skribble_font_roughen/CHANGELOG.md",
+    "packages/skribble_icons/CHANGELOG.md",
+    "packages/skribble_icons_bxs/CHANGELOG.md",
+    "packages/skribble_icons_cib/CHANGELOG.md",
+    "packages/skribble_icons_lucide/CHANGELOG.md",
+    "packages/skribble_icons_material/CHANGELOG.md",
+    "packages/skribble_icons_simple/CHANGELOG.md",
+    "packages/skribble_jaspr/CHANGELOG.md",
+    "packages/skribble_lints/CHANGELOG.md",
+    "packages/skribble_maps/CHANGELOG.md",
+    "packages/skribble_rough/CHANGELOG.md",
+    "rust/CHANGELOG.md",
+    "rust/core/CHANGELOG.md",
+    "rust/rough/CHANGELOG.md"
+  ],
+  "deleted_changesets": [
+    ".changeset/compact-ink.md",
+    ".changeset/compact-svg-paths.md",
+    ".changeset/const-material-icon-data.md",
+    ".changeset/fit-text.md",
+    ".changeset/navigation-and-action-parity.md",
+    ".changeset/rust-core.md",
+    ".changeset/site-lightning.md",
+    ".changeset/site-vivid.md",
+    ".changeset/vivid-and-alive.md"
+  ],
+  "changesets": [
+    {
+      "path": ".changeset/compact-ink.md",
+      "summary": "Compact ink for drawings that ship to a browser",
+      "details": "`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_core`'s `Scribble` draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of the full size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB.",
+      "targets": [
+        {
+          "id": "rust:skribble_rough",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "68ce259313522092bc277a90f7f4890a2dd57184",
+            "short_sha": "68ce259",
+            "url": "https://github.com/openbudgetfun/skribble/commit/68ce259313522092bc277a90f7f4890a2dd57184",
+            "authored_at": "2026-11-12T21:45:46Z",
+            "committed_at": "2026-11-12T21:45:46Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#278",
+            "title": "feat(rust): write compact ink for drawings that ship to a browser",
+            "url": "https://github.com/openbudgetfun/skribble/pull/278",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "20af15049b3af35885dac03d546306b7a3e33c3a",
+            "short_sha": "20af150",
+            "url": "https://github.com/openbudgetfun/skribble/commit/20af15049b3af35885dac03d546306b7a3e33c3a",
+            "authored_at": "2026-11-19T08:44:16Z",
+            "committed_at": "2026-11-19T08:44:16Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#287",
+            "title": "feat(rust)!: move the Rust primitives into a framework-free skribble_core",
+            "url": "https://github.com/openbudgetfun/skribble/pull/287",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/compact-svg-paths.md",
+      "summary": "Smaller SVG path data for server-rendered sketches",
+      "details": "`compactSvgPath` rewrites SVG path data in its smallest equivalent form: relative commands, implicit command repeats, no leading zeros, and no separator where a minus sign or second decimal point already starts the next number. It rounds absolute coordinates to the precision you ask for (one decimal by default) and writes the deltas in whole units of that precision, so a long path never drifts. Every path command is understood, including arcs with packed flags; data it cannot parse comes back unchanged.\n\n`RoughSvg.compact()` applies it to all three groups. At its default of two decimals it draws exactly the shape `RoughSvg.fromDrawable` writes, in about a fifth fewer bytes.\n\n`skribble_jaspr` components now write compact path data in every ink overlay, with no change to what they draw.",
+      "targets": [
+        {
+          "id": "dart:skribble_rough",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        },
+        {
+          "id": "skribble_jaspr",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "116fca1673c50f12e03823c6e21cb05256071e86",
+            "short_sha": "116fca1",
+            "url": "https://github.com/openbudgetfun/skribble/commit/116fca1673c50f12e03823c6e21cb05256071e86",
+            "authored_at": "2026-11-24T09:00:02Z",
+            "committed_at": "2026-11-24T09:00:02Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#290",
+            "title": "perf: make skribble.dev and the docs load much faster",
+            "url": "https://github.com/openbudgetfun/skribble/pull/290",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "116fca1673c50f12e03823c6e21cb05256071e86",
+            "short_sha": "116fca1",
+            "url": "https://github.com/openbudgetfun/skribble/commit/116fca1673c50f12e03823c6e21cb05256071e86",
+            "authored_at": "2026-11-24T09:00:02Z",
+            "committed_at": "2026-11-24T09:00:02Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#290",
+            "title": "perf: make skribble.dev and the docs load much faster",
+            "url": "https://github.com/openbudgetfun/skribble/pull/290",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/const-material-icon-data.md",
+      "summary": "Keep rough icon font lookups constant",
+      "details": "`flutter build web --release` rejects an app that depends on `skribble_icons_material` (including through `skribble_icons`) because `lookupMaterialRoughIconsIconData` constructed `IconData` from a code point read at runtime. Icon tree-shaking requires every `IconData` it can see to be a constant, and it aborts rather than guessing which glyphs to keep.\n\nThe generator now emits `kMaterialRoughIconsByIdentifier`, a const map of `IconData`, and the lookup indexes that map. Apps that register the Material catalog still ship the whole rough icon font, because a const map keeps every entry alive. Named `static const` fields would let unused glyphs drop out, and that remains a follow-up. The storybook icon gallery still builds `IconData` from a runtime code point on purpose, so its web release build keeps `--no-tree-shake-icons`.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        },
+        {
+          "id": "skribble_icons_material",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "patch"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "be74ef951c345011c152bd03d1a7af5c2b1b75e7",
+            "short_sha": "be74ef9",
+            "url": "https://github.com/openbudgetfun/skribble/commit/be74ef951c345011c152bd03d1a7af5c2b1b75e7",
+            "authored_at": "2026-11-18T09:39:51Z",
+            "committed_at": "2026-11-18T09:39:51Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#281",
+            "title": "fix(icons): keep rough Material IconData constant",
+            "url": "https://github.com/openbudgetfun/skribble/pull/281",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "be74ef951c345011c152bd03d1a7af5c2b1b75e7",
+            "short_sha": "be74ef9",
+            "url": "https://github.com/openbudgetfun/skribble/commit/be74ef951c345011c152bd03d1a7af5c2b1b75e7",
+            "authored_at": "2026-11-18T09:39:51Z",
+            "committed_at": "2026-11-18T09:39:51Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#281",
+            "title": "fix(icons): keep rough Material IconData constant",
+            "url": "https://github.com/openbudgetfun/skribble/pull/281",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": [
+          {
+            "provider": "github",
+            "host": "github.com",
+            "id": "#198",
+            "title": "Web release builds fail: generated icon font constructs IconData at runtime",
+            "url": "https://github.com/openbudgetfun/skribble/issues/198",
+            "relationship": "closed_by_review_request"
+          }
+        ]
+      }
+    },
+    {
+      "path": ".changeset/fit-text.md",
+      "summary": "Shrink long labels to fit on one line",
+      "details": "`WiredFitText` draws one line of text that shrinks to fit the width it is given, instead of clipping, wrapping, or overflowing. A label that fits is drawn at full size. A longer one is scaled down until it fits, but never below `minScale` (`kWiredFitTextMinScale`, three quarters of its size) or `minFontSize` (`kWiredFitTextMinFontSize`, 9 px), whichever is larger, and only past that floor does it end in an ellipsis. It scales the laid-out line, so it works with any font, including the default Noto Sketch, keeps the reader's text scale, and adds no dependency. `WiredFitText.wrap` fits a label widget you already have.\n\nChip labels (`WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`) and navigation item labels (`WiredBottomNavigationBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredTabBar`) now fit this way: a label such as \"Notifications\" in a 72 px navigation item shrinks a little rather than reading \"Notifica…\". A `WiredChoiceChip` label also stays on one line now instead of wrapping. Buttons keep wrapping by default; pass `WiredFitText` as a button's `child` to keep its label on one line.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "e2b626ee41ad6dbe290eb84f5d6efd55d6a0044b",
+            "short_sha": "e2b626e",
+            "url": "https://github.com/openbudgetfun/skribble/commit/e2b626ee41ad6dbe290eb84f5d6efd55d6a0044b",
+            "authored_at": "2026-11-19T08:49:41Z",
+            "committed_at": "2026-11-19T08:49:41Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#286",
+            "title": "feat(skribble): shrink long labels to fit with WiredFitText",
+            "url": "https://github.com/openbudgetfun/skribble/pull/286",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "e2b626ee41ad6dbe290eb84f5d6efd55d6a0044b",
+            "short_sha": "e2b626e",
+            "url": "https://github.com/openbudgetfun/skribble/commit/e2b626ee41ad6dbe290eb84f5d6efd55d6a0044b",
+            "authored_at": "2026-11-19T08:49:41Z",
+            "committed_at": "2026-11-19T08:49:41Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#286",
+            "title": "feat(skribble): shrink long labels to fit with WiredFitText",
+            "url": "https://github.com/openbudgetfun/skribble/pull/286",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/navigation-and-action-parity.md",
+      "summary": "Navigation bar, rail, and action button parity with Material",
+      "details": "`WiredNavigationBar`, `WiredNavigationRail`, `WiredFloatingActionButton`, and `WiredIconButton` now cover the parts of Material's `NavigationBar`, `NavigationRail`, `FloatingActionButton`, and `IconButton` that apps reach for, so a Material screen ports without a hand-rolled replacement.\n\n**Navigation bar.** `labelBehavior` (`WiredNavigationDestinationLabelBehavior.alwaysShow`, `onlyShowSelected`, `alwaysHide`), `height`, `backgroundColor`, `indicatorColor`, `colorCoded` (each destination takes `theme.accentAt(index)`), and `animationDuration`. Destinations gain `tooltip`, `enabled`, `badge` (`'3'` for a count, `''` for a dot), `color`, and `isPrimaryAction`, which keeps one destination washed with the accent as the bar's loud action. Destinations now share the bar's width equally instead of sitting 72 pixels apart.\n\n**Navigation rail.** `extended` springs the rail between `minWidth` (72) and `minExtendedWidth` (256) with each label beside its icon. Also `labelType` (`WiredNavigationRailLabelType.none`, `selected`, `all`), `groupAlignment`, `backgroundColor`, `indicatorColor`, `useIndicator`, `colorCoded`, `animationDuration`, `scrollable`, `semanticLabel`, and a nullable `selectedIndex`. Destinations gain `tooltip`, `disabled`, `badge`, and `color`.\n\nBoth pop the selected destination's wash in on a spring while its ink draws on, and settle at once when motion is off. Hidden labels are still read by screen readers, with the label as the tooltip.\n\n**Floating action button.** `WiredFloatingActionButton.small` (40), `.large` (96), and `.extended`, a hand-drawn pill with an optional icon and a label that springs back to a circle when `isExtended` turns off. Every form takes `backgroundColor`, `foregroundColor`, `iconSize`, `tooltip`, `heroTag`, `inkInteraction`, `autofocus`, and `focusNode`.\n\n**Icon button.** `WiredIconButton.filled` (accent wash), `.filledTonal` (marker wash), and `.outlined`, plus Material's toggle behaviour through `isSelected` and `selectedIcon`, `fillColor` for colour-coding, `tooltip`, `autofocus`, and `focusNode`. A disabled filled button keeps a faded wash.\n\n`WiredIconButton` no longer wraps Material's `IconButton`, and the navigation bar and rail no longer import Material, so three files leave the Material dependency audit.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c43bf814c47b03988a0428241de447450a1e6ae2",
+            "short_sha": "c43bf81",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c43bf814c47b03988a0428241de447450a1e6ae2",
+            "authored_at": "2026-11-19T08:35:56Z",
+            "committed_at": "2026-11-19T08:35:56Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#288",
+            "title": "feat: navigation bar, rail, and action button parity with Material",
+            "url": "https://github.com/openbudgetfun/skribble/pull/288",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c43bf814c47b03988a0428241de447450a1e6ae2",
+            "short_sha": "c43bf81",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c43bf814c47b03988a0428241de447450a1e6ae2",
+            "authored_at": "2026-11-19T08:35:56Z",
+            "committed_at": "2026-11-19T08:35:56Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#288",
+            "title": "feat: navigation bar, rail, and action button parity with Material",
+            "url": "https://github.com/openbudgetfun/skribble/pull/288",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/rust-core.md",
+      "summary": "skribble_core: skribble's design system for Rust, free of any UI framework",
+      "details": "The Rust crates no longer build leptoskit components. `skribble_leptoskit`, `skribble_leptoskit_charts`, and `skribble_leptoskit_maps` are gone from this repository, and their framework-free parts now live in one new crate, `skribble_core`, which depends on nothing but `skribble_rough`. leptoskit changes faster than skribble can track, so the leptoskit components move into the leptoskit repository as `leptoskit_skribble`, built on `skribble_core`, where they can follow leptoskit's own API.\n\n`skribble_core` holds:\n\n- **Colours.** The `colorway` module: `Rgba`, the named `swatch`es (Flutter's `WiredPalette` values), `Appearance`, the sunny, berry, ocean, citrus, and quiet `Colorway`s, WCAG contrast, and the default 1.6-pixel pen at playful roughness. `Theme` and `Palette` build on it: `Theme::SKRIBBLE` is the sunny colourway, `Theme::colorway` picks another, and `marker()`, `accent()`, `accent_at(i)`, and `on(wash)` match the Flutter theme.\n- **Component ink.** The `components` module has a recipe for every component the leptoskit crate drew: `button`, `boxed`, `card`, `circle`, `badge`, `input`, `divider`, `checkbox`, `radio`, `switch`, `progress`, and `highlight`. Each returns an `Ink` (a shape, its outline, and its fill) whose drawing stretches to the component behind it, plus the tone that reads on its fill.\n- **Scribbles.** `Scribble` draws arrows, curves, and annotations at an explicit size with the pen's compact, tapered ink, and returns an error instead of panicking for a bad size or shape.\n- **Charts.** `charts::CandlestickChart`, `LineChart`, and `BarChart` draw at an explicit size with exact price geometry, and return an error for a size that is not positive and finite. `ChartTheme`, `indicators`, and `geometry` move unchanged.\n- **Maps.** `maps::Camera`, `LatLng`, `LatLngBounds`, `MapFeature`, `MapStyle`, and `PinCategory` move unchanged, with `features_drawing`, `graticule`, `pin_drawing`, `pin_origin`, `zoom_button_drawing`, and `zoom_steps` for the ink the leptoskit map drew.\n\nEvery drawing is an `InkDrawing`: SVG path data with a light and a dark `Tone` per path. `runs()` groups paths by tone for renderers that recolour ink through a text colour, and `to_svg(appearance)` writes a standalone SVG document.\n\nThe workspace no longer depends on leptoskit or leptos, so it drops its `[patch.crates-io]` pin of leptoskit `main`. The docs replace the three leptoskit guides with [skribble for Rust](https://openbudgetfun.github.io/skribble/docs/guides/rust) and a short note on moving to `leptoskit_skribble`.",
+      "targets": [
+        {
+          "id": "skribble_core",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "20af15049b3af35885dac03d546306b7a3e33c3a",
+            "short_sha": "20af150",
+            "url": "https://github.com/openbudgetfun/skribble/commit/20af15049b3af35885dac03d546306b7a3e33c3a",
+            "authored_at": "2026-11-19T08:44:16Z",
+            "committed_at": "2026-11-19T08:44:16Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#287",
+            "title": "feat(rust)!: move the Rust primitives into a framework-free skribble_core",
+            "url": "https://github.com/openbudgetfun/skribble/pull/287",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "20af15049b3af35885dac03d546306b7a3e33c3a",
+            "short_sha": "20af150",
+            "url": "https://github.com/openbudgetfun/skribble/commit/20af15049b3af35885dac03d546306b7a3e33c3a",
+            "authored_at": "2026-11-19T08:44:16Z",
+            "committed_at": "2026-11-19T08:44:16Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#287",
+            "title": "feat(rust)!: move the Rust primitives into a framework-free skribble_core",
+            "url": "https://github.com/openbudgetfun/skribble/pull/287",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/site-lightning.md",
+      "summary": "skribble.dev and its docs load much faster",
+      "details": "The landing page now downloads about a fifth of what it did on a first visit: 182 KB instead of 850 KB, in 8 requests instead of 13. Fonts arrive as small WOFF2 slices that hold only the characters the page shows, the stylesheet is part of the page, the sketches are written more compactly, and drawings and fonts further down the page wait until you scroll near them. On a mid-range phone the page appears in about 1.4 seconds instead of 4.8.\n\nThe docs load less up front as well. They no longer fetch a 380 KB symbols font for the arrows in their links, ship only the icons they use, load the gentle and expressive pens' code fonts only when you pick one, trim every font to the scripts the docs show, and read only the page you open. The first page now appears in about 24 seconds instead of 41 on a slow phone connection, and the first load transfers about 3.9 MB instead of 7.8 MB.",
+      "targets": [
+        {
+          "id": "skribble_site",
+          "kind": "package",
+          "bump": "patch",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "user_fix"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "116fca1673c50f12e03823c6e21cb05256071e86",
+            "short_sha": "116fca1",
+            "url": "https://github.com/openbudgetfun/skribble/commit/116fca1673c50f12e03823c6e21cb05256071e86",
+            "authored_at": "2026-11-24T09:00:02Z",
+            "committed_at": "2026-11-24T09:00:02Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#290",
+            "title": "perf: make skribble.dev and the docs load much faster",
+            "url": "https://github.com/openbudgetfun/skribble/pull/290",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "116fca1673c50f12e03823c6e21cb05256071e86",
+            "short_sha": "116fca1",
+            "url": "https://github.com/openbudgetfun/skribble/commit/116fca1673c50f12e03823c6e21cb05256071e86",
+            "authored_at": "2026-11-24T09:00:02Z",
+            "committed_at": "2026-11-24T09:00:02Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#290",
+            "title": "perf: make skribble.dev and the docs load much faster",
+            "url": "https://github.com/openbudgetfun/skribble/pull/290",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/site-vivid.md",
+      "summary": "skribble.dev is brighter and moves",
+      "details": "The landing page uses the new sunny colours: sticker-chip section labels, a highlighter-yellow marquee and closing, and colour-coded cards. The hero copy springs in line by line, hand-drawn confetti boils around the headline and drifts with the pointer, and cards lift on hover. Everything stays still when your device asks for reduced motion.",
+      "targets": [
+        {
+          "id": "skribble_site",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "user_feat"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c913920910f875f1289169f7f786b8c82fd09147",
+            "short_sha": "c913920",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c913920910f875f1289169f7f786b8c82fd09147",
+            "authored_at": "2026-11-11T20:01:33Z",
+            "committed_at": "2026-11-11T20:01:33Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#283",
+            "title": "feat: vivid colourways and lively motion by default",
+            "url": "https://github.com/openbudgetfun/skribble/pull/283",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c913920910f875f1289169f7f786b8c82fd09147",
+            "short_sha": "c913920",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c913920910f875f1289169f7f786b8c82fd09147",
+            "authored_at": "2026-11-11T20:01:33Z",
+            "committed_at": "2026-11-11T20:01:33Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#283",
+            "title": "feat: vivid colourways and lively motion by default",
+            "url": "https://github.com/openbudgetfun/skribble/pull/283",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    },
+    {
+      "path": ".changeset/vivid-and-alive.md",
+      "summary": "Vivid colourways and lively motion by default",
+      "details": "skribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page.",
+      "targets": [
+        {
+          "id": "skribble",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        },
+        {
+          "id": "skribble_jaspr",
+          "kind": "package",
+          "bump": "minor",
+          "origin": "direct-change",
+          "evidence_refs": [],
+          "change_type": "minor"
+        }
+      ],
+      "context": {
+        "provider": "github",
+        "host": "github.com",
+        "capabilities": {
+          "commit_web_urls": true,
+          "actor_profiles": true,
+          "review_request_lookup": true,
+          "related_issues": true,
+          "issue_comments": true
+        },
+        "introduced": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c913920910f875f1289169f7f786b8c82fd09147",
+            "short_sha": "c913920",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c913920910f875f1289169f7f786b8c82fd09147",
+            "authored_at": "2026-11-11T20:01:33Z",
+            "committed_at": "2026-11-11T20:01:33Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#283",
+            "title": "feat: vivid colourways and lively motion by default",
+            "url": "https://github.com/openbudgetfun/skribble/pull/283",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "last_updated": {
+          "actor": {
+            "provider": "github",
+            "host": "github.com",
+            "id": null,
+            "login": "ifiokjr",
+            "display_name": "ifiokjr",
+            "url": "https://github.com/ifiokjr",
+            "source": "review_request_author"
+          },
+          "commit": {
+            "provider": "github",
+            "host": "github.com",
+            "sha": "c913920910f875f1289169f7f786b8c82fd09147",
+            "short_sha": "c913920",
+            "url": "https://github.com/openbudgetfun/skribble/commit/c913920910f875f1289169f7f786b8c82fd09147",
+            "authored_at": "2026-11-11T20:01:33Z",
+            "committed_at": "2026-11-11T20:01:33Z",
+            "author_name": "Ifiok Jr.",
+            "author_email": "1160934+ifiokjr@users.noreply.github.com"
+          },
+          "review_request": {
+            "provider": "github",
+            "host": "github.com",
+            "kind": "pull_request",
+            "id": "#283",
+            "title": "feat: vivid colourways and lively motion by default",
+            "url": "https://github.com/openbudgetfun/skribble/pull/283",
+            "author": {
+              "provider": "github",
+              "host": "github.com",
+              "id": null,
+              "login": "ifiokjr",
+              "display_name": "ifiokjr",
+              "url": "https://github.com/ifiokjr",
+              "source": "review_request_author"
+            }
+          }
+        },
+        "related_issues": []
+      }
+    }
+  ],
+  "changelogs": [
+    {
+      "owner_id": "main",
+      "owner_kind": "group",
+      "output": "default",
+      "stream": "default",
+      "path": "CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [
+          "Grouped release for `main`."
+        ],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Shrink long labels to fit on one line\n\n_Packages:_ 🟠 _skribble_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #286](https://github.com/openbudgetfun/skribble/pull/286)\n\n`WiredFitText` draws one line of text that shrinks to fit the width it is given, instead of clipping, wrapping, or overflowing. A label that fits is drawn at full size. A longer one is scaled down until it fits, but never below `minScale` (`kWiredFitTextMinScale`, three quarters of its size) or `minFontSize` (`kWiredFitTextMinFontSize`, 9 px), whichever is larger, and only past that floor does it end in an ellipsis. It scales the laid-out line, so it works with any font, including the default Noto Sketch, keeps the reader's text scale, and adds no dependency. `WiredFitText.wrap` fits a label widget you already have.\n\nChip labels (`WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`) and navigation item labels (`WiredBottomNavigationBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredTabBar`) now fit this way: a label such as \"Notifications\" in a 72 px navigation item shrinks a little rather than reading \"Notifica…\". A `WiredChoiceChip` label also stays on one line now instead of wrapping. Buttons keep wrapping by default; pass `WiredFitText` as a button's `child` to keep its label on one line.",
+              "#### Navigation bar, rail, and action button parity with Material\n\n_Packages:_ 🟠 _skribble_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #288](https://github.com/openbudgetfun/skribble/pull/288)\n\n`WiredNavigationBar`, `WiredNavigationRail`, `WiredFloatingActionButton`, and `WiredIconButton` now cover the parts of Material's `NavigationBar`, `NavigationRail`, `FloatingActionButton`, and `IconButton` that apps reach for, so a Material screen ports without a hand-rolled replacement.\n\n**Navigation bar.** `labelBehavior` (`WiredNavigationDestinationLabelBehavior.alwaysShow`, `onlyShowSelected`, `alwaysHide`), `height`, `backgroundColor`, `indicatorColor`, `colorCoded` (each destination takes `theme.accentAt(index)`), and `animationDuration`. Destinations gain `tooltip`, `enabled`, `badge` (`'3'` for a count, `''` for a dot), `color`, and `isPrimaryAction`, which keeps one destination washed with the accent as the bar's loud action. Destinations now share the bar's width equally instead of sitting 72 pixels apart.\n\n**Navigation rail.** `extended` springs the rail between `minWidth` (72) and `minExtendedWidth` (256) with each label beside its icon. Also `labelType` (`WiredNavigationRailLabelType.none`, `selected`, `all`), `groupAlignment`, `backgroundColor`, `indicatorColor`, `useIndicator`, `colorCoded`, `animationDuration`, `scrollable`, `semanticLabel`, and a nullable `selectedIndex`. Destinations gain `tooltip`, `disabled`, `badge`, and `color`.\n\nBoth pop the selected destination's wash in on a spring while its ink draws on, and settle at once when motion is off. Hidden labels are still read by screen readers, with the label as the tooltip.\n\n**Floating action button.** `WiredFloatingActionButton.small` (40), `.large` (96), and `.extended`, a hand-drawn pill with an optional icon and a label that springs back to a circle when `isExtended` turns off. Every form takes `backgroundColor`, `foregroundColor`, `iconSize`, `tooltip`, `heroTag`, `inkInteraction`, `autofocus`, and `focusNode`.\n\n**Icon button.** `WiredIconButton.filled` (accent wash), `.filledTonal` (marker wash), and `.outlined`, plus Material's toggle behaviour through `isSelected` and `selectedIcon`, `fillColor` for colour-coding, `tooltip`, `autofocus`, and `focusNode`. A disabled filled button keeps a faded wash.\n\n`WiredIconButton` no longer wraps Material's `IconButton`, and the navigation bar and rail no longer import Material, so three files leave the Material dependency audit.",
+              "#### Vivid colourways and lively motion by default\n\n_Packages:_ 🟠 _skribble_, 🟠 _skribble_jaspr_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page.",
+              "#### Smaller SVG path data for server-rendered sketches\n\n_Packages:_ 🟠 _dart:skribble_rough_, 🟢 _skribble_jaspr_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #290](https://github.com/openbudgetfun/skribble/pull/290)\n\n`compactSvgPath` rewrites SVG path data in its smallest equivalent form: relative commands, implicit command repeats, no leading zeros, and no separator where a minus sign or second decimal point already starts the next number. It rounds absolute coordinates to the precision you ask for (one decimal by default) and writes the deltas in whole units of that precision, so a long path never drifts. Every path command is understood, including arcs with packed flags; data it cannot parse comes back unchanged.\n\n`RoughSvg.compact()` applies it to all three groups. At its default of two decimals it draws exactly the shape `RoughSvg.fromDrawable` writes, in about a fifth fewer bytes.\n\n`skribble_jaspr` components now write compact path data in every ink overlay, with no change to what they draw."
+            ]
+          },
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Keep rough icon font lookups constant\n\n_Packages:_ 🟢 _skribble_, 🟢 _skribble_icons_material_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #281](https://github.com/openbudgetfun/skribble/pull/281) · _Closed issues:_ [#198](https://github.com/openbudgetfun/skribble/issues/198)\n\n`flutter build web --release` rejects an app that depends on `skribble_icons_material` (including through `skribble_icons`) because `lookupMaterialRoughIconsIconData` constructed `IconData` from a code point read at runtime. Icon tree-shaking requires every `IconData` it can see to be a constant, and it aborts rather than guessing which glyphs to keep.\n\nThe generator now emits `kMaterialRoughIconsByIdentifier`, a const map of `IconData`, and the lookup indexes that map. Apps that register the Material catalog still ship the whole rough icon font, because a const map keeps every entry alive. Named `static const` fields would let unused glyphs drop out, and that remains a follow-up. The storybook icon gallery still builds `IconData` from a runtime code point on purpose, so its web release build keeps `--no-tree-shake-icons`."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\nGrouped release for `main`.\n\n### Features\n\n#### Shrink long labels to fit on one line\n\n_Packages:_ 🟠 _skribble_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #286](https://github.com/openbudgetfun/skribble/pull/286)\n\n`WiredFitText` draws one line of text that shrinks to fit the width it is given, instead of clipping, wrapping, or overflowing. A label that fits is drawn at full size. A longer one is scaled down until it fits, but never below `minScale` (`kWiredFitTextMinScale`, three quarters of its size) or `minFontSize` (`kWiredFitTextMinFontSize`, 9 px), whichever is larger, and only past that floor does it end in an ellipsis. It scales the laid-out line, so it works with any font, including the default Noto Sketch, keeps the reader's text scale, and adds no dependency. `WiredFitText.wrap` fits a label widget you already have.\n\nChip labels (`WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`) and navigation item labels (`WiredBottomNavigationBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredTabBar`) now fit this way: a label such as \"Notifications\" in a 72 px navigation item shrinks a little rather than reading \"Notifica…\". A `WiredChoiceChip` label also stays on one line now instead of wrapping. Buttons keep wrapping by default; pass `WiredFitText` as a button's `child` to keep its label on one line.\n\n#### Navigation bar, rail, and action button parity with Material\n\n_Packages:_ 🟠 _skribble_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #288](https://github.com/openbudgetfun/skribble/pull/288)\n\n`WiredNavigationBar`, `WiredNavigationRail`, `WiredFloatingActionButton`, and `WiredIconButton` now cover the parts of Material's `NavigationBar`, `NavigationRail`, `FloatingActionButton`, and `IconButton` that apps reach for, so a Material screen ports without a hand-rolled replacement.\n\n**Navigation bar.** `labelBehavior` (`WiredNavigationDestinationLabelBehavior.alwaysShow`, `onlyShowSelected`, `alwaysHide`), `height`, `backgroundColor`, `indicatorColor`, `colorCoded` (each destination takes `theme.accentAt(index)`), and `animationDuration`. Destinations gain `tooltip`, `enabled`, `badge` (`'3'` for a count, `''` for a dot), `color`, and `isPrimaryAction`, which keeps one destination washed with the accent as the bar's loud action. Destinations now share the bar's width equally instead of sitting 72 pixels apart.\n\n**Navigation rail.** `extended` springs the rail between `minWidth` (72) and `minExtendedWidth` (256) with each label beside its icon. Also `labelType` (`WiredNavigationRailLabelType.none`, `selected`, `all`), `groupAlignment`, `backgroundColor`, `indicatorColor`, `useIndicator`, `colorCoded`, `animationDuration`, `scrollable`, `semanticLabel`, and a nullable `selectedIndex`. Destinations gain `tooltip`, `disabled`, `badge`, and `color`.\n\nBoth pop the selected destination's wash in on a spring while its ink draws on, and settle at once when motion is off. Hidden labels are still read by screen readers, with the label as the tooltip.\n\n**Floating action button.** `WiredFloatingActionButton.small` (40), `.large` (96), and `.extended`, a hand-drawn pill with an optional icon and a label that springs back to a circle when `isExtended` turns off. Every form takes `backgroundColor`, `foregroundColor`, `iconSize`, `tooltip`, `heroTag`, `inkInteraction`, `autofocus`, and `focusNode`.\n\n**Icon button.** `WiredIconButton.filled` (accent wash), `.filledTonal` (marker wash), and `.outlined`, plus Material's toggle behaviour through `isSelected` and `selectedIcon`, `fillColor` for colour-coding, `tooltip`, `autofocus`, and `focusNode`. A disabled filled button keeps a faded wash.\n\n`WiredIconButton` no longer wraps Material's `IconButton`, and the navigation bar and rail no longer import Material, so three files leave the Material dependency audit.\n\n#### Vivid colourways and lively motion by default\n\n_Packages:_ 🟠 _skribble_, 🟠 _skribble_jaspr_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page.\n\n#### Smaller SVG path data for server-rendered sketches\n\n_Packages:_ 🟠 _dart:skribble_rough_, 🟢 _skribble_jaspr_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #290](https://github.com/openbudgetfun/skribble/pull/290)\n\n`compactSvgPath` rewrites SVG path data in its smallest equivalent form: relative commands, implicit command repeats, no leading zeros, and no separator where a minus sign or second decimal point already starts the next number. It rounds absolute coordinates to the precision you ask for (one decimal by default) and writes the deltas in whole units of that precision, so a long path never drifts. Every path command is understood, including arcs with packed flags; data it cannot parse comes back unchanged.\n\n`RoughSvg.compact()` applies it to all three groups. At its default of two decimals it draws exactly the shape `RoughSvg.fromDrawable` writes, in about a fifth fewer bytes.\n\n`skribble_jaspr` components now write compact path data in every ink overlay, with no change to what they draw.\n\n### Fixes\n\n#### Keep rough icon font lookups constant\n\n_Packages:_ 🟢 _skribble_, 🟢 _skribble_icons_material_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #281](https://github.com/openbudgetfun/skribble/pull/281) · _Closed issues:_ [#198](https://github.com/openbudgetfun/skribble/issues/198)\n\n`flutter build web --release` rejects an app that depends on `skribble_icons_material` (including through `skribble_icons`) because `lookupMaterialRoughIconsIconData` constructed `IconData` from a code point read at runtime. Icon tree-shaking requires every `IconData` it can see to be a constant, and it aborts rather than guessing which glyphs to keep.\n\nThe generator now emits `kMaterialRoughIconsByIdentifier`, a const map of `IconData`, and the lookup indexes that map. Apps that register the Material catalog still ship the whole rough icon font, because a const map keeps every entry alive. Named `static const` fields would let unused glyphs drop out, and that remains a follow-up. The storybook icon gallery still builds `IconData` from a runtime code point on purpose, so its web release build keeps `--no-tree-shake-icons`."
+    },
+    {
+      "owner_id": "skribble_site",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "apps/skribble_site/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_site` was updated to 1.1.0.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_site` was updated to 1.1.0.**"
+    },
+    {
+      "owner_id": "skribble_site",
+      "owner_kind": "package",
+      "output": "user",
+      "stream": "user",
+      "path": "docs/site/content/reference/whats-new.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "- **skribble.dev is brighter and moves.** The landing page uses the new sunny colours: sticker-chip section labels, a highlighter-yellow marquee and closing, and colour-coded cards. The hero copy springs in line by line, hand-drawn confetti boils around the headline and drifts with the pointer, and cards lift on hover. Everything stays still when your device asks for reduced motion.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)"
+            ]
+          },
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### skribble.dev and its docs load much faster\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #290](https://github.com/openbudgetfun/skribble/pull/290)\n\nThe landing page now downloads about a fifth of what it did on a first visit: 182 KB instead of 850 KB, in 8 requests instead of 13. Fonts arrive as small WOFF2 slices that hold only the characters the page shows, the stylesheet is part of the page, the sketches are written more compactly, and drawings and fonts further down the page wait until you scroll near them. On a mid-range phone the page appears in about 1.4 seconds instead of 4.8.\n\nThe docs load less up front as well. They no longer fetch a 380 KB symbols font for the arrows in their links, ship only the icons they use, load the gentle and expressive pens' code fonts only when you pick one, trim every font to the scripts the docs show, and read only the page you open. The first page now appears in about 24 seconds instead of 41 on a slow phone connection, and the first load transfers about 3.9 MB instead of 7.8 MB."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [1.1.0](https://github.com/openbudgetfun/skribble/releases/tag/skribble_site/v1.1.0) (2026-11-25)\n\n### Features\n\n- **skribble.dev is brighter and moves.** The landing page uses the new sunny colours: sticker-chip section labels, a highlighter-yellow marquee and closing, and colour-coded cards. The hero copy springs in line by line, hand-drawn confetti boils around the headline and drifts with the pointer, and cards lift on hover. Everything stays still when your device asks for reduced motion.\n  _Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\n### Fixes\n\n#### skribble.dev and its docs load much faster\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #290](https://github.com/openbudgetfun/skribble/pull/290)\n\nThe landing page now downloads about a fifth of what it did on a first visit: 182 KB instead of 850 KB, in 8 requests instead of 13. Fonts arrive as small WOFF2 slices that hold only the characters the page shows, the stylesheet is part of the page, the sketches are written more compactly, and drawings and fonts further down the page wait until you scroll near them. On a mid-range phone the page appears in about 1.4 seconds instead of 4.8.\n\nThe docs load less up front as well. They no longer fetch a 380 KB symbols font for the arrows in their links, ship only the icons they use, load the gentle and expressive pens' code fonts only when you pick one, trim every font to the scripts the docs show, and read only the page you open. The first page now appears in about 24 seconds instead of 41 on a slow phone connection, and the first load transfers about 3.9 MB instead of 7.8 MB."
+    },
+    {
+      "owner_id": "skribble",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Shrink long labels to fit on one line\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #286](https://github.com/openbudgetfun/skribble/pull/286)\n\n`WiredFitText` draws one line of text that shrinks to fit the width it is given, instead of clipping, wrapping, or overflowing. A label that fits is drawn at full size. A longer one is scaled down until it fits, but never below `minScale` (`kWiredFitTextMinScale`, three quarters of its size) or `minFontSize` (`kWiredFitTextMinFontSize`, 9 px), whichever is larger, and only past that floor does it end in an ellipsis. It scales the laid-out line, so it works with any font, including the default Noto Sketch, keeps the reader's text scale, and adds no dependency. `WiredFitText.wrap` fits a label widget you already have.\n\nChip labels (`WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`) and navigation item labels (`WiredBottomNavigationBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredTabBar`) now fit this way: a label such as \"Notifications\" in a 72 px navigation item shrinks a little rather than reading \"Notifica…\". A `WiredChoiceChip` label also stays on one line now instead of wrapping. Buttons keep wrapping by default; pass `WiredFitText` as a button's `child` to keep its label on one line.",
+              "#### Navigation bar, rail, and action button parity with Material\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #288](https://github.com/openbudgetfun/skribble/pull/288)\n\n`WiredNavigationBar`, `WiredNavigationRail`, `WiredFloatingActionButton`, and `WiredIconButton` now cover the parts of Material's `NavigationBar`, `NavigationRail`, `FloatingActionButton`, and `IconButton` that apps reach for, so a Material screen ports without a hand-rolled replacement.\n\n**Navigation bar.** `labelBehavior` (`WiredNavigationDestinationLabelBehavior.alwaysShow`, `onlyShowSelected`, `alwaysHide`), `height`, `backgroundColor`, `indicatorColor`, `colorCoded` (each destination takes `theme.accentAt(index)`), and `animationDuration`. Destinations gain `tooltip`, `enabled`, `badge` (`'3'` for a count, `''` for a dot), `color`, and `isPrimaryAction`, which keeps one destination washed with the accent as the bar's loud action. Destinations now share the bar's width equally instead of sitting 72 pixels apart.\n\n**Navigation rail.** `extended` springs the rail between `minWidth` (72) and `minExtendedWidth` (256) with each label beside its icon. Also `labelType` (`WiredNavigationRailLabelType.none`, `selected`, `all`), `groupAlignment`, `backgroundColor`, `indicatorColor`, `useIndicator`, `colorCoded`, `animationDuration`, `scrollable`, `semanticLabel`, and a nullable `selectedIndex`. Destinations gain `tooltip`, `disabled`, `badge`, and `color`.\n\nBoth pop the selected destination's wash in on a spring while its ink draws on, and settle at once when motion is off. Hidden labels are still read by screen readers, with the label as the tooltip.\n\n**Floating action button.** `WiredFloatingActionButton.small` (40), `.large` (96), and `.extended`, a hand-drawn pill with an optional icon and a label that springs back to a circle when `isExtended` turns off. Every form takes `backgroundColor`, `foregroundColor`, `iconSize`, `tooltip`, `heroTag`, `inkInteraction`, `autofocus`, and `focusNode`.\n\n**Icon button.** `WiredIconButton.filled` (accent wash), `.filledTonal` (marker wash), and `.outlined`, plus Material's toggle behaviour through `isSelected` and `selectedIcon`, `fillColor` for colour-coding, `tooltip`, `autofocus`, and `focusNode`. A disabled filled button keeps a faded wash.\n\n`WiredIconButton` no longer wraps Material's `IconButton`, and the navigation bar and rail no longer import Material, so three files leave the Material dependency audit.",
+              "#### Vivid colourways and lively motion by default\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page."
+            ]
+          },
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Keep rough icon font lookups constant\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #281](https://github.com/openbudgetfun/skribble/pull/281) · _Closed issues:_ [#198](https://github.com/openbudgetfun/skribble/issues/198)\n\n`flutter build web --release` rejects an app that depends on `skribble_icons_material` (including through `skribble_icons`) because `lookupMaterialRoughIconsIconData` constructed `IconData` from a code point read at runtime. Icon tree-shaking requires every `IconData` it can see to be a constant, and it aborts rather than guessing which glyphs to keep.\n\nThe generator now emits `kMaterialRoughIconsByIdentifier`, a const map of `IconData`, and the lookup indexes that map. Apps that register the Material catalog still ship the whole rough icon font, because a const map keeps every entry alive. Named `static const` fields would let unused glyphs drop out, and that remains a follow-up. The storybook icon gallery still builds `IconData` from a runtime code point on purpose, so its web release build keeps `--no-tree-shake-icons`."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Features\n\n#### Shrink long labels to fit on one line\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #286](https://github.com/openbudgetfun/skribble/pull/286)\n\n`WiredFitText` draws one line of text that shrinks to fit the width it is given, instead of clipping, wrapping, or overflowing. A label that fits is drawn at full size. A longer one is scaled down until it fits, but never below `minScale` (`kWiredFitTextMinScale`, three quarters of its size) or `minFontSize` (`kWiredFitTextMinFontSize`, 9 px), whichever is larger, and only past that floor does it end in an ellipsis. It scales the laid-out line, so it works with any font, including the default Noto Sketch, keeps the reader's text scale, and adds no dependency. `WiredFitText.wrap` fits a label widget you already have.\n\nChip labels (`WiredChip`, `WiredChoiceChip`, `WiredFilterChip`, `WiredInputChip`) and navigation item labels (`WiredBottomNavigationBar`, `WiredNavigationBar`, `WiredNavigationRail`, `WiredTabBar`) now fit this way: a label such as \"Notifications\" in a 72 px navigation item shrinks a little rather than reading \"Notifica…\". A `WiredChoiceChip` label also stays on one line now instead of wrapping. Buttons keep wrapping by default; pass `WiredFitText` as a button's `child` to keep its label on one line.\n\n#### Navigation bar, rail, and action button parity with Material\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #288](https://github.com/openbudgetfun/skribble/pull/288)\n\n`WiredNavigationBar`, `WiredNavigationRail`, `WiredFloatingActionButton`, and `WiredIconButton` now cover the parts of Material's `NavigationBar`, `NavigationRail`, `FloatingActionButton`, and `IconButton` that apps reach for, so a Material screen ports without a hand-rolled replacement.\n\n**Navigation bar.** `labelBehavior` (`WiredNavigationDestinationLabelBehavior.alwaysShow`, `onlyShowSelected`, `alwaysHide`), `height`, `backgroundColor`, `indicatorColor`, `colorCoded` (each destination takes `theme.accentAt(index)`), and `animationDuration`. Destinations gain `tooltip`, `enabled`, `badge` (`'3'` for a count, `''` for a dot), `color`, and `isPrimaryAction`, which keeps one destination washed with the accent as the bar's loud action. Destinations now share the bar's width equally instead of sitting 72 pixels apart.\n\n**Navigation rail.** `extended` springs the rail between `minWidth` (72) and `minExtendedWidth` (256) with each label beside its icon. Also `labelType` (`WiredNavigationRailLabelType.none`, `selected`, `all`), `groupAlignment`, `backgroundColor`, `indicatorColor`, `useIndicator`, `colorCoded`, `animationDuration`, `scrollable`, `semanticLabel`, and a nullable `selectedIndex`. Destinations gain `tooltip`, `disabled`, `badge`, and `color`.\n\nBoth pop the selected destination's wash in on a spring while its ink draws on, and settle at once when motion is off. Hidden labels are still read by screen readers, with the label as the tooltip.\n\n**Floating action button.** `WiredFloatingActionButton.small` (40), `.large` (96), and `.extended`, a hand-drawn pill with an optional icon and a label that springs back to a circle when `isExtended` turns off. Every form takes `backgroundColor`, `foregroundColor`, `iconSize`, `tooltip`, `heroTag`, `inkInteraction`, `autofocus`, and `focusNode`.\n\n**Icon button.** `WiredIconButton.filled` (accent wash), `.filledTonal` (marker wash), and `.outlined`, plus Material's toggle behaviour through `isSelected` and `selectedIcon`, `fillColor` for colour-coding, `tooltip`, `autofocus`, and `focusNode`. A disabled filled button keeps a faded wash.\n\n`WiredIconButton` no longer wraps Material's `IconButton`, and the navigation bar and rail no longer import Material, so three files leave the Material dependency audit.\n\n#### Vivid colourways and lively motion by default\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page.\n\n### Fixes\n\n#### Keep rough icon font lookups constant\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #281](https://github.com/openbudgetfun/skribble/pull/281) · _Closed issues:_ [#198](https://github.com/openbudgetfun/skribble/issues/198)\n\n`flutter build web --release` rejects an app that depends on `skribble_icons_material` (including through `skribble_icons`) because `lookupMaterialRoughIconsIconData` constructed `IconData` from a code point read at runtime. Icon tree-shaking requires every `IconData` it can see to be a constant, and it aborts rather than guessing which glyphs to keep.\n\nThe generator now emits `kMaterialRoughIconsByIdentifier`, a const map of `IconData`, and the lookup indexes that map. Apps that register the Material catalog still ship the whole rough icon font, because a const map keeps every entry alive. Named `static const` fields would let unused glyphs drop out, and that remains a follow-up. The storybook icon gallery still builds `IconData` from a runtime code point on purpose, so its web release build keeps `--no-tree-shake-icons`."
+    },
+    {
+      "owner_id": "skribble_charts",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_charts/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_charts [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_charts` was updated to 0.4.1.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_charts [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_charts/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_charts` was updated to 0.4.1.**"
+    },
+    {
+      "owner_id": "skribble_emoji",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_emoji` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_emoji` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_emoji_gen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_emoji_gen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_emoji_gen` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_emoji_gen` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_noto",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_noto/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_noto` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_noto` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_noto_lively",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_noto_lively/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_noto_lively` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_noto_lively` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_noto_sketch",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_noto_sketch/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_noto_sketch` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_noto_sketch` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_recursive",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_recursive/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_recursive` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_font_roughen",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_font_roughen/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_font_roughen` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_bxs",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_bxs/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_bxs` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_bxs` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_cib",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_cib/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_cib` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_cib` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_lucide",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_lucide/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_lucide` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_lucide` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_icons_material",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_material/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Keep rough icon font lookups constant\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #281](https://github.com/openbudgetfun/skribble/pull/281) · _Closed issues:_ [#198](https://github.com/openbudgetfun/skribble/issues/198)\n\n`flutter build web --release` rejects an app that depends on `skribble_icons_material` (including through `skribble_icons`) because `lookupMaterialRoughIconsIconData` constructed `IconData` from a code point read at runtime. Icon tree-shaking requires every `IconData` it can see to be a constant, and it aborts rather than guessing which glyphs to keep.\n\nThe generator now emits `kMaterialRoughIconsByIdentifier`, a const map of `IconData`, and the lookup indexes that map. Apps that register the Material catalog still ship the whole rough icon font, because a const map keeps every entry alive. Named `static const` fields would let unused glyphs drop out, and that remains a follow-up. The storybook icon gallery still builds `IconData` from a runtime code point on purpose, so its web release build keeps `--no-tree-shake-icons`."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Fixes\n\n#### Keep rough icon font lookups constant\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #281](https://github.com/openbudgetfun/skribble/pull/281) · _Closed issues:_ [#198](https://github.com/openbudgetfun/skribble/issues/198)\n\n`flutter build web --release` rejects an app that depends on `skribble_icons_material` (including through `skribble_icons`) because `lookupMaterialRoughIconsIconData` constructed `IconData` from a code point read at runtime. Icon tree-shaking requires every `IconData` it can see to be a constant, and it aborts rather than guessing which glyphs to keep.\n\nThe generator now emits `kMaterialRoughIconsByIdentifier`, a const map of `IconData`, and the lookup indexes that map. Apps that register the Material catalog still ship the whole rough icon font, because a const map keeps every entry alive. Named `static const` fields would let unused glyphs drop out, and that remains a follow-up. The storybook icon gallery still builds `IconData` from a runtime code point on purpose, so its web release build keeps `--no-tree-shake-icons`."
+    },
+    {
+      "owner_id": "skribble_icons_simple",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_icons_simple/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_icons_simple` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_icons_simple` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_jaspr",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_jaspr/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Vivid colourways and lively motion by default\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page."
+            ]
+          },
+          {
+            "title": "Fixes",
+            "collapsed": false,
+            "entries": [
+              "#### Smaller SVG path data for server-rendered sketches\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #290](https://github.com/openbudgetfun/skribble/pull/290)\n\n`compactSvgPath` rewrites SVG path data in its smallest equivalent form: relative commands, implicit command repeats, no leading zeros, and no separator where a minus sign or second decimal point already starts the next number. It rounds absolute coordinates to the precision you ask for (one decimal by default) and writes the deltas in whole units of that precision, so a long path never drifts. Every path command is understood, including arcs with packed flags; data it cannot parse comes back unchanged.\n\n`RoughSvg.compact()` applies it to all three groups. At its default of two decimals it draws exactly the shape `RoughSvg.fromDrawable` writes, in about a fifth fewer bytes.\n\n`skribble_jaspr` components now write compact path data in every ink overlay, with no change to what they draw."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Features\n\n#### Vivid colourways and lively motion by default\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #283](https://github.com/openbudgetfun/skribble/pull/283)\n\nskribble now looks like a sticker book out of the box instead of a pencil sketch on grey paper, and the docs and agent instructions steer people and coding agents toward colour and motion rather than safe, muted designs.\n\n**Colour.** `WiredColorway` (`sunny`, `berry`, `ocean`, `citrus`, and the calm `quiet`) and `WiredThemeData.colorway(...)` build light and dark themes from a set of vivid washes added to `WiredPalette` (`sunshine`, `tomato`, `tangerine`, `sky`, `aqua`, `mint`, `lime`, `bubblegum`, `grape`, `cobalt`, `cherry`, `cherryGlow`). Every wash keeps 4.5:1 contrast with plum ink and night text. `WiredThemeData` gains `accentColor` and `accents`, with `accentAt(index)` for colour-coding content, and `onColor`, `onMarkerColor`, `onAccentColor`, and `inkOn` for labels on a wash. `cuddly()` is the sunny colourway.\n\nThe defaults change: the marker is `sunshine` (was `lilac`), errors use `cherry`, `WiredFilledButton`, `WiredFloatingActionButton`, and `WiredBadge` fill with the accent (tomato), and selected choice and filter chips are coloured in with the marker instead of solid ink. Selected navigation, segmented, toggle, and stepper items use `onMarkerColor`. Pass `WiredThemeData.colorway(WiredColorway.quiet)` to keep the earlier lilac look. `WiredCard` takes a `color` and inks its content to match. The Material bridge maps `accentColor` to and from `ColorScheme.tertiary`.\n\n**Motion.** `WiredEntrance` springs a child in while its ink draws on, `WiredEntrance.staggered` and `WiredCascade` bring lists and columns in one after another, `WiredBoil` gives focal drawings the wriggle of hand-drawn animation, `WiredHighlight` swipes a marker or underline behind words, and `WiredCurves` (`springy`, `snappy`, `bouncy`, `pen`) and `WiredSpringCurve` time your own animations. All of it settles at once when `WiredMotion` is off or the platform asks for reduced motion.\n\n**Web.** `skribble_jaspr`'s stylesheet uses the sunny colours, adds `--skribble-marker`, `--skribble-on-marker`, and six `--skribble-wash-*` properties with matching `skribble-wash-1` to `skribble-wash-6` classes, and adds the `skribble-draw`, `skribble-pop`, and `skribble-lift` motion classes, all behind `prefers-reduced-motion: no-preference`. Stroked paths carry `pathLength=\"1\"` so they can draw on.\n\nThe new [Vivid and alive](https://openbudgetfun.github.io/skribble/guides/vivid-design) guide holds the design rules, shared with `AGENTS.md` and the agents reference page.\n\n### Fixes\n\n#### Smaller SVG path data for server-rendered sketches\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #290](https://github.com/openbudgetfun/skribble/pull/290)\n\n`compactSvgPath` rewrites SVG path data in its smallest equivalent form: relative commands, implicit command repeats, no leading zeros, and no separator where a minus sign or second decimal point already starts the next number. It rounds absolute coordinates to the precision you ask for (one decimal by default) and writes the deltas in whole units of that precision, so a long path never drifts. Every path command is understood, including arcs with packed flags; data it cannot parse comes back unchanged.\n\n`RoughSvg.compact()` applies it to all three groups. At its default of two decimals it draws exactly the shape `RoughSvg.fromDrawable` writes, in about a fifth fewer bytes.\n\n`skribble_jaspr` components now write compact path data in every ink overlay, with no change to what they draw."
+    },
+    {
+      "owner_id": "skribble_lints",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_lints/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_lints` was updated to 0.4.1 as part of group `main`.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_lints` was updated to 0.4.1 as part of group `main`.**"
+    },
+    {
+      "owner_id": "skribble_maps",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_maps/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "skribble_maps [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Changed",
+            "collapsed": false,
+            "entries": [
+              "- **No package-specific changes were recorded; `skribble_maps` was updated to 0.4.1.**"
+            ]
+          }
+        ]
+      },
+      "rendered": "## skribble_maps [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/skribble_maps/v0.4.1) (2026-11-25)\n\n### Changed\n\n- **No package-specific changes were recorded; `skribble_maps` was updated to 0.4.1.**"
+    },
+    {
+      "owner_id": "dart:skribble_rough",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "packages/skribble_rough/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "[0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Smaller SVG path data for server-rendered sketches\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #290](https://github.com/openbudgetfun/skribble/pull/290)\n\n`compactSvgPath` rewrites SVG path data in its smallest equivalent form: relative commands, implicit command repeats, no leading zeros, and no separator where a minus sign or second decimal point already starts the next number. It rounds absolute coordinates to the precision you ask for (one decimal by default) and writes the deltas in whole units of that precision, so a long path never drifts. Every path command is understood, including arcs with packed flags; data it cannot parse comes back unchanged.\n\n`RoughSvg.compact()` applies it to all three groups. At its default of two decimals it draws exactly the shape `RoughSvg.fromDrawable` writes, in about a fifth fewer bytes.\n\n`skribble_jaspr` components now write compact path data in every ink overlay, with no change to what they draw."
+            ]
+          }
+        ]
+      },
+      "rendered": "## [0.4.1](https://github.com/openbudgetfun/skribble/releases/tag/v0.4.1) (2026-11-25)\n\n### Features\n\n#### Smaller SVG path data for server-rendered sketches\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #290](https://github.com/openbudgetfun/skribble/pull/290)\n\n`compactSvgPath` rewrites SVG path data in its smallest equivalent form: relative commands, implicit command repeats, no leading zeros, and no separator where a minus sign or second decimal point already starts the next number. It rounds absolute coordinates to the precision you ask for (one decimal by default) and writes the deltas in whole units of that precision, so a long path never drifts. Every path command is understood, including arcs with packed flags; data it cannot parse comes back unchanged.\n\n`RoughSvg.compact()` applies it to all three groups. At its default of two decimals it draws exactly the shape `RoughSvg.fromDrawable` writes, in about a fifth fewer bytes.\n\n`skribble_jaspr` components now write compact path data in every ink overlay, with no change to what they draw."
+    },
+    {
+      "owner_id": "rust",
+      "owner_kind": "group",
+      "output": "default",
+      "stream": "default",
+      "path": "rust/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-25)",
+        "summary": [
+          "Grouped release for `rust`."
+        ],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Compact ink for drawings that ship to a browser\n\n_Packages:_ 🟠 _rust:skribble_rough_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)\n\n`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_core`'s `Scribble` draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of the full size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB.",
+              "#### skribble_core: skribble's design system for Rust, free of any UI framework\n\n_Packages:_ 🟠 _skribble_core_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #287](https://github.com/openbudgetfun/skribble/pull/287)\n\nThe Rust crates no longer build leptoskit components. `skribble_leptoskit`, `skribble_leptoskit_charts`, and `skribble_leptoskit_maps` are gone from this repository, and their framework-free parts now live in one new crate, `skribble_core`, which depends on nothing but `skribble_rough`. leptoskit changes faster than skribble can track, so the leptoskit components move into the leptoskit repository as `leptoskit_skribble`, built on `skribble_core`, where they can follow leptoskit's own API.\n\n`skribble_core` holds:\n\n- **Colours.** The `colorway` module: `Rgba`, the named `swatch`es (Flutter's `WiredPalette` values), `Appearance`, the sunny, berry, ocean, citrus, and quiet `Colorway`s, WCAG contrast, and the default 1.6-pixel pen at playful roughness. `Theme` and `Palette` build on it: `Theme::SKRIBBLE` is the sunny colourway, `Theme::colorway` picks another, and `marker()`, `accent()`, `accent_at(i)`, and `on(wash)` match the Flutter theme.\n- **Component ink.** The `components` module has a recipe for every component the leptoskit crate drew: `button`, `boxed`, `card`, `circle`, `badge`, `input`, `divider`, `checkbox`, `radio`, `switch`, `progress`, and `highlight`. Each returns an `Ink` (a shape, its outline, and its fill) whose drawing stretches to the component behind it, plus the tone that reads on its fill.\n- **Scribbles.** `Scribble` draws arrows, curves, and annotations at an explicit size with the pen's compact, tapered ink, and returns an error instead of panicking for a bad size or shape.\n- **Charts.** `charts::CandlestickChart`, `LineChart`, and `BarChart` draw at an explicit size with exact price geometry, and return an error for a size that is not positive and finite. `ChartTheme`, `indicators`, and `geometry` move unchanged.\n- **Maps.** `maps::Camera`, `LatLng`, `LatLngBounds`, `MapFeature`, `MapStyle`, and `PinCategory` move unchanged, with `features_drawing`, `graticule`, `pin_drawing`, `pin_origin`, `zoom_button_drawing`, and `zoom_steps` for the ink the leptoskit map drew.\n\nEvery drawing is an `InkDrawing`: SVG path data with a light and a dark `Tone` per path. `runs()` groups paths by tone for renderers that recolour ink through a text colour, and `to_svg(appearance)` writes a standalone SVG document.\n\nThe workspace no longer depends on leptoskit or leptos, so it drops its `[patch.crates-io]` pin of leptoskit `main`. The docs replace the three leptoskit guides with [skribble for Rust](https://openbudgetfun.github.io/skribble/docs/guides/rust) and a short note on moving to `leptoskit_skribble`."
+            ]
+          }
+        ]
+      },
+      "rendered": "## rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-25)\n\nGrouped release for `rust`.\n\n### Features\n\n#### Compact ink for drawings that ship to a browser\n\n_Packages:_ 🟠 _rust:skribble_rough_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)\n\n`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_core`'s `Scribble` draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of the full size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB.\n\n#### skribble_core: skribble's design system for Rust, free of any UI framework\n\n_Packages:_ 🟠 _skribble_core_\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #287](https://github.com/openbudgetfun/skribble/pull/287)\n\nThe Rust crates no longer build leptoskit components. `skribble_leptoskit`, `skribble_leptoskit_charts`, and `skribble_leptoskit_maps` are gone from this repository, and their framework-free parts now live in one new crate, `skribble_core`, which depends on nothing but `skribble_rough`. leptoskit changes faster than skribble can track, so the leptoskit components move into the leptoskit repository as `leptoskit_skribble`, built on `skribble_core`, where they can follow leptoskit's own API.\n\n`skribble_core` holds:\n\n- **Colours.** The `colorway` module: `Rgba`, the named `swatch`es (Flutter's `WiredPalette` values), `Appearance`, the sunny, berry, ocean, citrus, and quiet `Colorway`s, WCAG contrast, and the default 1.6-pixel pen at playful roughness. `Theme` and `Palette` build on it: `Theme::SKRIBBLE` is the sunny colourway, `Theme::colorway` picks another, and `marker()`, `accent()`, `accent_at(i)`, and `on(wash)` match the Flutter theme.\n- **Component ink.** The `components` module has a recipe for every component the leptoskit crate drew: `button`, `boxed`, `card`, `circle`, `badge`, `input`, `divider`, `checkbox`, `radio`, `switch`, `progress`, and `highlight`. Each returns an `Ink` (a shape, its outline, and its fill) whose drawing stretches to the component behind it, plus the tone that reads on its fill.\n- **Scribbles.** `Scribble` draws arrows, curves, and annotations at an explicit size with the pen's compact, tapered ink, and returns an error instead of panicking for a bad size or shape.\n- **Charts.** `charts::CandlestickChart`, `LineChart`, and `BarChart` draw at an explicit size with exact price geometry, and return an error for a size that is not positive and finite. `ChartTheme`, `indicators`, and `geometry` move unchanged.\n- **Maps.** `maps::Camera`, `LatLng`, `LatLngBounds`, `MapFeature`, `MapStyle`, and `PinCategory` move unchanged, with `features_drawing`, `graticule`, `pin_drawing`, `pin_origin`, `zoom_button_drawing`, and `zoom_steps` for the ink the leptoskit map drew.\n\nEvery drawing is an `InkDrawing`: SVG path data with a light and a dark `Tone` per path. `runs()` groups paths by tone for renderers that recolour ink through a text colour, and `to_svg(appearance)` writes a standalone SVG document.\n\nThe workspace no longer depends on leptoskit or leptos, so it drops its `[patch.crates-io]` pin of leptoskit `main`. The docs replace the three leptoskit guides with [skribble for Rust](https://openbudgetfun.github.io/skribble/docs/guides/rust) and a short note on moving to `leptoskit_skribble`."
+    },
+    {
+      "owner_id": "skribble_core",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "rust/core/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### skribble_core: skribble's design system for Rust, free of any UI framework\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #287](https://github.com/openbudgetfun/skribble/pull/287)\n\nThe Rust crates no longer build leptoskit components. `skribble_leptoskit`, `skribble_leptoskit_charts`, and `skribble_leptoskit_maps` are gone from this repository, and their framework-free parts now live in one new crate, `skribble_core`, which depends on nothing but `skribble_rough`. leptoskit changes faster than skribble can track, so the leptoskit components move into the leptoskit repository as `leptoskit_skribble`, built on `skribble_core`, where they can follow leptoskit's own API.\n\n`skribble_core` holds:\n\n- **Colours.** The `colorway` module: `Rgba`, the named `swatch`es (Flutter's `WiredPalette` values), `Appearance`, the sunny, berry, ocean, citrus, and quiet `Colorway`s, WCAG contrast, and the default 1.6-pixel pen at playful roughness. `Theme` and `Palette` build on it: `Theme::SKRIBBLE` is the sunny colourway, `Theme::colorway` picks another, and `marker()`, `accent()`, `accent_at(i)`, and `on(wash)` match the Flutter theme.\n- **Component ink.** The `components` module has a recipe for every component the leptoskit crate drew: `button`, `boxed`, `card`, `circle`, `badge`, `input`, `divider`, `checkbox`, `radio`, `switch`, `progress`, and `highlight`. Each returns an `Ink` (a shape, its outline, and its fill) whose drawing stretches to the component behind it, plus the tone that reads on its fill.\n- **Scribbles.** `Scribble` draws arrows, curves, and annotations at an explicit size with the pen's compact, tapered ink, and returns an error instead of panicking for a bad size or shape.\n- **Charts.** `charts::CandlestickChart`, `LineChart`, and `BarChart` draw at an explicit size with exact price geometry, and return an error for a size that is not positive and finite. `ChartTheme`, `indicators`, and `geometry` move unchanged.\n- **Maps.** `maps::Camera`, `LatLng`, `LatLngBounds`, `MapFeature`, `MapStyle`, and `PinCategory` move unchanged, with `features_drawing`, `graticule`, `pin_drawing`, `pin_origin`, `zoom_button_drawing`, and `zoom_steps` for the ink the leptoskit map drew.\n\nEvery drawing is an `InkDrawing`: SVG path data with a light and a dark `Tone` per path. `runs()` groups paths by tone for renderers that recolour ink through a text colour, and `to_svg(appearance)` writes a standalone SVG document.\n\nThe workspace no longer depends on leptoskit or leptos, so it drops its `[patch.crates-io]` pin of leptoskit `main`. The docs replace the three leptoskit guides with [skribble for Rust](https://openbudgetfun.github.io/skribble/docs/guides/rust) and a short note on moving to `leptoskit_skribble`."
+            ]
+          }
+        ]
+      },
+      "rendered": "## rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-25)\n\n### Features\n\n#### skribble_core: skribble's design system for Rust, free of any UI framework\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #287](https://github.com/openbudgetfun/skribble/pull/287)\n\nThe Rust crates no longer build leptoskit components. `skribble_leptoskit`, `skribble_leptoskit_charts`, and `skribble_leptoskit_maps` are gone from this repository, and their framework-free parts now live in one new crate, `skribble_core`, which depends on nothing but `skribble_rough`. leptoskit changes faster than skribble can track, so the leptoskit components move into the leptoskit repository as `leptoskit_skribble`, built on `skribble_core`, where they can follow leptoskit's own API.\n\n`skribble_core` holds:\n\n- **Colours.** The `colorway` module: `Rgba`, the named `swatch`es (Flutter's `WiredPalette` values), `Appearance`, the sunny, berry, ocean, citrus, and quiet `Colorway`s, WCAG contrast, and the default 1.6-pixel pen at playful roughness. `Theme` and `Palette` build on it: `Theme::SKRIBBLE` is the sunny colourway, `Theme::colorway` picks another, and `marker()`, `accent()`, `accent_at(i)`, and `on(wash)` match the Flutter theme.\n- **Component ink.** The `components` module has a recipe for every component the leptoskit crate drew: `button`, `boxed`, `card`, `circle`, `badge`, `input`, `divider`, `checkbox`, `radio`, `switch`, `progress`, and `highlight`. Each returns an `Ink` (a shape, its outline, and its fill) whose drawing stretches to the component behind it, plus the tone that reads on its fill.\n- **Scribbles.** `Scribble` draws arrows, curves, and annotations at an explicit size with the pen's compact, tapered ink, and returns an error instead of panicking for a bad size or shape.\n- **Charts.** `charts::CandlestickChart`, `LineChart`, and `BarChart` draw at an explicit size with exact price geometry, and return an error for a size that is not positive and finite. `ChartTheme`, `indicators`, and `geometry` move unchanged.\n- **Maps.** `maps::Camera`, `LatLng`, `LatLngBounds`, `MapFeature`, `MapStyle`, and `PinCategory` move unchanged, with `features_drawing`, `graticule`, `pin_drawing`, `pin_origin`, `zoom_button_drawing`, and `zoom_steps` for the ink the leptoskit map drew.\n\nEvery drawing is an `InkDrawing`: SVG path data with a light and a dark `Tone` per path. `runs()` groups paths by tone for renderers that recolour ink through a text colour, and `to_svg(appearance)` writes a standalone SVG document.\n\nThe workspace no longer depends on leptoskit or leptos, so it drops its `[patch.crates-io]` pin of leptoskit `main`. The docs replace the three leptoskit guides with [skribble for Rust](https://openbudgetfun.github.io/skribble/docs/guides/rust) and a short note on moving to `leptoskit_skribble`."
+    },
+    {
+      "owner_id": "rust:skribble_rough",
+      "owner_kind": "package",
+      "output": "default",
+      "stream": "default",
+      "path": "rust/rough/CHANGELOG.md",
+      "format": "keep_a_changelog",
+      "notes": {
+        "title": "rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-25)",
+        "summary": [],
+        "sections": [
+          {
+            "title": "Features",
+            "collapsed": false,
+            "entries": [
+              "#### Compact ink for drawings that ship to a browser\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)\n\n`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_core`'s `Scribble` draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of the full size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB."
+            ]
+          }
+        ]
+      },
+      "rendered": "## rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-25)\n\n### Features\n\n#### Compact ink for drawings that ship to a browser\n\n_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #278](https://github.com/openbudgetfun/skribble/pull/278)\n\n`skribble_rough` can write pen-shaped ink compactly: `CompactSvgInkOutline`, `InkStroke::compact_svg_path_data`, `DrawableInk::compact_svg_paths`, and `SketchOptions::tolerance`. The pen samples a stroke about every pen width, which keeps the taper smooth but writes far more points than a screen shows. Compact ink drops the samples within the tolerance of the line through their neighbours, draws through the rest with the same midpoint curves, and writes two decimals. The default output is unchanged, so ink still matches the Dart and TypeScript engines.\n\n`skribble_core`'s `Scribble` draws compact ink within a quarter of a logical pixel. Its paths are about a sixth of the full size: a server-rendered page of sketches dropped from 1.2 MB to 370 KB."
+    }
+  ],
+  "provider": {
+    "kind": "github",
+    "owner": "openbudgetfun",
+    "repo": "skribble",
+    "host": null
+  }
+}

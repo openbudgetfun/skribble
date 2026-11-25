@@ -1,8 +1,16 @@
----
-skribble_core: minor
----
+# Changelog
 
-# skribble_core: skribble's design system for Rust, free of any UI framework
+All notable changes to this project will be documented in this file.
+
+This changelog is managed by [monochange](https://github.com/monochange/monochange).
+
+## rust [0.1.1](https://github.com/openbudgetfun/skribble/releases/tag/rust/v0.1.1) (2026-11-25)
+
+### Features
+
+#### skribble_core: skribble's design system for Rust, free of any UI framework
+
+_Owner:_ [@ifiokjr](https://github.com/ifiokjr) · _Review:_ [PR #287](https://github.com/openbudgetfun/skribble/pull/287)
 
 The Rust crates no longer build leptoskit components. `skribble_leptoskit`, `skribble_leptoskit_charts`, and `skribble_leptoskit_maps` are gone from this repository, and their framework-free parts now live in one new crate, `skribble_core`, which depends on nothing but `skribble_rough`. leptoskit changes faster than skribble can track, so the leptoskit components move into the leptoskit repository as `leptoskit_skribble`, built on `skribble_core`, where they can follow leptoskit's own API.
 
