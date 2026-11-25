@@ -76,14 +76,14 @@ dependencies = [
 
 [[package]]
 name = "skribble_core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "skribble_rough",
 ]
 
 [[package]]
 name = "skribble_rough"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde_json",
 ]
