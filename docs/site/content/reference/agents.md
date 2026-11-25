@@ -1516,8 +1516,7 @@ WiredSvgIcon(data: myCustomIconData)
 | `monochange run publish`                          | Publish the packages in the current release                                                                     |
 | `monochange publish readiness --from HEAD`        | Check registry readiness and publish order without publishing                                                   |
 | `monochange publish placeholder --package <name>` | Reserve a new package name with a `0.0.0` placeholder; add `--otp <CODE>` when npm asks for one                 |
-| `publish:owned <tag>`                             | Publish the packages a tag owns, one at a time, then verify the registry                                        |
-| `publish:tags`                                    | Tag the merged release commit at HEAD and push its tags one at a time, watching each publish run                |
+| `publish:owned <tag>`                             | Publish the packages a tag owns, one at a time, then verify each package on its registry                        |
 
 For publish tasks, use the `monochange publish packages`, `monochange publish readiness`, and `monochange publish placeholder` commands in docs, scripts, workflows, and suggestions. The `monochange step publish-packages`, `monochange step publish-readiness`, and `monochange step placeholder-publish` forms run the same steps but are only a fallback, even where an older monochange error hint still prints them. `monochange run publish` remains the command that publishes the current release record. See [Releasing](/reference/releasing#publish-commands).
 

@@ -1,30 +1,32 @@
 name: Publish
 
 on:
-  push:
-    tags:
-      - "v*"
-      - "skribble_maps/v*"
-      - "skribble_charts/v*"
-      - "js/v*"
-      - "rust/v*"
-      - "skribble_site/v*"
-  # pub.dev only accepts automated publishing from runs triggered by a tag
-  # push, so a dispatch cannot publish packages. Keep it for re-running the
-  # non-registry repair steps (GitHub releases and font assets) at an existing
-  # release tag.
+  # Triggered only by workflow_dispatch on a release tag ref
+  # (`gh workflow run publish.yml --ref <tag>`), dispatched by the Release PR
+  # workflow (Wave 1) and by the main group's publish run once it succeeds
+  # (Wave 2 companion tags). Deliberately has no `push: tags:` trigger so
+  # pushing multiple tags at once cannot bypass Wave 1 -> Wave 2 ordering or
+  # start duplicate runs alongside dispatched ones. pub.dev accepts
+  # `workflow_dispatch` runs as long as `ref_type == tag` and the ref matches
+  # the package's tag pattern, and crates.io and npm accept it too.
   workflow_dispatch:
     inputs:
       tag:
-        description: Release tag to publish
-        required: true
+        description: Release tag to publish (defaults to the dispatched tag ref)
+        required: false
+        default: ""
         type: string
+      dispatch_dependents:
+        description: Dispatch dependent companion tags after a main-group publish succeeds
+        required: false
+        default: true
+        type: boolean
 
 permissions:
   contents: read
 
 concurrency:
-  group: publish-pub-dev-${{ inputs.tag || github.ref }}
+  group: publish-${{ github.ref_name }}
   cancel-in-progress: false
 
 jobs:
@@ -36,28 +38,62 @@ jobs:
     permissions:
       contents: write
       id-token: write
+    outputs:
+      release_tag: ${{ steps.verify_tag.outputs.release_tag }}
+      record_commit: ${{ steps.owned.outputs.record_commit }}
+      dependent_tags: ${{ steps.owned.outputs.dependent_tags }}
     steps:
+      - name: Validate release tag
+        id: validate_tag
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [ "$REF_TYPE" != "tag" ]; then
+            echo "::error::Publish must be dispatched on a release tag ref (got ref_type='$REF_TYPE', ref='$REF_NAME'). Run: gh workflow run publish.yml --ref <tag>"
+            exit 1
+          fi
+          if [ -n "$INPUT_TAG" ] && [ "$INPUT_TAG" != "$REF_NAME" ]; then
+            echo "::error::Input tag '$INPUT_TAG' does not match the dispatched tag ref '$REF_NAME'."
+            exit 1
+          fi
+          tag_regex='^((rust|js|skribble_charts|skribble_maps|skribble_site)/)?v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$'
+          if [[ ! "$REF_NAME" =~ $tag_regex ]]; then
+            echo "::error::Tag '$REF_NAME' does not match a release tag pattern (v<semver>, rust/v<semver>, js/v<semver>, skribble_charts/v<semver>, skribble_maps/v<semver>, or skribble_site/v<semver>)."
+            exit 1
+          fi
+          echo "release_tag=$REF_NAME" >>"$GITHUB_OUTPUT"
+        shell: bash
+
       - name: Check out release tag
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          ref: ${{ inputs.tag || github.ref }}
+          ref: refs/tags/${{ steps.validate_tag.outputs.release_tag }}
           fetch-depth: 0
           persist-credentials: false
 
       - name: Verify release tag
+        id: verify_tag
+        env:
+          RELEASE_TAG: ${{ steps.validate_tag.outputs.release_tag }}
         run: |
           set -euo pipefail
-          if [ "$(git rev-parse HEAD)" != "$(git rev-list -n1 "$RELEASE_TAG")" ]; then
+          git fetch --force origin main:refs/remotes/origin/main --tags
+          if ! tag_commit="$(git rev-list -n1 "refs/tags/$RELEASE_TAG" 2>/dev/null)"; then
+            echo "::error::Release tag '$RELEASE_TAG' does not exist."
+            exit 1
+          fi
+          if [ "$(git rev-parse HEAD)" != "$tag_commit" ]; then
             echo "::error::The checkout does not match $RELEASE_TAG."
             exit 1
           fi
-          git fetch --force origin main:refs/remotes/origin/main --tags
-          if ! git merge-base --is-ancestor "$(git rev-list -n1 "$RELEASE_TAG")" refs/remotes/origin/main; then
+          if ! git merge-base --is-ancestor "$tag_commit" refs/remotes/origin/main; then
             echo "::error::$RELEASE_TAG is not reachable from main."
             exit 1
           fi
-        env:
-          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          echo "release_tag=$RELEASE_TAG" >>"$GITHUB_OUTPUT"
         shell: bash
 
       - name: Set up toolchains
@@ -65,45 +101,70 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # The website's `skribble_site/v*` tag owns no package that goes to a
-      # registry, so its run skips straight to the GitHub release.
+      # Determine which publishable packages and registries this tag owns from
+      # the release record, plus any Wave 2 companion tags that depend on this
+      # tag when it is the main group. The website's `skribble_site/v*` tag
+      # owns no registry package and skips straight to its GitHub release.
       - name: Find the packages this tag publishes
         id: owned
         env:
-          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          RELEASE_TAG: ${{ steps.verify_tag.outputs.release_tag }}
         run: |
           set -euo pipefail
-          members="$(monochange step release-record --from HEAD --format json |
-            jq -c --arg tag "$RELEASE_TAG" '[.record.release_targets[] | select(.tag_name == $tag) | .members[]]')"
-          publishable="$(monochange step config --format json |
-            jq -c '[.config.packages[] | select(.publish.enabled != false) | .id]')"
-          count="$(jq -n --argjson members "$members" --argjson publishable "$publishable" \
-            '[$members[] | select(. as $member | $publishable | index($member))] | length')"
+          monochange step release-record --from HEAD --format json >"$RUNNER_TEMP/release-record.json"
+          monochange step config --format json >"$RUNNER_TEMP/monochange-config.json"
+
+          members="$(jq -c --arg tag "$RELEASE_TAG" \
+            '[.record.release_targets[]? | select(.tag_name == $tag) | .members[]]' \
+            "$RUNNER_TEMP/release-record.json")"
+          publishable="$(jq -c \
+            '[.config.packages[] | select(.publish.enabled != false) | .id]' \
+            "$RUNNER_TEMP/monochange-config.json")"
+          owned_packages="$(jq -cn --argjson members "$members" --argjson publishable "$publishable" \
+            '[$members[] | select(. as $member | $publishable | index($member))]')"
+          owned_pubs="$(jq -c --argjson owned "$owned_packages" \
+            '[.record.package_publications[]? | select(.package as $p | $owned | index($p))]' \
+            "$RUNNER_TEMP/release-record.json")"
+
+          count="$(jq 'length' <<<"$owned_packages")"
+          dart_count="$(jq '[.[] | select(.registry == "pub_dev" or .ecosystem == "dart")] | length' <<<"$owned_pubs")"
+          cargo_count="$(jq '[.[] | select(.registry == "crates_io" or .ecosystem == "cargo")] | length' <<<"$owned_pubs")"
+          npm_count="$(jq '[.[] | select(.registry == "npm" or .ecosystem == "npm")] | length' <<<"$owned_pubs")"
+          record_commit="$(jq -r '.record_commit // ""' "$RUNNER_TEMP/release-record.json")"
+
+          dispatcher="$RUNNER_TEMP/dispatch_publish_runs.sh"
+          git show origin/main:scripts/release/dispatch_publish_runs.sh >"$dispatcher"
+          chmod +x "$dispatcher"
+          plan="$("$dispatcher" --record "$RUNNER_TEMP/release-record.json" --plan)"
+          dependent_tags="$(jq -c --arg tag "$RELEASE_TAG" \
+            'if .main_tag == $tag then .dependent_tags else [] end' <<<"$plan")"
+
           echo "registry=$([ "$count" -gt 0 ] && echo true || echo false)" >>"$GITHUB_OUTPUT"
+          echo "dart=$([ "$dart_count" -gt 0 ] && echo true || echo false)" >>"$GITHUB_OUTPUT"
+          echo "cargo=$([ "$cargo_count" -gt 0 ] && echo true || echo false)" >>"$GITHUB_OUTPUT"
+          echo "npm=$([ "$npm_count" -gt 0 ] && echo true || echo false)" >>"$GITHUB_OUTPUT"
+          echo "record_commit=$record_commit" >>"$GITHUB_OUTPUT"
+          {
+            echo "owned_packages<<OWNED_PACKAGES_EOF"
+            printf '%s\n' "$owned_packages"
+            echo "OWNED_PACKAGES_EOF"
+            echo "dependent_tags<<DEPENDENT_TAGS_EOF"
+            printf '%s\n' "$dependent_tags"
+            echo "DEPENDENT_TAGS_EOF"
+          } >>"$GITHUB_OUTPUT"
         shell: devenv shell -- bash -e {0}
 
-      # Readiness dry-runs `npm publish` for every npm package in the release
-      # record, whichever tag is being published, and each dry run builds the
-      # package in its `prepack` script. A release commit without npm packages
-      # needs none of this, so a Dart-only release skips the install.
-      - name: Check whether the release includes npm packages
-        if: steps.owned.outputs.registry == 'true'
-        id: npm
-        run: |
-          count="$(monochange step release-record --from HEAD --format json |
-            jq '[.record.package_publications[]? | select(.ecosystem == "npm")] | length')"
-          echo "packages=$count" >>"$GITHUB_OUTPUT"
-        shell: devenv shell -- bash -e {0}
-
+      # npm packages build in their `prepack` script during readiness and
+      # publishing, so only tags that own npm packages need pnpm install.
       - name: Install npm workspace dependencies
-        if: steps.owned.outputs.registry == 'true' && steps.npm.outputs.packages != '0'
+        if: steps.owned.outputs.npm == 'true'
         run: pnpm install --frozen-lockfile
         shell: devenv shell -- bash -e {0}
 
       # npm trusted publishing (OIDC, through the `id-token: write` permission)
       # needs npm 11.5.1 or newer.
       - name: Check the npm version for trusted publishing
-        if: startsWith(inputs.tag || github.ref_name, 'js/')
+        if: steps.owned.outputs.npm == 'true'
         run: |
           version="$(npm --version)"
           if [ "$(printf '%s\n' 11.5.1 "$version" | sort -V | head -n1)" != 11.5.1 ]; then
@@ -113,11 +174,24 @@ jobs:
           echo "npm $version"
         shell: devenv shell -- bash -e {0}
 
+      # Readiness is scoped to only the packages this tag owns so Dart, Rust,
+      # and npm tags do not dry-run each other's ecosystems.
       - name: Check Monochange publish readiness
         if: steps.owned.outputs.registry == 'true'
+        env:
+          OWNED_PACKAGES: ${{ steps.owned.outputs.owned_packages }}
         run: |
+          set -euo pipefail
+          pkg_args=()
+          while IFS= read -r pkg; do
+            if [ -n "$pkg" ]; then
+              pkg_args+=(--package "$pkg")
+            fi
+          done < <(jq -r '.[]' <<<"$OWNED_PACKAGES")
+
           monochange publish readiness \
             --from HEAD \
+            "${pkg_args[@]}" \
             --output "$RUNNER_TEMP/publish-readiness.json" \
             --format json
         shell: devenv shell -- bash -e {0}
@@ -130,43 +204,44 @@ jobs:
       # check above both resolve packages, so this step belongs directly before
       # the publishes it authenticates.
       - name: Set up Dart trusted publishing
-        if: steps.owned.outputs.registry == 'true'
+        if: steps.owned.outputs.dart == 'true'
         uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260 # v1.7.2
 
-      # pub.dev configures automated publishing per package, and each package
-      # only accepts its own tag pattern, so every tag publishes just the
-      # release targets it owns: the main group for `v<version>`, the single
-      # companion package for its namespaced tag, and the npm packages for
-      # `js/v<version>`. Re-runs skip versions that already exist on the
-      # registry.
+      # monochange 0.21.0 performs OIDC token minting for pub.dev itself, but
+      # relies on `CARGO_REGISTRY_TOKEN` for crates.io trusted publishing.
+      # `crates-io-auth-action` exchanges the GitHub Actions OIDC token for a
+      # short-lived crates.io token and revokes it automatically in its post
+      # step.
+      - name: Authenticate with crates.io trusted publishing
+        id: crates_auth
+        if: steps.owned.outputs.cargo == 'true'
+        uses: rust-lang/crates-io-auth-action@3268eb413133e2960fa4ae0e963ca76380c54cd9 # v1.0.6
+
+      # Each package only accepts its own trusted-publishing rules, so every
+      # tag publishes just the release targets it owns: the main group for
+      # `v<version>`, the Rust group for `rust/v<version>`, the npm group for
+      # `js/v<version>`, and each companion package for its namespaced tag.
+      # Re-runs skip versions that already exist on their registry.
       #
       # The script publishes one package per invocation because monochange
-      # aborts the whole batch on the first failure. That is how v0.2.0 and
-      # v0.2.1 each left 11 of the group's 13 packages blocked: publishing
-      # stopped on `skribble_font_recursive`, which answered "publishing from
-      # github is not enabled" — a registry-side automated-publishing rule that
-      # only pub.dev's own admin page can confirm, and one the readiness check
-      # cannot see (it reports `manual_verification_required` for every package
-      # that already exists). Isolating each publish, then verifying the
-      # registry state, names the packages that still need publishing instead
-      # of reporting a bare error.
+      # aborts the whole batch on the first failure. Isolating each publish,
+      # then verifying each package on its own registry (pub.dev, crates.io, or
+      # npm), names any package that still needs publishing instead of hiding
+      # siblings behind the first error.
       #
       # The readiness report computed above is passed through rather than
       # recomputed: the script needs its dependency-corrected order, and
-      # computing that order runs `pub publish` dry runs, which resolve
-      # dependencies — work that must happen before the publish credential is
-      # registered.
+      # computing that order runs dry-runs that resolve dependencies — work
+      # that must happen before the pub.dev publish credential is registered.
       #
-      # The script is read from `origin/main`, not from the checked-out tag.
-      # Every tag cut before it was added predates the file, so running the
-      # tag's own copy would fail with "No such file or directory" — exactly
-      # the recovery path this step exists to serve. The script takes the
-      # release record and package manifests from the working tree, so the
-      # release it publishes is still the tag's, not main's.
+      # The script is read from `origin/main`, not from the checked-out tag, so
+      # older tags can still recover with the latest script fixes while still
+      # publishing the tag's own release record and package manifests.
       - name: Publish the packages this tag owns
         if: steps.owned.outputs.registry == 'true'
         env:
-          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          RELEASE_TAG: ${{ steps.verify_tag.outputs.release_tag }}
+          CARGO_REGISTRY_TOKEN: ${{ steps.crates_auth.outputs.token }}
         run: |
           runner="$RUNNER_TEMP/publish_owned_packages.sh"
           git show origin/main:scripts/release/publish_owned_packages.sh >"$runner"
@@ -174,34 +249,37 @@ jobs:
           "$runner" "$RELEASE_TAG" --readiness "$RUNNER_TEMP/publish-readiness.json"
         shell: devenv shell -- bash -e {0}
 
-      - name: Publish the GitHub releases
+      # Publish only this tag's GitHub release (using monochange's rendered
+      # title and notes), never another target's tag or release. Primary `v*`
+      # releases are marked Latest; namespaced releases pass `--latest=false`.
+      - name: Publish the GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ steps.verify_tag.outputs.release_tag }}
         run: |
-          monochange step publish-release \
-            --from-ref HEAD \
-            --format json | tee "$RUNNER_TEMP/publish-release.json"
+          runner="$RUNNER_TEMP/publish_github_release.sh"
+          git show origin/main:scripts/release/publish_github_release.sh >"$runner"
+          chmod +x "$runner"
+          "$runner" "$RELEASE_TAG" --output "$RUNNER_TEMP/publish-release.json"
         shell: devenv shell -- bash -e {0}
 
       # Font zips belong to the main group's `v<version>` release only;
-      # companion tags (skribble_maps/v*, skribble_charts/v*) skip this step.
-      # This runs after the GitHub releases exist, and packages from the tag's
-      # committed fonts, so local and automated releases attach identical
-      # archives.
+      # companion, Rust, npm, and site tags skip this step. This runs after
+      # the GitHub release exists, and packages from the tag's committed fonts.
       - name: Attach the font zips to the release
-        if: startsWith(inputs.tag || github.ref_name, 'v')
+        if: startsWith(steps.verify_tag.outputs.release_tag, 'v')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          RELEASE_TAG: ${{ steps.verify_tag.outputs.release_tag }}
         run: ./scripts/release/publish_fonts.sh "$RELEASE_TAG"
         shell: devenv shell -- bash -e {0}
 
       # The animated emoji, exported as Lottie files from the tag's sources.
       - name: Attach the animated emoji to the release
-        if: startsWith(inputs.tag || github.ref_name, 'v')
+        if: startsWith(steps.verify_tag.outputs.release_tag, 'v')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          RELEASE_TAG: ${{ steps.verify_tag.outputs.release_tag }}
         run: ./scripts/release/publish_emoji_lottie.sh "$RELEASE_TAG"
         shell: devenv shell -- bash -e {0}
 
@@ -216,8 +294,46 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+  # Once the main group's `v<version>` publish succeeds and is verified on
+  # pub.dev, dispatch Wave 2 publish runs for companion Dart packages that
+  # depend on `skribble` (`skribble_charts/v*`, `skribble_maps/v*`). Keeping
+  # this in its own job isolates `actions: write` from the `publisher` job.
+  dispatch_dependents:
+    needs: publish
+    if: >-
+      github.repository == 'openbudgetfun/skribble' &&
+      needs.publish.result == 'success' &&
+      inputs.dispatch_dependents != false &&
+      needs.publish.outputs.dependent_tags != '[]' &&
+      needs.publish.outputs.dependent_tags != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Check out main for dispatch helper
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Dispatch dependent companion publish runs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEPENDENT_TAGS: ${{ needs.publish.outputs.dependent_tags }}
+          RECORD_COMMIT: ${{ needs.publish.outputs.record_commit }}
+        run: >-
+          ./scripts/release/dispatch_publish_runs.sh
+          --tags-json "$DEPENDENT_TAGS"
+          --commit "$RECORD_COMMIT"
+          --wave initial
+          --dispatch-dependents false
+        shell: bash
+
   # Every release deploys the website: the landing page, the docs, and the
-  # storybook. This job does not wait for the registry publish, so a pub.dev
+  # storybook. This job does not wait for the registry publish, so a registry
   # rejection never holds back the site. Only one tag per release commit
   # dispatches the deploy; see scripts/release/deploy_website.sh.
   website:
@@ -228,10 +344,34 @@ jobs:
       actions: write
       contents: read
     steps:
+      - name: Validate release tag
+        id: validate_tag
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [ "$REF_TYPE" != "tag" ]; then
+            echo "::error::Publish must be dispatched on a release tag ref (got ref_type='$REF_TYPE', ref='$REF_NAME'). Run: gh workflow run publish.yml --ref <tag>"
+            exit 1
+          fi
+          if [ -n "$INPUT_TAG" ] && [ "$INPUT_TAG" != "$REF_NAME" ]; then
+            echo "::error::Input tag '$INPUT_TAG' does not match the dispatched tag ref '$REF_NAME'."
+            exit 1
+          fi
+          tag_regex='^((rust|js|skribble_charts|skribble_maps|skribble_site)/)?v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$'
+          if [[ ! "$REF_NAME" =~ $tag_regex ]]; then
+            echo "::error::Tag '$REF_NAME' does not match a release tag pattern (v<semver>, rust/v<semver>, js/v<semver>, skribble_charts/v<semver>, skribble_maps/v<semver>, or skribble_site/v<semver>)."
+            exit 1
+          fi
+          echo "release_tag=$REF_NAME" >>"$GITHUB_OUTPUT"
+        shell: bash
+
       - name: Check out release tag
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          ref: ${{ inputs.tag || github.ref }}
+          ref: refs/tags/${{ steps.validate_tag.outputs.release_tag }}
           fetch-depth: 0
           persist-credentials: false
 
@@ -240,10 +380,10 @@ jobs:
       - name: Deploy the website
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          RELEASE_TAG: ${{ steps.validate_tag.outputs.release_tag }}
         run: |
           set -euo pipefail
-          git fetch --force origin main:refs/remotes/origin/main
+          git fetch --force origin main:refs/remotes/origin/main --tags
           runner="$RUNNER_TEMP/deploy_website.sh"
           git show origin/main:scripts/release/deploy_website.sh >"$runner"
           chmod +x "$runner"

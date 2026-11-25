@@ -146,11 +146,11 @@ monochange publish placeholder --package <name> --otp <CODE>   # one-time 0.0.0 
 # Attach the bundled font zips to a GitHub release (--dry-run to preview)
 publish:fonts
 
-# Publish the packages a release tag owns, then verify the registry
+# Publish the packages a release tag owns, then verify their registries
 publish:owned v<version>
 
-# Tag the merged release commit at HEAD and push its tags, watching each publish
-publish:tags
+# Re-dispatch any missing publish workflow runs for a release commit from GitHub
+gh workflow run release.yml --ref <tag>
 
 # Regenerate the Dart parity fixtures for @skribble.dev/rough and the Rust skribble_rough
 dart run packages/skribble_rough/tool/js_parity_fixtures.dart > js/rough/test/fixtures/dart-parity.json

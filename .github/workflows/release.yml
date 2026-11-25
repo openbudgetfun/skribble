@@ -1,15 +1,22 @@
 name: Release PR
 
-# Every push to main opens or refreshes the release pull request from the
-# pending changesets. Merging that pull request is a release commit, which a
-# maintainer tags with `publish:tags` so the publish workflow releases it.
+# Every push to main either refreshes the release pull request from pending
+# changesets, or — when the commit on main is a merged release commit — creates
+# and pushes all release tags and dispatches the independent Wave 1 publish.yml
+# runs on their tag refs. Companion Dart tags that depend on the main group are
+# dispatched automatically by the main group's publish run once it succeeds.
 # `monochange run release-local` remains available for a release from a local
 # checkout.
 #
 # The release commit and pull request come from the monochange GitHub App on
 # monochange.dev (MONOCHANGE_RELEASE_BACKEND=hosted), so CI starts on the
-# release pull request by itself. Tags are still pushed from a local checkout:
-# a tag pushed with GITHUB_TOKEN starts no publish run.
+# release pull request by itself. Tags pushed with GITHUB_TOKEN do not trigger
+# `push` workflows, so `dispatch_publish` starts publish.yml explicitly with
+# `gh workflow run publish.yml --ref <tag>` (`workflow_dispatch` on the tag
+# ref, which pub.dev, crates.io, and npm trusted publishing all accept). To
+# reconcile a release after newer commits have landed on main, dispatch this
+# workflow on one of that release's tags:
+# `gh workflow run release.yml --ref <tag>`.
 on:
   push:
     branches: [main]
@@ -28,14 +35,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
-      # Upload the release files as git blobs and a tree. This pushes no
-      # branch; the monochange GitHub App writes the release commit and pull
-      # request on monochange.dev, and this run proves its repository with an
-      # OIDC token.
+      # Upload release files for hosted release PRs, or push release tags for a
+      # merged release commit.
       contents: write
       # Add the attribution line to the release pull request body.
       pull-requests: write
+      # Prove repository identity to monochange.dev for hosted release commits.
       id-token: write
+    outputs:
+      is_release_commit: ${{ steps.release_record.outputs.is_release_commit }}
+      release_plan: ${{ steps.release_plan.outputs.plan }}
     steps:
       - name: Check out repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
@@ -57,13 +66,12 @@ jobs:
         run: |
           set -euo pipefail
           error_file="$(mktemp)"
-          if is_release_commit="$(
-            monochange step release-record \
-              --from HEAD \
-              --format json \
-              --jq '.resolved_commit == .record_commit' \
-              2>"$error_file"
-          )"; then
+          if monochange step release-record \
+            --from HEAD \
+            --format json \
+            >"$RUNNER_TEMP/release-record.json" \
+            2>"$error_file"; then
+            is_release_commit="$(jq -r '.resolved_commit == .record_commit' "$RUNNER_TEMP/release-record.json")"
             echo "is_release_commit=$is_release_commit" >>"$GITHUB_OUTPUT"
             exit 0
           fi
@@ -78,12 +86,53 @@ jobs:
           echo "is_release_commit=false" >>"$GITHUB_OUTPUT"
         shell: devenv shell -- bash -e {0}
 
-      - name: Point at the release tags
+      - name: Note when dispatch ref is not a release commit
+        if: github.event_name == 'workflow_dispatch' && steps.release_record.outputs.is_release_commit != 'true'
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          message="Ref '${REF_NAME}' is not a release commit, so no release tags or publish runs were dispatched. To reconcile an earlier release, dispatch on one of its tags: gh workflow run release.yml --ref <tag> (for example --ref v0.4.1)."
+          echo "::notice title=Not a release commit::${message}"
+          printf '%s\n' "${message}" >>"$GITHUB_STEP_SUMMARY"
+        shell: bash
+
+      # Create and push every release tag declared in the release record.
+      # Tags that already point to HEAD are skipped as already up to date, so
+      # re-running this workflow after a partial release is safe.
+      # Passing `core.hooksPath=/dev/null` only for this transient tag push
+      # keeps devenv's developer pre-push hooks from re-running full workspace
+      # analysis on an already-merged release commit.
+      - name: Create and push release tags
+        if: steps.release_record.outputs.is_release_commit == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_COMMIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          export GIT_CONFIG_COUNT=2
+          export GIT_CONFIG_KEY_0=http.https://github.com/.extraheader
+          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GITHUB_COMMIT_TOKEN" | base64 | tr -d '\n')"
+          export GIT_CONFIG_KEY_1=core.hooksPath
+          export GIT_CONFIG_VALUE_1=/dev/null
+          monochange step tag-release \
+            --from HEAD \
+            --push=true \
+            --format json | tee "$RUNNER_TEMP/tag-report.json"
+        shell: devenv shell -- bash -e {0}
+
+      - name: Plan publish workflow dispatches
+        id: release_plan
         if: steps.release_record.outputs.is_release_commit == 'true'
         run: |
-          message="Release commit: push its tags with publish:tags from a checkout of this commit to publish it."
-          echo "::notice title=Release commit::${message}"
-          echo "${message}" >>"$GITHUB_STEP_SUMMARY"
+          set -euo pipefail
+          plan="$(./scripts/release/dispatch_publish_runs.sh \
+            --record "$RUNNER_TEMP/release-record.json" \
+            --plan)"
+          {
+            echo "plan<<RELEASE_PLAN_EOF"
+            printf '%s\n' "$plan"
+            echo "RELEASE_PLAN_EOF"
+          } >>"$GITHUB_OUTPUT"
         shell: bash
 
       - name: Detect pending changesets
@@ -112,7 +161,7 @@ jobs:
           # specific case as "nothing to release" rather than failing the
           # workflow. Any other failure is re-raised.
           if ! output="$(monochange run release 2>&1)"; then
-            if printf '%s\n' "$output" | grep -q 'no releaseable packages were found in discovered changesets'; then
+            if grep -Fq 'no releaseable packages were found in discovered changesets' <<<"$output"; then
               echo "No releaseable packages in current changesets; skipping release PR refresh."
               exit 0
             fi
@@ -141,6 +190,7 @@ jobs:
           fi
 
           body="$(gh api "repos/$GITHUB_REPOSITORY/pulls/$pr_number" --jq .body)"
+          # shellcheck disable=SC2016
           attribution='Created on behalf of Ifiok Jr. (`@ifiokjr`) by the Release PR workflow, set up with Claude Opus 5.5 (medium thinking).'
           if ! grep -Fq "$attribution" <<<"$body"; then
             gh api \
@@ -149,4 +199,32 @@ jobs:
               --field body="${body}"$'\n\n'"${attribution}" \
               >/dev/null
           fi
+        shell: bash
+
+  # Separate least-privilege job so only the dispatch step holds `actions: write`.
+  # Runs in reconcile mode: dispatches independent Wave 1 tags on their tag refs,
+  # skips any tag that already has an active or successful publish run, and on a
+  # recovery re-run after the main tag has succeeded also dispatches any missing
+  # Wave 2 companion tags.
+  dispatch_publish:
+    needs: update
+    if: github.repository == 'openbudgetfun/skribble' && needs.update.outputs.is_release_commit == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Dispatch publish runs for release tags
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_PLAN: ${{ needs.update.outputs.release_plan }}
+        run: ./scripts/release/dispatch_publish_runs.sh --plan-json "$RELEASE_PLAN" --wave reconcile
         shell: bash
