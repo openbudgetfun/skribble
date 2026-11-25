@@ -339,31 +339,58 @@ fi
 
 # Query GitHub Actions for existing runs of WORKFLOW on the given tag ref at
 # COMMIT. Prints `succeeded`, `active`, or `none`.
+#
+# A run counts as `succeeded` when either the whole run concluded `success` or
+# its `publish` job concluded `success`, matching `publish.yml`'s Wave 2
+# handoff (`needs.publish.result == 'success'`). That keeps a `website` job
+# failure from blocking Wave 2 or re-dispatching a tag for another `publisher`
+# approval.
 existing_run_state() {
 	local tag="$1"
-	local encoded_tag
+	local encoded_tag runs_json run_id job_succeeded
 	encoded_tag="$(jq -rn --arg t "$tag" '$t | @uri')"
-	gh api "repos/${REPO}/actions/workflows/${WORKFLOW}/runs?branch=${encoded_tag}&per_page=20" |
-		jq -r --arg sha "$COMMIT" '
-			[
-				.workflow_runs[]?
-				| select($sha == "" or .head_sha == $sha)
-			] as $runs
-			| if any($runs[]; .status == "completed" and .conclusion == "success") then
-				"succeeded"
-			elif any(
-				$runs[];
-				.status == "queued"
-				or .status == "in_progress"
-				or .status == "waiting"
-				or .status == "pending"
-				or .status == "requested"
-			) then
-				"active"
-			else
-				"none"
-			end
-		'
+	runs_json="$(
+		gh api "repos/${REPO}/actions/workflows/${WORKFLOW}/runs?branch=${encoded_tag}&per_page=20" |
+			jq -c --arg sha "$COMMIT" '
+				[
+					.workflow_runs[]?
+					| select($sha == "" or .head_sha == $sha)
+				]
+			'
+	)"
+
+	if jq -e 'any(.[]; .status == "completed" and .conclusion == "success")' <<<"$runs_json" >/dev/null; then
+		printf 'succeeded\n'
+		return 0
+	fi
+
+	while IFS= read -r run_id; do
+		[[ -n "$run_id" ]] || continue
+		job_succeeded="$(
+			gh api "repos/${REPO}/actions/runs/${run_id}/jobs?per_page=100" |
+				jq -r 'any(.jobs[]?; .name == "publish" and .status == "completed" and .conclusion == "success")'
+		)"
+		if [[ "$job_succeeded" == "true" ]]; then
+			printf 'succeeded\n'
+			return 0
+		fi
+	done < <(jq -r '.[] | select(.id != null and (.status == "completed" or .status == "in_progress")) | .id' <<<"$runs_json")
+
+	if jq -e '
+		any(
+			.[];
+			.status == "queued"
+			or .status == "in_progress"
+			or .status == "waiting"
+			or .status == "pending"
+			or .status == "requested"
+		)
+	' <<<"$runs_json" >/dev/null; then
+		printf 'active\n'
+		return 0
+	fi
+
+	printf 'none\n'
 }
 
 wait_for_remote_tag() {

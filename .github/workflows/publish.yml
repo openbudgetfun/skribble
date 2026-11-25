@@ -1,19 +1,14 @@
 name: Publish
 
 on:
-  push:
-    tags:
-      - "v*"
-      - "skribble_maps/v*"
-      - "skribble_charts/v*"
-      - "js/v*"
-      - "rust/v*"
-      - "skribble_site/v*"
-  # Dispatched on a release tag ref (`gh workflow run publish.yml --ref <tag>`)
-  # by the Release PR workflow (Wave 1) and by the main group's publish run
-  # once it succeeds (Wave 2 companion tags). pub.dev accepts `workflow_dispatch`
-  # runs as long as the run's ref is a tag matching the package's tag pattern
-  # (`ref_type == tag`), and crates.io and npm accept it too.
+  # Triggered only by workflow_dispatch on a release tag ref
+  # (`gh workflow run publish.yml --ref <tag>`), dispatched by the Release PR
+  # workflow (Wave 1) and by the main group's publish run once it succeeds
+  # (Wave 2 companion tags). Deliberately has no `push: tags:` trigger so
+  # pushing multiple tags at once cannot bypass Wave 1 -> Wave 2 ordering or
+  # start duplicate runs alongside dispatched ones. pub.dev accepts
+  # `workflow_dispatch` runs as long as `ref_type == tag` and the ref matches
+  # the package's tag pattern, and crates.io and npm accept it too.
   workflow_dispatch:
     inputs:
       tag:
@@ -31,7 +26,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: publish-${{ inputs.tag || github.ref_name }}
+  group: publish-${{ github.ref_name }}
   cancel-in-progress: false
 
 jobs:
@@ -48,26 +43,43 @@ jobs:
       record_commit: ${{ steps.owned.outputs.record_commit }}
       dependent_tags: ${{ steps.owned.outputs.dependent_tags }}
     steps:
+      - name: Validate release tag
+        id: validate_tag
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [ "$REF_TYPE" != "tag" ]; then
+            echo "::error::Publish must be dispatched on a release tag ref (got ref_type='$REF_TYPE', ref='$REF_NAME'). Run: gh workflow run publish.yml --ref <tag>"
+            exit 1
+          fi
+          if [ -n "$INPUT_TAG" ] && [ "$INPUT_TAG" != "$REF_NAME" ]; then
+            echo "::error::Input tag '$INPUT_TAG' does not match the dispatched tag ref '$REF_NAME'."
+            exit 1
+          fi
+          tag_regex='^((rust|js|skribble_charts|skribble_maps|skribble_site)/)?v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$'
+          if [[ ! "$REF_NAME" =~ $tag_regex ]]; then
+            echo "::error::Tag '$REF_NAME' does not match a release tag pattern (v<semver>, rust/v<semver>, js/v<semver>, skribble_charts/v<semver>, skribble_maps/v<semver>, or skribble_site/v<semver>)."
+            exit 1
+          fi
+          echo "release_tag=$REF_NAME" >>"$GITHUB_OUTPUT"
+        shell: bash
+
       - name: Check out release tag
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          ref: ${{ inputs.tag || github.ref }}
+          ref: refs/tags/${{ steps.validate_tag.outputs.release_tag }}
           fetch-depth: 0
           persist-credentials: false
 
       - name: Verify release tag
         id: verify_tag
         env:
-          INPUT_TAG: ${{ inputs.tag }}
-          REF_TYPE: ${{ github.ref_type }}
-          REF_NAME: ${{ github.ref_name }}
-          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          RELEASE_TAG: ${{ steps.validate_tag.outputs.release_tag }}
         run: |
           set -euo pipefail
-          if [ "$REF_TYPE" = "tag" ] && [ -n "$INPUT_TAG" ] && [ "$INPUT_TAG" != "$REF_NAME" ]; then
-            echo "::error::Input tag '$INPUT_TAG' does not match the dispatched tag ref '$REF_NAME'."
-            exit 1
-          fi
           git fetch --force origin main:refs/remotes/origin/main --tags
           if ! tag_commit="$(git rev-list -n1 "refs/tags/$RELEASE_TAG" 2>/dev/null)"; then
             echo "::error::Release tag '$RELEASE_TAG' does not exist."
@@ -97,7 +109,6 @@ jobs:
         id: owned
         env:
           RELEASE_TAG: ${{ steps.verify_tag.outputs.release_tag }}
-          REF_TYPE: ${{ github.ref_type }}
         run: |
           set -euo pipefail
           monochange step release-record --from HEAD --format json >"$RUNNER_TEMP/release-record.json"
@@ -127,10 +138,6 @@ jobs:
           plan="$("$dispatcher" --record "$RUNNER_TEMP/release-record.json" --plan)"
           dependent_tags="$(jq -c --arg tag "$RELEASE_TAG" \
             'if .main_tag == $tag then .dependent_tags else [] end' <<<"$plan")"
-
-          if [ "$dart_count" -gt 0 ] && [ "$REF_TYPE" != "tag" ]; then
-            echo "::warning::This run's ref type is '$REF_TYPE', not 'tag'. pub.dev trusted publishing requires dispatching on the tag ref (gh workflow run publish.yml --ref $RELEASE_TAG)."
-          fi
 
           echo "registry=$([ "$count" -gt 0 ] && echo true || echo false)" >>"$GITHUB_OUTPUT"
           echo "dart=$([ "$dart_count" -gt 0 ] && echo true || echo false)" >>"$GITHUB_OUTPUT"
@@ -296,7 +303,7 @@ jobs:
     if: >-
       github.repository == 'openbudgetfun/skribble' &&
       needs.publish.result == 'success' &&
-      (github.event_name != 'workflow_dispatch' || inputs.dispatch_dependents != false) &&
+      inputs.dispatch_dependents != false &&
       needs.publish.outputs.dependent_tags != '[]' &&
       needs.publish.outputs.dependent_tags != ''
     runs-on: ubuntu-latest
@@ -337,10 +344,34 @@ jobs:
       actions: write
       contents: read
     steps:
+      - name: Validate release tag
+        id: validate_tag
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [ "$REF_TYPE" != "tag" ]; then
+            echo "::error::Publish must be dispatched on a release tag ref (got ref_type='$REF_TYPE', ref='$REF_NAME'). Run: gh workflow run publish.yml --ref <tag>"
+            exit 1
+          fi
+          if [ -n "$INPUT_TAG" ] && [ "$INPUT_TAG" != "$REF_NAME" ]; then
+            echo "::error::Input tag '$INPUT_TAG' does not match the dispatched tag ref '$REF_NAME'."
+            exit 1
+          fi
+          tag_regex='^((rust|js|skribble_charts|skribble_maps|skribble_site)/)?v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$'
+          if [[ ! "$REF_NAME" =~ $tag_regex ]]; then
+            echo "::error::Tag '$REF_NAME' does not match a release tag pattern (v<semver>, rust/v<semver>, js/v<semver>, skribble_charts/v<semver>, skribble_maps/v<semver>, or skribble_site/v<semver>)."
+            exit 1
+          fi
+          echo "release_tag=$REF_NAME" >>"$GITHUB_OUTPUT"
+        shell: bash
+
       - name: Check out release tag
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          ref: ${{ inputs.tag || github.ref }}
+          ref: refs/tags/${{ steps.validate_tag.outputs.release_tag }}
           fetch-depth: 0
           persist-credentials: false
 
@@ -349,7 +380,7 @@ jobs:
       - name: Deploy the website
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          RELEASE_TAG: ${{ steps.validate_tag.outputs.release_tag }}
         run: |
           set -euo pipefail
           git fetch --force origin main:refs/remotes/origin/main --tags

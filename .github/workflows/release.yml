@@ -13,7 +13,10 @@ name: Release PR
 # release pull request by itself. Tags pushed with GITHUB_TOKEN do not trigger
 # `push` workflows, so `dispatch_publish` starts publish.yml explicitly with
 # `gh workflow run publish.yml --ref <tag>` (`workflow_dispatch` on the tag
-# ref, which pub.dev, crates.io, and npm trusted publishing all accept).
+# ref, which pub.dev, crates.io, and npm trusted publishing all accept). To
+# reconcile a release after newer commits have landed on main, dispatch this
+# workflow on one of that release's tags:
+# `gh workflow run release.yml --ref <tag>`.
 on:
   push:
     branches: [main]
@@ -83,6 +86,16 @@ jobs:
           echo "is_release_commit=false" >>"$GITHUB_OUTPUT"
         shell: devenv shell -- bash -e {0}
 
+      - name: Note when dispatch ref is not a release commit
+        if: github.event_name == 'workflow_dispatch' && steps.release_record.outputs.is_release_commit != 'true'
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          message="Ref '${REF_NAME}' is not a release commit, so no release tags or publish runs were dispatched. To reconcile an earlier release, dispatch on one of its tags: gh workflow run release.yml --ref <tag> (for example --ref v0.4.1)."
+          echo "::notice title=Not a release commit::${message}"
+          printf '%s\n' "${message}" >>"$GITHUB_STEP_SUMMARY"
+        shell: bash
+
       # Create and push every release tag declared in the release record.
       # Tags that already point to HEAD are skipped as already up to date, so
       # re-running this workflow after a partial release is safe.
@@ -148,7 +161,7 @@ jobs:
           # specific case as "nothing to release" rather than failing the
           # workflow. Any other failure is re-raised.
           if ! output="$(monochange run release 2>&1)"; then
-            if printf '%s\n' "$output" | grep -q 'no releaseable packages were found in discovered changesets'; then
+            if grep -Fq 'no releaseable packages were found in discovered changesets' <<<"$output"; then
               echo "No releaseable packages in current changesets; skipping release PR refresh."
               exit 0
             fi
@@ -205,6 +218,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
+          ref: main
           fetch-depth: 1
           persist-credentials: false
 

@@ -198,6 +198,20 @@ echo "Tag $TAG owns $count package(s), published in dependency order:"
 sed 's/^/  /' "$scratch/ordered.txt"
 echo
 
+package_registry() {
+	jq -r --arg p "$1" '
+		first(.record.package_publications[]? | select(.package == $p)) // {}
+		| .registry // (
+			if .ecosystem == "dart" then "pub_dev"
+			elif .ecosystem == "cargo" then "crates_io"
+			elif .ecosystem == "npm" then "npm"
+			else ""
+			end
+		)
+	' <<<"$record"
+}
+
+cargo_retry_delay="${CARGO_RETRY_DELAY_SECONDS:-60}"
 failed=""
 uploaded=""
 
@@ -211,9 +225,23 @@ while IFS= read -r package; do
 		set --
 	fi
 
+	pkg_registry="$(package_registry "$package")"
+
 	if monochange publish packages --package "$package" --stream-output --format json "$@"; then
 		if [[ "$DRY_RUN" -eq 0 ]]; then
 			uploaded="$uploaded $package "
+		fi
+	elif [[ "$DRY_RUN" -eq 0 && "$pkg_registry" == "crates_io" ]]; then
+		# Dependent Cargo crates (such as `skribble_core` after
+		# `skribble_rough`) can fail if crates.io's index lags past cargo's own
+		# wait window. Wait once and retry that crate before recording a failure.
+		echo "::warning::$package failed to publish to crates.io; waiting ${cargo_retry_delay}s and retrying once" >&2
+		sleep "$cargo_retry_delay"
+		if monochange publish packages --package "$package" --stream-output --format json "$@"; then
+			uploaded="$uploaded $package "
+		else
+			echo "::warning::$package failed to publish on retry; continuing with the remaining packages" >&2
+			failed="$failed $package"
 		fi
 	else
 		echo "::warning::$package failed to publish; continuing with the remaining packages" >&2
@@ -340,17 +368,8 @@ on_registry() {
 
 while IFS= read -r package; do
 	[[ -n "$package" ]] || continue
-	pub_entry="$(jq -c --arg p "$package" 'first(.record.package_publications[]? | select(.package == $p)) // {}' <<<"$record")"
-	registry="$(jq -r '
-		.registry // (
-			if .ecosystem == "dart" then "pub_dev"
-			elif .ecosystem == "cargo" then "crates_io"
-			elif .ecosystem == "npm" then "npm"
-			else ""
-			end
-		)
-	' <<<"$pub_entry")"
-	version="$(jq -r '.version // ""' <<<"$pub_entry")"
+	registry="$(package_registry "$package")"
+	version="$(jq -r --arg p "$package" 'first(.record.package_publications[]? | select(.package == $p) | .version) // ""' <<<"$record")"
 
 	if [[ -z "$version" || -z "$registry" ]]; then
 		printf '  unknown     %s (missing registry or version in the release record)\n' "$package"

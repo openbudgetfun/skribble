@@ -346,12 +346,19 @@ STUB_BIN="$TMP_ROOT/stub-bin"
 mkdir -p "$STUB_BIN"
 GH_LOG="$TMP_ROOT/gh-dispatch.log"
 GH_RUNS_JSON="$TMP_ROOT/gh-runs.json"
+GH_JOBS_JSON="$TMP_ROOT/gh-jobs.json"
+printf '{}\n' >"$GH_JOBS_JSON"
 
 cat >"$STUB_BIN/gh" <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 if [[ "$1" == "api" ]]; then
 	url="$2"
+	if [[ "$url" == *"/actions/runs/"*"/jobs"* ]]; then
+		run_id="$(printf '%s' "$url" | sed -n 's|.*/actions/runs/\([0-9]*\)/jobs.*|\1|p')"
+		jq -c --arg id "$run_id" '{jobs: (.[$id] // [])}' "$STUB_GH_JOBS_FILE"
+		exit 0
+	fi
 	# Extract URL-encoded branch query param and decode %2F -> /.
 	branch="$(printf '%s' "$url" | sed -n 's/.*branch=\([^&]*\).*/\1/p' | sed 's/%2F/\//gi; s/%2f/\//gi')"
 	jq -c --arg b "$branch" '{workflow_runs: (.[$b] // [])}' "$STUB_GH_RUNS_FILE"
@@ -371,7 +378,7 @@ cat >"$GH_RUNS_JSON" <<'EOF'
 {}
 EOF
 : >"$GH_LOG"
-out="$(PATH="$STUB_BIN:$PATH" STUB_GH_RUNS_FILE="$GH_RUNS_JSON" STUB_GH_LOG="$GH_LOG" \
+out="$(PATH="$STUB_BIN:$PATH" STUB_GH_RUNS_FILE="$GH_RUNS_JSON" STUB_GH_JOBS_FILE="$GH_JOBS_JSON" STUB_GH_LOG="$GH_LOG" \
 	"$DISPATCH_SCRIPT" --plan-json "$plan_json" --wave reconcile --skip-remote-check --repo openbudgetfun/skribble)"
 expected_dispatches=$'workflow run publish.yml --repo openbudgetfun/skribble --ref v0.4.1 -f tag=v0.4.1 -f dispatch_dependents=true\nworkflow run publish.yml --repo openbudgetfun/skribble --ref rust/v0.1.1 -f tag=rust/v0.1.1 -f dispatch_dependents=false\nworkflow run publish.yml --repo openbudgetfun/skribble --ref skribble_site/v1.1.0 -f tag=skribble_site/v1.1.0 -f dispatch_dependents=false'
 assert_eq "Fresh reconcile dispatches Wave 1 only with --ref <tag>" "$expected_dispatches" "$(cat "$GH_LOG")"
@@ -381,13 +388,18 @@ assert_contains "Fresh reconcile defers skribble_maps/v0.4.1" "Deferring skribbl
 # Scenario B: partial Wave 1 (v0.4.1 waiting, rust succeeded, site failed).
 cat >"$GH_RUNS_JSON" <<EOF
 {
-  "v0.4.1": [{ "head_sha": "$PR284_COMMIT", "status": "waiting", "conclusion": null }],
-  "rust/v0.1.1": [{ "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "success" }],
-  "skribble_site/v1.1.0": [{ "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "failure" }]
+  "v0.4.1": [{ "id": 101, "head_sha": "$PR284_COMMIT", "status": "waiting", "conclusion": null }],
+  "rust/v0.1.1": [{ "id": 102, "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "success" }],
+  "skribble_site/v1.1.0": [{ "id": 103, "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "failure" }]
+}
+EOF
+cat >"$GH_JOBS_JSON" <<'EOF'
+{
+  "103": [{ "name": "publish", "status": "completed", "conclusion": "failure" }]
 }
 EOF
 : >"$GH_LOG"
-PATH="$STUB_BIN:$PATH" STUB_GH_RUNS_FILE="$GH_RUNS_JSON" STUB_GH_LOG="$GH_LOG" \
+PATH="$STUB_BIN:$PATH" STUB_GH_RUNS_FILE="$GH_RUNS_JSON" STUB_GH_JOBS_FILE="$GH_JOBS_JSON" STUB_GH_LOG="$GH_LOG" \
 	"$DISPATCH_SCRIPT" --plan-json "$plan_json" --wave reconcile --skip-remote-check --repo openbudgetfun/skribble >/dev/null
 assert_eq "Reconcile during Wave 1 re-dispatches only failed site tag" \
 	"workflow run publish.yml --repo openbudgetfun/skribble --ref skribble_site/v1.1.0 -f tag=skribble_site/v1.1.0 -f dispatch_dependents=false" \
@@ -396,14 +408,15 @@ assert_eq "Reconcile during Wave 1 re-dispatches only failed site tag" \
 # Scenario C: recovery after v0.4.1 succeeded; charts already active, maps missing.
 cat >"$GH_RUNS_JSON" <<EOF
 {
-  "v0.4.1": [{ "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "success" }],
-  "rust/v0.1.1": [{ "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "success" }],
-  "skribble_site/v1.1.0": [{ "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "success" }],
-  "skribble_charts/v0.4.1": [{ "head_sha": "$PR284_COMMIT", "status": "in_progress", "conclusion": null }]
+  "v0.4.1": [{ "id": 201, "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "success" }],
+  "rust/v0.1.1": [{ "id": 202, "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "success" }],
+  "skribble_site/v1.1.0": [{ "id": 203, "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "success" }],
+  "skribble_charts/v0.4.1": [{ "id": 204, "head_sha": "$PR284_COMMIT", "status": "in_progress", "conclusion": null }]
 }
 EOF
+printf '{}\n' >"$GH_JOBS_JSON"
 : >"$GH_LOG"
-PATH="$STUB_BIN:$PATH" STUB_GH_RUNS_FILE="$GH_RUNS_JSON" STUB_GH_LOG="$GH_LOG" \
+PATH="$STUB_BIN:$PATH" STUB_GH_RUNS_FILE="$GH_RUNS_JSON" STUB_GH_JOBS_FILE="$GH_JOBS_JSON" STUB_GH_LOG="$GH_LOG" \
 	"$DISPATCH_SCRIPT" --plan-json "$plan_json" --wave reconcile --skip-remote-check --repo openbudgetfun/skribble >/dev/null
 assert_eq "Reconcile after main succeeds dispatches only missing Wave 2 tag" \
 	"workflow run publish.yml --repo openbudgetfun/skribble --ref skribble_maps/v0.4.1 -f tag=skribble_maps/v0.4.1 -f dispatch_dependents=false" \
@@ -411,13 +424,57 @@ assert_eq "Reconcile after main succeeds dispatches only missing Wave 2 tag" \
 
 # Scenario D: publish.yml dispatch_dependents handoff via --tags-json.
 : >"$GH_LOG"
-PATH="$STUB_BIN:$PATH" STUB_GH_RUNS_FILE="$GH_RUNS_JSON" STUB_GH_LOG="$GH_LOG" \
+PATH="$STUB_BIN:$PATH" STUB_GH_RUNS_FILE="$GH_RUNS_JSON" STUB_GH_JOBS_FILE="$GH_JOBS_JSON" STUB_GH_LOG="$GH_LOG" \
 	"$DISPATCH_SCRIPT" --tags-json '["skribble_charts/v0.4.1","skribble_maps/v0.4.1"]' \
 	--commit "$PR284_COMMIT" --wave initial --dispatch-dependents false \
 	--skip-remote-check --repo openbudgetfun/skribble >/dev/null
 assert_eq "Wave 2 --tags-json handoff skips active charts and dispatches maps" \
 	"workflow run publish.yml --repo openbudgetfun/skribble --ref skribble_maps/v0.4.1 -f tag=skribble_maps/v0.4.1 -f dispatch_dependents=false" \
 	"$(cat "$GH_LOG")"
+
+# Scenario E: v0.4.1 publish job succeeded while website job failed -> overall
+# workflow run concluded failure, yet reconcile treats main as succeeded:
+# dispatches Wave 2 and does NOT re-dispatch v0.4.1.
+cat >"$GH_RUNS_JSON" <<EOF
+{
+  "v0.4.1": [{ "id": 301, "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "failure" }],
+  "rust/v0.1.1": [{ "id": 302, "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "success" }],
+  "skribble_site/v1.1.0": [{ "id": 303, "head_sha": "$PR284_COMMIT", "status": "completed", "conclusion": "success" }]
+}
+EOF
+cat >"$GH_JOBS_JSON" <<'EOF'
+{
+  "301": [
+    { "name": "publish", "status": "completed", "conclusion": "success" },
+    { "name": "website", "status": "completed", "conclusion": "failure" }
+  ]
+}
+EOF
+: >"$GH_LOG"
+PATH="$STUB_BIN:$PATH" STUB_GH_RUNS_FILE="$GH_RUNS_JSON" STUB_GH_JOBS_FILE="$GH_JOBS_JSON" STUB_GH_LOG="$GH_LOG" \
+	"$DISPATCH_SCRIPT" --plan-json "$plan_json" --wave reconcile --skip-remote-check --repo openbudgetfun/skribble >/dev/null
+expected_wave2_dispatches=$'workflow run publish.yml --repo openbudgetfun/skribble --ref skribble_charts/v0.4.1 -f tag=skribble_charts/v0.4.1 -f dispatch_dependents=false\nworkflow run publish.yml --repo openbudgetfun/skribble --ref skribble_maps/v0.4.1 -f tag=skribble_maps/v0.4.1 -f dispatch_dependents=false'
+assert_eq "Publish succeeded + website failed dispatches Wave 2 without re-dispatching v0.4.1" \
+	"$expected_wave2_dispatches" \
+	"$(cat "$GH_LOG")"
+
+# Scenario F: v0.4.1 publish job failed while website job succeeded -> reconcile
+# re-dispatches v0.4.1 and keeps Wave 2 deferred.
+cat >"$GH_JOBS_JSON" <<'EOF'
+{
+  "301": [
+    { "name": "publish", "status": "completed", "conclusion": "failure" },
+    { "name": "website", "status": "completed", "conclusion": "success" }
+  ]
+}
+EOF
+: >"$GH_LOG"
+out="$(PATH="$STUB_BIN:$PATH" STUB_GH_RUNS_FILE="$GH_RUNS_JSON" STUB_GH_JOBS_FILE="$GH_JOBS_JSON" STUB_GH_LOG="$GH_LOG" \
+	"$DISPATCH_SCRIPT" --plan-json "$plan_json" --wave reconcile --skip-remote-check --repo openbudgetfun/skribble)"
+assert_eq "Publish failed + website succeeded re-dispatches v0.4.1 only" \
+	"workflow run publish.yml --repo openbudgetfun/skribble --ref v0.4.1 -f tag=v0.4.1 -f dispatch_dependents=true" \
+	"$(cat "$GH_LOG")"
+assert_contains "Publish failed keeps skribble_charts/v0.4.1 deferred" "Deferring skribble_charts/v0.4.1" "$out"
 
 echo "=== 3. publish_owned_packages.sh: registry routing for all 21 PR #284 publications + npm ==="
 
@@ -453,6 +510,11 @@ if [[ "$1" == "publish" && "$2" == "packages" ]]; then
 		fi
 	done
 	printf '%s\n' "$pkg" >>"$STUB_MC_LOG"
+	if [[ -n "${STUB_FAIL_ONCE_PACKAGE:-}" && "$pkg" == "$STUB_FAIL_ONCE_PACKAGE" && -n "${STUB_FAIL_ONCE_FLAG:-}" && -f "$STUB_FAIL_ONCE_FLAG" ]]; then
+		rm -f "$STUB_FAIL_ONCE_FLAG"
+		echo "simulated transient index-lag failure for $pkg" >&2
+		exit 1
+	fi
 	if [[ -n "${STUB_FAIL_PACKAGE:-}" && "$pkg" == "$STUB_FAIL_PACKAGE" ]]; then
 		echo "simulated publish failure for $pkg" >&2
 		exit 1
@@ -641,7 +703,8 @@ assert_contains "Scoped npm package routes to registry.npmjs.org" \
 assert_contains "Unscoped npm package routes to registry.npmjs.org (not pub.dev)" \
 	"https://registry.npmjs.org/skribble-cli|" "$(cat "$CURL_LOG")"
 
-# 3f. Failure isolation: failing rust:skribble_rough still attempts skribble_core, exits 1.
+# 3f. Cargo fail-twice + failure isolation: failing rust:skribble_rough retries
+# once (2 attempts total), still attempts skribble_core, and exits 1.
 : >"$CURL_LOG"
 : >"$MC_LOG"
 set +e
@@ -649,16 +712,55 @@ out="$(cd "$ROOT_DIR" && PATH="$PUB_STUB_BIN:$PATH" \
 	STUB_RECORD_FILE="$PR284_RECORD" STUB_CONFIG_FILE="$PR284_CONFIG" \
 	STUB_READINESS_FILE="$PR284_READINESS" STUB_CURL_LOG="$CURL_LOG" STUB_MC_LOG="$MC_LOG" \
 	STUB_FAIL_PACKAGE="rust:skribble_rough" STUB_MISSING_URL_SUBSTR="/crates/skribble_rough" \
+	CARGO_RETRY_DELAY_SECONDS=0 \
 	"$PUBLISH_OWNED_SCRIPT" rust/v0.1.1 --readiness "$PR284_READINESS" 2>&1)"
 rc=$?
 set -e
-assert_eq "Failure isolation exits non-zero when one crate fails" "1" "$rc"
-assert_eq "Failure isolation still publishes remaining crate" \
-	$'rust:skribble_rough\nskribble_core' "$(cat "$MC_LOG")"
+assert_eq "Cargo fail-twice exits non-zero when retry also fails" "1" "$rc"
+assert_eq "Cargo fail-twice retries once then continues to sibling crate" \
+	$'rust:skribble_rough\nrust:skribble_rough\nskribble_core' "$(cat "$MC_LOG")"
+assert_contains "Cargo fail-twice logs retry warning" \
+	"failed to publish to crates.io; waiting 0s and retrying once" "$out"
 assert_contains "Failure isolation reports missing crate on crates.io" \
 	"MISSING     rust:skribble_rough (0.1.1 is not on crates.io)" "$out"
 assert_contains "Failure isolation reports ok for sibling crate" \
 	"ok          skribble_core (0.1.1 on crates.io)" "$out"
+
+# 3f2. Cargo fail-once then succeed on retry (e.g. skribble_core waiting on
+# crates.io index propagation after skribble_rough).
+CARGO_RETRY_FLAG="$TMP_ROOT/cargo-retry-once"
+touch "$CARGO_RETRY_FLAG"
+: >"$CURL_LOG"
+: >"$MC_LOG"
+out="$(cd "$ROOT_DIR" && PATH="$PUB_STUB_BIN:$PATH" \
+	STUB_RECORD_FILE="$PR284_RECORD" STUB_CONFIG_FILE="$PR284_CONFIG" \
+	STUB_READINESS_FILE="$PR284_READINESS" STUB_CURL_LOG="$CURL_LOG" STUB_MC_LOG="$MC_LOG" \
+	STUB_FAIL_ONCE_PACKAGE="skribble_core" STUB_FAIL_ONCE_FLAG="$CARGO_RETRY_FLAG" \
+	CARGO_RETRY_DELAY_SECONDS=0 \
+	"$PUBLISH_OWNED_SCRIPT" rust/v0.1.1 --readiness "$PR284_READINESS" 2>&1)"
+assert_eq "Cargo fail-once then succeed retries skribble_core once and passes" \
+	$'rust:skribble_rough\nskribble_core\nskribble_core' "$(cat "$MC_LOG")"
+assert_contains "Cargo fail-once logs retry warning" \
+	"skribble_core failed to publish to crates.io; waiting 0s and retrying once" "$out"
+assert_contains "Cargo fail-once verifies skribble_core ok on crates.io" \
+	"ok          skribble_core (0.1.1 on crates.io)" "$out"
+assert_not_contains "Cargo fail-once does not record publish failure after retry succeeds" \
+	"publish failures this run" "$out"
+
+# 3f3. Non-Cargo (pub_dev) failure does NOT retry.
+: >"$CURL_LOG"
+: >"$MC_LOG"
+set +e
+out="$(cd "$ROOT_DIR" && PATH="$PUB_STUB_BIN:$PATH" \
+	STUB_RECORD_FILE="$PR284_RECORD" STUB_CONFIG_FILE="$PR284_CONFIG" \
+	STUB_READINESS_FILE="$PR284_READINESS" STUB_CURL_LOG="$CURL_LOG" STUB_MC_LOG="$MC_LOG" \
+	STUB_FAIL_PACKAGE="skribble_charts" STUB_MISSING_URL_SUBSTR="/packages/skribble_charts" \
+	CARGO_RETRY_DELAY_SECONDS=0 \
+	"$PUBLISH_OWNED_SCRIPT" skribble_charts/v0.4.1 --readiness "$PR284_READINESS" 2>&1)"
+rc=$?
+set -e
+assert_eq "pub_dev failure exits non-zero" "1" "$rc"
+assert_eq "pub_dev failure is attempted once (never retried)" "skribble_charts" "$(cat "$MC_LOG")"
 
 # 3g. Delayed registry visibility polling for a just-uploaded crate.
 FLAKY_FLAG="$TMP_ROOT/flaky-once"
@@ -822,6 +924,31 @@ assert_contains "skribble_site/v1.1.1 yields website deploy to rust/v0.1.2" \
 	"rust/v0.1.2 owns the website deploy" \
 	"$("$DEPLOY_WEBSITE_SCRIPT" skribble_site/v1.1.1 --dry-run)"
 popd >/dev/null
+
+echo "=== 6. publish.yml: release tag validation pattern in both publish and website jobs ==="
+
+PUBLISH_WORKFLOW="$ROOT_DIR/.github/workflows/publish.yml"
+regex_count="$(grep -c "tag_regex='" "$PUBLISH_WORKFLOW")"
+assert_eq "publish.yml validates tag_regex in both publish and website jobs" "2" "$regex_count"
+unique_regexes="$(sed -n "s/.*tag_regex='\([^']*\)'.*/\1/p" "$PUBLISH_WORKFLOW" | sort -u)"
+assert_eq "publish and website jobs share identical tag_regex" "1" "$(wc -l <<<"$unique_regexes" | tr -d ' ')"
+
+tag_regex="$unique_regexes"
+for valid_tag in v0.4.1 rust/v0.1.1 js/v0.1.0 skribble_charts/v0.4.1 skribble_maps/v0.4.1 skribble_site/v1.1.0 v1.0.0-rc.1 rust/v0.2.0-beta.1+build.2; do
+	if [[ "$valid_tag" =~ $tag_regex ]]; then
+		pass "tag_regex accepts valid release tag '$valid_tag'"
+	else
+		fail "tag_regex should accept valid release tag '$valid_tag'"
+	fi
+done
+
+for invalid_tag in main v0.4 v01.2.3 other/v0.4.1 "v0.4.1;id" ../v0.4.1 v0.4.1/extra ""; do
+	if [[ ! "$invalid_tag" =~ $tag_regex ]]; then
+		pass "tag_regex rejects invalid tag '$invalid_tag'"
+	else
+		fail "tag_regex should reject invalid tag '$invalid_tag'"
+	fi
+done
 
 echo
 printf 'Results: %d passed, %d failed\n' "$PASSED" "$FAILED"

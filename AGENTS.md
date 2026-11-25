@@ -262,7 +262,7 @@ publish:fonts
 publish:owned v<version>
 
 # Re-dispatch any missing publish workflow runs for a release commit from GitHub
-gh workflow run release.yml
+gh workflow run release.yml --ref <tag>
 
 # Regenerate the Dart parity fixtures for @skribble.dev/rough and the Rust skribble_rough
 dart run packages/skribble_rough/tool/js_parity_fixtures.dart > js/rough/test/fixtures/dart-parity.json

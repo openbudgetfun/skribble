@@ -85,7 +85,7 @@ monochange run release-local --commit --push --tag --publish-release  # also pub
 
 `--diff` is not a dry run: it renders the plan and leaves the planned version bumps, changelog entries, and a release manifest in the working tree. Restore the tree with `git checkout -- .` afterwards, or preview read-only with `monochange step prepare-release --dry-run --diff`.
 
-The local run does everything in one pass on `main`: it plans the bumps, syncs dependency references, formats the workspace, creates the release commit, pushes it, pushes the release tags, publishes the GitHub release objects, and attaches the font assets. Pushing the tags is what fires the publish workflow, and each tag must be pushed as a real tag-push event.
+The local run does everything in one pass on `main`: it plans the bumps, syncs dependency references, formats the workspace, creates the release commit, pushes it, pushes the release tags, publishes the GitHub release objects, and attaches the font assets. Pushing the release commit to `main` triggers the `Release PR` workflow to dispatch `publish.yml` in wave order (`publish.yml` has no `push: tags:` trigger); to reconcile or re-dispatch from GitHub manually, run `gh workflow run release.yml --ref <tag>`.
 
 The shared CI setup restores `.fvmrc` after FVM selects the pinned SDK, and the storybook ignores Flutter's generated iOS configuration. These keep the checkout clean while the release command commits.
 
@@ -101,7 +101,7 @@ Releases complete from GitHub alone — no local checkout or manual tag push is 
 
 Inside each tag's `publish.yml` run:
 
-1. The workflow checks out the tag and verifies it matches a commit reachable from `main` (and matches `inputs.tag` if supplied).
+1. Both the `publish` and `website` jobs first validate that the workflow ref is a tag (`ref_type == tag`), matches `inputs.tag` if supplied, and matches one of this repository's release tag patterns (`v<semver>`, `rust/v<semver>`, `js/v<semver>`, `skribble_charts/v<semver>`, `skribble_maps/v<semver>`, or `skribble_site/v<semver>`), then check out the tag and verify it is reachable from `main`.
 2. `Find the packages this tag publishes` reads the release record and determines which publishable packages and registries (`pub_dev`, `crates_io`, `npm`) this tag owns. `skribble_site/v*` owns no registry packages and skips straight to its GitHub release.
 3. When the tag owns registry packages, `monochange publish readiness` runs scoped to only this tag's owned packages (via `--package`), so Dart, Rust, and npm tags do not dry-run each other's ecosystems.
 4. Registry authentication runs only for the ecosystems this tag owns: `dart-lang/setup-dart` for pub.dev (after readiness so dependency resolution stays anonymous), `rust-lang/crates-io-auth-action` for crates.io (`CARGO_REGISTRY_TOKEN`), and npm OIDC (`id-token: write`, npm ≥ 11.5.1) for npm.
@@ -113,7 +113,7 @@ Inside each tag's `publish.yml` run:
 
 For a five-tag release such as 0.4.1 (`v0.4.1`, `rust/v0.1.1`, `skribble_site/v1.1.0`, `skribble_charts/v0.4.1`, `skribble_maps/v0.4.1`), five `publisher` approvals appear across two waves: three in Wave 1 right after merge (`v0.4.1`, `rust/v0.1.1`, `skribble_site/v1.1.0`) and two in Wave 2 automatically after `v0.4.1` succeeds (`skribble_charts/v0.4.1`, `skribble_maps/v0.4.1`).
 
-pub.dev's automated publishing accepts both `push` and `workflow_dispatch` events as long as the run's ref is a tag matching the package's configured tag pattern (`ref_type == tag`, `ref == refs/tags/<pattern>`), the `workflow_dispatch` option is enabled in the package's pub.dev Admin tab, and the `publisher` environment matches. crates.io and npm trusted publishing accept `workflow_dispatch` runs on tag refs under the same `publisher` environment as well.
+pub.dev's automated publishing accepts `workflow_dispatch` runs as long as the run's ref is a tag matching the package's configured tag pattern (`ref_type == tag`, `ref == refs/tags/<pattern>`), the `workflow_dispatch` option is enabled in the package's pub.dev Admin tab, and the `publisher` environment matches. crates.io and npm trusted publishing accept `workflow_dispatch` runs on tag refs under the same `publisher` environment as well. `publish.yml` triggers only on `workflow_dispatch` (never on `push: tags:`), so pushing tags by hand cannot bypass Wave 1 → Wave 2 ordering or start duplicate runs.
 
 To run the tag-scoped publish locally instead (using local credentials) or inspect current registry state:
 
@@ -206,7 +206,7 @@ That attaches `SkribbleNoto-Kit-<tag>.zip`, `SkribbleNotoSketch-Kit-<tag>.zip`, 
 
 ### Rust crates
 
-`rust:skribble_rough` (`rust/rough`) and `skribble_core` (`rust/core`) share the workspace version in `Cargo.toml` and release together as the `rust` group under `rust/v<version>` tags. Both crates already use crates.io trusted publishing (`openbudgetfun/skribble`, `publish.yml`, environment `publisher`). Because monochange 0.21.0 does not perform the crates.io OIDC exchange itself, `publish.yml` runs `rust-lang/crates-io-auth-action` whenever the tag owns Cargo packages and passes its temporary token to `publish_owned_packages.sh` as `CARGO_REGISTRY_TOKEN`; the action's post step revokes the token when the job ends. `skribble_rough` publishes before `skribble_core` in dependency order, and verification queries `crates.io/api/v1/crates/skribble_rough` and `crates.io/api/v1/crates/skribble_core` using the crate names from their `Cargo.toml` manifests.
+`rust:skribble_rough` (`rust/rough`) and `skribble_core` (`rust/core`) share the workspace version in `Cargo.toml` and release together as the `rust` group under `rust/v<version>` tags. Both crates already use crates.io trusted publishing (`openbudgetfun/skribble`, `publish.yml`, environment `publisher`). Because monochange 0.21.0 does not perform the crates.io OIDC exchange itself, `publish.yml` runs `rust-lang/crates-io-auth-action` whenever the tag owns Cargo packages and passes its temporary token to `publish_owned_packages.sh` as `CARGO_REGISTRY_TOKEN`; the action's post step revokes the token when the job ends. `skribble_rough` publishes before `skribble_core` in dependency order; if a `crates_io` publish fails (for example when crates.io's index lags past cargo's own wait window), `publish_owned_packages.sh` waits 60 seconds and retries that crate once before recording a failure. Verification queries `crates.io/api/v1/crates/skribble_rough` and `crates.io/api/v1/crates/skribble_core` using the crate names from their `Cargo.toml` manifests.
 
 ### npm packages
 
@@ -254,7 +254,7 @@ publish:emoji-lottie v0.3.0 --dry-run   # export and report without uploading
 
 The export passes `--plain-name 'export Lottie files'` through the devenv `flutter` script, which forwards its arguments quoted. The v0.3.0 run failed here because the script used to forward them unquoted, splitting the test name into three paths.
 
-The publish workflow listens for `v*`, `skribble_maps/v*`, `skribble_charts/v*`, `skribble_site/v*`, `rust/v*`, and `js/v*` tag pushes and for `workflow_dispatch` runs dispatched on those tag refs (`gh workflow run publish.yml --ref <tag>`). Dispatching on a branch ref such as `main` will be rejected by pub.dev's tag-ref check when a Dart package still needs uploading.
+The publish workflow triggers only on `workflow_dispatch` against a release tag ref (`gh workflow run publish.yml --ref <tag>`). Both the `publish` and `website` jobs reject non-tag refs (such as `main`) and tags that do not match `v<semver>`, `rust/v<semver>`, `js/v<semver>`, `skribble_charts/v<semver>`, `skribble_maps/v<semver>`, or `skribble_site/v<semver>`.
 
 The pub.dev automated publisher for `skribble_maps` uses repository `openbudgetfun/skribble`, workflow `publish.yml`, GitHub environment `publisher`, and tag pattern `skribble_maps/v{{version}}`. Its `0.0.0` placeholder was published with Monochange before the automated publisher was registered.
 
@@ -314,7 +314,13 @@ Recovering a partial publish stays on GitHub: publishing checks each package's r
 
   To repair only one tag's GitHub release or font/emoji assets after its Wave 2 companions have already published, pass `-f dispatch_dependents=false` (even without that flag, `dispatch_dependents` skips any companion tag that already has a successful publish run at the same commit).
 
-- **Reconcile an entire release commit** — dispatch `gh workflow run release.yml` while the release commit is at `HEAD` on `main`. It skips tags that already exist and publish runs that are already active or succeeded, dispatching only missing or failed tags (including Wave 2 companions once `v<version>` has succeeded).
+- **Reconcile an entire release commit** — dispatch `release.yml` on one of that release's tags:
+
+  ```bash
+  gh workflow run release.yml --ref v<version>
+  ```
+
+  Dispatching on a release tag works even after newer commits have landed on `main` (dispatching `release.yml` on `main` once `HEAD` is no longer the release commit prints a notice and dispatches nothing). Reconcile skips tags that already exist and publish runs whose `publish` job already succeeded or is active (so a `website` job failure neither re-dispatches `v<version>` nor blocks Wave 2), dispatching only missing or failed tags (including Wave 2 companions once `v<version>`'s `publish` job has succeeded).
 
 Before rerunning, check which packages are actually missing rather than assuming the failure was transient. A publish that fails with `publishing from github is not enabled` will fail identically on every retry until the package's rule is registered in its registry admin page.
 
