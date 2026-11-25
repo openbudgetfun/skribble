@@ -30,6 +30,18 @@ jobs:
             exit 1
           fi
 
+  release-scripts:
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+      - name: Run release script tests
+        shell: bash
+        run: ./scripts/release/release_scripts_test.sh
+
   # The zero-Material endgame is tracked by docs/material-dependency-audit.txt.
   # The rewrite lands one widget at a time, so instead of failing every PR
   # until the count reaches zero this job is a ratchet: it fails only when the

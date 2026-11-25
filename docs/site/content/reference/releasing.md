@@ -25,7 +25,7 @@ skribble publishes packages to pub.dev as one synchronized `main` release group:
 - `skribble_lints`
 - `skribble_rough`
 
-Those packages use the same version and the release tag `v<version>`. `skribble_maps` and `skribble_charts` release independently, with tags `skribble_maps/v<version>` and `skribble_charts/v<version>`. Neither belongs to the `main` group. The website, `skribble_site`, releases on its own too, with tags `skribble_site/v<version>`, but is never published to a registry (see [The website](#the-website)). The five npm packages in `js/` form the `js` group and release to npm under `js/v<version>`; see [npm packages](#npm-packages). Other applications, the workspace root, and the documentation app remain private.
+Those packages use the same version and the release tag `v<version>`. `skribble_maps` and `skribble_charts` release independently, with tags `skribble_maps/v<version>` and `skribble_charts/v<version>`. Neither belongs to the `main` group. The website, `skribble_site`, releases on its own too, with tags `skribble_site/v<version>`, but is never published to a registry (see [The website](#the-website)). The two Rust crates (`rust:skribble_rough` and `skribble_core`) form the `rust` group and release to crates.io under `rust/v<version>` (see [Rust crates](#rust-crates)). The five npm packages in `js/` form the `js` group and release to npm under `js/v<version>` (see [npm packages](#npm-packages)). Other applications, the workspace root, and the documentation app remain private.
 
 Both companion packages depend on `skribble`, so Monochange propagates the core package's release severity to them. A breaking core change produces a breaking companion change. Changes confined to maps or charts can release without forcing a release of the main group.
 
@@ -61,7 +61,7 @@ Circles and marker strokes on the landing page no longer stop short of the word 
 
 ## The release pull request
 
-Every push to `main` runs the `Release PR` workflow. When changesets are pending, it runs `monochange run release` with `MONOCHANGE_RELEASE_BACKEND=hosted`: Monochange plans the version bumps, updates the changelogs and versioned files, and formats them, then the monochange GitHub App on monochange.dev commits the result on the `chore/release/release` branch and opens or refreshes the `chore(release): prepare release` pull request. Review the planned versions and changelogs there, then merge it once every check is green: the merged commit is the release commit, which you tag to publish it (see [Publish a release](#publish-a-release)).
+Every push to `main` runs the `Release PR` workflow. When changesets are pending, it runs `monochange run release` with `MONOCHANGE_RELEASE_BACKEND=hosted`: Monochange plans the version bumps, updates the changelogs and versioned files, and formats them, then the monochange GitHub App on monochange.dev commits the result on the `chore/release/release` branch and opens or refreshes the `chore(release): prepare release` pull request. Review the planned versions and changelogs there, then merge it once every check is green: the `Release PR` workflow detects the merged release commit, tags it, and dispatches `publish.yml` automatically (see [Publish a release](#publish-a-release)).
 
 The release commit is verified and the pull request is opened by the monochange bot, so CI starts on the release pull request by itself; no run needs approving.
 
@@ -91,50 +91,43 @@ The shared CI setup restores `.fvmrc` after FVM selects the pinned SDK, and the 
 
 ## Publish a release
 
-Once the release pull request merges, push the release commit's tags from a local checkout — `v<version>` for the main group, plus the namespaced maps or charts tag when that package is included. Tags pushed with the workflow's `GITHUB_TOKEN` would start no publish run, so they are pushed with your own credentials, and each push is a real workflow event that fires the publish workflow:
+Releases complete from GitHub alone — no local checkout or manual tag push is needed. When the release pull request merges into `main`:
 
-```bash
-git fetch origin && git switch --detach origin/main
-publish:tags
-```
+1. The `Release PR` workflow (`.github/workflows/release.yml`) detects that `HEAD` is a release commit (`monochange step release-record --from HEAD`).
+2. Its `update` job creates and pushes every release tag declared by the release record (`monochange step tag-release --from HEAD --push=true`). Tags already pointing at `HEAD` are skipped.
+3. Its `dispatch_publish` job runs `scripts/release/dispatch_publish_runs.sh --wave reconcile`, waits until each tag is visible on `origin`, and dispatches one `publish.yml` run per independent **Wave 1** tag on that tag's ref (`gh workflow run publish.yml --ref <tag> -f tag=<tag>`). Wave 1 includes `v<version>` (`main`), `rust/v<version>`, `js/v<version>`, and `skribble_site/v<version>` (plus Dart companions when `main` is not in the release).
+4. Each `publish.yml` run stops at the `publisher` environment for maintainer approval. Because each run is independent, approvals do not have to happen at the same time and no workflow waits or times out on them.
+5. Once the `main` (`v<version>`) publish run succeeds and verifies all 17 main packages on pub.dev, its `dispatch_dependents` job dispatches **Wave 2**: `publish.yml` on each Dart companion tag that depends on `skribble` (`skribble_charts/v<version>` and `skribble_maps/v<version>`). Approving those Wave 2 runs finishes the release.
 
-`publish:tags` (`scripts/release/push_release_tags.sh`) creates the tags from the release record, pushes them one at a time, and watches each publish run to completion. Run it again after a failed publish: tags already on origin are not pushed twice, and their publish runs are watched again. The `Release PR` workflow leaves a notice on the release commit's run as a reminder.
+Inside each tag's `publish.yml` run:
 
-The main tag's publish run creates every GitHub release in the release record, and with it each companion tag that has not been pushed yet. That tag comes from the workflow's `GITHUB_TOKEN`, so it fires no publish run, as happened to `skribble_maps/v0.3.1` and `skribble_charts/v0.3.1`. `publish:tags` therefore publishes a tag that is already on origin without a publish run from your checkout, with `publish_owned_packages.sh` and your pub.dev credentials.
+1. The workflow checks out the tag and verifies it matches a commit reachable from `main` (and matches `inputs.tag` if supplied).
+2. `Find the packages this tag publishes` reads the release record and determines which publishable packages and registries (`pub_dev`, `crates_io`, `npm`) this tag owns. `skribble_site/v*` owns no registry packages and skips straight to its GitHub release.
+3. When the tag owns registry packages, `monochange publish readiness` runs scoped to only this tag's owned packages (via `--package`), so Dart, Rust, and npm tags do not dry-run each other's ecosystems.
+4. Registry authentication runs only for the ecosystems this tag owns: `dart-lang/setup-dart` for pub.dev (after readiness so dependency resolution stays anonymous), `rust-lang/crates-io-auth-action` for crates.io (`CARGO_REGISTRY_TOKEN`), and npm OIDC (`id-token: write`, npm ≥ 11.5.1) for npm.
+5. `scripts/release/publish_owned_packages.sh` publishes each owned package in its own `monochange publish packages` invocation in dependency order, then verifies every owned package against the registry named in the release record's `package_publications` (`pub.dev`, `crates.io`, or `npm`).
+6. `scripts/release/publish_github_release.sh` creates **only this tag's** GitHub release from monochange's rendered title and notes (`--verify-tag`, `--latest=true` for primary `v<version>` releases and `--latest=false` for namespaced releases). Existing published releases are skipped so re-runs never overwrite manual edits.
+7. A separate `website` job deploys the website once per release commit (see [The website](#the-website)). It does not wait for the registry publish.
+8. For the main `v<version>` tag, the workflow packages every bundled font family as a zip and exports the animated emoji Lottie archive, uploading both to the `v<version>` GitHub release.
+9. For the main `v<version>` tag, refresh the design handover manually as described in [Publish the Figma handover](#publish-the-figma-handover).
 
-The publish workflow then runs for each tag:
+For a five-tag release such as 0.4.1 (`v0.4.1`, `rust/v0.1.1`, `skribble_site/v1.1.0`, `skribble_charts/v0.4.1`, `skribble_maps/v0.4.1`), five `publisher` approvals appear across two waves: three in Wave 1 right after merge (`v0.4.1`, `rust/v0.1.1`, `skribble_site/v1.1.0`) and two in Wave 2 automatically after `v0.4.1` succeeds (`skribble_charts/v0.4.1`, `skribble_maps/v0.4.1`).
 
-1. The publish workflow checks out the tag and verifies it matches a commit reachable from `main`.
-2. Monochange checks publish readiness for the packages in the release record.
-3. setup-dart registers the pub.dev credential, and the publish step resolves the packages this tag owns from the release record and publishes them in dependency order. Re-runs skip versions that already exist on pub.dev, so a recovered publish is safe to repeat.
-4. The workflow publishes the GitHub release objects from the release record.
-5. A separate `website` job deploys the website (see [The website](#the-website)). It does not wait for the registry publish.
-6. For the main `v<version>` tag, the workflow packages every bundled font family as a zip and uploads the archives to the GitHub release.
-7. For the main `v<version>` tag, refresh the design handover manually as described in [Publish the Figma handover](#publish-the-figma-handover).
+pub.dev's automated publishing accepts both `push` and `workflow_dispatch` events as long as the run's ref is a tag matching the package's configured tag pattern (`ref_type == tag`, `ref == refs/tags/<pattern>`), the `workflow_dispatch` option is enabled in the package's pub.dev Admin tab, and the `publisher` environment matches. crates.io and npm trusted publishing accept `workflow_dispatch` runs on tag refs under the same `publisher` environment as well.
 
-Companion tags are pushed only after the main group's publish run succeeds, because `skribble_maps` and `skribble_charts` depend on `skribble`.
-
-Run the publish locally instead (or after the release tags already exist) with:
-
-```bash
-monochange run publish
-publish:fonts
-```
-
-The same tag-scoped publish is available as a script, which is what the workflow runs:
+To run the tag-scoped publish locally instead (using local credentials) or inspect current registry state:
 
 ```bash
 ./scripts/release/publish_owned_packages.sh v<version>          # main group
+./scripts/release/publish_owned_packages.sh rust/v<version>     # Rust crates
 ./scripts/release/publish_owned_packages.sh v<version> --dry-run
 ```
 
-It resolves the packages the tag owns from the release record, publishes each in its own `monochange publish packages` invocation in dependency order, and then verifies every one of them is on the registry. Publishing one package at a time is deliberate: monochange aborts the rest of a batch when any package fails, so a single rejected publish would otherwise leave every package behind it unpublished. A package that fails is reported by name and the script exits non-zero.
+It resolves the packages the tag owns from the release record, publishes each in its own `monochange publish packages` invocation in dependency order, and then verifies every one of them against its registry (`pub.dev`, `crates.io`, or `npm`). Publishing one package at a time is deliberate: monochange aborts the rest of a batch when any package fails, so a single rejected publish would otherwise leave every package behind it unpublished. A package that fails is reported by name and the script exits non-zero.
 
-Dependency order comes from a `monochange publish readiness` report. The script computes one when it needs to, but the workflow passes its own with `--readiness`: that step dry-runs `pub publish` for every package, which resolves dependencies, and a publish-scoped pub.dev credential breaks resolution. In the workflow the report is therefore computed before setup-dart registers the credential and handed to the script rather than recomputed after it. The final registry check reads the pub.dev API directly, so it does not depend on that report. pub.dev accepts an upload before its API lists the new version, so the check polls a version the run just uploaded for up to 10 minutes before reporting it missing. A package whose publish failed is reported at once.
+Dependency order comes from a `monochange publish readiness` report scoped to the tag's own packages. The script computes one when `--readiness` is omitted, while the workflow computes it before registering the pub.dev credential and passes it in with `--readiness`. The final verification queries each package's registry API directly using the real package name from the package manifest (so `dart:skribble_rough` checks `skribble_rough` on pub.dev and `rust:skribble_rough` checks `skribble_rough` on crates.io). Because registries can accept an upload before their API lists the new version, any version uploaded by the current run is polled for up to 10 minutes before being reported missing. A package whose publish failed is reported at once.
 
-`monochange run release-local --commit --push --tag --publish-release` runs both for a local release. Font zips are attached by the publish workflow's `v<version>` job; a release published locally uses `publish:fonts` to upload the same archives.
-
-pub.dev's automated publishing only accepts GitHub Actions runs triggered by pushing a git tag. `workflow_dispatch` runs — even against a tag ref — are rejected, so publish from tag pushes. The publish workflow's dispatch input exists only for re-running the GitHub release and font repair steps.
+`monochange run release-local --commit --push --tag --publish-release` remains available for a full local release. Font zips are attached by the publish workflow's `v<version>` job; a release published locally uses `publish:fonts` to upload the same archives.
 
 ### Publish commands
 
@@ -155,7 +148,8 @@ When npm asks for a one-time password (`EOTP`), get the current code from your a
 Two repository-side settings make the automated path work. A release from a local checkout needs only the second.
 
 - **GitHub Actions can open pull requests** — _Settings → Actions → General → Allow GitHub Actions to create and approve pull requests_ must stay enabled, at the organization and repository level, or the release workflow cannot open the release pull request with `GITHUB_TOKEN`.
-- **pub.dev automated publishing** — configured per package in the package's Admin tab: repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, and the tag pattern for that package (`v{{version}}`, `skribble_maps/v{{version}}`, or `skribble_charts/v{{version}}`). pub.dev rejects a tagged publish whose configuration does not match.
+- **pub.dev automated publishing** — configured per package in the package's Admin tab: repository `openbudgetfun/skribble`, workflow `publish.yml`, environment `publisher`, both `push` and `workflow_dispatch` events enabled, and the tag pattern for that package (`v{{version}}`, `skribble_maps/v{{version}}`, or `skribble_charts/v{{version}}`). pub.dev rejects a tagged publish whose configuration does not match.
+- **crates.io trusted publishing** — configured per crate (`skribble_rough` and `skribble_core`) with repository `openbudgetfun/skribble`, workflow `publish.yml`, and environment `publisher`. `publish.yml` exchanges the GitHub Actions OIDC token via `rust-lang/crates-io-auth-action` and passes it to `cargo publish` as `CARGO_REGISTRY_TOKEN`.
 
   This is per package and cannot be verified from the repository: `monochange publish readiness` reports `manual_verification_required` for every existing package because it cannot read trusted-publisher entries without registry credentials. A package whose rule is missing or mismatched fails at publish time with `The calling GitHub Action is not allowed to publish, because: publishing from github is not enabled`, and no workflow change can fix it — only the Admin tab can. Both v0.2.0 and v0.2.1 failed exactly this way on `skribble_font_recursive` while its sibling packages published normally.
 
@@ -210,13 +204,17 @@ python3 tool/skribble_noto/build.py gf/ofl build/noto
 
 That attaches `SkribbleNoto-Kit-<tag>.zip`, `SkribbleNotoSketch-Kit-<tag>.zip`, and `SkribbleNotoLively-Kit-<tag>.zip`, each with every script's Regular file, `OFL.txt`, and the kit README (`tool/skribble_noto/KIT.md`, shipped as `README.md`). The script checks that the tag and its GitHub release exist before uploading. Rebuild the kit when the generator or the pinned Noto sources change; otherwise re-upload the previous kit to the new tag.
 
+### Rust crates
+
+`rust:skribble_rough` (`rust/rough`) and `skribble_core` (`rust/core`) share the workspace version in `Cargo.toml` and release together as the `rust` group under `rust/v<version>` tags. Both crates already use crates.io trusted publishing (`openbudgetfun/skribble`, `publish.yml`, environment `publisher`). Because monochange 0.21.0 does not perform the crates.io OIDC exchange itself, `publish.yml` runs `rust-lang/crates-io-auth-action` whenever the tag owns Cargo packages and passes its temporary token to `publish_owned_packages.sh` as `CARGO_REGISTRY_TOKEN`; the action's post step revokes the token when the job ends. `skribble_rough` publishes before `skribble_core` in dependency order, and verification queries `crates.io/api/v1/crates/skribble_rough` and `crates.io/api/v1/crates/skribble_core` using the crate names from their `Cargo.toml` manifests.
+
 ### npm packages
 
 `@skribble.dev/rough`, `@skribble.dev/react`, `@skribble.dev/react-native`, `@skribble.dev/vue`, and `@skribble.dev/svelte` share one version as the `js` group and release under `js/v<version>`. A JavaScript release never forces a Dart release, and the reverse. They follow the same baseline as the Dart packages: manifests sit at the unpublished `0.0.1` development version after the `0.0.0` registry placeholders, and the first release is pinned to `0.1.0`.
 
 Internal dependencies are plain ranges such as `"@skribble.dev/rough": "^0.1.0"`. Monochange rewrites them with each release and refreshes `pnpm-lock.yaml` with `pnpm install --lockfile-only`. They are never `workspace:` ranges, because trusted publishing runs plain `npm publish`, which would upload a `workspace:` range unchanged. `pnpm-workspace.yaml` keeps pnpm linking the local packages.
 
-When the release record includes npm packages, the publish workflow installs the workspace with `pnpm install --frozen-lockfile`, because the readiness check dry-runs `npm publish` for them whichever tag is being published. A Dart-only release skips the install. For a `js/v*` tag the workflow also checks that npm is at least 11.5.1 (the first version with trusted publishing), and publishes each package with `npm publish --access public`. Every package's `prepack` script builds it and its workspace dependencies first. The final registry check reads `registry.npmjs.org` for scoped names and pub.dev for everything else.
+Only a tag that owns npm packages installs the pnpm workspace (`pnpm install --frozen-lockfile`) and checks that npm is at least 11.5.1 (the first version with trusted publishing), because readiness is scoped to the packages that tag owns. Each package's `prepack` script builds it and its workspace dependencies first, and the final registry check routes every package to the registry declared in the release record's `package_publications` (`pub.dev`, `crates.io`, or `npm`).
 
 **Before the first `js/v*` tag**, bootstrap npm once. npm only accepts a trusted publisher for a package that already exists, so the first publish cannot come from the workflow:
 
@@ -256,7 +254,7 @@ publish:emoji-lottie v0.3.0 --dry-run   # export and report without uploading
 
 The export passes `--plain-name 'export Lottie files'` through the devenv `flutter` script, which forwards its arguments quoted. The v0.3.0 run failed here because the script used to forward them unquoted, splitting the test name into three paths.
 
-pub.dev's automated publisher requires the tag push event, so the publish workflow only listens for `v*`, `skribble_maps/v*`, `skribble_charts/v*`, `skribble_site/v*`, and `js/v*` tag pushes. A `workflow_dispatch` with an explicit `tag` input exists for re-running the non-registry steps, but pub.dev rejects the publish itself on dispatch runs.
+The publish workflow listens for `v*`, `skribble_maps/v*`, `skribble_charts/v*`, `skribble_site/v*`, `rust/v*`, and `js/v*` tag pushes and for `workflow_dispatch` runs dispatched on those tag refs (`gh workflow run publish.yml --ref <tag>`). Dispatching on a branch ref such as `main` will be rejected by pub.dev's tag-ref check when a Dart package still needs uploading.
 
 The pub.dev automated publisher for `skribble_maps` uses repository `openbudgetfun/skribble`, workflow `publish.yml`, GitHub environment `publisher`, and tag pattern `skribble_maps/v{{version}}`. Its `0.0.0` placeholder was published with Monochange before the automated publisher was registered.
 
@@ -306,17 +304,25 @@ monochange run publish --dry-run
 
 ## Recover a partial publish
 
-Recovering a partial publish starts with rerunning at the release tag: publishing checks pub.dev and skips package versions that already exist, so a rerun resumes where the previous attempt stopped. Push the tag again to fire a fresh publish run (delete and re-push it, or use the local script or `monochange run publish`). A `workflow_dispatch` run at the tag cannot publish packages because pub.dev rejects dispatch-triggered publishes, but it can repair the GitHub release objects and font assets.
+Recovering a partial publish stays on GitHub: publishing checks each package's registry and skips versions that already exist, existing tags are left alone, and existing GitHub releases are skipped.
 
-Before rerunning, check which packages are actually missing rather than assuming the failure was transient. A publish that fails with `publishing from github is not enabled` will fail identically on every retry until the package's rule is registered in its pub.dev Admin tab.
+- **Retry one failed tag** — click _Re-run failed jobs_ on the failed `Publish` run, or dispatch it again directly on the tag ref:
+
+  ```bash
+  gh workflow run publish.yml --ref <tag> -f tag=<tag>
+  ```
+
+  To repair only one tag's GitHub release or font/emoji assets after its Wave 2 companions have already published, pass `-f dispatch_dependents=false` (even without that flag, `dispatch_dependents` skips any companion tag that already has a successful publish run at the same commit).
+
+- **Reconcile an entire release commit** — dispatch `gh workflow run release.yml` while the release commit is at `HEAD` on `main`. It skips tags that already exist and publish runs that are already active or succeeded, dispatching only missing or failed tags (including Wave 2 companions once `v<version>` has succeeded).
+
+Before rerunning, check which packages are actually missing rather than assuming the failure was transient. A publish that fails with `publishing from github is not enabled` will fail identically on every retry until the package's rule is registered in its registry admin page.
 
 ```bash
 ./scripts/release/publish_owned_packages.sh <tag> --dry-run   # lists the tag's packages and current registry state
 ```
 
-A recovery run is the one case where the publish workflow reads a file from `main` rather than from the tag: the publish script is loaded from `origin/main`, because every tag cut before it existed predates the file. Everything else — the release record, package manifests, and versions — still comes from the tag, so the release being published is the tag's. The same applies to `scripts/release/package_fonts.sh`, which is why [Font release assets](#font-release-assets) notes that a script fix reaches only new tags.
-
-When the release tags already exist on the release commit, `publish:tags` reruns cleanly: it leaves the existing tags untouched, watches their publish runs to completion, and publishes any tag that has no run from your checkout, skipping versions already on pub.dev. To publish again after fixing a registry rule, rerun the failed publish run from the Actions tab, which keeps its tag-push event.
+A recovery run reads `scripts/release/publish_owned_packages.sh`, `scripts/release/publish_github_release.sh`, `scripts/release/dispatch_publish_runs.sh`, and `scripts/release/deploy_website.sh` from `origin/main` so script fixes reach older tags. Everything else — the release record, package manifests, and versions — still comes from the checked-out tag, so the release being published is the tag's. The same does not apply to `scripts/release/package_fonts.sh`, which is why [Font release assets](#font-release-assets) notes that a font-packaging fix reaches only new tags.
 
 Each run uploads its readiness and publication reports for 14 days. Read those artifacts before retrying. Keep the original release tag on the release-record commit.
 
@@ -367,7 +373,7 @@ The website is the skribble.dev landing page (`apps/skribble_site`) with the doc
 
 `skribble_site` is a monochange package with `publish = { enabled = false }`: it gets a version, a changelog (`apps/skribble_site/CHANGELOG.md`), a `skribble_site/v<version>` tag, and a GitHub release titled `skribble.dev v<version>`, but nothing is sent to pub.dev. Its publish run skips the registry steps and only creates the GitHub release.
 
-Every release deploys the website once. The publish workflow's `website` job runs `scripts/release/deploy_website.sh` with its tag, and only the first release tag at the commit, in the order `publish:tags` pushes them (`v*`, then maps, charts, site, and the npm packages' `js/v*`), dispatches the `Docs Pages` workflow. That workflow runs on `main`, because the `github-pages` environment only accepts deployments from `main`, and builds the tagged commit. A dispatch is one of the few events the workflow's `GITHUB_TOKEN` may start, so a release always deploys, including a site-only release.
+Every release deploys the website once. The publish workflow's `website` job runs `scripts/release/deploy_website.sh` with its tag, and only the first release tag at the commit in priority order (`v*`, then `rust/v*`, `js/v*`, `skribble_maps/v*`, `skribble_charts/v*`, and `skribble_site/v*`) dispatches the `Docs Pages` workflow. That workflow runs on `main`, because the `github-pages` environment only accepts deployments from `main`, and builds the tagged commit. A dispatch is one of the few events the workflow's `GITHUB_TOKEN` may start, so a release always deploys, including a Rust-only, npm-only, or site-only release.
 
 ### What's new
 

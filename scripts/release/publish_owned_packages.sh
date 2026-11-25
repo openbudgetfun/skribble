@@ -23,12 +23,13 @@
 # the flag is omitted the script computes the order itself, which is correct
 # for a local run against the developer's own credentials.
 #
-# The final verification reads the registry API directly rather than reusing a
-# readiness report, so it stays correct whether or not one was supplied.
-# pub.dev accepts an upload before its API lists the new version ("it may take
-# up-to 10 minutes"), so a version this run just uploaded is polled for up to
-# 10 minutes before it counts as missing. A package whose publish failed is
-# reported at once.
+# The final verification reads each package's registry API directly (pub.dev,
+# crates.io, or npm, taken from the release record's `package_publications`)
+# rather than reusing a readiness report, so it stays correct whether or not
+# one was supplied. Registries can accept an upload before their API lists the
+# new version ("it may take up-to 10 minutes" on pub.dev), so a version this
+# run just uploaded is polled for up to 10 minutes before it counts as missing.
+# A package whose publish failed is reported at once.
 #
 # Usage:
 #   ./scripts/release/publish_owned_packages.sh <tag> [--dry-run] [--readiness <path>]
@@ -168,8 +169,12 @@ if [[ -n "$READINESS" ]]; then
 	fi
 	order_json="$(cat "$READINESS")"
 else
+	readiness_args=(--from HEAD --format json)
+	while IFS= read -r member; do
+		[[ -n "$member" ]] && readiness_args+=(--package "$member")
+	done < <(jq -r '.[]' <<<"$members_json")
 
-	if ! order_json="$(monochange publish readiness --from HEAD --format json 2>"$scratch/readiness.err")"; then
+	if ! order_json="$(monochange publish readiness "${readiness_args[@]}" 2>"$scratch/readiness.err")"; then
 		echo "Error: could not read publish readiness at HEAD." >&2
 
 		cat "$scratch/readiness.err" >&2
@@ -217,66 +222,172 @@ while IFS= read -r package; do
 	echo
 done <"$scratch/ordered.txt"
 
-# Verify against the registry API rather than a readiness dry run: the dry run
-# would resolve dependencies, which the publish credential breaks. A version
-# that is present is a success whether this run published it or an earlier one
-# did, so a re-run of a partial publish reports success.
+# Verify against each package's registry API rather than a readiness dry run:
+# the dry run would resolve dependencies, which the publish credential breaks.
+# A version that is present is a success whether this run published it or an
+# earlier one did, so a re-run of a partial publish reports success.
 echo "=== verifying every package $TAG owns is on the registry ==="
 missing=""
-deadline=$((SECONDS + 600))
+verify_timeout="${PUBLISH_VERIFY_TIMEOUT_SECONDS:-600}"
+poll_interval="${PUBLISH_POLL_INTERVAL_SECONDS:-15}"
+deadline=$((SECONDS + verify_timeout))
 
-# Whether pub.dev lists $1 at version $2. Sets `code` to the HTTP status.
-# Scoped names (`@skribble.dev/rough`) are npm packages; everything else is on
-# pub.dev.
-on_registry() {
-	if [[ "$1" == @* ]]; then
-		code="$(curl -s -o "$scratch/pkg.json" -w '%{http_code}' \
-			"https://registry.npmjs.org/${1/\//%2f}" || true)"
-		[[ "$code" == "200" ]] &&
-			[[ "$(jq -r --arg v "$2" '.versions | has($v)' "$scratch/pkg.json" 2>/dev/null)" == "true" ]]
-		return
+pub_dev_api_url="${PUB_DEV_API_URL:-https://pub.dev/api}"
+crates_io_api_url="${CRATES_IO_API_URL:-https://crates.io/api/v1}"
+npm_registry_url="${NPM_REGISTRY_URL:-https://registry.npmjs.org}"
+crates_io_user_agent="${CRATES_IO_USER_AGENT:-skribble-release-verify (https://github.com/openbudgetfun/skribble)}"
+
+registry_display_name() {
+	case "$1" in
+	pub_dev) printf 'pub.dev' ;;
+	crates_io) printf 'crates.io' ;;
+	npm) printf 'npm' ;;
+	*) printf '%s' "$1" ;;
+	esac
+}
+
+# Resolve the package's real registry name (for example `dart:skribble_rough`
+# and `rust:skribble_rough` both publish under the name `skribble_rough`).
+# Prefer the package manifest at the configured path, falling back to stripping
+# any `<ecosystem>:` prefix from the monochange package id.
+resolve_registry_name() {
+	local pkg_id="$1"
+	local registry="$2"
+	local pkg_path name=""
+
+	pkg_path="$(jq -r --arg p "$pkg_id" 'first(.config.packages[]? | select(.id == $p) | .path) // empty' <<<"$config")"
+	if [[ -n "$pkg_path" ]]; then
+		case "$registry" in
+		pub_dev)
+			if [[ -r "$pkg_path/pubspec.yaml" ]]; then
+				name="$(awk '
+					/^[[:space:]]*name[[:space:]]*:/ {
+						line = $0
+						sub(/^[^:]*:[[:space:]]*/, "", line)
+						sub(/[[:space:]]*#.*$/, "", line)
+						gsub(/^[[:space:]]+|[[:space:]]+$/, "", line)
+						gsub(/^["'\'']|["'\'']$/, "", line)
+						print line
+						exit
+					}
+				' "$pkg_path/pubspec.yaml")"
+			fi
+			;;
+		crates_io)
+			if [[ -r "$pkg_path/Cargo.toml" ]]; then
+				name="$(awk '
+					/^\[/ { in_pkg = ($0 == "[package]"); next }
+					in_pkg && /^[[:space:]]*name[[:space:]]*=/ {
+						line = $0
+						sub(/^[^=]*=[[:space:]]*"/, "", line)
+						sub(/".*$/, "", line)
+						print line
+						exit
+					}
+				' "$pkg_path/Cargo.toml")"
+			fi
+			;;
+		npm)
+			if [[ -r "$pkg_path/package.json" ]]; then
+				name="$(jq -r '.name // empty' "$pkg_path/package.json" 2>/dev/null || true)"
+			fi
+			;;
+		esac
 	fi
-	code="$(curl -s -o "$scratch/pkg.json" -w '%{http_code}' \
-		"https://pub.dev/api/packages/$1" || true)"
-	[[ "$code" == "200" ]] &&
-		[[ "$(jq -r --arg v "$2" '[.versions[]?.version] | index($v) != null' "$scratch/pkg.json" 2>/dev/null)" == "true" ]]
+
+	if [[ -n "$name" ]]; then
+		printf '%s' "$name"
+	else
+		printf '%s' "${pkg_id#*:}"
+	fi
+}
+
+# Whether registry $1 lists package $2 at version $3. Sets `code` to the HTTP
+# status (or `unsupported` for an unknown registry).
+on_registry() {
+	local registry="$1"
+	local pkg_name="$2"
+	local pkg_version="$3"
+
+	case "$registry" in
+	pub_dev)
+		code="$(curl -s -o "$scratch/pkg.json" -w '%{http_code}' \
+			"${pub_dev_api_url%/}/packages/${pkg_name}" || true)"
+		[[ "$code" == "200" ]] &&
+			[[ "$(jq -r --arg v "$pkg_version" '[.versions[]?.version] | index($v) != null' "$scratch/pkg.json" 2>/dev/null)" == "true" ]]
+		return
+		;;
+	crates_io)
+		code="$(curl -s -H "User-Agent: $crates_io_user_agent" -o "$scratch/pkg.json" -w '%{http_code}' \
+			"${crates_io_api_url%/}/crates/${pkg_name}" || true)"
+		[[ "$code" == "200" ]] &&
+			[[ "$(jq -r --arg v "$pkg_version" '[.versions[]?.num] | index($v) != null' "$scratch/pkg.json" 2>/dev/null)" == "true" ]]
+		return
+		;;
+	npm)
+		code="$(curl -s -o "$scratch/pkg.json" -w '%{http_code}' \
+			"${npm_registry_url%/}/${pkg_name/\//%2f}" || true)"
+		[[ "$code" == "200" ]] &&
+			[[ "$(jq -r --arg v "$pkg_version" '.versions | has($v)' "$scratch/pkg.json" 2>/dev/null)" == "true" ]]
+		return
+		;;
+	*)
+		code="unsupported"
+		return 1
+		;;
+	esac
 }
 
 while IFS= read -r package; do
 	[[ -n "$package" ]] || continue
-	version="$(jq -r --arg p "$package" \
-		'first(.record.package_publications[]? | select(.package == $p) | .version) // empty' <<<"$record")"
+	pub_entry="$(jq -c --arg p "$package" 'first(.record.package_publications[]? | select(.package == $p)) // {}' <<<"$record")"
+	registry="$(jq -r '
+		.registry // (
+			if .ecosystem == "dart" then "pub_dev"
+			elif .ecosystem == "cargo" then "crates_io"
+			elif .ecosystem == "npm" then "npm"
+			else ""
+			end
+		)
+	' <<<"$pub_entry")"
+	version="$(jq -r '.version // ""' <<<"$pub_entry")"
 
-	if [[ -z "$version" ]]; then
-		printf '  unknown     %s (no version in the release record)\n' "$package"
+	if [[ -z "$version" || -z "$registry" ]]; then
+		printf '  unknown     %s (missing registry or version in the release record)\n' "$package"
 		missing="$missing $package"
 		continue
 	fi
 
+	registry_name="$(resolve_registry_name "$package" "$registry")"
+	registry_label="$(registry_display_name "$registry")"
+
 	present=0
 	waited=0
 	while :; do
-		if on_registry "$package" "$version"; then
+		if on_registry "$registry" "$registry_name" "$version"; then
 			present=1
 			break
 		fi
-		if [[ "$uploaded" != *" $package "* || $SECONDS -ge $deadline ]]; then
+		if [[ "$code" == "unsupported" || "$uploaded" != *" $package "* || $SECONDS -ge $deadline ]]; then
 			break
 		fi
 		if [[ "$waited" -eq 0 ]]; then
-			printf '  waiting     %s (%s was uploaded; pub.dev has not listed it yet)\n' "$package" "$version"
+			printf '  waiting     %s (%s was uploaded; %s has not listed it yet)\n' "$package" "$version" "$registry_label"
 			waited=1
 		fi
-		sleep 15
+		sleep "$poll_interval"
 	done
 
 	if [[ "$present" -eq 1 ]]; then
-		printf '  ok          %s (%s)\n' "$package" "$version"
+		printf '  ok          %s (%s on %s)\n' "$package" "$version" "$registry_label"
+	elif [[ "$code" == "unsupported" ]]; then
+		printf '  MISSING     %s (unsupported registry '\''%s'\'')\n' "$package" "$registry"
+		missing="$missing $package"
 	elif [[ "$code" != "200" ]]; then
-		printf '  MISSING     %s (registry returned HTTP %s)\n' "$package" "${code:-none}"
+		printf '  MISSING     %s (%s returned HTTP %s)\n' "$package" "$registry_label" "${code:-none}"
 		missing="$missing $package"
 	else
-		printf '  MISSING     %s (%s is not on the registry)\n' "$package" "$version"
+		printf '  MISSING     %s (%s is not on %s)\n' "$package" "$version" "$registry_label"
 		missing="$missing $package"
 	fi
 done <"$scratch/ordered.txt"

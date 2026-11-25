@@ -428,7 +428,8 @@ steps = [
 # `<branch_prefix>/release`. Both commits stage every workspace change
 # (`stage_all`): staging release files only left the changelogs, versions, and
 # consumed changesets out of the release commit. Merging that pull request is
-# a release commit, which a maintainer tags with `publish:tags`.
+# a release commit, which the Release PR workflow tags and dispatches to
+# `publish.yml` automatically.
 [cli.release]
 help_text = "Prepare, commit, and open or refresh the automated release pull request"
 steps = [

@@ -4,13 +4,11 @@
 #
 # The website ships with releases. Every publish run calls this with its tag,
 # and one tag per release commit owns the deploy, so a release with several
-# tags deploys once. The owner is the first release tag at the commit in the
-# order push_release_tags.sh pushes them: `v<version>`, then
-# `skribble_maps/v*`, `skribble_charts/v*`, `skribble_site/v*`, and the npm
-# packages' `js/v*`. A js-only release deploys the website too, since its
-# docs live there. That tag is always pushed with a maintainer's credentials,
-# so its publish run always starts; tags created later with the workflow's
-# GITHUB_TOKEN start none. A tag matching none of these owns its own deploy.
+# tags deploys once. The owner is the first release tag at the commit in
+# canonical priority order: `v<version>`, then `rust/v*`, `js/v*`,
+# `skribble_maps/v*`, `skribble_charts/v*`, and `skribble_site/v*`. A
+# rust-only, js-only, or site-only release deploys the website too, since its
+# docs live there. A tag matching none of these owns its own deploy.
 #
 # The deploy itself is the `Docs Pages` workflow, dispatched on `main` with the
 # tag: the github-pages environment only accepts deployments from `main`, so
@@ -57,7 +55,7 @@ if ! commit="$(git rev-list -n1 "refs/tags/$TAG" 2>/dev/null)"; then
 fi
 
 owner=""
-for pattern in 'v[0-9]*' 'skribble_maps/v[0-9]*' 'skribble_charts/v[0-9]*' 'skribble_site/v[0-9]*' 'js/v[0-9]*'; do
+for pattern in 'v[0-9]*' 'rust/v[0-9]*' 'js/v[0-9]*' 'skribble_maps/v[0-9]*' 'skribble_charts/v[0-9]*' 'skribble_site/v[0-9]*'; do
 	owner="$(git tag --points-at "$commit" --list "$pattern" | head -n1)"
 	[[ -n "$owner" ]] && break
 done
